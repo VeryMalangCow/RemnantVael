@@ -3,10 +3,17 @@ using UnityEngine;
 public class Singleton<T> : MonoBehaviour
     where T : Singleton<T>
 {
-    public static T Instance;
+    public static T Instance = null;
 
     protected virtual void Awake()
     {
-        Instance = (T)this;
+        if (null == Instance)
+        {
+            Instance = (T)this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

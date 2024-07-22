@@ -10,13 +10,22 @@ public class GameManager : Singleton<GameManager>
     {
         //Singleton
         base.Awake();
+        if(GameManager.Instance == this)
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
+        
 
-        //Don't Destroy On Load, When Only Once.
-        GameManager[] obj = FindObjectsOfType<GameManager>();
-        if (obj.Length == 1)
-        { DontDestroyOnLoad(gameObject); }
-        else
-        { Destroy(gameObject); }
+        SetBaseOption();
+    }
+
+    #endregion
+
+    #region Option
+
+    private void SetBaseOption()
+    {
+        Application.targetFrameRate = 144;
     }
 
     #endregion
