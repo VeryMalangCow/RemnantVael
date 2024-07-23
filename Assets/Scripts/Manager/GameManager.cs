@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+
     #region Framework
 
     protected override void Awake()
@@ -15,8 +14,21 @@ public class GameManager : Singleton<GameManager>
             DontDestroyOnLoad(this.gameObject);
         }
         
-
         SetBaseOption();
+        Offset();
+    }
+
+    #endregion
+
+    #region Offset
+
+    public override void Offset()
+    {
+        InputManager.Instance.Offset();
+        ObjectPoolingManager.Instance.Offset();
+
+        PlayerController.Instance.Offset();
+        CameraController.Instance.Offset();
     }
 
     #endregion

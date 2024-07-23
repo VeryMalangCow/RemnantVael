@@ -16,4 +16,6 @@ public class Singleton<T> : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    public virtual void Offset() { }
 }
