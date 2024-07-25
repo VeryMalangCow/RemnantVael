@@ -62,18 +62,20 @@ public class InputManager : Singleton<InputManager>
     {
         PlayerInput.actions["Walk"].Enable();
 
-        PlayerInput.actions["Walk"].performed += InputWalk;
-        PlayerInput.actions["Fire00"].performed += Fire00;
-        PlayerInput.actions["Fire01"].performed += Fire01;
+        PlayerInput.actions["Walk"].performed += Input_Walk;
+        PlayerInput.actions["Fire00"].performed += Input_Fire00;
+        PlayerInput.actions["Fire01"].performed += Input_Fire01;
+        PlayerInput.actions["Dash"].performed += Input_Dash;
     }
 
     private void OnDisableInput()
     {
         PlayerInput.actions["Walk"].Disable();
 
-        PlayerInput.actions["Walk"].performed -= InputWalk;
-        PlayerInput.actions["Fire00"].performed -= Fire00;
-        PlayerInput.actions["Fire01"].performed += Fire01;
+        PlayerInput.actions["Walk"].performed -= Input_Walk;
+        PlayerInput.actions["Fire00"].performed -= Input_Fire00;
+        PlayerInput.actions["Fire01"].performed -= Input_Fire01;
+        PlayerInput.actions["Dash"].performed -= Input_Dash;
     }
 
 
@@ -81,20 +83,28 @@ public class InputManager : Singleton<InputManager>
 
     #region Movement
 
-    public void InputWalk(InputAction.CallbackContext inputValue)
+    public void Input_Walk(InputAction.CallbackContext inputValue)
     {
         InputMoveDir = inputValue.ReadValue<Vector2>().normalized;
+    }
+
+    public void Input_Dash(InputAction.CallbackContext inputValue)
+    {
+        if(inputValue.ReadValueAsButton())
+        {
+            PlayerController.Instance.CanDashCheck();
+        }
     }
 
     #endregion
 
     #region Fire
 
-    private void Fire00(InputAction.CallbackContext inputValue)
+    private void Input_Fire00(InputAction.CallbackContext inputValue)
     {
         PlayerController.Instance.RightWeapon.IsInputed = inputValue.ReadValueAsButton();
     }
-    private void Fire01(InputAction.CallbackContext inputValue)
+    private void Input_Fire01(InputAction.CallbackContext inputValue)
     {
         PlayerController.Instance.LeftWeapon.IsInputed = inputValue.ReadValueAsButton();
     }

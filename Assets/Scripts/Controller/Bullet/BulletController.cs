@@ -1,13 +1,12 @@
+using System;
 using UnityEngine;
 
-public class BulletController : MonoBehaviour
+public class BulletController : HaveShadowThing
 {
     #region Value
 
     [Header("=== State")]
-    [SerializeField] protected float baseDamage;
-    [SerializeField] protected float muzzleSpeed;
-    [SerializeField] protected float aliveTime;
+    [SerializeField] protected BulletState BulletState;
     [SerializeField] protected float currentAliveTime = 0;
 
     [Header("=== Component")]
@@ -17,12 +16,13 @@ public class BulletController : MonoBehaviour
 
     #region State
 
-    public virtual void SetState(Vector2 SpawnVec, float _baseDamage, float _muzzleSpeed, float _aliveTime)
+    public virtual void SetState(Vector2 SpawnVec, eDamageType damageType, float _baseDamage, float _muzzleSpeed, float _aliveTime)
     {
         this.transform.position = SpawnVec;
-        baseDamage = _baseDamage;
-        muzzleSpeed = _muzzleSpeed;
-        aliveTime = _aliveTime;
+        BulletState.thisDamageType = damageType;
+        BulletState.baseDamage = _baseDamage;
+        BulletState.muzzleSpeed = _muzzleSpeed;
+        BulletState.aliveTime = _aliveTime;
         currentAliveTime = 0;
     }
 
@@ -30,11 +30,22 @@ public class BulletController : MonoBehaviour
 
     #region Framework
 
-    protected virtual void FixedUpdate()
+    protected override void Update()
     {
-        ThisRb.velocity = this.transform.up * 1000f * Time.deltaTime;
+        base.Update();
+        ThisRb.velocity = this.transform.up * BulletState.muzzleSpeed * 1000f * Time.deltaTime;
     }
 
     #endregion
-
 }
+
+[System.Serializable]
+public class BulletState
+{
+    [SerializeField] public eDamageType thisDamageType;
+    [SerializeField] public float baseDamage;
+    [SerializeField] public float muzzleSpeed;
+    [SerializeField] public float aliveTime;
+}
+
+

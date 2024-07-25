@@ -5,72 +5,46 @@ public class WeaponController : MonoBehaviour
 {
     #region Value
 
-    [Header("=== Input")]
-    [SerializeField] public bool IsInputed = false;
-
-    [Header("=== Base Weapon")]
-    [SerializeField] private eWeaponType thisWeaponType;
-    [SerializeField] private float baseDamage;
+    [Header("=== State")]
+    [SerializeField] private BulletState thisBulletState;
     [SerializeField] private float rateOfFire; 
-    [SerializeField] protected float muzzleSpeed;
-    [SerializeField] protected float aliveTime;
-    [SerializeField] private float currentDelay = 0;
+    [SerializeField] protected float currentDelay = 0;
 
     //Other
-    private delegate void FireDelegate();
-    Dictionary<eWeaponType, FireDelegate> fireTypeDict;
 
     #endregion
 
     #region Fremework
 
-    private void Awake()
+    protected virtual void Update()
     {
-        fireTypeDict = new Dictionary<eWeaponType, FireDelegate>()
-        {
-            { eWeaponType.Pistol, PistolFire },
-            { eWeaponType.AssaultRifle, AssaultRifleFire },
-            { eWeaponType.Shotgun, ShotgunFire },
-            { eWeaponType.Sniper, SniperFire }
-        };
+        CaculateROF();
     }
-
-    private void Update()
-    {
-        currentDelay += Time.deltaTime * rateOfFire;
-
-        if(currentDelay > 1)
-        {
-            currentDelay = 1;
-        }
-
-        if (IsInputed && currentDelay >= 1)
-        {
-            fireTypeDict[thisWeaponType]();
-        }
-    }
-
 
     #endregion
 
     #region Fire
 
-    private void PistolFire()
+    private void CaculateROF()
     {
-        Debug.Log("ÇÇ½ºÅç Fire"); 
+        currentDelay += Time.deltaTime * rateOfFire;
 
-        currentDelay = 0;
+        if (currentDelay > 1)
+        {
+            currentDelay = 1;
+        }
     }
 
-    private void AssaultRifleFire()
+    protected void Fire()
     {
-        Debug.Log("¾î½äÆ® Fire");
-        PlayerBulletController PBC = ObjectPoolingManager.Instance.GetOP_PlayerBulletController();
+        Debug.Log("Rifle Fire");
+        PlayerBulletController PBC = PoolingManager.Instance.GetOP_PlayerBullet();
         PBC.SetState(
             this.gameObject.transform.position,
-            baseDamage,
-            muzzleSpeed,
-            aliveTime
+            thisBulletState.thisDamageType,
+            thisBulletState.baseDamage,
+            thisBulletState.muzzleSpeed,
+            thisBulletState.aliveTime
             );
 
         PBC.gameObject.SetActive(true);
@@ -78,24 +52,6 @@ public class WeaponController : MonoBehaviour
         currentDelay = 0;
     }
     
-    private void ShotgunFire()
-    {
-        Debug.Log("¼¦°Ç Fire"); 
-        
-        currentDelay = 0;
-    }
-
-    private void SniperFire()
-    {
-        Debug.Log("½º³ª Fire");
-        
-        currentDelay = 0;
-    }
 
     #endregion
-}
-
-public enum eWeaponType
-{
-    Pistol, AssaultRifle, Shotgun, Sniper
 }

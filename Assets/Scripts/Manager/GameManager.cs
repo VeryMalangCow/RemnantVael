@@ -15,20 +15,6 @@ public class GameManager : Singleton<GameManager>
         }
         
         SetBaseOption();
-        Offset();
-    }
-
-    #endregion
-
-    #region Offset
-
-    public override void Offset()
-    {
-        InputManager.Instance.Offset();
-        ObjectPoolingManager.Instance.Offset();
-
-        PlayerController.Instance.Offset();
-        CameraController.Instance.Offset();
     }
 
     #endregion
@@ -41,4 +27,10 @@ public class GameManager : Singleton<GameManager>
     }
 
     #endregion
+}
+
+
+public enum eDamageType
+{
+    Physics, Energy
 }

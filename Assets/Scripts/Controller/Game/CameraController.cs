@@ -5,7 +5,7 @@ public class CameraController : Singleton<CameraController>
     #region Value
 
     [Header("=== Move")]
-    [HideInInspector] public Transform TargetTF;
+    [SerializeField] private Transform TargetTF;
     [SerializeField] private float followSpeed = 4f;
     [SerializeField] private float followRangeLimit = 1f;
 
@@ -13,15 +13,11 @@ public class CameraController : Singleton<CameraController>
 
     #region  Framework
 
-    public override void Offset()
-    {
-        TargetTF = PlayerController.Instance.gameObject.transform;
-    }
-
     protected override void Awake()
     {
         base.Awake();
     }
+
 
     private void LateUpdate()
     {

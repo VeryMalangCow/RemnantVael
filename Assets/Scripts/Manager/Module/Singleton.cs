@@ -17,5 +17,4 @@ public class Singleton<T> : MonoBehaviour
         }
     }
 
-    public virtual void Offset() { }
 }

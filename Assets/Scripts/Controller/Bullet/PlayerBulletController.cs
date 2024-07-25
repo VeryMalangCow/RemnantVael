@@ -1,21 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBulletController : BulletController
 {
     #region Framework
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
-        base.FixedUpdate();
+        base.Update();
 
         // Time
         currentAliveTime += Time.deltaTime;
-        if (currentAliveTime >= aliveTime)
+        if (currentAliveTime >= BulletState.aliveTime)
         {
             this.gameObject.SetActive(false);
-            ObjectPoolingManager.Instance.SetOP_PlayerBulletController(this);
+            PoolingManager.Instance.PlayerBulletQueue.Enqueue(this);
         }
     }
 
@@ -23,9 +21,9 @@ public class PlayerBulletController : BulletController
 
     #region State
 
-    public override void SetState(Vector2 SpawnVec, float _baseDamage, float _muzzleSpeed, float _aliveTime)
+    public override void SetState(Vector2 SpawnVec, eDamageType damageType, float _baseDamage, float _muzzleSpeed, float _aliveTime)
     {
-        base.SetState(SpawnVec, _baseDamage, _muzzleSpeed, _aliveTime);
+        base.SetState(SpawnVec, damageType, _baseDamage, _muzzleSpeed, _aliveTime);
 
         Vector2 dir = InputManager.Instance.DirFromPlayerPos.normalized;
         Quaternion targetQuat = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, dir));
@@ -43,7 +41,7 @@ public class PlayerBulletController : BulletController
         if (collision.tag == "Enemy")
         {
             Debug.Log("Àû Ãæµ¹");
-            ObjectPoolingManager.Instance.SetOP_PlayerBulletController(this);
+            PoolingManager.Instance.PlayerBulletQueue.Enqueue(this);
             this.gameObject.SetActive(false);
         }
     }
