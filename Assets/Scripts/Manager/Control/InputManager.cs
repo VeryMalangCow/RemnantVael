@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,7 +11,7 @@ public class InputManager : Singleton<InputManager>
     [SerializeField] public Vector2 DirFromPlayerPos;
 
     [Header("=== Component")]
-    [SerializeField] private PlayerInput PlayerInput;
+    [SerializeField] public PlayerInput PlayerInput;
 
     [Header("=== Movement")]
     [SerializeField] public Vector2 InputMoveDir;
@@ -26,6 +23,8 @@ public class InputManager : Singleton<InputManager>
     protected override void Awake()
     {
         base.Awake();
+        if (PlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
+        { PlayerInput = PI; }
     }
 
     private void OnEnable()
@@ -51,7 +50,8 @@ public class InputManager : Singleton<InputManager>
     {
         MousePos = Input.mousePosition;
         MousePosByWorld = Camera.main.ScreenToWorldPoint(MousePos);
-        DirFromPlayerPos = MousePosByWorld - (Vector2)PlayerController.Instance.transform.position;
+
+        DirFromPlayerPos = MousePosByWorld - (Vector2)PlayerManager.Instance.PlayerController.gameObject.transform.position;
     }
 
     #endregion
@@ -64,7 +64,6 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["Walk"].performed += Input_Walk;
         PlayerInput.actions["Fire00"].performed += Input_Fire00;
-        PlayerInput.actions["Fire01"].performed += Input_Fire01;
         PlayerInput.actions["Dash"].performed += Input_Dash;
     }
 
@@ -74,7 +73,6 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["Walk"].performed -= Input_Walk;
         PlayerInput.actions["Fire00"].performed -= Input_Fire00;
-        PlayerInput.actions["Fire01"].performed -= Input_Fire01;
         PlayerInput.actions["Dash"].performed -= Input_Dash;
     }
 
@@ -83,16 +81,16 @@ public class InputManager : Singleton<InputManager>
 
     #region Movement
 
-    public void Input_Walk(InputAction.CallbackContext inputValue)
+    public void Input_Walk(InputAction.CallbackContext _InputValue)
     {
-        InputMoveDir = inputValue.ReadValue<Vector2>().normalized;
+        InputMoveDir = _InputValue.ReadValue<Vector2>().normalized;
     }
 
-    public void Input_Dash(InputAction.CallbackContext inputValue)
+    public void Input_Dash(InputAction.CallbackContext _InputValue)
     {
-        if(inputValue.ReadValueAsButton())
+        if(_InputValue.ReadValueAsButton())
         {
-            PlayerController.Instance.CanDashCheck();
+            PlayerManager.Instance.PlayerController.CanDashCheck();
         }
     }
 
@@ -100,13 +98,9 @@ public class InputManager : Singleton<InputManager>
 
     #region Fire
 
-    private void Input_Fire00(InputAction.CallbackContext inputValue)
+    private void Input_Fire00(InputAction.CallbackContext _InputValue)
     {
-        PlayerController.Instance.RightWeapon.IsInputed = inputValue.ReadValueAsButton();
-    }
-    private void Input_Fire01(InputAction.CallbackContext inputValue)
-    {
-        PlayerController.Instance.LeftWeapon.IsInputed = inputValue.ReadValueAsButton();
+        PlayerManager.Instance.PlayerController.BaseWeapon.IsInputed = _InputValue.ReadValueAsButton();
     }
 
     #endregion

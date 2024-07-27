@@ -24,15 +24,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Fire01",
-                    "type": "PassThrough",
-                    "id": "f94c2304-cb04-4c98-b66c-b975d935788c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Dash",
                     "type": "PassThrough",
                     "id": "2357536a-14f4-43de-ab31-21421d98ac81",
@@ -106,17 +97,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Fire00",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0ea16c99-31a0-463a-83b8-c9a9578e43d8",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Fire01",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

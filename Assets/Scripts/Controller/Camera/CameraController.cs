@@ -6,8 +6,8 @@ public class CameraController : Singleton<CameraController>
 
     [Header("=== Move")]
     [SerializeField] private Transform TargetTF;
-    [SerializeField] private float followSpeed = 4f;
-    [SerializeField] private float followRangeLimit = 1f;
+    [SerializeField] private float FollowSpeed = 4f;
+    [SerializeField] private float FollowRangeLimit = 1f;
 
     #endregion
 
@@ -16,6 +16,7 @@ public class CameraController : Singleton<CameraController>
     protected override void Awake()
     {
         base.Awake();
+        TargetTF = PlayerManager.Instance.PlayerController.gameObject.transform;
     }
 
 
@@ -29,16 +30,16 @@ public class CameraController : Singleton<CameraController>
 
     #region Move
 
-    private void FollowTargetSmooth(Transform targetTF)
+    private void FollowTargetSmooth(Transform _TargetTF)
     {
         Vector3 originPos = this.transform.position;
-        Vector3 targetPos = targetTF.position;
+        Vector3 targetPos = _TargetTF.position;
         targetPos.z = originPos.z;
 
         transform.position = Vector3.Lerp(
             originPos,
             targetPos,
-            followSpeed * Time.deltaTime);
+            FollowSpeed * Time.deltaTime);
 
     }
 
@@ -48,10 +49,10 @@ public class CameraController : Singleton<CameraController>
         Vector2 playerPos = TargetTF.transform.position;
 
         float dis = Vector2.Distance(cameraPos, playerPos);
-        if (dis > followRangeLimit)
+        if (dis > FollowRangeLimit)
         {
             Vector2 dir = (cameraPos - playerPos).normalized;
-            Vector3 targetPos = playerPos + (dir * followRangeLimit);
+            Vector3 targetPos = playerPos + (dir * FollowRangeLimit);
             targetPos.z = -10;
             transform.position = targetPos;
         }

@@ -3,6 +3,7 @@ using UnityEngine;
 public class HaveShadowThing : MonoBehaviour
 {
     #region Value
+    [Space(20)] [Header("<><><><><> Have Shadow Thing")]
 
     [Header("=== Shadow")]
     [SerializeField] private GameObject ShadowObject;

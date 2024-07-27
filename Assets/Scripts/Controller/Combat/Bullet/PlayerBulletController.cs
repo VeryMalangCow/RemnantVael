@@ -1,0 +1,61 @@
+using UnityEngine;
+
+public class PlayerBulletController : BulletController
+{
+    #region Framework
+
+    protected override void Update()
+    {
+        base.Update();
+
+        // Time
+        CurrentAliveTime += Time.deltaTime;
+        if (CurrentAliveTime >= BulletState.AliveTime)
+        {
+            this.gameObject.SetActive(false);
+            PoolingManager.Instance.PlayerBulletQueue.Enqueue(this);
+        }
+    }
+
+    #endregion
+
+    #region Set State
+
+    public override void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState)
+    {
+        Vector2 targetPos = InputManager.Instance.MousePosByWorld;
+        if(PlayerManager.fireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
+        {
+            targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position + 
+                InputManager.Instance.DirFromPlayerPos.normalized * PlayerManager.fireMinDisLimit;
+        }
+
+        Vector2 dir = (targetPos - _SpawnVec).normalized;
+        Quaternion targetQuat = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, dir));
+
+        this.transform.localRotation = targetQuat;
+
+
+        base.SetState(_SpawnVec, _SpreadAngle, _BulletState);
+    }
+
+    #endregion
+
+    #region Collision
+
+    private void OnTriggerEnter2D(Collider2D _Collision)
+    {
+        // Hit Enemy
+        if (_Collision.tag == "Enemy")
+        {
+            if(_Collision.transform.parent.TryGetComponent(out EnemyController EC))
+            {
+                EC.TakeDamage(BulletState.DamageType, BulletState.BaseDamage);
+            }
+            PoolingManager.Instance.PlayerBulletQueue.Enqueue(this);
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    #endregion
+}

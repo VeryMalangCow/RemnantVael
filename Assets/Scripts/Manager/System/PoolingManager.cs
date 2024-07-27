@@ -43,9 +43,14 @@ public class PoolingManager : Singleton<PoolingManager>
         return getTypeClass;
     }
 
-    public PlayerBulletController GetOP_PlayerBullet()
+    public List<PlayerBulletController> GetOP_PlayerBullet(int _Amount)
     {
-        return GetOP<PlayerBulletController>(PlayerBulletPrefab, PlayerBulletParentTF, PlayerBulletQueue);
+        List<PlayerBulletController> result = new List<PlayerBulletController>();
+        for (int i = 0; i < _Amount; i++)
+        {
+            result.Add(GetOP<PlayerBulletController>(PlayerBulletPrefab, PlayerBulletParentTF, PlayerBulletQueue));
+        }
+        return result;
     }
 
     #endregion

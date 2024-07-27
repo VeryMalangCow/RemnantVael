@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHandController : MonoBehaviour
+public class PlayerWeaponController : WeaponController
 {
     #region Value
+    [Space(20)] [Header("<><><><><> Player")]
+
+    [Header("=== Input")]
+    [SerializeField] public bool IsInputed = false;
 
     [Header("=== Roll")]
-    [SerializeField] private float DefualtRoll;
+    [SerializeField] private float DefualtRoll = -85f;
     [SerializeField] private Transform RollTF;
 
     [Header("=== Pitch")]
@@ -16,27 +20,34 @@ public class PlayerHandController : MonoBehaviour
     [Header("=== Hand")]
     [SerializeField] private List<Satellite> Hands;
 
+
     #endregion
 
     #region Framework
 
-    private void OnEnable()
-    {
-        RollTF.rotation = Quaternion.Euler(DefualtRoll, 0f, 0f);
-    }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         RotateSmooth();
 
         foreach (Satellite hand in Hands)
         {
             hand.SetPosOffset();
         }
+
+        if (IsInputed && CurrentDelayROF >= 1)
+        {
+            Fire(PoolingManager.Instance.GetOP_PlayerBullet(BulletSpawnTFs.Count));
+        }
+    }
+    private void OnEnable()
+    {
+        RollTF.rotation = Quaternion.Euler(DefualtRoll, 0f, 0f);
     }
 
     #endregion
-
 
     #region Rotate
 
@@ -50,7 +61,6 @@ public class PlayerHandController : MonoBehaviour
     }
 
     #endregion
-
 }
 
 [System.Serializable]
