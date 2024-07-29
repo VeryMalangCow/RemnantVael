@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -65,15 +66,16 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Walk"].performed += Input_Walk;
         PlayerInput.actions["Fire00"].performed += Input_Fire00;
         PlayerInput.actions["Dash"].performed += Input_Dash;
+        PlayerInput.actions["CombatMode"].performed += Input_CombatMode;
     }
-
     private void OnDisableInput()
     {
-        PlayerInput.actions["Walk"].Disable();
-
         PlayerInput.actions["Walk"].performed -= Input_Walk;
         PlayerInput.actions["Fire00"].performed -= Input_Fire00;
-        PlayerInput.actions["Dash"].performed -= Input_Dash;
+        PlayerInput.actions["Dash"].performed -= Input_Dash; 
+        PlayerInput.actions["CombatMode"].performed -= Input_CombatMode;
+
+        PlayerInput.actions["Walk"].Disable();
     }
 
 
@@ -91,6 +93,18 @@ public class InputManager : Singleton<InputManager>
         if(_InputValue.ReadValueAsButton())
         {
             PlayerManager.Instance.PlayerController.CanDashCheck();
+        }
+    }
+
+    #endregion
+
+    #region Combat
+
+    private void Input_CombatMode(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            PlayerManager.Instance.PlayerController.CanChangeCombatModeCheck();
         }
     }
 

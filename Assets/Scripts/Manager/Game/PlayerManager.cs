@@ -46,17 +46,18 @@ public class PlayerLifeState
 [System.Serializable]
 public class PlayerMovementState
 {
-    [SerializeField] public float walkSpeed = 3f;
+    [SerializeField] public float WalkSpeed = 3f;
 
-    [SerializeField] public float dashCooltime = 3f;
-    [SerializeField] public int maxDashCharge = 2;
-    [SerializeField] public float dashSpeed = 7f;
-    [SerializeField] public float dashDur = 0.2f;
+    [SerializeField] public float DashCooltime = 3f;
+    [SerializeField] public int MaxDashCharge = 2;
+    [SerializeField] public float DashSpeed = 7f;
+    [SerializeField] public float DashDur = 0.2f;
 }
 
 [System.Serializable]
 public class PlayerUtilityState
 {
-    [SerializeField] public float mechanicalDebrisSpawnProbability = 0.1f;
+    [SerializeField] public float MaxCastingTime = 0.85f;
+    [SerializeField] public float MechanicalDebrisSpawnProbability = 0.1f;
     [SerializeField] public float EnergySpawnProbability = 0.1f;
 }

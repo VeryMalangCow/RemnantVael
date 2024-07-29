@@ -3,16 +3,11 @@ using UnityEngine;
 
 public class MovableObject : HaveShadowThing
 {
-
     #region Value
     [Space(20)] [Header("<><><><><> Movable Object")]
 
-    [Header("=== State")]
-    [SerializeField] protected eMovementState MovementState = eMovementState.IdleOrWalk;
-
-
     [Header("=== Component")]
-    [SerializeField] private Rigidbody2D ThisRb;
+    [SerializeField] protected Rigidbody2D ThisRb;
     [SerializeField] public SpriteRenderer ThisSr;
     [SerializeField] private List<SpriteRenderer> ThisExtraSrs;
 
@@ -21,7 +16,7 @@ public class MovableObject : HaveShadowThing
     [SerializeField] protected float AccelerationSpeed = 12;
 
     [Header("-- Dash")]
-    [SerializeField] private float CurrentDashProcessTime = 0;
+    [SerializeField] protected float CurrentDashProcessTime = 0;
 
     #endregion
 
@@ -36,17 +31,16 @@ public class MovableObject : HaveShadowThing
         ThisRb.velocity = moveVelocity;
     }
 
-    protected void Dash(Vector2 _DashDir, float _TargetDashProcessTime)
+    protected virtual void Dash(Vector2 _DashDir, float _TargetDashProcessTime)
     {
         if (CurrentDashProcessTime < _TargetDashProcessTime)
         {
             CurrentDashProcessTime += Time.deltaTime;
-            ThisRb.velocity = _DashDir * PlayerManager.Instance.MovementState.dashSpeed;
+            ThisRb.velocity = _DashDir * PlayerManager.Instance.MovementState.DashSpeed;
         }
         else
         {
             CurrentDashProcessTime = 0;
-            MovementState = eMovementState.IdleOrWalk;
         }
     }
 

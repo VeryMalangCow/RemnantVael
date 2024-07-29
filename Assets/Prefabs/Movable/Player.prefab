@@ -587,7 +587,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShadowObject: {fileID: 3177511414151138426}
   ShadowRange: 0.35
-  MovementState: 0
   ThisRb: {fileID: 334434472153228344}
   ThisSr: {fileID: 6727156994096717529}
   ThisExtraSrs:
@@ -595,10 +594,14 @@ MonoBehaviour:
   - {fileID: 4473033968542792763}
   AccelerationSpeed: 12
   CurrentDashProcessTime: 0
+  CombatMode: 0
+  IsCasting: 0
+  CurrentCastingTime: 0
+  BaseWeapon: {fileID: 1781130902238718875}
+  MovementState: 1
   CurrentDashCharge: 0
   CurrentDashCooltime: 0
   DashTargetDir: {x: 0, y: 0}
-  BaseWeapon: {fileID: 1781130902238718875}
 --- !u!50 &334434472153228344
 Rigidbody2D:
   serializedVersion: 4
@@ -663,6 +666,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 2357536a-14f4-43de-ab31-21421d98ac81
     m_ActionName: Player/Dash[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a7747379-2c58-46b7-b335-fc813482ee81
+    m_ActionName: Player/CombatMode[/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

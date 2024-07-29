@@ -3,17 +3,31 @@ using UnityEngine;
 public class PlayerController : MovableObject
 {
     #region Value
-    [Space(20)] [Header("<><><><><> Player")]
+
+    [Space(20)]
+    [Header("<><><><><> Player")]
+
+    [Header("=== Combat")]
+
+    [Header("-- State")]
+    [SerializeField] private eCombatMode CombatMode = eCombatMode.Physics;
+    [SerializeField] public bool IsCasting = false;
+    [SerializeField] private float CurrentCastingTime = 0;
+
+    [Header("-- Weapon")]
+    [SerializeField] public PlayerWeaponController BaseWeapon;
+
 
     [Header("=== Movement")]
+
+    [Header("=== State")]
+    [SerializeField] protected eMovementState MovementState = eMovementState.IdleOrWalk;
 
     [Header("-- Dash")]
     [SerializeField] private int CurrentDashCharge = 0;
     [SerializeField] private float CurrentDashCooltime = 0;
     [SerializeField] private Vector2 DashTargetDir;
 
-    [Header("=== Weapon")]
-    [SerializeField] public PlayerWeaponController BaseWeapon;
 
     #endregion
 
@@ -21,40 +35,36 @@ public class PlayerController : MovableObject
 
     private void FixedUpdate()
     {
+        AlwaysCaculate();
         Movement();
     }
 
     #endregion
 
     #region Movement
-    
+
     private void Movement()
     {
-        DashCaculate();
+        switch(MovementState)
+        {
+            case eMovementState.IdleOrWalk:
+                Walk(InputManager.Instance.InputMoveDir, PlayerManager.Instance.MovementState.WalkSpeed, AccelerationSpeed);
+                break;
 
-        if (MovementState == eMovementState.Dash)
-        { Dash(DashTargetDir, PlayerManager.Instance.MovementState.dashDur); }
-        else
-        { Walk(InputManager.Instance.InputMoveDir, PlayerManager.Instance.MovementState.walkSpeed, AccelerationSpeed); }
+            case eMovementState.Dash:
+                Dash(DashTargetDir, PlayerManager.Instance.MovementState.DashDur);
+                break;
+
+            default: break;
+        }
     }
 
-
-    
-
-    private void DashCaculate()
+    protected override void Dash(Vector2 _DashDir, float _TargetDashProcessTime)
     {
-        if (CurrentDashCharge >= PlayerManager.Instance.MovementState.maxDashCharge)
-        { return; }
-
-        if (CurrentDashCooltime >= PlayerManager.Instance.MovementState.dashCooltime)
+        base.Dash(_DashDir, _TargetDashProcessTime);
+        if (CurrentDashProcessTime >= _TargetDashProcessTime)
         {
-            CurrentDashCharge++;
-            CurrentDashCooltime = 0f;
-            Debug.Log("대쉬량 : " + CurrentDashCharge);
-        }
-        else
-        {
-            CurrentDashCooltime += Time.deltaTime;
+            MovementState = eMovementState.IdleOrWalk;
         }
     }
 
@@ -68,6 +78,80 @@ public class PlayerController : MovableObject
         DashTargetDir = InputManager.Instance.DirFromPlayerPos.normalized;
         CurrentDashCharge--;
         MovementState = eMovementState.Dash;
+    }
+
+    #endregion
+
+    #region Combat Mode
+
+    public void CanChangeCombatModeCheck()
+    {
+        if (MovementState != eMovementState.IdleOrWalk || IsCasting)
+        {
+            return;
+        }
+
+        IsCasting = true;
+        MovementState = eMovementState.Stop;
+        ThisRb.velocity = Vector2.zero;
+    }
+
+
+    #endregion
+
+    #region Caculate
+
+    private void AlwaysCaculate()
+    {
+        DashCaculate();
+        CastingCaculate();
+    }
+
+    private void DashCaculate()
+    {
+        if (CurrentDashCharge >= PlayerManager.Instance.MovementState.MaxDashCharge)
+        { return; }
+
+        if (CurrentDashCooltime >= PlayerManager.Instance.MovementState.DashCooltime)
+        {
+            CurrentDashCharge++;
+            CurrentDashCooltime = 0f;
+            Debug.Log("대쉬량 : " + CurrentDashCharge);
+        }
+        else
+        {
+            CurrentDashCooltime += Time.deltaTime;
+        }
+    }
+
+    private void CastingCaculate()
+    {
+        if (IsCasting)
+        {
+            if(CurrentCastingTime < PlayerManager.Instance.UtilityState.MaxCastingTime)
+            {
+                CurrentCastingTime += Time.deltaTime;
+            }
+            else
+            {
+                CurrentCastingTime = 0f;
+                IsCasting = false;
+                MovementState = eMovementState.IdleOrWalk;
+                switch (CombatMode)
+                {
+                    case eCombatMode.Physics:
+                        CombatMode = eCombatMode.Energy; 
+                        break;
+
+                    case eCombatMode.Energy:
+                        CombatMode = eCombatMode.Physics;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
     #endregion

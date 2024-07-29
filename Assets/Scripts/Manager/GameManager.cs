@@ -45,10 +45,14 @@ public class GameManager : Singleton<GameManager>
     #endregion
 }
 
+public enum eCombatMode
+{ 
+    Physics, Energy
+}
 
 public enum eMovementState
 {
-    IdleOrWalk, Dash
+    Stop, IdleOrWalk, Dash
 }
 
 public enum eDamageType
