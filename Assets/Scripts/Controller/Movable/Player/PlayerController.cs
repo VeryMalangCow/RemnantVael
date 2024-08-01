@@ -1,3 +1,5 @@
+using System;
+using UniRx;
 using UnityEngine;
 
 public class PlayerController : MovableObject
@@ -14,13 +16,17 @@ public class PlayerController : MovableObject
     [SerializeField] public bool IsCasting = false;
     [SerializeField] private float CurrentCastingTime = 0;
 
+    [Header("-- Life")]
+    [SerializeField] public ReactiveProperty<float> CurrentEP = new();
+
+
     [Header("-- Weapon")]
     [SerializeField] public PlayerWeaponController BaseWeapon;
 
 
     [Header("=== Movement")]
 
-    [Header("=== State")]
+    [Header("-- State")]
     [SerializeField] protected eMovementState MovementState = eMovementState.IdleOrWalk;
 
     [Header("-- Dash")]
@@ -33,10 +39,40 @@ public class PlayerController : MovableObject
 
     #region Framework
 
+    private void Awake()
+    {
+        SetState();
+    }
+
     private void FixedUpdate()
     {
         AlwaysCaculate();
         Movement();
+    }
+
+    #endregion
+
+    #region State
+
+    private void SetState()
+    {
+        // Life
+        CurrentEP.Value = PlayerManager.Instance.LifeState.MaxEP;
+    }
+
+    #endregion
+
+    #region Life
+
+    public void SetCurrentEP(float _AddValue)
+    {
+        float result = CurrentEP.Value + _AddValue;
+        result = Math.Max(result, 0);
+        result = Math.Min(result, PlayerManager.Instance.LifeState.MaxEP);
+
+        Debug.Log("현재: " + CurrentEP + " / " + "회복량 : " + _AddValue);
+
+        CurrentEP.Value = result;
     }
 
     #endregion
@@ -140,11 +176,13 @@ public class PlayerController : MovableObject
                 switch (CombatMode)
                 {
                     case eCombatMode.Physics:
-                        CombatMode = eCombatMode.Energy; 
+                        CombatMode = eCombatMode.Energy;
+                        BaseWeapon.ThisBulletState_forSendData.DamageType = eDamageType.Energy;
                         break;
 
                     case eCombatMode.Energy:
                         CombatMode = eCombatMode.Physics;
+                        BaseWeapon.ThisBulletState_forSendData.DamageType = eDamageType.Physics;
                         break;
 
                     default:

@@ -21,12 +21,25 @@ public class EnemyController : MovableObject
 
     public void TakeDamage(eDamageType _DamageType, float _Damage)
     {
-        LifeState.HealthPoint -= _Damage;
-        Debug.Log(LifeState.HealthPoint);
-        if (LifeState.HealthPoint <= 0f)
+        if(_DamageType == eDamageType.Physics)
         {
-            Die();
+            LifeState.HealthPoint -= _Damage;
+            if (LifeState.HealthPoint <= 0f)
+            {
+                Die();
+            }
         }
+        else
+        {
+            AbsorbItemController AIC = PoolingManager.Instance.GetOP_AbsorbItem();
+            AIC.SetState(
+                eItemType.Absorb, 
+                this.gameObject.transform.position,
+                _Damage);
+            AIC.gameObject.SetActive(true);
+        }
+
+        
     }
 
     private void Die()

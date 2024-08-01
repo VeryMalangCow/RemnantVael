@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7671391899007426867}
   - component: {fileID: 1038431027959539785}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy_Prefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShadowObject: {fileID: 4962291530876198273}
   ShadowRange: 0.35
-  MovementState: 0
   ThisRb: {fileID: 7671391899007426867}
   ThisSr: {fileID: 7907577748273720811}
   ThisExtraSrs: []
@@ -98,7 +97,7 @@ GameObject:
   - component: {fileID: 5343287522566083937}
   m_Layer: 0
   m_Name: Shadow
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -182,7 +181,7 @@ GameObject:
   - component: {fileID: 7907577748273720811}
   m_Layer: 0
   m_Name: Sprite
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

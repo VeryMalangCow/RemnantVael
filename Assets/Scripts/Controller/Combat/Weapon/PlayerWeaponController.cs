@@ -39,7 +39,10 @@ public class PlayerWeaponController : WeaponController
 
         if (IsInputed && CurrentDelayROF >= 1)
         {
-            Fire(PoolingManager.Instance.GetOP_PlayerBullet(BulletSpawnTFs.Count));
+            List<PlayerBulletController> PBClist = new List<PlayerBulletController>();
+            foreach (Transform TF in BulletSpawnTFs)
+            { PBClist.Add(PoolingManager.Instance.GetOP_PlayerBullet()); }
+            Fire(PBClist);
         }
     }
     private void OnEnable()

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.Windows;
 
 public class WeaponController : MonoBehaviour
 {
@@ -10,7 +8,7 @@ public class WeaponController : MonoBehaviour
     [Space(20)] [Header("<><><><><> Weapon")]
 
     [Header("=== State")]
-    [SerializeField] protected BulletState ThisBulletState_forSendData;
+    [SerializeField] public BulletState ThisBulletState_forSendData;
     [SerializeField] private float ROF;
     [SerializeField] private float SpreadMaxAngle = 0;
     [SerializeField] protected float CurrentDelayROF = 0;

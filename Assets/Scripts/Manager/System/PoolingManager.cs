@@ -6,14 +6,10 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Value
 
     [Header("=== Player Bullet")]
-    [SerializeField] private GameObject PlayerBulletPrefab;
-    [SerializeField] private Transform PlayerBulletParentTF;
-    [SerializeField] public Queue<PlayerBulletController> PlayerBulletQueue = new Queue<PlayerBulletController>();
+    [SerializeField] public TTypePooling<PlayerBulletController> PlayerBullet;
 
     [Header("=== Absorb Item")]
-    [SerializeField] private GameObject AbsorbItemPrefab;
-    [SerializeField] private Transform AbsorbItemParentTF;
-    [SerializeField] public Queue<AbsorbItemController> AbsorbItemQueue = new Queue<AbsorbItemController>();
+    [SerializeField] public TTypePooling<AbsorbItemController> EnergyParticle;
 
     #endregion
 
@@ -28,30 +24,40 @@ public class PoolingManager : Singleton<PoolingManager>
 
     #region Get
 
-    public T GetOP<T>(GameObject spawnGO, Transform parnetTF, Queue<T> queue)
+    public T GetOP<T>(GameObject _SpawnGO, Transform _ParnetTF, Queue<T> _Queue)
     {
         // No Object
-        if (PlayerBulletQueue.Count <= 0)
+        if (_Queue.Count <= 0)
         {
-            GameObject GenGO = Instantiate(spawnGO, parnetTF);
+            GameObject GenGO = Instantiate(_SpawnGO, _ParnetTF);
             GenGO.TryGetComponent(out T typeClass);
             GenGO.SetActive(false);
             return typeClass;
         }
-
-        T getTypeClass = queue.Dequeue();
-        return getTypeClass;
+        else
+        {
+            T getTypeClass = _Queue.Dequeue();
+            return getTypeClass;
+        }
     }
 
-    public List<PlayerBulletController> GetOP_PlayerBullet(int _Amount)
+    public PlayerBulletController GetOP_PlayerBullet()
     {
-        List<PlayerBulletController> result = new List<PlayerBulletController>();
-        for (int i = 0; i < _Amount; i++)
-        {
-            result.Add(GetOP<PlayerBulletController>(PlayerBulletPrefab, PlayerBulletParentTF, PlayerBulletQueue));
-        }
-        return result;
+        return GetOP<PlayerBulletController>(PlayerBullet.Prefab, PlayerBullet.ParentTF, PlayerBullet.Queue);
+    }
+
+    public AbsorbItemController GetOP_AbsorbItem()
+    {
+        return GetOP<AbsorbItemController>(EnergyParticle.Prefab, EnergyParticle.ParentTF, EnergyParticle.Queue);
     }
 
     #endregion
+}
+
+[System.Serializable]
+public class TTypePooling<T>
+{
+    [SerializeField] public GameObject Prefab;
+    [SerializeField] public Transform ParentTF;
+    [SerializeField] public Queue<T> Queue = new Queue<T>();
 }

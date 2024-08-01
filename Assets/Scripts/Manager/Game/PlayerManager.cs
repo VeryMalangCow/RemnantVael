@@ -40,7 +40,7 @@ public class PlayerManager : Singleton<PlayerManager>
 [System.Serializable]
 public class PlayerLifeState
 {
-    [SerializeField] public int HealthPoint = 3;
+    [SerializeField] public float MaxEP = 100;
 }
 
 [System.Serializable]
@@ -58,6 +58,4 @@ public class PlayerMovementState
 public class PlayerUtilityState
 {
     [SerializeField] public float MaxCastingTime = 0.85f;
-    [SerializeField] public float MechanicalDebrisSpawnProbability = 0.1f;
-    [SerializeField] public float EnergySpawnProbability = 0.1f;
 }

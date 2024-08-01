@@ -13,7 +13,7 @@ public class PlayerBulletController : BulletController
         if (CurrentAliveTime >= BulletState.AliveTime)
         {
             this.gameObject.SetActive(false);
-            PoolingManager.Instance.PlayerBulletQueue.Enqueue(this);
+            PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
         }
     }
 
@@ -52,7 +52,7 @@ public class PlayerBulletController : BulletController
             {
                 EC.TakeDamage(BulletState.DamageType, BulletState.BaseDamage);
             }
-            PoolingManager.Instance.PlayerBulletQueue.Enqueue(this);
+            PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
             this.gameObject.SetActive(false);
         }
     }

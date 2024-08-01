@@ -47,7 +47,7 @@ public class GameManager : Singleton<GameManager>
 
 public enum eCombatMode
 { 
-    Physics, Energy
+    Physics, Energy, Boost
 }
 
 public enum eMovementState
@@ -63,4 +63,9 @@ public enum eDamageType
 public enum eEnemy
 {
     Normal, Elite, Boss
+}
+
+public enum eItemType
+{
+    Absorb
 }
