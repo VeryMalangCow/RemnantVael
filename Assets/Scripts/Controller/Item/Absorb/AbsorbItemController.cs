@@ -21,7 +21,6 @@ public class AbsorbItemController : ItemController
 
     private void OnEnable()
     {
-        TargetGO = PlayerManager.Instance.PlayerController.gameObject;
         ThisRb.AddForce(GetRandomDirForce());
     }
 
@@ -29,6 +28,16 @@ public class AbsorbItemController : ItemController
     {
         base.Update();
         ThisRb.velocity = GetDirForce();
+    }
+
+    #endregion
+
+    #region State
+
+    protected void SetState(Vector2 _SpawnPos, GameObject _TargetObject)
+    {
+        this.gameObject.transform.position = _SpawnPos;
+        TargetGO = _TargetObject;
     }
 
     #endregion
@@ -55,6 +64,28 @@ public class AbsorbItemController : ItemController
 
         return resultVelocity * currentVelocityPower;
     }
+
+    #endregion
+
+    #region Get Item
+
+    protected virtual void GetItem()
+    {
+
+    }
+
+    #endregion
+
+    #region Trigger
+
+    private void OnTriggerEnter2D(Collider2D _Collision)
+    {
+        if (_Collision.tag == "Player")
+        {
+            GetItem();
+        }
+    }
+
     #endregion
 
 }

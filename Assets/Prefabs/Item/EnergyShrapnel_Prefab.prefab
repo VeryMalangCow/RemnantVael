@@ -254,12 +254,11 @@ MonoBehaviour:
   TargetObject: {fileID: 3954661232278796110}
   TargetRange: 0.4
   ItemID: 00
-  ItemType: 0
   ThisRb: {fileID: 2744110499918854217}
   TargetGO: {fileID: 0}
   AbsorbStartPower: 300
   AbsorbPower: 5
-  RotatePower: 10
+  RotatePower: 15
   EnergyValue: 1
 --- !u!50 &2744110499918854217
 Rigidbody2D:

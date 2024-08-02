@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -30,6 +31,7 @@ public class GameManager : Singleton<GameManager>
 
     #region Module
 
+    // Get Type if it Can Cast
     public static T CastIfPossible<T>(object input) where T : class
     {
         if (input is T variable)
@@ -40,6 +42,20 @@ public class GameManager : Singleton<GameManager>
         {
             return null;
         }
+    }
+
+    // Set List by Component
+    public static List<T> SetList<T>(Transform _Parent)
+    {
+        List<T> result = new List<T>();
+        foreach (Transform TF in _Parent)
+        {
+            if (TF.TryGetComponent(out T type))
+            {
+                result.Add(type);
+            }
+        }
+        return result;
     }
 
     #endregion

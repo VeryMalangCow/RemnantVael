@@ -1,23 +1,38 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using System.Collections.Generic;
 
 public class PlayerHUDController : UIController
 {
     #region Value
 
-    [Space(20)]
-    [Header("<><><><><> Player HUD")]
+    [Space(20)] [Header("<><><><><> Player HUD")]
+
     [Header("=== Energy")]
     [SerializeField] private Image AfterImageEP_Img;
     [SerializeField] private Image ActualEP_Img;
 
+    [Header("=== Bettery")]
+
+    [Header("-- Current")]
+    [SerializeField] public Modify_Sprite CurrentEmptyBC;
+
+    [Header("-- Bettery (Image Amount Class)")]
+    [SerializeField] private Modify_ImgAmountAndTxt EmptyBC;
+    [SerializeField] private Modify_ImgAmountAndTxt FullBC;
 
     #endregion
 
-    #region Framework
+    #region Offset
+    private void Offset_Value()
+    {
+        CurrentEmptyBC.Offset();
+        EmptyBC.Offset();
+        FullBC.Offset();
+    }
 
-    private void Start()
+    private void Offset_UI()
     {
         PlayerManager.Instance.PlayerController.CurrentEP
             .Subscribe(_CurrentEP =>
@@ -25,6 +40,30 @@ public class PlayerHUDController : UIController
                 UIManager.Instance.PlayerHUDController.SetFillImgSmooth_EP();
             })
             .AddTo(gameObject);
+
+        PlayerManager.Instance.PlayerController.CurrentBS
+            .Subscribe(_CurrentBS =>
+            {
+                CurrentEmptyBC.ModifySprite(_CurrentBS);
+            })
+            .AddTo(gameObject);
+
+        PlayerManager.Instance.PlayerController.CurrentBC
+            .Subscribe(_CurrentBC =>
+            {
+
+            })
+            .AddTo(gameObject);
+    }
+
+    #endregion
+
+    #region Framework
+
+    private void Start()
+    {
+        Offset_Value();
+        Offset_UI();
     }
 
     #endregion
@@ -40,6 +79,5 @@ public class PlayerHUDController : UIController
     }
 
     #endregion
-
-
 }
+

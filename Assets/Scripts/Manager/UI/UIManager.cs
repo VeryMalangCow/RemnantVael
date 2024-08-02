@@ -29,7 +29,7 @@ public class UIManager : Singleton<UIManager>
         //Test
         if (Input.GetKeyDown(KeyCode.T))
         {
-            PlayerManager.Instance.PlayerController.SetCurrentEP(-30);
+            PlayerManager.Instance.PlayerController.AddCurrentEP(-30);
         }
     }
 

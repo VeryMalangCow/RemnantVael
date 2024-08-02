@@ -16,9 +16,13 @@ public class PlayerController : MovableObject
     [SerializeField] public bool IsCasting = false;
     [SerializeField] private float CurrentCastingTime = 0;
 
-    [Header("-- Life")]
+    [Header("-- Energy")]
     [SerializeField] public ReactiveProperty<float> CurrentEP = new();
 
+    [Header("-- Bettery")]
+    [SerializeField] public ReactiveProperty<int> CurrentBS = new();
+    [SerializeField] private int NeedBS_ForMakeBC = 5;
+    [SerializeField] public ReactiveProperty<int> CurrentBC = new();
 
     [Header("-- Weapon")]
     [SerializeField] public PlayerWeaponController BaseWeapon;
@@ -62,9 +66,9 @@ public class PlayerController : MovableObject
 
     #endregion
 
-    #region Life
+    #region Energy
 
-    public void SetCurrentEP(float _AddValue)
+    public void AddCurrentEP(float _AddValue)
     {
         float result = CurrentEP.Value + _AddValue;
         result = Math.Max(result, 0);
@@ -74,6 +78,30 @@ public class PlayerController : MovableObject
 
         CurrentEP.Value = result;
     }
+
+    #endregion
+
+    #region Bettery
+
+    public void AddCurrentBS(int _AddValue)
+    {
+        CurrentBS.Value += _AddValue;
+        while(true)
+        {
+            if (CurrentBS.Value >= NeedBS_ForMakeBC)
+            {
+                CurrentBS.Value -= NeedBS_ForMakeBC;
+                CurrentBC.Value++;
+                UIManager.Instance.PlayerHUDController.CurrentEmptyBC.Complete(0.2f);
+            }
+            else
+            {
+                break;
+            }
+        }
+        Debug.Log("현재 배터리 조각: " + CurrentBS.Value + " / " + "현재 배터리 셀: " + CurrentBC.Value);
+    }
+
 
     #endregion
 

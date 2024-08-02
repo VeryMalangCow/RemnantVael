@@ -395,7 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ThisBulletState_forSendData:
     DamageType: 0
-    BaseDamage: 10
+    BaseDamage: 1
     MuzzleSpeed: 1.5
     AliveTime: 0.35
   ROF: 8
@@ -602,6 +602,11 @@ MonoBehaviour:
   CurrentCastingTime: 0
   CurrentEP:
     value: 0
+  CurrentBS:
+    value: 0
+  NeedBS_ForMakeBC: 5
+  CurrentBC:
+    value: 0
   BaseWeapon: {fileID: 1781130902238718875}
   MovementState: 1
   CurrentDashCharge: 0
@@ -675,6 +680,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: a7747379-2c58-46b7-b335-fc813482ee81
     m_ActionName: Player/CombatMode[/Keyboard/ctrl]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a71f449c-d27b-44c5-85af-49df92e063bc
+    m_ActionName: Player/BoostMode[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

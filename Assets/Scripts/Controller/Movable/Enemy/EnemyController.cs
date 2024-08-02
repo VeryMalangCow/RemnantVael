@@ -24,16 +24,13 @@ public class EnemyController : MovableObject
             LifeState.HealthPoint -= _Damage;
             if (LifeState.HealthPoint <= 0f)
             {
+                SpawnBS(1);
                 Die();
             }
         }
         else
         {
-            EnergyShrapnelController ESC = PoolingManager.Instance.GetOP_EnergyShrapnel();
-            ESC.SetState(
-                this.gameObject.transform.position,
-                _Damage);
-            ESC.gameObject.SetActive(true);
+            SpawnES(_Damage);
         }
 
 
@@ -41,8 +38,33 @@ public class EnemyController : MovableObject
 
     private void Die()
     {
+        
 
         this.gameObject.SetActive(false);
+    }
+
+    #endregion
+
+    #region Spawn Item
+
+    private void SpawnES(float _Value)
+    {
+        EnergyShrapnelController ESC = PoolingManager.Instance.GetOP_EnergyShrapnel();
+        ESC.SetState(
+            this.gameObject.transform.position,
+            PlayerManager.Instance.PlayerController.gameObject,
+            _Value);
+        ESC.gameObject.SetActive(true);
+    }
+
+    private void SpawnBS(int _Value)
+    {
+        BetteryShrapnelController BSC = PoolingManager.Instance.GetOP_BetteryShrapnel();
+        BSC.SetState(
+            this.gameObject.transform.position,
+            PlayerManager.Instance.PlayerController.gameObject,
+            _Value);
+        BSC.gameObject.SetActive(true);
     }
 
     #endregion

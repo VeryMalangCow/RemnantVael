@@ -13,24 +13,23 @@ public class EnergyShrapnelController : AbsorbItemController
 
     #region State
 
-    public void SetState(Vector2 _SpawnPos, float _Value)
+    public void SetState(Vector2 _SpawnPos, GameObject _TargetObject, float _Value)
     {
-        base.SetState(_SpawnPos);
+        base.SetState(_SpawnPos, _TargetObject);
         EnergyValue = _Value;
     }
 
     #endregion
 
-    #region Trigger
+    #region Get Item
 
-    private void OnTriggerEnter2D(Collider2D _Collision)
+    protected override void GetItem()
     {
-        if (_Collision.tag == "Player")
-        {
-            PlayerManager.Instance.PlayerController.SetCurrentEP(EnergyValue);
-            PoolingManager.Instance.EnergyShrapnel.Queue.Enqueue(this);
-            this.gameObject.SetActive(false);
-        }
+        base.GetItem();
+
+        PlayerManager.Instance.PlayerController.AddCurrentEP(EnergyValue);
+        PoolingManager.Instance.EnergyShrapnel.Queue.Enqueue(this);
+        this.gameObject.SetActive(false);
     }
 
     #endregion

@@ -10,7 +10,7 @@ public class PoolingManager : Singleton<PoolingManager>
 
     [Header("=== Item")]
     [SerializeField] public TTypePooling<EnergyShrapnelController> EnergyShrapnel;
-    [SerializeField] public TTypePooling<FieldBetteryController> BetteryShrapnel;
+    [SerializeField] public TTypePooling<BetteryShrapnelController> BetteryShrapnel;
 
     #endregion
 
@@ -52,9 +52,9 @@ public class PoolingManager : Singleton<PoolingManager>
         return GetOP<EnergyShrapnelController>(EnergyShrapnel.Prefab, EnergyShrapnel.ParentTF, EnergyShrapnel.Queue);
     }
 
-    public FieldBetteryController GetOP_BetteryShrapnel()
+    public BetteryShrapnelController GetOP_BetteryShrapnel()
     {
-        return GetOP<FieldBetteryController>(BetteryShrapnel.Prefab, BetteryShrapnel.ParentTF, BetteryShrapnel.Queue);
+        return GetOP<BetteryShrapnelController>(BetteryShrapnel.Prefab, BetteryShrapnel.ParentTF, BetteryShrapnel.Queue);
     }
 
     #endregion

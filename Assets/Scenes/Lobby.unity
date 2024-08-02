@@ -680,6 +680,9 @@ MonoBehaviour:
   EnergyShrapnel:
     Prefab: {fileID: 8792791415299830887, guid: 9462772553ccac241a9af78a94de5b3f, type: 3}
     ParentTF: {fileID: 308243357}
+  BetteryShrapnel:
+    Prefab: {fileID: 8792791415299830887, guid: 561d34cba42755c4397f7b01874690d4, type: 3}
+    ParentTF: {fileID: 1050572078}
 --- !u!1 &940494671
 GameObject:
   m_ObjectHideFlags: 0
