@@ -6,8 +6,8 @@ public class HaveShadowThing : MonoBehaviour
     [Space(20)] [Header("<><><><><> Have Shadow Thing")]
 
     [Header("=== Shadow")]
-    [SerializeField] private GameObject ShadowObject;
-    [SerializeField] private float ShadowRange = 0.35f;
+    [SerializeField] public GameObject TargetObject;
+    [SerializeField] private float TargetRange = 0.4f;
 
     #endregion
 
@@ -15,7 +15,7 @@ public class HaveShadowThing : MonoBehaviour
 
     protected virtual void Update()
     {
-        ShadowObject.transform.position = (Vector2)this.transform.position + (Vector2.down * ShadowRange);
+        TargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * TargetRange);
     }
 
     #endregion

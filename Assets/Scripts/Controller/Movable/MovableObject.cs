@@ -51,10 +51,6 @@ public class MovableObject : HaveShadowThing
     public void SetSortingOrder(int _SortingOrder)
     {
         ThisSr.sortingOrder = _SortingOrder;
-        foreach(SpriteRenderer Sr in ThisExtraSrs)
-        {
-            Sr.sortingOrder = _SortingOrder;
-        }
     }
 
     #endregion

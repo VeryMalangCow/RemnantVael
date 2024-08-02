@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : MovableObject
@@ -31,19 +29,19 @@ public class EnemyController : MovableObject
         }
         else
         {
-            AbsorbItemController AIC = PoolingManager.Instance.GetOP_AbsorbItem();
-            AIC.SetState(
-                eItemType.Absorb, 
+            EnergyShrapnelController ESC = PoolingManager.Instance.GetOP_EnergyShrapnel();
+            ESC.SetState(
                 this.gameObject.transform.position,
                 _Damage);
-            AIC.gameObject.SetActive(true);
+            ESC.gameObject.SetActive(true);
         }
 
-        
+
     }
 
     private void Die()
     {
+
         this.gameObject.SetActive(false);
     }
 

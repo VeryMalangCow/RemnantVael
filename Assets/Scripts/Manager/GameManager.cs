@@ -64,8 +64,3 @@ public enum eEnemy
 {
     Normal, Elite, Boss
 }
-
-public enum eItemType
-{
-    Absorb
-}

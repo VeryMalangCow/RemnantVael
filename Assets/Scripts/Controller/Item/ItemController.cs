@@ -9,9 +9,6 @@ public class ItemController : HaveShadowThing
     [Header("=== Data")]
     [SerializeField] private string ItemID;
 
-    [Header("=== Base Item")]
-    [SerializeField] protected eItemType ItemType;
-
     [Header("=== Component")]
     [SerializeField] protected Rigidbody2D ThisRb;
 
@@ -19,9 +16,8 @@ public class ItemController : HaveShadowThing
 
     #region State
 
-    protected void SetState(eItemType _ItemType, Vector2 _SpawnPos)
+    protected void SetState(Vector2 _SpawnPos)
     {
-        ItemType = _ItemType;
         this.gameObject.transform.position = _SpawnPos;
     }
 

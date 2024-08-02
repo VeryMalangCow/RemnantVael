@@ -53,7 +53,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     {
         for (int i = 0; i < MovableObjects.Count; i++)
         {
-            MovableObjects[i].SetSortingOrder(MovableObjectTopSort - (2 * i));
+            MovableObjects[i].SetSortingOrder(MovableObjectTopSort - (10 * i));
         }
     }
 

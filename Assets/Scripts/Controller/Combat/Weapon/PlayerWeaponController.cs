@@ -1,10 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class PlayerWeaponController : WeaponController
 {
     #region Value
-    [Space(20)] [Header("<><><><><> Player")]
+    [Space(20)]
+    [Header("<><><><><> Player")]
+
+    [Header("=== Player")]
+    [SerializeField] private SpriteRenderer PlayerSR;
 
     [Header("=== Input")]
     [SerializeField] public bool IsInputed = false;
@@ -25,7 +30,6 @@ public class PlayerWeaponController : WeaponController
 
     #region Framework
 
-
     protected override void Update()
     {
         base.Update();
@@ -35,6 +39,7 @@ public class PlayerWeaponController : WeaponController
         foreach (Satellite hand in Hands)
         {
             hand.SetPosOffset();
+            hand.SetSortOrder(PlayerSR.sortingOrder);
         }
 
         if (IsInputed && CurrentDelayROF >= 1)
@@ -64,6 +69,7 @@ public class PlayerWeaponController : WeaponController
     }
 
     #endregion
+
 }
 
 [System.Serializable]
@@ -71,9 +77,22 @@ public class Satellite
 {
     [SerializeField] public Transform ObjectTF;
     [SerializeField] public Transform TargetTF;
+    [SerializeField] public SpriteRenderer ThisActualSR;
 
     public void SetPosOffset()
     {
         ObjectTF.position = TargetTF.position;
+    }
+
+    public void SetSortOrder(int _PlayerSortOrder)
+    {
+        if (ObjectTF.localPosition.y > 0)
+        {
+            ThisActualSR.sortingOrder = _PlayerSortOrder - 1;
+        }
+        else
+        {
+            ThisActualSR.sortingOrder = _PlayerSortOrder + 1;
+        }
     }
 }

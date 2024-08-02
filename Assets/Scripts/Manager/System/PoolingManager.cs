@@ -8,8 +8,9 @@ public class PoolingManager : Singleton<PoolingManager>
     [Header("=== Player Bullet")]
     [SerializeField] public TTypePooling<PlayerBulletController> PlayerBullet;
 
-    [Header("=== Absorb Item")]
-    [SerializeField] public TTypePooling<AbsorbItemController> EnergyParticle;
+    [Header("=== Item")]
+    [SerializeField] public TTypePooling<EnergyShrapnelController> EnergyShrapnel;
+    [SerializeField] public TTypePooling<FieldBetteryController> BetteryShrapnel;
 
     #endregion
 
@@ -46,9 +47,14 @@ public class PoolingManager : Singleton<PoolingManager>
         return GetOP<PlayerBulletController>(PlayerBullet.Prefab, PlayerBullet.ParentTF, PlayerBullet.Queue);
     }
 
-    public AbsorbItemController GetOP_AbsorbItem()
+    public EnergyShrapnelController GetOP_EnergyShrapnel()
     {
-        return GetOP<AbsorbItemController>(EnergyParticle.Prefab, EnergyParticle.ParentTF, EnergyParticle.Queue);
+        return GetOP<EnergyShrapnelController>(EnergyShrapnel.Prefab, EnergyShrapnel.ParentTF, EnergyShrapnel.Queue);
+    }
+
+    public FieldBetteryController GetOP_BetteryShrapnel()
+    {
+        return GetOP<FieldBetteryController>(BetteryShrapnel.Prefab, BetteryShrapnel.ParentTF, BetteryShrapnel.Queue);
     }
 
     #endregion

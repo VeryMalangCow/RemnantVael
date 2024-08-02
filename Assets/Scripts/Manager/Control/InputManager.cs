@@ -61,21 +61,21 @@ public class InputManager : Singleton<InputManager>
 
     private void OnEnableInput()
     {
-        PlayerInput.actions["Walk"].Enable();
-
         PlayerInput.actions["Walk"].performed += Input_Walk;
         PlayerInput.actions["Fire00"].performed += Input_Fire00;
         PlayerInput.actions["Dash"].performed += Input_Dash;
         PlayerInput.actions["CombatMode"].performed += Input_CombatMode;
+        PlayerInput.actions["BoostMode"].performed += Input_BoostMode;
     }
+
     private void OnDisableInput()
     {
         PlayerInput.actions["Walk"].performed -= Input_Walk;
         PlayerInput.actions["Fire00"].performed -= Input_Fire00;
         PlayerInput.actions["Dash"].performed -= Input_Dash; 
         PlayerInput.actions["CombatMode"].performed -= Input_CombatMode;
+        PlayerInput.actions["BoostMode"].performed -= Input_BoostMode;
 
-        PlayerInput.actions["Walk"].Disable();
     }
 
 
@@ -106,6 +106,11 @@ public class InputManager : Singleton<InputManager>
         {
             PlayerManager.Instance.PlayerController.CanChangeCombatModeCheck();
         }
+    }
+
+    private void Input_BoostMode(InputAction.CallbackContext context)
+    {
+        
     }
 
     #endregion
