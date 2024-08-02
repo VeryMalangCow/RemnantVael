@@ -51,7 +51,7 @@ public class PlayerHUDController : UIController
         PlayerManager.Instance.PlayerController.CurrentBC
             .Subscribe(_CurrentBC =>
             {
-
+                EmptyBC.SetAmount(_CurrentBC, 0.5f);
             })
             .AddTo(gameObject);
     }

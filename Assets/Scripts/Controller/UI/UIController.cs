@@ -44,7 +44,7 @@ public class Modify_Sprite
 
     public void Complete(float _DurTime)
     {
-        if (DOTween.IsTweening(DotweenSeq))
+        if (DotweenSeq != null && DOTween.IsTweening(DotweenSeq))
         { DOTween.Kill(DotweenSeq); }
 
         CompleteImg.gameObject.SetActive(true);
@@ -78,6 +78,7 @@ public class Modify_ImgAmountAndTxt
     [SerializeField] public List<Image> Img_List;
     [SerializeField] public TMP_Text Txt_ExtraAmount;
 
+    Sequence DotweenSeq;
 
     public void Offset()
     {
@@ -95,23 +96,55 @@ public class Modify_ImgAmountAndTxt
         // Image
         if (_Type is Image typeImg)
         {
-            Color clr = typeImg.color;
-            clr.a = 0;
-            typeImg.color = clr;
+            typeImg.gameObject.SetActive(false);
         }
 
         // TMP Text
         else if (_Type is TMP_Text typeTxt)
         {
-            Color clr = typeTxt.color;
-            clr.a = 0;
-            typeTxt.color = clr;
+            typeTxt.gameObject.SetActive(false);
             typeTxt.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 
-    public void SetAmount(int _Value)
+    public void SetAmount(int _Value, float _DurTime)
     {
+        int currentChargedValue = _Value - 1;
+        for(int i = 0; i < Img_List.Count; i++)
+        {
+            if(currentChargedValue >= i)
+            {
+                ChangeOnOffImg(Img_List[i], true, _DurTime);
+            }
+            else
+            {
+                ChangeOnOffImg(Img_List[i], false, _DurTime);
+            }
+        }
+    }
 
+    public void ChangeOnOffImg(Image _Img, bool _OnOff, float _DurTime)
+    {
+        if (DotweenSeq != null && DOTween.IsTweening(DotweenSeq))
+        { DOTween.Complete(DotweenSeq); }
+
+        DotweenSeq = DOTween.Sequence();
+
+        // Off
+        if (_Img.gameObject.activeSelf && !_OnOff)
+        {
+            _Img.DOFade(1, 0);
+
+            DotweenSeq.Join(_Img.DOFade(0, _DurTime));
+            DotweenSeq.OnComplete(() => { _Img.gameObject.SetActive(false); });
+        }
+        // On
+        else if (!_Img.gameObject.activeSelf && _OnOff)
+        {
+            _Img.DOFade(0, 0);
+
+            DotweenSeq.Join(_Img.DOFade(1, _DurTime));
+            DotweenSeq.OnStart(() => { _Img.gameObject.SetActive(true); });
+        }
     }
 }
