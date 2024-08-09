@@ -13,6 +13,7 @@ public class PlayerController : MovableObject
 
     [Header("-- State")]
     [SerializeField] private eCombatMode CombatMode = eCombatMode.Physics;
+    [SerializeField] private eCombatMode TargetCombatMode = eCombatMode.Physics;
     [SerializeField] public bool IsCasting = false;
     [SerializeField] private float CurrentCastingTime = 0;
 
@@ -21,8 +22,9 @@ public class PlayerController : MovableObject
 
     [Header("-- Bettery")]
     [SerializeField] public ReactiveProperty<int> CurrentBS = new();
-    [SerializeField] private int NeedBS_ForMakeBC = 5;
+    [SerializeField] public int NeedBS_ForMakeBC = 5;
     [SerializeField] public ReactiveProperty<int> CurrentBC = new();
+    [SerializeField] public ReactiveProperty<int> CurrentEC = new();
 
     [Header("-- Weapon")]
     [SerializeField] public PlayerWeaponController BaseWeapon;
@@ -38,6 +40,12 @@ public class PlayerController : MovableObject
     [SerializeField] private float CurrentDashCooltime = 0;
     [SerializeField] private Vector2 DashTargetDir;
 
+    [Header("=== Skill")]
+    [SerializeField] public int asdzxc = 0;
+
+    private delegate void SkillDele();
+    private SkillDele ReservationSkillDele = null;
+
 
     #endregion
 
@@ -45,7 +53,7 @@ public class PlayerController : MovableObject
 
     private void Awake()
     {
-        SetState();
+        SetStateOffset();
     }
 
     private void FixedUpdate()
@@ -58,7 +66,7 @@ public class PlayerController : MovableObject
 
     #region State
 
-    private void SetState()
+    private void SetStateOffset()
     {
         // Life
         CurrentEP.Value = PlayerManager.Instance.LifeState.MaxEP;
@@ -92,16 +100,21 @@ public class PlayerController : MovableObject
             {
                 CurrentBS.Value -= NeedBS_ForMakeBC;
                 CurrentBC.Value++;
-                UIManager.Instance.PlayerHUDController.CurrentEmptyBC.Complete(0.2f);
+                UIManager.Instance.PlayerHUDController.CurrentEmptyBC.Complete(0.3f, 0.2f);
             }
             else
             {
                 break;
             }
         }
-        Debug.Log("현재 배터리 조각: " + CurrentBS.Value + " / " + "현재 배터리 셀: " + CurrentBC.Value);
     }
 
+    private void ChargeBettery()
+    {
+        this.CurrentEP.Value -= PlayerManager.Instance.LifeState.NeedToMakeBC;
+        CurrentBC.Value--;
+        CurrentEC.Value++;
+    }
 
     #endregion
 
@@ -146,20 +159,63 @@ public class PlayerController : MovableObject
 
     #endregion
 
-    #region Combat Mode
+    #region About Casting
 
-    public void CanChangeCombatModeCheck()
+    //Condition : Idle or Walk | No Casting Now 
+    private bool CanChange()
     {
         if (MovementState != eMovementState.IdleOrWalk || IsCasting)
         {
-            return;
+            return false;
         }
-
-        IsCasting = true;
-        MovementState = eMovementState.Stop;
-        ThisRb.velocity = Vector2.zero;
+        else
+        {
+            return true;
+        }
     }
 
+    // + None
+    public void CanChange_CombatModeCheck()
+    {
+        if (!CanChange()) 
+        { return; } 
+
+        switch (TargetCombatMode)
+        {
+            case eCombatMode.Physics:
+                TargetCombatMode = eCombatMode.Energy;
+                break;
+
+            case eCombatMode.Energy:
+                TargetCombatMode = eCombatMode.Physics;
+                break;
+
+            default:
+                break;
+        }
+
+        StartCasting();
+    }
+
+    // + Enough EP | Enough BC
+    public void CanChange_ChargeBettery()
+    {
+        if (!CanChange() ||
+            PlayerManager.Instance.LifeState.NeedToMakeBC >= this.CurrentEP.Value ||
+            CurrentBC.Value <= 0) 
+        { return; }
+
+        ReservationSkillDele = ChargeBettery;
+
+        StartCasting();
+    }
+
+    public void StartCasting()
+    {
+        IsCasting = true;
+        MovementState = eMovementState.Casting;
+        ThisRb.velocity = Vector2.zero;
+    }
 
     #endregion
 
@@ -201,24 +257,46 @@ public class PlayerController : MovableObject
                 CurrentCastingTime = 0f;
                 IsCasting = false;
                 MovementState = eMovementState.IdleOrWalk;
-                switch (CombatMode)
-                {
-                    case eCombatMode.Physics:
-                        CombatMode = eCombatMode.Energy;
-                        BaseWeapon.ThisBulletState_forSendData.DamageType = eDamageType.Energy;
-                        break;
 
-                    case eCombatMode.Energy:
-                        CombatMode = eCombatMode.Physics;
-                        BaseWeapon.ThisBulletState_forSendData.DamageType = eDamageType.Physics;
-                        break;
-
-                    default:
-                        break;
-                }
+                If_CombatMode();
+                If_Skill();
             }
         }
     }
+
+    #region By Condition
+
+    private void If_CombatMode()
+    {
+        if(CombatMode != TargetCombatMode)
+        {
+            CombatMode = TargetCombatMode;
+
+            switch (TargetCombatMode)
+            {
+                case eCombatMode.Physics:
+                    BaseWeapon.ThisBulletState_forSendData.DamageType = eDamageType.Physics;
+                    break;
+
+                case eCombatMode.Energy:
+                    BaseWeapon.ThisBulletState_forSendData.DamageType = eDamageType.Energy;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void If_Skill()
+    {
+        if(ReservationSkillDele != null)
+        {
+            ReservationSkillDele();
+            ReservationSkillDele = null;
+        }
+    }
+    #endregion
 
     #endregion
 }

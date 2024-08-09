@@ -71,7 +71,7 @@ public class AbsorbItemController : ItemController
 
     protected virtual void GetItem()
     {
-
+        this.gameObject.SetActive(false);
     }
 
     #endregion

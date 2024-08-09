@@ -4,7 +4,11 @@ using UnityEngine;
 public class MovableObject : HaveShadowThing
 {
     #region Value
-    [Space(20)] [Header("<><><><><> Movable Object")]
+    [Space(20)]
+    [Header("<><><><><> Movable Object")]
+
+    [Header("=== State")]
+    [SerializeField] protected bool IsDead = false;
 
     [Header("=== Component")]
     [SerializeField] protected Rigidbody2D ThisRb;
@@ -54,4 +58,17 @@ public class MovableObject : HaveShadowThing
     }
 
     #endregion
+
+    protected void SetIsDead(float _Life, float _Damage)
+    {
+        if(_Life <= _Damage)
+        {
+            IsDead = true;
+        }
+        else
+        {
+            IsDead = false;
+        }
+    }
+
 }

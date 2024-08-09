@@ -68,7 +68,7 @@ public enum eCombatMode
 
 public enum eMovementState
 {
-    Stop, IdleOrWalk, Dash
+    Casting, IdleOrWalk, Dash
 }
 
 public enum eDamageType

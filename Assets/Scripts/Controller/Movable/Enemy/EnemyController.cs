@@ -19,12 +19,17 @@ public class EnemyController : MovableObject
 
     public void TakeDamage(eDamageType _DamageType, float _Damage)
     {
+        if (base.IsDead) 
+        { return; }
+
         if(_DamageType == eDamageType.Physics)
         {
+            SetIsDead(LifeState.HealthPoint, _Damage);
             LifeState.HealthPoint -= _Damage;
             if (LifeState.HealthPoint <= 0f)
             {
-                SpawnBS(1);
+                base.IsDead = true;
+                SpawnBS(4);
                 Die();
             }
         }

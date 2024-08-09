@@ -66,8 +66,10 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Dash"].performed += Input_Dash;
         PlayerInput.actions["CombatMode"].performed += Input_CombatMode;
         PlayerInput.actions["BoostMode"].performed += Input_BoostMode;
-    }
+        PlayerInput.actions["ChargeBettery"].performed += Input_ChargeBettery;
 
+        PlayerInput.actions["ForDebugging"].performed += Input_ForDebugging;
+    }
     private void OnDisableInput()
     {
         PlayerInput.actions["Walk"].performed -= Input_Walk;
@@ -75,9 +77,19 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Dash"].performed -= Input_Dash; 
         PlayerInput.actions["CombatMode"].performed -= Input_CombatMode;
         PlayerInput.actions["BoostMode"].performed -= Input_BoostMode;
+        PlayerInput.actions["ChargeBettery"].performed -= Input_ChargeBettery;
 
+        PlayerInput.actions["ForDebugging"].performed -= Input_ForDebugging;
     }
 
+    private void Input_ForDebugging(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            PlayerController PC = PlayerManager.Instance.PlayerController;
+            //Debug.Log();
+        }
+    }
 
     #endregion
 
@@ -104,11 +116,11 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            PlayerManager.Instance.PlayerController.CanChangeCombatModeCheck();
+            PlayerManager.Instance.PlayerController.CanChange_CombatModeCheck();
         }
     }
 
-    private void Input_BoostMode(InputAction.CallbackContext context)
+    private void Input_BoostMode(InputAction.CallbackContext _InputValue)
     {
         
     }
@@ -120,6 +132,19 @@ public class InputManager : Singleton<InputManager>
     private void Input_Fire00(InputAction.CallbackContext _InputValue)
     {
         PlayerManager.Instance.PlayerController.BaseWeapon.IsInputed = _InputValue.ReadValueAsButton();
+    }
+
+    #endregion
+
+    #region Skill
+
+    // Charge Bettery
+    private void Input_ChargeBettery(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            PlayerManager.Instance.PlayerController.CanChange_ChargeBettery();
+        }
     }
 
     #endregion

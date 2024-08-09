@@ -41,6 +41,7 @@ public class PlayerManager : Singleton<PlayerManager>
 public class PlayerLifeState
 {
     [SerializeField] public float MaxEP = 100;
+    [SerializeField] public float NeedToMakeBC = 20;
 }
 
 [System.Serializable]

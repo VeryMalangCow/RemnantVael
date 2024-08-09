@@ -29,7 +29,6 @@ public class BetteryShrapnelController : AbsorbItemController
 
         PlayerManager.Instance.PlayerController.AddCurrentBS(BetteryValue);
         PoolingManager.Instance.BetteryShrapnel.Queue.Enqueue(this);
-        this.gameObject.SetActive(false);
     }
 
     #endregion

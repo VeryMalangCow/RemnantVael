@@ -408,6 +408,10 @@ PrefabInstance:
       propertyPath: EnemyID
       value: 00
       objectReference: {fileID: 0}
+    - target: {fileID: 1038431027959539785, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
+      propertyPath: LifeState.HealthPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.58
@@ -730,6 +734,10 @@ PrefabInstance:
       propertyPath: EnemyID
       value: 00
       objectReference: {fileID: 0}
+    - target: {fileID: 1038431027959539785, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
+      propertyPath: LifeState.HealthPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.58
@@ -806,6 +814,10 @@ PrefabInstance:
     - target: {fileID: 1038431027959539785, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
       propertyPath: EnemyID
       value: 00
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038431027959539785, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
+      propertyPath: LifeState.HealthPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1037,6 +1049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LifeState:
     MaxEP: 100
+    NeedToMakeBC: 20
   MovementState:
     WalkSpeed: 3
     DashCooltime: 3
@@ -1309,6 +1322,10 @@ PrefabInstance:
       propertyPath: EnemyID
       value: 00
       objectReference: {fileID: 0}
+    - target: {fileID: 1038431027959539785, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
+      propertyPath: LifeState.HealthPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.58
@@ -1407,6 +1424,10 @@ PrefabInstance:
     - target: {fileID: 1038431027959539785, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
       propertyPath: EnemyID
       value: 00
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038431027959539785, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
+      propertyPath: LifeState.HealthPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1553,6 +1574,10 @@ PrefabInstance:
     - target: {fileID: 1038431027959539785, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
       propertyPath: EnemyID
       value: 00
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038431027959539785, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
+      propertyPath: LifeState.HealthPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1885,6 +1910,10 @@ PrefabInstance:
     - target: {fileID: 1038431027959539785, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
       propertyPath: EnemyID
       value: 00
+      objectReference: {fileID: 0}
+    - target: {fileID: 1038431027959539785, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
+      propertyPath: LifeState.HealthPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
       propertyPath: m_LocalPosition.x

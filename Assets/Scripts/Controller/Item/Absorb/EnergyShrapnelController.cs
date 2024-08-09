@@ -29,7 +29,6 @@ public class EnergyShrapnelController : AbsorbItemController
 
         PlayerManager.Instance.PlayerController.AddCurrentEP(EnergyValue);
         PoolingManager.Instance.EnergyShrapnel.Queue.Enqueue(this);
-        this.gameObject.SetActive(false);
     }
 
     #endregion

@@ -3,24 +3,25 @@ using UnityEngine.UI;
 using UniRx;
 using System.Collections.Generic;
 
-public class PlayerHUDController : UIController
+public class PlayerHUDController : MonoBehaviour
 {
     #region Value
 
-    [Space(20)] [Header("<><><><><> Player HUD")]
+    [Space(20)]
+    [Header("<><><><><> Player HUD")]
 
     [Header("=== Energy")]
-    [SerializeField] private Image AfterImageEP_Img;
-    [SerializeField] private Image ActualEP_Img;
+
+    [SerializeField] private ModifyReductionFocusProgressBar EP;
 
     [Header("=== Bettery")]
 
     [Header("-- Current")]
-    [SerializeField] public Modify_Sprite CurrentEmptyBC;
+    [SerializeField] public ModifySprite CurrentEmptyBC;
 
     [Header("-- Bettery (Image Amount Class)")]
-    [SerializeField] private Modify_ImgAmountAndTxt EmptyBC;
-    [SerializeField] private Modify_ImgAmountAndTxt FullBC;
+    [SerializeField] private ModifyImgAmountAndTxt EmptyBC;
+    [SerializeField] private ModifyImgAmountAndTxt FullBC;
 
     #endregion
 
@@ -37,14 +38,14 @@ public class PlayerHUDController : UIController
         PlayerManager.Instance.PlayerController.CurrentEP
             .Subscribe(_CurrentEP =>
             {
-                UIManager.Instance.PlayerHUDController.SetFillImgSmooth_EP();
+                EP.SetFillImgSmooth_EP();
             })
             .AddTo(gameObject);
 
         PlayerManager.Instance.PlayerController.CurrentBS
             .Subscribe(_CurrentBS =>
             {
-                CurrentEmptyBC.ModifySprite(_CurrentBS);
+                CurrentEmptyBC.Modify_Sprite(_CurrentBS);
             })
             .AddTo(gameObject);
 
@@ -52,6 +53,13 @@ public class PlayerHUDController : UIController
             .Subscribe(_CurrentBC =>
             {
                 EmptyBC.SetAmount(_CurrentBC, 0.5f);
+            })
+            .AddTo(gameObject);
+
+        PlayerManager.Instance.PlayerController.CurrentEC
+            .Subscribe(_CurrentEC =>
+            {
+                FullBC.SetAmount(_CurrentEC, 0.5f);
             })
             .AddTo(gameObject);
     }
@@ -64,18 +72,6 @@ public class PlayerHUDController : UIController
     {
         Offset_Value();
         Offset_UI();
-    }
-
-    #endregion
-
-    #region Energy
-
-    public void SetFillImgSmooth_EP()
-    {
-        base.SetFillImgSmooth(
-            ActualEP_Img, 
-            PlayerManager.Instance.PlayerController.CurrentEP.Value, 
-            PlayerManager.Instance.LifeState.MaxEP);
     }
 
     #endregion

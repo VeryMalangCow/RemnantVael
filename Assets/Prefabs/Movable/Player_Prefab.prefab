@@ -598,20 +598,24 @@ MonoBehaviour:
   AccelerationSpeed: 12
   CurrentDashProcessTime: 0
   CombatMode: 0
+  TargetCombatMode: 0
   IsCasting: 0
   CurrentCastingTime: 0
   CurrentEP:
     value: 0
   CurrentBS:
     value: 0
-  NeedBS_ForMakeBC: 5
+  NeedBS_ForMakeBC: 4
   CurrentBC:
+    value: 0
+  CurrentEC:
     value: 0
   BaseWeapon: {fileID: 1781130902238718875}
   MovementState: 1
   CurrentDashCharge: 0
   CurrentDashCooltime: 0
   DashTargetDir: {x: 0, y: 0}
+  asdzxc: 0
 --- !u!50 &334434472153228344
 Rigidbody2D:
   serializedVersion: 4
@@ -684,6 +688,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: a71f449c-d27b-44c5-85af-49df92e063bc
     m_ActionName: Player/BoostMode[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 49497404-3330-44c8-9df0-891f78999031
+    m_ActionName: Player/ChargeBettery[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dc93cde2-6928-4775-b3fa-db8caea76bc5
+    m_ActionName: Player/ForDebugging[/Keyboard/0]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
