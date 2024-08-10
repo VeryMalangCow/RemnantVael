@@ -64,20 +64,28 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Walk"].performed += Input_Walk;
         PlayerInput.actions["Fire00"].performed += Input_Fire00;
         PlayerInput.actions["Dash"].performed += Input_Dash;
+
         PlayerInput.actions["CombatMode"].performed += Input_CombatMode;
         PlayerInput.actions["BoostMode"].performed += Input_BoostMode;
         PlayerInput.actions["ChargeBettery"].performed += Input_ChargeBettery;
 
+        PlayerInput.actions["Interact"].performed += Input_Interact;
+
         PlayerInput.actions["ForDebugging"].performed += Input_ForDebugging;
     }
+
+
     private void OnDisableInput()
     {
         PlayerInput.actions["Walk"].performed -= Input_Walk;
         PlayerInput.actions["Fire00"].performed -= Input_Fire00;
         PlayerInput.actions["Dash"].performed -= Input_Dash; 
+
         PlayerInput.actions["CombatMode"].performed -= Input_CombatMode;
         PlayerInput.actions["BoostMode"].performed -= Input_BoostMode;
         PlayerInput.actions["ChargeBettery"].performed -= Input_ChargeBettery;
+
+        PlayerInput.actions["Interact"].performed -= Input_Interact;
 
         PlayerInput.actions["ForDebugging"].performed -= Input_ForDebugging;
     }
@@ -148,4 +156,13 @@ public class InputManager : Singleton<InputManager>
     }
 
     #endregion
+
+
+    private void Input_Interact(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            
+        }
+    }
 }

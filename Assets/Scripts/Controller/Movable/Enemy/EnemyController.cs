@@ -29,7 +29,6 @@ public class EnemyController : MovableObject
             if (LifeState.HealthPoint <= 0f)
             {
                 base.IsDead = true;
-                SpawnBS(4);
                 Die();
             }
         }
@@ -43,14 +42,20 @@ public class EnemyController : MovableObject
 
     private void Die()
     {
-        
-
+        SpawnBS(4);
+        SpawnII(1);
         this.gameObject.SetActive(false);
     }
 
     #endregion
 
     #region Spawn Item
+
+    private void SpawnII(int _SpawnRank)
+    {
+        InteractItemController IIC = PoolingManager.Instance.GetOP_InteractableItem();
+        IIC.SetState(this.transform.position, _SpawnRank);
+    }
 
     private void SpawnES(float _Value)
     {

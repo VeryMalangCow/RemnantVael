@@ -1,11 +1,99 @@
+using DG.Tweening;
+using UnityEngine;
 
 public class InteractItemController : ItemController
 {
+    #region Value
+
+    [Space(20)]
+    [Header("<><><><><> Interact Item")]
+
+    [Header("=== Physics")]
+    [SerializeField] private float SpreadPower = 10f;
+    [SerializeField] private float DecSpreadPowerSpeed = 1f;
+    [SerializeField] private float CurrentSpreadPower = 0f;
+    [SerializeField] private Vector2 SettedSpreadDir;
+    private Tween UpDownTween = null;
+
+
+    [Header("=== State")]
+    [SerializeField] private int ThisRank = 1;
+
+    #endregion
+
+    #region Framework
+
+    public void SetState(Vector2 _SpawnPos, int _ItemRank)
+    {
+        base.SetState(_SpawnPos);
+
+        ThisRank = _ItemRank;
+        CurrentSpreadPower = SpreadPower;
+        SettedSpreadDir = SetRandomDir();
+
+        base.Update();
+
+        UpDownTween = TargetObject.transform
+            .DOLocalMoveY((TargetObject.transform.localPosition.y + 0.2f), 1f)
+            .SetEase(Ease.InOutSine)
+            .SetLoops(-1, LoopType.Yoyo);
+
+        this.gameObject.SetActive(true);
+    }
+
+
+    protected override void Update()
+    {
+        Spread(CurrentSpreadPower);
+    }
+
+    #endregion
+
+    #region Spread
+
+    private Vector2 SetRandomDir()
+    {
+        float _X = Random.Range(-1.0f, 1.0f);
+        float _Y = Random.Range(-1.0f, 1.0f);
+        return new Vector2(_X, _Y).normalized;
+    }
+
+    private void Spread(float _SpreadPower)
+    {
+        if (CurrentSpreadPower > 0f)
+        {
+            CurrentSpreadPower -= DecSpreadPowerSpeed * Time.deltaTime;
+            ThisRb.velocity = SettedSpreadDir * _SpreadPower;
+        }
+        else if (CurrentSpreadPower != 0f)
+        {
+            CurrentSpreadPower = 0f;
+            ThisRb.velocity = Vector2.zero;
+        }
+    }
+
+    #endregion
+
+    #region Trigger
+
+    private void OnTriggerEnter2D(Collider2D _Col)
+    {
+        
+    }
+
+    #endregion
+
     #region Interact
 
     protected virtual void Interact()
     {
 
+        CurrentSpreadPower = 0f;
+        SettedSpreadDir = Vector2.zero;
+
+        this.gameObject.SetActive(false);
+        DOTween.Kill(UpDownTween);
+        UpDownTween = null;
     }
 
     #endregion

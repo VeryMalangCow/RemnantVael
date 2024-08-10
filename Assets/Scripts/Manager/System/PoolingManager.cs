@@ -11,6 +11,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [Header("=== Item")]
     [SerializeField] public TTypePooling<EnergyShrapnelController> EnergyShrapnel;
     [SerializeField] public TTypePooling<BetteryShrapnelController> BetteryShrapnel;
+    [SerializeField] public TTypePooling<InteractItemController> InteractItems;
 
     #endregion
 
@@ -42,19 +43,29 @@ public class PoolingManager : Singleton<PoolingManager>
         }
     }
 
+    // Player Bullet
     public PlayerBulletController GetOP_PlayerBullet()
     {
         return GetOP<PlayerBulletController>(PlayerBullet.Prefab, PlayerBullet.ParentTF, PlayerBullet.Queue);
     }
 
+    // Energy Shrapnel
     public EnergyShrapnelController GetOP_EnergyShrapnel()
     {
         return GetOP<EnergyShrapnelController>(EnergyShrapnel.Prefab, EnergyShrapnel.ParentTF, EnergyShrapnel.Queue);
     }
 
+    // Bettery Shrapnel
     public BetteryShrapnelController GetOP_BetteryShrapnel()
     {
         return GetOP<BetteryShrapnelController>(BetteryShrapnel.Prefab, BetteryShrapnel.ParentTF, BetteryShrapnel.Queue);
+    }
+
+    // Interact Item For Each Kind
+    public InteractItemController GetOP_InteractableItem()
+    {
+        //if(T is )
+        return GetOP<InteractItemController>(InteractItems.Prefab, InteractItems.ParentTF, InteractItems.Queue);
     }
 
     #endregion
