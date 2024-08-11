@@ -162,7 +162,7 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            
+            PlayerManager.Instance.PlayerController.TryInteract();
         }
     }
 }

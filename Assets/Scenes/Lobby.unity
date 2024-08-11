@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 653704984}
   - component: {fileID: 653704985}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: '#GameManager'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -690,6 +690,37 @@ MonoBehaviour:
   InteractItems:
     Prefab: {fileID: 8792791415299830887, guid: 0fe28c02c65319a499cbd9bf935f3f8c, type: 3}
     ParentTF: {fileID: 753619580}
+--- !u!1 &694045132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 694045133}
+  m_Layer: 0
+  m_Name: SkillManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &694045133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694045132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1450790950}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &753619579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,6 +1588,7 @@ Transform:
   - {fileID: 1358159541}
   - {fileID: 1939506647}
   - {fileID: 407687441}
+  - {fileID: 694045133}
   m_Father: {fileID: 195290732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1553356941
@@ -1871,6 +1903,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c836ed6938cb5e04595a65b4c5e1613b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemDataList:
+  - ID: 0
+    Name: ExtraCell
+    Description: ExtraCell will be Increase Your EP.
+    Sprite: {fileID: 21300000, guid: 62f9aae4c18384b40be5e2906d7ade71, type: 3}
+  - ID: 1
+    Name: Small Missile
+    Description: if you Fire, Missile will fire with a certain probability.
+    Sprite: {fileID: 21300000, guid: 79ec4f34ced503e44b6f83ba713c0d6d, type: 3}
+  ItemIDList: 
 --- !u!1 &1970976548
 GameObject:
   m_ObjectHideFlags: 0

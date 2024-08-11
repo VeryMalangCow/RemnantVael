@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
 public class PlayerController : MovableObject
 {
@@ -18,6 +20,7 @@ public class PlayerController : MovableObject
     [SerializeField] private float CurrentCastingTime = 0;
 
     [Header("-- Energy")]
+    [SerializeField] public ReactiveProperty<float> MaxEP = new();
     [SerializeField] public ReactiveProperty<float> CurrentEP = new();
 
     [Header("-- Bettery")]
@@ -39,6 +42,10 @@ public class PlayerController : MovableObject
     [SerializeField] private int CurrentDashCharge = 0;
     [SerializeField] private float CurrentDashCooltime = 0;
     [SerializeField] private Vector2 DashTargetDir;
+
+    [Header("-- Interact")]
+    [SerializeField] public List<InteractItemController> CurrentInteractableItemList;
+    [SerializeField] public InteractItemController CurrentInteractableItem;
 
     [Header("=== Skill")]
     [SerializeField] public int asdzxc = 0;
@@ -69,6 +76,7 @@ public class PlayerController : MovableObject
     private void SetStateOffset()
     {
         // Life
+        MaxEP.Value = PlayerManager.Instance.LifeState.MaxEP;
         CurrentEP.Value = PlayerManager.Instance.LifeState.MaxEP;
     }
 
@@ -76,15 +84,23 @@ public class PlayerController : MovableObject
 
     #region Energy
 
+    public void IncreaseMaxEP(float _AddValue)
+    {
+        MaxEP.Value += _AddValue;
+        AddCurrentEP(_AddValue);
+
+        Debug.Log("최대 EP : " + MaxEP.Value);
+    }
+
     public void AddCurrentEP(float _AddValue)
     {
         float result = CurrentEP.Value + _AddValue;
         result = Math.Max(result, 0);
-        result = Math.Min(result, PlayerManager.Instance.LifeState.MaxEP);
-
-        Debug.Log("현재: " + CurrentEP + " / " + "회복량 : " + _AddValue);
+        result = Math.Min(result, this.MaxEP.Value);
 
         CurrentEP.Value = result;
+
+        Debug.Log("현재: " + CurrentEP + " / " + "회복량 : " + _AddValue);
     }
 
     #endregion
@@ -219,6 +235,21 @@ public class PlayerController : MovableObject
 
     #endregion
 
+    #region Interact
+
+    public void TryInteract()
+    {
+        if(CurrentInteractableItem != null)
+        {
+            ItemManager.Instance.GetItemSkill(CurrentInteractableItem.ThisItemData.ID);
+            CurrentInteractableItem.gameObject.SetActive(false);
+            PoolingManager.Instance.InteractItems.Queue.Enqueue(CurrentInteractableItem);
+            CurrentInteractableItem = null;
+        }
+    }
+
+    #endregion
+
     #region Caculate
 
     private void AlwaysCaculate()
@@ -297,6 +328,55 @@ public class PlayerController : MovableObject
         }
     }
     #endregion
+
+    #endregion
+
+    #region Interact
+
+    private void OnTriggerEnter2D(Collider2D _Col)
+    {
+        if(_Col.tag == "Interact" && _Col.gameObject.transform.parent.TryGetComponent(out InteractItemController IIC))
+        {
+            CurrentInteractableItemList.Add(IIC);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D _Col)
+    {
+        if (CurrentInteractableItemList != null)
+        {
+            if (CurrentInteractableItemList.Count == 0)
+            {
+                CurrentInteractableItem = null;
+            }
+            else if (CurrentInteractableItemList.Count == 1)
+            {
+                CurrentInteractableItem = CurrentInteractableItemList[0];
+            }
+            else if (CurrentInteractableItemList.Count > 1)
+            {
+                float shortDis = Vector3.Distance(gameObject.transform.position, CurrentInteractableItemList[0].transform.position);
+                foreach (InteractItemController IC in CurrentInteractableItemList)
+                {
+                    float Distance = Vector3.Distance(gameObject.transform.position, IC.gameObject.transform.position);
+
+                    if (Distance < shortDis) 
+                    {
+                        CurrentInteractableItem = IC;
+                        shortDis = Distance;
+                    }
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D _Col)
+    {
+        if (_Col.tag == "Interact" && _Col.gameObject.transform.parent.TryGetComponent(out InteractItemController IIC))
+        {
+            CurrentInteractableItemList.Remove(IIC);
+        }
+    }
 
     #endregion
 }

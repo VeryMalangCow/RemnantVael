@@ -6,9 +6,6 @@ public class ItemController : HaveShadowThing
 
     [Space(20)] [Header("<><><><><> Item")]
 
-    [Header("=== Data")]
-    [SerializeField] private string ItemID;
-
     [Header("=== Component")]
     [SerializeField] protected Rigidbody2D ThisRb;
 

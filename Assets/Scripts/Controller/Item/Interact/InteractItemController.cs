@@ -5,8 +5,7 @@ public class InteractItemController : ItemController
 {
     #region Value
 
-    [Space(20)]
-    [Header("<><><><><> Interact Item")]
+    [Space(20)] [Header("<><><><><> Interact Item")]
 
     [Header("=== Physics")]
     [SerializeField] private float SpreadPower = 10f;
@@ -17,11 +16,14 @@ public class InteractItemController : ItemController
 
 
     [Header("=== State")]
+    [SerializeField] public ItemData ThisItemData;
     [SerializeField] private int ThisRank = 1;
+    [SerializeField] private SpriteRenderer ThisSR;
+    
 
     #endregion
 
-    #region Framework
+    #region State
 
     public void SetState(Vector2 _SpawnPos, int _ItemRank)
     {
@@ -38,9 +40,17 @@ public class InteractItemController : ItemController
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Yoyo);
 
+        ThisItemData = ItemManager.Instance.GetRandomInteractItem();
+        ThisSR.sprite = ThisItemData.Sprite;
+
         this.gameObject.SetActive(true);
     }
 
+    
+
+    #endregion
+
+    #region Framework
 
     protected override void Update()
     {

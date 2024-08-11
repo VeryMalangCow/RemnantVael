@@ -24,7 +24,7 @@ public class ModifyReductionFocusProgressBar : MonoBehaviour
         SetFillImgSmooth(
             ActualEP_Img,
             PlayerManager.Instance.PlayerController.CurrentEP.Value,
-            PlayerManager.Instance.LifeState.MaxEP);
+            PlayerManager.Instance.PlayerController.MaxEP.Value);
     }
 
     #endregion

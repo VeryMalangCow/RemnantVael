@@ -24,14 +24,5 @@ public class UIManager : Singleton<UIManager>
         { PlayerHUDController = PHUDC; }
     }
 
-    private void Update()
-    {
-        //Test
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            PlayerManager.Instance.PlayerController.AddCurrentEP(-30);
-        }
-    }
-
     #endregion
 }

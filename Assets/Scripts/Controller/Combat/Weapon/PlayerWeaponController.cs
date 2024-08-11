@@ -5,6 +5,7 @@ using UnityEngine.XR;
 public class PlayerWeaponController : WeaponController
 {
     #region Value
+
     [Space(20)]
     [Header("<><><><><> Player")]
 
@@ -24,7 +25,6 @@ public class PlayerWeaponController : WeaponController
 
     [Header("=== Hand")]
     [SerializeField] private List<Satellite> Hands;
-
 
     #endregion
 
@@ -48,6 +48,11 @@ public class PlayerWeaponController : WeaponController
             foreach (Transform TF in BulletSpawnTFs)
             { PBClist.Add(PoolingManager.Instance.GetOP_PlayerBullet()); }
             Fire(PBClist);
+            /* Fire */
+            foreach (IWhen_Fire fire in ItemManager.Instance.iWhen_FireList)
+            {
+                fire.When_Fire();
+            }
         }
     }
     private void OnEnable()
