@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 public class EnemyController : MovableObject
@@ -11,7 +12,31 @@ public class EnemyController : MovableObject
     [SerializeField] private string EnemyID;
 
     [Header("=== State")]
-    [SerializeField] public EnemyLifeState LifeState;
+    [SerializeField] private ReactiveProperty<float> MaxHP = new();
+    [SerializeField] private ReactiveProperty<float> CurrentHP = new();
+
+    [Header("=== UI")]
+    [SerializeField] private ModifyReductionFocusProgressBar HP_ProgressBar;
+
+    #endregion
+
+    #region Fremework
+
+    private void Offset()
+    {
+        CurrentHP.Value = MaxHP.Value;
+    }
+
+    private void Start()
+    {
+        Offset();
+
+        CurrentHP
+            .Subscribe(_CurrentHP =>
+            {
+                HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP.Value);
+            });
+    }
 
     #endregion
 
@@ -24,9 +49,9 @@ public class EnemyController : MovableObject
 
         if(_DamageType == eDamageType.Physics)
         {
-            SetIsDead(LifeState.HealthPoint, _Damage);
-            LifeState.HealthPoint -= _Damage;
-            if (LifeState.HealthPoint <= 0f)
+            SetIsDead(CurrentHP.Value, _Damage);
+            CurrentHP.Value -= _Damage;
+            if (CurrentHP.Value <= 0f)
             {
                 base.IsDead = true;
                 Die();
@@ -78,6 +103,7 @@ public class EnemyController : MovableObject
     }
 
     #endregion
+
 }
 
 

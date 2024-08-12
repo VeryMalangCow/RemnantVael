@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
@@ -13,5 +14,5 @@ public class EnemyManager : Singleton<EnemyManager>
 [System.Serializable]
 public class EnemyLifeState
 {
-    [SerializeField] public float HealthPoint = 100;
+    
 }

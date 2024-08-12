@@ -38,7 +38,9 @@ public class PlayerHUDController : MonoBehaviour
         PlayerManager.Instance.PlayerController.CurrentEP
             .Subscribe(_CurrentEP =>
             {
-                EP.SetFillImgSmooth_ThisImg();
+                EP.SetFillImgSmooth(
+                    PlayerManager.Instance.PlayerController.CurrentEP.Value,
+                    PlayerManager.Instance.PlayerController.MaxEP.Value);
             })
             .AddTo(gameObject);
 

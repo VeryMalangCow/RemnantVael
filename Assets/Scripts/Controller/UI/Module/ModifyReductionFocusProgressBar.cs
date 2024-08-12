@@ -5,27 +5,22 @@ using UnityEngine.UI;
 
 public class ModifyReductionFocusProgressBar : MonoBehaviour
 {
+    #region Value
+
     [SerializeField] private Image AfterImageEP_Img;
     [SerializeField] private Image ActualEP_Img;
 
-
+    #endregion
 
     #region FillAmount
 
-    protected void SetFillImgSmooth(Image _Img, float _CurrentValue, float _MaxValue)
+    public void SetFillImgSmooth(float _CurrentValue, float _MaxValue)
     {
         float fillValue = _CurrentValue / _MaxValue;
 
-        DOTween.Kill(_Img.fillAmount);
-        _Img.DOFillAmount(fillValue, 0.1f);
-    }
+        DOTween.Kill(ActualEP_Img.fillAmount);
+        ActualEP_Img.DOFillAmount(fillValue, 0.1f);
 
-    public void SetFillImgSmooth_ThisImg()
-    {
-        SetFillImgSmooth(
-            ActualEP_Img,
-            PlayerManager.Instance.PlayerController.CurrentEP.Value,
-            PlayerManager.Instance.PlayerController.MaxEP.Value);
         StartCoroutine(SetFillImgSmooth_AfterImg());
     }
 
