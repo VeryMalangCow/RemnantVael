@@ -130,7 +130,10 @@ public class InputManager : Singleton<InputManager>
 
     private void Input_BoostMode(InputAction.CallbackContext _InputValue)
     {
-        
+        if (_InputValue.ReadValueAsButton())
+        {
+            
+        }
     }
 
     #endregion

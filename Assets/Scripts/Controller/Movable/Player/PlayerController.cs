@@ -213,6 +213,16 @@ public class PlayerController : MovableObject
         StartCasting();
     }
 
+    public void CanChange_BoostModeCheck()
+    {
+        if (!CanChange())
+        { return; }
+
+
+
+        StartCasting();
+    }
+
     // + Enough EP | Enough BC
     public void CanChange_ChargeBettery()
     {
