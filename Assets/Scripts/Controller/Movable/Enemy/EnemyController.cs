@@ -8,13 +8,16 @@ public class EnemyController : MovableObject
     [Space(20)]
     [Header("<><><><><> Enemy")]
 
+    [Space(10)]
     [Header("=== Data")]
     [SerializeField] private string EnemyID;
 
+    [Space(10)]
     [Header("=== State")]
     [SerializeField] private ReactiveProperty<float> MaxHP = new();
     [SerializeField] private ReactiveProperty<float> CurrentHP = new();
 
+    [Space(10)]
     [Header("=== UI")]
     [SerializeField] private ModifyReductionFocusProgressBar HP_ProgressBar;
 

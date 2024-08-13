@@ -7,14 +7,17 @@ public class MovableObject : HaveShadowThing
     [Space(20)]
     [Header("<><><><><> Movable Object")]
 
+    [Space(10)]
     [Header("=== State")]
     [SerializeField] protected bool IsDead = false;
 
+    [Space(10)]
     [Header("=== Component")]
     [SerializeField] protected Rigidbody2D ThisRb;
     [SerializeField] public SpriteRenderer ThisSr;
     [SerializeField] private List<SpriteRenderer> ThisExtraSrs;
 
+    [Space(10)]
     [Header("=== Movement")]
     [Header("-- Walk")]
     [SerializeField] protected float AccelerationSpeed = 12;

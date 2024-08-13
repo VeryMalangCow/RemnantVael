@@ -5,10 +5,17 @@ using UnityEngine.UI;
 
 public class ModifySprite : MonoBehaviour
 {
+    #region Value
+
+    [Space(10)]
+    [Header("=== Component")]
     [SerializeField] public Image Img;
     [SerializeField] public Image CompleteImg;
     [SerializeField] public List<Sprite> LevelSpr;
+
     Sequence DotweenSeq;
+
+    #endregion
 
     public void Offset()
     {

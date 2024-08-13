@@ -4,8 +4,10 @@ public class BetteryShrapnelController : AbsorbItemController
 {
     #region Value
 
-    [Space(20)] [Header("<><><><><> Field Bettery")]
+    [Space(20)] 
+    [Header("<><><><><> Field Bettery")]
 
+    [Space(10)]
     [Header("=== State")]
     [SerializeField] private int BetteryValue = 1;
 

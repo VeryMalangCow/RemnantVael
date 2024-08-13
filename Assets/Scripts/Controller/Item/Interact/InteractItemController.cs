@@ -5,8 +5,10 @@ public class InteractItemController : ItemController
 {
     #region Value
 
-    [Space(20)] [Header("<><><><><> Interact Item")]
+    [Space(20)] 
+    [Header("<><><><><> Interact Item")]
 
+    [Space(10)]
     [Header("=== Physics")]
     [SerializeField] private float SpreadPower = 10f;
     [SerializeField] private float DecSpreadPowerSpeed = 1f;
@@ -14,7 +16,7 @@ public class InteractItemController : ItemController
     [SerializeField] private Vector2 SettedSpreadDir;
     private Tween UpDownTween = null;
 
-
+    [Space(10)]
     [Header("=== State")]
     [SerializeField] public ItemData ThisItemData;
     [SerializeField] private int ThisRank = 1;

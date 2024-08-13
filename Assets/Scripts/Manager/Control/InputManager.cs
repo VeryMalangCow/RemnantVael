@@ -67,13 +67,13 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["CombatMode"].performed += Input_CombatMode;
         PlayerInput.actions["BoostMode"].performed += Input_BoostMode;
+        PlayerInput.actions["UnBoostMode"].performed += Input_UnBoostMode;
         PlayerInput.actions["ChargeBettery"].performed += Input_ChargeBettery;
 
         PlayerInput.actions["Interact"].performed += Input_Interact;
 
         PlayerInput.actions["ForDebugging"].performed += Input_ForDebugging;
     }
-
 
     private void OnDisableInput()
     {
@@ -83,6 +83,7 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["CombatMode"].performed -= Input_CombatMode;
         PlayerInput.actions["BoostMode"].performed -= Input_BoostMode;
+        PlayerInput.actions["UnBoostMode"].performed -= Input_UnBoostMode;
         PlayerInput.actions["ChargeBettery"].performed -= Input_ChargeBettery;
 
         PlayerInput.actions["Interact"].performed -= Input_Interact;
@@ -124,7 +125,7 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            PlayerManager.Instance.PlayerController.CanChange_CombatModeCheck();
+            PlayerManager.Instance.PlayerController.CanChange_CombatModeCheck(0.5f);
         }
     }
 
@@ -132,7 +133,15 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            
+            PlayerManager.Instance.PlayerController.CanChange_BoostModeCheck(0.25f);
+        }
+    }
+
+    private void Input_UnBoostMode(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            PlayerManager.Instance.PlayerController.CanChange_UnBoostModeCheck(0.1f);
         }
     }
 
@@ -154,7 +163,7 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            PlayerManager.Instance.PlayerController.CanChange_ChargeBettery();
+            PlayerManager.Instance.PlayerController.CanChange_ChargeBettery(1f);
         }
     }
 

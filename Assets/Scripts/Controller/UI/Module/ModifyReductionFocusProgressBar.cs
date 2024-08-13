@@ -7,6 +7,8 @@ public class ModifyReductionFocusProgressBar : MonoBehaviour
 {
     #region Value
 
+    [Space(10)]
+    [Header("=== Component")]
     [SerializeField] private Image AfterImageEP_Img;
     [SerializeField] private Image ActualEP_Img;
 

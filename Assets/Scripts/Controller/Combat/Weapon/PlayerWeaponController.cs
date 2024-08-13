@@ -9,21 +9,25 @@ public class PlayerWeaponController : WeaponController
     [Space(20)]
     [Header("<><><><><> Player")]
 
+    [Space(10)]
     [Header("=== Player")]
     [SerializeField] private SpriteRenderer PlayerSR;
 
+    [Space(10)]
     [Header("=== Input")]
     [SerializeField] public bool IsInputed = false;
 
-    [Header("=== Roll")]
+    [Space(10)]
+    [Header("=== Hand Things")]
+    [Header("-- Roll")]
     [SerializeField] private float DefualtRoll = -85f;
     [SerializeField] private Transform RollTF;
 
-    [Header("=== Pitch")]
+    [Header("-- Pitch")]
     [SerializeField] private float rotateSpeed = 4f;
     [SerializeField] private Transform PitchTF;
 
-    [Header("=== Hand")]
+    [Header("-- Hand")]
     [SerializeField] private List<Satellite> Hands;
 
     #endregion

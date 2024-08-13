@@ -5,14 +5,18 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     #region Value
-    [Space(20)] [Header("<><><><><> Weapon")]
 
+    [Space(20)] 
+    [Header("<><><><><> Weapon")]
+
+    [Space(10)]
     [Header("=== State")]
     [SerializeField] public BulletState ThisBulletState_forSendData;
     [SerializeField] private float ROF;
     [SerializeField] private float SpreadMaxAngle = 0;
     [SerializeField] protected float CurrentDelayROF = 0;
 
+    [Space(10)]
     [Header("=== GunPos")]
     [SerializeField] protected List<Transform> BulletSpawnTFs;
 

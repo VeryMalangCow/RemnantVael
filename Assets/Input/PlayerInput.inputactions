@@ -51,6 +51,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "UnBoostMode",
+                    "type": "Value",
+                    "id": "72afe0eb-af05-4892-9234-683915ae4f5d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "ChargeBettery",
                     "type": "Button",
                     "id": "49497404-3330-44c8-9df0-891f78999031",
@@ -60,18 +69,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ForDebugging",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "dc93cde2-6928-4775-b3fa-db8caea76bc5",
+                    "id": "4142ff3d-2695-4c66-a3af-a6f8b5081f1c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "ForDebugging",
                     "type": "Button",
-                    "id": "4142ff3d-2695-4c66-a3af-a6f8b5081f1c",
+                    "id": "dc93cde2-6928-4775-b3fa-db8caea76bc5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -170,7 +179,7 @@
                 {
                     "name": "",
                     "id": "6727a1ed-3962-40d0-822b-70b647660d98",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -191,6 +200,17 @@
                 },
                 {
                     "name": "",
+                    "id": "23de57f1-81ed-4e35-bf9f-bcf1b3439294",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8506f55b-fbc2-423e-841c-cde73ca87a74",
                     "path": "<Keyboard>/0",
                     "interactions": "",
@@ -202,12 +222,12 @@
                 },
                 {
                     "name": "",
-                    "id": "23de57f1-81ed-4e35-bf9f-bcf1b3439294",
-                    "path": "<Keyboard>/e",
+                    "id": "51255569-7576-4498-93ad-02c39d2eb9d5",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Interact",
+                    "action": "UnBoostMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

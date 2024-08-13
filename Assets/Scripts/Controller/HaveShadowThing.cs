@@ -3,8 +3,11 @@ using UnityEngine;
 public class HaveShadowThing : MonoBehaviour
 {
     #region Value
-    [Space(20)] [Header("<><><><><> Have Shadow Thing")]
 
+    [Space(20)] 
+    [Header("<><><><><> Have Shadow Thing")]
+
+    [Space(10)]
     [Header("=== Shadow")]
     [SerializeField] public GameObject TargetObject;
     [SerializeField] private float TargetRange = 0.4f;

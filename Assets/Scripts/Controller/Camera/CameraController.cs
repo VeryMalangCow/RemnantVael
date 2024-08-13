@@ -4,6 +4,7 @@ public class CameraController : Singleton<CameraController>
 {
     #region Value
 
+    [Space(10)]
     [Header("=== Move")]
     [SerializeField] private Transform TargetTF;
     [SerializeField] private float FollowSpeed = 4f;

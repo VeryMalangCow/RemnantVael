@@ -10,12 +10,12 @@ public class PlayerHUDController : MonoBehaviour
     [Space(20)]
     [Header("<><><><><> Player HUD")]
 
+    [Space(10)]
     [Header("=== Energy")]
-
     [SerializeField] private ModifyReductionFocusProgressBar EP;
 
+    [Space(10)]
     [Header("=== Bettery")]
-
     [Header("-- Current")]
     [SerializeField] public ModifySprite CurrentEmptyBC;
 

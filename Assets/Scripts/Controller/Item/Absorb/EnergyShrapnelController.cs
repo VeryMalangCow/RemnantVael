@@ -4,8 +4,10 @@ public class EnergyShrapnelController : AbsorbItemController
 {
     #region Value
 
-    [Space(20)] [Header("<><><><><> Energy Shrapnel")]
+    [Space(20)] 
+    [Header("<><><><><> Energy Shrapnel")]
 
+    [Space(10)]
     [Header("=== State")]
     [SerializeField] private float EnergyValue = 1f;
 

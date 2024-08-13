@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using static UnityEditor.IMGUI.Controls.PrimitiveBoundsHandle;
 
 public class PlayerController : MovableObject
 {
@@ -11,6 +10,7 @@ public class PlayerController : MovableObject
     [Space(20)]
     [Header("<><><><><> Player")]
 
+    [Space(10)]
     [Header("=== Combat")]
 
     [Header("-- State")]
@@ -18,10 +18,12 @@ public class PlayerController : MovableObject
     [SerializeField] private eCombatMode TargetCombatMode = eCombatMode.Physics;
     [SerializeField] public bool IsCasting = false;
     [SerializeField] private float CurrentCastingTime = 0;
+    [SerializeField] private float TargetCastingTime = 0;
 
     [Header("-- Energy")]
     [SerializeField] public ReactiveProperty<float> MaxEP = new();
     [SerializeField] public ReactiveProperty<float> CurrentEP = new();
+    [SerializeField] public ReactiveProperty<float> RegenerationEP = new();
 
     [Header("-- Bettery")]
     [SerializeField] public ReactiveProperty<int> CurrentBS = new();
@@ -32,23 +34,27 @@ public class PlayerController : MovableObject
     [Header("-- Weapon")]
     [SerializeField] public PlayerWeaponController BaseWeapon;
 
-
+    [Space(10)]
     [Header("=== Movement")]
 
     [Header("-- State")]
     [SerializeField] protected eMovementState MovementState = eMovementState.IdleOrWalk;
 
     [Header("-- Dash")]
-    [SerializeField] private int CurrentDashCharge = 0;
     [SerializeField] private float CurrentDashCooltime = 0;
+    [SerializeField] private float NeedEP_ForDash = 5f;
     [SerializeField] private Vector2 DashTargetDir;
 
-    [Header("-- Interact")]
+    [Space(10)]
+    [Header("=== Interact")]
     [SerializeField] public List<InteractItemController> CurrentInteractableItemList;
     [SerializeField] public InteractItemController CurrentInteractableItem;
 
+    [Space(10)]
     [Header("=== Skill")]
-    [SerializeField] public int asdzxc = 0;
+    [SerializeField] private int TargetBoostRank = 0; 
+    [SerializeField] private int MaxBoostRank = 4;
+    [SerializeField] private ReactiveProperty<int> CurrentBoostRank = new();
 
     private delegate void SkillDele();
     private SkillDele ReservationSkillDele = null;
@@ -61,6 +67,12 @@ public class PlayerController : MovableObject
     private void Awake()
     {
         SetStateOffset();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        AddCurrentEP(RegenerationEP.Value * Time.deltaTime);
     }
 
     private void FixedUpdate()
@@ -78,6 +90,7 @@ public class PlayerController : MovableObject
         // Life
         MaxEP.Value = PlayerManager.Instance.LifeState.MaxEP;
         CurrentEP.Value = PlayerManager.Instance.LifeState.MaxEP;
+        RegenerationEP.Value = PlayerManager.Instance.LifeState.RegenerationEP;
     }
 
     #endregion
@@ -163,13 +176,13 @@ public class PlayerController : MovableObject
 
     public void CanDashCheck()
     {
-        if (MovementState == eMovementState.Dash || CurrentDashCharge <= 0)
+        if (MovementState == eMovementState.Dash || NeedEP_ForDash >= CurrentEP.Value)
         {
             return;
         }
 
         DashTargetDir = InputManager.Instance.DirFromPlayerPos.normalized;
-        CurrentDashCharge--;
+        CurrentEP.Value -= NeedEP_ForDash;
         MovementState = eMovementState.Dash;
     }
 
@@ -177,7 +190,7 @@ public class PlayerController : MovableObject
 
     #region About Casting
 
-    //Condition : Idle or Walk | No Casting Now 
+    // Condition : Idle or Walk | No Casting Now 
     private bool CanChange()
     {
         if (MovementState != eMovementState.IdleOrWalk || IsCasting)
@@ -191,7 +204,7 @@ public class PlayerController : MovableObject
     }
 
     // + None
-    public void CanChange_CombatModeCheck()
+    public void CanChange_CombatModeCheck(float _CastingTime)
     {
         if (!CanChange()) 
         { return; } 
@@ -210,21 +223,33 @@ public class PlayerController : MovableObject
                 break;
         }
 
-        StartCasting();
+        StartCasting(_CastingTime);
     }
 
-    public void CanChange_BoostModeCheck()
+    // + Not over the Max Boost Level
+    public void CanChange_BoostModeCheck(float _CastingTime)
     {
-        if (!CanChange())
+        if (!CanChange() || TargetBoostRank >= MaxBoostRank)
         { return; }
 
+        TargetBoostRank++;
+        
+        StartCasting(_CastingTime);
+    }
 
+    // + BoostLevel != 0
+    public void CanChange_UnBoostModeCheck(float _CastingTime)
+    {
+        if (!CanChange() || CurrentBoostRank.Value <= 0)
+        { return; }
 
-        StartCasting();
+        TargetBoostRank = 0;
+
+        StartCasting(_CastingTime);
     }
 
     // + Enough EP | Enough BC
-    public void CanChange_ChargeBettery()
+    public void CanChange_ChargeBettery(float _CastingTime)
     {
         if (!CanChange() ||
             PlayerManager.Instance.LifeState.NeedToMakeBC >= this.CurrentEP.Value ||
@@ -233,11 +258,13 @@ public class PlayerController : MovableObject
 
         ReservationSkillDele = ChargeBettery;
 
-        StartCasting();
+        StartCasting(_CastingTime);
     }
 
-    public void StartCasting()
+
+    public void StartCasting(float _CastingTime)
     {
+        TargetCastingTime = _CastingTime;
         IsCasting = true;
         MovementState = eMovementState.Casting;
         ThisRb.velocity = Vector2.zero;
@@ -270,14 +297,9 @@ public class PlayerController : MovableObject
 
     private void DashCaculate()
     {
-        if (CurrentDashCharge >= PlayerManager.Instance.MovementState.MaxDashCharge)
-        { return; }
-
         if (CurrentDashCooltime >= PlayerManager.Instance.MovementState.DashCooltime)
         {
-            CurrentDashCharge++;
-            CurrentDashCooltime = 0f;
-            Debug.Log("´ë½¬·® : " + CurrentDashCharge);
+            CurrentDashCooltime = PlayerManager.Instance.MovementState.DashCooltime;
         }
         else
         {
@@ -289,7 +311,7 @@ public class PlayerController : MovableObject
     {
         if (IsCasting)
         {
-            if(CurrentCastingTime < PlayerManager.Instance.UtilityState.MaxCastingTime)
+            if(CurrentCastingTime < TargetCastingTime)
             {
                 CurrentCastingTime += Time.deltaTime;
             }
@@ -301,6 +323,7 @@ public class PlayerController : MovableObject
 
                 If_CombatMode();
                 If_Skill();
+                If_Boost();
             }
         }
     }
@@ -337,6 +360,15 @@ public class PlayerController : MovableObject
             ReservationSkillDele = null;
         }
     }
+
+    private void If_Boost()
+    {
+        if(CurrentBoostRank.Value != TargetBoostRank)
+        {
+            CurrentBoostRank.Value = TargetBoostRank;
+        }
+    }
+
     #endregion
 
     #endregion

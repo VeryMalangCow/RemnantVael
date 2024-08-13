@@ -3,12 +3,15 @@ using UnityEngine;
 public class BulletController : HaveShadowThing
 {
     #region Value
+    [Space(20)]
     [Header("<><><><><> Bullet Controller")]
 
+    [Space(10)]
     [Header("=== State")]
     [SerializeField] protected BulletState BulletState;
     [SerializeField] protected float CurrentAliveTime = 0;
 
+    [Space(10)]
     [Header("=== Component")]
     [SerializeField] private Rigidbody2D ThisRb;
 

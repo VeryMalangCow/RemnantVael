@@ -4,8 +4,10 @@ public class ItemController : HaveShadowThing
 {
     #region Value
 
-    [Space(20)] [Header("<><><><><> Item")]
+    [Space(20)] 
+    [Header("<><><><><> Item")]
 
+    [Space(10)]
     [Header("=== Component")]
     [SerializeField] protected Rigidbody2D ThisRb;
 

@@ -4,11 +4,14 @@ public class AbsorbItemController : ItemController
 {
     #region Value
 
-    [Space(20)] [Header("<><><><><> Absorb")]
+    [Space(20)] 
+    [Header("<><><><><> Absorb")]
 
+    [Space(10)]
     [Header("=== Target")]
     [SerializeField] GameObject TargetGO;
 
+    [Space(10)]
     [Header("=== Absorb")]
     [SerializeField] private float AbsorbStartPower = 300f;
     [SerializeField] private float AbsorbPower = 5f;

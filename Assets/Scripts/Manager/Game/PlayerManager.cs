@@ -7,7 +7,6 @@ public class PlayerManager : Singleton<PlayerManager>
     [Header("=== State")]
     [SerializeField] public PlayerLifeState LifeState;
     [SerializeField] public PlayerMovementState MovementState;
-    [SerializeField] public PlayerUtilityState UtilityState;
 
     [Header("=== Const State")]
     [SerializeField] public const float fireMinDisLimit = 4;
@@ -40,8 +39,9 @@ public class PlayerManager : Singleton<PlayerManager>
 [System.Serializable]
 public class PlayerLifeState
 {
-    [SerializeField] public float MaxEP = 100;
-    [SerializeField] public float NeedToMakeBC = 20;
+    [SerializeField] public float MaxEP = 100f;
+    [SerializeField] public float NeedToMakeBC = 20f;
+    [SerializeField] public float RegenerationEP = 0.25f; // {er Second
 }
 
 [System.Serializable]
@@ -53,10 +53,4 @@ public class PlayerMovementState
     [SerializeField] public int MaxDashCharge = 2;
     [SerializeField] public float DashSpeed = 7f;
     [SerializeField] public float DashDur = 0.2f;
-}
-
-[System.Serializable]
-public class PlayerUtilityState
-{
-    [SerializeField] public float MaxCastingTime = 0.85f;
 }

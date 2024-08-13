@@ -6,12 +6,18 @@ using UnityEngine.UI;
 
 public class ModifyImgAmountAndTxt : MonoBehaviour
 {
+    #region Value
+
+    [Space(10)]
+    [Header("=== Component")]
     [SerializeField] public Transform Img_ParentTF;
     [SerializeField] public List<Image> Img_List;
     [SerializeField] public Sprite ThisSprite;
     [SerializeField] public TMP_Text Txt_ExtraAmount;
 
     Sequence DotweenSeq;
+
+    #endregion
 
     public void Offset()
     {
