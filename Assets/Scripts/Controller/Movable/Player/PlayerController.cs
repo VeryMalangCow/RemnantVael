@@ -23,7 +23,6 @@ public class PlayerController : MovableObject
     [Header("-- Energy")]
     [SerializeField] public ReactiveProperty<float> MaxEP = new();
     [SerializeField] public ReactiveProperty<float> CurrentEP = new();
-    [SerializeField] public ReactiveProperty<float> RegenerationEP = new();
 
     [Header("-- Bettery")]
     [SerializeField] public ReactiveProperty<int> CurrentBS = new();
@@ -54,11 +53,14 @@ public class PlayerController : MovableObject
     [Header("=== Skill")]
     [SerializeField] private int TargetBoostRank = 0; 
     [SerializeField] private int MaxBoostRank = 4;
-    [SerializeField] private ReactiveProperty<int> CurrentBoostRank = new();
+    [SerializeField] public ReactiveProperty<int> CurrentBoostRank = new();
 
     private delegate void SkillDele();
     private SkillDele ReservationSkillDele = null;
 
+    [Space(10)]
+    [Header("=== Main Sprite")]
+    [SerializeField] private MakeAfterImage MakeAfterImage;
 
     #endregion
 
@@ -72,7 +74,7 @@ public class PlayerController : MovableObject
     protected override void Update()
     {
         base.Update();
-        AddCurrentEP(RegenerationEP.Value * Time.deltaTime);
+        ItemManager.Instance.ActiveSkill_Always(CurrentBoostRank.Value);
     }
 
     private void FixedUpdate()
@@ -90,7 +92,6 @@ public class PlayerController : MovableObject
         // Life
         MaxEP.Value = PlayerManager.Instance.LifeState.MaxEP;
         CurrentEP.Value = PlayerManager.Instance.LifeState.MaxEP;
-        RegenerationEP.Value = PlayerManager.Instance.LifeState.RegenerationEP;
     }
 
     #endregion
@@ -113,7 +114,6 @@ public class PlayerController : MovableObject
 
         CurrentEP.Value = result;
 
-        Debug.Log("현재: " + CurrentEP + " / " + "회복량 : " + _AddValue);
     }
 
     #endregion
@@ -171,6 +171,7 @@ public class PlayerController : MovableObject
         if (CurrentDashProcessTime >= _TargetDashProcessTime)
         {
             MovementState = eMovementState.IdleOrWalk;
+            MakeAfterImage.EndGen();
         }
     }
 
@@ -181,6 +182,7 @@ public class PlayerController : MovableObject
             return;
         }
 
+        MakeAfterImage.StartGen(0.03f);
         DashTargetDir = InputManager.Instance.DirFromPlayerPos.normalized;
         CurrentEP.Value -= NeedEP_ForDash;
         MovementState = eMovementState.Dash;

@@ -11,6 +11,7 @@ public class PlayerWeaponController : WeaponController
 
     [Space(10)]
     [Header("=== Player")]
+    [SerializeField] private PlayerController PlayerController;
     [SerializeField] private SpriteRenderer PlayerSR;
 
     [Space(10)]
@@ -52,11 +53,8 @@ public class PlayerWeaponController : WeaponController
             foreach (Transform TF in BulletSpawnTFs)
             { PBClist.Add(PoolingManager.Instance.GetOP_PlayerBullet()); }
             Fire(PBClist);
-            /* Fire */
-            foreach (IWhen_Fire fire in ItemManager.Instance.iWhen_FireList)
-            {
-                fire.When_Fire();
-            }
+
+            ItemManager.Instance.ActiveSkill_Fire(PlayerController.CurrentBoostRank.Value);
         }
     }
     private void OnEnable()

@@ -9,10 +9,3 @@ public class EnemyManager : Singleton<EnemyManager>
     #endregion
 
 }
-
-
-[System.Serializable]
-public class EnemyLifeState
-{
-    
-}

@@ -141,6 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3593022156122891462}
   - component: {fileID: 8514484191356774825}
+  - component: {fileID: 1875528104640140175}
   m_Layer: 0
   m_Name: Target
   m_TagString: Player
@@ -204,7 +205,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1000
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -2135585597343286014, guid: 4b2a04fdbe0ef4d8da8f90eaca817cd1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -215,6 +216,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1875528104640140175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2615476070570729077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1599bb6126addc479ff42e91777e35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisSR: {fileID: 8514484191356774825}
+  StayDur: 1
+  IsOn: 0
+  CurrentGenTime: 0
+  DelayGenTime: 0
 --- !u!1 &2632657534027564969
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +422,7 @@ MonoBehaviour:
   BulletSpawnTFs:
   - {fileID: 4586805314071208296}
   - {fileID: 5980481930123788499}
+  PlayerController: {fileID: 8810927924693203331}
   PlayerSR: {fileID: 8514484191356774825}
   IsInputed: 0
   DefualtRoll: -45
@@ -590,6 +609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 2615476070570729077}
   TargetRange: 0.4
+  IsDead: 0
   ThisRb: {fileID: 334434472153228344}
   ThisSr: {fileID: 8514484191356774825}
   ThisExtraSrs:
@@ -601,6 +621,9 @@ MonoBehaviour:
   TargetCombatMode: 0
   IsCasting: 0
   CurrentCastingTime: 0
+  TargetCastingTime: 0
+  MaxEP:
+    value: 0
   CurrentEP:
     value: 0
   CurrentBS:
@@ -612,10 +635,16 @@ MonoBehaviour:
     value: 0
   BaseWeapon: {fileID: 1781130902238718875}
   MovementState: 1
-  CurrentDashCharge: 0
   CurrentDashCooltime: 0
+  NeedEP_ForDash: 5
   DashTargetDir: {x: 0, y: 0}
-  asdzxc: 0
+  CurrentInteractableItemList: []
+  CurrentInteractableItem: {fileID: 0}
+  TargetBoostRank: 0
+  MaxBoostRank: 4
+  CurrentBoostRank:
+    value: 0
+  MakeAfterImage: {fileID: 1875528104640140175}
 --- !u!50 &334434472153228344
 Rigidbody2D:
   serializedVersion: 4
@@ -696,6 +725,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: dc93cde2-6928-4775-b3fa-db8caea76bc5
     m_ActionName: Player/ForDebugging[/Keyboard/0]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 72afe0eb-af05-4892-9234-683915ae4f5d
+    m_ActionName: Player/UnBoostMode[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4142ff3d-2695-4c66-a3af-a6f8b5081f1c
+    m_ActionName: Player/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

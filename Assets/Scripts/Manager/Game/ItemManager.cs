@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ItemManager : Singleton<ItemManager>
 {
@@ -12,7 +11,7 @@ public class ItemManager : Singleton<ItemManager>
     [Header("=== Gotten Item")]
     [SerializeField] private List<int> ItemIDList;
     private List<PassiveSkill> PISList = new List<PassiveSkill>();
-    private List<IWhen_Get> iWhen_GetList = new List<IWhen_Get>();
+    private List<IWhen_Always> iWhen_AlwaysList = new List<IWhen_Always>();
     public List<IWhen_Fire> iWhen_FireList = new List<IWhen_Fire>();
 
     #endregion
@@ -36,8 +35,9 @@ public class ItemManager : Singleton<ItemManager>
                 ItemIDList.Add(PIS.ThisItemID);
                 PISList.Add(PIS);
 
-                if (PIS is IWhen_Get iGet)
-                { iWhen_GetList.Add(iGet); /* Get */ iGet.When_Get(); }
+                if (PIS is IWhen_Always iGet)
+                { iWhen_AlwaysList.Add(iGet); }
+
                 if (PIS is IWhen_Fire iFire)
                 { iWhen_FireList.Add(iFire); }
 
@@ -55,6 +55,26 @@ public class ItemManager : Singleton<ItemManager>
         else
         {
             return true;
+        }
+    }
+
+    #endregion
+
+    #region Interface
+
+    public void ActiveSkill_Always(int _BoostRank)
+    {
+        foreach (IWhen_Always fire in iWhen_AlwaysList)
+        {
+            fire.When_Always(_BoostRank);
+        }
+    }
+
+    public void ActiveSkill_Fire(int _BoostRank)
+    {
+        foreach (IWhen_Fire fire in iWhen_FireList)
+        {
+            fire.When_Fire(_BoostRank);
         }
     }
 

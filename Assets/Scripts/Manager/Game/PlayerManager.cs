@@ -41,7 +41,6 @@ public class PlayerLifeState
 {
     [SerializeField] public float MaxEP = 100f;
     [SerializeField] public float NeedToMakeBC = 20f;
-    [SerializeField] public float RegenerationEP = 0.25f; // {er Second
 }
 
 [System.Serializable]

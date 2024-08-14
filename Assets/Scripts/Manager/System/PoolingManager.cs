@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PoolingManager : Singleton<PoolingManager>
 {
@@ -12,6 +13,9 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<EnergyShrapnelController> EnergyShrapnel;
     [SerializeField] public TTypePooling<BetteryShrapnelController> BetteryShrapnel;
     [SerializeField] public TTypePooling<InteractItemController> InteractItems;
+
+    [Header("=== After Img")]
+    [SerializeField] public TTypePooling<SpriteRenderer> PlayerAfterImgs;
 
     #endregion
 
@@ -64,10 +68,14 @@ public class PoolingManager : Singleton<PoolingManager>
     // Interact Item For Each Kind
     public InteractItemController GetOP_InteractableItem()
     {
-        //if(T is )
         return GetOP<InteractItemController>(InteractItems.Prefab, InteractItems.ParentTF, InteractItems.Queue);
     }
 
+    // After Image
+    public SpriteRenderer GetOP_AfterImg()
+    {
+        return GetOP<SpriteRenderer>(PlayerAfterImgs.Prefab, PlayerAfterImgs.ParentTF, PlayerAfterImgs.Queue);
+    }
     #endregion
 }
 
