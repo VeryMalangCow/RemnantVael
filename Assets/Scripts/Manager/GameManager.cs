@@ -108,3 +108,8 @@ public enum eEnemy
 {
     Normal, Elite, Boss
 }
+
+public interface IInteract
+{
+    public void Interact();
+}

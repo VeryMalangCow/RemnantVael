@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class InteractItemController : ItemController
+public class InteractItemController : ItemController, IInteract
 {
     #region Value
 
@@ -22,7 +22,6 @@ public class InteractItemController : ItemController
     [SerializeField] private int ThisRank = 1;
     [SerializeField] private SpriteRenderer ThisSR;
     
-
     #endregion
 
     #region State
@@ -47,8 +46,6 @@ public class InteractItemController : ItemController
 
         this.gameObject.SetActive(true);
     }
-
-    
 
     #endregion
 
@@ -86,22 +83,16 @@ public class InteractItemController : ItemController
 
     #endregion
 
-    #region Trigger
-
-    private void OnTriggerEnter2D(Collider2D _Col)
-    {
-        
-    }
-
-    #endregion
 
     #region Interact
 
-    protected virtual void Interact()
+    public void Interact()
     {
-
         CurrentSpreadPower = 0f;
         SettedSpreadDir = Vector2.zero;
+
+        ItemManager.Instance.GetItemSkill(this.ThisItemData.ID);
+        PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
 
         this.gameObject.SetActive(false);
         DOTween.Kill(UpDownTween);

@@ -46,8 +46,9 @@ public class PlayerController : MovableObject
 
     [Space(10)]
     [Header("=== Interact")]
-    [SerializeField] public List<InteractItemController> CurrentInteractableItemList;
-    [SerializeField] public InteractItemController CurrentInteractableItem;
+    [SerializeField] public List<GameObject> CurrentInteractableGOList;
+    [SerializeField] public IInteract CurrentInteractable;
+    //[SerializeField] public 
 
     [Space(10)]
     [Header("=== Skill")]
@@ -182,7 +183,7 @@ public class PlayerController : MovableObject
             return;
         }
 
-        MakeAfterImage.StartGen(0.03f);
+        MakeAfterImage.StartGen(0.03f, 0.5f);
         DashTargetDir = InputManager.Instance.DirFromPlayerPos.normalized;
         CurrentEP.Value -= NeedEP_ForDash;
         MovementState = eMovementState.Dash;
@@ -278,12 +279,18 @@ public class PlayerController : MovableObject
 
     public void TryInteract()
     {
-        if(CurrentInteractableItem != null)
+        if(CurrentInteractable != null)
         {
-            ItemManager.Instance.GetItemSkill(CurrentInteractableItem.ThisItemData.ID);
-            CurrentInteractableItem.gameObject.SetActive(false);
-            PoolingManager.Instance.InteractItems.Queue.Enqueue(CurrentInteractableItem);
-            CurrentInteractableItem = null;
+            CurrentInteractable.Interact();
+            if (CurrentInteractable is InteractItemController IIC)
+            {
+                CurrentInteractable = null;
+            }
+            else if (CurrentInteractable is ShopController SC)
+            {
+
+            }
+            
         }
     }
 
@@ -379,34 +386,46 @@ public class PlayerController : MovableObject
 
     private void OnTriggerEnter2D(Collider2D _Col)
     {
-        if(_Col.tag == "Interact" && _Col.gameObject.transform.parent.TryGetComponent(out InteractItemController IIC))
+        if(_Col.tag == "Interact" && _Col.gameObject.transform.parent.TryGetComponent(out IInteract II))
         {
-            CurrentInteractableItemList.Add(IIC);
+            GameObject TargetGO = _Col.gameObject.transform.parent.gameObject;
+
+            if (!CurrentInteractableGOList.Contains(TargetGO))
+            {
+                CurrentInteractableGOList.Add(TargetGO); 
+            }
         }
     }
 
     private void OnTriggerStay2D(Collider2D _Col)
     {
-        if (CurrentInteractableItemList != null)
+        if (CurrentInteractableGOList != null)
         {
-            if (CurrentInteractableItemList.Count == 0)
+            // None
+            if (CurrentInteractableGOList.Count == 0)
             {
-                CurrentInteractableItem = null;
+                CurrentInteractable = null;
             }
-            else if (CurrentInteractableItemList.Count == 1)
+            // Only One
+            else if (CurrentInteractableGOList.Count == 1)
             {
-                CurrentInteractableItem = CurrentInteractableItemList[0];
-            }
-            else if (CurrentInteractableItemList.Count > 1)
-            {
-                float shortDis = Vector3.Distance(gameObject.transform.position, CurrentInteractableItemList[0].transform.position);
-                foreach (InteractItemController IC in CurrentInteractableItemList)
+                if(CurrentInteractableGOList[0].TryGetComponent(out IInteract II))
                 {
-                    float Distance = Vector3.Distance(gameObject.transform.position, IC.gameObject.transform.position);
+                    CurrentInteractable = II;
+                }
+            }
+            // A Lot
+            else if (CurrentInteractableGOList.Count > 1)
+            {
+                float shortDis = Vector3.Distance(gameObject.transform.position, CurrentInteractableGOList[0].transform.position);
+                foreach (GameObject currentInteractableGO in CurrentInteractableGOList)
+                {
+                    float Distance = Vector3.Distance(gameObject.transform.position, currentInteractableGO.transform.position);
 
                     if (Distance < shortDis) 
                     {
-                        CurrentInteractableItem = IC;
+                        currentInteractableGO.TryGetComponent(out IInteract II);
+                        CurrentInteractable = II;
                         shortDis = Distance;
                     }
                 }
@@ -416,9 +435,14 @@ public class PlayerController : MovableObject
 
     private void OnTriggerExit2D(Collider2D _Col)
     {
-        if (_Col.tag == "Interact" && _Col.gameObject.transform.parent.TryGetComponent(out InteractItemController IIC))
+        if (_Col.tag == "Interact" && _Col.gameObject.transform.parent.TryGetComponent(out IInteract II))
         {
-            CurrentInteractableItemList.Remove(IIC);
+            GameObject TargetGO = _Col.gameObject.transform.parent.gameObject;
+
+            if (CurrentInteractableGOList.Contains(TargetGO))
+            { 
+                CurrentInteractableGOList.Remove(TargetGO); 
+            }
         }
     }
 

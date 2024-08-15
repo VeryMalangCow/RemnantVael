@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2762522436094786569}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LeftHandPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 5980481930123788499}
   - component: {fileID: 4473033968542792763}
   - component: {fileID: 4031570613748555499}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Lefthand
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 3593022156122891462}
   - component: {fileID: 8514484191356774825}
   - component: {fileID: 1875528104640140175}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Target
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -229,10 +229,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisSR: {fileID: 8514484191356774825}
-  StayDur: 1
   IsOn: 0
   CurrentGenTime: 0
   DelayGenTime: 0
+  StayDur: 1
 --- !u!1 &2632657534027564969
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 4586805314071208296}
   - component: {fileID: 8886497247949011878}
   - component: {fileID: 3441746121867993704}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RightHand
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5292120655570418386}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -376,7 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3160544897680119955}
   - component: {fileID: 1781130902238718875}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HandSatellite
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ GameObject:
   - component: {fileID: 5092669102171801610}
   - component: {fileID: 1383186044479854561}
   - component: {fileID: 879714575328563436}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 8810927924693203331}
   - component: {fileID: 334434472153228344}
   - component: {fileID: 2809650221464592576}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player_Prefab
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -593,6 +593,7 @@ Transform:
   - {fileID: 3160544897680119955}
   - {fileID: 4586805314071208296}
   - {fileID: 5980481930123788499}
+  - {fileID: 1689112656073238802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8810927924693203331
@@ -638,8 +639,7 @@ MonoBehaviour:
   CurrentDashCooltime: 0
   NeedEP_ForDash: 5
   DashTargetDir: {x: 0, y: 0}
-  CurrentInteractableItemList: []
-  CurrentInteractableItem: {fileID: 0}
+  CurrentInteractableGOList: []
   TargetBoostRank: 0
   MaxBoostRank: 4
   CurrentBoostRank:
@@ -657,7 +657,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -747,7 +747,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4368428734362383650}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RightHandPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -769,6 +769,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5292120655570418386}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7090326402873856439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1689112656073238802}
+  - component: {fileID: 3103547956400703334}
+  m_Layer: 7
+  m_Name: MapColJuge
+  m_TagString: JustJuge
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1689112656073238802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7090326402873856439}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5139995927833316672}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &3103547956400703334
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7090326402873856439}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.7, y: 0.7}
+  m_Direction: 1
 --- !u!1 &7217206221402160431
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,7 +846,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3071697366802338582}
   - component: {fileID: 2638774432652660132}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Target
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -862,7 +929,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 871861330150977385}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Roll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -895,7 +962,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8300174305967269141}
   - component: {fileID: 5295122454342582576}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Target
   m_TagString: Player
   m_Icon: {fileID: 0}

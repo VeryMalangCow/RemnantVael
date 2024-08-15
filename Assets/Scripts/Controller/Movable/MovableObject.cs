@@ -4,6 +4,7 @@ using UnityEngine;
 public class MovableObject : HaveShadowThing
 {
     #region Value
+
     [Space(20)]
     [Header("<><><><><> Movable Object")]
 
@@ -62,6 +63,8 @@ public class MovableObject : HaveShadowThing
 
     #endregion
 
+    #region Life
+
     protected void SetIsDead(float _Life, float _Damage)
     {
         if(_Life <= _Damage)
@@ -74,4 +77,5 @@ public class MovableObject : HaveShadowThing
         }
     }
 
+    #endregion
 }
