@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModifyImgAmountAndTxt : MonoBehaviour
+public class ModifyImgAmountAndTxt : UIModule
 {
     #region Value
 
@@ -19,7 +19,9 @@ public class ModifyImgAmountAndTxt : MonoBehaviour
 
     #endregion
 
-    public void Offset()
+    #region Offset
+
+    public override void Offset()
     {
         Img_List = GameManager.SetList<Image>(Img_ParentTF);
 
@@ -30,6 +32,10 @@ public class ModifyImgAmountAndTxt : MonoBehaviour
         }
         TurnOff<TMP_Text>(Txt_ExtraAmount);
     }
+
+    #endregion
+
+    #region Unique
 
     private void TurnOff<T>(T _Type)
     {
@@ -131,4 +137,6 @@ public class ModifyImgAmountAndTxt : MonoBehaviour
             DotweenSeq.OnStart(() => { _Img.gameObject.SetActive(true); });
         }
     }
+
+    #endregion
 }

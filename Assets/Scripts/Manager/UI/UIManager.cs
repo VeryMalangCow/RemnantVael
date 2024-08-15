@@ -19,8 +19,12 @@ public class UIManager : Singleton<UIManager>
     protected override void Awake()
     {
         base.Awake();
+    }
+
+    private void Start()
+    {
         GameObject playerHUDGO = Instantiate(PlayerHUDCanvasPrefab, UIParent);
-        if(playerHUDGO.TryGetComponent(out PlayerHUDController PHUDC))
+        if (playerHUDGO.TryGetComponent(out PlayerHUDController PHUDC))
         { PlayerHUDController = PHUDC; }
     }
 

@@ -12,7 +12,6 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] public const float fireMinDisLimit = 4;
 
     [Header("=== Prefab")]
-    [SerializeField] private GameObject PlayerPrefab;
     [HideInInspector] public PlayerController PlayerController;
     [SerializeField] private Transform PlayerSpawnParentTF;
 
@@ -21,12 +20,11 @@ public class PlayerManager : Singleton<PlayerManager>
 
     #region Framework
 
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
-        GameObject SpawnedPlayerGO = Instantiate(PlayerPrefab, PlayerSpawnParentTF);
-        if(SpawnedPlayerGO.TryGetComponent(out PlayerController PC))
-        { 
+        GameObject SpawnedPlayerGO = Instantiate(GameManager.Instance.DesignatedPlayerPrefab, PlayerSpawnParentTF);
+        if (SpawnedPlayerGO.TryGetComponent(out PlayerController PC))
+        {
             this.PlayerController = PC;
             LayerOrderManager.Instance.MovableObjects.Add(PlayerController);
         }

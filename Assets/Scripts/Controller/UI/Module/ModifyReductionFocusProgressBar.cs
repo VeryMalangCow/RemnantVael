@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModifyReductionFocusProgressBar : MonoBehaviour
+public class ModifyReductionFocusProgressBar : UIModule
 {
     #region Value
 
@@ -14,7 +14,16 @@ public class ModifyReductionFocusProgressBar : MonoBehaviour
 
     #endregion
 
-    #region FillAmount
+    #region Offset
+
+    public override void Offset()
+    {
+        SetFillImgSmooth(0, 1);
+    }
+
+    #endregion
+
+    #region Unique
 
     public void SetFillImgSmooth(float _CurrentValue, float _MaxValue)
     {

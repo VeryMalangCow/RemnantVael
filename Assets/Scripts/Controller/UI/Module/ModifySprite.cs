@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModifySprite : MonoBehaviour
+public class ModifySprite : UIModule
 {
     #region Value
 
@@ -17,11 +17,17 @@ public class ModifySprite : MonoBehaviour
 
     #endregion
 
-    public void Offset()
+    #region Offset
+
+    public override void Offset()
     {
         Modify_Sprite(0);
         CompleteImg.gameObject.SetActive(false);
     }
+
+    #endregion
+
+    #region Unique
 
     public void Modify_Sprite(int _Level)
     {
@@ -69,4 +75,6 @@ public class ModifySprite : MonoBehaviour
                 CompleteImg.gameObject.SetActive(false);
             });
     }
+
+    #endregion
 }

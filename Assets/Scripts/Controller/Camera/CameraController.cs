@@ -17,9 +17,12 @@ public class CameraController : Singleton<CameraController>
     protected override void Awake()
     {
         base.Awake();
-        TargetTF = PlayerManager.Instance.PlayerController.gameObject.transform;
     }
 
+    private void Start()
+    {
+        TargetTF = PlayerManager.Instance.PlayerController.gameObject.transform;
+    }
 
     private void LateUpdate()
     {

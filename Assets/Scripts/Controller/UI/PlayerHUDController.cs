@@ -1,9 +1,7 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UniRx;
-using System.Collections.Generic;
 
-public class PlayerHUDController : MonoBehaviour
+public class PlayerHUDController : UIController
 {
     #region Value
 
@@ -26,14 +24,16 @@ public class PlayerHUDController : MonoBehaviour
     #endregion
 
     #region Offset
-    private void Offset_Value()
+
+    protected override void Offset_Module()
     {
+        EP.Offset();
         CurrentEmptyBC.Offset();
         EmptyBC.Offset();
         FullBC.Offset();
     }
 
-    private void Offset_UI()
+    protected override void Offset_UI()
     {
         PlayerManager.Instance.PlayerController.CurrentEP
             .Subscribe(_CurrentEP =>
@@ -68,14 +68,5 @@ public class PlayerHUDController : MonoBehaviour
 
     #endregion
 
-    #region Framework
-
-    private void Start()
-    {
-        Offset_Value();
-        Offset_UI();
-    }
-
-    #endregion
 }
 

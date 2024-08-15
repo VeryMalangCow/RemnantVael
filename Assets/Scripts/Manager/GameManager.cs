@@ -10,6 +10,12 @@ public class GameManager : Singleton<GameManager>
     [Header("=== Color")]
     [SerializeField] public Color RandomColor = Color.red;
     [HideInInspector] private Sequence RandomColorSetSeq;
+
+    [Space(10)]
+    [Header("=== Passing Data")]
+    [SerializeField] private List<GameObject> AllPlayerPrefabs;
+    [SerializeField] public GameObject DesignatedPlayerPrefab;
+
     #endregion
 
     #region Framework
@@ -25,6 +31,11 @@ public class GameManager : Singleton<GameManager>
         
         SetBaseOption();
         SetRainbowColorDotween();
+    }
+
+    private void Start()
+    {
+        DesignatedPlayerPrefab = AllPlayerPrefabs[1];
     }
 
     #endregion
