@@ -19,7 +19,7 @@ public class BulletController : HaveShadowThing
 
     #region State
 
-    public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState)
+    public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _fireMinDisLimit)
     {
         this.transform.position = _SpawnVec;
         BulletState = _BulletState;

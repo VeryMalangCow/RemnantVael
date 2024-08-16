@@ -26,7 +26,8 @@ public class PlayerController : MovableObject
 
     [Header("-- Bettery")]
     [SerializeField] public ReactiveProperty<int> CurrentBS = new();
-    [SerializeField] public int NeedBS_ForMakeBC = 5;
+    [SerializeField] public int NeedBS_ForMakeBC = 4;
+    [SerializeField] public float NeedEP_ForMakeEC = 5;
     [SerializeField] public ReactiveProperty<int> CurrentBC = new();
     [SerializeField] public ReactiveProperty<int> CurrentEC = new();
 
@@ -37,18 +38,17 @@ public class PlayerController : MovableObject
     [Header("=== Movement")]
 
     [Header("-- State")]
-    [SerializeField] protected eMovementState MovementState = eMovementState.IdleOrWalk;
+    [SerializeField] public eMovementState MovementState = eMovementState.IdleOrWalk; 
+    [SerializeField] public float WalkSpeed = 3f;
+    [SerializeField] public float WalkSpeedWhenShot = 1.75f;
 
     [Header("-- Dash")]
-    [SerializeField] private float CurrentDashCooltime = 0;
-    [SerializeField] private float NeedEP_ForDash = 5f;
-    [SerializeField] private Vector2 DashTargetDir;
+    [SerializeField] private PlayerDashController DashController;
 
     [Space(10)]
     [Header("=== Interact")]
     [SerializeField] public List<GameObject> CurrentInteractableGOList;
     [SerializeField] public IInteract CurrentInteractable;
-    //[SerializeField] public 
 
     [Space(10)]
     [Header("=== Skill")]
@@ -61,16 +61,11 @@ public class PlayerController : MovableObject
 
     [Space(10)]
     [Header("=== Main Sprite")]
-    [SerializeField] private MakeAfterImage MakeAfterImage;
+    [SerializeField] public MakeAfterImage MakeAfterImage;
 
     #endregion
 
     #region Framework
-
-    private void Awake()
-    {
-        SetStateOffset();
-    }
 
     protected override void Update()
     {
@@ -82,17 +77,6 @@ public class PlayerController : MovableObject
     {
         AlwaysCaculate();
         Movement();
-    }
-
-    #endregion
-
-    #region State
-
-    private void SetStateOffset()
-    {
-        // Life
-        MaxEP.Value = PlayerManager.Instance.LifeState.MaxEP;
-        CurrentEP.Value = PlayerManager.Instance.LifeState.MaxEP;
     }
 
     #endregion
@@ -141,7 +125,7 @@ public class PlayerController : MovableObject
 
     private void ChargeBettery()
     {
-        this.CurrentEP.Value -= PlayerManager.Instance.LifeState.NeedToMakeBC;
+        this.CurrentEP.Value -= NeedEP_ForMakeEC;
         CurrentBC.Value--;
         CurrentEC.Value++;
     }
@@ -155,37 +139,35 @@ public class PlayerController : MovableObject
         switch(MovementState)
         {
             case eMovementState.IdleOrWalk:
-                Walk(InputManager.Instance.InputMoveDir, PlayerManager.Instance.MovementState.WalkSpeed, AccelerationSpeed);
+                if(BaseWeapon.CurrentDelayROF >= 1)
+                {
+                    Walk(InputManager.Instance.InputMoveDir, WalkSpeed, AccelerationSpeed);
+                }
+                else
+                {
+                    Walk(InputManager.Instance.InputMoveDir, WalkSpeedWhenShot, AccelerationSpeed);
+                }
                 break;
 
             case eMovementState.Dash:
-                Dash(DashTargetDir, PlayerManager.Instance.MovementState.DashDur);
+                DashController.Dash(DashController.DashTargetDir, DashController.DashDur);
                 break;
 
             default: break;
         }
     }
 
-    protected override void Dash(Vector2 _DashDir, float _TargetDashProcessTime)
-    {
-        base.Dash(_DashDir, _TargetDashProcessTime);
-        if (CurrentDashProcessTime >= _TargetDashProcessTime)
-        {
-            MovementState = eMovementState.IdleOrWalk;
-            MakeAfterImage.EndGen();
-        }
-    }
 
     public void CanDashCheck()
     {
-        if (MovementState == eMovementState.Dash || NeedEP_ForDash >= CurrentEP.Value)
+        if (MovementState == eMovementState.Dash || DashController.NeedEP_ForDash >= CurrentEP.Value)
         {
             return;
         }
 
         MakeAfterImage.StartGen(0.03f, 0.5f);
-        DashTargetDir = InputManager.Instance.DirFromPlayerPos.normalized;
-        CurrentEP.Value -= NeedEP_ForDash;
+        DashController.DashTargetDir = InputManager.Instance.DirFromPlayerPos.normalized;
+        CurrentEP.Value -= DashController.NeedEP_ForDash;
         MovementState = eMovementState.Dash;
     }
 
@@ -246,7 +228,7 @@ public class PlayerController : MovableObject
         if (!CanChange() || CurrentBoostRank.Value <= 0)
         { return; }
 
-        TargetBoostRank = 0;
+        TargetBoostRank--;
 
         StartCasting(_CastingTime);
     }
@@ -255,7 +237,7 @@ public class PlayerController : MovableObject
     public void CanChange_ChargeBettery(float _CastingTime)
     {
         if (!CanChange() ||
-            PlayerManager.Instance.LifeState.NeedToMakeBC >= this.CurrentEP.Value ||
+            NeedEP_ForMakeEC >= this.CurrentEP.Value ||
             CurrentBC.Value <= 0) 
         { return; }
 
@@ -300,21 +282,9 @@ public class PlayerController : MovableObject
 
     private void AlwaysCaculate()
     {
-        DashCaculate();
         CastingCaculate();
     }
 
-    private void DashCaculate()
-    {
-        if (CurrentDashCooltime >= PlayerManager.Instance.MovementState.DashCooltime)
-        {
-            CurrentDashCooltime = PlayerManager.Instance.MovementState.DashCooltime;
-        }
-        else
-        {
-            CurrentDashCooltime += Time.deltaTime;
-        }
-    }
 
     private void CastingCaculate()
     {

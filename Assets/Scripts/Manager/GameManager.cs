@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
 
     [Space(10)]
     [Header("=== Passing Data")]
-    [SerializeField] private List<GameObject> AllPlayerPrefabs;
+    [SerializeField] public List<GameObject> AllPlayerPrefabs;
     [SerializeField] public GameObject DesignatedPlayerPrefab;
 
     #endregion
@@ -35,7 +35,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        DesignatedPlayerPrefab = AllPlayerPrefabs[1];
+        DesignatedPlayerPrefab = AllPlayerPrefabs[0];
     }
 
     #endregion

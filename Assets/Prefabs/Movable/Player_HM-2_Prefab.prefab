@@ -419,6 +419,7 @@ MonoBehaviour:
   ROF: 8
   SpreadMaxAngle: 5
   CurrentDelayROF: 0
+  fireMinDisLimit: 4
   BulletSpawnTFs:
   - {fileID: 4586805314071208296}
   - {fileID: 5980481930123788499}
@@ -566,10 +567,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5139995927833316672}
   - component: {fileID: 8810927924693203331}
+  - component: {fileID: 8889954111637353817}
   - component: {fileID: 334434472153228344}
   - component: {fileID: 2809650221464592576}
   m_Layer: 7
-  m_Name: Player_Prefab
+  m_Name: Player_HM-2_Prefab
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -617,34 +619,53 @@ MonoBehaviour:
   - {fileID: 8886497247949011878}
   - {fileID: 4473033968542792763}
   AccelerationSpeed: 12
-  CurrentDashProcessTime: 0
   CombatMode: 0
   TargetCombatMode: 0
   IsCasting: 0
   CurrentCastingTime: 0
   TargetCastingTime: 0
   MaxEP:
-    value: 0
+    value: 100
   CurrentEP:
-    value: 0
+    value: 100
   CurrentBS:
     value: 0
   NeedBS_ForMakeBC: 4
+  NeedEP_ForMakeEC: 5
   CurrentBC:
     value: 0
   CurrentEC:
     value: 0
   BaseWeapon: {fileID: 1781130902238718875}
   MovementState: 1
-  CurrentDashCooltime: 0
-  NeedEP_ForDash: 5
-  DashTargetDir: {x: 0, y: 0}
+  WalkSpeed: 3
+  WalkSpeedWhenShot: 1
+  DashController: {fileID: 8889954111637353817}
   CurrentInteractableGOList: []
   TargetBoostRank: 0
   MaxBoostRank: 4
   CurrentBoostRank:
     value: 0
   MakeAfterImage: {fileID: 1875528104640140175}
+--- !u!114 &8889954111637353817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4593839933363528314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba572a4c9c83e54bac748406b491554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerController: {fileID: 8810927924693203331}
+  CurrentDashCooltime: 0
+  CurrentDashProcessTime: 0
+  NeedEP_ForDash: 5
+  DashTargetDir: {x: 0, y: 0}
+  DashSpeed: 7
+  DashDur: 0.2
 --- !u!50 &334434472153228344
 Rigidbody2D:
   serializedVersion: 4

@@ -21,13 +21,13 @@ public class PlayerBulletController : BulletController
 
     #region Set State
 
-    public override void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState)
+    public override void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _fireMinDisLimit)
     {
         Vector2 targetPos = InputManager.Instance.MousePosByWorld;
-        if(PlayerManager.fireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
+        if(_fireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
         {
             targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position + 
-                InputManager.Instance.DirFromPlayerPos.normalized * PlayerManager.fireMinDisLimit;
+                InputManager.Instance.DirFromPlayerPos.normalized * _fireMinDisLimit;
         }
 
         Vector2 dir = (targetPos - _SpawnVec).normalized;
@@ -36,7 +36,7 @@ public class PlayerBulletController : BulletController
         this.transform.localRotation = targetQuat;
 
 
-        base.SetState(_SpawnVec, _SpreadAngle, _BulletState);
+        base.SetState(_SpawnVec, _SpreadAngle, _BulletState, _fireMinDisLimit);
     }
 
     #endregion

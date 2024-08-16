@@ -31,10 +31,7 @@ public class ModifySprite : UIModule
 
     public void Modify_Sprite(int _Level)
     {
-        if (PlayerManager.Instance.PlayerController.CurrentBS.Value < PlayerManager.Instance.PlayerController.NeedBS_ForMakeBC)
-        {
-            Img.sprite = LevelSpr[_Level];
-        }
+        Img.sprite = LevelSpr[_Level];
     }
 
     public void Complete(float _StayTime, float _FadeDurTime)

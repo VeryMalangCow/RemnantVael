@@ -20,6 +20,7 @@ public class TitleUIController : UIController
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] private Button StartBtn;
+    [SerializeField] private List<Button> ChooseCharBtns;
 
     #endregion
 
@@ -37,6 +38,18 @@ public class TitleUIController : UIController
             {
                 SceneManager.LoadScene("Lobby");
             });
+
+        for (int i = 0; i < ChooseCharBtns.Count; i++)
+        {
+            Button btn = ChooseCharBtns[i];
+            GameObject prefab = GameManager.Instance.AllPlayerPrefabs[i];
+
+            btn.OnClickAsObservable()
+                .Subscribe(btn => 
+                {
+                    GameManager.Instance.DesignatedPlayerPrefab = prefab;
+                });
+        }
     }
 
     #endregion

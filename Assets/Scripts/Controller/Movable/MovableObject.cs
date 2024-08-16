@@ -14,7 +14,7 @@ public class MovableObject : HaveShadowThing
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] protected Rigidbody2D ThisRb;
+    [SerializeField] public Rigidbody2D ThisRb;
     [SerializeField] public SpriteRenderer ThisSr;
     [SerializeField] private List<SpriteRenderer> ThisExtraSrs;
 
@@ -23,8 +23,6 @@ public class MovableObject : HaveShadowThing
     [Header("-- Walk")]
     [SerializeField] protected float AccelerationSpeed = 12;
 
-    [Header("-- Dash")]
-    [SerializeField] protected float CurrentDashProcessTime = 0;
 
     #endregion
 
@@ -37,19 +35,6 @@ public class MovableObject : HaveShadowThing
 
         moveVelocity = Vector2.Lerp(currentVelocity, moveVelocity, _AccelerationSpeed * Time.deltaTime);
         ThisRb.velocity = moveVelocity;
-    }
-
-    protected virtual void Dash(Vector2 _DashDir, float _TargetDashProcessTime)
-    {
-        if (CurrentDashProcessTime < _TargetDashProcessTime)
-        {
-            CurrentDashProcessTime += Time.deltaTime;
-            ThisRb.velocity = _DashDir * PlayerManager.Instance.MovementState.DashSpeed;
-        }
-        else
-        {
-            CurrentDashProcessTime = 0;
-        }
     }
 
     #endregion

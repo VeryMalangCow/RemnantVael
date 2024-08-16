@@ -70,7 +70,7 @@ public class EnemyController : MovableObject
 
     private void Die()
     {
-        SpawnBS(4);
+        SpawnBS(1);
         SpawnII(1);
         this.gameObject.SetActive(false);
     }

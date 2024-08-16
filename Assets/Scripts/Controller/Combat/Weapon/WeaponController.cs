@@ -14,7 +14,8 @@ public class WeaponController : MonoBehaviour
     [SerializeField] public BulletState ThisBulletState_forSendData;
     [SerializeField] private float ROF;
     [SerializeField] private float SpreadMaxAngle = 0;
-    [SerializeField] protected float CurrentDelayROF = 0;
+    [SerializeField] public float CurrentDelayROF = 0;
+    [SerializeField] public float fireMinDisLimit = 4;
 
     [Space(10)]
     [Header("=== GunPos")]
@@ -53,7 +54,7 @@ public class WeaponController : MonoBehaviour
             PlayerBulletController PBC = GameManager.CastIfPossible<PlayerBulletController>(_Ts[index]);
             if (PBC)
             {
-                PBC.SetState(BulletSpawnTF.position, randomAngle, ThisBulletState_forSendData);
+                PBC.SetState(BulletSpawnTF.position, randomAngle, ThisBulletState_forSendData, fireMinDisLimit);
                 PBC.gameObject.SetActive(true);
             }
 

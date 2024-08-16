@@ -47,7 +47,10 @@ public class PlayerHUDController : UIController
         PlayerManager.Instance.PlayerController.CurrentBS
             .Subscribe(_CurrentBS =>
             {
-                CurrentEmptyBC.Modify_Sprite(_CurrentBS);
+                if (PlayerManager.Instance.PlayerController.CurrentBS.Value < PlayerManager.Instance.PlayerController.NeedBS_ForMakeBC)
+                {
+                    CurrentEmptyBC.Modify_Sprite(_CurrentBS);
+                }
             })
             .AddTo(gameObject);
 

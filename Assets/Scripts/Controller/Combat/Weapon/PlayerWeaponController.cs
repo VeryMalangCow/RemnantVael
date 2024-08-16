@@ -31,6 +31,7 @@ public class PlayerWeaponController : WeaponController
     [Header("-- Hand")]
     [SerializeField] private List<Satellite> Hands;
 
+
     #endregion
 
     #region Framework

@@ -12,6 +12,10 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject PlayerHUDCanvasPrefab;
     [SerializeField] public PlayerHUDController PlayerHUDController;
 
+    [Header("=== Shop")]
+    [SerializeField] private GameObject OneOffShopCanvasPrefab;
+    [SerializeField] public OneOffShopUIController OneOffShopUIController;
+
     #endregion
 
     #region Framework
@@ -23,9 +27,19 @@ public class UIManager : Singleton<UIManager>
 
     private void Start()
     {
-        GameObject playerHUDGO = Instantiate(PlayerHUDCanvasPrefab, UIParent);
-        if (playerHUDGO.TryGetComponent(out PlayerHUDController PHUDC))
-        { PlayerHUDController = PHUDC; }
+        PlayerHUDController = SpawnUI<PlayerHUDController>(PlayerHUDCanvasPrefab, true);
+        OneOffShopUIController = SpawnUI<OneOffShopUIController>(OneOffShopCanvasPrefab, false);
+    }
+
+    private T SpawnUI<T>(GameObject _UIGO, bool _OnOff)
+    {
+        GameObject uigo = Instantiate(_UIGO, UIParent);
+        uigo.gameObject.SetActive(_OnOff);
+
+        if (uigo.TryGetComponent(out T spawnUI))
+        { return spawnUI; }
+        else 
+        { return default; }
     }
 
     #endregion
