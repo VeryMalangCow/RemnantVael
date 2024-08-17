@@ -21,7 +21,7 @@ public class PlayerController : MovableObject
     [SerializeField] private float TargetCastingTime = 0;
 
     [Header("-- Energy")]
-    [SerializeField] public ReactiveProperty<float> MaxEP = new();
+    [SerializeField] public BaseUpgradeState<float> MaxEP;
     [SerializeField] public ReactiveProperty<float> CurrentEP = new();
 
     [Header("-- Bettery")]
@@ -38,9 +38,9 @@ public class PlayerController : MovableObject
     [Header("=== Movement")]
 
     [Header("-- State")]
-    [SerializeField] public eMovementState MovementState = eMovementState.IdleOrWalk; 
-    [SerializeField] public float WalkSpeed = 3f;
-    [SerializeField] public float WalkSpeedWhenShot = 1.75f;
+    [SerializeField] public eMovementState MovementState = eMovementState.IdleOrWalk;
+    [SerializeField] public BaseUpgradeState<float> WalkSpeed;
+    [SerializeField] public BaseUpgradeState<float> WalkSpeedWhenShotMultiple;
 
     [Header("-- Dash")]
     [SerializeField] private PlayerDashController DashController;
@@ -85,17 +85,17 @@ public class PlayerController : MovableObject
 
     public void IncreaseMaxEP(float _AddValue)
     {
-        MaxEP.Value += _AddValue;
+        MaxEP.ActualState.Value += _AddValue;
         AddCurrentEP(_AddValue);
 
-        Debug.Log("최대 EP : " + MaxEP.Value);
+        Debug.Log("최대 EP : " + MaxEP.ActualState.Value);
     }
 
     public void AddCurrentEP(float _AddValue)
     {
         float result = CurrentEP.Value + _AddValue;
         result = Math.Max(result, 0);
-        result = Math.Min(result, this.MaxEP.Value);
+        result = Math.Min(result, MaxEP.ActualState.Value);
 
         CurrentEP.Value = result;
 
@@ -141,11 +141,11 @@ public class PlayerController : MovableObject
             case eMovementState.IdleOrWalk:
                 if(BaseWeapon.CurrentDelayROF >= 1)
                 {
-                    Walk(InputManager.Instance.InputMoveDir, WalkSpeed, AccelerationSpeed);
+                    Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value, AccelerationSpeed);
                 }
                 else
                 {
-                    Walk(InputManager.Instance.InputMoveDir, WalkSpeedWhenShot, AccelerationSpeed);
+                    Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value * WalkSpeedWhenShotMultiple.ActualState.Value, AccelerationSpeed);
                 }
                 break;
 
@@ -318,11 +318,11 @@ public class PlayerController : MovableObject
             switch (TargetCombatMode)
             {
                 case eCombatMode.Physics:
-                    BaseWeapon.ThisBulletState_forSendData.DamageType = eDamageType.Physics;
+                    BaseWeapon.DamageType = eDamageType.Physics;
                     break;
 
                 case eCombatMode.Energy:
-                    BaseWeapon.ThisBulletState_forSendData.DamageType = eDamageType.Energy;
+                    BaseWeapon.DamageType = eDamageType.Energy;
                     break;
 
                 default:
@@ -419,5 +419,9 @@ public class PlayerController : MovableObject
     #endregion
 }
 
-
-
+[System.Serializable]
+public class BaseUpgradeState<T>
+{
+    public T BaseState;
+    public ReactiveProperty<T> ActualState;
+}

@@ -9,6 +9,7 @@ public class BulletController : HaveShadowThing
     [Space(10)]
     [Header("=== State")]
     [SerializeField] protected BulletState BulletState;
+    [SerializeField] public bool IsCritical = false;
     [SerializeField] protected float CurrentAliveTime = 0;
 
     [Space(10)]
@@ -19,10 +20,18 @@ public class BulletController : HaveShadowThing
 
     #region State
 
-    public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _fireMinDisLimit)
+    public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _fireMinDisLimit, bool _IsCritical, float _CD)
     {
         this.transform.position = _SpawnVec;
-        BulletState = _BulletState;
+
+        this.BulletState = _BulletState;
+
+        IsCritical = _IsCritical;
+        if(IsCritical)
+        {
+            this.BulletState.BaseDamage *= _CD;
+            Debug.Log("Å©¸® ºÒ·¿!");
+        }
 
         Vector3 currentRotation = transform.eulerAngles;
         currentRotation.z += _SpreadAngle;
@@ -51,6 +60,14 @@ public class BulletState
     [SerializeField] public float BaseDamage;
     [SerializeField] public float MuzzleSpeed;
     [SerializeField] public float AliveTime;
+
+    public BulletState(eDamageType _eDamageType, float _BaseDamage, float _MuzzleSpeed, float _AliveTime)
+    {
+        DamageType = _eDamageType;
+        BaseDamage = _BaseDamage;
+        MuzzleSpeed = _MuzzleSpeed;
+        AliveTime = _AliveTime;
+    }
 }
 
 

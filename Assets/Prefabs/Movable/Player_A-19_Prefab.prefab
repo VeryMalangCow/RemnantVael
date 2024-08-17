@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisSR: {fileID: 8514484191356774825}
-  IsOn: 1
+  IsOn: 0
   CurrentGenTime: 0
   DelayGenTime: 0.03
   StayDur: 0.5
@@ -411,12 +411,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ddabe640835e41bd5d1b49e85f947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisBulletState_forSendData:
-    DamageType: 0
-    BaseDamage: 1
-    MuzzleSpeed: 1.5
-    AliveTime: 0.35
-  ROF: 8
+  DamageType: 0
+  BaseDamage:
+    BaseState: 1
+    ActualState:
+      value: 1
+  AliveTime:
+    BaseState: 1
+    ActualState:
+      value: 1
+  MuzzleSpeed:
+    BaseState: 1
+    ActualState:
+      value: 1
+  ROF:
+    BaseState: 5
+    ActualState:
+      value: 5
+  CC:
+    BaseState: 0.1
+    ActualState:
+      value: 0.1
+  CD:
+    BaseState: 1.5
+    ActualState:
+      value: 1.5
   SpreadMaxAngle: 5
   CurrentDelayROF: 0
   fireMinDisLimit: 4
@@ -625,9 +644,11 @@ MonoBehaviour:
   CurrentCastingTime: 0
   TargetCastingTime: 0
   MaxEP:
-    value: 100
+    BaseState: 100
+    ActualState:
+      value: 100
   CurrentEP:
-    value: 95
+    value: 100
   CurrentBS:
     value: 0
   NeedBS_ForMakeBC: 4
@@ -637,9 +658,15 @@ MonoBehaviour:
   CurrentEC:
     value: 0
   BaseWeapon: {fileID: 1781130902238718875}
-  MovementState: 2
-  WalkSpeed: 3
-  WalkSpeedWhenShot: 1
+  MovementState: 1
+  WalkSpeed:
+    BaseState: 3
+    ActualState:
+      value: 3
+  WalkSpeedWhenShotMultiple:
+    BaseState: 0.4
+    ActualState:
+      value: 0.4
   DashController: {fileID: 8889954111637353817}
   CurrentInteractableGOList: []
   TargetBoostRank: 0

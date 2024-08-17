@@ -40,7 +40,7 @@ public class PlayerHUDController : UIController
             {
                 EP.SetFillImgSmooth(
                     PlayerManager.Instance.PlayerController.CurrentEP.Value,
-                    PlayerManager.Instance.PlayerController.MaxEP.Value);
+                    PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value);
             })
             .AddTo(gameObject);
 
