@@ -22,6 +22,7 @@ public class PlayerManager : Singleton<PlayerManager>
         this.PlayerController = UnitGenerator.Instance.GenerateUnit<PlayerController>(GameManager.Instance.DesignatedPlayerPrefab, PlayerSpawnParentTF);
         LayerOrderManager.Instance.MovableObjects.Add(PlayerController);
         CameraController.TargetTF = PlayerController.gameObject.transform;
+        BaseUpgradeManager.Instance.Offset(PlayerController);
     }
 
     #endregion

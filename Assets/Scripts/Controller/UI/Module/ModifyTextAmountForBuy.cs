@@ -1,10 +1,11 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using TMPro;
-using UniRx;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ModifyTextAmountForBuy : UIModule
+public class ModifyTextAmountForBuy : UIModule, IPointerEnterHandler, IPointerExitHandler
 {
     #region Value
 
@@ -26,6 +27,12 @@ public class ModifyTextAmountForBuy : UIModule
     [SerializeField] private Image SkillIconImg;
     [SerializeField] private Image UpgradeIconImg;
 
+    [Space(10)]
+    [Header("=== Open Component")]
+    [SerializeField] private ModifyImgAmountAndTxt ThisMIAAT;
+    [SerializeField] private Image CostImg;
+    [SerializeField] private List<Sprite> CostSpriteList;
+
     #endregion
 
     #region Offset
@@ -33,35 +40,34 @@ public class ModifyTextAmountForBuy : UIModule
     public override void Offset()
     {
         ThisRT.sizeDelta = MinimumSize;
-
-        AlwaysPanelBtn.OnClickAsObservable()
-            .Subscribe(_ =>
-            {
-                if (DOTween.IsTweening(ThisRT)) { return; }
-
-                if (ThisRT.sizeDelta == MaximumSize)
-                {
-                    ThisRT.DOSizeDelta(MinimumSize, SizeDeltaTime);
-                }
-                else
-                {
-                    ThisRT.DOSizeDelta(MaximumSize, SizeDeltaTime);
-                }
-            });
     }
-
     #endregion
 
     #region Unique
 
-    public void Open()
+    public void Set(int _Level)
     {
-        Debug.Log(gameObject.name + ": Open");
+        ThisMIAAT.SetAmount(_Level, 0.1f);
     }
 
-    public void Close()
+    #endregion
+
+    #region Pointer
+
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log(gameObject.name + ": Close");
+        if (DOTween.IsTweening(ThisRT)) 
+        { DOTween.Kill(ThisRT); }
+
+        ThisRT.DOSizeDelta(MaximumSize, SizeDeltaTime);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (DOTween.IsTweening(ThisRT)) 
+        { DOTween.Kill(ThisRT); }
+
+        ThisRT.DOSizeDelta(MinimumSize, SizeDeltaTime);
     }
 
     #endregion

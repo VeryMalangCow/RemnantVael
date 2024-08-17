@@ -12,12 +12,12 @@ public class WeaponController : MonoBehaviour
     [Space(10)]
     [Header("=== State")]
     [SerializeField] public eDamageType DamageType;
-    [SerializeField] private BaseUpgradeState<float> BaseDamage;
-    [SerializeField] private BaseUpgradeState<float> AliveTime;
-    [SerializeField] private BaseUpgradeState<float> MuzzleSpeed;
-    [SerializeField] private BaseUpgradeState<float> ROF;
-    [SerializeField] private BaseUpgradeState<float> CC;
-    [SerializeField] private BaseUpgradeState<float> CD;
+    [SerializeField] public BaseUpgradeState<float> BaseDamage;
+    [SerializeField] public BaseUpgradeState<float> AliveTime;
+    [SerializeField] public BaseUpgradeState<float> MuzzleSpeed;
+    [SerializeField] public BaseUpgradeState<float> ROF;
+    [SerializeField] public BaseUpgradeState<float> CC;
+    [SerializeField] public BaseUpgradeState<float> CD;
 
     [SerializeField] private float SpreadMaxAngle = 0;
     [SerializeField] public float CurrentDelayROF = 0;

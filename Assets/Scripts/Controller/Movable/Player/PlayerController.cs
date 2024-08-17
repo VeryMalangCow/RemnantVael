@@ -423,5 +423,6 @@ public class PlayerController : MovableObject
 public class BaseUpgradeState<T>
 {
     public T BaseState;
+    public ReactiveProperty<int> CurrentLevel;
     public ReactiveProperty<T> ActualState;
 }
