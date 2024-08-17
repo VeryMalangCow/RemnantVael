@@ -70,7 +70,7 @@ public class PlayerController : MovableObject
     protected override void Update()
     {
         base.Update();
-        ItemManager.Instance.ActiveSkill_Always(CurrentBoostRank.Value);
+        BoostItemManager.Instance.ActiveSkill_Always(CurrentBoostRank.Value);
     }
 
     private void FixedUpdate()
@@ -268,7 +268,7 @@ public class PlayerController : MovableObject
             {
                 CurrentInteractable = null;
             }
-            else if (CurrentInteractable is ShopController SC)
+            else if (CurrentInteractable is OneOffShopController SC)
             {
 
             }

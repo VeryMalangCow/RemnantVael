@@ -16,6 +16,9 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject OneOffShopCanvasPrefab;
     [SerializeField] public OneOffShopUIController OneOffShopUIController;
 
+    [Header("=== Data")]
+    [SerializeField] public UIController CurrentOpeningUIController;
+
     #endregion
 
     #region Framework

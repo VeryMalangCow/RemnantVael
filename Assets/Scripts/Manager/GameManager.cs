@@ -98,6 +98,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     #endregion
+
 }
 
 public enum eCombatMode

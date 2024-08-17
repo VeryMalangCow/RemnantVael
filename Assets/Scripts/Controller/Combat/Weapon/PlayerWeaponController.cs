@@ -55,7 +55,7 @@ public class PlayerWeaponController : WeaponController
             { PBClist.Add(PoolingManager.Instance.GetOP_PlayerBullet()); }
             Fire(PBClist);
 
-            ItemManager.Instance.ActiveSkill_Fire(PlayerController.CurrentBoostRank.Value);
+            BoostItemManager.Instance.ActiveSkill_Fire(PlayerController.CurrentBoostRank.Value);
         }
     }
     private void OnEnable()

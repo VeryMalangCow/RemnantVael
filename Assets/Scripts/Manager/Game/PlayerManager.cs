@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
@@ -8,6 +9,9 @@ public class PlayerManager : Singleton<PlayerManager>
     [HideInInspector] public PlayerController PlayerController;
     [SerializeField] private Transform PlayerSpawnParentTF;
 
+    [Header("=== Class")]
+    [SerializeField] private CameraController CameraController;
+
 
     #endregion
 
@@ -15,12 +19,9 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void Start()
     {
-        GameObject SpawnedPlayerGO = Instantiate(GameManager.Instance.DesignatedPlayerPrefab, PlayerSpawnParentTF);
-        if (SpawnedPlayerGO.TryGetComponent(out PlayerController PC))
-        {
-            this.PlayerController = PC;
-            LayerOrderManager.Instance.MovableObjects.Add(PlayerController);
-        }
+        this.PlayerController = UnitGenerator.Instance.GenerateUnit<PlayerController>(GameManager.Instance.DesignatedPlayerPrefab, PlayerSpawnParentTF);
+        LayerOrderManager.Instance.MovableObjects.Add(PlayerController);
+        CameraController.TargetTF = PlayerController.gameObject.transform;
     }
 
     #endregion

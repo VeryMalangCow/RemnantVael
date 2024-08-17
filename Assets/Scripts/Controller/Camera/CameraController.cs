@@ -1,28 +1,18 @@
 using UnityEngine;
 
-public class CameraController : Singleton<CameraController>
+public class CameraController : MonoBehaviour
 {
     #region Value
 
     [Space(10)]
     [Header("=== Move")]
-    [SerializeField] private Transform TargetTF;
+    [SerializeField] public Transform TargetTF;
     [SerializeField] private float FollowSpeed = 4f;
     [SerializeField] private float FollowRangeLimit = 1f;
 
     #endregion
 
     #region  Framework
-
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
-    private void Start()
-    {
-        TargetTF = PlayerManager.Instance.PlayerController.gameObject.transform;
-    }
 
     private void LateUpdate()
     {

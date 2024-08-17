@@ -204,7 +204,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1000
+  m_SortingOrder: 960
   m_Sprite: {fileID: -2135585597343286014, guid: 4b2a04fdbe0ef4d8da8f90eaca817cd1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -229,10 +229,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisSR: {fileID: 8514484191356774825}
-  IsOn: 0
+  IsOn: 1
   CurrentGenTime: 0
-  DelayGenTime: 0
-  StayDur: 1
+  DelayGenTime: 0.03
+  StayDur: 0.5
 --- !u!1 &2632657534027564969
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +627,7 @@ MonoBehaviour:
   MaxEP:
     value: 100
   CurrentEP:
-    value: 100
+    value: 95
   CurrentBS:
     value: 0
   NeedBS_ForMakeBC: 4
@@ -637,7 +637,7 @@ MonoBehaviour:
   CurrentEC:
     value: 0
   BaseWeapon: {fileID: 1781130902238718875}
-  MovementState: 1
+  MovementState: 2
   WalkSpeed: 3
   WalkSpeedWhenShot: 1
   DashController: {fileID: 8889954111637353817}
@@ -660,10 +660,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 8810927924693203331}
-  CurrentDashCooltime: 0
   CurrentDashProcessTime: 0
   NeedEP_ForDash: 5
-  DashTargetDir: {x: 0, y: 0}
+  DashTargetDir: {x: 0.95281845, y: 0.30354068}
   DashSpeed: 7
   DashDur: 0.2
 --- !u!50 &334434472153228344

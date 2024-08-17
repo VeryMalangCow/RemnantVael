@@ -41,7 +41,7 @@ public class InteractItemController : ItemController, IInteract
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Yoyo);
 
-        ThisItemData = ItemManager.Instance.GetRandomInteractItem();
+        ThisItemData = BoostItemManager.Instance.GetRandomInteractItem();
         ThisSR.sprite = ThisItemData.Sprite;
 
         this.gameObject.SetActive(true);
@@ -91,7 +91,7 @@ public class InteractItemController : ItemController, IInteract
         CurrentSpreadPower = 0f;
         SettedSpreadDir = Vector2.zero;
 
-        ItemManager.Instance.GetItemSkill(this.ThisItemData.ID);
+        BoostItemManager.Instance.GetItemSkill(this.ThisItemData.ID);
         PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
 
         this.gameObject.SetActive(false);
