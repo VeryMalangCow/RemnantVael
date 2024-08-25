@@ -52,9 +52,10 @@ public class PlayerController : MovableObject
 
     [Space(10)]
     [Header("=== Skill")]
-    [SerializeField] private int TargetBoostRank = 0; 
+    [SerializeField] private int TargetBoostRank = 0;
     [SerializeField] private int MaxBoostRank = 4;
     [SerializeField] public ReactiveProperty<int> CurrentBoostRank = new();
+    [SerializeField] private List<float> DecEnergyPointByLevel;
 
     private delegate void SkillDele();
     private SkillDele ReservationSkillDele = null;
@@ -87,8 +88,6 @@ public class PlayerController : MovableObject
     {
         MaxEP.ActualState.Value += _AddValue;
         AddCurrentEP(_AddValue);
-
-        Debug.Log("ÃÖ´ë EP : " + MaxEP.ActualState.Value);
     }
 
     public void AddCurrentEP(float _AddValue)
@@ -98,7 +97,6 @@ public class PlayerController : MovableObject
         result = Math.Min(result, MaxEP.ActualState.Value);
 
         CurrentEP.Value = result;
-
     }
 
     #endregion
@@ -283,6 +281,7 @@ public class PlayerController : MovableObject
     private void AlwaysCaculate()
     {
         CastingCaculate();
+        BoostingCaculate(CurrentBoostRank.Value);
     }
 
 
@@ -304,6 +303,16 @@ public class PlayerController : MovableObject
                 If_Skill();
                 If_Boost();
             }
+        }
+    }
+
+
+    private void BoostingCaculate(int _BoostLv)
+    {
+        if(_BoostLv > 0)
+        {
+            float decValue = DecEnergyPointByLevel[_BoostLv - 1];
+            AddCurrentEP(-decValue * Time.deltaTime);
         }
     }
 
@@ -352,7 +361,7 @@ public class PlayerController : MovableObject
 
     #endregion
 
-    #region Interact
+    #region Trigger
 
     private void OnTriggerEnter2D(Collider2D _Col)
     {

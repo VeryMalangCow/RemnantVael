@@ -414,26 +414,38 @@ MonoBehaviour:
   DamageType: 0
   BaseDamage:
     BaseState: 1
+    CurrentLevel:
+      value: 0
     ActualState:
       value: 1
   AliveTime:
     BaseState: 1
+    CurrentLevel:
+      value: 0
     ActualState:
       value: 1
   MuzzleSpeed:
     BaseState: 1
+    CurrentLevel:
+      value: 0
     ActualState:
       value: 1
   ROF:
     BaseState: 5
+    CurrentLevel:
+      value: 0
     ActualState:
       value: 5
   CC:
     BaseState: 0.1
+    CurrentLevel:
+      value: 0
     ActualState:
       value: 0.1
   CD:
     BaseState: 1.5
+    CurrentLevel:
+      value: 0
     ActualState:
       value: 1.5
   SpreadMaxAngle: 5
@@ -645,6 +657,8 @@ MonoBehaviour:
   TargetCastingTime: 0
   MaxEP:
     BaseState: 100
+    CurrentLevel:
+      value: 0
     ActualState:
       value: 100
   CurrentEP:
@@ -661,18 +675,28 @@ MonoBehaviour:
   MovementState: 1
   WalkSpeed:
     BaseState: 3
+    CurrentLevel:
+      value: 0
     ActualState:
       value: 3
   WalkSpeedWhenShotMultiple:
     BaseState: 0.4
+    CurrentLevel:
+      value: 0
     ActualState:
       value: 0.4
   DashController: {fileID: 8889954111637353817}
   CurrentInteractableGOList: []
   TargetBoostRank: 0
-  MaxBoostRank: 4
+  MaxBoostRank: 5
   CurrentBoostRank:
     value: 0
+  DecEnergyPointByLevel:
+  - 1
+  - 2
+  - 3.5
+  - 5.5
+  - 8
   MakeAfterImage: {fileID: 1875528104640140175}
 --- !u!114 &8889954111637353817
 MonoBehaviour:

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UniRx;
+using TMPro;
 
 public class PlayerHUDController : UIController
 {
@@ -20,6 +21,10 @@ public class PlayerHUDController : UIController
     [Header("-- Bettery (Image Amount Class)")]
     [SerializeField] private ModifyImgAmountAndTxt EmptyBC;
     [SerializeField] private ModifyImgAmountAndTxt FullBC;
+
+    [Space(10)]
+    [Header("=== Boost")]
+    [SerializeField] private TMP_Text BoostLv;
 
     #endregion
 
@@ -65,6 +70,13 @@ public class PlayerHUDController : UIController
             .Subscribe(_CurrentEC =>
             {
                 FullBC.SetAmount(_CurrentEC, 0.5f);
+            })
+            .AddTo(gameObject);
+
+        PlayerManager.Instance.PlayerController.CurrentBoostRank
+            .Subscribe(_BoostLevel =>
+            {
+                BoostLv.text = _BoostLevel.ToString();
             })
             .AddTo(gameObject);
     }

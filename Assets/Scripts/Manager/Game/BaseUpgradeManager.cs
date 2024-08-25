@@ -10,6 +10,8 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
     [Header("=== Data")]
     [SerializeField] public BU_OneTypeData<float> BaseDamage_BUData;
     [SerializeField] public BU_OneTypeData<float> BaseROF_BUData;
+    [SerializeField] public BU_OneTypeData<float> BaseMaxEP_BUData;
+    [SerializeField] public BU_OneTypeData<float> BaseWalkSpeed_BUData;
 
     #endregion
 
@@ -19,6 +21,8 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
     {
         BaseDamage_BUData.Offset(_PC.BaseWeapon.BaseDamage.ActualState.Value);
         BaseROF_BUData.Offset(_PC.BaseWeapon.ROF.ActualState.Value);
+        BaseMaxEP_BUData.Offset(_PC.MaxEP.ActualState.Value);
+        BaseWalkSpeed_BUData.Offset(_PC.WalkSpeed.ActualState.Value);
     }
 
     #endregion

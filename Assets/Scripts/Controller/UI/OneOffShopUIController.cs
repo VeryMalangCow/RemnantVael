@@ -13,6 +13,9 @@ public class OneOffShopUIController : UIController
     [Space(10)]
     [Header("=== Skill")]
     [SerializeField] private OneOffShopEachData<float> DamageShop;
+    [SerializeField] private OneOffShopEachData<float> ROFShop;
+    [SerializeField] private OneOffShopEachData<float> MaxEPShop;
+    [SerializeField] private OneOffShopEachData<float> WalkSpeedShop;
 
     [Space(10)]
     [Header("=== Component")]
@@ -25,6 +28,9 @@ public class OneOffShopUIController : UIController
     protected override void Offset_Module()
     {
         DamageShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage, BaseUpgradeManager.Instance.BaseDamage_BUData);
+        ROFShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.ROF, BaseUpgradeManager.Instance.BaseROF_BUData);
+        MaxEPShop.Offset(PlayerManager.Instance.PlayerController.MaxEP, BaseUpgradeManager.Instance.BaseMaxEP_BUData);
+        WalkSpeedShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeed, BaseUpgradeManager.Instance.BaseWalkSpeed_BUData);
     }
 
     protected override void Offset_UI()
@@ -32,8 +38,17 @@ public class OneOffShopUIController : UIController
         CloseBtn.OnClickAsObservable()
             .Subscribe(btn =>
             {
-                UIManager.Instance.OneOffShopUIController.CloseThisPanel();
+                UIManager.Instance.OneOffShopUIController.CloseThisPanel(TabDurTime);
             });
+        for (int i = 0; i < ThisPanelTabList.Count; i++)
+        {
+            int index = i;
+            ThisPanelTabList[index].ThisTabBtn.OnClickAsObservable()
+                .Subscribe(btn =>
+                {
+                    ChangeThisPanel(TabDurTime, index);
+                });
+        }
     }
 
     #endregion
@@ -58,8 +73,15 @@ public class OneOffShopEachData<T>
         _Upgrade_BUS.CurrentLevel
            .Subscribe(_CurrentLevel =>
            {
-               int currentLV = _CurrentLevel;
-               Upgrade_MTAFB.Set(currentLV);
+               int currentLv = _CurrentLevel;
+               if(currentLv < _Upgrade_BUOTD.BU_EachLevelDataList.Count)
+               {
+                   Upgrade_MTAFB.Set(currentLv, _Upgrade_BUOTD.BU_EachLevelDataList[currentLv].NeedEC_ForUpgrade);
+               }
+               else if (currentLv == _Upgrade_BUOTD.BU_EachLevelDataList.Count)
+               {
+                   Upgrade_MTAFB.Set(currentLv, 0);
+               }
            });
     }
 

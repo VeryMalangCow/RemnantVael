@@ -45,9 +45,15 @@ public class ModifyTextAmountForBuy : UIModule, IPointerEnterHandler, IPointerEx
 
     #region Unique
 
-    public void Set(int _Level)
+    public void Set(int _Level, int _CostValue)
     {
         ThisMIAAT.SetAmount(_Level, 0.1f);
+        SetCostImg(_CostValue);
+    }
+
+    public void SetCostImg(int _CostValue)
+    {
+        CostImg.sprite = CostSpriteList[_CostValue];
     }
 
     #endregion

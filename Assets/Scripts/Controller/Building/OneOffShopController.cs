@@ -16,7 +16,7 @@ public class OneOffShopController : BuildingController, IInteract
 
     public void Interact()
     {
-        UIManager.Instance.OneOffShopUIController.OpenThisPanel();
+        UIManager.Instance.OneOffShopUIController.OpenThisPanel(UIManager.Instance.OneOffShopUIController.TabDurTime);
     }
 
     #endregion
