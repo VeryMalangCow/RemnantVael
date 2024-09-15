@@ -1,10 +1,10 @@
 using UnityEngine;
 using UniRx;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class OneOffShopUIController : UIController
 {
-    
     #region Value
 
     [Space(20)]
@@ -35,11 +35,14 @@ public class OneOffShopUIController : UIController
 
     protected override void Offset_UI()
     {
+        // Close Btn
         CloseBtn.OnClickAsObservable()
             .Subscribe(btn =>
             {
                 UIManager.Instance.OneOffShopUIController.CloseThisPanel(TabDurTime);
             });
+
+        // Tab Btn List
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
             int index = i;
@@ -48,6 +51,41 @@ public class OneOffShopUIController : UIController
                 {
                     ChangeThisPanel(TabDurTime, index);
                 });
+        }
+
+        // BG Offset
+        if (TryGetComponent(out Image img))
+        {
+            Color BGColor = img.color;
+            BGColor.a = 0f;
+            img.color = BGColor;
+        }
+    }
+
+    #endregion
+
+    #region Set Panel
+
+    public override void OpenThisPanel(float _DurTime)
+    {
+        base.OpenThisPanel(_DurTime);
+
+        if(TryGetComponent(out Image img))
+        {
+            img.DOFade(0.5f, _DurTime);
+        }
+    }
+
+    public override void CloseThisPanel(float _DurTime)
+    {
+        if (IsTweening)
+        { return; }
+
+        base.CloseThisPanel(_DurTime);
+
+        if (TryGetComponent(out Image img))
+        {
+            img.DOFade(0f, _DurTime);
         }
     }
 

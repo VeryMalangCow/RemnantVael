@@ -10,7 +10,7 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private Transform PlayerSpawnParentTF;
 
     [Header("=== Class")]
-    [SerializeField] private CameraController CameraController;
+    [SerializeField] public CameraController CameraController;
 
 
     #endregion

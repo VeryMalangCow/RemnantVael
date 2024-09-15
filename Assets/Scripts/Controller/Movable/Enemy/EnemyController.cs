@@ -79,12 +79,14 @@ public class EnemyController : MovableObject
 
     #region Spawn Item
 
+    // Interactable Item
     private void SpawnII(int _SpawnRank)
     {
         InteractItemController IIC = PoolingManager.Instance.GetOP_InteractableItem();
         IIC.SetState(this.transform.position, _SpawnRank);
     }
 
+    // Energy Shrapnel
     private void SpawnES(float _Value)
     {
         EnergyShrapnelController ESC = PoolingManager.Instance.GetOP_EnergyShrapnel();
@@ -95,6 +97,7 @@ public class EnemyController : MovableObject
         ESC.gameObject.SetActive(true);
     }
 
+    // Bettery Shrapnel
     private void SpawnBS(int _Value)
     {
         BetteryShrapnelController BSC = PoolingManager.Instance.GetOP_BetteryShrapnel();

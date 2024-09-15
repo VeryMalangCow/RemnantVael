@@ -40,6 +40,13 @@ public class PlayerHUDController : UIController
 
     protected override void Offset_UI()
     {
+        PlayerManager.Instance.PlayerController.MaxEP.ActualState
+            .Subscribe(_MaxEP =>
+            {
+                EP.SetMaxFillRT(_MaxEP * 4);
+            })
+            .AddTo(gameObject);
+
         PlayerManager.Instance.PlayerController.CurrentEP
             .Subscribe(_CurrentEP =>
             {

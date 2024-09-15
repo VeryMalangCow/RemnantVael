@@ -10,6 +10,7 @@ public class PlayerController : MovableObject
     [Space(20)]
     [Header("<><><><><> Player")]
 
+
     [Space(10)]
     [Header("=== Combat")]
 
@@ -34,6 +35,7 @@ public class PlayerController : MovableObject
     [Header("-- Weapon")]
     [SerializeField] public PlayerWeaponController BaseWeapon;
 
+
     [Space(10)]
     [Header("=== Movement")]
 
@@ -45,10 +47,12 @@ public class PlayerController : MovableObject
     [Header("-- Dash")]
     [SerializeField] private PlayerDashController DashController;
 
+
     [Space(10)]
     [Header("=== Interact")]
     [SerializeField] public List<GameObject> CurrentInteractableGOList;
     [SerializeField] public IInteract CurrentInteractable;
+
 
     [Space(10)]
     [Header("=== Skill")]
@@ -60,6 +64,7 @@ public class PlayerController : MovableObject
     private delegate void SkillDele();
     private SkillDele ReservationSkillDele = null;
 
+
     [Space(10)]
     [Header("=== Main Sprite")]
     [SerializeField] public MakeAfterImage MakeAfterImage;
@@ -67,6 +72,12 @@ public class PlayerController : MovableObject
     #endregion
 
     #region Framework
+
+    private void Awake()
+    {
+        Debug.Log("Test Set EC");
+        CurrentEC.Value = 100;
+    }
 
     protected override void Update()
     {

@@ -8,7 +8,7 @@ public class BulletController : HaveShadowThing
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] protected BulletState BulletState;
+    [SerializeField] public BulletState BulletState;
     [SerializeField] public bool IsCritical = false;
     [SerializeField] protected float CurrentAliveTime = 0;
 
@@ -38,6 +38,8 @@ public class BulletController : HaveShadowThing
         transform.eulerAngles = currentRotation;
 
         CurrentAliveTime = 0;
+
+        gameObject.SetActive(true);
     }
 
     #endregion

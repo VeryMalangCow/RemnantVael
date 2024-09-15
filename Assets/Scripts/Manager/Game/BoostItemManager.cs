@@ -11,6 +11,7 @@ public class BoostItemManager : Singleton<BoostItemManager>
     [Header("=== Gotten Item")]
     [SerializeField] private List<int> ItemIDList;
     private List<PassiveSkill> PISList = new List<PassiveSkill>();
+
     private List<IWhen_Always> iWhen_AlwaysList = new List<IWhen_Always>();
     public List<IWhen_Fire> iWhen_FireList = new List<IWhen_Fire>();
 
@@ -25,9 +26,6 @@ public class BoostItemManager : Singleton<BoostItemManager>
 
     public void GetItemSkill(int _ItemID)
     {
-        if(!CheckAlreadyHaveItem(_ItemID))
-        { return; }
-        
         foreach (PassiveSkill PIS in PassiveSkill.AllPassiveItemSkill())
         {
             if (PIS.ThisItemID == _ItemID) 

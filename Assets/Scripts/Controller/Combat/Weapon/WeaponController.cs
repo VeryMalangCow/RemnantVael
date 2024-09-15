@@ -71,7 +71,7 @@ public class WeaponController : MonoBehaviour
                 // Base State
                 BulletState bulletState = new BulletState(DamageType, BaseDamage.ActualState.Value, MuzzleSpeed.ActualState.Value, AliveTime.ActualState.Value);
                 PBC.SetState(BulletSpawnTF.position, randomAngle, bulletState, fireMinDisLimit, isCritical, CD.ActualState.Value);
-                PBC.gameObject.SetActive(true);
+                //PBC.gameObject.SetActive(true);
             }
 
         }

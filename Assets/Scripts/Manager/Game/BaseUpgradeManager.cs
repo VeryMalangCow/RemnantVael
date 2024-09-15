@@ -5,12 +5,19 @@ using UnityEngine;
 
 public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
 {
-    #region 
+    #region Value
 
+    [Space(10)]
     [Header("=== Data")]
+
+    [Header("-- Attack")]
     [SerializeField] public BU_OneTypeData<float> BaseDamage_BUData;
     [SerializeField] public BU_OneTypeData<float> BaseROF_BUData;
+
+    [Header("-- EP")]
     [SerializeField] public BU_OneTypeData<float> BaseMaxEP_BUData;
+
+    [Header("-- Movement")]
     [SerializeField] public BU_OneTypeData<float> BaseWalkSpeed_BUData;
 
     #endregion
@@ -70,7 +77,7 @@ public class BU_OneTypeData<T>
             {
                 int _i = i - 8;
                 BU_EachLevelDataList[i].SetUpgradeValue((float)BU_EachLevelDataList[8].GetUpgradeValue() + (_FloatValue * _i * 0.7f));
-                BU_EachLevelDataList[i].NeedEC_ForUpgrade = 5;
+                BU_EachLevelDataList[i].NeedEC_ForUpgrade = 4;
             }
         }
     }

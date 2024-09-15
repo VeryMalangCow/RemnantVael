@@ -53,11 +53,14 @@ public class PlayerWeaponController : WeaponController
             List<PlayerBulletController> PBClist = new List<PlayerBulletController>();
             foreach (Transform TF in BulletSpawnTFs)
             { PBClist.Add(PoolingManager.Instance.GetOP_PlayerBullet()); }
+
             Fire(PBClist);
+            PlayerManager.Instance.CameraController.PlayShotShake(1/ROF.ActualState.Value, PBClist[0].BulletState.BaseDamage);
 
             BoostItemManager.Instance.ActiveSkill_Fire(PlayerController.CurrentBoostRank.Value);
         }
     }
+
     private void OnEnable()
     {
         RollTF.rotation = Quaternion.Euler(DefualtRoll, 0f, 0f);

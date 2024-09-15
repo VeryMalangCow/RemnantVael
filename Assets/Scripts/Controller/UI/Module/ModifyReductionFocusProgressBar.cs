@@ -11,6 +11,8 @@ public class ModifyReductionFocusProgressBar : UIModule
     [Header("=== Component")]
     [SerializeField] private Image AfterImageEP_Img;
     [SerializeField] private Image ActualEP_Img;
+    [SerializeField] private RectTransform ActualEP_ImgLiner;
+    [HideInInspector] private RectTransform ThisRT;
 
     #endregion
 
@@ -19,11 +21,36 @@ public class ModifyReductionFocusProgressBar : UIModule
     public override void Offset()
     {
         SetFillImgSmooth(0, 1);
+
+        TryGetComponent(out RectTransform thisRT);
+        ThisRT = thisRT;
+    }
+
+    private void LateUpdate()
+    {
+        ActualEP_ImgLiner.localPosition = GetLinerPos();
     }
 
     #endregion
 
-    #region Unique
+    #region Unique -> Max
+
+    public void SetMaxFillRT(float _SizeX)
+    {
+        if (ThisRT != null)
+        {
+            ThisRT.DOSizeDelta(new Vector2(_SizeX, ThisRT.sizeDelta.y), 1f);
+        }
+        else if(TryGetComponent(out RectTransform thisRT))
+        {
+            ThisRT = thisRT;
+            ThisRT.DOSizeDelta(new Vector2(_SizeX, ThisRT.sizeDelta.y), 1f);
+        }
+    }
+
+    #endregion
+
+    #region Unique -> Current
 
     public void SetFillImgSmooth(float _CurrentValue, float _MaxValue)
     {
@@ -52,4 +79,20 @@ public class ModifyReductionFocusProgressBar : UIModule
     }
 
     #endregion
+
+    #region Liner
+
+    private Vector2 GetLinerPos()
+    {
+        if (ThisRT != null)
+        {
+            float targetX = ThisRT.sizeDelta.x * ActualEP_Img.fillAmount;
+            return new Vector2(targetX, 0f);
+        }
+
+        return Vector2.zero;
+    }
+
+    #endregion
+
 }

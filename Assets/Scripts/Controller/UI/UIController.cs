@@ -12,7 +12,7 @@ public abstract class UIController : MonoBehaviour
     [SerializeField] protected List<ModifyEachTab> ThisPanelTabList;
     [SerializeField] private ModifyEachTab CurrentThisPanelTab;
     [SerializeField] public float TabDurTime = 0.4f;
-    [SerializeField] private bool IsTweening = false;
+    [SerializeField] protected bool IsTweening = false;
 
     #endregion
 
