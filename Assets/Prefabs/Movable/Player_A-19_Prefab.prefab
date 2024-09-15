@@ -448,7 +448,12 @@ MonoBehaviour:
       value: 0
     ActualState:
       value: 1.5
-  SpreadMaxAngle: 5
+  AccuracyRate:
+    BaseState: 89
+    CurrentLevel:
+      value: 0
+    ActualState:
+      value: 89
   CurrentDelayROF: 0
   fireMinDisLimit: 4
   BulletSpawnTFs:

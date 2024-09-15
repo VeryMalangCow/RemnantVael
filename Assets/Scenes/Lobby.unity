@@ -377,6 +377,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseDamage_BUData:
+    UpgradeValue: 1
+    UpgradeType: 1
     BaseValue: 0
     BU_EachLevelDataList:
     - UpgradeValue: 0
@@ -400,6 +402,33 @@ MonoBehaviour:
     - UpgradeValue: 0
       NeedEC_ForUpgrade: 0
   BaseROF_BUData:
+    UpgradeValue: 1
+    UpgradeType: 1
+    BaseValue: 0
+    BU_EachLevelDataList:
+    - UpgradeValue: 0
+      NeedEC_ForUpgrade: 0
+    - UpgradeValue: 0
+      NeedEC_ForUpgrade: 0
+    - UpgradeValue: 0
+      NeedEC_ForUpgrade: 0
+    - UpgradeValue: 0
+      NeedEC_ForUpgrade: 0
+    - UpgradeValue: 0
+      NeedEC_ForUpgrade: 0
+    - UpgradeValue: 0
+      NeedEC_ForUpgrade: 0
+    - UpgradeValue: 0
+      NeedEC_ForUpgrade: 0
+    - UpgradeValue: 0
+      NeedEC_ForUpgrade: 0
+    - UpgradeValue: 0
+      NeedEC_ForUpgrade: 0
+    - UpgradeValue: 0
+      NeedEC_ForUpgrade: 0
+  BaseAccuracyRate_BUData:
+    UpgradeValue: 0.5
+    UpgradeType: 0
     BaseValue: 0
     BU_EachLevelDataList:
     - UpgradeValue: 0
@@ -423,6 +452,8 @@ MonoBehaviour:
     - UpgradeValue: 0
       NeedEC_ForUpgrade: 0
   BaseMaxEP_BUData:
+    UpgradeValue: 1
+    UpgradeType: 1
     BaseValue: 0
     BU_EachLevelDataList:
     - UpgradeValue: 0
@@ -446,6 +477,8 @@ MonoBehaviour:
     - UpgradeValue: 0
       NeedEC_ForUpgrade: 0
   BaseWalkSpeed_BUData:
+    UpgradeValue: 0.5
+    UpgradeType: 1
     BaseValue: 0
     BU_EachLevelDataList:
     - UpgradeValue: 0

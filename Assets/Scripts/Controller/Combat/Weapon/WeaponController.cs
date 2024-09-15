@@ -18,8 +18,8 @@ public class WeaponController : MonoBehaviour
     [SerializeField] public BaseUpgradeState<float> ROF;
     [SerializeField] public BaseUpgradeState<float> CC;
     [SerializeField] public BaseUpgradeState<float> CD;
+    [SerializeField] public BaseUpgradeState<float> AccuracyRate;
 
-    [SerializeField] private float SpreadMaxAngle = 0;
     [SerializeField] public float CurrentDelayROF = 0;
     [SerializeField] private float fireMinDisLimit = 4;
 
@@ -53,7 +53,8 @@ public class WeaponController : MonoBehaviour
 
     protected void Fire<T>(List<T> _Ts)
     {
-        float randomAngle = UnityEngine.Random.Range(-SpreadMaxAngle, SpreadMaxAngle);
+        float spreadMaxLimit = 100 - AccuracyRate.ActualState.Value;
+        float randomAngle = UnityEngine.Random.Range(-spreadMaxLimit, spreadMaxLimit);
         foreach (Transform BulletSpawnTF in BulletSpawnTFs)
         {
             int index = BulletSpawnTFs.IndexOf(BulletSpawnTF);

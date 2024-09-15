@@ -12,13 +12,18 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
 
     [Header("-- Attack")]
     [SerializeField] public BU_OneTypeData<float> BaseDamage_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseROF_BUData;
+
+    [SerializeField] public BU_OneTypeData<float> BaseROF_BUData; 
+
+    [SerializeField] public BU_OneTypeData<float> BaseAccuracyRate_BUData; 
+
 
     [Header("-- EP")]
     [SerializeField] public BU_OneTypeData<float> BaseMaxEP_BUData;
 
+
     [Header("-- Movement")]
-    [SerializeField] public BU_OneTypeData<float> BaseWalkSpeed_BUData;
+    [SerializeField] public BU_OneTypeData<float> BaseWalkSpeed_BUData; 
 
     #endregion
 
@@ -28,7 +33,10 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
     {
         BaseDamage_BUData.Offset(_PC.BaseWeapon.BaseDamage.ActualState.Value);
         BaseROF_BUData.Offset(_PC.BaseWeapon.ROF.ActualState.Value);
+        BaseAccuracyRate_BUData.Offset(_PC.BaseWeapon.AccuracyRate.ActualState.Value);
+
         BaseMaxEP_BUData.Offset(_PC.MaxEP.ActualState.Value);
+
         BaseWalkSpeed_BUData.Offset(_PC.WalkSpeed.ActualState.Value);
     }
 
@@ -38,6 +46,11 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
 [System.Serializable]
 public class BU_OneTypeData<T>
 {
+    [Header("=== Need Input")]
+    public float UpgradeValue;
+    public int UpgradeType;
+
+    [Header("=== No Input")]
     public T BaseValue;
     public List<BU_EachLevelData<T>> BU_EachLevelDataList;
 
@@ -48,37 +61,64 @@ public class BU_OneTypeData<T>
         if (BaseValue.GetType() == typeof(float))
         {
             float floatValue = float.Parse(BaseValue.ToString());
-            Offset(floatValue);
+            switch(UpgradeType)
+            {
+                case 0:
+                    Offset_Type_00(floatValue, UpgradeValue);
+                    break;
+
+                case 1:
+                    Offset_Type_01(floatValue, UpgradeValue);
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 
-    private void Offset(float _FloatValue)
+    private void Offset_Type_00(float _FloatValue, float _UpgradeValue)
+    {
+        for (int i = 0; i < BU_EachLevelDataList.Count; i++)
+        {
+            if (i == 0)
+            {
+                BU_EachLevelDataList[i].SetUpgradeValue(_FloatValue + (1f * _UpgradeValue));
+            }
+            else
+            {
+                BU_EachLevelDataList[i].SetUpgradeValue((float)BU_EachLevelDataList[i - 1].GetUpgradeValue() + (((int)(i / 3) + 1) * _UpgradeValue));
+            }
+
+            BU_EachLevelDataList[i].NeedEC_ForUpgrade = ((int)(i / 3) + 1);
+        }
+    }
+
+    public void Offset_Type_01(float _FloatValue, float _UpgradeValue)
     {
         for (int i = 0; i < BU_EachLevelDataList.Count; i++)
         {
             if (i >= 0 && i <= 2)
             {
-                BU_EachLevelDataList[i].SetUpgradeValue(_FloatValue + (_FloatValue * (i + 1) * 0.1f));
-                BU_EachLevelDataList[i].NeedEC_ForUpgrade = 1;
-            }
+                BU_EachLevelDataList[i].SetUpgradeValue(_FloatValue + (_FloatValue * (i + 1) * 0.1f * _UpgradeValue));
+            }  
             else if (i >= 3 && i <= 5)
             {
                 int _i = i - 2;
-                BU_EachLevelDataList[i].SetUpgradeValue((float)BU_EachLevelDataList[2].GetUpgradeValue() + (_FloatValue * _i * 0.25f));
-                BU_EachLevelDataList[i].NeedEC_ForUpgrade = 2;
+                BU_EachLevelDataList[i].SetUpgradeValue((float)BU_EachLevelDataList[2].GetUpgradeValue() + (_FloatValue * _i * 0.25f * _UpgradeValue));
             }
             else if (i >= 6 && i <= 8)
             {
                 int _i = i - 5;
-                BU_EachLevelDataList[i].SetUpgradeValue((float)BU_EachLevelDataList[5].GetUpgradeValue() + (_FloatValue * _i * 0.45f));
-                BU_EachLevelDataList[i].NeedEC_ForUpgrade = 3;
+                BU_EachLevelDataList[i].SetUpgradeValue((float)BU_EachLevelDataList[5].GetUpgradeValue() + (_FloatValue * _i * 0.45f * _UpgradeValue));
             }
             else
             {
                 int _i = i - 8;
-                BU_EachLevelDataList[i].SetUpgradeValue((float)BU_EachLevelDataList[8].GetUpgradeValue() + (_FloatValue * _i * 0.7f));
-                BU_EachLevelDataList[i].NeedEC_ForUpgrade = 4;
+                BU_EachLevelDataList[i].SetUpgradeValue((float)BU_EachLevelDataList[8].GetUpgradeValue() + (_FloatValue * _i * 0.7f * _UpgradeValue));
             }
+
+            BU_EachLevelDataList[i].NeedEC_ForUpgrade = ((int)(i / 3) + 1);
         }
     }
 }

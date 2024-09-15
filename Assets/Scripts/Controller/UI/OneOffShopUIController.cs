@@ -12,9 +12,15 @@ public class OneOffShopUIController : UIController
 
     [Space(10)]
     [Header("=== Skill")]
+    [Header("-- Attack")]
     [SerializeField] private OneOffShopEachData<float> DamageShop;
     [SerializeField] private OneOffShopEachData<float> ROFShop;
+    [SerializeField] private OneOffShopEachData<float> AccuracyRateShop;
+
+    [Header("-- EP")]
     [SerializeField] private OneOffShopEachData<float> MaxEPShop;
+
+    [Header("-- Movement")]
     [SerializeField] private OneOffShopEachData<float> WalkSpeedShop;
 
     [Space(10)]
@@ -29,7 +35,10 @@ public class OneOffShopUIController : UIController
     {
         DamageShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage, BaseUpgradeManager.Instance.BaseDamage_BUData);
         ROFShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.ROF, BaseUpgradeManager.Instance.BaseROF_BUData);
+        AccuracyRateShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.AccuracyRate, BaseUpgradeManager.Instance.BaseAccuracyRate_BUData);
+
         MaxEPShop.Offset(PlayerManager.Instance.PlayerController.MaxEP, BaseUpgradeManager.Instance.BaseMaxEP_BUData);
+
         WalkSpeedShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeed, BaseUpgradeManager.Instance.BaseWalkSpeed_BUData);
     }
 
