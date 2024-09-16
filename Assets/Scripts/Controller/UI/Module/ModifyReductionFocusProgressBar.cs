@@ -37,15 +37,12 @@ public class ModifyReductionFocusProgressBar : UIModule
 
     public void SetMaxFillRT(float _SizeX)
     {
-        if (ThisRT != null)
-        {
-            ThisRT.DOSizeDelta(new Vector2(_SizeX, ThisRT.sizeDelta.y), 1f);
-        }
-        else if(TryGetComponent(out RectTransform thisRT))
+        if(ThisRT == null && TryGetComponent(out RectTransform thisRT))
         {
             ThisRT = thisRT;
-            ThisRT.DOSizeDelta(new Vector2(_SizeX, ThisRT.sizeDelta.y), 1f);
         }
+
+        ThisRT.DOSizeDelta(new Vector2(_SizeX, ThisRT.sizeDelta.y), 0.1f);
     }
 
     #endregion

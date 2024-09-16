@@ -15,6 +15,8 @@ public class OneOffShopUIController : UIController
     [Header("-- Attack")]
     [SerializeField] private OneOffShopEachData<float> DamageShop;
     [SerializeField] private OneOffShopEachData<float> ROFShop;
+    [SerializeField] private OneOffShopEachData<float> CCShop;
+    [SerializeField] private OneOffShopEachData<float> CDShop;
     [SerializeField] private OneOffShopEachData<float> AccuracyRateShop;
 
     [Header("-- EP")]
@@ -35,6 +37,8 @@ public class OneOffShopUIController : UIController
     {
         DamageShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage, BaseUpgradeManager.Instance.BaseDamage_BUData);
         ROFShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.ROF, BaseUpgradeManager.Instance.BaseROF_BUData);
+        CCShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CC, BaseUpgradeManager.Instance.BaseCC_BUData);
+        CDShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CD, BaseUpgradeManager.Instance.BaseCD_BUData);
         AccuracyRateShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.AccuracyRate, BaseUpgradeManager.Instance.BaseAccuracyRate_BUData);
 
         MaxEPShop.Offset(PlayerManager.Instance.PlayerController.MaxEP, BaseUpgradeManager.Instance.BaseMaxEP_BUData);
@@ -73,15 +77,30 @@ public class OneOffShopUIController : UIController
 
     #endregion
 
+    #region Framework
+
+    private void OnEnable()
+    {
+        foreach(ModifyEachTab MET in ThisPanelTabList)
+        {
+            MET.OnReset();
+        }
+    }
+
+    #endregion
+
     #region Set Panel
 
     public override void OpenThisPanel(float _DurTime)
     {
+        if (IsTweening)
+        { return; }
+
         base.OpenThisPanel(_DurTime);
 
-        if(TryGetComponent(out Image img))
+        if(TryGetComponent(out CanvasGroup CG))
         {
-            img.DOFade(0.5f, _DurTime);
+            CG.DOFade(1f, _DurTime);
         }
     }
 
@@ -92,9 +111,9 @@ public class OneOffShopUIController : UIController
 
         base.CloseThisPanel(_DurTime);
 
-        if (TryGetComponent(out Image img))
+        if (TryGetComponent(out CanvasGroup CG))
         {
-            img.DOFade(0f, _DurTime);
+            CG.DOFade(0f, _DurTime);
         }
     }
 

@@ -98,8 +98,7 @@ public abstract class UIController : MonoBehaviour
         if (IsTweening)
         { return; }
 
-        UIManager.Instance.CurrentOpeningUIController = null;
-        InputManager.Instance.enabled = true;
+        
 
         // Seq
         IsTweening = true;
@@ -115,6 +114,9 @@ public abstract class UIController : MonoBehaviour
             {
                 this.gameObject.SetActive(false);
                 IsTweening = false;
+                
+                UIManager.Instance.CurrentOpeningUIController = null;
+                InputManager.Instance.enabled = true;
             });
     }
 

@@ -416,42 +416,76 @@ MonoBehaviour:
     BaseState: 1
     CurrentLevel:
       value: 0
+    UpgradeValueByLevelRange:
+    - 0.1
+    - 0.2
+    - 0.35
+    - 1
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1
   AliveTime:
     BaseState: 1
     CurrentLevel:
       value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
     ActualState:
       value: 1
   MuzzleSpeed:
     BaseState: 1
     CurrentLevel:
       value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
     ActualState:
       value: 1
   ROF:
     BaseState: 5
     CurrentLevel:
       value: 0
+    UpgradeValueByLevelRange:
+    - 0.25
+    - 0.6
+    - 1.2
+    - 2
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 5
   CC:
     BaseState: 0.1
     CurrentLevel:
       value: 0
+    UpgradeValueByLevelRange:
+    - 0.01
+    - 0.025
+    - 0.04
+    - 0.075
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 0.1
   CD:
     BaseState: 1.5
     CurrentLevel:
       value: 0
+    UpgradeValueByLevelRange:
+    - 0.1
+    - 0.15
+    - 0.2
+    - 0.35
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1.5
   AccuracyRate:
-    BaseState: 89
+    BaseState: 87
     CurrentLevel:
       value: 0
+    UpgradeValueByLevelRange:
+    - 0.5
+    - 1
+    - 1.75
+    - 3.25
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 89
   CurrentDelayROF: 0
@@ -664,6 +698,12 @@ MonoBehaviour:
     BaseState: 100
     CurrentLevel:
       value: 0
+    UpgradeValueByLevelRange:
+    - 10
+    - 20
+    - 35
+    - 100
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 100
   CurrentEP:
@@ -682,12 +722,20 @@ MonoBehaviour:
     BaseState: 3
     CurrentLevel:
       value: 0
+    UpgradeValueByLevelRange:
+    - 0.15
+    - 0.3
+    - 0.5
+    - 1
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 3
   WalkSpeedWhenShotMultiple:
     BaseState: 0.4
     CurrentLevel:
       value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
     ActualState:
       value: 0.4
   DashController: {fileID: 8889954111637353817}

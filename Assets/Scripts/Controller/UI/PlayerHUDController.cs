@@ -44,6 +44,10 @@ public class PlayerHUDController : UIController
             .Subscribe(_MaxEP =>
             {
                 EP.SetMaxFillRT(_MaxEP * 4);
+
+                EP.SetFillImgSmooth(
+                    PlayerManager.Instance.PlayerController.CurrentEP.Value,
+                    PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value);
             })
             .AddTo(gameObject);
 

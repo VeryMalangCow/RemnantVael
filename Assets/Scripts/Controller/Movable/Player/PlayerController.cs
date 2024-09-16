@@ -444,5 +444,7 @@ public class BaseUpgradeState<T>
 {
     public T BaseState;
     public ReactiveProperty<int> CurrentLevel;
+    public List<T> UpgradeValueByLevelRange;
+    public List<int> NeedPayByLevelRange;
     public ReactiveProperty<T> ActualState;
 }
