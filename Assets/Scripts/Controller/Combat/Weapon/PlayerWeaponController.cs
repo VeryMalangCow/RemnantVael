@@ -48,7 +48,7 @@ public class PlayerWeaponController : WeaponController
             hand.SetSortOrder(PlayerSR.sortingOrder);
         }
 
-        if (IsInputed && CurrentDelayROF >= 1)
+        if (IsInputed && CurrentDelayROF >= 1 && !PlayerController.IsCasting)
         {
             List<PlayerBulletController> PBClist = new List<PlayerBulletController>();
             foreach (Transform TF in BulletSpawnTFs)

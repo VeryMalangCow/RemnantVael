@@ -17,8 +17,12 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float FollowRangeLimit = 1f;
 
     [Header("-- Shot Shake")]
-    [SerializeField] private float Strength = 1f;
-    [SerializeField] private int Vibrato = 1;
+    [SerializeField] private float ShotStrength = 1f;
+    [SerializeField] private int ShotVibrato = 1;
+
+    [Header("-- Kill Shake")]
+    [SerializeField] private float KillStrength = 1f;
+    [SerializeField] private int KillVibrato = 1;
 
     #endregion
 
@@ -92,11 +96,24 @@ public class CameraController : MonoBehaviour
 
     #region Shot Shake
 
-
     public void PlayShotShake(float _Dur, float _Strength)
     {
-        CameraElementTransformList[1].DOShakePosition(_Dur, _Strength * Strength / 100, Vibrato, 0f);
+        PlayShake(CameraElementTransformList[1], _Dur, _Strength * ShotStrength, ShotVibrato);
     }
 
     #endregion
+
+    #region Execution Kill Shake
+
+    public void PlayKillShake(float _Dur)
+    {
+        PlayShake(CameraElementTransformList[2], _Dur, KillStrength, KillVibrato);
+    }
+
+    #endregion
+
+    private void PlayShake(Transform _TF, float _Dur, float _Strength, int _Vibrato)
+    {
+        _TF.DOShakePosition(_Dur, _Strength / 100, _Vibrato, 0f);
+    }
 }

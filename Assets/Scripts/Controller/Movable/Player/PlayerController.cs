@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
@@ -20,6 +21,7 @@ public class PlayerController : MovableObject
     [SerializeField] public bool IsCasting = false;
     [SerializeField] private float CurrentCastingTime = 0;
     [SerializeField] private float TargetCastingTime = 0;
+    [SerializeField] public float ExecutionTime = 0.5f;
 
     [Header("-- Energy")]
     [SerializeField] public BaseUpgradeState<float> MaxEP;
@@ -50,8 +52,8 @@ public class PlayerController : MovableObject
 
     [Space(10)]
     [Header("=== Interact")]
-    [SerializeField] public List<GameObject> CurrentInteractableGOList;
-    [SerializeField] public IInteract CurrentInteractable;
+    [SerializeField] private List<GameObject> CurrentInteractableGOList;
+    [SerializeField] private IInteract CurrentInteractable;
 
 
     [Space(10)]
@@ -255,6 +257,20 @@ public class PlayerController : MovableObject
         StartCasting(_CastingTime);
     }
 
+    // + None
+    public void CanChange_Execution(float _CastingTime)
+    {
+        if (!CanChange())
+        { return; }
+
+        if (CurrentInteractable is EnemyController EC)
+        {
+            EC.Interact();
+        }
+
+        StartCasting(_CastingTime);
+    }
+
 
     public void StartCasting(float _CastingTime)
     {
@@ -272,14 +288,22 @@ public class PlayerController : MovableObject
     {
         if(CurrentInteractable != null)
         {
-            CurrentInteractable.Interact();
-            if (CurrentInteractable is InteractItemController IIC)
+            if (CurrentInteractable is InteractItemController IIC) // Item
             {
+                CurrentInteractable.Interact();
                 CurrentInteractable = null;
             }
-            else if (CurrentInteractable is OneOffShopController SC)
+            else if (CurrentInteractable is EnemyController EC) // Enemy
             {
-
+                if(EC.IsLethargy)
+                {
+                    CanChange_Execution(ExecutionTime);
+                }
+                CurrentInteractable = null;
+            }
+            else // OneOffShopController |OR| ...
+            {
+                CurrentInteractable.Interact();
             }
             
         }
@@ -376,7 +400,7 @@ public class PlayerController : MovableObject
 
     private void OnTriggerEnter2D(Collider2D _Col)
     {
-        if(_Col.tag == "Interact" && _Col.gameObject.transform.parent.TryGetComponent(out IInteract II))
+        if(_Col.gameObject.transform.parent.TryGetComponent(out IInteract II))
         {
             GameObject TargetGO = _Col.gameObject.transform.parent.gameObject;
 
@@ -425,7 +449,7 @@ public class PlayerController : MovableObject
 
     private void OnTriggerExit2D(Collider2D _Col)
     {
-        if (_Col.tag == "Interact" && _Col.gameObject.transform.parent.TryGetComponent(out IInteract II))
+        if (_Col.gameObject.transform.parent.TryGetComponent(out IInteract II))
         {
             GameObject TargetGO = _Col.gameObject.transform.parent.gameObject;
 

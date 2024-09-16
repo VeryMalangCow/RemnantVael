@@ -75,6 +75,18 @@ public class ModifyReductionFocusProgressBar : UIModule
         }
     }
 
+
+    public void SetFillFullImgSmooth(float _DurTime)
+    {
+        DOTween.Kill(ActualEP_Img.fillAmount);
+        ActualEP_Img.DOFillAmount(1f, _DurTime)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                AfterImageEP_Img.fillAmount = 1f;
+            });
+    }
+
     #endregion
 
     #region Liner

@@ -1,7 +1,8 @@
+using System.Collections;
 using UniRx;
 using UnityEngine;
 
-public class EnemyController : MovableObject
+public class EnemyController : MovableObject, IInteract
 {
     #region Value
 
@@ -14,12 +15,20 @@ public class EnemyController : MovableObject
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private ReactiveProperty<float> MaxHP = new();
-    [SerializeField] private ReactiveProperty<float> CurrentHP = new();
+    [SerializeField] private float MaxHP;
+    [HideInInspector] private ReactiveProperty<float> CurrentHP = new();
+
+    [SerializeField] private float MaxEP;
+    [HideInInspector] private ReactiveProperty<float> CurrentEP = new();
+    [HideInInspector] public bool IsLethargy = false;
+    [SerializeField] private float RecoverLethargyTime = 4f;
+
+    [SerializeField] private float ItemDropPercent = 0.0f;
 
     [Space(10)]
     [Header("=== UI")]
     [SerializeField] private ModifyReductionFocusProgressBar HP_ProgressBar;
+    [SerializeField] private ModifyReductionFocusProgressBar EP_ProgressBar;
 
     #endregion
 
@@ -27,7 +36,11 @@ public class EnemyController : MovableObject
 
     private void Offset()
     {
-        CurrentHP.Value = MaxHP.Value;
+        HP_ProgressBar.Offset();
+        EP_ProgressBar.Offset();
+
+        CurrentHP.Value = MaxHP;
+        CurrentEP.Value = MaxEP;
     }
 
     private void Start()
@@ -37,7 +50,13 @@ public class EnemyController : MovableObject
         CurrentHP
             .Subscribe(_CurrentHP =>
             {
-                HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP.Value);
+                HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
+            });
+
+        CurrentEP
+            .Subscribe(_CurrentEP =>
+            {
+                EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
             });
     }
 
@@ -62,7 +81,10 @@ public class EnemyController : MovableObject
         }
         else
         {
-            SpawnES(_Damage);
+            if(!IsLethargy)
+            {
+                SpawnES(_Damage);
+            }
         }
 
 
@@ -70,8 +92,15 @@ public class EnemyController : MovableObject
 
     private void Die()
     {
+        // Drop Bettery
         SpawnBS(1);
+
+        // Drop Item
         SpawnII(1);
+
+        StopCoroutine(RecoverLethargy());
+        PlayerManager.Instance.CameraController.PlayKillShake(PlayerManager.Instance.PlayerController.ExecutionTime);
+
         this.gameObject.SetActive(false);
     }
 
@@ -82,6 +111,9 @@ public class EnemyController : MovableObject
     // Interactable Item
     private void SpawnII(int _SpawnRank)
     {
+        if (ItemDropPercent < UnityEngine.Random.Range(0f, 1f))
+        { return; }
+
         InteractItemController IIC = PoolingManager.Instance.GetOP_InteractableItem();
         IIC.SetState(this.transform.position, _SpawnRank);
     }
@@ -89,11 +121,26 @@ public class EnemyController : MovableObject
     // Energy Shrapnel
     private void SpawnES(float _Value)
     {
+        float targetValue = 0;
+        if (CurrentEP.Value > _Value)
+        {
+            targetValue = _Value;
+            CurrentEP.Value -= _Value;
+        }
+        else if (CurrentEP.Value > 0)
+        {
+            targetValue = CurrentEP.Value;
+            CurrentEP.Value = 0;
+            IsLethargy = true;
+            StartCoroutine(RecoverLethargy());
+            Debug.Log(this.gameObject.name + " / Lethargy!!!");
+        }
+
         EnergyShrapnelController ESC = PoolingManager.Instance.GetOP_EnergyShrapnel();
         ESC.SetState(
             this.gameObject.transform.position,
             PlayerManager.Instance.PlayerController.gameObject,
-            _Value);
+            targetValue);
         ESC.gameObject.SetActive(true);
     }
 
@@ -110,6 +157,32 @@ public class EnemyController : MovableObject
 
     #endregion
 
+    #region State
+
+    private IEnumerator RecoverLethargy()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        EP_ProgressBar.SetFillFullImgSmooth(RecoverLethargyTime);
+
+        yield return new WaitForSeconds(RecoverLethargyTime);
+
+        CurrentEP.Value = MaxEP;
+        IsLethargy = false;
+        Debug.Log(this.gameObject.name + " / Recover Lethargy!!!");
+    }
+
+
+    #endregion
+
+    #region Interact
+
+    public void Interact()
+    {
+        Die();
+    }
+
+    #endregion
 }
 
 
