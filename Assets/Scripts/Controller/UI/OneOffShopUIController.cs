@@ -21,6 +21,9 @@ public class OneOffShopUIController : UIController
 
     [Header("-- EP")]
     [SerializeField] private OneOffShopEachData<float> MaxEPShop;
+    [SerializeField] private OneOffShopEachData<float> SpawnESMultipleShop;
+    [SerializeField] private OneOffShopEachData<float> NeedEP_ForSkillMultipleShop;
+    [SerializeField] private OneOffShopEachData<float> DecEnergyPointMultipleShop;
 
     [Header("-- Movement")]
     [SerializeField] private OneOffShopEachData<float> WalkSpeedShop;
@@ -45,6 +48,9 @@ public class OneOffShopUIController : UIController
         AccuracyRateShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.AccuracyRate, BaseUpgradeManager.Instance.BaseAccuracyRate_BUData);
 
         MaxEPShop.Offset(PlayerManager.Instance.PlayerController.MaxEP, BaseUpgradeManager.Instance.BaseMaxEP_BUData);
+        SpawnESMultipleShop.Offset(PlayerManager.Instance.PlayerController.SpawnESMultiple, BaseUpgradeManager.Instance.BaseSpawnESMultiple_BUData);
+        NeedEP_ForSkillMultipleShop.Offset(PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple, BaseUpgradeManager.Instance.BaseNeedEP_ForSkillMultiple_BUData);
+        DecEnergyPointMultipleShop.Offset(PlayerManager.Instance.PlayerController.DecEnergyPointMultiple, BaseUpgradeManager.Instance.BaseDecEnergyPointMultiple_BUData);
 
         WalkSpeedShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeed, BaseUpgradeManager.Instance.BaseWalkSpeed_BUData);
         WalkSpeedWhenShotMultipleShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeedWhenShotMultiple, BaseUpgradeManager.Instance.BaseWalkSpeedWhenShotMultiple_BUData);

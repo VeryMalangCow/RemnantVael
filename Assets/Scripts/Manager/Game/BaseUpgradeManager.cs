@@ -20,7 +20,9 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
 
     [Header("-- EP")]
     [SerializeField] public BU_OneTypeData<float> BaseMaxEP_BUData;
-
+    [SerializeField] public BU_OneTypeData<float> BaseSpawnESMultiple_BUData;
+    [SerializeField] public BU_OneTypeData<float> BaseNeedEP_ForSkillMultiple_BUData;
+    [SerializeField] public BU_OneTypeData<float> BaseDecEnergyPointMultiple_BUData;
 
     [Header("-- Movement")]
     [SerializeField] public BU_OneTypeData<float> BaseWalkSpeed_BUData;
@@ -42,6 +44,9 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
         BaseAccuracyRate_BUData.Offset(_PC.BaseWeapon.AccuracyRate);
 
         BaseMaxEP_BUData.Offset(_PC.MaxEP);
+        BaseSpawnESMultiple_BUData.Offset(_PC.SpawnESMultiple);
+        BaseNeedEP_ForSkillMultiple_BUData.Offset(_PC.NeedEP_ForSkillMultiple);
+        BaseDecEnergyPointMultiple_BUData.Offset(_PC.DecEnergyPointMultiple);
 
         BaseWalkSpeed_BUData.Offset(_PC.WalkSpeed);
         BaseWalkSpeedWhenShotMultiple_BUData.Offset(_PC.WalkSpeedWhenShotMultiple);

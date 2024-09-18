@@ -10,6 +10,7 @@ public class PlayerController : MovableObject
     [Space(20)]
     [Header("<><><><><> Player")]
 
+    #region - Combat
 
     [Space(10)]
     [Header("=== Combat")]
@@ -26,6 +27,8 @@ public class PlayerController : MovableObject
     [Header("-- Energy")]
     [SerializeField] public BaseUpgradeState<float> MaxEP;
     [SerializeField] public ReactiveProperty<float> CurrentEP = new();
+    [SerializeField] public BaseUpgradeState<float> SpawnESMultiple;
+    [SerializeField] public BaseUpgradeState<float> NeedEP_ForSkillMultiple;
 
     [Header("-- Bettery")]
     [SerializeField] public ReactiveProperty<int> CurrentBS = new();
@@ -37,6 +40,9 @@ public class PlayerController : MovableObject
     [Header("-- Weapon")]
     [SerializeField] public PlayerWeaponController BaseWeapon;
 
+    #endregion
+
+    #region - Movement
 
     [Space(10)]
     [Header("=== Movement")]
@@ -49,27 +55,39 @@ public class PlayerController : MovableObject
     [Header("-- Dash")]
     [SerializeField] public PlayerDashController DashController;
 
+    #endregion
+
+    #region - Interact
 
     [Space(10)]
     [Header("=== Interact")]
     [SerializeField] private List<GameObject> CurrentInteractableGOList;
     [SerializeField] private IInteract CurrentInteractable;
 
+    #endregion
+
+    #region - Boost
 
     [Space(10)]
-    [Header("=== Skill")]
+    [Header("=== Boost")]
     [SerializeField] private int TargetBoostRank = 0;
     [SerializeField] private int MaxBoostRank = 4;
     [SerializeField] public ReactiveProperty<int> CurrentBoostRank = new();
     [SerializeField] private List<float> DecEnergyPointByLevel;
+    [SerializeField] public BaseUpgradeState<float> DecEnergyPointMultiple;
 
     private delegate void SkillDele();
     private SkillDele ReservationSkillDele = null;
 
+    #endregion
+
+    #region - Other
 
     [Space(10)]
     [Header("=== Main Sprite")]
     [SerializeField] public MakeAfterImage MakeAfterImage;
+
+    #endregion
 
     #endregion
 
@@ -171,13 +189,13 @@ public class PlayerController : MovableObject
 
     public void CanDashCheck()
     {
-        if (MovementState == eMovementState.Dash || DashController.NeedEP_ForDash >= CurrentEP.Value)
+        if (MovementState == eMovementState.Dash || DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value >= CurrentEP.Value)
         {
             return;
         }
 
         MakeAfterImage.StartGen(0.03f, 0.5f);
-        CurrentEP.Value -= DashController.NeedEP_ForDash;
+        CurrentEP.Value -= DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value;
         MovementState = eMovementState.Dash;
     }
 
@@ -357,7 +375,7 @@ public class PlayerController : MovableObject
     {
         if(_BoostLv > 0)
         {
-            float decValue = DecEnergyPointByLevel[_BoostLv - 1];
+            float decValue = DecEnergyPointByLevel[_BoostLv - 1] * DecEnergyPointMultiple.ActualState.Value;
             AddCurrentEP(-decValue * Time.deltaTime);
         }
     }

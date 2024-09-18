@@ -135,6 +135,7 @@ public class EnemyController : MovableObject, IInteract
             StartCoroutine(RecoverLethargy());
             Debug.Log(this.gameObject.name + " / Lethargy!!!");
         }
+        targetValue *= PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value;
 
         EnergyShrapnelController ESC = PoolingManager.Instance.GetOP_EnergyShrapnel();
         ESC.SetState(

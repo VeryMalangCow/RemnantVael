@@ -721,6 +721,30 @@ MonoBehaviour:
       value: 100
   CurrentEP:
     value: 100
+  SpawnESMultiple:
+    BaseState: 1
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange:
+    - 0.1
+    - 0.2
+    - 0.3
+    - 0.5
+    NeedPayByLevelRange: 01000000020000000300000004000000
+    ActualState:
+      value: 1
+  NeedEP_ForSkillMultiple:
+    BaseState: 1
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange:
+    - -0.02
+    - -0.04
+    - -0.06
+    - -0.12
+    NeedPayByLevelRange: 01000000020000000300000004000000
+    ActualState:
+      value: 1
   CurrentBS:
     value: 0
   NeedBS_ForMakeBC: 4
@@ -767,6 +791,18 @@ MonoBehaviour:
   - 3.5
   - 5.5
   - 8
+  DecEnergyPointMultiple:
+    BaseState: 1
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange:
+    - -0.02
+    - -0.04
+    - -0.06
+    - -0.12
+    NeedPayByLevelRange: 01000000020000000300000004000000
+    ActualState:
+      value: 1
   MakeAfterImage: {fileID: 1875528104640140175}
 --- !u!114 &8889954111637353817
 MonoBehaviour:
