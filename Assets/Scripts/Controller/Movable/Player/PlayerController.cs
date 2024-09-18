@@ -21,7 +21,6 @@ public class PlayerController : MovableObject
     [SerializeField] public bool IsCasting = false;
     [SerializeField] private float CurrentCastingTime = 0;
     [SerializeField] private float TargetCastingTime = 0;
-    [SerializeField] public float ExecutionTime = 0.5f;
     [SerializeField] public BaseUpgradeState<float> AvoidChance;
 
     [Header("-- Energy")]
@@ -189,11 +188,12 @@ public class PlayerController : MovableObject
 
     public void CanDashCheck()
     {
-        if (MovementState == eMovementState.Dash || DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value >= CurrentEP.Value)
+        if (!CanChange() || DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value >= CurrentEP.Value)
         {
             return;
         }
 
+        InputManager.Instance.IsPlayingSkill = true;
         MakeAfterImage.StartGen(0.03f, 0.5f);
         CurrentEP.Value -= DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value;
         MovementState = eMovementState.Dash;
@@ -229,7 +229,8 @@ public class PlayerController : MovableObject
     }
 
     // + None
-    public void CanChange_CombatModeCheck(float _CastingTime)
+    [HideInInspector] private const float CombatModeInterval = 0.5f;
+    public void CanChange_CombatModeCheck()
     {
         if (!CanChange()) 
         { return; } 
@@ -248,33 +249,39 @@ public class PlayerController : MovableObject
                 break;
         }
 
-        StartCasting(_CastingTime);
+        StartCasting(CombatModeInterval);
     }
 
+
     // + Not over the Max Boost Level
-    public void CanChange_BoostModeCheck(float _CastingTime)
+    [HideInInspector] private const float BoostModeInterval = 0.25f;
+    public void CanChange_BoostModeCheck()
     {
         if (!CanChange() || TargetBoostRank >= MaxBoostRank)
         { return; }
 
         TargetBoostRank++;
         
-        StartCasting(_CastingTime);
+        StartCasting(BoostModeInterval);
     }
 
+
     // + BoostLevel != 0
-    public void CanChange_UnBoostModeCheck(float _CastingTime)
+    [HideInInspector] private const float UnBoostModeInterval = 0.1f;
+    public void CanChange_UnBoostModeCheck()
     {
         if (!CanChange() || CurrentBoostRank.Value <= 0)
         { return; }
 
         TargetBoostRank--;
 
-        StartCasting(_CastingTime);
+        StartCasting(UnBoostModeInterval);
     }
 
+
     // + Enough EP | Enough BC
-    public void CanChange_ChargeBettery(float _CastingTime)
+    [HideInInspector] private const float ChargeBetteryInterval = 1f;
+    public void CanChange_ChargeBettery()
     {
         if (!CanChange() ||
             NeedEP_ForMakeEC >= this.CurrentEP.Value ||
@@ -283,11 +290,13 @@ public class PlayerController : MovableObject
 
         ReservationSkillDele = ChargeBettery;
 
-        StartCasting(_CastingTime);
+        StartCasting(ChargeBetteryInterval);
     }
 
+
     // + None
-    public void CanChange_Execution(float _CastingTime)
+    [HideInInspector] public float ExecutionInterval = 0.75f;
+    public void CanChange_Execution()
     {
         if (!CanChange())
         { return; }
@@ -297,7 +306,7 @@ public class PlayerController : MovableObject
             EC.Interact();
         }
 
-        StartCasting(_CastingTime);
+        StartCasting(ExecutionInterval);
     }
 
 
@@ -307,6 +316,8 @@ public class PlayerController : MovableObject
         IsCasting = true;
         MovementState = eMovementState.Casting;
         ThisRb.velocity = Vector2.zero;
+
+        InputManager.Instance.IsPlayingSkill = true;
     }
 
     #endregion
@@ -326,7 +337,7 @@ public class PlayerController : MovableObject
             {
                 if(EC.IsLethargy)
                 {
-                    CanChange_Execution(ExecutionTime);
+                    CanChange_Execution();
                 }
                 CurrentInteractable = null;
             }
@@ -362,6 +373,7 @@ public class PlayerController : MovableObject
                 CurrentCastingTime = 0f;
                 IsCasting = false;
                 MovementState = eMovementState.IdleOrWalk;
+                InputManager.Instance.IsPlayingSkill = false;
 
                 If_CombatMode();
                 If_Skill();

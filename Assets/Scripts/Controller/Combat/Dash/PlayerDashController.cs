@@ -27,6 +27,7 @@ public class PlayerDashController : MonoBehaviour
     #endregion
 
     #region Dash
+
     public void Dash()
     {
         switch (ThisDashStyle)
@@ -49,8 +50,6 @@ public class PlayerDashController : MonoBehaviour
             default:
                 break;
         }
-            
-        
     }
 
     #endregion
@@ -103,6 +102,8 @@ public class PlayerDashController : MonoBehaviour
         CurrentDashProcessTime = 0;
         PlayerController.MovementState = eMovementState.IdleOrWalk;
         PlayerController.MakeAfterImage.EndGen();
+
+        InputManager.Instance.IsPlayingSkill = false;
     }
 
     #endregion

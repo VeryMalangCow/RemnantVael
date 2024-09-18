@@ -99,7 +99,7 @@ public class EnemyController : MovableObject, IInteract
         SpawnII(1);
 
         StopCoroutine(RecoverLethargy());
-        PlayerManager.Instance.CameraController.PlayKillShake(PlayerManager.Instance.PlayerController.ExecutionTime);
+        PlayerManager.Instance.CameraController.PlayKillShake(PlayerManager.Instance.PlayerController.ExecutionInterval);
 
         this.gameObject.SetActive(false);
     }

@@ -694,7 +694,6 @@ MonoBehaviour:
   IsCasting: 0
   CurrentCastingTime: 0
   TargetCastingTime: 0
-  ExecutionTime: 0.5
   AvoidChance:
     BaseState: 0.01
     CurrentLevel:
@@ -804,6 +803,7 @@ MonoBehaviour:
     ActualState:
       value: 1
   MakeAfterImage: {fileID: 1875528104640140175}
+  ExecutionInterval: 0.75
 --- !u!114 &8889954111637353817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,7 +831,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 5
-  DashDur: 0.25
+  DashDur: 2
   RotateLerpValue: 30
   CurrentDashProcessTime: 0
   CaculateDir: {x: 0, y: 0}

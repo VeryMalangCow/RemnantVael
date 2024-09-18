@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using static UnityEngine.ParticleSystem;
 
 public class InputManager : Singleton<InputManager>
 {
@@ -17,6 +20,14 @@ public class InputManager : Singleton<InputManager>
     [Header("=== Movement")]
     [SerializeField] public Vector2 InputMoveDir;
 
+    [Header("=== First Input")] 
+    [SerializeField] public bool IsPlayingSkill = false;
+    [SerializeField] private float EndFirstInputTime = 0.5f;
+    [SerializeField] private float CurrentFirstInputTime = 0f;
+
+    private delegate void FirstInputDele();
+    private FirstInputDele CurrentFirstInputDele = null;
+
     #endregion
 
     #region Framework
@@ -24,6 +35,7 @@ public class InputManager : Singleton<InputManager>
     protected override void Awake()
     {
         base.Awake();
+
         if (PlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
         { PlayerInput = PI; }
     }
@@ -41,6 +53,26 @@ public class InputManager : Singleton<InputManager>
     private void FixedUpdate()
     {
         SetMousePos();
+    }
+
+    private void Update()
+    {
+        if (CurrentFirstInputDele != null)
+        {
+            CurrentFirstInputTime += Time.deltaTime;
+
+            if(CurrentFirstInputTime >= EndFirstInputTime)
+            {
+                UnsetFirstInput();
+            }
+
+            if(!IsPlayingSkill)
+            {
+                Debug.Log("선입력 실행");
+                CurrentFirstInputDele();
+                UnsetFirstInput();
+            }
+        }
     }
 
     #endregion
@@ -99,6 +131,19 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
+
+    private void SetFirstInput(FirstInputDele _Skill)
+    {
+        CurrentFirstInputDele = _Skill;
+        CurrentFirstInputTime = 0f;
+    }
+
+    private void UnsetFirstInput()
+    {
+        CurrentFirstInputDele = null;
+        CurrentFirstInputTime = 0f;
+    }
+
     #endregion
 
     #region Movement
@@ -110,8 +155,14 @@ public class InputManager : Singleton<InputManager>
 
     public void Input_Dash(InputAction.CallbackContext _InputValue)
     {
-        if(_InputValue.ReadValueAsButton())
+        if (_InputValue.ReadValueAsButton())
         {
+            if (IsPlayingSkill)
+            {
+                SetFirstInput(PlayerManager.Instance.PlayerController.CanDashCheck);
+                return;
+            }
+
             PlayerManager.Instance.PlayerController.CanDashCheck();
         }
     }
@@ -124,7 +175,13 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            PlayerManager.Instance.PlayerController.CanChange_CombatModeCheck(0.5f);
+            if (IsPlayingSkill)
+            {
+                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_CombatModeCheck);
+                return;
+            }
+
+            PlayerManager.Instance.PlayerController.CanChange_CombatModeCheck();
         }
     }
 
@@ -132,7 +189,13 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            PlayerManager.Instance.PlayerController.CanChange_BoostModeCheck(0.25f);
+            if (IsPlayingSkill)
+            {
+                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_BoostModeCheck);
+                return;
+            }
+
+            PlayerManager.Instance.PlayerController.CanChange_BoostModeCheck(); 
         }
     }
 
@@ -140,7 +203,13 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            PlayerManager.Instance.PlayerController.CanChange_UnBoostModeCheck(0.1f);
+            if (IsPlayingSkill)
+            {
+                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_UnBoostModeCheck);
+                return;
+            }
+
+            PlayerManager.Instance.PlayerController.CanChange_UnBoostModeCheck(); 
         }
     }
 
@@ -162,12 +231,19 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            PlayerManager.Instance.PlayerController.CanChange_ChargeBettery(1f);
+            if (IsPlayingSkill)
+            {
+                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_ChargeBettery);
+                return;
+            }
+
+            PlayerManager.Instance.PlayerController.CanChange_ChargeBettery();
         }
     }
 
     #endregion
 
+    #region Interact
 
     private void Input_Interact(InputAction.CallbackContext _InputValue)
     {
@@ -176,4 +252,6 @@ public class InputManager : Singleton<InputManager>
             PlayerManager.Instance.PlayerController.TryInteract();
         }
     }
+
+    #endregion
 }
