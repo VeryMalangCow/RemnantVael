@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
@@ -22,6 +21,7 @@ public class PlayerController : MovableObject
     [SerializeField] private float CurrentCastingTime = 0;
     [SerializeField] private float TargetCastingTime = 0;
     [SerializeField] public float ExecutionTime = 0.5f;
+    [SerializeField] public BaseUpgradeState<float> AvoidChance;
 
     [Header("-- Energy")]
     [SerializeField] public BaseUpgradeState<float> MaxEP;
@@ -47,7 +47,7 @@ public class PlayerController : MovableObject
     [SerializeField] public BaseUpgradeState<float> WalkSpeedWhenShotMultiple;
 
     [Header("-- Dash")]
-    [SerializeField] private PlayerDashController DashController;
+    [SerializeField] public PlayerDashController DashController;
 
 
     [Space(10)]
@@ -161,7 +161,7 @@ public class PlayerController : MovableObject
                 break;
 
             case eMovementState.Dash:
-                DashController.Dash(DashController.DashTargetDir, DashController.DashDur);
+                DashController.Dash();
                 break;
 
             default: break;
@@ -177,9 +177,20 @@ public class PlayerController : MovableObject
         }
 
         MakeAfterImage.StartGen(0.03f, 0.5f);
-        DashController.DashTargetDir = InputManager.Instance.DirFromPlayerPos.normalized;
         CurrentEP.Value -= DashController.NeedEP_ForDash;
         MovementState = eMovementState.Dash;
+    }
+
+    #endregion
+
+    #region Combat
+
+    private void Damaged()
+    {
+        if(UnityEngine.Random.Range(0f, 1f) < AvoidChance.ActualState.Value)
+        {
+
+        }
     }
 
     #endregion
@@ -457,6 +468,19 @@ public class PlayerController : MovableObject
             { 
                 CurrentInteractableGOList.Remove(TargetGO); 
             }
+        }
+    }
+
+    #endregion
+
+    #region Collision
+
+    private void OnCollisionEnter2D(Collision2D _Col)
+    {
+        if (_Col.gameObject.tag == "PushPlayer")
+        {
+            Vector2 pushDir = (this.transform.position - _Col.transform.position).normalized;
+            ThisRb.AddForce(pushDir);
         }
     }
 

@@ -96,7 +96,6 @@ public class InputManager : Singleton<InputManager>
         if (_InputValue.ReadValueAsButton())
         {
             PlayerController PC = PlayerManager.Instance.PlayerController;
-            //Debug.Log();
         }
     }
 

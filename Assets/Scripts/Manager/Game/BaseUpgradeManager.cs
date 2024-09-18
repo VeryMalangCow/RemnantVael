@@ -23,7 +23,11 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
 
 
     [Header("-- Movement")]
-    [SerializeField] public BU_OneTypeData<float> BaseWalkSpeed_BUData; 
+    [SerializeField] public BU_OneTypeData<float> BaseWalkSpeed_BUData;
+    [SerializeField] public BU_OneTypeData<float> BaseWalkSpeedWhenShotMultiple_BUData;
+    [SerializeField] public BU_OneTypeData<float> BaseDashSpeed_BUData;
+    [SerializeField] public BU_OneTypeData<float> BaseAvoidChance_BUData;
+
 
     #endregion
 
@@ -40,6 +44,10 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
         BaseMaxEP_BUData.Offset(_PC.MaxEP);
 
         BaseWalkSpeed_BUData.Offset(_PC.WalkSpeed);
+        BaseWalkSpeedWhenShotMultiple_BUData.Offset(_PC.WalkSpeedWhenShotMultiple);
+        BaseDashSpeed_BUData.Offset(_PC.DashController.DashSpeed);
+        BaseAvoidChance_BUData.Offset(_PC.AvoidChance);
+
     }
 
     #endregion

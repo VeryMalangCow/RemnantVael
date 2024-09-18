@@ -121,6 +121,11 @@ public enum eEnemy
     Normal, Elite, Boss
 }
 
+public enum eDashStyle
+{
+    OneWay, CanInputWay, Teleport
+}
+
 public interface IInteract
 {
     public void Interact();

@@ -24,6 +24,9 @@ public class OneOffShopUIController : UIController
 
     [Header("-- Movement")]
     [SerializeField] private OneOffShopEachData<float> WalkSpeedShop;
+    [SerializeField] private OneOffShopEachData<float> WalkSpeedWhenShotMultipleShop;
+    [SerializeField] private OneOffShopEachData<float> DashSpeedShop;
+    [SerializeField] private OneOffShopEachData<float> WalkAvoidChance;
 
     [Space(10)]
     [Header("=== Component")]
@@ -44,6 +47,11 @@ public class OneOffShopUIController : UIController
         MaxEPShop.Offset(PlayerManager.Instance.PlayerController.MaxEP, BaseUpgradeManager.Instance.BaseMaxEP_BUData);
 
         WalkSpeedShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeed, BaseUpgradeManager.Instance.BaseWalkSpeed_BUData);
+        WalkSpeedWhenShotMultipleShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeedWhenShotMultiple, BaseUpgradeManager.Instance.BaseWalkSpeedWhenShotMultiple_BUData);
+        WalkAvoidChance.Offset(PlayerManager.Instance.PlayerController.AvoidChance, BaseUpgradeManager.Instance.BaseAvoidChance_BUData);
+        DashSpeedShop.Offset(PlayerManager.Instance.PlayerController.DashController.DashSpeed, BaseUpgradeManager.Instance.BaseDashSpeed_BUData);
+
+
     }
 
     protected override void Offset_UI()

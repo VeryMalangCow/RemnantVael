@@ -48,7 +48,7 @@ public class PlayerWeaponController : WeaponController
             hand.SetSortOrder(PlayerSR.sortingOrder);
         }
 
-        if (IsInputed && CurrentDelayROF >= 1 && !PlayerController.IsCasting)
+        if (CanFire())
         {
             List<PlayerBulletController> PBClist = new List<PlayerBulletController>();
             foreach (Transform TF in BulletSpawnTFs)
@@ -64,6 +64,22 @@ public class PlayerWeaponController : WeaponController
     private void OnEnable()
     {
         RollTF.rotation = Quaternion.Euler(DefualtRoll, 0f, 0f);
+    }
+
+    #endregion
+
+    #region Judg Can Fire
+
+    private bool CanFire()
+    {
+        if(IsInputed &&
+            CurrentDelayROF >= 1 &&
+            !PlayerController.IsCasting &&
+            PlayerController.MovementState == eMovementState.IdleOrWalk)
+        {
+            return true;
+        }
+        return false;
     }
 
     #endregion
