@@ -3,12 +3,12 @@ using UniRx;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class OneOffShopUIController : UIController
+public class BaseUpgradeUIController : UIController
 {
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> One-Off Shop")]
+    [Header("<><><><><> Base Upgrade Shop")]
 
     [Space(10)]
     [Header("=== Skill")]
@@ -57,7 +57,10 @@ public class OneOffShopUIController : UIController
         WalkAvoidChance.Offset(PlayerManager.Instance.PlayerController.AvoidChance, BaseUpgradeManager.Instance.BaseAvoidChance_BUData);
         DashSpeedShop.Offset(PlayerManager.Instance.PlayerController.DashController.DashSpeed, BaseUpgradeManager.Instance.BaseDashSpeed_BUData);
 
-
+        foreach (ModifyEachTab MET in ThisPanelTabList)
+        {
+            MET.Offset();
+        }
     }
 
     protected override void Offset_UI()
@@ -66,7 +69,7 @@ public class OneOffShopUIController : UIController
         CloseBtn.OnClickAsObservable()
             .Subscribe(btn =>
             {
-                UIManager.Instance.OneOffShopUIController.CloseThisPanel(TabDurTime);
+                UIManager.Instance.BaseUpgrade_UIController.CloseThisPanel(TabDurTime);
             });
 
         // Tab Btn List
@@ -144,11 +147,15 @@ public class OneOffShopEachData<T>
     {
         Upgrade_MTAFB.Offset();
 
-        Upgrade_BuyBtn.OnClickAsObservable()
+        if(Upgrade_BuyBtn != null)
+        {
+            Upgrade_BuyBtn.OnClickAsObservable()
             .Subscribe(_ =>
             {
                 TryBuy(_Upgrade_BUS, _Upgrade_BUOTD);
             });
+        }
+        
 
         _Upgrade_BUS.CurrentLevel
            .Subscribe(_CurrentLevel =>

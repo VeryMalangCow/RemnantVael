@@ -142,7 +142,7 @@ public class PlayerController : MovableObject
             {
                 CurrentBS.Value -= NeedBS_ForMakeBC;
                 CurrentBC.Value++;
-                UIManager.Instance.PlayerHUDController.CurrentEmptyBC.Complete(0.3f, 0.2f);
+                UIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Complete(0.3f, 0.2f);
             }
             else
             {

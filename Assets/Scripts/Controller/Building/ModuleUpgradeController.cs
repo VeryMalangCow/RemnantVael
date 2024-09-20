@@ -1,6 +1,5 @@
-using UnityEngine;
 
-public class OneOffShopController : BuildingController, IInteract
+public class ModuleUpgradeController : BuildingController, IInteract
 {
     #region Value
 
@@ -16,7 +15,7 @@ public class OneOffShopController : BuildingController, IInteract
 
     public void Interact()
     {
-        UIManager.Instance.OneOffShopUIController.OpenThisPanel(UIManager.Instance.OneOffShopUIController.TabDurTime);
+       UIManager.Instance.ModuleUpgrade_UIController.OpenThisPanel(UIManager.Instance.ModuleUpgrade_UIController.TabDurTime);
     }
 
     #endregion

@@ -6,9 +6,11 @@ public class UIManager : Singleton<UIManager>
     #region Value
 
     [Header("=== Controller")]
-    [SerializeField] public PlayerHUDController PlayerHUDController;
-    [SerializeField] public OneOffShopUIController OneOffShopUIController;
-    [SerializeField] public UIController CurrentOpeningUIController;
+    [SerializeField] public PlayerHUDController PlayerHUD_UIController;
+    [SerializeField] public BaseUpgradeUIController BaseUpgrade_UIController;
+    [SerializeField] public ModuleUpgradeUIController ModuleUpgrade_UIController;
+
+    [SerializeField] public UIController CurrentOpening_UIController;
 
     #endregion
 

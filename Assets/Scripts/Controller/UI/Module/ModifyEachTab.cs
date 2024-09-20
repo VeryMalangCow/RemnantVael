@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ModifyEachTab : MonoBehaviour, IScrollHandler
+public class ModifyEachTab : UIModule, IScrollHandler
 {
     #region Value
 
@@ -21,9 +21,9 @@ public class ModifyEachTab : MonoBehaviour, IScrollHandler
 
     #endregion
 
-    #region Framework
+    #region Offset
 
-    private void Start()
+    public override void Offset()
     {
         ActualAreaY = ActualMovableRT.rect.height;
         MovableY = ActualAreaY - VisibleY;
@@ -37,6 +37,24 @@ public class ModifyEachTab : MonoBehaviour, IScrollHandler
             });
     }
 
+    #endregion
+
+    #region Framework
+/*
+    private void Start()
+    {
+        ActualAreaY = ActualMovableRT.rect.height;
+        MovableY = ActualAreaY - VisibleY;
+
+        ThisTabScrollbar.size = Mathf.Clamp((VisibleY / ActualAreaY), 0f, 1f);
+        ThisTabScrollbar.OnValueChangedAsObservable()
+            .Subscribe(_Value =>
+            {
+                float targetY = MovableY * _Value;
+                ActualMovableRT.anchoredPosition = new Vector2(ActualMovableRT.anchoredPosition.x, targetY);
+            });
+    }
+*/
     public void OnEnable()
     {
         OnReset();

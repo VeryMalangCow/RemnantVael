@@ -19,18 +19,18 @@ public class InteractItemController : ItemController, IInteract
     [Space(10)]
     [Header("=== State")]
     [SerializeField] public ItemData ThisItemData;
-    [SerializeField] private int ThisRank = 1;
     [SerializeField] private SpriteRenderer ThisSR;
     
     #endregion
 
     #region State
 
-    public void SetState(Vector2 _SpawnPos, int _ItemRank)
+    public void SetState(Vector2 _SpawnPos, int _BoostLv, int _ItemRank)
     {
         base.SetState(_SpawnPos);
 
-        ThisRank = _ItemRank;
+        ThisItemData.BoostLv = _BoostLv;
+        ThisItemData.Rank = _ItemRank;
         CurrentSpreadPower = SpreadPower;
         SettedSpreadDir = SetRandomDir();
 
@@ -91,7 +91,7 @@ public class InteractItemController : ItemController, IInteract
         CurrentSpreadPower = 0f;
         SettedSpreadDir = Vector2.zero;
 
-        BoostItemManager.Instance.GetItemSkill(this.ThisItemData.ID);
+        BoostItemManager.Instance.GetItemSkill(ThisItemData.ID, ThisItemData.BoostLv, ThisItemData.Rank);
         PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
 
         this.gameObject.SetActive(false);

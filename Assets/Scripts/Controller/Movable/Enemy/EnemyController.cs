@@ -96,7 +96,7 @@ public class EnemyController : MovableObject, IInteract
         SpawnBS(1);
 
         // Drop Item
-        SpawnII(1);
+        SpawnII();
 
         StopCoroutine(RecoverLethargy());
         PlayerManager.Instance.CameraController.PlayKillShake(PlayerManager.Instance.PlayerController.ExecutionInterval);
@@ -109,13 +109,13 @@ public class EnemyController : MovableObject, IInteract
     #region Spawn Item
 
     // Interactable Item
-    private void SpawnII(int _SpawnRank)
+    private void SpawnII()
     {
         if (ItemDropPercent < UnityEngine.Random.Range(0f, 1f))
         { return; }
 
         InteractItemController IIC = PoolingManager.Instance.GetOP_InteractableItem();
-        IIC.SetState(this.transform.position, _SpawnRank);
+        IIC.SetState(this.transform.position, 1, 1);
     }
 
     // Energy Shrapnel

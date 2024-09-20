@@ -1,8 +1,13 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PassiveSkill
 {
     public int ThisItemID = 0;
+    public int ThisBoostLv = 1;
+    public int ThisRank = 1;
+    public List<ModifyEachInventoryItem> ThisMEII = new List<ModifyEachInventoryItem>();
+
     public PassiveSkill(int _ID)
     {
         ThisItemID = _ID;

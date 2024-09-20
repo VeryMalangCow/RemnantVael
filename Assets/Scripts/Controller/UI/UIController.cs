@@ -25,7 +25,7 @@ public abstract class UIController : MonoBehaviour
 
     #region Framework
 
-    protected virtual void Start()
+    public virtual void Offset_Main()
     {
         Offset_Module();
         Offset_UI();
@@ -38,7 +38,7 @@ public abstract class UIController : MonoBehaviour
     public virtual void OpenThisPanel(float _DurTime)
     {
         // Other
-        UIManager.Instance.CurrentOpeningUIController = this;
+        UIManager.Instance.CurrentOpening_UIController = this;
         InputManager.Instance.InputMoveDir = Vector2.zero;
         InputManager.Instance.enabled = false;
 
@@ -115,7 +115,7 @@ public abstract class UIController : MonoBehaviour
                 this.gameObject.SetActive(false);
                 IsTweening = false;
                 
-                UIManager.Instance.CurrentOpeningUIController = null;
+                UIManager.Instance.CurrentOpening_UIController = null;
                 InputManager.Instance.enabled = true;
             });
     }

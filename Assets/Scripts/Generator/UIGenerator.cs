@@ -8,8 +8,9 @@ public class UIGenerator : Singleton<UIGenerator>
 
     [Header("=== UI")]
     [SerializeField] private Transform UIParent;
-    [SerializeField] private GameObject PlayerHUDCanvasPrefab;
-    [SerializeField] private GameObject OneOffShopCanvasPrefab;
+    [SerializeField] private GameObject PlayerHUD_CanvasPrefab;
+    [SerializeField] private GameObject BaseUpgrade_CanvasPrefab;
+    [SerializeField] private GameObject ModuleUpgrade_CanvasPrefab;
 
     #endregion
 
@@ -17,8 +18,9 @@ public class UIGenerator : Singleton<UIGenerator>
 
     private void Start()
     {
-        UIManager.Instance.PlayerHUDController = SpawnUI<PlayerHUDController>(PlayerHUDCanvasPrefab, true);
-        UIManager.Instance.OneOffShopUIController = SpawnUI<OneOffShopUIController>(OneOffShopCanvasPrefab, false);
+        UIManager.Instance.PlayerHUD_UIController = SpawnUI<PlayerHUDController>(PlayerHUD_CanvasPrefab, true);
+        UIManager.Instance.BaseUpgrade_UIController = SpawnUI<BaseUpgradeUIController>(BaseUpgrade_CanvasPrefab, false);
+        UIManager.Instance.ModuleUpgrade_UIController = SpawnUI<ModuleUpgradeUIController>(ModuleUpgrade_CanvasPrefab, false);
     }
 
     #endregion
@@ -29,6 +31,11 @@ public class UIGenerator : Singleton<UIGenerator>
     {
         GameObject uigo = Instantiate(_UIGO, UIParent);
         uigo.gameObject.SetActive(_OnOff);
+        if(uigo.TryGetComponent(out UIController ui))
+        {
+            Debug.Log("½ÇÇà");
+            ui.Offset_Main();
+        }
 
         if (uigo.TryGetComponent(out T spawnUI))
         { return spawnUI; }

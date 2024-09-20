@@ -9,9 +9,9 @@ public class BoostItemManager : Singleton<BoostItemManager>
     [SerializeField] public List<ItemData> ItemDataList;
 
     [Header("=== Gotten Item")]
-    [SerializeField] private List<int> ItemIDList;
-    private List<PassiveSkill> PISList = new List<PassiveSkill>();
-
+    [HideInInspector] private List<PassiveSkill> PSList = new List<PassiveSkill>();
+   
+    // Interface
     private List<IWhen_Always> iWhen_AlwaysList = new List<IWhen_Always>();
     public List<IWhen_Fire> iWhen_FireList = new List<IWhen_Fire>();
 
@@ -24,35 +24,30 @@ public class BoostItemManager : Singleton<BoostItemManager>
         return ItemDataList[Random.Range(0, ItemDataList.Count)];
     }
 
-    public void GetItemSkill(int _ItemID)
+    public void GetItemSkill(int _ItemID, int _BoostLv, int _Rank)
     {
         foreach (PassiveSkill PIS in PassiveSkill.AllPassiveItemSkill())
         {
             if (PIS.ThisItemID == _ItemID) 
             {
-                ItemIDList.Add(PIS.ThisItemID);
-                PISList.Add(PIS);
+                PIS.ThisBoostLv = _BoostLv;
+                PIS.ThisRank = _Rank;
+                PIS.ThisMEII = UIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList();
+                foreach(ModifyEachInventoryItem MEII in PIS.ThisMEII)
+                {
+                    MEII.gameObject.name = $"{PIS.ThisItemID}_{PIS.ThisRank}_{PIS.ThisBoostLv}";
+                }
+                PSList.Add(PIS);
 
+                /*
                 if (PIS is IWhen_Always iGet)
                 { iWhen_AlwaysList.Add(iGet); }
-
                 if (PIS is IWhen_Fire iFire)
                 { iWhen_FireList.Add(iFire); }
+                */
 
-                
+
             }
-        }
-    }
-
-    public bool CheckAlreadyHaveItem(int _ID)
-    {
-        if (ItemIDList.Contains(_ID))
-        {
-            return false;
-        }
-        else
-        {
-            return true;
         }
     }
 
@@ -78,6 +73,19 @@ public class BoostItemManager : Singleton<BoostItemManager>
 
     #endregion
 
+
+    private void Update()
+    {
+        // debug
+
+        if(Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            for (int i = 0; i < PSList.Count; i++)
+            {
+                Debug.Log($"{i}¹øÂ°: Id.{PSList[i].ThisItemID} / Bl.{PSList[i].ThisBoostLv} / R.{PSList[i].ThisRank} / U0.{PSList[i].ThisMEII[0].name} / U1.{PSList[i].ThisMEII[1].name}");
+            }
+        }
+    }
 }
 
 [System.Serializable]
@@ -87,4 +95,10 @@ public class ItemData
     public string Name;
     public string Description;
     public Sprite Sprite;
+    public Sprite ItemIcon;
+
+    [Space(10)]
+
+    public int BoostLv = 1;
+    public int Rank = 1;
 }
