@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI.Table;
 
@@ -15,9 +16,10 @@ public class ModifyInventory : UIModule
     [SerializeField] private int ColumnAmount;
 
     [Header("-- Slot")]
-    [SerializeField] private Sprite InventorySlot;
+    [SerializeField] private GameObject InventorySlotPrefab;
+    [SerializeField] private Sprite SlotSprite;
 
-    [Header("-- Prefab")]
+    [Header("-- Item")]
     [SerializeField] private GameObject InventoryItemPrefab;
 
     // Class
@@ -64,24 +66,24 @@ public class ModifyInventory : UIModule
             for (int row = 0; row < RowAmount; row++)
             {
                 // Generate GO
-                GameObject slot = new GameObject();
+                GameObject slot = Instantiate(InventorySlotPrefab, this.transform);
                 slot.name = "InventorySlot_" + column + "_" + row;
-                slot.transform.SetParent(this.gameObject.transform);
 
                 // RT
-                RectTransform rt = slot.AddComponent<RectTransform>();
-                rt.sizeDelta = new Vector2(100, 100);
-                rt.anchorMin = new Vector2(0, 1);
-                rt.anchorMax = new Vector2(0, 1);
-                rt.pivot = Vector2.up;
-                rt.anchoredPosition = new Vector2((row * 110 + 10), -(column * 110 + 10));
-
-                // Img
-                Image img = slot.AddComponent<Image>();
+                if (slot.TryGetComponent(out RectTransform rt))
+                {
+                    rt.anchoredPosition = new Vector2((row * 110 + 10), -(column * 110 + 10));
+                }
 
                 // Class
-                ModifyEachInventorySlot MEIS = slot.AddComponent<ModifyEachInventorySlot>();
-                rowMEISList.Add(MEIS);
+                if (slot.TryGetComponent(out ModifyEachInventorySlot MEIS))
+                {
+                    MEIS.Offset();
+                    MEIS.SetData(SlotSprite);
+
+                    rowMEISList.Add(MEIS);
+                }
+
             }
 
             MEISList.Add(rowMEISList);
@@ -92,18 +94,24 @@ public class ModifyInventory : UIModule
 
     #region Item
 
-    public ModifyEachInventoryItem SpawnMEII()
+    public ModifyEachInventoryItem SpawnMEII(Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
     {
+        // Generate GO
         ModifyEachInventorySlot emptySlot = GetEmptyMEIS();
         GameObject item = Instantiate(InventoryItemPrefab, emptySlot.transform);
-
+        
+        // RT
         if(item.TryGetComponent(out RectTransform rt))
         {
             rt.anchoredPosition = Vector2.zero;
         }
 
+        // Class
         if (item.TryGetComponent(out ModifyEachInventoryItem MEII))
         {
+            MEII.Offset();
+            MEII.SetData(_ItemSprite, _RankImg, _BoostLv);
+
             emptySlot.ThisSlotItem = MEII;
             return MEII;
         }

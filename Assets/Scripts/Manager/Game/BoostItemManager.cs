@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using UnityEditor.Rendering;
 
 public class BoostItemManager : Singleton<BoostItemManager>
 {
@@ -9,8 +11,12 @@ public class BoostItemManager : Singleton<BoostItemManager>
     [SerializeField] public List<ItemData> ItemDataList;
 
     [Header("=== Gotten Item")]
-    [HideInInspector] private List<PassiveSkill> PSList = new List<PassiveSkill>();
-   
+    [HideInInspector] private List<PassiveSkill> Gotten_PSList = new List<PassiveSkill>();
+    [HideInInspector] private List<PassiveSkill> Equiped_PSList = new List<PassiveSkill>();
+
+    [Header("=== Icon Data")]
+    [SerializeField] private List<Sprite> RankIconList;
+
     // Interface
     private List<IWhen_Always> iWhen_AlwaysList = new List<IWhen_Always>();
     public List<IWhen_Fire> iWhen_FireList = new List<IWhen_Fire>();
@@ -24,20 +30,20 @@ public class BoostItemManager : Singleton<BoostItemManager>
         return ItemDataList[Random.Range(0, ItemDataList.Count)];
     }
 
-    public void GetItemSkill(int _ItemID, int _BoostLv, int _Rank)
+    public void GetItemSkill(ItemData _ItemData)
     {
         foreach (PassiveSkill PIS in PassiveSkill.AllPassiveItemSkill())
         {
-            if (PIS.ThisItemID == _ItemID) 
+            if (PIS.ThisItemID == _ItemData.ID) 
             {
-                PIS.ThisBoostLv = _BoostLv;
-                PIS.ThisRank = _Rank;
-                PIS.ThisMEII = UIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList();
+                PIS.ThisBoostLv = _ItemData.BoostLv;
+                PIS.ThisRank = _ItemData.Rank;
+                PIS.ThisMEII = UIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList(_ItemData.ItemIcon, RankIconList[_ItemData.Rank - 1], _ItemData.BoostLv);
                 foreach(ModifyEachInventoryItem MEII in PIS.ThisMEII)
                 {
                     MEII.gameObject.name = $"{PIS.ThisItemID}_{PIS.ThisRank}_{PIS.ThisBoostLv}";
                 }
-                PSList.Add(PIS);
+                Gotten_PSList.Add(PIS);
 
                 /*
                 if (PIS is IWhen_Always iGet)
@@ -80,9 +86,9 @@ public class BoostItemManager : Singleton<BoostItemManager>
 
         if(Input.GetKeyDown(KeyCode.Alpha9))
         {
-            for (int i = 0; i < PSList.Count; i++)
+            for (int i = 0; i < Gotten_PSList.Count; i++)
             {
-                Debug.Log($"{i}번째: Id.{PSList[i].ThisItemID} / Bl.{PSList[i].ThisBoostLv} / R.{PSList[i].ThisRank} / U0.{PSList[i].ThisMEII[0].name} / U1.{PSList[i].ThisMEII[1].name}");
+                Debug.Log($"{i}번째: Id.{Gotten_PSList[i].ThisItemID} / Bl.{Gotten_PSList[i].ThisBoostLv} / R.{Gotten_PSList[i].ThisRank} / U0.{Gotten_PSList[i].ThisMEII[0].name} / U1.{Gotten_PSList[i].ThisMEII[1].name}");
             }
         }
     }

@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
@@ -14,9 +13,20 @@ public class ModuleUpgradeUIController : UIController
 
     [Space(10)]
     [Header("=== Module")]
+
+    [Header("-- In Equip")]
     [SerializeField] private ModifyInventory MI_InEquipTab;
+    [SerializeField] private List<ModifyEachInventorySlot> EquipedMEIS_List;
+
+    [Header("-- In Reinforce")]
     [SerializeField] private ModifyInventory MI_InReinforceTab;
+
     [HideInInspector] private List<ModifyInventory> MI_List;
+
+
+    [Header("=== Item")]
+    [SerializeField] public ModifyEachInventorySlot CurrentSelectedMEIS;
+
 
     [Space(10)]
     [Header("=== Component")]
@@ -34,6 +44,11 @@ public class ModuleUpgradeUIController : UIController
         foreach (ModifyEachTab MET in ThisPanelTabList)
         {
             MET.Offset();
+        }
+
+        foreach(ModifyEachInventorySlot MEIS in EquipedMEIS_List)
+        {
+            MEIS.Offset();
         }
     }
 
@@ -84,6 +99,14 @@ public class ModuleUpgradeUIController : UIController
         }
     }
 
+    private void Update()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            TryInteractItem();
+        }
+    }
+
     #endregion
 
     #region Set Panel
@@ -118,14 +141,43 @@ public class ModuleUpgradeUIController : UIController
 
     #region Item
 
-    public List<ModifyEachInventoryItem> SpawnMEIIList()
+    public List<ModifyEachInventoryItem> SpawnMEIIList(Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
     {
         List<ModifyEachInventoryItem> mi_List = new List<ModifyEachInventoryItem>();
         foreach (ModifyInventory MI in MI_List)
         {
-            mi_List.Add(MI.SpawnMEII());
+            mi_List.Add(MI.SpawnMEII(_ItemSprite, _RankImg, _BoostLv));
         }
         return mi_List;
+    }
+
+
+    private void TryInteractItem()
+    {
+        if(CurrentSelectedMEIS == null)
+        { return; }
+
+        for (int i = 0; i < ThisPanelTabList.Count; i++)
+        {
+            if (i == 0) // Equiped
+            {
+
+            }
+            else if (i == 1) // Reinforce
+            {
+
+            }
+        }
+    }
+
+    private void TryEquip()
+    {
+
+    }
+
+    private void TryUnequip()
+    {
+
     }
 
     #endregion

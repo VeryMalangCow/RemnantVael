@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 24319227722119256}
   - component: {fileID: 2444784440550794366}
-  - component: {fileID: 3993915173619134263}
+  - component: {fileID: 1434151623265768884}
   m_Layer: 0
   m_Name: Panel_ItemInventory
   m_TagString: Untagged
@@ -52,28 +52,14 @@ MonoBehaviour:
   ThisRT: {fileID: 24319227722119256}
   RowAmount: 0
   ColumnAmount: 0
-  InventorySlot: {fileID: 21300004, guid: 0a697970e4c06a24bbcb9843a5baf918, type: 3}
+  InventorySlotPrefab: {fileID: 2601900739378343266, guid: affa1baef144b8144bd5d40b3609e16a, type: 3}
+  SlotSprite: {fileID: 0}
   InventoryItemPrefab: {fileID: 2601900739378343266, guid: 951c3fe4543da204c8bed0ca79322ca7, type: 3}
---- !u!223 &3993915173619134263
-Canvas:
+--- !u!222 &1434151623265768884
+CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4164172954929353093}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
+  m_CullTransparentMesh: 1

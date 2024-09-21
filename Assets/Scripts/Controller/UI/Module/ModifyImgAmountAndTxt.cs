@@ -30,7 +30,10 @@ public class ModifyImgAmountAndTxt : UIModule
             img.sprite = ThisSprite;
             TurnOff<Image>(img);
         }
-        TurnOff<TMP_Text>(Txt_ExtraAmount);
+        if (Txt_ExtraAmount != null)
+        {
+            TurnOff<TMP_Text>(Txt_ExtraAmount);
+        }
     }
 
     #endregion

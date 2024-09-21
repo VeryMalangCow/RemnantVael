@@ -91,7 +91,7 @@ public class InteractItemController : ItemController, IInteract
         CurrentSpreadPower = 0f;
         SettedSpreadDir = Vector2.zero;
 
-        BoostItemManager.Instance.GetItemSkill(ThisItemData.ID, ThisItemData.BoostLv, ThisItemData.Rank);
+        BoostItemManager.Instance.GetItemSkill(ThisItemData);
         PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
 
         this.gameObject.SetActive(false);

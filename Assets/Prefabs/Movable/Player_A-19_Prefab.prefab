@@ -413,7 +413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageType: 0
   BaseDamage:
-    BaseState: 1
+    BaseState: 5
     CurrentLevel:
       value: 0
     UpgradeValueByLevelRange:
@@ -423,7 +423,7 @@ MonoBehaviour:
     - 1
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 1
+      value: 5
   AliveTime:
     BaseState: 1
     CurrentLevel:
@@ -818,7 +818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 8810927924693203331}
   ThisDashStyle: 0
-  NeedEP_ForDash: 5
+  NeedEP_ForDash: 1
   DashSpeed:
     BaseState: 5
     CurrentLevel:
@@ -831,7 +831,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 5
-  DashDur: 2
+  DashDur: 0.3
   RotateLerpValue: 30
   CurrentDashProcessTime: 0
   CaculateDir: {x: 0, y: 0}

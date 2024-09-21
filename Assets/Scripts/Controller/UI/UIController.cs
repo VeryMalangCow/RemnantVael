@@ -10,7 +10,7 @@ public abstract class UIController : MonoBehaviour
     [Space(20)]
     [Header("<><><><><> Populer")]
     [SerializeField] protected List<ModifyEachTab> ThisPanelTabList;
-    [SerializeField] private ModifyEachTab CurrentThisPanelTab;
+    [SerializeField] protected ModifyEachTab CurrentThisPanelTab;
     [SerializeField] public float TabDurTime = 0.4f;
     [SerializeField] protected bool IsTweening = false;
 
