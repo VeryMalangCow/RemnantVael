@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -101,7 +102,7 @@ public class ModuleUpgradeUIController : UIController
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(1))
         {
             TryInteractItem();
         }
@@ -141,12 +142,24 @@ public class ModuleUpgradeUIController : UIController
 
     #region Item
 
+    private ModifyEachInventorySlot GetEquipedEmptySlot()
+    {
+        foreach(ModifyEachInventorySlot MEIS in EquipedMEIS_List)
+        {
+            if(MEIS.ThisSlotItem == null)
+            {
+                return MEIS;
+            }
+        }
+        return null;
+    }
+
     public List<ModifyEachInventoryItem> SpawnMEIIList(Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
     {
         List<ModifyEachInventoryItem> mi_List = new List<ModifyEachInventoryItem>();
         foreach (ModifyInventory MI in MI_List)
         {
-            mi_List.Add(MI.SpawnMEII(_ItemSprite, _RankImg, _BoostLv));
+            mi_List.Add(MI.SpawnMEII_ThisInventory(_ItemSprite, _RankImg, _BoostLv));
         }
         return mi_List;
     }
@@ -159,11 +172,20 @@ public class ModuleUpgradeUIController : UIController
 
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
-            if (i == 0) // Equiped
+            if (i == 0) // Equiped Window
             {
+                if(CurrentSelectedMEIS.IsInventory)// Equip
+                {
+                    TryEquip();
+                }
+                else // Unequip
+                {
+                    TryUnequip();
+                }
 
+                BoostItemManager.Instance.ResetInterface();
             }
-            else if (i == 1) // Reinforce
+            else if (i == 1) // Reinforce Window
             {
 
             }
@@ -172,12 +194,37 @@ public class ModuleUpgradeUIController : UIController
 
     private void TryEquip()
     {
+        if(BoostItemManager.Instance.Equiped_PSList.Count >= EquipedMEIS_List.Count)
+        { return; }
+
+        PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem);
+
+        foreach (ModifyEachInventorySlot MEIS in EquipedMEIS_List)
+        {
+            if (ps.ThisExtraMEII.Contains(MEIS.ThisSlotItem))
+            {
+                Debug.Log("Exist Already!");
+                return;
+            }
+        }
+
+        Debug.Log("Equip!");
+        BoostItemManager.Instance.Equiped_PSList.Add(ps);
+        ModifyEachInventoryItem meii = MI_InEquipTab.SpawnMEII_Module(GetEquipedEmptySlot(), ps.ThisIcon, BoostItemManager.Instance.GetRankIcon(ps.ThisRank), ps.ThisBoostLv);
+        ps.ThisExtraMEII.Add(meii);
 
     }
 
     private void TryUnequip()
     {
+        PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Equiped(CurrentSelectedMEIS.ThisSlotItem);
 
+        BoostItemManager.Instance.Equiped_PSList.Remove(ps);
+        ps.ThisExtraMEII.Remove(CurrentSelectedMEIS.ThisSlotItem);
+        Destroy(CurrentSelectedMEIS.ThisSlotItem.gameObject);
+
+        CurrentSelectedMEIS.ThisSlotItem = null;
+        CurrentSelectedMEIS.OutIt_SelectedItem();
     }
 
     #endregion

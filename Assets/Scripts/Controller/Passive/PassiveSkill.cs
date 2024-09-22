@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class PassiveSkill
 {
+    public Sprite ThisIcon;
     public int ThisItemID = 0;
     public int ThisBoostLv = 1;
     public int ThisRank = 1;
     public List<ModifyEachInventoryItem> ThisMEII = new List<ModifyEachInventoryItem>();
+    public List<ModifyEachInventoryItem> ThisExtraMEII = new List<ModifyEachInventoryItem>();
 
     public PassiveSkill(int _ID)
     {
@@ -21,18 +23,28 @@ public class PassiveSkill
             new Item1(1)
         };
     }
+
+    protected int GetTargetRank()
+    {
+        int targetRank = PlayerManager.Instance.PlayerController.CurrentBoostRank.Value;
+        if (targetRank > ThisRank)
+        {
+            targetRank = ThisRank;
+        }
+        return targetRank;
+    }
 }
 
 #region Interface
 
 public interface IWhen_Always
 {
-    public void When_Always(int _Rank);
+    public void When_Always();
 }
 
 public interface IWhen_Fire
 {
-    public void When_Fire(int _Rank);
+    public void When_Fire();
 }
 
 #endregion
@@ -43,9 +55,26 @@ public class Item0 : PassiveSkill, IWhen_Always
 {
     public Item0(int _ID) : base(_ID) { }
 
-    public void When_Always(int _Rank)
+    public void When_Always()
     {
-        
+        int targetRank = GetTargetRank();
+
+        switch(targetRank)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+
+            default:
+                break;
+        }
     }
 }
 
@@ -53,9 +82,26 @@ public class Item1 : PassiveSkill, IWhen_Fire
 {
     public Item1(int _ID) : base(_ID) { }
 
-    public void When_Fire(int _Rank)
+    public void When_Fire()
     {
+        int targetRank = GetTargetRank();
 
+        switch (targetRank)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+
+            default:
+                break;
+        }
     }
 }
 

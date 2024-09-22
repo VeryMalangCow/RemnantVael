@@ -57,7 +57,7 @@ public class PlayerWeaponController : WeaponController
             Fire(PBClist);
             PlayerManager.Instance.CameraController.PlayShotShake(1/ROF.ActualState.Value, PBClist[0].BulletState.BaseDamage);
 
-            BoostItemManager.Instance.ActiveSkill_Fire(PlayerController.CurrentBoostRank.Value);
+            BoostItemManager.Instance.ActiveSkill_Fire();
         }
     }
 

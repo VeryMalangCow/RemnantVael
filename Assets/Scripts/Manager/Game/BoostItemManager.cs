@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UnityEditor.Rendering;
+using UnityEngine.Rendering;
 
 public class BoostItemManager : Singleton<BoostItemManager>
 {
@@ -12,7 +13,7 @@ public class BoostItemManager : Singleton<BoostItemManager>
 
     [Header("=== Gotten Item")]
     [HideInInspector] private List<PassiveSkill> Gotten_PSList = new List<PassiveSkill>();
-    [HideInInspector] private List<PassiveSkill> Equiped_PSList = new List<PassiveSkill>();
+    [HideInInspector] public List<PassiveSkill> Equiped_PSList = new List<PassiveSkill>();
 
     [Header("=== Icon Data")]
     [SerializeField] private List<Sprite> RankIconList;
@@ -36,24 +37,29 @@ public class BoostItemManager : Singleton<BoostItemManager>
         {
             if (PIS.ThisItemID == _ItemData.ID) 
             {
+                PIS.ThisIcon = _ItemData.ItemIcon;
                 PIS.ThisBoostLv = _ItemData.BoostLv;
                 PIS.ThisRank = _ItemData.Rank;
-                PIS.ThisMEII = UIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList(_ItemData.ItemIcon, RankIconList[_ItemData.Rank - 1], _ItemData.BoostLv);
+                PIS.ThisMEII = UIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList(PIS.ThisIcon, GetRankIcon(PIS.ThisRank), PIS.ThisBoostLv);
+                
                 foreach(ModifyEachInventoryItem MEII in PIS.ThisMEII)
                 {
                     MEII.gameObject.name = $"{PIS.ThisItemID}_{PIS.ThisRank}_{PIS.ThisBoostLv}";
                 }
+
                 Gotten_PSList.Add(PIS);
-
-                /*
-                if (PIS is IWhen_Always iGet)
-                { iWhen_AlwaysList.Add(iGet); }
-                if (PIS is IWhen_Fire iFire)
-                { iWhen_FireList.Add(iFire); }
-                */
-
-
             }
+        }
+    }
+
+    public void ResetInterface()
+    {
+        foreach(PassiveSkill PS in Equiped_PSList)
+        {
+            if (PS is IWhen_Always iGet)
+            { iWhen_AlwaysList.Add(iGet); }
+            if (PS is IWhen_Fire iFire)
+            { iWhen_FireList.Add(iFire); }
         }
     }
 
@@ -61,37 +67,60 @@ public class BoostItemManager : Singleton<BoostItemManager>
 
     #region Interface
 
-    public void ActiveSkill_Always(int _BoostRank)
+    public void ActiveSkill_Always()
     {
         foreach (IWhen_Always fire in iWhen_AlwaysList)
         {
-            fire.When_Always(_BoostRank);
+            fire.When_Always();
         }
     }
 
-    public void ActiveSkill_Fire(int _BoostRank)
+    public void ActiveSkill_Fire()
     {
         foreach (IWhen_Fire fire in iWhen_FireList)
         {
-            fire.When_Fire(_BoostRank);
+            fire.When_Fire();
         }
     }
 
     #endregion
 
+    #region Find
 
-    private void Update()
+    public PassiveSkill GetPassiveSkill_Equiped(ModifyEachInventoryItem _MEII)
     {
-        // debug
-
-        if(Input.GetKeyDown(KeyCode.Alpha9))
+        foreach (PassiveSkill PS in Gotten_PSList)
         {
-            for (int i = 0; i < Gotten_PSList.Count; i++)
+            if (PS.ThisExtraMEII.Contains(_MEII))
             {
-                Debug.Log($"{i}¹øÂ°: Id.{Gotten_PSList[i].ThisItemID} / Bl.{Gotten_PSList[i].ThisBoostLv} / R.{Gotten_PSList[i].ThisRank} / U0.{Gotten_PSList[i].ThisMEII[0].name} / U1.{Gotten_PSList[i].ThisMEII[1].name}");
+                return PS;
             }
         }
+
+        return null;
     }
+
+    public PassiveSkill GetPassiveSkill_Inventory(ModifyEachInventoryItem _MEII)
+    {
+        foreach(PassiveSkill PS in Gotten_PSList)
+        {
+            if (PS.ThisMEII.Contains(_MEII))
+            {
+                return PS;
+            }
+        }
+
+        return null;
+    }
+
+    public Sprite GetRankIcon(int _Rank)
+    {
+        return RankIconList[_Rank - 1];
+    }
+
+    #endregion
+
+
 }
 
 [System.Serializable]

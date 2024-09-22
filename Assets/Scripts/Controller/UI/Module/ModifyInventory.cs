@@ -94,7 +94,31 @@ public class ModifyInventory : UIModule
 
     #region Item
 
-    public ModifyEachInventoryItem SpawnMEII(Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
+    public ModifyEachInventoryItem SpawnMEII_Module(ModifyEachInventorySlot _ParentSlot, Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
+    {
+        // Generate GO
+        GameObject item = Instantiate(InventoryItemPrefab, _ParentSlot.transform);
+
+        // RT
+        if (item.TryGetComponent(out RectTransform rt))
+        {
+            rt.anchoredPosition = Vector2.zero;
+        }
+
+        // Class
+        if (item.TryGetComponent(out ModifyEachInventoryItem MEII))
+        {
+            MEII.Offset();
+            MEII.SetData(_ItemSprite, _RankImg, _BoostLv);
+
+            _ParentSlot.ThisSlotItem = MEII;
+            return MEII;
+        }
+
+        return null;
+    }
+
+    public ModifyEachInventoryItem SpawnMEII_ThisInventory(Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
     {
         // Generate GO
         ModifyEachInventorySlot emptySlot = GetEmptyMEIS();

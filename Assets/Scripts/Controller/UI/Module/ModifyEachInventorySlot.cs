@@ -18,6 +18,9 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
     [Header("=== RT")]
     [SerializeField] private Vector2 ThisSizeDelta = new Vector2(100, 100);
 
+    [Header("=== Judg")]
+    [SerializeField] public bool IsInventory = true;
+
     // Component
     private RectTransform ThisRT;
     private Image ThisImg;
@@ -94,7 +97,7 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
         }
     }
 
-    private void OutIt_SelectedItem()
+    public void OutIt_SelectedItem()
     {
         if (UIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS == this)
         {

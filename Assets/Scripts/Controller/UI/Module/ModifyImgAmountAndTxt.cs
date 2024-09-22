@@ -13,8 +13,8 @@ public class ModifyImgAmountAndTxt : UIModule
     [SerializeField] public Transform Img_ParentTF;
     [SerializeField] public List<Image> Img_List;
     [SerializeField] public Sprite ThisSprite;
-    [SerializeField] public TMP_Text Txt_ExtraAmount;
-
+    [SerializeField] public TMP_Text Txt_ExtraAmount; 
+    
     Sequence DotweenSeq;
 
     #endregion

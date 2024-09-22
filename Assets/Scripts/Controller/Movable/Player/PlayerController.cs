@@ -101,7 +101,7 @@ public class PlayerController : MovableObject
     protected override void Update()
     {
         base.Update();
-        BoostItemManager.Instance.ActiveSkill_Always(CurrentBoostRank.Value);
+        BoostItemManager.Instance.ActiveSkill_Always();
     }
 
     private void FixedUpdate()
