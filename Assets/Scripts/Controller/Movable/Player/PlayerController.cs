@@ -102,6 +102,28 @@ public class PlayerController : MovableObject
     {
         base.Update();
         BoostItemManager.Instance.ActiveSkill_Always();
+
+        // Debug
+        DebugThings();
+    }
+
+    private void DebugThings()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            string debugText = "";
+            foreach(PassiveSkill PS in BoostItemManager.Instance.Equiped_PSList)
+            {
+                foreach(ItemData Item in BoostItemManager.Instance.ItemDataList)
+                {
+                    if(PS.ThisItemID == Item.ID)
+                    {
+                        debugText += Item.Name + " / ";
+                    }
+                }
+            }
+            Debug.Log(debugText);
+        }
     }
 
     private void FixedUpdate()

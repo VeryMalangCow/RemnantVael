@@ -15,16 +15,25 @@ public class ModuleUpgradeUIController : UIController
     [Space(10)]
     [Header("=== Module")]
 
+    [Space(10)]
     [Header("-- In Equip")]
     [SerializeField] private ModifyInventory MI_InEquipTab;
     [SerializeField] private List<ModifyEachInventorySlot> EquipedMEIS_List;
 
+    [Space(10)]
     [Header("-- In Reinforce")]
     [SerializeField] private ModifyInventory MI_InReinforceTab;
+    [SerializeField] private List<SimplePanelAndBtn> ReinforceInteractPanels;
+    [HideInInspector] public RectTransform CurrentReinforceInteractPanel;
+
+    [Space(5)]
+    [Header("* Decomposition")]
+    [SerializeField] private ModifyEachInventorySlot DecompositionSlot;
+    [SerializeField] private Button DecompositionBtn;
 
     [HideInInspector] private List<ModifyInventory> MI_List;
 
-
+    
     [Header("=== Item")]
     [SerializeField] public ModifyEachInventorySlot CurrentSelectedMEIS;
 
@@ -51,6 +60,13 @@ public class ModuleUpgradeUIController : UIController
         {
             MEIS.Offset();
         }
+
+        foreach (SimplePanelAndBtn SPAB in ReinforceInteractPanels)
+        {
+            SPAB.Offset(this, ReinforceInteractPanels);
+        }
+
+        DecompositionSlot.Offset();
     }
 
     protected override void Offset_UI()
@@ -98,6 +114,8 @@ public class ModuleUpgradeUIController : UIController
         {
             MET.OnReset();
         }
+
+        OnReset_SPAB();
     }
 
     private void Update()
@@ -225,6 +243,53 @@ public class ModuleUpgradeUIController : UIController
 
         CurrentSelectedMEIS.ThisSlotItem = null;
         CurrentSelectedMEIS.OutIt_SelectedItem();
+    }
+
+    #endregion
+
+    #region Kind of Reinforce Panel & Btn
+
+    [System.Serializable]
+    class SimplePanelAndBtn
+    {
+        public RectTransform PanelRT;
+        public Button PanelBtn;
+
+        public void Offset(ModuleUpgradeUIController _OwnerController, List<SimplePanelAndBtn> _ContainList)
+        {
+            PanelBtn.OnClickAsObservable()
+                .Subscribe(btn =>
+                {
+                    foreach(SimplePanelAndBtn SPAB in _ContainList)
+                    {
+                        if(SPAB.PanelBtn == PanelBtn)
+                        {
+                            SPAB.PanelRT.gameObject.SetActive(true);
+                            _OwnerController.CurrentReinforceInteractPanel = this.PanelRT;
+                        }
+                        else
+                        {
+                            SPAB.PanelRT.gameObject.SetActive(false);
+                        }
+                    }
+                });
+        }
+    }
+
+    private void OnReset_SPAB()
+    {
+        for (int i = 0; i < ReinforceInteractPanels.Count; i++)
+        {
+            if (0 == i)
+            {
+                ReinforceInteractPanels[i].PanelRT.gameObject.SetActive(true);
+                CurrentReinforceInteractPanel = ReinforceInteractPanels[i].PanelRT;
+            }
+            else
+            {
+                ReinforceInteractPanels[i].PanelRT.gameObject.SetActive(false);
+            }
+        }
     }
 
     #endregion
