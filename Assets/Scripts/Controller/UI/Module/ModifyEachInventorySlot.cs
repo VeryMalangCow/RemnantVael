@@ -73,7 +73,7 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
 
     private void InIt_SelectedItem()
     {
-        if (ThisSlotItem != null)
+        if (ThisSlotItem != null && ThisSlotItem.gameObject.activeSelf)
         {
             UIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS = this;
 

@@ -15,6 +15,7 @@ public class PassiveSkill
         ThisItemID = _ID;
     }
 
+
     public static List<PassiveSkill> AllPassiveItemSkill()
     {
         return new List<PassiveSkill>

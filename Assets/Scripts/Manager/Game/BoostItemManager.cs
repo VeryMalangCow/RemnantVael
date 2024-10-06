@@ -3,6 +3,7 @@ using UnityEngine;
 using UniRx;
 using UnityEditor.Rendering;
 using UnityEngine.Rendering;
+using System.Collections;
 
 public class BoostItemManager : Singleton<BoostItemManager>
 {
@@ -120,7 +121,53 @@ public class BoostItemManager : Singleton<BoostItemManager>
 
     #endregion
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            Debug.Log(Gotten_PSList.Count + " / " + Equiped_PSList.Count);
+        }
+    }
 
+    #region Delete
+
+    public void DeletePassiveSkill(ModifyEachInventoryItem _MEII)
+    {
+        PassiveSkill foundPS = FindPassiveSkill(Gotten_PSList, _MEII);
+
+        if (Gotten_PSList.Contains(foundPS))
+        { Gotten_PSList.Remove(foundPS); }
+
+        if (Equiped_PSList.Contains(foundPS))
+        { Equiped_PSList.Remove(foundPS); }
+
+        //Destroy(_MEII.gameObject);
+        DestroyMEIIList(foundPS);
+        foundPS = null;
+    }
+
+    private PassiveSkill FindPassiveSkill(List<PassiveSkill> TargetPsList, ModifyEachInventoryItem _MEII)
+    {
+        foreach(PassiveSkill ps in TargetPsList)
+        {
+            if (ps.ThisMEII.Contains(_MEII))
+            {
+                return ps;
+            }
+        }
+        return null;
+    }
+
+    private void DestroyMEIIList(PassiveSkill _PS)
+    {
+        for (int i = _PS.ThisMEII.Count - 1; i >= 0; i--)
+        { Destroy(_PS.ThisMEII[i].gameObject); }
+
+        for (int i = _PS.ThisExtraMEII.Count - 1; i >= 0; i--)
+        { Destroy(_PS.ThisExtraMEII[i].gameObject); }
+    }
+
+    #endregion
 }
 
 [System.Serializable]

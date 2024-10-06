@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6444918334871091923}
   - component: {fileID: 4259200202626755151}
   - component: {fileID: 9021736151168979971}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Img_ItemSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,6 +94,7 @@ MonoBehaviour:
   SignImgAnimDurTime: 0.1
   SignImgAnimSize: 1.1
   ThisSizeDelta: {x: 100, y: 100}
+  IsInventory: 1
 --- !u!1 &2913213333508109987
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,7 +106,7 @@ GameObject:
   - component: {fileID: 2680644581387821166}
   - component: {fileID: 908016591516289241}
   - component: {fileID: 5365825054076536133}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Img_ItemSelectedSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}

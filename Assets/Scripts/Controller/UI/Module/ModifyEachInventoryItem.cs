@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ModifyEachInventoryItem : UIModule
@@ -10,12 +9,13 @@ public class ModifyEachInventoryItem : UIModule
     [SerializeField] private Vector2 ThisSizeDelta = new Vector2(90, 90);
 
     [Header("=== Inner Component")]
-    [SerializeField] private Image RankImg;
+    [SerializeField] public Image RankImg;
     [SerializeField] private ModifyImgAmountAndTxt BoostLvMIAAT;
 
     // Component
     private RectTransform ThisRT;
-    private Image ThisImg;
+    [HideInInspector] public int ThisRankLv;
+    [HideInInspector] public Image ThisImg;
 
     #endregion
 
@@ -25,6 +25,7 @@ public class ModifyEachInventoryItem : UIModule
     {
         ThisImg.sprite = _ThisIcon;
         RankImg.sprite = _RankImg;
+        ThisRankLv = _BoostLv;
         BoostLvMIAAT.SetAmount(_BoostLv, 0.1f);
     }
 
