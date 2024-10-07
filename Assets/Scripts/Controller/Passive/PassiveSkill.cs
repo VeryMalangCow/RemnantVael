@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PassiveSkill
 {
+    public ItemData ThisItemData;
     public Sprite ThisIcon;
     public int ThisItemID = 0;
     public int ThisBoostLv = 1;

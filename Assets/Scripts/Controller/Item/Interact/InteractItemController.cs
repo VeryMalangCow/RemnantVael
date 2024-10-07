@@ -83,7 +83,6 @@ public class InteractItemController : ItemController, IInteract
 
     #endregion
 
-
     #region Interact
 
     public void Interact()

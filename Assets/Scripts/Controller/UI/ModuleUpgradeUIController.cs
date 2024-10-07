@@ -209,7 +209,7 @@ public class ModuleUpgradeUIController : UIController
 
     #endregion
 
-    #region Item
+    #region Item -> Spawn
 
     // 비어있는 슬롯 가져오기
     private ModifyEachInventorySlot GetEquipedEmptySlot()
@@ -235,10 +235,14 @@ public class ModuleUpgradeUIController : UIController
         return mi_List;
     }
 
+    #endregion
+
+    #region Item -> Interact
+
     // 아이템 상호작용
     private void TryInteractItem()
     {
-        if(CurrentSelectedMEIS == null)
+        if (CurrentSelectedMEIS == null)
         { return; }
 
         int indexOfAboutPanel = ThisPanelTabList.IndexOf(CurrentThisPanelTab);
@@ -282,13 +286,14 @@ public class ModuleUpgradeUIController : UIController
 
     }
 
+    
+    #endregion
 
-    #region About Equip
-
+    #region Item -> About Equip
     // 장착 시도
     private void TryEquip()
     {
-        if(BoostItemManager.Instance.Equiped_PSList.Count >= EquipedMEIS_List.Count)
+        if (BoostItemManager.Instance.Equiped_PSList.Count >= EquipedMEIS_List.Count)
         { return; }
 
         PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem);
@@ -324,7 +329,7 @@ public class ModuleUpgradeUIController : UIController
 
     #endregion
 
-    #region Reinforce
+    #region Item -> About Reinforce
 
     #region Descomposition
 
@@ -357,10 +362,20 @@ public class ModuleUpgradeUIController : UIController
     {
         if (CurrentDecompositionItem != null)
         {
+            int itemRank = CurrentDecompositionItem.ThisRankLv;
+
+            // Give
+
             DecompositionSlot.ThisSlotItem.gameObject.SetActive(false);
             DecompositionSlot.OutIt_SelectedItem();
 
             BoostItemManager.Instance.DeletePassiveSkill(CurrentDecompositionItem);
+
+
+            // Take
+
+            BoostItemManager.Instance.ModuleShrapnelAmount.Value += itemRank * 2;
+
         }
     }
 
@@ -408,20 +423,22 @@ public class ModuleUpgradeUIController : UIController
     // 인터렉트 -> 합성
     private void TryFusion()
     {
-        if (CurrentFusionItemList[0] == null || 
+        if (CurrentFusionItemList[0] == null ||
             CurrentFusionItemList[1] == null ||
             CurrentFusionItemList[0].ThisRankLv != CurrentFusionItemList[1].ThisRankLv)
         { return; }
 
         for (int i = FusionSlotList.Count - 1; i >= 0; i--)
         {
-            if (CurrentFusionItemList[i] != null)
-            {
-                FusionSlotList[i].ThisSlotItem.gameObject.SetActive(false);
-                FusionSlotList[i].OutIt_SelectedItem();
+            // Give
 
-                BoostItemManager.Instance.DeletePassiveSkill(CurrentFusionItemList[i]);
-            }
+            FusionSlotList[i].ThisSlotItem.gameObject.SetActive(false);
+            FusionSlotList[i].OutIt_SelectedItem();
+
+            BoostItemManager.Instance.DeletePassiveSkill(CurrentFusionItemList[i]);
+
+
+            // Take
         }
     }
 
@@ -458,10 +475,20 @@ public class ModuleUpgradeUIController : UIController
     {
         if (CurrentUpgradeItem != null)
         {
+
+
+            // Give
+
             UpgradeSlot.ThisSlotItem.gameObject.SetActive(false);
             UpgradeSlot.OutIt_SelectedItem();
 
             BoostItemManager.Instance.DeletePassiveSkill(CurrentUpgradeItem);
+
+
+            // Take
+
+            //BoostItemManager.Instance.GetItemSkill(new ItemData());
+
         }
     }
 
@@ -472,7 +499,7 @@ public class ModuleUpgradeUIController : UIController
     public void ResetReinforcePanel()
     {
         DecompositionSlot.ThisSlotItem.gameObject.SetActive(false);
-        foreach(ModifyEachInventorySlot meis in FusionSlotList)
+        foreach (ModifyEachInventorySlot meis in FusionSlotList)
         { meis.ThisSlotItem.gameObject.SetActive(false); }
         UpgradeSlot.ThisSlotItem.gameObject.SetActive(false);
 
@@ -481,8 +508,6 @@ public class ModuleUpgradeUIController : UIController
         { CurrentFusionItemList[i] = null; }
         CurrentUpgradeItem = null;
     }
-
-    #endregion
 
     #endregion
 

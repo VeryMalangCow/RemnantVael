@@ -4,6 +4,7 @@ using UniRx;
 using UnityEditor.Rendering;
 using UnityEngine.Rendering;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class BoostItemManager : Singleton<BoostItemManager>
 {
@@ -15,6 +16,10 @@ public class BoostItemManager : Singleton<BoostItemManager>
     [Header("=== Gotten Item")]
     [HideInInspector] private List<PassiveSkill> Gotten_PSList = new List<PassiveSkill>();
     [HideInInspector] public List<PassiveSkill> Equiped_PSList = new List<PassiveSkill>();
+
+    [Header("=== Goods")]
+    [SerializeField] public ReactiveProperty<int> ModuleShrapnelAmount = new();
+
 
     [Header("=== Icon Data")]
     [SerializeField] private List<Sprite> RankIconList;
@@ -121,14 +126,6 @@ public class BoostItemManager : Singleton<BoostItemManager>
 
     #endregion
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Debug.Log(Gotten_PSList.Count + " / " + Equiped_PSList.Count);
-        }
-    }
-
     #region Delete
 
     public void DeletePassiveSkill(ModifyEachInventoryItem _MEII)
@@ -183,4 +180,16 @@ public class ItemData
 
     public int BoostLv = 1;
     public int Rank = 1;
+
+    public ItemData() { }
+    public ItemData(ItemData _ItemData)
+    {
+        ID = _ItemData.ID;
+        Name = _ItemData.Name;
+        Description = _ItemData.Description;
+        Sprite = _ItemData.Sprite;
+        ItemIcon = _ItemData.ItemIcon;
+        BoostLv = _ItemData.BoostLv;
+        Rank = _ItemData.Rank;
+    }
 }
