@@ -158,6 +158,30 @@ public class ModifyInventory : UIModule
         return null;
     }
 
+    public ModifyEachInventorySlot GetTargetSlot(ModifyEachInventoryItem _MEII)
+    {
+        foreach (List<ModifyEachInventorySlot> MEIS_List in MEISList)
+        {
+            foreach (ModifyEachInventorySlot MEIS in MEIS_List)
+            {
+                if (MEIS.ThisSlotItem == _MEII)
+                {
+                    return MEIS;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void RemoveItemInSlotData(ModifyEachInventoryItem _MEII)
+    {
+        ModifyEachInventorySlot MEIS = GetTargetSlot(_MEII);
+        if (MEIS != null)
+        {
+            MEIS.ThisSlotItem = null;
+        }
+    }
+
     #endregion
 
 }

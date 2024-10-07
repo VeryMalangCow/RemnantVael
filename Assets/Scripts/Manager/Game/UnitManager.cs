@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UnitGenerator : Singleton<UnitGenerator>
+public class UnitManager : Singleton<UnitManager>
 {
     public T GenerateUnit<T>(GameObject _GO, Transform _ParentTF)
     {

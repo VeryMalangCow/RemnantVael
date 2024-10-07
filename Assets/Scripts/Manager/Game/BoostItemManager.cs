@@ -41,16 +41,15 @@ public class BoostItemManager : Singleton<BoostItemManager>
     {
         foreach (PassiveSkill PIS in PassiveSkill.AllPassiveItemSkill())
         {
-            if (PIS.ThisItemID == _ItemData.ID) 
+            if (PIS.ThisItemData.ID == _ItemData.ID) 
             {
-                PIS.ThisIcon = _ItemData.ItemIcon;
-                PIS.ThisBoostLv = _ItemData.BoostLv;
-                PIS.ThisRank = _ItemData.Rank;
-                PIS.ThisMEII = UIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList(PIS.ThisIcon, GetRankIcon(PIS.ThisRank), PIS.ThisBoostLv);
+                PIS.ThisItemData = new ItemData(_ItemData);
+
+                PIS.ThisMEII = UIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList(PIS.ThisItemData.ItemIcon, GetRankIcon(PIS.ThisItemData.Rank), PIS.ThisItemData.BoostLv);
                 
                 foreach(ModifyEachInventoryItem MEII in PIS.ThisMEII)
                 {
-                    MEII.gameObject.name = $"{PIS.ThisItemID}_{PIS.ThisRank}_{PIS.ThisBoostLv}";
+                    MEII.gameObject.name = $"{PIS.ThisItemData.ID}_{PIS.ThisItemData.Rank}_{PIS.ThisItemData.BoostLv}";
                 }
 
                 Gotten_PSList.Add(PIS);
@@ -138,7 +137,6 @@ public class BoostItemManager : Singleton<BoostItemManager>
         if (Equiped_PSList.Contains(foundPS))
         { Equiped_PSList.Remove(foundPS); }
 
-        //Destroy(_MEII.gameObject);
         DestroyMEIIList(foundPS);
         foundPS = null;
     }

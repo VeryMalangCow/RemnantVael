@@ -4,16 +4,13 @@ using UnityEngine;
 public class PassiveSkill
 {
     public ItemData ThisItemData;
-    public Sprite ThisIcon;
-    public int ThisItemID = 0;
-    public int ThisBoostLv = 1;
-    public int ThisRank = 1;
     public List<ModifyEachInventoryItem> ThisMEII = new List<ModifyEachInventoryItem>();
     public List<ModifyEachInventoryItem> ThisExtraMEII = new List<ModifyEachInventoryItem>();
 
     public PassiveSkill(int _ID)
     {
-        ThisItemID = _ID;
+        ThisItemData = new ItemData();
+        ThisItemData.ID = _ID;
     }
 
 
@@ -29,9 +26,9 @@ public class PassiveSkill
     protected int GetTargetRank()
     {
         int targetRank = PlayerManager.Instance.PlayerController.CurrentBoostRank.Value;
-        if (targetRank > ThisRank)
+        if (targetRank > ThisItemData.Rank)
         {
-            targetRank = ThisRank;
+            targetRank = ThisItemData.Rank;
         }
         return targetRank;
     }

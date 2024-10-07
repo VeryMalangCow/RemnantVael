@@ -309,7 +309,7 @@ public class ModuleUpgradeUIController : UIController
 
         Debug.Log("Equip!");
         BoostItemManager.Instance.Equiped_PSList.Add(ps);
-        ModifyEachInventoryItem meii = MI_InEquipTab.SpawnMEII_Module(GetEquipedEmptySlot(), ps.ThisIcon, BoostItemManager.Instance.GetRankIcon(ps.ThisRank), ps.ThisBoostLv);
+        ModifyEachInventoryItem meii = MI_InEquipTab.SpawnMEII_Module(GetEquipedEmptySlot(), ps.ThisItemData.ItemIcon, BoostItemManager.Instance.GetRankIcon(ps.ThisItemData.Rank), ps.ThisItemData.BoostLv);
         ps.ThisExtraMEII.Add(meii);
 
     }
@@ -362,10 +362,13 @@ public class ModuleUpgradeUIController : UIController
     {
         if (CurrentDecompositionItem != null)
         {
+            // Take Info
             int itemRank = CurrentDecompositionItem.ThisRankLv;
 
-            // Give
+            // Be Empty
+            RemoveDataInInventory(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem));
 
+            // Give
             DecompositionSlot.ThisSlotItem.gameObject.SetActive(false);
             DecompositionSlot.OutIt_SelectedItem();
 
@@ -373,7 +376,6 @@ public class ModuleUpgradeUIController : UIController
 
 
             // Take
-
             BoostItemManager.Instance.ModuleShrapnelAmount.Value += itemRank * 2;
 
         }
@@ -428,18 +430,32 @@ public class ModuleUpgradeUIController : UIController
             CurrentFusionItemList[0].ThisRankLv != CurrentFusionItemList[1].ThisRankLv)
         { return; }
 
+        // Take Info
+
+        ItemData itemData;
+
+        if (UnityEngine.Random.Range(0, 2) == 0)
+        { itemData = new ItemData(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[0]).ThisItemData); }
+        else
+        { itemData = new ItemData(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[1]).ThisItemData); }
+
+        itemData.Rank++;
+
         for (int i = FusionSlotList.Count - 1; i >= 0; i--)
         {
+            // Be Empty
+            RemoveDataInInventory(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[i]));
+
             // Give
 
             FusionSlotList[i].ThisSlotItem.gameObject.SetActive(false);
             FusionSlotList[i].OutIt_SelectedItem();
 
             BoostItemManager.Instance.DeletePassiveSkill(CurrentFusionItemList[i]);
-
-
-            // Take
         }
+
+        // Take
+        BoostItemManager.Instance.GetItemSkill(itemData);
     }
 
     #endregion
@@ -475,10 +491,14 @@ public class ModuleUpgradeUIController : UIController
     {
         if (CurrentUpgradeItem != null)
         {
+            // Take Info
+            ItemData itemData = new ItemData(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentUpgradeItem).ThisItemData);
+            itemData.BoostLv++;
 
+            // Be Empty
+            RemoveDataInInventory(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentUpgradeItem));
 
             // Give
-
             UpgradeSlot.ThisSlotItem.gameObject.SetActive(false);
             UpgradeSlot.OutIt_SelectedItem();
 
@@ -486,8 +506,7 @@ public class ModuleUpgradeUIController : UIController
 
 
             // Take
-
-            //BoostItemManager.Instance.GetItemSkill(new ItemData());
+            BoostItemManager.Instance.GetItemSkill(itemData);
 
         }
     }
@@ -507,6 +526,27 @@ public class ModuleUpgradeUIController : UIController
         for (int i = 0; i < CurrentFusionItemList.Count; i++)
         { CurrentFusionItemList[i] = null; }
         CurrentUpgradeItem = null;
+    }
+
+    // 인벤토리에 슬롯에 연결된 파일 Null로 바꾸기 (Missing이면 파일에 자리를 차지하게 됨)
+    private void RemoveDataInInventory(PassiveSkill _PS)
+    {
+        foreach (ModifyEachInventorySlot MEIS in EquipedMEIS_List)
+        {
+            foreach (ModifyEachInventoryItem MEII in _PS.ThisExtraMEII)
+            {
+                if (MEIS.ThisSlotItem == MEII)
+                {
+                    MEIS.ThisSlotItem = null;
+                }
+            }
+        }
+        foreach (ModifyEachInventoryItem MEII in _PS.ThisMEII)
+        {
+            MI_InEquipTab.RemoveItemInSlotData(MEII);
+            MI_InReinforceTab.RemoveItemInSlotData(MEII);
+        }
+        
     }
 
     #endregion

@@ -35,13 +35,12 @@ public class InputManager : Singleton<InputManager>
     protected override void Awake()
     {
         base.Awake();
-
-        if (PlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
-        { PlayerInput = PI; }
     }
 
     private void OnEnable()
     {
+        if (PlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
+        { PlayerInput = PI; }
         OnEnableInput();
     }
 
