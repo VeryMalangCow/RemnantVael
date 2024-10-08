@@ -14,7 +14,6 @@ public class ModifyEachInventoryItem : UIModule
 
     // Component
     private RectTransform ThisRT;
-    [HideInInspector] public int ThisRankLv;
     [HideInInspector] public Image ThisImg;
 
     #endregion
@@ -25,7 +24,6 @@ public class ModifyEachInventoryItem : UIModule
     {
         ThisImg.sprite = _ThisIcon;
         RankImg.sprite = _RankImg;
-        ThisRankLv = _BoostLv;
         BoostLvMIAAT.SetAmount(_BoostLv, 0.1f);
     }
 

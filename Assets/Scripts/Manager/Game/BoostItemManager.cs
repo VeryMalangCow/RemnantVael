@@ -18,7 +18,7 @@ public class BoostItemManager : Singleton<BoostItemManager>
     [HideInInspector] public List<PassiveSkill> Equiped_PSList = new List<PassiveSkill>();
 
     [Header("=== Goods")]
-    [SerializeField] public ReactiveProperty<int> ModuleShrapnelAmount = new();
+    [SerializeField] public ReactiveProperty<int> CurrentMC = new();
 
 
     [Header("=== Icon Data")]
@@ -122,6 +122,37 @@ public class BoostItemManager : Singleton<BoostItemManager>
     {
         return RankIconList[_Rank - 1];
     }
+
+    #endregion
+
+    #region Decomposition
+
+    public int NeedEC_AbleUpgrade(ModifyEachInventoryItem _MEII)
+    {
+        if (_MEII == null)
+        { return 0; }
+
+        PassiveSkill ps = GetPassiveSkill_Inventory(_MEII);
+        if (ps != null)
+        {
+            return (ps.ThisItemData.BoostLv + 1);
+        }
+        return 0;
+    }
+
+    public int NeedMC_AbleFusion(ModifyEachInventoryItem _MEII)
+    {
+        if (_MEII == null)
+        { return 0; }
+
+        PassiveSkill ps = GetPassiveSkill_Inventory(_MEII);
+        if (ps != null)
+        {
+            return (ps.ThisItemData.Rank + 1);
+        }
+        return 0;
+    }
+
 
     #endregion
 

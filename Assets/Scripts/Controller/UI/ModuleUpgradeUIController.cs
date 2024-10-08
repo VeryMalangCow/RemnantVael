@@ -165,13 +165,14 @@ public class ModuleUpgradeUIController : UIController
         {
             MET.OnReset();
         }
+        ResetReinforcePanel();
 
         OnReset_SPAB();
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(0))
         {
             TryInteractItem();
         }
@@ -349,7 +350,7 @@ public class ModuleUpgradeUIController : UIController
             DecompositionSlot.ThisSlotItem.SetData(
                 CurrentSelectedMEIS.ThisSlotItem.ThisImg.sprite,
                 CurrentSelectedMEIS.ThisSlotItem.RankImg.sprite,
-                CurrentSelectedMEIS.ThisSlotItem.ThisRankLv);
+                BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.Rank);
 
             CurrentDecompositionItem = CurrentSelectedMEIS.ThisSlotItem;
 
@@ -362,8 +363,11 @@ public class ModuleUpgradeUIController : UIController
     {
         if (CurrentDecompositionItem != null)
         {
+
             // Take Info
-            int itemRank = CurrentDecompositionItem.ThisRankLv;
+            PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem);
+            int itemRank = ps.ThisItemData.Rank;
+            int boostLv = ps.ThisItemData.BoostLv;
 
             // Be Empty
             RemoveDataInInventory(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem));
@@ -376,8 +380,8 @@ public class ModuleUpgradeUIController : UIController
 
 
             // Take
-            BoostItemManager.Instance.ModuleShrapnelAmount.Value += itemRank * 2;
-
+            BoostItemManager.Instance.CurrentMC.Value += itemRank * 2;
+            PlayerManager.Instance.PlayerController.CurrentBC.Value += boostLv;
         }
     }
 
@@ -412,7 +416,7 @@ public class ModuleUpgradeUIController : UIController
                     FusionSlotList[i].ThisSlotItem.SetData(
                         CurrentSelectedMEIS.ThisSlotItem.ThisImg.sprite,
                         CurrentSelectedMEIS.ThisSlotItem.RankImg.sprite,
-                        CurrentSelectedMEIS.ThisSlotItem.ThisRankLv);
+                        BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.Rank);
 
                     CurrentFusionItemList[i] = CurrentSelectedMEIS.ThisSlotItem;
 
@@ -427,7 +431,13 @@ public class ModuleUpgradeUIController : UIController
     {
         if (CurrentFusionItemList[0] == null ||
             CurrentFusionItemList[1] == null ||
-            CurrentFusionItemList[0].ThisRankLv != CurrentFusionItemList[1].ThisRankLv)
+            BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[0]).ThisItemData.Rank !=
+            BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[1]).ThisItemData.Rank)
+        { return; }
+
+        int needMC = BoostItemManager.Instance.NeedMC_AbleFusion(CurrentFusionItemList[0]);
+        if (needMC == 0 ||
+            needMC > BoostItemManager.Instance.CurrentMC.Value)
         { return; }
 
         // Take Info
@@ -454,13 +464,15 @@ public class ModuleUpgradeUIController : UIController
             BoostItemManager.Instance.DeletePassiveSkill(CurrentFusionItemList[i]);
         }
 
+        BoostItemManager.Instance.CurrentMC.Value -= needMC;
+
         // Take
         BoostItemManager.Instance.GetItemSkill(itemData);
     }
 
     #endregion
 
-    #region Descomposition
+    #region Upgrade
 
     // 장착 또는 해제
     private void TryInteract_UpgradeSlot()
@@ -478,7 +490,7 @@ public class ModuleUpgradeUIController : UIController
             UpgradeSlot.ThisSlotItem.SetData(
                 CurrentSelectedMEIS.ThisSlotItem.ThisImg.sprite,
                 CurrentSelectedMEIS.ThisSlotItem.RankImg.sprite,
-                CurrentSelectedMEIS.ThisSlotItem.ThisRankLv);
+                BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.Rank);
 
             CurrentUpgradeItem = CurrentSelectedMEIS.ThisSlotItem;
 
@@ -491,6 +503,13 @@ public class ModuleUpgradeUIController : UIController
     {
         if (CurrentUpgradeItem != null)
         {
+            // Cost
+            int needEC = BoostItemManager.Instance.NeedEC_AbleUpgrade(CurrentUpgradeItem);
+            Debug.Log(needEC);
+            if (needEC == 0 ||
+                needEC > PlayerManager.Instance.PlayerController.CurrentEC.Value)
+            { return; }
+
             // Take Info
             ItemData itemData = new ItemData(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentUpgradeItem).ThisItemData);
             itemData.BoostLv++;
@@ -504,6 +523,7 @@ public class ModuleUpgradeUIController : UIController
 
             BoostItemManager.Instance.DeletePassiveSkill(CurrentUpgradeItem);
 
+            PlayerManager.Instance.PlayerController.CurrentEC.Value -= needEC;
 
             // Take
             BoostItemManager.Instance.GetItemSkill(itemData);
