@@ -1,0 +1,143 @@
+using DG.Tweening;
+using UnityEngine;
+
+public class MissileBulletController : BulletController
+{
+    #region Value
+
+    [Space(20)]
+    [Header("<><><><><> Missile Controller")]
+
+    [Space(10)]
+    [Header("=== Extra State")]
+    [SerializeField] private GameObject Missile_Prefab;
+    [SerializeField] private float ShadowRangeTarget = 0.4f;
+    [SerializeField] private float SpreadTime = 1f;
+    [SerializeField] private float SpreadAngleLimit = 20f;
+    [SerializeField] private float RotateSpeed = 1f;
+
+    [Header("=== Target")]
+    [SerializeField] private EnemyController TargetEnemyController;
+    [SerializeField] private bool CanHit = false;
+
+    #endregion
+
+    #region Framework
+
+    protected override void Update()
+    {
+        base.Update();
+
+        CurrentAliveTime += Time.deltaTime;
+
+        if (!CanHit) 
+        {
+            if (SpreadTime <= CurrentAliveTime)
+            {
+                CanHit = true;
+                SetTarget();
+            }
+        }
+        else if (TargetEnemyController == null || !TargetEnemyController.gameObject.activeSelf)
+        {
+            SetTarget();
+        }
+
+        if (CurrentAliveTime >= BulletState.AliveTime)
+        {
+            DeleteThis();
+        }
+        else
+        {
+            SetTargetDir();
+        }
+    }
+
+    #endregion
+
+    #region Delete
+
+    private void DeleteThis()
+    {
+        CanHit = false;
+        CurrentAliveTime = 0f;
+        TargetEnemyController = null;
+
+        PoolingManager.Instance.MissileBullet.Queue.Enqueue(this);
+        this.gameObject.SetActive(false);
+    }
+
+    #endregion
+
+    #region Target
+
+    private void SetTarget()
+    {
+        TargetEnemyController = null;
+        TargetEnemyController = EnemyManager.Instance.GetClosestEnemy(this.transform.position);
+    }
+
+    private void SetTargetDir()
+    {
+        if (TargetEnemyController != null)
+        {
+            this.transform.rotation = Quaternion.Slerp(
+                transform.rotation, 
+                Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, ((TargetEnemyController.transform.position - this.transform.position).normalized))),
+                RotateSpeed * Time.deltaTime);
+        }
+    }
+
+
+    #endregion
+
+    #region Extra State
+
+    public void SetState_forMissile(Vector2 _SpawnVec, BulletState _BulletState)
+    {
+        // Offset
+        TargetEnemyController = null;
+        float targetSpeed = _BulletState.MuzzleSpeed;
+
+        // Base Dir
+        Vector2 dir = ((InputManager.Instance.MousePosByWorld) - _SpawnVec).normalized;
+        Quaternion targetQuat = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, dir));
+        this.transform.localRotation = targetQuat;
+
+        // State + RandomDir
+        float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
+        base.SetState(_SpawnVec, randomSpreadAngle, _BulletState, 0, false, 1);
+        base.BulletState.MuzzleSpeed *= 0.3f;
+
+        // Dotween
+        DOTween.To(() => BulletState.MuzzleSpeed, x => BulletState.MuzzleSpeed = x, targetSpeed, SpreadTime)
+            .SetEase(Ease.Linear);
+        DOTween.To(() => TargetRange, y => TargetRange = y, ShadowRangeTarget, SpreadTime)
+            .SetEase(Ease.Linear);
+
+        gameObject.SetActive(true);
+    }
+
+    #endregion
+
+    #region Collision
+    
+    private void OnTriggerEnter2D(Collider2D _Collision)
+    {
+        if (_Collision.gameObject.tag == "Player" || _Collision.gameObject.tag == "PlayerThing")
+        { return; }
+
+        // Hit Enemy
+        if (_Collision.tag == "Enemy")
+        {
+            if (_Collision.transform.parent.TryGetComponent(out EnemyController EC))
+            {
+                EC.TakeDamage(BulletState.DamageType, BulletState.BaseDamage);
+            }
+        }
+
+        DeleteThis();
+    }
+
+    #endregion
+}

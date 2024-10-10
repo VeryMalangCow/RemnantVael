@@ -17,6 +17,9 @@ public class PoolingManager : Singleton<PoolingManager>
     [Header("=== After Img")]
     [SerializeField] public TTypePooling<SpriteRenderer> PlayerAfterImgs;
 
+    [Header("=== Skill")]
+    [SerializeField] public TTypePooling<MissileBulletController> MissileBullet;
+
     #endregion
 
     #region Framework
@@ -76,6 +79,16 @@ public class PoolingManager : Singleton<PoolingManager>
     {
         return GetOP<SpriteRenderer>(PlayerAfterImgs.Prefab, PlayerAfterImgs.ParentTF, PlayerAfterImgs.Queue);
     }
+    #endregion
+
+    #region Missile
+
+    // Missile
+    public MissileBulletController GetOP_Missile()
+    {
+        return GetOP<MissileBulletController>(MissileBullet.Prefab, MissileBullet.ParentTF, MissileBullet.Queue);
+    }
+
     #endregion
 }
 

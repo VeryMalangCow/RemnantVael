@@ -3,6 +3,7 @@ using UnityEngine;
 public class BulletController : HaveShadowThing
 {
     #region Value
+
     [Space(20)]
     [Header("<><><><><> Bullet Controller")]
 
@@ -20,7 +21,7 @@ public class BulletController : HaveShadowThing
 
     #region State
 
-    public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _fireMinDisLimit, bool _IsCritical, float _CD)
+    public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _FireMinDisLimit, bool _IsCritical, float _CD)
     {
         this.transform.position = _SpawnVec;
 
@@ -38,8 +39,6 @@ public class BulletController : HaveShadowThing
         transform.eulerAngles = currentRotation;
 
         CurrentAliveTime = 0;
-
-        gameObject.SetActive(true);
     }
 
     #endregion
@@ -49,7 +48,7 @@ public class BulletController : HaveShadowThing
     protected override void Update()
     {
         base.Update();
-        ThisRb.velocity = this.transform.up * BulletState.MuzzleSpeed * 1000f * Time.deltaTime;
+        ThisRb.velocity = this.transform.up * BulletState.MuzzleSpeed * 500f * Time.deltaTime;
     }
 
     #endregion

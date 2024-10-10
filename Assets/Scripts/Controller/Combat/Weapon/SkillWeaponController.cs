@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeaponController : WeaponController
+public class SkillWeaponController : MonoBehaviour
 {
     #region Value
 
@@ -30,15 +30,24 @@ public class PlayerWeaponController : WeaponController
     [Header("-- Hand")]
     [SerializeField] private List<Satellite> Hands;
 
+    [Header("-- ActiveSkill")]
+    [SerializeField] public ActiveSkillController Skill_0;
+    [SerializeField] public ActiveSkillController Skill_1;
 
     #endregion
 
     #region Framework
 
-    protected override void Update()
+    private void Start()
     {
-        base.Update();
+        if (Hands[0].ObjectTF.gameObject.TryGetComponent(out ActiveSkillController ASC_Q))
+        { Skill_0 = ASC_Q; }
+        if (Hands[1].ObjectTF.gameObject.TryGetComponent(out ActiveSkillController ASC_E))
+        { Skill_1 = ASC_E; }
+    }
 
+    private void Update()
+    {
         RotateSmooth();
 
         foreach (Satellite hand in Hands)
@@ -46,39 +55,11 @@ public class PlayerWeaponController : WeaponController
             hand.SetPosOffset();
             hand.SetSortOrder(PlayerSR.sortingOrder);
         }
-
-        if (CanFire())
-        {
-            List<PlayerBulletController> PBClist = new List<PlayerBulletController>();
-            foreach (Transform TF in BulletSpawnTFs)
-            { PBClist.Add(PoolingManager.Instance.GetOP_PlayerBullet()); }
-
-            Fire(PBClist);
-            PlayerManager.Instance.CameraController.PlayShotShake(1/ROF.ActualState.Value, PBClist[0].BulletState.BaseDamage);
-
-            BoostItemManager.Instance.ActiveSkill_Fire();
-        }
     }
 
     private void OnEnable()
     {
         RollTF.rotation = Quaternion.Euler(DefualtRoll, 0f, 0f);
-    }
-
-    #endregion
-
-    #region Judg Can Fire
-
-    private bool CanFire()
-    {
-        if(IsInputed &&
-            CurrentDelayROF >= 1 &&
-            !PlayerController.IsCasting &&
-            PlayerController.MovementState == eMovementState.IdleOrWalk)
-        {
-            return true;
-        }
-        return false;
     }
 
     #endregion
@@ -95,30 +76,4 @@ public class PlayerWeaponController : WeaponController
     }
 
     #endregion
-
-}
-
-[System.Serializable]
-public class Satellite
-{
-    [SerializeField] public Transform ObjectTF;
-    [SerializeField] public Transform TargetTF;
-    [SerializeField] public SpriteRenderer ThisActualSR;
-
-    public void SetPosOffset()
-    {
-        ObjectTF.position = TargetTF.position;
-    }
-
-    public void SetSortOrder(int _PlayerSortOrder)
-    {
-        if (ObjectTF.localPosition.y > 0)
-        {
-            ThisActualSR.sortingOrder = _PlayerSortOrder - 1;
-        }
-        else
-        {
-            ThisActualSR.sortingOrder = _PlayerSortOrder + 1;
-        }
-    }
 }

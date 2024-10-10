@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class HaveShadowThing : MonoBehaviour
+public class HaveShadowThingStatic : MonoBehaviour
 {
     #region Value
 
-    [Space(20)] 
+    [Space(20)]
     [Header("<><><><><> Have Shadow Thing")]
 
     [Space(10)]
@@ -16,7 +16,7 @@ public class HaveShadowThing : MonoBehaviour
 
     #region Framework
 
-    protected virtual void Update()
+    protected virtual void OnEnable()
     {
         TargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * TargetRange);
     }

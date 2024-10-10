@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4772996866839286768}
-  - component: {fileID: -1569825769962121506}
+  - component: {fileID: 7064928795332174905}
   - component: {fileID: 3702076010934528879}
   m_Layer: 0
-  m_Name: PlayerBullet_Prefab
+  m_Name: PlayerMissileBullet_Prefab
   m_TagString: PlayerThing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,14 +28,14 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4622047315420442465}
   - {fileID: 4030447465785416527}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1569825769962121506
+--- !u!114 &7064928795332174905
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,11 +44,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2192280153704162206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 994ab0f0cae79c541930be22a2fcb6cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 64a4678c6a1662e4581090a125a1b7b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 7754987835335729850}
-  TargetRange: 0.35
+  TargetRange: 0.6
   BulletState:
     DamageType: 0
     BaseDamage: 0
@@ -57,6 +57,13 @@ MonoBehaviour:
   IsCritical: 0
   CurrentAliveTime: 0
   ThisRb: {fileID: 3702076010934528879}
+  Missile_Prefab: {fileID: 2192280153704162206}
+  ShadowRangeTarget: 0.4
+  SpreadTime: 1
+  SpreadAngleLimit: 20
+  RotateSpeed: 5
+  TargetEnemyController: {fileID: 0}
+  CanHit: 0
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4
@@ -278,7 +285,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 20
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.48584908, b: 0.48584908, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

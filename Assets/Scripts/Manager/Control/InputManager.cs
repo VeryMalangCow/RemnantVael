@@ -93,13 +93,16 @@ public class InputManager : Singleton<InputManager>
     private void OnEnableInput()
     {
         PlayerInput.actions["Walk"].performed += Input_Walk;
-        PlayerInput.actions["Fire00"].performed += Input_Fire00;
+        PlayerInput.actions["Fire_0"].performed += Input_Fire_0;
         PlayerInput.actions["Dash"].performed += Input_Dash;
 
         PlayerInput.actions["CombatMode"].performed += Input_CombatMode;
         PlayerInput.actions["BoostMode"].performed += Input_BoostMode;
         PlayerInput.actions["UnBoostMode"].performed += Input_UnBoostMode;
         PlayerInput.actions["ChargeBettery"].performed += Input_ChargeBettery;
+
+        PlayerInput.actions["Skill_0"].performed += Input_Skill_0;
+        PlayerInput.actions["Skill_1"].performed += Input_Skill_1;
 
         PlayerInput.actions["Interact"].performed += Input_Interact;
 
@@ -109,13 +112,16 @@ public class InputManager : Singleton<InputManager>
     private void OnDisableInput()
     {
         PlayerInput.actions["Walk"].performed -= Input_Walk;
-        PlayerInput.actions["Fire00"].performed -= Input_Fire00;
+        PlayerInput.actions["Fire_0"].performed -= Input_Fire_0;
         PlayerInput.actions["Dash"].performed -= Input_Dash; 
 
         PlayerInput.actions["CombatMode"].performed -= Input_CombatMode;
         PlayerInput.actions["BoostMode"].performed -= Input_BoostMode;
         PlayerInput.actions["UnBoostMode"].performed -= Input_UnBoostMode;
         PlayerInput.actions["ChargeBettery"].performed -= Input_ChargeBettery;
+
+        PlayerInput.actions["Skill_0"].performed -= Input_Skill_0;
+        PlayerInput.actions["Skill_1"].performed -= Input_Skill_1;
 
         PlayerInput.actions["Interact"].performed -= Input_Interact;
 
@@ -208,7 +214,39 @@ public class InputManager : Singleton<InputManager>
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.CanChange_UnBoostModeCheck(); 
+            PlayerManager.Instance.PlayerController.CanChange_UnBoostModeCheck();
+        }
+    }
+
+    #endregion
+
+    #region Skill
+
+    private void Input_Skill_0(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            if (IsPlayingSkill)
+            {
+                SetFirstInput(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.ActiveSkill);
+                return;
+            }
+
+            PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.ActiveSkill();
+        }
+    }
+
+    private void Input_Skill_1(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            if (IsPlayingSkill)
+            {
+                SetFirstInput(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.ActiveSkill);
+                return;
+            }
+
+            PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.ActiveSkill();
         }
     }
 
@@ -216,7 +254,7 @@ public class InputManager : Singleton<InputManager>
 
     #region Fire
 
-    private void Input_Fire00(InputAction.CallbackContext _InputValue)
+    private void Input_Fire_0(InputAction.CallbackContext _InputValue)
     {
         PlayerManager.Instance.PlayerController.BaseWeapon.IsInputed = _InputValue.ReadValueAsButton();
     }

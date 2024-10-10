@@ -15,9 +15,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Fire00",
+                    "name": "Fire_0",
                     "type": "PassThrough",
                     "id": "cae9a1ac-6519-4df3-a646-a2ea3258fa7d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill_0",
+                    "type": "PassThrough",
+                    "id": "f06ad066-3316-4399-9a9a-14b2523cacdd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Skill_1",
+                    "type": "PassThrough",
+                    "id": "41b142dc-dc14-4820-b1d0-defca7e56cb0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -150,7 +168,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Fire00",
+                    "action": "Fire_0",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -179,7 +197,7 @@
                 {
                     "name": "",
                     "id": "6727a1ed-3962-40d0-822b-70b647660d98",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -201,7 +219,7 @@
                 {
                     "name": "",
                     "id": "23de57f1-81ed-4e35-bf9f-bcf1b3439294",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -223,11 +241,33 @@
                 {
                     "name": "",
                     "id": "51255569-7576-4498-93ad-02c39d2eb9d5",
-                    "path": "<Keyboard>/g",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "UnBoostMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d229c46b-f5f1-4943-950b-579e18c54ce2",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill_0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ec0d835-a69f-4a01-9036-d8abddc03621",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Skill_1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

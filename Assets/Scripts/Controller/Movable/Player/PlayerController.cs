@@ -41,6 +41,16 @@ public class PlayerController : MovableObject
 
     #endregion
 
+    #region -Skill
+
+    [Space(10)]
+    [Header("=== Skill")]
+
+    [Header("-- Weapon")]
+    [SerializeField] public SkillWeaponController SkillWeapon;
+
+    #endregion
+
     #region - Movement
 
     [Space(10)]

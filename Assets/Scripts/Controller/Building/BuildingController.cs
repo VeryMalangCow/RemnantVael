@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BuildingController : HaveShadowThing
+public class BuildingController : HaveShadowThingStatic
 {
     
 }
