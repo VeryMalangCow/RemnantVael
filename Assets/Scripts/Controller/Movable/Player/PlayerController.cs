@@ -79,9 +79,9 @@ public class PlayerController : MovableObject
 
     [Space(10)]
     [Header("=== Boost")]
-    [SerializeField] private int TargetBoostRank = 0;
-    [SerializeField] private int MaxBoostRank = 4;
-    [SerializeField] public ReactiveProperty<int> CurrentBoostRank = new();
+    [SerializeField] private int TargetBoostlv = 0;
+    [SerializeField] public int MaxBoostLv = 5;
+    [SerializeField] public ReactiveProperty<int> CurrentBoostLv = new();
     [SerializeField] private List<float> DecEnergyPointByLevel;
     [SerializeField] public BaseUpgradeState<float> DecEnergyPointMultiple;
 
@@ -153,7 +153,7 @@ public class PlayerController : MovableObject
             {
                 CurrentBS.Value -= NeedBS_ForMakeBC;
                 CurrentBC.Value++;
-                UIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Complete(0.3f, 0.2f);
+                MainGameUIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Complete(0.3f, 0.2f);
             }
             else
             {
@@ -180,11 +180,11 @@ public class PlayerController : MovableObject
             case eMovementState.IdleOrWalk:
                 if(BaseWeapon.CurrentDelayROF >= 1)
                 {
-                    Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value, AccelerationSpeed);
+                    Walk(InputPlayerManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value, AccelerationSpeed);
                 }
                 else
                 {
-                    Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value * WalkSpeedWhenShotMultiple.ActualState.Value, AccelerationSpeed);
+                    Walk(InputPlayerManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value * WalkSpeedWhenShotMultiple.ActualState.Value, AccelerationSpeed);
                 }
                 break;
 
@@ -204,7 +204,7 @@ public class PlayerController : MovableObject
             return;
         }
 
-        InputManager.Instance.IsPlayingSkill = true;
+        InputPlayerManager.Instance.IsPlayingSkill = true;
         MakeAfterImage.StartGen(0.03f, 0.5f);
         CurrentEP.Value -= DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value;
         MovementState = eMovementState.Dash;
@@ -268,10 +268,10 @@ public class PlayerController : MovableObject
     [HideInInspector] private const float BoostModeInterval = 0.25f;
     public void CanChange_BoostModeCheck()
     {
-        if (!CanChange() || TargetBoostRank >= MaxBoostRank)
+        if (!CanChange() || TargetBoostlv >= MaxBoostLv)
         { return; }
 
-        TargetBoostRank++;
+        TargetBoostlv++;
         
         StartCasting(BoostModeInterval);
     }
@@ -281,10 +281,10 @@ public class PlayerController : MovableObject
     [HideInInspector] private const float UnBoostModeInterval = 0.1f;
     public void CanChange_UnBoostModeCheck()
     {
-        if (!CanChange() || CurrentBoostRank.Value <= 0)
+        if (!CanChange() || CurrentBoostLv.Value <= 0)
         { return; }
 
-        TargetBoostRank--;
+        TargetBoostlv--;
 
         StartCasting(UnBoostModeInterval);
     }
@@ -328,7 +328,7 @@ public class PlayerController : MovableObject
         MovementState = eMovementState.Casting;
         ThisRb.velocity = Vector2.zero;
 
-        InputManager.Instance.IsPlayingSkill = true;
+        InputPlayerManager.Instance.IsPlayingSkill = true;
     }
 
     #endregion
@@ -367,7 +367,7 @@ public class PlayerController : MovableObject
     private void AlwaysCaculate()
     {
         CastingCaculate();
-        BoostingCaculate(CurrentBoostRank.Value);
+        BoostingCaculate(CurrentBoostLv.Value);
     }
 
 
@@ -384,7 +384,7 @@ public class PlayerController : MovableObject
                 CurrentCastingTime = 0f;
                 IsCasting = false;
                 MovementState = eMovementState.IdleOrWalk;
-                InputManager.Instance.IsPlayingSkill = false;
+                InputPlayerManager.Instance.IsPlayingSkill = false;
 
                 If_CombatMode();
                 If_Skill();
@@ -438,9 +438,9 @@ public class PlayerController : MovableObject
 
     private void If_Boost()
     {
-        if(CurrentBoostRank.Value != TargetBoostRank)
+        if(CurrentBoostLv.Value != TargetBoostlv)
         {
-            CurrentBoostRank.Value = TargetBoostRank;
+            CurrentBoostLv.Value = TargetBoostlv;
         }
     }
 

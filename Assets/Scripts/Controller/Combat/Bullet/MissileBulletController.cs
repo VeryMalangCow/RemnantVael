@@ -100,7 +100,7 @@ public class MissileBulletController : BulletController
         float targetSpeed = _BulletState.MuzzleSpeed;
 
         // Base Dir
-        Vector2 dir = ((InputManager.Instance.MousePosByWorld) - _SpawnVec).normalized;
+        Vector2 dir = ((InputPlayerManager.Instance.MousePosByWorld) - _SpawnVec).normalized;
         Quaternion targetQuat = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, dir));
         this.transform.localRotation = targetQuat;
 

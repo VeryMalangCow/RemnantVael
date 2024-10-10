@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class UIController : MonoBehaviour
 {
@@ -13,6 +12,7 @@ public abstract class UIController : MonoBehaviour
     [SerializeField] protected ModifyEachTab CurrentThisPanelTab;
     [SerializeField] public float TabDurTime = 0.4f;
     [SerializeField] protected bool IsTweening = false;
+    [SerializeField] string ThisPanelInputMapName;
 
     #endregion
 
@@ -38,9 +38,9 @@ public abstract class UIController : MonoBehaviour
     public virtual void OpenThisPanel(float _DurTime)
     {
         // Other
-        UIManager.Instance.CurrentOpening_UIController = this;
-        InputManager.Instance.InputMoveDir = Vector2.zero;
-        InputManager.Instance.enabled = false;
+        MainGameUIManager.Instance.CurrentOpening_UIController = this;
+        InputPlayerManager.Instance.InputMoveDir = Vector2.zero;
+        InputPlayerManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
 
         this.gameObject.SetActive(true);
 
@@ -115,8 +115,8 @@ public abstract class UIController : MonoBehaviour
                 this.gameObject.SetActive(false);
                 IsTweening = false;
                 
-                UIManager.Instance.CurrentOpening_UIController = null;
-                InputManager.Instance.enabled = true;
+                MainGameUIManager.Instance.CurrentOpening_UIController = null;
+                InputPlayerManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
             });
     }
 

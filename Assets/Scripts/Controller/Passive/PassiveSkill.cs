@@ -25,7 +25,7 @@ public class PassiveSkill
 
     protected int GetTargetRank()
     {
-        int targetRank = PlayerManager.Instance.PlayerController.CurrentBoostRank.Value;
+        int targetRank = PlayerManager.Instance.PlayerController.CurrentBoostLv.Value;
         if (targetRank > ThisItemData.Rank)
         {
             targetRank = ThisItemData.Rank;

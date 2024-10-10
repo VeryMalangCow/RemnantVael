@@ -68,7 +68,7 @@ public class SkillWeaponController : MonoBehaviour
 
     private void RotateSmooth()
     {
-        Vector2 dir = InputManager.Instance.DirFromPlayerPos.normalized;
+        Vector2 dir = InputPlayerManager.Instance.DirFromPlayerPos.normalized;
         Quaternion targetQuat = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, dir), 0f);
         targetQuat = Quaternion.Slerp(PitchTF.transform.localRotation, targetQuat, rotateSpeed * Time.deltaTime);
 

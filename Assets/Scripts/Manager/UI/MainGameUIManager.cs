@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public class UIManager : Singleton<UIManager>
+public class MainGameUIManager : Singleton<MainGameUIManager>
 {
     #region Value
+
+    [Header("=== UI_Camera")]
+    [SerializeField] private Camera UICamera;
 
     [Header("=== UI_Prefab")]
     [SerializeField] private Transform UIParent;
@@ -41,6 +44,10 @@ public class UIManager : Singleton<UIManager>
         if (uigo.TryGetComponent(out UIController ui))
         {
             ui.Offset_Main();
+        }
+        if (uigo.TryGetComponent(out Canvas canvas))
+        {
+            canvas.worldCamera = UICamera;
         }
 
         if (uigo.TryGetComponent(out T spawnUI))

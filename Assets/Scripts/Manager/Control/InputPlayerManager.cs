@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-using static UnityEngine.ParticleSystem;
 
-public class InputManager : Singleton<InputManager>
+public class InputPlayerManager : Singleton<InputPlayerManager>
 {
     #region Value
 
@@ -106,9 +102,17 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["Interact"].performed += Input_Interact;
 
+
+
+
+        PlayerInput.actions["BUUI_Select"].performed += Input_BUUIClick;
+        PlayerInput.actions["MUUI_Select"].performed += Input_MUUIClick;
+
+
+
+
         PlayerInput.actions["ForDebugging"].performed += Input_ForDebugging;
     }
-
     private void OnDisableInput()
     {
         PlayerInput.actions["Walk"].performed -= Input_Walk;
@@ -124,6 +128,15 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Skill_1"].performed -= Input_Skill_1;
 
         PlayerInput.actions["Interact"].performed -= Input_Interact;
+
+
+
+
+        PlayerInput.actions["BUUI_Select"].performed -= Input_BUUIClick;
+        PlayerInput.actions["MUUI_Select"].performed -= Input_MUUIClick;
+
+
+
 
         PlayerInput.actions["ForDebugging"].performed -= Input_ForDebugging;
     }
@@ -289,6 +302,30 @@ public class InputManager : Singleton<InputManager>
             PlayerManager.Instance.PlayerController.TryInteract();
         }
     }
+
+    #endregion
+
+    #region UI
+
+
+    private void Input_BUUIClick(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            MainGameUIManager.Instance.BaseUpgrade_UIController.TryInteractClick();
+        }
+    }
+
+
+    private void Input_MUUIClick(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.TryInteractClick();
+        }
+    }
+
+
 
     #endregion
 }

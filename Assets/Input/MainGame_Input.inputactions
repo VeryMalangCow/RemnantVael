@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInput",
+    "name": "MainGame_Input",
     "maps": [
         {
             "name": "Player",
@@ -268,6 +268,62 @@
                     "processors": "",
                     "groups": "",
                     "action": "Skill_1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "BaseUpgradeUI",
+            "id": "9a3abae2-d7e0-4047-ac0d-113b7d92111c",
+            "actions": [
+                {
+                    "name": "BUUI_Select",
+                    "type": "Button",
+                    "id": "19f92d05-4545-4441-bec6-3ee6a956eb91",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ecb58f58-7e9c-4d69-83c0-5533795f340f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BUUI_Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "ModuleUpgradeUI",
+            "id": "ff7b195e-8777-43b2-98ea-ed64acbc4f19",
+            "actions": [
+                {
+                    "name": "MUUI_Select",
+                    "type": "Button",
+                    "id": "c2ea8faa-a782-4d21-b846-a789c094987c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "35d1d7ba-734d-40ee-a018-88283d5fc1d1",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MUUI_Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -86,7 +86,7 @@ public class PlayerHUDController : UIController
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentBoostRank
+        PlayerManager.Instance.PlayerController.CurrentBoostLv
             .Subscribe(_BoostLevel =>
             {
                 BoostLv.text = _BoostLevel.ToString();

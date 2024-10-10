@@ -75,7 +75,7 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
     {
         if (ThisSlotItem != null && ThisSlotItem.gameObject.activeSelf)
         {
-            UIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS = this;
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS = this;
 
             DOTween.Kill(gameObject.name); 
 
@@ -99,9 +99,9 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
 
     public void OutIt_SelectedItem()
     {
-        if (UIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS == this)
+        if (MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS == this)
         {
-            UIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS = null;
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS = null;
 
             DOTween.Kill(gameObject.name); 
 

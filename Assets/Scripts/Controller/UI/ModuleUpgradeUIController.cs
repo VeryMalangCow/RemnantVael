@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections.Generic;
-using System.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,32 +33,32 @@ public class ModuleUpgradeUIController : UIController
     [Space(5)]
     [Header("* Decomposition")]
     [SerializeField] private ModifyEachInventorySlot DecompositionSlot;
-    [SerializeField] private Button DecompositionBtn;
+    [SerializeField] private ModifyOwnEachBtn DecompositionBtn;
 
     [Space(5)]
     [Header("* Fusion")]
     [SerializeField] private List<ModifyEachInventorySlot> FusionSlotList;
-    [SerializeField] private Button FusionBtn;
+    [SerializeField] private ModifyOwnEachBtn FusionBtn;
 
     [Space(5)]
     [Header("* Upgrade")]
     [SerializeField] private ModifyEachInventorySlot UpgradeSlot;
-    [SerializeField] private Button UpgradeBtn;
+    [SerializeField] private ModifyOwnEachBtn UpgradeBtn;
 
-
-    [Header("-------------------- Test")]
+    [Space(5)]
+    [Header("* Current Details")]
     [SerializeField] private ModifyEachInventoryItem CurrentDecompositionItem;
     [SerializeField] private List<ModifyEachInventoryItem> CurrentFusionItemList;
     [SerializeField] private ModifyEachInventoryItem CurrentUpgradeItem;
 
-
+    [Space(10)]
     [Header("=== Item")]
     [SerializeField] public ModifyEachInventorySlot CurrentSelectedMEIS;
-
+    [SerializeField] public ModifyOwnEachBtn CurrentBtn;
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private Button CloseBtn;
+    [SerializeField] private ModifyOwnEachBtn CloseBtn;
 
     #endregion
 
@@ -72,7 +71,8 @@ public class ModuleUpgradeUIController : UIController
 
         foreach (ModifyEachTab MET in ThisPanelTabList)
         {
-            MET.Offset();
+            MET.Offset(); 
+            MET.ThisTabBtn.OwnerUIController = this;
         }
 
         foreach(ModifyEachInventorySlot MEIS in EquipedMEIS_List)
@@ -82,9 +82,9 @@ public class ModuleUpgradeUIController : UIController
 
         foreach (SimplePanelAndBtn SPAB in ReinforceInteractPanels)
         {
-            SPAB.Offset(this, ReinforceInteractPanels);
+            SPAB.Offset(this);
         }
-
+        CloseBtn.OwnerUIController = this;
 
 
 
@@ -100,6 +100,10 @@ public class ModuleUpgradeUIController : UIController
 
         UpgradeSlot.Offset();
         UpgradeSlot.ThisSlotItem.Offset();
+
+        DecompositionBtn.OwnerUIController = this;
+        FusionBtn.OwnerUIController = this;
+        UpgradeBtn.OwnerUIController = this;
     }
 
     protected override void Offset_UI()
@@ -110,24 +114,6 @@ public class ModuleUpgradeUIController : UIController
             MI_InReinforceTab
         };
 
-        // Close Btn
-        CloseBtn.OnClickAsObservable()
-            .Subscribe(btn =>
-            {
-                UIManager.Instance.ModuleUpgrade_UIController.CloseThisPanel(TabDurTime);
-            });
-
-        // Tab Btn List
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
-        {
-            int index = i;
-            ThisPanelTabList[index].ThisTabBtn.OnClickAsObservable()
-                .Subscribe(btn =>
-                {
-                    ChangeThisPanel(TabDurTime, index);
-                });
-        }
-
         // BG Offset
         if (TryGetComponent(out Image img))
         {
@@ -135,24 +121,6 @@ public class ModuleUpgradeUIController : UIController
             BGColor.a = 0f;
             img.color = BGColor;
         }
-
-        // interact btn
-
-        DecompositionBtn.OnClickAsObservable()
-            .Subscribe(btn => 
-            {
-                TryDesomposition();
-            });
-        FusionBtn.OnClickAsObservable()
-            .Subscribe(btn =>
-            {
-                TryFusion();
-            });
-        UpgradeBtn.OnClickAsObservable()
-            .Subscribe(btn =>
-            {
-                TryUpgrade();
-            });
     }
 
     #endregion
@@ -168,14 +136,6 @@ public class ModuleUpgradeUIController : UIController
         ResetReinforcePanel();
 
         OnReset_SPAB();
-    }
-
-    private void Update()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            TryInteractItem();
-        }
     }
 
     #endregion
@@ -205,6 +165,73 @@ public class ModuleUpgradeUIController : UIController
         if (TryGetComponent(out CanvasGroup CG))
         {
             CG.DOFade(0f, _DurTime);
+        }
+    }
+
+    #endregion
+
+    #region Input
+
+    public void TryInteractClick()
+    {
+        // 아이템
+        if (CurrentSelectedMEIS != null)
+        { 
+            TryInteractItem(); 
+            return; 
+        }
+        else if (CurrentBtn != null)
+        {
+            // 닫기
+            if (CurrentBtn == CloseBtn)
+            {
+                MainGameUIManager.Instance.ModuleUpgrade_UIController.CloseThisPanel(TabDurTime);
+                return;
+            }
+
+            // 탭
+            for (int i = 0; i < ThisPanelTabList.Count; i++)
+            {
+                if (ThisPanelTabList[i].ThisTabBtn == CurrentBtn)
+                {
+                    ChangeThisPanel(TabDurTime, i);
+                    return;
+                }
+            }
+
+            // 특별 상호작용
+            if (CurrentBtn == DecompositionBtn)
+            {
+                TryDesomposition(); return;
+            }
+            else if (CurrentBtn == FusionBtn)
+            {
+                TryFusion(); return;
+            }
+            else if (CurrentBtn == UpgradeBtn)
+            {
+                TryUpgrade(); return;
+            }
+
+            // 특별 상호작용 탭
+            for (int i = 0; i < ReinforceInteractPanels.Count; i++)
+            {
+                if (ReinforceInteractPanels[i].PanelBtn == CurrentBtn)
+                {
+                    // 다른 탭일 경우 초기화
+                    if (ReinforceInteractPanels[i] != CurrentReinforceInteractPanel)
+                    {
+                        ResetReinforcePanel();
+                    }
+
+                    ReinforceInteractPanels[i].PanelRT.gameObject.SetActive(true);
+                    CurrentReinforceInteractPanel = ReinforceInteractPanels[i];
+                }
+                else
+                {
+                    ReinforceInteractPanels[i].PanelRT.gameObject.SetActive(false);
+                }
+            }
         }
     }
 
@@ -241,11 +268,8 @@ public class ModuleUpgradeUIController : UIController
     #region Item -> Interact
 
     // 아이템 상호작용
-    private void TryInteractItem()
+    public void TryInteractItem()
     {
-        if (CurrentSelectedMEIS == null)
-        { return; }
-
         int indexOfAboutPanel = ThisPanelTabList.IndexOf(CurrentThisPanelTab);
         if (indexOfAboutPanel == 0) // Equiped Window
         {
@@ -350,7 +374,7 @@ public class ModuleUpgradeUIController : UIController
             DecompositionSlot.ThisSlotItem.SetData(
                 CurrentSelectedMEIS.ThisSlotItem.ThisImg.sprite,
                 CurrentSelectedMEIS.ThisSlotItem.RankImg.sprite,
-                BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.Rank);
+                BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
 
             CurrentDecompositionItem = CurrentSelectedMEIS.ThisSlotItem;
 
@@ -363,7 +387,6 @@ public class ModuleUpgradeUIController : UIController
     {
         if (CurrentDecompositionItem != null)
         {
-
             // Take Info
             PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem);
             int itemRank = ps.ThisItemData.Rank;
@@ -416,7 +439,7 @@ public class ModuleUpgradeUIController : UIController
                     FusionSlotList[i].ThisSlotItem.SetData(
                         CurrentSelectedMEIS.ThisSlotItem.ThisImg.sprite,
                         CurrentSelectedMEIS.ThisSlotItem.RankImg.sprite,
-                        BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.Rank);
+                        BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
 
                     CurrentFusionItemList[i] = CurrentSelectedMEIS.ThisSlotItem;
 
@@ -450,6 +473,7 @@ public class ModuleUpgradeUIController : UIController
         { itemData = new ItemData(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[1]).ThisItemData); }
 
         itemData.Rank++;
+        itemData.BoostLv = 1;
 
         for (int i = FusionSlotList.Count - 1; i >= 0; i--)
         {
@@ -490,7 +514,7 @@ public class ModuleUpgradeUIController : UIController
             UpgradeSlot.ThisSlotItem.SetData(
                 CurrentSelectedMEIS.ThisSlotItem.ThisImg.sprite,
                 CurrentSelectedMEIS.ThisSlotItem.RankImg.sprite,
-                BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.Rank);
+                BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
 
             CurrentUpgradeItem = CurrentSelectedMEIS.ThisSlotItem;
 
@@ -506,12 +530,16 @@ public class ModuleUpgradeUIController : UIController
             // Cost
             int needEC = BoostItemManager.Instance.NeedEC_AbleUpgrade(CurrentUpgradeItem);
             Debug.Log(needEC);
+
             if (needEC == 0 ||
                 needEC > PlayerManager.Instance.PlayerController.CurrentEC.Value)
             { return; }
 
             // Take Info
             ItemData itemData = new ItemData(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentUpgradeItem).ThisItemData);
+            if (itemData.BoostLv >= PlayerManager.Instance.PlayerController.MaxBoostLv)
+            { return; }
+
             itemData.BoostLv++;
 
             // Be Empty
@@ -577,30 +605,11 @@ public class ModuleUpgradeUIController : UIController
     class SimplePanelAndBtn
     {
         public RectTransform PanelRT;
-        public Button PanelBtn;
+        public ModifyOwnEachBtn PanelBtn;
 
-        public void Offset(ModuleUpgradeUIController _OwnerController, List<SimplePanelAndBtn> _ContainList)
+        public void Offset(ModuleUpgradeUIController _MUUC)
         {
-            PanelBtn.OnClickAsObservable()
-                .Subscribe(btn =>
-                {
-                    foreach(SimplePanelAndBtn SPAB in _ContainList)
-                    {
-                        if(SPAB.PanelBtn == PanelBtn)
-                        {
-                            if(!(SPAB == _OwnerController.CurrentReinforceInteractPanel))
-                            {
-                                _OwnerController.ResetReinforcePanel();
-                            }
-                            SPAB.PanelRT.gameObject.SetActive(true);
-                            _OwnerController.CurrentReinforceInteractPanel = this;
-                        }
-                        else
-                        {
-                            SPAB.PanelRT.gameObject.SetActive(false);
-                        }
-                    }
-                });
+            PanelBtn.OwnerUIController = _MUUC;
         }
     }
 

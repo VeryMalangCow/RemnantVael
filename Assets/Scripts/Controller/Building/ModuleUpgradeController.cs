@@ -15,7 +15,7 @@ public class ModuleUpgradeController : BuildingController, IInteract
 
     public void Interact()
     {
-       UIManager.Instance.ModuleUpgrade_UIController.OpenThisPanel(UIManager.Instance.ModuleUpgrade_UIController.TabDurTime);
+       MainGameUIManager.Instance.ModuleUpgrade_UIController.OpenThisPanel(MainGameUIManager.Instance.ModuleUpgrade_UIController.TabDurTime);
     }
 
     #endregion

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ClickableButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ModifyOwnEachBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     #region Value
 
@@ -14,16 +14,25 @@ public class ClickableButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
     [HideInInspector] private Vector2 DefScale;
     [HideInInspector] private RectTransform ThisRT;
 
+    // Owner
+
+    [HideInInspector] public UIController OwnerUIController;
+    [HideInInspector] public Button ThisBtn;
+
     #endregion
 
     #region Framework
 
     private void OnEnable()
     {
-        if(TryGetComponent(out RectTransform thisRT))
+        if (TryGetComponent(out RectTransform thisRT))
         {
             ThisRT = thisRT;
             DefScale = ThisRT.localScale;
+        }
+        if (TryGetComponent(out Button thisBtn))
+        {
+            ThisBtn = thisBtn;
         }
     }
 
@@ -42,6 +51,11 @@ public class ClickableButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
         { DOTween.Kill(ThisRT); }
 
         ThisRT.DOScale(TargetScale, DurTime);
+
+        if (OwnerUIController is BaseUpgradeUIController BU)
+        { BU.CurrentBtn = this; }
+        if (OwnerUIController is ModuleUpgradeUIController MU)
+        { MU.CurrentBtn = this; }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -50,6 +64,11 @@ public class ClickableButton : MonoBehaviour, IPointerEnterHandler, IPointerExit
         { DOTween.Kill(ThisRT); }
 
         ThisRT.DOScale(DefScale, DurTime);
+
+        if (OwnerUIController is BaseUpgradeUIController BU)
+        { BU.CurrentBtn = null; }
+        if (OwnerUIController is ModuleUpgradeUIController MU)
+        { MU.CurrentBtn = null; }
     }
 
     #endregion

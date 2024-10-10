@@ -45,7 +45,7 @@ public class BoostItemManager : Singleton<BoostItemManager>
             {
                 PIS.ThisItemData = new ItemData(_ItemData);
 
-                PIS.ThisMEII = UIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList(PIS.ThisItemData.ItemIcon, GetRankIcon(PIS.ThisItemData.Rank), PIS.ThisItemData.BoostLv);
+                PIS.ThisMEII = MainGameUIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList(PIS.ThisItemData.ItemIcon, GetRankIcon(PIS.ThisItemData.Rank), PIS.ThisItemData.BoostLv);
                 
                 foreach(ModifyEachInventoryItem MEII in PIS.ThisMEII)
                 {

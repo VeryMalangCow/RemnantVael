@@ -12,7 +12,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     [Header("=== Class")]
     [SerializeField] public CameraController CameraController;
-    [SerializeField] public InputManager InputManager;
+    [SerializeField] public InputPlayerManager InputPlayerManager;
 
     #endregion
 
@@ -28,7 +28,7 @@ public class PlayerManager : Singleton<PlayerManager>
         LayerOrderManager.Instance.MovableObjects.Add(PlayerController);
         CameraController.TargetTF = PlayerController.gameObject.transform;
         BaseUpgradeManager.Instance.Offset(PlayerController);
-        InputManager.gameObject.SetActive(true);
+        InputPlayerManager.gameObject.SetActive(true);
     }
 
 

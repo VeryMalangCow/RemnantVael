@@ -2,6 +2,9 @@ using UnityEngine;
 using UniRx;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 
 public class BaseUpgradeUIController : UIController
 {
@@ -33,7 +36,10 @@ public class BaseUpgradeUIController : UIController
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private Button CloseBtn;
+    [SerializeField] private ModifyOwnEachBtn CloseBtn;
+
+    [HideInInspector] public List<OneOffShopEachData<float>> AllUpgradeDataList;
+    [HideInInspector] public ModifyOwnEachBtn CurrentBtn = null;
 
     #endregion
 
@@ -41,46 +47,45 @@ public class BaseUpgradeUIController : UIController
 
     protected override void Offset_Module()
     {
-        DamageShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage, BaseUpgradeManager.Instance.BaseDamage_BUData);
-        ROFShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.ROF, BaseUpgradeManager.Instance.BaseROF_BUData);
-        CCShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CC, BaseUpgradeManager.Instance.BaseCC_BUData);
-        CDShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CD, BaseUpgradeManager.Instance.BaseCD_BUData);
-        AccuracyRateShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.AccuracyRate, BaseUpgradeManager.Instance.BaseAccuracyRate_BUData);
+        DamageShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage, BaseUpgradeManager.Instance.BaseDamage_BUData, this);
+        ROFShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.ROF, BaseUpgradeManager.Instance.BaseROF_BUData, this);
+        CCShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CC, BaseUpgradeManager.Instance.BaseCC_BUData, this);
+        CDShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CD, BaseUpgradeManager.Instance.BaseCD_BUData, this);
+        AccuracyRateShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.AccuracyRate, BaseUpgradeManager.Instance.BaseAccuracyRate_BUData, this);
 
-        MaxEPShop.Offset(PlayerManager.Instance.PlayerController.MaxEP, BaseUpgradeManager.Instance.BaseMaxEP_BUData);
-        SpawnESMultipleShop.Offset(PlayerManager.Instance.PlayerController.SpawnESMultiple, BaseUpgradeManager.Instance.BaseSpawnESMultiple_BUData);
-        NeedEP_ForSkillMultipleShop.Offset(PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple, BaseUpgradeManager.Instance.BaseNeedEP_ForSkillMultiple_BUData);
-        DecEnergyPointMultipleShop.Offset(PlayerManager.Instance.PlayerController.DecEnergyPointMultiple, BaseUpgradeManager.Instance.BaseDecEnergyPointMultiple_BUData);
+        MaxEPShop.Offset(PlayerManager.Instance.PlayerController.MaxEP, BaseUpgradeManager.Instance.BaseMaxEP_BUData, this);
+        SpawnESMultipleShop.Offset(PlayerManager.Instance.PlayerController.SpawnESMultiple, BaseUpgradeManager.Instance.BaseSpawnESMultiple_BUData, this);
+        NeedEP_ForSkillMultipleShop.Offset(PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple, BaseUpgradeManager.Instance.BaseNeedEP_ForSkillMultiple_BUData, this);
+        DecEnergyPointMultipleShop.Offset(PlayerManager.Instance.PlayerController.DecEnergyPointMultiple, BaseUpgradeManager.Instance.BaseDecEnergyPointMultiple_BUData, this);
 
-        WalkSpeedShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeed, BaseUpgradeManager.Instance.BaseWalkSpeed_BUData);
-        WalkSpeedWhenShotMultipleShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeedWhenShotMultiple, BaseUpgradeManager.Instance.BaseWalkSpeedWhenShotMultiple_BUData);
-        WalkAvoidChance.Offset(PlayerManager.Instance.PlayerController.AvoidChance, BaseUpgradeManager.Instance.BaseAvoidChance_BUData);
-        DashSpeedShop.Offset(PlayerManager.Instance.PlayerController.DashController.DashSpeed, BaseUpgradeManager.Instance.BaseDashSpeed_BUData);
+        WalkSpeedShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeed, BaseUpgradeManager.Instance.BaseWalkSpeed_BUData, this);
+        WalkSpeedWhenShotMultipleShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeedWhenShotMultiple, BaseUpgradeManager.Instance.BaseWalkSpeedWhenShotMultiple_BUData, this);
+        WalkAvoidChance.Offset(PlayerManager.Instance.PlayerController.AvoidChance, BaseUpgradeManager.Instance.BaseAvoidChance_BUData, this);
+        DashSpeedShop.Offset(PlayerManager.Instance.PlayerController.DashController.DashSpeed, BaseUpgradeManager.Instance.BaseDashSpeed_BUData, this);
+
+
+        AllUpgradeDataList = new List<OneOffShopEachData<float>>()
+        {
+            DamageShop, ROFShop, CCShop, CDShop, AccuracyRateShop,
+            MaxEPShop,SpawnESMultipleShop, NeedEP_ForSkillMultipleShop, DecEnergyPointMultipleShop,
+            WalkSpeedShop, WalkSpeedWhenShotMultipleShop, WalkAvoidChance, DashSpeedShop
+        };
 
         foreach (ModifyEachTab MET in ThisPanelTabList)
         {
             MET.Offset();
+            MET.ThisTabBtn.OwnerUIController = this;
         }
+
+        CloseBtn.OwnerUIController = this;
     }
 
     protected override void Offset_UI()
     {
-        // Close Btn
-        CloseBtn.OnClickAsObservable()
-            .Subscribe(btn =>
-            {
-                UIManager.Instance.BaseUpgrade_UIController.CloseThisPanel(TabDurTime);
-            });
-
         // Tab Btn List
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
             int index = i;
-            ThisPanelTabList[index].ThisTabBtn.OnClickAsObservable()
-                .Subscribe(btn =>
-                {
-                    ChangeThisPanel(TabDurTime, index);
-                });
         }
 
         // BG Offset
@@ -101,6 +106,53 @@ public class BaseUpgradeUIController : UIController
         foreach(ModifyEachTab MET in ThisPanelTabList)
         {
             MET.OnReset();
+        }
+    }
+
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            TryInteractClick();
+        }
+    }
+
+
+    #endregion
+
+    #region Input
+
+    public void TryInteractClick()
+    {
+        if (CurrentBtn == null)
+        { return; }
+
+        // ±¸¸Å ÄÚµå
+        for (int i = 0; i < AllUpgradeDataList.Count; i++)
+        {
+            if (AllUpgradeDataList[i].Upgrade_BuyBtn == CurrentBtn &&
+                CurrentBtn.ThisBtn.interactable)
+            {
+                AllUpgradeDataList[i].TryBuy();
+                return;
+            }
+        }
+
+        // ´Ý±â
+        if (CurrentBtn == CloseBtn)
+        {
+            MainGameUIManager.Instance.BaseUpgrade_UIController.CloseThisPanel(TabDurTime);
+            return;
+        }
+
+        // ÅÇ
+        for (int i = 0; i < ThisPanelTabList.Count; i++)
+        {
+            if (ThisPanelTabList[i].ThisTabBtn == CurrentBtn)
+            {
+                ChangeThisPanel(TabDurTime, i);
+                return;
+            }
         }
     }
 
@@ -141,66 +193,60 @@ public class BaseUpgradeUIController : UIController
 public class OneOffShopEachData<T>
 {
     [SerializeField] private ModifyTextAmountForBuy Upgrade_MTAFB;
-    [SerializeField] private Button Upgrade_BuyBtn;
+    [SerializeField] public ModifyOwnEachBtn Upgrade_BuyBtn;
 
-    public void Offset(BaseUpgradeState<T> _Upgrade_BUS, BU_OneTypeData<T> _Upgrade_BUOTD)
+    [HideInInspector] private BaseUpgradeState<T> Upgrade_BUS;
+    [HideInInspector] private BU_OneTypeData<T> Upgrade_BUOTD;
+
+    public void Offset(BaseUpgradeState<T> _Upgrade_BUS, BU_OneTypeData<T> _Upgrade_BUOTD, BaseUpgradeUIController _Owner)
     {
         Upgrade_MTAFB.Offset();
 
-        if(Upgrade_BuyBtn != null)
-        {
-            Upgrade_BuyBtn.OnClickAsObservable()
-            .Subscribe(_ =>
-            {
-                TryBuy(_Upgrade_BUS, _Upgrade_BUOTD);
-            });
-        }
-        
+        Upgrade_BUS = _Upgrade_BUS;
+        Upgrade_BUOTD = _Upgrade_BUOTD;
 
-        _Upgrade_BUS.CurrentLevel
+        if (Upgrade_BuyBtn != null)
+        {
+            Upgrade_BuyBtn.OwnerUIController = _Owner;
+        }
+
+
+        Upgrade_BUS.CurrentLevel
            .Subscribe(_CurrentLevel =>
            {
                int currentLv = _CurrentLevel;
-               if(currentLv < _Upgrade_BUOTD.BU_EachLevelDataList.Count)
+               if(currentLv < Upgrade_BUOTD.BU_EachLevelDataList.Count)
                {
-                   Upgrade_MTAFB.Set(currentLv, _Upgrade_BUOTD.BU_EachLevelDataList[currentLv].NeedEC_ForUpgrade);
+                   Upgrade_MTAFB.Set(currentLv, Upgrade_BUOTD.BU_EachLevelDataList[currentLv].NeedEC_ForUpgrade);
                }
-               else if (currentLv == _Upgrade_BUOTD.BU_EachLevelDataList.Count)
+               else if (currentLv == Upgrade_BUOTD.BU_EachLevelDataList.Count)
                {
                    Upgrade_MTAFB.Set(currentLv, 0);
                }
            });
     }
 
-    private void TryBuy(BaseUpgradeState<T> _Upgrade_BUS, BU_OneTypeData<T> _Upgrade_BUOTD)
+    public void TryBuy()
     {
-        int index = _Upgrade_BUS.CurrentLevel.Value;
-        int needEC = _Upgrade_BUOTD.BU_EachLevelDataList[index].NeedEC_ForUpgrade;
+        int index = Upgrade_BUS.CurrentLevel.Value;
+        int needEC = Upgrade_BUOTD.BU_EachLevelDataList[index].NeedEC_ForUpgrade;
         int hadEC = PlayerManager.Instance.PlayerController.CurrentEC.Value;
         Debug.Log(needEC + " / " + hadEC);
         if (needEC <= hadEC)
         {
-            Buy(_Upgrade_BUS, needEC, _Upgrade_BUOTD.BU_EachLevelDataList.Count, _Upgrade_BUOTD.BU_EachLevelDataList[index].UpgradeValue);
-        }
-        else
-        {
-            NotEnoughEC();
+            Buy(needEC, Upgrade_BUOTD.BU_EachLevelDataList.Count, Upgrade_BUOTD.BU_EachLevelDataList[index].UpgradeValue);
         }
     }
 
-    private void Buy(BaseUpgradeState<T> _Upgrade_BUS, int _UseEC, int _MaxUpgradeLevel, T _SetValue)
+    private void Buy(int _UseEC, int _MaxUpgradeLevel, T _SetValue)
     {
-        _Upgrade_BUS.CurrentLevel.Value++;
-        _Upgrade_BUS.ActualState.Value = _SetValue;
+        Upgrade_BUS.CurrentLevel.Value++;
+        Upgrade_BUS.ActualState.Value = _SetValue;
         PlayerManager.Instance.PlayerController.CurrentEC.Value -= _UseEC;
-        if (_MaxUpgradeLevel <= _Upgrade_BUS.CurrentLevel.Value)
+        if (_MaxUpgradeLevel <= Upgrade_BUS.CurrentLevel.Value)
         {
-            Upgrade_BuyBtn.interactable = false;
+            Upgrade_BuyBtn.ThisBtn.interactable = false;
         }
     }
 
-    private void NotEnoughEC()
-    {
-        Debug.Log("ºÎÁ·!");
-    }
 }
