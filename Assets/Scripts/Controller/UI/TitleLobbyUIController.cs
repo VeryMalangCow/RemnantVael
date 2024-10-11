@@ -1,4 +1,3 @@
-
 using DG.Tweening;
 using UnityEngine;
 
@@ -15,8 +14,20 @@ public class TitleLobbyUIController : UIController
     [SerializeField] private CanvasGroup BGCG;
 
     [Space(10)]
+    [Header("=== Btns")]
+    [SerializeField] private ModifyOwnEachBtn StartBtn;
+    [SerializeField] private ModifyOwnEachBtn OptionBtn;
+    [SerializeField] private ModifyOwnEachBtn QuitBtn;
+
+    [Space(10)]
     [Header("=== Value")]
     [SerializeField] private float DurTime;
+
+    [Space(10)]
+    [Header("=== Interact")]
+    [SerializeField] private IInteract CurrentInteractable;
+
+    [HideInInspector] public ModifyOwnEachBtn CurrentBtn;
 
     #endregion
 
@@ -24,7 +35,14 @@ public class TitleLobbyUIController : UIController
 
     protected override void Offset_Module()
     {
+        StartBtn.Offset();
+        StartBtn.OwnerUIController = this;
 
+        OptionBtn.Offset();
+        OptionBtn.OwnerUIController = this;
+
+        QuitBtn.Offset();
+        QuitBtn.OwnerUIController = this;
     }
 
     protected override void Offset_UI()
@@ -35,30 +53,54 @@ public class TitleLobbyUIController : UIController
 
     #endregion
 
-    #region On Off
+    #region Input
 
-    public override void OpenThisPanel(float _DurTime)
+    public void TitleInput()
     {
-        if (DOTween.IsTweening("TitleUIPanel"))
+        if (CurrentBtn == null)
         { return; }
 
-        Sequence seq = DOTween.Sequence();
-        seq.Join(BtnsRT.DOAnchorPosX(0f, DurTime));
-        seq.Join(BGCG.DOFade(1f, DurTime));
+        if (CurrentBtn == StartBtn)
+        { CloseThisPanel(); }
+        else if (CurrentBtn == OptionBtn)
+        { Debug.Log("옵션 창 키기"); }
+        else if (CurrentBtn == QuitBtn)
+        { Application.Quit(); }
 
-        seq.SetId("TitleUIPanel")
-            .OnStart(() =>
-            { this.gameObject.SetActive(true); });
+
     }
 
-    public override void CloseThisPanel(float _DurTime)
+    #endregion
+
+    #region On Off
+
+    public void OpenThisPanel()
     {
         if (DOTween.IsTweening("TitleUIPanel"))
         { return; }
 
-        Sequence seq = DOTween.Sequence();
+        InputTitleManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
+        InputTitleManager.Instance.InputMoveDir = Vector2.zero;
+
+        Sequence seq = DOTween.Sequence(); 
+        this.gameObject.SetActive(true);
+
         seq.Join(BtnsRT.DOAnchorPosX(0f, DurTime));
         seq.Join(BGCG.DOFade(1f, DurTime));
+
+        seq.SetId("TitleUIPanel");
+    }
+
+    public void CloseThisPanel()
+    {
+        if (DOTween.IsTweening("TitleUIPanel"))
+        { return; }
+
+        InputTitleManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
+
+        Sequence seq = DOTween.Sequence();
+        seq.Join(BtnsRT.DOAnchorPosX(-500f, DurTime));
+        seq.Join(BGCG.DOFade(0f, DurTime));
 
         seq.SetId("TitleUIPanel")
             .OnComplete(() =>

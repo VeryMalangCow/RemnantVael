@@ -1,10 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
-using UnityEditor.Rendering;
-using UnityEngine.Rendering;
-using System.Collections;
-using Unity.VisualScripting;
 
 public class BoostItemManager : Singleton<BoostItemManager>
 {

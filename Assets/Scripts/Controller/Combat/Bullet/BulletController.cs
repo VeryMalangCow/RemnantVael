@@ -48,7 +48,7 @@ public class BulletController : HaveShadowThing
     protected override void Update()
     {
         base.Update();
-        ThisRb.velocity = this.transform.up * BulletState.MuzzleSpeed * 500f * Time.deltaTime;
+        ThisRb.velocity = this.transform.up * BulletState.MuzzleSpeed * 1000f * Time.deltaTime;
     }
 
     #endregion

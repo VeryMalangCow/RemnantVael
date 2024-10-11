@@ -268,9 +268,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4593839933363528314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffe87acbdb9902f458290675a8811beb, type: 3}
+  m_Script: {fileID: 11500000, guid: 41e8e0956659f404ebba227a7dff2551, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TargetObject: {fileID: 2615476070570729077}
+  TargetRange: 0.4
+  IsDead: 0
+  ThisRb: {fileID: 334434472153228344}
+  ThisSr: {fileID: 8514484191356774825}
+  ThisExtraSrs: []
+  AccelerationSpeed: 12
 --- !u!50 &334434472153228344
 Rigidbody2D:
   serializedVersion: 4
@@ -339,6 +346,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 80afccc5-8a90-42d8-9b7c-07a38fe2724b
     m_ActionName: TitleUI/Escape[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5da9c932-9c99-4a49-8602-f863cbb22ab7
+    m_ActionName: Player/InTitleUI[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: TitleUI

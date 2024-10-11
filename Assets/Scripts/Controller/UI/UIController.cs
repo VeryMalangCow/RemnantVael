@@ -12,7 +12,7 @@ public abstract class UIController : MonoBehaviour
     [SerializeField] protected ModifyEachTab CurrentThisPanelTab;
     [SerializeField] public float TabDurTime = 0.4f;
     [SerializeField] protected bool IsTweening = false;
-    [SerializeField] string ThisPanelInputMapName;
+    [SerializeField] protected string ThisPanelInputMapName;
 
     #endregion
 
@@ -97,8 +97,6 @@ public abstract class UIController : MonoBehaviour
         //Other
         if (IsTweening)
         { return; }
-
-        
 
         // Seq
         IsTweening = true;

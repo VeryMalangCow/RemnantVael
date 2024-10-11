@@ -77,6 +77,7 @@ public class BaseUpgradeUIController : UIController
             MET.ThisTabBtn.OwnerUIController = this;
         }
 
+        CloseBtn.Offset();
         CloseBtn.OwnerUIController = this;
     }
 
@@ -108,15 +109,6 @@ public class BaseUpgradeUIController : UIController
             MET.OnReset();
         }
     }
-
-    public void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            TryInteractClick();
-        }
-    }
-
 
     #endregion
 
@@ -207,6 +199,7 @@ public class OneOffShopEachData<T>
 
         if (Upgrade_BuyBtn != null)
         {
+            Upgrade_BuyBtn.Offset();
             Upgrade_BuyBtn.OwnerUIController = _Owner;
         }
 

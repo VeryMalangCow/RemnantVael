@@ -108,10 +108,6 @@ public class InputPlayerManager : Singleton<InputPlayerManager>
         PlayerInput.actions["BUUI_Select"].performed += Input_BUUIClick;
         PlayerInput.actions["MUUI_Select"].performed += Input_MUUIClick;
 
-
-
-
-        PlayerInput.actions["ForDebugging"].performed += Input_ForDebugging;
     }
     private void OnDisableInput()
     {
@@ -135,20 +131,7 @@ public class InputPlayerManager : Singleton<InputPlayerManager>
         PlayerInput.actions["BUUI_Select"].performed -= Input_BUUIClick;
         PlayerInput.actions["MUUI_Select"].performed -= Input_MUUIClick;
 
-
-
-
-        PlayerInput.actions["ForDebugging"].performed -= Input_ForDebugging;
     }
-
-    private void Input_ForDebugging(InputAction.CallbackContext _InputValue)
-    {
-        if (_InputValue.ReadValueAsButton())
-        {
-            PlayerController PC = PlayerManager.Instance.PlayerController;
-        }
-    }
-
 
     private void SetFirstInput(FirstInputDele _Skill)
     {

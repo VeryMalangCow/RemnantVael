@@ -25,6 +25,8 @@ public class ModifyEachTab : UIModule, IScrollHandler
 
     public override void Offset()
     {
+        ThisTabBtn.Offset();
+
         ActualAreaY = ActualMovableRT.rect.height;
         MovableY = ActualAreaY - VisibleY;
 

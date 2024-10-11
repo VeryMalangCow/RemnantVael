@@ -289,6 +289,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 7945861353772175884}
   TargetRange: 0.4
+  TargetSR: {fileID: 6431130664222279258}
+  ShadowSR: {fileID: 2929492441964741815}
+  LowestLayerOrder: -2000
+  HighestLayerOrder: 2000
+  IsUpper: 0
 --- !u!1 &7945861353772175884
 GameObject:
   m_ObjectHideFlags: 0

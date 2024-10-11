@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ModifyOwnEachBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHandler
 {
     #region Value
 
@@ -23,6 +23,19 @@ public class ModifyOwnEachBtn : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     #region Framework
 
+    public override void Offset()
+    {
+        if (TryGetComponent(out RectTransform thisRT))
+        {
+            ThisRT = thisRT;
+            DefScale = ThisRT.localScale;
+        }
+        if (TryGetComponent(out Button thisBtn))
+        {
+            ThisBtn = thisBtn;
+        }
+    }
+/*
     private void OnEnable()
     {
         if (TryGetComponent(out RectTransform thisRT))
@@ -35,7 +48,7 @@ public class ModifyOwnEachBtn : MonoBehaviour, IPointerEnterHandler, IPointerExi
             ThisBtn = thisBtn;
         }
     }
-
+*/
     #endregion
 
     #region Pointer
@@ -54,8 +67,10 @@ public class ModifyOwnEachBtn : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
         if (OwnerUIController is BaseUpgradeUIController BU)
         { BU.CurrentBtn = this; }
-        if (OwnerUIController is ModuleUpgradeUIController MU)
+        else if (OwnerUIController is ModuleUpgradeUIController MU)
         { MU.CurrentBtn = this; }
+        else if (OwnerUIController is TitleLobbyUIController TU)
+        { TU.CurrentBtn = this; }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -67,9 +82,12 @@ public class ModifyOwnEachBtn : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
         if (OwnerUIController is BaseUpgradeUIController BU)
         { BU.CurrentBtn = null; }
-        if (OwnerUIController is ModuleUpgradeUIController MU)
+        else if (OwnerUIController is ModuleUpgradeUIController MU)
         { MU.CurrentBtn = null; }
+        else if (OwnerUIController is TitleLobbyUIController TU)
+        { TU.CurrentBtn = null; }
     }
+
 
     #endregion
 }

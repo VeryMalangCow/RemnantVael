@@ -84,6 +84,7 @@ public class ModuleUpgradeUIController : UIController
         {
             SPAB.Offset(this);
         }
+        CloseBtn.Offset();
         CloseBtn.OwnerUIController = this;
 
 
@@ -101,8 +102,12 @@ public class ModuleUpgradeUIController : UIController
         UpgradeSlot.Offset();
         UpgradeSlot.ThisSlotItem.Offset();
 
+
+        DecompositionBtn.Offset();
         DecompositionBtn.OwnerUIController = this;
+        FusionBtn.Offset();
         FusionBtn.OwnerUIController = this;
+        UpgradeBtn.Offset();
         UpgradeBtn.OwnerUIController = this;
     }
 
@@ -609,6 +614,7 @@ public class ModuleUpgradeUIController : UIController
 
         public void Offset(ModuleUpgradeUIController _MUUC)
         {
+            PanelBtn.Offset();
             PanelBtn.OwnerUIController = _MUUC;
         }
     }
