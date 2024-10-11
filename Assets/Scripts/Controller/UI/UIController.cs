@@ -14,6 +14,8 @@ public abstract class UIController : MonoBehaviour
     [SerializeField] protected bool IsTweening = false;
     [SerializeField] protected string ThisPanelInputMapName;
 
+    [HideInInspector] public ModifyOwnEachBtn CurrentBtn = null;
+
     #endregion
 
     #region Abstract Function
@@ -39,8 +41,8 @@ public abstract class UIController : MonoBehaviour
     {
         // Other
         MainGameUIManager.Instance.CurrentOpening_UIController = this;
-        InputPlayerManager.Instance.InputMoveDir = Vector2.zero;
-        InputPlayerManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
+        InputManager.Instance.InputMoveDir = Vector2.zero;
+        InputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
 
         this.gameObject.SetActive(true);
 
@@ -114,7 +116,7 @@ public abstract class UIController : MonoBehaviour
                 IsTweening = false;
                 
                 MainGameUIManager.Instance.CurrentOpening_UIController = null;
-                InputPlayerManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
+                InputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
             });
     }
 

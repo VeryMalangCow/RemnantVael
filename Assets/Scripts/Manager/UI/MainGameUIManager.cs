@@ -24,11 +24,6 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     #region Framework
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     private void Start()
     {
         PlayerHUD_UIController = SpawnUI<PlayerHUDController>(PlayerHUD_CanvasPrefab, true);

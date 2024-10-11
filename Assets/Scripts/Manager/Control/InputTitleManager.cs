@@ -13,46 +13,30 @@ public class InputTitleManager : Singleton<InputTitleManager>
 
     #endregion
 
-    #region Framework
+    #region On Enable / Disable
 
-    private void OnEnable()
+    public void OnEnableInput()
     {
         if (TitlePlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
         { PlayerInput = PI; }
-        OnEnableInput();
-    }
-    private void OnDisable()
-    {
-        OnDisableInput();
-    }
 
-    #endregion
-
-    #region On Enable / Disable
-
-    private void OnEnableInput()
-    {
         PlayerInput.actions["InTitleUI"].performed += Input_InTitleUI;
         PlayerInput.actions["Walk"].performed += Input_Walk;
         PlayerInput.actions["Interact"].performed += Input_Interact;
 
         PlayerInput.actions["OutTitleUI"].performed += Input_OutTitleUI;
         PlayerInput.actions["TU_Select"].performed += Input_TU_Select;
-    }
 
-    private void OnDisableInput()
-    {
-        PlayerInput.actions["InTitleUI"].performed -= Input_InTitleUI;
-        PlayerInput.actions["Walk"].performed -= Input_Walk;
-        PlayerInput.actions["Interact"].performed -= Input_Interact;
+        PlayerInput.actions["CC_Select"].performed += Input_CC_Select;
+        PlayerInput.actions["CC_OutPanel"].performed += Input_CC_OutPanel;
 
-        PlayerInput.actions["OutTitleUI"].performed -= Input_OutTitleUI;
-        PlayerInput.actions["TU_Select"].performed -= Input_TU_Select;
+        PlayerInput.actions["Et_Select"].performed += Input_Et_Select;
+        PlayerInput.actions["Et_OutPanel"].performed += Input_Et_OutPanel;
     }
 
     #endregion
 
-    #region Input
+    #region Input -> Player
 
 
     private void Input_InTitleUI(InputAction.CallbackContext _InputValue)
@@ -60,14 +44,6 @@ public class InputTitleManager : Singleton<InputTitleManager>
         if (_InputValue.ReadValueAsButton())
         {
             TitleLobbyUIManager.Instance.TitleLobby_UIController.OpenThisPanel();
-        }
-    }
-
-    private void Input_OutTitleUI(InputAction.CallbackContext _InputValue)
-    {
-        if (_InputValue.ReadValueAsButton())
-        {
-            TitleLobbyUIManager.Instance.TitleLobby_UIController.CloseThisPanel();
         }
     }
 
@@ -84,6 +60,18 @@ public class InputTitleManager : Singleton<InputTitleManager>
         }
     }
 
+    #endregion
+
+    #region Input -> Title UI
+
+    private void Input_OutTitleUI(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            TitleLobbyUIManager.Instance.TitleLobby_UIController.CloseThisPanel();
+        }
+    }
+
     private void Input_TU_Select(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
@@ -92,6 +80,44 @@ public class InputTitleManager : Singleton<InputTitleManager>
         }
     }
 
+    #endregion
+
+    #region Input -> ChoiceCharacter UI
+
+    private void Input_CC_Select(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            TitleLobbyUIManager.Instance.ChoiceCharacter_UIController.TryInteract();
+        }
+    }
+
+    private void Input_CC_OutPanel(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            TitleLobbyUIManager.Instance.ChoiceCharacter_UIController.CloseThisPanel();
+        }
+    }
+
+    #endregion
+
+    #region Input -> ChoiceCharacter UI
+
+    private void Input_Et_Select(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            TitleLobbyUIManager.Instance.EntranceSpace_UIController.TryInteract();
+        }
+    }
+    private void Input_Et_OutPanel(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            TitleLobbyUIManager.Instance.EntranceSpace_UIController.CloseThisPanel();
+        }
+    }
 
     #endregion
 }

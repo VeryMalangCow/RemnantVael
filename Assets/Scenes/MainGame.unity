@@ -1108,8 +1108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RandomColor: {r: 1, g: 0.054767437, b: 0, a: 1}
-  AllPlayerPrefabs:
-  - {fileID: 4593839933363528314, guid: ce7a8006effa57a40a58c614cabbe5e2, type: 3}
   DesignatedPlayerPrefab: {fileID: 4593839933363528314, guid: ce7a8006effa57a40a58c614cabbe5e2, type: 3}
 --- !u!1 &685438112
 GameObject:
@@ -1676,7 +1674,7 @@ MonoBehaviour:
   PlayerController: {fileID: 0}
   PlayerSpawnParentTF: {fileID: 940494672}
   CameraController: {fileID: 1970976550}
-  InputPlayerManager: {fileID: 1272179090}
+  InputManager: {fileID: 1272179090}
 --- !u!1 &1186392405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,7 +1790,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1272179089
 Transform:
   m_ObjectHideFlags: 0
@@ -1817,7 +1815,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1272179088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 993145237e2a14a4aa745d476f222f30, type: 3}
+  m_Script: {fileID: 11500000, guid: 7466c5d07359ee74ea0bb6dad9d02622, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MousePos: {x: 0, y: 0}

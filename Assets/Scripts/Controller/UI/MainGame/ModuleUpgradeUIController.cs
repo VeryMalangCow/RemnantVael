@@ -54,7 +54,6 @@ public class ModuleUpgradeUIController : UIController
     [Space(10)]
     [Header("=== Item")]
     [SerializeField] public ModifyEachInventorySlot CurrentSelectedMEIS;
-    [SerializeField] public ModifyOwnEachBtn CurrentBtn;
 
     [Space(10)]
     [Header("=== Component")]

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputPlayerManager : Singleton<InputPlayerManager>
+public class InputManager : Singleton<InputManager>
 {
     #region Value
 
@@ -31,18 +31,6 @@ public class InputPlayerManager : Singleton<InputPlayerManager>
     protected override void Awake()
     {
         base.Awake();
-    }
-
-    private void OnEnable()
-    {
-        if (PlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
-        { PlayerInput = PI; }
-        OnEnableInput();
-    }
-
-    private void OnDisable()
-    {
-        OnDisableInput();
     }
 
     private void FixedUpdate()
@@ -86,8 +74,11 @@ public class InputPlayerManager : Singleton<InputPlayerManager>
 
     #region Input Set
 
-    private void OnEnableInput()
+    public void OnEnableInput()
     {
+        if (PlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
+        { PlayerInput = PI; }
+
         PlayerInput.actions["Walk"].performed += Input_Walk;
         PlayerInput.actions["Fire_0"].performed += Input_Fire_0;
         PlayerInput.actions["Dash"].performed += Input_Dash;
@@ -109,30 +100,6 @@ public class InputPlayerManager : Singleton<InputPlayerManager>
         PlayerInput.actions["MUUI_Select"].performed += Input_MUUIClick;
 
     }
-    private void OnDisableInput()
-    {
-        PlayerInput.actions["Walk"].performed -= Input_Walk;
-        PlayerInput.actions["Fire_0"].performed -= Input_Fire_0;
-        PlayerInput.actions["Dash"].performed -= Input_Dash; 
-
-        PlayerInput.actions["CombatMode"].performed -= Input_CombatMode;
-        PlayerInput.actions["BoostMode"].performed -= Input_BoostMode;
-        PlayerInput.actions["UnBoostMode"].performed -= Input_UnBoostMode;
-        PlayerInput.actions["ChargeBettery"].performed -= Input_ChargeBettery;
-
-        PlayerInput.actions["Skill_0"].performed -= Input_Skill_0;
-        PlayerInput.actions["Skill_1"].performed -= Input_Skill_1;
-
-        PlayerInput.actions["Interact"].performed -= Input_Interact;
-
-
-
-
-        PlayerInput.actions["BUUI_Select"].performed -= Input_BUUIClick;
-        PlayerInput.actions["MUUI_Select"].performed -= Input_MUUIClick;
-
-    }
-
     private void SetFirstInput(FirstInputDele _Skill)
     {
         CurrentFirstInputDele = _Skill;

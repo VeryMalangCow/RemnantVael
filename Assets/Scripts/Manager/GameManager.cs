@@ -13,8 +13,8 @@ public class GameManager : Singleton<GameManager>
 
     [Space(10)]
     [Header("=== Passing Data")]
-    [SerializeField] public List<GameObject> AllPlayerPrefabs;
     [SerializeField] public GameObject DesignatedPlayerPrefab;
+    [SerializeField] public GameObject TitlePlayerPrefab;
 
     #endregion
 
@@ -31,11 +31,6 @@ public class GameManager : Singleton<GameManager>
         
         SetBaseOption();
         SetRainbowColorDotween();
-    }
-
-    private void Start()
-    {
-        DesignatedPlayerPrefab = AllPlayerPrefabs[0];
     }
 
     #endregion

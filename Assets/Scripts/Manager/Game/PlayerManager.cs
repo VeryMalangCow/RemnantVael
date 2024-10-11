@@ -12,7 +12,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     [Header("=== Class")]
     [SerializeField] public CameraController CameraController;
-    [SerializeField] public InputPlayerManager InputPlayerManager;
+    [SerializeField] public InputManager InputManager;
 
     #endregion
 
@@ -24,11 +24,11 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void Start()
     {
-        this.PlayerController = UnitManager.Instance.GenerateUnit<PlayerController>(GameManager.Instance.DesignatedPlayerPrefab, PlayerSpawnParentTF);
+        this.PlayerController = UnitManager.GenerateUnit<PlayerController>(GameManager.Instance.DesignatedPlayerPrefab, PlayerSpawnParentTF);
         LayerOrderManager.Instance.MovableObjects.Add(PlayerController);
         CameraController.TargetTF = PlayerController.gameObject.transform;
         BaseUpgradeManager.Instance.Offset(PlayerController);
-        InputPlayerManager.gameObject.SetActive(true);
+        InputManager.OnEnableInput();
     }
 
 

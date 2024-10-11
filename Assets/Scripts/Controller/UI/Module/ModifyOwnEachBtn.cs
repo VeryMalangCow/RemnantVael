@@ -35,20 +35,6 @@ public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHand
             ThisBtn = thisBtn;
         }
     }
-/*
-    private void OnEnable()
-    {
-        if (TryGetComponent(out RectTransform thisRT))
-        {
-            ThisRT = thisRT;
-            DefScale = ThisRT.localScale;
-        }
-        if (TryGetComponent(out Button thisBtn))
-        {
-            ThisBtn = thisBtn;
-        }
-    }
-*/
     #endregion
 
     #region Pointer
@@ -65,12 +51,7 @@ public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHand
 
         ThisRT.DOScale(TargetScale, DurTime);
 
-        if (OwnerUIController is BaseUpgradeUIController BU)
-        { BU.CurrentBtn = this; }
-        else if (OwnerUIController is ModuleUpgradeUIController MU)
-        { MU.CurrentBtn = this; }
-        else if (OwnerUIController is TitleLobbyUIController TU)
-        { TU.CurrentBtn = this; }
+        OwnerUIController.CurrentBtn = this;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -80,12 +61,7 @@ public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHand
 
         ThisRT.DOScale(DefScale, DurTime);
 
-        if (OwnerUIController is BaseUpgradeUIController BU)
-        { BU.CurrentBtn = null; }
-        else if (OwnerUIController is ModuleUpgradeUIController MU)
-        { MU.CurrentBtn = null; }
-        else if (OwnerUIController is TitleLobbyUIController TU)
-        { TU.CurrentBtn = null; }
+        OwnerUIController.CurrentBtn = null;
     }
 
 

@@ -56,7 +56,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public void AddCurrentEnemyList(List<EnemyController> _AddEnemyList)
     {
-        CurrentEnemyList.AddRange( _AddEnemyList );
+        CurrentEnemyList.AddRange(_AddEnemyList);
     }
 
     #endregion

@@ -411,13 +411,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ddabe640835e41bd5d1b49e85f947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisBulletState_forSendData:
-    DamageType: 0
-    BaseDamage: 1
-    MuzzleSpeed: 1.5
-    AliveTime: 0.35
-  ROF: 8
-  SpreadMaxAngle: 5
+  DamageType: 0
+  BaseDamage:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
+  AliveTime:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
+  MuzzleSpeed:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
+  ROF:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
+  CC:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
+  CD:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
+  AccuracyRate:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
   CurrentDelayROF: 0
   fireMinDisLimit: 4
   BulletSpawnTFs:
@@ -619,15 +669,46 @@ MonoBehaviour:
   - {fileID: 8886497247949011878}
   - {fileID: 4473033968542792763}
   AccelerationSpeed: 12
+  ID: 1
   CombatMode: 0
   TargetCombatMode: 0
   IsCasting: 0
   CurrentCastingTime: 0
   TargetCastingTime: 0
+  AvoidChance:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
   MaxEP:
-    value: 100
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
   CurrentEP:
     value: 100
+  SpawnESMultiple:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
+  NeedEP_ForSkillMultiple:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
   CurrentBS:
     value: 0
   NeedBS_ForMakeBC: 4
@@ -637,16 +718,41 @@ MonoBehaviour:
   CurrentEC:
     value: 0
   BaseWeapon: {fileID: 1781130902238718875}
+  SkillWeapon: {fileID: 0}
   MovementState: 1
-  WalkSpeed: 3
-  WalkSpeedWhenShot: 1
+  WalkSpeed:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
+  WalkSpeedWhenShotMultiple:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
   DashController: {fileID: 8889954111637353817}
   CurrentInteractableGOList: []
-  TargetBoostRank: 0
-  MaxBoostRank: 4
-  CurrentBoostRank:
+  TargetBoostlv: 0
+  MaxBoostLv: 5
+  CurrentBoostLv:
     value: 0
+  DecEnergyPointByLevel: []
+  DecEnergyPointMultiple:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
   MakeAfterImage: {fileID: 1875528104640140175}
+  ExecutionInterval: 0.75
 --- !u!114 &8889954111637353817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,12 +766,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 8810927924693203331}
-  CurrentDashCooltime: 0
-  CurrentDashProcessTime: 0
+  ThisDashStyle: 0
   NeedEP_ForDash: 5
-  DashTargetDir: {x: 0, y: 0}
-  DashSpeed: 7
+  DashSpeed:
+    BaseState: 0
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange: []
+    NeedPayByLevelRange: 
+    ActualState:
+      value: 0
   DashDur: 0.2
+  RotateLerpValue: 1
+  CurrentDashProcessTime: 0
+  CaculateDir: {x: 0, y: 0}
 --- !u!50 &334434472153228344
 Rigidbody2D:
   serializedVersion: 4
@@ -754,6 +868,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 4142ff3d-2695-4c66-a3af-a6f8b5081f1c
     m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f06ad066-3316-4399-9a9a-14b2523cacdd
+    m_ActionName: Player/Skill_0[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 41b142dc-dc14-4820-b1d0-defca7e56cb0
+    m_ActionName: Player/Skill_1[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19f92d05-4545-4441-bec6-3ee6a956eb91
+    m_ActionName: BaseUpgradeUI/BUUI_Select[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2ea8faa-a782-4d21-b846-a789c094987c
+    m_ActionName: ModuleUpgradeUI/MUUI_Select[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

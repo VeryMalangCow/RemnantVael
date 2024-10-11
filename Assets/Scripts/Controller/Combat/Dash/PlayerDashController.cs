@@ -34,12 +34,12 @@ public class PlayerDashController : MonoBehaviour
         {
             case eDashStyle.OneWay:
                 if (CaculateDir == Vector2.zero)
-                { CaculateDir = InputPlayerManager.Instance.DirFromPlayerPos.normalized; }
+                { CaculateDir = InputManager.Instance.DirFromPlayerPos.normalized; }
                 Dash_Framework(CaculateDir, DashDur);
                 break;
 
             case eDashStyle.CanInputWay:
-                Vector2 targetDir = Vector2.Lerp(PlayerController.ThisRb.velocity.normalized, InputPlayerManager.Instance.InputMoveDir, RotateLerpValue * Time.deltaTime);
+                Vector2 targetDir = Vector2.Lerp(PlayerController.ThisRb.velocity.normalized, InputManager.Instance.InputMoveDir, RotateLerpValue * Time.deltaTime);
                 Dash_Framework(targetDir, DashDur);
                 break;
 
@@ -76,7 +76,7 @@ public class PlayerDashController : MonoBehaviour
             if (CaculateDir == Vector2.zero)
             {
                 PlayerController.ThisRb.velocity = Vector2.zero;
-                CaculateDir = InputPlayerManager.Instance.MousePosByWorld;
+                CaculateDir = InputManager.Instance.MousePosByWorld;
             }
 
             CurrentDashProcessTime += Time.deltaTime;
@@ -103,7 +103,7 @@ public class PlayerDashController : MonoBehaviour
         PlayerController.MovementState = eMovementState.IdleOrWalk;
         PlayerController.MakeAfterImage.EndGen();
 
-        InputPlayerManager.Instance.IsPlayingSkill = false;
+        InputManager.Instance.IsPlayingSkill = false;
     }
 
     #endregion

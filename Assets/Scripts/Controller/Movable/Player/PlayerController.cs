@@ -9,6 +9,7 @@ public class PlayerController : MovableObject
 
     [Space(20)]
     [Header("<><><><><> Player")]
+    [SerializeField] public int ID;
 
     #region - Combat
 
@@ -180,11 +181,11 @@ public class PlayerController : MovableObject
             case eMovementState.IdleOrWalk:
                 if(BaseWeapon.CurrentDelayROF >= 1)
                 {
-                    Walk(InputPlayerManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value, AccelerationSpeed);
+                    Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value, AccelerationSpeed);
                 }
                 else
                 {
-                    Walk(InputPlayerManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value * WalkSpeedWhenShotMultiple.ActualState.Value, AccelerationSpeed);
+                    Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value * WalkSpeedWhenShotMultiple.ActualState.Value, AccelerationSpeed);
                 }
                 break;
 
@@ -204,7 +205,7 @@ public class PlayerController : MovableObject
             return;
         }
 
-        InputPlayerManager.Instance.IsPlayingSkill = true;
+        InputManager.Instance.IsPlayingSkill = true;
         MakeAfterImage.StartGen(0.03f, 0.5f);
         CurrentEP.Value -= DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value;
         MovementState = eMovementState.Dash;
@@ -328,7 +329,7 @@ public class PlayerController : MovableObject
         MovementState = eMovementState.Casting;
         ThisRb.velocity = Vector2.zero;
 
-        InputPlayerManager.Instance.IsPlayingSkill = true;
+        InputManager.Instance.IsPlayingSkill = true;
     }
 
     #endregion
@@ -384,7 +385,7 @@ public class PlayerController : MovableObject
                 CurrentCastingTime = 0f;
                 IsCasting = false;
                 MovementState = eMovementState.IdleOrWalk;
-                InputPlayerManager.Instance.IsPlayingSkill = false;
+                InputManager.Instance.IsPlayingSkill = false;
 
                 If_CombatMode();
                 If_Skill();

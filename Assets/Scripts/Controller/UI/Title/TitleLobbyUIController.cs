@@ -27,8 +27,6 @@ public class TitleLobbyUIController : UIController
     [Header("=== Interact")]
     [SerializeField] private IInteract CurrentInteractable;
 
-    [HideInInspector] public ModifyOwnEachBtn CurrentBtn;
-
     #endregion
 
     #region Offset
@@ -72,7 +70,7 @@ public class TitleLobbyUIController : UIController
 
     #endregion
 
-    #region On Off
+    #region Set Panel
 
     public void OpenThisPanel()
     {

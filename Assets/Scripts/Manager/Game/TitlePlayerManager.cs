@@ -8,11 +8,7 @@ public class TitlePlayerManager : Singleton<TitlePlayerManager>
 
     private void Start()
     {
-        GameObject playerGO = Instantiate(GameManager.Instance.DesignatedPlayerPrefab, PlayerParentTF);
-        if (playerGO.TryGetComponent(out TitlePlayerController Player))
-        {
-            PlayerController = Player;
-            InputManager.gameObject.SetActive(true);
-        }
+        this.PlayerController = UnitManager.GenerateUnit<TitlePlayerController>(GameManager.Instance.TitlePlayerPrefab, PlayerParentTF);
+        InputManager.OnEnableInput();
     }
 }

@@ -3,8 +3,6 @@ using UniRx;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
-using System.Linq;
-using System;
 
 public class BaseUpgradeUIController : UIController
 {
@@ -39,7 +37,6 @@ public class BaseUpgradeUIController : UIController
     [SerializeField] private ModifyOwnEachBtn CloseBtn;
 
     [HideInInspector] public List<OneOffShopEachData<float>> AllUpgradeDataList;
-    [HideInInspector] public ModifyOwnEachBtn CurrentBtn = null;
 
     #endregion
 

@@ -10,22 +10,28 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     [Header("=== UI_Prefab")]
     [SerializeField] private Transform UIParent;
     [SerializeField] private GameObject TitleLobby_CanvasPrefab;
+    [SerializeField] private GameObject ChoiceCharacter_CanvasPrefab;
+    [SerializeField] private GameObject EntranceSpace_CanvasPrefab;
 
     // Controller
     [HideInInspector] public TitleLobbyUIController TitleLobby_UIController;
+    [HideInInspector] public ChoiceCharacterUIController ChoiceCharacter_UIController;
+    [HideInInspector] public EntranceSpaceUIController EntranceSpace_UIController;
 
     #endregion
 
     #region Framework
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     private void Start()
     {
-        TitleLobby_UIController = SpawnUI<TitleLobbyUIController>(TitleLobby_CanvasPrefab, true);
+        TitleLobby_UIController 
+            = SpawnUI<TitleLobbyUIController>(TitleLobby_CanvasPrefab, true);
+
+        ChoiceCharacter_UIController
+            = SpawnUI<ChoiceCharacterUIController>(ChoiceCharacter_CanvasPrefab, false);
+
+        EntranceSpace_UIController
+            = SpawnUI<EntranceSpaceUIController>(EntranceSpace_CanvasPrefab, false);
     }
 
 

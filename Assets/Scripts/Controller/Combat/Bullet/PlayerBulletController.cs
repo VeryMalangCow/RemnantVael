@@ -23,11 +23,11 @@ public class PlayerBulletController : BulletController
 
     public override void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _FireMinDisLimit, bool _IsCritical, float _CD)
     {
-        Vector2 targetPos = InputPlayerManager.Instance.MousePosByWorld;
-        if(_FireMinDisLimit > Vector3.Magnitude(InputPlayerManager.Instance.DirFromPlayerPos))
+        Vector2 targetPos = InputManager.Instance.MousePosByWorld;
+        if(_FireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
         {
             targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position + 
-                InputPlayerManager.Instance.DirFromPlayerPos.normalized * _FireMinDisLimit;
+                InputManager.Instance.DirFromPlayerPos.normalized * _FireMinDisLimit;
         }
 
         Vector2 dir = (targetPos - _SpawnVec).normalized;

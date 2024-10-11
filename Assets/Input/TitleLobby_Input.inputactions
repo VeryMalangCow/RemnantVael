@@ -160,6 +160,102 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "ChoiceCharacterUI",
+            "id": "2906f8ae-8172-4d1a-96e6-e899bb6537b0",
+            "actions": [
+                {
+                    "name": "CC_Select",
+                    "type": "Button",
+                    "id": "2f1450f1-f39f-499d-a6d8-ab522d14f0fd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CC_OutPanel",
+                    "type": "Button",
+                    "id": "acb72df3-e4b7-4f0f-bf97-c56444eae4bd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "de924c7a-70f5-47ba-a090-176e3f60ef49",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CC_Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b514bd72-be6d-4355-b541-9ba838c24435",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CC_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "EntranceUI",
+            "id": "76d9c308-dc0c-4b63-b184-69c46ef0c48f",
+            "actions": [
+                {
+                    "name": "Et_Select",
+                    "type": "Button",
+                    "id": "82895f43-b8e4-474d-904a-9cef7b7badd0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Et_OutPanel",
+                    "type": "Button",
+                    "id": "0b46e274-0d4e-4a06-ad88-29566b6590e6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "556e88f7-d3ad-4757-95fd-6f82fe9844f2",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Et_Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9368db99-c7da-40dc-bdea-d9c5286fbb5b",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Et_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

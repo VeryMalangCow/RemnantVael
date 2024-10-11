@@ -25,7 +25,14 @@ public class BuildingController : HaveShadowThingStatic
     {
         if (PlayerTF == null)
         {
-            PlayerTF = PlayerManager.Instance.PlayerController.gameObject.transform;
+            if (PlayerManager.Instance != null)
+            {
+                PlayerTF = PlayerManager.Instance.PlayerController.gameObject.transform;
+            }
+            else if (TitlePlayerManager.Instance != null)
+            {
+                PlayerTF = TitlePlayerManager.Instance.PlayerController.gameObject.transform;
+            }
         }
     }
 
