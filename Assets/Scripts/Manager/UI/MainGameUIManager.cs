@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class MainGameUIManager : Singleton<MainGameUIManager>
@@ -20,19 +21,33 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     [HideInInspector] public UIController CurrentOpening_UIController;
 
+    [Header("=== Screen")]
+    [SerializeField] private Canvas ScreenCanvas;
+    [HideInInspector] private CanvasGroup ScreenCG;
+    [SerializeField] private float FadeOutTime = 2f;
+
     #endregion
 
     #region Framework
 
     private void Start()
     {
-        PlayerHUD_UIController = SpawnUI<PlayerHUDController>(PlayerHUD_CanvasPrefab, true);
-        BaseUpgrade_UIController = SpawnUI<BaseUpgradeUIController>(BaseUpgrade_CanvasPrefab, false);
-        ModuleUpgrade_UIController = SpawnUI<ModuleUpgradeUIController>(ModuleUpgrade_CanvasPrefab, false);
+        PlayerHUD_UIController 
+            = SpawnUI<PlayerHUDController>(PlayerHUD_CanvasPrefab, true);
+
+        BaseUpgrade_UIController 
+            = SpawnUI<BaseUpgradeUIController>(BaseUpgrade_CanvasPrefab, false);
+        ModuleUpgrade_UIController 
+            = SpawnUI<ModuleUpgradeUIController>(ModuleUpgrade_CanvasPrefab, false);
+
+        FirstStart();
     }
 
+    #endregion
 
-    public T SpawnUI<T>(GameObject _UIGO, bool _OnOff)
+    #region Spawn
+
+    private T SpawnUI<T>(GameObject _UIGO, bool _OnOff)
     {
         GameObject uigo = Instantiate(_UIGO, UIParent);
         uigo.gameObject.SetActive(_OnOff);
@@ -49,6 +64,31 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         { return spawnUI; }
         else
         { return default; }
+    }
+
+    #endregion
+
+    #region FirstStart
+
+    private void FirstStart()
+    {
+        if (ScreenCG == null && ScreenCanvas.TryGetComponent(out CanvasGroup CG))
+        {
+            ScreenCG = CG;
+        }
+
+        Sequence firstSeq = DOTween.Sequence();
+
+        ScreenCG.alpha = 1f;
+
+        firstSeq.Append(ScreenCG.DOFade(0f, FadeOutTime));
+
+        firstSeq
+            .OnComplete(() =>
+             {
+                 ScreenCanvas.gameObject.SetActive(false);
+                 InputManager.Instance.OnEnableInput();
+             });
     }
 
     #endregion

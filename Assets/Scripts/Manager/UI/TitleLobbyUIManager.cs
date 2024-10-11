@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
@@ -18,6 +19,18 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     [HideInInspector] public ChoiceCharacterUIController ChoiceCharacter_UIController;
     [HideInInspector] public EntranceSpaceUIController EntranceSpace_UIController;
 
+    [Header("=== Screen")]
+    [SerializeField] private Canvas ScreenCanvas;
+    [HideInInspector] private CanvasGroup ScreenCG;
+
+    [SerializeField] private CanvasGroup WarningCG;
+    [SerializeField] private CanvasGroup SimpleCreditCG;
+
+    [SerializeField] private float EachFadeInTime = 1f;
+    [SerializeField] private float EachFadeOutTime = 1f;
+    [SerializeField] private float EachStayTime = 1.5f;
+    [SerializeField] private float EachDelayTime = 0.5f;
+
     #endregion
 
     #region Framework
@@ -32,10 +45,15 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
         EntranceSpace_UIController
             = SpawnUI<EntranceSpaceUIController>(EntranceSpace_CanvasPrefab, false);
+
+        FirstStart();
     }
 
+    #endregion
 
-    public T SpawnUI<T>(GameObject _UIGO, bool _OnOff)
+    #region Spawn
+
+    private T SpawnUI<T>(GameObject _UIGO, bool _OnOff)
     {
         GameObject uigo = Instantiate(_UIGO, UIParent);
         uigo.gameObject.SetActive(_OnOff);
@@ -52,6 +70,89 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
         { return spawnUI; }
         else
         { return default; }
+    }
+
+
+
+    #endregion
+
+    #region FirstStart
+
+    private void FirstStart()
+    {
+        if (ScreenCG == null && ScreenCanvas.TryGetComponent(out CanvasGroup CG))
+        {
+            ScreenCG = CG;
+        }
+
+        ScreenCG.alpha = 1f;
+        WarningCG.alpha = 0f;
+        SimpleCreditCG.alpha = 0f;
+
+        WarningSeq()
+        .OnComplete(() =>
+        {
+            SimpleCreditSeq()
+            .OnComplete(() =>
+            {
+                FadeOut();
+            });
+        });
+
+    }
+
+    private Sequence WarningSeq()
+    {
+        Sequence warningSeq = DOTween.Sequence();
+        warningSeq.Append(WarningCG.DOFade(1f, EachFadeInTime));
+        warningSeq.AppendInterval(EachStayTime);
+        warningSeq.Append(WarningCG.DOFade(0f, EachFadeOutTime));
+        warningSeq.AppendInterval(EachDelayTime);
+        warningSeq
+            .SetId("WarningSeq")
+            .OnUpdate(() =>
+            {
+                if (Input.anyKeyDown)
+                {
+                    DOTween.Complete("WarningSeq");
+                }
+            });
+
+        return warningSeq;
+    }
+
+    private Sequence SimpleCreditSeq()
+    {
+        Sequence simpleCreditSeq = DOTween.Sequence();
+        simpleCreditSeq.Append(SimpleCreditCG.DOFade(1f, EachFadeInTime));
+        simpleCreditSeq.AppendInterval(EachStayTime);
+        simpleCreditSeq.Append(SimpleCreditCG.DOFade(0f, EachFadeOutTime));
+        simpleCreditSeq.AppendInterval(EachDelayTime);
+        simpleCreditSeq
+            .SetId("SimpleCreditSeq")
+            .OnUpdate(() =>
+            {
+                if (Input.anyKeyDown)
+                {
+                    DOTween.Complete("SimpleCreditSeq");
+                }
+            });
+
+        return simpleCreditSeq;
+    }
+
+    private Sequence FadeOut()
+    {
+        Sequence firstSeq = DOTween.Sequence();
+        firstSeq.Append(ScreenCG.DOFade(0f, EachFadeOutTime));
+        firstSeq
+            .OnComplete(() =>
+            {
+                ScreenCanvas.gameObject.SetActive(false);
+                InputTitleManager.Instance.OnEnableInput();
+            });
+
+        return firstSeq;
     }
 
     #endregion
