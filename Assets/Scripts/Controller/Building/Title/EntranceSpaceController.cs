@@ -1,5 +1,5 @@
 
-public class EntranceSpaceController : BuildingController, IInteract
+public class EntranceSpaceController : BuildingController_OnlyPlayerLayer, IInteract
 {
     #region Interact
 

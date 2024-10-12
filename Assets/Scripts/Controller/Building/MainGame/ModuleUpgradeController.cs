@@ -1,5 +1,5 @@
 
-public class ModuleUpgradeController : BuildingController, IInteract
+public class ModuleUpgradeController : BuildingController_OnlyPlayerLayer, IInteract
 {
     #region Interact
 

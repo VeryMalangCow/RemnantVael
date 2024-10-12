@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovableObject : HaveShadowThing
+public class MovableObject : HaveShadowThingMovable
 {
     #region Value
 
@@ -15,7 +15,6 @@ public class MovableObject : HaveShadowThing
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] public Rigidbody2D ThisRb;
-    [SerializeField] public SpriteRenderer ThisSr;
     [SerializeField] private List<SpriteRenderer> ThisExtraSrs;
 
     [Space(10)]
@@ -39,14 +38,6 @@ public class MovableObject : HaveShadowThing
 
     #endregion
 
-    #region Sorting Order
-
-    public void SetSortingOrder(int _SortingOrder)
-    {
-        ThisSr.sortingOrder = _SortingOrder;
-    }
-
-    #endregion
 
     #region Life
 

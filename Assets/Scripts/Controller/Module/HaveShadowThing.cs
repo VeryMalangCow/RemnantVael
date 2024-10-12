@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HaveShadowThing : MonoBehaviour
@@ -10,15 +11,26 @@ public class HaveShadowThing : MonoBehaviour
     [Space(10)]
     [Header("=== Shadow")]
     [SerializeField] public GameObject TargetObject;
+    [HideInInspector] public SpriteRenderer ThisSR;
     [SerializeField] protected float TargetRange = 0.4f;
 
     #endregion
 
-    #region Framework
-
-    protected virtual void Update()
+    private void Awake()
     {
-        TargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * TargetRange);
+        if (ThisSR == null && TargetObject.TryGetComponent(out SpriteRenderer sr))
+        { ThisSR = sr; }
+    }
+
+
+    #region Sorting Order
+
+    public void SetSortingOrder(int _SortingOrder)
+    {
+        if (ThisSR == null)
+        { return; } 
+
+        ThisSR.sortingOrder = _SortingOrder;
     }
 
     #endregion

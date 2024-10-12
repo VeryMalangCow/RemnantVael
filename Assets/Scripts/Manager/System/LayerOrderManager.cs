@@ -8,19 +8,14 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     #region Value
 
     [Header("=== Value")]
-    [SerializeField] public int MovableObjectTopSort = 1000;
+    [SerializeField] public int NeedLayerObjectTopSort = 1000;
 
     [Header("=== Movable Object")]
-    [SerializeField] public List<MovableObject> MovableObjects;
+    [SerializeField] public List<HaveShadowThing> NeedLayerObjects;
 
     #endregion
 
     #region Framework
-
-    protected override void Awake()
-    {
-        base.Awake();
-    }
 
     private void Update()
     {
@@ -36,11 +31,11 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
     private bool NeedSort()
     {
-        List<MovableObject> tempMovableObjects = MovableObjects.OrderBy(obj => obj.transform.position.y).ToList();
-        bool needSort = !Enumerable.SequenceEqual(tempMovableObjects, MovableObjects);
+        List<HaveShadowThing> tempObjects = NeedLayerObjects.OrderBy(obj => obj.transform.position.y).ToList();
+        bool needSort = !Enumerable.SequenceEqual(tempObjects, NeedLayerObjects);
         if (needSort)
         {
-            MovableObjects = tempMovableObjects;
+            NeedLayerObjects = tempObjects;
             return true;
         }
         else
@@ -51,9 +46,9 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
     private void SortAllSr()
     {
-        for (int i = 0; i < MovableObjects.Count; i++)
+        for (int i = 0; i < NeedLayerObjects.Count; i++)
         {
-            MovableObjects[i].SetSortingOrder(MovableObjectTopSort - (10 * i));
+            NeedLayerObjects[i].SetSortingOrder(NeedLayerObjectTopSort - (10 * i));
         }
     }
 

@@ -103,9 +103,8 @@ public class PlayerController : MovableObject
 
     #region Framework
 
-    private void Awake()
+    private void Start()
     {
-        Debug.Log("Test Set EC");
         CurrentEC.Value = 100;
     }
 

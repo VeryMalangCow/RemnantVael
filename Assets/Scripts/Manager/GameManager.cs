@@ -121,6 +121,11 @@ public enum eDashStyle
     OneWay, CanInputWay, Teleport
 }
 
+public enum eRoomType
+{
+    Completed, KillAll, Survived
+}
+
 public interface IInteract
 {
     public void Interact();

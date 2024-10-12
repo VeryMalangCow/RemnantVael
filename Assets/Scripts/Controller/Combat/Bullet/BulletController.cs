@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BulletController : HaveShadowThing
+public class BulletController : HaveShadowThingMovable
 {
     #region Value
 

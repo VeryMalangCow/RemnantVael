@@ -19,7 +19,6 @@ public class InteractItemController : ItemController, IInteract
     [Space(10)]
     [Header("=== State")]
     [SerializeField] public ItemData ThisItemData;
-    [SerializeField] private SpriteRenderer ThisSR;
     
     #endregion
 

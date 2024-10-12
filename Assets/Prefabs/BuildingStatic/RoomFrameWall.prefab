@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5078043234781458939}
-  - component: {fileID: 8291228680205593127}
+  - component: {fileID: 6255365251338331310}
   - component: {fileID: 5352055190413400012}
   m_Layer: 8
-  m_Name: Wall
+  m_Name: RoomFrameWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1830277071539231825}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.13, y: 4.19, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 16.09, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 7180151470745273541}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8291228680205593127
+--- !u!114 &6255365251338331310
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,15 +45,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1830277071539231825}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a31e5a2038ce8b8419a7872dc891ebe3, type: 3}
+  m_Script: {fileID: 11500000, guid: f2a9589700b54704baa5d9da9cc09ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 6859774968522112722}
+  ThisSR: {fileID: 0}
   TargetRange: 0.4
-  TargetSR: {fileID: 4834008912342362400}
-  ShadowSR: {fileID: 2776237524812549005}
-  LowestLayerOrder: -2000
-  HighestLayerOrder: 2000
 --- !u!61 &5352055190413400012
 BoxCollider2D:
   m_ObjectHideFlags: 0

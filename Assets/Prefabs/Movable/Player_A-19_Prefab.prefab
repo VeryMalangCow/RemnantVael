@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5980481930123788499}
   - component: {fileID: 4473033968542792763}
-  - component: {fileID: 4031570613748555499}
+  - component: {fileID: 7438815911213043068}
   m_Layer: 7
   m_Name: Lefthand
   m_TagString: Player
@@ -117,7 +117,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4031570613748555499
+--- !u!114 &7438815911213043068
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1333439580023470818}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c0c74e4a7a0399479aebb02b89ccadb, type: 3}
+  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 7217206221402160431}
@@ -243,7 +243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4586805314071208296}
   - component: {fileID: 8886497247949011878}
-  - component: {fileID: 3441746121867993704}
+  - component: {fileID: 7929444254823503516}
   m_Layer: 7
   m_Name: RightHand
   m_TagString: Player
@@ -319,7 +319,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3441746121867993704
+--- !u!114 &7929444254823503516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2632657534027564969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c0c74e4a7a0399479aebb02b89ccadb, type: 3}
+  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 9139456362501203251}
@@ -837,6 +837,7 @@ MonoBehaviour:
   - {fileID: 8886497247949011878}
   - {fileID: 4473033968542792763}
   AccelerationSpeed: 12
+  ID: 0
   CombatMode: 0
   TargetCombatMode: 0
   IsCasting: 0
@@ -929,9 +930,9 @@ MonoBehaviour:
       value: 0.3
   DashController: {fileID: 8889954111637353817}
   CurrentInteractableGOList: []
-  TargetBoostRank: 0
-  MaxBoostRank: 5
-  CurrentBoostRank:
+  TargetBoostlv: 0
+  MaxBoostLv: 5
+  CurrentBoostLv:
     value: 0
   DecEnergyPointByLevel:
   - 1
@@ -1080,6 +1081,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 41b142dc-dc14-4820-b1d0-defca7e56cb0
     m_ActionName: Player/Skill_1[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19f92d05-4545-4441-bec6-3ee6a956eb91
+    m_ActionName: BaseUpgradeUI/BUUI_Select[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c2ea8faa-a782-4d21-b846-a789c094987c
+    m_ActionName: ModuleUpgradeUI/MUUI_Select[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1213,7 +1222,7 @@ GameObject:
   - component: {fileID: 9046146455519074278}
   - component: {fileID: 1686442470481124210}
   - component: {fileID: 7647327739022335709}
-  - component: {fileID: 5512345629200783338}
+  - component: {fileID: 3772518435837473010}
   m_Layer: 7
   m_Name: Skill_1
   m_TagString: Player
@@ -1329,7 +1338,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 
     ActualState:
       value: 0
---- !u!114 &5512345629200783338
+--- !u!114 &3772518435837473010
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1338,7 +1347,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6351091367786875123}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c0c74e4a7a0399479aebb02b89ccadb, type: 3}
+  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 5722075644800418991}
@@ -1354,7 +1363,7 @@ GameObject:
   - component: {fileID: 160821742103898720}
   - component: {fileID: 5313304305814170222}
   - component: {fileID: 6304837828893154070}
-  - component: {fileID: 3147165023179101909}
+  - component: {fileID: 6021120989462345684}
   m_Layer: 7
   m_Name: Skill_0
   m_TagString: Player
@@ -1473,7 +1482,7 @@ MonoBehaviour:
   Missile_Prefab: {fileID: 2192280153704162206, guid: d05f25d52068dd74988f837decc0268e, type: 3}
   ShotDelay: 0.1
   SpreadTime: 1
---- !u!114 &3147165023179101909
+--- !u!114 &6021120989462345684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1482,7 +1491,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6608195872253356044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c0c74e4a7a0399479aebb02b89ccadb, type: 3}
+  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 2647858769255449446}

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BuildingController : HaveShadowThingStatic
+public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
 {
     #region Value
 

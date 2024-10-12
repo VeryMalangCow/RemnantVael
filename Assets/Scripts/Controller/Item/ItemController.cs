@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ItemController : HaveShadowThing
+public class ItemController : HaveShadowThingMovable
 {
     #region Value
 

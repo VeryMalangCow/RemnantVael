@@ -1,5 +1,5 @@
 
-public class BaseUpgradeController : BuildingController, IInteract
+public class BaseUpgradeController : BuildingController_OnlyPlayerLayer, IInteract
 {
     #region Value
 
