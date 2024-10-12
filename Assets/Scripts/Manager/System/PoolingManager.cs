@@ -5,19 +5,21 @@ public class PoolingManager : Singleton<PoolingManager>
 {
     #region Value
 
-    [Header("=== Player Bullet")]
+    [Header("=== Player")]
     [SerializeField] public TTypePooling<PlayerBulletController> PlayerBullet;
-
-    [Header("=== Item")]
     [SerializeField] public TTypePooling<EnergyShrapnelController> EnergyShrapnel;
     [SerializeField] public TTypePooling<BetteryShrapnelController> BetteryShrapnel;
     [SerializeField] public TTypePooling<InteractItemController> InteractItems;
 
+    [Header("=== Skill")]
+    [SerializeField] public TTypePooling<MissileBulletController> MissileBullet;
+
+    [Header("=== Enemy")]
+    [SerializeField] public TTypePooling<EnemyController> Enemy;
+
     [Header("=== After Img")]
     [SerializeField] public TTypePooling<SpriteRenderer> PlayerAfterImgs;
 
-    [Header("=== Skill")]
-    [SerializeField] public TTypePooling<MissileBulletController> MissileBullet;
 
     #endregion
 
@@ -49,6 +51,10 @@ public class PoolingManager : Singleton<PoolingManager>
         }
     }
 
+    #endregion
+
+    #region Player
+
     // Player Bullet
     public PlayerBulletController GetOP_PlayerBullet()
     {
@@ -73,11 +79,6 @@ public class PoolingManager : Singleton<PoolingManager>
         return GetOP<InteractItemController>(InteractItems.Prefab, InteractItems.ParentTF, InteractItems.Queue);
     }
 
-    // After Image
-    public SpriteRenderer GetOP_AfterImg()
-    {
-        return GetOP<SpriteRenderer>(PlayerAfterImgs.Prefab, PlayerAfterImgs.ParentTF, PlayerAfterImgs.Queue);
-    }
     #endregion
 
     #region Missile
@@ -89,6 +90,29 @@ public class PoolingManager : Singleton<PoolingManager>
     }
 
     #endregion
+
+    #region Enemy
+
+    public EnemyController GetOP_Enemy(GameObject _EC_Prefab)
+    {
+        if (_EC_Prefab != null)
+        { return GetOP<EnemyController>(_EC_Prefab, Enemy.ParentTF, Enemy.Queue); }
+        else
+        { return GetOP<EnemyController>(Enemy.Prefab, Enemy.ParentTF, Enemy.Queue); }
+    }
+
+    #endregion
+
+    #region Extra
+
+    // After Image
+    public SpriteRenderer GetOP_AfterImg()
+    {
+        return GetOP<SpriteRenderer>(PlayerAfterImgs.Prefab, PlayerAfterImgs.ParentTF, PlayerAfterImgs.Queue);
+    }
+
+    #endregion
+
 }
 
 [System.Serializable]

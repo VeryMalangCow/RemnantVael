@@ -31,6 +31,8 @@ public class StageManager : Singleton<StageManager>
     private void Start()
     {
         GenStage(0);
+
+        StartCurrentRoom(GetCollectRoomController(0));
     }
 
     #endregion
@@ -60,10 +62,25 @@ public class StageManager : Singleton<StageManager>
             }
         }
 
+        // 게이트 활성화
+        SetParterAllGate();
+
+        //Test -> 연결된 게이트들 확인용
+        /*List<GateController> allGate = GetAllGate();
+        for (int i = 0; i < allGate.Count; i++)
+        {
+            if (allGate[i].HadParter == true)
+            {
+                allGate[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                allGate[i].gameObject.SetActive(false);
+            }
+        }*/
+
         alreadyExistList.Clear();
         roundList.Clear();
-
-        SetCurrentRoom(GetCollectRoomController(0));
     }
 
     private void GenRoom(GameObject _Prefab, int _TempID, bool _IsStartRoom)
@@ -72,6 +89,7 @@ public class StageManager : Singleton<StageManager>
         if (room.TryGetComponent(out RoomController rc))
         {
             rc.CurrentTempID = _TempID;
+            rc.Offset();
             CurrentAllRoomController.Add(rc);
 
             if (!_IsStartRoom)
@@ -85,23 +103,37 @@ public class StageManager : Singleton<StageManager>
         }
     }
 
-    private void SetCurrentRoom(RoomController _TargetRC)
+    public void StartCurrentRoom(RoomController _TargetRC)
     {
         if (_TargetRC == null)
         { return; }
 
-        // 전 방 리셋
-        LayerOrderManager.Instance.NeedLayerObjects = new List<HaveShadowThing>()
-        { PlayerManager.Instance.PlayerController };
+        _TargetRC.PlayRoomState();
 
-        // 현재 방 선택
-        CurrentRoomController = _TargetRC;
+        // Layer
+        LayerOrderManager.Instance.NeedLayerObjects = new List<HaveShadowThing>()
+        { PlayerManager.Instance.PlayerController }; // 전 방 리셋
+
+        CurrentRoomController = _TargetRC; // 현재 방 선택
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.InRoom_AllBuilding);
+        LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
+    }
+
+    public void Complete_KillAll()
+    {
+        if (CurrentRoomController == null)
+        { return; }
+
+        if (EnemyManager.Instance.CurrentEnemyList.Count <= 0)
+        { 
+            CurrentRoomController.RoomType = eRoomType.Completed;
+            CurrentRoomController.PlayRoomState();
+        }
     }
 
     #endregion
 
-    #region Vector Caculate
+    #region Room Vector Caculate
 
     private void TryAddCaculateVec(RoomController _RC)
     {
@@ -127,10 +159,10 @@ public class StageManager : Singleton<StageManager>
             if (IsNeedReset)
             { continue; }
 
-            // 된다면 벡터값을 넣어주고           
+            // 된다면 벡터값을 넣어주고 (실제 좌표 값에 비례되는 값을 넣어줌 + Gate도)
             for (int i = 0; i < _RC.RoomVec.Count; i++)
             {
-                _RC.RoomVec[i] = WorldVecList[i];
+                _RC.SetCollectGateVec(i, WorldVecList[i]);
             }
 
             // 위치를 지정해주며
@@ -165,6 +197,37 @@ public class StageManager : Singleton<StageManager>
         }
     }
 
+
+    #endregion
+
+    #region Gate Vector Caculate
+
+    private void SetParterAllGate()
+    {
+        List<GateController> allGate = GetAllGate();
+
+        for (int i = 0; i < allGate.Count - 1; i++)
+        {
+            // 이미 파트너 게이트가 있다면
+            if (allGate[i].HadParter)
+            {
+                continue;
+            }
+
+            for (int j = i + 1; j < allGate.Count; j++)
+            {
+                if (((allGate[i].RoomPosGate + allGate[i].GateDir) == allGate[j].RoomPosGate) &&
+                    (allGate[i].GateDir * -1) == allGate[j].GateDir)
+                {
+                    allGate[i].ParterGate = allGate[j];
+                    allGate[i].HadParter = true;
+
+                    allGate[j].ParterGate = allGate[i];
+                    allGate[j].HadParter = true;
+                }
+            }
+        }
+    }
 
     #endregion
 
@@ -205,6 +268,16 @@ public class StageManager : Singleton<StageManager>
             (_CenterVec + Vector2Int.left),
             (_CenterVec + Vector2Int.right)
         };
+    }
+
+    private List<GateController> GetAllGate()
+    {
+        List<GateController> allGate = new List<GateController>();
+        for (int i = 0; i < CurrentAllRoomController.Count; i++)
+        {
+            allGate.AddRange(CurrentAllRoomController[i].InRoom_AllGate);
+        }
+        return allGate;
     }
 
     #endregion

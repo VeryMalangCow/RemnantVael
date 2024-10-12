@@ -98,9 +98,21 @@ public class EnemyController : MovableObject, IInteract
         // Drop Item
         SpawnII();
 
+        // Effect
         StopCoroutine(RecoverLethargy());
         PlayerManager.Instance.CameraController.PlayKillShake(PlayerManager.Instance.PlayerController.ExecutionInterval);
 
+        // Remove
+        if (EnemyManager.Instance.CurrentEnemyList.Contains(this))
+        { EnemyManager.Instance.CurrentEnemyList.Remove(this); }
+
+        if (LayerOrderManager.Instance.NeedLayerObjects.Contains(this)) 
+        { LayerOrderManager.Instance.NeedLayerObjects.Remove(this); }
+
+        // Check Room State
+        StageManager.Instance.Complete_KillAll();
+
+        // Set
         this.gameObject.SetActive(false);
     }
 

@@ -15,12 +15,139 @@ public class RoomController : MonoBehaviour
 
     [Space(10)]
     [Header("=== In Room")]
-    [SerializeField] public List<BuildingController_AllLayer> InRoom_AllBuilding;
+    [SerializeField] private Transform InRoom_AllGateParentTF;
+    [HideInInspector] public List<GateController> InRoom_AllGate;
+    [SerializeField] private Transform InRoom_AllBuildingParentTF;
+    [HideInInspector] public List<BuildingController_AllLayer> InRoom_AllBuilding;
+    [SerializeField] private List<EnemySpot> InRoom_AllEnemy;
 
 
     [Space(10)]
     [Header("=== InitData")]
     [SerializeField] public int CurrentTempID;
+
+    #endregion
+
+    #region Basic
+
+    public void Offset()
+    {
+        // Gate
+        InRoom_AllGate = new List<GateController>();
+        if (InRoom_AllGateParentTF.childCount > 0)
+        {
+            foreach (Transform chile in InRoom_AllGateParentTF)
+            {
+                if (chile.gameObject.TryGetComponent(out GateController GC))
+                {
+                    InRoom_AllGate.Add(GC);
+                    GC.ThisRoom = this;
+                    GC.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        // Obstacle
+        InRoom_AllBuilding = new List<BuildingController_AllLayer>();
+        if (InRoom_AllBuildingParentTF.childCount > 0)
+        {
+            foreach (Transform chile in InRoom_AllBuildingParentTF)
+            {
+                if (chile.gameObject.TryGetComponent(out BuildingController_AllLayer BC))
+                {
+                    InRoom_AllBuilding.Add(BC);
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region Gate
+
+    public void SetCollectGateVec(int _Index, Vector2Int _InitVec)
+    {
+        Vector2Int targetVec = RoomVec[_Index];
+        List<GateController> gates = GetCollectGateList(targetVec);
+        for (int i = 0; i < gates.Count; i++)
+        {
+            gates[i].RoomPosGate = _InitVec;
+        }
+        RoomVec[_Index] = _InitVec;
+    }
+
+    private List<GateController> GetCollectGateList(Vector2Int _TargetVec)
+    {
+        List<GateController> resultList = new List<GateController>();
+        for (int i = 0; i < InRoom_AllGate.Count; i++)
+        {
+            if (InRoom_AllGate[i].RoomPosGate == _TargetVec)
+            {
+                resultList.Add(InRoom_AllGate[i]);
+            }
+        }
+        return resultList;
+    }
+
+    #endregion
+
+    #region Condition
+
+    public void PlayRoomState()
+    {
+        switch (RoomType)
+        {
+            case eRoomType.Completed:
+                Set_Completed();
+                break;
+
+            case eRoomType.KillAll:
+                Set_KillAll();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void Set_Completed()
+    {
+        for (int i = 0; i < InRoom_AllGate.Count; i++) 
+        {
+            if (InRoom_AllGate[i].HadParter)
+            {
+                InRoom_AllGate[i].gameObject.SetActive(true);
+            }
+        }
+    }
+
+    private void Set_KillAll()
+    {
+        for (int i = 0; i < InRoom_AllEnemy.Count; i++)
+        {
+            if (InRoom_AllEnemy[i].EnemySpawnTF != null &&
+                InRoom_AllEnemy[i].EnemyPrefab != null)
+            {
+                EnemyController enemy = PoolingManager.Instance.GetOP_Enemy(InRoom_AllEnemy[i].EnemyPrefab);
+
+                EnemyManager.Instance.CurrentEnemyList.Add(enemy);
+
+                enemy.transform.position = InRoom_AllEnemy[i].EnemySpawnTF.transform.position;
+                enemy.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Enemy
+
+    [System.Serializable]
+    public class EnemySpot
+    {
+        [SerializeField] public GameObject EnemyPrefab;
+        [SerializeField] public Transform EnemySpawnTF;
+    }
 
     #endregion
 }

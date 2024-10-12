@@ -1076,12 +1076,15 @@ MonoBehaviour:
   InteractItems:
     Prefab: {fileID: 8792791415299830887, guid: 0fe28c02c65319a499cbd9bf935f3f8c, type: 3}
     ParentTF: {fileID: 753619580}
-  PlayerAfterImgs:
-    Prefab: {fileID: 6683809427665404101, guid: 988330fe6e0cc58408522442eae73b35, type: 3}
-    ParentTF: {fileID: 1782628309}
   MissileBullet:
     Prefab: {fileID: 2192280153704162206, guid: d05f25d52068dd74988f837decc0268e, type: 3}
     ParentTF: {fileID: 888747044}
+  Enemy:
+    Prefab: {fileID: 272305898077013730, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
+    ParentTF: {fileID: 1717915347}
+  PlayerAfterImgs:
+    Prefab: {fileID: 6683809427665404101, guid: 988330fe6e0cc58408522442eae73b35, type: 3}
+    ParentTF: {fileID: 1782628309}
 --- !u!1 &713790308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,8 +1144,6 @@ MonoBehaviour:
       RoomPrefab: {fileID: 8671702513593221327, guid: 409f8e415c1cc854da2b92c62df5ed81, type: 3}
   CurrentAllRoomController: []
   CurrentRoomController: {fileID: 0}
-  alreadyExistList: []
-  roundList: []
 --- !u!1 &753619579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,7 +1273,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 0}
+  m_BackGroundColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

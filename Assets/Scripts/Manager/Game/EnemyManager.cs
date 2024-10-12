@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
@@ -8,27 +9,11 @@ public class EnemyManager : Singleton<EnemyManager>
 
     [Space(10)]
     [Header("=== Enemies")]
-    [SerializeField] private List<EnemyController> CurrentEnemyList = new List<EnemyController>();
-
-    #endregion
-
-    #region Framework
-
-    private void Start()
-    {
-        // test
-        List<EnemyController> ec = FindObjectsOfType<EnemyController>().ToList();
-        AddCurrentEnemyList(ec);
-    }
+    [SerializeField] public List<EnemyController> CurrentEnemyList = new List<EnemyController>();
 
     #endregion
 
     #region Set
-
-    public List<EnemyController> GetCurrentEnemyList()
-    {
-        return CurrentEnemyList;
-    }
 
     public EnemyController GetClosestEnemy(Vector2 _TargetVec)
     {
@@ -52,11 +37,6 @@ public class EnemyManager : Singleton<EnemyManager>
         }
 
         return ec;
-    }
-
-    public void AddCurrentEnemyList(List<EnemyController> _AddEnemyList)
-    {
-        CurrentEnemyList.AddRange(_AddEnemyList);
     }
 
     #endregion
