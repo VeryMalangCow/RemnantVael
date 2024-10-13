@@ -23,7 +23,8 @@ public class GateController : BuildingController_OnlyPlayerLayer, IInteract
 
     public void Interact()
     {
-        PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.gameObject.transform.position;
+        PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.gameObject.transform.position 
+            + new Vector3(GateDir.x * 0.5f, GateDir.y * 0.5f, 0);
         StageManager.Instance.StartCurrentRoom(ParterGate.ThisRoom);
     }
 

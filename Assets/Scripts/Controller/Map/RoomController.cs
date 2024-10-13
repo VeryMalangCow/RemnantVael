@@ -20,6 +20,7 @@ public class RoomController : MonoBehaviour
     [SerializeField] private Transform InRoom_AllBuildingParentTF;
     [HideInInspector] public List<BuildingController_AllLayer> InRoom_AllBuilding;
     [SerializeField] private List<EnemySpot> InRoom_AllEnemy;
+    [SerializeField] private BuildingController_OnlyPlayerLayer InRoom_BuildThing;
 
 
     [Space(10)]
@@ -58,6 +59,11 @@ public class RoomController : MonoBehaviour
                     InRoom_AllBuilding.Add(BC);
                 }
             }
+        }
+
+        if (InRoom_BuildThing != null)
+        {
+            InRoom_BuildThing.gameObject.SetActive(false);
         }
     }
 
@@ -118,6 +124,11 @@ public class RoomController : MonoBehaviour
             {
                 InRoom_AllGate[i].gameObject.SetActive(true);
             }
+        }
+
+        if (InRoom_BuildThing != null)
+        {
+            InRoom_BuildThing.gameObject.SetActive(true);
         }
     }
 

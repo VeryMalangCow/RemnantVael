@@ -20,9 +20,13 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private RoomController CurrentRoomController;
 
     // 이미 차지한 Vec
-    [HideInInspector] private List<Vector2Int> alreadyExistList = new List<Vector2Int>();
+    [SerializeField] private List<Vector2Int> alreadyExistList = new List<Vector2Int>();
+
+    // 이미 차지한 보스 Vec
+    [SerializeField] private List<Vector2Int> alreadyExistBossList = new List<Vector2Int>();
+
     // 배치할 주변 Vec
-    [HideInInspector] private List<Vector2Int> roundList = new List<Vector2Int>();
+    [SerializeField] private List<Vector2Int> roundList = new List<Vector2Int>();
 
     #endregion
 
@@ -62,25 +66,22 @@ public class StageManager : Singleton<StageManager>
             }
         }
 
+        // 보스 방 생성
+        for (int i = 0; i < reso.BossRoomPrefabList.Count; i++)
+        {
+            for (int j = 0; j < reso.BossRoomPrefabList[i].AmountInStage; j++)
+            {
+                GenFurthestRoom(reso.BossRoomPrefabList[i].RoomPrefab, TempID);
+                TempID++;
+            }
+        }
+
         // 게이트 활성화
         SetParterAllGate();
 
-        //Test -> 연결된 게이트들 확인용
-        /*List<GateController> allGate = GetAllGate();
-        for (int i = 0; i < allGate.Count; i++)
-        {
-            if (allGate[i].HadParter == true)
-            {
-                allGate[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                allGate[i].gameObject.SetActive(false);
-            }
-        }*/
-
-        alreadyExistList.Clear();
-        roundList.Clear();
+        //alreadyExistList.Clear();
+        //alreadyExistBossList.Clear();
+        //roundList.Clear();
     }
 
     private void GenRoom(GameObject _Prefab, int _TempID, bool _IsStartRoom)
@@ -103,37 +104,23 @@ public class StageManager : Singleton<StageManager>
         }
     }
 
-    public void StartCurrentRoom(RoomController _TargetRC)
+    private void GenFurthestRoom(GameObject _Prefab, int _TempID)
     {
-        if (_TargetRC == null)
-        { return; }
+        GameObject room = Instantiate(_Prefab, Vector2.zero, Quaternion.identity, MapParentTF);
+        if (room.TryGetComponent(out RoomController rc))
+        {
+            rc.CurrentTempID = _TempID;
+            rc.Offset();
+            CurrentAllRoomController.Add(rc);
 
-        _TargetRC.PlayRoomState();
-
-        // Layer
-        LayerOrderManager.Instance.NeedLayerObjects = new List<HaveShadowThing>()
-        { PlayerManager.Instance.PlayerController }; // 전 방 리셋
-
-        CurrentRoomController = _TargetRC; // 현재 방 선택
-        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.InRoom_AllBuilding);
-        LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
-    }
-
-    public void Complete_KillAll()
-    {
-        if (CurrentRoomController == null)
-        { return; }
-
-        if (EnemyManager.Instance.CurrentEnemyList.Count <= 0)
-        { 
-            CurrentRoomController.RoomType = eRoomType.Completed;
-            CurrentRoomController.PlayRoomState();
+            TryAddCaculateFurthestVec(rc);
         }
     }
 
+
     #endregion
 
-    #region Room Vector Caculate
+    #region Room Caculate
 
     private void TryAddCaculateVec(RoomController _RC)
     {
@@ -142,9 +129,9 @@ public class StageManager : Singleton<StageManager>
             int randomIndex = Random.Range(0, roundList.Count);
 
             List<Vector2Int> WorldVecList = new List<Vector2Int>();
+            bool IsNeedReset = false;
 
             // 주변 공간에 배치할 시 배치 할 수 있는지에 대한
-            bool IsNeedReset = false;
             for (int i = 0; i < _RC.RoomVec.Count; i++)
             {
                 WorldVecList.Add(roundList[randomIndex] + _RC.RoomVec[i]);
@@ -200,7 +187,73 @@ public class StageManager : Singleton<StageManager>
 
     #endregion
 
-    #region Gate Vector Caculate
+    #region Boss Room Caculate
+
+    private void TryAddCaculateFurthestVec(RoomController _RC)
+    {
+        List<Vector2Int> tempRoundList = roundList.OrderByDescending(obj => OriginalToTarget(obj)).ToList();
+        for (int i = 0; i < tempRoundList.Count; i++)
+        {
+            List<Vector2Int> WorldVecList = new List<Vector2Int>();
+            bool IsNeedReset = false;
+
+            for (int j = 0; j < _RC.RoomVec.Count; j++)
+            {
+                WorldVecList.Add(tempRoundList[i] + _RC.RoomVec[j]);
+                if (alreadyExistList.Contains(WorldVecList[j]) ||
+                    alreadyExistBossList.Contains(WorldVecList[j]))
+                {
+                    IsNeedReset = true;
+                    break;
+                }
+            }
+
+            // 안된다면 다시 시작
+            if (IsNeedReset)
+            { continue; }
+
+            // 된다면 벡터값을 넣어주고 (실제 좌표 값에 비례되는 값을 넣어줌 + Gate도)
+            for (int j = 0; j < _RC.RoomVec.Count; j++)
+            {
+                _RC.SetCollectGateVec(j, WorldVecList[j]);
+            }
+
+            // 위치를 지정해주며
+            SetRCPos(_RC);
+
+            // 결과값을 넣어줌.
+            AddCaculateBossVec(_RC.RoomVec);
+
+            return;
+        }
+
+    }
+
+    private void AddCaculateBossVec(List<Vector2Int> _AddVecList)
+    {
+        List<Vector2Int> bossRoundAllList = new List<Vector2Int>();
+        for (int i = 0;  i < _AddVecList.Count;  i++)
+        {
+            List<Vector2Int> round = GetRoundVec(_AddVecList[i]);
+            round.Add(_AddVecList[i]);
+
+            for (int j = 0; j < round.Count; j++)
+            {
+                if (!bossRoundAllList.Contains(round[j]))
+                {
+                    bossRoundAllList.Add(round[j]);
+                }
+            }
+        }
+
+        alreadyExistBossList.AddRange(bossRoundAllList);
+
+        AddCaculateVec(_AddVecList);
+    }
+
+    #endregion
+
+    #region Gate Caculate
 
     private void SetParterAllGate()
     {
@@ -226,6 +279,38 @@ public class StageManager : Singleton<StageManager>
                     allGate[j].HadParter = true;
                 }
             }
+        }
+    }
+
+    #endregion
+
+    #region Set State
+
+    public void StartCurrentRoom(RoomController _TargetRC)
+    {
+        if (_TargetRC == null)
+        { return; }
+
+        _TargetRC.PlayRoomState();
+
+        // Layer
+        LayerOrderManager.Instance.NeedLayerObjects = new List<HaveShadowThing>()
+        { PlayerManager.Instance.PlayerController }; // 전 방 리셋
+
+        CurrentRoomController = _TargetRC; // 현재 방 선택
+        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.InRoom_AllBuilding);
+        LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
+    }
+
+    public void Complete_KillAll()
+    {
+        if (CurrentRoomController == null)
+        { return; }
+
+        if (EnemyManager.Instance.CurrentEnemyList.Count <= 0)
+        {
+            CurrentRoomController.RoomType = eRoomType.Completed;
+            CurrentRoomController.PlayRoomState();
         }
     }
 
@@ -280,6 +365,11 @@ public class StageManager : Singleton<StageManager>
         return allGate;
     }
 
+    private float OriginalToTarget(Vector2Int _TargetVec)
+    {
+        return Vector2Int.Distance(Vector2Int.zero, _TargetVec);
+    }
+
     #endregion
 
     #region Detail Class
@@ -290,6 +380,7 @@ public class StageManager : Singleton<StageManager>
         public int StageID;
         public GameObject StartRoomPrefab;
         public List<RoomData> RoomPrefabList;
+        public List<RoomData> BossRoomPrefabList;
 
         [System.Serializable]
         public class RoomData
