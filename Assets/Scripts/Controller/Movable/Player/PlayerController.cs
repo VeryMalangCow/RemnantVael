@@ -541,4 +541,7 @@ public class BaseUpgradeState<T>
     public List<T> UpgradeValueByLevelRange;
     public List<int> NeedPayByLevelRange;
     public ReactiveProperty<T> ActualState;
+
+    [TextArea] 
+    public string Desc;
 }

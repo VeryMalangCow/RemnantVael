@@ -510,6 +510,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 5
+    Desc: DMG Desc
   AliveTime:
     BaseState: 1
     CurrentLevel:
@@ -518,6 +519,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 
     ActualState:
       value: 1
+    Desc: 
   MuzzleSpeed:
     BaseState: 1
     CurrentLevel:
@@ -526,6 +528,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 
     ActualState:
       value: 1
+    Desc: 
   ROF:
     BaseState: 5
     CurrentLevel:
@@ -538,6 +541,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 5
+    Desc: ROF Desc
   CC:
     BaseState: 0.1
     CurrentLevel:
@@ -550,6 +554,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 0.1
+    Desc: 
   CD:
     BaseState: 1.5
     CurrentLevel:
@@ -562,6 +567,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1.5
+    Desc: 
   AccuracyRate:
     BaseState: 87
     CurrentLevel:
@@ -574,13 +580,14 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 89
+    Desc: 
   CurrentDelayROF: 0
-  fireMinDisLimit: 4
   BulletSpawnTFs:
   - {fileID: 4586805314071208296}
   - {fileID: 5980481930123788499}
   PlayerController: {fileID: 8810927924693203331}
   PlayerSR: {fileID: 8514484191356774825}
+  fireMinDisLimit: 4
   IsInputed: 0
   DefualtRoll: -45
   RollTF: {fileID: 871861330150977385}
@@ -857,6 +864,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 0.01
+    Desc: 
   MaxEP:
     BaseState: 100
     CurrentLevel:
@@ -869,6 +877,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 100
+    Desc: 
   CurrentEP:
     value: 100
   SpawnESMultiple:
@@ -883,6 +892,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1
+    Desc: 
   NeedEP_ForSkillMultiple:
     BaseState: 1
     CurrentLevel:
@@ -895,6 +905,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1
+    Desc: 
   CurrentBS:
     value: 0
   NeedBS_ForMakeBC: 4
@@ -918,6 +929,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 3
+    Desc: 
   WalkSpeedWhenShotMultiple:
     BaseState: 0.3
     CurrentLevel:
@@ -930,6 +942,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 0.3
+    Desc: 
   DashController: {fileID: 8889954111637353817}
   CurrentInteractableGOList: []
   TargetBoostlv: 0
@@ -954,6 +967,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1
+    Desc: 
   MakeAfterImage: {fileID: 1875528104640140175}
   ExecutionInterval: 0.75
 --- !u!114 &8889954111637353817
@@ -983,6 +997,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 5
+    Desc: 
   DashDur: 0.3
   RotateLerpValue: 30
   CurrentDashProcessTime: 0
@@ -1322,6 +1337,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 
     ActualState:
       value: 0
+    Desc: 
   CurrentCooltime: 0
   NeedEP: 10
   Tier:
@@ -1332,6 +1348,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 
     ActualState:
       value: 0
+    Desc: 
   Power:
     BaseState: 0
     CurrentLevel:
@@ -1340,6 +1357,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 
     ActualState:
       value: 0
+    Desc: 
 --- !u!114 &3772518435837473010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1464,6 +1482,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 
     ActualState:
       value: 1
+    Desc: 
   CurrentCooltime: 0
   NeedEP: 10
   Tier:
@@ -1474,6 +1493,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 
     ActualState:
       value: 10
+    Desc: 
   Power:
     BaseState: 1.5
     CurrentLevel:
@@ -1482,6 +1502,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 
     ActualState:
       value: 1.5
+    Desc: 
   Missile_Prefab: {fileID: 2192280153704162206, guid: d05f25d52068dd74988f837decc0268e, type: 3}
   ShotDelay: 0.1
   SpreadTime: 1

@@ -118,12 +118,9 @@ public class ModuleUpgradeUIController : UIController
             MI_InReinforceTab
         };
 
-        // BG Offset
-        if (TryGetComponent(out Image img))
+        if (TryGetComponent(out CanvasGroup CG))
         {
-            Color BGColor = img.color;
-            BGColor.a = 0f;
-            img.color = BGColor;
+            CG.alpha = 0.0f;
         }
     }
 

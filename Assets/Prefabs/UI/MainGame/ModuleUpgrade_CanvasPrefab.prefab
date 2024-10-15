@@ -733,6 +733,7 @@ MonoBehaviour:
   TabDurTime: 0.4
   IsTweening: 0
   ThisPanelInputMapName: ModuleUpgradeUI
+  CurrentBtn: {fileID: 0}
   MI_InEquipTab: {fileID: 6865726167132241543}
   EquipedMEIS_List:
   - {fileID: 9047535864388006060}
@@ -761,7 +762,6 @@ MonoBehaviour:
   CurrentFusionItemList: []
   CurrentUpgradeItem: {fileID: 0}
   CurrentSelectedMEIS: {fileID: 0}
-  CurrentBtn: {fileID: 0}
   CloseBtn: {fileID: 4642890815464369897}
 --- !u!114 &7285601847160733366
 MonoBehaviour:
@@ -776,7 +776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.88235295}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1251,10 +1251,10 @@ RectTransform:
   - {fileID: 4480487787405096442}
   m_Father: {fileID: 5335360266983333433}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 685, y: -455}
-  m_SizeDelta: {x: 250, y: 65}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 50, y: 50}
+  m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3861277643208195027
 GameObject:
@@ -1600,7 +1600,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -65}
+  m_AnchoredPosition: {x: 0, y: -17.5}
   m_SizeDelta: {x: 1620, y: 65}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &5587129688806734528
@@ -2248,7 +2248,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Close
+  m_text: <
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2281,7 +2281,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3225,6 +3225,10 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1035116205380479849, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1035116205380479849, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -3862,6 +3866,10 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1035116205380479849, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1035116205380479849, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -3943,7 +3951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6868887455661649598, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7250642295116941991, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_Pivot.x
@@ -3979,15 +3987,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8230466649783861369, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8230466649783861369, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 0.917533
       objectReference: {fileID: 0}
     - target: {fileID: 8230466649783861369, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.14853302
       objectReference: {fileID: 0}
     - target: {fileID: 8777896170809132334, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_IsActive

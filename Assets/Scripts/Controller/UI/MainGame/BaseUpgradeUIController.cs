@@ -1,6 +1,5 @@
 using UnityEngine;
 using UniRx;
-using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
 
@@ -31,6 +30,10 @@ public class BaseUpgradeUIController : UIController
     [SerializeField] private OneOffShopEachData<float> WalkSpeedWhenShotMultipleShop;
     [SerializeField] private OneOffShopEachData<float> DashSpeedShop;
     [SerializeField] private OneOffShopEachData<float> WalkAvoidChance;
+
+    [Space(10)]
+    [Header("=== Desc")]
+    [SerializeField] private ModifyDescPanel_ForBaseUpgrade ThisDescPanel;
 
     [Space(10)]
     [Header("=== Component")]
@@ -74,24 +77,22 @@ public class BaseUpgradeUIController : UIController
             MET.ThisTabBtn.OwnerUIController = this;
         }
 
+        ThisDescPanel.Offset();
+
         CloseBtn.Offset();
         CloseBtn.OwnerUIController = this;
     }
 
     protected override void Offset_UI()
     {
-        // Tab Btn List
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
             int index = i;
         }
 
-        // BG Offset
-        if (TryGetComponent(out Image img))
+        if (TryGetComponent(out CanvasGroup CG))
         {
-            Color BGColor = img.color;
-            BGColor.a = 0f;
-            img.color = BGColor;
+            CG.alpha = 0.0f;
         }
     }
 
@@ -160,6 +161,8 @@ public class BaseUpgradeUIController : UIController
         {
             CG.DOFade(1f, _DurTime);
         }
+
+        ThisDescPanel.OpenThisPanel(_DurTime);
     }
 
     public override void CloseThisPanel(float _DurTime)
@@ -173,6 +176,18 @@ public class BaseUpgradeUIController : UIController
         {
             CG.DOFade(0f, _DurTime);
         }
+
+        ThisDescPanel.CloseThisPanel(_DurTime);
+    }
+
+    #endregion
+
+    #region Desc
+
+    public void SetDesc(ModifyTextAmountForBuy _MTAFB)
+    {
+        BaseUpgradeState<float> baseUpgradeState = OneOffShopEachData<float>.GetThisData(AllUpgradeDataList, _MTAFB);
+        ThisDescPanel.SetDesc(baseUpgradeState);
     }
 
     #endregion
@@ -181,10 +196,10 @@ public class BaseUpgradeUIController : UIController
 [System.Serializable]
 public class OneOffShopEachData<T>
 {
-    [SerializeField] private ModifyTextAmountForBuy Upgrade_MTAFB;
+    [SerializeField] public ModifyTextAmountForBuy Upgrade_MTAFB;
     [SerializeField] public ModifyOwnEachBtn Upgrade_BuyBtn;
 
-    [HideInInspector] private BaseUpgradeState<T> Upgrade_BUS;
+    [HideInInspector] public BaseUpgradeState<T> Upgrade_BUS;
     [HideInInspector] private BU_OneTypeData<T> Upgrade_BUOTD;
 
     public void Offset(BaseUpgradeState<T> _Upgrade_BUS, BU_OneTypeData<T> _Upgrade_BUOTD, BaseUpgradeUIController _Owner)
@@ -237,6 +252,20 @@ public class OneOffShopEachData<T>
         {
             Upgrade_BuyBtn.ThisBtn.interactable = false;
         }
+
+        MainGameUIManager.Instance.BaseUpgrade_UIController.SetDesc(Upgrade_MTAFB);
     }
 
+
+    public static BaseUpgradeState<T> GetThisData(List<OneOffShopEachData<T>> _ShopDataList, ModifyTextAmountForBuy _InMTAFB)
+    {
+        foreach (OneOffShopEachData<T> Data in _ShopDataList)
+        {
+            if (Data.Upgrade_MTAFB == _InMTAFB)
+            {
+                return Data.Upgrade_BUS;
+            }
+        }
+        return null;
+    }
 }
