@@ -42,11 +42,13 @@ public class PoolingManager : Singleton<PoolingManager>
             GameObject GenGO = Instantiate(_SpawnGO, _ParnetTF);
             GenGO.TryGetComponent(out T typeClass);
             GenGO.SetActive(false);
+
             return typeClass;
         }
         else
         {
             T getTypeClass = _Queue.Dequeue();
+
             return getTypeClass;
         }
     }

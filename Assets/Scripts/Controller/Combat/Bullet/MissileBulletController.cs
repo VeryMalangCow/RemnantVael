@@ -115,6 +115,7 @@ public class MissileBulletController : BulletController
         DOTween.To(() => TargetRange, y => TargetRange = y, ShadowRangeTarget, SpreadTime)
             .SetEase(Ease.Linear);
 
+        ThisRb.simulated = true;
         gameObject.SetActive(true);
     }
 
@@ -122,21 +123,24 @@ public class MissileBulletController : BulletController
 
     #region Collision
     
-    private void OnTriggerEnter2D(Collider2D _Collision)
+    private void OnTriggerEnter2D(Collider2D _Col)
     {
-        if (_Collision.gameObject.tag == "Player" || _Collision.gameObject.tag == "PlayerThing")
+        if (!this.gameObject.activeSelf)
         { return; }
 
         // Hit Enemy
-        if (_Collision.tag == "Enemy")
+        if (_Col.tag == "Enemy")
         {
-            if (_Collision.transform.parent.TryGetComponent(out EnemyController EC))
+            if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
                 EC.TakeDamage(BulletState.DamageType, BulletState.BaseDamage);
             }
         }
 
-        DeleteThis();
+        if (DestroyTagList.Contains(_Col.tag))
+        {
+            DeleteThis();
+        }
     }
 
     #endregion

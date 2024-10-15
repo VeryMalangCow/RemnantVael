@@ -12,6 +12,7 @@ public class PlayerWeaponController : WeaponController
     [Header("=== Player")]
     [SerializeField] private PlayerController PlayerController;
     [SerializeField] private SpriteRenderer PlayerSR;
+    [SerializeField] private float fireMinDisLimit = 4;
 
     [Space(10)]
     [Header("=== Input")]
@@ -49,6 +50,7 @@ public class PlayerWeaponController : WeaponController
 
         if (CanFire())
         {
+
             List<PlayerBulletController> PBClist = new List<PlayerBulletController>();
             foreach (Transform TF in BulletSpawnTFs)
             { PBClist.Add(PoolingManager.Instance.GetOP_PlayerBullet()); }
@@ -80,6 +82,36 @@ public class PlayerWeaponController : WeaponController
         }
         return false;
     }
+
+    #endregion
+
+    #region Fire
+
+    protected void Fire<T>(List<T> _Ts)
+    {
+        float spreadMaxLimit = 100 - AccuracyRate.ActualState.Value;
+        float randomAngle = UnityEngine.Random.Range(-spreadMaxLimit, spreadMaxLimit);
+        for (int i = 0; i < BulletSpawnTFs.Count; i++)
+        {
+            PlayerBulletController PBC = GameManager.CastIfPossible<PlayerBulletController>(_Ts[i]);
+
+            // Critical
+            float rcc = UnityEngine.Random.Range(0f, 1f);
+            bool isCritical = false;
+            if (rcc < CC.ActualState.Value)
+            {
+                isCritical = true;
+            }
+
+            // Base State
+            BulletState bulletState = new BulletState(DamageType, BaseDamage.ActualState.Value, MuzzleSpeed.ActualState.Value, AliveTime.ActualState.Value);
+            PBC.SetState(BulletSpawnTFs[i].position, randomAngle, bulletState, fireMinDisLimit, isCritical, CD.ActualState.Value);
+
+        }
+        CurrentDelayROF = 0;
+    }
+
+
 
     #endregion
 

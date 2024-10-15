@@ -22,14 +22,15 @@ public class AbsorbItemController : ItemController
 
     #region Framework
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         ThisRb.AddForce(GetRandomDirForce());
     }
 
-    protected override void Update()
+
+    protected void Update()
     {
-        base.Update();
         ThisRb.velocity = GetDirForce();
     }
 

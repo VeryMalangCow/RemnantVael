@@ -11,6 +11,7 @@ public class StageManager : Singleton<StageManager>
 
     [Space(10)]
     [Header("=== Generate")]
+    [SerializeField] private MiniMapCameraController MiniMapCameraController;
     [SerializeField] private Transform MapParentTF;
     [SerializeField] private List<StageData> AllReso;
 
@@ -20,13 +21,13 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private RoomController CurrentRoomController;
 
     // 이미 차지한 Vec
-    [SerializeField] private List<Vector2Int> alreadyExistList = new List<Vector2Int>();
+    [HideInInspector] private List<Vector2Int> alreadyExistList = new List<Vector2Int>();
 
     // 이미 차지한 보스 Vec
-    [SerializeField] private List<Vector2Int> alreadyExistBossList = new List<Vector2Int>();
+    [HideInInspector] private List<Vector2Int> alreadyExistBossList = new List<Vector2Int>();
 
     // 배치할 주변 Vec
-    [SerializeField] private List<Vector2Int> roundList = new List<Vector2Int>();
+    [HideInInspector] private List<Vector2Int> roundList = new List<Vector2Int>();
 
     #endregion
 
@@ -79,9 +80,9 @@ public class StageManager : Singleton<StageManager>
         // 게이트 활성화
         SetParterAllGate();
 
-        //alreadyExistList.Clear();
-        //alreadyExistBossList.Clear();
-        //roundList.Clear();
+        alreadyExistList.Clear();
+        alreadyExistBossList.Clear();
+        roundList.Clear();
     }
 
     private void GenRoom(GameObject _Prefab, int _TempID, bool _IsStartRoom)
@@ -300,6 +301,8 @@ public class StageManager : Singleton<StageManager>
         CurrentRoomController = _TargetRC; // 현재 방 선택
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.InRoom_AllBuilding);
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
+
+        MiniMapCameraController.SetPos(CurrentRoomController.gameObject.transform.position);
     }
 
     public void Complete_KillAll()

@@ -337,7 +337,7 @@ public class PlayerController : MovableObject
 
     public void TryInteract()
     {
-        if(CurrentInteractable != null)
+        if(CurrentInteractable != null && CurrentInteractableGOList.Count > 0)
         {
             if (CurrentInteractable is InteractItemController IIC) // Item
             {
@@ -508,6 +508,11 @@ public class PlayerController : MovableObject
             if (CurrentInteractableGOList.Contains(TargetGO))
             { 
                 CurrentInteractableGOList.Remove(TargetGO); 
+
+                if (CurrentInteractableGOList.Count <= 0)
+                {
+                    CurrentInteractable = null;
+                }
             }
         }
     }

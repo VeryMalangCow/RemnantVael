@@ -20,7 +20,6 @@ public class WeaponController : MonoBehaviour
     [SerializeField] public BaseUpgradeState<float> AccuracyRate;
 
     [SerializeField] public float CurrentDelayROF = 0;
-    [SerializeField] private float fireMinDisLimit = 4;
 
     [Space(10)]
     [Header("=== GunPos")]
@@ -48,37 +47,6 @@ public class WeaponController : MonoBehaviour
             CurrentDelayROF = 1;
         }
     }
-
-
-    protected void Fire<T>(List<T> _Ts)
-    {
-        float spreadMaxLimit = 100 - AccuracyRate.ActualState.Value;
-        float randomAngle = UnityEngine.Random.Range(-spreadMaxLimit, spreadMaxLimit);
-        foreach (Transform BulletSpawnTF in BulletSpawnTFs)
-        {
-            int index = BulletSpawnTFs.IndexOf(BulletSpawnTF);
-            PlayerBulletController PBC = GameManager.CastIfPossible<PlayerBulletController>(_Ts[index]);
-            if (PBC)
-            {
-                // Critical
-                float rcc = UnityEngine.Random.Range(0f, 1f);
-                bool isCritical = false;
-                if (rcc < CC.ActualState.Value)
-                {
-                    isCritical = true;
-                }
-
-                // Base State
-                BulletState bulletState = new BulletState(DamageType, BaseDamage.ActualState.Value, MuzzleSpeed.ActualState.Value, AliveTime.ActualState.Value);
-                PBC.SetState(BulletSpawnTF.position, randomAngle, bulletState, fireMinDisLimit, isCritical, CD.ActualState.Value);
-                //PBC.gameObject.SetActive(true);
-            }
-
-        }
-
-        CurrentDelayROF = 0;
-    }
-
 
     #endregion
 }

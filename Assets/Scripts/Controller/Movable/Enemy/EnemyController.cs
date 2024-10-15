@@ -128,6 +128,7 @@ public class EnemyController : MovableObject, IInteract
 
         InteractItemController IIC = PoolingManager.Instance.GetOP_InteractableItem();
         IIC.SetState(this.transform.position, 1, 1);
+        LayerOrderManager.Instance.NeedLayerObjects.Add(IIC);
     }
 
     // Energy Shrapnel

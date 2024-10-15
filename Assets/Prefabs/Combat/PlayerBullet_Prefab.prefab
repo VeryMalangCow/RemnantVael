@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 7754987835335729850}
+  ThisSR: {fileID: 0}
   TargetRange: 0.35
   BulletState:
     DamageType: 0
@@ -57,6 +58,9 @@ MonoBehaviour:
   IsCritical: 0
   CurrentAliveTime: 0
   ThisRb: {fileID: 3702076010934528879}
+  DestroyTagList:
+  - Enemy
+  - Wall
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4

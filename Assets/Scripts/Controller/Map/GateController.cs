@@ -15,7 +15,8 @@ public class GateController : BuildingController_OnlyPlayerLayer, IInteract
     // Data
     [HideInInspector] public RoomController ThisRoom;
     [HideInInspector] public bool HadParter = false;
-    [HideInInspector] public GateController ParterGate = null;
+    [HideInInspector] public bool SettedPos = false;
+    [SerializeField] public GateController ParterGate = null;
 
     #endregion
 

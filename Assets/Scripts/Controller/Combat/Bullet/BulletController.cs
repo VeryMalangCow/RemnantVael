@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletController : HaveShadowThingMovable
@@ -14,15 +15,32 @@ public class BulletController : HaveShadowThingMovable
     [SerializeField] protected float CurrentAliveTime = 0;
 
     [Space(10)]
-    [Header("=== Component")]
-    [SerializeField] private Rigidbody2D ThisRb;
+    [Header("=== Physics")]
+    [SerializeField] protected Rigidbody2D ThisRb;
+
+    [Space(10)]
+    [Header("=== Judg")]
+    [SerializeField] protected List<string> DestroyTagList;
 
     #endregion
 
     #region State
 
+    public void ResetState()
+    {
+        BulletState.ResetState();
+        
+        this.transform.position = Vector3.zero;
+        this.transform.rotation = Quaternion.identity;
+        IsCritical = false;
+        CurrentAliveTime = 0;
+        ThisRb.simulated = false;
+    }
+
     public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _FireMinDisLimit, bool _IsCritical, float _CD)
     {
+        CurrentAliveTime = 0;
+
         this.transform.position = _SpawnVec;
 
         this.BulletState = _BulletState;
@@ -31,14 +49,11 @@ public class BulletController : HaveShadowThingMovable
         if(IsCritical)
         {
             this.BulletState.BaseDamage *= _CD;
-            Debug.Log("Å©¸® ºÒ·¿!");
         }
 
         Vector3 currentRotation = transform.eulerAngles;
         currentRotation.z += _SpreadAngle;
         transform.eulerAngles = currentRotation;
-
-        CurrentAliveTime = 0;
     }
 
     #endregion
@@ -48,7 +63,8 @@ public class BulletController : HaveShadowThingMovable
     protected override void Update()
     {
         base.Update();
-        ThisRb.velocity = this.transform.up * BulletState.MuzzleSpeed * 1000f * Time.deltaTime;
+        if (ThisRb != null)
+        { ThisRb.velocity = this.transform.up * BulletState.MuzzleSpeed * 500f * Time.deltaTime; }
     }
 
     #endregion
@@ -68,6 +84,14 @@ public class BulletState
         BaseDamage = _BaseDamage;
         MuzzleSpeed = _MuzzleSpeed;
         AliveTime = _AliveTime;
+    }
+
+    public void ResetState()
+    {
+        DamageType = eDamageType.Physics;
+        BaseDamage = 0;
+        MuzzleSpeed = 0;
+        AliveTime = 0;
     }
 }
 

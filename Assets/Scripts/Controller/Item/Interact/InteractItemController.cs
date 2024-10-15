@@ -33,8 +33,6 @@ public class InteractItemController : ItemController, IInteract
         CurrentSpreadPower = SpreadPower;
         SettedSpreadDir = SetRandomDir();
 
-        base.Update();
-
         UpDownTween = TargetObject.transform
             .DOLocalMoveY((TargetObject.transform.localPosition.y + 0.2f), 1f)
             .SetEase(Ease.InOutSine)
@@ -50,7 +48,7 @@ public class InteractItemController : ItemController, IInteract
 
     #region Framework
 
-    protected override void Update()
+    protected void Update()
     {
         Spread(CurrentSpreadPower);
     }
@@ -93,6 +91,7 @@ public class InteractItemController : ItemController, IInteract
         PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
 
         this.gameObject.SetActive(false);
+        LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
         DOTween.Kill(UpDownTween);
         UpDownTween = null;
     }

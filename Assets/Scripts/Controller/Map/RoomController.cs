@@ -13,6 +13,8 @@ public class RoomController : MonoBehaviour
     [SerializeField] public List<Vector2Int> RoomVec;
     [SerializeField] public eRoomType RoomType;
 
+    [HideInInspector] public bool SettedPos = false;
+
     [Space(10)]
     [Header("=== In Room")]
     [SerializeField] private Transform InRoom_AllGateParentTF;
@@ -26,6 +28,7 @@ public class RoomController : MonoBehaviour
     [Space(10)]
     [Header("=== InitData")]
     [SerializeField] public int CurrentTempID;
+
 
     #endregion
 
@@ -78,8 +81,10 @@ public class RoomController : MonoBehaviour
         for (int i = 0; i < gates.Count; i++)
         {
             gates[i].RoomPosGate = _InitVec;
+            gates[i].SettedPos = true;
         }
         RoomVec[_Index] = _InitVec;
+        SettedPos = true;
     }
 
     private List<GateController> GetCollectGateList(Vector2Int _TargetVec)
@@ -87,7 +92,8 @@ public class RoomController : MonoBehaviour
         List<GateController> resultList = new List<GateController>();
         for (int i = 0; i < InRoom_AllGate.Count; i++)
         {
-            if (InRoom_AllGate[i].RoomPosGate == _TargetVec)
+            if (InRoom_AllGate[i].RoomPosGate == _TargetVec &&
+                !InRoom_AllGate[i].SettedPos)
             {
                 resultList.Add(InRoom_AllGate[i]);
             }

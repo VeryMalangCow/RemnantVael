@@ -12,8 +12,7 @@ public class PlayerBulletController : BulletController
         CurrentAliveTime += Time.deltaTime;
         if (CurrentAliveTime >= BulletState.AliveTime)
         {
-            this.gameObject.SetActive(false);
-            PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
+            DeleteThis();
         }
     }
 
@@ -24,9 +23,10 @@ public class PlayerBulletController : BulletController
     public override void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _FireMinDisLimit, bool _IsCritical, float _CD)
     {
         Vector2 targetPos = InputManager.Instance.MousePosByWorld;
-        if(_FireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
+
+        if (_FireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
         {
-            targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position + 
+            targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position +
                 InputManager.Instance.DirFromPlayerPos.normalized * _FireMinDisLimit;
         }
 
@@ -35,9 +35,9 @@ public class PlayerBulletController : BulletController
 
         this.transform.localRotation = targetQuat;
 
-
         base.SetState(_SpawnVec, _SpreadAngle, _BulletState, _FireMinDisLimit, _IsCritical, _CD);
 
+        ThisRb.simulated = true;
         gameObject.SetActive(true);
     }
 
@@ -47,31 +47,34 @@ public class PlayerBulletController : BulletController
 
     private void DeleteThis()
     {
-        CurrentAliveTime = 0f;
+        ResetState();
 
-        PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
         this.gameObject.SetActive(false);
+        PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
     }
 
     #endregion
 
     #region Collision
 
-    private void OnTriggerEnter2D(Collider2D _Collision)
+    private void OnTriggerEnter2D(Collider2D _Col)
     {
-        if (_Collision.gameObject.tag == "Player" || _Collision.gameObject.tag == "PlayerThing")
+        if (!this.gameObject.activeSelf)
         { return; }
 
         // Hit Enemy
-        if (_Collision.tag == "Enemy")
+        if (_Col.tag == "Enemy")
         {
-            if (_Collision.transform.parent.TryGetComponent(out EnemyController EC))
+            if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
                 EC.TakeDamage(BulletState.DamageType, BulletState.BaseDamage);
             }
         }
 
-        DeleteThis();
+        if (DestroyTagList.Contains(_Col.tag))
+        {
+            DeleteThis();
+        }
     }
 
     #endregion

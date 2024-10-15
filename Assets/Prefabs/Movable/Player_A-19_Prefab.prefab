@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 7217206221402160431}
+  ThisSR: {fileID: 0}
   TargetRange: 0.4
 --- !u!1 &2615476070570729077
 GameObject:
@@ -332,6 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 9139456362501203251}
+  ThisSR: {fileID: 0}
   TargetRange: 0.4
 --- !u!1 &2647858769255449446
 GameObject:
@@ -829,10 +831,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 2615476070570729077}
+  ThisSR: {fileID: 0}
   TargetRange: 0.4
   IsDead: 0
   ThisRb: {fileID: 334434472153228344}
-  ThisSr: {fileID: 8514484191356774825}
   ThisExtraSrs:
   - {fileID: 8886497247949011878}
   - {fileID: 4473033968542792763}
@@ -1351,6 +1353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 5722075644800418991}
+  ThisSR: {fileID: 0}
   TargetRange: 0.6
 --- !u!1 &6608195872253356044
 GameObject:
@@ -1495,6 +1498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 2647858769255449446}
+  ThisSR: {fileID: 0}
   TargetRange: 0.6
 --- !u!1 &6746785677767732501
 GameObject:
