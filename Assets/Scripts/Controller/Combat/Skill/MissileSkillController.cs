@@ -16,7 +16,6 @@ public class MissileSkillController : ActiveSkillController
 
     [Header("-- State")]
     [SerializeField] private float ShotDelay = 0.1f;
-    [SerializeField] private float SpreadTime = 1f;
 
     #endregion
 

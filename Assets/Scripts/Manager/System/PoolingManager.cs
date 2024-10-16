@@ -17,8 +17,9 @@ public class PoolingManager : Singleton<PoolingManager>
     [Header("=== Enemy")]
     [SerializeField] public TTypePooling<EnemyController> Enemy;
 
-    [Header("=== After Img")]
-    [SerializeField] public TTypePooling<SpriteRenderer> PlayerAfterImgs;
+    [Header("=== Effect Img")]
+    [SerializeField] public TTypePooling<SpriteRenderer> AfterImgs;
+    [SerializeField] public TTypePooling<SpriteRenderer> ExplosionImgs;
 
 
     #endregion
@@ -105,14 +106,19 @@ public class PoolingManager : Singleton<PoolingManager>
 
     #endregion
 
-    #region Extra
+    #region Effect Things
 
     // After Image
     public SpriteRenderer GetOP_AfterImg()
     {
-        return GetOP<SpriteRenderer>(PlayerAfterImgs.Prefab, PlayerAfterImgs.ParentTF, PlayerAfterImgs.Queue);
+        return GetOP<SpriteRenderer>(AfterImgs.Prefab, AfterImgs.ParentTF, AfterImgs.Queue);
     }
 
+    // After Image
+    public SpriteRenderer GetOP_ExplosionImg()
+    {
+        return GetOP<SpriteRenderer>(ExplosionImgs.Prefab, ExplosionImgs.ParentTF, ExplosionImgs.Queue);
+    }
     #endregion
 
 }

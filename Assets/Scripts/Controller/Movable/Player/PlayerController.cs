@@ -95,7 +95,7 @@ public class PlayerController : MovableObject
 
     [Space(10)]
     [Header("=== Main Sprite")]
-    [SerializeField] public MakeAfterImage MakeAfterImage;
+    [SerializeField] public List<MakeAfterImage> MakeAfterImgList;
 
     #endregion
 
@@ -205,7 +205,9 @@ public class PlayerController : MovableObject
         }
 
         InputManager.Instance.IsPlayingSkill = true;
-        MakeAfterImage.StartGen(0.03f, 0.5f);
+        SetOnAfterImg();
+
+
         CurrentEP.Value -= DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value;
         MovementState = eMovementState.Dash;
     }
@@ -527,6 +529,26 @@ public class PlayerController : MovableObject
         {
             Vector2 pushDir = (this.transform.position - _Col.transform.position).normalized;
             ThisRb.AddForce(pushDir);
+        }
+    }
+
+    #endregion
+
+    #region After Img
+
+    public void SetOnAfterImg()
+    {
+        for (int i = 0; i < MakeAfterImgList.Count; i++)
+        {
+            MakeAfterImgList[i].StartGen(0.7f, 0.03f, 0.5f);
+        }
+    }
+
+    public void SetOffAfterImg()
+    {
+        for (int i = 0; i < MakeAfterImgList.Count; i++)
+        {
+            MakeAfterImgList[i].EndGen();
         }
     }
 
