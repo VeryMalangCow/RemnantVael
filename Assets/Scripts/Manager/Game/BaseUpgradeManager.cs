@@ -87,11 +87,13 @@ public class BU_OneTypeData<T>
         {
             if (i == 0)
             {
-                BU_EachLevelDataList[i].SetUpgradeValue(_FloatValue + _UpgradeValue[0]);
+                decimal d = (decimal)(_FloatValue + _UpgradeValue[0]);
+                BU_EachLevelDataList[i].SetUpgradeValue((float)d);
             }
             else
             {
-                BU_EachLevelDataList[i].SetUpgradeValue((float)BU_EachLevelDataList[i - 1].GetUpgradeValue() + _UpgradeValue[(int)(i/3)]);
+                decimal d = (decimal)((float)BU_EachLevelDataList[i - 1].GetUpgradeValue() + _UpgradeValue[(int)(i / 3)]);
+                BU_EachLevelDataList[i].SetUpgradeValue((float)d);
             }
 
             BU_EachLevelDataList[i].NeedEC_ForUpgrade = _NeedPay[(int)(i/3)];

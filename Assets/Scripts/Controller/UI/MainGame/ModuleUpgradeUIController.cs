@@ -59,6 +59,10 @@ public class ModuleUpgradeUIController : UIController
     [Header("=== Component")]
     [SerializeField] private ModifyOwnEachBtn CloseBtn;
 
+    [Space(10)]
+    [Header("=== Desc")]
+    [SerializeField] private ModifyDescPanel_ForModuleUpgrade ThisDescPanel;
+
     #endregion
 
     #region Offset
@@ -629,6 +633,15 @@ public class ModuleUpgradeUIController : UIController
                 ReinforceInteractPanels[i].PanelRT.gameObject.SetActive(false);
             }
         }
+    }
+
+    #endregion
+
+    #region Desc
+
+    public void SetDesc()
+    {
+        ThisDescPanel.SetDesc();
     }
 
     #endregion

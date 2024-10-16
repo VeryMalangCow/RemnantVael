@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ModifyDescPanel_ForBaseUpgrade : UIModule
 {
+    #region Value
+
     [Space(20)]
     [Header("<><><><><> Desc _ For BaseUpgrade")]
 
@@ -15,7 +17,7 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
     [SerializeField] private RectTransform CurrentUpgradeGraphSpot;
 
     [Space(10)]
-    [Header("=== Current Upgrade")]
+    [Header("=== Current & Next Upgrade")]
     [SerializeField] private TMP_Text CurrentLvTxt;
     [SerializeField] private TMP_Text CurrentStateTxt;
     [SerializeField] private TMP_Text NextLvTxt;
@@ -30,6 +32,9 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
     [HideInInspector] private float OriginalHeight;
     [HideInInspector] private CanvasGroup ThisCG;
 
+    #endregion
+
+    #region Offset
 
     public override void Offset()
     {
@@ -46,10 +51,11 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
 
             ThisCG.alpha = 0f;
         }
-
-
     }
 
+    #endregion
+
+    #region Open / Close
 
     public void OpenThisPanel(float _DurTime)
     {
@@ -62,6 +68,10 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
         ThisRT.DOSizeDelta(new Vector2(ThisRT.sizeDelta.x, 0f), _DurTime);
         ThisCG.DOFade(0f, _DurTime);
     }
+
+    #endregion
+
+    #region Desc
 
     public void SetDesc(BaseUpgradeState<float> _MTAFB)
     {
@@ -100,5 +110,24 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
         {
             CurrentUpgradeGraphSpot.gameObject.SetActive(false);
         }
+
+        // Current & Next
+        CurrentLvTxt.text = _MTAFB.CurrentLevel.Value.ToString();
+        CurrentStateTxt.text = _MTAFB.ActualState.Value.ToString();
+
+        if (_MTAFB.CurrentLevel.Value < 10)
+        {
+            NextLvTxt.text = (_MTAFB.CurrentLevel.Value + 1).ToString();
+            NextStateTxt.text = (_MTAFB.ActualState.Value + _MTAFB.UpgradeValueByLevelRange[(int)(_MTAFB.CurrentLevel.Value / 3)]).ToString();
+            CompletedSignGO.gameObject.SetActive(false);
+        }
+        else
+        {
+            CompletedSignGO.gameObject.SetActive(true);
+        }
+
+        DescriptionTxt.text = _MTAFB.Desc.ToString();
     }
+
+    #endregion
 }
