@@ -200,6 +200,7 @@ public class ModuleUpgradeUIController : UIController
                 if (ThisPanelTabList[i].ThisTabBtn == CurrentBtn)
                 {
                     ChangeThisPanel(TabDurTime, i);
+                    ResetReinforcePanel();
                     return;
                 }
             }
@@ -639,9 +640,53 @@ public class ModuleUpgradeUIController : UIController
 
     #region Desc
 
-    public void SetDesc()
+    public void SetDesc(ModifyEachInventoryItem _MEII)
     {
-        ThisDescPanel.SetDesc();
+        PassiveSkill PS_InInventory = BoostItemManager.Instance.GetPassiveSkill_Inventory(_MEII);
+        if (PS_InInventory != null)
+        {
+            Debug.Log("Inven");
+            ThisDescPanel.SetDesc(PS_InInventory);
+            return;
+        }
+
+        PassiveSkill PS_InEquiped = BoostItemManager.Instance.GetPassiveSkill_Equiped(_MEII);
+        if (PS_InEquiped != null)
+        {
+            Debug.Log("Equiped");
+            ThisDescPanel.SetDesc(PS_InEquiped);
+            return;
+        }
+
+        if (_MEII == DecompositionSlot.ThisSlotItem &&
+            CurrentDecompositionItem != null)
+        {
+            PassiveSkill PS = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem);
+            ThisDescPanel.SetDesc(PS);
+        }
+        else if (_MEII == FusionSlotList[0].ThisSlotItem &&
+            CurrentFusionItemList[0] != null)
+        {
+            PassiveSkill PS = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[0]);
+            ThisDescPanel.SetDesc(PS);
+        }
+        else if (_MEII == FusionSlotList[1].ThisSlotItem &&
+            CurrentFusionItemList[1] != null)
+        {
+            PassiveSkill PS = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[1]);
+            ThisDescPanel.SetDesc(PS);
+        }
+        else if (_MEII == UpgradeSlot.ThisSlotItem &&
+            CurrentUpgradeItem != null)
+        {
+            PassiveSkill PS = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentUpgradeItem);
+            ThisDescPanel.SetDesc(PS);
+        }
+    }
+
+    public void SetOffDesc()
+    {
+        ThisDescPanel.SetOffDesc();
     }
 
     #endregion

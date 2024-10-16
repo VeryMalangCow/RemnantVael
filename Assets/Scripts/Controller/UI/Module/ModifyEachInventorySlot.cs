@@ -60,11 +60,19 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         InIt_SelectedItem();
+
+        if (ThisSlotItem != null)
+        { 
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.SetDesc(ThisSlotItem);
+        }
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         OutIt_SelectedItem();
+
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOffDesc();
     }
 
     #endregion

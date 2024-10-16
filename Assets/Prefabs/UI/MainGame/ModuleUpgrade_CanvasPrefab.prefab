@@ -3678,6 +3678,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_Desc_ForModuleUpgrade
       objectReference: {fileID: 0}
+    - target: {fileID: 6008890313623444332, guid: b407fc2fd7783f343b52b435345ed3b9, type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8524009019709067294, guid: b407fc2fd7783f343b52b435345ed3b9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

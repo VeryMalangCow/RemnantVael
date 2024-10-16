@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ModifyEachInventoryItem : UIModule
@@ -40,5 +41,7 @@ public class ModifyEachInventoryItem : UIModule
         BoostLvMIAAT.Offset();
     }
 
+
     #endregion
+
 }
