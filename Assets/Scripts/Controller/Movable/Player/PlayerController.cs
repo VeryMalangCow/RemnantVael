@@ -42,7 +42,7 @@ public class PlayerController : MovableObject
 
     #endregion
 
-    #region -Skill
+    #region - Skill
 
     [Space(10)]
     [Header("=== Skill")]

@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
@@ -289,8 +291,15 @@ public class StageManager : Singleton<StageManager>
 
     public void StartCurrentRoom(RoomController _TargetRC)
     {
+        StartCoroutine(StartCurrentRoom_Cor(_TargetRC));
+    }
+
+    private IEnumerator StartCurrentRoom_Cor(RoomController _TargetRC)
+    {
         if (_TargetRC == null)
-        { return; }
+        { yield return null; }
+
+        yield return new WaitForSeconds(0.5f);
 
         _TargetRC.PlayRoomState();
 
@@ -307,8 +316,15 @@ public class StageManager : Singleton<StageManager>
 
     public void Complete_KillAll()
     {
+        StartCoroutine(Complete_KillAll_Cor());
+    }
+
+    public IEnumerator Complete_KillAll_Cor()
+    {
         if (CurrentRoomController == null)
-        { return; }
+        { yield return null; }
+
+        yield return new WaitForSeconds(0.5f);
 
         if (EnemyManager.Instance.CurrentEnemyList.Count <= 0)
         {

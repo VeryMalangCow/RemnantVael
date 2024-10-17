@@ -53,7 +53,7 @@ public class SkillWeaponController : MonoBehaviour
         foreach (Satellite hand in Hands)
         {
             hand.SetPosOffset();
-            hand.SetSortOrder(PlayerSR.sortingOrder);
+            hand.SetSortOrder(PlayerSR.sortingOrder, 1);
         }
     }
 

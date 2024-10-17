@@ -31,6 +31,8 @@ public class PlayerWeaponController : WeaponController
     [Header("-- Hand")]
     [SerializeField] private List<Satellite> Hands;
 
+    [Header("-- TargetEffect")]
+    [SerializeField] private List<MakeExplosionImage> MEIs;
 
     #endregion
 
@@ -45,7 +47,7 @@ public class PlayerWeaponController : WeaponController
         foreach (Satellite hand in Hands)
         {
             hand.SetPosOffset();
-            hand.SetSortOrder(PlayerSR.sortingOrder);
+            hand.SetSortOrder(PlayerSR.sortingOrder, 2);
         }
 
         if (CanFire())
@@ -107,6 +109,13 @@ public class PlayerWeaponController : WeaponController
             BulletState bulletState = new BulletState(DamageType, BaseDamage.ActualState.Value, MuzzleSpeed.ActualState.Value, AliveTime.ActualState.Value);
             PBC.SetState(BulletSpawnTFs[i].position, randomAngle, bulletState, fireMinDisLimit, isCritical, CD.ActualState.Value);
 
+            // Effect
+            MEIs[i].GenExplosionImgs(
+                MEIs[i].gameObject.transform.position, 
+                InputManager.Instance.MousePosByWorld - (Vector2)BulletSpawnTFs[i].position, 8f,
+                6, 0.35f, 0.4f,
+                0.2f, 0.05f, 0.1f,
+                0.0f, 0.5f, 1.0f);
         }
         CurrentDelayROF = 0;
     }
@@ -142,15 +151,15 @@ public class Satellite
         ObjectTF.position = TargetTF.position;
     }
 
-    public void SetSortOrder(int _PlayerSortOrder)
+    public void SetSortOrder(int _PlayerSortOrder, int _CloseFromCenter)
     {
         if (ObjectTF.localPosition.y > 0)
         {
-            ThisActualSR.sortingOrder = _PlayerSortOrder - 1;
+            ThisActualSR.sortingOrder = _PlayerSortOrder - (_CloseFromCenter * 2);
         }
         else
         {
-            ThisActualSR.sortingOrder = _PlayerSortOrder + 1;
+            ThisActualSR.sortingOrder = _PlayerSortOrder + (_CloseFromCenter * 2);
         }
     }
 }

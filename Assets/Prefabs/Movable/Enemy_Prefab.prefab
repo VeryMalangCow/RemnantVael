@@ -50,10 +50,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 8753258395414943751}
+  ThisSR: {fileID: 0}
   TargetRange: 0.4
   IsDead: 0
   ThisRb: {fileID: 7671391899007426867}
-  ThisSr: {fileID: 8053559112837824807}
   ThisExtraSrs: []
   AccelerationSpeed: 12
   EnemyID: 00
@@ -64,6 +64,7 @@ MonoBehaviour:
   ItemDropPercent: 1
   HP_ProgressBar: {fileID: 6470338870314578685}
   EP_ProgressBar: {fileID: 5303638376107025711}
+  MEI: {fileID: 7610645863705853807}
 --- !u!50 &7671391899007426867
 Rigidbody2D:
   serializedVersion: 4
@@ -391,6 +392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 196850106739240415}
   - component: {fileID: 8053559112837824807}
+  - component: {fileID: 7610645863705853807}
   m_Layer: 7
   m_Name: Target
   m_TagString: Enemy
@@ -465,6 +467,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7610645863705853807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8753258395414943751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &510088144873151616
 PrefabInstance:
   m_ObjectHideFlags: 0

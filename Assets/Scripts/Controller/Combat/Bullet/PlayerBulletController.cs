@@ -50,6 +50,7 @@ public class PlayerBulletController : BulletController
         ResetState();
 
         this.gameObject.SetActive(false);
+
         PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
     }
 

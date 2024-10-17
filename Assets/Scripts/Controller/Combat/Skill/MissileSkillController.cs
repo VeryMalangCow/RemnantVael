@@ -17,6 +17,9 @@ public class MissileSkillController : ActiveSkillController
     [Header("-- State")]
     [SerializeField] private float ShotDelay = 0.1f;
 
+    [Header("=== Effect")]
+    [SerializeField] private MakeExplosionImage MEI;
+
     #endregion
 
     public override void ActiveSkill()
@@ -47,6 +50,14 @@ public class MissileSkillController : ActiveSkillController
                     2f);
 
                 missile.SetState_forMissile(this.gameObject.transform.position, bulletState);
+
+                // Effect
+                MEI.GenExplosionImgs(
+                MEI.gameObject.transform.position,
+                InputManager.Instance.MousePosByWorld - (Vector2)MEI.transform.position, 20f,
+                12, 0.2f, 0.25f,
+                0.35f, 0.05f, 0.1f,
+                0.0f, 0.5f, 1.0f);
             }
 
             yield return new WaitForSeconds(ShotDelay);

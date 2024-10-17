@@ -17,6 +17,10 @@ public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
     [SerializeField] private bool IsUpper = false;
     [HideInInspector] private Transform PlayerTF;
 
+    [Space(10)]
+    [Header("=== Effect")]
+    [SerializeField] public MakeExplosionImage MEI;
+
     #endregion
 
     #region Framework

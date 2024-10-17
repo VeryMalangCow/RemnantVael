@@ -129,12 +129,22 @@ public class RoomController : MonoBehaviour
             if (InRoom_AllGate[i].HadParter)
             {
                 InRoom_AllGate[i].gameObject.SetActive(true);
+                InRoom_AllGate[i].MEI.GenExplosionImgs(
+                    InRoom_AllGate[i].MEI.gameObject.transform.position,
+                    36, 0.15f, 0.75f,
+                    0.5f, 0.05f, 0.1f,
+                    0.0f, 0.5f, 1.0f);
             }
         }
 
         if (InRoom_BuildThing != null)
         {
             InRoom_BuildThing.gameObject.SetActive(true);
+            InRoom_BuildThing.MEI.GenExplosionImgs(
+                    InRoom_BuildThing.MEI.gameObject.transform.position,
+                    36, 0.15f, 0.75f,
+                    0.5f, 0.05f, 0.1f,
+                    0.0f, 0.5f, 1.0f);
         }
     }
 
@@ -151,6 +161,11 @@ public class RoomController : MonoBehaviour
 
                 enemy.transform.position = InRoom_AllEnemy[i].EnemySpawnTF.transform.position;
                 enemy.gameObject.SetActive(true);
+                enemy.MEI.GenExplosionImgs(
+                    enemy.MEI.gameObject.transform.position,
+                    36, 0.15f, 0.75f,
+                    0.5f, 0.05f, 0.1f,
+                    0.0f, 0.5f, 1.0f);
             }
         }
     }

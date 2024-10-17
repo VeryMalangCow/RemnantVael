@@ -232,6 +232,7 @@ MonoBehaviour:
   ThisSR: {fileID: 8514484191356774825}
   IsOn: 0
   CurrentGenTime: 0
+  ImageAlpha: 1
   DelayGenTime: 0.03
   StayDur: 0.5
 --- !u!1 &2632657534027564969
@@ -346,6 +347,7 @@ GameObject:
   - component: {fileID: 4643238423198418715}
   - component: {fileID: 7701436176763635119}
   - component: {fileID: 6519877319991179538}
+  - component: {fileID: 2688309825678559918}
   m_Layer: 7
   m_Name: Target
   m_TagString: Player
@@ -435,8 +437,21 @@ MonoBehaviour:
   ThisSR: {fileID: 8514484191356774825}
   IsOn: 0
   CurrentGenTime: 0
+  ImageAlpha: 1
   DelayGenTime: 0.03
   StayDur: 0.5
+--- !u!114 &2688309825678559918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2647858769255449446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2729057202636970053
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,6 +633,9 @@ MonoBehaviour:
   - ObjectTF: {fileID: 5980481930123788499}
     TargetTF: {fileID: 2762522436094786569}
     ThisActualSR: {fileID: 2638774432652660132}
+  MEIs:
+  - {fileID: 3442713858289193020}
+  - {fileID: 1557183586531027138}
 --- !u!1 &3177511414151138426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,6 +1196,7 @@ GameObject:
   - component: {fileID: 6357558910707193103}
   - component: {fileID: 4006282422904298947}
   - component: {fileID: 1906162722462711199}
+  - component: {fileID: 8789615613539568913}
   m_Layer: 7
   m_Name: Target
   m_TagString: Player
@@ -1267,8 +1286,21 @@ MonoBehaviour:
   ThisSR: {fileID: 8514484191356774825}
   IsOn: 0
   CurrentGenTime: 0
+  ImageAlpha: 1
   DelayGenTime: 0.03
   StayDur: 0.5
+--- !u!114 &8789615613539568913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722075644800418991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6351091367786875123
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,7 +1578,7 @@ MonoBehaviour:
     Desc: 
   Missile_Prefab: {fileID: 2192280153704162206, guid: d05f25d52068dd74988f837decc0268e, type: 3}
   ShotDelay: 0.1
-  SpreadTime: 1
+  MEI: {fileID: 2688309825678559918}
 --- !u!114 &6021120989462345684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1733,6 +1765,7 @@ GameObject:
   - component: {fileID: 3071697366802338582}
   - component: {fileID: 2638774432652660132}
   - component: {fileID: 8913348596185275159}
+  - component: {fileID: 1557183586531027138}
   m_Layer: 7
   m_Name: Target
   m_TagString: Player
@@ -1822,8 +1855,21 @@ MonoBehaviour:
   ThisSR: {fileID: 8514484191356774825}
   IsOn: 0
   CurrentGenTime: 0
+  ImageAlpha: 1
   DelayGenTime: 0.03
   StayDur: 0.5
+--- !u!114 &1557183586531027138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217206221402160431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7812785444038392381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1899,6 +1945,7 @@ GameObject:
   - component: {fileID: 8300174305967269141}
   - component: {fileID: 5295122454342582576}
   - component: {fileID: 6555086378005617705}
+  - component: {fileID: 3442713858289193020}
   m_Layer: 7
   m_Name: Target
   m_TagString: Player
@@ -1988,5 +2035,18 @@ MonoBehaviour:
   ThisSR: {fileID: 8514484191356774825}
   IsOn: 0
   CurrentGenTime: 0
+  ImageAlpha: 1
   DelayGenTime: 0.03
   StayDur: 0.5
+--- !u!114 &3442713858289193020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139456362501203251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

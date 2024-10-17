@@ -30,6 +30,10 @@ public class EnemyController : MovableObject, IInteract
     [SerializeField] private ModifyReductionFocusProgressBar HP_ProgressBar;
     [SerializeField] private ModifyReductionFocusProgressBar EP_ProgressBar;
 
+    [Space(10)]
+    [Header("=== Effect")]
+    [SerializeField] public MakeExplosionImage MEI;
+
     #endregion
 
     #region Fremework
@@ -114,6 +118,13 @@ public class EnemyController : MovableObject, IInteract
 
         // Set
         this.gameObject.SetActive(false);
+
+        // Effect
+        MEI.GenExplosionImgs(
+                    MEI.gameObject.transform.position,
+                    36, 0.15f, 0.75f,
+                    0.5f, 0.05f, 0.1f,
+                    0.0f, 0.5f, 1.0f);
     }
 
     #endregion
