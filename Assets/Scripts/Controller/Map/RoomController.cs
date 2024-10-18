@@ -16,13 +16,20 @@ public class RoomController : MonoBehaviour
     [HideInInspector] public bool SettedPos = false;
 
     [Space(10)]
-    [Header("=== In Room")]
+    [Header("=== In Room _Building")]
     [SerializeField] private Transform InRoom_AllGateParentTF;
     [HideInInspector] public List<GateController> InRoom_AllGate;
     [SerializeField] private Transform InRoom_AllBuildingParentTF;
     [HideInInspector] public List<BuildingController_AllLayer> InRoom_AllBuilding;
-    [SerializeField] private List<EnemySpot> InRoom_AllEnemy;
+
     [SerializeField] private BuildingController_OnlyPlayerLayer InRoom_BuildThing;
+
+
+    [Space(10)]
+    [Header("=== In Room _Enemy")]
+    [SerializeField] private List<EnemySpot> InRoom_AllEnemy;
+    [SerializeField] private Transform InRoom_WayPointParentTF;
+    [HideInInspector] public List<Transform> InRoom_AllWayPoint;
 
 
     [Space(10)]
@@ -63,10 +70,19 @@ public class RoomController : MonoBehaviour
                 }
             }
         }
-
+        // Building
         if (InRoom_BuildThing != null)
         {
             InRoom_BuildThing.gameObject.SetActive(false);
+        }
+
+        // Enemy
+        if (InRoom_WayPointParentTF != null && InRoom_WayPointParentTF.childCount > 0)
+        {
+            foreach (Transform chile in InRoom_WayPointParentTF)
+            {
+                InRoom_AllWayPoint.Add(chile);
+            }
         }
     }
 

@@ -1,4 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Runtime.ConstrainedExecution;
 using UniRx;
 using UnityEngine;
 
@@ -34,6 +38,9 @@ public class EnemyController : MovableObject, IInteract
     [Header("=== Effect")]
     [SerializeField] public MakeExplosionImage MEI;
 
+    [HideInInspector] private GameObject TargetPC;
+    [HideInInspector] protected RoomController CurrentRoomController;
+
     #endregion
 
     #region Fremework
@@ -64,6 +71,17 @@ public class EnemyController : MovableObject, IInteract
             });
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        if (TargetPC == null)
+        { TargetPC = PlayerManager.Instance.PlayerController.gameObject; }
+
+        if (CurrentRoomController == null)
+        { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
+    }
+
     #endregion
 
     #region Damaged
@@ -90,8 +108,6 @@ public class EnemyController : MovableObject, IInteract
                 SpawnES(_Damage);
             }
         }
-
-
     }
 
     private void Die()
@@ -205,6 +221,195 @@ public class EnemyController : MovableObject, IInteract
     public void Interact()
     {
         Die();
+    }
+
+    #endregion
+
+    #region Nav
+
+    protected void FindWay(List<Transform> _AllTF)
+    {
+        if (_AllTF == null || _AllTF.Count < 2)
+        { return; }
+
+        if (!IsExistWall(this.transform, TargetPC.transform))
+        {
+            Debug.Log("바로 가면 됨");
+            Vector2 dirVec = TargetPC.transform.position - this.transform.position;
+            Debug.DrawRay(this.transform.position, dirVec, Color.red, 2f);
+            return;
+        }
+
+        
+        List<List<Transform>> allWayRoot = new List<List<Transform>>();
+        List<List<Transform>> actualAllWayRoot = new List<List<Transform>>();
+
+        // 처음
+        Transform currentStartTF = this.transform;
+        for (int i = 0; i < _AllTF.Count; i++)
+        {
+            if (!IsExistWall(currentStartTF, _AllTF[i]))
+            {
+                allWayRoot.Add(new List<Transform> { _AllTF[i] });
+            }
+        }
+
+
+        int temp = 0;
+        while (true)
+        {
+            temp++;
+            if (temp > 100)
+            {
+                break; 
+            }
+
+            // 갱신 루트를 위한 변수
+            List<List<Transform>> newAllWayRoot = new List<List<Transform>>();
+            List<Transform> allWayRootForList = GetNormalList(allWayRoot);
+
+
+            // 원래 루트의 마지막을 가져와서 직접 타겟에 갈 수 있는가
+            for (int i = 0; i < allWayRoot.Count; i++)
+            {
+                Transform tf = allWayRoot[i][allWayRoot[i].Count - 1];
+                if (!IsExistWall(tf, TargetPC.transform))
+                {
+                    newAllWayRoot.Add(allWayRoot[i]);
+                }
+            }
+
+            // 위 루트에서 한곳이라도 갈 수 있다면 루트로 채용
+            if (newAllWayRoot.Count > 0)
+            {
+                actualAllWayRoot.AddRange(newAllWayRoot);
+            }
+
+            // 갈 수 있는 다른 포인트가 존재하는지 판별
+            // 원래 존재했던 루트가 이를 가지고 있지 않은지 판별
+            for (int i = 0; i < allWayRoot.Count; i++)
+            {
+                Transform tf = allWayRoot[i][allWayRoot[i].Count - 1];
+                List<Transform> tfList = GetConnectedWayPoints(tf, CurrentRoomController.InRoom_AllWayPoint);
+                for (int j = 0; j < tfList.Count; j++)
+                {
+                    // 파별 부문
+                    if (!IsExistWall(tf, tfList[j]) &&
+                        !allWayRootForList.Contains(tfList[j]))
+                    {
+                        List<Transform> initRoot = new List<Transform>();
+                        initRoot.AddRange(allWayRoot[i]);
+                        initRoot.Add(tfList[j]);
+
+                        newAllWayRoot.Add(initRoot);
+                    }
+                }
+            }
+
+            allWayRoot.Clear();
+            allWayRoot = newAllWayRoot;
+
+
+            if (_AllTF.Count <= allWayRootForList.Count)
+            {
+                // 모든 경로를 찾음
+                break;
+            }
+        }
+
+        if (temp > 100)
+        {
+            // 데이터 초과 방지
+            return;
+        }
+
+        // 가장 짧은 거리의 경로 탐색
+        List<Transform> usableRoot = actualAllWayRoot[0];
+        float usableDis = GetDistance(this.transform, actualAllWayRoot[0], TargetPC.transform);
+        for (int i = 1; i < actualAllWayRoot.Count; i++)
+        {
+            float dis = GetDistance(this.transform, actualAllWayRoot[i], TargetPC.transform);
+
+            if (usableDis > dis)
+            {
+                usableRoot = actualAllWayRoot[i];
+                usableDis = dis;
+            }
+
+        }
+
+        Vector2 dir = usableRoot[0].position - this.transform.position;
+        Debug.DrawRay(this.transform.position, dir, Color.red, 2f);
+        for (int i = 1; i < usableRoot.Count; i++)
+        {
+            dir = usableRoot[i].position - usableRoot[i - 1].position;
+            Debug.DrawRay(usableRoot[i - 1].position, dir, Color.red, 2f);
+        }
+        dir = TargetPC.transform.position - usableRoot[usableRoot.Count - 1].position;
+        Debug.DrawRay(usableRoot[usableRoot.Count - 1].position, dir, Color.red, 2f);
+    }
+
+    // 연결된 모든 포인트 가져오기
+    private List<Transform> GetConnectedWayPoints(Transform _StartTF, List<Transform> _AllTF)
+    {
+        List<Transform> tfs = new List<Transform>();
+
+        for (int i = 0; i < _AllTF.Count; i++)
+        {
+            if (_AllTF[i] == null || _AllTF[i] == _StartTF)
+            { continue; }
+
+            if (!IsExistWall(_StartTF, _AllTF[i]))
+            {
+                tfs.Add( _AllTF[i]);
+            }
+        }
+
+        return tfs;
+    }
+
+    // 중간에 벽이 있는지
+    private bool IsExistWall(Transform _StartTF, Transform _EndTF)
+    {
+        Vector2 dirVec = _EndTF.position - _StartTF.position;
+        RaycastHit2D hit = Physics2D.Raycast(_StartTF.position, dirVec, Vector2.Distance(Vector2.zero, dirVec), LayerMask.GetMask("Wall"));
+        if (hit.collider != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // 이중 List를 단순 List로 변경
+    private List<Transform> GetNormalList(List<List<Transform>> _doubleListType)
+    {
+        List<Transform> result = new List<Transform>();
+        for (int i = 0; i < _doubleListType.Count; i++)
+        {
+            result.AddRange(_doubleListType[i]);
+        }
+        result = result.Distinct().ToList();
+        return result;
+    }
+
+    private float GetDistance(Transform _Start, List<Transform> _Root, Transform _Target)
+    {
+        float dis = 0f;
+        dis += Vector2.Distance(_Start.position, _Root[0].position);
+
+        if (_Root.Count >= 2)
+        {
+            for (int j = 0; j < _Root.Count - 1; j++)
+            {
+                dis += Vector2.Distance(_Root[j].position, _Root[j + 1].position);
+            }
+        }
+
+        dis += Vector2.Distance(_Target.position, _Root[_Root.Count - 1].position);
+        return dis;
     }
 
     #endregion

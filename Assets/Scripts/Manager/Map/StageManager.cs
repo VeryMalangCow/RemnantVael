@@ -20,7 +20,7 @@ public class StageManager : Singleton<StageManager>
     [Space(10)]
     [Header("=== Current")]
     [SerializeField] private List<RoomController> CurrentAllRoomController = new List<RoomController>();
-    [SerializeField] private RoomController CurrentRoomController;
+    [SerializeField] public RoomController CurrentRoomController;
 
     // 이미 차지한 Vec
     [HideInInspector] private List<Vector2Int> alreadyExistList = new List<Vector2Int>();
@@ -299,19 +299,23 @@ public class StageManager : Singleton<StageManager>
         if (_TargetRC == null)
         { yield return null; }
 
+        // 현재 방 선택
+        CurrentRoomController = _TargetRC; 
+        // 미니맵 초기화
+        MiniMapCameraController.SetPos(CurrentRoomController.gameObject.transform.position);
+
         yield return new WaitForSeconds(0.5f);
 
         _TargetRC.PlayRoomState();
 
-        // Layer
+        // Layer 초기화
         LayerOrderManager.Instance.NeedLayerObjects = new List<HaveShadowThing>()
         { PlayerManager.Instance.PlayerController }; // 전 방 리셋
 
-        CurrentRoomController = _TargetRC; // 현재 방 선택
+        // Layer 추가
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.InRoom_AllBuilding);
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
 
-        MiniMapCameraController.SetPos(CurrentRoomController.gameObject.transform.position);
     }
 
     public void Complete_KillAll()
