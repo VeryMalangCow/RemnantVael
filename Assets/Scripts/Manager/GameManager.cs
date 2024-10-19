@@ -96,6 +96,8 @@ public class GameManager : Singleton<GameManager>
 
 }
 
+// Enum
+
 public enum eCombatMode
 { 
     Physics, Energy, Boost
@@ -113,7 +115,12 @@ public enum eDamageType
 
 public enum eEnemy
 {
-    Normal, Elite, Boss
+    Normal, Elite, SemiBoss, Boss
+}
+
+public enum eEnemyPattern
+{
+    Follow, MeleeAttack
 }
 
 public enum eDashStyle
@@ -125,6 +132,8 @@ public enum eRoomType
 {
     Completed, KillAll, Survived
 }
+
+// Interface
 
 public interface IInteract
 {

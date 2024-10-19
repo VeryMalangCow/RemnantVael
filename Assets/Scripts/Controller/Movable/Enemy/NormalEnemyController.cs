@@ -1,21 +1,14 @@
-
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NormalEnemyController : EnemyController
 {
-    #region Framework
+    [Space(20)]
+    [Header("<><><><><> Normal")]
 
-    protected override void Update()
-    {
-        base.Update();
+    [Space(10)]
+    [Header("=== Unique Thing")]
+    [SerializeField] private eEnemy ThisEnemyType;
+    [SerializeField] private List<eEnemyPattern> ThisEnemyPatterns;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            FindWay(CurrentRoomController.InRoom_AllWayPoint);
-        }
-    }
-
-
-
-    #endregion
 }

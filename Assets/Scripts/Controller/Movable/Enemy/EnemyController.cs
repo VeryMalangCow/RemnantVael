@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Runtime.ConstrainedExecution;
 using UniRx;
 using UnityEngine;
 
@@ -41,6 +39,10 @@ public class EnemyController : MovableObject, IInteract
     [HideInInspector] private GameObject TargetPC;
     [HideInInspector] protected RoomController CurrentRoomController;
 
+    [Space(10)]
+    [Header("=== Nav")]
+    [Tooltip("This is Radius")]
+    [SerializeField] private float NavRadius = 0.2f;
     #endregion
 
     #region Fremework
@@ -227,17 +229,18 @@ public class EnemyController : MovableObject, IInteract
 
     #region Nav
 
-    protected void FindWay(List<Transform> _AllTF)
+    protected Vector2 FindWay(List<Transform> _AllTF)
     {
         if (_AllTF == null || _AllTF.Count < 2)
-        { return; }
+        { return Vector2.zero; }
 
         if (!IsExistWall(this.transform, TargetPC.transform))
         {
-            Debug.Log("바로 가면 됨");
             Vector2 dirVec = TargetPC.transform.position - this.transform.position;
-            Debug.DrawRay(this.transform.position, dirVec, Color.red, 2f);
-            return;
+#if UNITY_EDITOR
+            Debug.DrawRay(this.transform.position, dirVec, Color.blue, 2f);
+#endif
+            return TargetPC.transform.position;
         }
 
         
@@ -320,8 +323,10 @@ public class EnemyController : MovableObject, IInteract
         if (temp > 100)
         {
             // 데이터 초과 방지
-            return;
+            return Vector2.zero;
         }
+
+
 
         // 가장 짧은 거리의 경로 탐색
         List<Transform> usableRoot = actualAllWayRoot[0];
@@ -338,15 +343,21 @@ public class EnemyController : MovableObject, IInteract
 
         }
 
+#if UNITY_EDITOR
         Vector2 dir = usableRoot[0].position - this.transform.position;
-        Debug.DrawRay(this.transform.position, dir, Color.red, 2f);
+        Debug.DrawRay(this.transform.position, dir, Color.blue, 2f);
+
         for (int i = 1; i < usableRoot.Count; i++)
         {
             dir = usableRoot[i].position - usableRoot[i - 1].position;
-            Debug.DrawRay(usableRoot[i - 1].position, dir, Color.red, 2f);
+            Debug.DrawRay(usableRoot[i - 1].position, dir, Color.blue, 2f);
         }
+
         dir = TargetPC.transform.position - usableRoot[usableRoot.Count - 1].position;
-        Debug.DrawRay(usableRoot[usableRoot.Count - 1].position, dir, Color.red, 2f);
+        Debug.DrawRay(usableRoot[usableRoot.Count - 1].position, dir, Color.blue, 2f);
+#endif
+
+        return usableRoot[0].transform.position != null ? usableRoot[0].transform.position : Vector2.zero;
     }
 
     // 연결된 모든 포인트 가져오기
@@ -372,7 +383,8 @@ public class EnemyController : MovableObject, IInteract
     private bool IsExistWall(Transform _StartTF, Transform _EndTF)
     {
         Vector2 dirVec = _EndTF.position - _StartTF.position;
-        RaycastHit2D hit = Physics2D.Raycast(_StartTF.position, dirVec, Vector2.Distance(Vector2.zero, dirVec), LayerMask.GetMask("Wall"));
+        RaycastHit2D hit = Physics2D.CircleCast(_StartTF.position, NavRadius, dirVec, Vector2.Distance(Vector2.zero, dirVec), LayerMask.GetMask("Wall"));
+        
         if (hit.collider != null)
         {
             return true;
@@ -395,6 +407,7 @@ public class EnemyController : MovableObject, IInteract
         return result;
     }
 
+    // Root의 거리 총합 계산
     private float GetDistance(Transform _Start, List<Transform> _Root, Transform _Target)
     {
         float dis = 0f;

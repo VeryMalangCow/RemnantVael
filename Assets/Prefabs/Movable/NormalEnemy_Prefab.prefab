@@ -65,6 +65,8 @@ MonoBehaviour:
   HP_ProgressBar: {fileID: 6470338870314578685}
   EP_ProgressBar: {fileID: 5303638376107025711}
   MEI: {fileID: 7610645863705853807}
+  NavRadius: 0.2
+  ThisEnemyPatterns: 0000000001000000
 --- !u!50 &7671391899007426867
 Rigidbody2D:
   serializedVersion: 4
