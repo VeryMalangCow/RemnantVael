@@ -7,9 +7,9 @@ public class ActiveSkillController : MonoBehaviour
     [Space(20)]
     [Header("<><><><><> Active Skill")]
 
+
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] public PlayerController PlayerController;
 
     [Header("-- Charge")]
     [SerializeField] protected int MaxChargeAmount = 1;
@@ -24,6 +24,7 @@ public class ActiveSkillController : MonoBehaviour
     [SerializeField] protected BaseUpgradeState<int> Tier;
     [SerializeField] protected BaseUpgradeState<float> Power;
 
+    [HideInInspector] public PlayerController PlayerController;
 
     #endregion
 

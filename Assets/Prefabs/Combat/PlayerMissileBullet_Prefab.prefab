@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 7754987835335729850}
   ThisSR: {fileID: 0}
-  TargetRange: 0.6
+  TargetRange: 0.9
   BulletState:
     DamageType: 0
     BaseDamage: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
   Missile_Prefab: {fileID: 2192280153704162206}
   ShadowRangeTarget: 0.4
   SpreadTime: 1
-  SpreadAngleLimit: 20
+  SpreadAngleLimit: 10
   RotateSpeed: 5
   TargetEnemyController: {fileID: 0}
   CanHit: 0

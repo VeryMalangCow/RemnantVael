@@ -20,22 +20,13 @@ public class PlayerBulletController : BulletController
 
     #region Set State
 
-    public override void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _FireMinDisLimit, bool _IsCritical, float _CD)
+    public void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, Vector2 _Dir, bool _IsCritical, float _CD, float _TargetRange)
     {
-        Vector2 targetPos = InputManager.Instance.MousePosByWorld;
-
-        if (_FireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
-        {
-            targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position +
-                InputManager.Instance.DirFromPlayerPos.normalized * _FireMinDisLimit;
-        }
-
-        Vector2 dir = (targetPos - _SpawnVec).normalized;
-        Quaternion targetQuat = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, dir));
+        Quaternion targetQuat = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
 
         this.transform.localRotation = targetQuat;
 
-        base.SetState(_SpawnVec, _SpreadAngle, _BulletState, _FireMinDisLimit, _IsCritical, _CD);
+        base.SetState(_SpawnVec, _SpreadAngle, _BulletState, _IsCritical, _CD, _TargetRange);
 
         ThisRb.simulated = true;
         gameObject.SetActive(true);

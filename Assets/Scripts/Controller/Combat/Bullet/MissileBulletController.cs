@@ -93,20 +93,19 @@ public class MissileBulletController : BulletController
 
     #region Extra State
 
-    public void SetState_forMissile(Vector2 _SpawnVec, BulletState _BulletState)
+    public void SetState_forMissile(Vector2 _SpawnVec, BulletState _BulletState, Vector2 _Dir, float _TargetRange)
     {
         // Offset
         TargetEnemyController = null;
         float targetSpeed = _BulletState.MuzzleSpeed;
 
         // Base Dir
-        Vector2 dir = ((InputManager.Instance.MousePosByWorld) - _SpawnVec).normalized;
-        Quaternion targetQuat = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, dir));
+        Quaternion targetQuat = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
         this.transform.localRotation = targetQuat;
 
         // State + RandomDir
         float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
-        base.SetState(_SpawnVec, randomSpreadAngle, _BulletState, 0, false, 1);
+        base.SetState(_SpawnVec, randomSpreadAngle, _BulletState, false, 1, _TargetRange);
         base.BulletState.MuzzleSpeed *= 0.3f;
 
         // Dotween

@@ -11,7 +11,7 @@ public class HaveShadowThing : MonoBehaviour
     [Header("=== Shadow")]
     [SerializeField] public GameObject TargetObject;
     [HideInInspector] public SpriteRenderer ThisSR;
-    [SerializeField] protected float TargetRange = 0.4f;
+    [SerializeField] public float TargetRange = 0.4f;
 
     #endregion
 

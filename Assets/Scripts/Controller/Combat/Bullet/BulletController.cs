@@ -37,7 +37,7 @@ public class BulletController : HaveShadowThingMovable
         ThisRb.simulated = false;
     }
 
-    public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _FireMinDisLimit, bool _IsCritical, float _CD)
+    public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, bool _IsCritical, float _CD, float _TargetRange)
     {
         CurrentAliveTime = 0;
 
@@ -54,6 +54,8 @@ public class BulletController : HaveShadowThingMovable
         Vector3 currentRotation = transform.eulerAngles;
         currentRotation.z += _SpreadAngle;
         transform.eulerAngles = currentRotation;
+
+        TargetRange = _TargetRange;
     }
 
     #endregion

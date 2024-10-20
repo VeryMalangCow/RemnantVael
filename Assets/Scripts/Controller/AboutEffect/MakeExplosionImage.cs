@@ -37,7 +37,9 @@ public class MakeExplosionImage : MonoBehaviour
         for (int i = 0; i < _SpawnImgAmount; i++)
         {
             
-            float angle = ((360f / (float)_SpawnImgAmount) * i) + Random.Range(0f, (360f / (float)_SpawnImgAmount));
+            float angle = ((360f / (float)_SpawnImgAmount) * i) 
+                + Random.Range(0f, (360f / (float)_SpawnImgAmount));
+
             Vector2 dirByAngle = new Vector2(
                     Mathf.Sin(angle), 
                     Mathf.Cos(angle));
@@ -55,7 +57,7 @@ public class MakeExplosionImage : MonoBehaviour
     }
 
     // 방향적 부채꼴 방향으로 분산
-    public void GenExplosionImgs(Vector2 _SpawnedPos, Vector2 _Dir, float _AngleArea,
+    public void GenExplosionImgs_Fan(Vector2 _SpawnedPos, Vector2 _Dir, float _AngleArea,
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime)
@@ -74,10 +76,13 @@ public class MakeExplosionImage : MonoBehaviour
             sortOrder = sr.sortingOrder + 1;
         }
 
+        _Dir *= 10f;
+
         for (int i = 0; i < _SpawnImgAmount; i++)
         {
-            float angle = ((_AngleArea / (float)_SpawnImgAmount) * i) + Random.Range(0f, (_AngleArea / (float)_SpawnImgAmount))
-                - (_AngleArea / 2);
+            float angle = ((_AngleArea / (float)_SpawnImgAmount) * i) 
+                + Random.Range(-(_AngleArea / (float)_SpawnImgAmount), (_AngleArea / (float)_SpawnImgAmount));
+
             Vector2 dirByAngle = new Vector2(
                     _Dir.x + Mathf.Sin(angle),
                     _Dir.y + Mathf.Cos(angle));
@@ -92,6 +97,7 @@ public class MakeExplosionImage : MonoBehaviour
                 _SmallerScale, smallerTime));
         }
     }
+
 
     private Sequence GenExplosionImg(Vector2 _Dir, int _SpriteSortOrder,
         float _ExplotionDis, float _DisappearDis,

@@ -108,15 +108,31 @@ public class PlayerWeaponController : WeaponController
                 isCritical = true;
             }
 
-            // Base State
+            // Shadow
+            float targetShadow = 0.4f;
+            if (BulletSpawnTFs[i].TryGetComponent(out HaveShadowThing HST))
+            { targetShadow = HST.TargetRange; }
+
+
+            
+            // Angle
+            Vector2 targetPos = InputManager.Instance.MousePosByWorld;
+            if (fireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
+            {
+                targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position +
+                    InputManager.Instance.DirFromPlayerPos.normalized * fireMinDisLimit;
+            }
+            Vector2 dir = (targetPos - (Vector2)MEIs[i].gameObject.transform.position).normalized;
+
+            // Base State 
             BulletState bulletState = new BulletState(DamageType, BaseDamage.ActualState.Value, MuzzleSpeed.ActualState.Value, AliveTime.ActualState.Value);
-            PBC.SetState(BulletSpawnTFs[i].position, randomAngle, bulletState, fireMinDisLimit, isCritical, CD.ActualState.Value);
+            PBC.SetState(BulletSpawnTFs[i].position, randomAngle, bulletState, dir, isCritical, CD.ActualState.Value, targetShadow);
 
             // Effect
-            MEIs[i].GenExplosionImgs(
-                MEIs[i].gameObject.transform.position, 
-                InputManager.Instance.MousePosByWorld - (Vector2)BulletSpawnTFs[i].position, 8f,
-                6, 0.35f, 0.4f,
+            MEIs[i].GenExplosionImgs_Fan(
+                MEIs[i].gameObject.transform.position,
+                dir, 4f,
+                6, 0.4f, 0.55f,
                 0.2f, 0.05f, 0.1f,
                 0.0f, 0.5f, 1.0f);
         }
@@ -130,27 +146,3 @@ public class PlayerWeaponController : WeaponController
 
 }
 
-[System.Serializable]
-public class Satellite
-{
-    [SerializeField] public Transform ObjectTF;
-    [SerializeField] public Transform TargetTF;
-    [SerializeField] public SpriteRenderer ThisActualSR;
-
-    public void SetPosOffset()
-    {
-        ObjectTF.position = TargetTF.position;
-    }
-
-    public void SetSortOrder(int _PlayerSortOrder, int _CloseFromCenter)
-    {
-        if (ObjectTF.localPosition.y > 0)
-        {
-            ThisActualSR.sortingOrder = _PlayerSortOrder - (_CloseFromCenter * 2);
-        }
-        else
-        {
-            ThisActualSR.sortingOrder = _PlayerSortOrder + (_CloseFromCenter * 2);
-        }
-    }
-}

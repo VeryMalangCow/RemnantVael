@@ -22,11 +22,10 @@ public class WeaponController : MonoBehaviour
 
     [Header("-- Pitch")]
     [SerializeField] private float rotateSpeed = 4f;
-    [SerializeField] private Transform PitchTF;
+    [SerializeField] public Transform PitchTF;
 
     [Header("-- Hand")]
     [SerializeField] protected List<Satellite> Hands;
-    [SerializeField] int FarFromCenter;
 
     #endregion
 
@@ -36,11 +35,9 @@ public class WeaponController : MonoBehaviour
     {
         PitchTF.transform.localRotation = RotateSmooth(PitchTF, rotateSpeed);
 
-
         foreach (Satellite hand in Hands)
         {
-            hand.SetPosOffset();
-            hand.SetSortOrder(PlayerSR.sortingOrder, FarFromCenter);
+            hand.SetPos(PlayerSR.sortingOrder);
         }
     }
 
@@ -63,4 +60,30 @@ public class WeaponController : MonoBehaviour
     }
 
     #endregion
+}
+
+[System.Serializable]
+public class Satellite
+{
+    [SerializeField] public Transform ObjectTF;
+    [SerializeField] public Transform TargetTF;
+    [SerializeField] public SpriteRenderer ThisActualSR;
+    [SerializeField] public int UpperOrder;
+    [SerializeField] public int FarFromCenter;
+
+    public void SetPos(int _PlayerSortOrder)
+    {
+        ObjectTF.position = TargetTF.position;
+
+        if (ObjectTF.localPosition.y > 0)
+        {
+            ThisActualSR.sortingOrder = _PlayerSortOrder + (UpperOrder * 10) - FarFromCenter;
+        }
+        else
+        {
+            ThisActualSR.sortingOrder = _PlayerSortOrder + (UpperOrder * 10) + FarFromCenter;
+        }
+
+    }
+
 }
