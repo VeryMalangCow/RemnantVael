@@ -9,6 +9,7 @@ public class ActiveSkillController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Value")]
+    [SerializeField] public PlayerController PlayerController;
 
     [Header("-- Charge")]
     [SerializeField] protected int MaxChargeAmount = 1;
@@ -61,22 +62,27 @@ public class ActiveSkillController : MonoBehaviour
 
     #endregion
 
-    #region Act Skill
-
-    protected bool CanActive()
-    {
-        return (CurrentChargeAmount > 0) && (PlayerManager.Instance.PlayerController.CurrentEP.Value > NeedEP * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value)
-            ? true : false;
-    }
-
-    protected void AllActiveEffect()
-    {
-        CurrentChargeAmount--;
-    }
+    #region Act
 
     public virtual void ActiveSkill()
     {
+        CurrentChargeAmount--;
+        PlayerController.AddCurrentEP(-NeedEP);
+    }
 
+    #endregion
+
+    #region Judg Can Active
+
+    protected bool CanActive()
+    {
+        if ((CurrentChargeAmount > 0) &&
+            (PlayerManager.Instance.PlayerController.CurrentEP.Value > NeedEP * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value) &&
+            PlayerController.MovementState == eMovementState.IdleOrWalk)
+        {
+            return true;
+        }
+        return false;
     }
 
     #endregion

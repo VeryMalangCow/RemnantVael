@@ -9,27 +9,26 @@ public class PlayerWeaponController : WeaponController
     [Header("<><><><><> Player")]
 
     [Space(10)]
+    [Header("=== State")]
+    [SerializeField] public eDamageType DamageType;
+    [SerializeField] public BaseUpgradeState<float> BaseDamage;
+    [SerializeField] public BaseUpgradeState<float> AliveTime;
+    [SerializeField] public BaseUpgradeState<float> MuzzleSpeed;
+    [SerializeField] public BaseUpgradeState<float> ROF;
+    [SerializeField] public BaseUpgradeState<float> CC;
+    [SerializeField] public BaseUpgradeState<float> CD;
+    [SerializeField] public BaseUpgradeState<float> AccuracyRate;
+
+    [SerializeField] public float CurrentDelayROF = 0;
+
+    [Space(10)]
+    [Header("=== GunPos")]
+    [SerializeField] protected List<Transform> BulletSpawnTFs;
+
+    [Space(10)]
     [Header("=== Player")]
-    [SerializeField] private PlayerController PlayerController;
-    [SerializeField] private SpriteRenderer PlayerSR;
     [SerializeField] private float fireMinDisLimit = 4;
 
-    [Space(10)]
-    [Header("=== Input")]
-    [SerializeField] public bool IsInputed = false;
-
-    [Space(10)]
-    [Header("=== Hand Things")]
-    [Header("-- Roll")]
-    [SerializeField] private float DefualtRoll = -85f;
-    [SerializeField] private Transform RollTF;
-
-    [Header("-- Pitch")]
-    [SerializeField] private float rotateSpeed = 4f;
-    [SerializeField] private Transform PitchTF;
-
-    [Header("-- Hand")]
-    [SerializeField] private List<Satellite> Hands;
 
     [Header("-- TargetEffect")]
     [SerializeField] private List<MakeExplosionImage> MEIs;
@@ -42,17 +41,10 @@ public class PlayerWeaponController : WeaponController
     {
         base.Update();
 
-        RotateSmooth();
-
-        foreach (Satellite hand in Hands)
-        {
-            hand.SetPosOffset();
-            hand.SetSortOrder(PlayerSR.sortingOrder, 2);
-        }
+        CaculateROF();
 
         if (CanFire())
         {
-
             List<PlayerBulletController> PBClist = new List<PlayerBulletController>();
             foreach (Transform TF in BulletSpawnTFs)
             { PBClist.Add(PoolingManager.Instance.GetOP_PlayerBullet()); }
@@ -64,9 +56,20 @@ public class PlayerWeaponController : WeaponController
         }
     }
 
-    private void OnEnable()
+
+    #endregion
+
+
+    #region Fire
+
+    private void CaculateROF()
     {
-        RollTF.rotation = Quaternion.Euler(DefualtRoll, 0f, 0f);
+        CurrentDelayROF += Time.deltaTime * ROF.ActualState.Value;
+
+        if (CurrentDelayROF > 1)
+        {
+            CurrentDelayROF = 1;
+        }
     }
 
     #endregion
@@ -124,18 +127,6 @@ public class PlayerWeaponController : WeaponController
 
     #endregion
 
-    #region Rotate
-
-    private void RotateSmooth()
-    {
-        Vector2 dir = InputManager.Instance.DirFromPlayerPos.normalized;
-        Quaternion targetQuat = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, dir), 0f);
-        targetQuat = Quaternion.Slerp(PitchTF.transform.localRotation, targetQuat, rotateSpeed * Time.deltaTime);
-
-        PitchTF.transform.localRotation = targetQuat;
-    }
-
-    #endregion
 
 }
 

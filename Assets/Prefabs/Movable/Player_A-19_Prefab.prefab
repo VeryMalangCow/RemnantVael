@@ -530,6 +530,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ddabe640835e41bd5d1b49e85f947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerController: {fileID: 8810927924693203331}
+  PlayerSR: {fileID: 8514484191356774825}
+  IsInputed: 0
+  DefualtRoll: -45
+  RollTF: {fileID: 871861330150977385}
+  rotateSpeed: 4
+  PitchTF: {fileID: 5292120655570418386}
+  Hands:
+  - ObjectTF: {fileID: 4586805314071208296}
+    TargetTF: {fileID: 4368428734362383650}
+    ThisActualSR: {fileID: 5295122454342582576}
+  - ObjectTF: {fileID: 5980481930123788499}
+    TargetTF: {fileID: 2762522436094786569}
+    ThisActualSR: {fileID: 2638774432652660132}
+  FarFromCenter: 2
   DamageType: 0
   BaseDamage:
     BaseState: 5
@@ -618,21 +633,7 @@ MonoBehaviour:
   BulletSpawnTFs:
   - {fileID: 4586805314071208296}
   - {fileID: 5980481930123788499}
-  PlayerController: {fileID: 8810927924693203331}
-  PlayerSR: {fileID: 8514484191356774825}
   fireMinDisLimit: 4
-  IsInputed: 0
-  DefualtRoll: -45
-  RollTF: {fileID: 871861330150977385}
-  rotateSpeed: 4
-  PitchTF: {fileID: 5292120655570418386}
-  Hands:
-  - ObjectTF: {fileID: 4586805314071208296}
-    TargetTF: {fileID: 4368428734362383650}
-    ThisActualSR: {fileID: 5295122454342582576}
-  - ObjectTF: {fileID: 5980481930123788499}
-    TargetTF: {fileID: 2762522436094786569}
-    ThisActualSR: {fileID: 2638774432652660132}
   MEIs:
   - {fileID: 3442713858289193020}
   - {fileID: 1557183586531027138}
@@ -804,7 +805,7 @@ MonoBehaviour:
   PlayerController: {fileID: 8810927924693203331}
   PlayerSR: {fileID: 8514484191356774825}
   IsInputed: 0
-  DefualtRoll: -85
+  DefualtRoll: -45
   RollTF: {fileID: 3320135876574557012}
   rotateSpeed: 4
   PitchTF: {fileID: 7489537600790719101}
@@ -815,6 +816,7 @@ MonoBehaviour:
   - ObjectTF: {fileID: 9046146455519074278}
     TargetTF: {fileID: 4549261287854832868}
     ThisActualSR: {fileID: 4006282422904298947}
+  FarFromCenter: 1
   Skill_0: {fileID: 6304837828893154070}
   Skill_1: {fileID: 7647327739022335709}
 --- !u!1 &4593839933363528314
@@ -1400,6 +1402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c91966f04457141866d28eb0a857b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInputed: 0
   MaxChargeAmount: 1
   CurrentChargeAmount: 0
   MaxCooltime:
@@ -1545,16 +1548,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c894e796d0cb66469e329afbee97a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInputed: 0
   MaxChargeAmount: 1
   CurrentChargeAmount: 0
   MaxCooltime:
-    BaseState: 1
+    BaseState: 3
     CurrentLevel:
       value: 0
     UpgradeValueByLevelRange: []
     NeedPayByLevelRange: 
     ActualState:
-      value: 1
+      value: 3
     Desc: 
   CurrentCooltime: 0
   NeedEP: 10

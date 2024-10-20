@@ -224,7 +224,7 @@ public class InputManager : Singleton<InputManager>
 
     #endregion
 
-    #region Skill
+    #region Charge Bettery
 
     // Charge Bettery
     private void Input_ChargeBettery(InputAction.CallbackContext _InputValue)

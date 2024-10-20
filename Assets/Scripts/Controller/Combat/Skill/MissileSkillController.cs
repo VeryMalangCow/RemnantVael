@@ -24,11 +24,9 @@ public class MissileSkillController : ActiveSkillController
 
     public override void ActiveSkill()
     {
-        base.ActiveSkill();
-
         if (CanActive())
         {
-            AllActiveEffect();
+            base.ActiveSkill();
             StartCoroutine(ActualActive());
         }
     }
@@ -53,11 +51,11 @@ public class MissileSkillController : ActiveSkillController
 
                 // Effect
                 MEI.GenExplosionImgs(
-                MEI.gameObject.transform.position,
-                InputManager.Instance.MousePosByWorld - (Vector2)MEI.transform.position, 20f,
-                12, 0.2f, 0.25f,
-                0.35f, 0.05f, 0.1f,
-                0.0f, 0.5f, 1.0f);
+                    MEI.gameObject.transform.position,
+                    InputManager.Instance.MousePosByWorld - (Vector2)MEI.transform.position, 20f,
+                    12, 0.2f, 0.25f,
+                    0.35f, 0.05f, 0.1f,
+                    0.0f, 0.5f, 1.0f);
             }
 
             yield return new WaitForSeconds(ShotDelay);
