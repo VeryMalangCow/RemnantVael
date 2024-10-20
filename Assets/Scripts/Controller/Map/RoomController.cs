@@ -142,7 +142,7 @@ public class RoomController : MonoBehaviour
     {
         for (int i = 0; i < InRoom_AllGate.Count; i++) 
         {
-            if (InRoom_AllGate[i].HadParter)
+            if (InRoom_AllGate[i].HadParter && !InRoom_AllGate[i].gameObject.activeSelf)
             {
                 InRoom_AllGate[i].gameObject.SetActive(true);
                 InRoom_AllGate[i].MEI.GenExplosionImgs(
@@ -153,7 +153,7 @@ public class RoomController : MonoBehaviour
             }
         }
 
-        if (InRoom_BuildThing != null)
+        if (InRoom_BuildThing != null && !InRoom_BuildThing.gameObject.activeSelf)
         {
             InRoom_BuildThing.gameObject.SetActive(true);
             InRoom_BuildThing.MEI.GenExplosionImgs(
