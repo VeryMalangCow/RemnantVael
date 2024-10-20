@@ -2241,13 +2241,13 @@ MonoBehaviour:
   MaxChargeAmount: 1
   CurrentChargeAmount: 1
   MaxCooltime:
-    BaseState: 3
+    BaseState: 1
     CurrentLevel:
       value: 0
     UpgradeValueByLevelRange: []
     NeedPayByLevelRange: 
     ActualState:
-      value: 3
+      value: 1
     Desc: 
   CurrentCooltime: 0
   NeedEP: 10

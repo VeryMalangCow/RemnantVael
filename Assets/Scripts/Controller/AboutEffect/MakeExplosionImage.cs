@@ -76,17 +76,16 @@ public class MakeExplosionImage : MonoBehaviour
             sortOrder = sr.sortingOrder + 1;
         }
 
-        _Dir *= 10f;
+        //_Dir *= 10f;
+        
 
         for (int i = 0; i < _SpawnImgAmount; i++)
         {
-            float angle = ((_AngleArea / (float)_SpawnImgAmount) * i) 
-                + Random.Range(-(_AngleArea / (float)_SpawnImgAmount), (_AngleArea / (float)_SpawnImgAmount));
+            float angle = Random.Range(0, _AngleArea) - (_AngleArea / 2);
 
             Vector2 dirByAngle = new Vector2(
-                    _Dir.x + Mathf.Sin(angle),
-                    _Dir.y + Mathf.Cos(angle));
-            dirByAngle.Normalize();
+                _Dir.x * Mathf.Cos(angle * Mathf.Deg2Rad) - _Dir.y * Mathf.Sin(angle * Mathf.Deg2Rad),
+                _Dir.x * Mathf.Sin(angle * Mathf.Deg2Rad) + _Dir.y * Mathf.Cos(angle * Mathf.Deg2Rad));
 
             float biggerTime = Random.Range(_BiggerMinTime, _BiggerMaxTime);
             float smallerTime = Random.Range(_SmallerMinTime, _SmallerMaxTime);

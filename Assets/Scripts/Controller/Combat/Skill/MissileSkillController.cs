@@ -61,9 +61,9 @@ public class MissileSkillController : ActiveSkillController
                 
                 //Vector2 dir = (InputManager.Instance.MousePosByWorld - (Vector2)MEI.transform.position).normalized;
                 MEI.GenExplosionImgs_Fan(
-                    MEI.gameObject.transform.position,
-                    dir, 4f,
-                    6, 0.4f, 0.55f,
+                    (Vector2)MEI.gameObject.transform.position + (dir * 0.3f),
+                    dir, 90f,
+                    8, 0.2f, 1.5f,
                     0.35f, 0.05f, 0.1f,
                     0.0f, 0.5f, 1.0f);
             }

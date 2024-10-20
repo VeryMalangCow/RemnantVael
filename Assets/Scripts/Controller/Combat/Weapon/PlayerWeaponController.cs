@@ -130,9 +130,9 @@ public class PlayerWeaponController : WeaponController
 
             // Effect
             MEIs[i].GenExplosionImgs_Fan(
-                MEIs[i].gameObject.transform.position,
-                dir, 4f,
-                6, 0.4f, 0.55f,
+                (Vector2)MEIs[i].gameObject.transform.position + (dir * 0.3f),
+                dir, 45f,
+                6, 0.2f, 1f,
                 0.2f, 0.05f, 0.1f,
                 0.0f, 0.5f, 1.0f);
         }
