@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PoolingManager : Singleton<PoolingManager>
@@ -21,6 +22,8 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<SpriteRenderer> AfterImgs;
     [SerializeField] public TTypePooling<SpriteRenderer> ExplosionImgs;
 
+    [Header("=== UI")]
+    [SerializeField] public TTypePooling<ModifyEffectWorldTxt> DmgTxtCanvases;
 
     #endregion
 
@@ -106,7 +109,7 @@ public class PoolingManager : Singleton<PoolingManager>
 
     #endregion
 
-    #region Effect Things
+    #region Effect
 
     // After Image
     public SpriteRenderer GetOP_AfterImg()
@@ -119,8 +122,18 @@ public class PoolingManager : Singleton<PoolingManager>
     {
         return GetOP<SpriteRenderer>(ExplosionImgs.Prefab, ExplosionImgs.ParentTF, ExplosionImgs.Queue);
     }
+
     #endregion
 
+    #region Dmg Txt
+
+    // Damage Txt
+    public ModifyEffectWorldTxt GetOP_DmgTxt()
+    {
+        return GetOP<ModifyEffectWorldTxt>(DmgTxtCanvases.Prefab, DmgTxtCanvases.ParentTF, DmgTxtCanvases.Queue);
+    }
+
+    #endregion
 }
 
 [System.Serializable]

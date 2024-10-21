@@ -83,7 +83,5 @@ public class Satellite
         {
             ThisActualSR.sortingOrder = _PlayerSortOrder + (UpperOrder * 10) + FarFromCenter;
         }
-
     }
-
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UniRx;
@@ -106,6 +107,7 @@ public class PlayerController : MovableObject
     private void Start()
     {
         CurrentEC.Value = 100;
+        SetBaseAnimTween();
     }
 
     protected override void Update()
@@ -554,6 +556,7 @@ public class PlayerController : MovableObject
 
     #endregion
 
+   
 }
 
 [System.Serializable]

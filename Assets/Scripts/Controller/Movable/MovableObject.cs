@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,14 @@ public class MovableObject : HaveShadowThingMovable
     [Header("-- Walk")]
     [SerializeField] protected float AccelerationSpeed = 12;
 
+    [Space(10)]
+    [Header("=== Anim")]
+    [Header("-- Idle")]
+    [SerializeField] private float BaseYLimit = 0.06f;
+    [SerializeField] private float BaseTweenReTime = 0.3f;
+    [SerializeField] List<HaveShadowThingMovable> ThisComponentGOList;
+
+    [HideInInspector] private Sequence BaseSeq = null;
 
     #endregion
 
@@ -38,7 +47,6 @@ public class MovableObject : HaveShadowThingMovable
 
     #endregion
 
-
     #region Life
 
     protected void SetIsDead(float _Life, float _Damage)
@@ -51,6 +59,31 @@ public class MovableObject : HaveShadowThingMovable
         {
             IsDead = false;
         }
+    }
+
+    #endregion
+    
+    #region Have Shadow Thing
+
+    protected void SetBaseAnimTween()
+    {
+        BaseSeq = DOTween.Sequence();
+
+        BaseSeq.Join(DOTween.To(() => TargetRange, x => TargetRange = x, TargetRange + BaseYLimit, BaseTweenReTime)
+            .SetEase(Ease.Linear));
+
+        if (ThisComponentGOList != null && ThisComponentGOList.Count > 0)
+        {
+            for (int i = 0; i < ThisComponentGOList.Count; i++)
+            {
+                HaveShadowThingMovable HSTM = ThisComponentGOList[i];
+                BaseSeq.Join(DOTween.To(() => HSTM.TargetRange, x => HSTM.TargetRange = x, HSTM.TargetRange + BaseYLimit, BaseTweenReTime)
+                    .SetEase(Ease.Linear));
+            }
+        }
+        
+
+        BaseSeq.SetLoops(-1, LoopType.Yoyo);
     }
 
     #endregion
