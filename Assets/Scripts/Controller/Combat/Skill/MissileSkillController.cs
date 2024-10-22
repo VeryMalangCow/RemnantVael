@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class MissileSkillController : ActiveSkillController
 {
@@ -34,6 +36,17 @@ public class MissileSkillController : ActiveSkillController
 
     private IEnumerator ActualActive()
     {
+        // 효과
+
+        Transform tf = null;
+        for (int i = 0; i < PlayerController.SkillWeapon.Hands.Count; i++)
+        {
+            if (PlayerController.SkillWeapon.Hands[i].ObjectTF == this.gameObject.transform)
+            {
+                tf = PlayerController.SkillWeapon.Hands[i].TargetTF;
+            }
+        }
+
         // 구현부
 
         for (int i = 0; i < Tier.ActualState.Value; i++)
@@ -57,15 +70,16 @@ public class MissileSkillController : ActiveSkillController
                 { targetRange = HST.TargetRange; }
                 missile.SetState_forMissile(this.gameObject.transform.position, bulletState, dir, targetRange);
 
-                // Effect
-                
-                //Vector2 dir = (InputManager.Instance.MousePosByWorld - (Vector2)MEI.transform.position).normalized;
+                // Effect Explosion
                 MEI.GenExplosionImgs_Fan(
-                    (Vector2)MEI.gameObject.transform.position + (dir * 0.3f),
+                    (Vector2)MEI.gameObject.transform.position + (dir * 0.1f),
                     dir, 90f,
                     8, 0.2f, 1.5f,
                     0.35f, 0.05f, 0.1f,
                     0.0f, 0.5f, 1.0f);
+
+                // Effect Shake
+                tf.DOShakePosition(ShotDelay, 0.05f, 20, 90, false, true);
             }
 
             yield return new WaitForSeconds(ShotDelay);

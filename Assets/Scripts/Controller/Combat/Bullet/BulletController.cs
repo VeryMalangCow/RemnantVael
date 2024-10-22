@@ -66,7 +66,7 @@ public class BulletController : HaveShadowThingMovable
     {
         base.Update();
         if (ThisRb != null)
-        { ThisRb.velocity = ((BulletState.MuzzleSpeed * 250f) * this.transform.up) * Time.deltaTime; }
+        { ThisRb.velocity = ((BulletState.MuzzleSpeed * 500f) * this.transform.up) * Time.deltaTime; }
     }
 
     #endregion

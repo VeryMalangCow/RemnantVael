@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillWeaponController : WeaponController
+public class SkillWeaponController : SatelliteController
 {
     #region Value
 
@@ -22,6 +22,16 @@ public class SkillWeaponController : WeaponController
         { Skill_0 = ASC_Q; Skill_0.PlayerController = PlayerController; }
         if (Hands[1].ObjectTF.gameObject.TryGetComponent(out ActiveSkillController ASC_E))
         { Skill_1 = ASC_E; Skill_1.PlayerController = PlayerController; }
+    }
+
+    private void Update()
+    {
+        PitchTF.transform.localRotation = RotateSmooth(InputManager.Instance.DirFromPlayerPos.normalized, PitchTF, rotateSpeed);
+
+        foreach (Satellite hand in Hands)
+        {
+            hand.SetPos(PlayerSR.sortingOrder);
+        }
     }
 
     #endregion

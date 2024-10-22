@@ -92,6 +92,14 @@ public class PlayerController : MovableObject
 
     #endregion
 
+    #region - Lower
+
+    [Space(10)]
+    [Header("=== Lower")]
+    [SerializeField] public LowerController LowerController;
+
+    #endregion
+
     #region - Other
 
     [Space(10)]

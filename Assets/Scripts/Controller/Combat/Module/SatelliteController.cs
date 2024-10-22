@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour
+public class SatelliteController : MonoBehaviour
 {
     #region Value
 
@@ -11,7 +11,7 @@ public class WeaponController : MonoBehaviour
     [Space(10)]
     [Header("=== Player")]
     [SerializeField] protected PlayerController PlayerController;
-    [SerializeField] private SpriteRenderer PlayerSR;
+    [SerializeField] protected SpriteRenderer PlayerSR;
     [SerializeField] public bool IsInputed = false;
 
     [Space(10)]
@@ -21,27 +21,17 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private Transform RollTF;
 
     [Header("-- Pitch")]
-    [SerializeField] private float rotateSpeed = 4f;
+    [SerializeField] protected float rotateSpeed = 4f;
     [SerializeField] public Transform PitchTF;
 
     [Header("-- Hand")]
-    [SerializeField] protected List<Satellite> Hands;
+    [SerializeField] public List<Satellite> Hands;
 
     #endregion
 
     #region Fremework
 
-    protected virtual void Update()
-    {
-        PitchTF.transform.localRotation = RotateSmooth(PitchTF, rotateSpeed);
-
-        foreach (Satellite hand in Hands)
-        {
-            hand.SetPos(PlayerSR.sortingOrder);
-        }
-    }
-
-    private void OnEnable()
+    protected void OnEnable()
     {
         RollTF.rotation = Quaternion.Euler(DefualtRoll, 0f, 0f);
     }
@@ -50,10 +40,9 @@ public class WeaponController : MonoBehaviour
 
     #region Rotate
 
-    protected Quaternion RotateSmooth(Transform _PitchTF, float _RotateSpeed)
+    protected Quaternion RotateSmooth(Vector2 _Dir, Transform _PitchTF, float _RotateSpeed)
     {
-        Vector2 dir = InputManager.Instance.DirFromPlayerPos.normalized;
-        Quaternion targetQuat = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, dir), 0f);
+        Quaternion targetQuat = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f);
         targetQuat = Quaternion.Slerp(_PitchTF.transform.localRotation, targetQuat, _RotateSpeed * Time.deltaTime);
 
         return targetQuat;
@@ -77,11 +66,11 @@ public class Satellite
 
         if (ObjectTF.localPosition.y > 0)
         {
-            ThisActualSR.sortingOrder = _PlayerSortOrder + (UpperOrder * 10) - FarFromCenter;
+            ThisActualSR.sortingOrder = _PlayerSortOrder + UpperOrder - FarFromCenter;
         }
         else
         {
-            ThisActualSR.sortingOrder = _PlayerSortOrder + (UpperOrder * 10) + FarFromCenter;
+            ThisActualSR.sortingOrder = _PlayerSortOrder + UpperOrder + FarFromCenter;
         }
     }
 }

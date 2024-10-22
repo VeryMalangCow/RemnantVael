@@ -16,7 +16,14 @@ public class RoomController : MonoBehaviour
     [HideInInspector] public bool SettedPos = false;
 
     [Space(10)]
-    [Header("=== In Room _Building")]
+    [Header("=== In Room _ Wall")]
+    [SerializeField] private Transform InRoom_UpperWallParentTF;
+    [HideInInspector] private List<HaveShadowThingStatic> InRoom_UpperWalls;
+    [SerializeField] private Transform InRoom_LowerWallParentTF;
+    [HideInInspector] private List<HaveShadowThingStatic> InRoom_LowerWalls;
+
+    [Space(10)]
+    [Header("=== In Room _ Building")]
     [SerializeField] private Transform InRoom_AllGateParentTF;
     [HideInInspector] public List<GateController> InRoom_AllGate;
     [SerializeField] private Transform InRoom_AllBuildingParentTF;
@@ -26,7 +33,7 @@ public class RoomController : MonoBehaviour
 
 
     [Space(10)]
-    [Header("=== In Room _Enemy")]
+    [Header("=== In Room _ Enemy")]
     [SerializeField] private List<EnemySpot> InRoom_AllEnemy;
     [SerializeField] private Transform InRoom_WayPointParentTF;
     [HideInInspector] public List<Transform> InRoom_AllWayPoint;
@@ -43,6 +50,30 @@ public class RoomController : MonoBehaviour
 
     public void Offset()
     {
+        // Wall
+        InRoom_UpperWalls = new List<HaveShadowThingStatic>();
+        if (InRoom_UpperWallParentTF.childCount > 0)
+        {
+            foreach (Transform chile in InRoom_UpperWallParentTF)
+            {
+                if (chile.gameObject.TryGetComponent(out HaveShadowThingStatic HSTS))
+                {
+                    InRoom_UpperWalls.Add(HSTS);
+                }
+            }
+        }
+        InRoom_LowerWalls = new List<HaveShadowThingStatic>();
+        if (InRoom_LowerWallParentTF.childCount > 0)
+        {
+            foreach (Transform chile in InRoom_LowerWallParentTF)
+            {
+                if (chile.gameObject.TryGetComponent(out HaveShadowThingStatic HSTS))
+                {
+                    InRoom_LowerWalls.Add(HSTS);
+                }
+            }
+        }
+
         // Gate
         InRoom_AllGate = new List<GateController>();
         if (InRoom_AllGateParentTF.childCount > 0)
@@ -84,6 +115,39 @@ public class RoomController : MonoBehaviour
                 InRoom_AllWayPoint.Add(chile);
             }
         }
+    }
+
+    #endregion
+
+    #region Wall
+
+    public void SetCorrectWallSortOrder(RoomController _RC)
+    {
+        if (_RC == this)
+        {
+            for (int i = 0; i < InRoom_UpperWalls.Count; i++)
+            {
+                if (InRoom_UpperWalls[i].TargetObject.TryGetComponent(out SpriteRenderer sr))
+                { sr.sortingOrder = 1; }
+            }
+            for (int i = 0; i < InRoom_LowerWalls.Count; i++)
+            {
+                if (InRoom_LowerWalls[i].TargetObject.TryGetComponent(out SpriteRenderer sr))
+                { sr.sortingOrder = 2000; }
+            }
+        }
+        else
+        {
+            List<HaveShadowThingStatic> HSTSs = new List<HaveShadowThingStatic>();
+            HSTSs.AddRange(InRoom_UpperWalls);
+            HSTSs.AddRange(InRoom_LowerWalls);
+            for (int i = 0; i < HSTSs.Count; i++)
+            {
+                if (HSTSs[i].TargetObject.TryGetComponent(out SpriteRenderer sr))
+                { sr.sortingOrder = 1; }
+            }
+        }
+        
     }
 
     #endregion

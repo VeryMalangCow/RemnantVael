@@ -1,7 +1,8 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeaponController : WeaponController
+public class PlayerWeaponController : SatelliteController
 {
     #region Value
 
@@ -37,9 +38,14 @@ public class PlayerWeaponController : WeaponController
 
     #region Framework
 
-    protected override void Update()
+    protected void Update()
     {
-        base.Update();
+        PitchTF.transform.localRotation = RotateSmooth(InputManager.Instance.DirFromPlayerPos.normalized, PitchTF, rotateSpeed);
+
+        foreach (Satellite hand in Hands)
+        {
+            hand.SetPos(PlayerSR.sortingOrder);
+        }
 
         CaculateROF();
 
@@ -54,13 +60,14 @@ public class PlayerWeaponController : WeaponController
 
             BoostItemManager.Instance.ActiveSkill_Fire();
         }
+
+
     }
 
 
     #endregion
 
-
-    #region Fire
+    #region ROF
 
     private void CaculateROF()
     {
@@ -137,6 +144,10 @@ public class PlayerWeaponController : WeaponController
                 0.0f, 0.5f, 1.0f);
         }
         CurrentDelayROF = 0;
+
+        // Tween
+        this.transform.DOShakePosition(1f / ROF.ActualState.Value, 0.05f, 20, 90, false, true);
+        
     }
 
 
