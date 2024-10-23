@@ -28,6 +28,11 @@ public class EnemyController : MovableObject, IInteract
     [SerializeField] private float ItemDropPercent = 0.0f;
 
     [Space(10)]
+    [Header("=== Movement")]
+    [SerializeField] private eMovementState MovementState;
+    [SerializeField] private Vector2 MoveDir;
+
+    [Space(10)]
     [Header("=== UI")]
     [SerializeField] private Canvas ThisCanvas;
     [SerializeField] private ModifyReductionFocusProgressBar HP_ProgressBar;
@@ -86,14 +91,42 @@ public class EnemyController : MovableObject, IInteract
         { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
     }
 
+    protected void FixedUpdate()
+    {
+        Movement();
+    }
+
+    #endregion
+
+    #region Move
+
+    private void Movement()
+    {
+        switch (MovementState)
+        {
+            case eMovementState.IdleOrWalk:
+                Walk(MoveDir, 3f, AccelerationSpeed);
+                break;
+
+            default: break;
+        }
+    }
+
     #endregion
 
     #region Damaged
 
-    public void TakeDamage(BulletState _BS, Vector2 _BulletDir)
+    public void TakeDamage(BulletState _BS, Vector2 _KnockbackDir)
     {
         if (base.IsDead) 
         { return; }
+
+        // Knockback
+        if (_BS.AbleKnockback)
+        {
+            Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
+            GetKnockback(new KnockbackState(_KnockbackDir, _BS.KnockbackPower, _BS.KnockbackTime));
+        }
 
         if (_BS.DamageType == eDamageType.Physics)
         {
@@ -102,9 +135,6 @@ public class EnemyController : MovableObject, IInteract
             (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
             _BS.BaseDamage, _BS.IsCritical);
 
-            // Knockback
-            Debug.DrawRay((Vector2)this.transform.position, _BulletDir, Color.red, 5f);
-            GetKnockback(new KnockbackState(_BulletDir, _BS.KnockbackPower, _BS.KnockbackTime));
 
 
             SetIsDead(CurrentHP.Value, _BS.BaseDamage);
@@ -125,6 +155,62 @@ public class EnemyController : MovableObject, IInteract
                     _BS.BaseDamage, _BS.IsCritical);
 
                 SpawnES(_BS.BaseDamage);
+            }
+            else
+            {
+                // UI
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
+                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
+            }
+        }
+    }
+
+    public void TakeDamage(AttackerState _AttackerState, Vector2 _KnockbackDir)
+    {
+        if (base.IsDead)
+        { return; }
+
+        // Knockback
+        if (_AttackerState.AbleKnockback)
+        {
+            Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
+            GetKnockback(new KnockbackState(_KnockbackDir, _AttackerState.KnockbackPower, _AttackerState.KnockbackTime));
+        }
+
+
+        bool isCritical = false;
+        float baseDamage = _AttackerState.BaseDamage;
+        if (Random.Range(0f, 1f) < _AttackerState.CD)
+        {
+            isCritical = true;
+            baseDamage *= _AttackerState.CD;
+        }
+
+        if (_AttackerState.DamageType == eDamageType.Physics)
+        {
+            // UI
+            PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
+            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+            baseDamage, isCritical);
+
+            SetIsDead(CurrentHP.Value, baseDamage);
+            CurrentHP.Value -= baseDamage;
+            if (CurrentHP.Value <= 0f)
+            {
+                base.IsDead = true;
+                Die();
+            }
+        }
+        else
+        {
+            if (!IsLethargy)
+            {
+                // UI
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
+                    (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+                    baseDamage, isCritical);
+
+                SpawnES(baseDamage);
             }
             else
             {

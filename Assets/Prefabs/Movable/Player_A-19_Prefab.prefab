@@ -827,7 +827,7 @@ MonoBehaviour:
       value: 89
     Desc: 
   KnockbackPower:
-    BaseState: 1
+    BaseState: 10
     CurrentLevel:
       value: 0
     UpgradeValueByLevelRange:
@@ -837,7 +837,7 @@ MonoBehaviour:
     - 0.4
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 1
+      value: 10
     Desc: 
   CurrentDelayROF: 0
   BulletSpawnTFs:
@@ -1731,37 +1731,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxChargeAmount: 1
-  CurrentChargeAmount: 0
+  CurrentChargeAmount: 1
   MaxCooltime:
-    BaseState: 0
+    BaseState: 1
     CurrentLevel:
       value: 0
     UpgradeValueByLevelRange: []
     NeedPayByLevelRange: 
     ActualState:
-      value: 0
+      value: 1
     Desc: 
   CurrentCooltime: 0
   NeedEP: 10
   Tier:
-    BaseState: 0
+    BaseState: 1
     CurrentLevel:
       value: 0
     UpgradeValueByLevelRange: 
     NeedPayByLevelRange: 
     ActualState:
-      value: 0
+      value: 1
     Desc: 
   Power:
-    BaseState: 0
+    BaseState: 10
     CurrentLevel:
       value: 0
     UpgradeValueByLevelRange: []
     NeedPayByLevelRange: 
     ActualState:
-      value: 0
+      value: 10
     Desc: 
   PlayerController: {fileID: 0}
+  _ColSize: {x: 1, y: 0.5}
+  _StartSize: 3
+  _MaxSize: 7.5
+  _BiggerTime: 0.3
+  _SmallerTime: 0.4
 --- !u!114 &3772518435837473010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1855,7 +1860,6 @@ MonoBehaviour:
       value: 1.5
     Desc: 
   PlayerController: {fileID: 0}
-  Missile_Prefab: {fileID: 2192280153704162206, guid: d05f25d52068dd74988f837decc0268e, type: 3}
   ShotDelay: 0.1
   MEI: {fileID: 2688309825678559918}
 --- !u!114 &6021120989462345684

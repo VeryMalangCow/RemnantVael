@@ -114,13 +114,19 @@ public class PlayerWeaponController : SatelliteController
                 isCritical = true;
             }
 
+            // Knockback
+
+            bool ableKnockback = false;
+            if (DamageType == eDamageType.Physics)
+            {
+                ableKnockback = true;
+            }
+
             // Shadow
             float targetShadow = 0.4f;
             if (BulletSpawnTFs[i].TryGetComponent(out HaveShadowThing HST))
             { targetShadow = HST.TargetRange; }
 
-
-            
             // Angle
             Vector2 targetPos = InputManager.Instance.MousePosByWorld;
             if (fireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
@@ -138,6 +144,7 @@ public class PlayerWeaponController : SatelliteController
                 AliveTime.ActualState.Value, 
                 isCritical, 
                 CD.ActualState.Value,
+                ableKnockback,
                 PlayerController.BaseWeapon.KnockbackPower.ActualState.Value,
                 0.2f);
             PBC.SetState(BulletSpawnTFs[i].position, randomAngle, bulletState, dir, targetShadow);

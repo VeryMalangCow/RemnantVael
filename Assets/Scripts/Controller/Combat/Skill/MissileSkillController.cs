@@ -12,9 +12,6 @@ public class MissileSkillController : ActiveSkillController
     [Space(10)]
     [Header("=== Value")]
 
-    [Header("-- Prefab")]
-    [SerializeField] private GameObject Missile_Prefab;
-
     [Header("-- State")]
     [SerializeField] private float ShotDelay = 0.1f;
 
@@ -23,6 +20,8 @@ public class MissileSkillController : ActiveSkillController
 
 
     #endregion
+
+    #region Active
 
     public override void ActiveSkill()
     {
@@ -53,6 +52,7 @@ public class MissileSkillController : ActiveSkillController
             if (missile != null)
             {
                 float rcc = UnityEngine.Random.Range(0f, 1f);
+
                 bool isCritical = false;
                 if (rcc < PlayerController.BaseWeapon.CC.ActualState.Value)
                 {
@@ -66,6 +66,7 @@ public class MissileSkillController : ActiveSkillController
                     3.5f,
                     isCritical,
                     PlayerController.BaseWeapon.CD.ActualState.Value,
+                    true,
                     PlayerController.BaseWeapon.KnockbackPower.ActualState.Value,
                     0.4f);
 
@@ -93,4 +94,6 @@ public class MissileSkillController : ActiveSkillController
             yield return new WaitForSeconds(ShotDelay);
         }
     }
+
+    #endregion
 }

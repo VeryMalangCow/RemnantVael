@@ -66,6 +66,8 @@ MonoBehaviour:
   IsLethargy: 0
   RecoverLethargyTime: 4
   ItemDropPercent: 1
+  MovementState: 1
+  MoveDir: {x: 0, y: 0}
   ThisCanvas: {fileID: 950598844825775425}
   HP_ProgressBar: {fileID: 6470338870314578685}
   EP_ProgressBar: {fileID: 5303638376107025711}

@@ -12,6 +12,7 @@ public class BulletController : HaveShadowThingMovable
     [Header("=== State")]
     [SerializeField] public BulletState BulletState;
     [SerializeField] protected float CurrentAliveTime = 0;
+    [HideInInspector] private float BaseBulletSpeed = 250f; 
 
     [Space(10)]
     [Header("=== Physics")]
@@ -63,7 +64,7 @@ public class BulletController : HaveShadowThingMovable
     {
         base.Update();
         if (ThisRb != null)
-        { ThisRb.velocity = ((BulletState.MuzzleSpeed * 500f) * this.transform.up) * Time.deltaTime; }
+        { ThisRb.velocity = ((BulletState.MuzzleSpeed * BaseBulletSpeed * Time.deltaTime) * this.transform.up); }
     }
 
     #endregion
@@ -95,6 +96,8 @@ public class BulletState
 
     [SerializeField] public bool IsCritical;
     [SerializeField] public float CD;
+
+    [SerializeField] public bool AbleKnockback;
     [SerializeField] public float KnockbackPower;
     [SerializeField] public float KnockbackTime;
 
@@ -105,6 +108,7 @@ public class BulletState
         float _AliveTime, 
         bool _IsCritical, 
         float _CD,
+        bool _AbleKnockback,
         float knockbackPower,
         float knockbackTime)
     {
@@ -112,8 +116,11 @@ public class BulletState
         BaseDamage = _BaseDamage;
         MuzzleSpeed = _MuzzleSpeed;
         AliveTime = _AliveTime;
+
         IsCritical = _IsCritical;
         CD = _CD;
+
+        AbleKnockback = _AbleKnockback;
         KnockbackPower = knockbackPower;
         KnockbackTime = knockbackTime;
     }
@@ -127,7 +134,10 @@ public class BulletState
 
         IsCritical = false;
         CD = 0;
+
+        AbleKnockback = false;
         KnockbackPower = 0;
+        KnockbackTime = 0;
     }
 }
 

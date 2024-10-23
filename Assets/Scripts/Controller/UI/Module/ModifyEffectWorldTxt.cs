@@ -7,6 +7,7 @@ public class ModifyEffectWorldTxt : UIModule
 {
     #region Value
 
+    [HideInInspector] private Canvas ThisCanvas;
     [SerializeField] private TMP_Text ThisTxt;
     [HideInInspector] private TrueShadow ThisTS;
 
@@ -18,8 +19,17 @@ public class ModifyEffectWorldTxt : UIModule
     {
         ThisTxt.color = new Color(1f, 1f, 1f, 0f);
         ThisTxt.transform.localScale = Vector3.zero;
+
+        if (ThisCanvas == null && this.gameObject.TryGetComponent(out Canvas canvas))
+        {
+            ThisCanvas =  canvas;
+            ThisCanvas.sortingOrder = 4000;
+        }
+
         if (ThisTS == null && ThisTxt.gameObject.TryGetComponent(out TrueShadow ts))
-        { ThisTS = ts; }
+        { 
+            ThisTS = ts; 
+        }
     }
 
     #endregion

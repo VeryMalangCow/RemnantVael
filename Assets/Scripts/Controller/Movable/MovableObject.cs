@@ -55,7 +55,7 @@ public class MovableObject : HaveShadowThingMovable
         Vector2 moveVelocity = _MoveDir * _MoveSpeed;
         Vector2 currentVelocity = ThisRb.velocity;
 
-        moveVelocity = Vector2.Lerp(currentVelocity, moveVelocity, _AccelerationSpeed * Time.deltaTime);
+        moveVelocity = Vector2.Lerp(currentVelocity, moveVelocity, _AccelerationSpeed * Time.fixedDeltaTime);
         ThisRb.velocity = moveVelocity;
     }
 
@@ -111,13 +111,13 @@ public class MovableObject : HaveShadowThingMovable
             for (int i = 0; i < KnockbackStateList.Count; i++)
             {
                 ThisRb.velocity += KnockbackStateList[i].GetKnockback() * Time.deltaTime;
+                Debug.Log("³Ë¹éÁß!");
             }
         }
     }
 
     protected void GetKnockback(KnockbackState _KnockbackState)
     {
-        Debug.Log("power : " + _KnockbackState.Power);
         KnockbackStateList.Add(_KnockbackState);
         KnockbackStateList[KnockbackStateList.Count - 1].StartKnockback()
             .OnComplete(() =>

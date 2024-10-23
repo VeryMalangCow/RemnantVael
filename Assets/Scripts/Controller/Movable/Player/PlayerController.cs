@@ -1,4 +1,3 @@
-using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UniRx;
@@ -336,8 +335,8 @@ public class PlayerController : MovableObject
     [HideInInspector] public float Skill0Interval = 0.5f;
     public void CanChange_Skill0()
     {
-        if (!CanChange() &&
-            SkillWeapon.Skill_0.CanActive())
+        if (!CanChange() ||
+            !SkillWeapon.Skill_0.CanActive())
         { return; }
 
         ReservationSkillDele = SkillWeapon.Skill_0.ActiveSkill;
@@ -348,8 +347,8 @@ public class PlayerController : MovableObject
     [HideInInspector] public float Skill1Interval = 0.5f;
     public void CanChange_Skill1()
     {
-        if (!CanChange() &&
-            SkillWeapon.Skill_1.CanActive())
+        if (!CanChange() ||
+            !SkillWeapon.Skill_1.CanActive())
         { return; }
 
         ReservationSkillDele = SkillWeapon.Skill_1.ActiveSkill;
@@ -588,7 +587,6 @@ public class PlayerController : MovableObject
 
     #endregion
 
-   
 }
 
 [System.Serializable]
