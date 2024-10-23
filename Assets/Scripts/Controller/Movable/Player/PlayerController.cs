@@ -332,6 +332,30 @@ public class PlayerController : MovableObject
         StartCasting(ExecutionInterval);
     }
 
+    // + None
+    [HideInInspector] public float Skill0Interval = 0.5f;
+    public void CanChange_Skill0()
+    {
+        if (!CanChange() &&
+            SkillWeapon.Skill_0.CanActive())
+        { return; }
+
+        ReservationSkillDele = SkillWeapon.Skill_0.ActiveSkill;
+
+        StartCasting(Skill0Interval);
+    }
+
+    [HideInInspector] public float Skill1Interval = 0.5f;
+    public void CanChange_Skill1()
+    {
+        if (!CanChange() &&
+            SkillWeapon.Skill_1.CanActive())
+        { return; }
+
+        ReservationSkillDele = SkillWeapon.Skill_1.ActiveSkill;
+
+        StartCasting(Skill1Interval);
+    }
 
     public void StartCasting(float _CastingTime)
     {

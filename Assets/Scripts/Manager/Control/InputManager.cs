@@ -191,11 +191,11 @@ public class InputManager : Singleton<InputManager>
         {
             if (IsPlayingSkill)
             {
-                SetFirstInput(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.ActiveSkill);
+                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_Skill0);
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.ActiveSkill();
+            PlayerManager.Instance.PlayerController.CanChange_Skill0();
         }
     }
 
@@ -205,11 +205,11 @@ public class InputManager : Singleton<InputManager>
         {
             if (IsPlayingSkill)
             {
-                SetFirstInput(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.ActiveSkill);
+                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_Skill1);
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.ActiveSkill();
+            PlayerManager.Instance.PlayerController.CanChange_Skill0();
         }
     }
 

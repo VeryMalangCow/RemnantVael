@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class MissileSkillController : ActiveSkillController
 {
@@ -27,12 +26,10 @@ public class MissileSkillController : ActiveSkillController
 
     public override void ActiveSkill()
     {
-        if (CanActive())
-        {
-            base.ActiveSkill();
-            StartCoroutine(ActualActive());
-        }
+        base.ActiveSkill();
+        StartCoroutine(ActualActive());
     }
+    
 
     private IEnumerator ActualActive()
     {

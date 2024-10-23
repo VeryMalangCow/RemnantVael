@@ -75,7 +75,7 @@ public class ActiveSkillController : MonoBehaviour
 
     #region Judg Can Active
 
-    protected bool CanActive()
+    public bool CanActive()
     {
         if ((CurrentChargeAmount > 0) &&
             (PlayerManager.Instance.PlayerController.CurrentEP.Value > NeedEP * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value) &&
