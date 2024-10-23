@@ -100,8 +100,7 @@ public class MissileBulletController : BulletController
         float targetSpeed = _BulletState.MuzzleSpeed;
 
         // Base Dir
-        Quaternion targetQuat = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
-        this.transform.localRotation = targetQuat;
+        this.transform.localRotation = this.transform.localRotation = GetRotByVec2(_Dir);
 
         // State + RandomDir
         float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
@@ -132,7 +131,7 @@ public class MissileBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
-                EC.TakeDamage(BulletState.DamageType, BulletState.BaseDamage, BulletState.IsCritical);
+                EC.TakeDamage(BulletState, GetDirByAngle(transform.eulerAngles.z));
             }
         }
 

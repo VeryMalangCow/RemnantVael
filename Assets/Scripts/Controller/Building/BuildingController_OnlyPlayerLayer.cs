@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
@@ -14,7 +15,7 @@ public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
     [SerializeField] private int LowestLayerOrder = -2000;
     [SerializeField] private int HighestLayerOrder = 2000;
 
-    [SerializeField] private bool IsUpper = false;
+    [SerializeField] private ReactiveProperty<bool> IsUpper = new();
     [HideInInspector] private Transform PlayerTF;
 
     [Space(10)]
@@ -24,6 +25,15 @@ public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
     #endregion
 
     #region Framework
+
+    private void Awake()
+    {
+        IsUpper.Value = false;
+        IsUpper.Subscribe(isUp =>
+        {
+            SetLayerOrder();
+        });
+    }
 
     private void Start()
     {
@@ -40,38 +50,45 @@ public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
         }
     }
 
+
     private void Update()
     {
-       if (PlayerTF != null)
-       {
-            float targetY = PlayerTF.transform.position.y;
-            float thisY = this.gameObject.transform.position.y;
-
-            if (thisY > targetY && !IsUpper)
-            {
-                IsUpper = true;
-                SetLayerOrder();
-            }
-            else if (thisY < targetY && IsUpper)
-            {
-                IsUpper = false;
-                SetLayerOrder();
-            }
-       }
+        SetLayerSort();
     }
 
     private void SetLayerOrder()
     {
-        if (IsUpper)
+        if (IsUpper.Value)
         {
             TargetSR.sortingOrder = LowestLayerOrder;
-            ShadowSR.sortingOrder = LowestLayerOrder - 1;
         }
         else
         {
             TargetSR.sortingOrder = HighestLayerOrder;
-            ShadowSR.sortingOrder = HighestLayerOrder - 1;
         }
     }
+
+    #endregion
+
+    #region Set
+
+    private void SetLayerSort()
+    {
+        if (PlayerTF != null)
+        {
+            float targetY = PlayerTF.transform.position.y;
+            float thisY = this.gameObject.transform.position.y;
+
+            if (thisY > targetY)
+            {
+                IsUpper.Value = true;
+            }
+            else if (thisY < targetY)
+            {
+                IsUpper.Value = false;
+            }
+        }
+    }
+
     #endregion
 }

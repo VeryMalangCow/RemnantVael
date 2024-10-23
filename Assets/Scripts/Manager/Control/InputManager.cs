@@ -209,7 +209,7 @@ public class InputManager : Singleton<InputManager>
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.CanChange_Skill0();
+            PlayerManager.Instance.PlayerController.CanChange_Skill1();
         }
     }
 

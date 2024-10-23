@@ -204,6 +204,7 @@ public class RoomController : MonoBehaviour
 
     private void Set_Completed()
     {
+        // Gate
         for (int i = 0; i < InRoom_AllGate.Count; i++) 
         {
             if (InRoom_AllGate[i].HadParter && !InRoom_AllGate[i].gameObject.activeSelf)
@@ -217,6 +218,7 @@ public class RoomController : MonoBehaviour
             }
         }
 
+        // Extra Building
         if (InRoom_BuildThing != null && !InRoom_BuildThing.gameObject.activeSelf)
         {
             InRoom_BuildThing.gameObject.SetActive(true);

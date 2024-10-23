@@ -22,9 +22,7 @@ public class PlayerBulletController : BulletController
 
     public void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, Vector2 _Dir, float _TargetRange)
     {
-        Quaternion targetQuat = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
-
-        this.transform.localRotation = targetQuat;
+        this.transform.localRotation = GetRotByVec2(_Dir);
 
         base.SetState(_SpawnVec, _SpreadAngle, _BulletState, _TargetRange);
 
@@ -59,7 +57,7 @@ public class PlayerBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
-                EC.TakeDamage(BulletState.DamageType, BulletState.BaseDamage, BulletState.IsCritical);
+                EC.TakeDamage(BulletState, GetDirByAngle(transform.eulerAngles.z));
             }
         }
 

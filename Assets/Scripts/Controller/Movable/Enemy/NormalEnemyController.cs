@@ -11,4 +11,5 @@ public class NormalEnemyController : EnemyController
     [SerializeField] private eEnemy ThisEnemyType;
     [SerializeField] private List<eEnemyPattern> ThisEnemyPatterns;
 
+
 }

@@ -826,6 +826,19 @@ MonoBehaviour:
     ActualState:
       value: 89
     Desc: 
+  KnockbackPower:
+    BaseState: 1
+    CurrentLevel:
+      value: 0
+    UpgradeValueByLevelRange:
+    - 0.1
+    - 0.2
+    - 0.3
+    - 0.4
+    NeedPayByLevelRange: 01000000020000000300000004000000
+    ActualState:
+      value: 1
+    Desc: 
   CurrentDelayROF: 0
   BulletSpawnTFs:
   - {fileID: 4586805314071208296}
@@ -1109,6 +1122,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   AccelerationSpeed: 12
+  KnockbackStateList: []
   BaseYLimit: 0.02
   BaseTweenReTime: 0.25
   ThisComponentGOList:
@@ -1250,6 +1264,8 @@ MonoBehaviour:
   - {fileID: 4739302390712378442}
   - {fileID: 2670002921990514549}
   ExecutionInterval: 0.75
+  Skill0Interval: 0.5
+  Skill1Interval: 0.5
 --- !u!114 &8889954111637353817
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UniRx;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class EnemyController : MovableObject, IInteract
 {
@@ -31,6 +29,7 @@ public class EnemyController : MovableObject, IInteract
 
     [Space(10)]
     [Header("=== UI")]
+    [SerializeField] private Canvas ThisCanvas;
     [SerializeField] private ModifyReductionFocusProgressBar HP_ProgressBar;
     [SerializeField] private ModifyReductionFocusProgressBar EP_ProgressBar;
 
@@ -45,6 +44,7 @@ public class EnemyController : MovableObject, IInteract
     [Header("=== Nav")]
     [Tooltip("This is Radius")]
     [SerializeField] private float NavRadius = 0.2f;
+
     #endregion
 
     #region Fremework
@@ -90,40 +90,45 @@ public class EnemyController : MovableObject, IInteract
 
     #region Damaged
 
-    public void TakeDamage(eDamageType _DamageType, float _Damage, bool _IsCritical)
+    public void TakeDamage(BulletState _BS, Vector2 _BulletDir)
     {
         if (base.IsDead) 
         { return; }
 
-        
-
-        if (_DamageType == eDamageType.Physics)
+        if (_BS.DamageType == eDamageType.Physics)
         {
+            // UI
             PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
             (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-            _Damage, _IsCritical);
+            _BS.BaseDamage, _BS.IsCritical);
 
-            SetIsDead(CurrentHP.Value, _Damage);
-            CurrentHP.Value -= _Damage;
+            // Knockback
+            Debug.DrawRay((Vector2)this.transform.position, _BulletDir, Color.red, 5f);
+            GetKnockback(new KnockbackState(_BulletDir, _BS.KnockbackPower, _BS.KnockbackTime));
+
+
+            SetIsDead(CurrentHP.Value, _BS.BaseDamage);
+            CurrentHP.Value -= _BS.BaseDamage;
             if (CurrentHP.Value <= 0f)
             {
                 base.IsDead = true;
                 Die();
             }
-
         }
         else
         {
             if (!IsLethargy)
             {
+                // UI
                 PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
                     (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-                    _Damage, _IsCritical);
+                    _BS.BaseDamage, _BS.IsCritical);
 
-                SpawnES(_Damage);
+                SpawnES(_BS.BaseDamage);
             }
             else
             {
+                // UI
                 PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
                     (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
             }
@@ -189,6 +194,7 @@ public class EnemyController : MovableObject, IInteract
         }
         else if (CurrentEP.Value > 0)
         {
+            // UI
             PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
                     (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
 
@@ -444,6 +450,16 @@ public class EnemyController : MovableObject, IInteract
 
         dis += Vector2.Distance(_Target.position, _Root[_Root.Count - 1].position);
         return dis;
+    }
+
+    #endregion
+
+    #region UI
+
+    public override void SetSortingOrder(int _SortingOrder)
+    {
+        base.SetSortingOrder(_SortingOrder);
+        ThisCanvas.sortingOrder = _SortingOrder;
     }
 
     #endregion

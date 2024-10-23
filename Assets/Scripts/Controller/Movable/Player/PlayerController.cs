@@ -121,13 +121,13 @@ public class PlayerController : MovableObject
     protected override void Update()
     {
         base.Update();
+        AlwaysCaculate();
         BoostItemManager.Instance.ActiveSkill_Always();
     }
 
 
     private void FixedUpdate()
     {
-        AlwaysCaculate();
         Movement();
     }
 

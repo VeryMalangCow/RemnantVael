@@ -24,10 +24,10 @@ public class HaveShadowThing : MonoBehaviour
 
     #region Sorting Order
 
-    public void SetSortingOrder(int _SortingOrder)
+    public virtual void SetSortingOrder(int _SortingOrder)
     {
         if (ThisSR == null)
-        { return; } 
+        { return; }
 
         ThisSR.sortingOrder = _SortingOrder;
     }

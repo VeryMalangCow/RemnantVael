@@ -67,6 +67,22 @@ public class BulletController : HaveShadowThingMovable
     }
 
     #endregion
+
+    #region Angle Vector Things
+
+    protected Vector2 GetDirByAngle(float _Angle)
+    {
+        return new Vector2(
+                    Mathf.Cos((_Angle + 90) * Mathf.Deg2Rad),
+                    Mathf.Sin((_Angle + 90) * Mathf.Deg2Rad)).normalized;
+    }
+
+    protected Quaternion GetRotByVec2(Vector2 _Dir)
+    {
+        return Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
+    }
+
+    #endregion
 }
 
 [System.Serializable]
@@ -79,8 +95,18 @@ public class BulletState
 
     [SerializeField] public bool IsCritical;
     [SerializeField] public float CD;
+    [SerializeField] public float KnockbackPower;
+    [SerializeField] public float KnockbackTime;
 
-    public BulletState(eDamageType _eDamageType, float _BaseDamage, float _MuzzleSpeed, float _AliveTime, bool _IsCritical, float _CD)
+    public BulletState(
+        eDamageType _eDamageType,
+        float _BaseDamage,
+        float _MuzzleSpeed, 
+        float _AliveTime, 
+        bool _IsCritical, 
+        float _CD,
+        float knockbackPower,
+        float knockbackTime)
     {
         DamageType = _eDamageType;
         BaseDamage = _BaseDamage;
@@ -88,6 +114,8 @@ public class BulletState
         AliveTime = _AliveTime;
         IsCritical = _IsCritical;
         CD = _CD;
+        KnockbackPower = knockbackPower;
+        KnockbackTime = knockbackTime;
     }
 
     public void ResetState()
@@ -96,6 +124,10 @@ public class BulletState
         BaseDamage = 0;
         MuzzleSpeed = 0;
         AliveTime = 0;
+
+        IsCritical = false;
+        CD = 0;
+        KnockbackPower = 0;
     }
 }
 

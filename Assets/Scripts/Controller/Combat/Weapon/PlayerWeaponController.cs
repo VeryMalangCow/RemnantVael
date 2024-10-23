@@ -19,6 +19,7 @@ public class PlayerWeaponController : SatelliteController
     [SerializeField] public BaseUpgradeState<float> CC;
     [SerializeField] public BaseUpgradeState<float> CD;
     [SerializeField] public BaseUpgradeState<float> AccuracyRate;
+    [SerializeField] public BaseUpgradeState<float> KnockbackPower;
 
     [SerializeField] public float CurrentDelayROF = 0;
 
@@ -60,8 +61,6 @@ public class PlayerWeaponController : SatelliteController
 
             BoostItemManager.Instance.ActiveSkill_Fire();
         }
-
-
     }
 
 
@@ -138,7 +137,9 @@ public class PlayerWeaponController : SatelliteController
                 MuzzleSpeed.ActualState.Value, 
                 AliveTime.ActualState.Value, 
                 isCritical, 
-                CD.ActualState.Value);
+                CD.ActualState.Value,
+                PlayerController.BaseWeapon.KnockbackPower.ActualState.Value,
+                0.2f);
             PBC.SetState(BulletSpawnTFs[i].position, randomAngle, bulletState, dir, targetShadow);
 
             // Effect

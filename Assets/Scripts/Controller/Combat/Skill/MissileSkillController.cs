@@ -54,21 +54,23 @@ public class MissileSkillController : ActiveSkillController
             {
                 float rcc = UnityEngine.Random.Range(0f, 1f);
                 bool isCritical = false;
-                if (rcc < PlayerManager.Instance.PlayerController.BaseWeapon.CC.ActualState.Value)
+                if (rcc < PlayerController.BaseWeapon.CC.ActualState.Value)
                 {
                     isCritical = true;
                 }
 
                 BulletState bulletState = new BulletState(
                     eDamageType.Physics,
-                    PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.ActualState.Value * Power.ActualState.Value,
+                    PlayerController.BaseWeapon.BaseDamage.ActualState.Value * Power.ActualState.Value,
                     1.5f,
                     3.5f,
                     isCritical,
-                    PlayerManager.Instance.PlayerController.BaseWeapon.CD.ActualState.Value);
+                    PlayerController.BaseWeapon.CD.ActualState.Value,
+                    PlayerController.BaseWeapon.KnockbackPower.ActualState.Value,
+                    0.4f);
 
                 // Dir
-                float angle = PlayerManager.Instance.PlayerController.SkillWeapon.PitchTF.localRotation.eulerAngles.y;
+                float angle = PlayerController.SkillWeapon.PitchTF.localRotation.eulerAngles.y;
                 Vector2 dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
                 float targetRange = 0.4f;
