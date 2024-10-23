@@ -20,13 +20,13 @@ public class PlayerBulletController : BulletController
 
     #region Set State
 
-    public void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, Vector2 _Dir, bool _IsCritical, float _CD, float _TargetRange)
+    public void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, Vector2 _Dir, float _TargetRange)
     {
         Quaternion targetQuat = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
 
         this.transform.localRotation = targetQuat;
 
-        base.SetState(_SpawnVec, _SpreadAngle, _BulletState, _IsCritical, _CD, _TargetRange);
+        base.SetState(_SpawnVec, _SpreadAngle, _BulletState, _TargetRange);
 
         ThisRb.simulated = true;
         gameObject.SetActive(true);
@@ -59,7 +59,7 @@ public class PlayerBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
-                EC.TakeDamage(BulletState.DamageType, BulletState.BaseDamage);
+                EC.TakeDamage(BulletState.DamageType, BulletState.BaseDamage, BulletState.IsCritical);
             }
         }
 

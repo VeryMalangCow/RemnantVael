@@ -105,7 +105,7 @@ public class MissileBulletController : BulletController
 
         // State + RandomDir
         float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
-        base.SetState(_SpawnVec, randomSpreadAngle, _BulletState, false, 1, _TargetRange);
+        base.SetState(_SpawnVec, randomSpreadAngle, _BulletState, _TargetRange);
         base.BulletState.MuzzleSpeed *= 0.3f;
 
         // Dotween
@@ -132,7 +132,7 @@ public class MissileBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
-                EC.TakeDamage(BulletState.DamageType, BulletState.BaseDamage);
+                EC.TakeDamage(BulletState.DamageType, BulletState.BaseDamage, BulletState.IsCritical);
             }
         }
 

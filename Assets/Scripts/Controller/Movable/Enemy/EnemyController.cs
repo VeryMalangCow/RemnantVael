@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class EnemyController : MovableObject, IInteract
 {
@@ -87,37 +88,9 @@ public class EnemyController : MovableObject, IInteract
 
     #endregion
 
-    #region UI
-
-    private void UI_StartPhysicsDmg(float _Value)
-    {
-        ModifyEffectWorldTxt mewt = PoolingManager.Instance.GetOP_DmgTxt();
-        mewt.StartDamageTxt((Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f), _Value.ToString(),
-            new Color(1f, 0.5f, 0.5f, 1f), new Color(0.5f, 0f, 0f, 1f), 36,
-            new Vector2(-0.2f, 0.2f), 1f);
-    }
-
-    private void UI_StartEnergyDmg(float _Value)
-    {
-        ModifyEffectWorldTxt mewt = PoolingManager.Instance.GetOP_DmgTxt();
-        mewt.StartDamageTxt((Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f), _Value.ToString(),
-                    new Color(0.5f, 0.5f, 1f, 1f), new Color(0f, 0f, 0.5f, 1f), 36,
-                    new Vector2(-0.2f, 0.2f), 1f);
-    }
-
-    private void UI_StartStunedState()
-    {
-        ModifyEffectWorldTxt mewt = PoolingManager.Instance.GetOP_DmgTxt();
-        mewt.StartDamageTxt((Vector2)TargetObject.transform.position + new Vector2(0f, 0.2f), "STUNED",
-                    new Color(0.5f, 0.5f, 1f, 1f), new Color(0f, 0f, 0.5f, 1f), 26,
-                    new Vector2(0, 0.5f), 1f);
-    }
-
-    #endregion
-
     #region Damaged
 
-    public void TakeDamage(eDamageType _DamageType, float _Damage)
+    public void TakeDamage(eDamageType _DamageType, float _Damage, bool _IsCritical)
     {
         if (base.IsDead) 
         { return; }
@@ -126,7 +99,9 @@ public class EnemyController : MovableObject, IInteract
 
         if (_DamageType == eDamageType.Physics)
         {
-            UI_StartPhysicsDmg(_Damage);
+            PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
+            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+            _Damage, _IsCritical);
 
             SetIsDead(CurrentHP.Value, _Damage);
             CurrentHP.Value -= _Damage;
@@ -141,13 +116,16 @@ public class EnemyController : MovableObject, IInteract
         {
             if (!IsLethargy)
             {
-                UI_StartEnergyDmg(_Damage);
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
+                    (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+                    _Damage, _IsCritical);
 
                 SpawnES(_Damage);
             }
             else
             {
-                UI_StartStunedState();
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
+                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
             }
         }
     }
@@ -211,7 +189,8 @@ public class EnemyController : MovableObject, IInteract
         }
         else if (CurrentEP.Value > 0)
         {
-            UI_StartStunedState();
+            PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
+                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
 
             targetValue = CurrentEP.Value;
             CurrentEP.Value = 0;

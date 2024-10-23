@@ -132,8 +132,14 @@ public class PlayerWeaponController : SatelliteController
             Vector2 dir = (targetPos - (Vector2)MEIs[i].gameObject.transform.position).normalized;
 
             // Base State 
-            BulletState bulletState = new BulletState(DamageType, BaseDamage.ActualState.Value, MuzzleSpeed.ActualState.Value, AliveTime.ActualState.Value);
-            PBC.SetState(BulletSpawnTFs[i].position, randomAngle, bulletState, dir, isCritical, CD.ActualState.Value, targetShadow);
+            BulletState bulletState = new BulletState(
+                DamageType, 
+                BaseDamage.ActualState.Value, 
+                MuzzleSpeed.ActualState.Value, 
+                AliveTime.ActualState.Value, 
+                isCritical, 
+                CD.ActualState.Value);
+            PBC.SetState(BulletSpawnTFs[i].position, randomAngle, bulletState, dir, targetShadow);
 
             // Effect
             MEIs[i].GenExplosionImgs_Fan(

@@ -22,6 +22,10 @@ public class ModifyEffectWorldTxt : UIModule
         { ThisTS = ts; }
     }
 
+    #endregion
+
+    #region Get or Set Basic
+
     private void SetComponent(Vector2 _TargetPos, string _Txt, Color _TxtColor, Color _TSColor, float _FontSize)
     {
         ThisTxt.text = _Txt;
@@ -63,6 +67,92 @@ public class ModifyEffectWorldTxt : UIModule
         });
     }
 
+    private int GetDefaultSize()
+    {
+        return 25;
+    }
+
+    private int GetSize(bool _IsCritical)
+    {
+        if (_IsCritical)
+        {
+            return 30;
+        }
+        else
+        {
+            return 20;
+        }
+    }
+
+    private Color GetColor(eDamageType _DamageType, bool _IsCritical)
+    {
+        switch (_DamageType)
+        {
+            case eDamageType.Physics:
+                if (!_IsCritical)
+                { return new Color(1f, 0.4f, 0.4f, 1f); }
+                else
+                { return new Color(1f, 0f, 0f, 1f); }
+
+            case eDamageType.Energy:
+                if (!_IsCritical)
+                { return new Color(0.4f, 0.4f, 1f, 1f); }
+                else
+                { return new Color(0f, 0f, 1f, 1f); }
+
+            default:
+                return Color.white;
+        }
+    }
+
+    private Color GetColor(string _StateName)
+    {
+        if (_StateName == "STUNED")
+        { return Color.white; }
+        return Color.white;
+    }
+
+    private void SetBold(bool _IsSet)
+    {
+        if (_IsSet)
+        {
+            ThisTxt.fontStyle = FontStyles.Bold;
+        }
+        else
+        {
+            ThisTxt.fontStyle = FontStyles.Normal;
+        }
+    }
+
+    #endregion
+
+    #region Usable
+
+    public void OffsetByPhysicDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
+    {
+        SetBold(_IsCritical);
+        StartDamageTxt(_TargetPos, _Dmg.ToString(),
+            GetColor(eDamageType.Physics, _IsCritical), Color.black, GetSize(_IsCritical),
+            new Vector2(-0.2f, 0.2f), 1f);
+        
+    }
+
+    public void OffsetByEnergyDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
+    {
+        SetBold(_IsCritical);
+        StartDamageTxt(_TargetPos, _Dmg.ToString(),
+            GetColor(eDamageType.Energy, _IsCritical), Color.black, GetSize(_IsCritical),
+            new Vector2(-0.2f, 0.2f), 1f);
+        
+    }
+
+    public void OffsetByStateStun(Vector2 _TargetPos)
+    {
+        SetBold(false);
+        StartDamageTxt(_TargetPos, "STUNED",
+            GetColor("STUNED"), Color.black, GetDefaultSize(),
+            new Vector2(0f, 0.2f), 1f);
+    }
 
     #endregion
 

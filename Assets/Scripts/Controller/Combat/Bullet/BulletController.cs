@@ -11,7 +11,6 @@ public class BulletController : HaveShadowThingMovable
     [Space(10)]
     [Header("=== State")]
     [SerializeField] public BulletState BulletState;
-    [SerializeField] public bool IsCritical = false;
     [SerializeField] protected float CurrentAliveTime = 0;
 
     [Space(10)]
@@ -32,12 +31,11 @@ public class BulletController : HaveShadowThingMovable
         
         this.transform.position = Vector3.zero;
         this.transform.rotation = Quaternion.identity;
-        IsCritical = false;
         CurrentAliveTime = 0;
         ThisRb.simulated = false;
     }
 
-    public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, bool _IsCritical, float _CD, float _TargetRange)
+    public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _TargetRange)
     {
         CurrentAliveTime = 0;
 
@@ -45,10 +43,9 @@ public class BulletController : HaveShadowThingMovable
 
         this.BulletState = _BulletState;
 
-        IsCritical = _IsCritical;
-        if(IsCritical)
+        if(BulletState.IsCritical)
         {
-            this.BulletState.BaseDamage *= _CD;
+            this.BulletState.BaseDamage *= BulletState.CD;
         }
 
         Vector3 currentRotation = transform.eulerAngles;
@@ -80,12 +77,17 @@ public class BulletState
     [SerializeField] public float MuzzleSpeed;
     [SerializeField] public float AliveTime;
 
-    public BulletState(eDamageType _eDamageType, float _BaseDamage, float _MuzzleSpeed, float _AliveTime)
+    [SerializeField] public bool IsCritical;
+    [SerializeField] public float CD;
+
+    public BulletState(eDamageType _eDamageType, float _BaseDamage, float _MuzzleSpeed, float _AliveTime, bool _IsCritical, float _CD)
     {
         DamageType = _eDamageType;
         BaseDamage = _BaseDamage;
         MuzzleSpeed = _MuzzleSpeed;
         AliveTime = _AliveTime;
+        IsCritical = _IsCritical;
+        CD = _CD;
     }
 
     public void ResetState()

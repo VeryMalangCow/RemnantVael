@@ -60,8 +60,8 @@ MonoBehaviour:
   BaseTweenReTime: 0.3
   ThisComponentGOList: []
   EnemyID: 00
-  MaxHP: 10
-  MaxEP: 10
+  MaxHP: 30
+  MaxEP: 30
   IsLethargy: 0
   RecoverLethargyTime: 4
   ItemDropPercent: 1
@@ -145,7 +145,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 191
+    m_Bits: 703
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -283,7 +283,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.7, y: 0.7}
+  m_Size: {x: 1, y: 1}
   m_Direction: 1
 --- !u!1 &7798369991829081478
 GameObject:
