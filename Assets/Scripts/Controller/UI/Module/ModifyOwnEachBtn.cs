@@ -8,7 +8,7 @@ public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHand
 
     [Space(10)]
     [Header("=== Size")]
-    [SerializeField] private float DurTime = 0.1f;
+    //[SerializeField] private float DurTime = 0.1f;
     [SerializeField] private Vector2 TargetScale = new Vector2(1.15f, 1.15f);
     [HideInInspector] private Vector2 DefScale;
     [HideInInspector] private RectTransform ThisRT;

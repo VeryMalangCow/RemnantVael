@@ -73,14 +73,24 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
 
     #region Desc
 
-    public void SetDesc(BaseUpgradeState<float> _MTAFB)
+    public void SetDesc<T>(BaseUpgradeState<T> _MTAFB)
     {
         // Graph
         for (int i = 0; i < UpgradeGraphDetailState_TxtList.Count; i++) 
         {
-            float value = _MTAFB.UpgradeValueByLevelRange[i];
-            string valueText = value > 0 ? "+" + value.ToString() : value.ToString();
-            UpgradeGraphDetailState_TxtList[i].text = valueText;
+            if (_MTAFB.BaseState.GetType() == typeof(float))
+            {
+                float value = float.Parse(_MTAFB.UpgradeValueByLevelRange[i].ToString());
+                string valueText = value > 0 ? "+" + value.ToString() : value.ToString();
+                UpgradeGraphDetailState_TxtList[i].text = valueText;
+            }
+            else if (_MTAFB.BaseState.GetType() == typeof(int))
+            {
+                int value = int.Parse(_MTAFB.UpgradeValueByLevelRange[i].ToString());
+                string valueText = value > 0 ? "+" + value.ToString() : value.ToString();
+                UpgradeGraphDetailState_TxtList[i].text = valueText;
+            }
+            
         }
 
         int lv = _MTAFB.CurrentLevel.Value;
@@ -112,13 +122,27 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
         }
 
         // Current & Next
-        CurrentLvTxt.text = _MTAFB.CurrentLevel.Value.ToString();
-        CurrentStateTxt.text = _MTAFB.ActualState.Value.ToString();
+        CurrentLvTxt.text = "<size=50%>Level</size>\n" + _MTAFB.CurrentLevel.Value.ToString();
+        CurrentStateTxt.text = "<size=50%>Value</size>\n" + _MTAFB.ActualState.Value.ToString();
 
         if (_MTAFB.CurrentLevel.Value < 10)
         {
-            NextLvTxt.text = (_MTAFB.CurrentLevel.Value + 1).ToString();
-            NextStateTxt.text = (_MTAFB.ActualState.Value + _MTAFB.UpgradeValueByLevelRange[(int)(_MTAFB.CurrentLevel.Value / 3)]).ToString();
+            NextLvTxt.text = "<size=50%>Level</size>\n" + (_MTAFB.CurrentLevel.Value + 1).ToString();
+            if (_MTAFB.BaseState.GetType() == typeof(float))
+            {
+                float value = float.Parse(_MTAFB.ActualState.Value.ToString());
+                float plusValue = float.Parse(_MTAFB.UpgradeValueByLevelRange[(int)(_MTAFB.CurrentLevel.Value / 3)].ToString());
+
+                NextStateTxt.text = "<size=50%>Value</size>\n" + (value + plusValue).ToString();
+            }
+            else if (_MTAFB.BaseState.GetType() == typeof(int))
+            {
+                int value = int.Parse(_MTAFB.ActualState.Value.ToString());
+                int plusValue = int.Parse(_MTAFB.UpgradeValueByLevelRange[(int)(_MTAFB.CurrentLevel.Value / 3)].ToString());
+
+                NextStateTxt.text = "<size=50%>Value</size>\n" + (value + plusValue).ToString();
+            }
+            
             CompletedSignGO.gameObject.SetActive(false);
         }
         else

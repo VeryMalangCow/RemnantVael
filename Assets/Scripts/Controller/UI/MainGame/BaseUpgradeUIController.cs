@@ -12,24 +12,41 @@ public class BaseUpgradeUIController : UIController
 
     [Space(10)]
     [Header("=== Skill")]
+
+    [Space(10)]
     [Header("-- Attack")]
     [SerializeField] private OneOffShopEachData<float> DamageShop;
     [SerializeField] private OneOffShopEachData<float> ROFShop;
     [SerializeField] private OneOffShopEachData<float> CCShop;
     [SerializeField] private OneOffShopEachData<float> CDShop;
     [SerializeField] private OneOffShopEachData<float> AccuracyRateShop;
-
+    [SerializeField] private OneOffShopEachData<float> KnockbackShop;
+    
+    [Space(10)]
     [Header("-- EP")]
     [SerializeField] private OneOffShopEachData<float> MaxEPShop;
     [SerializeField] private OneOffShopEachData<float> SpawnESMultipleShop;
     [SerializeField] private OneOffShopEachData<float> NeedEP_ForSkillMultipleShop;
     [SerializeField] private OneOffShopEachData<float> DecEnergyPointMultipleShop;
-
+    
+    [Space(10)]
     [Header("-- Movement")]
     [SerializeField] private OneOffShopEachData<float> WalkSpeedShop;
     [SerializeField] private OneOffShopEachData<float> WalkSpeedWhenShotMultipleShop;
     [SerializeField] private OneOffShopEachData<float> DashSpeedShop;
     [SerializeField] private OneOffShopEachData<float> WalkAvoidChance;
+
+    [Space(10)]
+    [Header("-- Skill 0")]
+    [SerializeField] private OneOffShopEachData<float> Skill0_CooltimeShop;
+    [SerializeField] private OneOffShopEachData<float> Skill0_PowerShop;
+    [SerializeField] private OneOffShopEachData<int> Skill0_TierShop;
+
+    [Space(10)]
+    [Header("-- Skill 1")]
+    [SerializeField] private OneOffShopEachData<float> Skill1_CooltimeShop;
+    [SerializeField] private OneOffShopEachData<float> Skill1_PowerShop;
+    [SerializeField] private OneOffShopEachData<int> Skill1_TierShop;
 
     [Space(10)]
     [Header("=== Desc")]
@@ -39,7 +56,8 @@ public class BaseUpgradeUIController : UIController
     [Header("=== Component")]
     [SerializeField] private ModifyOwnEachBtn CloseBtn;
 
-    [HideInInspector] public List<OneOffShopEachData<float>> AllUpgradeDataList;
+    [HideInInspector] public List<OneOffShopEachData<float>> AllUpgradeDataList_Float;
+    [HideInInspector] public List<OneOffShopEachData<int>> AllUpgradeDataList_Int;
 
     #endregion
 
@@ -52,6 +70,7 @@ public class BaseUpgradeUIController : UIController
         CCShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CC, BaseUpgradeManager.Instance.BaseCC_BUData, this);
         CDShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CD, BaseUpgradeManager.Instance.BaseCD_BUData, this);
         AccuracyRateShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.AccuracyRate, BaseUpgradeManager.Instance.BaseAccuracyRate_BUData, this);
+        KnockbackShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.KnockbackPower, BaseUpgradeManager.Instance.Knockback_BUData, this);
 
         MaxEPShop.Offset(PlayerManager.Instance.PlayerController.MaxEP, BaseUpgradeManager.Instance.BaseMaxEP_BUData, this);
         SpawnESMultipleShop.Offset(PlayerManager.Instance.PlayerController.SpawnESMultiple, BaseUpgradeManager.Instance.BaseSpawnESMultiple_BUData, this);
@@ -63,13 +82,29 @@ public class BaseUpgradeUIController : UIController
         WalkAvoidChance.Offset(PlayerManager.Instance.PlayerController.AvoidChance, BaseUpgradeManager.Instance.BaseAvoidChance_BUData, this);
         DashSpeedShop.Offset(PlayerManager.Instance.PlayerController.DashController.DashSpeed, BaseUpgradeManager.Instance.BaseDashSpeed_BUData, this);
 
+        Skill0_CooltimeShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.MaxCooltime, BaseUpgradeManager.Instance.Skill0_Cooltime_BUData, this);
+        Skill0_PowerShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.Power, BaseUpgradeManager.Instance.Skill0_Power_BUData, this);
+        Skill0_TierShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.Tier, BaseUpgradeManager.Instance.Skill0_Tier_BUData, this);
 
-        AllUpgradeDataList = new List<OneOffShopEachData<float>>()
+        Skill1_CooltimeShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.MaxCooltime, BaseUpgradeManager.Instance.Skill1_Cooltime_BUData, this);
+        Skill1_PowerShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.Power, BaseUpgradeManager.Instance.Skill1_Power_BUData, this);
+        Skill1_TierShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.Tier, BaseUpgradeManager.Instance.Skill1_Tier_BUData, this);
+
+
+        AllUpgradeDataList_Float = new List<OneOffShopEachData<float>>()
         {
-            DamageShop, ROFShop, CCShop, CDShop, AccuracyRateShop,
+            DamageShop, ROFShop, CCShop, CDShop, AccuracyRateShop, KnockbackShop,
             MaxEPShop,SpawnESMultipleShop, NeedEP_ForSkillMultipleShop, DecEnergyPointMultipleShop,
-            WalkSpeedShop, WalkSpeedWhenShotMultipleShop, WalkAvoidChance, DashSpeedShop
+            WalkSpeedShop, WalkSpeedWhenShotMultipleShop, WalkAvoidChance, DashSpeedShop,
+            Skill0_CooltimeShop, Skill0_PowerShop,
+            Skill1_CooltimeShop, Skill1_PowerShop
         };
+        AllUpgradeDataList_Int = new List<OneOffShopEachData<int>>()
+        {
+            Skill0_TierShop,
+            Skill1_TierShop
+        };
+
 
         foreach (ModifyEachTab MET in ThisPanelTabList)
         {
@@ -117,13 +152,24 @@ public class BaseUpgradeUIController : UIController
         if (CurrentBtn == null)
         { return; }
 
-        // 备概 内靛
-        for (int i = 0; i < AllUpgradeDataList.Count; i++)
+        // 备概 内靛 (float)
+        for (int i = 0; i < AllUpgradeDataList_Float.Count; i++)
         {
-            if (AllUpgradeDataList[i].Upgrade_BuyBtn == CurrentBtn &&
+            if (AllUpgradeDataList_Float[i].Upgrade_BuyBtn == CurrentBtn &&
                 CurrentBtn.ThisBtn.interactable)
             {
-                AllUpgradeDataList[i].TryBuy();
+                AllUpgradeDataList_Float[i].TryBuy();
+                return;
+            }
+        }
+
+        // 备概 内靛 (int)
+        for (int i = 0; i < AllUpgradeDataList_Int.Count; i++)
+        {
+            if (AllUpgradeDataList_Int[i].Upgrade_BuyBtn == CurrentBtn &&
+                CurrentBtn.ThisBtn.interactable)
+            {
+                AllUpgradeDataList_Int[i].TryBuy();
                 return;
             }
         }
@@ -186,8 +232,13 @@ public class BaseUpgradeUIController : UIController
 
     public void SetDesc(ModifyTextAmountForBuy _MTAFB)
     {
-        BaseUpgradeState<float> baseUpgradeState = OneOffShopEachData<float>.GetThisData(AllUpgradeDataList, _MTAFB);
-        ThisDescPanel.SetDesc(baseUpgradeState);
+        BaseUpgradeState<float> baseUpgradeState_Float = OneOffShopEachData<float>.GetThisData(AllUpgradeDataList_Float, _MTAFB);
+        if (baseUpgradeState_Float != null)
+        {  ThisDescPanel.SetDesc<float>(baseUpgradeState_Float); }
+
+        BaseUpgradeState<int> baseUpgradeState_Int = OneOffShopEachData<int>.GetThisData(AllUpgradeDataList_Int, _MTAFB);
+        if (baseUpgradeState_Int != null)
+        { ThisDescPanel.SetDesc<int>(baseUpgradeState_Int); }
     }
 
     #endregion

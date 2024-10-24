@@ -16,13 +16,13 @@ public class ActiveSkillController : MonoBehaviour
     [SerializeField] protected int CurrentChargeAmount = 0;
 
     [Header("-- Cooltime")]
-    [SerializeField] protected BaseUpgradeState<float> MaxCooltime;
+    [SerializeField] public BaseUpgradeState<float> MaxCooltime;
     [SerializeField] protected float CurrentCooltime = 0f;
 
     [Header("-- State")]
     [SerializeField] protected float NeedEP = 10f;
-    [SerializeField] protected BaseUpgradeState<int> Tier;
-    [SerializeField] protected BaseUpgradeState<float> Power;
+    [SerializeField] public BaseUpgradeState<int> Tier;
+    [SerializeField] public BaseUpgradeState<float> Power;
 
     [HideInInspector] public PlayerController PlayerController;
 

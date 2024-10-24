@@ -831,10 +831,10 @@ MonoBehaviour:
     CurrentLevel:
       value: 0
     UpgradeValueByLevelRange:
-    - 0.1
-    - 0.2
-    - 0.3
-    - 0.4
+    - 1
+    - 2
+    - 3
+    - 4
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 10
@@ -1402,6 +1402,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c2ea8faa-a782-4d21-b846-a789c094987c
     m_ActionName: ModuleUpgradeUI/MUUI_Select[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 13a02f90-f5c6-44d2-bc03-1b1246eac9eb
+    m_ActionName: Player/OutMainGame[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8bff5f44-fdf5-474f-8078-fd583b528df7
+    m_ActionName: BaseUpgradeUI/BUUI_OutPanel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9a3f0c78-91ff-472a-91f7-90d4ce57e2fe
+    m_ActionName: ModuleUpgradeUI/MUUI_OutPanel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 875ab549-e58d-4172-ae40-1c2c513c0480
+    m_ActionName: OutMainGameUI/OMGUI_Select[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c3dd3871-62d5-4eb2-8042-47aee1ff4e64
+    m_ActionName: OutMainGameUI/OMGUI_OutPanel[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1733,33 +1753,41 @@ MonoBehaviour:
   MaxChargeAmount: 1
   CurrentChargeAmount: 1
   MaxCooltime:
-    BaseState: 1
+    BaseState: 10
     CurrentLevel:
       value: 0
-    UpgradeValueByLevelRange: []
-    NeedPayByLevelRange: 
+    UpgradeValueByLevelRange:
+    - -0.25
+    - -0.4
+    - -0.55
+    - -0.8
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 1
+      value: 10
     Desc: 
   CurrentCooltime: 0
   NeedEP: 10
   Tier:
-    BaseState: 1
+    BaseState: 0
     CurrentLevel:
       value: 0
-    UpgradeValueByLevelRange: 
-    NeedPayByLevelRange: 
+    UpgradeValueByLevelRange: 01000000010000000100000001000000
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 1
+      value: 0
     Desc: 
   Power:
-    BaseState: 10
+    BaseState: 5
     CurrentLevel:
       value: 0
-    UpgradeValueByLevelRange: []
-    NeedPayByLevelRange: 
+    UpgradeValueByLevelRange:
+    - 0.2
+    - 0.5
+    - 0.7
+    - 1.2
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 10
+      value: 5
     Desc: 
   PlayerController: {fileID: 0}
   _ColSize: {x: 1, y: 0.5}
@@ -1831,31 +1859,39 @@ MonoBehaviour:
   MaxChargeAmount: 1
   CurrentChargeAmount: 1
   MaxCooltime:
-    BaseState: 1
+    BaseState: 8
     CurrentLevel:
       value: 0
-    UpgradeValueByLevelRange: []
-    NeedPayByLevelRange: 
+    UpgradeValueByLevelRange:
+    - -0.2
+    - -0.35
+    - -0.5
+    - -1
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 1
+      value: 8
     Desc: 
   CurrentCooltime: 0
   NeedEP: 10
   Tier:
-    BaseState: 1
+    BaseState: 0
     CurrentLevel:
       value: 0
-    UpgradeValueByLevelRange: 
-    NeedPayByLevelRange: 
+    UpgradeValueByLevelRange: 01000000010000000100000001000000
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 10
+      value: 0
     Desc: 
   Power:
     BaseState: 1.5
     CurrentLevel:
       value: 0
-    UpgradeValueByLevelRange: []
-    NeedPayByLevelRange: 
+    UpgradeValueByLevelRange:
+    - 0.1
+    - 0.15
+    - 0.2
+    - 0.4
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1.5
     Desc: 
