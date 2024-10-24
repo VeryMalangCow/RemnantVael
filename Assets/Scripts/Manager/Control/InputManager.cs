@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -92,14 +93,18 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Skill_1"].performed += Input_Skill_1;
 
         PlayerInput.actions["Interact"].performed += Input_Interact;
-
-
-
+        PlayerInput.actions["OutMainGame"].performed += Input_OMGUI;
 
         PlayerInput.actions["BUUI_Select"].performed += Input_BUUIClick;
-        PlayerInput.actions["MUUI_Select"].performed += Input_MUUIClick;
+        PlayerInput.actions["BUUI_OutPanel"].performed += Input_BUUIOutPanel;
 
+        PlayerInput.actions["MUUI_Select"].performed += Input_MUUIClick;
+        PlayerInput.actions["MUUI_OutPanel"].performed += Input_MUUIOutPanel;
+
+        PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
+        PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
     }
+
     private void SetFirstInput(FirstInputDele _Skill)
     {
         CurrentFirstInputDele = _Skill;
@@ -255,7 +260,7 @@ public class InputManager : Singleton<InputManager>
 
     #endregion
 
-    #region UI
+    #region BUUI
 
 
     private void Input_BUUIClick(InputAction.CallbackContext _InputValue)
@@ -266,6 +271,18 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
+    private void Input_BUUIOutPanel(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            MainGameUIManager.Instance.BaseUpgrade_UIController.CloseThisPanel(
+                MainGameUIManager.Instance.BaseUpgrade_UIController.TabDurTime);
+        }
+    }
+
+    #endregion
+    
+    #region MUUI
 
     private void Input_MUUIClick(InputAction.CallbackContext _InputValue)
     {
@@ -276,6 +293,44 @@ public class InputManager : Singleton<InputManager>
     }
 
 
+    private void Input_MUUIOutPanel(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.CloseThisPanel(
+                MainGameUIManager.Instance.ModuleUpgrade_UIController.TabDurTime);
+        }
+    }
+
+    #endregion
+
+    #region OMGUI
+
+    private void Input_OMGUI(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            MainGameUIManager.Instance.OutMainGame_UIController.OpenThisPanel();
+        }
+    }
+
+
+    private void Input_OMGUIClick(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            MainGameUIManager.Instance.OutMainGame_UIController.TryInteractClick();
+        }
+    }
+
+
+    private void Input_OMGUIOutPanel(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            MainGameUIManager.Instance.OutMainGame_UIController.CloseThisPanel();
+        }
+    }
 
     #endregion
 }

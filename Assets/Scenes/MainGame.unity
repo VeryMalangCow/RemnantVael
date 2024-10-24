@@ -915,9 +915,11 @@ MonoBehaviour:
   PlayerHUD_CanvasPrefab: {fileID: 977057849872143002, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
   BaseUpgrade_CanvasPrefab: {fileID: 1281229689255428229, guid: 6ecda6451bb90e344859ba1601c66a49, type: 3}
   ModuleUpgrade_CanvasPrefab: {fileID: 1281229689255428229, guid: 8292fd992e049564cbd9aa45cc7afbb7, type: 3}
+  OutMainGame_CanvasPrefab: {fileID: 1281229689255428229, guid: 82b9bf334a8cc7f4b9f572097e947639, type: 3}
   PlayerHUD_UIController: {fileID: 0}
   BaseUpgrade_UIController: {fileID: 0}
   ModuleUpgrade_UIController: {fileID: 0}
+  OutMainGame_UIController: {fileID: 0}
   CurrentOpening_UIController: {fileID: 0}
   ScreenCanvas: {fileID: 1959778814}
   FadeOutTime: 2
@@ -2407,7 +2409,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10000
+  m_SortingOrder: 9999
   m_TargetDisplay: 0
 --- !u!225 &1959778815
 CanvasGroup:

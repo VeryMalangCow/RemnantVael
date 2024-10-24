@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OutMainGame",
+                    "type": "Button",
+                    "id": "13a02f90-f5c6-44d2-bc03-1b1246eac9eb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -270,6 +279,17 @@
                     "action": "Skill_1",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c685e938-d0fc-460b-aed4-ad9726ced27e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OutMainGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -281,6 +301,15 @@
                     "name": "BUUI_Select",
                     "type": "Button",
                     "id": "19f92d05-4545-4441-bec6-3ee6a956eb91",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BUUI_OutPanel",
+                    "type": "Button",
+                    "id": "8bff5f44-fdf5-474f-8078-fd583b528df7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -298,6 +327,17 @@
                     "action": "BUUI_Select",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "33e0c597-c9e6-4bc3-9004-600d54c70a38",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BUUI_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -313,6 +353,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MUUI_OutPanel",
+                    "type": "Button",
+                    "id": "9a3f0c78-91ff-472a-91f7-90d4ce57e2fe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -324,6 +373,65 @@
                     "processors": "",
                     "groups": "",
                     "action": "MUUI_Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4e3565dd-6d0f-45d9-8a3e-9daf85448dee",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MUUI_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "OutMainGameUI",
+            "id": "29c1c1d7-5dc4-4b31-8b2c-c9fdd2afac0d",
+            "actions": [
+                {
+                    "name": "OMGUI_Select",
+                    "type": "Button",
+                    "id": "875ab549-e58d-4172-ae40-1c2c513c0480",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OMGUI_OutPanel",
+                    "type": "Button",
+                    "id": "c3dd3871-62d5-4eb2-8042-47aee1ff4e64",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d877ebf1-72e6-4a74-8ab5-bedc8ded329f",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OMGUI_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f6018242-13e7-48a0-9568-914eb9c23379",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OMGUI_Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

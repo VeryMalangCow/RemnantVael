@@ -1,7 +1,5 @@
 using DG.Tweening;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class EntranceSpaceUIController : UIController
 {
@@ -57,7 +55,7 @@ public class EntranceSpaceUIController : UIController
         }
         else if (CurrentBtn == StartBtn)
         {
-            SceneManager.LoadScene("MainGame");
+            LoadingSceneManager.Instance.LoadScene("MainGame");
         }
     }
 

@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -46,20 +45,12 @@ public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHand
             return;
         }
 
-        if(DOTween.IsTweening(ThisRT))
-        { DOTween.Kill(ThisRT); }
-
-        ThisRT.DOScale(TargetScale, DurTime);
 
         OwnerUIController.CurrentBtn = this;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (DOTween.IsTweening(ThisRT))
-        { DOTween.Kill(ThisRT); }
-
-        ThisRT.DOScale(DefScale, DurTime);
 
         OwnerUIController.CurrentBtn = null;
     }
