@@ -12,7 +12,7 @@ public class BulletController : HaveShadowThingMovable
     [Header("=== State")]
     [SerializeField] public BulletState BulletState;
     [SerializeField] protected float CurrentAliveTime = 0;
-    [HideInInspector] private float BaseBulletSpeed = 250f; 
+    [HideInInspector] private static float BaseBulletSpeed = 500f; 
 
     [Space(10)]
     [Header("=== Physics")]

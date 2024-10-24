@@ -55,13 +55,16 @@ MonoBehaviour:
     BaseDamage: 0
     MuzzleSpeed: 0
     AliveTime: 0
-  IsCritical: 0
+    IsCritical: 0
+    CD: 0
+    AbleKnockback: 0
+    KnockbackPower: 0
+    KnockbackTime: 0
   CurrentAliveTime: 0
   ThisRb: {fileID: 3702076010934528879}
   DestroyTagList:
   - Enemy
   - Wall
-  MEI: {fileID: 5914911076187854655}
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4
@@ -282,7 +285,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 20
+  m_SortingOrder: 3000
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -306,4 +309,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnedSRList: []

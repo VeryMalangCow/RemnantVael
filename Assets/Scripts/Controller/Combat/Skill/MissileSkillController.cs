@@ -76,8 +76,14 @@ public class MissileSkillController : ActiveSkillController
 
                 float targetRange = 0.4f;
                 if (TryGetComponent(out HaveShadowThing HST))
-                { targetRange = HST.TargetRange; }
+                {
+                    targetRange = HST.TargetRange;
+
+                    // Sorting Layer
+                    missile.ThisSR.sortingOrder = HST.ThisSR.sortingOrder - 1;
+                }
                 missile.SetState_forMissile(this.gameObject.transform.position, bulletState, dir, targetRange);
+
 
                 // Effect Explosion
                 MEI.GenExplosionImgs_Fan(

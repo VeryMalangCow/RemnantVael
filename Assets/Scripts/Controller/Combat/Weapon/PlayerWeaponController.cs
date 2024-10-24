@@ -149,6 +149,10 @@ public class PlayerWeaponController : SatelliteController
                 0.2f);
             PBC.SetState(BulletSpawnTFs[i].position, randomAngle, bulletState, dir, targetShadow);
 
+            // Sorting Layer
+            if (BulletSpawnTFs[i].gameObject.TryGetComponent(out HaveShadowThing hst))
+            { PBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
+
             // Effect
             MEIs[i].GenExplosionImgs_Fan(
                 (Vector2)MEIs[i].gameObject.transform.position + (dir * 0.3f),
