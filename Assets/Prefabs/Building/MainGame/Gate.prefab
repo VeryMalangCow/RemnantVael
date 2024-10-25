@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 972131090814248935}
   m_Layer: 6
   m_Name: Target
-  m_TagString: Interact
+  m_TagString: InteractBuilding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 8291627045171935373}
   m_Layer: 6
   m_Name: Shadow
-  m_TagString: Interact
+  m_TagString: InteractBuilding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,7 +202,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 895
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 3298112067246652594}
   m_Layer: 6
   m_Name: Gate
-  m_TagString: Interact
+  m_TagString: InteractBuilding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 674007399411406869}
   m_Layer: 6
   m_Name: MovableObjectColJuge
-  m_TagString: Interact
+  m_TagString: InteractBuilding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

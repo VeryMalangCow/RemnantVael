@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8050862362656060234}
   m_Layer: 6
   m_Name: MovableObjectColJuge
-  m_TagString: Interact
+  m_TagString: InteractBuilding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 1581080526397461458}
   m_Layer: 6
   m_Name: Shadow
-  m_TagString: Interact
+  m_TagString: InteractBuilding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,7 +220,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 127
+    m_Bits: 895
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 528635680861745734}
   m_Layer: 6
   m_Name: ChoiceCharacterCenter
-  m_TagString: Interact
+  m_TagString: InteractBuilding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -288,12 +288,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 7945861353772175884}
+  ThisSR: {fileID: 0}
   TargetRange: 0.4
   TargetSR: {fileID: 6431130664222279258}
   ShadowSR: {fileID: 2929492441964741815}
   LowestLayerOrder: -2000
   HighestLayerOrder: 2000
-  IsUpper: 0
+  IsUpper:
+    value: 0
+  MEI: {fileID: 0}
 --- !u!1 &7945861353772175884
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +309,7 @@ GameObject:
   - component: {fileID: 6431130664222279258}
   m_Layer: 6
   m_Name: Target
-  m_TagString: Interact
+  m_TagString: InteractBuilding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

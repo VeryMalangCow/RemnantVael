@@ -132,14 +132,12 @@ public class MakeExplosionImage : MonoBehaviour
         totalSeq.Append(bigSeq);
         totalSeq.Append(smallSeq);
 
-        totalSeq
-            .OnStart(() =>
-            {
-                sr.transform.position = SpawnedPos;
-                sr.transform.localScale = Vector2.zero;
-                sr.color = Color.white;
-                sr.gameObject.SetActive(true);
-            })
+        sr.transform.position = SpawnedPos;
+        sr.transform.localScale = Vector2.zero;
+        sr.color = Color.white;
+        sr.gameObject.SetActive(true);
+
+        totalSeq 
             .OnComplete(() =>
             {
                 sr.gameObject.SetActive(false);

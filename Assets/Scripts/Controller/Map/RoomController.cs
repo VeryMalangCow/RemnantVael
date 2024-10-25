@@ -213,7 +213,7 @@ public class RoomController : MonoBehaviour
                 InRoom_AllGate[i].MEI.GenExplosionImgs(
                     InRoom_AllGate[i].MEI.gameObject.transform.position,
                     36, 0.15f, 0.75f,
-                    0.5f, 0.05f, 0.1f,
+                    1.5f, 0.05f, 0.1f,
                     0.0f, 0.5f, 1.0f);
             }
         }
@@ -225,7 +225,7 @@ public class RoomController : MonoBehaviour
             InRoom_BuildThing.MEI.GenExplosionImgs(
                     InRoom_BuildThing.MEI.gameObject.transform.position,
                     36, 0.15f, 0.75f,
-                    0.5f, 0.05f, 0.1f,
+                    1.5f, 0.05f, 0.1f,
                     0.0f, 0.5f, 1.0f);
         }
     }
@@ -246,7 +246,7 @@ public class RoomController : MonoBehaviour
                 enemy.MEI.GenExplosionImgs(
                     enemy.MEI.gameObject.transform.position,
                     36, 0.15f, 0.75f,
-                    0.5f, 0.05f, 0.1f,
+                    1.5f, 0.05f, 0.1f,
                     0.0f, 0.5f, 1.0f);
             }
         }

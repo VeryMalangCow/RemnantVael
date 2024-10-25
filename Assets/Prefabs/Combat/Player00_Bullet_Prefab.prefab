@@ -65,12 +65,11 @@ MonoBehaviour:
   DestroyTagList:
   - Enemy
   - Wall
+  - InteractBuilding
   BasePhysics_Sprite: {fileID: 1440707567, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   CriticalPhysics_Sprite: {fileID: 1012499291, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   BaseEnergy_Sprite: {fileID: -1214566993, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   CriticalEnergy_Sprite: {fileID: 1140579091, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  BaseHittedPointAC: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}
-  CriticalHittedPointAC: {fileID: 7400000, guid: c444b0af8205ad84aaec6780cdff8c28, type: 2}
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4
@@ -297,7 +296,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

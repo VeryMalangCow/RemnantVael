@@ -70,7 +70,7 @@ public class LowerController : SatelliteController
         {
             hand.SetPos(PlayerSR.sortingOrder);
         }
-        CenterSpriteRenderer.sortingOrder = PlayerController.ThisSR.sortingOrder + (10 * Hands[0].UpperOrder);
+        CenterSpriteRenderer.sortingOrder = PlayerController.ThisSR.sortingOrder + Hands[0].UpperOrder;
     
         // Tween
         if (MoveTween == null)

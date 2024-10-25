@@ -165,7 +165,7 @@ public class EnemyController : MovableObject, IInteract
         }
     }
 
-    public void TakeDamage(AttackerState _AttackerState, Vector2 _KnockbackDir)
+    public void TakeDamage(AttackerState _AttackerState, bool _IsCritical, Vector2 _KnockbackDir)
     {
         if (base.IsDead)
         { return; }
@@ -178,11 +178,9 @@ public class EnemyController : MovableObject, IInteract
         }
 
 
-        bool isCritical = false;
         float baseDamage = _AttackerState.BaseDamage;
-        if (Random.Range(0f, 1f) < _AttackerState.CD)
+        if (_IsCritical)
         {
-            isCritical = true;
             baseDamage *= _AttackerState.CD;
         }
 
@@ -191,7 +189,7 @@ public class EnemyController : MovableObject, IInteract
             // UI
             PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
             (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-            baseDamage, isCritical);
+            baseDamage, _IsCritical);
 
             SetIsDead(CurrentHP.Value, baseDamage);
             CurrentHP.Value -= baseDamage;
@@ -208,7 +206,7 @@ public class EnemyController : MovableObject, IInteract
                 // UI
                 PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
                     (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-                    baseDamage, isCritical);
+                    baseDamage, _IsCritical);
 
                 SpawnES(baseDamage);
             }
@@ -250,7 +248,7 @@ public class EnemyController : MovableObject, IInteract
         MEI.GenExplosionImgs(
                     MEI.gameObject.transform.position,
                     36, 0.15f, 0.75f,
-                    0.5f, 0.05f, 0.1f,
+                    1.5f, 0.05f, 0.1f,
                     0.0f, 0.5f, 1.0f);
     }
 

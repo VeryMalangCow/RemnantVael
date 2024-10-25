@@ -65,6 +65,7 @@ MonoBehaviour:
   DestroyTagList:
   - Enemy
   - Wall
+  - InteractBuilding
   BasePhysics_Sprite: {fileID: -1722145500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   CriticalPhysics_Sprite: {fileID: -2035106808, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   BaseEnergy_Sprite: {fileID: 0}
@@ -301,7 +302,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
