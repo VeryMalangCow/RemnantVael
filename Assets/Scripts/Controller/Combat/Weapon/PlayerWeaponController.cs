@@ -33,7 +33,7 @@ public class PlayerWeaponController : SatelliteController
 
 
     [Header("-- TargetEffect")]
-    [SerializeField] private List<MakeExplosionImage> MEIs;
+    [SerializeField] public List<MakeExplosionImage> MEIs;
 
     #endregion
 

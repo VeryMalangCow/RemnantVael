@@ -6,7 +6,7 @@ public class OnlyOnceTimeAnimation : MonoBehaviour
     [SerializeField] private Animator ThisAnimator;
     [HideInInspector] private AnimatorOverrideController aoc;
 
-    public void StartAnim(AnimationClip _AC, float _AnimSpeed, Vector2 _SpawnedPos)
+    public void StartAnim(AnimationClip _AC, Vector2 _SpawnedPos, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
         aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
@@ -15,6 +15,7 @@ public class OnlyOnceTimeAnimation : MonoBehaviour
         aoc.ApplyOverrides(anims);
         ThisAnimator.runtimeAnimatorController = aoc;
         ThisAnimator.speed = _AnimSpeed;
+        this.gameObject.transform.localScale = Vector2.one * _AnimSize;
 
         this.gameObject.transform.position = _SpawnedPos;
 

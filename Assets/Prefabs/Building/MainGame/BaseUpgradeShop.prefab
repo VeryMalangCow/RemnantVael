@@ -294,7 +294,8 @@ MonoBehaviour:
   ShadowSR: {fileID: 2929492441964741815}
   LowestLayerOrder: -2000
   HighestLayerOrder: 2000
-  IsUpper: 0
+  IsUpper:
+    value: 0
   MEI: {fileID: 2453984775806162034}
 --- !u!1 &7945861353772175884
 GameObject:
@@ -393,3 +394,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RandomSpriteList:
+  - {fileID: -1746943924, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  - {fileID: 1391882910, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  - {fileID: 237403348, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  - {fileID: 366755556, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}

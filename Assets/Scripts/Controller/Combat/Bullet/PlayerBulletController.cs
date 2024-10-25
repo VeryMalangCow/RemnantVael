@@ -2,18 +2,6 @@ using UnityEngine;
 
 public class PlayerBulletController : BulletController
 {
-    #region Value
-
-    [Space(20)]
-    [Header("<><><><><> Effect")]
-
-    [Space(10)]
-    [Header("=== AC")]
-    [SerializeField] private AnimationClip BaseHittedPointAC;
-    [SerializeField] private AnimationClip CriticalHittedPointAC;
-
-    #endregion
-
     #region Framework
 
     protected override void Update()
@@ -48,15 +36,11 @@ public class PlayerBulletController : BulletController
 
     private void DeleteThis()
     {
-        OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
-        if (!BulletState.IsCritical)
-        {
-            oota.StartAnim(BaseHittedPointAC, 2f, TargetObject.transform.position);
-        }
-        else
-        {
-            oota.StartAnim(CriticalHittedPointAC, 2f, TargetObject.transform.position);
-        }
+        PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
+                    TargetObject.gameObject.transform.position,
+                    12, 0.3f, 0.4f,
+                    0.5f, 0.05f, 0.1f,
+                    0.0f, 0.5f, 1.0f);
 
         ResetState();
         this.gameObject.SetActive(false);
@@ -78,6 +62,7 @@ public class PlayerBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
+                PointEffect(TargetObject.transform.position, BulletState.IsCritical);
                 EC.TakeDamage(BulletState, GetDirByAngle(transform.eulerAngles.z));
             }
         }
@@ -87,6 +72,21 @@ public class PlayerBulletController : BulletController
             DeleteThis();
         }
     }
+
+    #endregion
+
+    #region Effect
+
+
+    public void PointEffect(Vector2 _SpanwedPos, bool _IsCritical)
+    {
+        OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
+        if (!_IsCritical)
+        { oota.StartAnim(PlayerManager.Instance.PlayerController.BaseHittedPointAC, _SpanwedPos, 2f, 1.5f); }
+        else
+        { oota.StartAnim(PlayerManager.Instance.PlayerController.CriticalHittedPointAC, _SpanwedPos, 2f, 1.5f); }
+    }
+
 
     #endregion
 }

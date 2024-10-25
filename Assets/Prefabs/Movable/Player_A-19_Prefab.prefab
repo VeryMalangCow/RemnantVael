@@ -650,6 +650,7 @@ MonoBehaviour:
   - {fileID: 2076622363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1611511200, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1024333363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 1381863595, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
 --- !u!1 &2729057202636970053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,6 +1267,8 @@ MonoBehaviour:
   - {fileID: 5282368043593998273}
   - {fileID: 4739302390712378442}
   - {fileID: 2670002921990514549}
+  BaseHittedPointAC: {fileID: 0}
+  CriticalHittedPointAC: {fileID: 0}
   ExecutionInterval: 0.75
   Skill0Interval: 0.5
   Skill1Interval: 0.5
@@ -1645,6 +1648,7 @@ MonoBehaviour:
   - {fileID: 2076622363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1611511200, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1024333363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 1381863595, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
 --- !u!1 &5736003525011629714
 GameObject:
   m_ObjectHideFlags: 0
@@ -2449,6 +2453,7 @@ MonoBehaviour:
   - {fileID: 2076622363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1611511200, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1024333363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 1381863595, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
 --- !u!1 &7812785444038392381
 GameObject:
   m_ObjectHideFlags: 0
@@ -2884,3 +2889,4 @@ MonoBehaviour:
   - {fileID: 2076622363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1611511200, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1024333363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 1381863595, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}

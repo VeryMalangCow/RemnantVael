@@ -107,6 +107,15 @@ public class PlayerController : MovableObject
 
     #endregion
 
+    #region - Effect
+
+    [Space(10)]
+    [Header("=== AC")]
+    [SerializeField] public AnimationClip BaseHittedPointAC;
+    [SerializeField] public AnimationClip CriticalHittedPointAC;
+
+    #endregion
+
     #endregion
 
     #region Framework
@@ -567,7 +576,7 @@ public class PlayerController : MovableObject
 
     #endregion
 
-    #region After Img
+    #region Effect
 
     public void SetOnAfterImg()
     {
