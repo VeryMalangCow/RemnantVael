@@ -4,6 +4,13 @@ public class PlayerBulletController : BulletController
 {
     #region Value
 
+    [Space(20)]
+    [Header("<><><><><> Effect")]
+
+    [Space(10)]
+    [Header("=== AC")]
+    [SerializeField] private AnimationClip BaseHittedPointAC;
+    [SerializeField] private AnimationClip CriticalHittedPointAC;
 
     #endregion
 
@@ -41,8 +48,17 @@ public class PlayerBulletController : BulletController
 
     private void DeleteThis()
     {
-        ResetState();
+        OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
+        if (!BulletState.IsCritical)
+        {
+            oota.StartAnim(BaseHittedPointAC, 2f, TargetObject.transform.position);
+        }
+        else
+        {
+            oota.StartAnim(CriticalHittedPointAC, 2f, TargetObject.transform.position);
+        }
 
+        ResetState();
         this.gameObject.SetActive(false);
 
         PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);

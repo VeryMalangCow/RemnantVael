@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3462109736182777009}
   - component: {fileID: 9076609007504668469}
+  - component: {fileID: 3700956229177998945}
   m_Layer: 0
   m_Name: Anim
   m_TagString: PlayerThing
@@ -84,6 +85,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3700956229177998945
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947860357028516534}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c6bd27ddd1f69da41b43c9631afcd250, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2154807210293626544
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,8 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HittedObjectList: []
-  TestSpriteGO: {fileID: 1947860357028516534}
   ThisCol: {fileID: 7549900326602035206}
+  ThisAnimator: {fileID: 3700956229177998945}
   AttackerState:
     DamageType: 0
     BaseDamage: 0

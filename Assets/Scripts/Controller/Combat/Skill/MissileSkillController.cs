@@ -90,7 +90,7 @@ public class MissileSkillController : ActiveSkillController
                     (Vector2)MEI.gameObject.transform.position + (dir * 0.1f),
                     dir, 90f,
                     8, 0.2f, 1.5f,
-                    0.35f, 0.05f, 0.1f,
+                    2.2f, 0.05f, 0.1f,
                     0.0f, 0.5f, 1.0f);
 
                 // Effect Shake

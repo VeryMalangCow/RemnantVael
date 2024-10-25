@@ -1563,6 +1563,9 @@ MonoBehaviour:
   ExplosionImgs:
     Prefab: {fileID: 6683809427665404101, guid: 988330fe6e0cc58408522442eae73b35, type: 3}
     ParentTF: {fileID: 827966931}
+  OnlyOnceAnimators:
+    Prefab: {fileID: 5890781269332614966, guid: dee81b65873639948b499612e7d22c8f, type: 3}
+    ParentTF: {fileID: 1749372780}
   DmgTxtCanvases:
     Prefab: {fileID: 3929266293630113405, guid: 9f39834d26e7b4b42b07427807f08835, type: 3}
     ParentTF: {fileID: 523388470}
@@ -2537,6 +2540,7 @@ Transform:
   - {fileID: 940494672}
   - {fileID: 242052721}
   - {fileID: 1068989852}
+  - {fileID: 1749372780}
   m_Father: {fileID: 1553356942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1705144065
@@ -2613,6 +2617,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 379374679}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1749372779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1749372780}
+  m_Layer: 0
+  m_Name: '******HittedPoints'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1749372780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749372779}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1684360777}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1782628308
 GameObject:

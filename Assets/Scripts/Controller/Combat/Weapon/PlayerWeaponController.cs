@@ -102,6 +102,7 @@ public class PlayerWeaponController : SatelliteController
     {
         float spreadMaxLimit = 100 - AccuracyRate.ActualState.Value;
         float randomAngle = UnityEngine.Random.Range(-spreadMaxLimit, spreadMaxLimit);
+        randomAngle = 0f;
         for (int i = 0; i < BulletSpawnTFs.Count; i++)
         {
             PlayerBulletController PBC = GameManager.CastIfPossible<PlayerBulletController>(_Ts[i]);
@@ -134,7 +135,7 @@ public class PlayerWeaponController : SatelliteController
                 targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position +
                     InputManager.Instance.DirFromPlayerPos.normalized * fireMinDisLimit;
             }
-            Vector2 dir = (targetPos - (Vector2)MEIs[i].gameObject.transform.position).normalized;
+            Vector2 dir = (targetPos - (Vector2)MEIs[i].transform.parent.gameObject.transform.position).normalized;
 
             // Base State 
             BulletState bulletState = new BulletState(
@@ -158,7 +159,7 @@ public class PlayerWeaponController : SatelliteController
                 (Vector2)MEIs[i].gameObject.transform.position + (dir * 0.3f),
                 dir, 45f,
                 6, 0.2f, 1f,
-                0.2f, 0.05f, 0.1f,
+                1.3f, 0.05f, 0.1f,
                 0.0f, 0.5f, 1.0f);
         }
         CurrentDelayROF = 0;

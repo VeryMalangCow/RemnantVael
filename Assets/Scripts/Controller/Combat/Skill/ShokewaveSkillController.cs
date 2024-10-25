@@ -1,4 +1,3 @@
-
 using DG.Tweening;
 using UnityEngine;
 
@@ -11,13 +10,15 @@ public class ShockwaveSkillController : ActiveSkillController
 
     [Space(10)]
     [Header("=== Value")]
-
-    [Header("-- Data")]
     [SerializeField] private Vector2 _ColSize = new Vector2(1f, 0.5f);
     [SerializeField] private float _StartSize = 3f; 
     [SerializeField] private float _MaxSize = 7.5f;
-    [SerializeField] private float _BiggerTime = 0.3f; 
-    [SerializeField] private float _SmallerTime = 0.4f;
+    [SerializeField] private float _BiggerTime = 0.3f;
+
+    [Space(10)]
+    [Header("=== Reso")]
+    [SerializeField] private AnimationClip ShockwaveAnimation;
+
     #endregion
 
     #region Active
@@ -34,17 +35,18 @@ public class ShockwaveSkillController : ActiveSkillController
             eDamageType.Energy, 
             PlayerController.BaseWeapon.BaseDamage.ActualState.Value * Power.ActualState.Value,
             true,
-            PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * Tier.ActualState.Value * 25f,
+            PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * (Tier.ActualState.Value + 1) * 10f,
             0.4f,
             PlayerController.BaseWeapon.CC.ActualState.Value,
             PlayerController.BaseWeapon.CD.ActualState.Value); 
 
         PlayerAttacker pa = PoolingManager.Instance.GetOP_PlayerAttacker();
-        pa.SetState_Bigger(transform.position, ThisState, _ColSize, _StartSize, _MaxSize, _BiggerTime, _SmallerTime)
+        pa.SetState_Bigger(transform.position, ThisState,
+            ShockwaveAnimation, 0.5f,
+            _ColSize, _StartSize, _MaxSize, _BiggerTime)
             .OnComplete(() =>
             {
-                pa.gameObject.SetActive(false);
-                PoolingManager.Instance.PlayerAttackers.Queue.Enqueue(pa);
+                pa.EndState();
             });
 
     }

@@ -22,6 +22,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [Header("=== Effect Img")]
     [SerializeField] public TTypePooling<SpriteRenderer> AfterImgs;
     [SerializeField] public TTypePooling<SpriteRenderer> ExplosionImgs;
+    [SerializeField] public TTypePooling<OnlyOnceTimeAnimation> OnlyOnceAnimators;
 
     [Header("=== UI")]
     [SerializeField] public TTypePooling<ModifyEffectWorldTxt> DmgTxtCanvases;
@@ -128,6 +129,12 @@ public class PoolingManager : Singleton<PoolingManager>
     public SpriteRenderer GetOP_ExplosionImg()
     {
         return GetOP<SpriteRenderer>(ExplosionImgs.Prefab, ExplosionImgs.ParentTF, ExplosionImgs.Queue);
+    }
+
+    // Hitted Animator
+    public OnlyOnceTimeAnimation GetOP_OnlyOnceAnimator()
+    {
+        return GetOP<OnlyOnceTimeAnimation>(OnlyOnceAnimators.Prefab, OnlyOnceAnimators.ParentTF, OnlyOnceAnimators.Queue);
     }
 
     #endregion

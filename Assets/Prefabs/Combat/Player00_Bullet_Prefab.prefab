@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -1569825769962121506}
   - component: {fileID: 3702076010934528879}
   m_Layer: 0
-  m_Name: PlayerBullet_Prefab
+  m_Name: Player00_Bullet_Prefab
   m_TagString: PlayerThing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,6 +69,8 @@ MonoBehaviour:
   CriticalPhysics_Sprite: {fileID: 1012499291, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   BaseEnergy_Sprite: {fileID: -1214566993, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   CriticalEnergy_Sprite: {fileID: 1140579091, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  BaseHittedPointAC: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}
+  CriticalHittedPointAC: {fileID: 7400000, guid: c444b0af8205ad84aaec6780cdff8c28, type: 2}
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4
@@ -313,3 +315,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RandomSpriteList: []
