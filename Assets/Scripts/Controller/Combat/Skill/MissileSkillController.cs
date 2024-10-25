@@ -45,7 +45,7 @@ public class MissileSkillController : ActiveSkillController
 
         // ±¸ÇöºÎ
 
-        for (int i = 0; i < Tier.ActualState.Value; i++)
+        for (int i = 0; i < Tier.ActualState.Value + 1; i++)
         {
             MissileBulletController missile = PoolingManager.Instance.GetOP_Missile();
 

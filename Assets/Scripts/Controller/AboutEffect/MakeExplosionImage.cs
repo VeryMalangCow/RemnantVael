@@ -10,6 +10,11 @@ public class MakeExplosionImage : MonoBehaviour
 
     private Sequence TotalSeq;
 
+
+    [Space(10)]
+    [Header("=== Sprites")]
+    [SerializeField] private List<Sprite> RandomSpriteList;
+
     #endregion
 
     #region Explosion
@@ -109,6 +114,10 @@ public class MakeExplosionImage : MonoBehaviour
 
         SpriteRenderer sr = PoolingManager.Instance.GetOP_ExplosionImg();
         sr.sortingOrder = _SpriteSortOrder;
+        if (RandomSpriteList != null && RandomSpriteList.Count > 0)
+        {
+            sr.sprite = RandomSpriteList[Random.Range(0, RandomSpriteList.Count)];
+        }
 
         if (DOTween.IsTweening(sr.gameObject))
         { DOTween.Complete(sr.gameObject); }

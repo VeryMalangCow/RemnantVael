@@ -15,12 +15,19 @@ public class BulletController : HaveShadowThingMovable
     [HideInInspector] private static float BaseBulletSpeed = 500f; 
 
     [Space(10)]
-    [Header("=== Physics")]
+    [Header("=== Component")]
     [SerializeField] protected Rigidbody2D ThisRb;
 
     [Space(10)]
     [Header("=== Judg")]
     [SerializeField] protected List<string> DestroyTagList;
+
+    [Space(10)]
+    [Header("=== Sprite")]
+    [SerializeField] public Sprite BasePhysics_Sprite;
+    [SerializeField] public Sprite CriticalPhysics_Sprite;
+    [SerializeField] public Sprite BaseEnergy_Sprite;
+    [SerializeField] public Sprite CriticalEnergy_Sprite;
 
     #endregion
 
@@ -32,6 +39,7 @@ public class BulletController : HaveShadowThingMovable
         
         this.transform.position = Vector3.zero;
         this.transform.rotation = Quaternion.identity;
+        this.transform.localScale = Vector3.one;
         CurrentAliveTime = 0;
         ThisRb.simulated = false;
     }
@@ -44,9 +52,22 @@ public class BulletController : HaveShadowThingMovable
 
         this.BulletState = _BulletState;
 
-        if(BulletState.IsCritical)
+        
+        if (BulletState.IsCritical)
         {
             this.BulletState.BaseDamage *= BulletState.CD;
+
+            if (_BulletState.DamageType == eDamageType.Physics)
+            { ThisSR.sprite = CriticalPhysics_Sprite; }
+            else
+            { ThisSR.sprite = CriticalEnergy_Sprite; }
+        }
+        else
+        {
+            if (_BulletState.DamageType == eDamageType.Physics)
+            { ThisSR.sprite = BasePhysics_Sprite; }
+            else
+            { ThisSR.sprite = BaseEnergy_Sprite; }
         }
 
         Vector3 currentRotation = transform.eulerAngles;

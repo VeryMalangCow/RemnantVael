@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class PlayerBulletController : BulletController
 {
+    #region Value
+
+
+    #endregion
+
     #region Framework
 
     protected override void Update()

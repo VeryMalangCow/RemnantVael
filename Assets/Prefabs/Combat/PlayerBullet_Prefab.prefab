@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4622047315420442465}
@@ -65,6 +65,10 @@ MonoBehaviour:
   DestroyTagList:
   - Enemy
   - Wall
+  BasePhysics_Sprite: {fileID: 1440707567, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  CriticalPhysics_Sprite: {fileID: 1012499291, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  BaseEnergy_Sprite: {fileID: -1214566993, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  CriticalEnergy_Sprite: {fileID: 1140579091, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4
@@ -101,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4030447465785416527}
-  - component: {fileID: 529872179081328357}
+  - component: {fileID: 9029377394207986547}
   - component: {fileID: 7842866708527823414}
   m_Layer: 0
   m_Name: Shadow
@@ -120,12 +124,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.07, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4772996866839286768}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &529872179081328357
+--- !u!212 &9029377394207986547
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,7 +175,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -210,7 +214,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 2, y: 3}
   m_Direction: 0
 --- !u!1 &7754987835335729850
 GameObject:
@@ -286,7 +290,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3000
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 1440707567, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
