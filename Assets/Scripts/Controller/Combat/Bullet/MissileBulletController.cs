@@ -61,7 +61,7 @@ public class MissileBulletController : BulletController
     {
         PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
                     TargetObject.gameObject.transform.position,
-                    12, 0.3f, 0.4f,
+                    8, 0.3f, 0.4f,
                     2.2f, 0.05f, 0.1f,
                     0.0f, 0.5f, 1.0f);
 

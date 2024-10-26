@@ -651,6 +651,10 @@ MonoBehaviour:
   - {fileID: -1611511200, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1024333363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: 1381863595, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: -1790350917, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 2084858605, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 1303922096, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: -1487533129, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
 --- !u!1 &2729057202636970053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,6 +1278,7 @@ MonoBehaviour:
   PhysicsStateAC: {fileID: 7400000, guid: d6d70feace8ae884e8bafef96f8f1998, type: 2}
   EnergyStateAC: {fileID: 7400000, guid: 069e2ca6676faae43808860df7a901a7, type: 2}
   ChangeStateAC: {fileID: 7400000, guid: 5c582a8653727cb4cb65f17a80b10bd7, type: 2}
+  ChangeState_DamageType: {fileID: -256790695, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
   ExecutionInterval: 0.75
   Skill0Interval: 0.5
   Skill1Interval: 0.5
@@ -1654,6 +1659,10 @@ MonoBehaviour:
   - {fileID: -1611511200, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1024333363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: 1381863595, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: -1790350917, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 2084858605, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 1303922096, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: -1487533129, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
 --- !u!1 &5736003525011629714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,6 +1821,7 @@ MonoBehaviour:
   _MaxSize: 7.5
   _BiggerTime: 0.3
   ShockwaveAnimation: {fileID: 7400000, guid: 2d86ccaf723e69b41920621edb1ed040, type: 2}
+  MEI: {fileID: 8789615613539568913}
 --- !u!114 &3772518435837473010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2459,6 +2469,10 @@ MonoBehaviour:
   - {fileID: -1611511200, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1024333363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: 1381863595, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: -1790350917, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 2084858605, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 1303922096, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: -1487533129, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
 --- !u!1 &7812785444038392381
 GameObject:
   m_ObjectHideFlags: 0
@@ -2895,6 +2909,10 @@ MonoBehaviour:
   - {fileID: -1611511200, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1024333363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: 1381863595, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: -1790350917, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 2084858605, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: 1303922096, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  - {fileID: -1487533129, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
 --- !u!1001 &5490131871969645530
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -19,6 +19,9 @@ public class ShockwaveSkillController : ActiveSkillController
     [Header("=== Reso")]
     [SerializeField] private AnimationClip ShockwaveAnimation;
 
+    [Header("=== Effect")]
+    [SerializeField] private MakeExplosionImage MEI;
+
     #endregion
 
     #region Active
@@ -49,6 +52,12 @@ public class ShockwaveSkillController : ActiveSkillController
                 pa.EndState();
             });
 
+        // Effect Explosion
+        MEI.GenExplosionImgs(
+            (Vector2)MEI.gameObject.transform.position,
+            64, 2.0f, 4.0f,
+            3.0f, 0.15f, 0.2f,
+            0.0f, 0.5f, 1.0f);
     }
 
     #endregion

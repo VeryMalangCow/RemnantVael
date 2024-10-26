@@ -124,6 +124,7 @@ public class PlayerController : MovableObject
     [SerializeField] private AnimationClip PhysicsStateAC;
     [SerializeField] private AnimationClip EnergyStateAC;
     [SerializeField] private AnimationClip ChangeStateAC;
+    [SerializeField] private Sprite ChangeState_DamageType;
 
     #endregion
 
@@ -135,7 +136,7 @@ public class PlayerController : MovableObject
     {
         CurrentEC.Value = 100;
         SetBaseAnimTween();
-        StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
+        StateAnim.SetAnim(PhysicsStateAC, 0.8f, 0.5f);
     }
 
     protected override void Update()
@@ -278,7 +279,7 @@ public class PlayerController : MovableObject
         if (!CanChange()) 
         { return; }
 
-        StateAnim.SetAnim(ChangeStateAC, 1.15f, 1f);
+        StateAnim.SetAnim(ChangeStateAC, ChangeState_DamageType, 0.8f, 0.5f);
 
         switch (TargetCombatMode)
         {
@@ -473,12 +474,12 @@ public class PlayerController : MovableObject
             {
                 case eCombatMode.Physics:
                     BaseWeapon.DamageType = eDamageType.Physics;
-                    StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
+                    StateAnim.SetAnim(PhysicsStateAC, 0.8f, 0.5f);
                     break;
 
                 case eCombatMode.Energy:
                     BaseWeapon.DamageType = eDamageType.Energy;
-                    StateAnim.SetAnim(EnergyStateAC, 0.8f, 1f);
+                    StateAnim.SetAnim(EnergyStateAC, 0.8f, 0.5f);
                     break;
 
                 default:

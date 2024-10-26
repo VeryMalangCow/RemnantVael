@@ -14,6 +14,7 @@ public class SetStateAnim : MonoBehaviour
     [Header("=== Component")]
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] private SpriteRenderer ThisSR;
+    [SerializeField] private SpriteRenderer ThisInnerSR;
 
     [HideInInspector] private AnimatorOverrideController aoc;
 
@@ -30,8 +31,18 @@ public class SetStateAnim : MonoBehaviour
 
     #region Anim
 
+    public void SetAnim(AnimationClip _AC, Sprite _InnerSprite, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    {
+        SetAnim(_AC, _AnimSpeed, _AnimSize);
+
+        ThisInnerSR.sprite = _InnerSprite;
+        ThisInnerSR.gameObject.SetActive(true);
+    }
+
     public void SetAnim(AnimationClip _AC, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
+        ThisInnerSR.gameObject.SetActive(false);
+
         aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
         foreach (var a in aoc.animationClips)
