@@ -488,10 +488,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RandomSpriteList:
-  - {fileID: -1746943924, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-  - {fileID: 1391882910, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-  - {fileID: 237403348, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-  - {fileID: 366755556, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  - SpriteList:
+    - {fileID: -1746943924, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+    - {fileID: 1391882910, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+    - {fileID: 237403348, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+    - {fileID: 366755556, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
 --- !u!1001 &510088144873151616
 PrefabInstance:
   m_ObjectHideFlags: 0

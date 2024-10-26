@@ -36,11 +36,25 @@ public class PlayerBulletController : BulletController
 
     private void DeleteThis()
     {
-        PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
+        if (BulletState.DamageType == eDamageType.Physics)
+        {
+            PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
                     TargetObject.gameObject.transform.position,
                     8, 0.3f, 0.4f,
                     0.5f, 0.05f, 0.1f,
-                    0.0f, 0.5f, 1.0f);
+                    0.0f, 0.5f, 1.0f,
+                    0);
+        }
+        else
+        {
+            PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
+                    TargetObject.gameObject.transform.position,
+                    8, 0.3f, 0.4f,
+                    0.5f, 0.05f, 0.1f,
+                    0.0f, 0.5f, 1.0f,
+                    1);
+        }
+        
 
         ResetState();
         this.gameObject.SetActive(false);
@@ -62,7 +76,7 @@ public class PlayerBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
-                PointEffect(TargetObject.transform.position, BulletState.IsCritical);
+                PointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
                 EC.TakeDamage(BulletState, GetDirByAngle(transform.eulerAngles.z));
             }
         }
@@ -78,13 +92,23 @@ public class PlayerBulletController : BulletController
     #region Effect
 
 
-    public void PointEffect(Vector2 _SpanwedPos, bool _IsCritical)
+    public void PointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
     {
         OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
-        if (!_IsCritical)
-        { oota.StartAnim(PlayerManager.Instance.PlayerController.BaseHittedPointAC, _SpanwedPos, 2f, 1f); }
+        if (_DamageType == eDamageType.Physics)
+        {
+            if (!_IsCritical)
+            { oota.StartAnim(PlayerManager.Instance.PlayerController.PhysicsHittedPointAC, _SpanwedPos, 2f, 1f); }
+            else
+            { oota.StartAnim(PlayerManager.Instance.PlayerController.PhysicsCriticalHittedPointAC, _SpanwedPos, 2f, 1f); }
+        }
         else
-        { oota.StartAnim(PlayerManager.Instance.PlayerController.CriticalHittedPointAC, _SpanwedPos, 2f, 1f); }
+        {
+            if (!_IsCritical)
+            { oota.StartAnim(PlayerManager.Instance.PlayerController.EnergyHittedPointAC, _SpanwedPos, 2f, 1f); }
+            else
+            { oota.StartAnim(PlayerManager.Instance.PlayerController.EnergyCriticalHittedPointAC, _SpanwedPos, 2f, 1f); }
+        }
     }
 
 

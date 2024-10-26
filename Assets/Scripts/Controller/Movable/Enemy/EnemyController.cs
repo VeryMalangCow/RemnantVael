@@ -249,7 +249,8 @@ public class EnemyController : MovableObject, IInteract
                     MEI.gameObject.transform.position,
                     36, 0.15f, 0.75f,
                     1.5f, 0.05f, 0.1f,
-                    0.0f, 0.5f, 1.0f);
+                    0.0f, 0.5f, 1.0f,
+                    0);
     }
 
     #endregion

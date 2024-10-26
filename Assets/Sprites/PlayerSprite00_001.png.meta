@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -100,8 +100,8 @@ TextureImporter:
       name: Player00_RailLU_00
       rect:
         serializedVersion: 2
-        x: 0
-        y: 224
+        x: 1
+        y: 479
         width: 32
         height: 32
       alignment: 0
@@ -121,8 +121,8 @@ TextureImporter:
       name: Player00_RailLU_01
       rect:
         serializedVersion: 2
-        x: 32
-        y: 224
+        x: 35
+        y: 479
         width: 32
         height: 32
       alignment: 0
@@ -142,8 +142,8 @@ TextureImporter:
       name: Player00_RailLU_02
       rect:
         serializedVersion: 2
-        x: 64
-        y: 224
+        x: 69
+        y: 479
         width: 32
         height: 32
       alignment: 0
@@ -163,8 +163,8 @@ TextureImporter:
       name: Player00_RailLU_04
       rect:
         serializedVersion: 2
-        x: 96
-        y: 224
+        x: 103
+        y: 479
         width: 32
         height: 32
       alignment: 0
@@ -184,8 +184,8 @@ TextureImporter:
       name: Player00_RailLU_05
       rect:
         serializedVersion: 2
-        x: 128
-        y: 224
+        x: 137
+        y: 479
         width: 32
         height: 32
       alignment: 0
@@ -205,8 +205,8 @@ TextureImporter:
       name: Player00_RailU_00
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
+        x: 1
+        y: 445
         width: 32
         height: 32
       alignment: 0
@@ -226,8 +226,8 @@ TextureImporter:
       name: Player00_RailU_01
       rect:
         serializedVersion: 2
-        x: 32
-        y: 192
+        x: 35
+        y: 445
         width: 32
         height: 32
       alignment: 0
@@ -247,8 +247,8 @@ TextureImporter:
       name: Player00_RailU_02
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
+        x: 69
+        y: 445
         width: 32
         height: 32
       alignment: 0
@@ -268,8 +268,8 @@ TextureImporter:
       name: Player00_RailU_03
       rect:
         serializedVersion: 2
-        x: 96
-        y: 192
+        x: 103
+        y: 445
         width: 32
         height: 32
       alignment: 0
@@ -289,8 +289,8 @@ TextureImporter:
       name: Player00_RailU_04
       rect:
         serializedVersion: 2
-        x: 128
-        y: 192
+        x: 137
+        y: 445
         width: 32
         height: 32
       alignment: 0
@@ -310,8 +310,8 @@ TextureImporter:
       name: Player00_RailRU_00
       rect:
         serializedVersion: 2
-        x: 0
-        y: 160
+        x: 1
+        y: 411
         width: 32
         height: 32
       alignment: 0
@@ -331,8 +331,8 @@ TextureImporter:
       name: Player00_RailRU_01
       rect:
         serializedVersion: 2
-        x: 32
-        y: 160
+        x: 35
+        y: 411
         width: 32
         height: 32
       alignment: 0
@@ -352,8 +352,8 @@ TextureImporter:
       name: Player00_RailRU_02
       rect:
         serializedVersion: 2
-        x: 64
-        y: 160
+        x: 69
+        y: 411
         width: 32
         height: 32
       alignment: 0
@@ -373,8 +373,8 @@ TextureImporter:
       name: Player00_RailRU_03
       rect:
         serializedVersion: 2
-        x: 96
-        y: 160
+        x: 103
+        y: 411
         width: 32
         height: 32
       alignment: 0
@@ -394,8 +394,8 @@ TextureImporter:
       name: Player00_RailRU_04
       rect:
         serializedVersion: 2
-        x: 128
-        y: 160
+        x: 137
+        y: 411
         width: 32
         height: 32
       alignment: 0
@@ -415,8 +415,8 @@ TextureImporter:
       name: Player00_RailR_00
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 1
+        y: 377
         width: 32
         height: 32
       alignment: 0
@@ -436,8 +436,8 @@ TextureImporter:
       name: Player00_RailR_01
       rect:
         serializedVersion: 2
-        x: 32
-        y: 128
+        x: 35
+        y: 377
         width: 32
         height: 32
       alignment: 0
@@ -457,8 +457,8 @@ TextureImporter:
       name: Player00_RailR_02
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
+        x: 69
+        y: 377
         width: 32
         height: 32
       alignment: 0
@@ -478,8 +478,8 @@ TextureImporter:
       name: Player00_RailR_03
       rect:
         serializedVersion: 2
-        x: 96
-        y: 128
+        x: 103
+        y: 377
         width: 32
         height: 32
       alignment: 0
@@ -499,8 +499,8 @@ TextureImporter:
       name: Player00_RailR_04
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
+        x: 137
+        y: 377
         width: 32
         height: 32
       alignment: 0
@@ -520,8 +520,8 @@ TextureImporter:
       name: Player00_RailRD_00
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
+        x: 1
+        y: 343
         width: 32
         height: 32
       alignment: 0
@@ -541,8 +541,8 @@ TextureImporter:
       name: Player00_RailRD_01
       rect:
         serializedVersion: 2
-        x: 32
-        y: 96
+        x: 35
+        y: 343
         width: 32
         height: 32
       alignment: 0
@@ -562,8 +562,8 @@ TextureImporter:
       name: Player00_RailRD_02
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
+        x: 69
+        y: 343
         width: 32
         height: 32
       alignment: 0
@@ -583,8 +583,8 @@ TextureImporter:
       name: Player00_RailRD_03
       rect:
         serializedVersion: 2
-        x: 96
-        y: 96
+        x: 103
+        y: 343
         width: 32
         height: 32
       alignment: 0
@@ -604,8 +604,8 @@ TextureImporter:
       name: Player00_RailRD_04
       rect:
         serializedVersion: 2
-        x: 128
-        y: 96
+        x: 137
+        y: 343
         width: 32
         height: 32
       alignment: 0
@@ -625,8 +625,8 @@ TextureImporter:
       name: Player00_RailD_00
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 1
+        y: 309
         width: 32
         height: 32
       alignment: 0
@@ -646,8 +646,8 @@ TextureImporter:
       name: Player00_RailD_01
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
+        x: 35
+        y: 309
         width: 32
         height: 32
       alignment: 0
@@ -667,8 +667,8 @@ TextureImporter:
       name: Player00_RailD_02
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 69
+        y: 309
         width: 32
         height: 32
       alignment: 0
@@ -688,8 +688,8 @@ TextureImporter:
       name: Player00_RailD_03
       rect:
         serializedVersion: 2
-        x: 96
-        y: 64
+        x: 103
+        y: 309
         width: 32
         height: 32
       alignment: 0
@@ -709,8 +709,8 @@ TextureImporter:
       name: Player00_RailD_04
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
+        x: 137
+        y: 309
         width: 32
         height: 32
       alignment: 0
@@ -730,8 +730,8 @@ TextureImporter:
       name: Player00_RailLD_00
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 1
+        y: 275
         width: 32
         height: 32
       alignment: 0
@@ -751,8 +751,8 @@ TextureImporter:
       name: Player00_RailLD_01
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 35
+        y: 275
         width: 32
         height: 32
       alignment: 0
@@ -772,8 +772,8 @@ TextureImporter:
       name: Player00_RailLD_02
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
+        x: 69
+        y: 275
         width: 32
         height: 32
       alignment: 0
@@ -793,8 +793,8 @@ TextureImporter:
       name: Player00_RailLD_03
       rect:
         serializedVersion: 2
-        x: 96
-        y: 32
+        x: 103
+        y: 275
         width: 32
         height: 32
       alignment: 0
@@ -814,8 +814,8 @@ TextureImporter:
       name: Player00_RailLD_04
       rect:
         serializedVersion: 2
-        x: 128
-        y: 32
+        x: 137
+        y: 275
         width: 32
         height: 32
       alignment: 0
@@ -835,8 +835,8 @@ TextureImporter:
       name: Player00_RailL_00
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 1
+        y: 241
         width: 32
         height: 32
       alignment: 0
@@ -856,8 +856,8 @@ TextureImporter:
       name: Player00_RailL_01
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 35
+        y: 241
         width: 32
         height: 32
       alignment: 0
@@ -877,8 +877,8 @@ TextureImporter:
       name: Player00_RailL_02
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 69
+        y: 241
         width: 32
         height: 32
       alignment: 0
@@ -898,8 +898,8 @@ TextureImporter:
       name: Player00_RailL_03
       rect:
         serializedVersion: 2
-        x: 96
-        y: 0
+        x: 103
+        y: 241
         width: 32
         height: 32
       alignment: 0
@@ -919,8 +919,8 @@ TextureImporter:
       name: Player00_RailL_04
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
+        x: 137
+        y: 241
         width: 32
         height: 32
       alignment: 0
@@ -932,825 +932,6 @@ TextureImporter:
       bones: []
       spriteID: 7f020bfc3385fb340a272ce610a04370
       internalID: -2054591719
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerSprite00_Shockwave_00
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 224
-        width: 64
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6c9859119976a5f46a7fae11685881bf
-      internalID: 230467887
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerSprite00_Shockwave_01
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 192
-        width: 64
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8948e1e5c94bfb046a94f485a3f82f65
-      internalID: -1648386832
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerSprite00_Shockwave_02
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 160
-        width: 64
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 16693813dae9be84e99bf8651b41e5f0
-      internalID: -1199091849
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerSprite00_Shockwave_03
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 128
-        width: 64
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b49d2c5067cd452439a58acb253a522d
-      internalID: -1802950868
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Energy00
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 204a024b693b798439b010641a9a2328
-      internalID: 1053794914
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Energy01
-      rect:
-        serializedVersion: 2
-        x: 176
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1b8e2f74cc0842a49a4080b6aed04159
-      internalID: 1671914798
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Energy02
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b7dc278c4fc84ca4190d2c446d0fe898
-      internalID: 809361296
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Energy03
-      rect:
-        serializedVersion: 2
-        x: 208
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6ee5dcb8b2887cc45b0b15c3d80f82a1
-      internalID: 1709712105
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Energy04
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dad7f813e2692754abc9d211094f6c31
-      internalID: 1882363677
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Energy05
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b9583cb2e52e8141bcbb667c37057a5
-      internalID: 228639976
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Physics00
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 90225fb4135aaba489eb6697164c58e8
-      internalID: -1037494755
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Physics01
-      rect:
-        serializedVersion: 2
-        x: 176
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e3590bd8a4f4ccb42a3b33ccf03d516b
-      internalID: 1953852745
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Physics02
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: de1ffeb5362701d40acdfcac25e5f6e5
-      internalID: 1643068424
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Physics03
-      rect:
-        serializedVersion: 2
-        x: 208
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 899500c85a8bd684984e00185ffc05ee
-      internalID: 1488835141
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Physics04
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c76ee8b25e169284e8c70d32d7d322e4
-      internalID: 1757355042
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_Physics05
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 70bcc0697e5c4164d9cf052a9604ca3a
-      internalID: -175615564
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_ChangeMode_00
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 208
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3fdf7ab9950f4ec4ebe6c3dc2945b9ed
-      internalID: 825481594
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_ChangeMode_01
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 192
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 554222decf0d26f43afb5689051d1983
-      internalID: 1261790770
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_ChangeMode_02
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 176
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3a6502d02adce8e479c1b38df4d19fa4
-      internalID: 577892337
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_ChangeMode_03
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 160
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8bff0a5cb2c1dbd489f298e809458ae2
-      internalID: -549881197
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_ChangeMode_04
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 208
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e9648d9612445da40b3062506237c4c0
-      internalID: 1093635561
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_ChangeMode_05
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 192
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 15dabdc0a37584e4f979c036279b7623
-      internalID: 828635750
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_PB_Bullet
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 244
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a7d7d0895bd53e45b7f0eb726fd529c
-      internalID: -1176528498
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_PC_Bullet
-      rect:
-        serializedVersion: 2
-        x: 232
-        y: 244
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2a0a67f679fdc404b9db17ae1b619236
-      internalID: 467290139
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_EB_Bullet
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 244
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ec7204efa22e0e140ab5205ac049e91e
-      internalID: -1005658224
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_EC_Bullet
-      rect:
-        serializedVersion: 2
-        x: 248
-        y: 244
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9da153f2137197645aa862eed8459e64
-      internalID: 169637504
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_MB_Bullet
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 224
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6d3d260cc5291e042881f1b784a6aafb
-      internalID: 1100044400
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_MC_Bullet
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 224
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 540718c47326e6648906554be767d131
-      internalID: -722631536
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_ChangeMode_06
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 176
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 36a180b796d84a548b6c5846787e2a9b
-      internalID: -2093222575
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_ChangeMode_07
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 160
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 74b35bcc19619a6449980e27f98e10fe
-      internalID: -615760895
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_ChangeDmgTypeInner
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 144
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a781bad8ecfa8e3488373b75d27f9f6b
-      internalID: -256790695
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_BoostOff_00
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 152
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0a18009f28e1098478fd2cec330bc047
-      internalID: -593668566
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_BoostOff_02
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 144
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: af4e44174f037b043adc2aa0e9705918
-      internalID: -1183686569
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_BoostOn_00
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 136
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 34af6dd902cabea47968d6cf01654a14
-      internalID: -939208820
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_BoostOn_02
-      rect:
-        serializedVersion: 2
-        x: 240
-        y: 128
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 05e0774de18801542ba659560a555849
-      internalID: -1840063852
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_BoostOff_01
-      rect:
-        serializedVersion: 2
-        x: 248
-        y: 152
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6db9b4bd30a2a3c4a8fe0b80e0d3272f
-      internalID: -117470951
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_BoostOff_03
-      rect:
-        serializedVersion: 2
-        x: 248
-        y: 144
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c559dfc37a1d8524da77bd0d67515c35
-      internalID: -1227506100
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_BoostOn_01
-      rect:
-        serializedVersion: 2
-        x: 248
-        y: 136
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d19fe3458f4ac4545a4196980b060b05
-      internalID: 824347832
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player00_BoostOn_03
-      rect:
-        serializedVersion: 2
-        x: 248
-        y: 128
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0f92b24ef85e1294aabdaa11d38f4099
-      internalID: 1753127032
       vertices: []
       indices: 
       edges: []

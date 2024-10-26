@@ -28,7 +28,7 @@ public class PlayerAttacker : Attacker
                 // Effect
                 Vector2 effectPos = ThisCol.ClosestPoint(EC.TargetObject.transform.position);
 
-                PointEffect(effectPos, isCritical);
+                PointEffect(effectPos, AttackerState.DamageType, isCritical);
 
                 //Damage
                 EC.TakeDamage(AttackerState, isCritical, dir);
@@ -41,13 +41,24 @@ public class PlayerAttacker : Attacker
 
     #region Effect
 
-    public void PointEffect(Vector2 _SpanwedPos, bool _IsCritical)
+    public void PointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
     {
         OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
-        if (!_IsCritical)
-        { oota.StartAnim(PlayerManager.Instance.PlayerController.BaseHittedPointAC, _SpanwedPos, 2f, 3f); }
+
+        if (_DamageType == eDamageType.Physics)
+        {
+            if (!_IsCritical)
+            { oota.StartAnim(PlayerManager.Instance.PlayerController.PhysicsHittedPointAC, _SpanwedPos, 2f, 3f); }
+            else
+            { oota.StartAnim(PlayerManager.Instance.PlayerController.PhysicsCriticalHittedPointAC, _SpanwedPos, 2f, 3f); }
+        }
         else
-        { oota.StartAnim(PlayerManager.Instance.PlayerController.CriticalHittedPointAC, _SpanwedPos, 2f, 3f); }
+        {
+            if (!_IsCritical)
+            { oota.StartAnim(PlayerManager.Instance.PlayerController.EnergyHittedPointAC, _SpanwedPos, 2f, 3f); }
+            else
+            { oota.StartAnim(PlayerManager.Instance.PlayerController.EnergyCriticalHittedPointAC, _SpanwedPos, 2f, 3f); }
+        }
     }
 
     #endregion

@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1102 &-5228593746743050202
+--- !u!1102 &-7836785755645767645
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Clip_Player00_BoostOn
+  m_Name: Clip_Player00_ECriticalHittedPoint
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -20,20 +20,20 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d2b73c9425051f44ba558e86b1d24fe2, type: 2}
+  m_Motion: {fileID: 7400000, guid: 79dbdb9046b5858459e7942dc65f03d1, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &-1376086323934604212
+--- !u!1102 &-7327737689209366920
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Clip_Player00_BoostOff
+  m_Name: Clip_Player00_EHittedPoint
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 98a83c64495906642b49b483a64364d5, type: 2}
+  m_Motion: {fileID: 7400000, guid: 14a17a53a351ea74f83652b015ad07a9, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -65,10 +65,10 @@ AnimatorStateMachine:
     m_State: {fileID: 7469727601366867397}
     m_Position: {x: 270, y: 120, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -1376086323934604212}
+    m_State: {fileID: -7327737689209366920}
     m_Position: {x: 305, y: 185, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -5228593746743050202}
+    m_State: {fileID: -7836785755645767645}
     m_Position: {x: 340, y: 250, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
@@ -109,7 +109,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player00_PhysicsState
+  m_Name: Anim
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -122,7 +122,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 5c582a8653727cb4cb65f17a80b10bd7, type: 2}
+  m_Motion: {fileID: 7400000, guid: d6d70feace8ae884e8bafef96f8f1998, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

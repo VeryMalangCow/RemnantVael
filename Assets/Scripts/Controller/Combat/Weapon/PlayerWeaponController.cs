@@ -155,12 +155,26 @@ public class PlayerWeaponController : SatelliteController
             { PBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
 
             // Effect
-            MEIs[i].GenExplosionImgs_Fan(
+            if (bulletState.DamageType == eDamageType.Physics)
+            {
+                MEIs[i].GenExplosionImgs_Fan(
                 (Vector2)MEIs[i].gameObject.transform.position + (dir * 0.3f),
                 dir, 45f,
                 6, 0.2f, 1f,
                 1.3f, 0.05f, 0.1f,
-                0.0f, 0.5f, 1.0f);
+                0.0f, 0.5f, 1.0f,
+                0);
+            }
+            else
+            {
+                MEIs[i].GenExplosionImgs_Fan(
+                (Vector2)MEIs[i].gameObject.transform.position + (dir * 0.3f),
+                dir, 45f,
+                6, 0.2f, 1f,
+                1.3f, 0.05f, 0.1f,
+                0.0f, 0.5f, 1.0f,
+                1);
+            }
         }
         CurrentDelayROF = 0;
 

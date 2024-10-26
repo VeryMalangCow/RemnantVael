@@ -13,7 +13,14 @@ public class MakeExplosionImage : MonoBehaviour
 
     [Space(10)]
     [Header("=== Sprites")]
-    [SerializeField] private List<Sprite> RandomSpriteList;
+    [SerializeField] private List<RandomSpriteModule> RandomSpriteList;
+
+    [System.Serializable]
+    class RandomSpriteModule
+    {
+        public List<Sprite> SpriteList;
+    }
+
 
     #endregion
 
@@ -23,7 +30,8 @@ public class MakeExplosionImage : MonoBehaviour
     public void GenExplosionImgs(Vector2 _SpawnedPos, 
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
-        float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime)
+        float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
+        int _ModuleIndex)
     {
         if (TotalSeq != null && DOTween.IsTweening(TotalSeq))
         {
@@ -56,7 +64,8 @@ public class MakeExplosionImage : MonoBehaviour
             TotalSeq.Join(GenExplosionImg(dirByAngle, sortOrder,
                 _ExplosionDis, _DisappearDis,
                 _BiggerScale, biggerTime,
-                _SmallerScale, smallerTime));
+                _SmallerScale, smallerTime,
+                _ModuleIndex));
         }
 
     }
@@ -65,7 +74,8 @@ public class MakeExplosionImage : MonoBehaviour
     public void GenExplosionImgs_Fan(Vector2 _SpawnedPos, Vector2 _Dir, float _AngleArea,
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
-        float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime)
+        float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
+        int _ModuleIndex)
     {
         if (TotalSeq != null && DOTween.IsTweening(TotalSeq))
         {
@@ -98,7 +108,8 @@ public class MakeExplosionImage : MonoBehaviour
             TotalSeq.Join(GenExplosionImg(dirByAngle, sortOrder,
                 _ExplosionDis, _DisappearDis,
                 _BiggerScale, biggerTime,
-                _SmallerScale, smallerTime));
+                _SmallerScale, smallerTime,
+                _ModuleIndex));
         }
     }
 
@@ -106,7 +117,8 @@ public class MakeExplosionImage : MonoBehaviour
     private Sequence GenExplosionImg(Vector2 _Dir, int _SpriteSortOrder,
         float _ExplotionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerTime,
-        float _SmallerScale, float _SmallerTime)
+        float _SmallerScale, float _SmallerTime,
+        int _ModuleIndex)
     {
         Sequence bigSeq = DOTween.Sequence();
         Sequence smallSeq = DOTween.Sequence();
@@ -114,9 +126,9 @@ public class MakeExplosionImage : MonoBehaviour
 
         SpriteRenderer sr = PoolingManager.Instance.GetOP_ExplosionImg();
         sr.sortingOrder = _SpriteSortOrder;
-        if (RandomSpriteList != null && RandomSpriteList.Count > 0)
+        if (RandomSpriteList[_ModuleIndex].SpriteList != null && RandomSpriteList[_ModuleIndex].SpriteList.Count > 0)
         {
-            sr.sprite = RandomSpriteList[Random.Range(0, RandomSpriteList.Count)];
+            sr.sprite = RandomSpriteList[_ModuleIndex].SpriteList[Random.Range(0, RandomSpriteList[_ModuleIndex].SpriteList.Count)];
         }
 
         if (DOTween.IsTweening(sr.gameObject))

@@ -110,16 +110,14 @@ public class PlayerController : MovableObject
     #region - Effect
 
     [Space(10)]
-    [Header("=== AC")]
-    [SerializeField] public AnimationClip BaseHittedPointAC;
-    [SerializeField] public AnimationClip CriticalHittedPointAC;
+    [Header("=== Effect")]
+    [Header("-- Hitted")]
+    [SerializeField] public AnimationClip PhysicsHittedPointAC;
+    [SerializeField] public AnimationClip PhysicsCriticalHittedPointAC;
+    [SerializeField] public AnimationClip EnergyHittedPointAC;
+    [SerializeField] public AnimationClip EnergyCriticalHittedPointAC;
 
-    #endregion
-
-    #region - State Icon
-
-    [Space(10)]
-    [Header("=== DamageType Icon")]
+    [Header("-- DamageType Icon")]
     [SerializeField] private SetStateAnim StateAnim;
     [SerializeField] private AnimationClip PhysicsStateAC;
     [SerializeField] private AnimationClip EnergyStateAC;
@@ -127,7 +125,7 @@ public class PlayerController : MovableObject
     [SerializeField] private Sprite ChangeState_DamageType;
 
     [Space(10)]
-    [Header("=== BoostMode Icon")]
+    [Header("-- BoostMode Icon")]
     [SerializeField] private List<SetStateAnim> BoostStateAnimList;
     [SerializeField] private AnimationClip BoostOffAC;
     [SerializeField] private AnimationClip BoostOnAC;

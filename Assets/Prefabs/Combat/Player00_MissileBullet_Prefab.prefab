@@ -66,8 +66,8 @@ MonoBehaviour:
   - Enemy
   - Wall
   - InteractBuilding
-  BasePhysics_Sprite: {fileID: 1100044400, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
-  CriticalPhysics_Sprite: {fileID: -722631536, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
+  BasePhysics_Sprite: {fileID: -1722145500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  CriticalPhysics_Sprite: {fileID: -2035106808, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   BaseEnergy_Sprite: {fileID: 0}
   CriticalEnergy_Sprite: {fileID: 0}
   Missile_Prefab: {fileID: 2192280153704162206}
@@ -297,7 +297,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3000
-  m_Sprite: {fileID: 1100044400, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
+  m_Sprite: {fileID: -1722145500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

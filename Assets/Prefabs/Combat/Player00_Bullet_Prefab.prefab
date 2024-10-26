@@ -66,10 +66,10 @@ MonoBehaviour:
   - Enemy
   - Wall
   - InteractBuilding
-  BasePhysics_Sprite: {fileID: -1176528498, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
-  CriticalPhysics_Sprite: {fileID: 467290139, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
-  BaseEnergy_Sprite: {fileID: -1005658224, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
-  CriticalEnergy_Sprite: {fileID: 169637504, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
+  BasePhysics_Sprite: {fileID: 1440707567, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  CriticalPhysics_Sprite: {fileID: 1012499291, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  BaseEnergy_Sprite: {fileID: -1214566993, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  CriticalEnergy_Sprite: {fileID: 1140579091, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4
@@ -291,7 +291,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3000
-  m_Sprite: {fileID: -1176528498, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
+  m_Sprite: {fileID: 1440707567, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
