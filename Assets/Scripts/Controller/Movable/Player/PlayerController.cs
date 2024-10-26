@@ -119,12 +119,18 @@ public class PlayerController : MovableObject
     #region - State Icon
 
     [Space(10)]
-    [Header("=== State Icon")]
+    [Header("=== DamageType Icon")]
     [SerializeField] private SetStateAnim StateAnim;
     [SerializeField] private AnimationClip PhysicsStateAC;
     [SerializeField] private AnimationClip EnergyStateAC;
     [SerializeField] private AnimationClip ChangeStateAC;
     [SerializeField] private Sprite ChangeState_DamageType;
+
+    [Space(10)]
+    [Header("=== BoostMode Icon")]
+    [SerializeField] private List<SetStateAnim> BoostStateAnimList;
+    [SerializeField] private AnimationClip BoostOffAC;
+    [SerializeField] private AnimationClip BoostOnAC;
 
     #endregion
 
@@ -135,8 +141,11 @@ public class PlayerController : MovableObject
     private void Start()
     {
         CurrentEC.Value = 100;
+
         SetBaseAnimTween();
-        StateAnim.SetAnim(PhysicsStateAC, 0.8f, 0.5f);
+
+        StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
+        SetBoostAnim(CurrentBoostLv.Value, MaxBoostLv);
     }
 
     protected override void Update()
@@ -279,7 +288,7 @@ public class PlayerController : MovableObject
         if (!CanChange()) 
         { return; }
 
-        StateAnim.SetAnim(ChangeStateAC, ChangeState_DamageType, 0.8f, 0.5f);
+        StateAnim.SetAnim(ChangeStateAC, ChangeState_DamageType, 0.8f, 1f);
 
         switch (TargetCombatMode)
         {
@@ -474,12 +483,12 @@ public class PlayerController : MovableObject
             {
                 case eCombatMode.Physics:
                     BaseWeapon.DamageType = eDamageType.Physics;
-                    StateAnim.SetAnim(PhysicsStateAC, 0.8f, 0.5f);
+                    StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
                     break;
 
                 case eCombatMode.Energy:
                     BaseWeapon.DamageType = eDamageType.Energy;
-                    StateAnim.SetAnim(EnergyStateAC, 0.8f, 0.5f);
+                    StateAnim.SetAnim(EnergyStateAC, 0.8f, 1f);
                     break;
 
                 default:
@@ -502,6 +511,7 @@ public class PlayerController : MovableObject
         if(CurrentBoostLv.Value != TargetBoostlv)
         {
             CurrentBoostLv.Value = TargetBoostlv;
+            SetBoostAnim(CurrentBoostLv.Value, MaxBoostLv);
         }
     }
 
@@ -608,6 +618,32 @@ public class PlayerController : MovableObject
         for (int i = 0; i < MakeAfterImgList.Count; i++)
         {
             MakeAfterImgList[i].EndGen();
+        }
+    }
+
+    private void SetBoostAnim(int _Index, int _MaxIndex)
+    {
+        float lowestAnimSpeed = 0.5f;
+        if (_Index >= _MaxIndex)
+        {
+            for (int i = 0; i < _MaxIndex - 1; i++)
+            {
+                BoostStateAnimList[i].SetAnim(BoostOnAC, lowestAnimSpeed * (_MaxIndex * 2), 1f);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < _MaxIndex - 1; i++)
+            {
+                if (i < _Index)
+                {
+                    BoostStateAnimList[i].SetAnim(BoostOnAC, lowestAnimSpeed * (_Index - i + 1), 1f);
+                }
+                else
+                {
+                    BoostStateAnimList[i].SetAnim(BoostOffAC, lowestAnimSpeed, 1f);
+                }
+            }
         }
     }
 
