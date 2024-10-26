@@ -41,12 +41,14 @@ public class ShockwaveSkillController : ActiveSkillController
             PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * (Tier.ActualState.Value + 1) * 10f,
             0.4f,
             PlayerController.BaseWeapon.CC.ActualState.Value,
-            PlayerController.BaseWeapon.CD.ActualState.Value); 
+            PlayerController.BaseWeapon.CD.ActualState.Value);
+
+        float usableMaxSize = _MaxSize + (_MaxSize * Tier.ActualState.Value * 0.1f);
 
         PlayerAttacker pa = PoolingManager.Instance.GetOP_PlayerAttacker();
         pa.SetState_Bigger(transform.position, ThisState,
             ShockwaveAnimation, 0.5f,
-            _ColSize, _StartSize, _MaxSize, _BiggerTime)
+            _ColSize, _StartSize, usableMaxSize, _BiggerTime)
             .OnComplete(() =>
             {
                 pa.EndState();
@@ -56,7 +58,7 @@ public class ShockwaveSkillController : ActiveSkillController
         
         MEI.GenExplosionImgs(
             (Vector2)MEI.gameObject.transform.position,
-            64, 2.0f, 4.0f,
+            64, usableMaxSize / 5f, usableMaxSize / 4f,
             3.0f, 0.15f, 0.2f,
             0.0f, 0.5f, 1.0f,
             1);
