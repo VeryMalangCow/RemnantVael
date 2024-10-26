@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_UL
+      name: Player00_Main_UL
       rect:
         serializedVersion: 2
         x: 0
@@ -118,7 +118,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_U
+      name: Player00_Main_U
       rect:
         serializedVersion: 2
         x: 16
@@ -139,7 +139,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_UR
+      name: Player00_Main_UR
       rect:
         serializedVersion: 2
         x: 32
@@ -160,7 +160,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_R
+      name: Player00_Main_R
       rect:
         serializedVersion: 2
         x: 48
@@ -181,7 +181,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_DR
+      name: Player00_Main_DR
       rect:
         serializedVersion: 2
         x: 64
@@ -202,7 +202,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_D
+      name: Player00_Main_D
       rect:
         serializedVersion: 2
         x: 80
@@ -223,7 +223,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_DL
+      name: Player00_Main_DL
       rect:
         serializedVersion: 2
         x: 96
@@ -244,7 +244,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_L
+      name: Player00_Main_L
       rect:
         serializedVersion: 2
         x: 112
@@ -265,7 +265,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWeapon_UL
+      name: Player00_Weapon_UL
       rect:
         serializedVersion: 2
         x: 0
@@ -286,7 +286,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWeapon_U
+      name: Player00_Weapon_U
       rect:
         serializedVersion: 2
         x: 16
@@ -307,7 +307,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWeapon_UR
+      name: Player00_Weapon_UR
       rect:
         serializedVersion: 2
         x: 32
@@ -328,7 +328,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWeapon_R
+      name: Player00_Weapon_R
       rect:
         serializedVersion: 2
         x: 48
@@ -349,7 +349,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWeapon_DR
+      name: Player00_Weapon_DR
       rect:
         serializedVersion: 2
         x: 64
@@ -370,7 +370,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWeapon_D
+      name: Player00_Weapon_D
       rect:
         serializedVersion: 2
         x: 80
@@ -391,7 +391,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWeapon_DL
+      name: Player00_Weapon_DL
       rect:
         serializedVersion: 2
         x: 96
@@ -412,7 +412,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWeapon_L
+      name: Player00_Weapon_L
       rect:
         serializedVersion: 2
         x: 112
@@ -601,7 +601,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill0Weapon_UL
+      name: Player00_Skill0Weapon_UL
       rect:
         serializedVersion: 2
         x: 0
@@ -622,7 +622,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill0Weapon_U
+      name: Player00_Skill0Weapon_U
       rect:
         serializedVersion: 2
         x: 16
@@ -643,7 +643,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill0Weapon_UR
+      name: Player00_Skill0Weapon_UR
       rect:
         serializedVersion: 2
         x: 32
@@ -664,7 +664,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill0Weapon_R
+      name: Player00_Skill0Weapon_R
       rect:
         serializedVersion: 2
         x: 48
@@ -685,7 +685,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill0Weapon_DR
+      name: Player00_Skill0Weapon_DR
       rect:
         serializedVersion: 2
         x: 64
@@ -706,7 +706,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill0Weapon_D
+      name: Player00_Skill0Weapon_D
       rect:
         serializedVersion: 2
         x: 80
@@ -727,7 +727,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill0Weapon_DL
+      name: Player00_Skill0Weapon_DL
       rect:
         serializedVersion: 2
         x: 96
@@ -748,7 +748,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill0Weapon_L
+      name: Player00_Skill0Weapon_L
       rect:
         serializedVersion: 2
         x: 112
@@ -769,7 +769,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill1Weapon_UL
+      name: Player00_Skill1Weapon_UL
       rect:
         serializedVersion: 2
         x: 0
@@ -790,7 +790,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill1Weapon_U
+      name: Player00_Skill1Weapon_U
       rect:
         serializedVersion: 2
         x: 16
@@ -811,7 +811,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill1Weapon_UR
+      name: Player00_Skill1Weapon_UR
       rect:
         serializedVersion: 2
         x: 32
@@ -832,7 +832,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill1Weapon_R
+      name: Player00_Skill1Weapon_R
       rect:
         serializedVersion: 2
         x: 48
@@ -853,7 +853,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill1Weapon_DR
+      name: Player00_Skill1Weapon_DR
       rect:
         serializedVersion: 2
         x: 64
@@ -874,7 +874,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill1Weapon_D
+      name: Player00_Skill1Weapon_D
       rect:
         serializedVersion: 2
         x: 80
@@ -895,7 +895,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill1Weapon_DL
+      name: Player00_Skill1Weapon_DL
       rect:
         serializedVersion: 2
         x: 96
@@ -916,7 +916,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSkill1Weapon_L
+      name: Player00_Skill1Weapon_L
       rect:
         serializedVersion: 2
         x: 112
@@ -937,7 +937,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprite00_PB_Bullet
+      name: Player00_PB_Bullet
       rect:
         serializedVersion: 2
         x: 0
@@ -958,7 +958,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprite00_PC_Bullet
+      name: Player00_PC_Bullet
       rect:
         serializedVersion: 2
         x: 8
@@ -979,7 +979,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprite00_EB_Bullet
+      name: Player00_EB_Bullet
       rect:
         serializedVersion: 2
         x: 0
@@ -1000,7 +1000,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprite00_EC_Bullet
+      name: Player00_EC_Bullet
       rect:
         serializedVersion: 2
         x: 8
@@ -1021,7 +1021,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprite00_MB_Bullet
+      name: Player00_MB_Bullet
       rect:
         serializedVersion: 2
         x: 16
@@ -1042,7 +1042,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprite00_MC_Bullet
+      name: Player00_MC_Bullet
       rect:
         serializedVersion: 2
         x: 32
@@ -1063,7 +1063,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprite00_SpreadEffect_00
+      name: Player00_SpreadEffect_00
       rect:
         serializedVersion: 2
         x: 112
@@ -1084,7 +1084,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprite00_SpreadEffect_01
+      name: Player00_SpreadEffect_01
       rect:
         serializedVersion: 2
         x: 120
@@ -1105,7 +1105,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprite00_SpreadEffect_02
+      name: Player00_SpreadEffect_02
       rect:
         serializedVersion: 2
         x: 112
@@ -1126,7 +1126,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerSprite00_SpreadEffect_03
+      name: Player00_SpreadEffect_03
       rect:
         serializedVersion: 2
         x: 120
@@ -1482,6 +1482,174 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Player00_LC_UL
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 800957a32a6c8d945a62ab404135902b
+      internalID: 1044937775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_LC_U
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9eca2bff71151064a933b06d548bd00c
+      internalID: -1626507643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_LC_UR
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efd7fe621e349b24594abfa9ecbf4c6c
+      internalID: -822504392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_LC_R
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10891c84a0c50ea4e99d2b7351c7e258
+      internalID: 1404476564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_LC_DR
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27af3cbd11a2e494688c1a59dc0d894c
+      internalID: 786951432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_LC_D
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb7ce23010a2d77428ab587074d330f8
+      internalID: -1210927134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_LC_DL
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e519c4934688cf047b5a7a928fd40141
+      internalID: -147571887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_LC_L
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b60fb6935f9ec0e4b9617d6a8806acb2
+      internalID: -1930784451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1501,6 +1669,8 @@ TextureImporter:
       Player00_CriticalHitPoint_05: -924438907
       Player00_CriticalHitPoint_06: 943678491
       Player00_CriticalHitPoint_07: -1832205962
+      Player00_EB_Bullet: -1214566993
+      Player00_EC_Bullet: 1140579091
       Player00_HitPoint_00: 1392413992
       Player00_HitPoint_01: -833882624
       Player00_HitPoint_02: -395271715
@@ -1509,6 +1679,24 @@ TextureImporter:
       Player00_HitPoint_05: 1520920534
       Player00_HitPoint_06: 1492295619
       Player00_HitPoint_07: 167933543
+      Player00_LC_D: -1210927134
+      Player00_LC_DL: -147571887
+      Player00_LC_DR: 786951432
+      Player00_LC_L: -1930784451
+      Player00_LC_R: 1404476564
+      Player00_LC_U: -1626507643
+      Player00_LC_UL: 1044937775
+      Player00_LC_UR: -822504392
+      Player00_MB_Bullet: -1722145500
+      Player00_MC_Bullet: -2035106808
+      Player00_Main_D: 498605500
+      Player00_Main_DL: -1867341076
+      Player00_Main_DR: -1071388147
+      Player00_Main_L: 780155418
+      Player00_Main_R: 1340806503
+      Player00_Main_U: 1577473749
+      Player00_Main_UL: -174566470
+      Player00_Main_UR: 1535055576
       Player00_Module00: -1768950859
       Player00_Module01: 1435539149
       Player00_Module02: -1023081045
@@ -1517,50 +1705,38 @@ TextureImporter:
       Player00_Module05: 345372631
       Player00_Module06: 110196968
       Player00_Module07: -106443805
-      PlayerSkill0Weapon_D: -2048372977
-      PlayerSkill0Weapon_DL: 1450471267
-      PlayerSkill0Weapon_DR: -838826991
-      PlayerSkill0Weapon_L: -1928207417
-      PlayerSkill0Weapon_R: -1754397269
-      PlayerSkill0Weapon_U: -508402566
-      PlayerSkill0Weapon_UL: -52437793
-      PlayerSkill0Weapon_UR: 327290550
-      PlayerSkill1Weapon_D: 2055663820
-      PlayerSkill1Weapon_DL: 308885252
-      PlayerSkill1Weapon_DR: 1753144877
-      PlayerSkill1Weapon_L: 1607923342
-      PlayerSkill1Weapon_R: -1836852245
-      PlayerSkill1Weapon_U: 1649448500
-      PlayerSkill1Weapon_UL: -331058800
-      PlayerSkill1Weapon_UR: -491606118
-      PlayerSprite00_EB_Bullet: -1214566993
-      PlayerSprite00_EC_Bullet: 1140579091
-      PlayerSprite00_MB_Bullet: -1722145500
-      PlayerSprite00_MC_Bullet: -2035106808
-      PlayerSprite00_PB_Bullet: 1440707567
-      PlayerSprite00_PC_Bullet: 1012499291
+      Player00_PB_Bullet: 1440707567
+      Player00_PC_Bullet: 1012499291
+      Player00_Skill0Weapon_D: -2048372977
+      Player00_Skill0Weapon_DL: 1450471267
+      Player00_Skill0Weapon_DR: -838826991
+      Player00_Skill0Weapon_L: -1928207417
+      Player00_Skill0Weapon_R: -1754397269
+      Player00_Skill0Weapon_U: -508402566
+      Player00_Skill0Weapon_UL: -52437793
+      Player00_Skill0Weapon_UR: 327290550
+      Player00_Skill1Weapon_D: 2055663820
+      Player00_Skill1Weapon_DL: 308885252
+      Player00_Skill1Weapon_DR: 1753144877
+      Player00_Skill1Weapon_L: 1607923342
+      Player00_Skill1Weapon_R: -1836852245
+      Player00_Skill1Weapon_U: 1649448500
+      Player00_Skill1Weapon_UL: -331058800
+      Player00_Skill1Weapon_UR: -491606118
+      Player00_SpreadEffect_00: 2076622363
+      Player00_SpreadEffect_01: -1611511200
+      Player00_SpreadEffect_02: -1024333363
+      Player00_SpreadEffect_03: 1381863595
+      Player00_Weapon_D: 369875126
+      Player00_Weapon_DL: 1243472912
+      Player00_Weapon_DR: -1650642104
+      Player00_Weapon_L: -301042397
+      Player00_Weapon_R: 470357598
+      Player00_Weapon_U: -309194322
+      Player00_Weapon_UL: -885338135
+      Player00_Weapon_UR: -1841049316
       PlayerSprite00_Shockwave_00: 639578038
       PlayerSprite00_Shockwave_01: -845004770
-      PlayerSprite00_SpreadEffect_00: 2076622363
-      PlayerSprite00_SpreadEffect_01: -1611511200
-      PlayerSprite00_SpreadEffect_02: -1024333363
-      PlayerSprite00_SpreadEffect_03: 1381863595
-      PlayerWeapon_D: 369875126
-      PlayerWeapon_DL: 1243472912
-      PlayerWeapon_DR: -1650642104
-      PlayerWeapon_L: -301042397
-      PlayerWeapon_R: 470357598
-      PlayerWeapon_U: -309194322
-      PlayerWeapon_UL: -885338135
-      PlayerWeapon_UR: -1841049316
-      Player_D: 498605500
-      Player_DL: -1867341076
-      Player_DR: -1071388147
-      Player_L: 780155418
-      Player_R: 1340806503
-      Player_U: 1577473749
-      Player_UL: -174566470
-      Player_UR: 1535055576
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

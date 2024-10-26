@@ -116,6 +116,17 @@ public class PlayerController : MovableObject
 
     #endregion
 
+    #region - State Icon
+
+    [Space(10)]
+    [Header("=== State Icon")]
+    [SerializeField] private SetStateAnim StateAnim;
+    [SerializeField] private AnimationClip PhysicsStateAC;
+    [SerializeField] private AnimationClip EnergyStateAC;
+    [SerializeField] private AnimationClip ChangeStateAC;
+
+    #endregion
+
     #endregion
 
     #region Framework
@@ -124,6 +135,7 @@ public class PlayerController : MovableObject
     {
         CurrentEC.Value = 100;
         SetBaseAnimTween();
+        StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
     }
 
     protected override void Update()
@@ -260,11 +272,13 @@ public class PlayerController : MovableObject
     }
 
     // + None
-    [HideInInspector] private const float CombatModeInterval = 0.5f;
+    [HideInInspector] private const float CombatModeInterval = 0.75f;
     public void CanChange_CombatModeCheck()
     {
         if (!CanChange()) 
-        { return; } 
+        { return; }
+
+        StateAnim.SetAnim(ChangeStateAC, 1.15f, 1f);
 
         switch (TargetCombatMode)
         {
@@ -459,10 +473,12 @@ public class PlayerController : MovableObject
             {
                 case eCombatMode.Physics:
                     BaseWeapon.DamageType = eDamageType.Physics;
+                    StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
                     break;
 
                 case eCombatMode.Energy:
                     BaseWeapon.DamageType = eDamageType.Energy;
+                    StateAnim.SetAnim(EnergyStateAC, 0.8f, 1f);
                     break;
 
                 default:
