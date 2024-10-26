@@ -1267,8 +1267,8 @@ MonoBehaviour:
   - {fileID: 5282368043593998273}
   - {fileID: 4739302390712378442}
   - {fileID: 2670002921990514549}
-  BaseHittedPointAC: {fileID: 0}
-  CriticalHittedPointAC: {fileID: 0}
+  BaseHittedPointAC: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}
+  CriticalHittedPointAC: {fileID: 7400000, guid: c444b0af8205ad84aaec6780cdff8c28, type: 2}
   ExecutionInterval: 0.75
   Skill0Interval: 0.5
   Skill1Interval: 0.5
