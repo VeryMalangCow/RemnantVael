@@ -86,13 +86,8 @@ public class MissileSkillController : ActiveSkillController
 
 
                 // Effect Explosion -> Physics DMG
-                MEI.GenExplosionImgs_Fan(
-                    (Vector2)MEI.gameObject.transform.position + (dir * 0.1f),
-                    dir, 90f,
-                    8, 0.2f, 1.5f,
-                    2.2f, 0.05f, 0.1f,
-                    0.0f, 0.5f, 1.0f,
-                    0);
+                ExplosionEffect_Fan((Vector2)MEI.gameObject.transform.position + (dir * 0.1f), isCritical, dir);
+                
 
                 // Effect Shake
                 tf.DOShakePosition(ShotDelay, 0.05f, 20, 90, false, true);
@@ -100,6 +95,27 @@ public class MissileSkillController : ActiveSkillController
 
             yield return new WaitForSeconds(ShotDelay);
         }
+    }
+
+    #endregion
+
+    #region Effect
+
+    private void ExplosionEffect_Fan(Vector2 _SpawndPos, bool _IsCritical, Vector2 _Dir)
+    {
+        int index = 0;
+        if (!_IsCritical)
+        { index = 0; }
+        else
+        { index = 1; }
+
+        MEI.GenExplosionImgs_Fan(
+            _SpawndPos,
+            _Dir, 90f,
+            8, 0.2f, 1.5f,
+            2.2f, 0.05f, 0.1f,
+            0.0f, 0.5f, 1.0f,
+            index);
     }
 
     #endregion

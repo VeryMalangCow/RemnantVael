@@ -55,13 +55,28 @@ public class ShockwaveSkillController : ActiveSkillController
             });
 
         // Effect Explosion -> Energy DMG
-        
+
+        ExplosionEffect((Vector2)MEI.gameObject.transform.position, PlayerController.BaseWeapon.CC.ActualState.Value, usableMaxSize);
+    }
+
+    #endregion
+
+    #region Effect
+
+    private void ExplosionEffect(Vector2 _SpawndPos, float _CriticalChance, float _UsableMaxSize)
+    {
         MEI.GenExplosionImgs(
-            (Vector2)MEI.gameObject.transform.position,
-            64, usableMaxSize / 5f, usableMaxSize / 4f,
+            _SpawndPos,
+            (int)(64f * (1f - _CriticalChance)), _UsableMaxSize / 5f, _UsableMaxSize / 4f,
             3.0f, 0.15f, 0.2f,
             0.0f, 0.5f, 1.0f,
-            1);
+            2);
+        MEI.GenExplosionImgs(
+            _SpawndPos,
+            (int)(64f * _CriticalChance), _UsableMaxSize / 5f, _UsableMaxSize / 4f,
+            3.0f, 0.15f, 0.2f,
+            0.0f, 0.5f, 1.0f,
+            3);
     }
 
     #endregion

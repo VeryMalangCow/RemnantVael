@@ -155,26 +155,7 @@ public class PlayerWeaponController : SatelliteController
             { PBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
 
             // Effect
-            if (bulletState.DamageType == eDamageType.Physics)
-            {
-                MEIs[i].GenExplosionImgs_Fan(
-                (Vector2)MEIs[i].gameObject.transform.position + (dir * 0.3f),
-                dir, 45f,
-                6, 0.2f, 1f,
-                1.3f, 0.05f, 0.1f,
-                0.0f, 0.5f, 1.0f,
-                0);
-            }
-            else
-            {
-                MEIs[i].GenExplosionImgs_Fan(
-                (Vector2)MEIs[i].gameObject.transform.position + (dir * 0.3f),
-                dir, 45f,
-                6, 0.2f, 1f,
-                1.3f, 0.05f, 0.1f,
-                0.0f, 0.5f, 1.0f,
-                1);
-            }
+            ExplosionEffect_Fan((Vector2)MEIs[i].gameObject.transform.position + (dir * 0.3f), DamageType, isCritical, i, dir);
         }
         CurrentDelayROF = 0;
 
@@ -184,6 +165,38 @@ public class PlayerWeaponController : SatelliteController
     }
 
 
+
+    #endregion
+
+    #region Effect
+
+    private void ExplosionEffect_Fan(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical,
+        int _Index, Vector2 _Dir)
+    {
+        int index = 0;
+        if (_DamageType == eDamageType.Physics)
+        {
+            if (!_IsCritical)
+            { index = 0; }
+            else
+            { index = 1; }
+        }
+        else
+        {
+            if (!_IsCritical)
+            { index = 2; }
+            else
+            { index = 3; }
+        }
+
+        MEIs[_Index].GenExplosionImgs_Fan(
+            (Vector2)MEIs[_Index].gameObject.transform.position + (_Dir * 0.3f),
+            _Dir, 45f,
+            6, 0.2f, 1f,
+            1.3f, 0.05f, 0.1f,
+            0.0f, 0.5f, 1.0f,
+            index);
+    }
 
     #endregion
 

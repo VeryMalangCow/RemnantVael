@@ -36,24 +36,7 @@ public class PlayerBulletController : BulletController
 
     private void DeleteThis()
     {
-        if (BulletState.DamageType == eDamageType.Physics)
-        {
-            PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
-                    TargetObject.gameObject.transform.position,
-                    8, 0.3f, 0.4f,
-                    0.5f, 0.05f, 0.1f,
-                    0.0f, 0.5f, 1.0f,
-                    0);
-        }
-        else
-        {
-            PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
-                    TargetObject.gameObject.transform.position,
-                    8, 0.3f, 0.4f,
-                    0.5f, 0.05f, 0.1f,
-                    0.0f, 0.5f, 1.0f,
-                    1);
-        }
+        ExplosionEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
         
 
         ResetState();
@@ -91,8 +74,33 @@ public class PlayerBulletController : BulletController
 
     #region Effect
 
+    private void ExplosionEffect(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical)
+    {
+        int index = 0;
+        if (_DamageType == eDamageType.Physics)
+        {
+            if (!_IsCritical)
+            { index = 0; }
+            else
+            { index = 1; }
+        }
+        else
+        {
+            if (!_IsCritical)
+            { index = 2; }
+            else
+            { index = 3; }
+        }
 
-    public void PointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
+        PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
+                   _SpawndPos,
+                   8, 0.3f, 0.4f,
+                   0.5f, 0.05f, 0.1f,
+                   0.0f, 0.5f, 1.0f,
+                   index);
+    }
+
+    private void PointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
     {
         OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
         if (_DamageType == eDamageType.Physics)

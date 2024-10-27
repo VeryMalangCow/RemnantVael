@@ -1864,8 +1864,8 @@ TextureImporter:
       name: Player00_BoostOff_00
       rect:
         serializedVersion: 2
-        x: 149
-        y: 207
+        x: 5
+        y: 45
         width: 8
         height: 8
       alignment: 0
@@ -1885,8 +1885,8 @@ TextureImporter:
       name: Player00_BoostOff_01
       rect:
         serializedVersion: 2
-        x: 167
-        y: 207
+        x: 23
+        y: 45
         width: 8
         height: 8
       alignment: 0
@@ -1906,8 +1906,8 @@ TextureImporter:
       name: Player00_BoostOff_02
       rect:
         serializedVersion: 2
-        x: 185
-        y: 207
+        x: 41
+        y: 45
         width: 8
         height: 8
       alignment: 0
@@ -1927,8 +1927,8 @@ TextureImporter:
       name: Player00_BoostOff_03
       rect:
         serializedVersion: 2
-        x: 203
-        y: 207
+        x: 59
+        y: 45
         width: 8
         height: 8
       alignment: 0
@@ -1948,8 +1948,8 @@ TextureImporter:
       name: Player00_BoostOn_00
       rect:
         serializedVersion: 2
-        x: 149
-        y: 189
+        x: 5
+        y: 27
         width: 8
         height: 8
       alignment: 0
@@ -1969,8 +1969,8 @@ TextureImporter:
       name: Player00_BoostOn_01
       rect:
         serializedVersion: 2
-        x: 167
-        y: 189
+        x: 23
+        y: 27
         width: 8
         height: 8
       alignment: 0
@@ -1990,8 +1990,8 @@ TextureImporter:
       name: Player00_BoostOn_02
       rect:
         serializedVersion: 2
-        x: 185
-        y: 189
+        x: 41
+        y: 27
         width: 8
         height: 8
       alignment: 0
@@ -2011,8 +2011,8 @@ TextureImporter:
       name: Player00_BoostOn_03
       rect:
         serializedVersion: 2
-        x: 203
-        y: 189
+        x: 59
+        y: 27
         width: 8
         height: 8
       alignment: 0
@@ -2032,7 +2032,7 @@ TextureImporter:
       name: Player00_PB_Bullet
       rect:
         serializedVersion: 2
-        x: 221
+        x: 149
         y: 207
         width: 8
         height: 8
@@ -2053,7 +2053,7 @@ TextureImporter:
       name: Player00_PC_Bullet
       rect:
         serializedVersion: 2
-        x: 239
+        x: 167
         y: 207
         width: 8
         height: 8
@@ -2074,8 +2074,8 @@ TextureImporter:
       name: Player00_EB_Bullet
       rect:
         serializedVersion: 2
-        x: 221
-        y: 189
+        x: 185
+        y: 207
         width: 8
         height: 8
       alignment: 0
@@ -2095,8 +2095,8 @@ TextureImporter:
       name: Player00_EC_Bullet
       rect:
         serializedVersion: 2
-        x: 239
-        y: 189
+        x: 203
+        y: 207
         width: 8
         height: 8
       alignment: 0
@@ -2116,8 +2116,8 @@ TextureImporter:
       name: Player00_ChangeMode_00
       rect:
         serializedVersion: 2
-        x: 145
-        y: 167
+        x: 73
+        y: 41
         width: 16
         height: 16
       alignment: 0
@@ -2137,8 +2137,8 @@ TextureImporter:
       name: Player00_ChangeMode_01
       rect:
         serializedVersion: 2
-        x: 163
-        y: 167
+        x: 91
+        y: 41
         width: 16
         height: 16
       alignment: 0
@@ -2158,8 +2158,8 @@ TextureImporter:
       name: Player00_ChangeMode_02
       rect:
         serializedVersion: 2
-        x: 181
-        y: 167
+        x: 109
+        y: 41
         width: 16
         height: 16
       alignment: 0
@@ -2179,8 +2179,8 @@ TextureImporter:
       name: Player00_ChangeMode_03
       rect:
         serializedVersion: 2
-        x: 199
-        y: 167
+        x: 127
+        y: 41
         width: 16
         height: 16
       alignment: 0
@@ -2200,8 +2200,8 @@ TextureImporter:
       name: Player00_ChangeMode_04
       rect:
         serializedVersion: 2
-        x: 145
-        y: 149
+        x: 73
+        y: 23
         width: 16
         height: 16
       alignment: 0
@@ -2221,8 +2221,8 @@ TextureImporter:
       name: Player00_ChangeMode_05
       rect:
         serializedVersion: 2
-        x: 163
-        y: 149
+        x: 91
+        y: 23
         width: 16
         height: 16
       alignment: 0
@@ -2242,8 +2242,8 @@ TextureImporter:
       name: Player00_ChangeMode_06
       rect:
         serializedVersion: 2
-        x: 181
-        y: 149
+        x: 109
+        y: 23
         width: 16
         height: 16
       alignment: 0
@@ -2263,8 +2263,8 @@ TextureImporter:
       name: Player00_ChangeMode_07
       rect:
         serializedVersion: 2
-        x: 199
-        y: 149
+        x: 127
+        y: 23
         width: 16
         height: 16
       alignment: 0
@@ -2285,7 +2285,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 217
-        y: 167
+        y: 203
         width: 16
         height: 16
       alignment: 0
@@ -2306,7 +2306,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 235
-        y: 167
+        y: 203
         width: 16
         height: 16
       alignment: 0
@@ -2326,10 +2326,10 @@ TextureImporter:
       name: Player00_ChangeDmgTypeInner
       rect:
         serializedVersion: 2
-        x: 217
-        y: 149
-        width: 16
-        height: 16
+        x: 149
+        y: 189
+        width: 8
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

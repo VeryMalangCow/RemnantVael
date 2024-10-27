@@ -59,12 +59,7 @@ public class MissileBulletController : BulletController
 
     private void DeleteThis()
     {
-        PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
-                    TargetObject.gameObject.transform.position,
-                    8, 0.3f, 0.4f,
-                    2.2f, 0.05f, 0.1f,
-                    0.0f, 0.5f, 1.0f,
-                    0);
+        ExplosionEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
 
         CanHit = false;
         CurrentAliveTime = 0f;
@@ -153,7 +148,33 @@ public class MissileBulletController : BulletController
 
     #region Effect
 
-    public void PointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
+    private void ExplosionEffect(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical)
+    {
+        int index = 0;
+        if (_DamageType == eDamageType.Physics)
+        {
+            if (!_IsCritical)
+            { index = 0; }
+            else
+            { index = 1; }
+        }
+        else
+        {
+            if (!_IsCritical)
+            { index = 2; }
+            else
+            { index = 3; }
+        }
+
+        PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
+                     _SpawndPos,
+                     8, 0.3f, 0.4f,
+                     2.2f, 0.05f, 0.1f,
+                     0.0f, 0.5f, 1.0f,
+                     index);
+    }
+
+    private void PointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
     {
         OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
         
