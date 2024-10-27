@@ -2931,6 +2931,237 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Player00_BoostVFX_00
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 131
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e317591c76f1bf4faba646f1829a2d6
+      internalID: -1315426017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_BoostVFX_01
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 113
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fed37f3af9ec1d1418af18c176ceefc2
+      internalID: -1207156018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_BoostVFX_02
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 95
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b437f7163204f5b4388ddc31df438a38
+      internalID: -500853362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_Empty
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 255
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25ae3a4156fe7684ebaeb71c3dc90cf1
+      internalID: -1196856246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_BoostVFX_03
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 77
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ede4e6d7f05d69a43a7de48ebc4a215e
+      internalID: -1356241067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_BoostVFX_04
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 59
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fe0f94c0427b214fac1aa37a4ee8350
+      internalID: -63259606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_BoostVFX_05
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 41
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e624af0c10fc2b24bb0be83b6a6e0a2f
+      internalID: 570569462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_BoostVFX_06
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 23
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74f3aa236bb463742ac3c1ad88f763a7
+      internalID: 715254247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_BoostVFX_07
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 5
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5405c90e5185274f85570e91db758c6
+      internalID: 363362239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_ChangeUpBoostInner
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 189
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a39ff78aa28320b458f9795e202226d1
+      internalID: -2048292133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_ChangeDownBoostInner
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 189
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d997948eb5a31da41be55245617804ee
+      internalID: 833619481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2950,7 +3181,19 @@ TextureImporter:
       Player00_BoostOn_01: -625597541
       Player00_BoostOn_02: -1057546237
       Player00_BoostOn_03: -1108100944
+      Player00_BoostVFX_00: -1315426017
+      Player00_BoostVFX_01: -1207156018
+      Player00_BoostVFX_02: -500853362
+      Player00_BoostVFX_03: -1356241067
+      Player00_BoostVFX_04: -63259606
+      Player00_BoostVFX_05: 570569462
+      Player00_BoostVFX_06: 715254247
+      Player00_BoostVFX_07: 363362239
+      Player00_BoostVFX_08: 1438043466
+      Player00_BoostVFX_09: -1056341717
+      Player00_BoostVFX_10: 1952883579
       Player00_ChangeDmgTypeInner: 1190402679
+      Player00_ChangeDownBoostInner: 833619481
       Player00_ChangeMode_00: 1780059949
       Player00_ChangeMode_01: 615517216
       Player00_ChangeMode_02: 48342940
@@ -2959,6 +3202,7 @@ TextureImporter:
       Player00_ChangeMode_05: -238951524
       Player00_ChangeMode_06: -1881193223
       Player00_ChangeMode_07: 1541001205
+      Player00_ChangeUpBoostInner: -2048292133
       Player00_EB_Bullet: -1214566993
       Player00_EC_Bullet: 1140579091
       Player00_ECriticalHitPoint_0: -1958220947
@@ -2985,6 +3229,7 @@ TextureImporter:
       Player00_ESpreadEffect_05: 327999803
       Player00_ESpreadEffect_06: -287691500
       Player00_ESpreadEffect_07: 424554764
+      Player00_Empty: -1196856246
       Player00_Energy00: 1049295841
       Player00_Energy01: 928927552
       Player00_Energy02: -720900948

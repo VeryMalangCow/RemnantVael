@@ -129,6 +129,10 @@ public class PlayerController : MovableObject
     [SerializeField] private List<SetStateAnim> BoostStateAnimList;
     [SerializeField] private AnimationClip BoostOffAC;
     [SerializeField] private AnimationClip BoostOnAC;
+    [SerializeField] private List<SetStateAnim> BoostStateVFXAnimList;
+    [SerializeField] private List<AnimationClip> BoostVFXAnimList;
+    [SerializeField] private Sprite ChangeState_BoostUp;
+    [SerializeField] private Sprite ChangeState_BoostDown;
 
     #endregion
 
@@ -307,26 +311,28 @@ public class PlayerController : MovableObject
 
 
     // + Not over the Max Boost Level
-    [HideInInspector] private const float BoostModeInterval = 0.25f;
+    [HideInInspector] private const float BoostModeInterval = 0.5f;
     public void CanChange_BoostModeCheck()
     {
         if (!CanChange() || TargetBoostlv >= MaxBoostLv)
         { return; }
 
         TargetBoostlv++;
-        
+        StateAnim.SetAnim(ChangeStateAC, ChangeState_BoostUp, 0.8f, 1f);
+
         StartCasting(BoostModeInterval);
     }
 
 
     // + BoostLevel != 0
-    [HideInInspector] private const float UnBoostModeInterval = 0.1f;
+    [HideInInspector] private const float UnBoostModeInterval = 0.25f;
     public void CanChange_UnBoostModeCheck()
     {
         if (!CanChange() || CurrentBoostLv.Value <= 0)
         { return; }
 
         TargetBoostlv--;
+        StateAnim.SetAnim(ChangeStateAC, ChangeState_BoostDown, 0.8f, 1f);
 
         StartCasting(UnBoostModeInterval);
     }
@@ -477,21 +483,33 @@ public class PlayerController : MovableObject
         {
             CombatMode = TargetCombatMode;
 
-            switch (TargetCombatMode)
+            switch (CombatMode)
             {
                 case eCombatMode.Physics:
                     BaseWeapon.DamageType = eDamageType.Physics;
-                    StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
                     break;
 
                 case eCombatMode.Energy:
                     BaseWeapon.DamageType = eDamageType.Energy;
-                    StateAnim.SetAnim(EnergyStateAC, 0.8f, 1f);
                     break;
 
                 default:
                     break;
             }
+        }
+
+        switch (TargetCombatMode)
+        {
+            case eCombatMode.Physics:
+                StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
+                break;
+
+            case eCombatMode.Energy:
+                StateAnim.SetAnim(EnergyStateAC, 0.8f, 1f);
+                break;
+
+            default:
+                break;
         }
     }
 
@@ -622,6 +640,8 @@ public class PlayerController : MovableObject
     private void SetBoostAnim(int _Index, int _MaxIndex)
     {
         float lowestAnimSpeed = 0.5f;
+
+        // Wheel
         if (_Index >= _MaxIndex)
         {
             for (int i = 0; i < _MaxIndex - 1; i++)
@@ -643,6 +663,51 @@ public class PlayerController : MovableObject
                 }
             }
         }
+
+        // VFX
+        switch (_Index)
+        {
+            case 0:
+                BoostStateVFXAnimList[0].gameObject.SetActive(false);
+
+                BoostStateVFXAnimList[1].gameObject.SetActive(false);
+                break;
+
+            case 1:
+                BoostStateVFXAnimList[0].gameObject.SetActive(true);
+                BoostStateVFXAnimList[0].SetAnim(BoostVFXAnimList[0], 0.5f, 1f);
+
+                BoostStateVFXAnimList[1].gameObject.SetActive(false);
+                break;
+
+            case 2:
+                BoostStateVFXAnimList[0].gameObject.SetActive(true);
+                BoostStateVFXAnimList[0].SetAnim(BoostVFXAnimList[0], 1f, 1f);
+
+                BoostStateVFXAnimList[1].gameObject.SetActive(false);
+                break;
+
+            case 3:
+                BoostStateVFXAnimList[0].gameObject.SetActive(true);
+                BoostStateVFXAnimList[0].SetAnim(BoostVFXAnimList[0], 1f, 1f);
+
+                BoostStateVFXAnimList[1].gameObject.SetActive(true);
+                BoostStateVFXAnimList[1].SetAnim(BoostVFXAnimList[1], 1f, 1f);
+                break;
+
+            case 4:
+                BoostStateVFXAnimList[0].gameObject.SetActive(true);
+                BoostStateVFXAnimList[0].SetAnim(BoostVFXAnimList[0], 1.5f, 1f);
+
+                BoostStateVFXAnimList[1].gameObject.SetActive(true);
+                BoostStateVFXAnimList[1].SetAnim(BoostVFXAnimList[1], 1.5f, 1f);
+                break;
+
+            default:
+                break;
+        }
+
+
     }
 
     #endregion
