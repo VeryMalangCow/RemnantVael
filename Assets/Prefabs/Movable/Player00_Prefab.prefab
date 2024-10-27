@@ -1212,6 +1212,7 @@ MonoBehaviour:
     ActualState:
       value: 1
     Desc: 
+  ES_Sprite: {fileID: -686167499, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   CurrentBS:
     value: 0
   NeedBS_ForMakeBC: 4
@@ -1292,7 +1293,6 @@ MonoBehaviour:
   PhysicsStateAC: {fileID: 7400000, guid: d6d70feace8ae884e8bafef96f8f1998, type: 2}
   EnergyStateAC: {fileID: 7400000, guid: 069e2ca6676faae43808860df7a901a7, type: 2}
   ChangeStateAC: {fileID: 7400000, guid: 5c582a8653727cb4cb65f17a80b10bd7, type: 2}
-  ChangeState_DamageType: {fileID: 1190402679, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   BoostStateAnimList:
   - {fileID: 3464021024779576919}
   - {fileID: 7237453325883749946}
@@ -1305,8 +1305,11 @@ MonoBehaviour:
   BoostVFXAnimList:
   - {fileID: 7400000, guid: 628683ee72069824f948f9b48da8baf9, type: 2}
   - {fileID: 7400000, guid: 988de495183371b46aa363b5a7f31ca5, type: 2}
+  ChangeState_DamageType: {fileID: 1190402679, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   ChangeState_BoostUp: {fileID: -2048292133, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   ChangeState_BoostDown: {fileID: 833619481, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  ChangeState_Skill0: {fileID: 431685944, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  ChangeState_Skill1: {fileID: -254010198, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   ExecutionInterval: 0.75
   Skill0Interval: 0.5
   Skill1Interval: 0.5

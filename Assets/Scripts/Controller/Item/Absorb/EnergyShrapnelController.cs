@@ -18,6 +18,7 @@ public class EnergyShrapnelController : AbsorbItemController
     public void SetState(Vector2 _SpawnPos, GameObject _TargetObject, float _Value)
     {
         base.SetState(_SpawnPos, _TargetObject);
+        ThisSR.sprite = PlayerManager.Instance.PlayerController.ES_Sprite;
         EnergyValue = _Value;
     }
 

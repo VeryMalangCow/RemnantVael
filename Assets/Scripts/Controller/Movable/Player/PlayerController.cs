@@ -29,6 +29,7 @@ public class PlayerController : MovableObject
     [SerializeField] public ReactiveProperty<float> CurrentEP = new();
     [SerializeField] public BaseUpgradeState<float> SpawnESMultiple;
     [SerializeField] public BaseUpgradeState<float> NeedEP_ForSkillMultiple;
+    [SerializeField] public Sprite ES_Sprite;
 
     [Header("-- Bettery")]
     [SerializeField] public ReactiveProperty<int> CurrentBS = new();
@@ -122,7 +123,6 @@ public class PlayerController : MovableObject
     [SerializeField] private AnimationClip PhysicsStateAC;
     [SerializeField] private AnimationClip EnergyStateAC;
     [SerializeField] private AnimationClip ChangeStateAC;
-    [SerializeField] private Sprite ChangeState_DamageType;
 
     [Space(10)]
     [Header("-- BoostMode Icon")]
@@ -131,8 +131,14 @@ public class PlayerController : MovableObject
     [SerializeField] private AnimationClip BoostOnAC;
     [SerializeField] private List<SetStateAnim> BoostStateVFXAnimList;
     [SerializeField] private List<AnimationClip> BoostVFXAnimList;
+
+    [Space(10)]
+    [Header("-- Inner Img")]
+    [SerializeField] private Sprite ChangeState_DamageType;
     [SerializeField] private Sprite ChangeState_BoostUp;
     [SerializeField] private Sprite ChangeState_BoostDown;
+    [SerializeField] private Sprite ChangeState_Skill0;
+    [SerializeField] private Sprite ChangeState_Skill1;
 
     #endregion
 
@@ -290,7 +296,7 @@ public class PlayerController : MovableObject
         if (!CanChange()) 
         { return; }
 
-        StateAnim.SetAnim(ChangeStateAC, ChangeState_DamageType, 0.8f, 1f);
+        StateAnim.SetAnim(ChangeStateAC, ChangeState_DamageType, 2f, 1f);
 
         switch (TargetCombatMode)
         {
@@ -318,7 +324,7 @@ public class PlayerController : MovableObject
         { return; }
 
         TargetBoostlv++;
-        StateAnim.SetAnim(ChangeStateAC, ChangeState_BoostUp, 0.8f, 1f);
+        StateAnim.SetAnim(ChangeStateAC, ChangeState_BoostUp, 2f, 1f);
 
         StartCasting(BoostModeInterval);
     }
@@ -332,7 +338,7 @@ public class PlayerController : MovableObject
         { return; }
 
         TargetBoostlv--;
-        StateAnim.SetAnim(ChangeStateAC, ChangeState_BoostDown, 0.8f, 1f);
+        StateAnim.SetAnim(ChangeStateAC, ChangeState_BoostDown, 2f, 1f);
 
         StartCasting(UnBoostModeInterval);
     }
@@ -377,6 +383,7 @@ public class PlayerController : MovableObject
         { return; }
 
         ReservationSkillDele = SkillWeapon.Skill_0.ActiveSkill;
+        StateAnim.SetAnim(ChangeStateAC, ChangeState_Skill0, 2f, 1f);
 
         StartCasting(Skill0Interval);
     }
@@ -389,6 +396,7 @@ public class PlayerController : MovableObject
         { return; }
 
         ReservationSkillDele = SkillWeapon.Skill_1.ActiveSkill;
+        StateAnim.SetAnim(ChangeStateAC, ChangeState_Skill1, 2f, 1f);
 
         StartCasting(Skill1Interval);
     }
@@ -665,26 +673,20 @@ public class PlayerController : MovableObject
         }
 
         // VFX
+
+        BoostStateVFXAnimList[0].gameObject.SetActive(false);
+        BoostStateVFXAnimList[1].gameObject.SetActive(false);
+
         switch (_Index)
         {
-            case 0:
-                BoostStateVFXAnimList[0].gameObject.SetActive(false);
-
-                BoostStateVFXAnimList[1].gameObject.SetActive(false);
-                break;
-
             case 1:
                 BoostStateVFXAnimList[0].gameObject.SetActive(true);
                 BoostStateVFXAnimList[0].SetAnim(BoostVFXAnimList[0], 0.5f, 1f);
-
-                BoostStateVFXAnimList[1].gameObject.SetActive(false);
                 break;
 
             case 2:
                 BoostStateVFXAnimList[0].gameObject.SetActive(true);
                 BoostStateVFXAnimList[0].SetAnim(BoostVFXAnimList[0], 1f, 1f);
-
-                BoostStateVFXAnimList[1].gameObject.SetActive(false);
                 break;
 
             case 3:

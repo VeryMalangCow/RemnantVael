@@ -63,6 +63,7 @@ public class SetStateAnim : MonoBehaviour
         if (ThisSR.sortingOrder != _TargetSort)
         {
             ThisSR.sortingOrder = _TargetSort;
+            ThisInnerSR.sortingOrder = _TargetSort;
         }
     }
 

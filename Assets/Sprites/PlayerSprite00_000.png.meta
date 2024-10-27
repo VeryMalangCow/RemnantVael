@@ -2033,7 +2033,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 149
-        y: 207
+        y: 189
         width: 8
         height: 8
       alignment: 0
@@ -2054,7 +2054,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 167
-        y: 207
+        y: 189
         width: 8
         height: 8
       alignment: 0
@@ -2075,7 +2075,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 185
-        y: 207
+        y: 189
         width: 8
         height: 8
       alignment: 0
@@ -2096,7 +2096,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 203
-        y: 207
+        y: 189
         width: 8
         height: 8
       alignment: 0
@@ -2285,7 +2285,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 217
-        y: 203
+        y: 186
         width: 16
         height: 16
       alignment: 0
@@ -2306,7 +2306,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 235
-        y: 203
+        y: 186
         width: 16
         height: 16
       alignment: 0
@@ -2327,7 +2327,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 149
-        y: 189
+        y: 207
         width: 8
         height: 8
       alignment: 0
@@ -3125,11 +3125,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 167
-        y: 189
+        y: 207
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3146,11 +3146,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 185
-        y: 189
+        y: 207
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3158,6 +3158,69 @@ TextureImporter:
       bones: []
       spriteID: d997948eb5a31da41be55245617804ee
       internalID: 833619481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_ChangeMissileInner
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 207
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cd727a011f242547a9d36c9a45e7430
+      internalID: 431685944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_ChangeWaveInner
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 207
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 052e51e9f229b0544a1f4e0c10bc747d
+      internalID: -254010198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_EnergyShrapnel
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 208
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3843a07b0c5b66748aecba0c2cbc7601
+      internalID: -686167499
       vertices: []
       indices: 
       edges: []
@@ -3194,6 +3257,7 @@ TextureImporter:
       Player00_BoostVFX_10: 1952883579
       Player00_ChangeDmgTypeInner: 1190402679
       Player00_ChangeDownBoostInner: 833619481
+      Player00_ChangeMissileInner: 431685944
       Player00_ChangeMode_00: 1780059949
       Player00_ChangeMode_01: 615517216
       Player00_ChangeMode_02: 48342940
@@ -3203,6 +3267,7 @@ TextureImporter:
       Player00_ChangeMode_06: -1881193223
       Player00_ChangeMode_07: 1541001205
       Player00_ChangeUpBoostInner: -2048292133
+      Player00_ChangeWaveInner: -254010198
       Player00_EB_Bullet: -1214566993
       Player00_EC_Bullet: 1140579091
       Player00_ECriticalHitPoint_0: -1958220947
@@ -3236,6 +3301,7 @@ TextureImporter:
       Player00_Energy03: 1460353984
       Player00_Energy04: -1433230334
       Player00_Energy05: 102367199
+      Player00_EnergyShrapnel: -686167499
       Player00_LC_D: -1210927134
       Player00_LC_DL: -147571887
       Player00_LC_DR: 786951432
