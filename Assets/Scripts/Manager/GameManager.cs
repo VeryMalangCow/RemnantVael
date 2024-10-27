@@ -16,6 +16,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] public GameObject DesignatedPlayerPrefab;
     [SerializeField] public GameObject TitlePlayerPrefab;
 
+    [Space(10)]
+    [Header("=== Intro")]
+    [SerializeField] public bool WasWatched = false;
+
     #endregion
 
     #region Framework

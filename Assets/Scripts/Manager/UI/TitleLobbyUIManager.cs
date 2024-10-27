@@ -85,19 +85,31 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             ScreenCG = CG;
         }
 
-        ScreenCG.alpha = 1f;
-        WarningCG.alpha = 0f;
-        SimpleCreditCG.alpha = 0f;
-
-        WarningSeq()
-        .OnComplete(() =>
+        if (!GameManager.Instance.WasWatched)
         {
-            SimpleCreditSeq()
+            ScreenCG.alpha = 1f;
+            WarningCG.alpha = 0f;
+            SimpleCreditCG.alpha = 0f;
+
+            WarningSeq()
             .OnComplete(() =>
             {
-                FadeOut();
+                SimpleCreditSeq()
+                .OnComplete(() =>
+                {
+                    FadeOut();
+                });
             });
-        });
+        }
+        else
+        {
+            ScreenCG.alpha = 0f;
+            WarningCG.alpha = 0f;
+            SimpleCreditCG.alpha = 1f;
+
+            FadeOut();
+        }
+        
 
     }
 
@@ -149,6 +161,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             .OnComplete(() =>
             {
                 ScreenCanvas.gameObject.SetActive(false);
+                GameManager.Instance.WasWatched = true;
                 InputTitleManager.Instance.OnEnableInput();
             });
 

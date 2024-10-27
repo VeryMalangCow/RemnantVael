@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 128
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -97,15 +97,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ModuleSprite00_Smoke_00
+      name: Module00_Smoke_00
       rect:
         serializedVersion: 2
-        x: 0
-        y: 120
+        x: 5
+        y: 243
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -118,15 +118,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleSprite00_Smoke_01
+      name: Module00_Smoke_01
       rect:
         serializedVersion: 2
-        x: 8
-        y: 120
+        x: 23
+        y: 243
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -139,15 +139,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleSprite00_Smoke_02
+      name: Module00_Smoke_02
       rect:
         serializedVersion: 2
-        x: 0
-        y: 112
+        x: 41
+        y: 243
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,15 +160,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleSprite00_Smoke_03
+      name: Module00_Smoke_03
       rect:
         serializedVersion: 2
-        x: 8
-        y: 112
+        x: 59
+        y: 243
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -176,6 +176,27 @@ TextureImporter:
       bones: []
       spriteID: f08c3e93944ba704a9cad848cd19c980
       internalID: 366755556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module00_BetteryShrapnel
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 225
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d84024fcd146b6c4cbeac136c805e302
+      internalID: 1727202868
       vertices: []
       indices: 
       edges: []
@@ -191,10 +212,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ModuleSprite00_Smoke_00: -1746943924
-      ModuleSprite00_Smoke_01: 1391882910
-      ModuleSprite00_Smoke_02: 237403348
-      ModuleSprite00_Smoke_03: 366755556
+      Module00_BetteryShrapnel: 1727202868
+      Module00_Smoke_00: -1746943924
+      Module00_Smoke_01: 1391882910
+      Module00_Smoke_02: 237403348
+      Module00_Smoke_03: 366755556
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
