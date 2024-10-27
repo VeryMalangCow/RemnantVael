@@ -1,13 +1,15 @@
+using System.Collections.Generic;
+using UnityEngine;
 
 public class BaseUpgradeController : BuildingController_OnlyPlayerLayer, IInteract
 {
-    #region Value
+    #region Framework
 
-    /*[Space(20)]
-    [Header("<><><><><> OneOff Shop")]
-
-    [Space(10)]
-    [Header("=== Value")]*/
+    protected override void Start()
+    {
+        base.Start();
+        ApplySetStateAnim();
+    }
 
     #endregion
 
@@ -15,8 +17,19 @@ public class BaseUpgradeController : BuildingController_OnlyPlayerLayer, IIntera
 
     public void Interact()
     {
-        MainGameUIManager.Instance.BaseUpgrade_UIController.OpenThisPanel(MainGameUIManager.Instance.BaseUpgrade_UIController.TabDurTime);
+        if (IsOn)
+        {
+            MainGameUIManager.Instance.BaseUpgrade_UIController.OpenThisPanel(MainGameUIManager.Instance.BaseUpgrade_UIController.TabDurTime);
+        }
+        else if (!IsOn && PlayerManager.Instance.PlayerController.CurrentEC.Value > 0)
+        {
+            PlayerManager.Instance.PlayerController.CurrentEC.Value--; 
+            IsOn = true;
+        }
+
+        ApplySetStateAnim();
     }
 
     #endregion
+
 }

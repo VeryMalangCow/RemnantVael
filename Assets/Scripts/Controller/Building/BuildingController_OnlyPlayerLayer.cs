@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -22,6 +23,20 @@ public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
     [Header("=== Effect")]
     [SerializeField] public MakeExplosionImage MEI;
 
+    [Space(10)]
+    [Header("=== Value")]
+    [SerializeField] protected bool IsOn = false;
+
+    [Space(10)]
+    [Header("=== State")]
+    [SerializeField] private Animator ThisAnimator;
+    [SerializeField] private AnimationClip OffAC;
+    [SerializeField] private AnimationClip OnAC;
+    [SerializeField] private SetStateAnim ThisStateAnim;
+    [SerializeField] private AnimationClip OffStateAC;
+    [SerializeField] private AnimationClip OnStateAC;
+
+    [HideInInspector] private AnimatorOverrideController aoc;
     #endregion
 
     #region Framework
@@ -35,7 +50,7 @@ public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
         });
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         if (PlayerTF == null)
         {
@@ -90,5 +105,36 @@ public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
         }
     }
 
+    #region Set Anim
+
+    protected void ApplySetStateAnim()
+    {
+        if (IsOn)
+        {
+            aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
+            var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
+            foreach (var a in aoc.animationClips)
+                anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, OnAC));
+            aoc.ApplyOverrides(anims);
+            ThisAnimator.runtimeAnimatorController = aoc;
+            ThisAnimator.speed = 1f;
+
+            ThisStateAnim.SetAnim(OnStateAC, 1f, 1f);
+        }
+        else
+        {
+            aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
+            var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
+            foreach (var a in aoc.animationClips)
+                anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, OffAC));
+            aoc.ApplyOverrides(anims);
+            ThisAnimator.runtimeAnimatorController = aoc;
+            ThisAnimator.speed = 1f;
+
+            ThisStateAnim.SetAnim(OffStateAC, 1f, 1f);
+        }
+    }
+
+    #endregion
     #endregion
 }
