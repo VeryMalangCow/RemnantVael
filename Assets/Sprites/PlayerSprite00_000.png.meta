@@ -2347,10 +2347,10 @@ TextureImporter:
       name: PlayerSprite00_Shockwave_00
       rect:
         serializedVersion: 2
-        x: 148
-        y: 113
+        x: 147
+        y: 152
         width: 64
-        height: 32
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2368,10 +2368,10 @@ TextureImporter:
       name: PlayerSprite00_Shockwave_01
       rect:
         serializedVersion: 2
-        x: 148
-        y: 78
+        x: 147
+        y: 116
         width: 64
-        height: 32
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2389,10 +2389,10 @@ TextureImporter:
       name: PlayerSprite00_Shockwave_02
       rect:
         serializedVersion: 2
-        x: 148
-        y: 42
+        x: 147
+        y: 80
         width: 64
-        height: 32
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2410,10 +2410,10 @@ TextureImporter:
       name: PlayerSprite00_Shockwave_03
       rect:
         serializedVersion: 2
-        x: 148
-        y: 6
+        x: 147
+        y: 44
         width: 64
-        height: 32
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3225,6 +3225,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerSprite00_Shockwave_04
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 8
+        width: 63
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d38f3902b437074cbcbb291658d9000
+      internalID: -910342267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -3388,6 +3409,7 @@ TextureImporter:
       PlayerSprite00_Shockwave_01: 1108984986
       PlayerSprite00_Shockwave_02: 49315053
       PlayerSprite00_Shockwave_03: -1347965983
+      PlayerSprite00_Shockwave_04: -910342267
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

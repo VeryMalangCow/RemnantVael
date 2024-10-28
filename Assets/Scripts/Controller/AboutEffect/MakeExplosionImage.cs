@@ -27,11 +27,25 @@ public class MakeExplosionImage : MonoBehaviour
     #region Explosion
 
     // 전체적인 360도 방향으로 분산
-    public void GenExplosionImgs(Vector2 _SpawnedPos, 
+
+    public void GenExplosionImgs(Vector2 _SpawnedPos,
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
         int _ModuleIndex)
+    {
+        GenExplosionImgs(_SpawnedPos,
+       _SpawnImgAmount, _ExplosionDis, _DisappearDis,
+       _BiggerScale, _BiggerMinTime, _BiggerMaxTime,
+       _SmallerScale, _SmallerMinTime, _SmallerMaxTime,
+       _ModuleIndex, Vector2.one);
+    }
+
+    public void GenExplosionImgs(Vector2 _SpawnedPos, 
+        int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
+        float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
+        float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
+        int _ModuleIndex, Vector2 _OffsetSpreadVec)
     {
         if (TotalSeq != null && DOTween.IsTweening(TotalSeq))
         {
@@ -57,6 +71,7 @@ public class MakeExplosionImage : MonoBehaviour
                     Mathf.Sin(angle), 
                     Mathf.Cos(angle));
             dirByAngle.Normalize();
+            dirByAngle *= _OffsetSpreadVec;
 
             float biggerTime = Random.Range(_BiggerMinTime, _BiggerMaxTime);
             float smallerTime = Random.Range(_SmallerMinTime, _SmallerMaxTime);
@@ -160,6 +175,7 @@ public class MakeExplosionImage : MonoBehaviour
         return totalSeq;
     }
 
+    
 
     #endregion
 }

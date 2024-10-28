@@ -36,31 +36,15 @@ public class Attacker : MonoBehaviour
 
     #region Set State
 
-    public Sequence SetState_Bigger(Vector2 _SpawnedPos, AttackerState _AttackerState, 
-        AnimationClip _AC, float _animSizeMultiple,
+    public Sequence SetState_Bigger(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC,
         Vector2 _ColSize, float _StartSize, float _MaxSize, float _BiggerTime)
     {
         SetState(_SpawnedPos, _AttackerState, _ColSize);
 
-        Sequence totalSeq = DOTween.Sequence();
         Sequence seq = DOTween.Sequence();
-        Sequence fadeSeq = DOTween.Sequence();
 
         ThisCol.gameObject.transform.localScale = Vector2.one * _StartSize;
-        ThisAnimator.gameObject.transform.localScale = Vector2.one *_StartSize * _animSizeMultiple;
-
-        if (ThisAnimator.TryGetComponent(out SpriteRenderer sr))
-        {
-            sr.color = new Color(1, 1, 1, 0);
-
-            fadeSeq.Append(sr.DOFade(1f, _BiggerTime / 10));
-            fadeSeq.AppendInterval(_BiggerTime * 6 / 10);
-            fadeSeq.Append(sr.DOFade(0f, _BiggerTime * 3 / 10));
-        }
-
         seq.Append(ThisCol.transform.DOScale(_MaxSize, _BiggerTime));
-        seq.Join(ThisAnimator.gameObject.transform.DOScale(_MaxSize * _animSizeMultiple, _BiggerTime));
-
         // Anim
         aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
@@ -71,10 +55,7 @@ public class Attacker : MonoBehaviour
 
         this.gameObject.SetActive(true);
 
-        totalSeq.Join(seq);
-        totalSeq.Join(fadeSeq);
-
-        return totalSeq;
+        return seq;
     }
 
     private void SetState(Vector2 _SpawnedPos, AttackerState _AttackerState, Vector2 _ColSize)
@@ -82,7 +63,6 @@ public class Attacker : MonoBehaviour
         this.transform.position = _SpawnedPos;
         this.AttackerState = _AttackerState;
         ThisCol.size = _ColSize;
-
     }
 
     public void EndState()

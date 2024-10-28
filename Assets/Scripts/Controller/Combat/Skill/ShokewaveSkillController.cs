@@ -46,8 +46,7 @@ public class ShockwaveSkillController : ActiveSkillController
         float usableMaxSize = _MaxSize + (_MaxSize * Tier.ActualState.Value * 0.1f);
 
         PlayerAttacker pa = PoolingManager.Instance.GetOP_PlayerAttacker();
-        pa.SetState_Bigger(transform.position, ThisState,
-            ShockwaveAnimation, 0.5f,
+        pa.SetState_Bigger(MEI.transform.position, ThisState, ShockwaveAnimation,
             _ColSize, _StartSize, usableMaxSize, _BiggerTime)
             .OnComplete(() =>
             {
@@ -67,16 +66,16 @@ public class ShockwaveSkillController : ActiveSkillController
     {
         MEI.GenExplosionImgs(
             _SpawndPos,
-            (int)(64f * (1f - _CriticalChance)), _UsableMaxSize / 5f, _UsableMaxSize / 4f,
-            3.0f, 0.15f, 0.2f,
-            0.0f, 0.5f, 1.0f,
-            2);
+            (int)(64f * (1f - _CriticalChance)), _UsableMaxSize / 3f, _UsableMaxSize / 2f,
+            3.0f, 0.05f, 0.01f,
+            0.0f, 0.2f, 0.4f,
+            2, new Vector2(1, 0.5f));
         MEI.GenExplosionImgs(
             _SpawndPos,
-            (int)(64f * _CriticalChance), _UsableMaxSize / 5f, _UsableMaxSize / 4f,
-            3.0f, 0.15f, 0.2f,
-            0.0f, 0.5f, 1.0f,
-            3);
+            (int)(64f * _CriticalChance), _UsableMaxSize / 3f, _UsableMaxSize / 2f,
+            3.0f, 0.05f, 0.01f,
+            0.0f, 0.2f, 0.4f,
+            3, new Vector2(1, 0.5f));
     }
 
     #endregion

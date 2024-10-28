@@ -1869,7 +1869,7 @@ MonoBehaviour:
     - -0.8
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 10
+      value: 1
     Desc: 
   CurrentCooltime: 0
   NeedEP: 1
@@ -1898,7 +1898,7 @@ MonoBehaviour:
   PlayerController: {fileID: 0}
   _ColSize: {x: 0.75, y: 0.5}
   _StartSize: 3
-  _MaxSize: 7.5
+  _MaxSize: 5
   _BiggerTime: 0.3
   ShockwaveAnimation: {fileID: 7400000, guid: 2d86ccaf723e69b41920621edb1ed040, type: 2}
   MEI: {fileID: 8789615613539568913}

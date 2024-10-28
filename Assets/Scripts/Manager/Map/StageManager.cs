@@ -303,6 +303,13 @@ public class StageManager : Singleton<StageManager>
         CurrentRoomController = _TargetRC; 
         // 미니맵 초기화
         MiniMapCameraController.SetPos(CurrentRoomController.gameObject.transform.position);
+        
+        for (int i = 0; i < CurrentAllRoomController.Count; i++)
+        {
+            CurrentAllRoomController[i].gameObject.SetActive(false);
+        }
+        CurrentRoomController.gameObject.SetActive(true);
+
         // 현재 맵만 Sorting Layer 사용
         for (int i = 0; i < CurrentAllRoomController.Count; i++)
         {
