@@ -13,9 +13,9 @@ public class StageManager : Singleton<StageManager>
 
     [Space(10)]
     [Header("=== Generate")]
-    [SerializeField] private MiniMapCameraController MiniMapCameraController;
     [SerializeField] private Transform MapParentTF;
     [SerializeField] private List<StageData> AllReso;
+    [SerializeField] private Vector2 OffsetRoomSize;
 
     [Space(10)]
     [Header("=== Current")]
@@ -81,6 +81,18 @@ public class StageManager : Singleton<StageManager>
 
         // 게이트 활성화
         SetParterAllGate();
+        List<GateController> allGate = GetAllGate();
+        for (int i = 0; i < allGate.Count; i++)
+        {
+            if (allGate[i].HadParter == true)
+            {
+                allGate[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                allGate[i].gameObject.SetActive(false);
+            }
+        }
 
         alreadyExistList.Clear();
         alreadyExistBossList.Clear();
@@ -167,7 +179,7 @@ public class StageManager : Singleton<StageManager>
 
     private void SetRCPos(RoomController _RC)
     {
-        _RC.gameObject.transform.position = new Vector2(_RC.RoomVec[0].x * 21f, _RC.RoomVec[0].y * 13.5f);
+        _RC.gameObject.transform.position = new Vector2(_RC.RoomVec[0].x * OffsetRoomSize.x, _RC.RoomVec[0].y * OffsetRoomSize.y);
     }
 
     private void AddCaculateVec(List<Vector2Int> _AddVecList)
@@ -301,8 +313,6 @@ public class StageManager : Singleton<StageManager>
 
         // 현재 방 선택
         CurrentRoomController = _TargetRC; 
-        // 미니맵 초기화
-        MiniMapCameraController.SetPos(CurrentRoomController.gameObject.transform.position);
         
         for (int i = 0; i < CurrentAllRoomController.Count; i++)
         {

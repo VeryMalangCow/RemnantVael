@@ -16,7 +16,25 @@ public class GateController : BuildingController_OnlyPlayerLayer, IInteract
     [HideInInspector] public RoomController ThisRoom;
     [HideInInspector] public bool HadParter = false;
     [HideInInspector] public bool SettedPos = false;
-    [SerializeField] public GateController ParterGate = null;
+    [HideInInspector] public GateController ParterGate = null;
+
+    #endregion
+
+    #region On Off
+
+    public void SetOnOff(bool _IsOn)
+    {
+        IsOn = _IsOn;
+
+        if (IsOn)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
 
     #endregion
 
@@ -24,9 +42,12 @@ public class GateController : BuildingController_OnlyPlayerLayer, IInteract
 
     public void Interact()
     {
-        PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.gameObject.transform.position 
+        if (IsOn)
+        {
+            PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.gameObject.transform.position
             + new Vector3(GateDir.x * 0.5f, GateDir.y * 0.5f, 0);
-        StageManager.Instance.StartCurrentRoom(ParterGate.ThisRoom);
+            StageManager.Instance.StartCurrentRoom(ParterGate.ThisRoom);
+        }
     }
 
     #endregion

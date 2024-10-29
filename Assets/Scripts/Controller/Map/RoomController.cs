@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class RoomController : MonoBehaviour
 {
     #region Value
@@ -127,14 +127,28 @@ public class RoomController : MonoBehaviour
         {
             for (int i = 0; i < InRoom_UpperWalls.Count; i++)
             {
-                if (InRoom_UpperWalls[i].TargetObject.TryGetComponent(out SpriteRenderer sr))
-                { sr.sortingOrder = 1; }
+                foreach (Transform tf in InRoom_UpperWalls[i].TargetObject.transform)
+                {
+                    if (tf.TryGetComponent(out SpriteRenderer upperSr))
+                    { upperSr.sortingOrder = 1; }
+                }
             }
+
+            List<SpriteRenderer> srs = new List<SpriteRenderer>();
             for (int i = 0; i < InRoom_LowerWalls.Count; i++)
             {
-                if (InRoom_LowerWalls[i].TargetObject.TryGetComponent(out SpriteRenderer sr))
-                { sr.sortingOrder = 2000; }
+                foreach (Transform tf in InRoom_LowerWalls[i].TargetObject.transform)
+                {
+                    if (tf.TryGetComponent(out SpriteRenderer lowerSr))
+                    { srs.Add(lowerSr); }
+                }
             }
+            srs = srs.OrderBy(obj => obj.transform.position.y).ToList();
+            for (int i = 0; i < srs.Count; i++)
+            {
+                srs[i].sortingOrder = 2000 + (srs.Count - i);
+            }
+            
         }
         else
         {
@@ -207,15 +221,15 @@ public class RoomController : MonoBehaviour
         // Gate
         for (int i = 0; i < InRoom_AllGate.Count; i++) 
         {
-            if (InRoom_AllGate[i].HadParter && !InRoom_AllGate[i].gameObject.activeSelf)
+            if (InRoom_AllGate[i].HadParter)
             {
-                InRoom_AllGate[i].gameObject.SetActive(true);
-                InRoom_AllGate[i].MEI.GenExplosionImgs(
+                InRoom_AllGate[i].SetOnOff(true);
+                /*InRoom_AllGate[i].MEI.GenExplosionImgs(
                     InRoom_AllGate[i].MEI.gameObject.transform.position,
                     36, 0.15f, 0.75f,
                     1.5f, 0.05f, 0.1f,
                     0.0f, 0.5f, 1.0f,
-                    0);
+                    0);*/
             }
         }
 
