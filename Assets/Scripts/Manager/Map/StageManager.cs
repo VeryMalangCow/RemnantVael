@@ -58,6 +58,8 @@ public class StageManager : Singleton<StageManager>
         GenRoom(reso.StartRoomPrefab, TempID, true);
         TempID++;
 
+        // 集扁
+        reso.RoomPrefabList = GameManager.ShuffleList(reso.RoomPrefabList);
 
         // 规 积己
         for (int i = 0; i < reso.RoomPrefabList.Count; i++)
@@ -433,6 +435,7 @@ public class StageManager : Singleton<StageManager>
             public int AmountInStage;
             public GameObject RoomPrefab;
         }
+
     }
 
     #endregion
