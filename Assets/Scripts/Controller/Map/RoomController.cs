@@ -24,7 +24,8 @@ public class RoomController : MonoBehaviour
 
     [Space(10)]
     [Header("=== In Room _ Building")]
-    [SerializeField] private Transform InRoom_AllGateParentTF;
+    [SerializeField] public List<GateController> InRoom_AllUpperGate;
+    [SerializeField] public List<GateController> InRoom_AllLowerGate;
     [HideInInspector] public List<GateController> InRoom_AllGate;
     [SerializeField] private Transform InRoom_AllBuildingParentTF;
     [HideInInspector] public List<BuildingController_AllLayer> InRoom_AllBuilding;
@@ -76,22 +77,17 @@ public class RoomController : MonoBehaviour
 
         // Gate
         InRoom_AllGate = new List<GateController>();
-        if (InRoom_AllGateParentTF.childCount > 0)
+        InRoom_AllGate.AddRange(InRoom_AllUpperGate);
+        InRoom_AllGate.AddRange(InRoom_AllLowerGate);
+        for (int i = 0; i < InRoom_AllGate.Count; i++)
         {
-            foreach (Transform chile in InRoom_AllGateParentTF)
-            {
-                if (chile.gameObject.TryGetComponent(out GateController GC))
-                {
-                    InRoom_AllGate.Add(GC);
-                    GC.ThisRoom = this;
-                    GC.gameObject.SetActive(false);
-                }
-            }
+            InRoom_AllGate[i].ThisRoom = this;
         }
+
 
         // Obstacle
         InRoom_AllBuilding = new List<BuildingController_AllLayer>();
-        if (InRoom_AllBuildingParentTF.childCount > 0)
+        if (InRoom_AllBuildingParentTF != null && InRoom_AllBuildingParentTF.childCount > 0)
         {
             foreach (Transform chile in InRoom_AllBuildingParentTF)
             {
@@ -125,6 +121,7 @@ public class RoomController : MonoBehaviour
     {
         if (_RC == this)
         {
+            // Upper
             for (int i = 0; i < InRoom_UpperWalls.Count; i++)
             {
                 foreach (Transform tf in InRoom_UpperWalls[i].TargetObject.transform)
@@ -133,7 +130,25 @@ public class RoomController : MonoBehaviour
                     { upperSr.sortingOrder = 1; }
                 }
             }
+            for (int i = 0; i < InRoom_AllUpperGate.Count; i++)
+            {
+                if (InRoom_AllUpperGate[i].TargetObject.TryGetComponent(out SpriteRenderer upperSr))
+                { upperSr.sortingOrder = 1; }
 
+                foreach (Transform tf in InRoom_AllUpperGate[i].TargetObject.transform)
+                {
+                    if (tf.TryGetComponent(out SpriteRenderer childUpperSr))
+                    { childUpperSr.sortingOrder = 1; }
+                }
+
+                foreach (Transform tf in InRoom_AllUpperGate[i].ExtraTargetObject.transform)
+                {
+                    if (tf.TryGetComponent(out SpriteRenderer childUpperSr))
+                    { childUpperSr.sortingOrder = 1; }
+                }
+            }
+
+            //Lower
             List<SpriteRenderer> srs = new List<SpriteRenderer>();
             for (int i = 0; i < InRoom_LowerWalls.Count; i++)
             {
@@ -143,6 +158,29 @@ public class RoomController : MonoBehaviour
                     { srs.Add(lowerSr); }
                 }
             }
+            for (int i = 0; i < InRoom_AllLowerGate.Count; i++)
+            {
+                if (InRoom_AllLowerGate[i].TargetObject.TryGetComponent(out SpriteRenderer lowerSr))
+                { srs.Add(lowerSr); }
+
+                foreach (Transform tf in InRoom_AllLowerGate[i].TargetObject.transform)
+                {
+                    if (tf.TryGetComponent(out SpriteRenderer childLowerSr))
+                    { srs.Add(childLowerSr); }
+                }
+
+
+                if (InRoom_AllLowerGate[i].ExtraTargetObject.TryGetComponent(out SpriteRenderer extraLowerSr))
+                { srs.Add(extraLowerSr); }
+
+                foreach (Transform tf in InRoom_AllLowerGate[i].ExtraTargetObject.transform)
+                {
+                    if (tf.TryGetComponent(out SpriteRenderer childLowerSr))
+                    { srs.Add(childLowerSr); }
+                }
+            }
+
+
             srs = srs.OrderBy(obj => obj.transform.position.y).ToList();
             for (int i = 0; i < srs.Count; i++)
             {

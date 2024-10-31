@@ -88,11 +88,11 @@ public class StageManager : Singleton<StageManager>
         {
             if (allGate[i].HadParter == true)
             {
-                allGate[i].gameObject.SetActive(true);
+                allGate[i].IsExistDoor(true);
             }
             else
             {
-                allGate[i].gameObject.SetActive(false);
+                allGate[i].IsExistDoor(false);
             }
         }
 
