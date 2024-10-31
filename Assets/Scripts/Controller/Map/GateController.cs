@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GateController : HaveShadowThingStatic, IInteract
@@ -22,13 +23,19 @@ public class GateController : HaveShadowThingStatic, IInteract
     [HideInInspector] public bool SettedPos = false;
     [HideInInspector] public GateController ParterGate = null;
 
+    [Space(10)]
+    [Header("=== Anim")]
+    [SerializeField] public Animator ThisAnimator;
+    [SerializeField] private AnimationClip ThisAC;
 
     [Space(10)]
     [Header("=== Other")]
-    [SerializeField] public GameObject OnThingsGO;
-    [SerializeField] public GameObject OffThingsGO;
+    [SerializeField] private GameObject OnThingsGO;
+    [SerializeField] private GameObject OffThingsGO;
+    [SerializeField] public List<BuildingController_AllLayer> NeedSetAllLayer;
 
 
+    [HideInInspector] private AnimatorOverrideController aoc;
     #endregion
 
     #region Framework
@@ -37,6 +44,14 @@ public class GateController : HaveShadowThingStatic, IInteract
     {
         base.OnEnable();
         ExtraTargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * TargetRange);
+    }
+
+    private void Update()
+    {
+        if (OnThingsGO.gameObject.activeSelf && ThisAnimator.enabled && AnimIsDone())
+        {
+            ThisAnimator.enabled = false;
+        }
     }
 
     #endregion
@@ -49,6 +64,7 @@ public class GateController : HaveShadowThingStatic, IInteract
         {
             OnThingsGO.gameObject.SetActive(true);
             OffThingsGO.gameObject.SetActive(false);
+            SetAnim(ThisAC, 0f);
         }
         else
         {
@@ -61,13 +77,9 @@ public class GateController : HaveShadowThingStatic, IInteract
     {
         IsOpen = _IsOn;
 
-        if (IsOpen)
+        if (OnThingsGO.gameObject.activeSelf && IsOpen)
         {
-
-        }
-        else
-        {
-
+            SetAnim(ThisAC, 1f);
         }
     }
 
@@ -80,8 +92,40 @@ public class GateController : HaveShadowThingStatic, IInteract
         if (IsOpen && ParterGate != null)
         {
             PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.gameObject.transform.position
-            + new Vector3(GateDir.x * 0.5f, GateDir.y * 0.5f, 0);
+            + new Vector3(GateDir.x, GateDir.y, 0);
             StageManager.Instance.StartCurrentRoom(ParterGate.ThisRoom);
+        }
+    }
+
+    #endregion
+
+    #region Anim
+
+    public void SetAnim(AnimationClip _AC, float _AnimSpeed = 1f)
+    {
+        Debug.Log(_AnimSpeed);
+        aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
+        var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
+        foreach (var a in aoc.animationClips)
+            anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
+        aoc.ApplyOverrides(anims);
+        ThisAnimator.runtimeAnimatorController = aoc;
+        ThisAnimator.speed = _AnimSpeed;
+    }
+
+    private bool AnimIsDone()
+    {
+        // 현재 애니메이터 상태 정보 가져오기
+        AnimatorStateInfo animatorStateInfo = ThisAnimator.GetCurrentAnimatorStateInfo(0);
+
+        // 애니메이션이 종료되었는지 판별
+        if (animatorStateInfo.normalizedTime >= 1 && !ThisAnimator.IsInTransition(0))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

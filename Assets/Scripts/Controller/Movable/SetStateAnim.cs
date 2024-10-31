@@ -22,10 +22,10 @@ public class SetStateAnim : MonoBehaviour
 
     #region Framework
 
-    private void Update()
+    /*private void Update()
     {
         SetLayerSort(TargetSR.sortingOrder + AddSort);
-    }
+    }*/
 
     #endregion
 

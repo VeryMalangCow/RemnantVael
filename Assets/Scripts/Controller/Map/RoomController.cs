@@ -115,7 +115,7 @@ public class RoomController : MonoBehaviour
 
     #endregion
 
-    #region Wall
+    #region Layer
 
     public void SetCorrectWallSortOrder(RoomController _RC)
     {
@@ -202,6 +202,19 @@ public class RoomController : MonoBehaviour
         
     }
 
+    public List<HaveShadowThing> GetNeedAllLayer()
+    {
+        List<HaveShadowThing> HST = new List<HaveShadowThing>();
+
+        for (int i = 0; i < InRoom_AllGate.Count; i++)
+        {
+            if (InRoom_AllGate[i].NeedSetAllLayer != null && InRoom_AllGate[i].NeedSetAllLayer.Count > 0)
+            { HST.AddRange(InRoom_AllGate[i].NeedSetAllLayer); }
+        }
+
+        return HST;
+    }
+
     #endregion
 
     #region Gate
@@ -261,13 +274,10 @@ public class RoomController : MonoBehaviour
         {
             if (InRoom_AllGate[i].HadParter)
             {
-                InRoom_AllGate[i].SetOnOff(true);
-                /*InRoom_AllGate[i].MEI.GenExplosionImgs(
-                    InRoom_AllGate[i].MEI.gameObject.transform.position,
-                    36, 0.15f, 0.75f,
-                    1.5f, 0.05f, 0.1f,
-                    0.0f, 0.5f, 1.0f,
-                    0);*/
+                if (!InRoom_AllGate[i].IsOpen)
+                {
+                    InRoom_AllGate[i].SetOnOff(true);
+                }
             }
         }
 
