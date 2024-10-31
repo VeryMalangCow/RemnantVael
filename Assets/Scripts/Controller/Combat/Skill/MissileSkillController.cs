@@ -115,7 +115,7 @@ public class MissileSkillController : ActiveSkillController
             8, 0.2f, 1.5f,
             2.2f, 0.05f, 0.1f,
             0.0f, 0.5f, 1.0f,
-            index);
+            index, PlayerController.ThisPlayerSmokeMaterial);
     }
 
     #endregion

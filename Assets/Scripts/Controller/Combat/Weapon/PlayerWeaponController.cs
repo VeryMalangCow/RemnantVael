@@ -195,7 +195,7 @@ public class PlayerWeaponController : SatelliteController
             6, 0.2f, 1f,
             1.3f, 0.05f, 0.1f,
             0.0f, 0.5f, 1.0f,
-            index);
+            index, PlayerController.ThisPlayerSmokeMaterial);
     }
 
     #endregion

@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
@@ -10,6 +8,10 @@ public class EnemyManager : Singleton<EnemyManager>
     [Space(10)]
     [Header("=== Enemies")]
     [SerializeField] public List<EnemyController> CurrentEnemyList = new List<EnemyController>();
+
+    [Space(10)]
+    [Header("=== Materal")]
+    [SerializeField] public Material EnemySmokeMaterial;
 
     #endregion
 

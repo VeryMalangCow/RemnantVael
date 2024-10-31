@@ -27,25 +27,26 @@ public class MakeExplosionImage : MonoBehaviour
     #region Explosion
 
     // 전체적인 360도 방향으로 분산
-
+    // 원형만 가능
     public void GenExplosionImgs(Vector2 _SpawnedPos,
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
-        int _ModuleIndex)
+        int _ModuleIndex, Material _Material)
     {
         GenExplosionImgs(_SpawnedPos,
        _SpawnImgAmount, _ExplosionDis, _DisappearDis,
        _BiggerScale, _BiggerMinTime, _BiggerMaxTime,
        _SmallerScale, _SmallerMinTime, _SmallerMaxTime,
-       _ModuleIndex, Vector2.one);
+       _ModuleIndex, Vector2.one, _Material);
     }
 
+    // 타원형 가능
     public void GenExplosionImgs(Vector2 _SpawnedPos, 
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
-        int _ModuleIndex, Vector2 _OffsetSpreadVec)
+        int _ModuleIndex, Vector2 _OffsetSpreadVec, Material _Material)
     {
         if (TotalSeq != null && DOTween.IsTweening(TotalSeq))
         {
@@ -80,17 +81,18 @@ public class MakeExplosionImage : MonoBehaviour
                 _ExplosionDis, _DisappearDis,
                 _BiggerScale, biggerTime,
                 _SmallerScale, smallerTime,
-                _ModuleIndex));
+                _ModuleIndex, _Material));
         }
 
     }
+
 
     // 방향적 부채꼴 방향으로 분산
     public void GenExplosionImgs_Fan(Vector2 _SpawnedPos, Vector2 _Dir, float _AngleArea,
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
-        int _ModuleIndex)
+        int _ModuleIndex, Material _Material)
     {
         if (TotalSeq != null && DOTween.IsTweening(TotalSeq))
         {
@@ -124,7 +126,7 @@ public class MakeExplosionImage : MonoBehaviour
                 _ExplosionDis, _DisappearDis,
                 _BiggerScale, biggerTime,
                 _SmallerScale, smallerTime,
-                _ModuleIndex));
+                _ModuleIndex, _Material));
         }
     }
 
@@ -133,7 +135,7 @@ public class MakeExplosionImage : MonoBehaviour
         float _ExplotionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerTime,
         float _SmallerScale, float _SmallerTime,
-        int _ModuleIndex)
+        int _ModuleIndex, Material _Material)
     {
         Sequence bigSeq = DOTween.Sequence();
         Sequence smallSeq = DOTween.Sequence();
@@ -144,6 +146,7 @@ public class MakeExplosionImage : MonoBehaviour
         if (RandomSpriteList[_ModuleIndex].SpriteList != null && RandomSpriteList[_ModuleIndex].SpriteList.Count > 0)
         {
             sr.sprite = RandomSpriteList[_ModuleIndex].SpriteList[Random.Range(0, RandomSpriteList[_ModuleIndex].SpriteList.Count)];
+            sr.material = _Material;
         }
 
         if (DOTween.IsTweening(sr.gameObject))

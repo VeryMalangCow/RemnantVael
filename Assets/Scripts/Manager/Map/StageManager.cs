@@ -14,6 +14,7 @@ public class StageManager : Singleton<StageManager>
     [Space(10)]
     [Header("=== Generate")]
     [SerializeField] private Transform MapParentTF;
+    [SerializeField] private int TargetStageID;
     [SerializeField] private List<StageData> AllReso;
     [SerializeField] private Vector2 OffsetRoomSize;
 
@@ -37,8 +38,10 @@ public class StageManager : Singleton<StageManager>
 
     private void Start()
     {
-        GenStage(0);
+        // 스테이지 소환
+        GenStage(TargetStageID);
 
+        // 처음 스타트맵
         StartCurrentRoom(GetCollectRoomController(0));
     }
 
@@ -430,6 +433,8 @@ public class StageManager : Singleton<StageManager>
         public List<RoomData> RoomPrefabList;
         public List<RoomData> BossRoomPrefabList;
 
+        public Material StageSmokeMaterial;
+
         [System.Serializable]
         public class RoomData
         {
@@ -437,6 +442,11 @@ public class StageManager : Singleton<StageManager>
             public GameObject RoomPrefab;
         }
 
+    }
+
+    public Material GetCurrentStageMaterial()
+    {
+        return AllReso[TargetStageID].StageSmokeMaterial;
     }
 
     #endregion

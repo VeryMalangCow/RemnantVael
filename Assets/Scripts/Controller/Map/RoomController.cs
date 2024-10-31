@@ -122,12 +122,13 @@ public class RoomController : MonoBehaviour
         if (_RC == this)
         {
             // Upper
+            List<SpriteRenderer> upperSrs = new List<SpriteRenderer>();
             for (int i = 0; i < InRoom_UpperWalls.Count; i++)
             {
                 foreach (Transform tf in InRoom_UpperWalls[i].TargetObject.transform)
                 {
                     if (tf.TryGetComponent(out SpriteRenderer upperSr))
-                    { upperSr.sortingOrder = 1; }
+                    { upperSrs.Add(upperSr); }
                 }
             }
             for (int i = 0; i < InRoom_AllUpperGate.Count; i++)
@@ -138,53 +139,60 @@ public class RoomController : MonoBehaviour
                 foreach (Transform tf in InRoom_AllUpperGate[i].TargetObject.transform)
                 {
                     if (tf.TryGetComponent(out SpriteRenderer childUpperSr))
-                    { childUpperSr.sortingOrder = 1; }
+                    { upperSrs.Add(childUpperSr); }
                 }
 
                 foreach (Transform tf in InRoom_AllUpperGate[i].ExtraTargetObject.transform)
                 {
                     if (tf.TryGetComponent(out SpriteRenderer childUpperSr))
-                    { childUpperSr.sortingOrder = 1; }
+                    { upperSrs.Add(childUpperSr); }
                 }
             }
 
+            upperSrs = upperSrs.OrderBy(obj => obj.transform.position.y).ToList();
+            for (int i = 0; i < upperSrs.Count; i++)
+            {
+                upperSrs[i].sortingOrder = 1 + (upperSrs.Count - i);
+            }
+
+
             //Lower
-            List<SpriteRenderer> srs = new List<SpriteRenderer>();
+            List<SpriteRenderer> lowerSrs = new List<SpriteRenderer>();
             for (int i = 0; i < InRoom_LowerWalls.Count; i++)
             {
                 foreach (Transform tf in InRoom_LowerWalls[i].TargetObject.transform)
                 {
                     if (tf.TryGetComponent(out SpriteRenderer lowerSr))
-                    { srs.Add(lowerSr); }
+                    { lowerSrs.Add(lowerSr); }
                 }
             }
             for (int i = 0; i < InRoom_AllLowerGate.Count; i++)
             {
                 if (InRoom_AllLowerGate[i].TargetObject.TryGetComponent(out SpriteRenderer lowerSr))
-                { srs.Add(lowerSr); }
+                { lowerSrs.Add(lowerSr); }
 
                 foreach (Transform tf in InRoom_AllLowerGate[i].TargetObject.transform)
                 {
                     if (tf.TryGetComponent(out SpriteRenderer childLowerSr))
-                    { srs.Add(childLowerSr); }
+                    { lowerSrs.Add(childLowerSr); }
                 }
 
 
                 if (InRoom_AllLowerGate[i].ExtraTargetObject.TryGetComponent(out SpriteRenderer extraLowerSr))
-                { srs.Add(extraLowerSr); }
+                { lowerSrs.Add(extraLowerSr); }
 
                 foreach (Transform tf in InRoom_AllLowerGate[i].ExtraTargetObject.transform)
                 {
                     if (tf.TryGetComponent(out SpriteRenderer childLowerSr))
-                    { srs.Add(childLowerSr); }
+                    { lowerSrs.Add(childLowerSr); }
                 }
             }
 
 
-            srs = srs.OrderBy(obj => obj.transform.position.y).ToList();
-            for (int i = 0; i < srs.Count; i++)
+            lowerSrs = lowerSrs.OrderBy(obj => obj.transform.position.y).ToList();
+            for (int i = 0; i < lowerSrs.Count; i++)
             {
-                srs[i].sortingOrder = 2000 + (srs.Count - i);
+                lowerSrs[i].sortingOrder = 2000 + (lowerSrs.Count - i);
             }
             
         }
@@ -290,7 +298,7 @@ public class RoomController : MonoBehaviour
                     36, 0.15f, 0.75f,
                     1.5f, 0.05f, 0.1f,
                     0.0f, 0.5f, 1.0f,
-                    0);
+                    0, StageManager.Instance.GetCurrentStageMaterial());
         }
     }
 
@@ -312,7 +320,7 @@ public class RoomController : MonoBehaviour
                     36, 0.15f, 0.75f,
                     1.5f, 0.05f, 0.1f,
                     0.0f, 0.5f, 1.0f,
-                    0);
+                    0, StageManager.Instance.GetCurrentStageMaterial());
             }
         }
     }

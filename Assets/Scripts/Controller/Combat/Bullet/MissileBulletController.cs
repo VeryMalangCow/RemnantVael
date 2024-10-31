@@ -171,7 +171,7 @@ public class MissileBulletController : BulletController
                      8, 0.3f, 0.4f,
                      2.2f, 0.05f, 0.1f,
                      0.0f, 0.5f, 1.0f,
-                     index);
+                     index, PlayerManager.Instance.PlayerController.ThisPlayerSmokeMaterial);
     }
 
     private void PointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)

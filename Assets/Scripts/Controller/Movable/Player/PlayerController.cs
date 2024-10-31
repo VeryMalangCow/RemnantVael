@@ -100,15 +100,21 @@ public class PlayerController : MovableObject
 
     #endregion
 
-    #region - Other
+    #region - Material
 
     [Space(10)]
-    [Header("=== Main Sprite")]
-    [SerializeField] public List<MakeAfterImage> MakeAfterImgList;
+    [Header("=== Material")]
+    [SerializeField] public Material ThisPlayerSmokeMaterial;
+
 
     #endregion
 
     #region - Effect
+
+    [Space(10)]
+    [Header("=== After Img")]
+    [SerializeField] public List<MakeAfterImage> MakeAfterImgList;
+
 
     [Space(10)]
     [Header("=== Effect")]
