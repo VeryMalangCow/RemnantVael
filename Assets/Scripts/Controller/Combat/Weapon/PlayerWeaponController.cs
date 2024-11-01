@@ -193,8 +193,8 @@ public class PlayerWeaponController : SatelliteController
             (Vector2)MEIs[_Index].gameObject.transform.position + (_Dir * 0.3f),
             _Dir, 45f,
             6, 0.2f, 1f,
-            1.3f, 0.05f, 0.1f,
-            0.0f, 0.5f, 1.0f,
+            0.8f, 0.05f, 0.1f,
+            0.4f, 0.5f, 1.0f,
             index, PlayerController.ThisPlayerSmokeMaterial);
     }
 

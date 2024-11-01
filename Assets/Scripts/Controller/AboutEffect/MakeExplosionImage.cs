@@ -149,6 +149,8 @@ public class MakeExplosionImage : MonoBehaviour
             sr.material = _Material;
         }
 
+        sr.gameObject.transform.eulerAngles = new Vector3(0f, 0f, Random.Range(0, 90));
+
         if (DOTween.IsTweening(sr.gameObject))
         { DOTween.Complete(sr.gameObject); }
 

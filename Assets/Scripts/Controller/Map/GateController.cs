@@ -103,7 +103,6 @@ public class GateController : HaveShadowThingStatic, IInteract
 
     public void SetAnim(AnimationClip _AC, float _AnimSpeed = 1f)
     {
-        Debug.Log(_AnimSpeed);
         aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
         foreach (var a in aoc.animationClips)

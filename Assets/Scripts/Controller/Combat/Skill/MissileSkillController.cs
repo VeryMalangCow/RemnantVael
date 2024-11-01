@@ -113,8 +113,8 @@ public class MissileSkillController : ActiveSkillController
             _SpawndPos,
             _Dir, 90f,
             8, 0.2f, 1.5f,
-            2.2f, 0.05f, 0.1f,
-            0.0f, 0.5f, 1.0f,
+            1.0f, 0.05f, 0.1f,
+            0.5f, 0.5f, 1.0f,
             index, PlayerController.ThisPlayerSmokeMaterial);
     }
 

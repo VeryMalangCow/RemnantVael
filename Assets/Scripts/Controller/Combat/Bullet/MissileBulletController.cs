@@ -169,8 +169,8 @@ public class MissileBulletController : BulletController
         PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
                      _SpawndPos,
                      8, 0.3f, 0.4f,
-                     2.2f, 0.05f, 0.1f,
-                     0.0f, 0.5f, 1.0f,
+                     1.9f, 0.05f, 0.1f,
+                     0.8f, 0.5f, 1.0f,
                      index, PlayerManager.Instance.PlayerController.ThisPlayerSmokeMaterial);
     }
 
