@@ -100,10 +100,10 @@ TextureImporter:
       name: Module00_Smoke_00
       rect:
         serializedVersion: 2
-        x: 5
-        y: 243
-        width: 8
-        height: 8
+        x: 1
+        y: 239
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,10 +121,10 @@ TextureImporter:
       name: Module00_Smoke_01
       rect:
         serializedVersion: 2
-        x: 23
-        y: 243
-        width: 8
-        height: 8
+        x: 19
+        y: 239
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,10 +142,10 @@ TextureImporter:
       name: Module00_Smoke_02
       rect:
         serializedVersion: 2
-        x: 41
-        y: 243
-        width: 8
-        height: 8
+        x: 37
+        y: 239
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,10 +163,10 @@ TextureImporter:
       name: Module00_Smoke_03
       rect:
         serializedVersion: 2
-        x: 59
-        y: 243
-        width: 8
-        height: 8
+        x: 55
+        y: 239
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,10 +184,10 @@ TextureImporter:
       name: Module00_BetteryShrapnel
       rect:
         serializedVersion: 2
-        x: 5
-        y: 225
-        width: 8
-        height: 8
+        x: 1
+        y: 222
+        width: 16
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,6 +197,48 @@ TextureImporter:
       bones: []
       spriteID: d84024fcd146b6c4cbeac136c805e302
       internalID: 1727202868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module00_Aim
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 239
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09fcaed37e84c1b45aea9037669e4b3d
+      internalID: 278710512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_AimLower
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 221
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea42082dab5368e4882ec15e230cdff6
+      internalID: -1026478250
       vertices: []
       indices: 
       edges: []
@@ -212,11 +254,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Module00_Aim: 278710512
       Module00_BetteryShrapnel: 1727202868
       Module00_Smoke_00: -1746943924
       Module00_Smoke_01: 1391882910
       Module00_Smoke_02: 237403348
       Module00_Smoke_03: 366755556
+      Module_AimLower: -1026478250
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

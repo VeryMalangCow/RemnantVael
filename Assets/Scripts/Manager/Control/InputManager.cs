@@ -11,6 +11,10 @@ public class InputManager : Singleton<InputManager>
     [SerializeField] public Vector2 MousePosByWorld;
     [SerializeField] public Vector2 DirFromPlayerPos;
 
+    [Header("=== Aim")]
+    [SerializeField] public HaveShadowThingStatic Aim;
+    [SerializeField] private float AimFollowSpeed = 4f;
+
     [Header("=== Component")]
     [SerializeField] public PlayerInput PlayerInput;
 
@@ -32,6 +36,8 @@ public class InputManager : Singleton<InputManager>
     protected override void Awake()
     {
         base.Awake();
+
+        Cursor.visible = false;
     }
 
     private void FixedUpdate()
@@ -59,6 +65,12 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
+    private void LateUpdate()
+    {
+        Aim.gameObject.transform.position = Vector2.Lerp(Aim.gameObject.transform.position,
+            MousePosByWorld, AimFollowSpeed * Time.deltaTime);
+    }
+
     #endregion
 
     #region Mouse
@@ -67,8 +79,8 @@ public class InputManager : Singleton<InputManager>
     {
         MousePos = Input.mousePosition;
         MousePosByWorld = Camera.main.ScreenToWorldPoint(MousePos);
-
         DirFromPlayerPos = MousePosByWorld - (Vector2)PlayerManager.Instance.PlayerController.gameObject.transform.position;
+
     }
 
     #endregion

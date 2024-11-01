@@ -1864,6 +1864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 0}
   PlayerSpawnParentTF: {fileID: 940494672}
+  AimPrefab: {fileID: 6141677161167260688, guid: c40efc2302d823f4385722f2c7ce4237, type: 3}
   CameraController: {fileID: 1970976550}
 --- !u!1 &1186392405
 GameObject:
@@ -2062,6 +2063,8 @@ MonoBehaviour:
   MousePos: {x: 0, y: 0}
   MousePosByWorld: {x: 0, y: 0}
   DirFromPlayerPos: {x: 0, y: 0}
+  Aim: {fileID: 0}
+  AimFollowSpeed: 28
   PlayerInput: {fileID: 0}
   InputMoveDir: {x: 0, y: 0}
   IsPlayingSkill: 0

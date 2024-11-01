@@ -247,7 +247,7 @@ public class EnemyController : MovableObject, IInteract
         // Effect
         MEI.GenExplosionImgs(
                     MEI.gameObject.transform.position,
-                    36, 0.15f, 0.75f,
+                    16, 0.15f, 0.75f,
                     1.6f, 0.05f, 0.1f,
                     0.8f, 0.5f, 1.0f,
                     0, EnemyManager.Instance.EnemySmokeMaterial);
