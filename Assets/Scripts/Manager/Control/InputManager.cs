@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,7 +5,12 @@ public class InputManager : Singleton<InputManager>
 {
     #region Value
 
+    [Header("=== State")]
+    [SerializeField] private bool OnAim = true;
+    [SerializeField] private bool OnMouse = false;
+
     [Header("=== Mouse")]
+    [SerializeField] private RectTransform MousePointerRT;
     [SerializeField] public Vector2 MousePos;
     [SerializeField] public Vector2 MousePosByWorld;
     [SerializeField] public Vector2 DirFromPlayerPos;
@@ -36,10 +40,13 @@ public class InputManager : Singleton<InputManager>
     protected override void Awake()
     {
         base.Awake();
-
         Cursor.visible = false;
     }
 
+    private void Start()
+    {
+        SetAim(true);
+    }
     private void FixedUpdate()
     {
         SetMousePos();
@@ -73,6 +80,20 @@ public class InputManager : Singleton<InputManager>
 
     #endregion
 
+    #region State
+
+    public void SetAim(bool _IsOn)
+    {
+        OnAim = _IsOn;
+        OnMouse = !_IsOn;
+
+        Aim.gameObject.SetActive(_IsOn);
+        MousePointerRT.gameObject.SetActive(!_IsOn);
+        //Cursor.visible = !_IsOn;
+    }
+
+    #endregion
+
     #region Mouse
 
     private void SetMousePos()
@@ -81,6 +102,7 @@ public class InputManager : Singleton<InputManager>
         MousePosByWorld = Camera.main.ScreenToWorldPoint(MousePos);
         DirFromPlayerPos = MousePosByWorld - (Vector2)PlayerManager.Instance.PlayerController.gameObject.transform.position;
 
+        MousePointerRT.anchoredPosition = MousePos;
     }
 
     #endregion

@@ -73,6 +73,7 @@ public class OutMainGameUIController : UIController
         IsTweening = true;
 
         InputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
+        InputManager.Instance.SetAim(false);
         MainGameUIManager.Instance.CurrentOpening_UIController = this;
         InputManager.Instance.InputMoveDir = Vector2.zero;
 
@@ -93,7 +94,8 @@ public class OutMainGameUIController : UIController
 
         IsTweening = true;
 
-        InputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
+        InputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player"); 
+        InputManager.Instance.SetAim(true);
         MainGameUIManager.Instance.CurrentOpening_UIController = null;
 
         ThisCG.DOFade(0f, TabDurTime)

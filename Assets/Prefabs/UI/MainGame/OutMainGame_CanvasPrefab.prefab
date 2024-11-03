@@ -251,7 +251,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &4812014821365258640
 MonoBehaviour:
@@ -715,7 +715,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DurTime: 0.1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -853,7 +852,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DurTime: 0.1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -991,7 +989,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DurTime: 0.1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}

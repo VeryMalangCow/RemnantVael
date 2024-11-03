@@ -112,12 +112,10 @@ public class PlayerController : MovableObject
     #region - Effect
 
     [Space(10)]
-    [Header("=== After Img")]
-    [SerializeField] public List<MakeAfterImage> MakeAfterImgList;
-
-
-    [Space(10)]
     [Header("=== Effect")]
+    [SerializeField] public MakeExplosionImage PlayerMEI;
+    [SerializeField] public MakeAfterImage PlayerMAI;
+
     [Header("-- Hitted")]
     [SerializeField] public AnimationClip PhysicsHittedPointAC;
     [SerializeField] public AnimationClip PhysicsCriticalHittedPointAC;
@@ -145,6 +143,14 @@ public class PlayerController : MovableObject
     [SerializeField] private Sprite ChangeState_BoostDown;
     [SerializeField] private Sprite ChangeState_Skill0;
     [SerializeField] private Sprite ChangeState_Skill1;
+
+    #endregion
+
+    #region - Aim
+
+    [Space(10)]
+    [Header("=== Aim")]
+    [SerializeField] public GameObject AimPrefab;
 
     #endregion
 
@@ -259,7 +265,7 @@ public class PlayerController : MovableObject
         }
 
         InputManager.Instance.IsPlayingSkill = true;
-        SetOnAfterImg();
+        PlayerMAI.StartGen(0.7f, 0.03f, 0.5f);
 
 
         CurrentEP.Value -= DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value;
@@ -635,21 +641,6 @@ public class PlayerController : MovableObject
 
     #region Effect
 
-    public void SetOnAfterImg()
-    {
-        for (int i = 0; i < MakeAfterImgList.Count; i++)
-        {
-            MakeAfterImgList[i].StartGen(0.7f, 0.03f, 0.5f);
-        }
-    }
-
-    public void SetOffAfterImg()
-    {
-        for (int i = 0; i < MakeAfterImgList.Count; i++)
-        {
-            MakeAfterImgList[i].EndGen();
-        }
-    }
 
     private void SetBoostAnim(int _Index, int _MaxIndex)
     {

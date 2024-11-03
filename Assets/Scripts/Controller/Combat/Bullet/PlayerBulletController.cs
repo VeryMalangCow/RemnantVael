@@ -92,7 +92,7 @@ public class PlayerBulletController : BulletController
             { index = 3; }
         }
 
-        PlayerManager.Instance.PlayerController.BaseWeapon.MEIs[0].GenExplosionImgs(
+        PlayerManager.Instance.PlayerController.PlayerMEI.GenExplosionImgs(
                    _SpawndPos,
                    4, 0.3f, 0.4f,
                    0.6f, 0.05f, 0.1f,

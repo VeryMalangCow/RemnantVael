@@ -10,6 +10,7 @@ public class ShockwaveSkillController : ActiveSkillController
 
     [Space(10)]
     [Header("=== Value")]
+    [SerializeField] private HaveShadowThing ThisHST;
     [SerializeField] private Vector2 _ColSize = new Vector2(1f, 0.5f);
     [SerializeField] private float _StartSize = 3f; 
     [SerializeField] private float _MaxSize = 7.5f;
@@ -18,9 +19,6 @@ public class ShockwaveSkillController : ActiveSkillController
     [Space(10)]
     [Header("=== Reso")]
     [SerializeField] private AnimationClip ShockwaveAnimation;
-
-    [Header("=== Effect")]
-    [SerializeField] private MakeExplosionImage MEI;
 
     #endregion
 
@@ -46,7 +44,9 @@ public class ShockwaveSkillController : ActiveSkillController
         float usableMaxSize = _MaxSize + (_MaxSize * Tier.ActualState.Value * 0.1f);
 
         PlayerAttacker pa = PoolingManager.Instance.GetOP_PlayerAttacker();
-        pa.SetState_Bigger(MEI.transform.position, ThisState, ShockwaveAnimation,
+
+
+        pa.SetState_Bigger(ThisHST.TargetObject.transform.position, ThisState, ShockwaveAnimation,
             _ColSize, _StartSize, usableMaxSize, _BiggerTime)
             .OnComplete(() =>
             {
@@ -55,7 +55,7 @@ public class ShockwaveSkillController : ActiveSkillController
 
         // Effect Explosion -> Energy DMG
 
-        ExplosionEffect((Vector2)MEI.gameObject.transform.position, PlayerController.BaseWeapon.CC.ActualState.Value, usableMaxSize);
+        ExplosionEffect((Vector2)ThisHST.TargetObject.gameObject.transform.position, PlayerController.BaseWeapon.CC.ActualState.Value, usableMaxSize);
     }
 
     #endregion
@@ -64,13 +64,13 @@ public class ShockwaveSkillController : ActiveSkillController
 
     private void ExplosionEffect(Vector2 _SpawndPos, float _CriticalChance, float _UsableMaxSize)
     {
-        MEI.GenExplosionImgs(
+        PlayerController.PlayerMEI.GenExplosionImgs(
             _SpawndPos,
             (int)(24f * (1f - _CriticalChance)), _UsableMaxSize / 4, _UsableMaxSize / 2,
             1.4f, 0.2f, 0.3f,
             0.7f, 0.4f, 0.5f,
             2, new Vector2(1, 0.5f), PlayerController.ThisPlayerSmokeMaterial);
-        MEI.GenExplosionImgs(
+        PlayerController.PlayerMEI.GenExplosionImgs(
             _SpawndPos,
             (int)(24f * _CriticalChance), _UsableMaxSize / 4, _UsableMaxSize / 2,
             1.4f, 0.2f, 0.3f,

@@ -31,10 +31,6 @@ public class PlayerWeaponController : SatelliteController
     [Header("=== Player")]
     [SerializeField] private float fireMinDisLimit = 4;
 
-
-    [Header("-- TargetEffect")]
-    [SerializeField] public List<MakeExplosionImage> MEIs;
-
     #endregion
 
     #region Framework
@@ -102,7 +98,7 @@ public class PlayerWeaponController : SatelliteController
     {
         float spreadMaxLimit = 100 - AccuracyRate.ActualState.Value;
         float randomAngle = UnityEngine.Random.Range(-spreadMaxLimit, spreadMaxLimit);
-        randomAngle = 0f;
+        //randomAngle = 0f;
         for (int i = 0; i < BulletSpawnTFs.Count; i++)
         {
             PlayerBulletController PBC = GameManager.CastIfPossible<PlayerBulletController>(_Ts[i]);
@@ -135,7 +131,7 @@ public class PlayerWeaponController : SatelliteController
                 targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position +
                     InputManager.Instance.DirFromPlayerPos.normalized * fireMinDisLimit;
             }
-            Vector2 dir = (targetPos - (Vector2)MEIs[i].transform.parent.gameObject.transform.position).normalized;
+            Vector2 dir = (targetPos - (Vector2)BulletSpawnTFs[i].transform.position).normalized;
 
             // Base State 
             BulletState bulletState = new BulletState(
@@ -155,7 +151,10 @@ public class PlayerWeaponController : SatelliteController
             { PBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
 
             // Effect
-            ExplosionEffect_Fan((Vector2)MEIs[i].gameObject.transform.position + (dir * 0.3f), DamageType, isCritical, i, dir);
+            if (BulletSpawnTFs[i].TryGetComponent(out HaveShadowThing posHst))
+            {
+                ExplosionEffect_Fan((Vector2)posHst.TargetObject.transform.position + (dir * 0.3f), DamageType, isCritical, i, dir);
+            }
         }
         CurrentDelayROF = 0;
 
@@ -189,8 +188,8 @@ public class PlayerWeaponController : SatelliteController
             { index = 3; }
         }
 
-        MEIs[_Index].GenExplosionImgs_Fan(
-            (Vector2)MEIs[_Index].gameObject.transform.position + (_Dir * 0.3f),
+        PlayerController.PlayerMEI.GenExplosionImgs_Fan(
+            _SpawndPos,
             _Dir, 45f,
             3, 0.2f, 1f,
             0.8f, 0.05f, 0.1f,

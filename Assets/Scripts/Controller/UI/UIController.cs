@@ -43,6 +43,7 @@ public abstract class UIController : MonoBehaviour
         MainGameUIManager.Instance.CurrentOpening_UIController = this;
         InputManager.Instance.InputMoveDir = Vector2.zero;
         InputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
+        InputManager.Instance.SetAim(false);
 
         this.gameObject.SetActive(true);
 
@@ -117,6 +118,7 @@ public abstract class UIController : MonoBehaviour
                 
                 MainGameUIManager.Instance.CurrentOpening_UIController = null;
                 InputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
+                InputManager.Instance.SetAim(true);
             });
     }
 

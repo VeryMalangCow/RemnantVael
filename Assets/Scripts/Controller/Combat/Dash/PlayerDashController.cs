@@ -101,7 +101,7 @@ public class PlayerDashController : MonoBehaviour
         CaculateDir = Vector2.zero;
         CurrentDashProcessTime = 0;
         PlayerController.MovementState = eMovementState.IdleOrWalk;
-        PlayerController.SetOffAfterImg();
+        PlayerController.PlayerMAI.EndGen();
 
         InputManager.Instance.IsPlayingSkill = false;
     }

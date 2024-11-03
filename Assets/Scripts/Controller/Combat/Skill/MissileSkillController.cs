@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class MissileSkillController : ActiveSkillController
 {
@@ -11,12 +12,10 @@ public class MissileSkillController : ActiveSkillController
 
     [Space(10)]
     [Header("=== Value")]
+    [SerializeField] private HaveShadowThing ThisHST;
 
     [Header("-- State")]
     [SerializeField] private float ShotDelay = 0.1f;
-
-    [Header("=== Effect")]
-    [SerializeField] private MakeExplosionImage MEI;
 
 
     #endregion
@@ -74,19 +73,17 @@ public class MissileSkillController : ActiveSkillController
                 float angle = PlayerController.SkillWeapon.PitchTF.localRotation.eulerAngles.y;
                 Vector2 dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
-                float targetRange = 0.4f;
-                if (TryGetComponent(out HaveShadowThing HST))
-                {
-                    targetRange = HST.TargetRange;
+                float targetRange = ThisHST.TargetRange;
 
-                    // Sorting Layer
-                    missile.ThisSR.sortingOrder = HST.ThisSR.sortingOrder - 1;
-                }
+                // Sorting Layer
+                missile.ThisSR.sortingOrder = ThisHST.ThisSR.sortingOrder - 1;
+
                 missile.SetState_forMissile(this.gameObject.transform.position, bulletState, dir, targetRange);
 
 
                 // Effect Explosion -> Physics DMG
-                ExplosionEffect_Fan((Vector2)MEI.gameObject.transform.position + (dir * 0.1f), isCritical, dir);
+                ExplosionEffect_Fan((Vector2)ThisHST.TargetObject.gameObject.transform.position + (dir * 0.1f), isCritical, dir);
+                
                 
 
                 // Effect Shake
@@ -109,7 +106,7 @@ public class MissileSkillController : ActiveSkillController
         else
         { index = 1; }
 
-        MEI.GenExplosionImgs_Fan(
+        PlayerController.PlayerMEI.GenExplosionImgs_Fan(
             _SpawndPos,
             _Dir, 90f,
             4, 0.2f, 1.5f,
