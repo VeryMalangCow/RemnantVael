@@ -16,7 +16,7 @@ public class InputManager : Singleton<InputManager>
     [SerializeField] public Vector2 DirFromPlayerPos;
 
     [Header("=== Aim")]
-    [SerializeField] public HaveShadowThingStatic Aim;
+    [SerializeField] public AimController AimController;
     [SerializeField] private float AimFollowSpeed = 4f;
 
     [Header("=== Component")]
@@ -74,9 +74,9 @@ public class InputManager : Singleton<InputManager>
 
     private void LateUpdate()
     {
-        Aim.gameObject.transform.position = Vector2.Lerp(Aim.gameObject.transform.position,
+        AimController.gameObject.transform.position = Vector2.Lerp(AimController.gameObject.transform.position,
             MousePosByWorld, AimFollowSpeed * Time.deltaTime);
-        Aim.TargetObject.transform.localRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, DirFromPlayerPos));
+        AimController.TargetObject.transform.localRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, DirFromPlayerPos));
     }
 
     #endregion
@@ -88,7 +88,7 @@ public class InputManager : Singleton<InputManager>
         OnAim = _IsOn;
         OnMouse = !_IsOn;
 
-        Aim.gameObject.SetActive(_IsOn);
+        AimController.gameObject.SetActive(_IsOn);
         MousePointerRT.gameObject.SetActive(!_IsOn);
         //Cursor.visible = !_IsOn;
     }

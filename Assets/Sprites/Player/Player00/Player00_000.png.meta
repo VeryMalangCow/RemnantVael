@@ -3247,13 +3247,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player00_PAim
+      name: Player00_Aim_P
       rect:
         serializedVersion: 2
         x: 216
-        y: 167
+        y: 177
         width: 7
-        height: 17
+        height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3268,13 +3268,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player00_EAim
+      name: Player00_Aim_E
       rect:
         serializedVersion: 2
         x: 223
-        y: 167
+        y: 177
         width: 7
-        height: 17
+        height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3284,6 +3284,90 @@ TextureImporter:
       bones: []
       spriteID: 2cde8d3b88bc725479cc66e416687a0f
       internalID: -2142815112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_Aim_PBullet
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 171
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92bf67c8b8914954c8892292c6f43992
+      internalID: -2140929042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_Aim_EBullet
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 171
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccafe3faa97e74742a0f9d86237f0e1b
+      internalID: -33688178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_Aim_Missile
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 164
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a60276e7221ab0478e4e60c9d6a7c3f
+      internalID: -1767603216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_Aim_SW
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 164
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b939ce511ac14d443b7ffc18c5532206
+      internalID: -1818164339
       vertices: []
       indices: 
       edges: []
@@ -3301,6 +3385,12 @@ TextureImporter:
     - texture: {fileID: 2800000, guid: 41b11eb251f0a834cb7dd1143e663f29, type: 3}
       name: _Emission
     nameFileIdTable:
+      Player00_Aim_E: -2142815112
+      Player00_Aim_EBullet: -33688178
+      Player00_Aim_Missile: -1767603216
+      Player00_Aim_P: -1304739455
+      Player00_Aim_PBullet: -2140929042
+      Player00_Aim_SW: -1818164339
       Player00_BoostOff_00: -883771514
       Player00_BoostOff_01: -759338793
       Player00_BoostOff_02: -1258786878
@@ -3333,7 +3423,6 @@ TextureImporter:
       Player00_ChangeMode_07: 1541001205
       Player00_ChangeUpBoostInner: -2048292133
       Player00_ChangeWaveInner: -254010198
-      Player00_EAim: -2142815112
       Player00_EB_Bullet: -1214566993
       Player00_EC_Bullet: 1140579091
       Player00_ECriticalHitPoint_0: -1958220947
@@ -3394,7 +3483,6 @@ TextureImporter:
       Player00_Module05: 345372631
       Player00_Module06: 110196968
       Player00_Module07: -106443805
-      Player00_PAim: -1304739455
       Player00_PB_Bullet: 1440707567
       Player00_PC_Bullet: 1012499291
       Player00_PCriticalHitPoint_00: 2078064847

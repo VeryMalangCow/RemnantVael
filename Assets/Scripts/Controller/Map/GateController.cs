@@ -32,6 +32,7 @@ public class GateController : HaveShadowThingStatic, IInteract
     [Header("=== Other")]
     [SerializeField] private GameObject OnThingsGO;
     [SerializeField] private GameObject OffThingsGO;
+    [SerializeField] private GameObject EntranceGO;
     [SerializeField] public List<BuildingController_AllLayer> NeedSetAllLayer;
 
 
@@ -80,6 +81,7 @@ public class GateController : HaveShadowThingStatic, IInteract
         if (OnThingsGO.gameObject.activeSelf && IsOpen)
         {
             SetAnim(ThisAC, 1f);
+            EntranceGO.SetActive(true);
         }
     }
 

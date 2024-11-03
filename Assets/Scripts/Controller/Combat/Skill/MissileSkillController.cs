@@ -32,6 +32,8 @@ public class MissileSkillController : ActiveSkillController
     private IEnumerator ActualActive()
     {
         // È¿°ú
+        InputManager.Instance.AimController.SetOnSkill(0, true);
+
 
         Transform tf = null;
         for (int i = 0; i < PlayerController.SkillWeapon.Hands.Count; i++)
@@ -92,6 +94,8 @@ public class MissileSkillController : ActiveSkillController
 
             yield return new WaitForSeconds(ShotDelay);
         }
+
+        InputManager.Instance.AimController.SetOnSkill(0, false);
     }
 
     #endregion

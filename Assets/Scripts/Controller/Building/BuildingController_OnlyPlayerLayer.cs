@@ -12,7 +12,6 @@ public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
     [Space(10)]
     [Header("=== Layer")]
     [SerializeField] private SpriteRenderer TargetSR;
-    [SerializeField] private SpriteRenderer ShadowSR;
     [SerializeField] private int LowestLayerOrder = -2000;
     [SerializeField] private int HighestLayerOrder = 2000;
 
@@ -41,8 +40,9 @@ public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
 
     #region Framework
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         IsUpper.Value = false;
         IsUpper.Subscribe(isUp =>
         {

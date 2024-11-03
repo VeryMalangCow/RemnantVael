@@ -71,6 +71,7 @@ public class PlayerWeaponController : SatelliteController
         if (CurrentDelayROF > 1)
         {
             CurrentDelayROF = 1;
+            InputManager.Instance.AimController.SetBaseAttack(false);
         }
     }
 
@@ -158,6 +159,7 @@ public class PlayerWeaponController : SatelliteController
                     DamageType, isCritical, i, dir);
             }
         }
+        InputManager.Instance.AimController.SetBaseAttack(true);
         CurrentDelayROF = 0;
 
         // Tween

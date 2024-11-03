@@ -30,9 +30,9 @@ public class PlayerManager : Singleton<PlayerManager>
         BaseUpgradeManager.Instance.Offset(PlayerController);
 
         GameObject spawnedAimGO = Instantiate(PlayerController.AimPrefab, PlayerSpawnParentTF);
-        if (spawnedAimGO != null && spawnedAimGO.TryGetComponent(out HaveShadowThingStatic aim)) 
+        if (spawnedAimGO != null && spawnedAimGO.TryGetComponent(out AimController aim)) 
         {
-            InputManager.Instance.Aim = aim;
+            InputManager.Instance.AimController = aim;
         }
     }
 

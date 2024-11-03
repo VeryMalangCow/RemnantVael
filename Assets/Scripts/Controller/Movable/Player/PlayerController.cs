@@ -144,6 +144,11 @@ public class PlayerController : MovableObject
     [SerializeField] private Sprite ChangeState_Skill0;
     [SerializeField] private Sprite ChangeState_Skill1;
 
+    [Space(10)]
+    [Header("-- Room Move Img")]
+    [SerializeField] private SetStateAnim MoveDirStateAnim;
+    [SerializeField] private AnimationClip MoveDirAC;
+
     #endregion
 
     #region - Aim
@@ -168,6 +173,8 @@ public class PlayerController : MovableObject
 
         StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
         SetBoostAnim(CurrentBoostLv.Value, MaxBoostLv);
+        MoveDirStateAnim.SetAnim(MoveDirAC);
+        SetOffRoomMoveDir();
     }
 
     protected override void Update()
@@ -175,6 +182,7 @@ public class PlayerController : MovableObject
         base.Update();
         AlwaysCaculate();
         BoostItemManager.Instance.ActiveSkill_Always();
+        SetOnOffMoveDir();
     }
 
 
@@ -524,12 +532,12 @@ public class PlayerController : MovableObject
         {
             case eCombatMode.Physics:
                 StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
-                InputManager.Instance.Aim.ThisSR.sprite = PAim;
+                InputManager.Instance.AimController.SetPType();
                 break;
 
             case eCombatMode.Energy:
                 StateAnim.SetAnim(EnergyStateAC, 0.8f, 1f);
-                InputManager.Instance.Aim.ThisSR.sprite = EAim;
+                InputManager.Instance.AimController.SetEType();
                 break;
 
             default:
@@ -583,6 +591,7 @@ public class PlayerController : MovableObject
             {
                 CurrentInteractable = null;
             }
+
             // Only One
             else if (CurrentInteractableGOList.Count == 1)
             {
@@ -591,6 +600,7 @@ public class PlayerController : MovableObject
                     CurrentInteractable = II;
                 }
             }
+
             // A Lot
             else if (CurrentInteractableGOList.Count > 1)
             {
@@ -711,6 +721,33 @@ public class PlayerController : MovableObject
         }
 
 
+    }
+
+
+    private void SetOnRoomMoveDir(Vector2 _Dir)
+    {
+        if (!MoveDirStateAnim.gameObject.activeSelf)
+        { 
+            MoveDirStateAnim.transform.localRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
+            MoveDirStateAnim.gameObject.SetActive(true);
+        }
+    }
+
+    private void SetOffRoomMoveDir()
+    {
+        if (MoveDirStateAnim.gameObject.activeSelf)
+        {
+            MoveDirStateAnim.gameObject.SetActive(false);
+        }
+    }
+
+
+    private void SetOnOffMoveDir()
+    {
+        if (CurrentInteractable != null && CurrentInteractable is GateController GC)
+        { SetOnRoomMoveDir(GC.GateDir); }
+        else
+        { SetOffRoomMoveDir(); }
     }
 
     #endregion

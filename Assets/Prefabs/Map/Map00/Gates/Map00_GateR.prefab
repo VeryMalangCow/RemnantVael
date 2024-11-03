@@ -1346,7 +1346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &875346025193855334
 Transform:
   m_ObjectHideFlags: 0
@@ -1469,6 +1469,7 @@ MonoBehaviour:
   ThisAC: {fileID: 7400000, guid: 68c4705b95683d6438092d027ff0fd4f, type: 2}
   OnThingsGO: {fileID: 2549561047461188151}
   OffThingsGO: {fileID: 1557811161441417995}
+  EntranceGO: {fileID: 8365579818040759490}
   NeedSetAllLayer:
   - {fileID: 20901119375000835}
   - {fileID: 4594269168400911400}
