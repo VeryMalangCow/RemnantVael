@@ -294,7 +294,7 @@ public class RoomController : MonoBehaviour
         {
             InRoom_BuildThing.gameObject.SetActive(true);
             InRoom_BuildThing.MEI.GenExplosionImgs(
-                    InRoom_BuildThing.MEI.gameObject.transform.position,
+                    InRoom_BuildThing.MEI.gameObject.transform.position, InRoom_BuildThing.ThisSR.sortingOrder + 1,
                     16, 0.15f, 0.75f,
                     2.0f, 0.05f, 0.1f,
                     1.0f, 0.5f, 1.0f,
@@ -316,7 +316,7 @@ public class RoomController : MonoBehaviour
                 enemy.transform.position = InRoom_AllEnemy[i].EnemySpawnTF.transform.position;
                 enemy.gameObject.SetActive(true);
                 enemy.MEI.GenExplosionImgs(
-                    enemy.MEI.gameObject.transform.position,
+                    enemy.MEI.gameObject.transform.position, enemy.ThisSR.sortingOrder + 1,
                     16, 0.15f, 0.75f,
                     1.6f, 0.05f, 0.1f,
                     0.8f, 0.5f, 1.0f,

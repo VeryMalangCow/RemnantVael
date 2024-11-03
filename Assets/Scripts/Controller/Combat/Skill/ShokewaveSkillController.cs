@@ -55,24 +55,28 @@ public class ShockwaveSkillController : ActiveSkillController
 
         // Effect Explosion -> Energy DMG
 
-        ExplosionEffect((Vector2)ThisHST.TargetObject.gameObject.transform.position, PlayerController.BaseWeapon.CC.ActualState.Value, usableMaxSize);
+        ExplosionEffect((Vector2)ThisHST.TargetObject.gameObject.transform.position,
+            ThisHST.ThisSR.sortingOrder + 1,
+            PlayerController.BaseWeapon.CC.ActualState.Value, usableMaxSize);
     }
 
     #endregion
 
     #region Effect
 
-    private void ExplosionEffect(Vector2 _SpawndPos, float _CriticalChance, float _UsableMaxSize)
+    private void ExplosionEffect(Vector2 _SpawndPos, int _SortLayer, float _CriticalChance, float _UsableMaxSize)
     {
         PlayerController.PlayerMEI.GenExplosionImgs(
             _SpawndPos,
-            (int)(24f * (1f - _CriticalChance)), _UsableMaxSize / 4, _UsableMaxSize / 2,
+            (int)(24f * (1f - _CriticalChance)), _SortLayer, 
+            _UsableMaxSize / 4, _UsableMaxSize / 2,
             1.4f, 0.2f, 0.3f,
             0.7f, 0.4f, 0.5f,
             2, new Vector2(1, 0.5f), PlayerController.ThisPlayerSmokeMaterial);
         PlayerController.PlayerMEI.GenExplosionImgs(
             _SpawndPos,
-            (int)(24f * _CriticalChance), _UsableMaxSize / 4, _UsableMaxSize / 2,
+            (int)(24f * _CriticalChance), _SortLayer,
+            _UsableMaxSize / 4, _UsableMaxSize / 2,
             1.4f, 0.2f, 0.3f,
             0.7f, 0.4f, 0.5f,
             3, new Vector2(1, 0.5f), PlayerController.ThisPlayerSmokeMaterial);

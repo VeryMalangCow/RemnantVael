@@ -153,7 +153,9 @@ public class PlayerWeaponController : SatelliteController
             // Effect
             if (BulletSpawnTFs[i].TryGetComponent(out HaveShadowThing posHst))
             {
-                ExplosionEffect_Fan((Vector2)posHst.TargetObject.transform.position + (dir * 0.3f), DamageType, isCritical, i, dir);
+                ExplosionEffect_Fan((Vector2)posHst.TargetObject.transform.position + (dir * 0.3f),
+                    posHst.ThisSR.sortingOrder + 1,
+                    DamageType, isCritical, i, dir);
             }
         }
         CurrentDelayROF = 0;
@@ -169,7 +171,7 @@ public class PlayerWeaponController : SatelliteController
 
     #region Effect
 
-    private void ExplosionEffect_Fan(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical,
+    private void ExplosionEffect_Fan(Vector2 _SpawndPos, int _SortLayer, eDamageType _DamageType, bool _IsCritical,
         int _Index, Vector2 _Dir)
     {
         int index = 0;
@@ -189,7 +191,7 @@ public class PlayerWeaponController : SatelliteController
         }
 
         PlayerController.PlayerMEI.GenExplosionImgs_Fan(
-            _SpawndPos,
+            _SpawndPos, _SortLayer,
             _Dir, 45f,
             3, 0.2f, 1f,
             0.8f, 0.05f, 0.1f,

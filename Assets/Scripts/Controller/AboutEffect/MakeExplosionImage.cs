@@ -28,13 +28,13 @@ public class MakeExplosionImage : MonoBehaviour
 
     // 전체적인 360도 방향으로 분산
     // 원형만 가능
-    public void GenExplosionImgs(Vector2 _SpawnedPos,
+    public void GenExplosionImgs(Vector2 _SpawnedPos, int _SortLayer,
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
         int _ModuleIndex, Material _Material)
     {
-        GenExplosionImgs(_SpawnedPos,
+        GenExplosionImgs(_SpawnedPos, _SortLayer,
        _SpawnImgAmount, _ExplosionDis, _DisappearDis,
        _BiggerScale, _BiggerMinTime, _BiggerMaxTime,
        _SmallerScale, _SmallerMinTime, _SmallerMaxTime,
@@ -42,7 +42,7 @@ public class MakeExplosionImage : MonoBehaviour
     }
 
     // 타원형 가능
-    public void GenExplosionImgs(Vector2 _SpawnedPos, 
+    public void GenExplosionImgs(Vector2 _SpawnedPos, int _SortLayer,
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
@@ -56,11 +56,6 @@ public class MakeExplosionImage : MonoBehaviour
         SpawnedPos = _SpawnedPos;
         TotalSeq = DOTween.Sequence();
 
-        int sortOrder = 0;
-        if (this.TryGetComponent(out SpriteRenderer sr))
-        {
-            sortOrder = sr.sortingOrder + 1;
-        }
 
         for (int i = 0; i < _SpawnImgAmount; i++)
         {
@@ -77,7 +72,7 @@ public class MakeExplosionImage : MonoBehaviour
             float biggerTime = Random.Range(_BiggerMinTime, _BiggerMaxTime);
             float smallerTime = Random.Range(_SmallerMinTime, _SmallerMaxTime);
 
-            TotalSeq.Join(GenExplosionImg(dirByAngle, sortOrder,
+            TotalSeq.Join(GenExplosionImg(dirByAngle, _SortLayer,
                 _ExplosionDis, _DisappearDis,
                 _BiggerScale, biggerTime,
                 _SmallerScale, smallerTime,
@@ -88,7 +83,7 @@ public class MakeExplosionImage : MonoBehaviour
 
 
     // 방향적 부채꼴 방향으로 분산
-    public void GenExplosionImgs_Fan(Vector2 _SpawnedPos, Vector2 _Dir, float _AngleArea,
+    public void GenExplosionImgs_Fan(Vector2 _SpawnedPos, int _SortLayer, Vector2 _Dir, float _AngleArea,
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
@@ -101,12 +96,6 @@ public class MakeExplosionImage : MonoBehaviour
 
         SpawnedPos = _SpawnedPos;
         TotalSeq = DOTween.Sequence();
-
-        int sortOrder = 0;
-        if (this.TryGetComponent(out SpriteRenderer sr))
-        {
-            sortOrder = sr.sortingOrder + 1;
-        }
 
         //_Dir *= 10f;
         
@@ -122,7 +111,7 @@ public class MakeExplosionImage : MonoBehaviour
             float biggerTime = Random.Range(_BiggerMinTime, _BiggerMaxTime);
             float smallerTime = Random.Range(_SmallerMinTime, _SmallerMaxTime);
 
-            TotalSeq.Join(GenExplosionImg(dirByAngle, sortOrder,
+            TotalSeq.Join(GenExplosionImg(dirByAngle, _SortLayer,
                 _ExplosionDis, _DisappearDis,
                 _BiggerScale, biggerTime,
                 _SmallerScale, smallerTime,

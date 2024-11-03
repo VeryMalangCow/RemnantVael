@@ -1315,6 +1315,8 @@ MonoBehaviour:
   ChangeState_Skill0: {fileID: 431685944, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   ChangeState_Skill1: {fileID: -254010198, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   AimPrefab: {fileID: 6141677161167260688, guid: c40efc2302d823f4385722f2c7ce4237, type: 3}
+  PAim: {fileID: -1304739455, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  EAim: {fileID: -2142815112, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   ExecutionInterval: 0.75
   Skill0Interval: 0.5
   Skill1Interval: 0.5

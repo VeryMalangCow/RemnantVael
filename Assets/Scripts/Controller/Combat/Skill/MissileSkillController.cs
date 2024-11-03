@@ -82,7 +82,7 @@ public class MissileSkillController : ActiveSkillController
 
 
                 // Effect Explosion -> Physics DMG
-                ExplosionEffect_Fan((Vector2)ThisHST.TargetObject.gameObject.transform.position + (dir * 0.1f), isCritical, dir);
+                ExplosionEffect_Fan((Vector2)ThisHST.TargetObject.gameObject.transform.position + (dir * 0.1f), ThisHST.ThisSR.sortingOrder + 1, isCritical, dir);
                 
                 
 
@@ -98,7 +98,7 @@ public class MissileSkillController : ActiveSkillController
 
     #region Effect
 
-    private void ExplosionEffect_Fan(Vector2 _SpawndPos, bool _IsCritical, Vector2 _Dir)
+    private void ExplosionEffect_Fan(Vector2 _SpawndPos, int _SortLayer, bool _IsCritical, Vector2 _Dir)
     {
         int index = 0;
         if (!_IsCritical)
@@ -107,7 +107,7 @@ public class MissileSkillController : ActiveSkillController
         { index = 1; }
 
         PlayerController.PlayerMEI.GenExplosionImgs_Fan(
-            _SpawndPos,
+            _SpawndPos, _SortLayer,
             _Dir, 90f,
             4, 0.2f, 1.5f,
             1.0f, 0.05f, 0.1f,

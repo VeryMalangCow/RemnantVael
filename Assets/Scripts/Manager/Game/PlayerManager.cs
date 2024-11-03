@@ -29,7 +29,7 @@ public class PlayerManager : Singleton<PlayerManager>
         CameraController.TargetTF = PlayerController.gameObject.transform;
         BaseUpgradeManager.Instance.Offset(PlayerController);
 
-        GameObject spawnedAimGO = Instantiate(PlayerController.AimPrefab);
+        GameObject spawnedAimGO = Instantiate(PlayerController.AimPrefab, PlayerSpawnParentTF);
         if (spawnedAimGO != null && spawnedAimGO.TryGetComponent(out HaveShadowThingStatic aim)) 
         {
             InputManager.Instance.Aim = aim;

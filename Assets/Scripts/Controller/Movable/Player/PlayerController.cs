@@ -151,6 +151,8 @@ public class PlayerController : MovableObject
     [Space(10)]
     [Header("=== Aim")]
     [SerializeField] public GameObject AimPrefab;
+    [SerializeField] private Sprite PAim;
+    [SerializeField] private Sprite EAim;
 
     #endregion
 
@@ -522,10 +524,12 @@ public class PlayerController : MovableObject
         {
             case eCombatMode.Physics:
                 StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
+                InputManager.Instance.Aim.ThisSR.sprite = PAim;
                 break;
 
             case eCombatMode.Energy:
                 StateAnim.SetAnim(EnergyStateAC, 0.8f, 1f);
+                InputManager.Instance.Aim.ThisSR.sprite = EAim;
                 break;
 
             default:

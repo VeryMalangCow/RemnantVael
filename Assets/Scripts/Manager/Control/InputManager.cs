@@ -76,6 +76,7 @@ public class InputManager : Singleton<InputManager>
     {
         Aim.gameObject.transform.position = Vector2.Lerp(Aim.gameObject.transform.position,
             MousePosByWorld, AimFollowSpeed * Time.deltaTime);
+        Aim.TargetObject.transform.localRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, DirFromPlayerPos));
     }
 
     #endregion

@@ -3246,6 +3246,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Player00_PAim
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 167
+        width: 7
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f7307dbab1624a429d8333e83198e82
+      internalID: -1304739455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player00_EAim
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 167
+        width: 7
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cde8d3b88bc725479cc66e416687a0f
+      internalID: -2142815112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -3291,6 +3333,7 @@ TextureImporter:
       Player00_ChangeMode_07: 1541001205
       Player00_ChangeUpBoostInner: -2048292133
       Player00_ChangeWaveInner: -254010198
+      Player00_EAim: -2142815112
       Player00_EB_Bullet: -1214566993
       Player00_EC_Bullet: 1140579091
       Player00_ECriticalHitPoint_0: -1958220947
@@ -3351,6 +3394,7 @@ TextureImporter:
       Player00_Module05: 345372631
       Player00_Module06: 110196968
       Player00_Module07: -106443805
+      Player00_PAim: -1304739455
       Player00_PB_Bullet: 1440707567
       Player00_PC_Bullet: 1012499291
       Player00_PCriticalHitPoint_00: 2078064847

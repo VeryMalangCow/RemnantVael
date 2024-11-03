@@ -202,13 +202,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module00_Aim
+      name: Module00_AimLine
       rect:
         serializedVersion: 2
         x: 73
-        y: 239
-        width: 16
-        height: 16
+        y: 242
+        width: 3
+        height: 13
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -254,7 +254,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Module00_Aim: 278710512
+      Module00_AimLine: 278710512
       Module00_BetteryShrapnel: 1727202868
       Module00_Smoke_00: -1746943924
       Module00_Smoke_01: 1391882910
