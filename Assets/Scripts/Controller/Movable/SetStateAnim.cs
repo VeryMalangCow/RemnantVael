@@ -6,26 +6,12 @@ public class SetStateAnim : MonoBehaviour
     #region Value
 
     [Space(10)]
-    [Header("=== Layer")]
-    [SerializeField] private SpriteRenderer TargetSR;
-    [SerializeField] private int AddSort;
-
-    [Space(10)]
     [Header("=== Component")]
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] private SpriteRenderer ThisSR;
     [SerializeField] private SpriteRenderer ThisInnerSR;
 
     [HideInInspector] private AnimatorOverrideController aoc;
-
-    #endregion
-
-    #region Framework
-
-    /*private void Update()
-    {
-        SetLayerSort(TargetSR.sortingOrder + AddSort);
-    }*/
 
     #endregion
 
@@ -56,16 +42,4 @@ public class SetStateAnim : MonoBehaviour
 
     #endregion
 
-    #region Layer
-
-    private void SetLayerSort(int _TargetSort)
-    {
-        if (ThisSR.sortingOrder != _TargetSort)
-        {
-            ThisSR.sortingOrder = _TargetSort;
-            ThisInnerSR.sortingOrder = _TargetSort;
-        }
-    }
-
-    #endregion
 }

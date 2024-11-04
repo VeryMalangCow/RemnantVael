@@ -17,7 +17,6 @@ public class InputManager : Singleton<InputManager>
 
     [Header("=== Aim")]
     [SerializeField] public AimController AimController;
-    [SerializeField] private float AimFollowSpeed = 4f;
 
     [Header("=== Component")]
     [SerializeField] public PlayerInput PlayerInput;
@@ -72,12 +71,6 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
-    private void LateUpdate()
-    {
-        AimController.gameObject.transform.position = Vector2.Lerp(AimController.gameObject.transform.position,
-            MousePosByWorld, AimFollowSpeed * Time.deltaTime);
-        AimController.TargetObject.transform.localRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, DirFromPlayerPos));
-    }
 
     #endregion
 

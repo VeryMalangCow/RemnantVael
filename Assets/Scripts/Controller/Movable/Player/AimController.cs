@@ -7,6 +7,7 @@ public class AimController : HaveShadowThingStatic
 
     [Space(20)]
     [Header("<><><><><> Aim")]
+    [SerializeField] private float AimFollowSpeed = 22f;
 
     [Space(10)]
     [Header("=== Aim")]
@@ -34,6 +35,19 @@ public class AimController : HaveShadowThingStatic
         {
             SkillAimList[i].gameObject.SetActive(false);
         }
+    }
+
+    private void LateUpdate()
+    {
+        gameObject.transform.position = 
+            Vector2.Lerp(gameObject.transform.position,
+            InputManager.Instance.MousePosByWorld, 
+            AimFollowSpeed * Time.deltaTime);
+
+        TargetObject.transform.localRotation =
+            Quaternion.Slerp(TargetObject.transform.localRotation,
+            Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, InputManager.Instance.DirFromPlayerPos)),
+            AimFollowSpeed * Time.deltaTime);
     }
 
     #endregion
