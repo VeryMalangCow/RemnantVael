@@ -11,7 +11,7 @@ TagManager:
   - PushPlayer
   - PlayerThing
   - Wall
-  - InteractBuilding
+  - DestructibleObject
   layers:
   - Default
   - TransparentFX

@@ -35,6 +35,13 @@ public class PlayerAttacker : Attacker
                 HittedObjectList.Add(EC);
             }
         }
+        else if (_Col.tag == "DestructibleObject")
+        {
+            if (_Col.transform.parent.TryGetComponent(out DestructibleBuildingController DBC))
+            {
+                DBC.TakeDamage();
+            }
+        }
     }
 
     #endregion

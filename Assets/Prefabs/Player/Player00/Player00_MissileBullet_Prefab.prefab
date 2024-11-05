@@ -65,7 +65,7 @@ MonoBehaviour:
   DestroyTagList:
   - Enemy
   - Wall
-  - InteractBuilding
+  - DestructibleObject
   BasePhysics_Sprite: {fileID: -1722145500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   CriticalPhysics_Sprite: {fileID: -2035106808, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   BaseEnergy_Sprite: {fileID: 0}

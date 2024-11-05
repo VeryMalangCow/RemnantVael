@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ModuleUpgradeController : BuildingController_OnlyPlayerLayer, IInteract
+public class ModuleUpgradeController : DestructibleBuildingController, IInteract
 {
 
     #region Framework
@@ -17,6 +17,9 @@ public class ModuleUpgradeController : BuildingController_OnlyPlayerLayer, IInte
 
     public void Interact()
     {
+        if (IsBroken)
+        { return; }
+
         if (IsOn)
         {
             MainGameUIManager.Instance.ModuleUpgrade_UIController.OpenThisPanel(MainGameUIManager.Instance.ModuleUpgrade_UIController.TabDurTime);
@@ -28,6 +31,38 @@ public class ModuleUpgradeController : BuildingController_OnlyPlayerLayer, IInte
         }
 
         ApplySetStateAnim();
+    }
+
+    #endregion
+
+    #region Break
+
+    protected override void Break()
+    {
+        base.Break();
+
+        RandomSpawnMS();
+    }
+
+    private void RandomSpawnMS()
+    {
+        int spawnItem = 0;
+        if (!IsOn)
+        {
+            spawnItem = Random.Range(0, 2);
+        }
+        else
+        {
+            spawnItem = Random.Range(1, 4);
+        }
+
+        if (spawnItem <= 0)
+        { return; }
+
+        for (int i = 0; i < spawnItem; i++)
+        {
+            SpawnMS(1);
+        }
     }
 
     #endregion

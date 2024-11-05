@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseUpgradeController : BuildingController_OnlyPlayerLayer, IInteract
+public class BaseUpgradeController : DestructibleBuildingController, IInteract
 {
+
     #region Framework
 
     protected override void Start()
@@ -17,6 +17,9 @@ public class BaseUpgradeController : BuildingController_OnlyPlayerLayer, IIntera
 
     public void Interact()
     {
+        if (IsBroken)
+        { return; }
+
         if (IsOn)
         {
             MainGameUIManager.Instance.BaseUpgrade_UIController.OpenThisPanel(MainGameUIManager.Instance.BaseUpgrade_UIController.TabDurTime);
@@ -32,4 +35,35 @@ public class BaseUpgradeController : BuildingController_OnlyPlayerLayer, IIntera
 
     #endregion
 
+    #region Break
+
+    protected override void Break()
+    {
+        base.Break();
+
+        RandomSpawnBS();
+    }
+
+    private void RandomSpawnBS()
+    {
+        int spawnItem = 0;
+        if (!IsOn)
+        {
+            spawnItem = Random.Range(0, 2);
+        }
+        else
+        {
+            spawnItem = Random.Range(1, 4);
+        }
+
+        if (spawnItem <= 0)
+        { return; }
+
+        for (int i = 0; i < spawnItem; i++)
+        {
+            SpawnBS(1);
+        }
+    }
+
+    #endregion
 }

@@ -475,7 +475,7 @@ public class StageManager : Singleton<StageManager>
                     roomRulePrefabList.Add(RoomRulePrefabList[i]);
                 }
             }
-            Debug.Log(roomRulePrefabList.Count);
+
             return roomRulePrefabList[Random.Range(0, roomRulePrefabList.Count)];
         }
 

@@ -28,14 +28,14 @@ public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private Animator ThisAnimator;
+    [SerializeField] protected Animator ThisAnimator;
     [SerializeField] private AnimationClip OffAC;
     [SerializeField] private AnimationClip OnAC;
-    [SerializeField] private SetStateAnim ThisStateAnim;
+    [SerializeField] protected SetStateAnim ThisStateAnim;
     [SerializeField] private AnimationClip OffStateAC;
     [SerializeField] private AnimationClip OnStateAC;
 
-    [HideInInspector] private AnimatorOverrideController aoc;
+    [HideInInspector] protected AnimatorOverrideController aoc;
     #endregion
 
     #region Framework
@@ -107,7 +107,7 @@ public class BuildingController_OnlyPlayerLayer : HaveShadowThingStatic
 
     #region Set Anim
 
-    protected void ApplySetStateAnim()
+    protected virtual void ApplySetStateAnim()
     {
         if (IsOn)
         {

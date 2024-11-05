@@ -63,6 +63,13 @@ public class PlayerBulletController : BulletController
                 EC.TakeDamage(BulletState, GetDirByAngle(transform.eulerAngles.z));
             }
         }
+        else if (_Col.tag == "DestructibleObject")
+        {
+            if (_Col.transform.parent.TryGetComponent(out DestructibleBuildingController DBC))
+            {
+                DBC.TakeDamage();
+            }
+        }
 
         if (DestroyTagList.Contains(_Col.tag))
         {

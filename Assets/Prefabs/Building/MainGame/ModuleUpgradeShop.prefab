@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8050862362656060234}
   m_Layer: 6
   m_Name: MovableObjectColJuge
-  m_TagString: Wall
+  m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 1581080526397461458}
   m_Layer: 6
   m_Name: Shadow
-  m_TagString: InteractBuilding
+  m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 4104660094863163793}
   m_Layer: 6
   m_Name: ModuleUpgradeShop
-  m_TagString: InteractBuilding
+  m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -386,6 +386,10 @@ MonoBehaviour:
   ThisStateAnim: {fileID: 5691381869496994998}
   OffStateAC: {fileID: 7400000, guid: ae13dcb3fc70f88488a0d6741e925e3e, type: 2}
   OnStateAC: {fileID: 7400000, guid: 48082fc27c9dba443808bb444c51ba4f, type: 2}
+  ThisDurablity: 5
+  IsBroken: 0
+  BrokenAC: {fileID: 7400000, guid: ccf2baaa3d5c62e4a9f25a36d4c60fb1, type: 2}
+  BrokenStateAC: {fileID: 7400000, guid: 64fffc49c04e0724ea315643a037a838, type: 2}
 --- !u!1 &7945861353772175884
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,7 +404,7 @@ GameObject:
   - component: {fileID: 8138481414561888053}
   m_Layer: 6
   m_Name: Target
-  m_TagString: InteractBuilding
+  m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
