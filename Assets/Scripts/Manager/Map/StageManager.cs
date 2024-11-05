@@ -110,15 +110,27 @@ public class StageManager : Singleton<StageManager>
         if (room.TryGetComponent(out RoomController rc))
         {
             rc.CurrentTempID = _TempID;
-            rc.Offset();
+
+            
+
             CurrentAllRoomController.Add(rc);
 
             if (!_IsStartRoom)
             {
+                GameObject rrcGO = Instantiate(AllReso[TargetStageID].GetCorrectRandomRoomRule(rc.RoomVec), rc.gameObject.transform);
+                if (rrcGO.TryGetComponent(out RoomRuleController rrc))
+                { rc.RoomRuleController = rrc; }
+
+                rc.Offset();
                 TryAddCaculateVec(rc);
             }
             else
             {
+                GameObject rrcGO = Instantiate(AllReso[TargetStageID].StartRoomRulePrefab, rc.gameObject.transform);
+                if (rrcGO.TryGetComponent(out RoomRuleController rrc))
+                { rc.RoomRuleController = rrc; }
+
+                rc.Offset();
                 AddCaculateVec(new List<Vector2Int>() { Vector2Int.zero });
             }
         }
@@ -340,7 +352,7 @@ public class StageManager : Singleton<StageManager>
         { PlayerManager.Instance.PlayerController }; // 전 방 리셋
 
         // Layer 추가
-        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.InRoom_AllBuilding);
+        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.RoomRuleController.InRoom_AllBuilding);
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.GetNeedAllLayer());
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
 
@@ -360,7 +372,7 @@ public class StageManager : Singleton<StageManager>
 
         if (EnemyManager.Instance.CurrentEnemyList.Count <= 0)
         {
-            CurrentRoomController.RoomType = eRoomType.Completed;
+            CurrentRoomController.RoomRuleController.RoomType = eRoomType.Completed;
             CurrentRoomController.PlayRoomState();
         }
     }
@@ -428,11 +440,21 @@ public class StageManager : Singleton<StageManager>
     [System.Serializable]
     public class StageData
     {
+        [Space(20)]
         public int StageID;
+
+        [Space(20)]
         public GameObject StartRoomPrefab;
+        public GameObject StartRoomRulePrefab;
+
+        [Space(20)]
         public List<RoomData> RoomPrefabList;
+        public List<GameObject> RoomRulePrefabList;
+
+        [Space(20)]
         public List<RoomData> BossRoomPrefabList;
 
+        [Space(20)]
         public Material StageSmokeMaterial;
 
         [System.Serializable]
@@ -442,6 +464,22 @@ public class StageManager : Singleton<StageManager>
             public GameObject RoomPrefab;
         }
 
+
+        public GameObject GetCorrectRandomRoomRule(List<Vector2Int> _RoomVec)
+        {
+            List<GameObject> roomRulePrefabList = new List<GameObject>();
+            for (int i = 0; i < RoomRulePrefabList.Count; i++)
+            {
+                if (RoomRulePrefabList[i].TryGetComponent(out RoomRuleController rrc) && rrc.RoomVec.SequenceEqual(_RoomVec))
+                {
+                    roomRulePrefabList.Add(RoomRulePrefabList[i]);
+                }
+            }
+            Debug.Log(roomRulePrefabList.Count);
+            return roomRulePrefabList[Random.Range(0, roomRulePrefabList.Count)];
+        }
+
+        
     }
 
     public Material GetCurrentStageMaterial()

@@ -264,6 +264,7 @@ public class EnemyController : MovableObject, IInteract
         { return; }
 
         InteractItemController IIC = PoolingManager.Instance.GetOP_InteractableItem();
+        IIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
         IIC.SetState(this.transform.position, 1, 1);
         LayerOrderManager.Instance.NeedLayerObjects.Add(IIC);
     }
@@ -405,7 +406,7 @@ public class EnemyController : MovableObject, IInteract
             for (int i = 0; i < allWayRoot.Count; i++)
             {
                 Transform tf = allWayRoot[i][allWayRoot[i].Count - 1];
-                List<Transform> tfList = GetConnectedWayPoints(tf, CurrentRoomController.InRoom_AllWayPoint);
+                List<Transform> tfList = GetConnectedWayPoints(tf, CurrentRoomController.RoomRuleController.InRoom_AllWayPoint);
                 for (int j = 0; j < tfList.Count; j++)
                 {
                     // 파별 부문

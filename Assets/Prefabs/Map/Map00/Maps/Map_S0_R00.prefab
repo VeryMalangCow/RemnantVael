@@ -5026,7 +5026,7 @@ GameObject:
   - component: {fileID: 2234060382953184247}
   - component: {fileID: -5182979113265001400}
   m_Layer: 0
-  m_Name: Map_S0_StartR00
+  m_Name: Map_S0_R00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5063,9 +5063,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de869ab7a7cb8e449ad521578a440ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RoomRuleController: {fileID: 0}
   RoomVec:
   - {x: 0, y: 0}
-  RoomType: 0
   SettedPos: 0
   InRoom_UpperWallParentTF: {fileID: 4264252543485899415}
   InRoom_LowerWallParentTF: {fileID: 5702254176889454791}
@@ -5080,16 +5080,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  InRoom_AllBuildingParentTF: {fileID: 0}
-  InRoom_AllBuilding:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  InRoom_BuildThing: {fileID: 0}
-  InRoom_AllEnemy: []
-  InRoom_WayPointParentTF: {fileID: 0}
-  InRoom_AllWayPoint: []
   CurrentTempID: 0
 --- !u!1 &8843001543254287013
 GameObject:
