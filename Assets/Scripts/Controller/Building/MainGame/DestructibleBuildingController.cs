@@ -28,11 +28,15 @@ public class DestructibleBuildingController : BuildingController_OnlyPlayerLayer
         if (!IsBroken)
         {
             ThisDurablity--;
-            this.transform.DOShakePosition(0.4f, 0.15f, 20, 90, false, true);
             if (ThisDurablity <= 0)
             {
+                this.transform.DOShakePosition(0.7f, 0.2f, 20, 90, false, true);
                 Break();
             }
+            else
+            {
+                this.transform.DOShakePosition(0.4f, 0.1f, 20, 90, false, true);
+            }    
         }
         else
         {
