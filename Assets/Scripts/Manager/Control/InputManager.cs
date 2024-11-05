@@ -82,8 +82,8 @@ public class InputManager : Singleton<InputManager>
         OnMouse = !_IsOn;
 
         AimController.gameObject.SetActive(_IsOn);
+        PlayerManager.Instance.PlayerController.AimRoundController.gameObject.SetActive(_IsOn);
         MousePointerRT.gameObject.SetActive(!_IsOn);
-        //Cursor.visible = !_IsOn;
     }
 
     #endregion

@@ -13,9 +13,6 @@ public class BoostItemManager : Singleton<BoostItemManager>
     [HideInInspector] private List<PassiveSkill> Gotten_PSList = new List<PassiveSkill>();
     [HideInInspector] public List<PassiveSkill> Equiped_PSList = new List<PassiveSkill>();
 
-    [Header("=== Goods")]
-    [SerializeField] public ReactiveProperty<int> CurrentMC = new();
-
 
     [Header("=== Icon Data")]
     [SerializeField] private List<Sprite> RankIconList;

@@ -28,6 +28,9 @@ public class RoomController : MonoBehaviour
     [SerializeField] public List<GateController> InRoom_AllLowerGate;
     [HideInInspector] public List<GateController> InRoom_AllGate;
 
+    [Space(10)]
+    [Header("=== Camera")]
+    [SerializeField] public Transform RoomCameraCenter;
 
 
     [Space(10)]

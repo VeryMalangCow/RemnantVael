@@ -38,6 +38,9 @@ public class PlayerController : MovableObject
     [SerializeField] public ReactiveProperty<int> CurrentBC = new();
     [SerializeField] public ReactiveProperty<int> CurrentEC = new();
 
+    [Header("-- Module")]
+    [SerializeField] public ReactiveProperty<int> CurrentMS = new();
+
     [Header("-- Weapon")]
     [SerializeField] public PlayerWeaponController BaseWeapon;
 
@@ -156,8 +159,7 @@ public class PlayerController : MovableObject
     [Space(10)]
     [Header("=== Aim")]
     [SerializeField] public GameObject AimPrefab;
-    [SerializeField] private Sprite PAim;
-    [SerializeField] private Sprite EAim;
+    [SerializeField] public AimRoundController AimRoundController;
 
     #endregion
 
@@ -237,6 +239,15 @@ public class PlayerController : MovableObject
         this.CurrentEP.Value -= NeedEP_ForMakeEC;
         CurrentBC.Value--;
         CurrentEC.Value++;
+    }
+
+    #endregion
+
+    #region Module
+
+    public void AddCurrentMS(int _AddValue)
+    {
+        CurrentMS.Value += _AddValue;
     }
 
     #endregion

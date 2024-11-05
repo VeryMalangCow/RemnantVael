@@ -13,6 +13,16 @@ public class EnergyShrapnelController : AbsorbItemController
 
     #endregion
 
+    #region Framework
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        IsAbsorbing = true;
+    }
+
+    #endregion
+
     #region State
 
     public void SetState(Vector2 _SpawnPos, GameObject _TargetObject, float _Value)

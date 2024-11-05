@@ -10,6 +10,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<PlayerBulletController> PlayerBullet;
     [SerializeField] public TTypePooling<EnergyShrapnelController> EnergyShrapnel;
     [SerializeField] public TTypePooling<BetteryShrapnelController> BetteryShrapnel;
+    [SerializeField] public TTypePooling<ModuleShrapnelController> ModuleShrapnel;
     [SerializeField] public TTypePooling<InteractItemController> InteractItems;
     [SerializeField] public TTypePooling<PlayerAttacker> PlayerAttackers;
 
@@ -79,6 +80,12 @@ public class PoolingManager : Singleton<PoolingManager>
     public BetteryShrapnelController GetOP_BetteryShrapnel()
     {
         return GetOP<BetteryShrapnelController>(BetteryShrapnel.Prefab, BetteryShrapnel.ParentTF, BetteryShrapnel.Queue);
+    }
+
+    // Module Shrapnel
+    public ModuleShrapnelController GetOP_ModuleShrapnel()
+    {
+        return GetOP<ModuleShrapnelController>(ModuleShrapnel.Prefab, ModuleShrapnel.ParentTF, ModuleShrapnel.Queue);
     }
 
     // Interact Item For Each Kind

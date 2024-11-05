@@ -1265,6 +1265,8 @@ MonoBehaviour:
     value: 0
   CurrentEC:
     value: 0
+  CurrentMS:
+    value: 0
   BaseWeapon: {fileID: 1781130902238718875}
   SkillWeapon: {fileID: 2333396969492081116}
   MovementState: 1
@@ -1351,8 +1353,7 @@ MonoBehaviour:
   MoveDirStateAnim: {fileID: 7420383875986210402}
   MoveDirAC: {fileID: 7400000, guid: e123b32e9ab9b9c49a435fda32906977, type: 2}
   AimPrefab: {fileID: 6141677161167260688, guid: c40efc2302d823f4385722f2c7ce4237, type: 3}
-  PAim: {fileID: -1304739455, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  EAim: {fileID: -2142815112, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  AimRoundController: {fileID: 2787329426438936234}
   ExecutionInterval: 0.75
   Skill0Interval: 0.5
   Skill1Interval: 0.5
@@ -3457,6 +3458,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9014590623888862309, guid: d2969078f44a95045a455dab4043e798, type: 3}
   m_PrefabInstance: {fileID: 7097341916399682202}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2787329426438936234 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4958541834052473904, guid: d2969078f44a95045a455dab4043e798, type: 3}
+  m_PrefabInstance: {fileID: 7097341916399682202}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 679cdbe1c45ed544d9fc471a748c044d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7625354798182850177
 PrefabInstance:
   m_ObjectHideFlags: 0

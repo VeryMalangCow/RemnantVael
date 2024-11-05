@@ -39,7 +39,16 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        FollowTargetSmooth(TargetTF);
+        if (StageManager.Instance.CurrentRoomController != null)
+        {
+            FollowTargetSmooth(TargetTF, 
+                StageManager.Instance.CurrentRoomController.RoomCameraCenter);
+        }
+        else
+        {
+            FollowTargetSmooth(TargetTF);
+        }
+
         FollowTargetRangeLimit();
 
         MainCamera.transform.position = GetTotalCameraPos();
@@ -51,11 +60,11 @@ public class CameraController : MonoBehaviour
 
     private Vector3 GetTotalCameraPos()
     {
-        Vector2 totalPos = Vector2.zero;
+        Vector2 totalPos = CameraElementTransformList[0].position;
 
-        foreach (Transform cameraElementTransform in CameraElementTransformList)
+        for (int i = 1; i < CameraElementTransformList.Count; i++)
         {
-            totalPos += (Vector2)cameraElementTransform.position;
+            totalPos += (Vector2)CameraElementTransformList[i].position;
         }
 
         return new Vector3(totalPos.x, totalPos.y, -10f);
@@ -68,13 +77,25 @@ public class CameraController : MonoBehaviour
     private void FollowTargetSmooth(Transform _TargetTF)
     {
         Vector2 originPos = CameraElementTransformList[0].position;
+
         Vector2 targetPos = _TargetTF.position;
 
         CameraElementTransformList[0].position = Vector2.Lerp(
             originPos,
             targetPos,
             FollowSpeed * Time.deltaTime);
+    }
 
+    private void FollowTargetSmooth(Transform _TargetTF, Transform _TargetTF2)
+    {
+        Vector2 originPos = CameraElementTransformList[0].position;
+
+        Vector2 targetPos = ((Vector2)_TargetTF.position + (Vector2)_TargetTF2.position) / 2f;
+
+        CameraElementTransformList[0].position = Vector2.Lerp(
+            originPos,
+            targetPos,
+            FollowSpeed * Time.deltaTime);
     }
 
     private void FollowTargetRangeLimit()

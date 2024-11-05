@@ -13,6 +13,7 @@ public class AbsorbItemController : ItemController
 
     [Space(10)]
     [Header("=== Absorb")]
+    [SerializeField] protected bool IsAbsorbing = false;
     [SerializeField] private float AbsorbStartPower = 300f;
     [SerializeField] private float AbsorbPower = 5f;
     [SerializeField] private float RotatePower = 10f;
@@ -29,9 +30,16 @@ public class AbsorbItemController : ItemController
     }
 
 
-    protected void Update()
+    protected virtual void Update()
     {
-        ThisRb.velocity = GetDirForce();
+        if (IsAbsorbing)
+        {
+            ThisRb.velocity = GetDirForce();
+        }
+        else
+        {
+            ThisRb.velocity = Vector2.Lerp(ThisRb.velocity, Vector2.zero, 10 * Time.deltaTime);
+        }
     }
 
     #endregion

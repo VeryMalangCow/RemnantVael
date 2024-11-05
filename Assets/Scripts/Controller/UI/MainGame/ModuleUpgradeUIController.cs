@@ -409,7 +409,7 @@ public class ModuleUpgradeUIController : UIController
 
 
             // Take
-            BoostItemManager.Instance.CurrentMC.Value += itemRank * 2;
+            PlayerManager.Instance.PlayerController.CurrentMS.Value += itemRank * 2;
             PlayerManager.Instance.PlayerController.CurrentBC.Value += boostLv;
         }
     }
@@ -466,7 +466,7 @@ public class ModuleUpgradeUIController : UIController
 
         int needMC = BoostItemManager.Instance.NeedMC_AbleFusion(CurrentFusionItemList[0]);
         if (needMC == 0 ||
-            needMC > BoostItemManager.Instance.CurrentMC.Value)
+            needMC > PlayerManager.Instance.PlayerController.CurrentMS.Value)
         { return; }
 
         // Take Info
@@ -494,7 +494,7 @@ public class ModuleUpgradeUIController : UIController
             BoostItemManager.Instance.DeletePassiveSkill(CurrentFusionItemList[i]);
         }
 
-        BoostItemManager.Instance.CurrentMC.Value -= needMC;
+        PlayerManager.Instance.PlayerController.CurrentMS.Value -= needMC;
 
         // Take
         BoostItemManager.Instance.GetItemSkill(itemData);

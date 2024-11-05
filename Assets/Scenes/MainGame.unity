@@ -153,6 +153,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1970976549}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &77619665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 77619666}
+  m_Layer: 0
+  m_Name: --------&&IfMissing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &77619666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77619665}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1553356942}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &79631294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1497,10 +1528,13 @@ MonoBehaviour:
     ParentTF: {fileID: 308243357}
   BetteryShrapnel:
     Prefab: {fileID: 8792791415299830887, guid: 561d34cba42755c4397f7b01874690d4, type: 3}
-    ParentTF: {fileID: 1050572078}
+    ParentTF: {fileID: 77619666}
+  ModuleShrapnel:
+    Prefab: {fileID: 8792791415299830887, guid: 85034b39314d69d44ac7a43802593aa4, type: 3}
+    ParentTF: {fileID: 77619666}
   InteractItems:
     Prefab: {fileID: 8792791415299830887, guid: 0fe28c02c65319a499cbd9bf935f3f8c, type: 3}
-    ParentTF: {fileID: 753619580}
+    ParentTF: {fileID: 77619666}
   PlayerAttackers:
     Prefab: {fileID: 2154807210293626544, guid: e9907211ca267024c8887bfe754167b7, type: 3}
     ParentTF: {fileID: 1068989852}
@@ -1583,37 +1617,6 @@ MonoBehaviour:
   OffsetRoomSize: {x: 22, y: 14}
   CurrentAllRoomController: []
   CurrentRoomController: {fileID: 0}
---- !u!1 &753619579
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 753619580}
-  m_Layer: 0
-  m_Name: '******InteractItem'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &753619580
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753619579}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1658609378}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &827966930
 GameObject:
   m_ObjectHideFlags: 0
@@ -1845,37 +1848,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1 &1050572077
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1050572078}
-  m_Layer: 0
-  m_Name: '******BetteryShrapnel'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1050572078
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050572077}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1658609378}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1068989851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2472,6 +2444,7 @@ Transform:
   - {fileID: 888747044}
   - {fileID: 1782628309}
   - {fileID: 827966931}
+  - {fileID: 77619666}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1597296081
@@ -2613,8 +2586,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 308243357}
-  - {fileID: 1050572078}
-  - {fileID: 753619580}
   m_Father: {fileID: 1553356942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1684360776
@@ -3127,8 +3098,6 @@ MonoBehaviour:
     ItemIcon: {fileID: 21300000, guid: 79ec4f34ced503e44b6f83ba713c0d6d, type: 3}
     BoostLv: 1
     Rank: 1
-  CurrentMC:
-    value: 0
   RankIconList:
   - {fileID: 21300006, guid: 0a697970e4c06a24bbcb9843a5baf918, type: 3}
   - {fileID: 21300000, guid: 0a697970e4c06a24bbcb9843a5baf918, type: 3}
@@ -3332,7 +3301,7 @@ MonoBehaviour:
   CameraElementTransformList: []
   TargetTF: {fileID: 0}
   FollowSpeed: 10
-  FollowRangeLimit: 1
+  FollowRangeLimit: 10
   ShotStrength: 1
   ShotVibrato: 1
   KillStrength: 10
