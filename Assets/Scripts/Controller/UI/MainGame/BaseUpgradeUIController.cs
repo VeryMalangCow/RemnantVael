@@ -217,6 +217,7 @@ public class BaseUpgradeUIController : UIController
         { return; }
 
         base.CloseThisPanel(_DurTime);
+        BaseUpgradeController.UsingShop = null;
 
         if (TryGetComponent(out CanvasGroup CG))
         {

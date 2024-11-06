@@ -14,7 +14,7 @@ public abstract class UIController : MonoBehaviour
     [SerializeField] protected bool IsTweening = false;
     [SerializeField] protected string ThisPanelInputMapName;
 
-    [HideInInspector] public ModifyOwnEachBtn CurrentBtn = null;
+    [SerializeField] public ModifyOwnEachBtn CurrentBtn = null;
 
     #endregion
 

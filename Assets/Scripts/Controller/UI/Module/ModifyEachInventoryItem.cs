@@ -1,8 +1,7 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ModifyEachInventoryItem : UIModule
+public class ModifyEachInventoryItem : ModifyOwnEachBtn
 {
     #region Value 
 
@@ -14,7 +13,6 @@ public class ModifyEachInventoryItem : UIModule
     [SerializeField] private ModifyImgAmountAndTxt BoostLvMIAAT;
 
     // Component
-    private RectTransform ThisRT;
     [HideInInspector] public Image ThisImg;
 
     #endregion
@@ -30,8 +28,7 @@ public class ModifyEachInventoryItem : UIModule
 
     public override void Offset()
     {
-        if(TryGetComponent(out RectTransform rt))
-        { ThisRT = rt; }
+        base.Offset();
 
         if (TryGetComponent(out Image img))
         { ThisImg = img; }
@@ -43,5 +40,4 @@ public class ModifyEachInventoryItem : UIModule
 
 
     #endregion
-
 }

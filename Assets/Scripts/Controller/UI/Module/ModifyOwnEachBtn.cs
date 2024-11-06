@@ -11,7 +11,7 @@ public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHand
     //[SerializeField] private float DurTime = 0.1f;
     [SerializeField] private Vector2 TargetScale = new Vector2(1.15f, 1.15f);
     [HideInInspector] private Vector2 DefScale;
-    [HideInInspector] private RectTransform ThisRT;
+    [HideInInspector] protected RectTransform ThisRT;
 
     // Owner
 
@@ -44,7 +44,6 @@ public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHand
         {
             return;
         }
-
 
         OwnerUIController.CurrentBtn = this;
     }

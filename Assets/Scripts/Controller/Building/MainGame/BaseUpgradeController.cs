@@ -33,8 +33,8 @@ public class BaseUpgradeController : DestructibleBuildingController, IInteract
 
         if (IsOn)
         {
+            BaseUpgradeController.UsingShop = this;
             MainGameUIManager.Instance.BaseUpgrade_UIController.OpenThisPanel(MainGameUIManager.Instance.BaseUpgrade_UIController.TabDurTime);
-            UsingShop = this;
         }
         else if (!IsOn && PlayerManager.Instance.PlayerController.CurrentEC.Value > 0)
         {

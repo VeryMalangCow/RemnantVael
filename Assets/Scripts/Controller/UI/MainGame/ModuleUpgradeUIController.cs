@@ -166,6 +166,7 @@ public class ModuleUpgradeUIController : UIController
         { return; }
 
         base.CloseThisPanel(_DurTime);
+        ModuleUpgradeController.UsingShop = null;
 
         if (TryGetComponent(out CanvasGroup CG))
         {
@@ -179,7 +180,7 @@ public class ModuleUpgradeUIController : UIController
 
     public void TryInteractClick()
     {
-        if (CurrentBtn == null || ModuleUpgradeController.UsingShop == null)
+        if (ModuleUpgradeController.UsingShop == null)
         { return; }
 
         // æ∆¿Ã≈€
@@ -267,7 +268,9 @@ public class ModuleUpgradeUIController : UIController
         List<ModifyEachInventoryItem> mi_List = new List<ModifyEachInventoryItem>();
         foreach (ModifyInventory MI in MI_List)
         {
-            mi_List.Add(MI.SpawnMEII_ThisInventory(_ItemSprite, _RankImg, _BoostLv));
+            ModifyEachInventoryItem meii = MI.SpawnMEII_ThisInventory(_ItemSprite, _RankImg, _BoostLv);
+            meii.OwnerUIController = this;
+            mi_List.Add(meii);
         }
         return mi_List;
     }
