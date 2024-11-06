@@ -44,7 +44,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         }
     }
 
-    private void SortAllSr()
+    public void SortAllSr()
     {
         for (int i = 0; i < NeedLayerObjects.Count; i++)
         {

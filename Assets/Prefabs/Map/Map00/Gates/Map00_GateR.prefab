@@ -786,7 +786,7 @@ GameObject:
   - component: {fileID: 6694519030789709039}
   - component: {fileID: 1764751439533702885}
   m_Layer: 6
-  m_Name: Target
+  m_Name: Gate_OnTarget
   m_TagString: InteractBuilding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -874,7 +874,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6431063067678409307}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99b777eeb649516458699fc84c294848, type: 3}
+  m_Script: {fileID: 11500000, guid: ca2987f1fc9b0474d9c387959257c765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 6431063067678409307}
@@ -1040,7 +1040,7 @@ GameObject:
   - component: {fileID: 5391420219857069824}
   - component: {fileID: 4594269168400911400}
   m_Layer: 6
-  m_Name: Side
+  m_Name: Gate_Side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1072,12 +1072,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7202379583417812917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99b777eeb649516458699fc84c294848, type: 3}
+  m_Script: {fileID: 11500000, guid: ca2987f1fc9b0474d9c387959257c765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 7852194316311225431}
   ThisSR: {fileID: 0}
-  TargetRange: 0.8
+  TargetRange: 0.6
 --- !u!1 &7852194316311225431
 GameObject:
   m_ObjectHideFlags: 0

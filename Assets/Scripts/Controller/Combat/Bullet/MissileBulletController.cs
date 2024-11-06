@@ -59,7 +59,7 @@ public class MissileBulletController : BulletController
 
     private void DeleteThis()
     {
-        ExplosionEffect(TargetObject.transform.position, ThisSR.sortingOrder + 1, BulletState.DamageType, BulletState.IsCritical);
+        ExplosionEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
 
         CanHit = false;
         CurrentAliveTime = 0f;
@@ -155,7 +155,7 @@ public class MissileBulletController : BulletController
 
     #region Effect
 
-    private void ExplosionEffect(Vector2 _SpawndPos, int _SortLayer, eDamageType _DamageType, bool _IsCritical)
+    private void ExplosionEffect(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical)
     {
         int index = 0;
         if (_DamageType == eDamageType.Physics)
@@ -174,7 +174,7 @@ public class MissileBulletController : BulletController
         }
 
         PlayerManager.Instance.PlayerController.PlayerMEI.GenExplosionImgs(
-                     _SpawndPos, _SortLayer,
+                     _SpawndPos,
                      4, 0.3f, 0.4f,
                      1.9f, 0.05f, 0.1f,
                      0.8f, 0.5f, 1.0f,

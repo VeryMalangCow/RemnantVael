@@ -100,7 +100,7 @@ public class PlayerBulletController : BulletController
         }
 
         PlayerManager.Instance.PlayerController.PlayerMEI.GenExplosionImgs(
-                   _SpawndPos, _SortLayer,
+                   _SpawndPos,
                    4, 0.3f, 0.4f,
                    0.6f, 0.05f, 0.1f,
                    0.3f, 0.5f, 1.0f,

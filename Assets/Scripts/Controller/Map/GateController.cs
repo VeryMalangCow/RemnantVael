@@ -33,7 +33,7 @@ public class GateController : HaveShadowThingStatic, IInteract
     [SerializeField] private GameObject OnThingsGO;
     [SerializeField] private GameObject OffThingsGO;
     [SerializeField] private GameObject EntranceGO;
-    [SerializeField] public List<BuildingController_AllLayer> NeedSetAllLayer;
+    [SerializeField] public List<SortLayerObjectController> NeedSetAllLayer;
 
 
     [HideInInspector] private AnimatorOverrideController aoc;

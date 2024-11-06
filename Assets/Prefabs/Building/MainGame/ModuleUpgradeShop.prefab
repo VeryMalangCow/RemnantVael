@@ -373,11 +373,6 @@ MonoBehaviour:
   TargetObject: {fileID: 7945861353772175884}
   ThisSR: {fileID: 0}
   TargetRange: 0.3
-  TargetSR: {fileID: 6431130664222279258}
-  LowestLayerOrder: 1
-  HighestLayerOrder: 2000
-  IsUpper:
-    value: 0
   MEI: {fileID: 8947138048879588301}
   IsOn: 0
   ThisAnimator: {fileID: 8138481414561888053}
@@ -465,7 +460,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 0
   m_Sprite: {fileID: 1404181081, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

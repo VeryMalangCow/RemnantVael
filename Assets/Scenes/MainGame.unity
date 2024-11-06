@@ -1480,6 +1480,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ModuleUpgradeShop
       objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1818,6 +1822,10 @@ PrefabInstance:
     - target: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
       propertyPath: m_Name
       value: BaseUpgradeShop
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

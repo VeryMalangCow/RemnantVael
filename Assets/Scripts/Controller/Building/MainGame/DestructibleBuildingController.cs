@@ -2,7 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructibleBuildingController : BuildingController_OnlyPlayerLayer
+public class DestructibleBuildingController : InteractableBuildingController
 {
     #region Value
 

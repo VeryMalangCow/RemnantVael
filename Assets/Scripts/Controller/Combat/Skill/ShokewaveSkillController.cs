@@ -70,14 +70,14 @@ public class ShockwaveSkillController : ActiveSkillController
     private void ExplosionEffect(Vector2 _SpawndPos, int _SortLayer, float _CriticalChance, float _UsableMaxSize)
     {
         PlayerController.PlayerMEI.GenExplosionImgs(
-            _SpawndPos, _SortLayer,
+            _SpawndPos,
             (int)(36f * (1f - _CriticalChance)), 
             _UsableMaxSize / 4, _UsableMaxSize / 2,
             1.4f, 0.2f, 0.3f,
             0.7f, 0.4f, 0.5f,
             2, new Vector2(1, 0.5f), PlayerController.ThisPlayerSmokeMaterial);
         PlayerController.PlayerMEI.GenExplosionImgs(
-            _SpawndPos, _SortLayer,
+            _SpawndPos,
             (int)(36f * _CriticalChance), 
             _UsableMaxSize / 4, _UsableMaxSize / 2,
             1.4f, 0.2f, 0.3f,

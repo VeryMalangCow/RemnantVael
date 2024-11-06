@@ -249,7 +249,7 @@ public class EnemyController : MovableObject, IInteract
 
         // Effect
         MEI.GenExplosionImgs(
-                    MEI.gameObject.transform.position, ThisSR.sortingOrder + 1,
+                    MEI.gameObject.transform.position,
                     16, 0.15f, 0.75f,
                     1.6f, 0.05f, 0.1f,
                     0.8f, 0.5f, 1.0f,
@@ -269,7 +269,6 @@ public class EnemyController : MovableObject, IInteract
         InteractItemController IIC = PoolingManager.Instance.GetOP_InteractableItem();
         IIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
         IIC.SetState(this.transform.position, 1, 1);
-        LayerOrderManager.Instance.NeedLayerObjects.Add(IIC);
     }
 
     // Energy Shrapnel

@@ -1,11 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static RoomController;
 
 public class RoomRuleController : MonoBehaviour
 {
-
     #region Value
 
     [Space(20)]
@@ -19,8 +16,8 @@ public class RoomRuleController : MonoBehaviour
     [Space(10)]
     [Header("=== In Room _ Building")]
     [SerializeField] private Transform InRoom_AllBuildingParentTF;
-    [HideInInspector] public List<BuildingController_AllLayer> InRoom_AllBuilding;
-    [SerializeField] private BuildingController_OnlyPlayerLayer InRoom_BuildThing;
+    [HideInInspector] public List<SortLayerObjectController> InRoom_AllBuilding;
+    [SerializeField] private InteractableBuildingController InRoom_BuildThing;
 
 
     [Space(10)]
@@ -36,12 +33,12 @@ public class RoomRuleController : MonoBehaviour
     public void Offset()
     {
         // Obstacle
-        InRoom_AllBuilding = new List<BuildingController_AllLayer>();
+        InRoom_AllBuilding = new List<SortLayerObjectController>();
         if (InRoom_AllBuildingParentTF != null && InRoom_AllBuildingParentTF.childCount > 0)
         {
             foreach (Transform chile in InRoom_AllBuildingParentTF)
             {
-                if (chile.gameObject.TryGetComponent(out BuildingController_AllLayer BC))
+                if (chile.gameObject.TryGetComponent(out SortLayerObjectController BC))
                 {
                     InRoom_AllBuilding.Add(BC);
                 }
@@ -73,12 +70,6 @@ public class RoomRuleController : MonoBehaviour
         if (InRoom_BuildThing != null && !InRoom_BuildThing.gameObject.activeSelf)
         {
             InRoom_BuildThing.gameObject.SetActive(true);
-            InRoom_BuildThing.MEI.GenExplosionImgs(
-                    InRoom_BuildThing.MEI.gameObject.transform.position, InRoom_BuildThing.ThisSR.sortingOrder + 1,
-                    16, 0.15f, 0.75f,
-                    2.0f, 0.05f, 0.1f,
-                    1.0f, 0.5f, 1.0f,
-                    0, StageManager.Instance.GetCurrentStageMaterial());
         }
     }
 
@@ -97,7 +88,7 @@ public class RoomRuleController : MonoBehaviour
                 enemy.transform.position = InRoom_AllEnemy[i].EnemySpawnTF.transform.position;
                 enemy.gameObject.SetActive(true);
                 enemy.MEI.GenExplosionImgs(
-                    enemy.MEI.gameObject.transform.position, enemy.ThisSR.sortingOrder + 1,
+                    enemy.MEI.gameObject.transform.position,
                     16, 0.15f, 0.75f,
                     1.6f, 0.05f, 0.1f,
                     0.8f, 0.5f, 1.0f,
