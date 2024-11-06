@@ -221,6 +221,7 @@ Transform:
   - {fileID: 4278205887496685873}
   - {fileID: 1922530391059254247}
   - {fileID: 7425945513113515891}
+  - {fileID: 3162411028315099261}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5830729734699832537
@@ -246,10 +247,48 @@ MonoBehaviour:
   ThisStateAnim: {fileID: 3433866877279181021}
   OffStateAC: {fileID: 7400000, guid: ae13dcb3fc70f88488a0d6741e925e3e, type: 2}
   OnStateAC: {fileID: 7400000, guid: 48082fc27c9dba443808bb444c51ba4f, type: 2}
-  ThisDurablity: 5
+  ThisMaxDurablity: 5
+  ThisDurablity: 0
   IsBroken: 0
+  DurablitySpriteParentTF: {fileID: 3162411028315099261}
+  DurablityFrame: {fileID: -2046568933, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+  DurablityInner: {fileID: 518337198, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+  BuildingMaterial: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
+  FrameIntervalX: 0.08
+  DurablityInnerSRList: []
   BrokenAC: {fileID: 7400000, guid: e77de0415e6cb5449b47929753e4c19e, type: 2}
   BrokenStateAC: {fileID: 7400000, guid: 64fffc49c04e0724ea315643a037a838, type: 2}
+--- !u!1 &6208652108089971714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3162411028315099261}
+  m_Layer: 6
+  m_Name: Durablity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3162411028315099261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6208652108089971714}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4995045585254079196}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6310173116161984221
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,7 +519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4975319936910657301, guid: 6933c66d65fdf4b4d826d70c39e63c52, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.45
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 4975319936910657301, guid: 6933c66d65fdf4b4d826d70c39e63c52, type: 3}
       propertyPath: m_LocalPosition.z

@@ -6,8 +6,9 @@ public class ModuleUpgradeController : DestructibleBuildingController, IInteract
 
     #region Framework
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         ApplySetStateAnim();
     }
 

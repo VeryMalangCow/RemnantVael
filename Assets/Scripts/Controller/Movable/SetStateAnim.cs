@@ -8,7 +8,7 @@ public class SetStateAnim : MonoBehaviour
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] private Animator ThisAnimator;
-    [SerializeField] private SpriteRenderer ThisSR;
+    [SerializeField] public SpriteRenderer ThisSR;
     [SerializeField] private SpriteRenderer ThisInnerSR;
 
     [HideInInspector] private AnimatorOverrideController aoc;
