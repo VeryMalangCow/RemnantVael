@@ -11,7 +11,7 @@ public class DestructibleBuildingController : BuildingController_OnlyPlayerLayer
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private int ThisDurablity = 5;
+    [SerializeField] public int ThisDurablity = 5;
     [SerializeField] protected bool IsBroken = false;
 
     [Space(10)]
@@ -23,7 +23,7 @@ public class DestructibleBuildingController : BuildingController_OnlyPlayerLayer
 
     #region About Break
 
-    public void TakeDamage()
+    public virtual void TakeDamage(bool _SpawnItem)
     {
         if (!IsBroken)
         {
@@ -31,11 +31,13 @@ public class DestructibleBuildingController : BuildingController_OnlyPlayerLayer
             if (ThisDurablity <= 0)
             {
                 this.transform.DOShakePosition(0.7f, 0.2f, 20, 90, false, true);
-                Break();
+                Break(_SpawnItem);
             }
             else
             {
                 this.transform.DOShakePosition(0.4f, 0.1f, 20, 90, false, true);
+                if (_SpawnItem)
+                { SpawnItem(); }
             }    
         }
         else
@@ -44,11 +46,16 @@ public class DestructibleBuildingController : BuildingController_OnlyPlayerLayer
         }
     }
 
-    protected virtual void Break()
+    protected virtual void Break(bool _SpawnItem)
     {
         IsBroken = true;
 
         ApplySetStateAnim();
+    }
+
+    public virtual void SpawnItem()
+    {
+
     }
 
     #endregion

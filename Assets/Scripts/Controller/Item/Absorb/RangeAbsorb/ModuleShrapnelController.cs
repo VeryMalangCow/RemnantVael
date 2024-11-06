@@ -15,6 +15,16 @@ public class ModuleShrapnelController : AbsorbItemController
     #endregion
 
     #region Framework
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        LayerOrderManager.Instance.NeedLayerObjects.Add(this);
+    }
+
+    protected void OnDisable()
+    {
+        LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
+    }
 
     protected override void Update()
     {

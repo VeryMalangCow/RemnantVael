@@ -19,7 +19,14 @@ public class EnergyShrapnelController : AbsorbItemController
     {
         base.OnEnable();
         IsAbsorbing = true;
+        LayerOrderManager.Instance.NeedLayerObjects.Add(this);
     }
+
+    protected void OnDisable()
+    {
+        LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
+    }
+
 
     #endregion
 

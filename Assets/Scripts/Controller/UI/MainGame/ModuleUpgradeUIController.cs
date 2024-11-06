@@ -74,11 +74,11 @@ public class ModuleUpgradeUIController : UIController
 
         foreach (ModifyEachTab MET in ThisPanelTabList)
         {
-            MET.Offset(); 
+            MET.Offset();
             MET.ThisTabBtn.OwnerUIController = this;
         }
 
-        foreach(ModifyEachInventorySlot MEIS in EquipedMEIS_List)
+        foreach (ModifyEachInventorySlot MEIS in EquipedMEIS_List)
         {
             MEIS.Offset();
         }
@@ -95,7 +95,7 @@ public class ModuleUpgradeUIController : UIController
         DecompositionSlot.Offset();
         DecompositionSlot.ThisSlotItem.Offset();
 
-        foreach(ModifyEachInventorySlot meii in FusionSlotList)
+        foreach (ModifyEachInventorySlot meii in FusionSlotList)
         {
             meii.Offset();
             meii.ThisSlotItem.Offset();
@@ -179,6 +179,9 @@ public class ModuleUpgradeUIController : UIController
 
     public void TryInteractClick()
     {
+        if (CurrentBtn == null || ModuleUpgradeController.UsingShop == null)
+        { return; }
+
         // æ∆¿Ã≈€
         if (CurrentSelectedMEIS != null)
         { 
@@ -411,6 +414,8 @@ public class ModuleUpgradeUIController : UIController
             // Take
             PlayerManager.Instance.PlayerController.CurrentMS.Value += itemRank * 2;
             PlayerManager.Instance.PlayerController.CurrentBC.Value += boostLv;
+
+            ModuleUpgradeController.UsingShop.TakeDamage(false);
         }
     }
 
@@ -498,6 +503,8 @@ public class ModuleUpgradeUIController : UIController
 
         // Take
         BoostItemManager.Instance.GetItemSkill(itemData);
+
+        ModuleUpgradeController.UsingShop.TakeDamage(false);
     }
 
     #endregion
@@ -562,6 +569,7 @@ public class ModuleUpgradeUIController : UIController
             // Take
             BoostItemManager.Instance.GetItemSkill(itemData);
 
+            ModuleUpgradeController.UsingShop.TakeDamage(false);
         }
     }
 

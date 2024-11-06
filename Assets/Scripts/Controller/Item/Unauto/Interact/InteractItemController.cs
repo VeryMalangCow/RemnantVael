@@ -48,6 +48,17 @@ public class InteractItemController : ItemController, IInteract
 
     #region Framework
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        LayerOrderManager.Instance.NeedLayerObjects.Add(this);
+    }
+
+    protected void OnDisable()
+    {
+        LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
+    }
+
     protected void Update()
     {
         Spread(CurrentSpreadPower);

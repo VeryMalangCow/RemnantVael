@@ -149,7 +149,7 @@ public class BaseUpgradeUIController : UIController
 
     public void TryInteractClick()
     {
-        if (CurrentBtn == null)
+        if (CurrentBtn == null || BaseUpgradeController.UsingShop == null)
         { return; }
 
         // 구매 코드 (float)
@@ -296,6 +296,8 @@ public class OneOffShopEachData<T>
 
     private void Buy(int _UseEC, int _MaxUpgradeLevel, T _SetValue)
     {
+        BaseUpgradeController.UsingShop.TakeDamage(false);
+
         Upgrade_BUS.CurrentLevel.Value++;
         Upgrade_BUS.ActualState.Value = _SetValue;
         PlayerManager.Instance.PlayerController.CurrentEC.Value -= _UseEC;

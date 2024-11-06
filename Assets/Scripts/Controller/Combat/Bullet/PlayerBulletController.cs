@@ -67,7 +67,7 @@ public class PlayerBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out DestructibleBuildingController DBC))
             {
-                DBC.TakeDamage();
+                DBC.TakeDamage(true);
             }
         }
 

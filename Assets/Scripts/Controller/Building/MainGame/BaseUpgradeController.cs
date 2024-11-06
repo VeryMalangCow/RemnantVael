@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BaseUpgradeController : DestructibleBuildingController, IInteract
 {
+    public static BaseUpgradeController UsingShop = null;
 
     #region Framework
 
@@ -23,6 +24,7 @@ public class BaseUpgradeController : DestructibleBuildingController, IInteract
         if (IsOn)
         {
             MainGameUIManager.Instance.BaseUpgrade_UIController.OpenThisPanel(MainGameUIManager.Instance.BaseUpgrade_UIController.TabDurTime);
+            UsingShop = this;
         }
         else if (!IsOn && PlayerManager.Instance.PlayerController.CurrentEC.Value > 0)
         {
@@ -37,11 +39,17 @@ public class BaseUpgradeController : DestructibleBuildingController, IInteract
 
     #region Break
 
-    protected override void Break()
+    protected override void Break(bool _SpawnItem)
     {
-        base.Break();
+        base.Break(_SpawnItem);
 
-        RandomSpawnBS();
+        if (_SpawnItem)
+        { RandomSpawnBS(); }
+
+        if (MainGameUIManager.Instance.BaseUpgrade_UIController.gameObject.activeSelf)
+        {
+            MainGameUIManager.Instance.BaseUpgrade_UIController.CloseThisPanel(MainGameUIManager.Instance.BaseUpgrade_UIController.TabDurTime);
+        }
     }
 
     private void RandomSpawnBS()
@@ -53,7 +61,7 @@ public class BaseUpgradeController : DestructibleBuildingController, IInteract
         }
         else
         {
-            spawnItem = Random.Range(1, 4);
+            spawnItem = Random.Range(2, 4);
         }
 
         if (spawnItem <= 0)
@@ -63,6 +71,11 @@ public class BaseUpgradeController : DestructibleBuildingController, IInteract
         {
             SpawnBS(1);
         }
+    }
+
+    public override void SpawnItem()
+    {
+        SpawnBS(1);
     }
 
     #endregion

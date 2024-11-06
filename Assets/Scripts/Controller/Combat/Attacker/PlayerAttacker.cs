@@ -39,7 +39,7 @@ public class PlayerAttacker : Attacker
         {
             if (_Col.transform.parent.TryGetComponent(out DestructibleBuildingController DBC))
             {
-                DBC.TakeDamage();
+                DBC.TakeDamage(true);
             }
         }
     }
