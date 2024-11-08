@@ -8,7 +8,7 @@ public class MakeAfterImage : MonoBehaviour
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private List<SpriteRenderer> TargetSRList;
+    [SerializeField] public List<SpriteRenderer> TargetSRList;
 
     [Space(10)]
     [Header("=== Caculate")]

@@ -189,7 +189,7 @@ TextureImporter:
         width: 26
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -197,6 +197,27 @@ TextureImporter:
       bones: []
       spriteID: 3341a1b3ba4e6ba468bf0ca40d5884f5
       internalID: 1138959698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_Damagable
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 386
+        width: 36
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff3249c6a84f7c648924e8f534fd1cbf
+      internalID: -430084006
       vertices: []
       indices: 
       edges: []
@@ -215,6 +236,7 @@ TextureImporter:
       name: _Emission
     nameFileIdTable:
       Map00_B_T: 1138959698
+      Map00_Damagable: -430084006
       Map00_E_U_00: -589583410
       Map00_E_U_01: -361455258
       Map00_E_U_02: -1052169092

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UniRx;
@@ -23,6 +24,12 @@ public class PlayerController : MovableObject
     [SerializeField] private float CurrentCastingTime = 0;
     [SerializeField] private float TargetCastingTime = 0;
     [SerializeField] public BaseUpgradeState<float> AvoidChance;
+
+    [Header("-- Invincible")]
+    [SerializeField] private bool IsInvincible = false;
+    [SerializeField] private float MaxInvincibleTime = 0.5f;
+    [SerializeField] private float CurrentInvincibleTime = 0f;
+    private Sequence InvincibleSeq;
 
     [Header("-- Energy")]
     [SerializeField] public BaseUpgradeState<float> MaxEP;
@@ -297,11 +304,30 @@ public class PlayerController : MovableObject
 
     #region Combat
 
-    private void Damaged()
+    public void TryTakeDamage()
     {
-        if(UnityEngine.Random.Range(0f, 1f) < AvoidChance.ActualState.Value)
-        {
+        if (IsInvincible)
+        { return; }
 
+        IsInvincible = true;
+        CurrentInvincibleTime = 0f;
+
+        InvincibleSeq = DOTween.Sequence();
+        float intervalTime = 0.05f;
+        for (int i = 0; i < PlayerMAI.TargetSRList.Count; i++)
+        {
+            Sequence seq = DOTween.Sequence();
+            seq.Append(PlayerMAI.TargetSRList[i].DOFade(0, 0));
+            seq.AppendInterval(intervalTime);
+            seq.Append(PlayerMAI.TargetSRList[i].DOFade(1, 0));
+            seq.AppendInterval(intervalTime);
+            seq.SetLoops((int)(MaxInvincibleTime / (intervalTime * 2f)), LoopType.Restart);
+        }
+        
+
+        if (UnityEngine.Random.Range(0f, 1f) < AvoidChance.ActualState.Value)
+        {
+            return;
         }
     }
 
@@ -481,6 +507,7 @@ public class PlayerController : MovableObject
     {
         CastingCaculate();
         BoostingCaculate(CurrentBoostLv.Value);
+        InvincibleCaculate();
     }
 
 
@@ -513,6 +540,24 @@ public class PlayerController : MovableObject
         {
             float decValue = DecEnergyPointByLevel[_BoostLv - 1] * DecEnergyPointMultiple.ActualState.Value;
             AddCurrentEP(-decValue * Time.deltaTime);
+        }
+    }
+
+
+    private void InvincibleCaculate()
+    {
+        if (IsInvincible)
+        {
+            if (MaxInvincibleTime > CurrentInvincibleTime)
+            {
+                CurrentInvincibleTime += Time.deltaTime;
+            }
+            else
+            {
+                CurrentInvincibleTime = 0f;
+
+                IsInvincible = false;
+            }
         }
     }
 
