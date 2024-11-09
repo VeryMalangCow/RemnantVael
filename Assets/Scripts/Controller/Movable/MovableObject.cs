@@ -110,7 +110,7 @@ public class MovableObject : HaveShadowThingMovable
         {
             for (int i = 0; i < KnockbackStateList.Count; i++)
             {
-                ThisRb.velocity += KnockbackStateList[i].GetKnockback() * Time.deltaTime;
+                ThisRb.velocity += KnockbackStateList[i].GetKnockback() * Time.deltaTime * 10;
                 Debug.Log("³Ë¹éÁß!");
             }
         }

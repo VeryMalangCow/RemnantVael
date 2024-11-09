@@ -890,17 +890,17 @@ MonoBehaviour:
       value: 87
     Desc: 
   KnockbackPower:
-    BaseState: 10
+    BaseState: 5
     CurrentLevel:
       value: 0
     UpgradeValueByLevelRange:
+    - 0.5
     - 1
+    - 1.5
     - 2
-    - 3
-    - 4
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 10
+      value: 5
     Desc: 
   CurrentDelayROF: 0
   BulletSpawnTFs:
@@ -1215,6 +1215,9 @@ MonoBehaviour:
     ActualState:
       value: 0.01
     Desc: 
+  IsInvincible: 0
+  MaxInvincibleTime: 0.75
+  CurrentInvincibleTime: 0
   MaxEP:
     BaseState: 100
     CurrentLevel:

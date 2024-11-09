@@ -1332,6 +1332,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df972ff2bea83124aae5e54ebe2ef256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsColliding: 0
+  DmgValue: 5
+  AbleKnockback: 1
+  KnockbackPower: 5
 --- !u!61 &6063841949251669132
 BoxCollider2D:
   m_ObjectHideFlags: 0

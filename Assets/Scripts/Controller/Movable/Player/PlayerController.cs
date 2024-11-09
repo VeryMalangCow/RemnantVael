@@ -118,7 +118,7 @@ public class PlayerController : MovableObject
 
 
     #endregion
-
+    
     #region - Effect
 
     [Space(10)]
@@ -217,6 +217,11 @@ public class PlayerController : MovableObject
         result = Math.Min(result, MaxEP.ActualState.Value);
 
         CurrentEP.Value = result;
+
+        if (CurrentEP.Value <= 0)
+        {
+            Die();
+        }
     }
 
     #endregion
@@ -302,9 +307,24 @@ public class PlayerController : MovableObject
 
     #endregion
 
-    #region Combat
+    #region Damage
 
     public void TryTakeDamage()
+    {
+        TryTakeDamage(0, null, false, 0);
+    }
+
+    public void TryTakeDamage(float _DmgValue)
+    {
+        TryTakeDamage(_DmgValue, null, false, 0);
+    }
+
+    public void TryTakeDamage(float _DmgValue, Damager _Damager)
+    {
+        TryTakeDamage(_DmgValue, _Damager, false, 0);
+    }
+
+    public void TryTakeDamage(float _DmgValue, Damager _Damager, bool _AbleKnockback, float _KnockbackPower)
     {
         if (IsInvincible)
         { return; }
@@ -312,8 +332,9 @@ public class PlayerController : MovableObject
         IsInvincible = true;
         CurrentInvincibleTime = 0f;
 
+        // ±ôºýÀÌ´Â È¿°ú
         InvincibleSeq = DOTween.Sequence();
-        float intervalTime = 0.05f;
+        float intervalTime = 0.075f;
         for (int i = 0; i < PlayerMAI.TargetSRList.Count; i++)
         {
             Sequence seq = DOTween.Sequence();
@@ -325,10 +346,37 @@ public class PlayerController : MovableObject
         }
         
 
+        // È¸ÇÇ
         if (UnityEngine.Random.Range(0f, 1f) < AvoidChance.ActualState.Value)
         {
+            for (int i = 0; i < 4; i++)
+            {
+                PlayerMEI.GenExplosionImgs(
+                        TargetObject.transform.position,
+                        6, 0.15f, 0.75f,
+                        2.0f, 0.05f, 0.1f,
+                        1.0f, 0.5f, 1.0f,
+                        i, ThisPlayerSmokeMaterial);
+            }
             return;
         }
+        // ÇÇ°Ý
+        else
+        {
+            // Knockback
+            if (_AbleKnockback)
+            {
+                Vector2 dir = (this.gameObject.transform.position - _Damager.gameObject.transform.position).normalized;
+                Debug.DrawRay((Vector2)this.transform.position, dir, Color.red, 5f);
+                GetKnockback(new KnockbackState(dir, _KnockbackPower, 0.4f));
+            }
+            AddCurrentEP(-_DmgValue);
+        }
+    }
+
+    private void Die()
+    {
+
     }
 
     #endregion

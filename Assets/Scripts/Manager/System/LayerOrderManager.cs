@@ -17,7 +17,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
     #region Framework
 
-    private void Update()
+    public void Update()
     {
         if(NeedSort())
         {
