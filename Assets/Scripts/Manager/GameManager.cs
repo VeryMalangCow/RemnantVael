@@ -141,11 +141,6 @@ public enum eEnemy
     Normal, Elite, SemiBoss, Boss
 }
 
-public enum eEnemyPattern
-{
-    Follow, MeleeAttack
-}
-
 public enum eDashStyle
 {
     OneWay, CanInputWay, Teleport

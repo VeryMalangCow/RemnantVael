@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
+using static NormalEnemyController;
 
 public class EnemyController : MovableObject, IInteract
 {
@@ -17,6 +18,7 @@ public class EnemyController : MovableObject, IInteract
 
     [Space(10)]
     [Header("=== State")]
+    [SerializeField] private eEnemy ThisEnemyType;
     [SerializeField] private float MaxHP;
     [HideInInspector] private ReactiveProperty<float> CurrentHP = new();
 
@@ -30,7 +32,9 @@ public class EnemyController : MovableObject, IInteract
     [Space(10)]
     [Header("=== Movement")]
     [SerializeField] private eMovementState MovementState;
+    [HideInInspector] public Vector2 MoveTargetPoint = Vector2.zero;
     [SerializeField] private Vector2 MoveDir;
+    [SerializeField] public float MoveSpeed;
 
     [Space(10)]
     [Header("=== UI")]
@@ -50,6 +54,14 @@ public class EnemyController : MovableObject, IInteract
     [Tooltip("This is Radius")]
     [SerializeField] private float NavRadius = 0.2f;
 
+
+    [Space(10)]
+    [Header("=== Pattern")]
+    [Tooltip("This Order of Priority Equle Index")]
+    [SerializeField] protected List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
+    [SerializeField] public EnemyPattern CurrentEnemyPattern = null;
+    [SerializeField] public bool IsPlayingPattern = false;
+
     #endregion
 
     #region Fremework
@@ -61,6 +73,8 @@ public class EnemyController : MovableObject, IInteract
 
         CurrentHP.Value = MaxHP;
         CurrentEP.Value = MaxEP;
+
+        OffsetPatternData();
     }
 
     private void Start()
@@ -78,6 +92,7 @@ public class EnemyController : MovableObject, IInteract
             {
                 EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
             });
+
     }
 
     protected override void OnEnable()
@@ -89,6 +104,9 @@ public class EnemyController : MovableObject, IInteract
 
         if (CurrentRoomController == null)
         { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
+
+
+        StartTryGetAnyPattern(0.5f);
     }
 
     protected void FixedUpdate()
@@ -105,12 +123,18 @@ public class EnemyController : MovableObject, IInteract
         switch (MovementState)
         {
             case eMovementState.IdleOrWalk:
-                Walk(MoveDir, 3f, AccelerationSpeed);
+                if (MoveTargetPoint != Vector2.zero)
+                {
+                    MoveDir = (MoveTargetPoint - (Vector2)this.transform.position).normalized;
+
+                }
+                Walk(MoveDir, MoveSpeed, AccelerationSpeed);
                 break;
 
             default: break;
         }
     }
+
 
     #endregion
 
@@ -118,7 +142,7 @@ public class EnemyController : MovableObject, IInteract
 
     public void TakeDamage(BulletState _BS, Vector2 _KnockbackDir)
     {
-        if (base.IsDead) 
+        if (base.IsDead)
         { return; }
 
         // Knockback
@@ -238,7 +262,7 @@ public class EnemyController : MovableObject, IInteract
         if (EnemyManager.Instance.CurrentEnemyList.Contains(this))
         { EnemyManager.Instance.CurrentEnemyList.Remove(this); }
 
-        if (LayerOrderManager.Instance.NeedLayerObjects.Contains(this)) 
+        if (LayerOrderManager.Instance.NeedLayerObjects.Contains(this))
         { LayerOrderManager.Instance.NeedLayerObjects.Remove(this); }
 
         // Check Room State
@@ -333,8 +357,10 @@ public class EnemyController : MovableObject, IInteract
 
     #region Nav
 
-    protected Vector2 FindWay(List<Transform> _AllTF)
+    public Vector2 FindWay()
     {
+        List<Transform> _AllTF = StageManager.Instance.CurrentRoomController.RoomRuleController.InRoom_AllWayPoint;
+
         if (_AllTF == null || _AllTF.Count < 2)
         { return Vector2.zero; }
 
@@ -347,7 +373,7 @@ public class EnemyController : MovableObject, IInteract
             return TargetPC.transform.position;
         }
 
-        
+
         List<List<Transform>> allWayRoot = new List<List<Transform>>();
         List<List<Transform>> actualAllWayRoot = new List<List<Transform>>();
 
@@ -368,7 +394,7 @@ public class EnemyController : MovableObject, IInteract
             temp++;
             if (temp > 100)
             {
-                break; 
+                break;
             }
 
             // 갱신 루트를 위한 변수
@@ -427,10 +453,11 @@ public class EnemyController : MovableObject, IInteract
         if (temp > 100)
         {
             // 데이터 초과 방지
+            Debug.Log("데이터 초과");
             return Vector2.zero;
         }
 
-
+        
 
         // 가장 짧은 거리의 경로 탐색
         List<Transform> usableRoot = actualAllWayRoot[0];
@@ -444,7 +471,6 @@ public class EnemyController : MovableObject, IInteract
                 usableRoot = actualAllWayRoot[i];
                 usableDis = dis;
             }
-
         }
 
 #if UNITY_EDITOR
@@ -476,7 +502,7 @@ public class EnemyController : MovableObject, IInteract
 
             if (!IsExistWall(_StartTF, _AllTF[i]))
             {
-                tfs.Add( _AllTF[i]);
+                tfs.Add(_AllTF[i]);
             }
         }
 
@@ -484,11 +510,11 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 중간에 벽이 있는지
-    private bool IsExistWall(Transform _StartTF, Transform _EndTF)
+    public bool IsExistWall(Transform _StartTF, Transform _EndTF)
     {
         Vector2 dirVec = _EndTF.position - _StartTF.position;
         RaycastHit2D hit = Physics2D.CircleCast(_StartTF.position, NavRadius, dirVec, Vector2.Distance(Vector2.zero, dirVec), LayerMask.GetMask("Wall"));
-        
+
         if (hit.collider != null)
         {
             return true;
@@ -540,6 +566,72 @@ public class EnemyController : MovableObject, IInteract
     }
 
     #endregion
+
+    #region Pattern
+
+    private void OffsetPatternData()
+    {
+        for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
+        {
+            for (int j = 0; j < OrderOfPriorityEnemyPatternList[i].EnemyPatternList.Count; j++)
+            {
+                OrderOfPriorityEnemyPatternList[i].EnemyPatternList[j].Offset(this);
+            }
+        }
+    }
+
+    public void StartTryGetAnyPattern(float _DelayTime)
+    {
+        StartCoroutine(TryGetAnyPattern(_DelayTime));
+    }
+
+    private IEnumerator TryGetAnyPattern(float _DelayTime)
+    {
+        yield return new WaitForSeconds(_DelayTime);
+
+        bool IsFindPattern = false;
+        for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
+        {
+            // 같은 우선도에 있는 패턴 랜덤으로 섞기
+            List<EnemyPattern> epList = GameManager.ShuffleList<EnemyPattern>(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
+
+            for (int j = 0; j < epList.Count; j++)
+            {
+                if (epList[j].CanPlayPattern())
+                {
+                    StartPattern(epList[j]);
+                    IsFindPattern = true;
+                    break;
+                }
+            }
+
+            if (IsFindPattern)
+            {
+                break;
+            }
+        }
+    }
+
+    private void StartPattern(EnemyPattern _Pattern)
+    {
+        if (_Pattern != null)
+        {
+            _Pattern.StartPattern();
+        }
+    }
+
+    #endregion
 }
 
 
+
+
+#region Order of Priority
+
+[System.Serializable]
+public class OrderOfPriorityEnemyPattern
+{
+    public List<EnemyPattern> EnemyPatternList;
+}
+
+#endregion

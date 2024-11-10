@@ -32,7 +32,6 @@ public class PlayerHUDController : UIController
 
     protected override void Offset_Module()
     {
-        Debug.Log("HUD 세팅");
         EP.Offset();
         CurrentEmptyBC.Offset();
         EmptyBC.Offset();
@@ -41,7 +40,6 @@ public class PlayerHUDController : UIController
 
     protected override void Offset_UI()
     {
-        Debug.Log("HUD 세팅");
         PlayerManager.Instance.PlayerController.MaxEP.ActualState
             .Subscribe(_MaxEP =>
             {

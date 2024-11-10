@@ -34,7 +34,6 @@ public class MakeExplosionImage : MonoBehaviour
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
         int _ModuleIndex, Material _Material)
     {
-        Debug.Log("½ÇÇà");
         GenExplosionImgs(_SpawnedPos,
        _SpawnImgAmount, _ExplosionDis, _DisappearDis,
        _BiggerScale, _BiggerMinTime, _BiggerMaxTime,
