@@ -170,6 +170,14 @@ public class PlayerController : MovableObject
 
     #endregion
 
+    #region - WayPoint
+
+    [Space(10)]
+    [Header("=== WayPoint")]
+    [SerializeField] public WayPoint ThisWayPoint;
+
+    #endregion
+
     #endregion
 
     #region Framework

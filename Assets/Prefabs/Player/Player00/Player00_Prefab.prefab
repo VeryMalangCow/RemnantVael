@@ -1027,6 +1027,52 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.2, y: 0.6}
   m_Direction: 1
+--- !u!1 &3349585637209772185
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 737877111473441484}
+  - component: {fileID: 6231064731411430748}
+  m_Layer: 7
+  m_Name: WayPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &737877111473441484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3349585637209772185}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5139995927833316672}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6231064731411430748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3349585637209772185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisTF: {fileID: 737877111473441484}
+  AdjacentWPList: []
 --- !u!1 &4198602341166417750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,6 +1211,7 @@ Transform:
   - {fileID: 3482788385999801586}
   - {fileID: 1689112656073238802}
   - {fileID: 2262092031118028543}
+  - {fileID: 737877111473441484}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8810927924693203331
@@ -1357,6 +1404,7 @@ MonoBehaviour:
   MoveDirAC: {fileID: 7400000, guid: e123b32e9ab9b9c49a435fda32906977, type: 2}
   AimPrefab: {fileID: 6141677161167260688, guid: c40efc2302d823f4385722f2c7ce4237, type: 3}
   AimRoundController: {fileID: 2787329426438936234}
+  ThisWayPoint: {fileID: 6231064731411430748}
   ExecutionInterval: 0.75
   Skill0Interval: 0.5
   Skill1Interval: 0.5

@@ -11,8 +11,8 @@ public class WayPoint : MonoBehaviour
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private Transform ThisTF;
-    [SerializeField] private List<WayPoint> AdjacentWPList;
+    [SerializeField] public Transform ThisTF;
+    [SerializeField] public List<WayPoint> AdjacentWPList;
 
     #endregion
 
@@ -21,20 +21,6 @@ public class WayPoint : MonoBehaviour
     private void Awake()
     {
         ThisTF = this.transform;
-    }
-
-    #endregion
-
-    #region Class
-
-    public WayPoint()
-    {
-
-    }
-
-    public WayPoint(Transform _ThisTF)
-    {
-        ThisTF = _ThisTF;
     }
 
     #endregion
