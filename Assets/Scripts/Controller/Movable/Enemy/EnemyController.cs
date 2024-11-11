@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -357,7 +358,7 @@ public class EnemyController : MovableObject, IInteract
 
     #region Nav
 
-    public Vector2 FindWay()
+    /*public Vector2 FindWay()
     {
         List<Transform> _AllTF = StageManager.Instance.CurrentRoomController.RoomRuleController.InRoom_AllWayPoint;
 
@@ -507,6 +508,44 @@ public class EnemyController : MovableObject, IInteract
         }
 
         return tfs;
+    }*/
+
+    public List<WayPoint> GetClosetRoot()
+    {
+        // 바로 갈 수 있다면
+        if (!IsExistWall(this.transform, PlayerManager.Instance.PlayerController.transform))
+        {
+            return new List<WayPoint> { new WayPoint(PlayerManager.Instance.PlayerController.transform) };
+        }    
+
+        // 현재 방에 모든 WayPoint
+        List<WayPoint> AllWP = StageManager.Instance.CurrentRoomController.RoomRuleController.InRoom_AllWayPoint;
+
+        // 이 객체와 플레이어에 가장 가까운 WayPoint 찾기
+        List<List<WayPoint>> RootsFromEnemy = new List<List<WayPoint>> { new List<WayPoint> { GetClosetWP(this.transform, AllWP) } };
+        List<List<WayPoint>> RootsFromPlayer = new List<List<WayPoint>> { new List<WayPoint> { GetClosetWP(PlayerManager.Instance.PlayerController.transform, AllWP) } };
+
+        while (true)
+        {
+            List<WayPoint> EndRootPointsFromEnemy = GetEndPoints(RootsFromEnemy, false);
+            List<WayPoint> EndRootPointsFromPlayer = GetEndPoints(RootsFromPlayer, true);
+
+
+        }
+
+
+        return null;
+    }
+
+    private List<WayPoint> GetEndPoints(List<List<WayPoint>> _Roots, bool _OrderByFirst)
+    {
+        return null;
+    }
+
+    // 가장 가까운 WayPoint
+    private WayPoint GetClosetWP(Transform transform, List<WayPoint> _AllWP)
+    {
+        return null;
     }
 
     // 중간에 벽이 있는지

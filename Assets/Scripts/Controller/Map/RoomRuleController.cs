@@ -24,7 +24,7 @@ public class RoomRuleController : MonoBehaviour
     [Header("=== In Room _ Enemy")]
     [SerializeField] private List<EnemySpot> InRoom_AllEnemy;
     [SerializeField] private Transform InRoom_WayPointParentTF;
-    [HideInInspector] public List<Transform> InRoom_AllWayPoint;
+    [HideInInspector] public List<WayPoint> InRoom_AllWayPoint;
 
     #endregion
 
@@ -55,7 +55,8 @@ public class RoomRuleController : MonoBehaviour
         {
             foreach (Transform chile in InRoom_WayPointParentTF)
             {
-                InRoom_AllWayPoint.Add(chile);
+                if (chile.gameObject.TryGetComponent(out WayPoint wp))
+                { InRoom_AllWayPoint.Add(wp); }
             }
         }
     }

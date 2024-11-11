@@ -113,7 +113,7 @@ public class EnemyPattern_Follow : EnemyPattern
         {
             if (CanPlayPattern())
             {
-                ThisEnemy.MoveTargetPoint = ThisEnemy.FindWay();
+                //ThisEnemy.MoveTargetPoint = ThisEnemy.FindWay();
                 yield return new WaitForSeconds(FindRootDelay);
             }
             else
