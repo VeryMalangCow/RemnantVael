@@ -134,7 +134,7 @@ public class MissileBulletController : BulletController
             if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
                 PointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
-                EC.TakeDamage(BulletState, GetDirByAngle(transform.eulerAngles.z));
+                EC.TakeDamaged(BulletState, GetDirByAngle(transform.eulerAngles.z));
             }
         }
         else if (_Col.tag == "DestructibleObject")

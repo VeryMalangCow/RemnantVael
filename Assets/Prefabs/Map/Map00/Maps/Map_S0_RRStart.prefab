@@ -1333,9 +1333,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsColliding: 0
-  DmgValue: 5
+  DmgValue: 10
   AbleKnockback: 1
-  KnockbackPower: 5
+  KnockbackPower: 10
 --- !u!61 &6063841949251669132
 BoxCollider2D:
   m_ObjectHideFlags: 0

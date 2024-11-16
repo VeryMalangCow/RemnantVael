@@ -139,7 +139,7 @@ public class EnemyController : MovableObject, IInteract
 
     #region Damaged
 
-    public void TakeDamage(BulletState _BS, Vector2 _KnockbackDir)
+    public void TakeDamaged(BulletState _BS, Vector2 _KnockbackDir)
     {
         if (base.IsDead)
         { return; }
@@ -255,7 +255,7 @@ public class EnemyController : MovableObject, IInteract
 
         // Effect
         StopCoroutine(RecoverLethargy());
-        PlayerManager.Instance.CameraController.PlayKillShake(PlayerManager.Instance.PlayerController.ExecutionInterval);
+        PlayerManager.Instance.CameraController.PlayKillAnim(PlayerManager.Instance.PlayerController.ExecutionInterval);
 
         // Remove
         if (EnemyManager.Instance.CurrentEnemyList.Contains(this))

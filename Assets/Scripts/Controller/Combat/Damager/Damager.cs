@@ -21,7 +21,7 @@ public class Damager : MonoBehaviour
     private void Update()
     {
         if (IsColliding)
-        { PlayerManager.Instance.PlayerController.TryTakeDamage(DmgValue, this, AbleKnockback, KnockbackPower); }    
+        { PlayerManager.Instance.PlayerController.TryHitted(DmgValue, this, AbleKnockback, KnockbackPower); }    
     }
 
     #endregion

@@ -317,30 +317,41 @@ public class PlayerController : MovableObject
 
     #region Damage
 
-    public void TryTakeDamage()
-    {
-        TryTakeDamage(0, null, false, 0);
-    }
-
     public void TryTakeDamage(float _DmgValue)
     {
-        TryTakeDamage(_DmgValue, null, false, 0);
+        TryHitted(_DmgValue, null, false, 0);
     }
 
     public void TryTakeDamage(float _DmgValue, Damager _Damager)
     {
-        TryTakeDamage(_DmgValue, _Damager, false, 0);
+        TryHitted(_DmgValue, _Damager, false, 0);
     }
 
-    public void TryTakeDamage(float _DmgValue, Damager _Damager, bool _AbleKnockback, float _KnockbackPower)
+    public void TryHitted(float _DmgValue, Damager _Damager, bool _AbleKB, float _KBPower)
     {
         if (IsInvincible)
         { return; }
 
+        // 항상
+        Hitted();
+
+        // 회피
+        if (UnityEngine.Random.Range(0f, 1f) < AvoidChance.ActualState.Value)
+        {
+            Avoided();
+        }
+        // 피격
+        else
+        {
+            TakeDamaged(_DmgValue, (transform.position - _Damager.gameObject.transform.position).normalized, _AbleKB, _KBPower);
+        }
+    }
+
+    private void Hitted()
+    {
         IsInvincible = true;
         CurrentInvincibleTime = 0f;
 
-        // 깜빡이는 효과
         InvincibleSeq = DOTween.Sequence();
         float intervalTime = 0.075f;
         for (int i = 0; i < PlayerMAI.TargetSRList.Count; i++)
@@ -352,34 +363,35 @@ public class PlayerController : MovableObject
             seq.AppendInterval(intervalTime);
             seq.SetLoops((int)(MaxInvincibleTime / (intervalTime * 2f)), LoopType.Restart);
         }
-        
+    }
 
-        // 회피
-        if (UnityEngine.Random.Range(0f, 1f) < AvoidChance.ActualState.Value)
+    private void TakeDamaged(float _DmgValue, Vector2 _HittedDir, bool _AbleKB, float _KBPower)
+    {
+        // Effect
+        PlayerManager.Instance.CameraController.DamagedAnim(MaxInvincibleTime, _DmgValue * 0.1f, _HittedDir);
+
+        // Knockback
+        if (_AbleKB)
+        { GetKnockback(new KnockbackState(_HittedDir, _KBPower, 0.3f)); }
+
+        // Damage
+        AddCurrentEP(-_DmgValue);
+    }
+
+    private void Avoided()
+    {
+        PlayerManager.Instance.CameraController.AvoidAnim(MaxInvincibleTime);
+
+        for (int i = 0; i < 4; i++)
         {
-            for (int i = 0; i < 4; i++)
-            {
-                PlayerMEI.GenExplosionImgs(
-                        TargetObject.transform.position,
-                        6, 0.15f, 0.75f,
-                        2.0f, 0.05f, 0.1f,
-                        1.0f, 0.5f, 1.0f,
-                        i, ThisPlayerSmokeMaterial);
-            }
-            return;
+            PlayerMEI.GenExplosionImgs(
+                    TargetObject.transform.position,
+                    6, 0.15f, 0.75f,
+                    2.0f, 0.05f, 0.1f,
+                    1.0f, 0.5f, 1.0f,
+                    i, ThisPlayerSmokeMaterial);
         }
-        // 피격
-        else
-        {
-            // Knockback
-            if (_AbleKnockback)
-            {
-                Vector2 dir = (this.gameObject.transform.position - _Damager.gameObject.transform.position).normalized;
-                Debug.DrawRay((Vector2)this.transform.position, dir, Color.red, 5f);
-                GetKnockback(new KnockbackState(dir, _KnockbackPower, 0.4f));
-            }
-            AddCurrentEP(-_DmgValue);
-        }
+
     }
 
     private void Die()
