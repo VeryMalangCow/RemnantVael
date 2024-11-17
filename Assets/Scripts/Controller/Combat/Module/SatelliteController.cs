@@ -40,6 +40,11 @@ public class SatelliteController : MonoBehaviour
 
     #region Rotate
 
+    public Quaternion RotateSmooth(Vector2 _Dir)
+    {
+        return RotateSmooth(_Dir, PitchTF, rotateSpeed);
+    }
+
     protected Quaternion RotateSmooth(Vector2 _Dir, Transform _PitchTF, float _RotateSpeed)
     {
         Quaternion targetQuat = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f);
