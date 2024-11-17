@@ -79,9 +79,14 @@ MonoBehaviour:
   NavRadius: 0.2
   OrderOfPriorityEnemyPatternList:
   - EnemyPatternList:
-    - {fileID: 3811222885106562587}
-  - EnemyPatternList:
-    - {fileID: 508694577578462851}
+    - EnemyPatternList:
+      - {fileID: 3811222885106562587}
+      - {fileID: 508694577578462851}
+    - EnemyPatternList:
+      - {fileID: 3988373326148802438}
+      - {fileID: 8493327633309841782}
+  CurrentContinuousEnemyPattern:
+    EnemyPatternList: []
   CurrentEnemyPattern: {fileID: 0}
   IsPlayingPattern: 0
 --- !u!50 &7671391899007426867
@@ -178,6 +183,61 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.7, y: 0.7}
   m_Direction: 1
+--- !u!1 &3517356116228175216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6344438746737160783}
+  - component: {fileID: 3988373326148802438}
+  m_Layer: 7
+  m_Name: Follow_ForRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6344438746737160783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3517356116228175216}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8805351947020054373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3988373326148802438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3517356116228175216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8de6a45c3f84ce459bbb0eff180a7a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisEnemy: {fileID: 848216773187047800}
+  IsPlayingThisPattern: 0
+  StartDelay: 0.5
+  EndDelay: 0.5
+  FollowingSpeed: 1.5
+  UntilForTargetRange: 1
+  TargetRange: 5
+  IgnoreWall: 0
+  UntilForTargetTime: 0
+  TargetTime: 0
+  CurrentTime: 0
 --- !u!1 &3526138921433487785
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,8 +282,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d69c1328604bef4ea292eee8a9cbc2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 0}
+  ThisEnemy: {fileID: 848216773187047800}
   IsPlayingThisPattern: 0
+  StartDelay: 0.5
+  EndDelay: 0.5
 --- !u!1 &4962291530876198273
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +417,7 @@ GameObject:
   - component: {fileID: 780330782381167763}
   - component: {fileID: 3811222885106562587}
   m_Layer: 7
-  m_Name: Follow
+  m_Name: Follow_ForMelee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -388,9 +450,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8de6a45c3f84ce459bbb0eff180a7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 0}
+  ThisEnemy: {fileID: 848216773187047800}
   IsPlayingThisPattern: 0
-  FollowingSpeed: 3
+  StartDelay: 0.5
+  EndDelay: 0.5
+  FollowingSpeed: 1.5
   UntilForTargetRange: 1
   TargetRange: 2
   IgnoreWall: 0
@@ -500,6 +564,54 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &7798985532177022493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1383470367207219228}
+  - component: {fileID: 8493327633309841782}
+  m_Layer: 7
+  m_Name: Range
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1383470367207219228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7798985532177022493}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8805351947020054373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8493327633309841782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7798985532177022493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e621be8eda9ca334da6b1868422ce61e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisEnemy: {fileID: 848216773187047800}
+  IsPlayingThisPattern: 0
+  StartDelay: 0.5
+  EndDelay: 0.5
 --- !u!1 &8251026648640757372
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +643,8 @@ Transform:
   m_Children:
   - {fileID: 780330782381167763}
   - {fileID: 8856654403103497532}
+  - {fileID: 6344438746737160783}
+  - {fileID: 1383470367207219228}
   m_Father: {fileID: 5956502316695661957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8753258395414943751

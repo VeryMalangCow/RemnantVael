@@ -23,7 +23,7 @@ public class EnemyPattern_Follow : EnemyPattern
     [SerializeField] private float CurrentTime = 0f;
 
     // Other
-    private static float FindRootDelay = 0.3f;
+    private static float FindRootDelay = 0.1f;
 
     #endregion
 
@@ -45,7 +45,7 @@ public class EnemyPattern_Follow : EnemyPattern
 
     public override bool CanPlayPattern()
     {
-        if (CanPlayPattern_ConditionByRange() || CanPlayPattern_ConditionByTime())
+        if (CanPlayPattern_ConditionByRange() && CanPlayPattern_ConditionByTime())
         {
             return true;
         }
@@ -98,6 +98,10 @@ public class EnemyPattern_Follow : EnemyPattern
     {
         CurrentTime = 0f;
 
+        ThisEnemy.MoveTargetPoint = Vector2.zero;
+        ThisEnemy.MoveDir = Vector2.zero;
+        ThisEnemy.MoveSpeed = 0;
+
         base.EndPattern();
     }
 
@@ -107,6 +111,10 @@ public class EnemyPattern_Follow : EnemyPattern
 
     private IEnumerator ThisPattern()
     {
+        yield return new WaitForSeconds(StartDelay);
+
+        #region Actual
+
         ThisEnemy.MoveSpeed = FollowingSpeed;
 
         while (true)
@@ -117,10 +125,14 @@ public class EnemyPattern_Follow : EnemyPattern
                 yield return new WaitForSeconds(FindRootDelay);
             }
             else
-            { 
+            {
                 break;
             }
         }
+
+        #endregion
+
+        yield return new WaitForSeconds(EndDelay);
 
         EndPattern();
     }

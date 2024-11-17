@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine;
 
 public class EnemyPattern_Melee : EnemyPattern
 {
@@ -6,7 +7,7 @@ public class EnemyPattern_Melee : EnemyPattern
 
     public override bool CanPlayPattern()
     {
-        return false;
+        return true;
     }
 
     #endregion
@@ -15,18 +16,14 @@ public class EnemyPattern_Melee : EnemyPattern
 
     public override void StartPattern()
     {
-
         base.StartPattern();
         StartCoroutine(ThisPattern());
     }
 
     public override void EndPattern()
     {
-
-
         base.EndPattern();
     }
-
 
     #endregion
 
@@ -34,7 +31,17 @@ public class EnemyPattern_Melee : EnemyPattern
 
     private IEnumerator ThisPattern()
     {
-        yield return null;
+        yield return new WaitForSeconds(StartDelay);
+
+        #region Actual
+
+
+
+        #endregion
+
+        yield return new WaitForSeconds(EndDelay);
+
+        EndPattern();
     }
 
     #endregion

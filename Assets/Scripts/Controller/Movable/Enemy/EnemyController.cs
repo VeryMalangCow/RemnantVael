@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UniRx;
 using UnityEngine;
 
@@ -32,7 +33,7 @@ public class EnemyController : MovableObject, IInteract
     [Header("=== Movement")]
     [SerializeField] private eMovementState MovementState;
     [HideInInspector] public Vector2 MoveTargetPoint = Vector2.zero;
-    [SerializeField] private Vector2 MoveDir;
+    [SerializeField] public Vector2 MoveDir;
     [SerializeField] public float MoveSpeed;
 
     [Space(10)]
@@ -58,8 +59,11 @@ public class EnemyController : MovableObject, IInteract
     [Header("=== Pattern")]
     [Tooltip("This Order of Priority Equle Index")]
     [SerializeField] protected List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
+    [SerializeField] public ContinuousEnemyPattern CurrentContinuousEnemyPattern = null;
     [SerializeField] public EnemyPattern CurrentEnemyPattern = null;
     [SerializeField] public bool IsPlayingPattern = false;
+
+    [HideInInspector] private float FindPatternCaculateDelay = 0.1f;
 
     #endregion
 
@@ -72,8 +76,6 @@ public class EnemyController : MovableObject, IInteract
 
         CurrentHP.Value = MaxHP;
         CurrentEP.Value = MaxEP;
-
-        OffsetPatternData();
     }
 
     private void Start()
@@ -105,7 +107,7 @@ public class EnemyController : MovableObject, IInteract
         { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
 
 
-        StartTryGetAnyPattern(0.5f);
+        TryGetAnyPattern();
     }
 
     protected void FixedUpdate()
@@ -634,66 +636,73 @@ public class EnemyController : MovableObject, IInteract
 
     #region Pattern
 
-    private void OffsetPatternData()
+    public void TryGetAnyPattern()
     {
-        for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
+        // 이미 있는지 진행 중인 패턴이 있는지 확인
+        int OrderOfPattern = -1;
+        if (CurrentEnemyPattern != null)
         {
-            for (int j = 0; j < OrderOfPriorityEnemyPatternList[i].EnemyPatternList.Count; j++)
+            // 패턴의 순서 값을 저장해 활용
+            OrderOfPattern = CurrentContinuousEnemyPattern.EnemyPatternList.IndexOf(CurrentEnemyPattern);
+            // 마지막 패턴 이었다면 (끝내기)
+            if (OrderOfPattern == CurrentContinuousEnemyPattern.EnemyPatternList.Count - 1)
             {
-                OrderOfPriorityEnemyPatternList[i].EnemyPatternList[j].Offset(this);
+                CurrentEnemyPattern = null;
+                CurrentContinuousEnemyPattern = null;
+                OrderOfPattern = -1;
             }
         }
-    }
 
-    public void StartTryGetAnyPattern(float _DelayTime)
-    {
-        StartCoroutine(TryGetAnyPattern(_DelayTime));
-    }
-
-    private IEnumerator TryGetAnyPattern(float _DelayTime)
-    {
-        yield return new WaitForSeconds(_DelayTime);
-
-        bool IsFindPattern = false;
-        for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
+        // 없다면 랜덤 패턴을 찾아서 실행.
+        if (OrderOfPattern == -1)
         {
-            // 같은 우선도에 있는 패턴 랜덤으로 섞기
-            List<EnemyPattern> epList = GameManager.ShuffleList<EnemyPattern>(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
-
-            for (int j = 0; j < epList.Count; j++)
+            for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
             {
-                if (epList[j].CanPlayPattern())
+                // 같은 우선도에 있는 패턴 랜덤으로 섞기
+                List<ContinuousEnemyPattern> epList = GameManager.ShuffleList<ContinuousEnemyPattern>(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
+                
+                // 만약 사용 가능한 패턴이 있다면 시작
+                for (int j = 0; j < epList.Count; j++)
                 {
-                    StartPattern(epList[j]);
-                    IsFindPattern = true;
-                    break;
+                    if (epList[j].EnemyPatternList[0].CanPlayPattern())
+                    {
+                        CurrentContinuousEnemyPattern = epList[j];
+                        CurrentEnemyPattern = epList[j].EnemyPatternList[0];
+
+                        CurrentEnemyPattern.StartPattern();
+
+                        return;
+                    }
                 }
             }
-
-            if (IsFindPattern)
-            {
-                break;
-            }
         }
-    }
 
-    private void StartPattern(EnemyPattern _Pattern)
-    {
-        if (_Pattern != null)
+        // 있다면 다음 패턴을 찾아서 실행.
+        else
         {
-            _Pattern.StartPattern();
+            CurrentEnemyPattern = CurrentContinuousEnemyPattern.EnemyPatternList[OrderOfPattern + 1];
+
+            CurrentEnemyPattern.StartPattern();
+            return;
         }
     }
+
 
     #endregion
 }
 
-#region Order of Priority
+#region Pattern
+
+[System.Serializable]
+public class ContinuousEnemyPattern
+{
+    public List<EnemyPattern> EnemyPatternList;
+}
 
 [System.Serializable]
 public class OrderOfPriorityEnemyPattern
 {
-    public List<EnemyPattern> EnemyPatternList;
+    public List<ContinuousEnemyPattern> EnemyPatternList;
 }
 
 #endregion

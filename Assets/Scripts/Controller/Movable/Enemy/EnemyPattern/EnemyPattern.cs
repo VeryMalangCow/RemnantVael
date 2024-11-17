@@ -10,20 +10,14 @@ public abstract class EnemyPattern : MonoBehaviour
     [Space(10)]
     [Header("=== Value")]
     [SerializeField] protected EnemyController ThisEnemy;
-    [SerializeField] protected bool IsPlayingThisPattern = false;
-
-    #endregion
-
-    #region Offset
-
-    public void Offset(EnemyController _ThisEC)
-    {
-        ThisEnemy = _ThisEC;
-    }
+    [SerializeField] public bool IsPlayingThisPattern = false;
+    [SerializeField] protected float StartDelay = 0f;
+    [SerializeField] protected float EndDelay = 0f;
 
     #endregion
 
     #region Can Check
+
     public abstract bool CanPlayPattern();
 
     #endregion
@@ -32,18 +26,16 @@ public abstract class EnemyPattern : MonoBehaviour
 
     public virtual void StartPattern()
     {
-        ThisEnemy.IsPlayingPattern = true;
         IsPlayingThisPattern = true;
-        ThisEnemy.CurrentEnemyPattern = this;
+        ThisEnemy.IsPlayingPattern = true;
     }
 
     public virtual void EndPattern()
     {
-        ThisEnemy.IsPlayingPattern = false;
         IsPlayingThisPattern = false;
-        ThisEnemy.CurrentEnemyPattern = null;
+        ThisEnemy.IsPlayingPattern = false;
 
-        ThisEnemy.StartTryGetAnyPattern(0.5f);
+        ThisEnemy.TryGetAnyPattern();
     }
 
     #endregion

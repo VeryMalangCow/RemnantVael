@@ -1,22 +1,28 @@
 using System.Collections;
+using UnityEngine;
 
 public class EnemyPattern_Range : EnemyPattern
 {
-    #region Pattern
+    #region Can Check
 
     public override bool CanPlayPattern()
     {
         return true;
     }
 
+    #endregion
+
+    #region Start End
+
     public override void StartPattern()
     {
+        base.StartPattern();
         StartCoroutine(ThisPattern());
     }
 
     public override void EndPattern()
     {
-        
+        base.EndPattern();
     }
 
     #endregion
@@ -25,7 +31,17 @@ public class EnemyPattern_Range : EnemyPattern
 
     private IEnumerator ThisPattern()
     {
-        yield return null;
+        yield return new WaitForSeconds(StartDelay);
+
+        #region Actual
+
+
+
+        #endregion
+
+        yield return new WaitForSeconds(EndDelay);
+
+        EndPattern();
     }
 
     #endregion
