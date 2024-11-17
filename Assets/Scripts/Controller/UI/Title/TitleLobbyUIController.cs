@@ -78,7 +78,7 @@ public class TitleLobbyUIController : UIController
         { return; }
 
         InputTitleManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
-        InputManager.Instance.SetAim(false);
+        //InputManager.Instance.SetAim(false);
 
         InputTitleManager.Instance.InputMoveDir = Vector2.zero;
 
@@ -97,7 +97,7 @@ public class TitleLobbyUIController : UIController
         { return; }
 
         InputTitleManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
-        InputManager.Instance.SetAim(true);
+        //InputManager.Instance.SetAim(true);
 
         Sequence seq = DOTween.Sequence();
         seq.Join(BtnsRT.DOAnchorPosX(-500f, DurTime));

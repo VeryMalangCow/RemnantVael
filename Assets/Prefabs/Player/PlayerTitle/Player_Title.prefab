@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3593022156122891462}
   - component: {fileID: 8514484191356774825}
-  - component: {fileID: 1875528104640140175}
+  - component: {fileID: 4058758924737337430}
   m_Layer: 7
   m_Name: Target
   m_TagString: Player
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1875528104640140175
+--- !u!114 &4058758924737337430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,14 +94,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2615476070570729077}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1599bb6126addc479ff42e91777e35b, type: 3}
+  m_Script: {fileID: 11500000, guid: 671f0fbb9eac8994a9c363e97583d66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisSR: {fileID: 8514484191356774825}
-  IsOn: 0
-  CurrentGenTime: 0
-  DelayGenTime: 0.03
-  StayDur: 0.5
+  RotationTargetTF: {fileID: 0}
+  ThisEightImgList: []
 --- !u!1 &3177511414151138426
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +248,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3593022156122891462}
@@ -272,12 +269,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 2615476070570729077}
+  ThisSR: {fileID: 0}
   TargetRange: 0.4
   IsDead: 0
   ThisRb: {fileID: 334434472153228344}
-  ThisSr: {fileID: 8514484191356774825}
   ThisExtraSrs: []
   AccelerationSpeed: 12
+  KnockbackStateList: []
+  BaseYLimit: 0.06
+  BaseTweenReTime: 0.3
+  ThisComponentGOList: []
   WalkSpeed: 3
 --- !u!50 &334434472153228344
 Rigidbody2D:
@@ -351,6 +352,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5da9c932-9c99-4a49-8602-f863cbb22ab7
     m_ActionName: Player/InTitleUI[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2f1450f1-f39f-499d-a6d8-ab522d14f0fd
+    m_ActionName: ChoiceCharacterUI/CC_Select[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: acb72df3-e4b7-4f0f-bf97-c56444eae4bd
+    m_ActionName: ChoiceCharacterUI/CC_OutPanel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 82895f43-b8e4-474d-904a-9cef7b7badd0
+    m_ActionName: EntranceUI/Et_Select[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0b46e274-0d4e-4a06-ad88-29566b6590e6
+    m_ActionName: EntranceUI/Et_OutPanel[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: TitleUI

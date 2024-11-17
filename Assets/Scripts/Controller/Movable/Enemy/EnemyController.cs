@@ -63,8 +63,6 @@ public class EnemyController : MovableObject, IInteract
     [SerializeField] public EnemyPattern CurrentEnemyPattern = null;
     [SerializeField] public bool IsPlayingPattern = false;
 
-    [HideInInspector] private float FindPatternCaculateDelay = 0.1f;
-
     #endregion
 
     #region Fremework

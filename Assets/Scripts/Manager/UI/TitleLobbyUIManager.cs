@@ -31,6 +31,10 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     [SerializeField] private float EachStayTime = 1.5f;
     [SerializeField] private float EachDelayTime = 0.5f;
 
+    [Header("=== Map")]
+    [SerializeField] private Transform MapObjectParentTF;
+
+
     #endregion
 
     #region Framework
@@ -94,6 +98,9 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             WarningSeq()
             .OnComplete(() =>
             {
+                // Loading Map
+                MapObjectParentTF.gameObject.SetActive(true);
+
                 SimpleCreditSeq()
                 .OnComplete(() =>
                 {
