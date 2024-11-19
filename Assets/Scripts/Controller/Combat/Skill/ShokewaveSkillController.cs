@@ -75,14 +75,14 @@ public class ShockwaveSkillController : ActiveSkillController
             _UsableMaxSize / 4, _UsableMaxSize / 2,
             1.4f, 0.2f, 0.3f,
             0.7f, 0.4f, 0.5f,
-            2, new Vector2(1, 0.5f), PlayerController.ThisPlayerSmokeMaterial);
+            2, new Vector2(1, 0.5f), PlayerController.ThisPlayerMaterial_000);
         PlayerController.PlayerMEI.GenExplosionImgs(
             _SpawndPos,
             (int)(36f * _CriticalChance), 
             _UsableMaxSize / 4, _UsableMaxSize / 2,
             1.4f, 0.2f, 0.3f,
             0.7f, 0.4f, 0.5f,
-            3, new Vector2(1, 0.5f), PlayerController.ThisPlayerSmokeMaterial);
+            3, new Vector2(1, 0.5f), PlayerController.ThisPlayerMaterial_000);
     }
 
     #endregion

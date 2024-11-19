@@ -1372,7 +1372,12 @@ MonoBehaviour:
       value: 1
     Desc: 
   LowerController: {fileID: 6070200958351899230}
-  ThisPlayerSmokeMaterial: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
+  ThisPlayerMaterial_000: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
+  ThisPlayerMaterial_001: {fileID: 2100000, guid: 72598d291dfffcb469dd16ffb373bfc0, type: 2}
+  ThisPBHMaterial: {fileID: 2100000, guid: 8a8507f2d7c7b944e9f4d14763d30fd0, type: 2}
+  ThisPCHMaterial: {fileID: 2100000, guid: 349491d820f6bb1499c60ddcd10fb825, type: 2}
+  ThisEBHMaterial: {fileID: 2100000, guid: dcff05190d408cb4c99de5450ef855cb, type: 2}
+  ThisECHMaterial: {fileID: 2100000, guid: d5657b8b7e4da794191b479ed30b5d78, type: 2}
   PlayerMEI: {fileID: 2930891811832810725}
   PlayerMAI: {fileID: 4030414932115461039}
   PhysicsHittedPointAC: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}

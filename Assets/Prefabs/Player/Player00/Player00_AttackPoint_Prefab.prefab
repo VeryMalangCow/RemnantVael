@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5228608942101997424}
   - component: {fileID: 7826565934608290320}
   m_Layer: 0
-  m_Name: Player00_HittedPoint_Prefab
+  m_Name: Player00_AttackPoint_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisAnimator: {fileID: 7826565934608290320}
+  ThisSpriteRenderer: {fileID: 5228608942101997424}
 --- !u!212 &5228608942101997424
 SpriteRenderer:
   m_ObjectHideFlags: 0

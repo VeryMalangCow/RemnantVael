@@ -2252,7 +2252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentEnemyList: []
-  EnemySmokeMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  EnemySmokeMaterial: {fileID: 2100000, guid: 75b0116f582f3244aaf171b01df8ff63, type: 2}
 --- !u!1 &1367558787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2668,6 +2668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef74f5adbc6cf64f97153cd67a1719c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ModuleMaterial_000: {fileID: 2100000, guid: 75b0116f582f3244aaf171b01df8ff63, type: 2}
 --- !u!1 &1717915346
 GameObject:
   m_ObjectHideFlags: 0

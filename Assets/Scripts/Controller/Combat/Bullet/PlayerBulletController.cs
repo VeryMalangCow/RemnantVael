@@ -36,6 +36,7 @@ public class PlayerBulletController : BulletController
 
     private void DeleteThis()
     {
+        AttackPointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
         ExplosionEffect(TargetObject.transform.position, ThisSR.sortingOrder + 1, BulletState.DamageType, BulletState.IsCritical);
         
 
@@ -59,7 +60,7 @@ public class PlayerBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
-                PointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
+                EC.HittedPointEffect(this.TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
                 EC.TakeDamaged(BulletState, GetDirByAngle(transform.eulerAngles.z));
             }
         }
@@ -104,28 +105,18 @@ public class PlayerBulletController : BulletController
                    4, 0.3f, 0.4f,
                    0.6f, 0.05f, 0.1f,
                    0.3f, 0.5f, 1.0f,
-                   index, PlayerManager.Instance.PlayerController.ThisPlayerSmokeMaterial);
+                   index, PlayerManager.Instance.PlayerController.ThisPlayerMaterial_000);
     }
 
-    private void PointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
+    private void AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
     {
         OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
-        if (_DamageType == eDamageType.Physics)
-        {
-            if (!_IsCritical)
-            { oota.StartAnim(PlayerManager.Instance.PlayerController.PhysicsHittedPointAC, _SpanwedPos, 2f, 1f); }
-            else
-            { oota.StartAnim(PlayerManager.Instance.PlayerController.PhysicsCriticalHittedPointAC, _SpanwedPos, 2f, 1f); }
-        }
-        else
-        {
-            if (!_IsCritical)
-            { oota.StartAnim(PlayerManager.Instance.PlayerController.EnergyHittedPointAC, _SpanwedPos, 2f, 1f); }
-            else
-            { oota.StartAnim(PlayerManager.Instance.PlayerController.EnergyCriticalHittedPointAC, _SpanwedPos, 2f, 1f); }
-        }
+        oota.StartAnim(
+            PlayerManager.Instance.PlayerController.GetCorrectHitted_AC(_DamageType, _IsCritical),
+            _SpanwedPos, 
+            PlayerManager.Instance.PlayerController.ThisPlayerMaterial_000, 
+            2f, 1f);
     }
-
 
     #endregion
 }

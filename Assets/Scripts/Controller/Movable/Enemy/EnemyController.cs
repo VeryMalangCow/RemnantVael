@@ -45,6 +45,9 @@ public class EnemyController : MovableObject, IInteract
     [Space(10)]
     [Header("=== Effect")]
     [SerializeField] public MakeExplosionImage MEI;
+    [SerializeField] public AnimationClip HittedAC_0;
+    [SerializeField] public AnimationClip HittedAC_1;
+    [SerializeField] public AnimationClip HittedAC_2;
 
     [HideInInspector] private GameObject TargetPC;
     [HideInInspector] protected RoomController CurrentRoomController;
@@ -62,6 +65,8 @@ public class EnemyController : MovableObject, IInteract
     [SerializeField] public ContinuousEnemyPattern CurrentContinuousEnemyPattern = null;
     [SerializeField] public EnemyPattern CurrentEnemyPattern = null;
     [SerializeField] public bool IsPlayingPattern = false;
+
+
 
     #endregion
 
@@ -200,7 +205,7 @@ public class EnemyController : MovableObject, IInteract
             GetKnockback(new KnockbackState(_KnockbackDir, _AttackerState.KnockbackPower, _AttackerState.KnockbackTime));
         }
 
-
+        
         float baseDamage = _AttackerState.BaseDamage;
         if (_IsCritical)
         {
@@ -277,6 +282,8 @@ public class EnemyController : MovableObject, IInteract
                     1.6f, 0.05f, 0.1f,
                     0.8f, 0.5f, 1.0f,
                     0, EnemyManager.Instance.EnemySmokeMaterial);
+
+        DieEffect();
     }
 
     #endregion
@@ -685,6 +692,37 @@ public class EnemyController : MovableObject, IInteract
         }
     }
 
+
+    #endregion
+
+    #region Effect
+
+    public void HittedPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
+    {
+        OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
+        oota.StartAnim(
+            HittedAC_0,
+            _SpanwedPos,
+            PlayerManager.Instance.PlayerController.GetCorrectHitted_M(_DamageType, _IsCritical),
+            1.5f, 1f);
+
+        OnlyOnceTimeAnimation oota2 = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
+        oota2.StartAnim(
+            HittedAC_1,
+            _SpanwedPos,
+            PlayerManager.Instance.PlayerController.GetCorrectHitted_M(_DamageType, _IsCritical),
+            2.5f, 1.2f);
+    }
+
+    private void DieEffect()
+    {
+        OnlyOnceTimeAnimation oota2 = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
+        oota2.StartAnim(
+            HittedAC_2,
+            this.TargetObject.transform.position,
+            UnitManager.Instance.ModuleMaterial_000,
+            2.5f, 2f);
+    }
 
     #endregion
 }

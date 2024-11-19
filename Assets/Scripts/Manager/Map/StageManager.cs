@@ -454,8 +454,6 @@ public class StageManager : Singleton<StageManager>
         [Space(20)]
         public List<RoomData> BossRoomPrefabList;
 
-        [Space(20)]
-        public Material StageSmokeMaterial;
 
         [System.Serializable]
         public class RoomData
@@ -480,11 +478,6 @@ public class StageManager : Singleton<StageManager>
         }
 
         
-    }
-
-    public Material GetCurrentStageMaterial()
-    {
-        return AllReso[TargetStageID].StageSmokeMaterial;
     }
 
     #endregion

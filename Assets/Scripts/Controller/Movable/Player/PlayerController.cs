@@ -114,11 +114,16 @@ public class PlayerController : MovableObject
 
     [Space(10)]
     [Header("=== Material")]
-    [SerializeField] public Material ThisPlayerSmokeMaterial;
+    [SerializeField] public Material ThisPlayerMaterial_000;
+    [SerializeField] public Material ThisPlayerMaterial_001;
 
+    [SerializeField] private Material ThisPBHMaterial;
+    [SerializeField] private Material ThisPCHMaterial;
+    [SerializeField] private Material ThisEBHMaterial;
+    [SerializeField] private Material ThisECHMaterial;
 
     #endregion
-    
+
     #region - Effect
 
     [Space(10)]
@@ -389,7 +394,7 @@ public class PlayerController : MovableObject
                     6, 0.15f, 0.75f,
                     2.0f, 0.05f, 0.1f,
                     1.0f, 0.5f, 1.0f,
-                    i, ThisPlayerSmokeMaterial);
+                    i, ThisPlayerMaterial_000);
         }
 
     }
@@ -873,6 +878,45 @@ public class PlayerController : MovableObject
         else
         { SetOffRoomMoveDir(); }
     }
+
+
+
+    public Material GetCorrectHitted_M(eDamageType _DamageType, bool _IsCritical)
+    {
+        if (_DamageType == eDamageType.Physics)
+        {
+            if (!_IsCritical)
+            { return ThisPBHMaterial; }
+            else
+            { return ThisPCHMaterial; }
+        }
+        else
+        {
+            if (!_IsCritical)
+            { return ThisEBHMaterial; }
+            else
+            { return ThisECHMaterial; }
+        }
+    }
+
+    public AnimationClip GetCorrectHitted_AC(eDamageType _DamageType, bool _IsCritical)
+    {
+        if (_DamageType == eDamageType.Physics)
+        {
+            if (!_IsCritical)
+            { return PhysicsHittedPointAC; }
+            else
+            { return PhysicsCriticalHittedPointAC; }
+        }
+        else
+        {
+            if (!_IsCritical)
+            { return EnergyHittedPointAC; }
+            else
+            { return EnergyCriticalHittedPointAC; }
+        }
+    }
+
 
     #endregion
 

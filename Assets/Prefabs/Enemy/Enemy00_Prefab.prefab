@@ -76,6 +76,9 @@ MonoBehaviour:
   HP_ProgressBar: {fileID: 6470338870314578685}
   EP_ProgressBar: {fileID: 5303638376107025711}
   MEI: {fileID: 7610645863705853807}
+  HittedAC_0: {fileID: 7400000, guid: 6af0f636d94b34f41822b97c0843c8ca, type: 2}
+  HittedAC_1: {fileID: 7400000, guid: c871472990cbec34cb198596439ad843, type: 2}
+  HittedAC_2: {fileID: 7400000, guid: ad2333be6b080184da375f3e13c7316e, type: 2}
   NavRadius: 0.2
   OrderOfPriorityEnemyPatternList:
   - EnemyPatternList:
