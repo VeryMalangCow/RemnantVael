@@ -184,8 +184,8 @@ TextureImporter:
       name: Map00_B_T
       rect:
         serializedVersion: 2
-        x: 473
-        y: 482
+        x: 485
+        y: 485
         width: 26
         height: 26
       alignment: 0
@@ -210,7 +210,7 @@ TextureImporter:
         width: 36
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -218,6 +218,300 @@ TextureImporter:
       bones: []
       spriteID: ff3249c6a84f7c648924e8f534fd1cbf
       internalID: -430084006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_InR
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 485
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98b0db5de1d7ed24e90e586a459a714a
+      internalID: -1632151703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_InD
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 485
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05836c9edf02c124f89806949972e2a0
+      internalID: 745159895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_InLD
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 485
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dad7df7bfc66ac74cb315fa84446db14
+      internalID: 1793176974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_InRD
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 485
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2793e7d1bbaf1c041b9e71e48786b512
+      internalID: -1480347548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_InRU
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 485
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98b0ee444cd9be941afad72574fa5f09
+      internalID: 1349676907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_InLU
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 485
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e30e748458dd3fa44b0a1791414a26fe
+      internalID: 1509238595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_sT
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 498
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84174550abee5d24b956931b5b3bcfc3
+      internalID: 1927203976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_OutLU
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 457
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82c4ce7eb94025643b82780659f862c4
+      internalID: -668223007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_OutRU
+      rect:
+        serializedVersion: 2
+        x: 429
+        y: 457
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be4e8769a71b05b4fa66f334953aa0c7
+      internalID: 1566653567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_OutRD
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 457
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4391efb47b508ed4a9f75d1ae1515f63
+      internalID: -903164777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_OutLD
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 457
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82d432bb4aac2f94daed12c6b49a80a9
+      internalID: 1076996630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_OutD
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 457
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d45cfd620a26b12499c75abb29024172
+      internalID: 1714918830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_T_OutR
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 457
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82ef6c7fdcac8664a863aa2976d5ea96
+      internalID: -1665592472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_cT
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 457
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f24e34469065d54aaaab08be99a64e0
+      internalID: 1048232967
       vertices: []
       indices: 
       edges: []
@@ -236,6 +530,20 @@ TextureImporter:
       name: _Emission
     nameFileIdTable:
       Map00_B_T: 1138959698
+      Map00_B_T_InD: 745159895
+      Map00_B_T_InLD: 1793176974
+      Map00_B_T_InLU: 1509238595
+      Map00_B_T_InR: -1632151703
+      Map00_B_T_InRD: -1480347548
+      Map00_B_T_InRU: 1349676907
+      Map00_B_T_OutD: 1714918830
+      Map00_B_T_OutLD: 1076996630
+      Map00_B_T_OutLU: -668223007
+      Map00_B_T_OutR: -1665592472
+      Map00_B_T_OutRD: -903164777
+      Map00_B_T_OutRU: 1566653567
+      Map00_B_cT: 1048232967
+      Map00_B_sT: 1927203976
       Map00_Damagable: -430084006
       Map00_E_U_00: -589583410
       Map00_E_U_01: -361455258
