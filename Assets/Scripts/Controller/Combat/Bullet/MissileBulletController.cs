@@ -133,7 +133,11 @@ public class MissileBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
-                EC.HittedPointEffect(this.TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
+                EC.HittedPointEffect(
+                    this.TargetObject.transform.position, 
+                    BulletState.DamageType, 
+                    BulletState.IsCritical, 
+                    transform.rotation);
                 EC.TakeDamaged(BulletState, GetDirByAngle(transform.eulerAngles.z));
             }
         }

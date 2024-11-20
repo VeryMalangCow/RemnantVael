@@ -33,6 +33,7 @@ public class OnlyOnceTimeAnimation : MonoBehaviour
 
     private void EndAnim()
     {
+        ThisAnimator.speed = 0f;
         this.gameObject.SetActive(false);
         if (aoc != null)
         { aoc = null; }
@@ -41,7 +42,7 @@ public class OnlyOnceTimeAnimation : MonoBehaviour
 
     private void Update()
     {
-        if (ThisAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        if (ThisAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
         {
             EndAnim();
         }

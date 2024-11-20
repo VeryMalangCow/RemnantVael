@@ -697,30 +697,48 @@ public class EnemyController : MovableObject, IInteract
 
     #region Effect
 
-    public void HittedPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
+    public void HittedPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical, Quaternion _Rotation)
     {
+        Vector3 currentRotation = _Rotation.eulerAngles;
+
+        Quaternion q = Quaternion.identity;
+        currentRotation.z += 180;
+        q.eulerAngles = currentRotation;
+
         OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
         oota.StartAnim(
             HittedAC_0,
             _SpanwedPos,
             PlayerManager.Instance.PlayerController.GetCorrectHitted_M(_DamageType, _IsCritical),
+            q,
             1.5f, 1f);
+
+        Quaternion q2 = Quaternion.identity;
+        currentRotation.z += Random.Range(-45, 45);
+        q2.eulerAngles = currentRotation;
 
         OnlyOnceTimeAnimation oota2 = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
         oota2.StartAnim(
             HittedAC_1,
             _SpanwedPos,
             PlayerManager.Instance.PlayerController.GetCorrectHitted_M(_DamageType, _IsCritical),
+            q2,
             2.5f, 1.2f);
     }
 
     private void DieEffect()
     {
+        Quaternion q = Quaternion.identity;
+        Vector3 currentRotation = q.eulerAngles;
+        currentRotation.z += Random.Range(-20, 20);
+        q.eulerAngles = currentRotation;
+
         OnlyOnceTimeAnimation oota2 = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
         oota2.StartAnim(
             HittedAC_2,
             this.TargetObject.transform.position,
             UnitManager.Instance.ModuleMaterial_000,
+            q,
             2.5f, 2f);
     }
 
