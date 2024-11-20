@@ -11,7 +11,7 @@ public class SatelliteController : MonoBehaviour
     [Space(10)]
     [Header("=== Player")]
     [SerializeField] protected PlayerController PlayerController;
-    [SerializeField] protected SpriteRenderer PlayerSR;
+    [SerializeField] public SpriteRenderer PlayerSR;
     [SerializeField] public bool IsInputed = false;
 
     [Space(10)]
@@ -51,6 +51,45 @@ public class SatelliteController : MonoBehaviour
         targetQuat = Quaternion.Slerp(_PitchTF.transform.localRotation, targetQuat, _RotateSpeed * Time.deltaTime);
 
         return targetQuat;
+    }
+
+    #endregion
+
+    #region Get
+
+    public static int GetIndex(float _EulerAngleY)
+    {
+        int index = 0;
+        float angle = _EulerAngleY + 67.5f;
+        angle = angle >= 360 ? angle -= 360 : angle;
+
+        index = (int)(angle / 45);
+        return index;
+    }
+
+    public static Vector2Int GetNormalizedVec(int _Index)
+    {
+        switch (_Index)
+        {
+            case 0:
+                return new Vector2Int(-1, 1);
+            case 1:
+                return new Vector2Int(0, 1);
+            case 2:
+                return new Vector2Int(1, 1);
+            case 3:
+                return new Vector2Int(1, 0);
+            case 4:
+                return new Vector2Int(1, -1);
+            case 5:
+                return new Vector2Int(0, -1);
+            case 6:
+                return new Vector2Int(-1, -1);
+            case 7:
+                return new Vector2Int(-1, 0);
+
+        }
+        return Vector2Int.zero;
     }
 
     #endregion

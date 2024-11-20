@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 
 public class TitlePlayerController : MovableObject
@@ -13,17 +15,28 @@ public class TitlePlayerController : MovableObject
     [Header("=== Interact")]
     [SerializeField] private IInteract CurrentInteractable;
 
+    [Space(10)]
+    [Header("=== Anim")]
+    [SerializeField] private ReactiveProperty<int> CurrentIndex = new();
+
     #endregion
 
     #region Framework
+
+    private void Start()
+    {
+        CurrentIndex.Value = 5;
+        CurrentIndex.Subscribe(index =>
+        {
+            
+        });
+    }
 
     private void LateUpdate()
     {
         Movement();
 
-        //InputTitleManager.Instance.DirFromPlayerPos.normalized;
-        Vector2 v = Vector2.zero;
-        HigherBody.PitchTF.transform.localRotation = HigherBody.RotateSmooth(v);
+        SetImg();
     }
 
     #endregion
@@ -65,6 +78,30 @@ public class TitlePlayerController : MovableObject
             CurrentInteractable == II)
         {
             CurrentInteractable = null;
+        }
+    }
+
+    #endregion
+
+    #region Anim
+
+    private void SetImg()
+    {
+        Vector2 dir = ThisRb.velocity;
+        if (dir != Vector2.zero)
+        {
+            dir = new Vector2(-dir.x, dir.y);
+            if (SatelliteController.GetIndex(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z) != CurrentIndex.Value)
+            {
+                CurrentIndex.Value = SatelliteController.GetIndex(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z);
+            }
+
+            HigherBody.PitchTF.transform.localRotation = HigherBody.RotateSmooth(SatelliteController.GetNormalizedVec(CurrentIndex.Value));
+            foreach (Satellite hand in HigherBody.Hands)
+            {
+                hand.SetPos(HigherBody.PlayerSR.sortingOrder);
+            }
+            //HigherBody.CenterSpriteRenderer.sortingOrder = PlayerController.ThisSR.sortingOrder + Hands[0].UpperOrder;
         }
     }
 

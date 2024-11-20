@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 987973562307529831}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 0, z: 0}
+  m_LocalPosition: {x: -0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -76,7 +76,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.6, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5139995927833316672}
@@ -180,7 +180,7 @@ Transform:
   m_GameObject: {fileID: 2660216125379964917}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 0, z: 0}
+  m_LocalPosition: {x: -0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -304,7 +304,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.7, y: 0.7}
+  m_Size: {x: 1.2, y: 1.2}
   m_Direction: 1
 --- !u!1 &3385023034096440689
 GameObject:
@@ -334,7 +334,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.6, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8670458551141317531}
@@ -445,11 +445,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 5092669102171801610}
   - {fileID: 3593022156122891462}
   - {fileID: 5164762843520896280}
   - {fileID: 8670458551141317531}
   - {fileID: 8794778831243530417}
-  - {fileID: 5092669102171801610}
   - {fileID: 1689112656073238802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -478,6 +478,8 @@ MonoBehaviour:
   ThisComponentGOList: []
   HigherBody: {fileID: 949371640799994125}
   WalkSpeed: 3
+  CurrentIndex:
+    value: 0
 --- !u!50 &334434472153228344
 Rigidbody2D:
   serializedVersion: 4
@@ -599,7 +601,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.6, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8794778831243530417}
@@ -703,7 +705,7 @@ Transform:
   m_GameObject: {fileID: 5198247258254189547}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 0, z: 0}
+  m_LocalPosition: {x: 0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -735,7 +737,7 @@ Transform:
   m_GameObject: {fileID: 5239744886556224551}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 0, z: 0}
+  m_LocalPosition: {x: 0.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -937,9 +939,9 @@ MonoBehaviour:
   PlayerController: {fileID: 0}
   PlayerSR: {fileID: 8514484191356774825}
   IsInputed: 0
-  DefualtRoll: -85
+  DefualtRoll: -45
   RollTF: {fileID: 2926540439746466276}
-  rotateSpeed: 4
+  rotateSpeed: 8
   PitchTF: {fileID: 4831744638817460178}
   Hands:
   - ObjectTF: {fileID: 8670458551141317531}
