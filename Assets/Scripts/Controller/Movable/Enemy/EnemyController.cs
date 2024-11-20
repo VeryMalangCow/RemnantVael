@@ -699,6 +699,8 @@ public class EnemyController : MovableObject, IInteract
 
     public void HittedPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical, Quaternion _Rotation)
     {
+        // Hitted Anim
+
         Vector3 currentRotation = _Rotation.eulerAngles;
 
         Quaternion q = Quaternion.identity;
@@ -710,7 +712,7 @@ public class EnemyController : MovableObject, IInteract
             HittedAC_0,
             _SpanwedPos,
             PlayerManager.Instance.PlayerController.GetCorrectHitted_M(_DamageType, _IsCritical),
-            q,
+            q, 
             1.5f, 1f);
 
         Quaternion q2 = Quaternion.identity;
@@ -724,6 +726,9 @@ public class EnemyController : MovableObject, IInteract
             PlayerManager.Instance.PlayerController.GetCorrectHitted_M(_DamageType, _IsCritical),
             q2,
             2.5f, 1.2f);
+
+        // SlowMotion
+        PlayerManager.Instance.CameraController.PlayHitEnemyAnim();
     }
 
     private void DieEffect()

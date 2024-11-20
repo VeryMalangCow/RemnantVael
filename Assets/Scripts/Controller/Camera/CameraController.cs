@@ -145,27 +145,37 @@ public class CameraController : MonoBehaviour
 
     #region Execution Kill
 
+    public void PlayHitEnemyAnim()
+    {
+        PlaySlowMotion(0.3f, 0.95f);
+        PlayPOVSize(0.3f, CameraProjectionSize - 0.05f);
+    }
+
     public void PlayKillAnim(float _Dur)
     {
         PlayShake(EnemyKillShakeTF, _Dur, KillStrength, KillVibrato);
+        PlaySlowMotion(0.4f, 0.9f);
+        PlayPOVSize(0.4f, CameraProjectionSize - 0.1f);
     }
 
     #endregion
 
     #region Dmg
 
-    public void AvoidAnim(float _Dur)
+    public void PlayAvoidAnim(float _Dur)
     {
         PlaySlowMotion(_Dur * 0.8f, 0.5f);
         PlayPOVSize(_Dur, CameraProjectionSize - 1f);
     }
 
-    public void DamagedAnim(float _Dur, float _Strength, Vector2 _Dir)
+    public void PlayDamagedAnim(float _Dur, float _Strength, Vector2 _Dir)
     {
         PlayRebound(DamagedShakeTF, _Dur, _Strength, _Dir);
         PlaySlowMotion(_Dur * 0.5f, 0.25f);
         PlayPOVSize(_Dur, CameraProjectionSize + 0.75f);
     }
+
+
 
     #endregion
 

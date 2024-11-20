@@ -373,7 +373,7 @@ public class PlayerController : MovableObject
     private void TakeDamaged(float _DmgValue, Vector2 _HittedDir, bool _AbleKB, float _KBPower)
     {
         // Effect
-        PlayerManager.Instance.CameraController.DamagedAnim(MaxInvincibleTime, _DmgValue * 0.1f, _HittedDir);
+        PlayerManager.Instance.CameraController.PlayDamagedAnim(MaxInvincibleTime, _DmgValue * 0.1f, _HittedDir);
 
         // Knockback
         if (_AbleKB)
@@ -385,7 +385,7 @@ public class PlayerController : MovableObject
 
     private void Avoided()
     {
-        PlayerManager.Instance.CameraController.AvoidAnim(MaxInvincibleTime);
+        PlayerManager.Instance.CameraController.PlayAvoidAnim(MaxInvincibleTime);
 
         for (int i = 0; i < 4; i++)
         {
