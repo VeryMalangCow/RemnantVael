@@ -12,6 +12,7 @@ TagManager:
   - PlayerThing
   - Wall
   - DestructibleObject
+  - InteractBuilding
   layers:
   - Default
   - TransparentFX
@@ -44,7 +45,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - OnlyEditor
   m_SortingLayers:
   - name: Default
     uniqueID: 0

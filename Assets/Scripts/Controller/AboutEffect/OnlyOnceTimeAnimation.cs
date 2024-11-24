@@ -7,12 +7,18 @@ public class OnlyOnceTimeAnimation : MonoBehaviour
     [SerializeField] private SpriteRenderer ThisSpriteRenderer;
     [HideInInspector] private AnimatorOverrideController aoc;
 
+
     public void StartAnim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
         StartAnim(_AC, _SpawnedPos, _Material, Quaternion.identity, _AnimSpeed, _AnimSize);
     }
 
     public void StartAnim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, Quaternion _Rotation, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    {
+        StartAnim(_AC, _SpawnedPos, _Material, Color.white, _Rotation, _AnimSpeed, _AnimSize);
+    }
+
+    public void StartAnim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, Color _Clr, Quaternion _Rotation, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
         aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
@@ -23,6 +29,7 @@ public class OnlyOnceTimeAnimation : MonoBehaviour
 
         ThisAnimator.speed = _AnimSpeed;
         ThisSpriteRenderer.material = _Material;
+        ThisSpriteRenderer.color = _Clr;
 
         this.gameObject.transform.rotation = _Rotation;
         this.gameObject.transform.localScale = Vector2.one * _AnimSize;

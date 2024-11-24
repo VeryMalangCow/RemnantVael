@@ -117,10 +117,11 @@ public class PlayerController : MovableObject
     [SerializeField] public Material ThisPlayerMaterial_000;
     [SerializeField] public Material ThisPlayerMaterial_001;
 
-    [SerializeField] private Material ThisPBHMaterial;
-    [SerializeField] private Material ThisPCHMaterial;
-    [SerializeField] private Material ThisEBHMaterial;
-    [SerializeField] private Material ThisECHMaterial;
+    [Space(10)]
+    [SerializeField] private Color ThisPBHColor;
+    [SerializeField] private Color ThisPCHColor;
+    [SerializeField] private Color ThisEBHColor;
+    [SerializeField] private Color ThisECHColor;
 
     #endregion
 
@@ -881,21 +882,21 @@ public class PlayerController : MovableObject
 
 
 
-    public Material GetCorrectHitted_M(eDamageType _DamageType, bool _IsCritical)
+    public Color GetCorrectHitted_C(eDamageType _DamageType, bool _IsCritical)
     {
         if (_DamageType == eDamageType.Physics)
         {
             if (!_IsCritical)
-            { return ThisPBHMaterial; }
-            else
-            { return ThisPCHMaterial; }
+            { return ThisPBHColor; }
+            else            
+            { return ThisPCHColor; }
         }
         else
         {
             if (!_IsCritical)
-            { return ThisEBHMaterial; }
-            else
-            { return ThisECHMaterial; }
+            { return ThisEBHColor; }
+            else            
+            { return ThisECHColor; }
         }
     }
 

@@ -26,7 +26,7 @@ public class SetEightDirImg : MonoBehaviour
 
     private void Start()
     {
-        CurrentIndex.Value = 0;
+        CurrentIndex.Value = 5;
         if (TryGetComponent(out SpriteRenderer SR))
         {
             ThisSR = SR;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class NormalEnemyController : EnemyController
     [SerializeField] private ReactiveProperty<int> CurrentIndex = new();
     [SerializeField] private SatelliteController WalkingSatellite;
     [SerializeField] private SatelliteController LookingSatellite;
+    [SerializeField] private float BaseUnderFootAnimSpeed = 1.0f;
+    [SerializeField] private List<SetEightDirAnim> ThisSEDA;
 
     #endregion
 
@@ -29,8 +32,8 @@ public class NormalEnemyController : EnemyController
     {
         SetImg(WalkingSatellite, ThisRb.velocity);
         SetImg(LookingSatellite, LookAtDir);
-        //SetImg_ByVelocity(WalkingSatellite);
-        //SetImg_ByLookingTarget(LookingSatellite);
+
+        SetAnimSpeed();
     }
 
     #endregion
@@ -60,5 +63,13 @@ public class NormalEnemyController : EnemyController
         }
     }
 
+    private void SetAnimSpeed()
+    {
+        float dis = Vector2.Distance(Vector2.zero, ThisRb.velocity);
+        for (int i = 0; i < ThisSEDA.Count; i++)
+        {
+            ThisSEDA[i].SetAnimSpeed(BaseUnderFootAnimSpeed * dis);
+        }
+    }
     #endregion
 }

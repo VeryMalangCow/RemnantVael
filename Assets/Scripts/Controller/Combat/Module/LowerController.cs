@@ -1,6 +1,5 @@
 using DG.Tweening;
 using System.Collections.Generic;
-using UniRx;
 using UnityEngine;
 
 public class LowerController : SatelliteController
@@ -14,25 +13,12 @@ public class LowerController : SatelliteController
     [SerializeField] private Rigidbody2D ThisRb;
     [SerializeField] private List<Animator> ThisAnimatorList;
     [SerializeField] private SpriteRenderer CenterSpriteRenderer;
-    [SerializeField] private ReactiveProperty<int> CurrentIndex = new();
 
     Tween MoveTween = null;
 
     #endregion
 
     #region Fremework
-
-    private void Start()
-    {
-        CurrentIndex.Value = 5;
-        CurrentIndex.Subscribe(index =>
-        {
-            for (int i = 0; i < ThisAnimatorList.Count; i++) 
-            {
-                ThisAnimatorList[i].SetTrigger(index.ToString());
-            }
-        });
-    }
 
     protected void LateUpdate()
     {
@@ -60,12 +46,8 @@ public class LowerController : SatelliteController
 
     private void SetAll(Vector2 _Dir)
     {
-        // Animation
-        Vector2 dirModifyX = new Vector2(-_Dir.x, _Dir.y);
-        SetAnim(dirModifyX);
-
         // Rotate
-        PitchTF.transform.localRotation = RotateSmooth(GetNormalizedVec(CurrentIndex.Value), PitchTF, rotateSpeed);
+        PitchTF.transform.localRotation = RotateSmooth(_Dir.normalized);
         foreach (Satellite hand in Hands)
         {
             hand.SetPos(PlayerSR.sortingOrder);
@@ -77,14 +59,6 @@ public class LowerController : SatelliteController
         {
             MoveTween = this.transform.DOShakePosition(1f, 0.01f, 20, 0, false, false)
                 .SetLoops(-1, LoopType.Restart); 
-        }
-    }
-
-    private void SetAnim(Vector2 _DirModifyX)
-    {
-        if (GetIndex(Quaternion.FromToRotation(Vector3.up, _DirModifyX).eulerAngles.z) != CurrentIndex.Value)
-        {
-            CurrentIndex.Value = GetIndex(Quaternion.FromToRotation(Vector3.up, _DirModifyX).eulerAngles.z);
         }
     }
 

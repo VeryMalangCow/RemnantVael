@@ -335,7 +335,17 @@ public class StageManager : Singleton<StageManager>
         {
             CurrentAllRoomController[i].gameObject.SetActive(false);
         }
+
+        // Layer 초기화
+        LayerOrderManager.Instance.NeedLayerObjects = new List<HaveShadowThing>()
+        { PlayerManager.Instance.PlayerController }; // 전 방 리셋
+
         CurrentRoomController.gameObject.SetActive(true);
+
+        // Layer 추가
+        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.RoomRuleController.InRoom_AllBuilding);
+        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.GetNeedAllLayer());
+        LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
 
         // 현재 맵만 Sorting Layer 사용
         for (int i = 0; i < CurrentAllRoomController.Count; i++)
@@ -347,14 +357,7 @@ public class StageManager : Singleton<StageManager>
 
         _TargetRC.PlayRoomState();
 
-        // Layer 초기화
-        LayerOrderManager.Instance.NeedLayerObjects = new List<HaveShadowThing>()
-        { PlayerManager.Instance.PlayerController }; // 전 방 리셋
-
-        // Layer 추가
-        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.RoomRuleController.InRoom_AllBuilding);
-        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.GetNeedAllLayer());
-        LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
+        
 
     }
 
@@ -476,8 +479,6 @@ public class StageManager : Singleton<StageManager>
 
             return roomRulePrefabList[Random.Range(0, roomRulePrefabList.Count)];
         }
-
-        
     }
 
     #endregion

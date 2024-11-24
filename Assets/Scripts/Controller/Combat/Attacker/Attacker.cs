@@ -45,6 +45,7 @@ public class Attacker : MonoBehaviour
 
         ThisCol.gameObject.transform.localScale = Vector2.one * _StartSize;
         seq.Append(ThisCol.transform.DOScale(_MaxSize, _BiggerTime));
+
         // Anim
         aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();

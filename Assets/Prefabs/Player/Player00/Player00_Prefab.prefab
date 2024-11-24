@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3079075226439605228}
   - component: {fileID: 3148743442653112249}
   - component: {fileID: 463875592530576253}
-  - component: {fileID: 4739302390712378442}
+  - component: {fileID: 2135063777720352298}
   m_Layer: 7
   m_Name: Target
   m_TagString: Untagged
@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 18008044557870850}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 84d830ec2ef898045b69c8e766a0d8b6, type: 2}
+  m_Controller: {fileID: 9100000, guid: aee997c68541c444594b07a716ed6c5b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -107,7 +107,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4739302390712378442
+--- !u!114 &2135063777720352298
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,15 +116,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 18008044557870850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1599bb6126addc479ff42e91777e35b, type: 3}
+  m_Script: {fileID: 11500000, guid: 531ec6f519b2cd9428f7c40a565c22f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetSRList: []
-  IsOn: 0
-  CurrentGenTime: 0
-  ImageAlpha: 1
-  DelayGenTime: 0.03
-  StayDur: 0.5
+  RotationTargetTF: {fileID: 1789556570602073560}
+  ThisEightACList:
+  - {fileID: 7400000, guid: 67ff911bc6c0ec14cbe8da7b4a3665fa, type: 2}
+  - {fileID: 7400000, guid: 0b4365ce75c880e408fde2db3b9b3430, type: 2}
+  - {fileID: 7400000, guid: 0b1780c3a2b86e6418c3c72d1ddb9d93, type: 2}
+  - {fileID: 7400000, guid: 1463ce5f1fb294347b13f7a239a82a4a, type: 2}
+  - {fileID: 7400000, guid: f5cde481f11b9334286c750887fb8995, type: 2}
+  - {fileID: 7400000, guid: b59f597e4664e4c40811586046db8b23, type: 2}
+  - {fileID: 7400000, guid: 9aee5482f77764d4a805ef214c50576f, type: 2}
+  - {fileID: 7400000, guid: 8694530af4bd9e0448792900f0d8f17e, type: 2}
 --- !u!1 &649091517721256293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,10 +1378,10 @@ MonoBehaviour:
   LowerController: {fileID: 6070200958351899230}
   ThisPlayerMaterial_000: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
   ThisPlayerMaterial_001: {fileID: 2100000, guid: 72598d291dfffcb469dd16ffb373bfc0, type: 2}
-  ThisPBHMaterial: {fileID: 2100000, guid: 8a8507f2d7c7b944e9f4d14763d30fd0, type: 2}
-  ThisPCHMaterial: {fileID: 2100000, guid: 349491d820f6bb1499c60ddcd10fb825, type: 2}
-  ThisEBHMaterial: {fileID: 2100000, guid: dcff05190d408cb4c99de5450ef855cb, type: 2}
-  ThisECHMaterial: {fileID: 2100000, guid: d5657b8b7e4da794191b479ed30b5d78, type: 2}
+  ThisPBHColor: {r: 0.5411765, g: 0.5411765, b: 0.5411765, a: 1}
+  ThisPCHColor: {r: 0, g: 0.06666667, b: 0.23529412, a: 1}
+  ThisEBHColor: {r: 0.4862745, g: 0.85882354, b: 1, a: 1}
+  ThisECHColor: {r: 0.06666667, g: 0.41568628, b: 1, a: 1}
   PlayerMEI: {fileID: 2930891811832810725}
   PlayerMAI: {fileID: 4030414932115461039}
   PhysicsHittedPointAC: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}
@@ -2282,7 +2286,7 @@ GameObject:
   - component: {fileID: 3036644382783869353}
   - component: {fileID: 1426022462572893245}
   - component: {fileID: 6580240814802070834}
-  - component: {fileID: 2670002921990514549}
+  - component: {fileID: 6713239584958588449}
   m_Layer: 7
   m_Name: Target
   m_TagString: Untagged
@@ -2367,7 +2371,7 @@ Animator:
   m_GameObject: {fileID: 6973917010919293386}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 84d830ec2ef898045b69c8e766a0d8b6, type: 2}
+  m_Controller: {fileID: 9100000, guid: aee997c68541c444594b07a716ed6c5b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2378,7 +2382,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2670002921990514549
+--- !u!114 &6713239584958588449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2387,15 +2391,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6973917010919293386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1599bb6126addc479ff42e91777e35b, type: 3}
+  m_Script: {fileID: 11500000, guid: 531ec6f519b2cd9428f7c40a565c22f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetSRList: []
-  IsOn: 0
-  CurrentGenTime: 0
-  ImageAlpha: 1
-  DelayGenTime: 0.03
-  StayDur: 0.5
+  RotationTargetTF: {fileID: 1789556570602073560}
+  ThisEightACList:
+  - {fileID: 7400000, guid: 67ff911bc6c0ec14cbe8da7b4a3665fa, type: 2}
+  - {fileID: 7400000, guid: 0b4365ce75c880e408fde2db3b9b3430, type: 2}
+  - {fileID: 7400000, guid: 0b1780c3a2b86e6418c3c72d1ddb9d93, type: 2}
+  - {fileID: 7400000, guid: 1463ce5f1fb294347b13f7a239a82a4a, type: 2}
+  - {fileID: 7400000, guid: f5cde481f11b9334286c750887fb8995, type: 2}
+  - {fileID: 7400000, guid: b59f597e4664e4c40811586046db8b23, type: 2}
+  - {fileID: 7400000, guid: 9aee5482f77764d4a805ef214c50576f, type: 2}
+  - {fileID: 7400000, guid: 8694530af4bd9e0448792900f0d8f17e, type: 2}
 --- !u!1 &7090326402873856439
 GameObject:
   m_ObjectHideFlags: 0
@@ -2876,8 +2884,6 @@ MonoBehaviour:
   - {fileID: 463875592530576253}
   - {fileID: 6580240814802070834}
   CenterSpriteRenderer: {fileID: 8580305544851392310}
-  CurrentIndex:
-    value: 5
 --- !u!1 &8652443637929442882
 GameObject:
   m_ObjectHideFlags: 0

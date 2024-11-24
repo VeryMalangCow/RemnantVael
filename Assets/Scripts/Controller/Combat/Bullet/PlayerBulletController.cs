@@ -119,7 +119,7 @@ public class PlayerBulletController : BulletController
             PlayerManager.Instance.PlayerController.GetCorrectHitted_AC(_DamageType, _IsCritical),
             _SpanwedPos, 
             PlayerManager.Instance.PlayerController.ThisPlayerMaterial_000, 
-            2f, 1f);
+            2.0f, 1.0f);
     }
 
     #endregion

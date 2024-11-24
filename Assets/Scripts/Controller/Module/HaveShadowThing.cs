@@ -32,7 +32,7 @@ public class HaveShadowThing : MonoBehaviour
     public virtual void SetSortingOrder(int _SortingOrder)
     {
         if (ThisSR == null)
-        { return; }
+        { TryFindSR(); }
 
         ThisSR.sortingOrder = _SortingOrder;
     }

@@ -9,7 +9,8 @@ public class UnitManager : Singleton<UnitManager>
 
     [Space(10)]
     [Header("=== Material")]
-    [SerializeField] public Material ModuleMaterial_000;
+    [SerializeField] public Material ModuleM_000_Explosion;
+    [SerializeField] public Material ModuleM_000_Hitted;
 
     #endregion
 

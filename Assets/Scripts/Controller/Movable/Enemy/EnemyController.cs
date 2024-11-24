@@ -731,7 +731,8 @@ public class EnemyController : MovableObject, IInteract
         oota.StartAnim(
             HittedAC_0,
             _SpanwedPos,
-            PlayerManager.Instance.PlayerController.GetCorrectHitted_M(_DamageType, _IsCritical),
+            UnitManager.Instance.ModuleM_000_Explosion,
+            PlayerManager.Instance.PlayerController.GetCorrectHitted_C(_DamageType, _IsCritical),
             q, 
             1.5f, 1f);
 
@@ -743,7 +744,8 @@ public class EnemyController : MovableObject, IInteract
         oota2.StartAnim(
             HittedAC_1,
             _SpanwedPos,
-            PlayerManager.Instance.PlayerController.GetCorrectHitted_M(_DamageType, _IsCritical),
+            UnitManager.Instance.ModuleM_000_Explosion,
+            PlayerManager.Instance.PlayerController.GetCorrectHitted_C(_DamageType, _IsCritical),
             q2,
             2.5f, 1.2f);
 
@@ -762,7 +764,7 @@ public class EnemyController : MovableObject, IInteract
         oota2.StartAnim(
             HittedAC_2,
             this.TargetObject.transform.position,
-            UnitManager.Instance.ModuleMaterial_000,
+            UnitManager.Instance.ModuleM_000_Explosion,
             q,
             2.5f, 2f);
     }

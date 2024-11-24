@@ -45,10 +45,4 @@ public class PlayerAttacker : Attacker
     }
 
     #endregion
-
-    #region Effect
-
-
-
-    #endregion
 }
