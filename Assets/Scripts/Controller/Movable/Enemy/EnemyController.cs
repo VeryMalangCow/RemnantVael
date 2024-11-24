@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using UniRx;
 using UnityEngine;
 
@@ -32,7 +31,10 @@ public class EnemyController : MovableObject, IInteract
     [Space(10)]
     [Header("=== Movement")]
     [SerializeField] private eMovementState MovementState;
+    [SerializeField] private GameObject Target;
     [HideInInspector] public Vector2 MoveTargetPoint = Vector2.zero;
+    [HideInInspector] public Vector2 LookTargetPoint = Vector2.zero;
+    [HideInInspector] protected Vector2 LookAtDir = Vector2.zero;
     [SerializeField] public Vector2 MoveDir;
     [SerializeField] public float MoveSpeed;
 
@@ -49,7 +51,6 @@ public class EnemyController : MovableObject, IInteract
     [SerializeField] public AnimationClip HittedAC_1;
     [SerializeField] public AnimationClip HittedAC_2;
 
-    [HideInInspector] private GameObject TargetPC;
     [HideInInspector] protected RoomController CurrentRoomController;
 
     [Space(10)]
@@ -103,8 +104,8 @@ public class EnemyController : MovableObject, IInteract
     {
         base.OnEnable();
 
-        if (TargetPC == null)
-        { TargetPC = PlayerManager.Instance.PlayerController.gameObject; }
+        if (Target == null)
+        { Target = PlayerManager.Instance.PlayerController.gameObject; }
 
         if (CurrentRoomController == null)
         { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
@@ -116,11 +117,12 @@ public class EnemyController : MovableObject, IInteract
     protected void FixedUpdate()
     {
         Movement();
+        LookAtTarget();
     }
 
     #endregion
 
-    #region Move
+    #region Movement
 
     private void Movement()
     {
@@ -139,6 +141,24 @@ public class EnemyController : MovableObject, IInteract
         }
     }
 
+
+    #endregion
+
+    #region Look At
+
+    private void LookAtTarget()
+    {
+        // 바라볼 타겟이 있다면
+        if (LookTargetPoint != Vector2.zero && Target != null)
+        {
+            LookAtDir = ((Vector2)Target.transform.position - (Vector2)this.transform.position).normalized;
+        }
+        // 바라볼 타겟이 없다면
+        else if (LookAtDir != Vector2.zero && LookTargetPoint == Vector2.zero)
+        {
+            LookAtDir = Vector2.zero;
+        }
+    }
 
     #endregion
 

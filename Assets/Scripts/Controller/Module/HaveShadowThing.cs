@@ -17,6 +17,11 @@ public class HaveShadowThing : MonoBehaviour
 
     protected virtual void Awake()
     {
+        TryFindSR();
+    }
+
+    protected void TryFindSR()
+    {
         if (ThisSR == null && TargetObject.TryGetComponent(out SpriteRenderer sr))
         { ThisSR = sr; }
     }
