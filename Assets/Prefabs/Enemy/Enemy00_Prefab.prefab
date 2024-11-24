@@ -210,6 +210,9 @@ MonoBehaviour:
     - EnemyPatternList:
       - {fileID: 3988373326148802438}
       - {fileID: 8493327633309841782}
+  - EnemyPatternList:
+    - EnemyPatternList:
+      - {fileID: 8721225703925756054}
   CurrentContinuousEnemyPattern:
     EnemyPatternList: []
   CurrentEnemyPattern: {fileID: 0}
@@ -433,6 +436,54 @@ Transform:
   - {fileID: 5106658690848160974}
   m_Father: {fileID: 5956502316695661957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2027737833063953392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4562256001103424427}
+  - component: {fileID: 8721225703925756054}
+  m_Layer: 7
+  m_Name: None
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4562256001103424427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027737833063953392}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8805351947020054373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8721225703925756054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027737833063953392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d193959bd846bc498d6940acd60f441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisEnemy: {fileID: 848216773187047800}
+  IsPlayingThisPattern: 0
+  StartDelay: 0
+  EndDelay: 1
 --- !u!1 &2486564893073553752
 GameObject:
   m_ObjectHideFlags: 0
@@ -902,6 +953,17 @@ MonoBehaviour:
   IsPlayingThisPattern: 0
   StartDelay: 0.5
   EndDelay: 0.5
+  ThisAS:
+    DamageType: 0
+    BaseDamage: 0
+    AbleKnockback: 0
+    KnockbackPower: 0
+    KnockbackTime: 0
+    CC: 0
+    CD: 0
+  ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
+  SpawnDis: 1
+  EndDis: 2
 --- !u!1 &4513777931941266680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,6 +1944,7 @@ Transform:
   - {fileID: 8856654403103497532}
   - {fileID: 6344438746737160783}
   - {fileID: 1383470367207219228}
+  - {fileID: 4562256001103424427}
   m_Father: {fileID: 5956502316695661957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8423270927366442039

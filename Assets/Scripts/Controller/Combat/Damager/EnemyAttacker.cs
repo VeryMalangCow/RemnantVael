@@ -1,18 +1,12 @@
 using UnityEngine;
 
-public class Damager : MonoBehaviour
+public class EnemyAttacker : Attacker
 {
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Damager")]
+    [Header("<><><><><> Enemy")]
     [SerializeField] private bool IsColliding = false;
-
-    [Space(10)]
-    [Header("=== DMG")]
-    [SerializeField] private float DmgValue;
-    [SerializeField] private bool AbleKnockback;
-    [SerializeField] private float KnockbackPower;
 
     #endregion
 
@@ -21,7 +15,7 @@ public class Damager : MonoBehaviour
     private void Update()
     {
         if (IsColliding)
-        { PlayerManager.Instance.PlayerController.TryHitted(DmgValue, this, AbleKnockback, KnockbackPower); }    
+        { PlayerManager.Instance.PlayerController.TryHitted(this); }
     }
 
     #endregion

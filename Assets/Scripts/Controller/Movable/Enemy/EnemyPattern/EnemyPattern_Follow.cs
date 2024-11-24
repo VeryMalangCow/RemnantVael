@@ -91,7 +91,6 @@ public class EnemyPattern_Follow : EnemyPattern
         CurrentTime = 0f;
 
         base.StartPattern();
-        StartCoroutine(ThisPattern());
     }
 
     public override void EndPattern()
@@ -109,7 +108,7 @@ public class EnemyPattern_Follow : EnemyPattern
 
     #region Actual
 
-    private IEnumerator ThisPattern()
+    protected override IEnumerator ThisPattern()
     {
         yield return new WaitForSeconds(StartDelay);
 

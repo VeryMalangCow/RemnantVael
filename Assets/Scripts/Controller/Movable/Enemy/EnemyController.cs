@@ -358,6 +358,10 @@ public class EnemyController : MovableObject, IInteract
 
     private IEnumerator RecoverLethargy()
     {
+        CurrentEnemyPattern.ForceEndPattern();
+        CurrentEnemyPattern = null;
+        CurrentContinuousEnemyPattern = null;
+
         yield return new WaitForSeconds(0.5f);
 
         EP_ProgressBar.SetFillFullImgSmooth(RecoverLethargyTime);
@@ -366,7 +370,8 @@ public class EnemyController : MovableObject, IInteract
 
         CurrentEP.Value = MaxEP;
         IsLethargy = false;
-        Debug.Log(this.gameObject.name + " / Recover Lethargy!!!");
+
+        TryGetAnyPattern();
     }
 
 

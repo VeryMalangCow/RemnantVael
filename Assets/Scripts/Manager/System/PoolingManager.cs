@@ -19,6 +19,7 @@ public class PoolingManager : Singleton<PoolingManager>
 
     [Header("=== Enemy")]
     [SerializeField] public TTypePooling<EnemyController> Enemy;
+    [SerializeField] public TTypePooling<EnemyAttacker> EnemyAttackers;
 
     [Header("=== Effect Img")]
     [SerializeField] public TTypePooling<SpriteRenderer> AfterImgs;
@@ -114,6 +115,7 @@ public class PoolingManager : Singleton<PoolingManager>
 
     #region Enemy
 
+    // Enemy
     public EnemyController GetOP_Enemy(GameObject _EC_Prefab)
     {
         if (_EC_Prefab != null)
@@ -122,9 +124,15 @@ public class PoolingManager : Singleton<PoolingManager>
         { return GetOP<EnemyController>(Enemy.Prefab, Enemy.ParentTF, Enemy.Queue); }
     }
 
+    // Enemy Attacker
+    public EnemyAttacker GetOP_EnemyAttacker()
+    {
+        return GetOP<EnemyAttacker>(EnemyAttackers.Prefab, EnemyAttackers.ParentTF, EnemyAttackers.Queue);
+    }
+
     #endregion
 
-    #region Effect
+    #region VFX things
 
     // After Image
     public SpriteRenderer GetOP_AfterImg()

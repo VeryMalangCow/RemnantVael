@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class EnemyPattern : MonoBehaviour
@@ -19,6 +20,7 @@ public abstract class EnemyPattern : MonoBehaviour
     #region Can Check
 
     public abstract bool CanPlayPattern();
+    protected abstract IEnumerator ThisPattern();
 
     #endregion
 
@@ -28,6 +30,8 @@ public abstract class EnemyPattern : MonoBehaviour
     {
         IsPlayingThisPattern = true;
         ThisEnemy.IsPlayingPattern = true;
+
+        StartCoroutine(ThisPattern());
     }
 
     public virtual void EndPattern()
@@ -36,6 +40,12 @@ public abstract class EnemyPattern : MonoBehaviour
         ThisEnemy.IsPlayingPattern = false;
 
         ThisEnemy.TryGetAnyPattern();
+    }
+
+    public void ForceEndPattern()
+    {
+        StopCoroutine(ThisPattern());
+        EndPattern();
     }
 
     #endregion

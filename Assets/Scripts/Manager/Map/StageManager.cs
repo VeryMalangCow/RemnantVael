@@ -345,7 +345,6 @@ public class StageManager : Singleton<StageManager>
         // Layer 추가
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.RoomRuleController.InRoom_AllBuilding);
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.GetNeedAllLayer());
-        LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
 
         // 현재 맵만 Sorting Layer 사용
         for (int i = 0; i < CurrentAllRoomController.Count; i++)
@@ -357,8 +356,7 @@ public class StageManager : Singleton<StageManager>
 
         _TargetRC.PlayRoomState();
 
-        
-
+        LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
     }
 
     public void Complete_KillAll()

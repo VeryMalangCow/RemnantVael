@@ -10,10 +10,6 @@ public class Attacker : MonoBehaviour
     [Header("<><><><><> Attacker")]
 
     [Space(10)]
-    [Header("=== Object")]
-    [SerializeField] protected List<MovableObject> HittedObjectList = new List<MovableObject>();
-
-    [Space(10)]
     [Header("=== Component")]
     [SerializeField] protected CapsuleCollider2D ThisCol;
     [SerializeField] private Animator ThisAnimator;
@@ -23,41 +19,50 @@ public class Attacker : MonoBehaviour
     [SerializeField] public AttackerState AttackerState = new AttackerState();
 
     [HideInInspector] private AnimatorOverrideController aoc;
-    #endregion
-
-    #region Framework
-
-    private void OnEnable()
-    {
-        HittedObjectList.Clear();
-    }
 
     #endregion
 
     #region Set State
 
-    public Sequence SetState_Bigger(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC,
-        Vector2 _ColSize, float _StartSize, float _MaxSize, float _BiggerTime)
+    public Sequence SetState_SetRotationAndMoveForward(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize
+        , Quaternion _Rotation, Vector2 _EndPos, float _AnimTime)
     {
-        SetState(_SpawnedPos, _AttackerState, _ColSize);
-
         Sequence seq = DOTween.Sequence();
+        SetState(_SpawnedPos, _AttackerState, _ColSize);
+        SetAnim(_AC);
+
+        ThisCol.gameObject.transform.localScale = Vector2.one;
+        this.transform.rotation = _Rotation;
+        seq.Append(ThisCol.transform.DOMove(_EndPos, _AnimTime));
+
+        
+        this.gameObject.SetActive(true);
+        return seq;
+    }
+
+    public Sequence SetState_Bigger(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize, 
+        float _StartSize, float _MaxSize, float _AnimTime)
+    {
+        Sequence seq = DOTween.Sequence();
+        SetState(_SpawnedPos, _AttackerState, _ColSize);
+        SetAnim(_AC);
 
         ThisCol.gameObject.transform.localScale = Vector2.one * _StartSize;
-        seq.Append(ThisCol.transform.DOScale(_MaxSize, _BiggerTime));
+        seq.Append(ThisCol.transform.DOScale(_MaxSize, _AnimTime));
 
-        // Anim
+        this.gameObject.SetActive(true);
+        return seq;
+    }
+
+    private void SetAnim(AnimationClip _AC)
+    {
         aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
         foreach (var a in aoc.animationClips)
             anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
         aoc.ApplyOverrides(anims);
         ThisAnimator.runtimeAnimatorController = aoc;
-
-        this.gameObject.SetActive(true);
-
-        return seq;
-    }
+    }    
 
     private void SetState(Vector2 _SpawnedPos, AttackerState _AttackerState, Vector2 _ColSize)
     {

@@ -1,29 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyPattern_Range : EnemyPattern
+public class EnemyPattern_None : EnemyPattern
 {
     #region Can Check
 
     public override bool CanPlayPattern()
     {
         return true;
-    }
-
-    #endregion
-
-    #region Start End
-
-    public override void StartPattern()
-    {
-
-        base.StartPattern();
-    }
-
-    public override void EndPattern()
-    {
-
-        base.EndPattern();
     }
 
     #endregion
@@ -36,7 +20,7 @@ public class EnemyPattern_Range : EnemyPattern
 
         #region Actual
 
-
+        // NONE
 
         #endregion
 
@@ -47,4 +31,3 @@ public class EnemyPattern_Range : EnemyPattern
 
     #endregion
 }
-

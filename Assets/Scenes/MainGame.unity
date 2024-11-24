@@ -971,6 +971,7 @@ Transform:
   m_Children:
   - {fileID: 1717915347}
   - {fileID: 394877459}
+  - {fileID: 1977592554}
   m_Father: {fileID: 1553356942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &394877458
@@ -1544,6 +1545,9 @@ MonoBehaviour:
   Enemy:
     Prefab: {fileID: 272305898077013730, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
     ParentTF: {fileID: 1717915347}
+  EnemyAttackers:
+    Prefab: {fileID: 2154807210293626544, guid: e7453e73f7679b648b2dcca30557ad73, type: 3}
+    ParentTF: {fileID: 1977592554}
   AfterImgs:
     Prefab: {fileID: 6683809427665404101, guid: 988330fe6e0cc58408522442eae73b35, type: 3}
     ParentTF: {fileID: 1782628309}
@@ -3308,6 +3312,37 @@ MonoBehaviour:
   ShotVibrato: 1
   KillStrength: 10
   KillVibrato: 10
+--- !u!1 &1977592553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1977592554}
+  m_Layer: 0
+  m_Name: '******Attackers'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1977592554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977592553}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 379374679}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2001417121
 GameObject:
   m_ObjectHideFlags: 0

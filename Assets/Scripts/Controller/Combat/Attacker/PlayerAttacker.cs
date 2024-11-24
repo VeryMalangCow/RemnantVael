@@ -1,7 +1,28 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttacker : Attacker
 {
+    #region Value
+
+    [Space(20)]
+    [Header("<><><><><> Player")]
+
+    [Space(10)]
+    [Header("=== Object")]
+    [SerializeField] protected List<MovableObject> HittedObjectList = new List<MovableObject>();
+
+    #endregion
+
+    #region Framework
+
+    private void OnEnable()
+    {
+        HittedObjectList.Clear();
+    }
+
+    #endregion
+
     #region Trigger
 
     private void OnTriggerEnter2D(Collider2D _Col)

@@ -323,17 +323,7 @@ public class PlayerController : MovableObject
 
     #region Damage
 
-    public void TryTakeDamage(float _DmgValue)
-    {
-        TryHitted(_DmgValue, null, false, 0);
-    }
-
-    public void TryTakeDamage(float _DmgValue, Damager _Damager)
-    {
-        TryHitted(_DmgValue, _Damager, false, 0);
-    }
-
-    public void TryHitted(float _DmgValue, Damager _Damager, bool _AbleKB, float _KBPower)
+    public void TryHitted(Attacker _Attacker)
     {
         if (IsInvincible)
         { return; }
@@ -349,7 +339,11 @@ public class PlayerController : MovableObject
         // ÇÇ°Ý
         else
         {
-            TakeDamaged(_DmgValue, (transform.position - _Damager.gameObject.transform.position).normalized, _AbleKB, _KBPower);
+            TakeDamaged(_Attacker.AttackerState.BaseDamage, 
+                ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
+                _Attacker.AttackerState.AbleKnockback,
+                _Attacker.AttackerState.KnockbackPower,
+                _Attacker.AttackerState.KnockbackTime);
         }
     }
 
@@ -371,14 +365,14 @@ public class PlayerController : MovableObject
         }
     }
 
-    private void TakeDamaged(float _DmgValue, Vector2 _HittedDir, bool _AbleKB, float _KBPower)
+    private void TakeDamaged(float _DmgValue, Vector2 _HittedDir, bool _AbleKB, float _KBPower, float _KBTime)
     {
         // Effect
         PlayerManager.Instance.CameraController.PlayDamagedAnim(MaxInvincibleTime, _DmgValue * 0.1f, _HittedDir);
 
         // Knockback
         if (_AbleKB)
-        { GetKnockback(new KnockbackState(_HittedDir, _KBPower, 0.3f)); }
+        { GetKnockback(new KnockbackState(_HittedDir, _KBPower, _KBTime)); }
 
         // Damage
         AddCurrentEP(-_DmgValue);
