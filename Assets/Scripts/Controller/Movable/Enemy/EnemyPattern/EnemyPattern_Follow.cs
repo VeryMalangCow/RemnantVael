@@ -97,10 +97,6 @@ public class EnemyPattern_Follow : EnemyPattern
     {
         CurrentTime = 0f;
 
-        ThisEnemy.MoveTargetPoint = Vector2.zero;
-        ThisEnemy.MoveDir = Vector2.zero;
-        ThisEnemy.MoveSpeed = 0;
-
         base.EndPattern();
     }
 
@@ -110,11 +106,9 @@ public class EnemyPattern_Follow : EnemyPattern
 
     protected override IEnumerator ThisPattern()
     {
-        yield return new WaitForSeconds(StartDelay);
-
-        #region Actual
-
         ThisEnemy.MoveSpeed = FollowingSpeed;
+
+        yield return new WaitForSeconds(StartDelay);
 
         while (true)
         {
@@ -130,11 +124,10 @@ public class EnemyPattern_Follow : EnemyPattern
             }
         }
 
-        #endregion
-
         yield return new WaitForSeconds(EndDelay);
 
         EndPattern();
+        ThisEnemy.TryGetAnyPattern();
     }
 
     #endregion

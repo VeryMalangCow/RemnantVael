@@ -17,6 +17,15 @@ public abstract class EnemyPattern : MonoBehaviour
 
     #endregion
 
+    #region Framework
+
+    private void Start()
+    {
+        IsPlayingThisPattern = false;
+    }
+
+    #endregion
+
     #region Can Check
 
     public abstract bool CanPlayPattern();
@@ -39,13 +48,9 @@ public abstract class EnemyPattern : MonoBehaviour
         IsPlayingThisPattern = false;
         ThisEnemy.IsPlayingPattern = false;
 
-        ThisEnemy.TryGetAnyPattern();
-    }
-
-    public void ForceEndPattern()
-    {
-        StopCoroutine(ThisPattern());
-        EndPattern();
+        ThisEnemy.MoveTargetPoint = Vector2.zero;
+        ThisEnemy.MoveDir = Vector2.zero;
+        ThisEnemy.MoveSpeed = 0;
     }
 
     #endregion

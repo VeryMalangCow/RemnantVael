@@ -111,7 +111,7 @@ public class EnemyController : MovableObject, IInteract
         { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
 
 
-        TryGetAnyPattern();
+        StartPatternFromNone();
     }
 
     protected void FixedUpdate()
@@ -358,9 +358,7 @@ public class EnemyController : MovableObject, IInteract
 
     private IEnumerator RecoverLethargy()
     {
-        CurrentEnemyPattern.ForceEndPattern();
-        CurrentEnemyPattern = null;
-        CurrentContinuousEnemyPattern = null;
+        // 패턴 루틴 종료
 
         yield return new WaitForSeconds(0.5f);
 
@@ -371,7 +369,7 @@ public class EnemyController : MovableObject, IInteract
         CurrentEP.Value = MaxEP;
         IsLethargy = false;
 
-        TryGetAnyPattern();
+        // 패턴 루틴 시작
     }
 
 
@@ -666,8 +664,14 @@ public class EnemyController : MovableObject, IInteract
 
     #region Pattern
 
+    private void StartPatternFromNone()
+    {
+        OrderOfPriorityEnemyPatternList[OrderOfPriorityEnemyPatternList.Count - 1].EnemyPatternList[0].EnemyPatternList[0].StartPattern();
+    }
+
     public void TryGetAnyPattern()
     {
+        Debug.Log("???");
         // 이미 있는지 진행 중인 패턴이 있는지 확인
         int OrderOfPattern = -1;
         if (CurrentEnemyPattern != null)

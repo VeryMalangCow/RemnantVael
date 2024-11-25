@@ -24,8 +24,8 @@ public class Attacker : MonoBehaviour
 
     #region Set State
 
-    public Sequence SetState_SetRotationAndMoveForward(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize
-        , Quaternion _Rotation, Vector2 _EndPos, float _AnimTime)
+    public Sequence SetState_SetRotationAndMoveForward(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize,
+        Quaternion _Rotation, Vector2 _EndPos, float _TweenTime, float _AnimSpeed)
     {
         Sequence seq = DOTween.Sequence();
         SetState(_SpawnedPos, _AttackerState, _ColSize);
@@ -33,22 +33,23 @@ public class Attacker : MonoBehaviour
 
         ThisCol.gameObject.transform.localScale = Vector2.one;
         this.transform.rotation = _Rotation;
-        seq.Append(ThisCol.transform.DOMove(_EndPos, _AnimTime));
+        seq.Append(this.transform.DOMove(_EndPos, _TweenTime / _AnimSpeed));
+        ThisAnimator.speed = _AnimSpeed;
 
-        
+
         this.gameObject.SetActive(true);
         return seq;
     }
 
     public Sequence SetState_Bigger(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize, 
-        float _StartSize, float _MaxSize, float _AnimTime)
+        float _StartSize, float _MaxSize, float _TweenTime)
     {
         Sequence seq = DOTween.Sequence();
         SetState(_SpawnedPos, _AttackerState, _ColSize);
         SetAnim(_AC);
 
         ThisCol.gameObject.transform.localScale = Vector2.one * _StartSize;
-        seq.Append(ThisCol.transform.DOScale(_MaxSize, _AnimTime));
+        seq.Append(ThisCol.transform.DOScale(_MaxSize, _TweenTime));
 
         this.gameObject.SetActive(true);
         return seq;

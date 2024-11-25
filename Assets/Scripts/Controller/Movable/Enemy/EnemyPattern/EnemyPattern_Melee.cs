@@ -1,6 +1,7 @@
+using UnityEngine;
 using DG.Tweening;
 using System.Collections;
-using UnityEngine;
+using static DG.Tweening.DOTweenAnimation;
 
 public class EnemyPattern_Melee : EnemyPattern
 {
@@ -13,8 +14,22 @@ public class EnemyPattern_Melee : EnemyPattern
     [Header("=== Value")]
     [SerializeField] private AttackerState ThisAS;
     [SerializeField] private AnimationClip ThisAC;
+    [SerializeField] private float TweenTime = 1f;
+    [SerializeField] private float AnimSpeed = 1f;
     [SerializeField] private float SpawnDis = 1f;
     [SerializeField] private float EndDis = 2f;
+
+    #endregion
+
+    #region Framework
+
+    private void Update()
+    {
+        if (!IsPlayingThisPattern)
+        {
+            StopCoroutine(ThisPattern());
+        }
+    }
 
     #endregion
 
@@ -47,33 +62,29 @@ public class EnemyPattern_Melee : EnemyPattern
 
     protected override IEnumerator ThisPattern()
     {
-        yield return new WaitForSeconds(StartDelay);
-
-        #region Actual
-
-        Vector2 targetDir = 
+        Vector2 targetDir =
             ((Vector2)PlayerManager.Instance.PlayerController.transform.position
             - (Vector2)ThisEnemy.transform.position).normalized;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(StartDelay);
 
         EnemyAttacker ea = PoolingManager.Instance.GetOP_EnemyAttacker();
         ea.SetState_SetRotationAndMoveForward(
             ((Vector2)ThisEnemy.transform.position + (targetDir * SpawnDis)),
-            ThisAS, ThisAC, Vector2.zero,
+            ThisAS, ThisAC, Vector2.one,
             Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, targetDir)),
             ((Vector2)ThisEnemy.transform.position + (targetDir * EndDis)),
-            1f)
+            TweenTime, AnimSpeed)
             .OnComplete(() =>
             {
                 ea.EndState();
             }); ;
 
-        #endregion
 
         yield return new WaitForSeconds(EndDelay);
 
         EndPattern();
+        ThisEnemy.TryGetAnyPattern();
     }
 
     #endregion

@@ -1,8 +1,20 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class EnemyPattern_Range : EnemyPattern
 {
+    #region Framework
+
+    private void Update()
+    {
+        if (!IsPlayingThisPattern)
+        {
+            StopCoroutine(ThisPattern());
+        }
+    }
+
+    #endregion
+
     #region Can Check
 
     public override bool CanPlayPattern()
@@ -34,15 +46,16 @@ public class EnemyPattern_Range : EnemyPattern
     {
         yield return new WaitForSeconds(StartDelay);
 
-        #region Actual
+        Vector2 targetDir =
+            ((Vector2)PlayerManager.Instance.PlayerController.transform.position
+            - (Vector2)ThisEnemy.transform.position).normalized;
 
 
-
-        #endregion
 
         yield return new WaitForSeconds(EndDelay);
 
         EndPattern();
+        ThisEnemy.TryGetAnyPattern();
     }
 
     #endregion

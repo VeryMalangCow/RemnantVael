@@ -1,5 +1,5 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class EnemyPattern_None : EnemyPattern
 {
@@ -27,6 +27,7 @@ public class EnemyPattern_None : EnemyPattern
         yield return new WaitForSeconds(EndDelay);
 
         EndPattern();
+        ThisEnemy.TryGetAnyPattern();
     }
 
     #endregion
