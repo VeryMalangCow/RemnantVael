@@ -15,6 +15,7 @@ public class Attacker : MonoBehaviour
     [SerializeField] protected CapsuleCollider2D ThisCol;
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] private Light2D ThisLight;
+    [SerializeField] private HaveShadowThingStatic HSTS;
 
     [Space(10)]
     [Header("=== State")]
@@ -25,6 +26,15 @@ public class Attacker : MonoBehaviour
     #endregion
 
     #region Set State by Cond
+
+    public void SetShadowDis(HaveShadowThing _HST)
+    {
+        if (HSTS == null)
+        { return; }
+
+        HSTS.TargetRange = _HST.TargetRange;
+        HSTS.TargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * HSTS.TargetRange);
+    }
 
     public Sequence SetState_SetRotationAndMoveForward(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize,
         Quaternion _Rotation, Vector2 _EndPos, float _TweenTime, float _AnimSpeed)
@@ -57,16 +67,6 @@ public class Attacker : MonoBehaviour
         return seq;
     }
 
-    private void SetAnim(AnimationClip _AC)
-    {
-        aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
-        var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
-        foreach (var a in aoc.animationClips)
-            anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
-        aoc.ApplyOverrides(anims);
-        ThisAnimator.runtimeAnimatorController = aoc;
-    }
-
     #endregion
 
     #region Light
@@ -91,6 +91,16 @@ public class Attacker : MonoBehaviour
     #endregion
 
     #region Module
+
+    private void SetAnim(AnimationClip _AC)
+    {
+        aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
+        var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
+        foreach (var a in aoc.animationClips)
+            anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
+        aoc.ApplyOverrides(anims);
+        ThisAnimator.runtimeAnimatorController = aoc;
+    }
 
     private void SetState(Vector2 _SpawnedPos, AttackerState _AttackerState, Vector2 _ColSize)
     {

@@ -977,6 +977,7 @@ MonoBehaviour:
   LightSize: 2.3
   MaximumRange: 1.8
   MinimumRange: 0
+  SpawnHST: {fileID: 5281239173370443760}
 --- !u!1 &4513777931941266680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1934,10 +1935,10 @@ MonoBehaviour:
     AbleKnockback: 1
     KnockbackPower: 5
     KnockbackTime: 1
-  SpawnTF: {fileID: 5106658690848160974}
-  BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
   BulletShadowScale: {x: 0.16, y: 0.16}
   BulletColSize: {x: 2, y: 3}
+  SpawnTF: {fileID: 5106658690848160974}
+  BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
   MaximumRange: 5
   MinimumRange: 3.7
 --- !u!1 &8251026648640757372

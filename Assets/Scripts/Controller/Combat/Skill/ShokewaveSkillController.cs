@@ -48,6 +48,7 @@ public class ShockwaveSkillController : ActiveSkillController
 
         PlayerAttacker pa = PoolingManager.Instance.GetOP_PlayerAttacker();
 
+        pa.SetShadowDis(ThisHST);
         pa.SetState_Bigger(ThisHST.transform.position, ThisState, ShockwaveAnimation,
             _ColSize, _StartSize, usableMaxSize, _BiggerTime)
             .OnComplete(() =>

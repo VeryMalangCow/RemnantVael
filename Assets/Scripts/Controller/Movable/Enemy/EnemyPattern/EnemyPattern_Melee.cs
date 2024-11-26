@@ -27,6 +27,10 @@ public class EnemyPattern_Melee : EnemyPattern
     [SerializeField] private float MaximumRange = 1f;
     [SerializeField] private float MinimumRange = 0f;
 
+    [Space(10)]
+    [Header("=== Component")]
+    [SerializeField] private HaveShadowThing SpawnHST;
+
     #endregion
 
     #region Framework
@@ -76,6 +80,8 @@ public class EnemyPattern_Melee : EnemyPattern
 
     protected override IEnumerator ThisPattern()
     {
+        ThisEnemy.LookTargetPoint = 
+            PlayerManager.Instance.PlayerController.transform.position - ThisEnemy.transform.position;
         Vector2 targetDir =
             ((Vector2)PlayerManager.Instance.PlayerController.transform.position
             - (Vector2)ThisEnemy.transform.position).normalized;
@@ -89,6 +95,7 @@ public class EnemyPattern_Melee : EnemyPattern
             ea.SetLight(LightSize, LightTime);
         }
 
+        ea.SetShadowDis(SpawnHST);
         ea.SetState_SetRotationAndMoveForward(
             ((Vector2)ThisEnemy.transform.position + (targetDir * SpawnDis)),
             ThisAS, ThisAC, Vector2.one,

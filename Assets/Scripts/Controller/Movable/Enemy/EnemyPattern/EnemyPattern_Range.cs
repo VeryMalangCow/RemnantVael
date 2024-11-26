@@ -12,13 +12,13 @@ public class EnemyPattern_Range : EnemyPattern
     [Space(10)]
     [Header("=== Value")]
     [SerializeField] private BulletState ThisBS;
-
-    [Space(10)]
-    [Header("=== Reso")]
-    [SerializeField] private Transform SpawnTF;
-    [SerializeField] private AnimationClip BulletAC;
     [SerializeField] private Vector2 BulletShadowScale;
     [SerializeField] private Vector2 BulletColSize;
+
+    [Space(10)]
+    [Header("=== Component")]
+    [SerializeField] private Transform SpawnTF;
+    [SerializeField] private AnimationClip BulletAC;
 
     [Space(10)]
     [Header("=== Condition")]
@@ -75,6 +75,9 @@ public class EnemyPattern_Range : EnemyPattern
     protected override IEnumerator ThisPattern()
     {
         yield return new WaitForSeconds(StartDelay);
+
+        ThisEnemy.LookTargetPoint =
+            PlayerManager.Instance.PlayerController.transform.position - ThisEnemy.transform.position;
 
         EnemyBulletController EBC = PoolingManager.Instance.GetOP_EnemyBullet();
 

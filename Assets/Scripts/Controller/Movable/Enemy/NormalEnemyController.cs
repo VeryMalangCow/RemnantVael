@@ -28,6 +28,14 @@ public class NormalEnemyController : EnemyController
         CurrentIndex.Value = 5;
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        SetImgPosSort(WalkingSatellite); 
+        SetImgPosSort(LookingSatellite);
+    }
+
     private void LateUpdate()
     {
         SetImg(WalkingSatellite, ThisRb.velocity);
@@ -45,22 +53,19 @@ public class NormalEnemyController : EnemyController
         if (_Dir != Vector2.zero)
         {
             _Dir = new Vector2(-_Dir.x, _Dir.y);
-            SetImgActual(_Dir, _SC);
+            if (SatelliteController.GetIndex(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z) != CurrentIndex.Value)
+            {
+                CurrentIndex.Value = SatelliteController.GetIndex(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z);
+            }
+
+            _SC.PitchTF.transform.localRotation = _SC.RotateSmooth(SatelliteController.GetNormalizedVec(CurrentIndex.Value));
         }
     }
 
-    private void SetImgActual(Vector2 _Dir, SatelliteController _SC)
+    private void SetImgPosSort(SatelliteController _SC)
     {
-        if (SatelliteController.GetIndex(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z) != CurrentIndex.Value)
-        {
-            CurrentIndex.Value = SatelliteController.GetIndex(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z);
-        }
-
-        _SC.PitchTF.transform.localRotation = _SC.RotateSmooth(SatelliteController.GetNormalizedVec(CurrentIndex.Value));
         foreach (Satellite hand in _SC.Hands)
-        {
-            hand.SetPos(_SC.PlayerSR.sortingOrder);
-        }
+        { hand.SetPos(_SC.PlayerSR.sortingOrder); }
     }
 
     private void SetAnimSpeed()
