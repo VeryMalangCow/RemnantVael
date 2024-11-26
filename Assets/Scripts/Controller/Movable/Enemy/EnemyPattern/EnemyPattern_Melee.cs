@@ -18,6 +18,9 @@ public class EnemyPattern_Melee : EnemyPattern
     [SerializeField] private float AnimSpeed = 1f;
     [SerializeField] private float SpawnDis = 1f;
     [SerializeField] private float EndDis = 2f;
+    [SerializeField] bool LightOn = false;
+    [SerializeField] float LightTime = 1f;
+    [SerializeField] float LightSize = 1f;
 
     #endregion
 
@@ -68,7 +71,13 @@ public class EnemyPattern_Melee : EnemyPattern
 
         yield return new WaitForSeconds(StartDelay);
 
-        EnemyAttacker ea = PoolingManager.Instance.GetOP_EnemyAttacker();
+        EnemyAttacker ea = PoolingManager.Instance.GetOP_EnemyAttacker(); 
+        
+        if (LightOn)
+        {
+            ea.SetLight(LightSize, LightTime);
+        }
+
         ea.SetState_SetRotationAndMoveForward(
             ((Vector2)ThisEnemy.transform.position + (targetDir * SpawnDis)),
             ThisAS, ThisAC, Vector2.one,
@@ -79,7 +88,7 @@ public class EnemyPattern_Melee : EnemyPattern
             {
                 ea.EndState();
             }); ;
-
+        
 
         yield return new WaitForSeconds(EndDelay);
 

@@ -72,7 +72,7 @@ public class EnemyPattern_Range : EnemyPattern
         
         // Shadow
         float targetShadow = 0.4f;
-        if (EBC.TryGetComponent(out HaveShadowThing HST))
+        if (SpawnTF.TryGetComponent(out HaveShadowThing HST))
         { targetShadow = HST.TargetRange; }
 
         // Base State 

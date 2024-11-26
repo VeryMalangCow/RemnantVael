@@ -86,7 +86,6 @@ public class EnemyBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out PlayerController PC))
             {
-                Debug.Log("- Player");
                 /*PC.HittedPointEffect(
                     this.TargetObject.transform.position,
                     BulletState.DamageType,
@@ -99,7 +98,6 @@ public class EnemyBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out DestructibleBuildingController DBC))
             {
-                Debug.Log("- DestructibleObject");
                 DBC.TakeDamage(true);
             }
         }

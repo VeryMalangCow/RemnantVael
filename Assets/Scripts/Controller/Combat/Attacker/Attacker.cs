@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Attacker : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Attacker : MonoBehaviour
     [Header("=== Component")]
     [SerializeField] protected CapsuleCollider2D ThisCol;
     [SerializeField] private Animator ThisAnimator;
+    [SerializeField] private Light2D ThisLight;
 
     [Space(10)]
     [Header("=== State")]
@@ -22,7 +24,7 @@ public class Attacker : MonoBehaviour
 
     #endregion
 
-    #region Set State
+    #region Set State by Cond
 
     public Sequence SetState_SetRotationAndMoveForward(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize,
         Quaternion _Rotation, Vector2 _EndPos, float _TweenTime, float _AnimSpeed)
@@ -63,7 +65,32 @@ public class Attacker : MonoBehaviour
             anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
         aoc.ApplyOverrides(anims);
         ThisAnimator.runtimeAnimatorController = aoc;
-    }    
+    }
+
+    #endregion
+
+    #region Light
+
+    public void SetLight(float _BiggestSize, float _StayTime)
+    {
+        if (ThisLight == null)
+        { return; }
+
+        Sequence seq = DOTween.Sequence();
+        ThisLight.pointLightOuterRadius = 0f;
+
+        seq.Append(DOTween.To(() => ThisLight.pointLightOuterRadius, 
+            x => ThisLight.pointLightOuterRadius = x,
+            _BiggestSize, _StayTime / 10));
+        seq.AppendInterval(_StayTime * 8 / 10);
+        seq.Append(DOTween.To(() => ThisLight.pointLightOuterRadius,
+            x => ThisLight.pointLightOuterRadius = x,
+            0, _StayTime / 10));
+    }
+
+    #endregion
+
+    #region Module
 
     private void SetState(Vector2 _SpawnedPos, AttackerState _AttackerState, Vector2 _ColSize)
     {
@@ -89,6 +116,10 @@ public class Attacker : MonoBehaviour
         if (this is PlayerAttacker pa)
         {
             PoolingManager.Instance.PlayerAttackers.Queue.Enqueue(pa);
+        }
+        if (this is EnemyAttacker ea)
+        {
+            PoolingManager.Instance.EnemyAttackers.Queue.Enqueue(ea);
         }
     }
 
