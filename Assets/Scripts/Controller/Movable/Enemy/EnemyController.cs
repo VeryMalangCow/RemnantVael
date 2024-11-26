@@ -47,6 +47,7 @@ public class EnemyController : MovableObject, IInteract
     [Space(10)]
     [Header("=== Effect")]
     [SerializeField] public MakeExplosionImage MEI;
+    [SerializeField] private Material ThisSmokeM;
     [SerializeField] public AnimationClip HittedAC_0;
     [SerializeField] public AnimationClip HittedAC_1;
     [SerializeField] public AnimationClip HittedAC_2;
@@ -66,7 +67,7 @@ public class EnemyController : MovableObject, IInteract
     [SerializeField] public ContinuousEnemyPattern CurrentContinuousEnemyPattern = null;
     [SerializeField] public EnemyPattern CurrentEnemyPattern = null;
     [SerializeField] public bool IsPlayingPattern = false;
-
+    [HideInInspector] public IEnumerator CurrentPatternCor = null;
 
 
     #endregion
@@ -110,7 +111,7 @@ public class EnemyController : MovableObject, IInteract
         if (CurrentRoomController == null)
         { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
 
-
+        ExplosionEffect();
         StartPatternFromNone();
     }
 
@@ -148,6 +149,9 @@ public class EnemyController : MovableObject, IInteract
 
     private void LookAtTarget()
     {
+        if (IsLethargy)
+        { return; }
+
         // 바라볼 타겟이 있다면
         if (LookTargetPoint != Vector2.zero && Target != null)
         {
@@ -296,13 +300,7 @@ public class EnemyController : MovableObject, IInteract
         this.gameObject.SetActive(false);
 
         // Effect
-        MEI.GenExplosionImgs(
-                    MEI.gameObject.transform.position,
-                    16, 0.15f, 0.75f,
-                    1.6f, 0.05f, 0.1f,
-                    0.8f, 0.5f, 1.0f,
-                    0, EnemyManager.Instance.EnemySmokeMaterial);
-
+        ExplosionEffect();
         DieEffect();
     }
 
@@ -359,6 +357,9 @@ public class EnemyController : MovableObject, IInteract
     private IEnumerator RecoverLethargy()
     {
         // 패턴 루틴 종료
+        StopCoroutine(CurrentPatternCor);
+        CurrentContinuousEnemyPattern = null;
+        CurrentEnemyPattern = null;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -370,6 +371,7 @@ public class EnemyController : MovableObject, IInteract
         IsLethargy = false;
 
         // 패턴 루틴 시작
+        StartPatternFromNone();
     }
 
 
@@ -671,7 +673,9 @@ public class EnemyController : MovableObject, IInteract
 
     public void TryGetAnyPattern()
     {
-        Debug.Log("???");
+        if (IsLethargy)
+        { return; }
+
         // 이미 있는지 진행 중인 패턴이 있는지 확인
         int OrderOfPattern = -1;
         if (CurrentEnemyPattern != null)
@@ -726,6 +730,15 @@ public class EnemyController : MovableObject, IInteract
 
     #region Effect
 
+    public void ExplosionEffect()
+    {
+        this.MEI.GenExplosionImgs(
+            this.MEI.gameObject.transform.position,
+            32, 0.15f, 0.75f,
+            0.9f, 0.05f, 0.1f,
+            0.4f, 0.5f, 1.0f,
+            0, ThisSmokeM);
+    }
     public void HittedPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical, Quaternion _Rotation)
     {
         // Hitted Anim

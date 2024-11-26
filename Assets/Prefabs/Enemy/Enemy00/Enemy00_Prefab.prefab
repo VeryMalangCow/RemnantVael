@@ -197,11 +197,17 @@ MonoBehaviour:
   HP_ProgressBar: {fileID: 6470338870314578685}
   EP_ProgressBar: {fileID: 5303638376107025711}
   MEI: {fileID: 882714530506080443}
+  ThisSmokeM: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
   HittedAC_0: {fileID: 7400000, guid: 6af0f636d94b34f41822b97c0843c8ca, type: 2}
   HittedAC_1: {fileID: 7400000, guid: c871472990cbec34cb198596439ad843, type: 2}
   HittedAC_2: {fileID: 7400000, guid: ad2333be6b080184da375f3e13c7316e, type: 2}
   NavRadius: 0.2
   OrderOfPriorityEnemyPatternList:
+  - EnemyPatternList:
+    - EnemyPatternList:
+      - {fileID: 8493327633309841782}
+    - EnemyPatternList:
+      - {fileID: 508694577578462851}
   - EnemyPatternList:
     - EnemyPatternList:
       - {fileID: 3988373326148802438}
@@ -900,7 +906,7 @@ MonoBehaviour:
   EndDelay: 0.1
   FollowingSpeed: 2.5
   UntilForTargetRange: 1
-  TargetRange: 3
+  TargetRange: 3.7
   IgnoreWall: 0
   UntilForTargetTime: 0
   TargetTime: 0
@@ -952,7 +958,7 @@ MonoBehaviour:
   ThisEnemy: {fileID: 848216773187047800}
   IsPlayingThisPattern: 0
   StartDelay: 0.4
-  EndDelay: 0.4
+  EndDelay: 1
   ThisAS:
     DamageType: 0
     BaseDamage: 10
@@ -969,6 +975,8 @@ MonoBehaviour:
   LightOn: 1
   LightTime: 0.5
   LightSize: 2
+  MaximumRange: 1.8
+  MinimumRange: 0
 --- !u!1 &4513777931941266680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1915,7 +1923,7 @@ MonoBehaviour:
   ThisEnemy: {fileID: 848216773187047800}
   IsPlayingThisPattern: 0
   StartDelay: 0.2
-  EndDelay: 0.2
+  EndDelay: 0.8
   ThisBS:
     DamageType: 0
     BaseDamage: 10
@@ -1930,6 +1938,8 @@ MonoBehaviour:
   BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
   BulletShadowScale: {x: 0.16, y: 0.16}
   BulletColSize: {x: 2, y: 3}
+  MaximumRange: 5
+  MinimumRange: 3.7
 --- !u!1 &8251026648640757372
 GameObject:
   m_ObjectHideFlags: 0
@@ -2339,10 +2349,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RandomSpriteList:
   - SpriteList:
-    - {fileID: -1746943924, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 1391882910, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 237403348, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 366755556, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+    - {fileID: 736608773, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - {fileID: -1434397230, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - {fileID: -571110442, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - {fileID: 1982620110, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
 --- !u!1 &8782931538922230563
 GameObject:
   m_ObjectHideFlags: 0

@@ -831,6 +831,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Enemy00_Smoke_00
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 220
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44a3a4e692551d848b58492180de9f4f
+      internalID: 736608773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_Smoke_01
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 220
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98eac3f0d8eb0ee4da6ecb933e99ea41
+      internalID: -1434397230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_Smoke_02
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 220
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d83d85ab831e7e44b6396ad210a2895
+      internalID: -571110442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_Smoke_03
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 220
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e02eaabad486a541ab3c07e431d38a3
+      internalID: 1982620110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -863,6 +947,10 @@ TextureImporter:
       Enemy00_Main_RD: -971164730
       Enemy00_Main_RU: -261154839
       Enemy00_Main_U: -1377615038
+      Enemy00_Smoke_00: 736608773
+      Enemy00_Smoke_01: -1434397230
+      Enemy00_Smoke_02: -571110442
+      Enemy00_Smoke_03: 1982620110
       Enemy00_Sword_D: 1359721168
       Enemy00_Sword_L: -425848612
       Enemy00_Sword_LD: -741016898

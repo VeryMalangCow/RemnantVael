@@ -22,6 +22,11 @@ public class EnemyPattern_Melee : EnemyPattern
     [SerializeField] float LightTime = 1f;
     [SerializeField] float LightSize = 1f;
 
+    [Space(10)]
+    [Header("=== Condition")]
+    [SerializeField] private float MaximumRange = 1f;
+    [SerializeField] private float MinimumRange = 0f;
+
     #endregion
 
     #region Framework
@@ -40,6 +45,12 @@ public class EnemyPattern_Melee : EnemyPattern
 
     public override bool CanPlayPattern()
     {
+        float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.Instance.PlayerController.transform.position);
+        if (forPlayerDis > MaximumRange || forPlayerDis < MinimumRange)
+        {
+            return false;
+        }
+
         return true;
     }
 

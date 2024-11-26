@@ -66,7 +66,7 @@ public class DestructibleBuildingController : InteractableBuildingController
     protected virtual void Break(bool _SpawnItem)
     {
         IsBroken = true;
-
+        ExplosionEffect();
         ApplySetStateAnim();
     }
 

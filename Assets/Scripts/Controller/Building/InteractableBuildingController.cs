@@ -60,4 +60,18 @@ public class InteractableBuildingController : SortLayerObjectController
     }
 
     #endregion
+
+    #region Effect
+
+    protected void ExplosionEffect()
+    {
+        MEI.GenExplosionImgs(
+                    MEI.gameObject.transform.position,
+                    32, 0.15f, 0.75f,
+                    0.8f, 0.05f, 0.1f,
+                    0.3f, 0.5f, 1.0f,
+                    0, UnitManager.Instance.ModuleM_000_Explosion);
+    }
+
+    #endregion
 }

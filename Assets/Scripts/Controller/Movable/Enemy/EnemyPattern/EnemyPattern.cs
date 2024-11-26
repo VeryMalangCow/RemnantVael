@@ -40,7 +40,9 @@ public abstract class EnemyPattern : MonoBehaviour
         IsPlayingThisPattern = true;
         ThisEnemy.IsPlayingPattern = true;
 
-        StartCoroutine(ThisPattern());
+        ThisEnemy.CurrentPatternCor = ThisPattern();
+
+        StartCoroutine(ThisEnemy.CurrentPatternCor);
     }
 
     public virtual void EndPattern()

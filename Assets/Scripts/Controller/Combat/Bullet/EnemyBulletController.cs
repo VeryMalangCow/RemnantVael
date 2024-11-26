@@ -25,7 +25,6 @@ public class EnemyBulletController : BulletController
         CurrentAliveTime += Time.deltaTime;
         if (CurrentAliveTime >= BulletState.AliveTime)
         {
-            Debug.Log("- Time");
             DeleteThis();
         }
     }

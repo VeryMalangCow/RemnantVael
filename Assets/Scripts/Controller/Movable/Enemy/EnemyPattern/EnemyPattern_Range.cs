@@ -19,6 +19,11 @@ public class EnemyPattern_Range : EnemyPattern
     [SerializeField] private Vector2 BulletShadowScale;
     [SerializeField] private Vector2 BulletColSize;
 
+    [Space(10)]
+    [Header("=== Condition")]
+    [SerializeField] private float MaximumRange = 4f;
+    [SerializeField] private float MinimumRange = 3f;
+
     #endregion
 
     #region Framework
@@ -37,6 +42,12 @@ public class EnemyPattern_Range : EnemyPattern
 
     public override bool CanPlayPattern()
     {
+        float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.Instance.PlayerController.transform.position);
+        if (forPlayerDis > MaximumRange || forPlayerDis < MinimumRange)
+        {
+            return false;
+        }
+
         return true;
     }
 

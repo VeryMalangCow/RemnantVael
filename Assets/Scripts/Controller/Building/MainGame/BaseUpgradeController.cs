@@ -15,12 +15,7 @@ public class BaseUpgradeController : DestructibleBuildingController, IInteract
     protected override void OnEnable()
     {
         base.OnEnable();
-        MEI.GenExplosionImgs(
-                    MEI.gameObject.transform.position,
-                    16, 0.15f, 0.75f,
-                    2.0f, 0.05f, 0.1f,
-                    1.0f, 0.5f, 1.0f,
-                    0, UnitManager.Instance.ModuleM_000_Explosion);
+        ExplosionEffect();
     }
 
     #endregion
