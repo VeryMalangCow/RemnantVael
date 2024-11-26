@@ -834,7 +834,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 374
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -876,10 +876,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8205b9ff145c1408429a0e7b5a5b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCompletlyVisible: 1
   HalfVisibleValue: 0.7
   DurTime: 0.3
   SetSRList:
   - {fileID: 2860921718884678199}
+  currentCollisions: []
 --- !u!1 &4059544281638610052
 GameObject:
   m_ObjectHideFlags: 0
@@ -2488,7 +2490,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 374
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -2530,10 +2532,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8205b9ff145c1408429a0e7b5a5b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCompletlyVisible: 1
   HalfVisibleValue: 0.7
   DurTime: 0.3
   SetSRList:
   - {fileID: 2511615013169453619}
+  currentCollisions: []
 --- !u!1 &8724679735832164350
 GameObject:
   m_ObjectHideFlags: 0
@@ -2896,6 +2900,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ThisCol: {fileID: 0}
   ThisAnimator: {fileID: 0}
+  ThisLight: {fileID: 0}
   AttackerState:
     DamageType: 0
     BaseDamage: 10

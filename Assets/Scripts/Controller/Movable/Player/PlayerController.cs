@@ -893,7 +893,9 @@ public class PlayerController : MovableObject
 
     private void SetOnOffMoveDir()
     {
-        if (CurrentInteractable != null && CurrentInteractable is GateController GC)
+        if (CurrentInteractable != null && 
+            CurrentInteractable is GateController GC &&
+            GC.IsOpen)
         { SetOnRoomMoveDir(GC.GateDir); }
         else
         { SetOffRoomMoveDir(); }

@@ -48,7 +48,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 374
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8205b9ff145c1408429a0e7b5a5b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCompletlyVisible: 1
   HalfVisibleValue: 0.7
   DurTime: 0.3
   SetSRList:
@@ -766,7 +767,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 374
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -808,10 +809,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8205b9ff145c1408429a0e7b5a5b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCompletlyVisible: 1
   HalfVisibleValue: 0.7
   DurTime: 0.3
   SetSRList:
-  - {fileID: 0}
+  - {fileID: 5460532262583974142}
 --- !u!1 &3792540926862602335
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,7 +1272,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 374
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1312,20 +1314,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8205b9ff145c1408429a0e7b5a5b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCompletlyVisible: 1
   HalfVisibleValue: 0.7
   DurTime: 0.3
   SetSRList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6183198726698796069}
+  - {fileID: 4219066987383823021}
+  - {fileID: 1938095862673115497}
+  - {fileID: 7650500866403394900}
+  - {fileID: 7861514040454405922}
+  - {fileID: 360262978384843544}
+  - {fileID: 297833991029021904}
+  - {fileID: 302648654736501402}
+  - {fileID: 8270972919754465239}
+  - {fileID: 3470842290899877669}
+  - {fileID: 3959830269044769115}
 --- !u!1 &6490664255272228861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,7 +1481,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 383
+    m_Bits: 374
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1520,6 +1523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8205b9ff145c1408429a0e7b5a5b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCompletlyVisible: 1
   HalfVisibleValue: 0.7
   DurTime: 0.3
   SetSRList:
@@ -2415,6 +2419,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca34308ce9c13794398966b6bfd6a007, type: 3}
+--- !u!212 &5460532262583974142 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4810027994122376210, guid: ca34308ce9c13794398966b6bfd6a007, type: 3}
+  m_PrefabInstance: {fileID: 650510458452307180}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5668546755963445285 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5164972284617493705, guid: ca34308ce9c13794398966b6bfd6a007, type: 3}
@@ -2477,6 +2486,61 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+--- !u!212 &297833991029021904 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 992355632618840019, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+  m_PrefabInstance: {fileID: 713697805675840259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &302648654736501402 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 996607262621002137, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+  m_PrefabInstance: {fileID: 713697805675840259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &360262978384843544 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 943637276054949915, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+  m_PrefabInstance: {fileID: 713697805675840259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1938095862673115497 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1369920794439830122, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+  m_PrefabInstance: {fileID: 713697805675840259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3470842290899877669 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4165118219288689702, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+  m_PrefabInstance: {fileID: 713697805675840259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3959830269044769115 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4545175431376536152, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+  m_PrefabInstance: {fileID: 713697805675840259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &4219066987383823021 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3704970787613039022, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+  m_PrefabInstance: {fileID: 713697805675840259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &6183198726698796069 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6640753518662600486, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+  m_PrefabInstance: {fileID: 713697805675840259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7650500866403394900 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7191010965113153111, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+  m_PrefabInstance: {fileID: 713697805675840259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7861514040454405922 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7277294735617629217, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+  m_PrefabInstance: {fileID: 713697805675840259}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &8270972919754465239 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8876584231017372884, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}
+  m_PrefabInstance: {fileID: 713697805675840259}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8499410518441692836 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8940886105770118567, guid: 9b8b02a10f98b52438a165509dcbd4d7, type: 3}

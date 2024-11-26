@@ -974,7 +974,7 @@ MonoBehaviour:
   EndDis: 1.3
   LightOn: 1
   LightTime: 0.5
-  LightSize: 2
+  LightSize: 2.3
   MaximumRange: 1.8
   MinimumRange: 0
 --- !u!1 &4513777931941266680
@@ -2080,22 +2080,22 @@ MonoBehaviour:
   - ObjectTF: {fileID: 3476898959079801416}
     TargetTF: {fileID: 8165954943218689263}
     ThisActualSR: {fileID: 6311425214718471968}
-    UpperOrder: -2
+    UpperOrder: -4
     FarFromCenter: 1
   - ObjectTF: {fileID: 1314642382348129983}
     TargetTF: {fileID: 817032416178188670}
     ThisActualSR: {fileID: 3252399107822130664}
-    UpperOrder: -2
+    UpperOrder: -4
     FarFromCenter: 1
   - ObjectTF: {fileID: 7091749787082650829}
     TargetTF: {fileID: 3153919280354888457}
     ThisActualSR: {fileID: 4081575584011619059}
-    UpperOrder: -2
+    UpperOrder: -4
     FarFromCenter: 0
   - ObjectTF: {fileID: 8223056556764748711}
     TargetTF: {fileID: 3153919280354888457}
     ThisActualSR: {fileID: 6788787440000900087}
-    UpperOrder: -1
+    UpperOrder: -2
     FarFromCenter: 0
 --- !u!1 &8539745718325483645
 GameObject:

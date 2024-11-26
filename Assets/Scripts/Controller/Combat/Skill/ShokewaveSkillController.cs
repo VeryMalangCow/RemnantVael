@@ -45,10 +45,10 @@ public class ShockwaveSkillController : ActiveSkillController
 
         float usableMaxSize = _MaxSize + (_MaxSize * Tier.ActualState.Value * 0.1f);
 
+
         PlayerAttacker pa = PoolingManager.Instance.GetOP_PlayerAttacker();
 
-
-        pa.SetState_Bigger(ThisHST.TargetObject.transform.position, ThisState, ShockwaveAnimation,
+        pa.SetState_Bigger(ThisHST.transform.position, ThisState, ShockwaveAnimation,
             _ColSize, _StartSize, usableMaxSize, _BiggerTime)
             .OnComplete(() =>
             {
@@ -59,7 +59,6 @@ public class ShockwaveSkillController : ActiveSkillController
         // Effect Explosion -> Energy DMG
 
         ExplosionEffect((Vector2)ThisHST.TargetObject.gameObject.transform.position,
-            ThisHST.ThisSR.sortingOrder + 1,
             PlayerController.BaseWeapon.CC.ActualState.Value, usableMaxSize);
     }
 
@@ -67,7 +66,7 @@ public class ShockwaveSkillController : ActiveSkillController
 
     #region Effect
 
-    private void ExplosionEffect(Vector2 _SpawndPos, int _SortLayer, float _CriticalChance, float _UsableMaxSize)
+    private void ExplosionEffect(Vector2 _SpawndPos, float _CriticalChance, float _UsableMaxSize)
     {
         PlayerController.PlayerMEI.GenExplosionImgs(
             _SpawndPos,

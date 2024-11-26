@@ -150,6 +150,7 @@ MonoBehaviour:
   - DestructibleObject
   ThisAnimator: {fileID: 2399920995970120347}
   ThisCol: {fileID: 7842866708527823414}
+  OwnerEC: {fileID: 0}
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4

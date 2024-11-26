@@ -47,7 +47,7 @@ public class EnemyController : MovableObject, IInteract
     [Space(10)]
     [Header("=== Effect")]
     [SerializeField] public MakeExplosionImage MEI;
-    [SerializeField] private Material ThisSmokeM;
+    [SerializeField] public Material ThisSmokeM;
     [SerializeField] public AnimationClip HittedAC_0;
     [SerializeField] public AnimationClip HittedAC_1;
     [SerializeField] public AnimationClip HittedAC_2;
@@ -300,7 +300,6 @@ public class EnemyController : MovableObject, IInteract
         this.gameObject.SetActive(false);
 
         // Effect
-        ExplosionEffect();
         DieEffect();
     }
 
@@ -357,9 +356,7 @@ public class EnemyController : MovableObject, IInteract
     private IEnumerator RecoverLethargy()
     {
         // 패턴 루틴 종료
-        StopCoroutine(CurrentPatternCor);
-        CurrentContinuousEnemyPattern = null;
-        CurrentEnemyPattern = null;
+        StopPattern();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -374,6 +371,18 @@ public class EnemyController : MovableObject, IInteract
         StartPatternFromNone();
     }
 
+    private void StopPattern()
+    {
+        StopCoroutine(CurrentPatternCor);
+
+        CurrentContinuousEnemyPattern = null;
+        CurrentEnemyPattern = null;
+
+        MoveTargetPoint = Vector2.zero;
+        LookTargetPoint = Vector2.zero;
+        MoveDir = Vector2.zero;
+        MoveSpeed = 0f;
+    }
 
     #endregion
 
@@ -739,6 +748,7 @@ public class EnemyController : MovableObject, IInteract
             0.4f, 0.5f, 1.0f,
             0, ThisSmokeM);
     }
+
     public void HittedPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical, Quaternion _Rotation)
     {
         // Hitted Anim
@@ -789,6 +799,8 @@ public class EnemyController : MovableObject, IInteract
             UnitManager.Instance.ModuleM_000_Explosion,
             q,
             2.5f, 2f);
+
+        ExplosionEffect();
     }
 
     #endregion

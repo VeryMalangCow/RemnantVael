@@ -68,7 +68,7 @@ public class PlayerBulletController : BulletController
     private void DeleteThis()
     {
         AttackPointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
-        ExplosionEffect(TargetObject.transform.position, ThisSR.sortingOrder + 1, BulletState.DamageType, BulletState.IsCritical);
+        ExplosionEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
         
 
         ResetState();
@@ -117,7 +117,7 @@ public class PlayerBulletController : BulletController
 
     #region Effect
 
-    private void ExplosionEffect(Vector2 _SpawndPos, int _SortLayer, eDamageType _DamageType, bool _IsCritical)
+    private void ExplosionEffect(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical)
     {
         int index = 0;
         if (_DamageType == eDamageType.Physics)

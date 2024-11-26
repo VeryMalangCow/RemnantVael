@@ -9,9 +9,12 @@ public class EnemyBulletController : BulletController
     [Header("<><><><><> Enemy")]
 
     [Space(10)]
-    [Header("=== Sprite")]
+    [Header("=== Component")]
     [SerializeField] public Animator ThisAnimator;
     [SerializeField] public CapsuleCollider2D ThisCol;
+
+    //Other
+    [HideInInspector] public EnemyController OwnerEC;
 
     #endregion
 
@@ -50,9 +53,7 @@ public class EnemyBulletController : BulletController
         base.SetState(_SpawnVec, 0, _BulletState, _TargetRange);
 
         ThisRb.simulated = true;
-        Debug.Log(CurrentAliveTime);
         gameObject.SetActive(true);
-        Debug.Log(CurrentAliveTime);
     }
 
     #endregion
@@ -61,9 +62,12 @@ public class EnemyBulletController : BulletController
 
     private void DeleteThis()
     {
-        AttackPointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
-        ExplosionEffect(TargetObject.transform.position, ThisSR.sortingOrder + 1, BulletState.DamageType, BulletState.IsCritical);
-
+        OwnerEC.MEI.GenExplosionImgs(
+            TargetObject.transform.position,
+            16, 0.15f, 0.75f,
+            0.6f, 0.05f, 0.1f,
+            0.2f, 0.5f, 1.0f,
+            0, OwnerEC.ThisSmokeM);
 
         ResetState();
         this.gameObject.SetActive(false);
@@ -85,11 +89,6 @@ public class EnemyBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out PlayerController PC))
             {
-                /*PC.HittedPointEffect(
-                    this.TargetObject.transform.position,
-                    BulletState.DamageType,
-                    BulletState.IsCritical,
-                    transform.rotation);*/
                 PC.TryHitted(this);
             }
         }
@@ -109,34 +108,4 @@ public class EnemyBulletController : BulletController
 
     #endregion
 
-    #region Effect
-
-    private void ExplosionEffect(Vector2 _SpawndPos, int _SortLayer, eDamageType _DamageType, bool _IsCritical)
-    {
-        int index = 0;
-        if (!_IsCritical)
-        { index = 0; }
-        else
-        { index = 1; }
-        
-
-        /*PlayerManager.Instance.PlayerController.PlayerMEI.GenExplosionImgs(
-                   _SpawndPos,
-                   4, 0.3f, 0.4f,
-                   0.6f, 0.05f, 0.1f,
-                   0.3f, 0.5f, 1.0f,
-                   index, PlayerManager.Instance.PlayerController.ThisPlayerMaterial_000);*/
-    }
-
-    private void AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
-    {
-        OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
-        oota.StartAnim(
-            PlayerManager.Instance.PlayerController.GetCorrectHitted_AC(_DamageType, _IsCritical),
-            _SpanwedPos,
-            PlayerManager.Instance.PlayerController.ThisPlayerMaterial_000,
-            2.0f, 1.0f);
-    }
-
-    #endregion
 }

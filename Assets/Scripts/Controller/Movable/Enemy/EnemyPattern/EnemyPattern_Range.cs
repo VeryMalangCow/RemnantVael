@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class EnemyPattern_Range : EnemyPattern
 {
@@ -87,11 +88,21 @@ public class EnemyPattern_Range : EnemyPattern
         { targetShadow = HST.TargetRange; }
 
         // Base State 
+        EBC.OwnerEC = ThisEnemy;
         EBC.SetState(SpawnTF.position, ThisBS, targetDir, BulletShadowScale, BulletColSize, BulletAC, targetShadow);
 
         // Sorting Layer
         if (SpawnTF.gameObject.TryGetComponent(out HaveShadowThing hst))
         { EBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
+
+        // Effect
+        ThisEnemy.MEI.GenExplosionImgs_Fan(
+            (Vector2)HST.TargetObject.transform.position + (targetDir * 0.3f),
+            targetDir, 45f,
+            3, 0.2f, 1f,
+            0.8f, 0.05f, 0.1f,
+            0.4f, 0.5f, 1.0f,
+            0, ThisEnemy.ThisSmokeM);
 
         yield return new WaitForSeconds(EndDelay);
 

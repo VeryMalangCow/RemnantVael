@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,34 +9,54 @@ public class SetVisibleBuilding : MonoBehaviour
     #region Value
 
     [Header("<><><><><> Visible State")]
+    [SerializeField] private bool IsCompletlyVisible = true;
     [SerializeField] private float HalfVisibleValue = 0.7f;
     [SerializeField] private float DurTime = 0.3f;
     [SerializeField] private List<SpriteRenderer> SetSRList;
 
     [HideInInspector] private Sequence ThisSeq;
+    [SerializeField] private HashSet<Collider2D> currentCollisions = new HashSet<Collider2D>();
+
     #endregion
 
-    #region Trigger
+    #region Framework
 
-    private void OnTriggerEnter2D(Collider2D _Col)
+    private void LateUpdate()
     {
-        if (_Col.tag == "Player")
+        if (IsColliding() && IsCompletlyVisible == true)
         {
+            IsCompletlyVisible = false;
             SetVisible(HalfVisibleValue);
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D _Col)
-    {
-        if (_Col.tag == "Player")
+        else if (!IsColliding() && IsCompletlyVisible == false)
         {
+            IsCompletlyVisible = true;
             SetVisible(1f);
         }
     }
 
     #endregion
 
+    #region Trigger
+
+    private void OnTriggerEnter2D(Collider2D _Col)
+    {
+        currentCollisions.Add(_Col);
+    }
+
+    private void OnTriggerExit2D(Collider2D _Col)
+    {
+        currentCollisions.Remove(_Col);
+    }
+
+    #endregion
+
     #region Set State
+
+    public bool IsColliding()
+    {
+        return currentCollisions.Count > 0;
+    }
 
     private void SetVisible(float _Alpha)
     {
