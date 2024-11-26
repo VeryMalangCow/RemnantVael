@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UniRx;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerController : MovableObject
@@ -323,6 +324,24 @@ public class PlayerController : MovableObject
 
     #region Damage
 
+    public void TryHitted(EnemyBulletController _EBC)
+    {
+        if (IsInvincible)
+        { return; }
+
+        // 항상
+        Hitted();
+
+        // 피격
+        if (!IsAvoid()) // 회피인지?
+        {
+            TakeDamaged(_EBC.BulletState.BaseDamage,
+                ((Vector2)transform.position - (Vector2)_EBC.transform.position).normalized,
+                _EBC.BulletState.AbleKnockback,
+                _EBC.BulletState.KnockbackPower,
+                _EBC.BulletState.KnockbackTime);
+        }
+    }
     public void TryHitted(Attacker _Attacker)
     {
         if (IsInvincible)
@@ -331,13 +350,8 @@ public class PlayerController : MovableObject
         // 항상
         Hitted();
 
-        // 회피
-        if (UnityEngine.Random.Range(0f, 1f) < AvoidChance.ActualState.Value)
-        {
-            Avoided();
-        }
         // 피격
-        else
+        if (!IsAvoid()) // 회피인지?
         {
             TakeDamaged(_Attacker.AttackerState.BaseDamage, 
                 ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
@@ -345,6 +359,17 @@ public class PlayerController : MovableObject
                 _Attacker.AttackerState.KnockbackPower,
                 _Attacker.AttackerState.KnockbackTime);
         }
+    }
+
+    public bool IsAvoid()
+    {
+        // 회피
+        if (UnityEngine.Random.Range(0f, 1f) < AvoidChance.ActualState.Value)
+        {
+            Avoided();
+            return true;
+        }
+        return false;
     }
 
     private void Hitted()

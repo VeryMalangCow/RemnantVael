@@ -2,6 +2,20 @@ using UnityEngine;
 
 public class PlayerBulletController : BulletController
 {
+    #region Value
+
+    [Space(20)]
+    [Header("<><><><><> Player")]
+
+    [Space(10)]
+    [Header("=== Sprite")]
+    [SerializeField] public Sprite BasePhysics_Sprite;
+    [SerializeField] public Sprite CriticalPhysics_Sprite;
+    [SerializeField] public Sprite BaseEnergy_Sprite;
+    [SerializeField] public Sprite CriticalEnergy_Sprite;
+
+    #endregion
+
     #region Framework
 
     protected override void Update()
@@ -23,6 +37,23 @@ public class PlayerBulletController : BulletController
     public void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, Vector2 _Dir, float _TargetRange)
     {
         this.transform.localRotation = GetRotByVec2(_Dir);
+
+        if (BulletState.IsCritical)
+        {
+            this.BulletState.BaseDamage *= BulletState.CD;
+
+            if (_BulletState.DamageType == eDamageType.Physics)
+            { ThisSR.sprite = CriticalPhysics_Sprite; }
+            else
+            { ThisSR.sprite = CriticalEnergy_Sprite; }
+        }
+        else
+        {
+            if (_BulletState.DamageType == eDamageType.Physics)
+            { ThisSR.sprite = BasePhysics_Sprite; }
+            else
+            { ThisSR.sprite = BaseEnergy_Sprite; }
+        }
 
         base.SetState(_SpawnVec, _SpreadAngle, _BulletState, _TargetRange);
 

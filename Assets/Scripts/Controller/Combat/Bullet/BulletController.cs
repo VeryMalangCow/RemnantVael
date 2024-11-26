@@ -22,12 +22,6 @@ public class BulletController : HaveShadowThingMovable
     [Header("=== Judg")]
     [SerializeField] protected List<string> DestroyTagList;
 
-    [Space(10)]
-    [Header("=== Sprite")]
-    [SerializeField] public Sprite BasePhysics_Sprite;
-    [SerializeField] public Sprite CriticalPhysics_Sprite;
-    [SerializeField] public Sprite BaseEnergy_Sprite;
-    [SerializeField] public Sprite CriticalEnergy_Sprite;
 
     #endregion
 
@@ -50,25 +44,8 @@ public class BulletController : HaveShadowThingMovable
 
         this.transform.position = _SpawnVec;
 
-        this.BulletState = _BulletState;
+        this.BulletState = new BulletState(_BulletState);
 
-        
-        if (BulletState.IsCritical)
-        {
-            this.BulletState.BaseDamage *= BulletState.CD;
-
-            if (_BulletState.DamageType == eDamageType.Physics)
-            { ThisSR.sprite = CriticalPhysics_Sprite; }
-            else
-            { ThisSR.sprite = CriticalEnergy_Sprite; }
-        }
-        else
-        {
-            if (_BulletState.DamageType == eDamageType.Physics)
-            { ThisSR.sprite = BasePhysics_Sprite; }
-            else
-            { ThisSR.sprite = BaseEnergy_Sprite; }
-        }
 
         Vector3 currentRotation = transform.eulerAngles;
         currentRotation.z += _SpreadAngle;
@@ -122,6 +99,21 @@ public class BulletState
     [SerializeField] public float KnockbackPower;
     [SerializeField] public float KnockbackTime;
 
+    public BulletState(BulletState _BS)
+    {
+        DamageType = _BS.DamageType;
+        BaseDamage = _BS.BaseDamage;
+        MuzzleSpeed = _BS.MuzzleSpeed;
+        AliveTime = _BS.AliveTime;
+
+        IsCritical = _BS.IsCritical;
+        CD = _BS.CD;
+
+        AbleKnockback = _BS.AbleKnockback;
+        KnockbackPower = _BS.KnockbackPower;
+        KnockbackTime = _BS.KnockbackTime;
+    }
+
     public BulletState(
         eDamageType _eDamageType,
         float _BaseDamage,
@@ -140,6 +132,21 @@ public class BulletState
 
         IsCritical = _IsCritical;
         CD = _CD;
+
+        AbleKnockback = _AbleKnockback;
+        KnockbackPower = knockbackPower;
+        KnockbackTime = knockbackTime;
+    }
+
+    public BulletState(
+        float _BaseDamage, 
+        float _AliveTime, 
+        bool _AbleKnockback,
+        float knockbackPower,
+        float knockbackTime)
+    {
+        BaseDamage = _BaseDamage;
+        AliveTime = _AliveTime;
 
         AbleKnockback = _AbleKnockback;
         KnockbackPower = knockbackPower;

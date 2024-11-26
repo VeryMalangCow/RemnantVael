@@ -1545,6 +1545,9 @@ MonoBehaviour:
   Enemy:
     Prefab: {fileID: 272305898077013730, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
     ParentTF: {fileID: 1717915347}
+  EnemyBullets:
+    Prefab: {fileID: 2192280153704162206, guid: baf318852ebf135459cd69f0478fe943, type: 3}
+    ParentTF: {fileID: 394877459}
   EnemyAttackers:
     Prefab: {fileID: 2154807210293626544, guid: e7453e73f7679b648b2dcca30557ad73, type: 3}
     ParentTF: {fileID: 1977592554}

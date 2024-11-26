@@ -19,6 +19,7 @@ public class PoolingManager : Singleton<PoolingManager>
 
     [Header("=== Enemy")]
     [SerializeField] public TTypePooling<EnemyController> Enemy;
+    [SerializeField] public TTypePooling<EnemyBulletController> EnemyBullets;
     [SerializeField] public TTypePooling<EnemyAttacker> EnemyAttackers;
 
     [Header("=== Effect Img")]
@@ -122,6 +123,12 @@ public class PoolingManager : Singleton<PoolingManager>
         { return GetOP<EnemyController>(_EC_Prefab, Enemy.ParentTF, Enemy.Queue); }
         else
         { return GetOP<EnemyController>(Enemy.Prefab, Enemy.ParentTF, Enemy.Queue); }
+    }
+
+    // Enemy Bullet
+    public EnemyBulletController GetOP_EnemyBullet()
+    {
+        return GetOP<EnemyBulletController>(EnemyBullets.Prefab, EnemyBullets.ParentTF, EnemyBullets.Queue);
     }
 
     // Enemy Attacker
