@@ -1,0 +1,799 @@
+fileFormatVersion: 2
+guid: e289c074e92508f4aac609cb3be6be81
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PlayerHUD_EP_Frame_Left
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 474
+        width: 49
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3256d714afe3854abafbbbe3c24ed1a
+      internalID: 1535763031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_EP_Frame_Right
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 474
+        width: 47
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9897917a7cb8814d9321f43194e624c
+      internalID: 792229120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_EP_Frame_Middle
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 476
+        width: 110
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 42, y: 0, z: 41, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f26cbef6aeef8d2448999568ab550e1c
+      internalID: 64364167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_BS_Frame
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 474
+        width: 57
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c21b99a0894ebea4f9a9d63387668ab6
+      internalID: -1815487049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_EP_Liner
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 449
+        width: 5
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acff98ba4a6e82c47848a92c62448f77
+      internalID: -670417485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_EP_InnerLine_Left
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 452
+        width: 46
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f681e6c36ebd8547b5d55b814b3f96f
+      internalID: -232554943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_EP_InnerLine_Right
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 452
+        width: 46
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 006f54cd5eea153478bd634ae6b0bfe7
+      internalID: -51117568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_SkillSlot_Frame
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 432
+        width: 104
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a433ba3a72430c44b4045b1018bc4a3
+      internalID: -209309963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_EP_Flow
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 457
+        width: 64
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f4e11e86bc9b84419286b9504cfac5f
+      internalID: -866418213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_Frame
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 403
+        width: 73
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aaab223d1a868c479512b698dbef25b
+      internalID: 2051025323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_EP_Bar
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 437
+        width: 100
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f677154b24412294094cb36868bacab0
+      internalID: 536471263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_Light_00
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 411
+        width: 54
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f173c9bac996eb541a13f30631e1474a
+      internalID: 555355113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_Light_01
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 411
+        width: 54
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ca98e74b106d1341acc7408a70ecaff
+      internalID: 1753475927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_Light_02
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 411
+        width: 54
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d987c764677a1b4a86d77ed51bacb3f
+      internalID: -1062394706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_Light_03
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 411
+        width: 54
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84f0ba49967923e4ab7122d8e6610d6e
+      internalID: 489539685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_Wheel
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 343
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a82f1d9d51e32fc4a863babda8fc897d
+      internalID: 1925712295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_WheelLight_00
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 359
+        width: 26
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 253519dc928a9bd4e96688a127abeda1
+      internalID: 253849111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_WheelLight_01
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 354
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66ecdb2fbe1b00248826d1a24d72387d
+      internalID: 168794657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_WheelLight_02
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 349
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b9cb9aa4d5078441aa97630d4caeccd
+      internalID: 1360759265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_WheelLight_03
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 343
+        width: 58
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c5d81f5403767641ac638df6a0b425f
+      internalID: -1576717012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_Frame_Back
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 318
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81295f33703bba848a2ee5d834593b22
+      internalID: 624916892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_EC
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 322
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d641499a49841c74f82e402487604c72
+      internalID: -1697317626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_BC
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 322
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba631813ea21b7146a925d5ad5608bb6
+      internalID: -330596494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Minimap
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 252
+        width: 88
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f53804ca8b2f50e498b25491afc1b268
+      internalID: -814347436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_BS_InnerLine
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 320
+        width: 33
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4f3df271207f4e44a0b0c66b3299ca7
+      internalID: -1205781327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_CellSlot
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 220
+        width: 56
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f9de5010471d5f4b98fc56df0f7cc88
+      internalID: 1465224138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_BS_Charge_00
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 308
+        width: 21
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fbe1f123cea6d0498809ef85302f15d
+      internalID: 64244325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_BS_Charge_01
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 292
+        width: 21
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6040c2504cf38d147ae466111f4a60a2
+      internalID: 1203241232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_BS_Charge_02
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 276
+        width: 21
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84e7bad56d4f17f448176a91356379ae
+      internalID: -100508375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_BS_Charge_03
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 260
+        width: 21
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20ac9324825ef894898201230a7cd91c
+      internalID: 535944010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_BS_Charge_None
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 340
+        width: 21
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 503c825b1f732134da2c1ed367f4a64b
+      internalID: -949702449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 7fa57c46d4f4a1b44b9f70a3897cac1f, type: 3}
+      name: _Emission
+    nameFileIdTable:
+      PlayerHUD_9: 187598078
+      PlayerHUD_BC: -330596494
+      PlayerHUD_BS_Charge_00: 64244325
+      PlayerHUD_BS_Charge_01: 1203241232
+      PlayerHUD_BS_Charge_02: -100508375
+      PlayerHUD_BS_Charge_03: 535944010
+      PlayerHUD_BS_Charge_None: -949702449
+      PlayerHUD_BS_Frame: -1815487049
+      PlayerHUD_BS_InnerLine: -1205781327
+      PlayerHUD_Booster_Frame: 2051025323
+      PlayerHUD_Booster_Frame_Back: 624916892
+      PlayerHUD_Booster_Light_00: 555355113
+      PlayerHUD_Booster_Light_01: 1753475927
+      PlayerHUD_Booster_Light_02: -1062394706
+      PlayerHUD_Booster_Light_03: 489539685
+      PlayerHUD_Booster_Wheel: 1925712295
+      PlayerHUD_Booster_WheelLight_00: 253849111
+      PlayerHUD_Booster_WheelLight_01: 168794657
+      PlayerHUD_Booster_WheelLight_02: 1360759265
+      PlayerHUD_Booster_WheelLight_03: -1576717012
+      PlayerHUD_CellSlot: 1465224138
+      PlayerHUD_EC: -1697317626
+      PlayerHUD_EP_Bar: 536471263
+      PlayerHUD_EP_Flow: -866418213
+      PlayerHUD_EP_Frame_Left: 1535763031
+      PlayerHUD_EP_Frame_Middle: 64364167
+      PlayerHUD_EP_Frame_Right: 792229120
+      PlayerHUD_EP_InnerLine_Left: -232554943
+      PlayerHUD_EP_InnerLine_Right: -51117568
+      PlayerHUD_EP_Liner: -670417485
+      PlayerHUD_Minimap: -814347436
+      PlayerHUD_SkillSlot_Frame: -209309963
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
