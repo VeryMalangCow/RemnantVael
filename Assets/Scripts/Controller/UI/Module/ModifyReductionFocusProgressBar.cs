@@ -10,8 +10,16 @@ public class ModifyReductionFocusProgressBar : UIModule
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] private Image AfterImageEP_Img;
+
     [SerializeField] private Image ActualEP_Img;
     [SerializeField] private RectTransform ActualEP_ImgLiner;
+
+    [Header("=== Extra")]
+    [SerializeField] private RectTransform MiddleRT;
+    [SerializeField] private float PlusSizeMiddleRTX;
+    [SerializeField] private RectTransform RightRT;
+    [SerializeField] private float PlusPosRightRTX;
+
     [HideInInspector] private RectTransform ThisRT;
 
     #endregion
@@ -43,6 +51,9 @@ public class ModifyReductionFocusProgressBar : UIModule
         }
 
         ThisRT.DOSizeDelta(new Vector2(_SizeX, ThisRT.sizeDelta.y), 0.1f);
+
+        MiddleRT.DOSizeDelta(new Vector2(_SizeX + PlusSizeMiddleRTX, MiddleRT.sizeDelta.y), 0.1f);
+        RightRT.DOAnchorPos(new Vector2(_SizeX + PlusPosRightRTX, RightRT.anchoredPosition.y), 0.1f);
     }
 
     #endregion
