@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -840,7 +840,7 @@ TextureImporter:
         width: 26
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -861,7 +861,7 @@ TextureImporter:
         width: 26
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -869,6 +869,258 @@ TextureImporter:
       bones: []
       spriteID: f614747c77d36194ab35e243fb08b935
       internalID: 1779296857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_000
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 503
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efd1c6a3feb480b4fbdd689603fb75e9
+      internalID: 476855026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_001
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 503
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c84e7edfe465c641aec95bc84ccf87c
+      internalID: 1810412846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_002
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 496
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09c055ed9dce1654a96726081c538664
+      internalID: 660787810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_003
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 496
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0866fe7f68e95f34e9208b447c63b992
+      internalID: 1003430231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_004
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 496
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 850b5d793bfe81b4086a79be09248f1a
+      internalID: -1027038445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_005
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 496
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64d8f85edc5d331439978cfba71d66a1
+      internalID: -1527273314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MMO_000
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 487
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56915cbd0b2ba9448a6e2de66f549a33
+      internalID: -1569914105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MMO_001
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 487
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05343927731d74c47a2b67e5cd75cf63
+      internalID: 2006052592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MMO_002
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 480
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da3dfcd57bf948b4cbd9d93bb3191aa7
+      internalID: -946666839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MMO_003
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 480
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab9e21e5fd3fbff4dbc9f1dea5cb65ca
+      internalID: -570641346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MMO_004
+      rect:
+        serializedVersion: 2
+        x: 451
+        y: 480
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffa46f75146745f4bbb5ae5db94a0ae0
+      internalID: 1116852838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MMO_005
+      rect:
+        serializedVersion: 2
+        x: 467
+        y: 480
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d086d20844b90ec4481a1a3cfa10bf77
+      internalID: 1274739206
       vertices: []
       indices: 
       edges: []
@@ -885,7 +1137,6 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       PlayerHUD_0: 1577707779
-      PlayerHUD_9: 187598078
       PlayerHUD_BC: -330596494
       PlayerHUD_BS_Charge_00: 64244325
       PlayerHUD_BS_Charge_01: 1203241232
@@ -917,6 +1168,18 @@ TextureImporter:
       PlayerHUD_EP_InnerLine_Left: -232554943
       PlayerHUD_EP_InnerLine_Right: -51117568
       PlayerHUD_EP_Liner: -670417485
+      PlayerHUD_MMO_000: -1569914105
+      PlayerHUD_MMO_001: 2006052592
+      PlayerHUD_MMO_002: 187598078
+      PlayerHUD_MMO_003: -570641346
+      PlayerHUD_MMO_004: 1116852838
+      PlayerHUD_MMO_005: 1274739206
+      PlayerHUD_MM_000: 476855026
+      PlayerHUD_MM_001: 1810412846
+      PlayerHUD_MM_002: 660787810
+      PlayerHUD_MM_003: 1003430231
+      PlayerHUD_MM_004: -1027038445
+      PlayerHUD_MM_005: -1527273314
       PlayerHUD_Minimap: -814347436
       PlayerHUD_Minimap_Inner: -302607964
       PlayerHUD_Player00Skill00: 987565495
