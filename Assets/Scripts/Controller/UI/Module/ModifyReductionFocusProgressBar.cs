@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,11 +9,14 @@ public class ModifyReductionFocusProgressBar : UIModule
     #region Value
 
     [Space(10)]
-    [Header("=== Component")]
+    [Header("=== Bar")]
     [SerializeField] private Image AfterImageEP_Img;
 
     [SerializeField] private Image ActualEP_Img;
     [SerializeField] private RectTransform ActualEP_ImgLiner;
+
+    [Header("=== Text")]
+    [SerializeField] private TMP_Text Txt;
 
     [Header("=== Extra")]
     [SerializeField] private RectTransform MiddleRT;
@@ -68,6 +72,8 @@ public class ModifyReductionFocusProgressBar : UIModule
         ActualEP_Img.DOFillAmount(fillValue, 0.1f);
 
         StartCoroutine(SetFillImgSmooth_AfterImg());
+        if (Txt != null)
+        { Txt.text = (int)_CurrentValue + "<size=70%>/" + (int)_MaxValue + "</size>"; }
     }
 
     private IEnumerator SetFillImgSmooth_AfterImg()

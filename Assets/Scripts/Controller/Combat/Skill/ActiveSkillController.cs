@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 public class ActiveSkillController : MonoBehaviour
@@ -20,7 +21,7 @@ public class ActiveSkillController : MonoBehaviour
     [SerializeField] protected float CurrentCooltime = 0f;
 
     [Header("-- State")]
-    [SerializeField] protected float NeedEP = 10f;
+    [SerializeField] public ReactiveProperty<float> NeedEP = new();
     [SerializeField] public BaseUpgradeState<int> Tier;
     [SerializeField] public BaseUpgradeState<float> Power;
 
@@ -61,6 +62,18 @@ public class ActiveSkillController : MonoBehaviour
         }
     }
 
+    public float GetFillAmount()
+    {
+        if (MaxChargeAmount <= CurrentChargeAmount)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1 - (CurrentCooltime / MaxCooltime.ActualState.Value);
+        }
+    }
+
     #endregion
 
     #region Act
@@ -68,7 +81,26 @@ public class ActiveSkillController : MonoBehaviour
     public virtual void ActiveSkill()
     {
         CurrentChargeAmount--;
-        PlayerController.AddCurrentEP(-NeedEP);
+        PlayerController.AddCurrentEP(
+            -(NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value));
+
+        SetStartUI();
+    }
+
+    protected void SetStartUI()
+    {
+        if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0 == this)
+        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.SetStartUI(); }
+        else if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1 == this)
+        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.SetStartUI(); }
+    }
+
+    protected void SetEndUI()
+    {
+        if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0 == this)
+        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.SetEndUI(); }
+        else if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1 == this)
+        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.SetEndUI(); }
     }
 
     #endregion
@@ -78,7 +110,7 @@ public class ActiveSkillController : MonoBehaviour
     public bool CanActive()
     {
         if ((CurrentChargeAmount > 0) &&
-            (PlayerManager.Instance.PlayerController.CurrentEP.Value > NeedEP * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value) &&
+            (PlayerManager.Instance.PlayerController.CurrentEP.Value > NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value) &&
             PlayerController.MovementState == eMovementState.IdleOrWalk)
         {
             return true;

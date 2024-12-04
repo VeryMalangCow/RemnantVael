@@ -13,6 +13,10 @@ public class ModifySprite : UIModule
     [SerializeField] public Image CompleteImg;
     [SerializeField] public List<Sprite> LevelSpr;
 
+    [Space(10)]
+    [Header("=== Extra")]
+    [SerializeField] private Image LightInner;
+
     Sequence DotweenSeq;
 
     #endregion
@@ -32,6 +36,15 @@ public class ModifySprite : UIModule
     public void Modify_Sprite(int _Level)
     {
         Img.sprite = LevelSpr[_Level];
+
+        if (DOTween.IsTweening(LightInner))
+        { DOTween.Kill(LightInner); }
+
+        LightInner.DOFade(1f, 0.2f)
+            .OnComplete(() =>
+            {
+                LightInner.DOFade(0.25f, 0.2f);
+            });
     }
 
     public void Complete(float _StayTime, float _FadeDurTime)

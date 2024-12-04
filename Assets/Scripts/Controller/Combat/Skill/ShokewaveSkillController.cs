@@ -54,6 +54,7 @@ public class ShockwaveSkillController : ActiveSkillController
             .OnComplete(() =>
             {
                 InputManager.Instance.AimController.SetOnSkill(1, false);
+                SetEndUI();
                 pa.EndState();
             });
 

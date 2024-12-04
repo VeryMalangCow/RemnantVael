@@ -1982,7 +1982,8 @@ MonoBehaviour:
       value: 1
     Desc: 
   CurrentCooltime: 0
-  NeedEP: 1
+  NeedEP:
+    value: 15
   Tier:
     BaseState: 0
     CurrentLevel:
@@ -2141,7 +2142,8 @@ MonoBehaviour:
       value: 1
     Desc: 
   CurrentCooltime: 0
-  NeedEP: 10
+  NeedEP:
+    value: 10
   Tier:
     BaseState: 0
     CurrentLevel:

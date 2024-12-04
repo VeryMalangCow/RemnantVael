@@ -116,6 +116,14 @@ public class BaseUpgradeUIController : UIController
 
         CloseBtn.Offset();
         CloseBtn.OwnerUIController = this;
+
+        PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Subscribe(_Value =>
+        {
+            MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.SetCostText(
+                _Value * PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.NeedEP.Value);
+            MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.SetCostText(
+                _Value * PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.NeedEP.Value);
+        });
     }
 
     protected override void Offset_UI()

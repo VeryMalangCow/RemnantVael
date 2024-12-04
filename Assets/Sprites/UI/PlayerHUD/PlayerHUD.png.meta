@@ -163,8 +163,8 @@ TextureImporter:
       name: PlayerHUD_BS_Frame
       rect:
         serializedVersion: 2
-        x: 246
-        y: 474
+        x: 218
+        y: 436
         width: 57
         height: 38
       alignment: 0
@@ -247,10 +247,10 @@ TextureImporter:
       name: PlayerHUD_SkillSlot_Frame
       rect:
         serializedVersion: 2
-        x: 222
-        y: 432
-        width: 104
-        height: 40
+        x: 310
+        y: 444
+        width: 88
+        height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -747,6 +747,132 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_Frame_Inner
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 306
+        width: 50
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d3a536db7cee444f90ee40cf614a906
+      internalID: -1721795339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Booster_UnderFrame_Inner
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 293
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06fee3e75adfcf041807830361c0e50e
+      internalID: 1737454486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_0
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 451
+        width: 30
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e2a1c52b15dac54fadef189bb013904
+      internalID: 1577707779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Minimap_Inner
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 182
+        width: 68
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d97840d5faadaef4abd95a9e0b45c6b0
+      internalID: -302607964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Player00Skill00
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 488
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b084611c470b8b43b728ecfe2fd804f
+      internalID: 987565495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Player00Skill01
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 463
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f614747c77d36194ab35e243fb08b935
+      internalID: 1779296857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -758,6 +884,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      PlayerHUD_0: 1577707779
       PlayerHUD_9: 187598078
       PlayerHUD_BC: -330596494
       PlayerHUD_BS_Charge_00: 64244325
@@ -769,10 +896,12 @@ TextureImporter:
       PlayerHUD_BS_InnerLine: -1205781327
       PlayerHUD_Booster_Frame: 2051025323
       PlayerHUD_Booster_Frame_Back: 624916892
+      PlayerHUD_Booster_Frame_Inner: -1721795339
       PlayerHUD_Booster_Light_00: 555355113
       PlayerHUD_Booster_Light_01: 1753475927
       PlayerHUD_Booster_Light_02: -1062394706
       PlayerHUD_Booster_Light_03: 489539685
+      PlayerHUD_Booster_UnderFrame_Inner: 1737454486
       PlayerHUD_Booster_Wheel: 1925712295
       PlayerHUD_Booster_WheelLight_00: 253849111
       PlayerHUD_Booster_WheelLight_01: 168794657
@@ -789,6 +918,9 @@ TextureImporter:
       PlayerHUD_EP_InnerLine_Right: -51117568
       PlayerHUD_EP_Liner: -670417485
       PlayerHUD_Minimap: -814347436
+      PlayerHUD_Minimap_Inner: -302607964
+      PlayerHUD_Player00Skill00: 987565495
+      PlayerHUD_Player00Skill01: 1779296857
       PlayerHUD_SkillSlot_Frame: -209309963
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

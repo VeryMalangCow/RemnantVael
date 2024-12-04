@@ -32,6 +32,11 @@ public class PlayerHUDController : UIController
     [SerializeField] private GameObject[] BoostLightArr;
     [SerializeField] private GameObject[] BoostLightWheelArr;
 
+    [Space(10)]
+    [Header("=== Skill")]
+    [SerializeField] public ModifySkillSet Skill0;
+    [SerializeField] public ModifySkillSet Skill1;
+
     #endregion
 
     #region Offset
@@ -42,6 +47,9 @@ public class PlayerHUDController : UIController
         CurrentEmptyBC.Offset();
         EmptyBC.Offset();
         FullBC.Offset();
+
+        Skill0.Offset();
+        Skill1.Offset();
     }
 
     protected override void Offset_UI()

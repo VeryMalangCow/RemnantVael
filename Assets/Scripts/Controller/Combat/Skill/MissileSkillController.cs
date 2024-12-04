@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class MissileSkillController : ActiveSkillController
 {
@@ -96,6 +95,7 @@ public class MissileSkillController : ActiveSkillController
         }
 
         InputManager.Instance.AimController.SetOnSkill(0, false);
+        SetEndUI();
     }
 
     #endregion

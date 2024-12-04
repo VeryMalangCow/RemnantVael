@@ -529,9 +529,13 @@ public class PlayerController : MovableObject
     [HideInInspector] public float Skill0Interval = 0.5f;
     public void CanChange_Skill0()
     {
-        if (!CanChange() ||
-            !SkillWeapon.Skill_0.CanActive())
+        if (!CanChange())
         { return; }
+        if (!SkillWeapon.Skill_0.CanActive())
+        {
+            MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.StartNotEnoughEP();
+            return;
+        }
 
         ReservationSkillDele = SkillWeapon.Skill_0.ActiveSkill;
         StateAnim.SetAnim(ChangeStateAC, ChangeState_Skill0, 2f, 1f);
@@ -542,9 +546,13 @@ public class PlayerController : MovableObject
     [HideInInspector] public float Skill1Interval = 0.5f;
     public void CanChange_Skill1()
     {
-        if (!CanChange() ||
-            !SkillWeapon.Skill_1.CanActive())
+        if (!CanChange())
         { return; }
+        if (!SkillWeapon.Skill_1.CanActive())
+        {
+            MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.StartNotEnoughEP();
+            return;
+        }
 
         ReservationSkillDele = SkillWeapon.Skill_1.ActiveSkill;
         StateAnim.SetAnim(ChangeStateAC, ChangeState_Skill1, 2f, 1f);
