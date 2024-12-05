@@ -37,6 +37,12 @@ public class RoomController : MonoBehaviour
     [Header("=== InitData")]
     [SerializeField] public int CurrentTempID;
 
+    [Space(10)]
+    [Header("=== UI")]
+    [SerializeField] public Sprite ThisSpriteMM;
+    [SerializeField] public Sprite ThisSpriteMMO;
+    [SerializeField] public Vector2 SpritePivot;
+    [HideInInspector] public ModifyMinimapElement ThisMME;
 
     #endregion
 
@@ -261,4 +267,20 @@ public class RoomController : MonoBehaviour
 
     #endregion
 
+    #region Get
+
+    public List<RoomController> GetConnectedRCList()
+    {
+        List<RoomController> result = new List<RoomController>();
+        for (int i = 0; i < InRoom_AllGate.Count; i++)
+        {
+            if (InRoom_AllGate[i].ParterGate != null && InRoom_AllGate[i].ParterGate.ThisRoom != null)
+            {
+                result.Add(InRoom_AllGate[i].ParterGate.ThisRoom);
+            }
+        }
+        return result;
+    }
+
+    #endregion
 }

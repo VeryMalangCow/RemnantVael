@@ -882,7 +882,7 @@ TextureImporter:
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -900,10 +900,10 @@ TextureImporter:
         serializedVersion: 2
         x: 410
         y: 503
-        width: 15
+        width: 17
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -919,12 +919,12 @@ TextureImporter:
       name: PlayerHUD_MM_002
       rect:
         serializedVersion: 2
-        x: 426
-        y: 496
+        x: 401
+        y: 485
         width: 8
-        height: 15
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -940,12 +940,12 @@ TextureImporter:
       name: PlayerHUD_MM_003
       rect:
         serializedVersion: 2
-        x: 435
-        y: 496
-        width: 15
-        height: 15
+        x: 410
+        y: 485
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -961,12 +961,12 @@ TextureImporter:
       name: PlayerHUD_MM_004
       rect:
         serializedVersion: 2
-        x: 451
-        y: 496
-        width: 15
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 428
+        y: 494
+        width: 17
+        height: 17
+      alignment: 9
+      pivot: {x: 0.765, y: 0.765}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -982,12 +982,12 @@ TextureImporter:
       name: PlayerHUD_MM_005
       rect:
         serializedVersion: 2
-        x: 467
-        y: 496
-        width: 15
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 446
+        y: 494
+        width: 17
+        height: 17
+      alignment: 9
+      pivot: {x: 0.235, y: 0.235}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1004,11 +1004,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 401
-        y: 487
+        y: 475
         width: 8
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1025,11 +1025,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 410
-        y: 487
-        width: 15
+        y: 475
+        width: 17
         height: 8
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1045,12 +1045,12 @@ TextureImporter:
       name: PlayerHUD_MMO_002
       rect:
         serializedVersion: 2
-        x: 426
-        y: 480
+        x: 401
+        y: 457
         width: 8
-        height: 15
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1066,12 +1066,12 @@ TextureImporter:
       name: PlayerHUD_MMO_003
       rect:
         serializedVersion: 2
-        x: 435
-        y: 480
-        width: 15
-        height: 15
+        x: 410
+        y: 457
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1087,12 +1087,12 @@ TextureImporter:
       name: PlayerHUD_MMO_004
       rect:
         serializedVersion: 2
-        x: 451
-        y: 480
-        width: 15
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 428
+        y: 466
+        width: 17
+        height: 17
+      alignment: 9
+      pivot: {x: 0.765, y: 0.765}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1108,12 +1108,12 @@ TextureImporter:
       name: PlayerHUD_MMO_005
       rect:
         serializedVersion: 2
-        x: 467
-        y: 480
-        width: 15
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 446
+        y: 466
+        width: 17
+        height: 17
+      alignment: 9
+      pivot: {x: 0.235, y: 0.235}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

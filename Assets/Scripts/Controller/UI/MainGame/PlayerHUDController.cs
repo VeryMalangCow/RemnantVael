@@ -37,6 +37,10 @@ public class PlayerHUDController : UIController
     [SerializeField] public ModifySkillSet Skill0;
     [SerializeField] public ModifySkillSet Skill1;
 
+    [Space(10)]
+    [Header("=== Minimap")]
+    [SerializeField] public ModifyMinimap ThisMinimap;
+
     #endregion
 
     #region Offset

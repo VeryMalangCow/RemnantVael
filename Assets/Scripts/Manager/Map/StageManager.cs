@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class StageManager : Singleton<StageManager>
 {
@@ -21,6 +21,7 @@ public class StageManager : Singleton<StageManager>
     [Space(10)]
     [Header("=== Current")]
     [SerializeField] private List<RoomController> CurrentAllRoomController = new List<RoomController>();
+    public List<RoomController> GetAllRC() { return CurrentAllRoomController; }
     [SerializeField] public RoomController CurrentRoomController;
 
     // 이미 차지한 Vec
@@ -102,6 +103,8 @@ public class StageManager : Singleton<StageManager>
         alreadyExistList.Clear();
         alreadyExistBossList.Clear();
         roundList.Clear();
+
+        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.GenMinimap();
     }
 
     private void GenRoom(GameObject _Prefab, int _TempID, bool _IsStartRoom)
@@ -352,11 +355,17 @@ public class StageManager : Singleton<StageManager>
             CurrentAllRoomController[i].SetCorrectWallSortOrder(CurrentRoomController);
         }
 
+        // Minimap
+        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.SetState();
+
         yield return new WaitForSeconds(0.5f);
 
         _TargetRC.PlayRoomState();
-
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
+
+        // Minimap
+        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.SetState();
+        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.PlayEffect();
     }
 
     public void Complete_KillAll()
@@ -375,6 +384,9 @@ public class StageManager : Singleton<StageManager>
         {
             CurrentRoomController.RoomRuleController.RoomType = eRoomType.Completed;
             CurrentRoomController.PlayRoomState();
+
+            // Minimap
+            MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.SetState();
         }
     }
 

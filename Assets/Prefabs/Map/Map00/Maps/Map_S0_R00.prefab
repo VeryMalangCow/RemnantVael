@@ -5137,7 +5137,6 @@ MonoBehaviour:
   - {fileID: 2667145440187276248}
   - {fileID: 2610317811979376667}
   - {fileID: 5671944260986666444}
-  currentCollisions: []
 --- !u!1 &8464122409552412196
 GameObject:
   m_ObjectHideFlags: 0
@@ -5372,6 +5371,9 @@ MonoBehaviour:
   - {fileID: 0}
   RoomCameraCenter: {fileID: 5064731553191979748}
   CurrentTempID: 0
+  ThisSpriteMM: {fileID: 476855026, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  ThisSpriteMMO: {fileID: -1569914105, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  SpritePivot: {x: 0.5, y: 0.5}
 --- !u!1 &8843001543254287013
 GameObject:
   m_ObjectHideFlags: 0
