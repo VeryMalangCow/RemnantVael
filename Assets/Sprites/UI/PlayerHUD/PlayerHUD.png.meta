@@ -583,8 +583,8 @@ TextureImporter:
       name: PlayerHUD_Minimap
       rect:
         serializedVersion: 2
-        x: 64
-        y: 252
+        x: 1
+        y: 231
         width: 88
         height: 84
       alignment: 0
@@ -604,7 +604,7 @@ TextureImporter:
       name: PlayerHUD_BS_InnerLine
       rect:
         serializedVersion: 2
-        x: 160
+        x: 92
         y: 320
         width: 33
         height: 16
@@ -625,9 +625,9 @@ TextureImporter:
       name: PlayerHUD_CellSlot
       rect:
         serializedVersion: 2
-        x: 1
-        y: 220
-        width: 56
+        x: 11
+        y: 66
+        width: 78
         height: 93
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -646,7 +646,7 @@ TextureImporter:
       name: PlayerHUD_BS_Charge_00
       rect:
         serializedVersion: 2
-        x: 166
+        x: 98
         y: 308
         width: 21
         height: 8
@@ -667,7 +667,7 @@ TextureImporter:
       name: PlayerHUD_BS_Charge_01
       rect:
         serializedVersion: 2
-        x: 166
+        x: 98
         y: 292
         width: 21
         height: 8
@@ -688,7 +688,7 @@ TextureImporter:
       name: PlayerHUD_BS_Charge_02
       rect:
         serializedVersion: 2
-        x: 166
+        x: 98
         y: 276
         width: 21
         height: 8
@@ -709,7 +709,7 @@ TextureImporter:
       name: PlayerHUD_BS_Charge_03
       rect:
         serializedVersion: 2
-        x: 166
+        x: 98
         y: 260
         width: 21
         height: 8
@@ -730,7 +730,7 @@ TextureImporter:
       name: PlayerHUD_BS_Charge_None
       rect:
         serializedVersion: 2
-        x: 166
+        x: 98
         y: 340
         width: 21
         height: 8
@@ -751,7 +751,7 @@ TextureImporter:
       name: PlayerHUD_Booster_Frame_Inner
       rect:
         serializedVersion: 2
-        x: 212
+        x: 144
         y: 306
         width: 50
         height: 31
@@ -772,7 +772,7 @@ TextureImporter:
       name: PlayerHUD_Booster_UnderFrame_Inner
       rect:
         serializedVersion: 2
-        x: 197
+        x: 129
         y: 293
         width: 15
         height: 23
@@ -814,8 +814,8 @@ TextureImporter:
       name: PlayerHUD_Minimap_Inner
       rect:
         serializedVersion: 2
-        x: 73
-        y: 182
+        x: 10
+        y: 161
         width: 68
         height: 68
       alignment: 0
@@ -1125,6 +1125,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Interact_Frame
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 286
+        width: 88
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55667aaed867166458c530d5ec86abed
+      internalID: 261216347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Interact_Inner
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 255
+        width: 70
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbec1f32936dd074f927824c0736eeb6
+      internalID: -893793875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_CellSlot_Inner
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 73
+        width: 19
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8a7d8a922fce8a4b8a60f5ad64bcc8c
+      internalID: 1956604087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_CellSlot_ItemInner
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 77
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aea80cfc910e6e941a0ce184b831a5fd
+      internalID: -170495603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1159,6 +1243,8 @@ TextureImporter:
       PlayerHUD_Booster_WheelLight_02: 1360759265
       PlayerHUD_Booster_WheelLight_03: -1576717012
       PlayerHUD_CellSlot: 1465224138
+      PlayerHUD_CellSlot_Inner: 1956604087
+      PlayerHUD_CellSlot_ItemInner: -170495603
       PlayerHUD_EC: -1697317626
       PlayerHUD_EP_Bar: 536471263
       PlayerHUD_EP_Flow: -866418213
@@ -1168,6 +1254,8 @@ TextureImporter:
       PlayerHUD_EP_InnerLine_Left: -232554943
       PlayerHUD_EP_InnerLine_Right: -51117568
       PlayerHUD_EP_Liner: -670417485
+      PlayerHUD_Interact_Frame: 261216347
+      PlayerHUD_Interact_Inner: -893793875
       PlayerHUD_MMO_000: -1569914105
       PlayerHUD_MMO_001: 2006052592
       PlayerHUD_MMO_002: 187598078

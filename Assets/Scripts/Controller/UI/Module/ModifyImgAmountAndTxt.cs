@@ -13,7 +13,8 @@ public class ModifyImgAmountAndTxt : UIModule
     [SerializeField] public Transform Img_ParentTF;
     [SerializeField] public List<Image> Img_List;
     [SerializeField] public Sprite ThisSprite;
-    [SerializeField] public TMP_Text Txt_ExtraAmount; 
+    [SerializeField] public TMP_Text Txt_ExtraAmount;
+    [SerializeField] private Image InnerImg;
     
     Sequence DotweenSeq;
 
@@ -68,7 +69,7 @@ public class ModifyImgAmountAndTxt : UIModule
         else if (_Type is TMP_Text typeTxt)
         {
             typeTxt.gameObject.SetActive(true);
-            typeTxt.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            //typeTxt.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 
@@ -97,6 +98,12 @@ public class ModifyImgAmountAndTxt : UIModule
             TurnOff<TMP_Text>(Txt_ExtraAmount);
         }
 
+        DOTween.Kill(InnerImg);
+        InnerImg.DOFade(1f, 0.2f)
+            .OnComplete(() =>
+            {
+                InnerImg.DOFade(0.25f, 0.2f);
+            });
     }
 
     public void ChangeOnOffImg(Image _Img, bool _OnOff, float _DoScale, float _DurTime)

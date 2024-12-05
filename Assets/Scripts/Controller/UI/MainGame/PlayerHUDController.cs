@@ -27,6 +27,12 @@ public class PlayerHUDController : UIController
     [SerializeField] private ModifyImgAmountAndTxt FullBC;
 
     [Space(10)]
+    [Header("=== Other Item")]
+    [SerializeField] private RectTransform MSRT;
+    [SerializeField] private Image MS_InnerImg;
+    [SerializeField] private TMP_Text MS_AmountTxt;
+
+    [Space(10)]
     [Header("=== Boost")]
     [SerializeField] private TMP_Text BoostLv;
     [SerializeField] private GameObject[] BoostLightArr;
@@ -102,6 +108,13 @@ public class PlayerHUDController : UIController
             })
             .AddTo(gameObject);
 
+        PlayerManager.Instance.PlayerController.CurrentMS
+            .Subscribe(_CurrentMS =>
+            {
+                SetMSAmount(_CurrentMS);
+            })
+            .AddTo(gameObject);
+
         PlayerManager.Instance.PlayerController.CurrentBoostLv
             .Subscribe(_BoostLevel =>
             {
@@ -128,6 +141,29 @@ public class PlayerHUDController : UIController
                     .SetLoops(-1, LoopType.Yoyo);
             }
         }
+    }
+
+    #endregion
+
+    #region Item
+
+    public void SetMSAmount(int _Amount)
+    {
+        DOTween.Kill(MSRT);
+        DOTween.Kill(MS_InnerImg);
+
+        MS_InnerImg.DOFade(1f, 0.2f)
+            .OnComplete(() =>
+            {
+                MS_InnerImg.DOFade(0.25f, 0.2f);
+            });
+
+        MSRT.DOScale(1.2f, 0.2f)
+            .OnComplete(() =>
+            {
+                MSRT.DOScale(1.0f, 0.2f);
+            });
+        MS_AmountTxt.text = _Amount.ToString();
     }
 
     #endregion
