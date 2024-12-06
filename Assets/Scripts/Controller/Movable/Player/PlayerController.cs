@@ -83,7 +83,7 @@ public class PlayerController : MovableObject
     [Space(10)]
     [Header("=== Interact")]
     [SerializeField] private List<GameObject> CurrentInteractableGOList;
-    [SerializeField] private IInteract CurrentInteractable;
+    [SerializeField] public ReactiveProperty<IInteract> CurrentInteractable = new();
 
     #endregion
 
@@ -191,6 +191,11 @@ public class PlayerController : MovableObject
     private void Start()
     {
         CurrentEC.Value = 100;
+        CurrentInteractable
+            .Subscribe(interact =>
+            {
+                MainGameUIManager.Instance.PlayerHUD_UIController.SetStateInteractUI();
+            });
 
         SetBaseAnimTween();
 
@@ -517,7 +522,7 @@ public class PlayerController : MovableObject
         if (!CanChange())
         { return; }
 
-        if (CurrentInteractable is EnemyController EC)
+        if (CurrentInteractable.Value is EnemyController EC)
         {
             EC.Interact();
         }
@@ -576,26 +581,27 @@ public class PlayerController : MovableObject
 
     public void TryInteract()
     {
-        if(CurrentInteractable != null && CurrentInteractableGOList.Count > 0)
+        if(CurrentInteractable.Value != null && CurrentInteractableGOList.Count > 0)
         {
-            if (CurrentInteractable is InteractItemController IIC) // Item
+            if (CurrentInteractable.Value is InteractItemController IIC) // Item
             {
-                CurrentInteractable.Interact();
-                CurrentInteractable = null;
+                CurrentInteractable.Value.Interact();
+                CurrentInteractable.Value = null;
             }
-            else if (CurrentInteractable is EnemyController EC) // Enemy
+            else if (CurrentInteractable.Value is EnemyController EC) // Enemy
             {
                 if(EC.IsLethargy)
                 {
                     CanChange_Execution();
                 }
-                CurrentInteractable = null;
+                CurrentInteractable.Value = null;
             }
             else // OneOffShopController |OR| ...
             {
-                CurrentInteractable.Interact();
+                CurrentInteractable.Value.Interact();
             }
-            
+
+            MainGameUIManager.Instance.PlayerHUD_UIController.SetUseInteractUI();
         }
     }
 
@@ -745,7 +751,7 @@ public class PlayerController : MovableObject
             // None
             if (CurrentInteractableGOList.Count == 0)
             {
-                CurrentInteractable = null;
+                CurrentInteractable.Value = null;
             }
 
             // Only One
@@ -753,7 +759,7 @@ public class PlayerController : MovableObject
             {
                 if(CurrentInteractableGOList[0].TryGetComponent(out IInteract II))
                 {
-                    CurrentInteractable = II;
+                    CurrentInteractable.Value = II;
                 }
             }
 
@@ -768,7 +774,7 @@ public class PlayerController : MovableObject
                     if (Distance < shortDis) 
                     {
                         currentInteractableGO.TryGetComponent(out IInteract II);
-                        CurrentInteractable = II;
+                        CurrentInteractable.Value = II;
                         shortDis = Distance;
                     }
                 }
@@ -788,7 +794,7 @@ public class PlayerController : MovableObject
 
                 if (CurrentInteractableGOList.Count <= 0)
                 {
-                    CurrentInteractable = null;
+                    CurrentInteractable.Value = null;
                 }
             }
         }
@@ -900,8 +906,8 @@ public class PlayerController : MovableObject
 
     private void SetOnOffMoveDir()
     {
-        if (CurrentInteractable != null && 
-            CurrentInteractable is GateController GC &&
+        if (CurrentInteractable.Value != null && 
+            CurrentInteractable.Value is GateController GC &&
             GC.IsOpen)
         { SetOnRoomMoveDir(GC.GateDir); }
         else

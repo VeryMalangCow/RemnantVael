@@ -105,6 +105,7 @@ public class StageManager : Singleton<StageManager>
         roundList.Clear();
 
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.GenMinimap();
+        MainGameUIManager.Instance.PlayerHUD_UIController.SetStageDescription(reso.StageName);
     }
 
     private void GenRoom(GameObject _Prefab, int _TempID, bool _IsStartRoom)
@@ -455,6 +456,7 @@ public class StageManager : Singleton<StageManager>
     {
         [Space(20)]
         public int StageID;
+        public string StageName;
 
         [Space(20)]
         public GameObject StartRoomPrefab;

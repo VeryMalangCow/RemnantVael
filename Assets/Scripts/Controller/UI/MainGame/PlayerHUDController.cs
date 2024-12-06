@@ -4,6 +4,7 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.UI;
 using LeTai.TrueShadow;
+using System.Collections;
 
 public class PlayerHUDController : UIController
 {
@@ -46,6 +47,17 @@ public class PlayerHUDController : UIController
     [Space(10)]
     [Header("=== Minimap")]
     [SerializeField] public ModifyMinimap ThisMinimap;
+
+    [Space(10)]
+    [Header("=== Discription")]
+    [SerializeField] private TMP_Text InteractOnOffTxt;
+    [SerializeField] private TMP_Text InteractDesctiptionTxt;
+    [SerializeField] private TMP_Text StageDesctiptionTxt;
+
+    [SerializeField] private Image InnerImg;
+    [SerializeField] private Image UsingInnerImg;
+
+    [HideInInspector] private bool IsActingInteractUI = false;
 
     #endregion
 
@@ -225,6 +237,91 @@ public class PlayerHUDController : UIController
                 DOTween.Kill(rt);
             }
         }
+    }
+
+    #endregion
+
+    #region Description
+
+
+    public void SetStateInteractUI()
+    {
+        if (IsActingInteractUI)
+        { return; }
+
+        IInteract ii = PlayerManager.Instance.PlayerController.CurrentInteractable.Value;
+        if (ii != null)
+        {
+            string txt = "";
+
+            if (ii is EnemyController)
+            { txt += "KILL"; }
+            else if (ii is BaseUpgradeController || ii is ModuleUpgradeController)
+            { txt += "SHOP"; }
+            else if (ii is GateController GC && GC.IsOpen)
+            { txt += "GATE"; }
+            else if (ii is InteractItemController)
+            { txt += "MODULE"; }
+            else 
+            { SetDisableInteract(); return; }
+
+            SetEnableInteract(txt);
+        }
+        else
+        {
+            SetDisableInteract();
+        }
+    }
+
+
+    private void SetDisableInteract()
+    {
+        DOTween.Kill(InteractOnOffTxt);
+        InteractOnOffTxt.DOFade(0.25f, 0.5f);
+        InteractOnOffTxt.text = "-DISABLE-";
+
+        DOTween.Kill(InteractDesctiptionTxt);
+        InteractDesctiptionTxt.DOFade(0.25f, 0.5f);
+        InteractDesctiptionTxt.text = "< NONE >";
+    }
+
+    private void SetEnableInteract(string _Interactable)
+    {
+        DOTween.Kill(InteractOnOffTxt);
+        InteractOnOffTxt.DOFade(1f, 0.5f);
+        InteractOnOffTxt.text = "-ENABLE-";
+
+        DOTween.Kill(InteractDesctiptionTxt);
+        InteractDesctiptionTxt.DOFade(1f, 0.5f);
+        InteractDesctiptionTxt.text = "< " + _Interactable + " >";
+    }
+
+
+    public void SetUseInteractUI()
+    {
+        IsActingInteractUI = true;
+
+        DOTween.Kill(UsingInnerImg);
+        UsingInnerImg.DOFade(1f, 0.2f)
+            .OnComplete(() =>
+            {
+                UsingInnerImg.DOFade(0.25f, 0.2f)
+                .OnComplete(() =>
+                {
+                    IsActingInteractUI = false;
+                    SetStateInteractUI();
+                });
+            });
+    }
+
+
+    public void SetStageDescription(string _StageName)
+    {
+        StageDesctiptionTxt.DOText(_StageName, 0.5f)
+            .OnPlay(() =>
+            {
+                StageDesctiptionTxt.text = "";
+            });
     }
 
     #endregion

@@ -1176,7 +1176,7 @@ TextureImporter:
         width: 19
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1197,7 +1197,7 @@ TextureImporter:
         width: 19
         height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1205,6 +1205,27 @@ TextureImporter:
       bones: []
       spriteID: aea80cfc910e6e941a0ce184b831a5fd
       internalID: -170495603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Interact_InnerUse
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 267
+        width: 41
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45a1036c61e0a39488dbbae2c4be0d9c
+      internalID: 235986038
       vertices: []
       indices: 
       edges: []
@@ -1256,6 +1277,7 @@ TextureImporter:
       PlayerHUD_EP_Liner: -670417485
       PlayerHUD_Interact_Frame: 261216347
       PlayerHUD_Interact_Inner: -893793875
+      PlayerHUD_Interact_InnerUse: 235986038
       PlayerHUD_MMO_000: -1569914105
       PlayerHUD_MMO_001: 2006052592
       PlayerHUD_MMO_002: 187598078
