@@ -1218,7 +1218,7 @@ TextureImporter:
         width: 41
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1226,6 +1226,90 @@ TextureImporter:
       bones: []
       spriteID: 45a1036c61e0a39488dbbae2c4be0d9c
       internalID: 235986038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module000_Anno_FrameL
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 317
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fb9c1fdc5d3aac4584459038adfdea3
+      internalID: -315527200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module000_Anno_InnerL
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 301
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5daf698dd46e634caa1685a60584812
+      internalID: 366330324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module000_Anno_InnerR
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 301
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd2feb1b31ecc61408c1c62fb0e4b1e2
+      internalID: -594145359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module000_Anno_FrameR
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 317
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47ef0496309fbe84b8f85e94672551bb
+      internalID: 439588742
       vertices: []
       indices: 
       edges: []
@@ -1241,6 +1325,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Module000_Anno_FrameL: -315527200
+      Module000_Anno_FrameR: 439588742
+      Module000_Anno_InnerL: 366330324
+      Module000_Anno_InnerR: -594145359
       PlayerHUD_0: 1577707779
       PlayerHUD_BC: -330596494
       PlayerHUD_BS_Charge_00: 64244325

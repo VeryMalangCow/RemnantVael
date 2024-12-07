@@ -168,4 +168,24 @@ public abstract class UIController : MonoBehaviour
     }
 
     #endregion
+
+    #region For UI Case
+
+    protected string GetKindOfCaseString(IInteract _II)
+    {
+        if (_II == null)
+        { return ""; }
+        if (_II is EnemyController)
+        { return "KILL"; }
+        else if (_II is BaseUpgradeController || _II is ModuleUpgradeController)
+        { return "SHOP"; }
+        else if (_II is GateController GC && GC.IsOpen)
+        { return "GATE"; }
+        else if (_II is InteractItemController)
+        { return "MODULE"; }
+
+        return "";
+    }
+
+    #endregion
 }

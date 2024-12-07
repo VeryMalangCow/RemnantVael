@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 126442188}
   - component: {fileID: 126442189}
   - component: {fileID: 126442190}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas_MousePointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1055,10 +1055,12 @@ MonoBehaviour:
   BaseUpgrade_CanvasPrefab: {fileID: 1281229689255428229, guid: 6ecda6451bb90e344859ba1601c66a49, type: 3}
   ModuleUpgrade_CanvasPrefab: {fileID: 1281229689255428229, guid: 8292fd992e049564cbd9aa45cc7afbb7, type: 3}
   OutMainGame_CanvasPrefab: {fileID: 1281229689255428229, guid: 82b9bf334a8cc7f4b9f572097e947639, type: 3}
+  InteractAnno_CanvasPrefab: {fileID: 448351272450359775, guid: 3f9f70f0b4ea9ba478e53c4ebefe9489, type: 3}
   PlayerHUD_UIController: {fileID: 0}
   BaseUpgrade_UIController: {fileID: 0}
   ModuleUpgrade_UIController: {fileID: 0}
   OutMainGame_UIController: {fileID: 0}
+  InteractAnno_UIController: {fileID: 0}
   CurrentOpening_UIController: {fileID: 0}
   ScreenCanvas: {fileID: 1959778814}
   FadeOutTime: 2
@@ -1807,7 +1809,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1810588472}
   m_Father: {fileID: 1637586521}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1044353920
@@ -2560,7 +2563,6 @@ Transform:
   m_Children:
   - {fileID: 1970976549}
   - {fileID: 1044353919}
-  - {fileID: 1810588472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1658609377
@@ -2780,7 +2782,7 @@ GameObject:
   - component: {fileID: 1808296828}
   - component: {fileID: 1808296830}
   - component: {fileID: 1808296829}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MousePointer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2871,11 +2873,11 @@ Transform:
   m_GameObject: {fileID: 1810588471}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1637586521}
+  m_Father: {fileID: 1044353919}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1810588474
 Camera:

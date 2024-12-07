@@ -14,12 +14,14 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private GameObject BaseUpgrade_CanvasPrefab;
     [SerializeField] private GameObject ModuleUpgrade_CanvasPrefab;
     [SerializeField] private GameObject OutMainGame_CanvasPrefab;
+    [SerializeField] private GameObject InteractAnno_CanvasPrefab;
 
     // Controller
     [HideInInspector] public PlayerHUDController PlayerHUD_UIController;
     [HideInInspector] public BaseUpgradeUIController BaseUpgrade_UIController;
     [HideInInspector] public ModuleUpgradeUIController ModuleUpgrade_UIController;
     [HideInInspector] public OutMainGameUIController OutMainGame_UIController;
+    [HideInInspector] public InteractAnnoUIController InteractAnno_UIController;
 
     [HideInInspector] public UIController CurrentOpening_UIController;
 
@@ -44,6 +46,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         OutMainGame_UIController
             = SpawnUI<OutMainGameUIController>(OutMainGame_CanvasPrefab, false);
+
+        InteractAnno_UIController
+            = SpawnUI<InteractAnnoUIController>(InteractAnno_CanvasPrefab, false);
 
         FirstStart();
     }

@@ -195,6 +195,7 @@ public class PlayerController : MovableObject
             .Subscribe(interact =>
             {
                 MainGameUIManager.Instance.PlayerHUD_UIController.SetStateInteractUI();
+                MainGameUIManager.Instance.InteractAnno_UIController.SetOnOffUI();
             });
 
         SetBaseAnimTween();
@@ -217,6 +218,11 @@ public class PlayerController : MovableObject
     private void FixedUpdate()
     {
         Movement();
+    }
+
+    private void LateUpdate()
+    {
+        MainGameUIManager.Instance.InteractAnno_UIController.SetPosIfNot(CurrentInteractable.Value);
     }
 
     #endregion
