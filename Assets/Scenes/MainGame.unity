@@ -1623,6 +1623,8 @@ MonoBehaviour:
       RoomPrefab: {fileID: 8671702513593221327, guid: 7e00fb37e72c2bd4382f11b048268c19, type: 3}
     - AmountInStage: 3
       RoomPrefab: {fileID: 8671702513593221327, guid: d39952447f1100a46ae4d4779dd9302b, type: 3}
+    - AmountInStage: 2
+      RoomPrefab: {fileID: 8671702513593221327, guid: a2b44feb0e6af09479d14743db3f8de0, type: 3}
     RoomRulePrefabList:
     - {fileID: 8671702513593221327, guid: 8cf2e8f83e6b9754793f6d767a5c7813, type: 3}
     - {fileID: 8671702513593221327, guid: 67fa92153a88e8148a72c2fb2684f1ad, type: 3}
@@ -1633,7 +1635,15 @@ MonoBehaviour:
     - {fileID: 8671702513593221327, guid: e2d61214c26412c42b27f59afb66fa64, type: 3}
     - {fileID: 8671702513593221327, guid: 14f0c5c5e1d4d964b8f7066b58c30578, type: 3}
     - {fileID: 8671702513593221327, guid: a81b4495cb4435542bd9d2765a3e4406, type: 3}
-    BossRoomPrefabList: []
+    - {fileID: 8671702513593221327, guid: 29c566f2f9b618d4fb8b00335f99aab1, type: 3}
+    - {fileID: 8671702513593221327, guid: d5e35c275268abc4b989637796a59f2d, type: 3}
+    BossRoomList:
+    - RoomPrefab: {fileID: 8671702513593221327, guid: 851434bfeace6d0449177f32ee0e8e5d, type: 3}
+      RoomRulePrefabList:
+      - {fileID: 8671702513593221327, guid: c44934c6fc5ffcf4593c05ff3d0f2705, type: 3}
+    - RoomPrefab: {fileID: 8671702513593221327, guid: 57132cbc1aa460c4390b2a7b95e01878, type: 3}
+      RoomRulePrefabList:
+      - {fileID: 8671702513593221327, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
   OffsetRoomSize: {x: 22, y: 14}
   CurrentAllRoomController: []
   CurrentRoomController: {fileID: 0}

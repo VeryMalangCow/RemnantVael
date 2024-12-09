@@ -76,13 +76,10 @@ public class StageManager : Singleton<StageManager>
         }
 
         // 보스 방 생성
-        for (int i = 0; i < reso.BossRoomPrefabList.Count; i++)
+        for (int i = 0; i < reso.BossRoomList.Count; i++)
         {
-            for (int j = 0; j < reso.BossRoomPrefabList[i].AmountInStage; j++)
-            {
-                GenFurthestRoom(reso.BossRoomPrefabList[i].RoomPrefab, TempID);
-                TempID++;
-            }
+            GenBossRoom(reso.BossRoomList[i], TempID);
+            TempID++;
         }
 
         // 게이트 활성화
@@ -115,8 +112,6 @@ public class StageManager : Singleton<StageManager>
         {
             rc.CurrentTempID = _TempID;
 
-            
-
             CurrentAllRoomController.Add(rc);
 
             if (!_IsStartRoom)
@@ -140,15 +135,20 @@ public class StageManager : Singleton<StageManager>
         }
     }
 
-    private void GenFurthestRoom(GameObject _Prefab, int _TempID)
+    private void GenBossRoom(StageData.BossRoomData _BossRoomData, int _TempID)
     {
-        GameObject room = Instantiate(_Prefab, Vector2.zero, Quaternion.identity, MapParentTF);
+        GameObject room = Instantiate(_BossRoomData.RoomPrefab, Vector2.zero, Quaternion.identity, MapParentTF);
         if (room.TryGetComponent(out RoomController rc))
         {
             rc.CurrentTempID = _TempID;
-            rc.Offset();
+
             CurrentAllRoomController.Add(rc);
 
+            GameObject rrcGO = Instantiate(_BossRoomData.RoomRulePrefabList[Random.Range(0, _BossRoomData.RoomRulePrefabList.Count)], rc.gameObject.transform);
+            if (rrcGO.TryGetComponent(out RoomRuleController rrc))
+            { rc.RoomRuleController = rrc; }
+
+            rc.Offset();
             TryAddCaculateFurthestVec(rc);
         }
     }
@@ -467,7 +467,7 @@ public class StageManager : Singleton<StageManager>
         public List<GameObject> RoomRulePrefabList;
 
         [Space(20)]
-        public List<RoomData> BossRoomPrefabList;
+        public List<BossRoomData> BossRoomList;
 
 
         [System.Serializable]
@@ -475,6 +475,13 @@ public class StageManager : Singleton<StageManager>
         {
             public int AmountInStage;
             public GameObject RoomPrefab;
+        }
+
+        [System.Serializable]
+        public class BossRoomData
+        {
+            public GameObject RoomPrefab;
+            public List<GameObject> RoomRulePrefabList;
         }
 
 
