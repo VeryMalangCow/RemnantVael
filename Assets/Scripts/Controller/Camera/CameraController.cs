@@ -109,7 +109,8 @@ public class CameraController : MonoBehaviour
     {
         Vector2 originPos = FollowTargetTF.position;
 
-        Vector2 targetPos = ((Vector2)_TargetTF.position + (Vector2)_TargetTF2.position) / 2f;
+        Vector2 targetPos = 
+            (((Vector2)_TargetTF.position * 5) + (Vector2)_TargetTF2.position) / 6;
 
         FollowTargetTF.position = Vector2.Lerp(
             originPos,

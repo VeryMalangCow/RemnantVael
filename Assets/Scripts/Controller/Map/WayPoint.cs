@@ -11,7 +11,7 @@ public class WayPoint : MonoBehaviour
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] public Transform ThisTF;
+    [HideInInspector] public Transform ThisTF;
     [SerializeField] public List<WayPoint> AdjacentWPList;
 
     #endregion

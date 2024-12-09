@@ -32,6 +32,9 @@ public class ModifyMinimapElement : UIModule
         ThisMMImg.sprite = ConnectedRC.ThisSpriteMM;
         ThisMMOImg.sprite = ConnectedRC.ThisSpriteMMO;
 
+        ThisMMImg.SetNativeSize();
+        ThisMMOImg.SetNativeSize();
+
         if (this.TryGetComponent(out RectTransform rt))
         {
             rt.pivot = _RC.SpritePivot;
