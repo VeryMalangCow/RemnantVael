@@ -83,9 +83,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     private void FirstStart()
     {
         if (ScreenCG == null && ScreenCanvas.TryGetComponent(out CanvasGroup CG))
-        {
-            ScreenCG = CG;
-        }
+        { ScreenCG = CG; }
 
         Sequence firstSeq = DOTween.Sequence();
 
@@ -95,10 +93,18 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         firstSeq
             .OnComplete(() =>
-             {
-                 ScreenCanvas.gameObject.SetActive(false);
-                 InputManager.Instance.OnEnableInput();
-             });
+            {
+                ScreenCanvas.gameObject.SetActive(false);
+            });
+    }
+
+    public void PlayDark(float _DurTime)
+    {
+        ScreenCanvas.gameObject.SetActive(true);
+
+        Sequence firstSeq = DOTween.Sequence();
+
+        firstSeq.Append(ScreenCG.DOFade(1f, FadeOutTime));
     }
 
     #endregion

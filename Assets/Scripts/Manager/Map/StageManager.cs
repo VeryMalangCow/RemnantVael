@@ -17,6 +17,7 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private int TargetStageID;
     [SerializeField] private List<StageData> AllReso;
     [SerializeField] private Vector2 OffsetRoomSize;
+    [SerializeField] public bool IsStartStage = true;
 
     [Space(10)]
     [Header("=== Current")]
@@ -152,7 +153,6 @@ public class StageManager : Singleton<StageManager>
             TryAddCaculateFurthestVec(rc);
         }
     }
-
 
     #endregion
 
@@ -341,8 +341,12 @@ public class StageManager : Singleton<StageManager>
         }
 
         // Layer 초기화
-        LayerOrderManager.Instance.NeedLayerObjects = new List<HaveShadowThing>()
-        { PlayerManager.Instance.PlayerController }; // 전 방 리셋
+        LayerOrderManager.Instance.NeedLayerObjects = new List<HaveShadowThing>();
+
+        // 처음 엘베 레이어때문에 추가 하지않음
+        if (!IsStartStage)
+        { LayerOrderManager.Instance.NeedLayerObjects.Add(PlayerManager.Instance.PlayerController); }
+
 
         CurrentRoomController.gameObject.SetActive(true);
 

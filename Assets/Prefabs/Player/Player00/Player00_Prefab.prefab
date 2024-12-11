@@ -1188,6 +1188,7 @@ GameObject:
   - component: {fileID: 2930891811832810725}
   - component: {fileID: 334434472153228344}
   - component: {fileID: 2809650221464592576}
+  - component: {fileID: 1031199759190704239}
   m_Layer: 7
   m_Name: Player00_Prefab
   m_TagString: Player
@@ -1637,6 +1638,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!210 &1031199759190704239
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4593839933363528314}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &4828366461508827441
 GameObject:
   m_ObjectHideFlags: 0

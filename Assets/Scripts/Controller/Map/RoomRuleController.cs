@@ -18,13 +18,14 @@ public class RoomRuleController : MonoBehaviour
     [SerializeField] private Transform InRoom_AllBuildingParentTF;
     [HideInInspector] public List<SortLayerObjectController> InRoom_AllBuilding;
     [SerializeField] private InteractableBuildingController InRoom_BuildThing;
-
+    [SerializeField] private DownstartElevatorController InRoom_Elevator;
 
     [Space(10)]
     [Header("=== In Room _ Enemy")]
     [SerializeField] private List<EnemySpot> InRoom_AllEnemy;
     [SerializeField] private Transform InRoom_WayPointParentTF;
     [HideInInspector] public List<WayPoint> InRoom_AllWayPoint;
+
 
     #endregion
 
@@ -71,6 +72,10 @@ public class RoomRuleController : MonoBehaviour
         if (InRoom_BuildThing != null && !InRoom_BuildThing.gameObject.activeSelf)
         {
             InRoom_BuildThing.gameObject.SetActive(true);
+        }
+        if (InRoom_Elevator != null && !InRoom_Elevator.IsOn)
+        {
+            InRoom_Elevator.IsOn = true;
         }
     }
 

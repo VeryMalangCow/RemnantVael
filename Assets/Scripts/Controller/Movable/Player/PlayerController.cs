@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerController : MovableObject
 {
@@ -223,6 +224,47 @@ public class PlayerController : MovableObject
     private void LateUpdate()
     {
         MainGameUIManager.Instance.InteractAnno_UIController.SetPosIfNot(CurrentInteractable.Value);
+    }
+
+    public void SetPastStartStage()
+    {
+        if (this.TryGetComponent(out SortingGroup SG))
+        { 
+            SG.enabled = true;
+            SG.sortingOrder = -3002; 
+        }
+
+        StateAnim.transform.parent.transform.gameObject.SetActive(false);
+
+    }
+
+    public void SetStartStage()
+    {
+        if (this.TryGetComponent(out SortingGroup SG))
+        {
+            SG.enabled = false;
+            SG.sortingOrder = 0;
+        }
+
+        StateAnim.transform.parent.transform.gameObject.SetActive(true); 
+
+        InputManager.Instance.OnEnableInput();
+        StageManager.Instance.IsStartStage = false;
+        LayerOrderManager.Instance.NeedLayerObjects.Add(PlayerManager.Instance.PlayerController);
+
+    }
+
+    public void SetEndStage()
+    {
+        if (this.TryGetComponent(out SortingGroup SG))
+        {
+            SG.enabled = true;
+            SG.sortingOrder = 3001; 
+        }
+
+        StateAnim.transform.parent.transform.gameObject.SetActive(false);
+
+        InputManager.Instance.OnDisableInput();
     }
 
     #endregion
@@ -596,10 +638,15 @@ public class PlayerController : MovableObject
             }
             else if (CurrentInteractable.Value is EnemyController EC) // Enemy
             {
-                if(EC.IsLethargy)
+                if (EC.IsLethargy)
                 {
                     CanChange_Execution();
                 }
+                CurrentInteractable.Value = null;
+            }
+            else if (CurrentInteractable.Value is DownstartElevatorController DEC && DEC.IsOn)
+            {
+                CurrentInteractable.Value.Interact();
                 CurrentInteractable.Value = null;
             }
             else // OneOffShopController |OR| ...

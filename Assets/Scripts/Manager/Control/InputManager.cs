@@ -133,6 +133,37 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
     }
 
+    public void OnDisableInput()
+    {
+        if (PlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
+        { PlayerInput = PI; }
+
+        PlayerInput.actions["Walk"].performed -= Input_Walk;
+        PlayerInput.actions["Fire_0"].performed -= Input_Fire_0;
+        PlayerInput.actions["Dash"].performed -= Input_Dash;
+
+        PlayerInput.actions["CombatMode"].performed -= Input_CombatMode;
+        PlayerInput.actions["BoostMode"].performed -= Input_BoostMode;
+        PlayerInput.actions["UnBoostMode"].performed -= Input_UnBoostMode;
+        PlayerInput.actions["ChargeBettery"].performed -= Input_ChargeBettery;
+
+        PlayerInput.actions["Skill_0"].performed -= Input_Skill_0;
+        PlayerInput.actions["Skill_1"].performed -= Input_Skill_1;
+
+        PlayerInput.actions["Interact"].performed -= Input_Interact;
+        PlayerInput.actions["OutMainGame"].performed -= Input_OMGUI;
+
+        PlayerInput.actions["BUUI_Select"].performed -= Input_BUUIClick;
+        PlayerInput.actions["BUUI_OutPanel"].performed -= Input_BUUIOutPanel;
+
+        PlayerInput.actions["MUUI_Select"].performed -= Input_MUUIClick;
+        PlayerInput.actions["MUUI_OutPanel"].performed -= Input_MUUIOutPanel;
+
+        PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
+        PlayerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
+    }
+
+
     private void SetFirstInput(FirstInputDele _Skill)
     {
         CurrentFirstInputDele = _Skill;

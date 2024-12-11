@@ -148,7 +148,7 @@ public enum eDashStyle
 
 public enum eRoomType
 {
-    Completed, KillAll, Survived
+    Completed, KillAll, Survived, BossKill
 }
 
 // Interface

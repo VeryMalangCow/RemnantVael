@@ -175,7 +175,7 @@ public abstract class UIController : MonoBehaviour
     {
         if (_II == null)
         { return ""; }
-        if (_II is EnemyController)
+        if (_II is EnemyController EC && EC.IsLethargy)
         { return "KILL"; }
         else if (_II is BaseUpgradeController || _II is ModuleUpgradeController)
         { return "SHOP"; }
@@ -183,6 +183,8 @@ public abstract class UIController : MonoBehaviour
         { return "GATE"; }
         else if (_II is InteractItemController)
         { return "MODULE"; }
+        else if (_II is DownstartElevatorController DEC && DEC.IsOn)
+        { return "NEXT STAGE"; }
 
         return "";
     }
