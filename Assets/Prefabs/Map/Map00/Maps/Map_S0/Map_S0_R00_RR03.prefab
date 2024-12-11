@@ -1441,14 +1441,15 @@ MonoBehaviour:
   InRoom_AllBuildingParentTF: {fileID: 5083685775733296416}
   InRoom_AllBuilding: []
   InRoom_BuildThing: {fileID: 0}
+  InRoom_Elevator: {fileID: 0}
   InRoom_AllEnemy:
-  - EnemyPrefab: {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
+  - EnemyPrefab: {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
     EnemySpawnTF: {fileID: 7661713667687456443}
-  - EnemyPrefab: {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
+  - EnemyPrefab: {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
     EnemySpawnTF: {fileID: 1486559633721818689}
-  - EnemyPrefab: {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
+  - EnemyPrefab: {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
     EnemySpawnTF: {fileID: 955104801178288715}
-  - EnemyPrefab: {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
+  - EnemyPrefab: {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
     EnemySpawnTF: {fileID: 2486703186599871147}
   InRoom_WayPointParentTF: {fileID: 1130655662164710366}
   InRoom_AllWayPoint: []

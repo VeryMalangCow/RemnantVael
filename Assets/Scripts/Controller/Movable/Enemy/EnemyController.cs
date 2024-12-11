@@ -173,6 +173,10 @@ public class EnemyController : MovableObject, IInteract
         if (base.IsDead)
         { return; }
 
+        float ActualDMG = _BS.BaseDamage;
+        if (_BS.IsCritical)
+        { ActualDMG *= _BS.CD; }
+
         // Knockback
         if (_BS.AbleKnockback)
         {
@@ -182,15 +186,15 @@ public class EnemyController : MovableObject, IInteract
 
         if (_BS.DamageType == eDamageType.Physics)
         {
+
             // UI
             PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
             (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-            _BS.BaseDamage, _BS.IsCritical);
+            ActualDMG, _BS.IsCritical);
 
 
-
-            SetIsDead(CurrentHP.Value, _BS.BaseDamage);
-            CurrentHP.Value -= _BS.BaseDamage;
+            SetIsDead(CurrentHP.Value, ActualDMG);
+            CurrentHP.Value -= ActualDMG;
             if (CurrentHP.Value <= 0f)
             {
                 base.IsDead = true;
@@ -204,9 +208,9 @@ public class EnemyController : MovableObject, IInteract
                 // UI
                 PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
                     (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-                    _BS.BaseDamage, _BS.IsCritical);
+                    ActualDMG, _BS.IsCritical);
 
-                SpawnES(_BS.BaseDamage);
+                SpawnES(ActualDMG);
             }
             else
             {

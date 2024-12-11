@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class EnemyPattern_Range : EnemyPattern
 {
@@ -17,7 +18,7 @@ public class EnemyPattern_Range : EnemyPattern
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private Transform SpawnTF;
+    [SerializeField] private List<Transform> SpawnTFList;
     [SerializeField] private AnimationClip BulletAC;
 
     [Space(10)]
@@ -79,33 +80,37 @@ public class EnemyPattern_Range : EnemyPattern
         ThisEnemy.LookTargetPoint =
             PlayerManager.Instance.PlayerController.transform.position - ThisEnemy.transform.position;
 
-        EnemyBulletController EBC = PoolingManager.Instance.GetOP_EnemyBullet();
+        for (int i = 0; i < SpawnTFList.Count; i++)
+        {
+            EnemyBulletController EBC = PoolingManager.Instance.GetOP_EnemyBullet();
 
-        Vector2 targetDir =
-            ((Vector2)PlayerManager.Instance.PlayerController.transform.position
-            - (Vector2)ThisEnemy.transform.position).normalized;
-        
-        // Shadow
-        float targetShadow = 0.4f;
-        if (SpawnTF.TryGetComponent(out HaveShadowThing HST))
-        { targetShadow = HST.TargetRange; }
+            Vector2 targetDir =
+                ((Vector2)PlayerManager.Instance.PlayerController.transform.position
+                - (Vector2)ThisEnemy.transform.position).normalized;
 
-        // Base State 
-        EBC.OwnerEC = ThisEnemy;
-        EBC.SetState(SpawnTF.position, ThisBS, targetDir, BulletShadowScale, BulletColSize, BulletAC, targetShadow);
+            // Shadow
+            float targetShadow = 0.4f;
+            if (SpawnTFList[i].TryGetComponent(out HaveShadowThing HST))
+            { targetShadow = HST.TargetRange; }
 
-        // Sorting Layer
-        if (SpawnTF.gameObject.TryGetComponent(out HaveShadowThing hst))
-        { EBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
+            // Base State 
+            EBC.OwnerEC = ThisEnemy;
+            EBC.SetState(SpawnTFList[i].position, ThisBS, targetDir, BulletShadowScale, BulletColSize, BulletAC, targetShadow);
 
-        // Effect
-        ThisEnemy.MEI.GenExplosionImgs_Fan(
-            (Vector2)HST.TargetObject.transform.position + (targetDir * 0.3f),
-            targetDir, 45f,
-            3, 0.2f, 1f,
-            0.8f, 0.05f, 0.1f,
-            0.4f, 0.5f, 1.0f,
-            0, ThisEnemy.ThisSmokeM);
+            // Sorting Layer
+            if (SpawnTFList[i].gameObject.TryGetComponent(out HaveShadowThing hst))
+            { EBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
+
+            // Effect
+            ThisEnemy.MEI.GenExplosionImgs_Fan(
+                (Vector2)HST.TargetObject.transform.position + (targetDir * 0.3f),
+                targetDir, 45f,
+                3, 0.2f, 1f,
+                0.8f, 0.05f, 0.1f,
+                0.4f, 0.5f, 1.0f,
+                0, ThisEnemy.ThisSmokeM);
+
+        }
 
         yield return new WaitForSeconds(EndDelay);
 
