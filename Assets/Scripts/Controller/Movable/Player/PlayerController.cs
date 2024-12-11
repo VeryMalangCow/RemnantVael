@@ -226,13 +226,18 @@ public class PlayerController : MovableObject
         MainGameUIManager.Instance.InteractAnno_UIController.SetPosIfNot(CurrentInteractable.Value);
     }
 
+    #endregion
+
+    #region Stage
+
     public void SetPastStartStage()
     {
         if (this.TryGetComponent(out SortingGroup SG))
         { 
             SG.enabled = true;
-            SG.sortingOrder = -3002; 
+            SG.sortingOrder = -3002;
         }
+        ThisSR.sortingOrder = 2;
 
         StateAnim.transform.parent.transform.gameObject.SetActive(false);
 
@@ -648,6 +653,10 @@ public class PlayerController : MovableObject
             {
                 CurrentInteractable.Value.Interact();
                 CurrentInteractable.Value = null;
+            }
+            else if (CurrentInteractable.Value is DestructibleBuildingController DBC && !DBC.IsBroken)
+            {
+                CurrentInteractable.Value.Interact();
             }
             else // OneOffShopController |OR| ...
             {

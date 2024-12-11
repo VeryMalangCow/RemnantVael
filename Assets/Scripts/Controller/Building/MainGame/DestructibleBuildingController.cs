@@ -13,7 +13,7 @@ public class DestructibleBuildingController : InteractableBuildingController
     [Header("=== Durablity")]
     [SerializeField] private int ThisMaxDurablity = 5;
     [HideInInspector] public int ThisDurablity;
-    [SerializeField] protected bool IsBroken = false;
+    [SerializeField] public bool IsBroken = false;
     [SerializeField] private Transform DurablitySpriteParentTF;
     [SerializeField] private Sprite DurablityFrame;
     [SerializeField] private Sprite DurablityInner;

@@ -177,7 +177,7 @@ public abstract class UIController : MonoBehaviour
         { return ""; }
         if (_II is EnemyController EC && EC.IsLethargy)
         { return "KILL"; }
-        else if (_II is BaseUpgradeController || _II is ModuleUpgradeController)
+        else if (_II is DestructibleBuildingController DBC && !DBC.IsBroken && (_II is BaseUpgradeController || _II is ModuleUpgradeController))
         { return "SHOP"; }
         else if (_II is GateController GC && GC.IsOpen)
         { return "GATE"; }
