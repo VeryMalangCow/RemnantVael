@@ -919,10 +919,10 @@ TextureImporter:
       name: Enemy00_BarFrame
       rect:
         serializedVersion: 2
-        x: 144
-        y: 197
-        width: 64
-        height: 23
+        x: 145
+        y: 202
+        width: 60
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -940,10 +940,10 @@ TextureImporter:
       name: Enemy00_HP_Bar
       rect:
         serializedVersion: 2
-        x: 150
-        y: 188
+        x: 149
+        y: 195
         width: 52
-        height: 8
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -961,10 +961,10 @@ TextureImporter:
       name: Enemy00_EP_Bar
       rect:
         serializedVersion: 2
-        x: 150
-        y: 178
+        x: 149
+        y: 187
         width: 52
-        height: 8
+        height: 6
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -982,12 +982,12 @@ TextureImporter:
       name: Enemy00_HP_Liner
       rect:
         serializedVersion: 2
-        x: 147
-        y: 182
+        x: 146
+        y: 189
         width: 1
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1003,12 +1003,12 @@ TextureImporter:
       name: Enemy00_EP_Liner
       rect:
         serializedVersion: 2
-        x: 204
-        y: 182
+        x: 203
+        y: 189
         width: 1
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
