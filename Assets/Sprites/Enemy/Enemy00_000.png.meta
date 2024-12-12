@@ -915,6 +915,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Enemy00_BarFrame
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 197
+        width: 64
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab7de6455ead6d847b76f74ffba3e9c6
+      internalID: -1099338925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_HP_Bar
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 188
+        width: 52
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a06d8eca5d8f3fd49bb5d6adfd3cfa37
+      internalID: 1625135349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_EP_Bar
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 178
+        width: 52
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e79ff18f46bc91489c3ad90c3a00ac6
+      internalID: -986336886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_HP_Liner
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 182
+        width: 1
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48ab9e57685ee6a4abce03df3ac26c8c
+      internalID: -818321709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_EP_Liner
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 182
+        width: 1
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3062b7684f442447a93c4846efd5485
+      internalID: -564090988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -928,6 +1033,9 @@ TextureImporter:
     - texture: {fileID: 2800000, guid: 0abf441cd924f2348919b40d9b0ef75d, type: 3}
       name: _Emission
     nameFileIdTable:
+      Enemy00_BarFrame: -1099338925
+      Enemy00_EP_Bar: -986336886
+      Enemy00_EP_Liner: -564090988
       Enemy00_E_00: 191573939
       Enemy00_E_01: 2002850892
       Enemy00_E_02: 458983273
@@ -939,6 +1047,8 @@ TextureImporter:
       Enemy00_EnergyGun_RD: 1787400998
       Enemy00_EnergyGun_RU: -730727061
       Enemy00_EnergyGun_U: -802095933
+      Enemy00_HP_Bar: 1625135349
+      Enemy00_HP_Liner: -818321709
       Enemy00_Main_D: -1973428488
       Enemy00_Main_L: 2073786952
       Enemy00_Main_LD: -1501272803

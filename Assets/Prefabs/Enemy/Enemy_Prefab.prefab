@@ -61,18 +61,32 @@ MonoBehaviour:
   BaseTweenReTime: 0.3
   ThisComponentGOList: []
   EnemyID: 00
+  ThisEnemyType: 0
   MaxHP: 20
   MaxEP: 20
   IsLethargy: 0
   RecoverLethargyTime: 4
   ItemDropPercent: 1
   MovementState: 1
+  Target: {fileID: 0}
+  MoveTargetPoint: {x: 0, y: 0}
+  LookTargetPoint: {x: 0, y: 0}
   MoveDir: {x: 0, y: 0}
+  MoveSpeed: 0
   ThisCanvas: {fileID: 950598844825775425}
   HP_ProgressBar: {fileID: 6470338870314578685}
   EP_ProgressBar: {fileID: 5303638376107025711}
   MEI: {fileID: 7610645863705853807}
+  ThisSmokeM: {fileID: 0}
+  HittedAC_0: {fileID: 0}
+  HittedAC_1: {fileID: 0}
+  HittedAC_2: {fileID: 0}
   NavRadius: 0.2
+  OrderOfPriorityEnemyPatternList: []
+  CurrentContinuousEnemyPattern:
+    EnemyPatternList: []
+  CurrentEnemyPattern: {fileID: 0}
+  IsPlayingPattern: 0
 --- !u!50 &7671391899007426867
 Rigidbody2D:
   serializedVersion: 4
