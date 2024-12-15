@@ -2079,7 +2079,7 @@ TextureImporter:
         width: 36
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2087,6 +2087,48 @@ TextureImporter:
       bones: []
       spriteID: a5ad76ffa3908eb4fbb87fcc1aaf9311
       internalID: 571279082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_D_Outer
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 260
+        width: 28
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7274f88f1f489284d8fc272e698aafd6
+      internalID: 596451157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_B_U_Outer
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 197
+        width: 28
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8594069306d1df1459200c58e6ce481b
+      internalID: -958936281
       vertices: []
       indices: 
       edges: []
@@ -2119,6 +2161,7 @@ TextureImporter:
       Map00_B_D_DL: 806043112
       Map00_B_D_DR: -468466198
       Map00_B_D_M: 1393329386
+      Map00_B_D_Outer: 596451157
       Map00_B_D_SL: 1130624566
       Map00_B_D_SR: -943828320
       Map00_B_I_C: 249624983
@@ -2197,6 +2240,7 @@ TextureImporter:
       Map00_B_U_DL: -1843585237
       Map00_B_U_DR: -568427992
       Map00_B_U_M: -1877794647
+      Map00_B_U_Outer: -958936281
       Map00_B_U_SL: -646720798
       Map00_B_U_SR: 621473509
       Map00_E_000: -1645638322

@@ -961,12 +961,12 @@ TextureImporter:
       name: PlayerHUD_MM_004
       rect:
         serializedVersion: 2
-        x: 428
+        x: 429
         y: 494
         width: 17
         height: 17
       alignment: 9
-      pivot: {x: 0.765, y: 0.765}
+      pivot: {x: 0.235, y: 0.765}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -982,8 +982,8 @@ TextureImporter:
       name: PlayerHUD_MM_005
       rect:
         serializedVersion: 2
-        x: 446
-        y: 494
+        x: 429
+        y: 456
         width: 17
         height: 17
       alignment: 9
@@ -1087,12 +1087,12 @@ TextureImporter:
       name: PlayerHUD_MMO_004
       rect:
         serializedVersion: 2
-        x: 428
-        y: 466
+        x: 429
+        y: 475
         width: 17
         height: 17
       alignment: 9
-      pivot: {x: 0.765, y: 0.765}
+      pivot: {x: 0.235, y: 0.765}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1108,8 +1108,8 @@ TextureImporter:
       name: PlayerHUD_MMO_005
       rect:
         serializedVersion: 2
-        x: 446
-        y: 466
+        x: 429
+        y: 437
         width: 17
         height: 17
       alignment: 9
@@ -1323,7 +1323,7 @@ TextureImporter:
         width: 23
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1331,6 +1331,90 @@ TextureImporter:
       bones: []
       spriteID: aa1875d21f7f02c449f099a5277eb966
       internalID: 1278736693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_006
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 494
+        width: 17
+        height: 17
+      alignment: 9
+      pivot: {x: 0.235, y: 0.235}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aab776c5ed65084c9d165b373e0666f
+      internalID: 1540350132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_007
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 456
+        width: 17
+        height: 17
+      alignment: 9
+      pivot: {x: 0.235, y: 0.235}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 767edbc8acb053f47aab3d738c6b7af5
+      internalID: -1297130982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MMO_006
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 475
+        width: 17
+        height: 17
+      alignment: 9
+      pivot: {x: 0.235, y: 0.235}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a43870a0b5ee13499365b3d9033c40b
+      internalID: -1927201559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MMO_007
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 437
+        width: 17
+        height: 17
+      alignment: 9
+      pivot: {x: 0.235, y: 0.235}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f34ea959febcf2e4b8f4c717ecbce0bb
+      internalID: 1585164469
       vertices: []
       indices: 
       edges: []
@@ -1394,12 +1478,16 @@ TextureImporter:
       PlayerHUD_MMO_003: -570641346
       PlayerHUD_MMO_004: 1116852838
       PlayerHUD_MMO_005: 1274739206
+      PlayerHUD_MMO_006: -1927201559
+      PlayerHUD_MMO_007: 1585164469
       PlayerHUD_MM_000: 476855026
       PlayerHUD_MM_001: 1810412846
       PlayerHUD_MM_002: 660787810
       PlayerHUD_MM_003: 1003430231
       PlayerHUD_MM_004: -1027038445
       PlayerHUD_MM_005: -1527273314
+      PlayerHUD_MM_006: 1540350132
+      PlayerHUD_MM_007: -1297130982
       PlayerHUD_Minimap: -814347436
       PlayerHUD_Minimap_Inner: -302607964
       PlayerHUD_Player00Skill00: 987565495
