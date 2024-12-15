@@ -626,9 +626,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 11
-        y: 66
+        y: 53
         width: 78
-        height: 93
+        height: 106
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1239,7 +1239,7 @@ TextureImporter:
         width: 12
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1260,7 +1260,7 @@ TextureImporter:
         width: 12
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1281,7 +1281,7 @@ TextureImporter:
         width: 12
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1302,7 +1302,7 @@ TextureImporter:
         width: 12
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1310,6 +1310,27 @@ TextureImporter:
       bones: []
       spriteID: 47ef0496309fbe84b8f85e94672551bb
       internalID: 439588742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_CellSlot_Arrow
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 59
+        width: 23
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa1875d21f7f02c449f099a5277eb966
+      internalID: 1278736693
       vertices: []
       indices: 
       edges: []
@@ -1352,6 +1373,7 @@ TextureImporter:
       PlayerHUD_Booster_WheelLight_02: 1360759265
       PlayerHUD_Booster_WheelLight_03: -1576717012
       PlayerHUD_CellSlot: 1465224138
+      PlayerHUD_CellSlot_Arrow: 1278736693
       PlayerHUD_CellSlot_Inner: 1956604087
       PlayerHUD_CellSlot_ItemInner: -170495603
       PlayerHUD_EC: -1697317626

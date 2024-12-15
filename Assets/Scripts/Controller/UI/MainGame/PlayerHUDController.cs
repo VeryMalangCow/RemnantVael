@@ -25,7 +25,9 @@ public class PlayerHUDController : UIController
 
     [Header("-- Bettery (Image Amount Class)")]
     [SerializeField] private ModifyImgAmountAndTxt EmptyBC;
-    [SerializeField] private ModifyImgAmountAndTxt FullBC;
+    [SerializeField] private ModifyImgAmountAndTxt FullEC;
+    [SerializeField] private Image ECCostArrowImg;
+    [SerializeField] private TMP_Text ECCostTxt;
 
     [Space(10)]
     [Header("=== Other Item")]
@@ -68,7 +70,7 @@ public class PlayerHUDController : UIController
         EP.Offset();
         CurrentEmptyBC.Offset();
         EmptyBC.Offset();
-        FullBC.Offset();
+        FullEC.Offset();
 
         Skill0.Offset();
         Skill1.Offset();
@@ -116,7 +118,14 @@ public class PlayerHUDController : UIController
         PlayerManager.Instance.PlayerController.CurrentEC
             .Subscribe(_CurrentEC =>
             {
-                FullBC.SetAmount(_CurrentEC, 0.5f);
+                FullEC.SetAmount(_CurrentEC, 0.5f);
+
+                DOTween.Kill(ECCostArrowImg);
+                ECCostArrowImg.DOFade(1f, 0.2f)
+                    .OnComplete(() =>
+                    {
+                        ECCostArrowImg.DOFade(0.25f, 0.2f);
+                    });
             })
             .AddTo(gameObject);
 
@@ -153,6 +162,8 @@ public class PlayerHUDController : UIController
                     .SetLoops(-1, LoopType.Yoyo);
             }
         }
+
+        ECCostTxt.text = PlayerManager.Instance.PlayerController.NeedEP_ForMakeEC.ToString();
     }
 
     #endregion
@@ -242,8 +253,7 @@ public class PlayerHUDController : UIController
     #endregion
 
     #region Description
-
-
+    
     public void SetStateInteractUI()
     {
         if (IsActingInteractUI)

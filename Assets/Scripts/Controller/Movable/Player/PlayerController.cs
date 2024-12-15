@@ -32,6 +32,10 @@ public class PlayerController : MovableObject
     [SerializeField] private float CurrentInvincibleTime = 0f;
     private Sequence InvincibleSeq;
 
+    #endregion
+
+    #region Item
+
     [Header("-- Energy")]
     [SerializeField] public BaseUpgradeState<float> MaxEP;
     [SerializeField] public ReactiveProperty<float> CurrentEP = new();
