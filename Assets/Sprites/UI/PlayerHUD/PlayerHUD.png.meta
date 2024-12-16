@@ -1419,6 +1419,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MapIntro_Frame
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 167
+        width: 201
+        height: 75
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f4e089ce9319d84aaf7faa47872b6e0
+      internalID: 964077810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1488,6 +1509,7 @@ TextureImporter:
       PlayerHUD_MM_005: -1527273314
       PlayerHUD_MM_006: 1540350132
       PlayerHUD_MM_007: -1297130982
+      PlayerHUD_MapIntro_Frame: 964077810
       PlayerHUD_Minimap: -814347436
       PlayerHUD_Minimap_Inner: -302607964
       PlayerHUD_Player00Skill00: 987565495

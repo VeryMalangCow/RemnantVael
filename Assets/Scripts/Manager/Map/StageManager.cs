@@ -14,7 +14,7 @@ public class StageManager : Singleton<StageManager>
     [Space(10)]
     [Header("=== Generate")]
     [SerializeField] private Transform MapParentTF;
-    [SerializeField] private int TargetStageID;
+    [SerializeField] public int TargetStageID;
     [SerializeField] private List<StageData> AllReso;
     [SerializeField] private Vector2 OffsetRoomSize;
     [SerializeField] public bool IsStartStage = true;
@@ -104,6 +104,8 @@ public class StageManager : Singleton<StageManager>
 
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.GenMinimap();
         MainGameUIManager.Instance.PlayerHUD_UIController.SetStageDescription(reso.StageName);
+
+        MainGameUIManager.Instance.MapIntro_UIController.OnIntroLabel();
     }
 
     private void GenRoom(GameObject _Prefab, int _TempID, bool _IsStartRoom)
@@ -399,7 +401,7 @@ public class StageManager : Singleton<StageManager>
 
     #region Get
 
-    private StageData GetCollectStageData(int _StageID)
+    public StageData GetCollectStageData(int _StageID)
     {
         for (int i = 0; i < AllReso.Count; i++)
         {
@@ -461,6 +463,7 @@ public class StageManager : Singleton<StageManager>
         [Space(20)]
         public int StageID;
         public string StageName;
+        public string StageDescription;
 
         [Space(20)]
         public GameObject StartRoomPrefab;
