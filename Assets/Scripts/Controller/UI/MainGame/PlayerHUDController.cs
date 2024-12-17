@@ -4,7 +4,7 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.UI;
 using LeTai.TrueShadow;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerHUDController : UIController
 {
@@ -12,6 +12,38 @@ public class PlayerHUDController : UIController
 
     [Space(20)]
     [Header("<><><><><> Player HUD")]
+
+    [Space(10)]
+    [Header("=== Tab")]
+    [SerializeField] public bool IsTabInteracted = false;
+    [SerializeField] public bool IsTabInputed = false;
+    [SerializeField] private static float TabInputedMaxTime = 0.25f;
+    [SerializeField] private float TabInputedCurrentTime = 0f;
+    [HideInInspector] private static float TabInteractDurTime = 0.25f;
+
+    [Header("-- All")]
+    [SerializeField] private List<CanvasGroup> ParentCGList;
+
+    [Header("-- Modules")]
+    [SerializeField] private RectTransform ModuleListParentRT;
+    [HideInInspector] private float DefaultModuleRectX;
+    [HideInInspector] public List<ModifyEachInventorySlot> MEISList;
+
+    [Header("-- Player States")]
+    [SerializeField] private RectTransform PlayerStatesCostParentRT;
+    [HideInInspector] private float DefaultPlayerStatesRectX;
+    [SerializeField] private List<string> PlayerStatesStringList;
+    [SerializeField] private TMP_Text PlayerStatesTxt;
+
+    [Header("-- Skill State")]
+    [SerializeField] private RectTransform SkillStatesParentRT;
+    [HideInInspector] private float DefaultSkillStatesRectY;
+    [SerializeField] private List<string> SkillStatesStringList;
+    [SerializeField] private TMP_Text Skill0StatesTxt;
+    [SerializeField] private TMP_Text Skill1StatesTxt;
+
+    // Tab
+    [HideInInspector] private Sequence TabSeq;
 
     [Space(10)]
     [Header("=== Energy")]
@@ -40,6 +72,8 @@ public class PlayerHUDController : UIController
     [SerializeField] private TMP_Text BoostLv;
     [SerializeField] private GameObject[] BoostLightArr;
     [SerializeField] private GameObject[] BoostLightWheelArr;
+
+    
 
     [Space(10)]
     [Header("=== Skill")]
@@ -164,6 +198,99 @@ public class PlayerHUDController : UIController
         }
 
         ECCostTxt.text = PlayerManager.Instance.PlayerController.NeedEP_ForMakeEC.ToString();
+
+        MEISList = new List<ModifyEachInventorySlot>();
+        for (int i = 0; i < ModuleListParentRT.transform.childCount; i++)
+        {
+            if (ModuleListParentRT.transform.GetChild(i).gameObject.TryGetComponent(out ModifyEachInventorySlot MEIS))
+            {
+                MEISList.Add(MEIS);
+                MEIS.Offset();
+            }
+        }
+
+        if (ModuleListParentRT.TryGetComponent(out RectTransform M_Rt))
+        {
+            DefaultModuleRectX = M_Rt.anchoredPosition.x;
+        }
+        if (PlayerStatesCostParentRT.TryGetComponent(out RectTransform PS_Rt))
+        {
+            DefaultPlayerStatesRectX = PS_Rt.anchoredPosition.x;
+        }
+        if (SkillStatesParentRT.TryGetComponent(out RectTransform SS_Rt))
+        {
+            DefaultSkillStatesRectY = SS_Rt.anchoredPosition.y;
+        }
+
+        for (int i = 0; i < ParentCGList.Count; i++)
+        {
+            ParentCGList[i].alpha = 0f;
+        }
+    }
+
+    #endregion
+
+    #region Set Tab
+
+    private void ResetTab()
+    {
+        PlayerController pc = PlayerManager.Instance.PlayerController;
+        PlayerWeaponController pwc = pc.BaseWeapon;
+        SkillWeaponController pswc = pc.SkillWeapon;
+
+        SetPlayerState();
+
+        SetSkillState(Skill0StatesTxt, pswc.Skill_0);
+        SetSkillState(Skill1StatesTxt, pswc.Skill_1);
+
+        void SetPlayerState()
+        {
+            string playerStateTotalString = "";
+            List<string> playerActualDataList = new List<string>()
+            {
+                pc.MaxEP.ActualState.Value.ToString(),
+                pc.WalkSpeed.ActualState.Value.ToString(),
+                pc.DashController.DashSpeed.ActualState.Value.ToString(),
+                pc.DashController.NeedEP_ForDash.ToString(),
+                pwc.BaseDamage.ActualState.Value.ToString(),
+                pwc.ROF.ActualState.Value.ToString(),
+                pwc.AccuracyRate.ActualState.Value.ToString(),
+                pwc.CC.ActualState.Value.ToString(),
+                pwc.CD.ActualState.Value.ToString()
+
+            };
+            for (int i = 0; i < PlayerStatesStringList.Count; i++)
+            {
+                playerStateTotalString += "<size=70%>" + PlayerStatesStringList[i] + ": </size>";
+                playerStateTotalString += "<b>" + playerActualDataList[i] + "</b>\n";
+            }
+            PlayerStatesTxt.text = playerStateTotalString;
+        }
+
+        void SetSkillState(TMP_Text _TxtComp, ActiveSkillController _SkillController)
+        {
+            string skillStateTotalString = "";
+            List<string> skillActualDataList = new List<string>()
+            {
+                _SkillController.Tier.ActualState.Value.ToString(),
+                _SkillController.Power.ActualState.Value.ToString()
+            };
+            for (int i = 0; i < SkillStatesStringList.Count; i++)
+            {
+                skillStateTotalString += "<size=70%>" + SkillStatesStringList[i] + ": </size>\n";
+                skillStateTotalString += "<b>" + skillActualDataList[i] + "</b>\n";
+            }
+            _TxtComp.text = skillStateTotalString;
+        }
+    }
+
+    #endregion
+
+    #region Framework
+
+    private void Update()
+    {
+        CaculateTabInput();
     }
 
     #endregion
@@ -321,6 +448,81 @@ public class PlayerHUDController : UIController
             {
                 StageDesctiptionTxt.text = "";
             });
+    }
+
+    #endregion
+
+    #region Tab
+
+    private void CaculateTabInput()
+    {
+        if (IsTabInputed) // ¿Œ«≤ O
+        {
+            if (TabInputedMaxTime > TabInputedCurrentTime) // ¿Œ«≤ Ω√∞£ ∞ËªÍ
+            {
+                TabInputedCurrentTime += Time.deltaTime;
+            }
+            else // ¿Œ«≤ Ω√∞£ √Ê∫– ªÛ≈¬
+            {
+                if (!IsTabInteracted)
+                {
+                    OnTabInteract();
+                }
+            }
+        }
+        else // ¿Œ«≤ X
+        {
+            if (TabInputedCurrentTime != 0)
+            {
+                TabInputedCurrentTime = 0f;
+            }
+            if (IsTabInteracted)
+            {
+                OffTabInteract();
+            }
+        }
+    }
+
+    public void OnTabInteract()
+    {
+        if (IsTabInteracted)
+        { return; }
+        IsTabInteracted = true;
+
+        if (TabSeq != null && DOTween.IsTweening(TabSeq))
+        { DOTween.Kill(TabSeq); }
+        TabSeq = DOTween.Sequence();
+
+        ResetTab();
+
+        // Modules
+        TabSeq.Join(ModuleListParentRT.DOAnchorPosX(0f, TabInteractDurTime));
+        TabSeq.Join(PlayerStatesCostParentRT.DOAnchorPosX(0f, TabInteractDurTime));
+        TabSeq.Join(SkillStatesParentRT.DOAnchorPosY(0f, TabInteractDurTime));
+        for (int i = 0; i < ParentCGList.Count; i++)
+        {
+            ParentCGList[i].DOFade(1, TabInteractDurTime);
+        }
+    }
+
+    public void OffTabInteract()
+    {
+        if (!IsTabInteracted)
+        { return; }
+        IsTabInteracted = false;
+
+        if (TabSeq != null && DOTween.IsTweening(TabSeq))
+        { DOTween.Kill(TabSeq); }
+        TabSeq = DOTween.Sequence();
+
+        // Modules
+        TabSeq.Join(ModuleListParentRT.DOAnchorPosX(DefaultModuleRectX, TabInteractDurTime));
+        TabSeq.Join(PlayerStatesCostParentRT.DOAnchorPosX(DefaultPlayerStatesRectX, TabInteractDurTime));
+        TabSeq.Join(SkillStatesParentRT.DOAnchorPosY(DefaultSkillStatesRectY, TabInteractDurTime));
+        for (int i = 0; i < ParentCGList.Count; i++)
+        {
+            ParentCGList[i].DOFade(0, TabInteractDurTime);
+        }
     }
 
     #endregion

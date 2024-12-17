@@ -7,6 +7,10 @@ public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHand
     #region Value
 
     [Space(10)]
+    [Header("=== Input")]
+    [SerializeField] public bool IsCanSelect = true;
+
+    [Space(10)]
     [Header("=== Size")]
     //[SerializeField] private float DurTime = 0.1f;
     [SerializeField] private Vector2 TargetScale = new Vector2(1.15f, 1.15f);
@@ -40,7 +44,10 @@ public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(!TryGetComponent(out Button btn) || !btn.interactable)
+        if (!IsCanSelect)
+        { return; }
+
+        if (!TryGetComponent(out Button btn) || !btn.interactable)
         {
             return;
         }
@@ -50,6 +57,13 @@ public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!IsCanSelect)
+        { return; }
+
+        if (!TryGetComponent(out Button btn) || !btn.interactable)
+        {
+            return;
+        }
 
         OwnerUIController.CurrentBtn = null;
     }

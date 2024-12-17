@@ -15,6 +15,10 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
     [SerializeField] public float SignImgAnimDurTime = 0.1f;
     [SerializeField] public float SignImgAnimSize = 1.1f;
 
+    [Space(10)]
+    [Header("=== Input")]
+    [SerializeField] public bool IsCanSelect = true;
+
     [Header("=== RT")]
     [SerializeField] private Vector2 ThisSizeDelta = new Vector2(100, 100);
 
@@ -22,8 +26,8 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
     [SerializeField] public bool IsInventory = true;
 
     // Component
-    private RectTransform ThisRT;
-    private Image ThisImg;
+    [HideInInspector] public RectTransform ThisRT;
+    [HideInInspector] private Image ThisImg;
 
     #endregion
 
@@ -59,6 +63,9 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!IsCanSelect)
+        { return; }
+
         InIt_SelectedItem();
 
         if (ThisSlotItem != null)
@@ -70,6 +77,9 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!IsCanSelect)
+        { return; }
+
         OutIt_SelectedItem();
 
         MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOffDesc();

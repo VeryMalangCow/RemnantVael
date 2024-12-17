@@ -1440,6 +1440,321 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_SkillStateFrame
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 107
+        width: 81
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccc58d5d610745c4498332c2337bf080
+      internalID: 1075042413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Icon_Tier
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 151
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7f0bdd3e4ecd0f448376fef0078c186
+      internalID: -978350215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Icon_Power
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 151
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1fb74dce8bc67a47a0420cf5736e5ae
+      internalID: 1111110774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_ModuleFrame
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 264
+        width: 44
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 9, z: 0, w: 9}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 185c165840ee7d747a8266bc7fdf9684
+      internalID: 779281117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Icon_DMG
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 109
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e10705f3f2bda246b41f51c0ce15d55
+      internalID: -358188567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_PlayerStateFrame
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 267
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 0, z: 11, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 885ed54fdbd3ba84cb406023893d8466
+      internalID: 1978519953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_PlayerStateInner
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 259
+        width: 9
+        height: 3
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 7, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7da17f66104f3d54788d4ff0d7c67837
+      internalID: 1031921244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Icon_EP
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 137
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3227db9b5d624e4439e2557cfceb900f
+      internalID: 326555370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Icon_Movement
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 137
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfc08d11dd50cd242aebabd28b9ba4dc
+      internalID: -377760960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Icon_DashPower
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 123
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b6202077fee61546a5ff4473080a907
+      internalID: 1813887618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Icon_DashCost
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 123
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cc9b10506684c54e9536253e07902f0
+      internalID: -1867231219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Icon_ROF
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 109
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cee475d9a8f1074281a3eb292a7e53b
+      internalID: 1744807501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Icon_Acc
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 95
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 865d8415226b15348b294cff5f6a5da1
+      internalID: 35517159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Icon_CC
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 95
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6e792e4cf7844b49a63c9db531e1743
+      internalID: -1255095136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Icon_CD
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 80
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45a596e96c45165429fae1fa1c428d95
+      internalID: 753622697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1490,6 +1805,17 @@ TextureImporter:
       PlayerHUD_EP_InnerLine_Left: -232554943
       PlayerHUD_EP_InnerLine_Right: -51117568
       PlayerHUD_EP_Liner: -670417485
+      PlayerHUD_Icon_Acc: 35517159
+      PlayerHUD_Icon_CC: -1255095136
+      PlayerHUD_Icon_CD: 753622697
+      PlayerHUD_Icon_DMG: -358188567
+      PlayerHUD_Icon_DashCost: -1867231219
+      PlayerHUD_Icon_DashPower: 1813887618
+      PlayerHUD_Icon_EP: 326555370
+      PlayerHUD_Icon_Movement: -377760960
+      PlayerHUD_Icon_Power: 1111110774
+      PlayerHUD_Icon_ROF: 1744807501
+      PlayerHUD_Icon_Tier: -978350215
       PlayerHUD_Interact_Frame: 261216347
       PlayerHUD_Interact_Inner: -893793875
       PlayerHUD_Interact_InnerUse: 235986038
@@ -1512,9 +1838,13 @@ TextureImporter:
       PlayerHUD_MapIntro_Frame: 964077810
       PlayerHUD_Minimap: -814347436
       PlayerHUD_Minimap_Inner: -302607964
+      PlayerHUD_ModuleFrame: 779281117
       PlayerHUD_Player00Skill00: 987565495
       PlayerHUD_Player00Skill01: 1779296857
+      PlayerHUD_PlayerStateFrame: 1978519953
+      PlayerHUD_PlayerStateInner: 1031921244
       PlayerHUD_SkillSlot_Frame: -209309963
+      PlayerHUD_SkillStateFrame: 1075042413
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

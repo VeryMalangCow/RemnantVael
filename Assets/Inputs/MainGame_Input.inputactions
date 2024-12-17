@@ -96,6 +96,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "TabInteract",
+                    "type": "PassThrough",
+                    "id": "e61dc2dd-aa34-4c2e-8edf-863f45f7d437",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ForDebugging",
                     "type": "Button",
                     "id": "dc93cde2-6928-4775-b3fa-db8caea76bc5",
@@ -288,6 +297,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OutMainGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf09fc1b-37a0-49b9-8cdb-b052abbd6b9c",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TabInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

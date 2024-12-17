@@ -345,10 +345,29 @@ public class ModuleUpgradeUIController : UIController
         }
 
         Debug.Log("Equip!");
+
+        // Module UI
         BoostItemManager.Instance.Equiped_PSList.Add(ps);
-        ModifyEachInventoryItem meii = MI_InEquipTab.SpawnMEII_Module(GetEquipedEmptySlot(), ps.ThisItemData.ItemIcon, BoostItemManager.Instance.GetRankIcon(ps.ThisItemData.Rank), ps.ThisItemData.BoostLv);
+        ModifyEachInventorySlot meis = GetEquipedEmptySlot();
+        ModifyEachInventoryItem meii 
+            = MI_InEquipTab.SpawnMEII_Module(
+                meis, 
+                ps.ThisItemData.ItemIcon, 
+                BoostItemManager.Instance.GetRankIcon(ps.ThisItemData.Rank), 
+                ps.ThisItemData.BoostLv);
         ps.ThisExtraMEII.Add(meii);
 
+        // Player HUD
+        int slotIndex = EquipedMEIS_List.IndexOf(meis);
+        Debug.Log(slotIndex);
+        ModifyEachInventoryItem meii_PlayerHUD
+            = MI_InEquipTab.SpawnMEII_Module(
+                MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[slotIndex],
+                ps.ThisItemData.ItemIcon,
+                BoostItemManager.Instance.GetRankIcon(ps.ThisItemData.Rank),
+                ps.ThisItemData.BoostLv);
+        meii_PlayerHUD.IsCanSelect = false;
+        ps.ThisExtraMEII.Add(meii_PlayerHUD);
     }
 
     // 장착 해제 시도

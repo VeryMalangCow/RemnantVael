@@ -121,6 +121,7 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Skill_1"].performed += Input_Skill_1;
 
         PlayerInput.actions["Interact"].performed += Input_Interact;
+        PlayerInput.actions["TabInteract"].performed += Input_Tab;
         PlayerInput.actions["OutMainGame"].performed += Input_OMGUI;
 
         PlayerInput.actions["BUUI_Select"].performed += Input_BUUIClick;
@@ -151,6 +152,7 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Skill_1"].performed -= Input_Skill_1;
 
         PlayerInput.actions["Interact"].performed -= Input_Interact;
+        PlayerInput.actions["TabInteract"].performed -= Input_Tab;
         PlayerInput.actions["OutMainGame"].performed -= Input_OMGUI;
 
         PlayerInput.actions["BUUI_Select"].performed -= Input_BUUIClick;
@@ -314,6 +316,22 @@ public class InputManager : Singleton<InputManager>
         if (_InputValue.ReadValueAsButton())
         {
             PlayerManager.Instance.PlayerController.TryInteract();
+        }
+    }
+
+    #endregion
+
+    #region Tab
+
+    private void Input_Tab(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            MainGameUIManager.Instance.PlayerHUD_UIController.IsTabInputed = true;
+        }
+        else
+        {
+            MainGameUIManager.Instance.PlayerHUD_UIController.IsTabInputed = false;
         }
     }
 
