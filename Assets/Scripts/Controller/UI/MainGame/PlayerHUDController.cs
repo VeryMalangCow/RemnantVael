@@ -110,6 +110,7 @@ public class PlayerHUDController : UIController
 
         Skill0.Offset();
         Skill1.Offset();
+        ThisMinimap.Offset();
     }
 
     protected override void Offset_UI()
@@ -499,7 +500,6 @@ public class PlayerHUDController : UIController
 
         ResetTab();
 
-        // Modules
         TabSeq.Join(ModuleListParentRT.DOAnchorPosX(0f, TabInteractDurTime));
         TabSeq.Join(PlayerStatesCostParentRT.DOAnchorPosX(0f, TabInteractDurTime));
         TabSeq.Join(SkillStatesParentRT.DOAnchorPosY(0f, TabInteractDurTime));
@@ -510,6 +510,8 @@ public class PlayerHUDController : UIController
         {
             ParentCGList[i].DOFade(1, TabInteractDurTime);
         }
+
+        ThisMinimap.OnTabInteract(TabInteractDurTime);
     }
 
     public void OffTabInteract()
@@ -522,7 +524,6 @@ public class PlayerHUDController : UIController
         { DOTween.Kill(TabSeq); }
         TabSeq = DOTween.Sequence();
 
-        // Modules
         TabSeq.Join(ModuleListParentRT.DOAnchorPosX(DefaultModuleRectX, TabInteractDurTime));
         TabSeq.Join(PlayerStatesCostParentRT.DOAnchorPosX(DefaultPlayerStatesRectX, TabInteractDurTime));
         TabSeq.Join(SkillStatesParentRT.DOAnchorPosY(DefaultSkillStatesRectY, TabInteractDurTime));
@@ -533,6 +534,8 @@ public class PlayerHUDController : UIController
         {
             ParentCGList[i].DOFade(0, TabInteractDurTime);
         }
+
+        ThisMinimap.OffTabInteract(TabInteractDurTime);
     }
 
     #endregion

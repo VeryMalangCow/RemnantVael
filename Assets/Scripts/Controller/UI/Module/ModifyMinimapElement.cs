@@ -15,22 +15,32 @@ public class ModifyMinimapElement : UIModule
 
     [SerializeField] private Color UnknowColor;
     [SerializeField] private const float IntervalEachMM = 36;
+    [SerializeField] private const float IntervalEachIMM = 60;
 
     #endregion
 
     #region Offset
 
-    public void Offset(RoomController _RC, Color _MainColor)
+    public void Offset(RoomController _RC, Color _MainColor, bool _IsNormal)
     {
         Offset();
 
         ConnectedRC = _RC;
         ThisMainColor = _MainColor;
 
-        ConnectedRC.ThisMME = this;
 
-        ThisMMImg.sprite = ConnectedRC.ThisSpriteMM;
-        ThisMMOImg.sprite = ConnectedRC.ThisSpriteMMO;
+        if (_IsNormal)
+        {
+            ConnectedRC.ThisMME = this;
+            ThisMMImg.sprite = ConnectedRC.ThisSpriteMM;
+            ThisMMOImg.sprite = ConnectedRC.ThisSpriteMMO;
+        }
+        else
+        {
+            ConnectedRC.ThisIMME = this;
+            ThisMMImg.sprite = ConnectedRC.ThisSpriteMMI;
+            ThisMMOImg.sprite = ConnectedRC.ThisSpriteMMIO;
+        }
 
         ThisMMImg.SetNativeSize();
         ThisMMOImg.SetNativeSize();
@@ -38,9 +48,18 @@ public class ModifyMinimapElement : UIModule
         if (this.TryGetComponent(out RectTransform rt))
         {
             rt.pivot = _RC.SpritePivot;
-            rt.anchoredPosition = new Vector2(
-                (float)_RC.RoomVec[0].x * IntervalEachMM,
-                (float)_RC.RoomVec[0].y * IntervalEachMM);
+            if (_IsNormal)
+            {
+                rt.anchoredPosition = new Vector2(
+                    (float)_RC.RoomVec[0].x * IntervalEachMM,
+                    (float)_RC.RoomVec[0].y * IntervalEachMM);
+            }
+            else
+            {
+                rt.anchoredPosition = new Vector2(
+                    (float)_RC.RoomVec[0].x * IntervalEachIMM,
+                    (float)_RC.RoomVec[0].y * IntervalEachIMM);
+            }
         }
     }
 

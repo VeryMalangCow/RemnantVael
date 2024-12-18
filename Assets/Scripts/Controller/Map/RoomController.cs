@@ -41,8 +41,11 @@ public class RoomController : MonoBehaviour
     [Header("=== UI")]
     [SerializeField] public Sprite ThisSpriteMM;
     [SerializeField] public Sprite ThisSpriteMMO;
+    [SerializeField] public Sprite ThisSpriteMMI;
+    [SerializeField] public Sprite ThisSpriteMMIO;
     [SerializeField] public Vector2 SpritePivot;
     [HideInInspector] public ModifyMinimapElement ThisMME;
+    [HideInInspector] public ModifyMinimapElement ThisIMME;
 
     #endregion
 

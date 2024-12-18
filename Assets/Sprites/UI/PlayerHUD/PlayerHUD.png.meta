@@ -1755,6 +1755,342 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_000
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 417
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48a6a460e1cf6c044818810f6d161ced
+      internalID: -1451701448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_001
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 417
+        width: 29
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05acce73dc5e5ba47829df42757c228e
+      internalID: 1495227505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_002
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 387
+        width: 14
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73ae99780353e76428d28aa2601f2419
+      internalID: 1557905055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_003
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 387
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 790ba84481fc680479fab6dd2c3bd4b7
+      internalID: 1078000194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_004
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 402
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 294ee92ee41518b4db1aea25df0a650b
+      internalID: 1669839144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_006
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 402
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 764f98aff12989c4fa4fed7de11b6dd3
+      internalID: -796665567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_005
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 372
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88d1f7b1faaec1e43b42250181e2a71c
+      internalID: 1279793552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_007
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 372
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c79edc7bf532984eb7ead97f810b3e1
+      internalID: 1287868922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMMO_000
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 356
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da90e21d30a3dbf4fa6cac2f7c7f3331
+      internalID: -1700199474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMMO_002
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 326
+        width: 14
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96b2e8e120580aa47b39e8a17d24dc3d
+      internalID: -1621447173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMMO_001
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 356
+        width: 29
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9b020df819cb7b4ab33ccbb37245f83
+      internalID: -1051798293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMMO_003
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 326
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4b14ff26ee30cb45a6ce8e4e32ee824
+      internalID: -353351920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMMO_004
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 341
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a2b652a5518b2f4eba4204a4f80c25e
+      internalID: -1535159325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMMO_006
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 341
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dc0ce35c776b614fa54016d956a889c
+      internalID: -464208805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMMO_007
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 311
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02f2a6645380412449fc5d61033357a5
+      internalID: 377588081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMMO_005
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 311
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ba9a5e315288b64ea556e17a10c9e02
+      internalID: -1702724244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1805,6 +2141,22 @@ TextureImporter:
       PlayerHUD_EP_InnerLine_Left: -232554943
       PlayerHUD_EP_InnerLine_Right: -51117568
       PlayerHUD_EP_Liner: -670417485
+      PlayerHUD_IMMO_000: -1700199474
+      PlayerHUD_IMMO_001: -1051798293
+      PlayerHUD_IMMO_002: -1621447173
+      PlayerHUD_IMMO_003: -353351920
+      PlayerHUD_IMMO_004: -1535159325
+      PlayerHUD_IMMO_005: -1702724244
+      PlayerHUD_IMMO_006: -464208805
+      PlayerHUD_IMMO_007: 377588081
+      PlayerHUD_IMM_000: -1451701448
+      PlayerHUD_IMM_001: 1495227505
+      PlayerHUD_IMM_002: 1557905055
+      PlayerHUD_IMM_003: 1078000194
+      PlayerHUD_IMM_004: 1669839144
+      PlayerHUD_IMM_005: 1279793552
+      PlayerHUD_IMM_006: -796665567
+      PlayerHUD_IMM_007: 1287868922
       PlayerHUD_Icon_Acc: 35517159
       PlayerHUD_Icon_CC: -1255095136
       PlayerHUD_Icon_CD: 753622697
