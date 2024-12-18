@@ -11,6 +11,7 @@ public class InputManager : Singleton<InputManager>
 
     [Header("=== Mouse")]
     [SerializeField] private RectTransform MousePointerRT;
+    [HideInInspector] public bool CanMouseInput = false;
     [SerializeField] public Vector2 MousePos;
     [SerializeField] public Vector2 MousePosByWorld;
     [SerializeField] public Vector2 DirFromPlayerPos;
@@ -44,7 +45,7 @@ public class InputManager : Singleton<InputManager>
 
     private void Start()
     {
-        SetAim(true);
+        SetAimAllOff();
     }
     private void FixedUpdate()
     {
@@ -76,6 +77,16 @@ public class InputManager : Singleton<InputManager>
 
     #region State
 
+    public void SetAimAllOff()
+    {
+        OnAim = false;
+        OnMouse = false;
+
+        AimController.gameObject.SetActive(false);
+        PlayerManager.Instance.PlayerController.AimRoundController.gameObject.SetActive(false);
+        MousePointerRT.gameObject.SetActive(false);
+    }
+
     public void SetAim(bool _IsOn)
     {
         OnAim = _IsOn;
@@ -92,6 +103,9 @@ public class InputManager : Singleton<InputManager>
 
     private void SetMousePos()
     {
+        if (!CanMouseInput)
+        { return; }
+
         MousePos = Input.mousePosition;
         MousePosByWorld = Camera.main.ScreenToWorldPoint(MousePos);
         DirFromPlayerPos = MousePosByWorld - (Vector2)PlayerManager.Instance.PlayerController.gameObject.transform.position;

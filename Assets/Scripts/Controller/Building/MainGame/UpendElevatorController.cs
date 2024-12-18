@@ -41,6 +41,8 @@ public class UpendElevatorController : HaveShadowThingStatic
             .OnComplete(() =>
             {
                 PlayerManager.Instance.PlayerController.SetStartStage();
+                InputManager.Instance.SetAim(true);
+                InputManager.Instance.CanMouseInput = true;
             });
     }
 

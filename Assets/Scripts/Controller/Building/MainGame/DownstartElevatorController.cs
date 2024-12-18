@@ -30,6 +30,9 @@ public class DownstartElevatorController : HaveShadowThingStatic, IInteract
             {
                 PlayerManager.Instance.PlayerController.SetEndStage();
                 ThisSR.sortingOrder = 3000;
+
+                InputManager.Instance.SetAimAllOff();
+                InputManager.Instance.CanMouseInput = false;
             })
             .OnUpdate(() =>
             {

@@ -69,6 +69,8 @@ public class PlayerHUDController : UIController
 
     [Space(10)]
     [Header("=== Boost")]
+    [SerializeField] private RectTransform BoostRT;
+    [HideInInspector] private float DefaultBoostRectY;
     [SerializeField] private TMP_Text BoostLv;
     [SerializeField] private GameObject[] BoostLightArr;
     [SerializeField] private GameObject[] BoostLightWheelArr;
@@ -226,6 +228,8 @@ public class PlayerHUDController : UIController
         {
             ParentCGList[i].alpha = 0f;
         }
+
+        DefaultBoostRectY = BoostRT.anchoredPosition.y;
     }
 
     #endregion
@@ -499,6 +503,9 @@ public class PlayerHUDController : UIController
         TabSeq.Join(ModuleListParentRT.DOAnchorPosX(0f, TabInteractDurTime));
         TabSeq.Join(PlayerStatesCostParentRT.DOAnchorPosX(0f, TabInteractDurTime));
         TabSeq.Join(SkillStatesParentRT.DOAnchorPosY(0f, TabInteractDurTime));
+        TabSeq.Join(BoostRT.DOAnchorPosY(0f, TabInteractDurTime));
+
+        TabSeq.SetEase(Ease.OutCubic);
         for (int i = 0; i < ParentCGList.Count; i++)
         {
             ParentCGList[i].DOFade(1, TabInteractDurTime);
@@ -519,6 +526,9 @@ public class PlayerHUDController : UIController
         TabSeq.Join(ModuleListParentRT.DOAnchorPosX(DefaultModuleRectX, TabInteractDurTime));
         TabSeq.Join(PlayerStatesCostParentRT.DOAnchorPosX(DefaultPlayerStatesRectX, TabInteractDurTime));
         TabSeq.Join(SkillStatesParentRT.DOAnchorPosY(DefaultSkillStatesRectY, TabInteractDurTime));
+        TabSeq.Join(BoostRT.DOAnchorPosY(DefaultBoostRectY, TabInteractDurTime));
+
+        TabSeq.SetEase(Ease.InCubic);
         for (int i = 0; i < ParentCGList.Count; i++)
         {
             ParentCGList[i].DOFade(0, TabInteractDurTime);
