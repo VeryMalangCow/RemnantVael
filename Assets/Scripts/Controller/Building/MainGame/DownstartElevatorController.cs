@@ -14,7 +14,7 @@ public class DownstartElevatorController : HaveShadowThingStatic, IInteract
 
     [Space(10)]
     [Header("=== Data")]
-    [SerializeField] private int NextStageID = 0;
+    //[SerializeField] private int NextStageID = 0;
     [SerializeField] public bool IsOn = false;
 
     #endregion

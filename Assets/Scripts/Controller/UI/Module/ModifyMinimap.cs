@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.Rendering.DebugUI;
@@ -27,6 +28,7 @@ public class ModifyMinimap : UIModule
 
     [Header("-- Element")]
     [SerializeField] private List<ModifyMinimapElement> AllMMEs;
+    [SerializeField] private RectTransform NormalPoint;
 
 
     [Space(10)]
@@ -38,7 +40,13 @@ public class ModifyMinimap : UIModule
 
     [Header("-- Element")]
     [SerializeField] private List<ModifyMinimapElement> AllIMMEs;
+    [SerializeField] private RectTransform InteractablePoint;
+    [SerializeField] private RectTransform InteractingPoint;
 
+    [HideInInspector] private GateController InteractingBookGate;
+    [HideInInspector] private RoomController MinimapSelectedElementRC;
+
+    [HideInInspector] private bool CanInteractable = false;
     Sequence TabSeq;
 
     #endregion
@@ -47,16 +55,22 @@ public class ModifyMinimap : UIModule
 
     public override void Offset()
     {
-        NormalMaskRT.gameObject.SetActive(true);
-        InteractableMaskRT.gameObject.SetActive(false);
-
         MinimapFrameRT.sizeDelta = NormalSize_Frame;
 
         if (NormalMaskRT.gameObject.TryGetComponent(out CanvasGroup ncg))
-        { NormalCG = ncg; }
+        { NormalCG = ncg; NormalCG.alpha = 1f; }
 
         if (InteractableMaskRT.gameObject.TryGetComponent(out CanvasGroup icg))
-        { InteractableCG = icg; }
+        { InteractableCG = icg; InteractableCG.alpha = 0f; }
+    }
+
+    #endregion
+
+    #region Framework
+
+    private void LateUpdate()
+    {
+        SelectedBookRoom();
     }
 
     #endregion
@@ -103,15 +117,17 @@ public class ModifyMinimap : UIModule
 
     #region Set State
 
-    
-
     public void SetState()
     {
         RoomController CurrentRC = StageManager.Instance.CurrentRoomController;
 
         // 미니맵 위치 조정
-        AnchorPosSet(CurrentRC.ThisMME, NormalMMEParentRT);
-        AnchorPosSet(CurrentRC.ThisIMME, InteractableMMEParentRT);
+        AnchorPosSet(CurrentRC.ThisMME, NormalMMEParentRT, 0.3f);
+        AnchorPosSet(CurrentRC.ThisIMME, InteractableMMEParentRT, 0.3f);
+
+        // 포인트
+        SetPoint(NormalPoint, CurrentRC.ThisMME);
+        SetPoint(InteractablePoint, CurrentRC.ThisIMME);
 
         // PC가 있는 방
         SetActiveMME(CurrentRC.ThisMME);
@@ -144,22 +160,35 @@ public class ModifyMinimap : UIModule
     }
 
     // 미니맵 위치 조정
-    private void AnchorPosSet(ModifyMinimapElement _MME, RectTransform _ParentRT)
+    private void AnchorPosSet(ModifyMinimapElement _MME, RectTransform _ParentRT, float _DurTime)
     {
         if (_MME.gameObject.TryGetComponent(out RectTransform rt))
         {
             if (DOTween.IsTweening(_ParentRT))
             { DOTween.Kill(_ParentRT); }
 
-            _ParentRT.DOAnchorPos(-rt.anchoredPosition, 0.5f);
+            _ParentRT.DOAnchorPos(-rt.anchoredPosition, _DurTime);
         }
     }
 
+    // 켜지는 MME
     private void SetActiveMME(ModifyMinimapElement _MME)
     {
         if (!_MME.gameObject.activeSelf)
         {
             _MME.SetActiveOn();
+        }
+    }
+
+    // 중앙 포인터
+    private void SetPoint(RectTransform _Point, ModifyMinimapElement _MME)
+    {
+        _Point.transform.SetParent(_MME.transform);
+        if (_MME.TryGetComponent(out RectTransform rt))
+        {
+            Vector2 pivot = Vector2.one - rt.pivot;
+            _Point.pivot = pivot;
+            _Point.anchoredPosition = Vector2.zero;
         }
     }
 
@@ -191,13 +220,15 @@ public class ModifyMinimap : UIModule
         TabSeq.Join(InteractableCG.DOFade(1, _DurTime));
 
         TabSeq
-            .OnStart(() =>
-            {
-                InteractableCG.gameObject.SetActive(true);
-            })
             .OnComplete(() =>
             {
-                NormalCG.gameObject.SetActive(false);
+                // 미니맵 이동을 위한 Reset
+                InteractingPoint.gameObject.SetActive(true);
+
+                InputManager.Instance.InputArrowDir = Vector2Int.zero;
+                CanInteractable = true;
+                
+                MinimapSelectedElementRC = StageManager.Instance.CurrentRoomController;
             });
     }
 
@@ -214,12 +245,38 @@ public class ModifyMinimap : UIModule
         TabSeq
             .OnStart(() =>
             {
-                NormalCG.gameObject.SetActive(true);
+                InteractingPoint.gameObject.SetActive(false);
+
+                InputManager.Instance.InputArrowDir = Vector2Int.zero;
+                CanInteractable = false;
             })
             .OnComplete(() =>
             {
-                InteractableCG.gameObject.SetActive(false);
+                if (InteractingBookGate != null)
+                {
+                    InteractingBookGate.Interact();
+                }
             });
+    }
+
+    #endregion
+
+    #region Move In Interactable Condition
+
+    private void SelectedBookRoom()
+    {
+        if (CanInteractable && InputManager.Instance.InputArrowDir != Vector2Int.zero)
+        {
+            GateController gc = MinimapSelectedElementRC.GetCollectGC(InputManager.Instance.InputArrowDir);
+            if (gc != null)
+            {
+                InteractingBookGate = gc.ParterGate;
+                MinimapSelectedElementRC = gc.ThisRoom;
+                AnchorPosSet(MinimapSelectedElementRC.ThisIMME, InteractableMMEParentRT, 0.15f);
+            }
+
+            InputManager.Instance.InputArrowDir = Vector2Int.zero;
+        }
     }
 
     #endregion

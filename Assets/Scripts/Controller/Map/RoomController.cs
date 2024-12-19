@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+
 public class RoomController : MonoBehaviour
 {
     #region Value
@@ -228,6 +229,53 @@ public class RoomController : MonoBehaviour
             }
         }
         return resultList;
+    }
+
+    public GateController GetCollectGC(Vector2Int _TargetVec)
+    {
+        // 맞는 방향에 있는 모든 문
+        List<GateController> collectDirGateList = new List<GateController>();
+        for (int i = 0; i < InRoom_AllGate.Count; i++)
+        {
+            if (InRoom_AllGate[i].GateDir == _TargetVec &&
+                InRoom_AllGate[i].ParterGate != null)
+            {
+                collectDirGateList.Add(InRoom_AllGate[i]);
+            }
+        }
+        List <GateController> gateList = new List<GateController>();
+        if (collectDirGateList.Count > 0)
+        {
+            // 반대편이 갈 수 있는 (이미 성공한 방) 상태인지 판별한 방 리스트
+            for (int i = 0; i < collectDirGateList.Count; i++)
+            {
+                if (collectDirGateList[i].ParterGate.ThisRoom.RoomRuleController.RoomType
+                    == eRoomType.Completed)
+                {
+                    gateList.Add(collectDirGateList[i].ParterGate);
+                }
+            }
+
+            // XY 값을 기준으로 적은 값을 우선적으로 리턴.
+            if (gateList.Count > 0)
+            {
+                gateList = gateList.Distinct().ToList();
+                if (_TargetVec.x != 0)
+                {
+                    return gateList.OrderBy(obj => obj.transform.position.x).ToList()[0];
+                }
+                else
+                {
+                    return gateList.OrderBy(obj => obj.transform.position.y).ToList()[0];
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        return null; 
     }
 
     #endregion

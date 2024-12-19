@@ -103,7 +103,7 @@ public class StageManager : Singleton<StageManager>
         roundList.Clear();
 
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.GenMinimap();
-        MainGameUIManager.Instance.PlayerHUD_UIController.SetStageDescription(reso.StageName);
+        MainGameUIManager.Instance.PlayerHUD_UIController.SetStageDescription(reso.StageName, reso.StageDescription);
 
         MainGameUIManager.Instance.MapIntro_UIController.OnIntroLabel();
     }

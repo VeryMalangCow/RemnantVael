@@ -24,11 +24,13 @@ public class InputManager : Singleton<InputManager>
 
     [Header("=== Movement")]
     [SerializeField] public Vector2 InputMoveDir;
+    [SerializeField] public Vector2Int InputArrowDir;
 
     [Header("=== First Input")] 
     [SerializeField] public bool IsPlayingSkill = false;
     [SerializeField] private float EndFirstInputTime = 0.5f;
     [SerializeField] private float CurrentFirstInputTime = 0f;
+
 
     private delegate void FirstInputDele();
     private FirstInputDele CurrentFirstInputDele = null;
@@ -123,6 +125,7 @@ public class InputManager : Singleton<InputManager>
         { PlayerInput = PI; }
 
         PlayerInput.actions["Walk"].performed += Input_Walk;
+        PlayerInput.actions["Arrow"].performed += Input_Arrow;
         PlayerInput.actions["Fire_0"].performed += Input_Fire_0;
         PlayerInput.actions["Dash"].performed += Input_Dash;
 
@@ -154,6 +157,7 @@ public class InputManager : Singleton<InputManager>
         { PlayerInput = PI; }
 
         PlayerInput.actions["Walk"].performed -= Input_Walk;
+        PlayerInput.actions["Arrow"].performed -= Input_Arrow;
         PlayerInput.actions["Fire_0"].performed -= Input_Fire_0;
         PlayerInput.actions["Dash"].performed -= Input_Dash;
 
@@ -212,6 +216,23 @@ public class InputManager : Singleton<InputManager>
             }
 
             PlayerManager.Instance.PlayerController.CanDashCheck();
+        }
+    }
+
+    public void Input_Arrow(InputAction.CallbackContext _InputValue)
+    {
+        Vector2 v2 = _InputValue.ReadValue<Vector2>();
+        if (v2.x != 0)
+        {
+            InputArrowDir = v2.x > 0 ? Vector2Int.right : Vector2Int.left;
+        }
+        else if (v2.y != 0)
+        {
+            InputArrowDir = v2.y > 0 ? Vector2Int.up : Vector2Int.down;
+        }
+        else
+        {
+            InputArrowDir = Vector2Int.zero;
         }
     }
 

@@ -589,7 +589,7 @@ TextureImporter:
         height: 84
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 13, y: 13, z: 15, w: 13}
+      border: {x: 13, y: 26, z: 15, w: 26}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1130,9 +1130,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 236
-        y: 286
+        y: 291
         width: 88
-        height: 45
+        height: 35
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1151,9 +1151,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 244
-        y: 255
+        y: 266
         width: 70
-        height: 29
+        height: 19
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1214,9 +1214,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 201
-        y: 267
+        y: 268
         width: 41
-        height: 16
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2091,6 +2091,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MapNameFrame
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 71
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 12, y: 0, z: 15, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6bff99c5d393c748b255156e709dbbc
+      internalID: -775422665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2188,6 +2209,7 @@ TextureImporter:
       PlayerHUD_MM_006: 1540350132
       PlayerHUD_MM_007: -1297130982
       PlayerHUD_MapIntro_Frame: 964077810
+      PlayerHUD_MapNameFrame: -775422665
       PlayerHUD_Minimap: -814347436
       PlayerHUD_Minimap_Inner: -302607964
       PlayerHUD_ModuleFrame: 779281117

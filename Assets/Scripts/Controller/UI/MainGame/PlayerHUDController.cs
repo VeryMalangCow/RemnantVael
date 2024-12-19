@@ -42,6 +42,7 @@ public class PlayerHUDController : UIController
     [SerializeField] private TMP_Text Skill0StatesTxt;
     [SerializeField] private TMP_Text Skill1StatesTxt;
 
+
     // Tab
     [HideInInspector] private Sequence TabSeq;
 
@@ -87,10 +88,14 @@ public class PlayerHUDController : UIController
     [SerializeField] public ModifyMinimap ThisMinimap;
 
     [Space(10)]
-    [Header("=== Discription")]
+    [Header("=== Map Anno")]
+    [SerializeField] private TMP_Text StageNameTxt;
+    [SerializeField] private TMP_Text StageDescriptionTxt;
+
+    [Space(10)]
+    [Header("=== Interact")]
     [SerializeField] private TMP_Text InteractOnOffTxt;
     [SerializeField] private TMP_Text InteractDesctiptionTxt;
-    [SerializeField] private TMP_Text StageDesctiptionTxt;
 
     [SerializeField] private Image InnerImg;
     [SerializeField] private Image UsingInnerImg;
@@ -231,6 +236,16 @@ public class PlayerHUDController : UIController
         }
 
         DefaultBoostRectY = BoostRT.anchoredPosition.y;
+
+        StageNameTxt.color = GetFullAlphaColor(StageNameTxt, 1);
+        StageDescriptionTxt.color = GetFullAlphaColor(StageDescriptionTxt, 0);
+
+        Color GetFullAlphaColor(TMP_Text _Txt, float _A)
+        {
+            Color clr = _Txt.color;
+            clr.a = _A;
+            return clr;
+        }
     }
 
     #endregion
@@ -446,12 +461,17 @@ public class PlayerHUDController : UIController
     }
 
 
-    public void SetStageDescription(string _StageName)
+    public void SetStageDescription(string _StageName, string _StageDescription)
     {
-        StageDesctiptionTxt.DOText(_StageName, 0.5f)
+        StageNameTxt.DOText(_StageName, 0.5f)
             .OnPlay(() =>
             {
-                StageDesctiptionTxt.text = "";
+                StageNameTxt.text = "";
+            });
+        StageDescriptionTxt.DOText(_StageDescription, 0.5f)
+            .OnPlay(() =>
+            {
+                StageDescriptionTxt.text = "";
             });
     }
 
@@ -504,6 +524,8 @@ public class PlayerHUDController : UIController
         TabSeq.Join(PlayerStatesCostParentRT.DOAnchorPosX(0f, TabInteractDurTime));
         TabSeq.Join(SkillStatesParentRT.DOAnchorPosY(0f, TabInteractDurTime));
         TabSeq.Join(BoostRT.DOAnchorPosY(0f, TabInteractDurTime));
+        TabSeq.Join(StageNameTxt.DOFade(0f, TabInteractDurTime));
+        TabSeq.Join(StageDescriptionTxt.DOFade(1f, TabInteractDurTime));
 
         TabSeq.SetEase(Ease.OutCubic);
         for (int i = 0; i < ParentCGList.Count; i++)
@@ -528,6 +550,8 @@ public class PlayerHUDController : UIController
         TabSeq.Join(PlayerStatesCostParentRT.DOAnchorPosX(DefaultPlayerStatesRectX, TabInteractDurTime));
         TabSeq.Join(SkillStatesParentRT.DOAnchorPosY(DefaultSkillStatesRectY, TabInteractDurTime));
         TabSeq.Join(BoostRT.DOAnchorPosY(DefaultBoostRectY, TabInteractDurTime));
+        TabSeq.Join(StageNameTxt.DOFade(1f, TabInteractDurTime));
+        TabSeq.Join(StageDescriptionTxt.DOFade(0f, TabInteractDurTime));
 
         TabSeq.SetEase(Ease.InCubic);
         for (int i = 0; i < ParentCGList.Count; i++)

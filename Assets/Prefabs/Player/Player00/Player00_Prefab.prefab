@@ -821,7 +821,7 @@ MonoBehaviour:
     - 1
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 1
+      value: 30
     Desc: DMG Desc
   AliveTime:
     BaseState: 1
@@ -2164,7 +2164,7 @@ MonoBehaviour:
     UpgradeValueByLevelRange: 01000000010000000100000001000000
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 10
+      value: 0
     Desc: 
   Power:
     BaseState: 1.5
