@@ -75,7 +75,7 @@ public class EntranceSpaceUIController : UIController
         }
     }
 
-    public void OpenThisPanel()
+    public override void OpenThisPanel()
     {
         if (DOTween.IsTweening("EntranceUIPanel"))
         { return; }
@@ -93,7 +93,7 @@ public class EntranceSpaceUIController : UIController
         seq.SetId("EntranceUIPanel");
     }
 
-    public void CloseThisPanel()
+    public override void CloseThisPanel()
     {
         if (DOTween.IsTweening("EntranceUIPanel"))
         { return; }

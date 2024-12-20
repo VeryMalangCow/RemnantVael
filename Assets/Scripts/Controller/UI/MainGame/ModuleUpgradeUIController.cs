@@ -121,11 +121,6 @@ public class ModuleUpgradeUIController : UIController
             MI_InEquipTab,
             MI_InReinforceTab
         };
-
-        if (TryGetComponent(out CanvasGroup CG))
-        {
-            CG.alpha = 0.0f;
-        }
     }
 
     #endregion
@@ -147,31 +142,17 @@ public class ModuleUpgradeUIController : UIController
 
     #region Set Panel
 
-    public override void OpenThisPanel(float _DurTime)
+    public override void OpenThisPanel()
     {
-        if (IsTweening)
-        { return; }
+        base.OpenThisPanel();
 
-        base.OpenThisPanel(_DurTime);
-
-        if (TryGetComponent(out CanvasGroup CG))
-        {
-            CG.DOFade(1f, _DurTime);
-        }
     }
 
-    public override void CloseThisPanel(float _DurTime)
+    public override void CloseThisPanel()
     {
-        if (IsTweening)
-        { return; }
-
-        base.CloseThisPanel(_DurTime);
+        base.CloseThisPanel();
         ModuleUpgradeController.UsingShop = null;
 
-        if (TryGetComponent(out CanvasGroup CG))
-        {
-            CG.DOFade(0f, _DurTime);
-        }
     }
 
     #endregion
@@ -194,7 +175,7 @@ public class ModuleUpgradeUIController : UIController
             // ´Ý±â
             if (CurrentBtn == CloseBtn)
             {
-                MainGameUIManager.Instance.ModuleUpgrade_UIController.CloseThisPanel(TabDurTime);
+                MainGameUIManager.Instance.ModuleUpgrade_UIController.CloseThisPanel();
                 return;
             }
 
@@ -203,7 +184,7 @@ public class ModuleUpgradeUIController : UIController
             {
                 if (ThisPanelTabList[i].ThisTabBtn == CurrentBtn)
                 {
-                    ChangeThisPanel(TabDurTime, i);
+                    ChangeThisPanel(i);
                     ResetReinforcePanel();
                     return;
                 }

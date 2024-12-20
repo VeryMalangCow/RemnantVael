@@ -195,7 +195,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &362355958376846775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,8 +227,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ThisPanelTabList: []
   CurrentThisPanelTab: {fileID: 0}
-  TabDurTime: 0.4
-  IsTweening: 0
   ThisPanelInputMapName: 
   CurrentBtn: {fileID: 0}
   ThisCG: {fileID: 2441529832115577361}

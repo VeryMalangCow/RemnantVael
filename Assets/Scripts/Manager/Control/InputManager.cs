@@ -387,8 +387,7 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            MainGameUIManager.Instance.BaseUpgrade_UIController.CloseThisPanel(
-                MainGameUIManager.Instance.BaseUpgrade_UIController.TabDurTime);
+            MainGameUIManager.Instance.BaseUpgrade_UIController.CloseThisPanel();
         }
     }
 
@@ -409,8 +408,7 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.CloseThisPanel(
-                MainGameUIManager.Instance.ModuleUpgrade_UIController.TabDurTime);
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.CloseThisPanel();
         }
     }
 

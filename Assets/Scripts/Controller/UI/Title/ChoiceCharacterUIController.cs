@@ -86,8 +86,10 @@ public class ChoiceCharacterUIController : UIController
     }
 
 
-    public void OpenThisPanel()
+    public override void OpenThisPanel()
     {
+        //base
+
         if (DOTween.IsTweening("ChoiceCharacterUIPanel"))
         { return; }
 
@@ -104,8 +106,9 @@ public class ChoiceCharacterUIController : UIController
         seq.SetId("ChoiceCharacterUIPanel");
     }
 
-    public void CloseThisPanel()
+    public override void CloseThisPanel()
     {
+        //base
         if (DOTween.IsTweening("ChoiceCharacterUIPanel"))
         { return; }
 

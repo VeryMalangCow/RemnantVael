@@ -2112,6 +2112,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Module_Frame
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 74
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 5, y: 4, z: 5, w: 5}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fc4db804b871084e993ace448e2d239
+      internalID: 268721251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Module_Inner
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 55
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1666147287a4b847a1f45badca1a2aa
+      internalID: 232201530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2213,6 +2255,8 @@ TextureImporter:
       PlayerHUD_Minimap: -814347436
       PlayerHUD_Minimap_Inner: -302607964
       PlayerHUD_ModuleFrame: 779281117
+      PlayerHUD_Module_Frame: 268721251
+      PlayerHUD_Module_Inner: 232201530
       PlayerHUD_Player00Skill00: 987565495
       PlayerHUD_Player00Skill01: 1779296857
       PlayerHUD_PlayerStateFrame: 1978519953

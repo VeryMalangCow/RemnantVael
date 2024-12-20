@@ -205,10 +205,10 @@ RectTransform:
   - {fileID: 8898687228128106660}
   m_Father: {fileID: 1635573088660742393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 324, y: 0}
-  m_SizeDelta: {x: 324, y: 0}
+  m_SizeDelta: {x: 324, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1281229689255428229
 GameObject:
@@ -275,8 +275,6 @@ MonoBehaviour:
   - {fileID: 7242812692058387735}
   - {fileID: 1305257962069800240}
   CurrentThisPanelTab: {fileID: 3841518684844216861}
-  TabDurTime: 0.4
-  IsTweening: 0
   ThisPanelInputMapName: BaseUpgradeUI
   CurrentBtn: {fileID: 0}
   DamageShop:
@@ -591,7 +589,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 2880, y: 1265}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -667,10 +665,10 @@ RectTransform:
   - {fileID: 306987682483243344}
   m_Father: {fileID: 1635573088660742393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -648, y: 0}
-  m_SizeDelta: {x: 324, y: 0}
+  m_SizeDelta: {x: 324, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1657596864570865285
 GameObject:
@@ -806,6 +804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -876,10 +875,10 @@ RectTransform:
   - {fileID: 4321532855609019096}
   m_Father: {fileID: 1635573088660742393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 324, y: 0}
+  m_SizeDelta: {x: 324, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2076208191151027088
 GameObject:
@@ -918,7 +917,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -17.5}
+  m_AnchoredPosition: {x: 0, y: -280}
   m_SizeDelta: {x: 1620, y: 65}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &2126164951896386681
@@ -952,10 +951,10 @@ RectTransform:
   - {fileID: 3160691070980038718}
   m_Father: {fileID: 1635573088660742393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -324, y: 0}
-  m_SizeDelta: {x: 324, y: 0}
+  m_SizeDelta: {x: 324, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2563280939071646747
 GameObject:
@@ -1124,8 +1123,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 50}
-  m_SizeDelta: {x: 65, y: 65}
+  m_AnchoredPosition: {x: 129.30469, y: 67.05475}
+  m_SizeDelta: {x: 223.6092, y: 99.1095}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3334407909126082233
 GameObject:
@@ -1395,6 +1394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -1532,6 +1532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -1937,6 +1938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -2074,6 +2076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -2211,6 +2214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -2379,10 +2383,10 @@ RectTransform:
   - {fileID: 6044487463846778392}
   m_Father: {fileID: 1635573088660742393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 648, y: 0}
-  m_SizeDelta: {x: 324, y: 0}
+  m_SizeDelta: {x: 324, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &540465041583371754
 PrefabInstance:
@@ -2692,6 +2696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -2874,7 +2879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6868887455661649598, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7250642295116941991, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2890,15 +2895,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8230466649783861369, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8230466649783861369, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.917533
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8230466649783861369, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.14853302
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8777896170809132334, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: m_Layer
@@ -3260,6 +3265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -3582,6 +3588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -3898,6 +3905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -4209,6 +4217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -4531,6 +4540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -4858,6 +4868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -5178,6 +5189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -5688,6 +5700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -6008,6 +6021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -6330,6 +6344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -6639,6 +6654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -7144,6 +7160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -7701,6 +7718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -8251,6 +8269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -8567,6 +8586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -8644,7 +8664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 344808165165465339, guid: d325254de4df6b04f98f8c4384af5e75, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 100
+      value: 375
       objectReference: {fileID: 0}
     - target: {fileID: 344808165165465339, guid: d325254de4df6b04f98f8c4384af5e75, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8996,6 +9016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -9301,6 +9322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -9621,6 +9643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
@@ -9943,6 +9966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsCanSelect: 1
   TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}

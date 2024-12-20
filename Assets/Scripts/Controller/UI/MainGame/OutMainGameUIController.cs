@@ -14,7 +14,6 @@ public class OutMainGameUIController : UIController
     [SerializeField] private ModifyOwnEachBtn OptionBtn;
     [SerializeField] private ModifyOwnEachBtn QuitBtn;
 
-    [HideInInspector] private CanvasGroup ThisCG;
     #endregion
 
     #region Offset
@@ -32,12 +31,7 @@ public class OutMainGameUIController : UIController
 
     protected override void Offset_UI()
     {
-        if (ThisCG == null && this.TryGetComponent(out CanvasGroup cg))
-        {
-            ThisCG = cg;
-            ThisCG.alpha = 0f;
-        }
-        
+
     }
 
     #endregion
@@ -59,51 +53,6 @@ public class OutMainGameUIController : UIController
         {
             LoadingSceneManager.Instance.LoadScene("TitleLobby");
         }
-    }
-
-    #endregion
-
-    #region Set Panel
-
-    public void OpenThisPanel()
-    {
-        if (IsTweening)
-        { return; }
-
-        IsTweening = true;
-
-        InputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
-        InputManager.Instance.SetAim(false);
-        MainGameUIManager.Instance.CurrentOpening_UIController = this;
-        InputManager.Instance.InputMoveDir = Vector2.zero;
-
-        this.gameObject.SetActive(true);
-        ThisCG.DOFade(1f, TabDurTime)
-            .OnComplete(() =>
-            {
-                IsTweening = false;
-            });
-        
-
-    }
-
-    public void CloseThisPanel()
-    {
-        if (IsTweening)
-        { return; }
-
-        IsTweening = true;
-
-        InputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player"); 
-        InputManager.Instance.SetAim(true);
-        MainGameUIManager.Instance.CurrentOpening_UIController = null;
-
-        ThisCG.DOFade(0f, TabDurTime)
-            .OnComplete(() =>
-            {
-                this.gameObject.SetActive(false);
-                IsTweening = false;
-            });
     }
 
     #endregion

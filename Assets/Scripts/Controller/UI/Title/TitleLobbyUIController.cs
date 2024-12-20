@@ -72,8 +72,10 @@ public class TitleLobbyUIController : UIController
 
     #region Set Panel
 
-    public void OpenThisPanel()
+    public override void OpenThisPanel()
     {
+        //base.OpenThisPanel();
+
         if (DOTween.IsTweening("TitleUIPanel"))
         { return; }
 
@@ -91,8 +93,10 @@ public class TitleLobbyUIController : UIController
         seq.SetId("TitleUIPanel");
     }
 
-    public void CloseThisPanel()
+    public override void CloseThisPanel()
     {
+        //base.CloseThisPanel();
+
         if (DOTween.IsTweening("TitleUIPanel"))
         { return; }
 

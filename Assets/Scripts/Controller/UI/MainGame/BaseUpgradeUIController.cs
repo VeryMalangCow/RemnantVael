@@ -128,15 +128,7 @@ public class BaseUpgradeUIController : UIController
 
     protected override void Offset_UI()
     {
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
-        {
-            int index = i;
-        }
-
-        if (TryGetComponent(out CanvasGroup CG))
-        {
-            CG.alpha = 0.0f;
-        }
+        
     }
 
     #endregion
@@ -185,7 +177,7 @@ public class BaseUpgradeUIController : UIController
         // ´Ý±â
         if (CurrentBtn == CloseBtn)
         {
-            MainGameUIManager.Instance.BaseUpgrade_UIController.CloseThisPanel(TabDurTime);
+            MainGameUIManager.Instance.BaseUpgrade_UIController.CloseThisPanel();
             return;
         }
 
@@ -194,7 +186,7 @@ public class BaseUpgradeUIController : UIController
         {
             if (ThisPanelTabList[i].ThisTabBtn == CurrentBtn)
             {
-                ChangeThisPanel(TabDurTime, i);
+                ChangeThisPanel(i);
                 return;
             }
         }
@@ -204,35 +196,17 @@ public class BaseUpgradeUIController : UIController
 
     #region Set Panel
 
-    public override void OpenThisPanel(float _DurTime)
+    public override void OpenThisPanel()
     {
-        if (IsTweening)
-        { return; }
+        base.OpenThisPanel();
 
-        base.OpenThisPanel(_DurTime);
-
-        if(TryGetComponent(out CanvasGroup CG))
-        {
-            CG.DOFade(1f, _DurTime);
-        }
-
-        ThisDescPanel.OpenThisPanel(_DurTime);
     }
 
-    public override void CloseThisPanel(float _DurTime)
+    public override void CloseThisPanel()
     {
-        if (IsTweening)
-        { return; }
-
-        base.CloseThisPanel(_DurTime);
+        base.CloseThisPanel();
         BaseUpgradeController.UsingShop = null;
 
-        if (TryGetComponent(out CanvasGroup CG))
-        {
-            CG.DOFade(0f, _DurTime);
-        }
-
-        ThisDescPanel.CloseThisPanel(_DurTime);
     }
 
     #endregion

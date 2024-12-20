@@ -40,33 +40,8 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
     {
         if (ThisRT == null && this.TryGetComponent(out RectTransform rt))
         {
-            ThisRT = rt; 
-            OriginalHeight = ThisRT.rect.height;
-
-            ThisRT.sizeDelta = new Vector2(ThisRT.sizeDelta.x, 0f);
+            ThisRT = rt;
         }
-        if (ThisCG == null && this.TryGetComponent(out CanvasGroup cg))
-        { 
-            ThisCG = cg;
-
-            ThisCG.alpha = 0f;
-        }
-    }
-
-    #endregion
-
-    #region Open / Close
-
-    public void OpenThisPanel(float _DurTime)
-    {
-        ThisRT.DOSizeDelta(new Vector2(ThisRT.sizeDelta.x, OriginalHeight), _DurTime);
-        ThisCG.DOFade(1f, _DurTime);
-    }
-
-    public void CloseThisPanel(float _DurTime)
-    {
-        ThisRT.DOSizeDelta(new Vector2(ThisRT.sizeDelta.x, 0f), _DurTime);
-        ThisCG.DOFade(0f, _DurTime);
     }
 
     #endregion

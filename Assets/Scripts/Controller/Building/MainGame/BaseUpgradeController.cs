@@ -30,7 +30,7 @@ public class BaseUpgradeController : DestructibleBuildingController, IInteract
         if (IsOn)
         {
             BaseUpgradeController.UsingShop = this;
-            MainGameUIManager.Instance.BaseUpgrade_UIController.OpenThisPanel(MainGameUIManager.Instance.BaseUpgrade_UIController.TabDurTime);
+            MainGameUIManager.Instance.BaseUpgrade_UIController.OpenThisPanel();
         }
         else if (!IsOn && PlayerManager.Instance.PlayerController.CurrentEC.Value > 0)
         {
@@ -54,7 +54,7 @@ public class BaseUpgradeController : DestructibleBuildingController, IInteract
 
         if (MainGameUIManager.Instance.BaseUpgrade_UIController.gameObject.activeSelf)
         {
-            MainGameUIManager.Instance.BaseUpgrade_UIController.CloseThisPanel(MainGameUIManager.Instance.BaseUpgrade_UIController.TabDurTime);
+            MainGameUIManager.Instance.BaseUpgrade_UIController.CloseThisPanel();
         }
     }
 

@@ -9,7 +9,6 @@ public class ModifyEachTab : UIModule, IScrollHandler
 
     [Header("=== RT")]
     [SerializeField] public RectTransform ThisPanelRT;
-    [SerializeField] public Vector2 ThisOriginalPanelSize;
     [SerializeField] public ModifyOwnEachBtn ThisTabBtn;
 
     [Header("=== Scroll Bar")]
