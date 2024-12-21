@@ -34,7 +34,7 @@ public class PlayerController : MovableObject
 
     #endregion
 
-    #region Item
+    #region - Item
 
     [Header("-- Energy")]
     [SerializeField] public BaseUpgradeState<float> MaxEP;

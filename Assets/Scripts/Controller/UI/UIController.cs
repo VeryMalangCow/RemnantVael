@@ -82,7 +82,9 @@ public abstract class UIController : MonoBehaviour
     private void OpenWindow(ModifyEachTab _TargetTab)
     {
         CloseWindowAll(ThisPanelTabList);
-        _TargetTab.ThisPanelRT.gameObject.SetActive(true);
+        _TargetTab.ThisPanelRT.gameObject.SetActive(true); 
+        if (_TargetTab.ThisTabBtn.transform.GetChild(0).TryGetComponent(out CanvasGroup cg))
+        { cg.alpha = 0.5f; }
     }
 
     private void CloseWindowAll(List<ModifyEachTab> _AllWindow)
@@ -90,6 +92,8 @@ public abstract class UIController : MonoBehaviour
         for (int i = 0; i < _AllWindow.Count; i++)
         {
             _AllWindow[i].ThisPanelRT.gameObject.SetActive(false);
+            if (_AllWindow[i].ThisTabBtn.transform.GetChild(0).TryGetComponent(out CanvasGroup cg))
+            { cg.alpha = 0.1f; }
         }
     }
 

@@ -1,7 +1,8 @@
 using UnityEngine;
 using UniRx;
-using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine.UI;
 
 public class BaseUpgradeUIController : UIController
 {
@@ -55,6 +56,12 @@ public class BaseUpgradeUIController : UIController
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] private ModifyOwnEachBtn CloseBtn;
+
+    [Header("-- MainColor")]
+    [SerializeField] public List<Component> MainColorCompList;
+    [Header("-- SubColor")]
+    [SerializeField] public List<CanvasGroup> LightTabCGList;
+    [SerializeField] public List<Component> SubColorCompList;
 
     [HideInInspector] public List<OneOffShopEachData<float>> AllUpgradeDataList_Float;
     [HideInInspector] public List<OneOffShopEachData<int>> AllUpgradeDataList_Int;
@@ -128,7 +135,13 @@ public class BaseUpgradeUIController : UIController
 
     protected override void Offset_UI()
     {
-        
+        Color mainClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
+        ColorSet(mainClr, MainColorCompList);
+
+        Color subClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, true);
+        ColorSet(subClr, SubColorCompList);
+
+        AlphaSet(0.1f, LightTabCGList);
     }
 
     #endregion
@@ -195,6 +208,29 @@ public class BaseUpgradeUIController : UIController
     #endregion
 
     #region Set Panel
+
+    private void AlphaSet(float _A, List<CanvasGroup> _CG)
+    {
+        for (int i = 0; i < _CG.Count; i++)
+        {
+            _CG[i].alpha = _A;
+        }
+    }
+
+    private void ColorSet(Color _Clr, List<Component> _ApplyCompList)
+    {
+        for (int i = 0; i < _ApplyCompList.Count; i++)
+        {
+            if (_ApplyCompList[i].TryGetComponent(out TMP_Text tmp))
+            {
+                tmp.color = _Clr;
+            }
+            else if (_ApplyCompList[i].TryGetComponent(out Image img))
+            {
+                img.color = _Clr;
+            }
+        }
+    }
 
     public override void OpenThisPanel()
     {
@@ -263,6 +299,12 @@ public class OneOffShopEachData<T>
                    Upgrade_MTAFB.Set(currentLv, 0);
                }
            });
+
+        _Owner.MainColorCompList.Add(Upgrade_MTAFB.SkillNameTxt);
+        _Owner.SubColorCompList.AddRange(Upgrade_MTAFB.ThisMIAAT.Img_List);
+        _Owner.MainColorCompList.Add(Upgrade_MTAFB.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+        _Owner.MainColorCompList.Add(Upgrade_MTAFB.SimpleDescTxt);
+        _Owner.MainColorCompList.Add(Upgrade_BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
     }
 
     public void TryBuy()

@@ -14,7 +14,7 @@ public class ModifyImgAmountAndTxt : UIModule
     [SerializeField] public List<Image> Img_List;
     [SerializeField] public Sprite ThisSprite;
     [SerializeField] public TMP_Text Txt_ExtraAmount;
-    [SerializeField] private Image InnerImg;
+    //[SerializeField] private Image InnerImg;
     
     Sequence DotweenSeq;
 
@@ -98,12 +98,12 @@ public class ModifyImgAmountAndTxt : UIModule
             TurnOff<TMP_Text>(Txt_ExtraAmount);
         }
 
-        DOTween.Kill(InnerImg);
+        /*DOTween.Kill(InnerImg);
         InnerImg.DOFade(1f, 0.2f)
             .OnComplete(() =>
             {
                 InnerImg.DOFade(0.25f, 0.2f);
-            });
+            });*/
     }
 
     public void ChangeOnOffImg(Image _Img, bool _OnOff, float _DoScale, float _DurTime)

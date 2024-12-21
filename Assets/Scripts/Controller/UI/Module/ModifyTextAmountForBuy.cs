@@ -22,15 +22,14 @@ public class ModifyTextAmountForBuy : UIModule, IPointerEnterHandler, IPointerEx
     [Space(10)]
     [Header("=== Always Component")]
     [SerializeField] private Button AlwaysPanelBtn;
-    [SerializeField] private TMP_Text SkillNameTxt;
-    [SerializeField] private TMP_Text SkillLvTxt;
+    [SerializeField] public TMP_Text SkillNameTxt;
     [SerializeField] private Image SkillIconImg;
-    [SerializeField] private Image UpgradeIconImg;
 
     [Space(10)]
     [Header("=== Open Component")]
-    [SerializeField] private ModifyImgAmountAndTxt ThisMIAAT;
-    [SerializeField] private Image CostImg;
+    [SerializeField] public ModifyImgAmountAndTxt ThisMIAAT;
+    [SerializeField] public TMP_Text SimpleDescTxt;
+    [SerializeField] public Image CostImg;
     [SerializeField] private List<Sprite> CostSpriteList;
 
     #endregion
