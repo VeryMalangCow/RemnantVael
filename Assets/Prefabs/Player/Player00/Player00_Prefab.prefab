@@ -822,7 +822,9 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 30
-    Desc: DMG Desc
+    Name: DMG
+    Desc: Basic damage given to enemies. This goes into sum, and is calculated as
+      the first of all operations.
   AliveTime:
     BaseState: 1
     CurrentLevel:
@@ -831,6 +833,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 
     ActualState:
       value: 1
+    Name: 
     Desc: 
   MuzzleSpeed:
     BaseState: 1
@@ -840,6 +843,7 @@ MonoBehaviour:
     NeedPayByLevelRange: 
     ActualState:
       value: 1
+    Name: 
     Desc: 
   ROF:
     BaseState: 5
@@ -853,7 +857,9 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 5
-    Desc: ROF Desc
+    Name: ROF
+    Desc: It means Rate of Fire. It is the default attack that fires per second,
+      and it applies at the speed at which both sides fire at once.
   CC:
     BaseState: 0.1
     CurrentLevel:
@@ -866,7 +872,9 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 0.1
-    Desc: 
+    Name: CC
+    Desc: This refers to the probability of a Critical Chance, which is calculated
+      as a sum. The bullets or skills fired look slightly different.
   CD:
     BaseState: 1.5
     CurrentLevel:
@@ -879,7 +887,9 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1.5
-    Desc: 
+    Name: CD
+    Desc: It refers to the multiple of the Critical Damage, which is calculated as
+      the sum of the multiple. The shot bullets or skills look slightly different.
   AccuracyRate:
     BaseState: 87
     CurrentLevel:
@@ -892,7 +902,8 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 87
-    Desc: 
+    Name: AR
+    Desc: It means Accuracy Rate, and the higher the Aim attacks in the desired direction.
   KnockbackPower:
     BaseState: 5
     CurrentLevel:
@@ -905,7 +916,8 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 5
-    Desc: 
+    Name: KB
+    Desc: It means the power of KnockBack, and the enemy is pushed harder.
   CurrentDelayROF: 0
   BulletSpawnTFs:
   - {fileID: 4586805314071208296}
@@ -1266,7 +1278,10 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 0.5
-    Desc: 
+    Name: Avoid Chance
+    Desc: Increase the probability of evading an attack. High probability to avoid
+      attacks.When avoiding, the time is carried out, it does not affect EP or additional
+      effects.
   IsInvincible: 0
   MaxInvincibleTime: 0.75
   CurrentInvincibleTime: 0
@@ -1282,7 +1297,9 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 100
-    Desc: 
+    Name: MaxEP
+    Desc: Upgrade maximum energy points. Used as a vitality and interactive and trading
+      Main Material.
   CurrentEP:
     value: 100
   SpawnESMultiple:
@@ -1297,7 +1314,9 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1
-    Desc: 
+    Name: ES Value
+    Desc: When you acquire energy shrapnels, it's a multiple of the EP you get. This
+      proceeds as a multiple, and the EPs with the enemy decreasing do not increase.
   NeedEP_ForSkillMultiple:
     BaseState: 1
     CurrentLevel:
@@ -1310,7 +1329,10 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1
-    Desc: 
+    Name: Skill Cost
+    Desc: A multiple that reduces the amount of EP consumed by skill usage. It is
+      a multiple that reduces the amount of EP consumed by skill use. It is multiplied,
+      and does not affect cool time, attack, or tier.
   ES_Sprite: {fileID: -686167499, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   CurrentBS:
     value: 0
@@ -1337,7 +1359,9 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 3
-    Desc: 
+    Name: Speed
+    Desc: This is the speed of the basic movement. The speed of movement that decreases
+      in the event of a shooting is affected by this default speed.
   WalkSpeedWhenShotMultiple:
     BaseState: 0.3
     CurrentLevel:
@@ -1350,7 +1374,9 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 0.3
-    Desc: 
+    Name: Speed When Fire
+    Desc: It is a reduced multiple of the speed at the time of shooting, which is
+      calculated as a multiple of the basic speed.
   DashController: {fileID: 8889954111637353817}
   CurrentInteractableGOList: []
   TargetBoostlv: 0
@@ -1375,7 +1401,9 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1
-    Desc: 
+    Name: Boost Cost
+    Desc: The amount of EP used per second for the boost level, which acts as a multiple
+      and applies to all levels equally.
   LowerController: {fileID: 6070200958351899230}
   ThisPlayerMaterial_000: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
   ThisPlayerMaterial_001: {fileID: 2100000, guid: 72598d291dfffcb469dd16ffb373bfc0, type: 2}
@@ -1415,6 +1443,12 @@ MonoBehaviour:
   AimPrefab: {fileID: 6141677161167260688, guid: c40efc2302d823f4385722f2c7ce4237, type: 3}
   AimRoundController: {fileID: 2787329426438936234}
   ThisWayPoint: {fileID: 6231064731411430748}
+  TabStringList:
+  - Attack
+  - Energy Point
+  - Movement
+  - Missile Launcher
+  - Shock Waver
   ExecutionInterval: 0.75
   Skill0Interval: 0.5
   Skill1Interval: 0.5
@@ -1445,7 +1479,9 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 5
-    Desc: 
+    Name: Dash Power
+    Desc: It's Dash power. Speed and instantaneous travel distance. Dash cannot be
+      stopped in the middle.
   DashDur: 0.3
   RotateLerpValue: 30
   CurrentDashProcessTime: 0
@@ -1993,7 +2029,8 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1
-    Desc: 
+    Name: Cooltime
+    Desc: Cool time for skills. Calculated as a sum.
   CurrentCooltime: 0
   NeedEP:
     value: 15
@@ -2005,7 +2042,8 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 0
-    Desc: 
+    Name: Tier
+    Desc: Skill tier. Range increases by tier.
   Power:
     BaseState: 5
     CurrentLevel:
@@ -2018,7 +2056,8 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 5
-    Desc: 
+    Name: Power
+    Desc: Damage to skill. Shockwave damages enemy EP.
   PlayerController: {fileID: 0}
   ThisHST: {fileID: 3772518435837473010}
   _ColSize: {x: 0.75, y: 0.5}
@@ -2153,7 +2192,8 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1
-    Desc: 
+    Name: Cooltime
+    Desc: Cool time for skills. Calculated as a sum.
   CurrentCooltime: 0
   NeedEP:
     value: 10
@@ -2165,7 +2205,9 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 0
-    Desc: 
+    Name: Tier
+    Desc: Skill tier. It's also the number of consecutive launches of missiles. (Tier
+      +1)
   Power:
     BaseState: 1.5
     CurrentLevel:
@@ -2178,7 +2220,8 @@ MonoBehaviour:
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1.5
-    Desc: 
+    Name: Power
+    Desc: Damage multiple of missile calculated as multiple to basic attack.
   PlayerController: {fileID: 0}
   ThisHST: {fileID: 6021120989462345684}
   ShotDelay: 0.1

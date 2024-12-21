@@ -24,10 +24,7 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
     [SerializeField] private TMP_Text NextStateTxt;
     [SerializeField] private GameObject CompletedSignGO;
 
-    [Space(10)]
-    [Header("=== Description")]
-    [SerializeField] private TMP_Text DescriptionTxt;
-
+    // Other
     [HideInInspector] private RectTransform ThisRT;
     [HideInInspector] private float OriginalHeight;
     [HideInInspector] private CanvasGroup ThisCG;
@@ -125,7 +122,6 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
             CompletedSignGO.gameObject.SetActive(true);
         }
 
-        DescriptionTxt.text = _MTAFB.Desc.ToString();
     }
 
     #endregion

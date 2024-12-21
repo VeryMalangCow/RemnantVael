@@ -12,6 +12,7 @@ public class ModifyTextAmountForBuy : UIModule, IPointerEnterHandler, IPointerEx
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] private RectTransform ThisRT;
+    [SerializeField] public List<Image> InnerImgList;
 
     [Space(10)]
     [Header("=== Value")]
@@ -23,6 +24,8 @@ public class ModifyTextAmountForBuy : UIModule, IPointerEnterHandler, IPointerEx
     [Header("=== Always Component")]
     [SerializeField] private Button AlwaysPanelBtn;
     [SerializeField] public TMP_Text SkillNameTxt;
+    [SerializeField] public TMP_Text SkillLvTxt;
+    [SerializeField] public TMP_Text SkillOpenSimpleTxt;
     [SerializeField] private Image SkillIconImg;
 
     [Space(10)]
@@ -48,11 +51,25 @@ public class ModifyTextAmountForBuy : UIModule, IPointerEnterHandler, IPointerEx
     {
         ThisMIAAT.SetAmount(_Level, 0.1f);
         SetCostImg(_CostValue);
+        SkillLvTxt.text = "[ LV : <b><#FFFFFF>" + _Level + "</color></b> ]";
     }
 
     public void SetCostImg(int _CostValue)
     {
         CostImg.sprite = CostSpriteList[_CostValue];
+    }
+
+    public void SetInnerAlpha(float _A)
+    {
+        for (int i = 0; i < InnerImgList.Count; i++) 
+        {
+            if (DOTween.IsTweening(InnerImgList[i]))
+            { DOTween.Complete(InnerImgList[i]); }
+
+            Sequence seq = DOTween.Sequence();
+            seq.Append(InnerImgList[i].DOFade(1, 0.2f));
+            seq.Append(InnerImgList[i].DOFade(_A, 0.2f));
+        }
     }
 
     #endregion

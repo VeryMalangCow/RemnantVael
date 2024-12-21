@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -186,6 +187,14 @@ public class PlayerController : MovableObject
     [Space(10)]
     [Header("=== WayPoint")]
     [SerializeField] public WayPoint ThisWayPoint;
+
+    #endregion
+
+    #region - UI
+
+    [Space(10)]
+    [Header("=== BUUI")]
+    [SerializeField] public List<string> TabStringList;
 
     #endregion
 
@@ -1032,6 +1041,7 @@ public class BaseUpgradeState<T>
     public List<int> NeedPayByLevelRange;
     public ReactiveProperty<T> ActualState;
 
-    [TextArea] 
+    public string Name;
+    [TextArea]
     public string Desc;
 }

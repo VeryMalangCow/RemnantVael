@@ -3,6 +3,7 @@ using UniRx;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class BaseUpgradeUIController : UIController
 {
@@ -56,12 +57,14 @@ public class BaseUpgradeUIController : UIController
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] private ModifyOwnEachBtn CloseBtn;
+    [SerializeField] public Image FrameInnerImg;
 
     [Header("-- MainColor")]
-    [SerializeField] public List<Component> MainColorCompList;
+    [SerializeField] public List<TMP_Text> TabTxtList;
+    [HideInInspector] public List<Component> MainColorCompList;
     [Header("-- SubColor")]
     [SerializeField] public List<CanvasGroup> LightTabCGList;
-    [SerializeField] public List<Component> SubColorCompList;
+    [HideInInspector] public List<Component> SubColorCompList;
 
     [HideInInspector] public List<OneOffShopEachData<float>> AllUpgradeDataList_Float;
     [HideInInspector] public List<OneOffShopEachData<int>> AllUpgradeDataList_Int;
@@ -135,13 +138,20 @@ public class BaseUpgradeUIController : UIController
 
     protected override void Offset_UI()
     {
+        SubColorCompList.Add(FrameInnerImg);
+
+        SetTabTxt(TabTxtList);
+        TabTxtList.Clear(); TabTxtList = null;
+
+        SetTabLightAlpha(0.1f, LightTabCGList);
+        LightTabCGList.Clear(); LightTabCGList = null;
+
         Color mainClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
-        ColorSet(mainClr, MainColorCompList);
+        SetColor(mainClr, MainColorCompList);
 
         Color subClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, true);
-        ColorSet(subClr, SubColorCompList);
+        SetColor(subClr, SubColorCompList);
 
-        AlphaSet(0.1f, LightTabCGList);
     }
 
     #endregion
@@ -209,25 +219,41 @@ public class BaseUpgradeUIController : UIController
 
     #region Set Panel
 
-    private void AlphaSet(float _A, List<CanvasGroup> _CG)
+    private void SetTabTxt(List<TMP_Text> _TxtList)
+    {
+        for (int i = 0; i < _TxtList.Count; i++)
+        {
+            _TxtList[i].text = PlayerManager.Instance.PlayerController.TabStringList[i];
+            MainColorCompList.Add(_TxtList[i]);
+        }
+    }
+
+    private void SetTabLightAlpha(float _A, List<CanvasGroup> _CG)
     {
         for (int i = 0; i < _CG.Count; i++)
         {
             _CG[i].alpha = _A;
+            if (_CG[i].gameObject.TryGetComponent(out Image img))
+            { SubColorCompList.Add(img); }
         }
+
     }
 
-    private void ColorSet(Color _Clr, List<Component> _ApplyCompList)
+    private void SetColor(Color _Clr, List<Component> _ApplyCompList)
     {
+        
         for (int i = 0; i < _ApplyCompList.Count; i++)
         {
+            Color clr = _Clr;
             if (_ApplyCompList[i].TryGetComponent(out TMP_Text tmp))
             {
-                tmp.color = _Clr;
+                clr.a = tmp.color.a;
+                tmp.color = clr;
             }
             else if (_ApplyCompList[i].TryGetComponent(out Image img))
             {
-                img.color = _Clr;
+                clr.a = img.color.a;
+                img.color = clr;
             }
         }
     }
@@ -236,6 +262,12 @@ public class BaseUpgradeUIController : UIController
     {
         base.OpenThisPanel();
 
+        if (DOTween.IsTweening(FrameInnerImg))
+        { DOTween.Complete(FrameInnerImg); }
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(FrameInnerImg.DOFade(1, 0.5f));
+        seq.Append(FrameInnerImg.DOFade(0.5f, 0.5f));
     }
 
     public override void CloseThisPanel()
@@ -279,6 +311,9 @@ public class OneOffShopEachData<T>
         Upgrade_BUS = _Upgrade_BUS;
         Upgrade_BUOTD = _Upgrade_BUOTD;
 
+        Upgrade_MTAFB.SkillNameTxt.text = Upgrade_BUS.Name;
+        Upgrade_MTAFB.SkillOpenSimpleTxt.text = Upgrade_BUS.Desc;
+
         if (Upgrade_BuyBtn != null)
         {
             Upgrade_BuyBtn.Offset();
@@ -298,10 +333,13 @@ public class OneOffShopEachData<T>
                {
                    Upgrade_MTAFB.Set(currentLv, 0);
                }
+               Upgrade_MTAFB.SetInnerAlpha((float)currentLv/(float)Upgrade_BUOTD.BU_EachLevelDataList.Count);
            });
 
         _Owner.MainColorCompList.Add(Upgrade_MTAFB.SkillNameTxt);
+        _Owner.SubColorCompList.Add(Upgrade_MTAFB.SkillLvTxt);
         _Owner.SubColorCompList.AddRange(Upgrade_MTAFB.ThisMIAAT.Img_List);
+        _Owner.SubColorCompList.AddRange(Upgrade_MTAFB.InnerImgList);
         _Owner.MainColorCompList.Add(Upgrade_MTAFB.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
         _Owner.MainColorCompList.Add(Upgrade_MTAFB.SimpleDescTxt);
         _Owner.MainColorCompList.Add(Upgrade_BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());

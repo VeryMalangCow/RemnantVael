@@ -756,7 +756,7 @@ TextureImporter:
         width: 35
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -777,7 +777,7 @@ TextureImporter:
         width: 35
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -798,7 +798,7 @@ TextureImporter:
         width: 35
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -806,6 +806,90 @@ TextureImporter:
       bones: []
       spriteID: 9626940e572a2904ebcb67ad978a3d23
       internalID: -49969281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_DescPanel_Frame
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 490
+        width: 67
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 33, y: 10, z: 33, w: 10}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67cacaf328dd4a54abc766ae56ee9969
+      internalID: 466107931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_EachPart_AlwaysInner
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 409
+        width: 7
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 3, y: 15, z: 3, w: 15}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44abe3b60a1c7e043a18e7f7ecc0182a
+      internalID: -533499275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_EachPart_ExtraInner
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 411
+        width: 6
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 2, y: 13, z: 3, w: 13}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3503f334ac5a39429266d44a21289f5
+      internalID: -607982270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_Panel_Inner
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 419
+        width: 58
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 29, y: 5, z: 28, w: 5}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa47975ca5983b746a5df821d361f54c
+      internalID: -97725157
       vertices: []
       indices: 
       edges: []
@@ -822,9 +906,12 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       BUUI_BuyBtn: -1066205944
+      BUUI_DescPanel_Frame: 466107931
       BUUI_EachPart_AlwaysFrame: -1677275021
+      BUUI_EachPart_AlwaysInner: -533499275
       BUUI_EachPart_BG: -945218170
       BUUI_EachPart_ExtraFrame: -1832451910
+      BUUI_EachPart_ExtraInner: -607982270
       BUUI_Icon_Acc: 679182370
       BUUI_Icon_Avoid: -870920893
       BUUI_Icon_BoostCost: -2109361914
@@ -852,6 +939,7 @@ TextureImporter:
       BUUI_Panel_Frame: -2111266701
       BUUI_Panel_Frame_One: 384625518
       BUUI_Panel_InOnlyOne: -1284184892
+      BUUI_Panel_Inner: -97725157
       BUUI_ScrollBar_Actual: 705351345
       BUUI_ScrollBar_BG: 1929474852
       BUUI_Tab_Frame: 1469227349
