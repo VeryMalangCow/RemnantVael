@@ -814,13 +814,13 @@ TextureImporter:
       name: BUUI_DescPanel_Frame
       rect:
         serializedVersion: 2
-        x: 112
-        y: 490
-        width: 67
-        height: 21
+        x: 195
+        y: 462
+        width: 100
+        height: 49
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 33, y: 10, z: 33, w: 10}
+      border: {x: 53, y: 24, z: 33, w: 24}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -840,7 +840,7 @@ TextureImporter:
         width: 7
         height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 3, y: 15, z: 3, w: 15}
       outline: []
       physicsShape: []
@@ -861,7 +861,7 @@ TextureImporter:
         width: 6
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 2, y: 13, z: 3, w: 13}
       outline: []
       physicsShape: []
@@ -882,7 +882,7 @@ TextureImporter:
         width: 58
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 29, y: 5, z: 28, w: 5}
       outline: []
       physicsShape: []
@@ -890,6 +890,132 @@ TextureImporter:
       bones: []
       spriteID: aa47975ca5983b746a5df821d361f54c
       internalID: -97725157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_Icon_Graph
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 477
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2130446e896865147b50c404af435f32
+      internalID: -642065885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_Icon_UpValue
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 477
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 650baece05adccc4ab68896191e3bfdc
+      internalID: -1511995771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_DescPanel_GraphArea
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 435
+        width: 31
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2979d2218d921f54f84708b2592998fc
+      internalID: -446813996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_DescPanel_NextValueArrow
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 440
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: feb16ba158fca9b458569e0b8e37be93
+      internalID: -1804569337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_DescPanel_CenterLoad
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 435
+        width: 31
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 15, y: 9, z: 15, w: 9}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ce725c9d37ad5c4cb9ffabe3b18090d
+      internalID: -531437595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_0
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 368
+        width: 201
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d3a86693374fb6419358f6da8e8e584
+      internalID: -1359354546
       vertices: []
       indices: 
       edges: []
@@ -905,8 +1031,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      BUUI_0: -1359354546
       BUUI_BuyBtn: -1066205944
+      BUUI_DescPanel_CenterLoad: -531437595
       BUUI_DescPanel_Frame: 466107931
+      BUUI_DescPanel_GraphArea: -446813996
+      BUUI_DescPanel_NextValueArrow: -1804569337
       BUUI_EachPart_AlwaysFrame: -1677275021
       BUUI_EachPart_AlwaysInner: -533499275
       BUUI_EachPart_BG: -945218170
@@ -919,6 +1049,7 @@ TextureImporter:
       BUUI_Icon_CD: 1484816551
       BUUI_Icon_DMG: 1084081657
       BUUI_Icon_DashPower: -570042651
+      BUUI_Icon_Graph: -642065885
       BUUI_Icon_KB: 512449104
       BUUI_Icon_MakeECCost: 1859035009
       BUUI_Icon_MaxEP: -1740151326
@@ -928,6 +1059,7 @@ TextureImporter:
       BUUI_Icon_SkillCost: 709049031
       BUUI_Icon_SkillPower: 3456623
       BUUI_Icon_Tier: -49969281
+      BUUI_Icon_UpValue: -1511995771
       BUUI_Icon_Upgrade: 828722610
       BUUI_Icon_WalkSpeed: -1727864390
       BUUI_Icon_WalkSpeedWhenShooting: -1297168354

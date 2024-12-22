@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ModifyDescPanel_ForBaseUpgrade : UIModule
 {
@@ -11,17 +12,27 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
     [Header("<><><><><> Desc _ For BaseUpgrade")]
 
     [Space(10)]
+    [Header("=== Center")]
+    [SerializeField] public TMP_Text CenterName;
+
+    [Space(10)]
     [Header("=== Upgrade Graph")]
-    [SerializeField] private List<TMP_Text> UpgradeGraphLV_TxtList;
-    [SerializeField] private List<TMP_Text> UpgradeGraphDetailState_TxtList;
-    [SerializeField] private RectTransform CurrentUpgradeGraphSpot;
+    [SerializeField] public TMP_Text UpgradeGraphLVTxt;
+    [SerializeField] public List<TMP_Text> UpgradeGraphLV_TxtList;
+    [SerializeField] public TMP_Text UpgradeGraphValueTxt;
+    [SerializeField] public List<TMP_Text> UpgradeGraphDetailState_TxtList;
+    [SerializeField] public RectTransform CurrentUpgradeGraphSpot;
+    [SerializeField] private float BaseSpotX;
+    [SerializeField] private float IntervalSpotX;
 
     [Space(10)]
     [Header("=== Current & Next Upgrade")]
+    [SerializeField] public TMP_Text UpgradeNextLVTxt;
+    [SerializeField] public TMP_Text UpgradeNextValueTxt;
     [SerializeField] private TMP_Text CurrentLvTxt;
     [SerializeField] private TMP_Text CurrentStateTxt;
-    [SerializeField] private TMP_Text NextLvTxt;
-    [SerializeField] private TMP_Text NextStateTxt;
+    [SerializeField] public TMP_Text NextLvTxt;
+    [SerializeField] public TMP_Text NextStateTxt;
     [SerializeField] private GameObject CompletedSignGO;
 
     // Other
@@ -48,6 +59,8 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
     public void SetDesc<T>(BaseUpgradeState<T> _MTAFB)
     {
         // Graph
+        CenterName.text = _MTAFB.Name;
+
         for (int i = 0; i < UpgradeGraphDetailState_TxtList.Count; i++) 
         {
             if (_MTAFB.BaseState.GetType() == typeof(float))
@@ -71,22 +84,22 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
         if (0 <= lv && lv <= 2)
         {
             CurrentUpgradeGraphSpot.anchoredPosition 
-                = new Vector2(0, CurrentUpgradeGraphSpot.anchoredPosition.y);
+                = new Vector2(BaseSpotX, CurrentUpgradeGraphSpot.anchoredPosition.y);
         }
         else if (3 <= lv && lv <= 5)
         {
             CurrentUpgradeGraphSpot.anchoredPosition
-                = new Vector2(125, CurrentUpgradeGraphSpot.anchoredPosition.y);
+                = new Vector2(BaseSpotX + (IntervalSpotX * 1), CurrentUpgradeGraphSpot.anchoredPosition.y);
         }
         else if (6 <= lv && lv <= 8)
         {
             CurrentUpgradeGraphSpot.anchoredPosition
-                = new Vector2(250, CurrentUpgradeGraphSpot.anchoredPosition.y);
+                = new Vector2(BaseSpotX + (IntervalSpotX * 2), CurrentUpgradeGraphSpot.anchoredPosition.y);
         }
         else if (9 == lv)
         {
             CurrentUpgradeGraphSpot.anchoredPosition
-                = new Vector2(375, CurrentUpgradeGraphSpot.anchoredPosition.y);
+                = new Vector2(BaseSpotX + (IntervalSpotX * 3), CurrentUpgradeGraphSpot.anchoredPosition.y);
         }
         else
         {

@@ -13,6 +13,11 @@ public class BaseUpgradeUIController : UIController
     [Header("<><><><><> Base Upgrade Shop")]
 
     [Space(10)]
+    [Header("=== Label")]
+    [SerializeField] private TMP_Text LabelTxt;
+    [SerializeField] private string LabelName;
+
+    [Space(10)]
     [Header("=== Skill")]
 
     [Space(10)]
@@ -134,10 +139,34 @@ public class BaseUpgradeUIController : UIController
             MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.SetCostText(
                 _Value * PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.NeedEP.Value);
         });
+
+        
     }
 
     protected override void Offset_UI()
     {
+        if (ThisDescPanel.CurrentUpgradeGraphSpot.gameObject.TryGetComponent(out Image img))
+        { MainColorCompList.Add(img); }
+
+        MainColorCompList.Add(ThisDescPanel.CenterName);
+
+        // Graph
+        MainColorCompList.Add(ThisDescPanel.UpgradeGraphValueTxt);
+        MainColorCompList.AddRange(ThisDescPanel.UpgradeGraphDetailState_TxtList);
+
+        SubColorCompList.Add(ThisDescPanel.UpgradeGraphLVTxt);
+        SubColorCompList.AddRange(ThisDescPanel.UpgradeGraphLV_TxtList);
+
+        // Next
+        MainColorCompList.Add(ThisDescPanel.NextLvTxt);
+        MainColorCompList.Add(ThisDescPanel.NextStateTxt);
+        MainColorCompList.Add(ThisDescPanel.UpgradeNextValueTxt);
+
+        SubColorCompList.Add(ThisDescPanel.UpgradeNextLVTxt);
+
+        // Comp
+        MainColorCompList.Add(LabelTxt);
+        LabelTxt.text = LabelName;
         SubColorCompList.Add(FrameInnerImg);
 
         SetTabTxt(TabTxtList);
