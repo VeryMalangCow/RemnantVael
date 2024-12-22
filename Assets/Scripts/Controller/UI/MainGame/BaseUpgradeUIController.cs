@@ -26,6 +26,7 @@ public class BaseUpgradeUIController : UIController
     [SerializeField] private OneOffShopEachData<float> ROFShop;
     [SerializeField] private OneOffShopEachData<float> CCShop;
     [SerializeField] private OneOffShopEachData<float> CDShop;
+    [SerializeField] private OneOffShopEachData<float> MuzzleShop;
     [SerializeField] private OneOffShopEachData<float> AccuracyRateShop;
     [SerializeField] private OneOffShopEachData<float> KnockbackShop;
     
@@ -84,6 +85,7 @@ public class BaseUpgradeUIController : UIController
         ROFShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.ROF, BaseUpgradeManager.Instance.BaseROF_BUData, this);
         CCShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CC, BaseUpgradeManager.Instance.BaseCC_BUData, this);
         CDShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CD, BaseUpgradeManager.Instance.BaseCD_BUData, this);
+        MuzzleShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.MuzzleSpeed, BaseUpgradeManager.Instance.BaseMuzzleSpeed_BUData, this);
         AccuracyRateShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.AccuracyRate, BaseUpgradeManager.Instance.BaseAccuracyRate_BUData, this);
         KnockbackShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.KnockbackPower, BaseUpgradeManager.Instance.Knockback_BUData, this);
 
@@ -108,7 +110,7 @@ public class BaseUpgradeUIController : UIController
 
         AllUpgradeDataList_Float = new List<OneOffShopEachData<float>>()
         {
-            DamageShop, ROFShop, CCShop, CDShop, AccuracyRateShop, KnockbackShop,
+            DamageShop, ROFShop, CCShop, CDShop, MuzzleShop, AccuracyRateShop, KnockbackShop,
             MaxEPShop,SpawnESMultipleShop, NeedEP_ForSkillMultipleShop, DecEnergyPointMultipleShop,
             WalkSpeedShop, WalkSpeedWhenShotMultipleShop, WalkAvoidChance, DashSpeedShop,
             Skill0_CooltimeShop, Skill0_PowerShop,

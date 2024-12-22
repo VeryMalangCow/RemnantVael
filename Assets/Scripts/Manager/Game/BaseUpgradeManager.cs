@@ -13,6 +13,7 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
     [SerializeField] public BU_OneTypeData<float> BaseROF_BUData;
     [SerializeField] public BU_OneTypeData<float> BaseCC_BUData;
     [SerializeField] public BU_OneTypeData<float> BaseCD_BUData;
+    [SerializeField] public BU_OneTypeData<float> BaseMuzzleSpeed_BUData;
     [SerializeField] public BU_OneTypeData<float> BaseAccuracyRate_BUData;
     [SerializeField] public BU_OneTypeData<float> Knockback_BUData;
 
@@ -48,6 +49,7 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
         BaseROF_BUData.Offset(_PC.BaseWeapon.ROF);
         BaseCC_BUData.Offset(_PC.BaseWeapon.CC);
         BaseCD_BUData.Offset(_PC.BaseWeapon.CD);
+        BaseMuzzleSpeed_BUData.Offset(_PC.BaseWeapon.MuzzleSpeed);
         BaseAccuracyRate_BUData.Offset(_PC.BaseWeapon.AccuracyRate);
         Knockback_BUData.Offset(_PC.BaseWeapon.KnockbackPower);
 

@@ -13,7 +13,7 @@ public class PlayerWeaponController : SatelliteController
     [Header("=== State")]
     [SerializeField] public eDamageType DamageType;
     [SerializeField] public BaseUpgradeState<float> BaseDamage;
-    [SerializeField] public BaseUpgradeState<float> AliveTime;
+    [SerializeField] public float AliveTime;
     [SerializeField] public BaseUpgradeState<float> MuzzleSpeed;
     [SerializeField] public BaseUpgradeState<float> ROF;
     [SerializeField] public BaseUpgradeState<float> CC;
@@ -139,7 +139,7 @@ public class PlayerWeaponController : SatelliteController
                 DamageType, 
                 BaseDamage.ActualState.Value, 
                 MuzzleSpeed.ActualState.Value, 
-                AliveTime.ActualState.Value, 
+                AliveTime, 
                 isCritical, 
                 CD.ActualState.Value,
                 ableKnockback,

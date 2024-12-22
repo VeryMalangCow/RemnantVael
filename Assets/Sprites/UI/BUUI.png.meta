@@ -1020,6 +1020,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: BUUI_Icon_MuzzleSpeed
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 134
+        width: 35
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 162e62ce621dcd7468e62bedf9135783
+      internalID: 150448938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1053,6 +1074,7 @@ TextureImporter:
       BUUI_Icon_KB: 512449104
       BUUI_Icon_MakeECCost: 1859035009
       BUUI_Icon_MaxEP: -1740151326
+      BUUI_Icon_MuzzleSpeed: 150448938
       BUUI_Icon_NoUpgrade: 1639308726
       BUUI_Icon_ROF: 1838188154
       BUUI_Icon_SkillCooltime: -685201192

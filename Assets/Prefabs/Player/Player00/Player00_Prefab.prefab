@@ -825,26 +825,21 @@ MonoBehaviour:
     Name: DMG
     Desc: Basic damage given to enemies. This goes into sum, and is calculated as
       the first of all operations.
-  AliveTime:
-    BaseState: 1
-    CurrentLevel:
-      value: 0
-    UpgradeValueByLevelRange: []
-    NeedPayByLevelRange: 
-    ActualState:
-      value: 1
-    Name: 
-    Desc: 
+  AliveTime: 3
   MuzzleSpeed:
     BaseState: 1
     CurrentLevel:
       value: 0
-    UpgradeValueByLevelRange: []
-    NeedPayByLevelRange: 
+    UpgradeValueByLevelRange:
+    - 0.1
+    - 0.2
+    - 0.35
+    - 1
+    NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
       value: 1
-    Name: 
-    Desc: 
+    Name: Muzzle Speed
+    Desc: Muzzle speed refers to the speed at which a bullet travels.
   ROF:
     BaseState: 5
     CurrentLevel:
