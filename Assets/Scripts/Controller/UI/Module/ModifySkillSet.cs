@@ -11,12 +11,12 @@ public class ModifySkillSet : UIModule
     [Space(10)]
     [Header("=== Img")]
     [SerializeField] private Image SkillShadowImg;
-    [SerializeField] private Image SkillInnerImg;
+    [SerializeField] public Image SkillInnerImg;
 
     [Space(10)]
     [Header("=== Txt")]
-    [SerializeField] private TMP_Text SkillCostTxt;
-    [SerializeField] private TMP_Text SkillErrorTxt;
+    [SerializeField] public TMP_Text SkillCostTxt;
+    [SerializeField] public TMP_Text SkillErrorTxt;
     private IEnumerator ThisEff = null;
 
     #endregion

@@ -179,10 +179,13 @@ public class BaseUpgradeUIController : UIController
 
         Color mainClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
         SetColor(mainClr, MainColorCompList);
+        MainColorCompList.Clear();
+        MainColorCompList = null;
 
         Color subClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, true);
         SetColor(subClr, SubColorCompList);
-
+        SubColorCompList.Clear();
+        SubColorCompList = null;
     }
 
     #endregion
@@ -268,25 +271,6 @@ public class BaseUpgradeUIController : UIController
             { SubColorCompList.Add(img); }
         }
 
-    }
-
-    private void SetColor(Color _Clr, List<Component> _ApplyCompList)
-    {
-        
-        for (int i = 0; i < _ApplyCompList.Count; i++)
-        {
-            Color clr = _Clr;
-            if (_ApplyCompList[i].TryGetComponent(out TMP_Text tmp))
-            {
-                clr.a = tmp.color.a;
-                tmp.color = clr;
-            }
-            else if (_ApplyCompList[i].TryGetComponent(out Image img))
-            {
-                clr.a = img.color.a;
-                img.color = clr;
-            }
-        }
     }
 
     public override void OpenThisPanel()

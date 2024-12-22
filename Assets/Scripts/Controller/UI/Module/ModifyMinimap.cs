@@ -16,7 +16,7 @@ public class ModifyMinimap : UIModule
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] private RectTransform MinimapFrameRT;
-    [SerializeField] private Image InnerImg;
+    [SerializeField] public Image InnerImg;
 
 
     [Space(10)]

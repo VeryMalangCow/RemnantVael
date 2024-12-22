@@ -10,10 +10,10 @@ public class ModifyReductionFocusProgressBar : UIModule
 
     [Space(10)]
     [Header("=== Bar")]
-    [SerializeField] private Image AfterImageEP_Img;
+    [SerializeField] public Image AfterImageEP_Img;
 
-    [SerializeField] private Image ActualEP_Img;
-    [SerializeField] private RectTransform ActualEP_ImgLiner;
+    [SerializeField] public Image ActualEP_Img;
+    [SerializeField] public RectTransform ActualEP_ImgLiner;
 
     [Header("=== Text")]
     [SerializeField] private TMP_Text Txt;

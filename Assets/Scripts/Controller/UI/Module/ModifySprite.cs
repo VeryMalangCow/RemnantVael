@@ -15,7 +15,7 @@ public class ModifySprite : UIModule
 
     [Space(10)]
     [Header("=== Extra")]
-    [SerializeField] private Image LightInner;
+    [SerializeField] public Image LightInner;
 
     Sequence DotweenSeq;
 

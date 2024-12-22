@@ -2027,6 +2027,7 @@ MonoBehaviour:
     Name: Cooltime
     Desc: Cool time for skills. Calculated as a sum.
   CurrentCooltime: 0
+  ThisSkillUISprite: {fileID: 1779296857, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
   NeedEP:
     value: 15
   Tier:
@@ -2190,6 +2191,7 @@ MonoBehaviour:
     Name: Cooltime
     Desc: Cool time for skills. Calculated as a sum.
   CurrentCooltime: 0
+  ThisSkillUISprite: {fileID: 987565495, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
   NeedEP:
     value: 10
   Tier:

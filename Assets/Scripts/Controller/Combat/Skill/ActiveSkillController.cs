@@ -21,6 +21,7 @@ public class ActiveSkillController : MonoBehaviour
     [SerializeField] protected float CurrentCooltime = 0f;
 
     [Header("-- State")]
+    [SerializeField] public Sprite ThisSkillUISprite;
     [SerializeField] public ReactiveProperty<float> NeedEP = new();
     [SerializeField] public BaseUpgradeState<int> Tier;
     [SerializeField] public BaseUpgradeState<float> Power;

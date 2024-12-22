@@ -49,6 +49,7 @@ public class PlayerHUDController : UIController
     [Space(10)]
     [Header("=== Energy")]
     [SerializeField] private ModifyReductionFocusProgressBar EP;
+    [SerializeField] private List<Image> EPInnerImgList;
     [SerializeField] private RectTransform EP_FlowRT;
 
     [Space(10)]
@@ -75,6 +76,7 @@ public class PlayerHUDController : UIController
     [SerializeField] private TMP_Text BoostLv;
     [SerializeField] private GameObject[] BoostLightArr;
     [SerializeField] private GameObject[] BoostLightWheelArr;
+    [SerializeField] List<Image> BoostInnerList;
 
     
 
@@ -102,6 +104,18 @@ public class PlayerHUDController : UIController
 
     [HideInInspector] private bool IsActingInteractUI = false;
 
+    [Header("=== Color Or Icon")]
+    [Header("-- Icon")]
+    [SerializeField] private List<Image> ESImgList;
+    [SerializeField] private Image Skill0Img;
+    [SerializeField] private Image Skill1Img;
+
+    [Header("-- MainColor")]
+    [HideInInspector] public List<Component> MainColorCompList;
+
+    [Header("-- SubColor")]
+    [HideInInspector] public List<Component> SubColorCompList;
+
     #endregion
 
     #region Offset
@@ -120,6 +134,8 @@ public class PlayerHUDController : UIController
 
     protected override void Offset_UI()
     {
+        #region Reactive
+
         PlayerManager.Instance.PlayerController.MaxEP.ActualState
             .Subscribe(_MaxEP =>
             {
@@ -190,11 +206,15 @@ public class PlayerHUDController : UIController
             })
             .AddTo(gameObject);
 
+        #endregion
+
+        #region Other Offset
+
         EP_FlowRT.DOAnchorPos(new Vector2(1920, 0), 2f, false)
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart);
 
-        Transform[] allChildren = this.GetComponentsInChildren<Transform>();
+        /*Transform[] allChildren = this.GetComponentsInChildren<Transform>();
         foreach (Transform child in allChildren)
         {
             if(child.gameObject.TryGetComponent(out TrueShadow ts))
@@ -203,7 +223,7 @@ public class PlayerHUDController : UIController
                 DOTween.To(() => ts.Size, x => ts.Size = x, sizeDefault, 1)
                     .SetLoops(-1, LoopType.Yoyo);
             }
-        }
+        }*/
 
         ECCostTxt.text = PlayerManager.Instance.PlayerController.NeedEP_ForMakeEC.ToString();
 
@@ -246,6 +266,87 @@ public class PlayerHUDController : UIController
             clr.a = _A;
             return clr;
         }
+
+        #endregion
+
+        #region Color
+
+        /*
+        새로운 이미지 코드 필요
+
+        스킬2종
+
+        */
+
+        for (int i = 0; i < ESImgList.Count; i++)
+        {
+            ESImgList[i].sprite = PlayerManager.Instance.PlayerController.ES_Sprite;
+        }
+        Skill0Img.sprite = PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.ThisSkillUISprite;
+        Skill1Img.sprite = PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.ThisSkillUISprite;
+
+
+        // Main
+        MainColorCompList.Add(EP.AfterImageEP_Img.gameObject.transform.GetChild(0).GetComponent<Image>());
+        MainColorCompList.Add(EP.ActualEP_Img.gameObject.transform.GetChild(0).GetComponent<Image>());
+        MainColorCompList.Add(EP.ActualEP_ImgLiner.gameObject.transform.GetComponent<Image>());
+
+        MainColorCompList.Add(BoostLv);
+        for (int i = 0; i < BoostLightArr.Length; i++)
+        { MainColorCompList.Add(BoostLightArr[i].GetComponent<Image>()); MainColorCompList.Add(BoostLightWheelArr[i].GetComponent<Image>()); }
+
+        MainColorCompList.Add(Skill0.SkillCostTxt);
+        MainColorCompList.Add(Skill0.SkillErrorTxt);
+        MainColorCompList.Add(Skill1.SkillCostTxt);
+        MainColorCompList.Add(Skill1.SkillErrorTxt);
+
+        MainColorCompList.Add(PlayerStatesTxt);
+        MainColorCompList.Add(Skill0StatesTxt);
+        MainColorCompList.Add(Skill1StatesTxt);
+
+        MainColorCompList.Add(StageNameTxt);
+        MainColorCompList.Add(StageDescriptionTxt);
+
+        MainColorCompList.Add(ECCostTxt);
+        MainColorCompList.Add(MS_AmountTxt);
+
+        MainColorCompList.Add(EmptyBC.Txt_ExtraAmount);
+        MainColorCompList.Add(FullEC.Txt_ExtraAmount);
+
+        MainColorCompList.Add(InteractOnOffTxt);
+
+        // Sub
+        SubColorCompList.AddRange(EPInnerImgList);
+        for (int i = 0; i < MEISList.Count; i++)
+        { SubColorCompList.Add(MEISList[i].gameObject.transform.GetChild(0).GetComponent<Image>()); }
+        SubColorCompList.AddRange(BoostInnerList);
+
+        SubColorCompList.Add(Skill0.SkillInnerImg);
+        SubColorCompList.Add(Skill1.SkillInnerImg);
+
+        SubColorCompList.Add(ThisMinimap.InnerImg);
+        SubColorCompList.Add(CurrentEmptyBC.LightInner);
+
+        SubColorCompList.Add(ECCostArrowImg);
+        SubColorCompList.Add(EmptyBC.InnerImg);
+        SubColorCompList.Add(FullEC.InnerImg);
+        SubColorCompList.Add(MS_InnerImg);
+
+        SubColorCompList.Add(InnerImg);
+        SubColorCompList.Add(UsingInnerImg);
+
+        // Color Set
+        Color mainClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
+        SetColor(mainClr, MainColorCompList);
+        MainColorCompList.Clear();
+        MainColorCompList = null;
+
+        Color subClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, true);
+        SetColor(subClr, SubColorCompList);
+        SubColorCompList.Clear();
+        SubColorCompList = null;
+
+        #endregion
     }
 
     #endregion

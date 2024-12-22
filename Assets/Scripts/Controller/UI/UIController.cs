@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class UIController : MonoBehaviour
 {
@@ -29,6 +31,30 @@ public abstract class UIController : MonoBehaviour
         Offset_Module();
         Offset_UI();
     }
+
+    #endregion
+
+    #region Set
+
+    protected void SetColor(Color _Clr, List<Component> _ApplyCompList)
+    {
+
+        for (int i = 0; i < _ApplyCompList.Count; i++)
+        {
+            Color clr = _Clr;
+            if (_ApplyCompList[i].TryGetComponent(out TMP_Text tmp))
+            {
+                clr.a = tmp.color.a;
+                tmp.color = clr;
+            }
+            else if (_ApplyCompList[i].TryGetComponent(out Image img))
+            {
+                clr.a = img.color.a;
+                img.color = clr;
+            }
+        }
+    }
+
 
     #endregion
 
