@@ -38,10 +38,11 @@ public class PlayerBulletController : BulletController
     {
         this.transform.localRotation = GetRotByVec2(_Dir);
 
+
+        base.SetState(_SpawnVec, _SpreadAngle, _BulletState, _TargetRange);
+
         if (BulletState.IsCritical)
         {
-            this.BulletState.BaseDamage *= BulletState.CD;
-
             if (_BulletState.DamageType == eDamageType.Physics)
             { ThisSR.sprite = CriticalPhysics_Sprite; }
             else
@@ -55,7 +56,6 @@ public class PlayerBulletController : BulletController
             { ThisSR.sprite = BaseEnergy_Sprite; }
         }
 
-        base.SetState(_SpawnVec, _SpreadAngle, _BulletState, _TargetRange);
 
         ThisRb.simulated = true;
         gameObject.SetActive(true);

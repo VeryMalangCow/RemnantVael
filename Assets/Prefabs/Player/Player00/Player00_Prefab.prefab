@@ -1402,10 +1402,10 @@ MonoBehaviour:
   LowerController: {fileID: 6070200958351899230}
   ThisPlayerMaterial_000: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
   ThisPlayerMaterial_001: {fileID: 2100000, guid: 72598d291dfffcb469dd16ffb373bfc0, type: 2}
-  ThisPBHColor: {r: 0.5411765, g: 0.5411765, b: 0.5411765, a: 1}
-  ThisPCHColor: {r: 0.17377181, g: 0.27098197, b: 0.5188679, a: 1}
-  ThisEBHColor: {r: 0.4862745, g: 0.85882354, b: 1, a: 1}
-  ThisECHColor: {r: 0.16862746, g: 0.51415104, b: 1, a: 1}
+  ThisPBHColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  ThisPCHColor: {r: 0.2509804, g: 0.2509804, b: 0.5019608, a: 1}
+  ThisEBHColor: {r: 0, g: 1, b: 1, a: 1}
+  ThisECHColor: {r: 0, g: 0.5019608, b: 1, a: 1}
   PlayerMEI: {fileID: 2930891811832810725}
   PlayerMAI: {fileID: 4030414932115461039}
   PhysicsHittedPointAC: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}
@@ -1664,6 +1664,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c3dd3871-62d5-4eb2-8042-47aee1ff4e64
     m_ActionName: OutMainGameUI/OMGUI_OutPanel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f71daf5d-aa3a-4b38-9b7c-b2d1579cfa33
+    m_ActionName: Player/Arrow[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e61dc2dd-aa34-4c2e-8edf-863f45f7d437
+    m_ActionName: Player/TabInteract[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
