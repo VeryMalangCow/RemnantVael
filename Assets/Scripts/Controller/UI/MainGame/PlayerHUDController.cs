@@ -269,22 +269,21 @@ public class PlayerHUDController : UIController
 
         #endregion
 
-        #region Color
+        #region Set Img
 
-        /*
-        새로운 이미지 코드 필요
-
-        스킬2종
-
-        */
+        // Set Img
 
         for (int i = 0; i < ESImgList.Count; i++)
         {
             ESImgList[i].sprite = PlayerManager.Instance.PlayerController.ES_Sprite;
+            ESImgList[i].SetNativeSize();
         }
         Skill0Img.sprite = PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.ThisSkillUISprite;
         Skill1Img.sprite = PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.ThisSkillUISprite;
 
+        #endregion
+
+        #region Set Color
 
         // Main
         MainColorCompList.Add(EP.AfterImageEP_Img.gameObject.transform.GetChild(0).GetComponent<Image>());
@@ -345,7 +344,6 @@ public class PlayerHUDController : UIController
         SetColor(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
-
         #endregion
     }
 
@@ -642,6 +640,7 @@ public class PlayerHUDController : UIController
         if (!IsTabInteracted)
         { return; }
         IsTabInteracted = false;
+        TabInputedCurrentTime = 0f;
 
         if (TabSeq != null && DOTween.IsTweening(TabSeq))
         { DOTween.Kill(TabSeq); }

@@ -75,6 +75,13 @@ public abstract class UIController : MonoBehaviour
             CurrentThisPanelTab = ThisPanelTabList[0];
             OpenWindow(ThisPanelTabList[0]);
         }
+
+        if (MainGameUIManager.Instance != null)
+        {
+            MainGameUIManager.Instance.PlayerHUD_UIController.IsTabInputed = false;
+            MainGameUIManager.Instance.PlayerHUD_UIController.OffTabInteract();
+            
+        }
     }
 
     public virtual void ChangeThisPanel(int _indexWindow)
