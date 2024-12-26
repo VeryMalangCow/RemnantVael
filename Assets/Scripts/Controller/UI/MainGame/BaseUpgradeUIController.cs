@@ -189,6 +189,7 @@ public class BaseUpgradeUIController : UIController
         MainColorCompList.Add(LabelTxt);
         LabelTxt.text = LabelName;
         SubColorCompList.Add(FrameInnerImg);
+        SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
         SetTabTxt(TabTxtList);
         TabTxtList.Clear(); TabTxtList = null;
