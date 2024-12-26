@@ -18,7 +18,12 @@ public class BaseUpgradeUIController : UIController
     [SerializeField] private string LabelName;
 
     [Space(10)]
-    [Header("=== Skill")]
+    [Header("=== BC, EC")]
+    [SerializeField] public TMP_Text BCTxt;
+    [SerializeField] public TMP_Text ECTxt;
+
+    [Space(10)]
+    [Header("=== Tab Element")]
 
     [Space(10)]
     [Header("-- Attack")]
@@ -147,6 +152,20 @@ public class BaseUpgradeUIController : UIController
 
     protected override void Offset_UI()
     {
+        // BC // EC
+        PlayerManager.Instance.PlayerController.CurrentBC
+            .Subscribe(value =>
+            {
+                BCTxt.text = value.ToString();
+            });
+        PlayerManager.Instance.PlayerController.CurrentEC
+            .Subscribe(value =>
+            {
+                ECTxt.text = value.ToString();
+            });
+
+
+        // Desc
         if (ThisDescPanel.CurrentUpgradeGraphSpot.gameObject.TryGetComponent(out Image img))
         { MainColorCompList.Add(img); }
 

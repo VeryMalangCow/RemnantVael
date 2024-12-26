@@ -100,7 +100,7 @@ TextureImporter:
       name: PlayerModuleUI_Back
       rect:
         serializedVersion: 2
-        x: 1
+        x: 203
         y: 490
         width: 26
         height: 21
@@ -117,6 +117,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerModuleUI_TitleFrame
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 447
+        width: 201
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24802a989653f474dab9a836f3bff6ed
+      internalID: 121522765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerModuleUI_SideIconFrame
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 443
+        width: 39
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 31, y: 18, z: 7, w: 18}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9bec76ff70bfcc4180b75c49ad98b6c
+      internalID: -945182851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -129,6 +171,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       PlayerModuleUI_Back: 486028521
+      PlayerModuleUI_SideIconFrame: -945182851
+      PlayerModuleUI_TitleFrame: 121522765
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1000,27 +1000,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BUUI_0
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 368
-        width: 201
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d3a86693374fb6419358f6da8e8e584
-      internalID: -1359354546
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: BUUI_Icon_MuzzleSpeed
       rect:
         serializedVersion: 2
@@ -1029,7 +1008,7 @@ TextureImporter:
         width: 35
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1037,6 +1016,132 @@ TextureImporter:
       bones: []
       spriteID: 162e62ce621dcd7468e62bedf9135783
       internalID: 150448938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_Icon_Attack
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 471
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01290d86e5e04324aa4456a64a53e2cd
+      internalID: 1880115272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_Icon_EP
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 430
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8776782e8214c3a4f93ef3df92e8722c
+      internalID: -1761733238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_Icon_Move
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 389
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78283330c315ce54682f44245607f6b7
+      internalID: -245656068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_Icon_Skill
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 348
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8834cc09d9103ef46b7f85cc7e5fcaab
+      internalID: -830663812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_Icon_I
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 492
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 744c3b5f811d289428c685f63b02ec4b
+      internalID: 398157010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BUUI_Icon_II
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 472
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 052c5b23c4bad784ea2371ee63ea68f0
+      internalID: -1085998548
       vertices: []
       indices: 
       edges: []
@@ -1052,7 +1157,6 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      BUUI_0: -1359354546
       BUUI_BuyBtn: -1066205944
       BUUI_DescPanel_CenterLoad: -531437595
       BUUI_DescPanel_Frame: 466107931
@@ -1064,19 +1168,25 @@ TextureImporter:
       BUUI_EachPart_ExtraFrame: -1832451910
       BUUI_EachPart_ExtraInner: -607982270
       BUUI_Icon_Acc: 679182370
+      BUUI_Icon_Attack: -1359354546
       BUUI_Icon_Avoid: -870920893
       BUUI_Icon_BoostCost: -2109361914
       BUUI_Icon_CC: -2056595569
       BUUI_Icon_CD: 1484816551
       BUUI_Icon_DMG: 1084081657
       BUUI_Icon_DashPower: -570042651
+      BUUI_Icon_EP: -1761733238
       BUUI_Icon_Graph: -642065885
+      BUUI_Icon_I: 398157010
+      BUUI_Icon_II: -1085998548
       BUUI_Icon_KB: 512449104
       BUUI_Icon_MakeECCost: 1859035009
       BUUI_Icon_MaxEP: -1740151326
+      BUUI_Icon_Move: -245656068
       BUUI_Icon_MuzzleSpeed: 150448938
       BUUI_Icon_NoUpgrade: 1639308726
       BUUI_Icon_ROF: 1838188154
+      BUUI_Icon_Skill: -830663812
       BUUI_Icon_SkillCooltime: -685201192
       BUUI_Icon_SkillCost: 709049031
       BUUI_Icon_SkillPower: 3456623
