@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerModuleUI_Back
+      name: ModuleUI_Back
       rect:
         serializedVersion: 2
         x: 203
@@ -118,7 +118,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerModuleUI_TitleFrame
+      name: ModuleUI_TitleFrame
       rect:
         serializedVersion: 2
         x: 1
@@ -139,7 +139,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerModuleUI_SideIconFrame
+      name: ModuleUI_SideIconFrame
       rect:
         serializedVersion: 2
         x: 203
@@ -159,6 +159,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerModuleUI_ScrollBar_BG
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 502
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 3, z: 0, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e34757d447fb5524ea1f7363970b07ff
+      internalID: -1226440755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerModuleUI_ScrollBar
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 494
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 3, z: 0, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a495f4248b9aeb4fa71b30819735b6c
+      internalID: 1518208546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_UpsideLight
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 490
+        width: 79
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 39, y: 0, z: 39, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fc252cb0d502044f9cb078df86d5690
+      internalID: -452272784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_UpsideLightFrame
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 484
+        width: 37
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 18, y: 0, z: 18, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50a5835ab1542cf4eba775cde6205953
+      internalID: 568212690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Btn_00
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 474
+        width: 37
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 4, y: 3, z: 4, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdc252d4f39fcec48bd723c211c42253
+      internalID: 1661286057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -170,9 +275,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PlayerModuleUI_Back: 486028521
-      PlayerModuleUI_SideIconFrame: -945182851
-      PlayerModuleUI_TitleFrame: 121522765
+      ModuleUI_Back: 486028521
+      ModuleUI_Btn_00: 1661286057
+      ModuleUI_SideIconFrame: -945182851
+      ModuleUI_TitleFrame: 121522765
+      ModuleUI_UpsideLight: -452272784
+      ModuleUI_UpsideLightFrame: 568212690
+      PlayerModuleUI_ScrollBar: 1518208546
+      PlayerModuleUI_ScrollBar_BG: -1226440755
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

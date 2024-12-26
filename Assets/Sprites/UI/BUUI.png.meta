@@ -163,8 +163,8 @@ TextureImporter:
       name: BUUI_Icon_NoUpgrade
       rect:
         serializedVersion: 2
-        x: 1
-        y: 444
+        x: 80
+        y: 468
         width: 12
         height: 19
       alignment: 0
@@ -184,8 +184,8 @@ TextureImporter:
       name: BUUI_Icon_Upgrade
       rect:
         serializedVersion: 2
-        x: 14
-        y: 444
+        x: 93
+        y: 468
         width: 12
         height: 19
       alignment: 0
@@ -205,10 +205,10 @@ TextureImporter:
       name: BUUI_NeedCell_1
       rect:
         serializedVersion: 2
-        x: 27
-        y: 440
-        width: 38
-        height: 23
+        x: 0
+        y: 441
+        width: 37
+        height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,10 +226,10 @@ TextureImporter:
       name: BUUI_NeedCell_2
       rect:
         serializedVersion: 2
-        x: 66
-        y: 440
-        width: 38
-        height: 23
+        x: 38
+        y: 441
+        width: 37
+        height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,10 +247,10 @@ TextureImporter:
       name: BUUI_NeedCell_3
       rect:
         serializedVersion: 2
-        x: 105
-        y: 440
-        width: 38
-        height: 23
+        x: 76
+        y: 441
+        width: 37
+        height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -268,10 +268,10 @@ TextureImporter:
       name: BUUI_NeedCell_4
       rect:
         serializedVersion: 2
-        x: 144
-        y: 440
-        width: 38
-        height: 23
+        x: 114
+        y: 441
+        width: 37
+        height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -289,8 +289,8 @@ TextureImporter:
       name: BUUI_NeedCell_0
       rect:
         serializedVersion: 2
-        x: 24
-        y: 441
+        x: 25
+        y: 438
         width: 2
         height: 2
       alignment: 0
@@ -307,74 +307,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BUUI_BuyBtn
-      rect:
-        serializedVersion: 2
-        x: 37
-        y: 474
-        width: 35
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 34761addb70c97140b033c654a05f3ca
-      internalID: -1066205944
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BUUI_ScrollBar_BG
-      rect:
-        serializedVersion: 2
-        x: 37
-        y: 466
-        width: 5
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 3, z: 0, w: 3}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 89bdf149c8f5643458a991a1901c0f14
-      internalID: 1929474852
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BUUI_ScrollBar_Actual
-      rect:
-        serializedVersion: 2
-        x: 43
-        y: 466
-        width: 5
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 3, z: 0, w: 3}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa92c59b0f6f9e541a35269de3f25e43
-      internalID: 705351345
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: BUUI_EachPart_BG
       rect:
         serializedVersion: 2
         x: 2
-        y: 395
+        y: 393
         width: 14
         height: 47
       alignment: 0
@@ -533,48 +470,6 @@ TextureImporter:
       bones: []
       spriteID: bef65768787596b4aac92078aa4a83ec
       internalID: 512449104
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BUUI_Tab_Frame
-      rect:
-        serializedVersion: 2
-        x: 49
-        y: 467
-        width: 37
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 089df5460bc45df4d9abf211cd3a1288
-      internalID: 1469227349
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BUUI_Tab_Light
-      rect:
-        serializedVersion: 2
-        x: 87
-        y: 467
-        width: 79
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4ba0142d62655b943a21564838e3312f
-      internalID: 554638438
       vertices: []
       indices: 
       edges: []
@@ -814,8 +709,8 @@ TextureImporter:
       name: BUUI_DescPanel_Frame
       rect:
         serializedVersion: 2
-        x: 195
-        y: 462
+        x: 112
+        y: 463
         width: 100
         height: 49
       alignment: 0
@@ -836,7 +731,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 17
-        y: 409
+        y: 407
         width: 7
         height: 31
       alignment: 0
@@ -857,7 +752,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 25
-        y: 411
+        y: 409
         width: 6
         height: 27
       alignment: 0
@@ -878,7 +773,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 419
+        y: 417
         width: 58
         height: 11
       alignment: 0
@@ -898,8 +793,8 @@ TextureImporter:
       name: BUUI_Icon_Graph
       rect:
         serializedVersion: 2
-        x: 296
-        y: 477
+        x: 37
+        y: 469
         width: 14
         height: 19
       alignment: 0
@@ -919,8 +814,8 @@ TextureImporter:
       name: BUUI_Icon_UpValue
       rect:
         serializedVersion: 2
-        x: 311
-        y: 477
+        x: 52
+        y: 469
         width: 14
         height: 19
       alignment: 0
@@ -940,8 +835,8 @@ TextureImporter:
       name: BUUI_DescPanel_GraphArea
       rect:
         serializedVersion: 2
-        x: 193
-        y: 435
+        x: 213
+        y: 486
         width: 31
         height: 25
       alignment: 0
@@ -961,8 +856,8 @@ TextureImporter:
       name: BUUI_DescPanel_NextValueArrow
       rect:
         serializedVersion: 2
-        x: 225
-        y: 440
+        x: 67
+        y: 471
         width: 12
         height: 14
       alignment: 0
@@ -982,8 +877,8 @@ TextureImporter:
       name: BUUI_DescPanel_CenterLoad
       rect:
         serializedVersion: 2
-        x: 238
-        y: 435
+        x: 245
+        y: 488
         width: 31
         height: 23
       alignment: 0
