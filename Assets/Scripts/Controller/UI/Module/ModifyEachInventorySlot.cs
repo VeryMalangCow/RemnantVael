@@ -53,6 +53,8 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
             Color clr = ssimg.color;
             clr.a = 0f;
             ssimg.color = clr;
+
+            ssimg.color = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, true);
         }
         SelectedSign.gameObject.SetActive(false);
     }
