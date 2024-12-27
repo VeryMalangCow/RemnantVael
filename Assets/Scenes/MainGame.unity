@@ -1327,6 +1327,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy01_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.633174
@@ -1612,6 +1616,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseUpgradeShop
       objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5830729734699832537, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
       propertyPath: ThisMaxDurablity
       value: 10
@@ -1819,6 +1827,10 @@ PrefabInstance:
     - target: {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       propertyPath: m_Name
       value: Enemy01_Prefab (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       propertyPath: m_LocalPosition.x

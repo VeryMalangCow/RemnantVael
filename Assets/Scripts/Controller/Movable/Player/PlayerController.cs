@@ -194,7 +194,11 @@ public class PlayerController : MovableObject
 
     [Space(10)]
     [Header("=== BUUI")]
-    [SerializeField] public List<string> TabStringList;
+    [SerializeField] public List<string> BUUITabStringList;
+
+    [Space(10)]
+    [Header("=== MUUI")]
+    [SerializeField] public List<string> MUUITabStringList;
 
     #endregion
 

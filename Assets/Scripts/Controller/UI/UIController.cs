@@ -115,7 +115,11 @@ public abstract class UIController : MonoBehaviour
     {
         for (int i = 0; i < _TxtList.Count; i++)
         {
-            _TxtList[i].text = PlayerManager.Instance.PlayerController.TabStringList[i];
+            if (this is BaseUpgradeUIController)
+            { _TxtList[i].text = PlayerManager.Instance.PlayerController.BUUITabStringList[i]; }
+            else if (this is ModuleUpgradeUIController)
+            { _TxtList[i].text = PlayerManager.Instance.PlayerController.MUUITabStringList[i]; }
+
             _ColorComp.Add(_TxtList[i]);
         }
     }

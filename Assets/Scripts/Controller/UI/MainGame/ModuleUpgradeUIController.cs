@@ -77,6 +77,8 @@ public class ModuleUpgradeUIController : UIController
     [Header("-- SubColor")]
     [SerializeField] public List<CanvasGroup> LightTabCGList;
     [HideInInspector] public List<Component> SubColorCompList;
+
+    Sequence ForgeSeq;
     #endregion
 
     #region Offset
@@ -166,17 +168,17 @@ public class ModuleUpgradeUIController : UIController
         if (DecompositionBtn.gameObject.transform.GetChild(0).gameObject.TryGetComponent(out TMP_Text decomTxt))
         {
             MainColorCompList.Add(decomTxt);
-            decomTxt.text = ReinforceInteractPanels[0].BtnString;
+            decomTxt.text = ">>  " + ReinforceInteractPanels[0].BtnString + "  <<";
         }
         if (FusionBtn.gameObject.transform.GetChild(0).gameObject.TryGetComponent(out TMP_Text fusTxt))
         {
             MainColorCompList.Add(fusTxt);
-            fusTxt.text = ReinforceInteractPanels[1].BtnString;
+            fusTxt.text = ">>  " + ReinforceInteractPanels[1].BtnString + "  <<";
         }
         if (UpgradeBtn.gameObject.transform.GetChild(0).gameObject.TryGetComponent(out TMP_Text upgTxt))
         {
             MainColorCompList.Add(upgTxt);
-            upgTxt.text = ReinforceInteractPanels[2].BtnString;
+            upgTxt.text = ">>  " + ReinforceInteractPanels[2].BtnString + "  <<";
         }
 
 
@@ -210,6 +212,13 @@ public class ModuleUpgradeUIController : UIController
         ResetReinforcePanel();
 
         OnReset_SPAB();
+
+        SetOnEnable();
+    }
+
+    private void OnDisable()
+    {
+        SetOnDisable();
     }
 
     #endregion
@@ -234,6 +243,37 @@ public class ModuleUpgradeUIController : UIController
         base.ChangeThisPanel(_indexWindow);
         CurrentThisPanelTab.ThisTabScrollbar.value = scrollValue;
 
+    }
+
+    #endregion
+
+    #region Set Dotween
+
+    private void SetOnEnable()
+    {
+        DOTween.Kill(ForgeSeq);
+        ForgeSeq = DOTween.Sequence();
+
+        List<RectTransform> RTList = new List<RectTransform>();
+
+        if (DecompositionBtn.gameObject.transform.GetChild(0).gameObject.TryGetComponent(out RectTransform decomRT))
+        { RTList.Add(decomRT); }
+        if (FusionBtn.gameObject.transform.GetChild(0).gameObject.TryGetComponent(out RectTransform fusRT))
+        { RTList.Add(fusRT); }
+        if (UpgradeBtn.gameObject.transform.GetChild(0).gameObject.TryGetComponent(out RectTransform upgRT))
+        { RTList.Add(upgRT); }
+
+        for (int i = 0; i < RTList.Count; i++)
+        { ForgeSeq.Join(RTList[i].DOScale(1.2f, 1.0f)); }
+
+        ForgeSeq.SetLoops(-1, LoopType.Yoyo);
+    }
+
+    private void SetOnDisable()
+    {
+        DOTween.Kill(ForgeSeq);
+        ForgeSeq = DOTween.Sequence();
+        ForgeSeq = null;
     }
 
     #endregion

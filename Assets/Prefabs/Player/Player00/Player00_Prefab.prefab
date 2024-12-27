@@ -1438,12 +1438,15 @@ MonoBehaviour:
   AimPrefab: {fileID: 6141677161167260688, guid: c40efc2302d823f4385722f2c7ce4237, type: 3}
   AimRoundController: {fileID: 2787329426438936234}
   ThisWayPoint: {fileID: 6231064731411430748}
-  TabStringList:
+  BUUITabStringList:
   - Attack
   - Energy Point
   - Movement
   - Missile Launcher
-  - Shock Waver
+  - Shoke Waver
+  MUUITabStringList:
+  - Equip
+  - Forge
   ExecutionInterval: 0.75
   Skill0Interval: 0.5
   Skill1Interval: 0.5
