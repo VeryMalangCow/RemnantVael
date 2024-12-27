@@ -92,6 +92,8 @@ public class ModifyTextAmountForBuy : UIModule, IPointerEnterHandler, IPointerEx
         { DOTween.Kill(ThisRT); }
 
         ThisRT.DOSizeDelta(MinimumSize, SizeDeltaTime);
+
+        MainGameUIManager.Instance.BaseUpgrade_UIController.SetDescOff();
     }
 
     #endregion

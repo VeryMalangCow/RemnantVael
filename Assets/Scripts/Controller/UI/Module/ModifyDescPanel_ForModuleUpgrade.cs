@@ -1,4 +1,4 @@
-using DG.Tweening;
+using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,22 +13,25 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
     [Space(10)]
     [Header("=== Item")]
     [SerializeField] private Image ItemIconImg;
-    [SerializeField] private TMP_Text ItemNameTxt;
+    [SerializeField] public TMP_Text ItemNameTxt;
+    [SerializeField] public TMP_Text ITemIntroTxt;
 
     [Space(10)]
     [Header("=== Rank")]
     [SerializeField] private Image CurrentRankImg;
-    [SerializeField] private TMP_Text CurrentRankTxt;
+    [SerializeField] public TMP_Text CurrentRankTxt;
+    [SerializeField] public TMP_Text CurrentActualRankTxt;
+    [SerializeField] private string ExtraString_Rank;
 
     [Space(10)]
     [Header("=== Boost Lv")]
+    [SerializeField] private Image BoostLvImg;
     [SerializeField] private ModifyImgAmountAndTxt CurrentBoostLvMIAT;
-    [SerializeField] private TMP_Text CurrentBoostLvTxt;
+    [SerializeField] public TMP_Text CurrentBoostLvTxt;
+    [SerializeField] public TMP_Text CurrentActualBoostLvTxt;
+    [SerializeField] private string ExtraString_BoostLv;
 
-    // Other
-    [HideInInspector] private RectTransform ThisRT;
-    [HideInInspector] private float OriginalHeight;
-    [HideInInspector] private CanvasGroup ThisCG;
+
 
     #endregion
 
@@ -36,37 +39,16 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
 
     public override void Offset()
     {
-        if (ThisRT == null && this.TryGetComponent(out RectTransform rt))
-        {
-            ThisRT = rt;
-            OriginalHeight = ThisRT.rect.height;
-
-            ThisRT.sizeDelta = new Vector2(ThisRT.sizeDelta.x, 0f);
-        }
-        if (ThisCG == null && this.TryGetComponent(out CanvasGroup cg))
-        {
-            ThisCG = cg;
-
-            ThisCG.alpha = 0f;
-        }
-
         CurrentBoostLvMIAT.Offset();
-    }
 
-    #endregion
+        ItemIconImg.color = new Color(1, 1, 1, 0);
+        CurrentRankImg.color = new Color(1, 1, 1, 0);
+        Color clr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
+        clr.a = 0f;
+        BoostLvImg.color = clr;
 
-    #region Open / Close
-
-    public void OpenThisPanel(float _DurTime)
-    {
-        ThisRT.DOSizeDelta(new Vector2(ThisRT.sizeDelta.x, OriginalHeight), _DurTime);
-        ThisCG.DOFade(1f, _DurTime);
-    }
-
-    public void CloseThisPanel(float _DurTime)
-    {
-        ThisRT.DOSizeDelta(new Vector2(ThisRT.sizeDelta.x, 0f), _DurTime);
-        ThisCG.DOFade(0f, _DurTime);
+        CurrentBoostLvMIAT.SetAmount(0);
+        CurrentBoostLvMIAT.SetColor(PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false));
     }
 
     #endregion
@@ -79,22 +61,47 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
         { child.gameObject.SetActive(true); }
 
         // Item
+        ItemIconImg.color = new Color(1, 1, 1, 1);
         ItemIconImg.sprite = _PS.ThisItemData.Sprite;
         ItemNameTxt.text = _PS.ThisItemData.Name;
+        ITemIntroTxt.text = _PS.ThisItemData.Description;
 
         // Rank
-        CurrentRankImg.sprite = _PS.ThisMEII[0].RankImg.sprite;
-        CurrentRankTxt.text = _PS.ThisItemData.Rank.ToString();
+        CurrentRankImg.color = new Color(1, 1, 1, 1);
+        CurrentRankImg.sprite = BoostItemManager.Instance.GetCorrectMUUIDescRankIcon(_PS);
+        CurrentRankTxt.text = ExtraString_Rank;
+        CurrentActualRankTxt.text = _PS.ThisItemData.Rank.ToString();
 
         // Boost Lv
-        CurrentBoostLvMIAT.SetAmount(_PS.ThisItemData.BoostLv, 0.1f);
-        CurrentBoostLvTxt.text = _PS.ThisItemData.BoostLv.ToString();
+        
+        Color clr = BoostLvImg.color;
+        clr.a = (float)_PS.ThisItemData.BoostLv / (float)PlayerManager.Instance.PlayerController.MaxBoostLv;
+        BoostLvImg.color = clr;
+        CurrentBoostLvMIAT.SetAmount(_PS.ThisItemData.BoostLv);
+        CurrentBoostLvTxt.text = ExtraString_BoostLv;
+        CurrentActualBoostLvTxt.text = _PS.ThisItemData.BoostLv.ToString();
     }
 
-    public void SetOffDesc()
+    public void SetDescOff()
     {
-        foreach(Transform child in this.transform)
-        { child.gameObject.SetActive(false); }
+        // Item
+        ItemIconImg.color = new Color(1, 1, 1, 0);
+        ItemNameTxt.text = "-";
+        ITemIntroTxt.text = "-";
+
+        // Rank
+        CurrentRankImg.color = new Color(1, 1, 1, 0);
+        CurrentRankTxt.text = "-";
+        CurrentActualRankTxt.text = "-";
+
+        // Boost Lv
+        Color clr = BoostLvImg.color;
+        clr.a = 0;
+        BoostLvImg.color = clr;
+
+        CurrentBoostLvMIAT.SetAmount(0);
+        CurrentBoostLvTxt.text = "-";
+        CurrentActualBoostLvTxt.text = "-";
     }
 
     #endregion

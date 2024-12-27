@@ -58,6 +58,7 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
 
     public void SetDesc<T>(BaseUpgradeState<T> _MTAFB)
     {
+        
         // Graph
         CenterName.text = _MTAFB.Name;
 
@@ -136,6 +137,23 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
         }
 
     }
+
+    public void SetDescOff()
+    {
+        CenterName.text = "-";
+
+        for (int i = 0; i < UpgradeGraphDetailState_TxtList.Count; i++)
+        {
+            UpgradeGraphDetailState_TxtList[i].text = "-";
+        }
+
+        NextLvTxt.text = "-";
+        NextStateTxt.text = "-";
+
+        CurrentLvTxt.text = "-";
+        CurrentStateTxt.text = "-";
+    }
+
 
     #endregion
 }

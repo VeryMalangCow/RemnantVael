@@ -12,7 +12,7 @@ public class ModifyEachTab : UIModule, IScrollHandler
     [SerializeField] public ModifyOwnEachBtn ThisTabBtn;
 
     [Header("=== Scroll Bar")]
-    [SerializeField] private Scrollbar ThisTabScrollbar;
+    [SerializeField] public Scrollbar ThisTabScrollbar;
     [SerializeField] private RectTransform ActualMovableRT;
     [SerializeField] private float VisibleY = 725;
     [HideInInspector] private float ActualAreaY;

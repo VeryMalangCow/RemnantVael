@@ -23,7 +23,9 @@ public class ModifyEachInventoryItem : ModifyOwnEachBtn
     {
         ThisImg.sprite = _ThisIcon;
         RankImg.sprite = _RankImg;
+        RankImg.SetNativeSize();
         BoostLvMIAAT.SetAmount(_BoostLv, 0.1f);
+        BoostLvMIAAT.SetColor(PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false));
     }
 
     public override void Offset()

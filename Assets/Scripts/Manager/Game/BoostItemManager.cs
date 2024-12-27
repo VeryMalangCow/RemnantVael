@@ -16,6 +16,7 @@ public class BoostItemManager : Singleton<BoostItemManager>
 
     [Header("=== Icon Data")]
     [SerializeField] private List<Sprite> RankIconList;
+    [SerializeField] private List<Sprite> MUUIDescRankIconList;
 
     // Interface
     private List<IWhen_Always> iWhen_AlwaysList = new List<IWhen_Always>();
@@ -38,7 +39,7 @@ public class BoostItemManager : Singleton<BoostItemManager>
             {
                 PIS.ThisItemData = new ItemData(_ItemData);
 
-                PIS.ThisMEII = MainGameUIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList(PIS.ThisItemData.ItemIcon, GetRankIcon(PIS.ThisItemData.Rank), PIS.ThisItemData.BoostLv);
+                PIS.ThisMEII = MainGameUIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList(PIS.ThisItemData.ItemIcon, GetCorrectRankIcon(PIS), PIS.ThisItemData.BoostLv);
                 
                 foreach(ModifyEachInventoryItem MEII in PIS.ThisMEII)
                 {
@@ -111,9 +112,14 @@ public class BoostItemManager : Singleton<BoostItemManager>
         return null;
     }
 
-    public Sprite GetRankIcon(int _Rank)
+
+    public Sprite GetCorrectRankIcon(PassiveSkill _PS)
     {
-        return RankIconList[_Rank - 1];
+        return RankIconList[_PS.ThisItemData.Rank - 1];
+    }
+    public Sprite GetCorrectMUUIDescRankIcon(PassiveSkill _PS)
+    {
+        return MUUIDescRankIconList[_PS.ThisItemData.Rank - 1];
     }
 
     #endregion

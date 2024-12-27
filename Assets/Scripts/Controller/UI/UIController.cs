@@ -109,6 +109,29 @@ public abstract class UIController : MonoBehaviour
 
     #endregion
 
+    #region Set Tab Btn
+
+    protected void SetTabTxt(List<TMP_Text> _TxtList, List<Component> _ColorComp)
+    {
+        for (int i = 0; i < _TxtList.Count; i++)
+        {
+            _TxtList[i].text = PlayerManager.Instance.PlayerController.TabStringList[i];
+            _ColorComp.Add(_TxtList[i]);
+        }
+    }
+
+    protected void SetTabLightAlpha(float _A, List<CanvasGroup> _CG, List<Component> _ColorComp)
+    {
+        for (int i = 0; i < _CG.Count; i++)
+        {
+            _CG[i].alpha = _A;
+            if (_CG[i].gameObject.TryGetComponent(out Image img))
+            { _ColorComp.Add(img); }
+        }
+    }
+
+    #endregion
+
     #region Set Window
 
 

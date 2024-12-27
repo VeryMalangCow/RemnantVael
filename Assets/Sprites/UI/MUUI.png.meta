@@ -147,7 +147,7 @@ TextureImporter:
         width: 3
         height: 3
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -155,6 +155,405 @@ TextureImporter:
       bones: []
       spriteID: 91d076f4c73e9e2458f19277f2865b3e
       internalID: 1551334863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_SideFram
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 465
+        width: 32
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 23, y: 16, z: 8, w: 16}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c137745a2b848d34bbd175dfce3e7d3f
+      internalID: -1050083147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_IconFrame
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 463
+        width: 27
+        height: 49
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 13, y: 18, z: 13, w: 18}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aee27aaa8cea03e4d9f9a6487ec5e5a1
+      internalID: 234982612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_MiddlFrame
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 465
+        width: 25
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 12, y: 16, z: 12, w: 16}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21ff7bf62459d404493b3943813eeef7
+      internalID: 178313332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Bridge
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 490
+        width: 19
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 9, y: 9, z: 9, w: 11}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3550b2e2ba9bec04f964591399ae9093
+      internalID: -55159986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Rank_1
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 485
+        width: 3
+        height: 3
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16d16fabd36d68f4abb730f15648616a
+      internalID: -2071839289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Rank_2
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 484
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75c6c65a117d1d943b30b2cfaf4a2211
+      internalID: 1624950903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Rank_3
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 484
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 118b2c0cfb5ca44449277c5eec338a0b
+      internalID: 216245208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Rank_4
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 484
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8ae83ef0b0f7af4a950ef30a0719bab
+      internalID: -589924007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Rank_5
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 484
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c864d4158ca1b44964473fc57bbaf9
+      internalID: -1684214863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_DescRank_1
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 492
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f02b998b873c5dd49b700ed613681d40
+      internalID: -1597416641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_DescRank_5
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 492
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a73da8142de7af4ab0101418f6bd1bd
+      internalID: 631822970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_DescRank_4
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 492
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c22345b4116196847912a26489430cfa
+      internalID: 299157854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_DescRank_3
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 492
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fddb9cf6e35feb44ab0e0e5f6e005581
+      internalID: -43159055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_DescRank_2
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 492
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23b6662d1616d7a46b95b9986a896109
+      internalID: -449346525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_BoostBG
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 477
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b018b74e0981f0343893ea784716e2b0
+      internalID: -79458140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_BoostActual
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 477
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96d3a7f55bb3d6048b2c92a0d39f4bda
+      internalID: -502128827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_DescBoostBG
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 471
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f46cc3d53d0dac439ffbd2aa17501eb
+      internalID: -2131293525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_DescBoostActual
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 471
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f58963ec7af511140a26d71dcb0410c5
+      internalID: 606591816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_BoostIcon
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 469
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f18778ad31825104a914ada277b06741
+      internalID: -880373595
       vertices: []
       indices: 
       edges: []
@@ -171,7 +570,26 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       MUUI_BG: 1551334863
+      MUUI_BoostActual: -502128827
+      MUUI_BoostBG: -79458140
+      MUUI_BoostIcon: -880373595
+      MUUI_Bridge: -55159986
+      MUUI_DescBoostActual: 606591816
+      MUUI_DescBoostBG: -2131293525
+      MUUI_DescRank_1: -1597416641
+      MUUI_DescRank_2: -449346525
+      MUUI_DescRank_3: -43159055
+      MUUI_DescRank_4: 299157854
+      MUUI_DescRank_5: 631822970
+      MUUI_IconFrame: 234982612
+      MUUI_MiddlFrame: 178313332
       MUUI_MiddleFrame: -1402822304
+      MUUI_Rank_1: -2071839289
+      MUUI_Rank_2: 1624950903
+      MUUI_Rank_3: 216245208
+      MUUI_Rank_4: -589924007
+      MUUI_Rank_5: -1684214863
+      MUUI_SideFram: -1050083147
       MUUI_SideFrame: -1154923124
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

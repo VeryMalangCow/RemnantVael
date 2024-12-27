@@ -191,10 +191,10 @@ public class BaseUpgradeUIController : UIController
         SubColorCompList.Add(FrameInnerImg);
         SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
-        SetTabTxt(TabTxtList);
+        SetTabTxt(TabTxtList, MainColorCompList);
         TabTxtList.Clear(); TabTxtList = null;
 
-        SetTabLightAlpha(0.1f, LightTabCGList);
+        SetTabLightAlpha(0.1f, LightTabCGList, SubColorCompList);
         LightTabCGList.Clear(); LightTabCGList = null;
 
         Color mainClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
@@ -273,26 +273,6 @@ public class BaseUpgradeUIController : UIController
 
     #region Set Panel
 
-    private void SetTabTxt(List<TMP_Text> _TxtList)
-    {
-        for (int i = 0; i < _TxtList.Count; i++)
-        {
-            _TxtList[i].text = PlayerManager.Instance.PlayerController.TabStringList[i];
-            MainColorCompList.Add(_TxtList[i]);
-        }
-    }
-
-    private void SetTabLightAlpha(float _A, List<CanvasGroup> _CG)
-    {
-        for (int i = 0; i < _CG.Count; i++)
-        {
-            _CG[i].alpha = _A;
-            if (_CG[i].gameObject.TryGetComponent(out Image img))
-            { SubColorCompList.Add(img); }
-        }
-
-    }
-
     public override void OpenThisPanel()
     {
         base.OpenThisPanel();
@@ -325,6 +305,11 @@ public class BaseUpgradeUIController : UIController
         BaseUpgradeState<int> baseUpgradeState_Int = OneOffShopEachData<int>.GetThisData(AllUpgradeDataList_Int, _MTAFB);
         if (baseUpgradeState_Int != null)
         { ThisDescPanel.SetDesc<int>(baseUpgradeState_Int); }
+    }
+
+    public void SetDescOff()
+    {
+        ThisDescPanel.SetDescOff();
     }
 
     #endregion

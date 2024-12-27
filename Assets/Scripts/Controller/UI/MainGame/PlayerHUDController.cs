@@ -316,8 +316,6 @@ public class PlayerHUDController : UIController
 
         // Sub
         SubColorCompList.AddRange(EPInnerImgList);
-        for (int i = 0; i < MEISList.Count; i++)
-        { SubColorCompList.Add(MEISList[i].gameObject.transform.GetChild(0).GetComponent<Image>()); }
         SubColorCompList.AddRange(BoostInnerList);
 
         SubColorCompList.Add(Skill0.SkillInnerImg);

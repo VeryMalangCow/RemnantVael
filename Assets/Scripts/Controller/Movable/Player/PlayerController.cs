@@ -98,7 +98,7 @@ public class PlayerController : MovableObject
     [Space(10)]
     [Header("=== Boost")]
     [SerializeField] private int TargetBoostlv = 0;
-    [SerializeField] public int MaxBoostLv = 5;
+    [SerializeField] public int MaxBoostLv = 4;
     [SerializeField] public ReactiveProperty<int> CurrentBoostLv = new();
     [SerializeField] private List<float> DecEnergyPointByLevel;
     [SerializeField] public BaseUpgradeState<float> DecEnergyPointMultiple;

@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,11 @@ public class ModuleUpgradeUIController : UIController
 
     [Space(20)]
     [Header("<><><><><> Module Upgrade Shop")]
+
+    [Space(10)]
+    [Header("=== Label")]
+    [SerializeField] private TMP_Text LabelTxt;
+    [SerializeField] private string LabelName;
 
     [Space(10)]
     [Header("=== Module")]
@@ -63,6 +69,14 @@ public class ModuleUpgradeUIController : UIController
     [Header("=== Desc")]
     [SerializeField] private ModifyDescPanel_ForModuleUpgrade ThisDescPanel;
 
+    [Space(10)]
+    [Header("=== Color")]
+    [Header("-- MainColor")]
+    [SerializeField] public List<TMP_Text> TabTxtList;
+    [HideInInspector] public List<Component> MainColorCompList;
+    [Header("-- SubColor")]
+    [SerializeField] public List<CanvasGroup> LightTabCGList;
+    [HideInInspector] public List<Component> SubColorCompList;
     #endregion
 
     #region Offset
@@ -71,6 +85,8 @@ public class ModuleUpgradeUIController : UIController
     {
         MI_InEquipTab.Offset();
         MI_InReinforceTab.Offset();
+
+        ThisDescPanel.Offset();
 
         foreach (ModifyEachTab MET in ThisPanelTabList)
         {
@@ -94,17 +110,19 @@ public class ModuleUpgradeUIController : UIController
 
         DecompositionSlot.Offset();
         DecompositionSlot.ThisSlotItem.Offset();
+        DecompositionSlot.ThisSlotItem.OwnerUIController = this;
 
         foreach (ModifyEachInventorySlot meii in FusionSlotList)
         {
             meii.Offset();
             meii.ThisSlotItem.Offset();
             CurrentFusionItemList.Add(null);
+            meii.ThisSlotItem.OwnerUIController = this;
         }
 
         UpgradeSlot.Offset();
         UpgradeSlot.ThisSlotItem.Offset();
-
+        UpgradeSlot.ThisSlotItem.OwnerUIController = this;
 
         DecompositionBtn.Offset();
         DecompositionBtn.OwnerUIController = this;
@@ -116,11 +134,67 @@ public class ModuleUpgradeUIController : UIController
 
     protected override void Offset_UI()
     {
+        
         MI_List = new List<ModifyInventory>
         {
             MI_InEquipTab,
             MI_InReinforceTab
         };
+        LabelTxt.text = LabelName;
+
+        MainColorCompList.Add(LabelTxt);
+
+        MainColorCompList.Add(ThisDescPanel.ItemNameTxt);
+        SubColorCompList.Add(ThisDescPanel.ITemIntroTxt);
+
+        MainColorCompList.Add(ThisDescPanel.CurrentActualRankTxt);
+        SubColorCompList.Add(ThisDescPanel.CurrentRankTxt);
+
+        MainColorCompList.Add(ThisDescPanel.CurrentActualBoostLvTxt);
+        SubColorCompList.Add(ThisDescPanel.CurrentBoostLvTxt);
+
+        SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+
+        for (int i = 0; i < ReinforceInteractPanels.Count; i++)
+        {
+            if (ReinforceInteractPanels[i].PanelBtn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text txt))
+            {
+                MainColorCompList.Add(txt);
+            }
+        }
+
+        if (DecompositionBtn.gameObject.transform.GetChild(0).gameObject.TryGetComponent(out TMP_Text decomTxt))
+        {
+            MainColorCompList.Add(decomTxt);
+            decomTxt.text = ReinforceInteractPanels[0].BtnString;
+        }
+        if (FusionBtn.gameObject.transform.GetChild(0).gameObject.TryGetComponent(out TMP_Text fusTxt))
+        {
+            MainColorCompList.Add(fusTxt);
+            fusTxt.text = ReinforceInteractPanels[1].BtnString;
+        }
+        if (UpgradeBtn.gameObject.transform.GetChild(0).gameObject.TryGetComponent(out TMP_Text upgTxt))
+        {
+            MainColorCompList.Add(upgTxt);
+            upgTxt.text = ReinforceInteractPanels[2].BtnString;
+        }
+
+
+        SetTabTxt(TabTxtList, MainColorCompList);
+        TabTxtList.Clear(); TabTxtList = null;
+
+        SetTabLightAlpha(0.1f, LightTabCGList, SubColorCompList);
+        LightTabCGList.Clear(); LightTabCGList = null;
+
+        Color mainClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
+        SetColor(mainClr, MainColorCompList);
+        MainColorCompList.Clear();
+        MainColorCompList = null;
+
+        Color subClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, true);
+        SetColor(subClr, SubColorCompList);
+        SubColorCompList.Clear();
+        SubColorCompList = null;
     }
 
     #endregion
@@ -152,6 +226,13 @@ public class ModuleUpgradeUIController : UIController
     {
         base.CloseThisPanel();
         ModuleUpgradeController.UsingShop = null;
+
+    }
+    public override void ChangeThisPanel(int _indexWindow)
+    {
+        float scrollValue = CurrentThisPanelTab.ThisTabScrollbar.value;
+        base.ChangeThisPanel(_indexWindow);
+        CurrentThisPanelTab.ThisTabScrollbar.value = scrollValue;
 
     }
 
@@ -216,11 +297,19 @@ public class ModuleUpgradeUIController : UIController
                     }
 
                     ReinforceInteractPanels[i].PanelRT.gameObject.SetActive(true);
+                    if (ReinforceInteractPanels[i].PanelBtn.gameObject.TryGetComponent(out CanvasGroup cg))
+                    {
+                        cg.alpha = 1f;
+                    }
                     CurrentReinforceInteractPanel = ReinforceInteractPanels[i];
                 }
                 else
                 {
                     ReinforceInteractPanels[i].PanelRT.gameObject.SetActive(false);
+                    if (ReinforceInteractPanels[i].PanelBtn.gameObject.TryGetComponent(out CanvasGroup cg))
+                    {
+                        cg.alpha = 0.5f;
+                    }
                 }
             }
         }
@@ -334,9 +423,10 @@ public class ModuleUpgradeUIController : UIController
             = MI_InEquipTab.SpawnMEII_Module(
                 meis, 
                 ps.ThisItemData.ItemIcon, 
-                BoostItemManager.Instance.GetRankIcon(ps.ThisItemData.Rank), 
+                BoostItemManager.Instance.GetCorrectRankIcon(ps), 
                 ps.ThisItemData.BoostLv);
         ps.ThisExtraMEII.Add(meii);
+        meii.OwnerUIController = this;
 
         // Player HUD
         int slotIndex = EquipedMEIS_List.IndexOf(meis);
@@ -345,7 +435,7 @@ public class ModuleUpgradeUIController : UIController
             = MI_InEquipTab.SpawnMEII_Module(
                 MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[slotIndex],
                 ps.ThisItemData.ItemIcon,
-                BoostItemManager.Instance.GetRankIcon(ps.ThisItemData.Rank),
+                BoostItemManager.Instance.GetCorrectRankIcon(ps),
                 ps.ThisItemData.BoostLv);
         meii_PlayerHUD.IsCanSelect = false;
         ps.ThisExtraMEII.Add(meii_PlayerHUD);
@@ -387,7 +477,7 @@ public class ModuleUpgradeUIController : UIController
                 CurrentSelectedMEIS.ThisSlotItem.ThisImg.sprite,
                 CurrentSelectedMEIS.ThisSlotItem.RankImg.sprite,
                 BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
-
+            
             CurrentDecompositionItem = CurrentSelectedMEIS.ThisSlotItem;
 
             return;
@@ -623,10 +713,13 @@ public class ModuleUpgradeUIController : UIController
     {
         public RectTransform PanelRT;
         public ModifyOwnEachBtn PanelBtn;
+        public string BtnString;
 
         public void Offset(ModuleUpgradeUIController _MUUC)
         {
             PanelBtn.Offset();
+            if (PanelBtn.gameObject.transform.GetChild(0).gameObject.TryGetComponent(out TMP_Text txt))
+            { txt.text = BtnString; }
             PanelBtn.OwnerUIController = _MUUC;
         }
     }
@@ -635,7 +728,7 @@ public class ModuleUpgradeUIController : UIController
     {
         for (int i = 0; i < ReinforceInteractPanels.Count; i++)
         {
-            if (0 == i)
+            /*if (0 == i)
             {
                 ReinforceInteractPanels[i].PanelRT.gameObject.SetActive(true);
                 CurrentReinforceInteractPanel = ReinforceInteractPanels[i];
@@ -643,6 +736,12 @@ public class ModuleUpgradeUIController : UIController
             else
             {
                 ReinforceInteractPanels[i].PanelRT.gameObject.SetActive(false);
+            }*/
+            CurrentReinforceInteractPanel = null;
+            ReinforceInteractPanels[i].PanelRT.gameObject.SetActive(false);
+            if (ReinforceInteractPanels[i].PanelBtn.gameObject.TryGetComponent(out CanvasGroup cg))
+            {
+                cg.alpha = 0.5f;
             }
         }
     }
@@ -697,7 +796,7 @@ public class ModuleUpgradeUIController : UIController
 
     public void SetOffDesc()
     {
-        ThisDescPanel.SetOffDesc();
+        ThisDescPanel.SetDescOff();
     }
 
     #endregion

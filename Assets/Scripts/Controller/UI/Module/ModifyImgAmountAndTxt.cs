@@ -73,6 +73,38 @@ public class ModifyImgAmountAndTxt : UIModule
         }
     }
 
+    public void SetAmount(int _Value)
+    {
+        for (int i = 0; i < Img_List.Count; i++)
+        {
+            if (_Value > i)
+            {
+                Color clr = Img_List[i].color;
+                clr.a = 1;
+                Img_List[i].color = clr;
+                Img_List[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                Color clr = Img_List[i].color;
+                clr.a = 0;
+                Img_List[i].color = clr;
+                Img_List[i].gameObject.SetActive(false);
+            }
+        }
+
+        int overAmount = _Value - Img_List.Count;
+        if (overAmount > 0)
+        {
+            Txt_ExtraAmount.text = overAmount.ToString();
+            TurnOn<TMP_Text>(Txt_ExtraAmount);
+        }
+        else
+        {
+            TurnOff<TMP_Text>(Txt_ExtraAmount);
+        }
+    }
+
     public void SetAmount(int _Value, float _DurTime)
     {
         for (int i = 0; i < Img_List.Count; i++)
@@ -98,12 +130,15 @@ public class ModifyImgAmountAndTxt : UIModule
             TurnOff<TMP_Text>(Txt_ExtraAmount);
         }
 
-        DOTween.Kill(InnerImg);
-        InnerImg.DOFade(1f, 0.2f)
-            .OnComplete(() =>
-            {
-                InnerImg.DOFade(0.25f, 0.2f);
-            });
+        if (InnerImg != null) 
+        {
+            DOTween.Kill(InnerImg);
+            InnerImg.DOFade(1f, 0.2f)
+                .OnComplete(() =>
+                {
+                    InnerImg.DOFade(0.25f, 0.2f);
+                });
+        }
     }
 
     public void ChangeOnOffImg(Image _Img, bool _OnOff, float _DoScale, float _DurTime)
@@ -148,5 +183,13 @@ public class ModifyImgAmountAndTxt : UIModule
         }
     }
 
+    public void SetColor(Color _Clr)
+    {
+        for (int i = 0; i < Img_List.Count; i++)
+        {
+            Img_List[i].color = _Clr;
+        }
+    }
+    
     #endregion
 }
