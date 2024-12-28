@@ -40,8 +40,6 @@ public class ModifyInventory : UIModule
             if (CaculateWidth != ThisRT.rect.width || CaculateHeight != ThisRT.rect.height)
             {
                 ThisRT.sizeDelta = new Vector2(CaculateWidth, CaculateHeight);
-                Debug.LogWarning("Incorrect Size Inventory: " + this.gameObject.name + 
-                    " -> Correct Value: " + ThisRT.sizeDelta);
             }
         }
         else

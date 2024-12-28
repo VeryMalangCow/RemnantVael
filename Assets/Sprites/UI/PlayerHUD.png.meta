@@ -790,7 +790,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerHUD_0
+      name: PlayerHUD_SkillInner
       rect:
         serializedVersion: 2
         x: 277
@@ -2169,7 +2169,6 @@ TextureImporter:
       Module000_Anno_FrameR: 439588742
       Module000_Anno_InnerL: 366330324
       Module000_Anno_InnerR: -594145359
-      PlayerHUD_0: 1577707779
       PlayerHUD_BC: -330596494
       PlayerHUD_BS_Charge_00: 64244325
       PlayerHUD_BS_Charge_01: 1203241232
@@ -2261,6 +2260,7 @@ TextureImporter:
       PlayerHUD_Player00Skill01: 1779296857
       PlayerHUD_PlayerStateFrame: 1978519953
       PlayerHUD_PlayerStateInner: 1031921244
+      PlayerHUD_SkillInner: 1577707779
       PlayerHUD_SkillSlot_Frame: -209309963
       PlayerHUD_SkillStateFrame: 1075042413
   mipmapLimitGroupName: 

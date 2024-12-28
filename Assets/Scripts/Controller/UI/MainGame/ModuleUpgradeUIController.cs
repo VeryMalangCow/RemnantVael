@@ -43,16 +43,20 @@ public class ModuleUpgradeUIController : UIController
     [Header("* Decomposition")]
     [SerializeField] private ModifyEachInventorySlot DecompositionSlot;
     [SerializeField] private ModifyOwnEachBtn DecompositionBtn;
+    [SerializeField] private TMP_Text Preview_MS;
+    [SerializeField] private TMP_Text Preview_BC;
 
     [Space(5)]
     [Header("* Fusion")]
     [SerializeField] private List<ModifyEachInventorySlot> FusionSlotList;
     [SerializeField] private ModifyOwnEachBtn FusionBtn;
+    [SerializeField] private TMP_Text Preview_NeedMS;
 
     [Space(5)]
     [Header("* Upgrade")]
     [SerializeField] private ModifyEachInventorySlot UpgradeSlot;
     [SerializeField] private ModifyOwnEachBtn UpgradeBtn;
+    [SerializeField] private TMP_Text Preview_NeedEC;
 
     [Space(5)]
     [Header("* Current Details")]
@@ -176,6 +180,7 @@ public class ModuleUpgradeUIController : UIController
             if (ReinforceInteractPanels[i].PanelBtn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text txt))
             {
                 MainColorCompList.Add(txt);
+                MainColorCompList.Add(ReinforceInteractPanels[i].RoleDescTxt);
             }
         }
 
@@ -195,6 +200,15 @@ public class ModuleUpgradeUIController : UIController
             upgTxt.text = ">>  " + ReinforceInteractPanels[2].BtnString + "  <<";
         }
 
+        for (int i = 0; i < ReinforcePanelInnerList.Count; i++)
+        {
+            SubColorCompList.Add(ReinforcePanelInnerList[i]);
+        }
+
+        MainColorCompList.Add(Preview_MS);
+        MainColorCompList.Add(Preview_BC);
+        MainColorCompList.Add(Preview_NeedMS);
+        MainColorCompList.Add(Preview_NeedEC);
 
         SetTabTxt(TabTxtList, MainColorCompList);
         TabTxtList.Clear(); TabTxtList = null;
@@ -262,6 +276,26 @@ public class ModuleUpgradeUIController : UIController
     #endregion
 
     #region Set Dotween
+
+    private void DotweenInEquip(float _A, string _TweenID, List<Image> _TweenImgList)
+    {
+
+        if (DOTween.IsTweening(_TweenID))
+        { DOTween.Complete(_TweenID); }
+
+        Sequence seq1 = DOTween.Sequence();
+        Sequence seq2 = DOTween.Sequence();
+        for (int i = 0; i < _TweenImgList.Count; i++)
+        { seq1.Join(_TweenImgList[i].DOFade(_A, 0.1f)); }
+
+        for (int i = 0; i < _TweenImgList.Count; i++)
+        { seq2.Join(_TweenImgList[i].DOFade(0.5f, 0.1f)); }
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(seq1);
+        seq.Append(seq2);
+        seq.SetId(_TweenID);
+    }
 
     private void SetOnEnable()
     {
@@ -494,7 +528,7 @@ public class ModuleUpgradeUIController : UIController
         meii_PlayerHUD.IsCanSelect = false;
         ps.ThisExtraMEII.Add(meii_PlayerHUD);
 
-        DotweenInEquip(1f);
+        DotweenInEquip(1f, "EquipInner", EquipPanelInnerList);
         SetEquipDesc();
     }
 
@@ -510,29 +544,12 @@ public class ModuleUpgradeUIController : UIController
         CurrentSelectedMEIS.ThisSlotItem = null;
         CurrentSelectedMEIS.OutIt_SelectedItem();
 
-        DotweenInEquip(0f);
+
+        DotweenInEquip(0f, "EquipInner", EquipPanelInnerList);
         SetEquipDesc();
     }
 
-    private void DotweenInEquip(float _A)
-    {
-
-        if (DOTween.IsTweening("EquipInner"))
-        { DOTween.Complete("EquipInner"); }
-
-        Sequence seq1 = DOTween.Sequence();
-        Sequence seq2 = DOTween.Sequence();
-        for (int i = 0; i < EquipPanelInnerList.Count; i++)
-        { seq1.Join(EquipPanelInnerList[i].DOFade(_A, 0.1f)); }
-
-        for (int i = 0; i < EquipPanelInnerList.Count; i++)
-        { seq2.Join(EquipPanelInnerList[i].DOFade(0.5f, 0.1f)); }
-
-        Sequence seq = DOTween.Sequence();
-        seq.Append(seq1);
-        seq.Append(seq2);
-        seq.SetId("EquipInner");
-    }
+    
 
     private void SetEquipDesc()
     {
@@ -564,6 +581,9 @@ public class ModuleUpgradeUIController : UIController
             DecompositionSlot.ThisSlotItem.gameObject.SetActive(false);
             DecompositionSlot.OutIt_SelectedItem();
             CurrentDecompositionItem = null;
+
+            Preview_MS.text = "-";
+            Preview_BC.text = "-";
         }
         else if (CurrentDecompositionItem == null) // 선택
         {
@@ -576,6 +596,9 @@ public class ModuleUpgradeUIController : UIController
             
             CurrentDecompositionItem = CurrentSelectedMEIS.ThisSlotItem;
 
+            PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem);
+            Preview_MS.text = (ps.ThisItemData.Rank * 2).ToString();
+            Preview_BC.text = ps.ThisItemData.BoostLv.ToString();
             return;
         }
     }
@@ -604,7 +627,10 @@ public class ModuleUpgradeUIController : UIController
             PlayerManager.Instance.PlayerController.CurrentMS.Value += itemRank * 2;
             PlayerManager.Instance.PlayerController.CurrentBC.Value += boostLv;
 
-            ModuleUpgradeController.UsingShop.TakeDamage(false);
+            ModuleUpgradeController.UsingShop.TakeDamage(false); 
+            DotweenInEquip(1f, "ReinforceInner", ReinforcePanelInnerList);
+            Preview_MS.text = "-";
+            Preview_BC.text = "-";
         }
     }
 
@@ -622,13 +648,15 @@ public class ModuleUpgradeUIController : UIController
             FusionSlotList[index].ThisSlotItem.gameObject.SetActive(false);
             FusionSlotList[index].OutIt_SelectedItem();
             CurrentFusionItemList[index] = null;
+            Preview_NeedMS.text = "-";
         }
         else
         {
             if (CurrentFusionItemList.Contains(CurrentSelectedMEIS.ThisSlotItem))
-            {
-                return;
-            }
+            { return; }
+
+            if (BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem).ThisItemData.Rank >= 5)
+            { return; }
 
             for (int i = 0; i < FusionSlotList.Count; i++)
             {
@@ -642,6 +670,18 @@ public class ModuleUpgradeUIController : UIController
                         BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
 
                     CurrentFusionItemList[i] = CurrentSelectedMEIS.ThisSlotItem;
+                    bool CanSeePreview = true;
+                    for (int j = 0; j < CurrentFusionItemList.Count; j++)
+                    {
+                        if (CurrentFusionItemList[j] == null)
+                        {
+                            CanSeePreview = false;
+                        }
+                    }
+                    if (CanSeePreview)
+                    {
+                        Preview_NeedMS.text = BoostItemManager.Instance.NeedMC_AbleFusion(CurrentFusionItemList[0]).ToString();
+                    }
 
                     return;
                 }
@@ -658,9 +698,9 @@ public class ModuleUpgradeUIController : UIController
             BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[1]).ThisItemData.Rank)
         { return; }
 
-        int needMC = BoostItemManager.Instance.NeedMC_AbleFusion(CurrentFusionItemList[0]);
-        if (needMC == 0 ||
-            needMC > PlayerManager.Instance.PlayerController.CurrentMS.Value)
+        int needMS = BoostItemManager.Instance.NeedMC_AbleFusion(CurrentFusionItemList[0]);
+        if (needMS == 0 ||
+            needMS > PlayerManager.Instance.PlayerController.CurrentMS.Value)
         { return; }
 
         // Take Info
@@ -688,12 +728,14 @@ public class ModuleUpgradeUIController : UIController
             BoostItemManager.Instance.DeletePassiveSkill(CurrentFusionItemList[i]);
         }
 
-        PlayerManager.Instance.PlayerController.CurrentMS.Value -= needMC;
+        PlayerManager.Instance.PlayerController.CurrentMS.Value -= needMS;
 
         // Take
         BoostItemManager.Instance.GetItemSkill(itemData);
 
         ModuleUpgradeController.UsingShop.TakeDamage(false);
+        DotweenInEquip(1f, "ReinforceInner", ReinforcePanelInnerList);
+        Preview_NeedMS.text = "-";
     }
 
     #endregion
@@ -708,8 +750,11 @@ public class ModuleUpgradeUIController : UIController
             UpgradeSlot.ThisSlotItem.gameObject.SetActive(false);
             UpgradeSlot.OutIt_SelectedItem();
             CurrentUpgradeItem = null;
+
+            Preview_NeedEC.text = "-";
         }
-        else if (CurrentUpgradeItem == null) // 선택
+        else if (CurrentUpgradeItem == null &&
+            BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem).ThisItemData.BoostLv < PlayerManager.Instance.PlayerController.MaxBoostLv) // 선택
         {
             UpgradeSlot.ThisSlotItem.gameObject.SetActive(true);
 
@@ -719,7 +764,7 @@ public class ModuleUpgradeUIController : UIController
                 BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
 
             CurrentUpgradeItem = CurrentSelectedMEIS.ThisSlotItem;
-
+            Preview_NeedEC.text = BoostItemManager.Instance.NeedEC_AbleUpgrade(CurrentUpgradeItem).ToString();
             return;
         }
     }
@@ -759,6 +804,8 @@ public class ModuleUpgradeUIController : UIController
             BoostItemManager.Instance.GetItemSkill(itemData);
 
             ModuleUpgradeController.UsingShop.TakeDamage(false);
+            DotweenInEquip(1f, "ReinforceInner", ReinforcePanelInnerList);
+            Preview_NeedEC.text = "-";
         }
     }
 
@@ -777,6 +824,11 @@ public class ModuleUpgradeUIController : UIController
         for (int i = 0; i < CurrentFusionItemList.Count; i++)
         { CurrentFusionItemList[i] = null; }
         CurrentUpgradeItem = null;
+
+        Preview_BC.text = "-";
+        Preview_MS.text = "-";
+        Preview_NeedEC.text = "-";
+        Preview_NeedMS.text = "-";
     }
 
     // 인벤토리에 슬롯에 연결된 파일 Null로 바꾸기 (Missing이면 파일에 자리를 차지하게 됨)
@@ -809,13 +861,16 @@ public class ModuleUpgradeUIController : UIController
     {
         public RectTransform PanelRT;
         public ModifyOwnEachBtn PanelBtn;
+        public TMP_Text RoleDescTxt;
         public string BtnString;
+        public string RoleString;
 
         public void Offset(ModuleUpgradeUIController _MUUC)
         {
             PanelBtn.Offset();
             if (PanelBtn.gameObject.transform.GetChild(0).gameObject.TryGetComponent(out TMP_Text txt))
             { txt.text = BtnString; }
+            RoleDescTxt.text = RoleString;
             PanelBtn.OwnerUIController = _MUUC;
         }
     }
@@ -840,6 +895,10 @@ public class ModuleUpgradeUIController : UIController
                 cg.alpha = 0.5f;
             }
         }
+        Preview_BC.text = "-";
+        Preview_MS.text = "-";
+        Preview_NeedEC.text = "-";
+        Preview_NeedMS.text = "-";
     }
 
     #endregion
