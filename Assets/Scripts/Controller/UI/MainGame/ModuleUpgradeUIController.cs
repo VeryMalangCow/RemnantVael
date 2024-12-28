@@ -18,6 +18,12 @@ public class ModuleUpgradeUIController : UIController
     [SerializeField] private string LabelName;
 
     [Space(10)]
+    [Header("=== BC, EC")]
+    [SerializeField] public TMP_Text BCTxt;
+    [SerializeField] public TMP_Text ECTxt;
+    [SerializeField] public TMP_Text MSTxt;
+
+    [Space(10)]
     [Header("=== Module")]
 
     [Space(10)]
@@ -143,7 +149,23 @@ public class ModuleUpgradeUIController : UIController
 
     protected override void Offset_UI()
     {
-        
+        // BC // EC
+        PlayerManager.Instance.PlayerController.CurrentBC
+            .Subscribe(value =>
+            {
+                BCTxt.text = value.ToString();
+            });
+        PlayerManager.Instance.PlayerController.CurrentEC
+            .Subscribe(value =>
+            {
+                ECTxt.text = value.ToString();
+            });
+        PlayerManager.Instance.PlayerController.CurrentMS
+            .Subscribe(value =>
+            {
+                MSTxt.text = value.ToString();
+            });
+
         MI_List = new List<ModifyInventory>
         {
             MI_InEquipTab,

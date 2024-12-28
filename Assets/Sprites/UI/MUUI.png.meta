@@ -756,7 +756,7 @@ TextureImporter:
         width: 51
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -764,6 +764,48 @@ TextureImporter:
       bones: []
       spriteID: aaba4945ef171cc4a80d6868b11c13a3
       internalID: 896999157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Icon_Equip
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 470
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be5ed391ff0019b44886fc9c59ba4acb
+      internalID: -1146092719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Icon_Forge
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 429
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bafe28dcb6dd8df4e9289a9de76f342f
+      internalID: 1326303388
       vertices: []
       indices: 
       edges: []
@@ -796,6 +838,8 @@ TextureImporter:
       MUUI_DescRank_5: 631822970
       MUUI_EquipInner: -841723714
       MUUI_IconFrame: 234982612
+      MUUI_Icon_Equip: -1146092719
+      MUUI_Icon_Forge: 1326303388
       MUUI_InFrame: -522028845
       MUUI_InInner: -974453795
       MUUI_MiddlFrame: 178313332
