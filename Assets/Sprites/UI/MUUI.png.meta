@@ -646,13 +646,13 @@ TextureImporter:
       name: MUUI_Arrow
       rect:
         serializedVersion: 2
-        x: 216
-        y: 469
-        width: 20
-        height: 20
+        x: 1
+        y: 382
+        width: 36
+        height: 81
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 8, y: 40, z: 26, w: 40}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -664,12 +664,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MUUI_BrokenModule
+      name: MUUI_Decomposition
       rect:
         serializedVersion: 2
-        x: 237
-        y: 469
-        width: 18
+        x: 355
+        y: 490
+        width: 20
         height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -694,55 +694,13 @@ TextureImporter:
         height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 23, y: 0, z: 2, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
       spriteID: 5b8d65d7bc510884bb475c54b55e6b0a
       internalID: 467252014
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MUUI_SmallModule
-      rect:
-        serializedVersion: 2
-        x: 314
-        y: 504
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dd9d26cd8caed094d9d8c0ebc9793797
-      internalID: 1935782588
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MUUI_Question
-      rect:
-        serializedVersion: 2
-        x: 314
-        y: 493
-        width: 5
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3c9b2a98b63942249a0120c9689d034b
-      internalID: -684771913
       vertices: []
       indices: 
       edges: []
@@ -757,7 +715,7 @@ TextureImporter:
         height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 23, y: 0, z: 2, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -772,12 +730,12 @@ TextureImporter:
       name: MUUI_Icon_Equip
       rect:
         serializedVersion: 2
-        x: 322
+        x: 314
         y: 470
         width: 40
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -793,12 +751,12 @@ TextureImporter:
       name: MUUI_Icon_Forge
       rect:
         serializedVersion: 2
-        x: 322
+        x: 314
         y: 429
         width: 40
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -806,6 +764,90 @@ TextureImporter:
       bones: []
       spriteID: bafe28dcb6dd8df4e9289a9de76f342f
       internalID: 1326303388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Icon_MS
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 470
+        width: 25
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c64b6f81e18b24e993ff72c6004e76
+      internalID: 1811357098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_ArrowUnder
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 432
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df7bd1298001a7343a81f01150e89c1c
+      internalID: -1624466776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Fusion
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 469
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 266324452c9f5c84e8e8d3d4c331dccf
+      internalID: -1035967902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Upgrade
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 448
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68704725bb382d946bfd8dcbfd5af2a7
+      internalID: -1302667196
       vertices: []
       indices: 
       edges: []
@@ -822,13 +864,14 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       MUUI_Arrow: 1066536247
+      MUUI_ArrowUnder: -1624466776
       MUUI_BG: 1551334863
       MUUI_BoostActual: -502128827
       MUUI_BoostBG: -79458140
       MUUI_BoostIcon: -880373595
       MUUI_BoostLvUpModule: 896999157
       MUUI_Bridge: -55159986
-      MUUI_BrokenModule: 521069954
+      MUUI_Decomposition: 521069954
       MUUI_DescBoostActual: 606591816
       MUUI_DescBoostBG: -2131293525
       MUUI_DescRank_1: -1597416641
@@ -837,9 +880,11 @@ TextureImporter:
       MUUI_DescRank_4: 299157854
       MUUI_DescRank_5: 631822970
       MUUI_EquipInner: -841723714
+      MUUI_Fusion: -1035967902
       MUUI_IconFrame: 234982612
       MUUI_Icon_Equip: -1146092719
       MUUI_Icon_Forge: 1326303388
+      MUUI_Icon_MS: 1811357098
       MUUI_InFrame: -522028845
       MUUI_InInner: -974453795
       MUUI_MiddlFrame: 178313332
@@ -854,6 +899,7 @@ TextureImporter:
       MUUI_SideFram: -1050083147
       MUUI_SideFrame: -1154923124
       MUUI_SmallModule: 1935782588
+      MUUI_Upgrade: -1302667196
       MUUI_WidthLine: -407032061
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
