@@ -24,12 +24,15 @@ public class ModuleUpgradeUIController : UIController
     [Header("-- In Equip")]
     [SerializeField] private ModifyInventory MI_InEquipTab;
     [SerializeField] private List<ModifyEachInventorySlot> EquipedMEIS_List;
+    [SerializeField] private List<Image> EquipPanelInnerList;
+    [SerializeField] private List<TMP_Text> EquipDescStateTxtList;
 
     [Space(10)]
     [Header("-- In Reinforce")]
     [SerializeField] private ModifyInventory MI_InReinforceTab;
     [SerializeField] private List<SimplePanelAndBtn> ReinforceInteractPanels;
     [HideInInspector] private SimplePanelAndBtn CurrentReinforceInteractPanel;
+    [SerializeField] private List<Image> ReinforcePanelInnerList;
 
     // Other
     [HideInInspector] private List<ModifyInventory> MI_List;
@@ -156,6 +159,17 @@ public class ModuleUpgradeUIController : UIController
         SubColorCompList.Add(ThisDescPanel.CurrentBoostLvTxt);
 
         SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+        SubColorCompList.AddRange(EquipPanelInnerList);
+
+        for (int i = 0; i < EquipDescStateTxtList.Count; i++)
+        {
+            MainColorCompList.Add(EquipDescStateTxtList[i]);
+            if (EquipDescStateTxtList[i].gameObject.transform.childCount > 0 &&
+                EquipDescStateTxtList[i].gameObject.transform.GetChild(0).TryGetComponent(out Image img))
+            {
+                SubColorCompList.Add(img);
+            }
+        }
 
         for (int i = 0; i < ReinforceInteractPanels.Count; i++)
         {
@@ -479,6 +493,9 @@ public class ModuleUpgradeUIController : UIController
                 ps.ThisItemData.BoostLv);
         meii_PlayerHUD.IsCanSelect = false;
         ps.ThisExtraMEII.Add(meii_PlayerHUD);
+
+        DotweenInEquip(1f);
+        SetEquipDesc();
     }
 
     // 장착 해제 시도
@@ -492,6 +509,45 @@ public class ModuleUpgradeUIController : UIController
 
         CurrentSelectedMEIS.ThisSlotItem = null;
         CurrentSelectedMEIS.OutIt_SelectedItem();
+
+        DotweenInEquip(0f);
+        SetEquipDesc();
+    }
+
+    private void DotweenInEquip(float _A)
+    {
+
+        if (DOTween.IsTweening("EquipInner"))
+        { DOTween.Complete("EquipInner"); }
+
+        Sequence seq1 = DOTween.Sequence();
+        Sequence seq2 = DOTween.Sequence();
+        for (int i = 0; i < EquipPanelInnerList.Count; i++)
+        { seq1.Join(EquipPanelInnerList[i].DOFade(_A, 0.1f)); }
+
+        for (int i = 0; i < EquipPanelInnerList.Count; i++)
+        { seq2.Join(EquipPanelInnerList[i].DOFade(0.5f, 0.1f)); }
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(seq1);
+        seq.Append(seq2);
+        seq.SetId("EquipInner");
+    }
+
+    private void SetEquipDesc()
+    {
+        for (int i = 0; i < EquipedMEIS_List.Count; i++)
+        {
+            PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Equiped(EquipedMEIS_List[i].ThisSlotItem);
+            if (ps != null)
+            {
+                EquipDescStateTxtList[i].text = ps.ThisItemData.EquipDescription;
+            }
+            else
+            {
+                EquipDescStateTxtList[i].text = "-";
+            }
+        }
     }
 
     #endregion

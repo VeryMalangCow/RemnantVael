@@ -201,6 +201,7 @@ public class ItemData
     public int ID;
     public string Name;
     public string Description;
+    public string EquipDescription;
     public Sprite Sprite;
     public Sprite ItemIcon;
 
@@ -215,6 +216,7 @@ public class ItemData
         ID = _ItemData.ID;
         Name = _ItemData.Name;
         Description = _ItemData.Description;
+        EquipDescription = _ItemData.EquipDescription;
         Sprite = _ItemData.Sprite;
         ItemIcon = _ItemData.ItemIcon;
         BoostLv = _ItemData.BoostLv;

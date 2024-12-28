@@ -3411,6 +3411,7 @@ MonoBehaviour:
   - ID: 0
     Name: ExtraCell
     Description: ExtraCell will be Increase Your EP.
+    EquipDescription: ExtraCell will be Increase Your EP.
     Sprite: {fileID: 21300000, guid: 62f9aae4c18384b40be5e2906d7ade71, type: 3}
     ItemIcon: {fileID: 21300000, guid: 62f9aae4c18384b40be5e2906d7ade71, type: 3}
     BoostLv: 1
@@ -3418,6 +3419,7 @@ MonoBehaviour:
   - ID: 1
     Name: Small Missile
     Description: if you Fire, Missile will fire with a certain probability.
+    EquipDescription: if you Fire, Missile will fire with a certain probability.
     Sprite: {fileID: 21300000, guid: 79ec4f34ced503e44b6f83ba713c0d6d, type: 3}
     ItemIcon: {fileID: 21300000, guid: 79ec4f34ced503e44b6f83ba713c0d6d, type: 3}
     BoostLv: 1
