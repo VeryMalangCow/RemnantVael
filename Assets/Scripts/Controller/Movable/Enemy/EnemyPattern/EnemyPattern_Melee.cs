@@ -1,7 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
-using static DG.Tweening.DOTweenAnimation;
 
 public class EnemyPattern_Melee : EnemyPattern
 {

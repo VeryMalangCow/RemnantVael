@@ -3,7 +3,6 @@ using UniRx;
 using TMPro;
 using DG.Tweening;
 using UnityEngine.UI;
-using LeTai.TrueShadow;
 using System.Collections.Generic;
 
 public class PlayerHUDController : UIController

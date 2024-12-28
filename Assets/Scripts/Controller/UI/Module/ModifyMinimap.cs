@@ -1,9 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class ModifyMinimap : UIModule
 {
