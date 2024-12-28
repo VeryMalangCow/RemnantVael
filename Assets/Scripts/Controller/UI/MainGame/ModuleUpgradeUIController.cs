@@ -655,7 +655,7 @@ public class ModuleUpgradeUIController : UIController
             if (CurrentFusionItemList.Contains(CurrentSelectedMEIS.ThisSlotItem))
             { return; }
 
-            if (BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem).ThisItemData.Rank >= 5)
+            if (BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.Rank >= 5)
             { return; }
 
             for (int i = 0; i < FusionSlotList.Count; i++)
@@ -678,9 +678,18 @@ public class ModuleUpgradeUIController : UIController
                             CanSeePreview = false;
                         }
                     }
+                    
                     if (CanSeePreview)
                     {
-                        Preview_NeedMS.text = BoostItemManager.Instance.NeedMC_AbleFusion(CurrentFusionItemList[0]).ToString();
+                        if (BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[0]).ThisItemData.Rank
+                        == BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[1]).ThisItemData.Rank)
+                        {
+                            Preview_NeedMS.text = BoostItemManager.Instance.NeedMC_AbleFusion(CurrentFusionItemList[0]).ToString();
+                        }
+                        else
+                        {
+                            Preview_NeedMS.text = "≠";
+                        }
                     }
 
                     return;
@@ -754,7 +763,7 @@ public class ModuleUpgradeUIController : UIController
             Preview_NeedEC.text = "-";
         }
         else if (CurrentUpgradeItem == null &&
-            BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem).ThisItemData.BoostLv < PlayerManager.Instance.PlayerController.MaxBoostLv) // 선택
+            BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv < PlayerManager.Instance.PlayerController.MaxBoostLv) // 선택
         {
             UpgradeSlot.ThisSlotItem.gameObject.SetActive(true);
 
