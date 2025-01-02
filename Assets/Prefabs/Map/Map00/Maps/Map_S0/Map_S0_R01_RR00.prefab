@@ -46,11 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 2716598669085103121}
-  - {fileID: 8982227956559676859}
-  - {fileID: 3018937201113980089}
-  - {fileID: 8523876561844735870}
+  AdjacentWPList: []
 --- !u!212 &6184932277333409450
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -295,9 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 5337281929629293146}
-  - {fileID: 716222709007145677}
+  AdjacentWPList: []
 --- !u!212 &8656984404360917382
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -396,11 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 3296292317413063839}
-  - {fileID: 8375099705393752851}
-  - {fileID: 6113627304005869036}
-  - {fileID: 6554797391891965889}
+  AdjacentWPList: []
 --- !u!212 &205772099708161930
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -499,10 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 6143557456132541332}
-  - {fileID: 8373471321422661962}
-  - {fileID: 8982227956559676859}
+  AdjacentWPList: []
 --- !u!212 &293065089630781536
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -667,10 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 6554797391891965889}
-  - {fileID: 3873967316240945612}
-  - {fileID: 7142262596702806073}
+  AdjacentWPList: []
 --- !u!212 &4817168504171806539
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -816,9 +800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 8523876561844735870}
-  - {fileID: 2716598669085103121}
+  AdjacentWPList: []
 --- !u!212 &1998262619955205012
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -917,11 +899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 8982227956559676859}
-  - {fileID: 8375099705393752851}
-  - {fileID: 6113627304005869036}
-  - {fileID: 7848150239124341024}
+  AdjacentWPList: []
 --- !u!212 &5086547984149587099
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1104,12 +1082,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 8982227956559676859}
-  - {fileID: 3296292317413063839}
-  - {fileID: 4923218116026000998}
-  - {fileID: 7848150239124341024}
-  - {fileID: 5337281929629293146}
+  AdjacentWPList: []
 --- !u!212 &8232032013281748646
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1208,11 +1181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 6143557456132541332}
-  - {fileID: 8373471321422661962}
-  - {fileID: 3018937201113980089}
-  - {fileID: 8375099705393752851}
+  AdjacentWPList: []
 --- !u!212 &120703492715189982
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1311,11 +1280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 6113627304005869036}
-  - {fileID: 6554797391891965889}
-  - {fileID: 5337281929629293146}
-  - {fileID: 7142262596702806073}
+  AdjacentWPList: []
 --- !u!212 &4926611402427420836
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1395,7 +1360,7 @@ Transform:
   m_GameObject: {fileID: 5969448057849923157}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.5, y: 3.5, z: 0}
+  m_LocalPosition: {x: 28.5, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1414,11 +1379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 6113627304005869036}
-  - {fileID: 4923218116026000998}
-  - {fileID: 3873967316240945612}
-  - {fileID: 7142262596702806073}
+  AdjacentWPList: []
 --- !u!212 &9138734214263367020
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1517,11 +1478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 4923218116026000998}
-  - {fileID: 6554797391891965889}
-  - {fileID: 5337281929629293146}
-  - {fileID: 716222709007145677}
+  AdjacentWPList: []
 --- !u!212 &8428894698949400600
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1620,12 +1577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 8375099705393752851}
-  - {fileID: 4923218116026000998}
-  - {fileID: 7848150239124341024}
-  - {fileID: 7142262596702806073}
-  - {fileID: 716222709007145677}
+  AdjacentWPList: []
 --- !u!212 &2683890251256790782
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1724,11 +1676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 6143557456132541332}
-  - {fileID: 2716598669085103121}
-  - {fileID: 8982227956559676859}
-  - {fileID: 8375099705393752851}
+  AdjacentWPList: []
 --- !u!212 &1972683008446358
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1912,12 +1860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 8523876561844735870}
-  - {fileID: 6143557456132541332}
-  - {fileID: 3296292317413063839}
-  - {fileID: 3018937201113980089}
-  - {fileID: 6113627304005869036}
+  AdjacentWPList: []
 --- !u!212 &2846523499781392093
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2016,12 +1959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisTF: {fileID: 0}
-  AdjacentWPList:
-  - {fileID: 2716598669085103121}
-  - {fileID: 3296292317413063839}
-  - {fileID: 3018937201113980089}
-  - {fileID: 7848150239124341024}
-  - {fileID: 6554797391891965889}
+  AdjacentWPList: []
 --- !u!212 &8355161218846658501
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2215,6 +2153,7 @@ MonoBehaviour:
   InRoom_AllBuildingParentTF: {fileID: 5083685775733296416}
   InRoom_AllBuilding: []
   InRoom_BuildThing: {fileID: 0}
+  InRoom_Elevator: {fileID: 0}
   InRoom_AllEnemy:
   - EnemyPrefab: {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
     EnemySpawnTF: {fileID: 7661713667687456443}
