@@ -54,31 +54,31 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
 
     #region Desc
 
-    public void SetDesc(PassiveSkill _PS)
+    public void SetDesc(ModuleState _MS)
     {
         foreach (Transform child in this.transform)
         { child.gameObject.SetActive(true); }
 
         // Item
         ItemIconImg.color = new Color(1, 1, 1, 1);
-        ItemIconImg.sprite = _PS.ThisItemData.ItemIcon;
-        ItemNameTxt.text = _PS.ThisItemData.Name;
-        ITemIntroTxt.text = _PS.ThisItemData.Description;
+        ItemIconImg.sprite = _MS.ThisItemData.ItemIcon;
+        ItemNameTxt.text = _MS.ThisItemData.Name;
+        ITemIntroTxt.text = _MS.ThisItemData.Description;
 
         // Rank
         CurrentRankImg.color = new Color(1, 1, 1, 1);
-        CurrentRankImg.sprite = BoostItemManager.Instance.GetCorrectMUUIDescRankIcon(_PS);
+        CurrentRankImg.sprite = ModuleItemManager.Instance.GetCorrectMUUIDescRankIcon(_MS);
         CurrentRankTxt.text = ExtraString_Rank;
-        CurrentActualRankTxt.text = _PS.ThisItemData.Rank.ToString();
+        CurrentActualRankTxt.text = _MS.ThisItemData.Rank.ToString();
 
         // Boost Lv
         
         Color clr = BoostLvImg.color;
-        clr.a = (float)_PS.ThisItemData.BoostLv / (float)PlayerManager.Instance.PlayerController.MaxBoostLv;
+        clr.a = (float)_MS.ThisItemData.BoostLv / (float)PlayerManager.Instance.PlayerController.MaxBoostLv;
         BoostLvImg.color = clr;
-        CurrentBoostLvMIAT.SetAmount(_PS.ThisItemData.BoostLv);
+        CurrentBoostLvMIAT.SetAmount(_MS.ThisItemData.BoostLv);
         CurrentBoostLvTxt.text = ExtraString_BoostLv;
-        CurrentActualBoostLvTxt.text = _PS.ThisItemData.BoostLv.ToString();
+        CurrentActualBoostLvTxt.text = _MS.ThisItemData.BoostLv.ToString();
     }
 
     public void SetDescOff()

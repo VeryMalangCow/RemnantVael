@@ -55,7 +55,7 @@ public class PlayerWeaponController : SatelliteController
             Fire(PBClist);
             PlayerManager.Instance.CameraController.PlayShotAnim(1/ROF.ActualState.Value, PBClist[0].BulletState.BaseDamage);
 
-            BoostItemManager.Instance.ActiveSkill_Fire();
+            ModuleItemManager.Instance.Active_Fire();
         }
     }
 

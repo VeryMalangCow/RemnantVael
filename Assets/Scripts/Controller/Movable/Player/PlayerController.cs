@@ -227,7 +227,7 @@ public class PlayerController : MovableObject
     {
         base.Update();
         AlwaysCaculate();
-        BoostItemManager.Instance.ActiveSkill_Always();
+        //ModuleItemManager.Instance.ActiveSkill_Always();
         SetOnOffMoveDir();
     }
 

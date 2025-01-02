@@ -496,7 +496,7 @@ public class ModuleUpgradeUIController : UIController
                 TryUnequip();
             }
 
-            BoostItemManager.Instance.ResetInterface();
+            ModuleItemManager.Instance.ResetInterface();
         }
         else if (indexOfAboutPanel == 1) // Reinforce Window
         {
@@ -531,14 +531,14 @@ public class ModuleUpgradeUIController : UIController
     // 장착 시도
     private void TryEquip()
     {
-        if (BoostItemManager.Instance.Equiped_PSList.Count >= EquipedMEIS_List.Count)
+        if (ModuleItemManager.Instance.Equiped_MSList.Count >= EquipedMEIS_List.Count)
         { return; }
 
-        PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem);
+        ModuleState ms = ModuleItemManager.Instance.GetModuleState_Inventory(CurrentSelectedMEIS.ThisSlotItem);
 
         foreach (ModifyEachInventorySlot MEIS in EquipedMEIS_List)
         {
-            if (ps.ThisExtraMEII.Contains(MEIS.ThisSlotItem))
+            if (ms.ThisExtraMEII.Contains(MEIS.ThisSlotItem))
             {
                 Debug.Log("Exist Already!");
                 return;
@@ -548,15 +548,15 @@ public class ModuleUpgradeUIController : UIController
         Debug.Log("Equip!");
 
         // Module UI
-        BoostItemManager.Instance.Equiped_PSList.Add(ps);
+        ModuleItemManager.Instance.Equiped_MSList.Add(ms);
         ModifyEachInventorySlot meis = GetEquipedEmptySlot();
         ModifyEachInventoryItem meii 
             = MI_InEquipTab.SpawnMEII_Module(
                 meis, 
-                ps.ThisItemData.ItemIcon, 
-                BoostItemManager.Instance.GetCorrectRankIcon(ps), 
-                ps.ThisItemData.BoostLv);
-        ps.ThisExtraMEII.Add(meii);
+                ms.ThisItemData.ItemIcon, 
+                ModuleItemManager.Instance.GetCorrectRankIcon(ms), 
+                ms.ThisItemData.BoostLv);
+        ms.ThisExtraMEII.Add(meii);
         meii.OwnerUIController = this;
 
         // Player HUD
@@ -565,11 +565,11 @@ public class ModuleUpgradeUIController : UIController
         ModifyEachInventoryItem meii_PlayerHUD
             = MI_InEquipTab.SpawnMEII_Module(
                 MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[slotIndex],
-                ps.ThisItemData.ItemIcon,
-                BoostItemManager.Instance.GetCorrectRankIcon(ps),
-                ps.ThisItemData.BoostLv);
+                ms.ThisItemData.ItemIcon,
+                ModuleItemManager.Instance.GetCorrectRankIcon(ms),
+                ms.ThisItemData.BoostLv);
         meii_PlayerHUD.IsCanSelect = false;
-        ps.ThisExtraMEII.Add(meii_PlayerHUD);
+        ms.ThisExtraMEII.Add(meii_PlayerHUD);
 
         DotweenInEquip(1f, "EquipInner", EquipPanelInnerList);
         SetEquipDesc();
@@ -578,10 +578,10 @@ public class ModuleUpgradeUIController : UIController
     // 장착 해제 시도
     private void TryUnequip()
     {
-        PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Equiped(CurrentSelectedMEIS.ThisSlotItem);
+        ModuleState ms = ModuleItemManager.Instance.GetModuleState_Equiped(CurrentSelectedMEIS.ThisSlotItem);
 
-        BoostItemManager.Instance.Equiped_PSList.Remove(ps);
-        ps.ThisExtraMEII.Remove(CurrentSelectedMEIS.ThisSlotItem);
+        ModuleItemManager.Instance.Equiped_MSList.Remove(ms);
+        ms.ThisExtraMEII.Remove(CurrentSelectedMEIS.ThisSlotItem);
         Destroy(CurrentSelectedMEIS.ThisSlotItem.gameObject);
 
         CurrentSelectedMEIS.ThisSlotItem = null;
@@ -598,10 +598,10 @@ public class ModuleUpgradeUIController : UIController
     {
         for (int i = 0; i < EquipedMEIS_List.Count; i++)
         {
-            PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Equiped(EquipedMEIS_List[i].ThisSlotItem);
-            if (ps != null)
+            ModuleState ms = ModuleItemManager.Instance.GetModuleState_Equiped(EquipedMEIS_List[i].ThisSlotItem);
+            if (ms != null)
             {
-                EquipDescStateTxtList[i].text = ps.ThisItemData.EquipDescription;
+                EquipDescStateTxtList[i].text = ms.ThisItemData.EquipDescription;
             }
             else
             {
@@ -635,13 +635,13 @@ public class ModuleUpgradeUIController : UIController
             DecompositionSlot.ThisSlotItem.SetData(
                 CurrentSelectedMEIS.ThisSlotItem.ThisImg.sprite,
                 CurrentSelectedMEIS.ThisSlotItem.RankImg.sprite,
-                BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
+                ModuleItemManager.Instance.GetModuleState_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
             
             CurrentDecompositionItem = CurrentSelectedMEIS.ThisSlotItem;
 
-            PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem);
-            Preview_MS.text = (ps.ThisItemData.Rank * 2).ToString();
-            Preview_BC.text = ps.ThisItemData.BoostLv.ToString();
+            ModuleState ms = ModuleItemManager.Instance.GetModuleState_Inventory(CurrentDecompositionItem);
+            Preview_MS.text = (ms.ThisItemData.Rank * 2).ToString();
+            Preview_BC.text = ms.ThisItemData.BoostLv.ToString();
             return;
         }
     }
@@ -652,18 +652,18 @@ public class ModuleUpgradeUIController : UIController
         if (CurrentDecompositionItem != null)
         {
             // Take Info
-            PassiveSkill ps = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem);
-            int itemRank = ps.ThisItemData.Rank;
-            int boostLv = ps.ThisItemData.BoostLv;
+            ModuleState ms = ModuleItemManager.Instance.GetModuleState_Inventory(CurrentDecompositionItem);
+            int itemRank = ms.ThisItemData.Rank;
+            int boostLv = ms.ThisItemData.BoostLv;
 
             // Be Empty
-            RemoveDataInInventory(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem));
+            RemoveDataInInventory(ModuleItemManager.Instance.GetModuleState_Inventory(CurrentDecompositionItem));
 
             // Give
             DecompositionSlot.ThisSlotItem.gameObject.SetActive(false);
             DecompositionSlot.OutIt_SelectedItem();
 
-            BoostItemManager.Instance.DeletePassiveSkill(CurrentDecompositionItem);
+            ModuleItemManager.Instance.DeleteModuleState(CurrentDecompositionItem);
 
 
             // Take
@@ -700,7 +700,7 @@ public class ModuleUpgradeUIController : UIController
             if (CurrentFusionItemList.Contains(CurrentSelectedMEIS.ThisSlotItem))
             { return; }
 
-            if (BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.Rank >= 5)
+            if (ModuleItemManager.Instance.GetModuleState_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.Rank >= 5)
             { return; }
 
             for (int i = 0; i < FusionSlotList.Count; i++)
@@ -712,7 +712,7 @@ public class ModuleUpgradeUIController : UIController
                     FusionSlotList[i].ThisSlotItem.SetData(
                         CurrentSelectedMEIS.ThisSlotItem.ThisImg.sprite,
                         CurrentSelectedMEIS.ThisSlotItem.RankImg.sprite,
-                        BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
+                        ModuleItemManager.Instance.GetModuleState_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
 
                     CurrentFusionItemList[i] = CurrentSelectedMEIS.ThisSlotItem;
                     bool CanSeePreview = true;
@@ -726,10 +726,10 @@ public class ModuleUpgradeUIController : UIController
                     
                     if (CanSeePreview)
                     {
-                        if (BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[0]).ThisItemData.Rank
-                        == BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[1]).ThisItemData.Rank)
+                        if (ModuleItemManager.Instance.GetModuleState_Inventory(CurrentFusionItemList[0]).ThisItemData.Rank
+                        == ModuleItemManager.Instance.GetModuleState_Inventory(CurrentFusionItemList[1]).ThisItemData.Rank)
                         {
-                            Preview_NeedMS.text = BoostItemManager.Instance.NeedMC_AbleFusion(CurrentFusionItemList[0]).ToString();
+                            Preview_NeedMS.text = ModuleItemManager.Instance.NeedMC_AbleFusion(CurrentFusionItemList[0]).ToString();
                         }
                         else
                         {
@@ -748,11 +748,11 @@ public class ModuleUpgradeUIController : UIController
     {
         if (CurrentFusionItemList[0] == null ||
             CurrentFusionItemList[1] == null ||
-            BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[0]).ThisItemData.Rank !=
-            BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[1]).ThisItemData.Rank)
+            ModuleItemManager.Instance.GetModuleState_Inventory(CurrentFusionItemList[0]).ThisItemData.Rank !=
+            ModuleItemManager.Instance.GetModuleState_Inventory(CurrentFusionItemList[1]).ThisItemData.Rank)
         { return; }
 
-        int needMS = BoostItemManager.Instance.NeedMC_AbleFusion(CurrentFusionItemList[0]);
+        int needMS = ModuleItemManager.Instance.NeedMC_AbleFusion(CurrentFusionItemList[0]);
         if (needMS == 0 ||
             needMS > PlayerManager.Instance.PlayerController.CurrentMS.Value)
         { return; }
@@ -762,9 +762,9 @@ public class ModuleUpgradeUIController : UIController
         ItemData itemData;
 
         if (UnityEngine.Random.Range(0, 2) == 0)
-        { itemData = new ItemData(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[0]).ThisItemData); }
+        { itemData = new ItemData(ModuleItemManager.Instance.GetModuleState_Inventory(CurrentFusionItemList[0]).ThisItemData); }
         else
-        { itemData = new ItemData(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[1]).ThisItemData); }
+        { itemData = new ItemData(ModuleItemManager.Instance.GetModuleState_Inventory(CurrentFusionItemList[1]).ThisItemData); }
 
         itemData.Rank++;
         itemData.BoostLv = 1;
@@ -772,20 +772,20 @@ public class ModuleUpgradeUIController : UIController
         for (int i = FusionSlotList.Count - 1; i >= 0; i--)
         {
             // Be Empty
-            RemoveDataInInventory(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[i]));
+            RemoveDataInInventory(ModuleItemManager.Instance.GetModuleState_Inventory(CurrentFusionItemList[i]));
 
             // Give
 
             FusionSlotList[i].ThisSlotItem.gameObject.SetActive(false);
             FusionSlotList[i].OutIt_SelectedItem();
 
-            BoostItemManager.Instance.DeletePassiveSkill(CurrentFusionItemList[i]);
+            ModuleItemManager.Instance.DeleteModuleState(CurrentFusionItemList[i]);
         }
 
         PlayerManager.Instance.PlayerController.CurrentMS.Value -= needMS;
 
         // Take
-        BoostItemManager.Instance.GetItemSkill(itemData);
+        ModuleItemManager.Instance.GetModuleState(itemData);
 
         ModuleUpgradeController.UsingShop.TakeDamage(false);
         DotweenInEquip(1f, "ReinforceInner", ReinforcePanelInnerList);
@@ -808,17 +808,17 @@ public class ModuleUpgradeUIController : UIController
             Preview_NeedEC.text = "-";
         }
         else if (CurrentUpgradeItem == null &&
-            BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv < PlayerManager.Instance.PlayerController.MaxBoostLv) // 선택
+            ModuleItemManager.Instance.GetModuleState_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv < PlayerManager.Instance.PlayerController.MaxBoostLv) // 선택
         {
             UpgradeSlot.ThisSlotItem.gameObject.SetActive(true);
 
             UpgradeSlot.ThisSlotItem.SetData(
                 CurrentSelectedMEIS.ThisSlotItem.ThisImg.sprite,
                 CurrentSelectedMEIS.ThisSlotItem.RankImg.sprite,
-                BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
+                ModuleItemManager.Instance.GetModuleState_Inventory(CurrentSelectedMEIS.ThisSlotItem).ThisItemData.BoostLv);
 
             CurrentUpgradeItem = CurrentSelectedMEIS.ThisSlotItem;
-            Preview_NeedEC.text = BoostItemManager.Instance.NeedEC_AbleUpgrade(CurrentUpgradeItem).ToString();
+            Preview_NeedEC.text = ModuleItemManager.Instance.NeedEC_AbleUpgrade(CurrentUpgradeItem).ToString();
             return;
         }
     }
@@ -829,7 +829,7 @@ public class ModuleUpgradeUIController : UIController
         if (CurrentUpgradeItem != null)
         {
             // Cost
-            int needEC = BoostItemManager.Instance.NeedEC_AbleUpgrade(CurrentUpgradeItem);
+            int needEC = ModuleItemManager.Instance.NeedEC_AbleUpgrade(CurrentUpgradeItem);
             Debug.Log(needEC);
 
             if (needEC == 0 ||
@@ -837,25 +837,25 @@ public class ModuleUpgradeUIController : UIController
             { return; }
 
             // Take Info
-            ItemData itemData = new ItemData(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentUpgradeItem).ThisItemData);
+            ItemData itemData = new ItemData(ModuleItemManager.Instance.GetModuleState_Inventory(CurrentUpgradeItem).ThisItemData);
             if (itemData.BoostLv >= PlayerManager.Instance.PlayerController.MaxBoostLv)
             { return; }
 
             itemData.BoostLv++;
 
             // Be Empty
-            RemoveDataInInventory(BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentUpgradeItem));
+            RemoveDataInInventory(ModuleItemManager.Instance.GetModuleState_Inventory(CurrentUpgradeItem));
 
             // Give
             UpgradeSlot.ThisSlotItem.gameObject.SetActive(false);
             UpgradeSlot.OutIt_SelectedItem();
 
-            BoostItemManager.Instance.DeletePassiveSkill(CurrentUpgradeItem);
+            ModuleItemManager.Instance.DeleteModuleState(CurrentUpgradeItem);
 
             PlayerManager.Instance.PlayerController.CurrentEC.Value -= needEC;
 
             // Take
-            BoostItemManager.Instance.GetItemSkill(itemData);
+            ModuleItemManager.Instance.GetModuleState(itemData);
 
             ModuleUpgradeController.UsingShop.TakeDamage(false);
             DotweenInEquip(1f, "ReinforceInner", ReinforcePanelInnerList);
@@ -886,11 +886,11 @@ public class ModuleUpgradeUIController : UIController
     }
 
     // 인벤토리에 슬롯에 연결된 파일 Null로 바꾸기 (Missing이면 파일에 자리를 차지하게 됨)
-    private void RemoveDataInInventory(PassiveSkill _PS)
+    private void RemoveDataInInventory(ModuleState _MS)
     {
         foreach (ModifyEachInventorySlot MEIS in EquipedMEIS_List)
         {
-            foreach (ModifyEachInventoryItem MEII in _PS.ThisExtraMEII)
+            foreach (ModifyEachInventoryItem MEII in _MS.ThisExtraMEII)
             {
                 if (MEIS.ThisSlotItem == MEII)
                 {
@@ -898,7 +898,7 @@ public class ModuleUpgradeUIController : UIController
                 }
             }
         }
-        foreach (ModifyEachInventoryItem MEII in _PS.ThisMEII)
+        foreach (ModifyEachInventoryItem MEII in _MS.ThisMEII)
         {
             MI_InEquipTab.RemoveItemInSlotData(MEII);
             MI_InReinforceTab.RemoveItemInSlotData(MEII);
@@ -961,45 +961,45 @@ public class ModuleUpgradeUIController : UIController
 
     public void SetDesc(ModifyEachInventoryItem _MEII)
     {
-        PassiveSkill PS_InInventory = BoostItemManager.Instance.GetPassiveSkill_Inventory(_MEII);
-        if (PS_InInventory != null)
+        ModuleState ms_InInventory = ModuleItemManager.Instance.GetModuleState_Inventory(_MEII);
+        if (ms_InInventory != null)
         {
             Debug.Log("Inven");
-            ThisDescPanel.SetDesc(PS_InInventory);
+            ThisDescPanel.SetDesc(ms_InInventory);
             return;
         }
 
-        PassiveSkill PS_InEquiped = BoostItemManager.Instance.GetPassiveSkill_Equiped(_MEII);
-        if (PS_InEquiped != null)
+        ModuleState ms_InEquiped = ModuleItemManager.Instance.GetModuleState_Equiped(_MEII);
+        if (ms_InEquiped != null)
         {
             Debug.Log("Equiped");
-            ThisDescPanel.SetDesc(PS_InEquiped);
+            ThisDescPanel.SetDesc(ms_InEquiped);
             return;
         }
 
         if (_MEII == DecompositionSlot.ThisSlotItem &&
             CurrentDecompositionItem != null)
         {
-            PassiveSkill PS = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentDecompositionItem);
-            ThisDescPanel.SetDesc(PS);
+            ModuleState ms = ModuleItemManager.Instance.GetModuleState_Inventory(CurrentDecompositionItem);
+            ThisDescPanel.SetDesc(ms);
         }
         else if (_MEII == FusionSlotList[0].ThisSlotItem &&
             CurrentFusionItemList[0] != null)
         {
-            PassiveSkill PS = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[0]);
-            ThisDescPanel.SetDesc(PS);
+            ModuleState ms = ModuleItemManager.Instance.GetModuleState_Inventory(CurrentFusionItemList[0]);
+            ThisDescPanel.SetDesc(ms);
         }
         else if (_MEII == FusionSlotList[1].ThisSlotItem &&
             CurrentFusionItemList[1] != null)
         {
-            PassiveSkill PS = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentFusionItemList[1]);
-            ThisDescPanel.SetDesc(PS);
+            ModuleState ms = ModuleItemManager.Instance.GetModuleState_Inventory(CurrentFusionItemList[1]);
+            ThisDescPanel.SetDesc(ms);
         }
         else if (_MEII == UpgradeSlot.ThisSlotItem &&
             CurrentUpgradeItem != null)
         {
-            PassiveSkill PS = BoostItemManager.Instance.GetPassiveSkill_Inventory(CurrentUpgradeItem);
-            ThisDescPanel.SetDesc(PS);
+            ModuleState ms = ModuleItemManager.Instance.GetModuleState_Inventory(CurrentUpgradeItem);
+            ThisDescPanel.SetDesc(ms);
         }
     }
 

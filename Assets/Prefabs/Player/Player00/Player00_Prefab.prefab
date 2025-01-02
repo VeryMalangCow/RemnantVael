@@ -2227,7 +2227,7 @@ MonoBehaviour:
     - 0.4
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 1.5
+      value: 10
     Name: Power
     Desc: Damage multiple of missile calculated as multiple to basic attack.
   PlayerController: {fileID: 0}

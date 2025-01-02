@@ -91,12 +91,14 @@ public class EnemyController : MovableObject, IInteract
             .Subscribe(_CurrentHP =>
             {
                 HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
+                ModuleItemManager.Instance.Active_Hit();
             });
 
         CurrentEP
             .Subscribe(_CurrentEP =>
             {
-                EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
+                EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP); 
+                ModuleItemManager.Instance.Active_Hit();
             });
 
     }
