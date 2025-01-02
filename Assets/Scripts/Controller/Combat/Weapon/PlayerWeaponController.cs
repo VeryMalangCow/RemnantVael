@@ -126,13 +126,15 @@ public class PlayerWeaponController : SatelliteController
             { targetShadow = HST.TargetRange; }
 
             // Angle
-            Vector2 targetPos = InputManager.Instance.MousePosByWorld;
+            /*Vector2 targetPos = InputManager.Instance.MousePosByWorld;
             if (fireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
             {
                 targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position +
                     InputManager.Instance.DirFromPlayerPos.normalized * fireMinDisLimit;
             }
             Vector2 dir = (targetPos - (Vector2)BulletSpawnTFs[i].transform.position).normalized;
+*/
+            Vector2 dir = GetDir((Vector2)BulletSpawnTFs[i].transform.position);
 
             // Base State 
             BulletState bulletState = new BulletState(
@@ -166,6 +168,17 @@ public class PlayerWeaponController : SatelliteController
         
     }
 
+    public Vector2 GetDir(Vector2 _SpawnPos)
+    {
+        Vector2 targetPos = InputManager.Instance.MousePosByWorld;
+        if (fireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
+        {
+            targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position +
+                InputManager.Instance.DirFromPlayerPos.normalized * fireMinDisLimit;
+        }
+        
+        return (targetPos - _SpawnPos).normalized;
+    }
 
 
     #endregion

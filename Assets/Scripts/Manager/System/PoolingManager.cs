@@ -29,6 +29,9 @@ public class PoolingManager : Singleton<PoolingManager>
     [Header("=== UI")]
     [SerializeField] public TTypePooling<ModifyEffectWorldTxt> DmgTxtCanvases;
 
+    [Header("=== MI")]
+    [SerializeField] public TTypePooling<PlayerBulletController> MI_000_Bullets;
+
     #endregion
 
     #region Framework
@@ -166,6 +169,15 @@ public class PoolingManager : Singleton<PoolingManager>
     public ModifyEffectWorldTxt GetOP_DmgTxt()
     {
         return GetOP<ModifyEffectWorldTxt>(DmgTxtCanvases.Prefab, DmgTxtCanvases.ParentTF, DmgTxtCanvases.Queue);
+    }
+
+    #endregion
+
+    #region Module Item
+
+    public PlayerBulletController GetOP_MI_000_Bullets()
+    {
+        return GetOP<PlayerBulletController>(MI_000_Bullets.Prefab, MI_000_Bullets.ParentTF, MI_000_Bullets.Queue);
     }
 
     #endregion

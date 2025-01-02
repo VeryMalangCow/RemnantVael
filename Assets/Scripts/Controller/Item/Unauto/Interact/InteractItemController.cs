@@ -39,7 +39,7 @@ public class InteractItemController : ItemController, IInteract
             .SetLoops(-1, LoopType.Yoyo);
 
         ThisItemData = BoostItemManager.Instance.GetRandomInteractItem();
-        ThisSR.sprite = ThisItemData.Sprite;
+        ThisSR.sprite = ThisItemData.ItemIcon;
 
         this.gameObject.SetActive(true);
     }

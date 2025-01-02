@@ -264,6 +264,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ModuleUI_GetIcon_Virus
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 433
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85487362a61a834448f775e2395e4a9c
+      internalID: 1422261253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_GetIcon_Fire
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 433
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80a2d22d1f6eecd478fa89c28203ef1f
+      internalID: -1253658894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -277,6 +319,8 @@ TextureImporter:
     nameFileIdTable:
       ModuleUI_Back: 486028521
       ModuleUI_Btn_00: 1661286057
+      ModuleUI_GetIcon_Fire: -1253658894
+      ModuleUI_GetIcon_Virus: 1422261253
       ModuleUI_SideIconFrame: -945182851
       ModuleUI_TitleFrame: 121522765
       ModuleUI_UpsideLight: -452272784

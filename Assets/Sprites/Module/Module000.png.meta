@@ -936,6 +936,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Module000_MI_000
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 232
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 018e5cc9bbb507c40b69cf9d74f2e477
+      internalID: 1232220692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -988,6 +1009,7 @@ TextureImporter:
       Module000_Hitted_2_09: -451595916
       Module000_Hitted_2_10: 12903415
       Module000_Hitted_2_11: 330689694
+      Module000_MI_000: 1232220692
       Module000_ModuleShrapnel: -936175950
       Module000_Smoke_00: -1746943924
       Module000_Smoke_01: 1391882910

@@ -1,15 +1,18 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PassiveSkill
 {
     public ItemData ThisItemData;
     public List<ModifyEachInventoryItem> ThisMEII = new List<ModifyEachInventoryItem>();
     public List<ModifyEachInventoryItem> ThisExtraMEII = new List<ModifyEachInventoryItem>();
+    protected PlayerController PC;
 
     public PassiveSkill(int _ID)
     {
         ThisItemData = new ItemData();
         ThisItemData.ID = _ID;
+        PC = PlayerManager.Instance.PlayerController;
     }
 
 
@@ -22,15 +25,25 @@ public class PassiveSkill
         };
     }
 
-    protected int GetTargetRank()
+    #region Get
+
+    protected int GetRank()
     {
-        int targetRank = PlayerManager.Instance.PlayerController.CurrentBoostLv.Value;
-        if (targetRank > ThisItemData.Rank)
-        {
-            targetRank = ThisItemData.Rank;
-        }
-        return targetRank;
+        return ThisItemData.Rank;
     }
+
+    protected int GetBoostLv()
+    {
+        int targetBoostLv = PC.CurrentBoostLv.Value;
+        if (targetBoostLv > ThisItemData.BoostLv)
+        {
+            targetBoostLv = ThisItemData.BoostLv;
+        }
+        return targetBoostLv;
+    }
+
+    #endregion
+
 }
 
 #region Interface
@@ -49,30 +62,13 @@ public interface IWhen_Fire
 
 #region Item Skill
 
-public class Item0 : PassiveSkill, IWhen_Always
+public class Item0 : PassiveSkill, IWhen_Fire
 {
     public Item0(int _ID) : base(_ID) { }
 
-    public void When_Always()
+    public void When_Fire()
     {
-        int targetRank = GetTargetRank();
-
-        switch(targetRank)
-        {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-
-            default:
-                break;
-        }
+        BoostItemManager.Instance.Spawn_MI_000(GetRank(), GetBoostLv());
     }
 }
 
@@ -82,24 +78,7 @@ public class Item1 : PassiveSkill, IWhen_Fire
 
     public void When_Fire()
     {
-        int targetRank = GetTargetRank();
-
-        switch (targetRank)
-        {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-
-            default:
-                break;
-        }
+        
     }
 }
 

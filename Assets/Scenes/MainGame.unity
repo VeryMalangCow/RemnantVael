@@ -1715,6 +1715,9 @@ MonoBehaviour:
   DmgTxtCanvases:
     Prefab: {fileID: 3929266293630113405, guid: 9f39834d26e7b4b42b07427807f08835, type: 3}
     ParentTF: {fileID: 523388470}
+  MI_000_Bullets:
+    Prefab: {fileID: 2192280153704162206, guid: a7676fe05b5ef5c47a2047adae42946c, type: 3}
+    ParentTF: {fileID: 242052721}
 --- !u!1 &713790308
 GameObject:
   m_ObjectHideFlags: 0
@@ -2728,6 +2731,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ModuleUpgradeShop
       objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3409,19 +3416,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemDataList:
   - ID: 0
-    Name: ExtraCell
-    Description: ExtraCell will be Increase Your EP.
-    EquipDescription: ExtraCell will be Increase Your EP.
-    Sprite: {fileID: 21300000, guid: 62f9aae4c18384b40be5e2906d7ade71, type: 3}
-    ItemIcon: {fileID: 21300000, guid: 62f9aae4c18384b40be5e2906d7ade71, type: 3}
+    Name: Tactician's substandard product
+    Description: The first work of some tactician.
+    EquipDescription: Occasionally, It releases aggressive guided missile energy.
+    ItemIcon: {fileID: 328122225, guid: c717f916ee152e443905fca7739d1dba, type: 3}
     BoostLv: 1
     Rank: 1
   - ID: 1
-    Name: Small Missile
-    Description: if you Fire, Missile will fire with a certain probability.
-    EquipDescription: if you Fire, Missile will fire with a certain probability.
-    Sprite: {fileID: 21300000, guid: 79ec4f34ced503e44b6f83ba713c0d6d, type: 3}
-    ItemIcon: {fileID: 21300000, guid: 79ec4f34ced503e44b6f83ba713c0d6d, type: 3}
+    Name: Hacker's will
+    Description: At first, He hated this situation.
+    EquipDescription: In the event of an enemy strike, A virus state is given with
+      a certain probability.
+    ItemIcon: {fileID: -1681349350, guid: c717f916ee152e443905fca7739d1dba, type: 3}
     BoostLv: 1
     Rank: 1
   RankIconList:

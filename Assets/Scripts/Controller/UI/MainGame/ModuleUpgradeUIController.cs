@@ -377,6 +377,7 @@ public class ModuleUpgradeUIController : UIController
                 {
                     ChangeThisPanel(i);
                     ResetReinforcePanel();
+                    SetEquipDesc();
                     return;
                 }
             }
@@ -653,6 +654,8 @@ public class ModuleUpgradeUIController : UIController
             DotweenInEquip(1f, "ReinforceInner", ReinforcePanelInnerList);
             Preview_MS.text = "-";
             Preview_BC.text = "-";
+
+
         }
     }
 

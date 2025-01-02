@@ -821,7 +821,7 @@ MonoBehaviour:
     - 1
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 30
+      value: 1
     Name: DMG
     Desc: Basic damage given to enemies. This goes into sum, and is calculated as
       the first of all operations.
@@ -2212,7 +2212,7 @@ MonoBehaviour:
     UpgradeValueByLevelRange: 01000000010000000100000001000000
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 0
+      value: 10
     Name: Tier
     Desc: Skill tier. It's also the number of consecutive launches of missiles. (Tier
       +1)

@@ -50,6 +50,7 @@ MonoBehaviour:
   TargetObject: {fileID: 7754987835335729850}
   ThisSR: {fileID: 0}
   TargetRange: 0.35
+  PoolingString: BaseBullet
   BulletState:
     DamageType: 0
     BaseDamage: 0
@@ -66,6 +67,9 @@ MonoBehaviour:
   - Enemy
   - Wall
   - DestructibleObject
+  IsGuided: 0
+  TargetEnemyController: {fileID: 0}
+  RotateSpeed: 1
   BasePhysics_Sprite: {fileID: 1440707567, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   CriticalPhysics_Sprite: {fileID: 1012499291, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   BaseEnergy_Sprite: {fileID: -1214566993, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}

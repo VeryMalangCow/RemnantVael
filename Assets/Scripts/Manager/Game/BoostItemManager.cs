@@ -192,6 +192,38 @@ public class BoostItemManager : Singleton<BoostItemManager>
     }
 
     #endregion
+
+    #region ModuleItem
+
+    public void Spawn_MI_000(int _Rank, int _BoostLv)
+    {
+        // 편의성
+        PlayerController PC = PlayerManager.Instance.PlayerController;
+        PlayerWeaponController PCWeapon = PC.BaseWeapon;
+
+        // 확률
+        if ((_Rank * _BoostLv) > UnityEngine.Random.Range(0, 100))
+        {
+            Debug.Log("스폰");
+            // 데미지 계산
+            float dmg = _Rank * PCWeapon.BaseDamage.ActualState.Value;
+            PlayerBulletController pbc = PoolingManager.Instance.GetOP_MI_000_Bullets();
+            Vector2 dir = PCWeapon.GetDir(PC.transform.position);
+            // 스폰 탄 스탯
+            BulletState bulletState = new BulletState(
+                eDamageType.Energy,
+                dmg, PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2,
+                false, 1,
+                false, 0, 0);
+            pbc.SetState(PC.transform.position, 10, bulletState, dir, 0.35f);
+            // Sorting Layer
+            if (PC.TargetObject.gameObject.TryGetComponent(out HaveShadowThing hst))
+            { pbc.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
+        }
+
+    }
+
+    #endregion
 }
 
 [System.Serializable]
@@ -201,7 +233,6 @@ public class ItemData
     public string Name;
     public string Description;
     public string EquipDescription;
-    public Sprite Sprite;
     public Sprite ItemIcon;
 
     [Space(10)]
@@ -216,7 +247,6 @@ public class ItemData
         Name = _ItemData.Name;
         Description = _ItemData.Description;
         EquipDescription = _ItemData.EquipDescription;
-        Sprite = _ItemData.Sprite;
         ItemIcon = _ItemData.ItemIcon;
         BoostLv = _ItemData.BoostLv;
         Rank = _ItemData.Rank;

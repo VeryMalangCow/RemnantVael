@@ -14,11 +14,6 @@ public class MissileBulletController : BulletController
     [SerializeField] private float ShadowRangeTarget = 0.4f;
     [SerializeField] private float SpreadTime = 1f;
     [SerializeField] private float SpreadAngleLimit = 20f;
-    [SerializeField] private float RotateSpeed = 1f;
-
-    [Header("=== Target")]
-    [SerializeField] private EnemyController TargetEnemyController;
-    [SerializeField] private bool CanHit = false;
 
     #endregion
 
@@ -26,69 +21,27 @@ public class MissileBulletController : BulletController
 
     protected override void Update()
     {
-        base.Update();
-
-        CurrentAliveTime += Time.deltaTime;
-
-        if (!CanHit) 
+        if (!IsGuided)
         {
             if (SpreadTime <= CurrentAliveTime)
             {
-                CanHit = true;
-                SetTarget();
+                IsGuided = true;
             }
         }
-        else if (TargetEnemyController == null || !TargetEnemyController.gameObject.activeSelf)
-        {
-            SetTarget();
-        }
-
-        if (CurrentAliveTime >= BulletState.AliveTime)
-        {
-            DeleteThis();
-        }
-        else
-        {
-            SetTargetDir();
-        }
+        
+        base.Update();
     }
 
     #endregion
 
     #region Delete
 
-    private void DeleteThis()
+    protected override void DeleteThis()
     {
         AttackPointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
         ExplosionEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
 
-        CanHit = false;
-        CurrentAliveTime = 0f;
-        TargetEnemyController = null;
-
-        PoolingManager.Instance.MissileBullet.Queue.Enqueue(this);
-        this.gameObject.SetActive(false);
-    }
-
-    #endregion
-
-    #region Target
-
-    private void SetTarget()
-    {
-        TargetEnemyController = null;
-        TargetEnemyController = EnemyManager.Instance.GetClosestEnemy(this.transform.position);
-    }
-
-    private void SetTargetDir()
-    {
-        if (TargetEnemyController != null)
-        {
-            this.transform.rotation = Quaternion.Slerp(
-                transform.rotation, 
-                Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, ((TargetEnemyController.transform.position - this.transform.position).normalized))),
-                RotateSpeed * Time.deltaTime);
-        }
+        base.DeleteThis();
     }
 
     #endregion

@@ -22,12 +22,6 @@ public class PlayerBulletController : BulletController
     {
         base.Update();
 
-        // Time
-        CurrentAliveTime += Time.deltaTime;
-        if (CurrentAliveTime >= BulletState.AliveTime)
-        {
-            DeleteThis();
-        }
     }
 
     #endregion
@@ -65,16 +59,12 @@ public class PlayerBulletController : BulletController
 
     #region Delete
 
-    private void DeleteThis()
+    protected override void DeleteThis()
     {
         AttackPointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
         ExplosionEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
-        
-
-        ResetState();
-        this.gameObject.SetActive(false);
-
-        PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
+       
+        base.DeleteThis();
     }
 
     #endregion

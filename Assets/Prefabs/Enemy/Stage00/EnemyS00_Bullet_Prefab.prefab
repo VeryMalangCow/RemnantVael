@@ -132,6 +132,7 @@ MonoBehaviour:
   TargetObject: {fileID: 7754987835335729850}
   ThisSR: {fileID: 0}
   TargetRange: 0.35
+  PoolingString: EnemyBullet
   BulletState:
     DamageType: 0
     BaseDamage: 0
@@ -148,6 +149,9 @@ MonoBehaviour:
   - Player
   - Wall
   - DestructibleObject
+  IsGuided: 0
+  TargetEnemyController: {fileID: 0}
+  RotateSpeed: 1
   ThisAnimator: {fileID: 2399920995970120347}
   ThisCol: {fileID: 7842866708527823414}
   OwnerEC: {fileID: 0}

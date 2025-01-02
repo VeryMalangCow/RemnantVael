@@ -61,7 +61,7 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
 
         // Item
         ItemIconImg.color = new Color(1, 1, 1, 1);
-        ItemIconImg.sprite = _PS.ThisItemData.Sprite;
+        ItemIconImg.sprite = _PS.ThisItemData.ItemIcon;
         ItemNameTxt.text = _PS.ThisItemData.Name;
         ITemIntroTxt.text = _PS.ThisItemData.Description;
 

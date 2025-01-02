@@ -24,12 +24,6 @@ public class EnemyBulletController : BulletController
     {
         base.Update();
 
-        // Time
-        CurrentAliveTime += Time.deltaTime;
-        if (CurrentAliveTime >= BulletState.AliveTime)
-        {
-            DeleteThis();
-        }
     }
 
     #endregion
@@ -60,7 +54,7 @@ public class EnemyBulletController : BulletController
 
     #region Delete
 
-    private void DeleteThis()
+    protected override void DeleteThis()
     {
         OwnerEC.MEI.GenExplosionImgs(
             TargetObject.transform.position,
@@ -69,10 +63,7 @@ public class EnemyBulletController : BulletController
             0.2f, 0.5f, 1.0f,
             0, OwnerEC.ThisSmokeM);
 
-        ResetState();
-        this.gameObject.SetActive(false);
-
-        PoolingManager.Instance.EnemyBullets.Queue.Enqueue(this);
+        base.DeleteThis();
     }
 
     #endregion
