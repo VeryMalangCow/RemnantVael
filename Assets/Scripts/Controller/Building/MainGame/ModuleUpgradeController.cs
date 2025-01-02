@@ -40,6 +40,12 @@ public class ModuleUpgradeController : DestructibleBuildingController, IInteract
 
         ApplySetStateAnim();
     }
+    public override void TakeDamage(bool _SpawnItem)
+    {
+        base.TakeDamage(_SpawnItem);
+
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetDur(ThisDurablity);
+    }
 
     #endregion
 

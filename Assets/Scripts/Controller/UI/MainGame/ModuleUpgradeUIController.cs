@@ -83,6 +83,14 @@ public class ModuleUpgradeUIController : UIController
     [SerializeField] private ModifyDescPanel_ForModuleUpgrade ThisDescPanel;
 
     [Space(10)]
+    [Header("=== Durablity")]
+    [SerializeField] private TMP_Text DurablityTxt;
+    [SerializeField] private TMP_Text DurablityStateTxt;
+    [SerializeField] private string DurablityStringTxt;
+    [SerializeField] private Transform FillImgListParentTF;
+    [HideInInspector] private List<Image> FillImgList;
+
+    [Space(10)]
     [Header("=== Color")]
     [Header("-- MainColor")]
     [SerializeField] public List<TMP_Text> TabTxtList;
@@ -165,6 +173,16 @@ public class ModuleUpgradeUIController : UIController
             {
                 MSTxt.text = value.ToString();
             });
+
+        // Dur
+        DurablityTxt.text = DurablityStringTxt + " :";
+
+        FillImgList = new List<Image>();
+        for (int i = 0; i < FillImgListParentTF.childCount; i++)
+        {
+            FillImgListParentTF.GetChild(i).gameObject.transform.GetChild(0).gameObject.TryGetComponent(out Image EmptyImg);
+            FillImgList.Add(EmptyImg);
+        }
 
         MI_List = new List<ModifyInventory>
         {
@@ -279,6 +297,8 @@ public class ModuleUpgradeUIController : UIController
     {
         base.OpenThisPanel();
 
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetDur(
+            ModuleUpgradeController.UsingShop.ThisDurablity);
     }
 
     public override void CloseThisPanel()
@@ -986,6 +1006,15 @@ public class ModuleUpgradeUIController : UIController
     public void SetOffDesc()
     {
         ThisDescPanel.SetDescOff();
+    }
+
+    #endregion
+
+    #region Dur
+
+    public void SetDur(int _DurState)
+    {
+        base.SetDur(_DurState, FillImgList, DurablityStateTxt);
     }
 
     #endregion

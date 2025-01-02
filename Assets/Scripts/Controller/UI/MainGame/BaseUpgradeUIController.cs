@@ -66,6 +66,14 @@ public class BaseUpgradeUIController : UIController
     [SerializeField] private ModifyDescPanel_ForBaseUpgrade ThisDescPanel;
 
     [Space(10)]
+    [Header("=== Durablity")]
+    [SerializeField] private TMP_Text DurablityTxt;
+    [SerializeField] private TMP_Text DurablityStateTxt;
+    [SerializeField] private string DurablityStringTxt;
+    [SerializeField] private Transform FillImgListParentTF;
+    [HideInInspector] private List<Image> FillImgList;
+
+    [Space(10)]
     [Header("=== Component")]
     [SerializeField] private ModifyOwnEachBtn CloseBtn;
     [SerializeField] public Image FrameInnerImg;
@@ -164,6 +172,15 @@ public class BaseUpgradeUIController : UIController
                 ECTxt.text = value.ToString();
             });
 
+        // Dur
+        DurablityTxt.text = DurablityStringTxt + " :";
+
+        FillImgList = new List<Image>();
+        for (int i = 0; i < FillImgListParentTF.childCount; i++)
+        {
+            FillImgListParentTF.GetChild(i).gameObject.transform.GetChild(0).gameObject.TryGetComponent(out Image EmptyImg);
+            FillImgList.Add(EmptyImg);
+        }
 
         // Desc
         if (ThisDescPanel.CurrentUpgradeGraphSpot.gameObject.TryGetComponent(out Image img))
@@ -283,6 +300,9 @@ public class BaseUpgradeUIController : UIController
         Sequence seq = DOTween.Sequence();
         seq.Append(FrameInnerImg.DOFade(1, 0.5f));
         seq.Append(FrameInnerImg.DOFade(0.5f, 0.5f));
+
+        MainGameUIManager.Instance.BaseUpgrade_UIController.SetDur(
+            BaseUpgradeController.UsingShop.ThisDurablity);
     }
 
     public override void CloseThisPanel()
@@ -310,6 +330,15 @@ public class BaseUpgradeUIController : UIController
     public void SetDescOff()
     {
         ThisDescPanel.SetDescOff();
+    }
+
+    #endregion
+
+    #region Dur
+
+    public void SetDur(int _DurState)
+    {
+        base.SetDur(_DurState, FillImgList, DurablityStateTxt);
     }
 
     #endregion

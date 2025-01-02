@@ -180,4 +180,30 @@ public abstract class UIController : MonoBehaviour
     }
 
     #endregion
+
+    #region Dur
+
+    #region Dur
+
+    protected void SetDur(int _DurState, List<Image> _ImgList, TMP_Text _Txt)
+    {
+        _Txt.text = _DurState.ToString();
+        for (int i = 0; i < _ImgList.Count; i++)
+        {
+            if (_DurState > i) // On
+            {
+                _ImgList[i].color = Color.white;
+            }
+            else // Off
+            {
+                _ImgList[i].color = new Color(1, 1, 1, 0);
+            }
+        }
+    }
+
+    
+
+    #endregion
+
+    #endregion
 }

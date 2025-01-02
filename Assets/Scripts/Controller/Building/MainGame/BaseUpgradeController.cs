@@ -41,6 +41,13 @@ public class BaseUpgradeController : DestructibleBuildingController, IInteract
         ApplySetStateAnim();
     }
 
+    public override void TakeDamage(bool _SpawnItem)
+    {
+        base.TakeDamage(_SpawnItem);
+
+        MainGameUIManager.Instance.BaseUpgrade_UIController.SetDur(ThisDurablity);
+    }
+
     #endregion
 
     #region Break
