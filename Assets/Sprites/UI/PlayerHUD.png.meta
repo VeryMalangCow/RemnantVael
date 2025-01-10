@@ -2154,6 +2154,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_ShieldBar
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 501
+        width: 3
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 1, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7c8f41b677dba94683af97cdd3aedd1
+      internalID: 400098630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2260,6 +2281,7 @@ TextureImporter:
       PlayerHUD_Player00Skill01: 1779296857
       PlayerHUD_PlayerStateFrame: 1978519953
       PlayerHUD_PlayerStateInner: 1031921244
+      PlayerHUD_ShieldBar: 400098630
       PlayerHUD_SkillInner: 1577707779
       PlayerHUD_SkillSlot_Frame: -209309963
       PlayerHUD_SkillStateFrame: 1075042413

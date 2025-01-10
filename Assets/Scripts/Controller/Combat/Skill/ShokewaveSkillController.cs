@@ -62,6 +62,8 @@ public class ShockwaveSkillController : ActiveSkillController
 
         ExplosionEffect((Vector2)ThisHST.TargetObject.gameObject.transform.position,
             PlayerController.BaseWeapon.CC.ActualState.Value, usableMaxSize);
+
+        BuffManager.Instance.GetBuff(0);
     }
 
     #endregion

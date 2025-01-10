@@ -342,6 +342,7 @@ Transform:
   - {fileID: 407687441}
   - {fileID: 1705144066}
   - {fileID: 713790309}
+  - {fileID: 1430576402}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &242052720
@@ -2749,6 +2750,132 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
+--- !u!1 &1430576401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1430576402}
+  - component: {fileID: 1430576404}
+  - component: {fileID: 1430576403}
+  - component: {fileID: 1430576406}
+  - component: {fileID: 1430576405}
+  m_Layer: 0
+  m_Name: BuffManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1430576402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 195290732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1430576403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61271599a0ec0514aa810325cbab6ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuffID: 0
+  BuffName: Shockwave's Energy
+  MaxBuffCharge: 1
+  CurrentBuffCharge:
+    value: 0
+  ReductionCharge: 1
+  DurtimerWillDone: 1
+  MaxDurTime: 3
+  CurrentDurTime:
+    value: 0
+  ConditionWillDone: 0
+  ThisShield:
+    ShieldID: Shockwave's Buff
+    ShieldMaxValue: 20
+    ShieldCurrentValue: 0
+--- !u!114 &1430576404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0391b7c63781a314ca7857a554576d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllBuffs: []
+--- !u!114 &1430576405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c158bf245239c1847956c904ee8aff75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuffID: 2
+  BuffName: Test2
+  MaxBuffCharge: 10
+  CurrentBuffCharge:
+    value: 0
+  ReductionCharge: 1
+  DurtimerWillDone: 0
+  MaxDurTime: 1
+  CurrentDurTime:
+    value: 0
+  ConditionWillDone: 0
+  Add: 0.1
+--- !u!114 &1430576406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61271599a0ec0514aa810325cbab6ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuffID: 1
+  BuffName: Test
+  MaxBuffCharge: 1
+  CurrentBuffCharge:
+    value: 0
+  ReductionCharge: 1
+  DurtimerWillDone: 0
+  MaxDurTime: 0
+  CurrentDurTime:
+    value: 0
+  ConditionWillDone: 0
+  ThisShield:
+    ShieldID: Test Shield
+    ShieldMaxValue: 30
+    ShieldCurrentValue: 0
 --- !u!1 &1447344362
 GameObject:
   m_ObjectHideFlags: 0

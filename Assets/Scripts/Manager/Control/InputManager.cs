@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -149,6 +150,16 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
+
+        PlayerInput.actions["ForDebugging"].performed += Input_forDebugging;
+    }
+
+    private void Input_forDebugging(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            BuffManager.Instance.GetBuff(1);
+        }
     }
 
     public void OnDisableInput()
@@ -181,6 +192,8 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
+        
+        PlayerInput.actions["ForDebugging"].performed -= Input_forDebugging;
     }
 
 

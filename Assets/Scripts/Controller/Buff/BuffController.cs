@@ -1,0 +1,87 @@
+using UniRx;
+using UnityEngine;
+
+public class BuffController : MonoBehaviour
+{
+    #region Value
+
+    [Space(20)]
+    [Header("<><><><><> Buff")]
+    [SerializeField] public int BuffID = 0;
+
+    [Space(10)]
+    [SerializeField] private int MaxBuffCharge = 1;
+    [SerializeField] private ReactiveProperty<int> CurrentBuffCharge = new();
+    [SerializeField] private int ReductionCharge = 1;
+
+    [Space(10)]
+    [Header("=== Timer")]
+    [SerializeField] private bool DurtimerWillDone = false;
+    [SerializeField] private float MaxDurTime = 1;
+    [SerializeField] private ReactiveProperty<float> CurrentDurTime = new();
+
+    [Space(10)]
+    [Header("=== Contdition")]
+    [SerializeField] private bool ConditionWillDone = false;
+
+    #endregion
+
+    #region Framework
+
+    private void Start()
+    {
+        CurrentDurTime.Value = 0;
+        CurrentBuffCharge.Value = 0;
+    }
+
+    private void Update()
+    {
+        CaculateTimer();
+    }
+
+    #endregion
+
+    #region Buff Time Dur
+
+    private void CaculateTimer()
+    {
+        // 지속시간이 존재 + 현재 버프가 진행중이라면
+        if (DurtimerWillDone && CurrentBuffCharge.Value > 0)
+        {
+            // 지속시간이 흐름
+            if (CurrentDurTime.Value < MaxDurTime)
+            {
+                CurrentDurTime.Value += Time.deltaTime;
+            }
+
+            // 지속 시간이 다 되었다면
+            if (CurrentDurTime.Value >= MaxDurTime)
+            {
+                CurrentBuffCharge.Value = Mathf.Max(CurrentBuffCharge.Value - ReductionCharge, 0);
+                CurrentDurTime.Value = 0;
+
+                if (CurrentBuffCharge.Value <= 0)
+                {
+                    EndBuff();
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region Buff
+
+    public virtual void GainBuff()
+    {
+        CurrentBuffCharge.Value = Mathf.Clamp(CurrentBuffCharge.Value + 1, 0, MaxBuffCharge);
+        CurrentDurTime.Value = 0;
+    }
+
+    public virtual void EndBuff()
+    {
+
+    }
+
+    #endregion
+}

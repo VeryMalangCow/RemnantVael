@@ -52,6 +52,11 @@ public class PlayerHUDController : UIController
     [SerializeField] private RectTransform EP_FlowRT;
 
     [Space(10)]
+    [Header("=== Shield")]
+    [SerializeField] private RectTransform ShieldRT;
+    [SerializeField] private TMP_Text ShieldTxt;
+
+    [Space(10)]
     [Header("=== Bettery")]
     [Header("-- Current")]
     [SerializeField] public ModifySprite CurrentEmptyBC;
@@ -430,6 +435,17 @@ public class PlayerHUDController : UIController
                 MSRT.DOScale(1.0f, 0.2f);
             });
         MS_AmountTxt.text = _Amount.ToString();
+    }
+
+    #endregion
+
+    #region Shield
+
+    public void SetShieldGage(float _TotalShield)
+    {
+        DOTween.Kill(ShieldRT);
+        ShieldRT.DOSizeDelta(new Vector2(8 + (_TotalShield * 3), ShieldRT.sizeDelta.y), 1f);
+        ShieldTxt.text = "<size=75%>( Shield: </size>" + Mathf.Round(_TotalShield).ToString() + "<size=75%> )</size>";
     }
 
     #endregion

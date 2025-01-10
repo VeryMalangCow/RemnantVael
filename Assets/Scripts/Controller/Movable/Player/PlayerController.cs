@@ -32,16 +32,16 @@ public class PlayerController : MovableObject
     [SerializeField] private float CurrentInvincibleTime = 0f;
     private Sequence InvincibleSeq;
 
-    #endregion
-
-    #region - Item
-
     [Header("-- Energy")]
     [SerializeField] public BaseUpgradeState<float> MaxEP;
     [SerializeField] public ReactiveProperty<float> CurrentEP = new();
     [SerializeField] public BaseUpgradeState<float> SpawnESMultiple;
     [SerializeField] public BaseUpgradeState<float> NeedEP_ForSkillMultiple;
     [SerializeField] public Sprite ES_Sprite;
+
+    [Header("-- Shield")]
+    [SerializeField] public List<Shield> ShieldElements = new List<Shield>();
+
 
     [Header("-- Bettery")]
     [SerializeField] public ReactiveProperty<int> CurrentBS = new();
@@ -343,6 +343,47 @@ public class PlayerController : MovableObject
 
     #endregion
 
+    #region Shield
+
+    // Get total
+    private float GetTotalShield()
+    {
+        float totalShield = 0;
+        if (ShieldElements.Count > 0)
+        {
+            for (int i = 0;  i < ShieldElements.Count; i++)
+            {
+                totalShield += ShieldElements[i].ShieldCurrentValue;
+            }
+        }
+        return totalShield;
+    }
+
+    // Gain Shield
+    public void GainShield(Shield _S)
+    {
+        if (ShieldElements.Contains(_S))
+        {
+            ShieldElements.Remove(_S);
+        }
+        ShieldElements.Insert(0, _S);
+        MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
+    }
+
+    // Remove Shield
+    public void RemoveShield(Shield _S)
+    {
+        if (ShieldElements.Contains(_S))
+        {
+            ShieldElements.Remove(_S);
+        }
+        MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
+    }
+
+
+
+    #endregion
+
     #region Module
 
     public void AddCurrentMS(int _AddValue)
@@ -473,7 +514,28 @@ public class PlayerController : MovableObject
         { GetKnockback(new KnockbackState(_HittedDir, _KBPower, _KBTime)); }
 
         // Damage
-        AddCurrentEP(-_DmgValue);
+        float Dmg = _DmgValue;
+        if (ShieldElements.Count > 0)
+        {
+            for (int i = ShieldElements.Count - 1; i >= 0; i--)
+            {
+                // 쉴드 버프량 1개가 데미지보다 작거나 같으면, 제거하고 다음 쉴드로 영향
+                if (ShieldElements[i].ShieldCurrentValue <= Dmg)
+                {
+                    Dmg -= ShieldElements[i].ShieldCurrentValue;
+                    RemoveShield(ShieldElements[i]);
+                }
+                else // 쉴드 버프가 데미지를 버틸 수 있으면
+                {
+                    ShieldElements[i].ShieldCurrentValue -= Dmg;
+                    Dmg = 0;
+                    MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
+                    return;
+                }
+            }
+        }
+        AddCurrentEP(-Dmg);
+        MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
     }
 
     private void Avoided()
@@ -1047,4 +1109,12 @@ public class BaseUpgradeState<T>
     public string Name;
     [TextArea]
     public string Desc;
+}
+
+[System.Serializable]
+public class Shield
+{
+    public string ShieldID;
+    public float ShieldMaxValue;
+    public float ShieldCurrentValue;
 }
