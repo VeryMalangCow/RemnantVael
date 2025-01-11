@@ -61,7 +61,8 @@ public class MissileSkillController : ActiveSkillController
 
                 BulletState bulletState = new BulletState(
                     eDamageType.Physics,
-                    PlayerController.BaseWeapon.BaseDamage.ActualState.Value * Power.ActualState.Value,
+                    /*PlayerController.BaseWeapon.BaseDamage.ActualState.Value*/ 
+                    PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value,
                     1.5f,
                     3.5f,
                     isCritical,

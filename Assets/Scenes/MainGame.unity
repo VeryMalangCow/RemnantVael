@@ -2761,7 +2761,6 @@ GameObject:
   - component: {fileID: 1430576402}
   - component: {fileID: 1430576404}
   - component: {fileID: 1430576403}
-  - component: {fileID: 1430576406}
   - component: {fileID: 1430576405}
   m_Layer: 0
   m_Name: BuffManager
@@ -2798,7 +2797,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuffID: 0
-  BuffName: Shockwave's Energy
   MaxBuffCharge: 1
   CurrentBuffCharge:
     value: 0
@@ -2837,45 +2835,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c158bf245239c1847956c904ee8aff75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuffID: 2
-  BuffName: Test2
+  BuffID: 1
   MaxBuffCharge: 10
   CurrentBuffCharge:
     value: 0
   ReductionCharge: 1
-  DurtimerWillDone: 0
-  MaxDurTime: 1
+  DurtimerWillDone: 1
+  MaxDurTime: 3
   CurrentDurTime:
     value: 0
   ConditionWillDone: 0
-  Add: 0.1
---- !u!114 &1430576406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1430576401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61271599a0ec0514aa810325cbab6ccb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BuffID: 1
-  BuffName: Test
-  MaxBuffCharge: 1
-  CurrentBuffCharge:
-    value: 0
-  ReductionCharge: 1
-  DurtimerWillDone: 0
-  MaxDurTime: 0
-  CurrentDurTime:
-    value: 0
-  ConditionWillDone: 0
-  ThisShield:
-    ShieldID: Test Shield
-    ShieldMaxValue: 30
-    ShieldCurrentValue: 0
+  Multiple:
+    BuffID: 1
+    BaseValue: 0.05
+    ActualValue: 0
 --- !u!1 &1447344362
 GameObject:
   m_ObjectHideFlags: 0

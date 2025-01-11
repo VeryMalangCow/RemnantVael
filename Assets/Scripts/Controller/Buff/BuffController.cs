@@ -11,7 +11,7 @@ public class BuffController : MonoBehaviour
 
     [Space(10)]
     [SerializeField] private int MaxBuffCharge = 1;
-    [SerializeField] private ReactiveProperty<int> CurrentBuffCharge = new();
+    [SerializeField] protected ReactiveProperty<int> CurrentBuffCharge = new();
     [SerializeField] private int ReductionCharge = 1;
 
     [Space(10)]
@@ -28,7 +28,7 @@ public class BuffController : MonoBehaviour
 
     #region Framework
 
-    private void Start()
+    protected virtual void Start()
     {
         CurrentDurTime.Value = 0;
         CurrentBuffCharge.Value = 0;
@@ -57,7 +57,7 @@ public class BuffController : MonoBehaviour
             // 지속 시간이 다 되었다면
             if (CurrentDurTime.Value >= MaxDurTime)
             {
-                CurrentBuffCharge.Value = Mathf.Max(CurrentBuffCharge.Value - ReductionCharge, 0);
+                ReductBuff();
                 CurrentDurTime.Value = 0;
 
                 if (CurrentBuffCharge.Value <= 0)
@@ -78,9 +78,14 @@ public class BuffController : MonoBehaviour
         CurrentDurTime.Value = 0;
     }
 
+    public virtual void ReductBuff()
+    {
+        CurrentBuffCharge.Value = Mathf.Max(CurrentBuffCharge.Value - ReductionCharge, 0);
+    }
+
     public virtual void EndBuff()
     {
-
+        CurrentBuffCharge.Value = 0;
     }
 
     #endregion

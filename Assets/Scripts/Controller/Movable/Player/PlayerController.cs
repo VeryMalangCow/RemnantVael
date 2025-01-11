@@ -1106,9 +1106,57 @@ public class BaseUpgradeState<T>
     public List<int> NeedPayByLevelRange;
     public ReactiveProperty<T> ActualState;
 
+    public List<BuffState<T>> BuffList = new List<BuffState<T>>();
+
     public string Name;
     [TextArea]
     public string Desc;
+
+
+    // Gain
+    public void GainBuff(BuffState<T> _Bs)
+    {
+        if (!BuffList.Contains(_Bs))
+        {
+            BuffList.Add(_Bs);
+        }
+    }
+
+    // Remove
+    public void RemoveBuff(BuffState<T> _Bs)
+    {
+        if (BuffList.Contains(_Bs))
+        {
+            BuffList.Remove(_Bs);
+        }
+    }
+
+    public T BuffedState
+    {
+        get;
+        set;
+    }
+
+    
+
+    public void SetBuffedState()
+    {
+        if (ActualState.Value.GetType() == typeof(float))
+        {
+            float state = 1.0f;
+            for (int i = 0; i < BuffList.Count; i++)
+            {
+                state += float.Parse(BuffList[i].ActualValue.ToString());
+            }
+            state *= float.Parse(ActualState.Value.ToString());
+            BuffedState = (T)(object)state;
+            return;
+        }
+
+        Debug.Log("null");
+        return;
+    }
+
 }
 
 [System.Serializable]
@@ -1117,4 +1165,12 @@ public class Shield
     public string ShieldID;
     public float ShieldMaxValue;
     public float ShieldCurrentValue;
+}
+
+[System.Serializable]
+public class BuffState<T>
+{
+    public string BuffID;
+    public T BaseValue;
+    public T ActualValue;
 }

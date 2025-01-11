@@ -360,6 +360,8 @@ public class OneOffShopEachData<T>
         Upgrade_BUS = _Upgrade_BUS;
         Upgrade_BUOTD = _Upgrade_BUOTD;
 
+        Upgrade_BUS.BuffedState = Upgrade_BUS.ActualState.Value;
+
         Upgrade_MTAFB.SkillNameTxt.text = Upgrade_BUS.Name;
         Upgrade_MTAFB.SkillOpenSimpleTxt.text = Upgrade_BUS.Desc;
 

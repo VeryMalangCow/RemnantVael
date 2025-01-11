@@ -139,7 +139,7 @@ public class PlayerWeaponController : SatelliteController
             // Base State 
             BulletState bulletState = new BulletState(
                 DamageType, 
-                BaseDamage.ActualState.Value, 
+                BaseDamage.BuffedState,
                 MuzzleSpeed.ActualState.Value, 
                 AliveTime, 
                 isCritical, 

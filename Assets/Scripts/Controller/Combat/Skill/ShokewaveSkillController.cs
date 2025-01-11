@@ -36,7 +36,7 @@ public class ShockwaveSkillController : ActiveSkillController
 
         AttackerState ThisState = new AttackerState(
             eDamageType.Energy, 
-            PlayerController.BaseWeapon.BaseDamage.ActualState.Value * Power.ActualState.Value,
+            PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value,
             true,
             PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * (Tier.ActualState.Value + 1) * 10f,
             0.4f,
