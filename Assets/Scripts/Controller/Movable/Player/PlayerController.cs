@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -80,6 +81,14 @@ public class PlayerController : MovableObject
 
     [Header("-- Dash")]
     [SerializeField] public PlayerDashController DashController;
+
+    #endregion
+
+    #region - Buff
+
+    [Space(10)]
+    [Header("=== Buff")]
+    [SerializeField] public List<BuffController> CurrentBuffs;
 
     #endregion
 
@@ -1095,6 +1104,31 @@ public class PlayerController : MovableObject
 
     #endregion
 
+    #region Buff
+
+    public void Set_GainBuff(BuffController _Buff)
+    {
+        if (!CurrentBuffs.Contains(_Buff))
+        {
+            CurrentBuffs.Add(_Buff);
+        }
+    }
+
+    public void Set_ReductBuff()
+    {
+
+    }
+
+    public void Set_EndBuff(BuffController _Buff)
+    {
+        if (CurrentBuffs.Contains(_Buff))
+        {
+            CurrentBuffs.Remove(_Buff);
+        }
+    }
+
+    #endregion
+
 }
 
 [System.Serializable]
@@ -1132,10 +1166,7 @@ public class BaseUpgradeState<T>
     }
 
     public T BuffedState
-    {
-        get;
-        set;
-    }
+    { get; set; }
 
     
 

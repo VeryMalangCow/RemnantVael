@@ -28,6 +28,7 @@ public class PoolingManager : Singleton<PoolingManager>
 
     [Header("=== UI")]
     [SerializeField] public TTypePooling<ModifyEffectWorldTxt> DmgTxtCanvases;
+    [SerializeField] public TTypePooling<ModifyBuffIcon> BuffIcons;
 
     [Header("=== MI")]
     [SerializeField] public TTypePooling<PlayerBulletController> MI_000_Bullets;
@@ -163,12 +164,18 @@ public class PoolingManager : Singleton<PoolingManager>
 
     #endregion
 
-    #region Dmg Txt
+    #region UI
 
     // Damage Txt
     public ModifyEffectWorldTxt GetOP_DmgTxt()
     {
         return GetOP<ModifyEffectWorldTxt>(DmgTxtCanvases.Prefab, DmgTxtCanvases.ParentTF, DmgTxtCanvases.Queue);
+    }
+
+    // Buff Icon UI
+    public ModifyBuffIcon GetOP_BuffUI()
+    {
+        return GetOP<ModifyBuffIcon>(BuffIcons.Prefab, BuffIcons.ParentTF, BuffIcons.Queue);
     }
 
     #endregion

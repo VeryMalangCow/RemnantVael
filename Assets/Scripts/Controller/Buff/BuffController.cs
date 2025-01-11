@@ -24,6 +24,11 @@ public class BuffController : MonoBehaviour
     [Header("=== Contdition")]
     [SerializeField] private bool ConditionWillDone = false;
 
+    [Space(10)]
+    [Header("=== UI")]
+    [SerializeField] private Sprite ThisIconSprite;
+    [SerializeField] protected ModifyBuffIcon ThisMBI = null;
+
     #endregion
 
     #region Framework
@@ -76,16 +81,54 @@ public class BuffController : MonoBehaviour
     {
         CurrentBuffCharge.Value = Mathf.Clamp(CurrentBuffCharge.Value + 1, 0, MaxBuffCharge);
         CurrentDurTime.Value = 0;
+
+        PlayerManager.Instance.PlayerController.Set_GainBuff(this);
+
+        if(ThisMBI == null)
+        {
+            // UI
+            ThisMBI = PoolingManager.Instance.GetOP_BuffUI();
+            ThisMBI.Offset();
+            ThisMBI.SetIcon(ThisIconSprite, CurrentBuffCharge.Value);
+            ThisMBI.gameObject.SetActive(true);
+
+            // UI Pos
+            MainGameUIManager.Instance.PlayerHUD_UIController.SetUI_GainBuff(ThisMBI);
+        }
+        
+
+        ThisMBI.SetIcon(CurrentBuffCharge.Value);
     }
 
     public virtual void ReductBuff()
     {
-        CurrentBuffCharge.Value = Mathf.Max(CurrentBuffCharge.Value - ReductionCharge, 0);
+        CurrentBuffCharge.Value = Mathf.Max(CurrentBuffCharge.Value - ReductionCharge, 0); 
+
+        if (ThisMBI != null)
+        {
+            ThisMBI.SetIcon(CurrentBuffCharge.Value);
+
+            // UI Pos
+            MainGameUIManager.Instance.PlayerHUD_UIController.SetUI_ReductBuff(ThisMBI);
+        }
     }
 
     public virtual void EndBuff()
     {
         CurrentBuffCharge.Value = 0;
+
+        PlayerManager.Instance.PlayerController.Set_EndBuff(this);
+
+        if (ThisMBI != null)
+        {
+            // UI
+            ThisMBI.gameObject.SetActive(false);
+            PoolingManager.Instance.BuffIcons.Queue.Enqueue(ThisMBI);
+
+            // UI Pos
+            MainGameUIManager.Instance.PlayerHUD_UIController.SetUI_EndBuff(ThisMBI);
+        }
+
     }
 
     #endregion

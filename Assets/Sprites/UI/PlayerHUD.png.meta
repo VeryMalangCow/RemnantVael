@@ -2175,6 +2175,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_BuffFrame
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 481
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 3, z: 3, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 839db3a0cedf334419c6d45296b56d44
+      internalID: -73980072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2211,6 +2232,7 @@ TextureImporter:
       PlayerHUD_Booster_WheelLight_01: 168794657
       PlayerHUD_Booster_WheelLight_02: 1360759265
       PlayerHUD_Booster_WheelLight_03: -1576717012
+      PlayerHUD_BuffFrame: -73980072
       PlayerHUD_CellSlot: 1465224138
       PlayerHUD_CellSlot_Arrow: 1278736693
       PlayerHUD_CellSlot_Inner: 1956604087

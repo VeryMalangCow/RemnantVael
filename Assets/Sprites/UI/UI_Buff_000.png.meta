@@ -1,0 +1,6472 @@
+fileFormatVersion: 2
+guid: 059c8837c0527bc4a87fa377ff5859e4
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UI_Buff_000_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d80975bb3097fe14282672d4fd162de4
+      internalID: -154321793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_1
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86cdc5799842cc14a9903b2bad42458c
+      internalID: -1956518223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_2
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5791534607fd80478e1530dbfb65524
+      internalID: 579021722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_3
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f180137040fc75e4f8d63b2c66e5211e
+      internalID: -1972510542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_4
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c60723d885429284cb1b1c6f5a706f4f
+      internalID: 1663980525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_5
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14b05f056e93e8440ad8087657e41a79
+      internalID: -776551882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_6
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89673262a545a39439b60453e8e97896
+      internalID: -1489417253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_7
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19e2f91e20a15b744a049c0645c589b0
+      internalID: 682448351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_8
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3d393c7261231b49a369ef383389c28
+      internalID: 456725532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_9
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2854cc99df2f5a46964e2e59151a18e
+      internalID: 397062668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_10
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ce5bdcafbdd2e04da32fadd84c217bc
+      internalID: -2123982221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_11
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21423ff882aaada449f9ea14c6b8a8d9
+      internalID: -644871782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_12
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a24a08a5cf8117e4db1633dd33f62159
+      internalID: 1606421004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_13
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d89d9e5994ed4f24392647e929b620f9
+      internalID: -1670803131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_14
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 775531f88bfdad546977513bd91ca4f0
+      internalID: -267969648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_15
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46d9743668f69e34798d36cb3b2e41b4
+      internalID: -211300374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_16
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 484
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c57b9b50ed4a5e4aa78bfa619cf06de
+      internalID: 716263680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_17
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49489ace8e69a9349a11c5a3eee10ca8
+      internalID: 1176344511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_18
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca2545d4e29ac874a9d27899a65a5493
+      internalID: -489498790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_19
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01cbe09a5664dc740b8a6d7fed47d758
+      internalID: -1921546413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_20
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abc74b532bb372f4a95ca62f2ba3eeb1
+      internalID: -1539141088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_21
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 943470daac19cfd4fa71884242139c61
+      internalID: -1294634744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_22
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c373b9940514ba4bbc56c52b1396f5e
+      internalID: -530452055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_23
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a75c4815c98ea44f9f8649e255f7626
+      internalID: -1659627245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_24
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ce583737e6784b49ae24b3745426130
+      internalID: 1924439570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_25
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc8eba539ca9938439f131237c353a30
+      internalID: 1548472190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_26
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31d1bd7f421a76e42ae8c5a5f75f70f4
+      internalID: -337947410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_27
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d410bf52d6738124a9e74ece35b6d537
+      internalID: -388497531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_28
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81b79a7803b31c24489f3af2f0850729
+      internalID: 954991603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_29
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67549195d50cc824a81482aa038bdfb4
+      internalID: 834747737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_30
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e3f36cbab503284c9e9c8d9a0bde33b
+      internalID: -640921166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_31
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78a3c58b45675704aae86f0cd6da8852
+      internalID: -1506125256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_32
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66ac28b8225a82347b8c824ef1eb1a34
+      internalID: -1572053072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_33
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 455
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30d1f7508f24cd041b4fefd7363855ac
+      internalID: 635333401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_34
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5ef35944ad19694285f1de310ac4596
+      internalID: 2039194851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_35
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 942e423a6652d5e4894d6d1cdcc80904
+      internalID: 1372163630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_36
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f23d3be1b7f24b846b87a5ff4f9e2ec9
+      internalID: 1688065346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_37
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6acc4fd382c3a084b9e8075b2105fc57
+      internalID: 1828150147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_38
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 930d981364785ca4d9cf4b542aed91de
+      internalID: -2067599952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_39
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c30b0aecc80c2424cbd3931cfd4ae759
+      internalID: -1074781229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_40
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9498f447df796cf4dab3941eea14ec7b
+      internalID: -139839505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_41
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82bf63b5e98ae2249a531b84c7abbdb4
+      internalID: 1223183159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_42
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7807cd726445a1248905fddf7c945b5d
+      internalID: 1193416362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_43
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b252012c628daad4aa658a6f86366db8
+      internalID: -1839285829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_44
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9eab8386b0d6244da1efd7f33a9b774
+      internalID: 1298800342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_45
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42ba67c90710a4f45b4959d8abe08f5d
+      internalID: -2117391529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_46
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68d5e73f46ec7cf41940e163e701f4e6
+      internalID: -1396458391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_47
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74c11b37465ea38478cdacaac2c1cd97
+      internalID: -1836319032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_48
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6b510be952e4f946b7a46502d891b8b
+      internalID: -1816713882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_49
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c631fc934beb76448b75ecbdce8a00d3
+      internalID: 1077396668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_50
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 426
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68aefc9c0ff1f84499d0b1f28e88b2e5
+      internalID: -1533595685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_51
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30bb7a93928cad249a69234905130d22
+      internalID: 857980611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_52
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 026ac366263503449a0b801251b8a74b
+      internalID: 1927741762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_53
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 835f18e134e7514428c53f6e0ac30a55
+      internalID: 15562521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_54
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb25c4f160616cb4196b2243b057ec63
+      internalID: 764395516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_55
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b612dceccd3a10459b646d6b37e7420
+      internalID: -434767896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_56
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f449eb03b21e6ac4db8faae4d880a18e
+      internalID: -140968516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_57
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd266b0c9ae8d6a42ae7434c655c0ff0
+      internalID: -1740318150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_58
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c6fe9a93541bc344bd1be39f71008b6
+      internalID: -1922017322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_59
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea67d5312008fd34bae2250706782dfe
+      internalID: -233023933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_60
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3189020282565bd4185f95a80d254e3b
+      internalID: -1565912710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_61
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47873bc0ce40f90408729468c5e7d70d
+      internalID: -162000492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_62
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccf7ba4b79070754098edddc410895d0
+      internalID: -1587760057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_63
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dedbc5b1fa1cf246908fb088d235d7e
+      internalID: -1308884128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_64
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08c4f2bb68dbd104a8e4efe7551cc943
+      internalID: -611411807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_65
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89568cb7ab063f74f96a8f75c38f93b6
+      internalID: -990368899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_66
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f743cddd87eafe945a96ee6ba4057e40
+      internalID: 1607929192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_67
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 397
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fe959af637013e47a1804fca944a334
+      internalID: -66262262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_68
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: caaa8a2fcb99b88428c0fa2c4d23423f
+      internalID: 1665224782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_69
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87849ac2b6b719f45a61ea526a66d55f
+      internalID: 579175148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_70
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52a0084af22ee784b8b35138efec859e
+      internalID: 802128167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_71
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce210db7adee3a440920033000e1a96a
+      internalID: -1043029402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_72
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ca72c338f960284cb8b31773d550695
+      internalID: -1098016017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_73
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b98e7e2c9c2ba6346a612f4d6cf60d37
+      internalID: -455357154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_74
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 995799a0bbd4ed94583da36b429e96c1
+      internalID: -489670237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_75
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21cd332a8dbf0fe489a34a7973aa7130
+      internalID: -1181185827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_76
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53d949438a1851c4f85948b83d3e96a0
+      internalID: 953796753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_77
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eed913259d69a44797123d325fa88ef
+      internalID: 1366319775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_78
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b22703dde4ca9b548a6972cca0fa7377
+      internalID: 742318603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_79
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 192d7c690f25435489953173fc341ec2
+      internalID: 1892930130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_80
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3706d2d3271fe04f876a7764aa3aaf6
+      internalID: 1319794258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_81
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fe7c237d4b2d0b41ba3f7ea680f1eb7
+      internalID: 39559398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_82
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a81940e3d4b2f545ab1300f88477790
+      internalID: -1521156092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_83
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10df26d6818272b449c41b023d7caa6f
+      internalID: 1585111186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_84
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 368
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d513d9a8b72cb5f4b83dc8d7f2d94ffc
+      internalID: -1425822926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_85
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76028d92337f48b42980e15e89615e7a
+      internalID: -276360790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_86
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88b710b70c6ca1645901797542452334
+      internalID: 1058081885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_87
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 280df1b8a04a19143b86c52eeb42f5ba
+      internalID: -859155271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_88
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1c27342bd892834680d5c7e994b462b
+      internalID: 1277594096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_89
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b26bae0ba5f3fb543a8bc6d82ec639c6
+      internalID: -688000568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_90
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30db09c244fd8a2438620e52a8a37219
+      internalID: 1914700350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_91
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e84849661f1a623409593560b863a156
+      internalID: -594062460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_92
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 770e81b0a6865e840a34a983f8b50652
+      internalID: -2112314906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_93
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab1f0c0393eafbf4297e17621a27caea
+      internalID: 370139160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_94
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d95958c3b1f442b46839d3a3c4556d36
+      internalID: -587176960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_95
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c07206b306b8f643875721393a36ed8
+      internalID: -600338618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_96
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 413f486134dd51748b334c419f20e7f7
+      internalID: -507883458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_97
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a0cc621149e88a4a878ae171bec9808
+      internalID: -815749553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_98
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 965d6eeb6111b21409c876e0e934ca65
+      internalID: -10874731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_99
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 501c46f190376c74f9c71ce40ef8711a
+      internalID: -1827566805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_100
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20b787cf2a4889b4b85e52149efe20aa
+      internalID: 504025822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_101
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 339
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 421504d7ac56be14b8ccda34ab0fac29
+      internalID: 1368539027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_102
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 165d0d6907f35d94c9554a480b3ba6ee
+      internalID: -972592623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_103
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b94eb8ca7ef93f94882ed549dfebda6f
+      internalID: -665225619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_104
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf543104bb9d8544c9f1eb86dd6508c2
+      internalID: 608790741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_105
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b770df70d0ea7ea449a0d0e731a68f3d
+      internalID: -406017003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_106
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f915d9468ecf85b459a9f19440e2adb5
+      internalID: -1588253146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_107
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 687341c1b3f08184890e4f7fb9abfc75
+      internalID: -1852234674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_108
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d58eece633025e489948fddea3a0a82
+      internalID: 370790730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_109
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4671417640e967943830cadd8b07f4f2
+      internalID: 625837839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_110
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d04511d74589ec438dad117f2cf8191
+      internalID: -1116625366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_111
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59579d10957a7474ba8c373d20bf2437
+      internalID: 1020779941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_112
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5146461b8c97c3a44aeda6c0abf9dce8
+      internalID: -1363714793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_113
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b73535b394c59304ba9323f5a489aea9
+      internalID: -1746575077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_114
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4633bee1c85fd6d4ebb4d1f53530da22
+      internalID: -1579454179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_115
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bb7dd116f4296d40989ecd62e2057e1
+      internalID: 396311319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_116
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e00ee517aad1fe9488b1f7fe09b1fb28
+      internalID: -2125090300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_117
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 724f7a54d2e584c43b14973a46efd483
+      internalID: 1905881069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_118
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 310
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41b6ce787421aae499dd7e152f909078
+      internalID: -151818092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_119
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8684b7e7856a8cc428167f41d4a621a5
+      internalID: -822674585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_120
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 162754364d1b5ec44a0515e0b450314b
+      internalID: -2097129850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_121
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a452fe08a0efcf547acf21bbf56b27cd
+      internalID: 1226519196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_122
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1a6bf1386a77eb45a1c7137a4dfcccc
+      internalID: -412101727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_123
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 770e56a068842084f912c4636eb08dfb
+      internalID: -2095591208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_124
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77e7b061cb6c51b438644588cbf11f82
+      internalID: -420062572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_125
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9c3aab8a18534a48a72d33bbdd142d9
+      internalID: 2099562287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_126
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b99457feb50267d489f4b28ba89bbe69
+      internalID: -1727968458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_127
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0986650d99218974a9cb57a16fd170bf
+      internalID: 1084756245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_128
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b1ea5e92329c3d4097ad87fc4b2e4ae
+      internalID: -670115269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_129
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a73ea287b308744cbde84029424a991
+      internalID: 655811850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_130
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 761b1663ad3c59241a619f4b6546fc42
+      internalID: 276777738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_131
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d5a52005cbceff4fb9e67f3e07fb064
+      internalID: -969219983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_132
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 750fd74d44a6cd74293047e6314efae9
+      internalID: 1423747502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_133
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa6a4576581be9249a38aba98fe6f988
+      internalID: -1531601117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_134
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27912df4408e3cc42ac44a358fcc4171
+      internalID: -222732228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_135
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 281
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08c3f891ced009c4f8921772c98dd4f1
+      internalID: -649267381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_136
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f32dd7ce98078740ac092f6b94966e4
+      internalID: -622345334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_137
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc43fb299539c994cb3b183a9f6da99f
+      internalID: -238979005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_138
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96d3160e897185249b3d2548698907cd
+      internalID: 1142471174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_139
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6139faa1c77c5c84f8d68f465c0ba2da
+      internalID: 1438193076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_140
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f682a9e135bea654b9ef503e5ae42cb9
+      internalID: 1043555850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_141
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc8280b4fe0fec746bfbf6f7f91f085b
+      internalID: -870076409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_142
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a04b5184299218446a8eed9c2d873e12
+      internalID: -424531924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_143
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0f0dab2b518d2f4986bae2718588830
+      internalID: 1780660838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_144
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 641940300d7121a4ab7f5464f05bd341
+      internalID: -801286845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_145
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a36b4111a56931844bbe4fb39b50a1a0
+      internalID: -896890187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_146
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 792a3443628bbf5438520f7a033ae298
+      internalID: -1755133038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_147
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 583b9dee27c221e41beb835c7c33228b
+      internalID: -1400717143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_148
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71c7fe2933d909e4fb80ab709aeebef5
+      internalID: 631524722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_149
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6367cafea73d4e642a99712104f25c9f
+      internalID: -2026653154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_150
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 257752832bbbc1d4fa19d23ef31a36f6
+      internalID: 1916660116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_151
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 102e8c2ae7ab6634fa1d2c0c8fad6c30
+      internalID: 1691575520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_152
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 252
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1a20817716891c47862587d4c5df411
+      internalID: 2009056339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_153
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7752d965ae02be7429568e5ac56e4bfa
+      internalID: 1366980399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_154
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33cbc81174535f649a101e98aa75e531
+      internalID: 1968259663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_155
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1e233d6ee43c7148a50fa2fa3ccb9aa
+      internalID: -1737597970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_156
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69ab82a40fb767d46a6e39138c083cca
+      internalID: 1243531192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_157
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e337948ff13a9949a16a945c6d67cc2
+      internalID: 252905099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_158
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0300a8157a40804d8ad8f59cd8a0b7f
+      internalID: -1210337039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_159
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86a115ef6b16a9e40a1a9dc579a894c3
+      internalID: 1013652505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_160
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad0a425ecc5411a4c9af99a7060eca78
+      internalID: -272189582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_161
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c93ee8918ecea3c4aba5f1c6b860527d
+      internalID: -615126339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_162
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ff1fe4b0e417e14f81c7e823e7acd75
+      internalID: -685569592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_163
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43f94f983bbe43b4c81cff8842c11628
+      internalID: 1070260831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_164
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 914a085b7310e2145bdaf19864292a2b
+      internalID: 995522613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_165
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 579a40780a15c72439e450e5037b623e
+      internalID: -1769680378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_166
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4544df02eecee454a8b3c19bab7e9934
+      internalID: -368779342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_167
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e51ef34022961bb4a98c0683735f145d
+      internalID: -612631423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_168
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 933542fd211596d4cbd3c44cd991414e
+      internalID: -855235114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_169
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 223
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75dfec02eb4603546bcd59b284638e6b
+      internalID: 542331891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_170
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80818fa2b0704d94d940ee0735252f66
+      internalID: 619810305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_171
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c57bef37a071e44b80702535fe80127
+      internalID: 1809776607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_172
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcad79836f9b6374faab23e610a1e074
+      internalID: 902118797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_173
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a5079d484787d54bb2a0247be6a0573
+      internalID: 2018469363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_174
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb95cd37929e0fa488d635f5cc3dfe17
+      internalID: 148380697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_175
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bd02393c4835af43b0405ccd72aa252
+      internalID: 1513607583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_176
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40655b38bd198944c88cea758ee2aa6d
+      internalID: 1539856651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_177
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ef6f1ffa41e420438c9bc4bf69de97c
+      internalID: -86963218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_178
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9e10bdf04bcf7846a23f83aa8152e26
+      internalID: -836841129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_179
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e76096e844fcca94bbe7c5367f4c0ff1
+      internalID: 1345188218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_180
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb0dd2e7803ba52438355a98eb1e5584
+      internalID: -1362228622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_181
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd2746564b2a60345b20077da4aeb196
+      internalID: 1198217496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_182
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 697341ad20ad78147ba312bdd3b81d1e
+      internalID: -620015070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_183
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c675767e7a93fbe4fa857952fccaa07c
+      internalID: 1773990079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_184
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e108c37b1c7b76c4d93afd9d8b6d52a4
+      internalID: -1231107722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_185
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34d35db8ff13efa4ebe4749e149ec267
+      internalID: 994419343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_186
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 194
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 684b93984817c424c81e51991201b055
+      internalID: 1700270551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_187
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 430028cde34b3c043a0e5057438d0d4d
+      internalID: 423784713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_188
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec7ec1e2fccd39442aed5dc22476b4aa
+      internalID: 451018585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_189
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb3eaa7114db4d74a854d161cba8c932
+      internalID: -1143587588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_190
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32e0167e708b7f24bb77e1172eb0bf14
+      internalID: 1748377309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_191
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8dcd1d7cdb0e674990cd2eb6a2ef6ee
+      internalID: -225920604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_192
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9f33cef96947e347a3e0d900237353b
+      internalID: -1503265906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_193
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5045b0a82d3b1eb4a9ce2b30c609bb28
+      internalID: 480175333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_194
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a170102de613094fa8ebd965140f132
+      internalID: -1306700291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_195
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34ab6a84f7930d04f8cc7f9be133c2fc
+      internalID: 1745781589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_196
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0d8ae34d6f1b0541abfef3deab3d844
+      internalID: 2003851173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_197
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84302002c559a6541b30934e039baf09
+      internalID: 399129953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_198
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b3950790763641448745e3554e98fdc
+      internalID: 1653940820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_199
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fd098331291a7c4584a31a0efb91e6f
+      internalID: -492229882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_200
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cc31e6ba015b5940a82d7cbf70fc710
+      internalID: 1154885000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_201
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6eb7399677f87e44ad60084ae18585e
+      internalID: 2113554634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_202
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aecab96613ed1c04f92a1cdb9e52d6d8
+      internalID: -1051592607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_203
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 165
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 160954921a7e0b24abe87182d06d0c74
+      internalID: -1443845725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_204
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b92f01f61e5e67b47945848568f11341
+      internalID: 101026683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_205
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01fd5e9d3a51c6749b4fe9c67567490f
+      internalID: -1779262655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_206
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 108b25ff5533067458216c217607bdcf
+      internalID: 1081248702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_207
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5acaba05c4c39c44da3a7009fac51dc1
+      internalID: 1859520827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_208
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94923f4ec866e1646b9e849dce069af2
+      internalID: -816362661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_209
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe41eaf7e9ed10c4685fe843938f1ee0
+      internalID: 516644650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_210
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a5670d71375e6b45b9d68b3ceae9977
+      internalID: 108823075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_211
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdcbfbc6b914df94680c3ab0a8d658ac
+      internalID: 1373166563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_212
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7be0837b666468b49a48143e6137350c
+      internalID: 749961590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_213
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0211021bd77c0524c92faa9e531cf4af
+      internalID: 988684116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_214
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee5d9636e0cc3df46919298670b1e924
+      internalID: 357029073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_215
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b1ada81c2fa753419e3f9797da78e46
+      internalID: 1645836786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_216
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b5316fc7dcc8c94b9a446948ff72003
+      internalID: 1721830030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_217
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69946b495bbb22246ac3e66eb17d3a4f
+      internalID: -1455816978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_218
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa73e4fe9f7243d4b92b7bb1bba75d5d
+      internalID: 1283314191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_219
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3409407e7e57c6a45bb9d52133a089d6
+      internalID: 522710914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_220
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 136
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 388ce1885723f3b438ff2d26786d6ed2
+      internalID: 892783506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_221
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b42f3c3b24541943aa2de2ea2ba9e5d
+      internalID: -301819610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_222
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b23f95da34e76742b764e630edecd14
+      internalID: -1307715256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_223
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbdb8d89375f52344823c4037ff3b5ef
+      internalID: 609056508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_224
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e21f148160dbe5468cec1666898be07
+      internalID: -412472696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_225
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8afe89bb24088ed42b31f26511aa2cb0
+      internalID: -1974352607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_226
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59b59908d5766c74084c2b24adbdfa1b
+      internalID: -974936202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_227
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 009848573272737429ea8a61e1979a4f
+      internalID: 1010547023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_228
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 994375c308012304cb1ad3529548fa12
+      internalID: -1895860800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_229
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fabfc8e8f3460d44b90369f43203ea2e
+      internalID: -2070813336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_230
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1be8042113a041840b43ba68659dbba2
+      internalID: -1391575254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_231
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d9322ea70d9b514496be5ea3a1562d3
+      internalID: -1565601420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_232
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49ea77e46ea28cb41b6cb56a9fa928e6
+      internalID: 821552310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_233
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aeb7063f6e99dfb4b91b915c5c6e5812
+      internalID: 284871846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_234
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 440a588a102966245a90122bf3319862
+      internalID: 187290363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_235
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a11d83da3a3cf743a20fc773b9351bc
+      internalID: 414494068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_236
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a26207884789ac4bb14115c882d0c4b
+      internalID: -2054159266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_237
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 107
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03d5ae73d9b84ab498fae70a63b01e35
+      internalID: 1210716982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_238
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02778661d65613c4f83bbf1a29418d22
+      internalID: 1673056188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_239
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ea51196550f7bb44b1dcb618c3b6e02
+      internalID: 1481052449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_240
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c72d77f7d447e0649b7b85c8535d379e
+      internalID: -1824778863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_241
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcd0d7b5748bf4b4fb61da7f967618fb
+      internalID: 1750047910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_242
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dc67e2df5c1dfa43a198bc49ebb0f64
+      internalID: 249486275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_243
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e0f9ce145b0b244c939a3928d5d3f72
+      internalID: -1831074956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_244
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 595fd7931e48a674cb21ed2ef12f876b
+      internalID: 415207683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_245
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c2d8911fe8964f4583c5d08a334cc54
+      internalID: 1456833843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_246
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e4624b8f0edb7144849008b7f208d6b
+      internalID: -1466064041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_247
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e28442880cb3438468071cd41a03e0f5
+      internalID: -1561828967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_248
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecb042e9ada8d75408a9ebe0206ca151
+      internalID: 847427342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_249
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49b752d6233a3b54493752f85042562b
+      internalID: -466685529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_250
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25f68d002765f234bba76ccb25d5bf3f
+      internalID: 85430581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_251
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02fa0f8c12c2bf441be1fdb0e5fb9070
+      internalID: 1346631378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_252
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b80d9bb9e43bf544d8d375ec87570966
+      internalID: 754820792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_253
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c92dcf3b37397458c5be60528e36b9
+      internalID: 704471623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_254
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 78
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b492f31c9b8e914899c24143a3d9d34
+      internalID: 669544506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_255
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb74d91d3bed5b54db3e6dcb690bc8a6
+      internalID: -1508361713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_256
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8f2243af23fd3348ba9d09f4f4bfcbd
+      internalID: -1525179191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_257
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc06be68017e28543914ee1e99105cb0
+      internalID: -1640088615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_258
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a37d12421e874ff4daafb1710fafc2a0
+      internalID: 66122722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_259
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cc9a94e7384c2641b1552814c88a516
+      internalID: -1475861476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_260
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64c8566f006356d4cbd4169628f2985f
+      internalID: -907413888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_261
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4271483f62faa60428a569556cadffd6
+      internalID: -586976530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_262
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01b5b3cb7b19f6942818e7f8d6ffc7e5
+      internalID: -107443448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_263
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70af0c718be267746a9b289ca87c32c8
+      internalID: -2103614809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_264
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff08013d9698a8b48844fea027019422
+      internalID: 1848914016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_265
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82116db54fa5ea240a12ba691768ad35
+      internalID: 1065252621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_266
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20709100812db434caa1ad79f74329a9
+      internalID: 1151954753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_267
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d2688422b1a7ad42b72a56d64d0e117
+      internalID: 1180423949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_268
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a94196a54dea7c54ea380ded290edfd4
+      internalID: -1841563150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_269
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 728e13bd647f47c4e8270a6e89720663
+      internalID: 1175198003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_270
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 882c8de7e3187a84091cbadaafdbbb08
+      internalID: 246903820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_271
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 49
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e8506757dcc1a54a9063d8117320a4a
+      internalID: -35881671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_272
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 805f3e460f6d4b14f9c6e980fd8645de
+      internalID: -985345372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_273
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 362594ee227982647a7e3d90b44b8605
+      internalID: -1293781819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_274
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d98cecd4b23eb2940ab57f03fd4b17ba
+      internalID: 29296349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_275
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbe72e3681afff648987283f6d1fd28b
+      internalID: -1543545017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_276
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2a3b458f3f0e3f48a1d23ff55bdda77
+      internalID: -1966183199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_277
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3ba74451b9f7b041b836ec5e8b68ffb
+      internalID: 262516998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_278
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4d0cfa4974f4da4bb65a2b584e07c45
+      internalID: 1292592009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_279
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 645977fdf4ba9fe47a3356ad02871bc7
+      internalID: 468788418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_280
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cb8330462cf1d446be352ce23c13d99
+      internalID: -41900908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_281
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5af5b0b9cd2e7cb4a93cae13c7535a4f
+      internalID: -1753704229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_282
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a552bb9947f1dc4cbcd2b924bfcd1a7
+      internalID: 64990564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_283
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8f7f880e6fbd56448b1c4b575ebdcaf
+      internalID: -2013039717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_284
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41085baa129b7f742a9206faf28942e3
+      internalID: -762217400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_285
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1e4ee08dfe716743ba63a286ff7ee6b
+      internalID: 2080996202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_286
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8d5d4397e9e12042af525dfd63b9b4b
+      internalID: -1389554541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_287
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e97483c49046ca0458938c19549fbe30
+      internalID: 1056699467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buff_000_288
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 20
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bf232cd06de1ce44b54964f2f831120
+      internalID: -1910750834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      UI_Buff_000_0: -154321793
+      UI_Buff_000_1: -1956518223
+      UI_Buff_000_10: -2123982221
+      UI_Buff_000_100: 504025822
+      UI_Buff_000_101: 1368539027
+      UI_Buff_000_102: -972592623
+      UI_Buff_000_103: -665225619
+      UI_Buff_000_104: 608790741
+      UI_Buff_000_105: -406017003
+      UI_Buff_000_106: -1588253146
+      UI_Buff_000_107: -1852234674
+      UI_Buff_000_108: 370790730
+      UI_Buff_000_109: 625837839
+      UI_Buff_000_11: -644871782
+      UI_Buff_000_110: -1116625366
+      UI_Buff_000_111: 1020779941
+      UI_Buff_000_112: -1363714793
+      UI_Buff_000_113: -1746575077
+      UI_Buff_000_114: -1579454179
+      UI_Buff_000_115: 396311319
+      UI_Buff_000_116: -2125090300
+      UI_Buff_000_117: 1905881069
+      UI_Buff_000_118: -151818092
+      UI_Buff_000_119: -822674585
+      UI_Buff_000_12: 1606421004
+      UI_Buff_000_120: -2097129850
+      UI_Buff_000_121: 1226519196
+      UI_Buff_000_122: -412101727
+      UI_Buff_000_123: -2095591208
+      UI_Buff_000_124: -420062572
+      UI_Buff_000_125: 2099562287
+      UI_Buff_000_126: -1727968458
+      UI_Buff_000_127: 1084756245
+      UI_Buff_000_128: -670115269
+      UI_Buff_000_129: 655811850
+      UI_Buff_000_13: -1670803131
+      UI_Buff_000_130: 276777738
+      UI_Buff_000_131: -969219983
+      UI_Buff_000_132: 1423747502
+      UI_Buff_000_133: -1531601117
+      UI_Buff_000_134: -222732228
+      UI_Buff_000_135: -649267381
+      UI_Buff_000_136: -622345334
+      UI_Buff_000_137: -238979005
+      UI_Buff_000_138: 1142471174
+      UI_Buff_000_139: 1438193076
+      UI_Buff_000_14: -267969648
+      UI_Buff_000_140: 1043555850
+      UI_Buff_000_141: -870076409
+      UI_Buff_000_142: -424531924
+      UI_Buff_000_143: 1780660838
+      UI_Buff_000_144: -801286845
+      UI_Buff_000_145: -896890187
+      UI_Buff_000_146: -1755133038
+      UI_Buff_000_147: -1400717143
+      UI_Buff_000_148: 631524722
+      UI_Buff_000_149: -2026653154
+      UI_Buff_000_15: -211300374
+      UI_Buff_000_150: 1916660116
+      UI_Buff_000_151: 1691575520
+      UI_Buff_000_152: 2009056339
+      UI_Buff_000_153: 1366980399
+      UI_Buff_000_154: 1968259663
+      UI_Buff_000_155: -1737597970
+      UI_Buff_000_156: 1243531192
+      UI_Buff_000_157: 252905099
+      UI_Buff_000_158: -1210337039
+      UI_Buff_000_159: 1013652505
+      UI_Buff_000_16: 716263680
+      UI_Buff_000_160: -272189582
+      UI_Buff_000_161: -615126339
+      UI_Buff_000_162: -685569592
+      UI_Buff_000_163: 1070260831
+      UI_Buff_000_164: 995522613
+      UI_Buff_000_165: -1769680378
+      UI_Buff_000_166: -368779342
+      UI_Buff_000_167: -612631423
+      UI_Buff_000_168: -855235114
+      UI_Buff_000_169: 542331891
+      UI_Buff_000_17: 1176344511
+      UI_Buff_000_170: 619810305
+      UI_Buff_000_171: 1809776607
+      UI_Buff_000_172: 902118797
+      UI_Buff_000_173: 2018469363
+      UI_Buff_000_174: 148380697
+      UI_Buff_000_175: 1513607583
+      UI_Buff_000_176: 1539856651
+      UI_Buff_000_177: -86963218
+      UI_Buff_000_178: -836841129
+      UI_Buff_000_179: 1345188218
+      UI_Buff_000_18: -489498790
+      UI_Buff_000_180: -1362228622
+      UI_Buff_000_181: 1198217496
+      UI_Buff_000_182: -620015070
+      UI_Buff_000_183: 1773990079
+      UI_Buff_000_184: -1231107722
+      UI_Buff_000_185: 994419343
+      UI_Buff_000_186: 1700270551
+      UI_Buff_000_187: 423784713
+      UI_Buff_000_188: 451018585
+      UI_Buff_000_189: -1143587588
+      UI_Buff_000_19: -1921546413
+      UI_Buff_000_190: 1748377309
+      UI_Buff_000_191: -225920604
+      UI_Buff_000_192: -1503265906
+      UI_Buff_000_193: 480175333
+      UI_Buff_000_194: -1306700291
+      UI_Buff_000_195: 1745781589
+      UI_Buff_000_196: 2003851173
+      UI_Buff_000_197: 399129953
+      UI_Buff_000_198: 1653940820
+      UI_Buff_000_199: -492229882
+      UI_Buff_000_2: 579021722
+      UI_Buff_000_20: -1539141088
+      UI_Buff_000_200: 1154885000
+      UI_Buff_000_201: 2113554634
+      UI_Buff_000_202: -1051592607
+      UI_Buff_000_203: -1443845725
+      UI_Buff_000_204: 101026683
+      UI_Buff_000_205: -1779262655
+      UI_Buff_000_206: 1081248702
+      UI_Buff_000_207: 1859520827
+      UI_Buff_000_208: -816362661
+      UI_Buff_000_209: 516644650
+      UI_Buff_000_21: -1294634744
+      UI_Buff_000_210: 108823075
+      UI_Buff_000_211: 1373166563
+      UI_Buff_000_212: 749961590
+      UI_Buff_000_213: 988684116
+      UI_Buff_000_214: 357029073
+      UI_Buff_000_215: 1645836786
+      UI_Buff_000_216: 1721830030
+      UI_Buff_000_217: -1455816978
+      UI_Buff_000_218: 1283314191
+      UI_Buff_000_219: 522710914
+      UI_Buff_000_22: -530452055
+      UI_Buff_000_220: 892783506
+      UI_Buff_000_221: -301819610
+      UI_Buff_000_222: -1307715256
+      UI_Buff_000_223: 609056508
+      UI_Buff_000_224: -412472696
+      UI_Buff_000_225: -1974352607
+      UI_Buff_000_226: -974936202
+      UI_Buff_000_227: 1010547023
+      UI_Buff_000_228: -1895860800
+      UI_Buff_000_229: -2070813336
+      UI_Buff_000_23: -1659627245
+      UI_Buff_000_230: -1391575254
+      UI_Buff_000_231: -1565601420
+      UI_Buff_000_232: 821552310
+      UI_Buff_000_233: 284871846
+      UI_Buff_000_234: 187290363
+      UI_Buff_000_235: 414494068
+      UI_Buff_000_236: -2054159266
+      UI_Buff_000_237: 1210716982
+      UI_Buff_000_238: 1673056188
+      UI_Buff_000_239: 1481052449
+      UI_Buff_000_24: 1924439570
+      UI_Buff_000_240: -1824778863
+      UI_Buff_000_241: 1750047910
+      UI_Buff_000_242: 249486275
+      UI_Buff_000_243: -1831074956
+      UI_Buff_000_244: 415207683
+      UI_Buff_000_245: 1456833843
+      UI_Buff_000_246: -1466064041
+      UI_Buff_000_247: -1561828967
+      UI_Buff_000_248: 847427342
+      UI_Buff_000_249: -466685529
+      UI_Buff_000_25: 1548472190
+      UI_Buff_000_250: 85430581
+      UI_Buff_000_251: 1346631378
+      UI_Buff_000_252: 754820792
+      UI_Buff_000_253: 704471623
+      UI_Buff_000_254: 669544506
+      UI_Buff_000_255: -1508361713
+      UI_Buff_000_256: -1525179191
+      UI_Buff_000_257: -1640088615
+      UI_Buff_000_258: 66122722
+      UI_Buff_000_259: -1475861476
+      UI_Buff_000_26: -337947410
+      UI_Buff_000_260: -907413888
+      UI_Buff_000_261: -586976530
+      UI_Buff_000_262: -107443448
+      UI_Buff_000_263: -2103614809
+      UI_Buff_000_264: 1848914016
+      UI_Buff_000_265: 1065252621
+      UI_Buff_000_266: 1151954753
+      UI_Buff_000_267: 1180423949
+      UI_Buff_000_268: -1841563150
+      UI_Buff_000_269: 1175198003
+      UI_Buff_000_27: -388497531
+      UI_Buff_000_270: 246903820
+      UI_Buff_000_271: -35881671
+      UI_Buff_000_272: -985345372
+      UI_Buff_000_273: -1293781819
+      UI_Buff_000_274: 29296349
+      UI_Buff_000_275: -1543545017
+      UI_Buff_000_276: -1966183199
+      UI_Buff_000_277: 262516998
+      UI_Buff_000_278: 1292592009
+      UI_Buff_000_279: 468788418
+      UI_Buff_000_28: 954991603
+      UI_Buff_000_280: -41900908
+      UI_Buff_000_281: -1753704229
+      UI_Buff_000_282: 64990564
+      UI_Buff_000_283: -2013039717
+      UI_Buff_000_284: -762217400
+      UI_Buff_000_285: 2080996202
+      UI_Buff_000_286: -1389554541
+      UI_Buff_000_287: 1056699467
+      UI_Buff_000_288: -1910750834
+      UI_Buff_000_29: 834747737
+      UI_Buff_000_3: -1972510542
+      UI_Buff_000_30: -640921166
+      UI_Buff_000_31: -1506125256
+      UI_Buff_000_32: -1572053072
+      UI_Buff_000_33: 635333401
+      UI_Buff_000_34: 2039194851
+      UI_Buff_000_35: 1372163630
+      UI_Buff_000_36: 1688065346
+      UI_Buff_000_37: 1828150147
+      UI_Buff_000_38: -2067599952
+      UI_Buff_000_39: -1074781229
+      UI_Buff_000_4: 1663980525
+      UI_Buff_000_40: -139839505
+      UI_Buff_000_41: 1223183159
+      UI_Buff_000_42: 1193416362
+      UI_Buff_000_43: -1839285829
+      UI_Buff_000_44: 1298800342
+      UI_Buff_000_45: -2117391529
+      UI_Buff_000_46: -1396458391
+      UI_Buff_000_47: -1836319032
+      UI_Buff_000_48: -1816713882
+      UI_Buff_000_49: 1077396668
+      UI_Buff_000_5: -776551882
+      UI_Buff_000_50: -1533595685
+      UI_Buff_000_51: 857980611
+      UI_Buff_000_52: 1927741762
+      UI_Buff_000_53: 15562521
+      UI_Buff_000_54: 764395516
+      UI_Buff_000_55: -434767896
+      UI_Buff_000_56: -140968516
+      UI_Buff_000_57: -1740318150
+      UI_Buff_000_58: -1922017322
+      UI_Buff_000_59: -233023933
+      UI_Buff_000_6: -1489417253
+      UI_Buff_000_60: -1565912710
+      UI_Buff_000_61: -162000492
+      UI_Buff_000_62: -1587760057
+      UI_Buff_000_63: -1308884128
+      UI_Buff_000_64: -611411807
+      UI_Buff_000_65: -990368899
+      UI_Buff_000_66: 1607929192
+      UI_Buff_000_67: -66262262
+      UI_Buff_000_68: 1665224782
+      UI_Buff_000_69: 579175148
+      UI_Buff_000_7: 682448351
+      UI_Buff_000_70: 802128167
+      UI_Buff_000_71: -1043029402
+      UI_Buff_000_72: -1098016017
+      UI_Buff_000_73: -455357154
+      UI_Buff_000_74: -489670237
+      UI_Buff_000_75: -1181185827
+      UI_Buff_000_76: 953796753
+      UI_Buff_000_77: 1366319775
+      UI_Buff_000_78: 742318603
+      UI_Buff_000_79: 1892930130
+      UI_Buff_000_8: 456725532
+      UI_Buff_000_80: 1319794258
+      UI_Buff_000_81: 39559398
+      UI_Buff_000_82: -1521156092
+      UI_Buff_000_83: 1585111186
+      UI_Buff_000_84: -1425822926
+      UI_Buff_000_85: -276360790
+      UI_Buff_000_86: 1058081885
+      UI_Buff_000_87: -859155271
+      UI_Buff_000_88: 1277594096
+      UI_Buff_000_89: -688000568
+      UI_Buff_000_9: 397062668
+      UI_Buff_000_90: 1914700350
+      UI_Buff_000_91: -594062460
+      UI_Buff_000_92: -2112314906
+      UI_Buff_000_93: 370139160
+      UI_Buff_000_94: -587176960
+      UI_Buff_000_95: -600338618
+      UI_Buff_000_96: -507883458
+      UI_Buff_000_97: -815749553
+      UI_Buff_000_98: -10874731
+      UI_Buff_000_99: -1827566805
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

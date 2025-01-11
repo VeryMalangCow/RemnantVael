@@ -1777,6 +1777,9 @@ MonoBehaviour:
   DmgTxtCanvases:
     Prefab: {fileID: 3929266293630113405, guid: 9f39834d26e7b4b42b07427807f08835, type: 3}
     ParentTF: {fileID: 523388470}
+  BuffIcons:
+    Prefab: {fileID: 9024960350413005352, guid: 74a854358c0cdac428b8364fc40498bb, type: 3}
+    ParentTF: {fileID: 0}
   MI_000_Bullets:
     Prefab: {fileID: 2192280153704162206, guid: a7676fe05b5ef5c47a2047adae42946c, type: 3}
     ParentTF: {fileID: 242052721}
@@ -2806,6 +2809,8 @@ MonoBehaviour:
   CurrentDurTime:
     value: 0
   ConditionWillDone: 0
+  ThisIconSprite: {fileID: -154321793, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  ThisMBI: {fileID: 0}
   ThisShield:
     ShieldID: Shockwave's Buff
     ShieldMaxValue: 20
@@ -2845,6 +2850,8 @@ MonoBehaviour:
   CurrentDurTime:
     value: 0
   ConditionWillDone: 0
+  ThisIconSprite: {fileID: -1956518223, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  ThisMBI: {fileID: 0}
   Multiple:
     BuffID: 1
     BaseValue: 0.05

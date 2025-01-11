@@ -114,11 +114,18 @@ public class PlayerHUDController : UIController
     [SerializeField] private Image Skill0Img;
     [SerializeField] private Image Skill1Img;
 
+    [Header("-- Buff")]
+    [SerializeField] private Transform BuffParentTF;
+    [SerializeField] private List<ModifyBuffIcon> AllBuffIconUI;
+    [SerializeField] private float BuffUI_XInterval = 12;
+
+
     [Header("-- MainColor")]
     [HideInInspector] public List<Component> MainColorCompList;
 
     [Header("-- SubColor")]
     [HideInInspector] public List<Component> SubColorCompList;
+
 
     #endregion
 
@@ -217,17 +224,6 @@ public class PlayerHUDController : UIController
         EP_FlowRT.DOAnchorPos(new Vector2(1920, 0), 2f, false)
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart);
-
-        /*Transform[] allChildren = this.GetComponentsInChildren<Transform>();
-        foreach (Transform child in allChildren)
-        {
-            if(child.gameObject.TryGetComponent(out TrueShadow ts))
-            {
-                float sizeDefault = ts.Size * 1.5f;
-                DOTween.To(() => ts.Size, x => ts.Size = x, sizeDefault, 1)
-                    .SetLoops(-1, LoopType.Yoyo);
-            }
-        }*/
 
         ECCostTxt.text = PlayerManager.Instance.PlayerController.NeedEP_ForMakeEC.ToString();
 
@@ -347,6 +343,12 @@ public class PlayerHUDController : UIController
         SubColorCompList.Clear();
         SubColorCompList = null;
         #endregion
+
+        #region Buff
+
+        PoolingManager.Instance.BuffIcons.ParentTF = BuffParentTF;
+
+        #endregion
     }
 
     #endregion
@@ -445,7 +447,7 @@ public class PlayerHUDController : UIController
     {
         DOTween.Kill(ShieldRT);
         ShieldRT.DOSizeDelta(new Vector2(8 + (_TotalShield * 3), ShieldRT.sizeDelta.y), 1f);
-        ShieldTxt.text = "<size=75%>( Shield: </size>" + Mathf.Round(_TotalShield).ToString() + "<size=75%> )</size>";
+        ShieldTxt.text = "<size=75%>( </size>" + Mathf.Round(_TotalShield).ToString() + "<size=75%> )</size>";
     }
 
     #endregion
@@ -512,7 +514,7 @@ public class PlayerHUDController : UIController
     #endregion
 
     #region Description
-    
+
     public void SetStateInteractUI()
     {
         if (IsActingInteractUI)
@@ -673,6 +675,41 @@ public class PlayerHUDController : UIController
         }
 
         ThisMinimap.OffTabInteract(TabInteractDurTime);
+    }
+
+    #endregion
+
+    #region Buff
+
+    public void SetUI_GainBuff(ModifyBuffIcon _MBI)
+    {
+        if (!AllBuffIconUI.Contains(_MBI))
+        {
+            AllBuffIconUI.Add(_MBI);
+        }
+        SetUI_BuffPos();
+    }
+
+    public void SetUI_ReductBuff(ModifyBuffIcon _MBI)
+    {
+        SetUI_BuffPos();
+    }
+
+    public void SetUI_EndBuff(ModifyBuffIcon _MBI)
+    {
+        if (AllBuffIconUI.Contains(_MBI))
+        {
+            AllBuffIconUI.Remove(_MBI);
+        }
+        SetUI_BuffPos();
+    }
+
+    private void SetUI_BuffPos()
+    {
+        for (int i = 0; i < AllBuffIconUI.Count; i++)
+        {
+            AllBuffIconUI[i].ThisRT.anchoredPosition = new Vector2(i * (AllBuffIconUI[i].ThisRT.rect.width + BuffUI_XInterval), 0);
+        }
     }
 
     #endregion
