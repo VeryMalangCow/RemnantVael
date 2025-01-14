@@ -2765,6 +2765,7 @@ GameObject:
   - component: {fileID: 1430576404}
   - component: {fileID: 1430576403}
   - component: {fileID: 1430576405}
+  - component: {fileID: 1430576406}
   m_Layer: 0
   m_Name: BuffManager
   m_TagString: Untagged
@@ -2804,10 +2805,11 @@ MonoBehaviour:
   CurrentBuffCharge:
     value: 0
   ReductionCharge: 1
-  DurtimerWillDone: 1
+  DurTimerWillDone: 0
   MaxDurTime: 3
   CurrentDurTime:
     value: 0
+  InitializationWhenGain: 1
   ConditionWillDone: 0
   ThisIconSprite: {fileID: -154321793, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   ThisMBI: {fileID: 0}
@@ -2815,6 +2817,7 @@ MonoBehaviour:
     ShieldID: Shockwave's Buff
     ShieldMaxValue: 20
     ShieldCurrentValue: 0
+  ActivingBuff: []
 --- !u!114 &1430576404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2845,10 +2848,11 @@ MonoBehaviour:
   CurrentBuffCharge:
     value: 0
   ReductionCharge: 1
-  DurtimerWillDone: 1
+  DurTimerWillDone: 0
   MaxDurTime: 3
   CurrentDurTime:
     value: 0
+  InitializationWhenGain: 1
   ConditionWillDone: 0
   ThisIconSprite: {fileID: -1956518223, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   ThisMBI: {fileID: 0}
@@ -2856,6 +2860,33 @@ MonoBehaviour:
     BuffID: 1
     BaseValue: 0.05
     ActualValue: 0
+--- !u!114 &1430576406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c5d40c97dbd1694389563483b748fcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuffID: 2
+  MaxBuffCharge: 10
+  CurrentBuffCharge:
+    value: 0
+  ReductionCharge: 1
+  DurTimerWillDone: 1
+  MaxDurTime: 1
+  CurrentDurTime:
+    value: 0
+  InitializationWhenGain: 0
+  ConditionWillDone: 0
+  ThisIconSprite: {fileID: 579021722, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  ThisMBI: {fileID: 0}
+  HealPercent: 0
+  HealPoint: -1
 --- !u!1 &1447344362
 GameObject:
   m_ObjectHideFlags: 0

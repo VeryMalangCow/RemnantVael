@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BuffShieldController : BuffController
@@ -9,6 +10,9 @@ public class BuffShieldController : BuffController
 
     [Space(10)]
     [SerializeField] private Shield ThisShield;
+
+    [Space(10)]
+    [SerializeField] private List<Shield> ActivingBuff = new List<Shield>();
 
     #endregion
 

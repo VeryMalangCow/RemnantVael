@@ -16,9 +16,10 @@ public class BuffController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Timer")]
-    [SerializeField] private bool DurtimerWillDone = false;
+    [SerializeField] private bool DurTimerWillDone = false;
     [SerializeField] private float MaxDurTime = 1;
     [SerializeField] private ReactiveProperty<float> CurrentDurTime = new();
+    [SerializeField] private bool InitializationWhenGain = true;
 
     [Space(10)]
     [Header("=== Contdition")]
@@ -51,12 +52,17 @@ public class BuffController : MonoBehaviour
     private void CaculateTimer()
     {
         // 지속시간이 존재 + 현재 버프가 진행중이라면
-        if (DurtimerWillDone && CurrentBuffCharge.Value > 0)
+        if (DurTimerWillDone && CurrentBuffCharge.Value > 0)
         {
+            
             // 지속시간이 흐름
             if (CurrentDurTime.Value < MaxDurTime)
             {
                 CurrentDurTime.Value += Time.deltaTime;
+            }
+            if (ThisMBI != null)
+            {
+                ThisMBI.ThisShadowImg.fillAmount = CurrentDurTime.Value / MaxDurTime;
             }
 
             // 지속 시간이 다 되었다면
@@ -80,7 +86,9 @@ public class BuffController : MonoBehaviour
     public virtual void GainBuff()
     {
         CurrentBuffCharge.Value = Mathf.Clamp(CurrentBuffCharge.Value + 1, 0, MaxBuffCharge);
-        CurrentDurTime.Value = 0;
+        
+        if (InitializationWhenGain)
+        { CurrentDurTime.Value = 0; }
 
         PlayerManager.Instance.PlayerController.Set_GainBuff(this);
 
@@ -89,7 +97,8 @@ public class BuffController : MonoBehaviour
             // UI
             ThisMBI = PoolingManager.Instance.GetOP_BuffUI();
             ThisMBI.Offset();
-            ThisMBI.SetIcon(ThisIconSprite, CurrentBuffCharge.Value);
+            ThisMBI.SetIcon(ThisIconSprite, CurrentBuffCharge.Value); 
+            ThisMBI.ThisShadowImg.fillAmount = 0;
             ThisMBI.gameObject.SetActive(true);
 
             // UI Pos
@@ -124,6 +133,7 @@ public class BuffController : MonoBehaviour
             // UI
             ThisMBI.gameObject.SetActive(false);
             PoolingManager.Instance.BuffIcons.Queue.Enqueue(ThisMBI);
+            ThisMBI = null;
 
             // UI Pos
             MainGameUIManager.Instance.PlayerHUD_UIController.SetUI_EndBuff(ThisMBI);

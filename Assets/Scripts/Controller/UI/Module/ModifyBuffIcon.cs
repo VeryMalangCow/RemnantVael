@@ -13,6 +13,7 @@ public class ModifyBuffIcon : UIModule
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] private Image ThisImg;
+    [SerializeField] public Image ThisShadowImg;
     [SerializeField] private TMP_Text ThisTxt;
     [HideInInspector] public RectTransform ThisRT;
 

@@ -321,6 +321,11 @@ public class PlayerController : MovableObject
         }
     }
 
+    public float PercentHP(float _Percent)
+    {
+        return (_Percent / 100) * MaxEP.ActualState.Value;
+    }
+
     #endregion
 
     #region Bettery
