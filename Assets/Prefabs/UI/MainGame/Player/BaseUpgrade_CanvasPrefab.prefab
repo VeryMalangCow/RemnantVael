@@ -600,6 +600,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   ROFShop:
@@ -613,6 +614,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   CCShop:
@@ -626,6 +628,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   CDShop:
@@ -639,6 +642,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   MuzzleShop:
@@ -652,6 +656,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   AccuracyRateShop:
@@ -665,6 +670,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   KnockbackShop:
@@ -678,6 +684,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   MaxEPShop:
@@ -691,6 +698,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   SpawnESMultipleShop:
@@ -704,6 +712,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   NeedEP_ForSkillMultipleShop:
@@ -717,6 +726,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   DecEnergyPointMultipleShop:
@@ -730,6 +740,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   WalkSpeedShop:
@@ -743,6 +754,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   WalkSpeedWhenShotMultipleShop:
@@ -756,6 +768,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   DashSpeedShop:
@@ -769,6 +782,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   WalkAvoidChance:
@@ -782,6 +796,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   Skill0_CooltimeShop:
@@ -795,6 +810,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   Skill0_PowerShop:
@@ -808,6 +824,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   Skill0_TierShop:
@@ -821,6 +838,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   Skill1_CooltimeShop:
@@ -834,6 +852,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   Skill1_PowerShop:
@@ -847,6 +866,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   Skill1_TierShop:
@@ -860,6 +880,7 @@ MonoBehaviour:
       NeedPayByLevelRange: 
       ActualState:
         value: 0
+      BuffList: []
       Name: 
       Desc: 
   ThisDescPanel: {fileID: 1649420452426937716}
@@ -1211,7 +1232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1629,7 +1650,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2015,7 +2036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2228,7 +2249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2476,7 +2497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2750,7 +2771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2964,7 +2985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3858,7 +3879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4464,7 +4485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4571,7 +4592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4785,7 +4806,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4893,7 +4914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

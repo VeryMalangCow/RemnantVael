@@ -4,6 +4,7 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 public class PlayerHUDController : UIController
 {
@@ -118,6 +119,9 @@ public class PlayerHUDController : UIController
     [SerializeField] private Transform BuffParentTF;
     [SerializeField] private List<ModifyBuffIcon> AllBuffIconUI;
     [SerializeField] private float BuffUI_XInterval = 12;
+
+    [Header("-- Screen")]
+    [SerializeField] private Image HittedScreen;
 
 
     [Header("-- MainColor")]
@@ -349,6 +353,7 @@ public class PlayerHUDController : UIController
         PoolingManager.Instance.BuffIcons.ParentTF = BuffParentTF;
 
         #endregion
+
     }
 
     #endregion
@@ -710,6 +715,23 @@ public class PlayerHUDController : UIController
         {
             AllBuffIconUI[i].ThisRT.anchoredPosition = new Vector2(i * (AllBuffIconUI[i].ThisRT.rect.width + BuffUI_XInterval), 0);
         }
+    }
+
+    #endregion
+
+    #region Screen
+
+    public void HittedPlayScreen(float _Dmg)
+    {
+        if (DOTween.IsTweening(HittedScreen))
+        { DOTween.Kill(HittedScreen); }
+
+        _Dmg = Math.Min(100, _Dmg) / 100;
+
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(HittedScreen.DOFade(_Dmg, 0.1f));
+        seq.Append(HittedScreen.DOFade(0, 0.1f));
     }
 
     #endregion

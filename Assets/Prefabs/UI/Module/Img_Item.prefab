@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -377,6 +377,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -502128827, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    - target: {fileID: 415224471801367059, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 585921646905737636, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -489,6 +493,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -502128827, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    - target: {fileID: 5247677304882165686, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6057478002944973792, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -497,6 +505,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -502128827, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    - target: {fileID: 6481468151103311959, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6952226208603227009, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -505,6 +517,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -502128827, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    - target: {fileID: 8101309519200517402, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 279164624392433215, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
@@ -640,6 +656,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 415224471801367059, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 585921646905737636, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -752,6 +772,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5247677304882165686, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6057478002944973792, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -776,6 +800,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6481468151103311959, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6952226208603227009, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -815,6 +843,10 @@ PrefabInstance:
     - target: {fileID: 8101309519200517402, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101309519200517402, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4915969223267826519, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}

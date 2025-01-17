@@ -529,6 +529,7 @@ public class PlayerController : MovableObject
 
         // Damage
         float Dmg = _DmgValue;
+        MainGameUIManager.Instance.PlayerHUD_UIController.HittedPlayScreen(Dmg);
         if (ShieldElements.Count > 0)
         {
             for (int i = ShieldElements.Count - 1; i >= 0; i--)

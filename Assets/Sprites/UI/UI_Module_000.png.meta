@@ -265,48 +265,6 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_GetIcon_Fire
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 433
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 85487362a61a834448f775e2395e4a9c
-      internalID: 1422261253
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ModuleUI_GetIcon_Ice
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 433
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 80a2d22d1f6eecd478fa89c28203ef1f
-      internalID: -1253658894
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ModuleUI_UpFrame
       rect:
         serializedVersion: 2
@@ -323,48 +281,6 @@ TextureImporter:
       bones: []
       spriteID: ece5881fb407b904e8e382e85bf1d70d
       internalID: -1972109538
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ModuleUI_GetIcon_Cold
-      rect:
-        serializedVersion: 2
-        x: 28
-        y: 433
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7f428b78f4d304348aea4d3516f2b8b0
-      internalID: 1719590221
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ModuleUI_GetIcon_Corrosion
-      rect:
-        serializedVersion: 2
-        x: 42
-        y: 433
-        width: 13
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa9a3bb24ae117845ac215a9fc95d643
-      internalID: -1202784608
       vertices: []
       indices: 
       edges: []
@@ -432,6 +348,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: UI_Module_BloodScreen
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 171
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a310b888bdb7814fb2c13799df67f96
+      internalID: 1393103019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -459,6 +396,7 @@ TextureImporter:
       ModuleUI_UpsideLightFrame: 568212690
       PlayerModuleUI_ScrollBar: 1518208546
       PlayerModuleUI_ScrollBar_BG: -1226440755
+      UI_Module_BloodScreen: 1393103019
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
