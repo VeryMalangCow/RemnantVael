@@ -32,6 +32,7 @@ public class PoolingManager : Singleton<PoolingManager>
 
     [Header("=== MI")]
     [SerializeField] public TTypePooling<PlayerBulletController> MI_000_Bullets;
+    [SerializeField] public TTypePooling<PlayerBulletController> MI_001_Bullets;
 
     #endregion
 
@@ -185,6 +186,11 @@ public class PoolingManager : Singleton<PoolingManager>
     public PlayerBulletController GetOP_MI_000_Bullets()
     {
         return GetOP<PlayerBulletController>(MI_000_Bullets.Prefab, MI_000_Bullets.ParentTF, MI_000_Bullets.Queue);
+    }
+
+    public PlayerBulletController GetOP_MI_001_Bullets()
+    {
+        return GetOP<PlayerBulletController>(MI_001_Bullets.Prefab, MI_001_Bullets.ParentTF, MI_001_Bullets.Queue);
     }
 
     #endregion

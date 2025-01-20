@@ -1783,6 +1783,9 @@ MonoBehaviour:
   MI_000_Bullets:
     Prefab: {fileID: 2192280153704162206, guid: a7676fe05b5ef5c47a2047adae42946c, type: 3}
     ParentTF: {fileID: 242052721}
+  MI_001_Bullets:
+    Prefab: {fileID: 2192280153704162206, guid: 20ae9aacd832c4b46aa6d144e5080466, type: 3}
+    ParentTF: {fileID: 242052721}
 --- !u!1 &713790308
 GameObject:
   m_ObjectHideFlags: 0
@@ -3677,20 +3680,73 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemDataList:
   - ID: 0
-    Name: Tactician's substandard product
+    Name: Energy's Shadow
     Description: The first work of some tactician.
     EquipDescription: Occasionally, It releases aggressive guided missile energy.
-    ItemIcon: {fileID: 328122225, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+    ItemIcon: {fileID: 991301374, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+    Rank1_ItemMainChipID: 0
+    Rank3_ItemMainChipID: 8
+    Rank5_ItemMainChipID: 7
     BoostLv: 1
     Rank: 1
   - ID: 1
-    Name: Hacker's will
+    Name: Power's Shadow
     Description: At first, He hated this situation.
-    EquipDescription: In the event of an enemy strike, A virus state is given with
-      a certain probability.
-    ItemIcon: {fileID: -1681349350, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+    EquipDescription: Occasionally, It releases aggressive guided missile Physic.
+    ItemIcon: {fileID: -1689976493, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+    Rank1_ItemMainChipID: 0
+    Rank3_ItemMainChipID: 8
+    Rank5_ItemMainChipID: 7
     BoostLv: 1
     Rank: 1
+  - ID: 2
+    Name: CritiFlame
+    Description: Critically, Flame!
+    EquipDescription: When a critical hit occurs, it gives the condition a Flame.
+    ItemIcon: {fileID: 2021351045, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+    Rank1_ItemMainChipID: 5
+    Rank3_ItemMainChipID: 1
+    Rank5_ItemMainChipID: 6
+    BoostLv: 1
+    Rank: 1
+  - ID: 3
+    Name: CritiCold
+    Description: Critically, Cold!
+    EquipDescription: When a critical hit occurs, it gives the condition a Cold.
+    ItemIcon: {fileID: -566749013, guid: c717f916ee152e443905fca7739d1dba, type: 3}
+    Rank1_ItemMainChipID: 5
+    Rank3_ItemMainChipID: 2
+    Rank5_ItemMainChipID: 6
+    BoostLv: 1
+    Rank: 1
+  MainChipDataList:
+  - ThisIcon: {fileID: 1185498868, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    ID: 0
+    Name: Derivative
+  - ThisIcon: {fileID: 1531991612, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    ID: 1
+    Name: Flame
+  - ThisIcon: {fileID: -1539627603, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    ID: 2
+    Name: Cold
+  - ThisIcon: {fileID: -666651944, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    ID: 3
+    Name: Electricity
+  - ThisIcon: {fileID: 833797663, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    ID: 4
+    Name: Corrosion
+  - ThisIcon: {fileID: -1046482500, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    ID: 5
+    Name: Effect Of Weakness
+  - ThisIcon: {fileID: -1367252646, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    ID: 6
+    Name: Fatal Blow
+  - ThisIcon: {fileID: 1809654190, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    ID: 7
+    Name: Firepower
+  - ThisIcon: {fileID: 810706245, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+    ID: 8
+    Name: ReadyForFire
   RankIconList:
   - {fileID: -2071839289, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
   - {fileID: 1624950903, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}

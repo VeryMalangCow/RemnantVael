@@ -31,7 +31,15 @@ public class BuffTickHealController : BuffController
     {
         base.ReductBuff();
 
-        PlayerManager.Instance.PlayerController.AddCurrentEP(GetHealValue());
+        float value = GetHealValue();
+        if (value >= 0)
+        {
+            PlayerManager.Instance.PlayerController.AddCurrentEP(value);
+        }
+        else
+        {
+            PlayerManager.Instance.PlayerController.TakeDamaged(-value);
+        }
     }
 
     public override void EndBuff()

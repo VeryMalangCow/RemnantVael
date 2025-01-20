@@ -8,6 +8,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     [Header("=== All Type")]
     [SerializeField] public List<ItemData> ItemDataList;
 
+    [Header("=== MainChip")]
+    [SerializeField] private List<MainChipData> MainChipDataList;
+
     [Header("=== Gotten Item")]
     [HideInInspector] private List<ModuleState> Gotten_MSList = new List<ModuleState>();
     [HideInInspector] public List<ModuleState> Equiped_MSList = new List<ModuleState>();
@@ -155,6 +158,22 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #endregion
 
+    #region MainChip
+
+    public MainChipData GetCorrectMainChip(int _ID)
+    {
+        for (int i = 0; i < MainChipDataList.Count; i++)
+        {
+            if (MainChipDataList[i].ID == _ID)
+            {
+                return MainChipDataList[i];
+            }
+        }
+        return null;
+    }
+
+    #endregion
+
     #region Delete
 
     public void DeleteModuleState(ModifyEachInventoryItem _MEII)
@@ -198,14 +217,22 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 [System.Serializable]
 public class ItemData
 {
+    [Space(20)]
+
     public int ID;
+
+    [Space(10)]
     public string Name;
     public string Description;
     public string EquipDescription;
     public Sprite ItemIcon;
 
     [Space(10)]
+    public int Rank1_ItemMainChipID;
+    public int Rank3_ItemMainChipID;
+    public int Rank5_ItemMainChipID;
 
+    [Space(10)]
     public int BoostLv = 1;
     public int Rank = 1;
 
@@ -213,11 +240,25 @@ public class ItemData
     public ItemData(ItemData _ItemData)
     {
         ID = _ItemData.ID;
+
         Name = _ItemData.Name;
         Description = _ItemData.Description;
         EquipDescription = _ItemData.EquipDescription;
         ItemIcon = _ItemData.ItemIcon;
+
+        Rank1_ItemMainChipID = _ItemData.Rank1_ItemMainChipID;
+        Rank3_ItemMainChipID = _ItemData.Rank3_ItemMainChipID;
+        Rank5_ItemMainChipID = _ItemData.Rank5_ItemMainChipID;
+
         BoostLv = _ItemData.BoostLv;
         Rank = _ItemData.Rank;
     }
+}
+
+[System.Serializable]
+public class MainChipData
+{
+    public Sprite ThisIcon;
+    public int ID;
+    public string Name;
 }

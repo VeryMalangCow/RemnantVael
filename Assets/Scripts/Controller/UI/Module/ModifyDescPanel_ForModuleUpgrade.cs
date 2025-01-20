@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,12 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
     [SerializeField] public TMP_Text CurrentRankTxt;
     [SerializeField] public TMP_Text CurrentActualRankTxt;
     [SerializeField] private string ExtraString_Rank;
+
+    [Header("-- MainChip")]
+    [SerializeField] private GameObject MainChipGO;
+    [SerializeField] private Image RankLv3_LockerImg;
+    [SerializeField] private Image RankLv5_LockerImg;
+    [SerializeField] private List<Image> MainChipImgs;
 
     [Space(10)]
     [Header("=== Boost Lv")]
@@ -71,8 +78,10 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
         CurrentRankTxt.text = ExtraString_Rank;
         CurrentActualRankTxt.text = _MS.ThisItemData.Rank.ToString();
 
+        // MainChip
+        MainChipGO.gameObject.SetActive(true);
+
         // Boost Lv
-        
         Color clr = BoostLvImg.color;
         clr.a = (float)_MS.ThisItemData.BoostLv / (float)PlayerManager.Instance.PlayerController.MaxBoostLv;
         BoostLvImg.color = clr;
@@ -92,6 +101,9 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
         CurrentRankImg.color = new Color(1, 1, 1, 0);
         CurrentRankTxt.text = "-";
         CurrentActualRankTxt.text = "-";
+
+        // MainChip
+        MainChipGO.gameObject.SetActive(false);
 
         // Boost Lv
         Color clr = BoostLvImg.color;

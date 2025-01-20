@@ -38,8 +38,7 @@ public class InteractItemController : ItemController, IInteract
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Yoyo);
 
-        ThisItemData = ModuleItemManager.Instance.GetRandomInteractItem();
-        ThisSR.sprite = ThisItemData.ItemIcon;
+        ThisItemData = new ItemData(ModuleItemManager.Instance.GetRandomInteractItem());
 
         this.gameObject.SetActive(true);
     }

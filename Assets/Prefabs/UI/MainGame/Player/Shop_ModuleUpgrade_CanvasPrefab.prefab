@@ -1602,7 +1602,7 @@ GameObject:
   - component: {fileID: 1176817855336845685}
   - component: {fileID: 8497984128686261809}
   m_Layer: 5
-  m_Name: ModuleUpgrade_CanvasPrefab
+  m_Name: Shop_ModuleUpgrade_CanvasPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7378,7 +7378,7 @@ RectTransform:
   m_GameObject: {fileID: 4956642286953844325}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8695942429412927357}

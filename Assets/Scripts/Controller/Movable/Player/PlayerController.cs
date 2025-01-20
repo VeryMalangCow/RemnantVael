@@ -528,6 +528,11 @@ public class PlayerController : MovableObject
         { GetKnockback(new KnockbackState(_HittedDir, _KBPower, _KBTime)); }
 
         // Damage
+        TakeDamaged(_DmgValue);
+    }
+
+    public void TakeDamaged(float _DmgValue)
+    {
         float Dmg = _DmgValue;
         MainGameUIManager.Instance.PlayerHUD_UIController.HittedPlayScreen(Dmg);
         if (ShieldElements.Count > 0)
@@ -736,7 +741,7 @@ public class PlayerController : MovableObject
             }
             else if (CurrentInteractable.Value is EnemyController EC) // Enemy
             {
-                if (EC.IsLethargy)
+                if (EC.IsDischarge)
                 {
                     CanChange_Execution();
                 }

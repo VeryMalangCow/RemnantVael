@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 8978010960401040254}
   - component: {fileID: 2441529832115577361}
   m_Layer: 5
-  m_Name: InteractAnno_CanvasPrefab
+  m_Name: HUD_InteractAnno_CanvasPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &362355958376846775
 MonoBehaviour:
   m_ObjectHideFlags: 0

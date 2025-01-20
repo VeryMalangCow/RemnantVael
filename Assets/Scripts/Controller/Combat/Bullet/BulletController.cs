@@ -127,6 +127,11 @@ public class BulletController : HaveShadowThingMovable
                     PoolingManager.Instance.MI_000_Bullets.Queue.Enqueue(MI_000_pbc);
                 break;
 
+            case "MI_001_Bullet":
+                if (this is PlayerBulletController MI_001_pbc)
+                    PoolingManager.Instance.MI_001_Bullets.Queue.Enqueue(MI_001_pbc);
+                break;
+
             default:
                 break;
         }

@@ -23,7 +23,7 @@ public class EnemyController : MovableObject, IInteract
 
     [SerializeField] private float MaxEP;
     [HideInInspector] private ReactiveProperty<float> CurrentEP = new();
-    [HideInInspector] public bool IsLethargy = false;
+    [HideInInspector] public bool IsDischarge = false;
     [SerializeField] private float RecoverLethargyTime = 4f;
 
     [SerializeField] private float ItemDropPercent = 0.0f;
@@ -151,7 +151,7 @@ public class EnemyController : MovableObject, IInteract
 
     private void LookAtTarget()
     {
-        if (IsLethargy)
+        if (IsDischarge)
         { return; }
 
         // 바라볼 타겟이 있다면
@@ -205,7 +205,7 @@ public class EnemyController : MovableObject, IInteract
         }
         else
         {
-            if (!IsLethargy)
+            if (!IsDischarge)
             {
                 // UI
                 PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
@@ -259,7 +259,7 @@ public class EnemyController : MovableObject, IInteract
         }
         else
         {
-            if (!IsLethargy)
+            if (!IsDischarge)
             {
                 // UI
                 PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
@@ -341,7 +341,7 @@ public class EnemyController : MovableObject, IInteract
 
             targetValue = CurrentEP.Value;
             CurrentEP.Value = 0;
-            IsLethargy = true;
+            IsDischarge = true;
             StartCoroutine(RecoverLethargy());
             Debug.Log(this.gameObject.name + " / Lethargy!!!");
         }
@@ -371,7 +371,7 @@ public class EnemyController : MovableObject, IInteract
         yield return new WaitForSeconds(RecoverLethargyTime);
 
         CurrentEP.Value = MaxEP;
-        IsLethargy = false;
+        IsDischarge = false;
 
         // 패턴 루틴 시작
         StartPatternFromNone();
@@ -688,7 +688,7 @@ public class EnemyController : MovableObject, IInteract
 
     public void TryGetAnyPattern()
     {
-        if (IsLethargy)
+        if (IsDischarge)
         { return; }
 
         // 이미 있는지 진행 중인 패턴이 있는지 확인

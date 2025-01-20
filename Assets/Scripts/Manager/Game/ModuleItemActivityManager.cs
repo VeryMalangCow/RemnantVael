@@ -19,7 +19,11 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         ActivityFuncList = new List<ActivityFuncDele>
         {
             Activity_MI_000,
-            Activity_MI_001
+            Activity_MI_001,
+            Activity_MI_002,
+            Activity_MI_003,
+            Activity_MI_004,
+            Activity_MI_005,
         };
     }
 
@@ -38,6 +42,40 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     private void Activity_MI_000(int _Rank, int _BoostLv)
     {
+        Activity_Derivative(_Rank, _BoostLv, eDamageType.Energy, PoolingManager.Instance.GetOP_MI_000_Bullets());
+    }
+
+    private void Activity_MI_001(int _Rank, int _BoostLv)
+    {
+        Activity_Derivative(_Rank, _BoostLv, eDamageType.Physics, PoolingManager.Instance.GetOP_MI_001_Bullets());
+    }
+
+    private void Activity_MI_002(int _Rank, int _BoostLv)
+    {
+
+    }
+
+    private void Activity_MI_003(int _Rank, int _BoostLv)
+    {
+
+    }
+
+    private void Activity_MI_004(int _Rank, int _BoostLv)
+    {
+
+    }
+
+    private void Activity_MI_005(int _Rank, int _BoostLv)
+    {
+
+    }
+
+    #endregion
+
+    #region Unique
+
+    private void Activity_Derivative(int _Rank, int _BoostLv, eDamageType _DmgType, PlayerBulletController _Bullet)
+    {
         // 편의성
         PlayerController PC = PlayerManager.Instance.PlayerController;
         PlayerWeaponController PCWeapon = PC.BaseWeapon;
@@ -49,12 +87,12 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
             // 데미지 계산
             float dmg = _Rank * PCWeapon.BaseDamage.ActualState.Value;
-            PlayerBulletController pbc = PoolingManager.Instance.GetOP_MI_000_Bullets();
+            PlayerBulletController pbc = _Bullet;
             Vector2 dir = PCWeapon.GetDir(PC.transform.position);
 
             // 스폰 탄 스탯
             BulletState bulletState = new BulletState(
-                eDamageType.Energy,
+                _DmgType,
                 dmg, PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2,
                 false, 1,
                 false, 0, 0);
@@ -64,12 +102,6 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             if (PC.TargetObject.gameObject.TryGetComponent(out HaveShadowThing hst))
             { pbc.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
         }
-
-    }
-
-    private void Activity_MI_001(int _Rank, int _BoostLv)
-    {
-
     }
 
     #endregion

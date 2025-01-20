@@ -29,12 +29,13 @@ public class ModuleState : IWhen
 
     public static List<ModuleState> GetAllModuleState()
     {
-        List<ModuleState> ms = new List<ModuleState>();
-        for (int i = 0; i < ModuleItemManager.Instance.ItemDataList.Count - 1; i++)
+        return new List<ModuleState>()
         {
-            ms.Add(new ModuleItem000(i)); 
-        }
-        return ms;
+            new ModuleItem000(0),
+            new ModuleItem001(1),
+            new ModuleItem002(2),
+            new ModuleItem003(3)
+        };
     }
 
     
@@ -86,13 +87,20 @@ public interface IWhen_Hit : IWhen { }
 #region Item Skill
 
 public class ModuleItem000 : ModuleState, IWhen_Fire
-{
-    public ModuleItem000(int _ID) : base(_ID) { }
-}
+{ public ModuleItem000(int _ID) : base(_ID) { } }
 
-public class ModuleItem001 : ModuleState, IWhen_Hit
-{
-    public ModuleItem001(int _ID) : base(_ID) { }
-}
+public class ModuleItem001 : ModuleState, IWhen_Fire
+{ public ModuleItem001(int _ID) : base(_ID) { } }
 
+public class ModuleItem002 : ModuleState, IWhen_Hit
+{ public ModuleItem002(int _ID) : base(_ID) { } }
+
+public class ModuleItem003 : ModuleState, IWhen_Hit
+{ public ModuleItem003(int _ID) : base(_ID) { } }
+
+public class ModuleItem004 : ModuleState, IWhen_Hit
+{ public ModuleItem004(int _ID) : base(_ID) { } }
+
+public class ModuleItem005 : ModuleState, IWhen_Hit
+{ public ModuleItem005(int _ID) : base(_ID) { } }
 #endregion

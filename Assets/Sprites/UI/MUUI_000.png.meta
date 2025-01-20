@@ -248,9 +248,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 136
-        y: 485
-        width: 3
-        height: 3
+        y: 484
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -268,7 +268,7 @@ TextureImporter:
       name: MUUI_Rank_2
       rect:
         serializedVersion: 2
-        x: 140
+        x: 141
         y: 484
         width: 4
         height: 4
@@ -289,7 +289,7 @@ TextureImporter:
       name: MUUI_Rank_3
       rect:
         serializedVersion: 2
-        x: 145
+        x: 146
         y: 484
         width: 4
         height: 4
@@ -310,7 +310,7 @@ TextureImporter:
       name: MUUI_Rank_4
       rect:
         serializedVersion: 2
-        x: 150
+        x: 151
         y: 484
         width: 4
         height: 4
@@ -331,7 +331,7 @@ TextureImporter:
       name: MUUI_Rank_5
       rect:
         serializedVersion: 2
-        x: 155
+        x: 156
         y: 484
         width: 4
         height: 4
@@ -819,7 +819,7 @@ TextureImporter:
         width: 20
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -840,7 +840,7 @@ TextureImporter:
         width: 20
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -848,6 +848,258 @@ TextureImporter:
       bones: []
       spriteID: 68704725bb382d946bfd8dcbfd5af2a7
       internalID: -1302667196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_MainChip_Frame
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 447
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 7, y: 7, z: 7, w: 7}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37a2bf71a7011e944af536fe3b25b16b
+      internalID: 2006943162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Lock_3
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85a4e334658b6ad48b2a22bd5de30ed7
+      internalID: 1331214019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Lock_5
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 1
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbf9bcf36db93ff4181e435488ec5e4c
+      internalID: 683755660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_ReadyForFire
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 1
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3622bc6d66c00c040ae054abc2141b13
+      internalID: 810706245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Derivative
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 1
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c0e45018f27a654b969fcd39d90920e
+      internalID: 1185498868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Firepower
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 1
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 909373d9f333e134ca5ddc0e8b98f800
+      internalID: 1809654190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Flame
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 1
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25dddb229c14a7345a257104600bfd23
+      internalID: 1531991612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Cold
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 1
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2310da5011d780c46974afbf816dd336
+      internalID: -1539627603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Electricity
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 1
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6107be1fb815f474382025092bcc37e4
+      internalID: -666651944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Corrosion
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 420a78e184d6ea84d922c5312224c73f
+      internalID: 833797663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_EffectOfWeakness
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 1
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c70b4e224439fc44a6e446619936796
+      internalID: -1046482500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_FatalBlow
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 1
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6882d524cda80314ab154149a4c5ab3b
+      internalID: -1367252646
       vertices: []
       indices: 
       edges: []
@@ -871,7 +1123,10 @@ TextureImporter:
       MUUI_BoostIcon: -880373595
       MUUI_BoostLvUpModule: 896999157
       MUUI_Bridge: -55159986
+      MUUI_Cold: -1539627603
+      MUUI_Corrosion: 833797663
       MUUI_Decomposition: 521069954
+      MUUI_Derivative: 1185498868
       MUUI_DescBoostActual: 606591816
       MUUI_DescBoostBG: -2131293525
       MUUI_DescRank_1: -1597416641
@@ -879,7 +1134,12 @@ TextureImporter:
       MUUI_DescRank_3: -43159055
       MUUI_DescRank_4: 299157854
       MUUI_DescRank_5: 631822970
+      MUUI_EffectOfWeakness: -1046482500
+      MUUI_Electricity: -666651944
       MUUI_EquipInner: -841723714
+      MUUI_FatalBlow: -1367252646
+      MUUI_Firepower: 1809654190
+      MUUI_Flame: 1531991612
       MUUI_Fusion: -1035967902
       MUUI_IconFrame: 234982612
       MUUI_Icon_Equip: -1146092719
@@ -887,6 +1147,9 @@ TextureImporter:
       MUUI_Icon_MS: 1811357098
       MUUI_InFrame: -522028845
       MUUI_InInner: -974453795
+      MUUI_Lock_3: 1331214019
+      MUUI_Lock_5: 683755660
+      MUUI_MainChip_Frame: 2006943162
       MUUI_MiddlFrame: 178313332
       MUUI_MiddleFrame: -1402822304
       MUUI_Question: -684771913
@@ -896,6 +1159,7 @@ TextureImporter:
       MUUI_Rank_3: 216245208
       MUUI_Rank_4: -589924007
       MUUI_Rank_5: -1684214863
+      MUUI_ReadyForFire: 810706245
       MUUI_SideFram: -1050083147
       MUUI_SideFrame: -1154923124
       MUUI_SmallModule: 1935782588
