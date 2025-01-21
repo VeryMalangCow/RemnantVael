@@ -27,7 +27,12 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
     [SerializeField] private GameObject MainChipGO;
     [SerializeField] private Image RankLv3_LockerImg;
     [SerializeField] private Image RankLv5_LockerImg;
-    [SerializeField] private List<Image> MainChipImgs;
+    [SerializeField] private Image RankLv1_MainChipImg;
+    [SerializeField] private List<Image> RankLv1_MainChipAmountImgs;
+    [SerializeField] private Image RankLv3_MainChipImg;
+    [SerializeField] private List<Image> RankLv3_MainChipAmountImgs;
+    [SerializeField] private Image RankLv5_MainChipImg;
+    [SerializeField] private List<Image> RankLv5_MainChipAmountImgs;
 
     [Space(10)]
     [Header("=== Boost Lv")]
@@ -80,6 +85,53 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
 
         // MainChip
         MainChipGO.gameObject.SetActive(true);
+        RankLv1_MainChipImg.sprite =
+            ModuleItemManager.Instance.GetCorrectMainChip(_MS.ThisItemData.Rank1_ItemMainChipID).ThisIcon;
+        RankLv3_MainChipImg.sprite =
+            ModuleItemManager.Instance.GetCorrectMainChip(_MS.ThisItemData.Rank3_ItemMainChipID).ThisIcon;
+        RankLv5_MainChipImg.sprite =
+            ModuleItemManager.Instance.GetCorrectMainChip(_MS.ThisItemData.Rank5_ItemMainChipID).ThisIcon;
+
+        RankLv3_LockerImg.gameObject.SetActive(true);
+        RankLv5_LockerImg.gameObject.SetActive(true);
+
+
+        RankLv1_MainChipAmountImgs[0].gameObject.SetActive(false);
+        RankLv1_MainChipAmountImgs[1].gameObject.SetActive(false);
+        RankLv1_MainChipAmountImgs[2].gameObject.SetActive(false);
+
+        RankLv3_MainChipAmountImgs[0].gameObject.SetActive(false);
+        RankLv3_MainChipAmountImgs[1].gameObject.SetActive(false);
+
+        RankLv5_MainChipAmountImgs[0].gameObject.SetActive(false);
+
+        if (_MS.ThisItemData.Rank >= 5)
+        {
+            RankLv3_LockerImg.gameObject.SetActive(false);
+            RankLv5_LockerImg.gameObject.SetActive(false);
+
+            RankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
+            RankLv1_MainChipAmountImgs[1].gameObject.SetActive(true);
+            RankLv1_MainChipAmountImgs[2].gameObject.SetActive(true);
+
+            RankLv3_MainChipAmountImgs[0].gameObject.SetActive(true);
+            RankLv3_MainChipAmountImgs[1].gameObject.SetActive(true);
+
+            RankLv5_MainChipAmountImgs[0].gameObject.SetActive(true);
+        }
+        else if (_MS.ThisItemData.Rank >= 3)
+        {
+            RankLv3_LockerImg.gameObject.SetActive(false);
+
+            RankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
+            RankLv1_MainChipAmountImgs[1].gameObject.SetActive(true);
+
+            RankLv3_MainChipAmountImgs[0].gameObject.SetActive(true);
+        }
+        else
+        {
+            RankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
+        }
 
         // Boost Lv
         Color clr = BoostLvImg.color;
