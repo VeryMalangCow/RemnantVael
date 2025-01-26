@@ -9,7 +9,7 @@ public class BuffShieldController : BuffController
     [Header("<><><><><> Shield")]
 
     [Space(10)]
-    [SerializeField] private Shield ThisShield;
+    [SerializeField] public Shield ThisShield;
 
     [Space(10)]
     [SerializeField] private List<Shield> ActivingBuff = new List<Shield>();
@@ -29,8 +29,6 @@ public class BuffShieldController : BuffController
     public override void EndBuff()
     {
         base.EndBuff();
-
-        PlayerManager.Instance.PlayerController.RemoveShield(ThisShield);
     }
 
     #endregion

@@ -389,6 +389,14 @@ public class PlayerController : MovableObject
     {
         if (ShieldElements.Contains(_S))
         {
+            for (int i = 0; i < CurrentBuffs.Count;i++)
+            {
+                if (CurrentBuffs[i] is BuffShieldController BSC && BSC.ThisShield == _S)
+                {
+                    BSC.EndBuff();
+                }
+            }
+
             ShieldElements.Remove(_S);
         }
         MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
@@ -543,7 +551,8 @@ public class PlayerController : MovableObject
                 if (ShieldElements[i].ShieldCurrentValue <= Dmg)
                 {
                     Dmg -= ShieldElements[i].ShieldCurrentValue;
-                    RemoveShield(ShieldElements[i]);
+
+                    RemoveShield(ShieldElements[i]); // 쉴드 감소
                 }
                 else // 쉴드 버프가 데미지를 버틸 수 있으면
                 {

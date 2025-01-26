@@ -36,6 +36,26 @@ public class BuffManager : Singleton<BuffManager>
 
     #region Buff
 
+    public void OnBuff(int _ID)
+    {
+        BuffController correctBuff = GetCorrectBuff(_ID);
+
+        if (correctBuff == null)
+        { return; }
+
+        correctBuff.enabled = true;
+    }
+
+    public void OffBuff(int _ID)
+    {
+        BuffController correctBuff = GetCorrectBuff(_ID);
+
+        if (correctBuff == null)
+        { return; }
+
+        correctBuff.enabled = false;
+    }
+
     public void GetBuff(int _ID)
     {
         BuffController correctBuff = GetCorrectBuff(_ID);
@@ -44,6 +64,16 @@ public class BuffManager : Singleton<BuffManager>
         { return; }
 
         correctBuff.GainBuff();
+    }
+
+    public void UseBuff(int _ID)
+    {
+        BuffController correctBuff = GetCorrectBuff(_ID);
+
+        if (correctBuff == null)
+        {  return; }
+
+        correctBuff.ReductBuff();
     }
 
     private BuffController GetCorrectBuff(int _ID)

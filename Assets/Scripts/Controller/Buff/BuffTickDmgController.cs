@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class BuffTickHealController : BuffController
+public class BuffTickDmgController : BuffController
 {
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Heal")]
+    [Header("<><><><><> Dmg")]
 
     [Space(10)]
     [Header("=== Const Value")]
@@ -14,7 +14,7 @@ public class BuffTickHealController : BuffController
 
     [Space(10)]
     [Header("=== Stack")]
-    [SerializeField] private float StackHeal = 1;
+    [SerializeField] private float StackDmg = 1;
 
     #endregion
 
@@ -28,7 +28,7 @@ public class BuffTickHealController : BuffController
 
     public override void ReductBuff()
     {
-        PlayerManager.Instance.PlayerController.AddCurrentEP(GetHealValue());
+        PlayerManager.Instance.PlayerController.TakeDamaged(GetDmgValue());
 
         base.ReductBuff();
     }
@@ -43,19 +43,19 @@ public class BuffTickHealController : BuffController
 
     #region Unique
 
-    private float GetHealValue()
+    private float GetDmgValue()
     {
         float value = 0;
 
-        if (StackHeal != 0)
-        { value += CurrentBuffCharge.Value * StackHeal; }
+        if (StackDmg != 0)
+        { value += CurrentBuffCharge.Value * StackDmg; }
 
         if (ConstPoint != 0)
         { value += ConstPoint; }
 
         if (MaxHpPercent != 0)
         { value += PlayerManager.Instance.PlayerController.PercentHP(MaxHpPercent); }
-
+        
 
         return value;
     }

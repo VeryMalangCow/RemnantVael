@@ -24,7 +24,6 @@ public class BuffDmgController : BuffController
             .Subscribe(_Value =>
             {
                 Multiple.ActualValue = Multiple.BaseValue * CurrentBuffCharge.Value;
-                
             });
     }
 

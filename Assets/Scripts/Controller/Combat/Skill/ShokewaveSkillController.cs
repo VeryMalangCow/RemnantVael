@@ -64,6 +64,7 @@ public class ShockwaveSkillController : ActiveSkillController
             PlayerController.BaseWeapon.CC.ActualState.Value, usableMaxSize);
 
         BuffManager.Instance.GetBuff(0);
+        BuffManager.Instance.OnBuff(0);
     }
 
     #endregion

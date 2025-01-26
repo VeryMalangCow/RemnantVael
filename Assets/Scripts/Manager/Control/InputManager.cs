@@ -158,7 +158,8 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            BuffManager.Instance.GetBuff(2);
+            BuffManager.Instance.OnBuff(3);
+            BuffManager.Instance.GetBuff(3);
         }
     }
 
