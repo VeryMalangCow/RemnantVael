@@ -184,7 +184,7 @@ MonoBehaviour:
   ThisEnemyType: 0
   MaxHP: 30
   MaxEP: 30
-  IsLethargy: 0
+  IsDischarge: 0
   RecoverLethargyTime: 4
   ItemDropPercent: 1
   MovementState: 1
@@ -201,7 +201,7 @@ MonoBehaviour:
   HittedAC_0: {fileID: 7400000, guid: 6af0f636d94b34f41822b97c0843c8ca, type: 2}
   HittedAC_1: {fileID: 7400000, guid: c871472990cbec34cb198596439ad843, type: 2}
   HittedAC_2: {fileID: 7400000, guid: ad2333be6b080184da375f3e13c7316e, type: 2}
-  NavRadius: 0.5
+  NavRadius: 0.2
   OrderOfPriorityEnemyPatternList:
   - EnemyPatternList:
     - EnemyPatternList:
@@ -537,7 +537,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 703
+    m_Bits: 695
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1100,7 +1100,7 @@ GameObject:
   - component: {fileID: 2743985698605135208}
   - component: {fileID: 5343287522566083937}
   - component: {fileID: 8205592009279710359}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Shadow
   m_TagString: Enemy
   m_Icon: {fileID: 0}

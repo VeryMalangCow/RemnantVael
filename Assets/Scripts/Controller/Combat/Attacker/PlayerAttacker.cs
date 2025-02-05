@@ -52,7 +52,7 @@ public class PlayerAttacker : Attacker
                 //PointEffect(effectPos, AttackerState.DamageType, isCritical);
 
                 //Damage
-                EC.TakeDamage(AttackerState, isCritical, dir);
+                EC.TakeDamaged(AttackerState, isCritical, dir);
                 HittedObjectList.Add(EC);
             }
         }

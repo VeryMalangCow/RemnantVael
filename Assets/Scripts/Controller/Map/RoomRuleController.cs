@@ -131,7 +131,6 @@ public class RoomRuleController : MonoBehaviour
         for (int i = 0; i < InRoom_AllWayPoint.Count; i++)
         {
             InRoom_AllWayPoint[i].AdjacentWPList.Clear();
-            InRoom_AllWayPoint[i].AdjacentWPList = null;
         }
     }
 

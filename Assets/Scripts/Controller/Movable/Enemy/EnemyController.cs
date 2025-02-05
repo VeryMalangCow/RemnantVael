@@ -223,7 +223,7 @@ public class EnemyController : MovableObject, IInteract
         }
     }
 
-    public void TakeDamage(AttackerState _AttackerState, bool _IsCritical, Vector2 _KnockbackDir)
+    public void TakeDamaged(AttackerState _AttackerState, bool _IsCritical, Vector2 _KnockbackDir)
     {
         if (base.IsDead)
         { return; }
