@@ -17,7 +17,10 @@ public class RoomRuleController : MonoBehaviour
     [Header("=== In Room _ Building")]
     [SerializeField] private Transform InRoom_AllBuildingParentTF;
     [HideInInspector] public List<SortLayerObjectController> InRoom_AllBuilding;
-    [SerializeField] private InteractableBuildingController InRoom_BuildThing;
+    [SerializeField] private Transform InRoom_ShopTF;
+    [SerializeField] private Transform InRoom_PrisonTF;
+    [HideInInspector] private InteractableBuildingController InRoom_BuildThing;
+    // [HideInInspector] private 감옥 지정될 변수 
     [SerializeField] private DownstartElevatorController InRoom_Elevator;
 
     [Space(10)]
@@ -45,11 +48,6 @@ public class RoomRuleController : MonoBehaviour
                 }
             }
         }
-        // Building
-        if (InRoom_BuildThing != null)
-        {
-            InRoom_BuildThing.gameObject.SetActive(false);
-        }
 
         // Enemy
         if (InRoom_WayPointParentTF != null && InRoom_WayPointParentTF.childCount > 0)
@@ -75,15 +73,7 @@ public class RoomRuleController : MonoBehaviour
         // Waypoint
         SetOutData_WayPoint();
 
-        // Extra Building
-        if (InRoom_BuildThing != null && !InRoom_BuildThing.gameObject.activeSelf)
-        {
-            InRoom_BuildThing.gameObject.SetActive(true);
-        }
-        if (InRoom_Elevator != null && !InRoom_Elevator.IsOn)
-        {
-            InRoom_Elevator.IsOn = true;
-        }
+        // Extra Building Things
     }
 
 
