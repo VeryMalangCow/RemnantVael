@@ -565,6 +565,34 @@ public class PlayerController : MovableObject
         }
         AddCurrentEP(-Dmg);
         MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
+        BuffManager.Instance.Active_Hitted();
+    }
+
+    public void TakeExtraDamage(float _DmgValue)
+    {
+        float Dmg = _DmgValue;
+        if (ShieldElements.Count > 0)
+        {
+            for (int i = ShieldElements.Count - 1; i >= 0; i--)
+            {
+                // 쉴드 버프량 1개가 데미지보다 작거나 같으면, 제거하고 다음 쉴드로 영향
+                if (ShieldElements[i].ShieldCurrentValue <= Dmg)
+                {
+                    Dmg -= ShieldElements[i].ShieldCurrentValue;
+
+                    RemoveShield(ShieldElements[i]); // 쉴드 감소
+                }
+                else // 쉴드 버프가 데미지를 버틸 수 있으면
+                {
+                    ShieldElements[i].ShieldCurrentValue -= Dmg;
+                    Dmg = 0;
+                    MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
+                    return;
+                }
+            }
+        }
+        AddCurrentEP(-Dmg);
+        MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
     }
 
     private void Avoided()
@@ -1131,6 +1159,12 @@ public class PlayerController : MovableObject
         if (!CurrentBuffs.Contains(_Buff))
         {
             CurrentBuffs.Add(_Buff);
+
+            // 인터페이스
+            if (_Buff is IWhen_Hitted hitted && !BuffManager.Instance.iWhen_HittedList.Contains(hitted))
+            {
+                BuffManager.Instance.iWhen_HittedList.Add(hitted);
+            }
         }
     }
 
@@ -1144,6 +1178,12 @@ public class PlayerController : MovableObject
         if (CurrentBuffs.Contains(_Buff))
         {
             CurrentBuffs.Remove(_Buff);
+        }
+
+        // 인터페이스
+        if (_Buff is IWhen_Hitted hitted && BuffManager.Instance.iWhen_HittedList.Contains(hitted))
+        {
+            BuffManager.Instance.iWhen_HittedList.Remove(hitted);
         }
     }
 

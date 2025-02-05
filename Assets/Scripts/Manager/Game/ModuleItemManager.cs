@@ -71,17 +71,23 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public void Active_Hit()
     {
-        foreach (IWhen_Hit fire in iWhen_HitList)
+        if (iWhen_HitList.Count > 0)
         {
-            fire.When();
+            for (int i = 0; i < iWhen_HitList.Count; i++)
+            {
+                iWhen_HitList[i].When();
+            }
         }
     }
 
     public void Active_Fire()
     {
-        foreach (IWhen_Fire fire in iWhen_FireList)
+        if (iWhen_FireList.Count > 0)
         {
-            fire.When();
+            for (int i = 0; i < iWhen_FireList.Count; i++)
+            {
+                iWhen_FireList[i].When();
+            }
         }
     }
 

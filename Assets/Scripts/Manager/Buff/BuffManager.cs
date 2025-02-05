@@ -13,6 +13,9 @@ public class BuffManager : Singleton<BuffManager>
     [Header("=== Buff Controller")]
     [SerializeField] private List<BuffController> AllBuffs = new List<BuffController>();
 
+
+    [HideInInspector] public List<IWhen_Hitted> iWhen_HittedList = new List<IWhen_Hitted>();
+
     #endregion
 
     #region Framework
@@ -87,6 +90,25 @@ public class BuffManager : Singleton<BuffManager>
         }
         return null;
     }
+
+    #endregion
+
+    #region Condition
+
+    #region Hitted
+
+    public void Active_Hitted()
+    {
+        if (iWhen_HittedList.Count > 0)
+        {
+            for (int i = 0; i < iWhen_HittedList.Count; i++)
+            {
+                iWhen_HittedList[i].When();
+            }
+        }
+    }
+
+    #endregion
 
     #endregion
 }

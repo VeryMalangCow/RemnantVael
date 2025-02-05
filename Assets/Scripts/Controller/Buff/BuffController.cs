@@ -27,8 +27,8 @@ public class BuffController : MonoBehaviour
     [SerializeField] private bool InitializationWhenLoss = false;
 
     [Space(10)]
-    [Header("=== Contdition")]
-    [SerializeField] private bool ConditionWillDone = false;
+    [Header("=== Hitted")]
+    [SerializeField] private bool HittedWillDone = false;
 
     [Space(10)]
     [Header("=== UI")]
@@ -133,7 +133,6 @@ public class BuffController : MonoBehaviour
 
     public virtual void GainBuff()
     {
-        Debug.Log("½ÇÇà?");
         CurrentBuffCharge.Value = Mathf.Min(CurrentBuffCharge.Value + GainCharge, MaxBuffCharge);
         
         if (InitializationWhenGain)
