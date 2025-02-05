@@ -2848,6 +2848,7 @@ GameObject:
   - component: {fileID: 1430576408}
   - component: {fileID: 1430576410}
   - component: {fileID: 1430576411}
+  - component: {fileID: 1430576412}
   - component: {fileID: 1430576409}
   m_Layer: 0
   m_Name: BuffManager
@@ -3061,7 +3062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuffID: 4
-  BuffName: Electric
+  BuffName: Electric!
   MaxBuffCharge: 50
   CurrentBuffCharge:
     value: 0
@@ -3080,6 +3081,39 @@ MonoBehaviour:
   MaxHpPercent: 0
   ConstPoint: 0
   StackDmg: 0.25
+--- !u!114 &1430576412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f3e76cd264afe40a9de4c00bc10f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BuffID: 5
+  BuffName: Corrosion!
+  MaxBuffCharge: 50
+  CurrentBuffCharge:
+    value: 0
+  GainCharge: 1
+  ReductionCharge: 1
+  IsReductionOrIncrease: 0
+  DurTimerWillDone: 1
+  MaxDurTime: 5
+  CurrentDurTime:
+    value: 0
+  InitializationWhenGain: 1
+  InitializationWhenLoss: 0
+  HittedWillDone: 0
+  ThisIconSprite: {fileID: -776551882, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  ThisMBI: {fileID: 0}
+  Multiple:
+    BuffID: Corrosion
+    BaseValue: 0.01
+    ActualValue: 0
 --- !u!1 &1447344362
 GameObject:
   m_ObjectHideFlags: 0

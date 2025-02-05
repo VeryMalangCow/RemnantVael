@@ -35,6 +35,7 @@ public class PlayerController : MovableObject
 
     [Header("-- Energy")]
     [SerializeField] public BaseUpgradeState<float> MaxEP;
+    [SerializeField] public BaseUpgradeState<float> TakingDmgMultiple;
     [SerializeField] public ReactiveProperty<float> CurrentEP = new();
     [SerializeField] public BaseUpgradeState<float> SpawnESMultiple;
     [SerializeField] public BaseUpgradeState<float> NeedEP_ForSkillMultiple;
@@ -528,6 +529,9 @@ public class PlayerController : MovableObject
 
     private void TakeDamaged(float _DmgValue, Vector2 _HittedDir, bool _AbleKB, float _KBPower, float _KBTime)
     {
+        // Multiple
+        _DmgValue *= TakingDmgMultiple.BuffedState;
+
         // Effect
         PlayerManager.Instance.CameraController.PlayDamagedAnim(MaxInvincibleTime, _DmgValue * 0.1f, _HittedDir);
 
@@ -1249,6 +1253,7 @@ public class BaseUpgradeState<T>
     }
 
 }
+
 
 [System.Serializable]
 public class Shield
