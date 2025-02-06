@@ -17,6 +17,8 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private List<StageData> AllReso;
     [SerializeField] private Vector2 OffsetRoomSize;
     [SerializeField] public bool IsStartStage = true;
+    [SerializeField] private GameObject BUShopPrefab;
+    [SerializeField] private GameObject MUShopPrefab;
 
     [Space(10)]
     [Header("=== Current")]
@@ -32,6 +34,9 @@ public class StageManager : Singleton<StageManager>
 
     // 배치할 주변 Vec
     [HideInInspector] private List<Vector2Int> roundList = new List<Vector2Int>();
+
+    [HideInInspector] List<int> BUShopIndexs;
+    [HideInInspector] List<int> MUShopIndexs;
 
     #endregion
 
@@ -61,6 +66,47 @@ public class StageManager : Singleton<StageManager>
         int TempID = 0;
         GenRoom(reso.StartRoomPrefab, TempID, true);
         TempID++;
+
+        // Shop 지정
+        int normalRoomAmount = GetRoomAmount(_StageID);
+
+        if (normalRoomAmount <= (reso.BUShopAmount + reso.MUShopAmount) || 
+            reso.BUShopAmount < 0 || reso.MUShopAmount < 0)
+        { Debug.Log("상점 지정 수가 너무 많거나 음수 입니다."); }
+        else
+        {
+            BUShopIndexs = new List<int>();
+            MUShopIndexs = new List<int>();
+            while (true)
+            {
+                if (BUShopIndexs.Count < reso.BUShopAmount)
+                {
+                    int BUIndex = Random.Range(1, normalRoomAmount + 1);
+
+                    if (!BUShopIndexs.Contains(BUIndex) &&
+                        !MUShopIndexs.Contains(BUIndex))
+                    {
+                        BUShopIndexs.Add(BUIndex);
+                    }
+                }
+                if (MUShopIndexs.Count < reso.MUShopAmount)
+                {
+                    int MUIndex = Random.Range(1, normalRoomAmount + 1);
+
+                    if (!BUShopIndexs.Contains(MUIndex) &&
+                        !MUShopIndexs.Contains(MUIndex))
+                    {
+                        MUShopIndexs.Add(MUIndex);
+                    }
+                }
+
+                // 조건 충족 시 BREAK
+                if ((BUShopIndexs.Count + MUShopIndexs.Count) >= (reso.BUShopAmount + reso.MUShopAmount))
+                {
+                    break; 
+                }
+            }
+        }
 
         // 섞기
         reso.RoomPrefabList = GameManager.ShuffleList(reso.RoomPrefabList);
@@ -100,6 +146,8 @@ public class StageManager : Singleton<StageManager>
         alreadyExistList.Clear();
         alreadyExistBossList.Clear();
         roundList.Clear();
+        BUShopIndexs.Clear();
+        MUShopIndexs.Clear();
 
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.GenMinimap();
         MainGameUIManager.Instance.PlayerHUD_UIController.SetStageDescription(reso.StageName, reso.StageDescription);
@@ -124,6 +172,18 @@ public class StageManager : Singleton<StageManager>
 
                 rc.Offset();
                 TryAddCaculateVec(rc);
+
+                // 상점 소환
+                if (BUShopIndexs.Contains(rc.CurrentTempID))
+                {
+                    rrc.SetShop(BUShopPrefab);
+                    Debug.Log("BU : " + rc.CurrentTempID);
+                }
+                else if (MUShopIndexs.Contains(rc.CurrentTempID))
+                {
+                    rrc.SetShop(MUShopPrefab);
+                    Debug.Log("MU : " + rc.CurrentTempID);
+                }
             }
             else
             {
@@ -451,6 +511,31 @@ public class StageManager : Singleton<StageManager>
     {
         return Vector2Int.Distance(Vector2Int.zero, _TargetVec);
     }
+    
+    private int GetRoomAmount(int _StageID)
+    {
+        int result = 0;
+
+        StageData reso = GetCollectStageData(_StageID);
+        if (reso != null)
+        {
+            for (int i = 0; i < reso.RoomPrefabList.Count; i++)
+            {
+                result += reso.RoomPrefabList[i].AmountInStage;
+            }
+        }
+        return result;
+    }
+
+    private int GetBossRoomAmount(int _StageID)
+    {
+        return GetCollectStageData(_StageID).BossRoomList.Count;
+    }
+
+    private int GetAllRoomAmount(int _StageID)
+    {
+        return GetRoomAmount(_StageID) + GetBossRoomAmount(_StageID);
+    }
 
     #endregion
 
@@ -474,6 +559,10 @@ public class StageManager : Singleton<StageManager>
 
         [Space(20)]
         public List<BossRoomData> BossRoomList;
+
+        [Space(20)]
+        public int BUShopAmount = 1;
+        public int MUShopAmount = 1;
 
 
         [System.Serializable]

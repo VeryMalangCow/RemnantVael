@@ -1960,8 +1960,12 @@ MonoBehaviour:
     - RoomPrefab: {fileID: 8671702513593221327, guid: 57132cbc1aa460c4390b2a7b95e01878, type: 3}
       RoomRulePrefabList:
       - {fileID: 8671702513593221327, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
+    BUShopAmount: 3
+    MUShopAmount: 3
   OffsetRoomSize: {x: 22, y: 14}
   IsStartStage: 1
+  BUShopPrefab: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+  MUShopPrefab: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
   CurrentAllRoomController: []
   CurrentRoomController: {fileID: 0}
 --- !u!1001 &717267602

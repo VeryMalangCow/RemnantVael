@@ -57,11 +57,24 @@ public class RoomRuleController : MonoBehaviour
                 if (chile.gameObject.TryGetComponent(out WayPoint wp))
                 { InRoom_AllWayPoint.Add(wp); }
             }
-
-            // Waypoint Set
-            
         }
 
+    }
+
+    #endregion
+
+    #region Shop
+
+    public void SetShop(GameObject _ShopObject)
+    {
+        GameObject shop = Instantiate(_ShopObject, InRoom_ShopTF);
+        if (shop != null)
+        {
+            shop.transform.localPosition = Vector3.zero;
+            if (shop.TryGetComponent(out InteractableBuildingController IBC))
+            { InRoom_BuildThing = IBC; }
+            shop.gameObject.SetActive(false);
+        }
     }
 
     #endregion
@@ -73,7 +86,15 @@ public class RoomRuleController : MonoBehaviour
         // Waypoint
         SetOutData_WayPoint();
 
-        // Extra Building Things
+        // Extra Building
+        if (InRoom_BuildThing != null && !InRoom_BuildThing.gameObject.activeSelf)
+        {
+            InRoom_BuildThing.gameObject.SetActive(true);
+        }
+        if (InRoom_Elevator != null && !InRoom_Elevator.IsOn)
+        {
+            InRoom_Elevator.IsOn = true;
+        }
     }
 
 
