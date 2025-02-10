@@ -29,9 +29,26 @@ public class ModuleUpgradeUIController : UIController
     [Space(10)]
     [Header("-- In Equip")]
     [SerializeField] private ModifyInventory MI_InEquipTab;
+    [SerializeField] private ModifyOwnEachBtn InEquipToggleBtn;
+
+    [Space(5)]
+    [Header("* Module")]
+    [SerializeField] private GameObject ModulePanelGO;
     [SerializeField] private List<ModifyEachInventorySlot> EquipedMEIS_List;
     [SerializeField] private List<Image> EquipPanelInnerList;
     [SerializeField] private List<TMP_Text> EquipDescStateTxtList;
+
+    [Space(5)]
+    [Header("* Synergy")]
+    [SerializeField] private GameObject SynergyPanelGO;
+    [SerializeField] private Transform SynergyPanelInnerParentTF;
+    [SerializeField] private Transform SynergySlotParentTF;
+    [SerializeField] private Transform SynergySlotEmptyTF;
+    [SerializeField] private Transform SynergyDescTF;
+    [HideInInspector] private List<ModifySynergySlot> SynergySlotList = new List<ModifySynergySlot>();
+    [SerializeField] public Sprite SynergyTier0;
+    [SerializeField] public Sprite SynergyTier1;
+    [SerializeField] public Sprite SynergyTier2;
 
     [Space(10)]
     [Header("-- In Reinforce")]
@@ -100,6 +117,7 @@ public class ModuleUpgradeUIController : UIController
     [HideInInspector] public List<Component> SubColorCompList;
 
     Sequence ForgeSeq;
+
     #endregion
 
     #region Offset
@@ -153,6 +171,9 @@ public class ModuleUpgradeUIController : UIController
         FusionBtn.OwnerUIController = this;
         UpgradeBtn.Offset();
         UpgradeBtn.OwnerUIController = this;
+
+        InEquipToggleBtn.Offset();
+        InEquipToggleBtn.OwnerUIController = this;
     }
 
     protected override void Offset_UI()
@@ -173,6 +194,19 @@ public class ModuleUpgradeUIController : UIController
             {
                 MSTxt.text = value.ToString();
             });
+
+        // Synergy
+        for (int i = 0; i < SynergySlotParentTF.childCount; i++)
+        {
+            if (SynergySlotParentTF.GetChild(i).TryGetComponent(out ModifySynergySlot MSS))
+            {
+                SynergySlotList.Add(MSS);
+                MSS.Offset();
+
+                MainColorCompList.Add(MSS.ThisTierImg);
+                SubColorCompList.Add(MSS.ThisTxt);
+            }
+        }
 
         // Dur
         DurablityTxt.text = DurablityStringTxt + " :";
@@ -204,6 +238,16 @@ public class ModuleUpgradeUIController : UIController
 
         SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
         SubColorCompList.AddRange(EquipPanelInnerList);
+
+        for (int i = 0; i < SynergyPanelInnerParentTF.childCount; i++)
+        {
+            if (SynergyPanelInnerParentTF.GetChild(i).TryGetComponent(out Image img))
+            {
+                SubColorCompList.Add(img);
+            }
+        }
+
+        MainColorCompList.Add(InEquipToggleBtn.transform.GetChild(0).GetComponent<TMP_Text>());
 
         for (int i = 0; i < EquipDescStateTxtList.Count; i++)
         {
@@ -265,6 +309,10 @@ public class ModuleUpgradeUIController : UIController
         SetColor(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
+
+
+        ModulePanelGO.gameObject.SetActive(true);
+        SynergyPanelGO.gameObject.SetActive(false);
     }
 
     #endregion
@@ -399,6 +447,21 @@ public class ModuleUpgradeUIController : UIController
                     ResetReinforcePanel();
                     SetEquipDesc();
                     return;
+                }
+            }
+
+            // 장착 부분의 토글 버튼
+            if (CurrentBtn == InEquipToggleBtn)
+            {
+                if (ModulePanelGO.activeSelf)
+                {
+                    ModulePanelGO.SetActive(false);
+                    SynergyPanelGO.SetActive(true);
+                }
+                else
+                {
+                    ModulePanelGO.SetActive(true);
+                    SynergyPanelGO.SetActive(false);
                 }
             }
 
@@ -573,6 +636,8 @@ public class ModuleUpgradeUIController : UIController
 
         DotweenInEquip(1f, "EquipInner", EquipPanelInnerList);
         SetEquipDesc();
+
+        ModuleItemManager.Instance.SetMainChipData();
     }
 
     // 장착 해제 시도
@@ -590,6 +655,8 @@ public class ModuleUpgradeUIController : UIController
 
         DotweenInEquip(0f, "EquipInner", EquipPanelInnerList);
         SetEquipDesc();
+
+        ModuleItemManager.Instance.SetMainChipData();
     }
 
     
@@ -953,6 +1020,43 @@ public class ModuleUpgradeUIController : UIController
         Preview_MS.text = "-";
         Preview_NeedEC.text = "-";
         Preview_NeedMS.text = "-";
+    }
+
+    #endregion
+
+    #region Synergy
+
+    public void SetSynergySlots(Dictionary<int, int> _Dict)
+    {
+        if (_Dict.Count <= 0)
+        {
+            // 패널 키기/끄기
+            SynergySlotParentTF.gameObject.SetActive(false);
+            SynergySlotEmptyTF.gameObject.SetActive(true);
+        }
+        else
+        {
+            // 패널 키기/끄기
+            SynergySlotParentTF.gameObject.SetActive(true);
+            SynergySlotEmptyTF.gameObject.SetActive(false);
+
+            // 모두 끄기
+            for (int i = 0; i < SynergySlotList.Count; i++)
+            {
+                SynergySlotList[i].SetOffSynergySlot();
+            }
+
+            // 가지고 있는 시너지 부분을 추가
+            int currentSeq = 0;
+            foreach (KeyValuePair<int, int> keyValuePair in _Dict)
+            {
+                MainChipData MDC = ModuleItemManager.Instance.GetCorrectMainChip(keyValuePair.Key);
+                SynergySlotList[currentSeq].SetOnSynergySlot(MDC.ThisIcon, keyValuePair.Value);
+
+                currentSeq++;
+            }
+        }
+        
     }
 
     #endregion

@@ -58,16 +58,14 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (StageManager.Instance.CurrentRoomController != null)
+        /*if (StageManager.Instance.CurrentRoomController != null)
         {
             FollowTargetSmooth(TargetTF, 
                 StageManager.Instance.CurrentRoomController.RoomCameraCenter);
         }
-        else
-        {
-            FollowTargetSmooth(TargetTF);
-        }
+        else*/
 
+        FollowTargetSmooth(TargetTF);
         FollowTargetRangeLimit();
 
         MainCamera.transform.position = GetTotalCameraPos();
@@ -110,7 +108,7 @@ public class CameraController : MonoBehaviour
         Vector2 originPos = FollowTargetTF.position;
 
         Vector2 targetPos = 
-            (((Vector2)_TargetTF.position * 5) + (Vector2)_TargetTF2.position) / 6;
+            (((Vector2)_TargetTF.position * 10) + (Vector2)_TargetTF2.position) / 10;
 
         FollowTargetTF.position = Vector2.Lerp(
             originPos,

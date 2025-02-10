@@ -10182,8 +10182,8 @@ MonoBehaviour:
   RoomVec:
   - {x: 0, y: 0}
   - {x: 1, y: 0}
-  - {x: 0, y: 1}
   - {x: 1, y: 1}
+  - {x: 0, y: 1}
   SettedPos: 0
   InRoom_UpperWallParentTF: {fileID: 4264252543485899415}
   InRoom_LowerWallParentTF: {fileID: 5702254176889454791}
@@ -10210,6 +10210,7 @@ MonoBehaviour:
   ThisSpriteMMIO: {fileID: -353351920, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
   SpritePivot: {x: 0.25, y: 0.25}
   ThisMME: {fileID: 0}
+  ThisIMME: {fileID: 0}
 --- !u!1 &8702168778813909545
 GameObject:
   m_ObjectHideFlags: 0

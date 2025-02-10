@@ -218,6 +218,7 @@ public class PlayerController : MovableObject
     private void Start()
     {
         CurrentEC.Value = 100;
+        CurrentMS.Value = 100;
         CurrentInteractable
             .Subscribe(interact =>
             {

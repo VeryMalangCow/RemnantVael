@@ -10,6 +10,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     [Header("=== MainChip")]
     [SerializeField] private List<MainChipData> MainChipDataList;
+    [HideInInspector] private Dictionary<int, int> MainChopAmalgamationDict = new Dictionary<int, int>();
 
     [Header("=== Gotten Item")]
     [HideInInspector] private List<ModuleState> Gotten_MSList = new List<ModuleState>();
@@ -176,6 +177,45 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             }
         }
         return null;
+    }
+
+    public void SetMainChipData()
+    {
+        MainChopAmalgamationDict = new Dictionary<int, int>();
+        if (Equiped_MSList.Count > 0)
+        {
+            for (int i = 0; i < Equiped_MSList.Count; i++)
+            {
+                int synergyID_1 = Equiped_MSList[i].ThisItemData.Rank1_ItemMainChipID;
+                int synergyID_3 = Equiped_MSList[i].ThisItemData.Rank3_ItemMainChipID;
+                int synergyID_5 = Equiped_MSList[i].ThisItemData.Rank5_ItemMainChipID;
+
+                if (Equiped_MSList[i].ThisItemData.Rank >= 5)
+                {
+                    AddMainChipData(synergyID_1, 3);
+                    AddMainChipData(synergyID_3, 2);
+                    AddMainChipData(synergyID_5, 1);
+                }
+                else if (Equiped_MSList[i].ThisItemData.Rank >= 3)
+                {
+                    AddMainChipData(synergyID_1, 2);
+                    AddMainChipData(synergyID_3, 1);
+                }
+                else
+                {
+                    AddMainChipData(synergyID_1, 1);
+                }
+            }
+        }
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetSynergySlots(MainChopAmalgamationDict);
+    }
+
+    public void AddMainChipData(int _SynergyID, int _Amount)
+    {
+        if (MainChopAmalgamationDict.ContainsKey(_SynergyID))
+        { MainChopAmalgamationDict[_SynergyID] += _Amount; }
+        else
+        { MainChopAmalgamationDict.Add(_SynergyID, _Amount); }
     }
 
     #endregion

@@ -34,7 +34,9 @@ public class ModuleState : IWhen
             new ModuleItem000(0),
             new ModuleItem001(1),
             new ModuleItem002(2),
-            new ModuleItem003(3)
+            new ModuleItem003(3),
+            new ModuleItem004(4),
+            new ModuleItem005(5),
         };
     }
 
@@ -105,4 +107,5 @@ public class ModuleItem004 : ModuleState, IWhen_Hit
 
 public class ModuleItem005 : ModuleState, IWhen_Hit
 { public ModuleItem005(int _ID) : base(_ID) { } }
+
 #endregion

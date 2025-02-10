@@ -1104,6 +1104,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: MUUI_Tier1
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 457
+        width: 19
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e51d6eba8f765384c8d285f192aaa4a7
+      internalID: 1202484619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Tier2
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 457
+        width: 19
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b88fbfe83ad11b74c854b89cd509af82
+      internalID: 820826029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_Tier3
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 457
+        width: 19
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0639f548648fd8245b021786908a1aad
+      internalID: -1956723818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MUUI_EmptyFile
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 414
+        width: 75
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 876bf7f051158624ab956a534a090c76
+      internalID: -520420525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1136,6 +1220,7 @@ TextureImporter:
       MUUI_DescRank_5: 631822970
       MUUI_EffectOfWeakness: -1046482500
       MUUI_Electricity: -666651944
+      MUUI_EmptyFile: -520420525
       MUUI_EquipInner: -841723714
       MUUI_FatalBlow: -1367252646
       MUUI_Firepower: 1809654190
@@ -1163,6 +1248,9 @@ TextureImporter:
       MUUI_SideFram: -1050083147
       MUUI_SideFrame: -1154923124
       MUUI_SmallModule: 1935782588
+      MUUI_Tier1: 1202484619
+      MUUI_Tier2: 820826029
+      MUUI_Tier3: -1956723818
       MUUI_Upgrade: -1302667196
       MUUI_WidthLine: -407032061
   mipmapLimitGroupName: 

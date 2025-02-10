@@ -57,6 +57,7 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
         Color clr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
         clr.a = 0f;
         BoostLvImg.color = clr;
+        MainChipGO.gameObject.SetActive(false);
 
         CurrentBoostLvMIAT.SetAmount(0);
         CurrentBoostLvMIAT.SetColor(PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false));
