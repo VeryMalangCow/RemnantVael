@@ -190,20 +190,34 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
                 int synergyID_3 = Equiped_MSList[i].ThisItemData.Rank3_ItemMainChipID;
                 int synergyID_5 = Equiped_MSList[i].ThisItemData.Rank5_ItemMainChipID;
 
+                MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[0].alpha = 0.5f;
+                MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[1].alpha = 0.5f;
+                MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[2].alpha = 0.5f;
+
                 if (Equiped_MSList[i].ThisItemData.Rank >= 5)
                 {
                     AddMainChipData(synergyID_1, 3);
                     AddMainChipData(synergyID_3, 2);
                     AddMainChipData(synergyID_5, 1);
+
+                    MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[0].alpha = 1;
+                    MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[1].alpha = 1;
+                    MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[2].alpha = 1;
                 }
                 else if (Equiped_MSList[i].ThisItemData.Rank >= 3)
                 {
                     AddMainChipData(synergyID_1, 2);
                     AddMainChipData(synergyID_3, 1);
+
+                    MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[0].alpha = 1;
+                    MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[1].alpha = 1;
+
                 }
                 else
                 {
                     AddMainChipData(synergyID_1, 1);
+
+                    MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[0].alpha = 1;
                 }
             }
         }
@@ -307,4 +321,5 @@ public class MainChipData
     public Sprite ThisIcon;
     public int ID;
     public string Name;
+    public List<string> AmalgamationDescList;
 }

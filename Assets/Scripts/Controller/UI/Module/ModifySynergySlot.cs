@@ -2,11 +2,12 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
-public class ModifySynergySlot : UIModule
+public class ModifySynergySlot : ModifyOwnEachBtn
 {
     #region Value
 
-    [HideInInspector] private Image ThisImg;
+    [HideInInspector] public int ID;
+    [HideInInspector] public Image ThisImg;
     [HideInInspector] public Image ThisTierImg;
     [HideInInspector] public TMP_Text ThisTxt;
 
@@ -16,6 +17,8 @@ public class ModifySynergySlot : UIModule
 
     public override void Offset()
     {
+        base.Offset();
+
         if (ThisImg == null && this.gameObject.TryGetComponent(out Image Img))
         { ThisImg = Img; }
         
@@ -37,10 +40,11 @@ public class ModifySynergySlot : UIModule
         this.gameObject.SetActive(false);
     }
 
-    public void SetOnSynergySlot(Sprite _Icon, int _Amalgamation)
+    public void SetOnSynergySlot(int _ID, Sprite _Icon, int _Amalgamation)
     {
         this.gameObject.SetActive(true);
 
+        ID = _ID;
         ThisImg.sprite = _Icon;
 
         if (_Amalgamation < 5) 

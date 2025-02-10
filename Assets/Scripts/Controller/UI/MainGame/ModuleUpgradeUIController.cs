@@ -16,6 +16,7 @@ public class ModuleUpgradeUIController : UIController
     [Header("=== Label")]
     [SerializeField] private TMP_Text LabelTxt;
     [SerializeField] private string LabelName;
+    [SerializeField] private string AmalgamationName;
 
     [Space(10)]
     [Header("=== BC, EC")]
@@ -41,14 +42,26 @@ public class ModuleUpgradeUIController : UIController
     [Space(5)]
     [Header("* Synergy")]
     [SerializeField] private GameObject SynergyPanelGO;
+    [SerializeField] private GameObject SynergyPanelExistGO;
+    [SerializeField] private GameObject SynergyPanelEmptyGO;
     [SerializeField] private Transform SynergyPanelInnerParentTF;
     [SerializeField] private Transform SynergySlotParentTF;
-    [SerializeField] private Transform SynergySlotEmptyTF;
-    [SerializeField] private Transform SynergyDescTF;
     [HideInInspector] private List<ModifySynergySlot> SynergySlotList = new List<ModifySynergySlot>();
     [SerializeField] public Sprite SynergyTier0;
     [SerializeField] public Sprite SynergyTier1;
     [SerializeField] public Sprite SynergyTier2;
+
+    [Space(5)]
+    [Header("* Synergy Desc")]
+    [SerializeField] private GameObject SynergyDescTF;
+    [HideInInspector] private ModifySynergySlot SelectedMSS;
+    [SerializeField] private Image SelectViewImg;
+    [SerializeField] private TMP_Text SelectViewName;
+    [SerializeField] private TMP_Text SelectViewAmalgamation;
+    [SerializeField] private Transform SynergyDescLinerParentTF;
+    [SerializeField] private Transform SynergyDescTextParentTF;
+    [SerializeField] private List<TMP_Text> AmalgamationTxtList;
+    [SerializeField] public List<TMP_Text> AmalgamationDescTxtList;
 
     [Space(10)]
     [Header("-- In Reinforce")]
@@ -202,11 +215,40 @@ public class ModuleUpgradeUIController : UIController
             {
                 SynergySlotList.Add(MSS);
                 MSS.Offset();
+                MSS.OwnerUIController = this;
+
 
                 MainColorCompList.Add(MSS.ThisTierImg);
                 SubColorCompList.Add(MSS.ThisTxt);
             }
         }
+        for (int i = 0; i < AmalgamationTxtList.Count; i++)
+        { 
+            AmalgamationTxtList[i].text = AmalgamationName;
+        }
+
+        for (int i = 0; i < SynergyDescLinerParentTF.childCount; i++)
+        {
+            if (SynergyDescLinerParentTF.GetChild(i).TryGetComponent(out Image Img))
+            {
+                MainColorCompList.Add(Img);
+            }
+        }
+        for (int i = 0; i < SynergyDescTextParentTF.childCount; i++)
+        {
+            if (SynergyDescTextParentTF.GetChild(i).TryGetComponent(out TMP_Text Txt) && 
+                !AmalgamationDescTxtList.Contains(Txt))
+            {
+                SubColorCompList.Add(Txt);
+            }
+        }
+
+        for (int i = 0; i < AmalgamationDescTxtList.Count; i++)
+        {
+            MainColorCompList.Add(AmalgamationDescTxtList[i]);
+        }
+        SubColorCompList.Add(SelectViewAmalgamation);
+
 
         // Dur
         DurablityTxt.text = DurablityStringTxt + " :";
@@ -325,10 +367,10 @@ public class ModuleUpgradeUIController : UIController
         {
             MET.OnReset();
         }
+
         ResetReinforcePanel();
-
+        ResetEquipPanel();
         OnReset_SPAB();
-
         SetOnEnable();
     }
 
@@ -457,11 +499,14 @@ public class ModuleUpgradeUIController : UIController
                 {
                     ModulePanelGO.SetActive(false);
                     SynergyPanelGO.SetActive(true);
+                    SynergyDescTF.SetActive(false);
+                    return;
                 }
                 else
                 {
                     ModulePanelGO.SetActive(true);
                     SynergyPanelGO.SetActive(false);
+                    return;
                 }
             }
 
@@ -504,6 +549,25 @@ public class ModuleUpgradeUIController : UIController
                     {
                         cg.alpha = 0.5f;
                     }
+                }
+            }
+
+            // 시너지 탭의 정보
+            if (CurrentBtn is ModifySynergySlot mss && SynergySlotList.Contains(mss))
+            {
+                SynergyDescTF.SetActive(true);
+                SelectedMSS = mss;
+
+                MainChipData MCD = ModuleItemManager.Instance.GetCorrectMainChip(SelectedMSS.ID);
+
+                SelectViewImg.sprite = SelectedMSS.ThisImg.sprite;
+                SelectViewAmalgamation.text = SelectedMSS.ThisTxt.text;
+                SelectViewName.text = MCD.Name.ToString();
+
+                for (int i = 0; i < AmalgamationDescTxtList.Count; i++)
+                {
+                    AmalgamationDescTxtList[i].text = MCD.AmalgamationDescList[i]; 
+                    
                 }
             }
         }
@@ -591,10 +655,14 @@ public class ModuleUpgradeUIController : UIController
     #endregion
 
     #region Item -> About Equip
+
     // 장착 시도
     private void TryEquip()
     {
         if (ModuleItemManager.Instance.Equiped_MSList.Count >= EquipedMEIS_List.Count)
+        { return; }
+
+        if (!ModulePanelGO.gameObject.activeSelf)
         { return; }
 
         ModuleState ms = ModuleItemManager.Instance.GetModuleState_Inventory(CurrentSelectedMEIS.ThisSlotItem);
@@ -659,8 +727,7 @@ public class ModuleUpgradeUIController : UIController
         ModuleItemManager.Instance.SetMainChipData();
     }
 
-    
-
+    // 장착된 모듈들의 설명
     private void SetEquipDesc()
     {
         for (int i = 0; i < EquipedMEIS_List.Count; i++)
@@ -675,6 +742,15 @@ public class ModuleUpgradeUIController : UIController
                 EquipDescStateTxtList[i].text = "-";
             }
         }
+    }
+
+    // 장착 패널 리셋
+    private void ResetEquipPanel()
+    {
+        ModuleItemManager.Instance.SetMainChipData();
+
+        ModulePanelGO.gameObject.SetActive(true);
+        SynergyPanelGO.gameObject.SetActive(false);
     }
 
     #endregion
@@ -742,7 +818,7 @@ public class ModuleUpgradeUIController : UIController
             Preview_MS.text = "-";
             Preview_BC.text = "-";
 
-
+            ModuleItemManager.Instance.SetMainChipData();
         }
     }
 
@@ -857,6 +933,8 @@ public class ModuleUpgradeUIController : UIController
         ModuleUpgradeController.UsingShop.TakeDamage(false);
         DotweenInEquip(1f, "ReinforceInner", ReinforcePanelInnerList);
         Preview_NeedMS.text = "-";
+
+        ModuleItemManager.Instance.SetMainChipData();
     }
 
     #endregion
@@ -927,6 +1005,8 @@ public class ModuleUpgradeUIController : UIController
             ModuleUpgradeController.UsingShop.TakeDamage(false);
             DotweenInEquip(1f, "ReinforceInner", ReinforcePanelInnerList);
             Preview_NeedEC.text = "-";
+
+            ModuleItemManager.Instance.SetMainChipData();
         }
     }
 
@@ -1031,14 +1111,14 @@ public class ModuleUpgradeUIController : UIController
         if (_Dict.Count <= 0)
         {
             // 패널 키기/끄기
-            SynergySlotParentTF.gameObject.SetActive(false);
-            SynergySlotEmptyTF.gameObject.SetActive(true);
+            SynergyPanelExistGO.SetActive(false);
+            SynergyPanelEmptyGO.SetActive(true);
         }
         else
         {
             // 패널 키기/끄기
-            SynergySlotParentTF.gameObject.SetActive(true);
-            SynergySlotEmptyTF.gameObject.SetActive(false);
+            SynergyPanelExistGO.SetActive(true);
+            SynergyPanelEmptyGO.SetActive(false);
 
             // 모두 끄기
             for (int i = 0; i < SynergySlotList.Count; i++)
@@ -1051,7 +1131,7 @@ public class ModuleUpgradeUIController : UIController
             foreach (KeyValuePair<int, int> keyValuePair in _Dict)
             {
                 MainChipData MDC = ModuleItemManager.Instance.GetCorrectMainChip(keyValuePair.Key);
-                SynergySlotList[currentSeq].SetOnSynergySlot(MDC.ThisIcon, keyValuePair.Value);
+                SynergySlotList[currentSeq].SetOnSynergySlot(keyValuePair.Key, MDC.ThisIcon, keyValuePair.Value);
 
                 currentSeq++;
             }
