@@ -5,7 +5,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 {
     #region Value
 
-    public delegate void ActivityFuncDele(int _Rank, int BoostLv);
+    public delegate void ActivityFuncDele(int _Rank, int BoostLv, EnemyController _EC = null);
     [HideInInspector] public List<ActivityFuncDele> ActivityFuncList = new List<ActivityFuncDele>();
 
     #endregion
@@ -40,40 +40,42 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     #region ModuleItem
 
-    private void Activity_MI_000(int _Rank, int _BoostLv)
+    private void Activity_MI_000(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
         Activity_Derivative(_Rank, _BoostLv, eDamageType.Energy, PoolingManager.Instance.GetOP_MI_000_Bullets());
     }
 
-    private void Activity_MI_001(int _Rank, int _BoostLv)
+    private void Activity_MI_001(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
         Activity_Derivative(_Rank, _BoostLv, eDamageType.Physics, PoolingManager.Instance.GetOP_MI_001_Bullets());
     }
 
-    private void Activity_MI_002(int _Rank, int _BoostLv)
+    private void Activity_MI_002(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
-
+        float percent = 0.25f * _BoostLv;
+        if (percent > Random.Range(0f, 1f))
+        {
+            Activity_InflictStatusEffect(eStatusEffect.Flame, _Rank, _EC.BuffController);
+        }
     }
 
-    private void Activity_MI_003(int _Rank, int _BoostLv)
+    private void Activity_MI_003(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
-
     }
 
-    private void Activity_MI_004(int _Rank, int _BoostLv)
+    private void Activity_MI_004(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
-
     }
 
-    private void Activity_MI_005(int _Rank, int _BoostLv)
+    private void Activity_MI_005(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
-
     }
 
     #endregion
 
     #region Unique
 
+    // 데미지 타입을 통해서, 유도탄을 발사하는 함수
     private void Activity_Derivative(int _Rank, int _BoostLv, eDamageType _DmgType, PlayerBulletController _Bullet)
     {
         // 편의성
@@ -101,6 +103,27 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             // Sorting Layer
             if (PC.TargetObject.gameObject.TryGetComponent(out HaveShadowThing hst))
             { pbc.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
+        }
+    }
+
+    // 상태이상을 적에게 가하는 함수
+    private void Activity_InflictStatusEffect(eStatusEffect _Kind, int _GainAmount, EnemyBuffController _EBC)
+    {
+        if (_Kind == eStatusEffect.Flame)
+        {
+            _EBC.FlameStack.GainStack(_GainAmount);
+        }
+        else if (_Kind == eStatusEffect.Cold)
+        {
+            _EBC.ColdStack.GainStack(_GainAmount);
+        }
+        else if (_Kind == eStatusEffect.Electricity)
+        {
+            _EBC.ElectricityStack.GainStack(_GainAmount);
+        }
+        else
+        {
+            _EBC.CorrosionStack.GainStack(_GainAmount);
         }
     }
 

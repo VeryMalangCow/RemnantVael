@@ -136,6 +136,11 @@ public enum eDamageType
     Physics, Energy
 }
 
+public enum eStatusEffect
+{
+    Flame, Cold, Electricity, Corrosion
+}
+
 public enum eEnemy
 {
     Normal, Elite, SemiBoss, Boss

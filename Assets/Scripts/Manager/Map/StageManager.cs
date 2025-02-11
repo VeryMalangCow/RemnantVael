@@ -177,12 +177,12 @@ public class StageManager : Singleton<StageManager>
                 if (BUShopIndexs.Contains(rc.CurrentTempID))
                 {
                     rrc.SetShop(BUShopPrefab);
-                    Debug.Log("BU : " + rc.CurrentTempID);
+                    //Debug.Log("BU : " + rc.CurrentTempID);
                 }
                 else if (MUShopIndexs.Contains(rc.CurrentTempID))
                 {
                     rrc.SetShop(MUShopPrefab);
-                    Debug.Log("MU : " + rc.CurrentTempID);
+                    //Debug.Log("MU : " + rc.CurrentTempID);
                 }
             }
             else

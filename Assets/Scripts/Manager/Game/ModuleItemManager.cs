@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ModuleItemManager : Singleton<ModuleItemManager>
@@ -23,7 +24,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     // Interface
     private List<IWhen_Hit> iWhen_HitList = new List<IWhen_Hit>();
-    public List<IWhen_Fire> iWhen_FireList = new List<IWhen_Fire>();
+    private List<IWhen_CriticalHit> iWhen_CriticalHitList = new List<IWhen_CriticalHit>();
+    private List<IWhen_Fire> iWhen_FireList = new List<IWhen_Fire>();
 
     #endregion
 
@@ -31,7 +33,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public ItemData GetRandomInteractItem()
     {
-        return ItemDataList[Random.Range(0, ItemDataList.Count)];
+        return ItemDataList[2];
+        //return ItemDataList[Random.Range(0, ItemDataList.Count)];
     }
 
     public void GetModuleState(ItemData _ItemData)
@@ -61,22 +64,40 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public void ResetInterface()
     {
+        iWhen_HitList.Clear();
+        iWhen_FireList.Clear();
+        iWhen_CriticalHitList.Clear();
+
         foreach (ModuleState MS in Equiped_MSList)
         {
-            if (MS is IWhen_Hit iHit)
+            if (MS is IWhen_Hit iHit && !iWhen_HitList.Contains(iHit))
             { iWhen_HitList.Add(iHit); }
-            if (MS is IWhen_Fire iFire)
+            if (MS is IWhen_Fire iFire && !iWhen_FireList.Contains(iFire))
             { iWhen_FireList.Add(iFire); }
+            if (MS is IWhen_CriticalHit iCriticalHit && !iWhen_CriticalHitList.Contains(iCriticalHit))
+            { iWhen_CriticalHitList.Add(iCriticalHit); }
         }
     }
 
-    public void Active_Hit()
+    public void Active_Hit(EnemyController _EC)
     {
         if (iWhen_HitList.Count > 0)
         {
             for (int i = 0; i < iWhen_HitList.Count; i++)
             {
-                iWhen_HitList[i].When();
+                iWhen_HitList[i].When(_EC);
+            }
+        }
+    }
+
+    public void Active_CriticalHit(EnemyController _EC)
+    {
+        Debug.Log(iWhen_CriticalHitList.Count);
+        if (iWhen_CriticalHitList.Count > 0)
+        {
+            for (int i = 0; i < iWhen_CriticalHitList.Count; i++)
+            {
+                iWhen_CriticalHitList[i].When(_EC);
             }
         }
     }
@@ -221,7 +242,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
                 }
             }
         }
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetSynergySlots(MainChopAmalgamationDict);
+        if (MainGameUIManager.Instance.ModuleUpgrade_UIController != null)
+        {
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.SetSynergySlots(MainChopAmalgamationDict);
+        }
+
     }
 
     public void AddMainChipData(int _SynergyID, int _Amount)

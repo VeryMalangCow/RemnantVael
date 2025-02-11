@@ -61,9 +61,9 @@ public class ModuleState : IWhen
 
     #region Interface
 
-    public virtual void When()
+    public virtual void When(EnemyController _EC = null)
     {
-        ThisActivityFuncDele(GetRank(), GetBoostLv());
+        ThisActivityFuncDele(GetRank(), GetBoostLv(), _EC);
     }
 
     #endregion
@@ -74,7 +74,7 @@ public class ModuleState : IWhen
 // 상속을 위한 부모 인터페이스
 public interface IWhen
 {
-    public abstract void When();
+    public abstract void When(EnemyController _EC = null);
 }
 
 // (기본공격) 발사 시
@@ -82,6 +82,9 @@ public interface IWhen_Fire : IWhen { }
 
 // (어떤 공격이든) 적을 타격 시
 public interface IWhen_Hit : IWhen { }
+
+// (어떤 공격이든) 적을 크리티컬로 타격 시
+public interface IWhen_CriticalHit : IWhen { }
 
 // (어떤 공격이든) 적에게 타격 입을 시
 public interface IWhen_Hitted : IWhen { }
@@ -96,16 +99,16 @@ public class ModuleItem000 : ModuleState, IWhen_Fire
 public class ModuleItem001 : ModuleState, IWhen_Fire
 { public ModuleItem001(int _ID) : base(_ID) { } }
 
-public class ModuleItem002 : ModuleState, IWhen_Hit
+public class ModuleItem002 : ModuleState, IWhen_CriticalHit
 { public ModuleItem002(int _ID) : base(_ID) { } }
 
-public class ModuleItem003 : ModuleState, IWhen_Hit
+public class ModuleItem003 : ModuleState, IWhen_CriticalHit
 { public ModuleItem003(int _ID) : base(_ID) { } }
 
-public class ModuleItem004 : ModuleState, IWhen_Hit
+public class ModuleItem004 : ModuleState, IWhen_CriticalHit
 { public ModuleItem004(int _ID) : base(_ID) { } }
 
-public class ModuleItem005 : ModuleState, IWhen_Hit
+public class ModuleItem005 : ModuleState, IWhen_CriticalHit
 { public ModuleItem005(int _ID) : base(_ID) { } }
 
 #endregion

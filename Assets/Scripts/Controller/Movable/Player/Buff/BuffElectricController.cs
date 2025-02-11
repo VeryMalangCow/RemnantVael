@@ -63,7 +63,7 @@ public class BuffElectricController : BuffController, IWhen_Hitted
         return value;
     }
 
-    public void When()
+    public void When(EnemyController _EC)
     {
         float dmg = GetDmgValue();
         PlayerManager.Instance.PlayerController.TakeExtraDamage(dmg);

@@ -29,6 +29,10 @@ public class EnemyController : MovableObject, IInteract
     [SerializeField] private float ItemDropPercent = 0.0f;
 
     [Space(10)]
+    [Header("=== Buff")]
+    [SerializeField] public EnemyBuffController BuffController;
+
+    [Space(10)]
     [Header("=== Movement")]
     [SerializeField] private eMovementState MovementState;
     [SerializeField] private GameObject Target;
@@ -91,16 +95,19 @@ public class EnemyController : MovableObject, IInteract
             .Subscribe(_CurrentHP =>
             {
                 HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
-                ModuleItemManager.Instance.Active_Hit();
             });
 
         CurrentEP
             .Subscribe(_CurrentEP =>
             {
                 EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP); 
-                ModuleItemManager.Instance.Active_Hit();
             });
 
+        if (BuffController == null && this.gameObject.TryGetComponent(out EnemyBuffController EBC))
+        { 
+            BuffController = EBC;
+            BuffController.Enemy = this;
+        }
     }
 
     protected override void OnEnable()
@@ -170,14 +177,21 @@ public class EnemyController : MovableObject, IInteract
 
     #region Damaged
 
+    // 총알 데미지
     public void TakeDamaged(BulletState _BS, Vector2 _KnockbackDir)
     {
         if (base.IsDead)
         { return; }
 
+        ModuleItemManager.Instance.Active_Hit(this);
+
+        // Critical
         float ActualDMG = _BS.BaseDamage;
         if (_BS.IsCritical)
-        { ActualDMG *= _BS.CD; }
+        {
+            ActualDMG *= _BS.CD;
+            ModuleItemManager.Instance.Active_CriticalHit(this);
+        }
 
         // Knockback
         if (_BS.AbleKnockback)
@@ -212,7 +226,7 @@ public class EnemyController : MovableObject, IInteract
                     (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
                     ActualDMG, _BS.IsCritical);
 
-                SpawnES(ActualDMG);
+                GetEnergyDamaged(ActualDMG, true);
             }
             else
             {
@@ -223,34 +237,40 @@ public class EnemyController : MovableObject, IInteract
         }
     }
 
-    public void TakeDamaged(AttackerState _AttackerState, bool _IsCritical, Vector2 _KnockbackDir)
+    // 어택커 데미지
+    public void TakeDamaged(AttackerState _AS, bool _IsCritical, Vector2 _KnockbackDir)
     {
         if (base.IsDead)
         { return; }
 
-        // Knockback
-        if (_AttackerState.AbleKnockback)
-        {
-            Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
-            GetKnockback(new KnockbackState(_KnockbackDir, _AttackerState.KnockbackPower, _AttackerState.KnockbackTime));
-        }
+        ModuleItemManager.Instance.Active_Hit(this);
 
-        
-        float baseDamage = _AttackerState.BaseDamage;
+        // Critical
+        float ActualDMG = _AS.BaseDamage;
         if (_IsCritical)
         {
-            baseDamage *= _AttackerState.CD;
+            ActualDMG *= _AS.CD;
+            ModuleItemManager.Instance.Active_CriticalHit(this);
         }
 
-        if (_AttackerState.DamageType == eDamageType.Physics)
+        // Knockback
+        if (_AS.AbleKnockback)
+        {
+            Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
+            GetKnockback(new KnockbackState(_KnockbackDir, _AS.KnockbackPower, _AS.KnockbackTime));
+        }
+
+
+
+        if (_AS.DamageType == eDamageType.Physics)
         {
             // UI
             PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
             (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-            baseDamage, _IsCritical);
+            ActualDMG, _IsCritical);
 
-            SetIsDead(CurrentHP.Value, baseDamage);
-            CurrentHP.Value -= baseDamage;
+            SetIsDead(CurrentHP.Value, ActualDMG);
+            CurrentHP.Value -= ActualDMG;
             if (CurrentHP.Value <= 0f)
             {
                 base.IsDead = true;
@@ -264,9 +284,46 @@ public class EnemyController : MovableObject, IInteract
                 // UI
                 PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
                     (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-                    baseDamage, _IsCritical);
+                    ActualDMG, _IsCritical);
 
-                SpawnES(baseDamage);
+                GetEnergyDamaged(ActualDMG, true);
+            }
+            else
+            {
+                // UI
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
+                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
+            }
+        }
+    }
+
+    public void TakeDamaged_NoneExtraEffect(eDamageType _DmgType, float _Dmg)
+    {
+        if (_DmgType == eDamageType.Physics)
+        {
+            // UI
+            PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
+            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+            _Dmg, false);
+
+            SetIsDead(CurrentHP.Value, _Dmg);
+            CurrentHP.Value -= _Dmg;
+            if (CurrentHP.Value <= 0f)
+            {
+                base.IsDead = true;
+                Die();
+            }
+        }
+        else
+        {
+            if (!IsDischarge)
+            {
+                // UI
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
+                    (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+                    _Dmg, false);
+
+                GetEnergyDamaged(_Dmg, false);
             }
             else
             {
@@ -325,7 +382,7 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // Energy Shrapnel
-    private void SpawnES(float _Value)
+    private void GetEnergyDamaged(float _Value, bool _SpawnES)
     {
         float targetValue = 0;
         if (CurrentEP.Value > _Value)
@@ -345,13 +402,21 @@ public class EnemyController : MovableObject, IInteract
             StartCoroutine(RecoverLethargy());
             Debug.Log(this.gameObject.name + " / Lethargy!!!");
         }
-        targetValue *= PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value;
 
+        if (_SpawnES)
+        {
+            targetValue *= PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value;
+            SpawnES(targetValue);
+        }
+    }
+
+    private void SpawnES(float _Value)
+    {
         EnergyShrapnelController ESC = PoolingManager.Instance.GetOP_EnergyShrapnel();
         ESC.SetState(
             this.gameObject.transform.position,
             PlayerManager.Instance.PlayerController.gameObject,
-            targetValue);
+            _Value);
         ESC.gameObject.SetActive(true);
     }
 
