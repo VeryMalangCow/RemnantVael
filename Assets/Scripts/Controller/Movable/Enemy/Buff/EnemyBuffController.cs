@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBuffController : MonoBehaviour
@@ -57,6 +58,10 @@ public class EnemyBuffController : MonoBehaviour
         ElectricityStack.UpdateCooltime(deltaTime);
         CorrosionStack.UpdateCooltime(deltaTime);
 
+        /*if (Input.GetKeyDown(KeyCode.V))
+        {
+            ElectricityStack.GainStack(40);
+        }*/
     }
 
 
@@ -80,7 +85,7 @@ public class EnemyBuffController : MonoBehaviour
 [Serializable]
 public class StatusEffect
 {
-    private bool IsOn;
+    public bool IsOn;
     public eStatusEffect StatusType;
 
     public int MaxStack;

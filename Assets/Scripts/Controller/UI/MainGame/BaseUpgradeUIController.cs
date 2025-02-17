@@ -41,7 +41,8 @@ public class BaseUpgradeUIController : UIController
     [SerializeField] private OneOffShopEachData<float> SpawnESMultipleShop;
     [SerializeField] private OneOffShopEachData<float> NeedEP_ForSkillMultipleShop;
     [SerializeField] private OneOffShopEachData<float> DecEnergyPointMultipleShop;
-    
+    [SerializeField] private OneOffShopEachData<float> ResistShop;
+
     [Space(10)]
     [Header("-- Movement")]
     [SerializeField] private OneOffShopEachData<float> WalkSpeedShop;
@@ -106,6 +107,7 @@ public class BaseUpgradeUIController : UIController
         SpawnESMultipleShop.Offset(PlayerManager.Instance.PlayerController.SpawnESMultiple, BaseUpgradeManager.Instance.BaseSpawnESMultiple_BUData, this);
         NeedEP_ForSkillMultipleShop.Offset(PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple, BaseUpgradeManager.Instance.BaseNeedEP_ForSkillMultiple_BUData, this);
         DecEnergyPointMultipleShop.Offset(PlayerManager.Instance.PlayerController.DecEnergyPointMultiple, BaseUpgradeManager.Instance.BaseDecEnergyPointMultiple_BUData, this);
+        ResistShop.Offset(PlayerManager.Instance.PlayerController.TakingDmgMultiple, BaseUpgradeManager.Instance.BaseResist_BUData, this);
 
         WalkSpeedShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeed, BaseUpgradeManager.Instance.BaseWalkSpeed_BUData, this);
         WalkSpeedWhenShotMultipleShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeedWhenShotMultiple, BaseUpgradeManager.Instance.BaseWalkSpeedWhenShotMultiple_BUData, this);
@@ -124,7 +126,7 @@ public class BaseUpgradeUIController : UIController
         AllUpgradeDataList_Float = new List<OneOffShopEachData<float>>()
         {
             DamageShop, ROFShop, CCShop, CDShop, MuzzleShop, AccuracyRateShop, KnockbackShop,
-            MaxEPShop,SpawnESMultipleShop, NeedEP_ForSkillMultipleShop, DecEnergyPointMultipleShop,
+            MaxEPShop,SpawnESMultipleShop, NeedEP_ForSkillMultipleShop, DecEnergyPointMultipleShop, ResistShop,
             WalkSpeedShop, WalkSpeedWhenShotMultipleShop, WalkAvoidChance, DashSpeedShop,
             Skill0_CooltimeShop, Skill0_PowerShop,
             Skill1_CooltimeShop, Skill1_PowerShop

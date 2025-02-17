@@ -940,7 +940,7 @@ TextureImporter:
       name: Enemy00_HP_Bar
       rect:
         serializedVersion: 2
-        x: 149
+        x: 145
         y: 195
         width: 52
         height: 6
@@ -961,8 +961,8 @@ TextureImporter:
       name: Enemy00_EP_Bar
       rect:
         serializedVersion: 2
-        x: 149
-        y: 187
+        x: 145
+        y: 188
         width: 52
         height: 6
       alignment: 0
@@ -982,8 +982,8 @@ TextureImporter:
       name: Enemy00_HP_Liner
       rect:
         serializedVersion: 2
-        x: 146
-        y: 189
+        x: 198
+        y: 191
         width: 1
         height: 10
       alignment: 0
@@ -1003,8 +1003,8 @@ TextureImporter:
       name: Enemy00_EP_Liner
       rect:
         serializedVersion: 2
-        x: 203
-        y: 189
+        x: 200
+        y: 191
         width: 1
         height: 10
       alignment: 0
@@ -1016,6 +1016,48 @@ TextureImporter:
       bones: []
       spriteID: d3062b7684f442447a93c4846efd5485
       internalID: -564090988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_SP_Bar
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 178
+        width: 52
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbda675f6ec7a0a4ab572c2028c32722
+      internalID: 153615729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_SP_Liner
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 177
+        width: 1
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ca2cb00be977a049bc4d42d103ac263
+      internalID: 377559776
       vertices: []
       indices: 
       edges: []
@@ -1057,6 +1099,8 @@ TextureImporter:
       Enemy00_Main_RD: -971164730
       Enemy00_Main_RU: -261154839
       Enemy00_Main_U: -1377615038
+      Enemy00_SP_Bar: 153615729
+      Enemy00_SP_Liner: 377559776
       Enemy00_Smoke_00: 736608773
       Enemy00_Smoke_01: -1434397230
       Enemy00_Smoke_02: -571110442

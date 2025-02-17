@@ -14,7 +14,7 @@ public class EnemyBulletController : BulletController
     [SerializeField] public CapsuleCollider2D ThisCol;
 
     //Other
-    [HideInInspector] public EnemyController OwnerEC;
+    [HideInInspector] public EnemyController Enemy;
 
     #endregion
 
@@ -56,12 +56,12 @@ public class EnemyBulletController : BulletController
 
     protected override void DeleteThis()
     {
-        OwnerEC.MEI.GenExplosionImgs(
+        Enemy.MEI.GenExplosionImgs(
             TargetObject.transform.position,
             16, 0.15f, 0.75f,
             0.6f, 0.05f, 0.1f,
             0.2f, 0.5f, 1.0f,
-            0, OwnerEC.ThisSmokeM);
+            0, Enemy.ThisSmokeM);
 
         base.DeleteThis();
     }

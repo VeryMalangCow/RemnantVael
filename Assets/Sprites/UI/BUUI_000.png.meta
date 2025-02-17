@@ -1041,6 +1041,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: BUUI_Icon_Resist
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 113
+        width: 35
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26a9cb2aecc309b4590b962d67ed783d
+      internalID: 20248203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1081,6 +1102,7 @@ TextureImporter:
       BUUI_Icon_MuzzleSpeed: 150448938
       BUUI_Icon_NoUpgrade: 1639308726
       BUUI_Icon_ROF: 1838188154
+      BUUI_Icon_Resist: 20248203
       BUUI_Icon_Skill: -830663812
       BUUI_Icon_SkillCooltime: -685201192
       BUUI_Icon_SkillCost: 709049031

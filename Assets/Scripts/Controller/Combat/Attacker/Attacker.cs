@@ -105,7 +105,7 @@ public class Attacker : MonoBehaviour
     private void SetState(Vector2 _SpawnedPos, AttackerState _AttackerState, Vector2 _ColSize)
     {
         this.transform.position = _SpawnedPos;
-        this.AttackerState = _AttackerState;
+        this.AttackerState = new AttackerState(_AttackerState);
         ThisCol.size = _ColSize;
     }
 
@@ -152,6 +152,18 @@ public class AttackerState
     public AttackerState()
     { }
 
+    public AttackerState(AttackerState _AttakerState)
+    {
+        DamageType = _AttakerState.DamageType;
+        BaseDamage = _AttakerState.BaseDamage;
+
+        AbleKnockback = _AttakerState.AbleKnockback;
+        KnockbackPower = _AttakerState.KnockbackPower;
+        KnockbackTime = _AttakerState.KnockbackTime;
+
+        CC = _AttakerState.CC;
+        CD = _AttakerState.CD;
+    }
     public AttackerState(eDamageType _DamageType, float _BaseDamage, bool _AbleKnockback, float _KnockbackPower, float _KnockbackTime, float _CC, float _CD)
     {
         DamageType = _DamageType;

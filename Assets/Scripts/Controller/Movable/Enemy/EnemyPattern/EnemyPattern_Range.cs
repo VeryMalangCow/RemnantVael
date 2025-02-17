@@ -93,7 +93,7 @@ public class EnemyPattern_Range : EnemyPattern
             { targetShadow = HST.TargetRange; }
 
             // Base State 
-            EBC.OwnerEC = ThisEnemy;
+            EBC.Enemy = ThisEnemy;
             EBC.SetState(SpawnTFList[i].position, ThisBS, targetDir, BulletShadowScale, BulletColSize, BulletAC, targetShadow);
 
             // Sorting Layer

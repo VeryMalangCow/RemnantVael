@@ -83,6 +83,7 @@ public class EnemyController : MovableObject, IInteract
     private void Offset()
     {
         HP_ProgressBar.Offset();
+        SP_ProgressBar.Offset();
         EP_ProgressBar.Offset();
 
         CurrentHP.Value = MaxHP;
@@ -94,22 +95,40 @@ public class EnemyController : MovableObject, IInteract
     {
         Offset();
 
-        CurrentHP
-            .Subscribe(_CurrentHP =>
-            {
-                HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
-            });
-
         CurrentSP
             .Subscribe(_CurrentSP =>
             {
                 SP_ProgressBar.SetFillImgSmooth(CurrentSP.Value, MaxHP);
+
+                if (CurrentSP.Value <= 0)
+                {
+                    SP_ProgressBar.SetNoNum();
+                    HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP); 
+                    EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
+                }
+                else
+                {
+                    HP_ProgressBar.SetNoNum(); 
+                    EP_ProgressBar.SetNoNum();
+                }
+            });
+
+        CurrentHP
+            .Subscribe(_CurrentHP =>
+            {
+                HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
+
+                if (CurrentSP.Value > 0)
+                { HP_ProgressBar.SetNoNum(); }
             });
 
         CurrentEP
             .Subscribe(_CurrentEP =>
             {
-                EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP); 
+                EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
+
+                if (CurrentSP.Value > 0)
+                { EP_ProgressBar.SetNoNum(); }
             });
 
         if (BuffController == null && this.gameObject.TryGetComponent(out EnemyBuffController EBC))
@@ -137,6 +156,11 @@ public class EnemyController : MovableObject, IInteract
     {
         Movement();
         LookAtTarget();
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            CurrentSP.Value += 50;
+        }
     }
 
     #endregion
@@ -209,6 +233,9 @@ public class EnemyController : MovableObject, IInteract
             GetKnockback(new KnockbackState(_KnockbackDir, _BS.KnockbackPower, _BS.KnockbackTime));
         }
 
+        // 적이 부식 디버프에 걸린지
+        ActualDMG *= (1f + (BuffController.CorrosionStack.CurrentStack * 0.01f));
+
         // Damage
         TakeDamaged(_BS.DamageType, _BS.IsCritical, ActualDMG);
 
@@ -272,6 +299,9 @@ public class EnemyController : MovableObject, IInteract
             Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
             GetKnockback(new KnockbackState(_KnockbackDir, _AS.KnockbackPower, _AS.KnockbackTime));
         }
+
+        // 적이 부식 디버프에 걸린지
+        ActualDMG *= (1f + (BuffController.CorrosionStack.CurrentStack * 0.01f));
 
         // Damage
         TakeDamaged(_AS.DamageType, _IsCritical, ActualDMG);
@@ -365,7 +395,7 @@ public class EnemyController : MovableObject, IInteract
                     (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
                     _ActualDMG, _IsCritical);
 
-                GetEnergyDamaged(_ActualDMG, true);
+                TakeEnergyDamaged(_ActualDMG, true);
             }
             else
             {
@@ -373,6 +403,35 @@ public class EnemyController : MovableObject, IInteract
                 PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
                     (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
             }
+        }
+    }
+
+    // 에너지 데미지를 받음
+    private void TakeEnergyDamaged(float _Value, bool _SpawnES)
+    {
+        float targetValue = 0;
+        if (CurrentEP.Value > _Value)
+        {
+            targetValue = _Value;
+            CurrentEP.Value -= _Value;
+        }
+        else if (CurrentEP.Value > 0)
+        {
+            // UI
+            PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
+                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
+
+            targetValue = CurrentEP.Value;
+            CurrentEP.Value = 0;
+            IsDischarge = true;
+            StartCoroutine(RecoverLethargy());
+            Debug.Log(this.gameObject.name + " / Lethargy!!!");
+        }
+
+        if (_SpawnES)
+        {
+            targetValue *= PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value;
+            SpawnES(targetValue);
         }
     }
 
@@ -403,7 +462,7 @@ public class EnemyController : MovableObject, IInteract
                     (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
                     _Dmg, false);
 
-                GetEnergyDamaged(_Dmg, false);
+                TakeEnergyDamaged(_Dmg, false);
             }
             else
             {
@@ -463,34 +522,6 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // Energy Shrapnel
-    private void GetEnergyDamaged(float _Value, bool _SpawnES)
-    {
-        float targetValue = 0;
-        if (CurrentEP.Value > _Value)
-        {
-            targetValue = _Value;
-            CurrentEP.Value -= _Value;
-        }
-        else if (CurrentEP.Value > 0)
-        {
-            // UI
-            PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
-                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
-
-            targetValue = CurrentEP.Value;
-            CurrentEP.Value = 0;
-            IsDischarge = true;
-            StartCoroutine(RecoverLethargy());
-            Debug.Log(this.gameObject.name + " / Lethargy!!!");
-        }
-
-        if (_SpawnES)
-        {
-            targetValue *= PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value;
-            SpawnES(targetValue);
-        }
-    }
-
     private void SpawnES(float _Value)
     {
         EnergyShrapnelController ESC = PoolingManager.Instance.GetOP_EnergyShrapnel();

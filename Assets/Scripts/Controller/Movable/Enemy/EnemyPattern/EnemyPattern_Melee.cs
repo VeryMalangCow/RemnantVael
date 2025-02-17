@@ -87,8 +87,9 @@ public class EnemyPattern_Melee : EnemyPattern
 
         yield return new WaitForSeconds(StartDelay);
 
-        EnemyAttacker ea = PoolingManager.Instance.GetOP_EnemyAttacker(); 
-        
+        EnemyAttacker ea = PoolingManager.Instance.GetOP_EnemyAttacker();
+        ea.Enemy = this.ThisEnemy;
+
         if (LightOn)
         {
             ea.SetLight(LightSize, LightTime);
@@ -104,8 +105,7 @@ public class EnemyPattern_Melee : EnemyPattern
             .OnComplete(() =>
             {
                 ea.EndState();
-            }); ;
-        
+            });
 
         yield return new WaitForSeconds(EndDelay);
 

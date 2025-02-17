@@ -473,14 +473,24 @@ public class PlayerController : MovableObject
         // 피격
         if (!IsAvoid()) // 회피인지?
         {
-            TakeDamaged(_EBC.BulletState.BaseDamage,
+            // 간소화
+            BulletState state = _EBC.BulletState;
+            EnemyBuffController buff = _EBC.Enemy.BuffController;
+
+            // 적이 냉기 디버프에 걸린지
+            float actualDmg =
+                state.BaseDamage * (1f - (buff.ColdStack.CurrentStack * 0.01f));
+
+            // 데미지 구현
+            TakeDamaged(actualDmg,
                 ((Vector2)transform.position - (Vector2)_EBC.transform.position).normalized,
-                _EBC.BulletState.AbleKnockback,
-                _EBC.BulletState.KnockbackPower,
-                _EBC.BulletState.KnockbackTime);
+                state.AbleKnockback,
+                state.KnockbackPower,
+                state.KnockbackTime);
         }
     }
-    public void TryHitted(Attacker _Attacker)
+
+    public void TryHitted(EnemyAttacker _Attacker)
     {
         if (IsInvincible)
         { return; }
@@ -491,11 +501,20 @@ public class PlayerController : MovableObject
         // 피격
         if (!IsAvoid()) // 회피인지?
         {
-            TakeDamaged(_Attacker.AttackerState.BaseDamage, 
+            // 간소화
+            AttackerState state = _Attacker.AttackerState;
+            EnemyBuffController buff = _Attacker.Enemy.BuffController;
+
+            // 적이 냉기 디버프에 걸린지
+            float actualDmg =
+                state.BaseDamage * (1f - (buff.ColdStack.CurrentStack * 0.01f));
+
+            // 데미지 구현
+            TakeDamaged(actualDmg, 
                 ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
-                _Attacker.AttackerState.AbleKnockback,
-                _Attacker.AttackerState.KnockbackPower,
-                _Attacker.AttackerState.KnockbackTime);
+                state.AbleKnockback,
+                state.KnockbackPower,
+                state.KnockbackTime);
         }
     }
 
@@ -811,13 +830,14 @@ public class PlayerController : MovableObject
 
     #region Caculate
 
+    #region Time
+
     private void AlwaysCaculate()
     {
         CastingCaculate();
         BoostingCaculate(CurrentBoostLv.Value);
         InvincibleCaculate();
     }
-
 
     private void CastingCaculate()
     {
@@ -841,7 +861,6 @@ public class PlayerController : MovableObject
         }
     }
 
-
     private void BoostingCaculate(int _BoostLv)
     {
         if(_BoostLv > 0)
@@ -850,7 +869,6 @@ public class PlayerController : MovableObject
             AddCurrentEP(-decValue * Time.deltaTime);
         }
     }
-
 
     private void InvincibleCaculate()
     {
@@ -868,6 +886,8 @@ public class PlayerController : MovableObject
             }
         }
     }
+
+    #endregion
 
     #region By Condition
 
@@ -925,6 +945,15 @@ public class PlayerController : MovableObject
             CurrentBoostLv.Value = TargetBoostlv;
             SetBoostAnim(CurrentBoostLv.Value, MaxBoostLv);
         }
+    }
+
+    #endregion
+
+    #region Multiple
+
+    private float MultipleValueFloat(float _OriginalValue, float Multiple)
+    {
+        return _OriginalValue * Multiple;
     }
 
     #endregion

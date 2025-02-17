@@ -22,6 +22,7 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
     [SerializeField] public BU_OneTypeData<float> BaseSpawnESMultiple_BUData;
     [SerializeField] public BU_OneTypeData<float> BaseNeedEP_ForSkillMultiple_BUData;
     [SerializeField] public BU_OneTypeData<float> BaseDecEnergyPointMultiple_BUData;
+    [SerializeField] public BU_OneTypeData<float> BaseResist_BUData;
 
     [Header("-- Movement")]
     [SerializeField] public BU_OneTypeData<float> BaseWalkSpeed_BUData;
@@ -57,6 +58,7 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
         BaseSpawnESMultiple_BUData.Offset(_PC.SpawnESMultiple);
         BaseNeedEP_ForSkillMultiple_BUData.Offset(_PC.NeedEP_ForSkillMultiple);
         BaseDecEnergyPointMultiple_BUData.Offset(_PC.DecEnergyPointMultiple);
+        BaseResist_BUData.Offset(_PC.TakingDmgMultiple);
 
         BaseWalkSpeed_BUData.Offset(_PC.WalkSpeed);
         BaseWalkSpeedWhenShotMultiple_BUData.Offset(_PC.WalkSpeedWhenShotMultiple);

@@ -106,6 +106,16 @@ public class ModifyReductionFocusProgressBar : UIModule
 
     #endregion
 
+    #region Unique -> simplify
+
+    public void SetNoNum()
+    {
+        if (Txt != null)
+        { Txt.text = ""; }
+    }
+
+    #endregion
+
     #region Liner
 
     private Vector2 GetLinerPos()

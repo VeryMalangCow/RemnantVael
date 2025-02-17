@@ -8,6 +8,8 @@ public class EnemyAttacker : Attacker
     [Header("<><><><><> Enemy")]
     [SerializeField] private bool IsColliding = false;
 
+    [HideInInspector] public EnemyController Enemy;
+
     #endregion
 
     #region Framework
