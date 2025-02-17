@@ -188,6 +188,7 @@ MonoBehaviour:
   IsDischarge: 0
   RecoverLethargyTime: 4
   ItemDropPercent: 1
+  BuffController: {fileID: 0}
   MovementState: 1
   Target: {fileID: 0}
   MoveTargetPoint: {x: 0, y: 0}
@@ -196,6 +197,7 @@ MonoBehaviour:
   MoveSpeed: 0
   ThisCanvas: {fileID: 4739290070890424631}
   HP_ProgressBar: {fileID: 1530978968277726859}
+  SP_ProgressBar: {fileID: 3231894732009481070}
   EP_ProgressBar: {fileID: 391299324668289369}
   MEI: {fileID: 882714530506080443}
   ThisSmokeM: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
@@ -244,6 +246,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be693dbad58290a48bb715676f3e7955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Enemy: {fileID: 0}
+  FlameStack:
+    StatusType: 0
+    MaxStack: 0
+    CurrentStack: 0
+    MaxCooltime: 0
+    CurrentCooltime: 0
+  ColdStack:
+    StatusType: 0
+    MaxStack: 0
+    CurrentStack: 0
+    MaxCooltime: 0
+    CurrentCooltime: 0
+  ElectricityStack:
+    StatusType: 0
+    MaxStack: 0
+    CurrentStack: 0
+    MaxCooltime: 0
+    CurrentCooltime: 0
+  CorrosionStack:
+    StatusType: 0
+    MaxStack: 0
+    CurrentStack: 0
+    MaxCooltime: 0
+    CurrentCooltime: 0
 --- !u!50 &7671391899007426867
 Rigidbody2D:
   serializedVersion: 4
@@ -2308,6 +2335,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 856512135068462423, guid: 869ec183798f4e1498b9c646650ec2be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5157714867513104668, guid: 869ec183798f4e1498b9c646650ec2be, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2416,6 +2447,17 @@ RectTransform:
 --- !u!114 &1530978968277726859 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6430546998103950056, guid: 869ec183798f4e1498b9c646650ec2be, type: 3}
+  m_PrefabInstance: {fileID: 5477156898324706403}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2ef08973e206d429efee081d9ec718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3231894732009481070 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6979235873629460237, guid: 869ec183798f4e1498b9c646650ec2be, type: 3}
   m_PrefabInstance: {fileID: 5477156898324706403}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

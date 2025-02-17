@@ -20,6 +20,7 @@ public class EnemyController : MovableObject, IInteract
     [SerializeField] private eEnemy ThisEnemyType;
     [SerializeField] private float MaxHP;
     [HideInInspector] private ReactiveProperty<float> CurrentHP = new();
+    [HideInInspector] private ReactiveProperty<float> CurrentSP = new();
 
     [SerializeField] private float MaxEP;
     [HideInInspector] private ReactiveProperty<float> CurrentEP = new();
@@ -46,6 +47,7 @@ public class EnemyController : MovableObject, IInteract
     [Header("=== UI")]
     [SerializeField] private Canvas ThisCanvas;
     [SerializeField] private ModifyReductionFocusProgressBar HP_ProgressBar;
+    [SerializeField] private ModifyReductionFocusProgressBar SP_ProgressBar;
     [SerializeField] private ModifyReductionFocusProgressBar EP_ProgressBar;
 
     [Space(10)]
@@ -84,6 +86,7 @@ public class EnemyController : MovableObject, IInteract
         EP_ProgressBar.Offset();
 
         CurrentHP.Value = MaxHP;
+        CurrentSP.Value = MaxHP;
         CurrentEP.Value = MaxEP;
     }
 
@@ -95,6 +98,12 @@ public class EnemyController : MovableObject, IInteract
             .Subscribe(_CurrentHP =>
             {
                 HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
+            });
+
+        CurrentSP
+            .Subscribe(_CurrentSP =>
+            {
+                SP_ProgressBar.SetFillImgSmooth(CurrentSP.Value, MaxHP);
             });
 
         CurrentEP
@@ -200,6 +209,10 @@ public class EnemyController : MovableObject, IInteract
             GetKnockback(new KnockbackState(_KnockbackDir, _BS.KnockbackPower, _BS.KnockbackTime));
         }
 
+        // Damage
+        TakeDamaged(_BS.DamageType, _BS.IsCritical, ActualDMG);
+
+/*
         if (_BS.DamageType == eDamageType.Physics)
         {
 
@@ -207,7 +220,6 @@ public class EnemyController : MovableObject, IInteract
             PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
             (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
             ActualDMG, _BS.IsCritical);
-
 
             SetIsDead(CurrentHP.Value, ActualDMG);
             CurrentHP.Value -= ActualDMG;
@@ -235,6 +247,7 @@ public class EnemyController : MovableObject, IInteract
                     (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
             }
         }
+*/
     }
 
     // 어택커 데미지
@@ -260,8 +273,10 @@ public class EnemyController : MovableObject, IInteract
             GetKnockback(new KnockbackState(_KnockbackDir, _AS.KnockbackPower, _AS.KnockbackTime));
         }
 
+        // Damage
+        TakeDamaged(_AS.DamageType, _IsCritical, ActualDMG);
 
-
+/*
         if (_AS.DamageType == eDamageType.Physics)
         {
             // UI
@@ -295,8 +310,73 @@ public class EnemyController : MovableObject, IInteract
                     (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
             }
         }
+*/
     }
 
+    // 데미지만을 계산하는 방식
+    private void TakeDamaged(eDamageType _DamageType, bool _IsCritical, float _ActualDMG)
+    {
+        // 쉴드 계산
+        if (CurrentSP.Value > 0)
+        {
+            if (CurrentSP.Value > _ActualDMG)
+            {
+                // UI
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByShieldDmg(
+                    (Vector2)TargetObject.transform.position + new Vector2(0.2f, 0.2f),
+                    _ActualDMG, _IsCritical);
+
+                CurrentSP.Value -= _ActualDMG;
+                return;
+            }
+            else
+            {
+                // UI
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByShieldDmg(
+                    (Vector2)TargetObject.transform.position + new Vector2(0.2f, 0.2f),
+                    CurrentSP.Value, _IsCritical);
+
+                _ActualDMG -= CurrentSP.Value;
+                CurrentSP.Value = 0f;
+            }
+        }
+
+        if (_DamageType == eDamageType.Physics) // 물리 값
+        {
+            // UI
+            PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
+            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+            _ActualDMG, _IsCritical);
+
+            SetIsDead(CurrentHP.Value, _ActualDMG);
+            CurrentHP.Value -= _ActualDMG;
+            if (CurrentHP.Value <= 0f)
+            {
+                base.IsDead = true;
+                Die();
+            }
+        }
+        else // 에너지 값
+        {
+            if (!IsDischarge)
+            {
+                // UI
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
+                    (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+                    _ActualDMG, _IsCritical);
+
+                GetEnergyDamaged(_ActualDMG, true);
+            }
+            else
+            {
+                // UI
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
+                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
+            }
+        }
+    }
+
+    // 추가 효과가 없는 데미지 계산
     public void TakeDamaged_NoneExtraEffect(eDamageType _DmgType, float _Dmg)
     {
         if (_DmgType == eDamageType.Physics)
@@ -334,6 +414,7 @@ public class EnemyController : MovableObject, IInteract
         }
     }
 
+    // 죽음
     private void Die()
     {
         // Drop Bettery S

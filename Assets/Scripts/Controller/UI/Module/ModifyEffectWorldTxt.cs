@@ -138,6 +138,14 @@ public class ModifyEffectWorldTxt : UIModule
 
     #region Usable
 
+    public void OffsetByShieldDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
+    {
+        SetBold(_IsCritical);
+        StartDamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
+            Color.white, Color.black, GetSize(_IsCritical),
+            new Vector2(0.2f, 0.2f), 1f);
+    }
+
     public void OffsetByPhysicDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
     {
         SetBold(_IsCritical);

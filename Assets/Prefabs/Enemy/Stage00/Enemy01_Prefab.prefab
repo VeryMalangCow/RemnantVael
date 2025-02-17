@@ -188,6 +188,7 @@ MonoBehaviour:
   IsDischarge: 0
   RecoverLethargyTime: 4
   ItemDropPercent: 1
+  BuffController: {fileID: 0}
   MovementState: 1
   Target: {fileID: 0}
   MoveTargetPoint: {x: 0, y: 0}
@@ -196,6 +197,7 @@ MonoBehaviour:
   MoveSpeed: 0
   ThisCanvas: {fileID: 766958743173286733}
   HP_ProgressBar: {fileID: 6800082077015692529}
+  SP_ProgressBar: {fileID: 7473830229185478932}
   EP_ProgressBar: {fileID: 5624911778484372259}
   MEI: {fileID: 882714530506080443}
   ThisSmokeM: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
@@ -238,24 +240,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be693dbad58290a48bb715676f3e7955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Enemy: {fileID: 0}
   FlameStack:
-    Stack:
-      value: 0
+    StatusType: 0
+    MaxStack: 0
+    CurrentStack: 0
     MaxCooltime: 0
     CurrentCooltime: 0
   ColdStack:
-    Stack:
-      value: 0
+    StatusType: 0
+    MaxStack: 0
+    CurrentStack: 0
     MaxCooltime: 0
     CurrentCooltime: 0
   ElectricityStack:
-    Stack:
-      value: 0
+    StatusType: 0
+    MaxStack: 0
+    CurrentStack: 0
     MaxCooltime: 0
     CurrentCooltime: 0
   CorrosionStack:
-    Stack:
-      value: 0
+    StatusType: 0
+    MaxStack: 0
+    CurrentStack: 0
     MaxCooltime: 0
     CurrentCooltime: 0
 --- !u!50 &7671391899007426867
@@ -2309,6 +2316,17 @@ MonoBehaviour:
 --- !u!114 &6800082077015692529 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6430546998103950056, guid: 869ec183798f4e1498b9c646650ec2be, type: 3}
+  m_PrefabInstance: {fileID: 532369178426185241}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2ef08973e206d429efee081d9ec718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7473830229185478932 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6979235873629460237, guid: 869ec183798f4e1498b9c646650ec2be, type: 3}
   m_PrefabInstance: {fileID: 532369178426185241}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
