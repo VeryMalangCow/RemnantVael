@@ -61,14 +61,29 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     private void Activity_MI_003(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
+        float percent = 0.25f * _BoostLv;
+        if (percent > Random.Range(0f, 1f))
+        {
+            Activity_InflictStatusEffect(eStatusEffect.Cold, _Rank, _EC.BuffController);
+        }
     }
 
     private void Activity_MI_004(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
+        float percent = 0.25f * _BoostLv;
+        if (percent > Random.Range(0f, 1f))
+        {
+            Activity_InflictStatusEffect(eStatusEffect.Electricity, _Rank, _EC.BuffController);
+        }
     }
 
     private void Activity_MI_005(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
+        float percent = 0.25f * _BoostLv;
+        if (percent > Random.Range(0f, 1f))
+        {
+            Activity_InflictStatusEffect(eStatusEffect.Corrosion, _Rank, _EC.BuffController);
+        }
     }
 
     #endregion

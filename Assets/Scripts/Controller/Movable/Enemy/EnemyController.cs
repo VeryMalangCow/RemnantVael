@@ -216,28 +216,12 @@ public class EnemyController : MovableObject, IInteract
         if (base.IsDead)
         { return; }
 
-        ModuleItemManager.Instance.Active_Hit(this);
-
-        // Critical
-        float ActualDMG = _BS.BaseDamage;
-        if (_BS.IsCritical)
-        {
-            ActualDMG *= _BS.CD;
-            ModuleItemManager.Instance.Active_CriticalHit(this);
-        }
-
-        // Knockback
-        if (_BS.AbleKnockback)
-        {
-            Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
-            GetKnockback(new KnockbackState(_KnockbackDir, _BS.KnockbackPower, _BS.KnockbackTime));
-        }
-
-        // 적이 부식 디버프에 걸린지
-        ActualDMG *= (1f + (BuffController.CorrosionStack.CurrentStack * 0.01f));
-
         // Damage
-        TakeDamaged(_BS.DamageType, _BS.IsCritical, ActualDMG);
+        TakeDamaged(
+            _BS.DamageType, 
+            _BS.AbleKnockback, _KnockbackDir, _BS.KnockbackPower, _BS.KnockbackTime,
+            _BS.IsCritical, _BS.CD, 
+            _BS.BaseDamage);
 
 /*
         if (_BS.DamageType == eDamageType.Physics)
@@ -283,28 +267,12 @@ public class EnemyController : MovableObject, IInteract
         if (base.IsDead)
         { return; }
 
-        ModuleItemManager.Instance.Active_Hit(this);
-
-        // Critical
-        float ActualDMG = _AS.BaseDamage;
-        if (_IsCritical)
-        {
-            ActualDMG *= _AS.CD;
-            ModuleItemManager.Instance.Active_CriticalHit(this);
-        }
-
-        // Knockback
-        if (_AS.AbleKnockback)
-        {
-            Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
-            GetKnockback(new KnockbackState(_KnockbackDir, _AS.KnockbackPower, _AS.KnockbackTime));
-        }
-
-        // 적이 부식 디버프에 걸린지
-        ActualDMG *= (1f + (BuffController.CorrosionStack.CurrentStack * 0.01f));
-
         // Damage
-        TakeDamaged(_AS.DamageType, _IsCritical, ActualDMG);
+        TakeDamaged(
+            _AS.DamageType, 
+            _AS.AbleKnockback, _KnockbackDir, _AS.KnockbackPower, _AS.KnockbackTime,
+            _IsCritical, _AS.CD, 
+            _AS.BaseDamage);
 
 /*
         if (_AS.DamageType == eDamageType.Physics)
@@ -343,10 +311,15 @@ public class EnemyController : MovableObject, IInteract
 */
     }
 
+
     // 데미지만을 계산하는 방식
-    private void TakeDamaged(eDamageType _DamageType, bool _IsCritical, float _ActualDMG)
+    private void TakeDamaged(
+        eDamageType _DamageType, 
+        bool _AbleKnockback, Vector2 _KnockbackDir, float _KnockbackPower, float _KnockbackTime,
+        bool _IsCritical, float _CriticalDMG, 
+        float _ActualDMG)
     {
-        // 쉴드 계산
+        /*
         if (CurrentSP.Value > 0)
         {
             if (CurrentSP.Value > _ActualDMG)
@@ -369,26 +342,41 @@ public class EnemyController : MovableObject, IInteract
                 _ActualDMG -= CurrentSP.Value;
                 CurrentSP.Value = 0f;
             }
+        }*/
+
+        
+        ModuleItemManager.Instance.Active_Hit(this); // INTERFACE: 맞을 때 효과 
+
+        // Knockback
+        if (_AbleKnockback)
+        {
+            Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
+            GetKnockback(new KnockbackState(_KnockbackDir, _KnockbackPower, _KnockbackTime));
         }
 
+        // 치명타 계산
+        if (_IsCritical)
+        {
+            _ActualDMG *= _CriticalDMG;
+            ModuleItemManager.Instance.Active_CriticalHit(this); // INTERFACE: 치명타를 맞을 때 효과 
+        }
+
+        // 적이 부식 디버프에 걸린지
+        _ActualDMG *= (1f + (BuffController.CorrosionStack.CurrentStack * 0.01f));
+
+        // 쉴드 계산
+        _ActualDMG = TakeShieldDamaged(_IsCritical, _ActualDMG);
+        if (_ActualDMG <= 0)
+        { return; }
+
+        // 직접 데미지
         if (_DamageType == eDamageType.Physics) // 물리 값
         {
-            // UI
-            PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
-            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-            _ActualDMG, _IsCritical);
-
-            SetIsDead(CurrentHP.Value, _ActualDMG);
-            CurrentHP.Value -= _ActualDMG;
-            if (CurrentHP.Value <= 0f)
-            {
-                base.IsDead = true;
-                Die();
-            }
+            TakePhysicsDamaged(_IsCritical, _ActualDMG);
         }
         else // 에너지 값
         {
-            if (!IsDischarge)
+            /*if (!IsDischarge)
             {
                 // UI
                 PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
@@ -402,76 +390,125 @@ public class EnemyController : MovableObject, IInteract
                 // UI
                 PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
                     (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
-            }
+            }*/
+            TakeEnergyDamaged(_IsCritical, _ActualDMG, true);
         }
     }
 
-    // 에너지 데미지를 받음
-    private void TakeEnergyDamaged(float _Value, bool _SpawnES)
+
+    // 쉴드 데미지를 받음
+    private float TakeShieldDamaged(bool _IsCritical, float _ActualDMG)
     {
-        float targetValue = 0;
-        if (CurrentEP.Value > _Value)
-        {
-            targetValue = _Value;
-            CurrentEP.Value -= _Value;
-        }
-        else if (CurrentEP.Value > 0)
-        {
-            // UI
-            PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
-                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
+        // 쉴드 계산
 
-            targetValue = CurrentEP.Value;
-            CurrentEP.Value = 0;
-            IsDischarge = true;
-            StartCoroutine(RecoverLethargy());
-            Debug.Log(this.gameObject.name + " / Lethargy!!!");
-        }
-
-        if (_SpawnES)
+        if (CurrentSP.Value > 0)
         {
-            targetValue *= PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value;
-            SpawnES(targetValue);
-        }
-    }
-
-    // 추가 효과가 없는 데미지 계산
-    public void TakeDamaged_NoneExtraEffect(eDamageType _DmgType, float _Dmg)
-    {
-        if (_DmgType == eDamageType.Physics)
-        {
-            // UI
-            PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
-            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-            _Dmg, false);
-
-            SetIsDead(CurrentHP.Value, _Dmg);
-            CurrentHP.Value -= _Dmg;
-            if (CurrentHP.Value <= 0f)
-            {
-                base.IsDead = true;
-                Die();
-            }
-        }
-        else
-        {
-            if (!IsDischarge)
+            if (CurrentSP.Value > _ActualDMG)
             {
                 // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
-                    (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-                    _Dmg, false);
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByShieldDmg(
+                    (Vector2)TargetObject.transform.position + new Vector2(0.2f, 0.2f),
+                    _ActualDMG, _IsCritical);
 
-                TakeEnergyDamaged(_Dmg, false);
+                CurrentSP.Value -= _ActualDMG;
+                _ActualDMG = 0;
             }
             else
             {
                 // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
-                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByShieldDmg(
+                    (Vector2)TargetObject.transform.position + new Vector2(0.2f, 0.2f),
+                    CurrentSP.Value, _IsCritical);
+
+                _ActualDMG -= CurrentSP.Value;
+                CurrentSP.Value = 0f;
             }
         }
+
+        return _ActualDMG;
     }
+
+    // 물리 데미지를 받음
+    private void TakePhysicsDamaged(bool _IsCritical, float _ActualDMG)
+    {
+        // UI
+        PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
+        (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+        _ActualDMG, _IsCritical);
+
+        SetIsDead(CurrentHP.Value, _ActualDMG);
+        CurrentHP.Value -= _ActualDMG;
+        if (CurrentHP.Value <= 0f)
+        {
+            base.IsDead = true;
+            Die();
+        }
+    }
+
+    // 에너지 데미지를 받음
+    private void TakeEnergyDamaged(bool _IsCritical, float _ActualDMG, bool _SpawnES)
+    {
+        if (!IsDischarge)
+        {
+            // UI
+            PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
+                (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+                _ActualDMG, _IsCritical);
+
+            float targetValue = 0;
+            if (CurrentEP.Value > _ActualDMG) // EP가 데미지보다 많다면
+            {
+                targetValue = _ActualDMG;
+                CurrentEP.Value -= _ActualDMG;
+            }
+            else // EP가 데미지를 버티지 못한다면
+            {
+                // UI
+                PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
+                        (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
+
+                targetValue = CurrentEP.Value;
+                CurrentEP.Value = 0;
+                IsDischarge = true;
+                StartCoroutine(RecoverLethargy());
+                Debug.Log(this.gameObject.name + " / Lethargy!!!");
+            }
+
+            // 에너지 조각 생성
+            if (_SpawnES)
+            {
+                targetValue *= PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value;
+                SpawnES(targetValue);
+            }
+        }
+        else
+        {
+            // UI
+            PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
+                (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
+        }
+
+        
+    }
+
+
+    // 추가 효과가 없는 데미지 계산
+    public void TakeDamaged_NoneExtraEffect(eDamageType _DmgType, float _Dmg)
+    {
+        // 쉴드 계산
+        _Dmg = TakeShieldDamaged(false, _Dmg);
+
+        // 직접 계산
+        if (_DmgType == eDamageType.Physics)
+        {
+            TakePhysicsDamaged(false, _Dmg);
+        }
+        else
+        {
+            TakeEnergyDamaged(false, _Dmg, false);
+        }
+    }
+
 
     // 죽음
     private void Die()
@@ -586,13 +623,13 @@ public class EnemyController : MovableObject, IInteract
         // 바로 갈 수 있다면
         if (!IsExistWall(this.transform, PlayerManager.Instance.PlayerController.transform))
         {
-
+            /*
 #if UNITY_EDITOR
             Debug.DrawRay(this.transform.position,
                         (PlayerManager.Instance.PlayerController.transform.position - this.transform.position),
                         Color.red, 0.3f);
 #endif
-
+            */
             return new List<WayPoint> { PlayerManager.Instance.PlayerController.ThisWayPoint };
         }    
 
@@ -632,7 +669,7 @@ public class EnemyController : MovableObject, IInteract
                 List<WayPoint> resultRoot = GetClosetRoot(resultRoots);
                 resultRoot.Add(PlayerManager.Instance.PlayerController.ThisWayPoint);
                 resultRoot = GetRemoveUnnecessaryRoot(resultRoot);
-
+                /*
 #if UNITY_EDITOR
                 Debug.DrawRay(this.transform.position,
                         (resultRoot[0].transform.position - this.transform.position),
@@ -644,7 +681,7 @@ public class EnemyController : MovableObject, IInteract
                         Color.red, 0.3f);
                 }
 #endif
-
+                */
                 return resultRoot;
             }
 
@@ -987,6 +1024,7 @@ public class EnemyController : MovableObject, IInteract
     }
 
     #endregion
+
 }
 
 #region Pattern

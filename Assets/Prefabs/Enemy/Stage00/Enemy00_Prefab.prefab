@@ -183,7 +183,7 @@ MonoBehaviour:
   ThisComponentGOList: []
   EnemyID: 00
   ThisEnemyType: 0
-  MaxHP: 30
+  MaxHP: 1000
   MaxEP: 30
   IsDischarge: 0
   RecoverLethargyTime: 4
@@ -248,24 +248,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy: {fileID: 0}
   FlameStack:
+    IsOn: 0
     StatusType: 0
     MaxStack: 0
     CurrentStack: 0
     MaxCooltime: 0
     CurrentCooltime: 0
   ColdStack:
+    IsOn: 0
     StatusType: 0
     MaxStack: 0
     CurrentStack: 0
     MaxCooltime: 0
     CurrentCooltime: 0
   ElectricityStack:
+    IsOn: 0
     StatusType: 0
     MaxStack: 0
     CurrentStack: 0
     MaxCooltime: 0
     CurrentCooltime: 0
   CorrosionStack:
+    IsOn: 0
     StatusType: 0
     MaxStack: 0
     CurrentStack: 0

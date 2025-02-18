@@ -33,8 +33,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public ItemData GetRandomInteractItem()
     {
-        return ItemDataList[2];
-        //return ItemDataList[Random.Range(0, ItemDataList.Count)];
+        //return ItemDataList[4];
+        return ItemDataList[Random.Range(0, ItemDataList.Count)];
     }
 
     public void GetModuleState(ItemData _ItemData)
