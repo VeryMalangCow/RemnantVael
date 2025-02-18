@@ -45,10 +45,7 @@ public class EnemyController : MovableObject, IInteract
 
     [Space(10)]
     [Header("=== UI")]
-    [SerializeField] private Canvas ThisCanvas;
-    [SerializeField] private ModifyReductionFocusProgressBar HP_ProgressBar;
-    [SerializeField] private ModifyReductionFocusProgressBar SP_ProgressBar;
-    [SerializeField] private ModifyReductionFocusProgressBar EP_ProgressBar;
+    [SerializeField] public EnemyHUDController HUD;
 
     [Space(10)]
     [Header("=== Effect")]
@@ -82,60 +79,58 @@ public class EnemyController : MovableObject, IInteract
 
     private void Offset()
     {
-        HP_ProgressBar.Offset();
-        SP_ProgressBar.Offset();
-        EP_ProgressBar.Offset();
+        HUD.Offset(this);
 
         CurrentHP.Value = MaxHP;
         CurrentSP.Value = MaxHP;
         CurrentEP.Value = MaxEP;
-    }
-
-    private void Start()
-    {
-        Offset();
 
         CurrentSP
             .Subscribe(_CurrentSP =>
             {
-                SP_ProgressBar.SetFillImgSmooth(CurrentSP.Value, MaxHP);
+                HUD.StateUI.SP_ProgressBar.SetFillImgSmooth(CurrentSP.Value, MaxHP);
 
                 if (CurrentSP.Value <= 0)
                 {
-                    SP_ProgressBar.SetNoNum();
-                    HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP); 
-                    EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
+                    HUD.StateUI.SP_ProgressBar.SetNoNum();
+                    HUD.StateUI.HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
+                    HUD.StateUI.EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
                 }
                 else
                 {
-                    HP_ProgressBar.SetNoNum(); 
-                    EP_ProgressBar.SetNoNum();
+                    HUD.StateUI.HP_ProgressBar.SetNoNum();
+                    HUD.StateUI.EP_ProgressBar.SetNoNum();
                 }
             });
 
         CurrentHP
             .Subscribe(_CurrentHP =>
             {
-                HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
+                HUD.StateUI.HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
 
                 if (CurrentSP.Value > 0)
-                { HP_ProgressBar.SetNoNum(); }
+                { HUD.StateUI.HP_ProgressBar.SetNoNum(); }
             });
 
         CurrentEP
             .Subscribe(_CurrentEP =>
             {
-                EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
+                HUD.StateUI.EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
 
                 if (CurrentSP.Value > 0)
-                { EP_ProgressBar.SetNoNum(); }
+                { HUD.StateUI.EP_ProgressBar.SetNoNum(); }
             });
 
         if (BuffController == null && this.gameObject.TryGetComponent(out EnemyBuffController EBC))
-        { 
+        {
             BuffController = EBC;
             BuffController.Enemy = this;
         }
+    }
+
+    private void Start()
+    {
+        Offset();
     }
 
     protected override void OnEnable()
@@ -580,7 +575,7 @@ public class EnemyController : MovableObject, IInteract
 
         yield return new WaitForSeconds(0.5f);
 
-        EP_ProgressBar.SetFillFullImgSmooth(RecoverLethargyTime);
+        HUD.StateUI.EP_ProgressBar.SetFillFullImgSmooth(RecoverLethargyTime);
 
         yield return new WaitForSeconds(RecoverLethargyTime);
 
@@ -888,7 +883,7 @@ public class EnemyController : MovableObject, IInteract
     public override void SetSortingOrder(int _SortingOrder)
     {
         base.SetSortingOrder(_SortingOrder);
-        ThisCanvas.sortingOrder = _SortingOrder;
+        HUD.ThisCanvas.sortingOrder = _SortingOrder;
     }
 
     #endregion

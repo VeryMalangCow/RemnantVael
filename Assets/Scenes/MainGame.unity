@@ -3161,6 +3161,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentEnemyList: []
   EnemySmokeMaterial: {fileID: 2100000, guid: 75b0116f582f3244aaf171b01df8ff63, type: 2}
+  FlameIcon: {fileID: -538057842, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+  ColdIcon: {fileID: -1121378016, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+  ElectricityIcon: {fileID: -1699564280, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+  CorrosionIcon: {fileID: -265424422, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+  ShieldIcon: {fileID: -2127429938, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+  ATKIcon: {fileID: 1188069800, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
 --- !u!1 &1367558787
 GameObject:
   m_ObjectHideFlags: 0

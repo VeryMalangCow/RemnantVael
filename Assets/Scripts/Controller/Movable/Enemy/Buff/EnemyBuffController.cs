@@ -8,23 +8,28 @@ public class EnemyBuffController : MonoBehaviour
 
     [Space(20)]
     [Header("=== Buff")]
-    [SerializeField] public EnemyController Enemy;
+
+    [Space(10)]
+    [Header("-- Shield")]
+    [SerializeField] public StatusEffect_WithoutAmount ShieldBuff;
 
     [Space(10)]
     [Header("-- Flame")]
-    [SerializeField] public StatusEffect FlameStack;
+    [SerializeField] public StatusEffect_WithAmount FlameStack;
 
     [Space(10)]
     [Header("-- Cold")]
-    [SerializeField] public StatusEffect ColdStack;
+    [SerializeField] public StatusEffect_WithAmount ColdStack;
 
     [Space(10)]
     [Header("-- Electricity")]
-    [SerializeField] public StatusEffect ElectricityStack;
+    [SerializeField] public StatusEffect_WithAmount ElectricityStack;
 
     [Space(10)]
     [Header("-- Corrosion")]
-    [SerializeField] public StatusEffect CorrosionStack;
+    [SerializeField] public StatusEffect_WithAmount CorrosionStack;
+
+    [HideInInspector] public EnemyController Enemy;
 
     #endregion
 
@@ -32,20 +37,24 @@ public class EnemyBuffController : MonoBehaviour
 
     private void Start()
     {
-        FlameStack = new StatusEffect(eStatusEffect.Flame, 
-            50, 3f, false, 
-            null, FlameReduceEffect);
-
-        ColdStack = new StatusEffect(eStatusEffect.Cold, 
-            30, 6f, true, 
+        ShieldBuff = new StatusEffect_WithoutAmount(
+            10, 
             null, null);
 
-        ElectricityStack = new StatusEffect(eStatusEffect.Electricity, 
-            40, 5f, true,
+        FlameStack = new StatusEffect_WithAmount(
+            eStatusEffect.Flame, 50, 3f, 1, false, 
+            null, FlameReduceEffect);
+
+        ColdStack = new StatusEffect_WithAmount(
+            eStatusEffect.Cold, 30, 6f, 1, true, 
+            null, null);
+
+        ElectricityStack = new StatusEffect_WithAmount(
+            eStatusEffect.Electricity, 40, 5f, 1, true,
             ElectricityGainEffect, null);
 
-        CorrosionStack = new StatusEffect(eStatusEffect.Corrosion, 
-            50, 4f, false, 
+        CorrosionStack = new StatusEffect_WithAmount(
+            eStatusEffect.Corrosion, 50, 4f, 1, false, 
             null, null);
     }
 
@@ -53,15 +62,11 @@ public class EnemyBuffController : MonoBehaviour
     {
         float deltaTime = Time.deltaTime;
 
+        ShieldBuff.UpdateCooltime(deltaTime);
         FlameStack.UpdateCooltime(deltaTime);
         ColdStack.UpdateCooltime(deltaTime);
         ElectricityStack.UpdateCooltime(deltaTime);
         CorrosionStack.UpdateCooltime(deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            ElectricityStack.GainStack(40);
-        }
     }
 
 
@@ -149,49 +154,73 @@ public class EnemyBuffController : MonoBehaviour
     #endregion
 }
 
-
 [Serializable]
 public class StatusEffect
 {
     public bool IsOn;
-    public eStatusEffect StatusType;
-
-    public int MaxStack;
-    public int CurrentStack;
+    public EnemyBuffIconUIController BuffIconUI = null;
 
     public float MaxCooltime;
     public float CurrentCooltime;
 
-    private bool IsResetWhenGain;
-
     public delegate void EffectDele();
-    EffectDele GainDele = null;
-    EffectDele ReduceDele = null;
+    protected EffectDele GainDele = null;
+    protected EffectDele ReduceDele = null;
 
-    // 생성자
-    public StatusEffect(eStatusEffect _StatusType, int _MaxStack, float _MaxCooltime, bool _IsResetWhenGain,
-        EffectDele _GainFunc, EffectDele _ReduceFunc)
+    public StatusEffect( 
+        float _MaxCooltime, EffectDele _GainFunc, EffectDele _ReduceFunc)
     {
         IsOn = false;
-        StatusType = _StatusType;
-
-        MaxStack = _MaxStack;
-        CurrentStack = 0;
 
         MaxCooltime = _MaxCooltime;
         CurrentCooltime = 0;
-
-        IsResetWhenGain = _IsResetWhenGain;
-
 
         GainDele = _GainFunc;
         ReduceDele = _ReduceFunc;
     }
 
+    protected void GainStack()
+    {
+        if (GainDele != null)
+        { GainDele(); }
+    }
+
+    protected void ReduceStack()
+    {
+        if (ReduceDele != null)
+        { ReduceDele(); }
+    }
+}
+
+[Serializable]
+public class StatusEffect_WithAmount : StatusEffect
+{
+    public eStatusEffect StatusType;
+
+    public int MaxStack;
+    public int CurrentStack;
+    public int OnceTimeReduceAmount;
+
+    private bool IsResetWhenGain;
+
+    // 생성자
+    public StatusEffect_WithAmount(
+        eStatusEffect _StatusType, int _MaxStack, float _MaxCooltime, int _OnceTimeReduceAmount, bool _IsResetWhenGain,
+        EffectDele _GainFunc, EffectDele _ReduceFunc) 
+        : base(_MaxCooltime, _GainFunc, _ReduceFunc)
+    {
+        StatusType = _StatusType;
+
+        MaxStack = _MaxStack;
+        CurrentStack = 0;
+        OnceTimeReduceAmount = _OnceTimeReduceAmount;
+
+        IsResetWhenGain = _IsResetWhenGain;
+    }
+
     // 버프 증가
     public void GainStack(int _GainAmount)
     {
-
         CurrentStack = Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
         IsOn = true;
 
@@ -200,17 +229,15 @@ public class StatusEffect
             CurrentCooltime = 0; 
         }
 
-        if (GainDele != null)
-        { GainDele(); }
+        base.GainStack();
     }
 
     // 버프 감소
-    public void ReduceStack()
+    public void ReduceStack(int _ReduceAmount)
     {
-        if (ReduceDele != null)
-        { ReduceDele(); }
+        base.ReduceStack();
 
-        CurrentStack = Math.Clamp(CurrentStack - 1, 0, MaxStack);
+        CurrentStack = Math.Clamp(CurrentStack - _ReduceAmount, 0, MaxStack);
         if (CurrentStack <= 0)
         {
             IsOn = false;
@@ -223,11 +250,52 @@ public class StatusEffect
     {
         if (IsOn)
         {
-            
             if (MaxCooltime <= CurrentCooltime) // 스택 감소
             {
                 CurrentCooltime -= MaxCooltime;
-                ReduceStack();
+                ReduceStack(1);
+            }
+            else // 쿨타임 돌림
+            {
+                CurrentCooltime += _DeltaTime;
+            }
+        }
+    }
+}
+
+[Serializable]
+public class StatusEffect_WithoutAmount : StatusEffect
+{
+    public StatusEffect_WithoutAmount(
+        float _MaxCooltime, 
+        EffectDele _GainFunc, EffectDele _ReduceFunc)
+        : base(_MaxCooltime, _GainFunc, _ReduceFunc)
+    { }
+
+    // 버프 획득
+    public void GetStack()
+    {
+        IsOn = true;
+        CurrentCooltime = 0;
+        base.GainStack();
+    }
+
+    // 버프 제거
+    public void RemoveStack()
+    {
+        IsOn = false;
+        CurrentCooltime = 0;
+        base.ReduceStack();
+    }
+
+    // 쿨타임
+    public void UpdateCooltime(float _DeltaTime)
+    {
+        if (IsOn)
+        {
+            if (MaxCooltime <= CurrentCooltime) // 스택 감소
+            {
+                RemoveStack();
             }
             else // 쿨타임 돌림
             {

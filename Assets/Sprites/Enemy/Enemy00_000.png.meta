@@ -1063,7 +1063,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_Debuff_Frame
+      name: Enemy_Debuff_Flame
       rect:
         serializedVersion: 2
         x: 246
@@ -1071,7 +1071,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1092,7 +1092,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1113,7 +1113,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1134,7 +1134,7 @@ TextureImporter:
         width: 10
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1155,7 +1155,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1176,7 +1176,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1184,6 +1184,27 @@ TextureImporter:
       bones: []
       spriteID: 8d948b8acddf368468083aa4289fc397
       internalID: 1188069800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Buff_Shadow
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 246
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deaf76b4aaf9aa143a1fd8e4be0e21d6
+      internalID: -1533359489
       vertices: []
       indices: 
       edges: []
@@ -1238,11 +1259,12 @@ TextureImporter:
       Enemy00_Wheel_U_D_01: 342643262
       Enemy_BarFrame: -1099338925
       Enemy_Buff_ATK: 1188069800
+      Enemy_Buff_Shadow: -1533359489
       Enemy_Buff_Shield: -2127429938
       Enemy_Debuff_Cold: -1121378016
       Enemy_Debuff_Corrosion: -265424422
       Enemy_Debuff_Electricity: -1699564280
-      Enemy_Debuff_Frame: -538057842
+      Enemy_Debuff_Flame: -538057842
       Enemy_EP_Bar: -986336886
       Enemy_EP_Liner: -564090988
       Enemy_HP_Bar: 1625135349

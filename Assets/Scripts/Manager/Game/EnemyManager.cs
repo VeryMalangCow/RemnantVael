@@ -14,6 +14,18 @@ public class EnemyManager : Singleton<EnemyManager>
     [Header("=== Materal")]
     [SerializeField] public Material EnemySmokeMaterial;
 
+    [Space(10)]
+    [Header("=== Debuff Icon")]
+    [SerializeField] public Sprite FlameIcon;
+    [SerializeField] public Sprite ColdIcon;
+    [SerializeField] public Sprite ElectricityIcon;
+    [SerializeField] public Sprite CorrosionIcon;
+
+    [Space(10)]
+    [Header("=== Buff Icon")]
+    [SerializeField] public Sprite ShieldIcon;
+    [SerializeField] public Sprite ATKIcon;
+
     #endregion
 
     #region Get

@@ -195,6 +195,7 @@ MonoBehaviour:
   LookTargetPoint: {x: 0, y: 0}
   MoveDir: {x: 0, y: 0}
   MoveSpeed: 0
+  HUD: {fileID: 2920926280269970217}
   ThisCanvas: {fileID: 950598844825775425}
   HP_ProgressBar: {fileID: 6470338870314578685}
   SP_ProgressBar: {fileID: 6930367526226929432}
@@ -2304,6 +2305,17 @@ Canvas:
   m_CorrespondingSourceObject: {fileID: 992922890427751764, guid: 869ec183798f4e1498b9c646650ec2be, type: 3}
   m_PrefabInstance: {fileID: 69425944245334037}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2920926280269970217 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2918209957325720380, guid: 869ec183798f4e1498b9c646650ec2be, type: 3}
+  m_PrefabInstance: {fileID: 69425944245334037}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9295c1fc5e48774ebdf50a8d40b0d64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5144593874616772873 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5157714867513104668, guid: 869ec183798f4e1498b9c646650ec2be, type: 3}
