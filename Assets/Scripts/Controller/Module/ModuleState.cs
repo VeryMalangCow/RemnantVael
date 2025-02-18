@@ -89,6 +89,7 @@ public interface IWhen_CriticalHit : IWhen { }
 // (어떤 공격이든) 적에게 타격 입을 시
 public interface IWhen_Hitted : IWhen { }
 
+
 #endregion
 
 #region Item Skill

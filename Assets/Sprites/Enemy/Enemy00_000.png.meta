@@ -832,7 +832,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy00_Smoke_00
+      name: Enemy_Smoke_00
       rect:
         serializedVersion: 2
         x: 144
@@ -853,7 +853,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy00_Smoke_01
+      name: Enemy_Smoke_01
       rect:
         serializedVersion: 2
         x: 162
@@ -874,7 +874,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy00_Smoke_02
+      name: Enemy_Smoke_02
       rect:
         serializedVersion: 2
         x: 180
@@ -895,7 +895,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy00_Smoke_03
+      name: Enemy_Smoke_03
       rect:
         serializedVersion: 2
         x: 198
@@ -916,7 +916,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy00_BarFrame
+      name: Enemy_BarFrame
       rect:
         serializedVersion: 2
         x: 145
@@ -937,7 +937,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy00_HP_Bar
+      name: Enemy_HP_Bar
       rect:
         serializedVersion: 2
         x: 145
@@ -958,7 +958,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy00_EP_Bar
+      name: Enemy_EP_Bar
       rect:
         serializedVersion: 2
         x: 145
@@ -979,7 +979,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy00_HP_Liner
+      name: Enemy_HP_Liner
       rect:
         serializedVersion: 2
         x: 198
@@ -1000,7 +1000,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy00_EP_Liner
+      name: Enemy_EP_Liner
       rect:
         serializedVersion: 2
         x: 200
@@ -1021,7 +1021,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy00_SP_Bar
+      name: Enemy_SP_Bar
       rect:
         serializedVersion: 2
         x: 145
@@ -1042,7 +1042,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy00_SP_Liner
+      name: Enemy_SP_Liner
       rect:
         serializedVersion: 2
         x: 198
@@ -1062,6 +1062,132 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Enemy_Debuff_Frame
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 246
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d528ec0f05607b246ab29ca99d047a71
+      internalID: -538057842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Debuff_Cold
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 235
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afccde29f6091424f8dc9a36e967b3a1
+      internalID: -1121378016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Debuff_Electricity
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 224
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8506ee7e6d0f7ce438c1eab19ddbde30
+      internalID: -1699564280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Debuff_Corrosion
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 214
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e81e3c0bbb108b940b71e7d2f164452e
+      internalID: -265424422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Buff_Shield
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 246
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40d5b28a8276bb8429adc9f8820dce63
+      internalID: -2127429938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Buff_ATK
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 235
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d948b8acddf368468083aa4289fc397
+      internalID: 1188069800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1075,9 +1201,6 @@ TextureImporter:
     - texture: {fileID: 2800000, guid: 0abf441cd924f2348919b40d9b0ef75d, type: 3}
       name: _Emission
     nameFileIdTable:
-      Enemy00_BarFrame: -1099338925
-      Enemy00_EP_Bar: -986336886
-      Enemy00_EP_Liner: -564090988
       Enemy00_E_00: 191573939
       Enemy00_E_01: 2002850892
       Enemy00_E_02: 458983273
@@ -1089,8 +1212,6 @@ TextureImporter:
       Enemy00_EnergyGun_RD: 1787400998
       Enemy00_EnergyGun_RU: -730727061
       Enemy00_EnergyGun_U: -802095933
-      Enemy00_HP_Bar: 1625135349
-      Enemy00_HP_Liner: -818321709
       Enemy00_Main_D: -1973428488
       Enemy00_Main_L: 2073786952
       Enemy00_Main_LD: -1501272803
@@ -1099,12 +1220,6 @@ TextureImporter:
       Enemy00_Main_RD: -971164730
       Enemy00_Main_RU: -261154839
       Enemy00_Main_U: -1377615038
-      Enemy00_SP_Bar: 153615729
-      Enemy00_SP_Liner: 377559776
-      Enemy00_Smoke_00: 736608773
-      Enemy00_Smoke_01: -1434397230
-      Enemy00_Smoke_02: -571110442
-      Enemy00_Smoke_03: 1982620110
       Enemy00_Sword_D: 1359721168
       Enemy00_Sword_L: -425848612
       Enemy00_Sword_LD: -741016898
@@ -1121,6 +1236,23 @@ TextureImporter:
       Enemy00_Wheel_L_R_01: 1918230403
       Enemy00_Wheel_U_D_00: 987013749
       Enemy00_Wheel_U_D_01: 342643262
+      Enemy_BarFrame: -1099338925
+      Enemy_Buff_ATK: 1188069800
+      Enemy_Buff_Shield: -2127429938
+      Enemy_Debuff_Cold: -1121378016
+      Enemy_Debuff_Corrosion: -265424422
+      Enemy_Debuff_Electricity: -1699564280
+      Enemy_Debuff_Frame: -538057842
+      Enemy_EP_Bar: -986336886
+      Enemy_EP_Liner: -564090988
+      Enemy_HP_Bar: 1625135349
+      Enemy_HP_Liner: -818321709
+      Enemy_SP_Bar: 153615729
+      Enemy_SP_Liner: 377559776
+      Enemy_Smoke_00: 736608773
+      Enemy_Smoke_01: -1434397230
+      Enemy_Smoke_02: -571110442
+      Enemy_Smoke_03: 1982620110
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
