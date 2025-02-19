@@ -479,7 +479,7 @@ public class PlayerController : MovableObject
 
             // 적이 냉기 디버프에 걸린지
             float actualDmg =
-                state.BaseDamage * (1f - (buff.ColdStack.CurrentStack * 0.01f));
+                state.BaseDamage * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
 
             // 데미지 구현
             TakeDamaged(actualDmg,
@@ -507,7 +507,7 @@ public class PlayerController : MovableObject
 
             // 적이 냉기 디버프에 걸린지
             float actualDmg =
-                state.BaseDamage * (1f - (buff.ColdStack.CurrentStack * 0.01f));
+                state.BaseDamage * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
 
             // 데미지 구현
             TakeDamaged(actualDmg, 
