@@ -82,19 +82,19 @@ public class EnemyBuffController : MonoBehaviour
         #region High Level Status Debuff
 
         InfernoStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.FlameIcon, 
+            Enemy, EnemyManager.Instance.InfernoIcon, 
             null, null, 3);
 
         AbsoluteZeroStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.ColdIcon, 
+            Enemy, EnemyManager.Instance.AbsoluteZeroIcon, 
             null, null, 3);
 
         PlasmaStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.ElectricityIcon, 
+            Enemy, EnemyManager.Instance.PlasmaIcon, 
             null, null, 3);
 
         DecayStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.CorrosionIcon, 
+            Enemy, EnemyManager.Instance.DecayIcon, 
             null, null, 3);
 
         #endregion

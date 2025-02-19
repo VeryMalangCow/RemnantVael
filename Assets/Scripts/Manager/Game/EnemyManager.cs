@@ -21,6 +21,11 @@ public class EnemyManager : Singleton<EnemyManager>
     [SerializeField] public Sprite ElectricityIcon;
     [SerializeField] public Sprite CorrosionIcon;
 
+    [SerializeField] public Sprite InfernoIcon;
+    [SerializeField] public Sprite AbsoluteZeroIcon;
+    [SerializeField] public Sprite PlasmaIcon;
+    [SerializeField] public Sprite DecayIcon;
+
     [Space(10)]
     [Header("=== Buff Icon")]
     [SerializeField] public Sprite ShieldIcon;

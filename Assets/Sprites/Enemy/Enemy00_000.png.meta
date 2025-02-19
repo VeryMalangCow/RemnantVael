@@ -1130,9 +1130,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 246
-        y: 214
+        y: 213
         width: 10
-        height: 9
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1197,7 +1197,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1205,6 +1205,90 @@ TextureImporter:
       bones: []
       spriteID: deaf76b4aaf9aa143a1fd8e4be0e21d6
       internalID: -1533359489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Debuff_Inferno
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 202
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c6280c125a0e22499939d958da673d4
+      internalID: 792236046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Debuff_AbsoluteZero
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 191
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aafeda1080f1f342947a89df0086098
+      internalID: -1060793222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Debuff_Plasma
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 180
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7c644efdc4de2742a3143cce77e669d
+      internalID: -1440017098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Debuff_Decay
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 169
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 563a21be6fdc67347a8b82825ca3a7ec
+      internalID: -1833749735
       vertices: []
       indices: 
       edges: []
@@ -1261,10 +1345,14 @@ TextureImporter:
       Enemy_Buff_ATK: 1188069800
       Enemy_Buff_Shadow: -1533359489
       Enemy_Buff_Shield: -2127429938
+      Enemy_Debuff_AbsoluteZero: -1060793222
       Enemy_Debuff_Cold: -1121378016
       Enemy_Debuff_Corrosion: -265424422
+      Enemy_Debuff_Decay: -1833749735
       Enemy_Debuff_Electricity: -1699564280
       Enemy_Debuff_Flame: -538057842
+      Enemy_Debuff_Inferno: 792236046
+      Enemy_Debuff_Plasma: -1440017098
       Enemy_EP_Bar: -986336886
       Enemy_EP_Liner: -564090988
       Enemy_HP_Bar: 1625135349
