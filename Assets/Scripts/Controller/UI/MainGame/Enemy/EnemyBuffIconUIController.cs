@@ -36,6 +36,8 @@ public class EnemyBuffIconUIController : MonoBehaviour
         gameObject.SetActive(true);
 
         IconImg.sprite = _Icon;
+        AmountTxt.gameObject.SetActive(_ShowTxt);
+        ShadowImg.fillAmount = 0;
     }
 
     public void Off()

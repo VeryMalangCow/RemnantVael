@@ -31,7 +31,7 @@ public class EnemyController : MovableObject, IInteract
 
     [Space(10)]
     [Header("=== Buff")]
-    [SerializeField] public EnemyBuffController BuffController;
+    [HideInInspector] public EnemyBuffController BuffController = null;
 
     [Space(10)]
     [Header("=== Movement")]
@@ -81,9 +81,15 @@ public class EnemyController : MovableObject, IInteract
     {
         HUD.Offset(this);
 
+        CurrentSP.Value = 0;
         CurrentHP.Value = MaxHP;
-        CurrentSP.Value = MaxHP;
         CurrentEP.Value = MaxEP;
+
+        if (this.gameObject.TryGetComponent(out EnemyBuffController EBC))
+        {
+            BuffController = EBC;
+            BuffController.Offset(this);
+        }
 
         CurrentSP
             .Subscribe(_CurrentSP =>
@@ -95,6 +101,10 @@ public class EnemyController : MovableObject, IInteract
                     HUD.StateUI.SP_ProgressBar.SetNoNum();
                     HUD.StateUI.HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
                     HUD.StateUI.EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
+
+                    Debug.Log(BuffController.ShieldBuff.IsOn);
+                    if (BuffController.ShieldBuff.IsOn)
+                    { BuffController.ShieldBuff.RemoveAllStack(); }
                 }
                 else
                 {
@@ -121,11 +131,6 @@ public class EnemyController : MovableObject, IInteract
                 { HUD.StateUI.EP_ProgressBar.SetNoNum(); }
             });
 
-        if (BuffController == null && this.gameObject.TryGetComponent(out EnemyBuffController EBC))
-        {
-            BuffController = EBC;
-            BuffController.Offset(this);
-        }
     }
 
     private void Start()
@@ -151,11 +156,6 @@ public class EnemyController : MovableObject, IInteract
     {
         Movement();
         LookAtTarget();
-
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            CurrentSP.Value += 50;
-        }
     }
 
     #endregion
@@ -200,6 +200,61 @@ public class EnemyController : MovableObject, IInteract
             LookAtDir = Vector2.zero;
         }
     }
+
+    #endregion
+
+    #region Life State Gain
+
+    public void SetPercentSP(float _Value)
+    {
+        float actualValue = (_Value / 100f) * MaxHP;
+        
+        if (actualValue > CurrentSP.Value)
+        {
+            SetSP(actualValue);
+        }
+    }
+
+    public void GainPercentSP(float _Value)
+    {
+        float actualValue = (_Value / 100f) * MaxHP;
+        GainSP(actualValue);
+    }
+    public void GainPercentHP(float _Value)
+    {
+        float actualValue = (_Value / 100f) * MaxHP;
+        GainHP(actualValue);
+    }
+    public void GainPercentEP(float _Value)
+    {
+        float actualValue = (_Value / 100f) * MaxEP;
+        GainEP(actualValue);
+    }
+
+
+    private void GainSP(float _Value)
+    { GainPoint(CurrentSP, MaxHP, _Value); }
+
+    private void GainHP(float _Value)
+    { GainPoint(CurrentHP, MaxHP, _Value); }
+
+    private void GainEP(float _Value)
+    { GainPoint(CurrentEP, MaxEP, _Value); }
+
+
+    private void SetSP(float _Value)
+    { SetPoint(CurrentSP, MaxHP, _Value); }
+    private void SetHP(float _Value)
+    { SetPoint(CurrentHP, MaxHP, _Value); }
+    private void SetEP(float _Value)
+    { SetPoint(CurrentEP, MaxEP, _Value); }
+
+
+    private void SetPoint(ReactiveProperty<float> _Variable, float _Max, float _Value)
+    { _Variable.Value = Mathf.Clamp(_Value, 0, _Max); }
+
+    private void GainPoint(ReactiveProperty<float> _Variable, float _Max, float _Value)
+    { _Variable.Value = Mathf.Clamp(_Variable.Value + _Value, 0, _Max); }
 
     #endregion
 
@@ -258,7 +313,8 @@ public class EnemyController : MovableObject, IInteract
         }
 
         // 적이 부식 디버프에 걸린지
-        _ActualDMG *= (1f + (BuffController.CorrosionStack.CurrentStack * 0.01f));
+        _ActualDMG *= (1f + 
+            (BuffController.CorrosionStack.CurrentStack * (BuffController.DecayStack.CurrentStack + 1) * 0.01f));
 
         // 쉴드 계산
         _ActualDMG = TakeShieldDamaged(_IsCritical, _ActualDMG);
@@ -291,7 +347,7 @@ public class EnemyController : MovableObject, IInteract
                     (Vector2)TargetObject.transform.position + new Vector2(0.2f, 0.2f),
                     _ActualDMG, _IsCritical);
 
-                CurrentSP.Value -= _ActualDMG;
+                GainSP(-_ActualDMG);
                 _ActualDMG = 0;
             }
             else
@@ -318,7 +374,7 @@ public class EnemyController : MovableObject, IInteract
         _ActualDMG, _IsCritical);
 
         SetIsDead(CurrentHP.Value, _ActualDMG);
-        CurrentHP.Value -= _ActualDMG;
+        GainHP(-_ActualDMG);
         if (CurrentHP.Value <= 0f)
         {
             base.IsDead = true;
@@ -340,7 +396,7 @@ public class EnemyController : MovableObject, IInteract
             if (CurrentEP.Value > _ActualDMG) // EP가 데미지보다 많다면
             {
                 targetValue = _ActualDMG;
-                CurrentEP.Value -= _ActualDMG;
+                GainEP(-_ActualDMG);
             }
             else // EP가 데미지를 버티지 못한다면
             {

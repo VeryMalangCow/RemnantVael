@@ -12,7 +12,8 @@ public class EnemyHUDController : MonoBehaviour
     [Header("=== Comp")]
     [SerializeField] public Canvas ThisCanvas;
     [SerializeField] public EnemyStateUIController StateUI;
-    [SerializeField] public EnemyBuffUIController BuffUI;
+    [SerializeField] public EnemyBuffUIController TemporaryBuffUI;
+    [SerializeField] public EnemyBuffUIController PermanentBuffUI;
 
     #endregion
 
@@ -23,7 +24,8 @@ public class EnemyHUDController : MonoBehaviour
         Enemy = _Enemy;
 
         StateUI.Offset(this);
-        BuffUI.Offset(this);
+        TemporaryBuffUI.Offset(this);
+        PermanentBuffUI.Offset(this);
     }
 
     #endregion
