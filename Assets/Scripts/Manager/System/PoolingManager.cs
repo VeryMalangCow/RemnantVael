@@ -17,9 +17,10 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<MissileBulletController> MissileBullet;
 
     [Header("=== Enemy")]
-    [SerializeField] public TTypePooling<EnemyController> Enemy;
     [SerializeField] public TTypePooling<EnemyBulletController> EnemyBullets;
     [SerializeField] public TTypePooling<EnemyAttacker> EnemyAttackers;
+    [HideInInspector] public List<TTypePooling<EnemyController>> CurrentStageEnemies;
+    [SerializeField] public Transform EnemyParentTF;
 
     [Header("=== Effect Img")]
     [SerializeField] public TTypePooling<SpriteRenderer> AfterImgs;
@@ -121,13 +122,42 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Enemy
 
     // Enemy
-    public EnemyController GetOP_Enemy(GameObject _EC_Prefab)
+    public EnemyController GetOP_Enemy(int _EnemyID)
     {
-        if (_EC_Prefab != null)
-        { return GetOP<EnemyController>(_EC_Prefab, Enemy.ParentTF, Enemy.Queue); }
-        else
-        { return GetOP<EnemyController>(Enemy.Prefab, Enemy.ParentTF, Enemy.Queue); }
+        TTypePooling<EnemyController> enemy = FindCorrectEnemyQueue(_EnemyID);
+        return GetOP<EnemyController>(enemy.Prefab, enemy.ParentTF, enemy.Queue);
     }
+
+    public void EnqueueEnemy(EnemyController _Enemy)
+    {
+        FindCorrectEnemyQueue(_Enemy.EnemyID).Queue.Enqueue(_Enemy);
+    }
+
+    // Offset
+    public void EnemiesPoolingSet(List<GameObject> _EnemyGOs)
+    {
+        CurrentStageEnemies = new List<TTypePooling<EnemyController>>();
+        for (int i = 0; i < _EnemyGOs.Count; i++)
+        {
+            TTypePooling<EnemyController> enemy = new TTypePooling<EnemyController>(_EnemyGOs[i], EnemyParentTF);
+            CurrentStageEnemies.Add(enemy);
+        }
+    }
+
+    // Find
+    private TTypePooling<EnemyController> FindCorrectEnemyQueue(int _EnemyID)
+    {
+        for (int i = 0; i < CurrentStageEnemies.Count; i++)
+        {
+            if (CurrentStageEnemies[i].Prefab.TryGetComponent(out EnemyController EC) && EC.EnemyID == _EnemyID)
+            {
+                return CurrentStageEnemies[i];
+            }
+        }
+        Debug.Log("\'Enemy Queue\' cannot FIND!");
+        return null;
+    }
+
 
     // Enemy Bullet
     public EnemyBulletController GetOP_EnemyBullet()
@@ -202,4 +232,12 @@ public class TTypePooling<T>
     [SerializeField] public GameObject Prefab;
     [SerializeField] public Transform ParentTF;
     [SerializeField] public Queue<T> Queue = new Queue<T>();
+
+    public TTypePooling() { }
+
+    public TTypePooling(GameObject _Prefab, Transform _ParentTF) 
+    { 
+        Prefab = _Prefab;
+        ParentTF = _ParentTF;
+    }
 }

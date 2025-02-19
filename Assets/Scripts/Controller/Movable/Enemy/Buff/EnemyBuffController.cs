@@ -46,7 +46,7 @@ public class EnemyBuffController : MonoBehaviour
     {
         Enemy = _Enemy;
 
-        #region Buff
+        #region Normal Status Buff
 
         ShieldBuff = new StatusEffect_Temporary_WithoutAmount(
             Enemy, ShieldDurTime,
@@ -104,6 +104,22 @@ public class EnemyBuffController : MonoBehaviour
 
     #region Framework
 
+    private void OnEnable()
+    {
+        ShieldBuff.Clear();
+
+        FlameStack.Clear();
+        InfernoStack.Clear();
+
+        ColdStack.Clear();
+        AbsoluteZeroStack.Clear();
+
+        ElectricityStack.Clear();
+        PlasmaStack.Clear();
+
+        CorrosionStack.Clear();
+        DecayStack.Clear();
+    }
 
     private void Update()
     {
@@ -317,12 +333,22 @@ public class StatusEffect
     // 생성자
     public StatusEffect(EnemyController _Enemy, Sprite _IconSprite)
     {
+        IsOn = false;
+
         Enemy = _Enemy;
         IconSprite = _IconSprite;
     }
 
     #endregion
 
+    #region Clear
+
+    public virtual void Clear()
+    {
+        IsOn = false;
+    }
+
+    #endregion
 }
 
 #endregion
@@ -350,7 +376,6 @@ public class StatusEffect_Temporary : StatusEffect
         : base(_Enemy, _IconSprite)
     {
         Enemy = _Enemy;
-        IsOn = false;
 
         MaxCooltime = _MaxCooltime;
         CurrentCooltime = 0;
@@ -411,6 +436,16 @@ public class StatusEffect_Temporary : StatusEffect
     public virtual void UpdateCooltime(float _DeltaTime)
     {
         BuffIconUI.SetBuffState(CurrentCooltime / MaxCooltime);
+    }
+
+    #endregion
+
+    #region Clear
+
+    public override void Clear()
+    {
+        base.Clear();
+        RemoveAllStack();
     }
 
     #endregion
@@ -523,6 +558,16 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
     }
 
     #endregion
+
+    #region Clear
+
+    public override void Clear()
+    {
+        base.Clear();
+        RemoveAllStack();
+    }
+
+    #endregion
 }
 
 [Serializable]
@@ -575,6 +620,16 @@ public class StatusEffect_Temporary_WithoutAmount : StatusEffect_Temporary
             base.UpdateCooltime(_DeltaTime);
         }
 
+    }
+
+    #endregion
+
+    #region Clear
+
+    public override void Clear()
+    {
+        base.Clear();
+        RemoveAllStack();
     }
 
     #endregion
@@ -644,6 +699,16 @@ public class StatusEffect_Permanent : StatusEffect
     }
 
     #endregion
+
+    #region Clear
+
+    public override void Clear()
+    {
+        base.Clear();
+        RemoveAllStack();
+    }
+
+    #endregion
 }
 
 [Serializable]
@@ -697,10 +762,23 @@ public class StatusEffect_Permanent_WithAmount : StatusEffect_Permanent
     // 필요 없음! 
 
     // 버프 종료
-    // 필요 없음!
+    public override void RemoveAllStack()
+    {
+        base.RemoveAllStack();
+        CurrentStack = 0;
+    }
 
     #endregion
 
+    #region Clear
+
+    public override void Clear()
+    {
+        base.Clear();
+        RemoveAllStack();
+    }
+
+    #endregion
 }
 
 [Serializable]
@@ -713,6 +791,36 @@ public class StatusEffect_Permanent_WithoutAmount : StatusEffect_Permanent
         : base(_Enemy, _IconSprite, _GainFunc)
     {
 
+    }
+
+    #endregion
+
+    #region Func
+
+    // 버프 증가
+    // 필요 없음! 
+
+    // 버프 감소
+    // 필요 없음!
+
+
+    // 버프 시작
+    // 필요 없음! 
+
+    // 버프 종료
+    public override void RemoveAllStack()
+    {
+        base.RemoveAllStack();
+    }
+
+    #endregion
+
+    #region Clear
+
+    public override void Clear()
+    {
+        base.Clear();
+        RemoveAllStack();
     }
 
     #endregion

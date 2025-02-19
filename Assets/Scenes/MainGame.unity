@@ -2188,15 +2188,14 @@ MonoBehaviour:
   MissileBullet:
     Prefab: {fileID: 2192280153704162206, guid: d05f25d52068dd74988f837decc0268e, type: 3}
     ParentTF: {fileID: 888747044}
-  Enemy:
-    Prefab: {fileID: 272305898077013730, guid: 05b91a943b3a68940bc1c65c14590be2, type: 3}
-    ParentTF: {fileID: 1717915347}
   EnemyBullets:
     Prefab: {fileID: 2192280153704162206, guid: baf318852ebf135459cd69f0478fe943, type: 3}
     ParentTF: {fileID: 394877459}
   EnemyAttackers:
     Prefab: {fileID: 2154807210293626544, guid: e7453e73f7679b648b2dcca30557ad73, type: 3}
     ParentTF: {fileID: 1977592554}
+  CurrentStageEnemies: []
+  EnemyParentTF: {fileID: 1717915347}
   AfterImgs:
     Prefab: {fileID: 6683809427665404101, guid: 988330fe6e0cc58408522442eae73b35, type: 3}
     ParentTF: {fileID: 1782628309}
@@ -2317,6 +2316,10 @@ MonoBehaviour:
       - {fileID: 8671702513593221327, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
     BUShopAmount: 3
     MUShopAmount: 3
+    StageEnemyList:
+    - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
+    - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
+    - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
   OffsetRoomSize: {x: 22, y: 14}
   IsStartStage: 1
   BUShopPrefab: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}

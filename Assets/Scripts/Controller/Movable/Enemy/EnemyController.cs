@@ -13,7 +13,7 @@ public class EnemyController : MovableObject, IInteract
 
     [Space(10)]
     [Header("=== Data")]
-    [SerializeField] private string EnemyID;
+    [SerializeField] public int EnemyID;
 
     [Space(10)]
     [Header("=== State")]
@@ -81,10 +81,6 @@ public class EnemyController : MovableObject, IInteract
     {
         HUD.Offset(this);
 
-        CurrentSP.Value = 0;
-        CurrentHP.Value = MaxHP;
-        CurrentEP.Value = MaxEP;
-
         if (this.gameObject.TryGetComponent(out EnemyBuffController EBC))
         {
             BuffController = EBC;
@@ -141,6 +137,11 @@ public class EnemyController : MovableObject, IInteract
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        base.IsDead = false;
+        CurrentSP.Value = 0;
+        CurrentHP.Value = MaxHP;
+        CurrentEP.Value = MaxEP;
 
         if (Target == null)
         { Target = PlayerManager.Instance.PlayerController.gameObject; }
@@ -477,6 +478,7 @@ public class EnemyController : MovableObject, IInteract
 
         // Set
         this.gameObject.SetActive(false);
+        PoolingManager.Instance.EnqueueEnemy(this);
 
         // Effect
         DieEffect();

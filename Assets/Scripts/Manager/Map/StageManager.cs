@@ -153,6 +153,9 @@ public class StageManager : Singleton<StageManager>
         MainGameUIManager.Instance.PlayerHUD_UIController.SetStageDescription(reso.StageName, reso.StageDescription);
 
         MainGameUIManager.Instance.MapIntro_UIController.OnIntroLabel();
+
+        // 적 객체 오브젝트 풀링 시스템 세팅하기
+        PoolingManager.Instance.EnemiesPoolingSet(reso.StageEnemyList);
     }
 
     private void GenRoom(GameObject _Prefab, int _TempID, bool _IsStartRoom)
@@ -563,6 +566,9 @@ public class StageManager : Singleton<StageManager>
         [Space(20)]
         public int BUShopAmount = 1;
         public int MUShopAmount = 1;
+
+        [Space(20)]
+        public List<GameObject> StageEnemyList;
 
 
         [System.Serializable]

@@ -107,7 +107,11 @@ public class RoomRuleController : MonoBehaviour
             if (InRoom_AllEnemy[i].EnemySpawnTF != null &&
                 InRoom_AllEnemy[i].EnemyPrefab != null)
             {
-                EnemyController enemy = PoolingManager.Instance.GetOP_Enemy(InRoom_AllEnemy[i].EnemyPrefab);
+                int id = 0;
+                if (InRoom_AllEnemy[i].EnemyPrefab.TryGetComponent(out EnemyController EC))
+                { id = EC.EnemyID; Debug.Log("°¡Á®¿È!: " + id); }
+
+                EnemyController enemy = PoolingManager.Instance.GetOP_Enemy(id);
 
                 EnemyManager.Instance.CurrentEnemyList.Add(enemy);
 
@@ -137,6 +141,7 @@ public class RoomRuleController : MonoBehaviour
             }
         }
     }
+
     private void SetOutData_WayPoint()
     {
         for (int i = 0; i < InRoom_AllWayPoint.Count; i++)
