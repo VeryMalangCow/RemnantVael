@@ -124,7 +124,7 @@ public class EnemyController : MovableObject, IInteract
         if (BuffController == null && this.gameObject.TryGetComponent(out EnemyBuffController EBC))
         {
             BuffController = EBC;
-            BuffController.Enemy = this;
+            BuffController.Offset(this);
         }
     }
 
@@ -217,43 +217,6 @@ public class EnemyController : MovableObject, IInteract
             _BS.AbleKnockback, _KnockbackDir, _BS.KnockbackPower, _BS.KnockbackTime,
             _BS.IsCritical, _BS.CD, 
             _BS.BaseDamage);
-
-/*
-        if (_BS.DamageType == eDamageType.Physics)
-        {
-
-            // UI
-            PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
-            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-            ActualDMG, _BS.IsCritical);
-
-            SetIsDead(CurrentHP.Value, ActualDMG);
-            CurrentHP.Value -= ActualDMG;
-            if (CurrentHP.Value <= 0f)
-            {
-                base.IsDead = true;
-                Die();
-            }
-        }
-        else
-        {
-            if (!IsDischarge)
-            {
-                // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
-                    (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-                    ActualDMG, _BS.IsCritical);
-
-                GetEnergyDamaged(ActualDMG, true);
-            }
-            else
-            {
-                // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
-                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
-            }
-        }
-*/
     }
 
     // 어택커 데미지
@@ -268,42 +231,6 @@ public class EnemyController : MovableObject, IInteract
             _AS.AbleKnockback, _KnockbackDir, _AS.KnockbackPower, _AS.KnockbackTime,
             _IsCritical, _AS.CD, 
             _AS.BaseDamage);
-
-/*
-        if (_AS.DamageType == eDamageType.Physics)
-        {
-            // UI
-            PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
-            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-            ActualDMG, _IsCritical);
-
-            SetIsDead(CurrentHP.Value, ActualDMG);
-            CurrentHP.Value -= ActualDMG;
-            if (CurrentHP.Value <= 0f)
-            {
-                base.IsDead = true;
-                Die();
-            }
-        }
-        else
-        {
-            if (!IsDischarge)
-            {
-                // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
-                    (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-                    ActualDMG, _IsCritical);
-
-                GetEnergyDamaged(ActualDMG, true);
-            }
-            else
-            {
-                // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
-                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
-            }
-        }
-*/
     }
 
 
@@ -314,38 +241,12 @@ public class EnemyController : MovableObject, IInteract
         bool _IsCritical, float _CriticalDMG, 
         float _ActualDMG)
     {
-        /*
-        if (CurrentSP.Value > 0)
-        {
-            if (CurrentSP.Value > _ActualDMG)
-            {
-                // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByShieldDmg(
-                    (Vector2)TargetObject.transform.position + new Vector2(0.2f, 0.2f),
-                    _ActualDMG, _IsCritical);
-
-                CurrentSP.Value -= _ActualDMG;
-                return;
-            }
-            else
-            {
-                // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByShieldDmg(
-                    (Vector2)TargetObject.transform.position + new Vector2(0.2f, 0.2f),
-                    CurrentSP.Value, _IsCritical);
-
-                _ActualDMG -= CurrentSP.Value;
-                CurrentSP.Value = 0f;
-            }
-        }*/
-
-        
         ModuleItemManager.Instance.Active_Hit(this); // INTERFACE: 맞을 때 효과 
 
         // Knockback
         if (_AbleKnockback)
         {
-            Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
+            //Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
             GetKnockback(new KnockbackState(_KnockbackDir, _KnockbackPower, _KnockbackTime));
         }
 
@@ -371,21 +272,6 @@ public class EnemyController : MovableObject, IInteract
         }
         else // 에너지 값
         {
-            /*if (!IsDischarge)
-            {
-                // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
-                    (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-                    _ActualDMG, _IsCritical);
-
-                TakeEnergyDamaged(_ActualDMG, true);
-            }
-            else
-            {
-                // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
-                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
-            }*/
             TakeEnergyDamaged(_IsCritical, _ActualDMG, true);
         }
     }
@@ -488,19 +374,21 @@ public class EnemyController : MovableObject, IInteract
 
 
     // 추가 효과가 없는 데미지 계산
-    public void TakeDamaged_NoneExtraEffect(eDamageType _DmgType, float _Dmg)
+    public void TakeDamaged_NoneExtraEffect(eDamageType _DmgType, float _ActualDMG)
     {
         // 쉴드 계산
-        _Dmg = TakeShieldDamaged(false, _Dmg);
+        _ActualDMG = TakeShieldDamaged(false, _ActualDMG);
+        if (_ActualDMG <= 0)
+        { return; }
 
         // 직접 계산
         if (_DmgType == eDamageType.Physics)
         {
-            TakePhysicsDamaged(false, _Dmg);
+            TakePhysicsDamaged(false, _ActualDMG);
         }
         else
         {
-            TakeEnergyDamaged(false, _Dmg, false);
+            TakeEnergyDamaged(false, _ActualDMG, false);
         }
     }
 

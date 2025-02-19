@@ -55,7 +55,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         float percent = 0.25f * _BoostLv;
         if (percent > Random.Range(0f, 1f))
         {
-            Activity_InflictStatusEffect(eStatusEffect.Flame, _Rank, _EC.BuffController);
+            Activity_InflictStatusEffect(eStatusEffect.Flame, _Rank, _EC);
         }
     }
 
@@ -64,7 +64,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         float percent = 0.25f * _BoostLv;
         if (percent > Random.Range(0f, 1f))
         {
-            Activity_InflictStatusEffect(eStatusEffect.Cold, _Rank, _EC.BuffController);
+            Activity_InflictStatusEffect(eStatusEffect.Cold, _Rank, _EC);
         }
     }
 
@@ -73,7 +73,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         float percent = 0.25f * _BoostLv;
         if (percent > Random.Range(0f, 1f))
         {
-            Activity_InflictStatusEffect(eStatusEffect.Electricity, _Rank, _EC.BuffController);
+            Activity_InflictStatusEffect(eStatusEffect.Electricity, _Rank, _EC);
         }
     }
 
@@ -82,7 +82,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         float percent = 0.25f * _BoostLv;
         if (percent > Random.Range(0f, 1f))
         {
-            Activity_InflictStatusEffect(eStatusEffect.Corrosion, _Rank, _EC.BuffController);
+            Activity_InflictStatusEffect(eStatusEffect.Corrosion, _Rank, _EC);
         }
     }
 
@@ -122,23 +122,23 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     }
 
     // 상태이상을 적에게 가하는 함수
-    private void Activity_InflictStatusEffect(eStatusEffect _Kind, int _GainAmount, EnemyBuffController _EBC)
+    private void Activity_InflictStatusEffect(eStatusEffect _Kind, int _GainAmount, EnemyController _Enemy)
     {
         if (_Kind == eStatusEffect.Flame)
         {
-            _EBC.FlameStack.GainStack(_GainAmount);
+            _Enemy.BuffController.FlameStack.GainStack(_GainAmount, true);
         }
         else if (_Kind == eStatusEffect.Cold)
         {
-            _EBC.ColdStack.GainStack(_GainAmount);
+            _Enemy.BuffController.ColdStack.GainStack(_GainAmount, true);
         }
         else if (_Kind == eStatusEffect.Electricity)
         {
-            _EBC.ElectricityStack.GainStack(_GainAmount);
+            _Enemy.BuffController.ElectricityStack.GainStack(_GainAmount, true);
         }
         else
         {
-            _EBC.CorrosionStack.GainStack(_GainAmount);
+            _Enemy.BuffController.CorrosionStack.GainStack(_GainAmount, true);
         }
     }
 

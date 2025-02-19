@@ -33,30 +33,42 @@ public class EnemyBuffController : MonoBehaviour
 
     #endregion
 
-    #region Framework
+    #region Offset
 
-    private void Start()
+    public void Offset(EnemyController _Enemy)
     {
+        Enemy = _Enemy;
+
         ShieldBuff = new StatusEffect_WithoutAmount(
-            10, 
-            null, null);
+            Enemy, 10,
+            null, null,
+            EnemyManager.Instance.ShieldIcon);
 
         FlameStack = new StatusEffect_WithAmount(
-            eStatusEffect.Flame, 50, 3f, 1, false, 
-            null, FlameReduceEffect);
+            Enemy, eStatusEffect.Flame, 50, 3f, 1, false,
+            null, FlameReduceEffect,
+            EnemyManager.Instance.FlameIcon);
 
         ColdStack = new StatusEffect_WithAmount(
-            eStatusEffect.Cold, 30, 6f, 1, true, 
-            null, null);
+            Enemy, eStatusEffect.Cold, 30, 6f, 1, true,
+            null, null,
+            EnemyManager.Instance.ColdIcon);
 
         ElectricityStack = new StatusEffect_WithAmount(
-            eStatusEffect.Electricity, 40, 5f, 1, true,
-            ElectricityGainEffect, null);
+            Enemy, eStatusEffect.Electricity, 40, 5f, 1, true,
+            ElectricityGainEffect, null,
+            EnemyManager.Instance.ElectricityIcon);
 
         CorrosionStack = new StatusEffect_WithAmount(
-            eStatusEffect.Corrosion, 50, 4f, 1, false, 
-            null, null);
+            Enemy, eStatusEffect.Corrosion, 50, 4f, 1, false,
+            null, null,
+            EnemyManager.Instance.CorrosionIcon);
     }
+
+    #endregion
+
+    #region Framework
+
 
     private void Update()
     {
@@ -67,7 +79,33 @@ public class EnemyBuffController : MonoBehaviour
         ColdStack.UpdateCooltime(deltaTime);
         ElectricityStack.UpdateCooltime(deltaTime);
         CorrosionStack.UpdateCooltime(deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            FlameStack.GainStack( 1, true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ColdStack.GainStack( 1, true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ElectricityStack.GainStack(1, true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            CorrosionStack.GainStack(1, true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ShieldBuff.GainStack(1, false);
+        }
     }
+
+
+    #endregion
+
+    #region Buff
 
 
     #endregion
@@ -157,8 +195,8 @@ public class EnemyBuffController : MonoBehaviour
 [Serializable]
 public class StatusEffect
 {
+    public EnemyController Enemy;
     public bool IsOn;
-    public EnemyBuffIconUIController BuffIconUI = null;
 
     public float MaxCooltime;
     public float CurrentCooltime;
@@ -167,9 +205,13 @@ public class StatusEffect
     protected EffectDele GainDele = null;
     protected EffectDele ReduceDele = null;
 
-    public StatusEffect( 
-        float _MaxCooltime, EffectDele _GainFunc, EffectDele _ReduceFunc)
+    public EnemyBuffIconUIController BuffIconUI = null;
+    public Sprite IconSprite;
+
+    public StatusEffect(
+        EnemyController _Enemy, float _MaxCooltime, EffectDele _GainFunc, EffectDele _ReduceFunc, Sprite _IconSprite)
     {
+        Enemy = _Enemy;
         IsOn = false;
 
         MaxCooltime = _MaxCooltime;
@@ -177,18 +219,61 @@ public class StatusEffect
 
         GainDele = _GainFunc;
         ReduceDele = _ReduceFunc;
+
+        IconSprite = _IconSprite;
     }
 
-    protected void GainStack()
+
+    // 버프 증가
+    public virtual void GainStack(int _GainAmount, bool _ShowTxt)
     {
+        if (BuffIconUI == null)
+        {
+            GetFirstStack(_ShowTxt);
+        }
+
+        IsOn = true;
+
         if (GainDele != null)
         { GainDele(); }
     }
 
-    protected void ReduceStack()
+    // 버프 감소
+    public virtual void ReduceStack(int _GainAmount)
     {
         if (ReduceDele != null)
         { ReduceDele(); }
+    }
+
+
+    // 버프 시작
+    protected virtual void GetFirstStack(bool _ShowTxt)
+    {
+        if (BuffIconUI == null)
+        {
+            BuffIconUI = Enemy.HUD.BuffUI.GetBuffIconUI();
+            BuffIconUI.On(IconSprite, _ShowTxt);
+        }
+    }
+
+    // 버프 종료
+    protected virtual void RemoveAllStack()
+    {
+        if (BuffIconUI != null)
+        {
+            Enemy.HUD.BuffUI.ExpiredBuffIconUI(BuffIconUI);
+            //BuffIconUI.Off();
+            BuffIconUI = null;
+        }
+
+        IsOn = false;
+        CurrentCooltime = 0;
+    }
+
+
+    public virtual void UpdateCooltime(float _DeltaTime)
+    {
+        BuffIconUI.SetBuffState(CurrentCooltime / MaxCooltime);
     }
 }
 
@@ -205,9 +290,10 @@ public class StatusEffect_WithAmount : StatusEffect
 
     // 생성자
     public StatusEffect_WithAmount(
-        eStatusEffect _StatusType, int _MaxStack, float _MaxCooltime, int _OnceTimeReduceAmount, bool _IsResetWhenGain,
-        EffectDele _GainFunc, EffectDele _ReduceFunc) 
-        : base(_MaxCooltime, _GainFunc, _ReduceFunc)
+        EnemyController _Enemy, eStatusEffect _StatusType, int _MaxStack, float _MaxCooltime, int _OnceTimeReduceAmount, bool _IsResetWhenGain,
+        EffectDele _GainFunc, EffectDele _ReduceFunc, 
+        Sprite _IconSprite) 
+        : base(_Enemy, _MaxCooltime, _GainFunc, _ReduceFunc, _IconSprite)
     {
         StatusType = _StatusType;
 
@@ -218,35 +304,41 @@ public class StatusEffect_WithAmount : StatusEffect
         IsResetWhenGain = _IsResetWhenGain;
     }
 
+
     // 버프 증가
-    public void GainStack(int _GainAmount)
+    public override void GainStack(int _GainAmount, bool _ShowTxt)
     {
         CurrentStack = Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
-        IsOn = true;
 
         if (IsResetWhenGain)
         { 
             CurrentCooltime = 0; 
         }
 
-        base.GainStack();
+        base.GainStack(_GainAmount, _ShowTxt);
     }
 
     // 버프 감소
-    public void ReduceStack(int _ReduceAmount)
+    public override void ReduceStack(int _ReduceAmount)
     {
-        base.ReduceStack();
+        base.ReduceStack(_ReduceAmount);
 
         CurrentStack = Math.Clamp(CurrentStack - _ReduceAmount, 0, MaxStack);
         if (CurrentStack <= 0)
         {
-            IsOn = false;
-            CurrentCooltime = 0;
+            RemoveAllStack();
         }
     }
 
+
+    // 버프 시작
+    // 필요 없음! 
+
+    // 버프 종료
+    // 필요 없음!
+
     // 쿨타임
-    public void UpdateCooltime(float _DeltaTime)
+    public override void UpdateCooltime(float _DeltaTime)
     {
         if (IsOn)
         {
@@ -260,6 +352,13 @@ public class StatusEffect_WithAmount : StatusEffect
                 CurrentCooltime += _DeltaTime;
             }
         }
+
+        if (BuffIconUI != null)
+        {
+            base.UpdateCooltime(_DeltaTime);
+            BuffIconUI.SetBuffState(CurrentStack);
+        }
+
     }
 }
 
@@ -267,40 +366,45 @@ public class StatusEffect_WithAmount : StatusEffect
 public class StatusEffect_WithoutAmount : StatusEffect
 {
     public StatusEffect_WithoutAmount(
-        float _MaxCooltime, 
-        EffectDele _GainFunc, EffectDele _ReduceFunc)
-        : base(_MaxCooltime, _GainFunc, _ReduceFunc)
+        EnemyController _Enemy, float _MaxCooltime, 
+        EffectDele _GainFunc, EffectDele _ReduceFunc, 
+        Sprite _IconSprite)
+        : base(_Enemy, _MaxCooltime, _GainFunc, _ReduceFunc, _IconSprite)
     { }
 
     // 버프 획득
-    public void GetStack()
+    public override void GainStack(int _GainAmount, bool _ShowTxt)
     {
-        IsOn = true;
         CurrentCooltime = 0;
-        base.GainStack();
+        base.GainStack(_GainAmount, _ShowTxt);
     }
 
     // 버프 제거
-    public void RemoveStack()
+    protected override void RemoveAllStack()
     {
-        IsOn = false;
-        CurrentCooltime = 0;
-        base.ReduceStack();
+        base.ReduceStack(0);
+        base.RemoveAllStack();
     }
 
     // 쿨타임
-    public void UpdateCooltime(float _DeltaTime)
+    public override void UpdateCooltime(float _DeltaTime)
     {
         if (IsOn)
         {
             if (MaxCooltime <= CurrentCooltime) // 스택 감소
             {
-                RemoveStack();
+                RemoveAllStack();
             }
             else // 쿨타임 돌림
             {
                 CurrentCooltime += _DeltaTime;
             }
         }
+
+        if (BuffIconUI != null)
+        {
+            base.UpdateCooltime(_DeltaTime);
+        }
+
     }
 }
