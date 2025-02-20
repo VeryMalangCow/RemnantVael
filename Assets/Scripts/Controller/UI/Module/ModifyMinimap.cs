@@ -250,7 +250,7 @@ public class ModifyMinimap : UIModule
             })
             .OnComplete(() =>
             {
-                if (InteractingBookGate != null)
+                if (InteractingBookGate != null && StageManager.Instance.CurrentRoomController != InteractingBookGate.ParterGate.ThisRoom)
                 {
                     InteractingBookGate.Interact();
                 }
