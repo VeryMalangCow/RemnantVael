@@ -154,7 +154,9 @@ public class PoolingManager : Singleton<PoolingManager>
                 return CurrentStageEnemies[i];
             }
         }
+#if UNITY_EDITOR
         Debug.Log("\'Enemy Queue\' cannot FIND!");
+#endif
         return null;
     }
 

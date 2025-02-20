@@ -68,7 +68,9 @@ public class InputManager : Singleton<InputManager>
 
             if(!IsPlayingSkill)
             {
+#if UNITY_EDITOR
                 Debug.Log("선입력 실행");
+#endif
                 CurrentFirstInputDele();
                 UnsetFirstInput();
             }

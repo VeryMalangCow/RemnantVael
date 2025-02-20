@@ -70,9 +70,12 @@ public class StageManager : Singleton<StageManager>
         // Shop 지정
         int normalRoomAmount = GetRoomAmount(_StageID);
 
+#if UNITY_EDITOR
         if (normalRoomAmount <= (reso.BUShopAmount + reso.MUShopAmount) || 
             reso.BUShopAmount < 0 || reso.MUShopAmount < 0)
         { Debug.Log("상점 지정 수가 너무 많거나 음수 입니다."); }
+#endif
+
         else
         {
             BUShopIndexs = new List<int>();

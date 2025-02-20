@@ -130,28 +130,6 @@ public class EnemyBuffController : MonoBehaviour
         ColdStack.UpdateCooltime(deltaTime);
         ElectricityStack.UpdateCooltime(deltaTime);
         CorrosionStack.UpdateCooltime(deltaTime);
-
-        Debug.Log("Test : Need To Delete"); 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            FlameStack.GainStack(5, true);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ColdStack.GainStack(5, true);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ElectricityStack.GainStack(5, true);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            CorrosionStack.GainStack(5, true);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            ShieldGain(10);
-        }
     }
 
 
@@ -353,7 +331,7 @@ public class StatusEffect
 
 #endregion
 
-#region Temporary
+#region Temporary Effect
 
 [Serializable]
 public class StatusEffect_Temporary : StatusEffect
@@ -637,7 +615,7 @@ public class StatusEffect_Temporary_WithoutAmount : StatusEffect_Temporary
 
 #endregion
 
-#region Permanent
+#region Permanent Effect
 
 [Serializable]
 public class StatusEffect_Permanent : StatusEffect

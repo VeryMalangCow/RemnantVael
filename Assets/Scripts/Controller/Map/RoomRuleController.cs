@@ -107,9 +107,12 @@ public class RoomRuleController : MonoBehaviour
             if (InRoom_AllEnemy[i].EnemySpawnTF != null &&
                 InRoom_AllEnemy[i].EnemyPrefab != null)
             {
-                int id = 0;
+                int id = -1;
                 if (InRoom_AllEnemy[i].EnemyPrefab.TryGetComponent(out EnemyController EC))
-                { id = EC.EnemyID; Debug.Log("가져옴!: " + id); }
+                { id = EC.EnemyID; }
+#if UNITY_EDITOR
+                Debug.Assert(id == -1, "Enemy ID를 찾지 못했습니다.");
+#endif
 
                 EnemyController enemy = PoolingManager.Instance.GetOP_Enemy(id);
 

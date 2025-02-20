@@ -92,7 +92,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public void Active_CriticalHit(EnemyController _EC)
     {
-        Debug.Log(iWhen_CriticalHitList.Count);
         if (iWhen_CriticalHitList.Count > 0)
         {
             for (int i = 0; i < iWhen_CriticalHitList.Count; i++)

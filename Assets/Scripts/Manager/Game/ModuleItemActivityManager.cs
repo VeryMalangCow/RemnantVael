@@ -100,8 +100,6 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         // 확률
         if ((_Rank * _BoostLv) > UnityEngine.Random.Range(0, 100))
         {
-            Debug.Log("스폰");
-
             // 데미지 계산
             float dmg = _Rank * PCWeapon.BaseDamage.ActualState.Value;
             PlayerBulletController pbc = _Bullet;

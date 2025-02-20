@@ -42,10 +42,12 @@ public class ModifyInventory : UIModule
                 ThisRT.sizeDelta = new Vector2(CaculateWidth, CaculateHeight);
             }
         }
+#if UNITY_EDITOR
         else
         {
             Debug.Log("Row Or Column Is Zero!");
         }
+#endif
 
         GenSlotList();
     }

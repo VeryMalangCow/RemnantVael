@@ -1278,7 +1278,10 @@ public class BaseUpgradeState<T>
             return;
         }
 
-        Debug.Log("null");
+#if UNITY_EDITOR
+        Debug.Assert(false, "Player Buff의 자료형이 구현되어 있지 않습니다.");
+#endif
+
         return;
     }
 

@@ -16,12 +16,10 @@ public class FirstTimeChecker : MonoBehaviour
         if (File.Exists(firstRunFilePath))
         {
             txt.text = "Already!";
-            Debug.Log("이전에 실행된 적 있음.");
         }
         else
         {
             txt.text = "First!";
-            Debug.Log("처음 실행됨!");
             File.WriteAllText(firstRunFilePath, "initialized"); // 파일 생성
         }
     }

@@ -31,13 +31,14 @@ public class SaveDataManager : Singleton<SaveDataManager>
     #endregion
 }
 
+#region Character
+
 public class CharacterSaveData
 {
     Dictionary<int, bool> SaveData;
 
     public void LoadData()
     {
-        Debug.Log("실제 데이터가 들어갈 부분");
         SaveData = new Dictionary<int, bool>()
         {
             {0, true},
@@ -66,3 +67,5 @@ public class CharacterSaveData
         return IDs;
     }
 }
+
+#endregion

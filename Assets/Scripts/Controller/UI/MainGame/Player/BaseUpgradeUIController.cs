@@ -403,7 +403,6 @@ public class OneOffShopEachData<T>
         int index = Upgrade_BUS.CurrentLevel.Value;
         int needEC = Upgrade_BUOTD.BU_EachLevelDataList[index].NeedEC_ForUpgrade;
         int hadEC = PlayerManager.Instance.PlayerController.CurrentEC.Value;
-        Debug.Log(needEC + " / " + hadEC);
         if (needEC <= hadEC)
         {
             Buy(needEC, Upgrade_BUOTD.BU_EachLevelDataList.Count, Upgrade_BUOTD.BU_EachLevelDataList[index].UpgradeValue);

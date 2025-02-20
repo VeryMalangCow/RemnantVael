@@ -613,7 +613,6 @@ public class ModuleUpgradeUIController : UIController
         int indexOfAboutPanel = ThisPanelTabList.IndexOf(CurrentThisPanelTab);
         if (indexOfAboutPanel == 0) // Equiped Window
         {
-            Debug.Log("Equiped Window");
             if (CurrentSelectedMEIS.IsInventory) // Equip
             {
                 TryEquip();
@@ -627,23 +626,19 @@ public class ModuleUpgradeUIController : UIController
         }
         else if (indexOfAboutPanel == 1) // Reinforce Window
         {
-            Debug.Log("Reinforce Window");
             if (CurrentSelectedMEIS.IsInventory)
             {
                 int indexOfAboutReinforce = ReinforceInteractPanels.IndexOf(CurrentReinforceInteractPanel);
                 if (indexOfAboutReinforce == 0) // Decompostion
                 {
-                    Debug.Log("Deco");
                     TryInteract_DesompositionSlot();
                 }
                 else if (indexOfAboutReinforce == 1) // Fusion
                 {
-                    Debug.Log("Fusion");
                     TryInteract_FusionSlot();
                 }
                 else // Upgrade
                 {
-                    Debug.Log("Upgrade");
                     TryInteract_UpgradeSlot();
                 }
             }
@@ -671,12 +666,12 @@ public class ModuleUpgradeUIController : UIController
         {
             if (ms.ThisExtraMEII.Contains(MEIS.ThisSlotItem))
             {
-                Debug.Log("Exist Already!");
+#if UNITY_EDITOR
+                Debug.Log("이미 존재합니다.");
+#endif
                 return;
             }
         }
-
-        Debug.Log("Equip!");
 
         // Module UI
         ModuleItemManager.Instance.Equiped_MSList.Add(ms);
@@ -692,7 +687,7 @@ public class ModuleUpgradeUIController : UIController
 
         // Player HUD
         int slotIndex = EquipedMEIS_List.IndexOf(meis);
-        Debug.Log(slotIndex);
+
         ModifyEachInventoryItem meii_PlayerHUD
             = MI_InEquipTab.SpawnMEII_Module(
                 MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[slotIndex],
@@ -975,7 +970,6 @@ public class ModuleUpgradeUIController : UIController
         {
             // Cost
             int needEC = ModuleItemManager.Instance.NeedEC_AbleUpgrade(CurrentUpgradeItem);
-            Debug.Log(needEC);
 
             if (needEC == 0 ||
                 needEC > PlayerManager.Instance.PlayerController.CurrentEC.Value)
@@ -1148,7 +1142,6 @@ public class ModuleUpgradeUIController : UIController
         ModuleState ms_InInventory = ModuleItemManager.Instance.GetModuleState_Inventory(_MEII);
         if (ms_InInventory != null)
         {
-            Debug.Log("Inven");
             ThisDescPanel.SetDesc(ms_InInventory);
             return;
         }
@@ -1156,7 +1149,6 @@ public class ModuleUpgradeUIController : UIController
         ModuleState ms_InEquiped = ModuleItemManager.Instance.GetModuleState_Equiped(_MEII);
         if (ms_InEquiped != null)
         {
-            Debug.Log("Equiped");
             ThisDescPanel.SetDesc(ms_InEquiped);
             return;
         }

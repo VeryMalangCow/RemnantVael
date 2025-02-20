@@ -60,7 +60,9 @@ public class ChoiceCharacterUIController : UIController
         if (CharacterBtnList.Contains(CurrentBtn))
         {
             int index = CharacterBtnList.IndexOf(CurrentBtn);
-            Debug.Log(index);
+#if UNITY_EDITOR
+            Debug.Log("선택한 캐릭터의 ID: " + index);
+#endif
             GameManager.Instance.DesignatedPlayerPrefab = SaveDataManager.Instance.CharacterPrefabs[index];
         }
     }

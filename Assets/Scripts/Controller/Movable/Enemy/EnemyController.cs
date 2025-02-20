@@ -98,7 +98,6 @@ public class EnemyController : MovableObject, IInteract
                     HUD.StateUI.HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
                     HUD.StateUI.EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
 
-                    Debug.Log(BuffController.ShieldBuff.IsOn);
                     if (BuffController.ShieldBuff.IsOn)
                     { BuffController.ShieldBuff.RemoveAllStack(); }
                 }
@@ -409,7 +408,6 @@ public class EnemyController : MovableObject, IInteract
                 CurrentEP.Value = 0;
                 IsDischarge = true;
                 StartCoroutine(RecoverLethargy());
-                Debug.Log(this.gameObject.name + " / Lethargy!!!");
             }
 
             // 에너지 조각 생성

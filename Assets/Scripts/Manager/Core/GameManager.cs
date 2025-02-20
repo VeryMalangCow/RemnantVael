@@ -156,6 +156,7 @@ public enum eRoomType
     Completed, KillAll, Survived, BossKill
 }
 
+
 // Interface
 
 public interface IInteract
