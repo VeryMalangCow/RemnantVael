@@ -40,6 +40,18 @@ public class SatelliteController : MonoBehaviour
 
     #region Rotate
 
+    public void SetRotation(Vector2 _Dir)
+    {
+        SetRotation(PitchTF, _Dir);
+    }
+
+    public void SetRotation(Transform _PitchTF, Vector2 _Dir)
+    {
+        _PitchTF.transform.localRotation = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f);
+        foreach (Satellite hand in Hands)
+        { hand.SetPos(PlayerSR.sortingOrder); }
+    }
+
     public Quaternion RotateSmooth(Vector2 _Dir)
     {
         return RotateSmooth(_Dir, PitchTF, rotateSpeed);

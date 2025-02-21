@@ -7,7 +7,7 @@ public class TitlePlayerController : MovableObject
 
     [Space(10)]
     [Header("=== Movement")]
-    [SerializeField] SatelliteController HigherBody;
+    [SerializeField] public SatelliteController HigherBody;
     [SerializeField] private float WalkSpeed = 1f;
 
     [Space(10)]
@@ -44,7 +44,7 @@ public class TitlePlayerController : MovableObject
 
     private void Movement()
     {
-        Walk(InputTitleManager.Instance.InputMoveDir, WalkSpeed, AccelerationSpeed);
+        Walk(TitleInputManager.Instance.InputMoveDir, WalkSpeed, AccelerationSpeed);
     }
 
     #endregion
@@ -55,7 +55,7 @@ public class TitlePlayerController : MovableObject
     {
         if (CurrentInteractable != null)
         {
-            InputTitleManager.Instance.InputMoveDir = Vector2.zero;
+            TitleInputManager.Instance.InputMoveDir = Vector2.zero;
             CurrentInteractable.Interact();
         }
     }

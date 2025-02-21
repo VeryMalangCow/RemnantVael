@@ -357,7 +357,7 @@ TextureImporter:
         width: 480
         height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -365,6 +365,48 @@ TextureImporter:
       bones: []
       spriteID: 5a310b888bdb7814fb2c13799df67f96
       internalID: 1393103019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Module_Upside
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 387
+        width: 4
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8a1f683ea07d2d4db706184dcb065c5
+      internalID: 1601718592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Module_Downside
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 180
+        width: 4
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe0f1119eb8c14e4b963a41793abe58a
+      internalID: 1415861699
       vertices: []
       indices: 
       edges: []
@@ -397,6 +439,8 @@ TextureImporter:
       PlayerModuleUI_ScrollBar: 1518208546
       PlayerModuleUI_ScrollBar_BG: -1226440755
       UI_Module_BloodScreen: 1393103019
+      UI_Module_Downside: 1415861699
+      UI_Module_Upside: 1601718592
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

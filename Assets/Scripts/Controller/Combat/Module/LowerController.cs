@@ -10,7 +10,7 @@ public class LowerController : SatelliteController
     [Header("<><><><><> Lower")]
 
     [Header("-- Component")]
-    [SerializeField] private Rigidbody2D ThisRb;
+    [SerializeField] public Rigidbody2D ThisRb;
     [SerializeField] private List<Animator> ThisAnimatorList;
     [SerializeField] private SpriteRenderer CenterSpriteRenderer;
 
@@ -44,7 +44,7 @@ public class LowerController : SatelliteController
 
     #region Set
 
-    private void SetAll(Vector2 _Dir)
+    public void SetAll(Vector2 _Dir)
     {
         // Rotate
         PitchTF.transform.localRotation = RotateSmooth(_Dir.normalized);

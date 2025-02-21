@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputTitleManager : Singleton<InputTitleManager>
+public class TitleInputManager : Singleton<TitleInputManager>
 {
     #region Value
 
@@ -32,6 +32,25 @@ public class InputTitleManager : Singleton<InputTitleManager>
 
         PlayerInput.actions["Et_Select"].performed += Input_Et_Select;
         PlayerInput.actions["Et_OutPanel"].performed += Input_Et_OutPanel;
+    }
+
+    public void OnDisableInput()
+    {
+        if (TitlePlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
+        { PlayerInput = PI; }
+
+        PlayerInput.actions["InTitleUI"].performed -= Input_InTitleUI;
+        PlayerInput.actions["Walk"].performed -= Input_Walk;
+        PlayerInput.actions["Interact"].performed -= Input_Interact;
+
+        PlayerInput.actions["OutTitleUI"].performed -= Input_OutTitleUI;
+        PlayerInput.actions["TU_Select"].performed -= Input_TU_Select;
+
+        PlayerInput.actions["CC_Select"].performed -= Input_CC_Select;
+        PlayerInput.actions["CC_OutPanel"].performed -= Input_CC_OutPanel;
+
+        PlayerInput.actions["Et_Select"].performed -= Input_Et_Select;
+        PlayerInput.actions["Et_OutPanel"].performed -= Input_Et_OutPanel;
     }
 
     #endregion

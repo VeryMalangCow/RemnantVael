@@ -164,6 +164,13 @@ public class CSVManager : Singleton<CSVManager>
 
                 eventElement = new EventElement_Stay(id, targetTime);
             }
+            else if (name == "Look")
+            {
+                string[] vectorString = stringList[i][2].Split("/");
+                Vector2 vector = new Vector2(float.Parse(vectorString[0]), float.Parse(vectorString[1]));
+
+                eventElement = new EventElement_Look(id, vector);
+            }
             // ¿Ãµø
             else if (name == "Move")
             {

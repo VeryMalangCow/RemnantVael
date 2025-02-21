@@ -169,7 +169,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             {
                 ScreenCanvas.gameObject.SetActive(false);
                 GameManager.Instance.WasWatched = true;
-                InputTitleManager.Instance.OnEnableInput();
+                TitleInputManager.Instance.OnEnableInput();
             });
 
         return firstSeq;

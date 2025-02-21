@@ -95,7 +95,7 @@ public class ChoiceCharacterUIController : UIController
         if (DOTween.IsTweening("ChoiceCharacterUIPanel"))
         { return; }
 
-        InputTitleManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName); 
+        TitleInputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName); 
         //InputManager.Instance.SetAim(false);
 
         Sequence seq = DOTween.Sequence();
@@ -114,7 +114,7 @@ public class ChoiceCharacterUIController : UIController
         if (DOTween.IsTweening("ChoiceCharacterUIPanel"))
         { return; }
 
-        InputTitleManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
+        TitleInputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
         //InputManager.Instance.SetAim(true);
 
         Sequence seq = DOTween.Sequence();

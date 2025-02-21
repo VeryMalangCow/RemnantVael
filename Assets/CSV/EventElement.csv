@@ -1,5 +1,17 @@
 ID,Name,Time / Vector2
-0,Stay,1
-1,Move,0/0
-2,BlackScreenIn,3
-3,BlackScreenOut,1
+0,Stay,0.5
+1,Stay,1
+2,Stay,1.5
+3,Stay,2
+4,Look,0/1
+5,Look,1/1
+6,Look,1/0
+7,Look,1/-1
+8,Look,0/-1
+9,Look,-1/-1
+10,Look,-1/0
+11,Look,-1/1
+12,BlackScreenIn,3
+13,BlackScreenOut,1
+14,Move,0/0
+15,Move,-1/0
