@@ -472,22 +472,27 @@ public class PlayerHUDController : UIController
     {
         for (int i = 0; i < _Arr.Length; i++)
         {
-            _Arr[i].TryGetComponent(out Image img);
-            if (DOTween.IsTweening(img))
-            { DOTween.Kill(img); }
+            if (_Arr[i] == null)
+            { return; }
 
-            if (i < _CurrentLv)
-            { 
-                _Arr[i].SetActive(true);
-                img.DOFade(1f, 0.2f);
-            }
-            else
-            { 
-                img.DOFade(0f, 0.2f)
-                    .OnComplete(() =>
-                    {
-                        _Arr[i].SetActive(false);
-                    });
+            if (_Arr[i].TryGetComponent(out Image img))
+            {
+                if (DOTween.IsTweening(img))
+                { DOTween.Kill(img); }
+
+                if (i < _CurrentLv)
+                {
+                    _Arr[i].SetActive(true);
+                    img.DOFade(1f, 0.2f);
+                }
+                else
+                {
+                    img.DOFade(0f, 0.2f)
+                        .OnComplete(() =>
+                        {
+                            _Arr[i].SetActive(false);
+                        });
+                }
             }
         }
     }

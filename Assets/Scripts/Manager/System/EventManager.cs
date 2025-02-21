@@ -107,46 +107,8 @@ public class EventManager : Singleton<EventManager>
     {
         IsPlayingEvent = true;
 
-        #region Set On/Off
-
-        string sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName == "TitleLobby")
-        { 
-            TitleInputManager.Instance.OnDisableInput(); 
-        }
-        else if (sceneName == "MainGame")
-        { 
-            InputManager.Instance.OnDisableInput();
-            InputManager.Instance.SetAimAllOff();
-
-            InputManager.Instance.InputMoveDir = Vector2.zero;
-            InputManager.Instance.CanMouseInput = false;
-        }
-
-        #endregion
-
-        #region Tween
-
-        // 트윈
-        if (DOTween.IsTweening(BlackUpsideRT))
-        { DOTween.Kill(BlackUpsideRT); }
-
-        BlackUpsideRT.DOAnchorPosY(0, 0.3f)
-            .OnStart(() =>
-            {
-                BlackUpsideRT.gameObject.SetActive(true);
-            });
-
-
-        if (DOTween.IsTweening(BlackDownsideRT))
-        { DOTween.Kill(BlackDownsideRT); }
-
-        BlackDownsideRT.DOAnchorPosY(0, 0.3f)
-            .OnStart(() =>
-            {
-                BlackDownsideRT.gameObject.SetActive(true);
-            });
-        #endregion
+        SetInputSetting(false);
+        SetBlackUpDownCover(true);
     }
 
     // 이벤트 실행 시, 설정 오프
@@ -155,48 +117,85 @@ public class EventManager : Singleton<EventManager>
         CurrentEvent = null;
         IsPlayingEvent = false;
 
-        #region Set On/Off
+        SetInputSetting(true);
+        SetBlackUpDownCover(false);
+    }
 
+    // 인풋 => On / Off
+    public void SetInputSetting(bool _OnOff)
+    {
         string sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName == "TitleLobby")
+        if (_OnOff)
         {
-            TitleInputManager.Instance.OnEnableInput();
+            if (sceneName == "TitleLobby")
+            {
+                TitleInputManager.Instance.OnEnableInput();
+            }
+            else if (sceneName == "MainGame")
+            {
+                InputManager.Instance.OnEnableInput();
+                InputManager.Instance.SetAim(true);
+
+                InputManager.Instance.CanMouseInput = true;
+            }
         }
-        else if (sceneName == "MainGame")
-        { 
-            InputManager.Instance.OnEnableInput();
-            InputManager.Instance.SetAim(true);
+        else
+        {
+            if (sceneName == "TitleLobby")
+            {
+                TitleInputManager.Instance.OnDisableInput();
+            }
+            else if (sceneName == "MainGame")
+            {
+                InputManager.Instance.OnDisableInput();
+                InputManager.Instance.SetAimAllOff();
 
-            InputManager.Instance.CanMouseInput = true;
+                InputManager.Instance.InputMoveDir = Vector2.zero;
+                InputManager.Instance.CanMouseInput = false;
+            }
         }
+    }
 
-        #endregion
-
-        #region Tween
-
+    // 블랙커버 위 아래 => On / Off
+    public void SetBlackUpDownCover(bool _OnOff)
+    {
         if (DOTween.IsTweening(BlackUpsideRT))
         { DOTween.Kill(BlackUpsideRT); }
-
-        float upsideY = BlackUpsideRT.rect.height;
-        BlackUpsideRT.DOAnchorPosY(upsideY, 0.3f)
-            .OnComplete(() =>
-            {
-                BlackUpsideRT.gameObject.SetActive(false);
-            });
-
 
         if (DOTween.IsTweening(BlackDownsideRT))
         { DOTween.Kill(BlackDownsideRT); }
 
-        float downsideY = BlackDownsideRT.rect.height;
-        BlackDownsideRT.DOAnchorPosY(-downsideY, 0.3f)
-            .OnComplete(() =>
-            {
-                BlackDownsideRT.gameObject.SetActive(false);
-            });
-        #endregion
-    }
+        if (_OnOff)
+        {
+            BlackUpsideRT.DOAnchorPosY(0, 0.3f)
+                .OnStart(() =>
+                {
+                    BlackUpsideRT.gameObject.SetActive(true);
+                });
 
+            BlackDownsideRT.DOAnchorPosY(0, 0.3f)
+                .OnStart(() =>
+                {
+                    BlackDownsideRT.gameObject.SetActive(true);
+                });
+        }
+        else
+        {
+            float upsideY = BlackUpsideRT.rect.height;
+            BlackUpsideRT.DOAnchorPosY(upsideY, 0.3f)
+                .OnComplete(() =>
+                {
+                    BlackUpsideRT.gameObject.SetActive(false);
+                });
+
+            float downsideY = BlackDownsideRT.rect.height;
+            BlackDownsideRT.DOAnchorPosY(-downsideY, 0.3f)
+                .OnComplete(() =>
+                {
+                    BlackDownsideRT.gameObject.SetActive(false);
+                });
+        }
+    }
 
     #endregion
 

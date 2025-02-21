@@ -1920,11 +1920,11 @@ MonoBehaviour:
   InRoom_PrisonTF: {fileID: 3044128940357380230}
   InRoom_Elevator: {fileID: 0}
   InRoom_AllEnemy:
-  - EnemyPrefab: {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
+  - EnemyID: 0
     EnemySpawnTF: {fileID: 7661713667687456443}
-  - EnemyPrefab: {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
+  - EnemyID: 0
     EnemySpawnTF: {fileID: 8192309023646657444}
-  - EnemyPrefab: {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
+  - EnemyID: 0
     EnemySpawnTF: {fileID: 1018179487133792968}
   InRoom_WayPointParentTF: {fileID: 1130655662164710366}
   InRoom_AllWayPoint: []

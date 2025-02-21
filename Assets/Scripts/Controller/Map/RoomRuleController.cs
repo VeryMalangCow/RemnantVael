@@ -104,17 +104,9 @@ public class RoomRuleController : MonoBehaviour
 
         for (int i = 0; i < InRoom_AllEnemy.Count; i++)
         {
-            if (InRoom_AllEnemy[i].EnemySpawnTF != null &&
-                InRoom_AllEnemy[i].EnemyPrefab != null)
+            if (InRoom_AllEnemy[i].EnemySpawnTF != null)
             {
-                int id = -1;
-                if (InRoom_AllEnemy[i].EnemyPrefab.TryGetComponent(out EnemyController EC))
-                { id = EC.EnemyID; }
-#if UNITY_EDITOR
-                Debug.Assert(id == -1, "Enemy ID를 찾지 못했습니다.");
-#endif
-
-                EnemyController enemy = PoolingManager.Instance.GetOP_Enemy(id);
+                EnemyController enemy = PoolingManager.Instance.GetOP_Enemy(InRoom_AllEnemy[i].EnemyID);
 
                 EnemyManager.Instance.CurrentEnemyList.Add(enemy);
 
@@ -175,7 +167,7 @@ public class RoomRuleController : MonoBehaviour
     [System.Serializable]
     public class EnemySpot
     {
-        [SerializeField] public GameObject EnemyPrefab;
+        [SerializeField] public int EnemyID;
         [SerializeField] public Transform EnemySpawnTF;
     }
 

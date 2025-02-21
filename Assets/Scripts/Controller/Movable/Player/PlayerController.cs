@@ -280,7 +280,7 @@ public class PlayerController : MovableObject
 
         StateAnim.transform.parent.transform.gameObject.SetActive(true); 
 
-        InputManager.Instance.OnEnableInput();
+        //InputManager.Instance.OnEnableInput();
         StageManager.Instance.IsStartStage = false;
         LayerOrderManager.Instance.NeedLayerObjects.Add(PlayerManager.Instance.PlayerController);
 
@@ -296,7 +296,7 @@ public class PlayerController : MovableObject
 
         StateAnim.transform.parent.transform.gameObject.SetActive(false);
 
-        InputManager.Instance.OnDisableInput();
+        //InputManager.Instance.OnDisableInput();
     }
 
     #endregion

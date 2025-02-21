@@ -17,6 +17,7 @@ public class UpendElevatorController : HaveShadowThingStatic
 
     private void Start()
     {
+        EventManager.Instance.SetBlackUpDownCover(true);
         MoveToTarget();
     }
 
@@ -41,8 +42,9 @@ public class UpendElevatorController : HaveShadowThingStatic
             .OnComplete(() =>
             {
                 PlayerManager.Instance.PlayerController.SetStartStage();
-                InputManager.Instance.SetAim(true);
-                InputManager.Instance.CanMouseInput = true;
+
+                EventManager.Instance.SetInputSetting(true);
+                EventManager.Instance.SetBlackUpDownCover(false);
             });
     }
 

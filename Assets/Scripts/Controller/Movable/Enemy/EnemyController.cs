@@ -141,6 +141,7 @@ public class EnemyController : MovableObject, IInteract
         CurrentSP.Value = 0;
         CurrentHP.Value = MaxHP;
         CurrentEP.Value = MaxEP;
+        IsDischarge = false;
 
         if (Target == null)
         { Target = PlayerManager.Instance.PlayerController.gameObject; }

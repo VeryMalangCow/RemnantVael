@@ -181,10 +181,10 @@ MonoBehaviour:
   BaseYLimit: 0.06
   BaseTweenReTime: 0.3
   ThisComponentGOList: []
-  EnemyID: 01
+  EnemyID: 1
   ThisEnemyType: 0
-  MaxHP: 1000
-  MaxEP: 30
+  MaxHP: 200
+  MaxEP: 150
   IsDischarge: 0
   RecoverLethargyTime: 4
   ItemDropPercent: 1
