@@ -48,7 +48,7 @@ public class AbsorbItemController : ItemController
 
     protected void SetState(Vector2 _SpawnPos, GameObject _TargetObject)
     {
-        this.gameObject.transform.position = _SpawnPos;
+        base.SetState(_SpawnPos);
         TargetGO = _TargetObject;
     }
 

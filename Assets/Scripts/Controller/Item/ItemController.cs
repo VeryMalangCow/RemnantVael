@@ -18,6 +18,7 @@ public class ItemController : HaveShadowThingStatic
     protected void SetState(Vector2 _SpawnPos)
     {
         this.gameObject.transform.position = _SpawnPos;
+        TargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * TargetRange);
     }
 
     #endregion

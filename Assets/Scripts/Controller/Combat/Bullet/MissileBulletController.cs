@@ -51,6 +51,8 @@ public class MissileBulletController : BulletController
     public void SetState_forMissile(Vector2 _SpawnVec, BulletState _BulletState, Vector2 _Dir, float _TargetRange)
     {
         // Offset
+        IsGuided = false;
+
         TargetEnemyController = null;
         float targetSpeed = _BulletState.MuzzleSpeed;
 

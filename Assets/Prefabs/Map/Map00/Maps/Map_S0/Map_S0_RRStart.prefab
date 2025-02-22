@@ -764,7 +764,8 @@ MonoBehaviour:
   RoomType: 0
   InRoom_AllBuildingParentTF: {fileID: 5083685775733296416}
   InRoom_AllBuilding: []
-  InRoom_BuildThing: {fileID: 0}
+  InRoom_ShopTF: {fileID: 0}
+  InRoom_PrisonTF: {fileID: 0}
   InRoom_Elevator: {fileID: 0}
   InRoom_AllEnemy: []
   InRoom_WayPointParentTF: {fileID: 0}
@@ -993,7 +994,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       insertIndex: 2
-      addedObject: {fileID: 6646148126662955146}
+      addedObject: {fileID: 4480694234832679242}
     - targetCorrespondingSourceObject: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6063841949251669132}
@@ -1008,7 +1009,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
   m_PrefabInstance: {fileID: 8534555921274077940}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6646148126662955146
+--- !u!114 &4480694234832679242
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1017,7 +1018,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8004768081960033957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df972ff2bea83124aae5e54ebe2ef256, type: 3}
+  m_Script: {fileID: 11500000, guid: 8efac2f5ac4ca2848826713463aa1531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ThisCol: {fileID: 0}

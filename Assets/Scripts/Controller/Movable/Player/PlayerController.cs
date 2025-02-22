@@ -462,6 +462,7 @@ public class PlayerController : MovableObject
 
     #region Damage
 
+    // 타격: 총알
     public void TryHitted(EnemyBulletController _EBC)
     {
         if (IsInvincible)
@@ -490,6 +491,7 @@ public class PlayerController : MovableObject
         }
     }
 
+    // 타격: 어택커
     public void TryHitted(EnemyAttacker _Attacker)
     {
         if (IsInvincible)
@@ -518,6 +520,31 @@ public class PlayerController : MovableObject
         }
     }
 
+    // 타격: 건물어택커
+    public void TryHitted(BuildAttacker _Attacker)
+    {
+        if (IsInvincible)
+        { return; }
+
+        // 항상
+        Hitted();
+
+        // 피격
+        if (!IsAvoid()) // 회피인지?
+        {
+            // 간소화
+            AttackerState state = _Attacker.AttackerState;
+
+            // 데미지 구현
+            TakeDamaged(state.BaseDamage,
+                ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
+                state.AbleKnockback,
+                state.KnockbackPower,
+                state.KnockbackTime);
+        }
+    }
+
+    // 회피?
     public bool IsAvoid()
     {
         // 회피
@@ -529,6 +556,7 @@ public class PlayerController : MovableObject
         return false;
     }
 
+    // 맞을 때, 효과
     private void Hitted()
     {
         IsInvincible = true;
@@ -547,6 +575,7 @@ public class PlayerController : MovableObject
         }
     }
 
+    // 데미지 계산
     private void TakeDamaged(float _DmgValue, Vector2 _HittedDir, bool _AbleKB, float _KBPower, float _KBTime)
     {
         // Multiple
@@ -563,6 +592,7 @@ public class PlayerController : MovableObject
         TakeDamaged(_DmgValue);
     }
 
+    // 오직 데미지만 계산 (넉백, 애니메이션 등 없음)
     public void TakeDamaged(float _DmgValue)
     {
         float Dmg = _DmgValue;
@@ -592,6 +622,7 @@ public class PlayerController : MovableObject
         BuffManager.Instance.Active_Hitted();
     }
 
+    // 추가 데미지 계산 (맞을 때 발생하는 이벤트, 넉벡, 애니메이션 등 없음)
     public void TakeExtraDamage(float _DmgValue)
     {
         float Dmg = _DmgValue;
@@ -619,6 +650,7 @@ public class PlayerController : MovableObject
         MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
     }
 
+    // 회피
     private void Avoided()
     {
         PlayerManager.Instance.CameraController.PlayAvoidAnim(MaxInvincibleTime);
@@ -635,6 +667,7 @@ public class PlayerController : MovableObject
 
     }
 
+    // 죽음
     private void Die()
     {
 

@@ -33,8 +33,9 @@ public class InteractItemController : ItemController, IInteract
         CurrentSpreadPower = SpreadPower;
         SettedSpreadDir = SetRandomDir();
 
+
         UpDownTween = TargetObject.transform
-            .DOLocalMoveY((TargetObject.transform.localPosition.y + 0.2f), 1f)
+            .DOLocalMoveY((TargetRange + 0.2f), 1f)
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Yoyo);
 
@@ -102,7 +103,8 @@ public class InteractItemController : ItemController, IInteract
 
         this.gameObject.SetActive(false);
         LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
-        DOTween.Kill(UpDownTween);
+        if (UpDownTween != null && DOTween.IsTweening(UpDownTween))
+        { DOTween.Kill(UpDownTween); }
         UpDownTween = null;
     }
 

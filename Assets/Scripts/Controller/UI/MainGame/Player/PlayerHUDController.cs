@@ -212,6 +212,7 @@ public class PlayerHUDController : UIController
         PlayerManager.Instance.PlayerController.CurrentBoostLv
             .Subscribe(_BoostLevel =>
             {
+                Debug.Log(_BoostLevel);
                 SetTextOfBoost(_BoostLevel);
 
                 SetActiveAmountBoost(BoostLightArr, _BoostLevel);
@@ -472,9 +473,6 @@ public class PlayerHUDController : UIController
     {
         for (int i = 0; i < _Arr.Length; i++)
         {
-            if (_Arr[i] == null)
-            { return; }
-
             if (_Arr[i].TryGetComponent(out Image img))
             {
                 if (DOTween.IsTweening(img))
