@@ -319,8 +319,10 @@ public class CSVManager : Singleton<CSVManager>
             int id = int.Parse(stringList[i][0]);
             string name = stringList[i][1];
             string script = stringList[i][2];
+            int imgId = int.Parse(stringList[i][3]);
+            bool isLeft = bool.Parse(stringList[i][4]);
 
-            result.Add(new DialogueElement(id, name, script));
+            result.Add(new DialogueElement(id, name, script, imgId, isLeft));
         }
 
         return result;

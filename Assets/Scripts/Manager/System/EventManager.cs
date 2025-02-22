@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,8 +17,6 @@ public class EventManager : Singleton<EventManager>
     [Space(10)]
     [Header("=== Managing Value")]
     [SerializeField] private bool IsPlayingEvent = false;
-    [SerializeField] private bool IsStartEachOne = false;
-    [SerializeField] private bool IsEndEachOne = false;
 
     [Space(10)]
     [Header("=== Base Comp")]
@@ -27,6 +26,24 @@ public class EventManager : Singleton<EventManager>
     [Space(10)]
     [Header("=== BlackScreen")]
     [SerializeField] private Image BlackScreenImg;
+
+    [Space(10)]
+    [Header("=== Dialogue")]
+    [SerializeField] private bool IsPlayingDialogue = false;
+
+    [SerializeField] private SideDialogueComp LeftDialogueComp;
+    [SerializeField] private SideDialogueComp RightDialogueComp;
+
+    [Serializable]
+    public class SideDialogueComp
+    {
+        [SerializeField] public GameObject DialogueGO;
+        [SerializeField] public Image DialogueImg;
+        [SerializeField] public TMP_Text NameTxt;
+        [SerializeField] public TMP_Text DialogueTxt;
+    }
+
+    [HideInInspector] private List<DialogueElement> CurrentDialogues;
 
     [Space(10)]
     [Header("=== Test")]
@@ -74,7 +91,7 @@ public class EventManager : Singleton<EventManager>
         EventSettingOn();
 
         CurrentEvent = new EventData();
-        CurrentEvent.Events = CSVManager.Instance.GetCorrectEventList(_ID);
+        CurrentEvent.Events = new List<EventElement>(CSVManager.Instance.GetCorrectEventList(_ID));
         PlayEvent();
     }
 
@@ -215,10 +232,12 @@ public class EventManager : Singleton<EventManager>
             InputManager.Instance.InputMoveDir = Vector2.zero; 
         }
         yield return new WaitForSeconds(_Event.TargetTime);
-        Debug.Log("Stay 종료");
+
         PlayEvent();
     }
 
+    // 1. CSV 타겟을 받아와야함. (나중에 NPC 등을 추가하면)
+    // 2. 그 NPC 등을 ID로 찾아서 위치 값을 계산해야함.
     private IEnumerator PlayEvent_Move(EventElement_Move _Event)
     {
         Vector2 targetPos = _Event.TargetPos;
@@ -228,6 +247,11 @@ public class EventManager : Singleton<EventManager>
         if (sceneName == "TitleLobby") // 맵 구분
         {
             TitleInputManager.Instance.InputMoveDir = Vector2.zero;
+            if (_Event.TargetType != "None") // NPC 등 목표가 들어갈 부분
+            { 
+                //targetPos = 목표;
+            }
+
             while (0.01f < Vector2.Distance(targetPos, (Vector2)TitlePlayerManager.Instance.PlayerController.transform.position))
             {
                 dir = (targetPos - (Vector2)TitlePlayerManager.Instance.PlayerController.transform.position).normalized;
@@ -241,6 +265,11 @@ public class EventManager : Singleton<EventManager>
         else if (sceneName == "MainGame") // 맵 구분
         {
             InputManager.Instance.InputMoveDir = Vector2.zero;
+            if (_Event.TargetType != "None") // NPC 등 목표가 들어갈 부분
+            {
+                //targetPos = 목표;
+            }
+
             while (0.01f < Vector2.Distance(targetPos, (Vector2)PlayerManager.Instance.PlayerController.transform.position))
             {
                 dir = (targetPos - (Vector2)PlayerManager.Instance.PlayerController.transform.position).normalized;
@@ -253,7 +282,6 @@ public class EventManager : Singleton<EventManager>
             InputManager.Instance.InputMoveDir = Vector2.zero;
         }
 
-        Debug.Log("Move 종료");
         PlayEvent();
     }
 
@@ -274,7 +302,7 @@ public class EventManager : Singleton<EventManager>
         }
 
         yield return null;
-        Debug.Log("Look 종료");
+
         PlayEvent();
     }
 
@@ -290,7 +318,7 @@ public class EventManager : Singleton<EventManager>
             });
 
         yield return new WaitForSeconds(_Event.TargetTime);
-        Debug.Log("BlackScreenIn 종료");
+
         PlayEvent();
     }
 
@@ -306,19 +334,103 @@ public class EventManager : Singleton<EventManager>
             });
 
         yield return new WaitForSeconds(_Event.TargetTime);
-        Debug.Log("BlackScreenOut 종료");
+
         PlayEvent();
     }
 
+    // 1. 이미지의 ID는 이미 받아왔으니, ID에 맞는 이미지를 삽입해야함.
     private IEnumerator PlayEvent_Dialogue(EventElement_Dialogue _Event)
     {
         DialogueID id = _Event.GetDialogueList();
-        for (int i = 0; i< id.Dialogues.Count; i++)
-        {
-            Debug.Log(id.Dialogues[i].Name + " / " + id.Dialogues[i].Script);
-        }
 
-        yield return new WaitForSeconds(1);
+        StartDialogue(id);
+        yield return new WaitUntil(() => !IsPlayingDialogue);
+
+        PlayEvent();
+    }
+
+    #endregion
+
+    #region Dialogue
+
+    private void StartDialogue(DialogueID _DialogueID)
+    {
+        if (IsPlayingDialogue)
+        { return; }
+
+        IsPlayingDialogue = true;
+        CurrentDialogues = new List<DialogueElement>(_DialogueID.Dialogues);
+        StartCoroutine(PlayDialogue());
+    }
+
+    private IEnumerator PlayDialogue()
+    {
+        bool canInteract = false;
+        bool isScripting = false;
+        Tween scriptingTween;
+
+        while (true)
+        {
+            if (CurrentDialogues.Count <= 0)
+            { break; }  
+
+            DialogueElement currentDialogue = CurrentDialogues[0];
+
+            // 기본 세팅
+            SideDialogueComp targetDialogueComp = null;
+            SideDialogueComp noneDialogueComp = null;
+            if (currentDialogue.IsLeft)
+            { targetDialogueComp = LeftDialogueComp; noneDialogueComp = RightDialogueComp; }
+            else
+            { targetDialogueComp = RightDialogueComp; noneDialogueComp = LeftDialogueComp; }
+
+            targetDialogueComp.DialogueGO.SetActive(true);
+            noneDialogueComp.DialogueGO.SetActive(false);
+
+            // Name
+            targetDialogueComp.NameTxt.text = currentDialogue.Name;
+
+            // Script
+            targetDialogueComp.DialogueTxt.text = "";
+            isScripting = true;
+            scriptingTween = targetDialogueComp.DialogueTxt
+                .DOText(currentDialogue.Script, currentDialogue.Script.Length / 10f)
+                .OnComplete(() => { isScripting = false; });
+
+            while (true)
+            {
+                if (canInteract && Input.anyKeyDown)
+                {
+                    if (isScripting) // 스크립팅 중을 넘기기
+                    {
+                        scriptingTween.Complete();
+                    }
+                    else // 다음 스크립트로 넘기기
+                    {
+                        canInteract = false;
+                        scriptingTween = null;
+                        CurrentDialogues.Remove(currentDialogue);
+                        break;
+                    }
+                }
+                // 이것이 없으면, 한 프레임에
+                // [다음 스크립트 넘기기]와 [스크립팅 중 넘기기]가 1프레임에 인식함
+                canInteract = true; 
+                yield return null;
+            }
+
+        }
+        
+        EndDialogue();
+    }
+
+    private void EndDialogue()
+    {
+        LeftDialogueComp.DialogueGO.SetActive(false);
+        RightDialogueComp.DialogueGO.SetActive(false);
+        CurrentDialogues = null;
+
+        IsPlayingDialogue = false;
     }
 
     #endregion
@@ -471,12 +583,16 @@ public class DialogueElement
     public int ID;
     public string Name;
     public string Script;
+    public int ImgID;
+    public bool IsLeft;
 
-    public DialogueElement(int _ID, string _Name, string _Script)
+    public DialogueElement(int _ID, string _Name, string _Script, int _ImgID, bool _IsLeft)
     {
         ID = _ID;
         Name = _Name;
         Script = _Script;
+        ImgID = _ImgID;
+        IsLeft = _IsLeft;
     }
 }
 
