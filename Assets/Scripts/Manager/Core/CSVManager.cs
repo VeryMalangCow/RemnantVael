@@ -16,9 +16,16 @@ public class CSVManager : Singleton<CSVManager>
     [SerializeField] private TextAsset EventID_CSV;
     [SerializeField] private TextAsset EventElement_CSV;
 
+    [SerializeField] private TextAsset DialogueElement_CSV;
+    [SerializeField] private TextAsset DialougeID_CSV;
+
+
     // === Data
     [HideInInspector] private List<EventID> EventID_Data;
     [HideInInspector] private List<EventElement> EventElement_Data;
+
+    [HideInInspector] private List<DialogueElement> DialogueElement_Data;
+    [HideInInspector] private List<DialogueID> DialogueID_Data;
 
     #endregion
 
@@ -28,6 +35,9 @@ public class CSVManager : Singleton<CSVManager>
     {
         EventElement_Data = GetOffset_EventElementList(EventElement_CSV);
         EventID_Data = GetOffset_EventIDList(EventID_CSV);
+
+        DialogueElement_Data = GetOffset_DialougeEleventList(DialogueElement_CSV); // 다이얼로그 ID보다 먼저 와야함
+        DialogueID_Data = GetOffset_DialougeIDList(DialougeID_CSV);
     }
 
     #endregion
@@ -96,7 +106,7 @@ public class CSVManager : Singleton<CSVManager>
 
     #endregion
 
-    #region To EventID
+    #region To Event ID
 
     // 오프셋
     private List<EventID> GetOffset_EventIDList(TextAsset _TextAsset)
@@ -115,6 +125,8 @@ public class CSVManager : Singleton<CSVManager>
             
             for (int j = 1; j < stringList[i].Count; j++)
             {
+                if (stringList[i][j] == "" || stringList[i][j] == null)
+                {  break; }
                 idList.Add(int.Parse(stringList[i][j]));
             }
 
@@ -138,7 +150,7 @@ public class CSVManager : Singleton<CSVManager>
 
     #endregion
 
-    #region To EventElement
+    #region To Event Element
 
     // 오프셋
     private List<EventElement> GetOffset_EventElementList(TextAsset _TextAsset)
@@ -174,10 +186,12 @@ public class CSVManager : Singleton<CSVManager>
             // 이동
             else if (name == "Move")
             {
-                string[] vectorString = stringList[i][2].Split("/");
+                int targetId = int.Parse(stringList[i][2]);
+                string targetType = stringList[i][3];
+                string[] vectorString = stringList[i][4].Split("/");
                 Vector2 vector = new Vector2(float.Parse(vectorString[0]), float.Parse(vectorString[1]));
 
-                eventElement = new EventElement_Move(id, vector);
+                eventElement = new EventElement_Move(id, targetId, targetType, vector);
             }
             // 검은 화면 키기
             else if (name == "BlackScreenIn")
@@ -192,6 +206,13 @@ public class CSVManager : Singleton<CSVManager>
                 float targetTime = float.Parse(stringList[i][2]);
 
                 eventElement = new EventElement_BlackScreenOut(id, targetTime);
+            }
+            // 다이얼로그
+            else if (name == "Dialogue")
+            {
+                int targetId = int.Parse(stringList[i][2]);
+
+                eventElement = new EventElement_Dialogue(id, targetId);
             }
 
             result.Add(eventElement);
@@ -232,6 +253,91 @@ public class CSVManager : Singleton<CSVManager>
         return result;
     }
 
+
+    #endregion
+
+    #region To DialougeID
+
+    // 오프셋
+    private List<DialogueID> GetOffset_DialougeIDList(TextAsset _TextAsset)
+    {
+        List<DialogueID> result = new List<DialogueID>();
+
+        List<List<string>> stringList = GetDoubleList(_TextAsset);
+
+        for (int i = 1; i < stringList.Count; i++)
+        {
+            if (stringList[i][0] == "")
+            { break; }
+
+            int id = int.Parse(stringList[i][0]);
+
+            List<DialogueElement> dialogueList = new List<DialogueElement>();
+            for (int j = 1; j < stringList[i].Count; j++)
+            {
+                if (stringList[i][j] == "" || stringList[i][j] == null)
+                { break; }
+                int elementId = int.Parse(stringList[i][j]);
+                dialogueList.Add(GetCorrectDialogueElement(elementId));
+            }
+
+            result.Add(new DialogueID(id, dialogueList));
+        }
+
+        return result;
+    }
+
+    // ID에 맞는 다이얼로그 리스트를 구함
+    public DialogueID GetCorrectDialogueID(int _ID)
+    {
+        for (int i = 0; i < DialogueID_Data.Count; i++)
+        {
+            if (DialogueID_Data[i].ID == _ID)
+            { return DialogueID_Data[i]; }
+        }
+
+        return null;
+    }
+
+    #endregion
+
+    #region To Dialogue Element
+
+    // 오프셋
+
+    private List<DialogueElement> GetOffset_DialougeEleventList(TextAsset _TextAsset)
+    {
+        List<DialogueElement> result = new List<DialogueElement>();
+
+        List<List<string>> stringList = GetDoubleList(_TextAsset);
+
+        for (int i = 1; i < stringList.Count; i++)
+        {
+            if (stringList[i][0] == "")
+            { break; }
+
+            int id = int.Parse(stringList[i][0]);
+            string name = stringList[i][1];
+            string script = stringList[i][2];
+
+            result.Add(new DialogueElement(id, name, script));
+        }
+
+        return result;
+    }
+
+
+    // ID에 맞는 다이얼로그 1개를 구함
+    private DialogueElement GetCorrectDialogueElement(int _ID)
+    {
+        for (int i = 0; i < DialogueElement_Data.Count; i++)
+        {
+            if (DialogueElement_Data[i].ID == _ID)
+            { return DialogueElement_Data[i]; }
+        }
+
+        return null;
+    }
 
     #endregion
 }

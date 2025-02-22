@@ -212,7 +212,7 @@ public class PlayerHUDController : UIController
         PlayerManager.Instance.PlayerController.CurrentBoostLv
             .Subscribe(_BoostLevel =>
             {
-                Debug.Log(_BoostLevel);
+                Debug.Assert(_BoostLevel >= 0 && _BoostLevel <= 4, "Boost Range Out!");
                 SetTextOfBoost(_BoostLevel);
 
                 SetActiveAmountBoost(BoostLightArr, _BoostLevel);

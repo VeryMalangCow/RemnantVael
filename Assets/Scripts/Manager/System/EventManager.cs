@@ -97,6 +97,8 @@ public class EventManager : Singleton<EventManager>
         { StartCoroutine(PlayEvent_BlackScreenIn(blackScreenIn)); }
         else if (CurrentEvent.Events[0] is EventElement_BlackScreenOut blackScreenOut)
         { StartCoroutine(PlayEvent_BlackScreenOut(blackScreenOut)); }
+        else if (CurrentEvent.Events[0] is EventElement_Dialogue dialogue)
+        { StartCoroutine(PlayEvent_Dialogue(dialogue)); }
 
         CurrentEvent.ClearOnePart();
     }
@@ -212,7 +214,6 @@ public class EventManager : Singleton<EventManager>
         { 
             InputManager.Instance.InputMoveDir = Vector2.zero; 
         }
-
         yield return new WaitForSeconds(_Event.TargetTime);
         Debug.Log("Stay 종료");
         PlayEvent();
@@ -308,6 +309,18 @@ public class EventManager : Singleton<EventManager>
         Debug.Log("BlackScreenOut 종료");
         PlayEvent();
     }
+
+    private IEnumerator PlayEvent_Dialogue(EventElement_Dialogue _Event)
+    {
+        DialogueID id = _Event.GetDialogueList();
+        for (int i = 0; i< id.Dialogues.Count; i++)
+        {
+            Debug.Log(id.Dialogues[i].Name + " / " + id.Dialogues[i].Script);
+        }
+
+        yield return new WaitForSeconds(1);
+    }
+
     #endregion
 
 }
@@ -384,10 +397,14 @@ public class EventElement_Look : EventElement
 [Serializable]
 public class EventElement_Move : EventElement
 {
+    public int TargetID;
+    public string TargetType;
     public Vector2 TargetPos;
 
-    public EventElement_Move(int _ID, Vector2 _TargetPos) : base(_ID)
+    public EventElement_Move(int _ID, int _TargetID, string _TargetType, Vector2 _TargetPos) : base(_ID)
     {
+        TargetID = _TargetID;
+        TargetType = _TargetType;
         TargetPos = _TargetPos;
     }
 }
@@ -411,6 +428,55 @@ public class EventElement_BlackScreenOut : EventElement
     public EventElement_BlackScreenOut(int _ID, float _TargetTime) : base(_ID)
     {
         TargetTime = _TargetTime;
+    }
+}
+
+[Serializable]
+public class EventElement_Dialogue : EventElement
+{
+    public int TargetID;
+
+    public EventElement_Dialogue(int _ID, int _TargetID) : base(_ID)
+    {
+        TargetID = _TargetID;
+    }
+
+    public DialogueID GetDialogueList()
+    {
+       return CSVManager.Instance.GetCorrectDialogueID(TargetID);
+    }
+
+}
+
+#endregion
+
+#region Dialogue
+
+[Serializable]
+public class DialogueID
+{
+    public int ID;
+    public List<DialogueElement> Dialogues;
+
+    public DialogueID(int _ID, List<DialogueElement> _Dialogues)
+    {
+        ID = _ID;
+        Dialogues = _Dialogues;
+    }
+}
+
+[Serializable]
+public class DialogueElement
+{
+    public int ID;
+    public string Name;
+    public string Script;
+
+    public DialogueElement(int _ID, string _Name, string _Script)
+    {
+        ID = _ID;
+        Name = _Name;
+        Script = _Script;
     }
 }
 
