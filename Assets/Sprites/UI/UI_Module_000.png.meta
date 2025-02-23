@@ -378,7 +378,7 @@ TextureImporter:
         width: 4
         height: 45
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -399,7 +399,7 @@ TextureImporter:
         width: 4
         height: 45
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -407,6 +407,132 @@ TextureImporter:
       bones: []
       spriteID: fe0f1119eb8c14e4b963a41793abe58a
       internalID: 1415861699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_DialogueCharFrame
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 455
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 17, y: 17, z: 17, w: 17}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a59859bcac7ecb347864fc5509eb0e8a
+      internalID: -151358749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_DialogueCharBG
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 458
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 14, y: 14, z: 14, w: 14}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a5a329280656dc449f8c0008cf61daa
+      internalID: 1737750721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Dialogue_Field_01
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 509
+        width: 38
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 1, z: 37, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cd87335a942d8d4b8c684fb7cf9c601
+      internalID: 1677415561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Dialogue_LineFrame_01
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 495
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 0, z: 3, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d118f7d768b537040bfada78b65282d6
+      internalID: -2062818932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Dialogue_LineFrame_00
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 487
+        width: 28
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 22, y: 0, z: 6, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c53a2ee5e6920b4283951451849410e
+      internalID: 206324744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Dialogue_Field_00
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 503
+        width: 37
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 7, z: 36, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41345373e4331c34a83984db56b64cda
+      internalID: -1927236403
       vertices: []
       indices: 
       edges: []
@@ -424,6 +550,12 @@ TextureImporter:
     nameFileIdTable:
       ModuleUI_Back: 486028521
       ModuleUI_Btn_00: 1661286057
+      ModuleUI_DialogueCharBG: 1737750721
+      ModuleUI_DialogueCharFrame: -151358749
+      ModuleUI_Dialogue_Field_00: -1927236403
+      ModuleUI_Dialogue_Field_01: 1677415561
+      ModuleUI_Dialogue_LineFrame_00: 206324744
+      ModuleUI_Dialogue_LineFrame_01: -2062818932
       ModuleUI_Dur_Empty: 849592281
       ModuleUI_Dur_Fill: 1336520652
       ModuleUI_GetIcon_Cold: 1719590221

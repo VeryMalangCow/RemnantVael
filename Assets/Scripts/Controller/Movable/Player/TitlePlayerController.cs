@@ -25,10 +25,6 @@ public class TitlePlayerController : MovableObject
     private void Start()
     {
         CurrentIndex.Value = 5;
-        /*CurrentIndex.Subscribe(index =>
-        {
-            
-        });*/
     }
 
     private void LateUpdate()

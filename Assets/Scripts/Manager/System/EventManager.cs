@@ -46,7 +46,7 @@ public class EventManager : Singleton<EventManager>
     [HideInInspector] private List<DialogueElement> CurrentDialogues;
 
     [Space(10)]
-    [Header("=== Test")]
+    [Header("=== Current")]
     [SerializeField] private EventData CurrentEvent = new EventData();
 
     [HideInInspector] private PlayerController PC;
@@ -236,8 +236,6 @@ public class EventManager : Singleton<EventManager>
         PlayEvent();
     }
 
-    // 1. CSV 타겟을 받아와야함. (나중에 NPC 등을 추가하면)
-    // 2. 그 NPC 등을 ID로 찾아서 위치 값을 계산해야함.
     private IEnumerator PlayEvent_Move(EventElement_Move _Event)
     {
         Vector2 targetPos = _Event.TargetPos;
@@ -247,10 +245,19 @@ public class EventManager : Singleton<EventManager>
         if (sceneName == "TitleLobby") // 맵 구분
         {
             TitleInputManager.Instance.InputMoveDir = Vector2.zero;
-            if (_Event.TargetType != "None") // NPC 등 목표가 들어갈 부분
-            { 
-                //targetPos = 목표;
+            if (_Event.TargetType != "None")
+            {
+                if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
+                {
+                    Vector2 npcPos = NPCManager.Instance.GetNPC(_Event.TargetID).transform.position;
+                    targetPos += npcPos;
+                }
+                else // 다른 목표가 있다면
+                {
+
+                }
             }
+            
 
             while (0.01f < Vector2.Distance(targetPos, (Vector2)TitlePlayerManager.Instance.PlayerController.transform.position))
             {
@@ -267,7 +274,19 @@ public class EventManager : Singleton<EventManager>
             InputManager.Instance.InputMoveDir = Vector2.zero;
             if (_Event.TargetType != "None") // NPC 등 목표가 들어갈 부분
             {
-                //targetPos = 목표;
+                if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
+                {
+                    NPCController npc = NPCManager.Instance.GetNPC(_Event.TargetID);
+                    if (npc != null)
+                    {
+                        Vector2 npcPos = npc.transform.position;
+                        targetPos += npcPos;
+                    }
+                }
+                else // 다른 목표가 있다면
+                {
+
+                }
             }
 
             while (0.01f < Vector2.Distance(targetPos, (Vector2)PlayerManager.Instance.PlayerController.transform.position))
@@ -287,10 +306,12 @@ public class EventManager : Singleton<EventManager>
 
     private IEnumerator PlayEvent_Look(EventElement_Look _Event)
     {
+        yield return new WaitForSeconds(0.5f);
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "TitleLobby") // 맵 구분
         {
             TitleInputManager.Instance.InputMoveDir = Vector2.zero;
+
             TitlePlayerManager.Instance.PlayerController.HigherBody.SetRotation(_Event.TargetDir);
         }
         else if (sceneName == "MainGame") // 맵 구분
@@ -298,6 +319,7 @@ public class EventManager : Singleton<EventManager>
             InputManager.Instance.DirFromPlayerPos = _Event.TargetDir;
 
             PlayerManager.Instance.PlayerController.LowerController.ThisRb.velocity = Vector2.zero;
+
             PlayerManager.Instance.PlayerController.LowerController.SetRotation(_Event.TargetDir);
         }
 
@@ -338,7 +360,6 @@ public class EventManager : Singleton<EventManager>
         PlayEvent();
     }
 
-    // 1. 이미지의 ID는 이미 받아왔으니, ID에 맞는 이미지를 삽입해야함.
     private IEnumerator PlayEvent_Dialogue(EventElement_Dialogue _Event)
     {
         DialogueID id = _Event.GetDialogueList();
@@ -386,6 +407,9 @@ public class EventManager : Singleton<EventManager>
 
             targetDialogueComp.DialogueGO.SetActive(true);
             noneDialogueComp.DialogueGO.SetActive(false);
+
+            // Character Img
+            targetDialogueComp.DialogueImg.sprite = CSVManager.Instance.GetCorrectCharacterImg(currentDialogue.ImgID);
 
             // Name
             targetDialogueComp.NameTxt.text = currentDialogue.Name;

@@ -19,6 +19,7 @@ public class CSVManager : Singleton<CSVManager>
     [SerializeField] private TextAsset DialogueElement_CSV;
     [SerializeField] private TextAsset DialougeID_CSV;
 
+    [SerializeField] private Texture2D CharacterImg_000;
 
     // === Data
     [HideInInspector] private List<EventID> EventID_Data;
@@ -26,6 +27,8 @@ public class CSVManager : Singleton<CSVManager>
 
     [HideInInspector] private List<DialogueElement> DialogueElement_Data;
     [HideInInspector] private List<DialogueID> DialogueID_Data;
+
+    [HideInInspector] private List<Sprite> CharacterImgList_Data;
 
     #endregion
 
@@ -38,6 +41,9 @@ public class CSVManager : Singleton<CSVManager>
 
         DialogueElement_Data = GetOffset_DialougeEleventList(DialogueElement_CSV); // 다이얼로그 ID보다 먼저 와야함
         DialogueID_Data = GetOffset_DialougeIDList(DialougeID_CSV);
+
+        CharacterImgList_Data = new List<Sprite>();
+        CharacterImgList_Data.AddRange(GetOffset_CharacterImgList(CharacterImg_000));
     }
 
     #endregion
@@ -48,7 +54,7 @@ public class CSVManager : Singleton<CSVManager>
     {
         //Singleton
         base.Awake();
-        if (SaveDataManager.Instance == this)
+        if (CSVManager.Instance == this)
         {
             DontDestroyOnLoad(this.gameObject);
         }
@@ -339,6 +345,29 @@ public class CSVManager : Singleton<CSVManager>
         }
 
         return null;
+    }
+
+    #endregion
+
+    #region To SpriteList
+
+    private List<Sprite> GetOffset_CharacterImgList(Texture2D _Texture2D)
+    {
+        List<Sprite> result = new List<Sprite>();
+        if (_Texture2D != null)
+        {
+            Debug.Log("Reso_Texture2D/" + _Texture2D.name);
+            return Resources.LoadAll<Sprite>("Reso_Texture2D/" + _Texture2D.name).ToList();
+        }
+        else
+        {
+            return result;
+        }
+    }
+
+    public Sprite GetCorrectCharacterImg(int _ID)
+    {
+        return CharacterImgList_Data[_ID];
     }
 
     #endregion
