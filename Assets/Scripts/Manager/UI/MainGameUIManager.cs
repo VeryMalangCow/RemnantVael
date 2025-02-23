@@ -9,7 +9,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private Camera UICamera;
 
     [Header("=== UI_Prefab")]
-    [SerializeField] private Transform UIParent;
+    [SerializeField] public Transform UIParent;
     [SerializeField] private GameObject PlayerHUD_CanvasPrefab;
     [SerializeField] private GameObject BaseUpgrade_CanvasPrefab;
     [SerializeField] private GameObject ModuleUpgrade_CanvasPrefab;

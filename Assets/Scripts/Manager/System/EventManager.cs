@@ -128,6 +128,7 @@ public class EventManager : Singleton<EventManager>
 
         SetInputSetting(false);
         SetBlackUpDownCover(true);
+        SetAnotherUISetting(false);
     }
 
     // 이벤트 실행 시, 설정 오프
@@ -138,6 +139,7 @@ public class EventManager : Singleton<EventManager>
 
         SetInputSetting(true);
         SetBlackUpDownCover(false);
+        SetAnotherUISetting(true);
     }
 
     // 인풋 => On / Off
@@ -216,6 +218,21 @@ public class EventManager : Singleton<EventManager>
         }
     }
 
+    // 다른 UI => On / Off
+    private void SetAnotherUISetting(bool _OnOff)
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName == "TitleLobby")
+        {
+#if UNITY_EDITOR
+            Debug.Log("필요: 타이틀 로비의 UI 끄기");
+#endif
+        }
+        else if (sceneName == "MainGame")
+        {
+            MainGameUIManager.Instance.UIParent.gameObject.SetActive(_OnOff);
+        }
+    }
     #endregion
 
     #region Play (Kind of Condition)
