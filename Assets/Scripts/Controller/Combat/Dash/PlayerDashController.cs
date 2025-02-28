@@ -16,7 +16,7 @@ public class PlayerDashController : MonoBehaviour
 
     [Header("-- Input")]
     [SerializeField] public float NeedEP_ForDash = 5f;
-    [SerializeField] public BaseUpgradeState<float> DashSpeed;
+    [SerializeField] public BUState<float> DashSpeed;
     [SerializeField] public float DashDur = 0.2f;
     [SerializeField] private float RotateLerpValue = 1f;
 

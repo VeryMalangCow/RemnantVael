@@ -17,14 +17,14 @@ public class ActiveSkillController : MonoBehaviour
     [SerializeField] protected int CurrentChargeAmount = 0;
 
     [Header("-- Cooltime")]
-    [SerializeField] public BaseUpgradeState<float> MaxCooltime;
+    [SerializeField] public BUState<float> MaxCooltime;
     [SerializeField] protected float CurrentCooltime = 0f;
 
     [Header("-- State")]
     [SerializeField] public Sprite ThisSkillUISprite;
     [SerializeField] public ReactiveProperty<float> NeedEP = new();
-    [SerializeField] public BaseUpgradeState<int> Tier;
-    [SerializeField] public BaseUpgradeState<float> Power;
+    [SerializeField] public BUState<int> Tier;
+    [SerializeField] public BUState<float> Power;
 
     [HideInInspector] public PlayerController PlayerController;
 

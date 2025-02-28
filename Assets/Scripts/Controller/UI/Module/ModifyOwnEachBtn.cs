@@ -19,7 +19,7 @@ public class ModifyOwnEachBtn : UIModule, IPointerEnterHandler, IPointerExitHand
 
     // Owner
 
-    [HideInInspector] public UIController OwnerUIController;
+    [HideInInspector] public PanelUIController OwnerUIController;
     [HideInInspector] public Button ThisBtn;
 
     #endregion

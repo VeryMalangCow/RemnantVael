@@ -54,7 +54,7 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
 
     #region Desc
 
-    public void SetDesc<T>(BaseUpgradeState<T> _MTAFB)
+    public void SetDesc<T>(BUState<T> _MTAFB)
     {
         
         // Graph

@@ -2,7 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChoiceCharacterUIController : UIController
+public class ChoiceCharacterUIController : PanelUIController
 {
     #region Value
 
@@ -90,7 +90,7 @@ public class ChoiceCharacterUIController : UIController
 
     public override void OpenThisPanel()
     {
-        //base
+        //No Play Base
 
         if (DOTween.IsTweening("ChoiceCharacterUIPanel"))
         { return; }

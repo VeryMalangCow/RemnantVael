@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class BaseUpgradeUIController : UIController
+public class BaseUpgradeUIController : PanelUIController
 {
     #region Value
 
@@ -27,40 +27,40 @@ public class BaseUpgradeUIController : UIController
 
     [Space(10)]
     [Header("-- Attack")]
-    [SerializeField] private OneOffShopEachData<float> DamageShop;
-    [SerializeField] private OneOffShopEachData<float> ROFShop;
-    [SerializeField] private OneOffShopEachData<float> CCShop;
-    [SerializeField] private OneOffShopEachData<float> CDShop;
-    [SerializeField] private OneOffShopEachData<float> MuzzleShop;
-    [SerializeField] private OneOffShopEachData<float> AccuracyRateShop;
-    [SerializeField] private OneOffShopEachData<float> KnockbackShop;
+    [SerializeField] private BUShopEachData<float> DamageShop;
+    [SerializeField] private BUShopEachData<float> ROFShop;
+    [SerializeField] private BUShopEachData<float> CCShop;
+    [SerializeField] private BUShopEachData<float> CDShop;
+    [SerializeField] private BUShopEachData<float> MuzzleShop;
+    [SerializeField] private BUShopEachData<float> AccuracyRateShop;
+    [SerializeField] private BUShopEachData<float> KnockbackShop;
     
     [Space(10)]
     [Header("-- EP")]
-    [SerializeField] private OneOffShopEachData<float> MaxEPShop;
-    [SerializeField] private OneOffShopEachData<float> SpawnESMultipleShop;
-    [SerializeField] private OneOffShopEachData<float> NeedEP_ForSkillMultipleShop;
-    [SerializeField] private OneOffShopEachData<float> DecEnergyPointMultipleShop;
-    [SerializeField] private OneOffShopEachData<float> ResistShop;
+    [SerializeField] private BUShopEachData<float> MaxEPShop;
+    [SerializeField] private BUShopEachData<float> SpawnESMultipleShop;
+    [SerializeField] private BUShopEachData<float> NeedEP_ForSkillMultipleShop;
+    [SerializeField] private BUShopEachData<float> DecEnergyPointMultipleShop;
+    [SerializeField] private BUShopEachData<float> ResistShop;
 
     [Space(10)]
     [Header("-- Movement")]
-    [SerializeField] private OneOffShopEachData<float> WalkSpeedShop;
-    [SerializeField] private OneOffShopEachData<float> WalkSpeedWhenShotMultipleShop;
-    [SerializeField] private OneOffShopEachData<float> DashSpeedShop;
-    [SerializeField] private OneOffShopEachData<float> WalkAvoidChance;
+    [SerializeField] private BUShopEachData<float> WalkSpeedShop;
+    [SerializeField] private BUShopEachData<float> WalkSpeedWhenShotMultipleShop;
+    [SerializeField] private BUShopEachData<float> DashSpeedShop;
+    [SerializeField] private BUShopEachData<float> WalkAvoidChance;
 
     [Space(10)]
     [Header("-- Skill 0")]
-    [SerializeField] private OneOffShopEachData<float> Skill0_CooltimeShop;
-    [SerializeField] private OneOffShopEachData<float> Skill0_PowerShop;
-    [SerializeField] private OneOffShopEachData<int> Skill0_TierShop;
+    [SerializeField] private BUShopEachData<float> Skill0_CooltimeShop;
+    [SerializeField] private BUShopEachData<float> Skill0_PowerShop;
+    [SerializeField] private BUShopEachData<int> Skill0_TierShop;
 
     [Space(10)]
     [Header("-- Skill 1")]
-    [SerializeField] private OneOffShopEachData<float> Skill1_CooltimeShop;
-    [SerializeField] private OneOffShopEachData<float> Skill1_PowerShop;
-    [SerializeField] private OneOffShopEachData<int> Skill1_TierShop;
+    [SerializeField] private BUShopEachData<float> Skill1_CooltimeShop;
+    [SerializeField] private BUShopEachData<float> Skill1_PowerShop;
+    [SerializeField] private BUShopEachData<int> Skill1_TierShop;
 
     [Space(10)]
     [Header("=== Desc")]
@@ -86,8 +86,8 @@ public class BaseUpgradeUIController : UIController
     [SerializeField] public List<CanvasGroup> LightTabCGList;
     [HideInInspector] public List<Component> SubColorCompList;
 
-    [HideInInspector] public List<OneOffShopEachData<float>> AllUpgradeDataList_Float;
-    [HideInInspector] public List<OneOffShopEachData<int>> AllUpgradeDataList_Int;
+    [HideInInspector] public List<BUShopEachData<float>> AllUpgradeDataList_Float;
+    [HideInInspector] public List<BUShopEachData<int>> AllUpgradeDataList_Int;
 
     #endregion
 
@@ -123,7 +123,7 @@ public class BaseUpgradeUIController : UIController
         Skill1_TierShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.Tier, BaseUpgradeManager.Instance.Skill1_Tier_BUData, this);
 
 
-        AllUpgradeDataList_Float = new List<OneOffShopEachData<float>>()
+        AllUpgradeDataList_Float = new List<BUShopEachData<float>>()
         {
             DamageShop, ROFShop, CCShop, CDShop, MuzzleShop, AccuracyRateShop, KnockbackShop,
             MaxEPShop,SpawnESMultipleShop, NeedEP_ForSkillMultipleShop, DecEnergyPointMultipleShop, ResistShop,
@@ -131,7 +131,7 @@ public class BaseUpgradeUIController : UIController
             Skill0_CooltimeShop, Skill0_PowerShop,
             Skill1_CooltimeShop, Skill1_PowerShop
         };
-        AllUpgradeDataList_Int = new List<OneOffShopEachData<int>>()
+        AllUpgradeDataList_Int = new List<BUShopEachData<int>>()
         {
             Skill0_TierShop,
             Skill1_TierShop
@@ -320,11 +320,11 @@ public class BaseUpgradeUIController : UIController
 
     public void SetDesc(ModifyTextAmountForBuy _MTAFB)
     {
-        BaseUpgradeState<float> baseUpgradeState_Float = OneOffShopEachData<float>.GetThisData(AllUpgradeDataList_Float, _MTAFB);
+        BUState<float> baseUpgradeState_Float = BUShopEachData<float>.GetThisData(AllUpgradeDataList_Float, _MTAFB);
         if (baseUpgradeState_Float != null)
         {  ThisDescPanel.SetDesc<float>(baseUpgradeState_Float); }
 
-        BaseUpgradeState<int> baseUpgradeState_Int = OneOffShopEachData<int>.GetThisData(AllUpgradeDataList_Int, _MTAFB);
+        BUState<int> baseUpgradeState_Int = BUShopEachData<int>.GetThisData(AllUpgradeDataList_Int, _MTAFB);
         if (baseUpgradeState_Int != null)
         { ThisDescPanel.SetDesc<int>(baseUpgradeState_Int); }
     }
@@ -347,15 +347,15 @@ public class BaseUpgradeUIController : UIController
 }
 
 [System.Serializable]
-public class OneOffShopEachData<T>
+public class BUShopEachData<T>
 {
     [SerializeField] public ModifyTextAmountForBuy Upgrade_MTAFB;
     [SerializeField] public ModifyOwnEachBtn Upgrade_BuyBtn;
 
-    [HideInInspector] public BaseUpgradeState<T> Upgrade_BUS;
-    [HideInInspector] private BU_OneTypeData<T> Upgrade_BUOTD;
+    [HideInInspector] public BUState<T> Upgrade_BUS;
+    [HideInInspector] private BULevelData<T> Upgrade_BUOTD;
 
-    public void Offset(BaseUpgradeState<T> _Upgrade_BUS, BU_OneTypeData<T> _Upgrade_BUOTD, BaseUpgradeUIController _Owner)
+    public void Offset(BUState<T> _Upgrade_BUS, BULevelData<T> _Upgrade_BUOTD, BaseUpgradeUIController _Owner)
     {
         Upgrade_MTAFB.Offset();
 
@@ -425,9 +425,9 @@ public class OneOffShopEachData<T>
     }
 
 
-    public static BaseUpgradeState<T> GetThisData(List<OneOffShopEachData<T>> _ShopDataList, ModifyTextAmountForBuy _InMTAFB)
+    public static BUState<T> GetThisData(List<BUShopEachData<T>> _ShopDataList, ModifyTextAmountForBuy _InMTAFB)
     {
-        foreach (OneOffShopEachData<T> Data in _ShopDataList)
+        foreach (BUShopEachData<T> Data in _ShopDataList)
         {
             if (Data.Upgrade_MTAFB == _InMTAFB)
             {

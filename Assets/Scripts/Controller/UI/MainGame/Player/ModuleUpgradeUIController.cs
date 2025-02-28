@@ -5,7 +5,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModuleUpgradeUIController : UIController
+public class ModuleUpgradeUIController : PanelUIController
 {
     #region Value
 

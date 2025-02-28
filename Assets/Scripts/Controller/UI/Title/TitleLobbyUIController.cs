@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class TitleLobbyUIController : UIController
+public class TitleLobbyUIController : PanelUIController
 {
     #region Value
 

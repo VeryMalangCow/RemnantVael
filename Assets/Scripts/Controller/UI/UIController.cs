@@ -7,14 +7,6 @@ public abstract class UIController : MonoBehaviour
 {
     #region Value
 
-    [Space(20)]
-    [Header("<><><><><> Populer")]
-    [SerializeField] protected List<ModifyEachTab> ThisPanelTabList;
-    [SerializeField] protected ModifyEachTab CurrentThisPanelTab;
-    [SerializeField] protected string ThisPanelInputMapName;
-
-    [SerializeField] public ModifyOwnEachBtn CurrentBtn = null;
-
     #endregion
 
     #region Abstract Function
@@ -34,125 +26,40 @@ public abstract class UIController : MonoBehaviour
 
     #endregion
 
-    #region Set
+    #region Set Color
 
     protected void SetColor(Color _Clr, List<Component> _ApplyCompList)
     {
-
         for (int i = 0; i < _ApplyCompList.Count; i++)
         {
-            Color clr = _Clr;
             if (_ApplyCompList[i].TryGetComponent(out TMP_Text tmp))
             {
-                clr.a = tmp.color.a;
-                tmp.color = clr;
+                SetColor(_Clr, tmp);
             }
             else if (_ApplyCompList[i].TryGetComponent(out Image img))
             {
-                clr.a = img.color.a;
-                img.color = clr;
+                SetColor(_Clr, img);
             }
         }
     }
 
-
-    #endregion
-
-    #region Set Panel
-
-    public virtual void OpenThisPanel()
+    private void SetColor(Color _Clr, TMP_Text _Txt)
     {
-        // Other
-        MainGameUIManager.Instance.CurrentOpening_UIController = this;
-        InputManager.Instance.InputMoveDir = Vector2.zero;
-        InputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
-        InputManager.Instance.SetAim(false);
-
-        this.gameObject.SetActive(true);
-
-        if (ThisPanelTabList != null && ThisPanelTabList.Count > 0)
+        Color clr = _Clr;
+        if (_Txt != null)
         {
-            CurrentThisPanelTab = ThisPanelTabList[0];
-            OpenWindow(ThisPanelTabList[0]);
-        }
-
-        if (MainGameUIManager.Instance != null)
-        {
-            MainGameUIManager.Instance.PlayerHUD_UIController.IsTabInputed = false;
-            MainGameUIManager.Instance.PlayerHUD_UIController.OffTabInteract();
-            
+            clr.a = _Txt.color.a;
+            _Txt.color = clr;
         }
     }
 
-    public virtual void ChangeThisPanel(int _indexWindow)
+    private void SetColor(Color _Clr, Image _Img)
     {
-        //Other
-        if (CurrentThisPanelTab == ThisPanelTabList[_indexWindow])
-        { return; }
-
-
-        if (ThisPanelTabList != null && ThisPanelTabList.Count > 0)
+        Color clr = _Clr;
+        if (_Img != null)
         {
-            CurrentThisPanelTab = ThisPanelTabList[_indexWindow];
-            OpenWindow(ThisPanelTabList[_indexWindow]);
-        }
-    }
-
-    public virtual void CloseThisPanel()
-    {
-        // Seq
-        this.gameObject.SetActive(false);
-        MainGameUIManager.Instance.CurrentOpening_UIController = null;
-        InputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
-        InputManager.Instance.SetAim(true);
-    }
-
-    #endregion
-
-    #region Set Tab Btn
-
-    protected void SetTabTxt(List<TMP_Text> _TxtList, List<Component> _ColorComp)
-    {
-        for (int i = 0; i < _TxtList.Count; i++)
-        {
-            if (this is BaseUpgradeUIController)
-            { _TxtList[i].text = PlayerManager.Instance.PlayerController.BUUITabStringList[i]; }
-            else if (this is ModuleUpgradeUIController)
-            { _TxtList[i].text = PlayerManager.Instance.PlayerController.MUUITabStringList[i]; }
-
-            _ColorComp.Add(_TxtList[i]);
-        }
-    }
-
-    protected void SetTabLightAlpha(float _A, List<CanvasGroup> _CG, List<Component> _ColorComp)
-    {
-        for (int i = 0; i < _CG.Count; i++)
-        {
-            _CG[i].alpha = _A;
-            if (_CG[i].gameObject.TryGetComponent(out Image img))
-            { _ColorComp.Add(img); }
-        }
-    }
-
-    #endregion
-
-    #region Set Window
-
-    private void OpenWindow(ModifyEachTab _TargetTab)
-    {
-        CloseWindowAll(ThisPanelTabList);
-        _TargetTab.ThisPanelRT.gameObject.SetActive(true); 
-        if (_TargetTab.ThisTabBtn.transform.GetChild(0).TryGetComponent(out CanvasGroup cg))
-        { cg.alpha = 0.5f; }
-    }
-
-    private void CloseWindowAll(List<ModifyEachTab> _AllWindow)
-    {
-        for (int i = 0; i < _AllWindow.Count; i++)
-        {
-            _AllWindow[i].ThisPanelRT.gameObject.SetActive(false);
-            if (_AllWindow[i].ThisTabBtn.transform.GetChild(0).TryGetComponent(out CanvasGroup cg))
-            { cg.alpha = 0.1f; }
+            clr.a = _Img.color.a;
+            _Img.color = clr;
         }
     }
 
@@ -182,8 +89,6 @@ public abstract class UIController : MonoBehaviour
 
     #region Dur
 
-    #region Dur
-
     protected void SetDur(int _DurState, List<Image> _ImgList, TMP_Text _Txt)
     {
         _Txt.text = _DurState.ToString();
@@ -200,9 +105,6 @@ public abstract class UIController : MonoBehaviour
         }
     }
 
-    
-
-    #endregion
 
     #endregion
 }

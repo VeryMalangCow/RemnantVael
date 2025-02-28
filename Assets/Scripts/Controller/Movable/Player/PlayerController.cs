@@ -25,7 +25,7 @@ public class PlayerController : MovableObject
     [SerializeField] public bool IsCasting = false;
     [SerializeField] private float CurrentCastingTime = 0;
     [SerializeField] private float TargetCastingTime = 0;
-    [SerializeField] public BaseUpgradeState<float> AvoidChance;
+    [SerializeField] public BUState<float> AvoidChance;
 
     [Header("-- Invincible")]
     [SerializeField] private bool IsInvincible = false;
@@ -34,11 +34,11 @@ public class PlayerController : MovableObject
     private Sequence InvincibleSeq;
 
     [Header("-- Energy")]
-    [SerializeField] public BaseUpgradeState<float> MaxEP;
-    [SerializeField] public BaseUpgradeState<float> TakingDmgMultiple;
+    [SerializeField] public BUState<float> MaxEP;
+    [SerializeField] public BUState<float> TakingDmgMultiple;
     [SerializeField] public ReactiveProperty<float> CurrentEP = new();
-    [SerializeField] public BaseUpgradeState<float> SpawnESMultiple;
-    [SerializeField] public BaseUpgradeState<float> NeedEP_ForSkillMultiple;
+    [SerializeField] public BUState<float> SpawnESMultiple;
+    [SerializeField] public BUState<float> NeedEP_ForSkillMultiple;
     [SerializeField] public Sprite ES_Sprite;
 
     [Header("-- Shield")]
@@ -77,8 +77,8 @@ public class PlayerController : MovableObject
 
     [Header("-- State")]
     [SerializeField] public eMovementState MovementState = eMovementState.IdleOrWalk;
-    [SerializeField] public BaseUpgradeState<float> WalkSpeed;
-    [SerializeField] public BaseUpgradeState<float> WalkSpeedWhenShotMultiple;
+    [SerializeField] public BUState<float> WalkSpeed;
+    [SerializeField] public BUState<float> WalkSpeedWhenShotMultiple;
 
     [Header("-- Dash")]
     [SerializeField] public PlayerDashController DashController;
@@ -110,7 +110,7 @@ public class PlayerController : MovableObject
     [SerializeField] public int MaxBoostLv = 4;
     [SerializeField] public ReactiveProperty<int> CurrentBoostLv = new();
     [SerializeField] private List<float> DecEnergyPointByLevel;
-    [SerializeField] public BaseUpgradeState<float> DecEnergyPointMultiple;
+    [SerializeField] public BUState<float> DecEnergyPointMultiple;
 
     private delegate void SkillDele();
     private SkillDele ReservationSkillDele = null;
@@ -1259,7 +1259,7 @@ public class PlayerController : MovableObject
 }
 
 [System.Serializable]
-public class BaseUpgradeState<T>
+public class BUState<T>
 {
     public T BaseState;
     public ReactiveProperty<int> CurrentLevel;

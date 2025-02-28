@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class EntranceSpaceUIController : UIController
+public class EntranceSpaceUIController : PanelUIController
 {
     #region Value
 

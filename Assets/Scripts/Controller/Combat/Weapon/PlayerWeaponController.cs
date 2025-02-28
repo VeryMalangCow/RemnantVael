@@ -12,14 +12,14 @@ public class PlayerWeaponController : SatelliteController
     [Space(10)]
     [Header("=== State")]
     [SerializeField] public eDamageType DamageType;
-    [SerializeField] public BaseUpgradeState<float> BaseDamage;
+    [SerializeField] public BUState<float> BaseDamage;
     [SerializeField] public float AliveTime;
-    [SerializeField] public BaseUpgradeState<float> MuzzleSpeed;
-    [SerializeField] public BaseUpgradeState<float> ROF;
-    [SerializeField] public BaseUpgradeState<float> CC;
-    [SerializeField] public BaseUpgradeState<float> CD;
-    [SerializeField] public BaseUpgradeState<float> AccuracyRate;
-    [SerializeField] public BaseUpgradeState<float> KnockbackPower;
+    [SerializeField] public BUState<float> MuzzleSpeed;
+    [SerializeField] public BUState<float> ROF;
+    [SerializeField] public BUState<float> CC;
+    [SerializeField] public BUState<float> CD;
+    [SerializeField] public BUState<float> AccuracyRate;
+    [SerializeField] public BUState<float> KnockbackPower;
 
     [SerializeField] public float CurrentDelayROF = 0;
 

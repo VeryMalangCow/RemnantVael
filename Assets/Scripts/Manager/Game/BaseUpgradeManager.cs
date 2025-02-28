@@ -9,36 +9,36 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
     [Header("=== Data")]
 
     [Header("-- Attack")]
-    [SerializeField] public BU_OneTypeData<float> BaseDamage_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseROF_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseCC_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseCD_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseMuzzleSpeed_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseAccuracyRate_BUData;
-    [SerializeField] public BU_OneTypeData<float> Knockback_BUData;
+    [SerializeField] public BULevelData<float> BaseDamage_BUData;
+    [SerializeField] public BULevelData<float> BaseROF_BUData;
+    [SerializeField] public BULevelData<float> BaseCC_BUData;
+    [SerializeField] public BULevelData<float> BaseCD_BUData;
+    [SerializeField] public BULevelData<float> BaseMuzzleSpeed_BUData;
+    [SerializeField] public BULevelData<float> BaseAccuracyRate_BUData;
+    [SerializeField] public BULevelData<float> Knockback_BUData;
 
     [Header("-- EP")]
-    [SerializeField] public BU_OneTypeData<float> BaseMaxEP_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseSpawnESMultiple_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseNeedEP_ForSkillMultiple_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseDecEnergyPointMultiple_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseResist_BUData;
+    [SerializeField] public BULevelData<float> BaseMaxEP_BUData;
+    [SerializeField] public BULevelData<float> BaseSpawnESMultiple_BUData;
+    [SerializeField] public BULevelData<float> BaseNeedEP_ForSkillMultiple_BUData;
+    [SerializeField] public BULevelData<float> BaseDecEnergyPointMultiple_BUData;
+    [SerializeField] public BULevelData<float> BaseResist_BUData;
 
     [Header("-- Movement")]
-    [SerializeField] public BU_OneTypeData<float> BaseWalkSpeed_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseWalkSpeedWhenShotMultiple_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseDashSpeed_BUData;
-    [SerializeField] public BU_OneTypeData<float> BaseAvoidChance_BUData;
+    [SerializeField] public BULevelData<float> BaseWalkSpeed_BUData;
+    [SerializeField] public BULevelData<float> BaseWalkSpeedWhenShotMultiple_BUData;
+    [SerializeField] public BULevelData<float> BaseDashSpeed_BUData;
+    [SerializeField] public BULevelData<float> BaseAvoidChance_BUData;
 
     [Header("-- Skill 0")]
-    [SerializeField] public BU_OneTypeData<float> Skill0_Cooltime_BUData;
-    [SerializeField] public BU_OneTypeData<float> Skill0_Power_BUData;
-    [SerializeField] public BU_OneTypeData<int> Skill0_Tier_BUData;
+    [SerializeField] public BULevelData<float> Skill0_Cooltime_BUData;
+    [SerializeField] public BULevelData<float> Skill0_Power_BUData;
+    [SerializeField] public BULevelData<int> Skill0_Tier_BUData;
 
     [Header("-- Skill 1")]
-    [SerializeField] public BU_OneTypeData<float> Skill1_Cooltime_BUData;
-    [SerializeField] public BU_OneTypeData<float> Skill1_Power_BUData;
-    [SerializeField] public BU_OneTypeData<int> Skill1_Tier_BUData;
+    [SerializeField] public BULevelData<float> Skill1_Cooltime_BUData;
+    [SerializeField] public BULevelData<float> Skill1_Power_BUData;
+    [SerializeField] public BULevelData<int> Skill1_Tier_BUData;
 
     #endregion
 
@@ -79,12 +79,12 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
 }
 
 [System.Serializable]
-public class BU_OneTypeData<T>
+public class BULevelData<T>
 {
     [Header("=== No Input")]
-    public List<BU_EachLevelData<T>> BU_EachLevelDataList;
+    public List<BUEachLevelData<T>> BU_EachLevelDataList;
 
-    public void Offset(BaseUpgradeState<T> _BaseValue)
+    public void Offset(BUState<T> _BaseValue)
     {
         if (_BaseValue.BaseState.GetType() == typeof(float))
         {
@@ -158,7 +158,7 @@ public class BU_OneTypeData<T>
 }
 
 [System.Serializable]
-public class BU_EachLevelData<T>
+public class BUEachLevelData<T>
 {
     public T UpgradeValue;
     public int NeedEC_ForUpgrade;
