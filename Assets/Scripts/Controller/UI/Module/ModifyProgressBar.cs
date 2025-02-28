@@ -4,16 +4,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModifyReductionFocusProgressBar : UIModule
+public class ModifyProgressBar : UIModule
 {
     #region Value
 
     [Space(10)]
     [Header("=== Bar")]
-    [SerializeField] public Image AfterImageEP_Img;
+    [SerializeField] public Image AfterImg;
 
-    [SerializeField] public Image ActualEP_Img;
-    [SerializeField] public RectTransform ActualEP_ImgLiner;
+    [SerializeField] public Image ActualImg;
+    [SerializeField] public RectTransform ActualImgLiner;
 
     [Header("=== Text")]
     [SerializeField] private TMP_Text Txt;
@@ -40,7 +40,7 @@ public class ModifyReductionFocusProgressBar : UIModule
 
     private void LateUpdate()
     {
-        ActualEP_ImgLiner.localPosition = GetLinerPos();
+        ActualImgLiner.localPosition = GetLinerPos();
     }
 
     #endregion
@@ -68,8 +68,8 @@ public class ModifyReductionFocusProgressBar : UIModule
     {
         float fillValue = _CurrentValue / _MaxValue;
 
-        DOTween.Kill(ActualEP_Img.fillAmount);
-        ActualEP_Img.DOFillAmount(fillValue, 0.1f);
+        DOTween.Kill(ActualImg.fillAmount);
+        ActualImg.DOFillAmount(fillValue, 0.1f);
 
         StartCoroutine(SetFillImgSmooth_AfterImg());
         if (Txt != null)
@@ -78,29 +78,29 @@ public class ModifyReductionFocusProgressBar : UIModule
 
     private IEnumerator SetFillImgSmooth_AfterImg()
     {
-        DOTween.Kill(AfterImageEP_Img.fillAmount);
+        DOTween.Kill(AfterImg.fillAmount);
 
         yield return new WaitForSeconds(0.5f);
 
-        if (ActualEP_Img.fillAmount >= AfterImageEP_Img.fillAmount)
+        if (ActualImg.fillAmount >= AfterImg.fillAmount)
         {
-            AfterImageEP_Img.fillAmount = ActualEP_Img.fillAmount;
+            AfterImg.fillAmount = ActualImg.fillAmount;
         }
         else
         {
-            AfterImageEP_Img.DOFillAmount(ActualEP_Img.fillAmount, 0.2f);
+            AfterImg.DOFillAmount(ActualImg.fillAmount, 0.2f);
         }
     }
 
 
     public void SetFillFullImgSmooth(float _DurTime)
     {
-        DOTween.Kill(ActualEP_Img.fillAmount);
-        ActualEP_Img.DOFillAmount(1f, _DurTime)
+        DOTween.Kill(ActualImg.fillAmount);
+        ActualImg.DOFillAmount(1f, _DurTime)
             .SetEase(Ease.Linear)
             .OnComplete(() =>
             {
-                AfterImageEP_Img.fillAmount = 1f;
+                AfterImg.fillAmount = 1f;
             });
     }
 
@@ -122,7 +122,7 @@ public class ModifyReductionFocusProgressBar : UIModule
     {
         if (ThisRT != null)
         {
-            float targetX = ThisRT.sizeDelta.x * ActualEP_Img.fillAmount;
+            float targetX = ThisRT.sizeDelta.x * ActualImg.fillAmount;
             return new Vector2(targetX, 0f);
         }
 

@@ -1,5 +1,5 @@
 
-public class EntranceSpaceController : InteractableBuildingController, IInteract
+public class EntranceSpaceController : InteractableBuildController, IInteract
 {
     #region Interact
 

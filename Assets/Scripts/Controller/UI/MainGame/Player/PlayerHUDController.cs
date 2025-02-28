@@ -48,7 +48,7 @@ public class PlayerHUDController : UIController
 
     [Space(10)]
     [Header("=== Energy")]
-    [SerializeField] private ModifyReductionFocusProgressBar EP;
+    [SerializeField] private ModifyProgressBar EP;
     [SerializeField] private List<Image> EPInnerImgList;
     [SerializeField] private RectTransform EP_FlowRT;
 
@@ -291,9 +291,9 @@ public class PlayerHUDController : UIController
         #region Set Color
 
         // Main
-        MainColorCompList.Add(EP.AfterImageEP_Img.gameObject.transform.GetChild(0).GetComponent<Image>());
-        MainColorCompList.Add(EP.ActualEP_Img.gameObject.transform.GetChild(0).GetComponent<Image>());
-        MainColorCompList.Add(EP.ActualEP_ImgLiner.gameObject.transform.GetComponent<Image>());
+        MainColorCompList.Add(EP.AfterImg.gameObject.transform.GetChild(0).GetComponent<Image>());
+        MainColorCompList.Add(EP.ActualImg.gameObject.transform.GetChild(0).GetComponent<Image>());
+        MainColorCompList.Add(EP.ActualImgLiner.gameObject.transform.GetComponent<Image>());
 
         MainColorCompList.Add(BoostLv);
         for (int i = 0; i < BoostLightArr.Length; i++)

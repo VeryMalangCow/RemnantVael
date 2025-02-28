@@ -208,12 +208,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2040526614001980944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2ef08973e206d429efee081d9ec718, type: 3}
+  m_Script: {fileID: 11500000, guid: 16289558bb2ad764f9c6ae9319304b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AfterImageEP_Img: {fileID: 8346029927786009931}
-  ActualEP_Img: {fileID: 1934485254330562910}
-  ActualEP_ImgLiner: {fileID: 2630946349537851620}
+  AfterImg: {fileID: 8346029927786009931}
+  ActualImg: {fileID: 1934485254330562910}
+  ActualImgLiner: {fileID: 2630946349537851620}
   Txt: {fileID: 0}
   MiddleRT: {fileID: 0}
   PlusSizeMiddleRTX: 0
@@ -381,7 +381,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 0.418
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

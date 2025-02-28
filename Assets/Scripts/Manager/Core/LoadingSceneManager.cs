@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class LoadingSceneManager : Singleton<LoadingSceneManager>
+public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 {
     #region Value
 
@@ -20,10 +20,6 @@ public class LoadingSceneManager : Singleton<LoadingSceneManager>
     {
         //Singleton
         base.Awake();
-        if (LoadingSceneManager.Instance == this)
-        {
-            DontDestroyOnLoad(this.gameObject);
-        }
     }
 
     #endregion

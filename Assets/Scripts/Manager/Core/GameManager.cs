@@ -2,7 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : PersistentSingleton<GameManager>
 {
     #region Value
 
@@ -28,10 +28,6 @@ public class GameManager : Singleton<GameManager>
     {
         //Singleton
         base.Awake();
-        if(GameManager.Instance == this)
-        {
-            DontDestroyOnLoad(this.gameObject);
-        }
         
         SetBaseOption();
         SetRainbowColorDotween();

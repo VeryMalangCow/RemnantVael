@@ -846,7 +846,7 @@ public class PlayerController : MovableObject
                 CurrentInteractable.Value.Interact();
                 CurrentInteractable.Value = null;
             }
-            else if (CurrentInteractable.Value is DestructibleBuildingController DBC && !DBC.IsBroken)
+            else if (CurrentInteractable.Value is DestructibleBuildController DBC && !DBC.IsBroken)
             {
                 CurrentInteractable.Value.Interact();
             }

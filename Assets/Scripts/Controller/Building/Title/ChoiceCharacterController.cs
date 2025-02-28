@@ -1,5 +1,5 @@
 
-public class ChoiceCharacterController : InteractableBuildingController, IInteract
+public class ChoiceCharacterController : InteractableBuildController, IInteract
 {
     #region Interact
 

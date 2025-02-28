@@ -19,7 +19,7 @@ public class RoomRuleController : MonoBehaviour
     [HideInInspector] public List<SortLayerObjectController> InRoom_AllBuilding;
     [SerializeField] private Transform InRoom_ShopTF;
     [SerializeField] private Transform InRoom_PrisonTF;
-    [HideInInspector] private InteractableBuildingController InRoom_BuildThing;
+    [HideInInspector] private InteractableBuildController InRoom_BuildThing;
     // [HideInInspector] private 감옥 지정될 변수 
     [SerializeField] private DownstartElevatorController InRoom_Elevator;
 
@@ -71,7 +71,7 @@ public class RoomRuleController : MonoBehaviour
         if (shop != null)
         {
             shop.transform.localPosition = Vector3.zero;
-            if (shop.TryGetComponent(out InteractableBuildingController IBC))
+            if (shop.TryGetComponent(out InteractableBuildController IBC))
             { InRoom_BuildThing = IBC; }
             shop.gameObject.SetActive(false);
         }

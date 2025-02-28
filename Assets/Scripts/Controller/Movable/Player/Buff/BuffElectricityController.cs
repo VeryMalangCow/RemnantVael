@@ -1,7 +1,7 @@
 using UniRx;
 using UnityEngine;
 
-public class BuffElectricController : BuffController, IWhen_Hitted
+public class BuffElectricityController : BuffController, IWhen_Hitted
 {
     #region Value
 

@@ -8034,17 +8034,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6346408808932293534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2ef08973e206d429efee081d9ec718, type: 3}
+  m_Script: {fileID: 11500000, guid: 16289558bb2ad764f9c6ae9319304b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AfterImageEP_Img: {fileID: 4003874939331868869}
-  ActualEP_Img: {fileID: 6817109659310789840}
-  ActualEP_ImgLiner: {fileID: 6971975506821404010}
+  AfterImg: {fileID: 4003874939331868869}
+  ActualImg: {fileID: 6817109659310789840}
+  ActualImgLiner: {fileID: 6971975506821404010}
   Txt: {fileID: 1745661004261317006}
   MiddleRT: {fileID: 5281799584682620777}
-  PlusSizeMiddleRTX: 36
+  PlusSizeMiddleRTX: 30
   RightRT: {fileID: 7483124975257989038}
-  PlusPosRightRTX: -56
+  PlusPosRightRTX: -52
 --- !u!1 &6484998346817311274
 GameObject:
   m_ObjectHideFlags: 0

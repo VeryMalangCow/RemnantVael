@@ -10,8 +10,8 @@ public class EnemyBuffUIController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Buff")]
-    [SerializeField] private List<EnemyBuffIconUIController> BuffIconUIs;
-    [SerializeField] private List<EnemyBuffIconUIController> UsingBuffIconUIs = new List<EnemyBuffIconUIController>();
+    [SerializeField] private List<ModifyBuffIcon> BuffIconUIs;
+    [SerializeField] private List<ModifyBuffIcon> UsingBuffIconUIs = new List<ModifyBuffIcon>();
     [SerializeField] private float XYInterval = 44;
     [SerializeField] private int WidthMaxAmount = 5;
 
@@ -27,10 +27,10 @@ public class EnemyBuffUIController : MonoBehaviour
 
         for (int i = 0; i < this.transform.childCount; i++)
         {
-            if (this.transform.GetChild(i).TryGetComponent(out EnemyBuffIconUIController EBI))
+            if (this.transform.GetChild(i).TryGetComponent(out ModifyBuffIcon MBI))
             { 
-                BuffIconUIs.Add(EBI);
-                EBI.Offset();
+                BuffIconUIs.Add(MBI);
+                MBI.Offset();
             }
         }
     }
@@ -40,7 +40,7 @@ public class EnemyBuffUIController : MonoBehaviour
     #region Get & Set
 
     // 사용하지 않는 중인 버프 Icon UI
-    public EnemyBuffIconUIController GetBuffIconUI()
+    public ModifyBuffIcon GetBuffIconUI()
     {
         for (int i = 0; i < BuffIconUIs.Count; i++)
         {
@@ -58,7 +58,7 @@ public class EnemyBuffUIController : MonoBehaviour
     }
 
     // 사용중인 버프 Icon UI 리스트에서 제거
-    public void ExpiredBuffIconUI(EnemyBuffIconUIController _BuffIconUI)
+    public void ExpiredBuffIconUI(ModifyBuffIcon _BuffIconUI)
     {
         _BuffIconUI.Off();
 

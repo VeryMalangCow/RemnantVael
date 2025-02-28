@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2932355040007328751}
   - component: {fileID: 514307756963178669}
   - component: {fileID: 6116070868073913285}
-  - component: {fileID: 5685255358358926760}
+  - component: {fileID: 3960181719592217665}
   m_Layer: 7
   m_Name: Panel_BuffIcon
   m_TagString: Untagged
@@ -109,7 +109,7 @@ MonoBehaviour:
   baked: 0
   modifiedFromInspector: 0
   bakedShadows: []
---- !u!114 &5685255358358926760
+--- !u!114 &3960181719592217665
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,13 +118,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2760458406073263028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8979efb64314ee94197718a90df303e5, type: 3}
+  m_Script: {fileID: 11500000, guid: e0faae2895b450c48a245c8cc2f28fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UsingNow: 0
-  IconImg: {fileID: 514307756963178669}
-  ShadowImg: {fileID: 4759681505509844340}
-  AmountTxt: {fileID: 8122043367556108998}
+  ThisImg: {fileID: 514307756963178669}
+  ThisShadowImg: {fileID: 4759681505509844340}
+  ThisTxt: {fileID: 8122043367556108998}
+  ThisRT: {fileID: 0}
 --- !u!1 &7118362534123121852
 GameObject:
   m_ObjectHideFlags: 0

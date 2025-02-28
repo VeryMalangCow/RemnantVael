@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveDataManager : Singleton<SaveDataManager>
+public class SaveDataManager : PersistentSingleton<SaveDataManager>
 {
     #region Value
 
@@ -18,11 +18,6 @@ public class SaveDataManager : Singleton<SaveDataManager>
     {
         //Singleton
         base.Awake();
-        if (SaveDataManager.Instance == this)
-        {
-            DontDestroyOnLoad(this.gameObject);
-        }
-
 
         // Load Data
         CharacterSaveData.LoadData();

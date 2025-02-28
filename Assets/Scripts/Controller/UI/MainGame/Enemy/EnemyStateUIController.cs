@@ -9,9 +9,9 @@ public class EnemyStateUIController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Gage")]
-    [SerializeField] public ModifyReductionFocusProgressBar HP_ProgressBar;
-    [SerializeField] public ModifyReductionFocusProgressBar SP_ProgressBar;
-    [SerializeField] public ModifyReductionFocusProgressBar EP_ProgressBar;
+    [SerializeField] public ModifyProgressBar HP_ProgressBar;
+    [SerializeField] public ModifyProgressBar SP_ProgressBar;
+    [SerializeField] public ModifyProgressBar EP_ProgressBar;
 
     [HideInInspector] public EnemyHUDController EnemyHUD;
 

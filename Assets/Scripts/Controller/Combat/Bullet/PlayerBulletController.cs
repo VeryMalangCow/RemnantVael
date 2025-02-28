@@ -91,7 +91,7 @@ public class PlayerBulletController : BulletController
         }
         else if (_Col.tag == "DestructibleObject")
         {
-            if (_Col.transform.parent.TryGetComponent(out DestructibleBuildingController DBC))
+            if (_Col.transform.parent.TryGetComponent(out DestructibleBuildController DBC))
             {
                 DBC.TakeDamage(true);
             }

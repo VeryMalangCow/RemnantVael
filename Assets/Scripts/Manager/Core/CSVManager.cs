@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class CSVManager : Singleton<CSVManager>
+public class CSVManager : PersistentSingleton<CSVManager>
 {
     #region Value
 
@@ -54,10 +54,6 @@ public class CSVManager : Singleton<CSVManager>
     {
         //Singleton
         base.Awake();
-        if (CSVManager.Instance == this)
-        {
-            DontDestroyOnLoad(this.gameObject);
-        }
 
         Offset();
     }

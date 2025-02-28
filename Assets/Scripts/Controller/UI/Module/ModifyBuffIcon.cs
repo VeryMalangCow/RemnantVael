@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Collections.Specialized.BitVector32;
 
 public class ModifyBuffIcon : UIModule
 {
@@ -12,9 +11,13 @@ public class ModifyBuffIcon : UIModule
 
     [Space(10)]
     [Header("=== Component")]
+    [SerializeField] public bool UsingNow = false;
+
     [SerializeField] private Image ThisImg;
     [SerializeField] public Image ThisShadowImg;
+
     [SerializeField] private TMP_Text ThisTxt;
+
     [HideInInspector] public RectTransform ThisRT;
 
     #endregion
@@ -32,6 +35,22 @@ public class ModifyBuffIcon : UIModule
     #endregion
 
     #region Set
+
+    public void On(Sprite _Icon, bool _ShowTxt)
+    {
+        UsingNow = true;
+        gameObject.SetActive(true);
+
+        ThisImg.sprite = _Icon;
+        ThisTxt.gameObject.SetActive(_ShowTxt);
+        ThisShadowImg.fillAmount = 0;
+    }
+
+    public void Off()
+    {
+        UsingNow = false;
+        gameObject.SetActive(false);
+    }
 
     public void SetIcon(Sprite _Sprite, int _BuffAmount)
     {
@@ -56,6 +75,17 @@ public class ModifyBuffIcon : UIModule
             ThisTxt.gameObject.SetActive(false);
         }
     }
+
+    public void SetBuffState(int _CurrentStack)
+    {
+        ThisTxt.text = _CurrentStack.ToString();
+    }
+
+    public void SetBuffState(float _FillAmount)
+    {
+        ThisShadowImg.fillAmount = _FillAmount;
+    }
+
 
     #endregion
 }

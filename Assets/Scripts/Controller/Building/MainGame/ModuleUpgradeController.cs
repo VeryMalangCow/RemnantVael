@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ModuleUpgradeController : DestructibleBuildingController, IInteract
+public class ModuleUpgradeController : DestructibleBuildController, IInteract
 {
     public static ModuleUpgradeController UsingShop = null;
 

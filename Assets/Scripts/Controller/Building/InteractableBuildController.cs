@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractableBuildingController : SortLayerObjectController
+public class InteractableBuildController : SortLayerObjectController
 {
     #region Value
 

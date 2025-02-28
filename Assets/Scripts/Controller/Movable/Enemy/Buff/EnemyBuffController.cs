@@ -130,6 +130,15 @@ public class EnemyBuffController : MonoBehaviour
         ColdStack.UpdateCooltime(deltaTime);
         ElectricityStack.UpdateCooltime(deltaTime);
         CorrosionStack.UpdateCooltime(deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            FlameStack.GainStack(5, true);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ColdStack.GainStack(5, true);
+        }    
     }
 
 
@@ -299,7 +308,7 @@ public class StatusEffect
     public delegate void EffectDele();
 
     [HideInInspector] public EnemyController Enemy;
-    [HideInInspector] public EnemyBuffIconUIController BuffIconUI = null;
+    [HideInInspector] public ModifyBuffIcon BuffIconUI = null;
     [HideInInspector] public Sprite IconSprite;
 
     public bool IsOn;

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EventManager : Singleton<EventManager>
+public class EventManager : PersistentSingleton<EventManager>
 {
     #region Value
 
@@ -60,12 +60,6 @@ public class EventManager : Singleton<EventManager>
     {
         //Singleton
         base.Awake();
-        if (EventManager.Instance == this)
-        {
-            DontDestroyOnLoad(this.gameObject);
-        }
-
-        
     }
 
     private void Update()
