@@ -54,20 +54,20 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
 
         ItemIconImg.color = new Color(1, 1, 1, 0);
         CurrentRankImg.color = new Color(1, 1, 1, 0);
-        Color clr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
+        Color clr = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, false);
         clr.a = 0f;
         BoostLvImg.color = clr;
         MainChipGO.gameObject.SetActive(false);
 
-        CurrentBoostLvMIAT.SetAmount(0);
-        CurrentBoostLvMIAT.SetColor(PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false));
+        CurrentBoostLvMIAT.Set_Amount(0);
+        CurrentBoostLvMIAT.Set_Color(PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, false));
     }
 
     #endregion
 
     #region Desc
 
-    public void SetDesc(ModuleState _MS)
+    public void SetOn_Desc(ModuleState _MS)
     {
         foreach (Transform child in this.transform)
         { child.gameObject.SetActive(true); }
@@ -80,18 +80,18 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
 
         // Rank
         CurrentRankImg.color = new Color(1, 1, 1, 1);
-        CurrentRankImg.sprite = ModuleItemManager.Instance.GetCorrectMUUIDescRankIcon(_MS);
+        CurrentRankImg.sprite = ModuleItemManager.Instance.Get_CorrectMUUIDescRankIcon(_MS);
         CurrentRankTxt.text = ExtraString_Rank;
         CurrentActualRankTxt.text = _MS.ThisItemData.Rank.ToString();
 
         // MainChip
         MainChipGO.gameObject.SetActive(true);
         RankLv1_MainChipImg.sprite =
-            ModuleItemManager.Instance.GetCorrectMainChip(_MS.ThisItemData.Rank1_ItemMainChipID).ThisIcon;
+            ModuleItemManager.Instance.Get_CorrectMainChip(_MS.ThisItemData.Rank1_ItemMainChipID).ThisIcon;
         RankLv3_MainChipImg.sprite =
-            ModuleItemManager.Instance.GetCorrectMainChip(_MS.ThisItemData.Rank3_ItemMainChipID).ThisIcon;
+            ModuleItemManager.Instance.Get_CorrectMainChip(_MS.ThisItemData.Rank3_ItemMainChipID).ThisIcon;
         RankLv5_MainChipImg.sprite =
-            ModuleItemManager.Instance.GetCorrectMainChip(_MS.ThisItemData.Rank5_ItemMainChipID).ThisIcon;
+            ModuleItemManager.Instance.Get_CorrectMainChip(_MS.ThisItemData.Rank5_ItemMainChipID).ThisIcon;
 
         RankLv3_LockerImg.gameObject.SetActive(true);
         RankLv5_LockerImg.gameObject.SetActive(true);
@@ -138,12 +138,12 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
         Color clr = BoostLvImg.color;
         clr.a = (float)_MS.ThisItemData.BoostLv / (float)PlayerManager.Instance.PlayerController.MaxBoostLv;
         BoostLvImg.color = clr;
-        CurrentBoostLvMIAT.SetAmount(_MS.ThisItemData.BoostLv);
+        CurrentBoostLvMIAT.Set_Amount(_MS.ThisItemData.BoostLv);
         CurrentBoostLvTxt.text = ExtraString_BoostLv;
         CurrentActualBoostLvTxt.text = _MS.ThisItemData.BoostLv.ToString();
     }
 
-    public void SetDescOff()
+    public void SetOff_Desc()
     {
         // Item
         ItemIconImg.color = new Color(1, 1, 1, 0);
@@ -163,7 +163,7 @@ public class ModifyDescPanel_ForModuleUpgrade : UIModule
         clr.a = 0;
         BoostLvImg.color = clr;
 
-        CurrentBoostLvMIAT.SetAmount(0);
+        CurrentBoostLvMIAT.Set_Amount(0);
         CurrentBoostLvTxt.text = "-";
         CurrentActualBoostLvTxt.text = "-";
     }

@@ -77,8 +77,10 @@ public class EnemyController : MovableObject, IInteract
 
     #region Fremework
 
-    private void Offset()
+    protected override void Offset()
     {
+        base.Offset();
+
         HUD.Offset(this);
 
         if (this.gameObject.TryGetComponent(out EnemyBuffController EBC))
@@ -90,40 +92,40 @@ public class EnemyController : MovableObject, IInteract
         CurrentSP
             .Subscribe(_CurrentSP =>
             {
-                HUD.StateUI.SP_ProgressBar.SetFillImgSmooth(CurrentSP.Value, MaxHP);
+                HUD.StateUI.SP_ProgressBar.Set_FillImgSmooth(CurrentSP.Value, MaxHP);
 
                 if (CurrentSP.Value <= 0)
                 {
-                    HUD.StateUI.SP_ProgressBar.SetNoNum();
-                    HUD.StateUI.HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
-                    HUD.StateUI.EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
+                    HUD.StateUI.SP_ProgressBar.Set_NoNum();
+                    HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
+                    HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
 
                     if (BuffController.ShieldBuff.IsOn)
-                    { BuffController.ShieldBuff.RemoveAllStack(); }
+                    { BuffController.ShieldBuff.Remove_AllStack(); }
                 }
                 else
                 {
-                    HUD.StateUI.HP_ProgressBar.SetNoNum();
-                    HUD.StateUI.EP_ProgressBar.SetNoNum();
+                    HUD.StateUI.HP_ProgressBar.Set_NoNum();
+                    HUD.StateUI.EP_ProgressBar.Set_NoNum();
                 }
             });
 
         CurrentHP
             .Subscribe(_CurrentHP =>
             {
-                HUD.StateUI.HP_ProgressBar.SetFillImgSmooth(CurrentHP.Value, MaxHP);
+                HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
 
                 if (CurrentSP.Value > 0)
-                { HUD.StateUI.HP_ProgressBar.SetNoNum(); }
+                { HUD.StateUI.HP_ProgressBar.Set_NoNum(); }
             });
 
         CurrentEP
             .Subscribe(_CurrentEP =>
             {
-                HUD.StateUI.EP_ProgressBar.SetFillImgSmooth(CurrentEP.Value, MaxEP);
+                HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
 
                 if (CurrentSP.Value > 0)
-                { HUD.StateUI.EP_ProgressBar.SetNoNum(); }
+                { HUD.StateUI.EP_ProgressBar.Set_NoNum(); }
             });
 
     }
@@ -149,21 +151,21 @@ public class EnemyController : MovableObject, IInteract
         if (CurrentRoomController == null)
         { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
 
-        ExplosionEffect();
-        StartPatternFromNone();
+        Gen_ExplosionEffect();
+        Start_PatternFromNone();
     }
 
     protected void FixedUpdate()
     {
-        Movement();
-        LookAtTarget();
+        Play_Movement();
+        Play_LookAtTarget();
     }
 
     #endregion
 
     #region Movement
 
-    private void Movement()
+    private void Play_Movement()
     {
         switch (MovementState)
         {
@@ -173,7 +175,7 @@ public class EnemyController : MovableObject, IInteract
                     MoveDir = (MoveTargetPoint - (Vector2)this.transform.position).normalized;
 
                 }
-                Walk(MoveDir, MoveSpeed, AccelerationSpeed);
+                Play_Walk(MoveDir, MoveSpeed, AccelerationSpeed);
                 break;
 
             default: break;
@@ -185,7 +187,7 @@ public class EnemyController : MovableObject, IInteract
 
     #region Look At
 
-    private void LookAtTarget()
+    private void Play_LookAtTarget()
     {
         if (IsDischarge)
         { return; }
@@ -206,55 +208,55 @@ public class EnemyController : MovableObject, IInteract
 
     #region Life State Gain
 
-    public void SetPercentSP(float _Value)
+    public void Set_PercentSP(float _Value)
     {
         float actualValue = (_Value / 100f) * MaxHP;
         
         if (actualValue > CurrentSP.Value)
         {
-            SetSP(actualValue);
+            Set_SP(actualValue);
         }
     }
 
-    public void GainPercentSP(float _Value)
+    public void Gain_PercentSP(float _Value)
     {
         float actualValue = (_Value / 100f) * MaxHP;
-        GainSP(actualValue);
+        Gain_SP(actualValue);
     }
-    public void GainPercentHP(float _Value)
+    public void Gain_PercentHP(float _Value)
     {
         float actualValue = (_Value / 100f) * MaxHP;
-        GainHP(actualValue);
+        Gain_HP(actualValue);
     }
-    public void GainPercentEP(float _Value)
+    public void Gain_PercentEP(float _Value)
     {
         float actualValue = (_Value / 100f) * MaxEP;
-        GainEP(actualValue);
+        Gain_EP(actualValue);
     }
 
 
-    private void GainSP(float _Value)
-    { GainPoint(CurrentSP, MaxHP, _Value); }
+    private void Gain_SP(float _Value)
+    { Gain_Point(CurrentSP, MaxHP, _Value); }
 
-    private void GainHP(float _Value)
-    { GainPoint(CurrentHP, MaxHP, _Value); }
+    private void Gain_HP(float _Value)
+    { Gain_Point(CurrentHP, MaxHP, _Value); }
 
-    private void GainEP(float _Value)
-    { GainPoint(CurrentEP, MaxEP, _Value); }
-
-
-    private void SetSP(float _Value)
-    { SetPoint(CurrentSP, MaxHP, _Value); }
-    private void SetHP(float _Value)
-    { SetPoint(CurrentHP, MaxHP, _Value); }
-    private void SetEP(float _Value)
-    { SetPoint(CurrentEP, MaxEP, _Value); }
+    private void Gain_EP(float _Value)
+    { Gain_Point(CurrentEP, MaxEP, _Value); }
 
 
-    private void SetPoint(ReactiveProperty<float> _Variable, float _Max, float _Value)
+    private void Set_SP(float _Value)
+    { Set_Point(CurrentSP, MaxHP, _Value); }
+    private void Set_HP(float _Value)
+    { Set_Point(CurrentHP, MaxHP, _Value); }
+    private void Set_EP(float _Value)
+    { Set_Point(CurrentEP, MaxEP, _Value); }
+
+
+    private void Set_Point(ReactiveProperty<float> _Variable, float _Max, float _Value)
     { _Variable.Value = Mathf.Clamp(_Value, 0, _Max); }
 
-    private void GainPoint(ReactiveProperty<float> _Variable, float _Max, float _Value)
+    private void Gain_Point(ReactiveProperty<float> _Variable, float _Max, float _Value)
     { _Variable.Value = Mathf.Clamp(_Variable.Value + _Value, 0, _Max); }
 
     #endregion
@@ -262,13 +264,13 @@ public class EnemyController : MovableObject, IInteract
     #region Damaged
 
     // 총알 데미지
-    public void TakeDamaged(BulletState _BS, Vector2 _KnockbackDir)
+    public void Take_Damaged(BulletState _BS, Vector2 _KnockbackDir)
     {
         if (base.IsDead)
         { return; }
 
         // Damage
-        TakeDamaged(
+        Take_Damaged(
             _BS.DamageType, 
             _BS.AbleKnockback, _KnockbackDir, _BS.KnockbackPower, _BS.KnockbackTime,
             _BS.IsCritical, _BS.CD, 
@@ -276,13 +278,13 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 어택커 데미지
-    public void TakeDamaged(AttackerState _AS, bool _IsCritical, Vector2 _KnockbackDir)
+    public void Take_Damaged(AttackerState _AS, bool _IsCritical, Vector2 _KnockbackDir)
     {
         if (base.IsDead)
         { return; }
 
         // Damage
-        TakeDamaged(
+        Take_Damaged(
             _AS.DamageType, 
             _AS.AbleKnockback, _KnockbackDir, _AS.KnockbackPower, _AS.KnockbackTime,
             _IsCritical, _AS.CD, 
@@ -291,7 +293,7 @@ public class EnemyController : MovableObject, IInteract
 
 
     // 데미지만을 계산하는 방식
-    private void TakeDamaged(
+    private void Take_Damaged(
         eDamageType _DamageType, 
         bool _AbleKnockback, Vector2 _KnockbackDir, float _KnockbackPower, float _KnockbackTime,
         bool _IsCritical, float _CriticalDMG, 
@@ -303,7 +305,7 @@ public class EnemyController : MovableObject, IInteract
         if (_AbleKnockback)
         {
             //Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
-            GetKnockback(new KnockbackState(_KnockbackDir, _KnockbackPower, _KnockbackTime));
+            Get_Knockback(new KnockbackState(_KnockbackDir, _KnockbackPower, _KnockbackTime));
         }
 
         // 치명타 계산
@@ -318,24 +320,24 @@ public class EnemyController : MovableObject, IInteract
             (BuffController.CorrosionStack.CurrentStack * (BuffController.DecayStack.CurrentStack + 1) * 0.01f));
 
         // 쉴드 계산
-        _ActualDMG = TakeShieldDamaged(_IsCritical, _ActualDMG);
+        _ActualDMG = Take_ShieldDamaged(_IsCritical, _ActualDMG);
         if (_ActualDMG <= 0)
         { return; }
 
         // 직접 데미지
         if (_DamageType == eDamageType.Physics) // 물리 값
         {
-            TakePhysicsDamaged(_IsCritical, _ActualDMG);
+            Take_PhysicsDamaged(_IsCritical, _ActualDMG);
         }
         else // 에너지 값
         {
-            TakeEnergyDamaged(_IsCritical, _ActualDMG, true);
+            Take_EnergyDamaged(_IsCritical, _ActualDMG, true);
         }
     }
 
 
     // 쉴드 데미지를 받음
-    private float TakeShieldDamaged(bool _IsCritical, float _ActualDMG)
+    private float Take_ShieldDamaged(bool _IsCritical, float _ActualDMG)
     {
         // 쉴드 계산
 
@@ -344,17 +346,17 @@ public class EnemyController : MovableObject, IInteract
             if (CurrentSP.Value > _ActualDMG)
             {
                 // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByShieldDmg(
+                PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByShieldDmg(
                     (Vector2)TargetObject.transform.position + new Vector2(0.2f, 0.2f),
                     _ActualDMG, _IsCritical);
 
-                GainSP(-_ActualDMG);
+                Gain_SP(-_ActualDMG);
                 _ActualDMG = 0;
             }
             else
             {
                 // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByShieldDmg(
+                PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByShieldDmg(
                     (Vector2)TargetObject.transform.position + new Vector2(0.2f, 0.2f),
                     CurrentSP.Value, _IsCritical);
 
@@ -367,29 +369,29 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 물리 데미지를 받음
-    private void TakePhysicsDamaged(bool _IsCritical, float _ActualDMG)
+    private void Take_PhysicsDamaged(bool _IsCritical, float _ActualDMG)
     {
         // UI
-        PoolingManager.Instance.GetOP_DmgTxt().OffsetByPhysicDmg(
+        PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByPhysicDmg(
         (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
         _ActualDMG, _IsCritical);
 
-        SetIsDead(CurrentHP.Value, _ActualDMG);
-        GainHP(-_ActualDMG);
+        Set_IsDead(CurrentHP.Value, _ActualDMG);
+        Gain_HP(-_ActualDMG);
         if (CurrentHP.Value <= 0f)
         {
             base.IsDead = true;
-            Die();
+            Set_Die();
         }
     }
 
     // 에너지 데미지를 받음
-    private void TakeEnergyDamaged(bool _IsCritical, float _ActualDMG, bool _SpawnES)
+    private void Take_EnergyDamaged(bool _IsCritical, float _ActualDMG, bool _SpawnES)
     {
         if (!IsDischarge)
         {
             // UI
-            PoolingManager.Instance.GetOP_DmgTxt().OffsetByEnergyDmg(
+            PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByEnergyDmg(
                 (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
                 _ActualDMG, _IsCritical);
 
@@ -397,31 +399,31 @@ public class EnemyController : MovableObject, IInteract
             if (CurrentEP.Value > _ActualDMG) // EP가 데미지보다 많다면
             {
                 targetValue = _ActualDMG;
-                GainEP(-_ActualDMG);
+                Gain_EP(-_ActualDMG);
             }
             else // EP가 데미지를 버티지 못한다면
             {
                 // UI
-                PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
+                PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByStateDischarge(
                         (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
 
                 targetValue = CurrentEP.Value;
                 CurrentEP.Value = 0;
                 IsDischarge = true;
-                StartCoroutine(RecoverLethargy());
+                StartCoroutine(Play_RecoverDischarge_Cor());
             }
 
             // 에너지 조각 생성
             if (_SpawnES)
             {
                 targetValue *= PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value;
-                SpawnES(targetValue);
+                Gen_ES(targetValue);
             }
         }
         else
         {
             // UI
-            PoolingManager.Instance.GetOP_DmgTxt().OffsetByStateStun(
+            PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByStateDischarge(
                 (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
         }
 
@@ -430,40 +432,40 @@ public class EnemyController : MovableObject, IInteract
 
 
     // 추가 효과가 없는 데미지 계산
-    public void TakeDamaged_NoneExtraEffect(eDamageType _DmgType, float _ActualDMG)
+    public void Take_Damaged_NoneExtraEffect(eDamageType _DmgType, float _ActualDMG)
     {
         // 쉴드 계산
-        _ActualDMG = TakeShieldDamaged(false, _ActualDMG);
+        _ActualDMG = Take_ShieldDamaged(false, _ActualDMG);
         if (_ActualDMG <= 0)
         { return; }
 
         // 직접 계산
         if (_DmgType == eDamageType.Physics)
         {
-            TakePhysicsDamaged(false, _ActualDMG);
+            Take_PhysicsDamaged(false, _ActualDMG);
         }
         else
         {
-            TakeEnergyDamaged(false, _ActualDMG, false);
+            Take_EnergyDamaged(false, _ActualDMG, false);
         }
     }
 
 
     // 죽음
-    private void Die()
+    private void Set_Die()
     {
         // Drop Bettery S
-        SpawnBS(1);
+        Gen_BS(1);
 
         // Drop Module S
-        SpawnMS(1);
+        Gen_MS(1);
 
         // Drop Item
-        SpawnII();
+        Gen_II();
 
         // Effect
-        StopCoroutine(RecoverLethargy());
-        PlayerManager.Instance.CameraController.PlayKillAnim(PlayerManager.Instance.PlayerController.ExecutionInterval);
+        StopCoroutine(Play_RecoverDischarge_Cor());
+        PlayerManager.Instance.CameraController.Play_KillAnim(PlayerManager.Instance.PlayerController.ExecutionInterval);
 
         // Remove
         if (EnemyManager.Instance.CurrentEnemyList.Contains(this))
@@ -473,36 +475,36 @@ public class EnemyController : MovableObject, IInteract
         { LayerOrderManager.Instance.NeedLayerObjects.Remove(this); }
 
         // Check Room State
-        StageManager.Instance.Complete_KillAll();
+        StageManager.Instance.Play_CompleteKillAll();
 
         // Set
         this.gameObject.SetActive(false);
-        PoolingManager.Instance.EnqueueEnemy(this);
+        PoolingManager.Instance.Set_EnqueueEnemy(this);
 
         // Effect
-        DieEffect();
+        Gen_DieEffect();
     }
 
     #endregion
 
-    #region Spawn Item
+    #region Gen Item
 
     // Interactable Item
-    private void SpawnII()
+    private void Gen_II()
     {
         if (ItemDropPercent < UnityEngine.Random.Range(0f, 1f))
         { return; }
 
-        InteractItemController IIC = PoolingManager.Instance.GetOP_InteractableItem();
+        InteractItemController IIC = PoolingManager.Instance.Get_OP_InteractableItem();
         IIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
-        IIC.SetState(this.transform.position, 1, 1);
+        IIC.Set_State(this.transform.position, 1, 1);
     }
 
     // Energy Shrapnel
-    private void SpawnES(float _Value)
+    private void Gen_ES(float _Value)
     {
-        EnergyShrapnelController ESC = PoolingManager.Instance.GetOP_EnergyShrapnel();
-        ESC.SetState(
+        EnergyShrapnelController ESC = PoolingManager.Instance.Get_OP_EnergyShrapnel();
+        ESC.Set_State(
             this.gameObject.transform.position,
             PlayerManager.Instance.PlayerController.gameObject,
             _Value);
@@ -513,14 +515,14 @@ public class EnemyController : MovableObject, IInteract
 
     #region State
 
-    private IEnumerator RecoverLethargy()
+    private IEnumerator Play_RecoverDischarge_Cor()
     {
         // 패턴 루틴 종료
-        StopPattern();
+        End_Pattern();
 
         yield return new WaitForSeconds(0.5f);
 
-        HUD.StateUI.EP_ProgressBar.SetFillFullImgSmooth(RecoverLethargyTime);
+        HUD.StateUI.EP_ProgressBar.Set_FillFullImgSmooth(RecoverLethargyTime);
 
         yield return new WaitForSeconds(RecoverLethargyTime);
 
@@ -528,10 +530,10 @@ public class EnemyController : MovableObject, IInteract
         IsDischarge = false;
 
         // 패턴 루틴 시작
-        StartPatternFromNone();
+        Start_PatternFromNone();
     }
 
-    private void StopPattern()
+    private void End_Pattern()
     {
         StopCoroutine(CurrentPatternCor);
 
@@ -548,9 +550,9 @@ public class EnemyController : MovableObject, IInteract
 
     #region Interact
 
-    public void Interact()
+    public void Play_Interact()
     {
-        Die();
+        Set_Die();
     }
 
     #endregion
@@ -558,10 +560,10 @@ public class EnemyController : MovableObject, IInteract
     #region Nav
 
     // 길 루트 찾기
-    public List<WayPoint> FindWay()
+    public List<WayPoint> Get_RootWay()
     {
         // 바로 갈 수 있다면
-        if (!IsExistWall(this.transform, PlayerManager.Instance.PlayerController.transform))
+        if (!Is_ExistWall(this.transform, PlayerManager.Instance.PlayerController.transform))
         {
             /*
 #if UNITY_EDITOR
@@ -577,16 +579,16 @@ public class EnemyController : MovableObject, IInteract
         List<WayPoint> allWP = StageManager.Instance.CurrentRoomController.RoomRuleController.InRoom_AllWayPoint;
 
         // 이 객체와 플레이어에 가장 가까운 WayPoint 찾기
-        List<List<WayPoint>> rootsFromEnemy = new List<List<WayPoint>> { new List<WayPoint> { GetClosetWP(this.transform, allWP) } };
-        List<List<WayPoint>> rootsFromPlayer = new List<List<WayPoint>> { new List<WayPoint> { GetClosetWP(PlayerManager.Instance.PlayerController.transform, allWP) } };
+        List<List<WayPoint>> rootsFromEnemy = new List<List<WayPoint>> { new List<WayPoint> { Get_ClosetWP(this.transform, allWP) } };
+        List<List<WayPoint>> rootsFromPlayer = new List<List<WayPoint>> { new List<WayPoint> { Get_ClosetWP(PlayerManager.Instance.PlayerController.transform, allWP) } };
 
         int checkOver = 0;
         bool IsEnemyExtensionTurn = true;
         while (true)
         {
             // 각 방향(적과 플레이어)의 끝 지점
-            List<WayPoint> endRootPointsFromEnemy = GetEndPoints(rootsFromEnemy);
-            List<WayPoint> endRootPointsFromPlayer = GetEndPoints(rootsFromPlayer);
+            List<WayPoint> endRootPointsFromEnemy = Get_EndPoints(rootsFromEnemy);
+            List<WayPoint> endRootPointsFromPlayer = Get_EndPoints(rootsFromPlayer);
 
             // 결과를 저장할 루트들
             List<List<WayPoint>> resultRoots = new List<List<WayPoint>>();
@@ -598,7 +600,7 @@ public class EnemyController : MovableObject, IInteract
                 {
                     if (endRootPointsFromEnemy[i] == endRootPointsFromPlayer[j])
                     {
-                        resultRoots.Add(GetCombine(rootsFromEnemy[i], rootsFromPlayer[j]));
+                        resultRoots.Add(Get_Combine(rootsFromEnemy[i], rootsFromPlayer[j]));
                     }
                 }
             }
@@ -606,9 +608,9 @@ public class EnemyController : MovableObject, IInteract
             // 결과가 있다면, 결과 중 가장 짧은 루트 구하기
             if (resultRoots.Count > 0)
             {
-                List<WayPoint> resultRoot = GetClosetRoot(resultRoots);
+                List<WayPoint> resultRoot = Get_ClosetRoot(resultRoots);
                 resultRoot.Add(PlayerManager.Instance.PlayerController.ThisWayPoint);
-                resultRoot = GetRemoveUnnecessaryRoot(resultRoot);
+                resultRoot = Get_RemoveUnnecessaryRoot(resultRoot);
                 /*
 #if UNITY_EDITOR
                 Debug.DrawRay(this.transform.position,
@@ -627,9 +629,9 @@ public class EnemyController : MovableObject, IInteract
 
             // 루트 연장 (루트를 아직 못 찾음)
             if (IsEnemyExtensionTurn)
-            { rootsFromEnemy = GetExtensionRoots(rootsFromEnemy); }
+            { rootsFromEnemy = Get_ExtensionRoots(rootsFromEnemy); }
             else
-            { rootsFromPlayer = GetExtensionRoots(rootsFromPlayer); }
+            { rootsFromPlayer = Get_ExtensionRoots(rootsFromPlayer); }
 
             IsEnemyExtensionTurn = !IsEnemyExtensionTurn;
 
@@ -642,13 +644,13 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 루트를 연장하기
-    private List<List<WayPoint>> GetExtensionRoots(List<List<WayPoint>> _Roots)
+    private List<List<WayPoint>> Get_ExtensionRoots(List<List<WayPoint>> _Roots)
     {
         // 결과
         List<List<WayPoint>> extensionedRoots = new List<List<WayPoint>>();
 
         // 이미 포함하고 있는 WayPoint 판별을 위함
-        List<WayPoint> rootSimpleList = GetNormalList<WayPoint>(_Roots);
+        List<WayPoint> rootSimpleList = Get_NormalList<WayPoint>(_Roots);
 
 
         for (int i = 0; i < _Roots.Count; i++)
@@ -673,14 +675,14 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 가장 짧은 루트 구하기
-    private List<WayPoint> GetClosetRoot(List<List<WayPoint>> _ResultRoots)
+    private List<WayPoint> Get_ClosetRoot(List<List<WayPoint>> _ResultRoots)
     {
         List<WayPoint> closetRoot = _ResultRoots[0];
-        float closetDis = GetRootDistance(_ResultRoots[0]);
+        float closetDis = Get_RootDistance(_ResultRoots[0]);
 
         for (int i = 0; i < _ResultRoots.Count; i++) 
         {
-            float tempDis = GetRootDistance(_ResultRoots[i]);
+            float tempDis = Get_RootDistance(_ResultRoots[i]);
             if (closetDis > tempDis)
             {
                 closetRoot = _ResultRoots[i];
@@ -692,13 +694,13 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 루트 중 직접 갈 수 있는 부분 중복 된다면 삭제
-    private List<WayPoint> GetRemoveUnnecessaryRoot(List<WayPoint> _Root)
+    private List<WayPoint> Get_RemoveUnnecessaryRoot(List<WayPoint> _Root)
     {
         List<WayPoint> resultRoot = new List<WayPoint>();
         bool NeedInit = false;
         for (int i = 0; i < _Root.Count; i++)
         {
-            if (IsExistWall(this.transform, _Root[i].ThisTF) && !NeedInit)
+            if (Is_ExistWall(this.transform, _Root[i].ThisTF) && !NeedInit)
             {
                 if (i != 0)
                 { resultRoot.Add(_Root[i - 1]); }
@@ -714,7 +716,7 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 한 루트의 길이 구하기
-    private float GetRootDistance(List<WayPoint> _Roots)
+    private float Get_RootDistance(List<WayPoint> _Roots)
     {
         float resultDis = 0;
         for (int i = 0; i < _Roots.Count - 1; i++)
@@ -725,7 +727,7 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 두 객체 루트를 연결한 루트
-    private List<WayPoint> GetCombine(List<WayPoint> _WayFromEnemy, List<WayPoint> _WayFromPlayer)
+    private List<WayPoint> Get_Combine(List<WayPoint> _WayFromEnemy, List<WayPoint> _WayFromPlayer)
     {
         List<WayPoint> combinedRoot = new List<WayPoint>();
 
@@ -745,7 +747,7 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 끝 부분 WayPoint 구하기
-    private List<WayPoint> GetEndPoints(List<List<WayPoint>> _Roots)
+    private List<WayPoint> Get_EndPoints(List<List<WayPoint>> _Roots)
     {
         List<WayPoint> endPoints = new List<WayPoint>();
         for (int i = 0; i < _Roots.Count; i++)
@@ -757,7 +759,7 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 가장 가까운 WayPoint
-    private WayPoint GetClosetWP(Transform transform, List<WayPoint> _AllWP)
+    private WayPoint Get_ClosetWP(Transform transform, List<WayPoint> _AllWP)
     {
         WayPoint closetWP = _AllWP[0];
         float closetDis = Vector2.Distance(closetWP.ThisTF.position, transform.position);
@@ -776,7 +778,7 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 중간에 벽이 있는지
-    public bool IsExistWall(Transform _StartTF, Transform _EndTF)
+    public bool Is_ExistWall(Transform _StartTF, Transform _EndTF)
     {
         Vector2 dirVec = _EndTF.position - _StartTF.position;
         RaycastHit2D hit = Physics2D.CircleCast(_StartTF.position, NavRadius, dirVec, Vector2.Distance(Vector2.zero, dirVec), LayerMask.GetMask("Wall"));
@@ -792,7 +794,7 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 이중 List를 단순 List로 변경
-    private List<T> GetNormalList<T>(List<List<T>> _doubleListType)
+    private List<T> Get_NormalList<T>(List<List<T>> _doubleListType)
     {
         List<T> result = new List<T>();
         for (int i = 0; i < _doubleListType.Count; i++)
@@ -804,7 +806,7 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // Root의 거리 총합 계산
-    private float GetDistance(Transform _Start, List<Transform> _Root, Transform _Target)
+    private float Get_TotalDistance(Transform _Start, List<Transform> _Root, Transform _Target)
     {
         float dis = 0f;
         dis += Vector2.Distance(_Start.position, _Root[0].position);
@@ -825,9 +827,9 @@ public class EnemyController : MovableObject, IInteract
 
     #region UI
 
-    public override void SetSortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int _SortingOrder)
     {
-        base.SetSortingOrder(_SortingOrder);
+        base.Set_SortingOrder(_SortingOrder);
         HUD.ThisCanvas.sortingOrder = _SortingOrder;
     }
 
@@ -835,12 +837,12 @@ public class EnemyController : MovableObject, IInteract
 
     #region Pattern
 
-    private void StartPatternFromNone()
+    private void Start_PatternFromNone()
     {
-        OrderOfPriorityEnemyPatternList[OrderOfPriorityEnemyPatternList.Count - 1].EnemyPatternList[0].EnemyPatternList[0].StartPattern();
+        OrderOfPriorityEnemyPatternList[OrderOfPriorityEnemyPatternList.Count - 1].EnemyPatternList[0].EnemyPatternList[0].Start_Pattern();
     }
 
-    public void TryGetAnyPattern()
+    public void Play_Pattern()
     {
         if (IsDischarge)
         { return; }
@@ -866,17 +868,17 @@ public class EnemyController : MovableObject, IInteract
             for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
             {
                 // 같은 우선도에 있는 패턴 랜덤으로 섞기
-                List<ContinuousEnemyPattern> epList = GameManager.ShuffleList<ContinuousEnemyPattern>(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
+                List<ContinuousEnemyPattern> epList = GameManager.Get_ShuffleList<ContinuousEnemyPattern>(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
                 
                 // 만약 사용 가능한 패턴이 있다면 시작
                 for (int j = 0; j < epList.Count; j++)
                 {
-                    if (epList[j].EnemyPatternList[0].CanPlayPattern())
+                    if (epList[j].EnemyPatternList[0].Can_PlayPattern())
                     {
                         CurrentContinuousEnemyPattern = epList[j];
                         CurrentEnemyPattern = epList[j].EnemyPatternList[0];
 
-                        CurrentEnemyPattern.StartPattern();
+                        CurrentEnemyPattern.Start_Pattern();
 
                         return;
                     }
@@ -889,7 +891,7 @@ public class EnemyController : MovableObject, IInteract
         {
             CurrentEnemyPattern = CurrentContinuousEnemyPattern.EnemyPatternList[OrderOfPattern + 1];
 
-            CurrentEnemyPattern.StartPattern();
+            CurrentEnemyPattern.Start_Pattern();
             return;
         }
     }
@@ -899,9 +901,9 @@ public class EnemyController : MovableObject, IInteract
 
     #region Effect
 
-    public void ExplosionEffect()
+    public void Gen_ExplosionEffect()
     {
-        this.MEI.GenExplosionImgs(
+        this.MEI.Gen_ExplosionImgs(
             this.MEI.gameObject.transform.position,
             32, 0.15f, 0.75f,
             0.9f, 0.05f, 0.1f,
@@ -909,7 +911,7 @@ public class EnemyController : MovableObject, IInteract
             0, ThisSmokeM);
     }
 
-    public void HittedPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical, Quaternion _Rotation)
+    public void Gen_HittedPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical, Quaternion _Rotation)
     {
         // Hitted Anim
 
@@ -919,12 +921,12 @@ public class EnemyController : MovableObject, IInteract
         currentRotation.z += 180;
         q.eulerAngles = currentRotation;
 
-        OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
-        oota.StartAnim(
+        OnlyOnceTimeAnimation oota = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
+        oota.Start_Anim(
             HittedAC_0,
             _SpanwedPos,
             UnitManager.Instance.ModuleM_000_Explosion,
-            PlayerManager.Instance.PlayerController.GetCorrectHitted_C(_DamageType, _IsCritical),
+            PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(_DamageType, _IsCritical),
             q, 
             1.5f, 1f);
 
@@ -932,35 +934,35 @@ public class EnemyController : MovableObject, IInteract
         currentRotation.z += Random.Range(-45, 45);
         q2.eulerAngles = currentRotation;
 
-        OnlyOnceTimeAnimation oota2 = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
-        oota2.StartAnim(
+        OnlyOnceTimeAnimation oota2 = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
+        oota2.Start_Anim(
             HittedAC_1,
             _SpanwedPos,
             UnitManager.Instance.ModuleM_000_Explosion,
-            PlayerManager.Instance.PlayerController.GetCorrectHitted_C(_DamageType, _IsCritical),
+            PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(_DamageType, _IsCritical),
             q2,
             2.5f, 1.2f);
 
         // SlowMotion
-        PlayerManager.Instance.CameraController.PlayHitEnemyAnim();
+        PlayerManager.Instance.CameraController.Play_HitEnemyAnim();
     }
 
-    private void DieEffect()
+    private void Gen_DieEffect()
     {
         Quaternion q = Quaternion.identity;
         Vector3 currentRotation = q.eulerAngles;
         currentRotation.z += Random.Range(-20, 20);
         q.eulerAngles = currentRotation;
 
-        OnlyOnceTimeAnimation oota2 = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
-        oota2.StartAnim(
+        OnlyOnceTimeAnimation oota2 = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
+        oota2.Start_Anim(
             HittedAC_2,
             this.TargetObject.transform.position,
             UnitManager.Instance.ModuleM_000_Explosion,
             q,
             2.5f, 2f);
 
-        ExplosionEffect();
+        Gen_ExplosionEffect();
     }
 
     #endregion

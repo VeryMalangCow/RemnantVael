@@ -31,21 +31,21 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Field
 
-    public ItemData GetRandomInteractItem()
+    public ItemData Get_RandomInteractItem()
     {
         //return ItemDataList[4];
         return ItemDataList[Random.Range(0, ItemDataList.Count)];
     }
 
-    public void GetModuleState(ItemData _ItemData)
+    public void Get_ModuleState(ItemData _ItemData)
     {
-        foreach (ModuleState MS in ModuleState.GetAllModuleState())
+        foreach (ModuleState MS in ModuleState.Get_AllModuleState())
         {
             if (MS.ThisItemData.ID == _ItemData.ID) 
             {
                 MS.ThisItemData = new ItemData(_ItemData);
 
-                MS.ThisMEII = MainGameUIManager.Instance.ModuleUpgrade_UIController.SpawnMEIIList(MS.ThisItemData.ItemIcon, GetCorrectRankIcon(MS), MS.ThisItemData.BoostLv);
+                MS.ThisMEII = MainGameUIManager.Instance.ModuleUpgrade_UIController.Get_MEIIList(MS.ThisItemData.ItemIcon, Get_CorrectRankIcon(MS), MS.ThisItemData.BoostLv);
                 
                 foreach(ModifyEachInventoryItem MEII in MS.ThisMEII)
                 {
@@ -62,7 +62,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Interface
 
-    public void ResetInterface()
+    public void Reset_Interface()
     {
         iWhen_HitList.Clear();
         iWhen_FireList.Clear();
@@ -85,7 +85,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         {
             for (int i = 0; i < iWhen_HitList.Count; i++)
             {
-                iWhen_HitList[i].When(_EC);
+                iWhen_HitList[i].Play_When(_EC);
             }
         }
     }
@@ -96,7 +96,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         {
             for (int i = 0; i < iWhen_CriticalHitList.Count; i++)
             {
-                iWhen_CriticalHitList[i].When(_EC);
+                iWhen_CriticalHitList[i].Play_When(_EC);
             }
         }
     }
@@ -107,7 +107,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         {
             for (int i = 0; i < iWhen_FireList.Count; i++)
             {
-                iWhen_FireList[i].When();
+                iWhen_FireList[i].Play_When();
             }
         }
     }
@@ -116,7 +116,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Find
 
-    public ModuleState GetModuleState_Equiped(ModifyEachInventoryItem _MEII)
+    public ModuleState Get_EquipedModuleState(ModifyEachInventoryItem _MEII)
     {
         foreach (ModuleState MS in Gotten_MSList)
         {
@@ -129,7 +129,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return null;
     }
 
-    public ModuleState GetModuleState_Inventory(ModifyEachInventoryItem _MEII)
+    public ModuleState Get_InventoryModuleState(ModifyEachInventoryItem _MEII)
     {
         foreach(ModuleState MS in Gotten_MSList)
         {
@@ -143,11 +143,12 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     }
 
 
-    public Sprite GetCorrectRankIcon(ModuleState _MS)
+    public Sprite Get_CorrectRankIcon(ModuleState _MS)
     {
         return RankIconList[_MS.ThisItemData.Rank - 1];
     }
-    public Sprite GetCorrectMUUIDescRankIcon(ModuleState _MS)
+
+    public Sprite Get_CorrectMUUIDescRankIcon(ModuleState _MS)
     {
         return MUUIDescRankIconList[_MS.ThisItemData.Rank - 1];
     }
@@ -156,12 +157,12 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Decomposition
 
-    public int NeedEC_AbleUpgrade(ModifyEachInventoryItem _MEII)
+    public int Get_EC_ForUpgrade(ModifyEachInventoryItem _MEII)
     {
         if (_MEII == null)
         { return 0; }
 
-        ModuleState ms = GetModuleState_Inventory(_MEII);
+        ModuleState ms = Get_InventoryModuleState(_MEII);
         if (ms != null)
         {
             return (ms.ThisItemData.BoostLv + 1);
@@ -169,12 +170,12 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return 0;
     }
 
-    public int NeedMC_AbleFusion(ModifyEachInventoryItem _MEII)
+    public int Get_MC_ForFusion(ModifyEachInventoryItem _MEII)
     {
         if (_MEII == null)
         { return 0; }
 
-        ModuleState ms = GetModuleState_Inventory(_MEII);
+        ModuleState ms = Get_InventoryModuleState(_MEII);
         if (ms != null)
         {
             return (ms.ThisItemData.Rank + 1);
@@ -187,7 +188,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region MainChip
 
-    public MainChipData GetCorrectMainChip(int _ID)
+    public MainChipData Get_CorrectMainChip(int _ID)
     {
         for (int i = 0; i < MainChipDataList.Count; i++)
         {
@@ -199,7 +200,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return null;
     }
 
-    public void SetMainChipData()
+    public void Set_MainChipData()
     {
         MainChopAmalgamationDict = new Dictionary<int, int>();
         if (Equiped_MSList.Count > 0)
@@ -216,9 +217,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
                 if (Equiped_MSList[i].ThisItemData.Rank >= 5)
                 {
-                    AddMainChipData(synergyID_1, 3);
-                    AddMainChipData(synergyID_3, 2);
-                    AddMainChipData(synergyID_5, 1);
+                    Add_MainChipData(synergyID_1, 3);
+                    Add_MainChipData(synergyID_3, 2);
+                    Add_MainChipData(synergyID_5, 1);
 
                     MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[0].alpha = 1;
                     MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[1].alpha = 1;
@@ -226,8 +227,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
                 }
                 else if (Equiped_MSList[i].ThisItemData.Rank >= 3)
                 {
-                    AddMainChipData(synergyID_1, 2);
-                    AddMainChipData(synergyID_3, 1);
+                    Add_MainChipData(synergyID_1, 2);
+                    Add_MainChipData(synergyID_3, 1);
 
                     MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[0].alpha = 1;
                     MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[1].alpha = 1;
@@ -235,7 +236,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
                 }
                 else
                 {
-                    AddMainChipData(synergyID_1, 1);
+                    Add_MainChipData(synergyID_1, 1);
 
                     MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[0].alpha = 1;
                 }
@@ -243,12 +244,12 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         }
         if (MainGameUIManager.Instance.ModuleUpgrade_UIController != null)
         {
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.SetSynergySlots(MainChopAmalgamationDict);
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_SynergySlots(MainChopAmalgamationDict);
         }
 
     }
 
-    public void AddMainChipData(int _SynergyID, int _Amount)
+    public void Add_MainChipData(int _SynergyID, int _Amount)
     {
         if (MainChopAmalgamationDict.ContainsKey(_SynergyID))
         { MainChopAmalgamationDict[_SynergyID] += _Amount; }
@@ -260,9 +261,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Delete
 
-    public void DeleteModuleState(ModifyEachInventoryItem _MEII)
+    public void Remove_ModuleState(ModifyEachInventoryItem _MEII)
     {
-        ModuleState foundMs = FindModuleState(Gotten_MSList, _MEII);
+        ModuleState foundMs = Get_CorrectModuleState(Gotten_MSList, _MEII);
 
         if (Gotten_MSList.Contains(foundMs))
         { Gotten_MSList.Remove(foundMs); }
@@ -270,11 +271,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         if (Equiped_MSList.Contains(foundMs))
         { Equiped_MSList.Remove(foundMs); }
 
-        DestroyMEIIList(foundMs);
+        Remove_MEIIList(foundMs);
         foundMs = null;
     }
 
-    private ModuleState FindModuleState(List<ModuleState> TargetMsList, ModifyEachInventoryItem _MEII)
+    private ModuleState Get_CorrectModuleState(List<ModuleState> TargetMsList, ModifyEachInventoryItem _MEII)
     {
         foreach(ModuleState MS in TargetMsList)
         {
@@ -286,7 +287,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return null;
     }
 
-    private void DestroyMEIIList(ModuleState _MS)
+    private void Remove_MEIIList(ModuleState _MS)
     {
         for (int i = _MS.ThisMEII.Count - 1; i >= 0; i--)
         { Destroy(_MS.ThisMEII[i].gameObject); }

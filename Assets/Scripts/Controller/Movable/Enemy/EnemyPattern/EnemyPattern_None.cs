@@ -5,7 +5,7 @@ public class EnemyPattern_None : EnemyPattern
 {
     #region Can Check
 
-    public override bool CanPlayPattern()
+    public override bool Can_PlayPattern()
     {
         return true;
     }
@@ -14,7 +14,7 @@ public class EnemyPattern_None : EnemyPattern
 
     #region Actual
 
-    protected override IEnumerator ThisPattern()
+    protected override IEnumerator Play_ThisPattern_Cor()
     {
         yield return new WaitForSeconds(StartDelay);
 
@@ -26,8 +26,8 @@ public class EnemyPattern_None : EnemyPattern
 
         yield return new WaitForSeconds(EndDelay);
 
-        EndPattern();
-        ThisEnemy.TryGetAnyPattern();
+        End_Pattern();
+        ThisEnemy.Play_Pattern();
     }
 
     #endregion

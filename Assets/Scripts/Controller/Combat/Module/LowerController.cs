@@ -25,7 +25,7 @@ public class LowerController : SatelliteController
         Vector2 dir = ThisRb.velocity;
         if (dir != Vector2.zero) 
         { 
-            SetAll(dir);
+            Set_All(dir);
         }
         else
         {
@@ -37,17 +37,17 @@ public class LowerController : SatelliteController
             }
         }
             
-        SetAnimSpeed(Vector2.Distance(Vector2.zero, dir));
+        Set_AnimSpeed(Vector2.Distance(Vector2.zero, dir));
     }
 
     #endregion
 
     #region Set
 
-    public void SetAll(Vector2 _Dir)
+    public void Set_All(Vector2 _Dir)
     {
         // Rotate
-        PitchTF.transform.localRotation = RotateSmooth(_Dir.normalized);
+        PitchTF.transform.localRotation = Get_RotationSmooth(_Dir.normalized);
         foreach (Satellite hand in Hands)
         {
             hand.SetPos(PlayerSR.sortingOrder);
@@ -62,7 +62,7 @@ public class LowerController : SatelliteController
         }
     }
 
-    private void SetAnimSpeed(float _AnimSpeed)
+    private void Set_AnimSpeed(float _AnimSpeed)
     {
         for (int i = 0; i < ThisAnimatorList.Count; i++)
         {

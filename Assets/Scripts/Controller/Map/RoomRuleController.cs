@@ -32,7 +32,7 @@ public class RoomRuleController : MonoBehaviour
 
     #endregion
 
-    #region Basic
+    #region Offset
 
     public void Offset()
     {
@@ -65,7 +65,7 @@ public class RoomRuleController : MonoBehaviour
 
     #region Shop
 
-    public void SetShop(GameObject _ShopObject)
+    public void Set_Shop(GameObject _ShopObject)
     {
         GameObject shop = Instantiate(_ShopObject, InRoom_ShopTF);
         if (shop != null)
@@ -84,7 +84,7 @@ public class RoomRuleController : MonoBehaviour
     public void Set_Completed()
     {
         // Waypoint
-        SetOutData_WayPoint();
+        SetOff_WayPointData();
 
         // Extra Building
         if (InRoom_BuildThing != null && !InRoom_BuildThing.gameObject.activeSelf)
@@ -100,13 +100,13 @@ public class RoomRuleController : MonoBehaviour
 
     public void Set_KillAll()
     {
-        SetInData_WayPoint();
+        SetOn_WayPointData();
 
         for (int i = 0; i < InRoom_AllEnemy.Count; i++)
         {
             if (InRoom_AllEnemy[i].EnemySpawnTF != null)
             {
-                EnemyController enemy = PoolingManager.Instance.GetOP_Enemy(InRoom_AllEnemy[i].EnemyID);
+                EnemyController enemy = PoolingManager.Instance.Get_OP_Enemy(InRoom_AllEnemy[i].EnemyID);
 
                 EnemyManager.Instance.CurrentEnemyList.Add(enemy);
 
@@ -117,7 +117,7 @@ public class RoomRuleController : MonoBehaviour
     }
 
 
-    private void SetInData_WayPoint()
+    private void SetOn_WayPointData()
     {
         for (int i = 0; i < InRoom_AllWayPoint.Count; i++)
         {
@@ -128,7 +128,7 @@ public class RoomRuleController : MonoBehaviour
             {
                 if (InRoom_AllWayPoint[i] != InRoom_AllWayPoint[j])
                 {
-                    if (!IsExistWall(InRoom_AllWayPoint[i].transform, InRoom_AllWayPoint[j].transform))
+                    if (!Is_ExistWall(InRoom_AllWayPoint[i].transform, InRoom_AllWayPoint[j].transform))
                     {
                         InRoom_AllWayPoint[i].AdjacentWPList.Add(InRoom_AllWayPoint[j]);
                     }
@@ -137,7 +137,7 @@ public class RoomRuleController : MonoBehaviour
         }
     }
 
-    private void SetOutData_WayPoint()
+    private void SetOff_WayPointData()
     {
         for (int i = 0; i < InRoom_AllWayPoint.Count; i++)
         {
@@ -145,7 +145,7 @@ public class RoomRuleController : MonoBehaviour
         }
     }
 
-    private bool IsExistWall(Transform _StartTF, Transform _EndTF)
+    private bool Is_ExistWall(Transform _StartTF, Transform _EndTF)
     {
         //Vector2 dirVec = _EndTF.position - _StartTF.position;
         RaycastHit2D hit = Physics2D.Linecast(_StartTF.position, _EndTF.position, LayerMask.GetMask("Wall"));

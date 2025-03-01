@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -36,14 +35,14 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
     private void Offset()
     {
-        EventElement_Data = GetOffset_EventElementList(EventElement_CSV);
-        EventID_Data = GetOffset_EventIDList(EventID_CSV);
+        EventElement_Data = Offset_EventElementList(EventElement_CSV);
+        EventID_Data = Offset_EventIDList(EventID_CSV);
 
-        DialogueElement_Data = GetOffset_DialougeEleventList(DialogueElement_CSV); // 다이얼로그 ID보다 먼저 와야함
-        DialogueID_Data = GetOffset_DialougeIDList(DialougeID_CSV);
+        DialogueElement_Data = Offset_DialougeEleventList(DialogueElement_CSV); // 다이얼로그 ID보다 먼저 와야함
+        DialogueID_Data = Offset_DialougeIDList(DialougeID_CSV);
 
         CharacterImgList_Data = new List<Sprite>();
-        CharacterImgList_Data.AddRange(GetOffset_CharacterImgList(CharacterImg_000));
+        CharacterImgList_Data.AddRange(Offset_CharacterImgList(CharacterImg_000));
     }
 
     #endregion
@@ -60,48 +59,48 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
     #endregion
 
-    #region Get
+    #region Getting for File
 
     [HideInInspector] private static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
     [HideInInspector] private static string WORD_SPLIT_RE = @",";
 
     // 파일 => 스트링
-    private string GetFileString(TextAsset _TextAsset)
+    private string Get_FileString(TextAsset _TextAsset)
     {
         return _TextAsset.text;
     }
 
     // 행 길이 구하기
-    private int GetFileRowAmount(TextAsset _TextAsset)
+    private int Get_FileRowAmount(TextAsset _TextAsset)
     {
-        return GetAllLine(_TextAsset).Length;
+        return Get_AllLine(_TextAsset).Length;
     }
 
     // 행 받아오기
-    private string[] GetAllLine(TextAsset _TextAsset)
+    private string[] Get_AllLine(TextAsset _TextAsset)
     {
-        return Regex.Split(GetFileString(_TextAsset), LINE_SPLIT_RE);
+        return Regex.Split(Get_FileString(_TextAsset), LINE_SPLIT_RE);
     }
 
     // 열 하나를 받아오기 (인자: 행)
-    private string GetLine(TextAsset _TextAsset, int _Row)
+    private string Get_Line(TextAsset _TextAsset, int _Row)
     {
-        return GetAllLine(_TextAsset)[_Row];
+        return Get_AllLine(_TextAsset)[_Row];
     }
 
     // 열을 쉼표로 나누기
-    private string[] GetWords_FromLine(TextAsset _TextAsset, int _Row)
+    private string[] Get_Words(TextAsset _TextAsset, int _Row)
     {
-        return Regex.Split(GetAllLine(_TextAsset)[_Row], WORD_SPLIT_RE);
+        return Regex.Split(Get_AllLine(_TextAsset)[_Row], WORD_SPLIT_RE);
     }
 
     // 파일을 이중 리스트(string)으로 변경
-    private List<List<string>> GetDoubleList(TextAsset _TextAsset)
+    private List<List<string>> Get_DoubleList(TextAsset _TextAsset)
     {
         List<List<string>> doubleList = new List<List<string>>();
-        for (int i = 0; i < GetFileRowAmount(_TextAsset); i++)
+        for (int i = 0; i < Get_FileRowAmount(_TextAsset); i++)
         {
-            doubleList.Add(GetWords_FromLine(_TextAsset, i).ToList());
+            doubleList.Add(Get_Words(_TextAsset, i).ToList());
         }
         return doubleList;
     }
@@ -111,11 +110,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
     #region To Event ID
 
     // 오프셋
-    private List<EventID> GetOffset_EventIDList(TextAsset _TextAsset)
+    private List<EventID> Offset_EventIDList(TextAsset _TextAsset)
     {
         List<EventID> result = new List<EventID>();
 
-        List<List<string>> stringList = GetDoubleList(_TextAsset);
+        List<List<string>> stringList = Get_DoubleList(_TextAsset);
 
         for (int i = 1; i < stringList.Count; i++)
         {
@@ -139,7 +138,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
     }
 
     // ID에 맞는 EventID
-    private EventID GetCorrectEventID(int _ID)
+    private EventID Get_CorrectEventID(int _ID)
     {
         for (int i = 0; i < EventID_Data.Count; i++)
         {
@@ -155,11 +154,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
     #region To Event Element
 
     // 오프셋
-    private List<EventElement> GetOffset_EventElementList(TextAsset _TextAsset)
+    private List<EventElement> Offset_EventElementList(TextAsset _TextAsset)
     {
         List<EventElement> result = new List<EventElement>();
 
-        List<List<string>> stringList = GetDoubleList(_TextAsset);
+        List<List<string>> stringList = Get_DoubleList(_TextAsset);
 
         for (int i = 1; i < stringList.Count; i++)
         {
@@ -224,7 +223,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
     }
 
     // ID에 맞는 EventElement
-    public EventElement GetCorrectEvent(int _ID)
+    public EventElement Get_CorrectEvent(int _ID)
     {
         for (int i = 0; i < EventElement_Data.Count; i++)
         {
@@ -235,17 +234,17 @@ public class CSVManager : PersistentSingleton<CSVManager>
     }
 
     // ID에 맞는 EventID를 가져온 후, 그에 맞는 EventElement List를 가져옴
-    public List<EventElement> GetCorrectEventList(int _ID)
+    public List<EventElement> Get_CorrectEventList(int _ID)
     {
         List<EventElement> result = new List<EventElement>();
 
-        List<int> IDs = GetCorrectEventID(_ID).EventIDs;
+        List<int> IDs = Get_CorrectEventID(_ID).EventIDs;
         if (IDs == null)
         { return null; }
 
         for (int i = 0; i < IDs.Count; i++)
         {
-            EventElement eventElement = GetCorrectEvent(IDs[i]);
+            EventElement eventElement = Get_CorrectEvent(IDs[i]);
             if (eventElement == null)
             { return null; }
 
@@ -261,11 +260,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
     #region To DialougeID
 
     // 오프셋
-    private List<DialogueID> GetOffset_DialougeIDList(TextAsset _TextAsset)
+    private List<DialogueID> Offset_DialougeIDList(TextAsset _TextAsset)
     {
         List<DialogueID> result = new List<DialogueID>();
 
-        List<List<string>> stringList = GetDoubleList(_TextAsset);
+        List<List<string>> stringList = Get_DoubleList(_TextAsset);
 
         for (int i = 1; i < stringList.Count; i++)
         {
@@ -280,7 +279,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
                 if (stringList[i][j] == "" || stringList[i][j] == null)
                 { break; }
                 int elementId = int.Parse(stringList[i][j]);
-                dialogueList.Add(GetCorrectDialogueElement(elementId));
+                dialogueList.Add(Get_CorrectDialogueElement(elementId));
             }
 
             result.Add(new DialogueID(id, dialogueList));
@@ -290,7 +289,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
     }
 
     // ID에 맞는 다이얼로그 리스트를 구함
-    public DialogueID GetCorrectDialogueID(int _ID)
+    public DialogueID Get_CorrectDialogueID(int _ID)
     {
         for (int i = 0; i < DialogueID_Data.Count; i++)
         {
@@ -307,11 +306,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
     // 오프셋
 
-    private List<DialogueElement> GetOffset_DialougeEleventList(TextAsset _TextAsset)
+    private List<DialogueElement> Offset_DialougeEleventList(TextAsset _TextAsset)
     {
         List<DialogueElement> result = new List<DialogueElement>();
 
-        List<List<string>> stringList = GetDoubleList(_TextAsset);
+        List<List<string>> stringList = Get_DoubleList(_TextAsset);
 
         for (int i = 1; i < stringList.Count; i++)
         {
@@ -332,7 +331,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
 
     // ID에 맞는 다이얼로그 1개를 구함
-    private DialogueElement GetCorrectDialogueElement(int _ID)
+    private DialogueElement Get_CorrectDialogueElement(int _ID)
     {
         for (int i = 0; i < DialogueElement_Data.Count; i++)
         {
@@ -347,7 +346,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
     #region To SpriteList
 
-    private List<Sprite> GetOffset_CharacterImgList(Texture2D _Texture2D)
+    private List<Sprite> Offset_CharacterImgList(Texture2D _Texture2D)
     {
         List<Sprite> result = new List<Sprite>();
         if (_Texture2D != null)
@@ -361,7 +360,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
         }
     }
 
-    public Sprite GetCorrectCharacterImg(int _ID)
+    public Sprite Get_CorrectCharacterImg(int _ID)
     {
         return CharacterImgList_Data[_ID];
     }

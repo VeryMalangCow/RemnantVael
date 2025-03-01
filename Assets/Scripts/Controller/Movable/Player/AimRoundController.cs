@@ -5,11 +5,15 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class AimRoundController : HaveShadowThingStatic
 {
+    #region Value
+
     [Space(20)]
     [Header("<><><><><> Aim Round")]
     [SerializeField] private float AimFollowSpeed = 22f;
     [SerializeField] List<Transform> LineList;
-    [HideInInspector] private float SpreadMaxAngle; 
+    [HideInInspector] private float SpreadMaxAngle;
+
+    #endregion
 
     #region Framework
 
@@ -18,21 +22,21 @@ public class AimRoundController : HaveShadowThingStatic
         PlayerManager.Instance.PlayerController.BaseWeapon.AccuracyRate.ActualState
             .Subscribe(value =>
             {
-                SetAngleRound(value);
+                Set_AngleRound(value);
             });
     }
 
     private void LateUpdate()
     {
-        SetDistance();
-        SetRotation();
+        Set_Distance();
+        Set_Rotation();
     }
 
     #endregion
 
     #region SetAngle
 
-    private void SetAngleRound(float _Value)
+    private void Set_AngleRound(float _Value)
     {
         SpreadMaxAngle = 100 - _Value;
 
@@ -47,7 +51,7 @@ public class AimRoundController : HaveShadowThingStatic
         }
     }
 
-    private void SetRotation()
+    private void Set_Rotation()
     {
         TargetObject.transform.localRotation =
                     Quaternion.Slerp(TargetObject.transform.localRotation,
@@ -55,7 +59,7 @@ public class AimRoundController : HaveShadowThingStatic
                     AimFollowSpeed * Time.deltaTime);
     }
 
-    private void SetDistance()
+    private void Set_Distance()
     {
         float dis = Vector2.Distance(Vector2.zero, InputManager.Instance.DirFromPlayerPos);
         for (int i = 0; i < LineList.Count; i++)

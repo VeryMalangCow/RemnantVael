@@ -18,17 +18,17 @@ public class BuffShieldController : BuffController
 
     #region Buff
 
-    public override void GainBuff()
+    public override void Gain_Buff()
     {
-        base.GainBuff();
+        base.Gain_Buff();
 
         ThisShield.ShieldCurrentValue = ThisShield.ShieldMaxValue;
-        PlayerManager.Instance.PlayerController.GainShield(ThisShield);
+        PlayerManager.Instance.PlayerController.Gain_Shield(ThisShield);
     }
 
-    public override void EndBuff()
+    public override void End_Buff()
     {
-        base.EndBuff();
+        base.End_Buff();
     }
 
     #endregion

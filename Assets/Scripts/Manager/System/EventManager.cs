@@ -67,7 +67,7 @@ public class EventManager : PersistentSingleton<EventManager>
         // Test Input
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            StartEvent(0);
+            Start_Event(0);
         }
     }
 
@@ -76,80 +76,80 @@ public class EventManager : PersistentSingleton<EventManager>
     #region Event Start
 
     // 이벤트 시작
-    public void StartEvent(int _ID)
+    public void Start_Event(int _ID)
     {
         // 다른 이벤트 중이라면 취소
         if (IsPlayingEvent)
         { return; }
 
-        EventSettingOn();
+        SetOn_EventOption();
 
         CurrentEvent = new EventData();
-        CurrentEvent.Events = new List<EventElement>(CSVManager.Instance.GetCorrectEventList(_ID));
-        PlayEvent();
+        CurrentEvent.Events = new List<EventElement>(CSVManager.Instance.Get_CorrectEventList(_ID));
+        Play_Event();
     }
 
     // 이벤트 실행
-    private void PlayEvent()
+    private void Play_Event()
     {
         if (CurrentEvent.Events.Count <= 0)
         {
-            EventSettingOff();
+            SetOff_EventOption();
             return;
         }
 
         if (CurrentEvent.Events[0] is EventElement_Stay stay)
-        { StartCoroutine(PlayEvent_Stay(stay)); }
+        { StartCoroutine(Play_Stay_Cor(stay)); }
         else if (CurrentEvent.Events[0] is EventElement_Move move)
-        { StartCoroutine(PlayEvent_Move(move)); }
+        { StartCoroutine(Play_Move_Cor(move)); }
         else if (CurrentEvent.Events[0] is EventElement_Look look)
-        { StartCoroutine(PlayEvent_Look(look)); }
+        { StartCoroutine(Play_Look_Cor(look)); }
         else if (CurrentEvent.Events[0] is EventElement_BlackScreenIn blackScreenIn)
-        { StartCoroutine(PlayEvent_BlackScreenIn(blackScreenIn)); }
+        { StartCoroutine(Play_BlackScreenIn_Cor(blackScreenIn)); }
         else if (CurrentEvent.Events[0] is EventElement_BlackScreenOut blackScreenOut)
-        { StartCoroutine(PlayEvent_BlackScreenOut(blackScreenOut)); }
+        { StartCoroutine(Play_BlackScreenOut_Cor(blackScreenOut)); }
         else if (CurrentEvent.Events[0] is EventElement_Dialogue dialogue)
-        { StartCoroutine(PlayEvent_Dialogue(dialogue)); }
+        { StartCoroutine(Play_Dialogue_Cor(dialogue)); }
 
-        CurrentEvent.ClearOnePart();
+        CurrentEvent.Remove_OnePart();
     }
 
 
     // 이벤트 실행 시, 설정 온
-    private void EventSettingOn()
+    private void SetOn_EventOption()
     {
         IsPlayingEvent = true;
 
-        SetInputSetting(false);
-        SetBlackUpDownCover(true);
-        SetAnotherUISetting(false);
+        Set_Input(false);
+        Set_BlackUpDownCover(true);
+        Set_AnotherUI(false);
     }
 
     // 이벤트 실행 시, 설정 오프
-    private void EventSettingOff()
+    private void SetOff_EventOption()
     {
         CurrentEvent = null;
         IsPlayingEvent = false;
 
-        SetInputSetting(true);
-        SetBlackUpDownCover(false);
-        SetAnotherUISetting(true);
+        Set_Input(true);
+        Set_BlackUpDownCover(false);
+        Set_AnotherUI(true);
     }
 
     // 인풋 => On / Off
-    public void SetInputSetting(bool _OnOff)
+    public void Set_Input(bool _OnOff)
     {
         string sceneName = SceneManager.GetActiveScene().name;
         if (_OnOff)
         {
             if (sceneName == "TitleLobby")
             {
-                TitleInputManager.Instance.OnEnableInput();
+                TitleInputManager.Instance.SetOn_InputActive();
             }
             else if (sceneName == "MainGame")
             {
-                InputManager.Instance.OnEnableInput();
-                InputManager.Instance.SetAim(true);
+                InputManager.Instance.SetOn_InputAction();
+                InputManager.Instance.SetOn_AimPointer();
 
                 InputManager.Instance.CanMouseInput = true;
             }
@@ -158,12 +158,12 @@ public class EventManager : PersistentSingleton<EventManager>
         {
             if (sceneName == "TitleLobby")
             {
-                TitleInputManager.Instance.OnDisableInput();
+                TitleInputManager.Instance.SetOff_InputActive();
             }
             else if (sceneName == "MainGame")
             {
-                InputManager.Instance.OnDisableInput();
-                InputManager.Instance.SetAimAllOff();
+                InputManager.Instance.SetOff_InputAction();
+                InputManager.Instance.SetOff_AllPointer();
 
                 InputManager.Instance.InputMoveDir = Vector2.zero;
                 InputManager.Instance.CanMouseInput = false;
@@ -172,7 +172,7 @@ public class EventManager : PersistentSingleton<EventManager>
     }
 
     // 블랙커버 위 아래 => On / Off
-    public void SetBlackUpDownCover(bool _OnOff)
+    public void Set_BlackUpDownCover(bool _OnOff)
     {
         if (DOTween.IsTweening(BlackUpsideRT))
         { DOTween.Kill(BlackUpsideRT); }
@@ -213,7 +213,7 @@ public class EventManager : PersistentSingleton<EventManager>
     }
 
     // 다른 UI => On / Off
-    private void SetAnotherUISetting(bool _OnOff)
+    private void Set_AnotherUI(bool _OnOff)
     {
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "TitleLobby")
@@ -227,11 +227,12 @@ public class EventManager : PersistentSingleton<EventManager>
             MainGameUIManager.Instance.UIParent.gameObject.SetActive(_OnOff);
         }
     }
+
     #endregion
 
     #region Play (Kind of Condition)
 
-    private IEnumerator PlayEvent_Stay(EventElement_Stay _Event)
+    private IEnumerator Play_Stay_Cor(EventElement_Stay _Event)
     {
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "TitleLobby") // 맵 구분
@@ -244,10 +245,10 @@ public class EventManager : PersistentSingleton<EventManager>
         }
         yield return new WaitForSeconds(_Event.TargetTime);
 
-        PlayEvent();
+        Play_Event();
     }
 
-    private IEnumerator PlayEvent_Move(EventElement_Move _Event)
+    private IEnumerator Play_Move_Cor(EventElement_Move _Event)
     {
         Vector2 targetPos = _Event.TargetPos;
         Vector2 dir = Vector2.zero;
@@ -260,7 +261,7 @@ public class EventManager : PersistentSingleton<EventManager>
             {
                 if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
                 {
-                    Vector2 npcPos = NPCManager.Instance.GetNPC(_Event.TargetID).transform.position;
+                    Vector2 npcPos = NPCManager.Instance.Get_NPC(_Event.TargetID).transform.position;
                     targetPos += npcPos;
                 }
                 else // 다른 목표가 있다면
@@ -287,7 +288,7 @@ public class EventManager : PersistentSingleton<EventManager>
             {
                 if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
                 {
-                    NPCController npc = NPCManager.Instance.GetNPC(_Event.TargetID);
+                    NPCController npc = NPCManager.Instance.Get_NPC(_Event.TargetID);
                     if (npc != null)
                     {
                         Vector2 npcPos = npc.transform.position;
@@ -312,10 +313,10 @@ public class EventManager : PersistentSingleton<EventManager>
             InputManager.Instance.InputMoveDir = Vector2.zero;
         }
 
-        PlayEvent();
+        Play_Event();
     }
 
-    private IEnumerator PlayEvent_Look(EventElement_Look _Event)
+    private IEnumerator Play_Look_Cor(EventElement_Look _Event)
     {
         yield return new WaitForSeconds(0.5f);
         string sceneName = SceneManager.GetActiveScene().name;
@@ -323,7 +324,7 @@ public class EventManager : PersistentSingleton<EventManager>
         {
             TitleInputManager.Instance.InputMoveDir = Vector2.zero;
 
-            TitlePlayerManager.Instance.PlayerController.HigherBody.SetRotation(_Event.TargetDir);
+            TitlePlayerManager.Instance.PlayerController.HigherBody.Set_Rotation(_Event.TargetDir);
         }
         else if (sceneName == "MainGame") // 맵 구분
         {
@@ -331,15 +332,15 @@ public class EventManager : PersistentSingleton<EventManager>
 
             PlayerManager.Instance.PlayerController.LowerController.ThisRb.velocity = Vector2.zero;
 
-            PlayerManager.Instance.PlayerController.LowerController.SetRotation(_Event.TargetDir);
+            PlayerManager.Instance.PlayerController.LowerController.Set_Rotation(_Event.TargetDir);
         }
 
         yield return null;
 
-        PlayEvent();
+        Play_Event();
     }
 
-    private IEnumerator PlayEvent_BlackScreenIn(EventElement_BlackScreenIn _Event)
+    private IEnumerator Play_BlackScreenIn_Cor(EventElement_BlackScreenIn _Event)
     {
         if (DOTween.IsTweening(BlackScreenImg))
         { DOTween.Kill(BlackScreenImg); }
@@ -352,10 +353,10 @@ public class EventManager : PersistentSingleton<EventManager>
 
         yield return new WaitForSeconds(_Event.TargetTime);
 
-        PlayEvent();
+        Play_Event();
     }
 
-    private IEnumerator PlayEvent_BlackScreenOut(EventElement_BlackScreenOut _Event)
+    private IEnumerator Play_BlackScreenOut_Cor(EventElement_BlackScreenOut _Event)
     {
         if (DOTween.IsTweening(BlackScreenImg))
         { DOTween.Kill(BlackScreenImg); }
@@ -368,34 +369,34 @@ public class EventManager : PersistentSingleton<EventManager>
 
         yield return new WaitForSeconds(_Event.TargetTime);
 
-        PlayEvent();
+        Play_Event();
     }
 
-    private IEnumerator PlayEvent_Dialogue(EventElement_Dialogue _Event)
+    private IEnumerator Play_Dialogue_Cor(EventElement_Dialogue _Event)
     {
-        DialogueID id = _Event.GetDialogueList();
+        DialogueID id = _Event.Get_DialogueList();
 
-        StartDialogue(id);
+        Start_Dialogue(id);
         yield return new WaitUntil(() => !IsPlayingDialogue);
 
-        PlayEvent();
+        Play_Event();
     }
 
     #endregion
 
     #region Dialogue
 
-    private void StartDialogue(DialogueID _DialogueID)
+    private void Start_Dialogue(DialogueID _DialogueID)
     {
         if (IsPlayingDialogue)
         { return; }
 
         IsPlayingDialogue = true;
         CurrentDialogues = new List<DialogueElement>(_DialogueID.Dialogues);
-        StartCoroutine(PlayDialogue());
+        StartCoroutine(Play_Dialogue_Cor());
     }
 
-    private IEnumerator PlayDialogue()
+    private IEnumerator Play_Dialogue_Cor()
     {
         bool canInteract = false;
         bool isScripting = false;
@@ -420,7 +421,7 @@ public class EventManager : PersistentSingleton<EventManager>
             noneDialogueComp.DialogueGO.SetActive(false);
 
             // Character Img
-            targetDialogueComp.DialogueImg.sprite = CSVManager.Instance.GetCorrectCharacterImg(currentDialogue.ImgID);
+            targetDialogueComp.DialogueImg.sprite = CSVManager.Instance.Get_CorrectCharacterImg(currentDialogue.ImgID);
 
             // Name
             targetDialogueComp.NameTxt.text = currentDialogue.Name;
@@ -456,10 +457,10 @@ public class EventManager : PersistentSingleton<EventManager>
 
         }
         
-        EndDialogue();
+        End_Dialogue();
     }
 
-    private void EndDialogue()
+    private void End_Dialogue()
     {
         LeftDialogueComp.DialogueGO.SetActive(false);
         RightDialogueComp.DialogueGO.SetActive(false);
@@ -479,7 +480,7 @@ public class EventData
 {
     public List<EventElement> Events;
 
-    public void ClearOnePart()
+    public void Remove_OnePart()
     {
         Events.Remove(Events[0]);
     }
@@ -588,9 +589,9 @@ public class EventElement_Dialogue : EventElement
         TargetID = _TargetID;
     }
 
-    public DialogueID GetDialogueList()
+    public DialogueID Get_DialogueList()
     {
-       return CSVManager.Instance.GetCorrectDialogueID(TargetID);
+       return CSVManager.Instance.Get_CorrectDialogueID(TargetID);
     }
 
 }

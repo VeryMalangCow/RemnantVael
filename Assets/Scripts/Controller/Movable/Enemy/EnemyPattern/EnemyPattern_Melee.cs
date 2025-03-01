@@ -38,7 +38,7 @@ public class EnemyPattern_Melee : EnemyPattern
     {
         if (!IsPlayingThisPattern)
         {
-            StopCoroutine(ThisPattern());
+            StopCoroutine(Play_ThisPattern_Cor());
         }
     }
 
@@ -46,7 +46,7 @@ public class EnemyPattern_Melee : EnemyPattern
 
     #region Can Check
 
-    public override bool CanPlayPattern()
+    public override bool Can_PlayPattern()
     {
         float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.Instance.PlayerController.transform.position);
         if (forPlayerDis > MaximumRange || forPlayerDis < MinimumRange)
@@ -61,23 +61,23 @@ public class EnemyPattern_Melee : EnemyPattern
 
     #region Start End
 
-    public override void StartPattern()
+    public override void Start_Pattern()
     {
 
-        base.StartPattern();
+        base.Start_Pattern();
     }
 
-    public override void EndPattern()
+    public override void End_Pattern()
     {
 
-        base.EndPattern();
+        base.End_Pattern();
     }
 
     #endregion
 
     #region Actual
 
-    protected override IEnumerator ThisPattern()
+    protected override IEnumerator Play_ThisPattern_Cor()
     {
         ThisEnemy.LookTargetPoint = 
             PlayerManager.Instance.PlayerController.transform.position - ThisEnemy.transform.position;
@@ -87,16 +87,16 @@ public class EnemyPattern_Melee : EnemyPattern
 
         yield return new WaitForSeconds(StartDelay);
 
-        EnemyAttacker ea = PoolingManager.Instance.GetOP_EnemyAttacker();
+        EnemyAttacker ea = PoolingManager.Instance.Get_OP_EnemyAttacker();
         ea.Enemy = this.ThisEnemy;
 
         if (LightOn)
         {
-            ea.SetLight(LightSize, LightTime);
+            ea.Set_Light(LightSize, LightTime);
         }
 
-        ea.SetShadowDis(SpawnHST);
-        ea.SetState_SetRotationAndMoveForward(
+        ea.Set_ShadowDis(SpawnHST);
+        ea.Play_RotAndPosForward(
             ((Vector2)ThisEnemy.transform.position + (targetDir * SpawnDis)),
             ThisAS, ThisAC, Vector2.one,
             Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, targetDir)),
@@ -104,13 +104,13 @@ public class EnemyPattern_Melee : EnemyPattern
             TweenTime, AnimSpeed)
             .OnComplete(() =>
             {
-                ea.EndState();
+                ea.End_State();
             });
 
         yield return new WaitForSeconds(EndDelay);
 
-        EndPattern();
-        ThisEnemy.TryGetAnyPattern();
+        End_Pattern();
+        ThisEnemy.Play_Pattern();
     }
 
     #endregion

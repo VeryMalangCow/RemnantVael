@@ -28,22 +28,22 @@ public abstract class UIController : MonoBehaviour
 
     #region Set Color
 
-    protected void SetColor(Color _Clr, List<Component> _ApplyCompList)
+    protected void Set_Color(Color _Clr, List<Component> _ApplyCompList)
     {
         for (int i = 0; i < _ApplyCompList.Count; i++)
         {
             if (_ApplyCompList[i].TryGetComponent(out TMP_Text tmp))
             {
-                SetColor(_Clr, tmp);
+                Set_Color(_Clr, tmp);
             }
             else if (_ApplyCompList[i].TryGetComponent(out Image img))
             {
-                SetColor(_Clr, img);
+                Set_Color(_Clr, img);
             }
         }
     }
 
-    private void SetColor(Color _Clr, TMP_Text _Txt)
+    private void Set_Color(Color _Clr, TMP_Text _Txt)
     {
         Color clr = _Clr;
         if (_Txt != null)
@@ -53,7 +53,7 @@ public abstract class UIController : MonoBehaviour
         }
     }
 
-    private void SetColor(Color _Clr, Image _Img)
+    private void Set_Color(Color _Clr, Image _Img)
     {
         Color clr = _Clr;
         if (_Img != null)
@@ -67,7 +67,7 @@ public abstract class UIController : MonoBehaviour
 
     #region For UI Case
 
-    protected string GetKindOfCaseString(IInteract _II)
+    protected string Get_KindOfCaseString(IInteract _II)
     {
         if (_II == null)
         { return ""; }
@@ -89,7 +89,7 @@ public abstract class UIController : MonoBehaviour
 
     #region Dur
 
-    protected void SetDur(int _DurState, List<Image> _ImgList, TMP_Text _Txt)
+    protected void Set_Dur(int _DurState, List<Image> _ImgList, TMP_Text _Txt)
     {
         _Txt.text = _DurState.ToString();
         for (int i = 0; i < _ImgList.Count; i++)

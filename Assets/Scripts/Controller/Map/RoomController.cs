@@ -50,7 +50,7 @@ public class RoomController : MonoBehaviour
 
     #endregion
 
-    #region Basic
+    #region Offset
 
     public void Offset()
     {
@@ -94,7 +94,7 @@ public class RoomController : MonoBehaviour
 
     #region Layer
 
-    public void SetCorrectWallSortOrder(RoomController _RC)
+    public void Set_CorrectWallSortOrder(RoomController _RC)
     {
         if (_RC == this)
         {
@@ -187,7 +187,7 @@ public class RoomController : MonoBehaviour
         
     }
 
-    public List<HaveShadowThing> GetNeedAllLayer()
+    public List<HaveShadowThing> Get_NeedAllLayer()
     {
         List<HaveShadowThing> HST = new List<HaveShadowThing>();
 
@@ -204,10 +204,10 @@ public class RoomController : MonoBehaviour
 
     #region Gate
 
-    public void SetCollectGateVec(int _Index, Vector2Int _InitVec)
+    public void Set_CollectGateVec(int _Index, Vector2Int _InitVec)
     {
         Vector2Int targetVec = RoomVec[_Index];
-        List<GateController> gates = GetCollectGateList(targetVec);
+        List<GateController> gates = Get_CollectGateList(targetVec);
         for (int i = 0; i < gates.Count; i++)
         {
             gates[i].RoomPosGate = _InitVec;
@@ -217,7 +217,7 @@ public class RoomController : MonoBehaviour
         SettedPos = true;
     }
 
-    private List<GateController> GetCollectGateList(Vector2Int _TargetVec)
+    private List<GateController> Get_CollectGateList(Vector2Int _TargetVec)
     {
         List<GateController> resultList = new List<GateController>();
         for (int i = 0; i < InRoom_AllGate.Count; i++)
@@ -231,7 +231,7 @@ public class RoomController : MonoBehaviour
         return resultList;
     }
 
-    public GateController GetCollectGC(Vector2Int _TargetVec)
+    public GateController Get_CollectGate(Vector2Int _TargetVec)
     {
         // 맞는 방향에 있는 모든 문
         List<GateController> collectDirGateList = new List<GateController>();
@@ -282,7 +282,7 @@ public class RoomController : MonoBehaviour
 
     #region Condition
 
-    public void PlayRoomState()
+    public void Play_RoomState()
     {
         switch (RoomRuleController.RoomType)
         {
@@ -309,7 +309,7 @@ public class RoomController : MonoBehaviour
             {
                 if (!InRoom_AllGate[i].IsOpen)
                 {
-                    InRoom_AllGate[i].SetOnOff(true);
+                    InRoom_AllGate[i].Set_OnOff(true);
                 }
             }
         }
@@ -320,7 +320,7 @@ public class RoomController : MonoBehaviour
 
     #region Get
 
-    public List<RoomController> GetConnectedRCList()
+    public List<RoomController> Get_ConnectedRoomList()
     {
         List<RoomController> result = new List<RoomController>();
         for (int i = 0; i < InRoom_AllGate.Count; i++)

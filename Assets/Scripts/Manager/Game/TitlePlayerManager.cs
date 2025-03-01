@@ -7,6 +7,6 @@ public class TitlePlayerManager : Singleton<TitlePlayerManager>
 
     private void Start()
     {
-        this.PlayerController = UnitManager.GenerateUnit<TitlePlayerController>(GameManager.Instance.TitlePlayerPrefab, PlayerParentTF);
+        this.PlayerController = UnitManager.Gen_Unit<TitlePlayerController>(GameManager.Instance.TitlePlayerPrefab, PlayerParentTF);
     }
 }

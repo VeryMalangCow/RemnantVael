@@ -2,27 +2,31 @@ using UnityEngine;
 
 public class ModuleUpgradeController : DestructibleBuildController, IInteract
 {
+    #region Value
+
     public static ModuleUpgradeController UsingShop = null;
+
+    #endregion
 
     #region Framework
 
     protected override void Start()
     {
         base.Start();
-        ApplySetStateAnim();
+        Set_StateAnim();
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
-        ExplosionEffect();
+        Gen_ExplosionEffect();
     }
 
     #endregion
 
     #region Interact
 
-    public void Interact()
+    public void Play_Interact()
     {
         if (IsBroken)
         { return; }
@@ -30,7 +34,7 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
         if (IsOn)
         {
             ModuleUpgradeController.UsingShop = this;
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.OpenThisPanel();
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOn_ThisPanel();
         }
         else if (!IsOn && PlayerManager.Instance.PlayerController.CurrentEC.Value > 0)
         {
@@ -38,33 +42,34 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
             IsOn = true;
         }
 
-        ApplySetStateAnim();
+        Set_StateAnim();
     }
-    public override void TakeDamage(bool _SpawnItem)
-    {
-        base.TakeDamage(_SpawnItem);
 
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetDur(ThisDurablity);
+    public override void Take_Damage(bool _SpawnItem)
+    {
+        base.Take_Damage(_SpawnItem);
+
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_Dur(ThisDurablity);
     }
 
     #endregion
 
     #region Break
 
-    protected override void Break(bool _SpawnItem)
+    protected override void Set_Break(bool _SpawnItem)
     {
-        base.Break(_SpawnItem);
+        base.Set_Break(_SpawnItem);
 
         if (_SpawnItem)
-        { RandomSpawnMS(); }
+        { Gen_RandomMS(); }
 
         if (MainGameUIManager.Instance.ModuleUpgrade_UIController.gameObject.activeSelf)
         {
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.CloseThisPanel();
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_ThisPanel();
         }
     }
 
-    private void RandomSpawnMS()
+    private void Gen_RandomMS()
     {
         int spawnItem = 0;
         if (!IsOn)
@@ -81,13 +86,13 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
 
         for (int i = 0; i < spawnItem; i++)
         {
-            SpawnMS(1);
+            Gen_MS(1);
         }
     }
 
-    public override void SpawnItem()
+    public override void Gen_Item()
     {
-        SpawnMS(1);
+        Gen_MS(1);
     }
 
     #endregion

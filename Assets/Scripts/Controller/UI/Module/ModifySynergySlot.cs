@@ -28,19 +28,19 @@ public class ModifySynergySlot : ModifyOwnEachBtn
         if (ThisTxt == null && this.gameObject.transform.GetChild(1).TryGetComponent(out TMP_Text TierTxt))
         { ThisTxt = TierTxt; }
 
-        SetOffSynergySlot();
+        SetOff_SynergySlot();
     }
 
     #endregion
 
     #region Set
 
-    public void SetOffSynergySlot()
+    public void SetOff_SynergySlot()
     {
         this.gameObject.SetActive(false);
     }
 
-    public void SetOnSynergySlot(int _ID, Sprite _Icon, int _Amalgamation)
+    public void SetOn_SynergySlot(int _ID, Sprite _Icon, int _Amalgamation)
     {
         this.gameObject.SetActive(true);
 

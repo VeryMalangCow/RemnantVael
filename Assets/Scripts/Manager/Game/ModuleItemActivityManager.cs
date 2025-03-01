@@ -31,7 +31,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     #region Get
 
-    public ActivityFuncDele GetCollectActivity(int _ID)
+    public ActivityFuncDele Get_CollectActivity(int _ID)
     {
         return ActivityFuncList[_ID];
     }
@@ -42,12 +42,12 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     private void Activity_MI_000(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
-        Activity_Derivative(_Rank, _BoostLv, eDamageType.Energy, PoolingManager.Instance.GetOP_MI_000_Bullets());
+        Activity_Derivative(_Rank, _BoostLv, eDamageType.Energy, PoolingManager.Instance.Get_OP_MI_000_Bullets());
     }
 
     private void Activity_MI_001(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
-        Activity_Derivative(_Rank, _BoostLv, eDamageType.Physics, PoolingManager.Instance.GetOP_MI_001_Bullets());
+        Activity_Derivative(_Rank, _BoostLv, eDamageType.Physics, PoolingManager.Instance.Get_OP_MI_001_Bullets());
     }
 
     private void Activity_MI_002(int _Rank, int _BoostLv, EnemyController _EC = null)
@@ -103,7 +103,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             // µ¥¹ÌÁö °è»ê
             float dmg = _Rank * PCWeapon.BaseDamage.ActualState.Value;
             PlayerBulletController pbc = _Bullet;
-            Vector2 dir = PCWeapon.GetDir(PC.transform.position);
+            Vector2 dir = PCWeapon.Get_Dir(PC.transform.position);
 
             // ½ºÆù Åº ½ºÅÈ
             BulletState bulletState = new BulletState(
@@ -111,7 +111,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
                 dmg, PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2,
                 false, 1,
                 false, 0, 0);
-            pbc.SetState(PC.transform.position, 10, bulletState, dir, 0.35f);
+            pbc.Set_State(PC.transform.position, 10, bulletState, dir, 0.35f);
 
             // Sorting Layer
             if (PC.TargetObject.gameObject.TryGetComponent(out HaveShadowThing hst))
@@ -124,19 +124,19 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     {
         if (_Kind == eStatusEffect.Flame)
         {
-            _Enemy.BuffController.FlameStack.GainStack(_GainAmount, true);
+            _Enemy.BuffController.FlameStack.Gain_Stack(_GainAmount, true);
         }
         else if (_Kind == eStatusEffect.Cold)
         {
-            _Enemy.BuffController.ColdStack.GainStack(_GainAmount, true);
+            _Enemy.BuffController.ColdStack.Gain_Stack(_GainAmount, true);
         }
         else if (_Kind == eStatusEffect.Electricity)
         {
-            _Enemy.BuffController.ElectricityStack.GainStack(_GainAmount, true);
+            _Enemy.BuffController.ElectricityStack.Gain_Stack(_GainAmount, true);
         }
         else
         {
-            _Enemy.BuffController.CorrosionStack.GainStack(_GainAmount, true);
+            _Enemy.BuffController.CorrosionStack.Gain_Stack(_GainAmount, true);
         }
     }
 

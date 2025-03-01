@@ -32,7 +32,7 @@ public class EnergyShrapnelController : AbsorbItemController
 
     #region State
 
-    public void SetState(Vector2 _SpawnPos, GameObject _TargetObject, float _Value)
+    public void Set_State(Vector2 _SpawnPos, GameObject _TargetObject, float _Value)
     {
         base.SetState(_SpawnPos, _TargetObject);
         ThisSR.sprite = PlayerManager.Instance.PlayerController.ES_Sprite;
@@ -43,11 +43,11 @@ public class EnergyShrapnelController : AbsorbItemController
 
     #region Get Item
 
-    protected override void GetItem()
+    protected override void Gain_Item()
     {
-        base.GetItem();
+        base.Gain_Item();
 
-        PlayerManager.Instance.PlayerController.AddCurrentEP(EnergyValue);
+        PlayerManager.Instance.PlayerController.Add_CurrentEP(EnergyValue);
         PoolingManager.Instance.EnergyShrapnel.Queue.Enqueue(this);
     }
 

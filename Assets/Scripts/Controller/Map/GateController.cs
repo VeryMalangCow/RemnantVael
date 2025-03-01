@@ -49,7 +49,7 @@ public class GateController : HaveShadowThingStatic, IInteract
 
     private void Update()
     {
-        if (OnThingsGO.gameObject.activeSelf && ThisAnimator.enabled && AnimIsDone())
+        if (OnThingsGO.gameObject.activeSelf && ThisAnimator.enabled && Get_AnimIsDone())
         {
             ThisAnimator.enabled = false;
         }
@@ -59,13 +59,13 @@ public class GateController : HaveShadowThingStatic, IInteract
 
     #region On Off
 
-    public void IsExistDoor(bool _IsExist)
+    public void Set_ExistDoorState(bool _IsExist)
     {
         if (_IsExist)
         {
             OnThingsGO.gameObject.SetActive(true);
             OffThingsGO.gameObject.SetActive(false);
-            SetAnim(ThisAC, 0f);
+            Set_Anim(ThisAC, 0f);
         }
         else
         {
@@ -74,13 +74,13 @@ public class GateController : HaveShadowThingStatic, IInteract
         }
     }
 
-    public void SetOnOff(bool _IsOn)
+    public void Set_OnOff(bool _IsOn)
     {
         IsOpen = _IsOn;
 
         if (OnThingsGO.gameObject.activeSelf && IsOpen)
         {
-            SetAnim(ThisAC, 1f);
+            Set_Anim(ThisAC, 1f);
             EntranceGO.SetActive(true);
         }
     }
@@ -89,13 +89,13 @@ public class GateController : HaveShadowThingStatic, IInteract
 
     #region Interact
 
-    public void Interact()
+    public void Play_Interact()
     {
         if (IsOpen && ParterGate != null)
         {
             PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.gameObject.transform.position
             + new Vector3(GateDir.x, GateDir.y, 0);
-            StageManager.Instance.StartCurrentRoom(ParterGate.ThisRoom);
+            StageManager.Instance.Play_CurrentRoom(ParterGate.ThisRoom);
         }
     }
 
@@ -103,7 +103,7 @@ public class GateController : HaveShadowThingStatic, IInteract
 
     #region Anim
 
-    public void SetAnim(AnimationClip _AC, float _AnimSpeed = 1f)
+    public void Set_Anim(AnimationClip _AC, float _AnimSpeed = 1f)
     {
         aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
@@ -114,7 +114,7 @@ public class GateController : HaveShadowThingStatic, IInteract
         ThisAnimator.speed = _AnimSpeed;
     }
 
-    private bool AnimIsDone()
+    private bool Get_AnimIsDone()
     {
         // 현재 애니메이터 상태 정보 가져오기
         AnimatorStateInfo animatorStateInfo = ThisAnimator.GetCurrentAnimatorStateInfo(0);

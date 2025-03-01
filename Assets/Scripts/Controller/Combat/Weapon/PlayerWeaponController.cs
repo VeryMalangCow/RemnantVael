@@ -37,23 +37,23 @@ public class PlayerWeaponController : SatelliteController
 
     protected void Update()
     {
-        PitchTF.transform.localRotation = RotateSmooth(InputManager.Instance.DirFromPlayerPos.normalized, PitchTF, rotateSpeed);
+        PitchTF.transform.localRotation = Get_RotationSmooth(InputManager.Instance.DirFromPlayerPos.normalized, PitchTF, rotateSpeed);
 
         foreach (Satellite hand in Hands)
         {
             hand.SetPos(PlayerSR.sortingOrder);
         }
 
-        CaculateROF();
+        Caculate_ROF();
 
-        if (CanFire())
+        if (Can_Fire())
         {
             List<PlayerBulletController> PBClist = new List<PlayerBulletController>();
             foreach (Transform TF in BulletSpawnTFs)
-            { PBClist.Add(PoolingManager.Instance.GetOP_PlayerBullet()); }
+            { PBClist.Add(PoolingManager.Instance.Get_OP_PlayerBullet()); }
 
-            Fire(PBClist);
-            PlayerManager.Instance.CameraController.PlayShotAnim(1/ROF.ActualState.Value, PBClist[0].BulletState.BaseDamage);
+            Play_Fire(PBClist);
+            PlayerManager.Instance.CameraController.Play_ShotAnim(1/ROF.ActualState.Value, PBClist[0].BulletState.BaseDamage);
 
             ModuleItemManager.Instance.Active_Fire();
         }
@@ -64,14 +64,14 @@ public class PlayerWeaponController : SatelliteController
 
     #region ROF
 
-    private void CaculateROF()
+    private void Caculate_ROF()
     {
         CurrentDelayROF += Time.deltaTime * ROF.ActualState.Value;
 
         if (CurrentDelayROF > 1)
         {
             CurrentDelayROF = 1;
-            InputManager.Instance.AimController.SetBaseAttack(false);
+            InputManager.Instance.AimController.Set_BaseAttack(false);
         }
     }
 
@@ -79,7 +79,7 @@ public class PlayerWeaponController : SatelliteController
 
     #region Judg Can Fire
 
-    private bool CanFire()
+    private bool Can_Fire()
     {
         if(IsInputed &&
             CurrentDelayROF >= 1 &&
@@ -95,14 +95,14 @@ public class PlayerWeaponController : SatelliteController
 
     #region Fire
 
-    protected void Fire<T>(List<T> _Ts)
+    protected void Play_Fire<T>(List<T> _Ts)
     {
         float spreadMaxLimit = 100 - AccuracyRate.ActualState.Value;
         float randomAngle = UnityEngine.Random.Range(-spreadMaxLimit, spreadMaxLimit);
         //randomAngle = 0f;
         for (int i = 0; i < BulletSpawnTFs.Count; i++)
         {
-            PlayerBulletController PBC = GameManager.CastIfPossible<PlayerBulletController>(_Ts[i]);
+            PlayerBulletController PBC = GameManager.Get_CastIfPossible<PlayerBulletController>(_Ts[i]);
 
             // Critical
             float rcc = UnityEngine.Random.Range(0f, 1f);
@@ -134,7 +134,7 @@ public class PlayerWeaponController : SatelliteController
             }
             Vector2 dir = (targetPos - (Vector2)BulletSpawnTFs[i].transform.position).normalized;
 */
-            Vector2 dir = GetDir((Vector2)BulletSpawnTFs[i].transform.position);
+            Vector2 dir = Get_Dir((Vector2)BulletSpawnTFs[i].transform.position);
 
             // Base State 
             BulletState bulletState = new BulletState(
@@ -147,7 +147,7 @@ public class PlayerWeaponController : SatelliteController
                 ableKnockback,
                 PlayerController.BaseWeapon.KnockbackPower.ActualState.Value,
                 0.2f);
-            PBC.SetState(BulletSpawnTFs[i].position, randomAngle, bulletState, dir, targetShadow);
+            PBC.Set_State(BulletSpawnTFs[i].position, randomAngle, bulletState, dir, targetShadow);
 
             // Sorting Layer
             if (BulletSpawnTFs[i].gameObject.TryGetComponent(out HaveShadowThing hst))
@@ -156,11 +156,11 @@ public class PlayerWeaponController : SatelliteController
             // Effect
             if (BulletSpawnTFs[i].TryGetComponent(out HaveShadowThing posHst))
             {
-                ExplosionEffect_Fan((Vector2)posHst.TargetObject.transform.position + (dir * 0.3f),
+                Gen_ExplosionEffect_Fan((Vector2)posHst.TargetObject.transform.position + (dir * 0.3f),
                     DamageType, isCritical, i, dir);
             }
         }
-        InputManager.Instance.AimController.SetBaseAttack(true);
+        InputManager.Instance.AimController.Set_BaseAttack(true);
         CurrentDelayROF = 0;
 
         // Tween
@@ -168,7 +168,7 @@ public class PlayerWeaponController : SatelliteController
         
     }
 
-    public Vector2 GetDir(Vector2 _SpawnPos)
+    public Vector2 Get_Dir(Vector2 _SpawnPos)
     {
         Vector2 targetPos = InputManager.Instance.MousePosByWorld;
         if (fireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
@@ -185,7 +185,7 @@ public class PlayerWeaponController : SatelliteController
 
     #region Effect
 
-    private void ExplosionEffect_Fan(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical,
+    private void Gen_ExplosionEffect_Fan(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical,
         int _Index, Vector2 _Dir)
     {
         int index = 0;
@@ -204,7 +204,7 @@ public class PlayerWeaponController : SatelliteController
             { index = 3; }
         }
 
-        PlayerController.PlayerMEI.GenExplosionImgs_Fan(
+        PlayerController.PlayerMEI.Gen_ExplosionImgs_Fan(
             _SpawndPos,
             _Dir, 45f,
             3, 0.2f, 1f,

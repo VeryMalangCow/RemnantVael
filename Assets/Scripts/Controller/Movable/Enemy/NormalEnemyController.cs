@@ -32,48 +32,48 @@ public class NormalEnemyController : EnemyController
     {
         base.Update();
 
-        SetImgPosSort(WalkingSatellite); 
-        SetImgPosSort(LookingSatellite);
+        Set_ImgPosSort(WalkingSatellite); 
+        Set_ImgPosSort(LookingSatellite);
     }
 
     private void LateUpdate()
     {
-        SetImg(WalkingSatellite, ThisRb.velocity);
-        SetImg(LookingSatellite, LookAtDir);
+        Set_Img(WalkingSatellite, ThisRb.velocity);
+        Set_Img(LookingSatellite, LookAtDir);
 
-        SetAnimSpeed();
+        Set_AnimSpeed();
     }
 
     #endregion
 
     #region Img or Anim
 
-    private void SetImg(SatelliteController _SC, Vector2 _Dir)
+    private void Set_Img(SatelliteController _SC, Vector2 _Dir)
     {
         if (_Dir != Vector2.zero)
         {
             _Dir = new Vector2(-_Dir.x, _Dir.y);
-            if (SatelliteController.GetIndex(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z) != CurrentIndex.Value)
+            if (SatelliteController.Get_Index(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z) != CurrentIndex.Value)
             {
-                CurrentIndex.Value = SatelliteController.GetIndex(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z);
+                CurrentIndex.Value = SatelliteController.Get_Index(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z);
             }
 
-            _SC.PitchTF.transform.localRotation = _SC.RotateSmooth(SatelliteController.GetNormalizedVec(CurrentIndex.Value));
+            _SC.PitchTF.transform.localRotation = _SC.Get_RotationSmooth(SatelliteController.Get_NormalizedVec(CurrentIndex.Value));
         }
     }
 
-    private void SetImgPosSort(SatelliteController _SC)
+    private void Set_ImgPosSort(SatelliteController _SC)
     {
         foreach (Satellite hand in _SC.Hands)
         { hand.SetPos(_SC.PlayerSR.sortingOrder); }
     }
 
-    private void SetAnimSpeed()
+    private void Set_AnimSpeed()
     {
         float dis = Vector2.Distance(Vector2.zero, ThisRb.velocity);
         for (int i = 0; i < ThisSEDA.Count; i++)
         {
-            ThisSEDA[i].SetAnimSpeed(BaseUnderFootAnimSpeed * dis);
+            ThisSEDA[i].Set_AnimSpeed(BaseUnderFootAnimSpeed * dis);
         }
     }
     #endregion

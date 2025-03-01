@@ -31,7 +31,7 @@ public class InteractableBuildController : SortLayerObjectController
 
     #region Set Anim
 
-    protected virtual void ApplySetStateAnim()
+    protected virtual void Set_StateAnim()
     {
         if (IsOn)
         {
@@ -43,7 +43,7 @@ public class InteractableBuildController : SortLayerObjectController
             ThisAnimator.runtimeAnimatorController = aoc;
             ThisAnimator.speed = 1f;
 
-            ThisStateAnim.SetAnim(OnStateAC, 1f, 1f);
+            ThisStateAnim.Set_Anim(OnStateAC, 1f, 1f);
         }
         else
         {
@@ -55,7 +55,7 @@ public class InteractableBuildController : SortLayerObjectController
             ThisAnimator.runtimeAnimatorController = aoc;
             ThisAnimator.speed = 1f;
 
-            ThisStateAnim.SetAnim(OffStateAC, 1f, 1f);
+            ThisStateAnim.Set_Anim(OffStateAC, 1f, 1f);
         }
     }
 
@@ -63,9 +63,9 @@ public class InteractableBuildController : SortLayerObjectController
 
     #region Effect
 
-    protected void ExplosionEffect()
+    protected void Gen_ExplosionEffect()
     {
-        MEI.GenExplosionImgs(
+        MEI.Gen_ExplosionImgs(
                     MEI.gameObject.transform.position,
                     32, 0.15f, 0.75f,
                     0.8f, 0.05f, 0.1f,

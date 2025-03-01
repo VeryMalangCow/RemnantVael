@@ -151,9 +151,9 @@ public class BaseUpgradeUIController : PanelUIController
 
         PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Subscribe(_Value =>
         {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.SetCostText(
+            MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Set_CostText(
                 _Value * PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.NeedEP.Value);
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.SetCostText(
+            MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Set_CostText(
                 _Value * PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.NeedEP.Value);
         });
 
@@ -210,19 +210,19 @@ public class BaseUpgradeUIController : PanelUIController
         SubColorCompList.Add(FrameInnerImg);
         SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
-        SetTabTxt(TabTxtList, MainColorCompList);
+        Set_TabTxt(TabTxtList, MainColorCompList);
         TabTxtList.Clear(); TabTxtList = null;
 
-        SetTabLightAlpha(0.1f, LightTabCGList, SubColorCompList);
+        Set_TabLightAlpha(0.1f, LightTabCGList, SubColorCompList);
         LightTabCGList.Clear(); LightTabCGList = null;
 
-        Color mainClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
-        SetColor(mainClr, MainColorCompList);
+        Color mainClr = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, false);
+        Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, true);
-        SetColor(subClr, SubColorCompList);
+        Color subClr = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, true);
+        Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
     }
@@ -235,7 +235,7 @@ public class BaseUpgradeUIController : PanelUIController
     {
         foreach(ModifyEachTab MET in ThisPanelTabList)
         {
-            MET.OnReset();
+            MET.Reset_ScrollBar();
         }
     }
 
@@ -243,7 +243,7 @@ public class BaseUpgradeUIController : PanelUIController
 
     #region Input
 
-    public void TryInteractClick()
+    public void Try_Interact()
     {
         if (CurrentBtn == null || BaseUpgradeController.UsingShop == null)
         { return; }
@@ -273,7 +273,7 @@ public class BaseUpgradeUIController : PanelUIController
         // ´Ý±â
         if (CurrentBtn == CloseBtn)
         {
-            MainGameUIManager.Instance.BaseUpgrade_UIController.CloseThisPanel();
+            MainGameUIManager.Instance.BaseUpgrade_UIController.SetOff_ThisPanel();
             return;
         }
 
@@ -282,7 +282,7 @@ public class BaseUpgradeUIController : PanelUIController
         {
             if (ThisPanelTabList[i].ThisTabBtn == CurrentBtn)
             {
-                ChangeThisPanel(i);
+                Change_ThisPanel(i);
                 return;
             }
         }
@@ -292,9 +292,9 @@ public class BaseUpgradeUIController : PanelUIController
 
     #region Set Panel
 
-    public override void OpenThisPanel()
+    public override void SetOn_ThisPanel()
     {
-        base.OpenThisPanel();
+        base.SetOn_ThisPanel();
 
         if (DOTween.IsTweening(FrameInnerImg))
         { DOTween.Complete(FrameInnerImg); }
@@ -303,13 +303,13 @@ public class BaseUpgradeUIController : PanelUIController
         seq.Append(FrameInnerImg.DOFade(1, 0.5f));
         seq.Append(FrameInnerImg.DOFade(0.5f, 0.5f));
 
-        MainGameUIManager.Instance.BaseUpgrade_UIController.SetDur(
+        MainGameUIManager.Instance.BaseUpgrade_UIController.Set_Dur(
             BaseUpgradeController.UsingShop.ThisDurablity);
     }
 
-    public override void CloseThisPanel()
+    public override void SetOff_ThisPanel()
     {
-        base.CloseThisPanel();
+        base.SetOff_ThisPanel();
         BaseUpgradeController.UsingShop = null;
 
     }
@@ -318,29 +318,29 @@ public class BaseUpgradeUIController : PanelUIController
 
     #region Desc
 
-    public void SetDesc(ModifyTextAmountForBuy _MTAFB)
+    public void SetOn_Desc(ModifyTextAmountForBuy _MTAFB)
     {
         BUState<float> baseUpgradeState_Float = BUShopEachData<float>.GetThisData(AllUpgradeDataList_Float, _MTAFB);
         if (baseUpgradeState_Float != null)
-        {  ThisDescPanel.SetDesc<float>(baseUpgradeState_Float); }
+        {  ThisDescPanel.SetOn_Desc<float>(baseUpgradeState_Float); }
 
         BUState<int> baseUpgradeState_Int = BUShopEachData<int>.GetThisData(AllUpgradeDataList_Int, _MTAFB);
         if (baseUpgradeState_Int != null)
-        { ThisDescPanel.SetDesc<int>(baseUpgradeState_Int); }
+        { ThisDescPanel.SetOn_Desc<int>(baseUpgradeState_Int); }
     }
 
-    public void SetDescOff()
+    public void SetOff_Desc()
     {
-        ThisDescPanel.SetDescOff();
+        ThisDescPanel.SetOff_Desc();
     }
 
     #endregion
 
     #region Dur
 
-    public void SetDur(int _DurState)
+    public void Set_Dur(int _DurState)
     {
-        base.SetDur(_DurState, FillImgList, DurablityStateTxt);
+        base.Set_Dur(_DurState, FillImgList, DurablityStateTxt);
     }
 
     #endregion
@@ -386,7 +386,7 @@ public class BUShopEachData<T>
                {
                    Upgrade_MTAFB.Set(currentLv, 0);
                }
-               Upgrade_MTAFB.SetInnerAlpha((float)currentLv/(float)Upgrade_BUOTD.BU_EachLevelDataList.Count);
+               Upgrade_MTAFB.Set_InnerAlpha((float)currentLv/(float)Upgrade_BUOTD.BU_EachLevelDataList.Count);
            });
 
         _Owner.MainColorCompList.Add(Upgrade_MTAFB.SkillNameTxt);
@@ -411,7 +411,7 @@ public class BUShopEachData<T>
 
     private void Buy(int _UseEC, int _MaxUpgradeLevel, T _SetValue)
     {
-        BaseUpgradeController.UsingShop.TakeDamage(false);
+        BaseUpgradeController.UsingShop.Take_Damage(false);
 
         Upgrade_BUS.CurrentLevel.Value++;
         Upgrade_BUS.ActualState.Value = _SetValue;
@@ -421,7 +421,7 @@ public class BUShopEachData<T>
             Upgrade_BuyBtn.ThisBtn.interactable = false;
         }
 
-        MainGameUIManager.Instance.BaseUpgrade_UIController.SetDesc(Upgrade_MTAFB);
+        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(Upgrade_MTAFB);
     }
 
 

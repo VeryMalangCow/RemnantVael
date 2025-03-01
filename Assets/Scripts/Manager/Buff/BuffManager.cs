@@ -38,47 +38,52 @@ public class BuffManager : Singleton<BuffManager>
 
     #region Buff
 
-    public void OnBuff(int _ID)
+    // 버프 키기
+    public void SetOn_Buff(int _ID)
     {
-        BuffController correctBuff = GetCorrectBuff(_ID);
+        BuffController correctBuff = Get_CorrectBuff(_ID);
 
-        if (correctBuff == null)
-        { return; }
-
-        correctBuff.enabled = true;
+        if (correctBuff != null)
+        { 
+            correctBuff.enabled = true; 
+        }
     }
 
-    public void OffBuff(int _ID)
+    // 버프 끄기
+    public void SetOff_Buff(int _ID)
     {
-        BuffController correctBuff = GetCorrectBuff(_ID);
+        BuffController correctBuff = Get_CorrectBuff(_ID);
 
-        if (correctBuff == null)
-        { return; }
-
-        correctBuff.enabled = false;
+        if (correctBuff != null)
+        { 
+            correctBuff.enabled = false; 
+        }
     }
 
-    public void GetBuff(int _ID)
+    // 버프 획득 (증가)
+    public void Gain_Buff(int _ID)
     {
-        BuffController correctBuff = GetCorrectBuff(_ID);
+        BuffController correctBuff = Get_CorrectBuff(_ID);
 
-        if (correctBuff == null)
-        { return; }
-
-        correctBuff.GainBuff();
+        if (correctBuff != null)
+        {
+            correctBuff.Gain_Buff(); 
+        }
     }
 
-    public void UseBuff(int _ID)
+    // 버프 사용 (감소)
+    public void Reduce_Buff(int _ID)
     {
-        BuffController correctBuff = GetCorrectBuff(_ID);
+        BuffController correctBuff = Get_CorrectBuff(_ID);
 
-        if (correctBuff == null)
-        {  return; }
-
-        correctBuff.ReductBuff();
+        if (correctBuff != null)
+        { 
+            correctBuff.Reduct_Buff();
+        }
     }
 
-    private BuffController GetCorrectBuff(int _ID)
+    // 맞는 버프컨트롤러 찾기
+    private BuffController Get_CorrectBuff(int _ID)
     {
         for (int i = 0; i < AllBuffs.Count; i++)
         {
@@ -92,22 +97,19 @@ public class BuffManager : Singleton<BuffManager>
 
     #endregion
 
-    #region Condition
+    #region Active
 
-    #region Hitted
-
+    // 맞을 시, 실행
     public void Active_Hitted()
     {
         if (iWhen_HittedList.Count > 0)
         {
             for (int i = 0; i < iWhen_HittedList.Count; i++)
             {
-                iWhen_HittedList[i].When();
+                iWhen_HittedList[i].Play_When();
             }
         }
     }
-
-    #endregion
 
     #endregion
 }

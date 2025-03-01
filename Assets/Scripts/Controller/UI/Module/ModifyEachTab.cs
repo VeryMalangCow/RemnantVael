@@ -44,10 +44,10 @@ public class ModifyEachTab : UIModule, IScrollHandler
 
     public void OnEnable()
     {
-        OnReset();
+        Reset_ScrollBar();
     }
 
-    public void OnReset()
+    public void Reset_ScrollBar()
     {
         ThisTabScrollbar.value = 0f;
     }

@@ -17,7 +17,7 @@ public class EnemyAttacker : Attacker
     private void Update()
     {
         if (IsColliding)
-        { PlayerManager.Instance.PlayerController.TryHitted(this); }
+        { PlayerManager.Instance.PlayerController.Try_Hitted(this); }
     }
 
     #endregion

@@ -29,15 +29,15 @@ public class GameManager : PersistentSingleton<GameManager>
         //Singleton
         base.Awake();
         
-        SetBaseOption();
-        SetRainbowColorDotween();
+        Set_BaseOption();
+        Set_RainbowColorDotween();
     }
 
     #endregion
 
     #region Option
 
-    private void SetBaseOption()
+    private void Set_BaseOption()
     {
         Application.targetFrameRate = 144;
     }
@@ -46,8 +46,10 @@ public class GameManager : PersistentSingleton<GameManager>
 
     #region Module
 
-    // Get Type if it Can Cast
-    public static T CastIfPossible<T>(object input) where T : class
+    #region Get
+
+    // 캐스팅
+    public static T Get_CastIfPossible<T>(object input) where T : class
     {
         if (input is T variable)
         {
@@ -59,8 +61,8 @@ public class GameManager : PersistentSingleton<GameManager>
         }
     }
 
-    // Set List by Component
-    public static List<T> SetList<T>(Transform _Parent)
+    // 인자의 자식들의 T 타입 리스트
+    public static List<T> Get_List<T>(Transform _Parent)
     {
         List<T> result = new List<T>();
         foreach (Transform TF in _Parent)
@@ -73,8 +75,8 @@ public class GameManager : PersistentSingleton<GameManager>
         return result;
     }
 
-
-    public static List<T> ShuffleList<T>(List<T> list)
+    // List를 무작위 섞기
+    public static List<T> Get_ShuffleList<T>(List<T> list)
     {
         int random1, random2;
         T temp;
@@ -92,11 +94,14 @@ public class GameManager : PersistentSingleton<GameManager>
         return list;
     }
 
+
+
     #endregion
 
-    #region Color
+    #region Set
 
-    private void SetRainbowColorDotween()
+    // 무지개 컬러 Dotween
+    private void Set_RainbowColorDotween()
     {
         RandomColorSetSeq = DOTween.Sequence();
         RandomColor = Color.red;
@@ -110,6 +115,8 @@ public class GameManager : PersistentSingleton<GameManager>
 
         RandomColorSetSeq.SetLoops(-1, LoopType.Restart);
     }
+
+    #endregion
 
     #endregion
 
@@ -157,5 +164,5 @@ public enum eRoomType
 
 public interface IInteract
 {
-    public void Interact();
+    public void Play_Interact();
 }

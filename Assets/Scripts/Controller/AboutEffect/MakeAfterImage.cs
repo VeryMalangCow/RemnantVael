@@ -24,14 +24,14 @@ public class MakeAfterImage : MonoBehaviour
 
     private void Update()
     {
-        CaculateGenTime();
+        Caculate_GenTime();
     }
 
     #endregion
 
     #region Caculate
 
-    private void CaculateGenTime()
+    private void Caculate_GenTime()
     {
         if (IsOn)
         {
@@ -39,13 +39,13 @@ public class MakeAfterImage : MonoBehaviour
             if (CurrentGenTime >= DelayGenTime)
             {
                 CurrentGenTime = 0;
-                GenImg();
+                Gen_Img();
             }
         }
     }
 
     // Start Set
-    public void StartGen(float _ImageAlpha, float _SetIntervalDelay, float _StayDur)
+    public void Start_Gen(float _ImageAlpha, float _SetIntervalDelay, float _StayDur)
     {
         IsOn = true;
         ImageAlpha = _ImageAlpha;
@@ -54,16 +54,16 @@ public class MakeAfterImage : MonoBehaviour
     }
 
     // End Set
-    public void EndGen()
+    public void End_Gen()
     {
         IsOn = false;
         DelayGenTime = 0;
     }
 
     // Each Gen Img
-    private void GenImg(SpriteRenderer _TargetSR)
+    private void Gen_Img(SpriteRenderer _TargetSR)
     {
-        SpriteRenderer SR = PoolingManager.Instance.GetOP_AfterImg();
+        SpriteRenderer SR = PoolingManager.Instance.Get_OP_AfterImg();
         SR.sprite = _TargetSR.sprite;
         SR.sortingOrder = _TargetSR.sortingOrder - 1;
         Color clr = GameManager.Instance.RandomColor;
@@ -80,11 +80,11 @@ public class MakeAfterImage : MonoBehaviour
         
     }
 
-    private void GenImg()
+    private void Gen_Img()
     {
         for (int i = 0; i < TargetSRList.Count; i++)
         {
-            GenImg(TargetSRList[i]);
+            Gen_Img(TargetSRList[i]);
         }
     }
 

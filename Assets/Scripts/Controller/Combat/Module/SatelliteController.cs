@@ -40,24 +40,24 @@ public class SatelliteController : MonoBehaviour
 
     #region Rotate
 
-    public void SetRotation(Vector2 _Dir)
+    public void Set_Rotation(Vector2 _Dir)
     {
-        SetRotation(PitchTF, _Dir);
+        Set_Rotation(PitchTF, _Dir);
     }
 
-    public void SetRotation(Transform _PitchTF, Vector2 _Dir)
+    public void Set_Rotation(Transform _PitchTF, Vector2 _Dir)
     {
         _PitchTF.transform.localRotation = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f);
         foreach (Satellite hand in Hands)
         { hand.SetPos(PlayerSR.sortingOrder); }
     }
 
-    public Quaternion RotateSmooth(Vector2 _Dir)
+    public Quaternion Get_RotationSmooth(Vector2 _Dir)
     {
-        return RotateSmooth(_Dir, PitchTF, rotateSpeed);
+        return Get_RotationSmooth(_Dir, PitchTF, rotateSpeed);
     }
 
-    protected Quaternion RotateSmooth(Vector2 _Dir, Transform _PitchTF, float _RotateSpeed)
+    protected Quaternion Get_RotationSmooth(Vector2 _Dir, Transform _PitchTF, float _RotateSpeed)
     {
         Quaternion targetQuat = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f);
         targetQuat = Quaternion.Slerp(_PitchTF.transform.localRotation, targetQuat, _RotateSpeed * Time.deltaTime);
@@ -69,7 +69,7 @@ public class SatelliteController : MonoBehaviour
 
     #region Get
 
-    public static int GetIndex(float _EulerAngleY)
+    public static int Get_Index(float _EulerAngleY)
     {
         int index = 0;
         float angle = _EulerAngleY + 67.5f;
@@ -79,7 +79,7 @@ public class SatelliteController : MonoBehaviour
         return index;
     }
 
-    public static Vector2Int GetNormalizedVec(int _Index)
+    public static Vector2Int Get_NormalizedVec(int _Index)
     {
         switch (_Index)
         {

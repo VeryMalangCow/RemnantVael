@@ -24,16 +24,16 @@ public class ModifyImgAmountAndTxt : UIModule
 
     public override void Offset()
     {
-        Img_List = GameManager.SetList<Image>(Img_ParentTF);
+        Img_List = GameManager.Get_List<Image>(Img_ParentTF);
 
         foreach (Image img in Img_List)
         {
             img.sprite = ThisSprite;
-            TurnOff<Image>(img);
+            SetOff<Image>(img);
         }
         if (Txt_ExtraAmount != null)
         {
-            TurnOff<TMP_Text>(Txt_ExtraAmount);
+            SetOff<TMP_Text>(Txt_ExtraAmount);
         }
     }
 
@@ -41,7 +41,7 @@ public class ModifyImgAmountAndTxt : UIModule
 
     #region Unique
 
-    private void TurnOff<T>(T _Type)
+    private void SetOff<T>(T _Type)
     {
         // Image
         if (_Type is Image typeImg)
@@ -57,7 +57,7 @@ public class ModifyImgAmountAndTxt : UIModule
         }
     }
 
-    private void TurnOn<T>(T _Type)
+    private void SetOn<T>(T _Type)
     {
         // Image
         if (_Type is Image typeImg)
@@ -73,7 +73,7 @@ public class ModifyImgAmountAndTxt : UIModule
         }
     }
 
-    public void SetAmount(int _Value)
+    public void Set_Amount(int _Value)
     {
         for (int i = 0; i < Img_List.Count; i++)
         {
@@ -97,25 +97,25 @@ public class ModifyImgAmountAndTxt : UIModule
         if (overAmount > 0)
         {
             Txt_ExtraAmount.text = overAmount.ToString();
-            TurnOn<TMP_Text>(Txt_ExtraAmount);
+            SetOn<TMP_Text>(Txt_ExtraAmount);
         }
         else
         {
-            TurnOff<TMP_Text>(Txt_ExtraAmount);
+            SetOff<TMP_Text>(Txt_ExtraAmount);
         }
     }
 
-    public void SetAmount(int _Value, float _DurTime)
+    public void Set_Amount(int _Value, float _DurTime)
     {
         for (int i = 0; i < Img_List.Count; i++)
         {
             if (_Value > i)
             {
-                ChangeOnOffImg(Img_List[i], true, 1.35f, _DurTime);
+                Change_OnOffImg(Img_List[i], true, 1.35f, _DurTime);
             }
             else
             {
-                ChangeOnOffImg(Img_List[i], false, 1.35f, _DurTime);
+                Change_OnOffImg(Img_List[i], false, 1.35f, _DurTime);
             }
         }
 
@@ -123,11 +123,11 @@ public class ModifyImgAmountAndTxt : UIModule
         if (overAmount > 0)
         {
             Txt_ExtraAmount.text = overAmount.ToString();
-            TurnOn<TMP_Text>(Txt_ExtraAmount);
+            SetOn<TMP_Text>(Txt_ExtraAmount);
         }
         else
         {
-            TurnOff<TMP_Text>(Txt_ExtraAmount);
+            SetOff<TMP_Text>(Txt_ExtraAmount);
         }
 
         if (InnerImg != null) 
@@ -141,7 +141,7 @@ public class ModifyImgAmountAndTxt : UIModule
         }
     }
 
-    public void ChangeOnOffImg(Image _Img, bool _OnOff, float _DoScale, float _DurTime)
+    public void Change_OnOffImg(Image _Img, bool _OnOff, float _DoScale, float _DurTime)
     {
         if (DotweenSeq != null && DOTween.IsTweening(DotweenSeq))
         { DOTween.Complete(DotweenSeq); }
@@ -183,7 +183,7 @@ public class ModifyImgAmountAndTxt : UIModule
         }
     }
 
-    public void SetColor(Color _Clr)
+    public void Set_Color(Color _Clr)
     {
         for (int i = 0; i < Img_List.Count; i++)
         {

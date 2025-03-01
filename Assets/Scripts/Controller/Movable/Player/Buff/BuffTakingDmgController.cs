@@ -32,24 +32,24 @@ public class BuffTakingDmgController : BuffController
 
     #region Buff
 
-    public override void GainBuff()
+    public override void Gain_Buff()
     {
-        base.GainBuff();
+        base.Gain_Buff();
 
         PlayerManager.Instance.PlayerController.TakingDmgMultiple.GainBuff(Multiple);
         PlayerManager.Instance.PlayerController.TakingDmgMultiple.SetBuffedState();
     }
 
-    public override void ReductBuff()
+    public override void Reduct_Buff()
     {
-        base.ReductBuff();
+        base.Reduct_Buff();
 
         PlayerManager.Instance.PlayerController.TakingDmgMultiple.SetBuffedState();
     }
 
-    public override void EndBuff()
+    public override void End_Buff()
     {
-        base.EndBuff();
+        base.End_Buff();
 
         PlayerManager.Instance.PlayerController.TakingDmgMultiple.RemoveBuff(Multiple);
         PlayerManager.Instance.PlayerController.TakingDmgMultiple.SetBuffedState();

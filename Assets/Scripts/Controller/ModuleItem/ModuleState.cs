@@ -22,12 +22,12 @@ public class ModuleState : IWhen
         ThisItemData.ID = _ID;
         PC = PlayerManager.Instance.PlayerController;
 
-        ThisActivityFuncDele = ModuleItemActivityManager.Instance.GetCollectActivity(ThisItemData.ID);
+        ThisActivityFuncDele = ModuleItemActivityManager.Instance.Get_CollectActivity(ThisItemData.ID);
     }
 
     #region Get
 
-    public static List<ModuleState> GetAllModuleState()
+    public static List<ModuleState> Get_AllModuleState()
     {
         return new List<ModuleState>()
         {
@@ -42,12 +42,12 @@ public class ModuleState : IWhen
 
     
 
-    protected int GetRank()
+    protected int Get_Rank()
     {
         return ThisItemData.Rank;
     }
 
-    protected int GetBoostLv()
+    protected int Get_BoostLv()
     {
         int targetBoostLv = PC.CurrentBoostLv.Value;
         if (targetBoostLv > ThisItemData.BoostLv)
@@ -61,9 +61,9 @@ public class ModuleState : IWhen
 
     #region Interface
 
-    public virtual void When(EnemyController _EC = null)
+    public virtual void Play_When(EnemyController _EC = null)
     {
-        ThisActivityFuncDele(GetRank(), GetBoostLv(), _EC);
+        ThisActivityFuncDele(Get_Rank(), Get_BoostLv(), _EC);
     }
 
     #endregion
@@ -74,7 +74,7 @@ public class ModuleState : IWhen
 // 상속을 위한 부모 인터페이스
 public interface IWhen
 {
-    public abstract void When(EnemyController _EC = null);
+    public abstract void Play_When(EnemyController _EC = null);
 }
 
 // (기본공격) 발사 시

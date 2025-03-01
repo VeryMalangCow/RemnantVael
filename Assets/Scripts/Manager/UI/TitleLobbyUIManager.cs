@@ -42,22 +42,22 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     private void Start()
     {
         TitleLobby_UIController 
-            = SpawnUI<TitleLobbyUIController>(TitleLobby_CanvasPrefab, true);
+            = Gen_UI<TitleLobbyUIController>(TitleLobby_CanvasPrefab, true);
 
         ChoiceCharacter_UIController
-            = SpawnUI<ChoiceCharacterUIController>(ChoiceCharacter_CanvasPrefab, false);
+            = Gen_UI<ChoiceCharacterUIController>(ChoiceCharacter_CanvasPrefab, false);
 
         EntranceSpace_UIController
-            = SpawnUI<EntranceSpaceUIController>(EntranceSpace_CanvasPrefab, false);
+            = Gen_UI<EntranceSpaceUIController>(EntranceSpace_CanvasPrefab, false);
 
-        FirstStart();
+        Start_FirstPlay();
     }
 
     #endregion
 
     #region Spawn
 
-    private T SpawnUI<T>(GameObject _UIGO, bool _OnOff)
+    private T Gen_UI<T>(GameObject _UIGO, bool _OnOff)
     {
         GameObject uigo = Instantiate(_UIGO, UIParent);
         uigo.gameObject.SetActive(_OnOff);
@@ -82,7 +82,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     #region FirstStart
 
-    private void FirstStart()
+    private void Start_FirstPlay()
     {
         if (ScreenCG == null && ScreenCanvas.TryGetComponent(out CanvasGroup CG))
         {
@@ -95,16 +95,16 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             WarningCG.alpha = 0f;
             SimpleCreditCG.alpha = 0f;
 
-            WarningSeq()
+            Get_WarningSeq()
             .OnComplete(() =>
             {
                 // Loading Map
                 MapObjectParentTF.gameObject.SetActive(true);
 
-                SimpleCreditSeq()
+                Get_SimpleCreditSeq()
                 .OnComplete(() =>
                 {
-                    FadeOut();
+                    Get_FadeOut();
                 });
             });
         }
@@ -114,13 +114,13 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             WarningCG.alpha = 0f;
             SimpleCreditCG.alpha = 1f;
 
-            FadeOut();
+            Get_FadeOut();
         }
         
 
     }
 
-    private Sequence WarningSeq()
+    private Sequence Get_WarningSeq()
     {
         Sequence warningSeq = DOTween.Sequence();
         warningSeq.Append(WarningCG.DOFade(1f, EachFadeInTime));
@@ -140,7 +140,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
         return warningSeq;
     }
 
-    private Sequence SimpleCreditSeq()
+    private Sequence Get_SimpleCreditSeq()
     {
         Sequence simpleCreditSeq = DOTween.Sequence();
         simpleCreditSeq.Append(SimpleCreditCG.DOFade(1f, EachFadeInTime));
@@ -160,7 +160,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
         return simpleCreditSeq;
     }
 
-    private Sequence FadeOut()
+    private Sequence Get_FadeOut()
     {
         Sequence firstSeq = DOTween.Sequence();
         firstSeq.Append(ScreenCG.DOFade(0f, EachFadeOutTime));
@@ -169,7 +169,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             {
                 ScreenCanvas.gameObject.SetActive(false);
                 GameManager.Instance.WasWatched = true;
-                TitleInputManager.Instance.OnEnableInput();
+                TitleInputManager.Instance.SetOn_InputActive();
             });
 
         return firstSeq;

@@ -45,30 +45,31 @@ public class StageManager : Singleton<StageManager>
     private void Start()
     {
         // 스테이지 소환
-        GenStage(TargetStageID);
+        Gen_Stage(TargetStageID);
 
         // 처음 스타트맵
-        StartCurrentRoom(GetCollectRoomController(0));
+        Play_CurrentRoom(Get_CollectRoomController(0));
     }
 
     #endregion
 
     #region Generate
 
-    public void GenStage(int _StageID)
+    // 스테이지 생성
+    public void Gen_Stage(int _StageID)
     {
-        StageData reso = GetCollectStageData(_StageID);
+        StageData reso = Get_CollectStageData(_StageID);
         if (reso == null) 
         { return; }
 
 
         // 처음 방
         int TempID = 0;
-        GenRoom(reso.StartRoomPrefab, TempID, true);
+        Gen_Room(reso.StartRoomPrefab, TempID, true);
         TempID++;
 
         // Shop 지정
-        int normalRoomAmount = GetRoomAmount(_StageID);
+        int normalRoomAmount = Get_RoomAmount(_StageID);
 
         if (normalRoomAmount <= (reso.BUShopAmount + reso.MUShopAmount) || 
             reso.BUShopAmount < 0 || reso.MUShopAmount < 0)
@@ -109,14 +110,14 @@ public class StageManager : Singleton<StageManager>
         }
 
         // 섞기
-        reso.RoomPrefabList = GameManager.ShuffleList(reso.RoomPrefabList);
+        reso.RoomPrefabList = GameManager.Get_ShuffleList(reso.RoomPrefabList);
 
         // 방 생성
         for (int i = 0; i < reso.RoomPrefabList.Count; i++)
         {
             for (int j = 0; j < reso.RoomPrefabList[i].AmountInStage; j++)
             {
-                GenRoom(reso.RoomPrefabList[i].RoomPrefab, TempID, false);
+                Gen_Room(reso.RoomPrefabList[i].RoomPrefab, TempID, false);
                 TempID++;
             }
         }
@@ -124,22 +125,22 @@ public class StageManager : Singleton<StageManager>
         // 보스 방 생성
         for (int i = 0; i < reso.BossRoomList.Count; i++)
         {
-            GenBossRoom(reso.BossRoomList[i], TempID);
+            Gen_BossRoom(reso.BossRoomList[i], TempID);
             TempID++;
         }
 
         // 게이트 활성화
-        SetParterAllGate();
-        List<GateController> allGate = GetAllGate();
+        Set_ParterAllGate();
+        List<GateController> allGate = Get_AllGate();
         for (int i = 0; i < allGate.Count; i++)
         {
             if (allGate[i].HadParter == true)
             {
-                allGate[i].IsExistDoor(true);
+                allGate[i].Set_ExistDoorState(true);
             }
             else
             {
-                allGate[i].IsExistDoor(false);
+                allGate[i].Set_ExistDoorState(false);
             }
         }
 
@@ -149,16 +150,17 @@ public class StageManager : Singleton<StageManager>
         BUShopIndexs.Clear();
         MUShopIndexs.Clear();
 
-        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.GenMinimap();
-        MainGameUIManager.Instance.PlayerHUD_UIController.SetStageDescription(reso.StageName, reso.StageDescription);
+        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Gen_Minimap();
+        MainGameUIManager.Instance.PlayerHUD_UIController.Set_StageDescription(reso.StageName, reso.StageDescription);
 
-        MainGameUIManager.Instance.MapIntro_UIController.OnIntroLabel();
+        MainGameUIManager.Instance.MapIntro_UIController.SetOn_IntroLabel();
 
         // 적 객체 오브젝트 풀링 시스템 세팅하기
-        PoolingManager.Instance.EnemiesPoolingSet(reso.StageEnemyList);
+        PoolingManager.Instance.Offset_EnemiesPooling(reso.StageEnemyList);
     }
 
-    private void GenRoom(GameObject _Prefab, int _TempID, bool _IsStartRoom)
+    // 방 하나 생성
+    private void Gen_Room(GameObject _Prefab, int _TempID, bool _IsStartRoom)
     {
         GameObject room = Instantiate(_Prefab, Vector2.zero, Quaternion.identity, MapParentTF);
         if (room.TryGetComponent(out RoomController rc))
@@ -169,22 +171,22 @@ public class StageManager : Singleton<StageManager>
 
             if (!_IsStartRoom)
             {
-                GameObject rrcGO = Instantiate(AllReso[TargetStageID].GetCorrectRandomRoomRule(rc.RoomVec), rc.gameObject.transform);
+                GameObject rrcGO = Instantiate(AllReso[TargetStageID].Get_CorrectRandomRoomRule(rc.RoomVec), rc.gameObject.transform);
                 if (rrcGO.TryGetComponent(out RoomRuleController rrc))
                 { rc.RoomRuleController = rrc; }
 
                 rc.Offset();
-                TryAddCaculateVec(rc);
+                Set_RelativeVec(rc);
 
                 // 상점 소환
                 if (BUShopIndexs.Contains(rc.CurrentTempID))
                 {
-                    rrc.SetShop(BUShopPrefab);
+                    rrc.Set_Shop(BUShopPrefab);
                     //Debug.Log("BU : " + rc.CurrentTempID);
                 }
                 else if (MUShopIndexs.Contains(rc.CurrentTempID))
                 {
-                    rrc.SetShop(MUShopPrefab);
+                    rrc.Set_Shop(MUShopPrefab);
                     //Debug.Log("MU : " + rc.CurrentTempID);
                 }
             }
@@ -195,12 +197,13 @@ public class StageManager : Singleton<StageManager>
                 { rc.RoomRuleController = rrc; }
 
                 rc.Offset();
-                AddCaculateVec(new List<Vector2Int>() { Vector2Int.zero });
+                Add_RelativeVec(new List<Vector2Int>() { Vector2Int.zero });
             }
         }
     }
 
-    private void GenBossRoom(StageData.BossRoomData _BossRoomData, int _TempID)
+    // 보스 방 하나 생성
+    private void Gen_BossRoom(StageData.BossRoomData _BossRoomData, int _TempID)
     {
         GameObject room = Instantiate(_BossRoomData.RoomPrefab, Vector2.zero, Quaternion.identity, MapParentTF);
         if (room.TryGetComponent(out RoomController rc))
@@ -214,7 +217,7 @@ public class StageManager : Singleton<StageManager>
             { rc.RoomRuleController = rrc; }
 
             rc.Offset();
-            TryAddCaculateFurthestVec(rc);
+            Set_RelativeFurthestVec(rc);
         }
     }
 
@@ -222,7 +225,8 @@ public class StageManager : Singleton<StageManager>
 
     #region Room Caculate
 
-    private void TryAddCaculateVec(RoomController _RC)
+    // 상대적인 좌표 삽입
+    private void Set_RelativeVec(RoomController _RC)
     {
         while (true)
         {
@@ -249,32 +253,34 @@ public class StageManager : Singleton<StageManager>
             // 된다면 벡터값을 넣어주고 (실제 좌표 값에 비례되는 값을 넣어줌 + Gate도)
             for (int i = 0; i < _RC.RoomVec.Count; i++)
             {
-                _RC.SetCollectGateVec(i, WorldVecList[i]);
+                _RC.Set_CollectGateVec(i, WorldVecList[i]);
             }
 
             // 위치를 지정해주며
-            SetRCPos(_RC);
+            Set_RoomPos(_RC);
 
             // 결과값을 넣어줌.
-            AddCaculateVec(_RC.RoomVec);
+            Add_RelativeVec(_RC.RoomVec);
 
             break;
         }
     }
 
-    private void SetRCPos(RoomController _RC)
+    // 방 위치 세팅
+    private void Set_RoomPos(RoomController _RC)
     {
         _RC.gameObject.transform.position = new Vector2(_RC.RoomVec[0].x * OffsetRoomSize.x, _RC.RoomVec[0].y * OffsetRoomSize.y);
     }
 
-    private void AddCaculateVec(List<Vector2Int> _AddVecList)
+    // 배치된 방의 좌표 삽입 (계산을 위한)
+    private void Add_RelativeVec(List<Vector2Int> _AddVecList)
     {
         alreadyExistList.AddRange(_AddVecList);
         roundList = new List<Vector2Int>();
 
         for (int i = 0; i < alreadyExistList.Count; i++)
         {
-            foreach(Vector2Int vec in GetRoundVec(alreadyExistList[i]))
+            foreach(Vector2Int vec in Get_RoundVec(alreadyExistList[i]))
             {
                 if (!roundList.Contains(vec) && !alreadyExistList.Contains(vec))
                 {
@@ -289,9 +295,10 @@ public class StageManager : Singleton<StageManager>
 
     #region Boss Room Caculate
 
-    private void TryAddCaculateFurthestVec(RoomController _RC)
+    // 상대적인 좌표 삽입: 가장 먼
+    private void Set_RelativeFurthestVec(RoomController _RC)
     {
-        List<Vector2Int> tempRoundList = roundList.OrderByDescending(obj => OriginalToTarget(obj)).ToList();
+        List<Vector2Int> tempRoundList = roundList.OrderByDescending(obj => Vector2Int.Distance(Vector2Int.zero, obj)).ToList();
         for (int i = 0; i < tempRoundList.Count; i++)
         {
             List<Vector2Int> WorldVecList = new List<Vector2Int>();
@@ -315,49 +322,43 @@ public class StageManager : Singleton<StageManager>
             // 된다면 벡터값을 넣어주고 (실제 좌표 값에 비례되는 값을 넣어줌 + Gate도)
             for (int j = 0; j < _RC.RoomVec.Count; j++)
             {
-                _RC.SetCollectGateVec(j, WorldVecList[j]);
+                _RC.Set_CollectGateVec(j, WorldVecList[j]);
             }
 
             // 위치를 지정해주며
-            SetRCPos(_RC);
+            Set_RoomPos(_RC);
 
             // 결과값을 넣어줌.
-            AddCaculateBossVec(_RC.RoomVec);
+            Add_RelativeBossVec(_RC.RoomVec);
 
             return;
         }
 
     }
 
-    private void AddCaculateBossVec(List<Vector2Int> _AddVecList)
+    // 보스방은 라운드까지 포함해 보스방으로 친다.
+    private void Add_RelativeBossVec(List<Vector2Int> _AddVecList)
     {
         List<Vector2Int> bossRoundAllList = new List<Vector2Int>();
         for (int i = 0;  i < _AddVecList.Count;  i++)
         {
-            List<Vector2Int> round = GetRoundVec(_AddVecList[i]);
-            round.Add(_AddVecList[i]);
-
-            for (int j = 0; j < round.Count; j++)
-            {
-                if (!bossRoundAllList.Contains(round[j]))
-                {
-                    bossRoundAllList.Add(round[j]);
-                }
-            }
+            bossRoundAllList.AddRange(Get_RoundVec(_AddVecList[i]));
+            bossRoundAllList.Add(_AddVecList[i]);
         }
+        bossRoundAllList = bossRoundAllList.Distinct().ToList();
 
         alreadyExistBossList.AddRange(bossRoundAllList);
 
-        AddCaculateVec(_AddVecList);
+        Add_RelativeVec(_AddVecList);
     }
 
     #endregion
 
     #region Gate Caculate
 
-    private void SetParterAllGate()
+    private void Set_ParterAllGate()
     {
-        List<GateController> allGate = GetAllGate();
+        List<GateController> allGate = Get_AllGate();
 
         for (int i = 0; i < allGate.Count - 1; i++)
         {
@@ -386,12 +387,12 @@ public class StageManager : Singleton<StageManager>
 
     #region Set State
 
-    public void StartCurrentRoom(RoomController _TargetRC)
+    public void Play_CurrentRoom(RoomController _TargetRC)
     {
-        StartCoroutine(StartCurrentRoom_Cor(_TargetRC));
+        StartCoroutine(Play_CurrentRoom_Cor(_TargetRC));
     }
 
-    private IEnumerator StartCurrentRoom_Cor(RoomController _TargetRC)
+    private IEnumerator Play_CurrentRoom_Cor(RoomController _TargetRC)
     {
         if (_TargetRC == null)
         { yield return null; }
@@ -416,33 +417,34 @@ public class StageManager : Singleton<StageManager>
 
         // Layer 추가
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.RoomRuleController.InRoom_AllBuilding);
-        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.GetNeedAllLayer());
+        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.Get_NeedAllLayer());
 
         // 현재 맵만 Sorting Layer 사용
         for (int i = 0; i < CurrentAllRoomController.Count; i++)
         {
-            CurrentAllRoomController[i].SetCorrectWallSortOrder(CurrentRoomController);
+            CurrentAllRoomController[i].Set_CorrectWallSortOrder(CurrentRoomController);
         }
 
         // Minimap
-        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.SetState();
+        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Set_State();
 
         yield return new WaitForSeconds(0.5f);
 
-        _TargetRC.PlayRoomState();
+        _TargetRC.Play_RoomState();
         LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
 
         // Minimap
-        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.SetState();
-        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.PlayEffect();
+        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Set_State();
+        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Play_Effect();
     }
 
-    public void Complete_KillAll()
+
+    public void Play_CompleteKillAll()
     {
-        StartCoroutine(Complete_KillAll_Cor());
+        StartCoroutine(Play_CompleteKillAll_Cor());
     }
 
-    public IEnumerator Complete_KillAll_Cor()
+    public IEnumerator Play_CompleteKillAll_Cor()
     {
         if (CurrentRoomController == null)
         { yield return null; }
@@ -452,10 +454,10 @@ public class StageManager : Singleton<StageManager>
         if (EnemyManager.Instance.CurrentEnemyList.Count <= 0)
         {
             CurrentRoomController.RoomRuleController.RoomType = eRoomType.Completed;
-            CurrentRoomController.PlayRoomState();
+            CurrentRoomController.Play_RoomState();
 
             // Minimap
-            MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.SetState();
+            MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Set_State();
         }
     }
 
@@ -463,7 +465,7 @@ public class StageManager : Singleton<StageManager>
 
     #region Get
 
-    public StageData GetCollectStageData(int _StageID)
+    public StageData Get_CollectStageData(int _StageID)
     {
         for (int i = 0; i < AllReso.Count; i++)
         {
@@ -476,7 +478,7 @@ public class StageManager : Singleton<StageManager>
         return null;
     }
     
-    private RoomController GetCollectRoomController(int _TempID)
+    private RoomController Get_CollectRoomController(int _TempID)
     {
         for (int i = 0; i < CurrentAllRoomController.Count; i++)
         {
@@ -489,7 +491,7 @@ public class StageManager : Singleton<StageManager>
         return null;
     }
 
-    private List<Vector2Int> GetRoundVec(Vector2Int _CenterVec)
+    private List<Vector2Int> Get_RoundVec(Vector2Int _CenterVec)
     {
         return new List<Vector2Int>()
         {
@@ -500,7 +502,7 @@ public class StageManager : Singleton<StageManager>
         };
     }
 
-    private List<GateController> GetAllGate()
+    private List<GateController> Get_AllGate()
     {
         List<GateController> allGate = new List<GateController>();
         for (int i = 0; i < CurrentAllRoomController.Count; i++)
@@ -510,16 +512,12 @@ public class StageManager : Singleton<StageManager>
         return allGate;
     }
 
-    private float OriginalToTarget(Vector2Int _TargetVec)
-    {
-        return Vector2Int.Distance(Vector2Int.zero, _TargetVec);
-    }
     
-    private int GetRoomAmount(int _StageID)
+    private int Get_RoomAmount(int _StageID)
     {
         int result = 0;
 
-        StageData reso = GetCollectStageData(_StageID);
+        StageData reso = Get_CollectStageData(_StageID);
         if (reso != null)
         {
             for (int i = 0; i < reso.RoomPrefabList.Count; i++)
@@ -530,14 +528,14 @@ public class StageManager : Singleton<StageManager>
         return result;
     }
 
-    private int GetBossRoomAmount(int _StageID)
+    private int Get_BossRoomAmount(int _StageID)
     {
-        return GetCollectStageData(_StageID).BossRoomList.Count;
+        return Get_CollectStageData(_StageID).BossRoomList.Count;
     }
 
-    private int GetAllRoomAmount(int _StageID)
+    private int Get_AllRoomAmount(int _StageID)
     {
-        return GetRoomAmount(_StageID) + GetBossRoomAmount(_StageID);
+        return Get_RoomAmount(_StageID) + Get_BossRoomAmount(_StageID);
     }
 
     #endregion
@@ -586,7 +584,7 @@ public class StageManager : Singleton<StageManager>
         }
 
 
-        public GameObject GetCorrectRandomRoomRule(List<Vector2Int> _RoomVec)
+        public GameObject Get_CorrectRandomRoomRule(List<Vector2Int> _RoomVec)
         {
             List<GameObject> roomRulePrefabList = new List<GameObject>();
             for (int i = 0; i < RoomRulePrefabList.Count; i++)

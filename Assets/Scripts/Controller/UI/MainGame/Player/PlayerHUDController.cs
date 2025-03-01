@@ -154,9 +154,9 @@ public class PlayerHUDController : UIController
         PlayerManager.Instance.PlayerController.MaxEP.ActualState
             .Subscribe(_MaxEP =>
             {
-                EP.SetMaxFillRT(_MaxEP * 3);
+                EP.Set_MaxFillRT(_MaxEP * 3);
 
-                EP.SetFillImgSmooth(
+                EP.Set_FillImgSmooth(
                     PlayerManager.Instance.PlayerController.CurrentEP.Value,
                     PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value);
             })
@@ -165,7 +165,7 @@ public class PlayerHUDController : UIController
         PlayerManager.Instance.PlayerController.CurrentEP
             .Subscribe(_CurrentEP =>
             {
-                EP.SetFillImgSmooth(
+                EP.Set_FillImgSmooth(
                     PlayerManager.Instance.PlayerController.CurrentEP.Value,
                     PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value);
             })
@@ -176,7 +176,7 @@ public class PlayerHUDController : UIController
             {
                 if (PlayerManager.Instance.PlayerController.CurrentBS.Value < PlayerManager.Instance.PlayerController.NeedBS_ForMakeBC)
                 {
-                    CurrentEmptyBC.Modify_Sprite(_CurrentBS);
+                    CurrentEmptyBC.Change_Sprite(_CurrentBS);
                 }
             })
             .AddTo(gameObject);
@@ -184,14 +184,14 @@ public class PlayerHUDController : UIController
         PlayerManager.Instance.PlayerController.CurrentBC
             .Subscribe(_CurrentBC =>
             {
-                EmptyBC.SetAmount(_CurrentBC, 0.5f);
+                EmptyBC.Set_Amount(_CurrentBC, 0.5f);
             })
             .AddTo(gameObject);
 
         PlayerManager.Instance.PlayerController.CurrentEC
             .Subscribe(_CurrentEC =>
             {
-                FullEC.SetAmount(_CurrentEC, 0.5f);
+                FullEC.Set_Amount(_CurrentEC, 0.5f);
 
                 DOTween.Kill(ECCostArrowImg);
                 ECCostArrowImg.DOFade(1f, 0.2f)
@@ -205,7 +205,7 @@ public class PlayerHUDController : UIController
         PlayerManager.Instance.PlayerController.CurrentMS
             .Subscribe(_CurrentMS =>
             {
-                SetMSAmount(_CurrentMS);
+                Set_MSAmount(_CurrentMS);
             })
             .AddTo(gameObject);
 
@@ -213,12 +213,12 @@ public class PlayerHUDController : UIController
             .Subscribe(_BoostLevel =>
             {
                 Debug.Assert(_BoostLevel >= 0 && _BoostLevel <= 4, "Boost Range Out!");
-                SetTextOfBoost(_BoostLevel);
+                Set_TextOfBoost(_BoostLevel);
 
-                SetActiveAmountBoost(BoostLightArr, _BoostLevel);
-                SetActiveAmountBoost(BoostLightWheelArr, _BoostLevel);
+                Set_ActiveAmountBoost(BoostLightArr, _BoostLevel);
+                Set_ActiveAmountBoost(BoostLightWheelArr, _BoostLevel);
 
-                SetRollAmountBoost(BoostLightWheelArr, _BoostLevel);
+                Set_RollAmountBoost(BoostLightWheelArr, _BoostLevel);
             })
             .AddTo(gameObject);
 
@@ -338,13 +338,13 @@ public class PlayerHUDController : UIController
         SubColorCompList.Add(UsingInnerImg);
 
         // Color Set
-        Color mainClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
-        SetColor(mainClr, MainColorCompList);
+        Color mainClr = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, false);
+        Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, true);
-        SetColor(subClr, SubColorCompList);
+        Color subClr = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, true);
+        Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
         #endregion
@@ -361,7 +361,7 @@ public class PlayerHUDController : UIController
 
     #region Set Tab
 
-    private void ResetTab()
+    private void Reset_Tab()
     {
         PlayerController pc = PlayerManager.Instance.PlayerController;
         PlayerWeaponController pwc = pc.BaseWeapon;
@@ -419,14 +419,14 @@ public class PlayerHUDController : UIController
 
     private void Update()
     {
-        CaculateTabInput();
+        Caculate_TabInput();
     }
 
     #endregion
 
     #region Item
 
-    public void SetMSAmount(int _Amount)
+    public void Set_MSAmount(int _Amount)
     {
         DOTween.Kill(MSRT);
         DOTween.Kill(MS_InnerImg);
@@ -449,7 +449,7 @@ public class PlayerHUDController : UIController
 
     #region Shield
 
-    public void SetShieldGage(float _TotalShield)
+    public void Set_ShieldGage(float _TotalShield)
     {
         DOTween.Kill(ShieldRT);
         ShieldRT.DOSizeDelta(new Vector2(8 + (_TotalShield * 3), ShieldRT.sizeDelta.y), 1f);
@@ -460,7 +460,7 @@ public class PlayerHUDController : UIController
 
     #region Boost
 
-    private void SetTextOfBoost(int _CurrentLv)
+    private void Set_TextOfBoost(int _CurrentLv)
     {
         BoostLv.text = _CurrentLv.ToString();
         Color clr = BoostLv.color;
@@ -469,7 +469,7 @@ public class PlayerHUDController : UIController
         
     }
 
-    private void SetActiveAmountBoost(GameObject[] _Arr, int _CurrentLv)
+    private void Set_ActiveAmountBoost(GameObject[] _Arr, int _CurrentLv)
     {
         for (int i = 0; i < _Arr.Length; i++)
         {
@@ -495,7 +495,7 @@ public class PlayerHUDController : UIController
         }
     }
 
-    private void SetRollAmountBoost(GameObject[] _Arr, int _CurrentLv)
+    private void Set_RollAmountBoost(GameObject[] _Arr, int _CurrentLv)
     {
         for (int i = 0; i < _Arr.Length; i++)
         {
@@ -523,26 +523,26 @@ public class PlayerHUDController : UIController
 
     #region Description
 
-    public void SetStateInteractUI()
+    public void Set_StateInteractUI()
     {
         if (IsActingInteractUI)
         { return; }
 
         IInteract ii = PlayerManager.Instance.PlayerController.CurrentInteractable.Value;
-        string txt = GetKindOfCaseString(ii);
+        string txt = Get_KindOfCaseString(ii);
 
         if (ii != null && txt != "")
         {
-            SetEnableInteract(txt);
+            Set_EnableInteract(txt);
         }
         else
         {
-            SetDisableInteract();
+            Set_DisableInteract();
         }
     }
 
 
-    private void SetDisableInteract()
+    private void Set_DisableInteract()
     {
         DOTween.Kill(InteractOnOffTxt);
         InteractOnOffTxt.DOFade(0.25f, 0.5f);
@@ -553,7 +553,7 @@ public class PlayerHUDController : UIController
         InteractDesctiptionTxt.text = "< NONE >";
     }
 
-    private void SetEnableInteract(string _Interactable)
+    private void Set_EnableInteract(string _Interactable)
     {
         DOTween.Kill(InteractOnOffTxt);
         InteractOnOffTxt.DOFade(1f, 0.5f);
@@ -565,7 +565,7 @@ public class PlayerHUDController : UIController
     }
 
 
-    public void SetUseInteractUI()
+    public void Set_UseInteractUI()
     {
         IsActingInteractUI = true;
 
@@ -577,13 +577,13 @@ public class PlayerHUDController : UIController
                 .OnComplete(() =>
                 {
                     IsActingInteractUI = false;
-                    SetStateInteractUI();
+                    Set_StateInteractUI();
                 });
             });
     }
 
 
-    public void SetStageDescription(string _StageName, string _StageDescription)
+    public void Set_StageDescription(string _StageName, string _StageDescription)
     {
         StageNameTxt.DOText(_StageName, 0.5f)
             .OnPlay(() =>
@@ -601,7 +601,7 @@ public class PlayerHUDController : UIController
 
     #region Tab
 
-    private void CaculateTabInput()
+    private void Caculate_TabInput()
     {
         if (IsTabInputed) // ¿Œ«≤ O
         {
@@ -613,7 +613,7 @@ public class PlayerHUDController : UIController
             {
                 if (!IsTabInteracted)
                 {
-                    OnTabInteract();
+                    SetOn_TabInteract();
                 }
             }
         }
@@ -625,12 +625,12 @@ public class PlayerHUDController : UIController
             }
             if (IsTabInteracted)
             {
-                OffTabInteract();
+                SetOff_TabInteract();
             }
         }
     }
 
-    public void OnTabInteract()
+    public void SetOn_TabInteract()
     {
         if (IsTabInteracted)
         { return; }
@@ -640,7 +640,7 @@ public class PlayerHUDController : UIController
         { DOTween.Kill(TabSeq); }
         TabSeq = DOTween.Sequence();
 
-        ResetTab();
+        Reset_Tab();
 
         TabSeq.Join(ModuleListParentRT.DOAnchorPosX(0f, TabInteractDurTime));
         TabSeq.Join(PlayerStatesCostParentRT.DOAnchorPosX(0f, TabInteractDurTime));
@@ -655,10 +655,10 @@ public class PlayerHUDController : UIController
             ParentCGList[i].DOFade(1, TabInteractDurTime);
         }
 
-        ThisMinimap.OnTabInteract(TabInteractDurTime);
+        ThisMinimap.SetOn_TabInteract(TabInteractDurTime);
     }
 
-    public void OffTabInteract()
+    public void SetOff_TabInteract()
     {
         if (!IsTabInteracted)
         { return; }
@@ -682,37 +682,37 @@ public class PlayerHUDController : UIController
             ParentCGList[i].DOFade(0, TabInteractDurTime);
         }
 
-        ThisMinimap.OffTabInteract(TabInteractDurTime);
+        ThisMinimap.SetOff_TabInteract(TabInteractDurTime);
     }
 
     #endregion
 
     #region Buff
 
-    public void SetUI_GainBuff(ModifyBuffIcon _MBI)
+    public void Set_GainBuffUI(ModifyBuffIcon _MBI)
     {
         if (!AllBuffIconUI.Contains(_MBI))
         {
             AllBuffIconUI.Add(_MBI);
         }
-        SetUI_BuffPos();
+        Set_BuffPosUI();
     }
 
-    public void SetUI_ReductBuff(ModifyBuffIcon _MBI)
+    public void Set_ReductBuffUI(ModifyBuffIcon _MBI)
     {
-        SetUI_BuffPos();
+        Set_BuffPosUI();
     }
 
-    public void SetUI_EndBuff(ModifyBuffIcon _MBI)
+    public void Set_EndBuffUI(ModifyBuffIcon _MBI)
     {
         if (AllBuffIconUI.Contains(_MBI))
         {
             AllBuffIconUI.Remove(_MBI);
         }
-        SetUI_BuffPos();
+        Set_BuffPosUI();
     }
 
-    private void SetUI_BuffPos()
+    private void Set_BuffPosUI()
     {
         for (int i = 0; i < AllBuffIconUI.Count; i++)
         {
@@ -724,7 +724,7 @@ public class PlayerHUDController : UIController
 
     #region Screen
 
-    public void HittedPlayScreen(float _Dmg)
+    public void Play_HittedPlayScreen(float _Dmg)
     {
         if (DOTween.IsTweening(HittedScreen))
         { DOTween.Kill(HittedScreen); }

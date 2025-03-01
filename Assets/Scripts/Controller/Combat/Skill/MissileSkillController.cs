@@ -21,17 +21,16 @@ public class MissileSkillController : ActiveSkillController
 
     #region Active
 
-    public override void ActiveSkill()
+    public override void Active_Skill()
     {
-        base.ActiveSkill();
-        StartCoroutine(ActualActive());
+        base.Active_Skill();
+        StartCoroutine(Play_ActualActive_Cor());
     }
     
-
-    private IEnumerator ActualActive()
+    private IEnumerator Play_ActualActive_Cor()
     {
         // È¿°ú
-        InputManager.Instance.AimController.SetOnSkill(0, true);
+        InputManager.Instance.AimController.SetOn_Skill(0, true);
 
 
         Transform tf = null;
@@ -47,7 +46,7 @@ public class MissileSkillController : ActiveSkillController
 
         for (int i = 0; i < Tier.ActualState.Value + 1; i++)
         {
-            MissileBulletController missile = PoolingManager.Instance.GetOP_Missile();
+            MissileBulletController missile = PoolingManager.Instance.Get_OP_Missile();
 
             if (missile != null)
             {
@@ -80,11 +79,11 @@ public class MissileSkillController : ActiveSkillController
                 // Sorting Layer
                 missile.ThisSR.sortingOrder = ThisHST.ThisSR.sortingOrder - 1;
 
-                missile.SetState_forMissile(this.gameObject.transform.position, bulletState, dir, targetRange);
+                missile.Set_State_Missile(this.gameObject.transform.position, bulletState, dir, targetRange);
 
 
                 // Effect Explosion -> Physics DMG
-                ExplosionEffect_Fan((Vector2)ThisHST.TargetObject.gameObject.transform.position + (dir * 0.1f), isCritical, dir);
+                Gen_ExplosionEffect_Fan((Vector2)ThisHST.TargetObject.gameObject.transform.position + (dir * 0.1f), isCritical, dir);
                 
                 
 
@@ -95,15 +94,15 @@ public class MissileSkillController : ActiveSkillController
             yield return new WaitForSeconds(ShotDelay);
         }
 
-        InputManager.Instance.AimController.SetOnSkill(0, false);
-        SetEndUI();
+        InputManager.Instance.AimController.SetOn_Skill(0, false);
+        Set_EndUI();
     }
 
     #endregion
 
     #region Effect
 
-    private void ExplosionEffect_Fan(Vector2 _SpawndPos, bool _IsCritical, Vector2 _Dir)
+    private void Gen_ExplosionEffect_Fan(Vector2 _SpawndPos, bool _IsCritical, Vector2 _Dir)
     {
         int index = 0;
         if (!_IsCritical)
@@ -111,7 +110,7 @@ public class MissileSkillController : ActiveSkillController
         else
         { index = 1; }
 
-        PlayerController.PlayerMEI.GenExplosionImgs_Fan(
+        PlayerController.PlayerMEI.Gen_ExplosionImgs_Fan(
             _SpawndPos,
             _Dir, 90f,
             4, 0.2f, 1.5f,

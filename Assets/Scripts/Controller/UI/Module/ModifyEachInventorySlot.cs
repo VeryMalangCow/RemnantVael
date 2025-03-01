@@ -33,7 +33,7 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
 
     #region Offset
 
-    public void SetData(Sprite _ThisIcon)
+    public void Set_Data(Sprite _ThisIcon)
     {
         ThisImg.sprite = _ThisIcon;
     }
@@ -54,7 +54,7 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
             clr.a = 0f;
             ssimg.color = clr;
 
-            ssimg.color = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, true);
+            ssimg.color = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, true);
         }
         SelectedSign.gameObject.SetActive(false);
     }
@@ -68,11 +68,11 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
         if (!IsCanSelect)
         { return; }
 
-        InIt_SelectedItem();
+        SetOn_SelectedItem();
 
         if (ThisSlotItem != null)
         { 
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.SetDesc(ThisSlotItem);
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_Desc(ThisSlotItem);
         }
 
     }
@@ -82,16 +82,16 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
         if (!IsCanSelect)
         { return; }
 
-        OutIt_SelectedItem();
+        SetOff_SelectedItem();
 
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOffDesc();
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_Desc();
     }
 
     #endregion
 
     #region Select
 
-    private void InIt_SelectedItem()
+    private void SetOn_SelectedItem()
     {
         if (ThisSlotItem != null && ThisSlotItem.gameObject.activeSelf)
         {
@@ -117,7 +117,7 @@ public class ModifyEachInventorySlot : UIModule, IPointerEnterHandler, IPointerE
         }
     }
 
-    public void OutIt_SelectedItem()
+    public void SetOff_SelectedItem()
     {
         if (MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS == this)
         {

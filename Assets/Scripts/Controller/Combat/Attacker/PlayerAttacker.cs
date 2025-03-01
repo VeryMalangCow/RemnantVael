@@ -52,7 +52,7 @@ public class PlayerAttacker : Attacker
                 //PointEffect(effectPos, AttackerState.DamageType, isCritical);
 
                 //Damage
-                EC.TakeDamaged(AttackerState, isCritical, dir);
+                EC.Take_Damaged(AttackerState, isCritical, dir);
                 HittedObjectList.Add(EC);
             }
         }
@@ -60,7 +60,7 @@ public class PlayerAttacker : Attacker
         {
             if (_Col.transform.parent.TryGetComponent(out DestructibleBuildController DBC))
             {
-                DBC.TakeDamage(true);
+                DBC.Take_Damage(true);
             }
         }
     }

@@ -30,9 +30,9 @@ public class EnemyBulletController : BulletController
 
     #region Set State
 
-    public void SetState(Vector2 _SpawnVec, BulletState _BulletState, Vector2 _Dir, Vector2 _ShadowScale, Vector2 _ColSize, AnimationClip _AC, float _TargetRange)
+    public void Set_State(Vector2 _SpawnVec, BulletState _BulletState, Vector2 _Dir, Vector2 _ShadowScale, Vector2 _ColSize, AnimationClip _AC, float _TargetRange)
     {
-        this.transform.localRotation = GetRotByVec2(_Dir);
+        this.transform.localRotation = Get_RotByVec2(_Dir);
 
         AnimatorOverrideController aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
@@ -44,7 +44,7 @@ public class EnemyBulletController : BulletController
         ThisCol.transform.localScale = _ShadowScale;
         ThisCol.size = _ColSize;
 
-        base.SetState(_SpawnVec, 0, _BulletState, _TargetRange);
+        base.Set_State(_SpawnVec, 0, _BulletState, _TargetRange);
 
         ThisRb.simulated = true;
         gameObject.SetActive(true);
@@ -54,16 +54,16 @@ public class EnemyBulletController : BulletController
 
     #region Delete
 
-    protected override void DeleteThis()
+    protected override void Remove_Object()
     {
-        Enemy.MEI.GenExplosionImgs(
+        Enemy.MEI.Gen_ExplosionImgs(
             TargetObject.transform.position,
             16, 0.15f, 0.75f,
             0.6f, 0.05f, 0.1f,
             0.2f, 0.5f, 1.0f,
             0, Enemy.ThisSmokeM);
 
-        base.DeleteThis();
+        base.Remove_Object();
     }
 
     #endregion
@@ -80,20 +80,20 @@ public class EnemyBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out PlayerController PC))
             {
-                PC.TryHitted(this);
+                PC.Try_Hitted(this);
             }
         }
         else if (_Col.tag == "DestructibleObject")
         {
             if (_Col.transform.parent.TryGetComponent(out DestructibleBuildController DBC))
             {
-                DBC.TakeDamage(true);
+                DBC.Take_Damage(true);
             }
         }
 
         if (DestroyTagList.Contains(_Col.tag))
         {
-            DeleteThis();
+            Remove_Object();
         }
     }
 

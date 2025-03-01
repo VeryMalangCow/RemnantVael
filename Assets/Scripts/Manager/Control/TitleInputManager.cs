@@ -13,9 +13,9 @@ public class TitleInputManager : Singleton<TitleInputManager>
 
     #endregion
 
-    #region On Enable / Disable
+    #region Input Set
 
-    public void OnEnableInput()
+    public void SetOn_InputActive()
     {
         if (TitlePlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
         { PlayerInput = PI; }
@@ -34,7 +34,7 @@ public class TitleInputManager : Singleton<TitleInputManager>
         PlayerInput.actions["Et_OutPanel"].performed += Input_Et_OutPanel;
     }
 
-    public void OnDisableInput()
+    public void SetOff_InputActive()
     {
         if (TitlePlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
         { PlayerInput = PI; }
@@ -55,14 +55,13 @@ public class TitleInputManager : Singleton<TitleInputManager>
 
     #endregion
 
-    #region Input -> Player
-
+    #region Player
 
     private void Input_InTitleUI(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            TitleLobbyUIManager.Instance.TitleLobby_UIController.OpenThisPanel();
+            TitleLobbyUIManager.Instance.TitleLobby_UIController.SetOn_ThisPanel();
         }
     }
 
@@ -75,19 +74,19 @@ public class TitleInputManager : Singleton<TitleInputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            TitlePlayerManager.Instance.PlayerController.TryInteract();
+            TitlePlayerManager.Instance.PlayerController.Try_Interact();
         }
     }
 
     #endregion
 
-    #region Input -> Title UI
+    #region Title UI
 
     private void Input_OutTitleUI(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            TitleLobbyUIManager.Instance.TitleLobby_UIController.CloseThisPanel();
+            TitleLobbyUIManager.Instance.TitleLobby_UIController.SetOff_ThisPanel();
         }
     }
 
@@ -95,19 +94,19 @@ public class TitleInputManager : Singleton<TitleInputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            TitleLobbyUIManager.Instance.TitleLobby_UIController.TitleInput();
+            TitleLobbyUIManager.Instance.TitleLobby_UIController.Try_Interact();
         }
     }
 
     #endregion
 
-    #region Input -> ChoiceCharacter UI
+    #region ChoiceChar UI
 
     private void Input_CC_Select(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            TitleLobbyUIManager.Instance.ChoiceCharacter_UIController.TryInteract();
+            TitleLobbyUIManager.Instance.ChoiceCharacter_UIController.Try_Interact();
         }
     }
 
@@ -115,26 +114,26 @@ public class TitleInputManager : Singleton<TitleInputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            TitleLobbyUIManager.Instance.ChoiceCharacter_UIController.CloseThisPanel();
+            TitleLobbyUIManager.Instance.ChoiceCharacter_UIController.SetOff_ThisPanel();
         }
     }
 
     #endregion
 
-    #region Input -> ChoiceCharacter UI
+    #region Entrance UI
 
     private void Input_Et_Select(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            TitleLobbyUIManager.Instance.EntranceSpace_UIController.TryInteract();
+            TitleLobbyUIManager.Instance.EntranceSpace_UIController.Try_Interact();
         }
     }
     private void Input_Et_OutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            TitleLobbyUIManager.Instance.EntranceSpace_UIController.CloseThisPanel();
+            TitleLobbyUIManager.Instance.EntranceSpace_UIController.SetOff_ThisPanel();
         }
     }
 

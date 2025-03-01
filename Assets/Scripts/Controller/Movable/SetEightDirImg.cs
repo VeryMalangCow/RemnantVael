@@ -40,9 +40,9 @@ public class SetEightDirImg : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (GetIndex(RotationTargetTF.localRotation.eulerAngles.y) != CurrentIndex.Value)
+        if (Get_Index(RotationTargetTF.localRotation.eulerAngles.y) != CurrentIndex.Value)
         {
-            CurrentIndex.Value = GetIndex(RotationTargetTF.localRotation.eulerAngles.y);
+            CurrentIndex.Value = Get_Index(RotationTargetTF.localRotation.eulerAngles.y);
         }
     }
 
@@ -50,7 +50,7 @@ public class SetEightDirImg : MonoBehaviour
 
     #region Sprite by Angle
 
-    private int GetIndex(float _EulerAngleY)
+    private int Get_Index(float _EulerAngleY)
     {
         int index = 0;
         float angle = _EulerAngleY + 67.5f;

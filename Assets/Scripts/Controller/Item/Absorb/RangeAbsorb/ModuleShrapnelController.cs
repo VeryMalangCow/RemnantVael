@@ -52,11 +52,11 @@ public class ModuleShrapnelController : AbsorbItemController
 
     #region Get Item
 
-    protected override void GetItem()
+    protected override void Gain_Item()
     {
-        base.GetItem();
+        base.Gain_Item();
 
-        PlayerManager.Instance.PlayerController.AddCurrentMS(ModuleValue);
+        PlayerManager.Instance.PlayerController.Add_CurrentMS(ModuleValue);
         PoolingManager.Instance.ModuleShrapnel.Queue.Enqueue(this);
     }
 

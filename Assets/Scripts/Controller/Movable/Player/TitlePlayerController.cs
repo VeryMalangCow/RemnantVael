@@ -29,30 +29,30 @@ public class TitlePlayerController : MovableObject
 
     private void LateUpdate()
     {
-        Movement();
+        Play_Movement();
 
-        SetImg();
+        Set_Img();
     }
 
     #endregion
 
     #region Movement
 
-    private void Movement()
+    private void Play_Movement()
     {
-        Walk(TitleInputManager.Instance.InputMoveDir, WalkSpeed, AccelerationSpeed);
+        Play_Walk(TitleInputManager.Instance.InputMoveDir, WalkSpeed, AccelerationSpeed);
     }
 
     #endregion
 
     #region Interact
 
-    public void TryInteract()
+    public void Try_Interact()
     {
         if (CurrentInteractable != null)
         {
             TitleInputManager.Instance.InputMoveDir = Vector2.zero;
-            CurrentInteractable.Interact();
+            CurrentInteractable.Play_Interact();
         }
     }
 
@@ -80,18 +80,18 @@ public class TitlePlayerController : MovableObject
 
     #region Anim
 
-    private void SetImg()
+    private void Set_Img()
     {
         Vector2 dir = ThisRb.velocity;
         if (dir != Vector2.zero)
         {
             dir = new Vector2(-dir.x, dir.y);
-            if (SatelliteController.GetIndex(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z) != CurrentIndex.Value)
+            if (SatelliteController.Get_Index(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z) != CurrentIndex.Value)
             {
-                CurrentIndex.Value = SatelliteController.GetIndex(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z);
+                CurrentIndex.Value = SatelliteController.Get_Index(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z);
             }
 
-            HigherBody.PitchTF.transform.localRotation = HigherBody.RotateSmooth(SatelliteController.GetNormalizedVec(CurrentIndex.Value));
+            HigherBody.PitchTF.transform.localRotation = HigherBody.Get_RotationSmooth(SatelliteController.Get_NormalizedVec(CurrentIndex.Value));
             foreach (Satellite hand in HigherBody.Hands)
             {
                 hand.SetPos(HigherBody.PlayerSR.sortingOrder);

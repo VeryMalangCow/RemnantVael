@@ -32,34 +32,33 @@ public class PanelUIController : UIController
 
     #endregion
 
-
     #region Set Panel
 
-    public virtual void OpenThisPanel()
+    public virtual void SetOn_ThisPanel()
     {
         // Other
         MainGameUIManager.Instance.CurrentOpening_UIController = this;
         InputManager.Instance.InputMoveDir = Vector2.zero;
         InputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
-        InputManager.Instance.SetAim(false);
+        InputManager.Instance.SetOn_MousePointer();
 
         this.gameObject.SetActive(true);
 
         if (ThisPanelTabList != null && ThisPanelTabList.Count > 0)
         {
             CurrentThisPanelTab = ThisPanelTabList[0];
-            OpenWindow(ThisPanelTabList[0]);
+            SetOn_Window(ThisPanelTabList[0]);
         }
 
         if (MainGameUIManager.Instance != null)
         {
             MainGameUIManager.Instance.PlayerHUD_UIController.IsTabInputed = false;
-            MainGameUIManager.Instance.PlayerHUD_UIController.OffTabInteract();
+            MainGameUIManager.Instance.PlayerHUD_UIController.SetOff_TabInteract();
 
         }
     }
 
-    public virtual void ChangeThisPanel(int _indexWindow)
+    public virtual void Change_ThisPanel(int _indexWindow)
     {
         //Other
         if (CurrentThisPanelTab == ThisPanelTabList[_indexWindow])
@@ -69,24 +68,24 @@ public class PanelUIController : UIController
         if (ThisPanelTabList != null && ThisPanelTabList.Count > 0)
         {
             CurrentThisPanelTab = ThisPanelTabList[_indexWindow];
-            OpenWindow(ThisPanelTabList[_indexWindow]);
+            SetOn_Window(ThisPanelTabList[_indexWindow]);
         }
     }
 
-    public virtual void CloseThisPanel()
+    public virtual void SetOff_ThisPanel()
     {
         // Seq
         this.gameObject.SetActive(false);
         MainGameUIManager.Instance.CurrentOpening_UIController = null;
         InputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
-        InputManager.Instance.SetAim(true);
+        InputManager.Instance.SetOn_AimPointer();
     }
 
     #endregion
 
     #region Set Tab Btn
 
-    protected void SetTabTxt(List<TMP_Text> _TxtList, List<Component> _ColorComp)
+    protected void Set_TabTxt(List<TMP_Text> _TxtList, List<Component> _ColorComp)
     {
         for (int i = 0; i < _TxtList.Count; i++)
         {
@@ -99,7 +98,7 @@ public class PanelUIController : UIController
         }
     }
 
-    protected void SetTabLightAlpha(float _A, List<CanvasGroup> _CG, List<Component> _ColorComp)
+    protected void Set_TabLightAlpha(float _A, List<CanvasGroup> _CG, List<Component> _ColorComp)
     {
         for (int i = 0; i < _CG.Count; i++)
         {
@@ -113,15 +112,15 @@ public class PanelUIController : UIController
 
     #region Set Window
 
-    private void OpenWindow(ModifyEachTab _TargetTab)
+    private void SetOn_Window(ModifyEachTab _TargetTab)
     {
-        CloseWindowAll(ThisPanelTabList);
+        SetOff_WindowAll(ThisPanelTabList);
         _TargetTab.ThisPanelRT.gameObject.SetActive(true);
         if (_TargetTab.ThisTabBtn.transform.GetChild(0).TryGetComponent(out CanvasGroup cg))
         { cg.alpha = 0.5f; }
     }
 
-    private void CloseWindowAll(List<ModifyEachTab> _AllWindow)
+    private void SetOff_WindowAll(List<ModifyEachTab> _AllWindow)
     {
         for (int i = 0; i < _AllWindow.Count; i++)
         {

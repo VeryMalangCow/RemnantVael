@@ -12,7 +12,7 @@ public class NPCManager : Singleton<NPCManager>
 
     #region Get
 
-    public NPCController GetNPC(int _ID)
+    public NPCController Get_NPC(int _ID)
     {
         for (int i = 0; i < AllNPC.Count; i++)
         {
@@ -26,13 +26,13 @@ public class NPCManager : Singleton<NPCManager>
 
     #region Set
 
-    public void InitNPCList(NPCController _NPC)
+    public void Add_NPCList(NPCController _NPC)
     {
         if (!AllNPC.Contains(_NPC))
         { AllNPC.Add(_NPC); }
     }
 
-    public void OutitNPCList(NPCController _NPC)
+    public void Remove_NPCList(NPCController _NPC)
     {
         if (AllNPC.Contains(_NPC))
         { AllNPC.Remove(_NPC); }

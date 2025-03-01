@@ -49,17 +49,17 @@ public class ModifyTextAmountForBuy : UIModule, IPointerEnterHandler, IPointerEx
 
     public void Set(int _Level, int _CostValue)
     {
-        ThisMIAAT.SetAmount(_Level, 0.1f);
-        SetCostImg(_CostValue);
+        ThisMIAAT.Set_Amount(_Level, 0.1f);
+        Set_CostImg(_CostValue);
         SkillLvTxt.text = "[ LV : <b><#FFFFFF>" + _Level + "</color></b> ]";
     }
 
-    public void SetCostImg(int _CostValue)
+    public void Set_CostImg(int _CostValue)
     {
         CostImg.sprite = CostSpriteList[_CostValue];
     }
 
-    public void SetInnerAlpha(float _A)
+    public void Set_InnerAlpha(float _A)
     {
         for (int i = 0; i < InnerImgList.Count; i++) 
         {
@@ -83,7 +83,7 @@ public class ModifyTextAmountForBuy : UIModule, IPointerEnterHandler, IPointerEx
 
         ThisRT.DOSizeDelta(MaximumSize, SizeDeltaTime);
 
-        MainGameUIManager.Instance.BaseUpgrade_UIController.SetDesc(this);
+        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -93,7 +93,7 @@ public class ModifyTextAmountForBuy : UIModule, IPointerEnterHandler, IPointerEx
 
         ThisRT.DOSizeDelta(MinimumSize, SizeDeltaTime);
 
-        MainGameUIManager.Instance.BaseUpgrade_UIController.SetDescOff();
+        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOff_Desc();
     }
 
     #endregion

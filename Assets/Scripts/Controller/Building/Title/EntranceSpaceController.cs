@@ -3,9 +3,9 @@ public class EntranceSpaceController : InteractableBuildController, IInteract
 {
     #region Interact
 
-    public void Interact()
+    public void Play_Interact()
     {
-        TitleLobbyUIManager.Instance.EntranceSpace_UIController.OpenThisPanel();
+        TitleLobbyUIManager.Instance.EntranceSpace_UIController.SetOn_ThisPanel();
     }
 
     #endregion

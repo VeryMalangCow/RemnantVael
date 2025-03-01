@@ -19,13 +19,13 @@ public class ModifyEachInventoryItem : ModifyOwnEachBtn
 
     #region Offset
 
-    public void SetData(Sprite _ThisIcon, Sprite _RankImg, int _BoostLv)
+    public void Set_Data(Sprite _ThisIcon, Sprite _RankImg, int _BoostLv)
     {
         ThisImg.sprite = _ThisIcon;
         RankImg.sprite = _RankImg;
         RankImg.SetNativeSize();
-        BoostLvMIAAT.SetAmount(_BoostLv, 0.1f);
-        BoostLvMIAAT.SetColor(PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false));
+        BoostLvMIAAT.Set_Amount(_BoostLv, 0.1f);
+        BoostLvMIAAT.Set_Color(PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, false));
     }
 
     public override void Offset()

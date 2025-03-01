@@ -49,10 +49,10 @@ public class ModifyInventory : UIModule
         }
 #endif
 
-        GenSlotList();
+        Gen_SlotList();
     }
 
-    private void GenSlotList()
+    private void Gen_SlotList()
     {
         MEISList = new List<List<ModifyEachInventorySlot>>();
 
@@ -76,7 +76,7 @@ public class ModifyInventory : UIModule
                 if (slot.TryGetComponent(out ModifyEachInventorySlot MEIS))
                 {
                     MEIS.Offset();
-                    MEIS.SetData(SlotSprite);
+                    MEIS.Set_Data(SlotSprite);
 
                     rowMEISList.Add(MEIS);
                 }
@@ -91,7 +91,7 @@ public class ModifyInventory : UIModule
 
     #region Item
 
-    public ModifyEachInventoryItem SpawnMEII_Module(ModifyEachInventorySlot _ParentSlot, Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
+    public ModifyEachInventoryItem Gen_MEII_Module(ModifyEachInventorySlot _ParentSlot, Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
     {
         // Generate GO
         GameObject item = Instantiate(InventoryItemPrefab, _ParentSlot.transform);
@@ -106,7 +106,7 @@ public class ModifyInventory : UIModule
         if (item.TryGetComponent(out ModifyEachInventoryItem MEII))
         {
             MEII.Offset();
-            MEII.SetData(_ItemSprite, _RankImg, _BoostLv);
+            MEII.Set_Data(_ItemSprite, _RankImg, _BoostLv);
 
             _ParentSlot.ThisSlotItem = MEII;
             return MEII;
@@ -115,10 +115,10 @@ public class ModifyInventory : UIModule
         return null;
     }
 
-    public ModifyEachInventoryItem SpawnMEII_ThisInventory(Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
+    public ModifyEachInventoryItem Gen_MEII_ThisInventory(Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
     {
         // Generate GO
-        ModifyEachInventorySlot emptySlot = GetEmptyMEIS();
+        ModifyEachInventorySlot emptySlot = Get_EmptyMEIS();
         GameObject item = Instantiate(InventoryItemPrefab, emptySlot.transform);
         
         // RT
@@ -131,7 +131,7 @@ public class ModifyInventory : UIModule
         if (item.TryGetComponent(out ModifyEachInventoryItem MEII))
         {
             MEII.Offset();
-            MEII.SetData(_ItemSprite, _RankImg, _BoostLv);
+            MEII.Set_Data(_ItemSprite, _RankImg, _BoostLv);
 
             emptySlot.ThisSlotItem = MEII;
             return MEII;
@@ -140,7 +140,7 @@ public class ModifyInventory : UIModule
         return null;
     }
 
-    private ModifyEachInventorySlot GetEmptyMEIS()
+    private ModifyEachInventorySlot Get_EmptyMEIS()
     {
         for (int i = 0; i < MEISList.Count; i++)
         {
@@ -155,7 +155,7 @@ public class ModifyInventory : UIModule
         return null;
     }
 
-    public ModifyEachInventorySlot GetTargetSlot(ModifyEachInventoryItem _MEII)
+    public ModifyEachInventorySlot Get_TargetSlot(ModifyEachInventoryItem _MEII)
     {
         foreach (List<ModifyEachInventorySlot> MEIS_List in MEISList)
         {
@@ -170,9 +170,9 @@ public class ModifyInventory : UIModule
         return null;
     }
 
-    public void RemoveItemInSlotData(ModifyEachInventoryItem _MEII)
+    public void Remove_ItemInSlotData(ModifyEachInventoryItem _MEII)
     {
-        ModifyEachInventorySlot MEIS = GetTargetSlot(_MEII);
+        ModifyEachInventorySlot MEIS = Get_TargetSlot(_MEII);
         if (MEIS != null)
         {
             MEIS.ThisSlotItem = null;

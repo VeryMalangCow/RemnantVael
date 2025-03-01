@@ -36,7 +36,7 @@ public class ModifyBuffIcon : UIModule
 
     #region Set
 
-    public void On(Sprite _Icon, bool _ShowTxt)
+    public void SetOn(Sprite _Icon, bool _ShowTxt)
     {
         UsingNow = true;
         gameObject.SetActive(true);
@@ -46,24 +46,24 @@ public class ModifyBuffIcon : UIModule
         ThisShadowImg.fillAmount = 0;
     }
 
-    public void Off()
+    public void SetOff()
     {
         UsingNow = false;
         gameObject.SetActive(false);
     }
 
-    public void SetIcon(Sprite _Sprite, int _BuffAmount)
+    public void Set_Icon(Sprite _Sprite, int _BuffAmount)
     {
-        SetIcon(_Sprite);
-        SetIcon(_BuffAmount);
+        Set_Icon(_Sprite);
+        Set_Icon(_BuffAmount);
     }
 
-    public void SetIcon(Sprite _Sprite)
+    public void Set_Icon(Sprite _Sprite)
     {
         ThisImg.sprite = _Sprite;
     }
 
-    public void SetIcon(int _BuffAmount)
+    public void Set_Icon(int _BuffAmount)
     {
         if (_BuffAmount > 1)
         {
@@ -76,12 +76,12 @@ public class ModifyBuffIcon : UIModule
         }
     }
 
-    public void SetBuffState(int _CurrentStack)
+    public void Set_BuffState(int _CurrentStack)
     {
         ThisTxt.text = _CurrentStack.ToString();
     }
 
-    public void SetBuffState(float _FillAmount)
+    public void Set_BuffState(float _FillAmount)
     {
         ThisShadowImg.fillAmount = _FillAmount;
     }

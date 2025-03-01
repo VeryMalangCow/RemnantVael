@@ -16,22 +16,16 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 
     #region Framework
 
-    protected override void Awake()
-    {
-        //Singleton
-        base.Awake();
-    }
-
     #endregion
 
     #region Load
 
-    public void LoadScene(string _SceneName)
+    public void Play_LoadScene(string _SceneName)
     {
-        StartCoroutine(LoadSceneAsync(_SceneName));
+        StartCoroutine(Play_LoadSceneAsync_Cor(_SceneName));
     }
 
-    private IEnumerator LoadSceneAsync(string _SceneName)
+    private IEnumerator Play_LoadSceneAsync_Cor(string _SceneName)
     {
         LoadingCG.alpha = 0.0f;
         LoadingExtraCG.alpha = 0.0f;

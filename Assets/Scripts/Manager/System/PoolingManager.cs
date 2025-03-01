@@ -48,7 +48,12 @@ public class PoolingManager : Singleton<PoolingManager>
 
     #region Get
 
-    public T GetOP<T>(GameObject _SpawnGO, Transform _ParnetTF, Queue<T> _Queue)
+    private T Get_OP<T>(TTypePooling<T> _Pooling)
+    {
+        return Get_OP<T>(_Pooling.Prefab, _Pooling.ParentTF, _Pooling.Queue);
+    }
+
+    private T Get_OP<T>(GameObject _SpawnGO, Transform _ParnetTF, Queue<T> _Queue)
     {
         // No Object
         if (_Queue.Count <= 0)
@@ -72,39 +77,39 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Player
 
     // Player Bullet
-    public PlayerBulletController GetOP_PlayerBullet()
+    public PlayerBulletController Get_OP_PlayerBullet()
     {
-        return GetOP<PlayerBulletController>(PlayerBullet.Prefab, PlayerBullet.ParentTF, PlayerBullet.Queue);
+        return Get_OP<PlayerBulletController>(PlayerBullet.Prefab, PlayerBullet.ParentTF, PlayerBullet.Queue);
     }
 
     // Energy Shrapnel
-    public EnergyShrapnelController GetOP_EnergyShrapnel()
+    public EnergyShrapnelController Get_OP_EnergyShrapnel()
     {
-        return GetOP<EnergyShrapnelController>(EnergyShrapnel.Prefab, EnergyShrapnel.ParentTF, EnergyShrapnel.Queue);
+        return Get_OP<EnergyShrapnelController>(EnergyShrapnel.Prefab, EnergyShrapnel.ParentTF, EnergyShrapnel.Queue);
     }
 
     // Bettery Shrapnel
-    public BetteryShrapnelController GetOP_BetteryShrapnel()
+    public BetteryShrapnelController Get_OP_BetteryShrapnel()
     {
-        return GetOP<BetteryShrapnelController>(BetteryShrapnel.Prefab, BetteryShrapnel.ParentTF, BetteryShrapnel.Queue);
+        return Get_OP<BetteryShrapnelController>(BetteryShrapnel.Prefab, BetteryShrapnel.ParentTF, BetteryShrapnel.Queue);
     }
 
     // Module Shrapnel
-    public ModuleShrapnelController GetOP_ModuleShrapnel()
+    public ModuleShrapnelController Get_OP_ModuleShrapnel()
     {
-        return GetOP<ModuleShrapnelController>(ModuleShrapnel.Prefab, ModuleShrapnel.ParentTF, ModuleShrapnel.Queue);
+        return Get_OP<ModuleShrapnelController>(ModuleShrapnel.Prefab, ModuleShrapnel.ParentTF, ModuleShrapnel.Queue);
     }
 
     // Interact Item For Each Kind
-    public InteractItemController GetOP_InteractableItem()
+    public InteractItemController Get_OP_InteractableItem()
     {
-        return GetOP<InteractItemController>(InteractItems.Prefab, InteractItems.ParentTF, InteractItems.Queue);
+        return Get_OP<InteractItemController>(InteractItems.Prefab, InteractItems.ParentTF, InteractItems.Queue);
     }
 
     // Player Attacker
-    public PlayerAttacker GetOP_PlayerAttacker()
+    public PlayerAttacker Get_OP_PlayerAttacker()
     {
-        return GetOP<PlayerAttacker>(PlayerAttackers.Prefab, PlayerAttackers.ParentTF, PlayerAttackers.Queue);
+        return Get_OP<PlayerAttacker>(PlayerAttackers.Prefab, PlayerAttackers.ParentTF, PlayerAttackers.Queue);
     }
 
     #endregion
@@ -112,9 +117,9 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Missile
 
     // Missile
-    public MissileBulletController GetOP_Missile()
+    public MissileBulletController Get_OP_Missile()
     {
-        return GetOP<MissileBulletController>(MissileBullet.Prefab, MissileBullet.ParentTF, MissileBullet.Queue);
+        return Get_OP<MissileBulletController>(MissileBullet.Prefab, MissileBullet.ParentTF, MissileBullet.Queue);
     }
 
     #endregion
@@ -122,19 +127,19 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Enemy
 
     // Enemy
-    public EnemyController GetOP_Enemy(int _EnemyID)
+    public EnemyController Get_OP_Enemy(int _EnemyID)
     {
-        TTypePooling<EnemyController> enemy = FindCorrectEnemyQueue(_EnemyID);
-        return GetOP<EnemyController>(enemy.Prefab, enemy.ParentTF, enemy.Queue);
+        TTypePooling<EnemyController> enemy = Get_CorrectEnemyQueue(_EnemyID);
+        return Get_OP<EnemyController>(enemy.Prefab, enemy.ParentTF, enemy.Queue);
     }
 
-    public void EnqueueEnemy(EnemyController _Enemy)
+    public void Set_EnqueueEnemy(EnemyController _Enemy)
     {
-        FindCorrectEnemyQueue(_Enemy.EnemyID).Queue.Enqueue(_Enemy);
+        Get_CorrectEnemyQueue(_Enemy.EnemyID).Queue.Enqueue(_Enemy);
     }
 
     // Offset
-    public void EnemiesPoolingSet(List<GameObject> _EnemyGOs)
+    public void Offset_EnemiesPooling(List<GameObject> _EnemyGOs)
     {
         CurrentStageEnemies = new List<TTypePooling<EnemyController>>();
         for (int i = 0; i < _EnemyGOs.Count; i++)
@@ -145,7 +150,7 @@ public class PoolingManager : Singleton<PoolingManager>
     }
 
     // Find
-    private TTypePooling<EnemyController> FindCorrectEnemyQueue(int _EnemyID)
+    private TTypePooling<EnemyController> Get_CorrectEnemyQueue(int _EnemyID)
     {
         for (int i = 0; i < CurrentStageEnemies.Count; i++)
         {
@@ -162,37 +167,15 @@ public class PoolingManager : Singleton<PoolingManager>
 
 
     // Enemy Bullet
-    public EnemyBulletController GetOP_EnemyBullet()
+    public EnemyBulletController Get_OP_EnemyBullet()
     {
-        return GetOP<EnemyBulletController>(EnemyBullets.Prefab, EnemyBullets.ParentTF, EnemyBullets.Queue);
+        return Get_OP<EnemyBulletController>(EnemyBullets.Prefab, EnemyBullets.ParentTF, EnemyBullets.Queue);
     }
 
     // Enemy Attacker
-    public EnemyAttacker GetOP_EnemyAttacker()
+    public EnemyAttacker Get_OP_EnemyAttacker()
     {
-        return GetOP<EnemyAttacker>(EnemyAttackers.Prefab, EnemyAttackers.ParentTF, EnemyAttackers.Queue);
-    }
-
-    #endregion
-
-    #region VFX things
-
-    // After Image
-    public SpriteRenderer GetOP_AfterImg()
-    {
-        return GetOP<SpriteRenderer>(AfterImgs.Prefab, AfterImgs.ParentTF, AfterImgs.Queue);
-    }
-
-    // After Image
-    public SpriteRenderer GetOP_ExplosionImg()
-    {
-        return GetOP<SpriteRenderer>(ExplosionImgs.Prefab, ExplosionImgs.ParentTF, ExplosionImgs.Queue);
-    }
-
-    // Hitted Animator
-    public OnlyOnceTimeAnimation GetOP_OnlyOnceAnimator()
-    {
-        return GetOP<OnlyOnceTimeAnimation>(OnlyOnceAnimators.Prefab, OnlyOnceAnimators.ParentTF, OnlyOnceAnimators.Queue);
+        return Get_OP<EnemyAttacker>(EnemyAttackers.Prefab, EnemyAttackers.ParentTF, EnemyAttackers.Queue);
     }
 
     #endregion
@@ -200,29 +183,51 @@ public class PoolingManager : Singleton<PoolingManager>
     #region UI
 
     // Damage Txt
-    public ModifyEffectWorldTxt GetOP_DmgTxt()
+    public ModifyEffectWorldTxt Get_OP_DmgTxt()
     {
-        return GetOP<ModifyEffectWorldTxt>(DmgTxtCanvases.Prefab, DmgTxtCanvases.ParentTF, DmgTxtCanvases.Queue);
+        return Get_OP<ModifyEffectWorldTxt>(DmgTxtCanvases.Prefab, DmgTxtCanvases.ParentTF, DmgTxtCanvases.Queue);
     }
 
     // Buff Icon UI
-    public ModifyBuffIcon GetOP_BuffUI()
+    public ModifyBuffIcon Get_OP_BuffUI()
     {
-        return GetOP<ModifyBuffIcon>(BuffIcons.Prefab, BuffIcons.ParentTF, BuffIcons.Queue);
+        return Get_OP<ModifyBuffIcon>(BuffIcons.Prefab, BuffIcons.ParentTF, BuffIcons.Queue);
+    }
+
+    #endregion
+
+    #region Img Anim VFX
+
+    // After Image
+    public SpriteRenderer Get_OP_AfterImg()
+    {
+        return Get_OP<SpriteRenderer>(AfterImgs.Prefab, AfterImgs.ParentTF, AfterImgs.Queue);
+    }
+
+    // After Image
+    public SpriteRenderer Get_OP_ExplosionImg()
+    {
+        return Get_OP<SpriteRenderer>(ExplosionImgs.Prefab, ExplosionImgs.ParentTF, ExplosionImgs.Queue);
+    }
+
+    // Hitted Animator
+    public OnlyOnceTimeAnimation Get_OP_OnlyOnceAnimator()
+    {
+        return Get_OP<OnlyOnceTimeAnimation>(OnlyOnceAnimators.Prefab, OnlyOnceAnimators.ParentTF, OnlyOnceAnimators.Queue);
     }
 
     #endregion
 
     #region Module Item
 
-    public PlayerBulletController GetOP_MI_000_Bullets()
+    public PlayerBulletController Get_OP_MI_000_Bullets()
     {
-        return GetOP<PlayerBulletController>(MI_000_Bullets.Prefab, MI_000_Bullets.ParentTF, MI_000_Bullets.Queue);
+        return Get_OP<PlayerBulletController>(MI_000_Bullets.Prefab, MI_000_Bullets.ParentTF, MI_000_Bullets.Queue);
     }
 
-    public PlayerBulletController GetOP_MI_001_Bullets()
+    public PlayerBulletController Get_OP_MI_001_Bullets()
     {
-        return GetOP<PlayerBulletController>(MI_001_Bullets.Prefab, MI_001_Bullets.ParentTF, MI_001_Bullets.Queue);
+        return Get_OP<PlayerBulletController>(MI_001_Bullets.Prefab, MI_001_Bullets.ParentTF, MI_001_Bullets.Queue);
     }
 
     #endregion

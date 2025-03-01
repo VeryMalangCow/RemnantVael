@@ -17,15 +17,15 @@ public class SetStateAnim : MonoBehaviour
 
     #region Anim
 
-    public void SetAnim(AnimationClip _AC, Sprite _InnerSprite, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    public void Set_Anim(AnimationClip _AC, Sprite _InnerSprite, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
-        SetAnim(_AC, _AnimSpeed, _AnimSize);
+        Set_Anim(_AC, _AnimSpeed, _AnimSize);
 
         ThisInnerSR.sprite = _InnerSprite;
         ThisInnerSR.gameObject.SetActive(true);
     }
 
-    public void SetAnim(AnimationClip _AC, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    public void Set_Anim(AnimationClip _AC, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
         ThisInnerSR.gameObject.SetActive(false);
 

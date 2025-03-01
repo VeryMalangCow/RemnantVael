@@ -19,17 +19,17 @@ public class DownstartElevatorController : HaveShadowThingStatic, IInteract
 
     #region Move
 
-    private void MoveToTarget()
+    private void Play_MoveToTarget()
     {
-        MainGameUIManager.Instance.PlayDark(3f);
+        MainGameUIManager.Instance.Play_Dark(3f);
         this.transform.DOLocalMove(new Vector2(this.transform.localPosition.x, EndYPos), 3f)
             .SetEase(Ease.InQuart)
             .OnStart(() =>
             {
-                PlayerManager.Instance.PlayerController.SetEndStage();
+                PlayerManager.Instance.PlayerController.Set_EndStage();
                 ThisSR.sortingOrder = 3000;
 
-                EventManager.Instance.SetInputSetting(false);
+                EventManager.Instance.Set_Input(false);
             })
             .OnUpdate(() =>
             {
@@ -47,11 +47,11 @@ public class DownstartElevatorController : HaveShadowThingStatic, IInteract
 
     #region Interact
 
-    public void Interact()
+    public void Play_Interact()
     {
         if (IsOn)
         {
-            MoveToTarget();
+            Play_MoveToTarget();
         }
     }
 

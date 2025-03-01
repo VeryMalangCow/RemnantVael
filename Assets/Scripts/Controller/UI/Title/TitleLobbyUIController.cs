@@ -53,13 +53,13 @@ public class TitleLobbyUIController : PanelUIController
 
     #region Input
 
-    public void TitleInput()
+    public void Try_Interact()
     {
         if (CurrentBtn == null)
         { return; }
 
         if (CurrentBtn == StartBtn)
-        { CloseThisPanel(); }
+        { SetOff_ThisPanel(); }
         else if (CurrentBtn == OptionBtn)
         { Debug.Log("옵션 창 키기"); }
         else if (CurrentBtn == QuitBtn)
@@ -72,7 +72,7 @@ public class TitleLobbyUIController : PanelUIController
 
     #region Set Panel
 
-    public override void OpenThisPanel()
+    public override void SetOn_ThisPanel()
     {
         //base.OpenThisPanel();
 
@@ -93,7 +93,7 @@ public class TitleLobbyUIController : PanelUIController
         seq.SetId("TitleUIPanel");
     }
 
-    public override void CloseThisPanel()
+    public override void SetOff_ThisPanel()
     {
         //base.CloseThisPanel();
 

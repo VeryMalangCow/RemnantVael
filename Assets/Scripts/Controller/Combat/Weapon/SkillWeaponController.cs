@@ -31,29 +31,29 @@ public class SkillWeaponController : SatelliteController
 
         Skill_0.NeedEP.Subscribe(_Value =>
         {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.SetCostText(
+            MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Set_CostText(
                 _Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value);
         });
         Skill_1.NeedEP.Subscribe(_Value =>
         {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.SetCostText(
+            MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Set_CostText(
                 _Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value);
         });
     }
 
     private void Update()
     {
-        PitchTF.transform.localRotation = RotateSmooth(InputManager.Instance.DirFromPlayerPos.normalized, PitchTF, rotateSpeed);
+        PitchTF.transform.localRotation = Get_RotationSmooth(InputManager.Instance.DirFromPlayerPos.normalized, PitchTF, rotateSpeed);
 
         foreach (Satellite hand in Hands)
         {
             hand.SetPos(PlayerSR.sortingOrder);
         }
 
-        MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.SetShadowFillAmount(
-            Skill_0.GetFillAmount());
-        MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.SetShadowFillAmount(
-            Skill_1.GetFillAmount());
+        MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Set_ShadowFillAmount(
+            Skill_0.Get_FillAmount());
+        MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Set_ShadowFillAmount(
+            Skill_1.Get_FillAmount());
     }
 
     #endregion

@@ -19,9 +19,9 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
     public void Update()
     {
-        if(NeedSort())
+        if(Get_NeedSort())
         {
-            SortAllSr();
+            Set_SortAllSr();
         }
     }
 
@@ -29,7 +29,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
     #region Sorting Order
 
-    private bool NeedSort()
+    private bool Get_NeedSort()
     {
         List<HaveShadowThing> tempObjects = NeedLayerObjects.OrderBy(obj => obj.transform.position.y).ToList();
         bool needSort = !Enumerable.SequenceEqual(tempObjects, NeedLayerObjects);
@@ -44,11 +44,11 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         }
     }
 
-    public void SortAllSr()
+    public void Set_SortAllSr()
     {
         for (int i = 0; i < NeedLayerObjects.Count; i++)
         {
-            NeedLayerObjects[i].SetSortingOrder(NeedLayerObjectTopSort - (10 * i));
+            NeedLayerObjects[i].Set_SortingOrder(NeedLayerObjectTopSort - (10 * i));
         }
     }
 

@@ -21,31 +21,31 @@ public class BuffElectricityController : BuffController, IWhen_Hitted
 
     #region Buff
 
-    public override void GainBuff()
+    public override void Gain_Buff()
     {
-        base.GainBuff();
+        base.Gain_Buff();
     }
 
-    public override void ReductBuff()
+    public override void Reduct_Buff()
     {
-        base.ReductBuff();
+        base.Reduct_Buff();
 
         if (CurrentBuffCharge.Value <= 0)
         {
-            EndBuff();
+            End_Buff();
         }
     }
 
-    public override void EndBuff()
+    public override void End_Buff()
     {
-        base.EndBuff();
+        base.End_Buff();
     }
 
     #endregion
 
     #region Unique
 
-    private float GetDmgValue()
+    private float Get_DmgValue()
     {
         float value = 0;
 
@@ -56,23 +56,23 @@ public class BuffElectricityController : BuffController, IWhen_Hitted
         { value += ConstPoint; }
 
         if (MaxHpPercent != 0)
-        { value += PlayerManager.Instance.PlayerController.PercentHP(MaxHpPercent); }
+        { value += PlayerManager.Instance.PlayerController.Get_PercentHP(MaxHpPercent); }
 
         value = value * (AllyManager.Instance.AllAllies.Count + 1);
 
         return value;
     }
 
-    public void When(EnemyController _EC)
+    public void Play_When(EnemyController _EC)
     {
-        float dmg = GetDmgValue();
-        PlayerManager.Instance.PlayerController.TakeExtraDamage(dmg);
+        float dmg = Get_DmgValue();
+        PlayerManager.Instance.PlayerController.Take_ExtraDamage(dmg);
         for (int i = 0; i < AllyManager.Instance.AllAllies.Count; i++)
         {
             AllyManager.Instance.AllAllies[i].TakeDamage(dmg);
         }
 
-        this.ReductBuff();
+        this.Reduct_Buff();
     }
 
     #endregion

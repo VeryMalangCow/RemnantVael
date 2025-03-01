@@ -54,19 +54,19 @@ public class AimController : HaveShadowThingStatic
 
     #region Set 
 
-    public void SetPType()
+    public void Set_PType()
     {
         Aim.sprite = AimP;
         ShootAim.sprite = ShootAimP;
     }
 
-    public void SetEType()
+    public void Set_EType()
     {
         Aim.sprite = AimE;
         ShootAim.sprite = ShootAimE;
     }
 
-    public void SetBaseAttack(bool _IsOn)
+    public void Set_BaseAttack(bool _IsOn)
     {
         if (ShootAim.gameObject.activeSelf != _IsOn)
         {
@@ -74,7 +74,7 @@ public class AimController : HaveShadowThingStatic
         }
     }
 
-    public void SetOnSkill(int _Index, bool _IsOn)
+    public void SetOn_Skill(int _Index, bool _IsOn)
     {
         if (SkillAimList[_Index].gameObject.activeSelf != _IsOn)
         {

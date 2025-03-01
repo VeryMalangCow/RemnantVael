@@ -44,18 +44,18 @@ public class EntranceSpaceUIController : PanelUIController
 
     #region Input
 
-    public void TryInteract()
+    public void Try_Interact()
     {
         if (CurrentBtn == null || !CurrentBtn.ThisBtn.interactable)
         { return; }
 
         if (CurrentBtn == CloseBtn)
         {
-            CloseThisPanel();
+            SetOff_ThisPanel();
         }
         else if (CurrentBtn == StartBtn)
         {
-            LoadingSceneManager.Instance.LoadScene("MainGame");
+            LoadingSceneManager.Instance.Play_LoadScene("MainGame");
         }
     }
 
@@ -63,7 +63,7 @@ public class EntranceSpaceUIController : PanelUIController
 
     #region Set Panel
 
-    private void ResetData()
+    private void Reset_Data()
     {
         if (SaveDataManager.Instance.CharacterPrefabs.Contains(GameManager.Instance.DesignatedPlayerPrefab))
         {
@@ -75,7 +75,7 @@ public class EntranceSpaceUIController : PanelUIController
         }
     }
 
-    public override void OpenThisPanel()
+    public override void SetOn_ThisPanel()
     {
         if (DOTween.IsTweening("EntranceUIPanel"))
         { return; }
@@ -85,7 +85,7 @@ public class EntranceSpaceUIController : PanelUIController
 
         Sequence seq = DOTween.Sequence();
         this.gameObject.SetActive(true);
-        ResetData();
+        Reset_Data();
 
         seq.Join(PanelRT.DOSizeDelta(new Vector2(PanelRT.sizeDelta.x, TargetY), DurTime));
         seq.Join(BGCG.DOFade(1f, DurTime));
@@ -93,7 +93,7 @@ public class EntranceSpaceUIController : PanelUIController
         seq.SetId("EntranceUIPanel");
     }
 
-    public override void CloseThisPanel()
+    public override void SetOff_ThisPanel()
     {
         if (DOTween.IsTweening("EntranceUIPanel"))
         { return; }

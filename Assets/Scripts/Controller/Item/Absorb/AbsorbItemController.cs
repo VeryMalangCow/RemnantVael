@@ -81,7 +81,7 @@ public class AbsorbItemController : ItemController
 
     #region Get Item
 
-    protected virtual void GetItem()
+    protected virtual void Gain_Item()
     {
         this.gameObject.SetActive(false);
     }
@@ -94,7 +94,7 @@ public class AbsorbItemController : ItemController
     {
         if (_Collision.tag == "Player")
         {
-            GetItem();
+            Gain_Item();
         }
     }
 

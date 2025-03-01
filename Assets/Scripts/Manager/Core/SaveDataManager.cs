@@ -20,7 +20,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         base.Awake();
 
         // Load Data
-        CharacterSaveData.LoadData();
+        CharacterSaveData.Load_Data();
     }
 
     #endregion
@@ -32,7 +32,7 @@ public class CharacterSaveData
 {
     Dictionary<int, bool> SaveData;
 
-    public void LoadData()
+    public void Load_Data()
     {
         SaveData = new Dictionary<int, bool>()
         {
@@ -43,13 +43,13 @@ public class CharacterSaveData
     }
 
     // ID값에 맞는 사용 여부
-    public bool GetCanUseCharacter(int _ID)
+    public bool Can_UseCharacter(int _ID)
     {
         return SaveData[_ID];
     }
 
     // 사용 가능한 리스트 가져오기
-    public List<int> GetCanUseIDList()
+    public List<int> Get_CanUseIDList()
     {
         List<int> IDs = new List<int>();
         foreach (KeyValuePair<int, bool> keyValue in SaveData)

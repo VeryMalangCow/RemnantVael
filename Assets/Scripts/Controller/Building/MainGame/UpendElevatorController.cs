@@ -17,21 +17,21 @@ public class UpendElevatorController : HaveShadowThingStatic
 
     private void Start()
     {
-        EventManager.Instance.SetBlackUpDownCover(true);
-        MoveToTarget();
+        EventManager.Instance.Set_BlackUpDownCover(true);
+        Play_MoveToTarget();
     }
 
     #endregion
 
     #region Move
 
-    private void MoveToTarget()
+    private void Play_MoveToTarget()
     {
         this.transform.DOLocalMove(new Vector2(this.transform.localPosition.x, EndYPos), 3f)
             .SetEase(Ease.OutQuart)
             .OnStart(() =>
             {
-                PlayerManager.Instance.PlayerController.SetPastStartStage();
+                PlayerManager.Instance.PlayerController.Set_PastStartStage();
             })
             .OnUpdate(() =>
             {
@@ -41,10 +41,10 @@ public class UpendElevatorController : HaveShadowThingStatic
             })
             .OnComplete(() =>
             {
-                PlayerManager.Instance.PlayerController.SetStartStage();
+                PlayerManager.Instance.PlayerController.Set_StartStage();
 
-                EventManager.Instance.SetInputSetting(true);
-                EventManager.Instance.SetBlackUpDownCover(false);
+                EventManager.Instance.Set_Input(true);
+                EventManager.Instance.Set_BlackUpDownCover(false);
             });
     }
 

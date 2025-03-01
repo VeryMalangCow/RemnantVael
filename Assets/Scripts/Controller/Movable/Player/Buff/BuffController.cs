@@ -28,7 +28,7 @@ public class BuffController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Hitted")]
-    [SerializeField] private bool HittedWillDone = false;
+    //[SerializeField] private bool HittedWillDone = false;
 
     [Space(10)]
     [Header("=== UI")]
@@ -49,26 +49,26 @@ public class BuffController : MonoBehaviour
 
     private void Update()
     {
-        CaculateTimer();
+        Caculate_Timer();
     }
 
     #endregion
 
     #region Buff Time Dur
 
-    private void CaculateTimer()
+    private void Caculate_Timer()
     {
         if (!IsReductionOrIncrease)
         {
-            ReductionCaculateTimer();
+            Caculate_ReductionTimer();
         }
         else
         {
-            IncreaseCaculateTimer();
+            Caculate_IncreaseTimer();
         }
     }
 
-    private void ReductionCaculateTimer()
+    private void Caculate_ReductionTimer()
     {
         // 지속시간이 존재 + 현재 버프가 진행중이라면
         if (DurTimerWillDone && CurrentBuffCharge.Value > 0)
@@ -87,18 +87,18 @@ public class BuffController : MonoBehaviour
             if (CurrentDurTime.Value >= MaxDurTime)
             {
                 CurrentDurTime.Value -= MaxDurTime;
-                ReductBuff();
+                Reduct_Buff();
 
                 if (CurrentBuffCharge.Value <= 0)
                 {
-                    EndBuff();
+                    End_Buff();
                     CurrentDurTime.Value = 0;
                 }
             }
         }
     }
 
-    private void IncreaseCaculateTimer()
+    private void Caculate_IncreaseTimer()
     {
         // 지속시간이 존재 + 현재 버프가 진행중이라면
         if (DurTimerWillDone && CurrentBuffCharge.Value < MaxBuffCharge)
@@ -116,7 +116,7 @@ public class BuffController : MonoBehaviour
             // 지속 시간이 다 되었다면
             if (CurrentDurTime.Value >= MaxDurTime)
             {
-                GainBuff();
+                Gain_Buff();
                 CurrentDurTime.Value -= MaxDurTime;
 
                 if (CurrentBuffCharge.Value >= MaxBuffCharge)
@@ -131,7 +131,7 @@ public class BuffController : MonoBehaviour
 
     #region Buff
 
-    public virtual void GainBuff()
+    public virtual void Gain_Buff()
     {
         CurrentBuffCharge.Value = Mathf.Min(CurrentBuffCharge.Value + GainCharge, MaxBuffCharge);
         
@@ -143,21 +143,21 @@ public class BuffController : MonoBehaviour
         if (ThisMBI == null)
         {
             // UI
-            ThisMBI = PoolingManager.Instance.GetOP_BuffUI();
+            ThisMBI = PoolingManager.Instance.Get_OP_BuffUI();
             ThisMBI.Offset();
-            ThisMBI.SetIcon(ThisIconSprite, CurrentBuffCharge.Value); 
+            ThisMBI.Set_Icon(ThisIconSprite, CurrentBuffCharge.Value); 
             ThisMBI.ThisShadowImg.fillAmount = 0;
             ThisMBI.gameObject.SetActive(true);
 
             // UI Pos
-            MainGameUIManager.Instance.PlayerHUD_UIController.SetUI_GainBuff(ThisMBI);
+            MainGameUIManager.Instance.PlayerHUD_UIController.Set_GainBuffUI(ThisMBI);
         }
         
 
-        ThisMBI.SetIcon(CurrentBuffCharge.Value);
+        ThisMBI.Set_Icon(CurrentBuffCharge.Value);
     }
 
-    public virtual void ReductBuff()
+    public virtual void Reduct_Buff()
     {
         CurrentBuffCharge.Value = Mathf.Max(CurrentBuffCharge.Value - ReductionCharge, 0);
 
@@ -166,14 +166,14 @@ public class BuffController : MonoBehaviour
 
         if (ThisMBI != null)
         {
-            ThisMBI.SetIcon(CurrentBuffCharge.Value);
+            ThisMBI.Set_Icon(CurrentBuffCharge.Value);
 
             // UI Pos
-            MainGameUIManager.Instance.PlayerHUD_UIController.SetUI_ReductBuff(ThisMBI);
+            MainGameUIManager.Instance.PlayerHUD_UIController.Set_ReductBuffUI(ThisMBI);
         }
     }
 
-    public virtual void EndBuff()
+    public virtual void End_Buff()
     {
         CurrentBuffCharge.Value = 0;
         CurrentDurTime.Value = 0;
@@ -188,7 +188,7 @@ public class BuffController : MonoBehaviour
             ThisMBI = null;
 
             // UI Pos
-            MainGameUIManager.Instance.PlayerHUD_UIController.SetUI_EndBuff(ThisMBI);
+            MainGameUIManager.Instance.PlayerHUD_UIController.Set_EndBuffUI(ThisMBI);
         }
 
         enabled = false; 

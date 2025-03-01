@@ -28,13 +28,13 @@ public class MakeExplosionImage : MonoBehaviour
 
     // 전체적인 360도 방향으로 분산
     // 원형만 가능
-    public void GenExplosionImgs(Vector2 _SpawnedPos,
+    public void Gen_ExplosionImgs(Vector2 _SpawnedPos,
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
         int _ModuleIndex, Material _Material)
     {
-        GenExplosionImgs(_SpawnedPos,
+        Gen_ExplosionImgs(_SpawnedPos,
        _SpawnImgAmount, _ExplosionDis, _DisappearDis,
        _BiggerScale, _BiggerMinTime, _BiggerMaxTime,
        _SmallerScale, _SmallerMinTime, _SmallerMaxTime,
@@ -42,7 +42,7 @@ public class MakeExplosionImage : MonoBehaviour
     }
 
     // 타원형 가능
-    public void GenExplosionImgs(Vector2 _SpawnedPos,
+    public void Gen_ExplosionImgs(Vector2 _SpawnedPos,
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
@@ -72,7 +72,7 @@ public class MakeExplosionImage : MonoBehaviour
             float biggerTime = Random.Range(_BiggerMinTime, _BiggerMaxTime);
             float smallerTime = Random.Range(_SmallerMinTime, _SmallerMaxTime);
 
-            TotalSeq.Join(GenExplosionImg(dirByAngle,
+            TotalSeq.Join(Gen_ExplosionImg(dirByAngle,
                 _ExplosionDis, _DisappearDis,
                 _BiggerScale, biggerTime,
                 _SmallerScale, smallerTime,
@@ -83,7 +83,7 @@ public class MakeExplosionImage : MonoBehaviour
 
 
     // 방향적 부채꼴 방향으로 분산
-    public void GenExplosionImgs_Fan(Vector2 _SpawnedPos, Vector2 _Dir, float _AngleArea,
+    public void Gen_ExplosionImgs_Fan(Vector2 _SpawnedPos, Vector2 _Dir, float _AngleArea,
         int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
         float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
@@ -111,7 +111,7 @@ public class MakeExplosionImage : MonoBehaviour
             float biggerTime = Random.Range(_BiggerMinTime, _BiggerMaxTime);
             float smallerTime = Random.Range(_SmallerMinTime, _SmallerMaxTime);
 
-            TotalSeq.Join(GenExplosionImg(dirByAngle,
+            TotalSeq.Join(Gen_ExplosionImg(dirByAngle,
                 _ExplosionDis, _DisappearDis,
                 _BiggerScale, biggerTime,
                 _SmallerScale, smallerTime,
@@ -120,7 +120,7 @@ public class MakeExplosionImage : MonoBehaviour
     }
 
 
-    private Sequence GenExplosionImg(Vector2 _Dir,
+    private Sequence Gen_ExplosionImg(Vector2 _Dir,
         float _ExplotionDis, float _DisappearDis,
         float _BiggerScale, float _BiggerTime,
         float _SmallerScale, float _SmallerTime,
@@ -130,7 +130,7 @@ public class MakeExplosionImage : MonoBehaviour
         Sequence smallSeq = DOTween.Sequence();
         Sequence totalSeq = DOTween.Sequence();
 
-        SpriteRenderer sr = PoolingManager.Instance.GetOP_ExplosionImg();
+        SpriteRenderer sr = PoolingManager.Instance.Get_OP_ExplosionImg();
         sr.sortingOrder = 3000;
         if (RandomSpriteList[_ModuleIndex].SpriteList != null && RandomSpriteList[_ModuleIndex].SpriteList.Count > 0)
         {

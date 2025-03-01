@@ -27,7 +27,7 @@ public class Attacker : MonoBehaviour
 
     #region Set State by Cond
 
-    public void SetShadowDis(HaveShadowThing _HST)
+    public void Set_ShadowDis(HaveShadowThing _HST)
     {
         if (HSTS == null)
         { return; }
@@ -36,12 +36,12 @@ public class Attacker : MonoBehaviour
         HSTS.TargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * HSTS.TargetRange);
     }
 
-    public Sequence SetState_SetRotationAndMoveForward(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize,
+    public Sequence Play_RotAndPosForward(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize,
         Quaternion _Rotation, Vector2 _EndPos, float _TweenTime, float _AnimSpeed)
     {
         Sequence seq = DOTween.Sequence();
-        SetState(_SpawnedPos, _AttackerState, _ColSize);
-        SetAnim(_AC);
+        Set_State(_SpawnedPos, _AttackerState, _ColSize);
+        Set_Anim(_AC);
 
         ThisCol.gameObject.transform.localScale = Vector2.one;
         this.transform.rotation = _Rotation;
@@ -53,12 +53,12 @@ public class Attacker : MonoBehaviour
         return seq;
     }
 
-    public Sequence SetState_Bigger(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize, 
+    public Sequence Play_Bigger(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize, 
         float _StartSize, float _MaxSize, float _TweenTime)
     {
         Sequence seq = DOTween.Sequence();
-        SetState(_SpawnedPos, _AttackerState, _ColSize);
-        SetAnim(_AC);
+        Set_State(_SpawnedPos, _AttackerState, _ColSize);
+        Set_Anim(_AC);
 
         ThisCol.gameObject.transform.localScale = Vector2.one * _StartSize;
         seq.Append(ThisCol.transform.DOScale(_MaxSize, _TweenTime));
@@ -71,7 +71,7 @@ public class Attacker : MonoBehaviour
 
     #region Light
 
-    public void SetLight(float _BiggestSize, float _StayTime)
+    public void Set_Light(float _BiggestSize, float _StayTime)
     {
         if (ThisLight == null)
         { return; }
@@ -92,7 +92,7 @@ public class Attacker : MonoBehaviour
 
     #region Module
 
-    private void SetAnim(AnimationClip _AC)
+    private void Set_Anim(AnimationClip _AC)
     {
         aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
@@ -102,20 +102,15 @@ public class Attacker : MonoBehaviour
         ThisAnimator.runtimeAnimatorController = aoc;
     }
 
-    private void SetState(Vector2 _SpawnedPos, AttackerState _AttackerState, Vector2 _ColSize)
+    private void Set_State(Vector2 _SpawnedPos, AttackerState _AttackerState, Vector2 _ColSize)
     {
         this.transform.position = _SpawnedPos;
         this.AttackerState = new AttackerState(_AttackerState);
         ThisCol.size = _ColSize;
     }
 
-    public void EndState()
+    public void End_State()
     {
-        //if (ThisAnimator.isPlaying)
-        //{
-        //    ThisAnimator.Stop();
-        //}
-
         gameObject.SetActive(false);
 
         if (aoc != null)

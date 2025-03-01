@@ -24,14 +24,14 @@ public class InteractItemController : ItemController, IInteract
 
     #region State
 
-    public void SetState(Vector2 _SpawnPos, int _BoostLv, int _ItemRank)
+    public void Set_State(Vector2 _SpawnPos, int _BoostLv, int _ItemRank)
     {
         base.SetState(_SpawnPos);
 
         ThisItemData.BoostLv = _BoostLv;
         ThisItemData.Rank = _ItemRank;
         CurrentSpreadPower = SpreadPower;
-        SettedSpreadDir = SetRandomDir();
+        SettedSpreadDir = Get_RandomDir();
 
 
         UpDownTween = TargetObject.transform
@@ -39,7 +39,7 @@ public class InteractItemController : ItemController, IInteract
             .SetEase(Ease.InOutSine)
             .SetLoops(-1, LoopType.Yoyo);
 
-        ThisItemData = new ItemData(ModuleItemManager.Instance.GetRandomInteractItem());
+        ThisItemData = new ItemData(ModuleItemManager.Instance.Get_RandomInteractItem());
 
         this.gameObject.SetActive(true);
     }
@@ -61,21 +61,21 @@ public class InteractItemController : ItemController, IInteract
 
     protected void Update()
     {
-        Spread(CurrentSpreadPower);
+        Play_Spread(CurrentSpreadPower);
     }
 
     #endregion
 
     #region Spread
 
-    private Vector2 SetRandomDir()
+    private Vector2 Get_RandomDir()
     {
         float _X = Random.Range(-1.0f, 1.0f);
         float _Y = Random.Range(-1.0f, 1.0f);
         return new Vector2(_X, _Y).normalized;
     }
 
-    private void Spread(float _SpreadPower)
+    private void Play_Spread(float _SpreadPower)
     {
         if (CurrentSpreadPower > 0f)
         {
@@ -93,12 +93,12 @@ public class InteractItemController : ItemController, IInteract
 
     #region Interact
 
-    public void Interact()
+    public void Play_Interact()
     {
         CurrentSpreadPower = 0f;
         SettedSpreadDir = Vector2.zero;
 
-        ModuleItemManager.Instance.GetModuleState(ThisItemData);
+        ModuleItemManager.Instance.Get_ModuleState(ThisItemData);
         PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
 
         this.gameObject.SetActive(false);

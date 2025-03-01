@@ -20,22 +20,22 @@ public class BuffTickHealController : BuffController
 
     #region Buff
 
-    public override void GainBuff()
+    public override void Gain_Buff()
     {
-        base.GainBuff();
+        base.Gain_Buff();
 
     }
 
-    public override void ReductBuff()
+    public override void Reduct_Buff()
     {
-        PlayerManager.Instance.PlayerController.AddCurrentEP(GetHealValue());
+        PlayerManager.Instance.PlayerController.Add_CurrentEP(Get_HealValue());
 
-        base.ReductBuff();
+        base.Reduct_Buff();
     }
 
-    public override void EndBuff()
+    public override void End_Buff()
     {
-        base.EndBuff();
+        base.End_Buff();
 
     }
 
@@ -43,7 +43,7 @@ public class BuffTickHealController : BuffController
 
     #region Unique
 
-    private float GetHealValue()
+    private float Get_HealValue()
     {
         float value = 0;
 
@@ -54,7 +54,7 @@ public class BuffTickHealController : BuffController
         { value += ConstPoint; }
 
         if (MaxHpPercent != 0)
-        { value += PlayerManager.Instance.PlayerController.PercentHP(MaxHpPercent); }
+        { value += PlayerManager.Instance.PlayerController.Get_PercentHP(MaxHpPercent); }
 
 
         return value;

@@ -68,14 +68,14 @@ public class ModifyMinimap : UIModule
 
     private void LateUpdate()
     {
-        SelectedBookRoom();
+        Set_BookRoom();
     }
 
     #endregion
 
     #region Generate
 
-    public void GenMinimap()
+    public void Gen_Minimap()
     {
         AllMMEs = new List<ModifyMinimapElement>();
         AllIMMEs = new List<ModifyMinimapElement>();
@@ -86,12 +86,12 @@ public class ModifyMinimap : UIModule
 
         for (int i = 0; i < allRC.Count; i++)
         {
-            GenMinimapElement(allRC[i], mainClr);
-            GenMinimapElementInteractable(allRC[i], mainClr);
+            Gen_MinimapElement(allRC[i], mainClr);
+            Gen_MinimapInteractableElement(allRC[i], mainClr);
         }
     }
 
-    private void GenMinimapElement(RoomController _ConnetedRoom, Color _Clr)
+    private void Gen_MinimapElement(RoomController _ConnetedRoom, Color _Clr)
     {
         if (Instantiate(MinimapElement, NormalMMEParentRT.transform).TryGetComponent(out ModifyMinimapElement mme))
         {
@@ -101,7 +101,7 @@ public class ModifyMinimap : UIModule
         }
     }
 
-    private void GenMinimapElementInteractable(RoomController _ConnetedRoom, Color _Clr)
+    private void Gen_MinimapInteractableElement(RoomController _ConnetedRoom, Color _Clr)
     {
         if (Instantiate(MinimapElement, InteractableMMEParentRT.transform).TryGetComponent(out ModifyMinimapElement mme))
         {
@@ -115,50 +115,50 @@ public class ModifyMinimap : UIModule
 
     #region Set State
 
-    public void SetState()
+    public void Set_State()
     {
         RoomController CurrentRC = StageManager.Instance.CurrentRoomController;
 
         // 미니맵 위치 조정
-        AnchorPosSet(CurrentRC.ThisMME, NormalMMEParentRT, 0.3f);
-        AnchorPosSet(CurrentRC.ThisIMME, InteractableMMEParentRT, 0.3f);
+        Set_AnchorPos(CurrentRC.ThisMME, NormalMMEParentRT, 0.3f);
+        Set_AnchorPos(CurrentRC.ThisIMME, InteractableMMEParentRT, 0.3f);
 
         // 포인트
-        SetPoint(NormalPoint, CurrentRC.ThisMME);
-        SetPoint(InteractablePoint, CurrentRC.ThisIMME);
+        Set_Point(NormalPoint, CurrentRC.ThisMME);
+        Set_Point(InteractablePoint, CurrentRC.ThisIMME);
 
         // PC가 있는 방
-        SetActiveMME(CurrentRC.ThisMME);
-        SetActiveMME(CurrentRC.ThisIMME);
+        Set_ActiveMME(CurrentRC.ThisMME);
+        Set_ActiveMME(CurrentRC.ThisIMME);
 
         if (CurrentRC.RoomRuleController.RoomType == eRoomType.Completed)
         {
-            CurrentRC.ThisMME.SetState_Complete();
-            CurrentRC.ThisIMME.SetState_Complete();
+            CurrentRC.ThisMME.Set_Complete();
+            CurrentRC.ThisIMME.Set_Complete();
         }
         else
         {
-            CurrentRC.ThisMME.SetState_Uncomplete();
-            CurrentRC.ThisIMME.SetState_Uncomplete();
+            CurrentRC.ThisMME.Set_Uncomplete();
+            CurrentRC.ThisIMME.Set_Uncomplete();
         }
 
         // PC가 있는 방의 인접한 방
-        List<RoomController> connectedAllRC = CurrentRC.GetConnectedRCList();
+        List<RoomController> connectedAllRC = CurrentRC.Get_ConnectedRoomList();
         for (int i = 0; i < connectedAllRC.Count; i++)
         {
-            SetActiveMME(connectedAllRC[i].ThisMME);
-            SetActiveMME(connectedAllRC[i].ThisIMME);
+            Set_ActiveMME(connectedAllRC[i].ThisMME);
+            Set_ActiveMME(connectedAllRC[i].ThisIMME);
 
             if (connectedAllRC[i].RoomRuleController.RoomType != eRoomType.Completed)
             {
-                connectedAllRC[i].ThisMME.SetState_Visible();
-                connectedAllRC[i].ThisIMME.SetState_Visible();
+                connectedAllRC[i].ThisMME.Set_Visible();
+                connectedAllRC[i].ThisIMME.Set_Visible();
             }
         }
     }
 
     // 미니맵 위치 조정
-    private void AnchorPosSet(ModifyMinimapElement _MME, RectTransform _ParentRT, float _DurTime)
+    private void Set_AnchorPos(ModifyMinimapElement _MME, RectTransform _ParentRT, float _DurTime)
     {
         if (_MME.gameObject.TryGetComponent(out RectTransform rt))
         {
@@ -170,16 +170,16 @@ public class ModifyMinimap : UIModule
     }
 
     // 켜지는 MME
-    private void SetActiveMME(ModifyMinimapElement _MME)
+    private void Set_ActiveMME(ModifyMinimapElement _MME)
     {
         if (!_MME.gameObject.activeSelf)
         {
-            _MME.SetActiveOn();
+            _MME.Set_ActiveOn();
         }
     }
 
     // 중앙 포인터
-    private void SetPoint(RectTransform _Point, ModifyMinimapElement _MME)
+    private void Set_Point(RectTransform _Point, ModifyMinimapElement _MME)
     {
         _Point.transform.SetParent(_MME.transform);
         if (_MME.TryGetComponent(out RectTransform rt))
@@ -190,7 +190,8 @@ public class ModifyMinimap : UIModule
         }
     }
 
-    public void PlayEffect()
+    // 이펙트
+    public void Play_Effect()
     {
         // 효과
         if (DOTween.IsTweening(InnerImg))
@@ -207,7 +208,7 @@ public class ModifyMinimap : UIModule
 
     #region Tab Interactable
 
-    public void OnTabInteract(float _DurTime)
+    public void SetOn_TabInteract(float _DurTime)
     {
         if (TabSeq != null && DOTween.IsTweening(TabSeq))
         { DOTween.Kill(TabSeq); }
@@ -230,7 +231,7 @@ public class ModifyMinimap : UIModule
             });
     }
 
-    public void OffTabInteract(float _DurTime)
+    public void SetOff_TabInteract(float _DurTime)
     {
         if (TabSeq != null && DOTween.IsTweening(TabSeq))
         { DOTween.Kill(TabSeq); }
@@ -252,7 +253,7 @@ public class ModifyMinimap : UIModule
             {
                 if (InteractingBookGate != null && StageManager.Instance.CurrentRoomController != InteractingBookGate.ParterGate.ThisRoom)
                 {
-                    InteractingBookGate.Interact();
+                    InteractingBookGate.Play_Interact();
                 }
             });
     }
@@ -261,16 +262,16 @@ public class ModifyMinimap : UIModule
 
     #region Move In Interactable Condition
 
-    private void SelectedBookRoom()
+    private void Set_BookRoom()
     {
         if (CanInteractable && InputManager.Instance.InputArrowDir != Vector2Int.zero)
         {
-            GateController gc = MinimapSelectedElementRC.GetCollectGC(InputManager.Instance.InputArrowDir);
+            GateController gc = MinimapSelectedElementRC.Get_CollectGate(InputManager.Instance.InputArrowDir);
             if (gc != null)
             {
                 InteractingBookGate = gc.ParterGate;
                 MinimapSelectedElementRC = gc.ThisRoom;
-                AnchorPosSet(MinimapSelectedElementRC.ThisIMME, InteractableMMEParentRT, 0.15f);
+                Set_AnchorPos(MinimapSelectedElementRC.ThisIMME, InteractableMMEParentRT, 0.15f);
             }
 
             InputManager.Instance.InputArrowDir = Vector2Int.zero;

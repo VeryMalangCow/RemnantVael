@@ -36,7 +36,7 @@ public class EnemyManager : Singleton<EnemyManager>
     #region Get
 
     // 가장 가까운 적 찾기
-    public EnemyController GetClosestEnemy(Vector2 _TargetVec)
+    public EnemyController Get_ClosestEnemy(Vector2 _TargetVec)
     {
         if (CurrentEnemyList.Count == 0) 
         { return null; }
@@ -61,7 +61,7 @@ public class EnemyManager : Singleton<EnemyManager>
     }
 
     // 가장 먼 적 찾기
-    public EnemyController GetFurthestEnemy(Vector2 _TargetVec)
+    public EnemyController Get_FurthestEnemy(Vector2 _TargetVec)
     {
         if (CurrentEnemyList.Count == 0)
         { return null; }
@@ -87,7 +87,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
 
     // 일정 구역 내 모든 적 찾기 (가까운 순서대로)
-    public List<EnemyController> GetCloserEnemies(Vector2 _TargetVec, float _TargetDis)
+    public List<EnemyController> Get_CloserEnemies(Vector2 _TargetVec, float _TargetDis)
     {
         if (CurrentEnemyList.Count == 0)
         { return null; }
@@ -110,7 +110,7 @@ public class EnemyManager : Singleton<EnemyManager>
     }
 
     // 일정 구역 외 모든 적 찾기 (가까운 순서대로)
-    public List<EnemyController> GetFurtherEnemies(Vector2 _TargetVec, float _TargetDis)
+    public List<EnemyController> Get_FurtherEnemies(Vector2 _TargetVec, float _TargetDis)
     {
         if (CurrentEnemyList.Count == 0)
         { return null; }

@@ -28,24 +28,25 @@ public abstract class EnemyPattern : MonoBehaviour
 
     #region Can Check
 
-    public abstract bool CanPlayPattern();
-    protected abstract IEnumerator ThisPattern();
+    public abstract bool Can_PlayPattern();
+
+    protected abstract IEnumerator Play_ThisPattern_Cor();
 
     #endregion
 
     #region Start End
 
-    public virtual void StartPattern()
+    public virtual void Start_Pattern()
     {
         IsPlayingThisPattern = true;
         ThisEnemy.IsPlayingPattern = true;
 
-        ThisEnemy.CurrentPatternCor = ThisPattern();
+        ThisEnemy.CurrentPatternCor = Play_ThisPattern_Cor();
 
         StartCoroutine(ThisEnemy.CurrentPatternCor);
     }
 
-    public virtual void EndPattern()
+    public virtual void End_Pattern()
     {
         IsPlayingThisPattern = false;
         ThisEnemy.IsPlayingPattern = false;

@@ -3,22 +3,39 @@ using UnityEngine;
 
 public class OnlyOnceTimeAnimation : MonoBehaviour
 {
+    #region Value
+
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] private SpriteRenderer ThisSpriteRenderer;
     [HideInInspector] private AnimatorOverrideController aoc;
 
+    #endregion
 
-    public void StartAnim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    #region Framework
+
+    private void Update()
     {
-        StartAnim(_AC, _SpawnedPos, _Material, Quaternion.identity, _AnimSpeed, _AnimSize);
+        if (ThisAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        {
+            End_Anim();
+        }
     }
 
-    public void StartAnim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, Quaternion _Rotation, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    #endregion
+
+    #region Anim
+
+    public void Start_Anim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
-        StartAnim(_AC, _SpawnedPos, _Material, Color.white, _Rotation, _AnimSpeed, _AnimSize);
+        Start_Anim(_AC, _SpawnedPos, _Material, Quaternion.identity, _AnimSpeed, _AnimSize);
     }
 
-    public void StartAnim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, Color _Clr, Quaternion _Rotation, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    public void Start_Anim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, Quaternion _Rotation, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    {
+        Start_Anim(_AC, _SpawnedPos, _Material, Color.white, _Rotation, _AnimSpeed, _AnimSize);
+    }
+
+    public void Start_Anim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, Color _Clr, Quaternion _Rotation, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
         aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
@@ -38,7 +55,7 @@ public class OnlyOnceTimeAnimation : MonoBehaviour
         this.gameObject.SetActive(true);
     }
 
-    private void EndAnim()
+    private void End_Anim()
     {
         ThisAnimator.speed = 0f;
         this.gameObject.SetActive(false);
@@ -47,11 +64,5 @@ public class OnlyOnceTimeAnimation : MonoBehaviour
         PoolingManager.Instance.OnlyOnceAnimators.Queue.Enqueue(this);
     }
 
-    private void Update()
-    {
-        if (ThisAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
-        {
-            EndAnim();
-        }
-    }
+    #endregion
 }

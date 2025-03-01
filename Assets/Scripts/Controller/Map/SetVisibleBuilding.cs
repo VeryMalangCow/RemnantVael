@@ -22,15 +22,15 @@ public class SetVisibleBuilding : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (IsColliding() && IsCompletlyVisible == true)
+        if (Is_Colliding() && IsCompletlyVisible == true)
         {
             IsCompletlyVisible = false;
-            SetVisible(HalfVisibleValue);
+            Set_Visible(HalfVisibleValue);
         }
-        else if (!IsColliding() && IsCompletlyVisible == false)
+        else if (!Is_Colliding() && IsCompletlyVisible == false)
         {
             IsCompletlyVisible = true;
-            SetVisible(1f);
+            Set_Visible(1f);
         }
     }
 
@@ -52,12 +52,12 @@ public class SetVisibleBuilding : MonoBehaviour
 
     #region Set State
 
-    public bool IsColliding()
+    public bool Is_Colliding()
     {
         return currentCollisions.Count > 0;
     }
 
-    private void SetVisible(float _Alpha)
+    private void Set_Visible(float _Alpha)
     {
         if (ThisSeq != null && DOTween.IsTweening(ThisSeq))
         { DOTween.Kill(ThisSeq); }

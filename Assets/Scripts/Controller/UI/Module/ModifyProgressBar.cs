@@ -32,7 +32,7 @@ public class ModifyProgressBar : UIModule
 
     public override void Offset()
     {
-        SetFillImgSmooth(0, 1);
+        Set_FillImgSmooth(0, 1);
 
         TryGetComponent(out RectTransform thisRT);
         ThisRT = thisRT;
@@ -40,14 +40,14 @@ public class ModifyProgressBar : UIModule
 
     private void LateUpdate()
     {
-        ActualImgLiner.localPosition = GetLinerPos();
+        ActualImgLiner.localPosition = Get_LinerPos();
     }
 
     #endregion
 
     #region Unique -> Max
 
-    public void SetMaxFillRT(float _SizeX)
+    public void Set_MaxFillRT(float _SizeX)
     {
         if(ThisRT == null && TryGetComponent(out RectTransform thisRT))
         {
@@ -64,19 +64,19 @@ public class ModifyProgressBar : UIModule
 
     #region Unique -> Current
 
-    public void SetFillImgSmooth(float _CurrentValue, float _MaxValue)
+    public void Set_FillImgSmooth(float _CurrentValue, float _MaxValue)
     {
         float fillValue = _CurrentValue / _MaxValue;
 
         DOTween.Kill(ActualImg.fillAmount);
         ActualImg.DOFillAmount(fillValue, 0.1f);
 
-        StartCoroutine(SetFillImgSmooth_AfterImg());
+        StartCoroutine(Set_FillImgSmooth_AfterImg_Cor());
         if (Txt != null)
         { Txt.text = (int)_CurrentValue + "<size=70%>/" + (int)_MaxValue + "</size>"; }
     }
 
-    private IEnumerator SetFillImgSmooth_AfterImg()
+    private IEnumerator Set_FillImgSmooth_AfterImg_Cor()
     {
         DOTween.Kill(AfterImg.fillAmount);
 
@@ -93,7 +93,7 @@ public class ModifyProgressBar : UIModule
     }
 
 
-    public void SetFillFullImgSmooth(float _DurTime)
+    public void Set_FillFullImgSmooth(float _DurTime)
     {
         DOTween.Kill(ActualImg.fillAmount);
         ActualImg.DOFillAmount(1f, _DurTime)
@@ -106,9 +106,9 @@ public class ModifyProgressBar : UIModule
 
     #endregion
 
-    #region Unique -> simplify
+    #region Unique -> Simplify
 
-    public void SetNoNum()
+    public void Set_NoNum()
     {
         if (Txt != null)
         { Txt.text = ""; }
@@ -118,7 +118,7 @@ public class ModifyProgressBar : UIModule
 
     #region Liner
 
-    private Vector2 GetLinerPos()
+    private Vector2 Get_LinerPos()
     {
         if (ThisRT != null)
         {

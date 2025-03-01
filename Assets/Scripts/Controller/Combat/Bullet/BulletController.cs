@@ -35,7 +35,7 @@ public class BulletController : HaveShadowThingMovable
 
     #region State
 
-    public void ResetState()
+    public void Reset_State()
     {
         BulletState.ResetState();
         
@@ -48,7 +48,7 @@ public class BulletController : HaveShadowThingMovable
         TargetEnemyController = null;
     }
 
-    public virtual void SetState(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _TargetRange)
+    public virtual void Set_State(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _TargetRange)
     {
         CurrentAliveTime = 0;
 
@@ -76,7 +76,7 @@ public class BulletController : HaveShadowThingMovable
 
         if (CurrentAliveTime >= BulletState.AliveTime)
         {
-            DeleteThis();
+            Remove_Object();
             return;
         }
 
@@ -86,11 +86,11 @@ public class BulletController : HaveShadowThingMovable
             {
                 if (TargetEnemyController != null && TargetEnemyController.gameObject.activeSelf)
                 {
-                    SetTargetDir();
+                    Set_TargetDir();
                 }
                 else
                 {
-                    SetTarget();
+                    Set_Target();
                 }
             }
 
@@ -101,9 +101,9 @@ public class BulletController : HaveShadowThingMovable
 
     #endregion
 
-    #region Delete
+    #region Remove
 
-    protected virtual void DeleteThis()
+    protected virtual void Remove_Object()
     {
         switch (PoolingString)
         {
@@ -136,7 +136,7 @@ public class BulletController : HaveShadowThingMovable
                 break;
         }
 
-        ResetState();
+        Reset_State();
         this.gameObject.SetActive(false);
     }
 
@@ -144,14 +144,14 @@ public class BulletController : HaveShadowThingMovable
 
     #region Angle Vector Things
 
-    protected Vector2 GetDirByAngle(float _Angle)
+    protected Vector2 Get_DirByAngle(float _Angle)
     {
         return new Vector2(
                     Mathf.Cos((_Angle + 90) * Mathf.Deg2Rad),
                     Mathf.Sin((_Angle + 90) * Mathf.Deg2Rad)).normalized;
     }
 
-    protected Quaternion GetRotByVec2(Vector2 _Dir)
+    protected Quaternion Get_RotByVec2(Vector2 _Dir)
     {
         return Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
     }
@@ -160,13 +160,13 @@ public class BulletController : HaveShadowThingMovable
 
     #region Induction
 
-    protected void SetTarget()
+    protected void Set_Target()
     {
         TargetEnemyController = null;
-        TargetEnemyController = EnemyManager.Instance.GetClosestEnemy(this.transform.position);
+        TargetEnemyController = EnemyManager.Instance.Get_ClosestEnemy(this.transform.position);
     }
 
-    protected void SetTargetDir()
+    protected void Set_TargetDir()
     {
         if (TargetEnemyController != null)
         {

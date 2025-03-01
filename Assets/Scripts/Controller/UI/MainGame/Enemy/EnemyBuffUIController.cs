@@ -40,7 +40,7 @@ public class EnemyBuffUIController : MonoBehaviour
     #region Get & Set
 
     // 사용하지 않는 중인 버프 Icon UI
-    public ModifyBuffIcon GetBuffIconUI()
+    public ModifyBuffIcon Get_BuffIconUI()
     {
         for (int i = 0; i < BuffIconUIs.Count; i++)
         {
@@ -49,7 +49,7 @@ public class EnemyBuffUIController : MonoBehaviour
                 if (!UsingBuffIconUIs.Contains(BuffIconUIs[i]))
                 { UsingBuffIconUIs.Add(BuffIconUIs[i]); }
 
-                SetBuffUIPos();
+                Set_BuffUIPos();
 
                 return BuffIconUIs[i];
             }
@@ -58,18 +58,18 @@ public class EnemyBuffUIController : MonoBehaviour
     }
 
     // 사용중인 버프 Icon UI 리스트에서 제거
-    public void ExpiredBuffIconUI(ModifyBuffIcon _BuffIconUI)
+    public void Remove_BuffIconUI(ModifyBuffIcon _BuffIconUI)
     {
-        _BuffIconUI.Off();
+        _BuffIconUI.SetOff();
 
         if (UsingBuffIconUIs.Contains(_BuffIconUI))
         { UsingBuffIconUIs.Remove(_BuffIconUI); }
 
-        SetBuffUIPos();
+        Set_BuffUIPos();
     }
 
     // 현재 진행 중인 버프의 종류가 바뀔 때 마다 실행
-    private void SetBuffUIPos()
+    private void Set_BuffUIPos()
     {
         for (int i = 0; i < UsingBuffIconUIs.Count; i++)
         {

@@ -32,24 +32,24 @@ public class BuffDmgController : BuffController
 
     #region Buff
 
-    public override void GainBuff()
+    public override void Gain_Buff()
     {
-        base.GainBuff();
+        base.Gain_Buff();
 
         PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.GainBuff(Multiple); 
         PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.SetBuffedState();
     }
 
-    public override void ReductBuff()
+    public override void Reduct_Buff()
     {
-        base.ReductBuff();
+        base.Reduct_Buff();
 
         PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.SetBuffedState();
     }
 
-    public override void EndBuff()
+    public override void End_Buff()
     {
-        base.EndBuff();
+        base.End_Buff();
 
         PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.RemoveBuff(Multiple);
         PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.SetBuffedState();

@@ -25,7 +25,7 @@ public class ModifySprite : UIModule
 
     public override void Offset()
     {
-        Modify_Sprite(0);
+        Change_Sprite(0);
         CompleteImg.gameObject.SetActive(false);
     }
 
@@ -33,7 +33,7 @@ public class ModifySprite : UIModule
 
     #region Unique
 
-    public void Modify_Sprite(int _Level)
+    public void Change_Sprite(int _Level)
     {
         Img.sprite = LevelSpr[_Level];
 
@@ -47,7 +47,7 @@ public class ModifySprite : UIModule
             });
     }
 
-    public void Complete(float _StayTime, float _FadeDurTime)
+    public void Set_Complete(float _StayTime, float _FadeDurTime)
     {
         if (DotweenSeq != null && DOTween.IsTweening(DotweenSeq))
         { DOTween.Kill(DotweenSeq); }

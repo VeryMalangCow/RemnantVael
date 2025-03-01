@@ -222,42 +222,43 @@ public class PlayerController : MovableObject
         CurrentInteractable
             .Subscribe(interact =>
             {
-                MainGameUIManager.Instance.PlayerHUD_UIController.SetStateInteractUI();
-                MainGameUIManager.Instance.InteractAnno_UIController.SetOnOffUI();
+                MainGameUIManager.Instance.PlayerHUD_UIController.Set_StateInteractUI();
+                MainGameUIManager.Instance.InteractAnno_UIController.Set_UI();
             });
 
-        SetBaseAnimTween();
+        Set_BaseAnimTween();
 
-        StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
-        SetBoostAnim(CurrentBoostLv.Value, MaxBoostLv);
-        MoveDirStateAnim.SetAnim(MoveDirAC);
-        SetOffRoomMoveDir();
+        StateAnim.Set_Anim(PhysicsStateAC, 0.8f, 1f);
+        Set_BoostAnim(CurrentBoostLv.Value, MaxBoostLv);
+        MoveDirStateAnim.Set_Anim(MoveDirAC);
+        SetOff_RoomMoveDir();
     }
+
 
     protected override void Update()
     {
         base.Update();
-        AlwaysCaculate();
+        Caculate_Always();
         //ModuleItemManager.Instance.ActiveSkill_Always();
-        SetOnOffMoveDir();
+        Set_MoveDir();
     }
 
 
     private void FixedUpdate()
     {
-        Movement();
+        Play_Movement();
     }
 
     private void LateUpdate()
     {
-        MainGameUIManager.Instance.InteractAnno_UIController.SetPosIfNot(CurrentInteractable.Value);
+        MainGameUIManager.Instance.InteractAnno_UIController.Set_PosIfNot(CurrentInteractable.Value);
     }
 
     #endregion
 
     #region Stage
 
-    public void SetPastStartStage()
+    public void Set_PastStartStage()
     {
         if (this.TryGetComponent(out SortingGroup SG))
         { 
@@ -270,7 +271,7 @@ public class PlayerController : MovableObject
 
     }
 
-    public void SetStartStage()
+    public void Set_StartStage()
     {
         if (this.TryGetComponent(out SortingGroup SG))
         {
@@ -286,7 +287,7 @@ public class PlayerController : MovableObject
 
     }
 
-    public void SetEndStage()
+    public void Set_EndStage()
     {
         if (this.TryGetComponent(out SortingGroup SG))
         {
@@ -295,21 +296,19 @@ public class PlayerController : MovableObject
         }
 
         StateAnim.transform.parent.transform.gameObject.SetActive(false);
-
-        //InputManager.Instance.OnDisableInput();
     }
 
     #endregion
 
     #region Energy
 
-    public void IncreaseMaxEP(float _AddValue)
+    public void Add_MaxEP(float _AddValue)
     {
         MaxEP.ActualState.Value += _AddValue;
-        AddCurrentEP(_AddValue);
+        Add_CurrentEP(_AddValue);
     }
 
-    public void AddCurrentEP(float _AddValue)
+    public void Add_CurrentEP(float _AddValue)
     {
         float result = CurrentEP.Value + _AddValue;
         result = Math.Max(result, 0);
@@ -319,11 +318,11 @@ public class PlayerController : MovableObject
 
         if (CurrentEP.Value <= 0)
         {
-            Die();
+            Set_Die();
         }
     }
 
-    public float PercentHP(float _Percent)
+    public float Get_PercentHP(float _Percent)
     {
         return (_Percent / 100) * MaxEP.ActualState.Value;
     }
@@ -332,7 +331,7 @@ public class PlayerController : MovableObject
 
     #region Bettery
 
-    public void AddCurrentBS(int _AddValue)
+    public void Add_CurrentBS(int _AddValue)
     {
         CurrentBS.Value += _AddValue;
         while(true)
@@ -341,7 +340,7 @@ public class PlayerController : MovableObject
             {
                 CurrentBS.Value -= NeedBS_ForMakeBC;
                 CurrentBC.Value++;
-                MainGameUIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Complete(0.3f, 0.2f);
+                MainGameUIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Set_Complete(0.3f, 0.2f);
             }
             else
             {
@@ -350,7 +349,7 @@ public class PlayerController : MovableObject
         }
     }
 
-    private void ChargeBettery()
+    private void Set_ChargeBettery()
     {
         this.CurrentEP.Value -= NeedEP_ForMakeEC;
         CurrentBC.Value--;
@@ -362,7 +361,7 @@ public class PlayerController : MovableObject
     #region Shield
 
     // Get total
-    private float GetTotalShield()
+    private float Get_TotalShield()
     {
         float totalShield = 0;
         if (ShieldElements.Count > 0)
@@ -376,18 +375,18 @@ public class PlayerController : MovableObject
     }
 
     // Gain Shield
-    public void GainShield(Shield _S)
+    public void Gain_Shield(Shield _S)
     {
         if (ShieldElements.Contains(_S))
         {
             ShieldElements.Remove(_S);
         }
         ShieldElements.Insert(0, _S);
-        MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
+        MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
     }
 
     // Remove Shield
-    public void RemoveShield(Shield _S)
+    public void Remove_Shield(Shield _S)
     {
         if (ShieldElements.Contains(_S))
         {
@@ -395,22 +394,20 @@ public class PlayerController : MovableObject
             {
                 if (CurrentBuffs[i] is BuffShieldController BSC && BSC.ThisShield == _S)
                 {
-                    BSC.EndBuff();
+                    BSC.End_Buff();
                 }
             }
 
             ShieldElements.Remove(_S);
         }
-        MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
+        MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
     }
-
-
 
     #endregion
 
     #region Module
 
-    public void AddCurrentMS(int _AddValue)
+    public void Add_CurrentMS(int _AddValue)
     {
         CurrentMS.Value += _AddValue;
     }
@@ -419,23 +416,23 @@ public class PlayerController : MovableObject
 
     #region Movement
 
-    private void Movement()
+    private void Play_Movement()
     {
         switch(MovementState)
         {
             case eMovementState.IdleOrWalk:
                 if(BaseWeapon.CurrentDelayROF >= 1)
                 {
-                    Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value, AccelerationSpeed);
+                    Play_Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value, AccelerationSpeed);
                 }
                 else
                 {
-                    Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value * WalkSpeedWhenShotMultiple.ActualState.Value, AccelerationSpeed);
+                    Play_Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value * WalkSpeedWhenShotMultiple.ActualState.Value, AccelerationSpeed);
                 }
                 break;
 
             case eMovementState.Dash:
-                DashController.Dash();
+                DashController.Play_Dash();
                 break;
 
             default: break;
@@ -443,15 +440,15 @@ public class PlayerController : MovableObject
     }
 
 
-    public void CanDashCheck()
+    public void Set_DashCheck()
     {
-        if (!CanChange() || DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value >= CurrentEP.Value)
+        if (!Can_Change() || DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value >= CurrentEP.Value)
         {
             return;
         }
 
         InputManager.Instance.IsPlayingSkill = true;
-        PlayerMAI.StartGen(0.7f, 0.03f, 0.5f);
+        PlayerMAI.Start_Gen(0.7f, 0.03f, 0.5f);
 
 
         CurrentEP.Value -= DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value;
@@ -463,16 +460,16 @@ public class PlayerController : MovableObject
     #region Damage
 
     // 타격: 총알
-    public void TryHitted(EnemyBulletController _EBC)
+    public void Try_Hitted(EnemyBulletController _EBC)
     {
         if (IsInvincible)
         { return; }
 
         // 항상
-        Hitted();
+        Play_Hitted();
 
         // 피격
-        if (!IsAvoid()) // 회피인지?
+        if (!Is_Avoid()) // 회피인지?
         {
             // 간소화
             BulletState state = _EBC.BulletState;
@@ -483,7 +480,7 @@ public class PlayerController : MovableObject
                 state.BaseDamage * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
 
             // 데미지 구현
-            TakeDamaged(actualDmg,
+            Take_Damaged(actualDmg,
                 ((Vector2)transform.position - (Vector2)_EBC.transform.position).normalized,
                 state.AbleKnockback,
                 state.KnockbackPower,
@@ -492,16 +489,16 @@ public class PlayerController : MovableObject
     }
 
     // 타격: 어택커
-    public void TryHitted(EnemyAttacker _Attacker)
+    public void Try_Hitted(EnemyAttacker _Attacker)
     {
         if (IsInvincible)
         { return; }
 
         // 항상
-        Hitted();
+        Play_Hitted();
 
         // 피격
-        if (!IsAvoid()) // 회피인지?
+        if (!Is_Avoid()) // 회피인지?
         {
             // 간소화
             AttackerState state = _Attacker.AttackerState;
@@ -512,7 +509,7 @@ public class PlayerController : MovableObject
                 state.BaseDamage * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
 
             // 데미지 구현
-            TakeDamaged(actualDmg, 
+            Take_Damaged(actualDmg, 
                 ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
                 state.AbleKnockback,
                 state.KnockbackPower,
@@ -521,22 +518,22 @@ public class PlayerController : MovableObject
     }
 
     // 타격: 건물어택커
-    public void TryHitted(BuildAttacker _Attacker)
+    public void Try_Hitted(BuildAttacker _Attacker)
     {
         if (IsInvincible)
         { return; }
 
         // 항상
-        Hitted();
+        Play_Hitted();
 
         // 피격
-        if (!IsAvoid()) // 회피인지?
+        if (!Is_Avoid()) // 회피인지?
         {
             // 간소화
             AttackerState state = _Attacker.AttackerState;
 
             // 데미지 구현
-            TakeDamaged(state.BaseDamage,
+            Take_Damaged(state.BaseDamage,
                 ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
                 state.AbleKnockback,
                 state.KnockbackPower,
@@ -545,19 +542,19 @@ public class PlayerController : MovableObject
     }
 
     // 회피?
-    public bool IsAvoid()
+    public bool Is_Avoid()
     {
         // 회피
         if (UnityEngine.Random.Range(0f, 1f) < AvoidChance.ActualState.Value)
         {
-            Avoided();
+            Play_Avoid();
             return true;
         }
         return false;
     }
 
     // 맞을 때, 효과
-    private void Hitted()
+    private void Play_Hitted()
     {
         IsInvincible = true;
         CurrentInvincibleTime = 0f;
@@ -576,27 +573,27 @@ public class PlayerController : MovableObject
     }
 
     // 데미지 계산
-    private void TakeDamaged(float _DmgValue, Vector2 _HittedDir, bool _AbleKB, float _KBPower, float _KBTime)
+    private void Take_Damaged(float _DmgValue, Vector2 _HittedDir, bool _AbleKB, float _KBPower, float _KBTime)
     {
         // Multiple
         _DmgValue *= TakingDmgMultiple.BuffedState;
 
         // Effect
-        PlayerManager.Instance.CameraController.PlayDamagedAnim(MaxInvincibleTime, _DmgValue * 0.1f, _HittedDir);
+        PlayerManager.Instance.CameraController.Play_DamagedAnim(MaxInvincibleTime, _DmgValue * 0.1f, _HittedDir);
 
         // Knockback
         if (_AbleKB)
-        { GetKnockback(new KnockbackState(_HittedDir, _KBPower, _KBTime)); }
+        { Get_Knockback(new KnockbackState(_HittedDir, _KBPower, _KBTime)); }
 
         // Damage
-        TakeDamaged(_DmgValue);
+        Take_Damaged(_DmgValue);
     }
 
     // 오직 데미지만 계산 (넉백, 애니메이션 등 없음)
-    public void TakeDamaged(float _DmgValue)
+    public void Take_Damaged(float _DmgValue)
     {
         float Dmg = _DmgValue;
-        MainGameUIManager.Instance.PlayerHUD_UIController.HittedPlayScreen(Dmg);
+        MainGameUIManager.Instance.PlayerHUD_UIController.Play_HittedPlayScreen(Dmg);
         if (ShieldElements.Count > 0)
         {
             for (int i = ShieldElements.Count - 1; i >= 0; i--)
@@ -606,24 +603,24 @@ public class PlayerController : MovableObject
                 {
                     Dmg -= ShieldElements[i].ShieldCurrentValue;
 
-                    RemoveShield(ShieldElements[i]); // 쉴드 감소
+                    Remove_Shield(ShieldElements[i]); // 쉴드 감소
                 }
                 else // 쉴드 버프가 데미지를 버틸 수 있으면
                 {
                     ShieldElements[i].ShieldCurrentValue -= Dmg;
                     Dmg = 0;
-                    MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
+                    MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
                     return;
                 }
             }
         }
-        AddCurrentEP(-Dmg);
-        MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
+        Add_CurrentEP(-Dmg);
+        MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
         BuffManager.Instance.Active_Hitted();
     }
 
     // 추가 데미지 계산 (맞을 때 발생하는 이벤트, 넉벡, 애니메이션 등 없음)
-    public void TakeExtraDamage(float _DmgValue)
+    public void Take_ExtraDamage(float _DmgValue)
     {
         float Dmg = _DmgValue;
         if (ShieldElements.Count > 0)
@@ -635,29 +632,29 @@ public class PlayerController : MovableObject
                 {
                     Dmg -= ShieldElements[i].ShieldCurrentValue;
 
-                    RemoveShield(ShieldElements[i]); // 쉴드 감소
+                    Remove_Shield(ShieldElements[i]); // 쉴드 감소
                 }
                 else // 쉴드 버프가 데미지를 버틸 수 있으면
                 {
                     ShieldElements[i].ShieldCurrentValue -= Dmg;
                     Dmg = 0;
-                    MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
+                    MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
                     return;
                 }
             }
         }
-        AddCurrentEP(-Dmg);
-        MainGameUIManager.Instance.PlayerHUD_UIController.SetShieldGage(GetTotalShield());
+        Add_CurrentEP(-Dmg);
+        MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
     }
 
     // 회피
-    private void Avoided()
+    private void Play_Avoid()
     {
-        PlayerManager.Instance.CameraController.PlayAvoidAnim(MaxInvincibleTime);
+        PlayerManager.Instance.CameraController.Play_AvoidAnim(MaxInvincibleTime);
 
         for (int i = 0; i < 4; i++)
         {
-            PlayerMEI.GenExplosionImgs(
+            PlayerMEI.Gen_ExplosionImgs(
                     TargetObject.transform.position,
                     6, 0.15f, 0.75f,
                     2.0f, 0.05f, 0.1f,
@@ -668,7 +665,7 @@ public class PlayerController : MovableObject
     }
 
     // 죽음
-    private void Die()
+    private void Set_Die()
     {
 
     }
@@ -678,7 +675,7 @@ public class PlayerController : MovableObject
     #region About Casting
 
     // Condition : Idle or Walk | No Casting Now 
-    private bool CanChange()
+    private bool Can_Change()
     {
         if (MovementState != eMovementState.IdleOrWalk || IsCasting)
         {
@@ -692,12 +689,12 @@ public class PlayerController : MovableObject
 
     // + None
     [HideInInspector] private const float CombatModeInterval = 0.75f;
-    public void CanChange_CombatModeCheck()
+    public void Try_CombatModeCheck()
     {
-        if (!CanChange()) 
+        if (!Can_Change()) 
         { return; }
 
-        StateAnim.SetAnim(ChangeStateAC, ChangeState_DamageType, 2f, 1f);
+        StateAnim.Set_Anim(ChangeStateAC, ChangeState_DamageType, 2f, 1f);
 
         switch (TargetCombatMode)
         {
@@ -713,104 +710,104 @@ public class PlayerController : MovableObject
                 break;
         }
 
-        StartCasting(CombatModeInterval);
+        Start_Casting(CombatModeInterval);
     }
 
 
     // + Not over the Max Boost Level
     [HideInInspector] private const float BoostModeInterval = 0.5f;
-    public void CanChange_BoostModeCheck()
+    public void Try_BoostModeCheck()
     {
-        if (!CanChange() || TargetBoostlv >= MaxBoostLv)
+        if (!Can_Change() || TargetBoostlv >= MaxBoostLv)
         { return; }
 
         TargetBoostlv++;
-        StateAnim.SetAnim(ChangeStateAC, ChangeState_BoostUp, 2f, 1f);
+        StateAnim.Set_Anim(ChangeStateAC, ChangeState_BoostUp, 2f, 1f);
 
-        StartCasting(BoostModeInterval);
+        Start_Casting(BoostModeInterval);
     }
 
 
     // + BoostLevel != 0
     [HideInInspector] private const float UnBoostModeInterval = 0.25f;
-    public void CanChange_UnBoostModeCheck()
+    public void Try_UnBoostModeCheck()
     {
-        if (!CanChange() || CurrentBoostLv.Value <= 0)
+        if (!Can_Change() || CurrentBoostLv.Value <= 0)
         { return; }
 
         TargetBoostlv--;
-        StateAnim.SetAnim(ChangeStateAC, ChangeState_BoostDown, 2f, 1f);
+        StateAnim.Set_Anim(ChangeStateAC, ChangeState_BoostDown, 2f, 1f);
 
-        StartCasting(UnBoostModeInterval);
+        Start_Casting(UnBoostModeInterval);
     }
 
 
     // + Enough EP | Enough BC
     [HideInInspector] private const float ChargeBetteryInterval = 1f;
-    public void CanChange_ChargeBettery()
+    public void Try_ChargeBettery()
     {
-        if (!CanChange() ||
+        if (!Can_Change() ||
             NeedEP_ForMakeEC >= this.CurrentEP.Value ||
             CurrentBC.Value <= 0) 
         { return; }
 
-        ReservationSkillDele = ChargeBettery;
+        ReservationSkillDele = Set_ChargeBettery;
 
-        StartCasting(ChargeBetteryInterval);
+        Start_Casting(ChargeBetteryInterval);
     }
 
 
     // + None
     [HideInInspector] public float ExecutionInterval = 0.75f;
-    public void CanChange_Execution()
+    public void Try_Execution()
     {
-        if (!CanChange())
+        if (!Can_Change())
         { return; }
 
         if (CurrentInteractable.Value is EnemyController EC)
         {
-            EC.Interact();
+            EC.Play_Interact();
         }
 
-        StartCasting(ExecutionInterval);
+        Start_Casting(ExecutionInterval);
     }
 
     // + None
     [HideInInspector] public float Skill0Interval = 0.5f;
-    public void CanChange_Skill0()
+    public void Try_Skill0()
     {
-        if (!CanChange())
+        if (!Can_Change())
         { return; }
-        if (!SkillWeapon.Skill_0.CanActive())
+        if (!SkillWeapon.Skill_0.Can_Active())
         {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.StartNotEnoughEP();
+            MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Start_NotEnoughEP();
             return;
         }
 
-        ReservationSkillDele = SkillWeapon.Skill_0.ActiveSkill;
-        StateAnim.SetAnim(ChangeStateAC, ChangeState_Skill0, 2f, 1f);
+        ReservationSkillDele = SkillWeapon.Skill_0.Active_Skill;
+        StateAnim.Set_Anim(ChangeStateAC, ChangeState_Skill0, 2f, 1f);
 
-        StartCasting(Skill0Interval);
+        Start_Casting(Skill0Interval);
     }
 
     [HideInInspector] public float Skill1Interval = 0.5f;
-    public void CanChange_Skill1()
+    public void Try_Skill1()
     {
-        if (!CanChange())
+        if (!Can_Change())
         { return; }
-        if (!SkillWeapon.Skill_1.CanActive())
+        if (!SkillWeapon.Skill_1.Can_Active())
         {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.StartNotEnoughEP();
+            MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Start_NotEnoughEP();
             return;
         }
 
-        ReservationSkillDele = SkillWeapon.Skill_1.ActiveSkill;
-        StateAnim.SetAnim(ChangeStateAC, ChangeState_Skill1, 2f, 1f);
+        ReservationSkillDele = SkillWeapon.Skill_1.Active_Skill;
+        StateAnim.Set_Anim(ChangeStateAC, ChangeState_Skill1, 2f, 1f);
 
-        StartCasting(Skill1Interval);
+        Start_Casting(Skill1Interval);
     }
 
-    public void StartCasting(float _CastingTime)
+    public void Start_Casting(float _CastingTime)
     {
         TargetCastingTime = _CastingTime;
         IsCasting = true;
@@ -824,38 +821,38 @@ public class PlayerController : MovableObject
 
     #region Interact
 
-    public void TryInteract()
+    public void Try_Interact()
     {
         if(CurrentInteractable.Value != null && CurrentInteractableGOList.Count > 0)
         {
             if (CurrentInteractable.Value is InteractItemController IIC) // Item
             {
-                CurrentInteractable.Value.Interact();
+                CurrentInteractable.Value.Play_Interact();
                 CurrentInteractable.Value = null;
             }
             else if (CurrentInteractable.Value is EnemyController EC) // Enemy
             {
                 if (EC.IsDischarge)
                 {
-                    CanChange_Execution();
+                    Try_Execution();
                 }
                 CurrentInteractable.Value = null;
             }
             else if (CurrentInteractable.Value is DownstartElevatorController DEC && DEC.IsOn)
             {
-                CurrentInteractable.Value.Interact();
+                CurrentInteractable.Value.Play_Interact();
                 CurrentInteractable.Value = null;
             }
             else if (CurrentInteractable.Value is DestructibleBuildController DBC && !DBC.IsBroken)
             {
-                CurrentInteractable.Value.Interact();
+                CurrentInteractable.Value.Play_Interact();
             }
             else // OneOffShopController |OR| ...
             {
-                CurrentInteractable.Value.Interact();
+                CurrentInteractable.Value.Play_Interact();
             }
 
-            MainGameUIManager.Instance.PlayerHUD_UIController.SetUseInteractUI();
+            MainGameUIManager.Instance.PlayerHUD_UIController.Set_UseInteractUI();
         }
     }
 
@@ -865,14 +862,14 @@ public class PlayerController : MovableObject
 
     #region Time
 
-    private void AlwaysCaculate()
+    private void Caculate_Always()
     {
-        CastingCaculate();
-        BoostingCaculate(CurrentBoostLv.Value);
-        InvincibleCaculate();
+        Caculate_Casting();
+        Caculate_Boosting(CurrentBoostLv.Value);
+        Caculate_Invincible();
     }
 
-    private void CastingCaculate()
+    private void Caculate_Casting()
     {
         if (IsCasting)
         {
@@ -887,23 +884,23 @@ public class PlayerController : MovableObject
                 MovementState = eMovementState.IdleOrWalk;
                 InputManager.Instance.IsPlayingSkill = false;
 
-                If_CombatMode();
-                If_Skill();
-                If_Boost();
+                Set_CombatMode();
+                Set_Skill();
+                Set_Boost();
             }
         }
     }
 
-    private void BoostingCaculate(int _BoostLv)
+    private void Caculate_Boosting(int _BoostLv)
     {
         if(_BoostLv > 0)
         {
             float decValue = DecEnergyPointByLevel[_BoostLv - 1] * DecEnergyPointMultiple.ActualState.Value;
-            AddCurrentEP(-decValue * Time.deltaTime);
+            Add_CurrentEP(-decValue * Time.deltaTime);
         }
     }
 
-    private void InvincibleCaculate()
+    private void Caculate_Invincible()
     {
         if (IsInvincible)
         {
@@ -924,7 +921,7 @@ public class PlayerController : MovableObject
 
     #region By Condition
 
-    private void If_CombatMode()
+    private void Set_CombatMode()
     {
         if(CombatMode != TargetCombatMode)
         {
@@ -948,13 +945,13 @@ public class PlayerController : MovableObject
         switch (TargetCombatMode)
         {
             case eCombatMode.Physics:
-                StateAnim.SetAnim(PhysicsStateAC, 0.8f, 1f);
-                InputManager.Instance.AimController.SetPType();
+                StateAnim.Set_Anim(PhysicsStateAC, 0.8f, 1f);
+                InputManager.Instance.AimController.Set_PType();
                 break;
 
             case eCombatMode.Energy:
-                StateAnim.SetAnim(EnergyStateAC, 0.8f, 1f);
-                InputManager.Instance.AimController.SetEType();
+                StateAnim.Set_Anim(EnergyStateAC, 0.8f, 1f);
+                InputManager.Instance.AimController.Set_EType();
                 break;
 
             default:
@@ -962,7 +959,7 @@ public class PlayerController : MovableObject
         }
     }
 
-    private void If_Skill()
+    private void Set_Skill()
     {
         if(ReservationSkillDele != null)
         {
@@ -971,22 +968,13 @@ public class PlayerController : MovableObject
         }
     }
 
-    private void If_Boost()
+    private void Set_Boost()
     {
         if(CurrentBoostLv.Value != TargetBoostlv)
         {
             CurrentBoostLv.Value = TargetBoostlv;
-            SetBoostAnim(CurrentBoostLv.Value, MaxBoostLv);
+            Set_BoostAnim(CurrentBoostLv.Value, MaxBoostLv);
         }
-    }
-
-    #endregion
-
-    #region Multiple
-
-    private float MultipleValueFloat(float _OriginalValue, float Multiple)
-    {
-        return _OriginalValue * Multiple;
     }
 
     #endregion
@@ -1082,7 +1070,7 @@ public class PlayerController : MovableObject
     #region Effect
 
 
-    private void SetBoostAnim(int _Index, int _MaxIndex)
+    private void Set_BoostAnim(int _Index, int _MaxIndex)
     {
         float lowestAnimSpeed = 0.5f;
 
@@ -1091,7 +1079,7 @@ public class PlayerController : MovableObject
         {
             for (int i = 0; i < _MaxIndex - 1; i++)
             {
-                BoostStateAnimList[i].SetAnim(BoostOnAC, lowestAnimSpeed * (_MaxIndex * 2), 1f);
+                BoostStateAnimList[i].Set_Anim(BoostOnAC, lowestAnimSpeed * (_MaxIndex * 2), 1f);
             }
         }
         else
@@ -1100,11 +1088,11 @@ public class PlayerController : MovableObject
             {
                 if (i < _Index)
                 {
-                    BoostStateAnimList[i].SetAnim(BoostOnAC, lowestAnimSpeed * (_Index - i + 1), 1f);
+                    BoostStateAnimList[i].Set_Anim(BoostOnAC, lowestAnimSpeed * (_Index - i + 1), 1f);
                 }
                 else
                 {
-                    BoostStateAnimList[i].SetAnim(BoostOffAC, lowestAnimSpeed, 1f);
+                    BoostStateAnimList[i].Set_Anim(BoostOffAC, lowestAnimSpeed, 1f);
                 }
             }
         }
@@ -1118,28 +1106,28 @@ public class PlayerController : MovableObject
         {
             case 1:
                 BoostStateVFXAnimList[0].gameObject.SetActive(true);
-                BoostStateVFXAnimList[0].SetAnim(BoostVFXAnimList[0], 0.5f, 1f);
+                BoostStateVFXAnimList[0].Set_Anim(BoostVFXAnimList[0], 0.5f, 1f);
                 break;
 
             case 2:
                 BoostStateVFXAnimList[0].gameObject.SetActive(true);
-                BoostStateVFXAnimList[0].SetAnim(BoostVFXAnimList[0], 1f, 1f);
+                BoostStateVFXAnimList[0].Set_Anim(BoostVFXAnimList[0], 1f, 1f);
                 break;
 
             case 3:
                 BoostStateVFXAnimList[0].gameObject.SetActive(true);
-                BoostStateVFXAnimList[0].SetAnim(BoostVFXAnimList[0], 1f, 1f);
+                BoostStateVFXAnimList[0].Set_Anim(BoostVFXAnimList[0], 1f, 1f);
 
                 BoostStateVFXAnimList[1].gameObject.SetActive(true);
-                BoostStateVFXAnimList[1].SetAnim(BoostVFXAnimList[1], 1f, 1f);
+                BoostStateVFXAnimList[1].Set_Anim(BoostVFXAnimList[1], 1f, 1f);
                 break;
 
             case 4:
                 BoostStateVFXAnimList[0].gameObject.SetActive(true);
-                BoostStateVFXAnimList[0].SetAnim(BoostVFXAnimList[0], 1.5f, 1f);
+                BoostStateVFXAnimList[0].Set_Anim(BoostVFXAnimList[0], 1.5f, 1f);
 
                 BoostStateVFXAnimList[1].gameObject.SetActive(true);
-                BoostStateVFXAnimList[1].SetAnim(BoostVFXAnimList[1], 1.5f, 1f);
+                BoostStateVFXAnimList[1].Set_Anim(BoostVFXAnimList[1], 1.5f, 1f);
                 break;
 
             default:
@@ -1150,7 +1138,7 @@ public class PlayerController : MovableObject
     }
 
 
-    private void SetOnRoomMoveDir(Vector2 _Dir)
+    private void SetOn_RoomMoveDir(Vector2 _Dir)
     {
         if (!MoveDirStateAnim.gameObject.activeSelf)
         { 
@@ -1159,7 +1147,7 @@ public class PlayerController : MovableObject
         }
     }
 
-    private void SetOffRoomMoveDir()
+    private void SetOff_RoomMoveDir()
     {
         if (MoveDirStateAnim.gameObject.activeSelf)
         {
@@ -1168,19 +1156,19 @@ public class PlayerController : MovableObject
     }
 
 
-    private void SetOnOffMoveDir()
+    private void Set_MoveDir()
     {
         if (CurrentInteractable.Value != null && 
             CurrentInteractable.Value is GateController GC &&
             GC.IsOpen)
-        { SetOnRoomMoveDir(GC.GateDir); }
+        { SetOn_RoomMoveDir(GC.GateDir); }
         else
-        { SetOffRoomMoveDir(); }
+        { SetOff_RoomMoveDir(); }
     }
 
 
 
-    public Color GetCorrectHitted_C(eDamageType _DamageType, bool _IsCritical)
+    public Color Get_Color_CorrectHitted(eDamageType _DamageType, bool _IsCritical)
     {
         if (_DamageType == eDamageType.Physics)
         {
@@ -1198,7 +1186,7 @@ public class PlayerController : MovableObject
         }
     }
 
-    public AnimationClip GetCorrectHitted_AC(eDamageType _DamageType, bool _IsCritical)
+    public AnimationClip Get_AnimClip_CorrectHitted(eDamageType _DamageType, bool _IsCritical)
     {
         if (_DamageType == eDamageType.Physics)
         {
@@ -1328,6 +1316,7 @@ public class Shield
     public float ShieldMaxValue;
     public float ShieldCurrentValue;
 }
+
 
 [System.Serializable]
 public class BuffState<T>

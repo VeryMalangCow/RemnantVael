@@ -34,9 +34,9 @@ public class MapIntroUIController : UIController
 
     #region Usable
 
-    public void OnIntroLabel()
+    public void SetOn_IntroLabel()
     {
-        StageManager.StageData sd = StageManager.Instance.GetCollectStageData(StageManager.Instance.TargetStageID);
+        StageManager.StageData sd = StageManager.Instance.Get_CollectStageData(StageManager.Instance.TargetStageID);
         MapNameTxt.text = sd.StageName;
         MapDescriptionTxt.text = sd.StageDescription;
 

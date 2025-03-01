@@ -38,12 +38,12 @@ public class OutMainGameUIController : PanelUIController
 
     #region Interact
 
-    public void TryInteractClick()
+    public void Try_Interact()
     {
         // Base Btns
         if (CurrentBtn == ResumeBtn)
         {
-            CloseThisPanel();
+            SetOff_ThisPanel();
         }
         else if (CurrentBtn == OptionBtn)
         {
@@ -51,7 +51,7 @@ public class OutMainGameUIController : PanelUIController
         }
         else if (CurrentBtn == QuitBtn)
         {
-            LoadingSceneManager.Instance.LoadScene("TitleLobby");
+            LoadingSceneManager.Instance.Play_LoadScene("TitleLobby");
         }
     }
 

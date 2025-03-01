@@ -32,14 +32,14 @@ public class DestructibleBuildController : InteractableBuildController
 
     protected virtual void Start()
     {
-        SetDurablity();
+        Set_Durablity();
     }
 
     #endregion
 
     #region About Break
 
-    public virtual void TakeDamage(bool _SpawnItem)
+    public virtual void Take_Damage(bool _SpawnItem)
     {
         if (!IsBroken)
         {
@@ -47,15 +47,15 @@ public class DestructibleBuildController : InteractableBuildController
             if (ThisDurablity <= 0)
             {
                 this.transform.DOShakePosition(0.7f, 0.2f, 20, 90, false, true);
-                Break(_SpawnItem);
+                Set_Break(_SpawnItem);
             }
             else
             {
                 this.transform.DOShakePosition(0.4f, 0.1f, 20, 90, false, true);
                 if (_SpawnItem)
-                { SpawnItem(); }
+                { Gen_Item(); }
             }
-            SetDurablityAmount(ThisDurablity);
+            Set_DurablityAmount(ThisDurablity);
         }
         else
         {
@@ -63,14 +63,14 @@ public class DestructibleBuildController : InteractableBuildController
         }
     }
 
-    protected virtual void Break(bool _SpawnItem)
+    protected virtual void Set_Break(bool _SpawnItem)
     {
         IsBroken = true;
-        ExplosionEffect();
-        ApplySetStateAnim();
+        Gen_ExplosionEffect();
+        Set_StateAnim();
     }
 
-    public virtual void SpawnItem()
+    public virtual void Gen_Item()
     {
 
     }
@@ -79,11 +79,11 @@ public class DestructibleBuildController : InteractableBuildController
 
     #region Anim
 
-    protected override void ApplySetStateAnim()
+    protected override void Set_StateAnim()
     {
         if (!IsBroken)
         {
-            base.ApplySetStateAnim();
+            base.Set_StateAnim();
         }
         else
         {
@@ -95,7 +95,7 @@ public class DestructibleBuildController : InteractableBuildController
             ThisAnimator.runtimeAnimatorController = aoc;
             ThisAnimator.speed = 1f;
 
-            ThisStateAnim.SetAnim(BrokenStateAC, 1f, 1f);
+            ThisStateAnim.Set_Anim(BrokenStateAC, 1f, 1f);
         }
     }
 
@@ -104,7 +104,7 @@ public class DestructibleBuildController : InteractableBuildController
     #region Durablity
 
 
-    private void SetDurablity()
+    private void Set_Durablity()
     {
         ThisDurablity = ThisMaxDurablity;
         float baseMinusX = (FrameIntervalX / 2) * (ThisMaxDurablity - 1);
@@ -139,7 +139,7 @@ public class DestructibleBuildController : InteractableBuildController
         }
     }
 
-    private void SetDurablityAmount(int _Durablity)
+    private void Set_DurablityAmount(int _Durablity)
     {
         for (int i = 0; i < ThisMaxDurablity; i++)
         {

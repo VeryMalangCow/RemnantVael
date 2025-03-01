@@ -43,14 +43,14 @@ public class MovableObject : HaveShadowThingMovable
     protected override void Update()
     {
         base.Update();
-        PlayKnockback();
+        Play_Knockback();
     }
 
     #endregion
 
     #region Movement
 
-    protected void Walk(Vector2 _MoveDir, float _MoveSpeed, float _AccelerationSpeed)
+    protected void Play_Walk(Vector2 _MoveDir, float _MoveSpeed, float _AccelerationSpeed)
     {
         Vector2 moveVelocity = _MoveDir * _MoveSpeed;
         Vector2 currentVelocity = ThisRb.velocity;
@@ -63,7 +63,7 @@ public class MovableObject : HaveShadowThingMovable
 
     #region Life
 
-    protected void SetIsDead(float _Life, float _Damage)
+    protected void Set_IsDead(float _Life, float _Damage)
     {
         if(_Life <= _Damage)
         {
@@ -79,7 +79,7 @@ public class MovableObject : HaveShadowThingMovable
     
     #region Have Shadow Thing
 
-    protected void SetBaseAnimTween()
+    protected void Set_BaseAnimTween()
     {
         BaseSeq = DOTween.Sequence();
 
@@ -104,21 +104,21 @@ public class MovableObject : HaveShadowThingMovable
 
     #region Knockback
 
-    private void PlayKnockback()
+    private void Play_Knockback()
     {
         if (KnockbackStateList.Count > 0)
         {
             for (int i = 0; i < KnockbackStateList.Count; i++)
             {
-                ThisRb.velocity += KnockbackStateList[i].GetKnockback() * Time.deltaTime * 10;
+                ThisRb.velocity += KnockbackStateList[i].Get_Knockback() * Time.deltaTime * 10;
             }
         }
     }
 
-    protected void GetKnockback(KnockbackState _KnockbackState)
+    protected void Get_Knockback(KnockbackState _KnockbackState)
     {
         KnockbackStateList.Add(_KnockbackState);
-        KnockbackStateList[KnockbackStateList.Count - 1].StartKnockback()
+        KnockbackStateList[KnockbackStateList.Count - 1].Start_Knockback()
             .OnComplete(() =>
             {
                 KnockbackStateList.Remove(KnockbackStateList[KnockbackStateList.Count - 1]);
@@ -139,12 +139,12 @@ public class MovableObject : HaveShadowThingMovable
             Time = _KnockbackTime;
         }
 
-        public Tween StartKnockback()
+        public Tween Start_Knockback()
         {
             return DOTween.To(() => Power, x => Power = x, 0, Time);
         }
 
-        public Vector2 GetKnockback()
+        public Vector2 Get_Knockback()
         {
             return Dir.normalized * Power;
         }

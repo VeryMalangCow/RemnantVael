@@ -48,14 +48,14 @@ public class ChoiceCharacterUIController : PanelUIController
 
     #region Input
 
-    public void TryInteract()
+    public void Try_Interact()
     {
         if (CurrentBtn == null || !CurrentBtn.ThisBtn.interactable)
         { return; }
 
         if (CurrentBtn == CloseBtn)
         {
-            CloseThisPanel();
+            SetOff_ThisPanel();
         }
         if (CharacterBtnList.Contains(CurrentBtn))
         {
@@ -71,9 +71,9 @@ public class ChoiceCharacterUIController : PanelUIController
 
     #region Set Panel
 
-    private void ResetData()
+    private void Reset_Data()
     {
-        List<int> canUseIDList = SaveDataManager.Instance.CharacterSaveData.GetCanUseIDList();
+        List<int> canUseIDList = SaveDataManager.Instance.CharacterSaveData.Get_CanUseIDList();
         for (int i = 0; i < CharacterBtnList.Count; i++)
         {
             if (canUseIDList.Contains(i))
@@ -88,7 +88,7 @@ public class ChoiceCharacterUIController : PanelUIController
     }
 
 
-    public override void OpenThisPanel()
+    public override void SetOn_ThisPanel()
     {
         //No Play Base
 
@@ -100,7 +100,7 @@ public class ChoiceCharacterUIController : PanelUIController
 
         Sequence seq = DOTween.Sequence();
         this.gameObject.SetActive(true);
-        ResetData();
+        Reset_Data();
 
         seq.Join(PanelRT.DOSizeDelta(new Vector2(PanelRT.sizeDelta.x, TargetY), DurTime));
         seq.Join(BGCG.DOFade(1f, DurTime));
@@ -108,7 +108,7 @@ public class ChoiceCharacterUIController : PanelUIController
         seq.SetId("ChoiceCharacterUIPanel");
     }
 
-    public override void CloseThisPanel()
+    public override void SetOff_ThisPanel()
     {
         //base
         if (DOTween.IsTweening("ChoiceCharacterUIPanel"))

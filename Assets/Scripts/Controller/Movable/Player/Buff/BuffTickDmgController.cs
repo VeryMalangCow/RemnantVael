@@ -20,22 +20,22 @@ public class BuffTickDmgController : BuffController
 
     #region Buff
 
-    public override void GainBuff()
+    public override void Gain_Buff()
     {
-        base.GainBuff();
+        base.Gain_Buff();
 
     }
 
-    public override void ReductBuff()
+    public override void Reduct_Buff()
     {
-        PlayerManager.Instance.PlayerController.TakeDamaged(GetDmgValue());
+        PlayerManager.Instance.PlayerController.Take_Damaged(Get_DmgValue());
 
-        base.ReductBuff();
+        base.Reduct_Buff();
     }
 
-    public override void EndBuff()
+    public override void End_Buff()
     {
-        base.EndBuff();
+        base.End_Buff();
 
     }
 
@@ -43,7 +43,7 @@ public class BuffTickDmgController : BuffController
 
     #region Unique
 
-    private float GetDmgValue()
+    private float Get_DmgValue()
     {
         float value = 0;
 
@@ -54,7 +54,7 @@ public class BuffTickDmgController : BuffController
         { value += ConstPoint; }
 
         if (MaxHpPercent != 0)
-        { value += PlayerManager.Instance.PlayerController.PercentHP(MaxHpPercent); }
+        { value += PlayerManager.Instance.PlayerController.Get_PercentHP(MaxHpPercent); }
         
 
         return value;

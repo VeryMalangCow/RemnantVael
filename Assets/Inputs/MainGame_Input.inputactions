@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Fire_0",
+                    "name": "Fire",
                     "type": "PassThrough",
                     "id": "cae9a1ac-6519-4df3-a646-a2ea3258fa7d",
                     "expectedControlType": "Button",
@@ -195,7 +195,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Fire_0",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

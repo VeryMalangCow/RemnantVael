@@ -33,35 +33,35 @@ public class ModifySkillSet : UIModule
 
     #region Set
 
-    public void SetCostText(float _Cost)
+    public void Set_CostText(float _Cost)
     {
         SkillCostTxt.text = "<size=60%>'</size>" + _Cost + "<size=60%>'</size>";
     }
 
-    public void SetShadowFillAmount(float _FillAmount)
+    public void Set_ShadowFillAmount(float _FillAmount)
     {
         SkillShadowImg.fillAmount = _FillAmount;
     }
 
-    public void SetStartUI()
+    public void Set_StartUI()
     {
         if (DOTween.IsTweening(SkillInnerImg))
         { DOTween.Kill(SkillInnerImg); }
         SkillInnerImg.DOFade(1f, 0.2f);
     }
 
-    public void SetEndUI()
+    public void Set_EndUI()
     {
         if (DOTween.IsTweening(SkillInnerImg))
         { DOTween.Kill(SkillInnerImg); }
         SkillInnerImg.DOFade(0.25f, 0.2f);
     }
 
-    public void StartNotEnoughEP()
+    public void Start_NotEnoughEP()
     {
         if (ThisEff == null)
         {
-            ThisEff = NotEnoughEP();
+            ThisEff = Play_NotEnoughEP_Cor();
             StartCoroutine(ThisEff); 
         }
         else
@@ -71,7 +71,7 @@ public class ModifySkillSet : UIModule
         }
     }
 
-    private IEnumerator NotEnoughEP()
+    private IEnumerator Play_NotEnoughEP_Cor()
     {
         SkillErrorTxt.gameObject.SetActive(true);
         SkillCostTxt.gameObject.SetActive(false);

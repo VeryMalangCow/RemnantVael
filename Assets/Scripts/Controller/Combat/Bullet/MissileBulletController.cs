@@ -34,21 +34,21 @@ public class MissileBulletController : BulletController
 
     #endregion
 
-    #region Delete
+    #region Remove
 
-    protected override void DeleteThis()
+    protected override void Remove_Object()
     {
-        AttackPointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
-        ExplosionEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
+        Gen_AttackPointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
+        Gen_ExplosionEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
 
-        base.DeleteThis();
+        base.Remove_Object();
     }
 
     #endregion
 
     #region Extra State
 
-    public void SetState_forMissile(Vector2 _SpawnVec, BulletState _BulletState, Vector2 _Dir, float _TargetRange)
+    public void Set_State_Missile(Vector2 _SpawnVec, BulletState _BulletState, Vector2 _Dir, float _TargetRange)
     {
         // Offset
         IsGuided = false;
@@ -57,11 +57,11 @@ public class MissileBulletController : BulletController
         float targetSpeed = _BulletState.MuzzleSpeed;
 
         // Base Dir
-        this.transform.localRotation = this.transform.localRotation = GetRotByVec2(_Dir);
+        this.transform.localRotation = this.transform.localRotation = Get_RotByVec2(_Dir);
 
         // State + RandomDir
         float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
-        base.SetState(_SpawnVec, randomSpreadAngle, _BulletState, _TargetRange);
+        base.Set_State(_SpawnVec, randomSpreadAngle, _BulletState, _TargetRange);
         base.BulletState.MuzzleSpeed *= 0.3f;
 
         // Dotween
@@ -88,25 +88,25 @@ public class MissileBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
-                EC.HittedPointEffect(
+                EC.Gen_HittedPointEffect(
                     this.TargetObject.transform.position, 
                     BulletState.DamageType, 
                     BulletState.IsCritical, 
                     transform.rotation);
-                EC.TakeDamaged(BulletState, GetDirByAngle(transform.eulerAngles.z));
+                EC.Take_Damaged(BulletState, Get_DirByAngle(transform.eulerAngles.z));
             }
         }
         else if (_Col.tag == "DestructibleObject")
         {
             if (_Col.transform.parent.TryGetComponent(out DestructibleBuildController DBC))
             {
-                DBC.TakeDamage(true);
+                DBC.Take_Damage(true);
             }
         }
 
         if (DestroyTagList.Contains(_Col.tag))
         {
-            DeleteThis();
+            Remove_Object();
         }
     }
 
@@ -114,7 +114,7 @@ public class MissileBulletController : BulletController
 
     #region Effect
 
-    private void ExplosionEffect(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical)
+    private void Gen_ExplosionEffect(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical)
     {
         int index = 0;
         if (_DamageType == eDamageType.Physics)
@@ -132,7 +132,7 @@ public class MissileBulletController : BulletController
             { index = 3; }
         }
 
-        PlayerManager.Instance.PlayerController.PlayerMEI.GenExplosionImgs(
+        PlayerManager.Instance.PlayerController.PlayerMEI.Gen_ExplosionImgs(
                      _SpawndPos,
                      4, 0.3f, 0.4f,
                      1.9f, 0.05f, 0.1f,
@@ -140,11 +140,11 @@ public class MissileBulletController : BulletController
                      index, PlayerManager.Instance.PlayerController.ThisPlayerMaterial_000);
     }
 
-    private void AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
+    private void Gen_AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
     {
-        OnlyOnceTimeAnimation oota = PoolingManager.Instance.GetOP_OnlyOnceAnimator();
-        oota.StartAnim(
-            PlayerManager.Instance.PlayerController.GetCorrectHitted_AC(_DamageType, _IsCritical),
+        OnlyOnceTimeAnimation oota = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
+        oota.Start_Anim(
+            PlayerManager.Instance.PlayerController.Get_AnimClip_CorrectHitted(_DamageType, _IsCritical),
             _SpanwedPos,
             PlayerManager.Instance.PlayerController.ThisPlayerMaterial_000,
             2f, 1.8f);

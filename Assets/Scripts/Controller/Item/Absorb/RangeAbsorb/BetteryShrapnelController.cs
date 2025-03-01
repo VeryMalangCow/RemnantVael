@@ -43,7 +43,7 @@ public class BetteryShrapnelController : AbsorbItemController
 
     #region State
 
-    public void SetState(Vector2 _SpawnPos, GameObject _TargetObject, int _Value)
+    public void Set_State(Vector2 _SpawnPos, GameObject _TargetObject, int _Value)
     {
         base.SetState(_SpawnPos, _TargetObject);
         BetteryValue = _Value;
@@ -53,11 +53,11 @@ public class BetteryShrapnelController : AbsorbItemController
 
     #region Get Item
 
-    protected override void GetItem()
+    protected override void Gain_Item()
     {
-        base.GetItem();
+        base.Gain_Item();
 
-        PlayerManager.Instance.PlayerController.AddCurrentBS(BetteryValue);
+        PlayerManager.Instance.PlayerController.Add_CurrentBS(BetteryValue);
         PoolingManager.Instance.BetteryShrapnel.Queue.Enqueue(this);
     }
 

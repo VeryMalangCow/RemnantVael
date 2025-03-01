@@ -33,7 +33,7 @@ public class EnemyPattern_Range : EnemyPattern
     {
         if (!IsPlayingThisPattern)
         {
-            StopCoroutine(ThisPattern());
+            StopCoroutine(Play_ThisPattern_Cor());
         }
     }
 
@@ -41,7 +41,7 @@ public class EnemyPattern_Range : EnemyPattern
 
     #region Can Check
 
-    public override bool CanPlayPattern()
+    public override bool Can_PlayPattern()
     {
         float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.Instance.PlayerController.transform.position);
         if (forPlayerDis > MaximumRange || forPlayerDis < MinimumRange)
@@ -56,23 +56,23 @@ public class EnemyPattern_Range : EnemyPattern
 
     #region Start End
 
-    public override void StartPattern()
+    public override void Start_Pattern()
     {
 
-        base.StartPattern();
+        base.Start_Pattern();
     }
 
-    public override void EndPattern()
+    public override void End_Pattern()
     {
 
-        base.EndPattern();
+        base.End_Pattern();
     }
 
     #endregion
 
     #region Actual
 
-    protected override IEnumerator ThisPattern()
+    protected override IEnumerator Play_ThisPattern_Cor()
     {
         yield return new WaitForSeconds(StartDelay);
 
@@ -81,7 +81,7 @@ public class EnemyPattern_Range : EnemyPattern
 
         for (int i = 0; i < SpawnTFList.Count; i++)
         {
-            EnemyBulletController EBC = PoolingManager.Instance.GetOP_EnemyBullet();
+            EnemyBulletController EBC = PoolingManager.Instance.Get_OP_EnemyBullet();
 
             Vector2 targetDir =
                 ((Vector2)PlayerManager.Instance.PlayerController.transform.position
@@ -94,14 +94,14 @@ public class EnemyPattern_Range : EnemyPattern
 
             // Base State 
             EBC.Enemy = ThisEnemy;
-            EBC.SetState(SpawnTFList[i].position, ThisBS, targetDir, BulletShadowScale, BulletColSize, BulletAC, targetShadow);
+            EBC.Set_State(SpawnTFList[i].position, ThisBS, targetDir, BulletShadowScale, BulletColSize, BulletAC, targetShadow);
 
             // Sorting Layer
             if (SpawnTFList[i].gameObject.TryGetComponent(out HaveShadowThing hst))
             { EBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
 
             // Effect
-            ThisEnemy.MEI.GenExplosionImgs_Fan(
+            ThisEnemy.MEI.Gen_ExplosionImgs_Fan(
                 (Vector2)HST.TargetObject.transform.position + (targetDir * 0.3f),
                 targetDir, 45f,
                 3, 0.2f, 1f,
@@ -113,8 +113,8 @@ public class EnemyPattern_Range : EnemyPattern
 
         yield return new WaitForSeconds(EndDelay);
 
-        EndPattern();
-        ThisEnemy.TryGetAnyPattern();
+        End_Pattern();
+        ThisEnemy.Play_Pattern();
     }
 
     #endregion

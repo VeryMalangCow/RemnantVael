@@ -15,38 +15,45 @@ public class HaveShadowThing : MonoBehaviour
 
     #endregion
 
+    #region Framework
+
     protected virtual void Awake()
     {
-        TryFindSR();
+        Offset();
     }
 
-    protected void TryFindSR()
+    #endregion
+
+    #region Offset
+
+    protected virtual void Offset()
     {
         if (ThisSR == null && TargetObject.TryGetComponent(out SpriteRenderer sr))
         { ThisSR = sr; }
     }
 
+    #endregion
 
     #region Sorting Order
 
-    public virtual void SetSortingOrder(int _SortingOrder)
+    public virtual void Set_SortingOrder(int _SortingOrder)
     {
         if (ThisSR == null)
-        { TryFindSR(); }
+        { Offset(); }
 
         ThisSR.sortingOrder = _SortingOrder;
     }
 
     #endregion
 
-    #region Spawn
+    #region Gen
 
 
     // Bettery Shrapnel
-    protected void SpawnBS(int _Value)
+    protected void Gen_BS(int _Value)
     {
-        BetteryShrapnelController BSC = PoolingManager.Instance.GetOP_BetteryShrapnel();
-        BSC.SetState(
+        BetteryShrapnelController BSC = PoolingManager.Instance.Get_OP_BetteryShrapnel();
+        BSC.Set_State(
             this.gameObject.transform.position,
             PlayerManager.Instance.PlayerController.gameObject,
             _Value);
@@ -55,9 +62,9 @@ public class HaveShadowThing : MonoBehaviour
     }
 
     // Module Shrapnel
-    protected void SpawnMS(int _Value)
+    protected void Gen_MS(int _Value)
     {
-        ModuleShrapnelController MSC = PoolingManager.Instance.GetOP_ModuleShrapnel();
+        ModuleShrapnelController MSC = PoolingManager.Instance.Get_OP_ModuleShrapnel();
         MSC.SetState(
             this.gameObject.transform.position,
             PlayerManager.Instance.PlayerController.gameObject,

@@ -58,24 +58,17 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        /*if (StageManager.Instance.CurrentRoomController != null)
-        {
-            FollowTargetSmooth(TargetTF, 
-                StageManager.Instance.CurrentRoomController.RoomCameraCenter);
-        }
-        else*/
+        Set_FollowTargetSmooth(TargetTF);
+        Set_FollowTargetRangeLimit();
 
-        FollowTargetSmooth(TargetTF);
-        FollowTargetRangeLimit();
-
-        MainCamera.transform.position = GetTotalCameraPos();
+        MainCamera.transform.position = Get_TotalCameraPos();
     }
 
     #endregion
 
     #region Camera
 
-    private Vector3 GetTotalCameraPos()
+    private Vector3 Get_TotalCameraPos()
     {
         Vector2 totalPos = FollowTargetTF.position;
 
@@ -91,7 +84,7 @@ public class CameraController : MonoBehaviour
 
     #region Follow Target
 
-    private void FollowTargetSmooth(Transform _TargetTF)
+    private void Set_FollowTargetSmooth(Transform _TargetTF)
     {
         Vector2 originPos = FollowTargetTF.position;
 
@@ -103,7 +96,7 @@ public class CameraController : MonoBehaviour
             FollowSpeed * Time.deltaTime);
     }
 
-    private void FollowTargetSmooth(Transform _TargetTF, Transform _TargetTF2)
+    private void Set_FollowTargetSmooth(Transform _TargetTF, Transform _TargetTF2)
     {
         Vector2 originPos = FollowTargetTF.position;
 
@@ -116,7 +109,7 @@ public class CameraController : MonoBehaviour
             FollowSpeed * Time.deltaTime);
     }
 
-    private void FollowTargetRangeLimit()
+    private void Set_FollowTargetRangeLimit()
     {
         Vector2 cameraPos = FollowTargetTF.position;
         Vector2 playerPos = TargetTF.transform.position;
@@ -133,59 +126,49 @@ public class CameraController : MonoBehaviour
 
     #endregion
 
-    #region Shot
+    #region Play Tween
 
-    public void PlayShotAnim(float _Dur, float _Strength)
+    public void Play_ShotAnim(float _Dur, float _Strength)
     {
-        PlayShake(ShotShakeTF, _Dur, _Strength * ShotStrength, ShotVibrato);
+        Play_Shake(ShotShakeTF, _Dur, _Strength * ShotStrength, ShotVibrato);
     }
 
-    #endregion
-
-    #region Execution Kill
-
-    public void PlayHitEnemyAnim()
+    public void Play_HitEnemyAnim()
     {
-        PlaySlowMotion(0.3f, 0.95f);
-        PlayPOVSize(0.3f, CameraProjectionSize - 0.05f);
+        Play_SlowMotion(0.3f, 0.95f);
+        Play_POVSize(0.3f, CameraProjectionSize - 0.05f);
     }
 
-    public void PlayKillAnim(float _Dur)
+    public void Play_KillAnim(float _Dur)
     {
-        PlayShake(EnemyKillShakeTF, _Dur, KillStrength, KillVibrato);
-        PlaySlowMotion(0.4f, 0.9f);
-        PlayPOVSize(0.4f, CameraProjectionSize - 0.1f);
+        Play_Shake(EnemyKillShakeTF, _Dur, KillStrength, KillVibrato);
+        Play_SlowMotion(0.4f, 0.9f);
+        Play_POVSize(0.4f, CameraProjectionSize - 0.1f);
     }
 
-    #endregion
-
-    #region Dmg
-
-    public void PlayAvoidAnim(float _Dur)
+    public void Play_AvoidAnim(float _Dur)
     {
-        PlaySlowMotion(_Dur * 0.8f, 0.5f);
-        PlayPOVSize(_Dur, CameraProjectionSize - 1f);
+        Play_SlowMotion(_Dur * 0.8f, 0.5f);
+        Play_POVSize(_Dur, CameraProjectionSize - 1f);
     }
 
-    public void PlayDamagedAnim(float _Dur, float _Strength, Vector2 _Dir)
+    public void Play_DamagedAnim(float _Dur, float _Strength, Vector2 _Dir)
     {
-        PlayRebound(DamagedShakeTF, _Dur, _Strength, _Dir);
-        PlaySlowMotion(_Dur * 0.5f, 0.25f);
-        PlayPOVSize(_Dur, CameraProjectionSize + 0.75f);
+        Play_Rebound(DamagedShakeTF, _Dur, _Strength, _Dir);
+        Play_SlowMotion(_Dur * 0.5f, 0.25f);
+        Play_POVSize(_Dur, CameraProjectionSize + 0.75f);
     }
-
-
 
     #endregion
 
     #region Module
 
-    private void PlayShake(Transform _TF, float _Dur, float _Strength, int _Vibrato)
+    private void Play_Shake(Transform _TF, float _Dur, float _Strength, int _Vibrato)
     {
         _TF.DOShakePosition(_Dur, _Strength / 100, _Vibrato, 0f);
     }
 
-    private void PlayRebound(Transform _TF, float _Dur, float _Strength, Vector2 _Dir)
+    private void Play_Rebound(Transform _TF, float _Dur, float _Strength, Vector2 _Dir)
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(_TF.DOMove(_Dir * _Strength, _Dur / 5).SetEase(Ease.OutBack));
@@ -193,7 +176,7 @@ public class CameraController : MonoBehaviour
         seq.Append(_TF.DOMove(Vector2.zero, _Dur * 3 / 5).SetEase(Ease.OutBack));
     }
 
-    private void PlaySlowMotion(float _Dur, float _SlowMultiple)
+    private void Play_SlowMotion(float _Dur, float _SlowMultiple)
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, _SlowMultiple, _Dur / 4));
@@ -209,7 +192,7 @@ public class CameraController : MonoBehaviour
             });
     }
 
-    private void PlayPOVSize(float _Dur, float _CameraPojectionSize)
+    private void Play_POVSize(float _Dur, float _CameraPojectionSize)
     {
         Sequence seq = DOTween.Sequence();
         seq.Append(DOTween.To(() => MainCamera.orthographicSize, x => MainCamera.orthographicSize = x, _CameraPojectionSize, _Dur / 4));

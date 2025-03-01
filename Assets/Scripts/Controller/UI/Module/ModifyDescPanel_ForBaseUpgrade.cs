@@ -54,7 +54,7 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
 
     #region Desc
 
-    public void SetDesc<T>(BUState<T> _MTAFB)
+    public void SetOn_Desc<T>(BUState<T> _MTAFB)
     {
         
         // Graph
@@ -136,7 +136,7 @@ public class ModifyDescPanel_ForBaseUpgrade : UIModule
 
     }
 
-    public void SetDescOff()
+    public void SetOff_Desc()
     {
         CenterName.text = "-";
 

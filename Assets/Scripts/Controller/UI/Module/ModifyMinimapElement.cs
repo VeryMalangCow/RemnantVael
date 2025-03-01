@@ -84,22 +84,22 @@ public class ModifyMinimapElement : UIModule
 
     #region SetState
 
-    public void SetState_Complete()
+    public void Set_Complete()
     {
         ThisMMOImg.DOColor(ThisMainColor, 0.5f);
     }
 
-    public void SetState_Uncomplete()
+    public void Set_Uncomplete()
     {
         ThisMMOImg.DOColor(UnknowColor, 0.5f);
     }
 
-    public void SetState_Visible()
+    public void Set_Visible()
     {
         ThisMMOImg.color = new Color(0, 0, 0, 0.5f);
     }
 
-    public void SetActiveOn()
+    public void Set_ActiveOn()
     {
         this.gameObject.SetActive(true);
         ThisCG.DOFade(1f, 0.5f);

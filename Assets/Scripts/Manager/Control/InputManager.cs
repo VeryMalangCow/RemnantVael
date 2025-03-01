@@ -29,12 +29,12 @@ public class InputManager : Singleton<InputManager>
 
     [Header("=== First Input")] 
     [SerializeField] public bool IsPlayingSkill = false;
-    [SerializeField] private float EndFirstInputTime = 0.5f;
-    [SerializeField] private float CurrentFirstInputTime = 0f;
+    [SerializeField] private float EndBufferedInputTime = 0.5f;
+    [SerializeField] private float CurrentBufferedInputTime = 0f;
 
 
     private delegate void FirstInputDele();
-    private FirstInputDele CurrentFirstInputDele = null;
+    private FirstInputDele CurrentBufferedInputDele = null;
 
     #endregion
 
@@ -48,65 +48,106 @@ public class InputManager : Singleton<InputManager>
 
     private void Start()
     {
-        SetAimAllOff();
+        SetOff_AllPointer();
     }
+
     private void FixedUpdate()
     {
-        SetMousePos();
+        Set_MousePos();
     }
 
     private void Update()
     {
-        if (CurrentFirstInputDele != null)
-        {
-            CurrentFirstInputTime += Time.deltaTime;
-
-            if(CurrentFirstInputTime >= EndFirstInputTime)
-            {
-                UnsetFirstInput();
-            }
-
-            if(!IsPlayingSkill)
-            {
-#if UNITY_EDITOR
-                Debug.Log("선입력 실행");
-#endif
-                CurrentFirstInputDele();
-                UnsetFirstInput();
-            }
-        }
+        Caculate_BufferedInput();
     }
 
 
     #endregion
 
-    #region State
+    #region Buffered Input
 
-    public void SetAimAllOff()
+    private void Caculate_BufferedInput()
     {
-        OnAim = false;
-        OnMouse = false;
+        if (CurrentBufferedInputDele != null)
+        {
+            CurrentBufferedInputTime += Time.deltaTime;
 
-        AimController.gameObject.SetActive(false);
-        PlayerManager.Instance.PlayerController.AimRoundController.gameObject.SetActive(false);
-        MousePointerRT.gameObject.SetActive(false);
+            if (CurrentBufferedInputTime >= EndBufferedInputTime)
+            {
+                SetOff_BufferedInput();
+            }
+
+            if (!IsPlayingSkill)
+            {
+                CurrentBufferedInputDele();
+                SetOff_BufferedInput();
+            }
+        }
     }
 
-    public void SetAim(bool _IsOn)
+    private void SetOn_BufferedInput(FirstInputDele _Skill)
+    {
+        CurrentBufferedInputDele = _Skill;
+        CurrentBufferedInputTime = 0f;
+    }
+
+    private void SetOff_BufferedInput()
+    {
+        CurrentBufferedInputDele = null;
+        CurrentBufferedInputTime = 0f;
+    }
+
+    #endregion
+
+    #region Aim & Mouse
+
+    public void SetOn_AllPointer()
+    {
+        Set_AimPointer(true);
+        Set_MousePointer(true);
+    }
+
+    public void SetOff_AllPointer()
+    {
+        Set_AimPointer(false);
+        Set_MousePointer(false);
+    }
+
+
+    public void SetOn_AimPointer()
+    {
+        Set_AimPointer(true);
+        Set_MousePointer(false);
+    }
+
+    public void SetOn_MousePointer()
+    {
+        Set_AimPointer(false);
+        Set_MousePointer(true);
+    }
+
+
+    private void Set_AimPointer(bool _IsOn)
     {
         OnAim = _IsOn;
-        OnMouse = !_IsOn;
 
         AimController.gameObject.SetActive(_IsOn);
         PlayerManager.Instance.PlayerController.AimRoundController.gameObject.SetActive(_IsOn);
-        MousePointerRT.gameObject.SetActive(!_IsOn);
     }
+
+    private void Set_MousePointer(bool _IsOn)
+    {
+        OnMouse = _IsOn;
+
+        MousePointerRT.gameObject.SetActive(_IsOn);
+    }
+
 
     #endregion
 
     #region Mouse
 
-    private void SetMousePos()
+    private void Set_MousePos()
     {
         if (!CanMouseInput)
         { return; }
@@ -122,14 +163,14 @@ public class InputManager : Singleton<InputManager>
 
     #region Input Set
 
-    public void OnEnableInput()
+    public void SetOn_InputAction()
     {
         if (PlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
         { PlayerInput = PI; }
 
         PlayerInput.actions["Walk"].performed += Input_Walk;
         PlayerInput.actions["Arrow"].performed += Input_Arrow;
-        PlayerInput.actions["Fire_0"].performed += Input_Fire_0;
+        PlayerInput.actions["Fire"].performed += Input_Fire;
         PlayerInput.actions["Dash"].performed += Input_Dash;
 
         PlayerInput.actions["CombatMode"].performed += Input_CombatMode;
@@ -152,27 +193,16 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
-
-        PlayerInput.actions["ForDebugging"].performed += Input_forDebugging;
     }
 
-    private void Input_forDebugging(InputAction.CallbackContext _InputValue)
-    {
-        if (_InputValue.ReadValueAsButton())
-        {
-            BuffManager.Instance.OnBuff(5);
-            BuffManager.Instance.GetBuff(5);
-        }
-    }
-
-    public void OnDisableInput()
+    public void SetOff_InputAction()
     {
         if (PlayerManager.Instance.PlayerController.gameObject.TryGetComponent(out PlayerInput PI))
         { PlayerInput = PI; }
 
         PlayerInput.actions["Walk"].performed -= Input_Walk;
         PlayerInput.actions["Arrow"].performed -= Input_Arrow;
-        PlayerInput.actions["Fire_0"].performed -= Input_Fire_0;
+        PlayerInput.actions["Fire"].performed -= Input_Fire;
         PlayerInput.actions["Dash"].performed -= Input_Dash;
 
         PlayerInput.actions["CombatMode"].performed -= Input_CombatMode;
@@ -195,24 +225,11 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
-        
-        PlayerInput.actions["ForDebugging"].performed -= Input_forDebugging;
-    }
-
-
-    private void SetFirstInput(FirstInputDele _Skill)
-    {
-        CurrentFirstInputDele = _Skill;
-        CurrentFirstInputTime = 0f;
-    }
-
-    private void UnsetFirstInput()
-    {
-        CurrentFirstInputDele = null;
-        CurrentFirstInputTime = 0f;
     }
 
     #endregion
+
+    #region Player
 
     #region Movement
 
@@ -227,11 +244,11 @@ public class InputManager : Singleton<InputManager>
         {
             if (IsPlayingSkill)
             {
-                SetFirstInput(PlayerManager.Instance.PlayerController.CanDashCheck);
+                SetOn_BufferedInput(PlayerManager.Instance.PlayerController.Set_DashCheck);
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.CanDashCheck();
+            PlayerManager.Instance.PlayerController.Set_DashCheck();
         }
     }
 
@@ -262,11 +279,11 @@ public class InputManager : Singleton<InputManager>
         {
             if (IsPlayingSkill)
             {
-                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_CombatModeCheck);
+                SetOn_BufferedInput(PlayerManager.Instance.PlayerController.Try_CombatModeCheck);
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.CanChange_CombatModeCheck();
+            PlayerManager.Instance.PlayerController.Try_CombatModeCheck();
         }
     }
 
@@ -276,11 +293,11 @@ public class InputManager : Singleton<InputManager>
         {
             if (IsPlayingSkill)
             {
-                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_BoostModeCheck);
+                SetOn_BufferedInput(PlayerManager.Instance.PlayerController.Try_BoostModeCheck);
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.CanChange_BoostModeCheck(); 
+            PlayerManager.Instance.PlayerController.Try_BoostModeCheck(); 
         }
     }
 
@@ -290,11 +307,11 @@ public class InputManager : Singleton<InputManager>
         {
             if (IsPlayingSkill)
             {
-                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_UnBoostModeCheck);
+                SetOn_BufferedInput(PlayerManager.Instance.PlayerController.Try_UnBoostModeCheck);
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.CanChange_UnBoostModeCheck();
+            PlayerManager.Instance.PlayerController.Try_UnBoostModeCheck();
         }
     }
 
@@ -308,11 +325,11 @@ public class InputManager : Singleton<InputManager>
         {
             if (IsPlayingSkill)
             {
-                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_Skill0);
+                SetOn_BufferedInput(PlayerManager.Instance.PlayerController.Try_Skill0);
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.CanChange_Skill0();
+            PlayerManager.Instance.PlayerController.Try_Skill0();
         }
     }
 
@@ -322,11 +339,11 @@ public class InputManager : Singleton<InputManager>
         {
             if (IsPlayingSkill)
             {
-                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_Skill1);
+                SetOn_BufferedInput(PlayerManager.Instance.PlayerController.Try_Skill1);
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.CanChange_Skill1();
+            PlayerManager.Instance.PlayerController.Try_Skill1();
         }
     }
 
@@ -334,7 +351,7 @@ public class InputManager : Singleton<InputManager>
 
     #region Fire
 
-    private void Input_Fire_0(InputAction.CallbackContext _InputValue)
+    private void Input_Fire(InputAction.CallbackContext _InputValue)
     {
         PlayerManager.Instance.PlayerController.BaseWeapon.IsInputed = _InputValue.ReadValueAsButton();
     }
@@ -343,18 +360,17 @@ public class InputManager : Singleton<InputManager>
 
     #region Charge Bettery
 
-    // Charge Bettery
     private void Input_ChargeBettery(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
             if (IsPlayingSkill)
             {
-                SetFirstInput(PlayerManager.Instance.PlayerController.CanChange_ChargeBettery);
+                SetOn_BufferedInput(PlayerManager.Instance.PlayerController.Try_ChargeBettery);
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.CanChange_ChargeBettery();
+            PlayerManager.Instance.PlayerController.Try_ChargeBettery();
         }
     }
 
@@ -366,7 +382,7 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            PlayerManager.Instance.PlayerController.TryInteract();
+            PlayerManager.Instance.PlayerController.Try_Interact();
         }
     }
 
@@ -388,14 +404,15 @@ public class InputManager : Singleton<InputManager>
 
     #endregion
 
-    #region BUUI
+    #endregion
 
+    #region BaseUpgrade UI
 
     private void Input_BUUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            MainGameUIManager.Instance.BaseUpgrade_UIController.TryInteractClick();
+            MainGameUIManager.Instance.BaseUpgrade_UIController.Try_Interact();
         }
     }
 
@@ -403,58 +420,55 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
         {
-            MainGameUIManager.Instance.BaseUpgrade_UIController.CloseThisPanel();
+            MainGameUIManager.Instance.BaseUpgrade_UIController.SetOff_ThisPanel();
         }
     }
 
     #endregion
     
-    #region MUUI
+    #region ModuleUpgrade UI
 
     private void Input_MUUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.TryInteractClick();
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.Try_Interact();
         }
     }
-
 
     private void Input_MUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.CloseThisPanel();
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_ThisPanel();
         }
     }
 
     #endregion
 
-    #region OMGUI
+    #region OutMainGame UI
 
     private void Input_OMGUI(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            MainGameUIManager.Instance.OutMainGame_UIController.OpenThisPanel();
+            MainGameUIManager.Instance.OutMainGame_UIController.SetOn_ThisPanel();
         }
     }
-
 
     private void Input_OMGUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            MainGameUIManager.Instance.OutMainGame_UIController.TryInteractClick();
+            MainGameUIManager.Instance.OutMainGame_UIController.Try_Interact();
         }
     }
-
 
     private void Input_OMGUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            MainGameUIManager.Instance.OutMainGame_UIController.CloseThisPanel();
+            MainGameUIManager.Instance.OutMainGame_UIController.SetOff_ThisPanel();
         }
     }
 

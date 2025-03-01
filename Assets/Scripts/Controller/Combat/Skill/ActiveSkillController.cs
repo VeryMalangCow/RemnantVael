@@ -34,14 +34,14 @@ public class ActiveSkillController : MonoBehaviour
 
     protected virtual void Update()
     {
-        CaculateCooltime();
+        Caculate_Cooltime();
     }
 
     #endregion
 
     #region Cooltime
 
-    private void CaculateCooltime()
+    private void Caculate_Cooltime()
     {
         if (MaxCooltime.ActualState.Value > CurrentCooltime &&
             MaxChargeAmount > CurrentChargeAmount)
@@ -63,7 +63,7 @@ public class ActiveSkillController : MonoBehaviour
         }
     }
 
-    public float GetFillAmount()
+    public float Get_FillAmount()
     {
         if (MaxChargeAmount <= CurrentChargeAmount)
         {
@@ -79,36 +79,36 @@ public class ActiveSkillController : MonoBehaviour
 
     #region Act
 
-    public virtual void ActiveSkill()
+    public virtual void Active_Skill()
     {
         CurrentChargeAmount--;
-        PlayerController.AddCurrentEP(
+        PlayerController.Add_CurrentEP(
             -(NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value));
 
-        SetStartUI();
+        Set_StartUI();
     }
 
-    protected void SetStartUI()
+    protected void Set_StartUI()
     {
         if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0 == this)
-        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.SetStartUI(); }
+        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Set_StartUI(); }
         else if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1 == this)
-        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.SetStartUI(); }
+        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Set_StartUI(); }
     }
 
-    protected void SetEndUI()
+    protected void Set_EndUI()
     {
         if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0 == this)
-        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.SetEndUI(); }
+        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Set_EndUI(); }
         else if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1 == this)
-        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.SetEndUI(); }
+        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Set_EndUI(); }
     }
 
     #endregion
 
     #region Judg Can Active
 
-    public bool CanActive()
+    public bool Can_Active()
     {
         if ((CurrentChargeAmount > 0) &&
             (PlayerManager.Instance.PlayerController.CurrentEP.Value > NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value) &&

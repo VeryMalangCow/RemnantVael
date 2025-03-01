@@ -39,30 +39,30 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     private void Start()
     {
         PlayerHUD_UIController 
-            = SpawnUI<PlayerHUDController>(PlayerHUD_CanvasPrefab, true);
+            = Gen_UI<PlayerHUDController>(PlayerHUD_CanvasPrefab, true);
 
         BaseUpgrade_UIController 
-            = SpawnUI<BaseUpgradeUIController>(BaseUpgrade_CanvasPrefab, false);
+            = Gen_UI<BaseUpgradeUIController>(BaseUpgrade_CanvasPrefab, false);
         ModuleUpgrade_UIController 
-            = SpawnUI<ModuleUpgradeUIController>(ModuleUpgrade_CanvasPrefab, false);
+            = Gen_UI<ModuleUpgradeUIController>(ModuleUpgrade_CanvasPrefab, false);
 
         OutMainGame_UIController
-            = SpawnUI<OutMainGameUIController>(OutMainGame_CanvasPrefab, false);
+            = Gen_UI<OutMainGameUIController>(OutMainGame_CanvasPrefab, false);
 
         InteractAnno_UIController
-            = SpawnUI<InteractAnnoUIController>(InteractAnno_CanvasPrefab, false);
+            = Gen_UI<InteractAnnoUIController>(InteractAnno_CanvasPrefab, false);
 
         MapIntro_UIController
-            = SpawnUI<MapIntroUIController>(MapIntro_CanvasPrefab, false);
+            = Gen_UI<MapIntroUIController>(MapIntro_CanvasPrefab, false);
 
-        FirstStart();
+        Start_FirstPlay();
     }
 
     #endregion
 
     #region Spawn
 
-    private T SpawnUI<T>(GameObject _UIGO, bool _OnOff)
+    private T Gen_UI<T>(GameObject _UIGO, bool _OnOff)
     {
         GameObject uigo = Instantiate(_UIGO, UIParent);
         uigo.gameObject.SetActive(_OnOff);
@@ -85,7 +85,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     #region FirstStart
 
-    private void FirstStart()
+    private void Start_FirstPlay()
     {
         if (ScreenCG == null && ScreenCanvas.TryGetComponent(out CanvasGroup CG))
         { ScreenCG = CG; }
@@ -103,7 +103,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
             });
     }
 
-    public void PlayDark(float _DurTime)
+    public void Play_Dark(float _DurTime)
     {
         ScreenCanvas.gameObject.SetActive(true);
 

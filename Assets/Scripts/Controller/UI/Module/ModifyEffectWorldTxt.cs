@@ -36,7 +36,7 @@ public class ModifyEffectWorldTxt : UIModule
 
     #region Get or Set Basic
 
-    private void SetComponent(Vector2 _TargetPos, string _Txt, Color _TxtColor, Color _TSColor, float _FontSize)
+    private void Set_Component(Vector2 _TargetPos, string _Txt, Color _TxtColor, Color _TSColor, float _FontSize)
     {
         ThisTxt.text = _Txt;
         ThisTxt.color = _TxtColor;
@@ -45,11 +45,11 @@ public class ModifyEffectWorldTxt : UIModule
         ThisTxt.fontSize = _FontSize;
     }
 
-    public void StartDamageTxt(Vector2 _TargetPos, string _Txt, Color _TxtColor, Color _TSColor, float _FontSize,
+    public void Start_DamageTxt(Vector2 _TargetPos, string _Txt, Color _TxtColor, Color _TSColor, float _FontSize,
         Vector2 _Dir, float _DurTime)
     {
         Offset();
-        SetComponent(_TargetPos, _Txt, _TxtColor, _TSColor, _FontSize);
+        Set_Component(_TargetPos, _Txt, _TxtColor, _TSColor, _FontSize);
 
         this.gameObject.SetActive(true);
 
@@ -77,12 +77,12 @@ public class ModifyEffectWorldTxt : UIModule
         });
     }
 
-    private int GetDefaultSize()
+    private int Get_DefaultSize()
     {
         return 25;
     }
 
-    private int GetSize(bool _IsCritical)
+    private int Get_Size(bool _IsCritical)
     {
         if (_IsCritical)
         {
@@ -94,7 +94,7 @@ public class ModifyEffectWorldTxt : UIModule
         }
     }
 
-    private Color GetColor(eDamageType _DamageType, bool _IsCritical)
+    private Color Get_Color(eDamageType _DamageType, bool _IsCritical)
     {
         switch (_DamageType)
         {
@@ -115,14 +115,14 @@ public class ModifyEffectWorldTxt : UIModule
         }
     }
 
-    private Color GetColor(string _StateName)
+    private Color Get_Color(string _StateName)
     {
-        if (_StateName == "STUNED")
+        if (_StateName == "DISCHARGE")
         { return Color.white; }
         return Color.white;
     }
 
-    private void SetBold(bool _IsSet)
+    private void Set_Bold(bool _IsSet)
     {
         if (_IsSet)
         {
@@ -138,37 +138,37 @@ public class ModifyEffectWorldTxt : UIModule
 
     #region Usable
 
-    public void OffsetByShieldDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
+    public void Offset_ByShieldDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
     {
-        SetBold(_IsCritical);
-        StartDamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
-            Color.white, Color.black, GetSize(_IsCritical),
+        Set_Bold(_IsCritical);
+        Start_DamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
+            Color.white, Color.black, Get_Size(_IsCritical),
             new Vector2(0.2f, 0.2f), 1f);
     }
 
-    public void OffsetByPhysicDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
+    public void Offset_ByPhysicDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
     {
-        SetBold(_IsCritical);
-        StartDamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
-            GetColor(eDamageType.Physics, _IsCritical), Color.black, GetSize(_IsCritical),
+        Set_Bold(_IsCritical);
+        Start_DamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
+            Get_Color(eDamageType.Physics, _IsCritical), Color.black, Get_Size(_IsCritical),
             new Vector2(-0.2f, 0.2f), 1f);
         
     }
 
-    public void OffsetByEnergyDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
+    public void Offset_ByEnergyDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
     {
-        SetBold(_IsCritical);
-        StartDamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
-            GetColor(eDamageType.Energy, _IsCritical), Color.black, GetSize(_IsCritical),
+        Set_Bold(_IsCritical);
+        Start_DamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
+            Get_Color(eDamageType.Energy, _IsCritical), Color.black, Get_Size(_IsCritical),
             new Vector2(-0.2f, 0.2f), 1f);
         
     }
 
-    public void OffsetByStateStun(Vector2 _TargetPos)
+    public void Offset_ByStateDischarge(Vector2 _TargetPos)
     {
-        SetBold(false);
-        StartDamageTxt(_TargetPos, "STUNED",
-            GetColor("STUNED"), Color.black, GetDefaultSize(),
+        Set_Bold(false);
+        Start_DamageTxt(_TargetPos, "DISCHARGE",
+            Get_Color("DISCHARGE"), Color.black, Get_DefaultSize(),
             new Vector2(0f, 0.2f), 1f);
     }
 

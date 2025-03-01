@@ -29,7 +29,7 @@ public class InteractAnnoUIController : UIController
     {
         ThisCG.alpha = 0;
 
-        Color clr = PlayerManager.Instance.PlayerController.GetCorrectHitted_C(eDamageType.Energy, false);
+        Color clr = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, false);
         InnerLImg.color= clr;
         InnerRImg.color= clr;
     }
@@ -38,10 +38,10 @@ public class InteractAnnoUIController : UIController
 
     #region Set
 
-    public void SetOnOffUI()
+    public void Set_UI()
     {
         IInteract ii = PlayerManager.Instance.PlayerController.CurrentInteractable.Value;
-        string txt = GetKindOfCaseString(ii);
+        string txt = Get_KindOfCaseString(ii);
 
         if (ii != null && txt != "")
         {
@@ -81,7 +81,7 @@ public class InteractAnnoUIController : UIController
 
     #region Follow
 
-    public void SetPosIfNot(IInteract _II)
+    public void Set_PosIfNot(IInteract _II)
     {
         if (_II != null && ((MonoBehaviour)_II).transform.position != this.transform.position)
         { this.transform.position = ((MonoBehaviour)_II).transform.position; }

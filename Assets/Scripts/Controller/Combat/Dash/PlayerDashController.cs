@@ -28,23 +28,23 @@ public class PlayerDashController : MonoBehaviour
 
     #region Dash
 
-    public void Dash()
+    public void Play_Dash()
     {
         switch (ThisDashStyle)
         {
             case eDashStyle.OneWay:
                 if (CaculateDir == Vector2.zero)
                 { CaculateDir = InputManager.Instance.DirFromPlayerPos.normalized; }
-                Dash_Framework(CaculateDir, DashDur);
+                Caculate_DashUpdate(CaculateDir, DashDur);
                 break;
 
             case eDashStyle.CanInputWay:
                 Vector2 targetDir = Vector2.Lerp(PlayerController.ThisRb.velocity.normalized, InputManager.Instance.InputMoveDir, RotateLerpValue * Time.deltaTime);
-                Dash_Framework(targetDir, DashDur);
+                Caculate_DashUpdate(targetDir, DashDur);
                 break;
 
             case eDashStyle.Teleport:
-                Teleport(DashDur);
+                Caculate_TeleportUpdate(DashDur);
                 break;
 
             default:
@@ -56,7 +56,7 @@ public class PlayerDashController : MonoBehaviour
 
     #region One Way
 
-    public void Dash_Framework(Vector2 _DashDir, float _TargetDashProcessTime)
+    public void Caculate_DashUpdate(Vector2 _DashDir, float _TargetDashProcessTime)
     {
         if (CurrentDashProcessTime < _TargetDashProcessTime)
         {
@@ -65,11 +65,11 @@ public class PlayerDashController : MonoBehaviour
         }
         else
         {
-            EndDash();
+            End_Dash();
         }
     }
 
-    public void Teleport(float _TargetDashProcessTime)
+    public void Caculate_TeleportUpdate(float _TargetDashProcessTime)
     {
         if (CurrentDashProcessTime < _TargetDashProcessTime)
         {
@@ -92,16 +92,16 @@ public class PlayerDashController : MonoBehaviour
         }
         else if (CurrentDashProcessTime >= _TargetDashProcessTime)
         {
-            EndDash();
+            End_Dash();
         }
     }
 
-    void EndDash()
+    void End_Dash()
     {
         CaculateDir = Vector2.zero;
         CurrentDashProcessTime = 0;
         PlayerController.MovementState = eMovementState.IdleOrWalk;
-        PlayerController.PlayerMAI.EndGen();
+        PlayerController.PlayerMAI.End_Gen();
 
         InputManager.Instance.IsPlayingSkill = false;
     }

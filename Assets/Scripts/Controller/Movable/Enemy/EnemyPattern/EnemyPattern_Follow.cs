@@ -43,9 +43,9 @@ public class EnemyPattern_Follow : EnemyPattern
 
     #region Can Check
 
-    public override bool CanPlayPattern()
+    public override bool Can_PlayPattern()
     {
-        if (CanPlayPattern_ConditionByRange() && CanPlayPattern_ConditionByTime())
+        if (Can_PlayPattern_ConditionByRange() && Can_PlayPattern_ConditionByTime())
         {
             return true;
         }
@@ -54,12 +54,12 @@ public class EnemyPattern_Follow : EnemyPattern
     }
 
     // 거리 조건 충족?
-    private bool CanPlayPattern_ConditionByRange()
+    private bool Can_PlayPattern_ConditionByRange()
     {
         if (UntilForTargetRange &&
             TargetRange >= Vector2.Distance(ThisEnemy.gameObject.transform.position, PlayerManager.Instance.PlayerController.gameObject.transform.position))
         {
-            if (!IgnoreWall && ThisEnemy.IsExistWall(ThisEnemy.transform, PlayerManager.Instance.PlayerController.transform))
+            if (!IgnoreWall && ThisEnemy.Is_ExistWall(ThisEnemy.transform, PlayerManager.Instance.PlayerController.transform))
             {
                 return true;
             }
@@ -72,7 +72,7 @@ public class EnemyPattern_Follow : EnemyPattern
     }
 
     // 시간 조건 충족?
-    private bool CanPlayPattern_ConditionByTime()
+    private bool Can_PlayPattern_ConditionByTime()
     {
         if (UntilForTargetTime &&
             CurrentTime >= TargetTime)
@@ -86,25 +86,25 @@ public class EnemyPattern_Follow : EnemyPattern
 
     #region Start End
 
-    public override void StartPattern()
+    public override void Start_Pattern()
     {
         CurrentTime = 0f;
 
-        base.StartPattern();
+        base.Start_Pattern();
     }
 
-    public override void EndPattern()
+    public override void End_Pattern()
     {
         CurrentTime = 0f;
 
-        base.EndPattern();
+        base.End_Pattern();
     }
 
     #endregion
 
     #region Actual
 
-    protected override IEnumerator ThisPattern()
+    protected override IEnumerator Play_ThisPattern_Cor()
     {
         ThisEnemy.MoveSpeed = FollowingSpeed;
 
@@ -112,10 +112,10 @@ public class EnemyPattern_Follow : EnemyPattern
 
         while (true)
         {
-            if (CanPlayPattern())
+            if (Can_PlayPattern())
             {
-                ThisEnemy.LookTargetPoint = ThisEnemy.FindWay()[0].ThisTF.position;
-                ThisEnemy.MoveTargetPoint = ThisEnemy.FindWay()[0].ThisTF.position;
+                ThisEnemy.LookTargetPoint = ThisEnemy.Get_RootWay()[0].ThisTF.position;
+                ThisEnemy.MoveTargetPoint = ThisEnemy.Get_RootWay()[0].ThisTF.position;
                 yield return new WaitForSeconds(FindRootDelay);
             }
             else
@@ -126,8 +126,8 @@ public class EnemyPattern_Follow : EnemyPattern
 
         yield return new WaitForSeconds(EndDelay);
 
-        EndPattern();
-        ThisEnemy.TryGetAnyPattern();
+        End_Pattern();
+        ThisEnemy.Play_Pattern();
     }
 
     #endregion
