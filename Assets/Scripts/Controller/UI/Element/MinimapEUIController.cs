@@ -219,6 +219,11 @@ public class MinimapEUIController : ElementUIController
         TabSeq.Join(InteractableCG.DOFade(1, _DurTime));
 
         TabSeq
+            .OnStart(() =>
+            {
+                MinimapSelectedElementRC = null;
+                InteractingBookGate = null;
+            })
             .OnComplete(() =>
             {
                 // 미니맵 이동을 위한 Reset
