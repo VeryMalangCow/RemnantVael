@@ -46,7 +46,7 @@ public class ShockwaveSkillController : ActiveSkillController
         float usableMaxSize = _MaxSize + (_MaxSize * Tier.ActualState.Value * 0.1f);
 
 
-        PlayerAttacker pa = PoolingManager.Instance.Get_OP_PlayerAttacker();
+        PlayerAttackerController pa = PoolingManager.Instance.Get_OP_PlayerAttacker();
 
         pa.Set_ShadowDis(ThisHST);
         pa.Play_Bigger(ThisHST.transform.position, ThisState, ShockwaveAnimation,

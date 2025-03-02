@@ -47,7 +47,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
                 MS.ThisMEII = MainGameUIManager.Instance.ModuleUpgrade_UIController.Get_MEIIList(MS.ThisItemData.ItemIcon, Get_CorrectRankIcon(MS), MS.ThisItemData.BoostLv);
                 
-                foreach(ModifyEachInventoryItem MEII in MS.ThisMEII)
+                foreach(InventoryItemEUIController MEII in MS.ThisMEII)
                 {
                     MEII.gameObject.name = $"{MS.ThisItemData.ID}_{MS.ThisItemData.Rank}_{MS.ThisItemData.BoostLv}";
                 }
@@ -116,7 +116,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Find
 
-    public ModuleState Get_EquipedModuleState(ModifyEachInventoryItem _MEII)
+    public ModuleState Get_EquipedModuleState(InventoryItemEUIController _MEII)
     {
         foreach (ModuleState MS in Gotten_MSList)
         {
@@ -129,7 +129,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return null;
     }
 
-    public ModuleState Get_InventoryModuleState(ModifyEachInventoryItem _MEII)
+    public ModuleState Get_InventoryModuleState(InventoryItemEUIController _MEII)
     {
         foreach(ModuleState MS in Gotten_MSList)
         {
@@ -157,7 +157,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Decomposition
 
-    public int Get_EC_ForUpgrade(ModifyEachInventoryItem _MEII)
+    public int Get_EC_ForUpgrade(InventoryItemEUIController _MEII)
     {
         if (_MEII == null)
         { return 0; }
@@ -170,7 +170,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return 0;
     }
 
-    public int Get_MC_ForFusion(ModifyEachInventoryItem _MEII)
+    public int Get_MC_ForFusion(InventoryItemEUIController _MEII)
     {
         if (_MEII == null)
         { return 0; }
@@ -261,7 +261,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Delete
 
-    public void Remove_ModuleState(ModifyEachInventoryItem _MEII)
+    public void Remove_ModuleState(InventoryItemEUIController _MEII)
     {
         ModuleState foundMs = Get_CorrectModuleState(Gotten_MSList, _MEII);
 
@@ -275,7 +275,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         foundMs = null;
     }
 
-    private ModuleState Get_CorrectModuleState(List<ModuleState> TargetMsList, ModifyEachInventoryItem _MEII)
+    private ModuleState Get_CorrectModuleState(List<ModuleState> TargetMsList, InventoryItemEUIController _MEII)
     {
         foreach(ModuleState MS in TargetMsList)
         {

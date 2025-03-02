@@ -16,18 +16,18 @@ public class RoomRuleController : MonoBehaviour
     [Space(10)]
     [Header("=== In Room _ Building")]
     [SerializeField] private Transform InRoom_AllBuildingParentTF;
-    [HideInInspector] public List<SortLayerObjectController> InRoom_AllBuilding;
+    [HideInInspector] public List<SortingObjectController> InRoom_AllBuilding;
     [SerializeField] private Transform InRoom_ShopTF;
     [SerializeField] private Transform InRoom_PrisonTF;
     [HideInInspector] private InteractableBuildController InRoom_BuildThing;
     // [HideInInspector] private 감옥 지정될 변수 
-    [SerializeField] private DownstartElevatorController InRoom_Elevator;
+    [SerializeField] private StartElevatorController InRoom_Elevator;
 
     [Space(10)]
     [Header("=== In Room _ Enemy")]
     [SerializeField] private List<EnemySpot> InRoom_AllEnemy;
     [SerializeField] private Transform InRoom_WayPointParentTF;
-    [HideInInspector] public List<WayPoint> InRoom_AllWayPoint;
+    [HideInInspector] public List<WayPointController> InRoom_AllWayPoint;
 
 
     #endregion
@@ -37,12 +37,12 @@ public class RoomRuleController : MonoBehaviour
     public void Offset()
     {
         // Obstacle
-        InRoom_AllBuilding = new List<SortLayerObjectController>();
+        InRoom_AllBuilding = new List<SortingObjectController>();
         if (InRoom_AllBuildingParentTF != null && InRoom_AllBuildingParentTF.childCount > 0)
         {
             foreach (Transform chile in InRoom_AllBuildingParentTF)
             {
-                if (chile.gameObject.TryGetComponent(out SortLayerObjectController BC))
+                if (chile.gameObject.TryGetComponent(out SortingObjectController BC))
                 {
                     InRoom_AllBuilding.Add(BC);
                 }
@@ -54,7 +54,7 @@ public class RoomRuleController : MonoBehaviour
         {
             foreach (Transform chile in InRoom_WayPointParentTF)
             {
-                if (chile.gameObject.TryGetComponent(out WayPoint wp))
+                if (chile.gameObject.TryGetComponent(out WayPointController wp))
                 { InRoom_AllWayPoint.Add(wp); }
             }
         }
@@ -122,7 +122,7 @@ public class RoomRuleController : MonoBehaviour
         for (int i = 0; i < InRoom_AllWayPoint.Count; i++)
         {
             InRoom_AllWayPoint[i].AdjacentWPList.Clear();
-            InRoom_AllWayPoint[i].AdjacentWPList = new List<WayPoint>();
+            InRoom_AllWayPoint[i].AdjacentWPList = new List<WayPointController>();
 
             for (int j = 0; j < InRoom_AllWayPoint.Count; j++)
             {

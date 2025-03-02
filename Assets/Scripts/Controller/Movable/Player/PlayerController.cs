@@ -6,7 +6,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PlayerController : MovableObject
+public class PlayerController : MovableObjectController
 {
     #region Value
 
@@ -154,17 +154,17 @@ public class PlayerController : MovableObject
     [SerializeField] public AnimationClip EnergyCriticalHittedPointAC;
 
     [Header("-- DamageType Icon")]
-    [SerializeField] private SetStateAnim StateAnim;
+    [SerializeField] private StateAnimController StateAnim;
     [SerializeField] private AnimationClip PhysicsStateAC;
     [SerializeField] private AnimationClip EnergyStateAC;
     [SerializeField] private AnimationClip ChangeStateAC;
 
     [Space(10)]
     [Header("-- BoostMode Icon")]
-    [SerializeField] private List<SetStateAnim> BoostStateAnimList;
+    [SerializeField] private List<StateAnimController> BoostStateAnimList;
     [SerializeField] private AnimationClip BoostOffAC;
     [SerializeField] private AnimationClip BoostOnAC;
-    [SerializeField] private List<SetStateAnim> BoostStateVFXAnimList;
+    [SerializeField] private List<StateAnimController> BoostStateVFXAnimList;
     [SerializeField] private List<AnimationClip> BoostVFXAnimList;
 
     [Space(10)]
@@ -177,7 +177,7 @@ public class PlayerController : MovableObject
 
     [Space(10)]
     [Header("-- Room Move Img")]
-    [SerializeField] private SetStateAnim MoveDirStateAnim;
+    [SerializeField] private StateAnimController MoveDirStateAnim;
     [SerializeField] private AnimationClip MoveDirAC;
 
     #endregion
@@ -195,7 +195,7 @@ public class PlayerController : MovableObject
 
     [Space(10)]
     [Header("=== WayPoint")]
-    [SerializeField] public WayPoint ThisWayPoint;
+    [SerializeField] public WayPointController ThisWayPoint;
 
     #endregion
 
@@ -489,7 +489,7 @@ public class PlayerController : MovableObject
     }
 
     // 타격: 어택커
-    public void Try_Hitted(EnemyAttacker _Attacker)
+    public void Try_Hitted(EnemyAttackerController _Attacker)
     {
         if (IsInvincible)
         { return; }
@@ -518,7 +518,7 @@ public class PlayerController : MovableObject
     }
 
     // 타격: 건물어택커
-    public void Try_Hitted(BuildAttacker _Attacker)
+    public void Try_Hitted(BuildAttackerController _Attacker)
     {
         if (IsInvincible)
         { return; }
@@ -838,7 +838,7 @@ public class PlayerController : MovableObject
                 }
                 CurrentInteractable.Value = null;
             }
-            else if (CurrentInteractable.Value is DownstartElevatorController DEC && DEC.IsOn)
+            else if (CurrentInteractable.Value is StartElevatorController DEC && DEC.IsOn)
             {
                 CurrentInteractable.Value.Play_Interact();
                 CurrentInteractable.Value = null;

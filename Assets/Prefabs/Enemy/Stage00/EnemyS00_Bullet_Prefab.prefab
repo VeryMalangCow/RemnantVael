@@ -154,7 +154,7 @@ MonoBehaviour:
   RotateSpeed: 1
   ThisAnimator: {fileID: 2399920995970120347}
   ThisCol: {fileID: 7842866708527823414}
-  OwnerEC: {fileID: 0}
+  Enemy: {fileID: 0}
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4
@@ -313,7 +313,6 @@ GameObject:
   - component: {fileID: 4622047315420442465}
   - component: {fileID: 2399920995970120347}
   - component: {fileID: 2506341436009816347}
-  - component: {fileID: 5914911076187854655}
   m_Layer: 0
   m_Name: Target
   m_TagString: PlayerThing
@@ -410,16 +409,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5914911076187854655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7754987835335729850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RandomSpriteList: []

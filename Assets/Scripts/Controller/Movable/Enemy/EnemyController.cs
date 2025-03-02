@@ -4,7 +4,7 @@ using System.Linq;
 using UniRx;
 using UnityEngine;
 
-public class EnemyController : MovableObject, IInteract
+public class EnemyController : MovableObjectController, IInteract
 {
     #region Value
 
@@ -560,7 +560,7 @@ public class EnemyController : MovableObject, IInteract
     #region Nav
 
     // 길 루트 찾기
-    public List<WayPoint> Get_RootWay()
+    public List<WayPointController> Get_RootWay()
     {
         // 바로 갈 수 있다면
         if (!Is_ExistWall(this.transform, PlayerManager.Instance.PlayerController.transform))
@@ -572,26 +572,26 @@ public class EnemyController : MovableObject, IInteract
                         Color.red, 0.3f);
 #endif
             */
-            return new List<WayPoint> { PlayerManager.Instance.PlayerController.ThisWayPoint };
+            return new List<WayPointController> { PlayerManager.Instance.PlayerController.ThisWayPoint };
         }    
 
         // 현재 방에 모든 WayPoint
-        List<WayPoint> allWP = StageManager.Instance.CurrentRoomController.RoomRuleController.InRoom_AllWayPoint;
+        List<WayPointController> allWP = StageManager.Instance.CurrentRoomController.RoomRuleController.InRoom_AllWayPoint;
 
         // 이 객체와 플레이어에 가장 가까운 WayPoint 찾기
-        List<List<WayPoint>> rootsFromEnemy = new List<List<WayPoint>> { new List<WayPoint> { Get_ClosetWP(this.transform, allWP) } };
-        List<List<WayPoint>> rootsFromPlayer = new List<List<WayPoint>> { new List<WayPoint> { Get_ClosetWP(PlayerManager.Instance.PlayerController.transform, allWP) } };
+        List<List<WayPointController>> rootsFromEnemy = new List<List<WayPointController>> { new List<WayPointController> { Get_ClosetWP(this.transform, allWP) } };
+        List<List<WayPointController>> rootsFromPlayer = new List<List<WayPointController>> { new List<WayPointController> { Get_ClosetWP(PlayerManager.Instance.PlayerController.transform, allWP) } };
 
         int checkOver = 0;
         bool IsEnemyExtensionTurn = true;
         while (true)
         {
             // 각 방향(적과 플레이어)의 끝 지점
-            List<WayPoint> endRootPointsFromEnemy = Get_EndPoints(rootsFromEnemy);
-            List<WayPoint> endRootPointsFromPlayer = Get_EndPoints(rootsFromPlayer);
+            List<WayPointController> endRootPointsFromEnemy = Get_EndPoints(rootsFromEnemy);
+            List<WayPointController> endRootPointsFromPlayer = Get_EndPoints(rootsFromPlayer);
 
             // 결과를 저장할 루트들
-            List<List<WayPoint>> resultRoots = new List<List<WayPoint>>();
+            List<List<WayPointController>> resultRoots = new List<List<WayPointController>>();
 
             // 두 끝 부분이 만난다면, 결과에 추가
             for (int i = 0; i < endRootPointsFromEnemy.Count; i++)
@@ -608,7 +608,7 @@ public class EnemyController : MovableObject, IInteract
             // 결과가 있다면, 결과 중 가장 짧은 루트 구하기
             if (resultRoots.Count > 0)
             {
-                List<WayPoint> resultRoot = Get_ClosetRoot(resultRoots);
+                List<WayPointController> resultRoot = Get_ClosetRoot(resultRoots);
                 resultRoot.Add(PlayerManager.Instance.PlayerController.ThisWayPoint);
                 resultRoot = Get_RemoveUnnecessaryRoot(resultRoot);
                 /*
@@ -644,25 +644,25 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 루트를 연장하기
-    private List<List<WayPoint>> Get_ExtensionRoots(List<List<WayPoint>> _Roots)
+    private List<List<WayPointController>> Get_ExtensionRoots(List<List<WayPointController>> _Roots)
     {
         // 결과
-        List<List<WayPoint>> extensionedRoots = new List<List<WayPoint>>();
+        List<List<WayPointController>> extensionedRoots = new List<List<WayPointController>>();
 
         // 이미 포함하고 있는 WayPoint 판별을 위함
-        List<WayPoint> rootSimpleList = Get_NormalList<WayPoint>(_Roots);
+        List<WayPointController> rootSimpleList = Get_NormalList<WayPointController>(_Roots);
 
 
         for (int i = 0; i < _Roots.Count; i++)
         {
             // 마지막 끝부분 WP
-            WayPoint lastWP = _Roots[i][_Roots[i].Count - 1];
+            WayPointController lastWP = _Roots[i][_Roots[i].Count - 1];
             for (int j = 0; j < lastWP.AdjacentWPList.Count; j++)
             {
                 // 마지막 끝부분 WP에 인접한 WP가 현재 루트에 있지않다면 추가
                 if (!rootSimpleList.Contains(lastWP.AdjacentWPList[j]))
                 {
-                    List<WayPoint> addRoot = new List<WayPoint>();
+                    List<WayPointController> addRoot = new List<WayPointController>();
                     addRoot.AddRange(_Roots[i]);
                     addRoot.Add(lastWP.AdjacentWPList[j]);
 
@@ -675,9 +675,9 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 가장 짧은 루트 구하기
-    private List<WayPoint> Get_ClosetRoot(List<List<WayPoint>> _ResultRoots)
+    private List<WayPointController> Get_ClosetRoot(List<List<WayPointController>> _ResultRoots)
     {
-        List<WayPoint> closetRoot = _ResultRoots[0];
+        List<WayPointController> closetRoot = _ResultRoots[0];
         float closetDis = Get_RootDistance(_ResultRoots[0]);
 
         for (int i = 0; i < _ResultRoots.Count; i++) 
@@ -694,9 +694,9 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 루트 중 직접 갈 수 있는 부분 중복 된다면 삭제
-    private List<WayPoint> Get_RemoveUnnecessaryRoot(List<WayPoint> _Root)
+    private List<WayPointController> Get_RemoveUnnecessaryRoot(List<WayPointController> _Root)
     {
-        List<WayPoint> resultRoot = new List<WayPoint>();
+        List<WayPointController> resultRoot = new List<WayPointController>();
         bool NeedInit = false;
         for (int i = 0; i < _Root.Count; i++)
         {
@@ -716,7 +716,7 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 한 루트의 길이 구하기
-    private float Get_RootDistance(List<WayPoint> _Roots)
+    private float Get_RootDistance(List<WayPointController> _Roots)
     {
         float resultDis = 0;
         for (int i = 0; i < _Roots.Count - 1; i++)
@@ -727,17 +727,17 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 두 객체 루트를 연결한 루트
-    private List<WayPoint> Get_Combine(List<WayPoint> _WayFromEnemy, List<WayPoint> _WayFromPlayer)
+    private List<WayPointController> Get_Combine(List<WayPointController> _WayFromEnemy, List<WayPointController> _WayFromPlayer)
     {
-        List<WayPoint> combinedRoot = new List<WayPoint>();
+        List<WayPointController> combinedRoot = new List<WayPointController>();
 
         // 한쪽 끝 지우기
-        List<WayPoint> deletedLastOneWayFromEnemy = new List<WayPoint>();
+        List<WayPointController> deletedLastOneWayFromEnemy = new List<WayPointController>();
         deletedLastOneWayFromEnemy = _WayFromEnemy.ToList();
         deletedLastOneWayFromEnemy.Remove(deletedLastOneWayFromEnemy[deletedLastOneWayFromEnemy.Count - 1]);
 
         // 뒤집기 (한쪽)
-        List<WayPoint> reverseWayFromPlayer = Enumerable.Reverse(_WayFromPlayer).ToList();
+        List<WayPointController> reverseWayFromPlayer = Enumerable.Reverse(_WayFromPlayer).ToList();
 
         // 리스트 합친 결과
         combinedRoot.AddRange(deletedLastOneWayFromEnemy);
@@ -747,9 +747,9 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 끝 부분 WayPoint 구하기
-    private List<WayPoint> Get_EndPoints(List<List<WayPoint>> _Roots)
+    private List<WayPointController> Get_EndPoints(List<List<WayPointController>> _Roots)
     {
-        List<WayPoint> endPoints = new List<WayPoint>();
+        List<WayPointController> endPoints = new List<WayPointController>();
         for (int i = 0; i < _Roots.Count; i++)
         {
             endPoints.Add(_Roots[i][_Roots[i].Count - 1]);
@@ -759,9 +759,9 @@ public class EnemyController : MovableObject, IInteract
     }
 
     // 가장 가까운 WayPoint
-    private WayPoint Get_ClosetWP(Transform transform, List<WayPoint> _AllWP)
+    private WayPointController Get_ClosetWP(Transform transform, List<WayPointController> _AllWP)
     {
-        WayPoint closetWP = _AllWP[0];
+        WayPointController closetWP = _AllWP[0];
         float closetDis = Vector2.Distance(closetWP.ThisTF.position, transform.position);
 
         for (int i = 1; i < _AllWP.Count; i++)
@@ -921,7 +921,7 @@ public class EnemyController : MovableObject, IInteract
         currentRotation.z += 180;
         q.eulerAngles = currentRotation;
 
-        OnlyOnceTimeAnimation oota = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
+        OnceTimeAnimController oota = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
         oota.Start_Anim(
             HittedAC_0,
             _SpanwedPos,
@@ -934,7 +934,7 @@ public class EnemyController : MovableObject, IInteract
         currentRotation.z += Random.Range(-45, 45);
         q2.eulerAngles = currentRotation;
 
-        OnlyOnceTimeAnimation oota2 = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
+        OnceTimeAnimController oota2 = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
         oota2.Start_Anim(
             HittedAC_1,
             _SpanwedPos,
@@ -954,7 +954,7 @@ public class EnemyController : MovableObject, IInteract
         currentRotation.z += Random.Range(-20, 20);
         q.eulerAngles = currentRotation;
 
-        OnlyOnceTimeAnimation oota2 = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
+        OnceTimeAnimController oota2 = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
         oota2.Start_Anim(
             HittedAC_2,
             this.TargetObject.transform.position,

@@ -1,0 +1,45 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class StateAnimController : MonoBehaviour
+{
+    #region Value
+
+    [Space(10)]
+    [Header("=== Component")]
+    [SerializeField] private Animator ThisAnimator;
+    [SerializeField] public SpriteRenderer ThisSR;
+    [SerializeField] private SpriteRenderer ThisInnerSR;
+
+    [HideInInspector] private AnimatorOverrideController aoc;
+
+    #endregion
+
+    #region Anim
+
+    public void Set_Anim(AnimationClip _AC, Sprite _InnerSprite, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    {
+        Set_Anim(_AC, _AnimSpeed, _AnimSize);
+
+        ThisInnerSR.sprite = _InnerSprite;
+        ThisInnerSR.gameObject.SetActive(true);
+    }
+
+    public void Set_Anim(AnimationClip _AC, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    {
+        ThisInnerSR.gameObject.SetActive(false);
+
+        aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
+        var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
+        foreach (var a in aoc.animationClips)
+            anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
+        aoc.ApplyOverrides(anims);
+        ThisAnimator.runtimeAnimatorController = aoc;
+
+        ThisAnimator.speed = _AnimSpeed;
+        ThisSR.transform.localScale = Vector2.one * _AnimSize;
+    }
+
+    #endregion
+
+}

@@ -45,8 +45,8 @@ public class RoomController : MonoBehaviour
     [SerializeField] public Sprite ThisSpriteMMI;
     [SerializeField] public Sprite ThisSpriteMMIO;
     [SerializeField] public Vector2 SpritePivot;
-    [HideInInspector] public ModifyMinimapElement ThisMME;
-    [HideInInspector] public ModifyMinimapElement ThisIMME;
+    [HideInInspector] public MinimapCellEUIController ThisMME;
+    [HideInInspector] public MinimapCellEUIController ThisIMME;
 
     #endregion
 

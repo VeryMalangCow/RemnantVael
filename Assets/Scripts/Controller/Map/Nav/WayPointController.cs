@@ -1,0 +1,26 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WayPointController : MonoBehaviour
+{
+    #region Value
+
+    [Space(20)]
+    [Header("<><><><><> WayPoint")]
+
+    [Space(10)]
+    [Header("=== Value")]
+    [HideInInspector] public Transform ThisTF;
+    [SerializeField] public List<WayPointController> AdjacentWPList;
+
+    #endregion
+
+    #region Framework
+
+    private void Awake()
+    {
+        ThisTF = this.transform;
+    }
+
+    #endregion
+}

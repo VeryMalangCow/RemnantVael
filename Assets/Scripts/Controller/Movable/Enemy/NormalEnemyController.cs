@@ -12,10 +12,10 @@ public class NormalEnemyController : EnemyController
     [Space(10)]
     [Header("=== Img or Anim")]
     [SerializeField] private ReactiveProperty<int> CurrentIndex = new();
-    [SerializeField] private SatelliteController WalkingSatellite;
-    [SerializeField] private SatelliteController LookingSatellite;
+    [SerializeField] private SolarSystemController WalkingSatellite;
+    [SerializeField] private SolarSystemController LookingSatellite;
     [SerializeField] private float BaseUnderFootAnimSpeed = 1.0f;
-    [SerializeField] private List<SetEightDirAnim> ThisSEDA;
+    [SerializeField] private List<DirectionalAnimController> ThisSEDA;
 
     #endregion
 
@@ -48,23 +48,23 @@ public class NormalEnemyController : EnemyController
 
     #region Img or Anim
 
-    private void Set_Img(SatelliteController _SC, Vector2 _Dir)
+    private void Set_Img(SolarSystemController _SC, Vector2 _Dir)
     {
         if (_Dir != Vector2.zero)
         {
             _Dir = new Vector2(-_Dir.x, _Dir.y);
-            if (SatelliteController.Get_Index(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z) != CurrentIndex.Value)
+            if (SolarSystemController.Get_Index(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z) != CurrentIndex.Value)
             {
-                CurrentIndex.Value = SatelliteController.Get_Index(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z);
+                CurrentIndex.Value = SolarSystemController.Get_Index(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z);
             }
 
-            _SC.PitchTF.transform.localRotation = _SC.Get_RotationSmooth(SatelliteController.Get_NormalizedVec(CurrentIndex.Value));
+            _SC.PitchTF.transform.localRotation = _SC.Get_RotationSmooth(SolarSystemController.Get_NormalizedVec(CurrentIndex.Value));
         }
     }
 
-    private void Set_ImgPosSort(SatelliteController _SC)
+    private void Set_ImgPosSort(SolarSystemController _SC)
     {
-        foreach (Satellite hand in _SC.Hands)
+        foreach (SatelliteController hand in _SC.Hands)
         { hand.SetPos(_SC.PlayerSR.sortingOrder); }
     }
 

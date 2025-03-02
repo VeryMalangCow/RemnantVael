@@ -1,13 +1,13 @@
 using UniRx;
 using UnityEngine;
 
-public class TitlePlayerController : MovableObject
+public class TitlePlayerController : MovableObjectController
 {
     #region Value
 
     [Space(10)]
     [Header("=== Movement")]
-    [SerializeField] public SatelliteController HigherBody;
+    [SerializeField] public SolarSystemController HigherBody;
     [SerializeField] private float WalkSpeed = 1f;
 
     [Space(10)]
@@ -86,13 +86,13 @@ public class TitlePlayerController : MovableObject
         if (dir != Vector2.zero)
         {
             dir = new Vector2(-dir.x, dir.y);
-            if (SatelliteController.Get_Index(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z) != CurrentIndex.Value)
+            if (SolarSystemController.Get_Index(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z) != CurrentIndex.Value)
             {
-                CurrentIndex.Value = SatelliteController.Get_Index(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z);
+                CurrentIndex.Value = SolarSystemController.Get_Index(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z);
             }
 
-            HigherBody.PitchTF.transform.localRotation = HigherBody.Get_RotationSmooth(SatelliteController.Get_NormalizedVec(CurrentIndex.Value));
-            foreach (Satellite hand in HigherBody.Hands)
+            HigherBody.PitchTF.transform.localRotation = HigherBody.Get_RotationSmooth(SolarSystemController.Get_NormalizedVec(CurrentIndex.Value));
+            foreach (SatelliteController hand in HigherBody.Hands)
             {
                 hand.SetPos(HigherBody.PlayerSR.sortingOrder);
             }

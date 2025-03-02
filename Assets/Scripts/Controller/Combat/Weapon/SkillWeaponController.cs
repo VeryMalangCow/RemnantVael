@@ -1,7 +1,7 @@
 using UnityEngine;
 using UniRx;
 
-public class SkillWeaponController : SatelliteController
+public class SkillWeaponController : SolarSystemController
 {
     #region Value
 
@@ -45,7 +45,7 @@ public class SkillWeaponController : SatelliteController
     {
         PitchTF.transform.localRotation = Get_RotationSmooth(InputManager.Instance.DirFromPlayerPos.normalized, PitchTF, rotateSpeed);
 
-        foreach (Satellite hand in Hands)
+        foreach (SatelliteController hand in Hands)
         {
             hand.SetPos(PlayerSR.sortingOrder);
         }

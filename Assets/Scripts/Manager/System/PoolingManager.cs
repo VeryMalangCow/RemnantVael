@@ -11,25 +11,25 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<BetteryShrapnelController> BetteryShrapnel;
     [SerializeField] public TTypePooling<ModuleShrapnelController> ModuleShrapnel;
     [SerializeField] public TTypePooling<InteractItemController> InteractItems;
-    [SerializeField] public TTypePooling<PlayerAttacker> PlayerAttackers;
+    [SerializeField] public TTypePooling<PlayerAttackerController> PlayerAttackers;
 
     [Header("=== Skill")]
     [SerializeField] public TTypePooling<MissileBulletController> MissileBullet;
 
     [Header("=== Enemy")]
     [SerializeField] public TTypePooling<EnemyBulletController> EnemyBullets;
-    [SerializeField] public TTypePooling<EnemyAttacker> EnemyAttackers;
+    [SerializeField] public TTypePooling<EnemyAttackerController> EnemyAttackers;
     [HideInInspector] public List<TTypePooling<EnemyController>> CurrentStageEnemies;
     [SerializeField] public Transform EnemyParentTF;
 
     [Header("=== Effect Img")]
     [SerializeField] public TTypePooling<SpriteRenderer> AfterImgs;
     [SerializeField] public TTypePooling<SpriteRenderer> ExplosionImgs;
-    [SerializeField] public TTypePooling<OnlyOnceTimeAnimation> OnlyOnceAnimators;
+    [SerializeField] public TTypePooling<OnceTimeAnimController> OnlyOnceAnimators;
 
     [Header("=== UI")]
-    [SerializeField] public TTypePooling<ModifyEffectWorldTxt> DmgTxtCanvases;
-    [SerializeField] public TTypePooling<ModifyBuffIcon> BuffIcons;
+    [SerializeField] public TTypePooling<WorldTxtEUIController> DmgTxtCanvases;
+    [SerializeField] public TTypePooling<BuffIconEUIController> BuffIcons;
 
     [Header("=== MI")]
     [SerializeField] public TTypePooling<PlayerBulletController> MI_000_Bullets;
@@ -107,9 +107,9 @@ public class PoolingManager : Singleton<PoolingManager>
     }
 
     // Player Attacker
-    public PlayerAttacker Get_OP_PlayerAttacker()
+    public PlayerAttackerController Get_OP_PlayerAttacker()
     {
-        return Get_OP<PlayerAttacker>(PlayerAttackers.Prefab, PlayerAttackers.ParentTF, PlayerAttackers.Queue);
+        return Get_OP<PlayerAttackerController>(PlayerAttackers.Prefab, PlayerAttackers.ParentTF, PlayerAttackers.Queue);
     }
 
     #endregion
@@ -173,9 +173,9 @@ public class PoolingManager : Singleton<PoolingManager>
     }
 
     // Enemy Attacker
-    public EnemyAttacker Get_OP_EnemyAttacker()
+    public EnemyAttackerController Get_OP_EnemyAttacker()
     {
-        return Get_OP<EnemyAttacker>(EnemyAttackers.Prefab, EnemyAttackers.ParentTF, EnemyAttackers.Queue);
+        return Get_OP<EnemyAttackerController>(EnemyAttackers.Prefab, EnemyAttackers.ParentTF, EnemyAttackers.Queue);
     }
 
     #endregion
@@ -183,15 +183,15 @@ public class PoolingManager : Singleton<PoolingManager>
     #region UI
 
     // Damage Txt
-    public ModifyEffectWorldTxt Get_OP_DmgTxt()
+    public WorldTxtEUIController Get_OP_DmgTxt()
     {
-        return Get_OP<ModifyEffectWorldTxt>(DmgTxtCanvases.Prefab, DmgTxtCanvases.ParentTF, DmgTxtCanvases.Queue);
+        return Get_OP<WorldTxtEUIController>(DmgTxtCanvases.Prefab, DmgTxtCanvases.ParentTF, DmgTxtCanvases.Queue);
     }
 
     // Buff Icon UI
-    public ModifyBuffIcon Get_OP_BuffUI()
+    public BuffIconEUIController Get_OP_BuffUI()
     {
-        return Get_OP<ModifyBuffIcon>(BuffIcons.Prefab, BuffIcons.ParentTF, BuffIcons.Queue);
+        return Get_OP<BuffIconEUIController>(BuffIcons.Prefab, BuffIcons.ParentTF, BuffIcons.Queue);
     }
 
     #endregion
@@ -211,9 +211,9 @@ public class PoolingManager : Singleton<PoolingManager>
     }
 
     // Hitted Animator
-    public OnlyOnceTimeAnimation Get_OP_OnlyOnceAnimator()
+    public OnceTimeAnimController Get_OP_OnlyOnceAnimator()
     {
-        return Get_OP<OnlyOnceTimeAnimation>(OnlyOnceAnimators.Prefab, OnlyOnceAnimators.ParentTF, OnlyOnceAnimators.Queue);
+        return Get_OP<OnceTimeAnimController>(OnlyOnceAnimators.Prefab, OnlyOnceAnimators.ParentTF, OnlyOnceAnimators.Queue);
     }
 
     #endregion

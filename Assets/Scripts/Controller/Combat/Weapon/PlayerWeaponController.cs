@@ -2,7 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeaponController : SatelliteController
+public class PlayerWeaponController : SolarSystemController
 {
     #region Value
 
@@ -39,7 +39,7 @@ public class PlayerWeaponController : SatelliteController
     {
         PitchTF.transform.localRotation = Get_RotationSmooth(InputManager.Instance.DirFromPlayerPos.normalized, PitchTF, rotateSpeed);
 
-        foreach (Satellite hand in Hands)
+        foreach (SatelliteController hand in Hands)
         {
             hand.SetPos(PlayerSR.sortingOrder);
         }

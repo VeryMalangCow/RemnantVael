@@ -33,7 +33,7 @@ public class GateController : StaticDepthController, IInteract
     [SerializeField] private GameObject OnThingsGO;
     [SerializeField] private GameObject OffThingsGO;
     [SerializeField] private GameObject EntranceGO;
-    [SerializeField] public List<SortLayerObjectController> NeedSetAllLayer;
+    [SerializeField] public List<SortingObjectController> NeedSetAllLayer;
 
 
     [HideInInspector] private AnimatorOverrideController aoc;

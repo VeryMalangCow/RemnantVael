@@ -142,7 +142,7 @@ public class MissileBulletController : BulletController
 
     private void Gen_AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
     {
-        OnlyOnceTimeAnimation oota = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
+        OnceTimeAnimController oota = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
         oota.Start_Anim(
             PlayerManager.Instance.PlayerController.Get_AnimClip_CorrectHitted(_DamageType, _IsCritical),
             _SpanwedPos,
