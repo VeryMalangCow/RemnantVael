@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class DownstartElevatorController : HaveShadowThingStatic, IInteract
+public class DownstartElevatorController : StaticDepthController, IInteract
 {
     #region Value
 

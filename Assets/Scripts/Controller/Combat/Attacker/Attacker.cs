@@ -15,7 +15,7 @@ public class Attacker : MonoBehaviour
     [SerializeField] protected CapsuleCollider2D ThisCol;
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] private Light2D ThisLight;
-    [SerializeField] private HaveShadowThingStatic HSTS;
+    [SerializeField] private StaticDepthController HSTS;
 
     [Space(10)]
     [Header("=== State")]
@@ -27,7 +27,7 @@ public class Attacker : MonoBehaviour
 
     #region Set State by Cond
 
-    public void Set_ShadowDis(HaveShadowThing _HST)
+    public void Set_ShadowDis(DepthController _HST)
     {
         if (HSTS == null)
         { return; }

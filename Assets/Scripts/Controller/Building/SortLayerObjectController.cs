@@ -1,5 +1,5 @@
 
-public class SortLayerObjectController : HaveShadowThingStatic
+public class SortLayerObjectController : StaticDepthController
 {
     #region Framework
 

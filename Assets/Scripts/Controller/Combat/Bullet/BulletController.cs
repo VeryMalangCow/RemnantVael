@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : HaveShadowThingMovable
+public class BulletController : MovableDepthController
 {
     #region Value
 

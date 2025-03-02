@@ -11,7 +11,7 @@ public class MissileSkillController : ActiveSkillController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private HaveShadowThing ThisHST;
+    [SerializeField] private DepthController ThisHST;
 
     [Header("-- State")]
     [SerializeField] private float ShotDelay = 0.1f;

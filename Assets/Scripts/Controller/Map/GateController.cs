@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GateController : HaveShadowThingStatic, IInteract
+public class GateController : StaticDepthController, IInteract
 {
     #region Value
 

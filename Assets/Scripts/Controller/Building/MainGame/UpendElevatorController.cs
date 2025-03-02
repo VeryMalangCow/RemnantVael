@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class UpendElevatorController : HaveShadowThingStatic
+public class UpendElevatorController : StaticDepthController
 {
     #region Value
 

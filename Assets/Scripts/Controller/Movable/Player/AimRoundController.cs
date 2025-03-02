@@ -3,7 +3,7 @@ using UniRx;
 using System.Collections.Generic;
 using static UnityEngine.Rendering.DebugUI;
 
-public class AimRoundController : HaveShadowThingStatic
+public class AimRoundController : StaticDepthController
 {
     #region Value
 

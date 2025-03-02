@@ -19,9 +19,9 @@ public class RoomController : MonoBehaviour
     [Space(10)]
     [Header("=== In Room _ Wall")]
     [SerializeField] private Transform InRoom_UpperWallParentTF;
-    [HideInInspector] private List<HaveShadowThingStatic> InRoom_UpperWalls;
+    [HideInInspector] private List<StaticDepthController> InRoom_UpperWalls;
     [SerializeField] private Transform InRoom_LowerWallParentTF;
-    [HideInInspector] private List<HaveShadowThingStatic> InRoom_LowerWalls;
+    [HideInInspector] private List<StaticDepthController> InRoom_LowerWalls;
 
     [Space(10)]
     [Header("=== In Room _ Building")]
@@ -55,23 +55,23 @@ public class RoomController : MonoBehaviour
     public void Offset()
     {
         // Wall
-        InRoom_UpperWalls = new List<HaveShadowThingStatic>();
+        InRoom_UpperWalls = new List<StaticDepthController>();
         if (InRoom_UpperWallParentTF.childCount > 0)
         {
             foreach (Transform chile in InRoom_UpperWallParentTF)
             {
-                if (chile.gameObject.TryGetComponent(out HaveShadowThingStatic HSTS))
+                if (chile.gameObject.TryGetComponent(out StaticDepthController HSTS))
                 {
                     InRoom_UpperWalls.Add(HSTS);
                 }
             }
         }
-        InRoom_LowerWalls = new List<HaveShadowThingStatic>();
+        InRoom_LowerWalls = new List<StaticDepthController>();
         if (InRoom_LowerWallParentTF.childCount > 0)
         {
             foreach (Transform chile in InRoom_LowerWallParentTF)
             {
-                if (chile.gameObject.TryGetComponent(out HaveShadowThingStatic HSTS))
+                if (chile.gameObject.TryGetComponent(out StaticDepthController HSTS))
                 {
                     InRoom_LowerWalls.Add(HSTS);
                 }
@@ -175,7 +175,7 @@ public class RoomController : MonoBehaviour
         }
         else
         {
-            List<HaveShadowThingStatic> HSTSs = new List<HaveShadowThingStatic>();
+            List<StaticDepthController> HSTSs = new List<StaticDepthController>();
             HSTSs.AddRange(InRoom_UpperWalls);
             HSTSs.AddRange(InRoom_LowerWalls);
             for (int i = 0; i < HSTSs.Count; i++)
@@ -187,9 +187,9 @@ public class RoomController : MonoBehaviour
         
     }
 
-    public List<HaveShadowThing> Get_NeedAllLayer()
+    public List<DepthController> Get_NeedAllLayer()
     {
-        List<HaveShadowThing> HST = new List<HaveShadowThing>();
+        List<DepthController> HST = new List<DepthController>();
 
         for (int i = 0; i < InRoom_AllGate.Count; i++)
         {

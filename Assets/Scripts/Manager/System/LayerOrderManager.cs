@@ -11,7 +11,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     [SerializeField] public int NeedLayerObjectTopSort = 1000;
 
     [Header("=== Movable Object")]
-    [SerializeField] public List<HaveShadowThing> NeedLayerObjects;
+    [SerializeField] public List<DepthController> NeedLayerObjects;
 
     #endregion
 
@@ -31,7 +31,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
     private bool Get_NeedSort()
     {
-        List<HaveShadowThing> tempObjects = NeedLayerObjects.OrderBy(obj => obj.transform.position.y).ToList();
+        List<DepthController> tempObjects = NeedLayerObjects.OrderBy(obj => obj.transform.position.y).ToList();
         bool needSort = !Enumerable.SequenceEqual(tempObjects, NeedLayerObjects);
         if (needSort)
         {

@@ -10,7 +10,7 @@ public class ShockwaveSkillController : ActiveSkillController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private HaveShadowThing ThisHST;
+    [SerializeField] private DepthController ThisHST;
     [SerializeField] private Vector2 _ColSize = new Vector2(1f, 0.5f);
     [SerializeField] private float _StartSize = 3f; 
     [SerializeField] private float _MaxSize = 7.5f;

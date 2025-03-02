@@ -89,7 +89,7 @@ public class EnemyPattern_Range : EnemyPattern
 
             // Shadow
             float targetShadow = 0.4f;
-            if (SpawnTFList[i].TryGetComponent(out HaveShadowThing HST))
+            if (SpawnTFList[i].TryGetComponent(out DepthController HST))
             { targetShadow = HST.TargetRange; }
 
             // Base State 
@@ -97,7 +97,7 @@ public class EnemyPattern_Range : EnemyPattern
             EBC.Set_State(SpawnTFList[i].position, ThisBS, targetDir, BulletShadowScale, BulletColSize, BulletAC, targetShadow);
 
             // Sorting Layer
-            if (SpawnTFList[i].gameObject.TryGetComponent(out HaveShadowThing hst))
+            if (SpawnTFList[i].gameObject.TryGetComponent(out DepthController hst))
             { EBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
 
             // Effect

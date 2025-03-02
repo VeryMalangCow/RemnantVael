@@ -2,7 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovableObject : HaveShadowThingMovable
+public class MovableObject : MovableDepthController
 {
     #region Value
 
@@ -32,7 +32,7 @@ public class MovableObject : HaveShadowThingMovable
     [Header("-- Idle")]
     [SerializeField] private float BaseYLimit = 0.06f;
     [SerializeField] private float BaseTweenReTime = 0.3f;
-    [SerializeField] List<HaveShadowThingMovable> ThisComponentGOList;
+    [SerializeField] List<MovableDepthController> ThisComponentGOList;
 
     [HideInInspector] private Sequence BaseSeq = null;
 
@@ -90,7 +90,7 @@ public class MovableObject : HaveShadowThingMovable
         {
             for (int i = 0; i < ThisComponentGOList.Count; i++)
             {
-                HaveShadowThingMovable HSTM = ThisComponentGOList[i];
+                MovableDepthController HSTM = ThisComponentGOList[i];
                 BaseSeq.Join(DOTween.To(() => HSTM.TargetRange, x => HSTM.TargetRange = x, HSTM.TargetRange + BaseYLimit, BaseTweenReTime)
                     .SetEase(Ease.Linear));
             }

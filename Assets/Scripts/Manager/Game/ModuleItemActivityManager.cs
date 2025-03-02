@@ -114,7 +114,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             pbc.Set_State(PC.transform.position, 10, bulletState, dir, 0.35f);
 
             // Sorting Layer
-            if (PC.TargetObject.gameObject.TryGetComponent(out HaveShadowThing hst))
+            if (PC.TargetObject.gameObject.TryGetComponent(out DepthController hst))
             { pbc.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
         }
     }

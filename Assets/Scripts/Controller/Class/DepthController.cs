@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HaveShadowThing : MonoBehaviour
+public class DepthController : MonoBehaviour
 {
     #region Value
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ItemController : HaveShadowThingStatic
+public class ItemController : StaticDepthController
 {
     #region Value
 

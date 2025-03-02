@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AimController : HaveShadowThingStatic
+public class AimController : StaticDepthController
 {
     #region Value
 

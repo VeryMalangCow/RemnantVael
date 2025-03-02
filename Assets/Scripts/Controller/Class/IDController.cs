@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HaveID : MonoBehaviour
+public class IDController : MonoBehaviour
 {
     #region Value
 

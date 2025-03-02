@@ -122,7 +122,7 @@ public class PlayerWeaponController : SatelliteController
 
             // Shadow
             float targetShadow = 0.4f;
-            if (BulletSpawnTFs[i].TryGetComponent(out HaveShadowThing HST))
+            if (BulletSpawnTFs[i].TryGetComponent(out DepthController HST))
             { targetShadow = HST.TargetRange; }
 
             // Angle
@@ -150,11 +150,11 @@ public class PlayerWeaponController : SatelliteController
             PBC.Set_State(BulletSpawnTFs[i].position, randomAngle, bulletState, dir, targetShadow);
 
             // Sorting Layer
-            if (BulletSpawnTFs[i].gameObject.TryGetComponent(out HaveShadowThing hst))
+            if (BulletSpawnTFs[i].gameObject.TryGetComponent(out DepthController hst))
             { PBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
 
             // Effect
-            if (BulletSpawnTFs[i].TryGetComponent(out HaveShadowThing posHst))
+            if (BulletSpawnTFs[i].TryGetComponent(out DepthController posHst))
             {
                 Gen_ExplosionEffect_Fan((Vector2)posHst.TargetObject.transform.position + (dir * 0.3f),
                     DamageType, isCritical, i, dir);

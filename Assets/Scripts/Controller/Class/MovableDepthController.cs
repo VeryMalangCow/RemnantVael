@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HaveShadowThingMovable : HaveShadowThing
+public class MovableDepthController : DepthController
 {
     #region Framework
 

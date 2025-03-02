@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HaveShadowThingStatic : HaveShadowThing
+public class StaticDepthController : DepthController
 {
     #region Framework
 

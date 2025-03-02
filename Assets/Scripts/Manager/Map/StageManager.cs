@@ -406,7 +406,7 @@ public class StageManager : Singleton<StageManager>
         }
 
         // Layer 초기화
-        LayerOrderManager.Instance.NeedLayerObjects = new List<HaveShadowThing>();
+        LayerOrderManager.Instance.NeedLayerObjects = new List<DepthController>();
 
         // 처음 엘베 레이어때문에 추가 하지않음
         if (!IsStartStage)

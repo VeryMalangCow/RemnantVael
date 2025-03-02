@@ -28,7 +28,7 @@ public class EnemyPattern_Melee : EnemyPattern
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private HaveShadowThing SpawnHST;
+    [SerializeField] private DepthController SpawnHST;
 
     #endregion
 

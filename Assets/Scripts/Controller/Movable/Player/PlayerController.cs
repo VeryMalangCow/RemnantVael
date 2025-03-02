@@ -144,8 +144,8 @@ public class PlayerController : MovableObject
 
     [Space(10)]
     [Header("=== Effect")]
-    [SerializeField] public MakeExplosionImage PlayerMEI;
-    [SerializeField] public MakeAfterImage PlayerMAI;
+    [SerializeField] public ExplosionImgGenerator PlayerMEI;
+    [SerializeField] public AfterImgGenerator PlayerMAI;
 
     [Header("-- Hitted")]
     [SerializeField] public AnimationClip PhysicsHittedPointAC;

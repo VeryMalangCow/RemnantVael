@@ -49,7 +49,7 @@ public class EnemyController : MovableObject, IInteract
 
     [Space(10)]
     [Header("=== Effect")]
-    [SerializeField] public MakeExplosionImage MEI;
+    [SerializeField] public ExplosionImgGenerator MEI;
     [SerializeField] public Material ThisSmokeM;
     [SerializeField] public AnimationClip HittedAC_0;
     [SerializeField] public AnimationClip HittedAC_1;

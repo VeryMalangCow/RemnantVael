@@ -490,7 +490,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 804077286008005789}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 60363011539769632}
@@ -938,7 +938,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3345474368664604234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 5870382414214010329}
@@ -1104,12 +1104,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4848029523120985850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 5514810750984630835}
   ThisSR: {fileID: 0}
-  TargetRange: 0.12
+  TargetRange: 0.1
 --- !u!1 &4962291530876198273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,7 +1579,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6323004925855727670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 3146272549584932296}
@@ -1734,12 +1734,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6783715719730225378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 8539745718325483645}
   ThisSR: {fileID: 0}
-  TargetRange: 0.12
+  TargetRange: 0.1
 --- !u!1 &7798985532177022493
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,7 +1882,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8423270927366442039}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 6446749192164589527}
@@ -2208,7 +2208,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8753258395414943751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
+  m_Script: {fileID: 11500000, guid: fc6a9a4a88b0d244888af9fe4db9a145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RandomSpriteList:

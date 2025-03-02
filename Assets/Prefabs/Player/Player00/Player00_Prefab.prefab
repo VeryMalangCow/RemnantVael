@@ -171,7 +171,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 649091517721256293}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 6973917010919293386}
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 692596776873705451}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 18008044557870850}
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1333439580023470818}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 7217206221402160431}
@@ -568,7 +568,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2632657534027564969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 9139456362501203251}
@@ -1525,7 +1525,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4593839933363528314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1599bb6126addc479ff42e91777e35b, type: 3}
+  m_Script: {fileID: 11500000, guid: 57e2476fc907d1144b5e7d6c756be61b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetSRList:
@@ -1534,14 +1534,14 @@ MonoBehaviour:
   - {fileID: 2638774432652660132}
   - {fileID: 7701436176763635119}
   - {fileID: 4006282422904298947}
+  - {fileID: 8580305544851392310}
   - {fileID: 3148743442653112249}
   - {fileID: 1426022462572893245}
-  - {fileID: 8580305544851392310}
   IsOn: 0
   CurrentGenTime: 0
   ImageAlpha: 1
-  DelayGenTime: 0.03
-  StayDur: 0.5
+  DelayGenTime: 1
+  StayDur: 1
 --- !u!114 &2930891811832810725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1551,7 +1551,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4593839933363528314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
+  m_Script: {fileID: 11500000, guid: fc6a9a4a88b0d244888af9fe4db9a145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RandomSpriteList:
@@ -2017,7 +2017,6 @@ GameObject:
   - component: {fileID: 9046146455519074278}
   - component: {fileID: 7647327739022335709}
   - component: {fileID: 3772518435837473010}
-  - component: {fileID: 1195920377132574175}
   m_Layer: 7
   m_Name: Skill_1
   m_TagString: Player
@@ -2116,64 +2115,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6351091367786875123}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 5722075644800418991}
   ThisSR: {fileID: 0}
   TargetRange: 0.9
---- !u!212 &1195920377132574175
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6351091367786875123}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &6608195872253356044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2280,7 +2227,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6608195872253356044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetObject: {fileID: 2647858769255449446}
@@ -2617,10 +2564,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7210860776593765382}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdaeebd2461771a44b9786dce5b4d5b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetObject: {fileID: 8042671370266242278}
+  TargetObject: {fileID: 7210860776593765382}
   ThisSR: {fileID: 0}
   TargetRange: 0.35
 --- !u!1 &7217206221402160431
@@ -2805,7 +2752,6 @@ GameObject:
   - component: {fileID: 4857539487501913208}
   - component: {fileID: 8580305544851392310}
   - component: {fileID: 5322268928658978283}
-  - component: {fileID: 5282368043593998273}
   m_Layer: 7
   m_Name: Target
   m_TagString: Player
@@ -2902,24 +2848,6 @@ MonoBehaviour:
   - {fileID: -1210927134, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -147571887, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   - {fileID: -1930784451, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
---- !u!114 &5282368043593998273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8042671370266242278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1599bb6126addc479ff42e91777e35b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetSRList: []
-  IsOn: 0
-  CurrentGenTime: 0
-  ImageAlpha: 1
-  DelayGenTime: 0.03
-  StayDur: 0.5
 --- !u!1 &8177453620130377554
 GameObject:
   m_ObjectHideFlags: 0

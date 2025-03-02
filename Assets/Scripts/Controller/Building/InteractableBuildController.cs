@@ -10,7 +10,7 @@ public class InteractableBuildController : SortLayerObjectController
 
     [Space(10)]
     [Header("=== Effect")]
-    [SerializeField] public MakeExplosionImage MEI;
+    [SerializeField] public ExplosionImgGenerator MEI;
 
     [Space(10)]
     [Header("=== Value")]
