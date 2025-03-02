@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,15 +11,12 @@ public class NPCManager : Singleton<NPCManager>
 
     #region Get
 
-    public NPCController Get_NPC(int _ID)
+    public NPCController Get_CorrectNPC(int _ID)
     {
-        for (int i = 0; i < AllNPC.Count; i++)
-        {
-            if (AllNPC[i].ID == _ID)
-            { return AllNPC[i]; }
-        }
-        return null;
+        return IDController.Get_CorrectIDObject<NPCController>(_ID, new List<IDController>(AllNPC));
     }
+
+    
 
     #endregion
 

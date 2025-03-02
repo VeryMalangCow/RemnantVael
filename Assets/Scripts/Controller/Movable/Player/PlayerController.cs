@@ -12,7 +12,6 @@ public class PlayerController : MovableObjectController
 
     [Space(20)]
     [Header("<><><><><> Player")]
-    [SerializeField] public int ID;
 
     #region - Combat
 

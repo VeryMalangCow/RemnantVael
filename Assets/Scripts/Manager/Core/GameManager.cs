@@ -122,7 +122,24 @@ public class GameManager : PersistentSingleton<GameManager>
 
 }
 
-// Enum
+#region Static Caculate
+
+public class StaticCaculator
+{
+    // 객체를 원하는 T 타입으로 캐스팅
+    public static T Get_CastingTType<T>(object _Obj)
+    {
+        if (_Obj != null && _Obj is T objType)
+        {
+            return objType;
+        }
+        return default;
+    }
+}
+
+#endregion
+
+#region Enum
 
 public enum eCombatMode
 { 
@@ -159,10 +176,15 @@ public enum eRoomType
     Completed, KillAll, Survived, BossKill
 }
 
+#endregion
 
-// Interface
+#region Interface
+
 
 public interface IInteract
 {
     public void Play_Interact();
 }
+
+#endregion
+

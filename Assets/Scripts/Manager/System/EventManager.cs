@@ -261,7 +261,7 @@ public class EventManager : PersistentSingleton<EventManager>
             {
                 if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
                 {
-                    Vector2 npcPos = NPCManager.Instance.Get_NPC(_Event.TargetID).transform.position;
+                    Vector2 npcPos = NPCManager.Instance.Get_CorrectNPC(_Event.TargetID).transform.position;
                     targetPos += npcPos;
                 }
                 else // 다른 목표가 있다면
@@ -288,7 +288,7 @@ public class EventManager : PersistentSingleton<EventManager>
             {
                 if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
                 {
-                    NPCController npc = NPCManager.Instance.Get_NPC(_Event.TargetID);
+                    NPCController npc = NPCManager.Instance.Get_CorrectNPC(_Event.TargetID);
                     if (npc != null)
                     {
                         Vector2 npcPos = npc.transform.position;

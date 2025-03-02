@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DepthController : MonoBehaviour
+public class DepthController : IDController
 {
     #region Value
 

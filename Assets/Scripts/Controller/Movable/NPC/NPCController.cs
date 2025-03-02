@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCController : MovableObjectController
@@ -8,7 +6,7 @@ public class NPCController : MovableObjectController
 
     [Space(20)]
     [Header("<><><><><> NPC")]
-    [SerializeField] public int ID;
+    [SerializeField] public string Name;
 
     #endregion
 
