@@ -1,13 +1,12 @@
 using UniRx;
 using UnityEngine;
 
-public class BuffController : MonoBehaviour
+public class BuffController : IDController
 {
     #region Value
 
     [Space(20)]
     [Header("<><><><><> Buff")]
-    [SerializeField] public int BuffID = 0;
     [SerializeField] public string BuffName = "";
 
     [Space(10)]

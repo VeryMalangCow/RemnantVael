@@ -11,7 +11,16 @@ public class IDController : MonoBehaviour
 
     #endregion
 
-    #region Get
+    #region Set
+
+    public virtual void Offset(int _ID)
+    {
+        ID = _ID;
+    }
+
+    #endregion
+
+    #region Static
 
     // 아이디를 가진 객체에 맞는 객체 찾기
     public static T Get_CorrectIDObject<T>(int _ID, List<IDController> _ObjectList)

@@ -83,16 +83,10 @@ public class BuffManager : Singleton<BuffManager>
     }
 
     // 맞는 버프컨트롤러 찾기
-    private BuffController Get_CorrectBuff(int _ID)
+
+    public BuffController Get_CorrectBuff(int _ID)
     {
-        for (int i = 0; i < AllBuffs.Count; i++)
-        {
-            if (AllBuffs[i].BuffID == _ID)
-            {
-                return AllBuffs[i];
-            }
-        }
-        return null;
+        return IDController.Get_CorrectIDObject<BuffController>(_ID, new List<IDController>(AllBuffs));
     }
 
     #endregion

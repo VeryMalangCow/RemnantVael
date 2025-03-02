@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class RoomController : MonoBehaviour
+public class RoomController : IDController
 {
     #region Value
 
@@ -33,11 +33,6 @@ public class RoomController : MonoBehaviour
     [Header("=== Camera")]
     [SerializeField] public Transform RoomCameraCenter;
 
-
-    [Space(10)]
-    [Header("=== InitData")]
-    [SerializeField] public int CurrentTempID;
-
     [Space(10)]
     [Header("=== UI")]
     [SerializeField] public Sprite ThisSpriteMM;
@@ -52,8 +47,10 @@ public class RoomController : MonoBehaviour
 
     #region Offset
 
-    public void Offset()
+    public override void Offset(int _ID)
     {
+        base.Offset(_ID);
+
         // Wall
         InRoom_UpperWalls = new List<StaticDepthController>();
         if (InRoom_UpperWallParentTF.childCount > 0)

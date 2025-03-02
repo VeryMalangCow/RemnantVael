@@ -48,7 +48,7 @@ public class StageManager : Singleton<StageManager>
         Gen_Stage(TargetStageID);
 
         // 처음 스타트맵
-        Play_CurrentRoom(Get_CollectRoomController(0));
+        Play_CurrentRoom(Get_CorrectRoom(0));
     }
 
     #endregion
@@ -165,8 +165,6 @@ public class StageManager : Singleton<StageManager>
         GameObject room = Instantiate(_Prefab, Vector2.zero, Quaternion.identity, MapParentTF);
         if (room.TryGetComponent(out RoomController rc))
         {
-            rc.CurrentTempID = _TempID;
-
             CurrentAllRoomController.Add(rc);
 
             if (!_IsStartRoom)
@@ -175,19 +173,17 @@ public class StageManager : Singleton<StageManager>
                 if (rrcGO.TryGetComponent(out RoomRuleController rrc))
                 { rc.RoomRuleController = rrc; }
 
-                rc.Offset();
+                rc.Offset(_TempID);
                 Set_RelativeVec(rc);
 
                 // 상점 소환
-                if (BUShopIndexs.Contains(rc.CurrentTempID))
+                if (BUShopIndexs.Contains(_TempID))
                 {
                     rrc.Set_Shop(BUShopPrefab);
-                    //Debug.Log("BU : " + rc.CurrentTempID);
                 }
-                else if (MUShopIndexs.Contains(rc.CurrentTempID))
+                else if (MUShopIndexs.Contains(_TempID))
                 {
                     rrc.Set_Shop(MUShopPrefab);
-                    //Debug.Log("MU : " + rc.CurrentTempID);
                 }
             }
             else
@@ -196,7 +192,7 @@ public class StageManager : Singleton<StageManager>
                 if (rrcGO.TryGetComponent(out RoomRuleController rrc))
                 { rc.RoomRuleController = rrc; }
 
-                rc.Offset();
+                rc.Offset(_TempID);
                 Add_RelativeVec(new List<Vector2Int>() { Vector2Int.zero });
             }
         }
@@ -208,15 +204,13 @@ public class StageManager : Singleton<StageManager>
         GameObject room = Instantiate(_BossRoomData.RoomPrefab, Vector2.zero, Quaternion.identity, MapParentTF);
         if (room.TryGetComponent(out RoomController rc))
         {
-            rc.CurrentTempID = _TempID;
-
             CurrentAllRoomController.Add(rc);
 
             GameObject rrcGO = Instantiate(_BossRoomData.RoomRulePrefabList[Random.Range(0, _BossRoomData.RoomRulePrefabList.Count)], rc.gameObject.transform);
             if (rrcGO.TryGetComponent(out RoomRuleController rrc))
             { rc.RoomRuleController = rrc; }
 
-            rc.Offset();
+            rc.Offset(_TempID);
             Set_RelativeFurthestVec(rc);
         }
     }
@@ -478,17 +472,9 @@ public class StageManager : Singleton<StageManager>
         return null;
     }
     
-    private RoomController Get_CollectRoomController(int _TempID)
+    public RoomController Get_CorrectRoom(int _ID)
     {
-        for (int i = 0; i < CurrentAllRoomController.Count; i++)
-        {
-            if (CurrentAllRoomController[i].CurrentTempID == _TempID)
-            {
-                return CurrentAllRoomController[i];
-            }
-        }
-        
-        return null;
+        return IDController.Get_CorrectIDObject<RoomController>(_ID, new List<IDController>(CurrentAllRoomController));
     }
 
     private List<Vector2Int> Get_RoundVec(Vector2Int _CenterVec)

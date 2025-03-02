@@ -4347,7 +4347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61271599a0ec0514aa810325cbab6ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuffID: 0
+  ID: 0
   BuffName: Shockwave Shield
   MaxBuffCharge: 1
   CurrentBuffCharge:
@@ -4393,7 +4393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c158bf245239c1847956c904ee8aff75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuffID: 1
+  ID: 1
   BuffName: Test Attack Buff
   MaxBuffCharge: 10
   CurrentBuffCharge:
@@ -4425,7 +4425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f1447580adf92542a9fa29ab7f4f549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuffID: 2
+  ID: 2
   BuffName: Flame!
   MaxBuffCharge: 50
   CurrentBuffCharge:
@@ -4456,7 +4456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5d40c97dbd1694389563483b748fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuffID: 6
+  ID: 6
   BuffName: 
   MaxBuffCharge: 1
   CurrentBuffCharge:
@@ -4487,7 +4487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c158bf245239c1847956c904ee8aff75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuffID: 3
+  ID: 3
   BuffName: Cold!
   MaxBuffCharge: 50
   CurrentBuffCharge:
@@ -4519,7 +4519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 147423c18881704449bb028a5e138ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuffID: 4
+  ID: 4
   BuffName: Electric!
   MaxBuffCharge: 50
   CurrentBuffCharge:
@@ -4550,7 +4550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f3e76cd264afe40a9de4c00bc10f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuffID: 5
+  ID: 5
   BuffName: Corrosion!
   MaxBuffCharge: 50
   CurrentBuffCharge:
@@ -5392,7 +5392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda2f3c4c8e8cfa4c87c7d8dc7f8301b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllNPC: []
+  AllNPCs: []
 --- !u!1 &1631965667
 GameObject:
   m_ObjectHideFlags: 0
