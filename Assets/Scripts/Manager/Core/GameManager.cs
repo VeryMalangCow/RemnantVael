@@ -135,6 +135,15 @@ public class StaticCaculator
         }
         return default;
     }
+
+    // 객체에 T가 있다면 변수에 할당
+    public static void Set_ComponentTType<T>(ref T _Variable, GameObject _TargetGO) where T : Component
+    {
+        if (_Variable == null && _TargetGO.TryGetComponent(out T tTypeComponent))
+        {
+            _Variable = tTypeComponent;
+        }
+    }
 }
 
 #endregion

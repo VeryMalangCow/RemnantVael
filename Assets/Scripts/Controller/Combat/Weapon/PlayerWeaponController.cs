@@ -71,7 +71,7 @@ public class PlayerWeaponController : SolarSystemController
         if (CurrentDelayROF > 1)
         {
             CurrentDelayROF = 1;
-            InputManager.Instance.AimController.Set_BaseAttack(false);
+            InputManager.Instance.AimController.Set_AttackState(false);
         }
     }
 
@@ -160,7 +160,7 @@ public class PlayerWeaponController : SolarSystemController
                     DamageType, isCritical, i, dir);
             }
         }
-        InputManager.Instance.AimController.Set_BaseAttack(true);
+        InputManager.Instance.AimController.Set_AttackState(true);
         CurrentDelayROF = 0;
 
         // Tween

@@ -429,7 +429,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6315296844987133017}
-  - component: {fileID: 4746379157527327509}
   - component: {fileID: 444160974014117374}
   m_Layer: 0
   m_Name: Player00_Aim
@@ -455,21 +454,6 @@ Transform:
   - {fileID: 867959036286272779}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4746379157527327509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6141677161167260688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2a9589700b54704baa5d9da9cc09ef7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetObject: {fileID: 7639787149237555046}
-  ThisSR: {fileID: 0}
-  TargetRange: 0.6
 --- !u!114 &444160974014117374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,6 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42fe1592ee2f77849a2e3d75b521651e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 7639787149237555046}
   ThisSR: {fileID: 0}
   TargetRange: 0.6

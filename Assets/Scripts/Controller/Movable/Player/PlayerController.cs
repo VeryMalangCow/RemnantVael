@@ -945,12 +945,12 @@ public class PlayerController : MovableObjectController
         {
             case eCombatMode.Physics:
                 StateAnim.Set_Anim(PhysicsStateAC, 0.8f, 1f);
-                InputManager.Instance.AimController.Set_PType();
+                InputManager.Instance.AimController.Set_PhysicsType();
                 break;
 
             case eCombatMode.Energy:
                 StateAnim.Set_Anim(EnergyStateAC, 0.8f, 1f);
-                InputManager.Instance.AimController.Set_EType();
+                InputManager.Instance.AimController.Set_EnergyType();
                 break;
 
             default:

@@ -39,46 +39,74 @@ public class AimController : StaticDepthController
 
     private void LateUpdate()
     {
-        gameObject.transform.position = 
-            Vector2.Lerp(gameObject.transform.position,
-            InputManager.Instance.MousePosByWorld, 
-            AimFollowSpeed * Time.deltaTime);
-
-        TargetObject.transform.localRotation =
-            Quaternion.Slerp(TargetObject.transform.localRotation,
-            Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, InputManager.Instance.DirFromPlayerPos)),
-            AimFollowSpeed * Time.deltaTime);
+        Set_AimPosUpdate(Time.deltaTime);
+        Set_AimRotUpdate(Time.deltaTime);
     }
 
     #endregion
 
     #region Set 
 
-    public void Set_PType()
+    // 위치 값 업데이트
+    private void Set_AimPosUpdate(float _DeltaTime)
     {
-        Aim.sprite = AimP;
-        ShootAim.sprite = ShootAimP;
+        Vector2 fromPos = this.transform.position;
+        Vector2 toPos = InputManager.Instance.MousePosByWorld;
+
+        gameObject.transform.position =
+            Vector2.Lerp(fromPos, toPos, AimFollowSpeed * _DeltaTime);
     }
 
-    public void Set_EType()
+    // 회전 값 업데이트
+    private void Set_AimRotUpdate(float _DeltaTime)
     {
-        Aim.sprite = AimE;
-        ShootAim.sprite = ShootAimE;
+        Quaternion fromRot = this.transform.localRotation;
+        Quaternion toRot = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, InputManager.Instance.DirFromPlayerPos));
+
+        TargetObject.transform.localRotation = 
+            Quaternion.Slerp(fromRot, toRot, AimFollowSpeed * _DeltaTime);
     }
 
-    public void Set_BaseAttack(bool _IsOn)
+    // 데미지 타입: 물리
+    public void Set_PhysicsType()
     {
-        if (ShootAim.gameObject.activeSelf != _IsOn)
+        Set_DmgType(AimP, ShootAimP);
+    }
+
+    // 데미지 타입: 에너지
+    public void Set_EnergyType()
+    {
+        Set_DmgType(AimE, ShootAimE);
+    }
+
+    // 공격 타입: On / Off (화살표)
+    public void Set_AttackState(bool _OnOff)
+    {
+        Set_ActiveSprite(ShootAim.gameObject, _OnOff);
+    }
+
+    // 스킬 타입: On / Off (사용 스킬의 아이콘)
+    public void Set_SkillState(int _Index, bool _OnOff)
+    {
+        Set_ActiveSprite(SkillAimList[_Index].gameObject, _OnOff);
+    }
+
+
+    /* Module */
+
+    // 데미지 타입에 따른 이미지 변경
+    private void Set_DmgType(Sprite _AimSprite, Sprite _ShootMarkSprite)
+    {
+        Aim.sprite = _AimSprite;
+        ShootAim.sprite = _ShootMarkSprite;
+    }
+
+    // 스프라이트 오브젝트 끄고 키기
+    private void Set_ActiveSprite(GameObject _GO, bool _OnOff)
+    {
+        if (_GO.gameObject.activeSelf != _OnOff)
         {
-            ShootAim.gameObject.SetActive(_IsOn);
-        }
-    }
-
-    public void SetOn_Skill(int _Index, bool _IsOn)
-    {
-        if (SkillAimList[_Index].gameObject.activeSelf != _IsOn)
-        {
-            SkillAimList[_Index].gameObject.SetActive(_IsOn);
+            _GO.gameObject.SetActive(_OnOff);
         }
     }
 

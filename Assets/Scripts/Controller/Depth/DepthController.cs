@@ -5,7 +5,7 @@ public class DepthController : IDController
     #region Value
 
     [Space(20)] 
-    [Header("<><><><><> Have Shadow Thing")]
+    [Header("<><><><><> Depth")]
 
     [Space(10)]
     [Header("=== Shadow")]
@@ -28,9 +28,13 @@ public class DepthController : IDController
 
     protected virtual void Offset()
     {
-        if (ThisSR == null && TargetObject.TryGetComponent(out SpriteRenderer sr))
-        { ThisSR = sr; }
+        StaticCaculator.Set_ComponentTType<SpriteRenderer>(ref ThisSR, TargetObject);
     }
+
+    #endregion
+
+    #region Set Component
+
 
     #endregion
 
@@ -38,8 +42,7 @@ public class DepthController : IDController
 
     public virtual void Set_SortingOrder(int _SortingOrder)
     {
-        if (ThisSR == null)
-        { Offset(); }
+        //StaticCaculator.Set_ComponentTType<SpriteRenderer>(ref ThisSR, TargetObject);
 
         ThisSR.sortingOrder = _SortingOrder;
     }

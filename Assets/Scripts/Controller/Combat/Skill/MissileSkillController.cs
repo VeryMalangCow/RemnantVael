@@ -30,7 +30,7 @@ public class MissileSkillController : ActiveSkillController
     private IEnumerator Play_ActualActive_Cor()
     {
         // È¿°ú
-        InputManager.Instance.AimController.SetOn_Skill(0, true);
+        InputManager.Instance.AimController.Set_SkillState(0, true);
 
 
         Transform tf = null;
@@ -94,7 +94,7 @@ public class MissileSkillController : ActiveSkillController
             yield return new WaitForSeconds(ShotDelay);
         }
 
-        InputManager.Instance.AimController.SetOn_Skill(0, false);
+        InputManager.Instance.AimController.Set_SkillState(0, false);
         Set_EndUI();
     }
 

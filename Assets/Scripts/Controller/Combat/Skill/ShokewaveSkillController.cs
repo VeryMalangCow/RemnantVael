@@ -32,7 +32,7 @@ public class ShockwaveSkillController : ActiveSkillController
 
     private void Play_ActualActive()
     {
-        InputManager.Instance.AimController.SetOn_Skill(1, true);
+        InputManager.Instance.AimController.Set_SkillState(1, true);
 
         AttackerState ThisState = new AttackerState(
             eDamageType.Energy, 
@@ -53,7 +53,7 @@ public class ShockwaveSkillController : ActiveSkillController
             _ColSize, _StartSize, usableMaxSize, _BiggerTime)
             .OnComplete(() =>
             {
-                InputManager.Instance.AimController.SetOn_Skill(1, false);
+                InputManager.Instance.AimController.Set_SkillState(1, false);
                 Set_EndUI();
                 pa.End_State();
             });
