@@ -33,11 +33,6 @@ public class DepthController : IDController
 
     #endregion
 
-    #region Set Component
-
-
-    #endregion
-
     #region Sorting Order
 
     public virtual void Set_SortingOrder(int _SortingOrder)
@@ -51,29 +46,22 @@ public class DepthController : IDController
 
     #region Gen
 
-
     // Bettery Shrapnel
     protected void Gen_BS(int _Value)
     {
-        BetteryShrapnelController BSC = PoolingManager.Instance.Get_OP_BetteryShrapnel();
-        BSC.Set_State(
-            this.gameObject.transform.position,
-            PlayerManager.Instance.PlayerController.gameObject,
-            _Value);
-        BSC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
-        BSC.gameObject.SetActive(true);
+        Vector2 spawnPos = gameObject.transform.position;
+        GameObject targetGO = PlayerManager.Instance.PlayerController.gameObject;
+
+        PoolingManager.Instance.Get_OP_BetteryShrapnel().Set_State(spawnPos, targetGO, _Value);
     }
 
     // Module Shrapnel
     protected void Gen_MS(int _Value)
     {
-        ModuleShrapnelController MSC = PoolingManager.Instance.Get_OP_ModuleShrapnel();
-        MSC.SetState(
-            this.gameObject.transform.position,
-            PlayerManager.Instance.PlayerController.gameObject,
-            _Value);
-        MSC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
-        MSC.gameObject.SetActive(true);
+        Vector2 spawnPos = gameObject.transform.position;
+        GameObject targetGO = PlayerManager.Instance.PlayerController.gameObject;
+
+        PoolingManager.Instance.Get_OP_ModuleShrapnel().SetState(spawnPos, targetGO, _Value);
     }
 
     #endregion
