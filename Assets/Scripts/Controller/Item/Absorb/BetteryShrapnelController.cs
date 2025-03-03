@@ -47,6 +47,8 @@ public class BetteryShrapnelController : AbsorbItemController
     {
         base.SetState(_SpawnPos, _TargetObject);
         BetteryValue = _Value;
+        transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        gameObject.SetActive(true);
     }
 
     #endregion

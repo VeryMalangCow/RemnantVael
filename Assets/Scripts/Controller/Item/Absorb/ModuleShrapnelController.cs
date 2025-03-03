@@ -46,6 +46,8 @@ public class ModuleShrapnelController : AbsorbItemController
     {
         base.SetState(_SpawnPos, _TargetObject);
         ModuleValue = _Value;
+        transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        gameObject.SetActive(true);
     }
 
     #endregion
