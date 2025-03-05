@@ -39,7 +39,7 @@ public class InteractItemController : ItemController, IInteract
 
         UpDownSeq.Append(TargetObject.transform.DOLocalMoveY((TargetRange + 0.2f), 1f).SetEase(Ease.InOutSine));
         UpDownSeq.Append(TargetObject.transform.DOLocalMoveY((TargetRange), 1f).SetEase(Ease.InOutSine));
-        // Test
+
         UpDownSeq
             .OnStart(() =>
             {
