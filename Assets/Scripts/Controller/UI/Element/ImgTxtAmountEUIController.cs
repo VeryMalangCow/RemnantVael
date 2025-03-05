@@ -24,7 +24,7 @@ public class ImgTxtAmountEUIController : ElementUIController
 
     public override void Offset()
     {
-        Img_List = GameManager.Get_List<Image>(Img_ParentTF);
+        Img_List = StaticCaculator.Get_ChildList<Image>(Img_ParentTF);
 
         foreach (Image img in Img_List)
         {

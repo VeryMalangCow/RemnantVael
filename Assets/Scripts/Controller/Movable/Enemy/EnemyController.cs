@@ -868,7 +868,7 @@ public class EnemyController : MovableObjectController, IInteract
             for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
             {
                 // 같은 우선도에 있는 패턴 랜덤으로 섞기
-                List<ContinuousEnemyPattern> epList = GameManager.Get_ShuffleList<ContinuousEnemyPattern>(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
+                List<ContinuousEnemyPattern> epList = StaticCaculator.Get_ShuffledList(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
                 
                 // 만약 사용 가능한 패턴이 있다면 시작
                 for (int j = 0; j < epList.Count; j++)

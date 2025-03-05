@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : PersistentSingleton<GameManager>
@@ -44,60 +45,6 @@ public class GameManager : PersistentSingleton<GameManager>
 
     #endregion
 
-    #region Module
-
-    #region Get
-
-    // 캐스팅
-    public static T Get_CastIfPossible<T>(object input) where T : class
-    {
-        if (input is T variable)
-        {
-            return variable;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    // 인자의 자식들의 T 타입 리스트
-    public static List<T> Get_List<T>(Transform _Parent)
-    {
-        List<T> result = new List<T>();
-        foreach (Transform TF in _Parent)
-        {
-            if (TF.TryGetComponent(out T type))
-            {
-                result.Add(type);
-            }
-        }
-        return result;
-    }
-
-    // List를 무작위 섞기
-    public static List<T> Get_ShuffleList<T>(List<T> list)
-    {
-        int random1, random2;
-        T temp;
-
-        for (int i = 0; i < list.Count; ++i)
-        {
-            random1 = Random.Range(0, list.Count);
-            random2 = Random.Range(0, list.Count);
-
-            temp = list[random1];
-            list[random1] = list[random2];
-            list[random2] = temp;
-        }
-
-        return list;
-    }
-
-
-
-    #endregion
-
     #region Set
 
     // 무지개 컬러 Dotween
@@ -117,17 +64,16 @@ public class GameManager : PersistentSingleton<GameManager>
     }
 
     #endregion
-
-    #endregion
-
 }
 
 #region Static Caculate
 
 public class StaticCaculator
 {
-    // 객체를 원하는 T 타입으로 캐스팅
-    public static T Get_CastingTType<T>(object _Obj)
+    #region About Casting
+
+    // 객체를 원하는 'T 타입'으로 캐스팅
+    public static T Get_CastingTType<T>(object _Obj) where T : class
     {
         if (_Obj != null && _Obj is T objType)
         {
@@ -136,7 +82,11 @@ public class StaticCaculator
         return default;
     }
 
-    // 객체에 T가 있다면 변수에 할당
+    #endregion
+
+    #region About Variable
+
+    // 객체에 'T 타입'이 있다면 변수에 할당
     public static void Set_ComponentTType<T>(ref T _Variable, GameObject _TargetGO) where T : Component
     {
         if (_Variable == null && _TargetGO.TryGetComponent(out T tTypeComponent))
@@ -144,6 +94,52 @@ public class StaticCaculator
             _Variable = tTypeComponent;
         }
     }
+
+    #endregion
+
+    #region About List
+
+    // 자식 객체들의 'T 타입' 리스트 가져오기
+    public static List<T> Get_ChildList<T>(Transform _Parent) where T : Component
+    {
+        List<T> result = new List<T>();
+        foreach (Transform TF in _Parent)
+        {
+            if (TF.TryGetComponent(out T type))
+            {
+                result.Add(type);
+            }
+        }
+        return result;
+    }
+
+    // 'T 타입'의 List를 무작위 섞기
+    public static List<T> Get_ShuffledList<T>(List<T> _TargetList)
+    {
+        List<T> result = new List<T>(_TargetList);
+
+        int random1, random2;
+
+        for (int i = 0; i < result.Count; ++i)
+        {
+            random1 = Random.Range(0, result.Count);
+            random2 = Random.Range(0, result.Count);
+
+            Set_Swap(result, random1, random2);
+        }
+
+        return result;
+    }
+
+    // 'T 타입'리스트의 두 값을 교체
+    public static void Set_Swap<T>(List<T> _TargetList, int _Index1, int _Index2)
+    {
+        T temp = _TargetList[_Index1];
+        _TargetList[_Index1] = _TargetList[_Index2];
+        _TargetList[_Index2] = temp;
+    }
+
+    #endregion
 }
 
 #endregion

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
@@ -13,42 +14,88 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     [Header("=== Movable Object")]
     [SerializeField] public List<DepthController> NeedLayerObjects;
 
+
+    [HideInInspector] private Coroutine LayerSortingCor = null;
+
     #endregion
 
     #region Framework
 
-    public void Update()
+    private void Start()
     {
-        if(Get_NeedSort())
+        Start_LayerSorting();
+    }
+
+
+    #endregion
+
+    #region Set Cor
+
+    // 시작
+    private void Start_LayerSorting()
+    {
+        LayerSortingCor = StartCoroutine(Play_LayerSorting_Cor());
+    }
+
+    // 매 프레임 마다 레이어 솔팅
+    private IEnumerator Play_LayerSorting_Cor()
+    {
+        while(true)
         {
-            Set_SortAllSr();
+            Check_Set_Sort();
+
+            yield return null;
+        }
+    }
+
+    // 종료
+    private void End_LayerSorting()
+    {
+        StopCoroutine(LayerSortingCor);
+    }
+
+
+
+    #endregion
+
+    #region Sorting
+
+    // 솔팅이 필요한지를 판별해 솔트
+    private void Check_Set_Sort()
+    {
+        if (Get_NeedSort(Get_OrderByY(NeedLayerObjects)))
+        {
+            Set_Sort(NeedLayerObjects);
         }
     }
 
     #endregion
 
-    #region Sorting Order
+    #region Get
 
-    private bool Get_NeedSort()
+    // Y값 기준으로 내림차순
+    private List<DepthController> Get_OrderByY(List<DepthController> _ObjectList)
     {
-        List<DepthController> tempObjects = NeedLayerObjects.OrderBy(obj => obj.transform.position.y).ToList();
-        bool needSort = !Enumerable.SequenceEqual(tempObjects, NeedLayerObjects);
-        if (needSort)
-        {
-            NeedLayerObjects = tempObjects;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return _ObjectList.OrderBy(obj => obj.transform.position.y).ToList();
+    }
+    
+    // 솔팅이 필요한지?
+    private bool Get_NeedSort(List<DepthController> _ObjectList)
+    {
+        return !Enumerable.SequenceEqual(_ObjectList, NeedLayerObjects);
     }
 
-    public void Set_SortAllSr()
+    #endregion
+
+    #region Set
+
+    // 솔팅
+    private void Set_Sort(List<DepthController> _ObjectList)
     {
-        for (int i = 0; i < NeedLayerObjects.Count; i++)
+        _ObjectList = Get_OrderByY(_ObjectList);
+        for (int i = 0; i < _ObjectList.Count; i++)
         {
-            NeedLayerObjects[i].Set_SortingOrder(NeedLayerObjectTopSort - (10 * i));
+            _ObjectList[i].Set_SortingOrder(NeedLayerObjectTopSort - (10 * i));
         }
     }
 

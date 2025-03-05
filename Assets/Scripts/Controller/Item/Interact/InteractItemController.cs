@@ -14,7 +14,7 @@ public class InteractItemController : ItemController, IInteract
     [SerializeField] private float DecSpreadPowerSpeed = 1f;
     [SerializeField] private float CurrentSpreadPower = 0f;
     [SerializeField] private Vector2 SettedSpreadDir;
-    private Tween UpDownTween = null;
+    private Sequence UpDownSeq = null;
 
     [Space(10)]
     [Header("=== State")]
@@ -33,11 +33,19 @@ public class InteractItemController : ItemController, IInteract
         CurrentSpreadPower = SpreadPower;
         SettedSpreadDir = Get_RandomDir();
 
+        
 
-        UpDownTween = TargetObject.transform
-            .DOLocalMoveY((TargetRange + 0.2f), 1f)
-            .SetEase(Ease.InOutSine)
-            .SetLoops(-1, LoopType.Yoyo);
+        UpDownSeq = DOTween.Sequence();
+
+        UpDownSeq.Append(TargetObject.transform.DOLocalMoveY((TargetRange + 0.2f), 1f).SetEase(Ease.InOutSine));
+        UpDownSeq.Append(TargetObject.transform.DOLocalMoveY((TargetRange), 1f).SetEase(Ease.InOutSine));
+        // Test
+        UpDownSeq
+            .OnStart(() =>
+            {
+                TargetObject.transform.localPosition = Vector2.up * TargetRange;
+            })
+            .SetLoops(-1, LoopType.Restart);
 
         ThisItemData = new ItemData(ModuleItemManager.Instance.Get_RandomInteractItem());
 
@@ -101,11 +109,11 @@ public class InteractItemController : ItemController, IInteract
         ModuleItemManager.Instance.Get_ModuleState(ThisItemData);
         PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
 
-        this.gameObject.SetActive(false);
         LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
-        if (UpDownTween != null && DOTween.IsTweening(UpDownTween))
-        { DOTween.Kill(UpDownTween); }
-        UpDownTween = null;
+        DOTween.Kill(UpDownSeq);
+        UpDownSeq = null;
+
+        this.gameObject.SetActive(false);
     }
 
     #endregion

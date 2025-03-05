@@ -23,7 +23,7 @@ public class IDController : MonoBehaviour
     #region Static
 
     // 아이디를 가진 객체에 맞는 객체 찾기
-    public static T Get_CorrectIDObject<T>(int _ID, List<IDController> _ObjectList)
+    public static T Get_CorrectIDObject<T>(int _ID, List<IDController> _ObjectList) where T : class
     {
         for (int i = 0; i < _ObjectList.Count; i++)
         {
