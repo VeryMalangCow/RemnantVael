@@ -35,16 +35,16 @@ public class PlayerBulletController : BulletController
 
         base.Set_State(_SpawnVec, _SpreadAngle, _BulletState, _TargetRange);
 
-        if (BulletState.IsCritical)
+        if (State.IsCritical)
         {
-            if (_BulletState.DamageType == eDamageType.Physics)
+            if (_BulletState.DmgState.DmgType == eDamageType.Physics)
             { ThisSR.sprite = CriticalPhysics_Sprite; }
             else
             { ThisSR.sprite = CriticalEnergy_Sprite; }
         }
         else
         {
-            if (_BulletState.DamageType == eDamageType.Physics)
+            if (_BulletState.DmgState.DmgType == eDamageType.Physics)
             { ThisSR.sprite = BasePhysics_Sprite; }
             else
             { ThisSR.sprite = BaseEnergy_Sprite; }
@@ -61,8 +61,8 @@ public class PlayerBulletController : BulletController
 
     protected override void Remove_Object()
     {
-        Gen_AttackPointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
-        Gen_ExplosionEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
+        Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+        Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
        
         base.Remove_Object();
     }
@@ -83,10 +83,10 @@ public class PlayerBulletController : BulletController
             {
                 EC.Gen_HittedPointEffect(
                     this.TargetObject.transform.position, 
-                    BulletState.DamageType, 
-                    BulletState.IsCritical,
+                    State.DmgState.DmgType, 
+                    State.IsCritical,
                     transform.rotation);
-                EC.Take_Damaged(BulletState, Get_DirByAngle(transform.eulerAngles.z));
+                EC.Take_Damaged(State, Get_DirByAngle(transform.eulerAngles.z));
             }
         }
         else if (_Col.tag == "DestructibleObject")

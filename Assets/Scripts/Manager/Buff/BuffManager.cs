@@ -13,7 +13,7 @@ public class BuffManager : Singleton<BuffManager>
     [SerializeField] private List<BuffController> AllBuffs = new List<BuffController>();
 
 
-    [HideInInspector] public List<IWhen_Hitted> iWhen_HittedList = new List<IWhen_Hitted>();
+    [HideInInspector] public List<IWhen_GetElectricity> iWhen_HittedList = new List<IWhen_GetElectricity>();
 
     #endregion
 

@@ -38,8 +38,8 @@ public class MissileBulletController : BulletController
 
     protected override void Remove_Object()
     {
-        Gen_AttackPointEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
-        Gen_ExplosionEffect(TargetObject.transform.position, BulletState.DamageType, BulletState.IsCritical);
+        Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+        Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
 
         base.Remove_Object();
     }
@@ -62,10 +62,10 @@ public class MissileBulletController : BulletController
         // State + RandomDir
         float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
         base.Set_State(_SpawnVec, randomSpreadAngle, _BulletState, _TargetRange);
-        base.BulletState.MuzzleSpeed *= 0.3f;
+        base.State.MuzzleSpeed *= 0.3f;
 
         // Dotween
-        DOTween.To(() => BulletState.MuzzleSpeed, x => BulletState.MuzzleSpeed = x, targetSpeed, SpreadTime)
+        DOTween.To(() => State.MuzzleSpeed, x => State.MuzzleSpeed = x, targetSpeed, SpreadTime)
             .SetEase(Ease.Linear);
         DOTween.To(() => TargetRange, y => TargetRange = y, ShadowRangeTarget, SpreadTime)
             .SetEase(Ease.Linear);
@@ -90,10 +90,10 @@ public class MissileBulletController : BulletController
             {
                 EC.Gen_HittedPointEffect(
                     this.TargetObject.transform.position, 
-                    BulletState.DamageType, 
-                    BulletState.IsCritical, 
+                    State.DmgState.DmgType, 
+                    State.IsCritical, 
                     transform.rotation);
-                EC.Take_Damaged(BulletState, Get_DirByAngle(transform.eulerAngles.z));
+                EC.Take_Damaged(State, Get_DirByAngle(transform.eulerAngles.z));
             }
         }
         else if (_Col.tag == "DestructibleObject")

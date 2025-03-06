@@ -11,7 +11,7 @@ public class BulletController : MovableDepthController
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] public BulletState BulletState;
+    [SerializeField] public BulletState State;
     [SerializeField] protected float CurrentAliveTime = 0;
     [HideInInspector] private static float BaseBulletSpeed = 500f; 
 
@@ -37,11 +37,12 @@ public class BulletController : MovableDepthController
 
     public void Reset_State()
     {
-        BulletState.ResetState();
+        State.Reset_State();
         
-        this.transform.position = Vector3.zero;
-        this.transform.rotation = Quaternion.identity;
-        this.transform.localScale = Vector3.one;
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
+
         CurrentAliveTime = 0;
         ThisRb.simulated = false;
 
@@ -54,7 +55,7 @@ public class BulletController : MovableDepthController
 
         this.transform.position = _SpawnVec;
 
-        this.BulletState = new BulletState(_BulletState);
+        this.State = new BulletState(_BulletState, true);
 
 
         Vector3 currentRotation = transform.eulerAngles;
@@ -74,7 +75,7 @@ public class BulletController : MovableDepthController
 
         CurrentAliveTime += Time.deltaTime;
 
-        if (CurrentAliveTime >= BulletState.AliveTime)
+        if (CurrentAliveTime >= State.AliveTime)
         {
             Remove_Object();
             return;
@@ -94,7 +95,7 @@ public class BulletController : MovableDepthController
                 }
             }
 
-            ThisRb.velocity = ((BulletState.MuzzleSpeed * BaseBulletSpeed * Time.deltaTime) * this.transform.up);
+            ThisRb.velocity = ((State.MuzzleSpeed * BaseBulletSpeed * Time.deltaTime) * this.transform.up);
         }
 
     }
@@ -180,89 +181,5 @@ public class BulletController : MovableDepthController
     #endregion
 }
 
-[System.Serializable]
-public class BulletState
-{
-    [SerializeField] public eDamageType DamageType;
-    [SerializeField] public float BaseDamage;
-    [SerializeField] public float MuzzleSpeed;
-    [SerializeField] public float AliveTime;
-
-    [SerializeField] public bool IsCritical;
-    [SerializeField] public float CD;
-
-    [SerializeField] public bool AbleKnockback;
-    [SerializeField] public float KnockbackPower;
-    [SerializeField] public float KnockbackTime;
-
-    public BulletState(BulletState _BS)
-    {
-        DamageType = _BS.DamageType;
-        BaseDamage = _BS.BaseDamage;
-        MuzzleSpeed = _BS.MuzzleSpeed;
-        AliveTime = _BS.AliveTime;
-
-        IsCritical = _BS.IsCritical;
-        CD = _BS.CD;
-
-        AbleKnockback = _BS.AbleKnockback;
-        KnockbackPower = _BS.KnockbackPower;
-        KnockbackTime = _BS.KnockbackTime;
-    }
-
-    public BulletState(
-        eDamageType _eDamageType,
-        float _BaseDamage,
-        float _MuzzleSpeed, 
-        float _AliveTime, 
-        bool _IsCritical, 
-        float _CD,
-        bool _AbleKnockback,
-        float knockbackPower,
-        float knockbackTime)
-    {
-        DamageType = _eDamageType;
-        BaseDamage = _BaseDamage;
-        MuzzleSpeed = _MuzzleSpeed;
-        AliveTime = _AliveTime;
-
-        IsCritical = _IsCritical;
-        CD = _CD;
-
-        AbleKnockback = _AbleKnockback;
-        KnockbackPower = knockbackPower;
-        KnockbackTime = knockbackTime;
-    }
-
-    public BulletState(
-        float _BaseDamage, 
-        float _AliveTime, 
-        bool _AbleKnockback,
-        float knockbackPower,
-        float knockbackTime)
-    {
-        BaseDamage = _BaseDamage;
-        AliveTime = _AliveTime;
-
-        AbleKnockback = _AbleKnockback;
-        KnockbackPower = knockbackPower;
-        KnockbackTime = knockbackTime;
-    }
-
-    public void ResetState()
-    {
-        DamageType = eDamageType.Physics;
-        BaseDamage = 0;
-        MuzzleSpeed = 0;
-        AliveTime = 0;
-
-        IsCritical = false;
-        CD = 0;
-
-        AbleKnockback = false;
-        KnockbackPower = 0;
-        KnockbackTime = 0;
-    }
-}
 
 

@@ -69,28 +69,7 @@ public class ModuleState : IWhen
     #endregion
 }
 
-#region Interface
 
-// 상속을 위한 부모 인터페이스
-public interface IWhen
-{
-    public abstract void Play_When(EnemyController _EC = null);
-}
-
-// (기본공격) 발사 시
-public interface IWhen_Fire : IWhen { }
-
-// (어떤 공격이든) 적을 타격 시
-public interface IWhen_Hit : IWhen { }
-
-// (어떤 공격이든) 적을 크리티컬로 타격 시
-public interface IWhen_CriticalHit : IWhen { }
-
-// (어떤 공격이든) 적에게 타격 입을 시
-public interface IWhen_Hitted : IWhen { }
-
-
-#endregion
 
 #region Item Skill
 

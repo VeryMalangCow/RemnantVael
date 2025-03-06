@@ -53,7 +53,7 @@ public class PlayerWeaponController : SolarSystemController
             { PBClist.Add(PoolingManager.Instance.Get_OP_PlayerBullet()); }
 
             Play_Fire(PBClist);
-            PlayerManager.Instance.CameraController.Play_ShotAnim(1/ROF.ActualState.Value, PBClist[0].BulletState.BaseDamage);
+            PlayerManager.Instance.CameraController.Play_ShotAnim(1/ROF.ActualState.Value, PBClist[0].State.DmgState.Dmg);
 
             ModuleItemManager.Instance.Active_Fire();
         }
@@ -138,16 +138,13 @@ public class PlayerWeaponController : SolarSystemController
             Vector2 dir = Get_Dir((Vector2)BulletSpawnTFs[i].transform.position);
 
             // Base State 
-            BulletState bulletState = new BulletState(
-                DamageType, 
-                BaseDamage.BuffedState,
-                MuzzleSpeed.ActualState.Value, 
-                AliveTime, 
-                isCritical, 
-                CD.ActualState.Value,
-                ableKnockback,
-                PlayerController.BaseWeapon.KnockbackPower.ActualState.Value,
-                0.2f);
+
+            DmgState dmgState = new DmgState(DamageType, PlayerController.BaseWeapon.BaseDamage.BuffedState);
+            CriticalState criticalState = new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value);
+            KnockbackState knockbackState = new KnockbackState(ableKnockback, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value, 0.2f);
+
+            BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), true, MuzzleSpeed.ActualState.Value, AliveTime);
+
             PBC.Set_State(BulletSpawnTFs[i].position, randomAngle, bulletState, dir, targetShadow);
 
             // Sorting Layer

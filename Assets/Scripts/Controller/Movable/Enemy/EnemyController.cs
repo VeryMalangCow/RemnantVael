@@ -271,10 +271,10 @@ public class EnemyController : MovableObjectController, IInteract
 
         // Damage
         Take_Damaged(
-            _BS.DamageType, 
-            _BS.AbleKnockback, _KnockbackDir, _BS.KnockbackPower, _BS.KnockbackTime,
-            _BS.IsCritical, _BS.CD, 
-            _BS.BaseDamage);
+            _BS.DmgState.DmgType, 
+            _BS.KnockbackState.CanKB, _KnockbackDir, _BS.KnockbackState.KBPower, _BS.KnockbackState.KBTime,
+            _BS.IsCritical, _BS.CriticalState.CD, 
+            _BS.DmgState.Dmg);
     }
 
     // 어택커 데미지
@@ -285,10 +285,10 @@ public class EnemyController : MovableObjectController, IInteract
 
         // Damage
         Take_Damaged(
-            _AS.DamageType, 
-            _AS.AbleKnockback, _KnockbackDir, _AS.KnockbackPower, _AS.KnockbackTime,
+            _AS.DmgType, 
+            _AS.CanKB, _KnockbackDir, _AS.KBPower, _AS.KBTime,
             _IsCritical, _AS.CD, 
-            _AS.BaseDamage);
+            _AS.Dmg);
     }
 
 

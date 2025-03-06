@@ -70,6 +70,22 @@ public class GameManager : PersistentSingleton<GameManager>
 
 public class StaticCaculator
 {
+    #region About Math
+
+    public static bool Is_ChanceSuccess(float _Chance)
+    {
+        if (UnityEngine.Random.Range(0f, 1f) < _Chance)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    #endregion
+
     #region About Casting
 
     // 객체를 원하는 'T 타입'으로 캐스팅
@@ -84,7 +100,7 @@ public class StaticCaculator
 
     #endregion
 
-    #region About Variable
+    #region About Component
 
     // 객체에 'T 타입'이 있다면 변수에 할당
     public static void Set_ComponentTType<T>(ref T _Variable, GameObject _TargetGO) where T : Component
@@ -181,6 +197,8 @@ public enum eRoomType
     Completed, KillAll, Survived, BossKill
 }
 
+
+
 #endregion
 
 #region Interface
@@ -191,5 +209,304 @@ public interface IInteract
     public void Play_Interact();
 }
 
+
+public interface IWhen
+{
+    public abstract void Play_When(EnemyController _EC = null);
+}
+
+public interface IWhen_Fire : IWhen { }
+
+public interface IWhen_Hit : IWhen { }
+
+public interface IWhen_CriticalHit : IWhen { }
+
+public interface IWhen_GetElectricity : IWhen { }
+
 #endregion
+
+#region State Element
+
+[System.Serializable]
+public abstract class State
+{
+    public virtual void Reset_State() { }
+}
+
+[System.Serializable]
+public class DmgState : State
+{
+    #region Value
+
+    [SerializeField] public eDamageType DmgType;
+    [SerializeField] public float Dmg;
+
+    #endregion
+
+    #region Constructor
+
+    public DmgState(DmgState _State)
+    {
+        DmgType = _State.DmgType;
+        Dmg = _State.Dmg;
+    }
+
+    public DmgState(eDamageType _DmgType, float _Dmg)
+    {
+        DmgType = _DmgType;
+        Dmg = _Dmg;
+    }
+
+    #endregion
+
+    #region Reset
+
+    public override void Reset_State()
+    {
+        DmgType = eDamageType.Physics;
+        Dmg = 0;
+    }
+
+    #endregion
+}
+
+[System.Serializable]
+public class CriticalState : State
+{
+    #region Value
+
+    [SerializeField] public float CC;
+    [SerializeField] public float CD;
+
+    #endregion
+
+    #region Constructor
+
+    public CriticalState(CriticalState _State)
+    {
+        CC = _State.CC;
+        CD = _State.CD;
+    }
+
+    public CriticalState(float _CC, float _CD)
+    {
+        CC = _CC;
+        CD = _CD;
+    }
+
+    #endregion
+
+    #region Reset
+
+    public override void Reset_State()
+    {
+        CC = 0;
+        CD = 0;
+    }
+
+    #endregion
+}
+
+[System.Serializable]
+public class KnockbackState : State
+{
+    #region Value
+
+    [SerializeField] public bool CanKB;
+    [SerializeField] public float KBPower;
+    [SerializeField] public float KBTime;
+
+    #endregion
+
+    #region Constructor
+
+    public KnockbackState(KnockbackState _State)
+    {
+        CanKB = _State.CanKB;
+        KBPower = _State.KBPower;
+        KBTime = _State.KBTime;
+    }
+
+    public KnockbackState(bool _CanKB, float _KBPower, float _KBTime)
+    {
+        CanKB = _CanKB;
+        KBPower = _KBPower;
+        KBTime = _KBTime;
+    }
+
+    #endregion
+
+    #region Reset
+
+    public override void Reset_State()
+    {
+        CanKB = false;
+        KBPower = 0;
+        KBTime = 0;
+    }
+
+    #endregion
+}
+
+#endregion
+
+#region Combat State
+
+[System.Serializable]
+public class CombatState : State
+{
+    #region Value
+
+    [Space(20)]
+    [Header("<><><><><> Combat State")]
+
+    [Space(10)]
+    [Header("=== Damage")]
+    [SerializeField] public DmgState DmgState;
+
+    [Space(10)]
+    [Header("=== Critical")]
+    [SerializeField] public CriticalState CriticalState;
+
+    [Space(10)]
+    [Header("=== Knockback")]
+    [SerializeField] public KnockbackState KnockbackState;
+
+    #endregion
+
+    #region Constructor
+
+    public CombatState(CombatState _State)
+    {
+        DmgState = new DmgState(_State.DmgState);
+        CriticalState = new CriticalState(_State.CriticalState);
+        KnockbackState = new KnockbackState(_State.KnockbackState);
+    }
+
+    public CombatState(DmgState _DmgState, CriticalState _CriticalState, KnockbackState _KnockbackState)
+    {
+        DmgState = new DmgState(_DmgState);
+        CriticalState = new CriticalState(_CriticalState);
+        KnockbackState = new KnockbackState(_KnockbackState);
+    }
+
+    #endregion
+
+    #region Reset
+
+    public override void Reset_State()
+    {
+        DmgState.Reset_State();
+        CriticalState.Reset_State();
+        KnockbackState.Reset_State();
+    }
+
+    #endregion
+}
+
+[System.Serializable]
+public class BulletState : CombatState
+{
+    #region Value
+
+    [Space(20)]
+    [Header("<><><><><> Bullet State")]
+    [SerializeField] public bool IsCritical;
+    [SerializeField] public float MuzzleSpeed;
+    [SerializeField] public float AliveTime;
+
+    #endregion
+
+    #region Constructor
+
+    public BulletState(CombatState _State, bool _CheckIsCritical, float _MuzzleSpeed, float _AliveTime) : base(_State)
+    {
+        if (_CheckIsCritical)
+        {
+            IsCritical = StaticCaculator.Is_ChanceSuccess(_State.CriticalState.CC);
+        }
+        else
+        {
+            IsCritical = false;
+        }
+
+        MuzzleSpeed = _MuzzleSpeed;
+        AliveTime = _AliveTime;
+    }
+
+    public BulletState(BulletState _State, bool _CheckIsCritical) : base(_State.DmgState, _State.CriticalState, _State.KnockbackState)
+    {
+        if (_CheckIsCritical)
+        {
+            IsCritical = StaticCaculator.Is_ChanceSuccess(_State.CriticalState.CC);
+        }
+        else
+        {
+            IsCritical = _State.IsCritical;
+        }
+
+        MuzzleSpeed = _State.MuzzleSpeed;
+        AliveTime = _State.AliveTime;
+    }
+
+
+    #endregion
+
+    #region Reset
+
+    public override void Reset_State()
+    {
+        base.Reset_State();
+
+        IsCritical = false;
+        MuzzleSpeed = 0;
+        AliveTime = 0;
+    }
+
+    #endregion
+}
+
+[System.Serializable]
+public class AttackerState
+{
+    [SerializeField] public eDamageType DmgType;
+    [SerializeField] public float Dmg;
+
+    [SerializeField] public bool CanKB;
+    [SerializeField] public float KBPower;
+    [SerializeField] public float KBTime;
+
+    [SerializeField] public float CC;
+    [SerializeField] public float CD;
+
+    public AttackerState() { }
+
+    public AttackerState(AttackerState _AttakerState)
+    {
+        DmgType = _AttakerState.DmgType;
+        Dmg = _AttakerState.Dmg;
+
+        CanKB = _AttakerState.CanKB;
+        KBPower = _AttakerState.KBPower;
+        KBTime = _AttakerState.KBTime;
+
+        CC = _AttakerState.CC;
+        CD = _AttakerState.CD;
+    }
+    public AttackerState(eDamageType _DamageType, float _BaseDamage, bool _AbleKnockback, float _KnockbackPower, float _KnockbackTime, float _CC, float _CD)
+    {
+        DmgType = _DamageType;
+        Dmg = _BaseDamage;
+
+        CanKB = _AbleKnockback;
+        KBPower = _KnockbackPower;
+        KBTime = _KnockbackTime;
+
+        CC = _CC;
+        CD = _CD;
+    }
+}
+
+#endregion
+
 

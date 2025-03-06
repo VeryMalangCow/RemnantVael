@@ -58,17 +58,11 @@ public class MissileSkillController : ActiveSkillController
                     isCritical = true;
                 }
 
-                BulletState bulletState = new BulletState(
-                    eDamageType.Physics,
-                    /*PlayerController.BaseWeapon.BaseDamage.ActualState.Value*/ 
-                    PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value,
-                    1.5f,
-                    3.5f,
-                    isCritical,
-                    PlayerController.BaseWeapon.CD.ActualState.Value,
-                    true,
-                    PlayerController.BaseWeapon.KnockbackPower.ActualState.Value,
-                    0.4f);
+                DmgState dmgState = new DmgState(eDamageType.Physics, PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value);
+                CriticalState criticalState = new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value);
+                KnockbackState knockbackState = new KnockbackState(true, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value, 0.4f);
+
+                BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), true, 1.5f, 3.5f);
 
                 // Dir
                 float angle = PlayerController.SkillWeapon.PitchTF.localRotation.eulerAngles.y;

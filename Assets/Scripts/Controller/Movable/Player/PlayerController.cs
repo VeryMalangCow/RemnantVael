@@ -471,19 +471,19 @@ public class PlayerController : MovableObjectController
         if (!Is_Avoid()) // 회피인지?
         {
             // 간소화
-            BulletState state = _EBC.BulletState;
+            BulletState state = _EBC.State;
             EnemyBuffController buff = _EBC.Enemy.BuffController;
 
             // 적이 냉기 디버프에 걸린지
             float actualDmg =
-                state.BaseDamage * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
+                state.DmgState.Dmg * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
 
             // 데미지 구현
             Take_Damaged(actualDmg,
                 ((Vector2)transform.position - (Vector2)_EBC.transform.position).normalized,
-                state.AbleKnockback,
-                state.KnockbackPower,
-                state.KnockbackTime);
+                state.KnockbackState.CanKB,
+                state.KnockbackState.KBPower,
+                state.KnockbackState.KBTime);
         }
     }
 
@@ -505,14 +505,14 @@ public class PlayerController : MovableObjectController
 
             // 적이 냉기 디버프에 걸린지
             float actualDmg =
-                state.BaseDamage * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
+                state.Dmg * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
 
             // 데미지 구현
             Take_Damaged(actualDmg, 
                 ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
-                state.AbleKnockback,
-                state.KnockbackPower,
-                state.KnockbackTime);
+                state.CanKB,
+                state.KBPower,
+                state.KBTime);
         }
     }
 
@@ -532,11 +532,11 @@ public class PlayerController : MovableObjectController
             AttackerState state = _Attacker.AttackerState;
 
             // 데미지 구현
-            Take_Damaged(state.BaseDamage,
+            Take_Damaged(state.Dmg,
                 ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
-                state.AbleKnockback,
-                state.KnockbackPower,
-                state.KnockbackTime);
+                state.CanKB,
+                state.KBPower,
+                state.KBTime);
         }
     }
 
@@ -1215,7 +1215,7 @@ public class PlayerController : MovableObjectController
             CurrentBuffs.Add(_Buff);
 
             // 인터페이스
-            if (_Buff is IWhen_Hitted hitted && !BuffManager.Instance.iWhen_HittedList.Contains(hitted))
+            if (_Buff is IWhen_GetElectricity hitted && !BuffManager.Instance.iWhen_HittedList.Contains(hitted))
             {
                 BuffManager.Instance.iWhen_HittedList.Add(hitted);
             }
@@ -1235,7 +1235,7 @@ public class PlayerController : MovableObjectController
         }
 
         // 인터페이스
-        if (_Buff is IWhen_Hitted hitted && BuffManager.Instance.iWhen_HittedList.Contains(hitted))
+        if (_Buff is IWhen_GetElectricity hitted && BuffManager.Instance.iWhen_HittedList.Contains(hitted))
         {
             BuffManager.Instance.iWhen_HittedList.Remove(hitted);
         }

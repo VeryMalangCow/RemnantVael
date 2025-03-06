@@ -106,11 +106,13 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             Vector2 dir = PCWeapon.Get_Dir(PC.transform.position);
 
             // ½ºÆù Åº ½ºÅÈ
-            BulletState bulletState = new BulletState(
-                _DmgType,
-                dmg, PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2,
-                false, 1,
-                false, 0, 0);
+
+            DmgState dmgState = new DmgState(_DmgType, dmg);
+            CriticalState criticalState = new CriticalState(0, 1);
+            KnockbackState knockbackState = new KnockbackState(false, 0, 0);
+
+            BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), true, PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2f);
+
             pbc.Set_State(PC.transform.position, 10, bulletState, dir, 0.35f);
 
             // Sorting Layer
