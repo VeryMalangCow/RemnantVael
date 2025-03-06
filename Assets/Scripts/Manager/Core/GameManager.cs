@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
+using UniRx;
 using UnityEngine;
 
 public class GameManager : PersistentSingleton<GameManager>
@@ -66,7 +67,7 @@ public class GameManager : PersistentSingleton<GameManager>
     #endregion
 }
 
-#region Caculate : Static
+#region Class : Caculate : Static
 
 public class StaticCaculator
 {
@@ -160,34 +161,7 @@ public class StaticCaculator
 
 #endregion
 
-#region Interface : Interact
-
-
-public interface IInteract
-{
-    public void Play_Interact();
-}
-
-#endregion
-
-#region Interface : When
-
-public interface IWhen
-{
-    public abstract void Play_When(EnemyController _EC = null);
-}
-
-public interface IWhen_Fire : IWhen { }
-
-public interface IWhen_Hit : IWhen { }
-
-public interface IWhen_CriticalHit : IWhen { }
-
-public interface IWhen_GetElectricity : IWhen { }
-
-#endregion
-
-#region State : Element
+#region Class : State : Element
 
 [System.Serializable]
 public abstract class ElementState
@@ -312,7 +286,7 @@ public class KnockbackState : ElementState
 
 #endregion
 
-#region State : Combat
+#region Class : State : Combat
 
 [System.Serializable]
 public abstract class State
@@ -445,6 +419,174 @@ public class AttackerState : CombatState
 }
 
 #endregion
+
+#region Class : State : Player
+
+
+[System.Serializable]
+public class BUState<T>
+{
+    public T BaseState;
+    public ReactiveProperty<int> CurrentLevel;
+    public List<T> UpgradeValueByLevelRange;
+    public List<int> NeedPayByLevelRange;
+    public ReactiveProperty<T> ActualState;
+
+    public List<BuffState<T>> BuffList = new List<BuffState<T>>();
+
+    public string Name;
+    [TextArea]
+    public string Desc;
+
+
+    // Gain
+    public void GainBuff(BuffState<T> _Bs)
+    {
+        if (!BuffList.Contains(_Bs))
+        {
+            BuffList.Add(_Bs);
+        }
+    }
+
+    // Remove
+    public void RemoveBuff(BuffState<T> _Bs)
+    {
+        if (BuffList.Contains(_Bs))
+        {
+            BuffList.Remove(_Bs);
+        }
+    }
+
+    public T BuffedState
+    { get; set; }
+
+
+
+    public void SetBuffedState()
+    {
+        if (ActualState.Value.GetType() == typeof(float))
+        {
+            float state = 1.0f;
+            for (int i = 0; i < BuffList.Count; i++)
+            {
+                state += float.Parse(BuffList[i].ActualValue.ToString());
+            }
+            state *= float.Parse(ActualState.Value.ToString());
+            BuffedState = (T)(object)state;
+            return;
+        }
+
+#if UNITY_EDITOR
+        Debug.Assert(false, "Player Buff의 자료형이 구현되어 있지 않습니다.");
+#endif
+
+        return;
+    }
+
+}
+
+
+[System.Serializable]
+public class Shield
+{
+    public string ShieldID;
+    public float ShieldMaxValue;
+    public float ShieldCurrentValue;
+}
+
+
+[System.Serializable]
+public class BuffState<T>
+{
+    public string BuffID;
+    public T BaseValue;
+    public T ActualValue;
+}
+
+#endregion
+
+#region Class : Visual
+
+[System.Serializable]
+public class PlayerVisual<T>
+{
+    [SerializeField] public CoupleData<T> Physics;
+    [SerializeField] public CoupleData<T> Energy;
+
+    public CoupleData<T> Get_CorrectType(eDamageType _DmgType)
+    {
+        if (_DmgType == eDamageType.Physics)
+        {
+            return Physics;
+        }
+        else
+        {
+            return Energy;
+        }
+    }
+}
+
+
+#endregion
+
+#region Class : PublicData
+
+
+[System.Serializable]
+public class CoupleData<T>
+{
+    [SerializeField] public T TypeBase;
+    [SerializeField] public T TypeSpecial;
+
+    public T Get_Special(bool _Yes)
+    {
+        if (_Yes)
+        {
+            return TypeSpecial;
+        }
+        else
+        {
+            return TypeBase;
+        }
+    }
+}
+
+[System.Serializable]
+public class CooltimeData
+{
+    [SerializeField] public float CurrentCooltime = 0;
+    [SerializeField] public float MaxCooltime = 0;
+}
+
+#endregion
+
+#region Interface : Interact
+
+
+public interface IInteract
+{
+    public void Play_Interact();
+}
+
+#endregion
+
+#region Interface : When
+
+public interface IWhen
+{
+    public abstract void Play_When(EnemyController _EC = null);
+}
+
+public interface IWhen_Fire : IWhen { }
+
+public interface IWhen_Hit : IWhen { }
+
+public interface IWhen_CriticalHit : IWhen { }
+
+public interface IWhen_GetElectricity : IWhen { }
+
+#endregion
+
 
 #region Enum
 

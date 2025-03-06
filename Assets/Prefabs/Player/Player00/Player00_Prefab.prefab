@@ -174,6 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 6973917010919293386}
   ThisSR: {fileID: 0}
   TargetRange: 0.25
@@ -222,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 18008044557870850}
   ThisSR: {fileID: 0}
   TargetRange: 0.25
@@ -383,6 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 7217206221402160431}
   ThisSR: {fileID: 0}
   TargetRange: 0.6
@@ -571,6 +574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 9139456362501203251}
   ThisSR: {fileID: 0}
   TargetRange: 0.6
@@ -1245,10 +1249,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1acec3c962cc484a8bd2107ccbedbe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 2615476070570729077}
   ThisSR: {fileID: 0}
   TargetRange: 0.6
-  IsDead: 0
   ThisRb: {fileID: 334434472153228344}
   ThisExtraSrs:
   - {fileID: 0}
@@ -1262,12 +1266,52 @@ MonoBehaviour:
   - {fileID: 7438815911213043068}
   - {fileID: 6021120989462345684}
   - {fileID: 3772518435837473010}
-  ID: 0
+  IsDead: 0
+  CurrentSP:
+    value: 0
+  CurrentHP:
+    value: 0
+  CurrentEP:
+    value: 100
+  BaseWeapon: {fileID: 1781130902238718875}
+  SkillWeapon: {fileID: 2333396969492081116}
+  DashController: {fileID: 8889954111637353817}
+  LowerController: {fileID: 6070200958351899230}
+  ThisWayPoint: {fileID: 6231064731411430748}
+  PlayerMEI: {fileID: 2930891811832810725}
+  PlayerMAI: {fileID: 4030414932115461039}
   CombatMode: 0
   TargetCombatMode: 0
   IsCasting: 0
   CurrentCastingTime: 0
   TargetCastingTime: 0
+  IsInvincible: 0
+  MaxInvincibleTime: 0.75
+  CurrentInvincibleTime: 0
+  ES_Sprite: {fileID: -686167499, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  ShieldElements: []
+  CurrentBS:
+    value: 0
+  CurrentBC:
+    value: 0
+  CurrentEC:
+    value: 0
+  CurrentMS:
+    value: 0
+  NeedBS_ForMakeBC: 4
+  NeedEP_ForMakeEC: 5
+  MovementState: 1
+  CurrentBuffs: []
+  CurrentInteractableGOList: []
+  TargetBoostlv: 0
+  MaxBoostLv: 4
+  CurrentBoostLv:
+    value: 0
+  DecEnergyPointByLevel:
+  - 1
+  - 2
+  - 3.5
+  - 5.5
   AvoidChance:
     BaseState: 0.01
     CurrentLevel:
@@ -1285,9 +1329,6 @@ MonoBehaviour:
     Desc: Increase the probability of evading an attack. High probability to avoid
       attacks.When avoiding, the time is carried out, it does not affect EP or additional
       effects.
-  IsInvincible: 0
-  MaxInvincibleTime: 0.75
-  CurrentInvincibleTime: 0
   MaxEP:
     BaseState: 100
     CurrentLevel:
@@ -1319,8 +1360,6 @@ MonoBehaviour:
     BuffList: []
     Name: Resist
     Desc: Reduce damage, which is calculated as a multiple.
-  CurrentEP:
-    value: 100
   SpawnESMultiple:
     BaseState: 1
     CurrentLevel:
@@ -1354,21 +1393,6 @@ MonoBehaviour:
     Desc: A multiple that reduces the amount of EP consumed by skill usage. It is
       a multiple that reduces the amount of EP consumed by skill use. It is multiplied,
       and does not affect cool time, attack, or tier.
-  ES_Sprite: {fileID: -686167499, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  ShieldElements: []
-  CurrentBS:
-    value: 0
-  NeedBS_ForMakeBC: 4
-  NeedEP_ForMakeEC: 5
-  CurrentBC:
-    value: 0
-  CurrentEC:
-    value: 0
-  CurrentMS:
-    value: 0
-  BaseWeapon: {fileID: 1781130902238718875}
-  SkillWeapon: {fileID: 2333396969492081116}
-  MovementState: 1
   WalkSpeed:
     BaseState: 3
     CurrentLevel:
@@ -1401,19 +1425,6 @@ MonoBehaviour:
     Name: Speed When Fire
     Desc: It is a reduced multiple of the speed at the time of shooting, which is
       calculated as a multiple of the basic speed.
-  DashController: {fileID: 8889954111637353817}
-  CurrentBuffs: []
-  CurrentInteractableGOList: []
-  TargetBoostlv: 0
-  MaxBoostLv: 4
-  CurrentBoostLv:
-    value: 0
-  DecEnergyPointByLevel:
-  - 1
-  - 2
-  - 3.5
-  - 5.5
-  - 8
   DecEnergyPointMultiple:
     BaseState: 1
     CurrentLevel:
@@ -1430,15 +1441,23 @@ MonoBehaviour:
     Name: Boost Cost
     Desc: The amount of EP used per second for the boost level, which acts as a multiple
       and applies to all levels equally.
-  LowerController: {fileID: 6070200958351899230}
-  ThisPlayerMaterial_000: {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
-  ThisPlayerMaterial_001: {fileID: 2100000, guid: 72598d291dfffcb469dd16ffb373bfc0, type: 2}
-  ThisPBHColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
-  ThisPCHColor: {r: 0.2509804, g: 0.2509804, b: 0.5019608, a: 1}
-  ThisEBHColor: {r: 0, g: 1, b: 1, a: 1}
-  ThisECHColor: {r: 0, g: 0.5019608, b: 1, a: 1}
-  PlayerMEI: {fileID: 2930891811832810725}
-  PlayerMAI: {fileID: 4030414932115461039}
+  ThisPlayerMaterialList:
+  - {fileID: 2100000, guid: ba7b7abec062a7d459ed06e987abaf2a, type: 2}
+  - {fileID: 2100000, guid: 72598d291dfffcb469dd16ffb373bfc0, type: 2}
+  ThisClr:
+    Physics:
+      TypeBase: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+      TypeSpecial: {r: 0.2509804, g: 0.2509804, b: 0.5019608, a: 1}
+    Energy:
+      TypeBase: {r: 0, g: 1, b: 1, a: 1}
+      TypeSpecial: {r: 0, g: 0.5019608, b: 1, a: 1}
+  ThisHittedPointAC:
+    Physics:
+      TypeBase: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}
+      TypeSpecial: {fileID: 7400000, guid: c444b0af8205ad84aaec6780cdff8c28, type: 2}
+    Energy:
+      TypeBase: {fileID: 7400000, guid: 14a17a53a351ea74f83652b015ad07a9, type: 2}
+      TypeSpecial: {fileID: 7400000, guid: 79dbdb9046b5858459e7942dc65f03d1, type: 2}
   PhysicsHittedPointAC: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}
   PhysicsCriticalHittedPointAC: {fileID: 7400000, guid: c444b0af8205ad84aaec6780cdff8c28, type: 2}
   EnergyHittedPointAC: {fileID: 7400000, guid: 14a17a53a351ea74f83652b015ad07a9, type: 2}
@@ -1468,7 +1487,6 @@ MonoBehaviour:
   MoveDirAC: {fileID: 7400000, guid: e123b32e9ab9b9c49a435fda32906977, type: 2}
   AimPrefab: {fileID: 6141677161167260688, guid: c40efc2302d823f4385722f2c7ce4237, type: 3}
   AimRoundController: {fileID: 2787329426438936234}
-  ThisWayPoint: {fileID: 6231064731411430748}
   BUUITabStringList:
   - Attack
   - Energy Point
@@ -2118,6 +2136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 5722075644800418991}
   ThisSR: {fileID: 0}
   TargetRange: 0.9
@@ -2230,6 +2249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 2647858769255449446}
   ThisSR: {fileID: 0}
   TargetRange: 0.9
@@ -2567,6 +2587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 8042671370266242278}
   ThisSR: {fileID: 0}
   TargetRange: 0.35

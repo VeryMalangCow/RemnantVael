@@ -6,66 +6,70 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PlayerController : MovableObjectController
+public class PlayerController : AliveObjectController
 {
     #region Value
 
     [Space(20)]
     [Header("<><><><><> Player")]
 
+    [Space(10)]
+    [Header("=== Controller")]
+    [SerializeField] public PlayerWeaponController BaseWeapon;
+    [SerializeField] public SkillWeaponController SkillWeapon;
+    [SerializeField] public PlayerDashController DashController;
+    [SerializeField] public LowerController LowerController;
+    [SerializeField] public WayPointController ThisWayPoint;
+
+    [Space(10)]
+    [Header("=== Generator")]
+    [SerializeField] public ExplosionImgGenerator PlayerMEI;
+    [SerializeField] public AfterImgGenerator PlayerMAI;
+
     #region - Combat
 
     [Space(10)]
-    [Header("=== Combat")]
-
-    [Header("-- State")]
+    [Header("=== Mode")]
     [SerializeField] private eCombatMode CombatMode = eCombatMode.Physics;
     [SerializeField] private eCombatMode TargetCombatMode = eCombatMode.Physics;
+
+    [Space(10)]
+    [Header("=== Casting")]
     [SerializeField] public bool IsCasting = false;
     [SerializeField] private float CurrentCastingTime = 0;
     [SerializeField] private float TargetCastingTime = 0;
-    [SerializeField] public BUState<float> AvoidChance;
+    private delegate void SkillDele();
+    private SkillDele ReservationSkillDele = null;
 
-    [Header("-- Invincible")]
+    [Space(10)]
+    [Header("=== Invincible")]
     [SerializeField] private bool IsInvincible = false;
     [SerializeField] private float MaxInvincibleTime = 0.5f;
     [SerializeField] private float CurrentInvincibleTime = 0f;
     private Sequence InvincibleSeq;
 
-    [Header("-- Energy")]
-    [SerializeField] public BUState<float> MaxEP;
-    [SerializeField] public BUState<float> TakingDmgMultiple;
-    [SerializeField] public ReactiveProperty<float> CurrentEP = new();
-    [SerializeField] public BUState<float> SpawnESMultiple;
-    [SerializeField] public BUState<float> NeedEP_ForSkillMultiple;
-    [SerializeField] public Sprite ES_Sprite;
-
-    [Header("-- Shield")]
-    [SerializeField] public List<Shield> ShieldElements = new List<Shield>();
-
-
-    [Header("-- Bettery")]
-    [SerializeField] public ReactiveProperty<int> CurrentBS = new();
-    [SerializeField] public int NeedBS_ForMakeBC = 4;
-    [SerializeField] public float NeedEP_ForMakeEC = 5;
-    [SerializeField] public ReactiveProperty<int> CurrentBC = new();
-    [SerializeField] public ReactiveProperty<int> CurrentEC = new();
-
-    [Header("-- Module")]
-    [SerializeField] public ReactiveProperty<int> CurrentMS = new();
-
-    [Header("-- Weapon")]
-    [SerializeField] public PlayerWeaponController BaseWeapon;
-
     #endregion
 
-    #region - Skill
+    #region - Gage Point
 
     [Space(10)]
-    [Header("=== Skill")]
+    [Header("=== Energy")]
+    [SerializeField] public Sprite ES_Sprite;
+    [HideInInspector] public ReactiveProperty<float> Get_CurrentEP() => CurrentEP;
 
-    [Header("-- Weapon")]
-    [SerializeField] public SkillWeaponController SkillWeapon;
+    [Space(10)]
+    [Header("=== Shield")]
+    [SerializeField] public List<Shield> ShieldElements = new List<Shield>();
+
+    [Space(10)]
+    [Header("=== Item")]
+    [SerializeField] public ReactiveProperty<int> CurrentBS = new();
+    [SerializeField] public ReactiveProperty<int> CurrentBC = new();
+    [SerializeField] public ReactiveProperty<int> CurrentEC = new();
+    [SerializeField] public ReactiveProperty<int> CurrentMS = new();
+    [SerializeField] public int NeedBS_ForMakeBC = 4;
+    [SerializeField] public float NeedEP_ForMakeEC = 5;
+
 
     #endregion
 
@@ -73,14 +77,7 @@ public class PlayerController : MovableObjectController
 
     [Space(10)]
     [Header("=== Movement")]
-
-    [Header("-- State")]
     [SerializeField] public eMovementState MovementState = eMovementState.IdleOrWalk;
-    [SerializeField] public BUState<float> WalkSpeed;
-    [SerializeField] public BUState<float> WalkSpeedWhenShotMultiple;
-
-    [Header("-- Dash")]
-    [SerializeField] public PlayerDashController DashController;
 
     #endregion
 
@@ -109,48 +106,47 @@ public class PlayerController : MovableObjectController
     [SerializeField] public int MaxBoostLv = 4;
     [SerializeField] public ReactiveProperty<int> CurrentBoostLv = new();
     [SerializeField] private List<float> DecEnergyPointByLevel;
-    [SerializeField] public BUState<float> DecEnergyPointMultiple;
 
-    private delegate void SkillDele();
-    private SkillDele ReservationSkillDele = null;
 
     #endregion
 
-    #region - Lower
+    #region - BU State 
 
     [Space(10)]
-    [Header("=== Lower")]
-    [SerializeField] public LowerController LowerController;
+    [Header("=== BU State")]
+    [SerializeField] public BUState<float> AvoidChance;
+    [SerializeField] public BUState<float> MaxEP;
+    [SerializeField] public BUState<float> TakingDmgMultiple;
+    [SerializeField] public BUState<float> SpawnESMultiple;
+    [SerializeField] public BUState<float> NeedEP_ForSkillMultiple;
+    [SerializeField] public BUState<float> WalkSpeed;
+    [SerializeField] public BUState<float> WalkSpeedWhenShotMultiple;
+    [SerializeField] public BUState<float> DecEnergyPointMultiple;
 
     #endregion
 
-    #region - Material
+    #region - Visual
 
     [Space(10)]
     [Header("=== Material")]
-    [SerializeField] public Material ThisPlayerMaterial_000;
-    [SerializeField] public Material ThisPlayerMaterial_001;
+    [SerializeField] public List<Material> ThisPlayerMaterialList;
 
     [Space(10)]
-    [SerializeField] private Color ThisPBHColor;
-    [SerializeField] private Color ThisPCHColor;
-    [SerializeField] private Color ThisEBHColor;
-    [SerializeField] private Color ThisECHColor;
+    [Header("=== Color")]
+    [SerializeField] private PlayerVisual<Color> ThisClr;
+
+    [Space(10)]
+    [Header("=== Hitted Anim")]
+    [SerializeField] private PlayerVisual<AnimationClip> ThisHittedPointAC;
+
+
 
     #endregion
 
     #region - Effect
 
     [Space(10)]
-    [Header("=== Effect")]
-    [SerializeField] public ExplosionImgGenerator PlayerMEI;
-    [SerializeField] public AfterImgGenerator PlayerMAI;
-
-    [Header("-- Hitted")]
-    [SerializeField] public AnimationClip PhysicsHittedPointAC;
-    [SerializeField] public AnimationClip PhysicsCriticalHittedPointAC;
-    [SerializeField] public AnimationClip EnergyHittedPointAC;
-    [SerializeField] public AnimationClip EnergyCriticalHittedPointAC;
+    [Header("=== Anim")]
 
     [Header("-- DamageType Icon")]
     [SerializeField] private StateAnimController StateAnim;
@@ -187,14 +183,6 @@ public class PlayerController : MovableObjectController
     [Header("=== Aim")]
     [SerializeField] public GameObject AimPrefab;
     [SerializeField] public AimRoundController AimRoundController;
-
-    #endregion
-
-    #region - WayPoint
-
-    [Space(10)]
-    [Header("=== WayPoint")]
-    [SerializeField] public WayPointController ThisWayPoint;
 
     #endregion
 
@@ -657,7 +645,7 @@ public class PlayerController : MovableObjectController
                     6, 0.15f, 0.75f,
                     2.0f, 0.05f, 0.1f,
                     1.0f, 0.5f, 1.0f,
-                    i, ThisPlayerMaterial_000);
+                    i, ThisPlayerMaterialList[0]);
         }
 
     }
@@ -1168,38 +1156,12 @@ public class PlayerController : MovableObjectController
 
     public Color Get_Color_CorrectHitted(eDamageType _DamageType, bool _IsCritical)
     {
-        if (_DamageType == eDamageType.Physics)
-        {
-            if (!_IsCritical)
-            { return ThisPBHColor; }
-            else            
-            { return ThisPCHColor; }
-        }
-        else
-        {
-            if (!_IsCritical)
-            { return ThisEBHColor; }
-            else            
-            { return ThisECHColor; }
-        }
+        return ThisClr.Get_CorrectType(_DamageType).Get_Special(_IsCritical);
     }
 
     public AnimationClip Get_AnimClip_CorrectHitted(eDamageType _DamageType, bool _IsCritical)
     {
-        if (_DamageType == eDamageType.Physics)
-        {
-            if (!_IsCritical)
-            { return PhysicsHittedPointAC; }
-            else
-            { return PhysicsCriticalHittedPointAC; }
-        }
-        else
-        {
-            if (!_IsCritical)
-            { return EnergyHittedPointAC; }
-            else
-            { return EnergyCriticalHittedPointAC; }
-        }
+        return ThisHittedPointAC.Get_CorrectType(_DamageType).Get_Special(_IsCritical);
     }
 
 
@@ -1242,84 +1204,4 @@ public class PlayerController : MovableObjectController
 
     #endregion
 
-}
-
-[System.Serializable]
-public class BUState<T>
-{
-    public T BaseState;
-    public ReactiveProperty<int> CurrentLevel;
-    public List<T> UpgradeValueByLevelRange;
-    public List<int> NeedPayByLevelRange;
-    public ReactiveProperty<T> ActualState;
-
-    public List<BuffState<T>> BuffList = new List<BuffState<T>>();
-
-    public string Name;
-    [TextArea]
-    public string Desc;
-
-
-    // Gain
-    public void GainBuff(BuffState<T> _Bs)
-    {
-        if (!BuffList.Contains(_Bs))
-        {
-            BuffList.Add(_Bs);
-        }
-    }
-
-    // Remove
-    public void RemoveBuff(BuffState<T> _Bs)
-    {
-        if (BuffList.Contains(_Bs))
-        {
-            BuffList.Remove(_Bs);
-        }
-    }
-
-    public T BuffedState
-    { get; set; }
-
-    
-
-    public void SetBuffedState()
-    {
-        if (ActualState.Value.GetType() == typeof(float))
-        {
-            float state = 1.0f;
-            for (int i = 0; i < BuffList.Count; i++)
-            {
-                state += float.Parse(BuffList[i].ActualValue.ToString());
-            }
-            state *= float.Parse(ActualState.Value.ToString());
-            BuffedState = (T)(object)state;
-            return;
-        }
-
-#if UNITY_EDITOR
-        Debug.Assert(false, "Player Buff의 자료형이 구현되어 있지 않습니다.");
-#endif
-
-        return;
-    }
-
-}
-
-
-[System.Serializable]
-public class Shield
-{
-    public string ShieldID;
-    public float ShieldMaxValue;
-    public float ShieldCurrentValue;
-}
-
-
-[System.Serializable]
-public class BuffState<T>
-{
-    public string BuffID;
-    public T BaseValue;
-    public T ActualValue;
 }

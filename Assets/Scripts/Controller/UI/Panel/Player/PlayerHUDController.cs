@@ -157,16 +157,16 @@ public class PlayerHUDController : UIController
                 EP.Set_MaxFillRT(_MaxEP * 3);
 
                 EP.Set_FillImgSmooth(
-                    PlayerManager.Instance.PlayerController.CurrentEP.Value,
+                    PlayerManager.Instance.PlayerController.Get_CurrentEP().Value,
                     PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentEP
+        PlayerManager.Instance.PlayerController.Get_CurrentEP()
             .Subscribe(_CurrentEP =>
             {
                 EP.Set_FillImgSmooth(
-                    PlayerManager.Instance.PlayerController.CurrentEP.Value,
+                    PlayerManager.Instance.PlayerController.Get_CurrentEP().Value,
                     PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value);
             })
             .AddTo(gameObject);

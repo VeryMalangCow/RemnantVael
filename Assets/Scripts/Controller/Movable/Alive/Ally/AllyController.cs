@@ -2,7 +2,7 @@ using System;
 using UniRx;
 using UnityEngine;
 
-public class AllyController : MonoBehaviour
+public class AllyController : AliveObjectController
 {
     #region Value
 
@@ -10,14 +10,14 @@ public class AllyController : MonoBehaviour
     [Header("<><><><><> Ally")]
 
     [SerializeField] private float MaxEP = 100f;
-    [SerializeField] private ReactiveProperty<float> CurrentEP;
 
     #endregion
 
     #region Framework
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         if (!AllyManager.Instance.AllAllies.Contains(this))
         {
             AllyManager.Instance.AllAllies.Add(this);

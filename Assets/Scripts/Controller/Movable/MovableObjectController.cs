@@ -10,10 +10,6 @@ public class MovableObjectController : MovableDepthController
     [Header("<><><><><> Movable Object")]
 
     [Space(10)]
-    [Header("=== State")]
-    [SerializeField] protected bool IsDead = false;
-
-    [Space(10)]
     [Header("=== Component")]
     [SerializeField] public Rigidbody2D ThisRb;
     [SerializeField] private List<SpriteRenderer> ThisExtraSrs;
@@ -57,22 +53,6 @@ public class MovableObjectController : MovableDepthController
 
         moveVelocity = Vector2.Lerp(currentVelocity, moveVelocity, _AccelerationSpeed * Time.fixedDeltaTime);
         ThisRb.velocity = moveVelocity;
-    }
-
-    #endregion
-
-    #region Life
-
-    protected void Set_IsDead(float _Life, float _Damage)
-    {
-        if(_Life <= _Damage)
-        {
-            IsDead = true;
-        }
-        else
-        {
-            IsDead = false;
-        }
     }
 
     #endregion

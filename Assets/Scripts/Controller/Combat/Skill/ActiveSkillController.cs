@@ -111,7 +111,7 @@ public class ActiveSkillController : MonoBehaviour
     public bool Can_Active()
     {
         if ((CurrentChargeAmount > 0) &&
-            (PlayerManager.Instance.PlayerController.CurrentEP.Value > NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value) &&
+            (PlayerManager.Instance.PlayerController.Get_CurrentEP().Value > NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value) &&
             PlayerController.MovementState == eMovementState.IdleOrWalk)
         {
             return true;

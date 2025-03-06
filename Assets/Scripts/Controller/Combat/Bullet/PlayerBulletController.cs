@@ -130,7 +130,7 @@ public class PlayerBulletController : BulletController
                    4, 0.3f, 0.4f,
                    0.6f, 0.05f, 0.1f,
                    0.3f, 0.5f, 1.0f,
-                   index, PlayerManager.Instance.PlayerController.ThisPlayerMaterial_000);
+                   index, PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0]);
     }
 
     private void Gen_AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
@@ -139,7 +139,7 @@ public class PlayerBulletController : BulletController
         oota.Start_Anim(
             PlayerManager.Instance.PlayerController.Get_AnimClip_CorrectHitted(_DamageType, _IsCritical),
             _SpanwedPos, 
-            PlayerManager.Instance.PlayerController.ThisPlayerMaterial_000, 
+            PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0], 
             2.0f, 1.0f);
     }
 

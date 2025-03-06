@@ -4,7 +4,7 @@ using System.Linq;
 using UniRx;
 using UnityEngine;
 
-public class EnemyController : MovableObjectController, IInteract
+public class EnemyController : AliveObjectController, IInteract
 {
     #region Value
 
@@ -19,11 +19,8 @@ public class EnemyController : MovableObjectController, IInteract
     [Header("=== State")]
     [SerializeField] private eEnemy ThisEnemyType;
     [SerializeField] private float MaxHP;
-    [HideInInspector] private ReactiveProperty<float> CurrentHP = new();
-    [HideInInspector] private ReactiveProperty<float> CurrentSP = new();
 
     [SerializeField] private float MaxEP;
-    [HideInInspector] private ReactiveProperty<float> CurrentEP = new();
     [HideInInspector] public bool IsDischarge = false;
     [SerializeField] private float RecoverLethargyTime = 4f;
 

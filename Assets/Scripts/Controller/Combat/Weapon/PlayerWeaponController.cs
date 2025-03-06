@@ -208,7 +208,7 @@ public class PlayerWeaponController : SolarSystemController
             3, 0.2f, 1f,
             0.8f, 0.05f, 0.1f,
             0.4f, 0.5f, 1.0f,
-            index, PlayerController.ThisPlayerMaterial_000);
+            index, PlayerController.ThisPlayerMaterialList[0]);
     }
 
     #endregion
