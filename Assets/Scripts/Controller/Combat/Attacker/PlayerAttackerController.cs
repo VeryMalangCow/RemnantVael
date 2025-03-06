@@ -41,7 +41,7 @@ public class PlayerAttackerController : AttackerController
 
                 // Critical
                 bool isCritical = false;
-                if (Random.Range(0f, 1f) < AttackerState.CD)
+                if (Random.Range(0f, 1f) < AttackerState.CriticalState.CC)
                 {
                     isCritical = true;
                 }

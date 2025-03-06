@@ -34,14 +34,11 @@ public class ShockwaveSkillController : ActiveSkillController
     {
         InputManager.Instance.AimController.Set_SkillState(1, true);
 
-        AttackerState ThisState = new AttackerState(
-            eDamageType.Energy, 
-            PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value,
-            true,
-            PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * (Tier.ActualState.Value + 1) * 10f,
-            0.4f,
-            PlayerController.BaseWeapon.CC.ActualState.Value,
-            PlayerController.BaseWeapon.CD.ActualState.Value);
+        DmgState dmgState = new DmgState(eDamageType.Energy, PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value);
+        CriticalState criticalState = new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value);
+        KnockbackState knockbackState = new KnockbackState(true, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * (Tier.ActualState.Value + 1) * 10f, 0.4f);
+
+        AttackerState ThisState = new AttackerState(new CombatState(dmgState, criticalState, knockbackState));
 
         float usableMaxSize = _MaxSize + (_MaxSize * Tier.ActualState.Value * 0.1f);
 

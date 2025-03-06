@@ -505,14 +505,14 @@ public class PlayerController : MovableObjectController
 
             // 적이 냉기 디버프에 걸린지
             float actualDmg =
-                state.Dmg * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
+                state.DmgState.Dmg * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
 
             // 데미지 구현
             Take_Damaged(actualDmg, 
                 ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
-                state.CanKB,
-                state.KBPower,
-                state.KBTime);
+                state.KnockbackState.CanKB,
+                state.KnockbackState.KBPower,
+                state.KnockbackState.KBTime);
         }
     }
 
@@ -532,11 +532,11 @@ public class PlayerController : MovableObjectController
             AttackerState state = _Attacker.AttackerState;
 
             // 데미지 구현
-            Take_Damaged(state.Dmg,
+            Take_Damaged(state.DmgState.Dmg,
                 ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
-                state.CanKB,
-                state.KBPower,
-                state.KBTime);
+                state.KnockbackState.CanKB,
+                state.KnockbackState.KBPower,
+                state.KnockbackState.KBTime);
         }
     }
 
@@ -615,7 +615,6 @@ public class PlayerController : MovableObjectController
         }
         Add_CurrentEP(-Dmg);
         MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
-        BuffManager.Instance.Active_Hitted();
     }
 
     // 추가 데미지 계산 (맞을 때 발생하는 이벤트, 넉벡, 애니메이션 등 없음)

@@ -19,7 +19,7 @@ public class AttackerController : MonoBehaviour
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] public AttackerState AttackerState = new AttackerState();
+    [SerializeField] public AttackerState AttackerState;
 
     [HideInInspector] private AnimatorOverrideController aoc;
 

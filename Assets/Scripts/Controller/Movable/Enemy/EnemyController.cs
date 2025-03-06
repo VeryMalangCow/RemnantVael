@@ -285,10 +285,10 @@ public class EnemyController : MovableObjectController, IInteract
 
         // Damage
         Take_Damaged(
-            _AS.DmgType, 
-            _AS.CanKB, _KnockbackDir, _AS.KBPower, _AS.KBTime,
-            _IsCritical, _AS.CD, 
-            _AS.Dmg);
+            _AS.DmgState.DmgType, 
+            _AS.KnockbackState.CanKB, _KnockbackDir, _AS.KnockbackState.KBPower, _AS.KnockbackState.KBTime,
+            _IsCritical, _AS.CriticalState.CD, 
+            _AS.DmgState.Dmg);
     }
 
 

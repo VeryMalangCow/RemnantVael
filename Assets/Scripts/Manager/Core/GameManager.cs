@@ -66,7 +66,7 @@ public class GameManager : PersistentSingleton<GameManager>
     #endregion
 }
 
-#region Static Caculate
+#region Caculate : Static
 
 public class StaticCaculator
 {
@@ -160,48 +160,7 @@ public class StaticCaculator
 
 #endregion
 
-#region Enum
-
-public enum eCombatMode
-{ 
-    Physics, Energy, Boost
-}
-
-public enum eMovementState
-{
-    Casting, IdleOrWalk, Dash
-}
-
-public enum eDamageType
-{
-    Physics, Energy
-}
-
-public enum eStatusEffect
-{
-    Flame, Cold, Electricity, Corrosion
-}
-
-public enum eEnemy
-{
-    Normal, Elite, SemiBoss, Boss
-}
-
-public enum eDashStyle
-{
-    OneWay, CanInputWay, Teleport
-}
-
-public enum eRoomType
-{
-    Completed, KillAll, Survived, BossKill
-}
-
-
-
-#endregion
-
-#region Interface
+#region Interface : Interact
 
 
 public interface IInteract
@@ -209,6 +168,9 @@ public interface IInteract
     public void Play_Interact();
 }
 
+#endregion
+
+#region Interface : When
 
 public interface IWhen
 {
@@ -225,16 +187,16 @@ public interface IWhen_GetElectricity : IWhen { }
 
 #endregion
 
-#region State Element
+#region State : Element
 
 [System.Serializable]
-public abstract class State
+public abstract class ElementState
 {
     public virtual void Reset_State() { }
 }
 
 [System.Serializable]
-public class DmgState : State
+public class DmgState : ElementState
 {
     #region Value
 
@@ -271,7 +233,7 @@ public class DmgState : State
 }
 
 [System.Serializable]
-public class CriticalState : State
+public class CriticalState : ElementState
 {
     #region Value
 
@@ -308,7 +270,7 @@ public class CriticalState : State
 }
 
 [System.Serializable]
-public class KnockbackState : State
+public class KnockbackState : ElementState
 {
     #region Value
 
@@ -350,7 +312,13 @@ public class KnockbackState : State
 
 #endregion
 
-#region Combat State
+#region State : Combat
+
+[System.Serializable]
+public abstract class State
+{
+    public virtual void Reset_State() { }
+}
 
 [System.Serializable]
 public class CombatState : State
@@ -467,46 +435,54 @@ public class BulletState : CombatState
 }
 
 [System.Serializable]
-public class AttackerState
+public class AttackerState : CombatState
 {
-    [SerializeField] public eDamageType DmgType;
-    [SerializeField] public float Dmg;
+    #region Constructor
 
-    [SerializeField] public bool CanKB;
-    [SerializeField] public float KBPower;
-    [SerializeField] public float KBTime;
+    public AttackerState(CombatState _State) : base(_State.DmgState, _State.CriticalState, _State.KnockbackState) { }
 
-    [SerializeField] public float CC;
-    [SerializeField] public float CD;
-
-    public AttackerState() { }
-
-    public AttackerState(AttackerState _AttakerState)
-    {
-        DmgType = _AttakerState.DmgType;
-        Dmg = _AttakerState.Dmg;
-
-        CanKB = _AttakerState.CanKB;
-        KBPower = _AttakerState.KBPower;
-        KBTime = _AttakerState.KBTime;
-
-        CC = _AttakerState.CC;
-        CD = _AttakerState.CD;
-    }
-    public AttackerState(eDamageType _DamageType, float _BaseDamage, bool _AbleKnockback, float _KnockbackPower, float _KnockbackTime, float _CC, float _CD)
-    {
-        DmgType = _DamageType;
-        Dmg = _BaseDamage;
-
-        CanKB = _AbleKnockback;
-        KBPower = _KnockbackPower;
-        KBTime = _KnockbackTime;
-
-        CC = _CC;
-        CD = _CD;
-    }
+    #endregion
 }
 
 #endregion
 
+#region Enum
 
+public enum eCombatMode
+{
+    Physics, Energy, Boost
+}
+
+public enum eMovementState
+{
+    Casting, IdleOrWalk, Dash
+}
+
+public enum eDamageType
+{
+    Physics, Energy
+}
+
+public enum eStatusEffect
+{
+    Flame, Cold, Electricity, Corrosion
+}
+
+public enum eEnemy
+{
+    Normal, Elite, SemiBoss, Boss
+}
+
+public enum eDashStyle
+{
+    OneWay, CanInputWay, Teleport
+}
+
+public enum eRoomType
+{
+    Completed, KillAll, Survived, BossKill
+}
+
+
+
+#endregion
