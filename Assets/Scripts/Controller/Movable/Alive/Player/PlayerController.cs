@@ -139,36 +139,21 @@ public class PlayerController : AliveObjectController
     [Header("=== Hitted Anim")]
     [SerializeField] private PlayerVisual<AnimationClip> ThisHittedPointAC;
 
-
-
-    #endregion
-
-    #region - Effect
-
-    [Space(10)]
-    [Header("=== Anim")]
-
-    [Header("-- DamageType Icon")]
+    [Header("=== DamageType Anim")]
     [SerializeField] private StateAnimController StateAnim;
-    [SerializeField] private AnimationClip PhysicsStateAC;
-    [SerializeField] private AnimationClip EnergyStateAC;
-    [SerializeField] private AnimationClip ChangeStateAC;
+    [SerializeField] private TrioData<AnimationClip> DmgTypeStateAC;
 
     [Space(10)]
-    [Header("-- BoostMode Icon")]
-    [SerializeField] private List<StateAnimController> BoostStateAnimList;
-    [SerializeField] private AnimationClip BoostOffAC;
-    [SerializeField] private AnimationClip BoostOnAC;
-    [SerializeField] private List<StateAnimController> BoostStateVFXAnimList;
+    [Header("=== BoostMode Anim")]
+    [SerializeField] private CoupleData<List<StateAnimController>> BoostStateAnimController;
+    [SerializeField] private CoupleData<AnimationClip> BoostOnOffAC;
     [SerializeField] private List<AnimationClip> BoostVFXAnimList;
 
     [Space(10)]
-    [Header("-- Inner Img")]
+    [Header("=== Inner Img")]
     [SerializeField] private Sprite ChangeState_DamageType;
-    [SerializeField] private Sprite ChangeState_BoostUp;
-    [SerializeField] private Sprite ChangeState_BoostDown;
-    [SerializeField] private Sprite ChangeState_Skill0;
-    [SerializeField] private Sprite ChangeState_Skill1;
+    [SerializeField] private CoupleData<Sprite> ChangeState_BoostUpDown;
+    [SerializeField] private CoupleData<Sprite> ChangeState_Skill;
 
     [Space(10)]
     [Header("-- Room Move Img")]
@@ -215,7 +200,7 @@ public class PlayerController : AliveObjectController
 
         Set_BaseAnimTween();
 
-        StateAnim.Set_Anim(PhysicsStateAC, 0.8f, 1f);
+        StateAnim.Set_Anim(DmgTypeStateAC.TypeA, 0.8f, 1f);
         Set_BoostAnim(CurrentBoostLv.Value, MaxBoostLv);
         MoveDirStateAnim.Set_Anim(MoveDirAC);
         SetOff_RoomMoveDir();
@@ -680,7 +665,7 @@ public class PlayerController : AliveObjectController
         if (!Can_Change()) 
         { return; }
 
-        StateAnim.Set_Anim(ChangeStateAC, ChangeState_DamageType, 2f, 1f);
+        StateAnim.Set_Anim(DmgTypeStateAC.TypeSpecial, ChangeState_DamageType, 2f, 1f);
 
         switch (TargetCombatMode)
         {
@@ -708,7 +693,7 @@ public class PlayerController : AliveObjectController
         { return; }
 
         TargetBoostlv++;
-        StateAnim.Set_Anim(ChangeStateAC, ChangeState_BoostUp, 2f, 1f);
+        StateAnim.Set_Anim(DmgTypeStateAC.TypeSpecial, ChangeState_BoostUpDown.TypeSpecial, 2f, 1f);
 
         Start_Casting(BoostModeInterval);
     }
@@ -722,7 +707,7 @@ public class PlayerController : AliveObjectController
         { return; }
 
         TargetBoostlv--;
-        StateAnim.Set_Anim(ChangeStateAC, ChangeState_BoostDown, 2f, 1f);
+        StateAnim.Set_Anim(DmgTypeStateAC.TypeSpecial, ChangeState_BoostUpDown.TypeBase, 2f, 1f);
 
         Start_Casting(UnBoostModeInterval);
     }
@@ -771,7 +756,7 @@ public class PlayerController : AliveObjectController
         }
 
         ReservationSkillDele = SkillWeapon.Skill_0.Active_Skill;
-        StateAnim.Set_Anim(ChangeStateAC, ChangeState_Skill0, 2f, 1f);
+        StateAnim.Set_Anim(DmgTypeStateAC.TypeSpecial, ChangeState_Skill.TypeBase, 2f, 1f);
 
         Start_Casting(Skill0Interval);
     }
@@ -788,7 +773,7 @@ public class PlayerController : AliveObjectController
         }
 
         ReservationSkillDele = SkillWeapon.Skill_1.Active_Skill;
-        StateAnim.Set_Anim(ChangeStateAC, ChangeState_Skill1, 2f, 1f);
+        StateAnim.Set_Anim(DmgTypeStateAC.TypeSpecial, ChangeState_Skill.TypeSpecial, 2f, 1f);
 
         Start_Casting(Skill1Interval);
     }
@@ -931,12 +916,12 @@ public class PlayerController : AliveObjectController
         switch (TargetCombatMode)
         {
             case eCombatMode.Physics:
-                StateAnim.Set_Anim(PhysicsStateAC, 0.8f, 1f);
+                StateAnim.Set_Anim(DmgTypeStateAC.TypeA, 0.8f, 1f);
                 InputManager.Instance.AimController.Set_PhysicsType();
                 break;
 
             case eCombatMode.Energy:
-                StateAnim.Set_Anim(EnergyStateAC, 0.8f, 1f);
+                StateAnim.Set_Anim(DmgTypeStateAC.TypeB, 0.8f, 1f);
                 InputManager.Instance.AimController.Set_EnergyType();
                 break;
 
@@ -1065,7 +1050,7 @@ public class PlayerController : AliveObjectController
         {
             for (int i = 0; i < _MaxIndex - 1; i++)
             {
-                BoostStateAnimList[i].Set_Anim(BoostOnAC, lowestAnimSpeed * (_MaxIndex * 2), 1f);
+                BoostStateAnimController.TypeBase[i].Set_Anim(BoostOnOffAC.TypeSpecial, lowestAnimSpeed * (_MaxIndex * 2), 1f);
             }
         }
         else
@@ -1074,46 +1059,46 @@ public class PlayerController : AliveObjectController
             {
                 if (i < _Index)
                 {
-                    BoostStateAnimList[i].Set_Anim(BoostOnAC, lowestAnimSpeed * (_Index - i + 1), 1f);
+                    BoostStateAnimController.TypeBase[i].Set_Anim(BoostOnOffAC.TypeSpecial, lowestAnimSpeed * (_Index - i + 1), 1f);
                 }
                 else
                 {
-                    BoostStateAnimList[i].Set_Anim(BoostOffAC, lowestAnimSpeed, 1f);
+                    BoostStateAnimController.TypeBase[i].Set_Anim(BoostOnOffAC.TypeBase, lowestAnimSpeed, 1f);
                 }
             }
         }
 
         // VFX
 
-        BoostStateVFXAnimList[0].gameObject.SetActive(false);
-        BoostStateVFXAnimList[1].gameObject.SetActive(false);
+        BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(false);
+        BoostStateAnimController.TypeSpecial[1].gameObject.SetActive(false);
 
         switch (_Index)
         {
             case 1:
-                BoostStateVFXAnimList[0].gameObject.SetActive(true);
-                BoostStateVFXAnimList[0].Set_Anim(BoostVFXAnimList[0], 0.5f, 1f);
+                BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
+                BoostStateAnimController.TypeSpecial[0].Set_Anim(BoostVFXAnimList[0], 0.5f, 1f);
                 break;
 
             case 2:
-                BoostStateVFXAnimList[0].gameObject.SetActive(true);
-                BoostStateVFXAnimList[0].Set_Anim(BoostVFXAnimList[0], 1f, 1f);
+                BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
+                BoostStateAnimController.TypeSpecial[0].Set_Anim(BoostVFXAnimList[0], 1f, 1f);
                 break;
 
             case 3:
-                BoostStateVFXAnimList[0].gameObject.SetActive(true);
-                BoostStateVFXAnimList[0].Set_Anim(BoostVFXAnimList[0], 1f, 1f);
+                BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
+                BoostStateAnimController.TypeSpecial[0].Set_Anim(BoostVFXAnimList[0], 1f, 1f);
 
-                BoostStateVFXAnimList[1].gameObject.SetActive(true);
-                BoostStateVFXAnimList[1].Set_Anim(BoostVFXAnimList[1], 1f, 1f);
+                BoostStateAnimController.TypeSpecial[1].gameObject.SetActive(true);
+                BoostStateAnimController.TypeSpecial[1].Set_Anim(BoostVFXAnimList[1], 1f, 1f);
                 break;
 
             case 4:
-                BoostStateVFXAnimList[0].gameObject.SetActive(true);
-                BoostStateVFXAnimList[0].Set_Anim(BoostVFXAnimList[0], 1.5f, 1f);
+                BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
+                BoostStateAnimController.TypeSpecial[0].Set_Anim(BoostVFXAnimList[0], 1.5f, 1f);
 
-                BoostStateVFXAnimList[1].gameObject.SetActive(true);
-                BoostStateVFXAnimList[1].Set_Anim(BoostVFXAnimList[1], 1.5f, 1f);
+                BoostStateAnimController.TypeSpecial[1].gameObject.SetActive(true);
+                BoostStateAnimController.TypeSpecial[1].Set_Anim(BoostVFXAnimList[1], 1.5f, 1f);
                 break;
 
             default:

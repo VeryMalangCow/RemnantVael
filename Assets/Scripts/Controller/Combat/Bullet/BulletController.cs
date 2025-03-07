@@ -13,7 +13,7 @@ public class BulletController : MovableDepthController
     [Header("=== State")]
     [SerializeField] public BulletState State;
     [SerializeField] protected float CurrentAliveTime = 0;
-    [HideInInspector] private static float BaseBulletSpeed = 500f; 
+    [HideInInspector] private static float BaseBulletSpeed = 200f; 
 
     [Space(10)]
     [Header("=== Component")]
@@ -69,6 +69,35 @@ public class BulletController : MovableDepthController
 
     #region Framework
 
+    protected void FixedUpdate()
+    {
+        CurrentAliveTime += Time.fixedDeltaTime;
+
+        if (CurrentAliveTime >= State.AliveTime)
+        {
+            Remove_Object();
+            return;
+        }
+
+        if (ThisRb != null)
+        {
+            if (IsGuided)
+            {
+                if (TargetEnemyController != null && TargetEnemyController.gameObject.activeSelf)
+                {
+                    Set_TargetDir();
+                }
+                else
+                {
+                    Set_Target();
+                }
+            }
+
+            ThisRb.velocity = ((State.MuzzleSpeed * BaseBulletSpeed * Time.fixedDeltaTime) * this.transform.up);
+        }
+    }
+    /*
+
     protected override void Update()
     {
         base.Update();
@@ -98,7 +127,7 @@ public class BulletController : MovableDepthController
             ThisRb.velocity = ((State.MuzzleSpeed * BaseBulletSpeed * Time.deltaTime) * this.transform.up);
         }
 
-    }
+    }*/
 
     #endregion
 

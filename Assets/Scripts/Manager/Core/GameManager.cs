@@ -531,6 +531,13 @@ public class PlayerVisual<T>
 
 #region Class : PublicData
 
+[System.Serializable]
+public class TrioData<T>
+{
+    [SerializeField] public T TypeA;
+    [SerializeField] public T TypeSpecial;
+    [SerializeField] public T TypeB;
+}
 
 [System.Serializable]
 public class CoupleData<T>

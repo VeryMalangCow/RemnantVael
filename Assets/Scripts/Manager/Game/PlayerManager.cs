@@ -12,30 +12,10 @@ public class PlayerManager : Singleton<PlayerManager>
     [Header("=== Class")]
     [SerializeField] public CameraController CameraController;
 
-    [Header("=== State")]
-    [SerializeField] public BUState<float> AvoidChance;
-    [SerializeField] public BUState<float> MaxEP;
-    [SerializeField] public BUState<float> TakingDmgMultiple;
-    [SerializeField] public BUState<float> SpawnESMultiple;
-    [SerializeField] public BUState<float> NeedEP_ForSkillMultiple;
-    [SerializeField] public BUState<float> WalkSpeed;
-    [SerializeField] public BUState<float> WalkSpeedWhenShotMultiple;
-    [SerializeField] public BUState<float> DecEnergyPointMultiple;
-    [SerializeField] public BUState<float> BaseDamage;
-    [SerializeField] public BUState<float> MuzzleSpeed;
-    [SerializeField] public BUState<float> ROF;
-    [SerializeField] public BUState<float> CC;
-    [SerializeField] public BUState<float> CD;
-    [SerializeField] public BUState<float> AccuracyRate;
-    [SerializeField] public BUState<float> KnockbackPower;
-    [SerializeField] public BUState<float> DashSpeed;
-    [SerializeField] public BUState<float> Skill0_MaxCooltime;
-    [SerializeField] public BUState<int> Skill0_Tier;
-    [SerializeField] public BUState<float> Skill0_Power;
-
     #endregion
 
     #region Framework
+
     protected override void Awake()
     {
         base.Awake();

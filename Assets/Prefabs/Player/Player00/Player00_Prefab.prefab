@@ -800,7 +800,7 @@ MonoBehaviour:
   IsInputed: 0
   DefualtRoll: -45
   RollTF: {fileID: 871861330150977385}
-  rotateSpeed: 4
+  rotateSpeed: 8
   PitchTF: {fileID: 5292120655570418386}
   Hands:
   - ObjectTF: {fileID: 4586805314071208296}
@@ -1145,7 +1145,7 @@ MonoBehaviour:
   IsInputed: 0
   DefualtRoll: -45
   RollTF: {fileID: 3320135876574557012}
-  rotateSpeed: 4
+  rotateSpeed: 8
   PitchTF: {fileID: 7489537600790719101}
   Hands:
   - ObjectTF: {fileID: 160821742103898720}
@@ -1458,31 +1458,32 @@ MonoBehaviour:
     Energy:
       TypeBase: {fileID: 7400000, guid: 14a17a53a351ea74f83652b015ad07a9, type: 2}
       TypeSpecial: {fileID: 7400000, guid: 79dbdb9046b5858459e7942dc65f03d1, type: 2}
-  PhysicsHittedPointAC: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}
-  PhysicsCriticalHittedPointAC: {fileID: 7400000, guid: c444b0af8205ad84aaec6780cdff8c28, type: 2}
-  EnergyHittedPointAC: {fileID: 7400000, guid: 14a17a53a351ea74f83652b015ad07a9, type: 2}
-  EnergyCriticalHittedPointAC: {fileID: 7400000, guid: 79dbdb9046b5858459e7942dc65f03d1, type: 2}
   StateAnim: {fileID: 4725110972112075617}
-  PhysicsStateAC: {fileID: 7400000, guid: d6d70feace8ae884e8bafef96f8f1998, type: 2}
-  EnergyStateAC: {fileID: 7400000, guid: 069e2ca6676faae43808860df7a901a7, type: 2}
-  ChangeStateAC: {fileID: 7400000, guid: 5c582a8653727cb4cb65f17a80b10bd7, type: 2}
-  BoostStateAnimList:
-  - {fileID: 3464021024779576919}
-  - {fileID: 7237453325883749946}
-  - {fileID: 8366176329952565880}
-  BoostOffAC: {fileID: 7400000, guid: 98a83c64495906642b49b483a64364d5, type: 2}
-  BoostOnAC: {fileID: 7400000, guid: d2b73c9425051f44ba558e86b1d24fe2, type: 2}
-  BoostStateVFXAnimList:
-  - {fileID: 4101486815332226596}
-  - {fileID: 545911533762084861}
+  DmgTypeStateAC:
+    TypeA: {fileID: 7400000, guid: d6d70feace8ae884e8bafef96f8f1998, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: 5c582a8653727cb4cb65f17a80b10bd7, type: 2}
+    TypeB: {fileID: 7400000, guid: 069e2ca6676faae43808860df7a901a7, type: 2}
+  BoostStateAnimController:
+    TypeBase:
+    - {fileID: 3464021024779576919}
+    - {fileID: 7237453325883749946}
+    - {fileID: 8366176329952565880}
+    TypeSpecial:
+    - {fileID: 4101486815332226596}
+    - {fileID: 545911533762084861}
+  BoostOnOffAC:
+    TypeBase: {fileID: 7400000, guid: 98a83c64495906642b49b483a64364d5, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: d2b73c9425051f44ba558e86b1d24fe2, type: 2}
   BoostVFXAnimList:
   - {fileID: 7400000, guid: 628683ee72069824f948f9b48da8baf9, type: 2}
   - {fileID: 7400000, guid: 988de495183371b46aa363b5a7f31ca5, type: 2}
   ChangeState_DamageType: {fileID: 1190402679, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  ChangeState_BoostUp: {fileID: -2048292133, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  ChangeState_BoostDown: {fileID: 833619481, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  ChangeState_Skill0: {fileID: 431685944, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  ChangeState_Skill1: {fileID: -254010198, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  ChangeState_BoostUpDown:
+    TypeBase: {fileID: 833619481, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    TypeSpecial: {fileID: -2048292133, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  ChangeState_Skill:
+    TypeBase: {fileID: 431685944, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    TypeSpecial: {fileID: -254010198, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   MoveDirStateAnim: {fileID: 7420383875986210402}
   MoveDirAC: {fileID: 7400000, guid: e123b32e9ab9b9c49a435fda32906977, type: 2}
   AimPrefab: {fileID: 6141677161167260688, guid: c40efc2302d823f4385722f2c7ce4237, type: 3}
