@@ -79,7 +79,7 @@ public abstract class UIController : MonoBehaviour
         { return "GATE"; }
         else if (_II is InteractItemController)
         { return "MODULE"; }
-        else if (_II is StartElevatorController DEC && DEC.IsOn)
+        else if (_II is EndingElevatorController DEC && DEC.IsOn)
         { return "NEXT STAGE"; }
 
         return "";

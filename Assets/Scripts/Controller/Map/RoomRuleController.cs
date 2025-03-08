@@ -21,7 +21,7 @@ public class RoomRuleController : MonoBehaviour
     [SerializeField] private Transform InRoom_PrisonTF;
     [HideInInspector] private InteractableBuildController InRoom_BuildThing;
     // [HideInInspector] private 감옥 지정될 변수 
-    [SerializeField] private StartElevatorController InRoom_Elevator;
+    [SerializeField] private EndingElevatorController InRoom_Elevator;
 
     [Space(10)]
     [Header("=== In Room _ Enemy")]

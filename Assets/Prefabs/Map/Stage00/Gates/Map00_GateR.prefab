@@ -1542,12 +1542,15 @@ MonoBehaviour:
   RoomPosGate: {x: 0, y: 0}
   GateDir: {x: 1, y: 0}
   IsOpen: 0
-  ThisRoom: {fileID: 0}
   HadParter: 0
   SettedPos: 0
+  ThisRoom: {fileID: 0}
   ParterGate: {fileID: 0}
   ThisAnimator: {fileID: 1764751439533702885}
   ThisAC: {fileID: 7400000, guid: 68c4705b95683d6438092d027ff0fd4f, type: 2}
+  ThingsGO:
+    TypeBase: {fileID: 1557811161441417995}
+    TypeSpecial: {fileID: 2549561047461188151}
   OnThingsGO: {fileID: 2549561047461188151}
   OffThingsGO: {fileID: 1557811161441417995}
   EntranceGO: {fileID: 8365579818040759490}

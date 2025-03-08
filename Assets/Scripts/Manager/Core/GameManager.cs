@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -315,8 +314,53 @@ public class DevTool
         _AT.runtimeAnimatorController = _AOC;
     }
 
+    // 애니메이션의 속도와 크기 조절
+    public static void Set_AnimSpeedAndSize(Animator _AT, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    {
+        Set_AnimSpeed(_AT, _AnimSpeed);
+        Set_AnimSize(_AT, _AnimSize);
+    }
+
+    // 애니메이션의 속도 조절
+    public static void Set_AnimSpeed(Animator _AT, float _AnimSpeed)
+    {
+        _AT.speed = _AnimSpeed;
+    }
+
+    // 애니메이션의 크기 조절
+    public static void Set_AnimSize(Animator _AT, float _AnimSize)
+    {
+        _AT.transform.localScale = Vector2.one * _AnimSize;
+    }
+
+    // 애니메이션이 끝났는지 판별
+    public static bool Is_AnimIsDone(Animator _AT)
+    {
+        // 현재 애니메이터 상태 정보 가져오기가 1이상(1번이상 진행?)
+        // 애니메이션이 종료되었는지 판별
+        if (_AT.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && !_AT.IsInTransition(0))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     #endregion
 
+    #region About Tween
+
+    public static void Play_Tween(Tween _Tween, Dele _Start, Dele _Update, Dele _Complete)
+    {
+        _Tween
+            .OnStart(() => { _Start(); })
+            .OnUpdate(() => { _Update(); })
+            .OnComplete(() => { _Complete(); });
+    }
+
+    #endregion
 }
 
 
@@ -757,8 +801,12 @@ public interface IWhen_GetElectricity : IWhen { }
 
 #region Delegate
 
+public delegate void Dele();
+
 public delegate void Dele_T<T>(T _Item);
+
 public delegate void Dele_RefT_T<T>(ref T _Item1, T _Item2);
+
 public delegate void Dele_T_U<T, U>(T _Item1, U _Item2);
 public delegate void Dele_RefT_U<T, U>(ref T _Item1, U _Item2);
 

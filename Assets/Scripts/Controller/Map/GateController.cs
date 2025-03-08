@@ -6,8 +6,7 @@ public class GateController : StaticDepthController, IInteract
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Gate Controller")]
-
+    [Header("<><><><><> Gate")]
     [SerializeField] public GameObject ExtraTargetObject;
 
     [Space(10)]
@@ -18,9 +17,10 @@ public class GateController : StaticDepthController, IInteract
     [Space(10)]
     [Header("=== Data")]
     [SerializeField] public bool IsOpen = false;
-    [HideInInspector] public RoomController ThisRoom;
+
     [HideInInspector] public bool HadParter = false;
     [HideInInspector] public bool SettedPos = false;
+    [HideInInspector] public RoomController ThisRoom;
     [HideInInspector] public GateController ParterGate = null;
 
     [Space(10)]
@@ -30,13 +30,12 @@ public class GateController : StaticDepthController, IInteract
 
     [Space(10)]
     [Header("=== Other")]
-    [SerializeField] private GameObject OnThingsGO;
-    [SerializeField] private GameObject OffThingsGO;
+    [SerializeField] private CoupleData<GameObject> ThingsGO;
     [SerializeField] private GameObject EntranceGO;
     [SerializeField] public List<SortingObjectController> NeedSetAllLayer;
 
+    [HideInInspector] private AnimatorOverrideController AOC;
 
-    [HideInInspector] private AnimatorOverrideController aoc;
     #endregion
 
     #region Framework
@@ -44,43 +43,45 @@ public class GateController : StaticDepthController, IInteract
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        // 같은 방법으로 Y축을 위로 올리는데, 다른 객체가 추가로 필요하니 이처럼 사용
         ExtraTargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * TargetRange);
     }
 
     private void Update()
     {
-        if (OnThingsGO.gameObject.activeSelf && ThisAnimator.enabled && Get_AnimIsDone())
-        {
-            ThisAnimator.enabled = false;
-        }
+        // 문 애니메이션이 종료되면 애니메이터를 끈다.
+        Try_AT_Disable();
     }
 
     #endregion
 
     #region On Off
 
+    // 처음 문의 상태를 (벽이거나 문이거나) 판별해서 세팅
     public void Set_ExistDoorState(bool _IsExist)
     {
+        ThingsGO.TypeBase.SetActive(!_IsExist);
+        ThingsGO.TypeSpecial.SetActive(_IsExist);
+
         if (_IsExist)
         {
-            OnThingsGO.gameObject.SetActive(true);
-            OffThingsGO.gameObject.SetActive(false);
-            Set_Anim(ThisAC, 0f);
-        }
-        else
-        {
-            OnThingsGO.gameObject.SetActive(false);
-            OffThingsGO.gameObject.SetActive(true);
+            DevTool.Set_Anim(ref AOC, ThisAnimator, ThisAC);
+            DevTool.Set_AnimSpeed(ThisAnimator, 0f);
         }
     }
 
-    public void Set_OnOff(bool _IsOn)
+    // 문 열기/닫기
+    public void Set_OpenClose(bool _IsOpen)
     {
-        IsOpen = _IsOn;
+        IsOpen = _IsOpen;
 
-        if (OnThingsGO.gameObject.activeSelf && IsOpen)
+        if (ThingsGO.TypeSpecial.activeSelf && IsOpen)
         {
-            Set_Anim(ThisAC, 1f);
+            DevTool.Set_Anim(ref AOC, ThisAnimator, ThisAC);
+            DevTool.Set_AnimSpeed(ThisAnimator, 1f);
+
+            // 상호작용 판정을 가진 오브젝트
             EntranceGO.SetActive(true);
         }
     }
@@ -103,31 +104,22 @@ public class GateController : StaticDepthController, IInteract
 
     #region Anim
 
-    public void Set_Anim(AnimationClip _AC, float _AnimSpeed = 1f)
+    // Animator 종료 시도
+    private void Try_AT_Disable()
     {
-        aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
-        var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
-        foreach (var a in aoc.animationClips)
-            anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
-        aoc.ApplyOverrides(anims);
-        ThisAnimator.runtimeAnimatorController = aoc;
-        ThisAnimator.speed = _AnimSpeed;
+        if (Can_AT_Disable())
+        {
+            ThisAnimator.enabled = false;
+        }
     }
 
-    private bool Get_AnimIsDone()
+    // Animator가 종료될 수 있는가 판별
+    private bool Can_AT_Disable()
     {
-        // 현재 애니메이터 상태 정보 가져오기
-        AnimatorStateInfo animatorStateInfo = ThisAnimator.GetCurrentAnimatorStateInfo(0);
-
-        // 애니메이션이 종료되었는지 판별
-        if (animatorStateInfo.normalizedTime >= 1 && !ThisAnimator.IsInTransition(0))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return
+            ThingsGO.TypeSpecial.activeSelf &&
+            ThisAnimator.enabled &&
+            DevTool.Is_AnimIsDone(ThisAnimator);
     }
 
     #endregion

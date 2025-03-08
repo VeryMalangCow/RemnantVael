@@ -306,7 +306,7 @@ public class RoomController : IDController
             {
                 if (!InRoom_AllGate[i].IsOpen)
                 {
-                    InRoom_AllGate[i].Set_OnOff(true);
+                    InRoom_AllGate[i].Set_OpenClose(true);
                 }
             }
         }

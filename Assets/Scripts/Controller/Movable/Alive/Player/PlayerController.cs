@@ -817,7 +817,7 @@ public class PlayerController : AliveObjectController
                 }
                 CurrentInteractable.Value = null;
             }
-            else if (CurrentInteractable.Value is StartElevatorController DEC && DEC.IsOn)
+            else if (CurrentInteractable.Value is EndingElevatorController DEC && DEC.IsOn)
             {
                 CurrentInteractable.Value.Play_Interact();
                 CurrentInteractable.Value = null;

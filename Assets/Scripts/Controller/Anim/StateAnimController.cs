@@ -20,21 +20,15 @@ public class StateAnimController : MonoBehaviour
     public void Set_Anim(AnimationClip _AC, Sprite _InnerSprite, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
         DevTool.Set_Anim(ref AOC, ThisAnimator, _AC);
-        Set_SpeedAndSize(_AnimSpeed, _AnimSize);
+        DevTool.Set_AnimSpeedAndSize(ThisAnimator, _AnimSpeed, _AnimSize);
         Set_Inner(true, _InnerSprite);
     }
 
     public void Set_Anim(AnimationClip _AC, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
         DevTool.Set_Anim(ref AOC, ThisAnimator, _AC);
-        Set_SpeedAndSize(_AnimSpeed, _AnimSize);
+        DevTool.Set_AnimSpeedAndSize(ThisAnimator, _AnimSpeed, _AnimSize);
         Set_Inner(false);
-    }
-
-    public void Set_SpeedAndSize(float _AnimSpeed = 1f, float _AnimSize = 1f)
-    {
-        ThisAnimator.speed = _AnimSpeed;
-        ThisSR.transform.localScale = Vector2.one * _AnimSize;
     }
 
     public void Set_Inner(bool _OnOff, Sprite _Sprite = null)
