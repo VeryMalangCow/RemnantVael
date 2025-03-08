@@ -15,7 +15,7 @@ public class EndElevatorController : StaticDepthController
 
     #region Framework
 
-    private void Start()
+    protected override void Start()
     {
         EventManager.Instance.Set_BlackUpDownCover(true);
         Play_MoveToTarget();

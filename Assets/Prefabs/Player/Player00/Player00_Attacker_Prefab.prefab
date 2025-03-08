@@ -155,8 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a9589700b54704baa5d9da9cc09ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 1947860357028516534}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 9076609007504668469}
   TargetRange: 0.6
 --- !u!114 &8262544962750426895
 MonoBehaviour:
@@ -173,14 +174,18 @@ MonoBehaviour:
   ThisCol: {fileID: 7549900326602035206}
   ThisAnimator: {fileID: 3700956229177998945}
   ThisLight: {fileID: 0}
+  HSTS: {fileID: 0}
   AttackerState:
-    DamageType: 0
-    BaseDamage: 0
-    AbleKnockback: 0
-    KnockbackPower: 0
-    KnockbackTime: 0
-    CC: 0
-    CD: 0
+    DmgState:
+      DmgType: 0
+      Dmg: 0
+    CriticalState:
+      CC: 0
+      CD: 0
+    KnockbackState:
+      CanKB: 0
+      KBPower: 0
+      KBTime: 0
   HittedObjectList: []
 --- !u!50 &3501360633453498926
 Rigidbody2D:

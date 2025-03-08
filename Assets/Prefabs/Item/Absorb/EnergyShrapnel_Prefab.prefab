@@ -248,14 +248,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 8792791415299830887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49267c1318759934abb85d76b0a6f813, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e567d8453d72c441afaeb222d6406ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 3954661232278796110}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 5987728594063451204}
   TargetRange: 0.4
   ThisRb: {fileID: 2744110499918854217}
   TargetGO: {fileID: 0}
+  IsAbsorbing: 0
   AbsorbStartPower: 300
   AbsorbPower: 5
   RotatePower: 15

@@ -287,15 +287,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3fcdeddef1e3a4bb11391332ec6f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 7945861353772175884}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 6431130664222279258}
   TargetRange: 0.4
-  TargetSR: {fileID: 6431130664222279258}
-  ShadowSR: {fileID: 2929492441964741815}
-  LowestLayerOrder: -2000
-  HighestLayerOrder: 2000
-  IsUpper: 0
-  MEI: {fileID: 1953212296757230686}
+  MEI: {fileID: 0}
+  IsOn: 0
+  ThisAnimator: {fileID: 0}
+  OffAC: {fileID: 0}
+  OnAC: {fileID: 0}
+  ThisStateAnim: {fileID: 0}
+  OffStateAC: {fileID: 0}
+  OnStateAC: {fileID: 0}
 --- !u!1 &7945861353772175884
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +309,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2545417290506596609}
   - component: {fileID: 6431130664222279258}
-  - component: {fileID: 1953212296757230686}
   m_Layer: 6
   m_Name: Target
   m_TagString: Interact
@@ -381,15 +383,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1953212296757230686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7945861353772175884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

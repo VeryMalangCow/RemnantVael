@@ -50,6 +50,10 @@ public class MissileBulletController : BulletController
 
     public void Set_State_Missile(Vector2 _SpawnVec, BulletState _BulletState, Vector2 _Dir, float _TargetRange)
     {
+        // State + RandomDir
+        float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
+        base.Set_State(_SpawnVec, randomSpreadAngle, _BulletState, _TargetRange);
+
         // Offset
         IsGuided = false;
 
@@ -59,9 +63,6 @@ public class MissileBulletController : BulletController
         // Base Dir
         this.transform.localRotation = this.transform.localRotation = Get_RotByVec2(_Dir);
 
-        // State + RandomDir
-        float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
-        base.Set_State(_SpawnVec, randomSpreadAngle, _BulletState, _TargetRange);
         base.State.MuzzleSpeed *= 0.3f;
 
         // Dotween

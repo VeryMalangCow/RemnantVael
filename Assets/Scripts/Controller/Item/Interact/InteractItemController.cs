@@ -24,31 +24,19 @@ public class InteractItemController : ItemController, IInteract
 
     #region State
 
-    public void Set_State(Vector2 _SpawnPos, int _BoostLv, int _ItemRank)
+    public override void Set_State(Vector2 _SpawnPos)
     {
-        base.SetState(_SpawnPos);
+        base.Set_State(_SpawnPos);
 
-        ThisItemData.BoostLv = _BoostLv;
-        ThisItemData.Rank = _ItemRank;
+        // Anim
         CurrentSpreadPower = SpreadPower;
-        SettedSpreadDir = Get_RandomDir();
+        SettedSpreadDir = StaticCaculator.Get_RandomDir();
+        Start_Tween();
 
-        
-
-        UpDownSeq = DOTween.Sequence();
-
-        UpDownSeq.Append(TargetObject.transform.DOLocalMoveY((TargetRange + 0.2f), 1f).SetEase(Ease.InOutSine));
-        UpDownSeq.Append(TargetObject.transform.DOLocalMoveY((TargetRange), 1f).SetEase(Ease.InOutSine));
-
-        UpDownSeq
-            .OnStart(() =>
-            {
-                TargetObject.transform.localPosition = Vector2.up * TargetRange;
-            })
-            .SetLoops(-1, LoopType.Restart);
-
+        // Data
         ThisItemData = new ItemData(ModuleItemManager.Instance.Get_RandomInteractItem());
 
+        // Set
         this.gameObject.SetActive(true);
     }
 
@@ -56,45 +44,9 @@ public class InteractItemController : ItemController, IInteract
 
     #region Framework
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        LayerOrderManager.Instance.NeedLayerObjects.Add(this);
-    }
-
-    protected void OnDisable()
-    {
-        LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
-    }
-
-    protected void Update()
+    protected void LateUpdate()
     {
         Play_Spread(CurrentSpreadPower);
-    }
-
-    #endregion
-
-    #region Spread
-
-    private Vector2 Get_RandomDir()
-    {
-        float _X = Random.Range(-1.0f, 1.0f);
-        float _Y = Random.Range(-1.0f, 1.0f);
-        return new Vector2(_X, _Y).normalized;
-    }
-
-    private void Play_Spread(float _SpreadPower)
-    {
-        if (CurrentSpreadPower > 0f)
-        {
-            CurrentSpreadPower -= DecSpreadPowerSpeed * Time.deltaTime;
-            ThisRb.velocity = SettedSpreadDir * _SpreadPower;
-        }
-        else if (CurrentSpreadPower != 0f)
-        {
-            CurrentSpreadPower = 0f;
-            ThisRb.velocity = Vector2.zero;
-        }
     }
 
     #endregion
@@ -110,10 +62,50 @@ public class InteractItemController : ItemController, IInteract
         PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
 
         LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
-        DOTween.Kill(UpDownSeq);
-        UpDownSeq = null;
+        End_Tween();
 
         this.gameObject.SetActive(false);
+    }
+
+    #endregion
+
+    #region Dotween & Spread
+
+    private void Start_Tween()
+    {
+        UpDownSeq = DOTween.Sequence();
+
+        UpDownSeq.Append(TargetObject.transform.DOLocalMoveY((TargetRange + 0.2f), 1f).SetEase(Ease.InOutSine));
+        UpDownSeq.Append(TargetObject.transform.DOLocalMoveY((TargetRange), 1f).SetEase(Ease.InOutSine));
+
+        UpDownSeq
+            .OnStart(() =>
+            {
+                TargetObject.transform.localPosition = Vector2.up * TargetRange;
+            })
+            .SetLoops(-1, LoopType.Restart);
+    }
+
+
+    private void End_Tween()
+    {
+        DOTween.Kill(UpDownSeq);
+        UpDownSeq = null;
+    }
+
+
+    private void Play_Spread(float _SpreadPower)
+    {
+        if (CurrentSpreadPower > 0f)
+        {
+            CurrentSpreadPower -= DecSpreadPowerSpeed * Time.deltaTime;
+            ThisRb.velocity = SettedSpreadDir * _SpreadPower;
+        }
+        else if (CurrentSpreadPower != 0f)
+        {
+            CurrentSpreadPower = 0f;
+            ThisRb.velocity = Vector2.zero;
+        }
     }
 
     #endregion

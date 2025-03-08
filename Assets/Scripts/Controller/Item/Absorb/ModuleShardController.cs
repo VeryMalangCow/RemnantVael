@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class ModuleShrapnelController : AbsorbItemController
+public class ModuleShardController : AbsorbItemController
 {
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Field Bettery")]
+    [Header("<><><><><> Module Shard")]
 
     [Space(10)]
     [Header("=== State")]
@@ -15,16 +15,6 @@ public class ModuleShrapnelController : AbsorbItemController
     #endregion
 
     #region Framework
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        LayerOrderManager.Instance.NeedLayerObjects.Add(this);
-    }
-
-    protected void OnDisable()
-    {
-        LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
-    }
 
     protected override void Update()
     {
@@ -42,10 +32,12 @@ public class ModuleShrapnelController : AbsorbItemController
 
     #region State
 
-    public void SetState(Vector2 _SpawnPos, GameObject _TargetObject, int _Value)
+    public void Set_State(Vector2 _SpawnPos, int _Value)
     {
-        base.SetState(_SpawnPos, _TargetObject);
+        base.Set_State(_SpawnPos);
+
         ModuleValue = _Value;
+
         transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
         gameObject.SetActive(true);
     }

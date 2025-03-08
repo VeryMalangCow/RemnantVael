@@ -127,11 +127,6 @@ public class EnemyController : AliveObjectController, IInteract
 
     }
 
-    private void Start()
-    {
-        Offset();
-    }
-
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -373,7 +368,6 @@ public class EnemyController : AliveObjectController, IInteract
         (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
         _ActualDMG, _IsCritical);
 
-        Set_IsDead(CurrentHP.Value, _ActualDMG);
         Gain_HP(-_ActualDMG);
         if (CurrentHP.Value <= 0f)
         {
@@ -449,8 +443,10 @@ public class EnemyController : AliveObjectController, IInteract
 
 
     // Á×À½
-    private void Set_Die()
+    protected override void Set_Die()
     {
+        base.Set_Die();
+
         // Drop Bettery S
         Gen_BS(1);
 
@@ -494,18 +490,14 @@ public class EnemyController : AliveObjectController, IInteract
 
         InteractItemController IIC = PoolingManager.Instance.Get_OP_InteractableItem();
         IIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
-        IIC.Set_State(this.transform.position, 1, 1);
+        IIC.Set_State(this.transform.position);
     }
 
     // Energy Shrapnel
     private void Gen_ES(float _Value)
     {
-        EnergyShrapnelController ESC = PoolingManager.Instance.Get_OP_EnergyShrapnel();
-        ESC.Set_State(
-            this.gameObject.transform.position,
-            PlayerManager.Instance.PlayerController.gameObject,
-            _Value);
-        ESC.gameObject.SetActive(true);
+        EnergyShardController ESC = PoolingManager.Instance.Get_OP_EnergyShrapnel();
+        ESC.Set_State(this.gameObject.transform.position, _Value);
     }
 
     #endregion

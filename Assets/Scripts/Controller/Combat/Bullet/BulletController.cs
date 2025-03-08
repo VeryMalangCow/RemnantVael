@@ -63,6 +63,7 @@ public class BulletController : MovableDepthController
         transform.eulerAngles = currentRotation;
 
         TargetRange = _TargetRange;
+
     }
 
     #endregion

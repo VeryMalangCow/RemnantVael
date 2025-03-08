@@ -30,8 +30,9 @@ public class DestructibleBuildController : InteractableBuildController
 
     #region Framework
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
         Set_Durablity();
     }
 

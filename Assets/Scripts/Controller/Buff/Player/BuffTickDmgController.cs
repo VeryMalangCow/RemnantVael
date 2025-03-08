@@ -54,7 +54,7 @@ public class BuffTickDmgController : BuffController
         { value += ConstPoint; }
 
         if (MaxHpPercent != 0)
-        { value += PlayerManager.Instance.PlayerController.Get_PercentHP(MaxHpPercent); }
+        { value += StaticCaculator.Get_Percent(MaxHpPercent, PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value); }
         
 
         return value;

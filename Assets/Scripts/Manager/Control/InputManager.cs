@@ -155,8 +155,12 @@ public class InputManager : Singleton<InputManager>
         MousePos = Input.mousePosition;
         MousePosByWorld = Camera.main.ScreenToWorldPoint(MousePos);
         DirFromPlayerPos = MousePosByWorld - (Vector2)PlayerManager.Instance.PlayerController.gameObject.transform.position;
-
         MousePointerRT.anchoredPosition = MousePos;
+    }
+
+    public Quaternion Get_Rot_DirFromPlayerPos()
+    {
+        return StaticCaculator.Get_RotFromDir(DirFromPlayerPos);
     }
 
     #endregion

@@ -9,20 +9,7 @@ public class PlayerBulletController : BulletController
 
     [Space(10)]
     [Header("=== Sprite")]
-    [SerializeField] public Sprite BasePhysics_Sprite;
-    [SerializeField] public Sprite CriticalPhysics_Sprite;
-    [SerializeField] public Sprite BaseEnergy_Sprite;
-    [SerializeField] public Sprite CriticalEnergy_Sprite;
-
-    #endregion
-
-    #region Framework
-
-    protected override void Update()
-    {
-        base.Update();
-
-    }
+    [SerializeField] public PlayerVisual<Sprite> BulletSprite;
 
     #endregion
 
@@ -32,24 +19,8 @@ public class PlayerBulletController : BulletController
     {
         this.transform.localRotation = Get_RotByVec2(_Dir);
 
-
         base.Set_State(_SpawnVec, _SpreadAngle, _BulletState, _TargetRange);
-
-        if (State.IsCritical)
-        {
-            if (_BulletState.DmgState.DmgType == eDamageType.Physics)
-            { ThisSR.sprite = CriticalPhysics_Sprite; }
-            else
-            { ThisSR.sprite = CriticalEnergy_Sprite; }
-        }
-        else
-        {
-            if (_BulletState.DmgState.DmgType == eDamageType.Physics)
-            { ThisSR.sprite = BasePhysics_Sprite; }
-            else
-            { ThisSR.sprite = BaseEnergy_Sprite; }
-        }
-
+        ThisSR.sprite = BulletSprite.Get_CorrectType(_BulletState.DmgState.DmgType).Get_Special(_BulletState.IsCritical);
 
         ThisRb.simulated = true;
         gameObject.SetActive(true);

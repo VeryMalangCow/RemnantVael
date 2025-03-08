@@ -83,8 +83,11 @@ public class InteractAnnoUIController : UIController
 
     public void Set_PosIfNot(IInteract _II)
     {
-        if (_II != null && ((MonoBehaviour)_II).transform.position != this.transform.position)
-        { this.transform.position = ((MonoBehaviour)_II).transform.position; }
+        if (_II != null && 
+            ((MonoBehaviour)_II).transform.position != this.transform.position)
+        { 
+            this.transform.position = ((MonoBehaviour)_II).transform.position; 
+        }
     }
 
     #endregion

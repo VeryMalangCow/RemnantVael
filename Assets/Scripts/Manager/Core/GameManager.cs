@@ -73,6 +73,13 @@ public class StaticCaculator
 {
     #region About Math
 
+    // 퍼센트값을 도출
+    public static float Get_Percent(float _Percent, float _Value)
+    {
+        return (_Percent / 100f) * _Value;
+    }
+
+    // 확률이 성공했는지를 반환
     public static bool Is_ChanceSuccess(float _Chance)
     {
         if (UnityEngine.Random.Range(0f, 1f) < _Chance)
@@ -85,9 +92,41 @@ public class StaticCaculator
         }
     }
 
+    // 실제 주소값 float에 추가
+    public static void Add_RefValue(ref float _Variable, float _AddValue)
+    {
+        _Variable += _AddValue;
+    }
+
     #endregion
 
     #region About Casting
+    
+    // 'T 타입'이 Null이거나 Defualt가 아닌지?
+    public static bool Is_Usable<T>(T _Value)
+    {
+        if (_Value is not null && !EqualityComparer<T>.Default.Equals(_Value, default))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // 'T, U 타입' 두 값이 같은지 판별
+    public static bool Is_Equal<T, U>(T _First, U _Second)
+    {
+        return _First?.Equals(_Second) ?? _Second is null;
+    }
+
+    // 'T, U 타입' 사용할 수 있는지 판별, 그 안의 2값이 같은지 판별
+    public static bool Is_UsableAndEqual<T, U>(T _Value, U _InValue1, U _InValue2)
+    {
+        return Is_Equal(_InValue1, _InValue2) && Is_Usable(_Value);
+    }
+
 
     // 객체를 원하는 'T 타입'으로 캐스팅
     public static T Get_CastingTType<T>(object _Obj) where T : class
@@ -116,6 +155,31 @@ public class StaticCaculator
 
     #region About List
 
+    // 'T 타입' 리스트에 '새로' 추가 (처음에)
+    public static void Add_FirstInListNew<T>(List<T> _TargetList, T _TargetValue)
+    {
+        Remove_InList(_TargetList, _TargetValue);
+        _TargetList.Insert(0, _TargetValue);
+    }
+
+    // 'T 타입' 추가 시도 (처음에)
+    public static void Add_FirstInList<T>(List<T> _TargetList, T _TargetValue)
+    {
+        if (!_TargetList.Contains(_TargetValue))
+        {
+            _TargetList.Insert(0, _TargetValue);
+        }
+    }
+
+    // 'T 타입' 삭제 시도
+    public static void Remove_InList<T>(List<T> _TargetList, T _TargetValue)
+    {
+        if (_TargetList.Contains(_TargetValue))
+        {
+            _TargetList.Remove(_TargetValue);
+        }
+    }
+         
     // 자식 객체들의 'T 타입' 리스트 가져오기
     public static List<T> Get_ChildList<T>(Transform _Parent) where T : Component
     {
@@ -139,8 +203,8 @@ public class StaticCaculator
 
         for (int i = 0; i < result.Count; ++i)
         {
-            random1 = Random.Range(0, result.Count);
-            random2 = Random.Range(0, result.Count);
+            random1 = UnityEngine.Random.Range(0, result.Count);
+            random2 = UnityEngine.Random.Range(0, result.Count);
 
             Set_Swap(result, random1, random2);
         }
@@ -148,7 +212,7 @@ public class StaticCaculator
         return result;
     }
 
-    // 'T 타입'리스트의 두 값을 교체
+    // 'T 타입' 리스트의 두 값을 교체
     public static void Set_Swap<T>(List<T> _TargetList, int _Index1, int _Index2)
     {
         T temp = _TargetList[_Index1];
@@ -156,8 +220,56 @@ public class StaticCaculator
         _TargetList[_Index2] = temp;
     }
 
+    // 'T 타입' 리스트를 돌면서 실행
+    public static void Set_ListDele<T>(List<T> _TargetList, Dele_T<T> _Dele)
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            _Dele(_TargetList[i]);
+        }
+    }
+
+    // 'T, U 타입' 리스트를 돌면서 실행
+    public static void Set_ListDele<T, U>(List<T> _TargetList, Dele_RefT_U<U, T> _Dele, ref U _Variable)
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            _Dele(ref _Variable, _TargetList[i]);
+        }
+    }
+
+    public static void Set_ListDele<T, U>(List<T> _TargetList, Dele_T_U<T, U> _Dele, U _Value)
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            _Dele(_TargetList[i], _Value);
+        }
+    }
+
+    #endregion
+
+    #region About Position
+
+    public static Vector2 Get_RandomDir()
+    {
+        float _X = Random.Range(-1.0f, 1.0f);
+        float _Y = Random.Range(-1.0f, 1.0f);
+        return new Vector2(_X, _Y).normalized;
+    }
+
+    #endregion
+
+    #region About Rotation
+
+    // 좌표값으로 회전축 값 가져오기
+    public static Quaternion Get_RotFromDir(Vector2 _Dir)
+    {
+        return Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
+    }
+
     #endregion
 }
+
 
 #endregion
 
@@ -594,6 +706,15 @@ public interface IWhen_GetElectricity : IWhen { }
 
 #endregion
 
+#region Delegate
+
+public delegate void Dele_T<T>(T _Item);
+public delegate void Dele_RefT_T<T>(ref T _Item1, T _Item2);
+public delegate void Dele_T_U<T, U>(T _Item1, U _Item2);
+public delegate void Dele_RefT_U<T, U>(ref T _Item1, U _Item2);
+
+
+#endregion
 
 #region Enum
 

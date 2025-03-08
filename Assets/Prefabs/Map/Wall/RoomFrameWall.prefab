@@ -48,8 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a9589700b54704baa5d9da9cc09ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 6859774968522112722}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 7365551938847441409}
   TargetRange: 0.6
 --- !u!61 &5352055190413400012
 BoxCollider2D:

@@ -954,8 +954,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2987f1fc9b0474d9c387959257c765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 6431063067678409307}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 7945775018822342157}
   TargetRange: 0
 --- !u!114 &6694519030789709039
 MonoBehaviour:
@@ -1152,8 +1153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2987f1fc9b0474d9c387959257c765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 7852194316311225431}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 713208473093222116}
   TargetRange: 0.8
 --- !u!1 &7852194316311225431
 GameObject:
@@ -1532,8 +1534,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98736f085c9adde4683f577a939d6ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 6431063067678409307}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 7945775018822342157}
   TargetRange: 0.6
   ExtraTargetObject: {fileID: 5884526475852695358}
   RoomPosGate: {x: 0, y: 0}

@@ -470,13 +470,17 @@ MonoBehaviour:
   TargetObject: {fileID: 7639787149237555046}
   ThisSR: {fileID: 0}
   TargetRange: 0.6
-  AimFollowSpeed: 22
-  Aim: {fileID: 3591631350453274875}
-  AimP: {fileID: -1304739455, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  AimE: {fileID: -2142815112, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  ShootAim: {fileID: 8347107679939270085}
-  ShootAimP: {fileID: -2140929042, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  ShootAimE: {fileID: -33688178, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  AimFollowSpeed: 30
+  AimSR:
+    TypeBase: {fileID: 3591631350453274875}
+    TypeSpecial: {fileID: 8347107679939270085}
+  AimSprite:
+    Physics:
+      TypeBase: {fileID: -1304739455, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+      TypeSpecial: {fileID: -2140929042, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    Energy:
+      TypeBase: {fileID: -2142815112, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+      TypeSpecial: {fileID: -33688178, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   SkillAimList:
   - {fileID: 6967205246566011253}
   - {fileID: 5954485658766658050}

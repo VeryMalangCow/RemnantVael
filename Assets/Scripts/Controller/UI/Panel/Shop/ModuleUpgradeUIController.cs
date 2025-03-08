@@ -995,7 +995,7 @@ public class ModuleUpgradeUIController : PanelUIController
 
             // Take
             ModuleItemManager.Instance.Get_ModuleState(itemData);
-
+            
             ModuleUpgradeController.UsingShop.Take_Damage(false);
             Set_DotweenInEquip(1f, "ReinforceInner", ReinforcePanelInnerList);
             Preview_NeedEC.text = "-";

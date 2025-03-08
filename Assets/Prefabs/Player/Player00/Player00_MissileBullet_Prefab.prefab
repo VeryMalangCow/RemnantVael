@@ -47,20 +47,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a4678c6a1662e4581090a125a1b7b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 7754987835335729850}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 2506341436009816347}
   TargetRange: 0.9
   PoolingString: MissileBullet
-  BulletState:
-    DamageType: 0
-    BaseDamage: 0
+  State:
+    DmgState:
+      DmgType: 0
+      Dmg: 0
+    CriticalState:
+      CC: 0
+      CD: 0
+    KnockbackState:
+      CanKB: 0
+      KBPower: 0
+      KBTime: 0
+    IsCritical: 0
     MuzzleSpeed: 0
     AliveTime: 0
-    IsCritical: 0
-    CD: 0
-    AbleKnockback: 0
-    KnockbackPower: 0
-    KnockbackTime: 0
   CurrentAliveTime: 0
   ThisRb: {fileID: 3702076010934528879}
   DestroyTagList:

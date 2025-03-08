@@ -4313,6 +4313,7 @@ GameObject:
   - component: {fileID: 1430576411}
   - component: {fileID: 1430576412}
   - component: {fileID: 1430576409}
+  - component: {fileID: 1430576413}
   m_Layer: 0
   m_Name: BuffManager
   m_TagString: Untagged
@@ -4570,6 +4571,39 @@ MonoBehaviour:
     BuffID: Corrosion
     BaseValue: 0.01
     ActualValue: 0
+--- !u!114 &1430576413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61271599a0ec0514aa810325cbab6ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 7
+  BuffName: TestShield
+  MaxBuffCharge: 1
+  CurrentBuffCharge:
+    value: 0
+  GainCharge: 1
+  ReductionCharge: 1
+  IsReductionOrIncrease: 0
+  DurTimerWillDone: 0
+  MaxDurTime: 0
+  CurrentDurTime:
+    value: 0
+  InitializationWhenGain: 1
+  InitializationWhenLoss: 0
+  ThisIconSprite: {fileID: -154321793, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  ThisMBI: {fileID: 0}
+  ThisShield:
+    ShieldID: Shockwave's Buff
+    ShieldMaxValue: 20
+    ShieldCurrentValue: 0
+  ActivingBuff: []
 --- !u!1 &1447344362
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UniRx;
 using System.Collections.Generic;
-using static UnityEngine.Rendering.DebugUI;
 
 public class AimRoundController : StaticDepthController
 {
@@ -9,15 +8,21 @@ public class AimRoundController : StaticDepthController
 
     [Space(20)]
     [Header("<><><><><> Aim Round")]
-    [SerializeField] private float AimFollowSpeed = 22f;
+    [SerializeField] private float AimFollowSpeed = 30f;
     [SerializeField] List<Transform> LineList;
     [HideInInspector] private float SpreadMaxAngle;
 
     #endregion
 
-    #region Framework
+    #region Offset
 
-    private void Start()
+    protected override void Offset()
+    {
+        base.Offset();
+        Offset_Subscribe();
+    }
+
+    private void Offset_Subscribe()
     {
         PlayerManager.Instance.PlayerController.BaseWeapon.AccuracyRate.ActualState
             .Subscribe(value =>
@@ -25,6 +30,10 @@ public class AimRoundController : StaticDepthController
                 Set_AngleRound(value);
             });
     }
+
+    #endregion
+
+    #region Framework
 
     private void LateUpdate()
     {

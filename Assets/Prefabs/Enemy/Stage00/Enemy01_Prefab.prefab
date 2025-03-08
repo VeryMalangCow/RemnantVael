@@ -170,10 +170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0c7844095423b4ea47c40cce09ac66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 8753258395414943751}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 8053559112837824807}
   TargetRange: 0.6
-  IsDead: 0
   ThisRb: {fileID: 7671391899007426867}
   ThisExtraSrs: []
   AccelerationSpeed: 12
@@ -181,6 +181,13 @@ MonoBehaviour:
   BaseYLimit: 0.06
   BaseTweenReTime: 0.3
   ThisComponentGOList: []
+  IsDead: 0
+  CurrentSP:
+    value: 0
+  CurrentHP:
+    value: 0
+  CurrentEP:
+    value: 0
   EnemyID: 1
   ThisEnemyType: 0
   MaxHP: 200
@@ -493,8 +500,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 60363011539769632}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 4081575584011619059}
   TargetRange: 0.22
 --- !u!1 &1232309492495736655
 GameObject:
@@ -941,8 +949,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 5870382414214010329}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 6788787440000900087}
   TargetRange: 0.35
 --- !u!1 &3526138921433487785
 GameObject:
@@ -993,13 +1002,16 @@ MonoBehaviour:
   StartDelay: 0.4
   EndDelay: 1
   ThisAS:
-    DamageType: 0
-    BaseDamage: 10
-    AbleKnockback: 1
-    KnockbackPower: 5
-    KnockbackTime: 1
-    CC: 0
-    CD: 0
+    DmgState:
+      DmgType: 0
+      Dmg: 0
+    CriticalState:
+      CC: 0
+      CD: 0
+    KnockbackState:
+      CanKB: 0
+      KBPower: 0
+      KBTime: 0
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   TweenTime: 1
   AnimSpeed: 2
@@ -1119,8 +1131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 5514810750984630835}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 6311425214718471968}
   TargetRange: 0.1
 --- !u!1 &4962291530876198273
 GameObject:
@@ -1649,8 +1662,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 3146272549584932296}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 3401991529144416678}
   TargetRange: 0.6
 --- !u!1 &6446749192164589527
 GameObject:
@@ -1804,8 +1818,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 8539745718325483645}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 3252399107822130664}
   TargetRange: 0.1
 --- !u!1 &8251026648640757372
 GameObject:
@@ -1886,8 +1901,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 6446749192164589527}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 7717429107789145425}
   TargetRange: 0.6
 --- !u!1 &8453610096940573387
 GameObject:

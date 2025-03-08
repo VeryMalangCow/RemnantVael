@@ -287,16 +287,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590557dccd312974a89de30d371bb358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 7945861353772175884}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 6431130664222279258}
   TargetRange: 0.4
-  TargetSR: {fileID: 6431130664222279258}
-  ShadowSR: {fileID: 2929492441964741815}
-  LowestLayerOrder: 1
-  HighestLayerOrder: 2000
-  IsUpper:
-    value: 0
   MEI: {fileID: 0}
+  IsOn: 0
+  ThisAnimator: {fileID: 0}
+  OffAC: {fileID: 0}
+  OnAC: {fileID: 0}
+  ThisStateAnim: {fileID: 0}
+  OffStateAC: {fileID: 0}
+  OnStateAC: {fileID: 0}
 --- !u!1 &7945861353772175884
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
@@ -185,34 +184,48 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region Framework
+    #region Offset
 
-    private void Start()
+    protected override void Offset()
     {
-        CurrentEC.Value = 100;
-        CurrentMS.Value = 100;
+        base.Offset();
+        Offset_Subscribe();
+        Offset_Anim();
+    }
+
+    private void Offset_Subscribe()
+    {
         CurrentInteractable
             .Subscribe(interact =>
             {
                 MainGameUIManager.Instance.PlayerHUD_UIController.Set_StateInteractUI();
                 MainGameUIManager.Instance.InteractAnno_UIController.Set_UI();
+                Set_MoveDir();
             });
+        CurrentSP
+            .Subscribe(value =>
+            {
+                MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(value);
+            });
+    }
 
-        Set_BaseAnimTween();
-
+    private void Offset_Anim()
+    {
+        Set_BaseAnimTween(); 
         StateAnim.Set_Anim(DmgTypeStateAC.TypeA, 0.8f, 1f);
         Set_BoostAnim(CurrentBoostLv.Value, MaxBoostLv);
         MoveDirStateAnim.Set_Anim(MoveDirAC);
         SetOff_RoomMoveDir();
     }
 
+    #endregion
+
+    #region Framework
 
     protected override void Update()
     {
         base.Update();
         Caculate_Always();
-        //ModuleItemManager.Instance.ActiveSkill_Always();
-        Set_MoveDir();
     }
 
 
@@ -230,6 +243,7 @@ public class PlayerController : AliveObjectController
 
     #region Stage
 
+    // 스테이지 시작 전
     public void Set_PastStartStage()
     {
         if (this.TryGetComponent(out SortingGroup SG))
@@ -243,6 +257,7 @@ public class PlayerController : AliveObjectController
 
     }
 
+    // 스테이지 시작
     public void Set_StartStage()
     {
         if (this.TryGetComponent(out SortingGroup SG))
@@ -253,12 +268,12 @@ public class PlayerController : AliveObjectController
 
         StateAnim.transform.parent.transform.gameObject.SetActive(true); 
 
-        //InputManager.Instance.OnEnableInput();
         StageManager.Instance.IsStartStage = false;
         LayerOrderManager.Instance.NeedLayerObjects.Add(PlayerManager.Instance.PlayerController);
 
     }
 
+    // 스테이지 끝
     public void Set_EndStage()
     {
         if (this.TryGetComponent(out SortingGroup SG))
@@ -272,78 +287,23 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region Energy
-
-    public void Add_MaxEP(float _AddValue)
-    {
-        MaxEP.ActualState.Value += _AddValue;
-        Add_CurrentEP(_AddValue);
-    }
-
-    public void Add_CurrentEP(float _AddValue)
-    {
-        float result = CurrentEP.Value + _AddValue;
-        result = Math.Max(result, 0);
-        result = Math.Min(result, MaxEP.ActualState.Value);
-
-        CurrentEP.Value = result;
-
-        if (CurrentEP.Value <= 0)
-        {
-            Set_Die();
-        }
-    }
-
-    public float Get_PercentHP(float _Percent)
-    {
-        return (_Percent / 100) * MaxEP.ActualState.Value;
-    }
-
-    #endregion
-
-    #region Bettery
-
-    public void Add_CurrentBS(int _AddValue)
-    {
-        CurrentBS.Value += _AddValue;
-        while(true)
-        {
-            if (CurrentBS.Value >= NeedBS_ForMakeBC)
-            {
-                CurrentBS.Value -= NeedBS_ForMakeBC;
-                CurrentBC.Value++;
-                MainGameUIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Set_Complete(0.3f, 0.2f);
-            }
-            else
-            {
-                break;
-            }
-        }
-    }
-
-    private void Set_ChargeBettery()
-    {
-        this.CurrentEP.Value -= NeedEP_ForMakeEC;
-        CurrentBC.Value--;
-        CurrentEC.Value++;
-    }
-
-    #endregion
-
-    #region Shield
+    #region Shield Point
 
     // Get total
     private float Get_TotalShield()
     {
+        if (ShieldElements.Count <= 0)
+        { return 0; }
+
         float totalShield = 0;
-        if (ShieldElements.Count > 0)
-        {
-            for (int i = 0;  i < ShieldElements.Count; i++)
-            {
-                totalShield += ShieldElements[i].ShieldCurrentValue;
-            }
-        }
+        StaticCaculator.Set_ListDele(ShieldElements, new Dele_RefT_U<float, Shield>(Add_ShieldValue), ref totalShield);
         return totalShield;
+
+    }
+
+    private void Add_ShieldValue(ref float _Variable, Shield _Shield)
+    {
+        StaticCaculator.Add_RefValue(ref _Variable, _Shield.ShieldCurrentValue);
     }
 
     // Gain Shield
@@ -354,7 +314,7 @@ public class PlayerController : AliveObjectController
             ShieldElements.Remove(_S);
         }
         ShieldElements.Insert(0, _S);
-        MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
+        CurrentSP.Value = Get_TotalShield();
     }
 
     // Remove Shield
@@ -362,26 +322,72 @@ public class PlayerController : AliveObjectController
     {
         if (ShieldElements.Contains(_S))
         {
-            for (int i = 0; i < CurrentBuffs.Count;i++)
-            {
-                if (CurrentBuffs[i] is BuffShieldController BSC && BSC.ThisShield == _S)
-                {
-                    BSC.End_Buff();
-                }
-            }
-
+            StaticCaculator.Set_ListDele(CurrentBuffs, new Dele_T_U<BuffController, Shield>(EndShieldBuff), _S);
             ShieldElements.Remove(_S);
         }
-        MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
+        CurrentSP.Value = Get_TotalShield();
+    }
+
+    // 쉴드 버프를 끝냄
+    public void EndShieldBuff(BuffController _Buff, Shield _Shield)
+    {
+        BuffShieldController shieldBuff = StaticCaculator.Get_CastingTType<BuffShieldController>(_Buff);
+        if (StaticCaculator.Is_UsableAndEqual(shieldBuff, shieldBuff.ThisShield, _Shield))
+        {
+            shieldBuff.End_Buff();
+        }
     }
 
     #endregion
 
-    #region Module
+    #region Energy Point
 
+    // 에너지 획득
+    public void Add_CurrentEP(float _AddValue)
+    {
+        Add_CurrentEP(_AddValue, MaxEP.ActualState.Value);
+        Check_IsDead(CurrentEP.Value);
+    }
+
+    #endregion
+
+    #region Shard
+
+    // 배터리 조각 획득
+    public void Add_CurrentBS(int _AddValue)
+    {
+        CurrentBS.Value += _AddValue;
+        if (CurrentBS.Value >= NeedBS_ForMakeBC)
+        {
+            Add_CurrentBC();
+        }
+    }
+
+    // 모듈 조각 획득
     public void Add_CurrentMS(int _AddValue)
     {
         CurrentMS.Value += _AddValue;
+    }
+
+    #endregion
+
+    #region Cell
+
+    // 배터리 셀 획득
+    private void Add_CurrentBC()
+    {
+        MainGameUIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Set_Complete(0.3f, 0.2f);
+        int BSAmount = CurrentBS.Value / NeedBS_ForMakeBC;
+        CurrentBS.Value -= NeedBS_ForMakeBC * BSAmount;
+        CurrentBC.Value += BSAmount;
+    }
+
+    // 에너지 셀 획득
+    private void Add_CurrentEC()
+    {
+        this.CurrentEP.Value -= NeedEP_ForMakeEC;
+        CurrentBC.Value--;
+        CurrentEC.Value++;
     }
 
     #endregion
@@ -393,7 +399,7 @@ public class PlayerController : AliveObjectController
         switch(MovementState)
         {
             case eMovementState.IdleOrWalk:
-                if(BaseWeapon.CurrentDelayROF >= 1)
+                if(!BaseWeapon.Is_Firing())
                 {
                     Play_Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value, AccelerationSpeed);
                 }
@@ -409,6 +415,11 @@ public class PlayerController : AliveObjectController
 
             default: break;
         }
+    }
+
+    private void Play_Walk()
+    {
+
     }
 
 
@@ -581,13 +592,13 @@ public class PlayerController : AliveObjectController
                 {
                     ShieldElements[i].ShieldCurrentValue -= Dmg;
                     Dmg = 0;
-                    MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
+                    CurrentSP.Value = Get_TotalShield();
                     return;
                 }
             }
         }
         Add_CurrentEP(-Dmg);
-        MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
+        CurrentSP.Value = Get_TotalShield();
     }
 
     // 추가 데미지 계산 (맞을 때 발생하는 이벤트, 넉벡, 애니메이션 등 없음)
@@ -609,13 +620,13 @@ public class PlayerController : AliveObjectController
                 {
                     ShieldElements[i].ShieldCurrentValue -= Dmg;
                     Dmg = 0;
-                    MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
+                    CurrentSP.Value = Get_TotalShield();
                     return;
                 }
             }
         }
         Add_CurrentEP(-Dmg);
-        MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(Get_TotalShield());
+        CurrentSP.Value = Get_TotalShield();
     }
 
     // 회피
@@ -632,12 +643,6 @@ public class PlayerController : AliveObjectController
                     1.0f, 0.5f, 1.0f,
                     i, ThisPlayerMaterialList[0]);
         }
-
-    }
-
-    // 죽음
-    private void Set_Die()
-    {
 
     }
 
@@ -722,7 +727,7 @@ public class PlayerController : AliveObjectController
             CurrentBC.Value <= 0) 
         { return; }
 
-        ReservationSkillDele = Set_ChargeBettery;
+        ReservationSkillDele = Add_CurrentEC;
 
         Start_Casting(ChargeBetteryInterval);
     }
@@ -1039,7 +1044,6 @@ public class PlayerController : AliveObjectController
     #endregion
 
     #region Effect
-
 
     private void Set_BoostAnim(int _Index, int _MaxIndex)
     {

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class AbsorbItemController : ItemController
@@ -26,15 +27,34 @@ public class AbsorbItemController : ItemController
     protected override void OnEnable()
     {
         base.OnEnable();
-        ThisRb.AddForce(GetRandomDirForce());
+        ThisRb.AddForce(StaticCaculator.Get_RandomDir() * AbsorbStartPower);
     }
-
 
     protected virtual void Update()
     {
+        Set_Absorb(Time.deltaTime);
+    }
+
+    #endregion
+
+    #region State
+
+    public override void Set_State(Vector2 _SpawnPos)
+    {
+        base.Set_State(_SpawnPos);
+        TargetGO = PlayerManager.Instance.PlayerController.gameObject;
+        IsAbsorbing = false;
+    }
+
+    #endregion
+
+    #region Absorb
+
+    private void Set_Absorb(float _DeltaTime)
+    {
         if (IsAbsorbing)
         {
-            ThisRb.velocity = GetDirForce();
+            ThisRb.velocity = Get_AbsorbDir(_DeltaTime) * Get_AbsorbPower();
         }
         else
         {
@@ -42,39 +62,18 @@ public class AbsorbItemController : ItemController
         }
     }
 
-    #endregion
-
-    #region State
-
-    protected void SetState(Vector2 _SpawnPos, GameObject _TargetObject)
+    private Vector2 Get_AbsorbDir(float _DeltaTime)
     {
-        base.SetState(_SpawnPos);
-        TargetGO = _TargetObject;
+        Vector2 fromDir = ThisRb.velocity.normalized;
+        Vector2 toDir = (Vector2)(TargetGO.transform.position - this.transform.position).normalized;
+
+        return  Vector2.Lerp(fromDir, toDir, RotatePower * _DeltaTime).normalized;
+        
     }
 
-    #endregion
-
-    #region Absorb
-
-    private Vector2 GetRandomDirForce()
+    private float Get_AbsorbPower()
     {
-        float x = Random.Range(-1f, 1f);
-        float y = Random.Range(-1f, 1f);
-        return new Vector2(x, y).normalized * AbsorbStartPower;
-    }
-
-    private Vector2 GetDirForce()
-    {
-        Vector2 resultVelocity = Vector2.Lerp(
-            ThisRb.velocity.normalized, 
-            (Vector2)(TargetGO.transform.position - this.transform.position).normalized, 
-            RotatePower * Time.deltaTime);
-        float currentVelocityPower = Vector2.Distance(Vector2.zero, ThisRb.velocity) * 0.99f;
-
-        if (currentVelocityPower < AbsorbPower)
-        { currentVelocityPower = AbsorbPower; }
-
-        return resultVelocity * currentVelocityPower;
+        return Math.Max(Vector2.Distance(Vector2.zero, ThisRb.velocity) * 0.99f, AbsorbPower);
     }
 
     #endregion

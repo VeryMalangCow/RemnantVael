@@ -22,8 +22,9 @@ public class TitlePlayerController : MovableObjectController
 
     #region Framework
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         CurrentIndex.Value = 5;
     }
 

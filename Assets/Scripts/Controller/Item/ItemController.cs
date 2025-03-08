@@ -15,10 +15,24 @@ public class ItemController : StaticDepthController
 
     #region State
 
-    protected void SetState(Vector2 _SpawnPos)
+    public virtual void Set_State(Vector2 _SpawnPos)
     {
         this.gameObject.transform.position = _SpawnPos;
-        TargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * TargetRange);
+    }
+
+    #endregion
+
+    #region Framework
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        LayerOrderManager.Instance.NeedLayerObjects.Add(this);
+    }
+
+    protected void OnDisable()
+    {
+        LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
     }
 
     #endregion

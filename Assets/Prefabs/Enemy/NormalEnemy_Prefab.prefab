@@ -49,10 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0c7844095423b4ea47c40cce09ac66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 8753258395414943751}
   ThisSR: {fileID: 0}
   TargetRange: 0.6
-  IsDead: 0
   ThisRb: {fileID: 7671391899007426867}
   ThisExtraSrs: []
   AccelerationSpeed: 12
@@ -60,30 +60,45 @@ MonoBehaviour:
   BaseYLimit: 0.06
   BaseTweenReTime: 0.3
   ThisComponentGOList: []
-  EnemyID: 00
+  IsDead: 0
+  CurrentSP:
+    value: 0
+  CurrentHP:
+    value: 0
+  CurrentEP:
+    value: 0
+  EnemyID: 0
+  ThisEnemyType: 0
   MaxHP: 30
   MaxEP: 30
-  IsLethargy: 0
+  IsDischarge: 0
   RecoverLethargyTime: 4
   ItemDropPercent: 1
+  BuffController: {fileID: 0}
   MovementState: 1
+  Target: {fileID: 0}
   MoveTargetPoint: {x: 0, y: 0}
+  LookTargetPoint: {x: 0, y: 0}
   MoveDir: {x: 0, y: 0}
   MoveSpeed: 0
-  ThisCanvas: {fileID: 950598844825775425}
-  HP_ProgressBar: {fileID: 6470338870314578685}
-  EP_ProgressBar: {fileID: 5303638376107025711}
-  MEI: {fileID: 7610645863705853807}
+  HUD: {fileID: 0}
+  MEI: {fileID: 0}
+  ThisSmokeM: {fileID: 0}
+  HittedAC_0: {fileID: 0}
+  HittedAC_1: {fileID: 0}
+  HittedAC_2: {fileID: 0}
   NavRadius: 0.2
-  ThisEnemyType: 0
-  EnemyPatternList:
-  - EnemyPatternList:
-    - {fileID: 0}
-  - EnemyPatternList:
-    - {fileID: 0}
-    - {fileID: 0}
+  OrderOfPriorityEnemyPatternList: []
+  CurrentContinuousEnemyPattern:
+    EnemyPatternList: []
   CurrentEnemyPattern: {fileID: 0}
   IsPlayingPattern: 0
+  CurrentIndex:
+    value: 0
+  WalkingSatellite: {fileID: 0}
+  LookingSatellite: {fileID: 0}
+  BaseUnderFootAnimSpeed: 1
+  ThisSEDA: []
 --- !u!50 &7671391899007426867
 Rigidbody2D:
   serializedVersion: 4
@@ -495,15 +510,59 @@ MonoBehaviour:
   m_GameObject: {fileID: 8753258395414943751}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c011760fb8cf1439ed1dbbb9f62993, type: 3}
+  m_Script: {fileID: 11500000, guid: fe0c7844095423b4ea47c40cce09ac66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RandomSpriteList:
-  - SpriteList:
-    - {fileID: -1746943924, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 1391882910, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 237403348, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 366755556, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  ID: 0
+  TargetObject: {fileID: 8753258395414943751}
+  ThisSR: {fileID: 8053559112837824807}
+  TargetRange: 0.4
+  ThisRb: {fileID: 7671391899007426867}
+  ThisExtraSrs: []
+  AccelerationSpeed: 12
+  KnockbackStateList: []
+  BaseYLimit: 0.06
+  BaseTweenReTime: 0.3
+  ThisComponentGOList: []
+  IsDead: 0
+  CurrentSP:
+    value: 0
+  CurrentHP:
+    value: 0
+  CurrentEP:
+    value: 0
+  EnemyID: 0
+  ThisEnemyType: 0
+  MaxHP: 0
+  MaxEP: 0
+  IsDischarge: 0
+  RecoverLethargyTime: 4
+  ItemDropPercent: 0
+  BuffController: {fileID: 0}
+  MovementState: 0
+  Target: {fileID: 0}
+  MoveTargetPoint: {x: 0, y: 0}
+  LookTargetPoint: {x: 0, y: 0}
+  MoveDir: {x: 0, y: 0}
+  MoveSpeed: 0
+  HUD: {fileID: 0}
+  MEI: {fileID: 0}
+  ThisSmokeM: {fileID: 0}
+  HittedAC_0: {fileID: 0}
+  HittedAC_1: {fileID: 0}
+  HittedAC_2: {fileID: 0}
+  NavRadius: 0.2
+  OrderOfPriorityEnemyPatternList: []
+  CurrentContinuousEnemyPattern:
+    EnemyPatternList: []
+  CurrentEnemyPattern: {fileID: 0}
+  IsPlayingPattern: 0
+  CurrentIndex:
+    value: 0
+  WalkingSatellite: {fileID: 0}
+  LookingSatellite: {fileID: 0}
+  BaseUnderFootAnimSpeed: 1
+  ThisSEDA: []
 --- !u!1001 &510088144873151616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -634,17 +693,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3647391558481030129, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
   m_PrefabInstance: {fileID: 510088144873151616}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6470338870314578685 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6836306577957187197, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-  m_PrefabInstance: {fileID: 510088144873151616}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2ef08973e206d429efee081d9ec718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1676816375818013522
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -811,14 +859,3 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3647391558481030129, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
   m_PrefabInstance: {fileID: 1676816375818013522}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5303638376107025711 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6836306577957187197, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-  m_PrefabInstance: {fileID: 1676816375818013522}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2ef08973e206d429efee081d9ec718, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

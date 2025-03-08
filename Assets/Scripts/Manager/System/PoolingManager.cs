@@ -7,9 +7,9 @@ public class PoolingManager : Singleton<PoolingManager>
 
     [Header("=== Player")]
     [SerializeField] public TTypePooling<PlayerBulletController> PlayerBullet;
-    [SerializeField] public TTypePooling<EnergyShrapnelController> EnergyShrapnel;
-    [SerializeField] public TTypePooling<BetteryShrapnelController> BetteryShrapnel;
-    [SerializeField] public TTypePooling<ModuleShrapnelController> ModuleShrapnel;
+    [SerializeField] public TTypePooling<EnergyShardController> EnergyShrapnel;
+    [SerializeField] public TTypePooling<BetteryShardController> BetteryShrapnel;
+    [SerializeField] public TTypePooling<ModuleShardController> ModuleShrapnel;
     [SerializeField] public TTypePooling<InteractItemController> InteractItems;
     [SerializeField] public TTypePooling<PlayerAttackerController> PlayerAttackers;
 
@@ -83,21 +83,21 @@ public class PoolingManager : Singleton<PoolingManager>
     }
 
     // Energy Shrapnel
-    public EnergyShrapnelController Get_OP_EnergyShrapnel()
+    public EnergyShardController Get_OP_EnergyShrapnel()
     {
-        return Get_OP<EnergyShrapnelController>(EnergyShrapnel.Prefab, EnergyShrapnel.ParentTF, EnergyShrapnel.Queue);
+        return Get_OP<EnergyShardController>(EnergyShrapnel.Prefab, EnergyShrapnel.ParentTF, EnergyShrapnel.Queue);
     }
 
     // Bettery Shrapnel
-    public BetteryShrapnelController Get_OP_BetteryShrapnel()
+    public BetteryShardController Get_OP_BetteryShrapnel()
     {
-        return Get_OP<BetteryShrapnelController>(BetteryShrapnel.Prefab, BetteryShrapnel.ParentTF, BetteryShrapnel.Queue);
+        return Get_OP<BetteryShardController>(BetteryShrapnel.Prefab, BetteryShrapnel.ParentTF, BetteryShrapnel.Queue);
     }
 
     // Module Shrapnel
-    public ModuleShrapnelController Get_OP_ModuleShrapnel()
+    public ModuleShardController Get_OP_ModuleShrapnel()
     {
-        return Get_OP<ModuleShrapnelController>(ModuleShrapnel.Prefab, ModuleShrapnel.ParentTF, ModuleShrapnel.Queue);
+        return Get_OP<ModuleShardController>(ModuleShrapnel.Prefab, ModuleShrapnel.ParentTF, ModuleShrapnel.Queue);
     }
 
     // Interact Item For Each Kind

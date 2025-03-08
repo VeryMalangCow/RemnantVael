@@ -10,34 +10,33 @@ public class DepthController : IDController
     [Space(10)]
     [Header("=== Shadow")]
     [SerializeField] public GameObject TargetObject;
-    [HideInInspector] public SpriteRenderer ThisSR;
+    [SerializeField] public SpriteRenderer ThisSR;
     [SerializeField] public float TargetRange = 0.4f;
+
+    #endregion
+
+    #region Offset
+
+    protected virtual void Offset() { }
+   
 
     #endregion
 
     #region Framework
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         Offset();
     }
 
     #endregion
 
-    #region Offset
-
-    protected virtual void Offset()
-    {
-        StaticCaculator.Set_ComponentTType<SpriteRenderer>(ref ThisSR, TargetObject);
-    }
-
-    #endregion
-
-    #region Sorting Order
+    #region Sprite Renderer
 
     public virtual void Set_SortingOrder(int _SortingOrder)
     {
-        //StaticCaculator.Set_ComponentTType<SpriteRenderer>(ref ThisSR, TargetObject);
+        if (ThisSR == null)
+        { Debug.Log(this.gameObject.name); return; }
 
         ThisSR.sortingOrder = _SortingOrder;
     }
@@ -52,7 +51,7 @@ public class DepthController : IDController
         Vector2 spawnPos = gameObject.transform.position;
         GameObject targetGO = PlayerManager.Instance.PlayerController.gameObject;
 
-        PoolingManager.Instance.Get_OP_BetteryShrapnel().Set_State(spawnPos, targetGO, _Value);
+        PoolingManager.Instance.Get_OP_BetteryShrapnel().Set_State(spawnPos, _Value);
     }
 
     // Module Shrapnel
@@ -61,7 +60,7 @@ public class DepthController : IDController
         Vector2 spawnPos = gameObject.transform.position;
         GameObject targetGO = PlayerManager.Instance.PlayerController.gameObject;
 
-        PoolingManager.Instance.Get_OP_ModuleShrapnel().SetState(spawnPos, targetGO, _Value);
+        PoolingManager.Instance.Get_OP_ModuleShrapnel().Set_State(spawnPos, _Value);
     }
 
     #endregion

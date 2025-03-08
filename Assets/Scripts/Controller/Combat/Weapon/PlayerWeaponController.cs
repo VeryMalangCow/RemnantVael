@@ -66,13 +66,19 @@ public class PlayerWeaponController : SolarSystemController
 
     private void Caculate_ROF()
     {
-        CurrentDelayROF += Time.deltaTime * ROF.ActualState.Value;
-
-        if (CurrentDelayROF > 1)
+        if (Is_Firing())
         {
-            CurrentDelayROF = 1;
+            CurrentDelayROF += Time.deltaTime * ROF.ActualState.Value;
+        }
+        else if (!Is_Firing())
+        {
             InputManager.Instance.AimController.Set_AttackState(false);
         }
+    }
+
+    public bool Is_Firing()
+    {
+        return CurrentDelayROF < 1f;
     }
 
     #endregion
@@ -149,7 +155,9 @@ public class PlayerWeaponController : SolarSystemController
 
             // Sorting Layer
             if (BulletSpawnTFs[i].gameObject.TryGetComponent(out DepthController hst))
-            { PBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
+            {
+                PBC.Set_SortingOrder(hst.ThisSR.sortingOrder - 1);
+            }
 
             // Effect
             if (BulletSpawnTFs[i].TryGetComponent(out DepthController posHst))
@@ -159,7 +167,7 @@ public class PlayerWeaponController : SolarSystemController
             }
         }
         InputManager.Instance.AimController.Set_AttackState(true);
-        CurrentDelayROF = 0;
+        CurrentDelayROF -= 1;
 
         // Tween
         this.transform.DOShakePosition(1f / ROF.ActualState.Value, 0.05f, 20, 90, false, true);

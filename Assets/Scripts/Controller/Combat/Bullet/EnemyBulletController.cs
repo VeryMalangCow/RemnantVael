@@ -32,6 +32,8 @@ public class EnemyBulletController : BulletController
 
     public void Set_State(Vector2 _SpawnVec, BulletState _BulletState, Vector2 _Dir, Vector2 _ShadowScale, Vector2 _ColSize, AnimationClip _AC, float _TargetRange)
     {
+        base.Set_State(_SpawnVec, 0, _BulletState, _TargetRange);
+
         this.transform.localRotation = Get_RotByVec2(_Dir);
 
         AnimatorOverrideController aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
@@ -44,7 +46,6 @@ public class EnemyBulletController : BulletController
         ThisCol.transform.localScale = _ShadowScale;
         ThisCol.size = _ColSize;
 
-        base.Set_State(_SpawnVec, 0, _BulletState, _TargetRange);
 
         ThisRb.simulated = true;
         gameObject.SetActive(true);

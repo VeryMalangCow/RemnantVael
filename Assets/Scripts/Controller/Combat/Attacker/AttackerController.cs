@@ -12,7 +12,7 @@ public class AttackerController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] protected CapsuleCollider2D ThisCol;
+    [SerializeField] protected Collider2D ThisCol;
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] private Light2D ThisLight;
     [SerializeField] private StaticDepthController HSTS;
@@ -106,7 +106,10 @@ public class AttackerController : MonoBehaviour
     {
         this.transform.position = _SpawnedPos;
         this.AttackerState = new AttackerState(_AttackerState);
-        ThisCol.size = _ColSize;
+        if (ThisCol is CapsuleCollider2D capsule2D)
+        { 
+            capsule2D.size = _ColSize; 
+        }
     }
 
     public void End_State()

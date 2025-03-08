@@ -49,19 +49,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   TargetObject: {fileID: 7754987835335729850}
-  ThisSR: {fileID: 0}
+  ThisSR: {fileID: 2506341436009816347}
   TargetRange: 0.6
   PoolingString: MI_000_Bullet
-  BulletState:
-    DamageType: 0
-    BaseDamage: 0
+  State:
+    DmgState:
+      DmgType: 0
+      Dmg: 0
+    CriticalState:
+      CC: 0
+      CD: 0
+    KnockbackState:
+      CanKB: 0
+      KBPower: 0
+      KBTime: 0
+    IsCritical: 0
     MuzzleSpeed: 0
     AliveTime: 0
-    IsCritical: 0
-    CD: 0
-    AbleKnockback: 0
-    KnockbackPower: 0
-    KnockbackTime: 0
   CurrentAliveTime: 0
   ThisRb: {fileID: 3702076010934528879}
   DestroyTagList:
@@ -71,10 +75,13 @@ MonoBehaviour:
   IsGuided: 1
   TargetEnemyController: {fileID: 0}
   RotateSpeed: 4
-  BasePhysics_Sprite: {fileID: 1232220692, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-  CriticalPhysics_Sprite: {fileID: 1232220692, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-  BaseEnergy_Sprite: {fileID: 1232220692, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-  CriticalEnergy_Sprite: {fileID: 1232220692, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  BulletSprite:
+    Physics:
+      TypeBase: {fileID: 0}
+      TypeSpecial: {fileID: 0}
+    Energy:
+      TypeBase: {fileID: 0}
+      TypeSpecial: {fileID: 0}
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4
