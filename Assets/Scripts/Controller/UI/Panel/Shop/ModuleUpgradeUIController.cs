@@ -388,7 +388,7 @@ public class ModuleUpgradeUIController : PanelUIController
         base.SetOn_ThisPanel();
 
         MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_Dur(
-            ModuleUpgradeController.UsingShop.ThisDurablity);
+            ModuleUpgradeController.UsingShop.CurrentDur);
     }
 
     public override void SetOff_ThisPanel()

@@ -25,12 +25,13 @@ public class AimController : StaticDepthController
     protected override void Offset()
     {
         base.Offset();
+
         Offset_SkillAimList();
     }
 
     private void Offset_SkillAimList()
     {
-        StaticCaculator.Set_ListDele(SkillAimList, new Dele_T<SpriteRenderer>(sprite => sprite.gameObject.SetActive(false)));
+        DevTool.Set_ListDele(SkillAimList, new Dele_T<SpriteRenderer>(sprite => sprite.gameObject.SetActive(false)));
     }
 
     #endregion

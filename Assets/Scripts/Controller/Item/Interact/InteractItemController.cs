@@ -30,7 +30,7 @@ public class InteractItemController : ItemController, IInteract
 
         // Anim
         CurrentSpreadPower = SpreadPower;
-        SettedSpreadDir = StaticCaculator.Get_RandomDir();
+        SettedSpreadDir = DevTool.Get_RandomDir();
         Start_Tween();
 
         // Data
@@ -61,7 +61,6 @@ public class InteractItemController : ItemController, IInteract
         ModuleItemManager.Instance.Get_ModuleState(ThisItemData);
         PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
 
-        LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
         End_Tween();
 
         this.gameObject.SetActive(false);

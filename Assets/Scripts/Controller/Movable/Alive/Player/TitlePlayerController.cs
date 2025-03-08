@@ -20,13 +20,18 @@ public class TitlePlayerController : MovableObjectController
 
     #endregion
 
-    #region Framework
+    #region Offset
 
-    protected override void Start()
+    protected override void Offset()
     {
-        base.Start();
+        base.Offset();
+
         CurrentIndex.Value = 5;
     }
+
+    #endregion
+
+    #region Framework
 
     private void LateUpdate()
     {

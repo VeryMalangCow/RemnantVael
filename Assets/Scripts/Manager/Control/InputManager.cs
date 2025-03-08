@@ -160,7 +160,7 @@ public class InputManager : Singleton<InputManager>
 
     public Quaternion Get_Rot_DirFromPlayerPos()
     {
-        return StaticCaculator.Get_RotFromDir(DirFromPlayerPos);
+        return DevTool.Get_RotFromDir(DirFromPlayerPos);
     }
 
     #endregion

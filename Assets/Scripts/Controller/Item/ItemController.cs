@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ItemController : StaticDepthController
+public class ItemController : SortingObjectController
 {
     #region Value
 
@@ -18,21 +18,6 @@ public class ItemController : StaticDepthController
     public virtual void Set_State(Vector2 _SpawnPos)
     {
         this.gameObject.transform.position = _SpawnPos;
-    }
-
-    #endregion
-
-    #region Framework
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        LayerOrderManager.Instance.NeedLayerObjects.Add(this);
-    }
-
-    protected void OnDisable()
-    {
-        LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
     }
 
     #endregion

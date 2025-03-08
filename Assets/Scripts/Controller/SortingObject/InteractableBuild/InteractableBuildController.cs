@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractableBuildController : SortingObjectController
@@ -9,23 +8,21 @@ public class InteractableBuildController : SortingObjectController
     [Header("<><><><><> Building")]
 
     [Space(10)]
-    [Header("=== Effect")]
+    [Header("=== Controller")]
+    [SerializeField] protected StateAnimController ThisStateAnim;
+
+    [Space(10)]
+    [Header("=== Generator")]
     [SerializeField] public ExplosionImgGenerator MEI;
 
     [Space(10)]
-    [Header("=== Value")]
-    [SerializeField] protected bool IsOn = false;
-
-    [Space(10)]
     [Header("=== State")]
+    [SerializeField] protected bool IsOn = false;
     [SerializeField] protected Animator ThisAnimator;
-    [SerializeField] private AnimationClip OffAC;
-    [SerializeField] private AnimationClip OnAC;
-    [SerializeField] protected StateAnimController ThisStateAnim;
-    [SerializeField] private AnimationClip OffStateAC;
-    [SerializeField] private AnimationClip OnStateAC;
+    [SerializeField] private CoupleData<AnimationClip> OnOffAC;
+    [SerializeField] private CoupleData<AnimationClip> OnOffStateAC;
 
-    [HideInInspector] protected AnimatorOverrideController aoc;
+    [HideInInspector] protected AnimatorOverrideController AOC;
 
     #endregion
 
@@ -33,30 +30,8 @@ public class InteractableBuildController : SortingObjectController
 
     protected virtual void Set_StateAnim()
     {
-        if (IsOn)
-        {
-            aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
-            var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
-            foreach (var a in aoc.animationClips)
-                anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, OnAC));
-            aoc.ApplyOverrides(anims);
-            ThisAnimator.runtimeAnimatorController = aoc;
-            ThisAnimator.speed = 1f;
-
-            ThisStateAnim.Set_Anim(OnStateAC, 1f, 1f);
-        }
-        else
-        {
-            aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
-            var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
-            foreach (var a in aoc.animationClips)
-                anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, OffAC));
-            aoc.ApplyOverrides(anims);
-            ThisAnimator.runtimeAnimatorController = aoc;
-            ThisAnimator.speed = 1f;
-
-            ThisStateAnim.Set_Anim(OffStateAC, 1f, 1f);
-        }
+        DevTool.Set_Anim(ref AOC, ThisAnimator, OnOffAC.Get_Special(IsOn));
+        ThisStateAnim.Set_Anim(OnOffStateAC.Get_Special(IsOn), 1f, 1f);
     }
 
     #endregion

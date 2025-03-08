@@ -7,7 +7,6 @@ public class SortingObjectController : StaticDepthController
     {
         base.OnEnable();
         LayerOrderManager.Instance.NeedLayerObjects.Add(this);
-        //LayerOrderManager.Instance.Update();
     }
 
     protected virtual void OnDisable()

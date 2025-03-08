@@ -13,10 +13,12 @@ public class EndElevatorController : StaticDepthController
 
     #endregion
 
-    #region Framework
+    #region Offset
 
-    protected override void Start()
+    protected override void Offset()
     {
+        base.Offset();
+
         EventManager.Instance.Set_BlackUpDownCover(true);
         Play_MoveToTarget();
     }

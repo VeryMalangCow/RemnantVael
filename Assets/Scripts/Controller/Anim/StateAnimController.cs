@@ -11,7 +11,7 @@ public class StateAnimController : MonoBehaviour
     [SerializeField] public SpriteRenderer ThisSR;
     [SerializeField] private SpriteRenderer ThisInnerSR;
 
-    [HideInInspector] private AnimatorOverrideController aoc;
+    [HideInInspector] private AnimatorOverrideController AOC;
 
     #endregion
 
@@ -19,25 +19,34 @@ public class StateAnimController : MonoBehaviour
 
     public void Set_Anim(AnimationClip _AC, Sprite _InnerSprite, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
-        Set_Anim(_AC, _AnimSpeed, _AnimSize);
-
-        ThisInnerSR.sprite = _InnerSprite;
-        ThisInnerSR.gameObject.SetActive(true);
+        DevTool.Set_Anim(ref AOC, ThisAnimator, _AC);
+        Set_SpeedAndSize(_AnimSpeed, _AnimSize);
+        Set_Inner(true, _InnerSprite);
     }
 
     public void Set_Anim(AnimationClip _AC, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
-        ThisInnerSR.gameObject.SetActive(false);
+        DevTool.Set_Anim(ref AOC, ThisAnimator, _AC);
+        Set_SpeedAndSize(_AnimSpeed, _AnimSize);
+        Set_Inner(false);
+    }
 
-        aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
-        var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
-        foreach (var a in aoc.animationClips)
-            anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
-        aoc.ApplyOverrides(anims);
-        ThisAnimator.runtimeAnimatorController = aoc;
-
+    public void Set_SpeedAndSize(float _AnimSpeed = 1f, float _AnimSize = 1f)
+    {
         ThisAnimator.speed = _AnimSpeed;
         ThisSR.transform.localScale = Vector2.one * _AnimSize;
+    }
+
+    public void Set_Inner(bool _OnOff, Sprite _Sprite = null)
+    {
+        if (ThisInnerSR != null)
+        {
+            ThisInnerSR.gameObject.SetActive(_OnOff);
+            if (_OnOff && _Sprite != null)
+            {
+                ThisInnerSR.sprite = _Sprite;
+            }
+        }
     }
 
     #endregion

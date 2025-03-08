@@ -27,7 +27,7 @@ public class AbsorbItemController : ItemController
     protected override void OnEnable()
     {
         base.OnEnable();
-        ThisRb.AddForce(StaticCaculator.Get_RandomDir() * AbsorbStartPower);
+        ThisRb.AddForce(DevTool.Get_RandomDir() * AbsorbStartPower);
     }
 
     protected virtual void Update()

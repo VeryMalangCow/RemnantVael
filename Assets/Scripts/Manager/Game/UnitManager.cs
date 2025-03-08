@@ -12,6 +12,9 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public Material ModuleM_000_Explosion;
     [SerializeField] public Material ModuleM_000_Hitted;
 
+    [SerializeField] public Sprite BuildingDurFrame;
+    [SerializeField] public Sprite BuildingDurInner;
+
     #endregion
 
     #region Generate Unit

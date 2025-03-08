@@ -24,7 +24,7 @@ public class DepthController : IDController
 
     #region Framework
 
-    protected virtual void Start()
+    protected void Start()
     {
         Offset();
     }
@@ -45,6 +45,7 @@ public class DepthController : IDController
 
     #region Gen
 
+
     // Bettery Shrapnel
     protected void Gen_BS(int _Value)
     {
@@ -52,6 +53,16 @@ public class DepthController : IDController
         GameObject targetGO = PlayerManager.Instance.PlayerController.gameObject;
 
         PoolingManager.Instance.Get_OP_BetteryShrapnel().Set_State(spawnPos, _Value);
+    }
+
+    // Random BS
+    protected void Gen_RandomBS(int _Min, int _Max)
+    {
+        int amount = Random.Range(_Min, _Max + 1);
+        for (int i = 0; i < amount; i++)
+        {
+            Gen_BS(1);
+        }
     }
 
     // Module Shrapnel
@@ -63,5 +74,14 @@ public class DepthController : IDController
         PoolingManager.Instance.Get_OP_ModuleShrapnel().Set_State(spawnPos, _Value);
     }
 
+    // Random MS
+    protected void Gen_RandomMS(int _Min, int _Max)
+    {
+        int amount = Random.Range(_Min, _Max + 1);
+        for (int i = 0; i < amount; i++)
+        {
+            Gen_MS(1);
+        }
+    }
     #endregion
 }

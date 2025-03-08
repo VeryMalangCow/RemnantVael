@@ -29,7 +29,7 @@ public class IDController : MonoBehaviour
         {
             if (Is_CorrectID(_ID, _ObjectList[i]))
             {
-                return StaticCaculator.Get_CastingTType<T>(_ObjectList[i]);
+                return DevTool.Get_CastingTType<T>(_ObjectList[i]);
             }
         }
         return default;

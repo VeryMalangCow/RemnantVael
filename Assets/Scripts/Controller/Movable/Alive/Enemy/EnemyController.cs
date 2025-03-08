@@ -72,7 +72,7 @@ public class EnemyController : AliveObjectController, IInteract
 
     #endregion
 
-    #region Fremework
+    #region Offset
 
     protected override void Offset()
     {
@@ -126,6 +126,10 @@ public class EnemyController : AliveObjectController, IInteract
             });
 
     }
+
+    #endregion
+
+    #region Framework
 
     protected override void OnEnable()
     {
@@ -857,7 +861,7 @@ public class EnemyController : AliveObjectController, IInteract
             for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
             {
                 // 같은 우선도에 있는 패턴 랜덤으로 섞기
-                List<ContinuousEnemyPattern> epList = StaticCaculator.Get_ShuffledList(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
+                List<ContinuousEnemyPattern> epList = DevTool.Get_ShuffledList(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
                 
                 // 만약 사용 가능한 패턴이 있다면 시작
                 for (int j = 0; j < epList.Count; j++)

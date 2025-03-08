@@ -189,8 +189,11 @@ public class PlayerController : AliveObjectController
     protected override void Offset()
     {
         base.Offset();
+
         Offset_Subscribe();
         Offset_Anim();
+
+        CurrentEC.Value = 100;
     }
 
     private void Offset_Subscribe()
@@ -269,7 +272,7 @@ public class PlayerController : AliveObjectController
         StateAnim.transform.parent.transform.gameObject.SetActive(true); 
 
         StageManager.Instance.IsStartStage = false;
-        LayerOrderManager.Instance.NeedLayerObjects.Add(PlayerManager.Instance.PlayerController);
+        LayerOrderManager.Instance.NeedLayerObjects.Add(this);
 
     }
 
@@ -296,14 +299,14 @@ public class PlayerController : AliveObjectController
         { return 0; }
 
         float totalShield = 0;
-        StaticCaculator.Set_ListDele(ShieldElements, new Dele_RefT_U<float, Shield>(Add_ShieldValue), ref totalShield);
+        DevTool.Set_ListDele(ShieldElements, new Dele_RefT_U<float, Shield>(Add_ShieldValue), ref totalShield);
         return totalShield;
 
     }
 
     private void Add_ShieldValue(ref float _Variable, Shield _Shield)
     {
-        StaticCaculator.Add_RefValue(ref _Variable, _Shield.ShieldCurrentValue);
+        DevTool.Add_RefValue(ref _Variable, _Shield.ShieldCurrentValue);
     }
 
     // Gain Shield
@@ -322,7 +325,7 @@ public class PlayerController : AliveObjectController
     {
         if (ShieldElements.Contains(_S))
         {
-            StaticCaculator.Set_ListDele(CurrentBuffs, new Dele_T_U<BuffController, Shield>(EndShieldBuff), _S);
+            DevTool.Set_ListDele(CurrentBuffs, new Dele_T_U<BuffController, Shield>(EndShieldBuff), _S);
             ShieldElements.Remove(_S);
         }
         CurrentSP.Value = Get_TotalShield();
@@ -331,8 +334,8 @@ public class PlayerController : AliveObjectController
     // ½¯µå ¹öÇÁ¸¦ ³¡³¿
     public void EndShieldBuff(BuffController _Buff, Shield _Shield)
     {
-        BuffShieldController shieldBuff = StaticCaculator.Get_CastingTType<BuffShieldController>(_Buff);
-        if (StaticCaculator.Is_UsableAndEqual(shieldBuff, shieldBuff.ThisShield, _Shield))
+        BuffShieldController shieldBuff = DevTool.Get_CastingTType<BuffShieldController>(_Buff);
+        if (DevTool.Is_UsableAndEqual(shieldBuff, shieldBuff.ThisShield, _Shield))
         {
             shieldBuff.End_Buff();
         }

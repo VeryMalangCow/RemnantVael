@@ -110,7 +110,7 @@ public class StageManager : Singleton<StageManager>
         }
 
         // 集扁
-        reso.RoomPrefabList = StaticCaculator.Get_ShuffledList(reso.RoomPrefabList);
+        reso.RoomPrefabList = DevTool.Get_ShuffledList(reso.RoomPrefabList);
 
         // 规 积己
         for (int i = 0; i < reso.RoomPrefabList.Count; i++)

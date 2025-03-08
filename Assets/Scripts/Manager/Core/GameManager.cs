@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -69,7 +70,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
 #region Class : Caculate : Static
 
-public class StaticCaculator
+public class DevTool
 {
     #region About Math
 
@@ -98,10 +99,17 @@ public class StaticCaculator
         _Variable += _AddValue;
     }
 
+    // X 피벗을 개수와 간격 수치로 계산 (float 반환 값을 모든 값에 빼주면 됨)
+    public static float Get_MinusXPivot(float _IntervalX, int _MaxAmount)
+    {
+        return (_IntervalX / 2) * (_MaxAmount - 1);
+    }
+
+    // 
     #endregion
 
     #region About Casting
-    
+
     // 'T 타입'이 Null이거나 Defualt가 아닌지?
     public static bool Is_Usable<T>(T _Value)
     {
@@ -151,6 +159,31 @@ public class StaticCaculator
         }
     }
 
+    // 게임 오브젝트 만들고, 컴포넌트 추가하기
+    public static T Gen_Component<T>(Transform _ParentTF, string _Name) where T : Component
+    {
+        GameObject go = new GameObject(_Name);
+        go.transform.SetParent(_ParentTF);
+        T component = go.AddComponent<T>();
+        return component;
+    }
+
+    // Gen SpriteRenderer
+    public static SpriteRenderer Gen_Component_SR(Transform _ParentTF, string _Name, Sprite _Sprite, Material _Material, int _SortingOrder)
+    {
+        SpriteRenderer sr = Gen_Component<SpriteRenderer>(_ParentTF, _Name);
+        Set_ComponentValue(sr, _Sprite, _Material, _SortingOrder);
+        return sr;
+    }
+
+    // SpriteRenderer Value
+    public static void Set_ComponentValue(SpriteRenderer _SR, Sprite _Sprite, Material _Material, int _SortingOrder)
+    {
+        _SR.sprite = _Sprite;
+        _SR.material = _Material;
+        _SR.sortingOrder = _SortingOrder;
+    }
+
     #endregion
 
     #region About List
@@ -179,7 +212,7 @@ public class StaticCaculator
             _TargetList.Remove(_TargetValue);
         }
     }
-         
+
     // 자식 객체들의 'T 타입' 리스트 가져오기
     public static List<T> Get_ChildList<T>(Transform _Parent) where T : Component
     {
@@ -268,6 +301,22 @@ public class StaticCaculator
     }
 
     #endregion
+
+    #region About Anim
+
+    // 애니메이션을 코드상으로 변경하는 시스템
+    public static void Set_Anim(ref AnimatorOverrideController _AOC, Animator _AT, AnimationClip _AC)
+    {
+        _AOC = new AnimatorOverrideController(_AT.runtimeAnimatorController);
+        List<KeyValuePair<AnimationClip, AnimationClip>> anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
+        foreach (var a in _AOC.animationClips)
+            anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
+        _AOC.ApplyOverrides(anims);
+        _AT.runtimeAnimatorController = _AOC;
+    }
+
+    #endregion
+
 }
 
 
@@ -477,7 +526,7 @@ public class BulletState : CombatState
     {
         if (_CheckIsCritical)
         {
-            IsCritical = StaticCaculator.Is_ChanceSuccess(_State.CriticalState.CC);
+            IsCritical = DevTool.Is_ChanceSuccess(_State.CriticalState.CC);
         }
         else
         {
@@ -492,7 +541,7 @@ public class BulletState : CombatState
     {
         if (_CheckIsCritical)
         {
-            IsCritical = StaticCaculator.Is_ChanceSuccess(_State.CriticalState.CC);
+            IsCritical = DevTool.Is_ChanceSuccess(_State.CriticalState.CC);
         }
         else
         {

@@ -6057,6 +6057,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ModuleM_000_Explosion: {fileID: 2100000, guid: 75b0116f582f3244aaf171b01df8ff63, type: 2}
   ModuleM_000_Hitted: {fileID: 2100000, guid: 02802480c4016274e9287aa5708f7288, type: 2}
+  BuildingDurFrame: {fileID: -2046568933, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+  BuildingDurInner: {fileID: 518337198, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
 --- !u!1 &1717915346
 GameObject:
   m_ObjectHideFlags: 0

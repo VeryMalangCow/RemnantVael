@@ -304,7 +304,7 @@ public class BaseUpgradeUIController : PanelUIController
         seq.Append(FrameInnerImg.DOFade(0.5f, 0.5f));
 
         MainGameUIManager.Instance.BaseUpgrade_UIController.Set_Dur(
-            BaseUpgradeController.UsingShop.ThisDurablity);
+            BaseUpgradeController.UsingShop.CurrentDur);
     }
 
     public override void SetOff_ThisPanel()

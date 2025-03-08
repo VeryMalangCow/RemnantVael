@@ -108,7 +108,7 @@ public class PlayerWeaponController : SolarSystemController
         //randomAngle = 0f;
         for (int i = 0; i < BulletSpawnTFs.Count; i++)
         {
-            PlayerBulletController PBC = StaticCaculator.Get_CastingTType<PlayerBulletController>(_Ts[i]);
+            PlayerBulletController PBC = DevTool.Get_CastingTType<PlayerBulletController>(_Ts[i]);
             //PlayerBulletController PBC = GameManager.Get_CastIfPossible<PlayerBulletController>(_Ts[i]);
 
             // Critical

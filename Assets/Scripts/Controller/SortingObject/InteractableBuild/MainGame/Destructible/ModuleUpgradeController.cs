@@ -4,17 +4,23 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
 {
     #region Value
 
+    [Space(20)]
+    [Header("<><><><><> BU")]
+
+    [Space(10)]
+    [Header("=== Item")]
+    [SerializeField] public int SpawnItem_OffMin;
+    [SerializeField] public int SpawnItem_OffMax;
+    [SerializeField] public int SpawnItem_OnMin;
+    [SerializeField] public int SpawnItem_OnMax;
+    [SerializeField] public int SpawnItem_BreakMin;
+    [SerializeField] public int SpawnItem_BreakMax;
+
     public static ModuleUpgradeController UsingShop = null;
 
     #endregion
 
     #region Framework
-
-    protected override void Start()
-    {
-        base.Start();
-        Set_StateAnim();
-    }
 
     protected override void OnEnable()
     {
@@ -31,68 +37,73 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
         if (IsBroken)
         { return; }
 
+        Try_ShopInteract();
+        Set_StateAnim();
+    }
+
+    private void Try_ShopInteract()
+    {
         if (IsOn)
         {
-            ModuleUpgradeController.UsingShop = this;
+            UsingShop = this;
             MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOn_ThisPanel();
         }
-        else if (!IsOn && PlayerManager.Instance.PlayerController.CurrentEC.Value > 0)
+        else if (Can_ShopPowerOn())
         {
             PlayerManager.Instance.PlayerController.CurrentEC.Value--;
             IsOn = true;
         }
-
-        Set_StateAnim();
     }
 
-    public override void Take_Damage(bool _SpawnItem)
+    private bool Can_ShopPowerOn()
     {
-        base.Take_Damage(_SpawnItem);
-
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_Dur(ThisDurablity);
+        return !IsOn && PlayerManager.Instance.PlayerController.CurrentEC.Value > 0;
     }
 
     #endregion
 
     #region Break
 
-    protected override void Set_Break(bool _SpawnItem)
+    public override void Take_Damage(bool _SpawnItem)
     {
-        base.Set_Break(_SpawnItem);
+        base.Take_Damage(_SpawnItem);
 
-        if (_SpawnItem)
-        { Gen_RandomMS(); }
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_Dur(CurrentDur);
+    }
+
+    protected override void Play_NowBreak(bool _SpawnItem)
+    {
+        base.Play_NowBreak(_SpawnItem);
 
         if (MainGameUIManager.Instance.ModuleUpgrade_UIController.gameObject.activeSelf)
         {
             MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_ThisPanel();
         }
     }
+    #endregion
 
-    private void Gen_RandomMS()
+    #region Item
+
+    private void Gen_RandomMS(int _OffMin, int _OffMax, int _OnMin, int _OnMax)
     {
-        int spawnItem = 0;
         if (!IsOn)
         {
-            spawnItem = Random.Range(0, 2);
+            Gen_RandomMS(_OffMin, _OffMax);
         }
         else
         {
-            spawnItem = Random.Range(2, 4);
-        }
-
-        if (spawnItem <= 0)
-        { return; }
-
-        for (int i = 0; i < spawnItem; i++)
-        {
-            Gen_MS(1);
+            Gen_RandomMS(_OnMin, _OnMax);
         }
     }
 
-    public override void Gen_Item()
+    public override void Gen_ItemWhenHitted()
     {
-        Gen_MS(1);
+        Gen_RandomMS(SpawnItem_OffMin, SpawnItem_OffMax, SpawnItem_OnMin, SpawnItem_OnMax);
+    }
+
+    public override void Gen_ItemWhenBreak()
+    {
+        Gen_RandomMS(SpawnItem_BreakMin, SpawnItem_BreakMax);
     }
 
     #endregion

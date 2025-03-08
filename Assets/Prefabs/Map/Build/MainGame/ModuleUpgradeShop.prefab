@@ -375,24 +375,30 @@ MonoBehaviour:
   TargetObject: {fileID: 7945861353772175884}
   ThisSR: {fileID: 6431130664222279258}
   TargetRange: 0.3
+  ThisStateAnim: {fileID: 5691381869496994998}
   MEI: {fileID: 8947138048879588301}
   IsOn: 0
   ThisAnimator: {fileID: 8138481414561888053}
-  OffAC: {fileID: 7400000, guid: 7541e8cb7a256f241b74635813a82969, type: 2}
-  OnAC: {fileID: 7400000, guid: 3ab90354ea05d2f4db9bd450b755bccb, type: 2}
-  ThisStateAnim: {fileID: 5691381869496994998}
-  OffStateAC: {fileID: 7400000, guid: ae13dcb3fc70f88488a0d6741e925e3e, type: 2}
-  OnStateAC: {fileID: 7400000, guid: 48082fc27c9dba443808bb444c51ba4f, type: 2}
-  ThisMaxDurablity: 10
-  ThisDurablity: 0
+  OnOffAC:
+    TypeBase: {fileID: 7400000, guid: 7541e8cb7a256f241b74635813a82969, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: 3ab90354ea05d2f4db9bd450b755bccb, type: 2}
+  OnOffStateAC:
+    TypeBase: {fileID: 7400000, guid: ae13dcb3fc70f88488a0d6741e925e3e, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: 48082fc27c9dba443808bb444c51ba4f, type: 2}
   IsBroken: 0
-  DurablitySpriteParentTF: {fileID: 6434973191429520069}
-  DurablityFrame: {fileID: -2046568933, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-  DurablityInner: {fileID: 518337198, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+  MaxDur: 10
+  CurrentDur: 0
+  DurParentTF: {fileID: 6434973191429520069}
   BuildingMaterial: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
   FrameIntervalX: 0.08
   BrokenAC: {fileID: 7400000, guid: ccf2baaa3d5c62e4a9f25a36d4c60fb1, type: 2}
   BrokenStateAC: {fileID: 7400000, guid: 64fffc49c04e0724ea315643a037a838, type: 2}
+  SpawnItem_OffMin: 1
+  SpawnItem_OffMax: 2
+  SpawnItem_OnMin: 3
+  SpawnItem_OnMax: 4
+  SpawnItem_BreakMin: 5
+  SpawnItem_BreakMax: 6
 --- !u!1 &6434156964202126478
 GameObject:
   m_ObjectHideFlags: 0

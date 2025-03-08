@@ -10,16 +10,17 @@ public class DestructibleBuildController : InteractableBuildController
     [Header("<><><><><> Destructible")]
 
     [Space(10)]
-    [Header("=== Durablity")]
-    [SerializeField] private int ThisMaxDurablity = 10;
-    [HideInInspector] public int ThisDurablity;
+    [Header("=== Dur")]
     [SerializeField] public bool IsBroken = false;
-    [SerializeField] private Transform DurablitySpriteParentTF;
-    [SerializeField] private Sprite DurablityFrame;
-    [SerializeField] private Sprite DurablityInner;
+    [SerializeField] private int MaxDur = 10;
+    [HideInInspector] public int CurrentDur;
+
+    [Space(10)]
+    [Header("=== Dur UI")]
+    [SerializeField] private Transform DurParentTF;
     [SerializeField] private Material BuildingMaterial;
     [SerializeField] private float FrameIntervalX = 0.08f;
-    [HideInInspector] private List<SpriteRenderer> DurablityInnerSRList = new List<SpriteRenderer>();
+    [HideInInspector] private List<SpriteRenderer> DurInnerSRList = new List<SpriteRenderer>();
 
     [Space(10)]
     [Header("=== State")]
@@ -28,53 +29,87 @@ public class DestructibleBuildController : InteractableBuildController
 
     #endregion
 
-    #region Framework
+    #region Offset
 
-    protected override void Start()
+    protected override void Offset()
     {
-        base.Start();
-        Set_Durablity();
+        base.Offset();
+
+        Offset_Durablity();
+        Set_StateAnim();
+    }
+
+    private void Offset_Durablity()
+    {
+        CurrentDur = MaxDur;
+        for (int i = 0; i < MaxDur; i++)
+        {
+            Gen_EachInnerUI(i, Gen_EachFrameUI(i).transform);
+        }
     }
 
     #endregion
 
-    #region About Break
+    #region Break
 
     public virtual void Take_Damage(bool _SpawnItem)
     {
         if (!IsBroken)
         {
-            ThisDurablity--;
-            if (ThisDurablity <= 0)
+            CurrentDur--;
+
+            if (CurrentDur <= 0)
             {
-                this.transform.DOShakePosition(0.7f, 0.2f, 20, 90, false, true);
-                Set_Break(_SpawnItem);
+                Play_NowBreak(_SpawnItem);
             }
             else
             {
-                this.transform.DOShakePosition(0.4f, 0.1f, 20, 90, false, true);
-                if (_SpawnItem)
-                { Gen_Item(); }
+                Play_NotYetBreak(_SpawnItem);
             }
-            Set_DurablityAmount(ThisDurablity);
+
+            Set_DurAmount(CurrentDur);
         }
         else
         {
-            this.transform.DOShakePosition(0.2f, 0.05f, 10, 90, false, true);
+            Play_AlreadyBreak();
         }
     }
 
-    protected virtual void Set_Break(bool _SpawnItem)
+    protected virtual void Play_NotYetBreak(bool _SpawnItem)
     {
+        transform.DOShakePosition(0.4f, 0.1f, 20, 90, false, true);
+        if (_SpawnItem)
+        {
+            Gen_ItemWhenHitted();
+        }
+    }
+
+    protected virtual void Play_NowBreak(bool _SpawnItem)
+    {
+        transform.DOShakePosition(0.8f, 0.25f, 20, 90, false, true);
+
         IsBroken = true;
         Gen_ExplosionEffect();
         Set_StateAnim();
+
+        if (_SpawnItem)
+        {
+            Gen_ItemWhenBreak();
+        }
     }
 
-    public virtual void Gen_Item()
+    protected virtual void Play_AlreadyBreak()
     {
-
+        transform.DOShakePosition(0.2f, 0.05f, 10, 90, false, true);
     }
+
+    #endregion
+
+    #region Item
+
+    public virtual void Gen_ItemWhenHitted() { }
+
+    public virtual void Gen_ItemWhenBreak() { }
 
     #endregion
 
@@ -88,71 +123,72 @@ public class DestructibleBuildController : InteractableBuildController
         }
         else
         {
-            aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
-            var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
-            foreach (var a in aoc.animationClips)
-                anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, BrokenAC));
-            aoc.ApplyOverrides(anims);
-            ThisAnimator.runtimeAnimatorController = aoc;
-            ThisAnimator.speed = 1f;
-
+            DevTool.Set_Anim(ref AOC, ThisAnimator, BrokenAC);
             ThisStateAnim.Set_Anim(BrokenStateAC, 1f, 1f);
         }
     }
 
     #endregion
 
-    #region Durablity
+    #region Dur
 
-
-    private void Set_Durablity()
+    private void Set_DurAmount(int _Durablity)
     {
-        ThisDurablity = ThisMaxDurablity;
-        float baseMinusX = (FrameIntervalX / 2) * (ThisMaxDurablity - 1);
-        for (int i = 0; i < ThisMaxDurablity; i++)
-        {
-            // Frame
-            GameObject frame = new GameObject("DurablityFrame_" + i);
-            frame.transform.SetParent(DurablitySpriteParentTF);
-
-            SpriteRenderer frameSr = frame.AddComponent<SpriteRenderer>();
-            frameSr.material = BuildingMaterial;
-            frameSr.sprite = DurablityFrame;
-            frameSr.sortingOrder = ThisStateAnim.ThisSR.sortingOrder - 1;
-
-            frameSr.transform.localPosition = new Vector2((i * FrameIntervalX) - baseMinusX, 0f);
-
-
-            // Inner
-            GameObject inner = new GameObject("DurablityInner_" + i);
-            inner.transform.SetParent(frame.transform);
-
-            SpriteRenderer innerSr = inner.AddComponent<SpriteRenderer>();
-            innerSr.material = BuildingMaterial;
-            innerSr.sprite = DurablityInner;
-            innerSr.sortingOrder = ThisStateAnim.ThisSR.sortingOrder;
-
-            inner.transform.localPosition = Vector2.zero;
-
-
-
-            DurablityInnerSRList.Insert(0, innerSr);
-        }
-    }
-
-    private void Set_DurablityAmount(int _Durablity)
-    {
-        for (int i = 0; i < ThisMaxDurablity; i++)
+        for (int i = 0; i < MaxDur; i++)
         {
             if (i < _Durablity)
             {
-                DurablityInnerSRList[i].gameObject.SetActive(true);
+                DurInnerSRList[i].gameObject.SetActive(true);
             }
             else
             {
-                DurablityInnerSRList[i].gameObject.SetActive(false);
+                DurInnerSRList[i].gameObject.SetActive(false);
             }
         }
+    }
+
+    #endregion
+
+    #region Gen
+
+    private SpriteRenderer Gen_EachFrameUI(int _Index)
+    {
+        SpriteRenderer frameSr = DevTool.Gen_Component_SR(
+                DurParentTF,
+                "DurablityFrame_" + _Index,
+                UnitManager.Instance.BuildingDurFrame,
+                BuildingMaterial,
+                ThisStateAnim.ThisSR.sortingOrder - 1);
+
+        Set_FrameUIPos(_Index, frameSr);
+        return frameSr;
+    }
+
+    private SpriteRenderer Gen_EachInnerUI(int _Index, Transform _ParentTF)
+    {
+        SpriteRenderer innerSr = DevTool.Gen_Component_SR(
+                _ParentTF,
+                "DurablityInner_" + _Index,
+                UnitManager.Instance.BuildingDurInner,
+                BuildingMaterial,
+                ThisStateAnim.ThisSR.sortingOrder);
+        Set_InnerUIPos(innerSr);
+        return innerSr;
+    }
+
+    #endregion
+
+    #region Set
+
+    private void Set_FrameUIPos(int _Index, SpriteRenderer _SR)
+    {
+        _SR.transform.localPosition = new Vector2((_Index * FrameIntervalX) - DevTool.Get_MinusXPivot(FrameIntervalX, MaxDur), 0f);
+    }
+
+    private void Set_InnerUIPos(SpriteRenderer _SR)
+    {
+        _SR.transform.localPosition = Vector2.zero;
+        DurInnerSRList.Insert(0, _SR);
     }
 
     #endregion
