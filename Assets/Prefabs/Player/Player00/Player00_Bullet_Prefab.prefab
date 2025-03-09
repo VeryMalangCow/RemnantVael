@@ -51,7 +51,7 @@ MonoBehaviour:
   TargetObject: {fileID: 7754987835335729850}
   ThisSR: {fileID: 2506341436009816347}
   TargetRange: 0.35
-  PoolingString: BaseBullet
+  PoolingString: PlayerBullet
   State:
     DmgState:
       DmgType: 0
@@ -66,7 +66,6 @@ MonoBehaviour:
     IsCritical: 0
     MuzzleSpeed: 0
     AliveTime: 0
-  CurrentAliveTime: 0
   ThisRb: {fileID: 3702076010934528879}
   DestroyTagList:
   - Enemy

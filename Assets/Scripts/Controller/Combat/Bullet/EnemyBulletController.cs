@@ -28,13 +28,37 @@ public class EnemyBulletController : BulletController
 
     #endregion
 
+    #region Remove
+
+    protected override void Remove_Condition()
+    {
+        switch (PoolingString)
+        {
+            case "EnemyBullet":
+                Enemy.MEI.Gen_ExplosionImgs(
+                    TargetObject.transform.position,
+                    16, 0.15f, 0.75f,
+                    0.6f, 0.05f, 0.1f,
+                    0.2f, 0.5f, 1.0f,
+                    0, Enemy.ThisSmokeM); 
+                PoolingManager.Instance.EnemyBullets.Queue.Enqueue(this);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    #endregion
+
+
     #region Set State
 
     public void Set_State(Vector2 _SpawnVec, BulletState _BulletState, Vector2 _Dir, Vector2 _ShadowScale, Vector2 _ColSize, AnimationClip _AC, float _TargetRange)
     {
         base.Set_State(_SpawnVec, 0, _BulletState, _TargetRange);
 
-        this.transform.localRotation = Get_RotByVec2(_Dir);
+        this.transform.localRotation = DevTool.Get_RotFromDir(_Dir);
 
         AnimatorOverrideController aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
         var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
@@ -55,17 +79,6 @@ public class EnemyBulletController : BulletController
 
     #region Delete
 
-    protected override void Remove_Object()
-    {
-        Enemy.MEI.Gen_ExplosionImgs(
-            TargetObject.transform.position,
-            16, 0.15f, 0.75f,
-            0.6f, 0.05f, 0.1f,
-            0.2f, 0.5f, 1.0f,
-            0, Enemy.ThisSmokeM);
-
-        base.Remove_Object();
-    }
 
     #endregion
 

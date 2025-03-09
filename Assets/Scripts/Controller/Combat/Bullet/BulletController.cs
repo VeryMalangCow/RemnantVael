@@ -1,23 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletController : MovableDepthController
+public abstract class BulletController : MovableDepthController
 {
     #region Value
 
     [Space(20)]
     [Header("<><><><><> Bullet Controller")]
-    [SerializeField] private string PoolingString = "";
+    [SerializeField] protected string PoolingString = "";
 
     [Space(10)]
     [Header("=== State")]
     [SerializeField] public BulletState State;
-    [SerializeField] protected float CurrentAliveTime = 0;
-    [HideInInspector] private static float BaseBulletSpeed = 200f; 
 
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] protected Rigidbody2D ThisRb;
+
+    // Alive Time
+    [HideInInspector] protected float CurrentAliveTime = 0;
+    [HideInInspector] private static float BaseBulletSpeed = 200f; 
+
 
     [Space(10)]
     [Header("=== Judg")]
@@ -26,190 +29,155 @@ public class BulletController : MovableDepthController
 
     // Extra
     [Space(10)]
-    [Header("=== Target")]
+    [Header("=== Guided")]
     [SerializeField] protected bool IsGuided = false;
     [SerializeField] protected EnemyController TargetEnemyController = null;
-    [SerializeField] protected float RotateSpeed = 1f;
+    [SerializeField] protected float RotateSpeed = 1f; // Guided Power
 
-    #endregion
-
-    #region State
-
-    public void Reset_State()
-    {
-        State.Reset_State();
-        
-        transform.position = Vector3.zero;
-        transform.rotation = Quaternion.identity;
-        transform.localScale = Vector3.one;
-
-        CurrentAliveTime = 0;
-        ThisRb.simulated = false;
-
-        TargetEnemyController = null;
-    }
-
-    public virtual void Set_State(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _TargetRange)
-    {
-        CurrentAliveTime = 0;
-
-        this.transform.position = _SpawnVec;
-
-        this.State = new BulletState(_BulletState, true);
-
-
-        Vector3 currentRotation = transform.eulerAngles;
-        currentRotation.z += _SpreadAngle;
-        transform.eulerAngles = currentRotation;
-
-        TargetRange = _TargetRange;
-
-    }
 
     #endregion
 
     #region Framework
 
-    protected void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        CurrentAliveTime += Time.fixedDeltaTime;
+        Play_InAlive(Time.fixedDeltaTime);
+    }
 
-        if (CurrentAliveTime >= State.AliveTime)
+    #endregion
+
+    #region Reset
+
+    public void Reset_State()
+    {
+        State.Reset_State();
+
+        Reset_BaseBullet();
+        Reset_Other();
+    }
+
+    private void Reset_BaseBullet()
+    {
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
+
+        ThisRb.simulated = false;
+        CurrentAliveTime = 0;
+        TargetEnemyController = null;
+    }
+
+    protected virtual void Reset_Other()
+    {
+
+    }
+
+    #endregion
+
+    #region Set
+
+    public virtual void Set_State(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _TargetRange)
+    {
+        this.transform.position = _SpawnVec;
+        this.State = new BulletState(_BulletState, true);
+        Vector3 currentRotation = transform.eulerAngles;
+        currentRotation.z += _SpreadAngle;
+        transform.eulerAngles = currentRotation;
+
+        TargetRange = _TargetRange;
+    }
+
+    #endregion
+
+    #region Alive
+
+
+    // 살아있는 경우의 계산
+    protected void Play_InAlive(float _FixedDeltaTime)
+    {
+        CurrentAliveTime += _FixedDeltaTime;
+
+        if (Is_Alive() && DevTool.Is_Usable(ThisRb))
+        {
+            if (IsGuided)
+            { 
+                Play_Guided(_FixedDeltaTime); // 유도 기능
+            }
+            Play_FlyForward(State.MuzzleSpeed, BaseBulletSpeed, _FixedDeltaTime);
+        }
+        else
         {
             Remove_Object();
             return;
         }
-
-        if (ThisRb != null)
-        {
-            if (IsGuided)
-            {
-                if (TargetEnemyController != null && TargetEnemyController.gameObject.activeSelf)
-                {
-                    Set_TargetDir();
-                }
-                else
-                {
-                    Set_Target();
-                }
-            }
-
-            ThisRb.velocity = ((State.MuzzleSpeed * BaseBulletSpeed * Time.fixedDeltaTime) * this.transform.up);
-        }
     }
-    /*
 
-    protected override void Update()
+    // 살아있는가? (AliveTime)
+    private bool Is_Alive()
     {
-        base.Update();
+        return CurrentAliveTime < State.AliveTime;
+    }
 
-        CurrentAliveTime += Time.deltaTime;
-
-        if (CurrentAliveTime >= State.AliveTime)
-        {
-            Remove_Object();
-            return;
-        }
-
-        if (ThisRb != null)
-        {
-            if (IsGuided)
-            {
-                if (TargetEnemyController != null && TargetEnemyController.gameObject.activeSelf)
-                {
-                    Set_TargetDir();
-                }
-                else
-                {
-                    Set_Target();
-                }
-            }
-
-            ThisRb.velocity = ((State.MuzzleSpeed * BaseBulletSpeed * Time.deltaTime) * this.transform.up);
-        }
-
-    }*/
-
-    #endregion
-
-    #region Remove
-
-    protected virtual void Remove_Object()
+    // 날아가는 기능
+    private void Play_FlyForward(float _MuzzleSpeed, float _StaticValue, float _FixedDeltaTime)
     {
-        switch (PoolingString)
-        {
-            case "BaseBullet":
-                if (this is PlayerBulletController pbc)
-                PoolingManager.Instance.PlayerBullet.Queue.Enqueue(pbc);
-                break;
-
-            case "EnemyBullet":
-                if (this is EnemyBulletController ebc)
-                    PoolingManager.Instance.EnemyBullets.Queue.Enqueue(ebc);
-                break;
-
-            case "MissileBullet":
-                if (this is MissileBulletController mbc)
-                    PoolingManager.Instance.MissileBullet.Queue.Enqueue(mbc);
-                break;
-
-            case "MI_000_Bullet":
-                if (this is PlayerBulletController MI_000_pbc)
-                    PoolingManager.Instance.MI_000_Bullets.Queue.Enqueue(MI_000_pbc);
-                break;
-
-            case "MI_001_Bullet":
-                if (this is PlayerBulletController MI_001_pbc)
-                    PoolingManager.Instance.MI_001_Bullets.Queue.Enqueue(MI_001_pbc);
-                break;
-
-            default:
-                break;
-        }
-
-        Reset_State();
-        this.gameObject.SetActive(false);
+        ThisRb.velocity = ((_MuzzleSpeed * _StaticValue * _FixedDeltaTime) * this.transform.up);
     }
 
     #endregion
 
-    #region Angle Vector Things
+    #region Guided
 
-    protected Vector2 Get_DirByAngle(float _Angle)
+    // 유도가 가능한가? (상위 조건을 만족 시에 실조건)
+    private bool Is_ExistTarget()
     {
-        return new Vector2(
-                    Mathf.Cos((_Angle + 90) * Mathf.Deg2Rad),
-                    Mathf.Sin((_Angle + 90) * Mathf.Deg2Rad)).normalized;
+        return DevTool.Is_Usable(TargetEnemyController) && // 타겟이 있는가
+            TargetEnemyController.gameObject.activeSelf; // 타켓이 켜져있는가
     }
 
-    protected Quaternion Get_RotByVec2(Vector2 _Dir)
+    // 유도 기능
+    protected void Play_Guided(float _FixedDeltaTime)
     {
-        return Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
+        if (Is_ExistTarget()) // 타겟이 검색되어 있다면, 타겟을 따라감
+        {
+            Set_RotToTarget(RotateSpeed, _FixedDeltaTime);
+        }
+        else // 타겟이 검색되어 있지않다면, 타겟을 찾음
+        {
+            Try_FindTarget();
+        }
     }
-
-    #endregion
-
-    #region Induction
-
-    protected void Set_Target()
+    
+    // 유도 적 찾기
+    protected void Try_FindTarget()
     {
         TargetEnemyController = null;
         TargetEnemyController = EnemyManager.Instance.Get_ClosestEnemy(this.transform.position);
     }
 
-    protected void Set_TargetDir()
+    // 유도 적에게 (천천히, 스무스) 방향 돌리기
+    protected void Set_RotToTarget(float _RotSpeed, float _FixedDeltaTime)
     {
-        if (TargetEnemyController != null)
-        {
-            this.transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, ((TargetEnemyController.transform.position - this.transform.position).normalized))),
-                RotateSpeed * Time.deltaTime);
-        }
+        Quaternion fromRot = this.transform.rotation;
+        Quaternion toRot = DevTool.Get_RotFromDir((TargetEnemyController.transform.position - this.transform.position).normalized);
+
+        this.transform.rotation = Quaternion.Slerp(fromRot, toRot, _RotSpeed * _FixedDeltaTime);
+    }
+
+    #endregion
+
+    #region Remove
+
+    // 오브젝트 풀링 시스템과 추가 효과 등을 추상
+    protected abstract void Remove_Condition();
+
+    // 오브젝트 파괴될 때, 항상 실행
+    protected void Remove_Object()
+    {
+        Remove_Condition();
+        Reset_State();
+        this.gameObject.SetActive(false);
     }
 
     #endregion
 }
-
-
-

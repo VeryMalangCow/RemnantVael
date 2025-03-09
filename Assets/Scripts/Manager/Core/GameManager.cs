@@ -293,10 +293,20 @@ public class DevTool
 
     #region About Rotation
 
-    // 좌표값으로 회전축 값 가져오기
+    // 좌표값 (Vector2:Dir)
+    // => 회전값 (Quaternion:Rot)
     public static Quaternion Get_RotFromDir(Vector2 _Dir)
     {
         return Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
+    }
+
+    // 각값 (float:Angle)
+    // => 좌표값 (Vector2:Dir) : transform.eulerAngles.z값을 인자로 받는 것이 보편적으로 좋음
+    public static Vector2 Get_DirFromAngle(float _Angle)
+    {
+        return new Vector2(
+                    Mathf.Cos((_Angle + 90) * Mathf.Deg2Rad),
+                    Mathf.Sin((_Angle + 90) * Mathf.Deg2Rad)).normalized;
     }
 
     #endregion

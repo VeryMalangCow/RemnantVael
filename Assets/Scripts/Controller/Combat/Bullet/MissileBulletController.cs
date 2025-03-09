@@ -36,12 +36,19 @@ public class MissileBulletController : BulletController
 
     #region Remove
 
-    protected override void Remove_Object()
+    protected override void Remove_Condition()
     {
-        Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-        Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+        switch (PoolingString)
+        {
+            case "MissileBullet":
+                Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                PoolingManager.Instance.MissileBullet.Queue.Enqueue(this);
+                break;
 
-        base.Remove_Object();
+            default:
+                break;
+        }
     }
 
     #endregion
@@ -61,7 +68,7 @@ public class MissileBulletController : BulletController
         float targetSpeed = _BulletState.MuzzleSpeed;
 
         // Base Dir
-        this.transform.localRotation = this.transform.localRotation = Get_RotByVec2(_Dir);
+        this.transform.localRotation = this.transform.localRotation = DevTool.Get_RotFromDir(_Dir);
 
         base.State.MuzzleSpeed *= 0.3f;
 
@@ -94,7 +101,7 @@ public class MissileBulletController : BulletController
                     State.DmgState.DmgType, 
                     State.IsCritical, 
                     transform.rotation);
-                EC.Take_Damaged(State, Get_DirByAngle(transform.eulerAngles.z));
+                EC.Take_Damaged(State, DevTool.Get_DirFromAngle(transform.eulerAngles.z));
             }
         }
         else if (_Col.tag == "DestructibleObject")

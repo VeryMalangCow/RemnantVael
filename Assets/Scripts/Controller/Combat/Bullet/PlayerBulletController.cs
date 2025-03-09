@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerBulletController : BulletController
@@ -17,7 +18,7 @@ public class PlayerBulletController : BulletController
 
     public void Set_State(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, Vector2 _Dir, float _TargetRange)
     {
-        this.transform.localRotation = Get_RotByVec2(_Dir);
+        this.transform.localRotation = DevTool.Get_RotFromDir(_Dir);
 
         base.Set_State(_SpawnVec, _SpreadAngle, _BulletState, _TargetRange);
         ThisSR.sprite = BulletSprite.Get_CorrectType(_BulletState.DmgState.DmgType).Get_Special(_BulletState.IsCritical);
@@ -30,12 +31,27 @@ public class PlayerBulletController : BulletController
 
     #region Remove
 
-    protected override void Remove_Object()
+    protected override void Remove_Condition()
     {
-        Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-        Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-       
-        base.Remove_Object();
+        switch (PoolingString)
+        {
+            case "PlayerBullet": // ±âº»Åº
+                Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
+                break;
+
+            case "MI_000_Bullet": // ¿¡³ÊÁö À¯µµÅº
+                PoolingManager.Instance.MI_000_Bullets.Queue.Enqueue(this);
+                break;
+
+            case "MI_001_Bullet": // ¹°¸® À¯µµÅº
+                PoolingManager.Instance.MI_001_Bullets.Queue.Enqueue(this);
+                break;
+
+            default:
+                break;
+        }
     }
 
     #endregion
@@ -57,7 +73,7 @@ public class PlayerBulletController : BulletController
                     State.DmgState.DmgType, 
                     State.IsCritical,
                     transform.rotation);
-                EC.Take_Damaged(State, Get_DirByAngle(transform.eulerAngles.z));
+                EC.Take_Damaged(State, DevTool.Get_DirFromAngle(transform.eulerAngles.z));
             }
         }
         else if (_Col.tag == "DestructibleObject")
