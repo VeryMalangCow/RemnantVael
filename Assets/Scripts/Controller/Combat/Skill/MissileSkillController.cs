@@ -15,6 +15,7 @@ public class MissileSkillController : ActiveSkillController
 
     [Header("-- State")]
     [SerializeField] private float ShotDelay = 0.1f;
+    [SerializeField] private readonly float SpreadAngleLimit = 10;
 
 
     #endregion
@@ -73,7 +74,13 @@ public class MissileSkillController : ActiveSkillController
                 // Sorting Layer
                 missile.ThisSR.sortingOrder = ThisHST.ThisSR.sortingOrder - 1;
 
-                missile.Set_State_Missile(this.gameObject.transform.position, bulletState, dir, targetRange);
+                float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
+                missile.Set_State(
+                    this.gameObject.transform.position, 
+                    bulletState, 
+                    randomSpreadAngle, 
+                    targetRange, 
+                    dir);
 
 
                 // Effect Explosion -> Physics DMG

@@ -151,7 +151,12 @@ public class PlayerWeaponController : SolarSystemController
 
             BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), true, MuzzleSpeed.ActualState.Value, AliveTime);
 
-            PBC.Set_State(BulletSpawnTFs[i].position, randomAngle, bulletState, dir, targetShadow);
+            PBC.Set_State(
+                BulletSpawnTFs[i].position, 
+                bulletState, 
+                randomAngle, 
+                targetShadow, 
+                dir);
 
             // Sorting Layer
             if (BulletSpawnTFs[i].gameObject.TryGetComponent(out DepthController hst))

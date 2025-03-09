@@ -13,13 +13,22 @@ public class MissileBulletController : BulletController
     [SerializeField] private GameObject Missile_Prefab;
     [SerializeField] private float ShadowRangeTarget = 0.4f;
     [SerializeField] private float SpreadTime = 1f;
-    [SerializeField] private float SpreadAngleLimit = 20f;
 
     #endregion
 
     #region Framework
 
     protected override void Update()
+    {
+        Set_Guide();
+        base.Update();
+    }
+
+    #endregion
+
+    #region Guided On
+
+    private void Set_Guide()
     {
         if (!IsGuided)
         {
@@ -28,48 +37,20 @@ public class MissileBulletController : BulletController
                 IsGuided = true;
             }
         }
-        
-        base.Update();
-    }
-
-    #endregion
-
-    #region Remove
-
-    protected override void Remove_Condition()
-    {
-        switch (PoolingString)
-        {
-            case "MissileBullet":
-                Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-                Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-                PoolingManager.Instance.MissileBullet.Queue.Enqueue(this);
-                break;
-
-            default:
-                break;
-        }
     }
 
     #endregion
 
     #region Extra State
 
-    public void Set_State_Missile(Vector2 _SpawnVec, BulletState _BulletState, Vector2 _Dir, float _TargetRange)
+    public override void Set_State(Vector2 _SpawnVec, BulletState _BulletState, float _SpreadAngle, float _TargetRange, Vector2 _Dir)
     {
-        // State + RandomDir
-        float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
-        base.Set_State(_SpawnVec, randomSpreadAngle, _BulletState, _TargetRange);
+        base.Set_State(_SpawnVec, _BulletState, _SpreadAngle, _TargetRange, _Dir);
 
-        // Offset
         IsGuided = false;
-
         TargetEnemyController = null;
+
         float targetSpeed = _BulletState.MuzzleSpeed;
-
-        // Base Dir
-        this.transform.localRotation = this.transform.localRotation = DevTool.Get_RotFromDir(_Dir);
-
         base.State.MuzzleSpeed *= 0.3f;
 
         // Dotween
@@ -77,10 +58,8 @@ public class MissileBulletController : BulletController
             .SetEase(Ease.Linear);
         DOTween.To(() => TargetRange, y => TargetRange = y, ShadowRangeTarget, SpreadTime)
             .SetEase(Ease.Linear);
-
-        ThisRb.simulated = true;
-        gameObject.SetActive(true);
     }
+
 
     #endregion
 
@@ -141,11 +120,11 @@ public class MissileBulletController : BulletController
         }
 
         PlayerManager.Instance.PlayerController.PlayerMEI.Gen_ExplosionImgs(
-                     _SpawndPos,
-                     4, 0.3f, 0.4f,
-                     1.9f, 0.05f, 0.1f,
-                     0.8f, 0.5f, 1.0f,
-                     index, PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0]);
+            _SpawndPos,
+            4, 0.3f, 0.4f,
+            1.9f, 0.05f, 0.1f,
+            0.8f, 0.5f, 1.0f,
+            index, PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0]);
     }
 
     private void Gen_AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
@@ -159,6 +138,25 @@ public class MissileBulletController : BulletController
 
     }
 
+
+    #endregion
+
+    #region Remove
+
+    protected override void Remove_Condition()
+    {
+        switch (PoolingString)
+        {
+            case "MissileBullet":
+                Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                PoolingManager.Instance.MissileBullet.Queue.Enqueue(this);
+                break;
+
+            default:
+                break;
+        }
+    }
 
     #endregion
 }

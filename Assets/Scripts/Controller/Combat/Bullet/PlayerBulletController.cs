@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerBulletController : BulletController
@@ -14,17 +13,14 @@ public class PlayerBulletController : BulletController
 
     #endregion
 
-    #region Set State
+    #region State
 
-    public void Set_State(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, Vector2 _Dir, float _TargetRange)
+    public override void Set_State(Vector2 _SpawnVec, BulletState _BulletState, float _SpreadAngle, float _TargetRange, Vector2 _Dir)
     {
-        this.transform.localRotation = DevTool.Get_RotFromDir(_Dir);
+        base.Set_State(_SpawnVec, _BulletState, _SpreadAngle, _TargetRange, _Dir);
 
-        base.Set_State(_SpawnVec, _SpreadAngle, _BulletState, _TargetRange);
+        // 알맞는 이미지
         ThisSR.sprite = BulletSprite.Get_CorrectType(_BulletState.DmgState.DmgType).Get_Special(_BulletState.IsCritical);
-
-        ThisRb.simulated = true;
-        gameObject.SetActive(true);
     }
 
     #endregion
@@ -113,11 +109,11 @@ public class PlayerBulletController : BulletController
         }
 
         PlayerManager.Instance.PlayerController.PlayerMEI.Gen_ExplosionImgs(
-                   _SpawndPos,
-                   4, 0.3f, 0.4f,
-                   0.6f, 0.05f, 0.1f,
-                   0.3f, 0.5f, 1.0f,
-                   index, PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0]);
+            _SpawndPos,
+            4, 0.3f, 0.4f,
+            0.6f, 0.05f, 0.1f,
+            0.3f, 0.5f, 1.0f,
+            index, PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0]);
     }
 
     private void Gen_AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)

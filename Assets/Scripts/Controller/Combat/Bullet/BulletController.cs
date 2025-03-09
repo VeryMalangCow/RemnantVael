@@ -74,17 +74,30 @@ public abstract class BulletController : MovableDepthController
 
     #endregion
 
-    #region Set
+    #region State
 
-    public virtual void Set_State(Vector2 _SpawnVec, float _SpreadAngle, BulletState _BulletState, float _TargetRange)
+    public virtual void Set_State(Vector2 _SpawnVec, BulletState _BulletState, float _SpreadAngle, float _TargetRange, Vector2 _Dir)
     {
+        // 위치 방향 값 세팅
         this.transform.position = _SpawnVec;
-        this.State = new BulletState(_BulletState, true);
-        Vector3 currentRotation = transform.eulerAngles;
-        currentRotation.z += _SpreadAngle;
-        transform.eulerAngles = currentRotation;
+        this.transform.localRotation = DevTool.Get_RotFromDir(_Dir);
 
+        // 스탯 적용
+        this.State = new BulletState(_BulletState, true);
+
+        // 확산 Z 값 계산
+        DevTool.Add_RotZValue(transform, _SpreadAngle);
+
+        // 그림자 거리
         TargetRange = _TargetRange;
+
+        SetOn_State();
+    }
+
+    private void SetOn_State()
+    {
+        ThisRb.simulated = true;
+        gameObject.SetActive(true);
     }
 
     #endregion

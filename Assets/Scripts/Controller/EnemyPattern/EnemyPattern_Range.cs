@@ -94,7 +94,8 @@ public class EnemyPattern_Range : EnemyPattern
 
             // Base State 
             EBC.Enemy = ThisEnemy;
-            EBC.Set_State(SpawnTFList[i].position, ThisBS, targetDir, BulletShadowScale, BulletColSize, BulletAC, targetShadow);
+            EBC.Set_State(BulletAC, BulletShadowScale, BulletColSize);
+            EBC.Set_State(SpawnTFList[i].position, ThisBS, 0, targetShadow, targetDir);
 
             // Sorting Layer
             if (SpawnTFList[i].gameObject.TryGetComponent(out DepthController hst))

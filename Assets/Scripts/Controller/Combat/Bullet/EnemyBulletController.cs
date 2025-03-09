@@ -15,70 +15,25 @@ public class EnemyBulletController : BulletController
 
     //Other
     [HideInInspector] public EnemyController Enemy;
+    [HideInInspector] private AnimatorOverrideController AOC;
 
     #endregion
-
-    #region Framework
-
-    protected override void Update()
-    {
-        base.Update();
-
-    }
-
-    #endregion
-
-    #region Remove
-
-    protected override void Remove_Condition()
-    {
-        switch (PoolingString)
-        {
-            case "EnemyBullet":
-                Enemy.MEI.Gen_ExplosionImgs(
-                    TargetObject.transform.position,
-                    16, 0.15f, 0.75f,
-                    0.6f, 0.05f, 0.1f,
-                    0.2f, 0.5f, 1.0f,
-                    0, Enemy.ThisSmokeM); 
-                PoolingManager.Instance.EnemyBullets.Queue.Enqueue(this);
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    #endregion
-
 
     #region Set State
 
-    public void Set_State(Vector2 _SpawnVec, BulletState _BulletState, Vector2 _Dir, Vector2 _ShadowScale, Vector2 _ColSize, AnimationClip _AC, float _TargetRange)
+    // 그림자 오브젝트의 크기, 판정 크기 (그림자 크기에 배수가 된다), 애니메이션의 산출
+    public void Set_State(AnimationClip _AC, Vector2 _ShadowScale, Vector2 _ColSize)
     {
-        base.Set_State(_SpawnVec, 0, _BulletState, _TargetRange);
-
-        this.transform.localRotation = DevTool.Get_RotFromDir(_Dir);
-
-        AnimatorOverrideController aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
-        var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
-        foreach (var a in aoc.animationClips)
-            anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
-        aoc.ApplyOverrides(anims);
-        ThisAnimator.runtimeAnimatorController = aoc;
+        DevTool.Set_Anim(ref AOC, ThisAnimator, _AC);
 
         ThisCol.transform.localScale = _ShadowScale;
         ThisCol.size = _ColSize;
-
-
-        ThisRb.simulated = true;
-        gameObject.SetActive(true);
     }
 
-    #endregion
-
-    #region Delete
-
+    public override void Set_State(Vector2 _SpawnVec, BulletState _BulletState, float _SpreadAngle, float _TargetRange, Vector2 _Dir)
+    {
+        base.Set_State(_SpawnVec, _BulletState, 0, _TargetRange, _Dir);
+    }
 
     #endregion
 
@@ -113,4 +68,26 @@ public class EnemyBulletController : BulletController
 
     #endregion
 
+    #region Remove
+
+    protected override void Remove_Condition()
+    {
+        switch (PoolingString)
+        {
+            case "EnemyBullet":
+                Enemy.MEI.Gen_ExplosionImgs(
+                    TargetObject.transform.position,
+                    16, 0.15f, 0.75f,
+                    0.6f, 0.05f, 0.1f,
+                    0.2f, 0.5f, 1.0f,
+                    0, Enemy.ThisSmokeM);
+                PoolingManager.Instance.EnemyBullets.Queue.Enqueue(this);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    #endregion
 }

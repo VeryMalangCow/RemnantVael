@@ -309,6 +309,14 @@ public class DevTool
                     Mathf.Sin((_Angle + 90) * Mathf.Deg2Rad)).normalized;
     }
 
+    // 회전값에 값을 더하기
+    public static void Add_RotZValue(Transform _TF, float _ZValue)
+    {
+        Vector3 currentRotation = _TF.eulerAngles;
+        currentRotation.z += _ZValue;
+        _TF.eulerAngles = currentRotation;
+    }
+
     #endregion
 
     #region About Anim

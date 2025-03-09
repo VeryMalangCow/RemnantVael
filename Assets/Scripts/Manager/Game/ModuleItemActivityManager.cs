@@ -113,7 +113,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
             BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), true, PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2f);
 
-            pbc.Set_State(PC.transform.position, 10, bulletState, dir, 0.35f);
+            pbc.Set_State(PC.transform.position, bulletState, 10, 0.35f, dir);
 
             // Sorting Layer
             if (PC.TargetObject.gameObject.TryGetComponent(out DepthController hst))
