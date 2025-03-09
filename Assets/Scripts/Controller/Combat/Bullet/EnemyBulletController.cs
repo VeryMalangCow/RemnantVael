@@ -19,7 +19,7 @@ public class EnemyBulletController : BulletController
 
     #endregion
 
-    #region Set State
+    #region State
 
     // 그림자 오브젝트의 크기, 판정 크기 (그림자 크기에 배수가 된다), 애니메이션의 산출
     public override void Set_State_Size(BulletState_Size? _State_Size)
@@ -53,25 +53,20 @@ public class EnemyBulletController : BulletController
         if (!this.gameObject.activeSelf)
         { return; }
 
-        // Hit Enemy
+        Try_Hit_Player(_Col);
+        Try_Hit_DestructibleObject(_Col);
+
+        Try_Remove(_Col.tag);
+    }
+
+    protected void Try_Hit_Player(Collider2D _Col)
+    {
         if (_Col.tag == "Player")
         {
             if (_Col.transform.parent.TryGetComponent(out PlayerController PC))
             {
                 PC.Try_Hitted(this);
             }
-        }
-        else if (_Col.tag == "DestructibleObject")
-        {
-            if (_Col.transform.parent.TryGetComponent(out DestructibleBuildController DBC))
-            {
-                DBC.Take_Damage(true);
-            }
-        }
-
-        if (DestroyTagList.Contains(_Col.tag))
-        {
-            Remove_Object();
         }
     }
 
@@ -84,18 +79,27 @@ public class EnemyBulletController : BulletController
         switch (PoolingString)
         {
             case "EnemyBullet":
-                Enemy.MEI.Gen_ExplosionImgs(
-                    TargetObject.transform.position,
-                    16, 0.15f, 0.75f,
-                    0.6f, 0.05f, 0.1f,
-                    0.2f, 0.5f, 1.0f,
-                    0, Enemy.ThisSmokeM);
+                Gen_ExplosionEffect();
                 PoolingManager.Instance.EnemyBullets.Queue.Enqueue(this);
                 break;
 
             default:
                 break;
         }
+    }
+
+    #endregion
+
+    #region Effect
+
+    private void Gen_ExplosionEffect()
+    {
+        Enemy.MEI.Gen_ExplosionImgs(
+            TargetObject.transform.position,
+                        16, 0.15f, 0.75f,
+                        0.6f, 0.05f, 0.1f,
+                        0.2f, 0.5f, 1.0f,
+                        0, Enemy.ThisSmokeM);
     }
 
     #endregion

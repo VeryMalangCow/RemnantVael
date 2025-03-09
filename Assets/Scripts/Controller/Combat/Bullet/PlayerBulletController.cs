@@ -25,6 +25,37 @@ public class PlayerBulletController : BulletController
 
     #endregion
 
+    #region Collision
+
+    protected virtual void OnTriggerEnter2D(Collider2D _Col)
+    {
+        if (!this.gameObject.activeSelf)
+        { return; }
+
+        Try_Hit_Enemy(_Col);
+        Try_Hit_DestructibleObject(_Col);
+
+        Try_Remove(_Col.tag);
+    }
+
+    protected void Try_Hit_Enemy(Collider2D _Col)
+    {
+        if (_Col.tag == "Enemy")
+        {
+            if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
+            {
+                EC.Gen_HittedPointEffect(
+                    this.TargetObject.transform.position,
+                    State.DmgState.DmgType,
+                    State.IsCritical,
+                    transform.rotation);
+                EC.Take_Damaged(State, DevTool.Get_DirFromAngle(transform.eulerAngles.z));
+            }
+        }
+    }
+
+    #endregion
+
     #region Remove
 
     protected override void Remove_Condition()
@@ -55,61 +86,11 @@ public class PlayerBulletController : BulletController
 
     #endregion
 
-    #region Collision
-
-    private void OnTriggerEnter2D(Collider2D _Col)
-    {
-        if (!this.gameObject.activeSelf)
-        { return; }
-
-        // Hit Enemy
-        if (_Col.tag == "Enemy")
-        {
-            if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
-            {
-                EC.Gen_HittedPointEffect(
-                    this.TargetObject.transform.position, 
-                    State.DmgState.DmgType, 
-                    State.IsCritical,
-                    transform.rotation);
-                EC.Take_Damaged(State, DevTool.Get_DirFromAngle(transform.eulerAngles.z));
-            }
-        }
-        else if (_Col.tag == "DestructibleObject")
-        {
-            if (_Col.transform.parent.TryGetComponent(out DestructibleBuildController DBC))
-            {
-                DBC.Take_Damage(true);
-            }
-        }
-
-        if (DestroyTagList.Contains(_Col.tag))
-        {
-            Remove_Object();
-        }
-    }
-
-    #endregion
-
     #region Effect
 
     private void Gen_ExplosionEffect(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical)
     {
-        int index = 0;
-        if (_DamageType == eDamageType.Physics)
-        {
-            if (!_IsCritical)
-            { index = 0; }
-            else
-            { index = 1; }
-        }
-        else
-        {
-            if (!_IsCritical)
-            { index = 2; }
-            else
-            { index = 3; }
-        }
+        int index = DevTool.Get_IndexOfDmgTypeAndCritical(_DamageType, _IsCritical);
 
         PlayerManager.Instance.PlayerController.PlayerMEI.Gen_ExplosionImgs(
             _SpawndPos,

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
@@ -284,8 +285,8 @@ public class DevTool
 
     public static Vector2 Get_RandomDir()
     {
-        float _X = Random.Range(-1.0f, 1.0f);
-        float _Y = Random.Range(-1.0f, 1.0f);
+        float _X = UnityEngine.Random.Range(-1.0f, 1.0f);
+        float _Y = UnityEngine.Random.Range(-1.0f, 1.0f);
         return new Vector2(_X, _Y).normalized;
     }
 
@@ -376,6 +377,28 @@ public class DevTool
             .OnStart(() => { _Start(); })
             .OnUpdate(() => { _Update(); })
             .OnComplete(() => { _Complete(); });
+    }
+
+    #endregion
+
+    #region About Player
+
+    public static int Get_IndexOfDmgTypeAndCritical(eDamageType _DmgType, bool _IsCritical)
+    {
+        if (_DmgType == eDamageType.Physics)
+        {
+            if (!_IsCritical)
+            { return 0; }
+            else
+            { return 1; }
+        }
+        else
+        {
+            if (!_IsCritical)
+            { return 2; }
+            else
+            { return 3; }
+        }
     }
 
     #endregion

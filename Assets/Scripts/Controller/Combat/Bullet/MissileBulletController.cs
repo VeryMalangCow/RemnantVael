@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class MissileBulletController : BulletController
+public class MissileBulletController : PlayerBulletController
 {
     #region Value
 
@@ -41,7 +41,7 @@ public class MissileBulletController : BulletController
 
     #endregion
 
-    #region Extra State
+    #region State
 
     public override void Set_State_Base(BulletState _BulletState, float _TargetRange)
     {
@@ -67,38 +67,23 @@ public class MissileBulletController : BulletController
 
     #endregion
 
-    #region Collision
+    #region Remove
 
-    private void OnTriggerEnter2D(Collider2D _Col)
+    protected override void Remove_Condition()
     {
-        if (!this.gameObject.activeSelf)
-        { return; }
+        switch (PoolingString)
+        {
+            case "MissileBullet":
+                Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                PoolingManager.Instance.MissileBullet.Queue.Enqueue(this);
+                break;
 
-        // Hit Enemy
-        if (_Col.tag == "Enemy")
-        {
-            if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
-            {
-                EC.Gen_HittedPointEffect(
-                    this.TargetObject.transform.position, 
-                    State.DmgState.DmgType, 
-                    State.IsCritical, 
-                    transform.rotation);
-                EC.Take_Damaged(State, DevTool.Get_DirFromAngle(transform.eulerAngles.z));
-            }
-        }
-        else if (_Col.tag == "DestructibleObject")
-        {
-            if (_Col.transform.parent.TryGetComponent(out DestructibleBuildController DBC))
-            {
-                DBC.Take_Damage(true);
-            }
+            default:
+                break;
         }
 
-        if (DestroyTagList.Contains(_Col.tag))
-        {
-            Remove_Object();
-        }
+        base.Remove_Condition();
     }
 
     #endregion
@@ -107,21 +92,7 @@ public class MissileBulletController : BulletController
 
     private void Gen_ExplosionEffect(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical)
     {
-        int index = 0;
-        if (_DamageType == eDamageType.Physics)
-        {
-            if (!_IsCritical)
-            { index = 0; }
-            else
-            { index = 1; }
-        }
-        else
-        {
-            if (!_IsCritical)
-            { index = 2; }
-            else
-            { index = 3; }
-        }
+        int index = DevTool.Get_IndexOfDmgTypeAndCritical(_DamageType, _IsCritical);
 
         PlayerManager.Instance.PlayerController.PlayerMEI.Gen_ExplosionImgs(
             _SpawndPos,
@@ -140,26 +111,6 @@ public class MissileBulletController : BulletController
             PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0],
             2f, 1.8f);
 
-    }
-
-
-    #endregion
-
-    #region Remove
-
-    protected override void Remove_Condition()
-    {
-        switch (PoolingString)
-        {
-            case "MissileBullet":
-                Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-                Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-                PoolingManager.Instance.MissileBullet.Queue.Enqueue(this);
-                break;
-
-            default:
-                break;
-        }
     }
 
     #endregion
