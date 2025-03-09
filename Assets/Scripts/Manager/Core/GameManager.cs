@@ -569,6 +569,10 @@ public class CombatState : State
     #endregion
 }
 
+#endregion
+
+#region Class : State : Combat : Bullet
+
 [System.Serializable]
 public class BulletState : CombatState
 {
@@ -630,6 +634,75 @@ public class BulletState : CombatState
 
     #endregion
 }
+
+#endregion
+
+#region Struct : BulletState
+
+public struct BulletState_PosAndRot
+{
+    #region Value
+
+    public Vector2 SpawnPos;
+    public Vector2 Dir;
+    public float SpreadAngle;
+
+    #endregion
+
+    #region Constructor
+
+    public BulletState_PosAndRot(Vector2 _SpawnPos, Vector2 _Dir, float _SpreadAngle)
+    {
+        SpawnPos = _SpawnPos;
+        Dir = _Dir;
+        SpreadAngle = _SpreadAngle;
+    }
+
+    #endregion
+}
+public struct BulletState_Size
+{
+    #region Value
+
+    public Vector2 ObjSize;
+    public Vector2 ColSize;
+
+    #endregion
+
+    #region Constructor 
+
+    public BulletState_Size(Vector2 _ObjScale, Vector2 _ColSize)
+    {
+        ObjSize = _ObjScale;
+        ColSize = _ColSize;
+    }
+
+    #endregion
+}
+
+public struct BulletState_Anim
+{
+    #region Value
+
+    public AnimationClip AC;
+    public float Speed;
+
+    #endregion
+
+    #region Constructor 
+    
+    public BulletState_Anim(AnimationClip _AC, float _Speed)
+    {
+        AC = _AC;
+        Speed = _Speed;
+    }
+
+    #endregion
+}
+
+#endregion
+
+#region Class : State : Combat : Attacker
 
 [System.Serializable]
 public class AttackerState : CombatState

@@ -15,9 +15,9 @@ public class PlayerBulletController : BulletController
 
     #region State
 
-    public override void Set_State(Vector2 _SpawnVec, BulletState _BulletState, float _SpreadAngle, float _TargetRange, Vector2 _Dir)
+    public override void Set_State_Base(BulletState _BulletState, float _TargetRange)
     {
-        base.Set_State(_SpawnVec, _BulletState, _SpreadAngle, _TargetRange, _Dir);
+        base.Set_State_Base(_BulletState, _TargetRange);
 
         // 알맞는 이미지
         ThisSR.sprite = BulletSprite.Get_CorrectType(_BulletState.DmgState.DmgType).Get_Special(_BulletState.IsCritical);
@@ -35,14 +35,17 @@ public class PlayerBulletController : BulletController
                 Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
                 Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
                 PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
+                Debug.Log("PlayerBullet!");
                 break;
 
             case "MI_000_Bullet": // 에너지 유도탄
                 PoolingManager.Instance.MI_000_Bullets.Queue.Enqueue(this);
+                Debug.Log("MI_000_Bullet!");
                 break;
 
             case "MI_001_Bullet": // 물리 유도탄
                 PoolingManager.Instance.MI_001_Bullets.Queue.Enqueue(this);
+                Debug.Log("MI_001_Bullet!");
                 break;
 
             default:

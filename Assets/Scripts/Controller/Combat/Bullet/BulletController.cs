@@ -76,23 +76,44 @@ public abstract class BulletController : MovableDepthController
 
     #region State
 
-    public virtual void Set_State(Vector2 _SpawnVec, BulletState _BulletState, float _SpreadAngle, float _TargetRange, Vector2 _Dir)
+    public void Set_State(
+        BulletState _State, 
+        BulletState_PosAndRot _State_PosAndRot, 
+        BulletState_Size? _State_Size, 
+        BulletState_Anim? _State_Anim, 
+        float _TargetRange = 0.4f)
     {
-        // 위치 방향 값 세팅
-        this.transform.position = _SpawnVec;
-        this.transform.localRotation = DevTool.Get_RotFromDir(_Dir);
-
-        // 스탯 적용
-        this.State = new BulletState(_BulletState, true);
-
-        // 확산 Z 값 계산
-        DevTool.Add_RotZValue(transform, _SpreadAngle);
-
-        // 그림자 거리
-        TargetRange = _TargetRange;
+        Set_State_Base(_State, _TargetRange);
+        Set_State_PosAndRot(_State_PosAndRot);
+        Set_State_Size(_State_Size);
+        Set_State_Anim(_State_Anim);
+        Set_State_Extra();
 
         SetOn_State();
     }
+
+
+    public virtual void Set_State_Base(BulletState _State, float _TargetRange = 0.4f)
+    {
+        this.State = new BulletState(_State, true);
+
+        TargetRange = _TargetRange;
+    }
+
+    public virtual void Set_State_PosAndRot(BulletState_PosAndRot _State_PosAndRot)
+    {
+        this.transform.position = _State_PosAndRot.SpawnPos;
+        this.transform.localRotation = DevTool.Get_RotFromDir(_State_PosAndRot.Dir);
+
+        DevTool.Add_RotZValue(transform, _State_PosAndRot.SpreadAngle);
+    }
+
+    public virtual void Set_State_Size(BulletState_Size? _State_Size) { }
+
+    public virtual void Set_State_Anim(BulletState_Anim? _State_Anim) { }
+
+    public virtual void Set_State_Extra() { }
+
 
     private void SetOn_State()
     {

@@ -132,31 +132,19 @@ public class PlayerWeaponController : SolarSystemController
             if (BulletSpawnTFs[i].TryGetComponent(out DepthController HST))
             { targetShadow = HST.TargetRange; }
 
-            // Angle
-            /*Vector2 targetPos = InputManager.Instance.MousePosByWorld;
-            if (fireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
-            {
-                targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position +
-                    InputManager.Instance.DirFromPlayerPos.normalized * fireMinDisLimit;
-            }
-            Vector2 dir = (targetPos - (Vector2)BulletSpawnTFs[i].transform.position).normalized;
-*/
             Vector2 dir = Get_Dir((Vector2)BulletSpawnTFs[i].transform.position);
 
-            // Base State 
 
             DmgState dmgState = new DmgState(DamageType, PlayerController.BaseWeapon.BaseDamage.BuffedState);
             CriticalState criticalState = new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value);
             KnockbackState knockbackState = new KnockbackState(ableKnockback, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value, 0.2f);
 
             BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), true, MuzzleSpeed.ActualState.Value, AliveTime);
+            BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(BulletSpawnTFs[i].position, dir, randomAngle);
+            BulletState_Size? size = null;
+            BulletState_Anim? anim = null;
 
-            PBC.Set_State(
-                BulletSpawnTFs[i].position, 
-                bulletState, 
-                randomAngle, 
-                targetShadow, 
-                dir);
+            PBC.Set_State(bulletState, posAndRot, size, anim, targetShadow);
 
             // Sorting Layer
             if (BulletSpawnTFs[i].gameObject.TryGetComponent(out DepthController hst))

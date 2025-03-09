@@ -42,12 +42,12 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     private void Activity_MI_000(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
-        Activity_Derivative(_Rank, _BoostLv, eDamageType.Energy, PoolingManager.Instance.Get_OP_MI_000_Bullets());
+        Activity_Derivative(_Rank, _BoostLv, eDamageType.Energy, PoolingManager.Instance.MI_000_Bullets);
     }
 
     private void Activity_MI_001(int _Rank, int _BoostLv, EnemyController _EC = null)
     {
-        Activity_Derivative(_Rank, _BoostLv, eDamageType.Physics, PoolingManager.Instance.Get_OP_MI_001_Bullets());
+        Activity_Derivative(_Rank, _BoostLv, eDamageType.Physics, PoolingManager.Instance.MI_001_Bullets);
     }
 
     private void Activity_MI_002(int _Rank, int _BoostLv, EnemyController _EC = null)
@@ -91,7 +91,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     #region Unique
 
     // 데미지 타입을 통해서, 유도탄을 발사하는 함수
-    private void Activity_Derivative(int _Rank, int _BoostLv, eDamageType _DmgType, PlayerBulletController _Bullet)
+    private void Activity_Derivative(int _Rank, int _BoostLv, eDamageType _DmgType, TTypePooling<PlayerBulletController> _Bullet)
     {
         // 편의성
         PlayerController PC = PlayerManager.Instance.PlayerController;
@@ -102,7 +102,8 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         {
             // 데미지 계산
             float dmg = _Rank * PCWeapon.BaseDamage.ActualState.Value;
-            PlayerBulletController pbc = _Bullet;
+
+            PlayerBulletController pbc = PoolingManager.Instance.Get_OP(_Bullet);
             Vector2 dir = PCWeapon.Get_Dir(PC.transform.position);
 
             // 스폰 탄 스탯
@@ -112,8 +113,11 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             KnockbackState knockbackState = new KnockbackState(false, 0, 0);
 
             BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), true, PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2f);
+            BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(PC.transform.position, dir, 10);
+            BulletState_Size? size = null;
+            BulletState_Anim? anim = null;
 
-            pbc.Set_State(PC.transform.position, bulletState, 10, 0.35f, dir);
+            pbc.Set_State(bulletState, posAndRot, size, anim, 0.35f);
 
             // Sorting Layer
             if (PC.TargetObject.gameObject.TryGetComponent(out DepthController hst))

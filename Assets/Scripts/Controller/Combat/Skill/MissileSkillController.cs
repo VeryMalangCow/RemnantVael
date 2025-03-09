@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MissileSkillController : ActiveSkillController
@@ -75,12 +76,11 @@ public class MissileSkillController : ActiveSkillController
                 missile.ThisSR.sortingOrder = ThisHST.ThisSR.sortingOrder - 1;
 
                 float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
-                missile.Set_State(
-                    this.gameObject.transform.position, 
-                    bulletState, 
-                    randomSpreadAngle, 
-                    targetRange, 
-                    dir);
+
+                BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(this.gameObject.transform.position, dir, randomSpreadAngle);
+                BulletState_Size? size = null;
+                BulletState_Anim? anim = null;
+                missile.Set_State(bulletState, posAndRot, size, anim, targetRange);
 
 
                 // Effect Explosion -> Physics DMG

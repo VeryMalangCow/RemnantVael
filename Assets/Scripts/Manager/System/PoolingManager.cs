@@ -48,7 +48,7 @@ public class PoolingManager : Singleton<PoolingManager>
 
     #region Get
 
-    private T Get_OP<T>(TTypePooling<T> _Pooling)
+    public T Get_OP<T>(TTypePooling<T> _Pooling)
     {
         return Get_OP<T>(_Pooling.Prefab, _Pooling.ParentTF, _Pooling.Queue);
     }

@@ -66,7 +66,6 @@ MonoBehaviour:
     IsCritical: 0
     MuzzleSpeed: 0
     AliveTime: 0
-  CurrentAliveTime: 0
   ThisRb: {fileID: 3702076010934528879}
   DestroyTagList:
   - Enemy
@@ -80,8 +79,8 @@ MonoBehaviour:
       TypeBase: {fileID: 0}
       TypeSpecial: {fileID: 0}
     Energy:
-      TypeBase: {fileID: 0}
-      TypeSpecial: {fileID: 0}
+      TypeBase: {fileID: 1232220692, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+      TypeSpecial: {fileID: 1232220692, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4

@@ -43,28 +43,32 @@ public class MissileBulletController : BulletController
 
     #region Extra State
 
-    public override void Set_State(Vector2 _SpawnVec, BulletState _BulletState, float _SpreadAngle, float _TargetRange, Vector2 _Dir)
+    public override void Set_State_Base(BulletState _BulletState, float _TargetRange)
     {
-        base.Set_State(_SpawnVec, _BulletState, _SpreadAngle, _TargetRange, _Dir);
-
-        IsGuided = false;
-        TargetEnemyController = null;
+        base.Set_State_Base(_BulletState, _TargetRange);
 
         float targetSpeed = _BulletState.MuzzleSpeed;
         base.State.MuzzleSpeed *= 0.3f;
 
-        // Dotween
         DOTween.To(() => State.MuzzleSpeed, x => State.MuzzleSpeed = x, targetSpeed, SpreadTime)
             .SetEase(Ease.Linear);
+    }
+
+    public override void Set_State_Extra()
+    {
+        base.Set_State_Extra();
+
+        IsGuided = false;
+        TargetEnemyController = null;
+
         DOTween.To(() => TargetRange, y => TargetRange = y, ShadowRangeTarget, SpreadTime)
             .SetEase(Ease.Linear);
     }
 
-
     #endregion
 
     #region Collision
-    
+
     private void OnTriggerEnter2D(Collider2D _Col)
     {
         if (!this.gameObject.activeSelf)

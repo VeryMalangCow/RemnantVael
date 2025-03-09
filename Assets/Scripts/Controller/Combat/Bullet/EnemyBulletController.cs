@@ -22,17 +22,26 @@ public class EnemyBulletController : BulletController
     #region Set State
 
     // 그림자 오브젝트의 크기, 판정 크기 (그림자 크기에 배수가 된다), 애니메이션의 산출
-    public void Set_State(AnimationClip _AC, Vector2 _ShadowScale, Vector2 _ColSize)
+    public override void Set_State_Size(BulletState_Size? _State_Size)
     {
-        DevTool.Set_Anim(ref AOC, ThisAnimator, _AC);
+        if (_State_Size.HasValue)
+        {
+            base.Set_State_Size(_State_Size);
 
-        ThisCol.transform.localScale = _ShadowScale;
-        ThisCol.size = _ColSize;
+            ThisCol.transform.localScale = _State_Size.Value.ObjSize;
+            ThisCol.size = _State_Size.Value.ColSize;
+        }
     }
 
-    public override void Set_State(Vector2 _SpawnVec, BulletState _BulletState, float _SpreadAngle, float _TargetRange, Vector2 _Dir)
+    public override void Set_State_Anim(BulletState_Anim? _State_Anim) 
     {
-        base.Set_State(_SpawnVec, _BulletState, 0, _TargetRange, _Dir);
+        if (_State_Anim.HasValue)
+        {
+            base.Set_State_Anim(_State_Anim);
+
+            DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.Value.AC);
+            ThisAnimator.speed = _State_Anim.Value.Speed;
+        }
     }
 
     #endregion
