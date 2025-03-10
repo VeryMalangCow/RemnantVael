@@ -63,7 +63,7 @@ public class AimController : StaticDepthController
     private void Set_AimRotUpdate(float _DeltaTime)
     {
         Quaternion fromRot = TargetObject.transform.localRotation;
-        Quaternion toRot = InputManager.Instance.Get_Rot_DirFromPlayerPos();
+        Quaternion toRot = DevTool.Get_RotFromDir(InputManager.Instance.DirFromPlayerPos);
 
         TargetObject.transform.localRotation =
                     Quaternion.Slerp(fromRot, toRot, AimFollowSpeed * _DeltaTime);

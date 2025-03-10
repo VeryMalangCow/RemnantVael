@@ -158,11 +158,6 @@ public class InputManager : Singleton<InputManager>
         MousePointerRT.anchoredPosition = MousePos;
     }
 
-    public Quaternion Get_Rot_DirFromPlayerPos()
-    {
-        return DevTool.Get_RotFromDir(DirFromPlayerPos);
-    }
-
     #endregion
 
     #region Input Set
