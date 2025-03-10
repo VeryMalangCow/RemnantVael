@@ -26,7 +26,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
     {
         base.OnEnable();
 
-        Gen_ExplosionEffect();
+        UnitManager.Instance.Build_ExplImgGenerator.Expl_Build(TargetObject.gameObject.transform.position);
     }
 
     #endregion

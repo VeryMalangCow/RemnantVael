@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
@@ -11,9 +12,18 @@ public class UnitManager : Singleton<UnitManager>
     [Header("=== Material")]
     [SerializeField] public Material ModuleM_000_Explosion;
     [SerializeField] public Material ModuleM_000_Hitted;
+    [SerializeField] public Material EnemyM_000_Explosion;
 
+    [Space(10)]
+    [Header("=== Sprite")]
     [SerializeField] public Sprite BuildingDurFrame;
     [SerializeField] public Sprite BuildingDurInner;
+
+    [Space(10)]
+    [Header("=== Generator")]
+    [SerializeField] public PlayerExplImgGenerator Player_ExplImgGenerator;
+    [SerializeField] public BuildExplImgGenerator Build_ExplImgGenerator;
+    [SerializeField] public EnemyExplImgGenerator Enemy_ExplImgGenerator;
 
     #endregion
 

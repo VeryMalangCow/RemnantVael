@@ -24,8 +24,8 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
 
     protected override void OnEnable()
     {
-        base.OnEnable();
-        Gen_ExplosionEffect();
+        base.OnEnable(); 
+        UnitManager.Instance.Build_ExplImgGenerator.Expl_Build(TargetObject.gameObject.transform.position);
     }
 
     #endregion

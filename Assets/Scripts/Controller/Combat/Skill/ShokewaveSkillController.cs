@@ -11,10 +11,10 @@ public class ShockwaveSkillController : ActiveSkillController
     [Space(10)]
     [Header("=== Value")]
     [SerializeField] private DepthController ThisHST;
-    [SerializeField] private Vector2 _ColSize = new Vector2(1f, 0.5f);
-    [SerializeField] private float _StartSize = 3f; 
-    [SerializeField] private float _MaxSize = 7.5f;
-    [SerializeField] private float _BiggerTime = 0.3f;
+    [SerializeField] private Vector2 ColSize = new Vector2(0.75f, 0.5f);
+    [SerializeField] private float StartSize = 3f; 
+    [SerializeField] public float MaxSize = 5f;
+    [SerializeField] private float BiggerTime = 0.15f;
 
     [Space(10)]
     [Header("=== Reso")]
@@ -40,14 +40,14 @@ public class ShockwaveSkillController : ActiveSkillController
 
         AttackerState ThisState = new AttackerState(new CombatState(dmgState, criticalState, knockbackState));
 
-        float usableMaxSize = _MaxSize + (_MaxSize * Tier.ActualState.Value * 0.1f);
+        float usableMaxSize = MaxSize + (MaxSize * Tier.ActualState.Value * 0.1f);
 
 
         PlayerAttackerController pa = PoolingManager.Instance.Get_OP_PlayerAttacker();
 
         pa.Set_ShadowDis(ThisHST);
         pa.Play_Bigger(ThisHST.transform.position, ThisState, ShockwaveAnimation,
-            _ColSize, _StartSize, usableMaxSize, _BiggerTime)
+            ColSize, StartSize, usableMaxSize, BiggerTime)
             .OnComplete(() =>
             {
                 InputManager.Instance.AimController.Set_SkillState(1, false);
@@ -55,35 +55,10 @@ public class ShockwaveSkillController : ActiveSkillController
                 pa.End_State();
             });
 
-        // Effect Explosion -> Energy DMG
-
-        Gen_ExplosionEffect((Vector2)ThisHST.TargetObject.gameObject.transform.position,
-            PlayerController.BaseWeapon.CC.ActualState.Value, usableMaxSize);
+        UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_Skill1(PlayerController.Get_ID(), (Vector2)ThisHST.TargetObject.gameObject.transform.position);
 
         BuffManager.Instance.Gain_Buff(0);
         BuffManager.Instance.SetOn_Buff(0);
-    }
-
-    #endregion
-
-    #region Effect
-
-    private void Gen_ExplosionEffect(Vector2 _SpawndPos, float _CriticalChance, float _UsableMaxSize)
-    {
-        PlayerController.PlayerMEI.Gen_ExplosionImgs(
-            _SpawndPos,
-            (int)(36f * (1f - _CriticalChance)), 
-            _UsableMaxSize / 4, _UsableMaxSize / 2,
-            1.4f, 0.2f, 0.3f,
-            0.7f, 0.4f, 0.5f,
-            2, new Vector2(1, 0.5f), PlayerController.ThisPlayerMaterialList[0]);
-        PlayerController.PlayerMEI.Gen_ExplosionImgs(
-            _SpawndPos,
-            (int)(36f * _CriticalChance), 
-            _UsableMaxSize / 4, _UsableMaxSize / 2,
-            1.4f, 0.2f, 0.3f,
-            0.7f, 0.4f, 0.5f,
-            3, new Vector2(1, 0.5f), PlayerController.ThisPlayerMaterialList[0]);
     }
 
     #endregion

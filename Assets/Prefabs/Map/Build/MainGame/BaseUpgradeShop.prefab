@@ -241,7 +241,6 @@ MonoBehaviour:
   ThisSR: {fileID: 6431130664222279258}
   TargetRange: 0.3
   ThisStateAnim: {fileID: 3433866877279181021}
-  MEI: {fileID: 2453984775806162034}
   IsOn: 0
   ThisAnimator: {fileID: 1156573706478142735}
   OnOffAC:
@@ -387,7 +386,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2545417290506596609}
   - component: {fileID: 6431130664222279258}
-  - component: {fileID: 2453984775806162034}
   - component: {fileID: 1156573706478142735}
   m_Layer: 6
   m_Name: Target
@@ -464,24 +462,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2453984775806162034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7945861353772175884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc6a9a4a88b0d244888af9fe4db9a145, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RandomSpriteList:
-  - SpriteList:
-    - {fileID: -1746943924, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 1391882910, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 237403348, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 366755556, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
 --- !u!95 &1156573706478142735
 Animator:
   serializedVersion: 5

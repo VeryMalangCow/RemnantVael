@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBulletController : BulletController
@@ -79,27 +78,13 @@ public class EnemyBulletController : BulletController
         switch (PoolingString)
         {
             case "EnemyBullet":
-                Gen_ExplosionEffect();
+                UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position);
                 PoolingManager.Instance.EnemyBullets.Queue.Enqueue(this);
                 break;
 
             default:
                 break;
         }
-    }
-
-    #endregion
-
-    #region Effect
-
-    private void Gen_ExplosionEffect()
-    {
-        Enemy.MEI.Gen_ExplosionImgs(
-            TargetObject.transform.position,
-                        16, 0.15f, 0.75f,
-                        0.6f, 0.05f, 0.1f,
-                        0.2f, 0.5f, 1.0f,
-                        0, Enemy.ThisSmokeM);
     }
 
     #endregion

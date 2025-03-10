@@ -46,8 +46,6 @@ public class EnemyController : AliveObjectController, IInteract
 
     [Space(10)]
     [Header("=== Effect")]
-    [SerializeField] public ExplosionImgGenerator MEI;
-    [SerializeField] public Material ThisSmokeM;
     [SerializeField] public AnimationClip HittedAC_0;
     [SerializeField] public AnimationClip HittedAC_1;
     [SerializeField] public AnimationClip HittedAC_2;
@@ -147,7 +145,7 @@ public class EnemyController : AliveObjectController, IInteract
         if (CurrentRoomController == null)
         { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
 
-        Gen_ExplosionEffect();
+        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
         Start_PatternFromNone();
     }
 
@@ -894,16 +892,6 @@ public class EnemyController : AliveObjectController, IInteract
 
     #region Effect
 
-    public void Gen_ExplosionEffect()
-    {
-        this.MEI.Gen_ExplosionImgs(
-            this.MEI.gameObject.transform.position,
-            32, 0.15f, 0.75f,
-            0.9f, 0.05f, 0.1f,
-            0.4f, 0.5f, 1.0f,
-            0, ThisSmokeM);
-    }
-
     public void Gen_HittedPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical, Quaternion _Rotation)
     {
         // Hitted Anim
@@ -955,7 +943,7 @@ public class EnemyController : AliveObjectController, IInteract
             q,
             2.5f, 2f);
 
-        Gen_ExplosionEffect();
+        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
     }
 
     #endregion

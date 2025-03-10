@@ -9,7 +9,8 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     #region Value
 
     [Header("=== Value")]
-    [SerializeField] public int NeedLayerObjectTopSort = 1000;
+    [SerializeField] public readonly static int NeedLayerObjectTopSort = 1000;
+    [SerializeField] public readonly static int EffectImgSort = 3000;
 
     [Header("=== Movable Object")]
     [SerializeField] public List<DepthController> NeedLayerObjects;

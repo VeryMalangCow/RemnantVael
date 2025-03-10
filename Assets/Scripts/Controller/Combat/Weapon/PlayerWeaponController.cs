@@ -155,8 +155,12 @@ public class PlayerWeaponController : SolarSystemController
             // Effect
             if (BulletSpawnTFs[i].TryGetComponent(out DepthController posHst))
             {
-                Gen_ExplosionEffect_Fan((Vector2)posHst.TargetObject.transform.position + (dir * 0.3f),
-                    DamageType, isCritical, i, dir);
+                UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
+                    PlayerController.Get_ID(),
+                    (Vector2)posHst.TargetObject.transform.position + (dir * 0.1f),
+                    dir,
+                    DamageType,
+                    isCritical);
             }
         }
         InputManager.Instance.AimController.Set_AttackState(true);
@@ -179,41 +183,6 @@ public class PlayerWeaponController : SolarSystemController
         return (targetPos - _SpawnPos).normalized;
     }
 
-
-    #endregion
-
-    #region Effect
-
-    private void Gen_ExplosionEffect_Fan(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical,
-        int _Index, Vector2 _Dir)
-    {
-        int index = 0;
-        if (_DamageType == eDamageType.Physics)
-        {
-            if (!_IsCritical)
-            { index = 0; }
-            else
-            { index = 1; }
-        }
-        else
-        {
-            if (!_IsCritical)
-            { index = 2; }
-            else
-            { index = 3; }
-        }
-
-        PlayerController.PlayerMEI.Gen_ExplosionImgs_Fan(
-            _SpawndPos,
-            _Dir, 45f,
-            3, 0.2f, 1f,
-            0.8f, 0.05f, 0.1f,
-            0.4f, 0.5f, 1.0f,
-            index, PlayerController.ThisPlayerMaterialList[0]);
-    }
-
-    #endregion
-
-
+    #endregion    
 }
 

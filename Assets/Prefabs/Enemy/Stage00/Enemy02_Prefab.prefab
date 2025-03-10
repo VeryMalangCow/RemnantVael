@@ -203,7 +203,6 @@ MonoBehaviour:
   MoveDir: {x: 0, y: 0}
   MoveSpeed: 0
   HUD: {fileID: 2920926280269970217}
-  MEI: {fileID: 882714530506080443}
   ThisSmokeM: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
   HittedAC_0: {fileID: 7400000, guid: 6af0f636d94b34f41822b97c0843c8ca, type: 2}
   HittedAC_1: {fileID: 7400000, guid: c871472990cbec34cb198596439ad843, type: 2}
@@ -2118,7 +2117,6 @@ GameObject:
   - component: {fileID: 196850106739240415}
   - component: {fileID: 8053559112837824807}
   - component: {fileID: 8007151087012789952}
-  - component: {fileID: 882714530506080443}
   m_Layer: 7
   m_Name: MainTarget
   m_TagString: Enemy
@@ -2216,24 +2214,6 @@ MonoBehaviour:
   - {fileID: -1973428488, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -1501272803, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: 2073786952, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
---- !u!114 &882714530506080443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8753258395414943751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc6a9a4a88b0d244888af9fe4db9a145, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RandomSpriteList:
-  - SpriteList:
-    - {fileID: 736608773, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-    - {fileID: -1434397230, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-    - {fileID: -571110442, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-    - {fileID: 1982620110, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
 --- !u!1 &8782931538922230563
 GameObject:
   m_ObjectHideFlags: 0

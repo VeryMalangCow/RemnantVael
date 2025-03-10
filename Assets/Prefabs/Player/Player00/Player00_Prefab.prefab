@@ -1203,7 +1203,6 @@ GameObject:
   - component: {fileID: 8810927924693203331}
   - component: {fileID: 8889954111637353817}
   - component: {fileID: 4030414932115461039}
-  - component: {fileID: 2930891811832810725}
   - component: {fileID: 334434472153228344}
   - component: {fileID: 2809650221464592576}
   - component: {fileID: 1031199759190704239}
@@ -1278,7 +1277,6 @@ MonoBehaviour:
   DashController: {fileID: 8889954111637353817}
   LowerController: {fileID: 6070200958351899230}
   ThisWayPoint: {fileID: 6231064731411430748}
-  PlayerMEI: {fileID: 2930891811832810725}
   PlayerMAI: {fileID: 4030414932115461039}
   CombatMode: 0
   TargetCombatMode: 0
@@ -1561,39 +1559,6 @@ MonoBehaviour:
   ImageAlpha: 1
   DelayGenTime: 1
   StayDur: 1
---- !u!114 &2930891811832810725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4593839933363528314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc6a9a4a88b0d244888af9fe4db9a145, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RandomSpriteList:
-  - SpriteList:
-    - {fileID: 2076622363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: -1611511200, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: -1024333363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: 1381863595, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  - SpriteList:
-    - {fileID: -1790350917, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: 2084858605, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: 1303922096, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: -1487533129, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  - SpriteList:
-    - {fileID: 803945673, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: -590461291, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: 852067417, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: 1349733740, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  - SpriteList:
-    - {fileID: -2094198275, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: 327999803, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: -287691500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    - {fileID: 424554764, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
 --- !u!50 &334434472153228344
 Rigidbody2D:
   serializedVersion: 4

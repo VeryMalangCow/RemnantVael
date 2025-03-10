@@ -66,7 +66,6 @@ MonoBehaviour:
     IsCritical: 0
     MuzzleSpeed: 0
     AliveTime: 0
-  CurrentAliveTime: 0
   ThisRb: {fileID: 3702076010934528879}
   DestroyTagList:
   - Enemy
@@ -75,10 +74,16 @@ MonoBehaviour:
   IsGuided: 0
   TargetEnemyController: {fileID: 0}
   RotateSpeed: 7.5
+  BulletSprite:
+    Physics:
+      TypeBase: {fileID: -1722145500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+      TypeSpecial: {fileID: -2035106808, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    Energy:
+      TypeBase: {fileID: 0}
+      TypeSpecial: {fileID: 0}
   Missile_Prefab: {fileID: 2192280153704162206}
   ShadowRangeTarget: 0.4
   SpreadTime: 0.5
-  SpreadAngleLimit: 10
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4

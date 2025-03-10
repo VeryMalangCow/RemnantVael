@@ -64,19 +64,19 @@ public class PlayerBulletController : BulletController
         {
             case "PlayerBullet": // ±âº»Åº
                 Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-                Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                
+                UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ObjectDestroy(
+                    PlayerManager.Instance.PlayerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                
                 PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
-                Debug.Log("PlayerBullet!");
                 break;
 
             case "MI_000_Bullet": // ¿¡³ÊÁö À¯µµÅº
                 PoolingManager.Instance.MI_000_Bullets.Queue.Enqueue(this);
-                Debug.Log("MI_000_Bullet!");
                 break;
 
             case "MI_001_Bullet": // ¹°¸® À¯µµÅº
                 PoolingManager.Instance.MI_001_Bullets.Queue.Enqueue(this);
-                Debug.Log("MI_001_Bullet!");
                 break;
 
             default:
@@ -87,18 +87,6 @@ public class PlayerBulletController : BulletController
     #endregion
 
     #region Effect
-
-    private void Gen_ExplosionEffect(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical)
-    {
-        int index = DevTool.Get_IndexOfDmgTypeAndCritical(_DamageType, _IsCritical);
-
-        PlayerManager.Instance.PlayerController.PlayerMEI.Gen_ExplosionImgs(
-            _SpawndPos,
-            4, 0.3f, 0.4f,
-            0.6f, 0.05f, 0.1f,
-            0.3f, 0.5f, 1.0f,
-            index, PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0]);
-    }
 
     private void Gen_AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
     {

@@ -84,7 +84,7 @@ public class AimController : StaticDepthController
     // 공격 타입: On / Off (화살표)
     public void Set_AttackState(bool _OnOff)
     {
-        Set_ActiveSprite(AimSR.TypeBase.gameObject, _OnOff);
+        Set_ActiveSprite(AimSR.TypeSpecial.gameObject, _OnOff);
     }
 
     // 스킬 타입: On / Off (사용 스킬의 아이콘)

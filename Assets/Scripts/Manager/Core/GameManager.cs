@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
@@ -105,7 +104,19 @@ public class DevTool
         return (_IntervalX / 2) * (_MaxAmount - 1);
     }
 
-    // 
+    // float 랜덤값을 0을 기준으로 돌리기 (음수 양수의 범위)
+    public static float Get_RandomValueBaseZero(float _RandomExtent)
+    {
+        if (_RandomExtent == 0)
+        { 
+            return 0;
+        }
+        else
+        {
+            return UnityEngine.Random.Range(-_RandomExtent * 0.5f, _RandomExtent * 0.5f);
+        }
+    }
+
     #endregion
 
     #region About Casting
@@ -279,6 +290,16 @@ public class DevTool
         }
     }
 
+    // 'T 타입' 리스트에서 랜덤으로 뽑기
+    public static T Get_Random<T>(List<T> _TargetList)
+    {
+        if (_TargetList != null || _TargetList.Count > 0)
+        {
+            return _TargetList[Random.Range(0, _TargetList.Count)];
+        }
+        return default;
+    }
+
     #endregion
 
     #region About Position
@@ -308,6 +329,12 @@ public class DevTool
         return new Vector2(
                     Mathf.Cos((_Angle + 90) * Mathf.Deg2Rad),
                     Mathf.Sin((_Angle + 90) * Mathf.Deg2Rad)).normalized;
+    }
+    // 좌표값 (Vecto2:Dir)
+    // => 각값(float:Angle)
+    public static float Get_AngleFromDir(Vector2 _Dir)
+    {
+        return Mathf.Atan2(_Dir.y, _Dir.x) * Mathf.Rad2Deg - 90f;
     }
 
     // 회전값에 값을 더하기
@@ -379,6 +406,18 @@ public class DevTool
             .OnComplete(() => { _Complete(); });
     }
 
+    public static void Set_CompleteTween<T>(T _Comp)
+    {
+        if (DOTween.IsTweening(_Comp))
+        { DOTween.Complete(_Comp); }
+    }
+
+    public static void Set_CompleteTween(Sequence _Seq)
+    {
+        if (_Seq != null && DOTween.IsTweening(_Seq))
+        { DOTween.Complete(_Seq); }
+    }
+
     #endregion
 
     #region About Player
@@ -398,6 +437,30 @@ public class DevTool
             { return 2; }
             else
             { return 3; }
+        }
+    }
+
+    public static eDamageType Get_DmgTypeFromIndex(int _Index)
+    {
+        if (_Index == 0 || _Index == 1)
+        {
+            return eDamageType.Physics;
+        }
+        else
+        {
+            return eDamageType.Energy;
+        }
+    }
+
+    public static bool Get_CriticalFromIndex(int _Index)
+    {
+        if (_Index == 0 || _Index == 2)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
@@ -683,6 +746,7 @@ public struct BulletState_PosAndRot
 
     #endregion
 }
+
 public struct BulletState_Size
 {
     #region Value
@@ -845,6 +909,155 @@ public class PlayerVisual<T>
     }
 }
 
+#endregion
+
+#region Struct : Visual : Explosion
+
+public struct ExplState_Base
+{
+    #region Value
+
+    public Vector2 SpawnPos;
+    public int SpawnAmount;
+
+    #endregion
+
+    #region Constructor
+
+    public ExplState_Base(Vector2 _SpawnPos, int _SpawnAmount)
+    {
+        SpawnPos = _SpawnPos;
+        SpawnAmount = _SpawnAmount;
+    }
+
+    public ExplState_Base(ExplState_Base _State)
+    {
+        SpawnPos = _State.SpawnPos;
+        SpawnAmount = _State.SpawnAmount;
+    }
+
+    #endregion
+}
+public struct ExplState_Sprite
+{
+    #region Value
+
+    public List<Sprite> Sprite;
+    public Material Material;
+
+    #endregion
+
+    #region Constructor
+
+    public ExplState_Sprite(List<Sprite> _Sprite, Material _Material)
+    {
+        Sprite = _Sprite;
+        Material = _Material;
+    }
+    public ExplState_Sprite(ExplState_Sprite _State)
+    {
+        Sprite = _State.Sprite;
+        Material = _State.Material;
+    }
+
+    #endregion
+}
+
+public struct ExplState_MoveAndScale
+{
+    #region Value
+
+    public Vector2 Dir;
+    public float Dis;
+    public float Scale;
+    public float Time;
+    public float RandomDelayTime;
+
+    #endregion
+
+    #region Constructor
+
+    public ExplState_MoveAndScale(Vector2 _Dir, float _Dis, float _Scale, float _Time, float _RandomDelayTime)
+    {
+        Dir = _Dir;
+        Dis = _Dis;
+        Scale = _Scale;
+        Time = _Time;
+        RandomDelayTime = _RandomDelayTime;
+    }
+
+    public ExplState_MoveAndScale(ExplState_MoveAndScale _State)
+    {
+        Dir = _State.Dir;
+        Dis = _State.Dis;
+        Scale = _State.Scale;
+        Time = _State.Time;
+        RandomDelayTime = _State.RandomDelayTime;
+    }
+
+    #endregion
+}
+
+
+public struct ExplState
+{
+    public ExplState_Base BaseState;
+    public ExplState_Sprite SpriteState;
+    public ExplState_MoveAndScale FirstState;
+    public ExplState_MoveAndScale SecondState;
+
+    private ExplState_MoveAndScale OriginalFirstState;
+    private ExplState_MoveAndScale OriginalSecondState;
+
+    public ExplState(ExplState_Base _BaseState, ExplState_Sprite _SpriteState, ExplState_MoveAndScale _FirstState, ExplState_MoveAndScale _SecondState)
+    {
+        BaseState = new ExplState_Base(_BaseState);
+        SpriteState = new ExplState_Sprite(_SpriteState);
+        FirstState = new ExplState_MoveAndScale(_FirstState);
+        SecondState = new ExplState_MoveAndScale(_SecondState);
+
+        OriginalFirstState = new ExplState_MoveAndScale(_FirstState);
+        OriginalSecondState = new ExplState_MoveAndScale(_SecondState);
+    }
+
+    public void Set_AllDir(Vector2 _Dir)
+    {
+        FirstState.Dir = _Dir;
+        SecondState.Dir = _Dir;
+
+        OriginalFirstState.Dir = _Dir;
+        OriginalSecondState.Dir = _Dir;
+    }
+
+    public void Set_MultipleAllDir(Vector2 _Dir)
+    {
+        FirstState.Dir *= _Dir;
+        SecondState.Dir *= _Dir;
+
+        OriginalFirstState.Dir *= _Dir;
+        OriginalSecondState.Dir *= _Dir;
+    }
+
+    public void Set_RandomValue()
+    {
+        FirstState.Time += DevTool.Get_RandomValueBaseZero(OriginalFirstState.RandomDelayTime);
+        SecondState.Time += DevTool.Get_RandomValueBaseZero(OriginalFirstState.RandomDelayTime);
+    }
+
+    public void Set_RandomAngleValue_PivotZero(float _AngleExtent)
+    {
+        float randomAngle = DevTool.Get_RandomValueBaseZero(_AngleExtent);
+        FirstState.Dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(OriginalFirstState.Dir));
+        SecondState.Dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(OriginalSecondState.Dir));
+    }
+
+    public void Set_RandomAngleValue_JustAdd(float _AngleExtent)
+    {
+        float randomAngle = Random.Range(0, _AngleExtent);
+        FirstState.Dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(OriginalFirstState.Dir));
+        SecondState.Dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(OriginalSecondState.Dir));
+    }
+}
 
 #endregion
 

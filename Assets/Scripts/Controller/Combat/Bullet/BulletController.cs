@@ -237,9 +237,4 @@ public abstract class BulletController : MovableDepthController
     }
 
     #endregion
-
-    #region Effect
-
-
-    #endregion
 }

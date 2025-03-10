@@ -75,7 +75,10 @@ public class MissileBulletController : PlayerBulletController
         {
             case "MissileBullet":
                 Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-                Gen_ExplosionEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                
+                UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_BigObjectDestroy(
+                    PlayerManager.Instance.PlayerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+
                 PoolingManager.Instance.MissileBullet.Queue.Enqueue(this);
                 break;
 
@@ -90,17 +93,6 @@ public class MissileBulletController : PlayerBulletController
 
     #region Effect
 
-    private void Gen_ExplosionEffect(Vector2 _SpawndPos, eDamageType _DamageType, bool _IsCritical)
-    {
-        int index = DevTool.Get_IndexOfDmgTypeAndCritical(_DamageType, _IsCritical);
-
-        PlayerManager.Instance.PlayerController.PlayerMEI.Gen_ExplosionImgs(
-            _SpawndPos,
-            4, 0.3f, 0.4f,
-            1.9f, 0.05f, 0.1f,
-            0.8f, 0.5f, 1.0f,
-            index, PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0]);
-    }
 
     private void Gen_AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
     {
@@ -110,7 +102,6 @@ public class MissileBulletController : PlayerBulletController
             _SpanwedPos,
             PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0],
             2f, 1.8f);
-
     }
 
     #endregion

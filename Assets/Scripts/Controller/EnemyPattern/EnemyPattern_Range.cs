@@ -106,13 +106,9 @@ public class EnemyPattern_Range : EnemyPattern
             { EBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
 
             // Effect
-            ThisEnemy.MEI.Gen_ExplosionImgs_Fan(
+            UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_Shoot(
                 (Vector2)HST.TargetObject.transform.position + (targetDir * 0.3f),
-                targetDir, 45f,
-                3, 0.2f, 1f,
-                0.8f, 0.05f, 0.1f,
-                0.4f, 0.5f, 1.0f,
-                0, ThisEnemy.ThisSmokeM);
+                targetDir);
 
         }
 

@@ -22,7 +22,6 @@ public class PlayerController : AliveObjectController
 
     [Space(10)]
     [Header("=== Generator")]
-    [SerializeField] public ExplosionImgGenerator PlayerMEI;
     [SerializeField] public AfterImgGenerator PlayerMAI;
 
     #region - Combat
@@ -639,14 +638,8 @@ public class PlayerController : AliveObjectController
 
         for (int i = 0; i < 4; i++)
         {
-            PlayerMEI.Gen_ExplosionImgs(
-                    TargetObject.transform.position,
-                    6, 0.15f, 0.75f,
-                    2.0f, 0.05f, 0.1f,
-                    1.0f, 0.5f, 1.0f,
-                    i, ThisPlayerMaterialList[0]);
+            UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_Avoid(ID, TargetObject.transform.position);
         }
-
     }
 
     #endregion
