@@ -341,9 +341,34 @@ public class DevTool
     public static void Add_RotZValue(Transform _TF, float _ZValue)
     {
         Vector3 currentRotation = _TF.eulerAngles;
+
         currentRotation.z += _ZValue;
         _TF.eulerAngles = currentRotation;
     }
+    public static Quaternion Add_RotZValue(Quaternion _Rotation, float _ZValue)
+    {
+        Vector3 currentRotation = _Rotation.eulerAngles;
+        currentRotation.z += _ZValue;
+
+        Quaternion q = Quaternion.identity;
+        q.eulerAngles = currentRotation;
+
+        return q;
+    }
+
+    // 반대 방향의 회전값 구하기
+    public static Quaternion Get_FlipRotation(Quaternion _Rotation)
+    {
+        Vector3 currentRotation = _Rotation.eulerAngles;
+        currentRotation.z += 180;
+
+        Quaternion q = Quaternion.identity;
+        q.eulerAngles = currentRotation;
+
+        return q;
+    }
+
+    
 
     #endregion
 

@@ -44,13 +44,6 @@ public class EnemyController : AliveObjectController, IInteract
     [Header("=== UI")]
     [SerializeField] public EnemyHUDController HUD;
 
-    [Space(10)]
-    [Header("=== Effect")]
-    [SerializeField] public AnimationClip HittedAC_0;
-    [SerializeField] public AnimationClip HittedAC_1;
-    [SerializeField] public AnimationClip HittedAC_2;
-
-    [HideInInspector] protected RoomController CurrentRoomController;
 
     [Space(10)]
     [Header("=== Nav")]
@@ -67,6 +60,7 @@ public class EnemyController : AliveObjectController, IInteract
     [SerializeField] public bool IsPlayingPattern = false;
     [HideInInspector] public IEnumerator CurrentPatternCor = null;
 
+    [HideInInspector] protected RoomController CurrentRoomController;
 
     #endregion
 
@@ -477,7 +471,8 @@ public class EnemyController : AliveObjectController, IInteract
         PoolingManager.Instance.Set_EnqueueEnemy(this);
 
         // Effect
-        Gen_DieEffect();
+        UnitManager.Instance.OnceTime_AnimGenerator.Anim_Attacked_BigSlice(TargetObject.transform.position);
+        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
     }
 
     #endregion
@@ -889,65 +884,6 @@ public class EnemyController : AliveObjectController, IInteract
 
 
     #endregion
-
-    #region Effect
-
-    public void Gen_HittedPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical, Quaternion _Rotation)
-    {
-        // Hitted Anim
-
-        Vector3 currentRotation = _Rotation.eulerAngles;
-
-        Quaternion q = Quaternion.identity;
-        currentRotation.z += 180;
-        q.eulerAngles = currentRotation;
-
-        OnceTimeAnimController oota = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
-        oota.Start_Anim(
-            HittedAC_0,
-            _SpanwedPos,
-            UnitManager.Instance.ModuleM_000_Explosion,
-            PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(_DamageType, _IsCritical),
-            q, 
-            1.5f, 1f);
-
-        Quaternion q2 = Quaternion.identity;
-        currentRotation.z += Random.Range(-45, 45);
-        q2.eulerAngles = currentRotation;
-
-        OnceTimeAnimController oota2 = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
-        oota2.Start_Anim(
-            HittedAC_1,
-            _SpanwedPos,
-            UnitManager.Instance.ModuleM_000_Explosion,
-            PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(_DamageType, _IsCritical),
-            q2,
-            2.5f, 1.2f);
-
-        // SlowMotion
-        PlayerManager.Instance.CameraController.Play_HitEnemyAnim();
-    }
-
-    private void Gen_DieEffect()
-    {
-        Quaternion q = Quaternion.identity;
-        Vector3 currentRotation = q.eulerAngles;
-        currentRotation.z += Random.Range(-20, 20);
-        q.eulerAngles = currentRotation;
-
-        OnceTimeAnimController oota2 = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
-        oota2.Start_Anim(
-            HittedAC_2,
-            this.TargetObject.transform.position,
-            UnitManager.Instance.ModuleM_000_Explosion,
-            q,
-            2.5f, 2f);
-
-        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
-    }
-
-    #endregion
-
 }
 
 #region Pattern

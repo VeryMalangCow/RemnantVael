@@ -12,7 +12,7 @@ public class BuildExplImgGenerator : ExplosionImgGenerator
 
     #endregion
 
-    #region
+    #region Build
 
     // 생성, 파괴에 사용
     public void Expl_Build(Vector2 _SpawnPos)

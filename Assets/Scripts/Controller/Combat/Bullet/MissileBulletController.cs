@@ -74,12 +74,14 @@ public class MissileBulletController : PlayerBulletController
         switch (PoolingString)
         {
             case "MissileBullet":
-                Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-                
+
+                UnitManager.Instance.OnceTime_AnimGenerator.Anim_AttackSuccess(
+                    TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical, 1.8f);
                 UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_BigObjectDestroy(
                     PlayerManager.Instance.PlayerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
 
                 PoolingManager.Instance.MissileBullet.Queue.Enqueue(this);
+
                 break;
 
             default:
@@ -87,21 +89,6 @@ public class MissileBulletController : PlayerBulletController
         }
 
         base.Remove_Condition();
-    }
-
-    #endregion
-
-    #region Effect
-
-
-    private void Gen_AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
-    {
-        OnceTimeAnimController oota = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
-        oota.Start_Anim(
-            PlayerManager.Instance.PlayerController.Get_AnimClip_CorrectHitted(_DamageType, _IsCritical),
-            _SpanwedPos,
-            PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0],
-            2f, 1.8f);
     }
 
     #endregion

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class EnemyExplImgGenerator : ExplosionImgGenerator
 {
-
     #region Value
 
     [Space(20)]
@@ -12,7 +11,7 @@ public class EnemyExplImgGenerator : ExplosionImgGenerator
 
     #endregion
 
-    #region Expl
+    #region Enemy
 
     // 생성, 파괴에 사용
     public void Expl_Enemy(Vector2 _SpawnPos)

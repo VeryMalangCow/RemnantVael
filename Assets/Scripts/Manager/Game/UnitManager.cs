@@ -21,9 +21,16 @@ public class UnitManager : Singleton<UnitManager>
 
     [Space(10)]
     [Header("=== Generator")]
+
+    [Space(5)]
+    [Header("-- Explosion")]
     [SerializeField] public PlayerExplImgGenerator Player_ExplImgGenerator;
     [SerializeField] public BuildExplImgGenerator Build_ExplImgGenerator;
     [SerializeField] public EnemyExplImgGenerator Enemy_ExplImgGenerator;
+
+    [Space(5)]
+    [Header("-- Anim")]
+    [SerializeField] public OnceTimeAnimGenerator OnceTime_AnimGenerator;
 
     #endregion
 

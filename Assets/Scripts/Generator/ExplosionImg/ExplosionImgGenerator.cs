@@ -15,23 +15,6 @@ public class ExplosionImgGenerator : MonoBehaviour
 
     #endregion
 
-    #region OLD!
-
-    // 전체적인 360도 방향으로 분산
-    // 원형만 가능
-    public void Gen_ExplosionImgs(Vector2 _SpawnedPos,
-        int _SpawnImgAmount, float _ExplosionDis, float _DisappearDis,
-        float _BiggerScale, float _BiggerMinTime, float _BiggerMaxTime,
-        float _SmallerScale, float _SmallerMinTime, float _SmallerMaxTime,
-        int _ModuleIndex, Material _Material)
-    {
-
-    }
-
-    
-
-    #endregion
-
     #region Gen
 
     // 원형: Circle

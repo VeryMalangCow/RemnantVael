@@ -135,7 +135,7 @@ public class CameraController : MonoBehaviour
 
     public void Play_HitEnemyAnim()
     {
-        Play_SlowMotion(0.3f, 0.95f);
+        //Play_SlowMotion(0.3f, 0.95f);
         Play_POVSize(0.3f, CameraProjectionSize - 0.05f);
     }
 

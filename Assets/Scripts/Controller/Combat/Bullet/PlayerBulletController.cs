@@ -44,11 +44,11 @@ public class PlayerBulletController : BulletController
         {
             if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
             {
-                EC.Gen_HittedPointEffect(
-                    this.TargetObject.transform.position,
-                    State.DmgState.DmgType,
-                    State.IsCritical,
-                    transform.rotation);
+                UnitManager.Instance.OnceTime_AnimGenerator.Anim_Attacked_Circle(
+                    TargetObject.transform.position, transform.rotation);
+                UnitManager.Instance.OnceTime_AnimGenerator.Anim_Attacked_Slice(
+                    TargetObject.transform.position, State.IsCritical, transform.rotation);
+                PlayerManager.Instance.CameraController.Play_HitEnemyAnim();
                 EC.Take_Damaged(State, DevTool.Get_DirFromAngle(transform.eulerAngles.z));
             }
         }
@@ -63,8 +63,9 @@ public class PlayerBulletController : BulletController
         switch (PoolingString)
         {
             case "PlayerBullet": // �⺻ź
-                Gen_AttackPointEffect(TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-                
+
+                UnitManager.Instance.OnceTime_AnimGenerator.Anim_AttackSuccess(
+                    TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical, 1.0f);
                 UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ObjectDestroy(
                     PlayerManager.Instance.PlayerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
                 
@@ -82,20 +83,6 @@ public class PlayerBulletController : BulletController
             default:
                 break;
         }
-    }
-
-    #endregion
-
-    #region Effect
-
-    private void Gen_AttackPointEffect(Vector2 _SpanwedPos, eDamageType _DamageType, bool _IsCritical)
-    {
-        OnceTimeAnimController oota = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
-        oota.Start_Anim(
-            PlayerManager.Instance.PlayerController.Get_AnimClip_CorrectHitted(_DamageType, _IsCritical),
-            _SpanwedPos, 
-            PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0], 
-            2.0f, 1.0f);
     }
 
     #endregion

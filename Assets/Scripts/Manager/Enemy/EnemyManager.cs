@@ -31,6 +31,12 @@ public class EnemyManager : Singleton<EnemyManager>
     [SerializeField] public Sprite ShieldIcon;
     [SerializeField] public Sprite ATKIcon;
 
+    [Space(10)]
+    [Header("=== Anim")]
+    [SerializeField] public AnimationClip HittedAC_0;
+    [SerializeField] public AnimationClip HittedAC_1;
+    [SerializeField] public AnimationClip HittedAC_2;
+
     #endregion
 
     #region Get
