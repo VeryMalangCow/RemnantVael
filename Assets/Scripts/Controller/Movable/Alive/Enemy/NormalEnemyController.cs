@@ -40,8 +40,7 @@ public class NormalEnemyController : EnemyController
     {
         Set_Img(WalkingSatellite, ThisRb.velocity);
         Set_Img(LookingSatellite, LookAtDir);
-
-        Set_AnimSpeed();
+        DevTool.Set_AnimSpeedAnd(ThisSEDA, BaseUnderFootAnimSpeed * ThisRb.velocity.sqrMagnitude);
     }
 
     #endregion
@@ -68,13 +67,5 @@ public class NormalEnemyController : EnemyController
         { hand.SetPos(_SC.PlayerSR.sortingOrder); }
     }
 
-    private void Set_AnimSpeed()
-    {
-        float dis = Vector2.Distance(Vector2.zero, ThisRb.velocity);
-        for (int i = 0; i < ThisSEDA.Count; i++)
-        {
-            ThisSEDA[i].Set_AnimSpeed(BaseUnderFootAnimSpeed * dis);
-        }
-    }
     #endregion
 }

@@ -147,7 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationTargetTF: {fileID: 4831744638817460178}
-  ThisEightImgList:
+  ThisComp: {fileID: 8514484191356774825}
+  ThisDirectionalList:
   - {fileID: -980120752, guid: 46249161ffa4b6747a1a1ed0688be83b, type: 3}
   - {fileID: 1867896433, guid: 46249161ffa4b6747a1a1ed0688be83b, type: 3}
   - {fileID: -1173623641, guid: 46249161ffa4b6747a1a1ed0688be83b, type: 3}
@@ -405,7 +406,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationTargetTF: {fileID: 4831744638817460178}
-  ThisEightImgList:
+  ThisComp: {fileID: 2770799829606493345}
+  ThisDirectionalList:
   - {fileID: 1500049763, guid: 46249161ffa4b6747a1a1ed0688be83b, type: 3}
   - {fileID: 892722992, guid: 46249161ffa4b6747a1a1ed0688be83b, type: 3}
   - {fileID: 72670048, guid: 46249161ffa4b6747a1a1ed0688be83b, type: 3}
@@ -672,7 +674,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationTargetTF: {fileID: 4831744638817460178}
-  ThisEightImgList:
+  ThisComp: {fileID: 4076667782564965252}
+  ThisDirectionalList:
   - {fileID: -2049998022, guid: 46249161ffa4b6747a1a1ed0688be83b, type: 3}
   - {fileID: -1097586161, guid: 46249161ffa4b6747a1a1ed0688be83b, type: 3}
   - {fileID: -1637446628, guid: 46249161ffa4b6747a1a1ed0688be83b, type: 3}

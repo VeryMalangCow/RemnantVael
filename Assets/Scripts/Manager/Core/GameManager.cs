@@ -453,6 +453,15 @@ public class DevTool
         }
     }
 
+    // 방향성 Anim 컨트롤러의 애니메이터들의 속도 조절
+    public static void Set_AnimSpeedAnd(List<DirectionalAnimController> _TargetList, float _Speed)
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            DevTool.Set_AnimSpeedAndSize(_TargetList[i].ThisComp, _Speed);
+        }
+    }
+
     #endregion
 
     #region About Tween
