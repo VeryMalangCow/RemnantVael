@@ -10,8 +10,11 @@ public class EnemyPattern_Range : EnemyPattern
     [Header("<><><><><> Melee")]
 
     [Space(10)]
-    [Header("=== Value")]
+    [Header("=== State")]
     [SerializeField] private BulletState ThisBS;
+
+    [Space(10)]
+    [Header("=== Size")]
     [SerializeField] private Vector2 BulletShadowScale;
     [SerializeField] private Vector2 BulletColSize;
 

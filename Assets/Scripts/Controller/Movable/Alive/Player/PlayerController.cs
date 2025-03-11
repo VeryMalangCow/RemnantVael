@@ -503,7 +503,7 @@ public class PlayerController : AliveObjectController
     }
 
     // 타격: 건물어택커
-    public void Try_Hitted(BuildAttackerController _Attacker)
+    public void Try_Hitted(TrapObjectController _Attacker)
     {
         if (IsInvincible)
         { return; }
@@ -514,6 +514,8 @@ public class PlayerController : AliveObjectController
         // 피격
         if (!Is_Avoid()) // 회피인지?
         {
+            
+            /*
             // 간소화
             AttackerState state = _Attacker.AttackerState;
 
@@ -523,6 +525,7 @@ public class PlayerController : AliveObjectController
                 state.KnockbackState.CanKB,
                 state.KnockbackState.KBPower,
                 state.KnockbackState.KBTime);
+            */
         }
     }
 

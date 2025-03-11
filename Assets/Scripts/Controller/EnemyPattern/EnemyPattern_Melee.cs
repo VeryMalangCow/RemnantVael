@@ -9,8 +9,11 @@ public class EnemyPattern_Melee : EnemyPattern
     [Header("<><><><><> Melee")]
 
     [Space(10)]
-    [Header("=== Value")]
+    [Header("=== State")]
     [SerializeField] private AttackerState ThisAS;
+
+    [Space(10)]
+    [Header("=== Value")]
     [SerializeField] private AnimationClip ThisAC;
     [SerializeField] private float JugeAndTweenTime = 0.5f;
     [SerializeField] private float AnimSpeed = 2.6f;

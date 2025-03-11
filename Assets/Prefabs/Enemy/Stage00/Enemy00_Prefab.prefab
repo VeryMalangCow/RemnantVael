@@ -1002,7 +1002,7 @@ MonoBehaviour:
   IsPlayingThisPattern: 0
   StartDelay: 0.5
   EndDelay: 0.1
-  FollowingSpeed: 2.5
+  FollowingSpeed: 2.25
   UntilForTargetRange: 1
   TargetRange: 3.7
   IgnoreWall: 0
@@ -1060,14 +1060,14 @@ MonoBehaviour:
   ThisAS:
     DmgState:
       DmgType: 0
-      Dmg: 0
+      Dmg: 10
     CriticalState:
       CC: 0
       CD: 0
     KnockbackState:
-      CanKB: 0
-      KBPower: 0
-      KBTime: 0
+      CanKB: 1
+      KBPower: 1.5
+      KBTime: 1
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   JugeAndTweenTime: 0.5
   AnimSpeed: 2.6
@@ -1487,7 +1487,7 @@ MonoBehaviour:
   IsPlayingThisPattern: 0
   StartDelay: 0.5
   EndDelay: 0.1
-  FollowingSpeed: 2.5
+  FollowingSpeed: 2.25
   UntilForTargetRange: 1
   TargetRange: 1.8
   IgnoreWall: 0
@@ -1928,14 +1928,14 @@ MonoBehaviour:
   ThisBS:
     DmgState:
       DmgType: 0
-      Dmg: 0
+      Dmg: 5
     CriticalState:
       CC: 0
       CD: 0
     KnockbackState:
-      CanKB: 0
-      KBPower: 0
-      KBTime: 0
+      CanKB: 1
+      KBPower: 1
+      KBTime: 1
     IsCritical: 0
     MuzzleSpeed: 1
     AliveTime: 3
