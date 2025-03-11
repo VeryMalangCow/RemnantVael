@@ -72,7 +72,7 @@ public class PlayerWeaponController : SolarSystemController
         }
         else if (!Is_Firing())
         {
-            InputManager.Instance.AimController.Set_AttackState(false);
+            InputManager.Instance.AimController.Set_ActivingAttack(false);
         }
     }
 
@@ -142,7 +142,7 @@ public class PlayerWeaponController : SolarSystemController
             BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), true, MuzzleSpeed.ActualState.Value, AliveTime);
             BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(BulletSpawnTFs[i].position, dir, randomAngle);
             BulletState_Size? size = null;
-            BulletState_Anim? anim = null;
+            State_Anim? anim = null;
 
             PBC.Set_State(bulletState, posAndRot, size, anim, targetShadow);
 
@@ -163,7 +163,7 @@ public class PlayerWeaponController : SolarSystemController
                     isCritical);
             }
         }
-        InputManager.Instance.AimController.Set_AttackState(true);
+        InputManager.Instance.AimController.Set_ActivingAttack(true);
         CurrentDelayROF -= 1;
 
         // Tween

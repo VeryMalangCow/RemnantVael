@@ -32,7 +32,7 @@ public class EnemyBulletController : BulletController
         }
     }
 
-    public override void Set_State_Anim(BulletState_Anim? _State_Anim) 
+    public override void Set_State_Anim(State_Anim? _State_Anim) 
     {
         if (_State_Anim.HasValue)
         {

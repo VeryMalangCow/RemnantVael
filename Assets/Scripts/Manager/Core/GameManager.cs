@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -224,6 +225,22 @@ public class DevTool
         _SR.sortingOrder = _SortingOrder;
     }
 
+
+    // 구조체 값에서 값을 넣기
+    public static void Set_TF_FromStruct(Transform _TF, State_TF2D _StructTF2D)
+    {
+        _TF.position = _StructTF2D.Pos;
+        _TF.rotation = _StructTF2D.Rot;
+        _TF.localScale = _StructTF2D.LocalScale;
+    }
+
+    public static void Set_MatAndClr_FromStruct(SpriteRenderer _SR, State_Sprite _SpriteExtra)
+    {
+        _SR.material = _SpriteExtra.Mat;
+        _SR.color = _SpriteExtra.Clr;
+    }
+
+
     #endregion
 
     #region About List
@@ -303,13 +320,15 @@ public class DevTool
     }
 
     // 'T, U 타입' 리스트를 돌면서 실행
-    public static void Set_ListDele<T, U>(List<T> _TargetList, Dele_RefT_U<U, T> _Dele, ref U _Variable)
+    public static void Set_ListDele<T, U>(List<T> _TargetList, Dele_RefT_U<U, T> _Dele, ref U _Variable, 
+        int _StartIndex = 0)
     {
-        for (int i = 0; i < _TargetList.Count; i++)
+        for (int i = _StartIndex; i < _TargetList.Count; i++)
         {
             _Dele(ref _Variable, _TargetList[i]);
         }
     }
+
 
     public static void Set_ListDele<T, U>(List<T> _TargetList, Dele_T_U<T, U> _Dele, U _Value)
     {
@@ -345,6 +364,13 @@ public class DevTool
         return (_EndGO.transform.position - _StartGO.transform.position).normalized;
     }
 
+
+    // 실제 주소값 Vector에 추가
+    public static void Add_RefValue(ref Vector2 _Variable, Vector2 _AddValue)
+    {
+        _Variable += _AddValue;
+    }
+
     #endregion
 
     #region About Quaternion
@@ -372,6 +398,7 @@ public class DevTool
     }
 
     // 회전값에 값을 더하기
+    // TF값, 월드기준
     public static void Add_RotZValue(Transform _TF, float _ZValue)
     {
         Vector3 currentRotation = _TF.eulerAngles;
@@ -379,6 +406,17 @@ public class DevTool
         currentRotation.z += _ZValue;
         _TF.eulerAngles = currentRotation;
     }
+
+    // TF값, 로컬기준
+    public static void Add_LocalRotZValue(Transform _TF, float _ZValue)
+    {
+        Vector3 currentRotation = _TF.localEulerAngles;
+
+        currentRotation.z += _ZValue;
+        _TF.localEulerAngles = currentRotation;
+    }
+
+    // Quat값, 월드 기준
     public static Quaternion Add_RotZValue(Quaternion _Rotation, float _ZValue)
     {
         Vector3 currentRotation = _Rotation.eulerAngles;
@@ -389,6 +427,7 @@ public class DevTool
 
         return q;
     }
+
 
     // 반대 방향의 회전값 구하기
     public static Quaternion Get_FlipRotation(Quaternion _Rotation)
@@ -443,7 +482,7 @@ public class DevTool
     {
         // 현재 애니메이터 상태 정보 가져오기가 1이상(1번이상 진행?)
         // 애니메이션이 종료되었는지 판별
-        if (_AT.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1 && !_AT.IsInTransition(0))
+        if (_AT.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f && !_AT.IsInTransition(0))
         {
             return true;
         }
@@ -555,6 +594,37 @@ public class DevTool
     #endregion
 }
 
+
+#endregion
+
+#region Class : PublicData
+
+[System.Serializable]
+public class TrioData<T>
+{
+    [SerializeField] public T TypeA;
+    [SerializeField] public T TypeSpecial;
+    [SerializeField] public T TypeB;
+}
+
+[System.Serializable]
+public class CoupleData<T>
+{
+    [SerializeField] public T TypeBase;
+    [SerializeField] public T TypeSpecial;
+
+    public T Get_Special(bool _Yes)
+    {
+        if (_Yes)
+        {
+            return TypeSpecial;
+        }
+        else
+        {
+            return TypeBase;
+        }
+    }
+}
 
 #endregion
 
@@ -811,166 +881,6 @@ public class BulletState : CombatState
 
 #endregion
 
-#region Struct : BulletState
-
-public struct BulletState_PosAndRot
-{
-    #region Value
-
-    public Vector2 SpawnPos;
-    public Vector2 Dir;
-    public float SpreadAngle;
-
-    #endregion
-
-    #region Constructor
-
-    public BulletState_PosAndRot(Vector2 _SpawnPos, Vector2 _Dir, float _SpreadAngle)
-    {
-        SpawnPos = _SpawnPos;
-        Dir = _Dir;
-        SpreadAngle = _SpreadAngle;
-    }
-
-    #endregion
-}
-
-public struct BulletState_Size
-{
-    #region Value
-
-    public Vector2 ObjSize;
-    public Vector2 ColSize;
-
-    #endregion
-
-    #region Constructor 
-
-    public BulletState_Size(Vector2 _ObjScale, Vector2 _ColSize)
-    {
-        ObjSize = _ObjScale;
-        ColSize = _ColSize;
-    }
-
-    #endregion
-}
-
-public struct BulletState_Anim
-{
-    #region Value
-
-    public AnimationClip AC;
-    public float Speed;
-
-    #endregion
-
-    #region Constructor 
-    
-    public BulletState_Anim(AnimationClip _AC, float _Speed)
-    {
-        AC = _AC;
-        Speed = _Speed;
-    }
-
-    #endregion
-}
-
-#endregion
-
-#region Struct : AttackerState
-
-public struct AttackerState_StartTF
-{
-    #region Value
-
-    public Vector2 Pos;
-    public Quaternion Rot;
-    public Vector2 Size;
-
-    #endregion
-
-    #region Constructor
-
-    public AttackerState_StartTF(Vector2 _Pos, Quaternion _Rot, Vector2 _Size)
-    {
-        Pos = _Pos;
-        Rot = _Rot;
-        Size = _Size;
-    }
-
-    #endregion
-}
-
-public struct AttackerState_EndTF
-{
-    #region Value
-
-    public Vector2 Pos;
-    public Quaternion Rot;
-    public Vector2 Size;
-
-    public float Time;
-
-    #endregion
-
-    #region Constructor
-
-    public AttackerState_EndTF(Vector2 _Pos, Quaternion _Rot, Vector2 _Size, float _Time)
-    {
-        Pos = _Pos;
-        Rot = _Rot;
-        Size = _Size;
-
-        Time = _Time;
-    }
-
-    #endregion
-}
-
-public struct AttackerState_Anim
-{
-    #region Value
-
-    public AnimationClip AC;
-    public float Speed;
-
-    #endregion
-
-    #region Constructor
-
-    public AttackerState_Anim(AnimationClip _AC, float _Speed)
-    {
-        AC = _AC;
-        Speed = _Speed;
-    }
-
-    #endregion
-}
-
-public struct AttackerState_Juge<T> where T : Collider2D
-{
-    #region Value
-
-    public Vector2 ColSize;
-    public bool IsVertical;
-
-    #endregion
-
-    #region Constructor
-
-    public AttackerState_Juge(Vector2 _ColSize, bool _IsVertical = false)
-    {
-        ColSize = _ColSize;
-        IsVertical = _IsVertical;
-    }
-
-    #endregion
-}
-
-
-
-#endregion
-
 #region Class : State : Combat : Attacker
 
 [System.Serializable]
@@ -1093,6 +1003,178 @@ public class PlayerVisual<T>
 
 #endregion
 
+
+
+#region Struct : PublicData
+
+public struct State_TF2D
+{
+    #region Value
+
+    public Vector2 Pos;
+    public Quaternion Rot;
+    public Vector2 LocalScale;
+
+    #endregion
+
+    #region Constructor
+
+    public State_TF2D(Vector2 _Pos, Quaternion _Rot, Vector2 _LocalScale)
+    {
+        Pos = _Pos;
+        Rot = _Rot;
+        LocalScale = _LocalScale;
+    }
+
+    #endregion
+}
+
+#endregion
+
+#region Struct : BulletState
+
+public struct BulletState_PosAndRot
+{
+    #region Value
+
+    public Vector2 SpawnPos;
+    public Vector2 Dir;
+    public float SpreadAngle;
+
+    #endregion
+
+    #region Constructor
+
+    public BulletState_PosAndRot(Vector2 _SpawnPos, Vector2 _Dir, float _SpreadAngle)
+    {
+        SpawnPos = _SpawnPos;
+        Dir = _Dir;
+        SpreadAngle = _SpreadAngle;
+    }
+
+    #endregion
+}
+
+public struct BulletState_Size
+{
+    #region Value
+
+    public Vector2 ObjSize;
+    public Vector2 ColSize;
+
+    #endregion
+
+    #region Constructor 
+
+    public BulletState_Size(Vector2 _ObjScale, Vector2 _ColSize)
+    {
+        ObjSize = _ObjScale;
+        ColSize = _ColSize;
+    }
+
+    #endregion
+}
+
+#endregion
+
+#region Struct : AttackerState
+
+public struct AttackerState_EndTF
+{
+    #region Value
+
+    public State_TF2D TF;
+
+    public float Time;
+
+    #endregion
+
+    #region Constructor
+
+    public AttackerState_EndTF(Vector2 _Pos, Quaternion _Rot, Vector2 _Size, float _Time)
+    {
+        TF.Pos = _Pos;
+        TF.Rot = _Rot;
+        TF.LocalScale = _Size;
+
+        Time = _Time;
+    }
+
+    #endregion
+}
+
+public struct AttackerState_Juge<T> where T : Collider2D
+{
+    #region Value
+
+    public Vector2 ColSize;
+    public bool IsVertical;
+
+    #endregion
+
+    #region Constructor
+
+    public AttackerState_Juge(Vector2 _ColSize, bool _IsVertical = false)
+    {
+        ColSize = _ColSize;
+        IsVertical = _IsVertical;
+    }
+
+    #endregion
+}
+
+#endregion
+
+#region Struct : Visual
+
+public struct State_Sprite
+{
+    #region Value
+
+    public Material Mat;
+    public Color Clr;
+
+    #endregion
+
+    #region Constructor
+
+    public State_Sprite(Material _Mat, Color _Clr)
+    {
+        Mat = _Mat;
+        Clr = _Clr;
+    }
+
+    #endregion
+}
+
+public struct State_Anim
+{
+    #region Value
+
+    public AnimationClip AC;
+    public float Speed;
+
+    #endregion
+
+    #region Constructor
+
+    public State_Anim(AnimationClip _AC)
+    {
+        AC = _AC;
+        Speed = 1f;
+    }
+
+    public State_Anim(AnimationClip _AC, float _Speed)
+    {
+        AC = _AC;
+        Speed = _Speed;
+    }
+
+    #endregion
+}
+
+#endregion
+
 #region Struct : Visual : Explosion
 
 public struct ExplState_Base
@@ -1120,6 +1202,7 @@ public struct ExplState_Base
 
     #endregion
 }
+
 public struct ExplState_Sprite
 {
     #region Value
@@ -1243,43 +1326,6 @@ public struct ExplState
 
 #endregion
 
-#region Class : PublicData
-
-[System.Serializable]
-public class TrioData<T>
-{
-    [SerializeField] public T TypeA;
-    [SerializeField] public T TypeSpecial;
-    [SerializeField] public T TypeB;
-}
-
-[System.Serializable]
-public class CoupleData<T>
-{
-    [SerializeField] public T TypeBase;
-    [SerializeField] public T TypeSpecial;
-
-    public T Get_Special(bool _Yes)
-    {
-        if (_Yes)
-        {
-            return TypeSpecial;
-        }
-        else
-        {
-            return TypeBase;
-        }
-    }
-}
-
-[System.Serializable]
-public class CooltimeData
-{
-    [SerializeField] public float CurrentCooltime = 0;
-    [SerializeField] public float MaxCooltime = 0;
-}
-
-#endregion
 
 #region Interface : Interact
 
@@ -1308,6 +1354,7 @@ public interface IWhen_GetElectricity : IWhen { }
 
 #endregion
 
+
 #region Delegate
 
 public delegate void Dele();
@@ -1321,6 +1368,7 @@ public delegate void Dele_RefT_U<T, U>(ref T _Item1, U _Item2);
 
 
 #endregion
+
 
 #region Enum
 

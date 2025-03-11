@@ -7,11 +7,14 @@ public class OnceTimeAnimGenerator : MonoBehaviour
     // 적에게 공격이 명중했을 경우 (공격자 기준)
     public void Anim_AttackSuccess(Vector2 _SpawnPos, eDamageType _DamageType, bool _IsCritical, float _AnimSize = 1)
     {
-        Gen_OOA().Start_Anim(
-            PlayerManager.Instance.PlayerController.Get_AnimClip_CorrectHitted(_DamageType, _IsCritical),
-            _SpawnPos,
-            PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0],
-            2.0f, _AnimSize);
+        State_Anim anim = new State_Anim(
+            PlayerManager.Instance.PlayerController.Get_AnimClip_CorrectHitted(_DamageType, _IsCritical), 2f);
+        State_TF2D tf = new State_TF2D(
+            _SpawnPos, Quaternion.identity, Vector2.one * _AnimSize);
+        State_Sprite sprite = new State_Sprite(
+            PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[0], Color.white);
+        
+        Gen_OOA().Start_Anim(anim, tf, sprite);
     }
 
     #endregion
@@ -21,12 +24,14 @@ public class OnceTimeAnimGenerator : MonoBehaviour
     // 적이 공격을 받았을 경우 (피해자 기준)
     public void Anim_Attacked_Circle(Vector2 _SpawnPos, Quaternion _Rotation)
     {
-        Gen_OOA().Start_Anim(
-            EnemyManager.Instance.HittedAC_0,
-            _SpawnPos,
-            UnitManager.Instance.ModuleM_000_Explosion,
-            DevTool.Get_FlipRotation(_Rotation),
-            1.5f, 1f);
+        State_Anim anim = new State_Anim(
+            EnemyManager.Instance.HittedAC_0, 1.5f);
+        State_TF2D tf = new State_TF2D(
+            _SpawnPos, DevTool.Get_FlipRotation(_Rotation), Vector2.one);
+        State_Sprite sprite = new State_Sprite(
+            UnitManager.Instance.ModuleM_000_Explosion, Color.white);
+
+        Gen_OOA().Start_Anim(anim, tf, sprite);
     }
 
     // 적이 공격을 받았을 경우 (피해자 기준)
@@ -35,30 +40,31 @@ public class OnceTimeAnimGenerator : MonoBehaviour
         if (!_IsCritical)
         { return; }
 
-        Gen_OOA().Start_Anim(
-            EnemyManager.Instance.HittedAC_1,
-            _SpawnPos,
-            UnitManager.Instance.ModuleM_000_Explosion,
-            DevTool.Add_RotZValue(_Rotation, -45f),
-            2.5f, 1.0f);
+        for (int i = 0; i < 2; i++)
+        {
+            State_Anim anim = new State_Anim(
+                EnemyManager.Instance.HittedAC_1, 2.5f);
+            State_TF2D tf = new State_TF2D(
+                _SpawnPos, DevTool.Add_RotZValue(_Rotation, i == 0 ? -45 : 45), Vector2.one);
+            State_Sprite sprite = new State_Sprite(
+                UnitManager.Instance.ModuleM_000_Explosion, Color.white);
 
-        Gen_OOA().Start_Anim(
-            EnemyManager.Instance.HittedAC_1,
-            _SpawnPos,
-            UnitManager.Instance.ModuleM_000_Explosion,
-            DevTool.Add_RotZValue(_Rotation, 45f),
-            2.5f, 1.0f);
+            Gen_OOA().Start_Anim(anim, tf, sprite);
+        }
+
     }
 
     // 적이 죽을 경우
     public void Anim_Attacked_BigSlice(Vector2 _SpawnPos)
     {
-        Gen_OOA().Start_Anim(
-            EnemyManager.Instance.HittedAC_2,
-            _SpawnPos,
-            UnitManager.Instance.ModuleM_000_Explosion,
-            DevTool.Add_RotZValue(Quaternion.identity, DevTool.Get_RandomValueBaseZero(45f)),
-            2.5f, 2f);
+        State_Anim anim = new State_Anim(
+            EnemyManager.Instance.HittedAC_2, 1.5f);
+        State_TF2D tf = new State_TF2D(
+            _SpawnPos, DevTool.Add_RotZValue(Quaternion.identity, DevTool.Get_RandomValueBaseZero(45f)), Vector2.one * 2f);
+        State_Sprite sprite = new State_Sprite(
+            UnitManager.Instance.ModuleM_000_Explosion, Color.white);
+
+        Gen_OOA().Start_Anim(anim, tf, sprite);
     }
 
     

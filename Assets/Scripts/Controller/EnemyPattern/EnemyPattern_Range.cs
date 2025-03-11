@@ -100,7 +100,7 @@ public class EnemyPattern_Range : EnemyPattern
 
             BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(SpawnTFList[i].position, targetDir, 0);
             BulletState_Size size = new BulletState_Size(BulletShadowScale, BulletColSize);
-            BulletState_Anim anim = new BulletState_Anim(BulletAC, 1);
+            State_Anim anim = new State_Anim(BulletAC, 1);
 
             EBC.Set_State(ThisBS, posAndRot, size, anim, targetShadow);
 

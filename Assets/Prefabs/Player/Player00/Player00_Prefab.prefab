@@ -2185,7 +2185,7 @@ MonoBehaviour:
     UpgradeValueByLevelRange: 01000000010000000100000001000000
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 10
+      value: 20
     BuffList: []
     Name: Tier
     Desc: Skill tier. It's also the number of consecutive launches of missiles. (Tier
@@ -2201,7 +2201,7 @@ MonoBehaviour:
     - 0.4
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 10
+      value: 1.5
     BuffList: []
     Name: Power
     Desc: Damage multiple of missile calculated as multiple to basic attack.

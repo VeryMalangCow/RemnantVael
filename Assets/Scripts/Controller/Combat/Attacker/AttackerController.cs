@@ -66,8 +66,8 @@ public abstract class AttackerController : MovableDepthController
     public Sequence Set_State<T>(
         AttackerState _State,
         AttackerState_Juge<T> _State_Juge,
-        AttackerState_Anim _State_Anim, 
-        AttackerState_StartTF _State_StartTF,
+        State_Anim _State_Anim,
+        State_TF2D _State_StartTF,
         AttackerState_EndTF _State_EndTF) where T : Collider2D
     {
         Sequence seq = DOTween.Sequence();
@@ -105,26 +105,26 @@ public abstract class AttackerController : MovableDepthController
         }
     }
 
-    public virtual void Set_State_Anim(AttackerState_Anim _State_Anim)
+    public virtual void Set_State_Anim(State_Anim _State_Anim)
     {
         DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.AC);
         ThisAnimator.speed = _State_Anim.Speed;
     }
 
-    public virtual void Set_State_StartTF(AttackerState_StartTF _State_StartTF)
+    public virtual void Set_State_StartTF(State_TF2D _State_StartTF)
     {
         this.transform.position = _State_StartTF.Pos;
         this.transform.rotation = _State_StartTF.Rot;
-        this.transform.localScale = _State_StartTF.Size;
+        this.transform.localScale = _State_StartTF.LocalScale;
     }
 
     public virtual Sequence Set_State_EndTF(AttackerState_EndTF _State_EndTF) 
     {
         Sequence seq = DOTween.Sequence();
 
-        seq.Join(this.transform.DOMove(_State_EndTF.Pos, _State_EndTF.Time));
-        seq.Join(TargetObject.transform.DORotateQuaternion(_State_EndTF.Rot, _State_EndTF.Time));
-        seq.Join(this.transform.DOScale(_State_EndTF.Size, _State_EndTF.Time));
+        seq.Join(this.transform.DOMove(_State_EndTF.TF.Pos, _State_EndTF.Time));
+        seq.Join(TargetObject.transform.DORotateQuaternion(_State_EndTF.TF.Rot, _State_EndTF.Time));
+        seq.Join(this.transform.DOScale(_State_EndTF.TF.LocalScale, _State_EndTF.Time));
 
         return seq;
     }
