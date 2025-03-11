@@ -100,13 +100,13 @@ public class EnemyPattern_Melee : EnemyPattern
             = new AttackerState_Juge<CircleCollider2D>(
                 Vector2.one);
 
-        AttackerState_Anim anim
-            = new AttackerState_Anim(
+        State_Anim anim
+            = new State_Anim(
                 ThisAC, 
                 AnimSpeed);
 
-        AttackerState_StartTF startTF 
-            = new AttackerState_StartTF(
+        State_TF2D startTF 
+            = new State_TF2D(
                 (Vector2)ThisEnemy.transform.position + (targetDir * SpawnDis),
                 Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, targetDir)),
                 Vector2.one);

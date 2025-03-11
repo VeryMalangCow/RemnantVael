@@ -115,7 +115,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), true, PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2f);
             BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(PC.transform.position, dir, 10);
             BulletState_Size? size = null;
-            BulletState_Anim? anim = null;
+            State_Anim? anim = null;
 
             pbc.Set_State(bulletState, posAndRot, size, anim, 0.35f);
 

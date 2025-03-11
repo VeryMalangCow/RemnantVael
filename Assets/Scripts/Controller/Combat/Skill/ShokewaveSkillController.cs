@@ -34,7 +34,7 @@ public class ShockwaveSkillController : ActiveSkillController
 
     private void Play_ActualActive()
     {
-        InputManager.Instance.AimController.Set_SkillState(1, true);
+        InputManager.Instance.AimController.Set_ActivingSkill(1, true);
 
         DmgState dmgState = new DmgState(eDamageType.Energy, PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value);
         CriticalState criticalState = new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value);
@@ -52,13 +52,13 @@ public class ShockwaveSkillController : ActiveSkillController
                 ColSize, 
                 _IsVertical:false);
 
-        AttackerState_Anim anim
-            = new AttackerState_Anim(
+        State_Anim anim
+            = new State_Anim(
                 ShockwaveAnimation, 
                 AnimSpeed);
 
-        AttackerState_StartTF startTF
-            = new AttackerState_StartTF(
+        State_TF2D startTF
+            = new State_TF2D(
                 (Vector2)ThisHST.transform.position,
                 Quaternion.identity,
                 Vector2.one * StartSize);
@@ -71,15 +71,6 @@ public class ShockwaveSkillController : ActiveSkillController
 
         pa.Set_State(state, juge, anim, startTF, endTF);
 
-/*
-        pa.Play_Bigger(ThisHST.transform.position, state, ShockwaveAnimation,
-            ColSize, StartSize, usableMaxSize, BiggerTime)
-            .OnComplete(() =>
-            {
-                InputManager.Instance.AimController.Set_SkillState(1, false);
-                Set_EndUI();
-            });
-*/
         UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_Skill1(PlayerController.Get_ID(), (Vector2)ThisHST.TargetObject.gameObject.transform.position);
 
         BuffManager.Instance.Gain_Buff(0);

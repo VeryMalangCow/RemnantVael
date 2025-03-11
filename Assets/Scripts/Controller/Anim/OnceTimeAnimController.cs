@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OnceTimeAnimController : MonoBehaviour
@@ -15,7 +14,16 @@ public class OnceTimeAnimController : MonoBehaviour
 
     private void Update()
     {
-        if (ThisAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f)
+        Update_CheckingEndAnim();
+    }
+
+    #endregion
+
+    #region Update
+
+    private void Update_CheckingEndAnim()
+    {
+        if (DevTool.Is_AnimIsDone(ThisAnimator))
         {
             End_Anim();
         }
@@ -25,37 +33,29 @@ public class OnceTimeAnimController : MonoBehaviour
 
     #region Anim
 
-    public void Start_Anim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, float _AnimSpeed = 1f, float _AnimSize = 1f)
+    public void Start_Anim(
+        State_Anim _State_Anim,
+        State_TF2D _StructTF, 
+        State_Sprite _SpriteExtra)
     {
-        Start_Anim(_AC, _SpawnedPos, _Material, Quaternion.identity, _AnimSpeed, _AnimSize);
-    }
+        ThisAnimator.enabled = true;
+        ThisAnimator.speed = _State_Anim.Speed;
 
-    public void Start_Anim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, Quaternion _Rotation, float _AnimSpeed = 1f, float _AnimSize = 1f)
-    {
-        Start_Anim(_AC, _SpawnedPos, _Material, Color.white, _Rotation, _AnimSpeed, _AnimSize);
-    }
-
-    public void Start_Anim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, Color _Clr, Quaternion _Rotation, float _AnimSpeed = 1f, float _AnimSize = 1f)
-    {
-        DevTool.Set_Anim(ref AOC, ThisAnimator, _AC);
-
-        ThisAnimator.speed = _AnimSpeed;
-        ThisSpriteRenderer.material = _Material;
-        ThisSpriteRenderer.color = _Clr;
-
-        this.gameObject.transform.rotation = _Rotation;
-        this.gameObject.transform.localScale = Vector2.one * _AnimSize;
-        this.gameObject.transform.position = _SpawnedPos;
+        DevTool.Set_TF_FromStruct(gameObject.transform, _StructTF);
+        DevTool.Set_MatAndClr_FromStruct(ThisSpriteRenderer, _SpriteExtra);
+        DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.AC);
 
         this.gameObject.SetActive(true);
     }
 
     private void End_Anim()
     {
+        AOC = null;
         ThisAnimator.speed = 0f;
+        ThisAnimator.enabled = false;
+
         this.gameObject.SetActive(false);
-        if (AOC != null)
-        { AOC = null; }
+
         PoolingManager.Instance.OnlyOnceAnimators.Queue.Enqueue(this);
     }
 

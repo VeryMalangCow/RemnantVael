@@ -38,9 +38,15 @@ public class CameraController : MonoBehaviour
 
     #endregion
 
-    #region  Framework
+    #region Offset
 
-    private void Start()
+    private void Offset()
+    {
+        Offset_SetVariable();
+        Offset_State();
+    }
+
+    private void Offset_SetVariable()
     {
         CameraElementTransformList = new List<Transform>();
         foreach (Transform child in transform)
@@ -52,32 +58,48 @@ public class CameraController : MonoBehaviour
         ShotShakeTF = CameraElementTransformList[1];
         EnemyKillShakeTF = CameraElementTransformList[2];
         DamagedShakeTF = CameraElementTransformList[3];
+    }
 
+    private void Offset_State()
+    {
         CameraProjectionSize = MainCamera.orthographicSize;
+    }
+
+    #endregion
+
+    #region  Framework
+
+    private void Start()
+    {
+        Offset();
     }
 
     private void LateUpdate()
     {
         Set_FollowTargetSmooth(TargetTF);
-        Set_FollowTargetRangeLimit();
 
         MainCamera.transform.position = Get_TotalCameraPos();
     }
 
     #endregion
 
-    #region Camera
+    #region Get
 
     private Vector3 Get_TotalCameraPos()
     {
         Vector2 totalPos = FollowTargetTF.position;
 
-        for (int i = 1; i < CameraElementTransformList.Count; i++)
-        {
-            totalPos += (Vector2)CameraElementTransformList[i].position;
-        }
+        DevTool.Set_ListDele(
+            CameraElementTransformList,
+            new Dele_RefT_U<Vector2, Transform>(Add_PosValue), 
+            ref totalPos, 1);
 
         return new Vector3(totalPos.x, totalPos.y, -10f);
+    }
+
+    private void Add_PosValue(ref Vector2 _Variable, Transform _Value)
+    {
+        DevTool.Add_RefValue(ref _Variable, (Vector2)_Value.position);
     }
 
     #endregion
@@ -96,49 +118,23 @@ public class CameraController : MonoBehaviour
             FollowSpeed * Time.deltaTime);
     }
 
-    private void Set_FollowTargetSmooth(Transform _TargetTF, Transform _TargetTF2)
-    {
-        Vector2 originPos = FollowTargetTF.position;
-
-        Vector2 targetPos = 
-            (((Vector2)_TargetTF.position * 10) + (Vector2)_TargetTF2.position) / 10;
-
-        FollowTargetTF.position = Vector2.Lerp(
-            originPos,
-            targetPos,
-            FollowSpeed * Time.deltaTime);
-    }
-
-    private void Set_FollowTargetRangeLimit()
-    {
-        Vector2 cameraPos = FollowTargetTF.position;
-        Vector2 playerPos = TargetTF.transform.position;
-
-        float dis = Vector2.Distance(cameraPos, playerPos);
-        if (dis > FollowRangeLimit)
-        {
-            Vector2 dir = (cameraPos - playerPos).normalized;
-            Vector3 targetPos = playerPos + (dir * FollowRangeLimit);
-            targetPos.z = -10;
-            FollowTargetTF.position = targetPos;
-        }
-    }
-
     #endregion
 
-    #region Play Tween
+    #region When?
 
+    // 발사
     public void Play_ShotAnim(float _Dur, float _Strength)
     {
         Play_Shake(ShotShakeTF, _Dur, _Strength * ShotStrength, ShotVibrato);
     }
 
+    // 적 타격
     public void Play_HitEnemyAnim()
     {
-        //Play_SlowMotion(0.3f, 0.95f);
         Play_POVSize(0.3f, CameraProjectionSize - 0.05f);
     }
 
+    // 적 처치
     public void Play_KillAnim(float _Dur)
     {
         Play_Shake(EnemyKillShakeTF, _Dur, KillStrength, KillVibrato);
@@ -146,12 +142,14 @@ public class CameraController : MonoBehaviour
         Play_POVSize(0.4f, CameraProjectionSize - 0.1f);
     }
 
+    // 회피
     public void Play_AvoidAnim(float _Dur)
     {
         Play_SlowMotion(_Dur * 0.8f, 0.5f);
         Play_POVSize(_Dur, CameraProjectionSize - 1f);
     }
 
+    // 피격
     public void Play_DamagedAnim(float _Dur, float _Strength, Vector2 _Dir)
     {
         Play_Rebound(DamagedShakeTF, _Dur, _Strength, _Dir);
@@ -192,10 +190,10 @@ public class CameraController : MonoBehaviour
             });
     }
 
-    private void Play_POVSize(float _Dur, float _CameraPojectionSize)
+    private void Play_POVSize(float _Dur, float _PojectionSize)
     {
         Sequence seq = DOTween.Sequence();
-        seq.Append(DOTween.To(() => MainCamera.orthographicSize, x => MainCamera.orthographicSize = x, _CameraPojectionSize, _Dur / 4));
+        seq.Append(DOTween.To(() => MainCamera.orthographicSize, x => MainCamera.orthographicSize = x, _PojectionSize, _Dur / 4));
         seq.Append(DOTween.To(() => MainCamera.orthographicSize, x => MainCamera.orthographicSize = x, CameraProjectionSize, _Dur * 3 / 4));
 
     }

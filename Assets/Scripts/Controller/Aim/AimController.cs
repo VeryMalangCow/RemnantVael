@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+
 
 public class AimController : StaticDepthController
 {
@@ -7,10 +8,13 @@ public class AimController : StaticDepthController
 
     [Space(20)]
     [Header("<><><><><> Aim")]
+
+    [Space(10)]
+    [Header("=== Value")]
     [SerializeField] private float AimFollowSpeed = 30f;
 
     [Space(10)]
-    [Header("=== Aim")]
+    [Header("=== Component")]
     [SerializeField] private CoupleData<SpriteRenderer> AimSR;
     [SerializeField] private PlayerVisual<Sprite> AimSprite;
 
@@ -41,33 +45,35 @@ public class AimController : StaticDepthController
 
     private void LateUpdate()
     {
-        Set_AimPosUpdate(Time.deltaTime);
-        Set_AimRotUpdate(Time.deltaTime);
+        Update_AimPos(Time.deltaTime);
+        Update_AimRot(Time.deltaTime);
+    }
+
+    #endregion
+
+    #region Update
+
+    // 위치 값 업데이트
+    private void Update_AimPos(float _DeltaTime)
+    {
+        gameObject.transform.position = Vector2.Lerp(
+            this.transform.position, 
+            InputManager.Instance.MousePosByWorld, 
+            AimFollowSpeed * _DeltaTime);
+    }
+
+    // 회전 값 업데이트
+    private void Update_AimRot(float _DeltaTime)
+    {
+        TargetObject.transform.localRotation = Quaternion.Slerp(
+            TargetObject.transform.localRotation,
+            DevTool.Get_RotFromDir(InputManager.Instance.DirFromPlayerPos), 
+            AimFollowSpeed * _DeltaTime);
     }
 
     #endregion
 
     #region Set 
-
-    // 위치 값 업데이트
-    private void Set_AimPosUpdate(float _DeltaTime)
-    {
-        Vector2 fromPos = this.transform.position;
-        Vector2 toPos = InputManager.Instance.MousePosByWorld;
-
-        gameObject.transform.position =
-            Vector2.Lerp(fromPos, toPos, AimFollowSpeed * _DeltaTime);
-    }
-
-    // 회전 값 업데이트
-    private void Set_AimRotUpdate(float _DeltaTime)
-    {
-        Quaternion fromRot = TargetObject.transform.localRotation;
-        Quaternion toRot = DevTool.Get_RotFromDir(InputManager.Instance.DirFromPlayerPos);
-
-        TargetObject.transform.localRotation =
-                    Quaternion.Slerp(fromRot, toRot, AimFollowSpeed * _DeltaTime);
-    }
 
     // 데미지 타입: 물리
     public void Set_PhysicsType()
@@ -82,19 +88,20 @@ public class AimController : StaticDepthController
     }
 
     // 공격 타입: On / Off (화살표)
-    public void Set_AttackState(bool _OnOff)
+    public void Set_ActivingAttack(bool _OnOff)
     {
         Set_ActiveSprite(AimSR.TypeSpecial.gameObject, _OnOff);
     }
 
     // 스킬 타입: On / Off (사용 스킬의 아이콘)
-    public void Set_SkillState(int _Index, bool _OnOff)
+    public void Set_ActivingSkill(int _Index, bool _OnOff)
     {
         Set_ActiveSprite(SkillAimList[_Index].gameObject, _OnOff);
     }
 
+    #endregion
 
-    /* Module */
+    #region Set Module
 
     // 데미지 타입에 따른 이미지 변경
     private void Set_DmgType(Sprite _AimSprite, Sprite _ShootMarkSprite)

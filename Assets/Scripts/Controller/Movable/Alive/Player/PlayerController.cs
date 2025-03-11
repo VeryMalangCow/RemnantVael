@@ -214,9 +214,9 @@ public class PlayerController : AliveObjectController
     private void Offset_Anim()
     {
         Set_BaseAnimTween(); 
-        StateAnim.Set_Anim(DmgTypeStateAC.TypeA, 0.8f, 1f);
+        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeA, 0.8f), 1f);
         Set_BoostAnim(CurrentBoostLv.Value, MaxBoostLv);
-        MoveDirStateAnim.Set_Anim(MoveDirAC);
+        MoveDirStateAnim.Set_Anim(new State_Anim(MoveDirAC));
         SetOff_RoomMoveDir();
     }
 
@@ -669,7 +669,7 @@ public class PlayerController : AliveObjectController
         if (!Can_Change()) 
         { return; }
 
-        StateAnim.Set_Anim(DmgTypeStateAC.TypeSpecial, ChangeState_DamageType, 2f, 1f);
+        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeSpecial, 2f), ChangeState_DamageType, 1f);
 
         switch (TargetCombatMode)
         {
@@ -697,7 +697,7 @@ public class PlayerController : AliveObjectController
         { return; }
 
         TargetBoostlv++;
-        StateAnim.Set_Anim(DmgTypeStateAC.TypeSpecial, ChangeState_BoostUpDown.TypeSpecial, 2f, 1f);
+        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeSpecial, 2f), ChangeState_BoostUpDown.TypeSpecial, 1f);
 
         Start_Casting(BoostModeInterval);
     }
@@ -711,7 +711,7 @@ public class PlayerController : AliveObjectController
         { return; }
 
         TargetBoostlv--;
-        StateAnim.Set_Anim(DmgTypeStateAC.TypeSpecial, ChangeState_BoostUpDown.TypeBase, 2f, 1f);
+        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeSpecial, 2f), ChangeState_BoostUpDown.TypeBase, 1f);
 
         Start_Casting(UnBoostModeInterval);
     }
@@ -760,7 +760,7 @@ public class PlayerController : AliveObjectController
         }
 
         ReservationSkillDele = SkillWeapon.Skill_0.Active_Skill;
-        StateAnim.Set_Anim(DmgTypeStateAC.TypeSpecial, ChangeState_Skill.TypeBase, 2f, 1f);
+        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeSpecial, 2f), ChangeState_Skill.TypeBase, 1f);
 
         Start_Casting(Skill0Interval);
     }
@@ -777,7 +777,7 @@ public class PlayerController : AliveObjectController
         }
 
         ReservationSkillDele = SkillWeapon.Skill_1.Active_Skill;
-        StateAnim.Set_Anim(DmgTypeStateAC.TypeSpecial, ChangeState_Skill.TypeSpecial, 2f, 1f);
+        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeSpecial, 2f), ChangeState_Skill.TypeSpecial, 1f);
 
         Start_Casting(Skill1Interval);
     }
@@ -920,12 +920,12 @@ public class PlayerController : AliveObjectController
         switch (TargetCombatMode)
         {
             case eCombatMode.Physics:
-                StateAnim.Set_Anim(DmgTypeStateAC.TypeA, 0.8f, 1f);
+                StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeA, 0.8f), 1f);
                 InputManager.Instance.AimController.Set_PhysicsType();
                 break;
 
             case eCombatMode.Energy:
-                StateAnim.Set_Anim(DmgTypeStateAC.TypeB, 0.8f, 1f);
+                StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeB, 0.8f), 1f);
                 InputManager.Instance.AimController.Set_EnergyType();
                 break;
 
@@ -1053,7 +1053,7 @@ public class PlayerController : AliveObjectController
         {
             for (int i = 0; i < _MaxIndex - 1; i++)
             {
-                BoostStateAnimController.TypeBase[i].Set_Anim(BoostOnOffAC.TypeSpecial, lowestAnimSpeed * (_MaxIndex * 2), 1f);
+                BoostStateAnimController.TypeBase[i].Set_Anim(new State_Anim(BoostOnOffAC.TypeSpecial, lowestAnimSpeed * (_MaxIndex * 2)), 1f);
             }
         }
         else
@@ -1062,11 +1062,11 @@ public class PlayerController : AliveObjectController
             {
                 if (i < _Index)
                 {
-                    BoostStateAnimController.TypeBase[i].Set_Anim(BoostOnOffAC.TypeSpecial, lowestAnimSpeed * (_Index - i + 1), 1f);
+                    BoostStateAnimController.TypeBase[i].Set_Anim(new State_Anim(BoostOnOffAC.TypeSpecial, lowestAnimSpeed * (_Index - i + 1)), 1f);
                 }
                 else
                 {
-                    BoostStateAnimController.TypeBase[i].Set_Anim(BoostOnOffAC.TypeBase, lowestAnimSpeed, 1f);
+                    BoostStateAnimController.TypeBase[i].Set_Anim(new State_Anim(BoostOnOffAC.TypeBase, lowestAnimSpeed), 1f);
                 }
             }
         }
@@ -1080,28 +1080,28 @@ public class PlayerController : AliveObjectController
         {
             case 1:
                 BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[0].Set_Anim(BoostVFXAnimList[0], 0.5f, 1f);
+                BoostStateAnimController.TypeSpecial[0].Set_Anim(new State_Anim(BoostVFXAnimList[0], 0.5f), 1f);
                 break;
 
             case 2:
                 BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[0].Set_Anim(BoostVFXAnimList[0], 1f, 1f);
+                BoostStateAnimController.TypeSpecial[0].Set_Anim(new State_Anim(BoostVFXAnimList[0], 1f), 1f);
                 break;
 
             case 3:
                 BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[0].Set_Anim(BoostVFXAnimList[0], 1f, 1f);
+                BoostStateAnimController.TypeSpecial[0].Set_Anim(new State_Anim(BoostVFXAnimList[0], 1f), 1f);
 
                 BoostStateAnimController.TypeSpecial[1].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[1].Set_Anim(BoostVFXAnimList[1], 1f, 1f);
+                BoostStateAnimController.TypeSpecial[1].Set_Anim(new State_Anim(BoostVFXAnimList[1], 1f), 1f);
                 break;
 
             case 4:
                 BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[0].Set_Anim(BoostVFXAnimList[0], 1.5f, 1f);
+                BoostStateAnimController.TypeSpecial[0].Set_Anim(new State_Anim(BoostVFXAnimList[0], 1.5f), 1f);
 
                 BoostStateAnimController.TypeSpecial[1].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[1].Set_Anim(BoostVFXAnimList[1], 1.5f, 1f);
+                BoostStateAnimController.TypeSpecial[1].Set_Anim(new State_Anim(BoostVFXAnimList[1], 1.5f), 1f);
                 break;
 
             default:

@@ -32,7 +32,7 @@ public class MissileSkillController : ActiveSkillController
     private IEnumerator Play_ActualActive_Cor()
     {
         // È¿°ú
-        InputManager.Instance.AimController.Set_SkillState(0, true);
+        InputManager.Instance.AimController.Set_ActivingSkill(0, true);
 
 
         Transform tf = null;
@@ -79,7 +79,7 @@ public class MissileSkillController : ActiveSkillController
 
                 BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(this.gameObject.transform.position, dir, randomSpreadAngle);
                 BulletState_Size? size = null;
-                BulletState_Anim? anim = null;
+                State_Anim? anim = null;
                 missile.Set_State(bulletState, posAndRot, size, anim, targetRange);
 
 
@@ -94,12 +94,13 @@ public class MissileSkillController : ActiveSkillController
 
                 // Effect Shake
                 tf.DOShakePosition(ShotDelay, 0.05f, 20, 90, false, true);
+                PlayerManager.Instance.CameraController.Play_ShotAnim(ShotDelay, bulletState.DmgState.Dmg * 0.5f);
             }
 
             yield return new WaitForSeconds(ShotDelay);
         }
 
-        InputManager.Instance.AimController.Set_SkillState(0, false);
+        InputManager.Instance.AimController.Set_ActivingSkill(0, false);
         Set_EndUI();
     }
 

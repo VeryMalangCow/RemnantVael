@@ -124,7 +124,7 @@ public class DestructibleBuildController : InteractableBuildController
         else
         {
             DevTool.Set_Anim(ref AOC, ThisAnimator, BrokenAC);
-            ThisStateAnim.Set_Anim(BrokenStateAC, 1f, 1f);
+            ThisStateAnim.Set_Anim(new State_Anim(BrokenStateAC, 1f), 1f);
         }
     }
 

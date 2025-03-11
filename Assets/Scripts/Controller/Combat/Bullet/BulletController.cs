@@ -80,7 +80,7 @@ public abstract class BulletController : MovableDepthController
         BulletState _State, 
         BulletState_PosAndRot _State_PosAndRot, 
         BulletState_Size? _State_Size, 
-        BulletState_Anim? _State_Anim, 
+        State_Anim? _State_Anim, 
         float _TargetRange = 0.4f)
     {
         Set_State_Base(_State, _TargetRange);
@@ -110,7 +110,7 @@ public abstract class BulletController : MovableDepthController
 
     public virtual void Set_State_Size(BulletState_Size? _State_Size) { }
 
-    public virtual void Set_State_Anim(BulletState_Anim? _State_Anim) { }
+    public virtual void Set_State_Anim(State_Anim? _State_Anim) { }
 
     public virtual void Set_State_Extra() { }
 
