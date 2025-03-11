@@ -106,27 +106,3 @@ public class SolarSystemController : MonoBehaviour
 
     #endregion
 }
-
-[System.Serializable]
-public class SatelliteController
-{
-    [SerializeField] public Transform ObjectTF;
-    [SerializeField] public Transform TargetTF;
-    [SerializeField] public SpriteRenderer ThisActualSR;
-    [SerializeField] public int UpperOrder;
-    [SerializeField] public int FarFromCenter;
-
-    public void SetPos(int _PlayerSortOrder)
-    {
-        ObjectTF.position = TargetTF.position;
-
-        if (ObjectTF.localPosition.y > 0)
-        {
-            ThisActualSR.sortingOrder = _PlayerSortOrder + UpperOrder - FarFromCenter;
-        }
-        else
-        {
-            ThisActualSR.sortingOrder = _PlayerSortOrder + UpperOrder + FarFromCenter;
-        }
-    }
-}

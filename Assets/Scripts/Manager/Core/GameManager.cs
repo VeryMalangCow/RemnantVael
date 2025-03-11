@@ -1,18 +1,12 @@
 using DG.Tweening;
 using System.Collections.Generic;
-using System.Linq;
 using UniRx;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
     #region Value
 
-    [Space(10)]
-    [Header("=== Color")]
-    [SerializeField] public Color RandomColor = Color.red;
-    [HideInInspector] private Sequence RandomColorSetSeq;
 
     [Space(10)]
     [Header("=== Passing Data")]
@@ -33,7 +27,6 @@ public class GameManager : PersistentSingleton<GameManager>
         base.Awake();
         
         Set_BaseOption();
-        Set_RainbowColorDotween();
     }
 
     #endregion
@@ -46,29 +39,9 @@ public class GameManager : PersistentSingleton<GameManager>
     }
 
     #endregion
-
-    #region Set
-
-    // 무지개 컬러 Dotween
-    private void Set_RainbowColorDotween()
-    {
-        RandomColorSetSeq = DOTween.Sequence();
-        RandomColor = Color.red;
-
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(1, 1, 0, 1), 0.5f).SetEase(Ease.Linear));
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(0, 1, 0, 1), 0.5f).SetEase(Ease.Linear));
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(0, 1, 1, 1), 0.5f).SetEase(Ease.Linear));
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(0, 0, 1, 1), 0.5f).SetEase(Ease.Linear));
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(1, 0, 1, 1), 0.5f).SetEase(Ease.Linear));
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(1, 0, 0, 1), 0.5f).SetEase(Ease.Linear));
-
-        RandomColorSetSeq.SetLoops(-1, LoopType.Restart);
-    }
-
-    #endregion
 }
 
-#region Class : Caculate : Static
+#region ========== DEV TOOL
 
 public class DevTool
 {
@@ -594,8 +567,9 @@ public class DevTool
     #endregion
 }
 
-
 #endregion
+
+#region ========== CLASS
 
 #region Class : PublicData
 
@@ -628,130 +602,6 @@ public class CoupleData<T>
 
 #endregion
 
-#region Class : State : Element
-
-[System.Serializable]
-public abstract class ElementState
-{
-    public virtual void Reset_State() { }
-}
-
-[System.Serializable]
-public class DmgState : ElementState
-{
-    #region Value
-
-    [SerializeField] public eDamageType DmgType;
-    [SerializeField] public float Dmg;
-
-    #endregion
-
-    #region Constructor
-
-    public DmgState(DmgState _State)
-    {
-        DmgType = _State.DmgType;
-        Dmg = _State.Dmg;
-    }
-
-    public DmgState(eDamageType _DmgType, float _Dmg)
-    {
-        DmgType = _DmgType;
-        Dmg = _Dmg;
-    }
-
-    #endregion
-
-    #region Reset
-
-    public override void Reset_State()
-    {
-        DmgType = eDamageType.Physics;
-        Dmg = 0;
-    }
-
-    #endregion
-}
-
-[System.Serializable]
-public class CriticalState : ElementState
-{
-    #region Value
-
-    [SerializeField] public float CC;
-    [SerializeField] public float CD;
-
-    #endregion
-
-    #region Constructor
-
-    public CriticalState(CriticalState _State)
-    {
-        CC = _State.CC;
-        CD = _State.CD;
-    }
-
-    public CriticalState(float _CC, float _CD)
-    {
-        CC = _CC;
-        CD = _CD;
-    }
-
-    #endregion
-
-    #region Reset
-
-    public override void Reset_State()
-    {
-        CC = 0;
-        CD = 0;
-    }
-
-    #endregion
-}
-
-[System.Serializable]
-public class KnockbackState : ElementState
-{
-    #region Value
-
-    [SerializeField] public bool CanKB;
-    [SerializeField] public float KBPower;
-    [SerializeField] public float KBTime;
-
-    #endregion
-
-    #region Constructor
-
-    public KnockbackState(KnockbackState _State)
-    {
-        CanKB = _State.CanKB;
-        KBPower = _State.KBPower;
-        KBTime = _State.KBTime;
-    }
-
-    public KnockbackState(bool _CanKB, float _KBPower, float _KBTime)
-    {
-        CanKB = _CanKB;
-        KBPower = _KBPower;
-        KBTime = _KBTime;
-    }
-
-    #endregion
-
-    #region Reset
-
-    public override void Reset_State()
-    {
-        CanKB = false;
-        KBPower = 0;
-        KBTime = 0;
-    }
-
-    #endregion
-}
-
-#endregion
 
 #region Class : State : Combat
 
@@ -895,6 +745,132 @@ public class AttackerState : CombatState
 
 #endregion
 
+#region Class : State : CombatElement
+
+[System.Serializable]
+public abstract class ElementState
+{
+    public virtual void Reset_State() { }
+}
+
+[System.Serializable]
+public class DmgState : ElementState
+{
+    #region Value
+
+    [SerializeField] public eDamageType DmgType;
+    [SerializeField] public float Dmg;
+
+    #endregion
+
+    #region Constructor
+
+    public DmgState(DmgState _State)
+    {
+        DmgType = _State.DmgType;
+        Dmg = _State.Dmg;
+    }
+
+    public DmgState(eDamageType _DmgType, float _Dmg)
+    {
+        DmgType = _DmgType;
+        Dmg = _Dmg;
+    }
+
+    #endregion
+
+    #region Reset
+
+    public override void Reset_State()
+    {
+        DmgType = eDamageType.Physics;
+        Dmg = 0;
+    }
+
+    #endregion
+}
+
+[System.Serializable]
+public class CriticalState : ElementState
+{
+    #region Value
+
+    [SerializeField] public float CC;
+    [SerializeField] public float CD;
+
+    #endregion
+
+    #region Constructor
+
+    public CriticalState(CriticalState _State)
+    {
+        CC = _State.CC;
+        CD = _State.CD;
+    }
+
+    public CriticalState(float _CC, float _CD)
+    {
+        CC = _CC;
+        CD = _CD;
+    }
+
+    #endregion
+
+    #region Reset
+
+    public override void Reset_State()
+    {
+        CC = 0;
+        CD = 0;
+    }
+
+    #endregion
+}
+
+[System.Serializable]
+public class KnockbackState : ElementState
+{
+    #region Value
+
+    [SerializeField] public bool CanKB;
+    [SerializeField] public float KBPower;
+    [SerializeField] public float KBTime;
+
+    #endregion
+
+    #region Constructor
+
+    public KnockbackState(KnockbackState _State)
+    {
+        CanKB = _State.CanKB;
+        KBPower = _State.KBPower;
+        KBTime = _State.KBTime;
+    }
+
+    public KnockbackState(bool _CanKB, float _KBPower, float _KBTime)
+    {
+        CanKB = _CanKB;
+        KBPower = _KBPower;
+        KBTime = _KBTime;
+    }
+
+    #endregion
+
+    #region Reset
+
+    public override void Reset_State()
+    {
+        CanKB = false;
+        KBPower = 0;
+        KBTime = 0;
+    }
+
+    #endregion
+}
+
+#endregion
+
+
 #region Class : State : Player
 
 
@@ -980,6 +956,36 @@ public class BuffState<T>
 
 #endregion
 
+
+#region Class : Satellite
+
+[System.Serializable]
+public class SatelliteController
+{
+    [SerializeField] public Transform ObjectTF;
+    [SerializeField] public Transform TargetTF;
+    [SerializeField] public SpriteRenderer ThisActualSR;
+    [SerializeField] public int UpperOrder;
+    [SerializeField] public int FarFromCenter;
+
+    public void SetPos(int _PlayerSortOrder)
+    {
+        ObjectTF.position = TargetTF.position;
+
+        if (ObjectTF.localPosition.y > 0)
+        {
+            ThisActualSR.sortingOrder = _PlayerSortOrder + UpperOrder - FarFromCenter;
+        }
+        else
+        {
+            ThisActualSR.sortingOrder = _PlayerSortOrder + UpperOrder + FarFromCenter;
+        }
+    }
+}
+
+#endregion
+
+
 #region Class : Visual
 
 [System.Serializable]
@@ -1003,7 +1009,9 @@ public class PlayerVisual<T>
 
 #endregion
 
+#endregion
 
+#region ========== STRUCT
 
 #region Struct : PublicData
 
@@ -1326,6 +1334,9 @@ public struct ExplState
 
 #endregion
 
+#endregion
+
+#region ========== INTERFACE
 
 #region Interface : Interact
 
@@ -1354,8 +1365,9 @@ public interface IWhen_GetElectricity : IWhen { }
 
 #endregion
 
+#endregion
 
-#region Delegate
+#region ========== DELEGATE
 
 public delegate void Dele();
 
@@ -1369,17 +1381,13 @@ public delegate void Dele_RefT_U<T, U>(ref T _Item1, U _Item2);
 
 #endregion
 
+#region ========== ENUM
 
-#region Enum
+#region About Combat
 
 public enum eCombatMode
 {
     Physics, Energy, Boost
-}
-
-public enum eMovementState
-{
-    Casting, IdleOrWalk, Dash
 }
 
 public enum eDamageType
@@ -1392,9 +1400,13 @@ public enum eStatusEffect
     Flame, Cold, Electricity, Corrosion
 }
 
-public enum eEnemy
+#endregion
+
+#region About Movement
+
+public enum eMovementState
 {
-    Normal, Elite, SemiBoss, Boss
+    Casting, IdleOrWalk, Dash
 }
 
 public enum eDashStyle
@@ -1402,11 +1414,24 @@ public enum eDashStyle
     OneWay, CanInputWay, Teleport
 }
 
+#endregion
+
+#region Enemy
+
+public enum eEnemy
+{
+    Normal, Elite, SemiBoss, Boss
+}
+
+#endregion
+
+#region Room
+
 public enum eRoomType
 {
     Completed, KillAll, Survived, BossKill
 }
 
-
+#endregion
 
 #endregion

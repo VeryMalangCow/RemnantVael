@@ -24,7 +24,6 @@ public class CameraController : MonoBehaviour
     [Header("-- Follow Target")]
     [SerializeField] public Transform TargetTF;
     [SerializeField] private float FollowSpeed = 4f;
-    [SerializeField] private float FollowRangeLimit = 1f;
 
     [Header("-- Shot Shake")]
     [SerializeField] private float ShotStrength = 1f;

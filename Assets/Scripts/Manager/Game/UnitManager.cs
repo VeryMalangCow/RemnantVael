@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
@@ -19,6 +20,11 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public Sprite BuildingDurInner;
 
     [Space(10)]
+    [Header("=== Color")]
+    [SerializeField] public Color RandomColor = Color.red;
+    [HideInInspector] private Sequence RandomColorSetSeq;
+
+    [Space(10)]
     [Header("=== Generator")]
 
     [Space(5)]
@@ -31,6 +37,19 @@ public class UnitManager : Singleton<UnitManager>
     [Header("-- Anim")]
     [SerializeField] public OnceTimeAnimGenerator OnceTime_AnimGenerator;
 
+
+
+    #endregion
+
+    #region Framework
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        Set_RainbowColorDotween();
+    }
+
     #endregion
 
     #region Generate Unit
@@ -40,6 +59,27 @@ public class UnitManager : Singleton<UnitManager>
         GameObject SpawnedPlayerGO = Instantiate(_GO, _ParentTF);
         SpawnedPlayerGO.TryGetComponent(out T type);
         return type;
+    }
+
+    #endregion
+
+
+    #region Set
+
+    // 무지개 컬러 Dotween
+    private void Set_RainbowColorDotween()
+    {
+        RandomColorSetSeq = DOTween.Sequence();
+        RandomColor = Color.red;
+
+        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(1, 1, 0, 1), 0.5f).SetEase(Ease.Linear));
+        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(0, 1, 0, 1), 0.5f).SetEase(Ease.Linear));
+        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(0, 1, 1, 1), 0.5f).SetEase(Ease.Linear));
+        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(0, 0, 1, 1), 0.5f).SetEase(Ease.Linear));
+        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(1, 0, 1, 1), 0.5f).SetEase(Ease.Linear));
+        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(1, 0, 0, 1), 0.5f).SetEase(Ease.Linear));
+
+        RandomColorSetSeq.SetLoops(-1, LoopType.Restart);
     }
 
     #endregion

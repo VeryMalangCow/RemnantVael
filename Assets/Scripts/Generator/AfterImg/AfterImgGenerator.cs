@@ -66,7 +66,7 @@ public class AfterImgGenerator : MonoBehaviour
         SpriteRenderer SR = PoolingManager.Instance.Get_OP_AfterImg();
         SR.sprite = _TargetSR.sprite;
         SR.sortingOrder = _TargetSR.sortingOrder - 1;
-        Color clr = GameManager.Instance.RandomColor;
+        Color clr = UnitManager.Instance.RandomColor;
         clr.a = Mathf.Clamp(ImageAlpha, 0f, 1f);
         SR.color = clr;
         SR.gameObject.transform.position = _TargetSR.transform.position;
