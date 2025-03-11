@@ -135,18 +135,19 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
     {
         if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1 is ShockwaveSkillController shock)
         {
-            float usableMaxSize = shock.MaxSize + (shock.MaxSize * shock.Tier.ActualState.Value * 0.1f);
-            int NormalAmount = (int)(36f * (1 - PlayerManager.Instance.PlayerController.BaseWeapon.CC.ActualState.Value));
-            int SpecialAmount = (int)(36f * PlayerManager.Instance.PlayerController.BaseWeapon.CC.ActualState.Value);
+            float usableMaxSize = shock.Get_UsableMaxSize();
+            float cc = PlayerManager.Instance.PlayerController.BaseWeapon.CC.ActualState.Value;
+            int NormalAmount = (int)(36f * (1f - cc));
+            int SpecialAmount = (int)(36f * cc);
 
             for (int i = 2; i < 4; i++)
             {
                 Gen_ExplImg_Ellipse(
                     new ExplState(
-                        new ExplState_Base(_SpawnPos, i == 2 ? NormalAmount : SpecialAmount),
+                        new ExplState_Base(_SpawnPos + new Vector2(0, -0.5f), i == 2 ? NormalAmount : SpecialAmount),
                         Get_Sprite(0, DevTool.Get_DmgTypeFromIndex(i), DevTool.Get_CriticalFromIndex(i), 0),
-                        new ExplState_MoveAndScale(Vector2.zero, _Dis: usableMaxSize * 0.25f, _Scale: 1.4f, _Time: 0.25f, 0.05f),
-                        new ExplState_MoveAndScale(Vector2.zero, _Dis: usableMaxSize * 0.50f, _Scale: 0.7f, _Time: 0.45f, 0.05f)),
+                        new ExplState_MoveAndScale(Vector2.zero, _Dis: usableMaxSize * 0.90f, _Scale: usableMaxSize * 0.65f, _Time: 0.25f, 0.05f),
+                        new ExplState_MoveAndScale(Vector2.zero, _Dis: usableMaxSize * 1.25f, _Scale: usableMaxSize * 0.2f, _Time: 0.45f, 0.05f)),
                     1f, 0.5f);
             }
         }

@@ -940,6 +940,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InRoomWall (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1023,10 +1027,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8efac2f5ac4ca2848826713463aa1531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
+  TargetObject: {fileID: 0}
+  ThisSR: {fileID: 0}
+  TargetRange: 0.4
+  ThisColGO: {fileID: 0}
   ThisCol: {fileID: 4338801193907115320}
   ThisAnimator: {fileID: 0}
   ThisLight: {fileID: 0}
-  HSTS: {fileID: 0}
   AttackerState:
     DmgState:
       DmgType: 0
@@ -1038,4 +1046,5 @@ MonoBehaviour:
       CanKB: 0
       KBPower: 0
       KBTime: 0
+  HittedObjectList: []
   IsColliding: 0

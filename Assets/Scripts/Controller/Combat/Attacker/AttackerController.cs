@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class AttackerController : MonoBehaviour
+public abstract class AttackerController : MovableDepthController
 {
     #region Value
 
@@ -12,123 +12,188 @@ public class AttackerController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] protected Collider2D ThisCol;
+    [SerializeField] protected GameObject ThisColGO;
+    [HideInInspector] protected Collider2D ThisCol;
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] private Light2D ThisLight;
-    [SerializeField] private StaticDepthController HSTS;
 
     [Space(10)]
     [Header("=== State")]
     [SerializeField] public AttackerState AttackerState;
 
-    [HideInInspector] private AnimatorOverrideController aoc;
+    [Space(10)]
+    [Header("=== Object")]
+    [SerializeField] protected List<StaticDepthController> HittedObjectList = new List<StaticDepthController>();
+
+
+    [HideInInspector] private AnimatorOverrideController AOC;
 
     #endregion
 
-    #region Set State by Cond
+    #region Reset
 
-    public void Set_ShadowDis(DepthController _HST)
+    public void Reset_State()
     {
-        if (HSTS == null)
-        { return; }
+        AttackerState.Reset_State();
 
-        HSTS.TargetRange = _HST.TargetRange;
-        HSTS.TargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * HSTS.TargetRange);
+        Reset_BaseAttacker();
+        Reset_Other();
     }
 
-    public Sequence Play_RotAndPosForward(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize,
-        Quaternion _Rotation, Vector2 _EndPos, float _TweenTime, float _AnimSpeed)
+    private void Reset_BaseAttacker()
+    {
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
+
+        DevTool.Remove_Component(ThisCol);
+        ThisLight.pointLightOuterRadius = 0f;
+        gameObject.SetActive(false);
+
+        AOC = null;
+        HittedObjectList = new List<StaticDepthController>();
+    }
+
+    protected virtual void Reset_Other()
+    {
+
+    }
+
+    #endregion
+
+    #region State
+
+    public Sequence Set_State<T>(
+        AttackerState _State,
+        AttackerState_Juge<T> _State_Juge,
+        AttackerState_Anim _State_Anim, 
+        AttackerState_StartTF _State_StartTF,
+        AttackerState_EndTF _State_EndTF) where T : Collider2D
     {
         Sequence seq = DOTween.Sequence();
-        Set_State(_SpawnedPos, _AttackerState, _ColSize);
-        Set_Anim(_AC);
 
-        ThisCol.gameObject.transform.localScale = Vector2.one;
-        this.transform.rotation = _Rotation;
-        seq.Append(this.transform.DOMove(_EndPos, _TweenTime / _AnimSpeed));
-        ThisAnimator.speed = _AnimSpeed;
+        Set_State_Base(_State);
+        Set_State_Juge<T>(_State_Juge);
+        Set_State_Anim(_State_Anim);
+        Set_State_StartTF(_State_StartTF);
+        seq.Join(Set_State_EndTF(_State_EndTF));
+        Set_State_Extra();
 
+        SetOn_State(seq);
 
-        this.gameObject.SetActive(true);
         return seq;
     }
 
-    public Sequence Play_Bigger(Vector2 _SpawnedPos, AttackerState _AttackerState, AnimationClip _AC, Vector2 _ColSize, 
-        float _StartSize, float _MaxSize, float _TweenTime)
+    public virtual void Set_State_Base(AttackerState _State)
+    {
+        this.AttackerState = new AttackerState(_State);
+    }
+
+    public virtual void Set_State_Juge<T>(AttackerState_Juge<T> _State_Juge) where T : Collider2D
+    {
+        ThisCol = DevTool.Gen_Component<T>(ThisColGO);
+        ThisCol.isTrigger = true;
+
+        if (DevTool.Get_CastingTType(ThisCol, out CapsuleCollider2D capsule2D))
+        {
+            capsule2D.size = _State_Juge.ColSize;
+            capsule2D.direction = _State_Juge.IsVertical ? CapsuleDirection2D.Vertical : CapsuleDirection2D.Horizontal;
+        }
+        else if (DevTool.Get_CastingTType(ThisCol, out CircleCollider2D circle2D))
+        {
+            circle2D.radius = _State_Juge.ColSize.x;
+        }
+    }
+
+    public virtual void Set_State_Anim(AttackerState_Anim _State_Anim)
+    {
+        DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.AC);
+        ThisAnimator.speed = _State_Anim.Speed;
+    }
+
+    public virtual void Set_State_StartTF(AttackerState_StartTF _State_StartTF)
+    {
+        this.transform.position = _State_StartTF.Pos;
+        this.transform.rotation = _State_StartTF.Rot;
+        this.transform.localScale = _State_StartTF.Size;
+    }
+
+    public virtual Sequence Set_State_EndTF(AttackerState_EndTF _State_EndTF) 
     {
         Sequence seq = DOTween.Sequence();
-        Set_State(_SpawnedPos, _AttackerState, _ColSize);
-        Set_Anim(_AC);
 
-        ThisCol.gameObject.transform.localScale = Vector2.one * _StartSize;
-        seq.Append(ThisCol.transform.DOScale(_MaxSize, _TweenTime));
+        seq.Join(this.transform.DOMove(_State_EndTF.Pos, _State_EndTF.Time));
+        seq.Join(TargetObject.transform.DORotateQuaternion(_State_EndTF.Rot, _State_EndTF.Time));
+        seq.Join(this.transform.DOScale(_State_EndTF.Size, _State_EndTF.Time));
 
-        this.gameObject.SetActive(true);
         return seq;
+    }
+
+    public virtual void Set_State_Extra() { }
+
+
+    private void SetOn_State(Sequence _TotalSeq)
+    {
+        this.gameObject.SetActive(true);
+
+        _TotalSeq.OnComplete(() =>
+        {
+            Remove_Object();
+        });
+    }
+
+    #endregion
+
+    #region Trigger
+
+    protected virtual void OnTriggerEnter2D(Collider2D _Col)
+    {
+        Try_Hit_DestructibleObject(_Col);
+    }
+
+    protected void Try_Hit_DestructibleObject(Collider2D _Col)
+    {
+        if (DevTool.Can_Collding(_Col, "DestructibleObject", 
+            HittedObjectList, out DestructibleBuildController dbc))
+        {
+            dbc.Take_Damage(true);
+            HittedObjectList.Add(dbc);
+        }
+    }
+
+    #endregion
+
+    #region Remove
+
+    protected abstract void Remove_Condition();
+
+    public virtual void Remove_Object()
+    {
+        Remove_Condition();
+        Reset_State();
+        this.gameObject.SetActive(false);
     }
 
     #endregion
 
     #region Light
 
-    public void Set_Light(float _BiggestSize, float _StayTime)
+    // 빛이 생성되어 커지고 사라질 때 줄어듬
+    public void Set_Light(float _BiggestSize, float _DurTime, float _IntroTime = 0.15f, float _StayTime = 0.7f, float _VanishTime = 0.15f)
     {
-        if (ThisLight == null)
-        { return; }
-
-        Sequence seq = DOTween.Sequence();
-        ThisLight.pointLightOuterRadius = 0f;
-
-        seq.Append(DOTween.To(() => ThisLight.pointLightOuterRadius, 
-            x => ThisLight.pointLightOuterRadius = x,
-            _BiggestSize, _StayTime / 10));
-        seq.AppendInterval(_StayTime * 8 / 10);
-        seq.Append(DOTween.To(() => ThisLight.pointLightOuterRadius,
-            x => ThisLight.pointLightOuterRadius = x,
-            0, _StayTime / 10));
-    }
-
-    #endregion
-
-    #region Module
-
-    private void Set_Anim(AnimationClip _AC)
-    {
-        aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
-        var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
-        foreach (var a in aoc.animationClips)
-            anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
-        aoc.ApplyOverrides(anims);
-        ThisAnimator.runtimeAnimatorController = aoc;
-    }
-
-    private void Set_State(Vector2 _SpawnedPos, AttackerState _AttackerState, Vector2 _ColSize)
-    {
-        this.transform.position = _SpawnedPos;
-        this.AttackerState = new AttackerState(_AttackerState);
-        if (ThisCol is CapsuleCollider2D capsule2D)
-        { 
-            capsule2D.size = _ColSize; 
+        if (DevTool.Is_Usable(ThisLight))
+        {
+            Sequence seq = DOTween.Sequence();
+            ThisLight.pointLightOuterRadius = 0f;
+            seq.Append(Get_LightSize(_BiggestSize, _DurTime * _IntroTime));
+            seq.AppendInterval(_DurTime * _StayTime);
+            seq.Append(Get_LightSize(0, _DurTime * 0.15f));
         }
     }
 
-    public void End_State()
+    private Tween Get_LightSize(float _TargetSize, float _Time)
     {
-        gameObject.SetActive(false);
-
-        if (aoc != null)
-        {
-            aoc = null;
-        }
-
-        if (this is PlayerAttackerController pa)
-        {
-            PoolingManager.Instance.PlayerAttackers.Queue.Enqueue(pa);
-        }
-        if (this is EnemyAttackerController ea)
-        {
-            PoolingManager.Instance.EnemyAttackers.Queue.Enqueue(ea);
-        }
+        return DOTween.To(() => ThisLight.pointLightOuterRadius, x => ThisLight.pointLightOuterRadius = x, _TargetSize, _Time);
     }
 
     #endregion

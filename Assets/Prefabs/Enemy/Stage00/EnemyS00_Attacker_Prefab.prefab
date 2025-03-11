@@ -282,7 +282,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8697378355204558337}
-  - component: {fileID: 24693466564130355}
   - component: {fileID: 7273476634223341181}
   - component: {fileID: 3501360633453498926}
   m_Layer: 0
@@ -310,22 +309,6 @@ Transform:
   - {fileID: 7618600658847262957}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &24693466564130355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2154807210293626544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2a9589700b54704baa5d9da9cc09ef7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: 0
-  TargetObject: {fileID: 1947860357028516534}
-  ThisSR: {fileID: 9076609007504668469}
-  TargetRange: 0.6
 --- !u!114 &7273476634223341181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,10 +321,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df972ff2bea83124aae5e54ebe2ef256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisCol: {fileID: 7416806051892002497}
+  ID: 0
+  TargetObject: {fileID: 1947860357028516534}
+  ThisSR: {fileID: 9076609007504668469}
+  TargetRange: 0.6
+  ThisColGO: {fileID: 6945075702485005032}
+  ThisCol: {fileID: 0}
   ThisAnimator: {fileID: 3700956229177998945}
   ThisLight: {fileID: 7349482001544103476}
-  HSTS: {fileID: 24693466564130355}
   AttackerState:
     DmgState:
       DmgType: 0
@@ -353,6 +340,7 @@ MonoBehaviour:
       CanKB: 0
       KBPower: 0
       KBTime: 0
+  HittedObjectList: []
   IsColliding: 0
   Enemy: {fileID: 0}
 --- !u!50 &3501360633453498926
@@ -391,7 +379,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7618600658847262957}
-  - component: {fileID: 7416806051892002497}
   m_Layer: 0
   m_Name: Col
   m_TagString: PlayerThing
@@ -414,38 +401,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8697378355204558337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &7416806051892002497
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6945075702485005032}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
-  m_Direction: 0

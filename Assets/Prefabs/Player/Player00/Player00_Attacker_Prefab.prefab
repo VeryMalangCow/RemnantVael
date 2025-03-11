@@ -116,7 +116,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8697378355204558337}
-  - component: {fileID: 4045577918689036664}
   - component: {fileID: 8262544962750426895}
   - component: {fileID: 3501360633453498926}
   m_Layer: 0
@@ -143,22 +142,6 @@ Transform:
   - {fileID: 7618600658847262957}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4045577918689036664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2154807210293626544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2a9589700b54704baa5d9da9cc09ef7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: 0
-  TargetObject: {fileID: 1947860357028516534}
-  ThisSR: {fileID: 9076609007504668469}
-  TargetRange: 0.6
 --- !u!114 &8262544962750426895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,10 +154,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0939d641554eddb44bc38c0c768142e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisCol: {fileID: 7549900326602035206}
+  ID: 0
+  TargetObject: {fileID: 1947860357028516534}
+  ThisSR: {fileID: 9076609007504668469}
+  TargetRange: 0.6
+  ThisColGO: {fileID: 6945075702485005032}
   ThisAnimator: {fileID: 3700956229177998945}
-  ThisLight: {fileID: 0}
-  HSTS: {fileID: 0}
+  ThisLight: {fileID: 6749085841042800825}
   AttackerState:
     DmgState:
       DmgType: 0
@@ -282,8 +268,8 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
-  m_PointLightInnerAngle: 360
-  m_PointLightOuterAngle: 360
+  m_PointLightInnerAngle: 359.99997
+  m_PointLightOuterAngle: 359.99997
   m_PointLightInnerRadius: 0
   m_PointLightOuterRadius: 0
   m_ShapeLightParametricSides: 5
@@ -305,7 +291,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7618600658847262957}
-  - component: {fileID: 7549900326602035206}
   m_Layer: 0
   m_Name: Col
   m_TagString: PlayerThing
@@ -328,38 +313,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8697378355204558337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &7549900326602035206
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6945075702485005032}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 0.5}
-  m_Direction: 1

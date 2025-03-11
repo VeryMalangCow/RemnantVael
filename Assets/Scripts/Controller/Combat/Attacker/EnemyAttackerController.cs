@@ -6,34 +6,38 @@ public class EnemyAttackerController : AttackerController
 
     [Space(20)]
     [Header("<><><><><> Enemy")]
-    [SerializeField] private bool IsColliding = false;
-
     [HideInInspector] public EnemyController Enemy;
 
     #endregion
 
-    #region Framework
+    #region Remove
 
-    private void Update()
+    protected override void Remove_Condition()
     {
-        if (IsColliding)
-        { PlayerManager.Instance.PlayerController.Try_Hitted(this); }
+        PoolingManager.Instance.EnemyAttackers.Queue.Enqueue(this);
     }
 
     #endregion
 
     #region Trigger
 
-    private void OnTriggerEnter2D(Collider2D _Col)
+    protected override void OnTriggerEnter2D(Collider2D _Col)
     {
-        if (_Col.tag == "Player")
-        { IsColliding = true; }
+        Try_Hit_Player(_Col);
+
+        base.OnTriggerEnter2D(_Col);
     }
 
-    private void OnTriggerExit2D(Collider2D _Col)
+
+    protected void Try_Hit_Player(Collider2D _Col)
     {
-        if (_Col.tag == "Player")
-        { IsColliding = false; }
+        if (DevTool.Can_Collding(_Col, "Player",
+            HittedObjectList, out PlayerController pc))
+        {
+            //Damage
+            PlayerManager.Instance.PlayerController.Try_Hitted(this);
+            HittedObjectList.Add(pc);
+        }
     }
 
     #endregion

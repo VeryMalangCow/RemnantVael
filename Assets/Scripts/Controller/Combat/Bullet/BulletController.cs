@@ -215,16 +215,20 @@ public abstract class BulletController : MovableDepthController
 
     #endregion
 
-    #region Trigger Judg
+    #region Trigger
+
+    protected virtual void OnTriggerEnter2D(Collider2D _Col)
+    {
+        Try_Hit_DestructibleObject(_Col);
+
+        Try_Remove(_Col.tag);
+    }
 
     protected void Try_Hit_DestructibleObject(Collider2D _Col)
     {
-        if (_Col.tag == "DestructibleObject")
+        if (DevTool.Can_Collding(_Col, "DestructibleObject", out DestructibleBuildController dbc))
         {
-            if (_Col.transform.parent.TryGetComponent(out DestructibleBuildController DBC))
-            {
-                DBC.Take_Damage(true);
-            }
+            dbc.Take_Damage(true);
         }
     }
 

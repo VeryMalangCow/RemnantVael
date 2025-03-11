@@ -25,32 +25,26 @@ public class PlayerBulletController : BulletController
 
     #endregion
 
-    #region Collision
+    #region Trigger
 
-    protected virtual void OnTriggerEnter2D(Collider2D _Col)
+    protected override void OnTriggerEnter2D(Collider2D _Col)
     {
-        if (!this.gameObject.activeSelf)
-        { return; }
-
         Try_Hit_Enemy(_Col);
-        Try_Hit_DestructibleObject(_Col);
 
-        Try_Remove(_Col.tag);
+        base.OnTriggerEnter2D(_Col);
     }
 
     protected void Try_Hit_Enemy(Collider2D _Col)
     {
-        if (_Col.tag == "Enemy")
+        if (DevTool.Can_Collding(_Col, "Enemy", out EnemyController ec))
         {
-            if (_Col.transform.parent.TryGetComponent(out EnemyController EC))
-            {
-                UnitManager.Instance.OnceTime_AnimGenerator.Anim_Attacked_Circle(
-                    TargetObject.transform.position, transform.rotation);
-                UnitManager.Instance.OnceTime_AnimGenerator.Anim_Attacked_Slice(
-                    TargetObject.transform.position, State.IsCritical, transform.rotation);
-                PlayerManager.Instance.CameraController.Play_HitEnemyAnim();
-                EC.Take_Damaged(State, DevTool.Get_DirFromAngle(transform.eulerAngles.z));
-            }
+            UnitManager.Instance.OnceTime_AnimGenerator.Anim_Attacked_Circle(
+                TargetObject.transform.position, transform.rotation);
+            UnitManager.Instance.OnceTime_AnimGenerator.Anim_Attacked_Slice(
+                TargetObject.transform.position, State.IsCritical, transform.rotation);
+
+            PlayerManager.Instance.CameraController.Play_HitEnemyAnim();
+            ec.Take_Damaged(State, DevTool.Get_DirFromAngle(transform.eulerAngles.z));
         }
     }
 

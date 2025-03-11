@@ -45,27 +45,20 @@ public class EnemyBulletController : BulletController
 
     #endregion
 
-    #region Collision
+    #region Trigger
 
-    private void OnTriggerEnter2D(Collider2D _Col)
+    protected override void OnTriggerEnter2D(Collider2D _Col)
     {
-        if (!this.gameObject.activeSelf)
-        { return; }
-
         Try_Hit_Player(_Col);
-        Try_Hit_DestructibleObject(_Col);
 
-        Try_Remove(_Col.tag);
+        base.OnTriggerEnter2D(_Col);
     }
 
     protected void Try_Hit_Player(Collider2D _Col)
     {
-        if (_Col.tag == "Player")
+        if (DevTool.Can_Collding(_Col, "Player", out PlayerController pc))
         {
-            if (_Col.transform.parent.TryGetComponent(out PlayerController PC))
-            {
-                PC.Try_Hitted(this);
-            }
+            pc.Try_Hitted(this);
         }
     }
 

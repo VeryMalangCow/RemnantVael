@@ -157,6 +157,19 @@ public class DevTool
         return default;
     }
 
+    // 객체를 원하는 'T 타입'으로 Out 빼기
+    public static bool Get_CastingTType<T>(object _Obj, out T _TType) where T : class
+    {
+        if (_Obj != null && _Obj is T objType)
+        {
+            _TType = objType;
+            return true;
+        }
+
+        _TType = null;
+        return false;
+    }
+
     #endregion
 
     #region About Component
@@ -177,6 +190,22 @@ public class DevTool
         go.transform.SetParent(_ParentTF);
         T component = go.AddComponent<T>();
         return component;
+    }
+
+    // 게임 오브젝트에 컴포넌트 추가하기
+    public static T Gen_Component<T>(GameObject _TargetGO) where T : Component
+    {
+        T component = _TargetGO.AddComponent<T>();
+        return component;
+    }
+
+    // 게임 오브젝트에 컴포넌트 삭제하기
+    public static void Remove_Component<T>(T _TargetComp) where T : Component
+    {
+        if (_TargetComp != null)
+        {
+            Object.Destroy(_TargetComp);
+        }
     }
 
     // Gen SpriteRenderer
@@ -302,7 +331,7 @@ public class DevTool
 
     #endregion
 
-    #region About Position
+    #region About Vector2
 
     public static Vector2 Get_RandomDir()
     {
@@ -311,9 +340,14 @@ public class DevTool
         return new Vector2(_X, _Y).normalized;
     }
 
+    public static Vector2 Get_Dir(GameObject _StartGO, GameObject _EndGO)
+    {
+        return (_EndGO.transform.position - _StartGO.transform.position).normalized;
+    }
+
     #endregion
 
-    #region About Rotation
+    #region About Quaternion
 
     // 좌표값 (Vector2:Dir)
     // => 회전값 (Quaternion:Rot)
@@ -489,6 +523,26 @@ public class DevTool
         }
     }
 
+    #endregion
+
+    #region About Collider
+
+    public static bool Can_Collding<T>(Collider2D _Col, string _Tag, List<StaticDepthController> _AlreadyList, out T _TType) where T : StaticDepthController
+    {
+        _TType = null;
+
+        return _Col.tag == _Tag &&
+            _Col.transform.parent.TryGetComponent(out _TType) &&
+            !_AlreadyList.Contains(_TType);
+    }
+
+    public static bool Can_Collding<T>(Collider2D _Col, string _Tag, out T _TType) where T : StaticDepthController
+    {
+        _TType = null;
+
+        return _Col.tag == _Tag &&
+            _Col.transform.parent.TryGetComponent(out _TType);
+    }
     #endregion
 }
 
@@ -811,6 +865,100 @@ public struct BulletState_Anim
 
     #endregion
 }
+
+#endregion
+
+#region Struct : AttackerState
+
+public struct AttackerState_StartTF
+{
+    #region Value
+
+    public Vector2 Pos;
+    public Quaternion Rot;
+    public Vector2 Size;
+
+    #endregion
+
+    #region Constructor
+
+    public AttackerState_StartTF(Vector2 _Pos, Quaternion _Rot, Vector2 _Size)
+    {
+        Pos = _Pos;
+        Rot = _Rot;
+        Size = _Size;
+    }
+
+    #endregion
+}
+
+public struct AttackerState_EndTF
+{
+    #region Value
+
+    public Vector2 Pos;
+    public Quaternion Rot;
+    public Vector2 Size;
+
+    public float Time;
+
+    #endregion
+
+    #region Constructor
+
+    public AttackerState_EndTF(Vector2 _Pos, Quaternion _Rot, Vector2 _Size, float _Time)
+    {
+        Pos = _Pos;
+        Rot = _Rot;
+        Size = _Size;
+
+        Time = _Time;
+    }
+
+    #endregion
+}
+
+public struct AttackerState_Anim
+{
+    #region Value
+
+    public AnimationClip AC;
+    public float Speed;
+
+    #endregion
+
+    #region Constructor
+
+    public AttackerState_Anim(AnimationClip _AC, float _Speed)
+    {
+        AC = _AC;
+        Speed = _Speed;
+    }
+
+    #endregion
+}
+
+public struct AttackerState_Juge<T> where T : Collider2D
+{
+    #region Value
+
+    public Vector2 ColSize;
+    public bool IsVertical;
+
+    #endregion
+
+    #region Constructor
+
+    public AttackerState_Juge(Vector2 _ColSize, bool _IsVertical = false)
+    {
+        ColSize = _ColSize;
+        IsVertical = _IsVertical;
+    }
+
+    #endregion
+}
+
+
 
 #endregion
 

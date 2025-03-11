@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 
 public class ShockwaveSkillController : ActiveSkillController
@@ -11,10 +10,13 @@ public class ShockwaveSkillController : ActiveSkillController
     [Space(10)]
     [Header("=== Value")]
     [SerializeField] private DepthController ThisHST;
-    [SerializeField] private Vector2 ColSize = new Vector2(0.75f, 0.5f);
-    [SerializeField] private float StartSize = 3f; 
-    [SerializeField] public float MaxSize = 5f;
-    [SerializeField] private float BiggerTime = 0.15f;
+    [SerializeField] private Vector2 ColSize = new Vector2(1.2f, 0.75f);
+
+    [SerializeField] private float StartSize = 1.5f; 
+    [SerializeField] public float MaxSize = 2f;
+
+    [SerializeField] private float JugeAndTweenTime = 0.25f;
+    [SerializeField] private float AnimSpeed = 1.62f;
 
     [Space(10)]
     [Header("=== Reso")]
@@ -38,27 +40,59 @@ public class ShockwaveSkillController : ActiveSkillController
         CriticalState criticalState = new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value);
         KnockbackState knockbackState = new KnockbackState(true, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * (Tier.ActualState.Value + 1) * 10f, 0.4f);
 
-        AttackerState ThisState = new AttackerState(new CombatState(dmgState, criticalState, knockbackState));
+        AttackerState state = new AttackerState(new CombatState(dmgState, criticalState, knockbackState));
 
-        float usableMaxSize = MaxSize + (MaxSize * Tier.ActualState.Value * 0.1f);
+        float usableMaxSize = Get_UsableMaxSize();
 
 
         PlayerAttackerController pa = PoolingManager.Instance.Get_OP_PlayerAttacker();
 
-        pa.Set_ShadowDis(ThisHST);
-        pa.Play_Bigger(ThisHST.transform.position, ThisState, ShockwaveAnimation,
+        AttackerState_Juge<CapsuleCollider2D> juge
+            = new AttackerState_Juge<CapsuleCollider2D>(
+                ColSize, 
+                _IsVertical:false);
+
+        AttackerState_Anim anim
+            = new AttackerState_Anim(
+                ShockwaveAnimation, 
+                AnimSpeed);
+
+        AttackerState_StartTF startTF
+            = new AttackerState_StartTF(
+                (Vector2)ThisHST.transform.position,
+                Quaternion.identity,
+                Vector2.one * StartSize);
+
+        AttackerState_EndTF endTF
+            = new AttackerState_EndTF(
+                (Vector2)ThisHST.transform.position,
+                Quaternion.identity,
+                Vector2.one * usableMaxSize, JugeAndTweenTime);
+
+        pa.Set_State(state, juge, anim, startTF, endTF);
+
+/*
+        pa.Play_Bigger(ThisHST.transform.position, state, ShockwaveAnimation,
             ColSize, StartSize, usableMaxSize, BiggerTime)
             .OnComplete(() =>
             {
                 InputManager.Instance.AimController.Set_SkillState(1, false);
                 Set_EndUI();
-                pa.End_State();
             });
-
+*/
         UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_Skill1(PlayerController.Get_ID(), (Vector2)ThisHST.TargetObject.gameObject.transform.position);
 
         BuffManager.Instance.Gain_Buff(0);
         BuffManager.Instance.SetOn_Buff(0);
+    }
+
+    #endregion
+
+    #region Get
+
+    public float Get_UsableMaxSize()
+    {
+        return MaxSize * (1 + (Tier.ActualState.Value * 0.15f));
     }
 
     #endregion

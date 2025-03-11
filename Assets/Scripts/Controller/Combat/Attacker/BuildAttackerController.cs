@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildAttackerController : AttackerController
@@ -12,10 +10,20 @@ public class BuildAttackerController : AttackerController
 
     #endregion
 
+    #region Remove
+
+    protected override void Remove_Condition()
+    {
+        IsColliding = false;
+    }
+
+    #endregion
+
     #region Framework
 
-    private void Update()
+    protected override void Update()
     {
+        //base.Update();
         if (IsColliding)
         { PlayerManager.Instance.PlayerController.Try_Hitted(this); }
     }
@@ -24,7 +32,7 @@ public class BuildAttackerController : AttackerController
 
     #region Trigger
 
-    private void OnTriggerEnter2D(Collider2D _Col)
+    protected override void OnTriggerEnter2D(Collider2D _Col)
     {
         if (_Col.tag == "Player")
         { IsColliding = true; }

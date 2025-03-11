@@ -1,5 +1,4 @@
 using UnityEngine;
-using DG.Tweening;
 using System.Collections;
 
 public class EnemyPattern_Melee : EnemyPattern
@@ -13,12 +12,11 @@ public class EnemyPattern_Melee : EnemyPattern
     [Header("=== Value")]
     [SerializeField] private AttackerState ThisAS;
     [SerializeField] private AnimationClip ThisAC;
-    [SerializeField] private float TweenTime = 1f;
-    [SerializeField] private float AnimSpeed = 1f;
+    [SerializeField] private float JugeAndTweenTime = 0.5f;
+    [SerializeField] private float AnimSpeed = 2.6f;
     [SerializeField] private float SpawnDis = 1f;
-    [SerializeField] private float EndDis = 2f;
+    [SerializeField] private float EndDis = 1.5f;
     [SerializeField] bool LightOn = false;
-    [SerializeField] float LightTime = 1f;
     [SerializeField] float LightSize = 1f;
 
     [Space(10)]
@@ -92,20 +90,33 @@ public class EnemyPattern_Melee : EnemyPattern
 
         if (LightOn)
         {
-            ea.Set_Light(LightSize, LightTime);
+            ea.Set_Light(LightSize, JugeAndTweenTime);
         }
 
-        ea.Set_ShadowDis(SpawnHST);
-        ea.Play_RotAndPosForward(
-            ((Vector2)ThisEnemy.transform.position + (targetDir * SpawnDis)),
-            ThisAS, ThisAC, Vector2.one,
-            Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, targetDir)),
-            ((Vector2)ThisEnemy.transform.position + (targetDir * EndDis)),
-            TweenTime, AnimSpeed)
-            .OnComplete(() =>
-            {
-                ea.End_State();
-            });
+        AttackerState_Juge<CircleCollider2D> juge
+            = new AttackerState_Juge<CircleCollider2D>(
+                Vector2.one);
+
+        AttackerState_Anim anim
+            = new AttackerState_Anim(
+                ThisAC, 
+                AnimSpeed);
+
+        AttackerState_StartTF startTF 
+            = new AttackerState_StartTF(
+                (Vector2)ThisEnemy.transform.position + (targetDir * SpawnDis),
+                Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, targetDir)),
+                Vector2.one);
+
+        AttackerState_EndTF endTF 
+            = new AttackerState_EndTF(
+                (Vector2)ThisEnemy.transform.position + (targetDir * EndDis),
+                Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, targetDir)),
+                Vector2.one, JugeAndTweenTime);
+
+
+        
+        ea.Set_State(ThisAS, juge, anim, startTF, endTF);
 
         yield return new WaitForSeconds(EndDelay);
 

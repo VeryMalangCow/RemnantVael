@@ -2056,7 +2056,7 @@ MonoBehaviour:
   CurrentCooltime: 0
   ThisSkillUISprite: {fileID: 1779296857, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
   NeedEP:
-    value: 15
+    value: 0.01
   Tier:
     BaseState: 0
     CurrentLevel:
@@ -2085,10 +2085,11 @@ MonoBehaviour:
     Desc: Damage to skill. Shockwave damages enemy EP.
   PlayerController: {fileID: 0}
   ThisHST: {fileID: 3772518435837473010}
-  _ColSize: {x: 0.75, y: 0.5}
-  _StartSize: 3
-  _MaxSize: 5
-  _BiggerTime: 0.3
+  ColSize: {x: 2.4, y: 1.5}
+  StartSize: 1.5
+  MaxSize: 2
+  JugeAndTweenTime: 0.25
+  AnimSpeed: 1.62
   ShockwaveAnimation: {fileID: 7400000, guid: 2d86ccaf723e69b41920621edb1ed040, type: 2}
 --- !u!114 &3772518435837473010
 MonoBehaviour:

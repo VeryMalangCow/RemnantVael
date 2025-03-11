@@ -7,7 +7,7 @@ public class OnceTimeAnimController : MonoBehaviour
 
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] private SpriteRenderer ThisSpriteRenderer;
-    [HideInInspector] private AnimatorOverrideController aoc;
+    [HideInInspector] private AnimatorOverrideController AOC;
 
     #endregion
 
@@ -37,12 +37,7 @@ public class OnceTimeAnimController : MonoBehaviour
 
     public void Start_Anim(AnimationClip _AC, Vector2 _SpawnedPos, Material _Material, Color _Clr, Quaternion _Rotation, float _AnimSpeed = 1f, float _AnimSize = 1f)
     {
-        aoc = new AnimatorOverrideController(ThisAnimator.runtimeAnimatorController);
-        var anims = new List<KeyValuePair<AnimationClip, AnimationClip>>();
-        foreach (var a in aoc.animationClips)
-            anims.Add(new KeyValuePair<AnimationClip, AnimationClip>(a, _AC));
-        aoc.ApplyOverrides(anims);
-        ThisAnimator.runtimeAnimatorController = aoc;
+        DevTool.Set_Anim(ref AOC, ThisAnimator, _AC);
 
         ThisAnimator.speed = _AnimSpeed;
         ThisSpriteRenderer.material = _Material;
@@ -59,8 +54,8 @@ public class OnceTimeAnimController : MonoBehaviour
     {
         ThisAnimator.speed = 0f;
         this.gameObject.SetActive(false);
-        if (aoc != null)
-        { aoc = null; }
+        if (AOC != null)
+        { AOC = null; }
         PoolingManager.Instance.OnlyOnceAnimators.Queue.Enqueue(this);
     }
 
