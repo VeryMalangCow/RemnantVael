@@ -104,7 +104,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             float dmg = _Rank * PCWeapon.BaseDamage.ActualState.Value;
 
             PlayerBulletController pbc = PoolingManager.Instance.Get_OP(_Bullet);
-            Vector2 dir = PCWeapon.Get_Dir(PC.transform.position);
+            Vector2 dir = DevTool.Get_MinFireDir(PC.transform.position);
 
             // ½ºÆù Åº ½ºÅÈ
 

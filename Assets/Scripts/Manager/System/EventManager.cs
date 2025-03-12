@@ -324,7 +324,7 @@ public class EventManager : PersistentSingleton<EventManager>
         {
             TitleInputManager.Instance.InputMoveDir = Vector2.zero;
 
-            TitlePlayerManager.Instance.PlayerController.HigherBody.Set_Rotation(_Event.TargetDir);
+            TitlePlayerManager.Instance.PlayerController.HigherBody.Set_Rot(_Event.TargetDir);
         }
         else if (sceneName == "MainGame") // ¸Ê ±¸ºÐ
         {
@@ -332,7 +332,7 @@ public class EventManager : PersistentSingleton<EventManager>
 
             PlayerManager.Instance.PlayerController.LowerController.ThisRb.velocity = Vector2.zero;
 
-            PlayerManager.Instance.PlayerController.LowerController.Set_Rotation(_Event.TargetDir);
+            PlayerManager.Instance.PlayerController.LowerController.Set_Rot(_Event.TargetDir);
         }
 
         yield return null;

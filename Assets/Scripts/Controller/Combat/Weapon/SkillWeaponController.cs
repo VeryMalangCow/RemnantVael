@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public class SkillWeaponController : SolarSystemController
+public class SkillWeaponController : PlayerSolarController
 {
     #region Value
 
@@ -9,8 +10,34 @@ public class SkillWeaponController : SolarSystemController
     [Header("<><><><><> Skill")]
 
     [Header("-- ActiveSkill")]
-    [SerializeField] public ActiveSkillController Skill_0;
-    [SerializeField] public ActiveSkillController Skill_1;
+    [SerializeField] public List<ActiveSkillController> SkillList;
+
+    #endregion
+
+    #region Offset
+
+    private void Offset()
+    {
+        for (int i = 0; i < DevTool.SkillAmount; i++)
+        {
+            Offset_Variable(SkillList[i], SatelliteSideList[i]);
+            Offset_Subscribe(SkillList[i], MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i]);
+        }
+    }
+
+    private void Offset_Variable(ActiveSkillController _Skill, SatelliteSideController _Satellite)
+    {
+        DevTool.Set_ComponentTType(ref _Skill, _Satellite.Follower.gameObject);
+        _Skill.PlayerController = PlayerController;
+    }
+
+    private void Offset_Subscribe(ActiveSkillController _Skill, SkillEUIController _SkillEUI)
+    {
+        _Skill.NeedEP.Subscribe(_Value =>
+        {
+            _SkillEUI.Set_CostText(_Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value);
+        });
+    }
 
     #endregion
 
@@ -18,45 +45,28 @@ public class SkillWeaponController : SolarSystemController
 
     private void Start()
     {
-        if (Hands[0].ObjectTF.gameObject.TryGetComponent(out ActiveSkillController ASC_Q))
-        { 
-            Skill_0 = ASC_Q; 
-            Skill_0.PlayerController = PlayerController; 
-        }
-        if (Hands[1].ObjectTF.gameObject.TryGetComponent(out ActiveSkillController ASC_E))
-        { 
-            Skill_1 = ASC_E; 
-            Skill_1.PlayerController = PlayerController; 
-        }
-
-        Skill_0.NeedEP.Subscribe(_Value =>
-        {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Set_CostText(
-                _Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value);
-        });
-        Skill_1.NeedEP.Subscribe(_Value =>
-        {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Set_CostText(
-                _Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value);
-        });
+        Offset();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        PitchTF.transform.localRotation = Get_RotationSmooth(InputManager.Instance.DirFromPlayerPos.normalized, PitchTF, rotateSpeed);
+        base.Update();
 
-        foreach (SatelliteController hand in Hands)
-        {
-            hand.SetPos(PlayerSR.sortingOrder);
-        }
-
-        MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Set_ShadowFillAmount(
-            Skill_0.Get_FillAmount());
-        MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Set_ShadowFillAmount(
-            Skill_1.Get_FillAmount());
+        Set_FillAmount();
     }
 
     #endregion
 
+    #region UI Shadow
 
+    private void Set_FillAmount()
+    {
+        for (int i = 0; i < DevTool.SkillAmount; i++)
+        {
+            MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i].Set_ShadowFillAmount(
+                SkillList[i].Get_FillAmount());
+        }
+    }
+
+    #endregion
 }

@@ -1,7 +1,9 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 using UniRx;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -90,6 +92,7 @@ public class DevTool
             return UnityEngine.Random.Range(-_RandomExtent * 0.5f, _RandomExtent * 0.5f);
         }
     }
+
 
     #endregion
 
@@ -301,8 +304,6 @@ public class DevTool
             _Dele(ref _Variable, _TargetList[i]);
         }
     }
-
-
     public static void Set_ListDele<T, U>(List<T> _TargetList, Dele_T_U<T, U> _Dele, U _Value)
     {
         for (int i = 0; i < _TargetList.Count; i++)
@@ -310,6 +311,8 @@ public class DevTool
             _Dele(_TargetList[i], _Value);
         }
     }
+
+
 
     // 'T 타입' 리스트에서 랜덤으로 뽑기
     public static T Get_Random<T>(List<T> _TargetList)
@@ -344,6 +347,36 @@ public class DevTool
         _Variable += _AddValue;
     }
 
+    // 방향에 의한 Img, Anim 변환 // SolarSystem에서 사용
+    // 위 사항에 사용될 Index 값
+    public static int Get_Index(float _EulerAngleY)
+    {
+        return (int)((_EulerAngleY + 67.5f) % 360 * 0.0222222f);
+    }
+
+    // 위 함수의 인트값을 다시 벡터로 가져오기
+    public static Vector2Int Get_NormalizedVec(int _Index)
+    {
+        Vector2Int[] directions = {
+            new Vector2Int(-1, 1), new Vector2Int(0, 1), new Vector2Int(1, 1), new Vector2Int(1, 0),
+            new Vector2Int(1, -1), new Vector2Int(0, -1), new Vector2Int(-1, -1), new Vector2Int(-1, 0)};
+
+        return (_Index >= 0 && _Index < directions.Length) ? directions[_Index] : Vector2Int.zero;
+    }
+
+    // 플레이어의 사격을 위해 너무 가까우면 X로 발사되는 것을 방지하기 위한 값 계산
+    private static float FireMinDisLimit = 4;
+    public static Vector2 Get_MinFireDir(Vector2 _SpawnPos)
+    {
+        Vector2 targetPos = InputManager.Instance.MousePosByWorld;
+        if (FireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
+        {
+            targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position +
+                InputManager.Instance.DirFromPlayerPos.normalized * FireMinDisLimit;
+        }
+
+        return (targetPos - _SpawnPos).normalized;
+    }
     #endregion
 
     #region About Quaternion
@@ -466,13 +499,14 @@ public class DevTool
     }
 
     // 방향성 Anim 컨트롤러의 애니메이터들의 속도 조절
-    public static void Set_AnimSpeedAnd(List<DirectionalAnimController> _TargetList, float _Speed)
+    public static void Set_AnimSpeed(List<DirectionalAnimController> _TargetList, float _Speed)
     {
         for (int i = 0; i < _TargetList.Count; i++)
         {
-            DevTool.Set_AnimSpeedAndSize(_TargetList[i].ThisComp, _Speed);
+            DevTool.Set_AnimSpeedAndSize(_TargetList[i].ThisComp, _Speed, _AnimSize: 1);
         }
     }
+
 
     #endregion
 
@@ -501,6 +535,8 @@ public class DevTool
     #endregion
 
     #region About Player
+
+    public static int SkillAmount = 2;
 
     public static int Get_IndexOfDmgTypeAndCritical(eDamageType _DmgType, bool _IsCritical)
     {
@@ -871,8 +907,222 @@ public class KnockbackState : ElementState
 #endregion
 
 
-#region Class : State : Player
+#region Class : State : Player : BU Shop
+// Level, State을 저장 관리하고, 상점까지 통괄
 
+[System.Serializable]
+public class BUShopSkillData<T, U>
+{
+    public BUShopEachData<T> Skill_CooltimeShop;
+    public BUShopEachData<T> Skill_PowerShop;
+    public BUShopEachData<U> Skill_TierShop;
+}
+
+[System.Serializable]
+public class BUShopEachData<T>
+{
+    [SerializeField] public TxtAmountForBuyEUIController Upgrade_MTAFB;
+    [SerializeField] public OwnBtnEUIController Upgrade_BuyBtn;
+
+    [HideInInspector] public BUState<T> Upgrade_BUS;
+    [HideInInspector] private BULevelData<T> Upgrade_BUOTD;
+
+    public void Offset(BUState<T> _Upgrade_BUS, BULevelData<T> _Upgrade_BUOTD, BaseUpgradeUIController _Owner)
+    {
+        Upgrade_MTAFB.Offset();
+
+        Upgrade_BUS = _Upgrade_BUS;
+        Upgrade_BUOTD = _Upgrade_BUOTD;
+
+        Upgrade_BUS.BuffedState = Upgrade_BUS.ActualState.Value;
+
+        Upgrade_MTAFB.SkillNameTxt.text = Upgrade_BUS.Name;
+        Upgrade_MTAFB.SkillOpenSimpleTxt.text = Upgrade_BUS.Desc;
+
+        if (Upgrade_BuyBtn != null)
+        {
+            Upgrade_BuyBtn.Offset();
+            Upgrade_BuyBtn.OwnerUIController = _Owner;
+        }
+
+
+        Upgrade_BUS.CurrentLevel
+           .Subscribe(_CurrentLevel =>
+           {
+               int currentLv = _CurrentLevel;
+               if (currentLv < Upgrade_BUOTD.BU_EachLevelDataList.Count)
+               {
+                   Upgrade_MTAFB.Set(currentLv, Upgrade_BUOTD.BU_EachLevelDataList[currentLv].NeedEC_ForUpgrade);
+               }
+               else if (currentLv == Upgrade_BUOTD.BU_EachLevelDataList.Count)
+               {
+                   Upgrade_MTAFB.Set(currentLv, 0);
+               }
+               Upgrade_MTAFB.Set_InnerAlpha((float)currentLv / (float)Upgrade_BUOTD.BU_EachLevelDataList.Count);
+           });
+
+        _Owner.MainColorCompList.Add(Upgrade_MTAFB.SkillNameTxt);
+        _Owner.SubColorCompList.Add(Upgrade_MTAFB.SkillLvTxt);
+        _Owner.SubColorCompList.AddRange(Upgrade_MTAFB.ThisMIAAT.Img_List);
+        _Owner.SubColorCompList.AddRange(Upgrade_MTAFB.InnerImgList);
+        _Owner.MainColorCompList.Add(Upgrade_MTAFB.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+        _Owner.MainColorCompList.Add(Upgrade_MTAFB.SimpleDescTxt);
+        _Owner.MainColorCompList.Add(Upgrade_BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+    }
+
+    public void TryBuy()
+    {
+        int index = Upgrade_BUS.CurrentLevel.Value;
+        int needEC = Upgrade_BUOTD.BU_EachLevelDataList[index].NeedEC_ForUpgrade;
+        int hadEC = PlayerManager.Instance.PlayerController.CurrentEC.Value;
+        if (needEC <= hadEC)
+        {
+            Buy(needEC, Upgrade_BUOTD.BU_EachLevelDataList.Count, Upgrade_BUOTD.BU_EachLevelDataList[index].UpgradeValue);
+        }
+    }
+
+    private void Buy(int _UseEC, int _MaxUpgradeLevel, T _SetValue)
+    {
+        BaseUpgradeController.UsingShop.Take_Damage(false);
+
+        Upgrade_BUS.CurrentLevel.Value++;
+        Upgrade_BUS.ActualState.Value = _SetValue;
+        PlayerManager.Instance.PlayerController.CurrentEC.Value -= _UseEC;
+        if (_MaxUpgradeLevel <= Upgrade_BUS.CurrentLevel.Value)
+        {
+            Upgrade_BuyBtn.ThisBtn.interactable = false;
+        }
+
+        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(Upgrade_MTAFB);
+    }
+
+
+    public static BUState<T> GetThisData(List<BUShopEachData<T>> _ShopDataList, TxtAmountForBuyEUIController _InMTAFB)
+    {
+        foreach (BUShopEachData<T> Data in _ShopDataList)
+        {
+            if (Data.Upgrade_MTAFB == _InMTAFB)
+            {
+                return Data.Upgrade_BUS;
+            }
+        }
+        return null;
+    }
+}
+
+#endregion
+
+#region Class : State : Player : BU Level
+// BU Manager로 미리 수치를 저장하기 위함
+
+[System.Serializable]
+public class BULevelSkillData<T, U>
+{
+    public BULevelData<T> Skill_Cooltime_BUData;
+    public BULevelData<T> Skill_Power_BUData;
+    public BULevelData<U> Skill_Tier_BUData;
+}
+
+[System.Serializable]
+public class BULevelData<T>
+{
+    [Header("=== No Input")]
+    public List<BUEachLevelData<T>> BU_EachLevelDataList;
+
+    public void Offset(BUState<T> _BaseValue)
+    {
+        if (_BaseValue.BaseState.GetType() == typeof(float))
+        {
+            // Base
+            float float_BaseValue = float.Parse(_BaseValue.BaseState.ToString());
+
+            // Upgrade
+            List<float> float_UpgradeValues = new List<float>();
+            for (int i = 0; i < _BaseValue.UpgradeValueByLevelRange.Count; i++)
+            {
+                float float_EachUpgradeValue = float.Parse(_BaseValue.UpgradeValueByLevelRange[i].ToString());
+                float_UpgradeValues.Add(float_EachUpgradeValue);
+            }
+
+            Offset(float_BaseValue, float_UpgradeValues, _BaseValue.NeedPayByLevelRange);
+        }
+        else if (_BaseValue.BaseState.GetType() == typeof(int))
+        {
+            // Base
+            int int_BaseValue = int.Parse(_BaseValue.BaseState.ToString());
+
+            // Upgrade
+            List<int> int_UpgradeValues = new List<int>();
+            for (int i = 0; i < _BaseValue.UpgradeValueByLevelRange.Count; i++)
+            {
+                int int_EachUpgradeValue = int.Parse(_BaseValue.UpgradeValueByLevelRange[i].ToString());
+                int_UpgradeValues.Add(int_EachUpgradeValue);
+            }
+
+            Offset(int_BaseValue, int_UpgradeValues, _BaseValue.NeedPayByLevelRange);
+        }
+    }
+
+    public void Offset(float _FloatValue, List<float> _UpgradeValue, List<int> _NeedPay)
+    {
+        for (int i = 0; i < BU_EachLevelDataList.Count; i++)
+        {
+            if (i == 0)
+            {
+                decimal d = (decimal)(_FloatValue + _UpgradeValue[0]);
+                BU_EachLevelDataList[i].SetUpgradeValue(Mathf.RoundToInt((float)d * 100f) / 100f);
+            }
+            else
+            {
+                decimal d = (decimal)((float)BU_EachLevelDataList[i - 1].GetUpgradeValue() + _UpgradeValue[(int)(i / 3)]);
+                BU_EachLevelDataList[i].SetUpgradeValue(Mathf.RoundToInt((float)d * 100f) / 100f);
+            }
+
+            BU_EachLevelDataList[i].NeedEC_ForUpgrade = _NeedPay[(int)(i / 3)];
+        }
+    }
+
+    public void Offset(int _IntValue, List<int> _UpgradeValue, List<int> _NeedPay)
+    {
+        for (int i = 0; i < BU_EachLevelDataList.Count; i++)
+        {
+            if (i == 0)
+            {
+                int _intager = (_IntValue + _UpgradeValue[0]);
+                BU_EachLevelDataList[i].SetUpgradeValue((int)_intager);
+            }
+            else
+            {
+                int _intager = ((int)BU_EachLevelDataList[i - 1].GetUpgradeValue() + _UpgradeValue[(int)(i / 3)]);
+                BU_EachLevelDataList[i].SetUpgradeValue((int)_intager);
+            }
+
+            BU_EachLevelDataList[i].NeedEC_ForUpgrade = _NeedPay[(int)(i / 3)];
+        }
+    }
+}
+
+[System.Serializable]
+public class BUEachLevelData<T>
+{
+    public T UpgradeValue;
+    public int NeedEC_ForUpgrade;
+
+    public void SetUpgradeValue(object _Value)
+    {
+        UpgradeValue = (T)_Value;
+    }
+
+    public object GetUpgradeValue()
+    {
+        return UpgradeValue;
+    }
+}
+
+#endregion
+
+#region Class : State : Player : BU State
+// BU 강화를 위한 수치들
 
 [System.Serializable]
 public class BUState<T>
@@ -936,6 +1186,9 @@ public class BUState<T>
 
 }
 
+#endregion
+
+#region Class : State : Player : Other
 
 [System.Serializable]
 public class Shield
@@ -960,27 +1213,79 @@ public class BuffState<T>
 #region Class : Satellite
 
 [System.Serializable]
-public class SatelliteController
+public abstract class SatelliteController
 {
-    [SerializeField] public Transform ObjectTF;
-    [SerializeField] public Transform TargetTF;
-    [SerializeField] public SpriteRenderer ThisActualSR;
+    #region Value
+
+    [Space(10)]
+    [Header("<><><><><> Satellite")]
+
+    [Space(5)]
+    [Header("=== Comp")]
+    [SerializeField] public Transform Target;
+    [SerializeField] public DepthController Follower;
+
+    [Space(5)]
+    [Header("=== Sorting Value")]
     [SerializeField] public int UpperOrder;
+
+    #endregion
+
+    #region Func
+
+    public void Set_Pos()
+    {
+        Follower.transform.position = Target.position;
+    }
+
+    public abstract void Set_SortingOrder(int _ObjectSortOrder);
+
+    #endregion
+}
+
+[System.Serializable]
+public class SatelliteSideController : SatelliteController
+{
+    #region Value
+
+    [Space(10)]
+    [Header("<><><><><> Side")]
+
+    [Space(5)]
+    [Header("=== Comp")]
+
+    [Header("=== Sorting Value")]
     [SerializeField] public int FarFromCenter;
 
-    public void SetPos(int _PlayerSortOrder)
-    {
-        ObjectTF.position = TargetTF.position;
+    #endregion
 
-        if (ObjectTF.localPosition.y > 0)
-        {
-            ThisActualSR.sortingOrder = _PlayerSortOrder + UpperOrder - FarFromCenter;
-        }
-        else
-        {
-            ThisActualSR.sortingOrder = _PlayerSortOrder + UpperOrder + FarFromCenter;
-        }
+    #region Func
+
+    public override void Set_SortingOrder(int _ObjectSortOrder)
+    {
+        Follower.Set_SortingOrder(_ObjectSortOrder + UpperOrder + 
+            (Is_LocalUpper(Follower.transform) ? -FarFromCenter : FarFromCenter));
     }
+
+    private bool Is_LocalUpper(Transform _TargetTF)
+    {
+        return _TargetTF.localPosition.y > 0;
+    }
+
+    #endregion
+}
+
+[System.Serializable]
+public class SatelliteCenterController : SatelliteController
+{
+    #region Func
+
+    public override void Set_SortingOrder(int _ObjectSortOrder)
+    {
+        Follower.Set_SortingOrder(_ObjectSortOrder + UpperOrder);
+    }
+
+    #endregion
 }
 
 #endregion

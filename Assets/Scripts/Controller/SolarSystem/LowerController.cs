@@ -9,68 +9,59 @@ public class LowerController : SolarSystemController
     [Space(20)]
     [Header("<><><><><> Lower")]
 
-    [Header("-- Component")]
+    [Header("=== Component")]
     [SerializeField] public Rigidbody2D ThisRb;
-    [SerializeField] private List<Animator> ThisAnimatorList;
+    [SerializeField] private List<DirectionalAnimController> ThisAnimatorList;
     [SerializeField] private SpriteRenderer CenterSpriteRenderer;
 
-    Tween MoveTween = null;
+    [HideInInspector] private bool IsTweening = false;
+    [HideInInspector] private Tween MoveTween = null;
 
     #endregion
 
     #region Fremework
 
-    protected void LateUpdate()
+    protected override void LateUpdate()
     {
         Vector2 dir = ThisRb.velocity;
-        if (dir != Vector2.zero) 
-        { 
-            Set_All(dir);
-        }
-        else
-        {
-            // Tween
-            if (MoveTween != null)
-            {
-                DOTween.Kill(MoveTween);
-                MoveTween = null;
-            }
-        }
-            
-        Set_AnimSpeed(Vector2.Distance(Vector2.zero, dir));
+        float time = Time.deltaTime;
+
+        Set_RotSmooth(dir.normalized, time);
+        Set_Tween(dir);
+        DevTool.Set_AnimSpeed(ThisAnimatorList, dir.sqrMagnitude);
+
+        base.LateUpdate();
     }
 
     #endregion
 
-    #region Set
+    #region Tween
 
-    public void Set_All(Vector2 _Dir)
+    private void Set_Tween(Vector2 _RbVel)
     {
-        // Rotate
-        PitchTF.transform.localRotation = Get_RotationSmooth(_Dir.normalized);
-        foreach (SatelliteController hand in Hands)
+        if (_RbVel != Vector2.zero && IsTweening == false) // On
         {
-            hand.SetPos(PlayerSR.sortingOrder);
+            SetOn_Tween();
         }
-        CenterSpriteRenderer.sortingOrder = PlayerController.ThisSR.sortingOrder + Hands[0].UpperOrder;
-    
-        // Tween
-        if (MoveTween == null)
+        else if (_RbVel == Vector2.zero && IsTweening == true) // Off
         {
-            MoveTween = this.transform.DOShakePosition(1f, 0.01f, 20, 0, false, false)
-                .SetLoops(-1, LoopType.Restart); 
+            SetOff_Tween();
         }
     }
 
-    private void Set_AnimSpeed(float _AnimSpeed)
+    private void SetOn_Tween()
     {
-        for (int i = 0; i < ThisAnimatorList.Count; i++)
-        {
-            ThisAnimatorList[i].speed = _AnimSpeed;
-        }
+        IsTweening = true;
+        MoveTween = this.transform.DOShakePosition(1f, 0.01f, 20, 0, false, false)
+            .SetLoops(-1, LoopType.Restart);
+    }
+
+    private void SetOff_Tween()
+    {
+        IsTweening = false;
+        DOTween.Kill(MoveTween);
+        MoveTween = null;
     }
 
     #endregion
-
-    
 }

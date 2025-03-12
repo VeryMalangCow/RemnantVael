@@ -48,9 +48,10 @@ public class PoolingManager : Singleton<PoolingManager>
 
     #region Get
 
+    // Object (Single)
     public T Get_OP<T>(TTypePooling<T> _Pooling)
     {
-        return Get_OP<T>(_Pooling.Prefab, _Pooling.ParentTF, _Pooling.Queue);
+        return Get_OP(_Pooling.Prefab, _Pooling.ParentTF, _Pooling.Queue);
     }
 
     private T Get_OP<T>(GameObject _SpawnGO, Transform _ParnetTF, Queue<T> _Queue)
@@ -72,6 +73,22 @@ public class PoolingManager : Singleton<PoolingManager>
         }
     }
 
+    // List
+    public List<T> Get_OP_List<T>(TTypePooling<T> _Pooling, int _Amount)
+    {
+        return Get_OP_List(_Pooling.Prefab, _Pooling.ParentTF, _Pooling.Queue, _Amount);
+    }
+
+    public List<T> Get_OP_List<T>(GameObject _SpawnGO, Transform _ParnetTF, Queue<T> _Queue, int _Amount)
+    {
+        List<T> tTypeList = new List<T>();
+        for (int i = 0; i < _Amount; i++)
+        {
+            tTypeList.Add(Get_OP(_SpawnGO, _ParnetTF, _Queue)); 
+        }
+        return tTypeList;
+    }
+
     #endregion
 
     #region Player
@@ -80,6 +97,10 @@ public class PoolingManager : Singleton<PoolingManager>
     public PlayerBulletController Get_OP_PlayerBullet()
     {
         return Get_OP<PlayerBulletController>(PlayerBullet.Prefab, PlayerBullet.ParentTF, PlayerBullet.Queue);
+    }
+    public List<PlayerBulletController> Get_OP_PlayerBullet(int _Amount)
+    {
+        return Get_OP_List<PlayerBulletController>(PlayerBullet.Prefab, PlayerBullet.ParentTF, PlayerBullet.Queue, _Amount);
     }
 
     // Energy Shrapnel

@@ -38,33 +38,34 @@ public class NormalEnemyController : EnemyController
 
     private void LateUpdate()
     {
-        Set_Img(WalkingSatellite, ThisRb.velocity);
-        Set_Img(LookingSatellite, LookAtDir);
-        DevTool.Set_AnimSpeedAnd(ThisSEDA, BaseUnderFootAnimSpeed * ThisRb.velocity.sqrMagnitude);
+        Set_Img(WalkingSatellite, ThisRb.velocity, Time.deltaTime);
+        Set_Img(LookingSatellite, LookAtDir, Time.deltaTime);
+        DevTool.Set_AnimSpeed(ThisSEDA, BaseUnderFootAnimSpeed * ThisRb.velocity.sqrMagnitude);
     }
 
     #endregion
 
     #region Img or Anim
 
-    private void Set_Img(SolarSystemController _SC, Vector2 _Dir)
+    private void Set_Img(SolarSystemController _SC, Vector2 _Dir, float _DeltaTime)
     {
         if (_Dir != Vector2.zero)
         {
             _Dir = new Vector2(-_Dir.x, _Dir.y);
-            if (SolarSystemController.Get_Index(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z) != CurrentIndex.Value)
+            int index = DevTool.Get_Index(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z);
+            if (index != CurrentIndex.Value)
             {
-                CurrentIndex.Value = SolarSystemController.Get_Index(Quaternion.FromToRotation(Vector3.up, _Dir).eulerAngles.z);
+                CurrentIndex.Value = index;
             }
 
-            _SC.PitchTF.transform.localRotation = _SC.Get_RotationSmooth(SolarSystemController.Get_NormalizedVec(CurrentIndex.Value));
+            _SC.Set_RotSmooth(DevTool.Get_NormalizedVec(CurrentIndex.Value), _DeltaTime);
         }
     }
 
     private void Set_ImgPosSort(SolarSystemController _SC)
     {
-        foreach (SatelliteController hand in _SC.Hands)
-        { hand.SetPos(_SC.PlayerSR.sortingOrder); }
+        foreach (SatelliteSideController hand in _SC.SatelliteSideList)
+        { hand.Set_SortingOrder(_SC.PivotObjectSR.sortingOrder); }
     }
 
     #endregion

@@ -51,16 +51,8 @@ public class BaseUpgradeUIController : PanelUIController
     [SerializeField] private BUShopEachData<float> WalkAvoidChance;
 
     [Space(10)]
-    [Header("-- Skill 0")]
-    [SerializeField] private BUShopEachData<float> Skill0_CooltimeShop;
-    [SerializeField] private BUShopEachData<float> Skill0_PowerShop;
-    [SerializeField] private BUShopEachData<int> Skill0_TierShop;
-
-    [Space(10)]
-    [Header("-- Skill 1")]
-    [SerializeField] private BUShopEachData<float> Skill1_CooltimeShop;
-    [SerializeField] private BUShopEachData<float> Skill1_PowerShop;
-    [SerializeField] private BUShopEachData<int> Skill1_TierShop;
+    [Header("-- Skill")]
+    [SerializeField] List<BUShopSkillData<float, int>> SkillShopList; 
 
     [Space(10)]
     [Header("=== Desc")]
@@ -114,27 +106,26 @@ public class BaseUpgradeUIController : PanelUIController
         WalkAvoidChance.Offset(PlayerManager.Instance.PlayerController.AvoidChance, BaseUpgradeManager.Instance.BaseAvoidChance_BUData, this);
         DashSpeedShop.Offset(PlayerManager.Instance.PlayerController.DashController.DashSpeed, BaseUpgradeManager.Instance.BaseDashSpeed_BUData, this);
 
-        Skill0_CooltimeShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.MaxCooltime, BaseUpgradeManager.Instance.Skill0_Cooltime_BUData, this);
-        Skill0_PowerShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.Power, BaseUpgradeManager.Instance.Skill0_Power_BUData, this);
-        Skill0_TierShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.Tier, BaseUpgradeManager.Instance.Skill0_Tier_BUData, this);
-
-        Skill1_CooltimeShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.MaxCooltime, BaseUpgradeManager.Instance.Skill1_Cooltime_BUData, this);
-        Skill1_PowerShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.Power, BaseUpgradeManager.Instance.Skill1_Power_BUData, this);
-        Skill1_TierShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.Tier, BaseUpgradeManager.Instance.Skill1_Tier_BUData, this);
-
+        for (int i = 0; i < DevTool.SkillAmount; i++)
+        {
+            SkillShopList[i].Skill_CooltimeShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].MaxCooltime, BaseUpgradeManager.Instance.Skill_BUDataList[i].Skill_Cooltime_BUData, this);
+            SkillShopList[i].Skill_PowerShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].Power, BaseUpgradeManager.Instance.Skill_BUDataList[i].Skill_Power_BUData, this);
+            SkillShopList[i].Skill_TierShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].Tier, BaseUpgradeManager.Instance.Skill_BUDataList[i].Skill_Tier_BUData, this);
+        }
 
         AllUpgradeDataList_Float = new List<BUShopEachData<float>>()
         {
             DamageShop, ROFShop, CCShop, CDShop, MuzzleShop, AccuracyRateShop, KnockbackShop,
             MaxEPShop,SpawnESMultipleShop, NeedEP_ForSkillMultipleShop, DecEnergyPointMultipleShop, ResistShop,
             WalkSpeedShop, WalkSpeedWhenShotMultipleShop, WalkAvoidChance, DashSpeedShop,
-            Skill0_CooltimeShop, Skill0_PowerShop,
-            Skill1_CooltimeShop, Skill1_PowerShop
+            SkillShopList[0].Skill_CooltimeShop, SkillShopList[0].Skill_PowerShop,
+            SkillShopList[1].Skill_CooltimeShop, SkillShopList[1].Skill_PowerShop
         };
+
         AllUpgradeDataList_Int = new List<BUShopEachData<int>>()
         {
-            Skill0_TierShop,
-            Skill1_TierShop
+            SkillShopList[0].Skill_TierShop,
+            SkillShopList[1].Skill_TierShop
         };
 
 
@@ -151,10 +142,11 @@ public class BaseUpgradeUIController : PanelUIController
 
         PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Subscribe(_Value =>
         {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Set_CostText(
-                _Value * PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.NeedEP.Value);
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Set_CostText(
-                _Value * PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.NeedEP.Value);
+            for (int i = 0; i < DevTool.SkillAmount; i++)
+            {
+                MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i].Set_CostText(
+                    _Value * PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].NeedEP.Value);
+            }
         });
 
         
@@ -344,96 +336,4 @@ public class BaseUpgradeUIController : PanelUIController
     }
 
     #endregion
-}
-
-[System.Serializable]
-public class BUShopEachData<T>
-{
-    [SerializeField] public TxtAmountForBuyEUIController Upgrade_MTAFB;
-    [SerializeField] public OwnBtnEUIController Upgrade_BuyBtn;
-
-    [HideInInspector] public BUState<T> Upgrade_BUS;
-    [HideInInspector] private BULevelData<T> Upgrade_BUOTD;
-
-    public void Offset(BUState<T> _Upgrade_BUS, BULevelData<T> _Upgrade_BUOTD, BaseUpgradeUIController _Owner)
-    {
-        Upgrade_MTAFB.Offset();
-
-        Upgrade_BUS = _Upgrade_BUS;
-        Upgrade_BUOTD = _Upgrade_BUOTD;
-
-        Upgrade_BUS.BuffedState = Upgrade_BUS.ActualState.Value;
-
-        Upgrade_MTAFB.SkillNameTxt.text = Upgrade_BUS.Name;
-        Upgrade_MTAFB.SkillOpenSimpleTxt.text = Upgrade_BUS.Desc;
-
-        if (Upgrade_BuyBtn != null)
-        {
-            Upgrade_BuyBtn.Offset();
-            Upgrade_BuyBtn.OwnerUIController = _Owner;
-        }
-
-
-        Upgrade_BUS.CurrentLevel
-           .Subscribe(_CurrentLevel =>
-           {
-               int currentLv = _CurrentLevel;
-               if(currentLv < Upgrade_BUOTD.BU_EachLevelDataList.Count)
-               {
-                   Upgrade_MTAFB.Set(currentLv, Upgrade_BUOTD.BU_EachLevelDataList[currentLv].NeedEC_ForUpgrade);
-               }
-               else if (currentLv == Upgrade_BUOTD.BU_EachLevelDataList.Count)
-               {
-                   Upgrade_MTAFB.Set(currentLv, 0);
-               }
-               Upgrade_MTAFB.Set_InnerAlpha((float)currentLv/(float)Upgrade_BUOTD.BU_EachLevelDataList.Count);
-           });
-
-        _Owner.MainColorCompList.Add(Upgrade_MTAFB.SkillNameTxt);
-        _Owner.SubColorCompList.Add(Upgrade_MTAFB.SkillLvTxt);
-        _Owner.SubColorCompList.AddRange(Upgrade_MTAFB.ThisMIAAT.Img_List);
-        _Owner.SubColorCompList.AddRange(Upgrade_MTAFB.InnerImgList);
-        _Owner.MainColorCompList.Add(Upgrade_MTAFB.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-        _Owner.MainColorCompList.Add(Upgrade_MTAFB.SimpleDescTxt);
-        _Owner.MainColorCompList.Add(Upgrade_BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-    }
-
-    public void TryBuy()
-    {
-        int index = Upgrade_BUS.CurrentLevel.Value;
-        int needEC = Upgrade_BUOTD.BU_EachLevelDataList[index].NeedEC_ForUpgrade;
-        int hadEC = PlayerManager.Instance.PlayerController.CurrentEC.Value;
-        if (needEC <= hadEC)
-        {
-            Buy(needEC, Upgrade_BUOTD.BU_EachLevelDataList.Count, Upgrade_BUOTD.BU_EachLevelDataList[index].UpgradeValue);
-        }
-    }
-
-    private void Buy(int _UseEC, int _MaxUpgradeLevel, T _SetValue)
-    {
-        BaseUpgradeController.UsingShop.Take_Damage(false);
-
-        Upgrade_BUS.CurrentLevel.Value++;
-        Upgrade_BUS.ActualState.Value = _SetValue;
-        PlayerManager.Instance.PlayerController.CurrentEC.Value -= _UseEC;
-        if (_MaxUpgradeLevel <= Upgrade_BUS.CurrentLevel.Value)
-        {
-            Upgrade_BuyBtn.ThisBtn.interactable = false;
-        }
-
-        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(Upgrade_MTAFB);
-    }
-
-
-    public static BUState<T> GetThisData(List<BUShopEachData<T>> _ShopDataList, TxtAmountForBuyEUIController _InMTAFB)
-    {
-        foreach (BUShopEachData<T> Data in _ShopDataList)
-        {
-            if (Data.Upgrade_MTAFB == _InMTAFB)
-            {
-                return Data.Upgrade_BUS;
-            }
-        }
-        return null;
-    }
 }

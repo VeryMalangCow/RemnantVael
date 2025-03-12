@@ -37,7 +37,7 @@ public class TitlePlayerController : MovableObjectController
     {
         Play_Movement();
 
-        Set_Img();
+        Set_Img(Time.deltaTime);
     }
 
     #endregion
@@ -86,23 +86,19 @@ public class TitlePlayerController : MovableObjectController
 
     #region Anim
 
-    private void Set_Img()
+    private void Set_Img(float _DeltaTime)
     {
         Vector2 dir = ThisRb.velocity;
         if (dir != Vector2.zero)
         {
             dir = new Vector2(-dir.x, dir.y);
-            if (SolarSystemController.Get_Index(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z) != CurrentIndex.Value)
+            int index = DevTool.Get_Index(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z);
+            if (index != CurrentIndex.Value)
             {
-                CurrentIndex.Value = SolarSystemController.Get_Index(Quaternion.FromToRotation(Vector3.up, dir).eulerAngles.z);
+                CurrentIndex.Value = index;
             }
 
-            HigherBody.PitchTF.transform.localRotation = HigherBody.Get_RotationSmooth(SolarSystemController.Get_NormalizedVec(CurrentIndex.Value));
-            foreach (SatelliteController hand in HigherBody.Hands)
-            {
-                hand.SetPos(HigherBody.PlayerSR.sortingOrder);
-            }
-            //HigherBody.CenterSpriteRenderer.sortingOrder = PlayerController.ThisSR.sortingOrder + Hands[0].UpperOrder;
+            HigherBody.Set_RotSmooth(DevTool.Get_NormalizedVec(CurrentIndex.Value), _DeltaTime);
         }
     }
 

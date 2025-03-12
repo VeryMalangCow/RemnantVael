@@ -6,102 +6,94 @@ public class SolarSystemController : MonoBehaviour
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Waepon")]
+    [Header("<><><><><> Solar System")]
 
     [Space(10)]
-    [Header("=== Player")]
-    [SerializeField] protected PlayerController PlayerController;
-    [SerializeField] public SpriteRenderer PlayerSR;
-    [SerializeField] public bool IsInputed = false;
+    [Header("=== Pivot")]
+    [SerializeField] public SpriteRenderer PivotObjectSR;
 
     [Space(10)]
-    [Header("=== Hand Things")]
+    [Header("=== Satellite")]
     [Header("-- Roll")]
     [SerializeField] private float DefualtRoll = -85f;
-    [SerializeField] private Transform RollTF;
+    [HideInInspector] private Transform RollTF;
 
     [Header("-- Pitch")]
     [SerializeField] protected float rotateSpeed = 4f;
-    [SerializeField] public Transform PitchTF;
+    [HideInInspector] public Transform PitchTF;
 
     [Header("-- Hand")]
-    [SerializeField] public List<SatelliteController> Hands;
+    [SerializeField] public List<SatelliteSideController> SatelliteSideList;
+    [SerializeField] public List<SatelliteCenterController> SatelliteCenterList;
+
+    #endregion
+
+    #region Offset
+
+    private void Offset()
+    {
+        Offset_TF();
+    }
+
+    private void Offset_TF()
+    {
+        RollTF = transform.GetChild(0);
+        PitchTF = RollTF.GetChild(0);
+    }
 
     #endregion
 
     #region Fremework
+
+    private void Awake()
+    {
+        Offset();
+    }
 
     protected void OnEnable()
     {
         RollTF.rotation = Quaternion.Euler(DefualtRoll, 0f, 0f);
     }
 
+    protected virtual void LateUpdate()
+    {
+        Set_SortingOrderAll();
+    }
+
+    #endregion
+
+    #region SortingOrder
+
+    // 솔팅
+    private void Set_SortingOrderAll()
+    {
+        for (int i = 0; i < SatelliteSideList.Count; i++)
+        {
+            SatelliteSideList[i].Set_SortingOrder(PivotObjectSR.sortingOrder);
+        }
+        for (int i = 0; i < SatelliteCenterList.Count; i++)
+        {
+            SatelliteCenterList[i].Set_SortingOrder(PivotObjectSR.sortingOrder);
+        }
+    }
+
     #endregion
 
     #region Rotate
 
-    public void Set_Rotation(Vector2 _Dir)
+    // 바로 Rot 설정
+    public void Set_Rot(Vector2 _Dir)
     {
-        Set_Rotation(PitchTF, _Dir);
+        PitchTF.transform.localRotation = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f);
     }
 
-    public void Set_Rotation(Transform _PitchTF, Vector2 _Dir)
+    // 부드럽게 Rot 설정
+    public void Set_RotSmooth(Vector2 _Dir, float _DeltaTime)
     {
-        _PitchTF.transform.localRotation = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f);
-        foreach (SatelliteController hand in Hands)
-        { hand.SetPos(PlayerSR.sortingOrder); }
-    }
-
-    public Quaternion Get_RotationSmooth(Vector2 _Dir)
-    {
-        return Get_RotationSmooth(_Dir, PitchTF, rotateSpeed);
-    }
-
-    protected Quaternion Get_RotationSmooth(Vector2 _Dir, Transform _PitchTF, float _RotateSpeed)
-    {
-        Quaternion targetQuat = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f);
-        targetQuat = Quaternion.Slerp(_PitchTF.transform.localRotation, targetQuat, _RotateSpeed * Time.deltaTime);
-
-        return targetQuat;
-    }
-
-    #endregion
-
-    #region Get
-
-    public static int Get_Index(float _EulerAngleY)
-    {
-        int index = 0;
-        float angle = _EulerAngleY + 67.5f;
-        angle = angle >= 360 ? angle -= 360 : angle;
-
-        index = (int)(angle / 45);
-        return index;
-    }
-
-    public static Vector2Int Get_NormalizedVec(int _Index)
-    {
-        switch (_Index)
-        {
-            case 0:
-                return new Vector2Int(-1, 1);
-            case 1:
-                return new Vector2Int(0, 1);
-            case 2:
-                return new Vector2Int(1, 1);
-            case 3:
-                return new Vector2Int(1, 0);
-            case 4:
-                return new Vector2Int(1, -1);
-            case 5:
-                return new Vector2Int(0, -1);
-            case 6:
-                return new Vector2Int(-1, -1);
-            case 7:
-                return new Vector2Int(-1, 0);
-
-        }
-        return Vector2Int.zero;
+        PitchTF.transform.localRotation = Quaternion.Slerp(
+            PitchTF.transform.localRotation, 
+            Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f), 
+            rotateSpeed * Time.deltaTime);
     }
 
     #endregion

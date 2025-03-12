@@ -36,11 +36,11 @@ public class MissileSkillController : ActiveSkillController
 
 
         Transform tf = null;
-        for (int i = 0; i < PlayerController.SkillWeapon.Hands.Count; i++)
+        for (int i = 0; i < PlayerController.SkillWeapon.SatelliteSideList.Count; i++)
         {
-            if (PlayerController.SkillWeapon.Hands[i].ObjectTF == this.gameObject.transform)
+            if (PlayerController.SkillWeapon.SatelliteSideList[i].Follower == this.gameObject.transform)
             {
-                tf = PlayerController.SkillWeapon.Hands[i].TargetTF;
+                tf = PlayerController.SkillWeapon.SatelliteSideList[i].Target;
             }
         }
 

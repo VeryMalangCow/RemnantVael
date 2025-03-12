@@ -39,8 +39,7 @@ public class PlayerHUDController : UIController
     [SerializeField] private RectTransform SkillStatesParentRT;
     [HideInInspector] private float DefaultSkillStatesRectY;
     [SerializeField] private List<string> SkillStatesStringList;
-    [SerializeField] private TMP_Text Skill0StatesTxt;
-    [SerializeField] private TMP_Text Skill1StatesTxt;
+    [SerializeField] private List<TMP_Text> SkillStatesTxtList;
 
 
     // Tab
@@ -87,8 +86,7 @@ public class PlayerHUDController : UIController
 
     [Space(10)]
     [Header("=== Skill")]
-    [SerializeField] public SkillEUIController Skill0;
-    [SerializeField] public SkillEUIController Skill1;
+    [SerializeField] public List<SkillEUIController> SkillList;
 
     [Space(10)]
     [Header("=== Minimap")]
@@ -112,8 +110,7 @@ public class PlayerHUDController : UIController
     [Header("=== Color Or Icon")]
     [Header("-- Icon")]
     [SerializeField] private List<Image> ESImgList;
-    [SerializeField] private Image Skill0Img;
-    [SerializeField] private Image Skill1Img;
+    [SerializeField] private List<Image> SkillImgList;
 
     [Header("-- Buff")]
     [SerializeField] private Transform BuffParentTF;
@@ -142,8 +139,10 @@ public class PlayerHUDController : UIController
         EmptyBC.Offset();
         FullEC.Offset();
 
-        Skill0.Offset();
-        Skill1.Offset();
+        for (int i = 0; i < SkillList.Count; i++)
+        {
+            SkillList[i].Offset();
+        }
         ThisMinimap.Offset();
     }
 
@@ -283,8 +282,11 @@ public class PlayerHUDController : UIController
             ESImgList[i].sprite = PlayerManager.Instance.PlayerController.ES_Sprite;
             ESImgList[i].SetNativeSize();
         }
-        Skill0Img.sprite = PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0.ThisSkillUISprite;
-        Skill1Img.sprite = PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1.ThisSkillUISprite;
+
+        for (int i = 0; i < SkillImgList.Count; i++)
+        {
+            SkillImgList[i].sprite = PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].ThisSkillUISprite;
+        }
 
         #endregion
 
@@ -299,14 +301,16 @@ public class PlayerHUDController : UIController
         for (int i = 0; i < BoostLightArr.Length; i++)
         { MainColorCompList.Add(BoostLightArr[i].GetComponent<Image>()); MainColorCompList.Add(BoostLightWheelArr[i].GetComponent<Image>()); }
 
-        MainColorCompList.Add(Skill0.SkillCostTxt);
-        MainColorCompList.Add(Skill0.SkillErrorTxt);
-        MainColorCompList.Add(Skill1.SkillCostTxt);
-        MainColorCompList.Add(Skill1.SkillErrorTxt);
+        for (int i = 0; i < DevTool.SkillAmount; i++)
+        {
+            MainColorCompList.Add(SkillList[i].SkillCostTxt);
+            MainColorCompList.Add(SkillList[i].SkillErrorTxt);
+            MainColorCompList.Add(SkillStatesTxtList[i]);
+
+            SubColorCompList.Add(SkillList[i].SkillInnerImg);
+        }
 
         MainColorCompList.Add(PlayerStatesTxt);
-        MainColorCompList.Add(Skill0StatesTxt);
-        MainColorCompList.Add(Skill1StatesTxt);
 
         MainColorCompList.Add(StageNameTxt);
         MainColorCompList.Add(StageDescriptionTxt);
@@ -323,8 +327,6 @@ public class PlayerHUDController : UIController
         SubColorCompList.AddRange(EPInnerImgList);
         SubColorCompList.AddRange(BoostInnerList);
 
-        SubColorCompList.Add(Skill0.SkillInnerImg);
-        SubColorCompList.Add(Skill1.SkillInnerImg);
 
         SubColorCompList.Add(ThisMinimap.InnerImg);
         SubColorCompList.Add(CurrentEmptyBC.LightInner);
@@ -369,8 +371,10 @@ public class PlayerHUDController : UIController
 
         SetPlayerState();
 
-        SetSkillState(Skill0StatesTxt, pswc.Skill_0);
-        SetSkillState(Skill1StatesTxt, pswc.Skill_1);
+        for (int i = 0; i < DevTool.SkillAmount; i++)
+        {
+            SetSkillState(SkillStatesTxtList[i], pswc.SkillList[i]);
+        }
 
         void SetPlayerState()
         {

@@ -43,16 +43,11 @@ public class DirectionalController<T, U> : MonoBehaviour where U : Component
 
     private void Check_CorrectIndex()
     {
-        int cacualatedIndex = Get_Index(RotationTargetTF.localRotation.eulerAngles.y);
+        int cacualatedIndex = DevTool.Get_Index(RotationTargetTF.localRotation.eulerAngles.y);
         if (cacualatedIndex != CurrentIndex.Value)
         {
             CurrentIndex.Value = cacualatedIndex;
         }
-    }
-
-    private int Get_Index(float _EulerAngleY)
-    {
-        return (int)((_EulerAngleY + 67.5f) % 360 * 0.0222222f);
     }
 
     #endregion

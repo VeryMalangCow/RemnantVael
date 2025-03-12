@@ -401,7 +401,7 @@ public class PlayerController : AliveObjectController
         switch(MovementState)
         {
             case eMovementState.IdleOrWalk:
-                if(!BaseWeapon.Is_Firing())
+                if(!BaseWeapon.IsShooting)
                 {
                     Play_Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value, AccelerationSpeed);
                 }
@@ -748,38 +748,31 @@ public class PlayerController : AliveObjectController
     }
 
     // + None
-    [HideInInspector] public float Skill0Interval = 0.5f;
+    [HideInInspector] public float SkillInterval = 0.5f;
     public void Try_Skill0()
     {
-        if (!Can_Change())
-        { return; }
-        if (!SkillWeapon.Skill_0.Can_Active())
-        {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Start_NotEnoughEP();
-            return;
-        }
-
-        ReservationSkillDele = SkillWeapon.Skill_0.Active_Skill;
-        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeSpecial, 2f), ChangeState_Skill.TypeBase, 1f);
-
-        Start_Casting(Skill0Interval);
+        Try_Skill(0, ChangeState_Skill.TypeBase);
     }
 
-    [HideInInspector] public float Skill1Interval = 0.5f;
     public void Try_Skill1()
+    {
+        Try_Skill(1, ChangeState_Skill.TypeSpecial);
+    }
+
+    private void Try_Skill(int _Index, Sprite _Sprite)
     {
         if (!Can_Change())
         { return; }
-        if (!SkillWeapon.Skill_1.Can_Active())
+        if (!SkillWeapon.SkillList[_Index].Can_Active())
         {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Start_NotEnoughEP();
+            MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[_Index].Start_NotEnoughEP();
             return;
         }
 
-        ReservationSkillDele = SkillWeapon.Skill_1.Active_Skill;
-        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeSpecial, 2f), ChangeState_Skill.TypeSpecial, 1f);
+        ReservationSkillDele = SkillWeapon.SkillList[_Index].Active_Skill;
+        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeSpecial, 2f), _Sprite, 1f);
 
-        Start_Casting(Skill1Interval);
+        Start_Casting(SkillInterval);
     }
 
     public void Start_Casting(float _CastingTime)

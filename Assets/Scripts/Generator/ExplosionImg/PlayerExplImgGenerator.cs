@@ -133,7 +133,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
     // 쇼크웨이브 발사
     private void Expl_Player00_Skill1(Vector2 _SpawnPos)
     {
-        if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1 is ShockwaveSkillController shock)
+        if (PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[1] is ShockwaveSkillController shock)
         {
             float usableMaxSize = shock.Get_UsableMaxSize();
             float cc = PlayerManager.Instance.PlayerController.BaseWeapon.CC.ActualState.Value;

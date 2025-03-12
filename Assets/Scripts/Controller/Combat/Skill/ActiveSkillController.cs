@@ -90,18 +90,20 @@ public class ActiveSkillController : MonoBehaviour
 
     protected void Set_StartUI()
     {
-        if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0 == this)
-        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Set_StartUI(); }
-        else if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1 == this)
-        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Set_StartUI(); }
+        for (int i = 0; i < DevTool.SkillAmount; i++)
+        {
+            if (PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i] == this)
+            { MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i].Set_StartUI(); }
+        }
     }
 
     protected void Set_EndUI()
     {
-        if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_0 == this)
-        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill0.Set_EndUI(); }
-        else if (PlayerManager.Instance.PlayerController.SkillWeapon.Skill_1 == this)
-        { MainGameUIManager.Instance.PlayerHUD_UIController.Skill1.Set_EndUI(); }
+        for (int i = 0; i < DevTool.SkillAmount; i++)
+        {
+            if (PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i] == this)
+            { MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i].Set_EndUI(); }
+        }
     }
 
     #endregion

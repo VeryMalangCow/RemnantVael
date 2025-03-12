@@ -2,7 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeaponController : SolarSystemController
+public class PlayerWeaponController : PlayerSolarController
 {
     #region Value
 
@@ -12,8 +12,14 @@ public class PlayerWeaponController : SolarSystemController
     [Space(10)]
     [Header("=== State")]
     [SerializeField] public eDamageType DamageType;
-    [SerializeField] public BUState<float> BaseDamage;
     [SerializeField] public float AliveTime;
+    [HideInInspector] public float CurrentDelayROF = 0;
+    [HideInInspector] public bool IsInputed = false;
+    [HideInInspector] public bool IsShooting = false;
+
+    [Space(10)]
+    [Header("=== BUState")]
+    [SerializeField] public BUState<float> BaseDamage;
     [SerializeField] public BUState<float> MuzzleSpeed;
     [SerializeField] public BUState<float> ROF;
     [SerializeField] public BUState<float> CC;
@@ -21,166 +27,122 @@ public class PlayerWeaponController : SolarSystemController
     [SerializeField] public BUState<float> AccuracyRate;
     [SerializeField] public BUState<float> KnockbackPower;
 
-    [SerializeField] public float CurrentDelayROF = 0;
-
     [Space(10)]
     [Header("=== GunPos")]
-    [SerializeField] protected List<Transform> BulletSpawnTFs;
-
-    [Space(10)]
-    [Header("=== Player")]
-    [SerializeField] private float fireMinDisLimit = 4;
+    [SerializeField] protected List<Transform> BulletSpawnTFList;
 
     #endregion
 
     #region Framework
 
-    protected void Update()
+    private void FixedUpdate()
     {
-        PitchTF.transform.localRotation = Get_RotationSmooth(InputManager.Instance.DirFromPlayerPos.normalized, PitchTF, rotateSpeed);
-
-        foreach (SatelliteController hand in Hands)
-        {
-            hand.SetPos(PlayerSR.sortingOrder);
-        }
-
-        Caculate_ROF();
-
-        if (Can_Fire())
-        {
-            List<PlayerBulletController> PBClist = new List<PlayerBulletController>();
-            foreach (Transform TF in BulletSpawnTFs)
-            { PBClist.Add(PoolingManager.Instance.Get_OP_PlayerBullet()); }
-
-            Play_Fire(PBClist);
-            PlayerManager.Instance.CameraController.Play_ShotAnim(1/ROF.ActualState.Value, PBClist[0].State.DmgState.Dmg);
-
-            ModuleItemManager.Instance.Active_Fire();
-        }
+        Caculate_ROF(Time.fixedDeltaTime);
+        Try_Fire();
     }
-
 
     #endregion
 
     #region ROF
 
-    private void Caculate_ROF()
+    // ROF를 계산해, 연사력에 맞는 발사를 계산
+    private void Caculate_ROF(float _DeltaTime)
     {
-        if (Is_Firing())
+        if (CurrentDelayROF < 1f)
         {
-            CurrentDelayROF += Time.deltaTime * ROF.ActualState.Value;
+            CurrentDelayROF += _DeltaTime * ROF.ActualState.Value;
+            IsShooting = true;
         }
-        else if (!Is_Firing())
+        else
         {
             InputManager.Instance.AimController.Set_ActivingAttack(false);
+            IsShooting = false;
         }
-    }
-
-    public bool Is_Firing()
-    {
-        return CurrentDelayROF < 1f;
-    }
-
-    #endregion
-
-    #region Judg Can Fire
-
-    private bool Can_Fire()
-    {
-        if(IsInputed &&
-            CurrentDelayROF >= 1 &&
-            !PlayerController.IsCasting &&
-            PlayerController.MovementState == eMovementState.IdleOrWalk)
-        {
-            return true;
-        }
-        return false;
     }
 
     #endregion
 
     #region Fire
 
-    protected void Play_Fire<T>(List<T> _Ts)
+    // 사격 시도
+    private void Try_Fire()
     {
-        float spreadMaxLimit = 100 - AccuracyRate.ActualState.Value;
-        float randomAngle = UnityEngine.Random.Range(-spreadMaxLimit, spreadMaxLimit);
-        //randomAngle = 0f;
-        for (int i = 0; i < BulletSpawnTFs.Count; i++)
+        if (Check_Fire())
         {
-            PlayerBulletController PBC = DevTool.Get_CastingTType<PlayerBulletController>(_Ts[i]);
-            //PlayerBulletController PBC = GameManager.Get_CastIfPossible<PlayerBulletController>(_Ts[i]);
-
-            // Critical
-            float rcc = UnityEngine.Random.Range(0f, 1f);
-            bool isCritical = false;
-            if (rcc < CC.ActualState.Value)
-            {
-                isCritical = true;
-            }
-
-            // Knockback
-
-            bool ableKnockback = false;
-            if (DamageType == eDamageType.Physics)
-            {
-                ableKnockback = true;
-            }
-
-            // Shadow
-            float targetShadow = 0.4f;
-            if (BulletSpawnTFs[i].TryGetComponent(out DepthController HST))
-            { targetShadow = HST.TargetRange; }
-
-            Vector2 dir = Get_Dir((Vector2)BulletSpawnTFs[i].transform.position);
-
-
-            DmgState dmgState = new DmgState(DamageType, PlayerController.BaseWeapon.BaseDamage.BuffedState);
-            CriticalState criticalState = new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value);
-            KnockbackState knockbackState = new KnockbackState(ableKnockback, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value, 0.2f);
-
-            BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), true, MuzzleSpeed.ActualState.Value, AliveTime);
-            BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(BulletSpawnTFs[i].position, dir, randomAngle);
-            BulletState_Size? size = null;
-            State_Anim? anim = null;
-
-            PBC.Set_State(bulletState, posAndRot, size, anim, targetShadow);
-
-            // Sorting Layer
-            if (BulletSpawnTFs[i].gameObject.TryGetComponent(out DepthController hst))
-            {
-                PBC.Set_SortingOrder(hst.ThisSR.sortingOrder - 1);
-            }
-
-            // Effect
-            if (BulletSpawnTFs[i].TryGetComponent(out DepthController posHst))
-            {
-                UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
-                    PlayerController.Get_ID(),
-                    (Vector2)posHst.TargetObject.transform.position + (dir * 0.1f),
-                    dir,
-                    DamageType,
-                    isCritical);
-            }
+            Play_Fire(PoolingManager.Instance.Get_OP_PlayerBullet(BulletSpawnTFList.Count));
+            PlayerManager.Instance.CameraController.Play_ShotAnim(1 / ROF.ActualState.Value, PlayerController.BaseWeapon.BaseDamage.BuffedState);
+            ModuleItemManager.Instance.Active_Fire();
         }
+    }
+
+    // 사격을 해야 하는가 + 할 수 있는가
+    private bool Check_Fire()
+    {
+        if (IsInputed &&
+           CurrentDelayROF >= 1 &&
+           !PlayerController.IsCasting &&
+           PlayerController.MovementState == eMovementState.IdleOrWalk)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    // 사격 (한발)
+    protected void Play_Fire(List<PlayerBulletController> _BulletList)
+    {
+        float randomAngle = DevTool.Get_RandomValueBaseZero(100 - AccuracyRate.ActualState.Value);
+        
+        for (int i = 0; i < BulletSpawnTFList.Count; i++)
+        {
+            Play_Fire(_BulletList[i], DevTool.Get_CastingTType<DepthController>(BulletSpawnTFList[i]), randomAngle);
+        }
+
         InputManager.Instance.AimController.Set_ActivingAttack(true);
         CurrentDelayROF -= 1;
 
         // Tween
         this.transform.DOShakePosition(1f / ROF.ActualState.Value, 0.05f, 20, 90, false, true);
-        
     }
 
-    public Vector2 Get_Dir(Vector2 _SpawnPos)
+    // 사격
+    private void Play_Fire(PlayerBulletController _Bullet, DepthController _TargetSpawnDepth, float _SpreadAngle)
     {
-        Vector2 targetPos = InputManager.Instance.MousePosByWorld;
-        if (fireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
-        {
-            targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position +
-                InputManager.Instance.DirFromPlayerPos.normalized * fireMinDisLimit;
-        }
-        
-        return (targetPos - _SpawnPos).normalized;
+        Vector2 dir = DevTool.Get_MinFireDir(_TargetSpawnDepth.transform.position);
+
+        // 총알 스탯과 SortingOrder 설정
+        _Bullet.Set_SortingOrder(_TargetSpawnDepth.ThisSR.sortingOrder - 1);
+        _Bullet.Set_State(
+            Get_CurrentBulletState(),
+            _State_PosAndRot: new BulletState_PosAndRot(_TargetSpawnDepth.transform.position, dir, _SpreadAngle), 
+            _State_Size: null, 
+            _State_Anim: null,
+            _TargetSpawnDepth.TargetRange);
+
+        // 폭발 이펙트
+        UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
+            PlayerController.Get_ID(),
+            (Vector2)_TargetSpawnDepth.TargetObject.transform.position + (dir * 0.1f),
+            dir,
+            DamageType,
+            _Bullet.State.IsCritical);
+    }
+
+    #endregion
+
+    #region Get
+
+    // 플레이어의 현재 총알 스탯을 가져오기
+    private BulletState Get_CurrentBulletState()
+    {
+        return new BulletState(
+            new CombatState(
+                new DmgState(DamageType, PlayerController.BaseWeapon.BaseDamage.BuffedState),
+                new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value),
+                new KnockbackState(DamageType == eDamageType.Physics ? true : false, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value, 0.2f)),
+            true,
+            MuzzleSpeed.ActualState.Value,
+            AliveTime);
     }
 
     #endregion    
