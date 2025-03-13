@@ -28,7 +28,6 @@ public class SkillWeaponController : PlayerSolarController
     private void Offset_Variable(ActiveSkillController _Skill, SatelliteSideController _Satellite)
     {
         DevTool.Set_ComponentTType(ref _Skill, _Satellite.Follower.gameObject);
-        _Skill.PlayerController = PlayerController;
     }
 
     private void Offset_Subscribe(ActiveSkillController _Skill, SkillEUIController _SkillEUI)

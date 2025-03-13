@@ -2069,6 +2069,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxChargeAmount: 1
   CurrentChargeAmount: 1
+  CurrentCooltime: 0
+  ThisIcon: {fileID: 1779296857, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  NeedEP:
+    value: 15
   MaxCooltime:
     BaseState: 10
     CurrentLevel:
@@ -2084,10 +2088,6 @@ MonoBehaviour:
     BuffList: []
     Name: Cooltime
     Desc: Cool time for skills. Calculated as a sum.
-  CurrentCooltime: 0
-  ThisSkillUISprite: {fileID: 1779296857, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
-  NeedEP:
-    value: 0.01
   Tier:
     BaseState: 0
     CurrentLevel:
@@ -2115,7 +2115,6 @@ MonoBehaviour:
     Name: Power
     Desc: Damage to skill. Shockwave damages enemy EP.
   PlayerController: {fileID: 0}
-  ThisHST: {fileID: 3772518435837473010}
   ColSize: {x: 2.4, y: 1.5}
   StartSize: 1.5
   MaxSize: 2
@@ -2186,6 +2185,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxChargeAmount: 1
   CurrentChargeAmount: 1
+  CurrentCooltime: 0
+  ThisIcon: {fileID: 987565495, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  NeedEP:
+    value: 30
   MaxCooltime:
     BaseState: 8
     CurrentLevel:
@@ -2201,10 +2204,6 @@ MonoBehaviour:
     BuffList: []
     Name: Cooltime
     Desc: Cool time for skills. Calculated as a sum.
-  CurrentCooltime: 0
-  ThisSkillUISprite: {fileID: 987565495, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
-  NeedEP:
-    value: 10
   Tier:
     BaseState: 0
     CurrentLevel:
@@ -2212,7 +2211,7 @@ MonoBehaviour:
     UpgradeValueByLevelRange: 01000000010000000100000001000000
     NeedPayByLevelRange: 01000000020000000300000004000000
     ActualState:
-      value: 20
+      value: 0
     BuffList: []
     Name: Tier
     Desc: Skill tier. It's also the number of consecutive launches of missiles. (Tier
@@ -2233,8 +2232,6 @@ MonoBehaviour:
     Name: Power
     Desc: Damage multiple of missile calculated as multiple to basic attack.
   PlayerController: {fileID: 0}
-  ThisHST: {fileID: 6021120989462345684}
-  ShotDelay: 0.1
 --- !u!114 &6021120989462345684
 MonoBehaviour:
   m_ObjectHideFlags: 0

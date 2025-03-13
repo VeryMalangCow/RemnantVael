@@ -28,7 +28,7 @@ public class PlayerAttackerController : AttackerController
             //Damage
             ec.Take_Damaged(AttackerState, 
                 DevTool.Is_ChanceSuccess(AttackerState.CriticalState.CC) ? true : false, 
-                DevTool.Get_Dir(_Col.gameObject, this.gameObject));
+                DevTool.Get_Dir(this.gameObject, _Col.gameObject));
             HittedObjectList.Add(ec);
         }
     }

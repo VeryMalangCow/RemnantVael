@@ -294,6 +294,19 @@ public class DevTool
         _TargetList[_Index2] = temp;
     }
 
+    // 'T 타입' 맞는 인덱스 찾기
+    public static int Get_IndexInList<T>(List<T> _TargetList, T _Target) where T : class
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            if (_TargetList[i] == _Target)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     // 'T 타입' 리스트를 돌면서 실행
     public static void Set_ListDele<T>(List<T> _TargetList, Dele_T<T> _Dele)
     {
@@ -549,7 +562,7 @@ public class DevTool
 
     #region About Player
 
-    public static int SkillAmount = 2;
+    public readonly static int SkillAmount = 2;
 
     public static int Get_IndexOfDmgTypeAndCritical(eDamageType _DmgType, bool _IsCritical)
     {

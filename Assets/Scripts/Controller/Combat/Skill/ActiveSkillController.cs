@@ -7,30 +7,41 @@ public class ActiveSkillController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> Active Skill")]
-
-
-    [Space(10)]
-    [Header("=== Value")]
-
-    [Header("-- Charge")]
+    [Header("=== Cooltime")]
     [SerializeField] protected int MaxChargeAmount = 1;
     [SerializeField] protected int CurrentChargeAmount = 0;
-
-    [Header("-- Cooltime")]
-    [SerializeField] public BUState<float> MaxCooltime;
     [SerializeField] protected float CurrentCooltime = 0f;
 
-    [Header("-- State")]
-    [SerializeField] public Sprite ThisSkillUISprite;
+    [Header("=== State")]
+    [SerializeField] public Sprite ThisIcon;
     [SerializeField] public ReactiveProperty<float> NeedEP = new();
+
+    [Header("=== BU State")]
+    [SerializeField] public BUState<float> MaxCooltime;
     [SerializeField] public BUState<int> Tier;
     [SerializeField] public BUState<float> Power;
 
+    [HideInInspector] protected DepthController DepthController;
     [HideInInspector] public PlayerController PlayerController;
 
     #endregion
 
+    #region Offset
+
+    private void Offset()
+    {
+        DepthController = DevTool.Get_ComponentTType<DepthController>(gameObject);
+        PlayerController = PlayerManager.Instance.PlayerController;
+    }
+
+    #endregion
+
     #region Framework
+
+    private void Start()
+    {
+        Offset();
+    }
 
     protected virtual void Update()
     {
@@ -41,31 +52,41 @@ public class ActiveSkillController : MonoBehaviour
 
     #region Cooltime
 
+    // 최대 충전량인가?
+    private bool Is_FullCharge()
+    {
+        return MaxChargeAmount <= CurrentChargeAmount;
+    }
+
+    // 쿨타임이 다 찼는가?
+    private bool Is_FullCooltime()
+    {
+        return MaxCooltime.ActualState.Value <= CurrentCooltime;
+    }
+
+    // 쿨타임 계산
     private void Caculate_Cooltime()
     {
-        if (MaxCooltime.ActualState.Value > CurrentCooltime &&
-            MaxChargeAmount > CurrentChargeAmount)
+        if (!Is_FullCharge())
         {
             CurrentCooltime += Time.deltaTime;
 
-            if (MaxCooltime.ActualState.Value <= CurrentCooltime)
+            if (Is_FullCooltime())
             {
                 CurrentChargeAmount++;
-                if (CurrentChargeAmount >= MaxChargeAmount) 
-                {
-                    CurrentCooltime = 0;
-                }
-                else
-                {
-                    CurrentCooltime = CurrentCooltime - MaxCooltime.ActualState.Value;
-                }
+                CurrentCooltime = Is_FullCharge() ? 0 : CurrentCooltime - MaxCooltime.ActualState.Value;
             }
         }
     }
 
+    #endregion
+
+    #region UI
+
+    // 현재 쿨타임 UI FillAmount 수치
     public float Get_FillAmount()
     {
-        if (MaxChargeAmount <= CurrentChargeAmount)
+        if (Is_FullCharge())
         {
             return 0;
         }
@@ -77,48 +98,49 @@ public class ActiveSkillController : MonoBehaviour
 
     #endregion
 
-    #region Act
+    #region Active
+
+    public bool Can_Active()
+    {
+        return CurrentChargeAmount > 0 &&
+            (PlayerManager.Instance.PlayerController.Get_CurrentEP().Value > NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value) &&
+            PlayerController.MovementState == eMovementState.IdleOrWalk;
+    }
 
     public virtual void Active_Skill()
     {
+        // Consume
         CurrentChargeAmount--;
         PlayerController.Add_CurrentEP(
             -(NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value));
 
-        Set_StartUI();
+        // Aim UI
+        
     }
 
-    protected void Set_StartUI()
+
+    protected void Start_SkillUI()
     {
-        for (int i = 0; i < DevTool.SkillAmount; i++)
-        {
-            if (PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i] == this)
-            { MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i].Set_StartUI(); }
-        }
+        // 스킬 라인 효과 이미지
+        MainGameUIManager.Instance.PlayerHUD_UIController.SkillList
+           [DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this)]
+           .Set_StartUI(); 
+        // Aim
+        InputManager.Instance.AimController.Set_ActivingSkill(
+            DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this),
+            true);
     }
 
-    protected void Set_EndUI()
+    protected void End_SkillUI()
     {
-        for (int i = 0; i < DevTool.SkillAmount; i++)
-        {
-            if (PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i] == this)
-            { MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i].Set_EndUI(); }
-        }
-    }
-
-    #endregion
-
-    #region Judg Can Active
-
-    public bool Can_Active()
-    {
-        if ((CurrentChargeAmount > 0) &&
-            (PlayerManager.Instance.PlayerController.Get_CurrentEP().Value > NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value) &&
-            PlayerController.MovementState == eMovementState.IdleOrWalk)
-        {
-            return true;
-        }
-        return false;
+        // 스킬 라인 효과 이미지
+        MainGameUIManager.Instance.PlayerHUD_UIController.SkillList
+           [DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this)]
+           .Set_EndUI();
+        // Aim
+        InputManager.Instance.AimController.Set_ActivingSkill(
+            DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this),
+            false);
     }
 
     #endregion

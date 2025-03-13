@@ -97,6 +97,7 @@ MonoBehaviour:
   MoveSpeed: 0
   MoveTargetPoint: {x: 0, y: 0}
   LookTargetPoint: {x: 0, y: 0}
+  LookAtDir: {x: 0, y: 0}
   IsDischarge: 0
   BuffController: {fileID: 5694203857495159564}
 --- !u!114 &5694203857495159564
@@ -664,7 +665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7840703969565982099, guid: 869ec183798f4e1498b9c646650ec2be, type: 3}
       propertyPath: m_Name
-      value: This_Canvas
+      value: Canvas_NormalEnemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

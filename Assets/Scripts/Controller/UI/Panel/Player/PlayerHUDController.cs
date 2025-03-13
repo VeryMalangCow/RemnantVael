@@ -287,7 +287,7 @@ public class PlayerHUDController : UIController
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
             SkillImgList.Add(DevTool.Get_ComponentTType<Image>(SkillList[i].gameObject));
-            SkillImgList[i].sprite = PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].ThisSkillUISprite;
+            SkillImgList[i].sprite = PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].ThisIcon;
         }
 
         #endregion
