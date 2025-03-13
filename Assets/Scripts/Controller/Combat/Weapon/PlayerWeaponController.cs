@@ -80,7 +80,6 @@ public class PlayerWeaponController : PlayerSolarController
     {
         if (IsInputed &&
            CurrentDelayROF >= 1 &&
-           !PlayerController.IsCasting &&
            PlayerController.MovementState == eMovementState.IdleOrWalk)
         {
             return true;

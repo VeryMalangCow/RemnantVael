@@ -19,6 +19,7 @@ public class InputManager : Singleton<InputManager>
 
     [Header("=== Aim")]
     [SerializeField] public AimController AimController;
+    [SerializeField] public AimRoundController AimRoundController;
 
     [Header("=== Component")]
     [SerializeField] public PlayerInput PlayerInput;
@@ -132,7 +133,7 @@ public class InputManager : Singleton<InputManager>
         OnAim = _IsOn;
 
         AimController.gameObject.SetActive(_IsOn);
-        PlayerManager.Instance.PlayerController.AimRoundController.gameObject.SetActive(_IsOn);
+        AimRoundController.gameObject.SetActive(_IsOn);
     }
 
     private void Set_MousePointer(bool _IsOn)
@@ -243,11 +244,11 @@ public class InputManager : Singleton<InputManager>
         {
             if (IsPlayingSkill)
             {
-                SetOn_BufferedInput(PlayerManager.Instance.PlayerController.Set_DashCheck);
+                SetOn_BufferedInput(PlayerManager.Instance.PlayerController.Try_Dash);
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.Set_DashCheck();
+            PlayerManager.Instance.PlayerController.Try_Dash();
         }
     }
 

@@ -661,6 +661,57 @@ public class CoupleData<T>
     }
 }
 
+[System.Serializable]
+public class CooltimeData
+{
+    [SerializeField] public float Max;
+    [SerializeField] public float Current;
+
+    public CooltimeData()
+    {
+        Max = 0f;
+        Current = 0f;
+    }
+
+    public CooltimeData(float _Max, float _Current)
+    {
+        Max = _Max;
+        Current = _Current;
+    }
+}
+
+#endregion
+
+
+#region Class : Movable
+
+
+[System.Serializable]
+public class CurrentKnockbackState
+{
+    public Vector2 Dir;
+    public float Power;
+    public float Time;
+
+    public CurrentKnockbackState(Vector2 _KnockbackDir, float _KnockbackPower, float _KnockbackTime)
+    {
+        Dir = _KnockbackDir;
+        Power = _KnockbackPower;
+        Time = _KnockbackTime;
+    }
+
+    public Tween Start_Knockback()
+    {
+        return DOTween.To(() => Power, x => Power = x, 0, Time);
+    }
+
+    public Vector2 Get_Knockback()
+    {
+        return Dir.normalized * Power;
+    }
+}
+
+
 #endregion
 
 
@@ -1381,6 +1432,7 @@ public class ModuleItem005 : ModuleState, IWhen_CriticalHit
 { public ModuleItem005(int _ID) : base(_ID) { } }
 
 #endregion
+
 
 #region Class : Satellite
 

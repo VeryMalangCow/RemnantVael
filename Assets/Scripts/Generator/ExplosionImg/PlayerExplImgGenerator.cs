@@ -201,7 +201,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
     {
         return new ExplState_Sprite(
             SmokeSpriteList[_PlayerID].Get_CorrectType(_DmgType).Get_Special(_IsCritical),
-            PlayerManager.Instance.PlayerController.ThisPlayerMaterialList[_MaterialIndex]);
+            PlayerManager.Instance.PlayerController.MaterialList[_MaterialIndex]);
     }
 
     #endregion

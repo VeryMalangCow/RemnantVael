@@ -46,7 +46,7 @@ public class TitlePlayerController : MovableObjectController
 
     private void Play_Movement(float _DeltaTime)
     {
-        Play_Walk(TitleInputManager.Instance.InputMoveDir, WalkSpeed, AccelerationSpeed, _DeltaTime);
+        Play_Walk(TitleInputManager.Instance.InputMoveDir, WalkSpeed, _DeltaTime);
     }
 
     #endregion

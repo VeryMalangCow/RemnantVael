@@ -147,7 +147,7 @@ public class PlayerDashController : MonoBehaviour
 
     void End_Dash()
     {
-        PlayerController.PlayerMAI.End_Gen();
+        PlayerController.AfterImgGenerator.End_Gen();
         PlayerController.MovementState = eMovementState.IdleOrWalk;
 
         // ¿¹¾à ÁÂÇ¥
@@ -164,12 +164,12 @@ public class PlayerDashController : MonoBehaviour
 
     public bool Is_EnoughEP()
     {
-        return Get_ActualNeedEP() >= PlayerController.Get_CurrentEP().Value;
+        return Get_ActualNeedEP() <= PlayerController.Get_CurrentEP().Value;
     }
 
     public float Get_ActualNeedEP()
     {
-        return NeedEP_ForDash* PlayerController.NeedEP_ForSkillMultiple.ActualState.Value;
+        return NeedEP_ForDash * PlayerController.NeedEP_ForSkillMultiple.ActualState.Value;
     }
 
     #endregion

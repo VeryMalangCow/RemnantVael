@@ -7,7 +7,7 @@ public class AliveObjectController : MovableObjectController
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Alive Object")]
+    [Header("<><><><><> Alive")]
 
     [Space(10)]
     [Header("=== Dead")]

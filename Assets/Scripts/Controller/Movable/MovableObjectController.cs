@@ -12,26 +12,13 @@ public class MovableObjectController : MovableDepthController
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] public Rigidbody2D ThisRb;
-    [SerializeField] private List<SpriteRenderer> ThisExtraSrs;
 
     [Space(10)]
     [Header("=== Movement")]
-    [Header("-- Walk")]
     [SerializeField] protected float AccelerationSpeed = 12;
 
-    [Space(10)]
-    [Header("=== Knockback")]
-    [SerializeField] protected List<KnockbackState> KnockbackStateList = new List<KnockbackState>();
-
-    [Space(10)]
-    [Header("=== Anim")]
-    [Header("-- Idle")]
-    [SerializeField] private float BaseYLimit = 0.06f;
-    [SerializeField] private float BaseTweenReTime = 0.3f;
-    [SerializeField] List<MovableDepthController> ThisComponentGOList;
-
-    [HideInInspector] private Sequence BaseSeq = null;
-
+    [HideInInspector] protected List<CurrentKnockbackState> KnockbackStateList = new List<CurrentKnockbackState>();
+   
     #endregion
 
     #region Framework
@@ -39,95 +26,41 @@ public class MovableObjectController : MovableDepthController
     protected override void Update()
     {
         base.Update();
-        Play_Knockback();
+        Update_Knockback(Time.deltaTime);
     }
 
     #endregion
 
     #region Movement
 
-    protected void Play_Walk(Vector2 _MoveDir, float _MoveSpeed, float _AccelerationSpeed, float _DeltaTime)
+    protected void Play_Walk(Vector2 _MoveDir, float _MoveSpeed, float _DeltaTime)
     {
-        Vector2 moveVelocity = _MoveDir * _MoveSpeed;
-        Vector2 currentVelocity = ThisRb.velocity;
-
-        moveVelocity = Vector2.Lerp(currentVelocity, moveVelocity, _AccelerationSpeed * _DeltaTime);
-        ThisRb.velocity = moveVelocity;
-    }
-
-    #endregion
-    
-    #region Have Shadow Thing
-
-    protected void Set_BaseAnimTween()
-    {
-        BaseSeq = DOTween.Sequence();
-
-        BaseSeq.Join(DOTween.To(() => TargetRange, x => TargetRange = x, TargetRange + BaseYLimit, BaseTweenReTime)
-            .SetEase(Ease.Linear));
-
-        if (ThisComponentGOList != null && ThisComponentGOList.Count > 0)
-        {
-            for (int i = 0; i < ThisComponentGOList.Count; i++)
-            {
-                MovableDepthController HSTM = ThisComponentGOList[i];
-                BaseSeq.Join(DOTween.To(() => HSTM.TargetRange, x => HSTM.TargetRange = x, HSTM.TargetRange + BaseYLimit, BaseTweenReTime)
-                    .SetEase(Ease.Linear));
-            }
-        }
-        
-
-        BaseSeq.SetLoops(-1, LoopType.Yoyo);
+        ThisRb.velocity = Vector2.Lerp(ThisRb.velocity, _MoveDir * _MoveSpeed, AccelerationSpeed * _DeltaTime);
     }
 
     #endregion
 
     #region Knockback
 
-    private void Play_Knockback()
+    private void Update_Knockback(float _DeltaTime)
     {
         if (KnockbackStateList.Count > 0)
         {
             for (int i = 0; i < KnockbackStateList.Count; i++)
             {
-                ThisRb.velocity += KnockbackStateList[i].Get_Knockback() * Time.deltaTime * 10;
+                ThisRb.velocity += KnockbackStateList[i].Get_Knockback() * _DeltaTime * 10;
             }
         }
     }
 
-    protected void Get_Knockback(KnockbackState _KnockbackState)
+    protected void Gain_Knockback(CurrentKnockbackState _KnockbackState)
     {
         KnockbackStateList.Add(_KnockbackState);
-        KnockbackStateList[KnockbackStateList.Count - 1].Start_Knockback()
+        _KnockbackState.Start_Knockback()
             .OnComplete(() =>
             {
-                KnockbackStateList.Remove(KnockbackStateList[KnockbackStateList.Count - 1]);
+                KnockbackStateList.Remove(_KnockbackState);
             });
-    }
-
-    [System.Serializable]
-    protected class KnockbackState
-    {
-        public Vector2 Dir;
-        public float Power;
-        public float Time;
-
-        public KnockbackState(Vector2 _KnockbackDir, float _KnockbackPower, float _KnockbackTime)
-        {
-            Dir = _KnockbackDir;
-            Power = _KnockbackPower;
-            Time = _KnockbackTime;
-        }
-
-        public Tween Start_Knockback()
-        {
-            return DOTween.To(() => Power, x => Power = x, 0, Time);
-        }
-
-        public Vector2 Get_Knockback()
-        {
-            return Dir.normalized * Power;
-        }
     }
 
     #endregion

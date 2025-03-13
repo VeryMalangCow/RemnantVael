@@ -29,9 +29,15 @@ public class PlayerManager : Singleton<PlayerManager>
         BaseUpgradeManager.Instance.Offset(PlayerController);
 
         GameObject spawnedAimGO = Instantiate(PlayerController.AimPrefab, PlayerSpawnParentTF);
+        GameObject spawnedAimRoundGO = Instantiate(PlayerController.AimRoundPrefab, PlayerController.transform);
+
         if (spawnedAimGO != null && spawnedAimGO.TryGetComponent(out AimController aim)) 
         {
             InputManager.Instance.AimController = aim;
+        }
+        if (spawnedAimRoundGO != null && spawnedAimRoundGO.TryGetComponent(out AimRoundController aimRound))
+        {
+            InputManager.Instance.AimRoundController = aimRound;
         }
     }
 

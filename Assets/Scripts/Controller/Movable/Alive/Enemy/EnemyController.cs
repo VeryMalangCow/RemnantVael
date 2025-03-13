@@ -169,7 +169,7 @@ public class EnemyController : AliveObjectController, IInteract
                     MoveDir = (MoveTargetPoint - (Vector2)this.transform.position).normalized;
                     Debug.Log(MoveDir);
                 }
-                Play_Walk(MoveDir, MoveSpeed, AccelerationSpeed, _DeltaTime);
+                Play_Walk(MoveDir, MoveSpeed, _DeltaTime);
                 break;
 
             default: 
@@ -300,7 +300,7 @@ public class EnemyController : AliveObjectController, IInteract
         if (_AbleKnockback)
         {
             //Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
-            Get_Knockback(new KnockbackState(_KnockbackDir, _KnockbackPower, _KnockbackTime));
+            Gain_Knockback(new CurrentKnockbackState(_KnockbackDir, _KnockbackPower, _KnockbackTime));
         }
 
         // 치명타 계산

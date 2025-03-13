@@ -57,7 +57,7 @@ public class SkillEUIController : ElementUIController
         SkillInnerImg.DOFade(0.25f, 0.2f);
     }
 
-    public void Start_NotEnoughEP()
+    public void Play_ErrorUI()
     {
         if (ThisEff == null)
         {

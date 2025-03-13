@@ -106,7 +106,7 @@ public class SolarSystemController : MonoBehaviour
         PitchTF.transform.localRotation = Quaternion.Slerp(
             PitchTF.transform.localRotation,
             DevTool.Get_RotFromDir_Solar(_Dir), 
-            RotateSpeed * Time.deltaTime);
+            RotateSpeed * _DeltaTime);
     }
 
     #endregion
