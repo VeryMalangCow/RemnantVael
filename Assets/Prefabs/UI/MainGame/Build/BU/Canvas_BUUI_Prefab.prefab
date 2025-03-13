@@ -576,6 +576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d923c501041637146999b5b131e29dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ThisPanelInputMapName: BaseUpgradeUI
   ThisPanelTabList:
   - {fileID: 3841518684844216861}
   - {fileID: 6102662024336250210}
@@ -583,7 +584,6 @@ MonoBehaviour:
   - {fileID: 7242812692058387735}
   - {fileID: 1305257962069800240}
   CurrentThisPanelTab: {fileID: 3841518684844216861}
-  ThisPanelInputMapName: BaseUpgradeUI
   CurrentBtn: {fileID: 0}
   LabelTxt: {fileID: 8601064820096719371}
   LabelName: BASE UPGRADE SHOP
@@ -813,90 +813,91 @@ MonoBehaviour:
       BuffList: []
       Name: 
       Desc: 
-  Skill0_CooltimeShop:
-    Upgrade_MTAFB: {fileID: 6134757088864113458}
-    Upgrade_BuyBtn: {fileID: 4352302644919193979}
-    Upgrade_BUS:
-      BaseState: 0
-      CurrentLevel:
-        value: 0
-      UpgradeValueByLevelRange: []
-      NeedPayByLevelRange: 
-      ActualState:
-        value: 0
-      BuffList: []
-      Name: 
-      Desc: 
-  Skill0_PowerShop:
-    Upgrade_MTAFB: {fileID: 1964962563958247443}
-    Upgrade_BuyBtn: {fileID: 4000254603494347579}
-    Upgrade_BUS:
-      BaseState: 0
-      CurrentLevel:
-        value: 0
-      UpgradeValueByLevelRange: []
-      NeedPayByLevelRange: 
-      ActualState:
-        value: 0
-      BuffList: []
-      Name: 
-      Desc: 
-  Skill0_TierShop:
-    Upgrade_MTAFB: {fileID: 5164057587273359705}
-    Upgrade_BuyBtn: {fileID: 6627718852740892494}
-    Upgrade_BUS:
-      BaseState: 0
-      CurrentLevel:
-        value: 0
-      UpgradeValueByLevelRange: 
-      NeedPayByLevelRange: 
-      ActualState:
-        value: 0
-      BuffList: []
-      Name: 
-      Desc: 
-  Skill1_CooltimeShop:
-    Upgrade_MTAFB: {fileID: 180679763082087560}
-    Upgrade_BuyBtn: {fileID: 56893578486246739}
-    Upgrade_BUS:
-      BaseState: 0
-      CurrentLevel:
-        value: 0
-      UpgradeValueByLevelRange: []
-      NeedPayByLevelRange: 
-      ActualState:
-        value: 0
-      BuffList: []
-      Name: 
-      Desc: 
-  Skill1_PowerShop:
-    Upgrade_MTAFB: {fileID: 8623553139072965713}
-    Upgrade_BuyBtn: {fileID: 3384354332015534257}
-    Upgrade_BUS:
-      BaseState: 0
-      CurrentLevel:
-        value: 0
-      UpgradeValueByLevelRange: []
-      NeedPayByLevelRange: 
-      ActualState:
-        value: 0
-      BuffList: []
-      Name: 
-      Desc: 
-  Skill1_TierShop:
-    Upgrade_MTAFB: {fileID: 4791134176970524573}
-    Upgrade_BuyBtn: {fileID: 2940716981916377148}
-    Upgrade_BUS:
-      BaseState: 0
-      CurrentLevel:
-        value: 0
-      UpgradeValueByLevelRange: 
-      NeedPayByLevelRange: 
-      ActualState:
-        value: 0
-      BuffList: []
-      Name: 
-      Desc: 
+  SkillShopList:
+  - Skill_CooltimeShop:
+      Upgrade_MTAFB: {fileID: 6134757088864113458}
+      Upgrade_BuyBtn: {fileID: 4352302644919193979}
+      Upgrade_BUS:
+        BaseState: 0
+        CurrentLevel:
+          value: 0
+        UpgradeValueByLevelRange: []
+        NeedPayByLevelRange: 
+        ActualState:
+          value: 0
+        BuffList: []
+        Name: 
+        Desc: 
+    Skill_PowerShop:
+      Upgrade_MTAFB: {fileID: 1964962563958247443}
+      Upgrade_BuyBtn: {fileID: 4000254603494347579}
+      Upgrade_BUS:
+        BaseState: 0
+        CurrentLevel:
+          value: 0
+        UpgradeValueByLevelRange: []
+        NeedPayByLevelRange: 
+        ActualState:
+          value: 0
+        BuffList: []
+        Name: 
+        Desc: 
+    Skill_TierShop:
+      Upgrade_MTAFB: {fileID: 5164057587273359705}
+      Upgrade_BuyBtn: {fileID: 6627718852740892494}
+      Upgrade_BUS:
+        BaseState: 0
+        CurrentLevel:
+          value: 0
+        UpgradeValueByLevelRange: 
+        NeedPayByLevelRange: 
+        ActualState:
+          value: 0
+        BuffList: []
+        Name: 
+        Desc: 
+  - Skill_CooltimeShop:
+      Upgrade_MTAFB: {fileID: 180679763082087560}
+      Upgrade_BuyBtn: {fileID: 56893578486246739}
+      Upgrade_BUS:
+        BaseState: 0
+        CurrentLevel:
+          value: 0
+        UpgradeValueByLevelRange: []
+        NeedPayByLevelRange: 
+        ActualState:
+          value: 0
+        BuffList: []
+        Name: 
+        Desc: 
+    Skill_PowerShop:
+      Upgrade_MTAFB: {fileID: 8623553139072965713}
+      Upgrade_BuyBtn: {fileID: 3384354332015534257}
+      Upgrade_BUS:
+        BaseState: 0
+        CurrentLevel:
+          value: 0
+        UpgradeValueByLevelRange: []
+        NeedPayByLevelRange: 
+        ActualState:
+          value: 0
+        BuffList: []
+        Name: 
+        Desc: 
+    Skill_TierShop:
+      Upgrade_MTAFB: {fileID: 4791134176970524573}
+      Upgrade_BuyBtn: {fileID: 2940716981916377148}
+      Upgrade_BUS:
+        BaseState: 0
+        CurrentLevel:
+          value: 0
+        UpgradeValueByLevelRange: 
+        NeedPayByLevelRange: 
+        ActualState:
+          value: 0
+        BuffList: []
+        Name: 
+        Desc: 
   ThisDescPanel: {fileID: 1649420452426937716}
   DurablityTxt: {fileID: 3292147606377996504}
   DurablityStateTxt: {fileID: 7452097285133188898}

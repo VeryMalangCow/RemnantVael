@@ -156,7 +156,7 @@ public class PoolingManager : Singleton<PoolingManager>
 
     public void Set_EnqueueEnemy(EnemyController _Enemy)
     {
-        Get_CorrectEnemyQueue(_Enemy.EnemyID).Queue.Enqueue(_Enemy);
+        Get_CorrectEnemyQueue(_Enemy.Get_ID()).Queue.Enqueue(_Enemy);
     }
 
     // Offset
@@ -175,7 +175,7 @@ public class PoolingManager : Singleton<PoolingManager>
     {
         for (int i = 0; i < CurrentStageEnemies.Count; i++)
         {
-            if (CurrentStageEnemies[i].Prefab.TryGetComponent(out EnemyController EC) && EC.EnemyID == _EnemyID)
+            if (CurrentStageEnemies[i].Prefab.TryGetComponent(out EnemyController EC) && EC.Get_ID() == _EnemyID)
             {
                 return CurrentStageEnemies[i];
             }

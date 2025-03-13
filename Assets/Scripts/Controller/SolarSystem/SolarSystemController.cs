@@ -19,10 +19,10 @@ public class SolarSystemController : MonoBehaviour
     [HideInInspector] private Transform RollTF;
 
     [Header("-- Pitch")]
-    [SerializeField] protected float rotateSpeed = 4f;
+    [SerializeField] protected float RotateSpeed = 8f;
     [HideInInspector] public Transform PitchTF;
 
-    [Header("-- Hand")]
+    [Header("-- Satellite")]
     [SerializeField] public List<SatelliteSideController> SatelliteSideList;
     [SerializeField] public List<SatelliteCenterController> SatelliteCenterList;
 
@@ -57,7 +57,8 @@ public class SolarSystemController : MonoBehaviour
 
     protected virtual void LateUpdate()
     {
-        Set_SortingOrderAll();
+        Set_Side();
+        Set_Center();
     }
 
     #endregion
@@ -65,15 +66,27 @@ public class SolarSystemController : MonoBehaviour
     #region SortingOrder
 
     // 솔팅
-    private void Set_SortingOrderAll()
+    private void Set_Side()
     {
-        for (int i = 0; i < SatelliteSideList.Count; i++)
+        if (SatelliteSideList != null && SatelliteSideList.Count > 0)
         {
-            SatelliteSideList[i].Set_SortingOrder(PivotObjectSR.sortingOrder);
+            for (int i = 0; i < SatelliteSideList.Count; i++)
+            {
+                SatelliteSideList[i].Set_Pos();
+                SatelliteSideList[i].Set_SortingOrder(PivotObjectSR.sortingOrder);
+            }
         }
-        for (int i = 0; i < SatelliteCenterList.Count; i++)
+    }
+
+    private void Set_Center()
+    {
+        if (SatelliteCenterList != null && SatelliteCenterList.Count > 0)
         {
-            SatelliteCenterList[i].Set_SortingOrder(PivotObjectSR.sortingOrder);
+            for (int i = 0; i < SatelliteCenterList.Count; i++)
+            {
+                SatelliteCenterList[i].Set_Pos();
+                SatelliteCenterList[i].Set_SortingOrder(PivotObjectSR.sortingOrder);
+            }
         }
     }
 
@@ -84,16 +97,16 @@ public class SolarSystemController : MonoBehaviour
     // 바로 Rot 설정
     public void Set_Rot(Vector2 _Dir)
     {
-        PitchTF.transform.localRotation = Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f);
+        PitchTF.transform.localRotation = DevTool.Get_RotFromDir_Solar(_Dir);
     }
 
     // 부드럽게 Rot 설정
     public void Set_RotSmooth(Vector2 _Dir, float _DeltaTime)
     {
         PitchTF.transform.localRotation = Quaternion.Slerp(
-            PitchTF.transform.localRotation, 
-            Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f), 
-            rotateSpeed * Time.deltaTime);
+            PitchTF.transform.localRotation,
+            DevTool.Get_RotFromDir_Solar(_Dir), 
+            RotateSpeed * Time.deltaTime);
     }
 
     #endregion

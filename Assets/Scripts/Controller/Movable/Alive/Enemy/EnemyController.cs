@@ -12,54 +12,60 @@ public class EnemyController : AliveObjectController, IInteract
     [Header("<><><><><> Enemy")]
 
     [Space(10)]
-    [Header("=== Data")]
-    [SerializeField] public int EnemyID;
-
-    [Space(10)]
     [Header("=== State")]
     [SerializeField] private eEnemy ThisEnemyType;
     [SerializeField] private float MaxHP;
-
     [SerializeField] private float MaxEP;
-    [HideInInspector] public bool IsDischarge = false;
-    [SerializeField] private float RecoverLethargyTime = 4f;
 
+    [Space(10)]
+    [Header("=== Item")]
     [SerializeField] private float ItemDropPercent = 0.0f;
-
-    [Space(10)]
-    [Header("=== Buff")]
-    [HideInInspector] public EnemyBuffController BuffController = null;
-
-    [Space(10)]
-    [Header("=== Movement")]
-    [SerializeField] private eMovementState MovementState;
-    [SerializeField] private GameObject Target;
-    [HideInInspector] public Vector2 MoveTargetPoint = Vector2.zero;
-    [HideInInspector] public Vector2 LookTargetPoint = Vector2.zero;
-    [HideInInspector] protected Vector2 LookAtDir = Vector2.zero;
-    [SerializeField] public Vector2 MoveDir;
-    [SerializeField] public float MoveSpeed;
 
     [Space(10)]
     [Header("=== UI")]
     [SerializeField] public EnemyHUDController HUD;
 
+    [Space(10)]
+    [Header("=== Satellite")]
+    [SerializeField] private EnemySolarController LookingSatellite;
+    [SerializeField] private RigidbodySolarController WalkingSatellite;
 
     [Space(10)]
     [Header("=== Nav")]
     [Tooltip("This is Radius")]
     [SerializeField] private float NavRadius = 0.2f;
 
-
     [Space(10)]
     [Header("=== Pattern")]
     [Tooltip("This Order of Priority Equle Index")]
     [SerializeField] protected List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
     [SerializeField] public ContinuousEnemyPattern CurrentContinuousEnemyPattern = null;
-    [SerializeField] public EnemyPattern CurrentEnemyPattern = null;
     [SerializeField] public bool IsPlayingPattern = false;
+
+    // 패턴
+    [HideInInspector] public EnemyPattern CurrentEnemyPattern = null;
+
+    // 움직임을 통제
+    [HideInInspector] private eMovementState MovementState = eMovementState.IdleOrWalk;
+    [HideInInspector] public Vector2 MoveDir;
+    [HideInInspector] public float MoveSpeed;
+
+    [HideInInspector] public Vector2 MoveTargetPoint = Vector2.zero;
+    [HideInInspector] public Vector2 LookTargetPoint = Vector2.zero;
+    [HideInInspector] public Vector2 LookAtDir = Vector2.zero;
+    [HideInInspector] private GameObject Target;
+
+    // 방전
+    [HideInInspector] private float RecoverDischargeTime = 4f;
+    [HideInInspector] public bool IsDischarge = false;
+
+    // 버프
+    [HideInInspector] public EnemyBuffController BuffController = null;
+
+    // 패턴
     [HideInInspector] public IEnumerator CurrentPatternCor = null;
 
+    // 방
     [HideInInspector] protected RoomController CurrentRoomController;
 
     #endregion
@@ -161,12 +167,13 @@ public class EnemyController : AliveObjectController, IInteract
                 if (MoveTargetPoint != Vector2.zero)
                 {
                     MoveDir = (MoveTargetPoint - (Vector2)this.transform.position).normalized;
-
+                    Debug.Log(MoveDir);
                 }
                 Play_Walk(MoveDir, MoveSpeed, AccelerationSpeed);
                 break;
 
-            default: break;
+            default: 
+                break;
         }
     }
 
@@ -508,9 +515,9 @@ public class EnemyController : AliveObjectController, IInteract
 
         yield return new WaitForSeconds(0.5f);
 
-        HUD.StateUI.EP_ProgressBar.Set_FillFullImgSmooth(RecoverLethargyTime);
+        HUD.StateUI.EP_ProgressBar.Set_FillFullImgSmooth(RecoverDischargeTime);
 
-        yield return new WaitForSeconds(RecoverLethargyTime);
+        yield return new WaitForSeconds(RecoverDischargeTime);
 
         CurrentEP.Value = MaxEP;
         IsDischarge = false;

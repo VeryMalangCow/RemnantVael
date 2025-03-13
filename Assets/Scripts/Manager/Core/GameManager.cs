@@ -159,6 +159,14 @@ public class DevTool
             _Variable = tTypeComponent;
         }
     }
+    public static T Get_ComponentTType<T>(GameObject _TargetGO) where T : Component
+    {
+        if (_TargetGO != null && _TargetGO.TryGetComponent(out T tTypeComponent))
+        {
+            return tTypeComponent;
+        }
+        return null;
+    }
 
     // 게임 오브젝트 만들고, 컴포넌트 추가하기
     public static T Gen_Component<T>(Transform _ParentTF, string _Name) where T : Component
@@ -386,6 +394,11 @@ public class DevTool
     public static Quaternion Get_RotFromDir(Vector2 _Dir)
     {
         return Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
+    }
+    
+    public static Quaternion Get_RotFromDir_Solar(Vector2 _Dir)
+    {
+        return Quaternion.Euler(0f, -Vector2.SignedAngle(Vector2.up, _Dir), 0f);
     }
 
     // 각값 (float:Angle)
@@ -1217,16 +1230,12 @@ public abstract class SatelliteController
 {
     #region Value
 
-    [Space(10)]
+    [Space(5)]
     [Header("<><><><><> Satellite")]
 
-    [Space(5)]
-    [Header("=== Comp")]
     [SerializeField] public Transform Target;
     [SerializeField] public DepthController Follower;
 
-    [Space(5)]
-    [Header("=== Sorting Value")]
     [SerializeField] public int UpperOrder;
 
     #endregion
@@ -1248,13 +1257,9 @@ public class SatelliteSideController : SatelliteController
 {
     #region Value
 
-    [Space(10)]
+    [Space(5)]
     [Header("<><><><><> Side")]
 
-    [Space(5)]
-    [Header("=== Comp")]
-
-    [Header("=== Sorting Value")]
     [SerializeField] public int FarFromCenter;
 
     #endregion

@@ -17,7 +17,7 @@ public class PlayerController : AliveObjectController
     [SerializeField] public PlayerWeaponController BaseWeapon;
     [SerializeField] public SkillWeaponController SkillWeapon;
     [SerializeField] public PlayerDashController DashController;
-    [SerializeField] public LowerController LowerController;
+    [SerializeField] public RigidbodySolarController LowerController;
     [SerializeField] public WayPointController ThisWayPoint;
 
     [Space(10)]

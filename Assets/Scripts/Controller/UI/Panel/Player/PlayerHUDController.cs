@@ -110,7 +110,7 @@ public class PlayerHUDController : UIController
     [Header("=== Color Or Icon")]
     [Header("-- Icon")]
     [SerializeField] private List<Image> ESImgList;
-    [SerializeField] private List<Image> SkillImgList;
+    [HideInInspector] private List<Image> SkillImgList;
 
     [Header("-- Buff")]
     [SerializeField] private Transform BuffParentTF;
@@ -283,8 +283,10 @@ public class PlayerHUDController : UIController
             ESImgList[i].SetNativeSize();
         }
 
-        for (int i = 0; i < SkillImgList.Count; i++)
+        SkillImgList = new List<Image>();
+        for (int i = 0; i < DevTool.SkillAmount; i++)
         {
+            SkillImgList.Add(DevTool.Get_ComponentTType<Image>(SkillList[i].gameObject));
             SkillImgList[i].sprite = PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].ThisSkillUISprite;
         }
 

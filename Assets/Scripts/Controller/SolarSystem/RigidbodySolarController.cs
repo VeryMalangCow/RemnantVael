@@ -2,17 +2,16 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LowerController : SolarSystemController
+public class RigidbodySolarController : SolarSystemController
 {
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Lower")]
+    [Header("<><><><><> Rigidbody")]
 
     [Header("=== Component")]
     [SerializeField] public Rigidbody2D ThisRb;
     [SerializeField] private List<DirectionalAnimController> ThisAnimatorList;
-    [SerializeField] private SpriteRenderer CenterSpriteRenderer;
 
     [HideInInspector] private bool IsTweening = false;
     [HideInInspector] private Tween MoveTween = null;
@@ -28,7 +27,7 @@ public class LowerController : SolarSystemController
 
         Set_RotSmooth(dir.normalized, time);
         Set_Tween(dir);
-        DevTool.Set_AnimSpeed(ThisAnimatorList, dir.sqrMagnitude);
+        DevTool.Set_AnimSpeed(ThisAnimatorList, dir.sqrMagnitude * 0.3f);
 
         base.LateUpdate();
     }

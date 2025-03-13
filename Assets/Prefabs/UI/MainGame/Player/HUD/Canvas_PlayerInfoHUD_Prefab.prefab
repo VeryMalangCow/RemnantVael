@@ -1137,8 +1137,9 @@ MonoBehaviour:
   SkillStatesStringList:
   - Tier
   - Power
-  Skill0StatesTxt: {fileID: 2755460243852799943}
-  Skill1StatesTxt: {fileID: 3923635002137579534}
+  SkillStatesTxtList:
+  - {fileID: 2755460243852799943}
+  - {fileID: 3923635002137579534}
   EP: {fileID: 1917655584091259891}
   EPInnerImgList:
   - {fileID: 6133692497445316578}
@@ -1169,8 +1170,9 @@ MonoBehaviour:
   BoostInnerList:
   - {fileID: 3693445681594933348}
   - {fileID: 729492017449911674}
-  Skill0: {fileID: 4590165791962585503}
-  Skill1: {fileID: 8188721449371599616}
+  SkillList:
+  - {fileID: 4590165791962585503}
+  - {fileID: 8188721449371599616}
   ThisMinimap: {fileID: 471114568770305855}
   StageNameTxt: {fileID: 5960946144650662593}
   StageDescriptionTxt: {fileID: 2857584832196091881}
@@ -1183,8 +1185,9 @@ MonoBehaviour:
   - {fileID: 9075119566417757914}
   - {fileID: 7493690725465681840}
   - {fileID: 8789493935596022395}
-  Skill0Img: {fileID: 4223529418742150437}
-  Skill1Img: {fileID: 8384025213391588482}
+  SkillImgList:
+  - {fileID: 0}
+  - {fileID: 0}
   BuffParentTF: {fileID: 18835087208111151}
   AllBuffIconUI: []
   BuffUI_XInterval: 12

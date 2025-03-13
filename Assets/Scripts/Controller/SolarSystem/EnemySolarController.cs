@@ -13,4 +13,12 @@ public class EnemySolarController : SolarSystemController
 
     #endregion
 
+    #region Framework
+
+    protected virtual void Update()
+    {
+        Set_RotSmooth(EnemyController.LookAtDir, Time.deltaTime);
+    }
+
+    #endregion
 }

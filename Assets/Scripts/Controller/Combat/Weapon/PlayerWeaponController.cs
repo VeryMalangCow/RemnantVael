@@ -95,7 +95,7 @@ public class PlayerWeaponController : PlayerSolarController
         
         for (int i = 0; i < BulletSpawnTFList.Count; i++)
         {
-            Play_Fire(_BulletList[i], DevTool.Get_CastingTType<DepthController>(BulletSpawnTFList[i]), randomAngle);
+            Play_Fire(_BulletList[i], DevTool.Get_ComponentTType<DepthController>(BulletSpawnTFList[i].gameObject), randomAngle);
         }
 
         InputManager.Instance.AimController.Set_ActivingAttack(true);
