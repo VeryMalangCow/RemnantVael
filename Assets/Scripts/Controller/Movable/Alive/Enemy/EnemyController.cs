@@ -151,7 +151,7 @@ public class EnemyController : AliveObjectController, IInteract
 
     protected void FixedUpdate()
     {
-        Play_Movement();
+        Play_Movement(Time.fixedDeltaTime);
         Play_LookAtTarget();
     }
 
@@ -159,7 +159,7 @@ public class EnemyController : AliveObjectController, IInteract
 
     #region Movement
 
-    private void Play_Movement()
+    private void Play_Movement(float _DeltaTime)
     {
         switch (MovementState)
         {
@@ -169,7 +169,7 @@ public class EnemyController : AliveObjectController, IInteract
                     MoveDir = (MoveTargetPoint - (Vector2)this.transform.position).normalized;
                     Debug.Log(MoveDir);
                 }
-                Play_Walk(MoveDir, MoveSpeed, AccelerationSpeed);
+                Play_Walk(MoveDir, MoveSpeed, AccelerationSpeed, _DeltaTime);
                 break;
 
             default: 

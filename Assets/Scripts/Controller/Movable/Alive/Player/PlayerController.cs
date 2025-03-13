@@ -12,6 +12,8 @@ public class PlayerController : AliveObjectController
     [Space(20)]
     [Header("<><><><><> Player")]
 
+    #region -Class
+
     [Space(10)]
     [Header("=== Controller")]
     [SerializeField] public PlayerWeaponController BaseWeapon;
@@ -23,6 +25,8 @@ public class PlayerController : AliveObjectController
     [Space(10)]
     [Header("=== Generator")]
     [SerializeField] public AfterImgGenerator PlayerMAI;
+
+    #endregion
 
     #region - Combat
 
@@ -191,7 +195,9 @@ public class PlayerController : AliveObjectController
 
         Offset_Subscribe();
         Offset_Anim();
+        Offset_Controller();
 
+        // Test
         CurrentEC.Value = 100;
     }
 
@@ -220,6 +226,11 @@ public class PlayerController : AliveObjectController
         SetOff_RoomMoveDir();
     }
 
+    private void Offset_Controller()
+    {
+        DashController.Offset();
+    }
+
     #endregion
 
     #region Framework
@@ -233,7 +244,7 @@ public class PlayerController : AliveObjectController
 
     private void FixedUpdate()
     {
-        Play_Movement();
+        Play_Movement(Time.fixedDeltaTime);
     }
 
     private void LateUpdate()
@@ -396,38 +407,39 @@ public class PlayerController : AliveObjectController
 
     #region Movement
 
-    private void Play_Movement()
+    private void Play_Movement(float _DeltaTime)
     {
         switch(MovementState)
         {
             case eMovementState.IdleOrWalk:
                 if(!BaseWeapon.IsShooting)
                 {
-                    Play_Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value, AccelerationSpeed);
+                    Play_Walk(InputManager.Instance.InputMoveDir, 
+                        WalkSpeed.ActualState.Value, 
+                        AccelerationSpeed,
+                        _DeltaTime);
                 }
                 else
                 {
-                    Play_Walk(InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value * WalkSpeedWhenShotMultiple.ActualState.Value, AccelerationSpeed);
+                    Play_Walk(InputManager.Instance.InputMoveDir, 
+                        WalkSpeed.ActualState.Value * WalkSpeedWhenShotMultiple.ActualState.Value, 
+                        AccelerationSpeed,
+                        _DeltaTime);
                 }
                 break;
 
             case eMovementState.Dash:
-                DashController.Play_Dash();
+                DashController.Play_Dash(_DeltaTime);
                 break;
 
             default: break;
         }
     }
 
-    private void Play_Walk()
-    {
-
-    }
-
 
     public void Set_DashCheck()
     {
-        if (!Can_Change() || DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value >= CurrentEP.Value)
+        if (!Can_Change() || DashController.Is_EnoughEP())
         {
             return;
         }
@@ -436,7 +448,7 @@ public class PlayerController : AliveObjectController
         PlayerMAI.Start_Gen(0.7f, 0.03f, 0.5f);
 
 
-        CurrentEP.Value -= DashController.NeedEP_ForDash * NeedEP_ForSkillMultiple.ActualState.Value;
+        CurrentEP.Value -= DashController.Get_ActualNeedEP();
         MovementState = eMovementState.Dash;
     }
 
@@ -1184,5 +1196,4 @@ public class PlayerController : AliveObjectController
     }
 
     #endregion
-
 }

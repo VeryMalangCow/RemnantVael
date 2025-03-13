@@ -46,12 +46,12 @@ public class MovableObjectController : MovableDepthController
 
     #region Movement
 
-    protected void Play_Walk(Vector2 _MoveDir, float _MoveSpeed, float _AccelerationSpeed)
+    protected void Play_Walk(Vector2 _MoveDir, float _MoveSpeed, float _AccelerationSpeed, float _DeltaTime)
     {
         Vector2 moveVelocity = _MoveDir * _MoveSpeed;
         Vector2 currentVelocity = ThisRb.velocity;
 
-        moveVelocity = Vector2.Lerp(currentVelocity, moveVelocity, _AccelerationSpeed * Time.fixedDeltaTime);
+        moveVelocity = Vector2.Lerp(currentVelocity, moveVelocity, _AccelerationSpeed * _DeltaTime);
         ThisRb.velocity = moveVelocity;
     }
 

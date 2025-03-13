@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UniRx;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -1235,6 +1234,153 @@ public class BuffState<T>
 
 #endregion
 
+#region Class : State : Player : ItemData
+
+[System.Serializable]
+public class ItemData
+{
+    [Header("=== ID")]
+    public int ID;
+
+    [Header("=== Info")]
+    public string Name;
+    public string Description;
+    public string EquipDescription;
+    public Sprite ItemIcon;
+
+    [Header("=== MainChip")]
+    public int R1_MainChipID;
+    public int R3_MainChipID;
+    public int R5_MainChipID;
+
+    [Header("=== Level")]
+    public int BoostLv = 1;
+    public int Rank = 1;
+
+    public ItemData(int _ID) 
+    {
+        ID = _ID;
+    }
+
+    public ItemData(ItemData _ItemData)
+    {
+        ID = _ItemData.ID;
+
+        Name = _ItemData.Name;
+        Description = _ItemData.Description;
+        EquipDescription = _ItemData.EquipDescription;
+        ItemIcon = _ItemData.ItemIcon;
+
+        R1_MainChipID = _ItemData.R1_MainChipID;
+        R3_MainChipID = _ItemData.R3_MainChipID;
+        R5_MainChipID = _ItemData.R5_MainChipID;
+
+        BoostLv = _ItemData.BoostLv;
+        Rank = _ItemData.Rank;
+    }
+}
+
+[System.Serializable]
+public class MainChipData
+{
+    public Sprite ThisIcon;
+    public int ID;
+    public string Name;
+    public List<string> AmalgamationDescList;
+}
+
+#endregion
+
+#region Class : State : Player : MU
+
+public class ModuleState : IWhen
+{
+    #region Value
+
+    public ItemData ThisItemData;
+
+    public List<InventoryItemEUIController> InventoryUI_Equip = new List<InventoryItemEUIController>();
+    public List<InventoryItemEUIController> InventoryUI_Forge = new List<InventoryItemEUIController>();
+
+    protected ModuleItemActivityManager.ActivityFuncDele ThisActivityFuncDele;
+
+    #endregion
+
+    #region Constructor
+
+    public ModuleState(int _ID)
+    {
+        ThisItemData = new ItemData(_ID);
+        ThisActivityFuncDele = ModuleItemActivityManager.Instance.Get_CollectActivity(ThisItemData.ID);
+    }
+
+    #endregion
+
+    #region Get
+
+    public static List<ModuleState> Get_AllModuleState()
+    {
+        return new List<ModuleState>()
+        {
+            new ModuleItem000(0),
+            new ModuleItem001(1),
+            new ModuleItem002(2),
+            new ModuleItem003(3),
+            new ModuleItem004(4),
+            new ModuleItem005(5),
+        };
+    }
+
+    protected int Get_Rank()
+    {
+        return ThisItemData.Rank;
+    }
+
+    protected int Get_BoostLv()
+    {
+        int targetBoostLv = PlayerManager.Instance.PlayerController.CurrentBoostLv.Value;
+        if (targetBoostLv > ThisItemData.BoostLv)
+        {
+            targetBoostLv = ThisItemData.BoostLv;
+        }
+        return targetBoostLv;
+    }
+
+    #endregion
+
+    #region Interface
+
+    public virtual void Play_When(EnemyController _EC = null)
+    {
+        ThisActivityFuncDele(Get_Rank(), Get_BoostLv(), _EC);
+    }
+
+    #endregion
+}
+
+#endregion
+
+#region Class : State : Player : MU Code
+
+public class ModuleItem000 : ModuleState, IWhen_Fire
+{ public ModuleItem000(int _ID) : base(_ID) { } }
+
+public class ModuleItem001 : ModuleState, IWhen_Fire
+{ public ModuleItem001(int _ID) : base(_ID) { } }
+
+public class ModuleItem002 : ModuleState, IWhen_CriticalHit
+{ public ModuleItem002(int _ID) : base(_ID) { } }
+
+public class ModuleItem003 : ModuleState, IWhen_CriticalHit
+{ public ModuleItem003(int _ID) : base(_ID) { } }
+
+public class ModuleItem004 : ModuleState, IWhen_CriticalHit
+{ public ModuleItem004(int _ID) : base(_ID) { } }
+
+public class ModuleItem005 : ModuleState, IWhen_CriticalHit
+{ public ModuleItem005(int _ID) : base(_ID) { } }
+
+#endregion
 
 #region Class : Satellite
 

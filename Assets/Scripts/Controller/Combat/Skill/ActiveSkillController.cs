@@ -113,9 +113,6 @@ public class ActiveSkillController : MonoBehaviour
         CurrentChargeAmount--;
         PlayerController.Add_CurrentEP(
             -(NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value));
-
-        // Aim UI
-        
     }
 
 

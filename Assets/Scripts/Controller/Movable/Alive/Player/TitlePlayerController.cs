@@ -33,20 +33,20 @@ public class TitlePlayerController : MovableObjectController
 
     #region Framework
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
-        Play_Movement();
+        Play_Movement(Time.fixedDeltaTime);
 
-        Set_Img(Time.deltaTime);
+        //Set_Img(Time.deltaTime);
     }
 
     #endregion
 
     #region Movement
 
-    private void Play_Movement()
+    private void Play_Movement(float _DeltaTime)
     {
-        Play_Walk(TitleInputManager.Instance.InputMoveDir, WalkSpeed, AccelerationSpeed);
+        Play_Walk(TitleInputManager.Instance.InputMoveDir, WalkSpeed, AccelerationSpeed, _DeltaTime);
     }
 
     #endregion

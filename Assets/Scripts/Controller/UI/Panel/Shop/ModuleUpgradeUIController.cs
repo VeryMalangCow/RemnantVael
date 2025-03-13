@@ -664,7 +664,7 @@ public class ModuleUpgradeUIController : PanelUIController
 
         foreach (InventorySlotEUIController MEIS in EquipedMEIS_List)
         {
-            if (ms.ThisExtraMEII.Contains(MEIS.ThisSlotItem))
+            if (ms.InventoryUI_Forge.Contains(MEIS.ThisSlotItem))
             {
 #if UNITY_EDITOR
                 Debug.Log("이미 존재합니다.");
@@ -682,7 +682,7 @@ public class ModuleUpgradeUIController : PanelUIController
                 ms.ThisItemData.ItemIcon, 
                 ModuleItemManager.Instance.Get_CorrectRankIcon(ms), 
                 ms.ThisItemData.BoostLv);
-        ms.ThisExtraMEII.Add(meii);
+        ms.InventoryUI_Forge.Add(meii);
         meii.OwnerUIController = this;
 
         // Player HUD
@@ -695,7 +695,7 @@ public class ModuleUpgradeUIController : PanelUIController
                 ModuleItemManager.Instance.Get_CorrectRankIcon(ms),
                 ms.ThisItemData.BoostLv);
         meii_PlayerHUD.IsCanSelect = false;
-        ms.ThisExtraMEII.Add(meii_PlayerHUD);
+        ms.InventoryUI_Forge.Add(meii_PlayerHUD);
 
         Set_DotweenInEquip(1f, "EquipInner", EquipPanelInnerList);
         Set_EquipDesc();
@@ -709,7 +709,7 @@ public class ModuleUpgradeUIController : PanelUIController
         ModuleState ms = ModuleItemManager.Instance.Get_EquipedModuleState(CurrentSelectedMEIS.ThisSlotItem);
 
         ModuleItemManager.Instance.Equiped_MSList.Remove(ms);
-        ms.ThisExtraMEII.Remove(CurrentSelectedMEIS.ThisSlotItem);
+        ms.InventoryUI_Forge.Remove(CurrentSelectedMEIS.ThisSlotItem);
         Destroy(CurrentSelectedMEIS.ThisSlotItem.gameObject);
 
         CurrentSelectedMEIS.ThisSlotItem = null;
@@ -923,7 +923,7 @@ public class ModuleUpgradeUIController : PanelUIController
         PlayerManager.Instance.PlayerController.CurrentMS.Value -= needMS;
 
         // Take
-        ModuleItemManager.Instance.Get_ModuleState(itemData);
+        ModuleItemManager.Instance.Gain_ModuleState(itemData);
 
         ModuleUpgradeController.UsingShop.Take_Damage(false);
         Set_DotweenInEquip(1f, "ReinforceInner", ReinforcePanelInnerList);
@@ -994,7 +994,7 @@ public class ModuleUpgradeUIController : PanelUIController
             PlayerManager.Instance.PlayerController.CurrentEC.Value -= needEC;
 
             // Take
-            ModuleItemManager.Instance.Get_ModuleState(itemData);
+            ModuleItemManager.Instance.Gain_ModuleState(itemData);
             
             ModuleUpgradeController.UsingShop.Take_Damage(false);
             Set_DotweenInEquip(1f, "ReinforceInner", ReinforcePanelInnerList);
@@ -1031,7 +1031,7 @@ public class ModuleUpgradeUIController : PanelUIController
     {
         foreach (InventorySlotEUIController MEIS in EquipedMEIS_List)
         {
-            foreach (InventoryItemEUIController MEII in _MS.ThisExtraMEII)
+            foreach (InventoryItemEUIController MEII in _MS.InventoryUI_Forge)
             {
                 if (MEIS.ThisSlotItem == MEII)
                 {
@@ -1039,7 +1039,7 @@ public class ModuleUpgradeUIController : PanelUIController
                 }
             }
         }
-        foreach (InventoryItemEUIController MEII in _MS.ThisMEII)
+        foreach (InventoryItemEUIController MEII in _MS.InventoryUI_Equip)
         {
             MI_InEquipTab.Remove_ItemInSlotData(MEII);
             MI_InReinforceTab.Remove_ItemInSlotData(MEII);

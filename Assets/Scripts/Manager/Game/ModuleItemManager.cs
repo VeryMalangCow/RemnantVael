@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class ModuleItemManager : Singleton<ModuleItemManager>
@@ -37,7 +36,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return ItemDataList[Random.Range(0, ItemDataList.Count)];
     }
 
-    public void Get_ModuleState(ItemData _ItemData)
+    public void Gain_ModuleState(ItemData _ItemData)
     {
         foreach (ModuleState MS in ModuleState.Get_AllModuleState())
         {
@@ -45,9 +44,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             {
                 MS.ThisItemData = new ItemData(_ItemData);
 
-                MS.ThisMEII = MainGameUIManager.Instance.ModuleUpgrade_UIController.Get_MEIIList(MS.ThisItemData.ItemIcon, Get_CorrectRankIcon(MS), MS.ThisItemData.BoostLv);
+                MS.InventoryUI_Equip = MainGameUIManager.Instance.ModuleUpgrade_UIController.Get_MEIIList(MS.ThisItemData.ItemIcon, Get_CorrectRankIcon(MS), MS.ThisItemData.BoostLv);
                 
-                foreach(InventoryItemEUIController MEII in MS.ThisMEII)
+                foreach(InventoryItemEUIController MEII in MS.InventoryUI_Equip)
                 {
                     MEII.gameObject.name = $"{MS.ThisItemData.ID}_{MS.ThisItemData.Rank}_{MS.ThisItemData.BoostLv}";
                 }
@@ -120,7 +119,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         foreach (ModuleState MS in Gotten_MSList)
         {
-            if (MS.ThisExtraMEII.Contains(_MEII))
+            if (MS.InventoryUI_Forge.Contains(_MEII))
             {
                 return MS;
             }
@@ -133,7 +132,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         foreach(ModuleState MS in Gotten_MSList)
         {
-            if (MS.ThisMEII.Contains(_MEII))
+            if (MS.InventoryUI_Equip.Contains(_MEII))
             {
                 return MS;
             }
@@ -207,9 +206,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         {
             for (int i = 0; i < Equiped_MSList.Count; i++)
             {
-                int synergyID_1 = Equiped_MSList[i].ThisItemData.Rank1_ItemMainChipID;
-                int synergyID_3 = Equiped_MSList[i].ThisItemData.Rank3_ItemMainChipID;
-                int synergyID_5 = Equiped_MSList[i].ThisItemData.Rank5_ItemMainChipID;
+                int synergyID_1 = Equiped_MSList[i].ThisItemData.R1_MainChipID;
+                int synergyID_3 = Equiped_MSList[i].ThisItemData.R3_MainChipID;
+                int synergyID_5 = Equiped_MSList[i].ThisItemData.R5_MainChipID;
 
                 MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[0].alpha = 0.5f;
                 MainGameUIManager.Instance.ModuleUpgrade_UIController.AmalgamationDescTxtList[1].alpha = 0.5f;
@@ -279,7 +278,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         foreach(ModuleState MS in TargetMsList)
         {
-            if (MS.ThisMEII.Contains(_MEII))
+            if (MS.InventoryUI_Equip.Contains(_MEII))
             {
                 return MS;
             }
@@ -289,62 +288,12 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     private void Remove_MEIIList(ModuleState _MS)
     {
-        for (int i = _MS.ThisMEII.Count - 1; i >= 0; i--)
-        { Destroy(_MS.ThisMEII[i].gameObject); }
+        for (int i = _MS.InventoryUI_Equip.Count - 1; i >= 0; i--)
+        { Destroy(_MS.InventoryUI_Equip[i].gameObject); }
 
-        for (int i = _MS.ThisExtraMEII.Count - 1; i >= 0; i--)
-        { Destroy(_MS.ThisExtraMEII[i].gameObject); }
+        for (int i = _MS.InventoryUI_Forge.Count - 1; i >= 0; i--)
+        { Destroy(_MS.InventoryUI_Forge[i].gameObject); }
     }
 
     #endregion
-}
-
-[System.Serializable]
-public class ItemData
-{
-    [Space(20)]
-
-    public int ID;
-
-    [Space(10)]
-    public string Name;
-    public string Description;
-    public string EquipDescription;
-    public Sprite ItemIcon;
-
-    [Space(10)]
-    public int Rank1_ItemMainChipID;
-    public int Rank3_ItemMainChipID;
-    public int Rank5_ItemMainChipID;
-
-    [Space(10)]
-    public int BoostLv = 1;
-    public int Rank = 1;
-
-    public ItemData() { }
-    public ItemData(ItemData _ItemData)
-    {
-        ID = _ItemData.ID;
-
-        Name = _ItemData.Name;
-        Description = _ItemData.Description;
-        EquipDescription = _ItemData.EquipDescription;
-        ItemIcon = _ItemData.ItemIcon;
-
-        Rank1_ItemMainChipID = _ItemData.Rank1_ItemMainChipID;
-        Rank3_ItemMainChipID = _ItemData.Rank3_ItemMainChipID;
-        Rank5_ItemMainChipID = _ItemData.Rank5_ItemMainChipID;
-
-        BoostLv = _ItemData.BoostLv;
-        Rank = _ItemData.Rank;
-    }
-}
-
-[System.Serializable]
-public class MainChipData
-{
-    public Sprite ThisIcon;
-    public int ID;
-    public string Name;
-    public List<string> AmalgamationDescList;
 }

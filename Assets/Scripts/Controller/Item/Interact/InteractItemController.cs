@@ -58,7 +58,7 @@ public class InteractItemController : ItemController, IInteract
         CurrentSpreadPower = 0f;
         SettedSpreadDir = Vector2.zero;
 
-        ModuleItemManager.Instance.Get_ModuleState(ThisItemData);
+        ModuleItemManager.Instance.Gain_ModuleState(ThisItemData);
         PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
 
         End_Tween();

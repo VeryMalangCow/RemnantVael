@@ -386,7 +386,7 @@ public class PlayerHUDController : UIController
                 pc.MaxEP.ActualState.Value.ToString(),
                 pc.WalkSpeed.ActualState.Value.ToString(),
                 pc.DashController.DashSpeed.ActualState.Value.ToString(),
-                pc.DashController.NeedEP_ForDash.ToString(),
+                pc.DashController.Get_ActualNeedEP().ToString(),
                 pwc.BaseDamage.ActualState.Value.ToString(),
                 pwc.ROF.ActualState.Value.ToString(),
                 pwc.AccuracyRate.ActualState.Value.ToString(),

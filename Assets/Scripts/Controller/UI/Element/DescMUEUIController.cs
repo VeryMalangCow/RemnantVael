@@ -87,11 +87,11 @@ public class DescMUEUIController : ElementUIController
         // MainChip
         MainChipGO.gameObject.SetActive(true);
         RankLv1_MainChipImg.sprite =
-            ModuleItemManager.Instance.Get_CorrectMainChip(_MS.ThisItemData.Rank1_ItemMainChipID).ThisIcon;
+            ModuleItemManager.Instance.Get_CorrectMainChip(_MS.ThisItemData.R1_MainChipID).ThisIcon;
         RankLv3_MainChipImg.sprite =
-            ModuleItemManager.Instance.Get_CorrectMainChip(_MS.ThisItemData.Rank3_ItemMainChipID).ThisIcon;
+            ModuleItemManager.Instance.Get_CorrectMainChip(_MS.ThisItemData.R3_MainChipID).ThisIcon;
         RankLv5_MainChipImg.sprite =
-            ModuleItemManager.Instance.Get_CorrectMainChip(_MS.ThisItemData.Rank5_ItemMainChipID).ThisIcon;
+            ModuleItemManager.Instance.Get_CorrectMainChip(_MS.ThisItemData.R5_MainChipID).ThisIcon;
 
         RankLv3_LockerImg.gameObject.SetActive(true);
         RankLv5_LockerImg.gameObject.SetActive(true);
