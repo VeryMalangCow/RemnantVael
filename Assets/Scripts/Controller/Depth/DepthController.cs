@@ -83,5 +83,23 @@ public class DepthController : IDController
             Gen_MS(1);
         }
     }
+
+
+    // Module Interact Item
+    protected void Gen_II()
+    {
+        InteractItemController IIC = PoolingManager.Instance.Get_OP_InteractableItem();
+        IIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        IIC.Set_State(this.transform.position);
+    }
+
+    // Energy Shrapnel
+    protected void Gen_ES(float _Value)
+    {
+        EnergyShardController ESC = PoolingManager.Instance.Get_OP_EnergyShrapnel();
+        ESC.Set_State(this.gameObject.transform.position, _Value);
+    }
+
+
     #endregion
 }

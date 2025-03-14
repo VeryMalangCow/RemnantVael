@@ -100,7 +100,7 @@ public class MissileSkillController : ActiveSkillController
                 new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value),
                 new KnockbackState(true, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * 1.5f, 0.4f)),
             _CheckIsCritical: true, 
-            _MuzzleSpeed: 1.5f, 
+            _MuzzleSpeed: PlayerController.BaseWeapon.MuzzleSpeed.ActualState.Value * 1.5f, 
             _AliveTime: 3.5f);
     }
 

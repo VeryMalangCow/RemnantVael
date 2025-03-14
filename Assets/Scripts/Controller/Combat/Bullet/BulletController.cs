@@ -95,7 +95,7 @@ public abstract class BulletController : MovableDepthController
 
     public virtual void Set_State_Base(BulletState _State, float _TargetRange = 0.4f)
     {
-        this.State = new BulletState(_State, true);
+        this.State = new BulletState(_State, false);
 
         TargetRange = _TargetRange;
     }

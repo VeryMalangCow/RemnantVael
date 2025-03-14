@@ -44,7 +44,7 @@ public class PlayerBulletController : BulletController
                 TargetObject.transform.position, State.IsCritical, transform.rotation);
 
             PlayerManager.Instance.CameraController.Play_HitEnemyAnim();
-            ec.Take_Damaged(State, DevTool.Get_DirFromAngle(transform.eulerAngles.z));
+            ec.Try_Hitted(this);
         }
     }
 

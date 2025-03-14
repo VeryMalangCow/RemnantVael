@@ -112,7 +112,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             CriticalState criticalState = new CriticalState(0, 1);
             KnockbackState knockbackState = new KnockbackState(false, 0, 0);
 
-            BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), true, PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2f);
+            BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), false, PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2f);
             BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(PC.transform.position, dir, 10);
             BulletState_Size? size = null;
             State_Anim? anim = null;

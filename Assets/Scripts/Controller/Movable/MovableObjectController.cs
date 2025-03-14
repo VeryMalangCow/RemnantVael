@@ -23,9 +23,8 @@ public class MovableObjectController : MovableDepthController
 
     #region Framework
 
-    protected override void Update()
+    protected virtual void FixedUpdate()
     {
-        base.Update();
         Update_Knockback(Time.deltaTime);
     }
 

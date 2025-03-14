@@ -33,8 +33,10 @@ public class TitlePlayerController : MovableObjectController
 
     #region Framework
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
+
         Play_Movement(Time.fixedDeltaTime);
 
         //Set_Img(Time.deltaTime);

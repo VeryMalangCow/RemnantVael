@@ -47,7 +47,7 @@ public class GameManager : PersistentSingleton<GameManager>
 public class DevTool
 {
     #region About Math
-
+    
     // 퍼센트값을 도출
     public static float Get_Percent(float _Percent, float _Value)
     {
@@ -57,7 +57,7 @@ public class DevTool
     // 확률이 성공했는지를 반환
     public static bool Is_ChanceSuccess(float _Chance)
     {
-        if (UnityEngine.Random.Range(0f, 1f) < _Chance)
+        if (Random.Range(0f, 1f) < _Chance)
         {
             return true;
         }
@@ -88,7 +88,7 @@ public class DevTool
         }
         else
         {
-            return UnityEngine.Random.Range(-_RandomExtent * 0.5f, _RandomExtent * 0.5f);
+            return Random.Range(-_RandomExtent * 0.5f, _RandomExtent * 0.5f);
         }
     }
 
@@ -293,8 +293,8 @@ public class DevTool
 
         for (int i = 0; i < result.Count; ++i)
         {
-            random1 = UnityEngine.Random.Range(0, result.Count);
-            random2 = UnityEngine.Random.Range(0, result.Count);
+            random1 = Random.Range(0, result.Count);
+            random2 = Random.Range(0, result.Count);
 
             Set_Swap(result, random1, random2);
         }
@@ -367,14 +367,24 @@ public class DevTool
 
     public static Vector2 Get_RandomDir()
     {
-        float _X = UnityEngine.Random.Range(-1.0f, 1.0f);
-        float _Y = UnityEngine.Random.Range(-1.0f, 1.0f);
+        float _X = Random.Range(-1.0f, 1.0f);
+        float _Y = Random.Range(-1.0f, 1.0f);
         return new Vector2(_X, _Y).normalized;
     }
 
-    public static Vector2 Get_Dir(GameObject _StartGO, GameObject _EndGO)
+    public static Vector2 Get_Dir(GameObject _FromGO, GameObject _ToGO)
     {
-        return (_EndGO.transform.position - _StartGO.transform.position).normalized;
+        return Get_Dir(_FromGO.transform.position, _ToGO.transform.position);
+    }
+
+    public static Vector2 Get_Dir(GameObject _FromGO, Vector2 _ToPos)
+    {
+        return Get_Dir(_FromGO.transform.position, _ToPos);
+    }
+
+    public static Vector2 Get_Dir(Vector2 _FromPos, Vector2 _ToPos)
+    {
+        return (_ToPos - _FromPos).normalized;
     }
 
 
@@ -649,7 +659,14 @@ public class DevTool
 
     public static float Get_DmgEffectByCold(float _BaseDmg, EnemyBuffController _EnemyBuff)
     {
-        return _BaseDmg * (1f - (_EnemyBuff.ColdStack.CurrentStack * (_EnemyBuff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
+        return _BaseDmg * (1f - 
+            (_EnemyBuff.ColdStack.CurrentStack * (_EnemyBuff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
+    }
+
+    public static float Get_DmgEffectByCorrosion(float _BaseDmg, EnemyBuffController _EnemyBuff)
+    {
+        return _BaseDmg *= (1f + 
+            (_EnemyBuff.CorrosionStack.CurrentStack * (_EnemyBuff.DecayStack.CurrentStack + 1) * 0.01f));
     }
 
     #endregion
@@ -1493,6 +1510,22 @@ public class ModuleItem005 : ModuleState, IWhen_CriticalHit
 
 #endregion
 
+
+#region Class : State : Enemy : Pattern
+
+[System.Serializable]
+public class ContinuousEnemyPattern
+{
+    public List<EnemyPattern> EnemyPatternList;
+}
+
+[System.Serializable]
+public class OrderOfPriorityEnemyPattern
+{
+    public List<ContinuousEnemyPattern> EnemyPatternList;
+}
+
+#endregion
 
 #region Class : Satellite
 

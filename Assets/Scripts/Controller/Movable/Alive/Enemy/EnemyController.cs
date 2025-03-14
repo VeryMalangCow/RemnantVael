@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : AliveObjectController, IInteract
 {
     #region Value
+
+    #region - Inspector
 
     [Space(20)]
     [Header("<><><><><> Enemy")]
@@ -39,51 +42,58 @@ public class EnemyController : AliveObjectController, IInteract
     [Header("=== Pattern")]
     [Tooltip("This Order of Priority Equle Index")]
     [SerializeField] protected List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
-    [SerializeField] public ContinuousEnemyPattern CurrentContinuousEnemyPattern = null;
-    [SerializeField] public bool IsPlayingPattern = false;
+    [SerializeField] private ContinuousEnemyPattern CurrentContinuousEnemyPattern = null;
+    
+
+    [Space(10)]
+    [Header("=== Discharge")]
+    [SerializeField] private float RecoverDischargeTime = 4f;
+
+    #endregion
+
+    #region - Hide
 
     // 패턴
-    [HideInInspector] public EnemyPattern CurrentEnemyPattern = null;
+    [HideInInspector] private EnemyPattern CurrentEnemyPattern = null;
 
     // 움직임을 통제
-    [HideInInspector] private eMovementState MovementState = eMovementState.IdleOrWalk;
-    [HideInInspector] public Vector2 MoveDir;
-    [HideInInspector] public float MoveSpeed;
-
-    [HideInInspector] public Vector2 MoveTargetPoint = Vector2.zero;
-    [HideInInspector] public Vector2 LookTargetPoint = Vector2.zero;
-    [HideInInspector] public Vector2 LookAtDir = Vector2.zero;
     [HideInInspector] private GameObject Target;
 
+    [HideInInspector] public float MoveSpeed;
+
+    [HideInInspector] public Vector2 MoveAtPoint = Vector2.zero;
+    [HideInInspector] public Vector2 MoveAtDir = Vector2.zero;
+
+    [HideInInspector] public Vector2 LookAtPoint = Vector2.zero;
+    [HideInInspector] public Vector2 LookAtDir = Vector2.zero;
+
     // 방전
-    [HideInInspector] private float RecoverDischargeTime = 4f;
     [HideInInspector] public bool IsDischarge = false;
 
     // 버프
     [HideInInspector] public EnemyBuffController BuffController = null;
 
     // 패턴
+    [HideInInspector] public bool IsPlayingPattern = false;
     [HideInInspector] public IEnumerator CurrentPatternCor = null;
 
     // 방
-    [HideInInspector] protected RoomController CurrentRoomController;
+    [HideInInspector] private RoomController CurrentRoomController;
 
     #endregion
 
+    #endregion
+
+
     #region Offset
 
-    protected override void Offset()
+    protected override void Offset_FirstSetting()
     {
-        base.Offset();
-
         HUD.Offset(this);
+    }
 
-        if (this.gameObject.TryGetComponent(out EnemyBuffController EBC))
-        {
-            BuffController = EBC;
-            BuffController.Offset(this);
-        }
-
+    protected override void Offset_Subscribe()
+    {
         CurrentSP
             .Subscribe(_CurrentSP =>
             {
@@ -91,12 +101,14 @@ public class EnemyController : AliveObjectController, IInteract
 
                 if (CurrentSP.Value <= 0)
                 {
+                    CurrentSP.Value = 0;
                     HUD.StateUI.SP_ProgressBar.Set_NoNum();
                     HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
                     HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
 
                     if (BuffController.ShieldBuff.IsOn)
                     { BuffController.ShieldBuff.Remove_AllStack(); }
+
                 }
                 else
                 {
@@ -121,8 +133,22 @@ public class EnemyController : AliveObjectController, IInteract
 
                 if (CurrentSP.Value > 0)
                 { HUD.StateUI.EP_ProgressBar.Set_NoNum(); }
-            });
 
+                if (_CurrentEP <= 0 && !IsDischarge)
+                {
+                    IsDischarge = true;
+                    StartCoroutine(Play_RecoverDischarge_Cor());
+                }
+            });
+    }
+
+    protected override void Offset_Controller()
+    {
+        if (DevTool.Get_ComponentTType(this.gameObject, out EnemyBuffController buff))
+        {
+            BuffController = buff;
+            BuffController.Offset(this);
+        }
     }
 
     #endregion
@@ -133,26 +159,41 @@ public class EnemyController : AliveObjectController, IInteract
     {
         base.OnEnable();
 
+        Reset_State();
+
+        // VFX
+        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
+        
+        // Pattern
+        Start_PatternFromNone();
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+        Update_LookAtTarget();
+        Play_Movement(Time.fixedDeltaTime);
+    }
+
+    #endregion
+
+    #region Reset
+
+    private void Reset_State()
+    {
         base.IsDead = false;
         CurrentSP.Value = 0;
         CurrentHP.Value = MaxHP;
         CurrentEP.Value = MaxEP;
         IsDischarge = false;
 
-        if (Target == null)
+        if (Target == null) // 타겟 Player
         { Target = PlayerManager.Instance.PlayerController.gameObject; }
 
-        if (CurrentRoomController == null)
+        if (CurrentRoomController == null) // 현재 Room
         { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
 
-        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
-        Start_PatternFromNone();
-    }
-
-    protected void FixedUpdate()
-    {
-        Play_Movement(Time.fixedDeltaTime);
-        Play_LookAtTarget();
     }
 
     #endregion
@@ -161,257 +202,217 @@ public class EnemyController : AliveObjectController, IInteract
 
     private void Play_Movement(float _DeltaTime)
     {
-        switch (MovementState)
-        {
-            case eMovementState.IdleOrWalk:
-                if (MoveTargetPoint != Vector2.zero)
-                {
-                    MoveDir = (MoveTargetPoint - (Vector2)this.transform.position).normalized;
-                }
-                Play_Walk(MoveDir, MoveSpeed, _DeltaTime);
-                break;
-
-            default: 
-                break;
-        }
+        Update_MoveAtTarget();
+        Play_Walk(MoveAtDir, MoveSpeed, _DeltaTime);
     }
 
-
-    #endregion
-
-    #region Look At
-
-    private void Play_LookAtTarget()
+    private void Update_MoveAtTarget()
     {
         if (IsDischarge)
         { return; }
 
-        // 바라볼 타겟이 있다면
-        if (LookTargetPoint != Vector2.zero && Target != null)
-        {
-            LookAtDir = ((Vector2)Target.transform.position - (Vector2)this.transform.position).normalized;
-        }
-        // 바라볼 타겟이 없다면
-        else if (LookAtDir != Vector2.zero && LookTargetPoint == Vector2.zero)
-        {
-            LookAtDir = Vector2.zero;
-        }
+        MoveAtDir = MoveAtPoint != Vector2.zero ?
+            DevTool.Get_Dir(this.gameObject, MoveAtPoint) : Vector2.zero;
+    }
+
+    #endregion
+
+    #region Look
+
+    private void Update_LookAtTarget()
+    {
+        if (IsDischarge)
+        { return; }
+
+        // 바라볼 방향값 계산
+        LookAtDir = Target != null ? 
+            DevTool.Get_Dir(this.gameObject, Target) : Vector2.down;
     }
 
     #endregion
 
     #region Life State Gain
 
-    public void Set_PercentSP(float _Value)
+    // 쉴드 설정
+    // => 낮은 값이 설정되어도 적용할 것인가?
+    public void Set_CurrentSP(float _SetValue, bool _LesserIsOk = false)
     {
-        float actualValue = (_Value / 100f) * MaxHP;
-        
-        if (actualValue > CurrentSP.Value)
-        {
-            Set_SP(actualValue);
-        }
+        Set_CurrentSP(_SetValue, MaxHP, _LesserIsOk);
+    }
+    public void Set_CurrentSP_Zero()
+    {
+        Set_CurrentSP(0, MaxHP, _LesserIsOk: true);
     }
 
-    public void Gain_PercentSP(float _Value)
+    private void Add_CurrentSP(float _AddValue)
     {
-        float actualValue = (_Value / 100f) * MaxHP;
-        Gain_SP(actualValue);
-    }
-    public void Gain_PercentHP(float _Value)
-    {
-        float actualValue = (_Value / 100f) * MaxHP;
-        Gain_HP(actualValue);
-    }
-    public void Gain_PercentEP(float _Value)
-    {
-        float actualValue = (_Value / 100f) * MaxEP;
-        Gain_EP(actualValue);
+        Add_CurrentSP(_AddValue, MaxHP);
     }
 
+    private void Add_CurrentHP(float _AddValue)
+    { 
+        Add_CurrentHP(_AddValue, MaxHP);
+        Check_IsDead(CurrentHP.Value);
+    }
 
-    private void Gain_SP(float _Value)
-    { Gain_Point(CurrentSP, MaxHP, _Value); }
+    private void Add_CurrentEP(float _AddValue)
+    { 
+        Add_CurrentEP(_AddValue, MaxEP); 
+    }
 
-    private void Gain_HP(float _Value)
-    { Gain_Point(CurrentHP, MaxHP, _Value); }
+    public float Get_PercentHP(float _Percent)
+    {
+        return DevTool.Get_Percent(_Percent, MaxHP);
+    }
 
-    private void Gain_EP(float _Value)
-    { Gain_Point(CurrentEP, MaxEP, _Value); }
+    #endregion
 
+    #region Hitted
 
-    private void Set_SP(float _Value)
-    { Set_Point(CurrentSP, MaxHP, _Value); }
-    private void Set_HP(float _Value)
-    { Set_Point(CurrentHP, MaxHP, _Value); }
-    private void Set_EP(float _Value)
-    { Set_Point(CurrentEP, MaxEP, _Value); }
+    // 총알 데미지
+    public void Try_Hitted(PlayerBulletController _Bullet)
+    {
+        if (IsDead)
+        { return; }
 
+        BulletState state = _Bullet.State;
 
-    private void Set_Point(ReactiveProperty<float> _Variable, float _Max, float _Value)
-    { _Variable.Value = Mathf.Clamp(_Value, 0, _Max); }
+        // Damage
+        Take_Damaged(
+            state, 
+            state.IsCritical, 
+            DevTool.Get_DirFromAngle(_Bullet.transform.eulerAngles.z));
+    }
 
-    private void Gain_Point(ReactiveProperty<float> _Variable, float _Max, float _Value)
-    { _Variable.Value = Mathf.Clamp(_Variable.Value + _Value, 0, _Max); }
+    // 어택커 데미지
+    public void Try_Hitted(PlayerAttackerController _Attacker)
+    {
+        if (IsDead)
+        { return; }
+
+        AttackerState state = _Attacker.AttackerState;
+
+        // Damage
+        Take_Damaged(
+            state,
+            DevTool.Is_ChanceSuccess(state.CriticalState.CC),
+            DevTool.Get_Dir(_Attacker.gameObject, this.gameObject));
+    }
 
     #endregion
 
     #region Damaged
 
-    // 총알 데미지
-    public void Take_Damaged(BulletState _BS, Vector2 _KnockbackDir)
+    // 데미지, 넉백, 크리티컬, 모듈 호과 등
+    private void Take_Damaged(CombatState _State_Combat, bool _IsCritical, Vector2 _DirKB)
     {
-        if (base.IsDead)
-        { return; }
+        float actualDmg = _State_Combat.DmgState.Dmg;
 
-        // Damage
-        Take_Damaged(
-            _BS.DmgState.DmgType, 
-            _BS.KnockbackState.CanKB, _KnockbackDir, _BS.KnockbackState.KBPower, _BS.KnockbackState.KBTime,
-            _BS.IsCritical, _BS.CriticalState.CD, 
-            _BS.DmgState.Dmg);
-    }
+        // INTERFACE: 맞을 때 효과 
+        ModuleItemManager.Instance.Active_Hit(this); 
 
-    // 어택커 데미지
-    public void Take_Damaged(AttackerState _AS, bool _IsCritical, Vector2 _KnockbackDir)
-    {
-        if (base.IsDead)
-        { return; }
-
-        // Damage
-        Take_Damaged(
-            _AS.DmgState.DmgType, 
-            _AS.KnockbackState.CanKB, _KnockbackDir, _AS.KnockbackState.KBPower, _AS.KnockbackState.KBTime,
-            _IsCritical, _AS.CriticalState.CD, 
-            _AS.DmgState.Dmg);
-    }
-
-
-    // 데미지만을 계산하는 방식
-    private void Take_Damaged(
-        eDamageType _DmgType, 
-        bool _AbleKnockback, Vector2 _KnockbackDir, float _KnockbackPower, float _KnockbackTime,
-        bool _IsCritical, float _CriticalDMG, 
-        float _ActualDMG)
-    {
-        ModuleItemManager.Instance.Active_Hit(this); // INTERFACE: 맞을 때 효과 
-
-        // Knockback
-        if (_AbleKnockback)
+        // KB
+        if (_State_Combat.KnockbackState.CanKB)
         {
-            //Debug.DrawRay((Vector2)this.transform.position, _KnockbackDir, Color.red, 5f);
-            Gain_Knockback(new CurrentKnockbackState(_KnockbackDir, _KnockbackPower, _KnockbackTime));
+            Gain_Knockback(new CurrentKnockbackState(_DirKB, _State_Combat.KnockbackState.KBPower, _State_Combat.KnockbackState.KBTime));
         }
-
         // 치명타 계산
         if (_IsCritical)
         {
-            _ActualDMG *= _CriticalDMG;
+            actualDmg *= _State_Combat.CriticalState.CD;
             ModuleItemManager.Instance.Active_CriticalHit(this); // INTERFACE: 치명타를 맞을 때 효과 
         }
 
-        // 적이 부식 디버프에 걸린지
-        _ActualDMG *= (1f + 
-            (BuffController.CorrosionStack.CurrentStack * (BuffController.DecayStack.CurrentStack + 1) * 0.01f));
-
-        // 쉴드 계산
-        _ActualDMG = Take_ShieldDamaged(_IsCritical, _ActualDMG);
-        if (_ActualDMG <= 0)
-        { return; }
-
-        // 직접 데미지
-        if (_DmgType == eDamageType.Physics) // 물리 값
-        {
-            Take_PhysicsDamaged(_IsCritical, _ActualDMG);
-        }
-        else // 에너지 값
-        {
-            Take_EnergyDamaged(_IsCritical, _ActualDMG, true);
-        }
+        // 데미지 구현 (Dmg: 적의 부식 디버프 계산)
+        Take_Damage(DevTool.Get_DmgEffectByCorrosion(actualDmg, BuffController),
+            _State_Combat.DmgState.DmgType,
+            _IsCritical);
     }
 
-
-    // 쉴드 데미지를 받음
-    private float Take_ShieldDamaged(bool _IsCritical, float _ActualDMG)
+    // 오직 데미지만을 계산
+    public void Take_Damage(float _DmgValue, eDamageType _DmgType, bool _IsCritical = false)
     {
         // 쉴드 계산
-
         if (CurrentSP.Value > 0)
         {
-            if (CurrentSP.Value > _ActualDMG)
+            float uiTxt = 0f;
+            float uiX = 0f;
+            if (CurrentSP.Value > _DmgValue)
             {
-                // UI
-                PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByShieldDmg(
-                    (Vector2)TargetObject.transform.position + new Vector2(0.2f, 0.2f),
-                    _ActualDMG, _IsCritical);
+                uiTxt = _DmgValue;
+                uiX = 0.2f;
 
-                Gain_SP(-_ActualDMG);
-                _ActualDMG = 0;
+                Add_CurrentSP(-_DmgValue);
+                _DmgValue = 0f;
             }
             else
             {
-                // UI
-                PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByShieldDmg(
-                    (Vector2)TargetObject.transform.position + new Vector2(0.2f, 0.2f),
-                    CurrentSP.Value, _IsCritical);
+                uiTxt = CurrentSP.Value;
+                uiX = 0.1f;
 
-                _ActualDMG -= CurrentSP.Value;
-                CurrentSP.Value = 0f;
+                _DmgValue -= CurrentSP.Value;
+                Set_CurrentSP_Zero();
             }
+
+            PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByShieldDmg(
+                    (Vector2)TargetObject.transform.position + new Vector2(uiX, 0.2f),
+                    uiTxt, _IsCritical);
         }
 
-        return _ActualDMG;
+        if (_DmgValue <= 0)
+        { return; }
+
+        // 직접 데미지
+        // 물리 값
+        if (_DmgType == eDamageType.Physics) 
+        {
+            Take_Damaged_Physics(_DmgValue, _IsCritical);
+        }
+        // 에너지 값
+        else 
+        {
+            Take_Damaged_Energy(_DmgValue, _IsCritical);
+        }
     }
 
     // 물리 데미지를 받음
-    private void Take_PhysicsDamaged(bool _IsCritical, float _ActualDMG)
+    private void Take_Damaged_Physics(float _DmgValue, bool _IsCritical)
     {
         // UI
         PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByPhysicDmg(
-        (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-        _ActualDMG, _IsCritical);
+            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+            _DmgValue, _IsCritical);
 
-        Gain_HP(-_ActualDMG);
-        if (CurrentHP.Value <= 0f)
-        {
-            base.IsDead = true;
-            Set_Die();
-        }
+        Add_CurrentHP(-_DmgValue);
     }
 
     // 에너지 데미지를 받음
-    private void Take_EnergyDamaged(bool _IsCritical, float _ActualDMG, bool _SpawnES)
+    private void Take_Damaged_Energy(float _DmgValue, bool _IsCritical)
     {
         if (!IsDischarge)
         {
-            // UI
-            PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByEnergyDmg(
-                (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-                _ActualDMG, _IsCritical);
-
-            float targetValue = 0;
-            if (CurrentEP.Value > _ActualDMG) // EP가 데미지보다 많다면
+            float esValue = 0;
+            if (CurrentEP.Value > _DmgValue) // EP가 데미지보다 많다면
             {
-                targetValue = _ActualDMG;
-                Gain_EP(-_ActualDMG);
+                PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByEnergyDmg(
+                    (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+                    _DmgValue, _IsCritical);
+
+                esValue = _DmgValue;
+                Add_CurrentEP(-_DmgValue);
             }
             else // EP가 데미지를 버티지 못한다면
             {
                 // UI
                 PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByStateDischarge(
-                        (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
+                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
 
-                targetValue = CurrentEP.Value;
+                esValue = CurrentEP.Value;
                 CurrentEP.Value = 0;
-                IsDischarge = true;
-                StartCoroutine(Play_RecoverDischarge_Cor());
             }
 
             // 에너지 조각 생성
-            if (_SpawnES)
-            {
-                targetValue *= PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value;
-                Gen_ES(targetValue);
-            }
+            Gen_ES(esValue * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value);
         }
         else
         {
@@ -419,48 +420,48 @@ public class EnemyController : AliveObjectController, IInteract
             PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByStateDischarge(
                 (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
         }
-
-        
     }
 
+    #endregion
 
-    // 추가 효과가 없는 데미지 계산
-    public void Take_Damaged_NoneExtraEffect(eDamageType _DmgType, float _ActualDMG)
-    {
-        // 쉴드 계산
-        _ActualDMG = Take_ShieldDamaged(false, _ActualDMG);
-        if (_ActualDMG <= 0)
-        { return; }
-
-        // 직접 계산
-        if (_DmgType == eDamageType.Physics)
-        {
-            Take_PhysicsDamaged(false, _ActualDMG);
-        }
-        else
-        {
-            Take_EnergyDamaged(false, _ActualDMG, false);
-        }
-    }
-
+    #region Die
 
     // 죽음
     protected override void Set_Die()
     {
         base.Set_Die();
 
-        // Drop Bettery S
+        Set_Die_GenItem();
+        Set_Die_Effect();
+        Set_Die_Data();
+    }
+
+    private void Set_Die_GenItem()
+    {
+        // Drop Bettery Shard
         Gen_BS(1);
 
-        // Drop Module S
+        // Drop Module Shard
         Gen_MS(1);
 
-        // Drop Item
-        Gen_II();
+        // Drop Module Item
+        if (DevTool.Is_ChanceSuccess(ItemDropPercent))
+        {
+            Gen_II();
+        }
+    }
 
+    private void Set_Die_Effect()
+    {
         // Effect
-        StopCoroutine(Play_RecoverDischarge_Cor());
         PlayerManager.Instance.CameraController.Play_KillAnim(PlayerManager.Instance.PlayerController.ExecutionInterval);
+        UnitManager.Instance.OnceTime_AnimGenerator.Anim_Attacked_BigSlice(TargetObject.transform.position);
+        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
+    }
+
+    private void Set_Die_Data()
+    {
+        StopCoroutine(Play_RecoverDischarge_Cor());
 
         // Remove
         if (EnemyManager.Instance.CurrentEnemyList.Contains(this))
@@ -475,42 +476,16 @@ public class EnemyController : AliveObjectController, IInteract
         // Set
         this.gameObject.SetActive(false);
         PoolingManager.Instance.Set_EnqueueEnemy(this);
-
-        // Effect
-        UnitManager.Instance.OnceTime_AnimGenerator.Anim_Attacked_BigSlice(TargetObject.transform.position);
-        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
     }
 
     #endregion
 
-    #region Gen Item
-
-    // Interactable Item
-    private void Gen_II()
-    {
-        if (ItemDropPercent < UnityEngine.Random.Range(0f, 1f))
-        { return; }
-
-        InteractItemController IIC = PoolingManager.Instance.Get_OP_InteractableItem();
-        IIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
-        IIC.Set_State(this.transform.position);
-    }
-
-    // Energy Shrapnel
-    private void Gen_ES(float _Value)
-    {
-        EnergyShardController ESC = PoolingManager.Instance.Get_OP_EnergyShrapnel();
-        ESC.Set_State(this.gameObject.transform.position, _Value);
-    }
-
-    #endregion
-
-    #region State
+    #region Discharge
 
     private IEnumerator Play_RecoverDischarge_Cor()
     {
         // 패턴 루틴 종료
-        End_Pattern();
+        SetOn_Discharge();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -525,16 +500,19 @@ public class EnemyController : AliveObjectController, IInteract
         Start_PatternFromNone();
     }
 
-    private void End_Pattern()
+    private void SetOn_Discharge()
     {
         StopCoroutine(CurrentPatternCor);
 
         CurrentContinuousEnemyPattern = null;
         CurrentEnemyPattern = null;
 
-        MoveTargetPoint = Vector2.zero;
-        LookTargetPoint = Vector2.zero;
-        MoveDir = Vector2.zero;
+        MoveAtPoint = Vector2.zero;
+        MoveAtDir = Vector2.zero;
+
+        LookAtPoint = Vector2.zero;
+        LookAtDir = Vector2.zero;
+
         MoveSpeed = 0f;
     }
 
@@ -544,8 +522,13 @@ public class EnemyController : AliveObjectController, IInteract
 
     public void Play_Interact()
     {
+        // 처형
         PlayerManager.Instance.PlayerController.Try_Execution(this);
     }
+
+    #endregion
+
+    #region Execution
 
     public void Play_Execution()
     {
@@ -554,6 +537,83 @@ public class EnemyController : AliveObjectController, IInteract
     }
 
     #endregion
+
+    #region UI
+
+    public override void Set_SortingOrder(int _SortingOrder)
+    {
+        base.Set_SortingOrder(_SortingOrder);
+        HUD.ThisCanvas.sortingOrder = _SortingOrder;
+    }
+
+    #endregion
+
+    #region Pattern
+
+    private void Start_PatternFromNone()
+    {
+        OrderOfPriorityEnemyPatternList[OrderOfPriorityEnemyPatternList.Count - 1].EnemyPatternList[0].EnemyPatternList[0].Start_Pattern();
+    }
+
+    public void Play_Pattern()
+    {
+        if (IsDischarge)
+        { return; }
+
+        // 이미 있는지 진행 중인 패턴이 있는지 확인
+        int OrderOfPattern = -1;
+        if (CurrentEnemyPattern != null)
+        {
+            // 패턴의 순서 값을 저장해 활용
+            OrderOfPattern = CurrentContinuousEnemyPattern.EnemyPatternList.IndexOf(CurrentEnemyPattern);
+            // 마지막 패턴 이었다면 (끝내기)
+            if (OrderOfPattern == CurrentContinuousEnemyPattern.EnemyPatternList.Count - 1)
+            {
+                CurrentEnemyPattern = null;
+                CurrentContinuousEnemyPattern = null;
+                OrderOfPattern = -1;
+            }
+        }
+
+        // 없다면 랜덤 패턴을 찾아서 실행.
+        if (OrderOfPattern == -1)
+        {
+            for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
+            {
+                // 같은 우선도에 있는 패턴 랜덤으로 섞기
+                List<ContinuousEnemyPattern> epList = DevTool.Get_ShuffledList(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
+                
+                // 만약 사용 가능한 패턴이 있다면 시작
+                for (int j = 0; j < epList.Count; j++)
+                {
+                    if (epList[j].EnemyPatternList[0].Can_PlayPattern())
+                    {
+                        CurrentContinuousEnemyPattern = epList[j];
+                        CurrentEnemyPattern = epList[j].EnemyPatternList[0];
+
+                        CurrentEnemyPattern.Start_Pattern();
+
+                        return;
+                    }
+                }
+            }
+        }
+
+        // 있다면 다음 패턴을 찾아서 실행.
+        else
+        {
+            CurrentEnemyPattern = CurrentContinuousEnemyPattern.EnemyPatternList[OrderOfPattern + 1];
+
+            CurrentEnemyPattern.Start_Pattern();
+            return;
+        }
+    }
+
+
+    #endregion
+
+
+
 
     #region Nav
 
@@ -571,7 +631,7 @@ public class EnemyController : AliveObjectController, IInteract
 #endif
             */
             return new List<WayPointController> { PlayerManager.Instance.PlayerController.ThisWayPoint };
-        }    
+        }
 
         // 현재 방에 모든 WayPoint
         List<WayPointController> allWP = StageManager.Instance.CurrentRoomController.RoomRuleController.InRoom_AllWayPoint;
@@ -678,7 +738,7 @@ public class EnemyController : AliveObjectController, IInteract
         List<WayPointController> closetRoot = _ResultRoots[0];
         float closetDis = Get_RootDistance(_ResultRoots[0]);
 
-        for (int i = 0; i < _ResultRoots.Count; i++) 
+        for (int i = 0; i < _ResultRoots.Count; i++)
         {
             float tempDis = Get_RootDistance(_ResultRoots[i]);
             if (closetDis > tempDis)
@@ -803,113 +863,6 @@ public class EnemyController : AliveObjectController, IInteract
         return result;
     }
 
-    // Root의 거리 총합 계산
-    private float Get_TotalDistance(Transform _Start, List<Transform> _Root, Transform _Target)
-    {
-        float dis = 0f;
-        dis += Vector2.Distance(_Start.position, _Root[0].position);
-
-        if (_Root.Count >= 2)
-        {
-            for (int j = 0; j < _Root.Count - 1; j++)
-            {
-                dis += Vector2.Distance(_Root[j].position, _Root[j + 1].position);
-            }
-        }
-
-        dis += Vector2.Distance(_Target.position, _Root[_Root.Count - 1].position);
-        return dis;
-    }
-
     #endregion
 
-    #region UI
-
-    public override void Set_SortingOrder(int _SortingOrder)
-    {
-        base.Set_SortingOrder(_SortingOrder);
-        HUD.ThisCanvas.sortingOrder = _SortingOrder;
-    }
-
-    #endregion
-
-    #region Pattern
-
-    private void Start_PatternFromNone()
-    {
-        OrderOfPriorityEnemyPatternList[OrderOfPriorityEnemyPatternList.Count - 1].EnemyPatternList[0].EnemyPatternList[0].Start_Pattern();
-    }
-
-    public void Play_Pattern()
-    {
-        if (IsDischarge)
-        { return; }
-
-        // 이미 있는지 진행 중인 패턴이 있는지 확인
-        int OrderOfPattern = -1;
-        if (CurrentEnemyPattern != null)
-        {
-            // 패턴의 순서 값을 저장해 활용
-            OrderOfPattern = CurrentContinuousEnemyPattern.EnemyPatternList.IndexOf(CurrentEnemyPattern);
-            // 마지막 패턴 이었다면 (끝내기)
-            if (OrderOfPattern == CurrentContinuousEnemyPattern.EnemyPatternList.Count - 1)
-            {
-                CurrentEnemyPattern = null;
-                CurrentContinuousEnemyPattern = null;
-                OrderOfPattern = -1;
-            }
-        }
-
-        // 없다면 랜덤 패턴을 찾아서 실행.
-        if (OrderOfPattern == -1)
-        {
-            for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
-            {
-                // 같은 우선도에 있는 패턴 랜덤으로 섞기
-                List<ContinuousEnemyPattern> epList = DevTool.Get_ShuffledList(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
-                
-                // 만약 사용 가능한 패턴이 있다면 시작
-                for (int j = 0; j < epList.Count; j++)
-                {
-                    if (epList[j].EnemyPatternList[0].Can_PlayPattern())
-                    {
-                        CurrentContinuousEnemyPattern = epList[j];
-                        CurrentEnemyPattern = epList[j].EnemyPatternList[0];
-
-                        CurrentEnemyPattern.Start_Pattern();
-
-                        return;
-                    }
-                }
-            }
-        }
-
-        // 있다면 다음 패턴을 찾아서 실행.
-        else
-        {
-            CurrentEnemyPattern = CurrentContinuousEnemyPattern.EnemyPatternList[OrderOfPattern + 1];
-
-            CurrentEnemyPattern.Start_Pattern();
-            return;
-        }
-    }
-
-
-    #endregion
 }
-
-#region Pattern
-
-[System.Serializable]
-public class ContinuousEnemyPattern
-{
-    public List<EnemyPattern> EnemyPatternList;
-}
-
-[System.Serializable]
-public class OrderOfPriorityEnemyPattern
-{
-    public List<ContinuousEnemyPattern> EnemyPatternList;
-}
-
-#endregion

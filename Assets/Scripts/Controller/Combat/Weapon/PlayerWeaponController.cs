@@ -139,8 +139,8 @@ public class PlayerWeaponController : PlayerSolarController
                 new DmgState(DamageType, PlayerController.BaseWeapon.BaseDamage.BuffedState),
                 new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value),
                 new KnockbackState(DamageType == eDamageType.Physics ? true : false, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value, 0.2f)),
-            true,
-            MuzzleSpeed.ActualState.Value,
+            _CheckIsCritical: true,
+            _MuzzleSpeed: MuzzleSpeed.ActualState.Value,
             AliveTime);
     }
 

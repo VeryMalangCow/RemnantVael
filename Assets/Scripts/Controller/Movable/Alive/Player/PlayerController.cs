@@ -9,6 +9,8 @@ public class PlayerController : AliveObjectController
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Player")]
 
@@ -72,6 +74,8 @@ public class PlayerController : AliveObjectController
     [SerializeField] public List<string> BUUITabStringList;
     [SerializeField] public List<string> MUUITabStringList;
 
+    #endregion
+
     #region - Hide
 
     // Lower
@@ -127,7 +131,7 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region - Set Data
+    #region - Data
 
     [HideInInspector] public readonly int MaxBoostLv = 4;
     [HideInInspector] public readonly int NeedBS_ForMakeBC = 4;
@@ -139,54 +143,25 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
+
     #region Offset
 
-    protected override void Offset()
+    protected override void Offset_FirstSetting()
     {
-        base.Offset();
-
-        Offset_Controller();
-
-        Offset_Subscribe();
-
-        Offset_BaseAnim();
+        // State Anim
         Reset_StateAnim();
-        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeA, 0.8f), 1f);
-        Set_BoostAnim(CurrentBoostLv.Value);
-        MoveDirStateAnim.Set_Anim(new State_Anim(MoveDirAC));
 
+        // State Anim : Dmg Type
+        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeA, 0.8f), 1f);
+
+        // State Anim : Boost
+        Set_BoostAnim(CurrentBoostLv.Value);
+
+        // State Anim: Room Move
+        MoveDirStateAnim.Set_Anim(new State_Anim(MoveDirAC));
         SetOff_RoomMoveDir();
 
-
-        // Test
-        CurrentEC.Value = 100;
-    }
-
-    private void Offset_Subscribe()
-    {
-        CurrentInteractable
-            .Subscribe(interact =>
-            {
-                MainGameUIManager.Instance.PlayerHUD_UIController.Set_StateInteractUI();
-                MainGameUIManager.Instance.InteractAnno_UIController.Set_UI();
-                Set_MoveDir();
-            });
-        CurrentSP
-            .Subscribe(value =>
-            {
-                MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(value);
-            });
-    }
-
-    private void Offset_Controller()
-    {
-        DashController.Offset();
-        ThisSG = DevTool.Get_ComponentTType<SortingGroup>(gameObject); 
-        ShadowSR = DevTool.Get_ComponentTType<SpriteRenderer>(transform.GetChild(0).gameObject);
-    }
-
-    protected void Offset_BaseAnim()
-    {
+        // Base Tween
         BaseSeq = DOTween.Sequence();
 
         BaseSeq.Join(DOTween.To(() => TargetRange, x => TargetRange = x, TargetRange + BaseYLimit, BaseTweenReTime)
@@ -203,22 +178,45 @@ public class PlayerController : AliveObjectController
         }
 
         BaseSeq.SetLoops(-1, LoopType.Yoyo);
+
+
+        Debug.Log("Test EC");
+        CurrentEC.Value = 100;
     }
+
+    protected override void Offset_Subscribe()
+    {
+        CurrentInteractable
+            .Subscribe(interact =>
+            {
+                MainGameUIManager.Instance.PlayerHUD_UIController.Set_StateInteractUI();
+                MainGameUIManager.Instance.InteractAnno_UIController.Set_UI();
+                Set_MoveDir();
+            });
+        CurrentSP
+            .Subscribe(value =>
+            {
+                MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(value);
+            });
+    }
+
+    protected override void Offset_Controller()
+    {
+        DashController.Offset();
+        ThisSG = DevTool.Get_ComponentTType<SortingGroup>(gameObject); 
+        ShadowSR = DevTool.Get_ComponentTType<SpriteRenderer>(transform.GetChild(0).gameObject);
+    }
+
 
     #endregion
 
     #region Framework
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
 
-        Update_Caculate(Time.deltaTime);
-    }
-
-
-    private void FixedUpdate()
-    {
+        Update_Caculate(Time.fixedDeltaTime);
         Play_Movement(Time.fixedDeltaTime);
     }
 
@@ -326,6 +324,11 @@ public class PlayerController : AliveObjectController
     {
         Add_CurrentEP(_AddValue, MaxEP.ActualState.Value);
         Check_IsDead(CurrentEP.Value);
+    }
+
+    public float Get_PercentEP(float _Percent)
+    {
+        return DevTool.Get_Percent(_Percent, MaxEP.ActualState.Value);
     }
 
     #endregion
@@ -750,7 +753,7 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region Get
+    #region Visual
 
     public Color Get_CorrectColor(eDamageType _DamageType, bool _IsCritical)
     {
@@ -856,7 +859,7 @@ public class PlayerController : AliveObjectController
     // 타격: 총알
     public void Try_Hitted(EnemyBulletController _Bullet)
     {
-        if (IsInvincible)
+        if (IsInvincible && IsDead)
         { return; }
 
         // 피격
@@ -875,7 +878,7 @@ public class PlayerController : AliveObjectController
     // 타격: 어택커
     public void Try_Hitted(EnemyAttackerController _Attacker)
     {
-        if (IsInvincible)
+        if (IsInvincible && IsDead)
         { return; }
 
         // 피격
@@ -894,7 +897,7 @@ public class PlayerController : AliveObjectController
     // 타격: 건물어택커
     public void Try_Hitted(TrapObjectController _Attacker)
     {
-        if (IsInvincible)
+        if (IsInvincible && IsDead)
         { return; }
 
         // 피격
@@ -916,13 +919,15 @@ public class PlayerController : AliveObjectController
         // Effect
         // Knockback
         if (_State_KB.CanKB)
-        { Gain_Knockback(new CurrentKnockbackState(_HittedDir, _State_KB.KBPower, _State_KB.KBTime)); }
+        { 
+            Gain_Knockback(new CurrentKnockbackState(_HittedDir, _State_KB.KBPower, _State_KB.KBTime));
+        }
 
         // Damage
         Take_Damaged(_DmgValue, _HittedDir, _ShowHUDEffect: true);
     }
 
-    // 오직 데미지만 계산 (넉백, 애니메이션 등 없음)
+    // 오직 데미지만 계산 (넉백, 애니메이션 등 설정)
     public void Take_Damaged(float _DmgValue, Vector2 _HittedDir, bool _ShowHUDEffect = true)
     {
         if (_ShowHUDEffect)

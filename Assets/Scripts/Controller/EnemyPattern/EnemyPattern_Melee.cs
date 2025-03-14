@@ -80,8 +80,6 @@ public class EnemyPattern_Melee : EnemyPattern
 
     protected override IEnumerator Play_ThisPattern_Cor()
     {
-        ThisEnemy.LookTargetPoint = 
-            PlayerManager.Instance.PlayerController.transform.position - ThisEnemy.transform.position;
         Vector2 targetDir =
             ((Vector2)PlayerManager.Instance.PlayerController.transform.position
             - (Vector2)ThisEnemy.transform.position).normalized;

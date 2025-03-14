@@ -114,8 +114,7 @@ public class EnemyPattern_Follow : EnemyPattern
         {
             if (Can_PlayPattern())
             {
-                ThisEnemy.LookTargetPoint = ThisEnemy.Get_RootWay()[0].ThisTF.position;
-                ThisEnemy.MoveTargetPoint = ThisEnemy.Get_RootWay()[0].ThisTF.position;
+                ThisEnemy.MoveAtPoint = ThisEnemy.Get_RootWay()[0].ThisTF.position;
                 yield return new WaitForSeconds(FindRootDelay);
             }
             else

@@ -54,7 +54,7 @@ public class BuffTickHealController : BuffController
         { value += ConstPoint; }
 
         if (MaxHpPercent != 0)
-        { value += DevTool.Get_Percent(MaxHpPercent, PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value); }
+        { value += PlayerManager.Instance.PlayerController.Get_PercentEP(MaxHpPercent); }
 
 
         return value;

@@ -51,8 +51,8 @@ public abstract class EnemyPattern : MonoBehaviour
         IsPlayingThisPattern = false;
         ThisEnemy.IsPlayingPattern = false;
 
-        ThisEnemy.MoveTargetPoint = Vector2.zero;
-        ThisEnemy.MoveDir = Vector2.zero;
+        ThisEnemy.MoveAtPoint = Vector2.zero;
+        ThisEnemy.MoveAtDir = Vector2.zero;
         ThisEnemy.MoveSpeed = 0;
     }
 

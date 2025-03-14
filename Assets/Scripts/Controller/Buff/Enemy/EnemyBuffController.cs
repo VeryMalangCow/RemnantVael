@@ -154,12 +154,12 @@ public class EnemyBuffController : MonoBehaviour
 
     private void ShieldGainEffect()
     {
-        Enemy.Set_PercentSP(ShieldPercent);
+        Enemy.Set_CurrentSP(Enemy.Get_PercentHP(ShieldPercent));
     }
 
     private void ShieldReduceEffect()
     {
-        Enemy.Set_PercentSP(0);
+        Enemy.Set_CurrentSP_Zero();
     }
 
     #endregion
@@ -175,7 +175,7 @@ public class EnemyBuffController : MonoBehaviour
             * FlameStack.CurrentStack
             * (InfernoStack.CurrentStack + 1);
 
-        Enemy.Take_Damaged_NoneExtraEffect(eDamageType.Physics, dmg);
+        Enemy.Take_Damage(dmg, eDamageType.Physics);
     }
 
     // 전기 속성을 얻을 때
@@ -236,7 +236,7 @@ public class EnemyBuffController : MonoBehaviour
 
         for (int i = 0; i < targetEnemies.Count; i++)
         {
-            targetEnemies[i].Take_Damaged_NoneExtraEffect(eDamageType.Energy, dmg);
+            targetEnemies[i].Take_Damage(dmg, eDamageType.Energy);
         }
 
 #if UNITY_EDITOR
@@ -258,7 +258,7 @@ public class EnemyBuffController : MonoBehaviour
         float dmg =
             PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
             * 3f;
-        Enemy.Take_Damaged_NoneExtraEffect(eDamageType.Physics, dmg);
+        Enemy.Take_Damage(dmg, eDamageType.Physics);
 
     }
     private void ColdFullStack()
@@ -269,7 +269,7 @@ public class EnemyBuffController : MonoBehaviour
         float dmg =
             PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
             * 1.5f;
-        Enemy.Take_Damaged_NoneExtraEffect(eDamageType.Energy, dmg);
+        Enemy.Take_Damage(dmg, eDamageType.Energy);
 
     }
     private void ElectricityFullStack()
@@ -280,7 +280,7 @@ public class EnemyBuffController : MonoBehaviour
         float dmg =
             PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
             * 2f;
-        Enemy.Take_Damaged_NoneExtraEffect(eDamageType.Energy, dmg);
+        Enemy.Take_Damage(dmg, eDamageType.Energy);
 
     }
     private void CorrosionFullStack()
@@ -291,7 +291,7 @@ public class EnemyBuffController : MonoBehaviour
         float dmg =
             PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
             * 2.5f;
-        Enemy.Take_Damaged_NoneExtraEffect(eDamageType.Physics, dmg);
+        Enemy.Take_Damage(dmg, eDamageType.Physics);
 
     }
 

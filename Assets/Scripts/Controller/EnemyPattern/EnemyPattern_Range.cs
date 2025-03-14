@@ -79,9 +79,6 @@ public class EnemyPattern_Range : EnemyPattern
     {
         yield return new WaitForSeconds(StartDelay);
 
-        ThisEnemy.LookTargetPoint =
-            PlayerManager.Instance.PlayerController.transform.position - ThisEnemy.transform.position;
-
         for (int i = 0; i < SpawnTFList.Count; i++)
         {
             EnemyBulletController EBC = PoolingManager.Instance.Get_OP_EnemyBullet();

@@ -13,6 +13,24 @@ public class AllyController : AliveObjectController
 
     #endregion
 
+    #region Offset
+
+    protected override void Offset_Subscribe()
+    {
+
+    }
+
+    protected override void Offset_Controller()
+    {
+
+    }
+    protected override void Offset_FirstSetting()
+    {
+        
+    }
+
+    #endregion
+
     #region Framework
 
     protected override void OnEnable()
@@ -50,7 +68,6 @@ public class AllyController : AliveObjectController
     {
         AddCurrentEP(-_DmgValue);
     }
-
     #endregion
 
 }
