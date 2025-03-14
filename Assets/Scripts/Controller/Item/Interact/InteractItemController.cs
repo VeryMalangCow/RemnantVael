@@ -55,6 +55,7 @@ public class InteractItemController : ItemController, IInteract
 
     public void Play_Interact()
     {
+        PlayerManager.Instance.PlayerController.CurrentInteractable.Value = null;
         CurrentSpreadPower = 0f;
         SettedSpreadDir = Vector2.zero;
 

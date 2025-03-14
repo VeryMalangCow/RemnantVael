@@ -33,6 +33,7 @@ public class EndingElevatorController : ElevatorController, IInteract
     {
         if (IsOn)
         {
+            PlayerManager.Instance.PlayerController.CurrentInteractable.Value = null;
             Play_MoveToTarget();
         }
     }

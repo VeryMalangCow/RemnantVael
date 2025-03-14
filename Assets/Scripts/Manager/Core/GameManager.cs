@@ -124,7 +124,7 @@ public class DevTool
 
 
     // 객체를 원하는 'T 타입'으로 캐스팅
-    public static T Get_CastingTType<T>(object _Obj) where T : class
+    public static T Get_CastingTType<T>(object _Obj)
     {
         if (_Obj != null && _Obj is T objType)
         {
@@ -134,6 +134,15 @@ public class DevTool
     }
 
     // 객체를 원하는 'T 타입'으로 Out 빼기
+    public static bool Can_CastingTType<T>(object _Obj)
+    {
+        if (_Obj != null && _Obj is T)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public static bool Get_CastingTType<T>(object _Obj, out T _TType) where T : class
     {
         if (_Obj != null && _Obj is T objType)
@@ -158,13 +167,24 @@ public class DevTool
             _Variable = tTypeComponent;
         }
     }
-    public static T Get_ComponentTType<T>(GameObject _TargetGO) where T : Component
+    public static T Get_ComponentTType<T>(GameObject _TargetGO)
     {
         if (_TargetGO != null && _TargetGO.TryGetComponent(out T tTypeComponent))
         {
             return tTypeComponent;
         }
-        return null;
+        return default;
+    }
+
+    public static bool Get_ComponentTType<T>(GameObject _TargetGO, out T _TType)
+    {
+        if (_TargetGO != null && _TargetGO.TryGetComponent(out T tTypeComponent))
+        {
+            _TType = tTypeComponent;
+            return true;
+        }
+        _TType = default;
+        return false;
     }
 
     // 게임 오브젝트 만들고, 컴포넌트 추가하기
@@ -228,29 +248,26 @@ public class DevTool
 
     #region About List
 
-    // 'T 타입' 리스트에 '새로' 추가 (처음에)
-    public static void Add_FirstInListNew<T>(List<T> _TargetList, T _TargetValue)
-    {
-        Remove_InList(_TargetList, _TargetValue);
-        _TargetList.Insert(0, _TargetValue);
-    }
-
-    // 'T 타입' 추가 시도 (처음에)
-    public static void Add_FirstInList<T>(List<T> _TargetList, T _TargetValue)
+    // 'T 타입' 리스트에 '새로' 추가
+    public static bool Add_InList<T>(List<T> _TargetList, T _TargetValue)
     {
         if (!_TargetList.Contains(_TargetValue))
         {
-            _TargetList.Insert(0, _TargetValue);
+            _TargetList.Add(_TargetValue);
+            return true;
         }
+        return false;
     }
 
     // 'T 타입' 삭제 시도
-    public static void Remove_InList<T>(List<T> _TargetList, T _TargetValue)
+    public static bool Remove_InList<T>(List<T> _TargetList, T _TargetValue)
     {
         if (_TargetList.Contains(_TargetValue))
         {
             _TargetList.Remove(_TargetValue);
+            return true;
         }
+        return false;
     }
 
     // 자식 객체들의 'T 타입' 리스트 가져오기
@@ -397,6 +414,27 @@ public class DevTool
 
         return (targetPos - _SpawnPos).normalized;
     }
+
+    // 최소 거리의 객체 가져오기
+    public static GameObject Get_MinRangeGO(List<GameObject> _TargetList, GameObject _CenterGO)
+    {
+        // 초기 설정
+        GameObject resultGO = _TargetList[0];
+        float shortestDis = Vector3.Distance(_CenterGO.transform.position, _TargetList[0].transform.position);
+
+        for (int i = 1; i < _TargetList.Count; i++)
+        {
+            float currentDistance = Vector3.Distance(_CenterGO.transform.position, _TargetList[i].transform.position);
+            if (currentDistance < shortestDis)
+            {
+                resultGO = _TargetList[i].gameObject;
+                shortestDis = currentDistance;
+            }
+        }
+
+        return resultGO;
+    }
+
     #endregion
 
     #region About Quaternion
@@ -607,6 +645,15 @@ public class DevTool
 
     #endregion
 
+    #region About Buff
+
+    public static float Get_DmgEffectByCold(float _BaseDmg, EnemyBuffController _EnemyBuff)
+    {
+        return _BaseDmg * (1f - (_EnemyBuff.ColdStack.CurrentStack * (_EnemyBuff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
+    }
+
+    #endregion
+
     #region About Collider
 
     public static bool Can_Collding<T>(Collider2D _Col, string _Tag, List<StaticDepthController> _AlreadyList, out T _TType) where T : StaticDepthController
@@ -673,10 +720,23 @@ public class CooltimeData
         Current = 0f;
     }
 
-    public CooltimeData(float _Max, float _Current)
+    public CooltimeData(float _Max, float _Current = 0f)
     {
         Max = _Max;
         Current = _Current;
+    }
+
+    public bool Is_Charge(float _DeltaTime)
+    {
+        if (Current >= Max)
+        {
+            return true;
+        }
+        else
+        {
+            Current += Time.deltaTime;
+            return false;
+        }
     }
 }
 
@@ -1905,11 +1965,6 @@ public delegate void Dele_RefT_U<T, U>(ref T _Item1, U _Item2);
 #region ========== ENUM
 
 #region About Combat
-
-public enum eCombatMode
-{
-    Physics, Energy, Boost
-}
 
 public enum eDamageType
 {

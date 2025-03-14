@@ -8,7 +8,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
     public void Anim_AttackSuccess(Vector2 _SpawnPos, eDamageType _DamageType, bool _IsCritical, float _AnimSize = 1)
     {
         State_Anim anim = new State_Anim(
-            PlayerManager.Instance.PlayerController.Get_AnimClip_CorrectHitted(_DamageType, _IsCritical), 2f);
+            PlayerManager.Instance.PlayerController.Get_CorrectAC(_DamageType, _IsCritical), 2f);
         State_TF2D tf = new State_TF2D(
             _SpawnPos, Quaternion.identity, Vector2.one * _AnimSize);
         State_Sprite sprite = new State_Sprite(

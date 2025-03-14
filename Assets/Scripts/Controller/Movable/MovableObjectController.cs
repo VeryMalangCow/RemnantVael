@@ -18,7 +18,7 @@ public class MovableObjectController : MovableDepthController
     [SerializeField] protected float AccelerationSpeed = 12;
 
     [HideInInspector] protected List<CurrentKnockbackState> KnockbackStateList = new List<CurrentKnockbackState>();
-   
+
     #endregion
 
     #region Framework

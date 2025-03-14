@@ -25,7 +25,7 @@ public class InventoryItemEUIController : OwnBtnEUIController
         RankImg.sprite = _RankImg;
         RankImg.SetNativeSize();
         BoostLvMIAAT.Set_Amount(_BoostLv, 0.1f);
-        BoostLvMIAAT.Set_Color(PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, false));
+        BoostLvMIAAT.Set_Color(PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false));
     }
 
     public override void Offset()

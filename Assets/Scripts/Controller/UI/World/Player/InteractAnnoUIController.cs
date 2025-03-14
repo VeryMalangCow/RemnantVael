@@ -29,7 +29,7 @@ public class InteractAnnoUIController : UIController
     {
         ThisCG.alpha = 0;
 
-        Color clr = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, false);
+        Color clr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
         InnerLImg.color= clr;
         InnerRImg.color= clr;
     }

@@ -167,7 +167,6 @@ public class EnemyController : AliveObjectController, IInteract
                 if (MoveTargetPoint != Vector2.zero)
                 {
                     MoveDir = (MoveTargetPoint - (Vector2)this.transform.position).normalized;
-                    Debug.Log(MoveDir);
                 }
                 Play_Walk(MoveDir, MoveSpeed, _DeltaTime);
                 break;
@@ -289,7 +288,7 @@ public class EnemyController : AliveObjectController, IInteract
 
     // 데미지만을 계산하는 방식
     private void Take_Damaged(
-        eDamageType _DamageType, 
+        eDamageType _DmgType, 
         bool _AbleKnockback, Vector2 _KnockbackDir, float _KnockbackPower, float _KnockbackTime,
         bool _IsCritical, float _CriticalDMG, 
         float _ActualDMG)
@@ -320,7 +319,7 @@ public class EnemyController : AliveObjectController, IInteract
         { return; }
 
         // 직접 데미지
-        if (_DamageType == eDamageType.Physics) // 물리 값
+        if (_DmgType == eDamageType.Physics) // 물리 값
         {
             Take_PhysicsDamaged(_IsCritical, _ActualDMG);
         }
@@ -545,6 +544,12 @@ public class EnemyController : AliveObjectController, IInteract
 
     public void Play_Interact()
     {
+        PlayerManager.Instance.PlayerController.Try_Execution(this);
+    }
+
+    public void Play_Execution()
+    {
+        PlayerManager.Instance.PlayerController.CurrentInteractable.Value = null;
         Set_Die();
     }
 

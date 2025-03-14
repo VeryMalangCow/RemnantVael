@@ -54,7 +54,7 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
             clr.a = 0f;
             ssimg.color = clr;
 
-            ssimg.color = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, true);
+            ssimg.color = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
         }
         SelectedSign.gameObject.SetActive(false);
     }

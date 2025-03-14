@@ -103,10 +103,13 @@ public class SolarSystemController : MonoBehaviour
     // 부드럽게 Rot 설정
     public void Set_RotSmooth(Vector2 _Dir, float _DeltaTime)
     {
-        PitchTF.transform.localRotation = Quaternion.Slerp(
-            PitchTF.transform.localRotation,
-            DevTool.Get_RotFromDir_Solar(_Dir), 
-            RotateSpeed * _DeltaTime);
+        if (_Dir != Vector2.zero)
+        {
+            PitchTF.transform.localRotation = Quaternion.Slerp(
+                PitchTF.transform.localRotation,
+                DevTool.Get_RotFromDir_Solar(_Dir), 
+                RotateSpeed * _DeltaTime);
+        }
     }
 
     #endregion

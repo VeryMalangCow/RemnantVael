@@ -74,12 +74,15 @@ public class PlayerController : AliveObjectController
 
     #region - Hide
 
+    // Lower
+    [HideInInspector] private bool IsLowerTweening = false;
+
     // Stage Type
     [HideInInspector] private SortingGroup ThisSG;
     [HideInInspector] private SpriteRenderer ShadowSR;
 
     // Combat Mode
-    [HideInInspector] private eCombatMode CombatMode = eCombatMode.Physics;
+    [HideInInspector] private eDamageType DmgMode = eDamageType.Physics;
 
     // Invincible
     [HideInInspector] private bool IsInvincible = false;
@@ -100,7 +103,7 @@ public class PlayerController : AliveObjectController
     [HideInInspector] public List<BuffController> CurrentBuffs = new List<BuffController>();
 
     // Interact
-    [HideInInspector] private List<GameObject> CurrentInteractableGOList = new List<GameObject>();
+    [SerializeField] private List<GameObject> CurrentInteractableGOList = new List<GameObject>();
     [HideInInspector] public ReactiveProperty<IInteract> CurrentInteractable = new();
 
     // Item
@@ -113,12 +116,13 @@ public class PlayerController : AliveObjectController
     [HideInInspector] private Sequence BaseSeq = null;
     [HideInInspector] private readonly float BaseYLimit = 0.02f;
     [HideInInspector] private readonly float BaseTweenReTime = 0.25f;
+    [HideInInspector] private readonly float WheelLowestAnimSpeed = 0.5f;
 
     // Book
-    [HideInInspector] private eCombatMode TargetCombatMode = eCombatMode.Physics;
+    [HideInInspector] private eDamageType TargetDmgMode = eDamageType.Physics;
     [HideInInspector] private CooltimeData CastingTime = new CooltimeData();
     [HideInInspector] private Dele ReservationDele = null;
-    [HideInInspector] private CooltimeData InvincibleTime = new CooltimeData(0.5f, 0f);
+    [HideInInspector] private CooltimeData InvincibleTime = new CooltimeData(0.5f);
     [HideInInspector] private int TargetBoostLv = 0;
 
     #endregion
@@ -146,8 +150,9 @@ public class PlayerController : AliveObjectController
         Offset_Subscribe();
 
         Offset_BaseAnim();
+        Reset_StateAnim();
         StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeA, 0.8f), 1f);
-        Set_BoostAnim(CurrentBoostLv.Value, MaxBoostLv);
+        Set_BoostAnim(CurrentBoostLv.Value);
         MoveDirStateAnim.Set_Anim(new State_Anim(MoveDirAC));
 
         SetOff_RoomMoveDir();
@@ -208,7 +213,7 @@ public class PlayerController : AliveObjectController
     {
         base.Update();
 
-        Caculate_Always(Time.deltaTime);
+        Update_Caculate(Time.deltaTime);
     }
 
 
@@ -220,6 +225,7 @@ public class PlayerController : AliveObjectController
     private void LateUpdate()
     {
         MainGameUIManager.Instance.InteractAnno_UIController.Set_PosIfNot(CurrentInteractable.Value);
+        Set_Tween(LowerController.transform, ThisRb.velocity);
     }
 
     #endregion
@@ -377,12 +383,10 @@ public class PlayerController : AliveObjectController
 
     private void Play_Walk(float _DeltaTime)
     {
+        float multiple =
+            BaseWeapon.IsShooting ? WalkSpeedWhenShotMultiple.ActualState.Value : 1f;
         Play_Walk(
-            InputManager.Instance.InputMoveDir,
-            BaseWeapon.IsShooting ?
-                WalkSpeed.ActualState.Value * WalkSpeedWhenShotMultiple.ActualState.Value :
-                WalkSpeed.ActualState.Value,
-            _DeltaTime);
+            InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value * multiple, _DeltaTime);
     }
 
     public void Try_Dash()
@@ -398,212 +402,36 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    // nd
-    #region Damage
+    #region Movement Lower (Tween)
 
-    // 타격: 총알
-    public void Try_Hitted(EnemyBulletController _EBC)
+    private void Set_Tween(Transform _TargetT, Vector2 _RbVel)
     {
-        if (IsInvincible)
-        { return; }
-
-        // 항상
-        Play_Hitted();
-
-        // 피격
-        if (!Is_Avoid()) // 회피인지?
+        if (_RbVel != Vector2.zero && IsLowerTweening == false) // On
         {
-            // 간소화
-            BulletState state = _EBC.State;
-            EnemyBuffController buff = _EBC.Enemy.BuffController;
-
-            // 적이 냉기 디버프에 걸린지
-            float actualDmg =
-                state.DmgState.Dmg * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
-
-            // 데미지 구현
-            Take_Damaged(actualDmg,
-                ((Vector2)transform.position - (Vector2)_EBC.transform.position).normalized,
-                state.KnockbackState.CanKB,
-                state.KnockbackState.KBPower,
-                state.KnockbackState.KBTime);
+            SetOn_Tween(_TargetT);
+        }
+        else if (_RbVel == Vector2.zero && IsLowerTweening == true) // Off
+        {
+            SetOff_Tween(_TargetT);
         }
     }
 
-    // 타격: 어택커
-    public void Try_Hitted(EnemyAttackerController _Attacker)
+    private void SetOn_Tween(Transform _TargetTF)
     {
-        if (IsInvincible)
-        { return; }
-
-        // 항상
-        Play_Hitted();
-
-        // 피격
-        if (!Is_Avoid()) // 회피인지?
-        {
-            // 간소화
-            AttackerState state = _Attacker.AttackerState;
-            EnemyBuffController buff = _Attacker.Enemy.BuffController;
-
-            // 적이 냉기 디버프에 걸린지
-            float actualDmg =
-                state.DmgState.Dmg * (1f - (buff.ColdStack.CurrentStack * (buff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
-
-            // 데미지 구현
-            Take_Damaged(actualDmg, 
-                ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
-                state.KnockbackState.CanKB,
-                state.KnockbackState.KBPower,
-                state.KnockbackState.KBTime);
-        }
+        IsLowerTweening = true;
+        _TargetTF.DOShakePosition(1f, 0.01f, 20, 0, false, false)
+            .SetLoops(-1, LoopType.Restart);
     }
 
-    // 타격: 건물어택커
-    public void Try_Hitted(TrapObjectController _Attacker)
+    private void SetOff_Tween(Transform _TargetTF)
     {
-        if (IsInvincible)
-        { return; }
-
-        // 항상
-        Play_Hitted();
-
-        // 피격
-        if (!Is_Avoid()) // 회피인지?
-        {
-            
-            /*
-            // 간소화
-            AttackerState state = _Attacker.AttackerState;
-
-            // 데미지 구현
-            Take_Damaged(state.DmgState.Dmg,
-                ((Vector2)transform.position - (Vector2)_Attacker.transform.position).normalized,
-                state.KnockbackState.CanKB,
-                state.KnockbackState.KBPower,
-                state.KnockbackState.KBTime);
-            */
-        }
-    }
-
-    // 회피?
-    public bool Is_Avoid()
-    {
-        // 회피
-        if (UnityEngine.Random.Range(0f, 1f) < AvoidChance.ActualState.Value)
-        {
-            Play_Avoid();
-            return true;
-        }
-        return false;
-    }
-
-    // 맞을 때, 효과
-    private void Play_Hitted()
-    {
-        IsInvincible = true;
-        InvincibleTime.Current = 0f;
-
-        float intervalTime = 0.075f;
-        for (int i = 0; i < AfterImgGenerator.TargetSRList.Count; i++)
-        {
-            Sequence seq = DOTween.Sequence();
-            seq.Append(AfterImgGenerator.TargetSRList[i].DOFade(0, 0));
-            seq.AppendInterval(intervalTime);
-            seq.Append(AfterImgGenerator.TargetSRList[i].DOFade(1, 0));
-            seq.AppendInterval(intervalTime);
-            seq.SetLoops((int)(InvincibleTime.Max / (intervalTime * 2f)), LoopType.Restart);
-        }
-    }
-
-    // 데미지 계산
-    private void Take_Damaged(float _DmgValue, Vector2 _HittedDir, bool _AbleKB, float _KBPower, float _KBTime)
-    {
-        // Multiple
-        _DmgValue *= TakingDmgMultiple.BuffedState;
-
-        // Effect
-        PlayerManager.Instance.CameraController.Play_DamagedAnim(InvincibleTime.Max, _DmgValue * 0.1f, _HittedDir);
-
-        // Knockback
-        if (_AbleKB)
-        { Gain_Knockback(new CurrentKnockbackState(_HittedDir, _KBPower, _KBTime)); }
-
-        // Damage
-        Take_Damaged(_DmgValue);
-    }
-
-    // 오직 데미지만 계산 (넉백, 애니메이션 등 없음)
-    public void Take_Damaged(float _DmgValue)
-    {
-        float Dmg = _DmgValue;
-        MainGameUIManager.Instance.PlayerHUD_UIController.Play_HittedPlayScreen(Dmg);
-        if (ShieldElements.Count > 0)
-        {
-            for (int i = ShieldElements.Count - 1; i >= 0; i--)
-            {
-                // 쉴드 버프량 1개가 데미지보다 작거나 같으면, 제거하고 다음 쉴드로 영향
-                if (ShieldElements[i].ShieldCurrentValue <= Dmg)
-                {
-                    Dmg -= ShieldElements[i].ShieldCurrentValue;
-
-                    Remove_Shield(ShieldElements[i]); // 쉴드 감소
-                }
-                else // 쉴드 버프가 데미지를 버틸 수 있으면
-                {
-                    ShieldElements[i].ShieldCurrentValue -= Dmg;
-                    Dmg = 0;
-                    CurrentSP.Value = Get_TotalShield();
-                    return;
-                }
-            }
-        }
-        Add_CurrentEP(-Dmg);
-        CurrentSP.Value = Get_TotalShield();
-    }
-
-    // 추가 데미지 계산 (맞을 때 발생하는 이벤트, 넉벡, 애니메이션 등 없음)
-    public void Take_ExtraDamage(float _DmgValue)
-    {
-        float Dmg = _DmgValue;
-        if (ShieldElements.Count > 0)
-        {
-            for (int i = ShieldElements.Count - 1; i >= 0; i--)
-            {
-                // 쉴드 버프량 1개가 데미지보다 작거나 같으면, 제거하고 다음 쉴드로 영향
-                if (ShieldElements[i].ShieldCurrentValue <= Dmg)
-                {
-                    Dmg -= ShieldElements[i].ShieldCurrentValue;
-
-                    Remove_Shield(ShieldElements[i]); // 쉴드 감소
-                }
-                else // 쉴드 버프가 데미지를 버틸 수 있으면
-                {
-                    ShieldElements[i].ShieldCurrentValue -= Dmg;
-                    Dmg = 0;
-                    CurrentSP.Value = Get_TotalShield();
-                    return;
-                }
-            }
-        }
-        Add_CurrentEP(-Dmg);
-        CurrentSP.Value = Get_TotalShield();
-    }
-
-    // 회피
-    private void Play_Avoid()
-    {
-        PlayerManager.Instance.CameraController.Play_AvoidAnim(InvincibleTime.Max);
-
-        for (int i = 0; i < 4; i++)
-        {
-            UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_Avoid(ID, TargetObject.transform.position);
-        }
+        IsLowerTweening = false;
+        DOTween.Kill(_TargetTF);
     }
 
     #endregion
 
-    #region About Casting
+    #region Casting
 
     // 상태 변경이나 스킬, 대시 등을 사용할 수 있는 상황인가?
     private bool Can_Change()
@@ -635,12 +463,11 @@ public class PlayerController : AliveObjectController
             new State_Anim(DmgTypeStateAC.TypeSpecial, 2f), 
             _InnerSprite: ChangeState_DamageType);
 
-        TargetCombatMode = TargetCombatMode == eCombatMode.Physics ?
-            eCombatMode.Energy : eCombatMode.Physics;
+        TargetDmgMode = TargetDmgMode == eDamageType.Physics ?
+            eDamageType.Energy : eDamageType.Physics;
 
         Start_Casting(CombatModeInterval);
     }
-
 
 
     // 조건: + 부스트 최대 레벨을 넘지 않도록
@@ -689,16 +516,13 @@ public class PlayerController : AliveObjectController
 
 
     // 조건: + None
-    public void Try_Execution()
+    public void Try_Execution(EnemyController _Enemy)
     {
         if (!Can_Change())
         { return; }
 
-        if (DevTool.Get_CastingTType(CurrentInteractable.Value, out EnemyController ec))
-        {
-            ec.Play_Interact();
-        }
-
+        _Enemy.Play_Execution();
+        
         Start_Casting(ExecutionInterval);
     }
 
@@ -748,44 +572,19 @@ public class PlayerController : AliveObjectController
 
     public void Try_Interact()
     {
-        if(CurrentInteractable.Value != null && CurrentInteractableGOList.Count > 0)
-        {
-            if (CurrentInteractable.Value is InteractItemController IIC) // Item
-            {
-                CurrentInteractable.Value.Play_Interact();
-                CurrentInteractable.Value = null;
-            }
-            else if (CurrentInteractable.Value is EnemyController EC) // Enemy
-            {
-                if (EC.IsDischarge)
-                {
-                    Try_Execution();
-                }
-                CurrentInteractable.Value = null;
-            }
-            else if (CurrentInteractable.Value is EndingElevatorController DEC && DEC.IsOn)
-            {
-                CurrentInteractable.Value.Play_Interact();
-                CurrentInteractable.Value = null;
-            }
-            else if (CurrentInteractable.Value is DestructibleBuildController DBC && !DBC.IsBroken)
-            {
-                CurrentInteractable.Value.Play_Interact();
-            }
-            else // OneOffShopController |OR| ...
-            {
-                CurrentInteractable.Value.Play_Interact();
-            }
+        if (CurrentInteractableGOList.Count <= 0)
+        { return; }
 
-            MainGameUIManager.Instance.PlayerHUD_UIController.Set_UseInteractUI();
-        }
+        CurrentInteractable.Value.Play_Interact();
+        
+        MainGameUIManager.Instance.PlayerHUD_UIController.Set_UseInteractUI();
     }
 
     #endregion
 
-    #region Caculate Time
+    #region Update Caculate
 
-    private void Caculate_Always(float _DeltaTime)
+    private void Update_Caculate(float _DeltaTime)
     {
         Caculate_Casting(_DeltaTime);
         Caculate_Boosting(_DeltaTime, CurrentBoostLv.Value);
@@ -794,22 +593,18 @@ public class PlayerController : AliveObjectController
 
     private void Caculate_Casting(float _DeltaTime)
     {
-        if (MovementState == eMovementState.Casting)
-        {
-            if(CastingTime.Current < CastingTime.Max)
-            {
-                CastingTime.Current += Time.deltaTime;
-            }
-            else
-            {
-                CastingTime.Current = 0f;
-                MovementState = eMovementState.IdleOrWalk;
-                InputManager.Instance.IsPlayingSkill = false;
+        if (MovementState != eMovementState.Casting)
+        { return; }
 
-                Set_CombatMode();
-                Set_Skill();
-                Set_Boost();
-            }
+        if (CastingTime.Is_Charge(_DeltaTime)) // 캐스팅 완료
+        {
+            CastingTime.Current = 0f;
+            MovementState = eMovementState.IdleOrWalk;
+            InputManager.Instance.IsPlayingSkill = false;
+
+            Set_CombatMode();
+            Set_Skill();
+            Set_Boost();
         }
     }
 
@@ -818,7 +613,7 @@ public class PlayerController : AliveObjectController
         if(_BoostLv > 0)
         {
             float decValue = DecEnergyPointByLevel[_BoostLv - 1] * DecEnergyPointMultiple.ActualState.Value;
-            Add_CurrentEP(-decValue * Time.deltaTime);
+            Add_CurrentEP(-decValue * _DeltaTime);
         }
     }
 
@@ -826,14 +621,9 @@ public class PlayerController : AliveObjectController
     {
         if (IsInvincible)
         {
-            if (InvincibleTime.Max > InvincibleTime.Current)
-            {
-                InvincibleTime.Current += Time.deltaTime;
-            }
-            else
+            if (InvincibleTime.Is_Charge(_DeltaTime))
             {
                 InvincibleTime.Current = 0f;
-
                 IsInvincible = false;
             }
         }
@@ -841,43 +631,18 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region Cacualate By Condition
-
+    #region Check CastingType
+    // 캐스팅에서 바뀐부분을 찾아서 적용
+    
     private void Set_CombatMode()
     {
-        if(CombatMode != TargetCombatMode)
+        if(DmgMode != TargetDmgMode)
         {
-            CombatMode = TargetCombatMode;
+            DmgMode = TargetDmgMode;
+            BaseWeapon.DamageType = TargetDmgMode;
 
-            switch (CombatMode)
-            {
-                case eCombatMode.Physics:
-                    BaseWeapon.DamageType = eDamageType.Physics;
-                    break;
-
-                case eCombatMode.Energy:
-                    BaseWeapon.DamageType = eDamageType.Energy;
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        switch (TargetCombatMode)
-        {
-            case eCombatMode.Physics:
-                StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeA, 0.8f), 1f);
-                InputManager.Instance.AimController.Set_PhysicsType();
-                break;
-
-            case eCombatMode.Energy:
-                StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeB, 0.8f), 1f);
-                InputManager.Instance.AimController.Set_EnergyType();
-                break;
-
-            default:
-                break;
+            Reset_StateAnim();
+            InputManager.Instance.AimController.Set_DmgType(TargetDmgMode);
         }
     }
 
@@ -887,6 +652,8 @@ public class PlayerController : AliveObjectController
         {
             ReservationDele();
             ReservationDele = null;
+
+            Reset_StateAnim();
         }
     }
 
@@ -895,208 +662,105 @@ public class PlayerController : AliveObjectController
         if(CurrentBoostLv.Value != TargetBoostLv)
         {
             CurrentBoostLv.Value = TargetBoostLv;
-            Set_BoostAnim(CurrentBoostLv.Value, MaxBoostLv);
+            Set_BoostAnim(CurrentBoostLv.Value);
+            Reset_StateAnim();
         }
+    }
+
+    // 모든 캐스팅이 끝나면, 본래의 스탯애니메이션으로 돌아옴
+    private void Reset_StateAnim()
+    {
+        StateAnim.Set_Anim(
+                new State_Anim(TargetDmgMode == eDamageType.Physics ?
+                    DmgTypeStateAC.TypeA : DmgTypeStateAC.TypeB, 0.8f));
     }
 
     #endregion
 
-    #region Trigger
+    #region Boost State
 
-    private void OnTriggerEnter2D(Collider2D _Col)
+
+    // 머리위에 스탯 상태 
+    private void Set_BoostAnim(int _Index)
     {
-        if(_Col.gameObject.transform.parent.TryGetComponent(out IInteract II))
-        {
-            GameObject TargetGO = _Col.gameObject.transform.parent.gameObject;
+        Set_BoostAnim_StateWheel(_Index);
+        Set_BoostAnim_StateExtraVFX(_Index);
+    }
 
-            if (!CurrentInteractableGOList.Contains(TargetGO))
-            {
-                CurrentInteractableGOList.Add(TargetGO); 
-            }
+    // 스탯의 위아래로 도는 바퀴
+    private void Set_BoostAnim_StateWheel(int _Index)
+    {
+        for (int i = 0; i < MaxBoostLv - 1; i++)
+        {
+            // 부스팅 : 언부스팅
+            AnimationClip ac = i < _Index ?
+                BoostOnOffAC.TypeSpecial : BoostOnOffAC.TypeBase;
+            float animSpeed = i < _Index ?
+                WheelLowestAnimSpeed * (_Index - i + 1) : WheelLowestAnimSpeed;
+
+            BoostStateAnimController.TypeBase[i].Set_Anim(new State_Anim(ac, animSpeed));
         }
     }
 
-    private void OnTriggerStay2D(Collider2D _Col)
+    // 스탯의 좌우로 도는 이펙트
+    private void Set_BoostAnim_StateExtraVFX(int _Index)
     {
-        if (CurrentInteractableGOList != null)
-        {
-            // None
-            if (CurrentInteractableGOList.Count == 0)
-            {
-                CurrentInteractable.Value = null;
-            }
-
-            // Only One
-            else if (CurrentInteractableGOList.Count == 1)
-            {
-                if(CurrentInteractableGOList[0].TryGetComponent(out IInteract II))
-                {
-                    CurrentInteractable.Value = II;
-                }
-            }
-
-            // A Lot
-            else if (CurrentInteractableGOList.Count > 1)
-            {
-                float shortDis = Vector3.Distance(gameObject.transform.position, CurrentInteractableGOList[0].transform.position);
-                foreach (GameObject currentInteractableGO in CurrentInteractableGOList)
-                {
-                    float Distance = Vector3.Distance(gameObject.transform.position, currentInteractableGO.transform.position);
-
-                    if (Distance < shortDis) 
-                    {
-                        currentInteractableGO.TryGetComponent(out IInteract II);
-                        CurrentInteractable.Value = II;
-                        shortDis = Distance;
-                    }
-                }
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D _Col)
-    {
-        if (_Col.gameObject.transform.parent.TryGetComponent(out IInteract II))
-        {
-            GameObject TargetGO = _Col.gameObject.transform.parent.gameObject;
-
-            if (CurrentInteractableGOList.Contains(TargetGO))
-            { 
-                CurrentInteractableGOList.Remove(TargetGO); 
-
-                if (CurrentInteractableGOList.Count <= 0)
-                {
-                    CurrentInteractable.Value = null;
-                }
-            }
-        }
-    }
-
-    #endregion
-
-    #region Collision
-
-    private void OnCollisionEnter2D(Collision2D _Col)
-    {
-        if (_Col.gameObject.tag == "PushPlayer")
-        {
-            Vector2 pushDir = (this.transform.position - _Col.transform.position).normalized;
-            ThisRb.AddForce(pushDir);
-        }
-    }
-
-    #endregion
-
-    #region Effect
-
-    private void Set_BoostAnim(int _Index, int _MaxIndex)
-    {
-        float lowestAnimSpeed = 0.5f;
-
-        // Wheel
-        if (_Index >= _MaxIndex)
-        {
-            for (int i = 0; i < _MaxIndex - 1; i++)
-            {
-                BoostStateAnimController.TypeBase[i].Set_Anim(new State_Anim(BoostOnOffAC.TypeSpecial, lowestAnimSpeed * (_MaxIndex * 2)), 1f);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < _MaxIndex - 1; i++)
-            {
-                if (i < _Index)
-                {
-                    BoostStateAnimController.TypeBase[i].Set_Anim(new State_Anim(BoostOnOffAC.TypeSpecial, lowestAnimSpeed * (_Index - i + 1)), 1f);
-                }
-                else
-                {
-                    BoostStateAnimController.TypeBase[i].Set_Anim(new State_Anim(BoostOnOffAC.TypeBase, lowestAnimSpeed), 1f);
-                }
-            }
-        }
-
-        // VFX
-
         BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(false);
         BoostStateAnimController.TypeSpecial[1].gameObject.SetActive(false);
 
-        switch (_Index)
+        float animSpeed = _Index * 0.5f;
+        Set_EachBoostAnim_StateExtraVFX(0, animSpeed);
+
+        if (_Index > 2)
         {
-            case 1:
-                BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[0].Set_Anim(new State_Anim(BoostVFXAnimList[0], 0.5f), 1f);
-                break;
-
-            case 2:
-                BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[0].Set_Anim(new State_Anim(BoostVFXAnimList[0], 1f), 1f);
-                break;
-
-            case 3:
-                BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[0].Set_Anim(new State_Anim(BoostVFXAnimList[0], 1f), 1f);
-
-                BoostStateAnimController.TypeSpecial[1].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[1].Set_Anim(new State_Anim(BoostVFXAnimList[1], 1f), 1f);
-                break;
-
-            case 4:
-                BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[0].Set_Anim(new State_Anim(BoostVFXAnimList[0], 1.5f), 1f);
-
-                BoostStateAnimController.TypeSpecial[1].gameObject.SetActive(true);
-                BoostStateAnimController.TypeSpecial[1].Set_Anim(new State_Anim(BoostVFXAnimList[1], 1.5f), 1f);
-                break;
-
-            default:
-                break;
+            Set_EachBoostAnim_StateExtraVFX(1, animSpeed);
         }
+    }
 
+    private void Set_EachBoostAnim_StateExtraVFX(int _Index, float _AnimSpeed)
+    {
+        BoostStateAnimController.TypeSpecial[_Index].gameObject.SetActive(true);
+        BoostStateAnimController.TypeSpecial[_Index].Set_Anim(new State_Anim(BoostVFXAnimList[_Index], _AnimSpeed));
 
     }
 
+    #endregion
+
+    #region Room Move State
 
     private void SetOn_RoomMoveDir(Vector2 _Dir)
     {
-        if (!MoveDirStateAnim.gameObject.activeSelf)
-        { 
-            MoveDirStateAnim.transform.localRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
-            MoveDirStateAnim.gameObject.SetActive(true);
-        }
+        MoveDirStateAnim.gameObject.SetActive(true);
+        MoveDirStateAnim.transform.localRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
     }
 
     private void SetOff_RoomMoveDir()
     {
-        if (MoveDirStateAnim.gameObject.activeSelf)
-        {
-            MoveDirStateAnim.gameObject.SetActive(false);
-        }
+        MoveDirStateAnim.gameObject.SetActive(false);
     }
 
 
     private void Set_MoveDir()
     {
-        if (CurrentInteractable.Value != null && 
-            CurrentInteractable.Value is GateController GC &&
-            GC.IsOpen)
-        { SetOn_RoomMoveDir(GC.GateDir); }
+        if (DevTool.Get_CastingTType(CurrentInteractable.Value, out GateController gate) && gate.IsOpen)
+        { SetOn_RoomMoveDir(gate.GateDir); }
         else
         { SetOff_RoomMoveDir(); }
     }
 
+    #endregion
 
+    #region Get
 
-    public Color Get_Color_CorrectHitted(eDamageType _DamageType, bool _IsCritical)
+    public Color Get_CorrectColor(eDamageType _DamageType, bool _IsCritical)
     {
         return ThisClr.Get_CorrectType(_DamageType).Get_Special(_IsCritical);
     }
 
-    public AnimationClip Get_AnimClip_CorrectHitted(eDamageType _DamageType, bool _IsCritical)
+    public AnimationClip Get_CorrectAC(eDamageType _DamageType, bool _IsCritical)
     {
         return ThisHittedPointAC.Get_CorrectType(_DamageType).Get_Special(_IsCritical);
     }
-
 
     #endregion
 
@@ -1104,10 +768,8 @@ public class PlayerController : AliveObjectController
 
     public void Set_GainBuff(BuffController _Buff)
     {
-        if (!CurrentBuffs.Contains(_Buff))
+        if (DevTool.Add_InList(CurrentBuffs, _Buff))
         {
-            CurrentBuffs.Add(_Buff);
-
             // 인터페이스
             if (_Buff is IWhen_GetElectricity hitted && !BuffManager.Instance.iWhen_HittedList.Contains(hitted))
             {
@@ -1116,22 +778,230 @@ public class PlayerController : AliveObjectController
         }
     }
 
-    public void Set_ReductBuff()
+    public void Set_EndBuff(BuffController _Buff)
     {
+        if (DevTool.Remove_InList(CurrentBuffs, _Buff))
+        {
+            // 인터페이스
+            if (_Buff is IWhen_GetElectricity hitted && BuffManager.Instance.iWhen_HittedList.Contains(hitted))
+            {
+                BuffManager.Instance.iWhen_HittedList.Remove(hitted);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Trigger
+
+    // Enter
+    private void OnTriggerEnter2D(Collider2D _Col) // 판별을 위한 IInteract GO 추가
+    {
+        GameObject targetGO = _Col.gameObject.transform.parent.gameObject;
+        if (DevTool.Get_ComponentTType<IInteract>(targetGO) != null)
+        {
+            DevTool.Add_InList(CurrentInteractableGOList, targetGO);
+        }
+    }
+
+    // Exit
+    private void OnTriggerExit2D(Collider2D _Col) // 판별에 필요없는 IInteract GO 삭제
+    {
+        GameObject targetGO = _Col.gameObject.transform.parent.gameObject;
+        if (DevTool.Get_ComponentTType<IInteract>(targetGO) != null)
+        {
+            DevTool.Remove_InList(CurrentInteractableGOList, targetGO);
+
+            // 모두 삭제되었다면
+            if (CurrentInteractableGOList.Count <= 0)
+            {
+                CurrentInteractable.Value = null;
+            }
+        }
+    }
+
+    // Stay: Set Current IInteract
+    private void OnTriggerStay2D(Collider2D _Col)
+    {
+        // None
+        if (CurrentInteractableGOList.Count <= 0)
+        {
+            CurrentInteractable.Value = null;
+        }
+
+        // 하나만 존재
+        else if (CurrentInteractableGOList.Count == 1)
+        {
+            if (DevTool.Get_ComponentTType(CurrentInteractableGOList[0], out IInteract i))
+            {
+                CurrentInteractable.Value = i;
+            }
+        }
+        else // 다수 존재
+        {
+            if (DevTool.Get_ComponentTType(
+                    DevTool.Get_MinRangeGO(CurrentInteractableGOList, this.gameObject),
+                    out IInteract i))
+            {
+                CurrentInteractable.Value = i;
+            }
+        }
 
     }
 
-    public void Set_EndBuff(BuffController _Buff)
+    #endregion
+
+    #region Hitted
+
+    // 타격: 총알
+    public void Try_Hitted(EnemyBulletController _Bullet)
     {
-        if (CurrentBuffs.Contains(_Buff))
+        if (IsInvincible)
+        { return; }
+
+        // 피격
+        if (!Is_Avoid()) // 회피인지?
         {
-            CurrentBuffs.Remove(_Buff);
+            BulletState state = _Bullet.State;
+            
+            // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
+            Take_Damaged(
+                DevTool.Get_DmgEffectByCold(state.DmgState.Dmg, _Bullet.Enemy.BuffController),
+                DevTool.Get_Dir(this.gameObject, _Bullet.gameObject),
+                state.KnockbackState);
+        }
+    }
+
+    // 타격: 어택커
+    public void Try_Hitted(EnemyAttackerController _Attacker)
+    {
+        if (IsInvincible)
+        { return; }
+
+        // 피격
+        if (!Is_Avoid()) // 회피인지?
+        {
+            AttackerState state = _Attacker.AttackerState;
+
+            // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
+            Take_Damaged(
+                DevTool.Get_DmgEffectByCold(state.DmgState.Dmg, _Attacker.Enemy.BuffController),
+                DevTool.Get_Dir(this.gameObject, _Attacker.gameObject),
+                state.KnockbackState);
+        }
+    }
+
+    // 타격: 건물어택커
+    public void Try_Hitted(TrapObjectController _Attacker)
+    {
+        if (IsInvincible)
+        { return; }
+
+        // 피격
+        if (!Is_Avoid()) // 회피인지?
+        {
+        }
+    }
+
+    #endregion
+
+    #region Damaged
+
+    // 데미지 계산
+    private void Take_Damaged(float _DmgValue, Vector2 _HittedDir, KnockbackState _State_KB)
+    {
+        // Multiple
+        _DmgValue *= TakingDmgMultiple.BuffedState;
+
+        // Effect
+        // Knockback
+        if (_State_KB.CanKB)
+        { Gain_Knockback(new CurrentKnockbackState(_HittedDir, _State_KB.KBPower, _State_KB.KBTime)); }
+
+        // Damage
+        Take_Damaged(_DmgValue, _HittedDir, _ShowHUDEffect: true);
+    }
+
+    // 오직 데미지만 계산 (넉백, 애니메이션 등 없음)
+    public void Take_Damaged(float _DmgValue, Vector2 _HittedDir, bool _ShowHUDEffect = true)
+    {
+        if (_ShowHUDEffect)
+        {
+            MainGameUIManager.Instance.PlayerHUD_UIController.Play_HittedPlayScreen(_DmgValue);
         }
 
-        // 인터페이스
-        if (_Buff is IWhen_GetElectricity hitted && BuffManager.Instance.iWhen_HittedList.Contains(hitted))
+        if (_HittedDir != Vector2.zero)
         {
-            BuffManager.Instance.iWhen_HittedList.Remove(hitted);
+            PlayerManager.Instance.CameraController.Play_DamagedAnim(InvincibleTime.Max, _DmgValue * 0.1f, _HittedDir);
+        }
+       
+
+        if (ShieldElements.Count > 0)
+        {
+            for (int i = ShieldElements.Count - 1; i >= 0; i--)
+            {
+                // 쉴드 버프량 1개가 데미지보다 작거나 같으면, 제거하고 다음 쉴드로 영향
+                if (ShieldElements[i].ShieldCurrentValue <= _DmgValue)
+                {
+                    _DmgValue -= ShieldElements[i].ShieldCurrentValue;
+
+                    Remove_Shield(ShieldElements[i]); // 쉴드 감소
+                }
+                else // 쉴드 버프가 데미지를 버틸 수 있으면
+                {
+                    ShieldElements[i].ShieldCurrentValue -= _DmgValue;
+                    _DmgValue = 0;
+                    CurrentSP.Value = Get_TotalShield();
+                    return;
+                }
+            }
+        }
+        CurrentSP.Value = Get_TotalShield();
+        Add_CurrentEP(-_DmgValue);
+    }
+
+    #endregion
+
+    #region Avoid
+
+    // 회피?
+    public bool Is_Avoid()
+    {
+        // 회피
+        if (DevTool.Is_ChanceSuccess(AvoidChance.ActualState.Value))
+        {
+            Play_Avoid();
+            return true;
+        }
+        else
+        {
+            Set_Invincible();
+            return false;
+        }
+    }
+
+    // 회피
+    private void Play_Avoid()
+    {
+        PlayerManager.Instance.CameraController.Play_AvoidAnim(InvincibleTime.Max);
+        UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_Avoid(ID, TargetObject.transform.position);
+    }
+    
+    // 회피하지 못함 => 무적
+    private void Set_Invincible()
+    {
+        IsInvincible = true;
+        InvincibleTime.Current = 0f;
+
+        float intervalTime = InvincibleTime.Max * 0.125f; // (1/8)
+        for (int i = 0; i < AfterImgGenerator.TargetSRList.Count; i++)
+        {
+            Sequence seq = DOTween.Sequence();
+            seq.Append(AfterImgGenerator.TargetSRList[i].DOFade(0, 0));
+            seq.AppendInterval(intervalTime);
+            seq.Append(AfterImgGenerator.TargetSRList[i].DOFade(1, 0));
+            seq.AppendInterval(intervalTime);
+            seq.SetLoops(4, LoopType.Restart);
         }
     }
 

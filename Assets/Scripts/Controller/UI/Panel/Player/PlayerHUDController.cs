@@ -342,12 +342,12 @@ public class PlayerHUDController : UIController
         SubColorCompList.Add(UsingInnerImg);
 
         // Color Set
-        Color mainClr = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, false);
+        Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
         Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, true);
+        Color subClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
         Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;

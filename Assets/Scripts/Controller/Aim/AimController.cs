@@ -87,6 +87,15 @@ public class AimController : StaticDepthController
         Set_DmgType(AimSprite.Energy.TypeBase, AimSprite.Energy.TypeSpecial);
     }
 
+    // 데미지 타입만으로 변경
+    public void Set_DmgType(eDamageType _DmgType)
+    {
+        if (_DmgType == eDamageType.Physics)
+        { Set_PhysicsType(); }
+        else
+        { Set_EnergyType(); }
+    }
+
     // 공격 타입: On / Off (화살표)
     public void Set_ActivingAttack(bool _OnOff)
     {

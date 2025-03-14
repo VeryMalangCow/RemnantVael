@@ -28,7 +28,7 @@ public class BuffTickDmgController : BuffController
 
     public override void Reduct_Buff()
     {
-        PlayerManager.Instance.PlayerController.Take_Damaged(Get_DmgValue());
+        PlayerManager.Instance.PlayerController.Take_Damaged(Get_DmgValue(), _HittedDir: Vector2.zero, _ShowHUDEffect: true);
 
         base.Reduct_Buff();
     }

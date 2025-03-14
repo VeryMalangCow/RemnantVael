@@ -54,13 +54,13 @@ public class DescMUEUIController : ElementUIController
 
         ItemIconImg.color = new Color(1, 1, 1, 0);
         CurrentRankImg.color = new Color(1, 1, 1, 0);
-        Color clr = PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, false);
+        Color clr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
         clr.a = 0f;
         BoostLvImg.color = clr;
         MainChipGO.gameObject.SetActive(false);
 
         CurrentBoostLvMIAT.Set_Amount(0);
-        CurrentBoostLvMIAT.Set_Color(PlayerManager.Instance.PlayerController.Get_Color_CorrectHitted(eDamageType.Energy, false));
+        CurrentBoostLvMIAT.Set_Color(PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false));
     }
 
     #endregion

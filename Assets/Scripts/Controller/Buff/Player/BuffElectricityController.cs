@@ -67,7 +67,7 @@ public class BuffElectricityController : BuffController, IWhen_GetElectricity
     public void Play_When(EnemyController _EC)
     {
         float dmg = Get_DmgValue();
-        PlayerManager.Instance.PlayerController.Take_ExtraDamage(dmg);
+        PlayerManager.Instance.PlayerController.Take_Damaged(dmg, _HittedDir: Vector2.zero, _ShowHUDEffect: false);
         for (int i = 0; i < AllyManager.Instance.AllAllies.Count; i++)
         {
             AllyManager.Instance.AllAllies[i].TakeDamage(dmg);
