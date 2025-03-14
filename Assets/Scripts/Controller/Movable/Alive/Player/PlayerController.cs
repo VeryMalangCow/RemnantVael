@@ -745,7 +745,7 @@ public class PlayerController : AliveObjectController
 
     private void Set_MoveDir()
     {
-        if (DevTool.Get_CastingTType(CurrentInteractable.Value, out GateController gate) && gate.IsOpen)
+        if (DevTool.Can_CastingTType(CurrentInteractable.Value, out GateController gate) && gate.IsOpen)
         { SetOn_RoomMoveDir(gate.GateDir); }
         else
         { SetOff_RoomMoveDir(); }
@@ -843,7 +843,7 @@ public class PlayerController : AliveObjectController
         else // 다수 존재
         {
             if (DevTool.Get_ComponentTType(
-                    DevTool.Get_MinRangeGO(CurrentInteractableGOList, this.gameObject),
+                    DevTool.Get_ClosetGO(CurrentInteractableGOList, this.gameObject),
                     out IInteract i))
             {
                 CurrentInteractable.Value = i;

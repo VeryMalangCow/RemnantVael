@@ -94,12 +94,12 @@ public abstract class AttackerController : MovableDepthController
         ThisCol = DevTool.Gen_Component<T>(ThisColGO);
         ThisCol.isTrigger = true;
 
-        if (DevTool.Get_CastingTType(ThisCol, out CapsuleCollider2D capsule2D))
+        if (DevTool.Can_CastingTType(ThisCol, out CapsuleCollider2D capsule2D))
         {
             capsule2D.size = _State_Juge.ColSize;
             capsule2D.direction = _State_Juge.IsVertical ? CapsuleDirection2D.Vertical : CapsuleDirection2D.Horizontal;
         }
-        else if (DevTool.Get_CastingTType(ThisCol, out CircleCollider2D circle2D))
+        else if (DevTool.Can_CastingTType(ThisCol, out CircleCollider2D circle2D))
         {
             circle2D.radius = _State_Juge.ColSize.x;
         }

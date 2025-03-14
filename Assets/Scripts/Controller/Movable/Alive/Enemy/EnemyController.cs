@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyController : AliveObjectController, IInteract
@@ -36,7 +35,7 @@ public class EnemyController : AliveObjectController, IInteract
     [Space(10)]
     [Header("=== Nav")]
     [Tooltip("This is Radius")]
-    [SerializeField] private float NavRadius = 0.2f;
+    [SerializeField] public float NavRadius = 0.2f;
 
     [Space(10)]
     [Header("=== Pattern")]
@@ -621,7 +620,7 @@ public class EnemyController : AliveObjectController, IInteract
     public List<WayPointController> Get_RootWay()
     {
         // 바로 갈 수 있다면
-        if (!Is_ExistWall(this.transform, PlayerManager.Instance.PlayerController.transform))
+        if (!Is_ExistWall(PlayerManager.Instance.PlayerController.transform))
         {
             /*
 #if UNITY_EDITOR
@@ -708,8 +707,7 @@ public class EnemyController : AliveObjectController, IInteract
         List<List<WayPointController>> extensionedRoots = new List<List<WayPointController>>();
 
         // 이미 포함하고 있는 WayPoint 판별을 위함
-        List<WayPointController> rootSimpleList = Get_NormalList<WayPointController>(_Roots);
-
+        List<WayPointController> rootSimpleList = DevTool.Remove_DuplicateInList(DevTool.Get_List(_Roots));
 
         for (int i = 0; i < _Roots.Count; i++)
         {
@@ -758,7 +756,8 @@ public class EnemyController : AliveObjectController, IInteract
         bool NeedInit = false;
         for (int i = 0; i < _Root.Count; i++)
         {
-            if (Is_ExistWall(this.transform, _Root[i].ThisTF) && !NeedInit)
+            if (Is_ExistWall(_Root[i].ThisTF)&& 
+                !NeedInit)
             {
                 if (i != 0)
                 { resultRoot.Add(_Root[i - 1]); }
@@ -819,48 +818,13 @@ public class EnemyController : AliveObjectController, IInteract
     // 가장 가까운 WayPoint
     private WayPointController Get_ClosetWP(Transform transform, List<WayPointController> _AllWP)
     {
-        WayPointController closetWP = _AllWP[0];
-        float closetDis = Vector2.Distance(closetWP.ThisTF.position, transform.position);
-
-        for (int i = 1; i < _AllWP.Count; i++)
-        {
-            float tempDis = Vector2.Distance(_AllWP[i].ThisTF.position, transform.position);
-            if (closetDis > tempDis)
-            {
-                closetWP = _AllWP[i];
-                closetDis = tempDis;
-            }
-        }
-
-        return closetWP;
+        return DevTool.Get_CastingTType<WayPointController>(DevTool.Get_ClosetGO(DevTool.Get_ConvertTTypeList<WayPointController, GameObject>(_AllWP), transform.gameObject));
     }
 
-    // 중간에 벽이 있는지
-    public bool Is_ExistWall(Transform _StartTF, Transform _EndTF)
+    // 이 객체로부터 특정 지점까지 벽이 있는지
+    public bool Is_ExistWall(Transform _TargetTF)
     {
-        Vector2 dirVec = _EndTF.position - _StartTF.position;
-        RaycastHit2D hit = Physics2D.CircleCast(_StartTF.position, NavRadius, dirVec, Vector2.Distance(Vector2.zero, dirVec), LayerMask.GetMask("Wall"));
-
-        if (hit.collider != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    // 이중 List를 단순 List로 변경
-    private List<T> Get_NormalList<T>(List<List<T>> _doubleListType)
-    {
-        List<T> result = new List<T>();
-        for (int i = 0; i < _doubleListType.Count; i++)
-        {
-            result.AddRange(_doubleListType[i]);
-        }
-        result = result.Distinct().ToList();
-        return result;
+        return DevTool.Is_Exist_UseCircle(this.transform, _TargetTF, "Wall", NavRadius);
     }
 
     #endregion

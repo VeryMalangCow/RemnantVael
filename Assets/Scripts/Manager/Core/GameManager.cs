@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -132,6 +133,17 @@ public class DevTool
         }
         return default;
     }
+    public static bool Can_CastingTType<T>(object _Obj, out T _TType) where T : class
+    {
+        if (_Obj != null && _Obj is T objType)
+        {
+            _TType = objType;
+            return true;
+        }
+
+        _TType = null;
+        return false;
+    }
 
     // 객체를 원하는 'T 타입'으로 Out 빼기
     public static bool Can_CastingTType<T>(object _Obj)
@@ -143,17 +155,6 @@ public class DevTool
         return false;
     }
 
-    public static bool Get_CastingTType<T>(object _Obj, out T _TType) where T : class
-    {
-        if (_Obj != null && _Obj is T objType)
-        {
-            _TType = objType;
-            return true;
-        }
-
-        _TType = null;
-        return false;
-    }
 
     #endregion
 
@@ -361,6 +362,37 @@ public class DevTool
         return default;
     }
 
+    // 'T 타입' 이중 리스트를 기본 리스트로 변경
+    public static List<T> Get_List<T>(List<List<T>> _DoubleList)
+    {
+        List<T> result = new List<T>();
+        for (int i = 0; i < _DoubleList.Count; i++)
+        {
+            result.AddRange(_DoubleList[i]);
+        }
+        return result;
+    }
+    // 'T 타입' 중복 제거
+    public static List<T> Remove_DuplicateInList<T>(List<T> _TargetList)
+    {
+        return _TargetList.Distinct().ToList();
+    }
+
+    // 'T 타입' List를 특정 T 리스트로 변경
+    public static List<U> Get_ConvertTTypeList<T, U>(List<T> _FromList) where T : class where U : class
+    {
+        List<U> resultList = new List<U>();
+        for (int i = 0; i < _FromList.Count; i++)
+        {
+            if (Can_CastingTType(_FromList[i], out U uType))
+            {
+                resultList.Add(uType);
+            }
+        }
+        return resultList;
+    }
+
+
     #endregion
 
     #region About Vector2
@@ -426,7 +458,7 @@ public class DevTool
     }
 
     // 최소 거리의 객체 가져오기
-    public static GameObject Get_MinRangeGO(List<GameObject> _TargetList, GameObject _CenterGO)
+    public static GameObject Get_ClosetGO(List<GameObject> _TargetList, GameObject _CenterGO)
     {
         // 초기 설정
         GameObject resultGO = _TargetList[0];
@@ -689,6 +721,18 @@ public class DevTool
         return _Col.tag == _Tag &&
             _Col.transform.parent.TryGetComponent(out _TType);
     }
+    #endregion
+
+    #region About Nav
+
+    // 중간에 벽이 있는지
+    public static bool Is_Exist_UseCircle(Transform _StartTF, Transform _EndTF, string _LayerName, float _Radius)
+    {
+        Vector2 dirVec = Get_Dir(_StartTF.position, _EndTF.position);
+        return Physics2D.CircleCast(_StartTF.position, _Radius, dirVec, dirVec.sqrMagnitude, LayerMask.GetMask(_LayerName)).collider != null ?
+            true : false;
+    }
+
     #endregion
 }
 

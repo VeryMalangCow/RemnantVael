@@ -59,7 +59,8 @@ public class EnemyPattern_Follow : EnemyPattern
         if (UntilForTargetRange &&
             TargetRange >= Vector2.Distance(ThisEnemy.gameObject.transform.position, PlayerManager.Instance.PlayerController.gameObject.transform.position))
         {
-            if (!IgnoreWall && ThisEnemy.Is_ExistWall(ThisEnemy.transform, PlayerManager.Instance.PlayerController.transform))
+            if (!IgnoreWall &&
+                ThisEnemy.Is_ExistWall(PlayerManager.Instance.PlayerController.transform))
             {
                 return true;
             }

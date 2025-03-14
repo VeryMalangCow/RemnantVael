@@ -216,7 +216,7 @@ public class EnemyBuffController : MonoBehaviour
             for (int i = 0; i < closerEnemies.Count; i++)
             {
                 // 중간에 벽이 없고 + 타깃 적들 리스트에 이미 존재하지 않는다면 => 타겟 지정!
-                if (!targetEnemy.Is_ExistWall(targetEnemy.transform, closerEnemies[i].transform) &&
+                if (!DevTool.Is_Exist_UseCircle(targetEnemy.transform, closerEnemies[i].transform, "Wall", targetEnemy.NavRadius) &&
                     !targetEnemies.Contains(closerEnemies[i]))
                 {
                     isExist = true;
