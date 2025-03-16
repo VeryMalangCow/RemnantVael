@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -131,6 +132,7 @@ public class DevTool
         {
             return objType;
         }
+        Debug.Log("Default");
         return default;
     }
     public static bool Can_CastingTType<T>(object _Obj, out T _TType) where T : class
@@ -270,6 +272,18 @@ public class DevTool
         }
         return false;
     }
+    public static List<T> Get_RemovedList<T>(List<T> _TargetList, int _Index)
+    {
+        List<T> result = new List<T>(_TargetList);
+        result.Remove(result[_Index]);
+        return result;
+    }
+    public static List<T> Get_RemoveLastOneList<T>(List<T> _TargetList)
+    {
+        List<T> result = new List<T>(_TargetList);
+        result.Remove(result[result.Count - 1]);
+        return result;
+    }
 
     // 자식 객체들의 'T 타입' 리스트 가져오기
     public static List<T> Get_ChildList<T>(Transform _Parent) where T : Component
@@ -363,7 +377,7 @@ public class DevTool
     }
 
     // 'T 타입' 이중 리스트를 기본 리스트로 변경
-    public static List<T> Get_List<T>(List<List<T>> _DoubleList)
+    public static List<T> Get_List<T>(List<List<T>> _DoubleList) where T : class
     {
         List<T> result = new List<T>();
         for (int i = 0; i < _DoubleList.Count; i++)
@@ -372,23 +386,42 @@ public class DevTool
         }
         return result;
     }
+    // 'T 타입' 이중 리스트에서 리스트들중 마지막 부분만을 모아서 리턴
+    public static List<T> Get_LastElementList<T>(List<List<T>> _DoubleList)
+    {
+        List<T> result = new List<T>();
+        for (int i = 0; i < _DoubleList.Count; i++)
+        {
+            result.Add(_DoubleList[i][_DoubleList[i].Count - 1]);
+        }
+        return result;
+    }
+
     // 'T 타입' 중복 제거
     public static List<T> Remove_DuplicateInList<T>(List<T> _TargetList)
     {
         return _TargetList.Distinct().ToList();
     }
 
-    // 'T 타입' List를 특정 T 리스트로 변경
-    public static List<U> Get_ConvertTTypeList<T, U>(List<T> _FromList) where T : class where U : class
+    // 게임 오브젝트 리스트에서 List T 타입 변형
+    public static List<T> Get_ComponentList<T>(List<GameObject> _TargetList) where T : Component
     {
-        List<U> resultList = new List<U>();
-        for (int i = 0; i < _FromList.Count; i++)
+        List<T> resultList = new List<T>();
+        for (int i = 0; i < _TargetList.Count; i++)
         {
-            if (Can_CastingTType(_FromList[i], out U uType))
+            if (Get_ComponentTType(_TargetList[i], out T tType))
             {
-                resultList.Add(uType);
+                resultList.Add(tType);
             }
         }
+        return resultList;
+    }
+
+    // 'T 타입' List 두개를 합
+    public static List<T> Combine_List<T>(List<T> _FirstList, List<T> _SecondList)
+    {
+        List<T> resultList = new List<T>(_FirstList);
+        resultList.AddRange(_SecondList);
         return resultList;
     }
 
@@ -460,6 +493,17 @@ public class DevTool
     // 최소 거리의 객체 가져오기
     public static GameObject Get_ClosetGO(List<GameObject> _TargetList, GameObject _CenterGO)
     {
+        if (_TargetList.Count == 0)
+        {
+            Debug.Log("NULL");
+            return null;
+        }
+        else if (_TargetList.Count <= 1)
+        {
+            Debug.Log("하나만 있음");
+            return _TargetList[0];
+        }
+
         // 초기 설정
         GameObject resultGO = _TargetList[0];
         float shortestDis = Vector3.Distance(_CenterGO.transform.position, _TargetList[0].transform.position);
@@ -726,11 +770,203 @@ public class DevTool
     #region About Nav
 
     // 중간에 벽이 있는지
+    public static bool Is_Exist_UseLine(Transform _StartTF, Transform _EndTF, string _LayerName)
+    {
+        return Physics2D.Linecast(_StartTF.position, _EndTF.position, LayerMask.GetMask(_LayerName)).collider != null;
+    }
     public static bool Is_Exist_UseCircle(Transform _StartTF, Transform _EndTF, string _LayerName, float _Radius)
     {
-        Vector2 dirVec = Get_Dir(_StartTF.position, _EndTF.position);
-        return Physics2D.CircleCast(_StartTF.position, _Radius, dirVec, dirVec.sqrMagnitude, LayerMask.GetMask(_LayerName)).collider != null ?
-            true : false;
+        return Physics2D.CircleCast(_StartTF.position, _Radius, (_EndTF.position - _StartTF.position).normalized,
+            Vector2.Distance(_StartTF.position, _EndTF.position), LayerMask.GetMask(_LayerName)).collider != null;
+    }
+
+    // 한 리스트의 길이 구하기
+    public static float Get_WayDistance(List<WayPointController> _Way)
+    {
+        float resultDis = 0;
+        for (int i = 0; i < _Way.Count - 1; i++)
+        {
+            resultDis += Vector2.Distance(_Way[i].transform.position, _Way[i + 1].transform.position);
+        }
+        return resultDis;
+    }
+
+    // 리스트들 중에서도 가장 짧은 값을 구하기
+    public static List<WayPointController> Get_ShortestList(List<List<WayPointController>> _Ways)
+    {
+        List<WayPointController> shortestRoot = _Ways[0];
+        float closetDis = Get_WayDistance(_Ways[0]);
+
+        for (int i = 0; i < _Ways.Count; i++)
+        {
+            float tempDis = Get_WayDistance(_Ways[i]);
+            if (closetDis > tempDis)
+            {
+                shortestRoot = _Ways[i];
+                closetDis = tempDis;
+            }
+        }
+        return shortestRoot;
+    }
+
+    // 한 지점에서 갈 수 있는 모든 WayPoint 찾기
+    public static List<WayPointController> Get_AdjPoint_UseLine(WayPointController _TargetPoint, List<WayPointController> _AllPoint)
+    {
+        List<WayPointController> result = new List<WayPointController>();
+        for (int i = 0; i < _AllPoint.Count; i++)
+        {
+            if (!Is_Exist_UseLine(_TargetPoint.transform, _AllPoint[i].transform, "Wall"))
+            {
+                result.Add(_AllPoint[i]);
+            }
+        }
+        return result;
+    }
+    public static List<WayPointController> Get_AdjPoint_UseCircle(WayPointController _TargetPoint, List<WayPointController> _AllPoint, float _Radius)
+    {
+        List<WayPointController> result = new List<WayPointController>();
+        for (int i = 0; i < _AllPoint.Count; i++)
+        {
+            if (!Is_Exist_UseCircle(_TargetPoint.transform, _AllPoint[i].transform, "Wall", _Radius))
+            {
+                result.Add(_AllPoint[i]);
+            }
+        }
+        return result;
+    }
+
+    // 처음 시작할 때, 길이 2만큼의 리스트들의 리스트를 제작
+    public static List<List<WayPointController>> Get_StartWay(WayPointController _StartPoint, List<WayPointController> _AllPoint)
+    {
+        List<List<WayPointController>> result = new List<List<WayPointController>>();
+        List<WayPointController> adj = Get_AdjPoint_UseLine(_StartPoint, _AllPoint);
+        for (int i = 0; i < adj.Count; i++)
+        {
+            result.Add(new List<WayPointController> { _StartPoint, adj[i] });
+        }
+        return result;
+    }
+    public static List<List<WayPointController>> Get_StartWay(WayPointController _StartPoint, List<WayPointController> _AllPoint, float _Radius)
+    {
+        List<List<WayPointController>> result = new List<List<WayPointController>>();
+        List<WayPointController> adj = Get_AdjPoint_UseCircle(_StartPoint, _AllPoint, _Radius);
+        for (int i = 0; i < adj.Count; i++)
+        {
+            result.Add(new List<WayPointController> { _StartPoint, adj[i] });
+        }
+        return result;
+    }
+
+    // 모든 길에서 확장하기
+    public static List<List<WayPointController>> Get_SearchFromLast(
+        List<List<WayPointController>> _CurrentList)
+    {
+        List<List<WayPointController>> result = new List<List<WayPointController>>();
+        for (int i = 0; i < _CurrentList.Count; i++)
+        {
+            List<WayPointController> way = new List<WayPointController>(_CurrentList[i]);
+            List<WayPointController> adjPoint = way[way.Count - 1].AdjacentWPList;
+
+            for (int j = 0; j < adjPoint.Count; j++)
+            {
+                if (way.Contains(adjPoint[j]))
+                { continue; }
+
+                List<WayPointController> newWay = new List<WayPointController>(way);
+                newWay.Add(adjPoint[j]);
+                result.Add(newWay);
+            }
+        }
+        return result;
+    } 
+
+    // 두 길이 서로 만나는 지점이 있다면 True
+    public static bool Is_ConnectWayPoint(List<WayPointController> _FirstWay, List<WayPointController> _SecondWay)
+    {
+        if (_FirstWay[_FirstWay.Count - 1] == _SecondWay[_SecondWay.Count - 1])
+        {
+            return true;
+        }
+        return false;
+    }
+    // 두 길이 서로 만다는 지점이 있다면 True (이중 리스트계산)
+    public static bool Is_ConnectWayPoint(List<List<WayPointController>> _FirstWays, List<List<WayPointController>> _SecondWays,
+        out List<List<WayPointController>> _ConnectedWays)
+    {
+        _ConnectedWays = new List<List<WayPointController>>();
+        bool result = false;
+        for (int i = 0; i < _FirstWays.Count; i++)
+        {
+            for (int j = 0; j < _SecondWays.Count; j++)
+            {
+                if (DevTool.Is_ConnectWayPoint(_FirstWays[i], _SecondWays[j]))
+                {
+                    List<WayPointController> firstWays = 
+                        new List<WayPointController>(Get_RemoveLastOneList(_FirstWays[i]));
+                    List<WayPointController> secondWays = 
+                        new List<WayPointController>(_SecondWays[j].AsEnumerable().Reverse().ToList());
+
+                    _ConnectedWays.Add(Combine_List(firstWays, secondWays));
+
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
+
+    // 최적의 길을 찾기
+    public static List<WayPointController> Get_Way(WayPointController _Start, WayPointController _Target, string _CanGoLayer, float _NavRadius)
+    {
+        // 바로 갈 수 있다면
+        if (!Is_Exist_UseCircle(_Start.transform, _Target.transform, _CanGoLayer, _NavRadius))
+        {
+            return new List<WayPointController> { _Start, _Target };
+        }
+
+        // 현재 방에 모든 WayPoint
+        List<WayPointController> allway = StageManager.Instance.CurrentRoomController.RoomRuleController.InRoom_AllWayPoint;
+
+        List<List<WayPointController>> wayFromStart =
+            Get_StartWay(_Start, allway, _NavRadius);
+
+        if (wayFromStart.Count <= 0)
+        {
+            return new List<WayPointController> { _Start, _Target };
+        }
+
+        List<List<WayPointController>> wayFromTarget =
+            Get_StartWay(_Target, allway);
+
+        bool startWayTurn = true;
+        int test = 0;
+        while (true)
+        {
+            test++;
+            if (Is_ConnectWayPoint(wayFromStart, wayFromTarget,
+                out List<List<WayPointController>> connectedWays))
+            {
+                List<WayPointController> result = Get_ShortestList(connectedWays);
+                return result;
+            }
+            else
+            {
+                if (startWayTurn)
+                {
+                    wayFromStart = Get_SearchFromLast(wayFromStart);
+                }
+                else
+                {
+                    wayFromTarget = Get_SearchFromLast(wayFromTarget);
+                }
+                startWayTurn = !startWayTurn; // 턴 바꾸기
+            }
+            if (test > 30)
+            {
+                Debug.LogWarning("Nav문제!");
+                return null;
+            }
+        }
     }
 
     #endregion

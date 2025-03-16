@@ -27,7 +27,7 @@ public class RoomRuleController : MonoBehaviour
     [Header("=== In Room _ Enemy")]
     [SerializeField] private List<EnemySpot> InRoom_AllEnemy;
     [SerializeField] private Transform InRoom_WayPointParentTF;
-    [HideInInspector] public List<WayPointController> InRoom_AllWayPoint;
+    [SerializeField] public List<WayPointController> InRoom_AllWayPoint;
 
 
     #endregion
@@ -58,7 +58,6 @@ public class RoomRuleController : MonoBehaviour
                 { InRoom_AllWayPoint.Add(wp); }
             }
         }
-
     }
 
     #endregion

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UniRx;
 using UnityEngine;
 
@@ -35,6 +34,7 @@ public class EnemyController : AliveObjectController, IInteract
     [Space(10)]
     [Header("=== Nav")]
     [Tooltip("This is Radius")]
+    [SerializeField] private WayPointController WPController;
     [SerializeField] public float NavRadius = 0.2f;
 
     [Space(10)]
@@ -611,214 +611,28 @@ public class EnemyController : AliveObjectController, IInteract
 
     #endregion
 
-
-
-
     #region Nav
-
-    // 길 루트 찾기
-    public List<WayPointController> Get_RootWay()
+    
+    public WayPointController Get_NavWay()
     {
-        // 바로 갈 수 있다면
-        if (!Is_ExistWall(PlayerManager.Instance.PlayerController.transform))
+        List<WayPointController> way = DevTool.Get_Way(
+            WPController,
+            PlayerManager.Instance.PlayerController.ThisWayPoint,
+            "Wall",
+            NavRadius);
+
+        if (way != null && way.Count >= 1)
         {
-            /*
 #if UNITY_EDITOR
-            Debug.DrawRay(this.transform.position,
-                        (PlayerManager.Instance.PlayerController.transform.position - this.transform.position),
-                        Color.red, 0.3f);
+            Draw_Way(way);
 #endif
-            */
-            return new List<WayPointController> { PlayerManager.Instance.PlayerController.ThisWayPoint };
+            return way[1]; 
         }
-
-        // 현재 방에 모든 WayPoint
-        List<WayPointController> allWP = StageManager.Instance.CurrentRoomController.RoomRuleController.InRoom_AllWayPoint;
-
-        // 이 객체와 플레이어에 가장 가까운 WayPoint 찾기
-        List<List<WayPointController>> rootsFromEnemy = new List<List<WayPointController>> { new List<WayPointController> { Get_ClosetWP(this.transform, allWP) } };
-        List<List<WayPointController>> rootsFromPlayer = new List<List<WayPointController>> { new List<WayPointController> { Get_ClosetWP(PlayerManager.Instance.PlayerController.transform, allWP) } };
-
-        int checkOver = 0;
-        bool IsEnemyExtensionTurn = true;
-        while (true)
-        {
-            // 각 방향(적과 플레이어)의 끝 지점
-            List<WayPointController> endRootPointsFromEnemy = Get_EndPoints(rootsFromEnemy);
-            List<WayPointController> endRootPointsFromPlayer = Get_EndPoints(rootsFromPlayer);
-
-            // 결과를 저장할 루트들
-            List<List<WayPointController>> resultRoots = new List<List<WayPointController>>();
-
-            // 두 끝 부분이 만난다면, 결과에 추가
-            for (int i = 0; i < endRootPointsFromEnemy.Count; i++)
-            {
-                for (int j = 0; j < endRootPointsFromPlayer.Count; j++)
-                {
-                    if (endRootPointsFromEnemy[i] == endRootPointsFromPlayer[j])
-                    {
-                        resultRoots.Add(Get_Combine(rootsFromEnemy[i], rootsFromPlayer[j]));
-                    }
-                }
-            }
-
-            // 결과가 있다면, 결과 중 가장 짧은 루트 구하기
-            if (resultRoots.Count > 0)
-            {
-                List<WayPointController> resultRoot = Get_ClosetRoot(resultRoots);
-                resultRoot.Add(PlayerManager.Instance.PlayerController.ThisWayPoint);
-                resultRoot = Get_RemoveUnnecessaryRoot(resultRoot);
-                /*
 #if UNITY_EDITOR
-                Debug.DrawRay(this.transform.position,
-                        (resultRoot[0].transform.position - this.transform.position),
-                        Color.red, 0.3f);
-                for (int i = 0; i < resultRoot.Count - 1; i++)
-                {
-                    Debug.DrawRay(resultRoot[i].transform.position, 
-                        (resultRoot[i + 1].transform.position - resultRoot[i].transform.position), 
-                        Color.red, 0.3f);
-                }
+        Draw_Way(new List<WayPointController> { WPController, PlayerManager.Instance.PlayerController.ThisWayPoint });
 #endif
-                */
-                return resultRoot;
-            }
 
-            // 루트 연장 (루트를 아직 못 찾음)
-            if (IsEnemyExtensionTurn)
-            { rootsFromEnemy = Get_ExtensionRoots(rootsFromEnemy); }
-            else
-            { rootsFromPlayer = Get_ExtensionRoots(rootsFromPlayer); }
-
-            IsEnemyExtensionTurn = !IsEnemyExtensionTurn;
-
-            if (++checkOver > 100)
-            { break; }
-        }
-
-
-        return null;
-    }
-
-    // 루트를 연장하기
-    private List<List<WayPointController>> Get_ExtensionRoots(List<List<WayPointController>> _Roots)
-    {
-        // 결과
-        List<List<WayPointController>> extensionedRoots = new List<List<WayPointController>>();
-
-        // 이미 포함하고 있는 WayPoint 판별을 위함
-        List<WayPointController> rootSimpleList = DevTool.Remove_DuplicateInList(DevTool.Get_List(_Roots));
-
-        for (int i = 0; i < _Roots.Count; i++)
-        {
-            // 마지막 끝부분 WP
-            WayPointController lastWP = _Roots[i][_Roots[i].Count - 1];
-            for (int j = 0; j < lastWP.AdjacentWPList.Count; j++)
-            {
-                // 마지막 끝부분 WP에 인접한 WP가 현재 루트에 있지않다면 추가
-                if (!rootSimpleList.Contains(lastWP.AdjacentWPList[j]))
-                {
-                    List<WayPointController> addRoot = new List<WayPointController>();
-                    addRoot.AddRange(_Roots[i]);
-                    addRoot.Add(lastWP.AdjacentWPList[j]);
-
-                    extensionedRoots.Add(addRoot);
-                }
-            }
-        }
-
-        return extensionedRoots;
-    }
-
-    // 가장 짧은 루트 구하기
-    private List<WayPointController> Get_ClosetRoot(List<List<WayPointController>> _ResultRoots)
-    {
-        List<WayPointController> closetRoot = _ResultRoots[0];
-        float closetDis = Get_RootDistance(_ResultRoots[0]);
-
-        for (int i = 0; i < _ResultRoots.Count; i++)
-        {
-            float tempDis = Get_RootDistance(_ResultRoots[i]);
-            if (closetDis > tempDis)
-            {
-                closetRoot = _ResultRoots[i];
-                closetDis = tempDis;
-            }
-        }
-
-        return closetRoot;
-    }
-
-    // 루트 중 직접 갈 수 있는 부분 중복 된다면 삭제
-    private List<WayPointController> Get_RemoveUnnecessaryRoot(List<WayPointController> _Root)
-    {
-        List<WayPointController> resultRoot = new List<WayPointController>();
-        bool NeedInit = false;
-        for (int i = 0; i < _Root.Count; i++)
-        {
-            if (Is_ExistWall(_Root[i].ThisTF)&& 
-                !NeedInit)
-            {
-                if (i != 0)
-                { resultRoot.Add(_Root[i - 1]); }
-                NeedInit = true;
-            }
-
-            if (NeedInit)
-            {
-                resultRoot.Add(_Root[i]);
-            }
-        }
-        return resultRoot;
-    }
-
-    // 한 루트의 길이 구하기
-    private float Get_RootDistance(List<WayPointController> _Roots)
-    {
-        float resultDis = 0;
-        for (int i = 0; i < _Roots.Count - 1; i++)
-        {
-            resultDis += Vector2.Distance(_Roots[i].ThisTF.position, _Roots[i + 1].ThisTF.position);
-        }
-        return resultDis;
-    }
-
-    // 두 객체 루트를 연결한 루트
-    private List<WayPointController> Get_Combine(List<WayPointController> _WayFromEnemy, List<WayPointController> _WayFromPlayer)
-    {
-        List<WayPointController> combinedRoot = new List<WayPointController>();
-
-        // 한쪽 끝 지우기
-        List<WayPointController> deletedLastOneWayFromEnemy = new List<WayPointController>();
-        deletedLastOneWayFromEnemy = _WayFromEnemy.ToList();
-        deletedLastOneWayFromEnemy.Remove(deletedLastOneWayFromEnemy[deletedLastOneWayFromEnemy.Count - 1]);
-
-        // 뒤집기 (한쪽)
-        List<WayPointController> reverseWayFromPlayer = Enumerable.Reverse(_WayFromPlayer).ToList();
-
-        // 리스트 합친 결과
-        combinedRoot.AddRange(deletedLastOneWayFromEnemy);
-        combinedRoot.AddRange(reverseWayFromPlayer);
-
-        return combinedRoot;
-    }
-
-    // 끝 부분 WayPoint 구하기
-    private List<WayPointController> Get_EndPoints(List<List<WayPointController>> _Roots)
-    {
-        List<WayPointController> endPoints = new List<WayPointController>();
-        for (int i = 0; i < _Roots.Count; i++)
-        {
-            endPoints.Add(_Roots[i][_Roots[i].Count - 1]);
-        }
-
-        return endPoints;
-    }
-
-    // 가장 가까운 WayPoint
-    private WayPointController Get_ClosetWP(Transform transform, List<WayPointController> _AllWP)
-    {
-        return DevTool.Get_CastingTType<WayPointController>(DevTool.Get_ClosetGO(DevTool.Get_ConvertTTypeList<WayPointController, GameObject>(_AllWP), transform.gameObject));
+        return PlayerManager.Instance.PlayerController.ThisWayPoint;
     }
 
     // 이 객체로부터 특정 지점까지 벽이 있는지
@@ -826,6 +640,27 @@ public class EnemyController : AliveObjectController, IInteract
     {
         return DevTool.Is_Exist_UseCircle(this.transform, _TargetTF, "Wall", NavRadius);
     }
+
+    #endregion
+
+    #region Draw (Editor)
+
+#if UNITY_EDITOR
+    // Draw하기
+    public void Draw_Way(List<WayPointController> _Way)
+    {
+        if (_Way == null || _Way.Count < 2)
+        {
+            Debug.Log("길을 그릴 WayPoint가 충분하지 않습니다.");
+            return;
+        }
+
+        for (int i = 0; i < _Way.Count - 1; i++)
+        {
+            Debug.DrawLine(_Way[i].transform.position, _Way[i + 1].transform.position, Color.red, 0.2f);
+        }
+    }
+#endif
 
     #endregion
 
