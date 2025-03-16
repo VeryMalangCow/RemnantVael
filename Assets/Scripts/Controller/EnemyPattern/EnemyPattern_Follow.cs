@@ -23,7 +23,7 @@ public class EnemyPattern_Follow : EnemyPattern
     [SerializeField] private float CurrentTime = 0f;
 
     // Other
-    private static float FindRootDelay = 0.1f;
+    private static float FindRootDelay = 0.2f;
 
     #endregion
 
@@ -115,7 +115,7 @@ public class EnemyPattern_Follow : EnemyPattern
         {
             if (Can_PlayPattern())
             {
-                ThisEnemy.MoveAtPoint = ThisEnemy.Get_RootWay()[0].ThisTF.position;
+                ThisEnemy.MoveAtPoint = ThisEnemy.Get_NavWay().ThisTF.position;
                 yield return new WaitForSeconds(FindRootDelay);
             }
             else

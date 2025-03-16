@@ -37,6 +37,7 @@ Transform:
   - {fileID: 3031387825937507753}
   - {fileID: 360977065808654353}
   - {fileID: 833490795501186431}
+  - {fileID: 4924268545272004385}
   - {fileID: 8805351947020054373}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -57,12 +58,7 @@ MonoBehaviour:
   ThisSR: {fileID: 8053559112837824807}
   TargetRange: 0.6
   ThisRb: {fileID: 7671391899007426867}
-  ThisExtraSrs: []
   AccelerationSpeed: 12
-  KnockbackStateList: []
-  BaseYLimit: 0.06
-  BaseTweenReTime: 0.3
-  ThisComponentGOList: []
   IsDead: 0
   CurrentSP:
     value: 0
@@ -77,6 +73,7 @@ MonoBehaviour:
   HUD: {fileID: 7241037580816432991}
   LookingSatellite: {fileID: 8800238567124451591}
   WalkingSatellite: {fileID: 9179056310911047704}
+  WPController: {fileID: 4944951726971341445}
   NavRadius: 0.2
   OrderOfPriorityEnemyPatternList:
   - EnemyPatternList:
@@ -97,16 +94,15 @@ MonoBehaviour:
       - {fileID: 8721225703925756054}
   CurrentContinuousEnemyPattern:
     EnemyPatternList: []
-  IsPlayingPattern: 0
-  CurrentEnemyPattern: {fileID: 0}
-  MoveDir: {x: 0, y: 0}
+  RecoverDischargeTime: 4
   MoveSpeed: 0
-  MoveTargetPoint: {x: 0, y: 0}
-  LookTargetPoint: {x: 0, y: 0}
+  MoveAtPoint: {x: 0, y: 0}
+  MoveAtDir: {x: 0, y: 0}
+  LookAtPoint: {x: 0, y: 0}
+  LookAtDir: {x: 0, y: 0}
   IsDischarge: 0
   BuffController: {fileID: 7842396115140642684}
-  CurrentIndex:
-    value: 0
+  IsPlayingPattern: 0
 --- !u!114 &7842396115140642684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,6 +224,52 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!1 &1922845268629982715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4924268545272004385}
+  - component: {fileID: 4944951726971341445}
+  m_Layer: 7
+  m_Name: WayPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4924268545272004385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922845268629982715}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5956502316695661957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4944951726971341445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922845268629982715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisTF: {fileID: 0}
+  AdjacentWPList: []
 --- !u!1 &2027737833063953392
 GameObject:
   m_ObjectHideFlags: 0

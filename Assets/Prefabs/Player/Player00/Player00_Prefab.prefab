@@ -1494,6 +1494,7 @@ MonoBehaviour:
     value: 0
   ShieldElements: []
   CurrentBuffs: []
+  CurrentInteractableGOList: []
   CurrentBS:
     value: 0
   CurrentBC:
@@ -1502,8 +1503,6 @@ MonoBehaviour:
     value: 0
   CurrentMS:
     value: 0
-  ExecutionInterval: 0.75
-  SkillInterval: 0.5
 --- !u!114 &8889954111637353817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3121,7 +3120,7 @@ PrefabInstance:
       objectReference: {fileID: -883771514, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
     - target: {fileID: 6849851486362390765, guid: 6933c66d65fdf4b4d826d70c39e63c52, type: 3}
       propertyPath: m_SortingOrder
-      value: 3000
+      value: 3001
       objectReference: {fileID: 0}
     - target: {fileID: 6849851486362390765, guid: 6933c66d65fdf4b4d826d70c39e63c52, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -3230,7 +3229,7 @@ PrefabInstance:
       objectReference: {fileID: -883771514, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
     - target: {fileID: 6849851486362390765, guid: 6933c66d65fdf4b4d826d70c39e63c52, type: 3}
       propertyPath: m_SortingOrder
-      value: 3000
+      value: 3001
       objectReference: {fileID: 0}
     - target: {fileID: 6849851486362390765, guid: 6933c66d65fdf4b4d826d70c39e63c52, type: 3}
       propertyPath: m_WasSpriteAssigned

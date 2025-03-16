@@ -575,7 +575,8 @@ public class PlayerController : AliveObjectController
 
     public void Try_Interact()
     {
-        if (CurrentInteractableGOList.Count <= 0)
+        if (CurrentInteractableGOList.Count <= 0 ||
+            CurrentInteractable.Value == null)
         { return; }
 
         CurrentInteractable.Value.Play_Interact();
@@ -712,8 +713,10 @@ public class PlayerController : AliveObjectController
         BoostStateAnimController.TypeSpecial[1].gameObject.SetActive(false);
 
         float animSpeed = _Index * 0.5f;
-        Set_EachBoostAnim_StateExtraVFX(0, animSpeed);
-
+        if (_Index > 0)
+        { 
+            Set_EachBoostAnim_StateExtraVFX(0, animSpeed); 
+        }
         if (_Index > 2)
         {
             Set_EachBoostAnim_StateExtraVFX(1, animSpeed);
