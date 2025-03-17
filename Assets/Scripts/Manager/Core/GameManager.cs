@@ -1,10 +1,10 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UniRx;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -49,30 +49,13 @@ public class GameManager : PersistentSingleton<GameManager>
 public class DevTool
 {
     #region About Math
-    
+
+    #region Get
+
     // 퍼센트값을 도출
     public static float Get_Percent(float _Percent, float _Value)
     {
         return (_Percent / 100f) * _Value;
-    }
-
-    // 확률이 성공했는지를 반환
-    public static bool Is_ChanceSuccess(float _Chance)
-    {
-        if (Random.Range(0f, 1f) < _Chance)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    // 실제 주소값 float에 추가
-    public static void Add_RefValue(ref float _Variable, float _AddValue)
-    {
-        _Variable += _AddValue;
     }
 
     // X 피벗을 개수와 간격 수치로 계산 (float 반환 값을 모든 값에 빼주면 됨)
@@ -85,19 +68,49 @@ public class DevTool
     public static float Get_RandomValueBaseZero(float _RandomExtent)
     {
         if (_RandomExtent == 0)
-        { 
+        {
             return 0;
         }
         else
         {
-            return Random.Range(-_RandomExtent * 0.5f, _RandomExtent * 0.5f);
+            return UnityEngine.Random.Range(-_RandomExtent * 0.5f, _RandomExtent * 0.5f);
         }
     }
 
+    #endregion
+
+    #region Is
+
+    // 확률이 성공했는지를 반환
+    public static bool Is_ChanceSuccess(float _Chance)
+    {
+        if (UnityEngine.Random.Range(0f, 1f) < _Chance)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    #endregion
+
+    #region Add
+
+    // 실제 주소값 float에 추가
+    public static void Add_RefValue(ref float _Variable, float _AddValue)
+    {
+        _Variable += _AddValue;
+    }
+
+    #endregion
 
     #endregion
 
     #region About Casting
+
+    #region Is
 
     // 'T 타입'이 Null이거나 Defualt가 아닌지?
     public static bool Is_Usable<T>(T _Value)
@@ -124,6 +137,9 @@ public class DevTool
         return Is_Equal(_InValue1, _InValue2) && Is_Usable(_Value);
     }
 
+    #endregion
+
+    #region Get
 
     // 객체를 원하는 'T 타입'으로 캐스팅
     public static T Get_CastingTType<T>(object _Obj)
@@ -147,20 +163,13 @@ public class DevTool
         return false;
     }
 
-    // 객체를 원하는 'T 타입'으로 Out 빼기
-    public static bool Can_CastingTType<T>(object _Obj)
-    {
-        if (_Obj != null && _Obj is T)
-        {
-            return true;
-        }
-        return false;
-    }
-
+    #endregion
 
     #endregion
 
     #region About Component
+
+    #region Set
 
     // 객체에 'T 타입'이 있다면 변수에 할당
     public static void Set_ComponentTType<T>(ref T _Variable, GameObject _TargetGO) where T : Component
@@ -169,58 +178,6 @@ public class DevTool
         {
             _Variable = tTypeComponent;
         }
-    }
-    public static T Get_ComponentTType<T>(GameObject _TargetGO)
-    {
-        if (_TargetGO != null && _TargetGO.TryGetComponent(out T tTypeComponent))
-        {
-            return tTypeComponent;
-        }
-        return default;
-    }
-
-    public static bool Get_ComponentTType<T>(GameObject _TargetGO, out T _TType)
-    {
-        if (_TargetGO != null && _TargetGO.TryGetComponent(out T tTypeComponent))
-        {
-            _TType = tTypeComponent;
-            return true;
-        }
-        _TType = default;
-        return false;
-    }
-
-    // 게임 오브젝트 만들고, 컴포넌트 추가하기
-    public static T Gen_Component<T>(Transform _ParentTF, string _Name) where T : Component
-    {
-        GameObject go = new GameObject(_Name);
-        go.transform.SetParent(_ParentTF);
-        T component = go.AddComponent<T>();
-        return component;
-    }
-
-    // 게임 오브젝트에 컴포넌트 추가하기
-    public static T Gen_Component<T>(GameObject _TargetGO) where T : Component
-    {
-        T component = _TargetGO.AddComponent<T>();
-        return component;
-    }
-
-    // 게임 오브젝트에 컴포넌트 삭제하기
-    public static void Remove_Component<T>(T _TargetComp) where T : Component
-    {
-        if (_TargetComp != null)
-        {
-            Object.Destroy(_TargetComp);
-        }
-    }
-
-    // Gen SpriteRenderer
-    public static SpriteRenderer Gen_Component_SR(Transform _ParentTF, string _Name, Sprite _Sprite, Material _Material, int _SortingOrder)
-    {
-        SpriteRenderer sr = Gen_Component<SpriteRenderer>(_ParentTF, _Name);
-        Set_ComponentValue(sr, _Sprite, _Material, _SortingOrder);
-        return sr;
     }
 
     // SpriteRenderer Value
@@ -246,10 +203,79 @@ public class DevTool
         _SR.color = _SpriteExtra.Clr;
     }
 
+    #endregion
+
+    #region Get
+
+    public static T Get_ComponentTType<T>(GameObject _TargetGO)
+    {
+        if (_TargetGO != null && _TargetGO.TryGetComponent(out T tTypeComponent))
+        {
+            return tTypeComponent;
+        }
+        return default;
+    }
+
+    public static bool Get_ComponentTType<T>(GameObject _TargetGO, out T _TType)
+    {
+        if (_TargetGO != null && _TargetGO.TryGetComponent(out T tTypeComponent))
+        {
+            _TType = tTypeComponent;
+            return true;
+        }
+        _TType = default;
+        return false;
+    }
+
+    #endregion
+
+    #region Gen 
+
+    // 게임 오브젝트 만들고, 컴포넌트 추가하기
+    public static T Gen_Component<T>(Transform _ParentTF, string _Name) where T : Component
+    {
+        GameObject go = new GameObject(_Name);
+        go.transform.SetParent(_ParentTF);
+        T component = go.AddComponent<T>();
+        return component;
+    }
+
+    // 게임 오브젝트에 컴포넌트 추가하기
+    public static T Gen_Component<T>(GameObject _TargetGO) where T : Component
+    {
+        T component = _TargetGO.AddComponent<T>();
+        return component;
+    }
+
+    // Gen SpriteRenderer
+    public static SpriteRenderer Gen_Component_SR(Transform _ParentTF, string _Name, Sprite _Sprite, Material _Material, int _SortingOrder)
+    {
+        SpriteRenderer sr = Gen_Component<SpriteRenderer>(_ParentTF, _Name);
+        Set_ComponentValue(sr, _Sprite, _Material, _SortingOrder);
+        return sr;
+    }
+
+    #endregion
+
+    #region Remove
+
+    // 게임 오브젝트에 컴포넌트 삭제하기
+    public static void Remove_Component<T>(T _TargetComp) where T : Component
+    {
+        if (_TargetComp != null)
+        {
+            UnityEngine.Object.Destroy(_TargetComp);
+        }
+    }
+
+    #endregion
+
 
     #endregion
 
     #region About List
+
+    #region Add
 
     // 'T 타입' 리스트에 '새로' 추가
     public static bool Add_InList<T>(List<T> _TargetList, T _TargetValue)
@@ -262,6 +288,10 @@ public class DevTool
         return false;
     }
 
+    #endregion
+
+    #region Remove
+
     // 'T 타입' 삭제 시도
     public static bool Remove_InList<T>(List<T> _TargetList, T _TargetValue)
     {
@@ -272,6 +302,18 @@ public class DevTool
         }
         return false;
     }
+
+
+    // 'T 타입' 중복 제거
+    public static List<T> Remove_DuplicateInList<T>(List<T> _TargetList)
+    {
+        return _TargetList.Distinct().ToList();
+    }
+
+    #endregion
+
+    #region Get 
+
     public static List<T> Get_RemovedList<T>(List<T> _TargetList, int _Index)
     {
         List<T> result = new List<T>(_TargetList);
@@ -308,8 +350,8 @@ public class DevTool
 
         for (int i = 0; i < result.Count; ++i)
         {
-            random1 = Random.Range(0, result.Count);
-            random2 = Random.Range(0, result.Count);
+            random1 = UnityEngine.Random.Range(0, result.Count);
+            random2 = UnityEngine.Random.Range(0, result.Count);
 
             Set_Swap(result, random1, random2);
         }
@@ -317,13 +359,6 @@ public class DevTool
         return result;
     }
 
-    // 'T 타입' 리스트의 두 값을 교체
-    public static void Set_Swap<T>(List<T> _TargetList, int _Index1, int _Index2)
-    {
-        T temp = _TargetList[_Index1];
-        _TargetList[_Index1] = _TargetList[_Index2];
-        _TargetList[_Index2] = temp;
-    }
 
     // 'T 타입' 맞는 인덱스 찾기
     public static int Get_IndexInList<T>(List<T> _TargetList, T _Target) where T : class
@@ -338,40 +373,12 @@ public class DevTool
         return -1;
     }
 
-    // 'T 타입' 리스트를 돌면서 실행
-    public static void Set_ListDele<T>(List<T> _TargetList, Dele_T<T> _Dele)
-    {
-        for (int i = 0; i < _TargetList.Count; i++)
-        {
-            _Dele(_TargetList[i]);
-        }
-    }
-
-    // 'T, U 타입' 리스트를 돌면서 실행
-    public static void Set_ListDele<T, U>(List<T> _TargetList, Dele_RefT_U<U, T> _Dele, ref U _Variable, 
-        int _StartIndex = 0)
-    {
-        for (int i = _StartIndex; i < _TargetList.Count; i++)
-        {
-            _Dele(ref _Variable, _TargetList[i]);
-        }
-    }
-    public static void Set_ListDele<T, U>(List<T> _TargetList, Dele_T_U<T, U> _Dele, U _Value)
-    {
-        for (int i = 0; i < _TargetList.Count; i++)
-        {
-            _Dele(_TargetList[i], _Value);
-        }
-    }
-
-
-
     // 'T 타입' 리스트에서 랜덤으로 뽑기
     public static T Get_Random<T>(List<T> _TargetList)
     {
         if (_TargetList != null || _TargetList.Count > 0)
         {
-            return _TargetList[Random.Range(0, _TargetList.Count)];
+            return _TargetList[UnityEngine.Random.Range(0, _TargetList.Count)];
         }
         return default;
     }
@@ -397,14 +404,9 @@ public class DevTool
         return result;
     }
 
-    // 'T 타입' 중복 제거
-    public static List<T> Remove_DuplicateInList<T>(List<T> _TargetList)
-    {
-        return _TargetList.Distinct().ToList();
-    }
 
     // 게임 오브젝트 리스트에서 List T 타입 변형
-    public static List<T> Get_ComponentList<T>(List<GameObject> _TargetList) where T : Component
+    public static List<T> Get_ComponentTTypeList<T>(List<GameObject> _TargetList) where T : Component
     {
         List<T> resultList = new List<T>();
         for (int i = 0; i < _TargetList.Count; i++)
@@ -418,22 +420,75 @@ public class DevTool
     }
 
     // 'T 타입' List 두개를 합
-    public static List<T> Combine_List<T>(List<T> _FirstList, List<T> _SecondList)
+    public static List<T> Get_CombineList<T>(List<T> _FirstList, List<T> _SecondList)
     {
         List<T> resultList = new List<T>(_FirstList);
         resultList.AddRange(_SecondList);
         return resultList;
     }
 
+    // 'T 타입' 리스트를 GO 리스트로 변경
+    public static List<GameObject> Get_GOList<T>(List<T> _TargetList) where T : MonoBehaviour
+    {
+        List<GameObject> result = new List<GameObject>();
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            result.Add(_TargetList[i].gameObject);
+        }
+        return result;
+    }
 
     #endregion
 
-    #region About Vector2
+    #region Set
+
+    // 'T 타입' 리스트의 두 값을 교체
+    public static void Set_Swap<T>(List<T> _TargetList, int _Index1, int _Index2)
+    {
+        T temp = _TargetList[_Index1];
+        _TargetList[_Index1] = _TargetList[_Index2];
+        _TargetList[_Index2] = temp;
+    }
+
+    // 'T 타입' 리스트를 돌면서 실행
+    public static void Set_ListDele<T>(List<T> _TargetList, Dele_T<T> _Dele)
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            _Dele(_TargetList[i]);
+        }
+    }
+
+    // 'T, U 타입' 리스트를 돌면서 실행
+    public static void Set_ListDele<T, U>(List<T> _TargetList, Dele_RefT_U<U, T> _Dele, ref U _Variable,
+        int _StartIndex = 0)
+    {
+        for (int i = _StartIndex; i < _TargetList.Count; i++)
+        {
+            _Dele(ref _Variable, _TargetList[i]);
+        }
+    }
+    public static void Set_ListDele<T, U>(List<T> _TargetList, Dele_T_U<T, U> _Dele, U _Value)
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            _Dele(_TargetList[i], _Value);
+        }
+    }
+
+    #endregion
+
+
+    #endregion
+
+    #region About Vector
+
+    #region Get
 
     public static Vector2 Get_RandomDir()
     {
-        float _X = Random.Range(-1.0f, 1.0f);
-        float _Y = Random.Range(-1.0f, 1.0f);
+        float _X = UnityEngine.Random.Range(-1.0f, 1.0f);
+        float _Y = UnityEngine.Random.Range(-1.0f, 1.0f);
         return new Vector2(_X, _Y).normalized;
     }
 
@@ -452,12 +507,6 @@ public class DevTool
         return (_ToPos - _FromPos).normalized;
     }
 
-
-    // 실제 주소값 Vector에 추가
-    public static void Add_RefValue(ref Vector2 _Variable, Vector2 _AddValue)
-    {
-        _Variable += _AddValue;
-    }
 
     // 방향에 의한 Img, Anim 변환 // SolarSystem에서 사용
     // 위 사항에 사용될 Index 값
@@ -490,40 +539,71 @@ public class DevTool
         return (targetPos - _SpawnPos).normalized;
     }
 
+
     // 최소 거리의 객체 가져오기
     public static GameObject Get_ClosetGO(List<GameObject> _TargetList, GameObject _CenterGO)
     {
-        if (_TargetList.Count == 0)
-        {
-            Debug.Log("NULL");
-            return null;
-        }
-        else if (_TargetList.Count <= 1)
-        {
-            Debug.Log("하나만 있음");
-            return _TargetList[0];
-        }
+        return _TargetList.Count == 0 ?
+            null :
+            _TargetList.OrderBy(go => Vector3.Distance(_CenterGO.transform.position, go.transform.position)).First();
+    }
 
-        // 초기 설정
-        GameObject resultGO = _TargetList[0];
-        float shortestDis = Vector3.Distance(_CenterGO.transform.position, _TargetList[0].transform.position);
+    // 최대 거리의 객체 가져오기
+    public static GameObject Get_FurthestGO(List<GameObject> _TargetList, GameObject _CenterGO)
+    {
+        return _TargetList.Count == 0 ? 
+            null : 
+            _TargetList.OrderBy(go => Vector3.Distance(_CenterGO.transform.position, go.transform.position)).Last();
+    }
 
-        for (int i = 1; i < _TargetList.Count; i++)
+    // 범위 내 객체들 가져오기 (가까운 순서대로)
+    public static List<GameObject> Get_CloserGOList(List<GameObject> _TargetList, GameObject _CenterGO, float _MaxDis)
+    {
+        return Get_RangeGOList(_TargetList, _CenterGO, 0, _MaxDis, _OrderByShortDis: true);
+    }
+
+    // 범위 밖 객체들 가져오기 (먼 순서대로)
+    public static List<GameObject> Get_FurtherGOList(List<GameObject> _TargetList, GameObject _CenterGO, float _MinDis)
+    {
+        return Get_RangeGOList(_TargetList, _CenterGO, _MinDis, 0, _OrderByShortDis: false);
+    }
+
+    // 범위 조건 객체들 가져오기
+    public static List<GameObject> Get_RangeGOList(List<GameObject> _TargetList, GameObject _CenterGO, float _MinDis, float _MaxDis, bool _OrderByShortDis)
+    {
+        List<GameObject> result = new List<GameObject>();
+        for (int i = 0; i < _TargetList.Count; i++)
         {
-            float currentDistance = Vector3.Distance(_CenterGO.transform.position, _TargetList[i].transform.position);
-            if (currentDistance < shortestDis)
+            if (_MinDis <= Vector2.Distance(_TargetList[i].transform.position, _CenterGO.transform.position) &&
+                _MaxDis >= Vector2.Distance(_TargetList[i].transform.position, _CenterGO.transform.position))
             {
-                resultGO = _TargetList[i].gameObject;
-                shortestDis = currentDistance;
+                result.Add(_TargetList[i]);
             }
         }
 
-        return resultGO;
+        return _OrderByShortDis ?
+            result.OrderBy(obj => Vector2.Distance(obj.transform.position, _CenterGO.transform.position)).ToList() :
+            result.OrderByDescending(obj => Vector2.Distance(obj.transform.position, _CenterGO.transform.position)).ToList();
     }
 
     #endregion
 
+    #region Add
+
+    // 실제 주소값 Vector에 추가
+    public static void Add_RefValue(ref Vector2 _Variable, Vector2 _AddValue)
+    {
+        _Variable += _AddValue;
+    }
+
+    #endregion
+
+
+    #endregion
+
     #region About Quaternion
+
+    #region Get
 
     // 좌표값 (Vector2:Dir)
     // => 회전값 (Quaternion:Rot)
@@ -551,6 +631,23 @@ public class DevTool
     {
         return Mathf.Atan2(_Dir.y, _Dir.x) * Mathf.Rad2Deg - 90f;
     }
+
+
+    // 반대 방향의 회전값 구하기
+    public static Quaternion Get_FlipRotation(Quaternion _Rotation)
+    {
+        Vector3 currentRotation = _Rotation.eulerAngles;
+        currentRotation.z += 180;
+
+        Quaternion q = Quaternion.identity;
+        q.eulerAngles = currentRotation;
+
+        return q;
+    }
+
+    #endregion
+
+    #region Add
 
     // 회전값에 값을 더하기
     // TF값, 월드기준
@@ -583,24 +680,14 @@ public class DevTool
         return q;
     }
 
+    #endregion
 
-    // 반대 방향의 회전값 구하기
-    public static Quaternion Get_FlipRotation(Quaternion _Rotation)
-    {
-        Vector3 currentRotation = _Rotation.eulerAngles;
-        currentRotation.z += 180;
-
-        Quaternion q = Quaternion.identity;
-        q.eulerAngles = currentRotation;
-
-        return q;
-    }
-
-    
 
     #endregion
 
     #region About Anim
+
+    #region Set
 
     // 애니메이션을 코드상으로 변경하는 시스템
     public static void Set_Anim(ref AnimatorOverrideController _AOC, Animator _AT, AnimationClip _AC)
@@ -632,6 +719,18 @@ public class DevTool
         _AT.transform.localScale = Vector2.one * _AnimSize;
     }
 
+    // 방향성 Anim 컨트롤러의 애니메이터들의 속도 조절
+    public static void Set_AnimSpeed(List<DirectionalAnimController> _TargetList, float _Speed)
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            DevTool.Set_AnimSpeedAndSize(_TargetList[i].ThisComp, _Speed, _AnimSize: 1);
+        }
+    }
+
+    #endregion
+
+    #region Is
     // 애니메이션이 끝났는지 판별
     public static bool Is_AnimIsDone(Animator _AT)
     {
@@ -647,20 +746,13 @@ public class DevTool
         }
     }
 
-    // 방향성 Anim 컨트롤러의 애니메이터들의 속도 조절
-    public static void Set_AnimSpeed(List<DirectionalAnimController> _TargetList, float _Speed)
-    {
-        for (int i = 0; i < _TargetList.Count; i++)
-        {
-            DevTool.Set_AnimSpeedAndSize(_TargetList[i].ThisComp, _Speed, _AnimSize: 1);
-        }
-    }
-
+    #endregion
 
     #endregion
 
     #region About Tween
 
+    #region Play
     public static void Play_Tween(Tween _Tween, Dele _Start, Dele _Update, Dele _Complete)
     {
         _Tween
@@ -668,6 +760,10 @@ public class DevTool
             .OnUpdate(() => { _Update(); })
             .OnComplete(() => { _Complete(); });
     }
+
+    #endregion
+
+    #region Set
 
     public static void Set_CompleteTween<T>(T _Comp)
     {
@@ -683,10 +779,14 @@ public class DevTool
 
     #endregion
 
+    #endregion
+
     #region About Player
 
     public readonly static int SkillAmount = 2;
 
+    // 데미지와 크리티컬로 인덱스 구하기
+    // 0: PB / 1: PC / 2: EB / 3: EC
     public static int Get_IndexOfDmgTypeAndCritical(eDamageType _DmgType, bool _IsCritical)
     {
         if (_DmgType == eDamageType.Physics)
@@ -705,6 +805,7 @@ public class DevTool
         }
     }
 
+    // 1:P / 2:E
     public static eDamageType Get_DmgTypeFromIndex(int _Index)
     {
         if (_Index == 0 || _Index == 1)
@@ -717,6 +818,7 @@ public class DevTool
         }
     }
 
+    // 0,2: B / 1,3: C
     public static bool Get_CriticalFromIndex(int _Index)
     {
         if (_Index == 0 || _Index == 2)
@@ -733,16 +835,67 @@ public class DevTool
 
     #region About Buff
 
+    // 냉기 데미지 갑소 계산 (효과)
     public static float Get_DmgEffectByCold(float _BaseDmg, EnemyBuffController _EnemyBuff)
     {
         return _BaseDmg * (1f - 
             (_EnemyBuff.ColdStack.CurrentStack * (_EnemyBuff.AbsoluteZeroStack.CurrentStack + 1) * 0.01f));
     }
 
+    // 부식 데미지 증가 계산 (효과)
     public static float Get_DmgEffectByCorrosion(float _BaseDmg, EnemyBuffController _EnemyBuff)
     {
         return _BaseDmg *= (1f + 
             (_EnemyBuff.CorrosionStack.CurrentStack * (_EnemyBuff.DecayStack.CurrentStack + 1) * 0.01f));
+    }
+
+
+    // 화염
+    public static float Get_FrameDmg(EnemyBuffController _Buff)
+    {
+        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+            * 0.01f
+            * _Buff.FlameStack.CurrentStack
+            * (_Buff.InfernoStack.CurrentStack + 1);
+    }
+    public static float Get_FlameExplDmg(out eDamageType _DmgType)
+    {
+        _DmgType = eDamageType.Physics;
+        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+            * 10f;
+    }
+
+
+    // 냉기
+    public static float Get_ColdExplDmg(out eDamageType _DmgType)
+    {
+        _DmgType = eDamageType.Energy;
+        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+            * 7.5f;
+    }
+
+
+    // 전기
+    public static float Get_ElectricityDmg(EnemyBuffController _Buff)
+    {
+        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+            * 0.005f
+            * _Buff.ElectricityStack.CurrentStack
+            * (_Buff.PlasmaStack.CurrentStack + 1);
+    }
+    public static float Get_ElectricityExplDmg(out eDamageType _DmgType)
+    {
+        _DmgType = eDamageType.Energy;
+        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+            * 7.5f;
+    }
+
+    // 부식
+    public static float Get_CorrosionExplDmg(out eDamageType _DmgType)
+    {
+        _DmgType = eDamageType.Physics;
+        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+            * 5f;
     }
 
     #endregion
@@ -769,6 +922,8 @@ public class DevTool
 
     #region About Nav
 
+    #region Is
+
     // 중간에 벽이 있는지
     public static bool Is_Exist_UseLine(Transform _StartTF, Transform _EndTF, string _LayerName)
     {
@@ -779,6 +934,45 @@ public class DevTool
         return Physics2D.CircleCast(_StartTF.position, _Radius, (_EndTF.position - _StartTF.position).normalized,
             Vector2.Distance(_StartTF.position, _EndTF.position), LayerMask.GetMask(_LayerName)).collider != null;
     }
+
+    // 두 길이 서로 만나는 지점이 있다면 True
+    public static bool Is_ConnectWayPoint(List<WayPointController> _FirstWay, List<WayPointController> _SecondWay)
+    {
+        if (_FirstWay[_FirstWay.Count - 1] == _SecondWay[_SecondWay.Count - 1])
+        {
+            return true;
+        }
+        return false;
+    }
+    // 두 길이 서로 만다는 지점이 있다면 True (이중 리스트계산)
+    public static bool Is_ConnectWayPoint(List<List<WayPointController>> _FirstWays, List<List<WayPointController>> _SecondWays,
+        out List<List<WayPointController>> _ConnectedWays)
+    {
+        _ConnectedWays = new List<List<WayPointController>>();
+        bool result = false;
+        for (int i = 0; i < _FirstWays.Count; i++)
+        {
+            for (int j = 0; j < _SecondWays.Count; j++)
+            {
+                if (DevTool.Is_ConnectWayPoint(_FirstWays[i], _SecondWays[j]))
+                {
+                    List<WayPointController> firstWays =
+                        new List<WayPointController>(Get_RemoveLastOneList(_FirstWays[i]));
+                    List<WayPointController> secondWays =
+                        new List<WayPointController>(_SecondWays[j].AsEnumerable().Reverse().ToList());
+
+                    _ConnectedWays.Add(Get_CombineList(firstWays, secondWays));
+
+                    result = true;
+                }
+            }
+        }
+        return result;
+    }
+
+    #endregion
+
+    #region Get
 
     // 한 리스트의 길이 구하기
     public static float Get_WayDistance(List<WayPointController> _Way)
@@ -878,43 +1072,9 @@ public class DevTool
             }
         }
         return result;
-    } 
-
-    // 두 길이 서로 만나는 지점이 있다면 True
-    public static bool Is_ConnectWayPoint(List<WayPointController> _FirstWay, List<WayPointController> _SecondWay)
-    {
-        if (_FirstWay[_FirstWay.Count - 1] == _SecondWay[_SecondWay.Count - 1])
-        {
-            return true;
-        }
-        return false;
-    }
-    // 두 길이 서로 만다는 지점이 있다면 True (이중 리스트계산)
-    public static bool Is_ConnectWayPoint(List<List<WayPointController>> _FirstWays, List<List<WayPointController>> _SecondWays,
-        out List<List<WayPointController>> _ConnectedWays)
-    {
-        _ConnectedWays = new List<List<WayPointController>>();
-        bool result = false;
-        for (int i = 0; i < _FirstWays.Count; i++)
-        {
-            for (int j = 0; j < _SecondWays.Count; j++)
-            {
-                if (DevTool.Is_ConnectWayPoint(_FirstWays[i], _SecondWays[j]))
-                {
-                    List<WayPointController> firstWays = 
-                        new List<WayPointController>(Get_RemoveLastOneList(_FirstWays[i]));
-                    List<WayPointController> secondWays = 
-                        new List<WayPointController>(_SecondWays[j].AsEnumerable().Reverse().ToList());
-
-                    _ConnectedWays.Add(Combine_List(firstWays, secondWays));
-
-                    result = true;
-                }
-            }
-        }
-        return result;
     }
 
+    #endregion
     // 최적의 길을 찾기
     public static List<WayPointController> Get_Way(WayPointController _Start, WayPointController _Target, string _CanGoLayer, float _NavRadius)
     {
@@ -1807,6 +1967,525 @@ public class OrderOfPriorityEnemyPattern
 
 #endregion
 
+
+#region Class : State : Enemy : Buff : Status Effect 
+
+[Serializable]
+public class StatusEffect
+{
+    #region Value
+
+    public delegate void EffectDele();
+
+    [HideInInspector] public EnemyController Enemy;
+    [HideInInspector] public BuffIconEUIController BuffIconUI = null;
+    [HideInInspector] public Sprite IconSprite;
+
+    public bool IsOn;
+
+    #endregion
+
+    #region Contruct
+
+    // 생성자
+    public StatusEffect(EnemyController _Enemy, Sprite _IconSprite)
+    {
+        IsOn = false;
+
+        Enemy = _Enemy;
+        IconSprite = _IconSprite;
+    }
+
+    #endregion
+
+    #region Clear
+
+    public virtual void Set_Clear()
+    {
+        IsOn = false;
+    }
+
+    #endregion
+}
+
+#endregion
+
+#region Class : State : Enemy : Buff : Temporary Effect
+
+[Serializable]
+public class StatusEffect_Temporary : StatusEffect
+{
+    #region Value
+
+    public float MaxCooltime;
+    public float CurrentCooltime;
+
+    protected EffectDele GainDele = null;
+    protected EffectDele ReduceDele = null;
+
+    #endregion
+
+    #region Contruct
+    // 생성자
+    public StatusEffect_Temporary(
+        EnemyController _Enemy, float _MaxCooltime,
+        EffectDele _GainFunc, EffectDele _ReduceFunc, Sprite _IconSprite)
+        : base(_Enemy, _IconSprite)
+    {
+        Enemy = _Enemy;
+
+        MaxCooltime = _MaxCooltime;
+        CurrentCooltime = 0;
+
+        GainDele = _GainFunc;
+        ReduceDele = _ReduceFunc;
+
+        IconSprite = _IconSprite;
+    }
+    #endregion
+
+    #region Func
+
+    // 버프 증가
+    public virtual void Gain_Stack(int _GainAmount, bool _ShowTxt)
+    {
+        if (BuffIconUI == null)
+        { Start_FirstStack(_ShowTxt); }
+
+        if (GainDele != null)
+        { GainDele(); }
+    }
+
+    // 버프 감소
+    public virtual void Reduce_Stack(int _GainAmount)
+    {
+        if (ReduceDele != null)
+        { ReduceDele(); }
+    }
+
+    // 버프 시작
+    protected virtual void Start_FirstStack(bool _ShowTxt)
+    {
+        if (BuffIconUI == null)
+        {
+            BuffIconUI = Enemy.HUD.TemporaryBuffUI.Get_BuffIconUI();
+            BuffIconUI.SetOn(IconSprite, _ShowTxt);
+        }
+        IsOn = true;
+    }
+
+    // 버프 종료
+    public virtual void Remove_AllStack()
+    {
+        if (BuffIconUI != null)
+        {
+            Enemy.HUD.TemporaryBuffUI.Remove_BuffIconUI(BuffIconUI);
+            BuffIconUI = null;
+        }
+
+        IsOn = false;
+        CurrentCooltime = 0;
+    }
+
+
+
+
+    public virtual void Caculate_Cooltime(float _DeltaTime)
+    {
+        BuffIconUI.Set_BuffState(CurrentCooltime / MaxCooltime);
+    }
+
+    #endregion
+
+    #region Clear
+
+    public override void Set_Clear()
+    {
+        base.Set_Clear();
+        Remove_AllStack();
+    }
+
+    #endregion
+}
+
+[Serializable]
+public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
+{
+    #region Value
+
+    public eStatusEffect StatusType;
+
+    public int MaxStack;
+    public int CurrentStack;
+    public int OnceTimeReduceAmount;
+
+    private bool IsResetWhenGain;
+
+    protected EffectDele FullStack = null;
+
+    #endregion
+
+    #region Contruct
+
+    // 생성자
+    public StatusEffect_Temporary_WithAmount(
+        EnemyController _Enemy, eStatusEffect _StatusType, int _MaxStack, float _MaxCooltime, int _OnceTimeReduceAmount, bool _IsResetWhenGain,
+        EffectDele _GainFunc, EffectDele _ReduceFunc, EffectDele _FullStack,
+        Sprite _IconSprite)
+        : base(_Enemy, _MaxCooltime, _GainFunc, _ReduceFunc, _IconSprite)
+    {
+        StatusType = _StatusType;
+
+        MaxStack = _MaxStack;
+        CurrentStack = 0;
+        OnceTimeReduceAmount = _OnceTimeReduceAmount;
+
+        IsResetWhenGain = _IsResetWhenGain;
+
+        FullStack = _FullStack;
+    }
+
+    #endregion
+
+    #region Func
+
+    // 버프 증가
+    public override void Gain_Stack(int _GainAmount, bool _ShowTxt)
+    {
+        CurrentStack = Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
+
+        if (IsResetWhenGain)
+        {
+            CurrentCooltime = 0;
+        }
+
+        base.Gain_Stack(_GainAmount, _ShowTxt);
+
+        if (CurrentStack >= MaxStack && FullStack != null)
+        {
+            FullStack();
+        }
+    }
+
+    // 버프 감소
+    public override void Reduce_Stack(int _ReduceAmount)
+    {
+        base.Reduce_Stack(_ReduceAmount);
+
+        CurrentStack = Math.Clamp(CurrentStack - _ReduceAmount, 0, MaxStack);
+        if (CurrentStack <= 0)
+        {
+            Remove_AllStack();
+        }
+    }
+
+
+    // 버프 시작
+    // 필요 없음! 
+
+    // 버프 종료
+    public override void Remove_AllStack()
+    {
+        base.Remove_AllStack();
+        CurrentStack = 0;
+    }
+
+    // 쿨타임
+    public override void Caculate_Cooltime(float _DeltaTime)
+    {
+        if (IsOn)
+        {
+            if (MaxCooltime <= CurrentCooltime) // 스택 감소
+            {
+                CurrentCooltime -= MaxCooltime;
+                Reduce_Stack(1);
+            }
+            else // 쿨타임 돌림
+            {
+                CurrentCooltime += _DeltaTime;
+            }
+        }
+
+        if (BuffIconUI != null)
+        {
+            base.Caculate_Cooltime(_DeltaTime);
+            BuffIconUI.Set_BuffState(CurrentStack);
+        }
+
+    }
+
+    #endregion
+
+    #region Clear
+
+    public override void Set_Clear()
+    {
+        base.Set_Clear();
+        Remove_AllStack();
+    }
+
+    #endregion
+}
+
+[Serializable]
+public class StatusEffect_Temporary_WithoutAmount : StatusEffect_Temporary
+{
+    #region Contruct
+
+    public StatusEffect_Temporary_WithoutAmount(
+        EnemyController _Enemy, float _MaxCooltime,
+        EffectDele _GainFunc, EffectDele _ReduceFunc,
+        Sprite _IconSprite)
+        : base(_Enemy, _MaxCooltime, _GainFunc, _ReduceFunc, _IconSprite)
+    { }
+
+    #endregion
+
+    #region Func
+
+    // 버프 획득
+    public override void Gain_Stack(int _GainAmount, bool _ShowTxt)
+    {
+        CurrentCooltime = 0;
+        base.Gain_Stack(_GainAmount, _ShowTxt);
+    }
+
+    // 버프 제거
+    public override void Remove_AllStack()
+    {
+        base.Reduce_Stack(0);
+        base.Remove_AllStack();
+    }
+
+    // 쿨타임
+    public override void Caculate_Cooltime(float _DeltaTime)
+    {
+        if (IsOn)
+        {
+            if (MaxCooltime <= CurrentCooltime) // 스택 감소
+            {
+                Remove_AllStack();
+            }
+            else // 쿨타임 돌림
+            {
+                CurrentCooltime += _DeltaTime;
+            }
+        }
+
+        if (BuffIconUI != null)
+        {
+            base.Caculate_Cooltime(_DeltaTime);
+        }
+
+    }
+
+    #endregion
+
+    #region Clear
+
+    public override void Set_Clear()
+    {
+        base.Set_Clear();
+        Remove_AllStack();
+    }
+
+    #endregion
+}
+
+#endregion
+
+#region Class : State : Enemy : Buff : Permanent Effect
+
+[Serializable]
+public class StatusEffect_Permanent : StatusEffect
+{
+    #region Value
+
+    protected EffectDele GainDele = null;
+
+    #endregion
+
+    #region Contruct
+
+    public StatusEffect_Permanent(
+        EnemyController _Enemy, Sprite _IconSprite,
+        EffectDele _GainFunc)
+        : base(_Enemy, _IconSprite)
+    {
+        GainDele = _GainFunc;
+    }
+
+    #endregion
+
+    #region Func
+
+    // 버프 증가
+    public virtual void Gain_Stack(int _GainAmount, bool _ShowTxt)
+    {
+        if (BuffIconUI == null)
+        { Start_FirstStack(_ShowTxt); }
+
+        if (GainDele != null)
+        { GainDele(); }
+    }
+
+    // 버프 감소
+    // 필요 없음!
+
+    // 버프 시작
+    protected virtual void Start_FirstStack(bool _ShowTxt)
+    {
+        if (BuffIconUI == null)
+        {
+            BuffIconUI = Enemy.HUD.PermanentBuffUI.Get_BuffIconUI();
+            BuffIconUI.SetOn(IconSprite, _ShowTxt);
+        }
+        IsOn = true;
+    }
+
+    // 버프 종료
+    public virtual void Remove_AllStack()
+    {
+        if (BuffIconUI != null)
+        {
+            Enemy.HUD.PermanentBuffUI.Remove_BuffIconUI(BuffIconUI);
+            BuffIconUI = null;
+        }
+
+        IsOn = false;
+    }
+
+    #endregion
+
+    #region Clear
+
+    public override void Set_Clear()
+    {
+        base.Set_Clear();
+        Remove_AllStack();
+    }
+
+    #endregion
+}
+
+[Serializable]
+public class StatusEffect_Permanent_WithAmount : StatusEffect_Permanent
+{
+    #region Value
+
+    public int MaxStack;
+    public int CurrentStack;
+
+    protected EffectDele FullStack = null;
+
+    #endregion
+
+    #region Contruct
+
+    // 생성자
+    public StatusEffect_Permanent_WithAmount(
+        EnemyController _Enemy, Sprite _IconSprite,
+        EffectDele _GainFunc, EffectDele _FullStack,
+        int _MaxStack)
+        : base(_Enemy, _IconSprite, _GainFunc)
+    {
+        MaxStack = _MaxStack;
+        FullStack = _FullStack;
+        CurrentStack = 0;
+    }
+    #endregion
+
+    #region Func
+
+    // 버프 증가
+    public override void Gain_Stack(int _GainAmount, bool _ShowTxt)
+    {
+        CurrentStack = Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
+
+        base.Gain_Stack(_GainAmount, _ShowTxt);
+        BuffIconUI.Set_BuffState(CurrentStack);
+
+        if (CurrentStack >= MaxStack && FullStack != null)
+        {
+            FullStack();
+        }
+    }
+
+    // 버프 감소
+    // 필요 없음!
+
+
+    // 버프 시작
+    // 필요 없음! 
+
+    // 버프 종료
+    public override void Remove_AllStack()
+    {
+        base.Remove_AllStack();
+        CurrentStack = 0;
+    }
+
+    #endregion
+
+    #region Clear
+
+    public override void Set_Clear()
+    {
+        base.Set_Clear();
+        Remove_AllStack();
+    }
+
+    #endregion
+}
+
+[Serializable]
+public class StatusEffect_Permanent_WithoutAmount : StatusEffect_Permanent
+{
+    #region Contruct
+
+    public StatusEffect_Permanent_WithoutAmount(
+        EnemyController _Enemy, Sprite _IconSprite, EffectDele _GainFunc)
+        : base(_Enemy, _IconSprite, _GainFunc)
+    {
+
+    }
+
+    #endregion
+
+    #region Func
+
+    // 버프 증가
+    // 필요 없음! 
+
+    // 버프 감소
+    // 필요 없음!
+
+
+    // 버프 시작
+    // 필요 없음! 
+
+    // 버프 종료
+    public override void Remove_AllStack()
+    {
+        base.Remove_AllStack();
+    }
+
+    #endregion
+
+    #region Clear
+
+    public override void Set_Clear()
+    {
+        base.Set_Clear();
+        Remove_AllStack();
+    }
+
+    #endregion
+}
+
+#endregion
+
+
 #region Class : Satellite
 
 [System.Serializable]
@@ -2220,7 +2899,7 @@ public struct ExplState
 
     public void Set_RandomAngleValue_JustAdd(float _AngleExtent)
     {
-        float randomAngle = Random.Range(0, _AngleExtent);
+        float randomAngle = UnityEngine.Random.Range(0, _AngleExtent);
         FirstState.Dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(OriginalFirstState.Dir));
         SecondState.Dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(OriginalSecondState.Dir));
     }

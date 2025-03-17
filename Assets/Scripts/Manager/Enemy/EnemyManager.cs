@@ -42,100 +42,48 @@ public class EnemyManager : Singleton<EnemyManager>
     #region Get
 
     // 가장 가까운 적 찾기
-    public EnemyController Get_ClosestEnemy(Vector2 _TargetVec)
+    public EnemyController Get_ClosestEnemy(GameObject _TargetGO)
     {
         if (CurrentEnemyList.Count == 0) 
         { return null; }
 
-        float dis = 0f;
-        EnemyController ec = null;
-
-        for (int i = 0; i < CurrentEnemyList.Count; i++)
-        {
-            if (!CurrentEnemyList[i].gameObject.activeSelf)
-            { continue; }
-
-            float currentDis = Vector2.Distance(CurrentEnemyList[i].transform.position, _TargetVec);
-            if (dis > currentDis || dis == 0)
-            {
-                ec = CurrentEnemyList[i];
-                dis = currentDis;
-            }
-        }
-
-        return ec;
+        return DevTool.Get_ComponentTType<EnemyController>(
+            DevTool.Get_ClosetGO(
+                DevTool.Get_GOList(CurrentEnemyList), _TargetGO));
     }
 
     // 가장 먼 적 찾기
-    public EnemyController Get_FurthestEnemy(Vector2 _TargetVec)
+    public EnemyController Get_FurthestEnemy(GameObject _TargetGO)
     {
         if (CurrentEnemyList.Count == 0)
         { return null; }
 
-        float dis = 0f;
-        EnemyController ec = null;
-
-        for (int i = 0; i < CurrentEnemyList.Count; i++)
-        {
-            if (!CurrentEnemyList[i].gameObject.activeSelf)
-            { continue; }
-
-            float currentDis = Vector2.Distance(CurrentEnemyList[i].transform.position, _TargetVec);
-            if (dis < currentDis || dis == 0)
-            {
-                ec = CurrentEnemyList[i];
-                dis = currentDis;
-            }
-        }
-
-        return ec;
+        return DevTool.Get_ComponentTType<EnemyController>(
+            DevTool.Get_FurthestGO(
+                DevTool.Get_GOList(CurrentEnemyList), _TargetGO));
     }
 
 
     // 일정 구역 내 모든 적 찾기 (가까운 순서대로)
-    public List<EnemyController> Get_CloserEnemies(Vector2 _TargetVec, float _TargetDis)
+    public List<EnemyController> Get_CloserEnemies(GameObject _TargetGO, float _MaxDis)
     {
         if (CurrentEnemyList.Count == 0)
         { return null; }
 
-        List<EnemyController> closerEnemies = new List<EnemyController>();
-        for (int i = 0; i < CurrentEnemyList.Count; i++)
-        {
-            if (!CurrentEnemyList[i].gameObject.activeSelf)
-            { continue; }
-
-            if (_TargetDis >= Vector2.Distance(CurrentEnemyList[i].transform.position, _TargetVec))
-            {
-                closerEnemies.Add(CurrentEnemyList[i]);
-            }
-        }
-        
-        closerEnemies = closerEnemies.OrderBy(obj => Vector2.Distance(obj.transform.position, _TargetVec)).ToList();
-        
-        return closerEnemies;
+        return DevTool.Get_ComponentTTypeList<EnemyController>(
+            DevTool.Get_CloserGOList(
+                DevTool.Get_GOList(CurrentEnemyList), _TargetGO, _MaxDis));
     }
 
-    // 일정 구역 외 모든 적 찾기 (가까운 순서대로)
-    public List<EnemyController> Get_FurtherEnemies(Vector2 _TargetVec, float _TargetDis)
+    // 일정 구역 외 모든 적 찾기 (먼 순서대로)
+    public List<EnemyController> Get_FurtherEnemies(GameObject _TargetGO, float _MinDis)
     {
         if (CurrentEnemyList.Count == 0)
         { return null; }
 
-        List<EnemyController> furtherEnemies = new List<EnemyController>();
-        for (int i = 0; i < CurrentEnemyList.Count; i++)
-        {
-            if (!CurrentEnemyList[i].gameObject.activeSelf)
-            { continue; }
-
-            if (_TargetDis < Vector2.Distance(CurrentEnemyList[i].transform.position, _TargetVec))
-            {
-                furtherEnemies.Add(CurrentEnemyList[i]);
-            }
-        }
-
-        furtherEnemies = furtherEnemies.OrderBy(obj => Vector2.Distance(obj.transform.position, _TargetVec)).ToList();
-
-        return furtherEnemies;
+        return DevTool.Get_ComponentTTypeList<EnemyController>(
+           DevTool.Get_FurtherGOList(
+               DevTool.Get_GOList(CurrentEnemyList), _TargetGO, _MinDis));
     }
 
 

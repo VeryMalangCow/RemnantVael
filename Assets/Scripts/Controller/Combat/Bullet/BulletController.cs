@@ -186,7 +186,7 @@ public abstract class BulletController : MovableDepthController
     protected void Try_FindTarget()
     {
         TargetEnemyController = null;
-        TargetEnemyController = EnemyManager.Instance.Get_ClosestEnemy(this.transform.position);
+        TargetEnemyController = EnemyManager.Instance.Get_ClosestEnemy(this.gameObject);
     }
 
     // 유도 적에게 (천천히, 스무스) 방향 돌리기
