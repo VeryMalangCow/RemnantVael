@@ -6,7 +6,7 @@ public class BuffTakingDmgController : BuffController
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Taking mg Add")]
+    [Header("<><><><><> Taking Dmg")]
 
     [Space(10)]
     [SerializeField] private BuffState<float> Multiple = new BuffState<float>();

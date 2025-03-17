@@ -70,7 +70,6 @@ public class ShockwaveSkillController : ActiveSkillController
 
         // น๖วม
         BuffManager.Instance.Gain_Buff(0);
-        BuffManager.Instance.SetOn_Buff(0);
 
         yield return new WaitForSeconds(JugeAndTweenTime);
 

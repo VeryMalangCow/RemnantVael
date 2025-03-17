@@ -10,29 +10,29 @@ public class BuffController : IDController
     [SerializeField] public string BuffName = "";
 
     [Space(10)]
+    [Header("=== Charge")]
     [SerializeField] private int MaxBuffCharge = 1;
-    [SerializeField] protected ReactiveProperty<int> CurrentBuffCharge = new();
     [SerializeField] private int GainCharge = 1;
     [SerializeField] private int ReductionCharge = 1;
-    [SerializeField] [Tooltip(" False = Reduction / True = Increase")] 
-    protected bool IsReductionOrIncrease = false;
+    // False = Reduction / True = Increase
+    [SerializeField] protected bool IsIncreaseByTime = false;
+
 
     [Space(10)]
     [Header("=== Timer")]
-    [SerializeField] private bool DurTimerWillDone = false;
+    [SerializeField] private bool Condition_DurTimer = false;
     [SerializeField] private float MaxDurTime = 1;
-    [SerializeField] private ReactiveProperty<float> CurrentDurTime = new();
     [SerializeField] private bool InitializationWhenGain = true;
     [SerializeField] private bool InitializationWhenLoss = false;
 
     [Space(10)]
-    [Header("=== Hitted")]
-    //[SerializeField] private bool HittedWillDone = false;
-
-    [Space(10)]
     [Header("=== UI")]
     [SerializeField] private Sprite ThisIconSprite;
-    [SerializeField] protected BuffIconEUIController ThisMBI = null;
+
+
+    [HideInInspector] protected ReactiveProperty<int> CurrentBuffCharge = new();
+    [HideInInspector] private ReactiveProperty<float> CurrentDurTime = new();
+    [HideInInspector] protected BuffIconEUIController ThisBuffEUI = null;
 
     #endregion
 
@@ -57,138 +57,204 @@ public class BuffController : IDController
 
     private void Caculate_Timer()
     {
-        if (!IsReductionOrIncrease)
+        if (!Condition_DurTimer) return;
+
+        if (IsIncreaseByTime)
         {
-            Caculate_ReductionTimer();
+            Caculate_IncreaseTimer();
         }
         else
         {
-            Caculate_IncreaseTimer();
+            Caculate_ReductionTimer();
         }
     }
 
     private void Caculate_ReductionTimer()
     {
-        // 지속시간이 존재 + 현재 버프가 진행중이라면
-        if (DurTimerWillDone && CurrentBuffCharge.Value > 0)
-        {
-            // 지속시간이 흐름
-            if (CurrentDurTime.Value < MaxDurTime)
-            {
-                CurrentDurTime.Value += Time.deltaTime;
-            }
-            if (ThisMBI != null)
-            {
-                ThisMBI.ThisShadowImg.fillAmount = CurrentDurTime.Value / MaxDurTime;
-            }
+        if (CurrentBuffCharge.Value <= 0) return;
 
-            // 지속 시간이 다 되었다면
-            if (CurrentDurTime.Value >= MaxDurTime)
-            {
-                CurrentDurTime.Value -= MaxDurTime;
-                Reduct_Buff();
+        Caculate_Cooltime();
+        Caculate_BuffUI(_IsReductionTimer: true);
+        Caculate_CoolTimeCharge(new Dele(Reduct_Buff));
 
-                if (CurrentBuffCharge.Value <= 0)
-                {
-                    End_Buff();
-                    CurrentDurTime.Value = 0;
-                }
-            }
-        }
     }
 
     private void Caculate_IncreaseTimer()
     {
-        // 지속시간이 존재 + 현재 버프가 진행중이라면
-        if (DurTimerWillDone && CurrentBuffCharge.Value < MaxBuffCharge)
+        if (CurrentBuffCharge.Value >= MaxBuffCharge) return;
+
+        Caculate_Cooltime();
+        Caculate_BuffUI(_IsReductionTimer: false);
+        Caculate_CoolTimeCharge(new Dele(Gain_Buff));
+    }
+
+
+    private void Caculate_Cooltime()
+    {
+        if (CurrentDurTime.Value < MaxDurTime)
         {
-            // 지속시간이 흐름
-            if (CurrentDurTime.Value < MaxDurTime)
-            {
-                CurrentDurTime.Value += Time.deltaTime;
-            }
-            if (ThisMBI != null)
-            {
-                ThisMBI.ThisShadowImg.fillAmount = 1.0f - (CurrentDurTime.Value / MaxDurTime);
-            }
+            CurrentDurTime.Value += Time.deltaTime;
+        }
+    }
 
-            // 지속 시간이 다 되었다면
-            if (CurrentDurTime.Value >= MaxDurTime)
-            {
-                Gain_Buff();
-                CurrentDurTime.Value -= MaxDurTime;
+    private void Caculate_CoolTimeCharge(Dele _Dele)
+    {
+        if (CurrentDurTime.Value >= MaxDurTime)
+        {
+            CurrentDurTime.Value -= MaxDurTime;
+            _Dele();
+        }
+    }
 
-                if (CurrentBuffCharge.Value >= MaxBuffCharge)
-                {
-                    CurrentDurTime.Value = 0;
-                }
-            }
+    private void Caculate_BuffUI(bool _IsReductionTimer)
+    {
+        if (ThisBuffEUI != null)
+        {
+            float percent = CurrentDurTime.Value / MaxDurTime;
+            ThisBuffEUI.ThisShadowImg.fillAmount = _IsReductionTimer ?
+                percent : (1f - percent);
         }
     }
 
     #endregion
 
-    #region Buff
+    #region Buff Effect
+
+    private void Add_BuffEffect()
+    {
+        DevTool.Add_InList(PlayerManager.Instance.PlayerController.CurrentBuffs, this);
+
+        switch (this)
+        {
+            case IWhen_GetElectricity elec:
+                DevTool.Add_InList(BuffManager.Instance.iWhen_HittedList, elec);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    private void Remove_BuffEffect()
+    {
+        DevTool.Remove_InList(PlayerManager.Instance.PlayerController.CurrentBuffs, this);
+
+        switch (this)
+        {
+            case IWhen_GetElectricity elec:
+                DevTool.Remove_InList(BuffManager.Instance.iWhen_HittedList, elec);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    #endregion
+
+    #region Is
+
+    private void Is_MaxBuff()
+    {
+        if (CurrentBuffCharge.Value >= MaxBuffCharge)
+        {
+            CurrentDurTime.Value = 0;
+        }
+    }
+
+    private void Is_EndBuff()
+    {
+        if (CurrentBuffCharge.Value <= 0)
+        {
+            End_Buff();
+            CurrentDurTime.Value = 0;
+        }
+    }
+
+    #endregion
+
+    #region UI
+
+    private void Gain_BuffUI()
+    {
+        ThisBuffEUI = PoolingManager.Instance.Get_OP_BuffUI();
+        ThisBuffEUI.Offset();
+        ThisBuffEUI.ThisShadowImg.fillAmount = 0;
+
+        DevTool.Add_InList(MainGameUIManager.Instance.PlayerHUD_UIController.AllBuffIconUI, ThisBuffEUI);
+
+        ThisBuffEUI.gameObject.SetActive(true);
+    }
+
+    private void Remove_BuffUI()
+    {
+        DevTool.Remove_InList(MainGameUIManager.Instance.PlayerHUD_UIController.AllBuffIconUI, ThisBuffEUI);
+
+        ThisBuffEUI.gameObject.SetActive(false);
+        PoolingManager.Instance.BuffIcons.Queue.Enqueue(ThisBuffEUI);
+        ThisBuffEUI = null;
+    }
+
+    #endregion
+
+    #region Actual
 
     public virtual void Gain_Buff()
     {
+        // Value
         CurrentBuffCharge.Value = Mathf.Min(CurrentBuffCharge.Value + GainCharge, MaxBuffCharge);
         
+        // Initialization
         if (InitializationWhenGain)
         { CurrentDurTime.Value = 0; }
 
-        PlayerManager.Instance.PlayerController.Set_GainBuff(this);
+        //
+        Add_BuffEffect();
+        Is_MaxBuff();
 
-        if (ThisMBI == null)
+        // UI
+        if (ThisBuffEUI == null)
         {
-            // UI
-            ThisMBI = PoolingManager.Instance.Get_OP_BuffUI();
-            ThisMBI.Offset();
-            ThisMBI.Set_Icon(ThisIconSprite, CurrentBuffCharge.Value); 
-            ThisMBI.ThisShadowImg.fillAmount = 0;
-            ThisMBI.gameObject.SetActive(true);
-
-            // UI Pos
-            MainGameUIManager.Instance.PlayerHUD_UIController.Set_GainBuffUI(ThisMBI);
+            Gain_BuffUI();
         }
-        
 
-        ThisMBI.Set_Icon(CurrentBuffCharge.Value);
+        MainGameUIManager.Instance.PlayerHUD_UIController.Set_BuffPosUI();
+        ThisBuffEUI.Set_Icon(ThisIconSprite, CurrentBuffCharge.Value);
+
+        enabled = true;
     }
 
     public virtual void Reduct_Buff()
     {
+        // Value
         CurrentBuffCharge.Value = Mathf.Max(CurrentBuffCharge.Value - ReductionCharge, 0);
 
+        // Initialization
         if (InitializationWhenLoss)
         { CurrentDurTime.Value = 0; }
 
-        if (ThisMBI != null)
-        {
-            ThisMBI.Set_Icon(CurrentBuffCharge.Value);
+        // UI
+        MainGameUIManager.Instance.PlayerHUD_UIController.Set_BuffPosUI();
+        ThisBuffEUI.Set_Icon(CurrentBuffCharge.Value);
 
-            // UI Pos
-            MainGameUIManager.Instance.PlayerHUD_UIController.Set_ReductBuffUI(ThisMBI);
-        }
+        //
+        Is_EndBuff();
     }
 
     public virtual void End_Buff()
     {
+        // Value
         CurrentBuffCharge.Value = 0;
         CurrentDurTime.Value = 0;
 
-        PlayerManager.Instance.PlayerController.Set_EndBuff(this);
+        Remove_BuffEffect();
 
-        if (ThisMBI != null)
+        if (ThisBuffEUI != null)
         {
-            // UI
-            ThisMBI.gameObject.SetActive(false);
-            PoolingManager.Instance.BuffIcons.Queue.Enqueue(ThisMBI);
-            ThisMBI = null;
-
-            // UI Pos
-            MainGameUIManager.Instance.PlayerHUD_UIController.Set_EndBuffUI(ThisMBI);
+            Remove_BuffUI();
         }
+
+        MainGameUIManager.Instance.PlayerHUD_UIController.Set_BuffPosUI();
 
         enabled = false; 
     }

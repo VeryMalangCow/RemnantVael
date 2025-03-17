@@ -770,34 +770,6 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region Buff
-
-    public void Set_GainBuff(BuffController _Buff)
-    {
-        if (DevTool.Add_InList(CurrentBuffs, _Buff))
-        {
-            // 인터페이스
-            if (_Buff is IWhen_GetElectricity hitted && !BuffManager.Instance.iWhen_HittedList.Contains(hitted))
-            {
-                BuffManager.Instance.iWhen_HittedList.Add(hitted);
-            }
-        }
-    }
-
-    public void Set_EndBuff(BuffController _Buff)
-    {
-        if (DevTool.Remove_InList(CurrentBuffs, _Buff))
-        {
-            // 인터페이스
-            if (_Buff is IWhen_GetElectricity hitted && BuffManager.Instance.iWhen_HittedList.Contains(hitted))
-            {
-                BuffManager.Instance.iWhen_HittedList.Remove(hitted);
-            }
-        }
-    }
-
-    #endregion
-
     #region Trigger
 
     // Enter

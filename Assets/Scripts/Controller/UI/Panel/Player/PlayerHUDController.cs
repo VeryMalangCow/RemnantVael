@@ -114,7 +114,7 @@ public class PlayerHUDController : UIController
 
     [Header("-- Buff")]
     [SerializeField] private Transform BuffParentTF;
-    [SerializeField] private List<BuffIconEUIController> AllBuffIconUI;
+    [SerializeField] public List<BuffIconEUIController> AllBuffIconUI;
     [SerializeField] private float BuffUI_XInterval = 12;
 
     [Header("-- Screen")]
@@ -695,30 +695,7 @@ public class PlayerHUDController : UIController
 
     #region Buff
 
-    public void Set_GainBuffUI(BuffIconEUIController _MBI)
-    {
-        if (!AllBuffIconUI.Contains(_MBI))
-        {
-            AllBuffIconUI.Add(_MBI);
-        }
-        Set_BuffPosUI();
-    }
-
-    public void Set_ReductBuffUI(BuffIconEUIController _MBI)
-    {
-        Set_BuffPosUI();
-    }
-
-    public void Set_EndBuffUI(BuffIconEUIController _MBI)
-    {
-        if (AllBuffIconUI.Contains(_MBI))
-        {
-            AllBuffIconUI.Remove(_MBI);
-        }
-        Set_BuffPosUI();
-    }
-
-    private void Set_BuffPosUI()
+    public void Set_BuffPosUI()
     {
         for (int i = 0; i < AllBuffIconUI.Count; i++)
         {

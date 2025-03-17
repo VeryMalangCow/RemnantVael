@@ -4252,6 +4252,7 @@ MonoBehaviour:
   MousePosByWorld: {x: 0, y: 0}
   DirFromPlayerPos: {x: 0, y: 0}
   AimController: {fileID: 0}
+  AimRoundController: {fileID: 0}
   PlayerInput: {fileID: 0}
   InputMoveDir: {x: 0, y: 0}
   InputArrowDir: {x: 0, y: 0}
@@ -4617,19 +4618,14 @@ MonoBehaviour:
   ID: 0
   BuffName: Shockwave Shield
   MaxBuffCharge: 1
-  CurrentBuffCharge:
-    value: 0
   GainCharge: 1
   ReductionCharge: 1
-  IsReductionOrIncrease: 0
-  DurTimerWillDone: 0
+  IsIncreaseByTime: 0
+  Condition_DurTimer: 0
   MaxDurTime: 0
-  CurrentDurTime:
-    value: 0
   InitializationWhenGain: 1
   InitializationWhenLoss: 0
   ThisIconSprite: {fileID: -154321793, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  ThisMBI: {fileID: 0}
   ThisShield:
     ShieldID: Shockwave's Buff
     ShieldMaxValue: 20
@@ -4663,19 +4659,14 @@ MonoBehaviour:
   ID: 1
   BuffName: Test Attack Buff
   MaxBuffCharge: 10
-  CurrentBuffCharge:
-    value: 0
   GainCharge: 1
   ReductionCharge: 1
-  IsReductionOrIncrease: 0
-  DurTimerWillDone: 1
+  IsIncreaseByTime: 0
+  Condition_DurTimer: 1
   MaxDurTime: 3
-  CurrentDurTime:
-    value: 0
   InitializationWhenGain: 1
   InitializationWhenLoss: 0
   ThisIconSprite: {fileID: -1956518223, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  ThisMBI: {fileID: 0}
   Multiple:
     BuffID: testDmgBuff
     BaseValue: 0.05
@@ -4695,19 +4686,14 @@ MonoBehaviour:
   ID: 2
   BuffName: Flame!
   MaxBuffCharge: 50
-  CurrentBuffCharge:
-    value: 0
   GainCharge: 1
   ReductionCharge: 1
-  IsReductionOrIncrease: 0
-  DurTimerWillDone: 1
+  IsIncreaseByTime: 0
+  Condition_DurTimer: 0
   MaxDurTime: 2
-  CurrentDurTime:
-    value: 0
   InitializationWhenGain: 0
   InitializationWhenLoss: 0
   ThisIconSprite: {fileID: 579021722, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  ThisMBI: {fileID: 0}
   MaxHpPercent: 0
   ConstPoint: 0
   StackDmg: 1
@@ -4726,19 +4712,14 @@ MonoBehaviour:
   ID: 6
   BuffName: 
   MaxBuffCharge: 1
-  CurrentBuffCharge:
-    value: 0
   GainCharge: 1
   ReductionCharge: 1
-  IsReductionOrIncrease: 0
-  DurTimerWillDone: 1
+  IsIncreaseByTime: 0
+  Condition_DurTimer: 0
   MaxDurTime: 1
-  CurrentDurTime:
-    value: 0
   InitializationWhenGain: 0
   InitializationWhenLoss: 0
   ThisIconSprite: {fileID: -776551882, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  ThisMBI: {fileID: 0}
   MaxHpPercent: 10
   ConstPoint: 0
   StackHeal: 0
@@ -4757,19 +4738,14 @@ MonoBehaviour:
   ID: 3
   BuffName: Cold!
   MaxBuffCharge: 50
-  CurrentBuffCharge:
-    value: 0
   GainCharge: 1
   ReductionCharge: 1
-  IsReductionOrIncrease: 0
-  DurTimerWillDone: 1
+  IsIncreaseByTime: 0
+  Condition_DurTimer: 0
   MaxDurTime: 1
-  CurrentDurTime:
-    value: 0
   InitializationWhenGain: 0
   InitializationWhenLoss: 0
   ThisIconSprite: {fileID: -1972510542, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  ThisMBI: {fileID: 0}
   Multiple:
     BuffID: cold
     BaseValue: -0.01
@@ -4789,19 +4765,14 @@ MonoBehaviour:
   ID: 4
   BuffName: Electric!
   MaxBuffCharge: 50
-  CurrentBuffCharge:
-    value: 0
   GainCharge: 1
   ReductionCharge: 1
-  IsReductionOrIncrease: 0
-  DurTimerWillDone: 1
+  IsIncreaseByTime: 0
+  Condition_DurTimer: 0
   MaxDurTime: 5
-  CurrentDurTime:
-    value: 0
   InitializationWhenGain: 0
   InitializationWhenLoss: 0
   ThisIconSprite: {fileID: 1663980525, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  ThisMBI: {fileID: 0}
   MaxHpPercent: 0
   ConstPoint: 0
   StackDmg: 0.25
@@ -4820,19 +4791,14 @@ MonoBehaviour:
   ID: 5
   BuffName: Corrosion!
   MaxBuffCharge: 50
-  CurrentBuffCharge:
-    value: 0
   GainCharge: 1
   ReductionCharge: 1
-  IsReductionOrIncrease: 0
-  DurTimerWillDone: 1
+  IsIncreaseByTime: 0
+  Condition_DurTimer: 0
   MaxDurTime: 5
-  CurrentDurTime:
-    value: 0
   InitializationWhenGain: 1
   InitializationWhenLoss: 0
   ThisIconSprite: {fileID: -776551882, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  ThisMBI: {fileID: 0}
   Multiple:
     BuffID: Corrosion
     BaseValue: 0.01
@@ -4852,19 +4818,14 @@ MonoBehaviour:
   ID: 7
   BuffName: TestShield
   MaxBuffCharge: 1
-  CurrentBuffCharge:
-    value: 0
   GainCharge: 1
   ReductionCharge: 1
-  IsReductionOrIncrease: 0
-  DurTimerWillDone: 0
+  IsIncreaseByTime: 0
+  Condition_DurTimer: 0
   MaxDurTime: 0
-  CurrentDurTime:
-    value: 0
   InitializationWhenGain: 1
   InitializationWhenLoss: 0
   ThisIconSprite: {fileID: -154321793, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  ThisMBI: {fileID: 0}
   ThisShield:
     ShieldID: Shockwave's Buff
     ShieldMaxValue: 20
@@ -7573,9 +7534,6 @@ MonoBehaviour:
     R1_MainChipID: 0
     R3_MainChipID: 8
     R5_MainChipID: 7
-    Rank1_ItemMainChipID: 0
-    Rank3_ItemMainChipID: 8
-    Rank5_ItemMainChipID: 7
     BoostLv: 1
     Rank: 1
   - ID: 1
@@ -7586,9 +7544,6 @@ MonoBehaviour:
     R1_MainChipID: 0
     R3_MainChipID: 8
     R5_MainChipID: 7
-    Rank1_ItemMainChipID: 0
-    Rank3_ItemMainChipID: 8
-    Rank5_ItemMainChipID: 7
     BoostLv: 1
     Rank: 1
   - ID: 2
@@ -7599,9 +7554,6 @@ MonoBehaviour:
     R1_MainChipID: 5
     R3_MainChipID: 1
     R5_MainChipID: 6
-    Rank1_ItemMainChipID: 5
-    Rank3_ItemMainChipID: 1
-    Rank5_ItemMainChipID: 6
     BoostLv: 1
     Rank: 1
   - ID: 3
@@ -7612,9 +7564,6 @@ MonoBehaviour:
     R1_MainChipID: 5
     R3_MainChipID: 2
     R5_MainChipID: 6
-    Rank1_ItemMainChipID: 5
-    Rank3_ItemMainChipID: 2
-    Rank5_ItemMainChipID: 6
     BoostLv: 1
     Rank: 1
   - ID: 4
@@ -7625,9 +7574,6 @@ MonoBehaviour:
     R1_MainChipID: 5
     R3_MainChipID: 3
     R5_MainChipID: 6
-    Rank1_ItemMainChipID: 5
-    Rank3_ItemMainChipID: 3
-    Rank5_ItemMainChipID: 6
     BoostLv: 1
     Rank: 1
   - ID: 5
@@ -7638,9 +7584,6 @@ MonoBehaviour:
     R1_MainChipID: 5
     R3_MainChipID: 4
     R5_MainChipID: 6
-    Rank1_ItemMainChipID: 5
-    Rank3_ItemMainChipID: 4
-    Rank5_ItemMainChipID: 6
     BoostLv: 1
     Rank: 1
   MainChipDataList:
