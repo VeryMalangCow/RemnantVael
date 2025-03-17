@@ -16,17 +16,9 @@ public class EnemyPattern_None : EnemyPattern
 
     protected override IEnumerator Play_ThisPattern_Cor()
     {
-        yield return new WaitForSeconds(StartDelay);
+        yield return new WaitForSeconds(StartDelay + EndDelay);
 
-        #region Actual
-
-        // NONE
-
-        #endregion
-
-        yield return new WaitForSeconds(EndDelay);
-
-        End_Pattern();
+        base.End_Pattern();
         ThisEnemy.Play_Pattern();
     }
 

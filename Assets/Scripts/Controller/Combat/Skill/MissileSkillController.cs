@@ -58,17 +58,15 @@ public class MissileSkillController : ActiveSkillController
             float angle = PlayerController.SkillWeapon.PitchTF.localRotation.eulerAngles.y;
             Vector2 dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
-            float targetRange = DepthController.TargetRange;
-
             // Sorting Layer
             missile.ThisSR.sortingOrder = DepthController.ThisSR.sortingOrder - 1;
 
-            float randomSpreadAngle = Random.Range(-SpreadAngleLimit, SpreadAngleLimit);
-
-            BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(this.gameObject.transform.position, dir, randomSpreadAngle);
-            BulletState_Size? size = null;
-            State_Anim? anim = null;
-            missile.Set_State(bulletState, posAndRot, size, anim, targetRange);
+            missile.Set_State(
+                bulletState,
+                State_PosAndRot(dir), 
+                _State_Size: null, 
+                _State_Anim: null, 
+                DepthController.TargetRange);
 
 
             // Effect Explosion -> Physics DMG
@@ -102,6 +100,14 @@ public class MissileSkillController : ActiveSkillController
             _CheckIsCritical: true, 
             _MuzzleSpeed: PlayerController.BaseWeapon.MuzzleSpeed.ActualState.Value * 1.5f, 
             _AliveTime: 3.5f);
+    }
+
+    private BulletState_PosAndRot State_PosAndRot(Vector2 _Dir)
+    {
+        return new BulletState_PosAndRot(
+            this.gameObject.transform.position, 
+            _Dir, 
+            DevTool.Get_RandomValueBaseZero(SpreadAngleLimit * 2f));
     }
 
     #endregion

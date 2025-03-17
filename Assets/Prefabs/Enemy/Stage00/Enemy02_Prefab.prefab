@@ -263,9 +263,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
-  IsPlayingThisPattern: 0
   StartDelay: 0
   EndDelay: 0.5
+  IsPlaying: 0
 --- !u!1 &2486564893073553752
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +313,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 695
+    m_Bits: 567
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -378,12 +378,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
-  IsPlayingThisPattern: 0
   StartDelay: 0.5
-  EndDelay: 0.1
+  EndDelay: 0.5
+  IsPlaying: 0
   FollowingSpeed: 2.5
   UntilForTargetRange: 1
-  TargetRange: 3.7
+  TargetRange: 4.5
   IgnoreWall: 0
   UntilForTargetTime: 0
   TargetTime: 0
@@ -599,9 +599,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
-  IsPlayingThisPattern: 0
-  StartDelay: 0.8
-  EndDelay: 0.8
+  StartDelay: 0.5
+  EndDelay: 0.75
+  IsPlaying: 0
   ThisBS:
     DmgState:
       DmgType: 0
@@ -618,12 +618,12 @@ MonoBehaviour:
     AliveTime: 6
   BulletShadowScale: {x: 0.16, y: 0.16}
   BulletColSize: {x: 2, y: 3}
-  SpawnTFList:
-  - {fileID: 2605927436583331561}
-  - {fileID: 5242333185663483261}
+  SpawnDepthList:
+  - {fileID: 5139810350627272259}
+  - {fileID: 4056894064819751254}
   BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
-  MaximumRange: 5
-  MinimumRange: 3.7
+  MaxRange: 4.5
+  MinRange: 0
 --- !u!1 &8251026648640757372
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,6 +900,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6914552754378359621, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 7584613873533521663, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: m_Name
       value: Enemy_Looking
@@ -914,16 +918,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6904064703115002294, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
   m_PrefabInstance: {fileID: 8925976313212544428}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2605927436583331561 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6914552754378359621, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+--- !u!114 &4056894064819751254 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4869389014298094842, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
   m_PrefabInstance: {fileID: 8925976313212544428}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5242333185663483261 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3683929565398505681, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5139810350627272259 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4362640458784314351, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
   m_PrefabInstance: {fileID: 8925976313212544428}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &7051792676472209556 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1874183789220357432, guid: 2624ebe61065a2c4182be26361acf836, type: 3}

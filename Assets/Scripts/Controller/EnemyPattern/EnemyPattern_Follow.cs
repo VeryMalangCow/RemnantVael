@@ -23,7 +23,7 @@ public class EnemyPattern_Follow : EnemyPattern
     [SerializeField] private float CurrentTime = 0f;
 
     // Other
-    private static float FindRootDelay = 0.2f;
+    private static float FindRootDelay = 0.4f;
 
     #endregion
 
@@ -32,7 +32,7 @@ public class EnemyPattern_Follow : EnemyPattern
     private void Update()
     {
         if (UntilForTargetTime && 
-            IsPlayingThisPattern &&
+            IsPlaying &&
             CurrentTime < TargetTime)
         {
             CurrentTime += Time.deltaTime;
@@ -56,11 +56,9 @@ public class EnemyPattern_Follow : EnemyPattern
     // 거리 조건 충족?
     private bool Can_PlayPattern_ConditionByRange()
     {
-        if (UntilForTargetRange &&
-            TargetRange >= Vector2.Distance(ThisEnemy.gameObject.transform.position, PlayerManager.Instance.PlayerController.gameObject.transform.position))
+        if (UntilForTargetRange && TargetRange >= DevTool.Get_DisForPlayer(ThisEnemy))
         {
-            if (!IgnoreWall &&
-                ThisEnemy.Is_ExistWall(PlayerManager.Instance.PlayerController.transform))
+            if (!IgnoreWall && ThisEnemy.Is_ExistWall(PlayerManager.Instance.PlayerController.transform))
             {
                 return true;
             }
@@ -75,8 +73,7 @@ public class EnemyPattern_Follow : EnemyPattern
     // 시간 조건 충족?
     private bool Can_PlayPattern_ConditionByTime()
     {
-        if (UntilForTargetTime &&
-            CurrentTime >= TargetTime)
+        if (UntilForTargetTime && CurrentTime >= TargetTime)
         {
             return false;
         }
@@ -89,16 +86,16 @@ public class EnemyPattern_Follow : EnemyPattern
 
     public override void Start_Pattern()
     {
-        CurrentTime = 0f;
-
         base.Start_Pattern();
+
+        CurrentTime = 0f;
     }
 
     public override void End_Pattern()
     {
-        CurrentTime = 0f;
-
         base.End_Pattern();
+
+        CurrentTime = 0f;
     }
 
     #endregion
@@ -110,6 +107,8 @@ public class EnemyPattern_Follow : EnemyPattern
         ThisEnemy.MoveSpeed = FollowingSpeed;
 
         yield return new WaitForSeconds(StartDelay);
+
+        #region Actual
 
         while (true)
         {
@@ -123,6 +122,8 @@ public class EnemyPattern_Follow : EnemyPattern
                 break;
             }
         }
+
+        #endregion
 
         yield return new WaitForSeconds(EndDelay);
 

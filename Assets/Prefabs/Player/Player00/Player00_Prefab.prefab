@@ -1258,11 +1258,11 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5092669102171801610}
+  - {fileID: 1689112656073238802}
   - {fileID: 8240280091817906439}
   - {fileID: 4636890055735970034}
   - {fileID: 9158991428472983876}
   - {fileID: 3482788385999801586}
-  - {fileID: 1689112656073238802}
   - {fileID: 737877111473441484}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2487,7 +2487,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 191
+    m_Bits: 63
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

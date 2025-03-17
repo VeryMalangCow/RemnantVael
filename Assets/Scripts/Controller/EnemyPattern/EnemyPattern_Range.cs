@@ -20,13 +20,13 @@ public class EnemyPattern_Range : EnemyPattern
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private List<Transform> SpawnTFList;
+    [SerializeField] private List<DepthController> SpawnDepthList;
     [SerializeField] private AnimationClip BulletAC;
 
     [Space(10)]
     [Header("=== Condition")]
-    [SerializeField] private float MaximumRange = 4f;
-    [SerializeField] private float MinimumRange = 3f;
+    [SerializeField] private float MaxRange = 4f;
+    [SerializeField] private float MinRange = 3f;
 
     #endregion
 
@@ -34,7 +34,7 @@ public class EnemyPattern_Range : EnemyPattern
 
     private void Update()
     {
-        if (!IsPlayingThisPattern)
+        if (!IsPlaying)
         {
             StopCoroutine(Play_ThisPattern_Cor());
         }
@@ -47,28 +47,12 @@ public class EnemyPattern_Range : EnemyPattern
     public override bool Can_PlayPattern()
     {
         float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.Instance.PlayerController.transform.position);
-        if (forPlayerDis > MaximumRange || forPlayerDis < MinimumRange)
+        if (forPlayerDis >= MinRange && forPlayerDis < MaxRange)
         {
-            return false;
+            return true;
         }
 
-        return true;
-    }
-
-    #endregion
-
-    #region Start End
-
-    public override void Start_Pattern()
-    {
-
-        base.Start_Pattern();
-    }
-
-    public override void End_Pattern()
-    {
-
-        base.End_Pattern();
+        return false;
     }
 
     #endregion
@@ -77,45 +61,62 @@ public class EnemyPattern_Range : EnemyPattern
 
     protected override IEnumerator Play_ThisPattern_Cor()
     {
+        Vector2 targetDir = DevTool.Get_DirForPlayer(ThisEnemy);
+
         yield return new WaitForSeconds(StartDelay);
 
-        for (int i = 0; i < SpawnTFList.Count; i++)
+        #region Actual 
+
+        for (int i = 0; i < SpawnDepthList.Count; i++)
         {
-            EnemyBulletController EBC = PoolingManager.Instance.Get_OP_EnemyBullet();
-
-            Vector2 targetDir =
-                ((Vector2)PlayerManager.Instance.PlayerController.transform.position
-                - (Vector2)ThisEnemy.transform.position).normalized;
-
-            // Shadow
-            float targetShadow = 0.4f;
-            if (SpawnTFList[i].TryGetComponent(out DepthController HST))
-            { targetShadow = HST.TargetRange; }
-
-            // Base State 
-            EBC.Enemy = ThisEnemy;
-
-            BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(SpawnTFList[i].position, targetDir, 0);
-            BulletState_Size size = new BulletState_Size(BulletShadowScale, BulletColSize);
-            State_Anim anim = new State_Anim(BulletAC, 1);
-
-            EBC.Set_State(ThisBS, posAndRot, size, anim, targetShadow);
-
-            // Sorting Layer
-            if (SpawnTFList[i].gameObject.TryGetComponent(out DepthController hst))
-            { EBC.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
-
-            // Effect
-            UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_Shoot(
-                (Vector2)HST.TargetObject.transform.position + (targetDir * 0.3f),
-                targetDir);
-
+            Play_ActualPattern(SpawnDepthList[i], targetDir);
         }
+
+        #endregion
 
         yield return new WaitForSeconds(EndDelay);
 
         End_Pattern();
         ThisEnemy.Play_Pattern();
+    }
+
+    private void Play_ActualPattern(DepthController _Depth, Vector2 _TargetDir)
+    {
+        EnemyBulletController bullet = PoolingManager.Instance.Get_OP_EnemyBullet();
+        bullet.Enemy = ThisEnemy;
+        float targetShadow = _Depth.TargetRange;
+        bullet.Set_State(
+            ThisBS, 
+            State_PosAndRot(_Depth.transform, _TargetDir), 
+            State_Size(), 
+            State_Anim(), 
+            targetShadow);
+
+        bullet.ThisSR.sortingOrder = _Depth.ThisSR.sortingOrder - 1;
+
+        // Effect
+        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_Shoot(
+            (Vector2)_Depth.TargetObject.transform.position + (_TargetDir * 0.3f),
+            _TargetDir);
+    }
+
+    #endregion
+
+    #region State
+
+    private BulletState_PosAndRot State_PosAndRot(Transform _TF, Vector2 _TargetDir)
+    {
+        return new BulletState_PosAndRot(_TF.position, _TargetDir, 0);
+    }
+
+    private BulletState_Size State_Size()
+    {
+        return new BulletState_Size(BulletShadowScale, BulletColSize);
+    }
+
+    private State_Anim State_Anim()
+    {
+        return new State_Anim(BulletAC, 1);
     }
 
     #endregion

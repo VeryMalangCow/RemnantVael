@@ -485,6 +485,11 @@ public class DevTool
 
     #region Get
 
+    public static float Get_Dis(GameObject _GO1, GameObject _GO2)
+    {
+        return Vector2.Distance(_GO1.transform.position, _GO2.transform.position);
+    }
+
     public static Vector2 Get_RandomDir()
     {
         float _X = UnityEngine.Random.Range(-1.0f, 1.0f);
@@ -831,6 +836,15 @@ public class DevTool
         }
     }
 
+    public static Vector2 Get_DirForPlayer<T>(T _TType) where T : MonoBehaviour
+    {
+        return Get_Dir(_TType.gameObject, PlayerManager.Instance.PlayerController.gameObject);
+    }
+
+    public static float Get_DisForPlayer<T>(T _TType) where T : MonoBehaviour
+    {
+        return Get_Dis(_TType.gameObject, PlayerManager.Instance.PlayerController.gameObject);
+    }
     #endregion
 
     #region About Buff
@@ -1074,7 +1088,6 @@ public class DevTool
         return result;
     }
 
-    #endregion
     // 최적의 길을 찾기
     public static List<WayPointController> Get_Way(WayPointController _Start, WayPointController _Target, string _CanGoLayer, float _NavRadius)
     {
@@ -1128,6 +1141,8 @@ public class DevTool
             }
         }
     }
+
+    #endregion
 
     #endregion
 }

@@ -46,22 +46,12 @@ public class ShockwaveSkillController : ActiveSkillController
         PlayerAttackerController pac = PoolingManager.Instance.Get_OP_PlayerAttacker();
 
         pac.Set_State(
-            Get_CurrentAttackerState(), 
-            new AttackerState_Juge<CapsuleCollider2D>(
-                ColSize, 
-                _IsVertical: false),
-            new State_Anim(
-                ShockwaveAnimation,
-                AnimSpeed),
-            new State_TF2D(
-                DepthController.transform.position,
-                Quaternion.identity,
-                Vector2.one * StartSize),
-            new AttackerState_EndTF(
-                DepthController.transform.position,
-                Quaternion.identity,
-                Vector2.one * Get_UsableMaxSize(), 
-                JugeAndTweenTime));
+            Get_CurrentAttackerState(),
+            State_Juge(),
+            State_Anim(),
+            State_StartTF(),
+            State_EndTF(),
+            DepthController.TargetRange);
 
         // Æø¹ß
         UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_Skill1(
@@ -103,6 +93,40 @@ public class ShockwaveSkillController : ActiveSkillController
                     0.4f)));
     }
 
+    #endregion
+
+    #region State
+
+    private AttackerState_Juge<CapsuleCollider2D> State_Juge()
+    {
+        return new AttackerState_Juge<CapsuleCollider2D>(
+            ColSize,
+            _IsVertical: false);
+    }
+
+    private State_Anim State_Anim()
+    {
+        return new State_Anim(
+            ShockwaveAnimation,
+            AnimSpeed);
+    }
+
+    private State_TF2D State_StartTF()
+    {
+        return new State_TF2D(
+            DepthController.transform.position,
+            Quaternion.identity,
+            Vector2.one * StartSize);
+    }
+
+    private AttackerState_EndTF State_EndTF()
+    {
+        return new AttackerState_EndTF(
+            DepthController.transform.position,
+            Quaternion.identity,
+            Vector2.one * Get_UsableMaxSize(),
+            JugeAndTweenTime);
+    }
 
     #endregion
 }

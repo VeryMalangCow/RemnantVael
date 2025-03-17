@@ -501,6 +501,7 @@ public class EnemyController : AliveObjectController, IInteract
 
     private void SetOn_Discharge()
     {
+        CurrentEnemyPattern.End_Pattern();
         StopCoroutine(CurrentPatternCor);
 
         CurrentContinuousEnemyPattern = null;
@@ -554,60 +555,71 @@ public class EnemyController : AliveObjectController, IInteract
         OrderOfPriorityEnemyPatternList[OrderOfPriorityEnemyPatternList.Count - 1].EnemyPatternList[0].EnemyPatternList[0].Start_Pattern();
     }
 
-    public void Play_Pattern()
-    {
-        if (IsDischarge)
-        { return; }
 
-        // 이미 있는지 진행 중인 패턴이 있는지 확인
-        int OrderOfPattern = -1;
+    private int Get_NextPatternIndex()
+    {
+        int orderOfPattern = -1;
         if (CurrentEnemyPattern != null)
         {
             // 패턴의 순서 값을 저장해 활용
-            OrderOfPattern = CurrentContinuousEnemyPattern.EnemyPatternList.IndexOf(CurrentEnemyPattern);
+            orderOfPattern = CurrentContinuousEnemyPattern.EnemyPatternList.IndexOf(CurrentEnemyPattern);
+
             // 마지막 패턴 이었다면 (끝내기)
-            if (OrderOfPattern == CurrentContinuousEnemyPattern.EnemyPatternList.Count - 1)
+            if (orderOfPattern == CurrentContinuousEnemyPattern.EnemyPatternList.Count - 1)
             {
                 CurrentEnemyPattern = null;
                 CurrentContinuousEnemyPattern = null;
-                OrderOfPattern = -1;
+                orderOfPattern = -1;
             }
         }
+        return orderOfPattern;
+    }
 
-        // 없다면 랜덤 패턴을 찾아서 실행.
-        if (OrderOfPattern == -1)
+    public void Play_Pattern()
+    {
+        if (IsDischarge || IsDead)
+        { return; }
+
+        // 이미 있는지 진행 중인 패턴이 있는지 확인
+        int orderOfPattern = Get_NextPatternIndex();
+
+        if (orderOfPattern == -1) // 다음 패턴이 => 없다면 랜덤 패턴을 찾아서 실행.
         {
-            for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
-            {
-                // 같은 우선도에 있는 패턴 랜덤으로 섞기
-                List<ContinuousEnemyPattern> epList = DevTool.Get_ShuffledList(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
-                
-                // 만약 사용 가능한 패턴이 있다면 시작
-                for (int j = 0; j < epList.Count; j++)
-                {
-                    if (epList[j].EnemyPatternList[0].Can_PlayPattern())
-                    {
-                        CurrentContinuousEnemyPattern = epList[j];
-                        CurrentEnemyPattern = epList[j].EnemyPatternList[0];
-
-                        CurrentEnemyPattern.Start_Pattern();
-
-                        return;
-                    }
-                }
-            }
+            Play_NewPattern();
         }
-
-        // 있다면 다음 패턴을 찾아서 실행.
-        else
+        else // => 있다면 다음 패턴을 찾아서 실행.
         {
-            CurrentEnemyPattern = CurrentContinuousEnemyPattern.EnemyPatternList[OrderOfPattern + 1];
-
-            CurrentEnemyPattern.Start_Pattern();
-            return;
+            Play_NextPattern(orderOfPattern);
         }
     }
 
+    private void Play_NewPattern()
+    {
+        for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
+        {
+            // 같은 우선도에 있는 패턴 랜덤으로 섞기
+            List<ContinuousEnemyPattern> patternList = DevTool.Get_ShuffledList(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
+
+            // 만약 사용 가능한 패턴이 있다면 시작
+            for (int j = 0; j < patternList.Count; j++)
+            {
+                if (patternList[j].EnemyPatternList[0].Can_PlayPattern())
+                {
+                    CurrentContinuousEnemyPattern = patternList[j];
+                    CurrentEnemyPattern = patternList[j].EnemyPatternList[0];
+                    CurrentEnemyPattern.Start_Pattern();
+
+                    return;
+                }
+            }
+        }
+    }
+
+    private void Play_NextPattern(int _OrderOfPattern)
+    {
+        CurrentEnemyPattern = CurrentContinuousEnemyPattern.EnemyPatternList[_OrderOfPattern + 1];
+        CurrentEnemyPattern.Start_Pattern();
+    }
 
     #endregion
 

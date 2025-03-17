@@ -68,11 +68,12 @@ public abstract class AttackerController : MovableDepthController
         AttackerState_Juge<T> _State_Juge,
         State_Anim _State_Anim,
         State_TF2D _State_StartTF,
-        AttackerState_EndTF _State_EndTF) where T : Collider2D
+        AttackerState_EndTF _State_EndTF,
+        float _TargetRange = 0.4f) where T : Collider2D
     {
         Sequence seq = DOTween.Sequence();
 
-        Set_State_Base(_State);
+        Set_State_Base(_State, _TargetRange);
         Set_State_Juge<T>(_State_Juge);
         Set_State_Anim(_State_Anim);
         Set_State_StartTF(_State_StartTF);
@@ -84,9 +85,11 @@ public abstract class AttackerController : MovableDepthController
         return seq;
     }
 
-    public virtual void Set_State_Base(AttackerState _State)
+    public virtual void Set_State_Base(AttackerState _State, float _TargetRange = 0.4f)
     {
         this.AttackerState = new AttackerState(_State);
+
+        TargetRange = _TargetRange;
     }
 
     public virtual void Set_State_Juge<T>(AttackerState_Juge<T> _State_Juge) where T : Collider2D

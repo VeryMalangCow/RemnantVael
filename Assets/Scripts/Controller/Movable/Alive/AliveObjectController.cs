@@ -96,8 +96,6 @@ public abstract class AliveObjectController : MovableObjectController
 
     #region Set Point (Value)
 
-
-
     protected void Set_CurrentSP(float _SetValue, float _Max, bool _LesserIsOk = false)
     {
         Set_CurrentPoint(ref CurrentSP, _SetValue, _Max, _LesserIsOk);

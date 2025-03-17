@@ -11,9 +11,10 @@ public abstract class EnemyPattern : MonoBehaviour
     [Space(10)]
     [Header("=== Value")]
     [SerializeField] protected EnemyController ThisEnemy;
-    [SerializeField] public bool IsPlayingThisPattern = false;
     [SerializeField] protected float StartDelay = 0f;
     [SerializeField] protected float EndDelay = 0f;
+
+    [HideInInspector] public bool IsPlaying = false;
 
     #endregion
 
@@ -21,7 +22,7 @@ public abstract class EnemyPattern : MonoBehaviour
 
     private void Start()
     {
-        IsPlayingThisPattern = false;
+        IsPlaying = false;
     }
 
     #endregion
@@ -38,19 +39,22 @@ public abstract class EnemyPattern : MonoBehaviour
 
     public virtual void Start_Pattern()
     {
-        IsPlayingThisPattern = true;
+        // Value
+        IsPlaying = true;
         ThisEnemy.IsPlayingPattern = true;
 
+        // Pattern
         ThisEnemy.CurrentPatternCor = Play_ThisPattern_Cor();
-
         StartCoroutine(ThisEnemy.CurrentPatternCor);
     }
 
     public virtual void End_Pattern()
     {
-        IsPlayingThisPattern = false;
+        // Value
+        IsPlaying = false;
         ThisEnemy.IsPlayingPattern = false;
 
+        // Enemy
         ThisEnemy.MoveAtPoint = Vector2.zero;
         ThisEnemy.MoveAtDir = Vector2.zero;
         ThisEnemy.MoveSpeed = 0;
