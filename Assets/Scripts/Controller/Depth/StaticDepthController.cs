@@ -6,7 +6,7 @@ public class StaticDepthController : DepthController
 
     protected virtual void OnEnable()
     {
-        TargetObject.transform.position = (Vector2)transform.position + (Vector2.up * TargetRange);
+        Set_TargetPos();
     }
 
     #endregion

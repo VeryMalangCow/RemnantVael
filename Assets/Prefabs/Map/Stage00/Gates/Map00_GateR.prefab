@@ -970,12 +970,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6a9a4a88b0d244888af9fe4db9a145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RandomSpriteList:
-  - SpriteList:
-    - {fileID: -1746943924, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 1391882910, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 237403348, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 366755556, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
 --- !u!95 &1764751439533702885
 Animator:
   serializedVersion: 5
@@ -1551,10 +1545,11 @@ MonoBehaviour:
   ThingsGO:
     TypeBase: {fileID: 1557811161441417995}
     TypeSpecial: {fileID: 2549561047461188151}
-  OnThingsGO: {fileID: 2549561047461188151}
-  OffThingsGO: {fileID: 1557811161441417995}
   EntranceGO: {fileID: 8365579818040759490}
   NeedSetAllLayer:
+  - {fileID: 20901119375000835}
+  - {fileID: 4594269168400911400}
+  NeedSortingLayers:
   - {fileID: 20901119375000835}
   - {fileID: 4594269168400911400}
 --- !u!1 &9015266310743912612

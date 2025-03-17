@@ -13,7 +13,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     [SerializeField] public readonly static int EffectImgSort = 3000;
 
     [Header("=== Movable Object")]
-    [SerializeField] public List<DepthController> NeedLayerObjects;
+    [SerializeField] public List<DepthController> NeedSortingObjects;
 
 
     [HideInInspector] private Coroutine LayerSortingCor = null;
@@ -64,9 +64,9 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     // 솔팅이 필요한지를 판별해 솔트
     private void Check_Set_Sort()
     {
-        if (Get_NeedSort(Get_OrderByY(NeedLayerObjects)))
+        if (Get_NeedSort(Get_OrderByY(NeedSortingObjects)))
         {
-            Set_Sort(NeedLayerObjects);
+            Set_Sort(NeedSortingObjects);
         }
     }
 
@@ -83,7 +83,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     // 솔팅이 필요한지?
     private bool Get_NeedSort(List<DepthController> _ObjectList)
     {
-        return !Enumerable.SequenceEqual(_ObjectList, NeedLayerObjects);
+        return !Enumerable.SequenceEqual(_ObjectList, NeedSortingObjects);
     }
 
     #endregion

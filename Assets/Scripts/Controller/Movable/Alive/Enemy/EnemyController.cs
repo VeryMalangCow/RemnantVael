@@ -160,9 +160,6 @@ public class EnemyController : AliveObjectController, IInteract
 
         Reset_State();
 
-        // VFX
-        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
-        
         // Pattern
         Start_PatternFromNone();
     }
@@ -174,6 +171,8 @@ public class EnemyController : AliveObjectController, IInteract
         Update_LookAtTarget();
         Play_Movement(Time.fixedDeltaTime);
     }
+
+    
 
     #endregion
 
@@ -462,12 +461,14 @@ public class EnemyController : AliveObjectController, IInteract
     {
         StopCoroutine(Play_RecoverDischarge_Cor());
 
+        EndAll_Pattern();
+
         // Remove
         if (EnemyManager.Instance.CurrentEnemyList.Contains(this))
         { EnemyManager.Instance.CurrentEnemyList.Remove(this); }
 
-        if (LayerOrderManager.Instance.NeedLayerObjects.Contains(this))
-        { LayerOrderManager.Instance.NeedLayerObjects.Remove(this); }
+        if (LayerOrderManager.Instance.NeedSortingObjects.Contains(this))
+        { LayerOrderManager.Instance.NeedSortingObjects.Remove(this); }
 
         // Check Room State
         StageManager.Instance.Play_CompleteKillAll();
@@ -484,7 +485,7 @@ public class EnemyController : AliveObjectController, IInteract
     private IEnumerator Play_RecoverDischarge_Cor()
     {
         // 패턴 루틴 종료
-        SetOn_Discharge();
+        EndAll_Pattern();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -497,23 +498,6 @@ public class EnemyController : AliveObjectController, IInteract
 
         // 패턴 루틴 시작
         Start_PatternFromNone();
-    }
-
-    private void SetOn_Discharge()
-    {
-        CurrentEnemyPattern.End_Pattern();
-        StopCoroutine(CurrentPatternCor);
-
-        CurrentContinuousEnemyPattern = null;
-        CurrentEnemyPattern = null;
-
-        MoveAtPoint = Vector2.zero;
-        MoveAtDir = Vector2.zero;
-
-        LookAtPoint = Vector2.zero;
-        LookAtDir = Vector2.zero;
-
-        MoveSpeed = 0f;
     }
 
     #endregion
@@ -532,7 +516,8 @@ public class EnemyController : AliveObjectController, IInteract
 
     public void Play_Execution()
     {
-        PlayerManager.Instance.PlayerController.CurrentInteractable.Value = null;
+        DevTool.Remove_InList(PlayerManager.Instance.PlayerController.CurrentInteractableGOList, this.gameObject);
+
         Set_Die();
     }
 
@@ -549,6 +534,23 @@ public class EnemyController : AliveObjectController, IInteract
     #endregion
 
     #region Pattern
+
+    private void EndAll_Pattern()
+    {
+        if (CurrentEnemyPattern != null) CurrentEnemyPattern.End_Pattern();
+        StopCoroutine(CurrentPatternCor);
+
+        CurrentContinuousEnemyPattern = null;
+        CurrentEnemyPattern = null;
+
+        MoveAtPoint = Vector2.zero;
+        MoveAtDir = Vector2.zero;
+
+        LookAtPoint = Vector2.zero;
+        LookAtDir = Vector2.zero;
+
+        MoveSpeed = 0f;
+    }
 
     private void Start_PatternFromNone()
     {

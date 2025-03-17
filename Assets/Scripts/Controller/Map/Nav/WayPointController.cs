@@ -10,17 +10,7 @@ public class WayPointController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Value")]
-    [HideInInspector] public Transform ThisTF;
     [SerializeField] public List<WayPointController> AdjacentWPList = new List<WayPointController>();
-
-    #endregion
-
-    #region Framework
-
-    private void Awake()
-    {
-        ThisTF = this.transform;
-    }
 
     #endregion
 }

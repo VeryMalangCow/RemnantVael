@@ -247,7 +247,7 @@ public class StageManager : Singleton<StageManager>
             // 된다면 벡터값을 넣어주고 (실제 좌표 값에 비례되는 값을 넣어줌 + Gate도)
             for (int i = 0; i < _RC.RoomVec.Count; i++)
             {
-                _RC.Set_CollectGateVec(i, WorldVecList[i]);
+                _RC.Set_CollectGatePos(i, WorldVecList[i]);
             }
 
             // 위치를 지정해주며
@@ -316,7 +316,7 @@ public class StageManager : Singleton<StageManager>
             // 된다면 벡터값을 넣어주고 (실제 좌표 값에 비례되는 값을 넣어줌 + Gate도)
             for (int j = 0; j < _RC.RoomVec.Count; j++)
             {
-                _RC.Set_CollectGateVec(j, WorldVecList[j]);
+                _RC.Set_CollectGatePos(j, WorldVecList[j]);
             }
 
             // 위치를 지정해주며
@@ -400,24 +400,26 @@ public class StageManager : Singleton<StageManager>
         }
 
         // Layer 초기화
-        LayerOrderManager.Instance.NeedLayerObjects = new List<DepthController>();
+        LayerOrderManager.Instance.NeedSortingObjects = new List<DepthController>();
 
         // 처음 엘베 레이어때문에 추가 하지않음
         if (!IsStartStage)
-        { LayerOrderManager.Instance.NeedLayerObjects.Add(PlayerManager.Instance.PlayerController); }
+        { LayerOrderManager.Instance.NeedSortingObjects.Add(PlayerManager.Instance.PlayerController); }
 
 
         CurrentRoomController.gameObject.SetActive(true);
 
         // Layer 추가
-        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.RoomRuleController.InRoom_AllBuilding);
-        LayerOrderManager.Instance.NeedLayerObjects.AddRange(CurrentRoomController.Get_NeedAllLayer());
+        LayerOrderManager.Instance.NeedSortingObjects.AddRange(CurrentRoomController.RoomRuleController.InRoom_AllBuilding);
+        LayerOrderManager.Instance.NeedSortingObjects.AddRange(CurrentRoomController.Get_NeedSortingAllDepth());
 
         // 현재 맵만 Sorting Layer 사용
         for (int i = 0; i < CurrentAllRoomController.Count; i++)
         {
-            CurrentAllRoomController[i].Set_CorrectWallSortOrder(CurrentRoomController);
+            //CurrentAllRoomController[i].Set_CorrectWallSortOrder(CurrentRoomController);
         }
+        //CurrentRoomController.Set_CorrectWallSortOrder(CurrentRoomController);
+        CurrentRoomController.Set_SortingStaticObjects();
 
         // Minimap
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Set_State();
@@ -425,7 +427,7 @@ public class StageManager : Singleton<StageManager>
         yield return new WaitForSeconds(0.5f);
 
         _TargetRC.Play_RoomState();
-        LayerOrderManager.Instance.NeedLayerObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
+        LayerOrderManager.Instance.NeedSortingObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
 
         // Minimap
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Set_State();

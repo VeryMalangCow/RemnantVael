@@ -106,11 +106,14 @@ public class RoomRuleController : MonoBehaviour
             if (InRoom_AllEnemy[i].EnemySpawnTF != null)
             {
                 EnemyController enemy = PoolingManager.Instance.Get_OP_Enemy(InRoom_AllEnemy[i].EnemyID);
-
                 EnemyManager.Instance.CurrentEnemyList.Add(enemy);
 
                 enemy.transform.position = InRoom_AllEnemy[i].EnemySpawnTF.transform.position;
                 enemy.gameObject.SetActive(true);
+
+                // VFX
+                UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(
+                    (Vector2)InRoom_AllEnemy[i].EnemySpawnTF.transform.position + (Vector2.up * enemy.TargetRange));
             }
         }
     }

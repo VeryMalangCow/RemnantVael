@@ -43,6 +43,20 @@ public class DepthController : IDController
 
     #endregion
 
+    #region Set TargetPos
+
+    protected Vector2 Get_TargetPos()
+    {
+        return (Vector2)transform.position + (Vector2.up * TargetRange);
+    }
+
+    protected void Set_TargetPos()
+    {
+        TargetObject.transform.position = Get_TargetPos();
+    }
+
+    #endregion
+
     #region Gen
 
 

@@ -143,7 +143,7 @@ public class MinimapEUIController : ElementUIController
         }
 
         // PC가 있는 방의 인접한 방
-        List<RoomController> connectedAllRC = CurrentRC.Get_ConnectedRoomList();
+        List<RoomController> connectedAllRC = CurrentRC.Get_ConnectedRooms();
         for (int i = 0; i < connectedAllRC.Count; i++)
         {
             Set_ActiveMME(connectedAllRC[i].ThisMME);
@@ -271,14 +271,17 @@ public class MinimapEUIController : ElementUIController
     {
         if (CanInteractable && InputManager.Instance.InputArrowDir != Vector2Int.zero)
         {
-            GateController gc = MinimapSelectedElementRC.Get_CollectGate(InputManager.Instance.InputArrowDir);
+            GateController gc = MinimapSelectedElementRC.Get_MinimapInteract_ShortcutGate(InputManager.Instance.InputArrowDir);
             if (gc != null)
             {
                 InteractingBookGate = gc.ParterGate;
                 MinimapSelectedElementRC = gc.ThisRoom;
                 Set_AnchorPos(MinimapSelectedElementRC.ThisIMME, InteractableMMEParentRT, 0.15f);
             }
-
+            else
+            {
+                Debug.Log("NULL");
+            }
             InputManager.Instance.InputArrowDir = Vector2Int.zero;
         }
     }

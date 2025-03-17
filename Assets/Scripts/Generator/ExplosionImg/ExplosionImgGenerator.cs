@@ -37,11 +37,12 @@ public class ExplosionImgGenerator : MonoBehaviour
             _State.Set_MultipleAllDir(new Vector2(_X, _Y));
             _State.Set_RandomValue();
 
-            TotalSeq.Join(Gen_EachExplImg(
-                _State.BaseState.SpawnPos,
-                _State.SpriteState,
-                _State.FirstState,
-                _State.SecondState));
+            TotalSeq.Join(
+                Gen_EachExplImg(
+                    _State.BaseState.SpawnPos,
+                    _State.SpriteState,
+                    _State.FirstState,
+                    _State.SecondState));
         }
     }
 
@@ -57,11 +58,12 @@ public class ExplosionImgGenerator : MonoBehaviour
             _State.Set_RandomValue();
             _State.Set_RandomAngleValue_PivotZero(_AngleExtent);
 
-            TotalSeq.Join(Gen_EachExplImg(
-                _State.BaseState.SpawnPos,
-                _State.SpriteState, 
-                _State.FirstState, 
-                _State.SecondState));
+            TotalSeq.Join(
+                Gen_EachExplImg(
+                    _State.BaseState.SpawnPos,
+                    _State.SpriteState,
+                    _State.FirstState,
+                    _State.SecondState));
         }
     }
 
@@ -73,8 +75,7 @@ public class ExplosionImgGenerator : MonoBehaviour
     private Sequence Gen_EachExplImg(Vector2 _SpawnPos, ExplState_Sprite _SpriteState, ExplState_MoveAndScale _FirstState, ExplState_MoveAndScale _SecondState)
     {
         SpriteRenderer sr = PoolingManager.Instance.Get_OP_ExplosionImg();
-        SetOn_SR(sr, _SpawnPos, _SpriteState);
-        return Play_ExplImg(sr, _SpawnPos, _FirstState, _SecondState);
+        return Play_ExplImg(sr, _SpawnPos, _SpriteState, _FirstState, _SecondState);
     }
 
     #endregion
@@ -82,13 +83,14 @@ public class ExplosionImgGenerator : MonoBehaviour
     #region Tween
 
     // 전체적인 움직임을 표현하는 
-    private Sequence Play_ExplImg(SpriteRenderer _SR, Vector2 _SpawnPos, ExplState_MoveAndScale _FirstState, ExplState_MoveAndScale _SecondState)
+    private Sequence Play_ExplImg(SpriteRenderer _SR, Vector2 _SpawnPos, ExplState_Sprite _SpriteState, ExplState_MoveAndScale _FirstState, ExplState_MoveAndScale _SecondState)
     {
         DevTool.Set_CompleteTween(_SR.gameObject);
 
         Sequence Seq = DOTween.Sequence();
         Seq.Append(Play_ExplImg_MoveScale(_SR, _SpawnPos, _FirstState));
         Seq.Append(Play_ExplImg_MoveScaleFadeOut(_SR, _SpawnPos, _SecondState));
+        Seq.OnStart(() => { SetOn_SR(_SR, _SpawnPos, _SpriteState); });
         Seq.OnComplete(() => { SetOff_SR(_SR); });
 
         return Seq;
@@ -136,6 +138,7 @@ public class ExplosionImgGenerator : MonoBehaviour
     protected virtual void SetOff_SR(SpriteRenderer _SR)
     {
         _SR.gameObject.SetActive(false);
+
         PoolingManager.Instance.ExplosionImgs.Queue.Enqueue(_SR);
     }
 

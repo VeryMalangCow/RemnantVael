@@ -6,12 +6,12 @@ public class SortingObjectController : StaticDepthController
     protected override void OnEnable()
     {
         base.OnEnable();
-        LayerOrderManager.Instance.NeedLayerObjects.Add(this);
+        LayerOrderManager.Instance.NeedSortingObjects.Add(this);
     }
 
     protected virtual void OnDisable()
     {
-        LayerOrderManager.Instance.NeedLayerObjects.Remove(this);
+        LayerOrderManager.Instance.NeedSortingObjects.Remove(this);
     }
 
     #endregion

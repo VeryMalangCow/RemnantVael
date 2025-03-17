@@ -104,12 +104,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6a9a4a88b0d244888af9fe4db9a145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RandomSpriteList:
-  - SpriteList:
-    - {fileID: -1746943924, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 1391882910, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 237403348, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 366755556, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
 --- !u!95 &2120047030190375404
 Animator:
   serializedVersion: 5
@@ -599,10 +593,16 @@ MonoBehaviour:
   ThingsGO:
     TypeBase: {fileID: 4707451960379063802}
     TypeSpecial: {fileID: 5090730640402052926}
-  OnThingsGO: {fileID: 5090730640402052926}
-  OffThingsGO: {fileID: 4707451960379063802}
   EntranceGO: {fileID: 2675830449807796936}
-  NeedSetAllLayer: []
+  NeedSortingLayers: []
+  OpacityLowerSRList:
+  - {fileID: 4575630143981922311}
+  - {fileID: 9045924164630193295}
+  - {fileID: 4327120763932662890}
+  - {fileID: 5204747413122792111}
+  - {fileID: 75199811120424704}
+  - {fileID: 13798087874045123}
+  - {fileID: 7691717365146632468}
 --- !u!1 &3675422025115927993
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class MovableDepthController : StaticDepthController
 
     protected virtual void Update()
     {
-        TargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * TargetRange);
+        Set_TargetPos();
     }
     
     #endregion

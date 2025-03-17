@@ -270,7 +270,6 @@ public class DevTool
 
     #endregion
 
-
     #endregion
 
     #region About List
@@ -314,6 +313,8 @@ public class DevTool
 
     #region Get 
 
+    #region Removed
+
     public static List<T> Get_RemovedList<T>(List<T> _TargetList, int _Index)
     {
         List<T> result = new List<T>(_TargetList);
@@ -327,6 +328,10 @@ public class DevTool
         return result;
     }
 
+    #endregion
+
+    #region Child
+
     // 자식 객체들의 'T 타입' 리스트 가져오기
     public static List<T> Get_ChildList<T>(Transform _Parent) where T : Component
     {
@@ -339,6 +344,75 @@ public class DevTool
             }
         }
         return result;
+    }
+
+    #endregion
+
+    #region Double List
+
+
+    // 'T 타입' 이중 리스트를 기본 리스트로 변경
+    public static List<T> Get_List<T>(List<List<T>> _DoubleList) where T : class
+    {
+        List<T> result = new List<T>();
+        for (int i = 0; i < _DoubleList.Count; i++)
+        {
+            result.AddRange(_DoubleList[i]);
+        }
+        return result;
+    }
+
+
+    // 'T 타입' 이중 리스트에서 리스트들중 마지막 부분만을 모아서 리턴
+    public static List<T> Get_LastElementList<T>(List<List<T>> _DoubleList)
+    {
+        List<T> result = new List<T>();
+        for (int i = 0; i < _DoubleList.Count; i++)
+        {
+            result.Add(_DoubleList[i][_DoubleList[i].Count - 1]);
+        }
+        return result;
+    }
+
+    #endregion
+
+    #region Casting + ByComponent
+
+    // 게임 오브젝트 리스트에서 List T 타입 변형
+    public static List<T> Get_ComponentTTypeList<T>(List<GameObject> _TargetList) where T : Component
+    {
+        List<T> resultList = new List<T>();
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            if (Get_ComponentTType(_TargetList[i], out T tType))
+            {
+                resultList.Add(tType);
+            }
+        }
+        return resultList;
+    }
+
+    // 'T 타입' 리스트를 GO 리스트로 변경
+    public static List<GameObject> Get_GOList<T>(List<T> _TargetList) where T : MonoBehaviour
+    {
+        List<GameObject> result = new List<GameObject>();
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            result.Add(_TargetList[i].gameObject);
+        }
+        return result;
+    }
+
+    #endregion
+
+    #region Unique
+
+    // 'T 타입' List 두개를 합
+    public static List<T> Get_CombineList<T>(List<T> _FirstList, List<T> _SecondList)
+    {
+        List<T> resultList = new List<T>(_FirstList);
+        resultList.AddRange(_SecondList);
+        return resultList;
     }
 
     // 'T 타입'의 List를 무작위 섞기
@@ -359,6 +433,16 @@ public class DevTool
         return result;
     }
 
+    // 'T 타입' 리스트에서 랜덤으로 뽑기
+    public static T Get_Random<T>(List<T> _TargetList)
+    {
+        if (_TargetList != null || _TargetList.Count > 0)
+        {
+            return _TargetList[UnityEngine.Random.Range(0, _TargetList.Count)];
+        }
+        return default;
+    }
+
 
     // 'T 타입' 맞는 인덱스 찾기
     public static int Get_IndexInList<T>(List<T> _TargetList, T _Target) where T : class
@@ -373,70 +457,21 @@ public class DevTool
         return -1;
     }
 
-    // 'T 타입' 리스트에서 랜덤으로 뽑기
-    public static T Get_Random<T>(List<T> _TargetList)
-    {
-        if (_TargetList != null || _TargetList.Count > 0)
-        {
-            return _TargetList[UnityEngine.Random.Range(0, _TargetList.Count)];
-        }
-        return default;
-    }
-
-    // 'T 타입' 이중 리스트를 기본 리스트로 변경
-    public static List<T> Get_List<T>(List<List<T>> _DoubleList) where T : class
+    // 'T 타입' 두 리스트 중 교집합 가져오기
+    public static List<T> Get_IntersectionList<T>(List<T> _List1, List<T> _List2)
     {
         List<T> result = new List<T>();
-        for (int i = 0; i < _DoubleList.Count; i++)
+        for (int i = 0; i < _List1.Count; i++)
         {
-            result.AddRange(_DoubleList[i]);
-        }
-        return result;
-    }
-    // 'T 타입' 이중 리스트에서 리스트들중 마지막 부분만을 모아서 리턴
-    public static List<T> Get_LastElementList<T>(List<List<T>> _DoubleList)
-    {
-        List<T> result = new List<T>();
-        for (int i = 0; i < _DoubleList.Count; i++)
-        {
-            result.Add(_DoubleList[i][_DoubleList[i].Count - 1]);
-        }
-        return result;
-    }
-
-
-    // 게임 오브젝트 리스트에서 List T 타입 변형
-    public static List<T> Get_ComponentTTypeList<T>(List<GameObject> _TargetList) where T : Component
-    {
-        List<T> resultList = new List<T>();
-        for (int i = 0; i < _TargetList.Count; i++)
-        {
-            if (Get_ComponentTType(_TargetList[i], out T tType))
+            if (_List2.Contains(_List1[i]))
             {
-                resultList.Add(tType);
+                result.Add(_List1[i]);
             }
         }
-        return resultList;
-    }
-
-    // 'T 타입' List 두개를 합
-    public static List<T> Get_CombineList<T>(List<T> _FirstList, List<T> _SecondList)
-    {
-        List<T> resultList = new List<T>(_FirstList);
-        resultList.AddRange(_SecondList);
-        return resultList;
-    }
-
-    // 'T 타입' 리스트를 GO 리스트로 변경
-    public static List<GameObject> Get_GOList<T>(List<T> _TargetList) where T : MonoBehaviour
-    {
-        List<GameObject> result = new List<GameObject>();
-        for (int i = 0; i < _TargetList.Count; i++)
-        {
-            result.Add(_TargetList[i].gameObject);
-        }
         return result;
     }
+
+    #endregion
 
     #endregion
 
@@ -477,7 +512,6 @@ public class DevTool
     }
 
     #endregion
-
 
     #endregion
 
@@ -769,6 +803,12 @@ public class DevTool
     #endregion
 
     #region Set
+
+    public static void Set_KillTween(Sequence _Seq)
+    {
+        if (_Seq != null && DOTween.IsTweening(_Seq))
+        { DOTween.Kill(_Seq); }
+    }
 
     public static void Set_CompleteTween<T>(T _Comp)
     {
@@ -1178,6 +1218,13 @@ public class CoupleData<T>
             return TypeBase;
         }
     }
+}
+
+[System.Serializable]
+public class CouplePair<T>
+{
+    [SerializeField] public CoupleData<T> TypeBase;
+    [SerializeField] public CoupleData<T> TypeSpecial;
 }
 
 [System.Serializable]

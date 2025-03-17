@@ -1,47 +1,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Collections;
 
 public class RoomController : IDController
 {
     #region Value
+
+    #region - Inspector
 
     [Space(20)]
     [Header("<><><><><> Room")]
 
     [Space(10)]
     [Header("=== Data")]
-    [SerializeField] public RoomRuleController RoomRuleController;
+
+    [Space(5)]
+    [Header("-- Vec")]
     [SerializeField] public List<Vector2Int> RoomVec;
 
+
+    [Space(10)]
+    [Header("=== Wall")]
+    [SerializeField] private Transform InRoom_UpperWallParentTF;
+    [SerializeField] private Transform InRoom_LowerWallParentTF;
+    [SerializeField] private Transform InRoom_UpperGateParentTF;
+    [SerializeField] private Transform InRoom_LowerGateParentTF;
+
+    [Space(10)]
+    [Header("=== Minimap UI")]
+    [SerializeField] public CouplePair<Sprite> MinimapElementIcon;
+    [SerializeField] public Vector2 SpritePivot;
+
+    #endregion
+
+    #region - Hide
+
+    // Rule
+    [HideInInspector] public RoomRuleController RoomRuleController;
     [HideInInspector] public bool SettedPos = false;
 
-    [Space(10)]
-    [Header("=== In Room _ Wall")]
-    [SerializeField] private Transform InRoom_UpperWallParentTF;
-    [HideInInspector] private List<StaticDepthController> InRoom_UpperWalls;
-    [SerializeField] private Transform InRoom_LowerWallParentTF;
-    [HideInInspector] private List<StaticDepthController> InRoom_LowerWalls;
+    // Wall
+    [HideInInspector] private List<StaticDepthController> InRoom_UpperWalls = new List<StaticDepthController>();
+    [HideInInspector] private List<StaticDepthController> InRoom_LowerWalls = new List<StaticDepthController>();
 
-    [Space(10)]
-    [Header("=== In Room _ Building")]
-    [SerializeField] public List<GateController> InRoom_AllUpperGate;
-    [SerializeField] public List<GateController> InRoom_AllLowerGate;
-    [HideInInspector] public List<GateController> InRoom_AllGate;
+    // Gate
+    [HideInInspector] public List<GateController> InRoom_UpperGates = new List<GateController>();
+    [HideInInspector] public List<GateController> InRoom_LowerGates = new List<GateController>();
+    [HideInInspector] public List<GateController> InRoom_AllGate = new List<GateController>();
 
-    [Space(10)]
-    [Header("=== Camera")]
-    [SerializeField] public Transform RoomCameraCenter;
-
-    [Space(10)]
-    [Header("=== UI")]
-    [SerializeField] public Sprite ThisSpriteMM;
-    [SerializeField] public Sprite ThisSpriteMMO;
-    [SerializeField] public Sprite ThisSpriteMMI;
-    [SerializeField] public Sprite ThisSpriteMMIO;
-    [SerializeField] public Vector2 SpritePivot;
+    // Minimap UI
     [HideInInspector] public MinimapCellEUIController ThisMME;
     [HideInInspector] public MinimapCellEUIController ThisIMME;
+
+
+    #endregion
 
     #endregion
 
@@ -52,33 +65,12 @@ public class RoomController : IDController
         base.Offset(_ID);
 
         // Wall
-        InRoom_UpperWalls = new List<StaticDepthController>();
-        if (InRoom_UpperWallParentTF.childCount > 0)
-        {
-            foreach (Transform chile in InRoom_UpperWallParentTF)
-            {
-                if (chile.gameObject.TryGetComponent(out StaticDepthController HSTS))
-                {
-                    InRoom_UpperWalls.Add(HSTS);
-                }
-            }
-        }
-        InRoom_LowerWalls = new List<StaticDepthController>();
-        if (InRoom_LowerWallParentTF.childCount > 0)
-        {
-            foreach (Transform chile in InRoom_LowerWallParentTF)
-            {
-                if (chile.gameObject.TryGetComponent(out StaticDepthController HSTS))
-                {
-                    InRoom_LowerWalls.Add(HSTS);
-                }
-            }
-        }
+        InRoom_UpperWalls = DevTool.Get_ChildList<StaticDepthController>(InRoom_UpperWallParentTF);
+        InRoom_LowerWalls = DevTool.Get_ChildList<StaticDepthController>(InRoom_LowerWallParentTF);
+        InRoom_UpperGates = DevTool.Get_ChildList<GateController>(InRoom_UpperGateParentTF);
+        InRoom_LowerGates = DevTool.Get_ChildList<GateController>(InRoom_LowerGateParentTF);
 
-        // Gate
-        InRoom_AllGate = new List<GateController>();
-        InRoom_AllGate.AddRange(InRoom_AllUpperGate);
-        InRoom_AllGate.AddRange(InRoom_AllLowerGate);
+        InRoom_AllGate = DevTool.Get_CombineList(InRoom_UpperGates, InRoom_LowerGates);
         for (int i = 0; i < InRoom_AllGate.Count; i++)
         {
             InRoom_AllGate[i].ThisRoom = this;
@@ -91,188 +83,81 @@ public class RoomController : IDController
 
     #region Layer
 
-    public void Set_CorrectWallSortOrder(RoomController _RC)
+    private List<SpriteRenderer> Get_SortingSrList(Transform _ParentTF)
     {
-        if (_RC == this)
+        List<SpriteRenderer> result = new List<SpriteRenderer>();
+        foreach (Transform childTF in _ParentTF)
         {
-            // Upper
-            List<SpriteRenderer> upperSrs = new List<SpriteRenderer>();
-            for (int i = 0; i < InRoom_UpperWalls.Count; i++)
-            {
-                foreach (Transform tf in InRoom_UpperWalls[i].TargetObject.transform)
-                {
-                    if (tf.TryGetComponent(out SpriteRenderer upperSr))
-                    { upperSrs.Add(upperSr); }
-                }
-            }
-            for (int i = 0; i < InRoom_AllUpperGate.Count; i++)
-            {
-                if (InRoom_AllUpperGate[i].TargetObject.TryGetComponent(out SpriteRenderer upperSr))
-                { upperSr.sortingOrder = 1; }
-
-                foreach (Transform tf in InRoom_AllUpperGate[i].TargetObject.transform)
-                {
-                    if (tf.TryGetComponent(out SpriteRenderer childUpperSr))
-                    { upperSrs.Add(childUpperSr); }
-                }
-
-                foreach (Transform tf in InRoom_AllUpperGate[i].ExtraTargetObject.transform)
-                {
-                    if (tf.TryGetComponent(out SpriteRenderer childUpperSr))
-                    { upperSrs.Add(childUpperSr); }
-                }
-            }
-
-            upperSrs = upperSrs.OrderBy(obj => obj.transform.position.y).ToList();
-            for (int i = 0; i < upperSrs.Count; i++)
-            {
-                upperSrs[i].sortingOrder = 1 + (upperSrs.Count - i);
-            }
-
-
-            //Lower
-            List<SpriteRenderer> lowerSrs = new List<SpriteRenderer>();
-            for (int i = 0; i < InRoom_LowerWalls.Count; i++)
-            {
-                foreach (Transform tf in InRoom_LowerWalls[i].TargetObject.transform)
-                {
-                    if (tf.TryGetComponent(out SpriteRenderer lowerSr))
-                    { lowerSrs.Add(lowerSr); }
-                }
-            }
-            for (int i = 0; i < InRoom_AllLowerGate.Count; i++)
-            {
-                if (InRoom_AllLowerGate[i].TargetObject.TryGetComponent(out SpriteRenderer lowerSr))
-                { lowerSrs.Add(lowerSr); }
-
-                foreach (Transform tf in InRoom_AllLowerGate[i].TargetObject.transform)
-                {
-                    if (tf.TryGetComponent(out SpriteRenderer childLowerSr))
-                    { lowerSrs.Add(childLowerSr); }
-                }
-
-
-                if (InRoom_AllLowerGate[i].ExtraTargetObject.TryGetComponent(out SpriteRenderer extraLowerSr))
-                { lowerSrs.Add(extraLowerSr); }
-
-                foreach (Transform tf in InRoom_AllLowerGate[i].ExtraTargetObject.transform)
-                {
-                    if (tf.TryGetComponent(out SpriteRenderer childLowerSr))
-                    { lowerSrs.Add(childLowerSr); }
-                }
-            }
-
-
-            lowerSrs = lowerSrs.OrderBy(obj => obj.transform.position.y).ToList();
-            for (int i = 0; i < lowerSrs.Count; i++)
-            {
-                lowerSrs[i].sortingOrder = 2000 + (lowerSrs.Count - i);
-            }
-            
+            if (DevTool.Get_ComponentTType(childTF.gameObject, out SpriteRenderer sr))
+                result.Add(sr);
         }
-        else
-        {
-            List<StaticDepthController> HSTSs = new List<StaticDepthController>();
-            HSTSs.AddRange(InRoom_UpperWalls);
-            HSTSs.AddRange(InRoom_LowerWalls);
-            for (int i = 0; i < HSTSs.Count; i++)
-            {
-                if (HSTSs[i].TargetObject.TryGetComponent(out SpriteRenderer sr))
-                { sr.sortingOrder = 1; }
-            }
-        }
-        
+        return result;
     }
 
-    public List<DepthController> Get_NeedAllLayer()
+    private List<SpriteRenderer> Get_Sorting_EachWalls(List<StaticDepthController> _StaticDepthList)
     {
-        List<DepthController> HST = new List<DepthController>();
+        List<SpriteRenderer> srList = new List<SpriteRenderer>();
 
-        for (int i = 0; i < InRoom_AllGate.Count; i++)
+        for (int i = 0; i < _StaticDepthList.Count; i++)
         {
-            if (InRoom_AllGate[i].NeedSetAllLayer != null && InRoom_AllGate[i].NeedSetAllLayer.Count > 0)
-            { HST.AddRange(InRoom_AllGate[i].NeedSetAllLayer); }
+            srList.AddRange(Get_SortingSrList(_StaticDepthList[i].TargetObject.transform));
         }
 
-        return HST;
+        return srList;
     }
 
-    #endregion
-
-    #region Gate
-
-    public void Set_CollectGateVec(int _Index, Vector2Int _InitVec)
+    private List<SpriteRenderer> Get_Sorting_EachGates(List<GateController> _Gates, bool _IsUpper)
     {
-        Vector2Int targetVec = RoomVec[_Index];
-        List<GateController> gates = Get_CollectGateList(targetVec);
-        for (int i = 0; i < gates.Count; i++)
-        {
-            gates[i].RoomPosGate = _InitVec;
-            gates[i].SettedPos = true;
-        }
-        RoomVec[_Index] = _InitVec;
-        SettedPos = true;
-    }
+        List<SpriteRenderer> srList = new List<SpriteRenderer>();
 
-    private List<GateController> Get_CollectGateList(Vector2Int _TargetVec)
-    {
-        List<GateController> resultList = new List<GateController>();
-        for (int i = 0; i < InRoom_AllGate.Count; i++)
+        for (int i = 0; i < _Gates.Count; i++)
         {
-            if (InRoom_AllGate[i].RoomPosGate == _TargetVec &&
-                !InRoom_AllGate[i].SettedPos)
+            if (_IsUpper)
             {
-                resultList.Add(InRoom_AllGate[i]);
-            }
-        }
-        return resultList;
-    }
-
-    public GateController Get_CollectGate(Vector2Int _TargetVec)
-    {
-        // 맞는 방향에 있는 모든 문
-        List<GateController> collectDirGateList = new List<GateController>();
-        for (int i = 0; i < InRoom_AllGate.Count; i++)
-        {
-            if (InRoom_AllGate[i].GateDir == _TargetVec &&
-                InRoom_AllGate[i].ParterGate != null)
-            {
-                collectDirGateList.Add(InRoom_AllGate[i]);
-            }
-        }
-        List <GateController> gateList = new List<GateController>();
-        if (collectDirGateList.Count > 0)
-        {
-            // 반대편이 갈 수 있는 (이미 성공한 방) 상태인지 판별한 방 리스트
-            for (int i = 0; i < collectDirGateList.Count; i++)
-            {
-                if (collectDirGateList[i].ParterGate.ThisRoom.RoomRuleController.RoomType
-                    == eRoomType.Completed)
-                {
-                    gateList.Add(collectDirGateList[i].ParterGate);
-                }
-            }
-
-            // XY 값을 기준으로 적은 값을 우선적으로 리턴.
-            if (gateList.Count > 0)
-            {
-                gateList = gateList.Distinct().ToList();
-                if (_TargetVec.x != 0)
-                {
-                    return gateList.OrderBy(obj => obj.transform.position.x).ToList()[0];
-                }
-                else
-                {
-                    return gateList.OrderBy(obj => obj.transform.position.y).ToList()[0];
-                }
+                _Gates[i].Set_SortingOrder(1);
             }
             else
             {
-                return null;
+                if (InRoom_LowerGates[i].TargetObject.TryGetComponent(out SpriteRenderer sr))
+                { srList.Add(sr); }
+                if (InRoom_LowerGates[i].ExtraTargetObject.TryGetComponent(out SpriteRenderer extraSr))
+                { srList.Add(extraSr); }
             }
+
+            srList.AddRange(Get_SortingSrList(_Gates[i].TargetObject.transform));
+            srList.AddRange(Get_SortingSrList(_Gates[i].ExtraTargetObject.transform));
         }
 
-        return null; 
+        return srList;
+    }
+
+    private void Set_Sorting(List<SpriteRenderer> _SrList, int _BaseSortingIndex)
+    {
+        _SrList = _SrList.OrderBy(obj => obj.transform.position.y).ToList();
+        for (int i = 0; i < _SrList.Count; i++)
+        {
+            _SrList[i].sortingOrder = _BaseSortingIndex + (_SrList.Count - i);
+        }
+    }
+
+    public void Set_SortingStaticObjects()
+    {
+        // Upper
+        List<SpriteRenderer> upperSrs = new List<SpriteRenderer>();
+
+        upperSrs.AddRange(Get_Sorting_EachWalls(InRoom_UpperWalls));
+        upperSrs.AddRange(Get_Sorting_EachGates(InRoom_UpperGates, true));
+
+        Set_Sorting(upperSrs, 1);
+
+
+        //Lower
+        List<SpriteRenderer> lowerSrs = new List<SpriteRenderer>();
+
+        lowerSrs.AddRange(Get_Sorting_EachWalls(InRoom_LowerWalls));
+        lowerSrs.AddRange(Get_Sorting_EachGates(InRoom_LowerGates, false));
+
+        Set_Sorting(lowerSrs, 2000);
     }
 
     #endregion
@@ -302,12 +187,9 @@ public class RoomController : IDController
         // Gate
         for (int i = 0; i < InRoom_AllGate.Count; i++) 
         {
-            if (InRoom_AllGate[i].HadParter)
+            if (InRoom_AllGate[i].HadParter && !InRoom_AllGate[i].IsOpen)
             {
-                if (!InRoom_AllGate[i].IsOpen)
-                {
-                    InRoom_AllGate[i].Set_OpenClose(true);
-                }
+                InRoom_AllGate[i].Set_OpenClose(true);
             }
         }
     }
@@ -315,20 +197,195 @@ public class RoomController : IDController
 
     #endregion
 
+    #region Set
+
+    // 게이트와 방의 Pos 세팅하기
+    public void Set_CollectGatePos(int _Index, Vector2Int _InitVec)
+    {
+        Vector2Int targetVec = RoomVec[_Index];
+        List<GateController> posNotSettedGates = Get_PosNotSettedGates(targetVec);
+        for (int i = 0; i < posNotSettedGates.Count; i++)
+        {
+            posNotSettedGates[i].RoomPosGate = _InitVec;
+            posNotSettedGates[i].SettedPos = true;
+        }
+        RoomVec[_Index] = _InitVec;
+        SettedPos = true;
+    }
+
+    #endregion
+
     #region Get
 
-    public List<RoomController> Get_ConnectedRoomList()
+    #region Room
+
+    // 연결된 방을 모두 가져오기
+    public List<RoomController> Get_ConnectedRooms()
     {
-        List<RoomController> result = new List<RoomController>();
+        List<RoomController> connectedRooms = new List<RoomController>();
+        List<GateController> existGates = Get_ExistGates();
+        for (int i = 0; i < existGates.Count; i++)
+        {
+            connectedRooms.Add(existGates[i].ParterGate.ThisRoom);
+            
+        }
+        return connectedRooms;
+    }
+
+    #endregion
+
+    #region Gate 
+
+    // 존재하는 (상호작용이 가능한)
+    private List<GateController> Get_ExistGates()
+    {
+        List<GateController> dirGates = new List<GateController>();
         for (int i = 0; i < InRoom_AllGate.Count; i++)
         {
-            if (InRoom_AllGate[i].ParterGate != null && InRoom_AllGate[i].ParterGate.ThisRoom != null)
+            if (InRoom_AllGate[i].ParterGate != null)
             {
-                result.Add(InRoom_AllGate[i].ParterGate.ThisRoom);
+                dirGates.Add(InRoom_AllGate[i]);
             }
         }
-        return result;
+        return dirGates;
     }
+
+    // 방향에 맞는
+    private List<GateController> Get_DirGates(Vector2Int _Dir)
+    {
+        List<GateController> dirGates = new List<GateController>();
+        for (int i = 0; i < InRoom_AllGate.Count; i++)
+        {
+            if (InRoom_AllGate[i].GateDir == _Dir)
+            {
+                dirGates.Add(InRoom_AllGate[i]);
+            }
+        }
+        return dirGates;
+    }
+
+    // 위치에 맞는
+    private List<GateController> Get_PosGates(Vector2Int _Pos)
+    {
+        List<GateController> dirGates = new List<GateController>();
+        for (int i = 0; i < InRoom_AllGate.Count; i++)
+        {
+            if (InRoom_AllGate[i].RoomPosGate == _Pos)
+            {
+                dirGates.Add(InRoom_AllGate[i]);
+            }
+        }
+        return dirGates;
+    }
+
+    // 위치 값이 대입되지 않은 (아직 대입받지 않은 게이트들)
+    private List<GateController> Get_NotSettedGates()
+    {
+        List<GateController> dirGates = new List<GateController>();
+        for (int i = 0; i < InRoom_AllGate.Count; i++)
+        {
+            if (!InRoom_AllGate[i].SettedPos)
+            {
+                dirGates.Add(InRoom_AllGate[i]);
+            }
+        }
+        return dirGates;
+    }
+
+    // 열려있는
+    private List<GateController> Get_OpenedGates()
+    {
+        List<GateController> dirGates = new List<GateController>();
+        for (int i = 0; i < InRoom_AllGate.Count; i++)
+        {
+            if (InRoom_AllGate[i].IsOpen)
+            {
+                dirGates.Add(InRoom_AllGate[i]);
+            }
+        }
+        // 존재하는 건 기본 조건
+        return DevTool.Get_IntersectionList(Get_ExistGates(), dirGates);
+    }
+
+
+    // 존재하고 + 방향에 맞는
+    private List<GateController> Get_ExistDirGates(Vector2Int _Dir)
+    {
+        return DevTool.Get_IntersectionList(
+            Get_DirGates(_Dir),
+            Get_ExistGates());
+    }
+
+    // 위치에 맞고 + 아직 위치값이 대입되지 않은
+    private List<GateController> Get_PosNotSettedGates(Vector2Int _Pos)
+    {
+        return DevTool.Get_IntersectionList(
+            Get_PosGates(_Pos),
+            Get_NotSettedGates());
+    }
+
+
+
+    // 열려있는 + 반대편도 열려있는
+    private List<GateController> Get_BothOpenedGates()
+    {
+        List<GateController> singleOpenedGates = Get_OpenedGates();
+        List<GateController> bothOpenedGates = new List<GateController>();
+        for (int i = 0; i < singleOpenedGates.Count; i++)
+        {
+            if (singleOpenedGates[i].ParterGate.ThisRoom.RoomRuleController.RoomType == eRoomType.Completed)
+            {
+                bothOpenedGates.Add(singleOpenedGates[i]);
+            }
+        }
+        return bothOpenedGates;
+    }
+
+
+    // 미니맵 상호작용에서 방향인풋 값으로 알맞는 게이트를 찾기
+    public GateController Get_MinimapInteract_ShortcutGate(Vector2Int _TargetVec)
+    {
+        // 맞는 방향에 있는 모든 문
+        List<GateController> gates =
+            DevTool.Get_IntersectionList(
+                Get_ExistDirGates(_TargetVec),
+                Get_BothOpenedGates());
+
+        if (gates.Count > 0)
+        {
+            return _TargetVec.x != 0 ?
+                gates.OrderBy(obj => obj.transform.position.x).ToList()[0].ParterGate :
+                gates.OrderBy(obj => obj.transform.position.y).ToList()[0].ParterGate;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    #endregion
+
+    #region Sorting
+
+    public List<DepthController> Get_NeedSortingAllDepth()
+    {
+        List<DepthController> Depths = new List<DepthController>();
+
+        for (int i = 0; i < InRoom_AllGate.Count; i++)
+        {
+            if (InRoom_AllGate[i].NeedSortingLayers != null &&
+                InRoom_AllGate[i].NeedSortingLayers.Count > 0)
+            {
+                Depths.AddRange(InRoom_AllGate[i].NeedSortingLayers);
+            }
+        }
+
+        return Depths;
+    }
+
+
+    #endregion
+
 
     #endregion
 }

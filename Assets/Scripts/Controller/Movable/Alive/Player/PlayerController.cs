@@ -107,7 +107,7 @@ public class PlayerController : AliveObjectController
     [HideInInspector] public List<BuffController> CurrentBuffs = new List<BuffController>();
 
     // Interact
-    [SerializeField] private List<GameObject> CurrentInteractableGOList = new List<GameObject>();
+    [SerializeField] public List<GameObject> CurrentInteractableGOList = new List<GameObject>();
     [HideInInspector] public ReactiveProperty<IInteract> CurrentInteractable = new();
 
     // Item
@@ -252,7 +252,7 @@ public class PlayerController : AliveObjectController
         StateAnim.transform.parent.transform.gameObject.SetActive(true); 
 
         StageManager.Instance.IsStartStage = false;
-        LayerOrderManager.Instance.NeedLayerObjects.Add(this);
+        LayerOrderManager.Instance.NeedSortingObjects.Add(this);
     }
 
     // 스테이지 끝

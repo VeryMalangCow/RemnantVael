@@ -32,14 +32,14 @@ public class MinimapCellEUIController : ElementUIController
         if (_IsNormal)
         {
             ConnectedRC.ThisMME = this;
-            ThisMMImg.sprite = ConnectedRC.ThisSpriteMM;
-            ThisMMOImg.sprite = ConnectedRC.ThisSpriteMMO;
+            ThisMMImg.sprite = ConnectedRC.MinimapElementIcon.TypeBase.TypeBase;
+            ThisMMOImg.sprite = ConnectedRC.MinimapElementIcon.TypeBase.TypeSpecial;
         }
         else
         {
             ConnectedRC.ThisIMME = this;
-            ThisMMImg.sprite = ConnectedRC.ThisSpriteMMI;
-            ThisMMOImg.sprite = ConnectedRC.ThisSpriteMMIO;
+            ThisMMImg.sprite = ConnectedRC.MinimapElementIcon.TypeSpecial.TypeBase;
+            ThisMMOImg.sprite = ConnectedRC.MinimapElementIcon.TypeSpecial.TypeSpecial;
         }
 
         ThisMMImg.SetNativeSize();
