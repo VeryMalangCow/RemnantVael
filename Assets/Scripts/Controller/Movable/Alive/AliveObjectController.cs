@@ -125,8 +125,6 @@ public abstract class AliveObjectController : MovableObjectController
         }
     }
 
-
-
     // Dead!
     protected virtual void Set_Die()
     {

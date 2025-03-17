@@ -1553,7 +1553,7 @@ public class BUShopEachData<T>
             Upgrade_BuyBtn.OwnerUIController = _Owner;
         }
 
-
+        Upgrade_BUS.CurrentLevel.Value = 0;
         Upgrade_BUS.CurrentLevel
            .Subscribe(_CurrentLevel =>
            {
@@ -1652,7 +1652,7 @@ public class BULevelData<T>
                 float_UpgradeValues.Add(float_EachUpgradeValue);
             }
 
-            Offset(float_BaseValue, float_UpgradeValues, _BaseValue.NeedPayByLevelRange);
+            Offset(float_BaseValue, float_UpgradeValues);
         }
         else if (_BaseValue.BaseState.GetType() == typeof(int))
         {
@@ -1667,11 +1667,11 @@ public class BULevelData<T>
                 int_UpgradeValues.Add(int_EachUpgradeValue);
             }
 
-            Offset(int_BaseValue, int_UpgradeValues, _BaseValue.NeedPayByLevelRange);
+            Offset(int_BaseValue, int_UpgradeValues);
         }
     }
 
-    public void Offset(float _FloatValue, List<float> _UpgradeValue, List<int> _NeedPay)
+    public void Offset(float _FloatValue, List<float> _UpgradeValue)
     {
         for (int i = 0; i < BU_EachLevelDataList.Count; i++)
         {
@@ -1686,11 +1686,11 @@ public class BULevelData<T>
                 BU_EachLevelDataList[i].SetUpgradeValue(Mathf.RoundToInt((float)d * 100f) / 100f);
             }
 
-            BU_EachLevelDataList[i].NeedEC_ForUpgrade = _NeedPay[(int)(i / 3)];
+            BU_EachLevelDataList[i].NeedEC_ForUpgrade = (int)(i / 3) + 1;
         }
     }
 
-    public void Offset(int _IntValue, List<int> _UpgradeValue, List<int> _NeedPay)
+    public void Offset(int _IntValue, List<int> _UpgradeValue)
     {
         for (int i = 0; i < BU_EachLevelDataList.Count; i++)
         {
@@ -1705,7 +1705,7 @@ public class BULevelData<T>
                 BU_EachLevelDataList[i].SetUpgradeValue((int)_intager);
             }
 
-            BU_EachLevelDataList[i].NeedEC_ForUpgrade = _NeedPay[(int)(i / 3)];
+            BU_EachLevelDataList[i].NeedEC_ForUpgrade = (int)(i / 3) + 1;
         }
     }
 }
@@ -1735,13 +1735,12 @@ public class BUEachLevelData<T>
 [System.Serializable]
 public class BUState<T>
 {
-    public T BaseState;
-    public ReactiveProperty<int> CurrentLevel;
-    public List<T> UpgradeValueByLevelRange;
-    public List<int> NeedPayByLevelRange;
-    public ReactiveProperty<T> ActualState;
+    [SerializeField] public T BaseState;
+    [SerializeField] public List<T> UpgradeValueByLevelRange;
+    [SerializeField] public ReactiveProperty<T> ActualState;
 
-    public List<BuffState<T>> BuffList = new List<BuffState<T>>();
+    [HideInInspector] public ReactiveProperty<int> CurrentLevel = new();
+    [HideInInspector] public List<BuffState<T>> BuffList = new List<BuffState<T>>();
 
     public string Name;
     [TextArea]
