@@ -26,6 +26,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
     {
         base.OnEnable();
 
+        // VFX
         UnitManager.Instance.Build_ExplImgGenerator.Expl_Build(TargetObject.gameObject.transform.position);
     }
 

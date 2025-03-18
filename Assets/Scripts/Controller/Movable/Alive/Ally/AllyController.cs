@@ -36,19 +36,14 @@ public class AllyController : AliveObjectController
     protected override void OnEnable()
     {
         base.OnEnable();
-        if (!AllyManager.Instance.AllAllies.Contains(this))
-        {
-            AllyManager.Instance.AllAllies.Add(this);
-        }
+
+        DevTool.Add_InList(AllyManager.Instance.AllAllies, this);
         CurrentEP.Value = MaxEP;
     }
 
     private void OnDisable()
     {
-        if (AllyManager.Instance.AllAllies.Contains(this))
-        {
-            AllyManager.Instance.AllAllies.Remove(this);
-        }
+        DevTool.Remove_InList(AllyManager.Instance.AllAllies, this);
     }
 
     #endregion

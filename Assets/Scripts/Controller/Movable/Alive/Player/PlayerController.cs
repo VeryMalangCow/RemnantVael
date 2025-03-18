@@ -287,10 +287,8 @@ public class PlayerController : AliveObjectController
     // ½¯µå È¹µæ
     public void Gain_Shield(Shield _S)
     {
-        if (ShieldElements.Contains(_S))
-        {
-            ShieldElements.Remove(_S);
-        }
+        DevTool.Remove_InList(ShieldElements, _S);
+
         ShieldElements.Insert(0, _S);
         CurrentSP.Value = Get_TotalShield();
     }

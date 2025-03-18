@@ -466,11 +466,8 @@ public class EnemyController : AliveObjectController, IInteract
         EndAll_Pattern();
 
         // Remove
-        if (EnemyManager.Instance.CurrentEnemyList.Contains(this))
-        { EnemyManager.Instance.CurrentEnemyList.Remove(this); }
-
-        if (LayerOrderManager.Instance.NeedSortingObjects.Contains(this))
-        { LayerOrderManager.Instance.NeedSortingObjects.Remove(this); }
+        DevTool.Remove_InList(EnemyManager.Instance.CurrentEnemyList, this);
+        DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
 
         // Check Room State
         StageManager.Instance.Play_CompleteKillAll();

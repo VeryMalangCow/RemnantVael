@@ -15,7 +15,8 @@ public class NPCController : MovableObjectController
     protected override void OnEnable()
     {
         base.OnEnable();
-        NPCManager.Instance.Add_NPCList(this);
+
+        DevTool.Add_InList(NPCManager.Instance.AllNPCs, this);
     }
 
     #endregion
