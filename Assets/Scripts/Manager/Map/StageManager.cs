@@ -134,7 +134,7 @@ public class StageManager : Singleton<StageManager>
         List<GateController> allGate = Get_AllGate();
         for (int i = 0; i < allGate.Count; i++)
         {
-            if (allGate[i].HadParter == true)
+            if (allGate[i].ParterGate != null)
             {
                 allGate[i].Set_ExistDoorState(true);
             }
@@ -179,11 +179,11 @@ public class StageManager : Singleton<StageManager>
                 // 상점 소환
                 if (BUShopIndexs.Contains(_TempID))
                 {
-                    rrc.Set_Shop(BUShopPrefab);
+                    rrc.Spawn_CorretShop(BUShopPrefab);
                 }
                 else if (MUShopIndexs.Contains(_TempID))
                 {
-                    rrc.Set_Shop(MUShopPrefab);
+                    rrc.Spawn_CorretShop(MUShopPrefab);
                 }
             }
             else
@@ -357,7 +357,7 @@ public class StageManager : Singleton<StageManager>
         for (int i = 0; i < allGate.Count - 1; i++)
         {
             // 이미 파트너 게이트가 있다면
-            if (allGate[i].HadParter)
+            if (allGate[i].ParterGate != null)
             {
                 continue;
             }
@@ -368,10 +368,7 @@ public class StageManager : Singleton<StageManager>
                     (allGate[i].GateDir * -1) == allGate[j].GateDir)
                 {
                     allGate[i].ParterGate = allGate[j];
-                    allGate[i].HadParter = true;
-
                     allGate[j].ParterGate = allGate[i];
-                    allGate[j].HadParter = true;
                 }
             }
         }
@@ -408,17 +405,6 @@ public class StageManager : Singleton<StageManager>
 
 
         CurrentRoomController.gameObject.SetActive(true);
-
-        // Layer 추가
-        LayerOrderManager.Instance.NeedSortingObjects.AddRange(CurrentRoomController.RoomRuleController.InRoom_AllBuilding);
-        LayerOrderManager.Instance.NeedSortingObjects.AddRange(CurrentRoomController.Get_NeedSortingAllDepth());
-
-        // 현재 맵만 Sorting Layer 사용
-        for (int i = 0; i < CurrentAllRoomController.Count; i++)
-        {
-            //CurrentAllRoomController[i].Set_CorrectWallSortOrder(CurrentRoomController);
-        }
-        //CurrentRoomController.Set_CorrectWallSortOrder(CurrentRoomController);
         CurrentRoomController.Set_SortingStaticObjects();
 
         // Minimap

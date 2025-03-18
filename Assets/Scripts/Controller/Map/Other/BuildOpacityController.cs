@@ -30,46 +30,47 @@ public class BuildOpacityController : MonoBehaviour
 
     private void Offset()
     {
-        Offset_TF();
-        Offset_StaticDepthList();
-        Offset_GateList();
+        Offset_TF(SetSRDepthListParent);
+        Offset_StaticDepthList(SetSRParentDepthList);
+        Offset_GateList(SetSRParentGateList);
     }
 
-    private void Offset_TF()
+    private void Offset_TF(Transform _TF)
     {
-        if (SetSRDepthListParent != null && SetSRDepthListParent.childCount > 0)
+        if (_TF != null && _TF.childCount > 0)
         {
-            List<StaticDepthController> list = DevTool.Get_ChildList<StaticDepthController>(SetSRDepthListParent);
-            for (int i = 0; i < list.Count; i++)
+            List<StaticDepthController> depthList = DevTool.Get_ChildList<StaticDepthController>(_TF);
+            for (int i = 0; i < depthList.Count; i++)
             {
-                SpriteRenderer sr = DevTool.Get_ComponentTType<SpriteRenderer>(list[i].TargetObject);
+                SpriteRenderer sr = DevTool.Get_ComponentTType<SpriteRenderer>(depthList[i].TargetObject);
                 if (sr != null && sr != default) SetSRList.Add(sr);
             }
         }
-        SetSRDepthListParent = null;
+        _TF = null;
     }
 
-    private void Offset_StaticDepthList()
+    private void Offset_StaticDepthList(List<StaticDepthController> _DepthList)
     {
-        for (int i = 0; i < SetSRParentDepthList.Count; i++)
+        for (int i = 0; i < _DepthList.Count; i++)
         {
-            SpriteRenderer sr = DevTool.Get_ComponentTType<SpriteRenderer>(SetSRParentDepthList[i].TargetObject);
+            SpriteRenderer sr = DevTool.Get_ComponentTType<SpriteRenderer>(_DepthList[i].TargetObject);
             if (sr != null && sr != default) SetSRList.Add(sr);
-            List<SpriteRenderer> srList = DevTool.Get_ChildList<SpriteRenderer>(SetSRParentDepthList[i].TargetObject.transform);
+
+            List<SpriteRenderer> srList = DevTool.Get_ChildList<SpriteRenderer>(_DepthList[i].TargetObject.transform);
             if (srList != null && srList.Count > 0) SetSRList.AddRange(srList);
         }
-        SetSRParentDepthList.Clear();
-        SetSRParentDepthList = null;
+        _DepthList.Clear();
+        _DepthList = null;
     }
 
-    private void Offset_GateList()
+    private void Offset_GateList(List<GateController> _GateList)
     {
-        for (int i = 0; i < SetSRParentGateList.Count; i++)
+        for (int i = 0; i < _GateList.Count; i++)
         {
-            SetSRList.AddRange(SetSRParentGateList[i].OpacityLowerSRList);
+            SetSRList.AddRange(_GateList[i].OpacityLowerSRList);
         }
-        SetSRParentGateList.Clear();
-        SetSRParentGateList = null;
+        _GateList.Clear();
+        _GateList = null;
     }
 
     #endregion

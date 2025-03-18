@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System.Collections;
 
 public class RoomController : IDController
 {
@@ -158,6 +157,10 @@ public class RoomController : IDController
         lowerSrs.AddRange(Get_Sorting_EachGates(InRoom_LowerGates, false));
 
         Set_Sorting(lowerSrs, 2000);
+
+        Get_NeedSortingAllDepth();
+
+        RoomRuleController.Set_SortingStaticObjects();
     }
 
     #endregion
@@ -187,9 +190,9 @@ public class RoomController : IDController
         // Gate
         for (int i = 0; i < InRoom_AllGate.Count; i++) 
         {
-            if (InRoom_AllGate[i].HadParter && !InRoom_AllGate[i].IsOpen)
+            if (InRoom_AllGate[i].ParterGate != null && !InRoom_AllGate[i].IsOpen)
             {
-                InRoom_AllGate[i].Set_OpenClose(true);
+                InRoom_AllGate[i].Set_Open();
             }
         }
     }

@@ -94,6 +94,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7661713667687456443}
+  - component: {fileID: 7978524160604271359}
   m_Layer: 0
   m_Name: Spot (0)
   m_TagString: Untagged
@@ -116,6 +117,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2169159929047553169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7978524160604271359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550551173778582954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnID: 2
 --- !u!1 &613602138357312459
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &8173407094138077016
 SpriteRenderer:
@@ -344,7 +357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &5254033361751390888
 SpriteRenderer:
@@ -407,6 +419,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1682553612176487004}
+  - component: {fileID: 6625160430686379862}
   m_Layer: 0
   m_Name: Spot (3)
   m_TagString: Untagged
@@ -429,6 +442,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2169159929047553169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6625160430686379862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432810081240981824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnID: 2
 --- !u!1 &1512369266471145402
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,7 +465,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7148463115061773453}
   m_Layer: 0
-  m_Name: ShopTF
+  m_Name: Shops
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -544,7 +570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &8776987233942743540
 SpriteRenderer:
@@ -643,7 +668,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &4017017258422792287
 SpriteRenderer:
@@ -742,7 +766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &2447923036958079497
 SpriteRenderer:
@@ -887,7 +910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &5192649440575817578
 SpriteRenderer:
@@ -951,7 +973,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1334191249204697134}
   m_Layer: 0
-  m_Name: PrisonTF
+  m_Name: Prisons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1017,7 +1039,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &1614681625654820109
 SpriteRenderer:
@@ -1116,7 +1137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &6925236844980093633
 SpriteRenderer:
@@ -1215,7 +1235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &8986596505441365131
 SpriteRenderer:
@@ -1314,7 +1333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &4246901749483130086
 SpriteRenderer:
@@ -1413,7 +1431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &3639069444257029467
 SpriteRenderer:
@@ -1512,7 +1529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &2405328770266931331
 SpriteRenderer:
@@ -1611,7 +1627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &5282636175762172550
 SpriteRenderer:
@@ -1710,7 +1725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &8864194342206714205
 SpriteRenderer:
@@ -1809,7 +1823,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &4540904589541185841
 SpriteRenderer:
@@ -1895,10 +1908,10 @@ Transform:
   m_Children:
   - {fileID: 2031954845224989978}
   - {fileID: 5083685775733296416}
-  - {fileID: 2169159929047553169}
-  - {fileID: 1130655662164710366}
   - {fileID: 7148463115061773453}
   - {fileID: 1334191249204697134}
+  - {fileID: 2169159929047553169}
+  - {fileID: 1130655662164710366}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8811059131841986343
@@ -1916,11 +1929,11 @@ MonoBehaviour:
   RoomVec:
   - {x: 0, y: 0}
   RoomType: 1
-  InRoom_AllBuildingParentTF: {fileID: 5083685775733296416}
-  InRoom_AllBuilding: []
-  InRoom_ShopTF: {fileID: 7148463115061773453}
-  InRoom_PrisonTF: {fileID: 1334191249204697134}
-  InRoom_Elevator: {fileID: 0}
+  InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
+  InRoom_ShopParentTF: {fileID: 7148463115061773453}
+  InRoom_PrisonParentTF: {fileID: 1334191249204697134}
+  InRoom_WayPointParentTF: {fileID: 1130655662164710366}
+  InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
   InRoom_AllEnemy:
   - EnemyID: 2
     EnemySpawnTF: {fileID: 7661713667687456443}
@@ -1930,8 +1943,9 @@ MonoBehaviour:
     EnemySpawnTF: {fileID: 7719694519704773221}
   - EnemyID: 2
     EnemySpawnTF: {fileID: 1682553612176487004}
-  InRoom_WayPointParentTF: {fileID: 1130655662164710366}
+  InRoom_Elevator: {fileID: 0}
   InRoom_AllWayPoint: []
+  InRoom_AllObstacle: []
 --- !u!1 &8791385821537764060
 GameObject:
   m_ObjectHideFlags: 0
@@ -1976,6 +1990,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6684084519566749858}
+  - component: {fileID: 3092159654508327023}
   m_Layer: 0
   m_Name: Spot (1)
   m_TagString: Untagged
@@ -1998,6 +2013,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2169159929047553169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3092159654508327023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9113422294368841458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnID: 2
 --- !u!1 &9144287946715714203
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,6 +2035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7719694519704773221}
+  - component: {fileID: 474117751460907570}
   m_Layer: 0
   m_Name: Spot (2)
   m_TagString: Untagged
@@ -2029,6 +2058,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2169159929047553169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &474117751460907570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9144287946715714203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnID: 2
 --- !u!1001 &1212925211604454887
 PrefabInstance:
   m_ObjectHideFlags: 0

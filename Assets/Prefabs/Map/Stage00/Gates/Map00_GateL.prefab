@@ -963,26 +963,23 @@ MonoBehaviour:
   TargetObject: {fileID: 9219282549221796670}
   ThisSR: {fileID: 5227501794122121064}
   TargetRange: 0.6
-  ExtraTargetObject: {fileID: 6640207385924532149}
   RoomPosGate: {x: 0, y: 0}
   GateDir: {x: -1, y: 0}
-  IsOpen: 0
-  HadParter: 0
-  SettedPos: 0
-  ThisRoom: {fileID: 0}
-  ParterGate: {fileID: 0}
-  ThisAnimator: {fileID: 1177080872420180849}
   ThisAC: {fileID: 7400000, guid: 32209fc59e5378e47ae11db329627db5, type: 2}
   ThingsGO:
     TypeBase: {fileID: 8392081274333783748}
     TypeSpecial: {fileID: 8241173757647691164}
   EntranceGO: {fileID: 5969033041467063719}
-  NeedSetAllLayer:
-  - {fileID: 468726145668351733}
-  - {fileID: 2453984249227333868}
   NeedSortingLayers:
   - {fileID: 468726145668351733}
   - {fileID: 2453984249227333868}
+  OpacityLowerSRList: []
+  ExtraTargetObject: {fileID: 6640207385924532149}
+  IsOpen: 0
+  SettedPos: 0
+  ThisRoom: {fileID: 0}
+  ParterGate: {fileID: 0}
+  ThisAnimator: {fileID: 1177080872420180849}
 --- !u!1 &7258438018707129758
 GameObject:
   m_ObjectHideFlags: 0

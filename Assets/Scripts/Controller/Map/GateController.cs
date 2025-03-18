@@ -5,37 +5,71 @@ public class GateController : StaticDepthController, IInteract
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Gate")]
-    [SerializeField] public GameObject ExtraTargetObject;
 
     [Space(10)]
-    [Header("=== Room State")]
+    [Header("=== Data")]
+
+    [Space(5)]
+    [Header("-- Vec")]
     [SerializeField] public Vector2Int RoomPosGate;
     [SerializeField] public Vector2Int GateDir;
 
     [Space(10)]
-    [Header("=== Data")]
-    [SerializeField] public bool IsOpen = false;
-
-    [HideInInspector] public bool HadParter = false;
-    [HideInInspector] public bool SettedPos = false;
-    [HideInInspector] public RoomController ThisRoom;
-    [HideInInspector] public GateController ParterGate = null;
-
-    [Space(10)]
     [Header("=== Anim")]
-    [SerializeField] public Animator ThisAnimator;
     [SerializeField] private AnimationClip ThisAC;
 
     [Space(10)]
-    [Header("=== Other")]
+    [Header("=== On / Off")]
     [SerializeField] private CoupleData<GameObject> ThingsGO;
     [SerializeField] private GameObject EntranceGO;
+
+    [Space(10)]
+    [Header("=== Visual")]
     [SerializeField] public List<SortingObjectController> NeedSortingLayers;
     [SerializeField] public List<SpriteRenderer> OpacityLowerSRList;
 
+    [Space(10)]
+    [Header("=== Is Wall")]
+    [SerializeField] public GameObject ExtraTargetObject;
+
+    #endregion
+
+    #region - Hide
+
+    // Data
+    [HideInInspector] public bool IsOpen = false;
+    [HideInInspector] public bool SettedPos = false;
+
+    // Controller
+    [HideInInspector] public RoomController ThisRoom;
+    [HideInInspector] public GateController ParterGate = null;
+
+    // Animation
+    [HideInInspector] public Animator ThisAnimator;
     [HideInInspector] private AnimatorOverrideController AOC;
+
+    #endregion
+
+    #region - Set Data
+
+    [HideInInspector] private static float WarpPointInterval = 1f;
+
+    #endregion
+
+    #endregion
+
+    #region Offset
+
+    protected override void Offset()
+    {
+        base.Offset();
+
+        ThisAnimator = DevTool.Get_ComponentTType<Animator>(TargetObject);
+    }
 
     #endregion
 
@@ -46,10 +80,10 @@ public class GateController : StaticDepthController, IInteract
         base.OnEnable();
 
         // 같은 방법으로 Y축을 위로 올리는데, 다른 객체가 추가로 필요하니 이처럼 사용
-        ExtraTargetObject.transform.position = (Vector2)this.transform.position + (Vector2.up * TargetRange);
+        ExtraTargetObject.transform.position = Get_TargetPos();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         // 문 애니메이션이 종료되면 애니메이터를 끈다.
         Try_AT_Disable();
@@ -73,11 +107,11 @@ public class GateController : StaticDepthController, IInteract
     }
 
     // 문 열기/닫기
-    public void Set_OpenClose(bool _IsOpen)
+    public void Set_Open()
     {
-        IsOpen = _IsOpen;
+        IsOpen = true;
 
-        if (ThingsGO.TypeSpecial.activeSelf && IsOpen)
+        if (Can_Open())
         {
             DevTool.Set_Anim(ref AOC, ThisAnimator, ThisAC);
             DevTool.Set_AnimSpeed(ThisAnimator, 1f);
@@ -95,10 +129,19 @@ public class GateController : StaticDepthController, IInteract
     {
         if (IsOpen && ParterGate != null)
         {
-            PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.gameObject.transform.position
-            + new Vector3(GateDir.x, GateDir.y, 0);
+            PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
             StageManager.Instance.Play_CurrentRoom(ParterGate.ThisRoom);
         }
+    }
+
+    #endregion
+
+    #region Get
+
+    public Vector2 Get_WarpPoint()
+    {
+        return (Vector2)gameObject.transform.position
+            + new Vector2(-GateDir.x * WarpPointInterval, -GateDir.y * WarpPointInterval);
     }
 
     #endregion
@@ -114,11 +157,21 @@ public class GateController : StaticDepthController, IInteract
         }
     }
 
+    #endregion
+
+    #region Can
+
+    private bool Can_Open()
+    {
+        return ThingsGO.TypeSpecial.activeSelf && 
+            ParterGate != null &&
+            IsOpen;
+    }
+
     // Animator가 종료될 수 있는가 판별
     private bool Can_AT_Disable()
     {
-        return
-            ThingsGO.TypeSpecial.activeSelf &&
+        return ThingsGO.TypeSpecial.activeSelf &&
             ThisAnimator.enabled &&
             DevTool.Is_AnimIsDone(ThisAnimator);
     }

@@ -223,7 +223,7 @@ public class EnemyBuffController : MonoBehaviour
             for (int j = 0; j < closerEnemies.Count; j++)
             {
                 if (!targetEnemies.Contains(closerEnemies[j]) &&
-                    !DevTool.Is_Exist_UseLine(targetEnemy.transform, closerEnemies[j].transform, "Wall"))
+                    !DevTool.Is_Exist_UseLine(targetEnemy, closerEnemies[j], "Wall"))
                 {
                     willExpand = true;
                     targetEnemies.Add(closerEnemies[j]);

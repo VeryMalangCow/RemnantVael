@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &7779480373258205104
 SpriteRenderer:
@@ -108,6 +107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7661713667687456443}
+  - component: {fileID: 7640372558356268416}
   m_Layer: 0
   m_Name: Spot (0)
   m_TagString: Untagged
@@ -130,6 +130,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2169159929047553169}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7640372558356268416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550551173778582954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnID: 0
 --- !u!1 &1010988870529238062
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4654168796678233288}
   m_Layer: 0
-  m_Name: PrisonTF
+  m_Name: Prisons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,7 +304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &293065089630781536
 SpriteRenderer:
@@ -390,7 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &2448257837160091678
 SpriteRenderer:
@@ -522,7 +533,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &1291347217755781536
 SpriteRenderer:
@@ -877,7 +887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3374223392514423573}
   m_Layer: 0
-  m_Name: ShopTF
+  m_Name: Shops
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -943,7 +953,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &8287703774222275952
 SpriteRenderer:
@@ -1718,7 +1727,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!212 &9186257653430441025
 SpriteRenderer:
@@ -1809,11 +1817,11 @@ Transform:
   - {fileID: 328591137212090946}
   - {fileID: 4559198951062217099}
   - {fileID: 5083685775733296416}
+  - {fileID: 3374223392514423573}
+  - {fileID: 4654168796678233288}
   - {fileID: 2169159929047553169}
   - {fileID: 1130655662164710366}
   - {fileID: 1796078426912046857}
-  - {fileID: 3374223392514423573}
-  - {fileID: 4654168796678233288}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8811059131841986343
@@ -1834,16 +1842,17 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 1, y: 1}
   RoomType: 1
-  InRoom_AllBuildingParentTF: {fileID: 5083685775733296416}
-  InRoom_AllBuilding: []
-  InRoom_ShopTF: {fileID: 3374223392514423573}
-  InRoom_PrisonTF: {fileID: 4654168796678233288}
-  InRoom_Elevator: {fileID: 3426896524709708193}
-  InRoom_AllEnemy:
-  - EnemyPrefab: {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
-    EnemySpawnTF: {fileID: 7661713667687456443}
+  InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
+  InRoom_ShopParentTF: {fileID: 3374223392514423573}
+  InRoom_PrisonParentTF: {fileID: 4654168796678233288}
   InRoom_WayPointParentTF: {fileID: 1130655662164710366}
+  InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
+  InRoom_AllEnemy:
+  - EnemyID: 0
+    EnemySpawnTF: {fileID: 7661713667687456443}
+  InRoom_Elevator: {fileID: 3426896524709708193}
   InRoom_AllWayPoint: []
+  InRoom_AllObstacle: []
 --- !u!1 &8791385821537764060
 GameObject:
   m_ObjectHideFlags: 0
@@ -2171,6 +2180,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c33befba8d3d1c489e3d5cee34166a4, type: 3}
+  m_Script: {fileID: 11500000, guid: ec1c647f41f538149be63bd342c0bc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

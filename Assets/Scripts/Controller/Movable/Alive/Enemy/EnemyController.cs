@@ -160,6 +160,8 @@ public class EnemyController : AliveObjectController, IInteract
 
         Reset_State();
 
+        DevTool.Add_InList(EnemyManager.Instance.CurrentEnemyList, this);
+
         // Pattern
         Start_PatternFromNone();
     }

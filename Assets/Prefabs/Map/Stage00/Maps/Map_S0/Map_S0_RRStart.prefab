@@ -761,14 +761,14 @@ MonoBehaviour:
   RoomVec:
   - {x: 0, y: 0}
   RoomType: 0
-  InRoom_AllBuildingParentTF: {fileID: 5083685775733296416}
-  InRoom_AllBuilding: []
-  InRoom_ShopTF: {fileID: 0}
-  InRoom_PrisonTF: {fileID: 0}
-  InRoom_Elevator: {fileID: 0}
-  InRoom_AllEnemy: []
+  InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
+  InRoom_ShopParentTF: {fileID: 0}
+  InRoom_PrisonParentTF: {fileID: 0}
   InRoom_WayPointParentTF: {fileID: 0}
+  InRoom_AllEnemy: []
+  InRoom_Elevator: {fileID: 0}
   InRoom_AllWayPoint: []
+  InRoom_AllBuilding: []
 --- !u!1 &8967844133803429487
 GameObject:
   m_ObjectHideFlags: 0

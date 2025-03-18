@@ -5,30 +5,57 @@ public class RoomRuleController : MonoBehaviour
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
-    [Header("<><><><><> Room")]
+    [Header("<><><><><> Room Rule")]
 
     [Space(10)]
     [Header("=== Data")]
+
+    [Space(5)]
+    [Header("-- Vec")]
     [SerializeField] public List<Vector2Int> RoomVec;
+
+    [Space(5)]
+    [Header("-- Type")]
     [SerializeField] public eRoomType RoomType;
 
+
     [Space(10)]
-    [Header("=== In Room _ Building")]
-    [SerializeField] private Transform InRoom_AllBuildingParentTF;
-    [HideInInspector] public List<SortingObjectController> InRoom_AllBuilding;
-    [SerializeField] private Transform InRoom_ShopTF;
-    [SerializeField] private Transform InRoom_PrisonTF;
-    [HideInInspector] private InteractableBuildController InRoom_BuildThing;
-    // [HideInInspector] private 감옥 지정될 변수 
+    [Header("=== Parent TF")]
+
+    [Space(5)]
+    [Header("-- Build")]
+    [SerializeField] private Transform InRoom_ObstacleParentTF;
+    [SerializeField] private Transform InRoom_ShopParentTF;
+    [SerializeField] private Transform InRoom_PrisonParentTF;
+
+    [Space(5)]
+    [Header("-- WayPoint")]
+    [SerializeField] private Transform InRoom_WayPointParentTF;
+
+    [Space(5)]
+    [Header("-- Enemy")]
+    [SerializeField] private Transform InRoom_EnemySpawnParentTF;
+
+    [Space(5)]
+    [Header("-- Elevator")]
     [SerializeField] private EndingElevatorController InRoom_Elevator;
 
-    [Space(10)]
-    [Header("=== In Room _ Enemy")]
-    [SerializeField] private List<EnemySpot> InRoom_AllEnemy;
-    [SerializeField] private Transform InRoom_WayPointParentTF;
-    [SerializeField] public List<WayPointController> InRoom_AllWayPoint;
+    #endregion
 
+    #region - Hide
+
+    [HideInInspector] private List<EnemySpawnContoller> InRoom_AllEnemySpawn;
+    [HideInInspector] public List<WayPointController> InRoom_AllWayPoint;
+    [HideInInspector] public List<SortingObjectController> InRoom_AllObstacle;
+    [HideInInspector] private InteractableBuildController InRoom_ShopBuild;
+
+    // Kill All
+    [HideInInspector] private Dele EndDele = null;
+
+    #endregion
 
     #endregion
 
@@ -36,42 +63,31 @@ public class RoomRuleController : MonoBehaviour
 
     public void Offset()
     {
-        // Obstacle
-        InRoom_AllBuilding = new List<SortingObjectController>();
-        if (InRoom_AllBuildingParentTF != null && InRoom_AllBuildingParentTF.childCount > 0)
-        {
-            foreach (Transform chile in InRoom_AllBuildingParentTF)
-            {
-                if (chile.gameObject.TryGetComponent(out SortingObjectController BC))
-                {
-                    InRoom_AllBuilding.Add(BC);
-                }
-            }
-        }
+        InRoom_AllObstacle = InRoom_ObstacleParentTF != null && 
+            InRoom_ObstacleParentTF.childCount > 0 ?
+            DevTool.Get_ChildList<SortingObjectController>(InRoom_ObstacleParentTF) : null;
 
-        // Enemy
-        if (InRoom_WayPointParentTF != null && InRoom_WayPointParentTF.childCount > 0)
-        {
-            foreach (Transform chile in InRoom_WayPointParentTF)
-            {
-                if (chile.gameObject.TryGetComponent(out WayPointController wp))
-                { InRoom_AllWayPoint.Add(wp); }
-            }
-        }
+        InRoom_AllWayPoint = InRoom_WayPointParentTF != null &&
+            InRoom_WayPointParentTF.childCount > 0 ?
+            DevTool.Get_ChildList<WayPointController>(InRoom_WayPointParentTF) : null;
+
+        InRoom_AllEnemySpawn = InRoom_EnemySpawnParentTF != null &&
+            InRoom_EnemySpawnParentTF.childCount > 0 ?
+            DevTool.Get_ChildList<EnemySpawnContoller>(InRoom_EnemySpawnParentTF) : null;
     }
 
     #endregion
 
     #region Shop
 
-    public void Set_Shop(GameObject _ShopObject)
+    // 상점 생성
+    public void Spawn_CorretShop(GameObject _ShopObject)
     {
-        GameObject shop = Instantiate(_ShopObject, InRoom_ShopTF);
+        GameObject shop = Instantiate(_ShopObject, InRoom_ShopParentTF);
         if (shop != null)
         {
+            InRoom_ShopBuild = DevTool.Get_ComponentTType<InteractableBuildController>(shop);
             shop.transform.localPosition = Vector3.zero;
-            if (shop.TryGetComponent(out InteractableBuildController IBC))
-            { InRoom_BuildThing = IBC; }
             shop.gameObject.SetActive(false);
         }
     }
@@ -80,62 +96,70 @@ public class RoomRuleController : MonoBehaviour
 
     #region Set
 
+    #region Completed
+
     public void Set_Completed()
     {
         // Waypoint
-        SetOff_WayPointData();
+        if (EndDele != null) EndDele(); 
 
-        // Extra Building
-        if (InRoom_BuildThing != null && !InRoom_BuildThing.gameObject.activeSelf)
+        SetOn_Shop();
+        SetOn_Elevator();
+    }
+
+    private void SetOn_Shop()
+    {
+        if (InRoom_ShopBuild != null && 
+            !InRoom_ShopBuild.gameObject.activeSelf)
         {
-            InRoom_BuildThing.gameObject.SetActive(true);
+            InRoom_ShopBuild.gameObject.SetActive(true);
         }
-        if (InRoom_Elevator != null && !InRoom_Elevator.IsOn)
+    }
+
+    private void SetOn_Elevator()
+    {
+        if (InRoom_Elevator != null && 
+            !InRoom_Elevator.IsOn)
         {
             InRoom_Elevator.IsOn = true;
         }
     }
 
+    #endregion
+
+    #region Kill All
 
     public void Set_KillAll()
     {
+        // Way Point
         SetOn_WayPointData();
+        EndDele = new Dele(SetOff_WayPointData);
 
-        for (int i = 0; i < InRoom_AllEnemy.Count; i++)
-        {
-            if (InRoom_AllEnemy[i].EnemySpawnTF != null)
-            {
-                EnemyController enemy = PoolingManager.Instance.Get_OP_Enemy(InRoom_AllEnemy[i].EnemyID);
-                EnemyManager.Instance.CurrentEnemyList.Add(enemy);
-
-                enemy.transform.position = InRoom_AllEnemy[i].EnemySpawnTF.transform.position;
-                enemy.gameObject.SetActive(true);
-
-                // VFX
-                UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(
-                    (Vector2)InRoom_AllEnemy[i].EnemySpawnTF.transform.position + (Vector2.up * enemy.TargetRange));
-            }
-        }
+        Spawn_AllEnemy();
     }
 
+    private void Spawn_AllEnemy()
+    {
+        for (int i = 0; i < InRoom_AllEnemySpawn.Count; i++)
+        {
+            Vector2 spawnPos = InRoom_AllEnemySpawn[i].transform.position;
+
+            EnemyController enemy = PoolingManager.Instance.Get_OP_Enemy(InRoom_AllEnemySpawn[i].SpawnID);
+            
+            enemy.transform.position = spawnPos;
+            enemy.gameObject.SetActive(true);
+
+            // VFX
+            UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(spawnPos + (Vector2.up * enemy.TargetRange));
+        }
+    }
 
     private void SetOn_WayPointData()
     {
         for (int i = 0; i < InRoom_AllWayPoint.Count; i++)
         {
-            InRoom_AllWayPoint[i].AdjacentWPList.Clear();
-            InRoom_AllWayPoint[i].AdjacentWPList = new List<WayPointController>();
-
-            for (int j = 0; j < InRoom_AllWayPoint.Count; j++)
-            {
-                if (InRoom_AllWayPoint[i] != InRoom_AllWayPoint[j])
-                {
-                    if (!Is_ExistWall(InRoom_AllWayPoint[i].transform, InRoom_AllWayPoint[j].transform))
-                    {
-                        InRoom_AllWayPoint[i].AdjacentWPList.Add(InRoom_AllWayPoint[j]);
-                    }
-                }
-            }
+            InRoom_AllWayPoint[i].AdjacentWPList =
+                DevTool.Get_AdjPoint_UseLine(InRoom_AllWayPoint[i], InRoom_AllWayPoint);
         }
     }
 
@@ -147,31 +171,13 @@ public class RoomRuleController : MonoBehaviour
         }
     }
 
-    private bool Is_ExistWall(Transform _StartTF, Transform _EndTF)
-    {
-        //Vector2 dirVec = _EndTF.position - _StartTF.position;
-        RaycastHit2D hit = Physics2D.Linecast(_StartTF.position, _EndTF.position, LayerMask.GetMask("Wall"));
-
-        if (hit.collider != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    #endregion
 
     #endregion
 
-    #region Enemy
-
-    [System.Serializable]
-    public class EnemySpot
+    public void Set_SortingStaticObjects()
     {
-        [SerializeField] public int EnemyID;
-        [SerializeField] public Transform EnemySpawnTF;
+        if (InRoom_AllObstacle != null && InRoom_AllObstacle.Count > 0)
+            LayerOrderManager.Instance.NeedSortingObjects.AddRange(InRoom_AllObstacle);
     }
-
-    #endregion
 }

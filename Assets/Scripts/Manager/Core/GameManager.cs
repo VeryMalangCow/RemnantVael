@@ -979,9 +979,10 @@ public class DevTool
     #region Is
 
     // 중간에 벽이 있는지
-    public static bool Is_Exist_UseLine(Transform _StartTF, Transform _EndTF, string _LayerName)
+    public static bool Is_Exist_UseLine<T>(T _Start, T _End, string _LayerName) where T : MonoBehaviour
     {
-        return Physics2D.Linecast(_StartTF.position, _EndTF.position, LayerMask.GetMask(_LayerName)).collider != null;
+        return Physics2D.Linecast(_Start.transform.position, _End.transform.position, LayerMask.GetMask(_LayerName)).collider != null;
+
     }
     public static bool Is_Exist_UseCircle(Transform _StartTF, Transform _EndTF, string _LayerName, float _Radius)
     {
@@ -1063,7 +1064,10 @@ public class DevTool
         List<WayPointController> result = new List<WayPointController>();
         for (int i = 0; i < _AllPoint.Count; i++)
         {
-            if (!Is_Exist_UseLine(_TargetPoint.transform, _AllPoint[i].transform, "Wall"))
+            if (_TargetPoint == _AllPoint[i])
+            { continue; }
+
+            if (!Is_Exist_UseLine(_TargetPoint, _AllPoint[i], "Wall"))
             {
                 result.Add(_AllPoint[i]);
             }
@@ -2008,6 +2012,20 @@ public class ModuleItem004 : ModuleState, IWhen_CriticalHit
 
 public class ModuleItem005 : ModuleState, IWhen_CriticalHit
 { public ModuleItem005(int _ID) : base(_ID) { } }
+
+#endregion
+
+
+#region Class : Spawn : Enemy
+
+[System.Serializable]
+public class EnemySpot
+{
+    [SerializeField] public int EnemyID;
+    [SerializeField] public Transform EnemySpawnTF;
+}
+
+
 
 #endregion
 
