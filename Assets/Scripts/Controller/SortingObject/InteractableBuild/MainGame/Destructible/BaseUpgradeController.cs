@@ -70,7 +70,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
     {
         base.Take_Damage(_SpawnItem);
 
-        MainGameUIManager.Instance.BaseUpgrade_UIController.Set_Dur(CurrentDur);
+        MainGameUIManager.Instance.BaseUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
     }
 
     protected override void Play_NowBreak(bool _SpawnItem)

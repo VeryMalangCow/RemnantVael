@@ -9,7 +9,7 @@ public class TabEUIController : ElementUIController, IScrollHandler
 
     [Header("=== RT")]
     [SerializeField] public RectTransform ThisPanelRT;
-    [SerializeField] public OwnBtnEUIController ThisTabBtn;
+    [SerializeField] public TabBtnEUIController ThisTabBtn;
 
     [Header("=== Scroll Bar")]
     [SerializeField] public Scrollbar ThisTabScrollbar;

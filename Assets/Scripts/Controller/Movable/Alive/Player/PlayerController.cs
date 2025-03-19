@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 public class PlayerController : AliveObjectController
 {
@@ -364,6 +365,18 @@ public class PlayerController : AliveObjectController
         this.CurrentEP.Value -= NeedEP_ForMakeEC;
         CurrentBC.Value--;
         CurrentEC.Value++;
+    }
+
+    // 에너지 셀이 충분한가
+    public bool Is_EnoughEC(int _NeedAmount)
+    {
+        return CurrentEC.Value >= _NeedAmount ? true : false;
+    }
+
+    // 에너지 셀을 소비
+    public void Use_EC(int _UseAmount)
+    {
+        CurrentEC.Value = Math.Max(CurrentEC.Value - _UseAmount, 0);
     }
 
     #endregion

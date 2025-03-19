@@ -68,7 +68,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         uigo.gameObject.SetActive(_OnOff);
         if (uigo.TryGetComponent(out UIController ui))
         {
-            ui.Offset_Main();
+            ui.Offset();
         }
         if (uigo.TryGetComponent(out Canvas canvas))
         {

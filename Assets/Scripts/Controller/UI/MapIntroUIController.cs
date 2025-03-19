@@ -18,20 +18,6 @@ public class MapIntroUIController : UIController
 
     #endregion
 
-    #region Offset 
-
-    protected override void Offset_Module()
-    {
-        
-    }
-
-    protected override void Offset_UI()
-    {
-        
-    }
-
-    #endregion
-
     #region Usable
 
     public void SetOn_IntroLabel()

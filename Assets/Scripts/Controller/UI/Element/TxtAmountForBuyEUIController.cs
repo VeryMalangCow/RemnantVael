@@ -34,6 +34,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
     [SerializeField] public TMP_Text SimpleDescTxt;
     [SerializeField] public Image CostImg;
     [SerializeField] private List<Sprite> CostSpriteList;
+    [SerializeField] public OwnBtnEUIController BuyBtn;
 
     #endregion
 
@@ -42,10 +43,19 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
     public override void Offset()
     {
         ThisRT.sizeDelta = MinimumSize;
+        BuyBtn.Offset();
     }
+
     #endregion
 
-    #region Unique
+    #region Set
+
+    public void Set_StateInfo(string _Name, string _Desc, BaseUpgradeUIController _BUUIController)
+    {
+        SkillNameTxt.text = _Name;
+        SkillOpenSimpleTxt.text = _Desc;
+        BuyBtn.OwnerUIController = _BUUIController;
+    }
 
     public void Set(int _Level, int _CostValue)
     {

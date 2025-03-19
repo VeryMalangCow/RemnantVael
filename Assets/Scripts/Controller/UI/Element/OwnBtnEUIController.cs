@@ -12,9 +12,6 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
 
     [Space(10)]
     [Header("=== Size")]
-    //[SerializeField] private float DurTime = 0.1f;
-    [SerializeField] private Vector2 TargetScale = new Vector2(1.15f, 1.15f);
-    [HideInInspector] private Vector2 DefScale;
     [HideInInspector] protected RectTransform ThisRT;
 
     // Owner
@@ -31,7 +28,6 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
         if (TryGetComponent(out RectTransform thisRT))
         {
             ThisRT = thisRT;
-            DefScale = ThisRT.localScale;
         }
         if (TryGetComponent(out Button thisBtn))
         {

@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class OutMainGameUIController : PanelUIController
@@ -18,20 +17,16 @@ public class OutMainGameUIController : PanelUIController
 
     #region Offset
 
-    protected override void Offset_Module()
+    public override void Offset()
     {
+        base.Offset();
+
         ResumeBtn.Offset();
         ResumeBtn.OwnerUIController = this;
         OptionBtn.Offset();
         OptionBtn.OwnerUIController = this;
         QuitBtn.Offset();
         QuitBtn.OwnerUIController = this;
-
-    }
-
-    protected override void Offset_UI()
-    {
-
     }
 
     #endregion

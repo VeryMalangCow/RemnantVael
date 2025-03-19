@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -399,6 +400,26 @@ public class DevTool
         for (int i = 0; i < _TargetList.Count; i++)
         {
             result.Add(_TargetList[i].gameObject);
+        }
+        return result;
+    }
+
+    // 강제 Parse
+    public static List<int> Get_ParseIntList<T>(List<T> _TargetList)
+    {
+        List<int> result = new List<int>();
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            result.Add(int.Parse(_TargetList[i].ToString()));
+        }
+        return result;
+    }
+    public static List<float> Get_ParseFloatList<T>(List<T> _TargetList)
+    {
+        List<float> result = new List<float>();
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            result.Add(float.Parse(_TargetList[i].ToString()));
         }
         return result;
     }
@@ -829,6 +850,10 @@ public class DevTool
     #region About Player
 
     public readonly static int SkillAmount = 2;
+    public readonly static int BU_MaxLevel = 10;
+    public readonly static int BU_LevelInterval = 3;
+
+    #region Index from DmgType, Critical
 
     // 데미지와 크리티컬로 인덱스 구하기
     // 0: PB / 1: PC / 2: EB / 3: EC
@@ -876,6 +901,10 @@ public class DevTool
         }
     }
 
+    #endregion
+
+    #region For Player
+
     public static Vector2 Get_DirForPlayer<T>(T _TType) where T : MonoBehaviour
     {
         return Get_Dir(_TType.gameObject, PlayerManager.Instance.PlayerController.gameObject);
@@ -885,6 +914,26 @@ public class DevTool
     {
         return Get_Dis(_TType.gameObject, PlayerManager.Instance.PlayerController.gameObject);
     }
+
+    #endregion
+
+    #region Base Upgrade
+
+    // 인풋의 EUI값으로 부터 맞는 BUState을 반환
+    public static BUState<T> Get_ThisData<T>(List<BUShopData<T>> _ShopDataList, TxtAmountForBuyEUIController _InMTAFB)
+    {
+        for (int i = 0; i < _ShopDataList.Count; i++)
+        {
+            if (_ShopDataList[i].UpgradeEUI == _InMTAFB)
+            {
+                return _ShopDataList[i].State;
+            }
+        }
+        return null;
+    }
+
+    #endregion
+
     #endregion
 
     #region About Buff
@@ -1189,6 +1238,89 @@ public class DevTool
     #endregion
 
     #endregion
+
+    #region About UI
+
+    #region Color
+
+    public static void Set_Color<T>(Color _Clr, List<T> _TargetList) where T : Component
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            switch (_TargetList[i]) 
+            {
+                case TMP_Text tmp:
+                    Set_Color(_Clr, tmp);
+                    break;
+
+                case Image img:
+                    Set_Color(_Clr, img);
+                    break;
+
+
+                default:
+                    break;
+            }
+        }
+    }
+
+    public static void Set_Color(Color _Clr, TMP_Text _Comp)
+    {
+        if (_Comp == null) return;
+        _Comp.color = new Color(_Clr.r, _Clr.g, _Clr.b, _Comp.color.a);
+    }
+
+    public static void Set_Color(Color _Clr, Image _Comp)
+    {
+        if (_Comp == null) return;
+        _Comp.color = new Color(_Clr.r, _Clr.g, _Clr.b, _Comp.color.a);
+    }
+
+    #endregion
+
+    #region Interact
+
+    public static string Get_InteractingAnnoTxt(IInteract _II)
+    {
+        if (_II == null)
+        { return ""; }
+        if (_II is EnemyController EC && EC.IsDischarge)
+        { return "KILL"; }
+        else if (_II is DestructibleBuildController DBC && !DBC.IsBroken && (_II is BaseUpgradeController || _II is ModuleUpgradeController))
+        { return "SHOP"; }
+        else if (_II is GateController GC && GC.IsOpen)
+        { return "GATE"; }
+        else if (_II is InteractItemController)
+        { return "MODULE"; }
+        else if (_II is EndingElevatorController DEC && DEC.IsOn)
+        { return "NEXT STAGE"; }
+
+        return "";
+    }
+
+    #endregion
+
+    #region Dur
+
+    public static void Set_Dur(int _DurAmount, List<Image> _ImgList, TMP_Text _Txt)
+    {
+        _Txt.text = _DurAmount.ToString();
+        for (int i = 0; i < _ImgList.Count; i++)
+        {
+            if (_DurAmount > i) // On
+            {
+                _ImgList[i].color = Color.white;
+            }
+            else // Off
+            {
+                _ImgList[i].color = new Color(1, 1, 1, 0);
+            }
+        }
+    }
+
+    #endregion
+
+    #endregion
 }
 
 #endregion
@@ -1440,6 +1572,7 @@ public class AttackerState : CombatState
 
 #endregion
 
+
 #region Class : State : CombatElement
 
 [System.Serializable]
@@ -1567,111 +1700,101 @@ public class KnockbackState : ElementState
 
 
 #region Class : State : Player : BU Shop
+
 // Level, State을 저장 관리하고, 상점까지 통괄
 
 [System.Serializable]
 public class BUShopSkillData<T, U>
 {
-    public BUShopEachData<T> Skill_CooltimeShop;
-    public BUShopEachData<T> Skill_PowerShop;
-    public BUShopEachData<U> Skill_TierShop;
+    public BUShopData<T> Skill_CooltimeShop;
+    public BUShopData<T> Skill_PowerShop;
+    public BUShopData<U> Skill_TierShop;
 }
 
 [System.Serializable]
-public class BUShopEachData<T>
+public class BUShopData<T>
 {
-    [SerializeField] public TxtAmountForBuyEUIController Upgrade_MTAFB;
-    [SerializeField] public OwnBtnEUIController Upgrade_BuyBtn;
+    #region Value
 
-    [HideInInspector] public BUState<T> Upgrade_BUS;
-    [HideInInspector] private BULevelData<T> Upgrade_BUOTD;
+    #region - Insprector
 
-    public void Offset(BUState<T> _Upgrade_BUS, BULevelData<T> _Upgrade_BUOTD, BaseUpgradeUIController _Owner)
+    [SerializeField] public TxtAmountForBuyEUIController UpgradeEUI;
+
+    #endregion
+
+    #region - Hide
+
+    [HideInInspector] public BUState<T> State;
+    [HideInInspector] private BULevelData<T> LevelData;
+
+    #endregion
+
+    #endregion
+
+    #region Offset
+
+    public void Offset(
+        BUState<T> _State,
+        BULevelData<T> _LevelData,
+        BaseUpgradeUIController _OwnerUIController)
     {
-        Upgrade_MTAFB.Offset();
+        State = _State;
+        LevelData = _LevelData;
 
-        Upgrade_BUS = _Upgrade_BUS;
-        Upgrade_BUOTD = _Upgrade_BUOTD;
+        UpgradeEUI.Offset();
+        UpgradeEUI.Set_StateInfo(State.Name, State.Desc, _OwnerUIController);
 
-        Upgrade_BUS.BuffedState = Upgrade_BUS.ActualState.Value;
-
-        Upgrade_MTAFB.SkillNameTxt.text = Upgrade_BUS.Name;
-        Upgrade_MTAFB.SkillOpenSimpleTxt.text = Upgrade_BUS.Desc;
-
-        if (Upgrade_BuyBtn != null)
-        {
-            Upgrade_BuyBtn.Offset();
-            Upgrade_BuyBtn.OwnerUIController = _Owner;
-        }
-
-        Upgrade_BUS.CurrentLevel.Value = 0;
-        Upgrade_BUS.CurrentLevel
-           .Subscribe(_CurrentLevel =>
-           {
-               int currentLv = _CurrentLevel;
-               if (currentLv < Upgrade_BUOTD.BU_EachLevelDataList.Count)
-               {
-                   Upgrade_MTAFB.Set(currentLv, Upgrade_BUOTD.BU_EachLevelDataList[currentLv].NeedEC_ForUpgrade);
-               }
-               else if (currentLv == Upgrade_BUOTD.BU_EachLevelDataList.Count)
-               {
-                   Upgrade_MTAFB.Set(currentLv, 0);
-               }
-               Upgrade_MTAFB.Set_InnerAlpha((float)currentLv / (float)Upgrade_BUOTD.BU_EachLevelDataList.Count);
-           });
-
-        _Owner.MainColorCompList.Add(Upgrade_MTAFB.SkillNameTxt);
-        _Owner.SubColorCompList.Add(Upgrade_MTAFB.SkillLvTxt);
-        _Owner.SubColorCompList.AddRange(Upgrade_MTAFB.ThisMIAAT.Img_List);
-        _Owner.SubColorCompList.AddRange(Upgrade_MTAFB.InnerImgList);
-        _Owner.MainColorCompList.Add(Upgrade_MTAFB.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-        _Owner.MainColorCompList.Add(Upgrade_MTAFB.SimpleDescTxt);
-        _Owner.MainColorCompList.Add(Upgrade_BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+        State.Set_BuffedState();
+        State.Offset(UpgradeEUI, LevelData);
     }
 
-    public void TryBuy()
+    #endregion
+
+    #region Buy
+
+    private bool Can_Buy()
     {
-        int index = Upgrade_BUS.CurrentLevel.Value;
-        int needEC = Upgrade_BUOTD.BU_EachLevelDataList[index].NeedEC_ForUpgrade;
-        int hadEC = PlayerManager.Instance.PlayerController.CurrentEC.Value;
-        if (needEC <= hadEC)
+        return PlayerManager.Instance.PlayerController.Is_EnoughEC(
+            LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade);
+    }
+
+    public void Try_Buy()
+    {
+        if (Can_Buy())
         {
-            Buy(needEC, Upgrade_BUOTD.BU_EachLevelDataList.Count, Upgrade_BUOTD.BU_EachLevelDataList[index].UpgradeValue);
+            // Dur
+            BaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
+
+            // Cost
+            PlayerManager.Instance.PlayerController.Use_EC(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade);
+
+            Set_LevelUp();
+
         }
     }
 
-    private void Buy(int _UseEC, int _MaxUpgradeLevel, T _SetValue)
+    private void Set_LevelUp()
     {
-        BaseUpgradeController.UsingShop.Take_Damage(false);
+        // Lv Up
+        State.CurrentLevel.Value++;
+        Debug.Log(State.CurrentLevel.Value);
+        State.ActualState.Value = LevelData.LevelDataList[State.CurrentLevel.Value - 1].UpgradeValue;
+        State.Set_BuffedState();
 
-        Upgrade_BUS.CurrentLevel.Value++;
-        Upgrade_BUS.ActualState.Value = _SetValue;
-        PlayerManager.Instance.PlayerController.CurrentEC.Value -= _UseEC;
-        if (_MaxUpgradeLevel <= Upgrade_BUS.CurrentLevel.Value)
-        {
-            Upgrade_BuyBtn.ThisBtn.interactable = false;
-        }
+        // Can Lv Up
+        UpgradeEUI.BuyBtn.ThisBtn.interactable = DevTool.BU_MaxLevel <= State.CurrentLevel.Value ? false : true;
 
-        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(Upgrade_MTAFB);
+        // Desc
+        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(UpgradeEUI);
     }
 
-
-    public static BUState<T> GetThisData(List<BUShopEachData<T>> _ShopDataList, TxtAmountForBuyEUIController _InMTAFB)
-    {
-        foreach (BUShopEachData<T> Data in _ShopDataList)
-        {
-            if (Data.Upgrade_MTAFB == _InMTAFB)
-            {
-                return Data.Upgrade_BUS;
-            }
-        }
-        return null;
-    }
+    #endregion
 }
 
 #endregion
 
 #region Class : State : Player : BU Level
+
 // BU Manager로 미리 수치를 저장하기 위함
 
 [System.Serializable]
@@ -1685,78 +1808,61 @@ public class BULevelSkillData<T, U>
 [System.Serializable]
 public class BULevelData<T>
 {
-    [Header("=== No Input")]
-    public List<BUEachLevelData<T>> BU_EachLevelDataList;
+    [Header("=== Level Value")]
+    public List<BUEachLevelData<T>> LevelDataList;
 
+    // Base Offset
     public void Offset(BUState<T> _BaseValue)
     {
+        LevelDataList = new List<BUEachLevelData<T>>();
+
         if (_BaseValue.BaseState.GetType() == typeof(float))
         {
-            // Base
-            float float_BaseValue = float.Parse(_BaseValue.BaseState.ToString());
-
-            // Upgrade
-            List<float> float_UpgradeValues = new List<float>();
-            for (int i = 0; i < _BaseValue.UpgradeValueByLevelRange.Count; i++)
-            {
-                float float_EachUpgradeValue = float.Parse(_BaseValue.UpgradeValueByLevelRange[i].ToString());
-                float_UpgradeValues.Add(float_EachUpgradeValue);
-            }
-
-            Offset(float_BaseValue, float_UpgradeValues);
+            Offset_Float(
+                float.Parse(_BaseValue.BaseState.ToString()),
+                DevTool.Get_ParseFloatList(_BaseValue.UpgradeValueByLevelRange));
         }
         else if (_BaseValue.BaseState.GetType() == typeof(int))
         {
-            // Base
-            int int_BaseValue = int.Parse(_BaseValue.BaseState.ToString());
-
-            // Upgrade
-            List<int> int_UpgradeValues = new List<int>();
-            for (int i = 0; i < _BaseValue.UpgradeValueByLevelRange.Count; i++)
-            {
-                int int_EachUpgradeValue = int.Parse(_BaseValue.UpgradeValueByLevelRange[i].ToString());
-                int_UpgradeValues.Add(int_EachUpgradeValue);
-            }
-
-            Offset(int_BaseValue, int_UpgradeValues);
+            Offset_Int(
+                int.Parse(_BaseValue.BaseState.ToString()),
+                DevTool.Get_ParseIntList(_BaseValue.UpgradeValueByLevelRange));
         }
     }
 
-    public void Offset(float _FloatValue, List<float> _UpgradeValue)
+    // FLOAT
+    public void Offset_Float(float _FloatValue, List<float> _UpgradeValue)
     {
-        for (int i = 0; i < BU_EachLevelDataList.Count; i++)
+        for (int i = 0; i < DevTool.BU_MaxLevel; i++)
         {
-            if (i == 0)
-            {
-                decimal d = (decimal)(_FloatValue + _UpgradeValue[0]);
-                BU_EachLevelDataList[i].SetUpgradeValue(Mathf.RoundToInt((float)d * 100f) / 100f);
-            }
-            else
-            {
-                decimal d = (decimal)((float)BU_EachLevelDataList[i - 1].GetUpgradeValue() + _UpgradeValue[(int)(i / 3)]);
-                BU_EachLevelDataList[i].SetUpgradeValue(Mathf.RoundToInt((float)d * 100f) / 100f);
-            }
+            BUEachLevelData<T> eachLevelData = new BUEachLevelData<T>();
 
-            BU_EachLevelDataList[i].NeedEC_ForUpgrade = (int)(i / 3) + 1;
+            decimal stateValue = i == 0 ?
+                 (decimal)(_FloatValue + _UpgradeValue[0]) :
+                 (decimal)((float)LevelDataList[i - 1].Get_UpgradeValue() + _UpgradeValue[(int)(i / DevTool.BU_LevelInterval)]);
+
+            eachLevelData.Set_UpgradeValue(Mathf.RoundToInt((float)stateValue * 100f) / 100f);
+            eachLevelData.NeedEC_ForUpgrade = (int)(i / DevTool.BU_LevelInterval) + 1;
+
+            LevelDataList.Add(eachLevelData);
         }
     }
 
-    public void Offset(int _IntValue, List<int> _UpgradeValue)
+    // INT
+    public void Offset_Int(int _IntValue, List<int> _UpgradeValue)
     {
-        for (int i = 0; i < BU_EachLevelDataList.Count; i++)
+        for (int i = 0; i < DevTool.BU_MaxLevel; i++)
         {
-            if (i == 0)
-            {
-                int _intager = (_IntValue + _UpgradeValue[0]);
-                BU_EachLevelDataList[i].SetUpgradeValue((int)_intager);
-            }
-            else
-            {
-                int _intager = ((int)BU_EachLevelDataList[i - 1].GetUpgradeValue() + _UpgradeValue[(int)(i / 3)]);
-                BU_EachLevelDataList[i].SetUpgradeValue((int)_intager);
-            }
+            BUEachLevelData<T> test = new BUEachLevelData<T>();
 
-            BU_EachLevelDataList[i].NeedEC_ForUpgrade = (int)(i / 3) + 1;
+            int stateValue = i == 0 ?
+                (_IntValue + _UpgradeValue[0]) :
+                ((int)LevelDataList[i - 1].Get_UpgradeValue() + _UpgradeValue[(int)(i / DevTool.BU_LevelInterval)]);
+            
+            test.Set_UpgradeValue((int)stateValue);
+            test.NeedEC_ForUpgrade = (int)(i / DevTool.BU_LevelInterval) + 1; 
+            
+            LevelDataList.Add(test);
         }
     }
 }
@@ -1767,12 +1873,12 @@ public class BUEachLevelData<T>
     public T UpgradeValue;
     public int NeedEC_ForUpgrade;
 
-    public void SetUpgradeValue(object _Value)
+    public void Set_UpgradeValue(object _Value)
     {
         UpgradeValue = (T)_Value;
     }
 
-    public object GetUpgradeValue()
+    public object Get_UpgradeValue()
     {
         return UpgradeValue;
     }
@@ -1781,70 +1887,117 @@ public class BUEachLevelData<T>
 #endregion
 
 #region Class : State : Player : BU State
+
 // BU 강화를 위한 수치들
 
 [System.Serializable]
 public class BUState<T>
 {
+    #region Value
+
+    #region - Inspector
+
     [SerializeField] public T BaseState;
     [SerializeField] public List<T> UpgradeValueByLevelRange;
     [SerializeField] public ReactiveProperty<T> ActualState;
 
+    [SerializeField] public string Name;
+    [TextArea] [SerializeField] public string Desc;
+
+    #endregion
+
+    #region - Hide
+
     [HideInInspector] public ReactiveProperty<int> CurrentLevel = new();
-    [HideInInspector] public List<BuffState<T>> BuffList = new List<BuffState<T>>();
+    [HideInInspector] private List<BuffState<T>> BuffList = new List<BuffState<T>>();
 
-    public string Name;
-    [TextArea]
-    public string Desc;
+    [HideInInspector] public T BuffedState { get; set; }
 
+    #endregion
 
-    // Gain
-    public void GainBuff(BuffState<T> _Bs)
+    #endregion
+
+    #region Offset
+
+    public void Offset(
+        TxtAmountForBuyEUIController EachEUI, 
+        BULevelData<T> _UpgradeLevelData)
     {
-        if (!BuffList.Contains(_Bs))
-        {
-            BuffList.Add(_Bs);
-        }
+        CurrentLevel.Value = 0;
+        CurrentLevel
+           .Subscribe(_CurrentLevel =>
+           {
+               if (_CurrentLevel < DevTool.BU_MaxLevel)
+               {
+                   EachEUI.Set(_CurrentLevel, _UpgradeLevelData.LevelDataList[_CurrentLevel].NeedEC_ForUpgrade);
+               }
+               else
+               {
+                   EachEUI.Set(_CurrentLevel, 0);
+               }
+
+               EachEUI.Set_InnerAlpha((float)_CurrentLevel / (float)DevTool.BU_MaxLevel);
+           });
+    }
+
+    #endregion
+
+    #region Gain / Lose
+    // Gain
+    public void Gain_Buff(BuffState<T> _Bs)
+    {
+        DevTool.Add_InList(BuffList, _Bs);
     }
 
     // Remove
-    public void RemoveBuff(BuffState<T> _Bs)
+    public void Lose_Buff(BuffState<T> _Bs)
     {
-        if (BuffList.Contains(_Bs))
-        {
-            BuffList.Remove(_Bs);
-        }
+        DevTool.Remove_InList(BuffList, _Bs);
     }
 
-    public T BuffedState
-    { get; set; }
+    #endregion
 
+    #region Buffed
 
-
-    public void SetBuffedState()
+    public void Set_BuffedState()
     {
         if (ActualState.Value.GetType() == typeof(float))
         {
-            float state = 1.0f;
-            for (int i = 0; i < BuffList.Count; i++)
-            {
-                state += float.Parse(BuffList[i].ActualValue.ToString());
-            }
-            state *= float.Parse(ActualState.Value.ToString());
-            BuffedState = (T)(object)state;
-            return;
+            Set_BufftedState_Float();
         }
-
-#if UNITY_EDITOR
-        Debug.Assert(false, "Player Buff의 자료형이 구현되어 있지 않습니다.");
-#endif
-
-        return;
+        else if (ActualState.Value.GetType() == typeof(int))
+        {
+            Set_BufftedState_Int();
+        }
     }
 
+    private void Set_BufftedState_Float()
+    {
+        float state = 1.0f;
+        for (int i = 0; i < BuffList.Count; i++)
+        {
+            state += float.Parse(BuffList[i].ActualValue.ToString());
+        }
+        state *= float.Parse(ActualState.Value.ToString());
+        BuffedState = (T)(object)state;
+    }
+
+    private void Set_BufftedState_Int()
+    {
+        int state = 0;
+        for (int i = 0; i < BuffList.Count; i++)
+        {
+            state += int.Parse(BuffList[i].ActualValue.ToString());
+        }
+        state += int.Parse(ActualState.Value.ToString());
+        BuffedState = (T)(object)state;
+    }
+
+    #endregion
 }
 
 #endregion
+
 
 #region Class : State : Player : Other
 

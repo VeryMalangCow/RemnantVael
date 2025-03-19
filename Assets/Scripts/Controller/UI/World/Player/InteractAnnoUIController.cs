@@ -21,17 +21,15 @@ public class InteractAnnoUIController : UIController
 
     #region Offset
 
-    protected override void Offset_Module()
+    public override void Offset()
     {
-    }
+        base.Offset();
 
-    protected override void Offset_UI()
-    {
         ThisCG.alpha = 0;
 
         Color clr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
-        InnerLImg.color= clr;
-        InnerRImg.color= clr;
+        InnerLImg.color = clr;
+        InnerRImg.color = clr;
     }
 
     #endregion
@@ -41,7 +39,7 @@ public class InteractAnnoUIController : UIController
     public void Set_UI()
     {
         IInteract ii = PlayerManager.Instance.PlayerController.CurrentInteractable.Value;
-        string txt = Get_KindOfCaseString(ii);
+        string txt = DevTool.Get_InteractingAnnoTxt(ii);
 
         if (ii != null && txt != "")
         {

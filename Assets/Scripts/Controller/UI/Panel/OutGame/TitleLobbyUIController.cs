@@ -31,8 +31,10 @@ public class TitleLobbyUIController : PanelUIController
 
     #region Offset
 
-    protected override void Offset_Module()
+    public override void Offset()
     {
+        base.Offset();
+
         StartBtn.Offset();
         StartBtn.OwnerUIController = this;
 
@@ -41,12 +43,10 @@ public class TitleLobbyUIController : PanelUIController
 
         QuitBtn.Offset();
         QuitBtn.OwnerUIController = this;
-    }
 
-    protected override void Offset_UI()
-    {
         BtnsRT.anchoredPosition = Vector2.zero;
         BGCG.alpha = 1f;
+
     }
 
     #endregion

@@ -132,8 +132,10 @@ public class PlayerHUDController : UIController
 
     #region Offset
 
-    protected override void Offset_Module()
+    public override void Offset()
     {
+        base.Offset();
+
         EP.Offset();
         CurrentEmptyBC.Offset();
         EmptyBC.Offset();
@@ -144,10 +146,7 @@ public class PlayerHUDController : UIController
             SkillList[i].Offset();
         }
         ThisMinimap.Offset();
-    }
 
-    protected override void Offset_UI()
-    {
         #region Reactive
 
         PlayerManager.Instance.PlayerController.MaxEP.ActualState
@@ -343,12 +342,12 @@ public class PlayerHUDController : UIController
 
         // Color Set
         Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
-        Set_Color(mainClr, MainColorCompList);
+        DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
         Color subClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
-        Set_Color(subClr, SubColorCompList);
+        DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
         #endregion
@@ -358,7 +357,6 @@ public class PlayerHUDController : UIController
         PoolingManager.Instance.BuffIcons.ParentTF = BuffParentTF;
 
         #endregion
-
     }
 
     #endregion
@@ -535,7 +533,7 @@ public class PlayerHUDController : UIController
         { return; }
 
         IInteract ii = PlayerManager.Instance.PlayerController.CurrentInteractable.Value;
-        string txt = Get_KindOfCaseString(ii);
+        string txt = DevTool.Get_InteractingAnnoTxt(ii);
 
         if (ii != null && txt != "")
         {

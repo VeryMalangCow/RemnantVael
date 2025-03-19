@@ -9,17 +9,17 @@ public class ModuleUpgradeUIController : PanelUIController
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Module Upgrade Shop")]
 
     [Space(10)]
     [Header("=== Label")]
     [SerializeField] private TMP_Text LabelTxt;
-    [SerializeField] private string LabelName;
-    [SerializeField] private string AmalgamationName;
 
     [Space(10)]
-    [Header("=== BC, EC")]
+    [Header("=== Item")]
     [SerializeField] public TMP_Text BCTxt;
     [SerializeField] public TMP_Text ECTxt;
     [SerializeField] public TMP_Text MSTxt;
@@ -46,7 +46,6 @@ public class ModuleUpgradeUIController : PanelUIController
     [SerializeField] private GameObject SynergyPanelEmptyGO;
     [SerializeField] private Transform SynergyPanelInnerParentTF;
     [SerializeField] private Transform SynergySlotParentTF;
-    [HideInInspector] private List<SynergySlotEUIController> SynergySlotList = new List<SynergySlotEUIController>();
     [SerializeField] public Sprite SynergyTier0;
     [SerializeField] public Sprite SynergyTier1;
     [SerializeField] public Sprite SynergyTier2;
@@ -54,7 +53,6 @@ public class ModuleUpgradeUIController : PanelUIController
     [Space(5)]
     [Header("* Synergy Desc")]
     [SerializeField] private GameObject SynergyDescTF;
-    [HideInInspector] private SynergySlotEUIController SelectedMSS;
     [SerializeField] private Image SelectViewImg;
     [SerializeField] private TMP_Text SelectViewName;
     [SerializeField] private TMP_Text SelectViewAmalgamation;
@@ -67,11 +65,7 @@ public class ModuleUpgradeUIController : PanelUIController
     [Header("-- In Reinforce")]
     [SerializeField] private InventoryEUIController MI_InReinforceTab;
     [SerializeField] private List<SimplePanelAndBtn> ReinforceInteractPanels;
-    [HideInInspector] private SimplePanelAndBtn CurrentReinforceInteractPanel;
     [SerializeField] private List<Image> ReinforcePanelInnerList;
-
-    // Other
-    [HideInInspector] private List<InventoryEUIController> MI_List;
 
 
 
@@ -114,29 +108,39 @@ public class ModuleUpgradeUIController : PanelUIController
 
     [Space(10)]
     [Header("=== Durablity")]
-    [SerializeField] private TMP_Text DurablityTxt;
-    [SerializeField] private TMP_Text DurablityStateTxt;
-    [SerializeField] private string DurablityStringTxt;
-    [SerializeField] private Transform FillImgListParentTF;
-    [HideInInspector] private List<Image> FillImgList;
+    [SerializeField] public DurablityEUIController ThisDurEUI;
 
-    [Space(10)]
-    [Header("=== Color")]
-    [Header("-- MainColor")]
-    [SerializeField] public List<TMP_Text> TabTxtList;
-    [HideInInspector] public List<Component> MainColorCompList;
-    [Header("-- SubColor")]
-    [SerializeField] public List<CanvasGroup> LightTabCGList;
-    [HideInInspector] public List<Component> SubColorCompList;
+    #endregion
 
-    Sequence ForgeSeq;
+    #region - Hide
+
+    // string
+    [HideInInspector] public static string LabelName = "MODULE UPGRADE SHOP";
+    [HideInInspector] public static string AmalgamationName = "AMALGAMATION";
+
+    // Inventory
+    [HideInInspector] private List<InventoryEUIController> MI_List;
+
+    // Panel
+    [HideInInspector] private SimplePanelAndBtn CurrentReinforceInteractPanel;
+
+    // Synergy
+    [HideInInspector] private List<SynergySlotEUIController> SynergySlotList = new List<SynergySlotEUIController>();
+    [HideInInspector] private SynergySlotEUIController SelectedMSS;
+
+    // Seq
+    [HideInInspector] private Sequence ForgeSeq;
+
+    #endregion
 
     #endregion
 
     #region Offset
 
-    protected override void Offset_Module()
+    public override void Offset()
     {
+        base.Offset();
+
         MI_InEquipTab.Offset();
         MI_InReinforceTab.Offset();
 
@@ -187,10 +191,11 @@ public class ModuleUpgradeUIController : PanelUIController
 
         InEquipToggleBtn.Offset();
         InEquipToggleBtn.OwnerUIController = this;
-    }
 
-    protected override void Offset_UI()
-    {
+
+
+
+
         // BC // EC
         PlayerManager.Instance.PlayerController.CurrentBC
             .Subscribe(value =>
@@ -223,7 +228,7 @@ public class ModuleUpgradeUIController : PanelUIController
             }
         }
         for (int i = 0; i < AmalgamationTxtList.Count; i++)
-        { 
+        {
             AmalgamationTxtList[i].text = AmalgamationName;
         }
 
@@ -236,7 +241,7 @@ public class ModuleUpgradeUIController : PanelUIController
         }
         for (int i = 0; i < SynergyDescTextParentTF.childCount; i++)
         {
-            if (SynergyDescTextParentTF.GetChild(i).TryGetComponent(out TMP_Text Txt) && 
+            if (SynergyDescTextParentTF.GetChild(i).TryGetComponent(out TMP_Text Txt) &&
                 !AmalgamationDescTxtList.Contains(Txt))
             {
                 SubColorCompList.Add(Txt);
@@ -251,14 +256,7 @@ public class ModuleUpgradeUIController : PanelUIController
 
 
         // Dur
-        DurablityTxt.text = DurablityStringTxt + " :";
-
-        FillImgList = new List<Image>();
-        for (int i = 0; i < FillImgListParentTF.childCount; i++)
-        {
-            FillImgListParentTF.GetChild(i).gameObject.transform.GetChild(0).gameObject.TryGetComponent(out Image EmptyImg);
-            FillImgList.Add(EmptyImg);
-        }
+        ThisDurEUI.Offset();
 
         MI_List = new List<InventoryEUIController>
         {
@@ -336,19 +334,16 @@ public class ModuleUpgradeUIController : PanelUIController
         MainColorCompList.Add(Preview_NeedMS);
         MainColorCompList.Add(Preview_NeedEC);
 
-        Set_TabTxt(TabTxtList, MainColorCompList);
-        TabTxtList.Clear(); TabTxtList = null;
-
-        Set_TabLightAlpha(0.1f, LightTabCGList, SubColorCompList);
-        LightTabCGList.Clear(); LightTabCGList = null;
+        MainColorCompList.AddRange(Get_AllTabBtn_Txt());
+        SubColorCompList.AddRange(Get_AllTabBtn_Img());
 
         Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
-        Set_Color(mainClr, MainColorCompList);
+        DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
         Color subClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
-        Set_Color(subClr, SubColorCompList);
+        DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
 
@@ -387,8 +382,7 @@ public class ModuleUpgradeUIController : PanelUIController
     {
         base.SetOn_ThisPanel();
 
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_Dur(
-            ModuleUpgradeController.UsingShop.CurrentDur);
+        ThisDurEUI.Set_Dur(ModuleUpgradeController.UsingShop.CurrentDur);
     }
 
     public override void SetOff_ThisPanel()
@@ -1182,15 +1176,6 @@ public class ModuleUpgradeUIController : PanelUIController
     public void SetOff_Desc()
     {
         ThisDescPanel.SetOff_Desc();
-    }
-
-    #endregion
-
-    #region Dur
-
-    public void Set_Dur(int _DurState)
-    {
-        base.Set_Dur(_DurState, FillImgList, DurablityStateTxt);
     }
 
     #endregion

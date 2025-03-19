@@ -25,20 +25,19 @@ public class ChoiceCharacterUIController : PanelUIController
 
     #region Offset
 
-    protected override void Offset_Module()
+    public override void Offset()
     {
+        base.Offset();
+
         CloseBtn.Offset();
         CloseBtn.OwnerUIController = this;
 
         for (int i = 0; i < CharacterBtnList.Count; i++)
-        { 
+        {
             CharacterBtnList[i].Offset();
             CharacterBtnList[i].OwnerUIController = this;
         }
-    }
 
-    protected override void Offset_UI()
-    {
         TargetY = PanelRT.sizeDelta.y;
         PanelRT.sizeDelta = new Vector2(PanelRT.sizeDelta.x, 0f);
         BGCG.alpha = 0f;

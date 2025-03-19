@@ -859,6 +859,7 @@ GameObject:
   - component: {fileID: 4755104070901510971}
   - component: {fileID: 3170705332663809206}
   - component: {fileID: 4143738454031841281}
+  - component: {fileID: 4726852616877183750}
   m_Layer: 5
   m_Name: Btn_Cost
   m_TagString: Untagged
@@ -998,6 +999,21 @@ MonoBehaviour:
   baked: 0
   modifiedFromInspector: 0
   bakedShadows: []
+--- !u!114 &4726852616877183750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017215093838278651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsCanSelect: 1
+  OwnerUIController: {fileID: 0}
+  ThisBtn: {fileID: 0}
 --- !u!1 &2100571745291227996
 GameObject:
   m_ObjectHideFlags: 0
@@ -3924,6 +3940,7 @@ MonoBehaviour:
   - {fileID: 1570661245, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
   - {fileID: -904807095, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
   - {fileID: -1558119254, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
+  BuyBtn: {fileID: 4726852616877183750}
 --- !u!1 &7727178245454205948
 GameObject:
   m_ObjectHideFlags: 0
