@@ -3732,9 +3732,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2403208020175303613}
+  - {fileID: 6426091961641158641}
   - {fileID: 1977239395176610204}
   - {fileID: 7751167607288709835}
-  - {fileID: 6426091961641158641}
   m_Father: {fileID: 8014581035438462028}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3919,28 +3919,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b752d96ddc3c23e48895bf63aa7756a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisRT: {fileID: 8014581035438462028}
-  InnerImgList:
-  - {fileID: 2433760783325641525}
-  - {fileID: 846367356903639729}
-  MaximumSize: {x: 1350, y: 225}
-  MinimumSize: {x: 300, y: 225}
-  SizeDeltaTime: 0.2
+  ThisImgTxtAmountEUI: {fileID: 8928400671168704760}
+  BuyBtn: {fileID: 4726852616877183750}
+  DescTxt: {fileID: 8171936730393243384}
+  CostImg: {fileID: 3842703053704682384}
   AlwaysPanelBtn: {fileID: 308332468758549718}
   SkillNameTxt: {fileID: 465148360581515912}
   SkillLvTxt: {fileID: 4278975485691168565}
-  SkillOpenSimpleTxt: {fileID: 8171936730393243384}
   SkillIconImg: {fileID: 8057136919186570665}
-  ThisMIAAT: {fileID: 8928400671168704760}
-  SimpleDescTxt: {fileID: 8171936730393243384}
-  CostImg: {fileID: 3842703053704682384}
-  CostSpriteList:
-  - {fileID: 1843514589, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
-  - {fileID: -364981067, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
-  - {fileID: 1570661245, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
-  - {fileID: -904807095, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
-  - {fileID: -1558119254, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
-  BuyBtn: {fileID: 4726852616877183750}
+  InnerImgList:
+  - {fileID: 2433760783325641525}
+  - {fileID: 846367356903639729}
+  MaximumSize: 1350
+  MinimumSize: 300
+  SizeDeltaTime: 0.2
 --- !u!1 &7727178245454205948
 GameObject:
   m_ObjectHideFlags: 0

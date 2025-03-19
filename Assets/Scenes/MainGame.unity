@@ -905,490 +905,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseDamage_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseROF_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseCC_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseCD_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseMuzzleSpeed_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseAccuracyRate_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   Knockback_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseMaxEP_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseSpawnESMultiple_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseNeedEP_ForSkillMultiple_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseDecEnergyPointMultiple_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseResist_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseWalkSpeed_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseWalkSpeedWhenShotMultiple_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseDashSpeed_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   BaseAvoidChance_BUData:
-    BU_EachLevelDataList:
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
-    - UpgradeValue: 0
-      NeedEC_ForUpgrade: 0
+    LevelDataList: []
   Skill_BUDataList:
   - Skill_Cooltime_BUData:
-      BU_EachLevelDataList:
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
+      LevelDataList: []
     Skill_Power_BUData:
-      BU_EachLevelDataList:
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
+      LevelDataList: []
     Skill_Tier_BUData:
-      BU_EachLevelDataList:
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
+      LevelDataList: []
   - Skill_Cooltime_BUData:
-      BU_EachLevelDataList:
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
+      LevelDataList: []
     Skill_Power_BUData:
-      BU_EachLevelDataList:
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
+      LevelDataList: []
     Skill_Tier_BUData:
-      BU_EachLevelDataList:
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
-      - UpgradeValue: 0
-        NeedEC_ForUpgrade: 0
+      LevelDataList: []
+  CostSpriteList:
+  - {fileID: 1843514589, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
+  - {fileID: -364981067, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
+  - {fileID: 1570661245, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
+  - {fileID: -904807095, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
+  - {fileID: -1558119254, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
 --- !u!1 &379374678
 GameObject:
   m_ObjectHideFlags: 0
@@ -2201,7 +1767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d350df8e727b9448c95d67c0cd05aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NeedLayerObjects: []
+  NeedSortingObjects: []
 --- !u!1 &612920696
 GameObject:
   m_ObjectHideFlags: 0

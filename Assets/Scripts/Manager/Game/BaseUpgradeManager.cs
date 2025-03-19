@@ -33,6 +33,11 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
     [Header("-- Skill")]
     [SerializeField] public List<BULevelSkillData<float, int>> Skill_BUDataList;
 
+
+    [Space(10)]
+    [Header("=== Sprite")]
+    [SerializeField] public List<Sprite> CostSpriteList;
+
     #endregion
 
     #region Offset

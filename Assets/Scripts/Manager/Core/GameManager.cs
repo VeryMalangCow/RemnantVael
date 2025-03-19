@@ -825,6 +825,12 @@ public class DevTool
 
     #region Set
 
+    public static void Set_KillTween<T>(T _Comp)
+    {
+        if (_Comp != null && DOTween.IsTweening(_Comp))
+        { DOTween.Kill(_Comp); }
+    }
+
     public static void Set_KillTween(Sequence _Seq)
     {
         if (_Seq != null && DOTween.IsTweening(_Seq))
@@ -833,7 +839,7 @@ public class DevTool
 
     public static void Set_CompleteTween<T>(T _Comp)
     {
-        if (DOTween.IsTweening(_Comp))
+        if (_Comp != null && DOTween.IsTweening(_Comp))
         { DOTween.Complete(_Comp); }
     }
 
@@ -1742,8 +1748,7 @@ public class BUShopData<T>
         State = _State;
         LevelData = _LevelData;
 
-        UpgradeEUI.Offset();
-        UpgradeEUI.Set_StateInfo(State.Name, State.Desc, _Owner);
+        UpgradeEUI.Offset(State.Name, State.Desc, _Owner);
 
         State.Offset(UpgradeEUI, LevelData);
         State.Set_BuffedState();

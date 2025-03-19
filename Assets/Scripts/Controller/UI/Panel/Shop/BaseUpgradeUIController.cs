@@ -206,11 +206,11 @@ public class BaseUpgradeUIController : PanelUIController
         {
             MainColorCompList.Add(_BUShop.UpgradeEUI.SkillNameTxt);
             MainColorCompList.Add(_BUShop.UpgradeEUI.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-            MainColorCompList.Add(_BUShop.UpgradeEUI.SimpleDescTxt);
+            MainColorCompList.Add(_BUShop.UpgradeEUI.DescTxt);
             MainColorCompList.Add(_BUShop.UpgradeEUI.BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
             SubColorCompList.Add(_BUShop.UpgradeEUI.SkillLvTxt);
-            SubColorCompList.AddRange(_BUShop.UpgradeEUI.ThisMIAAT.Img_List);
+            SubColorCompList.AddRange(_BUShop.UpgradeEUI.ThisImgTxtAmountEUI.Img_List);
             SubColorCompList.AddRange(_BUShop.UpgradeEUI.InnerImgList);
         }
 

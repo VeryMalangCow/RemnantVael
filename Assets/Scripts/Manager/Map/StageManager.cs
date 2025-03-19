@@ -153,7 +153,7 @@ public class StageManager : Singleton<StageManager>
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Gen_Minimap();
         MainGameUIManager.Instance.PlayerHUD_UIController.Set_StageDescription(reso.StageName, reso.StageDescription);
 
-        MainGameUIManager.Instance.MapIntro_UIController.SetOn_IntroLabel();
+        MainGameUIManager.Instance.MapIntro_UIController.Play_IntroLabel();
 
         // 적 객체 오브젝트 풀링 시스템 세팅하기
         PoolingManager.Instance.Offset_EnemiesPooling(reso.StageEnemyList);

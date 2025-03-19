@@ -11,8 +11,14 @@ public class MapIntroUIController : UIController
 
     [Space(10)]
     [Header("=== Component")]
+
+    [Space(5)]
+    [Header("-- RT")]
     [SerializeField] private RectTransform ThisMovingRT;
     [SerializeField] private RectTransform ThisShakingRT;
+
+    [Space(5)]
+    [Header("-- Txt")]
     [SerializeField] private TMP_Text MapNameTxt;
     [SerializeField] private TMP_Text MapDescriptionTxt;
 
@@ -20,33 +26,37 @@ public class MapIntroUIController : UIController
 
     #region Usable
 
-    public void SetOn_IntroLabel()
+    public void Play_IntroLabel()
     {
-        StageManager.StageData sd = StageManager.Instance.Get_CollectStageData(StageManager.Instance.TargetStageID);
-        MapNameTxt.text = sd.StageName;
-        MapDescriptionTxt.text = sd.StageDescription;
+        StageManager.StageData sd = 
+            StageManager.Instance.Get_CollectStageData(StageManager.Instance.TargetStageID);
 
-        DOTween.Kill(ThisMovingRT);
+        Set_Txt(sd.StageName, sd.StageDescription);
+        Play_Label(1.5f, 3f, 2f)
+            .OnStart(() => { this.gameObject.SetActive(true); })
+            .OnComplete(() => { this.gameObject.SetActive(false); });
+    }
+
+    private void Set_Txt(string _Name, string _Desc)
+    {
+        MapNameTxt.text = _Name;
+        MapDescriptionTxt.text = _Desc;
+    }
+
+    private Sequence Play_Label(float _DownTime, float _StayTime, float _UpTime)
+    {
+        DevTool.Set_KillTween(ThisMovingRT);
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(ThisMovingRT.DOAnchorPos(new Vector2(0, -ThisMovingRT.rect.height), 2f)
-            .SetEase(Ease.OutCubic));
-        seq.Join(ThisShakingRT.DOShakeAnchorPos(2.2f, 1f, 50, 90, false, true));
-        seq.AppendInterval(4f);
-        seq.Append(ThisMovingRT.DOAnchorPos(new Vector2(0, 0), 2f)
-            .SetEase(Ease.InCubic));
-        seq.Join(ThisShakingRT.DOShakeAnchorPos(2f, 1f, 50, 90, false, true)
-            .SetEase(Ease.InCubic));
+        seq.Append(ThisMovingRT.DOAnchorPos(new Vector2(0, -ThisMovingRT.rect.height), _DownTime).SetEase(Ease.OutCubic));
+        seq.Join(ThisShakingRT.DOShakeAnchorPos(_DownTime * 1.5f, 1f, 50, 90, false, true));
 
-        seq
-            .OnStart(() =>
-            {
-                this.gameObject.SetActive(true);
-            })
-            .OnComplete(() =>
-            {
-                this.gameObject.SetActive(false);
-            });
+        seq.AppendInterval(_StayTime);
+
+        seq.Append(ThisMovingRT.DOAnchorPos(new Vector2(0, 0), _UpTime).SetEase(Ease.InCubic));
+        seq.Join(ThisShakingRT.DOShakeAnchorPos(_UpTime * 1.5f, 1f, 50, 90, false, true).SetEase(Ease.InCubic));
+
+        return seq;
     }
 
     #endregion
