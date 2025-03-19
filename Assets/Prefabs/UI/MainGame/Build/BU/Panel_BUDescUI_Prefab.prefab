@@ -4055,29 +4055,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ceeaf9a72f4b04e98caa06c9e96c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CenterName: {fileID: 3688505488582191813}
-  UpgradeGraphLVTxt: {fileID: 301069304910088316}
-  UpgradeGraphLV_TxtList:
-  - {fileID: 666799190501694515}
-  - {fileID: 2530523213561848066}
-  - {fileID: 6610299076236438801}
-  - {fileID: 6573335213320460817}
-  UpgradeGraphValueTxt: {fileID: 4025350344758366526}
-  UpgradeGraphDetailState_TxtList:
-  - {fileID: 8446372908346360401}
-  - {fileID: 4309894389253772456}
-  - {fileID: 7355313879591537067}
-  - {fileID: 7079416793069163400}
-  CurrentUpgradeGraphSpot: {fileID: 9123324405553222333}
+  CenterNameTxt: {fileID: 3688505488582191813}
+  LeftLVTxt: {fileID: 301069304910088316}
+  LeftValueTxt: {fileID: 4025350344758366526}
+  LeftLVTxtParentTF: {fileID: 4765339918097175981}
+  LeftValueTxtParentTF: {fileID: 3222294669010686009}
   BaseSpotX: 694
   IntervalSpotX: -125
-  UpgradeNextLVTxt: {fileID: 5582189003671277583}
-  UpgradeNextValueTxt: {fileID: 6011975049187246220}
+  CurrentRangeRT: {fileID: 9123324405553222333}
+  RightLVTxt: {fileID: 5582189003671277583}
+  RightValueTxt: {fileID: 6011975049187246220}
   CurrentLvTxt: {fileID: 8019544101959776172}
   CurrentStateTxt: {fileID: 7930096942656749782}
   NextLvTxt: {fileID: 7208726514252973030}
   NextStateTxt: {fileID: 7749506588404861512}
   CompletedSignGO: {fileID: 7593493374977136187}
+  CurrentRangeImg: {fileID: 0}
 --- !u!225 &2441375266789193097
 CanvasGroup:
   m_ObjectHideFlags: 0

@@ -1736,19 +1736,21 @@ public class BUShopData<T>
     public void Offset(
         BUState<T> _State,
         BULevelData<T> _LevelData,
-        List<BUShopData<T>> _AllList)
+        List<BUShopData<T>> _AllList,
+        BaseUpgradeUIController _Owner)
     {
         State = _State;
         LevelData = _LevelData;
 
         UpgradeEUI.Offset();
-        UpgradeEUI.Set_StateInfo(State.Name, State.Desc);
+        UpgradeEUI.Set_StateInfo(State.Name, State.Desc, _Owner);
 
         State.Offset(UpgradeEUI, LevelData);
         State.Set_BuffedState();
 
         _AllList.Add(this);
     }
+
 
     #endregion
 

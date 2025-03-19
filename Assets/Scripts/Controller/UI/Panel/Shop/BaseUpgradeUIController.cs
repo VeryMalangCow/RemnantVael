@@ -113,30 +113,30 @@ public class BaseUpgradeUIController : PanelUIController
         SkillWeaponController pswc = pc.SkillWeapon;
         BaseUpgradeManager bm = BaseUpgradeManager.Instance;
 
-        DamageShop.Offset(pwc.BaseDamage, bm.BaseDamage_BUData, AllBUData_Float);
-        ROFShop.Offset(pwc.ROF, bm.BaseROF_BUData, AllBUData_Float);
-        CCShop.Offset(pwc.CC, bm.BaseCC_BUData, AllBUData_Float);
-        CDShop.Offset(pwc.CD, bm.BaseCD_BUData, AllBUData_Float);
-        MuzzleShop.Offset(pwc.MuzzleSpeed, bm.BaseMuzzleSpeed_BUData, AllBUData_Float);
-        AccuracyRateShop.Offset(pwc.AccuracyRate, bm.BaseAccuracyRate_BUData, AllBUData_Float);
-        KnockbackShop.Offset(pwc.KnockbackPower, bm.Knockback_BUData, AllBUData_Float);
+        DamageShop.Offset(pwc.BaseDamage, bm.BaseDamage_BUData, AllBUData_Float, this);
+        ROFShop.Offset(pwc.ROF, bm.BaseROF_BUData, AllBUData_Float, this);
+        CCShop.Offset(pwc.CC, bm.BaseCC_BUData, AllBUData_Float, this);
+        CDShop.Offset(pwc.CD, bm.BaseCD_BUData, AllBUData_Float, this);
+        MuzzleShop.Offset(pwc.MuzzleSpeed, bm.BaseMuzzleSpeed_BUData, AllBUData_Float, this);
+        AccuracyRateShop.Offset(pwc.AccuracyRate, bm.BaseAccuracyRate_BUData, AllBUData_Float, this);
+        KnockbackShop.Offset(pwc.KnockbackPower, bm.Knockback_BUData, AllBUData_Float, this);
 
-        MaxEPShop.Offset(pc.MaxEP, bm.BaseMaxEP_BUData, AllBUData_Float);
-        SpawnESMultipleShop.Offset(pc.SpawnESMultiple, bm.BaseSpawnESMultiple_BUData, AllBUData_Float);
-        NeedEP_ForSkillMultipleShop.Offset(pc.NeedEP_ForSkillMultiple, bm.BaseNeedEP_ForSkillMultiple_BUData, AllBUData_Float);
-        DecEnergyPointMultipleShop.Offset(pc.DecEnergyPointMultiple, bm.BaseDecEnergyPointMultiple_BUData, AllBUData_Float);
-        ResistShop.Offset(pc.TakingDmgMultiple, bm.BaseResist_BUData, AllBUData_Float);
+        MaxEPShop.Offset(pc.MaxEP, bm.BaseMaxEP_BUData, AllBUData_Float, this);
+        SpawnESMultipleShop.Offset(pc.SpawnESMultiple, bm.BaseSpawnESMultiple_BUData, AllBUData_Float, this);
+        NeedEP_ForSkillMultipleShop.Offset(pc.NeedEP_ForSkillMultiple, bm.BaseNeedEP_ForSkillMultiple_BUData, AllBUData_Float, this);
+        DecEnergyPointMultipleShop.Offset(pc.DecEnergyPointMultiple, bm.BaseDecEnergyPointMultiple_BUData, AllBUData_Float, this);
+        ResistShop.Offset(pc.TakingDmgMultiple, bm.BaseResist_BUData, AllBUData_Float, this);
 
-        WalkSpeedShop.Offset(pc.WalkSpeed, bm.BaseWalkSpeed_BUData, AllBUData_Float);
-        WalkSpeedWhenShotMultipleShop.Offset(pc.WalkSpeedWhenShotMultiple, bm.BaseWalkSpeedWhenShotMultiple_BUData, AllBUData_Float);
-        WalkAvoidChance.Offset(pc.AvoidChance, bm.BaseAvoidChance_BUData, AllBUData_Float);
-        DashSpeedShop.Offset(pc.DashController.DashSpeed, bm.BaseDashSpeed_BUData, AllBUData_Float);
+        WalkSpeedShop.Offset(pc.WalkSpeed, bm.BaseWalkSpeed_BUData, AllBUData_Float, this);
+        WalkSpeedWhenShotMultipleShop.Offset(pc.WalkSpeedWhenShotMultiple, bm.BaseWalkSpeedWhenShotMultiple_BUData, AllBUData_Float, this);
+        WalkAvoidChance.Offset(pc.AvoidChance, bm.BaseAvoidChance_BUData, AllBUData_Float, this);
+        DashSpeedShop.Offset(pc.DashController.DashSpeed, bm.BaseDashSpeed_BUData, AllBUData_Float, this);
 
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
-            SkillShopList[i].Skill_CooltimeShop.Offset(pswc.SkillList[i].MaxCooltime, bm.Skill_BUDataList[i].Skill_Cooltime_BUData, AllBUData_Float);
-            SkillShopList[i].Skill_PowerShop.Offset(pswc.SkillList[i].Power, bm.Skill_BUDataList[i].Skill_Power_BUData, AllBUData_Float);
-            SkillShopList[i].Skill_TierShop.Offset(pswc.SkillList[i].Tier, bm.Skill_BUDataList[i].Skill_Tier_BUData, AllBUData_Int);
+            SkillShopList[i].Skill_CooltimeShop.Offset(pswc.SkillList[i].MaxCooltime, bm.Skill_BUDataList[i].Skill_Cooltime_BUData, AllBUData_Float, this);
+            SkillShopList[i].Skill_PowerShop.Offset(pswc.SkillList[i].Power, bm.Skill_BUDataList[i].Skill_Power_BUData, AllBUData_Float, this);
+            SkillShopList[i].Skill_TierShop.Offset(pswc.SkillList[i].Tier, bm.Skill_BUDataList[i].Skill_Tier_BUData, AllBUData_Int, this);
         }
 
         #endregion

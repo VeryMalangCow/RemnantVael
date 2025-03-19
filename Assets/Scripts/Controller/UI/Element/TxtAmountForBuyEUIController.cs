@@ -50,11 +50,11 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     #region Set
 
-    public void Set_StateInfo(string _Name, string _Desc)
+    public void Set_StateInfo(string _Name, string _Desc, BaseUpgradeUIController _Owner)
     {
         SkillNameTxt.text = _Name;
         SkillOpenSimpleTxt.text = _Desc;
-        BuyBtn.OwnerUIController = MainGameUIManager.Instance.BaseUpgrade_UIController;
+        BuyBtn.OwnerUIController = _Owner;
     }
 
     public void Set(int _Level, int _CostValue)
