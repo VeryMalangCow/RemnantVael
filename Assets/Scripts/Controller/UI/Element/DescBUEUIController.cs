@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DescBUEUIController : ElementUIController
 {
@@ -20,6 +21,7 @@ public class DescBUEUIController : ElementUIController
     [SerializeField] public TMP_Text UpgradeGraphValueTxt;
     [SerializeField] public List<TMP_Text> UpgradeGraphDetailState_TxtList;
     [SerializeField] public RectTransform CurrentUpgradeGraphSpot;
+    [HideInInspector] public Image CurrentUpgradeGraphImg;
     [SerializeField] private float BaseSpotX;
     [SerializeField] private float IntervalSpotX;
 
@@ -47,6 +49,11 @@ public class DescBUEUIController : ElementUIController
         if (ThisRT == null && this.TryGetComponent(out RectTransform rt))
         {
             ThisRT = rt;
+        }
+
+        if (DevTool.Get_ComponentTType(CurrentUpgradeGraphSpot.gameObject, out Image img))
+        {
+            CurrentUpgradeGraphImg = img;
         }
     }
 
@@ -150,6 +157,43 @@ public class DescBUEUIController : ElementUIController
 
         CurrentLvTxt.text = "-";
         CurrentStateTxt.text = "-";
+    }
+
+
+    #endregion
+
+    #region Get
+
+
+    public List<Component> Get_MainColorList()
+    {
+        List<Component> result = new List<Component>();
+
+        result.Add(CenterName);
+
+        result.Add(CurrentUpgradeGraphImg);
+
+        result.Add(UpgradeGraphValueTxt);
+        result.Add(UpgradeGraphLVTxt);
+
+        result.Add(NextLvTxt);
+        result.Add(NextStateTxt);
+        result.Add(UpgradeNextValueTxt);
+
+        result.AddRange(UpgradeGraphDetailState_TxtList);
+        result.AddRange(UpgradeGraphLV_TxtList);
+
+
+        return result;
+    }
+
+    public List<Component> Get_SubColorList()
+    {
+        List<Component> result = new List<Component>();
+
+        result.Add(UpgradeNextLVTxt);
+
+        return result;
     }
 
 

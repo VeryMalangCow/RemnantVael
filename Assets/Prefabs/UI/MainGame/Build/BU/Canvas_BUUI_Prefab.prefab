@@ -403,271 +403,249 @@ MonoBehaviour:
   FrameInnerImg: {fileID: 1137730085738591900}
   DamageShop:
     UpgradeEUI: {fileID: 7439659564662900833}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   ROFShop:
     UpgradeEUI: {fileID: 3457082903092147700}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   CCShop:
     UpgradeEUI: {fileID: 826034040717869057}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   CDShop:
     UpgradeEUI: {fileID: 249840734117708457}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   MuzzleShop:
     UpgradeEUI: {fileID: 1486478190009571335}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   AccuracyRateShop:
     UpgradeEUI: {fileID: 8417782117458110841}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   KnockbackShop:
     UpgradeEUI: {fileID: 7024211467071536218}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   MaxEPShop:
     UpgradeEUI: {fileID: 7459075731100423123}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   SpawnESMultipleShop:
     UpgradeEUI: {fileID: 8520025481572721215}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   NeedEP_ForSkillMultipleShop:
     UpgradeEUI: {fileID: 4716097827227766828}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   DecEnergyPointMultipleShop:
     UpgradeEUI: {fileID: 8050690846459849096}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   ResistShop:
     UpgradeEUI: {fileID: 3468857613989588739}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   WalkSpeedShop:
     UpgradeEUI: {fileID: 2914015992450877551}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   WalkSpeedWhenShotMultipleShop:
     UpgradeEUI: {fileID: 121374276907542301}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   DashSpeedShop:
     UpgradeEUI: {fileID: 1286614569475597690}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   WalkAvoidChance:
     UpgradeEUI: {fileID: 6779234880630551956}
-    UpgradeState:
+    State:
       BaseState: 0
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      CurrentLevel:
-        value: 0
-      BuffList: []
       Name: 
       Desc: 
+      CurrentLevel:
+        value: 0
   SkillShopList:
   - Skill_CooltimeShop:
       UpgradeEUI: {fileID: 6134757088864113458}
-      UpgradeState:
+      State:
         BaseState: 0
         UpgradeValueByLevelRange: []
         ActualState:
           value: 0
-        CurrentLevel:
-          value: 0
-        BuffList: []
         Name: 
         Desc: 
+        CurrentLevel:
+          value: 0
     Skill_PowerShop:
       UpgradeEUI: {fileID: 1964962563958247443}
-      UpgradeState:
+      State:
         BaseState: 0
         UpgradeValueByLevelRange: []
         ActualState:
           value: 0
-        CurrentLevel:
-          value: 0
-        BuffList: []
         Name: 
         Desc: 
+        CurrentLevel:
+          value: 0
     Skill_TierShop:
       UpgradeEUI: {fileID: 5164057587273359705}
-      UpgradeState:
+      State:
         BaseState: 0
         UpgradeValueByLevelRange: 
         ActualState:
           value: 0
-        CurrentLevel:
-          value: 0
-        BuffList: []
         Name: 
         Desc: 
+        CurrentLevel:
+          value: 0
   - Skill_CooltimeShop:
       UpgradeEUI: {fileID: 180679763082087560}
-      UpgradeState:
+      State:
         BaseState: 0
         UpgradeValueByLevelRange: []
         ActualState:
           value: 0
-        CurrentLevel:
-          value: 0
-        BuffList: []
         Name: 
         Desc: 
+        CurrentLevel:
+          value: 0
     Skill_PowerShop:
       UpgradeEUI: {fileID: 8623553139072965713}
-      UpgradeState:
+      State:
         BaseState: 0
         UpgradeValueByLevelRange: []
         ActualState:
           value: 0
-        CurrentLevel:
-          value: 0
-        BuffList: []
         Name: 
         Desc: 
+        CurrentLevel:
+          value: 0
     Skill_TierShop:
       UpgradeEUI: {fileID: 4791134176970524573}
-      UpgradeState:
+      State:
         BaseState: 0
         UpgradeValueByLevelRange: 
         ActualState:
           value: 0
-        CurrentLevel:
-          value: 0
-        BuffList: []
         Name: 
         Desc: 
-  AllUpgradeDataList_Float: []
-  AllUpgradeDataList_Int: []
+        CurrentLevel:
+          value: 0
+  AllBUData_Float: []
+  AllBUData_Int: []
 --- !u!114 &7285601847160733366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10909,6 +10887,10 @@ PrefabInstance:
     - target: {fileID: 344808165165465339, guid: d325254de4df6b04f98f8c4384af5e75, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3675354800424826433, guid: d325254de4df6b04f98f8c4384af5e75, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9070673602860862517, guid: d325254de4df6b04f98f8c4384af5e75, type: 3}
       propertyPath: m_Name

@@ -31,8 +31,8 @@ public class PanelUIController : UIController
     [HideInInspector] public OwnBtnEUIController CurrentBtn = null;
 
     // Visual
-    [HideInInspector] public List<Component> MainColorCompList;
-    [HideInInspector] public List<Component> SubColorCompList;
+    [HideInInspector] public List<Component> MainColorCompList = new List<Component>();
+    [HideInInspector] public List<Component> SubColorCompList = new List<Component>();
 
     #endregion
 
@@ -164,6 +164,5 @@ public class PanelUIController : UIController
         }
         return result;
     }
-
     #endregion
 }

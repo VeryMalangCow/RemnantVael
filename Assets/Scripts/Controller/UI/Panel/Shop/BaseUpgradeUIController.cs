@@ -83,8 +83,8 @@ public class BaseUpgradeUIController : PanelUIController
     [HideInInspector] public static string LabelName = "BASE UPGRADE SHOP";
 
     // BU Stata Data -> List
-    [HideInInspector] public List<BUShopData<float>> AllUpgradeDataList_Float;
-    [HideInInspector] public List<BUShopData<int>> AllUpgradeDataList_Int;
+    [HideInInspector] public List<BUShopData<float>> AllBUData_Float = new List<BUShopData<float>>();
+    [HideInInspector] public List<BUShopData<int>> AllBUData_Int = new List<BUShopData<int>>();
 
     #endregion
 
@@ -96,132 +96,139 @@ public class BaseUpgradeUIController : PanelUIController
     {
         base.Offset();
 
-        DamageShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage, BaseUpgradeManager.Instance.BaseDamage_BUData, this);
-        ROFShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.ROF, BaseUpgradeManager.Instance.BaseROF_BUData, this);
-        CCShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CC, BaseUpgradeManager.Instance.BaseCC_BUData, this);
-        CDShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.CD, BaseUpgradeManager.Instance.BaseCD_BUData, this);
-        MuzzleShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.MuzzleSpeed, BaseUpgradeManager.Instance.BaseMuzzleSpeed_BUData, this);
-        AccuracyRateShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.AccuracyRate, BaseUpgradeManager.Instance.BaseAccuracyRate_BUData, this);
-        KnockbackShop.Offset(PlayerManager.Instance.PlayerController.BaseWeapon.KnockbackPower, BaseUpgradeManager.Instance.Knockback_BUData, this);
+        Offset_BUShop();
+        Offset_Another();
 
-        MaxEPShop.Offset(PlayerManager.Instance.PlayerController.MaxEP, BaseUpgradeManager.Instance.BaseMaxEP_BUData, this);
-        SpawnESMultipleShop.Offset(PlayerManager.Instance.PlayerController.SpawnESMultiple, BaseUpgradeManager.Instance.BaseSpawnESMultiple_BUData, this);
-        NeedEP_ForSkillMultipleShop.Offset(PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple, BaseUpgradeManager.Instance.BaseNeedEP_ForSkillMultiple_BUData, this);
-        DecEnergyPointMultipleShop.Offset(PlayerManager.Instance.PlayerController.DecEnergyPointMultiple, BaseUpgradeManager.Instance.BaseDecEnergyPointMultiple_BUData, this);
-        ResistShop.Offset(PlayerManager.Instance.PlayerController.TakingDmgMultiple, BaseUpgradeManager.Instance.BaseResist_BUData, this);
+        Offset_Subscribe();
+        Offset_ColorComp();
+    }
 
-        WalkSpeedShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeed, BaseUpgradeManager.Instance.BaseWalkSpeed_BUData, this);
-        WalkSpeedWhenShotMultipleShop.Offset(PlayerManager.Instance.PlayerController.WalkSpeedWhenShotMultiple, BaseUpgradeManager.Instance.BaseWalkSpeedWhenShotMultiple_BUData, this);
-        WalkAvoidChance.Offset(PlayerManager.Instance.PlayerController.AvoidChance, BaseUpgradeManager.Instance.BaseAvoidChance_BUData, this);
-        DashSpeedShop.Offset(PlayerManager.Instance.PlayerController.DashController.DashSpeed, BaseUpgradeManager.Instance.BaseDashSpeed_BUData, this);
-        
-        
+
+    private void Offset_BUShop()
+    {
+        #region Each Offset
+
+        PlayerController pc = PlayerManager.Instance.PlayerController;
+        PlayerWeaponController pwc = pc.BaseWeapon;
+        SkillWeaponController pswc = pc.SkillWeapon;
+        BaseUpgradeManager bm = BaseUpgradeManager.Instance;
+
+        DamageShop.Offset(pwc.BaseDamage, bm.BaseDamage_BUData, AllBUData_Float);
+        ROFShop.Offset(pwc.ROF, bm.BaseROF_BUData, AllBUData_Float);
+        CCShop.Offset(pwc.CC, bm.BaseCC_BUData, AllBUData_Float);
+        CDShop.Offset(pwc.CD, bm.BaseCD_BUData, AllBUData_Float);
+        MuzzleShop.Offset(pwc.MuzzleSpeed, bm.BaseMuzzleSpeed_BUData, AllBUData_Float);
+        AccuracyRateShop.Offset(pwc.AccuracyRate, bm.BaseAccuracyRate_BUData, AllBUData_Float);
+        KnockbackShop.Offset(pwc.KnockbackPower, bm.Knockback_BUData, AllBUData_Float);
+
+        MaxEPShop.Offset(pc.MaxEP, bm.BaseMaxEP_BUData, AllBUData_Float);
+        SpawnESMultipleShop.Offset(pc.SpawnESMultiple, bm.BaseSpawnESMultiple_BUData, AllBUData_Float);
+        NeedEP_ForSkillMultipleShop.Offset(pc.NeedEP_ForSkillMultiple, bm.BaseNeedEP_ForSkillMultiple_BUData, AllBUData_Float);
+        DecEnergyPointMultipleShop.Offset(pc.DecEnergyPointMultiple, bm.BaseDecEnergyPointMultiple_BUData, AllBUData_Float);
+        ResistShop.Offset(pc.TakingDmgMultiple, bm.BaseResist_BUData, AllBUData_Float);
+
+        WalkSpeedShop.Offset(pc.WalkSpeed, bm.BaseWalkSpeed_BUData, AllBUData_Float);
+        WalkSpeedWhenShotMultipleShop.Offset(pc.WalkSpeedWhenShotMultiple, bm.BaseWalkSpeedWhenShotMultiple_BUData, AllBUData_Float);
+        WalkAvoidChance.Offset(pc.AvoidChance, bm.BaseAvoidChance_BUData, AllBUData_Float);
+        DashSpeedShop.Offset(pc.DashController.DashSpeed, bm.BaseDashSpeed_BUData, AllBUData_Float);
+
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
-            SkillShopList[i].Skill_CooltimeShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].MaxCooltime, BaseUpgradeManager.Instance.Skill_BUDataList[i].Skill_Cooltime_BUData, this);
-            SkillShopList[i].Skill_PowerShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].Power, BaseUpgradeManager.Instance.Skill_BUDataList[i].Skill_Power_BUData, this);
-            SkillShopList[i].Skill_TierShop.Offset(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].Tier, BaseUpgradeManager.Instance.Skill_BUDataList[i].Skill_Tier_BUData, this);
+            SkillShopList[i].Skill_CooltimeShop.Offset(pswc.SkillList[i].MaxCooltime, bm.Skill_BUDataList[i].Skill_Cooltime_BUData, AllBUData_Float);
+            SkillShopList[i].Skill_PowerShop.Offset(pswc.SkillList[i].Power, bm.Skill_BUDataList[i].Skill_Power_BUData, AllBUData_Float);
+            SkillShopList[i].Skill_TierShop.Offset(pswc.SkillList[i].Tier, bm.Skill_BUDataList[i].Skill_Tier_BUData, AllBUData_Int);
         }
 
-        AllUpgradeDataList_Float = new List<BUShopData<float>>()
-        {
-            DamageShop, ROFShop, CCShop, CDShop, MuzzleShop, AccuracyRateShop, KnockbackShop,
-            MaxEPShop,SpawnESMultipleShop, NeedEP_ForSkillMultipleShop, DecEnergyPointMultipleShop, ResistShop,
-            WalkSpeedShop, WalkSpeedWhenShotMultipleShop, WalkAvoidChance, DashSpeedShop,
-            SkillShopList[0].Skill_CooltimeShop, SkillShopList[0].Skill_PowerShop,
-            SkillShopList[1].Skill_CooltimeShop, SkillShopList[1].Skill_PowerShop
-        };
+        #endregion
+    }
 
-        for (int i = 0; i < AllUpgradeDataList_Float.Count; i++)
-        {
-            MainColorCompList.Add(AllUpgradeDataList_Float[i].UpgradeEUI.SkillNameTxt);
-            SubColorCompList.Add(AllUpgradeDataList_Float[i].UpgradeEUI.SkillLvTxt);
-            SubColorCompList.AddRange(AllUpgradeDataList_Float[i].UpgradeEUI.ThisMIAAT.Img_List);
-            SubColorCompList.AddRange(AllUpgradeDataList_Float[i].UpgradeEUI.InnerImgList);
-            MainColorCompList.Add(AllUpgradeDataList_Float[i].UpgradeEUI.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-            MainColorCompList.Add(AllUpgradeDataList_Float[i].UpgradeEUI.SimpleDescTxt);
-            MainColorCompList.Add(AllUpgradeDataList_Float[i].UpgradeEUI.BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-        }
+    private void Offset_Another()
+    {
+        // Label
+        LabelTxt.text = LabelName;
 
-        AllUpgradeDataList_Int = new List<BUShopData<int>>()
-        {
-            SkillShopList[0].Skill_TierShop,
-            SkillShopList[1].Skill_TierShop
-        };
-
-        for (int i = 0; i < AllUpgradeDataList_Int.Count; i++)
-        {
-            MainColorCompList.Add(AllUpgradeDataList_Int[i].UpgradeEUI.SkillNameTxt);
-            SubColorCompList.Add(AllUpgradeDataList_Int[i].UpgradeEUI.SkillLvTxt);
-            SubColorCompList.AddRange(AllUpgradeDataList_Int[i].UpgradeEUI.ThisMIAAT.Img_List);
-            SubColorCompList.AddRange(AllUpgradeDataList_Int[i].UpgradeEUI.InnerImgList);
-            MainColorCompList.Add(AllUpgradeDataList_Int[i].UpgradeEUI.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-            MainColorCompList.Add(AllUpgradeDataList_Int[i].UpgradeEUI.SimpleDescTxt);
-            MainColorCompList.Add(AllUpgradeDataList_Int[i].UpgradeEUI.BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-        }
-
+        // Tab
         foreach (TabEUIController MET in ThisPanelTabList)
         {
             MET.Offset();
             MET.ThisTabBtn.OwnerUIController = this;
         }
 
+        // Dur
+        ThisDurEUI.Offset();
+
+        // Desc
         ThisDescPanel.Offset();
 
+        // Close
         CloseBtn.Offset();
         CloseBtn.OwnerUIController = this;
+    }
 
-        PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Subscribe(_Value =>
-        {
-            for (int i = 0; i < DevTool.SkillAmount; i++)
+    private void Offset_Subscribe()
+    {
+        PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState
+            .Subscribe(_Value =>
             {
-                MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i].Set_CostText(
-                    _Value * PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].NeedEP.Value);
-            }
-        });
-        // BC // EC
+                for (int i = 0; i < DevTool.SkillAmount; i++)
+                {
+                    MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i].Set_CostText(
+                        _Value * PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].NeedEP.Value);
+                }
+            });
+
         PlayerManager.Instance.PlayerController.CurrentBC
             .Subscribe(value =>
             {
                 BCTxt.text = value.ToString();
             });
+
         PlayerManager.Instance.PlayerController.CurrentEC
             .Subscribe(value =>
             {
                 ECTxt.text = value.ToString();
             });
+    }
 
-        // Dur
-        ThisDurEUI.Offset();
+    private void Offset_ColorComp()
+    {
+        // BUShop
+        for (int i = 0; i < AllBUData_Float.Count; i++)
+        {
+            Offset_ColorComp(AllBUData_Float[i]);
+        }
+        for (int i = 0; i < AllBUData_Int.Count; i++)
+        {
+            Offset_ColorComp(AllBUData_Int[i]);
+        }
+
+        void Offset_ColorComp<T>(BUShopData<T> _BUShop)
+        {
+            MainColorCompList.Add(_BUShop.UpgradeEUI.SkillNameTxt);
+            MainColorCompList.Add(_BUShop.UpgradeEUI.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+            MainColorCompList.Add(_BUShop.UpgradeEUI.SimpleDescTxt);
+            MainColorCompList.Add(_BUShop.UpgradeEUI.BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+
+            SubColorCompList.Add(_BUShop.UpgradeEUI.SkillLvTxt);
+            SubColorCompList.AddRange(_BUShop.UpgradeEUI.ThisMIAAT.Img_List);
+            SubColorCompList.AddRange(_BUShop.UpgradeEUI.InnerImgList);
+        }
 
         // Desc
-        if (ThisDescPanel.CurrentUpgradeGraphSpot.gameObject.TryGetComponent(out Image img))
-        { MainColorCompList.Add(img); }
+        MainColorCompList.AddRange(ThisDescPanel.Get_MainColorList());
+        SubColorCompList.AddRange(ThisDescPanel.Get_SubColorList());
 
-        MainColorCompList.Add(ThisDescPanel.CenterName);
-
-        // Graph
-        MainColorCompList.Add(ThisDescPanel.UpgradeGraphValueTxt);
-        MainColorCompList.AddRange(ThisDescPanel.UpgradeGraphDetailState_TxtList);
-
-        SubColorCompList.Add(ThisDescPanel.UpgradeGraphLVTxt);
-        SubColorCompList.AddRange(ThisDescPanel.UpgradeGraphLV_TxtList);
-
-        // Next
-        MainColorCompList.Add(ThisDescPanel.NextLvTxt);
-        MainColorCompList.Add(ThisDescPanel.NextStateTxt);
-        MainColorCompList.Add(ThisDescPanel.UpgradeNextValueTxt);
-
-        SubColorCompList.Add(ThisDescPanel.UpgradeNextLVTxt);
-
-        // Comp
+        // Label
         MainColorCompList.Add(LabelTxt);
-        LabelTxt.text = LabelName;
+
         SubColorCompList.Add(FrameInnerImg);
+
         SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
+        // Tab Btn => Txt & LightImg
         MainColorCompList.AddRange(Get_AllTabBtn_Txt());
         SubColorCompList.AddRange(Get_AllTabBtn_Img());
+
 
         Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
@@ -249,6 +256,27 @@ public class BaseUpgradeUIController : PanelUIController
 
     #endregion
 
+    #region Set Panel
+
+    public override void SetOn_ThisPanel()
+    {
+        base.SetOn_ThisPanel();
+
+        Play_OnTween();
+
+        // Dur
+        ThisDurEUI.Set_Dur(BaseUpgradeController.UsingShop.CurrentDur);
+    }
+
+    public override void SetOff_ThisPanel()
+    {
+        base.SetOff_ThisPanel();
+
+        BaseUpgradeController.UsingShop = null;
+    }
+
+    #endregion
+
     #region Input
 
     public void Try_Interact()
@@ -256,69 +284,64 @@ public class BaseUpgradeUIController : PanelUIController
         if (CurrentBtn == null || BaseUpgradeController.UsingShop == null)
         { return; }
 
+        if (Is_Interact_Buy_Float()) return;
+        if (Is_Interact_Buy_Int()) return;
+        if (Is_Interact_CloseBtn()) return;
+        if (Is_Interact_TabPanel()) return;
+    }
+
+
+    private bool Is_Interact_Buy_Float()
+    {
         // 구매 코드 (float)
-        for (int i = 0; i < AllUpgradeDataList_Float.Count; i++)
+        for (int i = 0; i < AllBUData_Float.Count; i++)
         {
-            if (AllUpgradeDataList_Float[i].UpgradeEUI.BuyBtn == CurrentBtn &&
+            if (AllBUData_Float[i].UpgradeEUI.BuyBtn == CurrentBtn &&
                 CurrentBtn.ThisBtn.interactable)
             {
-                AllUpgradeDataList_Float[i].Try_Buy();
-                return;
+                AllBUData_Float[i].Try_Buy();
+                return true;
             }
         }
+        return false;
+    }
 
+    private bool Is_Interact_Buy_Int()
+    {
         // 구매 코드 (int)
-        for (int i = 0; i < AllUpgradeDataList_Int.Count; i++)
+        for (int i = 0; i < AllBUData_Int.Count; i++)
         {
-            if (AllUpgradeDataList_Int[i].UpgradeEUI.BuyBtn == CurrentBtn &&
+            if (AllBUData_Int[i].UpgradeEUI.BuyBtn == CurrentBtn &&
                 CurrentBtn.ThisBtn.interactable)
             {
-                AllUpgradeDataList_Int[i].Try_Buy();
-                return;
+                AllBUData_Int[i].Try_Buy();
+                return true;
             }
         }
+        return false;
+    }
 
-        // 닫기
+    private bool Is_Interact_CloseBtn()
+    {
         if (CurrentBtn == CloseBtn)
         {
             MainGameUIManager.Instance.BaseUpgrade_UIController.SetOff_ThisPanel();
-            return;
+            return true;
         }
+        return false;
+    }
 
-        // 탭
+    private bool Is_Interact_TabPanel()
+    {
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
             if (ThisPanelTabList[i].ThisTabBtn == CurrentBtn)
             {
                 Change_ThisPanel(i);
-                return;
+                return true;
             }
         }
-    }
-
-    #endregion
-
-    #region Set Panel
-
-    public override void SetOn_ThisPanel()
-    {
-        base.SetOn_ThisPanel();
-
-        if (DOTween.IsTweening(FrameInnerImg))
-        { DOTween.Complete(FrameInnerImg); }
-
-        Sequence seq = DOTween.Sequence();
-        seq.Append(FrameInnerImg.DOFade(1, 0.5f));
-        seq.Append(FrameInnerImg.DOFade(0.5f, 0.5f));
-
-        ThisDurEUI.Set_Dur(BaseUpgradeController.UsingShop.CurrentDur);
-    }
-
-    public override void SetOff_ThisPanel()
-    {
-        base.SetOff_ThisPanel();
-        BaseUpgradeController.UsingShop = null;
-
+        return false;
     }
 
     #endregion
@@ -327,11 +350,11 @@ public class BaseUpgradeUIController : PanelUIController
 
     public void SetOn_Desc(TxtAmountForBuyEUIController _MTAFB)
     {
-        BUState<float> baseUpgradeState_Float = DevTool.Get_ThisData(AllUpgradeDataList_Float, _MTAFB);
+        BUState<float> baseUpgradeState_Float = DevTool.Get_ThisData(AllBUData_Float, _MTAFB);
         if (baseUpgradeState_Float != null)
         {  ThisDescPanel.SetOn_Desc<float>(baseUpgradeState_Float); }
 
-        BUState<int> baseUpgradeState_Int = DevTool.Get_ThisData(AllUpgradeDataList_Int, _MTAFB);
+        BUState<int> baseUpgradeState_Int = DevTool.Get_ThisData(AllBUData_Int, _MTAFB);
         if (baseUpgradeState_Int != null)
         { ThisDescPanel.SetOn_Desc<int>(baseUpgradeState_Int); }
     }
@@ -339,6 +362,19 @@ public class BaseUpgradeUIController : PanelUIController
     public void SetOff_Desc()
     {
         ThisDescPanel.SetOff_Desc();
+    }
+
+    #endregion
+
+    #region Tween
+
+    private void Play_OnTween()
+    {
+        DevTool.Set_CompleteTween(FrameInnerImg);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(FrameInnerImg.DOFade(1, 0.5f));
+        seq.Append(FrameInnerImg.DOFade(0.5f, 0.5f));
     }
 
     #endregion
