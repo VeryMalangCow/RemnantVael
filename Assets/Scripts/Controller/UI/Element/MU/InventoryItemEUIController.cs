@@ -10,7 +10,7 @@ public class InventoryItemEUIController : OwnBtnEUIController
 
     [Header("=== Inner Component")]
     [SerializeField] public Image RankImg;
-    [SerializeField] private ImgTxtAmountEUIController BoostLvMIAAT;
+    [SerializeField] private ImgTxtAmountEUIController BoostLvEUI;
 
     // Component
     [HideInInspector] public Image ThisImg;
@@ -25,13 +25,13 @@ public class InventoryItemEUIController : OwnBtnEUIController
         RankImg.sprite = _RankImg;
         RankImg.SetNativeSize();
 
-        BoostLvMIAAT.Offset();
+        BoostLvEUI.Offset();
 
         DevTool.Set_Color(
             PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false),
-            BoostLvMIAAT.AmountImgs);
+            BoostLvEUI.AmountImgs);
 
-        BoostLvMIAAT.Set_Amount(_BoostLv, 0.1f);
+        BoostLvEUI.Set_Amount(_BoostLv, 0.1f);
 
     }
 
@@ -44,7 +44,7 @@ public class InventoryItemEUIController : OwnBtnEUIController
 
         ThisRT.sizeDelta = ThisSizeDelta;
 
-        BoostLvMIAAT.Offset();
+        BoostLvEUI.Offset();
     }
 
 

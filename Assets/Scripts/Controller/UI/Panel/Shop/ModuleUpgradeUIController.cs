@@ -1,12 +1,10 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class ModuleUpgradeUIController : PanelUIController
 {
@@ -216,8 +214,14 @@ public class ModuleUpgradeUIController : PanelUIController
     private void Offset_Equip_InEquip()
     {
         // 슬롯
+
         EquipedSlots = DevTool.Get_ChildList<InventorySlotEUIController>(EquipedSlotsParentTF);
-        for (int i = 0; i < EquipedSlots.Count; i++) EquipedSlots[i].Offset();
+        for (int i = 0; i < EquipedSlots.Count; i++) 
+        { 
+            EquipedSlots[i].Offset();
+            EquipedSlots[i].ThisSlotItem.Offset();
+            EquipedSlots[i].ThisSlotItem.OwnerUIController = this;
+        }
 
         // 이너 라인, 설명
         EquipPanelInnerList = DevTool.Get_ChildList<Image>(EquipedInnerParentTF);
@@ -227,38 +231,16 @@ public class ModuleUpgradeUIController : PanelUIController
     private void Offset_Synergy_InEquip()
     {
         // Synergy
-        for (int i = 0; i < SynergySlotsParentTF.childCount; i++)
+        SynergySlotList = DevTool.Get_ChildList<SynergySlotEUIController>(SynergySlotsParentTF);
+        for (int i = 0; i < SynergySlotList.Count; i++)
         {
-            if (SynergySlotsParentTF.GetChild(i).TryGetComponent(out SynergySlotEUIController MSS))
-            {
-                SynergySlotList.Add(MSS);
-                MSS.Offset();
-                MSS.OwnerUIController = this;
-
-
-                MainColorCompList.Add(MSS.ThisTierImg);
-                SubColorCompList.Add(MSS.ThisTxt);
-            }
+            SynergySlotList[i].Offset();
+            SynergySlotList[i].OwnerUIController = this;
         }
+
         for (int i = 0; i < AmalgamationTxtList.Count; i++)
         {
             AmalgamationTxtList[i].text = AmalgamationName;
-        }
-
-        for (int i = 0; i < SynergyDescLinerParentTF.childCount; i++)
-        {
-            if (SynergyDescLinerParentTF.GetChild(i).TryGetComponent(out Image Img))
-            {
-                MainColorCompList.Add(Img);
-            }
-        }
-        for (int i = 0; i < SynergyDescTextParentTF.childCount; i++)
-        {
-            if (SynergyDescTextParentTF.GetChild(i).TryGetComponent(out TMP_Text Txt) &&
-                !AmalgamationDescTxtList.Contains(Txt))
-            {
-                SubColorCompList.Add(Txt);
-            }
         }
     }
 
@@ -312,7 +294,6 @@ public class ModuleUpgradeUIController : PanelUIController
         // Label
         MainColorCompList.Add(LabelTxt);
 
-
         // Equiped
         SubColorCompList.AddRange(EquipPanelInnerList);
         for (int i = 0; i < EquipDescStateTxtList.Count; i++)
@@ -324,11 +305,23 @@ public class ModuleUpgradeUIController : PanelUIController
         MainColorCompList.AddRange(AmalgamationDescTxtList);
         SubColorCompList.Add(SelectViewAmalgamation);
         SubColorCompList.AddRange(DevTool.Get_ChildList<Image>(SynergyInnerParentTF));
+        for (int i = 0; i < SynergySlotList.Count; i++)
+        {
+            MainColorCompList.Add(SynergySlotList[i].ThisTierImg);
+            SubColorCompList.Add(SynergySlotList[i].ThisTxt);
+        }
+        MainColorCompList.AddRange(DevTool.Get_ChildList<Image>(SynergyDescLinerParentTF));
+        for (int i = 0; i < SynergyDescTextParentTF.childCount; i++)
+        {
+            if (SynergyDescTextParentTF.GetChild(i).TryGetComponent(out TMP_Text Txt) &&
+                !AmalgamationDescTxtList.Contains(Txt))
+            {
+                SubColorCompList.Add(Txt);
+            }
+        }
 
         // Equip Toggle Btn
         MainColorCompList.Add(ToggleBtn_InEquip.transform.GetChild(0).GetComponent<TMP_Text>());
-
-
 
         // Forge Interact Panel Inner
         for (int i = 0; i < ForgeInteractPanels.Count; i++)
@@ -613,10 +606,10 @@ public class ModuleUpgradeUIController : PanelUIController
 
     // 비어있는 슬롯 가져오기
     private InventorySlotEUIController Get_EquipedEmptySlot(List<InventorySlotEUIController> _TargetList)
-    {
+    { 
         for (int i = 0; i < _TargetList.Count; i++)
         {
-            if (_TargetList[i].ThisSlotItem == null) return _TargetList[i];
+            if (!_TargetList[i].ThisSlotItem.gameObject.activeSelf) return _TargetList[i];
         }
         return null;
     }
@@ -640,7 +633,6 @@ public class ModuleUpgradeUIController : PanelUIController
     }
 
     #endregion
-
 
     #region Input
 
@@ -759,11 +751,9 @@ public class ModuleUpgradeUIController : PanelUIController
 
     #endregion
 
-
-
-
-
     #region Item & Slot
+
+    #region  Interact -> Slot
 
     // 아이템 상호작용
     public void Try_InteractItem(InventorySlotEUIController _CurrentSlot)
@@ -799,9 +789,11 @@ public class ModuleUpgradeUIController : PanelUIController
         if (dele != null) dele();
     }
 
+    #endregion
 
     #region Equip -> Slot
 
+    // 장착 가능한가?
     private bool Can_PutIn_Equip(out ModuleState _ModuleState)
     {
         // 슬롯이 남아있는가
@@ -824,29 +816,27 @@ public class ModuleUpgradeUIController : PanelUIController
         if (!Can_PutIn_Equip(out ModuleState moduleState)) return;
 
         InventorySlotEUIController emptySlot = Get_EquipedEmptySlot(EquipedSlots);
-        int slotIndex = EquipedSlots.IndexOf(emptySlot);
-        Sprite itemIcon = ModuleItemManager.Instance.Get_CorrectItemIcon(moduleState);
-        Sprite rankIcon = ModuleItemManager.Instance.Get_CorrectRankIcon(moduleState);
-        int boostLv = moduleState.ThisItemData.BoostLv;
+        int index = EquipedSlots.IndexOf(emptySlot);
 
         // Module UI
-        ModuleItemManager.Instance.Equiped_MSList.Add(moduleState);
-        InventoryItemEUIController itemUI 
-            = InventoryEUIController.Gen_ItemUI(
-                emptySlot, itemIcon, rankIcon, boostLv);
-        
-        moduleState.ItemUI_Extra.Add(itemUI);
-        itemUI.OwnerUIController = this;
+        emptySlot.ThisSlotItem.gameObject.SetActive(true);
+        emptySlot.ThisSlotItem.Set_Data(
+            CurrentSlot.ThisSlotItem.ThisImg.sprite,
+            CurrentSlot.ThisSlotItem.RankImg.sprite,
+            ModuleItemManager.Instance.Get_InventoryModuleState(CurrentSlot.ThisSlotItem).ThisItemData.BoostLv);
 
-
+        moduleState.ItemUI_Extra.Add(emptySlot.ThisSlotItem);
 
         // Player HUD
-        InventoryItemEUIController itemInHUD
-            = InventoryEUIController.Gen_ItemUI(
-                MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[slotIndex], itemIcon, rankIcon, boostLv);
-        
-        itemInHUD.IsCanSelect = false;
-        moduleState.ItemUI_Extra.Add(itemInHUD);
+        MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[index].ThisSlotItem.Set_Data(
+            CurrentSlot.ThisSlotItem.ThisImg.sprite,
+            CurrentSlot.ThisSlotItem.RankImg.sprite,
+            ModuleItemManager.Instance.Get_InventoryModuleState(CurrentSlot.ThisSlotItem).ThisItemData.BoostLv);
+
+        moduleState.ItemUI_Extra.Add(MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[index].ThisSlotItem);
+
+        ModuleItemManager.Instance.Equiped_MSList.Add(moduleState);
+
 
         // Tween
         Set_DotweenInEquip(1f, EquipPanelInnerList);
@@ -860,27 +850,20 @@ public class ModuleUpgradeUIController : PanelUIController
     {
         ModuleState moduleState = ModuleItemManager.Instance.Get_EquipedModuleState(CurrentSlot.ThisSlotItem);
 
-        ModuleItemManager.Instance.Equiped_MSList.Remove(moduleState);
-        moduleState.ItemUI_Extra.Remove(CurrentSlot.ThisSlotItem);
-        Destroy(CurrentSlot.ThisSlotItem.gameObject);
+        moduleState.ItemUI_Extra[0].gameObject.SetActive(false);
+        moduleState.ItemUI_Extra[1].gameObject.SetActive(false);
+        moduleState.ItemUI_Extra.Clear();
 
-        CurrentSlot.ThisSlotItem = null;
-        CurrentSlot.SetOff_SelectedItem();
+        ModuleItemManager.Instance.Equiped_MSList.Remove(moduleState);
+
+        CurrentSlot = null;
+        //CurrentSlot.SetOff_SelectedItem();
 
         // Tween
         Set_DotweenInEquip(0f, EquipPanelInnerList);
         Set_EquipDesc();
 
         ModuleItemManager.Instance.Set_MainChipData();
-    }
-
-
-    private void Set_CurrentEquipedItemUI()
-    {
-        for (int i = 0; i < ModuleItemManager.Instance.Equiped_MSList.Count; i++)
-        {
-
-        }
     }
 
     // 장착된 모듈들의 설명
@@ -919,9 +902,12 @@ public class ModuleUpgradeUIController : PanelUIController
     // 해제
     private void Try_Interact_PutOutDescompositionSlot()
     {
-        DecompositionSlot.ThisSlotItem.gameObject.SetActive(false);
-        DecompositionSlot.SetOff_SelectedItem();
         CurrentDecompositionItem = null;
+
+        DecompositionSlot.ThisSlotItem.gameObject.SetActive(false);
+
+        CurrentSlot = null;
+        //DecompositionSlot.SetOff_SelectedItem();
 
         Preview_GainMS.text = "-";
         Preview_GainBC.text = "-";
@@ -935,13 +921,10 @@ public class ModuleUpgradeUIController : PanelUIController
     private bool Can_PutIn_Fusion(out ModuleState _ModuleState)
     {
         _ModuleState = ModuleItemManager.Instance.Get_InventoryModuleState(CurrentSlot.ThisSlotItem);
+        
         return !CurrentFusionItemList.Contains(CurrentSlot.ThisSlotItem) &&
+            CurrentFusionItemList.Contains(null) &&
             _ModuleState.ThisItemData.Rank < 5;
-    }
-
-    private bool Can_SeePreview()
-    {
-        return CurrentFusionItemList.Contains(null) ? false : true;
     }
 
     // 장착
@@ -961,14 +944,15 @@ public class ModuleUpgradeUIController : PanelUIController
                     CurrentSlot.ThisSlotItem.RankImg.sprite,
                     moduleState.ThisItemData.BoostLv);
 
-                if (Can_SeePreview())
+                if (!CurrentFusionItemList.Contains(null))
                 {
                     ModuleState moduleState1 = ModuleItemManager.Instance.Get_InventoryModuleState(CurrentFusionItemList[0]);
                     ModuleState moduleState2 = ModuleItemManager.Instance.Get_InventoryModuleState(CurrentFusionItemList[1]);
 
                     Preview_NeedMS.text = moduleState1.ThisItemData.Rank == moduleState2.ThisItemData.Rank ?
-                         ModuleItemManager.Get_MC_ForFusion(moduleState1).ToString() : "≠";
+                         ModuleItemManager.Get_MC_ForFusion(moduleState).ToString() : "≠";
                 }
+                return;
             }
         }
     }
@@ -978,9 +962,12 @@ public class ModuleUpgradeUIController : PanelUIController
     {
         int index = FusionSlotList.IndexOf(CurrentSlot);
 
-        FusionSlotList[index].ThisSlotItem.gameObject.SetActive(false);
-        FusionSlotList[index].SetOff_SelectedItem();
         CurrentFusionItemList[index] = null;
+
+        FusionSlotList[index].ThisSlotItem.gameObject.SetActive(false);
+
+        CurrentSlot = null;
+        //FusionSlotList[index].SetOff_SelectedItem();
         Preview_NeedMS.text = "-";
     }
 
@@ -999,12 +986,15 @@ public class ModuleUpgradeUIController : PanelUIController
     {
         if (!Can_PutIn_Upgrade(out ModuleState moduleState)) return;
 
+        CurrentUpgradeItem = CurrentSlot.ThisSlotItem;
+
         UpgradeSlot.ThisSlotItem.gameObject.SetActive(true);
 
         UpgradeSlot.ThisSlotItem.Set_Data(
             CurrentSlot.ThisSlotItem.ThisImg.sprite,
             CurrentSlot.ThisSlotItem.RankImg.sprite,
             moduleState.ThisItemData.BoostLv);
+
 
         Preview_NeedEC.text = ModuleItemManager.Get_EC_ForUpgrade(moduleState).ToString();
 
@@ -1014,36 +1004,12 @@ public class ModuleUpgradeUIController : PanelUIController
     private void Try_Interact_PutOutUpgradeSlot()
     {
         UpgradeSlot.ThisSlotItem.gameObject.SetActive(false);
-        UpgradeSlot.SetOff_SelectedItem();
+
+        CurrentSlot = null;
+        //UpgradeSlot.SetOff_SelectedItem();
         CurrentUpgradeItem = null;
 
         Preview_NeedEC.text = "-";
-    }
-
-    #endregion
-
-    #region Remove -> Inventory
-
-    // 인벤토리에 슬롯에 연결된 파일 Null로 바꾸기 (Missing이면 파일에 자리를 차지하게 됨)
-    private void Remove_DataInInventory(ModuleState _MS)
-    {
-        HashSet<InventoryItemEUIController> extraItems = new HashSet<InventoryItemEUIController>(_MS.ItemUI_Extra);
-
-        // EquipedSlots에서 Null 처리
-        foreach (InventorySlotEUIController slot in EquipedSlots)
-        {
-            if (slot.ThisSlotItem != null && extraItems.Contains(slot.ThisSlotItem))
-            {
-                slot.ThisSlotItem = null;
-            }
-        }
-
-        // 인벤토리 내 장비 제거
-        foreach (InventoryItemEUIController item in _MS.ItemUI_Inventory)
-        {
-            Inventory_InEquip.Remove_ItemInSlotData(item);
-            Inventory_InForge.Remove_ItemInSlotData(item);
-        }
     }
 
     #endregion
@@ -1069,13 +1035,15 @@ public class ModuleUpgradeUIController : PanelUIController
             PlayerManager.Instance.PlayerController.CurrentBC.Value +=
                 ModuleItemManager.Get_BC_ByDescomposition(moduleState);
 
-            // Be Empty
-            Remove_DataInInventory(ModuleItemManager.Instance.Get_InventoryModuleState(CurrentDecompositionItem));
-            DecompositionSlot.ThisSlotItem.gameObject.SetActive(false);
-            DecompositionSlot.SetOff_SelectedItem();
-
             ModuleItemManager.Instance.Remove_ModuleState(CurrentDecompositionItem);
 
+            // Be Empty
+            //Remove_DataInInventory(ModuleItemManager.Instance.Get_InventoryModuleState(CurrentDecompositionItem));
+            DecompositionSlot.ThisSlotItem.gameObject.SetActive(false);
+
+
+
+            CurrentSlot = null;
 
             ModuleUpgradeController.UsingShop.Take_Damage(false);
             List<Image> tweenImgList = new List<Image>();
@@ -1083,16 +1051,15 @@ public class ModuleUpgradeUIController : PanelUIController
             tweenImgList.AddRange(ForgeInteractPanels[0].InnerImgs);
 
             Set_DotweenInEquip(1f, tweenImgList);
-            Preview_GainMS.text = "-";
-            Preview_GainBC.text = "-";
-
             ModuleItemManager.Instance.Set_MainChipData();
+            Reset_ForgeElementPanel();
         }
     }
 
     #endregion
 
     #region Fusion
+
     // 인터렉트 -> 합성
     private void Try_Fusion()
     {
@@ -1112,7 +1079,7 @@ public class ModuleUpgradeUIController : PanelUIController
 
         ItemData itemData;
 
-        if (UnityEngine.Random.Range(0, 2) == 0)
+        if (Random.Range(0, 2) == 0)
         { itemData = new ItemData(ModuleItemManager.Instance.Get_InventoryModuleState(CurrentFusionItemList[0]).ThisItemData); }
         else
         { itemData = new ItemData(ModuleItemManager.Instance.Get_InventoryModuleState(CurrentFusionItemList[1]).ThisItemData); }
@@ -1123,12 +1090,10 @@ public class ModuleUpgradeUIController : PanelUIController
         for (int i = FusionSlotList.Count - 1; i >= 0; i--)
         {
             // Be Empty
-            Remove_DataInInventory(ModuleItemManager.Instance.Get_InventoryModuleState(CurrentFusionItemList[i]));
+            //Remove_DataInInventory(ModuleItemManager.Instance.Get_InventoryModuleState(CurrentFusionItemList[i]));
 
             // Give
-
             FusionSlotList[i].ThisSlotItem.gameObject.SetActive(false);
-            FusionSlotList[i].SetOff_SelectedItem();
 
             ModuleItemManager.Instance.Remove_ModuleState(CurrentFusionItemList[i]);
         }
@@ -1138,15 +1103,17 @@ public class ModuleUpgradeUIController : PanelUIController
         // Take
         ModuleItemManager.Instance.Gain_ModuleState(itemData);
 
+        CurrentSlot = null;
+
         ModuleUpgradeController.UsingShop.Take_Damage(false);
 
         List<Image> tweenImgList = new List<Image>();
         tweenImgList.AddRange(ForgePanelInnerList);
         tweenImgList.AddRange(ForgeInteractPanels[1].InnerImgs);
-        Set_DotweenInEquip(1f, tweenImgList);
-        Preview_NeedMS.text = "-";
 
+        Set_DotweenInEquip(1f, tweenImgList);
         ModuleItemManager.Instance.Set_MainChipData();
+        Reset_ForgeElementPanel();
     }
 
     #endregion
@@ -1158,28 +1125,27 @@ public class ModuleUpgradeUIController : PanelUIController
     {
         if (CurrentUpgradeItem != null)
         {
-            ModuleState moduleState = ModuleItemManager.Instance.Get_InventoryModuleState(CurrentFusionItemList[0]);
+            ModuleState moduleState = ModuleItemManager.Instance.Get_InventoryModuleState(CurrentUpgradeItem);
 
             // Cost
             int needEC = ModuleItemManager.Get_EC_ForUpgrade(moduleState);
 
             if (needEC == 0 ||
                 needEC > PlayerManager.Instance.PlayerController.CurrentEC.Value)
-            { return; }
+            { Debug.Log("?");  return; }
 
             // Take Info
             ItemData itemData = new ItemData(ModuleItemManager.Instance.Get_InventoryModuleState(CurrentUpgradeItem).ThisItemData);
             if (itemData.BoostLv >= PlayerManager.Instance.PlayerController.MaxBoostLv)
-            { return; }
+            { Debug.Log("?"); return; }
 
             itemData.BoostLv++;
 
             // Be Empty
-            Remove_DataInInventory(ModuleItemManager.Instance.Get_InventoryModuleState(CurrentUpgradeItem));
+            //Remove_DataInInventory(ModuleItemManager.Instance.Get_InventoryModuleState(CurrentUpgradeItem));
 
             // Give
             UpgradeSlot.ThisSlotItem.gameObject.SetActive(false);
-            UpgradeSlot.SetOff_SelectedItem();
 
             ModuleItemManager.Instance.Remove_ModuleState(CurrentUpgradeItem);
 
@@ -1187,21 +1153,22 @@ public class ModuleUpgradeUIController : PanelUIController
 
             // Take
             ModuleItemManager.Instance.Gain_ModuleState(itemData);
-            
+
+            CurrentSlot = null;
+
             ModuleUpgradeController.UsingShop.Take_Damage(false);
 
             List<Image> tweenImgList = new List<Image>();
             tweenImgList.AddRange(ForgePanelInnerList);
             tweenImgList.AddRange(ForgeInteractPanels[2].InnerImgs);
-            Set_DotweenInEquip(1f, tweenImgList);
-            Preview_NeedEC.text = "-";
 
-            ModuleItemManager.Instance.Set_MainChipData();
+            Set_DotweenInEquip(1f, tweenImgList);
+            ModuleItemManager.Instance.Set_MainChipData(); 
+            Reset_ForgeElementPanel();
         }
     }
 
     #endregion
 
     #endregion
-
 }

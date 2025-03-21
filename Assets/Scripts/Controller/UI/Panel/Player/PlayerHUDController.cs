@@ -213,8 +213,8 @@ public class PlayerHUDController : UIController
                 Debug.Assert(_BoostLevel >= 0 && _BoostLevel <= 4, "Boost Range Out!");
                 Set_TextOfBoost(_BoostLevel);
 
-                Set_ActiveAmountBoost(BoostLightArr, _BoostLevel);
-                Set_ActiveAmountBoost(BoostLightWheelArr, _BoostLevel);
+                //Set_ActiveAmountBoost(BoostLightArr, _BoostLevel);
+                //Set_ActiveAmountBoost(BoostLightWheelArr, _BoostLevel);
 
                 Set_RollAmountBoost(BoostLightWheelArr, _BoostLevel);
             })
@@ -237,6 +237,7 @@ public class PlayerHUDController : UIController
             {
                 MEISList.Add(MEIS);
                 MEIS.Offset();
+                MEIS.ThisSlotItem.Offset();
             }
         }
 

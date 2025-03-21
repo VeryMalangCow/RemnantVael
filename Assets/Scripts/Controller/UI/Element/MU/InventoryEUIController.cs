@@ -13,7 +13,6 @@ public class InventoryEUIController : ElementUIController
     [SerializeField] private int ColumnAmount;
 
     [Header("-- Slot")]
-    [SerializeField] private GameObject InventorySlotPrefab;
     [SerializeField] private Sprite SlotSprite;
 
     // Class
@@ -60,7 +59,7 @@ public class InventoryEUIController : ElementUIController
             for (int row = 0; row < RowAmount; row++)
             {
                 // Generate GO
-                GameObject slot = Instantiate(InventorySlotPrefab, this.transform);
+                GameObject slot = Instantiate(ModuleItemManager.Instance.InventorySlotPrefab, this.transform);
                 slot.name = "InventorySlot_" + column + "_" + row;
 
                 // RT

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class ModuleItemManager : Singleton<ModuleItemManager>
 {
@@ -24,6 +25,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     [Header("=== Reso")]
     [SerializeField] public GameObject InventoryItemPrefab;
+    [SerializeField] public GameObject InventorySlotPrefab;
 
     // Interface
     private List<IWhen_Hit> iWhen_HitList = new List<IWhen_Hit>();
@@ -126,7 +128,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public ModuleState Get_EquipedModuleState(InventoryItemEUIController _MEII)
     {
-        foreach (ModuleState MS in Gotten_MSList)
+        foreach (ModuleState MS in Equiped_MSList)
         {
             if (MS.ItemUI_Extra.Contains(_MEII))
             {
@@ -277,10 +279,18 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         ModuleState foundMs = Get_CorrectModuleState(Gotten_MSList, _MEII);
 
         if (Gotten_MSList.Contains(foundMs))
-        { Gotten_MSList.Remove(foundMs); }
+        { 
+            Gotten_MSList.Remove(foundMs); 
+        }
 
         if (Equiped_MSList.Contains(foundMs))
-        { Equiped_MSList.Remove(foundMs); }
+        {
+            foundMs.ItemUI_Extra[0].gameObject.SetActive(false);
+            foundMs.ItemUI_Extra[1].gameObject.SetActive(false);
+            foundMs.ItemUI_Extra.Clear();
+
+            Equiped_MSList.Remove(foundMs); 
+        }
 
         Remove_MEIIList(foundMs);
         foundMs = null;

@@ -200,12 +200,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsCanSelect: 1
-  TargetScale: {x: 1.15, y: 1.15}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
   ThisSizeDelta: {x: 76, y: 76}
   RankImg: {fileID: 671417102886581795}
-  BoostLvMIAAT: {fileID: 6053268702573835442}
+  BoostLvEUI: {fileID: 6053268702573835442}
   ThisImg: {fileID: 0}
 --- !u!114 &1463990481872578782
 MonoBehaviour:
