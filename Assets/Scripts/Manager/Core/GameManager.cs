@@ -3029,6 +3029,28 @@ public struct AttackerState_Juge<T> where T : Collider2D
 
 #endregion
 
+
+#region Struct : ItemData
+
+
+[System.Serializable]
+public struct State_ItemData
+{
+    public int ID;
+    public int Rank;
+    public int BoostLv;
+
+    public State_ItemData(int _ID, int _Rank, int _BoostLv)
+    {
+        ID = _ID;
+        Rank = _Rank;
+        BoostLv = _BoostLv;
+    }
+}
+
+#endregion
+
+
 #region Struct : Visual
 
 public struct State_Sprite

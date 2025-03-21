@@ -15,51 +15,33 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
     [HideInInspector] protected RectTransform ThisRT;
 
     // Owner
-
     [HideInInspector] public PanelUIController OwnerUIController;
     [HideInInspector] public Button ThisBtn;
 
     #endregion
 
-    #region Framework
+    #region Offset
 
     public override void Offset()
     {
-        if (TryGetComponent(out RectTransform thisRT))
-        {
-            ThisRT = thisRT;
-        }
-        if (TryGetComponent(out Button thisBtn))
-        {
-            ThisBtn = thisBtn;
-        }
+        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
+        ThisBtn = DevTool.Get_ComponentTType(gameObject, out Button btn) ? btn : null;
     }
+
     #endregion
 
     #region Pointer
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!IsCanSelect)
-        { return; }
-
-        if (!TryGetComponent(out Button btn) || !btn.interactable)
-        {
-            return;
-        }
+        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return; 
 
         if (OwnerUIController != null) OwnerUIController.CurrentBtn = this;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!IsCanSelect)
-        { return; }
-
-        if (!TryGetComponent(out Button btn) || !btn.interactable)
-        {
-            return;
-        }
+        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return; 
 
         if (OwnerUIController != null) OwnerUIController.CurrentBtn = null;
     }

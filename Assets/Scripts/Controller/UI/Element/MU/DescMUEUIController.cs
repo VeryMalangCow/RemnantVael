@@ -77,7 +77,7 @@ public class DescMUEUIController : ElementUIController
 
         // Item
         ItemIconImg.color = new Color(1, 1, 1, 1);
-        ItemIconImg.sprite = _MS.ThisItemData.ItemIcon;
+        ItemIconImg.sprite = ModuleItemManager.Instance.Get_CorrectItemIcon(_MS.ThisItemData.ID);
         ItemNameTxt.text = _MS.ThisItemData.Name;
         ITemIntroTxt.text = _MS.ThisItemData.Description;
 

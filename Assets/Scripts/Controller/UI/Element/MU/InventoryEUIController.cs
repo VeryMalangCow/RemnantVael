@@ -87,10 +87,9 @@ public class InventoryEUIController : ElementUIController
 
     #region Item
 
-    public static InventoryItemEUIController Gen_ItemUI(InventorySlotEUIController _ParentSlot, 
-        Sprite _ItemSprite, 
-        Sprite _RankImg, 
-        int _BoostLv)
+    public static InventoryItemEUIController Gen_ItemUI(
+        InventorySlotEUIController _ParentSlot, 
+        State_ItemData _State)
     {
         // Generate GO
         GameObject item = Instantiate(ModuleItemManager.Instance.InventoryItemPrefab, _ParentSlot.transform);
@@ -105,7 +104,7 @@ public class InventoryEUIController : ElementUIController
         if (item.TryGetComponent(out InventoryItemEUIController MEII))
         {
             MEII.Offset();
-            MEII.Set_Data(_ItemSprite, _RankImg, _BoostLv);
+            MEII.Set_Data(_State);
 
             _ParentSlot.ThisSlotItem = MEII;
             return MEII;
@@ -115,9 +114,7 @@ public class InventoryEUIController : ElementUIController
     }
 
     public InventoryItemEUIController Gen_Item_ThisInventory(
-        Sprite _ItemSprite, 
-        Sprite _RankImg, 
-        int _BoostLv, 
+        State_ItemData _State, 
         ModuleUpgradeUIController _Owner)
     {
         // Generate GO
@@ -134,7 +131,7 @@ public class InventoryEUIController : ElementUIController
         if (item.TryGetComponent(out InventoryItemEUIController MEII))
         {
             MEII.Offset();
-            MEII.Set_Data(_ItemSprite, _RankImg, _BoostLv);
+            MEII.Set_Data(_State);
             MEII.OwnerUIController = _Owner;
             emptySlot.ThisSlotItem = MEII;
             return MEII;

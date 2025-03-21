@@ -50,7 +50,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             {
                 MS.ThisItemData = new ItemData(_ItemData);
 
-                MS.ItemUI_Inventory = MainGameUIManager.Instance.ModuleUpgrade_UIController.Gen_NewItemList(MS.ThisItemData.ItemIcon, Get_CorrectRankIcon(MS), MS.ThisItemData.BoostLv);
+                State_ItemData state = new State_ItemData(_ItemData.ID, _ItemData.Rank, _ItemData.BoostLv);
+
+                MS.ItemUI_Inventory = MainGameUIManager.Instance.ModuleUpgrade_UIController.Gen_NewItemList(state);
                 
                 foreach(InventoryItemEUIController MEII in MS.ItemUI_Inventory)
                 {
@@ -152,14 +154,13 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return null;
     }
 
-    public Sprite Get_CorrectItemIcon(ModuleState _MS)
+    public Sprite Get_CorrectItemIcon(int _ID)
     {
-        return ItemDataList[_MS.ThisItemData.ID].ItemIcon;
-    }
-
-    public Sprite Get_CorrectRankIcon(ModuleState _MS)
+        return ItemDataList[_ID].ItemIcon;
+    }    
+    public Sprite Get_CorrectRankIcon(int _Rank)
     {
-        return RankIconList[_MS.ThisItemData.Rank - 1];
+        return RankIconList[_Rank - 1];
     }
 
     public Sprite Get_CorrectMUUIDescRankIcon(ModuleState _MS)

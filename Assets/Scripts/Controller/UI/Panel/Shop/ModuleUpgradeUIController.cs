@@ -619,13 +619,13 @@ public class ModuleUpgradeUIController : PanelUIController
     #region Gen
 
     // 인벤토리 아이템 생성
-    public List<InventoryItemEUIController> Gen_NewItemList(Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
+    public List<InventoryItemEUIController> Gen_NewItemList(State_ItemData _State)
     {
         List<InventoryItemEUIController> result = new List<InventoryItemEUIController>();
         for (int i = 0; i < Inventories.Count; i++)
         {
             InventoryItemEUIController spawnItem =
-                Inventories[i].Gen_Item_ThisInventory(_ItemSprite, _RankImg, _BoostLv, this);
+                Inventories[i].Gen_Item_ThisInventory(_State, this);
             result.Add(spawnItem);
 
         }
@@ -817,21 +817,16 @@ public class ModuleUpgradeUIController : PanelUIController
 
         InventorySlotEUIController emptySlot = Get_EquipedEmptySlot(EquipedSlots);
         int index = EquipedSlots.IndexOf(emptySlot);
-
+        ItemData data = moduleState.ThisItemData;
+        State_ItemData state = new State_ItemData(data.ID, data.Rank, data.BoostLv);
         // Module UI
         emptySlot.ThisSlotItem.gameObject.SetActive(true);
-        emptySlot.ThisSlotItem.Set_Data(
-            CurrentSlot.ThisSlotItem.ThisImg.sprite,
-            CurrentSlot.ThisSlotItem.RankImg.sprite,
-            ModuleItemManager.Instance.Get_InventoryModuleState(CurrentSlot.ThisSlotItem).ThisItemData.BoostLv);
+        emptySlot.ThisSlotItem.Set_Data(state);
 
         moduleState.ItemUI_Extra.Add(emptySlot.ThisSlotItem);
 
         // Player HUD
-        MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[index].ThisSlotItem.Set_Data(
-            CurrentSlot.ThisSlotItem.ThisImg.sprite,
-            CurrentSlot.ThisSlotItem.RankImg.sprite,
-            ModuleItemManager.Instance.Get_InventoryModuleState(CurrentSlot.ThisSlotItem).ThisItemData.BoostLv);
+        MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[index].ThisSlotItem.Set_Data(state);
 
         moduleState.ItemUI_Extra.Add(MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[index].ThisSlotItem);
 
@@ -889,11 +884,11 @@ public class ModuleUpgradeUIController : PanelUIController
 
         CurrentDecompositionItem = CurrentSlot.ThisSlotItem;
 
+        ItemData data = moduleState.ThisItemData;
+        State_ItemData state = new State_ItemData(data.ID, data.Rank, data.BoostLv);
+
         DecompositionSlot.ThisSlotItem.gameObject.SetActive(true);
-        DecompositionSlot.ThisSlotItem.Set_Data(
-            CurrentSlot.ThisSlotItem.ThisImg.sprite,
-            CurrentSlot.ThisSlotItem.RankImg.sprite,
-            ModuleItemManager.Instance.Get_InventoryModuleState(CurrentSlot.ThisSlotItem).ThisItemData.BoostLv);
+        DecompositionSlot.ThisSlotItem.Set_Data(state);
 
         Preview_GainMS.text = ModuleItemManager.Get_MS_ByDescomposition(moduleState).ToString();
         Preview_GainBC.text = ModuleItemManager.Get_BC_ByDescomposition(moduleState).ToString();
@@ -938,11 +933,11 @@ public class ModuleUpgradeUIController : PanelUIController
             {
                 CurrentFusionItemList[i] = CurrentSlot.ThisSlotItem;
 
+                ItemData data = moduleState.ThisItemData;
+                State_ItemData state = new State_ItemData(data.ID, data.Rank, data.BoostLv);
+
                 FusionSlotList[i].ThisSlotItem.gameObject.SetActive(true);
-                FusionSlotList[i].ThisSlotItem.Set_Data(
-                    CurrentSlot.ThisSlotItem.ThisImg.sprite,
-                    CurrentSlot.ThisSlotItem.RankImg.sprite,
-                    moduleState.ThisItemData.BoostLv);
+                FusionSlotList[i].ThisSlotItem.Set_Data(state);
 
                 if (!CurrentFusionItemList.Contains(null))
                 {
@@ -990,10 +985,11 @@ public class ModuleUpgradeUIController : PanelUIController
 
         UpgradeSlot.ThisSlotItem.gameObject.SetActive(true);
 
-        UpgradeSlot.ThisSlotItem.Set_Data(
-            CurrentSlot.ThisSlotItem.ThisImg.sprite,
-            CurrentSlot.ThisSlotItem.RankImg.sprite,
-            moduleState.ThisItemData.BoostLv);
+        ItemData data = moduleState.ThisItemData;
+        State_ItemData state = new State_ItemData(data.ID, data.Rank, data.BoostLv);
+
+
+        UpgradeSlot.ThisSlotItem.Set_Data(state);
 
 
         Preview_NeedEC.text = ModuleItemManager.Get_EC_ForUpgrade(moduleState).ToString();

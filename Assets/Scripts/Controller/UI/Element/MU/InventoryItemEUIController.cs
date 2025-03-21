@@ -19,33 +19,39 @@ public class InventoryItemEUIController : OwnBtnEUIController
 
     #region Offset
 
-    public void Set_Data(Sprite _ThisIcon, Sprite _RankImg, int _BoostLv)
-    {
-        ThisImg.sprite = _ThisIcon;
-        RankImg.sprite = _RankImg;
-        RankImg.SetNativeSize();
-
-        BoostLvEUI.Offset();
-
-        DevTool.Set_Color(
-            PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false),
-            BoostLvEUI.AmountImgs);
-
-        BoostLvEUI.Set_Amount(_BoostLv, 0.1f);
-
-    }
-
     public override void Offset()
     {
         base.Offset();
 
-        if (TryGetComponent(out Image img))
-        { ThisImg = img; }
+        ThisImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
 
         ThisRT.sizeDelta = ThisSizeDelta;
 
         BoostLvEUI.Offset();
     }
+
+    #endregion
+
+    #region
+
+    public void Set_Data(State_ItemData _State)
+    {
+        // Set Visual
+        ThisImg.sprite = ModuleItemManager.Instance.Get_CorrectItemIcon(_State.ID);
+
+        RankImg.sprite = ModuleItemManager.Instance.Get_CorrectRankIcon(_State.Rank);
+        RankImg.SetNativeSize();
+
+        BoostLvEUI.Set_Amount(_State.BoostLv, 0.1f);
+
+
+        // Color Set
+        DevTool.Set_Color(
+            PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false),
+            BoostLvEUI.AmountImgs);
+
+    }
+
 
 
     #endregion

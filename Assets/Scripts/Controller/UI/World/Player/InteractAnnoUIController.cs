@@ -41,38 +41,35 @@ public class InteractAnnoUIController : UIController
         IInteract ii = PlayerManager.Instance.PlayerController.CurrentInteractable.Value;
         string txt = DevTool.Get_InteractingAnnoTxt(ii);
 
-        if (ii != null && txt != "")
+        if (ii != null && txt != "" && ii is MonoBehaviour mb)
         {
-            if (ii is MonoBehaviour mb)
-            {
-                SetOn(txt, mb.transform.position);
-            }
+            this.transform.position = mb.transform.position;
+            this.AnnoTxt.text = "< " + txt + " >";
+
+            Play_FadeIn();
         }
         else
         {
-            SetOff();
+            Play_FadeOut();
         }
     }
 
-    private void SetOn(string _txt, Vector2 _Pos)
+    #endregion
+
+    #region Tween
+
+    private void Play_FadeIn()
     {
-        this.transform.position = _Pos;
-        this.AnnoTxt.text = "< " + _txt + " >";
-
-        this.gameObject.SetActive(true);
-
-        DOTween.Kill(ThisCG);
-        ThisCG.DOFade(1f, 0.2f);
+        DevTool.Set_CompleteTween(ThisCG);
+        ThisCG.DOFade(1f, 0.2f)
+            .OnStart(() => { this.gameObject.SetActive(true); });
     }
 
-    private void SetOff()
+    private void Play_FadeOut()
     {
-        DOTween.Kill(ThisCG);
+        DevTool.Set_CompleteTween(ThisCG);
         ThisCG.DOFade(0f, 0.2f)
-            .OnComplete(() =>
-            {
-                this.gameObject.SetActive(false);
-            });
+            .OnComplete(() => { this.gameObject.SetActive(false); });
     }
 
     #endregion
