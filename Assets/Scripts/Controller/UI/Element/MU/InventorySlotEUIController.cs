@@ -84,7 +84,7 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
         SetOff_SelectedItem();
 
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_Desc();
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.ThisDescPanel.SetOff_Desc();
     }
 
     #endregion
@@ -95,7 +95,7 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
     {
         if (ThisSlotItem != null && ThisSlotItem.gameObject.activeSelf)
         {
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS = this;
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSlot = this;
 
             DOTween.Kill(gameObject.name); 
 
@@ -119,9 +119,9 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     public void SetOff_SelectedItem()
     {
-        if (MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS == this)
+        if (MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSlot == this)
         {
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSelectedMEIS = null;
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSlot = null;
 
             DOTween.Kill(gameObject.name); 
 

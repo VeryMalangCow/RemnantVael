@@ -7,6 +7,9 @@ public class ChargeSpriteEUIController : ElementUIController
 {
     #region Value
 
+    [Space(20)]
+    [Header("<><><><><> Charge Img")]
+
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] public Image Img;
@@ -17,7 +20,9 @@ public class ChargeSpriteEUIController : ElementUIController
     [Header("=== Extra")]
     [SerializeField] public Image LightInner;
 
-    Sequence DotweenSeq;
+    [HideInInspector] private RectTransform CompleteRT;
+
+    [HideInInspector] private Sequence DotweenSeq;
 
     #endregion
 
@@ -25,6 +30,8 @@ public class ChargeSpriteEUIController : ElementUIController
 
     public override void Offset()
     {
+        CompleteRT = DevTool.Get_ComponentTType(CompleteImg.gameObject, out RectTransform rt) ? rt : null;
+
         Change_Sprite(0);
         CompleteImg.gameObject.SetActive(false);
     }
@@ -37,53 +44,39 @@ public class ChargeSpriteEUIController : ElementUIController
     {
         Img.sprite = LevelSpr[_Level];
 
-        if (DOTween.IsTweening(LightInner))
-        { DOTween.Kill(LightInner); }
+        DevTool.Set_KillTween(LightInner);
 
         LightInner.DOFade(1f, 0.2f)
-            .OnComplete(() =>
-            {
-                LightInner.DOFade(0.25f, 0.2f);
-            });
+            .OnComplete(() => { LightInner.DOFade(0.25f, 0.2f); });
     }
 
-    public void Set_Complete(float _StayTime, float _FadeDurTime)
+    public void Set_Complete(float _FadeInTime, float _StayTime, float _FadeOutTime)
     {
-        if (DotweenSeq != null && DOTween.IsTweening(DotweenSeq))
-        { DOTween.Kill(DotweenSeq); }
-
-        CompleteImg.gameObject.SetActive(true);
+        DevTool.Set_KillTween(DotweenSeq);
         DotweenSeq = DOTween.Sequence();
 
-        CompleteImg.color = Color.white;
-        CompleteImg.transform.localScale = Vector3.one;
-
-        // Stay
-        DotweenSeq.AppendInterval(_StayTime);
-        
         // Scale
-        Sequence DotweenSeq2 = DOTween.Sequence();
-        DotweenSeq2.Append(CompleteImg.transform.DOScale(1.3f, _StayTime / 2));
-        DotweenSeq2.Append(CompleteImg.transform.DOScale(1f, _StayTime / 2));
-        DotweenSeq.Join(DotweenSeq2);
+        DotweenSeq.Append(CompleteImg.DOFade(1, _FadeInTime));
+        DotweenSeq.Join(CompleteImg.transform.DOScale(1.3f, _FadeInTime));
 
-        // Fade
-        DotweenSeq.Append(CompleteImg.DOFade(0, _FadeDurTime));
+        DotweenSeq.AppendInterval(_StayTime);
 
-        // Move
-        if (CompleteImg.TryGetComponent(out RectTransform RT))
-        {
-            DOTween.Kill(RT);
-            RT.anchoredPosition = Vector2.zero;
-            DotweenSeq.Join(RT.DOAnchorPos((Vector2.down * RT.rect.height), _FadeDurTime));
-        }
+        DotweenSeq.Append(CompleteImg.transform.DOScale(1f, _FadeOutTime));
+        DotweenSeq.Join(CompleteImg.DOFade(0, _FadeOutTime));
+        DotweenSeq.Join(CompleteRT.DOAnchorPos((Vector2.down * CompleteRT.rect.height), _FadeOutTime));
 
         //End
         DotweenSeq
-            .OnComplete(() =>
-            {
-                CompleteImg.gameObject.SetActive(false);
-            });
+            .OnStart(() => 
+            { 
+                CompleteImg.gameObject.SetActive(true);
+
+                CompleteImg.color = new Color(1, 1, 1, 0);
+                CompleteRT.anchoredPosition = Vector2.zero;
+                CompleteImg.transform.localScale = Vector3.one;
+
+            })
+            .OnComplete(() => { CompleteImg.gameObject.SetActive(false); });
     }
 
     #endregion

@@ -389,12 +389,9 @@ public class StageManager : Singleton<StageManager>
         { yield return null; }
 
         // 현재 방 선택
-        CurrentRoomController = _TargetRC; 
-        
-        for (int i = 0; i < CurrentAllRoomController.Count; i++)
-        {
-            CurrentAllRoomController[i].gameObject.SetActive(false);
-        }
+        CurrentRoomController = _TargetRC;
+
+        DevTool.Set_Active(CurrentAllRoomController, false);
 
         // Layer 초기화
         LayerOrderManager.Instance.NeedSortingObjects = new List<DepthController>();

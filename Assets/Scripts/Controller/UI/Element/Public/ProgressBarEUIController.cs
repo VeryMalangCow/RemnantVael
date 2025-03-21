@@ -8,16 +8,23 @@ public class ProgressBarEUIController : ElementUIController
 {
     #region Value
 
+    [Space(20)]
+    [Header("<><><><><> Progress Bar")]
+
     [Space(10)]
     [Header("=== Bar")]
     [SerializeField] public Image AfterImg;
-
     [SerializeField] public Image ActualImg;
+
+    [Space(10)]
+    [Header("=== Liner")]
     [SerializeField] public RectTransform ActualImgLiner;
 
+    [Space(10)]
     [Header("=== Text")]
     [SerializeField] private TMP_Text Txt;
 
+    [Space(10)]
     [Header("=== Extra")]
     [SerializeField] private RectTransform MiddleRT;
     [SerializeField] private float PlusSizeMiddleRTX;
@@ -34,9 +41,12 @@ public class ProgressBarEUIController : ElementUIController
     {
         Set_FillImgSmooth(0, 1);
 
-        TryGetComponent(out RectTransform thisRT);
-        ThisRT = thisRT;
+        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
     }
+
+    #endregion
+
+    #region Framework
 
     private void LateUpdate()
     {
@@ -45,42 +55,41 @@ public class ProgressBarEUIController : ElementUIController
 
     #endregion
 
-    #region Unique -> Max
+    #region Set
 
-    public void Set_MaxFillRT(float _SizeX)
+    #region Max
+
+    public void Set_MaxFillRT(float _SizeX, float _DurTime = 0.1f)
     {
-        if(ThisRT == null && TryGetComponent(out RectTransform thisRT))
-        {
-            ThisRT = thisRT;
-        }
+        ThisRT.DOSizeDelta(new Vector2(_SizeX, ThisRT.sizeDelta.y), _DurTime);
 
-        ThisRT.DOSizeDelta(new Vector2(_SizeX, ThisRT.sizeDelta.y), 0.1f);
-
-        MiddleRT.DOSizeDelta(new Vector2(_SizeX + PlusSizeMiddleRTX, MiddleRT.sizeDelta.y), 0.1f);
-        RightRT.DOAnchorPos(new Vector2(_SizeX + PlusPosRightRTX, RightRT.anchoredPosition.y), 0.1f);
+        MiddleRT.DOSizeDelta(new Vector2(_SizeX + PlusSizeMiddleRTX, MiddleRT.sizeDelta.y), _DurTime);
+        RightRT.DOAnchorPos(new Vector2(_SizeX + PlusPosRightRTX, RightRT.anchoredPosition.y), _DurTime);
     }
 
     #endregion
 
-    #region Unique -> Current
+    #region Current
 
+    // 부드럽게 변동
     public void Set_FillImgSmooth(float _CurrentValue, float _MaxValue)
     {
-        float fillValue = _CurrentValue / _MaxValue;
+        DevTool.Set_KillTween(ActualImg.fillAmount);
 
-        DOTween.Kill(ActualImg.fillAmount);
-        ActualImg.DOFillAmount(fillValue, 0.1f);
+        ActualImg.DOFillAmount(_CurrentValue / _MaxValue, 0.1f);
 
         StartCoroutine(Set_FillImgSmooth_AfterImg_Cor());
+
         if (Txt != null)
         { Txt.text = (int)_CurrentValue + "<size=70%>/" + (int)_MaxValue + "</size>"; }
     }
 
-    private IEnumerator Set_FillImgSmooth_AfterImg_Cor()
+    // After 이미지
+    private IEnumerator Set_FillImgSmooth_AfterImg_Cor(float _DelayTime = 0.5f, float _DurTime = 0.2f)
     {
         DOTween.Kill(AfterImg.fillAmount);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(_DelayTime);
 
         if (ActualImg.fillAmount >= AfterImg.fillAmount)
         {
@@ -88,21 +97,22 @@ public class ProgressBarEUIController : ElementUIController
         }
         else
         {
-            AfterImg.DOFillAmount(ActualImg.fillAmount, 0.2f);
+            AfterImg.DOFillAmount(ActualImg.fillAmount, _DurTime);
         }
     }
 
 
+    // 최대로 채우기
     public void Set_FillFullImgSmooth(float _DurTime)
     {
-        DOTween.Kill(ActualImg.fillAmount);
+        DevTool.Set_KillTween(ActualImg.fillAmount);
+
         ActualImg.DOFillAmount(1f, _DurTime)
             .SetEase(Ease.Linear)
-            .OnComplete(() =>
-            {
-                AfterImg.fillAmount = 1f;
-            });
+            .OnComplete(() => { AfterImg.fillAmount = 1f; });
     }
+
+    #endregion
 
     #endregion
 
@@ -110,8 +120,9 @@ public class ProgressBarEUIController : ElementUIController
 
     public void Set_NoNum()
     {
-        if (Txt != null)
-        { Txt.text = ""; }
+        if (Txt == null) return;
+
+        Txt.text = "";
     }
 
     #endregion
@@ -120,13 +131,9 @@ public class ProgressBarEUIController : ElementUIController
 
     private Vector2 Get_LinerPos()
     {
-        if (ThisRT != null)
-        {
-            float targetX = ThisRT.sizeDelta.x * ActualImg.fillAmount;
-            return new Vector2(targetX, 0f);
-        }
+        if (ThisRT == null) return Vector2.zero;
 
-        return Vector2.zero;
+        return new Vector2(ThisRT.sizeDelta.x * ActualImg.fillAmount, 0f);
     }
 
     #endregion

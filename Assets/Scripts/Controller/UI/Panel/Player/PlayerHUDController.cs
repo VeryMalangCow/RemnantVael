@@ -319,8 +319,8 @@ public class PlayerHUDController : UIController
         MainColorCompList.Add(ECCostTxt);
         MainColorCompList.Add(MS_AmountTxt);
 
-        MainColorCompList.Add(EmptyBC.Txt_ExtraAmount);
-        MainColorCompList.Add(FullEC.Txt_ExtraAmount);
+        MainColorCompList.Add(EmptyBC.AmountTxt);
+        MainColorCompList.Add(FullEC.AmountTxt);
 
         MainColorCompList.Add(InteractOnOffTxt);
 

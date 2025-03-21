@@ -72,6 +72,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
     public void Offset(string _Name, string _Desc, BaseUpgradeUIController _Owner)
     {
         this.Offset();
+        ThisImgTxtAmountEUI.Offset();
 
         SkillNameTxt.text = _Name;
         DescTxt.text = _Desc;

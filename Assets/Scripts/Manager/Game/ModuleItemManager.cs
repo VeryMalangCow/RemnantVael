@@ -8,6 +8,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     [Header("=== All Type")]
     [SerializeField] public List<ItemData> ItemDataList;
 
+
     [Header("=== MainChip")]
     [SerializeField] private List<MainChipData> MainChipDataList;
     [HideInInspector] private Dictionary<int, int> MainChopAmalgamationDict = new Dictionary<int, int>();
@@ -20,6 +21,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     [Header("=== Icon Data")]
     [SerializeField] private List<Sprite> RankIconList;
     [SerializeField] private List<Sprite> MUUIDescRankIconList;
+
+    [Header("=== Reso")]
+    [SerializeField] public GameObject InventoryItemPrefab;
 
     // Interface
     private List<IWhen_Hit> iWhen_HitList = new List<IWhen_Hit>();
@@ -44,9 +48,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             {
                 MS.ThisItemData = new ItemData(_ItemData);
 
-                MS.InventoryUI_Equip = MainGameUIManager.Instance.ModuleUpgrade_UIController.Get_MEIIList(MS.ThisItemData.ItemIcon, Get_CorrectRankIcon(MS), MS.ThisItemData.BoostLv);
+                MS.ItemUI_Inventory = MainGameUIManager.Instance.ModuleUpgrade_UIController.Gen_NewItemList(MS.ThisItemData.ItemIcon, Get_CorrectRankIcon(MS), MS.ThisItemData.BoostLv);
                 
-                foreach(InventoryItemEUIController MEII in MS.InventoryUI_Equip)
+                foreach(InventoryItemEUIController MEII in MS.ItemUI_Inventory)
                 {
                     MEII.gameObject.name = $"{MS.ThisItemData.ID}_{MS.ThisItemData.Rank}_{MS.ThisItemData.BoostLv}";
                 }
@@ -61,11 +65,16 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Interface
 
-    public void Reset_Interface()
+    private void Reset_AllInterface()
     {
         iWhen_HitList.Clear();
         iWhen_FireList.Clear();
         iWhen_CriticalHitList.Clear();
+    }
+
+    public void Reset_Interface()
+    {
+        Reset_AllInterface();
 
         foreach (ModuleState MS in Equiped_MSList)
         {
@@ -119,7 +128,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         foreach (ModuleState MS in Gotten_MSList)
         {
-            if (MS.InventoryUI_Forge.Contains(_MEII))
+            if (MS.ItemUI_Extra.Contains(_MEII))
             {
                 return MS;
             }
@@ -132,7 +141,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         foreach(ModuleState MS in Gotten_MSList)
         {
-            if (MS.InventoryUI_Equip.Contains(_MEII))
+            if (MS.ItemUI_Inventory.Contains(_MEII))
             {
                 return MS;
             }
@@ -141,6 +150,10 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return null;
     }
 
+    public Sprite Get_CorrectItemIcon(ModuleState _MS)
+    {
+        return ItemDataList[_MS.ThisItemData.ID].ItemIcon;
+    }
 
     public Sprite Get_CorrectRankIcon(ModuleState _MS)
     {
@@ -154,33 +167,32 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #endregion
 
-    #region Decomposition
+    #region Forge
 
-    public int Get_EC_ForUpgrade(InventoryItemEUIController _MEII)
+    // 분해
+    public static int Get_MS_ByDescomposition(ModuleState _ModuleState)
     {
-        if (_MEII == null)
-        { return 0; }
-
-        ModuleState ms = Get_InventoryModuleState(_MEII);
-        if (ms != null)
-        {
-            return (ms.ThisItemData.BoostLv + 1);
-        }
-        return 0;
+        return (_ModuleState.ThisItemData.Rank * 2);
     }
 
-    public int Get_MC_ForFusion(InventoryItemEUIController _MEII)
+    public static int Get_BC_ByDescomposition(ModuleState _ModuleState)
     {
-        if (_MEII == null)
-        { return 0; }
-
-        ModuleState ms = Get_InventoryModuleState(_MEII);
-        if (ms != null)
-        {
-            return (ms.ThisItemData.Rank + 1);
-        }
-        return 0;
+        return _ModuleState.ThisItemData.BoostLv;
     }
+
+    // 합성
+    public static int Get_MC_ForFusion(ModuleState _ModuleState)
+    {
+        return (_ModuleState.ThisItemData.Rank + 1);
+    }
+
+    // 업글
+    public static int Get_EC_ForUpgrade(ModuleState _ModuleState)
+    {
+        return (_ModuleState.ThisItemData.BoostLv + 1);
+    }
+
+    
 
 
     #endregion
@@ -278,7 +290,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         foreach(ModuleState MS in TargetMsList)
         {
-            if (MS.InventoryUI_Equip.Contains(_MEII))
+            if (MS.ItemUI_Inventory.Contains(_MEII))
             {
                 return MS;
             }
@@ -288,11 +300,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     private void Remove_MEIIList(ModuleState _MS)
     {
-        for (int i = _MS.InventoryUI_Equip.Count - 1; i >= 0; i--)
-        { Destroy(_MS.InventoryUI_Equip[i].gameObject); }
+        for (int i = _MS.ItemUI_Inventory.Count - 1; i >= 0; i--)
+        { Destroy(_MS.ItemUI_Inventory[i].gameObject); }
 
-        for (int i = _MS.InventoryUI_Forge.Count - 1; i >= 0; i--)
-        { Destroy(_MS.InventoryUI_Forge[i].gameObject); }
+        for (int i = _MS.ItemUI_Extra.Count - 1; i >= 0; i--)
+        { Destroy(_MS.ItemUI_Extra[i].gameObject); }
     }
 
     #endregion

@@ -48,7 +48,7 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
             return;
         }
 
-        OwnerUIController.CurrentBtn = this;
+        if (OwnerUIController != null) OwnerUIController.CurrentBtn = this;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -61,7 +61,7 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
             return;
         }
 
-        OwnerUIController.CurrentBtn = null;
+        if (OwnerUIController != null) OwnerUIController.CurrentBtn = null;
     }
 
 

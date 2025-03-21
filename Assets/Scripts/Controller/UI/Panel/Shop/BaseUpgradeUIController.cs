@@ -39,7 +39,7 @@ public class BaseUpgradeUIController : PanelUIController
     [Header("=== Visual")]
     [SerializeField] public Image FrameInnerImg;
 
-    #region BU State
+    #region - BU State
 
     [Space(10)]
     [Header("=== BU Data")]
@@ -96,13 +96,34 @@ public class BaseUpgradeUIController : PanelUIController
     {
         base.Offset();
 
+        Offset_Basic();
         Offset_BUShop();
-        Offset_Another();
-
         Offset_Subscribe();
         Offset_ColorComp();
     }
 
+    private void Offset_Basic()
+    {
+        // Tab
+        foreach (TabEUIController MET in ThisPanelTabList)
+        {
+            MET.Offset();
+            MET.ThisTabBtn.OwnerUIController = this;
+        }
+
+        // Label
+        LabelTxt.text = LabelName;
+
+        // Dur
+        ThisDurEUI.Offset();
+
+        // Desc
+        ThisDescPanel.Offset();
+
+        // Close
+        CloseBtn.Offset();
+        CloseBtn.OwnerUIController = this;
+    }
 
     private void Offset_BUShop()
     {
@@ -140,29 +161,6 @@ public class BaseUpgradeUIController : PanelUIController
         }
 
         #endregion
-    }
-
-    private void Offset_Another()
-    {
-        // Label
-        LabelTxt.text = LabelName;
-
-        // Tab
-        foreach (TabEUIController MET in ThisPanelTabList)
-        {
-            MET.Offset();
-            MET.ThisTabBtn.OwnerUIController = this;
-        }
-
-        // Dur
-        ThisDurEUI.Offset();
-
-        // Desc
-        ThisDescPanel.Offset();
-
-        // Close
-        CloseBtn.Offset();
-        CloseBtn.OwnerUIController = this;
     }
 
     private void Offset_Subscribe()
@@ -210,7 +208,7 @@ public class BaseUpgradeUIController : PanelUIController
             MainColorCompList.Add(_BUShop.UpgradeEUI.BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
             SubColorCompList.Add(_BUShop.UpgradeEUI.SkillLvTxt);
-            SubColorCompList.AddRange(_BUShop.UpgradeEUI.ThisImgTxtAmountEUI.Img_List);
+            SubColorCompList.AddRange(_BUShop.UpgradeEUI.ThisImgTxtAmountEUI.AmountImgs);
             SubColorCompList.AddRange(_BUShop.UpgradeEUI.InnerImgList);
         }
 

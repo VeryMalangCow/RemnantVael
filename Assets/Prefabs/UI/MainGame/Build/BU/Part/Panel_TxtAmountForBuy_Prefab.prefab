@@ -3924,9 +3924,9 @@ MonoBehaviour:
   DescTxt: {fileID: 8171936730393243384}
   CostImg: {fileID: 3842703053704682384}
   AlwaysPanelBtn: {fileID: 308332468758549718}
+  SkillIconImg: {fileID: 8057136919186570665}
   SkillNameTxt: {fileID: 465148360581515912}
   SkillLvTxt: {fileID: 4278975485691168565}
-  SkillIconImg: {fileID: 8057136919186570665}
   InnerImgList:
   - {fileID: 2433760783325641525}
   - {fileID: 846367356903639729}
@@ -4847,6 +4847,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4915969223267826519, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: InnerImg
+      value: 
+      objectReference: {fileID: 2433760783325641525}
+    - target: {fileID: 4915969223267826519, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
       propertyPath: ThisSprite
       value: 
       objectReference: {fileID: 828722610, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
@@ -4906,6 +4910,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 828722610, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
+    - target: {fileID: 8101309519200517402, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8101309519200517402, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
       propertyPath: m_RaycastTarget
       value: 0

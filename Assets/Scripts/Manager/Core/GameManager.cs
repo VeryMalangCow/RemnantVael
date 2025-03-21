@@ -6,6 +6,7 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -506,6 +507,25 @@ public class DevTool
         _TargetList[_Index2] = temp;
     }
 
+    // 'T 타입' 리스트의 게임 오브젝트 모두 끄고 키기
+    public static void Set_Active<T>(List<T> _TargetList, bool _Active) where T : Component
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            _TargetList[i].gameObject.SetActive(_Active);
+        }
+    }
+
+    // 'T 타입' 리스트를 모두 Null로 초기화
+    public static void Set_Null<T>(List<T> _TargetList) where T : class
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            _TargetList[i] = null;
+        }
+    }
+
+
     // 'T 타입' 리스트를 돌면서 실행
     public static void Set_ListDele<T>(List<T> _TargetList, Dele_T<T> _Dele)
     {
@@ -829,6 +849,12 @@ public class DevTool
     {
         if (_Comp != null && DOTween.IsTweening(_Comp))
         { DOTween.Kill(_Comp); }
+    }
+
+    public static void Set_KillTween(string _ID)
+    {
+        if (DOTween.IsTweening(_ID))
+        { DOTween.Kill(_ID); }
     }
 
     public static void Set_KillTween(Sequence _Seq)
@@ -2008,26 +2034,6 @@ public class BUState<T>
 #endregion
 
 
-#region Class : State : Player : Other
-
-[System.Serializable]
-public class Shield
-{
-    public string ShieldID;
-    public float ShieldMaxValue;
-    public float ShieldCurrentValue;
-}
-
-
-[System.Serializable]
-public class BuffState<T>
-{
-    public string BuffID;
-    public T BaseValue;
-    public T ActualValue;
-}
-
-#endregion
 
 #region Class : State : Player : ItemData
 
@@ -2094,8 +2100,8 @@ public class ModuleState : IWhen
 
     public ItemData ThisItemData;
 
-    public List<InventoryItemEUIController> InventoryUI_Equip = new List<InventoryItemEUIController>();
-    public List<InventoryItemEUIController> InventoryUI_Forge = new List<InventoryItemEUIController>();
+    public List<InventoryItemEUIController> ItemUI_Inventory = new List<InventoryItemEUIController>();
+    public List<InventoryItemEUIController> ItemUI_Extra = new List<InventoryItemEUIController>();
 
     protected ModuleItemActivityManager.ActivityFuncDele ThisActivityFuncDele;
 
@@ -2174,6 +2180,82 @@ public class ModuleItem004 : ModuleState, IWhen_CriticalHit
 
 public class ModuleItem005 : ModuleState, IWhen_CriticalHit
 { public ModuleItem005(int _ID) : base(_ID) { } }
+
+#endregion
+
+#region Class : State : Player : MU UI
+
+[System.Serializable]
+class ForgeInteractPanel
+{
+    #region Value
+
+    [Space(10)]
+    public RectTransform PanelRT; 
+    public OwnBtnEUIController PanelBtn;
+    public TMP_Text PanelBtnTxt;
+
+    [Space(10)]
+    public OwnBtnEUIController RoleBtn;
+    public TMP_Text RoleBtnTxt;
+    public TMP_Text RoleDescTxt;
+
+    [HideInInspector] public RectTransform RoleBtnTxtRT;
+    [HideInInspector] public Tween rtTween = null;
+
+    [Space(10)]
+    public string BtnString;
+    public string RoleString;
+
+    [Space(10)]
+    public List<Image> InnerImgs;
+
+    #endregion
+
+    public void Offset(ModuleUpgradeUIController _MUUC)
+    {
+        PanelBtn.Offset();
+
+        PanelBtnTxt.text = BtnString;
+        PanelBtn.OwnerUIController = _MUUC;
+
+        RoleBtn.Offset();
+        RoleBtn.OwnerUIController = _MUUC;
+        RoleBtnTxt.text = ">>  " + BtnString + "  <<";
+        RoleBtnTxtRT = DevTool.Get_ComponentTType<RectTransform>(RoleBtnTxt.gameObject);
+
+        RoleDescTxt.text = RoleString;
+
+        rtTween = RoleBtnTxtRT.DOScale(1.15f, 1.0f)
+                .OnPlay(() => { RoleBtnTxtRT.localScale = Vector2.one; })
+                .OnKill(() => { RoleBtnTxtRT.localScale = Vector2.one; })
+                .SetLoops(-1, LoopType.Yoyo);
+
+        DOTween.Play(rtTween);
+    }
+}
+
+#endregion
+
+
+#region Class : State : Player : Other
+
+[System.Serializable]
+public class Shield
+{
+    public string ShieldID;
+    public float ShieldMaxValue;
+    public float ShieldCurrentValue;
+}
+
+
+[System.Serializable]
+public class BuffState<T>
+{
+    public string BuffID;
+    public T BaseValue;
+    public T ActualValue;
+}
 
 #endregion
 

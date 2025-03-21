@@ -7,8 +7,10 @@ public class DescMUEUIController : ElementUIController
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
-    [Header("<><><><><> Desc _ For ModuleUpgrade")]
+    [Header("<><><><><> Desc ModuleUpgrade")]
 
     [Space(10)]
     [Header("=== Item")]
@@ -42,7 +44,7 @@ public class DescMUEUIController : ElementUIController
     [SerializeField] public TMP_Text CurrentActualBoostLvTxt;
     [SerializeField] private string ExtraString_BoostLv;
 
-
+    #endregion
 
     #endregion
 
@@ -60,7 +62,8 @@ public class DescMUEUIController : ElementUIController
         MainChipGO.gameObject.SetActive(false);
 
         CurrentBoostLvMIAT.Set_Amount(0);
-        CurrentBoostLvMIAT.Set_Color(PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false));
+
+        DevTool.Set_Color(PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false), CurrentBoostLvMIAT.AmountImgs);
     }
 
     #endregion
@@ -167,6 +170,36 @@ public class DescMUEUIController : ElementUIController
         CurrentBoostLvTxt.text = "-";
         CurrentActualBoostLvTxt.text = "-";
     }
+
+    #endregion
+
+    #region Get
+
+    public List<Component> Get_MainColorList()
+    {
+        List<Component> result = new List<Component>()
+        {
+            ItemNameTxt,
+            CurrentActualRankTxt,
+            CurrentActualBoostLvTxt
+        };
+
+
+        return result;
+    }
+
+    public List<Component> Get_SubColorList()
+    {
+        List<Component> result = new List<Component>()
+        {
+            ITemIntroTxt,
+            CurrentRankTxt,
+            CurrentBoostLvTxt
+        };
+
+        return result;
+    }
+
 
     #endregion
 }

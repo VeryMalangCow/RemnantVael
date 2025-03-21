@@ -353,7 +353,11 @@ public class PlayerController : AliveObjectController
     // πË≈Õ∏Æ ºø »πµÊ
     private void Add_CurrentBC()
     {
-        MainGameUIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Set_Complete(0.3f, 0.2f);
+        MainGameUIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Set_Complete(
+            _FadeInTime: 0.3f,
+            _StayTime: 0.1f, 
+            _FadeOutTime: 0.5f);
+
         int BSAmount = CurrentBS.Value / NeedBS_ForMakeBC;
         CurrentBS.Value -= NeedBS_ForMakeBC * BSAmount;
         CurrentBC.Value += BSAmount;

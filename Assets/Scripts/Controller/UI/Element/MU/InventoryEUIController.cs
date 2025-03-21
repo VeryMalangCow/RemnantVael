@@ -16,9 +16,6 @@ public class InventoryEUIController : ElementUIController
     [SerializeField] private GameObject InventorySlotPrefab;
     [SerializeField] private Sprite SlotSprite;
 
-    [Header("-- Item")]
-    [SerializeField] private GameObject InventoryItemPrefab;
-
     // Class
     [HideInInspector] public List<List<InventorySlotEUIController>> MEISList;
 
@@ -91,10 +88,13 @@ public class InventoryEUIController : ElementUIController
 
     #region Item
 
-    public InventoryItemEUIController Gen_MEII_Module(InventorySlotEUIController _ParentSlot, Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
+    public static InventoryItemEUIController Gen_ItemUI(InventorySlotEUIController _ParentSlot, 
+        Sprite _ItemSprite, 
+        Sprite _RankImg, 
+        int _BoostLv)
     {
         // Generate GO
-        GameObject item = Instantiate(InventoryItemPrefab, _ParentSlot.transform);
+        GameObject item = Instantiate(ModuleItemManager.Instance.InventoryItemPrefab, _ParentSlot.transform);
 
         // RT
         if (item.TryGetComponent(out RectTransform rt))
@@ -115,11 +115,15 @@ public class InventoryEUIController : ElementUIController
         return null;
     }
 
-    public InventoryItemEUIController Gen_MEII_ThisInventory(Sprite _ItemSprite, Sprite _RankImg, int _BoostLv)
+    public InventoryItemEUIController Gen_Item_ThisInventory(
+        Sprite _ItemSprite, 
+        Sprite _RankImg, 
+        int _BoostLv, 
+        ModuleUpgradeUIController _Owner)
     {
         // Generate GO
         InventorySlotEUIController emptySlot = Get_EmptyMEIS();
-        GameObject item = Instantiate(InventoryItemPrefab, emptySlot.transform);
+        GameObject item = Instantiate(ModuleItemManager.Instance.InventoryItemPrefab, emptySlot.transform);
         
         // RT
         if(item.TryGetComponent(out RectTransform rt))
@@ -132,7 +136,7 @@ public class InventoryEUIController : ElementUIController
         {
             MEII.Offset();
             MEII.Set_Data(_ItemSprite, _RankImg, _BoostLv);
-
+            MEII.OwnerUIController = _Owner;
             emptySlot.ThisSlotItem = MEII;
             return MEII;
         }

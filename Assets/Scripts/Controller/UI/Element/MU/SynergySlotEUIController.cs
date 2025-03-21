@@ -11,6 +11,8 @@ public class SynergySlotEUIController : OwnBtnEUIController
     [HideInInspector] public Image ThisTierImg;
     [HideInInspector] public TMP_Text ThisTxt;
 
+    [HideInInspector] private int OneTierRange = 6;
+
     #endregion
 
     #region Offset
@@ -19,14 +21,9 @@ public class SynergySlotEUIController : OwnBtnEUIController
     {
         base.Offset();
 
-        if (ThisImg == null && this.gameObject.TryGetComponent(out Image Img))
-        { ThisImg = Img; }
-        
-        if (ThisTierImg == null && this.gameObject.transform.GetChild(0).TryGetComponent(out Image TierImg))
-        { ThisTierImg = TierImg; }
-
-        if (ThisTxt == null && this.gameObject.transform.GetChild(1).TryGetComponent(out TMP_Text TierTxt))
-        { ThisTxt = TierTxt; }
+        ThisImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
+        ThisTierImg = DevTool.Get_ComponentTType(gameObject.transform.GetChild(0).gameObject, out Image TierImg) ? TierImg : null;
+        ThisTxt = DevTool.Get_ComponentTType(gameObject.transform.GetChild(1).gameObject, out TMP_Text tmpt) ? tmpt : null;
 
         SetOff_SynergySlot();
     }
@@ -46,15 +43,13 @@ public class SynergySlotEUIController : OwnBtnEUIController
 
         ID = _ID;
         ThisImg.sprite = _Icon;
-
-        if (_Amalgamation < 5) 
-        { ThisTierImg.sprite = MainGameUIManager.Instance.ModuleUpgrade_UIController.SynergyTier0; }
-        else if (_Amalgamation < 10)
-        { ThisTierImg.sprite = MainGameUIManager.Instance.ModuleUpgrade_UIController.SynergyTier1; }
-        else if (_Amalgamation < 15)
-        { ThisTierImg.sprite = MainGameUIManager.Instance.ModuleUpgrade_UIController.SynergyTier2; }
-
         ThisTxt.text = _Amalgamation.ToString();
+
+        // 1~6 / 7~12 / 13~18
+        int tier = (_Amalgamation - 1) > 0 ? _Amalgamation / OneTierRange : 0;
+
+        ThisTierImg.sprite = MainGameUIManager.Instance.ModuleUpgrade_UIController.SynergyTierFrames[tier];
+
     }
 
     #endregion
