@@ -10,11 +10,11 @@ public class EnemyBuffUIController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Buff")]
-    [SerializeField] private List<BuffIconEUIController> BuffIconUIs;
-    [SerializeField] private List<BuffIconEUIController> UsingBuffIconUIs = new List<BuffIconEUIController>();
     [SerializeField] private float XYInterval = 44;
     [SerializeField] private int WidthMaxAmount = 5;
 
+    [HideInInspector] private List<BuffIconEUIController> BuffIconUIs = new List<BuffIconEUIController>();
+    [HideInInspector] private List<BuffIconEUIController> UsingBuffIconUIs = new List<BuffIconEUIController>();
     [HideInInspector] public EnemyHUDController EnemyHUD;
 
     #endregion
@@ -25,19 +25,14 @@ public class EnemyBuffUIController : MonoBehaviour
     {
         EnemyHUD = _EnemyHUD;
 
-        for (int i = 0; i < this.transform.childCount; i++)
-        {
-            if (this.transform.GetChild(i).TryGetComponent(out BuffIconEUIController MBI))
-            { 
-                BuffIconUIs.Add(MBI);
-                MBI.Offset();
-            }
-        }
+        BuffIconUIs = DevTool.Get_ChildList<BuffIconEUIController>(this.transform);
+        for (int i = 0; i < BuffIconUIs.Count; i++) BuffIconUIs[i].Offset();   
+        
     }
 
     #endregion
 
-    #region Get & Set
+    #region Get
 
     // 사용하지 않는 중인 버프 Icon UI
     public BuffIconEUIController Get_BuffIconUI()
@@ -46,8 +41,7 @@ public class EnemyBuffUIController : MonoBehaviour
         {
             if (!BuffIconUIs[i].UsingNow)
             {
-                if (!UsingBuffIconUIs.Contains(BuffIconUIs[i]))
-                { UsingBuffIconUIs.Add(BuffIconUIs[i]); }
+                DevTool.Add_InList(UsingBuffIconUIs, BuffIconUIs[i]);
 
                 Set_BuffUIPos();
 
@@ -57,16 +51,23 @@ public class EnemyBuffUIController : MonoBehaviour
         return null;
     }
 
+    #endregion
+
+    #region Remove
+
     // 사용중인 버프 Icon UI 리스트에서 제거
     public void Remove_BuffIconUI(BuffIconEUIController _BuffIconUI)
     {
         _BuffIconUI.SetOff();
 
-        if (UsingBuffIconUIs.Contains(_BuffIconUI))
-        { UsingBuffIconUIs.Remove(_BuffIconUI); }
+        DevTool.Remove_InList(UsingBuffIconUIs, _BuffIconUI);
 
         Set_BuffUIPos();
     }
+
+    #endregion
+
+    #region Set
 
     // 현재 진행 중인 버프의 종류가 바뀔 때 마다 실행
     private void Set_BuffUIPos()
@@ -81,6 +82,4 @@ public class EnemyBuffUIController : MonoBehaviour
     }
 
     #endregion
-
-    
 }

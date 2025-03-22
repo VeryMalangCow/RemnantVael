@@ -33,11 +33,6 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     #region Offset
 
-    public void Set_Data(Sprite _ThisIcon)
-    {
-        ThisImg.sprite = _ThisIcon;
-    }
-
     public override void Offset()
     {
         if (TryGetComponent(out RectTransform rt))
@@ -61,7 +56,17 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     #endregion
 
-    #region Set Current
+    #region Set
+
+    public void Set_Data(Sprite _ThisIcon)
+    {
+        ThisImg.sprite = _ThisIcon;
+    }
+
+
+    #endregion
+
+    #region OnPointer
 
     public void OnPointerEnter(PointerEventData eventData)
     {

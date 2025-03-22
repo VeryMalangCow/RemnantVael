@@ -6,7 +6,6 @@ public class EnemyHUDController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> HUD")]
-    [HideInInspector] private EnemyController Enemy;
 
     [Space(10)]
     [Header("=== Comp")]
@@ -21,8 +20,6 @@ public class EnemyHUDController : MonoBehaviour
 
     public void Offset(EnemyController _Enemy)
     {
-        Enemy = _Enemy;
-
         StateUI.Offset(this);
         TemporaryBuffUI.Offset(this);
         PermanentBuffUI.Offset(this);

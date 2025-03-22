@@ -2415,7 +2415,7 @@ public class StatusEffect_Temporary : StatusEffect
 
     public virtual void Caculate_Cooltime(float _DeltaTime)
     {
-        BuffIconUI.Set_BuffState(CurrentCooltime / MaxCooltime);
+        BuffIconUI.Set_Cooltime(CurrentCooltime / MaxCooltime);
     }
 
     #endregion
@@ -2532,7 +2532,7 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
         if (BuffIconUI != null)
         {
             base.Caculate_Cooltime(_DeltaTime);
-            BuffIconUI.Set_BuffState(CurrentStack);
+            BuffIconUI.Set_Icon(CurrentStack);
         }
 
     }
@@ -2726,7 +2726,7 @@ public class StatusEffect_Permanent_WithAmount : StatusEffect_Permanent
         CurrentStack = Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
 
         base.Gain_Stack(_GainAmount, _ShowTxt);
-        BuffIconUI.Set_BuffState(CurrentStack);
+        BuffIconUI.Set_Icon(CurrentStack);
 
         if (CurrentStack >= MaxStack && FullStack != null)
         {

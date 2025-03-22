@@ -26,10 +26,7 @@ public class BuffIconEUIController : ElementUIController
 
     public override void Offset()
     {
-        if (this.TryGetComponent(out RectTransform rt) && ThisRT == null)
-        {
-            ThisRT = rt;
-        }
+        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
     }
 
     #endregion
@@ -51,6 +48,7 @@ public class BuffIconEUIController : ElementUIController
         UsingNow = false;
         gameObject.SetActive(false);
     }
+
 
     public void Set_Icon(Sprite _Sprite, int _BuffAmount)
     {
@@ -76,12 +74,8 @@ public class BuffIconEUIController : ElementUIController
         }
     }
 
-    public void Set_BuffState(int _CurrentStack)
-    {
-        ThisTxt.text = _CurrentStack.ToString();
-    }
 
-    public void Set_BuffState(float _FillAmount)
+    public void Set_Cooltime(float _FillAmount)
     {
         ThisShadowImg.fillAmount = _FillAmount;
     }
