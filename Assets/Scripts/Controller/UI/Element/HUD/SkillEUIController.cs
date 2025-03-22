@@ -17,7 +17,8 @@ public class SkillEUIController : ElementUIController
     [Header("=== Txt")]
     [SerializeField] public TMP_Text SkillCostTxt;
     [SerializeField] public TMP_Text SkillErrorTxt;
-    private IEnumerator ThisEff = null;
+
+    [HideInInspector] private IEnumerator ThisEff = null;
 
     #endregion
 
@@ -25,8 +26,7 @@ public class SkillEUIController : ElementUIController
 
     public override void Offset()
     {
-        SkillErrorTxt.gameObject.SetActive(false);
-        SkillCostTxt.gameObject.SetActive(true);
+        SetOn_CostTxt(true);
     }
 
     #endregion
@@ -43,38 +43,41 @@ public class SkillEUIController : ElementUIController
         SkillShadowImg.fillAmount = _FillAmount;
     }
 
-    public void Set_StartUI()
+    private void SetOn_CostTxt(bool _OnOff)
     {
-        if (DOTween.IsTweening(SkillInnerImg))
-        { DOTween.Kill(SkillInnerImg); }
+        SkillCostTxt.gameObject.SetActive(_OnOff);
+        SkillErrorTxt.gameObject.SetActive(!_OnOff);
+    }
+
+    #endregion
+
+    #region Tween
+
+    public void Play_StartInnerUI()
+    {
+        DevTool.Set_KillTween(SkillInnerImg);
+
         SkillInnerImg.DOFade(1f, 0.2f);
     }
 
-    public void Set_EndUI()
+    public void Play_EndInnerUI()
     {
-        if (DOTween.IsTweening(SkillInnerImg))
-        { DOTween.Kill(SkillInnerImg); }
+        DevTool.Set_KillTween(SkillInnerImg);
+
         SkillInnerImg.DOFade(0.25f, 0.2f);
     }
 
     public void Play_ErrorUI()
     {
-        if (ThisEff == null)
-        {
-            ThisEff = Play_NotEnoughEP_Cor();
-            StartCoroutine(ThisEff); 
-        }
-        else
-        {
-            StopCoroutine(ThisEff);
-            StartCoroutine(ThisEff);
-        }
+        if (ThisEff != null) return;
+
+        ThisEff = Play_Error_Cor();
+        StartCoroutine(ThisEff);
     }
 
-    private IEnumerator Play_NotEnoughEP_Cor()
+    private IEnumerator Play_Error_Cor()
     {
-        SkillErrorTxt.gameObject.SetActive(true);
-        SkillCostTxt.gameObject.SetActive(false);
+        SetOn_CostTxt(false);
 
         Color clr = SkillErrorTxt.color;
 
@@ -92,8 +95,7 @@ public class SkillEUIController : ElementUIController
             { yield return new WaitForSeconds(0.09f); }
         }
 
-        SkillErrorTxt.gameObject.SetActive(false);
-        SkillCostTxt.gameObject.SetActive(true);
+        SetOn_CostTxt(true);
 
         ThisEff = null;
     }

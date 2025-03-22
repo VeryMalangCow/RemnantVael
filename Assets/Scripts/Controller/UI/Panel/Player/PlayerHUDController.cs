@@ -10,6 +10,8 @@ public class PlayerHUDController : UIController
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Player HUD")]
 
@@ -19,25 +21,20 @@ public class PlayerHUDController : UIController
     [SerializeField] public bool IsTabInputed = false;
     [SerializeField] private static float TabInputedMaxTime = 0.25f;
     [SerializeField] private float TabInputedCurrentTime = 0f;
-    [HideInInspector] private static float TabInteractDurTime = 0.25f;
 
     [Header("-- All")]
     [SerializeField] private List<CanvasGroup> ParentCGList;
 
     [Header("-- Modules")]
     [SerializeField] private RectTransform ModuleListParentRT;
-    [HideInInspector] private float DefaultModuleRectX;
-    [HideInInspector] public List<InventorySlotEUIController> MEISList;
 
     [Header("-- Player States")]
     [SerializeField] private RectTransform PlayerStatesCostParentRT;
-    [HideInInspector] private float DefaultPlayerStatesRectX;
     [SerializeField] private List<string> PlayerStatesStringList;
     [SerializeField] private TMP_Text PlayerStatesTxt;
 
     [Header("-- Skill State")]
     [SerializeField] private RectTransform SkillStatesParentRT;
-    [HideInInspector] private float DefaultSkillStatesRectY;
     [SerializeField] private List<string> SkillStatesStringList;
     [SerializeField] private List<TMP_Text> SkillStatesTxtList;
 
@@ -121,12 +118,26 @@ public class PlayerHUDController : UIController
     [SerializeField] private Image HittedScreen;
 
 
-    [Header("-- MainColor")]
-    [HideInInspector] public List<Component> MainColorCompList;
+    #endregion
 
-    [Header("-- SubColor")]
+    #region - Hide
+
+    // Tab
+    [HideInInspector] private static float TabInteractDurTime = 0.25f;
+
+    // Tab -> Module
+    [HideInInspector] private float DefaultModuleRectX;
+    [HideInInspector] public List<InventorySlotEUIController> MEISList;
+
+    // Tab -> Skill State
+    [HideInInspector] private float DefaultPlayerStatesRectX;
+    [HideInInspector] private float DefaultSkillStatesRectY;
+
+    // Color
+    [HideInInspector] public List<Component> MainColorCompList;
     [HideInInspector] public List<Component> SubColorCompList;
 
+    #endregion
 
     #endregion
 

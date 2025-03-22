@@ -121,7 +121,7 @@ public class ActiveSkillController : MonoBehaviour
         // 스킬 라인 효과 이미지
         MainGameUIManager.Instance.PlayerHUD_UIController.SkillList
            [DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this)]
-           .Set_StartUI(); 
+           .Play_StartInnerUI(); 
         // Aim
         InputManager.Instance.AimController.Set_ActivingSkill(
             DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this),
@@ -133,7 +133,7 @@ public class ActiveSkillController : MonoBehaviour
         // 스킬 라인 효과 이미지
         MainGameUIManager.Instance.PlayerHUD_UIController.SkillList
            [DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this)]
-           .Set_EndUI();
+           .Play_EndInnerUI();
         // Aim
         InputManager.Instance.AimController.Set_ActivingSkill(
             DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this),
