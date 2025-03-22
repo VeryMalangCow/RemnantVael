@@ -15,17 +15,16 @@ public class MinimapEUIController : ElementUIController
     [Header("=== Component")]
     [SerializeField] private RectTransform MinimapFrameRT;
     [SerializeField] public Image InnerImg;
+    [HideInInspector] private Color MainColor;
 
 
     [Space(10)]
     [Header("=== Normal")]
     [SerializeField] private RectTransform NormalMaskRT;
     [SerializeField] private RectTransform NormalMMEParentRT;
-    [HideInInspector] private CanvasGroup NormalCG;
     [SerializeField] private Vector2 NormalSize_Frame = new Vector2(352, 336);
 
     [Header("-- Element")]
-    [SerializeField] private List<MinimapCellEUIController> AllMMEs;
     [SerializeField] private RectTransform NormalPoint;
 
 
@@ -33,14 +32,22 @@ public class MinimapEUIController : ElementUIController
     [Header("=== Interactable")]
     [SerializeField] private RectTransform InteractableMaskRT;
     [SerializeField] private RectTransform InteractableMMEParentRT;
-    [HideInInspector] private CanvasGroup InteractableCG;
     [SerializeField] private Vector2 InteractableSize_Frame = new Vector2(728, 712);
 
     [Header("-- Element")]
-    [SerializeField] private List<MinimapCellEUIController> AllIMMEs;
     [SerializeField] private RectTransform InteractablePoint;
     [SerializeField] private RectTransform InteractingPoint;
 
+
+    // CG
+    [HideInInspector] private CanvasGroup NormalCG;
+    [HideInInspector] private CanvasGroup InteractableCG;
+
+    // Minimap cell
+    [HideInInspector] private List<MinimapCellEUIController> AllMMCs = new List<MinimapCellEUIController>();
+    [HideInInspector] private List<MinimapCellEUIController> AllIMMCs = new List<MinimapCellEUIController>();
+
+    // Book
     [HideInInspector] private GateController InteractingBookGate;
     [HideInInspector] private RoomController MinimapSelectedElementRC;
 
@@ -53,13 +60,20 @@ public class MinimapEUIController : ElementUIController
 
     public override void Offset()
     {
+        // Color
+        Color mainClr = InnerImg.color;
+        mainClr.a = 1f;
+        MainColor = mainClr;
+
+        // Frame
         MinimapFrameRT.sizeDelta = NormalSize_Frame;
 
-        if (NormalMaskRT.gameObject.TryGetComponent(out CanvasGroup ncg))
-        { NormalCG = ncg; NormalCG.alpha = 1f; }
+        // Canvas Group
+        NormalCG = DevTool.Get_ComponentTType(NormalMaskRT.gameObject, out CanvasGroup nCg) ? nCg : null;
+        NormalCG.alpha = 1f;
 
-        if (InteractableMaskRT.gameObject.TryGetComponent(out CanvasGroup icg))
-        { InteractableCG = icg; InteractableCG.alpha = 0f; }
+        InteractableCG = DevTool.Get_ComponentTType(InteractableMaskRT.gameObject, out CanvasGroup iCg) ? iCg : null;
+        InteractableCG.alpha = 0f;
     }
 
     #endregion
@@ -77,37 +91,23 @@ public class MinimapEUIController : ElementUIController
 
     public void Gen_Minimap()
     {
-        AllMMEs = new List<MinimapCellEUIController>();
-        AllIMMEs = new List<MinimapCellEUIController>();
         List<RoomController> allRC = StageManager.Instance.GetAllRC();
-
-        Color mainClr = InnerImg.color;
-        mainClr.a = 1f;
 
         for (int i = 0; i < allRC.Count; i++)
         {
-            Gen_MinimapElement(allRC[i], mainClr);
-            Gen_MinimapInteractableElement(allRC[i], mainClr);
+            Gen_EachMinimapElement(allRC[i], NormalMMEParentRT.transform, _IsNormal: true);
+            Gen_EachMinimapElement(allRC[i], InteractableMMEParentRT.transform, _IsNormal: false);
         }
     }
 
-    private void Gen_MinimapElement(RoomController _ConnetedRoom, Color _Clr)
+    private void Gen_EachMinimapElement(RoomController _ConnetedRoom, Transform _ParentTF, bool _IsNormal)
     {
-        if (Instantiate(MinimapElement, NormalMMEParentRT.transform).TryGetComponent(out MinimapCellEUIController mme))
+        if (DevTool.Get_ComponentTType(Instantiate(MinimapElement, _ParentTF), out MinimapCellEUIController mmc))
         {
-            mme.gameObject.SetActive(false);
-            mme.Offset(_ConnetedRoom, _Clr, true);
-            AllMMEs.Add(mme);
-        }
-    }
-
-    private void Gen_MinimapInteractableElement(RoomController _ConnetedRoom, Color _Clr)
-    {
-        if (Instantiate(MinimapElement, InteractableMMEParentRT.transform).TryGetComponent(out MinimapCellEUIController mme))
-        {
-            mme.gameObject.SetActive(false);
-            mme.Offset(_ConnetedRoom, _Clr, false);
-            AllIMMEs.Add(mme);
+            mmc.gameObject.SetActive(false);
+            mmc.Offset();
+            mmc.Offset(_ConnetedRoom, _IsNormal);
+            AllIMMCs.Add(mmc);
         }
     }
 
@@ -119,22 +119,19 @@ public class MinimapEUIController : ElementUIController
     {
         RoomController CurrentRC = StageManager.Instance.CurrentRoomController;
 
-        // 미니맵 위치 조정
         Set_AnchorPos(CurrentRC.ThisMME, NormalMMEParentRT, 0.3f);
         Set_AnchorPos(CurrentRC.ThisIMME, InteractableMMEParentRT, 0.3f);
 
-        // 포인트
         Set_Point(NormalPoint, CurrentRC.ThisMME);
         Set_Point(InteractablePoint, CurrentRC.ThisIMME);
 
-        // PC가 있는 방
         Set_ActiveMME(CurrentRC.ThisMME);
         Set_ActiveMME(CurrentRC.ThisIMME);
 
         if (CurrentRC.RoomRuleController.RoomType == eRoomType.Completed)
         {
-            CurrentRC.ThisMME.Set_Complete();
-            CurrentRC.ThisIMME.Set_Complete();
+            CurrentRC.ThisMME.Set_Complete(MainColor);
+            CurrentRC.ThisIMME.Set_Complete(MainColor);
         }
         else
         {
@@ -142,8 +139,8 @@ public class MinimapEUIController : ElementUIController
             CurrentRC.ThisIMME.Set_Uncomplete();
         }
 
-        // PC가 있는 방의 인접한 방
         List<RoomController> connectedAllRC = CurrentRC.Get_ConnectedRooms();
+
         for (int i = 0; i < connectedAllRC.Count; i++)
         {
             Set_ActiveMME(connectedAllRC[i].ThisMME);
@@ -160,10 +157,9 @@ public class MinimapEUIController : ElementUIController
     // 미니맵 위치 조정
     private void Set_AnchorPos(MinimapCellEUIController _MME, RectTransform _ParentRT, float _DurTime)
     {
-        if (_MME.gameObject.TryGetComponent(out RectTransform rt))
+        if (DevTool.Get_ComponentTType(_MME.gameObject, out RectTransform rt))
         {
-            if (DOTween.IsTweening(_ParentRT))
-            { DOTween.Kill(_ParentRT); }
+            DevTool.Set_KillTween(_ParentRT);
 
             _ParentRT.DOAnchorPos(-rt.anchoredPosition, _DurTime);
         }
@@ -182,7 +178,8 @@ public class MinimapEUIController : ElementUIController
     private void Set_Point(RectTransform _Point, MinimapCellEUIController _MME)
     {
         _Point.transform.SetParent(_MME.transform);
-        if (_MME.TryGetComponent(out RectTransform rt))
+
+        if (DevTool.Get_ComponentTType(_MME.gameObject, out RectTransform rt))
         {
             Vector2 pivot = Vector2.one - rt.pivot;
             _Point.pivot = pivot;
@@ -194,8 +191,7 @@ public class MinimapEUIController : ElementUIController
     public void Play_Effect()
     {
         // 효과
-        if (DOTween.IsTweening(InnerImg))
-        { DOTween.Kill(InnerImg); }
+        DevTool.Set_KillTween(InnerImg);
 
         InnerImg.DOFade(1f, 0.2f)
             .OnComplete(() =>
@@ -208,64 +204,88 @@ public class MinimapEUIController : ElementUIController
 
     #region Tab Interactable
 
+    
+    private Sequence Play_MinimapTween(
+        Vector2 _TargetSize, 
+        float _NormalMinimapAlpha, float _InteractMinimapAlpha, 
+        float _DurTime,
+        Dele _StartDele, Dele _CompleteDele)
+    {
+        Sequence seq = DOTween.Sequence();
+
+        seq.Join(MinimapFrameRT.DOSizeDelta(_TargetSize, _DurTime));
+        seq.Join(NormalCG.DOFade(_NormalMinimapAlpha, _DurTime));
+        seq.Join(InteractableCG.DOFade(_InteractMinimapAlpha, _DurTime));
+
+        seq.OnStart(() => { _StartDele(); })
+            .OnComplete(() => { _CompleteDele(); });
+
+        return seq; 
+    }
+
+
     public void SetOn_TabInteract(float _DurTime)
     {
-        if (TabSeq != null && DOTween.IsTweening(TabSeq))
-        { DOTween.Kill(TabSeq); }
-        TabSeq = DOTween.Sequence();
+        DevTool.Set_KillTween(TabSeq);
 
-        TabSeq.Join(MinimapFrameRT.DOSizeDelta(InteractableSize_Frame, _DurTime));
-        TabSeq.Join(NormalCG.DOFade(0, _DurTime));
-        TabSeq.Join(InteractableCG.DOFade(1, _DurTime));
-
-        TabSeq
-            .OnStart(() =>
-            {
-                MinimapSelectedElementRC = null;
-                InteractingBookGate = null;
-            })
-            .OnComplete(() =>
-            {
-                // 미니맵 이동을 위한 Reset
-                InteractingPoint.gameObject.SetActive(true);
-
-                InputManager.Instance.InputArrowDir = Vector2Int.zero;
-                CanInteractable = true;
-                
-                MinimapSelectedElementRC = StageManager.Instance.CurrentRoomController;
-            });
+        TabSeq = Play_MinimapTween(
+            _TargetSize: InteractableSize_Frame,
+            _NormalMinimapAlpha: 0f,
+            _InteractMinimapAlpha: 1f, 
+            _DurTime,
+            Set_Start_OnInteract, 
+            Set_Complete_OnInteract);
     }
+
+    private void Set_Start_OnInteract()
+    {
+
+        MinimapSelectedElementRC = null;
+        InteractingBookGate = null;
+    }
+
+    private void Set_Complete_OnInteract()
+    {
+        InteractingPoint.gameObject.SetActive(true);
+
+        InputManager.Instance.InputArrowDir = Vector2Int.zero;
+        CanInteractable = true;
+
+        MinimapSelectedElementRC = StageManager.Instance.CurrentRoomController;
+    }
+
 
     public void SetOff_TabInteract(float _DurTime)
     {
-        if (TabSeq != null && DOTween.IsTweening(TabSeq))
-        { DOTween.Kill(TabSeq); }
-        TabSeq = DOTween.Sequence();
+        DevTool.Set_KillTween(TabSeq);
+        TabSeq = Play_MinimapTween(
+            _TargetSize: NormalSize_Frame,
+            _NormalMinimapAlpha: 1f,
+            _InteractMinimapAlpha: 0f,
+            _DurTime,
+            Set_Start_OffInteract,
+            Set_Complete_OffInteract);
+    }
 
-        TabSeq.Join(MinimapFrameRT.DOSizeDelta(NormalSize_Frame, _DurTime));
-        TabSeq.Join(NormalCG.DOFade(1, _DurTime));
-        TabSeq.Join(InteractableCG.DOFade(0, _DurTime));
+    private void Set_Start_OffInteract()
+    {
 
-        TabSeq
-            .OnStart(() =>
-            {
-                InteractingPoint.gameObject.SetActive(false);
+        InteractingPoint.gameObject.SetActive(false);
 
-                InputManager.Instance.InputArrowDir = Vector2Int.zero;
-                CanInteractable = false;
-            })
-            .OnComplete(() =>
-            {
-                if (InteractingBookGate != null && StageManager.Instance.CurrentRoomController != InteractingBookGate.ParterGate.ThisRoom)
-                {
-                    InteractingBookGate.Play_Interact();
-                }
-            });
+        InputManager.Instance.InputArrowDir = Vector2Int.zero;
+        CanInteractable = false;
+    }
+    private void Set_Complete_OffInteract()
+    {
+        if (InteractingBookGate != null && StageManager.Instance.CurrentRoomController != InteractingBookGate.ParterGate.ThisRoom)
+        {
+            InteractingBookGate.Play_Interact();
+        }
     }
 
     #endregion
 
-    #region Move In Interactable Condition
+    #region Set
 
     private void Set_BookRoom()
     {
@@ -277,10 +297,6 @@ public class MinimapEUIController : ElementUIController
                 InteractingBookGate = gc.ParterGate;
                 MinimapSelectedElementRC = gc.ThisRoom;
                 Set_AnchorPos(MinimapSelectedElementRC.ThisIMME, InteractableMMEParentRT, 0.15f);
-            }
-            else
-            {
-                Debug.Log("NULL");
             }
             InputManager.Instance.InputArrowDir = Vector2Int.zero;
         }

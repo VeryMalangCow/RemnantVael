@@ -145,7 +145,6 @@ public class PlayerHUDController : UIController
         {
             SkillList[i].Offset();
         }
-        ThisMinimap.Offset();
 
         #region Reactive
 
@@ -352,6 +351,8 @@ public class PlayerHUDController : UIController
         SubColorCompList.Clear();
         SubColorCompList = null;
         #endregion
+
+        ThisMinimap.Offset();
 
         #region Buff
 

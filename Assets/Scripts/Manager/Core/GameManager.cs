@@ -833,12 +833,14 @@ public class DevTool
     #region About Tween
 
     #region Play
-    public static void Play_Tween(Tween _Tween, Dele _Start, Dele _Update, Dele _Complete)
+    public static Tween Play_Tween(Tween _Tween, Dele _Start, Dele _Update, Dele _Complete)
     {
         _Tween
             .OnStart(() => { _Start(); })
             .OnUpdate(() => { _Update(); })
             .OnComplete(() => { _Complete(); });
+
+        return _Tween;
     }
 
     #endregion
@@ -1375,6 +1377,23 @@ public class CoupleData<T>
     [SerializeField] public T TypeBase;
     [SerializeField] public T TypeSpecial;
 
+    public CoupleData(T _Base, T _Special)
+    {
+        TypeBase = _Base;
+        TypeSpecial = _Special;
+    }
+    public T Get_Base(bool _Yes)
+    {
+        if (_Yes)
+        {
+            return TypeBase;
+        }
+        else
+        {
+            return TypeSpecial;
+        }
+    }
+
     public T Get_Special(bool _Yes)
     {
         if (_Yes)
@@ -1393,6 +1412,30 @@ public class CouplePair<T>
 {
     [SerializeField] public CoupleData<T> TypeBase;
     [SerializeField] public CoupleData<T> TypeSpecial;
+
+    public CoupleData<T> Get_Base(bool _Yes)
+    {
+        if (_Yes)
+        {
+            return TypeBase;
+        }
+        else
+        {
+            return TypeSpecial;
+        }
+    }
+
+    public CoupleData<T> Get_Special(bool _Yes)
+    {
+        if (_Yes)
+        {
+            return TypeSpecial;
+        }
+        else
+        {
+            return TypeBase;
+        }
+    }
 }
 
 [System.Serializable]

@@ -9,96 +9,71 @@ public class MinimapCellEUIController : ElementUIController
     [HideInInspector] private Image ThisMMImg = null;
     [HideInInspector] private Image ThisMMOImg = null;
     [HideInInspector] private CanvasGroup ThisCG = null;
-    [HideInInspector] private RoomController ConnectedRC = null;
-
-    [HideInInspector] private Color ThisMainColor;
 
     [SerializeField] private Color UnknowColor;
-    [SerializeField] private const float IntervalEachMM = 36;
-    [SerializeField] private const float IntervalEachIMM = 60;
+    [SerializeField] private CoupleData<float> IntervalMM = new CoupleData<float>(36, 60);
 
     #endregion
 
     #region Offset
 
-    public void Offset(RoomController _RC, Color _MainColor, bool _IsNormal)
+    public override void Offset()
     {
-        Offset();
+        ThisMMImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
+        ThisCG = DevTool.Get_ComponentTType(gameObject, out CanvasGroup cg) ? cg : null;
+        ThisCG.alpha = 0f;
+        ThisMMOImg = DevTool.Get_ComponentTType(transform.GetChild(0).gameObject, out Image outlineImg) ? outlineImg : null;
 
-        ConnectedRC = _RC;
-        ThisMainColor = _MainColor;
+    }
 
 
-        if (_IsNormal)
-        {
-            ConnectedRC.ThisMME = this;
-            ThisMMImg.sprite = ConnectedRC.MinimapElementIcon.TypeBase.TypeBase;
-            ThisMMOImg.sprite = ConnectedRC.MinimapElementIcon.TypeBase.TypeSpecial;
-        }
-        else
-        {
-            ConnectedRC.ThisIMME = this;
-            ThisMMImg.sprite = ConnectedRC.MinimapElementIcon.TypeSpecial.TypeBase;
-            ThisMMOImg.sprite = ConnectedRC.MinimapElementIcon.TypeSpecial.TypeSpecial;
-        }
+    public void Offset(RoomController _RC, bool _IsNormal)
+    {
+        // From/To RC
+        CoupleData<Sprite> thisSprites = _RC.MinimapElementIcon.Get_Base(_IsNormal);
+        ref MinimapCellEUIController target = ref (_IsNormal ? ref _RC.ThisMME : ref _RC.ThisIMME);
+        target = this;
+
+        // Sprite
+        ThisMMImg.sprite = thisSprites.TypeBase;
+        ThisMMOImg.sprite = thisSprites.TypeSpecial;
 
         ThisMMImg.SetNativeSize();
         ThisMMOImg.SetNativeSize();
 
-        if (this.TryGetComponent(out RectTransform rt))
+        // Pivot
+        if (DevTool.Get_ComponentTType(gameObject, out RectTransform rt))
         {
             rt.pivot = _RC.SpritePivot;
-            if (_IsNormal)
-            {
-                rt.anchoredPosition = new Vector2(
-                    (float)_RC.RoomVec[0].x * IntervalEachMM,
-                    (float)_RC.RoomVec[0].y * IntervalEachMM);
-            }
-            else
-            {
-                rt.anchoredPosition = new Vector2(
-                    (float)_RC.RoomVec[0].x * IntervalEachIMM,
-                    (float)_RC.RoomVec[0].y * IntervalEachIMM);
-            }
-        }
-    }
-
-    public override void Offset()
-    {
-        if (this.TryGetComponent(out Image MM_Img))
-        {
-            ThisMMImg = MM_Img;
-        }
-        if (this.TryGetComponent(out CanvasGroup CG))
-        {
-            ThisCG = CG;
-            ThisCG.alpha = 0f;
-        }
-        if (this.transform.GetChild(0).TryGetComponent(out Image MMO_Img))
-        {
-            ThisMMOImg = MMO_Img;
+            rt.anchoredPosition = new Vector2(
+                    (float)_RC.RoomVec[0].x * IntervalMM.Get_Base(_IsNormal),
+                    (float)_RC.RoomVec[0].y * IntervalMM.Get_Base(_IsNormal));
         }
     }
 
     #endregion
 
-    #region SetState
+    #region Set
 
-    public void Set_Complete()
+    // 완료된 방
+    public void Set_Complete(Color _MainColor)
     {
-        ThisMMOImg.DOColor(ThisMainColor, 0.5f);
+        ThisMMOImg.DOColor(_MainColor, 0.5f);
     }
 
+    // 완료되지 않은 방
     public void Set_Uncomplete()
     {
         ThisMMOImg.DOColor(UnknowColor, 0.5f);
     }
 
+    // 보이는 방 (접근된 방)
     public void Set_Visible()
     {
         ThisMMOImg.color = new Color(0, 0, 0, 0.5f);
     }
 
+    // 활성화
     public void Set_ActiveOn()
     {
         this.gameObject.SetActive(true);
