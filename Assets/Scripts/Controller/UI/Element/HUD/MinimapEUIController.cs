@@ -38,14 +38,9 @@ public class MinimapEUIController : ElementUIController
     [SerializeField] private RectTransform InteractablePoint;
     [SerializeField] private RectTransform InteractingPoint;
 
-
     // CG
     [HideInInspector] private CanvasGroup NormalCG;
     [HideInInspector] private CanvasGroup InteractableCG;
-
-    // Minimap cell
-    [HideInInspector] private List<MinimapCellEUIController> AllMMCs = new List<MinimapCellEUIController>();
-    [HideInInspector] private List<MinimapCellEUIController> AllIMMCs = new List<MinimapCellEUIController>();
 
     // Book
     [HideInInspector] private GateController InteractingBookGate;
@@ -107,7 +102,6 @@ public class MinimapEUIController : ElementUIController
             mmc.gameObject.SetActive(false);
             mmc.Offset();
             mmc.Offset(_ConnetedRoom, _IsNormal);
-            AllIMMCs.Add(mmc);
         }
     }
 
@@ -239,7 +233,6 @@ public class MinimapEUIController : ElementUIController
 
     private void Set_Start_OnInteract()
     {
-
         MinimapSelectedElementRC = null;
         InteractingBookGate = null;
     }
@@ -269,7 +262,6 @@ public class MinimapEUIController : ElementUIController
 
     private void Set_Start_OffInteract()
     {
-
         InteractingPoint.gameObject.SetActive(false);
 
         InputManager.Instance.InputArrowDir = Vector2Int.zero;

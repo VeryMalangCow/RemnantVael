@@ -552,6 +552,22 @@ public class DevTool
         }
     }
 
+    // Comp
+    public static void Set_SpriteList(List<Image> _TargetList, Sprite _Sprite)
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            _TargetList[i].sprite = _Sprite;
+        }
+    }
+    public static void Set_SpriteNativeSize(List<Image> _TargetList)
+    {
+        for (int i = 0; i < _TargetList.Count; i++)
+        {
+            _TargetList[i].SetNativeSize();
+        }
+    }
+
     #endregion
 
     #endregion
@@ -1308,6 +1324,43 @@ public class DevTool
     {
         if (_Comp == null) return;
         _Comp.color = new Color(_Clr.r, _Clr.g, _Clr.b, _Comp.color.a);
+    }
+
+
+    public static void Set_AlphaColor(TMP_Text _Txt, float _A)
+    {
+        _Txt.color = Get_AlphaColor(_Txt, _A);
+    }
+
+    public static Color Get_AlphaColor(TMP_Text _Txt, float _A)
+    {
+        Color clr = _Txt.color;
+        clr.a = _A;
+        return clr;
+    }
+
+    #endregion
+
+    #region Image
+
+    // 커지고 작아지는 효과
+    public static Tween Play_ScalePulse(RectTransform _RT, float _BigScale, float _OriginalScale = 1f, float _DurTime = 0.4f)
+    {
+        return _RT.DOScale(_BigScale, _DurTime * 0.5f)
+            .OnComplete(() =>
+            {
+                _RT.DOScale(_OriginalScale, _DurTime * 0.5f);
+            });
+    }
+
+    // 투명도 효과
+    public static Tween Play_FadePulse(Image _Img, float _HighAplha = 1f, float _OriginalAlpha = 0.25f, float _DurTime = 0.4f)
+    {
+        return _Img.DOFade(_HighAplha, _DurTime * 0.5f)
+           .OnComplete(() =>
+           {
+               _Img.DOFade(_OriginalAlpha, _DurTime * 0.5f);
+           });
     }
 
     #endregion

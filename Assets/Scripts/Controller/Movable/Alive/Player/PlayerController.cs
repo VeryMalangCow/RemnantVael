@@ -190,7 +190,7 @@ public class PlayerController : AliveObjectController
         CurrentInteractable
             .Subscribe(interact =>
             {
-                MainGameUIManager.Instance.PlayerHUD_UIController.Set_StateInteractUI();
+                MainGameUIManager.Instance.PlayerHUD_UIController.Set_InteractUI();
                 MainGameUIManager.Instance.InteractAnno_UIController.Set_UI();
                 Set_MoveDir();
             });
@@ -596,7 +596,7 @@ public class PlayerController : AliveObjectController
 
         CurrentInteractable.Value.Play_Interact();
         
-        MainGameUIManager.Instance.PlayerHUD_UIController.Set_UseInteractUI();
+        MainGameUIManager.Instance.PlayerHUD_UIController.Play_UseInteractUI();
     }
 
     #endregion

@@ -826,9 +826,9 @@ public class ModuleUpgradeUIController : PanelUIController
         moduleState.ItemUI_Extra.Add(emptySlot.ThisSlotItem);
 
         // Player HUD
-        MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[index].ThisSlotItem.Set_Data(state);
+        MainGameUIManager.Instance.PlayerHUD_UIController.ModuleSlots[index].ThisSlotItem.Set_Data(state);
 
-        moduleState.ItemUI_Extra.Add(MainGameUIManager.Instance.PlayerHUD_UIController.MEISList[index].ThisSlotItem);
+        moduleState.ItemUI_Extra.Add(MainGameUIManager.Instance.PlayerHUD_UIController.ModuleSlots[index].ThisSlotItem);
 
         ModuleItemManager.Instance.Equiped_MSList.Add(moduleState);
 

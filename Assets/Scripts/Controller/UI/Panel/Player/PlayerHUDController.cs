@@ -5,6 +5,8 @@ using DG.Tweening;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
+using System.Linq;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerHUDController : UIController
 {
@@ -66,7 +68,7 @@ public class PlayerHUDController : UIController
 
     [Space(10)]
     [Header("=== Other Item")]
-    [SerializeField] private RectTransform MSRT;
+    [SerializeField] private RectTransform MS_RT;
     [SerializeField] private Image MS_InnerImg;
     [SerializeField] private TMP_Text MS_AmountTxt;
 
@@ -107,7 +109,7 @@ public class PlayerHUDController : UIController
     [Header("=== Color Or Icon")]
     [Header("-- Icon")]
     [SerializeField] private List<Image> ESImgList;
-    [HideInInspector] private List<Image> SkillImgList;
+    [HideInInspector] private List<Image> SkillImgList = new List<Image>();
 
     [Header("-- Buff")]
     [SerializeField] private Transform BuffParentTF;
@@ -127,7 +129,7 @@ public class PlayerHUDController : UIController
 
     // Tab -> Module
     [HideInInspector] private float DefaultModuleRectX;
-    [HideInInspector] public List<InventorySlotEUIController> MEISList;
+    [HideInInspector] public List<InventorySlotEUIController> ModuleSlots = new List<InventorySlotEUIController>();
 
     // Tab -> Skill State
     [HideInInspector] private float DefaultPlayerStatesRectX;
@@ -141,24 +143,73 @@ public class PlayerHUDController : UIController
 
     #endregion
 
+
     #region Offset
 
     public override void Offset()
     {
         base.Offset();
+        
+        Offset_Basic();
+        Offset_RectPosData();
+        Offset_Subscribe();
+        Offset_Img();
+        Offset_ColorComp();
+        Offset_AfterColorSet();
+    }
 
+    private void Offset_Basic()
+    {
         EP.Offset();
         CurrentEmptyBC.Offset();
         EmptyBC.Offset();
         FullEC.Offset();
 
-        for (int i = 0; i < SkillList.Count; i++)
+        // EP Txt
+        ECCostTxt.text = PlayerManager.Instance.PlayerController.NeedEP_ForMakeEC.ToString();
+
+        // 스킬
+        for (int i = 0; i < SkillList.Count; i++) SkillList[i].Offset();
+
+        // 모듈 아이템
+        ModuleSlots = DevTool.Get_ChildList<InventorySlotEUIController>(ModuleListParentRT);
+        for (int i = 0; i < ModuleSlots.Count; i++)
         {
-            SkillList[i].Offset();
+            ModuleSlots[i].Offset();
+            ModuleSlots[i].ThisSlotItem.Offset();
         }
 
-        #region Reactive
+        // 버프
+        PoolingManager.Instance.BuffIcons.ParentTF = BuffParentTF;
+    }
 
+    private void Offset_RectPosData()
+    {
+        // 기본 위치
+        // 모듈
+        DefaultModuleRectX = DevTool.Get_ComponentTType(
+            ModuleListParentRT.gameObject, out RectTransform module_Rt) ?
+                module_Rt.anchoredPosition.x : 0f;
+
+        // 플레이어 스탯
+        DefaultPlayerStatesRectX = DevTool.Get_ComponentTType(
+            PlayerStatesCostParentRT.gameObject, out RectTransform state_Rt) ?
+                state_Rt.anchoredPosition.x : 0f;
+
+        // 스킬
+        DefaultSkillStatesRectY = DevTool.Get_ComponentTType(
+            SkillStatesParentRT.gameObject, out RectTransform ss_Rt) ?
+                ss_Rt.anchoredPosition.y : 0f;
+
+        // CG 값
+        for (int i = 0; i < ParentCGList.Count; i++) ParentCGList[i].alpha = 0f;
+
+        // 부스트
+        DefaultBoostRectY = BoostRT.anchoredPosition.y;
+    }
+
+    private void Offset_Subscribe()
+    {
         PlayerManager.Instance.PlayerController.MaxEP.ActualState
             .Subscribe(_MaxEP =>
             {
@@ -220,136 +271,43 @@ public class PlayerHUDController : UIController
         PlayerManager.Instance.PlayerController.CurrentBoostLv
             .Subscribe(_BoostLevel =>
             {
-                Debug.Assert(_BoostLevel >= 0 && _BoostLevel <= 4, "Boost Range Out!");
                 Set_TextOfBoost(_BoostLevel);
 
-                //Set_ActiveAmountBoost(BoostLightArr, _BoostLevel);
-                //Set_ActiveAmountBoost(BoostLightWheelArr, _BoostLevel);
+                Play_ActiveBoost(BoostLightArr, _BoostLevel);
+                Play_ActiveBoost(BoostLightWheelArr, _BoostLevel);
 
-                Set_RollAmountBoost(BoostLightWheelArr, _BoostLevel);
+                Play_RollBoost(BoostLightWheelArr, _BoostLevel);
             })
             .AddTo(gameObject);
 
-        #endregion
+    }
 
-        #region Other Offset
-
+    private void Offset_Img()
+    {
+        // EP 지나가는 효과 이미지
         EP_FlowRT.DOAnchorPos(new Vector2(1920, 0), 2f, false)
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart);
 
-        ECCostTxt.text = PlayerManager.Instance.PlayerController.NeedEP_ForMakeEC.ToString();
+        // ES 이미지
+        DevTool.Set_SpriteList(ESImgList, PlayerManager.Instance.PlayerController.ES_Sprite);
+        DevTool.Set_SpriteNativeSize(ESImgList);
 
-        MEISList = new List<InventorySlotEUIController>();
-        for (int i = 0; i < ModuleListParentRT.transform.childCount; i++)
-        {
-            if (ModuleListParentRT.transform.GetChild(i).gameObject.TryGetComponent(out InventorySlotEUIController MEIS))
-            {
-                MEISList.Add(MEIS);
-                MEIS.Offset();
-                MEIS.ThisSlotItem.Offset();
-            }
-        }
-
-        if (ModuleListParentRT.TryGetComponent(out RectTransform M_Rt))
-        {
-            DefaultModuleRectX = M_Rt.anchoredPosition.x;
-        }
-        if (PlayerStatesCostParentRT.TryGetComponent(out RectTransform PS_Rt))
-        {
-            DefaultPlayerStatesRectX = PS_Rt.anchoredPosition.x;
-        }
-        if (SkillStatesParentRT.TryGetComponent(out RectTransform SS_Rt))
-        {
-            DefaultSkillStatesRectY = SS_Rt.anchoredPosition.y;
-        }
-
-        for (int i = 0; i < ParentCGList.Count; i++)
-        {
-            ParentCGList[i].alpha = 0f;
-        }
-
-        DefaultBoostRectY = BoostRT.anchoredPosition.y;
-
-        StageNameTxt.color = GetFullAlphaColor(StageNameTxt, 1);
-        StageDescriptionTxt.color = GetFullAlphaColor(StageDescriptionTxt, 0);
-
-        Color GetFullAlphaColor(TMP_Text _Txt, float _A)
-        {
-            Color clr = _Txt.color;
-            clr.a = _A;
-            return clr;
-        }
-
-        #endregion
-
-        #region Set Img
-
-        // Set Img
-
-        for (int i = 0; i < ESImgList.Count; i++)
-        {
-            ESImgList[i].sprite = PlayerManager.Instance.PlayerController.ES_Sprite;
-            ESImgList[i].SetNativeSize();
-        }
-
-        SkillImgList = new List<Image>();
+        // 스킬 이미지
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
             SkillImgList.Add(DevTool.Get_ComponentTType<Image>(SkillList[i].gameObject));
             SkillImgList[i].sprite = PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].ThisIcon;
         }
+    }
 
-        #endregion
+    private void Offset_ColorComp()
+    {
+        DevTool.Set_AlphaColor(StageNameTxt, 1);
+        DevTool.Set_AlphaColor(StageDescriptionTxt, 0);
 
-        #region Set Color
-
-        // Main
-        MainColorCompList.Add(EP.AfterImg.gameObject.transform.GetChild(0).GetComponent<Image>());
-        MainColorCompList.Add(EP.ActualImg.gameObject.transform.GetChild(0).GetComponent<Image>());
-        MainColorCompList.Add(EP.ActualImgLiner.gameObject.transform.GetComponent<Image>());
-
-        MainColorCompList.Add(BoostLv);
-        for (int i = 0; i < BoostLightArr.Length; i++)
-        { MainColorCompList.Add(BoostLightArr[i].GetComponent<Image>()); MainColorCompList.Add(BoostLightWheelArr[i].GetComponent<Image>()); }
-
-        for (int i = 0; i < DevTool.SkillAmount; i++)
-        {
-            MainColorCompList.Add(SkillList[i].SkillCostTxt);
-            MainColorCompList.Add(SkillList[i].SkillErrorTxt);
-            MainColorCompList.Add(SkillStatesTxtList[i]);
-
-            SubColorCompList.Add(SkillList[i].SkillInnerImg);
-        }
-
-        MainColorCompList.Add(PlayerStatesTxt);
-
-        MainColorCompList.Add(StageNameTxt);
-        MainColorCompList.Add(StageDescriptionTxt);
-
-        MainColorCompList.Add(ECCostTxt);
-        MainColorCompList.Add(MS_AmountTxt);
-
-        MainColorCompList.Add(EmptyBC.AmountTxt);
-        MainColorCompList.Add(FullEC.AmountTxt);
-
-        MainColorCompList.Add(InteractOnOffTxt);
-
-        // Sub
-        SubColorCompList.AddRange(EPInnerImgList);
-        SubColorCompList.AddRange(BoostInnerList);
-
-
-        SubColorCompList.Add(ThisMinimap.InnerImg);
-        SubColorCompList.Add(CurrentEmptyBC.LightInner);
-
-        SubColorCompList.Add(ECCostArrowImg);
-        SubColorCompList.Add(EmptyBC.InnerImg);
-        SubColorCompList.Add(FullEC.InnerImg);
-        SubColorCompList.Add(MS_InnerImg);
-
-        SubColorCompList.Add(InnerImg);
-        SubColorCompList.Add(UsingInnerImg);
+        MainColorCompList.AddRange(Get_MainColorComp());
+        SubColorCompList.AddRange(Get_SubColorTxt());
 
         // Color Set
         Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
@@ -361,105 +319,164 @@ public class PlayerHUDController : UIController
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
-        #endregion
 
+    }
+
+    private void Offset_AfterColorSet()
+    {
         ThisMinimap.Offset();
-
-        #region Buff
-
-        PoolingManager.Instance.BuffIcons.ParentTF = BuffParentTF;
-
-        #endregion
     }
 
     #endregion
 
-    #region Set Tab
+    #region Reset
 
     private void Reset_Tab()
     {
-        PlayerController pc = PlayerManager.Instance.PlayerController;
-        PlayerWeaponController pwc = pc.BaseWeapon;
-        SkillWeaponController pswc = pc.SkillWeapon;
+        PlayerController player = PlayerManager.Instance.PlayerController;
+        PlayerWeaponController weapon = player.BaseWeapon;
+        SkillWeaponController skill = player.SkillWeapon;
 
-        SetPlayerState();
+        PlayerStatesTxt.text = Get_PlayerStateTxt(player, weapon);
 
         for (int i = 0; i < DevTool.SkillAmount; i++)
-        {
-            SetSkillState(SkillStatesTxtList[i], pswc.SkillList[i]);
-        }
-
-        void SetPlayerState()
-        {
-            string playerStateTotalString = "";
-            List<string> playerActualDataList = new List<string>()
-            {
-                pc.MaxEP.ActualState.Value.ToString(),
-                pc.WalkSpeed.ActualState.Value.ToString(),
-                pc.DashController.DashSpeed.ActualState.Value.ToString(),
-                pc.DashController.Get_ActualNeedEP().ToString(),
-                pwc.BaseDamage.ActualState.Value.ToString(),
-                pwc.ROF.ActualState.Value.ToString(),
-                pwc.AccuracyRate.ActualState.Value.ToString(),
-                pwc.CC.ActualState.Value.ToString(),
-                pwc.CD.ActualState.Value.ToString()
-
-            };
-            for (int i = 0; i < PlayerStatesStringList.Count; i++)
-            {
-                playerStateTotalString += "<size=70%>" + PlayerStatesStringList[i] + ": </size>";
-                playerStateTotalString += "<b>" + playerActualDataList[i] + "</b>\n";
-            }
-            PlayerStatesTxt.text = playerStateTotalString;
-        }
-
-        void SetSkillState(TMP_Text _TxtComp, ActiveSkillController _SkillController)
-        {
-            string skillStateTotalString = "";
-            List<string> skillActualDataList = new List<string>()
-            {
-                _SkillController.Tier.ActualState.Value.ToString(),
-                _SkillController.Power.ActualState.Value.ToString()
-            };
-            for (int i = 0; i < SkillStatesStringList.Count; i++)
-            {
-                skillStateTotalString += "<size=70%>" + SkillStatesStringList[i] + ": </size>\n";
-                skillStateTotalString += "<b>" + skillActualDataList[i] + "</b>\n";
-            }
-            _TxtComp.text = skillStateTotalString;
-        }
+            SkillStatesTxtList[i].text = Get_SkillStateTxt(skill.SkillList[i]);
     }
 
     #endregion
 
     #region Framework
 
-    private void Update()
+    private void LateUpdate()
     {
-        Caculate_TabInput();
+        Caculate_TabInput(Time.deltaTime);
     }
 
     #endregion
 
-    #region Item
+    #region Caculate
 
-    public void Set_MSAmount(int _Amount)
+    private void Caculate_TabInput(float _DeltaTime)
     {
-        DOTween.Kill(MSRT);
-        DOTween.Kill(MS_InnerImg);
+        if (IsTabInputed)  
+            Caculate_WhenTabInputOn(_DeltaTime);
+        else  
+            Caculate_WhenTabInputOff(_DeltaTime);
+    }
 
-        MS_InnerImg.DOFade(1f, 0.2f)
-            .OnComplete(() =>
+    private void Caculate_WhenTabInputOn(float _DeltaTime)
+    {
+        if (TabInputedMaxTime > TabInputedCurrentTime) // 인풋 시간 계산
+        {
+            TabInputedCurrentTime += _DeltaTime;
+        }
+        else // 인풋 시간 충분 상태
+        {
+            if (!IsTabInteracted)
             {
-                MS_InnerImg.DOFade(0.25f, 0.2f);
-            });
+                SetOn_TabInteract();
+            }
+        }
+    }
 
-        MSRT.DOScale(1.2f, 0.2f)
-            .OnComplete(() =>
-            {
-                MSRT.DOScale(1.0f, 0.2f);
-            });
-        MS_AmountTxt.text = _Amount.ToString();
+    private void Caculate_WhenTabInputOff(float _DeltaTime)
+    {
+        if (TabInputedCurrentTime != 0)
+        {
+            TabInputedCurrentTime = 0f;
+        }
+        if (IsTabInteracted)
+        {
+            SetOff_TabInteract();
+        }
+    }
+
+    #endregion
+
+    #region Interact
+
+    public void Set_InteractUI()
+    {
+        if (IsActingInteractUI) return; 
+
+        IInteract ii = PlayerManager.Instance.PlayerController.CurrentInteractable.Value;
+        string txt = DevTool.Get_InteractingAnnoTxt(ii);
+
+        if (ii != null && txt != "")
+        {
+            Set_InteractTxt("-ENABLE-", txt);
+            Set_InteractFade(1f, 0.5f);
+        }
+        else
+        {
+            Set_InteractTxt("-DISABLE-", "< NONE >");
+            Set_InteractFade(0.25f, 0.5f);
+        }
+    }
+
+    private void Set_InteractTxt(string _OnOffTxt, string _InteractableTxt)
+    {
+        InteractOnOffTxt.text = _OnOffTxt;
+        InteractDesctiptionTxt.text = _InteractableTxt;
+    }
+
+    private void Set_InteractFade(float _Alpha, float _DurTime)
+    {
+        DevTool.Set_KillTween(InteractOnOffTxt);
+        DevTool.Set_KillTween(InteractDesctiptionTxt);
+
+        InteractOnOffTxt.DOFade(_Alpha, _DurTime);
+        InteractDesctiptionTxt.DOFade(_Alpha, _DurTime);
+    }
+
+    #endregion
+
+    #region
+
+    public void Set_StageDescription(string _StageName, string _StageDescription)
+    {
+        StageNameTxt.DOText(_StageName, 0.5f)
+            .OnPlay(() => { StageNameTxt.text = ""; });
+        StageDescriptionTxt.DOText(_StageDescription, 0.5f)
+            .OnPlay(() => { StageDescriptionTxt.text = ""; });
+    }
+
+    #endregion
+
+    #region Tab
+
+    public void SetOn_TabInteract()
+    {
+        if (IsTabInteracted) return;
+        IsTabInteracted = true;
+
+        Reset_Tab();
+
+        DevTool.Set_KillTween(TabSeq);
+
+        TabSeq = Play_SeqInteract(
+            0f, 0f, 0f, 0f,
+            0f, 1f, TabInteractDurTime, Ease.OutCubic);
+
+        TabSeq.Join(Play_FadeCGs(1, TabInteractDurTime));
+
+        ThisMinimap.SetOn_TabInteract(TabInteractDurTime);
+    }
+
+    public void SetOff_TabInteract()
+    {
+        if (!IsTabInteracted) return; 
+        IsTabInteracted = false;
+
+        DevTool.Set_KillTween(TabSeq);
+
+        TabSeq = Play_SeqInteract(
+            DefaultModuleRectX, DefaultPlayerStatesRectX, DefaultSkillStatesRectY, DefaultBoostRectY,
+            1f, 0f, TabInteractDurTime, Ease.InCubic);
+
+        TabSeq.Join(Play_FadeCGs(0, TabInteractDurTime));
+
+        ThisMinimap.SetOff_TabInteract(TabInteractDurTime);
     }
 
     #endregion
@@ -468,9 +485,25 @@ public class PlayerHUDController : UIController
 
     public void Set_ShieldGage(float _TotalShield)
     {
-        DOTween.Kill(ShieldRT);
-        ShieldRT.DOSizeDelta(new Vector2(8 + (_TotalShield * 3), ShieldRT.sizeDelta.y), 1f);
+        DevTool.Set_KillTween(ShieldRT);
+
+        ShieldRT.DOSizeDelta(new Vector2(Get_ShieldGageX(_TotalShield), ShieldRT.sizeDelta.y), 1f);
         ShieldTxt.text = "<size=75%>( </size>" + Mathf.Round(_TotalShield).ToString() + "<size=75%> )</size>";
+    }
+
+    #endregion
+
+    #region Item
+
+    public void Set_MSAmount(int _Amount)
+    {
+        MS_AmountTxt.text = _Amount.ToString();
+
+        DevTool.Set_KillTween(MS_RT);
+        DevTool.Set_KillTween(MS_InnerImg);
+
+        DevTool.Play_ScalePulse(MS_RT, 1.4f);
+        DevTool.Play_FadePulse(MS_InnerImg, 1f, 0.25f);
     }
 
     #endregion
@@ -480,226 +513,7 @@ public class PlayerHUDController : UIController
     private void Set_TextOfBoost(int _CurrentLv)
     {
         BoostLv.text = _CurrentLv.ToString();
-        Color clr = BoostLv.color;
-        clr.a = 0.25f * (_CurrentLv + 1);
-        BoostLv.color = clr;
-        
-    }
-
-    private void Set_ActiveAmountBoost(GameObject[] _Arr, int _CurrentLv)
-    {
-        for (int i = 0; i < _Arr.Length; i++)
-        {
-            if (_Arr[i].TryGetComponent(out Image img))
-            {
-                if (DOTween.IsTweening(img))
-                { DOTween.Kill(img); }
-
-                if (i < _CurrentLv)
-                {
-                    _Arr[i].SetActive(true);
-                    img.DOFade(1f, 0.2f);
-                }
-                else
-                {
-                    img.DOFade(0f, 0.2f)
-                        .OnComplete(() =>
-                        {
-                            _Arr[i].SetActive(false);
-                        });
-                }
-            }
-        }
-    }
-
-    private void Set_RollAmountBoost(GameObject[] _Arr, int _CurrentLv)
-    {
-        for (int i = 0; i < _Arr.Length; i++)
-        {
-            _Arr[i].TryGetComponent(out RectTransform rt);
-            
-            if (i < _CurrentLv)
-            {
-                rt.DOLocalRotate(new Vector3(0, 0, 360), 0.2f, RotateMode.LocalAxisAdd)
-                    .SetEase(Ease.OutCubic)
-                    .OnComplete(() =>
-                    {
-                        rt.DOLocalRotate(new Vector3(0, 0, 360), 3f / (i + 1f), RotateMode.LocalAxisAdd)
-                            .SetEase(Ease.Linear)
-                            .SetLoops(-1, LoopType.Restart);
-                    });
-            }
-            else
-            {
-                DOTween.Kill(rt);
-            }
-        }
-    }
-
-    #endregion
-
-    #region Description
-
-    public void Set_StateInteractUI()
-    {
-        if (IsActingInteractUI)
-        { return; }
-
-        IInteract ii = PlayerManager.Instance.PlayerController.CurrentInteractable.Value;
-        string txt = DevTool.Get_InteractingAnnoTxt(ii);
-
-        if (ii != null && txt != "")
-        {
-            Set_EnableInteract(txt);
-        }
-        else
-        {
-            Set_DisableInteract();
-        }
-    }
-
-
-    private void Set_DisableInteract()
-    {
-        DOTween.Kill(InteractOnOffTxt);
-        InteractOnOffTxt.DOFade(0.25f, 0.5f);
-        InteractOnOffTxt.text = "-DISABLE-";
-
-        DOTween.Kill(InteractDesctiptionTxt);
-        InteractDesctiptionTxt.DOFade(0.25f, 0.5f);
-        InteractDesctiptionTxt.text = "< NONE >";
-    }
-
-    private void Set_EnableInteract(string _Interactable)
-    {
-        DOTween.Kill(InteractOnOffTxt);
-        InteractOnOffTxt.DOFade(1f, 0.5f);
-        InteractOnOffTxt.text = "-ENABLE-";
-
-        DOTween.Kill(InteractDesctiptionTxt);
-        InteractDesctiptionTxt.DOFade(1f, 0.5f);
-        InteractDesctiptionTxt.text = "< " + _Interactable + " >";
-    }
-
-
-    public void Set_UseInteractUI()
-    {
-        IsActingInteractUI = true;
-
-        DOTween.Kill(UsingInnerImg);
-        UsingInnerImg.DOFade(1f, 0.2f)
-            .OnComplete(() =>
-            {
-                UsingInnerImg.DOFade(0.25f, 0.2f)
-                .OnComplete(() =>
-                {
-                    IsActingInteractUI = false;
-                    Set_StateInteractUI();
-                });
-            });
-    }
-
-
-    public void Set_StageDescription(string _StageName, string _StageDescription)
-    {
-        StageNameTxt.DOText(_StageName, 0.5f)
-            .OnPlay(() =>
-            {
-                StageNameTxt.text = "";
-            });
-        StageDescriptionTxt.DOText(_StageDescription, 0.5f)
-            .OnPlay(() =>
-            {
-                StageDescriptionTxt.text = "";
-            });
-    }
-
-    #endregion
-
-    #region Tab
-
-    private void Caculate_TabInput()
-    {
-        if (IsTabInputed) // 인풋 O
-        {
-            if (TabInputedMaxTime > TabInputedCurrentTime) // 인풋 시간 계산
-            {
-                TabInputedCurrentTime += Time.deltaTime;
-            }
-            else // 인풋 시간 충분 상태
-            {
-                if (!IsTabInteracted)
-                {
-                    SetOn_TabInteract();
-                }
-            }
-        }
-        else // 인풋 X
-        {
-            if (TabInputedCurrentTime != 0)
-            {
-                TabInputedCurrentTime = 0f;
-            }
-            if (IsTabInteracted)
-            {
-                SetOff_TabInteract();
-            }
-        }
-    }
-
-    public void SetOn_TabInteract()
-    {
-        if (IsTabInteracted)
-        { return; }
-        IsTabInteracted = true;
-
-        if (TabSeq != null && DOTween.IsTweening(TabSeq))
-        { DOTween.Kill(TabSeq); }
-        TabSeq = DOTween.Sequence();
-
-        Reset_Tab();
-
-        TabSeq.Join(ModuleListParentRT.DOAnchorPosX(0f, TabInteractDurTime));
-        TabSeq.Join(PlayerStatesCostParentRT.DOAnchorPosX(0f, TabInteractDurTime));
-        TabSeq.Join(SkillStatesParentRT.DOAnchorPosY(0f, TabInteractDurTime));
-        TabSeq.Join(BoostRT.DOAnchorPosY(0f, TabInteractDurTime));
-        TabSeq.Join(StageNameTxt.DOFade(0f, TabInteractDurTime));
-        TabSeq.Join(StageDescriptionTxt.DOFade(1f, TabInteractDurTime));
-
-        TabSeq.SetEase(Ease.OutCubic);
-        for (int i = 0; i < ParentCGList.Count; i++)
-        {
-            ParentCGList[i].DOFade(1, TabInteractDurTime);
-        }
-
-        ThisMinimap.SetOn_TabInteract(TabInteractDurTime);
-    }
-
-    public void SetOff_TabInteract()
-    {
-        if (!IsTabInteracted)
-        { return; }
-        IsTabInteracted = false;
-        TabInputedCurrentTime = 0f;
-
-        if (TabSeq != null && DOTween.IsTweening(TabSeq))
-        { DOTween.Kill(TabSeq); }
-        TabSeq = DOTween.Sequence();
-
-        TabSeq.Join(ModuleListParentRT.DOAnchorPosX(DefaultModuleRectX, TabInteractDurTime));
-        TabSeq.Join(PlayerStatesCostParentRT.DOAnchorPosX(DefaultPlayerStatesRectX, TabInteractDurTime));
-        TabSeq.Join(SkillStatesParentRT.DOAnchorPosY(DefaultSkillStatesRectY, TabInteractDurTime));
-        TabSeq.Join(BoostRT.DOAnchorPosY(DefaultBoostRectY, TabInteractDurTime));
-        TabSeq.Join(StageNameTxt.DOFade(1f, TabInteractDurTime));
-        TabSeq.Join(StageDescriptionTxt.DOFade(0f, TabInteractDurTime));
-
-        TabSeq.SetEase(Ease.InCubic);
-        for (int i = 0; i < ParentCGList.Count; i++)
-        {
-            ParentCGList[i].DOFade(0, TabInteractDurTime);
-        }
-
-        ThisMinimap.SetOff_TabInteract(TabInteractDurTime);
+        DevTool.Set_AlphaColor(BoostLv, _CurrentLv == 0 ? 0.1f : 0.25f * (_CurrentLv));
     }
 
     #endregion
@@ -709,26 +523,242 @@ public class PlayerHUDController : UIController
     public void Set_BuffPosUI()
     {
         for (int i = 0; i < AllBuffIconUI.Count; i++)
-        {
             AllBuffIconUI[i].ThisRT.anchoredPosition = new Vector2(i * (AllBuffIconUI[i].ThisRT.rect.width + BuffUI_XInterval), 0);
-        }
     }
 
     #endregion
 
-    #region Screen
+    #region Tween
 
+    // 피격 시 효과
     public void Play_HittedPlayScreen(float _Dmg)
     {
-        if (DOTween.IsTweening(HittedScreen))
-        { DOTween.Kill(HittedScreen); }
-
-        _Dmg = Math.Min(100, _Dmg) / 100;
-
+        DevTool.Set_KillTween(HittedScreen);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(HittedScreen.DOFade(_Dmg, 0.1f));
+        seq.Append(HittedScreen.DOFade((Math.Min(100, _Dmg) * 0.01f), 0.1f));
         seq.Append(HittedScreen.DOFade(0, 0.1f));
+    }
+
+    // 부스트 키기
+    private void Play_ActiveBoost(GameObject[] _Arr, int _CurrentLv)
+    {
+        for (int i = 0; i < _Arr.Length; i++)
+        {
+            if (DevTool.Get_ComponentTType(_Arr[i].gameObject, out Image img))
+            {
+                DevTool.Set_KillTween(img);
+
+                if (i < _CurrentLv) img.DOFade(1f, 0.2f);
+                else img.DOFade(0f, 0.2f);
+            }
+        }
+    }
+
+    // 부스트 돌리기
+    private void Play_RollBoost(GameObject[] _Arr, int _CurrentLv)
+    {
+        for (int i = 0; i < _Arr.Length; i++)
+        {
+            if (DevTool.Get_ComponentTType(_Arr[i].gameObject, out RectTransform rt))
+            {
+                if (i < _CurrentLv) Play_EachRollBoost(rt, i);
+                else DevTool.Set_KillTween(rt);
+            }
+        }
+    }
+
+    // 부스트 하나씩 돌리기
+    private void Play_EachRollBoost(RectTransform _RT, int _Index)
+    {
+        _RT.DOLocalRotate(new Vector3(0, 0, 360), 0.2f, RotateMode.LocalAxisAdd)
+                    .SetEase(Ease.OutCubic)
+                    .OnComplete(() =>
+                    {
+                        _RT.DOLocalRotate(new Vector3(0, 0, 360), 3f / (_Index + 1f), RotateMode.LocalAxisAdd)
+                            .SetEase(Ease.Linear)
+                            .SetLoops(-1, LoopType.Restart);
+                    });
+    }
+
+
+    // Tab 이동
+    private Sequence Play_SeqInteract(
+        float _ModuleRtX, float _CostRtX, float _SkillRtY, float _BoostRtY,
+        float _StageNameAlpha, float _StageDescAlpha,
+        float _DurTime, Ease _Ease)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.Join(ModuleListParentRT.DOAnchorPosX(_ModuleRtX, _DurTime));
+        seq.Join(PlayerStatesCostParentRT.DOAnchorPosX(_CostRtX, _DurTime));
+        seq.Join(SkillStatesParentRT.DOAnchorPosY(_SkillRtY, _DurTime));
+        seq.Join(BoostRT.DOAnchorPosY(_BoostRtY, _DurTime));
+        seq.Join(StageNameTxt.DOFade(_StageNameAlpha, _DurTime));
+        seq.Join(StageDescriptionTxt.DOFade(_StageDescAlpha, _DurTime));
+        seq.SetEase(_Ease);
+        return seq;
+    }
+
+    // Tab 투명도
+    private Sequence Play_FadeCGs(float _Alpha, float _DurTime)
+    {
+        Sequence seq = DOTween.Sequence();
+        for (int i = 0; i < ParentCGList.Count; i++)
+            seq.Join(ParentCGList[i].DOFade(_Alpha, _DurTime));
+        return seq;
+    }
+
+    // 상호작용 시 발생
+    public void Play_UseInteractUI()
+    {
+        IsActingInteractUI = true;
+
+        DevTool.Set_KillTween(UsingInnerImg);
+
+        UsingInnerImg.DOFade(1f, 0.2f)
+            .OnComplete(() =>
+            {
+                UsingInnerImg.DOFade(0.25f, 0.2f)
+                .OnComplete(() =>
+                {
+                    IsActingInteractUI = false;
+                    Set_InteractUI();
+                });
+            });
+    }
+
+
+    #endregion
+
+    #region Get
+
+    private List<Component> Get_MainColorComp()
+    {
+        List<Component> result = new List<Component>
+        {
+            // EP 게이지
+            DevTool.Get_ComponentTType<Image>(EP.AfterImg.gameObject.transform.GetChild(0).gameObject),
+            DevTool.Get_ComponentTType<Image>(EP.ActualImg.gameObject.transform.GetChild(0).gameObject),
+            DevTool.Get_ComponentTType<Image>(EP.ActualImgLiner.gameObject),
+
+            // 부스트
+            BoostLv,
+
+            // 플레이어 스탯
+            PlayerStatesTxt,
+
+            // 스테이지
+            StageNameTxt, StageDescriptionTxt,
+
+            // 아이템
+            ECCostTxt, MS_AmountTxt, EmptyBC.AmountTxt, FullEC.AmountTxt,
+
+            // 상호작용
+            InteractOnOffTxt
+
+        };
+
+        // 부스트
+        result.AddRange(DevTool.Get_ComponentTTypeList<Image>(BoostLightArr.ToList()));
+        result.AddRange(DevTool.Get_ComponentTTypeList<Image>(BoostLightWheelArr.ToList()));
+
+        // 스킬
+        for (int i = 0; i < DevTool.SkillAmount; i++)
+        {
+            result.Add(SkillList[i].SkillCostTxt);
+            result.Add(SkillList[i].SkillErrorTxt);
+            result.Add(SkillStatesTxtList[i]);
+        }
+
+        return result;
+    }
+
+    private List<Component> Get_SubColorTxt()
+    {
+        List<Component> result = new List<Component>
+        {
+            // 미니맵
+            ThisMinimap.InnerImg, 
+
+            // 아이템
+            CurrentEmptyBC.LightInner, ECCostArrowImg, EmptyBC.InnerImg, FullEC.InnerImg, MS_InnerImg,
+            
+            // 상호작용
+            InnerImg, UsingInnerImg
+        };
+
+        // EP 게이지 Inner
+        SubColorCompList.AddRange(EPInnerImgList);
+
+        // 부스트 Inner
+        SubColorCompList.AddRange(BoostInnerList);
+
+        // 스킬
+        for (int i = 0; i < DevTool.SkillAmount; i++)
+            SubColorCompList.Add(SkillList[i].SkillInnerImg);
+
+
+        return result;
+    }
+
+    private float Get_ShieldGageX(float _ShieldValue)
+    {
+        return 8 + (_ShieldValue * 3);
+    }
+
+    // Tab 플레이어 스탯의 엘레먼트
+    private List<string> Get_PlayerStateStrings(PlayerController _Player, PlayerWeaponController _Weapon)
+    {
+        return new List<string>()
+        {
+            _Player.MaxEP.ActualState.Value.ToString(),
+            _Player.WalkSpeed.ActualState.Value.ToString(),
+            _Player.DashController.DashSpeed.ActualState.Value.ToString(),
+            _Player.DashController.Get_ActualNeedEP().ToString(),
+            _Weapon.BaseDamage.ActualState.Value.ToString(),
+            _Weapon.ROF.ActualState.Value.ToString(),
+            _Weapon.AccuracyRate.ActualState.Value.ToString(),
+            _Weapon.CC.ActualState.Value.ToString(),
+            _Weapon.CD.ActualState.Value.ToString()
+        };
+    }
+
+    // Tab 플레이어 스탯 Txt 
+    private string Get_PlayerStateTxt(PlayerController _Player, PlayerWeaponController _Weapon)
+    {
+        string result = "";
+        List<string> strings = Get_PlayerStateStrings(_Player, _Weapon);
+
+        for (int i = 0; i < PlayerStatesStringList.Count; i++)
+        {
+            result += "<size=70%>" + PlayerStatesStringList[i] + ": </size>";
+            result += "<b>" + strings[i] + "</b>\n";
+        }
+        return result;
+    }
+
+    // Tab 스킬 스탯의 엘레먼트
+    private List<string> Get_SkillStateStrings(ActiveSkillController _Skill)
+    {
+        return new List<string>()
+        {
+            _Skill.Tier.ActualState.Value.ToString(),
+            _Skill.Power.ActualState.Value.ToString()
+        };
+    }
+
+    // Tab 스킬 스탯 Txt
+    private string Get_SkillStateTxt(ActiveSkillController _Skill)
+    {
+        string result = "";
+        List<string> strings = Get_SkillStateStrings(_Skill);
+
+        for (int i = 0; i < SkillStatesStringList.Count; i++)
+        {
+            result += "<size=70%>" + SkillStatesStringList[i] + ": </size>\n";
+            result += "<b>" + strings[i] + "</b>\n";
+        }
+        return result;
     }
 
     #endregion
