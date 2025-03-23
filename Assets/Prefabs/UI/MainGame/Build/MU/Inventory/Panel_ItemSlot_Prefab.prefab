@@ -91,13 +91,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisSlotItem: {fileID: 0}
-  SelectedSign: {fileID: 2913213333508109987}
-  SignImgAnimDurTime: 0.1
-  SignImgAnimSize: 1.1
-  IsCanSelect: 1
   ThisSizeDelta: {x: 100, y: 100}
-  IsInventory: 1
-  ThisRT: {fileID: 0}
+  IsCanSelect: 1
+  SignRT: {fileID: 2680644581387821166}
+  ThisImg: {fileID: 0}
 --- !u!114 &3038175449347320344
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -70,6 +70,12 @@ MonoBehaviour:
   MaxHP: 250
   MaxEP: 150
   ItemDropPercent: 1
+  ItemRankPercents:
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
+  - 0.2
   HUD: {fileID: 7241037580816432991}
   LookingSatellite: {fileID: 8800238567124451591}
   WalkingSatellite: {fileID: 9179056310911047704}
@@ -92,15 +98,11 @@ MonoBehaviour:
   - EnemyPatternList:
     - EnemyPatternList:
       - {fileID: 8721225703925756054}
-  CurrentContinuousEnemyPattern:
-    EnemyPatternList: []
-  RecoverDischargeTime: 4
   MoveSpeed: 0
   MoveAtPoint: {x: 0, y: 0}
   MoveAtDir: {x: 0, y: 0}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
-  IsDischarge: 0
   BuffController: {fileID: 7842396115140642684}
   IsPlayingPattern: 0
 --- !u!114 &7842396115140642684
@@ -268,7 +270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851eba99de911fe449a51793c932dd1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTF: {fileID: 0}
   AdjacentWPList: []
 --- !u!1 &2027737833063953392
 GameObject:

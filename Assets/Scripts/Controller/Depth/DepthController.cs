@@ -100,11 +100,12 @@ public class DepthController : IDController
 
 
     // Module Interact Item
-    protected void Gen_II()
+    protected void Gen_II(int _Rank)
     {
         InteractItemController IIC = PoolingManager.Instance.Get_OP_InteractableItem();
         IIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
         IIC.Set_State(this.transform.position);
+        IIC.Set_RankState(_Rank);
     }
 
     // Energy Shrapnel

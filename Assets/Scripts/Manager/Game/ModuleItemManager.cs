@@ -1,86 +1,103 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 
 public class ModuleItemManager : Singleton<ModuleItemManager>
 {
     #region Value
 
-    [Header("=== All Type")]
+    #region - Inspector
+
+    [Space(20)]
+    [Header("<><><><><> Module Item")]
+
+    [Space(10)]
+    [Header("=== Data")]
     [SerializeField] public List<ItemData> ItemDataList;
-
-
-    [Header("=== MainChip")]
     [SerializeField] private List<MainChipData> MainChipDataList;
-    [HideInInspector] private Dictionary<int, int> MainChopAmalgamationDict = new Dictionary<int, int>();
 
-    [Header("=== Gotten Item")]
-    [HideInInspector] private List<ModuleState> Gotten_MSList = new List<ModuleState>();
-    [HideInInspector] public List<ModuleState> Equiped_MSList = new List<ModuleState>();
-
-
-    [Header("=== Icon Data")]
+    [Space(10)]
+    [Header("=== Resource")]
     [SerializeField] private List<Sprite> RankIconList;
     [SerializeField] private List<Sprite> MUUIDescRankIconList;
-
-    [Header("=== Reso")]
+    [Space(5)]
     [SerializeField] public GameObject InventoryItemPrefab;
     [SerializeField] public GameObject InventorySlotPrefab;
 
-    // Interface
-    private List<IWhen_Hit> iWhen_HitList = new List<IWhen_Hit>();
-    private List<IWhen_CriticalHit> iWhen_CriticalHitList = new List<IWhen_CriticalHit>();
-    private List<IWhen_Fire> iWhen_FireList = new List<IWhen_Fire>();
+    #region - Hide
+
+    // Module State
+    [HideInInspector] private List<List<ModuleState>> AllModuleData = new List<List<ModuleState>>();
+    
+    [HideInInspector] private List<CoupleData<int>> EquipedIndex = new List<CoupleData<int>>();
+
+    [HideInInspector] private CoupleData<int> DescompositionIndex = new CoupleData<int>(-1, -1);
+    [HideInInspector] private List<CoupleData<int>> FusionIndex = new List<CoupleData<int>>();
+    [HideInInspector] private CoupleData<int> UpgradeIndex = new CoupleData<int>(-1, -1);
+
+
+    // Main Chip
+    [HideInInspector] private Dictionary<int, int> MainChopAmalgamationDict = new Dictionary<int, int>();
+
+
+    [HideInInspector] public static readonly int RowAmount = 5;
+    [HideInInspector] public static readonly int ColumnAmount = 20;
+
+    [HideInInspector] public static readonly int EquipedAmount = 6;
 
     #endregion
 
-    #region Field
+    #endregion
 
-    public ItemData Get_RandomInteractItem()
-    {
-        //return ItemDataList[4];
-        return ItemDataList[Random.Range(0, ItemDataList.Count)];
-    }
+    #region - Interface
 
-    public void Gain_ModuleState(ItemData _ItemData)
+    private List<IWhen_Hit> IWhen_HitList = new List<IWhen_Hit>();
+    private List<IWhen_CriticalHit> IWhen_CriticalHitList = new List<IWhen_CriticalHit>();
+    private List<IWhen_Fire> IWhen_FireList = new List<IWhen_Fire>();
+
+    #endregion
+
+    #endregion
+
+    #region Offset
+
+    private void Offset()
     {
-        foreach (ModuleState MS in ModuleState.Get_AllModuleState())
+        // 모든 MS List를 Null 값을 사용해 빈 공간을 지정
+        for (int i = 0; i < ColumnAmount; i++)
         {
-            if (MS.ThisItemData.ID == _ItemData.ID) 
+            List<ModuleState> eachColumnMSList = new List<ModuleState>();
+            for (int j = 0; j < RowAmount; j++)
             {
-                MS.ThisItemData = new ItemData(_ItemData);
-
-                State_ItemData state = new State_ItemData(_ItemData.ID, _ItemData.Rank, _ItemData.BoostLv);
-
-                MS.ItemUI_Inventory = MainGameUIManager.Instance.ModuleUpgrade_UIController.Gen_NewItemList(state);
-                
-                foreach(InventoryItemEUIController MEII in MS.ItemUI_Inventory)
-                {
-                    MEII.gameObject.name = $"{MS.ThisItemData.ID}_{MS.ThisItemData.Rank}_{MS.ThisItemData.BoostLv}";
-                }
-
-                Gotten_MSList.Add(MS);
+                eachColumnMSList.Add(null);
             }
+            AllModuleData.Add(eachColumnMSList);
         }
+
+        // 인덱스도 초기화
+        for (int i = 0; i < EquipedAmount; i++)
+            EquipedIndex.Add(new CoupleData<int>(-1, -1));
+
+        for (int i = 0; i < 2; i++)
+            FusionIndex.Add(new CoupleData<int>(-1, -1));
     }
 
 
     #endregion
 
-    #region Interface
+    #region Reset
 
-    private void Reset_AllInterface()
+    private void Reset_ClearInterface()
     {
-        iWhen_HitList.Clear();
-        iWhen_FireList.Clear();
-        iWhen_CriticalHitList.Clear();
+        IWhen_HitList.Clear();
+        IWhen_FireList.Clear();
+        IWhen_CriticalHitList.Clear();
     }
 
     public void Reset_Interface()
     {
-        Reset_AllInterface();
+        Reset_ClearInterface();
 
-        foreach (ModuleState MS in Equiped_MSList)
+        /*foreach (ModuleState MS in Equiped_MSList)
         {
             if (MS is IWhen_Hit iHit && !iWhen_HitList.Contains(iHit))
             { iWhen_HitList.Add(iHit); }
@@ -88,38 +105,108 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             { iWhen_FireList.Add(iFire); }
             if (MS is IWhen_CriticalHit iCriticalHit && !iWhen_CriticalHitList.Contains(iCriticalHit))
             { iWhen_CriticalHitList.Add(iCriticalHit); }
-        }
+        }*/
     }
+
+    #endregion
+
+    #region Framework
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        Offset();
+    }
+
+    #endregion
+
+    #region Get
+
+    // 랜덤한 아이템
+    public ItemData_Field Get_RandomInteractItem()
+    {
+        return new ItemData_Field(ItemDataList[Random.Range(0, ItemDataList.Count)]);
+    }
+
+    // 비어있는 ModuleState (Gotten) 찾기
+    public CoupleData<int> Get_EmptyModuleState()
+    {
+        for (int i = 0; i < ColumnAmount; i++)
+        {
+            for (int j = 0; j < RowAmount; j++)
+            {
+                if (AllModuleData[i][j] == null)
+                {
+                    return new CoupleData<int>(i, j);
+                }
+            }
+        }
+
+        return new CoupleData<int>(-1, -1);
+    }
+
+    #endregion
+
+    #region Gain
+
+    // 아이템 상호작용해 획득
+    public void Gain_ModuleState(ItemData_Field _ItemDataField)
+    {
+        // 빈 공간이 있어야 획득 가능
+        CoupleData<int> index = Get_EmptyModuleState();
+        if (index.TypeBase == -1 || index.TypeSpecial == -1) return;
+       
+        // 아이템 데이터 초기화
+        ModuleState newModuleState = ModuleState.Get_AllModuleState()[_ItemDataField.ID];
+        newModuleState.Set_State(ItemDataList[_ItemDataField.ID]);
+
+        ItemData_UIVisual stateUI = new ItemData_UIVisual(
+            Get_CorrectItemIcon(_ItemDataField.ID),
+            _ItemDataField.Rank,
+            _BoostLv: 0);
+
+        AllModuleData[index.TypeBase][index.TypeSpecial] = newModuleState;
+
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Inventory_InEquip.Set_InventoryUI(AllModuleData);
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Inventory_InForge.Set_InventoryUI(AllModuleData);
+    }
+
+    #endregion
+
+
+
+    #region Interface
 
     public void Active_Hit(EnemyController _EC)
     {
-        if (iWhen_HitList.Count > 0)
+        if (IWhen_HitList.Count > 0)
         {
-            for (int i = 0; i < iWhen_HitList.Count; i++)
+            for (int i = 0; i < IWhen_HitList.Count; i++)
             {
-                iWhen_HitList[i].Play_When(_EC);
+                IWhen_HitList[i].Play_When(_EC);
             }
         }
     }
 
     public void Active_CriticalHit(EnemyController _EC)
     {
-        if (iWhen_CriticalHitList.Count > 0)
+        if (IWhen_CriticalHitList.Count > 0)
         {
-            for (int i = 0; i < iWhen_CriticalHitList.Count; i++)
+            for (int i = 0; i < IWhen_CriticalHitList.Count; i++)
             {
-                iWhen_CriticalHitList[i].Play_When(_EC);
+                IWhen_CriticalHitList[i].Play_When(_EC);
             }
         }
     }
 
     public void Active_Fire()
     {
-        if (iWhen_FireList.Count > 0)
+        if (IWhen_FireList.Count > 0)
         {
-            for (int i = 0; i < iWhen_FireList.Count; i++)
+            for (int i = 0; i < IWhen_FireList.Count; i++)
             {
-                iWhen_FireList[i].Play_When();
+                IWhen_FireList[i].Play_When();
             }
         }
     }
@@ -127,32 +214,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     #endregion
 
     #region Find
-
-    public ModuleState Get_EquipedModuleState(InventoryItemEUIController _MEII)
-    {
-        foreach (ModuleState MS in Equiped_MSList)
-        {
-            if (MS.ItemUI_Extra.Contains(_MEII))
-            {
-                return MS;
-            }
-        }
-
-        return null;
-    }
-
-    public ModuleState Get_InventoryModuleState(InventoryItemEUIController _MEII)
-    {
-        foreach(ModuleState MS in Gotten_MSList)
-        {
-            if (MS.ItemUI_Inventory.Contains(_MEII))
-            {
-                return MS;
-            }
-        }
-
-        return null;
-    }
 
     public Sprite Get_CorrectItemIcon(int _ID)
     {
@@ -216,11 +277,14 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public void Set_MainChipData()
     {
+        /*
         MainChopAmalgamationDict = new Dictionary<int, int>();
         if (Equiped_MSList.Count > 0)
         {
             for (int i = 0; i < Equiped_MSList.Count; i++)
             {
+                if (Equiped_MSList == null) continue;
+
                 int synergyID_1 = Equiped_MSList[i].ThisItemData.R1_MainChipID;
                 int synergyID_3 = Equiped_MSList[i].ThisItemData.R3_MainChipID;
                 int synergyID_5 = Equiped_MSList[i].ThisItemData.R5_MainChipID;
@@ -260,7 +324,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         {
             MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_SynergySlots(MainChopAmalgamationDict);
         }
-
+*/
     }
 
     public void Add_MainChipData(int _SynergyID, int _Amount)
@@ -269,53 +333,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         { MainChopAmalgamationDict[_SynergyID] += _Amount; }
         else
         { MainChopAmalgamationDict.Add(_SynergyID, _Amount); }
-    }
-
-    #endregion
-
-    #region Delete
-
-    public void Remove_ModuleState(InventoryItemEUIController _MEII)
-    {
-        ModuleState foundMs = Get_CorrectModuleState(Gotten_MSList, _MEII);
-
-        if (Gotten_MSList.Contains(foundMs))
-        { 
-            Gotten_MSList.Remove(foundMs); 
-        }
-
-        if (Equiped_MSList.Contains(foundMs))
-        {
-            foundMs.ItemUI_Extra[0].gameObject.SetActive(false);
-            foundMs.ItemUI_Extra[1].gameObject.SetActive(false);
-            foundMs.ItemUI_Extra.Clear();
-
-            Equiped_MSList.Remove(foundMs); 
-        }
-
-        Remove_MEIIList(foundMs);
-        foundMs = null;
-    }
-
-    private ModuleState Get_CorrectModuleState(List<ModuleState> TargetMsList, InventoryItemEUIController _MEII)
-    {
-        foreach(ModuleState MS in TargetMsList)
-        {
-            if (MS.ItemUI_Inventory.Contains(_MEII))
-            {
-                return MS;
-            }
-        }
-        return null;
-    }
-
-    private void Remove_MEIIList(ModuleState _MS)
-    {
-        for (int i = _MS.ItemUI_Inventory.Count - 1; i >= 0; i--)
-        { Destroy(_MS.ItemUI_Inventory[i].gameObject); }
-
-        for (int i = _MS.ItemUI_Extra.Count - 1; i >= 0; i--)
-        { Destroy(_MS.ItemUI_Extra[i].gameObject); }
     }
 
     #endregion

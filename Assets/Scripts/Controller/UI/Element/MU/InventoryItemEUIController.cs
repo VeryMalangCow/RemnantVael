@@ -5,15 +5,22 @@ public class InventoryItemEUIController : OwnBtnEUIController
 {
     #region Value 
 
-    [Header("=== RT")]
+    [Space(20)]
+    [Header("<><><><><> Item")]
+
+    [Space(10)]
+    [Header("=== Partner")]
+    [SerializeField] public InventorySlotEUIController ThisSlot = null;
+
+    [Space(10)]
+    [Header("=== Value")]
     [SerializeField] private Vector2 ThisSizeDelta = new Vector2(90, 90);
 
-    [Header("=== Inner Component")]
+    [Space(10)]
+    [Header("=== Component")]
+    [SerializeField] public Image ThisImg;
     [SerializeField] public Image RankImg;
     [SerializeField] private ImgTxtAmountEUIController BoostLvEUI;
-
-    // Component
-    [HideInInspector] public Image ThisImg;
 
     #endregion
 
@@ -23,10 +30,7 @@ public class InventoryItemEUIController : OwnBtnEUIController
     {
         base.Offset();
 
-        ThisImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
-
         ThisRT.sizeDelta = ThisSizeDelta;
-
         BoostLvEUI.Offset();
     }
 
@@ -34,12 +38,11 @@ public class InventoryItemEUIController : OwnBtnEUIController
 
     #region
 
-    public void Set_Data(State_ItemData _State)
+    public void Set_Data(ItemData_UIVisual _State)
     {
         // Set Visual
-        ThisImg.sprite = ModuleItemManager.Instance.Get_CorrectItemIcon(_State.ID);
-
-        RankImg.sprite = ModuleItemManager.Instance.Get_CorrectRankIcon(_State.Rank);
+        ThisImg.sprite = _State.Icon;
+        RankImg.sprite = _State.RankIcon;
         RankImg.SetNativeSize();
 
         BoostLvEUI.Set_Amount(_State.BoostLv, 0.1f);

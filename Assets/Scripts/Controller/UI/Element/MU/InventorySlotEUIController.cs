@@ -7,27 +7,32 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 {
     #region Value
 
-    [Header("=== Data")]
-    [SerializeField] public InventoryItemEUIController ThisSlotItem = null;
-
-    [Header("=== Selected Sign")]
-    [SerializeField] public GameObject SelectedSign;
-    [SerializeField] public float SignImgAnimDurTime = 0.1f;
-    [SerializeField] public float SignImgAnimSize = 1.1f;
+    [Space(20)]
+    [Header("<><><><><> Slot")]
 
     [Space(10)]
-    [Header("=== Input")]
-    [SerializeField] public bool IsCanSelect = true;
+    [Header("=== Partner")]
+    [SerializeField] public InventoryItemEUIController ThisItem = null;
 
-    [Header("=== RT")]
+    [Space(10)]
+    [Header("=== Value")]
     [SerializeField] private Vector2 ThisSizeDelta = new Vector2(100, 100);
+    [SerializeField] private bool IsCanSelect = true;
 
-    [Header("=== Judg")]
-    [SerializeField] public bool IsInventory = true;
+    [Space(10)]
+    [Header("=== Selected Sign")]
+    [SerializeField] private RectTransform SignRT;
 
-    // Component
-    [HideInInspector] public RectTransform ThisRT;
-    [HideInInspector] private Image ThisImg;
+    // This
+    [HideInInspector] public Image ThisImg;
+
+    // Sign
+    [HideInInspector] private Image SignImg;
+    [HideInInspector] private static readonly float SignImgAnimDurTime = 0.1f;
+    [HideInInspector] private static readonly float SignImgAnimSize = 1.2f;
+
+    // Seq
+    [HideInInspector] private Sequence SignSeq;
 
     #endregion
 
@@ -35,34 +40,16 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     public override void Offset()
     {
-        if (TryGetComponent(out RectTransform rt))
-        { ThisRT = rt; }
+        if (DevTool.Get_ComponentTType(gameObject, out RectTransform rt))
+            rt.sizeDelta = ThisSizeDelta;
 
-        if (TryGetComponent(out Image img))
-        { ThisImg = img; }
+        ThisImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
 
-        ThisRT.sizeDelta = ThisSizeDelta;
+        SignImg = DevTool.Get_ComponentTType(SignRT.gameObject, out Image signImg) ? signImg : null;
 
-        if(SelectedSign.TryGetComponent(out Image ssimg))
-        {
-            Color clr = ssimg.color;
-            clr.a = 0f;
-            ssimg.color = clr;
-
-            ssimg.color = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
-        }
-        SelectedSign.gameObject.SetActive(false);
+        SignImg.color = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
+        DevTool.Set_AlphaColor(SignImg, 0f);
     }
-
-    #endregion
-
-    #region Set
-
-    public void Set_Data(Sprite _ThisIcon)
-    {
-        ThisImg.sprite = _ThisIcon;
-    }
-
 
     #endregion
 
@@ -73,13 +60,7 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
         if (!IsCanSelect)
         { return; }
 
-        SetOn_SelectedItem();
-
-        if (ThisSlotItem != null)
-        { 
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_Desc(ThisSlotItem);
-        }
-
+        Play_Selected(_TargetAlpha: 1f, _TargetScale: SignImgAnimSize, SignImgAnimDurTime);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -87,64 +68,21 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
         if (!IsCanSelect)
         { return; }
 
-        SetOff_SelectedItem();
-
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.ThisDescPanel.SetOff_Desc();
+        Play_Selected(_TargetAlpha: 0f, _TargetScale: 1f, SignImgAnimDurTime);
     }
 
     #endregion
 
     #region Select
 
-    private void SetOn_SelectedItem()
+    private void Play_Selected(float _TargetAlpha, float _TargetScale, float _DurTime)
     {
-        if (ThisSlotItem != null && ThisSlotItem.gameObject.activeSelf)
-        {
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSlot = this;
+        DevTool.Set_KillTween(SignSeq);
+        SignSeq = DOTween.Sequence();
 
-            DOTween.Kill(gameObject.name); 
-
-            Sequence seq = DOTween.Sequence();
-
-            // img
-            SelectedSign.TryGetComponent(out Image img);
-            seq.Append(img.DOFade(1, SignImgAnimDurTime).SetEase(Ease.Linear));
-
-            // rt
-            SelectedSign.TryGetComponent(out RectTransform rt);
-            Sequence _seq = DOTween.Sequence();
-            _seq.Append(rt.DOScale(SignImgAnimSize, SignImgAnimDurTime / 2).SetEase(Ease.Linear));
-            _seq.Append(rt.DOScale(1, SignImgAnimDurTime / 2).SetEase(Ease.Linear));
-            seq.Join(_seq);
-
-            seq.OnStart(() => { SelectedSign.gameObject.SetActive(true); })
-                .SetId(gameObject.name);
-        }
+        SignSeq.Append(SignImg.DOFade(_TargetAlpha, _DurTime).SetEase(Ease.Linear));
+        SignSeq.Join(SignRT.DOScale(_TargetScale, _DurTime).SetEase(Ease.Linear));
     }
-
-    public void SetOff_SelectedItem()
-    {
-        if (MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSlot == this)
-        {
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSlot = null;
-
-            DOTween.Kill(gameObject.name); 
-
-            Sequence seq = DOTween.Sequence();
-
-            // img
-            SelectedSign.TryGetComponent(out Image img);
-            seq.Append(img.DOFade(0, SignImgAnimDurTime).SetEase(Ease.Linear));
-
-            // rt
-            SelectedSign.TryGetComponent(out RectTransform rt);
-            seq.Join(rt.DOScale(1, SignImgAnimDurTime).SetEase(Ease.Linear));
-
-            seq.OnComplete(() => { SelectedSign.gameObject.SetActive(false); })
-                .SetId(gameObject.name);
-        }
-    }
-
 
     #endregion
 }

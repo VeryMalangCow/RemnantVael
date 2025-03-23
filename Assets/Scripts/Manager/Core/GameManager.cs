@@ -6,7 +6,6 @@ using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
@@ -77,6 +76,23 @@ public class DevTool
         {
             return UnityEngine.Random.Range(-_RandomExtent * 0.5f, _RandomExtent * 0.5f);
         }
+    }
+
+    public static int Get_Rank(List<float> _RankPercents)
+    {
+        float currentSum = 0f;
+        float randomValue = UnityEngine.Random.Range(0f, Get_SumFloat(_RankPercents));
+
+        for (int i = 0; i < _RankPercents.Count; i++)
+        {
+            currentSum += _RankPercents[i];
+            if (currentSum > randomValue)
+            {
+                return i + 1;
+            }
+        }
+
+        return 1;
     }
 
     #endregion
@@ -314,6 +330,20 @@ public class DevTool
     #endregion
 
     #region Get 
+
+    #region float
+
+    public static float Get_SumFloat(List<float> _FloatList)
+    {
+        float result = 0;
+        for (int i = 0; i < _FloatList.Count; i++)
+        {
+            result += _FloatList[i];
+        }
+        return result;
+    }
+
+    #endregion
 
     #region Removed
 
@@ -1327,9 +1357,22 @@ public class DevTool
     }
 
 
+    public static void Set_AlphaColor(Image _Img, float _A)
+    {
+        _Img.color = Get_AlphaColor(_Img, _A);
+    }
+
     public static void Set_AlphaColor(TMP_Text _Txt, float _A)
     {
         _Txt.color = Get_AlphaColor(_Txt, _A);
+    }
+
+
+    public static Color Get_AlphaColor(Image _Img, float _A)
+    {
+        Color clr = _Img.color;
+        clr.a = _A;
+        return clr;
     }
 
     public static Color Get_AlphaColor(TMP_Text _Txt, float _A)
@@ -1371,8 +1414,6 @@ public class DevTool
     {
         if (_II == null)
         { return ""; }
-        if (_II is EnemyController EC && EC.IsDischarge)
-        { return "KILL"; }
         else if (_II is DestructibleBuildController DBC && !DBC.IsBroken && (_II is BaseUpgradeController || _II is ModuleUpgradeController))
         { return "SHOP"; }
         else if (_II is GateController GC && GC.IsOpen)
@@ -2134,11 +2175,34 @@ public class BUState<T>
 #region Class : State : Player : ItemData
 
 [System.Serializable]
-public class ItemData
+public class ItemData_Field
 {
     [Header("=== ID")]
     public int ID;
 
+    [HideInInspector] public int Rank = 1;
+
+    public ItemData_Field(int _ID)
+    {
+        ID = _ID;
+    }
+
+    public ItemData_Field(int _ID, int _Rank)
+    {
+        ID = _ID;
+        Rank = _Rank;
+    }
+
+    public ItemData_Field(ItemData_Field _Data)
+    {
+        ID = _Data.ID;
+        Rank = _Data.Rank;
+    }
+}
+
+[System.Serializable]
+public class ItemData : ItemData_Field
+{
     [Header("=== Info")]
     public string Name;
     public string Description;
@@ -2150,19 +2214,15 @@ public class ItemData
     public int R3_MainChipID;
     public int R5_MainChipID;
 
-    [Header("=== Level")]
+    [Header("=== Boost")]
     public int BoostLv = 1;
-    public int Rank = 1;
 
-    public ItemData(int _ID) 
+    public ItemData(int _ID) : base(_ID) { }
+
+    public ItemData(ItemData_Field _Data) : base(_Data) { }
+
+    public ItemData(ItemData _ItemData) : base(_ItemData)
     {
-        ID = _ID;
-    }
-
-    public ItemData(ItemData _ItemData)
-    {
-        ID = _ItemData.ID;
-
         Name = _ItemData.Name;
         Description = _ItemData.Description;
         EquipDescription = _ItemData.EquipDescription;
@@ -2173,7 +2233,6 @@ public class ItemData
         R5_MainChipID = _ItemData.R5_MainChipID;
 
         BoostLv = _ItemData.BoostLv;
-        Rank = _ItemData.Rank;
     }
 }
 
@@ -2196,18 +2255,17 @@ public class ModuleState : IWhen
 
     public ItemData ThisItemData;
 
-    public List<InventoryItemEUIController> ItemUI_Inventory = new List<InventoryItemEUIController>();
-    public List<InventoryItemEUIController> ItemUI_Extra = new List<InventoryItemEUIController>();
-
     protected ModuleItemActivityManager.ActivityFuncDele ThisActivityFuncDele;
 
     #endregion
 
     #region Constructor
 
-    public ModuleState(int _ID)
+    public ModuleState() { }
+
+    public void Set_State(ItemData _ItemData)
     {
-        ThisItemData = new ItemData(_ID);
+        ThisItemData = new ItemData(_ItemData);
         ThisActivityFuncDele = ModuleItemActivityManager.Instance.Get_CollectActivity(ThisItemData.ID);
     }
 
@@ -2219,12 +2277,12 @@ public class ModuleState : IWhen
     {
         return new List<ModuleState>()
         {
-            new ModuleItem000(0),
-            new ModuleItem001(1),
-            new ModuleItem002(2),
-            new ModuleItem003(3),
-            new ModuleItem004(4),
-            new ModuleItem005(5),
+            new ModuleItem000(),
+            new ModuleItem001(),
+            new ModuleItem002(),
+            new ModuleItem003(),
+            new ModuleItem004(),
+            new ModuleItem005(),
         };
     }
 
@@ -2260,22 +2318,22 @@ public class ModuleState : IWhen
 #region Class : State : Player : MU Code
 
 public class ModuleItem000 : ModuleState, IWhen_Fire
-{ public ModuleItem000(int _ID) : base(_ID) { } }
+{ public ModuleItem000() : base() { } }
 
 public class ModuleItem001 : ModuleState, IWhen_Fire
-{ public ModuleItem001(int _ID) : base(_ID) { } }
+{ public ModuleItem001() : base() { } }
 
 public class ModuleItem002 : ModuleState, IWhen_CriticalHit
-{ public ModuleItem002(int _ID) : base(_ID) { } }
+{ public ModuleItem002() : base() { } }
 
 public class ModuleItem003 : ModuleState, IWhen_CriticalHit
-{ public ModuleItem003(int _ID) : base(_ID) { } }
+{ public ModuleItem003() : base() { } }
 
 public class ModuleItem004 : ModuleState, IWhen_CriticalHit
-{ public ModuleItem004(int _ID) : base(_ID) { } }
+{ public ModuleItem004() : base() { } }
 
 public class ModuleItem005 : ModuleState, IWhen_CriticalHit
-{ public ModuleItem005(int _ID) : base(_ID) { } }
+{ public ModuleItem005() : base() { } }
 
 #endregion
 
@@ -3129,17 +3187,18 @@ public struct AttackerState_Juge<T> where T : Collider2D
 #region Struct : ItemData
 
 
-[System.Serializable]
-public struct State_ItemData
+public struct ItemData_UIVisual
 {
-    public int ID;
+    public Sprite Icon;
     public int Rank;
+    public Sprite RankIcon;
     public int BoostLv;
 
-    public State_ItemData(int _ID, int _Rank, int _BoostLv)
+    public ItemData_UIVisual(Sprite _Icon, int _Rank, int _BoostLv)
     {
-        ID = _ID;
+        Icon = _Icon;
         Rank = _Rank;
+        RankIcon = ModuleItemManager.Instance.Get_CorrectRankIcon(Rank);
         BoostLv = _BoostLv;
     }
 }

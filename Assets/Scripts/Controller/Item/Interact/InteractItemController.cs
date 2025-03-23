@@ -18,7 +18,7 @@ public class InteractItemController : ItemController, IInteract
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] public ItemData ThisItemData;
+    [SerializeField] public ItemData_Field ItemDataField;
     
     #endregion
 
@@ -34,10 +34,15 @@ public class InteractItemController : ItemController, IInteract
         Start_Tween();
 
         // Data
-        ThisItemData = new ItemData(ModuleItemManager.Instance.Get_RandomInteractItem());
+        ItemDataField = new ItemData_Field(ModuleItemManager.Instance.Get_RandomInteractItem());
 
         // Set
         this.gameObject.SetActive(true);
+    }
+
+    public void Set_RankState(int _Rank)
+    {
+        ItemDataField.Rank = _Rank;
     }
 
     #endregion
@@ -59,7 +64,7 @@ public class InteractItemController : ItemController, IInteract
         CurrentSpreadPower = 0f;
         SettedSpreadDir = Vector2.zero;
 
-        ModuleItemManager.Instance.Gain_ModuleState(ThisItemData);
+        ModuleItemManager.Instance.Gain_ModuleState(ItemDataField);
         PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
 
         End_Tween();

@@ -9,14 +9,13 @@ public class InventoryEUIController : ElementUIController
     [Header("=== Item Inventory")]
     [Header("-- RT")]
     [SerializeField] private RectTransform ThisRT;
-    [SerializeField] private int RowAmount;
-    [SerializeField] private int ColumnAmount;
 
     [Header("-- Slot")]
     [SerializeField] private Sprite SlotSprite;
 
     // Class
-    [HideInInspector] public List<List<InventorySlotEUIController>> MEISList;
+    [HideInInspector] public List<List<InventorySlotEUIController>> AllSlot = new List<List<InventorySlotEUIController>>();
+    [HideInInspector] public List<List<InventoryItemEUIController>> AllItem = new List<List<InventoryItemEUIController>>();
 
     #endregion
 
@@ -25,160 +24,89 @@ public class InventoryEUIController : ElementUIController
     public override void Offset()
     {
         //Chech This RT
-        if (ThisRT == null && TryGetComponent(out RectTransform thisRT))
-        {
-            ThisRT = thisRT;
-        }
-        if(RowAmount != 0 && ColumnAmount != 0)
-        {
-            float CaculateWidth = ((RowAmount * 110) + 10);
-            float CaculateHeight = ((ColumnAmount * 110) + 10);
-            if (CaculateWidth != ThisRT.rect.width || CaculateHeight != ThisRT.rect.height)
-            {
-                ThisRT.sizeDelta = new Vector2(CaculateWidth, CaculateHeight);
-            }
-        }
-#if UNITY_EDITOR
-        else
-        {
-            Debug.Log("Row Or Column Is Zero!");
-        }
-#endif
+        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
 
-        Gen_SlotList();
+        ThisRT.sizeDelta = new Vector2(
+            ((ModuleItemManager.RowAmount * 110) + 10), 
+            ((ModuleItemManager.ColumnAmount * 110) + 10));
+        
+        Gen_AllSlotAndItem();
     }
 
-    private void Gen_SlotList()
+    #endregion
+
+    #region Gen
+
+    private void Gen_AllSlotAndItem()
     {
-        MEISList = new List<List<InventorySlotEUIController>>();
-
-        for (int column = 0; column < ColumnAmount; column++) 
+        for (int column = 0; column < ModuleItemManager.ColumnAmount; column++) 
         {
-            List<InventorySlotEUIController> rowMEISList = new List<InventorySlotEUIController>();
+            List<InventorySlotEUIController> colSlot = new List<InventorySlotEUIController>();
+            List<InventoryItemEUIController> colItem = new List<InventoryItemEUIController>();
 
-            for (int row = 0; row < RowAmount; row++)
+            for (int row = 0; row < ModuleItemManager.RowAmount; row++)
             {
                 // Generate GO
-                GameObject slot = Instantiate(ModuleItemManager.Instance.InventorySlotPrefab, this.transform);
-                slot.name = "InventorySlot_" + column + "_" + row;
+                GameObject slotGO = Instantiate(ModuleItemManager.Instance.InventorySlotPrefab, this.transform);
+                GameObject itemGO = Instantiate(ModuleItemManager.Instance.InventoryItemPrefab, slotGO.transform);
 
-                // RT
-                if (slot.TryGetComponent(out RectTransform rt))
+                slotGO.name = $"Slot_Col:{column}_Row:{row}";
+                itemGO.name = $"Item_Col:{column}_Row:{row}";
+
+                // Offset
+                if (DevTool.Get_ComponentTType(slotGO.gameObject, out RectTransform slotRt) &&
+                    DevTool.Get_ComponentTType(slotGO.gameObject, out InventorySlotEUIController slot) &&
+                    DevTool.Get_ComponentTType(itemGO.gameObject, out InventoryItemEUIController item))
                 {
-                    rt.anchoredPosition = new Vector2((row * 110 + 10), -(column * 110 + 10));
+                    slotRt.anchoredPosition = new Vector2((row * 110 + 10), -(column * 110 + 10));
+
+                    slot.Offset();
+                    slot.ThisImg.sprite = SlotSprite;
+
+                    item.Offset();
+                    itemGO.gameObject.SetActive(false);
+
+                    colSlot.Add(slot);
+                    colItem.Add(item);
+
+                    slot.ThisItem = item;
+                    item.ThisSlot = slot;
                 }
-
-                // Class
-                if (slot.TryGetComponent(out InventorySlotEUIController MEIS))
-                {
-                    MEIS.Offset();
-                    MEIS.Set_Data(SlotSprite);
-
-                    rowMEISList.Add(MEIS);
-                }
-
             }
 
-            MEISList.Add(rowMEISList);
+            AllSlot.Add(colSlot);
+            AllItem.Add(colItem);
         }
     }
 
     #endregion
 
-    #region Item
+    #region Set
 
-    public static InventoryItemEUIController Gen_ItemUI(
-        InventorySlotEUIController _ParentSlot, 
-        State_ItemData _State)
+    public void Set_InventoryUI(List<List<ModuleState>> _AllModuleData)
     {
-        // Generate GO
-        GameObject item = Instantiate(ModuleItemManager.Instance.InventoryItemPrefab, _ParentSlot.transform);
-
-        // RT
-        if (item.TryGetComponent(out RectTransform rt))
+        for (int i = 0; i < _AllModuleData.Count; i++)
         {
-            rt.anchoredPosition = Vector2.zero;
-        }
-
-        // Class
-        if (item.TryGetComponent(out InventoryItemEUIController MEII))
-        {
-            MEII.Offset();
-            MEII.Set_Data(_State);
-
-            _ParentSlot.ThisSlotItem = MEII;
-            return MEII;
-        }
-
-        return null;
-    }
-
-    public InventoryItemEUIController Gen_Item_ThisInventory(
-        State_ItemData _State, 
-        ModuleUpgradeUIController _Owner)
-    {
-        // Generate GO
-        InventorySlotEUIController emptySlot = Get_EmptyMEIS();
-        GameObject item = Instantiate(ModuleItemManager.Instance.InventoryItemPrefab, emptySlot.transform);
-        
-        // RT
-        if(item.TryGetComponent(out RectTransform rt))
-        {
-            rt.anchoredPosition = Vector2.zero;
-        }
-
-        // Class
-        if (item.TryGetComponent(out InventoryItemEUIController MEII))
-        {
-            MEII.Offset();
-            MEII.Set_Data(_State);
-            MEII.OwnerUIController = _Owner;
-            emptySlot.ThisSlotItem = MEII;
-            return MEII;
-        }
-
-        return null;
-    }
-
-    private InventorySlotEUIController Get_EmptyMEIS()
-    {
-        for (int i = 0; i < MEISList.Count; i++)
-        {
-            for (int ii = 0; ii < MEISList[i].Count; ii++)
+            for (int j = 0; j < _AllModuleData[i].Count; j++)
             {
-                if (MEISList[i][ii].ThisSlotItem == null)
+                ModuleState ms = _AllModuleData[i][j];
+
+                if (ms != null)
                 {
-                    return MEISList[i][ii];
+                    AllItem[i][j].gameObject.SetActive(true);
+
+                    AllItem[i][j].Set_Data(new ItemData_UIVisual(
+                        ms.ThisItemData.ItemIcon,
+                        ms.ThisItemData.Rank,
+                        ms.ThisItemData.BoostLv));
+                }
+                else
+                {
+                    AllItem[i][j].gameObject.SetActive(false);
                 }
             }
-        }
-        return null;
-    }
-
-    public InventorySlotEUIController Get_TargetSlot(InventoryItemEUIController _MEII)
-    {
-        foreach (List<InventorySlotEUIController> MEIS_List in MEISList)
-        {
-            foreach (InventorySlotEUIController MEIS in MEIS_List)
-            {
-                if (MEIS.ThisSlotItem == _MEII)
-                {
-                    return MEIS;
-                }
-            }
-        }
-        return null;
-    }
-
-    public void Remove_ItemInSlotData(InventoryItemEUIController _MEII)
-    {
-        InventorySlotEUIController MEIS = Get_TargetSlot(_MEII);
-        if (MEIS != null)
-        {
-            MEIS.ThisSlotItem = null;
         }
     }
 
     #endregion
-
 }

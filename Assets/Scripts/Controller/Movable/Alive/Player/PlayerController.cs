@@ -469,7 +469,6 @@ public class PlayerController : AliveObjectController
     private const float UnBoostModeInterval = 0.1f;
     private const float ChargeBetteryInterval = 1f;
     public readonly float SkillInterval = 0.5f;
-    public readonly float ExecutionInterval = 0.75f;
 
     // 조건: + None
     public void Try_CombatModeCheck()
@@ -530,18 +529,6 @@ public class PlayerController : AliveObjectController
         ReservationDele = Make_EC;
 
         Start_Casting(ChargeBetteryInterval);
-    }
-
-
-    // 조건: + None
-    public void Try_Execution(EnemyController _Enemy)
-    {
-        if (!Can_Change())
-        { return; }
-
-        _Enemy.Play_Execution();
-        
-        Start_Casting(ExecutionInterval);
     }
 
     // 조건: + ex) 스킬을 사용할 수 없다면, Error 문구

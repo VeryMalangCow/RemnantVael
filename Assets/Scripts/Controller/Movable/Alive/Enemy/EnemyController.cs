@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
-public class EnemyController : AliveObjectController, IInteract
+public class EnemyController : AliveObjectController
 {
     #region Value
 
@@ -21,6 +21,7 @@ public class EnemyController : AliveObjectController, IInteract
     [Space(10)]
     [Header("=== Item")]
     [SerializeField] private float ItemDropPercent = 0.0f;
+    [SerializeField] private List<float> ItemRankPercents;
 
     [Space(10)]
     [Header("=== UI")]
@@ -41,12 +42,7 @@ public class EnemyController : AliveObjectController, IInteract
     [Header("=== Pattern")]
     [Tooltip("This Order of Priority Equle Index")]
     [SerializeField] protected List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
-    [SerializeField] private ContinuousEnemyPattern CurrentContinuousEnemyPattern = null;
     
-
-    [Space(10)]
-    [Header("=== Discharge")]
-    [SerializeField] private float RecoverDischargeTime = 4f;
 
     #endregion
 
@@ -66,13 +62,11 @@ public class EnemyController : AliveObjectController, IInteract
     [HideInInspector] public Vector2 LookAtPoint = Vector2.zero;
     [HideInInspector] public Vector2 LookAtDir = Vector2.zero;
 
-    // 방전
-    [HideInInspector] public bool IsDischarge = false;
-
     // 버프
     [HideInInspector] public EnemyBuffController BuffController = null;
 
     // 패턴
+    [HideInInspector] private ContinuousEnemyPattern CurrentContinuousEnemyPattern = null;
     [HideInInspector] public bool IsPlayingPattern = false;
     [HideInInspector] public IEnumerator CurrentPatternCor = null;
 
@@ -132,12 +126,6 @@ public class EnemyController : AliveObjectController, IInteract
 
                 if (CurrentSP.Value > 0)
                 { HUD.StateUI.EP_ProgressBar.Set_NoNum(); }
-
-                if (_CurrentEP <= 0 && !IsDischarge)
-                {
-                    IsDischarge = true;
-                    StartCoroutine(Play_RecoverDischarge_Cor());
-                }
             });
     }
 
@@ -186,7 +174,6 @@ public class EnemyController : AliveObjectController, IInteract
         CurrentSP.Value = 0;
         CurrentHP.Value = MaxHP;
         CurrentEP.Value = MaxEP;
-        IsDischarge = false;
 
         if (Target == null) // 타겟 Player
         { Target = PlayerManager.Instance.PlayerController.gameObject; }
@@ -208,8 +195,7 @@ public class EnemyController : AliveObjectController, IInteract
 
     private void Update_MoveAtTarget()
     {
-        if (IsDischarge)
-        { return; }
+        if (IsDead) return; 
 
         MoveAtDir = MoveAtPoint != Vector2.zero ?
             DevTool.Get_Dir(this.gameObject, MoveAtPoint) : Vector2.zero;
@@ -221,8 +207,7 @@ public class EnemyController : AliveObjectController, IInteract
 
     private void Update_LookAtTarget()
     {
-        if (IsDischarge)
-        { return; }
+        if (IsDead) return;
 
         // 바라볼 방향값 계산
         LookAtDir = Target != null ? 
@@ -257,7 +242,8 @@ public class EnemyController : AliveObjectController, IInteract
 
     private void Add_CurrentEP(float _AddValue)
     { 
-        Add_CurrentEP(_AddValue, MaxEP); 
+        Add_CurrentEP(_AddValue, MaxEP);
+        Check_IsDead(CurrentEP.Value);
     }
 
     public float Get_PercentHP(float _Percent)
@@ -389,37 +375,12 @@ public class EnemyController : AliveObjectController, IInteract
     // 에너지 데미지를 받음
     private void Take_Damaged_Energy(float _DmgValue, bool _IsCritical)
     {
-        if (!IsDischarge)
-        {
-            float esValue = 0;
-            if (CurrentEP.Value > _DmgValue) // EP가 데미지보다 많다면
-            {
-                PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByEnergyDmg(
-                    (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-                    _DmgValue, _IsCritical);
+        // UI
+        PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByEnergyDmg(
+            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
+            _DmgValue, _IsCritical);
 
-                esValue = _DmgValue;
-                Add_CurrentEP(-_DmgValue);
-            }
-            else // EP가 데미지를 버티지 못한다면
-            {
-                // UI
-                PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByStateDischarge(
-                    (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
-
-                esValue = CurrentEP.Value;
-                CurrentEP.Value = 0;
-            }
-
-            // 에너지 조각 생성
-            Gen_ES(esValue * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value);
-        }
-        else
-        {
-            // UI
-            PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByStateDischarge(
-                (Vector2)TargetObject.transform.position + new Vector2(0, 0.2f));
-        }
+        Add_CurrentEP(-_DmgValue);
     }
 
     #endregion
@@ -438,31 +399,27 @@ public class EnemyController : AliveObjectController, IInteract
 
     private void Set_Die_GenItem()
     {
-        // Drop Bettery Shard
         Gen_BS(1);
-
-        // Drop Module Shard
         Gen_MS(1);
+        Gen_ES(10 * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value);
 
         // Drop Module Item
         if (DevTool.Is_ChanceSuccess(ItemDropPercent))
         {
-            Gen_II();
+            Gen_II(DevTool.Get_Rank(ItemRankPercents));
         }
     }
 
     private void Set_Die_Effect()
     {
         // Effect
-        PlayerManager.Instance.CameraController.Play_KillAnim(PlayerManager.Instance.PlayerController.ExecutionInterval);
+        PlayerManager.Instance.CameraController.Play_KillAnim(_Dur: 0.2f);
         UnitManager.Instance.OnceTime_AnimGenerator.Anim_Attacked_BigSlice(TargetObject.transform.position);
         UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
     }
 
     private void Set_Die_Data()
     {
-        StopCoroutine(Play_RecoverDischarge_Cor());
-
         EndAll_Pattern();
 
         // Remove
@@ -475,49 +432,6 @@ public class EnemyController : AliveObjectController, IInteract
         // Set
         this.gameObject.SetActive(false);
         PoolingManager.Instance.Set_EnqueueEnemy(this);
-    }
-
-    #endregion
-
-    #region Discharge
-
-    private IEnumerator Play_RecoverDischarge_Cor()
-    {
-        // 패턴 루틴 종료
-        EndAll_Pattern();
-
-        yield return new WaitForSeconds(0.5f);
-
-        HUD.StateUI.EP_ProgressBar.Set_FillFullImgSmooth(RecoverDischargeTime);
-
-        yield return new WaitForSeconds(RecoverDischargeTime);
-
-        CurrentEP.Value = MaxEP;
-        IsDischarge = false;
-
-        // 패턴 루틴 시작
-        Start_PatternFromNone();
-    }
-
-    #endregion
-
-    #region Interact
-
-    public void Play_Interact()
-    {
-        // 처형
-        PlayerManager.Instance.PlayerController.Try_Execution(this);
-    }
-
-    #endregion
-
-    #region Execution
-
-    public void Play_Execution()
-    {
-        DevTool.Remove_InList(PlayerManager.Instance.PlayerController.CurrentInteractableGOList, this.gameObject);
-
-        Set_Die();
     }
 
     #endregion
@@ -578,8 +492,7 @@ public class EnemyController : AliveObjectController, IInteract
 
     public void Play_Pattern()
     {
-        if (IsDischarge || IsDead)
-        { return; }
+        if (IsDead) return; 
 
         // 이미 있는지 진행 중인 패턴이 있는지 확인
         int orderOfPattern = Get_NextPatternIndex();

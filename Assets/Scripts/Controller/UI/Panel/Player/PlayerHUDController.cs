@@ -176,7 +176,7 @@ public class PlayerHUDController : UIController
         for (int i = 0; i < ModuleSlots.Count; i++)
         {
             ModuleSlots[i].Offset();
-            ModuleSlots[i].ThisSlotItem.Offset();
+            ModuleSlots[i].ThisItem.Offset();
         }
 
         // น๖วม

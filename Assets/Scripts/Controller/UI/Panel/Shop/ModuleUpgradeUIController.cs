@@ -48,7 +48,7 @@ public class ModuleUpgradeUIController : PanelUIController
 
     [Space(10)]
     [Header("-- In Equip")]
-    [SerializeField] private InventoryEUIController Inventory_InEquip;
+    [SerializeField] public InventoryEUIController Inventory_InEquip;
     [SerializeField] private OwnBtnEUIController ToggleBtn_InEquip;
 
     [Space(5)]
@@ -82,7 +82,7 @@ public class ModuleUpgradeUIController : PanelUIController
 
     [Space(10)]
     [Header("-- In Forge")]
-    [SerializeField] private InventoryEUIController Inventory_InForge;
+    [SerializeField] public InventoryEUIController Inventory_InForge;
 
     [SerializeField] private List<ForgeInteractPanel> ForgeInteractPanels;
     [SerializeField] private List<Image> ForgePanelInnerList;
@@ -131,9 +131,6 @@ public class ModuleUpgradeUIController : PanelUIController
     // Synergy
     [HideInInspector] private List<SynergySlotEUIController> SynergySlotList = new List<SynergySlotEUIController>();
     [HideInInspector] private SynergySlotEUIController SelectedMSS;
-
-    // Current
-    [HideInInspector] public InventorySlotEUIController CurrentSlot;
 
     [HideInInspector] private InventoryItemEUIController CurrentDecompositionItem = null;
     [HideInInspector] private List<InventoryItemEUIController> CurrentFusionItemList = new List<InventoryItemEUIController>();
@@ -219,8 +216,8 @@ public class ModuleUpgradeUIController : PanelUIController
         for (int i = 0; i < EquipedSlots.Count; i++) 
         { 
             EquipedSlots[i].Offset();
-            EquipedSlots[i].ThisSlotItem.Offset();
-            EquipedSlots[i].ThisSlotItem.OwnerUIController = this;
+            EquipedSlots[i].ThisItem.Offset();
+            EquipedSlots[i].ThisItem.OwnerUIController = this;
         }
 
         // 이너 라인, 설명
@@ -265,8 +262,8 @@ public class ModuleUpgradeUIController : PanelUIController
     private void Offset_Forge_Decomposition()
     {
         DecompositionSlot.Offset();
-        DecompositionSlot.ThisSlotItem.Offset();
-        DecompositionSlot.ThisSlotItem.OwnerUIController = this;
+        DecompositionSlot.ThisItem.Offset();
+        DecompositionSlot.ThisItem.OwnerUIController = this;
     }
 
     private void Offset_Forge_Fusion()
@@ -274,8 +271,8 @@ public class ModuleUpgradeUIController : PanelUIController
         for (int i = 0; i < FusionSlotList.Count; i++)
         {
             FusionSlotList[i].Offset();
-            FusionSlotList[i].ThisSlotItem.Offset();
-            FusionSlotList[i].ThisSlotItem.OwnerUIController = this;
+            FusionSlotList[i].ThisItem.Offset();
+            FusionSlotList[i].ThisItem.OwnerUIController = this;
 
             CurrentFusionItemList.Add(null);
         }
@@ -284,8 +281,8 @@ public class ModuleUpgradeUIController : PanelUIController
     private void Offset_Forge_Upgrade()
     {
         UpgradeSlot.Offset();
-        UpgradeSlot.ThisSlotItem.Offset();
-        UpgradeSlot.ThisSlotItem.OwnerUIController = this;
+        UpgradeSlot.ThisItem.Offset();
+        UpgradeSlot.ThisItem.OwnerUIController = this;
     }
 
 
@@ -417,10 +414,10 @@ public class ModuleUpgradeUIController : PanelUIController
     // 강화 패널 리셋
     public void Reset_ForgeElementPanel()
     {
-        DecompositionSlot.ThisSlotItem.gameObject.SetActive(false);
-        FusionSlotList[0].ThisSlotItem.gameObject.SetActive(false);
-        FusionSlotList[1].ThisSlotItem.gameObject.SetActive(false);
-        UpgradeSlot.ThisSlotItem.gameObject.SetActive(false);
+        DecompositionSlot.ThisItem.gameObject.SetActive(false);
+        FusionSlotList[0].ThisItem.gameObject.SetActive(false);
+        FusionSlotList[1].ThisItem.gameObject.SetActive(false);
+        UpgradeSlot.ThisItem.gameObject.SetActive(false);
 
         CurrentDecompositionItem = null;
         DevTool.Set_Null(CurrentFusionItemList);
@@ -568,6 +565,7 @@ public class ModuleUpgradeUIController : PanelUIController
 
     public void Set_Desc(InventoryItemEUIController _Item)
     {
+/*
         ModuleState moduleState = ModuleItemManager.Instance.Get_InventoryModuleState(_Item);
         if (moduleState != null)
         {
@@ -597,6 +595,7 @@ public class ModuleUpgradeUIController : PanelUIController
             moduleState = ModuleItemManager.Instance.Get_InventoryModuleState(mappedItem);
             ThisDescPanel.SetOn_Desc(moduleState);
         }
+*/
     }
 
 
@@ -609,7 +608,7 @@ public class ModuleUpgradeUIController : PanelUIController
     { 
         for (int i = 0; i < _TargetList.Count; i++)
         {
-            if (!_TargetList[i].ThisSlotItem.gameObject.activeSelf) return _TargetList[i];
+            if (!_TargetList[i].ThisItem.gameObject.activeSelf) return _TargetList[i];
         }
         return null;
     }
@@ -617,9 +616,9 @@ public class ModuleUpgradeUIController : PanelUIController
     #endregion
 
     #region Gen
-
+/*
     // 인벤토리 아이템 생성
-    public List<InventoryItemEUIController> Gen_NewItemList(State_ItemData _State)
+    public List<InventoryItemEUIController> Gen_NewItemList(ItemData_UIVisual _State)
     {
         List<InventoryItemEUIController> result = new List<InventoryItemEUIController>();
         for (int i = 0; i < Inventories.Count; i++)
@@ -631,13 +630,14 @@ public class ModuleUpgradeUIController : PanelUIController
         }
         return result;
     }
-
+*/
     #endregion
 
     #region Input
 
     public void Try_Interact()
     {
+/*
         if (ModuleUpgradeController.UsingShop == null)
         { return; }
 
@@ -747,10 +747,11 @@ public class ModuleUpgradeUIController : PanelUIController
                 }
             }
         }
+*/
     }
 
     #endregion
-
+/*
     #region Item & Slot
 
     #region  Interact -> Slot
@@ -818,7 +819,7 @@ public class ModuleUpgradeUIController : PanelUIController
         InventorySlotEUIController emptySlot = Get_EquipedEmptySlot(EquipedSlots);
         int index = EquipedSlots.IndexOf(emptySlot);
         ItemData data = moduleState.ThisItemData;
-        State_ItemData state = new State_ItemData(data.ID, data.Rank, data.BoostLv);
+        ItemData_UIVisual state = new ItemData_UIVisual(data.ID, data.Rank, data.BoostLv);
         // Module UI
         emptySlot.ThisSlotItem.gameObject.SetActive(true);
         emptySlot.ThisSlotItem.Set_Data(state);
@@ -885,7 +886,7 @@ public class ModuleUpgradeUIController : PanelUIController
         CurrentDecompositionItem = CurrentSlot.ThisSlotItem;
 
         ItemData data = moduleState.ThisItemData;
-        State_ItemData state = new State_ItemData(data.ID, data.Rank, data.BoostLv);
+        ItemData_UIVisual state = new ItemData_UIVisual(data.ID, data.Rank, data.BoostLv);
 
         DecompositionSlot.ThisSlotItem.gameObject.SetActive(true);
         DecompositionSlot.ThisSlotItem.Set_Data(state);
@@ -934,7 +935,7 @@ public class ModuleUpgradeUIController : PanelUIController
                 CurrentFusionItemList[i] = CurrentSlot.ThisSlotItem;
 
                 ItemData data = moduleState.ThisItemData;
-                State_ItemData state = new State_ItemData(data.ID, data.Rank, data.BoostLv);
+                ItemData_UIVisual state = new ItemData_UIVisual(data.ID, data.Rank, data.BoostLv);
 
                 FusionSlotList[i].ThisSlotItem.gameObject.SetActive(true);
                 FusionSlotList[i].ThisSlotItem.Set_Data(state);
@@ -986,7 +987,7 @@ public class ModuleUpgradeUIController : PanelUIController
         UpgradeSlot.ThisSlotItem.gameObject.SetActive(true);
 
         ItemData data = moduleState.ThisItemData;
-        State_ItemData state = new State_ItemData(data.ID, data.Rank, data.BoostLv);
+        ItemData_UIVisual state = new ItemData_UIVisual(data.ID, data.Rank, data.BoostLv);
 
 
         UpgradeSlot.ThisSlotItem.Set_Data(state);
@@ -1167,4 +1168,5 @@ public class ModuleUpgradeUIController : PanelUIController
     #endregion
 
     #endregion
+*/
 }
