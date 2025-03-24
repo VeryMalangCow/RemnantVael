@@ -1,7 +1,9 @@
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItemEUIController : OwnBtnEUIController
+public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHandler, IPointerExitHandler
 {
     #region Value 
 
@@ -22,6 +24,11 @@ public class InventoryItemEUIController : OwnBtnEUIController
     [SerializeField] public Image RankImg;
     [SerializeField] private ImgTxtAmountEUIController BoostLvEUI;
 
+    // Seq
+    [HideInInspector] private static readonly float SelectSize = 1.1f;
+    [HideInInspector] private static readonly float SelectDurTime = 0.1f;
+    [HideInInspector] private Sequence SignSeq;
+
     #endregion
 
     #region Offset
@@ -32,30 +39,81 @@ public class InventoryItemEUIController : OwnBtnEUIController
 
         ThisRT.sizeDelta = ThisSizeDelta;
         BoostLvEUI.Offset();
-    }
-
-    #endregion
-
-    #region
-
-    public void Set_Data(ItemData_UIVisual _State)
-    {
-        // Set Visual
-        ThisImg.sprite = _State.Icon;
-        RankImg.sprite = _State.RankIcon;
-        RankImg.SetNativeSize();
-
-        BoostLvEUI.Set_Amount(_State.BoostLv, 0.1f);
-
 
         // Color Set
         DevTool.Set_Color(
             PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false),
             BoostLvEUI.AmountImgs);
-
     }
 
+    #endregion
 
+    #region Set
+
+    public void Set_Data(InventoryItemEUIController _ItemEUI)
+    {
+        ThisImg.sprite = _ItemEUI.ThisImg.sprite;
+        RankImg.sprite = _ItemEUI.RankImg.sprite;
+        RankImg.SetNativeSize();
+
+        BoostLvEUI.Set_Amount(_ItemEUI.BoostLvEUI.Get_GOEnableAmount(), 0.1f);
+    }
+
+    public void Set_Data(ItemData_UIVisual _State)
+    {
+        ThisImg.sprite = _State.Icon;
+        RankImg.sprite = _State.RankIcon;
+        RankImg.SetNativeSize();
+
+        BoostLvEUI.Set_Amount(_State.BoostLv, 0.1f);
+    }
+
+    public void Set_EquipedImg(bool _IsOn)
+    {
+        DevTool.Set_AlphaColor(ThisImg, _IsOn ? 0.35f : 1f);
+    }
+
+    #endregion
+
+    #region Pointer
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        base.OnPointerEnter(eventData);
+
+        if (!IsCanSelect)
+        { return; }
+
+        Play_Selected(SelectSize, SelectDurTime);
+
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentItemBtn = this;
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOn_Desc(this);
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        base.OnPointerEnter(eventData);
+
+        if (!IsCanSelect)
+        { return; }
+
+        Play_Selected(1f, SelectDurTime);
+
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentItemBtn = null;
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_Desc();
+    }
+
+    #endregion
+
+    #region Selected
+
+    private void Play_Selected(float _TargetScale, float _DurTime)
+    {
+        DevTool.Set_KillTween(SignSeq);
+        SignSeq = DOTween.Sequence();
+
+        SignSeq.Append(ThisRT.DOScale(_TargetScale, _DurTime).SetEase(Ease.Linear));
+    }
 
     #endregion
 }

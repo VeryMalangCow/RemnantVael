@@ -602,6 +602,19 @@ public class DevTool
 
     #endregion
 
+    #region About Dictionary
+
+
+    public static void Add_AmountForDict<T>(ref Dictionary<T, int> _Dict, T _ID, int _Amount)
+    {
+        if (_Dict.ContainsKey(_ID))
+            _Dict[_ID] += _Amount; 
+        else
+            _Dict.Add(_ID, _Amount); 
+    }
+
+    #endregion
+
     #region About Vector
 
     #region Get
@@ -1382,6 +1395,15 @@ public class DevTool
         return clr;
     }
 
+
+    public static void Set_TxtList(List<TMP_Text> _Txt, string _s)
+    {
+        for (int i = 0; i< _Txt.Count; i++)
+        {
+            _Txt[i].text = _s;
+        }
+    }
+
     #endregion
 
     #region Image
@@ -1470,6 +1492,12 @@ public class CoupleData<T>
 {
     [SerializeField] public T TypeBase;
     [SerializeField] public T TypeSpecial;
+
+    public CoupleData(CoupleData<T> _Data)
+    {
+        TypeBase = _Data.TypeBase;
+        TypeSpecial = _Data.TypeSpecial;
+    }
 
     public CoupleData(T _Base, T _Special)
     {
@@ -2349,6 +2377,8 @@ class ForgeInteractPanel
     public OwnBtnEUIController PanelBtn;
     public TMP_Text PanelBtnTxt;
 
+    [HideInInspector] public CanvasGroup PanelBtnCG;
+
     [Space(10)]
     public OwnBtnEUIController RoleBtn;
     public TMP_Text RoleBtnTxt;
@@ -2375,6 +2405,9 @@ class ForgeInteractPanel
 
         RoleBtn.Offset();
         RoleBtn.OwnerUIController = _MUUC;
+
+        PanelBtnCG = DevTool.Get_ComponentTType<CanvasGroup>(PanelBtn.gameObject);
+
         RoleBtnTxt.text = ">>  " + BtnString + "  <<";
         RoleBtnTxtRT = DevTool.Get_ComponentTType<RectTransform>(RoleBtnTxt.gameObject);
 
@@ -3200,6 +3233,14 @@ public struct ItemData_UIVisual
         Rank = _Rank;
         RankIcon = ModuleItemManager.Instance.Get_CorrectRankIcon(Rank);
         BoostLv = _BoostLv;
+    }
+
+    public ItemData_UIVisual(ItemData _ItemData)
+    {
+        Icon = _ItemData.ItemIcon;
+        Rank = _ItemData.Rank;
+        RankIcon = ModuleItemManager.Instance.Get_CorrectRankIcon(Rank);
+        BoostLv = _ItemData.BoostLv;
     }
 }
 

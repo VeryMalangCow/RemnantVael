@@ -11,7 +11,6 @@ public class SynergySlotEUIController : OwnBtnEUIController
     [HideInInspector] public Image ThisTierImg;
     [HideInInspector] public TMP_Text ThisTxt;
 
-    [HideInInspector] private int OneTierRange = 6;
 
     #endregion
 
@@ -46,7 +45,7 @@ public class SynergySlotEUIController : OwnBtnEUIController
         ThisTxt.text = _Amalgamation.ToString();
 
         // 1~6 / 7~12 / 13~18
-        int tier = (_Amalgamation - 1) > 0 ? _Amalgamation / OneTierRange : 0;
+        int tier = (_Amalgamation - 1) > 0 ? _Amalgamation / ModuleItemManager.SynchoronyOneTierRange : 0;
 
         ThisTierImg.sprite = MainGameUIManager.Instance.ModuleUpgrade_UIController.SynergyTierFrames[tier];
 

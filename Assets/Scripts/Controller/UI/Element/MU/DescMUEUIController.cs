@@ -72,6 +72,8 @@ public class DescMUEUIController : ElementUIController
 
     public void SetOn_Desc(ModuleState _MS)
     {
+        if (_MS == null) return;
+
         foreach (Transform child in this.transform)
         { child.gameObject.SetActive(true); }
 
@@ -83,7 +85,7 @@ public class DescMUEUIController : ElementUIController
 
         // Rank
         CurrentRankImg.color = new Color(1, 1, 1, 1);
-        CurrentRankImg.sprite = ModuleItemManager.Instance.Get_CorrectMUUIDescRankIcon(_MS);
+        CurrentRankImg.sprite = ModuleItemManager.Instance.Get_CorrectDescRankIcon(_MS.ThisItemData.Rank);
         CurrentRankTxt.text = ExtraString_Rank;
         CurrentActualRankTxt.text = _MS.ThisItemData.Rank.ToString();
 
@@ -139,7 +141,7 @@ public class DescMUEUIController : ElementUIController
 
         // Boost Lv
         Color clr = BoostLvImg.color;
-        clr.a = (float)_MS.ThisItemData.BoostLv / (float)PlayerManager.Instance.PlayerController.MaxBoostLv;
+        clr.a = (float)_MS.ThisItemData.BoostLv / (float)PlayerController.MaxBoostLv;
         BoostLvImg.color = clr;
         CurrentBoostLvMIAT.Set_Amount(_MS.ThisItemData.BoostLv);
         CurrentBoostLvTxt.text = ExtraString_BoostLv;

@@ -439,6 +439,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "MUUI_SelectSub",
+                    "type": "Button",
+                    "id": "09996428-b7ca-47ac-9ce7-88457a7614b3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "MUUI_OutPanel",
                     "type": "Button",
                     "id": "9a3f0c78-91ff-472a-91f7-90d4ce57e2fe",
@@ -468,6 +477,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MUUI_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "66d99e2d-57ef-476b-b330-c87dafa3b5f6",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MUUI_SelectSub",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

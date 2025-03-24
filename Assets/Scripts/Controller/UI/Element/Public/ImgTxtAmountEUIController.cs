@@ -90,6 +90,23 @@ public class ImgTxtAmountEUIController : ElementUIController
 
     #endregion
 
+    #region Get
+
+    public int Get_GOEnableAmount()
+    {
+        int result = 0;
+        for (int i = 0; i < AmountImgs.Count; i++)
+        {
+            if (AmountImgs[i].gameObject.activeSelf)
+                result++;
+            else
+                break;
+        }
+        return result;
+    }
+
+    #endregion
+
     #region Tween
 
     private void Play_OnOffImg(Image _Img, bool _OnOff, float _DoScale, float _DurTime)

@@ -134,7 +134,8 @@ public class PlayerController : AliveObjectController
 
     #region - Data
 
-    [HideInInspector] public readonly int MaxBoostLv = 4;
+    [HideInInspector] public static readonly int MaxBoostLv = 4;
+    [HideInInspector] public static readonly int MaxRank = 5;
     [HideInInspector] public readonly int NeedBS_ForMakeBC = 4;
     [HideInInspector] public readonly float NeedEP_ForMakeEC = 5f;
     [HideInInspector] private List<float> DecEnergyPointByLevel
@@ -351,6 +352,11 @@ public class PlayerController : AliveObjectController
     }
 
     // 배터리 셀 획득
+    public void Add_CurrentBC(int _AddValue)
+    {
+        CurrentBC.Value += _AddValue;
+    }
+
     private void Add_CurrentBC()
     {
         MainGameUIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Set_Complete(
@@ -638,6 +644,7 @@ public class PlayerController : AliveObjectController
     #endregion
 
     #region Check CastingType
+
     // 캐스팅에서 바뀐부분을 찾아서 적용
     
     private void Set_CombatMode()

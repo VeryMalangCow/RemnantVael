@@ -189,6 +189,7 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["BUUI_OutPanel"].performed += Input_BUUIOutPanel;
 
         PlayerInput.actions["MUUI_Select"].performed += Input_MUUIClick;
+        PlayerInput.actions["MUUI_SelectSub"].performed += Input_MUUIClickSub;
         PlayerInput.actions["MUUI_OutPanel"].performed += Input_MUUIOutPanel;
 
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
@@ -221,6 +222,7 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["BUUI_OutPanel"].performed -= Input_BUUIOutPanel;
 
         PlayerInput.actions["MUUI_Select"].performed -= Input_MUUIClick;
+        PlayerInput.actions["MUUI_SelectSub"].performed -= Input_MUUIClickSub;
         PlayerInput.actions["MUUI_OutPanel"].performed -= Input_MUUIOutPanel;
 
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
@@ -386,6 +388,7 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
+
     #endregion
 
     #region Tab
@@ -433,6 +436,13 @@ public class InputManager : Singleton<InputManager>
         if (_InputValue.ReadValueAsButton())
         {
             MainGameUIManager.Instance.ModuleUpgrade_UIController.Try_Interact();
+        }
+    }
+    private void Input_MUUIClickSub(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+        {
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.Try_InteractSub();
         }
     }
 

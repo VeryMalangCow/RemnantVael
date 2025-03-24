@@ -1,4 +1,5 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,6 +23,12 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
     [Space(10)]
     [Header("=== Selected Sign")]
     [SerializeField] private RectTransform SignRT;
+    [SerializeField] private TMP_Text ThisEquipedTxt;
+    [SerializeField] private TMP_Text ThisForgeSelectedTxt;
+
+    // Only Inventory
+    [HideInInspector] public int Col = -1;
+    [HideInInspector] public int Row = -1;
 
     // This
     [HideInInspector] public Image ThisImg;
@@ -29,7 +36,7 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
     // Sign
     [HideInInspector] private Image SignImg;
     [HideInInspector] private static readonly float SignImgAnimDurTime = 0.1f;
-    [HideInInspector] private static readonly float SignImgAnimSize = 1.2f;
+    [HideInInspector] private static readonly float SignImgAnimSize = 1.6f;
 
     // Seq
     [HideInInspector] private Sequence SignSeq;
@@ -47,7 +54,13 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
         SignImg = DevTool.Get_ComponentTType(SignRT.gameObject, out Image signImg) ? signImg : null;
 
-        SignImg.color = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
+        Color txtColor = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+
+        SignImg.color = 
+            PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
+        ThisEquipedTxt.color = txtColor;
+        ThisForgeSelectedTxt.color = txtColor;
+
         DevTool.Set_AlphaColor(SignImg, 0f);
     }
 
@@ -82,6 +95,37 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
         SignSeq.Append(SignImg.DOFade(_TargetAlpha, _DurTime).SetEase(Ease.Linear));
         SignSeq.Join(SignRT.DOScale(_TargetScale, _DurTime).SetEase(Ease.Linear));
+    }
+
+    #endregion
+
+    #region Equiped
+
+    public void Set_EquipedTxt(bool _IsOn, int _EquipedSlotIndex = 0)
+    {
+        ThisEquipedTxt.gameObject.SetActive(_IsOn);
+
+        if (_IsOn)
+        {
+            ThisEquipedTxt.text = $"#{_EquipedSlotIndex + 1}";
+            ThisEquipedTxt.transform.SetAsLastSibling();
+        }
+    }
+
+    #endregion
+
+    #region Forge
+
+    public void Set_ForgeSelectedTxt(bool _IsOn, int _Index = -1)
+    {
+        ThisForgeSelectedTxt.gameObject.SetActive(_IsOn);
+
+        string txt = _Index == -1 ? "<>" : $"<{_Index + 1}>";
+        if (_IsOn)
+        { 
+            ThisForgeSelectedTxt.text = txt;
+            ThisForgeSelectedTxt.transform.SetAsLastSibling();
+        }
     }
 
     #endregion

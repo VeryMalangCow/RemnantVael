@@ -32,14 +32,14 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
 
     #region Pointer
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
         if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return; 
 
         if (OwnerUIController != null) OwnerUIController.CurrentBtn = this;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
         if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return; 
 

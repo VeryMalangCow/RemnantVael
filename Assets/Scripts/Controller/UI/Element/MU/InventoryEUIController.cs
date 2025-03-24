@@ -39,29 +39,31 @@ public class InventoryEUIController : ElementUIController
 
     private void Gen_AllSlotAndItem()
     {
-        for (int column = 0; column < ModuleItemManager.ColumnAmount; column++) 
+        for (int i = 0; i < ModuleItemManager.ColumnAmount; i++) 
         {
             List<InventorySlotEUIController> colSlot = new List<InventorySlotEUIController>();
             List<InventoryItemEUIController> colItem = new List<InventoryItemEUIController>();
 
-            for (int row = 0; row < ModuleItemManager.RowAmount; row++)
+            for (int j = 0; j < ModuleItemManager.RowAmount; j++)
             {
                 // Generate GO
                 GameObject slotGO = Instantiate(ModuleItemManager.Instance.InventorySlotPrefab, this.transform);
                 GameObject itemGO = Instantiate(ModuleItemManager.Instance.InventoryItemPrefab, slotGO.transform);
 
-                slotGO.name = $"Slot_Col:{column}_Row:{row}";
-                itemGO.name = $"Item_Col:{column}_Row:{row}";
+                slotGO.name = $"Slot_Col:{i}_Row:{j}";
+                itemGO.name = $"Item_Col:{i}_Row:{j}";
 
                 // Offset
                 if (DevTool.Get_ComponentTType(slotGO.gameObject, out RectTransform slotRt) &&
                     DevTool.Get_ComponentTType(slotGO.gameObject, out InventorySlotEUIController slot) &&
                     DevTool.Get_ComponentTType(itemGO.gameObject, out InventoryItemEUIController item))
                 {
-                    slotRt.anchoredPosition = new Vector2((row * 110 + 10), -(column * 110 + 10));
+                    slotRt.anchoredPosition = new Vector2((j * 110 + 10), -(i * 110 + 10));
 
                     slot.Offset();
                     slot.ThisImg.sprite = SlotSprite;
+                    slot.Col = i;
+                    slot.Row = j;
 
                     item.Offset();
                     itemGO.gameObject.SetActive(false);
@@ -71,6 +73,8 @@ public class InventoryEUIController : ElementUIController
 
                     slot.ThisItem = item;
                     item.ThisSlot = slot;
+
+                    item.OwnerUIController = MainGameUIManager.Instance.ModuleUpgrade_UIController;
                 }
             }
 
@@ -107,6 +111,61 @@ public class InventoryEUIController : ElementUIController
             }
         }
     }
+
+    #region Equiped
+
+    public void Set_InventoryEquipedUI(List<CoupleData<int>> _EquipedIndex)
+    {
+        SetOff_AllInventoryEquipedUI();
+
+        for (int i = 0; i < _EquipedIndex.Count; i++)
+        {
+            int targetCol = _EquipedIndex[i].TypeBase;
+            int targetRow = _EquipedIndex[i].TypeSpecial;
+
+            if (targetCol != -1 && targetRow != -1)
+            {
+                AllItem[targetCol][targetRow].ThisSlot.Set_EquipedTxt(true, i);
+                AllItem[targetCol][targetRow].Set_EquipedImg(true);
+            }
+
+        }
+    }
+
+    private void SetOff_AllInventoryEquipedUI()
+    {
+        for (int i = 0; i < AllSlot.Count; i++)
+        {
+            for (int j = 0; j < AllSlot[i].Count; j++)
+            {
+                AllItem[i][j].ThisSlot.Set_EquipedTxt(false);
+                AllItem[i][j].Set_EquipedImg(false);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Forge
+
+    public void Set_InventoryForgeSelectedUI(CoupleData<int> _SelectedIndex, bool _IsOn, int _Index = -1)
+    {
+        AllItem[_SelectedIndex.TypeBase][_SelectedIndex.TypeSpecial]
+            .ThisSlot.Set_ForgeSelectedTxt(_IsOn, _Index);
+    }
+
+    public void SetOff_AllInventoryForgeSelectedUI()
+    {
+        for (int i = 0; i < AllSlot.Count; i++)
+        {
+            for (int j = 0; j < AllSlot[i].Count; j++)
+            {
+                AllItem[i][j].ThisSlot.Set_ForgeSelectedTxt(false);
+            }
+        }
+    }
+
+    #endregion
 
     #endregion
 }
