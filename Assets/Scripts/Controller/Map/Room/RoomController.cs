@@ -113,14 +113,14 @@ public class RoomController : IDController
         {
             if (_IsUpper)
             {
-                _Gates[i].Set_SortingOrder(1);
+                _Gates[i].Set_SortingOrder(LayerOrderManager.Order_BuildUpper);
             }
             else
             {
                 if (InRoom_LowerGates[i].TargetObject.TryGetComponent(out SpriteRenderer sr))
-                { srList.Add(sr); }
+                    srList.Add(sr); 
                 if (InRoom_LowerGates[i].ExtraTargetObject.TryGetComponent(out SpriteRenderer extraSr))
-                { srList.Add(extraSr); }
+                    srList.Add(extraSr); 
             }
 
             srList.AddRange(Get_SortingSrList(_Gates[i].TargetObject.transform));
@@ -147,7 +147,7 @@ public class RoomController : IDController
         upperSrs.AddRange(Get_Sorting_EachWalls(InRoom_UpperWalls));
         upperSrs.AddRange(Get_Sorting_EachGates(InRoom_UpperGates, true));
 
-        Set_Sorting(upperSrs, 1);
+        Set_Sorting(upperSrs, LayerOrderManager.Order_BuildUpper);
 
 
         //Lower
@@ -156,7 +156,7 @@ public class RoomController : IDController
         lowerSrs.AddRange(Get_Sorting_EachWalls(InRoom_LowerWalls));
         lowerSrs.AddRange(Get_Sorting_EachGates(InRoom_LowerGates, false));
 
-        Set_Sorting(lowerSrs, 2000);
+        Set_Sorting(lowerSrs, LayerOrderManager.Order_BuildLower);
 
         Get_NeedSortingAllDepth();
 

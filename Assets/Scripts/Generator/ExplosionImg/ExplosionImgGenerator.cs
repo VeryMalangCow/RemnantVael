@@ -127,7 +127,7 @@ public class ExplosionImgGenerator : MonoBehaviour
         _SR.transform.localScale = Vector2.zero;
 
         _SR.color = Color.white;
-        _SR.sortingOrder = LayerOrderManager.EffectImgSort;
+        _SR.sortingOrder = LayerOrderManager.Order_EffectImg;
 
         _SR.sprite = DevTool.Get_Random(_State.Sprite);
         _SR.material = _State.Material;

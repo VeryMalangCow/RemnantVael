@@ -28,7 +28,7 @@ public class MapIntroUIController : UIController
 
     public void Play_IntroLabel()
     {
-        StageManager.StageData sd = 
+        StageData sd = 
             StageManager.Instance.Get_CollectStageData(StageManager.Instance.TargetStageID);
 
         Set_Txt(sd.StageName, sd.StageDescription);

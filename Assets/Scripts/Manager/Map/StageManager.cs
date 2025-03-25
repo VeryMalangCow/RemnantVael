@@ -357,11 +357,8 @@ public class StageManager : Singleton<StageManager>
         for (int i = 0; i < allGate.Count - 1; i++)
         {
             // 이미 파트너 게이트가 있다면
-            if (allGate[i].ParterGate != null)
-            {
-                continue;
-            }
-
+            if (allGate[i].ParterGate != null) continue;
+            
             for (int j = i + 1; j < allGate.Count; j++)
             {
                 if (((allGate[i].RoomPosGate + allGate[i].GateDir) == allGate[j].RoomPosGate) &&
@@ -385,8 +382,7 @@ public class StageManager : Singleton<StageManager>
 
     private IEnumerator Play_CurrentRoom_Cor(RoomController _TargetRC)
     {
-        if (_TargetRC == null)
-        { yield return null; }
+        if (_TargetRC == null) yield break;
 
         // 현재 방 선택
         CurrentRoomController = _TargetRC;
@@ -425,8 +421,7 @@ public class StageManager : Singleton<StageManager>
 
     public IEnumerator Play_CompleteKillAll_Cor()
     {
-        if (CurrentRoomController == null)
-        { yield return null; }
+        if (CurrentRoomController == null) yield break;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -447,13 +442,9 @@ public class StageManager : Singleton<StageManager>
     public StageData Get_CollectStageData(int _StageID)
     {
         for (int i = 0; i < AllReso.Count; i++)
-        {
             if (AllReso[i].StageID == _StageID)
-            {
                 return AllReso[i];
-            }
-        }
-
+            
         return null;
     }
     
@@ -477,9 +468,8 @@ public class StageManager : Singleton<StageManager>
     {
         List<GateController> allGate = new List<GateController>();
         for (int i = 0; i < CurrentAllRoomController.Count; i++)
-        {
             allGate.AddRange(CurrentAllRoomController[i].InRoom_AllGate);
-        }
+        
         return allGate;
     }
 
@@ -489,85 +479,12 @@ public class StageManager : Singleton<StageManager>
         int result = 0;
 
         StageData reso = Get_CollectStageData(_StageID);
+
         if (reso != null)
-        {
             for (int i = 0; i < reso.RoomPrefabList.Count; i++)
-            {
                 result += reso.RoomPrefabList[i].AmountInStage;
-            }
-        }
+        
         return result;
-    }
-
-    private int Get_BossRoomAmount(int _StageID)
-    {
-        return Get_CollectStageData(_StageID).BossRoomList.Count;
-    }
-
-    private int Get_AllRoomAmount(int _StageID)
-    {
-        return Get_RoomAmount(_StageID) + Get_BossRoomAmount(_StageID);
-    }
-
-    #endregion
-
-    #region Detail Class
-
-    [System.Serializable]
-    public class StageData
-    {
-        [Space(20)]
-        public int StageID;
-        public string StageName;
-        public string StageDescription;
-
-        [Space(20)]
-        public GameObject StartRoomPrefab;
-        public GameObject StartRoomRulePrefab;
-
-        [Space(20)]
-        public List<RoomData> RoomPrefabList;
-        public List<GameObject> RoomRulePrefabList;
-
-        [Space(20)]
-        public List<BossRoomData> BossRoomList;
-
-        [Space(20)]
-        public int BUShopAmount = 1;
-        public int MUShopAmount = 1;
-
-        [Space(20)]
-        public List<GameObject> StageEnemyList;
-
-
-        [System.Serializable]
-        public class RoomData
-        {
-            public int AmountInStage;
-            public GameObject RoomPrefab;
-        }
-
-        [System.Serializable]
-        public class BossRoomData
-        {
-            public GameObject RoomPrefab;
-            public List<GameObject> RoomRulePrefabList;
-        }
-
-
-        public GameObject Get_CorrectRandomRoomRule(List<Vector2Int> _RoomVec)
-        {
-            List<GameObject> roomRulePrefabList = new List<GameObject>();
-            for (int i = 0; i < RoomRulePrefabList.Count; i++)
-            {
-                if (RoomRulePrefabList[i].TryGetComponent(out RoomRuleController rrc) && rrc.RoomVec.SequenceEqual(_RoomVec))
-                {
-                    roomRulePrefabList.Add(RoomRulePrefabList[i]);
-                }
-            }
-
-            return roomRulePrefabList[Random.Range(0, roomRulePrefabList.Count)];
-        }
     }
 
     #endregion

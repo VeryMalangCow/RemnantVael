@@ -3080,6 +3080,66 @@ public class SatelliteCenterController : SatelliteController
 
 #endregion
 
+#region Class : Stage
+
+[System.Serializable]
+public class StageData
+{
+    [Space(20)]
+    public int StageID;
+    public string StageName;
+    public string StageDescription;
+
+    [Space(20)]
+    public GameObject StartRoomPrefab;
+    public GameObject StartRoomRulePrefab;
+
+    [Space(20)]
+    public List<RoomData> RoomPrefabList;
+    public List<GameObject> RoomRulePrefabList;
+
+    [Space(20)]
+    public List<BossRoomData> BossRoomList;
+
+    [Space(20)]
+    public int BUShopAmount = 1;
+    public int MUShopAmount = 1;
+
+    [Space(20)]
+    public List<GameObject> StageEnemyList;
+
+
+    [System.Serializable]
+    public class RoomData
+    {
+        public int AmountInStage;
+        public GameObject RoomPrefab;
+    }
+
+    [System.Serializable]
+    public class BossRoomData
+    {
+        public GameObject RoomPrefab;
+        public List<GameObject> RoomRulePrefabList;
+    }
+
+
+    public GameObject Get_CorrectRandomRoomRule(List<Vector2Int> _RoomVec)
+    {
+        List<GameObject> roomRulePrefabList = new List<GameObject>();
+        for (int i = 0; i < RoomRulePrefabList.Count; i++)
+        {
+            if (RoomRulePrefabList[i].TryGetComponent(out RoomRuleController rrc) && rrc.RoomVec.SequenceEqual(_RoomVec))
+            {
+                roomRulePrefabList.Add(RoomRulePrefabList[i]);
+            }
+        }
+
+        return roomRulePrefabList[UnityEngine.Random.Range(0, roomRulePrefabList.Count)];
+    }
+}
+
+#endregion
 
 #region Class : Visual
 

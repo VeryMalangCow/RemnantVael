@@ -8,15 +8,16 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 {
     #region Value
 
-    [Header("=== Value")]
-    [SerializeField] public readonly static int NeedLayerObjectTopSort = 1000;
-    [SerializeField] public readonly static int EffectImgSort = 3000;
-
     [Header("=== Movable Object")]
     [SerializeField] public List<DepthController> NeedSortingObjects;
 
 
     [HideInInspector] private Coroutine LayerSortingCor = null;
+
+    [HideInInspector] public readonly static int Order_BuildUpper = 1;
+    [HideInInspector] public readonly static int Order_SortingObjTop = 5000;
+    [HideInInspector] public readonly static int Order_EffectImg = 9999;
+    [HideInInspector] public readonly static int Order_BuildLower = 10000;
 
     #endregion
 
@@ -96,7 +97,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         _ObjectList = Get_OrderByY(_ObjectList);
         for (int i = 0; i < _ObjectList.Count; i++)
         {
-            _ObjectList[i].Set_SortingOrder(NeedLayerObjectTopSort - (10 * i));
+            _ObjectList[i].Set_SortingOrder(Order_SortingObjTop - (10 * i));
         }
     }
 

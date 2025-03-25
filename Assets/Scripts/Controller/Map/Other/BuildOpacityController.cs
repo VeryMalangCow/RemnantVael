@@ -37,20 +37,22 @@ public class BuildOpacityController : MonoBehaviour
 
     private void Offset_TF(Transform _TF)
     {
-        if (_TF != null && _TF.childCount > 0)
+        if (_TF == null || _TF.childCount <= 0) return;
+
+        List<StaticDepthController> depthList = DevTool.Get_ChildList<StaticDepthController>(_TF);
+        for (int i = 0; i < depthList.Count; i++)
         {
-            List<StaticDepthController> depthList = DevTool.Get_ChildList<StaticDepthController>(_TF);
-            for (int i = 0; i < depthList.Count; i++)
-            {
-                SpriteRenderer sr = DevTool.Get_ComponentTType<SpriteRenderer>(depthList[i].TargetObject);
-                if (sr != null && sr != default) SetSRList.Add(sr);
-            }
+            SpriteRenderer sr = DevTool.Get_ComponentTType<SpriteRenderer>(depthList[i].TargetObject);
+            if (sr != null && sr != default) SetSRList.Add(sr);
         }
+
         _TF = null;
     }
 
     private void Offset_StaticDepthList(List<StaticDepthController> _DepthList)
     {
+        if (_DepthList == null || _DepthList.Count <= 0) return;
+
         for (int i = 0; i < _DepthList.Count; i++)
         {
             SpriteRenderer sr = DevTool.Get_ComponentTType<SpriteRenderer>(_DepthList[i].TargetObject);
@@ -65,6 +67,8 @@ public class BuildOpacityController : MonoBehaviour
 
     private void Offset_GateList(List<GateController> _GateList)
     {
+        if (_GateList == null || _GateList.Count <= 0) return;
+
         for (int i = 0; i < _GateList.Count; i++)
         {
             SetSRList.AddRange(_GateList[i].OpacityLowerSRList);
