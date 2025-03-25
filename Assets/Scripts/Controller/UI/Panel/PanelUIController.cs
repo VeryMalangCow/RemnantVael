@@ -78,7 +78,7 @@ public class PanelUIController : UIController
         this.gameObject.SetActive(true);
 
         // Aim & Mouse
-        InputManager.Instance.SetOn_MousePointer();
+        InputManager.Instance.Set_AllPointer(_Aim: false, _Mouse: true);
 
         // Input
         InputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
@@ -108,7 +108,7 @@ public class PanelUIController : UIController
         this.gameObject.SetActive(false);
 
         // Aim & Mouse
-        InputManager.Instance.SetOn_AimPointer();
+        InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
 
         // Input
         InputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");

@@ -14,10 +14,6 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 
     #endregion
 
-    #region Framework
-
-    #endregion
-
     #region Load
 
     public void Play_LoadScene(string _SceneName)

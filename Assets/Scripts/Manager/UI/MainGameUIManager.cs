@@ -5,11 +5,15 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 {
     #region Value
 
-    [Header("=== UI_Camera")]
+    [Header("=== Class")]
     [SerializeField] private Camera UICamera;
-
-    [Header("=== UI_Prefab")]
     [SerializeField] public Transform UIParent;
+    [SerializeField] private Canvas ScreenCanvas;
+
+    [Header("=== Screen")]
+    [SerializeField] private float FadeOutTime = 2f;
+
+    [Header("=== refab")]
     [SerializeField] private GameObject PlayerHUD_CanvasPrefab;
     [SerializeField] private GameObject BaseUpgrade_CanvasPrefab;
     [SerializeField] private GameObject ModuleUpgrade_CanvasPrefab;
@@ -27,23 +31,22 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     [HideInInspector] public UIController CurrentOpening_UIController;
 
-    [Header("=== Screen")]
-    [SerializeField] private Canvas ScreenCanvas;
     [HideInInspector] private CanvasGroup ScreenCG;
-    [SerializeField] private float FadeOutTime = 2f;
 
     #endregion
 
-    #region Framework
+    #region Offset
 
-    private void Start()
+    private void Offset()
     {
-        PlayerHUD_UIController 
+        ScreenCG = DevTool.Get_ComponentTType(ScreenCanvas.gameObject, out CanvasGroup cg) ? cg : null;
+
+        PlayerHUD_UIController
             = Gen_UI<PlayerHUDController>(PlayerHUD_CanvasPrefab, true);
 
-        BaseUpgrade_UIController 
+        BaseUpgrade_UIController
             = Gen_UI<BaseUpgradeUIController>(BaseUpgrade_CanvasPrefab, false);
-        ModuleUpgrade_UIController 
+        ModuleUpgrade_UIController
             = Gen_UI<ModuleUpgradeUIController>(ModuleUpgrade_CanvasPrefab, false);
 
         OutMainGame_UIController
@@ -55,61 +58,56 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         MapIntro_UIController
             = Gen_UI<MapIntroUIController>(MapIntro_CanvasPrefab, false);
 
-        Start_FirstPlay();
+        DevTool.Play_Tween(Start_FadeOut(FadeOutTime),
+            _Start: new Dele(() => PlayerHUD_UIController.gameObject.SetActive(false)),
+            _Update: null,
+            _Complete: new Dele(() => PlayerHUD_UIController.gameObject.SetActive(true)));
     }
 
     #endregion
 
-    #region Spawn
+    #region Framework
+
+    private void Start()
+    {
+        Offset();
+    }
+
+    #endregion
+
+    #region Gen
 
     private T Gen_UI<T>(GameObject _UIGO, bool _OnOff)
     {
         GameObject uigo = Instantiate(_UIGO, UIParent);
+
         uigo.gameObject.SetActive(_OnOff);
-        if (uigo.TryGetComponent(out UIController ui))
+        if (DevTool.Get_ComponentTType(uigo, out UIController uiController) &&
+            DevTool.Get_ComponentTType(uigo, out Canvas uiCanvas))
         {
-            ui.Offset();
-        }
-        if (uigo.TryGetComponent(out Canvas canvas))
-        {
-            canvas.worldCamera = UICamera;
+            uiController.Offset();
+            uiCanvas.worldCamera = UICamera;
         }
 
-        if (uigo.TryGetComponent(out T spawnUI))
-        { return spawnUI; }
-        else
-        { return default; }
+        return DevTool.Get_ComponentTType(uigo, out T tType) ? tType : default;
     }
 
     #endregion
 
     #region FirstStart
 
-    private void Start_FirstPlay()
+    private Tween Start_FadeOut(float _DurTime)
     {
-        if (ScreenCG == null && ScreenCanvas.TryGetComponent(out CanvasGroup CG))
-        { ScreenCG = CG; }
-
-        Sequence firstSeq = DOTween.Sequence();
-
-        ScreenCG.alpha = 1f;
-
-        firstSeq.Append(ScreenCG.DOFade(0f, FadeOutTime));
-
-        firstSeq
-            .OnComplete(() =>
-            {
-                ScreenCanvas.gameObject.SetActive(false);
-            });
+        return ScreenCG.DOFade(0f, _DurTime)
+            .OnStart(() => { ScreenCanvas.gameObject.SetActive(true); ScreenCG.alpha = 1f; })
+            .OnComplete(() => { ScreenCanvas.gameObject.SetActive(false); });
     }
 
-    public void Play_Dark(float _DurTime)
+    public Tween Play_FadeIn(float _DurTime)
     {
-        ScreenCanvas.gameObject.SetActive(true);
-
-        Sequence firstSeq = DOTween.Sequence();
-
-        firstSeq.Append(ScreenCG.DOFade(1f, FadeOutTime));
+        return ScreenCG.DOFade(1f, _DurTime)
+            .OnStart(() => 
+            { ScreenCanvas.gameObject.SetActive(true); ScreenCG.alpha = 0f; });
     }
 
     #endregion

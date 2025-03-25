@@ -14,7 +14,7 @@ public class EndingElevatorController : ElevatorController, IInteract
         EventManager.Instance.Set_Input(false);
 
         // Screen
-        MainGameUIManager.Instance.Play_Dark(3f);
+        MainGameUIManager.Instance.Play_FadeIn(3f);
         ThisSR.sortingOrder = 3000;
 
     }

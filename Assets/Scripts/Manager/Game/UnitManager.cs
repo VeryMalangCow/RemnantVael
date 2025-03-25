@@ -52,18 +52,6 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
-    #region Generate Unit
-
-    public static T Gen_Unit<T>(GameObject _GO, Transform _ParentTF)
-    {
-        GameObject SpawnedPlayerGO = Instantiate(_GO, _ParentTF);
-        SpawnedPlayerGO.TryGetComponent(out T type);
-        return type;
-    }
-
-    #endregion
-
-
     #region Set
 
     // 무지개 컬러 Dotween

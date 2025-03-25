@@ -892,12 +892,12 @@ public class DevTool
     #region About Tween
 
     #region Play
-    public static Tween Play_Tween(Tween _Tween, Dele _Start, Dele _Update, Dele _Complete)
+    public static Tween Play_Tween(Tween _Tween, Dele _Start = null, Dele _Update = null, Dele _Complete = null)
     {
         _Tween
-            .OnStart(() => { _Start(); })
-            .OnUpdate(() => { _Update(); })
-            .OnComplete(() => { _Complete(); });
+            .OnStart(() => { if (_Start != null) _Start(); })
+            .OnUpdate(() => { if (_Update != null) _Update(); })
+            .OnComplete(() => { if (_Complete != null) _Complete(); });
 
         return _Tween;
     }
@@ -1469,6 +1469,18 @@ public class DevTool
     }
 
     #endregion
+
+    #endregion
+
+    #region About Interface
+
+    public static void Play_AllIWhen<T>(List<T> _IWhenList) where T : IWhen
+    {
+        if (_IWhenList.Count <= 0) return;
+
+        for (int i = 0; i < _IWhenList.Count; i++)
+            _IWhenList[i].Play_When();
+    }
 
     #endregion
 }
@@ -3491,7 +3503,6 @@ public delegate void Dele_RefT_T<T>(ref T _Item1, T _Item2);
 
 public delegate void Dele_T_U<T, U>(T _Item1, U _Item2);
 public delegate void Dele_RefT_U<T, U>(ref T _Item1, U _Item2);
-
 
 #endregion
 

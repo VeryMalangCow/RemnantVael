@@ -8,12 +8,9 @@ public class BuffManager : Singleton<BuffManager>
     [Space(20)]
     [Header("<><><><><> Buff Manager")]
 
-    [Space(10)]
-    [Header("=== Buff Controller")]
-    [SerializeField] private List<BuffController> AllBuffs = new List<BuffController>();
-
-
-    [HideInInspector] public List<IWhen_GetElectricity> iWhen_HittedList = new List<IWhen_GetElectricity>();
+    // Current Data
+    [HideInInspector] private List<BuffController> AllBuffs = new List<BuffController>();
+    [HideInInspector] public List<IWhen_GetElectricity> IWhen_GetElectricityList = new List<IWhen_GetElectricity>();
 
     #endregion
 
@@ -29,17 +26,11 @@ public class BuffManager : Singleton<BuffManager>
         }
     }
 
-    private void Start()
+    protected override void Awake()
     {
-        Offset();
-    }
+        base.Awake();
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Gain_Buff(1);
-        }
+        Offset();
     }
 
     #endregion
@@ -63,8 +54,6 @@ public class BuffManager : Singleton<BuffManager>
         if (correctBuff != null) correctBuff.Reduct_Buff();
     }
 
-    // 맞는 버프컨트롤러 찾기
-
     #endregion
 
     #region Get
@@ -78,15 +67,10 @@ public class BuffManager : Singleton<BuffManager>
 
     #region Active
 
-    // 맞을 시, 실행
-    public void Active_Hitted()
+    // 전기 속성 디버프를 얻을 시
+    public void Active_GetElectricity()
     {
-        if (iWhen_HittedList.Count <= 0) return;
-
-        for (int i = 0; i < iWhen_HittedList.Count; i++)
-        {
-            iWhen_HittedList[i].Play_When();
-        }
+        DevTool.Play_AllIWhen(IWhen_GetElectricityList);
     }
 
     #endregion

@@ -155,7 +155,7 @@ public class PlayerDashController : MonoBehaviour
         BookCaculateVec = Vector2.zero;
         CurrentDashProcessTime = 0;
 
-        InputManager.Instance.IsPlayingSkill = false;
+        InputManager.Instance.IsPlayingBuffered = false;
     }
 
     #endregion

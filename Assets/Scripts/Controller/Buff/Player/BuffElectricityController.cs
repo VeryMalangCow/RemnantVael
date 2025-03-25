@@ -23,7 +23,7 @@ public class BuffElectricityController : BuffController, IWhen_GetElectricity
     public override void Gain_Buff()
     {
         base.Gain_Buff();
-        BuffManager.Instance.Active_Hitted();
+        BuffManager.Instance.Active_GetElectricity();
     }
 
     public override void Reduct_Buff()

@@ -27,22 +27,16 @@ public class IDController : MonoBehaviour
     public static T Get_CorrectIDObject<T>(int _ID, List<IDController> _ObjectList) where T : class
     {
         for (int i = 0; i < _ObjectList.Count; i++)
-        {
             if (Is_CorrectID(_ID, _ObjectList[i]))
-            {
                 return DevTool.Get_CastingTType<T>(_ObjectList[i]);
-            }
-        }
+            
         return default;
     }
 
     // ID가 맞는가 판별
     public static bool Is_CorrectID(int _ID, IDController _Object)
     {
-        if (_Object.ID == _ID)
-        {
-            return true;
-        }
+        if (_Object.ID == _ID) return true;
         return false;
     }
 

@@ -149,7 +149,7 @@ public class EventManager : PersistentSingleton<EventManager>
             else if (sceneName == "MainGame")
             {
                 InputManager.Instance.SetOn_InputAction();
-                InputManager.Instance.SetOn_AimPointer();
+                InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
 
                 InputManager.Instance.CanMouseInput = true;
             }
@@ -163,7 +163,7 @@ public class EventManager : PersistentSingleton<EventManager>
             else if (sceneName == "MainGame")
             {
                 InputManager.Instance.SetOff_InputAction();
-                InputManager.Instance.SetOff_AllPointer();
+                InputManager.Instance.Set_AllPointer(false);
 
                 InputManager.Instance.InputMoveDir = Vector2.zero;
                 InputManager.Instance.CanMouseInput = false;

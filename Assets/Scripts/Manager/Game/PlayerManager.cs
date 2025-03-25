@@ -4,13 +4,13 @@ public class PlayerManager : Singleton<PlayerManager>
 {
     #region Value
 
-    [HideInInspector] public PlayerController PlayerController;
-
     [Header("=== TF")]
     [SerializeField] private Transform PlayerSpawnParentTF;
 
     [Header("=== Class")]
     [SerializeField] public CameraController CameraController;
+
+    [HideInInspector] public PlayerController PlayerController;
 
     #endregion
 
@@ -23,24 +23,31 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void Start()
     {
-        this.PlayerController = UnitManager.Gen_Unit<PlayerController>(GameManager.Instance.DesignatedPlayerPrefab, PlayerSpawnParentTF);
-        
+        Gen_Player(out AimController aim, out AimRoundController aimRound);
+
+        InputManager.Instance.AimController = aim;
+        InputManager.Instance.AimRoundController = aimRound;
+
         CameraController.TargetTF = PlayerController.gameObject.transform;
         BaseUpgradeManager.Instance.Offset(PlayerController);
-
-        GameObject spawnedAimGO = Instantiate(PlayerController.AimPrefab, PlayerSpawnParentTF);
-        GameObject spawnedAimRoundGO = Instantiate(PlayerController.AimRoundPrefab, PlayerController.transform);
-
-        if (spawnedAimGO != null && spawnedAimGO.TryGetComponent(out AimController aim)) 
-        {
-            InputManager.Instance.AimController = aim;
-        }
-        if (spawnedAimRoundGO != null && spawnedAimRoundGO.TryGetComponent(out AimRoundController aimRound))
-        {
-            InputManager.Instance.AimRoundController = aimRound;
-        }
     }
 
+    #endregion
+
+    #region Gen
+
+    private PlayerController Gen_Player(out AimController _Aim, out AimRoundController _AimRound)
+    {
+        PlayerController pc = this.PlayerController =
+            DevTool.Get_ComponentTType<PlayerController>(
+                Instantiate(GameManager.Instance.DesignatedPlayerPrefab, PlayerSpawnParentTF));
+        _Aim = DevTool.Get_ComponentTType<AimController>(
+            Instantiate(PlayerController.AimPrefab, PlayerSpawnParentTF));
+        _AimRound = DevTool.Get_ComponentTType<AimRoundController>(
+            Instantiate(PlayerController.AimRoundPrefab, PlayerController.transform));
+
+        return pc;
+    }
 
     #endregion
 }

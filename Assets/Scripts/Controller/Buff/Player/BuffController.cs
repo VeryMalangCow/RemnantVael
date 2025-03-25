@@ -127,7 +127,7 @@ public class BuffController : IDController
         switch (this)
         {
             case IWhen_GetElectricity elec:
-                DevTool.Add_InList(BuffManager.Instance.iWhen_HittedList, elec);
+                DevTool.Add_InList(BuffManager.Instance.IWhen_GetElectricityList, elec);
                 break;
 
             default:
@@ -142,7 +142,7 @@ public class BuffController : IDController
         switch (this)
         {
             case IWhen_GetElectricity elec:
-                DevTool.Remove_InList(BuffManager.Instance.iWhen_HittedList, elec);
+                DevTool.Remove_InList(BuffManager.Instance.IWhen_GetElectricityList, elec);
                 break;
 
             default:

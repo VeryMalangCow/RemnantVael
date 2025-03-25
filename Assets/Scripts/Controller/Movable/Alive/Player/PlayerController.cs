@@ -417,7 +417,7 @@ public class PlayerController : AliveObjectController
     {
         if (Can_Change() && DashController.Is_EnoughEP())
         {
-            InputManager.Instance.IsPlayingSkill = true;
+            InputManager.Instance.IsPlayingBuffered = true;
             AfterImgGenerator.Start_Gen(0.7f, 0.03f, 0.5f);
             Add_CurrentEP(-DashController.Get_ActualNeedEP());
             MovementState = eMovementState.Dash;
@@ -574,7 +574,7 @@ public class PlayerController : AliveObjectController
         MovementState = eMovementState.Casting;
         ThisRb.velocity = Vector2.zero;
 
-        InputManager.Instance.IsPlayingSkill = true;
+        InputManager.Instance.IsPlayingBuffered = true;
     }
 
     #endregion
@@ -612,7 +612,7 @@ public class PlayerController : AliveObjectController
         {
             CastingTime.Current = 0f;
             MovementState = eMovementState.IdleOrWalk;
-            InputManager.Instance.IsPlayingSkill = false;
+            InputManager.Instance.IsPlayingBuffered = false;
 
             Set_CombatMode();
             Set_Skill();
