@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using System.Linq;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerHUDController : UIController
 {
@@ -40,10 +39,6 @@ public class PlayerHUDController : UIController
     [SerializeField] private List<string> SkillStatesStringList;
     [SerializeField] private List<TMP_Text> SkillStatesTxtList;
 
-
-    // Tab
-    [HideInInspector] private Sequence TabSeq;
-
     [Space(10)]
     [Header("=== Energy")]
     [SerializeField] private ProgressBarEUIController EP;
@@ -68,9 +63,8 @@ public class PlayerHUDController : UIController
 
     [Space(10)]
     [Header("=== Other Item")]
-    [SerializeField] private RectTransform MS_RT;
-    [SerializeField] private Image MS_InnerImg;
-    [SerializeField] private TMP_Text MS_AmountTxt;
+    [SerializeField] private LootableItemEUIController Overrider_EUI;
+    [SerializeField] private LootableItemEUIController MS_EUI;
 
     [Space(10)]
     [Header("=== Boost")]
@@ -80,8 +74,6 @@ public class PlayerHUDController : UIController
     [SerializeField] private GameObject[] BoostLightArr;
     [SerializeField] private GameObject[] BoostLightWheelArr;
     [SerializeField] List<Image> BoostInnerList;
-
-    
 
     [Space(10)]
     [Header("=== Skill")]
@@ -119,10 +111,12 @@ public class PlayerHUDController : UIController
     [Header("-- Screen")]
     [SerializeField] private Image HittedScreen;
 
-
     #endregion
 
     #region - Hide
+
+    // Comp
+    [HideInInspector] public CanvasGroup ThisCG;
 
     // Tab
     [HideInInspector] private static float TabInteractDurTime = 0.25f;
@@ -138,6 +132,9 @@ public class PlayerHUDController : UIController
     // Color
     [HideInInspector] public List<Component> MainColorCompList;
     [HideInInspector] public List<Component> SubColorCompList;
+
+    // Tab
+    [HideInInspector] private Sequence TabSeq;
 
     #endregion
 
@@ -181,6 +178,8 @@ public class PlayerHUDController : UIController
 
         // 버프
         PoolingManager.Instance.BuffIcons.ParentTF = BuffParentTF;
+
+        ThisCG = DevTool.Get_ComponentTType(gameObject, out CanvasGroup cg) ? cg : null;
     }
 
     private void Offset_RectPosData()
@@ -230,24 +229,24 @@ public class PlayerHUDController : UIController
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentBS
+        PlayerManager.Instance.PlayerController.CurrentBetteryShard
             .Subscribe(_CurrentBS =>
             {
-                if (PlayerManager.Instance.PlayerController.CurrentBS.Value < PlayerManager.Instance.PlayerController.NeedBS_ForMakeBC)
+                if (PlayerManager.Instance.PlayerController.CurrentBetteryShard.Value < PlayerManager.Instance.PlayerController.NeedBS_ForMakeBC)
                 {
                     CurrentEmptyBC.Change_Sprite(_CurrentBS);
                 }
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentBC
+        PlayerManager.Instance.PlayerController.CurrentBettery
             .Subscribe(_CurrentBC =>
             {
                 EmptyBC.Set_Amount(_CurrentBC, 0.5f);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentEC
+        PlayerManager.Instance.PlayerController.CurrentChargedBettery
             .Subscribe(_CurrentEC =>
             {
                 FullEC.Set_Amount(_CurrentEC, 0.5f);
@@ -261,10 +260,17 @@ public class PlayerHUDController : UIController
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentMS
+        PlayerManager.Instance.PlayerController.CurrentModuleShard
             .Subscribe(_CurrentMS =>
             {
-                Set_MSAmount(_CurrentMS);
+                MS_EUI.Play_Amount(_CurrentMS);
+            })
+            .AddTo(gameObject);
+
+        PlayerManager.Instance.PlayerController.CurrentOverrider
+            .Subscribe(_CurrentOverrider =>
+            {
+                Overrider_EUI.Play_Amount(_CurrentOverrider);
             })
             .AddTo(gameObject);
 
@@ -299,6 +305,9 @@ public class PlayerHUDController : UIController
             SkillImgList.Add(DevTool.Get_ComponentTType<Image>(SkillList[i].gameObject));
             SkillImgList[i].sprite = PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].ThisIcon;
         }
+
+        Overrider_EUI.Offset();
+        MS_EUI.Offset();
     }
 
     private void Offset_ColorComp()
@@ -431,7 +440,7 @@ public class PlayerHUDController : UIController
 
     #endregion
 
-    #region
+    #region Stage
 
     public void Set_StageDescription(string _StageName, string _StageDescription)
     {
@@ -489,21 +498,6 @@ public class PlayerHUDController : UIController
 
         ShieldRT.DOSizeDelta(new Vector2(Get_ShieldGageX(_TotalShield), ShieldRT.sizeDelta.y), 1f);
         ShieldTxt.text = "<size=75%>( </size>" + Mathf.Round(_TotalShield).ToString() + "<size=75%> )</size>";
-    }
-
-    #endregion
-
-    #region Item
-
-    public void Set_MSAmount(int _Amount)
-    {
-        MS_AmountTxt.text = _Amount.ToString();
-
-        DevTool.Set_KillTween(MS_RT);
-        DevTool.Set_KillTween(MS_InnerImg);
-
-        DevTool.Play_ScalePulse(MS_RT, 1.4f);
-        DevTool.Play_FadePulse(MS_InnerImg, 1f, 0.25f);
     }
 
     #endregion
@@ -651,7 +645,7 @@ public class PlayerHUDController : UIController
             StageNameTxt, StageDescriptionTxt,
 
             // 아이템
-            ECCostTxt, MS_AmountTxt, EmptyBC.AmountTxt, FullEC.AmountTxt,
+            ECCostTxt, EmptyBC.AmountTxt, FullEC.AmountTxt,
 
             // 상호작용
             InteractOnOffTxt
@@ -681,7 +675,7 @@ public class PlayerHUDController : UIController
             ThisMinimap.InnerImg, 
 
             // 아이템
-            CurrentEmptyBC.LightInner, ECCostArrowImg, EmptyBC.InnerImg, FullEC.InnerImg, MS_InnerImg,
+            CurrentEmptyBC.LightInner, ECCostArrowImg, EmptyBC.InnerImg, FullEC.InnerImg,
             
             // 상호작용
             InnerImg, UsingInnerImg

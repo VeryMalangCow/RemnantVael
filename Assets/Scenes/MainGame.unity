@@ -882,37 +882,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1684360777}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &308243356
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 308243357}
-  m_Layer: 0
-  m_Name: '******EnergyShrapnel'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &308243357
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 308243356}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1658609378}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &348206598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,14 +2415,17 @@ MonoBehaviour:
   PlayerBullet:
     Prefab: {fileID: 2192280153704162206, guid: e3533e47eb7af7049a0cd38d3c2ddce4, type: 3}
     ParentTF: {fileID: 242052721}
-  EnergyShrapnel:
+  Joule:
     Prefab: {fileID: 8792791415299830887, guid: 9462772553ccac241a9af78a94de5b3f, type: 3}
-    ParentTF: {fileID: 308243357}
-  BetteryShrapnel:
+    ParentTF: {fileID: 77619666}
+  BetteryShard:
     Prefab: {fileID: 8792791415299830887, guid: 561d34cba42755c4397f7b01874690d4, type: 3}
     ParentTF: {fileID: 77619666}
-  ModuleShrapnel:
+  ModuleShard:
     Prefab: {fileID: 8792791415299830887, guid: 85034b39314d69d44ac7a43802593aa4, type: 3}
+    ParentTF: {fileID: 77619666}
+  Overrider:
+    Prefab: {fileID: 8792791415299830887, guid: 7db0d64d7bd1b0d4baf250a3917dc382, type: 3}
     ParentTF: {fileID: 77619666}
   InteractItems:
     Prefab: {fileID: 8792791415299830887, guid: 0fe28c02c65319a499cbd9bf935f3f8c, type: 3}
@@ -5976,8 +5948,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 308243357}
+  m_Children: []
   m_Father: {fileID: 1553356942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1666940253

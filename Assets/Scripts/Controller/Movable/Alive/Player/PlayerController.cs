@@ -112,10 +112,11 @@ public class PlayerController : AliveObjectController
     [HideInInspector] public ReactiveProperty<IInteract> CurrentInteractable = new();
 
     // Item
-    [HideInInspector] public ReactiveProperty<int> CurrentBS = new();
-    [HideInInspector] public ReactiveProperty<int> CurrentBC = new();
-    [HideInInspector] public ReactiveProperty<int> CurrentEC = new();
-    [HideInInspector] public ReactiveProperty<int> CurrentMS = new();
+    [HideInInspector] public ReactiveProperty<int> CurrentBetteryShard = new();
+    [HideInInspector] public ReactiveProperty<int> CurrentBettery = new();
+    [HideInInspector] public ReactiveProperty<int> CurrentChargedBettery = new();
+    [HideInInspector] public ReactiveProperty<int> CurrentModuleShard = new();
+    [HideInInspector] public ReactiveProperty<int> CurrentOverrider = new();
 
     // BaseAnim
     [HideInInspector] private Sequence BaseSeq = null;
@@ -183,7 +184,7 @@ public class PlayerController : AliveObjectController
 
 
         Debug.Log("Test EC");
-        CurrentEC.Value = 100;
+        CurrentChargedBettery.Value = 100;
     }
 
     protected override void Offset_Subscribe()
@@ -209,6 +210,24 @@ public class PlayerController : AliveObjectController
         ShadowSR = DevTool.Get_ComponentTType<SpriteRenderer>(transform.GetChild(0).gameObject);
     }
 
+
+    #endregion
+
+    #region Sorting
+
+    public override void Set_SortingOrder(int _SortingOrder)
+    {
+        base.Set_SortingOrder(_SortingOrder);
+
+        StateAnim.ThisSR.sortingOrder = _SortingOrder;
+        StateAnim.ThisInnerSR.sortingOrder = _SortingOrder;
+
+        for (int i = 0; i < BoostStateAnimController.TypeBase.Count; i++)
+            BoostStateAnimController.TypeBase[i].ThisSR.sortingOrder = _SortingOrder; 
+
+        for (int i = 0; i < BoostStateAnimController.TypeSpecial.Count; i++)
+            BoostStateAnimController.TypeSpecial[i].ThisSR.sortingOrder = _SortingOrder;
+    }
 
     #endregion
 
@@ -336,57 +355,63 @@ public class PlayerController : AliveObjectController
     #region Item
 
     // ¹èÅÍ¸® Á¶°¢ È¹µæ
-    public void Add_CurrentBS(int _AddValue)
+    public void Add_CurrentBetteryShard(int _AddValue)
     {
-        CurrentBS.Value += _AddValue;
-        if (CurrentBS.Value >= NeedBS_ForMakeBC)
+        CurrentBetteryShard.Value += _AddValue;
+        if (CurrentBetteryShard.Value >= NeedBS_ForMakeBC)
         {
-            Add_CurrentBC();
+            Add_CurrentBettery();
         }
     }
 
     // ¸ðµâ Á¶°¢ È¹µæ
-    public void Add_CurrentMS(int _AddValue)
+    public void Add_CurrentModuleShard(int _AddValue)
     {
-        CurrentMS.Value += _AddValue;
+        CurrentModuleShard.Value += _AddValue;
     }
 
-    // ¹èÅÍ¸® ¼¿ È¹µæ
-    public void Add_CurrentBC(int _AddValue)
+    // ¹èÅÍ¸® È¹µæ
+    public void Add_CurrentBettery(int _AddValue)
     {
-        CurrentBC.Value += _AddValue;
+        CurrentBettery.Value += _AddValue;
     }
 
-    private void Add_CurrentBC()
+    private void Add_CurrentBettery()
     {
         MainGameUIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Set_Complete(
             _FadeInTime: 0.3f,
             _StayTime: 0.1f, 
             _FadeOutTime: 0.5f);
 
-        int BSAmount = CurrentBS.Value / NeedBS_ForMakeBC;
-        CurrentBS.Value -= NeedBS_ForMakeBC * BSAmount;
-        CurrentBC.Value += BSAmount;
+        int BSAmount = CurrentBetteryShard.Value / NeedBS_ForMakeBC;
+        CurrentBetteryShard.Value -= NeedBS_ForMakeBC * BSAmount;
+        CurrentBettery.Value += BSAmount;
     }
 
-    // ¿¡³ÊÁö ¼¿ È¹µæ
-    private void Make_EC()
+    // ¿À¹ö¶óÀÌ´õ È¹µæ
+    public void Add_CurrentOverrider(int _AddValue)
+    {
+        CurrentOverrider.Value += _AddValue;
+    }
+
+    // ÃæÀü ¹èÅÍ¸® È¹µæ
+    private void Make_ChargedBettery()
     {
         this.CurrentEP.Value -= NeedEP_ForMakeEC;
-        CurrentBC.Value--;
-        CurrentEC.Value++;
+        CurrentBettery.Value--;
+        CurrentChargedBettery.Value++;
     }
 
-    // ¿¡³ÊÁö ¼¿ÀÌ ÃæºÐÇÑ°¡
-    public bool Is_EnoughEC(int _NeedAmount)
+    // ÃæÀü ¹èÅÍ¸® ÃæºÐÇÑ°¡
+    public bool Is_EnoughChargedBettery(int _NeedAmount)
     {
-        return CurrentEC.Value >= _NeedAmount ? true : false;
+        return CurrentChargedBettery.Value >= _NeedAmount ? true : false;
     }
 
     // ¿¡³ÊÁö ¼¿À» ¼Òºñ
-    public void Use_EC(int _UseAmount)
+    public void Use_ChargedBettery(int _UseAmount)
     {
-        CurrentEC.Value = Math.Max(CurrentEC.Value - _UseAmount, 0);
+        CurrentChargedBettery.Value = Math.Max(CurrentChargedBettery.Value - _UseAmount, 0);
     }
 
     #endregion
@@ -529,10 +554,10 @@ public class PlayerController : AliveObjectController
     {
         if (!Can_Change() ||
             NeedEP_ForMakeEC >= this.CurrentEP.Value ||
-            CurrentBC.Value <= 0) 
+            CurrentBettery.Value <= 0) 
         { return; }
 
-        ReservationDele = Make_EC;
+        ReservationDele = Make_ChargedBettery;
 
         Start_Casting(ChargeBetteryInterval);
     }

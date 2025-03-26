@@ -7,9 +7,10 @@ public class PoolingManager : Singleton<PoolingManager>
 
     [Header("=== Player")]
     [SerializeField] public TTypePooling<PlayerBulletController> PlayerBullet;
-    [SerializeField] public TTypePooling<EnergyShardController> EnergyShrapnel;
-    [SerializeField] public TTypePooling<BetteryShardController> BetteryShrapnel;
-    [SerializeField] public TTypePooling<ModuleShardController> ModuleShrapnel;
+    [SerializeField] public TTypePooling<JouleController> Joule;
+    [SerializeField] public TTypePooling<BetteryShardController> BetteryShard;
+    [SerializeField] public TTypePooling<ModuleShardController> ModuleShard;
+    [SerializeField] public TTypePooling<OverriderController> Overrider;
     [SerializeField] public TTypePooling<InteractItemController> InteractItems;
     [SerializeField] public TTypePooling<PlayerAttackerController> PlayerAttackers;
 
@@ -103,22 +104,28 @@ public class PoolingManager : Singleton<PoolingManager>
         return Get_OP_List<PlayerBulletController>(PlayerBullet.Prefab, PlayerBullet.ParentTF, PlayerBullet.Queue, _Amount);
     }
 
-    // Energy Shrapnel
-    public EnergyShardController Get_OP_EnergyShrapnel()
+    // Joule
+    public JouleController Get_OP_Joule()
     {
-        return Get_OP<EnergyShardController>(EnergyShrapnel.Prefab, EnergyShrapnel.ParentTF, EnergyShrapnel.Queue);
+        return Get_OP<JouleController>(Joule.Prefab, Joule.ParentTF, Joule.Queue);
     }
 
-    // Bettery Shrapnel
-    public BetteryShardController Get_OP_BetteryShrapnel()
+    // Bettery Shard
+    public BetteryShardController Get_OP_BetteryShard()
     {
-        return Get_OP<BetteryShardController>(BetteryShrapnel.Prefab, BetteryShrapnel.ParentTF, BetteryShrapnel.Queue);
+        return Get_OP<BetteryShardController>(BetteryShard.Prefab, BetteryShard.ParentTF, BetteryShard.Queue);
     }
 
-    // Module Shrapnel
-    public ModuleShardController Get_OP_ModuleShrapnel()
+    // Module Shard
+    public ModuleShardController Get_OP_ModuleShard()
     {
-        return Get_OP<ModuleShardController>(ModuleShrapnel.Prefab, ModuleShrapnel.ParentTF, ModuleShrapnel.Queue);
+        return Get_OP<ModuleShardController>(ModuleShard.Prefab, ModuleShard.ParentTF, ModuleShard.Queue);
+    }
+    
+    // Overrider
+    public OverriderController Get_OP_Overrider()
+    {
+        return Get_OP<OverriderController>(Overrider.Prefab, Overrider.ParentTF, Overrider.Queue);
     }
 
     // Interact Item For Each Kind

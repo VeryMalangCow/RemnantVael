@@ -57,14 +57,14 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
         }
         else if (Can_ShopPowerOn())
         {
-            PlayerManager.Instance.PlayerController.CurrentEC.Value--;
+            PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value--;
             IsOn = true;
         }
     }
 
     private bool Can_ShopPowerOn()
     {
-        return !IsOn && PlayerManager.Instance.PlayerController.CurrentEC.Value > 0;
+        return !IsOn && PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value > 0;
     }
 
     #endregion

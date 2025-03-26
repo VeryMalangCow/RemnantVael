@@ -181,7 +181,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module000_BetteryShrapnel
+      name: Module000_BetteryShard
       rect:
         serializedVersion: 2
         x: 1
@@ -244,7 +244,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module000_ModuleShrapnel
+      name: Module000_ModuleShard
       rect:
         serializedVersion: 2
         x: 19
@@ -940,8 +940,8 @@ TextureImporter:
       name: Module000_MI_000
       rect:
         serializedVersion: 2
-        x: 54
-        y: 232
+        x: 249
+        y: 218
         width: 6
         height: 6
       alignment: 0
@@ -961,12 +961,12 @@ TextureImporter:
       name: Module000_MI_001
       rect:
         serializedVersion: 2
-        x: 54
-        y: 225
+        x: 249
+        y: 211
         width: 6
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -982,9 +982,30 @@ TextureImporter:
       name: Module_ModuleFieldItem
       rect:
         serializedVersion: 2
-        x: 40
-        y: 223
+        x: 235
+        y: 225
         width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 677f766ad3430c04296607298330521f
+      internalID: -1758125111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_OverriderFieldItem
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 225
+        width: 9
         height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -993,8 +1014,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 677f766ad3430c04296607298330521f
-      internalID: -1758125111
+      spriteID: 17a3b9de1d8e84944a1a95d0e58d1407
+      internalID: 1447229222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module000_Overrider
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 222
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bda613bc23a21424ba791ba442ef6ce6
+      internalID: 861288542
       vertices: []
       indices: 
       edges: []
@@ -1018,7 +1060,7 @@ TextureImporter:
       Module000_Anno_FrameR: 715375271
       Module000_Anno_InnerL: -1592397866
       Module000_Anno_InnerR: -273157451
-      Module000_BetteryShrapnel: 1727202868
+      Module000_BetteryShard: 1727202868
       Module000_Hitted_0_00: -1795314004
       Module000_Hitted_0_01: 1602965060
       Module000_Hitted_0_02: 1781162756
@@ -1053,12 +1095,14 @@ TextureImporter:
       Module000_Hitted_2_11: 330689694
       Module000_MI_000: 1232220692
       Module000_MI_001: 1408688113
-      Module000_ModuleShrapnel: -936175950
+      Module000_ModuleShard: -936175950
+      Module000_Overrider: 861288542
       Module000_Smoke_00: -1746943924
       Module000_Smoke_01: 1391882910
       Module000_Smoke_02: 237403348
       Module000_Smoke_03: 366755556
       Module_ModuleFieldItem: -1758125111
+      Module_OverriderFieldItem: 1447229222
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

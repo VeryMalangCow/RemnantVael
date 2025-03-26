@@ -19,6 +19,8 @@ public class AbsorbItemController : ItemController
     [SerializeField] private float AbsorbPower = 5f;
     [SerializeField] private float RotatePower = 10f;
 
+    // Limit OnEnable
+    [HideInInspector] protected bool IsSpawnNow = false;
 
     #endregion
 
@@ -27,7 +29,7 @@ public class AbsorbItemController : ItemController
     protected override void OnEnable()
     {
         base.OnEnable();
-        ThisRb.AddForce(DevTool.Get_RandomDir() * AbsorbStartPower);
+        if (IsSpawnNow) ThisRb.AddForce(DevTool.Get_RandomDir() * AbsorbStartPower);
     }
 
     protected virtual void Update()
@@ -42,8 +44,11 @@ public class AbsorbItemController : ItemController
     public override void Set_State(Vector2 _SpawnPos)
     {
         base.Set_State(_SpawnPos);
+
         TargetGO = PlayerManager.Instance.PlayerController.gameObject;
         IsAbsorbing = false;
+
+        transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
     }
 
     #endregion

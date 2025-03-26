@@ -11,7 +11,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private Canvas ScreenCanvas;
 
     [Header("=== Screen")]
-    [SerializeField] private float FadeOutTime = 2f;
+    [SerializeField] private float FadeOutTime = 3f;
 
     [Header("=== refab")]
     [SerializeField] private GameObject PlayerHUD_CanvasPrefab;
@@ -58,9 +58,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         MapIntro_UIController
             = Gen_UI<MapIntroUIController>(MapIntro_CanvasPrefab, false);
 
-        Start_FadeOut(FadeOutTime, 
-            new Dele(() => PlayerHUD_UIController.gameObject.SetActive(false)), 
-            new Dele(() => PlayerHUD_UIController.gameObject.SetActive(true)));
+        Sequence startSeq = DOTween.Sequence();
+
+        Start_FadeOut(FadeOutTime);
     }
 
     #endregion
@@ -95,33 +95,48 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     #region FirstStart
 
-    private Tween Start_FadeOut(float _DurTime, Dele _Start = null, Dele _Complete = null)
+    private Sequence Start_FadeOut(float _DurTime)
     {
-        return ScreenCG.DOFade(0f, _DurTime)
-            .OnStart(() => 
-            { 
-                ScreenCanvas.gameObject.SetActive(true); ScreenCG.alpha = 1f;
-                if (_Start != null) _Start();
-            })
-            .OnComplete(() => 
-            { 
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(ScreenCG.DOFade(0f, _DurTime)
+            .OnComplete(() =>
+            {
+                PlayerHUD_UIController.gameObject.SetActive(true);
                 ScreenCanvas.gameObject.SetActive(false);
-                if (_Complete != null) _Complete();
+            }));
+
+        seq.Append(PlayerHUD_UIController.ThisCG.DOFade(1f, _DurTime));
+
+        seq.OnStart(() =>
+            {
+                PlayerHUD_UIController.gameObject.SetActive(false);
+                ScreenCanvas.gameObject.SetActive(true);
+                ScreenCG.alpha = 1f;
+                PlayerHUD_UIController.ThisCG.alpha = 0f;
             });
+
+        return seq;
     }
 
-    public Tween Play_FadeIn(float _DurTime, Dele _Start = null, Dele _Complete = null)
+    public Sequence Play_FadeIn(float _DurTime)
     {
-        return ScreenCG.DOFade(1f, _DurTime)
-            .OnStart(() => 
-            { 
-                ScreenCanvas.gameObject.SetActive(true); ScreenCG.alpha = 0f;
-                if (_Start != null) _Start();
+        Sequence seq = DOTween.Sequence();
+
+        seq.Append(ScreenCG.DOFade(1f, _DurTime));
+        seq.Append(PlayerHUD_UIController.ThisCG.DOFade(0f, _DurTime));
+
+        seq.OnStart(() =>
+            {
+                ScreenCanvas.gameObject.SetActive(true);
+                ScreenCG.alpha = 0f;
             })
             .OnComplete(() =>
             {
-                if (_Complete != null) _Complete();
+                PlayerHUD_UIController.gameObject.SetActive(false);
             });
+
+        return seq;
     }
 
     #endregion

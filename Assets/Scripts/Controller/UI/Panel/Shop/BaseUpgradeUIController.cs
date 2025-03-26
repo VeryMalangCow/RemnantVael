@@ -179,13 +179,13 @@ public class BaseUpgradeUIController : PanelUIController
                 }
             });
 
-        PlayerManager.Instance.PlayerController.CurrentBC
+        PlayerManager.Instance.PlayerController.CurrentBettery
             .Subscribe(value =>
             {
                 BCTxt.text = value.ToString();
             });
 
-        PlayerManager.Instance.PlayerController.CurrentEC
+        PlayerManager.Instance.PlayerController.CurrentChargedBettery
             .Subscribe(value =>
             {
                 ECTxt.text = value.ToString();

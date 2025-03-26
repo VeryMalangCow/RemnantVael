@@ -401,7 +401,8 @@ public class EnemyController : AliveObjectController
     {
         Gen_BS(1);
         Gen_MS(1);
-        Gen_ES(10 * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value);
+        Gen_Overrider(1);
+        Gen_J(10 * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value);
 
         // Drop Module Item
         if (DevTool.Is_ChanceSuccess(ItemDropPercent))

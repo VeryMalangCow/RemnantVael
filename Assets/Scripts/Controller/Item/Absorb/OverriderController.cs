@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class ModuleShardController : RangeAbsorbItemController
+public class OverriderController : RangeAbsorbItemController
 {
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Module Shard")]
+    [Header("<><><><><> Overrider")]
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private int ModuleValue = 1;
+    [SerializeField] private int GainAmount = 1;
 
     #endregion
 
@@ -19,8 +19,7 @@ public class ModuleShardController : RangeAbsorbItemController
     {
         base.Set_State(_SpawnPos);
 
-        ModuleValue = _Value;
-
+        GainAmount = _Value;
         gameObject.SetActive(true);
     }
 
@@ -34,8 +33,8 @@ public class ModuleShardController : RangeAbsorbItemController
 
         IsSpawnNow = false;
 
-        PlayerManager.Instance.PlayerController.Add_CurrentModuleShard(ModuleValue);
-        PoolingManager.Instance.ModuleShard.Queue.Enqueue(this);
+        PlayerManager.Instance.PlayerController.Add_CurrentOverrider(GainAmount);
+        PoolingManager.Instance.Overrider.Queue.Enqueue(this);
     }
 
     #endregion

@@ -381,17 +381,17 @@ public class ModuleUpgradeUIController : PanelUIController
     private void Offset_Subscribe()
     {
         // BC // EC
-        PlayerManager.Instance.PlayerController.CurrentBC
+        PlayerManager.Instance.PlayerController.CurrentBettery
             .Subscribe(value =>
             {
                 BCTxt.text = value.ToString();
             });
-        PlayerManager.Instance.PlayerController.CurrentEC
+        PlayerManager.Instance.PlayerController.CurrentChargedBettery
             .Subscribe(value =>
             {
                 ECTxt.text = value.ToString();
             });
-        PlayerManager.Instance.PlayerController.CurrentMS
+        PlayerManager.Instance.PlayerController.CurrentModuleShard
             .Subscribe(value =>
             {
                 MSTxt.text = value.ToString();
@@ -758,7 +758,7 @@ public class ModuleUpgradeUIController : PanelUIController
         }
         else if (ModuleItemManager.Get_MS_ForFusion(
             ModuleItemManager.Instance.Get_ModuleState(index[0])) 
-                > PlayerManager.Instance.PlayerController.CurrentMS.Value) // MS가 부족한가?
+                > PlayerManager.Instance.PlayerController.CurrentModuleShard.Value) // MS가 부족한가?
         {
             Set_Warning(true, Warning_NotEnoughItem);
             return;
@@ -799,7 +799,7 @@ public class ModuleUpgradeUIController : PanelUIController
         }
         else if (ModuleItemManager.Get_EC_ForUpgrade(
             ModuleItemManager.Instance.Get_ModuleState(index))
-                > PlayerManager.Instance.PlayerController.CurrentEC.Value) // 재료 부족
+                > PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value) // 재료 부족
         {
             Set_Warning(true, Warning_NotEnoughItem);
             return;
@@ -1193,10 +1193,10 @@ public class ModuleUpgradeUIController : PanelUIController
         CoupleData<int> index = ModuleItemManager.Instance.Get_DecompositionIndex();
 
         // 보상 획득
-        PlayerManager.Instance.PlayerController.Add_CurrentBC(
+        PlayerManager.Instance.PlayerController.Add_CurrentBettery(
             ModuleItemManager.Get_BC_ByDescomposition(ModuleItemManager.Instance.Get_ModuleState(index)));
 
-        PlayerManager.Instance.PlayerController.Add_CurrentMS(
+        PlayerManager.Instance.PlayerController.Add_CurrentModuleShard(
             ModuleItemManager.Get_MS_ByDecomposition(ModuleItemManager.Instance.Get_ModuleState(index)));
 
         ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
@@ -1218,7 +1218,7 @@ public class ModuleUpgradeUIController : PanelUIController
         List<CoupleData<int>> indexList = ModuleItemManager.Instance.Get_FusionIndex();
 
         // 소모 재화
-        PlayerManager.Instance.PlayerController.Add_CurrentMS(
+        PlayerManager.Instance.PlayerController.Add_CurrentModuleShard(
             -ModuleItemManager.Get_MS_ForFusion(ModuleItemManager.Instance.Get_ModuleState(indexList[0])));
 
         ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
@@ -1243,7 +1243,7 @@ public class ModuleUpgradeUIController : PanelUIController
         CoupleData<int> index = ModuleItemManager.Instance.Get_UpgradeIndex();
 
         // 소모 재화
-        PlayerManager.Instance.PlayerController.Use_EC(
+        PlayerManager.Instance.PlayerController.Use_ChargedBettery(
             ModuleItemManager.Get_EC_ForUpgrade(ModuleItemManager.Instance.Get_ModuleState(index)));
 
         ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);

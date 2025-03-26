@@ -60,44 +60,53 @@ public class DepthController : IDController
     #region Gen
 
 
-    // Bettery Shrapnel
+    // Bettery Shard
     protected void Gen_BS(int _Value)
     {
-        Vector2 spawnPos = gameObject.transform.position;
-        GameObject targetGO = PlayerManager.Instance.PlayerController.gameObject;
-
-        PoolingManager.Instance.Get_OP_BetteryShrapnel().Set_State(spawnPos, _Value);
+        PoolingManager.Instance.Get_OP_BetteryShard().Set_State(
+            _SpawnPos: gameObject.transform.position, 
+            _Value);
     }
 
-    // Random BS
-    protected void Gen_RandomBS(int _Min, int _Max)
+    // Bettery Shard: Random
+    protected void Gen_RandomBS(int _Min, int _Max, int _Value = 1)
     {
         int amount = Random.Range(_Min, _Max + 1);
-        for (int i = 0; i < amount; i++)
-        {
-            Gen_BS(1);
-        }
+
+        for (int i = 0; i < amount; i++) Gen_BS(_Value);
     }
 
-    // Module Shrapnel
+    // Module Shard
     protected void Gen_MS(int _Value)
     {
-        Vector2 spawnPos = gameObject.transform.position;
-        GameObject targetGO = PlayerManager.Instance.PlayerController.gameObject;
-
-        PoolingManager.Instance.Get_OP_ModuleShrapnel().Set_State(spawnPos, _Value);
+        PoolingManager.Instance.Get_OP_ModuleShard().Set_State(
+            _SpawnPos: gameObject.transform.position, 
+            _Value);
     }
 
-    // Random MS
-    protected void Gen_RandomMS(int _Min, int _Max)
+    // Module Shard: Random
+    protected void Gen_RandomMS(int _Min, int _Max, int _Value = 1)
     {
         int amount = Random.Range(_Min, _Max + 1);
-        for (int i = 0; i < amount; i++)
-        {
-            Gen_MS(1);
-        }
+
+        for (int i = 0; i < amount; i++) Gen_MS(_Value);
     }
 
+    // Joule
+    protected void Gen_J(float _Value)
+    {
+        PoolingManager.Instance.Get_OP_Joule().Set_State(
+            _SpawnPos: gameObject.transform.position, 
+            _Value);
+    }
+
+    // Overrider
+    protected void Gen_Overrider(int _Value)
+    {
+        PoolingManager.Instance.Get_OP_Overrider().Set_State(
+            _SpawnPos: gameObject.transform.position,
+            _Value);
+    }
 
     // Module Interact Item
     protected void Gen_II(int _Rank)
@@ -107,14 +116,6 @@ public class DepthController : IDController
         IIC.Set_State(this.transform.position);
         IIC.Set_RankState(_Rank);
     }
-
-    // Energy Shrapnel
-    protected void Gen_ES(float _Value)
-    {
-        EnergyShardController ESC = PoolingManager.Instance.Get_OP_EnergyShrapnel();
-        ESC.Set_State(this.gameObject.transform.position, _Value);
-    }
-
 
     #endregion
 }

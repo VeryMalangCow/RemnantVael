@@ -1966,7 +1966,7 @@ public class BUShopData<T>
 
     private bool Can_Buy()
     {
-        return PlayerManager.Instance.PlayerController.Is_EnoughEC(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade) &&
+        return PlayerManager.Instance.PlayerController.Is_EnoughChargedBettery(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade) &&
             BaseUpgradeController.UsingShop != null &&
             BaseUpgradeController.UsingShop.CurrentDur > 0;
     }
@@ -1979,7 +1979,7 @@ public class BUShopData<T>
             BaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
 
             // Cost
-            PlayerManager.Instance.PlayerController.Use_EC(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade);
+            PlayerManager.Instance.PlayerController.Use_ChargedBettery(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade);
 
             Set_LevelUp();
         }
@@ -2211,7 +2211,7 @@ public class BUState<T>
 
 
 
-#region Class : State : Player : ItemData
+#region Class : State : Player : Module ItemData
 
 [System.Serializable]
 public class ItemData_Field

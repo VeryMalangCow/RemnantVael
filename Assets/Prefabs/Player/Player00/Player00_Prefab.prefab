@@ -1464,13 +1464,15 @@ MonoBehaviour:
   ShieldElements: []
   CurrentBuffs: []
   CurrentInteractableGOList: []
-  CurrentBS:
+  CurrentBetteryShard:
     value: 0
-  CurrentBC:
+  CurrentBettery:
     value: 0
-  CurrentEC:
+  CurrentChargedBettery:
     value: 0
-  CurrentMS:
+  CurrentModuleShard:
+    value: 0
+  CurrentOverrider:
     value: 0
 --- !u!114 &8889954111637353817
 MonoBehaviour:
@@ -3383,10 +3385,6 @@ PrefabInstance:
     - target: {fileID: 4975319936910657301, guid: 6933c66d65fdf4b4d826d70c39e63c52, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5872644551829420885, guid: 6933c66d65fdf4b4d826d70c39e63c52, type: 3}
-      propertyPath: m_SortingOrder
-      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 5872644551829420885, guid: 6933c66d65fdf4b4d826d70c39e63c52, type: 3}
       propertyPath: m_Materials.Array.data[0]

@@ -193,7 +193,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 1727202868, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  m_Sprite: {fileID: -936175950, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -204,7 +204,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &7024944609596833116
+--- !u!1 &8195444914047399606
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,8 +212,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4151791147450591969}
-  - component: {fileID: 2375745627944713169}
+  - component: {fileID: 1321465715746664776}
+  - component: {fileID: 4057466249526555575}
   m_Layer: 7
   m_Name: MapColJuge
   m_TagString: JustJuge
@@ -221,28 +221,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4151791147450591969
+--- !u!4 &1321465715746664776
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7024944609596833116}
+  m_GameObject: {fileID: 8195444914047399606}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.39999998, y: 0.19999999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4983076795123007794}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &2375745627944713169
+--- !u!70 &4057466249526555575
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7024944609596833116}
+  m_GameObject: {fileID: 8195444914047399606}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -280,10 +280,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4983076795123007794}
-  - component: {fileID: 165798946426785281}
+  - component: {fileID: 4466283631183441713}
   - component: {fileID: 2744110499918854217}
   m_Layer: 0
-  m_Name: BetteryShrapnel_Prefab
+  m_Name: ModuleShard_Prefab
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -304,10 +304,10 @@ Transform:
   m_Children:
   - {fileID: 7239676596976234294}
   - {fileID: 6608170892057704912}
-  - {fileID: 4151791147450591969}
+  - {fileID: 1321465715746664776}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &165798946426785281
+--- !u!114 &4466283631183441713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8792791415299830887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f886706b79b2034faa71dddbf71884f, type: 3}
+  m_Script: {fileID: 11500000, guid: 296d23f4a673c7141a301802816a3b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
@@ -330,7 +330,7 @@ MonoBehaviour:
   AbsorbPower: 5
   RotatePower: 15
   AbsorbRange: 1
-  BetteryValue: 1
+  ModuleValue: 1
 --- !u!50 &2744110499918854217
 Rigidbody2D:
   serializedVersion: 4
