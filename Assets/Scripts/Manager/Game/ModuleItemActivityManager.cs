@@ -117,7 +117,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             BulletState_Size? size = null;
             State_Anim? anim = null;
 
-            pbc.Set_State(bulletState, posAndRot, size, anim, 0.35f);
+            pbc.Set_State(bulletState, posAndRot, size, anim, _State_Effect: null, 0.35f);
 
             // Sorting Layer
             if (PC.TargetObject.gameObject.TryGetComponent(out DepthController hst))

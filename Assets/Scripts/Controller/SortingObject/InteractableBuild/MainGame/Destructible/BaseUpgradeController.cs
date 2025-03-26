@@ -18,6 +18,11 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
 
     public static BaseUpgradeController UsingShop = null;
 
+    [HideInInspector] public static string IsBrokenAnno = 
+        "<size=25&>Broken: Interaction is Limited</size>\n\n" +
+        "!!! If you close this window now, you will not be able to interact with this shop. !!!\n" +
+        "<size=50&>You can only View the Information.</size>";
+
     #endregion
 
     #region Framework
@@ -36,8 +41,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
 
     public void Play_Interact()
     {
-        if (IsBroken)
-        { return; }
+        if (IsBroken) return; 
 
         Try_ShopInteract();
         Set_StateAnim();
@@ -78,9 +82,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
         base.Play_NowBreak(_SpawnItem);
 
         if (MainGameUIManager.Instance.BaseUpgrade_UIController.gameObject.activeSelf)
-        {
-            MainGameUIManager.Instance.BaseUpgrade_UIController.SetOff_ThisPanel();
-        }
+            MainGameUIManager.Instance.BaseUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
     }
 
     #endregion

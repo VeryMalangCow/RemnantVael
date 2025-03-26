@@ -28,6 +28,11 @@ public class EnemyPattern_Range : EnemyPattern
     [SerializeField] private float MaxRange = 4f;
     [SerializeField] private float MinRange = 3f;
 
+    [Space(10)]
+    [Header("=== Effect")]
+    [SerializeField] private int ShootExplAmount = 3;
+    [SerializeField] private int ExplAmount = 3;
+
     #endregion
 
     #region Framework
@@ -68,9 +73,8 @@ public class EnemyPattern_Range : EnemyPattern
         #region Actual 
 
         for (int i = 0; i < SpawnDepthList.Count; i++)
-        {
             Play_ActualPattern(SpawnDepthList[i], targetDir);
-        }
+        
 
         #endregion
 
@@ -89,7 +93,8 @@ public class EnemyPattern_Range : EnemyPattern
             ThisBS, 
             State_PosAndRot(_Depth.transform, _TargetDir), 
             State_Size(), 
-            State_Anim(), 
+            State_Anim(),
+            State_Effect(),
             targetShadow);
 
         bullet.ThisSR.sortingOrder = _Depth.ThisSR.sortingOrder - 1;
@@ -97,7 +102,7 @@ public class EnemyPattern_Range : EnemyPattern
         // Effect
         UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_Shoot(
             (Vector2)_Depth.TargetObject.transform.position + (_TargetDir * 0.3f),
-            _TargetDir);
+            _TargetDir, ShootExplAmount);
     }
 
     #endregion
@@ -117,6 +122,11 @@ public class EnemyPattern_Range : EnemyPattern
     private State_Anim State_Anim()
     {
         return new State_Anim(BulletAC, 1);
+    }
+
+    private BulletState_Effect State_Effect()
+    {
+        return new BulletState_Effect(ExplAmount);
     }
 
     #endregion

@@ -65,7 +65,8 @@ public class MissileSkillController : ActiveSkillController
                 bulletState,
                 State_PosAndRot(dir), 
                 _State_Size: null, 
-                _State_Anim: null, 
+                _State_Anim: null,
+                _State_Effect: null,
                 DepthController.TargetRange);
 
 

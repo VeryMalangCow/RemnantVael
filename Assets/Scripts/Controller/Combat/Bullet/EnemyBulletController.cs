@@ -12,6 +12,10 @@ public class EnemyBulletController : BulletController
     [SerializeField] public Animator ThisAnimator;
     [SerializeField] public CapsuleCollider2D ThisCol;
 
+    [Space(10)]
+    [Header("=== Effect")]
+    [SerializeField] protected int ExplAmount = 4;
+
     //Other
     [HideInInspector] public EnemyController Enemy;
     [HideInInspector] private AnimatorOverrideController AOC;
@@ -43,6 +47,16 @@ public class EnemyBulletController : BulletController
         }
     }
 
+    public override void Set_State_Effect(BulletState_Effect? _State_Effect)
+    {
+        if (_State_Effect.HasValue)
+        {
+            base.Set_State_Effect(_State_Effect);
+
+            ExplAmount = _State_Effect.Value.ExplAmount;
+        }
+    }
+
     #endregion
 
     #region Trigger
@@ -71,7 +85,7 @@ public class EnemyBulletController : BulletController
         switch (PoolingString)
         {
             case "EnemyBullet":
-                UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position);
+                UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, ExplAmount);
                 PoolingManager.Instance.EnemyBullets.Queue.Enqueue(this);
                 break;
 

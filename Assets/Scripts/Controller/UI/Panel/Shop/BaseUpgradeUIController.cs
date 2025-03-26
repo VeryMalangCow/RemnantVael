@@ -21,6 +21,7 @@ public class BaseUpgradeUIController : PanelUIController
     [Space(10)]
     [Header("=== Durablity")]
     [SerializeField] public DurablityEUIController ThisDurEUI;
+    [SerializeField] public MessageWindowEUIController ThisMsgEUI;
 
     [Space(10)]
     [Header("=== Item")]
@@ -123,6 +124,9 @@ public class BaseUpgradeUIController : PanelUIController
         // Close
         CloseBtn.Offset();
         CloseBtn.OwnerUIController = this;
+
+        // Broken
+        ThisMsgEUI.Offset();
     }
 
     private void Offset_BUShop()
@@ -279,8 +283,9 @@ public class BaseUpgradeUIController : PanelUIController
 
     public void Try_Interact()
     {
-        if (CurrentBtn == null || BaseUpgradeController.UsingShop == null)
-        { return; }
+        if (Is_Interact_Msg()) return;
+
+        if (CurrentBtn == null || BaseUpgradeController.UsingShop == null) return;
 
         if (Is_Interact_Buy_Float()) return;
         if (Is_Interact_Buy_Int()) return;
@@ -288,6 +293,22 @@ public class BaseUpgradeUIController : PanelUIController
         if (Is_Interact_TabPanel()) return;
     }
 
+    #region Msg
+
+    private bool Is_Interact_Msg()
+    {
+        if (ThisMsgEUI.gameObject.activeSelf)
+        {
+            if (ThisMsgEUI.CanPass) ThisMsgEUI.Play_Off(0.5f);
+
+            return true;
+        }
+        return false;
+    }
+
+    #endregion
+
+    #region Buy
 
     private bool Is_Interact_Buy_Float()
     {
@@ -319,6 +340,10 @@ public class BaseUpgradeUIController : PanelUIController
         return false;
     }
 
+    #endregion
+
+    #region Other
+
     private bool Is_Interact_CloseBtn()
     {
         if (CurrentBtn == CloseBtn)
@@ -328,6 +353,7 @@ public class BaseUpgradeUIController : PanelUIController
         }
         return false;
     }
+
 
     private bool Is_Interact_TabPanel()
     {
@@ -341,6 +367,8 @@ public class BaseUpgradeUIController : PanelUIController
         }
         return false;
     }
+
+    #endregion
 
     #endregion
 

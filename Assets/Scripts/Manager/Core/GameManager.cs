@@ -1966,8 +1966,9 @@ public class BUShopData<T>
 
     private bool Can_Buy()
     {
-        return PlayerManager.Instance.PlayerController.Is_EnoughEC(
-            LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade);
+        return PlayerManager.Instance.PlayerController.Is_EnoughEC(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade) &&
+            BaseUpgradeController.UsingShop != null &&
+            BaseUpgradeController.UsingShop.CurrentDur > 0;
     }
 
     public void Try_Buy()
@@ -1981,7 +1982,6 @@ public class BUShopData<T>
             PlayerManager.Instance.PlayerController.Use_EC(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade);
 
             Set_LevelUp();
-
         }
     }
 
@@ -1989,7 +1989,6 @@ public class BUShopData<T>
     {
         // Lv Up
         State.CurrentLevel.Value++;
-        Debug.Log(State.CurrentLevel.Value);
         State.ActualState.Value = LevelData.LevelDataList[State.CurrentLevel.Value - 1].UpgradeValue;
         State.Set_BuffedState();
 
@@ -3233,6 +3232,24 @@ public struct BulletState_Size
     {
         ObjSize = _ObjScale;
         ColSize = _ColSize;
+    }
+
+    #endregion
+}
+
+public struct BulletState_Effect
+{
+    #region Value
+
+    public int ExplAmount;
+
+    #endregion
+
+    #region Constructor
+
+    public BulletState_Effect(int _ExplAmount)
+    {
+        ExplAmount = _ExplAmount;
     }
 
     #endregion

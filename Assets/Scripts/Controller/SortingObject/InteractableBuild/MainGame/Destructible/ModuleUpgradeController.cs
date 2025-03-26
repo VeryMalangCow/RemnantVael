@@ -18,6 +18,11 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
 
     public static ModuleUpgradeController UsingShop = null;
 
+    [HideInInspector] public static string IsBrokenAnno = 
+        "<size=25&>Broken: Interaction is Limited</size>\n\n" +
+        "!!! If you close this window now, you will not be able to interact with this shop. !!!\n" +
+        "<size=50&>You are only allowed to Equip or Unequip.</size>";
+
     #endregion
 
     #region Framework
@@ -78,10 +83,9 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
         base.Play_NowBreak(_SpawnItem);
 
         if (MainGameUIManager.Instance.ModuleUpgrade_UIController.gameObject.activeSelf)
-        {
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_ThisPanel();
-        }
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
     }
+
     #endregion
 
     #region Item

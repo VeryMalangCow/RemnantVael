@@ -113,9 +113,10 @@ public class PlayerWeaponController : PlayerSolarController
         _Bullet.Set_SortingOrder(_TargetSpawnDepth.ThisSR.sortingOrder - 1);
         _Bullet.Set_State(
             Get_CurrentBulletState(),
-            _State_PosAndRot: new BulletState_PosAndRot(_TargetSpawnDepth.transform.position, dir, _SpreadAngle), 
-            _State_Size: null, 
+            _State_PosAndRot: new BulletState_PosAndRot(_TargetSpawnDepth.transform.position, dir, _SpreadAngle),
+            _State_Size: null,
             _State_Anim: null,
+            _State_Effect: null,
             _TargetSpawnDepth.TargetRange);
 
         // Æø¹ß ÀÌÆåÆ®

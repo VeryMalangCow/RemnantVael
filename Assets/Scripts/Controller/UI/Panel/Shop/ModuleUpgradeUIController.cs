@@ -1,7 +1,5 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -23,6 +21,7 @@ public class ModuleUpgradeUIController : PanelUIController
     [Space(10)]
     [Header("=== Durablity")]
     [SerializeField] public DurablityEUIController ThisDurEUI;
+    [SerializeField] public MessageWindowEUIController ThisMsgEUI;
 
     [Space(10)]
     [Header("=== Item")]
@@ -195,6 +194,9 @@ public class ModuleUpgradeUIController : PanelUIController
         {
             Inventory_InEquip, Inventory_InForge
         };
+
+        // Broken
+        ThisMsgEUI.Offset();
     }
 
 
@@ -960,130 +962,20 @@ public class ModuleUpgradeUIController : PanelUIController
 
     public void Try_Interact()
     {
-        if (CurrentBtn == null) return;
+        if (Is_Interact_Msg()) return;
+
+        if (CurrentBtn == null || ModuleUpgradeController.UsingShop == null) return;
 
         if (Is_Interact_TabPanel()) return;
         if (Is_Interact_ForgeTabPanel()) return;
         if (Is_Interact_SynergyTabPanel()) return;
         if (Is_Interact_SynergyItem()) return;
         if (Is_Interact_RoleBtn()) return;
-
-        /*
-                if (ModuleUpgradeController.UsingShop == null)
-                { return; }
-
-                // 아이템
-                if (CurrentSlot != null)
-                { 
-                    Try_InteractItem(CurrentSlot); 
-                    return; 
-                }
-                else if (CurrentBtn != null)
-                {
-                    // 닫기
-                    if (CurrentBtn == CloseBtn)
-                    {
-                        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_ThisPanel();
-                        return;
-                    }
-
-                    // 탭
-                    for (int i = 0; i < ThisPanelTabList.Count; i++)
-                    {
-                        if (ThisPanelTabList[i].ThisTabBtn == CurrentBtn)
-                        {
-                            Change_ThisPanel(i);
-                            Reset_ForgeElementPanel();
-                            Set_EquipDesc();
-                            return;
-                        }
-                    }
-
-                    // 장착 부분의 토글 버튼
-                    if (CurrentBtn == ToggleBtn_InEquip)
-                    {
-                        if (EquipedPanelGO.activeSelf)
-                        {
-                            EquipedPanelGO.SetActive(false);
-                            SynergyPanelGO.SetActive(true);
-                            SynergyDescsParentTF.gameObject.SetActive(false);
-                            return;
-                        }
-                        else
-                        {
-                            EquipedPanelGO.SetActive(true);
-                            SynergyPanelGO.SetActive(false);
-                            return;
-                        }
-                    }
-
-                    // 특별 상호작용
-                    if (CurrentBtn == ForgeInteractPanels[0].RoleBtn)
-                    {
-                        Try_Desomposition(); return;
-                    }
-                    else if (CurrentBtn == ForgeInteractPanels[1].RoleBtn)
-                    {
-                        Try_Fusion(); return;
-                    }
-                    else if (CurrentBtn == ForgeInteractPanels[2].RoleBtn)
-                    {
-                        Try_Upgrade(); return;
-                    }
-
-                    // 특별 상호작용 탭
-                    for (int i = 0; i < ForgeInteractPanels.Count; i++)
-                    {
-                        if (ForgeInteractPanels[i].PanelBtn == CurrentBtn)
-                        {
-                            // 다른 탭일 경우 초기화
-                            if (ForgeInteractPanels[i] != CurrentForgeInteractPanel)
-                            {
-                                Reset_ForgeElementPanel();
-                            }
-
-                            ForgeInteractPanels[i].PanelRT.gameObject.SetActive(true);
-                            if (ForgeInteractPanels[i].PanelBtn.gameObject.TryGetComponent(out CanvasGroup cg))
-                            {
-                                cg.alpha = 1f;
-                            }
-                            CurrentForgeInteractPanel = ForgeInteractPanels[i];
-                        }
-                        else
-                        {
-                            ForgeInteractPanels[i].PanelRT.gameObject.SetActive(false);
-                            if (ForgeInteractPanels[i].PanelBtn.gameObject.TryGetComponent(out CanvasGroup cg))
-                            {
-                                cg.alpha = 0.5f;
-                            }
-                        }
-                    }
-
-                    // 시너지 탭의 정보
-                    if (CurrentBtn is SynergySlotEUIController mss && SynergySlotList.Contains(mss))
-                    {
-                        SynergyDescsParentTF.gameObject.SetActive(true);
-                        SelectedMSS = mss;
-
-                        MainChipData MCD = ModuleItemManager.Instance.Get_CorrectMainChip(SelectedMSS.ID);
-
-                        SelectViewImg.sprite = SelectedMSS.ThisImg.sprite;
-                        SelectViewAmalgamation.text = SelectedMSS.ThisTxt.text;
-                        SelectViewName.text = MCD.Name.ToString();
-
-                        for (int i = 0; i < AmalgamationDescTxtList.Count; i++)
-                        {
-                            AmalgamationDescTxtList[i].text = MCD.AmalgamationDescList[i]; 
-
-                        }
-                    }
-                }
-        */
     }
 
     public void Try_InteractSub()
     {
-        if (ModuleUpgradeController.UsingShop == null) return;
+        if (ThisMsgEUI.gameObject.activeSelf || ModuleUpgradeController.UsingShop == null) return;
 
         // 아이템이면?
         if (CurrentItemBtn != null)
@@ -1092,6 +984,21 @@ public class ModuleUpgradeUIController : PanelUIController
             return;
         }
     }
+
+    #region Msg
+
+    private bool Is_Interact_Msg()
+    {
+        if (ThisMsgEUI.gameObject.activeSelf)
+        {
+            if (ThisMsgEUI.CanPass) ThisMsgEUI.Play_Off(0.5f);
+
+            return true;
+        }
+        return false;
+    }
+
+    #endregion
 
     #region Item
 
@@ -1280,7 +1187,8 @@ public class ModuleUpgradeUIController : PanelUIController
     private void Role_Decomposition()
     {
         if (ModuleItemManager.Instance.Is_EmptyDecompositionSlot() ||
-            WarningCG.gameObject.activeSelf) return;
+            WarningCG.gameObject.activeSelf ||
+            ModuleUpgradeController.UsingShop.CurrentDur <= 0) return;
 
         CoupleData<int> index = ModuleItemManager.Instance.Get_DecompositionIndex();
 
@@ -1290,7 +1198,9 @@ public class ModuleUpgradeUIController : PanelUIController
 
         PlayerManager.Instance.PlayerController.Add_CurrentMS(
             ModuleItemManager.Get_MS_ByDecomposition(ModuleItemManager.Instance.Get_ModuleState(index)));
-        
+
+        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
+
 
         // 모듈 아이템 제거
         ModuleItemManager.Instance.Remove_ModuleState(index);
@@ -1302,13 +1212,16 @@ public class ModuleUpgradeUIController : PanelUIController
     private void Role_Fusion()
     {
         if (ModuleItemManager.Instance.Is_EmptyFusionSlot() ||
-            WarningCG.gameObject.activeSelf) return;
+            WarningCG.gameObject.activeSelf ||
+            ModuleUpgradeController.UsingShop.CurrentDur <= 0) return;
 
         List<CoupleData<int>> indexList = ModuleItemManager.Instance.Get_FusionIndex();
 
         // 소모 재화
         PlayerManager.Instance.PlayerController.Add_CurrentMS(
             -ModuleItemManager.Get_MS_ForFusion(ModuleItemManager.Instance.Get_ModuleState(indexList[0])));
+
+        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
 
         // 보상 획득
         ModuleItemManager.Instance.Set_UpRank(indexList[0]);
@@ -1324,13 +1237,16 @@ public class ModuleUpgradeUIController : PanelUIController
     private void Role_Upgrade()
     {
         if (ModuleItemManager.Instance.Is_EmptyUpgradeSlot() ||
-            WarningCG.gameObject.activeSelf) return;
+            WarningCG.gameObject.activeSelf ||
+            ModuleUpgradeController.UsingShop.CurrentDur <= 0) return;
 
         CoupleData<int> index = ModuleItemManager.Instance.Get_UpgradeIndex();
 
         // 소모 재화
         PlayerManager.Instance.PlayerController.Use_EC(
             ModuleItemManager.Get_EC_ForUpgrade(ModuleItemManager.Instance.Get_ModuleState(index)));
+
+        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
 
         // 보상 획득
         ModuleItemManager.Instance.Set_UpBoostLv(index);

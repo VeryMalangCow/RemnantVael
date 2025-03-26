@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5694203857495159564}
   - component: {fileID: 7671391899007426867}
   m_Layer: 7
-  m_Name: Enemy02_Prefab
+  m_Name: EnemyS00_02_Prefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -617,14 +617,15 @@ MonoBehaviour:
     IsCritical: 0
     MuzzleSpeed: 1.5
     AliveTime: 6
-  BulletShadowScale: {x: 0.16, y: 0.16}
+  BulletShadowScale: {x: 0.32, y: 0.32}
   BulletColSize: {x: 2, y: 3}
   SpawnDepthList:
-  - {fileID: 5139810350627272259}
-  - {fileID: 4056894064819751254}
-  BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
+  - {fileID: 848216773187047800}
+  BulletAC: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
   MaxRange: 4.5
   MinRange: 0
+  ShootExplAmount: 8
+  ExplAmount: 8
 --- !u!1 &8251026648640757372
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,28 +920,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6904064703115002294, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
   m_PrefabInstance: {fileID: 8925976313212544428}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4056894064819751254 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4869389014298094842, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
-  m_PrefabInstance: {fileID: 8925976313212544428}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5139810350627272259 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4362640458784314351, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
-  m_PrefabInstance: {fileID: 8925976313212544428}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &7051792676472209556 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1874183789220357432, guid: 2624ebe61065a2c4182be26361acf836, type: 3}

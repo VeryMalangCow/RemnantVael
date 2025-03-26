@@ -26,14 +26,12 @@ public abstract class BulletController : MovableDepthController
     [Header("=== Judg")]
     [SerializeField] protected List<string> DestroyTagList;
 
-
     // Extra
     [Space(10)]
     [Header("=== Guided")]
     [SerializeField] protected bool IsGuided = false;
     [SerializeField] protected EnemyController TargetEnemyController = null;
     [SerializeField] protected float RotateSpeed = 1f; // Guided Power
-
 
     #endregion
 
@@ -80,13 +78,15 @@ public abstract class BulletController : MovableDepthController
         BulletState _State, 
         BulletState_PosAndRot _State_PosAndRot, 
         BulletState_Size? _State_Size, 
-        State_Anim? _State_Anim, 
+        State_Anim? _State_Anim,
+        BulletState_Effect? _State_Effect,
         float _TargetRange = 0.4f)
     {
         Set_State_Base(_State, _TargetRange);
         Set_State_PosAndRot(_State_PosAndRot);
         Set_State_Size(_State_Size);
         Set_State_Anim(_State_Anim);
+        Set_State_Effect(_State_Effect);
         Set_State_Extra();
 
         SetOn_State();
@@ -111,6 +111,8 @@ public abstract class BulletController : MovableDepthController
     public virtual void Set_State_Size(BulletState_Size? _State_Size) { }
 
     public virtual void Set_State_Anim(State_Anim? _State_Anim) { }
+
+    public virtual void Set_State_Effect(BulletState_Effect? _State_Effect) { }
 
     public virtual void Set_State_Extra() { }
 

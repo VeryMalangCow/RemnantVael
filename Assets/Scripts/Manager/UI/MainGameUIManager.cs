@@ -58,10 +58,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         MapIntro_UIController
             = Gen_UI<MapIntroUIController>(MapIntro_CanvasPrefab, false);
 
-        DevTool.Play_Tween(Start_FadeOut(FadeOutTime),
-            _Start: new Dele(() => PlayerHUD_UIController.gameObject.SetActive(false)),
-            _Update: null,
-            _Complete: new Dele(() => PlayerHUD_UIController.gameObject.SetActive(true)));
+        Start_FadeOut(FadeOutTime, 
+            new Dele(() => PlayerHUD_UIController.gameObject.SetActive(false)), 
+            new Dele(() => PlayerHUD_UIController.gameObject.SetActive(true)));
     }
 
     #endregion
@@ -96,18 +95,33 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     #region FirstStart
 
-    private Tween Start_FadeOut(float _DurTime)
+    private Tween Start_FadeOut(float _DurTime, Dele _Start = null, Dele _Complete = null)
     {
         return ScreenCG.DOFade(0f, _DurTime)
-            .OnStart(() => { ScreenCanvas.gameObject.SetActive(true); ScreenCG.alpha = 1f; })
-            .OnComplete(() => { ScreenCanvas.gameObject.SetActive(false); });
+            .OnStart(() => 
+            { 
+                ScreenCanvas.gameObject.SetActive(true); ScreenCG.alpha = 1f;
+                if (_Start != null) _Start();
+            })
+            .OnComplete(() => 
+            { 
+                ScreenCanvas.gameObject.SetActive(false);
+                if (_Complete != null) _Complete();
+            });
     }
 
-    public Tween Play_FadeIn(float _DurTime)
+    public Tween Play_FadeIn(float _DurTime, Dele _Start = null, Dele _Complete = null)
     {
         return ScreenCG.DOFade(1f, _DurTime)
             .OnStart(() => 
-            { ScreenCanvas.gameObject.SetActive(true); ScreenCG.alpha = 0f; });
+            { 
+                ScreenCanvas.gameObject.SetActive(true); ScreenCG.alpha = 0f;
+                if (_Start != null) _Start();
+            })
+            .OnComplete(() =>
+            {
+                if (_Complete != null) _Complete();
+            });
     }
 
     #endregion
