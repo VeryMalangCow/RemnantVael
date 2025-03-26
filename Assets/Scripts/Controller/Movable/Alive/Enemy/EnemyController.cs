@@ -73,6 +73,9 @@ public class EnemyController : AliveObjectController
     // ¹æ
     [HideInInspector] private RoomController CurrentRoomController;
 
+    // Á×À½
+    [HideInInspector] private eDamageType DieStateType;
+
     #endregion
 
     #endregion
@@ -391,6 +394,8 @@ public class EnemyController : AliveObjectController
     protected override void Set_Die()
     {
         base.Set_Die();
+        if (CurrentEP.Value <= 0) DieStateType = eDamageType.Energy;
+        else DieStateType = eDamageType.Physics;
 
         Set_Die_GenItem();
         Set_Die_Effect();
@@ -401,8 +406,12 @@ public class EnemyController : AliveObjectController
     {
         Gen_BS(1);
         Gen_MS(1);
-        Gen_Overrider(1);
-        Gen_J(10 * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value);
+
+        if (DieStateType == eDamageType.Physics)
+            Gen_Overrider(1);
+        else
+            Gen_J(10 * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value);
+        
 
         // Drop Module Item
         if (DevTool.Is_ChanceSuccess(ItemDropPercent))
