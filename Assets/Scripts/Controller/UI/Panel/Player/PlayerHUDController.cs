@@ -95,6 +95,7 @@ public class PlayerHUDController : UIController
 
     [SerializeField] private Image InnerImg;
     [SerializeField] private Image UsingInnerImg;
+    [SerializeField] private Color UninteractableColor;
 
     [HideInInspector] private bool IsActingInteractUI = false;
 
@@ -115,6 +116,12 @@ public class PlayerHUDController : UIController
 
     #region - Hide
 
+    // String
+    [HideInInspector] private static string InteractEnableString = "-ENABLE-";
+    [HideInInspector] private static string InteractDisableString = "-DISABLE-";
+    [HideInInspector] private static string InteracInoperableString = "-INOPERABLE-";
+    [HideInInspector] private static string InteractNoneString = "< NONE >";
+
     // Comp
     [HideInInspector] public CanvasGroup ThisCG;
 
@@ -132,6 +139,7 @@ public class PlayerHUDController : UIController
     // Color
     [HideInInspector] public List<Component> MainColorCompList;
     [HideInInspector] public List<Component> SubColorCompList;
+    [HideInInspector] private Color InteractableColor;
 
     // Tab
     [HideInInspector] private Sequence TabSeq;
@@ -329,6 +337,7 @@ public class PlayerHUDController : UIController
         SubColorCompList.Clear();
         SubColorCompList = null;
 
+        InteractableColor = InteractOnOffTxt.color;
     }
 
     private void Offset_AfterColorSet()
@@ -409,23 +418,32 @@ public class PlayerHUDController : UIController
         if (IsActingInteractUI) return; 
 
         IInteract ii = PlayerManager.Instance.PlayerController.CurrentInteractable.Value;
-        string txt = DevTool.Get_InteractingAnnoTxt(ii);
+        string txt = DevTool.Get_InteractingAnnoTxt(ii, out bool canInteract);
 
         if (ii != null && txt != "")
         {
-            Set_InteractTxt("-ENABLE-", txt);
-            Set_InteractFade(1f, 0.5f);
+            if (canInteract)
+            {
+                Set_InteractTxt(InteractEnableString, txt, InteractableColor);
+                Set_InteractFade(1f, 0.5f);
+            }
+            else
+            {
+                Set_InteractTxt(InteracInoperableString, txt, UninteractableColor);
+                Set_InteractFade(1f, 0.5f);
+            }
         }
         else
         {
-            Set_InteractTxt("-DISABLE-", "< NONE >");
+            Set_InteractTxt(InteractDisableString, InteractNoneString, new Color(1, 1, 1, InteractOnOffTxt.color.a));
             Set_InteractFade(0.25f, 0.5f);
         }
     }
 
-    private void Set_InteractTxt(string _OnOffTxt, string _InteractableTxt)
+    private void Set_InteractTxt(string _OnOffTxt, string _InteractableTxt, Color _OnOffTxtColor)
     {
         InteractOnOffTxt.text = _OnOffTxt;
+        InteractOnOffTxt.color = _OnOffTxtColor;
         InteractDesctiptionTxt.text = _InteractableTxt;
     }
 

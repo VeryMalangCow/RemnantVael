@@ -229,6 +229,7 @@ MonoBehaviour:
   InnerLImg: {fileID: 6127350161374401932}
   InnerRImg: {fileID: 1414067944936428548}
   AnnoTxt: {fileID: 8618206228979292463}
+  UninteractableColor: {r: 0.6313726, g: 0.36862746, b: 0.9137255, a: 1}
 --- !u!225 &2441529832115577361
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -637,7 +638,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 0.99999976, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

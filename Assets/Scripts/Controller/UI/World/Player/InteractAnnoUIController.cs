@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,10 @@ public class InteractAnnoUIController : UIController
     [SerializeField] private Image InnerRImg;
     [SerializeField] private TMP_Text AnnoTxt;
 
+    [SerializeField] private Color UninteractableColor;
+
+    [HideInInspector] private Color InteractableColor;
+
     #endregion
 
     #region Offset
@@ -28,6 +33,8 @@ public class InteractAnnoUIController : UIController
         ThisCG.alpha = 0;
 
         Color clr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+
+        InteractableColor = clr;
         InnerLImg.color = clr;
         InnerRImg.color = clr;
     }
@@ -39,10 +46,16 @@ public class InteractAnnoUIController : UIController
     public void Set_UI()
     {
         IInteract ii = PlayerManager.Instance.PlayerController.CurrentInteractable.Value;
-        string txt = DevTool.Get_InteractingAnnoTxt(ii);
+        string txt = DevTool.Get_InteractingAnnoTxt(ii, out bool canInteract);
 
         if (ii != null && txt != "" && ii is MonoBehaviour mb)
         {
+            if (canInteract)
+                Set_AnnoColor(InteractableColor, true);
+            else
+                Set_AnnoColor(UninteractableColor, false);
+            
+
             this.transform.position = mb.transform.position;
             this.AnnoTxt.text = "< " + txt + " >";
 
@@ -52,6 +65,13 @@ public class InteractAnnoUIController : UIController
         {
             Play_FadeOut();
         }
+    }
+
+    private void Set_AnnoColor(Color _Clr, bool _IsOn)
+    {
+        AnnoTxt.color = _IsOn ? Color.white : new Color(0.7f, 0.7f, 0.7f, 1f);
+        InnerLImg.color = _Clr;
+        InnerRImg.color = _Clr;
     }
 
     #endregion

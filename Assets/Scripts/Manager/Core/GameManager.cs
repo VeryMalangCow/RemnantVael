@@ -1432,18 +1432,41 @@ public class DevTool
 
     #region Interact
 
-    public static string Get_InteractingAnnoTxt(IInteract _II)
+    public static string Get_InteractingAnnoTxt(IInteract _II, out bool _CanInteract)
     {
+        _CanInteract = true;
+
         if (_II == null)
-        { return ""; }
-        else if (_II is DestructibleBuildController DBC && !DBC.IsBroken && (_II is BaseUpgradeController || _II is ModuleUpgradeController))
-        { return "SHOP"; }
-        else if (_II is GateController GC && GC.IsOpen)
-        { return "GATE"; }
-        else if (_II is InteractItemController)
-        { return "MODULE"; }
-        else if (_II is EndingElevatorController DEC && DEC.IsOn)
-        { return "NEXT STAGE"; }
+            return "";
+
+        else if (Can_CastingTType(_II, out InteractItemController item))
+            return "MODULE";
+
+        else if (Can_CastingTType(_II, out GateController gate))
+        {
+            if (!gate.IsOpen)
+                _CanInteract = false;
+
+            return "GATE";
+        }
+
+        else if (Can_CastingTType(_II, out DestructibleBuildController dbc) && 
+            (Can_CastingTType(_II, out BaseUpgradeController buc) || Can_CastingTType(_II, out ModuleUpgradeController muc)))
+        {
+            if (dbc.IsBroken)
+                _CanInteract = false;
+
+            return "SHOP";
+        }
+
+
+        else if (Can_CastingTType(_II, out EndingElevatorController elevator))
+        {
+            if (!elevator.IsOn)
+                _CanInteract = false;
+
+            return "NEXT STAGE";
+        }
 
         return "";
     }
