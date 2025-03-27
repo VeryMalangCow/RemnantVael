@@ -24,7 +24,7 @@ public class InputManager : Singleton<InputManager>
 
     // Mouse Vec
     [HideInInspector] public bool CanMouseInput = false;
-    [HideInInspector] private  Vector2 MousePos; // 현재 마우스 위치
+    [HideInInspector] public Vector2 MousePos; // 현재 마우스 위치
     [HideInInspector] public Vector2 MousePosByWorld; // 세상 기준 마우스 위치
     [HideInInspector] public Vector2 DirFromPlayerPos; // 플레이어부터 마우스까지의 Vec
 
@@ -184,6 +184,7 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["MUUI_Select"].performed += Input_MUUIClick;
         PlayerInput.actions["MUUI_SelectSub"].performed += Input_MUUIClickSub;
         PlayerInput.actions["MUUI_OutPanel"].performed += Input_MUUIOutPanel;
+        PlayerInput.actions["MUUI_Drag"].performed += Input_MUUIDrag;
 
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
@@ -218,6 +219,7 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["MUUI_Select"].performed -= Input_MUUIClick;
         PlayerInput.actions["MUUI_SelectSub"].performed -= Input_MUUIClickSub;
         PlayerInput.actions["MUUI_OutPanel"].performed -= Input_MUUIOutPanel;
+        PlayerInput.actions["MUUI_Drag"].performed -= Input_MUUIDrag;
 
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
@@ -381,6 +383,13 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             MainGameUIManager.Instance.ModuleUpgrade_UIController.Try_InteractSub();
+    }
+    private void Input_MUUIDrag(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.Try_InteractDragOn();
+        else
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.Try_InteractDragOff();
     }
 
     private void Input_MUUIOutPanel(InputAction.CallbackContext _InputValue)

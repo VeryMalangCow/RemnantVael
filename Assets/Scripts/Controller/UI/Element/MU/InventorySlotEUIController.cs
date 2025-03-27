@@ -74,6 +74,9 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
         { return; }
 
         Play_Selected(_TargetAlpha: 1f, _TargetScale: SignImgAnimSize, SignImgAnimDurTime);
+
+        if (MainGameUIManager.Instance.ModuleUpgrade_UIController.gameObject.activeSelf)
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSlotBtn = this;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -82,6 +85,9 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
         { return; }
 
         Play_Selected(_TargetAlpha: 0f, _TargetScale: 1f, SignImgAnimDurTime);
+
+        if (MainGameUIManager.Instance.ModuleUpgrade_UIController.gameObject.activeSelf)
+            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSlotBtn = null;
     }
 
     #endregion

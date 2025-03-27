@@ -304,6 +304,48 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Set
 
+    #region Inventory
+
+    public void Set_ChangeInventorySlot(CoupleData<int> _Index0, CoupleData<int> _Index1)
+    {
+        ModuleState moduleState0 = AllModuleData[_Index0.TypeBase][_Index0.TypeSpecial];
+        ModuleState moduleState1 = AllModuleData[_Index1.TypeBase][_Index1.TypeSpecial];
+
+        // 기본 벨류
+        int listIndex0 = -1;
+        int listIndex1 = -1;
+        CoupleData<int> newIndex0 = new CoupleData<int>(-1, -1);
+        CoupleData<int> newIndex1 = new CoupleData<int>(-1, -1);
+
+        // 모듈 스탯이 실존하고, 장착 중인 것이라면
+        if (moduleState0 != null && Is_IncludeEquipped(_Index0, out int _ListIndex0))
+        {
+            listIndex0 = _ListIndex0;
+            newIndex0 = new CoupleData<int>(_Index1);
+        }
+        if (moduleState1 != null && Is_IncludeEquipped(_Index1, out int _ListIndex1))
+        {
+            listIndex1 = _ListIndex1;
+            newIndex1 = new CoupleData<int>(_Index0);
+        }
+
+        if (listIndex0 != -1) EquippedIndex[listIndex0] = newIndex0;
+        if (listIndex1 != -1) EquippedIndex[listIndex1] = newIndex1;
+
+        AllModuleData[_Index0.TypeBase][_Index0.TypeSpecial] = moduleState1;
+        AllModuleData[_Index1.TypeBase][_Index1.TypeSpecial] = moduleState0;
+
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_InventoryUI(AllModuleData);
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_EquipedUI(AllModuleData, EquippedIndex);
+        Reset_Interface();
+    }
+
+    // 장착되어 있는 아이템의 위치값이 변경됨
+
+    #endregion
+
+    #region Equip
+
     // 아이템 장착
     public void Set_Equip(int _EquipedIndex, CoupleData<int> _InteractIndex)
     {
@@ -311,7 +353,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_EquipedUI(AllModuleData, EquippedIndex);
         Reset_Interface();
-
     }
 
     public void Set_UnEquip(int _EquipedIndex)
@@ -321,6 +362,21 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_EquipedUI(AllModuleData, EquippedIndex);
         Reset_Interface();
     }
+
+    public void Set_SwitchEquipment(int _ListIndex0, int _ListIndex1)
+    {
+        CoupleData<int> temp = new CoupleData<int>(EquippedIndex[_ListIndex0]);
+        EquippedIndex[_ListIndex0] = new CoupleData<int>(EquippedIndex[_ListIndex1]);
+        EquippedIndex[_ListIndex1] = new CoupleData<int>(temp);
+
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_InventoryUI(AllModuleData);
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_EquipedUI(AllModuleData, EquippedIndex);
+        Reset_Interface();
+    }
+
+    #endregion
+
+    #region Decomposition
 
     // 분해 슬롯 장착
     public void Set_DecompositionSlot(CoupleData<int> _InteractIndex)
@@ -333,8 +389,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         DecompositionIndex = new CoupleData<int>(-1, -1);
     }
 
-    // 합성
+    #endregion
 
+    #region Fusion
+
+    // 합성
     public void Set_FusionSlot(int _Index, CoupleData<int> _InteractIndex)
     {
         FusionIndex[_Index] = _InteractIndex;
@@ -350,6 +409,10 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             FusionIndex[i] = new CoupleData<int>(-1, -1);
     }
 
+    #endregion
+
+    #region Upgrade
+
     // 업글
     public void Set_UpgradeSlot(CoupleData<int> _InteractIndex)
     {
@@ -359,6 +422,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         UpgradeIndex = new CoupleData<int>(-1, -1);
     }
+
+    #endregion
 
     #endregion
 
@@ -394,6 +459,15 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             }
         }
         _EmptyIndex = -1;
+        return false;
+    }
+
+    public bool Is_EmptyFusionSlot(int _Index)
+    {
+        if (FusionIndex[_Index].TypeBase == -1 && FusionIndex[_Index].TypeSpecial == -1)
+        {
+            return true;
+        }
         return false;
     }
 

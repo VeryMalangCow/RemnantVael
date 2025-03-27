@@ -91,6 +91,7 @@ public class BaseUpgradeUIController : PanelUIController
 
     #endregion
 
+
     #region Offset
 
     public override void Offset()

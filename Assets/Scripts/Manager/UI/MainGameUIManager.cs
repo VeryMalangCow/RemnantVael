@@ -6,7 +6,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     #region Value
 
     [Header("=== Class")]
-    [SerializeField] private Camera UICamera;
+    [SerializeField] public Camera UICamera;
     [SerializeField] public Transform UIParent;
     [SerializeField] private Canvas ScreenCanvas;
 

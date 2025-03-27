@@ -182,6 +182,7 @@ public class PlayerHUDController : UIController
         {
             ModuleSlots[i].Offset();
             ModuleSlots[i].ThisItem.Offset();
+            ModuleSlots[i].Set_EquipedTxt(true, i);
         }
 
         // น๖วม

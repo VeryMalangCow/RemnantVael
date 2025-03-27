@@ -4160,6 +4160,7 @@ MonoBehaviour:
   EndBufferedInputTime: 0.5
   IsPlayingBuffered: 0
   CanMouseInput: 0
+  MousePos: {x: 0, y: 0}
   MousePosByWorld: {x: 0, y: 0}
   DirFromPlayerPos: {x: 0, y: 0}
   InputMoveDir: {x: 0, y: 0}

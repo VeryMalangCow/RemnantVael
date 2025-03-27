@@ -439,6 +439,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "MUUI_Drag",
+                    "type": "PassThrough",
+                    "id": "c5aa71cf-1b66-4dc2-9af6-dd1cfa1dd2f8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "MUUI_SelectSub",
                     "type": "Button",
                     "id": "09996428-b7ca-47ac-9ce7-88457a7614b3",
@@ -488,6 +497,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MUUI_SelectSub",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7cda7cb-99fc-444a-a58d-8609a75fdecd",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MUUI_Drag",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
