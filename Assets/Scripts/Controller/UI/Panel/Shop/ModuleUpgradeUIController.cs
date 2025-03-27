@@ -998,6 +998,8 @@ public class ModuleUpgradeUIController : PanelUIController
     {
         if (IsDragging) return;
 
+        InputManager.Instance.Play_MousePointerClick();
+
         if (Is_Interact_Msg()) return;
 
         if (CurrentBtn == null || ModuleUpgradeController.UsingShop == null) return;
@@ -1013,6 +1015,8 @@ public class ModuleUpgradeUIController : PanelUIController
     public void Try_InteractSub()
     {
         if (IsDragging) return;
+
+        InputManager.Instance.Play_MousePointerClick();
 
         if (ThisMsgEUI.gameObject.activeSelf || ModuleUpgradeController.UsingShop == null) return;
 

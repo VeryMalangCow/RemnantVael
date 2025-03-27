@@ -284,6 +284,8 @@ public class BaseUpgradeUIController : PanelUIController
 
     public void Try_Interact()
     {
+        InputManager.Instance.Play_MousePointerClick();
+
         if (Is_Interact_Msg()) return;
 
         if (CurrentBtn == null || BaseUpgradeController.UsingShop == null) return;
