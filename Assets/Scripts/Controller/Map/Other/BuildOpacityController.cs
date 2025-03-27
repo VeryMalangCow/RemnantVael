@@ -42,7 +42,7 @@ public class BuildOpacityController : MonoBehaviour
         List<StaticDepthController> depthList = DevTool.Get_ChildList<StaticDepthController>(_TF);
         for (int i = 0; i < depthList.Count; i++)
         {
-            SpriteRenderer sr = DevTool.Get_ComponentTType<SpriteRenderer>(depthList[i].TargetObject);
+            SpriteRenderer sr = DevTool.Get_ComponentTType(depthList[i].TargetObject, out SpriteRenderer outSr) ? outSr : null;
             if (sr != null && sr != default) SetSRList.Add(sr);
         }
 
@@ -55,7 +55,7 @@ public class BuildOpacityController : MonoBehaviour
 
         for (int i = 0; i < _DepthList.Count; i++)
         {
-            SpriteRenderer sr = DevTool.Get_ComponentTType<SpriteRenderer>(_DepthList[i].TargetObject);
+            SpriteRenderer sr = DevTool.Get_ComponentTType(_DepthList[i].TargetObject, out SpriteRenderer outSr) ? outSr : null;
             if (sr != null && sr != default) SetSRList.Add(sr);
 
             List<SpriteRenderer> srList = DevTool.Get_ChildList<SpriteRenderer>(_DepthList[i].TargetObject.transform);

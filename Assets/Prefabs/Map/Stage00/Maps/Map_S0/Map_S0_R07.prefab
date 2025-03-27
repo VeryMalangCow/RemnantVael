@@ -9818,7 +9818,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8205b9ff145c1408429a0e7b5a5b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetSRList: []
   SetSRParentGateList:
   - {fileID: 679333944684070248}
   - {fileID: 4183248953890929861}
@@ -9826,7 +9825,9 @@ MonoBehaviour:
   - {fileID: 1219509095087057134}
   - {fileID: 4568753540602913656}
   - {fileID: 3674165123482231500}
-  - {fileID: 0}
+  - {fileID: 4061438097849759750}
+  SetSRDepthListParent: {fileID: 0}
+  SetSRList: []
 --- !u!1 &8464122409552412196
 GameObject:
   m_ObjectHideFlags: 0
@@ -14731,6 +14732,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5078043234781458939, guid: bc7301608de47314f954b93cd8e81172, type: 3}
   m_PrefabInstance: {fileID: 7967613088264707240}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4061438097849759750 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6255365251338331310, guid: bc7301608de47314f954b93cd8e81172, type: 3}
+  m_PrefabInstance: {fileID: 7967613088264707240}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a9589700b54704baa5d9da9cc09ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5512569192180357470 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2455079286687221238, guid: bc7301608de47314f954b93cd8e81172, type: 3}
