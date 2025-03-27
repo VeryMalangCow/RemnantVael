@@ -397,16 +397,28 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public void Set_FusionSlot(int _Index, CoupleData<int> _InteractIndex)
     {
         FusionIndex[_Index] = _InteractIndex;
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_FusionUI(AllModuleData, FusionIndex);
     }
 
     public void Set_UnFusionSlot(int _Index)
     {
         FusionIndex[_Index] = new CoupleData<int>(-1, -1);
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_FusionUI(AllModuleData, FusionIndex);
     }
     public void Set_UnFusionSlotAll()
     {
         for (int i = 0; i < FusionIndex.Count; i++)
             FusionIndex[i] = new CoupleData<int>(-1, -1);
+    }
+    public void Set_SwitchFusion(int _ListIndex0, int _ListIndex1)
+    {
+        CoupleData<int> temp = new CoupleData<int>(FusionIndex[_ListIndex0]);
+        FusionIndex[_ListIndex0] = new CoupleData<int>(FusionIndex[_ListIndex1]);
+        FusionIndex[_ListIndex1] = new CoupleData<int>(temp);
+
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_InventoryUI(AllModuleData);
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_FusionUI(AllModuleData, FusionIndex);
+        Reset_Interface();
     }
 
     #endregion
@@ -475,6 +487,13 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public bool Is_IncludeFusionSlots(CoupleData<int> _Index)
     {
         return Is_Include(_Index, FusionIndex);
+    }
+
+    public bool Is_IncludeFusionSlots(CoupleData<int> _Index, out int _ListIndex)
+    {
+        bool result = Is_Include(_Index, FusionIndex, out int listIndex);
+        _ListIndex = listIndex;
+        return result;
     }
 
     // 모두 비었는가?
@@ -559,7 +578,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #endregion
 
-    #region Gain
+    #region Rank BoostLv
 
     public void Set_UpRank(CoupleData<int> _Index)
     {

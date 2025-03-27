@@ -1,9 +1,11 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 
 public class ModuleUpgradeUIController : PanelUIController
@@ -672,39 +674,40 @@ public class ModuleUpgradeUIController : PanelUIController
     }
 
     // 합성 슬롯 UI 셋
-    public void Set_FusionUI(InventoryItemEUIController _ItemEUI, CoupleData<int> _ApplyIndex, int _Index)
+    public void Set_FusionUI(List<List<ModuleState>> _AllModuleState, List<CoupleData<int>> _SlottedData)
     {
-        int col = _ItemEUI.ThisSlot.Col;
-        int row = _ItemEUI.ThisSlot.Row;
+        Inventory_InForge.SetOff_AllInventoryForgeSelectedUI();
 
-        bool setActive;
-        string needMS;
+        string needMS = "-";
 
-        if (col != -1 && row != -1) // 만약 슬롯에 등록하는 것이라면
+        for (int i = 0; i < _SlottedData.Count; i++)
         {
-            setActive = true;
-            if (ModuleItemManager.Instance.Is_EmptyFusionSlot() ||
-                !ModuleItemManager.Instance.Is_SameRankFusionSlots() ||
-                ModuleItemManager.Instance.Get_ModuleState(_ItemEUI).ThisItemData.Rank >= PlayerController.MaxRank)
+            int targetCol = _SlottedData[i].TypeBase;
+            int targetRow = _SlottedData[i].TypeSpecial;
+
+            if (targetCol == -1 || targetRow == -1)
             {
-                needMS = "-";
+                FusionSlotList[i].ThisItem.gameObject.SetActive(false);
             }
             else
             {
-                ModuleState moduleState = ModuleItemManager.Instance.Get_ModuleState(_ItemEUI);
-                needMS = ModuleItemManager.Get_MS_ForFusion(moduleState).ToString();
+                ItemData data = _AllModuleState[targetCol][targetRow].ThisItemData;
+
+                FusionSlotList[i].ThisItem.gameObject.SetActive(true);
+                FusionSlotList[i].ThisItem.Set_Data(new ItemData_UIVisual(data));
+
+                Inventory_InForge.Set_InventoryForgeSelectedUI(new CoupleData<int>(targetCol, targetRow), true, i + 1);
             }
-
-            FusionSlotList[_Index].ThisItem.Set_Data(_ItemEUI);
         }
-        else // 슬롯에서 빼는 것이라면
+
+        if (!ModuleItemManager.Instance.Is_EmptyFusionSlot() &&
+            ModuleItemManager.Instance.Is_SameRankFusionSlots())
         {
-            setActive = false;
-            needMS = "-";
+            ModuleState ms = ModuleItemManager.Instance.Get_ModuleState(_SlottedData[0].TypeBase, _SlottedData[0].TypeSpecial);
+            if (ms.ThisItemData.Rank < PlayerController.MaxRank)
+                needMS = ModuleItemManager.Get_MS_ForFusion(ms).ToString();
         }
 
-        Inventory_InForge.Set_InventoryForgeSelectedUI(_ApplyIndex, setActive, _Index);
-        FusionSlotList[_Index].ThisItem.gameObject.SetActive(setActive);
         Preview_NeedMS.text = needMS;
 
         Check_FusionAnno();
@@ -795,7 +798,8 @@ public class ModuleUpgradeUIController : PanelUIController
         {
             if (ModuleItemManager.Instance.Get_ModuleState(index[i]).ThisItemData.Rank >= PlayerController.MaxRank)
             {
-                Set_Warning(true, Warning_AlreadyMaxLv); 
+                Set_Warning(true, Warning_AlreadyMaxLv);
+                return;
             }
         }
         for (int i = 0; i < index.Count; i++)
@@ -1192,16 +1196,18 @@ public class ModuleUpgradeUIController : PanelUIController
                 !ModuleItemManager.Instance.Is_IncludeFusionSlots(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row)))
             {
                 ModuleItemManager.Instance.Set_FusionSlot(index, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
-                Set_FusionUI(_ItemEUI, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row), index);
             }
         }
         else
         {
-            if (!ModuleItemManager.Instance.Is_EmptyFusionSlot(_SlotIndex)) // 해당 인덱스 슬롯에 비어있지 않다면, 제거 후 삽입
+            // 이미 슬롯에 있다면, 제거
+            if (ModuleItemManager.Instance.Is_IncludeFusionSlots(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row), out int listIndex)) 
+                Interact_UnFusionInit(FusionSlotList[listIndex].ThisItem);
+            // 해당 인덱스 슬롯에 비어있지 않다면, 제거
+            if (!ModuleItemManager.Instance.Is_EmptyFusionSlot(_SlotIndex)) 
                 Interact_UnFusionInit(FusionSlotList[_SlotIndex].ThisItem);
 
             ModuleItemManager.Instance.Set_FusionSlot(_SlotIndex, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
-            Set_FusionUI(_ItemEUI, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row), _SlotIndex);
         }
     }
 
@@ -1219,9 +1225,15 @@ public class ModuleUpgradeUIController : PanelUIController
             CoupleData<int> applyIndex = ModuleItemManager.Instance.Get_FusionIndex()[index];
 
             ModuleItemManager.Instance.Set_UnFusionSlot(index);
-
-            Set_FusionUI(_ItemEUI, applyIndex, index);
         }
+    }
+
+    // 합성 스위칭
+    private void Interact_FusionSwitch(InventoryItemEUIController _ItemEUI0, InventoryItemEUIController _ItemEUI1)
+    {
+        int index0 = FusionSlotList.IndexOf(_ItemEUI0.ThisSlot);
+        int index1 = FusionSlotList.IndexOf(_ItemEUI1.ThisSlot);
+        ModuleItemManager.Instance.Set_SwitchFusion(index0, index1);
     }
 
     #endregion
@@ -1496,19 +1508,9 @@ public class ModuleUpgradeUIController : PanelUIController
             }
             else if (panelIndex == 1) // Forge 창
             {
-                int panelIndexOfForge = ForgeInteractPanels.IndexOf(CurrentForgeInteractPanel);
-
-                if (panelIndexOfForge == 0) // 분해
+                if (ForgeInteractPanels.IndexOf(CurrentForgeInteractPanel) == 1) // 합성
                 {
-                    
-                }
-                else if (panelIndexOfForge == 1) // 합성
-                {
-                    
-                }
-                else if (panelIndexOfForge == 2) // 업글
-                {
-                    
+                    Interact_FusionSwitch(CurrentDraggingItemBtn, CurrentSlotBtn.ThisItem);
                 }
             }
         }
