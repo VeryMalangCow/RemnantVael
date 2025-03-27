@@ -24,7 +24,7 @@ public class GateController : StaticDepthController, IInteract
 
     [Space(10)]
     [Header("=== On / Off")]
-    [SerializeField] private CoupleData<GameObject> ThingsGO;
+    [SerializeField] public CoupleData<GameObject> ThingsGO;
     [SerializeField] private GameObject EntranceGO;
 
     [Space(10)]

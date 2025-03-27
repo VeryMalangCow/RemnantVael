@@ -425,8 +425,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
-  StartDelay: 0.5
-  EndDelay: 1
+  StartDelay: 1.75
+  EndDelay: 1.25
   IsPlaying: 0
   ThisAS:
     DmgState:
@@ -451,7 +451,10 @@ MonoBehaviour:
   SpawnDepthList:
   - {fileID: 3188852279976695383}
   - {fileID: 6006018085818984770}
-  SpawnHST: {fileID: 3188852279976695383}
+  BeforeEffectDepthList:
+  - {fileID: 3188852279976695383}
+  - {fileID: 6006018085818984770}
+  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &4962291530876198273
 GameObject:
   m_ObjectHideFlags: 0

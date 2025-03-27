@@ -486,7 +486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
-  StartDelay: 0.5
+  StartDelay: 2
   EndDelay: 1
   IsPlaying: 0
   ThisAS:
@@ -511,7 +511,9 @@ MonoBehaviour:
   MinRange: 0
   SpawnDepthList:
   - {fileID: 5281239173370443760}
-  SpawnHST: {fileID: 5281239173370443760}
+  BeforeEffectDepthList:
+  - {fileID: 5281239173370443760}
+  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &4962291530876198273
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,7 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
-  StartDelay: 0.5
+  StartDelay: 1.25
   EndDelay: 0.75
   IsPlaying: 0
   ThisBS:
@@ -753,6 +755,9 @@ MonoBehaviour:
   BulletColSize: {x: 2, y: 3}
   SpawnDepthList:
   - {fileID: 3914198638638926053}
+  BeforeEffectDepthList:
+  - {fileID: 3914198638638926053}
+  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
   BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
   MaxRange: 5
   MinRange: 3
@@ -887,6 +892,18 @@ PrefabInstance:
       propertyPath: EnemyController
       value: 
       objectReference: {fileID: 848216773187047800}
+    - target: {fileID: 2222629274383368526, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2222629274383368526, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2222629274383368526, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6904064703115002294, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

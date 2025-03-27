@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class EnemyPattern_Range : EnemyPattern
 {
@@ -18,10 +19,6 @@ public class EnemyPattern_Range : EnemyPattern
     [SerializeField] private Vector2 BulletShadowScale;
     [SerializeField] private Vector2 BulletColSize;
 
-    [Space(10)]
-    [Header("=== Component")]
-    [SerializeField] private List<DepthController> SpawnDepthList;
-    [SerializeField] private AnimationClip BulletAC;
 
     [Space(10)]
     [Header("=== Condition")]
@@ -32,6 +29,15 @@ public class EnemyPattern_Range : EnemyPattern
     [Header("=== Effect")]
     [SerializeField] private int ShootExplAmount = 3;
     [SerializeField] private int ExplAmount = 3;
+
+    [Space(10)]
+    [Header("=== Component")]
+    [SerializeField] private List<DepthController> SpawnDepthList;
+    [SerializeField] private List<DepthController> BeforeEffectDepthList;
+    [SerializeField] private Color BeforeEffectColor;
+    [SerializeField] private AnimationClip BulletAC;
+
+    [HideInInspector] private Sequence BeforeEffectSeq;
 
     #endregion
 
@@ -66,18 +72,20 @@ public class EnemyPattern_Range : EnemyPattern
 
     protected override IEnumerator Play_ThisPattern_Cor()
     {
-        Vector2 targetDir = DevTool.Get_DirForPlayer(ThisEnemy);
 
+        Play_BeforeEffect(StartDelay);
         yield return new WaitForSeconds(StartDelay);
 
         #region Actual 
 
+        Vector2 targetDir = DevTool.Get_DirForPlayer(ThisEnemy);
+
         for (int i = 0; i < SpawnDepthList.Count; i++)
             Play_ActualPattern(SpawnDepthList[i], targetDir);
-        
 
         #endregion
 
+        Play_AfterEffect(EndDelay);
         yield return new WaitForSeconds(EndDelay);
 
         End_Pattern();
@@ -127,6 +135,36 @@ public class EnemyPattern_Range : EnemyPattern
     private BulletState_Effect State_Effect()
     {
         return new BulletState_Effect(ExplAmount);
+    }
+
+    #endregion
+
+    #region Effect
+
+    private void Play_BeforeEffect(float _StartDelay)
+    {
+        DevTool.Set_KillTween(BeforeEffectSeq);
+        BeforeEffectSeq = DOTween.Sequence();
+
+        _StartDelay *= 0.8f;
+        for (int i = 0; i < BeforeEffectDepthList.Count; i++)
+        {
+            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.transform.DOScale(1.5f, _StartDelay).SetEase(Ease.OutCubic));
+            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.DOColor(BeforeEffectColor, _StartDelay).SetEase(Ease.OutCubic));
+        }
+    }
+
+    private void Play_AfterEffect(float _EndDelay)
+    {
+        DevTool.Set_KillTween(BeforeEffectSeq);
+        BeforeEffectSeq = DOTween.Sequence();
+
+        _EndDelay *= 0.8f;
+        for (int i = 0; i < BeforeEffectDepthList.Count; i++)
+        {
+            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.transform.DOScale(1f, _EndDelay).SetEase(Ease.OutCubic));
+            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.DOColor(Color.white, _EndDelay).SetEase(Ease.OutCubic));
+        }
     }
 
     #endregion

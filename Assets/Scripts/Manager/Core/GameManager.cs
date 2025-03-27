@@ -1442,7 +1442,7 @@ public class DevTool
         else if (Can_CastingTType(_II, out InteractItemController item))
             return "MODULE";
 
-        else if (Can_CastingTType(_II, out GateController gate))
+        else if (Can_CastingTType(_II, out GateController gate) && gate.ThingsGO.TypeSpecial.activeSelf)
         {
             if (!gate.IsOpen)
                 _CanInteract = false;
