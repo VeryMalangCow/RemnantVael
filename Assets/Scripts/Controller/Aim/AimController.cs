@@ -15,6 +15,7 @@ public class AimController : StaticDepthController
 
     [Space(10)]
     [Header("=== Component")]
+    [SerializeField] private SpriteRenderer CenterSR;
     [SerializeField] private CoupleData<SpriteRenderer> AimSR;
     [SerializeField] private PlayerVisual<Sprite> AimSprite;
 
@@ -31,11 +32,20 @@ public class AimController : StaticDepthController
         base.Offset();
 
         Offset_SkillAimList();
+        Offset_Sorting();
     }
 
     private void Offset_SkillAimList()
     {
         DevTool.Set_ListDele(SkillAimList, new Dele_T<SpriteRenderer>(sprite => sprite.gameObject.SetActive(false)));
+    }
+
+    private void Offset_Sorting()
+    {
+        CenterSR.sortingOrder = LayerOrderManager.Order_Aim;
+        AimSR.TypeBase.sortingOrder = LayerOrderManager.Order_Aim;
+        AimSR.TypeSpecial.sortingOrder = LayerOrderManager.Order_Aim;
+        for (int i = 0; i < SkillAimList.Count; i++) SkillAimList[i].sortingOrder = LayerOrderManager.Order_Aim;
     }
 
     #endregion

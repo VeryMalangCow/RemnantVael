@@ -324,7 +324,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4000
+  m_SortingOrder: 9999
   m_Sprite: {fileID: -1026478250, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_FlipX: 0
@@ -471,6 +471,7 @@ MonoBehaviour:
   ThisSR: {fileID: 6624985155263925001}
   TargetRange: 0.6
   AimFollowSpeed: 30
+  CenterSR: {fileID: 2944858628824475098}
   AimSR:
     TypeBase: {fileID: 3591631350453274875}
     TypeSpecial: {fileID: 8347107679939270085}

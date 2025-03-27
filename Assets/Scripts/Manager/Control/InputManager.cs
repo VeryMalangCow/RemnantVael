@@ -47,6 +47,15 @@ public class InputManager : Singleton<InputManager>
 
     #endregion
 
+    #region Offset
+
+    private void Offset()
+    {
+        Set_AllPointer(false);
+    }
+
+    #endregion
+
     #region Framework
 
     protected override void Awake()
@@ -57,7 +66,7 @@ public class InputManager : Singleton<InputManager>
 
     private void Start()
     {
-        Set_AllPointer(false);
+        Offset();
     }
 
     private void FixedUpdate()
@@ -85,7 +94,7 @@ public class InputManager : Singleton<InputManager>
                 SetOff_BufferedInput();
             }
 
-            if (!IsPlayingBuffered)
+            if (!IsPlayingBuffered && CurrentBufferedDele != null)
             {
                 CurrentBufferedDele();
                 SetOff_BufferedInput();

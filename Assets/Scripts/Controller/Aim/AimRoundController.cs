@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UniRx;
-using static UnityEngine.Rendering.DebugUI;
 
 public class AimRoundController : StaticDepthController
 {
@@ -29,6 +28,7 @@ public class AimRoundController : StaticDepthController
         base.Offset();
 
         Offset_Subscribe();
+        Offset_Sorting();
     }
 
     private void Offset_Subscribe()
@@ -38,6 +38,12 @@ public class AimRoundController : StaticDepthController
             {
                 Set_AngleRoundValue(value);
             });
+    }
+
+    private void Offset_Sorting()
+    {
+        for (int i = 0; i < LineList.Count; i++)
+            DevTool.Get_ComponentTType<SpriteRenderer>(LineList[i].transform.GetChild(0).gameObject).sortingOrder = LayerOrderManager.Order_Aim;
     }
 
     #endregion

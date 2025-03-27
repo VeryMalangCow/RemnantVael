@@ -43,6 +43,11 @@ public class EnemyPattern_Range : EnemyPattern
 
     #region Framework
 
+    private void OnEnable()
+    {
+        Reset_EffectComp();
+    }
+
     private void Update()
     {
         if (!IsPlaying)
@@ -140,6 +145,15 @@ public class EnemyPattern_Range : EnemyPattern
     #endregion
 
     #region Effect
+
+    private void Reset_EffectComp()
+    {
+        for (int i = 0; i < BeforeEffectDepthList.Count; i++)
+        {
+            BeforeEffectDepthList[i].ThisSR.transform.localScale = Vector3.one;
+            BeforeEffectDepthList[i].ThisSR.color = Color.white;
+        }
+    }
 
     private void Play_BeforeEffect(float _StartDelay)
     {
