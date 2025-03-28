@@ -18,7 +18,24 @@ public class CSVManager : PersistentSingleton<CSVManager>
     [SerializeField] private TextAsset DialogueElement_CSV;
     [SerializeField] private TextAsset DialougeID_CSV;
 
+    [Space(10)]
+    [Header("=== Sprite")]
+    [SerializeField] private string SpritePath = "Sprite/";
+
+    [Space(5)]
+    [Header("-- Character")]
+    [SerializeField] private string CharacterImg_Path = "Character/";
     [SerializeField] private Texture2D CharacterImg_000;
+
+    [Space(5)]
+    [Header("-- Map")]
+    [SerializeField] private string Map_Path = "Map/";
+    [Space(5)]
+    [SerializeField] private string Map00_Path = "Map00/";
+    [SerializeField] private List<Texture2D> Map00;
+
+    [SerializeField] private string Map01_Path = "Map01/";
+    [SerializeField] private List<Texture2D> Map01;
 
     // === Data
     [HideInInspector] private List<EventID> EventID_Data;
@@ -28,6 +45,8 @@ public class CSVManager : PersistentSingleton<CSVManager>
     [HideInInspector] private List<DialogueID> DialogueID_Data;
 
     [HideInInspector] private List<Sprite> CharacterImgList_Data;
+
+    [HideInInspector] public List<List<Sprite>> MapImgList_Data;
 
     #endregion
 
@@ -42,7 +61,24 @@ public class CSVManager : PersistentSingleton<CSVManager>
         DialogueID_Data = Offset_DialougeIDList(DialougeID_CSV);
 
         CharacterImgList_Data = new List<Sprite>();
-        CharacterImgList_Data.AddRange(Offset_CharacterImgList(CharacterImg_000));
+        CharacterImgList_Data.AddRange(
+            Offset_ImgPath(CharacterImg_000, SpritePath + CharacterImg_Path));
+
+        List<List<Texture2D>> spriteDoubleList = new List<List<Texture2D>>
+        { Map00, Map01 };
+        List<string> spriteMap_Path = new List<string>()
+        { Map00_Path, Map01_Path };
+
+        MapImgList_Data = new List<List<Sprite>>();
+        for (int i = 0; i < spriteDoubleList.Count; i++)
+        {
+            MapImgList_Data.Add(new List<Sprite>());
+            for (int j = 0; j < spriteDoubleList[i].Count; j++)
+            {
+                MapImgList_Data[i].AddRange(
+                    Offset_ImgPath(spriteDoubleList[i][j], SpritePath + Map_Path + spriteMap_Path[i]));
+            }
+        }
     }
 
     #endregion
@@ -346,18 +382,14 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
     #region To SpriteList
 
-    private List<Sprite> Offset_CharacterImgList(Texture2D _Texture2D)
+    private List<Sprite> Offset_ImgPath(Texture2D _Texture2D, string _Path)
     {
         List<Sprite> result = new List<Sprite>();
         if (_Texture2D != null)
-        {
-            Debug.Log("Reso_Texture2D/" + _Texture2D.name);
-            return Resources.LoadAll<Sprite>("Reso_Texture2D/" + _Texture2D.name).ToList();
-        }
+            return Resources.LoadAll<Sprite>(_Path + _Texture2D.name).ToList();
         else
-        {
             return result;
-        }
+        
     }
 
     public Sprite Get_CorrectCharacterImg(int _ID)

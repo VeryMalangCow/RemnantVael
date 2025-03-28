@@ -59,10 +59,23 @@ public class StageManager : Singleton<StageManager>
 
     #endregion
 
+    #region Offset
+
+    private void Offset()
+    {
+        for (int i = 0; i < AllStageData.Count; i++)
+            AllStageData[i].Offset(CSVManager.Instance.MapImgList_Data[i]);
+        
+    }
+
+    #endregion
+
     #region Framework
 
     private void Start()
     {
+        Offset();
+
         // 스테이지 소환
         Gen_Stage(TargetStageID);
 
@@ -539,6 +552,20 @@ public class StageManager : Singleton<StageManager>
         }
 
         return WorldVecList;
+    }
+
+    #endregion
+
+    #region Sprite
+
+    public Sprite Get_MapObstacleSprite(string _SpriteKey)
+    {
+        return AllStageData[TargetStageID].ObstacleBuild.MapSprite[_SpriteKey];
+    }
+
+    public Sprite Get_MapWallSprite(string _SpriteKey)
+    {
+        return null;
     }
 
     #endregion

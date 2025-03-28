@@ -2628,29 +2628,6 @@ MonoBehaviour:
       StageName: BASEMENT LAB
       StageDescription: There are old enemies located at the very bottom, guarding
         the abandoned space.
-    PrefabData:
-      RoomAmount:
-      - ID: 0
-        Amount: 7
-      - ID: 1
-        Amount: 3
-      - ID: 2
-        Amount: 3
-      - ID: 3
-        Amount: 2
-      - ID: 4
-        Amount: 1
-      - ID: 5
-        Amount: 1
-      - ID: 6
-        Amount: 1
-      - ID: 7
-        Amount: 1
-      EntranceRoom:
-      - ID: 3
-        RuleID: 0
-      - ID: 3
-        RuleID: 1
     RoomData:
       RoomAmount:
       - ID: 0
@@ -2682,6 +2659,37 @@ MonoBehaviour:
       - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
       - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
+    MapIndexName: Map00
+    AllMapSprite: []
+    ObstacleBuild:
+      C: {fileID: 249624983, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      CU: {fileID: -786445416, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      CR: {fileID: -2103820453, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      CD: {fileID: -1119260431, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      CL: {fileID: 94443978, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      OutPoint_UL: {fileID: 951225858, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      OutPoint_UR: {fileID: 553636214, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      OutPoint_DL: {fileID: 1080469877, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      OutPoint_DR: {fileID: 690935177, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      InPoint_No: {fileID: 0}
+      InPoint_UL: {fileID: 0}
+      InPoint_UR: {fileID: 0}
+      InPoint_DL: {fileID: 0}
+      InPoint_DR: {fileID: 0}
+      U: {fileID: 737674106, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      R: {fileID: -1009941347, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      D: {fileID: -908808301, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      L: {fileID: 96025666, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+      UBoth: {fileID: 0}
+      RBoth: {fileID: 0}
+      DBoth: {fileID: 0}
+      LBoth: {fileID: 0}
+      InPointULaDR: {fileID: 0}
+      InPointURaDL: {fileID: 0}
+      InPointNoUL: {fileID: 0}
+      InPointNoUR: {fileID: 0}
+      InPointNoDL: {fileID: 0}
+      InPointNoDR: {fileID: 0}
   StartRoomRulePrefab: {fileID: 8671702513593221327, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
   BUShopPrefab: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
   MUShopPrefab: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
@@ -3093,7 +3101,17 @@ MonoBehaviour:
   EventElement_CSV: {fileID: 4900000, guid: eeaa71b621eae2d47b90152c486037d7, type: 3}
   DialogueElement_CSV: {fileID: 4900000, guid: e614e52b2fb2e4748afb9fa58d941342, type: 3}
   DialougeID_CSV: {fileID: 4900000, guid: ba37bbb95d36b80459a01b6709c624dd, type: 3}
+  SpritePath: Sprite/
+  CharacterImg_Path: Character/
   CharacterImg_000: {fileID: 2800000, guid: 318ada3361e9e01408b77f966494e1d1, type: 3}
+  Map_Path: Map/
+  Map00_Path: Map00/
+  Map00:
+  - {fileID: 2800000, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
+  - {fileID: 2800000, guid: 360a250d42332ea4480df4cfb9f7b559, type: 3}
+  Map01_Path: Map01/
+  Map01:
+  - {fileID: 2800000, guid: a92aeea24babe974888bf97554fe49f1, type: 3}
 --- !u!4 &830584170
 Transform:
   m_ObjectHideFlags: 0

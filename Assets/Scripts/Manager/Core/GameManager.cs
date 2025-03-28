@@ -3117,6 +3117,19 @@ public class StageData
 
     [Space(10)]
     public StageEnemy EnemyData;
+
+    [Space(10)]
+    public string MapIndexName;
+
+    [HideInInspector] public List<Sprite> AllMapSprite;
+    [HideInInspector] public StageObstacleBuild ObstacleBuild;
+    [HideInInspector] public StageWallBuild WallBuild;
+    
+    public void Offset(List<Sprite> _AllSprite)
+    {
+        ObstacleBuild.Offset(_AllSprite, MapIndexName);
+        WallBuild.Offset(_AllSprite, MapIndexName);
+    }
 }
 
 #endregion
@@ -3187,9 +3200,34 @@ public class StageEnemy
 #region Class : Stage : Reso
 
 [System.Serializable]
-public class StageBuildSprite
+public class StageObstacleBuild
 {
+    [Header("=== Sprtie: Based on the outer surface")]
 
+    public Dictionary<string, Sprite> MapSprite = new Dictionary<string, Sprite>();
+
+    public void Offset(List<Sprite> _AllSprite, string _MapIndexName)
+    {
+        for (int i = 0; i < _AllSprite.Count; i++)
+        {
+            if (_AllSprite[i].name.Length > 10)
+            {
+                if (_AllSprite[i].name.Substring(0, 10) == _MapIndexName + "_B_I_")
+                {
+                    MapSprite.Add(_AllSprite[i].name.Substring(10, _AllSprite[i].name.Length - 10), _AllSprite[i]);
+                }
+            }
+        }
+    }
+}
+
+[System.Serializable]
+public class StageWallBuild
+{
+    public void Offset(List<Sprite> _AllSprite, string _MapIndexName)
+    {
+        
+    }
 }
 
 #endregion
