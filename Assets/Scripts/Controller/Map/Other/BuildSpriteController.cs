@@ -9,4 +9,19 @@ public class BuildSpriteController : MonoBehaviour
     [SerializeField] private string SpriteKey;
 
     #endregion
+
+    #region Framework
+
+    private void Start()
+    {
+        if (DevTool.Get_ComponentTType(gameObject, out SpriteRenderer sr))
+        {
+            if (SpriteKey == "") 
+                SpriteKey = sr.sprite.name.Substring(5, sr.sprite.name.Length - 5);
+            
+            StageManager.Instance.Set_MapSprite(sr, SpriteKey);
+        }
+    }
+
+    #endregion
 }

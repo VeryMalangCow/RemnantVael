@@ -343,7 +343,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5164972284617493705}
-  - component: {fileID: 706389735350415486}
   - component: {fileID: 4357507412643674066}
   - component: {fileID: 5445747301903772414}
   m_Layer: 8
@@ -374,23 +373,6 @@ Transform:
   - {fileID: 5295260475009204259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &706389735350415486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1779780343789199715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 509c968c1c3168443a4df94da85f11fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: 0
-  TargetObject: {fileID: 6838627500348933088}
-  ThisSR: {fileID: 4810027994122376210}
-  TargetRange: 0.6
-  test: {fileID: 0}
 --- !u!114 &4357507412643674066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -991,7 +973,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1035,7 +1017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  SpriteKey: _B_I_C
 --- !u!1 &7274181951432691530
 GameObject:
   m_ObjectHideFlags: 0

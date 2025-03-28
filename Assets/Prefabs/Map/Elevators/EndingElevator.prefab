@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 2545417290506596609}
   - component: {fileID: 6431130664222279258}
   - component: {fileID: 8947138048879588301}
-  - component: {fileID: 8138481414561888053}
+  - component: {fileID: 8286445345692436081}
   m_Layer: 6
   m_Name: Target
   m_TagString: DestructibleObject
@@ -487,7 +487,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d93f257b918659143863780016cc3d38, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -513,7 +513,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 4, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -531,33 +531,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6a9a4a88b0d244888af9fe4db9a145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RandomSpriteList:
-  - SpriteList:
-    - {fileID: -1746943924, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 1391882910, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 237403348, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-    - {fileID: 366755556, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
---- !u!95 &8138481414561888053
-Animator:
-  serializedVersion: 5
+--- !u!114 &8286445345692436081
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7945861353772175884}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteKey: _ElevatorPlatform
 --- !u!1 &9154759577082527035
 GameObject:
   m_ObjectHideFlags: 0

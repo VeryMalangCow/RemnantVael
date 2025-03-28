@@ -4158,6 +4158,7 @@ MonoBehaviour:
   SetSRParentGateList: []
   SetSRParentDepthList: []
   SetSRDepthListParent: {fileID: 8940886105770118567}
+  SetSRList: []
 --- !u!61 &1854725690522595522
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4797,6 +4798,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_D
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (25)
@@ -4810,9 +4815,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -908808301, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -4871,6 +4880,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_OutPointDL
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (13)
@@ -4884,9 +4897,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1080469877, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4945,6 +4962,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_R
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (10)
@@ -4958,9 +4979,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1009941347, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -5023,6 +5048,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_D
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (22)
@@ -5036,9 +5065,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -908808301, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
@@ -5097,6 +5130,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_R
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (6)
@@ -5110,9 +5147,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1009941347, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -5175,6 +5216,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_OutPointDR
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (29)
@@ -5188,9 +5233,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 690935177, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -5249,6 +5298,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_L
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (7)
@@ -5262,9 +5315,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 96025666, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5323,6 +5380,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_U
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (21)
@@ -5340,9 +5401,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2
@@ -5401,6 +5466,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_L
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (5)
@@ -5414,9 +5483,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 96025666, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5475,6 +5548,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_D
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (27)
@@ -5488,9 +5565,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -908808301, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4
@@ -5549,6 +5630,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_L
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (9)
@@ -5562,9 +5647,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 96025666, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5623,6 +5712,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_L
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (11)
@@ -5636,9 +5729,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 96025666, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5697,6 +5794,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_OutPointUL
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (23)
@@ -5714,9 +5815,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5779,6 +5884,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_U
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (26)
@@ -5796,9 +5905,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4
@@ -5857,6 +5970,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_U
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (24)
@@ -5874,9 +5991,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
@@ -5935,6 +6056,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_U
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (20)
@@ -5952,9 +6077,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -6017,6 +6146,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_R
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (8)
@@ -6030,9 +6163,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1009941347, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -6095,6 +6232,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_InPointDR
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (4)
@@ -6108,9 +6249,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1902394708, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -6169,6 +6314,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_OutPointDR
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (12)
@@ -6182,9 +6331,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 690935177, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -6247,6 +6400,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8940886105770118567}
     m_Modifications:
+    - target: {fileID: 1024313852096833006, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: SpriteKey
+      value: _B_I_OutPointUR
+      objectReference: {fileID: 0}
     - target: {fileID: 1830277071539231825, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Name
       value: InRoomWall (28)
@@ -6264,9 +6421,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834008912342362400, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5078043234781458939, guid: df9dd39569ffbbd4fb2834851617d98a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5

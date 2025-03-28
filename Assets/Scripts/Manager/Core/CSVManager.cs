@@ -47,6 +47,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
     [HideInInspector] private List<Sprite> CharacterImgList_Data;
 
     [HideInInspector] public List<List<Sprite>> MapImgList_Data;
+    [HideInInspector] public List<List<int>> MapMaterialIndexList_Data;
 
     #endregion
 
@@ -60,23 +61,33 @@ public class CSVManager : PersistentSingleton<CSVManager>
         DialogueElement_Data = Offset_DialougeEleventList(DialogueElement_CSV); // 다이얼로그 ID보다 먼저 와야함
         DialogueID_Data = Offset_DialougeIDList(DialougeID_CSV);
 
+        // Char
         CharacterImgList_Data = new List<Sprite>();
         CharacterImgList_Data.AddRange(
             Offset_ImgPath(CharacterImg_000, SpritePath + CharacterImg_Path));
 
+        // Map
         List<List<Texture2D>> spriteDoubleList = new List<List<Texture2D>>
         { Map00, Map01 };
+
         List<string> spriteMap_Path = new List<string>()
         { Map00_Path, Map01_Path };
 
         MapImgList_Data = new List<List<Sprite>>();
+        MapMaterialIndexList_Data = new List<List<int>>();
+
         for (int i = 0; i < spriteDoubleList.Count; i++)
         {
             MapImgList_Data.Add(new List<Sprite>());
+            MapMaterialIndexList_Data.Add(new List<int>());
+
             for (int j = 0; j < spriteDoubleList[i].Count; j++)
             {
                 MapImgList_Data[i].AddRange(
                     Offset_ImgPath(spriteDoubleList[i][j], SpritePath + Map_Path + spriteMap_Path[i]));
+
+                for (int k = 0; k < MapImgList_Data[i].Count; k++)
+                    MapMaterialIndexList_Data[i].Add(j);
             }
         }
     }
@@ -389,7 +400,6 @@ public class CSVManager : PersistentSingleton<CSVManager>
             return Resources.LoadAll<Sprite>(_Path + _Texture2D.name).ToList();
         else
             return result;
-        
     }
 
     public Sprite Get_CorrectCharacterImg(int _ID)

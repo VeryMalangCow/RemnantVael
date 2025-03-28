@@ -2660,36 +2660,10 @@ MonoBehaviour:
       - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
     MapIndexName: Map00
+    MapMaterial:
+    - {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
+    - {fileID: 2100000, guid: d93f257b918659143863780016cc3d38, type: 2}
     AllMapSprite: []
-    ObstacleBuild:
-      C: {fileID: 249624983, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      CU: {fileID: -786445416, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      CR: {fileID: -2103820453, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      CD: {fileID: -1119260431, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      CL: {fileID: 94443978, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      OutPoint_UL: {fileID: 951225858, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      OutPoint_UR: {fileID: 553636214, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      OutPoint_DL: {fileID: 1080469877, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      OutPoint_DR: {fileID: 690935177, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      InPoint_No: {fileID: 0}
-      InPoint_UL: {fileID: 0}
-      InPoint_UR: {fileID: 0}
-      InPoint_DL: {fileID: 0}
-      InPoint_DR: {fileID: 0}
-      U: {fileID: 737674106, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      R: {fileID: -1009941347, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      D: {fileID: -908808301, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      L: {fileID: 96025666, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
-      UBoth: {fileID: 0}
-      RBoth: {fileID: 0}
-      DBoth: {fileID: 0}
-      LBoth: {fileID: 0}
-      InPointULaDR: {fileID: 0}
-      InPointURaDL: {fileID: 0}
-      InPointNoUL: {fileID: 0}
-      InPointNoUR: {fileID: 0}
-      InPointNoDL: {fileID: 0}
-      InPointNoDR: {fileID: 0}
   StartRoomRulePrefab: {fileID: 8671702513593221327, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
   BUShopPrefab: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
   MUShopPrefab: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}

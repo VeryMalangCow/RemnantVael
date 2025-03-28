@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class StageManager : Singleton<StageManager>
 {
@@ -64,8 +62,12 @@ public class StageManager : Singleton<StageManager>
     private void Offset()
     {
         for (int i = 0; i < AllStageData.Count; i++)
-            AllStageData[i].Offset(CSVManager.Instance.MapImgList_Data[i]);
-        
+        {
+            AllStageData[i].Offset(CSVManager.Instance.MapImgList_Data[i], CSVManager.Instance.MapMaterialIndexList_Data[i]);
+        }
+
+        CSVManager.Instance.MapImgList_Data.Clear();
+        CSVManager.Instance.MapMaterialIndexList_Data.Clear();
     }
 
     #endregion
@@ -376,6 +378,18 @@ public class StageManager : Singleton<StageManager>
 
     #endregion
 
+    #region SR
+    public void Set_MapSprite(SpriteRenderer _SR, string _SpriteKey)
+    {
+        if (!AllStageData[TargetStageID].MapSpriteReso.MapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey);  return; }
+
+        SpriteMaterial spriteMatrial = AllStageData[TargetStageID].MapSpriteReso.MapSprite[_SpriteKey];
+        _SR.sprite = spriteMatrial.Sprite;
+        _SR.material = AllStageData[TargetStageID].MapMaterial[spriteMatrial.MaterialIndex];
+    }
+
+    #endregion
+
     #endregion
 
     #region Get
@@ -552,20 +566,6 @@ public class StageManager : Singleton<StageManager>
         }
 
         return WorldVecList;
-    }
-
-    #endregion
-
-    #region Sprite
-
-    public Sprite Get_MapObstacleSprite(string _SpriteKey)
-    {
-        return AllStageData[TargetStageID].ObstacleBuild.MapSprite[_SpriteKey];
-    }
-
-    public Sprite Get_MapWallSprite(string _SpriteKey)
-    {
-        return null;
     }
 
     #endregion

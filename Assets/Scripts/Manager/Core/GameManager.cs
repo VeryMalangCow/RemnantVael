@@ -3109,26 +3109,27 @@ public class StageData
 {
     public StageInfo InfoData;
 
-    [Space(10)]
+    [Space(5)]
     public StageRoom RoomData;
 
-    [Space(10)]
+    [Space(5)]
     public StageShop ShopData;
 
-    [Space(10)]
+    [Space(5)]
     public StageEnemy EnemyData;
 
-    [Space(10)]
+    [Space(5)]
     public string MapIndexName;
 
+    [Space(5)]
+    public List<Material> MapMaterial;
+
     [HideInInspector] public List<Sprite> AllMapSprite;
-    [HideInInspector] public StageObstacleBuild ObstacleBuild;
-    [HideInInspector] public StageWallBuild WallBuild;
+    [HideInInspector] public StageMapSprite MapSpriteReso;
     
-    public void Offset(List<Sprite> _AllSprite)
+    public void Offset(List<Sprite> _AllSprite, List<int> _MaterialIndexList)
     {
-        ObstacleBuild.Offset(_AllSprite, MapIndexName);
-        WallBuild.Offset(_AllSprite, MapIndexName);
+        MapSpriteReso.Offset(_AllSprite, _MaterialIndexList, MapIndexName);
     }
 }
 
@@ -3200,35 +3201,42 @@ public class StageEnemy
 #region Class : Stage : Reso
 
 [System.Serializable]
-public class StageObstacleBuild
+public class StageMapSprite
 {
     [Header("=== Sprtie: Based on the outer surface")]
 
-    public Dictionary<string, Sprite> MapSprite = new Dictionary<string, Sprite>();
+    public Dictionary<string, SpriteMaterial> MapSprite = new Dictionary<string, SpriteMaterial>();
 
-    public void Offset(List<Sprite> _AllSprite, string _MapIndexName)
+    public void Offset(List<Sprite> _AllSprite, List<int> _MaterialIndexList, string _MapIndexName)
     {
         for (int i = 0; i < _AllSprite.Count; i++)
         {
-            if (_AllSprite[i].name.Length > 10)
+            if (_AllSprite[i].name.Length > 5)
             {
-                if (_AllSprite[i].name.Substring(0, 10) == _MapIndexName + "_B_I_")
-                {
-                    MapSprite.Add(_AllSprite[i].name.Substring(10, _AllSprite[i].name.Length - 10), _AllSprite[i]);
-                }
+                if (_AllSprite[i].name[5] == 'A') continue; 
+                
+                MapSprite.Add(
+                    _AllSprite[i].name.Substring(5, _AllSprite[i].name.Length - 5),
+                    new SpriteMaterial(_AllSprite[i], _MaterialIndexList[i]));
             }
         }
     }
 }
 
+
 [System.Serializable]
-public class StageWallBuild
+public class SpriteMaterial
 {
-    public void Offset(List<Sprite> _AllSprite, string _MapIndexName)
+    public Sprite Sprite;
+    public int MaterialIndex;
+
+    public SpriteMaterial(Sprite _Sprite, int _MaterialIndex)
     {
-        
+        Sprite = _Sprite;
+        MaterialIndex = _MaterialIndex;
     }
 }
+
 
 #endregion
 
