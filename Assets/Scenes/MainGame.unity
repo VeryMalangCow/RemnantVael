@@ -2623,10 +2623,11 @@ MonoBehaviour:
   MapParentTF: {fileID: 1948256983}
   TargetStageID: 0
   AllStageData:
-  - StageID: 0
-    StageName: BASEMENT LAB
-    StageDescription: There are old enemies located at the very bottom, guarding
-      the abandoned space.
+  - InfoData:
+      StageID: 0
+      StageName: BASEMENT LAB
+      StageDescription: There are old enemies located at the very bottom, guarding
+        the abandoned space.
     PrefabData:
       RoomAmount:
       - ID: 0
@@ -2645,24 +2646,42 @@ MonoBehaviour:
         Amount: 1
       - ID: 7
         Amount: 1
-      EntranceRoomList:
-      - RoomPrefab: {fileID: 8671702513593221327, guid: a2b44feb0e6af09479d14743db3f8de0, type: 3}
-        RoomRulePrefabList:
-        - {fileID: 8671702513593221327, guid: c44934c6fc5ffcf4593c05ff3d0f2705, type: 3}
-      - RoomPrefab: {fileID: 8671702513593221327, guid: a2b44feb0e6af09479d14743db3f8de0, type: 3}
-        RoomRulePrefabList:
-        - {fileID: 8671702513593221327, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
       EntranceRoom:
       - ID: 3
         RuleID: 0
       - ID: 3
         RuleID: 1
-    BUShopAmount: 3
-    MUShopAmount: 3
-    StageEnemyList:
-    - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
-    - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
-    - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
+    RoomData:
+      RoomAmount:
+      - ID: 0
+        Amount: 7
+      - ID: 1
+        Amount: 3
+      - ID: 2
+        Amount: 3
+      - ID: 3
+        Amount: 2
+      - ID: 4
+        Amount: 1
+      - ID: 5
+        Amount: 1
+      - ID: 6
+        Amount: 1
+      - ID: 7
+        Amount: 1
+      EntranceRoom:
+      - ID: 3
+        RuleID: 0
+      - ID: 3
+        RuleID: 1
+    ShopData:
+      BUShopAmount: 3
+      MUShopAmount: 3
+    EnemyData:
+      StageEnemyList:
+      - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
+      - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
+      - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
   StartRoomRulePrefab: {fileID: 8671702513593221327, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
   BUShopPrefab: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
   MUShopPrefab: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}

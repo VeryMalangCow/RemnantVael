@@ -31,7 +31,7 @@ public class MapIntroUIController : UIController
         StageData sd = 
             StageManager.Instance.Get_CollectStageData(StageManager.Instance.TargetStageID);
 
-        Set_Txt(sd.StageName, sd.StageDescription);
+        Set_Txt(sd.InfoData.StageName, sd.InfoData.StageDescription);
         Play_Label(1.5f, 3f, 2f)
             .OnStart(() => { this.gameObject.SetActive(true); })
             .OnComplete(() => { this.gameObject.SetActive(false); });

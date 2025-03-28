@@ -3107,29 +3107,36 @@ public class SatelliteCenterController : SatelliteController
 [System.Serializable]
 public class StageData
 {
-    [Space(20)]
-    public int StageID;
-    public string StageName;
-    public string StageDescription;
+    public StageInfo InfoData;
 
     [Space(10)]
-    [Header("=== Prefab Data")]
-    public StagePrefabData PrefabData;
+    public StageRoom RoomData;
 
-    [Space(20)]
-    public int BUShopAmount = 1;
-    public int MUShopAmount = 1;
+    [Space(10)]
+    public StageShop ShopData;
 
-    [Space(20)]
-    public List<GameObject> StageEnemyList;
+    [Space(10)]
+    public StageEnemy EnemyData;
 }
 
 #endregion
 
-#region Class : Stage : Prefab
+#region Class : Stage : StageInfo
 
 [System.Serializable]
-public class StagePrefabData
+public class StageInfo
+{
+    public int StageID;
+    public string StageName;
+    public string StageDescription;
+}
+
+#endregion
+
+#region Class : Stage : Room
+
+[System.Serializable]
+public class StageRoom
 {
     [Header("=== Room")]
     public List<GenRoomData> RoomAmount;
@@ -3152,6 +3159,37 @@ public class GenEntranceRoomData
 {
     public int ID;
     public int RuleID;
+}
+
+#endregion
+
+#region Class : Stage : Shop
+
+[System.Serializable]
+public class StageShop
+{
+    public int BUShopAmount = 1;
+    public int MUShopAmount = 1;
+}
+
+#endregion
+
+#region Class : Stage : Enemy
+
+[System.Serializable]
+public class StageEnemy
+{
+    public List<GameObject> StageEnemyList;
+}
+
+#endregion
+
+#region Class : Stage : Reso
+
+[System.Serializable]
+public class StageBuildSprite
+{
+
 }
 
 #endregion

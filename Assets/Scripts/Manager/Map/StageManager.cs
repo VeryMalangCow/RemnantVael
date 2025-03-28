@@ -88,11 +88,11 @@ public class StageManager : Singleton<StageManager>
         TempID++;
 
         // Shop이 스폰될 ID 지정
-        Set_ShopData(_StageID, stageData.BUShopAmount, stageData.MUShopAmount);
+        Set_ShopData(_StageID, stageData.ShopData.BUShopAmount, stageData.ShopData.MUShopAmount);
 
         // 생성할 Room의 양을 계산에 1중 리스트로 변경 => 이들을 섞음
         ShuffledRoomIndexList = DevTool.Get_ShuffledList(
-            Get_ListInt_FromGenRoomAmount(stageData.PrefabData.RoomAmount));
+            Get_ListInt_FromGenRoomAmount(stageData.RoomData.RoomAmount));
 
         // 기본 방 생성
         for (int i = 0; i < ShuffledRoomIndexList.Count; i++)
@@ -102,9 +102,9 @@ public class StageManager : Singleton<StageManager>
         }
 
         // 통과 방 생성
-        for (int i = 0; i < stageData.PrefabData.EntranceRoom.Count; i++)
+        for (int i = 0; i < stageData.RoomData.EntranceRoom.Count; i++)
         {
-            Gen_EntranceRoom(stageData.PrefabData.EntranceRoom[i], TempID);
+            Gen_EntranceRoom(stageData.RoomData.EntranceRoom[i], TempID);
             TempID++;
         }
 
@@ -112,14 +112,16 @@ public class StageManager : Singleton<StageManager>
         Set_ParterAllGate();
         List<GateController> allGate = Get_AllGate(CurrentAllRoomController);
         for (int i = 0; i < allGate.Count; i++)
-            if (allGate[i].ParterGate != null) allGate[i].Set_ExistDoorState(true);
-            else allGate[i].Set_ExistDoorState(false);
+            if (allGate[i].ParterGate != null) 
+                allGate[i].Set_ExistDoorState(true);
+            else 
+                allGate[i].Set_ExistDoorState(false);
         
 
         Set_StartUI(stageData);
 
         // 적 객체 오브젝트 풀링 시스템 세팅하기
-        PoolingManager.Instance.Offset_EnemiesPooling(stageData.StageEnemyList);
+        PoolingManager.Instance.Offset_EnemiesPooling(stageData.EnemyData.StageEnemyList);
 
         Reset_GenStageData();
     }
@@ -271,7 +273,7 @@ public class StageManager : Singleton<StageManager>
     {
         MainGameUIManager.Instance.MapIntro_UIController.Play_IntroLabel();
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Gen_Minimap();
-        MainGameUIManager.Instance.PlayerHUD_UIController.Set_StageDescription(_StageData.StageName, _StageData.StageDescription);
+        MainGameUIManager.Instance.PlayerHUD_UIController.Set_StageDescription(_StageData.InfoData.StageName, _StageData.InfoData.StageDescription);
     }
 
     #endregion
@@ -371,7 +373,7 @@ public class StageManager : Singleton<StageManager>
     public StageData Get_CollectStageData(int _StageID)
     {
         for (int i = 0; i < AllStageData.Count; i++)
-            if (AllStageData[i].StageID == _StageID)
+            if (AllStageData[i].InfoData.StageID == _StageID)
                 return AllStageData[i];
 
         return null;
@@ -389,8 +391,8 @@ public class StageManager : Singleton<StageManager>
         StageData reso = Get_CollectStageData(_StageID);
 
         if (reso != null)
-            for (int i = 0; i < reso.PrefabData.RoomAmount.Count; i++)
-                result += reso.PrefabData.RoomAmount[i].Amount;
+            for (int i = 0; i < reso.RoomData.RoomAmount.Count; i++)
+                result += reso.RoomData.RoomAmount[i].Amount;
 
         return result;
     }
