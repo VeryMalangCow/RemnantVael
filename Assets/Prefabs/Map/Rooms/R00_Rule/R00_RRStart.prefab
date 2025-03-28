@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7601274495437151053}
   - component: {fileID: 2312413031566495499}
+  - component: {fileID: 6835902202205784903}
   m_Layer: 0
   m_Name: Platform (4)
   m_TagString: Untagged
@@ -169,6 +170,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &6835902202205784903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561957814952811229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteKey: 
 --- !u!1 &1592302916714379417
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8257696691164180303}
   - component: {fileID: 5057186916211709704}
+  - component: {fileID: 2915720379412346815}
   m_Layer: 0
   m_Name: Platform (5)
   m_TagString: Untagged
@@ -369,6 +384,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &2915720379412346815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3187181155915858360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteKey: 
 --- !u!1 &3662697010027667908
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4045328637172146917}
   - component: {fileID: 8395296413049553230}
+  - component: {fileID: 705678818171675176}
   m_Layer: 0
   m_Name: Platform (6)
   m_TagString: Untagged
@@ -454,6 +483,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &705678818171675176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3662697010027667908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteKey: 
 --- !u!1 &4070253194528714238
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 504714765571193436}
   - component: {fileID: 1636057800380096006}
+  - component: {fileID: 7781739676753462803}
   m_Layer: 0
   m_Name: Platform (3)
   m_TagString: Untagged
@@ -623,6 +666,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &7781739676753462803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261231142775257591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteKey: 
 --- !u!1 &8372295538709272549
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,6 +689,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5953369522148359529}
   - component: {fileID: 3963097480541605036}
+  - component: {fileID: 1248544500872281926}
   m_Layer: 0
   m_Name: Under
   m_TagString: Untagged
@@ -708,6 +765,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1248544500872281926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8372295538709272549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteKey: 
 --- !u!1 &8671702513593221327
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,10 +835,10 @@ MonoBehaviour:
   InRoom_ShopParentTF: {fileID: 0}
   InRoom_PrisonParentTF: {fileID: 0}
   InRoom_WayPointParentTF: {fileID: 0}
-  InRoom_AllEnemy: []
+  InRoom_EnemySpawnParentTF: {fileID: 0}
   InRoom_Elevator: {fileID: 0}
   InRoom_AllWayPoint: []
-  InRoom_AllBuilding: []
+  InRoom_AllObstacle: []
 --- !u!1 &8967844133803429487
 GameObject:
   m_ObjectHideFlags: 0

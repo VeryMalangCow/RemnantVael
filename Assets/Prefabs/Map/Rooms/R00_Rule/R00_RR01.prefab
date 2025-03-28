@@ -806,6 +806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1116132784018587816}
   - component: {fileID: 347749628216235412}
+  - component: {fileID: 6978965317363581068}
   m_Layer: 0
   m_Name: Platform (1)
   m_TagString: Untagged
@@ -881,6 +882,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!114 &6978965317363581068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6925597519246983239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteKey: 
 --- !u!1 &7270475320437850963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,15 +1096,6 @@ MonoBehaviour:
   InRoom_PrisonParentTF: {fileID: 8308043719088677279}
   InRoom_WayPointParentTF: {fileID: 1130655662164710366}
   InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
-  InRoom_AllEnemy:
-  - EnemyID: 1
-    EnemySpawnTF: {fileID: 7661713667687456443}
-  - EnemyID: 1
-    EnemySpawnTF: {fileID: 6119383722671551937}
-  - EnemyID: 1
-    EnemySpawnTF: {fileID: 5383365186237296922}
-  - EnemyID: 1
-    EnemySpawnTF: {fileID: 4710807842238024430}
   InRoom_Elevator: {fileID: 0}
   InRoom_AllWayPoint: []
   InRoom_AllObstacle: []
