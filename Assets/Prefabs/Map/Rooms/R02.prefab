@@ -6946,12 +6946,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8205b9ff145c1408429a0e7b5a5b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetSRList: []
   SetSRParentGateList:
   - {fileID: 679333944684070248}
   SetSRParentDepthList:
   - {fileID: 1219509095087057134}
   - {fileID: 4568753540602913656}
+  SetSRDepthListParent: {fileID: 0}
+  SetSRList: []
 --- !u!1 &8464122409552412196
 GameObject:
   m_ObjectHideFlags: 0

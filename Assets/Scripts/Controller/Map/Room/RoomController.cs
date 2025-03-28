@@ -71,10 +71,8 @@ public class RoomController : IDController
 
         InRoom_AllGate = DevTool.Get_CombineList(InRoom_UpperGates, InRoom_LowerGates);
         for (int i = 0; i < InRoom_AllGate.Count; i++)
-        {
             InRoom_AllGate[i].ThisRoom = this;
-        }
-
+        
         RoomRuleController.Offset();
     }
 
@@ -206,7 +204,7 @@ public class RoomController : IDController
     public void Set_CollectGatePos(int _Index, Vector2Int _InitVec)
     {
         Vector2Int targetVec = RoomVec[_Index];
-        List<GateController> posNotSettedGates = Get_PosNotSettedGates(targetVec);
+        List<GateController> posNotSettedGates = Get_PosNotSettedGates(targetVec); // 아직 월드 위치값이 지정되어 있지않는 게이트
         for (int i = 0; i < posNotSettedGates.Count; i++)
         {
             posNotSettedGates[i].RoomPosGate = _InitVec;

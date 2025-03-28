@@ -343,6 +343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5164972284617493705}
+  - component: {fileID: 706389735350415486}
   - component: {fileID: 4357507412643674066}
   - component: {fileID: 5445747301903772414}
   m_Layer: 8
@@ -373,6 +374,23 @@ Transform:
   - {fileID: 5295260475009204259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &706389735350415486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779780343789199715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509c968c1c3168443a4df94da85f11fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  TargetObject: {fileID: 6838627500348933088}
+  ThisSR: {fileID: 4810027994122376210}
+  TargetRange: 0.6
+  test: {fileID: 0}
 --- !u!114 &4357507412643674066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1221,6 +1239,7 @@ MonoBehaviour:
   SetSRParentDepthList:
   - {fileID: 4357507412643674066}
   SetSRDepthListParent: {fileID: 0}
+  SetSRList: []
 --- !u!61 &4229117705069665167
 BoxCollider2D:
   m_ObjectHideFlags: 0

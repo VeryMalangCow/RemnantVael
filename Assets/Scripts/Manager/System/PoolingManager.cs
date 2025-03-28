@@ -170,11 +170,9 @@ public class PoolingManager : Singleton<PoolingManager>
     public void Offset_EnemiesPooling(List<GameObject> _EnemyGOs)
     {
         CurrentStageEnemies = new List<TTypePooling<EnemyController>>();
+
         for (int i = 0; i < _EnemyGOs.Count; i++)
-        {
-            TTypePooling<EnemyController> enemy = new TTypePooling<EnemyController>(_EnemyGOs[i], EnemyParentTF);
-            CurrentStageEnemies.Add(enemy);
-        }
+            CurrentStageEnemies.Add(new TTypePooling<EnemyController>(_EnemyGOs[i], EnemyParentTF));
     }
 
     // Find

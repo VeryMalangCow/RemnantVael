@@ -3112,16 +3112,9 @@ public class StageData
     public string StageName;
     public string StageDescription;
 
-    [Space(20)]
-    public GameObject StartRoomPrefab;
-    public GameObject StartRoomRulePrefab;
-
-    [Space(20)]
-    public List<RoomData> RoomPrefabList;
-    public List<GameObject> RoomRulePrefabList;
-
-    [Space(20)]
-    public List<BossRoomData> BossRoomList;
+    [Space(10)]
+    [Header("=== Prefab Data")]
+    public StagePrefabData PrefabData;
 
     [Space(20)]
     public int BUShopAmount = 1;
@@ -3129,36 +3122,36 @@ public class StageData
 
     [Space(20)]
     public List<GameObject> StageEnemyList;
+}
 
+#endregion
 
-    [System.Serializable]
-    public class RoomData
-    {
-        public int AmountInStage;
-        public GameObject RoomPrefab;
-    }
+#region Class : Stage : Prefab
 
-    [System.Serializable]
-    public class BossRoomData
-    {
-        public GameObject RoomPrefab;
-        public List<GameObject> RoomRulePrefabList;
-    }
+[System.Serializable]
+public class StagePrefabData
+{
+    [Header("=== Room")]
+    public List<GenRoomData> RoomAmount;
 
+    [Space(10)]
+    [Header("=== Entrance Room")]
+    public List<GenEntranceRoomData> EntranceRoom;
 
-    public GameObject Get_CorrectRandomRoomRule(List<Vector2Int> _RoomVec)
-    {
-        List<GameObject> roomRulePrefabList = new List<GameObject>();
-        for (int i = 0; i < RoomRulePrefabList.Count; i++)
-        {
-            if (RoomRulePrefabList[i].TryGetComponent(out RoomRuleController rrc) && rrc.RoomVec.SequenceEqual(_RoomVec))
-            {
-                roomRulePrefabList.Add(RoomRulePrefabList[i]);
-            }
-        }
+}
 
-        return roomRulePrefabList[UnityEngine.Random.Range(0, roomRulePrefabList.Count)];
-    }
+[System.Serializable]
+public class GenRoomData
+{
+    public int ID;
+    public int Amount;
+}
+
+[System.Serializable]
+public class GenEntranceRoomData
+{
+    public int ID;
+    public int RuleID;
 }
 
 #endregion

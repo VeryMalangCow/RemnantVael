@@ -2622,69 +2622,86 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapParentTF: {fileID: 1948256983}
   TargetStageID: 0
-  AllReso:
+  AllStageData:
   - StageID: 0
     StageName: BASEMENT LAB
     StageDescription: There are old enemies located at the very bottom, guarding
       the abandoned space.
-    StartRoomPrefab: {fileID: 8671702513593221327, guid: 4d637ae9ae2428743aef33630261c2ef, type: 3}
-    StartRoomRulePrefab: {fileID: 8671702513593221327, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
-    RoomPrefabList:
-    - AmountInStage: 7
-      RoomPrefab: {fileID: 8671702513593221327, guid: 4d637ae9ae2428743aef33630261c2ef, type: 3}
-    - AmountInStage: 3
-      RoomPrefab: {fileID: 8671702513593221327, guid: 7e00fb37e72c2bd4382f11b048268c19, type: 3}
-    - AmountInStage: 3
-      RoomPrefab: {fileID: 8671702513593221327, guid: d39952447f1100a46ae4d4779dd9302b, type: 3}
-    - AmountInStage: 2
-      RoomPrefab: {fileID: 8671702513593221327, guid: a2b44feb0e6af09479d14743db3f8de0, type: 3}
-    - AmountInStage: 1
-      RoomPrefab: {fileID: 8671702513593221327, guid: bf646e6fc5f63aa4fadceba1d9bf0ace, type: 3}
-    - AmountInStage: 1
-      RoomPrefab: {fileID: 8671702513593221327, guid: b6a9c06dc727bc148b314b203219dc8f, type: 3}
-    - AmountInStage: 1
-      RoomPrefab: {fileID: 8671702513593221327, guid: c7fdb27c083fcf34d9eb8f3bdc6779be, type: 3}
-    - AmountInStage: 1
-      RoomPrefab: {fileID: 8671702513593221327, guid: d4ab8a3de61f65446a274276ca6587be, type: 3}
-    RoomRulePrefabList:
-    - {fileID: 8671702513593221327, guid: 8cf2e8f83e6b9754793f6d767a5c7813, type: 3}
-    - {fileID: 8671702513593221327, guid: 67fa92153a88e8148a72c2fb2684f1ad, type: 3}
-    - {fileID: 8671702513593221327, guid: 111341ff89a1c4d42acebe8029376aed, type: 3}
-    - {fileID: 8671702513593221327, guid: 488aa58a242914e429e26ab187ceac84, type: 3}
-    - {fileID: 8671702513593221327, guid: fe5cd2510de8e8e438f49fa03151c094, type: 3}
-    - {fileID: 8671702513593221327, guid: d15fe63ca7bc8f54998fb883d03f8285, type: 3}
-    - {fileID: 8671702513593221327, guid: e2d61214c26412c42b27f59afb66fa64, type: 3}
-    - {fileID: 8671702513593221327, guid: 14f0c5c5e1d4d964b8f7066b58c30578, type: 3}
-    - {fileID: 8671702513593221327, guid: a81b4495cb4435542bd9d2765a3e4406, type: 3}
-    - {fileID: 8671702513593221327, guid: 29c566f2f9b618d4fb8b00335f99aab1, type: 3}
-    - {fileID: 8671702513593221327, guid: d5e35c275268abc4b989637796a59f2d, type: 3}
-    - {fileID: 8671702513593221327, guid: 6a62b95d452bccc46897840841783066, type: 3}
-    - {fileID: 8671702513593221327, guid: 6fe7de39cdc6bf240a8d5a2552c18718, type: 3}
-    - {fileID: 8671702513593221327, guid: 2c49bfe8e24851e42a56a54d12f2fc2d, type: 3}
-    - {fileID: 8671702513593221327, guid: eb1bcddd55ba1304aad285d6004f3f9d, type: 3}
-    - {fileID: 8671702513593221327, guid: 816f43f131534e4428dc6e7bd91b7950, type: 3}
-    - {fileID: 8671702513593221327, guid: 6882f6bfe84fea94fa38734faf514c6e, type: 3}
-    - {fileID: 8671702513593221327, guid: a564cf29453c03e4ab796a41b0fb2d09, type: 3}
-    - {fileID: 8671702513593221327, guid: 403d614e5bc336346b5933b9bc4b4875, type: 3}
-    BossRoomList:
-    - RoomPrefab: {fileID: 8671702513593221327, guid: a2b44feb0e6af09479d14743db3f8de0, type: 3}
-      RoomRulePrefabList:
-      - {fileID: 8671702513593221327, guid: c44934c6fc5ffcf4593c05ff3d0f2705, type: 3}
-    - RoomPrefab: {fileID: 8671702513593221327, guid: a2b44feb0e6af09479d14743db3f8de0, type: 3}
-      RoomRulePrefabList:
-      - {fileID: 8671702513593221327, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
+    PrefabData:
+      RoomAmount:
+      - ID: 0
+        Amount: 7
+      - ID: 1
+        Amount: 3
+      - ID: 2
+        Amount: 3
+      - ID: 3
+        Amount: 2
+      - ID: 4
+        Amount: 1
+      - ID: 5
+        Amount: 1
+      - ID: 6
+        Amount: 1
+      - ID: 7
+        Amount: 1
+      EntranceRoomList:
+      - RoomPrefab: {fileID: 8671702513593221327, guid: a2b44feb0e6af09479d14743db3f8de0, type: 3}
+        RoomRulePrefabList:
+        - {fileID: 8671702513593221327, guid: c44934c6fc5ffcf4593c05ff3d0f2705, type: 3}
+      - RoomPrefab: {fileID: 8671702513593221327, guid: a2b44feb0e6af09479d14743db3f8de0, type: 3}
+        RoomRulePrefabList:
+        - {fileID: 8671702513593221327, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
+      EntranceRoom:
+      - ID: 3
+        RuleID: 0
+      - ID: 3
+        RuleID: 1
     BUShopAmount: 3
     MUShopAmount: 3
     StageEnemyList:
     - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
     - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
     - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
-  OffsetRoomSize: {x: 22, y: 14}
-  IsStartStage: 1
+  StartRoomRulePrefab: {fileID: 8671702513593221327, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
   BUShopPrefab: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
   MUShopPrefab: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
+  RoomPrefabList:
+  - {fileID: 8671702513593221327, guid: 4d637ae9ae2428743aef33630261c2ef, type: 3}
+  - {fileID: 8671702513593221327, guid: 7e00fb37e72c2bd4382f11b048268c19, type: 3}
+  - {fileID: 8671702513593221327, guid: d39952447f1100a46ae4d4779dd9302b, type: 3}
+  - {fileID: 8671702513593221327, guid: a2b44feb0e6af09479d14743db3f8de0, type: 3}
+  - {fileID: 8671702513593221327, guid: bf646e6fc5f63aa4fadceba1d9bf0ace, type: 3}
+  - {fileID: 8671702513593221327, guid: b6a9c06dc727bc148b314b203219dc8f, type: 3}
+  - {fileID: 8671702513593221327, guid: c7fdb27c083fcf34d9eb8f3bdc6779be, type: 3}
+  - {fileID: 8671702513593221327, guid: d4ab8a3de61f65446a274276ca6587be, type: 3}
+  RoomRulePrefabList:
+  - {fileID: 8671702513593221327, guid: 8cf2e8f83e6b9754793f6d767a5c7813, type: 3}
+  - {fileID: 8671702513593221327, guid: 67fa92153a88e8148a72c2fb2684f1ad, type: 3}
+  - {fileID: 8671702513593221327, guid: 111341ff89a1c4d42acebe8029376aed, type: 3}
+  - {fileID: 8671702513593221327, guid: 488aa58a242914e429e26ab187ceac84, type: 3}
+  - {fileID: 8671702513593221327, guid: fe5cd2510de8e8e438f49fa03151c094, type: 3}
+  - {fileID: 8671702513593221327, guid: d15fe63ca7bc8f54998fb883d03f8285, type: 3}
+  - {fileID: 8671702513593221327, guid: e2d61214c26412c42b27f59afb66fa64, type: 3}
+  - {fileID: 8671702513593221327, guid: 14f0c5c5e1d4d964b8f7066b58c30578, type: 3}
+  - {fileID: 8671702513593221327, guid: a81b4495cb4435542bd9d2765a3e4406, type: 3}
+  - {fileID: 8671702513593221327, guid: 29c566f2f9b618d4fb8b00335f99aab1, type: 3}
+  - {fileID: 8671702513593221327, guid: d5e35c275268abc4b989637796a59f2d, type: 3}
+  - {fileID: 8671702513593221327, guid: 6a62b95d452bccc46897840841783066, type: 3}
+  - {fileID: 8671702513593221327, guid: 6fe7de39cdc6bf240a8d5a2552c18718, type: 3}
+  - {fileID: 8671702513593221327, guid: 2c49bfe8e24851e42a56a54d12f2fc2d, type: 3}
+  - {fileID: 8671702513593221327, guid: eb1bcddd55ba1304aad285d6004f3f9d, type: 3}
+  - {fileID: 8671702513593221327, guid: 816f43f131534e4428dc6e7bd91b7950, type: 3}
+  - {fileID: 8671702513593221327, guid: 6882f6bfe84fea94fa38734faf514c6e, type: 3}
+  - {fileID: 8671702513593221327, guid: a564cf29453c03e4ab796a41b0fb2d09, type: 3}
+  - {fileID: 8671702513593221327, guid: 403d614e5bc336346b5933b9bc4b4875, type: 3}
+  RoomRuleEntrancePrefabList:
+  - {fileID: 8671702513593221327, guid: c44934c6fc5ffcf4593c05ff3d0f2705, type: 3}
+  - {fileID: 8671702513593221327, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
+  OffsetRoomSize: {x: 22, y: 14}
   CurrentAllRoomController: []
   CurrentRoomController: {fileID: 0}
+  IsStartStage: 1
 --- !u!1 &724611502
 GameObject:
   m_ObjectHideFlags: 0
