@@ -56,7 +56,7 @@ public abstract class BulletController : MovableDepthController
 
     private void Reset_BaseBullet()
     {
-        transform.position = Vector3.zero;
+        transform.position = new Vector3(1000, 0, 0);
         transform.rotation = Quaternion.identity;
         transform.localScale = Vector3.one;
 
@@ -119,6 +119,7 @@ public abstract class BulletController : MovableDepthController
 
     private void SetOn_State()
     {
+        gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
         ThisRb.simulated = true;
         gameObject.SetActive(true);
     }
