@@ -52,6 +52,24 @@ public class MessageWindowEUIController : ElementUIController
 
     #endregion
 
+    #region Reset
+
+    public void Reset_Data()
+    {
+        DevTool.Set_KillTween(ThisRT);
+        DevTool.Set_KillTween(ThisCG);
+        DevTool.Set_KillTween(ThisTxt);
+
+        ThisRT.sizeDelta = new Vector2(ThisRT.rect.width, 0f);
+        ThisCG.alpha = 0f;
+        ThisTxt.text = "";
+
+        this.gameObject.SetActive(false);
+        CanPass = false;
+    }
+
+    #endregion
+
     #region Tween
 
     public Sequence Play_On(string _Txt, float _DurTime)
@@ -70,7 +88,7 @@ public class MessageWindowEUIController : ElementUIController
             _Update: null,
             new Dele(() =>
             { 
-                CanPass = true; Debug.Log(CanPass);
+                CanPass = true;
             }));
 
         return seq;

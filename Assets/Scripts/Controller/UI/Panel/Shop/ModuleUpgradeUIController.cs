@@ -483,6 +483,7 @@ public class ModuleUpgradeUIController : PanelUIController
 
         Reset_EquipPanel();
         Reset_ForgePanel();
+        ThisMsgEUI.Reset_Data();
     }
 
     private void LateUpdate()

@@ -80,7 +80,7 @@ MonoBehaviour:
   LookingSatellite: {fileID: 8800238567124451591}
   WalkingSatellite: {fileID: 9179056310911047704}
   WPController: {fileID: 4944951726971341445}
-  NavRadius: 0.2
+  NavRadius: 0.5
   OrderOfPriorityEnemyPatternList:
   - EnemyPatternList:
     - EnemyPatternList:
@@ -753,16 +753,16 @@ MonoBehaviour:
     AliveTime: 3
   BulletShadowScale: {x: 0.16, y: 0.16}
   BulletColSize: {x: 2, y: 3}
+  MaxRange: 5
+  MinRange: 3
+  ShootExplAmount: 4
+  ExplAmount: 4
   SpawnDepthList:
   - {fileID: 3914198638638926053}
   BeforeEffectDepthList:
   - {fileID: 3914198638638926053}
   BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
   BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
-  MaxRange: 5
-  MinRange: 3
-  ShootExplAmount: 4
-  ExplAmount: 4
 --- !u!1 &8251026648640757372
 GameObject:
   m_ObjectHideFlags: 0

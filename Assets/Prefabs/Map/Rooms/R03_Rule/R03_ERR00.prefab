@@ -1605,7 +1605,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2234060382953184247}
-  - component: {fileID: 8811059131841986343}
+  - component: {fileID: 6591078569616373478}
   m_Layer: 0
   m_Name: R03_ERR00
   m_TagString: Untagged
@@ -1638,7 +1638,7 @@ Transform:
   - {fileID: 7659210716073823971}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8811059131841986343
+--- !u!114 &6591078569616373478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1647,7 +1647,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8671702513593221327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa86854a669a8b46b2c272682d5669a, type: 3}
+  m_Script: {fileID: 11500000, guid: e0000e78309ecd54e8cf9d6e800a7b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RoomVec:
@@ -1661,9 +1661,9 @@ MonoBehaviour:
   InRoom_PrisonParentTF: {fileID: 7411448067249985172}
   InRoom_WayPointParentTF: {fileID: 1130655662164710366}
   InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
-  InRoom_Elevator: {fileID: 1378630363661747113}
   InRoom_AllWayPoint: []
   InRoom_AllObstacle: []
+  InRoom_Elevator: {fileID: 1378630363661747113}
 --- !u!1 &8791385821537764060
 GameObject:
   m_ObjectHideFlags: 0

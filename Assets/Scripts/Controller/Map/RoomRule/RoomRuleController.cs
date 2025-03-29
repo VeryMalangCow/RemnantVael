@@ -39,10 +39,6 @@ public class RoomRuleController : MonoBehaviour
     [Header("-- Enemy")]
     [SerializeField] private Transform InRoom_EnemySpawnParentTF;
 
-    [Space(5)]
-    [Header("-- Elevator")]
-    [SerializeField] private EndingElevatorController InRoom_Elevator;
-
     #endregion
 
     #region - Hide
@@ -98,13 +94,12 @@ public class RoomRuleController : MonoBehaviour
 
     #region Completed
 
-    public void Set_Completed()
+    public virtual void Set_Completed()
     {
         // Waypoint
         if (EndDele != null) EndDele(); 
 
         SetOn_Shop();
-        SetOn_Elevator();
     }
 
     private void SetOn_Shop()
@@ -113,15 +108,6 @@ public class RoomRuleController : MonoBehaviour
             !InRoom_ShopBuild.gameObject.activeSelf)
         {
             InRoom_ShopBuild.gameObject.SetActive(true);
-        }
-    }
-
-    private void SetOn_Elevator()
-    {
-        if (InRoom_Elevator != null && 
-            !InRoom_Elevator.IsOn)
-        {
-            InRoom_Elevator.IsOn = true;
         }
     }
 
@@ -175,9 +161,13 @@ public class RoomRuleController : MonoBehaviour
 
     #endregion
 
+    #region Sorting
+
     public void Set_SortingStaticObjects()
     {
         if (InRoom_AllObstacle != null && InRoom_AllObstacle.Count > 0)
             LayerOrderManager.Instance.NeedSortingObjects.AddRange(InRoom_AllObstacle);
     }
+
+    #endregion
 }
