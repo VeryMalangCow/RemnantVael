@@ -2663,6 +2663,15 @@ MonoBehaviour:
     MapMaterial:
     - {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
     - {fileID: 2100000, guid: d93f257b918659143863780016cc3d38, type: 2}
+    MapDoorAnim:
+    - Dir: {x: 0, y: -1}
+      DoorAnim: {fileID: 7400000, guid: 1c249b8fb21ab16409ac647a74f9d435, type: 2}
+    - Dir: {x: -1, y: 0}
+      DoorAnim: {fileID: 7400000, guid: 32209fc59e5378e47ae11db329627db5, type: 2}
+    - Dir: {x: 1, y: 0}
+      DoorAnim: {fileID: 7400000, guid: 68c4705b95683d6438092d027ff0fd4f, type: 2}
+    - Dir: {x: 0, y: 1}
+      DoorAnim: {fileID: 7400000, guid: 8e9a3d8a8335eb143b62d2c56941ad53, type: 2}
     AllMapSprite: []
   StartRoomRulePrefab: {fileID: 8671702513593221327, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
   BUShopPrefab: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}

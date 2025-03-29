@@ -3123,6 +3123,7 @@ public class StageData
 
     [Space(5)]
     public List<Material> MapMaterial;
+    public List<StageDoorAnim> MapDoorAnim;
 
     [HideInInspector] public List<Sprite> AllMapSprite;
     [HideInInspector] public StageMapSprite MapSpriteReso;
@@ -3223,7 +3224,6 @@ public class StageMapSprite
     }
 }
 
-
 [System.Serializable]
 public class SpriteMaterial
 {
@@ -3237,6 +3237,14 @@ public class SpriteMaterial
     }
 }
 
+
+[System.Serializable]
+public class StageDoorAnim
+{
+    public Vector2Int Dir;
+    public AnimationClip DoorAnim;
+    public int MaterialIndex;
+}
 
 #endregion
 

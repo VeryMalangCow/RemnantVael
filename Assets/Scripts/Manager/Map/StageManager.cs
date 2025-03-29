@@ -373,6 +373,7 @@ public class StageManager : Singleton<StageManager>
 
         Set_RoomPos(_Room);
         Add_RoundVec(_Room.RoomVec);
+
         Add_RoundSpecialVec(_Room.RoomVec);
     }
 
@@ -386,6 +387,22 @@ public class StageManager : Singleton<StageManager>
         SpriteMaterial spriteMatrial = AllStageData[TargetStageID].MapSpriteReso.MapSprite[_SpriteKey];
         _SR.sprite = spriteMatrial.Sprite;
         _SR.material = AllStageData[TargetStageID].MapMaterial[spriteMatrial.MaterialIndex];
+    }
+
+    #endregion
+
+    #region Anim
+
+    public void Set_StageDoorAnim(GateController _Gate, SpriteRenderer _SR, Vector2Int _DoorDir)
+    {
+        List<StageDoorAnim> doorAnim = AllStageData[TargetStageID].MapDoorAnim;
+
+        for (int i = 0; i < doorAnim.Count; i++)
+            if (doorAnim[i].Dir == _DoorDir)
+            {
+                _Gate.ThisAC = doorAnim[i].DoorAnim;
+                _SR.material = AllStageData[TargetStageID].MapMaterial[doorAnim[i].MaterialIndex];
+            }
     }
 
     #endregion

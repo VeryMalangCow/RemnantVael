@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GateController : StaticDepthController, IInteract
@@ -20,7 +21,7 @@ public class GateController : StaticDepthController, IInteract
 
     [Space(10)]
     [Header("=== Anim")]
-    [SerializeField] private AnimationClip ThisAC;
+    [SerializeField] public AnimationClip ThisAC;
 
     [Space(10)]
     [Header("=== On / Off")]
@@ -69,6 +70,7 @@ public class GateController : StaticDepthController, IInteract
         base.Offset();
 
         ThisAnimator = DevTool.Get_ComponentTType<Animator>(TargetObject);
+        StageManager.Instance.Set_StageDoorAnim(this, DevTool.Get_ComponentTType<SpriteRenderer>(TargetObject), GateDir);
     }
 
     #endregion

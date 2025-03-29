@@ -62,7 +62,7 @@ public class PlayerBulletController : BulletController
                     TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical, 1.0f);
                 UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ObjectDestroy(
                     PlayerManager.Instance.PlayerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-                
+
                 PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
                 break;
 

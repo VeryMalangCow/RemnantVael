@@ -10866,6 +10866,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map00_GateD (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3271242730464508336, guid: a9b859b192d35fe488f415117727b548, type: 3}
+      propertyPath: RoomPosGate.x
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11894,6 +11898,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map00_GateR
       objectReference: {fileID: 0}
+    - target: {fileID: 8961951009888978874, guid: 1d594b9576fd3e04a922a25a263fc908, type: 3}
+      propertyPath: RoomPosGate.x
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12190,6 +12198,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 847649996618513574}
     m_Modifications:
+    - target: {fileID: 8254093199407037905, guid: 77ef93f794ce85f418df09cd65cbe00a, type: 3}
+      propertyPath: RoomPosGate.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8517205618185086039, guid: 77ef93f794ce85f418df09cd65cbe00a, type: 3}
       propertyPath: m_Name
       value: Map00_GateU (1)

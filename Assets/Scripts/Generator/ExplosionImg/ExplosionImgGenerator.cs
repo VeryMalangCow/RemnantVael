@@ -88,11 +88,11 @@ public class ExplosionImgGenerator : MonoBehaviour
         DevTool.Set_CompleteTween(_SR.gameObject);
 
         Sequence Seq = DOTween.Sequence();
+
         Seq.Append(Play_ExplImg_MoveScale(_SR, _SpawnPos, _FirstState));
         Seq.Append(Play_ExplImg_MoveScaleFadeOut(_SR, _SpawnPos, _SecondState));
         Seq.OnStart(() => { SetOn_SR(_SR, _SpawnPos, _SpriteState); });
         Seq.OnComplete(() => { SetOff_SR(_SR); });
-
         return Seq;
     }
 
