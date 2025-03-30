@@ -12,7 +12,7 @@ public class DestructibleBuildController : InteractableBuildController
     [Space(10)]
     [Header("=== Dur")]
     [SerializeField] public bool IsBroken = false;
-    [SerializeField] private int MaxDur = 10;
+    [SerializeField] protected int MaxDur = 10;
     [HideInInspector] public int CurrentDur;
 
     [Space(10)]
@@ -26,8 +26,8 @@ public class DestructibleBuildController : InteractableBuildController
     [HideInInspector] protected AnimationClip BrokenStateAC = null;
 
     // Dur
-    [HideInInspector] private List<SpriteRenderer> DurFrameSRList = new List<SpriteRenderer>();
-    [HideInInspector] private List<SpriteRenderer> DurInnerSRList = new List<SpriteRenderer>();
+    [HideInInspector] protected List<SpriteRenderer> DurFrameSRList = new List<SpriteRenderer>();
+    [HideInInspector] protected List<SpriteRenderer> DurInnerSRList = new List<SpriteRenderer>();
 
     #endregion
 

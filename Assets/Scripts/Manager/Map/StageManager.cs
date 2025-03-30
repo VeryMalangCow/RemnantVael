@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
@@ -22,9 +21,12 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private GameObject StartRoomRulePrefab;
     [SerializeField] private GameObject BUShopPrefab;
     [SerializeField] private GameObject MUShopPrefab;
+    [SerializeField] private List<GameObject> VaultPrefabList;
+    [Space(5)]
     [SerializeField] private List<GameObject> RoomPrefabList;
     [SerializeField] private List<GameObject> RoomRulePrefabList;
     [SerializeField] private List<GameObject> RoomRuleEntrancePrefabList;
+    [SerializeField] private List<GameObject> RoomRuleVaultPrefabList;
 
     [Space(10)]
     [Header("=== Value0")]
@@ -44,8 +46,8 @@ public class StageManager : Singleton<StageManager>
     [HideInInspector] private List<int> ShuffledRoomIndexList = new List<int>();
 
     // 이미 차지한 Vec
-    [HideInInspector] private List<Vector2Int> alreadyExistList = new List<Vector2Int>();
-    [HideInInspector] private List<Vector2Int> alreadyExistSpeicalList = new List<Vector2Int>();
+    [HideInInspector] private HashSet<Vector2Int> alreadyExistList = new HashSet<Vector2Int>();
+    [HideInInspector] private HashSet<Vector2Int> alreadyExistSpeicalList = new HashSet<Vector2Int>();
 
     // 배치할 주변 Vec
     [HideInInspector] private List<Vector2Int> roundList = new List<Vector2Int>();
@@ -117,6 +119,13 @@ public class StageManager : Singleton<StageManager>
             TempID++;
         }
 
+        // 금고 방 생성
+        for (int i = 0; i < stageData.RoomData.VaultRoom.Count; i++)
+        {
+            Gen_VaultRoom(stageData.RoomData.VaultRoom[i], TempID);
+            TempID++;
+        }
+
         // 게이트 활성화
         Set_ParterAllGate();
         List<GateController> allGate = Get_AllGate(CurrentAllRoomController);
@@ -165,13 +174,13 @@ public class StageManager : Singleton<StageManager>
                 room.RoomRuleController = roomRule;
 
             room.Offset(_TempID);
-            Set_NormalRelativeVec(room);
+            Set_NormalRelativeVec(room, _ConnectedRoomAmount: -1, _ApplySpecialExist: false);
         }
             
     }
 
     // 통과 방 하나 생성
-    private void Gen_EntranceRoom(GenEntranceRoomData _EntranceRoomData, int _TempID)
+    private void Gen_EntranceRoom(GenSpecialRoomData _EntranceRoomData, int _TempID)
     {
         if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_EntranceRoomData.ID], MapParentTF), out RoomController room))
         {
@@ -181,7 +190,27 @@ public class StageManager : Singleton<StageManager>
                 room.RoomRuleController = roomRule; 
 
             room.Offset(_TempID);
-            Set_FurthestRelativeVec(room);
+            Set_FurthestRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
+        }
+    }
+
+    // 금고 방 하나 생성
+    private void Gen_VaultRoom(GenSpecialRoomData _VaultRoomData, int _TempID)
+    {
+        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_VaultRoomData.ID], MapParentTF), out RoomController room))
+        {
+            CurrentAllRoomController.Add(room);
+
+            if (DevTool.Get_ComponentTType(Instantiate(RoomRuleVaultPrefabList[_VaultRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+                room.RoomRuleController = roomRule;
+
+            VaultRuleController vaultRule = DevTool.Get_CastingTType<VaultRuleController>(roomRule);
+            VaultController vault = DevTool.Get_ComponentTType<VaultController>(Instantiate(DevTool.Get_RandomInList(VaultPrefabList), vaultRule.InRoom_VaultParentTF));
+            vaultRule.Vault = vault;
+            vault.gameObject.SetActive(false);
+
+            room.Offset(_TempID);
+            Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
         }
     }
 
@@ -330,18 +359,18 @@ public class StageManager : Singleton<StageManager>
     #region Relative
 
     // 월드 기준: 상대적인 좌표 삽입
-    private void Set_NormalRelativeVec(RoomController _Room)
+    private void Set_NormalRelativeVec(RoomController _Room, int _ConnectedRoomAmount = -1, bool _ApplySpecialExist = false)
     {
-        Set_RelativeVec(_Room, Get_FindCorrectWorldVec_Normal(_Room));
+        Set_RelativeVec(_Room, Get_FindCorrectWorldVec_Normal(_Room, _ConnectedRoomAmount, _ApplySpecialExist));
 
         Set_RoomPos(_Room);
         Add_RoundVec(_Room.RoomVec);
     }
 
     // 월드 기준: 상대적인 좌표 삽입: 가장 멀고, 특별 Round 포함
-    private void Set_FurthestRelativeVec(RoomController _Room)
+    private void Set_FurthestRelativeVec(RoomController _Room, int _ConnectedRoomAmount = -1, bool _ApplySpecialExist = true)
     {
-        Set_RelativeVec(_Room, Get_FindCorrectWorldVec_Furthest(_Room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true));
+        Set_RelativeVec(_Room, Get_FindCorrectWorldVec_Furthest(_Room, _ConnectedRoomAmount, _ApplySpecialExist));
 
         Set_RoomPos(_Room);
         Add_RoundVec(_Room.RoomVec);
@@ -550,11 +579,6 @@ public class StageManager : Singleton<StageManager>
 
     #endregion
 
-    #region Public
-
-
-    #endregion
-
     #endregion
 
     #region Add
@@ -564,25 +588,23 @@ public class StageManager : Singleton<StageManager>
     // 존재하는 방의 좌표와 Round 좌표를 초기화
     private void Add_RoundVec(List<Vector2Int> _AddVecList)
     {
-        alreadyExistList.AddRange(_AddVecList);
-        roundList = new List<Vector2Int>();
+        foreach (var vec in _AddVecList)
+            alreadyExistList.Add(vec);
 
-        for (int i = 0; i < alreadyExistList.Count; i++)
-            foreach (Vector2Int vec in DevTool.Get_RoundVec(alreadyExistList[i]))
-                if (!roundList.Contains(vec) && !alreadyExistList.Contains(vec))
-                    roundList.Add(vec);
+        roundList = DevTool.Get_RoundVec(alreadyExistList).ToList();
     }
 
     // 특수 방의 좌표를 넣어줌
     private void Add_RoundSpecialVec(List<Vector2Int> _AddVecList)
     {
-        List<Vector2Int> specialRoundAllList = new List<Vector2Int>(_AddVecList);
-        for (int i = 0; i < _AddVecList.Count; i++)
+        foreach (var vec in _AddVecList)
         {
-            specialRoundAllList.AddRange(DevTool.Get_RoundVec(_AddVecList[i]));
+            alreadyExistSpeicalList.Add(vec);
+            List<Vector2Int> eachRound = DevTool.Get_RoundVec(vec);
+            for (int i = 0; i < eachRound.Count; i++)
+                alreadyExistSpeicalList.Add(eachRound[i]);
         }
-        alreadyExistSpeicalList.AddRange(specialRoundAllList);
-        alreadyExistSpeicalList = alreadyExistSpeicalList.Distinct().ToList();
+
     }
 
     #endregion

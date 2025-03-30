@@ -55,7 +55,7 @@ public class RoomRuleController : MonoBehaviour
 
     #region Offset
 
-    public void Offset()
+    public virtual void Offset()
     {
         InRoom_AllObstacle = InRoom_ObstacleParentTF != null && 
             InRoom_ObstacleParentTF.childCount > 0 ?

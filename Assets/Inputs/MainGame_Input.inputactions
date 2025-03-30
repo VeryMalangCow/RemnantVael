@@ -114,15 +114,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ForDebugging",
-                    "type": "Button",
-                    "id": "dc93cde2-6928-4775-b3fa-db8caea76bc5",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "OutMainGame",
                     "type": "Button",
                     "id": "13a02f90-f5c6-44d2-bc03-1b1246eac9eb",
@@ -251,17 +242,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8506f55b-fbc2-423e-841c-cde73ca87a74",
-                    "path": "<Keyboard>/0",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ForDebugging",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

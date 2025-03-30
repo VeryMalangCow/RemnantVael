@@ -2652,6 +2652,9 @@ MonoBehaviour:
       EntranceRoom:
       - ID: 0
         RuleID: 0
+      VaultRoom:
+      - ID: 0
+        RuleID: 0
     EnemyData:
       StageEnemyList:
       - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
@@ -2678,6 +2681,10 @@ MonoBehaviour:
   StartRoomRulePrefab: {fileID: 8671702513593221327, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
   BUShopPrefab: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
   MUShopPrefab: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
+  VaultPrefabList:
+  - {fileID: 5736045064323075691, guid: ee4da6a03b0a7f342bbe8b19563d73d9, type: 3}
+  - {fileID: 5736045064323075691, guid: f99b58e75fa03314888f75f023a6c8df, type: 3}
+  - {fileID: 5736045064323075691, guid: 251ad17552de25b468cade0a1ce29d90, type: 3}
   RoomPrefabList:
   - {fileID: 8671702513593221327, guid: 4d637ae9ae2428743aef33630261c2ef, type: 3}
   - {fileID: 8671702513593221327, guid: 7e00fb37e72c2bd4382f11b048268c19, type: 3}
@@ -2711,6 +2718,8 @@ MonoBehaviour:
   - {fileID: 8671702513593221327, guid: 540638127327273448ca902dd14a661e, type: 3}
   - {fileID: 8671702513593221327, guid: c44934c6fc5ffcf4593c05ff3d0f2705, type: 3}
   - {fileID: 8671702513593221327, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
+  RoomRuleVaultPrefabList:
+  - {fileID: 8671702513593221327, guid: fbb1a9e1842c4d94f99699c725af6f36, type: 3}
   OffsetRoomSize: {x: 22, y: 14}
   CurrentAllRoomController: []
   CurrentRoomController: {fileID: 0}

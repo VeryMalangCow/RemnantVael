@@ -380,6 +380,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
+--- !u!1 &7125655098021093684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6000007165388943855}
+  m_Layer: 0
+  m_Name: VaultSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6000007165388943855
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7125655098021093684}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2234060382953184247}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8400900069374851008
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,7 +467,7 @@ GameObject:
   - component: {fileID: 2234060382953184247}
   - component: {fileID: 8242124758998225667}
   m_Layer: 0
-  m_Name: R00_GRR
+  m_Name: R00_VRRR00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -459,6 +490,7 @@ Transform:
   - {fileID: 5083685775733296416}
   - {fileID: 2169159929047553169}
   - {fileID: 1130655662164710366}
+  - {fileID: 6000007165388943855}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8242124758998225667
@@ -481,7 +513,7 @@ MonoBehaviour:
   InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
   InRoom_AllWayPoint: []
   InRoom_AllObstacle: []
-  InRoom_Elevator: {fileID: 0}
+  InRoom_VaultParentTF: {fileID: 6000007165388943855}
 --- !u!1 &8791385821537764060
 GameObject:
   m_ObjectHideFlags: 0

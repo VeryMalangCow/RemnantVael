@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class VaultController : DestructibleBuildController
@@ -14,6 +15,7 @@ public class VaultController : DestructibleBuildController
     [Space(10)]
     [Header("=== Grade")]
     [SerializeField] protected int CurrentGrade = 0;
+
 
     #endregion
 
@@ -55,6 +57,30 @@ public class VaultController : DestructibleBuildController
 
         BrokenAC = UnitManager.Instance.Vault_BrokenAC[CurrentGrade];
         BrokenStateAC = UnitManager.Instance.Vault_StateAC.TypeBase;
+    }
+
+    #endregion
+
+    #region Change
+
+    public void Change_ToOtherVault(VaultController _OtherVault)
+    {
+        IsOn = true;
+        ThisAnimator = _OtherVault.ThisAnimator;
+
+        OnOffAC = _OtherVault.OnOffAC;
+        OnOffStateAC = _OtherVault.OnOffStateAC;
+
+        AOC = _OtherVault.AOC;
+
+        int MaxDur = _OtherVault.MaxDur;
+        int CurrentDur = _OtherVault.CurrentDur;
+
+        BrokenAC = _OtherVault.BrokenAC;
+        BrokenStateAC = _OtherVault.BrokenStateAC;
+
+        DurFrameSRList = _OtherVault.DurFrameSRList;
+        DurInnerSRList = _OtherVault.DurInnerSRList;
     }
 
     #endregion

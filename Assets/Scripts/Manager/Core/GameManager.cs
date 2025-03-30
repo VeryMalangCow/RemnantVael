@@ -78,7 +78,8 @@ public class DevTool
         }
     }
 
-    public static int Get_Rank(List<float> _RankPercents)
+    // 확률에 따른 등급
+    public static int Get_Grade(List<float> _RankPercents)
     {
         float currentSum = 0f;
         float randomValue = UnityEngine.Random.Range(0f, Get_SumFloat(_RankPercents));
@@ -88,11 +89,16 @@ public class DevTool
             currentSum += _RankPercents[i];
             if (currentSum > randomValue)
             {
-                return i + 1;
+                return i;
             }
         }
 
-        return 1;
+        return 0;
+    }
+
+    public static int Get_Rank(List<float> _RankPercents)
+    {
+        return Get_Grade(_RankPercents) + 1;
     }
 
     #endregion
@@ -290,6 +296,29 @@ public class DevTool
 
     #endregion
 
+    #region About Hash
+
+    // 주변 좌표값을 가져오기
+    public static HashSet<Vector2Int> Get_RoundVec(HashSet<Vector2Int> _TargetVec)
+    {
+        HashSet<Vector2Int> targetRoomVecRound = new HashSet<Vector2Int>();
+
+        // 모든 타겟 좌표의 주변 좌표 추가
+        foreach (var vec in _TargetVec)
+        {
+            List<Vector2Int> eachRoung = Get_RoundVec(vec);
+            for (int i = 0; i < eachRoung.Count; i++)
+                targetRoomVecRound.Add(eachRoung[i]);
+        }
+
+        // 원래 _TargetVec에 포함된 좌표 제거
+        targetRoomVecRound.ExceptWith(_TargetVec);
+
+        return targetRoomVecRound; // HashSet을 List로 변환 후 반환
+    }
+
+    #endregion
+
     #region About List
 
     #region Add
@@ -384,12 +413,11 @@ public class DevTool
         // 모든 타겟 좌표의 주변 좌표 추가
         foreach (var vec in _TargetVec)
         {
-            foreach (var roundVec in Get_RoundVec(vec)) // 주변 좌표 가져오기
-            {
-                targetRoomVecRound.Add(roundVec); // 중복 방지 자동 처리
-            }
+            List<Vector2Int> eachRoung = Get_RoundVec(vec);
+            for (int i = 0; i < eachRoung.Count; i++)
+                targetRoomVecRound.Add(eachRoung[i]);
         }
-
+        
         // 원래 _TargetVec에 포함된 좌표 제거
         targetRoomVecRound.ExceptWith(_TargetVec);
 
@@ -408,6 +436,18 @@ public class DevTool
 
         // targetRoomVec과 existRoomVec의 교집합 반환
         return targetRoomVec.Where(room => existRoomSet.Contains(room)).ToList();
+    }
+
+    #endregion
+
+    #region Random
+
+    public static T Get_RandomInList<T>(List<T> _TargetList)
+    {
+        if (_TargetList == null || _TargetList.Count <= 0)
+            return default;
+        else
+            return _TargetList[UnityEngine.Random.Range(0, _TargetList.Count)];
     }
 
     #endregion
@@ -3200,13 +3240,13 @@ public class StageInfo
 [System.Serializable]
 public class StageRoom
 {
-    [Header("=== Room")]
     public List<GenRoomData> RoomAmount;
 
     [Space(10)]
-    [Header("=== Entrance Room")]
-    public List<GenEntranceRoomData> EntranceRoom;
+    public List<GenSpecialRoomData> EntranceRoom;
 
+    [Space(10)]
+    public List<GenSpecialRoomData> VaultRoom;
 }
 
 [System.Serializable]
@@ -3217,7 +3257,7 @@ public class GenRoomData
 }
 
 [System.Serializable]
-public class GenEntranceRoomData
+public class GenSpecialRoomData
 {
     public int ID;
     public int RuleID;
