@@ -362,6 +362,56 @@ public class DevTool
 
     #endregion
 
+    #region Vector2Int
+
+    // 해당 백터의 주변을 구하기
+    public static List<Vector2Int> Get_RoundVec(Vector2Int _CenterVec)
+    {
+        return new List<Vector2Int>()
+        {
+            (_CenterVec + Vector2Int.up),
+            (_CenterVec + Vector2Int.down),
+            (_CenterVec + Vector2Int.left),
+            (_CenterVec + Vector2Int.right)
+        };
+    }
+
+    // 주변 좌표값을 가져오기
+    public static List<Vector2Int> Get_RoundVec(List<Vector2Int> _TargetVec)
+    {
+        HashSet<Vector2Int> targetRoomVecRound = new HashSet<Vector2Int>();
+
+        // 모든 타겟 좌표의 주변 좌표 추가
+        foreach (var vec in _TargetVec)
+        {
+            foreach (var roundVec in Get_RoundVec(vec)) // 주변 좌표 가져오기
+            {
+                targetRoomVecRound.Add(roundVec); // 중복 방지 자동 처리
+            }
+        }
+
+        // 원래 _TargetVec에 포함된 좌표 제거
+        targetRoomVecRound.ExceptWith(_TargetVec);
+
+        return targetRoomVecRound.ToList(); // HashSet을 List로 변환 후 반환
+    }
+
+    public static int Get_IntersectionAmount(List<Vector2Int> targetRoomVec, List<Vector2Int> existRoomVec)
+    {
+        return Get_Intersection(targetRoomVec, existRoomVec).Count;
+    }
+
+    public static List<Vector2Int> Get_Intersection(List<Vector2Int> targetRoomVec, List<Vector2Int> existRoomVec)
+    {
+        // existRoomVec의 요소를 Vector2Int로 변환
+        HashSet<Vector2Int> existRoomSet = new HashSet<Vector2Int>(existRoomVec);
+
+        // targetRoomVec과 existRoomVec의 교집합 반환
+        return targetRoomVec.Where(room => existRoomSet.Contains(room)).ToList();
+    }
+
+    #endregion
+
     #region Child
 
     // 자식 객체들의 'T 타입' 리스트 가져오기

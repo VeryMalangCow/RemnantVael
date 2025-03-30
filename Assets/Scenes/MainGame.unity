@@ -2650,10 +2650,8 @@ MonoBehaviour:
       - ID: 7
         Amount: 1
       EntranceRoom:
-      - ID: 3
+      - ID: 0
         RuleID: 0
-      - ID: 3
-        RuleID: 1
     EnemyData:
       StageEnemyList:
       - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
@@ -2710,6 +2708,7 @@ MonoBehaviour:
   - {fileID: 8671702513593221327, guid: a564cf29453c03e4ab796a41b0fb2d09, type: 3}
   - {fileID: 8671702513593221327, guid: 403d614e5bc336346b5933b9bc4b4875, type: 3}
   RoomRuleEntrancePrefabList:
+  - {fileID: 8671702513593221327, guid: 540638127327273448ca902dd14a661e, type: 3}
   - {fileID: 8671702513593221327, guid: c44934c6fc5ffcf4593c05ff3d0f2705, type: 3}
   - {fileID: 8671702513593221327, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
   OffsetRoomSize: {x: 22, y: 14}

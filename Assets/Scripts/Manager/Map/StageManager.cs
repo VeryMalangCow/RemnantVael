@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
@@ -340,7 +341,7 @@ public class StageManager : Singleton<StageManager>
     // 월드 기준: 상대적인 좌표 삽입: 가장 멀고, 특별 Round 포함
     private void Set_FurthestRelativeVec(RoomController _Room)
     {
-        Set_RelativeVec(_Room, Get_FindCorrectWorldVec_Furthest(_Room, _ApplySpecialExist: true));
+        Set_RelativeVec(_Room, Get_FindCorrectWorldVec_Furthest(_Room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true));
 
         Set_RoomPos(_Room);
         Add_RoundVec(_Room.RoomVec);
@@ -474,47 +475,22 @@ public class StageManager : Singleton<StageManager>
 
     #endregion
 
-    #region Shop
-
-    // 상점 갯수에 맞춰 생성할 ID 구하기
-    private List<int> Get_RandomIndexList(int _ListRange, int _Amount, List<int> _ExcludeList)
-    {
-        List<int> result = new List<int>();
-        while (true)
-        {
-            if (result.Count < _Amount)
-            {
-                // 랜덤 값 가져오기
-                int index = Random.Range(1, _ListRange + 1);
-
-                // 이미 포함되었거나, 무시할 리스트에 포함되어있다면
-                if (!result.Contains(index) &&
-                    !_ExcludeList.Contains(index))
-                {
-                    result.Add(index);
-                }
-            }
-            break;
-        }
-        return result;
-    }
-
-    #endregion
-
     #region Round
 
     // 현재 Round에서, 타겟 Room에 맞춘 위치 값 반환
-    private List<Vector2Int> Get_FindCorrectWorldVec_Normal(RoomController _TargetRoom, bool _ApplySpecialExist = false)
+    private List<Vector2Int> Get_FindCorrectWorldVec_Normal(RoomController _TargetRoom, int _ConnectedRoomAmount = -1, bool _ApplySpecialExist = false)
     {
+        List<Vector2Int> randomRoundList = DevTool.Get_ShuffledList(roundList);
+
         List<Vector2Int> existList = new List<Vector2Int>(alreadyExistList);
         if (_ApplySpecialExist) existList.AddRange(alreadyExistSpeicalList);
 
         return Get_FindCorrectWorldVec(
-            _TargetRoom.RoomVec, roundList, existList);
+            _TargetRoom.RoomVec, roundList, existList, _ConnectedRoomAmount);
     }
 
     // 현재 Round에서, 타겟 Room에 맞춘 위치 값 + 가장 먼 위치 값 반환
-    private List<Vector2Int> Get_FindCorrectWorldVec_Furthest(RoomController _TargetRoom, bool _ApplySpecialExist = false)
+    private List<Vector2Int> Get_FindCorrectWorldVec_Furthest(RoomController _TargetRoom, int _ConnectedRoomAmount = -1, bool _ApplySpecialExist = false)
     {
         List<Vector2Int> farRoundList = roundList.OrderByDescending(obj => Vector2Int.Distance(Vector2Int.zero, obj)).ToList();
 
@@ -522,18 +498,20 @@ public class StageManager : Singleton<StageManager>
         if (_ApplySpecialExist) existList.AddRange(alreadyExistSpeicalList);
 
         return Get_FindCorrectWorldVec(
-            _TargetRoom.RoomVec, farRoundList, existList);
+            _TargetRoom.RoomVec, farRoundList, existList, _ConnectedRoomAmount);
     }
 
-    private List<Vector2Int> Get_FindCorrectWorldVec(List<Vector2Int> _RoomVec, List<Vector2Int> _RoundList, List<Vector2Int> _ExistList)
+    // 계산
+    private List<Vector2Int> Get_FindCorrectWorldVec(List<Vector2Int> _RoomVec, List<Vector2Int> _RoundList, List<Vector2Int> _ExistList, int _ConnectedRoomAmount = -1)
     {
         List<Vector2Int> WorldVecList = new List<Vector2Int>();
 
         // 찾을 때까지 실행
+
+        int randomIndex = 0;
+
         while (true)
         {
-            int randomIndex = Random.Range(0, _RoundList.Count);
-
             WorldVecList = new List<Vector2Int>();
             bool wrongPlace = false;
 
@@ -549,6 +527,11 @@ public class StageManager : Singleton<StageManager>
                 }
             }
 
+            if (_ConnectedRoomAmount != -1 && Get_AdjacentRoomAmount(WorldVecList, _ExistList) != _ConnectedRoomAmount)
+                wrongPlace = true;
+
+            randomIndex++;
+
             // 안된다면 다시 시작
             if (!wrongPlace) break;
         }
@@ -556,21 +539,19 @@ public class StageManager : Singleton<StageManager>
         return WorldVecList;
     }
 
+
+
+    private int Get_AdjacentRoomAmount(List<Vector2Int> _TargetRoomVec, List<Vector2Int> _ExistRoomVec)
+    {
+        List<Vector2Int> targetRoomVecRound = DevTool.Get_RoundVec(_TargetRoomVec);
+
+        return DevTool.Get_IntersectionAmount(targetRoomVecRound, _ExistRoomVec);
+    }
+
     #endregion
 
     #region Public
 
-    // 해당 백터의 주변을 구하기
-    private List<Vector2Int> Get_RoundVec(Vector2Int _CenterVec)
-    {
-        return new List<Vector2Int>()
-        {
-            (_CenterVec + Vector2Int.up),
-            (_CenterVec + Vector2Int.down),
-            (_CenterVec + Vector2Int.left),
-            (_CenterVec + Vector2Int.right)
-        };
-    }
 
     #endregion
 
@@ -587,7 +568,7 @@ public class StageManager : Singleton<StageManager>
         roundList = new List<Vector2Int>();
 
         for (int i = 0; i < alreadyExistList.Count; i++)
-            foreach (Vector2Int vec in Get_RoundVec(alreadyExistList[i]))
+            foreach (Vector2Int vec in DevTool.Get_RoundVec(alreadyExistList[i]))
                 if (!roundList.Contains(vec) && !alreadyExistList.Contains(vec))
                     roundList.Add(vec);
     }
@@ -598,13 +579,11 @@ public class StageManager : Singleton<StageManager>
         List<Vector2Int> specialRoundAllList = new List<Vector2Int>(_AddVecList);
         for (int i = 0; i < _AddVecList.Count; i++)
         {
-            specialRoundAllList.AddRange(Get_RoundVec(_AddVecList[i]));
+            specialRoundAllList.AddRange(DevTool.Get_RoundVec(_AddVecList[i]));
         }
         alreadyExistSpeicalList.AddRange(specialRoundAllList);
         alreadyExistSpeicalList = alreadyExistSpeicalList.Distinct().ToList();
     }
-
-
 
     #endregion
 
