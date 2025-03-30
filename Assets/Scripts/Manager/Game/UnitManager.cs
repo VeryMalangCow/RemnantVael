@@ -44,6 +44,8 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public List<CoupleData<AnimationClip>> Vault_AC;
     [SerializeField] public List<AnimationClip> Vault_BrokenAC;
     [SerializeField] public AnimationClip Vault_ModuleIconAC;
+    [SerializeField] public AnimationClip Vault_BSIconAC;
+    [SerializeField] public AnimationClip Vault_JIconAC;
 
     [Space(5)]
     [Header("-- Vault / State")]

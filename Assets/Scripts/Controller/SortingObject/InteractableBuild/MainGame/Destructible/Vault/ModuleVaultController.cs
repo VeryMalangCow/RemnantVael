@@ -43,14 +43,19 @@ public class ModuleVaultController : VaultController
 
     #region Item
 
-    public override void Gen_ItemWhenHitted()
+    private void Gen_II_ByGrade()
     {
         Gen_II(DevTool.Get_Rank(CurrentPercentByGrade));
     }
 
+    public override void Gen_ItemWhenHitted()
+    {
+        Gen_II_ByGrade();
+    }
+
     public override void Gen_ItemWhenBreak()
     {
-        Gen_II(DevTool.Get_Rank(CurrentPercentByGrade));
+        Gen_II_ByGrade();
     }
 
     #endregion
