@@ -20,12 +20,14 @@ public class DestructibleBuildController : InteractableBuildController
     [SerializeField] private Transform DurParentTF;
     [SerializeField] private Material BuildingMaterial;
     [SerializeField] private float FrameIntervalX = 0.08f;
-    [HideInInspector] private List<SpriteRenderer> DurInnerSRList = new List<SpriteRenderer>();
 
-    [Space(10)]
-    [Header("=== State")]
-    [SerializeField] private AnimationClip BrokenAC;
-    [SerializeField] private AnimationClip BrokenStateAC;
+    // State
+    [HideInInspector] protected AnimationClip BrokenAC = null;
+    [HideInInspector] protected AnimationClip BrokenStateAC = null;
+
+    // Dur
+    [HideInInspector] private List<SpriteRenderer> DurFrameSRList = new List<SpriteRenderer>();
+    [HideInInspector] private List<SpriteRenderer> DurInnerSRList = new List<SpriteRenderer>();
 
     #endregion
 
@@ -78,10 +80,8 @@ public class DestructibleBuildController : InteractableBuildController
     protected virtual void Play_NotYetBreak(bool _SpawnItem)
     {
         transform.DOShakePosition(0.4f, 0.1f, 20, 90, false, true);
-        if (_SpawnItem)
-        {
-            Gen_ItemWhenHitted();
-        }
+
+        if (_SpawnItem) Gen_ItemWhenHitted();
     }
 
     protected virtual void Play_NowBreak(bool _SpawnItem)
@@ -137,13 +137,10 @@ public class DestructibleBuildController : InteractableBuildController
         for (int i = 0; i < MaxDur; i++)
         {
             if (i < _Durablity)
-            {
                 DurInnerSRList[i].gameObject.SetActive(true);
-            }
             else
-            {
                 DurInnerSRList[i].gameObject.SetActive(false);
-            }
+            
         }
     }
 
@@ -183,12 +180,28 @@ public class DestructibleBuildController : InteractableBuildController
     private void Set_FrameUIPos(int _Index, SpriteRenderer _SR)
     {
         _SR.transform.localPosition = new Vector2((_Index * FrameIntervalX) - DevTool.Get_MinusXPivot(FrameIntervalX, MaxDur), 0f);
+        DurFrameSRList.Insert(0, _SR);
     }
 
     private void Set_InnerUIPos(SpriteRenderer _SR)
     {
         _SR.transform.localPosition = Vector2.zero;
         DurInnerSRList.Insert(0, _SR);
+    }
+
+    #endregion
+
+    #region Sorting
+
+    public override void Set_SortingOrder(int _SortingOrder)
+    {
+        base.Set_SortingOrder(_SortingOrder);
+
+        for (int i = 0; i < DurInnerSRList.Count; i++)
+        {
+            DurInnerSRList[i].sortingOrder = _SortingOrder;
+            DurFrameSRList[i].sortingOrder = _SortingOrder - 1;
+        }
     }
 
     #endregion

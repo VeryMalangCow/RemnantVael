@@ -82,6 +82,7 @@ public class RoomRuleController : MonoBehaviour
         GameObject shop = Instantiate(_ShopObject, InRoom_ShopParentTF);
         if (shop != null)
         {
+            Debug.Log("¼¥ ½ºÆù");
             InRoom_ShopBuild = DevTool.Get_ComponentTType<InteractableBuildController>(shop);
             shop.transform.localPosition = Vector3.zero;
             shop.gameObject.SetActive(false);

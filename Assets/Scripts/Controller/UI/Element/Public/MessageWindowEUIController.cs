@@ -56,6 +56,8 @@ public class MessageWindowEUIController : ElementUIController
 
     public void Reset_Data()
     {
+        if (ThisRT == null) return;
+
         DevTool.Set_KillTween(ThisRT);
         DevTool.Set_KillTween(ThisCG);
         DevTool.Set_KillTween(ThisTxt);

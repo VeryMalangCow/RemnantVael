@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
@@ -25,6 +26,30 @@ public class UnitManager : Singleton<UnitManager>
     [HideInInspector] private Sequence RandomColorSetSeq;
 
     [Space(10)]
+    [Header("=== Anim")]
+
+    [Space(5)]
+    [Header("-- Shop / Actual")]
+    [SerializeField] public CoupleData<AnimationClip> BUShop_OnOffAC;
+    [SerializeField] public CoupleData<AnimationClip> MUShop_OnOffAC;
+    [SerializeField] public AnimationClip BUShop_BrokenAC;
+    [SerializeField] public AnimationClip MUShop_BrokenAC;
+
+    [Header("-- Shop / State")]
+    [SerializeField] public AnimationClip BrokenStateAC;
+    [SerializeField] public CoupleData<AnimationClip> NeedChargeBettery_OnOffStateAC;
+
+    [Space(5)]
+    [Header("-- Vault / Actual")]
+    [SerializeField] public List<CoupleData<AnimationClip>> Vault_AC;
+    [SerializeField] public List<AnimationClip> Vault_BrokenAC;
+    [SerializeField] public AnimationClip Vault_ModuleIconAC;
+
+    [Space(5)]
+    [Header("-- Vault / State")]
+    [SerializeField] public CoupleData<AnimationClip> Vault_StateAC;
+
+    [Space(10)]
     [Header("=== Generator")]
 
     [Space(5)]
@@ -36,8 +61,6 @@ public class UnitManager : Singleton<UnitManager>
     [Space(5)]
     [Header("-- Anim")]
     [SerializeField] public OnceTimeAnimGenerator OnceTime_AnimGenerator;
-
-
 
     #endregion
 

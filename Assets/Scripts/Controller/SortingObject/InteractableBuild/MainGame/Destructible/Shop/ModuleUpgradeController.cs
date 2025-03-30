@@ -25,6 +25,21 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
 
     #endregion
 
+    #region Offset
+
+    protected override void Offset()
+    {
+        OnOffAC = UnitManager.Instance.MUShop_OnOffAC;
+        OnOffStateAC = UnitManager.Instance.NeedChargeBettery_OnOffStateAC;
+
+        BrokenAC = UnitManager.Instance.MUShop_BrokenAC;
+        BrokenStateAC = UnitManager.Instance.BrokenStateAC;
+
+        base.Offset();
+    }
+
+    #endregion
+
     #region Framework
 
     protected override void OnEnable()

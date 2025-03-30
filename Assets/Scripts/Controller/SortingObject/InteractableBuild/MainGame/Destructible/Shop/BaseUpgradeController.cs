@@ -25,6 +25,21 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
 
     #endregion
 
+    #region Offset
+
+    protected override void Offset()
+    {
+        OnOffAC = UnitManager.Instance.BUShop_OnOffAC;
+        OnOffStateAC = UnitManager.Instance.NeedChargeBettery_OnOffStateAC;
+
+        BrokenAC = UnitManager.Instance.BUShop_BrokenAC;
+        BrokenStateAC = UnitManager.Instance.BrokenStateAC;
+
+        base.Offset();
+    }
+
+    #endregion
+
     #region Framework
 
     protected override void OnEnable()

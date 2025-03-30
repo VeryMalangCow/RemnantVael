@@ -482,7 +482,7 @@ public class ModuleUpgradeUIController : PanelUIController
         }
 
         Reset_EquipPanel();
-        Reset_ForgePanel();
+        Reset_ForgePanel(); 
         ThisMsgEUI.Reset_Data();
     }
 
