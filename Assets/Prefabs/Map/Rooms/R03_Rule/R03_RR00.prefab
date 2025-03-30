@@ -1076,68 +1076,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!1 &7400668242604215541
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7292919765399726385}
-  m_Layer: 0
-  m_Name: Prisons
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7292919765399726385
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7400668242604215541}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15, y: 7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2234060382953184247}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7867290243254491727
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7970803079678321021}
-  m_Layer: 0
-  m_Name: Shops
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7970803079678321021
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7867290243254491727}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7, y: 7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2234060382953184247}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8372441005090558120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1268,8 +1206,6 @@ Transform:
   m_Children:
   - {fileID: 7466390640635042895}
   - {fileID: 5083685775733296416}
-  - {fileID: 7970803079678321021}
-  - {fileID: 7292919765399726385}
   - {fileID: 2169159929047553169}
   - {fileID: 1130655662164710366}
   m_Father: {fileID: 0}
@@ -1293,11 +1229,8 @@ MonoBehaviour:
   - {x: 1, y: 1}
   RoomType: 1
   InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
-  InRoom_ShopParentTF: {fileID: 7970803079678321021}
-  InRoom_PrisonParentTF: {fileID: 7292919765399726385}
   InRoom_WayPointParentTF: {fileID: 1130655662164710366}
   InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
-  InRoom_Elevator: {fileID: 0}
   InRoom_AllWayPoint: []
   InRoom_AllObstacle: []
 --- !u!1 &8791385821537764060

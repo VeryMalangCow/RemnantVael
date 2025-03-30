@@ -245,7 +245,7 @@ MonoBehaviour:
   IsOn: 1
   ThisAnimator: {fileID: 1156573706478142735}
   IsBroken: 0
-  MaxDur: 10
+  MaxDur: 5
   CurrentDur: 0
   DurParentTF: {fileID: 3162411028315099261}
   BuildingMaterial: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
@@ -539,7 +539,7 @@ PrefabInstance:
     - target: {fileID: 6849851486362390765, guid: 6933c66d65fdf4b4d826d70c39e63c52, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 150699195, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+      objectReference: {fileID: 443637767, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
     - target: {fileID: 6849851486362390765, guid: 6933c66d65fdf4b4d826d70c39e63c52, type: 3}
       propertyPath: m_SortingOrder
       value: 2999

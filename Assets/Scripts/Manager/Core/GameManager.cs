@@ -3113,9 +3113,6 @@ public class StageData
     public StageRoom RoomData;
 
     [Space(5)]
-    public StageShop ShopData;
-
-    [Space(5)]
     public StageEnemy EnemyData;
 
     [Space(5)]
@@ -3174,17 +3171,6 @@ public class GenEntranceRoomData
 {
     public int ID;
     public int RuleID;
-}
-
-#endregion
-
-#region Class : Stage : Shop
-
-[System.Serializable]
-public class StageShop
-{
-    public int BUShopAmount = 1;
-    public int MUShopAmount = 1;
 }
 
 #endregion

@@ -13,7 +13,7 @@ public class VaultController : DestructibleBuildController
 
     [Space(10)]
     [Header("=== Grade")]
-    [SerializeField] private int CurrentGrade = 0;
+    [SerializeField] protected int CurrentGrade = 0;
 
     #endregion
 
@@ -40,7 +40,7 @@ public class VaultController : DestructibleBuildController
 
     #region Set
 
-    public void Set_Grade(int _Grade)
+    public virtual void Set_Grade(int _Grade)
     {
         CurrentGrade = _Grade;
 

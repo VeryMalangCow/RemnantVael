@@ -49,10 +49,6 @@ public class StageManager : Singleton<StageManager>
     // 배치할 주변 Vec
     [HideInInspector] private List<Vector2Int> roundList = new List<Vector2Int>();
 
-    // 상점 스폰 ID를 저장힉 위함
-    [HideInInspector] List<int> BUShopIndexs;
-    [HideInInspector] List<int> MUShopIndexs;
-
     #endregion
 
     #endregion
@@ -101,9 +97,6 @@ public class StageManager : Singleton<StageManager>
         int TempID = 0;
         Gen_StartRoom(RoomPrefabList[0], TempID);
         TempID++;
-
-        // Shop이 스폰될 ID 지정
-        Set_ShopData(_StageID, stageData.ShopData.BUShopAmount, stageData.ShopData.MUShopAmount);
 
         // 생성할 Room의 양을 계산에 1중 리스트로 변경 => 이들을 섞음
         ShuffledRoomIndexList = DevTool.Get_ShuffledList(
@@ -172,10 +165,6 @@ public class StageManager : Singleton<StageManager>
 
             room.Offset(_TempID);
             Set_NormalRelativeVec(room);
-
-            // 상점 소환
-            if (BUShopIndexs.Contains(_TempID)) roomRule.Spawn_CorretShop(BUShopPrefab);
-            else if (MUShopIndexs.Contains(_TempID)) roomRule.Spawn_CorretShop(MUShopPrefab);
         }
             
     }
@@ -273,9 +262,6 @@ public class StageManager : Singleton<StageManager>
         alreadyExistSpeicalList.Clear();
 
         roundList.Clear();
-
-        BUShopIndexs.Clear();
-        MUShopIndexs.Clear();
     }
 
     #endregion
@@ -325,21 +311,6 @@ public class StageManager : Singleton<StageManager>
             }
         }
     }
-
-    #endregion
-
-    #region Shop
-
-    // 상점 스폰할 Room ID 지정하기
-    private void Set_ShopData(int _StageID, int _BUShopAmount, int _MUShopAmount)
-    {
-        // Shop 지정
-        int normalRoomAmount = Get_RoomAmount(_StageID);
-
-        BUShopIndexs = Get_RandomIndexList(normalRoomAmount, _BUShopAmount, new List<int>());
-        MUShopIndexs = Get_RandomIndexList(normalRoomAmount, _MUShopAmount, BUShopIndexs);
-    }
-
 
     #endregion
 

@@ -28,8 +28,6 @@ public class RoomRuleController : MonoBehaviour
     [Space(5)]
     [Header("-- Build")]
     [SerializeField] private Transform InRoom_ObstacleParentTF;
-    [SerializeField] private Transform InRoom_ShopParentTF;
-    [SerializeField] private Transform InRoom_PrisonParentTF;
 
     [Space(5)]
     [Header("-- WayPoint")]
@@ -70,23 +68,6 @@ public class RoomRuleController : MonoBehaviour
         InRoom_AllEnemySpawn = InRoom_EnemySpawnParentTF != null &&
             InRoom_EnemySpawnParentTF.childCount > 0 ?
             DevTool.Get_ChildList<EnemySpawnContoller>(InRoom_EnemySpawnParentTF) : null;
-    }
-
-    #endregion
-
-    #region Shop
-
-    // 상점 생성
-    public void Spawn_CorretShop(GameObject _ShopObject)
-    {
-        GameObject shop = Instantiate(_ShopObject, InRoom_ShopParentTF);
-        if (shop != null)
-        {
-            Debug.Log("샵 스폰");
-            InRoom_ShopBuild = DevTool.Get_ComponentTType<InteractableBuildController>(shop);
-            shop.transform.localPosition = Vector3.zero;
-            shop.gameObject.SetActive(false);
-        }
     }
 
     #endregion
