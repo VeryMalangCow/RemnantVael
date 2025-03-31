@@ -75,6 +75,7 @@ public class ExplosionImgGenerator : MonoBehaviour
     private Sequence Gen_EachExplImg(Vector2 _SpawnPos, ExplState_Sprite _SpriteState, ExplState_MoveAndScale _FirstState, ExplState_MoveAndScale _SecondState)
     {
         SpriteRenderer sr = PoolingManager.Instance.Get_OP_ExplosionImg();
+        sr.gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
         return Play_ExplImg(sr, _SpawnPos, _SpriteState, _FirstState, _SecondState);
     }
 

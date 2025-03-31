@@ -2133,6 +2133,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Map00_BG
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f26fb5f1b34551f4f92e8bb7e2bf4527
+      internalID: -642200939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2186,6 +2207,7 @@ TextureImporter:
       Map00A_B_UD_07: 1220164246
       Map00A_B_UD_08: -1872213255
       Map00A_B_UD_09: -88324796
+      Map00_BG: -642200939
       Map00_B_DL: 426197423
       Map00_B_DR: 209552619
       Map00_B_D_DL: 806043112
@@ -2247,6 +2269,7 @@ TextureImporter:
       Map00_E_001: 368077036
       Map00_E_002: 433040308
       Map00_E_003: -2047084511
+      Test00: -1233628555
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

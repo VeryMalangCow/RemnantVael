@@ -74,7 +74,9 @@ public class OnceTimeAnimGenerator : MonoBehaviour
 
     private OnceTimeAnimController Gen_OOA()
     {
-        return PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
+        OnceTimeAnimController otac = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
+        otac.gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        return otac;
     }
 
     #endregion

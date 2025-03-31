@@ -138,6 +138,7 @@ public abstract class AttackerController : MovableDepthController
     private void SetOn_State(Sequence _TotalSeq)
     {
         this.gameObject.SetActive(true);
+        this.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
 
         _TotalSeq.OnComplete(() =>
         {
