@@ -21,6 +21,9 @@ public class GameManager : PersistentSingleton<GameManager>
     [Header("=== Intro")]
     [SerializeField] public bool WasWatched = false;
 
+    public static int LanguageID = 1;
+    public readonly static int KindOfLanguageAmount = 2;
+
     #endregion
 
     #region Framework
@@ -3192,6 +3195,7 @@ public class SatelliteCenterController : SatelliteController
 
 #endregion
 
+
 #region Class : Stage
 
 [System.Serializable]
@@ -3229,8 +3233,6 @@ public class StageData
 public class StageInfo
 {
     public int StageID;
-    public string StageName;
-    public string StageDescription;
 }
 
 #endregion
@@ -3275,6 +3277,7 @@ public class StageEnemy
 
 #endregion
 
+
 #region Class : UI
 
 [System.Serializable]
@@ -3285,7 +3288,15 @@ public class MinimapIcon
     public Vector2 SpritePivot;
 }
 
+[System.Serializable]
+public class LanguageTxt
+{
+    public int ID;
+    public List<TMP_FontAsset> FontAssets;
+}
+
 #endregion
+
 
 #region Class : Stage : Reso
 
@@ -3354,6 +3365,42 @@ public class PlayerVisual<T>
         {
             return Energy;
         }
+    }
+}
+
+#endregion
+
+
+#region Class : CSV : Word
+
+public class WordData
+{
+    public List<WordElementData> AllWordData;
+
+    public WordData(List<WordElementData> _AllMapNameData)
+    {
+        AllWordData = _AllMapNameData;
+    }
+
+    public string Get_Word(int _ID)
+    {
+        for (int i = 0; i < AllWordData.Count; i++)
+            if (AllWordData[i].ID == _ID)
+                return AllWordData[i].Word[GameManager.LanguageID];
+
+        return "";
+    }
+}
+
+public class WordElementData
+{
+    public int ID;
+    public List<string> Word;
+
+    public WordElementData(int _ID, List<string> _MapName)
+    {
+        ID = _ID;
+        Word = _MapName;
     }
 }
 

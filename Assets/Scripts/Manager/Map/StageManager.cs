@@ -308,7 +308,9 @@ public class StageManager : Singleton<StageManager>
     {
         MainGameUIManager.Instance.MapIntro_UIController.Play_IntroLabel();
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Gen_Minimap();
-        MainGameUIManager.Instance.PlayerHUD_UIController.Set_StageDescription(_StageData.InfoData.StageName, _StageData.InfoData.StageDescription);
+        MainGameUIManager.Instance.PlayerHUD_UIController.Set_StageDescription(
+            CSVManager.Instance.Get_MapName(_StageData.InfoData.StageID),
+            CSVManager.Instance.Get_MapDesc(_StageData.InfoData.StageID));
     }
 
     #endregion

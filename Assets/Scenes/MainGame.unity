@@ -2533,9 +2533,6 @@ MonoBehaviour:
   AllStageData:
   - InfoData:
       StageID: 0
-      StageName: BASEMENT LAB
-      StageDescription: There are old enemies located at the very bottom, guarding
-        the abandoned space.
     RoomData:
       RoomAmount:
       - ID: 0
@@ -2774,6 +2771,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 759845349}
+  - component: {fileID: 759845353}
   - component: {fileID: 759845351}
   - component: {fileID: 759845350}
   - component: {fileID: 759845352}
@@ -2825,7 +2823,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
   m_sharedMaterial: {fileID: -2272981892841196511, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
   m_fontSharedMaterials:
   - {fileID: -2272981892841196511, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
@@ -2890,7 +2888,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &759845351
@@ -2931,6 +2929,19 @@ MonoBehaviour:
   baked: 0
   modifiedFromInspector: 0
   bakedShadows: []
+--- !u!114 &759845353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759845348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
 --- !u!1 &790310292
 GameObject:
   m_ObjectHideFlags: 0
@@ -3068,17 +3079,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EventID_CSV: {fileID: 4900000, guid: 3d429345d06db7548bc3713e045eedbc, type: 3}
   EventElement_CSV: {fileID: 4900000, guid: eeaa71b621eae2d47b90152c486037d7, type: 3}
-  DialogueElement_CSV: {fileID: 4900000, guid: e614e52b2fb2e4748afb9fa58d941342, type: 3}
+  DialogueElement_CSVList:
+  - {fileID: 4900000, guid: e614e52b2fb2e4748afb9fa58d941342, type: 3}
+  - {fileID: 4900000, guid: 4322d49779dd6f44c98fb8b098cce3a4, type: 3}
   DialougeID_CSV: {fileID: 4900000, guid: ba37bbb95d36b80459a01b6709c624dd, type: 3}
-  SpritePath: Sprite/
-  CharacterImg_Path: Character/
+  MapName_CSV: {fileID: 4900000, guid: 573641ad07713d6459657140eee057a4, type: 3}
+  MapDesc_CSV: {fileID: 4900000, guid: 388e046478968744cbef27789ad659c4, type: 3}
   CharacterImg_000: {fileID: 2800000, guid: 318ada3361e9e01408b77f966494e1d1, type: 3}
-  Map_Path: Map/
-  Map00_Path: Map00/
   Map00:
   - {fileID: 2800000, guid: b0847e039257f9440900670c5c08cd6c, type: 3}
   - {fileID: 2800000, guid: 360a250d42332ea4480df4cfb9f7b559, type: 3}
-  Map01_Path: Map01/
   Map01:
   - {fileID: 2800000, guid: a92aeea24babe974888bf97554fe49f1, type: 3}
 --- !u!4 &830584170
@@ -5251,6 +5261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1541980936}
+  - component: {fileID: 1541980940}
   - component: {fileID: 1541980938}
   - component: {fileID: 1541980937}
   - component: {fileID: 1541980939}
@@ -5302,7 +5313,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
   m_sharedMaterial: {fileID: -2272981892841196511, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
   m_fontSharedMaterials:
   - {fileID: -2272981892841196511, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
@@ -5367,7 +5378,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1541980938
@@ -5408,6 +5419,19 @@ MonoBehaviour:
   baked: 0
   modifiedFromInspector: 0
   bakedShadows: []
+--- !u!114 &1541980940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541980935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
 --- !u!1 &1553356941
 GameObject:
   m_ObjectHideFlags: 0
@@ -5451,6 +5475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1582932862}
+  - component: {fileID: 1582932866}
   - component: {fileID: 1582932864}
   - component: {fileID: 1582932863}
   - component: {fileID: 1582932865}
@@ -5608,6 +5633,19 @@ MonoBehaviour:
   baked: 0
   modifiedFromInspector: 0
   bakedShadows: []
+--- !u!114 &1582932866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582932861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
 --- !u!1 &1597296081
 GameObject:
   m_ObjectHideFlags: 0
@@ -5948,6 +5986,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666940254}
+  - component: {fileID: 1666940258}
   - component: {fileID: 1666940256}
   - component: {fileID: 1666940255}
   - component: {fileID: 1666940257}
@@ -6105,6 +6144,19 @@ MonoBehaviour:
   baked: 0
   modifiedFromInspector: 0
   bakedShadows: []
+--- !u!114 &1666940258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666940253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
 --- !u!1 &1668190067
 GameObject:
   m_ObjectHideFlags: 0
@@ -6435,6 +6487,17 @@ MonoBehaviour:
   Vault_StateAC:
     TypeBase: {fileID: 7400000, guid: 562065cf5e5d68743aeb531a01f17412, type: 2}
     TypeSpecial: {fileID: 7400000, guid: 309f2027ffe43bd438d0cee771f8e2a5, type: 2}
+  LanguageTxtList:
+  - ID: 0
+    FontAssets:
+    - {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
+    - {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
+    - {fileID: 11400000, guid: 7421415d68e53434489f5eb9cce74908, type: 2}
+  - ID: 1
+    FontAssets:
+    - {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
+    - {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
+    - {fileID: 11400000, guid: 7421415d68e53434489f5eb9cce74908, type: 2}
   Player_ExplImgGenerator: {fileID: 1603938535}
   Build_ExplImgGenerator: {fileID: 4532320}
   Enemy_ExplImgGenerator: {fileID: 1129606755}

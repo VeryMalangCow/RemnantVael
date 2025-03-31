@@ -9,21 +9,35 @@ public class UnitManager : Singleton<UnitManager>
     [Space(20)]
     [Header("<><><><><> Unit Manager")]
 
+    #region Material
+
     [Space(10)]
     [Header("=== Material")]
     [SerializeField] public Material ModuleM_000_Explosion;
     [SerializeField] public Material ModuleM_000_Hitted;
     [SerializeField] public Material EnemyM_000_Explosion;
 
+    #endregion
+
+    #region Sprite
+
     [Space(10)]
     [Header("=== Sprite")]
     [SerializeField] public Sprite BuildingDurFrame;
     [SerializeField] public Sprite BuildingDurInner;
 
+    #endregion
+
+    #region Color
+
     [Space(10)]
     [Header("=== Color")]
     [SerializeField] public Color RandomColor = Color.red;
     [HideInInspector] private Sequence RandomColorSetSeq;
+
+    #endregion
+
+    #region Anim
 
     [Space(10)]
     [Header("=== Anim")]
@@ -51,6 +65,18 @@ public class UnitManager : Singleton<UnitManager>
     [Header("-- Vault / State")]
     [SerializeField] public CoupleData<AnimationClip> Vault_StateAC;
 
+    #endregion
+
+    #region Txt
+
+    [Space(10)]
+    [Header("=== Font")]
+    [SerializeField] public List<LanguageTxt> LanguageTxtList;
+
+    #endregion
+
+    #region Generator
+
     [Space(10)]
     [Header("=== Generator")]
 
@@ -63,6 +89,8 @@ public class UnitManager : Singleton<UnitManager>
     [Space(5)]
     [Header("-- Anim")]
     [SerializeField] public OnceTimeAnimGenerator OnceTime_AnimGenerator;
+
+    #endregion
 
     #endregion
 
