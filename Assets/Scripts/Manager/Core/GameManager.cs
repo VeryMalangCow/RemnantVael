@@ -3275,6 +3275,18 @@ public class StageEnemy
 
 #endregion
 
+#region Class : UI
+
+[System.Serializable]
+public class MinimapIcon
+{
+    public CouplePair<Sprite> MinimapElementIcon;
+    public List<Vector2Int> RoomVec;
+    public Vector2 SpritePivot;
+}
+
+#endregion
+
 #region Class : Stage : Reso
 
 [System.Serializable]

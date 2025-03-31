@@ -8,6 +8,7 @@ public class MinimapCellEUIController : ElementUIController
 
     [HideInInspector] private Image ThisMMImg = null;
     [HideInInspector] private Image ThisMMOImg = null;
+    [HideInInspector] private Image ThisIconImg = null;
     [HideInInspector] private CanvasGroup ThisCG = null;
 
     [SerializeField] private Color UnknowColor;
@@ -23,15 +24,17 @@ public class MinimapCellEUIController : ElementUIController
         ThisCG = DevTool.Get_ComponentTType(gameObject, out CanvasGroup cg) ? cg : null;
         ThisCG.alpha = 0f;
         ThisMMOImg = DevTool.Get_ComponentTType(transform.GetChild(0).gameObject, out Image outlineImg) ? outlineImg : null;
-
+        ThisIconImg = DevTool.Get_ComponentTType(transform.GetChild(1).gameObject, out Image iconImg) ? iconImg : null;
     }
 
 
-    public void Offset(RoomController _RC, bool _IsNormal)
+    public void Offset(RoomController _Room, bool _IsNormal)
     {
         // From/To RC
-        CoupleData<Sprite> thisSprites = _RC.MinimapElementIcon.Get_Base(_IsNormal);
-        ref MinimapCellEUIController target = ref (_IsNormal ? ref _RC.ThisMME : ref _RC.ThisIMME);
+        MinimapIcon minimapReso = StageManager.Instance.Get_CorrectMinimapIcon(_Room);
+
+        CoupleData<Sprite> thisSprites = minimapReso.MinimapElementIcon.Get_Base(_IsNormal);
+        ref MinimapCellEUIController target = ref (_IsNormal ? ref _Room.ThisMME : ref _Room.ThisIMME);
         target = this;
 
         // Sprite
@@ -44,11 +47,19 @@ public class MinimapCellEUIController : ElementUIController
         // Pivot
         if (DevTool.Get_ComponentTType(gameObject, out RectTransform rt))
         {
-            rt.pivot = _RC.SpritePivot;
+            rt.pivot = minimapReso.SpritePivot;
             rt.anchoredPosition = new Vector2(
-                    (float)_RC.RoomVec[0].x * IntervalMM.Get_Base(_IsNormal),
-                    (float)_RC.RoomVec[0].y * IntervalMM.Get_Base(_IsNormal));
+                    (float)_Room.RoomVec[0].x * IntervalMM.Get_Base(_IsNormal),
+                    (float)_Room.RoomVec[0].y * IntervalMM.Get_Base(_IsNormal));
         }
+        CoupleData<Sprite> sprite = StageManager.Instance.Get_CorrectMinimapIcon(_Room.RoomRuleController);
+
+        if (sprite != null)
+        {
+            ThisIconImg.sprite = sprite.Get_Base(_IsNormal);
+            ThisIconImg.SetNativeSize();
+        }
+        ThisIconImg.gameObject.SetActive(sprite != null ? true : false);
     }
 
     #endregion

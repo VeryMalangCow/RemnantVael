@@ -22,11 +22,15 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private GameObject BUShopPrefab;
     [SerializeField] private GameObject MUShopPrefab;
     [SerializeField] private List<GameObject> VaultPrefabList;
-    [Space(5)]
+    [Space(10)]
     [SerializeField] private List<GameObject> RoomPrefabList;
     [SerializeField] private List<GameObject> RoomRulePrefabList;
     [SerializeField] private List<GameObject> RoomRuleEntrancePrefabList;
     [SerializeField] private List<GameObject> RoomRuleVaultPrefabList;
+    [Space(10)]
+    [SerializeField] private CoupleData<Sprite> Vault_Icon;
+    [SerializeField] private CoupleData<Sprite> Elevator_Icon;
+    [SerializeField] public List<MinimapIcon> MinimapIcons;
 
     [Space(10)]
     [Header("=== Value0")]
@@ -428,21 +432,6 @@ public class StageManager : Singleton<StageManager>
 
     #region Room
 
-    // 지정 스테이지 모든 방 숫자 구하기
-    private int Get_RoomAmount(int _StageID)
-    {
-        int result = 0;
-
-        StageData reso = Get_CollectStageData(_StageID);
-
-        if (reso != null)
-            for (int i = 0; i < reso.RoomData.RoomAmount.Count; i++)
-                result += reso.RoomData.RoomAmount[i].Amount;
-
-        return result;
-    }
-
-
     // Room Amount List를 List<int>형인 기본 리스트로 변경
     private List<int> Get_ListInt_FromGenRoomAmount(List<GenRoomData> _GenRoomAmountList)
     {
@@ -575,6 +564,31 @@ public class StageManager : Singleton<StageManager>
         List<Vector2Int> targetRoomVecRound = DevTool.Get_RoundVec(_TargetRoomVec);
 
         return DevTool.Get_IntersectionAmount(targetRoomVecRound, _ExistRoomVec);
+    }
+
+    #endregion
+
+    #region Minimap
+
+    public MinimapIcon Get_CorrectMinimapIcon(RoomController _Room)
+    {
+        return MinimapIcons[_Room.RoomStaticID];
+    }
+
+    public CoupleData<Sprite> Get_CorrectMinimapIcon(RoomRuleController _RoomRule)
+    {
+        switch(_RoomRule)
+        {
+            case VaultRuleController:
+                return Vault_Icon;
+
+            case EntranceRuleController:
+                return Elevator_Icon;
+
+            default:
+                return null;
+        }
+
     }
 
     #endregion

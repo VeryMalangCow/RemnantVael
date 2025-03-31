@@ -2217,6 +2217,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_Icon_Vault
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 504
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a9348b8e1a070b4293bde2bce83624c
+      internalID: -290701738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_Icon_Elevator
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 504
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b99b02f9912b35a4cabaf0b2756d0553
+      internalID: 58754797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_Icon_Vault
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 420
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b1fbec8d4b30c64faeec6a4fc18cee0
+      internalID: -1483903491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_Icon_Elevator
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 408
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e84db2700c3e4d4ea064e17f10acd03
+      internalID: -609947336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2284,6 +2368,8 @@ TextureImporter:
       PlayerHUD_IMM_005: 1279793552
       PlayerHUD_IMM_006: -796665567
       PlayerHUD_IMM_007: 1287868922
+      PlayerHUD_IMM_Icon_Elevator: -609947336
+      PlayerHUD_IMM_Icon_Vault: -1483903491
       PlayerHUD_Icon_Acc: 35517159
       PlayerHUD_Icon_CC: -1255095136
       PlayerHUD_Icon_CD: 753622697
@@ -2314,6 +2400,8 @@ TextureImporter:
       PlayerHUD_MM_005: -1527273314
       PlayerHUD_MM_006: 1540350132
       PlayerHUD_MM_007: -1297130982
+      PlayerHUD_MM_Icon_Elevator: 58754797
+      PlayerHUD_MM_Icon_Vault: -290701738
       PlayerHUD_MapIntro_Frame: 964077810
       PlayerHUD_MapNameFrame: -775422665
       PlayerHUD_Minimap: -814347436

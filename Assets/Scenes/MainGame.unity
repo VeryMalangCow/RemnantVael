@@ -2625,6 +2625,106 @@ MonoBehaviour:
   - {fileID: 8671702513593221327, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
   RoomRuleVaultPrefabList:
   - {fileID: 8671702513593221327, guid: fbb1a9e1842c4d94f99699c725af6f36, type: 3}
+  Vault_Icon:
+    TypeBase: {fileID: -290701738, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    TypeSpecial: {fileID: -1483903491, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  Elevator_Icon:
+    TypeBase: {fileID: 58754797, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    TypeSpecial: {fileID: -609947336, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  MinimapIcons:
+  - MinimapElementIcon:
+      TypeBase:
+        TypeBase: {fileID: 476855026, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: -1569914105, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      TypeSpecial:
+        TypeBase: {fileID: -1451701448, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: -1700199474, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    RoomVec:
+    - {x: 0, y: 0}
+    SpritePivot: {x: 0.5, y: 0.5}
+  - MinimapElementIcon:
+      TypeBase:
+        TypeBase: {fileID: 1810412846, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: 2006052592, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      TypeSpecial:
+        TypeBase: {fileID: 1495227505, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: -1051798293, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    RoomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    SpritePivot: {x: 0.25, y: 0.5}
+  - MinimapElementIcon:
+      TypeBase:
+        TypeBase: {fileID: 660787810, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: -946666839, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      TypeSpecial:
+        TypeBase: {fileID: 1557905055, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: -1621447173, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    RoomVec:
+    - {x: 0, y: 0}
+    - {x: 0, y: 1}
+    SpritePivot: {x: 0.5, y: 0.25}
+  - MinimapElementIcon:
+      TypeBase:
+        TypeBase: {fileID: 1003430231, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: -570641346, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      TypeSpecial:
+        TypeBase: {fileID: 1078000194, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: -353351920, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    RoomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: 1}
+    - {x: 1, y: 1}
+    SpritePivot: {x: 0.25, y: 0.25}
+  - MinimapElementIcon:
+      TypeBase:
+        TypeBase: {fileID: -1027038445, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: 1116852838, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      TypeSpecial:
+        TypeBase: {fileID: 1669839144, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: -1535159325, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    RoomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: -1}
+    SpritePivot: {x: 0.25, y: 0.75}
+  - MinimapElementIcon:
+      TypeBase:
+        TypeBase: {fileID: -1527273314, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: 1274739206, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      TypeSpecial:
+        TypeBase: {fileID: 1279793552, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: -1702724244, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    RoomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: 1}
+    SpritePivot: {x: 0.25, y: 0.25}
+  - MinimapElementIcon:
+      TypeBase:
+        TypeBase: {fileID: 1540350132, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: -1927201559, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      TypeSpecial:
+        TypeBase: {fileID: -796665567, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: -464208805, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    RoomVec:
+    - {x: 0, y: 0}
+    - {x: 0, y: 1}
+    - {x: 1, y: 1}
+    SpritePivot: {x: 0.25, y: 0.25}
+  - MinimapElementIcon:
+      TypeBase:
+        TypeBase: {fileID: -1297130982, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: 1585164469, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+      TypeSpecial:
+        TypeBase: {fileID: 1287868922, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+        TypeSpecial: {fileID: 377588081, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    RoomVec:
+    - {x: 0, y: 0}
+    - {x: 1, y: 0}
+    - {x: 1, y: 1}
+    SpritePivot: {x: 0.25, y: 0.25}
   OffsetRoomSize: {x: 22, y: 14}
   CurrentAllRoomController: []
   CurrentRoomController: {fileID: 0}

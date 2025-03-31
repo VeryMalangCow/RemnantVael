@@ -8184,14 +8184,7 @@ MonoBehaviour:
   InRoom_LowerWallParentTF: {fileID: 5702254176889454791}
   InRoom_UpperGateParentTF: {fileID: 8333535370074221826}
   InRoom_LowerGateParentTF: {fileID: 2538584197067359118}
-  MinimapElementIcon:
-    TypeBase:
-      TypeBase: {fileID: 660787810, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
-      TypeSpecial: {fileID: -946666839, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
-    TypeSpecial:
-      TypeBase: {fileID: 1557905055, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
-      TypeSpecial: {fileID: -1621447173, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
-  SpritePivot: {x: 0.5, y: 0.25}
+  RoomStaticID: 2
   RoomRuleController: {fileID: 0}
   SettedPos: 0
   InRoom_UpperGates: []

@@ -27,9 +27,8 @@ public class RoomController : IDController
     [SerializeField] private Transform InRoom_LowerGateParentTF;
 
     [Space(10)]
-    [Header("=== Minimap UI")]
-    [SerializeField] public CouplePair<Sprite> MinimapElementIcon;
-    [SerializeField] public Vector2 SpritePivot;
+    [Header("=== Room Static ID")]
+    [SerializeField] public int RoomStaticID;
 
     #endregion
 
@@ -386,7 +385,6 @@ public class RoomController : IDController
 
 
     #endregion
-
 
     #endregion
 }
