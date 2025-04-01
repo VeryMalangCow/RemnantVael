@@ -1207,6 +1207,8 @@ public class ModuleUpgradeUIController : PanelUIController
             ModuleItemManager.Instance.Set_UnDecompositionSlot();
 
             Set_DecompositionUI(_ItemEUI, applyIndex);
+
+            CurrentItemBtn = null;
         }
     }
 
@@ -1252,6 +1254,8 @@ public class ModuleUpgradeUIController : PanelUIController
             CoupleData<int> applyIndex = ModuleItemManager.Instance.Get_FusionIndex()[index];
 
             ModuleItemManager.Instance.Set_UnFusionSlot(index);
+
+            CurrentItemBtn = null;
         }
     }
 
@@ -1289,6 +1293,8 @@ public class ModuleUpgradeUIController : PanelUIController
             ModuleItemManager.Instance.Set_UnUpgradeSlot();
 
             Set_UpgradeUI(_ItemEUI, applyIndex);
+
+            CurrentItemBtn = null;
         }
     }
 
