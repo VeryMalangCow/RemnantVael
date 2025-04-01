@@ -22,7 +22,7 @@ public class GameManager : PersistentSingleton<GameManager>
     [SerializeField] public bool WasWatched = false;
 
     public static int LanguageID = 1;
-    public readonly static int KindOfLanguageAmount = 2;
+    public readonly static List<string> KindOfLanguage = new List<string> { "Eng", "Kor" };
 
     #endregion
 
@@ -132,6 +132,23 @@ public class DevTool
     }
 
     #endregion
+
+    #endregion
+
+    #region About String
+
+    public static string Get_LengthString(int _Value, int _TargetLength)
+    {
+        string value = _Value.ToString();
+
+        _TargetLength++;
+
+        if (value.Length < _TargetLength)
+            for (int i = 0; i < _TargetLength - value.Length; i++)
+                value = "0" + value;
+            
+        return value;
+    }
 
     #endregion
 
@@ -1533,14 +1550,14 @@ public class DevTool
             return "";
 
         else if (Can_CastingTType(_II, out InteractItemController item))
-            return "MODULE";
+            return CSVManager.Instance.Get_StaticWord(0);
 
         else if (Can_CastingTType(_II, out GateController gate) && gate.ThingsGO.TypeSpecial.activeSelf)
         {
             if (!gate.IsOpen)
                 _CanInteract = false;
 
-            return "GATE";
+            return CSVManager.Instance.Get_StaticWord(1);
         }
 
         else if (Can_CastingTType(_II, out DestructibleBuildController dbc) && 
@@ -1549,7 +1566,7 @@ public class DevTool
             if (dbc.IsBroken)
                 _CanInteract = false;
 
-            return "SHOP";
+            return CSVManager.Instance.Get_StaticWord(2);
         }
 
 
@@ -1558,7 +1575,7 @@ public class DevTool
             if (!elevator.IsOn)
                 _CanInteract = false;
 
-            return "NEXT STAGE";
+            return CSVManager.Instance.Get_StaticWord(3);
         }
 
         return "";

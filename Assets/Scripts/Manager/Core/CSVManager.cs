@@ -7,84 +7,42 @@ public class CSVManager : PersistentSingleton<CSVManager>
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
-    [Header("<><><><><> SCV")]
+    [Header("<><><><><> CSV")]
 
     [Space(10)]
     [Header("=== CSV")]
 
-    #region - Event
-
     [Space(5)]
-    [Header("-- Event")]
-    [SerializeField] private TextAsset EventID_CSV;
-    [SerializeField] private TextAsset EventElement_CSV;
+    [Header("=== Map")]
+    [SerializeField] private int KindOfMapAmount;
+    [SerializeField] private List<int> EachKindOfMapAmount;
+
+    #endregion
+
+    #region - Hide
 
     // 이벤트
     [HideInInspector] private List<EventID> EventID_Data;
     [HideInInspector] private List<EventElement> EventElement_Data;
 
-    #endregion
-
-    #region - Dialogue
-
-    [Space(5)]
-    [Header("-- Dialogue")]
-    [SerializeField] private List<TextAsset> DialogueElement_CSVList;
-    [SerializeField] private TextAsset DialougeID_CSV;
-
-
     // 다이얼로그
-    [HideInInspector] private List<List<DialogueElement>> DialogueElement_DataList;
+    [HideInInspector] private List<List<DialogueElement>> DialogueElement_DataList = new List<List<DialogueElement>>();
     [HideInInspector] private List<DialogueID> DialogueID_Data;
 
-    #endregion
-
-    #region - Word
-
-    [Space(5)]
-    [Header("-- Word")]
-    [SerializeField] private TextAsset MapName_CSV;
-    [SerializeField] private TextAsset MapDesc_CSV;
-
-    // Word
+    // 워드
+    [HideInInspector] private WordData StaticWord_Data;
     // 맵 이름
     [HideInInspector] private WordData MapName_Data;
     [HideInInspector] private WordData MapDesc_Data;
 
-    #endregion
-
-    #region - Sprite
-
-    [Space(10)]
-    [Header("=== Sprite")]
-
-    [Space(5)]
-    [Header("-- Character")]
-    [SerializeField] private Texture2D CharacterImg_000;
-
-    [Space(5)]
-    [Header("-- Map")]
-    [Space(5)]
-    [SerializeField] private List<Texture2D> Map00;
-
-    [SerializeField] private List<Texture2D> Map01;
-
-
-    // Data
+    // 스프라이트
     [HideInInspector] private List<Sprite> CharacterImgList_Data;
 
     [HideInInspector] public List<List<Sprite>> MapImgList_Data;
     [HideInInspector] public List<List<int>> MapMaterialIndexList_Data;
-
-    // Path
-    [HideInInspector] private string SpritePath = "Sprite/";
-
-    [HideInInspector] private string CharacterImg_Path = "Character/";
-
-    [HideInInspector] private string Map_Path = "Map/";
-    [HideInInspector] private string Map00_Path = "Map00/";
-    [HideInInspector] private string Map01_Path = "Map01/";
 
     #endregion
 
@@ -94,17 +52,31 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
     private void Offset_CSV()
     {
-        EventElement_Data = Offset_EventElementList(EventElement_CSV);
-        EventID_Data = Offset_EventIDList(EventID_CSV);
+        // Event
+        string eventPath = "CSV/Event/";
+        EventElement_Data = Offset_EventElementList(eventPath, 
+            "EventElement");
+        EventID_Data = Offset_EventIDList(eventPath, 
+            "EventID");
 
-        DialogueElement_DataList = new List<List<DialogueElement>>();
-        for (int i = 0; i < DialogueElement_CSVList.Count; i++)
-            DialogueElement_DataList.Add(Offset_DialougeEleventList(DialogueElement_CSVList[i]));
+        // Dialogue
+        string dialoguePath = "CSV/Dialogue/";
+        for (int i = 0; i < GameManager.KindOfLanguage.Count; i++)
+            DialogueElement_DataList.Add(Offset_DialougeEleventList(dialoguePath, 
+                $"DialogueElement_{GameManager.KindOfLanguage[i]}"));
         
-        DialogueID_Data = Offset_DialougeIDList(DialougeID_CSV);
+        DialogueID_Data = Offset_DialougeIDList(dialoguePath, 
+            "DialogueID");
 
-        MapName_Data = Offset_WordData(MapName_CSV);
-        MapDesc_Data = Offset_WordData(MapDesc_CSV);
+        // Word
+        string wordPath = "CSV/Word/";
+        StaticWord_Data = Offset_WordData(wordPath,
+            "StaticWordCSV");
+
+        MapName_Data = Offset_WordData(wordPath, 
+            "MapNameCSV");
+        MapDesc_Data = Offset_WordData(wordPath, 
+            "MapDescCSV");
     }
 
     private void Offset_CharImg()
@@ -112,31 +84,28 @@ public class CSVManager : PersistentSingleton<CSVManager>
         // Char
         CharacterImgList_Data = new List<Sprite>();
         CharacterImgList_Data.AddRange(
-            Offset_ImgPath(CharacterImg_000, SpritePath + CharacterImg_Path));
-
+            Offset_ImgPath(
+                "Sprite/Character/",
+                "UI_CharacterImg_000"));
     }
 
     private void Offset_MapImg()
     {
         // Map
-        List<List<Texture2D>> spriteDoubleList = new List<List<Texture2D>>
-        { Map00, Map01 };
-
-        List<string> spriteMap_Path = new List<string>()
-        { Map00_Path, Map01_Path };
-
         MapImgList_Data = new List<List<Sprite>>();
         MapMaterialIndexList_Data = new List<List<int>>();
 
-        for (int i = 0; i < spriteDoubleList.Count; i++)
+        for (int i = 0; i < KindOfMapAmount; i++)
         {
             MapImgList_Data.Add(new List<Sprite>());
             MapMaterialIndexList_Data.Add(new List<int>());
 
-            for (int j = 0; j < spriteDoubleList[i].Count; j++)
+            for (int j = 0; j < EachKindOfMapAmount[i]; j++)
             {
                 MapImgList_Data[i].AddRange(
-                    Offset_ImgPath(spriteDoubleList[i][j], SpritePath + Map_Path + spriteMap_Path[i]));
+                    Offset_ImgPath(
+                        $"Sprite/Map/Map{DevTool.Get_LengthString(i, 2)}/",
+                        $"Map{DevTool.Get_LengthString(i, 2)}_{DevTool.Get_LengthString(j, 3)}"));
 
                 for (int k = 0; k < MapImgList_Data[i].Count; k++)
                     MapMaterialIndexList_Data[i].Add(j);
@@ -216,11 +185,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
     #region To Event ID
 
     // 오프셋
-    private List<EventID> Offset_EventIDList(TextAsset _TextAsset)
+    private List<EventID> Offset_EventIDList(string _Path, string _FileName)
     {
         List<EventID> result = new List<EventID>();
 
-        List<List<string>> stringList = Get_DoubleList(_TextAsset);
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
 
         for (int i = 1; i < stringList.Count; i++)
         {
@@ -260,11 +229,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
     #region To Event Element
 
     // 오프셋
-    private List<EventElement> Offset_EventElementList(TextAsset _TextAsset)
+    private List<EventElement> Offset_EventElementList(string _Path, string _FileName)
     {
         List<EventElement> result = new List<EventElement>();
 
-        List<List<string>> stringList = Get_DoubleList(_TextAsset);
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
 
         for (int i = 1; i < stringList.Count; i++)
         {
@@ -366,11 +335,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
     #region To DialougeID
 
     // 오프셋
-    private List<DialogueID> Offset_DialougeIDList(TextAsset _TextAsset)
+    private List<DialogueID> Offset_DialougeIDList(string _Path, string _FileName)
     {
         List<DialogueID> result = new List<DialogueID>();
 
-        List<List<string>> stringList = Get_DoubleList(_TextAsset);
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
 
         for (int i = 1; i < stringList.Count; i++)
         {
@@ -412,11 +381,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
     // 오프셋
 
-    private List<DialogueElement> Offset_DialougeEleventList(TextAsset _TextAsset)
+    private List<DialogueElement> Offset_DialougeEleventList(string _Path, string _FileName)
     {
         List<DialogueElement> result = new List<DialogueElement>();
 
-        List<List<string>> stringList = Get_DoubleList(_TextAsset);
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
 
         for (int i = 1; i < stringList.Count; i++)
         {
@@ -454,11 +423,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
     #region Offset
 
-    private WordData Offset_WordData(TextAsset _TextAsset)
+    private WordData Offset_WordData(string _Path, string _FileName)
     {
         List<WordElementData> element = new List<WordElementData>();
 
-        List<List<string>> stringList = Get_DoubleList(_TextAsset);
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
 
         for (int i = 1; i < stringList.Count; i++)
         {
@@ -467,7 +436,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
             List<string> nameList = new List<string>();
             int id = int.Parse(stringList[i][0]);
             
-            for (int j = 0; j < GameManager.KindOfLanguageAmount; j++)
+            for (int j = 0; j < GameManager.KindOfLanguage.Count; j++)
             {
                 nameList.Add(stringList[i][j + 1]);
             }
@@ -481,6 +450,13 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
     #region Get 
 
+    // Static
+    public string Get_StaticWord(int _ID)
+    {
+        return StaticWord_Data.Get_Word(_ID);
+    }
+
+    // Map
     public string Get_MapName(int _ID)
     {
         return MapName_Data.Get_Word(_ID);
@@ -497,13 +473,10 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
     #region To SpriteList
 
-    private List<Sprite> Offset_ImgPath(Texture2D _Texture2D, string _Path)
+    private List<Sprite> Offset_ImgPath(string _Path, string _FileName)
     {
         List<Sprite> result = new List<Sprite>();
-        if (_Texture2D != null)
-            return Resources.LoadAll<Sprite>(_Path + _Texture2D.name).ToList();
-        else
-            return result;
+        return Resources.LoadAll<Sprite>(_Path + _FileName).ToList();
     }
 
     public Sprite Get_CorrectCharacterImg(int _ID)
