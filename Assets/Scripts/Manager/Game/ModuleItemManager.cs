@@ -64,6 +64,15 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     private void Offset()
     {
+        ItemDataList = new List<ItemData>();
+        for (int i = 0; i < CSVManager.Instance.Get_AllModuleItemAmount(); i++)
+            ItemDataList.Add(CSVManager.Instance.Get_ItemData(i));
+
+        MainChipDataList = new List<MainChipData>();
+        for (int i = 0; i < CSVManager.Instance.Get_AllModuleSynchronyAmount(); i++)
+            MainChipDataList.Add(CSVManager.Instance.Get_MainChipData(i));
+        
+
         // 모든 MS List를 Null 값을 사용해 빈 공간을 지정
         for (int i = 0; i < ColumnAmount; i++)
         {

@@ -1121,6 +1121,7 @@ Transform:
   - {fileID: 988178045}
   - {fileID: 2063873104}
   - {fileID: 911501361}
+  - {fileID: 2134767816}
   - {fileID: 1638622684}
   - {fileID: 16263663}
   m_Father: {fileID: 0}
@@ -2147,7 +2148,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.9996413
+      value: -2.47
       objectReference: {fileID: 0}
     - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3077,16 +3078,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4324ac4fb584e16409bdc9916ef1e5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EventID_CSV: {fileID: 4900000, guid: 3d429345d06db7548bc3713e045eedbc, type: 3}
-  EventElement_CSV: {fileID: 4900000, guid: eeaa71b621eae2d47b90152c486037d7, type: 3}
-  DialogueElement_CSVList:
-  - {fileID: 4900000, guid: e614e52b2fb2e4748afb9fa58d941342, type: 3}
-  - {fileID: 4900000, guid: 4322d49779dd6f44c98fb8b098cce3a4, type: 3}
-  DialougeID_CSV: {fileID: 4900000, guid: ba37bbb95d36b80459a01b6709c624dd, type: 3}
-  StaticWord_CSV: {fileID: 4900000, guid: 5235ea3a08897aa4ea4c9cb214647ce9, type: 3}
-  MapName_CSV: {fileID: 4900000, guid: 573641ad07713d6459657140eee057a4, type: 3}
-  MapDesc_CSV: {fileID: 4900000, guid: 388e046478968744cbef27789ad659c4, type: 3}
-  CharacterImg_000: {fileID: 2800000, guid: 318ada3361e9e01408b77f966494e1d1, type: 3}
   KindOfMapAmount: 2
   EachKindOfMapAmount: 0200000001000000
 --- !u!4 &830584170
@@ -3362,11 +3353,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4995045585254079196, guid: f99b58e75fa03314888f75f023a6c8df, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.26
+      value: -5.41
       objectReference: {fileID: 0}
     - target: {fileID: 4995045585254079196, guid: f99b58e75fa03314888f75f023a6c8df, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.83
+      value: 4.67
       objectReference: {fileID: 0}
     - target: {fileID: 4995045585254079196, guid: f99b58e75fa03314888f75f023a6c8df, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7630,131 +7621,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8641267fcbb6cd48a4f143288053176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemDataList:
-  - ID: 0
-    Rank: 1
-    Name: Energy's Shadow
-    Description: The first work of some tactician.
-    EquipDescription: Occasionally, It releases aggressive guided missile energy.
-    ItemIcon: {fileID: 991301374, guid: c717f916ee152e443905fca7739d1dba, type: 3}
-    R1_MainChipID: 0
-    R3_MainChipID: 8
-    R5_MainChipID: 7
-    BoostLv: 1
-  - ID: 1
-    Rank: 1
-    Name: Power's Shadow
-    Description: At first, He hated this situation.
-    EquipDescription: Occasionally, It releases aggressive guided missile Physic.
-    ItemIcon: {fileID: -1689976493, guid: c717f916ee152e443905fca7739d1dba, type: 3}
-    R1_MainChipID: 0
-    R3_MainChipID: 8
-    R5_MainChipID: 7
-    BoostLv: 1
-  - ID: 2
-    Rank: 1
-    Name: CritiFlame
-    Description: Critically, Flame!
-    EquipDescription: When a critical hit occurs, it gives the condition a Flame.
-    ItemIcon: {fileID: 2021351045, guid: c717f916ee152e443905fca7739d1dba, type: 3}
-    R1_MainChipID: 5
-    R3_MainChipID: 1
-    R5_MainChipID: 6
-    BoostLv: 1
-  - ID: 3
-    Rank: 1
-    Name: CritiCold
-    Description: Critically, Cold!
-    EquipDescription: When a critical hit occurs, it gives the condition a Cold.
-    ItemIcon: {fileID: -566749013, guid: c717f916ee152e443905fca7739d1dba, type: 3}
-    R1_MainChipID: 5
-    R3_MainChipID: 2
-    R5_MainChipID: 6
-    BoostLv: 1
-  - ID: 4
-    Rank: 1
-    Name: CritiElectric
-    Description: Critically, Electric!
-    EquipDescription: When a critical hit occurs, it gives the condition a Electric.
-    ItemIcon: {fileID: -1625873778, guid: c717f916ee152e443905fca7739d1dba, type: 3}
-    R1_MainChipID: 5
-    R3_MainChipID: 3
-    R5_MainChipID: 6
-    BoostLv: 1
-  - ID: 5
-    Rank: 1
-    Name: CritiCorrision
-    Description: Critically, Corrosion!
-    EquipDescription: When a critical hit occurs, it gives the condition a Corrosion.
-    ItemIcon: {fileID: -1614071151, guid: c717f916ee152e443905fca7739d1dba, type: 3}
-    R1_MainChipID: 5
-    R3_MainChipID: 4
-    R5_MainChipID: 6
-    BoostLv: 1
-  MainChipDataList:
-  - ThisIcon: {fileID: 1185498868, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-    ID: 0
-    Name: Derivative
-    AmalgamationDescList:
-    - aaa
-    - sss
-    - ddd
-  - ThisIcon: {fileID: 1531991612, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-    ID: 1
-    Name: Flame
-    AmalgamationDescList:
-    - aaa
-    - sss
-    - ddd
-  - ThisIcon: {fileID: -1539627603, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-    ID: 2
-    Name: Cold
-    AmalgamationDescList:
-    - aaa
-    - sss
-    - ddd
-  - ThisIcon: {fileID: -666651944, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-    ID: 3
-    Name: Electricity
-    AmalgamationDescList:
-    - aaa
-    - sss
-    - ddd
-  - ThisIcon: {fileID: 833797663, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-    ID: 4
-    Name: Corrosion
-    AmalgamationDescList:
-    - aaa
-    - sss
-    - ddd
-  - ThisIcon: {fileID: -1046482500, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-    ID: 5
-    Name: Effect Of Weakness
-    AmalgamationDescList:
-    - aaa
-    - sss
-    - ddd
-  - ThisIcon: {fileID: -1367252646, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-    ID: 6
-    Name: Fatal Blow
-    AmalgamationDescList:
-    - aaa
-    - sss
-    - ddd
-  - ThisIcon: {fileID: 1809654190, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-    ID: 7
-    Name: Firepower
-    AmalgamationDescList:
-    - aaa
-    - sss
-    - ddd
-  - ThisIcon: {fileID: 810706245, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-    ID: 8
-    Name: ReadyForFire
-    AmalgamationDescList:
-    - aaa
-    - sss
-    - ddd
+  ItemDataList: []
+  MainChipDataList: []
   RankIconList:
   - {fileID: -2071839289, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
   - {fileID: 1624950903, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
@@ -8068,11 +7936,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4995045585254079196, guid: 251ad17552de25b468cade0a1ce29d90, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.11
+      value: -7.26
       objectReference: {fileID: 0}
     - target: {fileID: 4995045585254079196, guid: 251ad17552de25b468cade0a1ce29d90, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.58
+      value: 4.42
       objectReference: {fileID: 0}
     - target: {fileID: 4995045585254079196, guid: 251ad17552de25b468cade0a1ce29d90, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8519,6 +8387,76 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5956502316695661957, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
   m_PrefabInstance: {fileID: 2123631901}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2134767815
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 392753597}
+    m_Modifications:
+    - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.9996413
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.7703656
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.046700094
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_Name
+      value: BaseUpgradeShop (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830729734699832537, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: ThisMaxDurablity
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+--- !u!4 &2134767816 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4995045585254079196, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+  m_PrefabInstance: {fileID: 2134767815}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2138783731
 PrefabInstance:

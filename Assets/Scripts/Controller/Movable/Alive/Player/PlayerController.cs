@@ -72,9 +72,6 @@ public class PlayerController : AliveObjectController
     [SerializeField] public GameObject AimPrefab;
     [SerializeField] public GameObject AimRoundPrefab;
 
-    [SerializeField] public List<string> BUUITabStringList;
-    [SerializeField] public List<string> MUUITabStringList;
-
     #endregion
 
     #region - Hide

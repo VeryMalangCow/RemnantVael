@@ -877,8 +877,8 @@ TextureImporter:
       name: MUUI_Lock_3
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1
+        x: 492
+        y: 492
         width: 19
         height: 19
       alignment: 0
@@ -898,8 +898,8 @@ TextureImporter:
       name: MUUI_Lock_5
       rect:
         serializedVersion: 2
-        x: 21
-        y: 1
+        x: 492
+        y: 472
         width: 19
         height: 19
       alignment: 0
@@ -911,195 +911,6 @@ TextureImporter:
       bones: []
       spriteID: bbf9bcf36db93ff4181e435488ec5e4c
       internalID: 683755660
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MUUI_ReadyForFire
-      rect:
-        serializedVersion: 2
-        x: 41
-        y: 1
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3622bc6d66c00c040ae054abc2141b13
-      internalID: 810706245
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MUUI_Derivative
-      rect:
-        serializedVersion: 2
-        x: 61
-        y: 1
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2c0e45018f27a654b969fcd39d90920e
-      internalID: 1185498868
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MUUI_Firepower
-      rect:
-        serializedVersion: 2
-        x: 81
-        y: 1
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 909373d9f333e134ca5ddc0e8b98f800
-      internalID: 1809654190
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MUUI_Flame
-      rect:
-        serializedVersion: 2
-        x: 101
-        y: 1
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 25dddb229c14a7345a257104600bfd23
-      internalID: 1531991612
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MUUI_Cold
-      rect:
-        serializedVersion: 2
-        x: 121
-        y: 1
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2310da5011d780c46974afbf816dd336
-      internalID: -1539627603
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MUUI_Electricity
-      rect:
-        serializedVersion: 2
-        x: 141
-        y: 1
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6107be1fb815f474382025092bcc37e4
-      internalID: -666651944
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MUUI_Corrosion
-      rect:
-        serializedVersion: 2
-        x: 161
-        y: 1
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 420a78e184d6ea84d922c5312224c73f
-      internalID: 833797663
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MUUI_EffectOfWeakness
-      rect:
-        serializedVersion: 2
-        x: 181
-        y: 1
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7c70b4e224439fc44a6e446619936796
-      internalID: -1046482500
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MUUI_FatalBlow
-      rect:
-        serializedVersion: 2
-        x: 201
-        y: 1
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6882d524cda80314ab154149a4c5ab3b
-      internalID: -1367252646
       vertices: []
       indices: 
       edges: []
@@ -1176,7 +987,7 @@ TextureImporter:
         width: 75
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

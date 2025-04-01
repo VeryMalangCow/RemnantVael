@@ -11,6 +11,7 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] public CameraController CameraController;
 
     [HideInInspector] public PlayerController PlayerController;
+    [HideInInspector] public static int KindOfPlayerAmount = 1;
 
     #endregion
 

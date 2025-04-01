@@ -40,7 +40,7 @@ public class DescBUEUIController : ElementUIController
 
 
     [Space(10)]
-    [Header("=== Contrast")]
+    [Header("=== Right")]
 
     [Space(5)]
     [Header("-- Txt")]
@@ -71,9 +71,6 @@ public class DescBUEUIController : ElementUIController
 
     [HideInInspector] public Image CurrentRangeImg;
 
-    // Other
-    [HideInInspector] private RectTransform ThisRT;
-
     #endregion
 
     #endregion
@@ -82,9 +79,12 @@ public class DescBUEUIController : ElementUIController
 
     public override void Offset()
     {
-        ThisRT = 
-            DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? 
-            rt : null;
+        // String
+        LeftLVTxt.text = CSVManager.Instance.Get_StaticWord(34);
+        LeftValueTxt.text = CSVManager.Instance.Get_StaticWord(35);
+
+        RightLVTxt.text = CSVManager.Instance.Get_StaticWord(34);
+        RightValueTxt.text = CSVManager.Instance.Get_StaticWord(35);
 
         CurrentRangeImg =
             DevTool.Get_ComponentTType(CurrentRangeRT.gameObject, out Image img) ? 
@@ -92,16 +92,18 @@ public class DescBUEUIController : ElementUIController
 
         LeftLVTxtList = DevTool.Get_ChildList<TMP_Text>(LeftLVTxtParentTF);
         LeftValueTxtList = DevTool.Get_ChildList<TMP_Text>(LeftValueTxtParentTF);
+
+        DevTool.Get_ComponentTType<TMP_Text>(CompletedSignGO.transform.GetChild(0).gameObject).text = CSVManager.Instance.Get_StaticWord(48);
     }
 
     #endregion
 
     #region Desc
 
-    public void SetOn_Desc<T>(BUState<T> _State)
+    public void SetOn_Desc<T>(BUState<T> _State, string _Name)
     {
         // Center
-        SetOn_Center(_State.Name);
+        SetOn_Center(_Name);
 
         // Left
         SetOn_Left_State(_State);
@@ -153,13 +155,13 @@ public class DescBUEUIController : ElementUIController
             {
                 float value = float.Parse(_State.UpgradeValueByLevelRange[i].ToString());
                 stateString = value.ToString();
-                symbol = value > 0 ? "+" : "-";
+                symbol = value > 0 ? "+" : "";
             }
             else if (_State.BaseState.GetType() == typeof(int))
             {
                 int value = int.Parse(_State.UpgradeValueByLevelRange[i].ToString());
                 stateString = value.ToString();
-                symbol = value > 0 ? "+" : "-";
+                symbol = value > 0 ? "+" : "";
             }
 
             LeftValueTxtList[i].text = symbol + stateString;
@@ -227,15 +229,10 @@ public class DescBUEUIController : ElementUIController
         List<Component> result = new List<Component>()
         {
             CenterNameTxt,
-
             CurrentRangeImg,
-
-            LeftValueTxt,
-            LeftLVTxt,
 
             NextLvTxt,
             NextStateTxt,
-            RightValueTxt
         };
 
         result.AddRange(LeftValueTxtList);
@@ -249,7 +246,11 @@ public class DescBUEUIController : ElementUIController
     {
         List<Component> result = new List<Component>()
         {
-            RightLVTxt
+            LeftLVTxt,
+            LeftValueTxt,
+
+            RightLVTxt,
+            RightValueTxt
         };
 
         return result;

@@ -38,37 +38,6 @@ public class PanelUIController : UIController
 
     #endregion
 
-    #region Offset
-
-    public override void Offset()
-    {
-        base.Offset();
-
-        Offset_TabBtn_Txt();
-    }
-
-    // Tab Btn의 텍스트를 설정
-    protected void Offset_TabBtn_Txt()
-    {
-        List<string> tabTxtList = new List<string>();
-
-        if (this is BaseUpgradeUIController)
-            tabTxtList = PlayerManager.Instance.PlayerController.BUUITabStringList;
-
-        else if (this is ModuleUpgradeUIController)
-            tabTxtList = PlayerManager.Instance.PlayerController.MUUITabStringList;
-
-        else if (this is OutMainGameUIController)
-            tabTxtList = new List<string> { "Standby" };
-
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
-        {
-            ThisPanelTabList[i].ThisTabBtn.Offset_Txt(tabTxtList[i]);
-        }
-    }
-
-    #endregion
-
     #region Set Panel
 
     public virtual void SetOn_ThisPanel()

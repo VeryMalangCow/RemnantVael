@@ -32,17 +32,42 @@ public class CSVManager : PersistentSingleton<CSVManager>
     [HideInInspector] private List<List<DialogueElement>> DialogueElement_DataList = new List<List<DialogueElement>>();
     [HideInInspector] private List<DialogueID> DialogueID_Data;
 
+    // 모듀
+    [HideInInspector] private List<ModuleBaseData> ModuleBaseList_Data;
+
     // 워드
+    // 스태틱
     [HideInInspector] private WordData StaticWord_Data;
     // 맵 이름
     [HideInInspector] private WordData MapName_Data;
     [HideInInspector] private WordData MapDesc_Data;
+    // 스킬
+    [HideInInspector] private List<WordData> SkillName_Data;
+    // 모듈
+    [HideInInspector] private WordData ModuleItemName_Data;
+    [HideInInspector] private WordData MainChipName_Data;
+
+    // 문장
+    // 스태틱
+    [HideInInspector] private WordData StaticDesc_Data;
+    // 스킬
+    [HideInInspector] private List<WordData> SkillDesc_Data;
+    // 모듈
+    [HideInInspector] private WordData ModuleItemDesc_Data;
+    [HideInInspector] private WordData ModuleItemEquipDesc_Data;
+    [SerializeField] private List<WordData> MainChipDescList_Data;
 
     // 스프라이트
+    // 캐릭터
     [HideInInspector] private List<Sprite> CharacterImgList_Data;
 
+    // 맵
     [HideInInspector] public List<List<Sprite>> MapImgList_Data;
     [HideInInspector] public List<List<int>> MapMaterialIndexList_Data;
+
+    // 모듈
+    [HideInInspector] private List<Sprite> ModuleItemImgList_Data;
+    [HideInInspector] private List<Sprite> ModuleSynhronyImgList_Data;
 
     #endregion
 
@@ -68,15 +93,48 @@ public class CSVManager : PersistentSingleton<CSVManager>
         DialogueID_Data = Offset_DialougeIDList(dialoguePath, 
             "DialogueID");
 
+        // ModuleBase
+        string modulePath = "CSV/Module/";
+        ModuleBaseList_Data = Offset_ModuleBase(modulePath, 
+            "ModuleCSV");
+
+
         // Word
+        // Static
         string wordPath = "CSV/Word/";
         StaticWord_Data = Offset_WordData(wordPath,
             "StaticWordCSV");
-
+        // Map
         MapName_Data = Offset_WordData(wordPath, 
             "MapNameCSV");
-        MapDesc_Data = Offset_WordData(wordPath, 
+        // Skill
+        SkillName_Data = Offset_WordDataList_ForParentID(wordPath,
+            "SkillNameCSV", PlayerManager.KindOfPlayerAmount);
+        // Module
+        ModuleItemName_Data = Offset_WordData(wordPath,
+            "ModuleNameCSV");
+        // MainChip
+        MainChipName_Data = Offset_WordData(wordPath,
+            "MainChipNameCSV");
+
+        // Desc
+        // Static
+        string descPath = "CSV/Desc/";
+        StaticDesc_Data = Offset_WordData(descPath,
+            "StaticDescCSV");
+        // Map
+        MapDesc_Data = Offset_WordData(descPath,
             "MapDescCSV");
+        // Skill
+        SkillDesc_Data = Offset_WordDataList_ForParentID(descPath,
+            "SkillDescCSV", PlayerManager.KindOfPlayerAmount);
+        // Module
+        ModuleItemDesc_Data = Offset_WordData(descPath,
+            "ModuleDescCSV");
+        ModuleItemEquipDesc_Data = Offset_WordData(descPath,
+            "ModuleEquipDescCSV");
+        MainChipDescList_Data = Offset_WordDataList_ForParentID(descPath,
+            "MainChipDescCSV", MainChipName_Data.AllWordData.Count);
     }
 
     private void Offset_CharImg()
@@ -113,11 +171,27 @@ public class CSVManager : PersistentSingleton<CSVManager>
         }
     }
 
+    private void Offset_ModuleItemImg()
+    {
+        ModuleItemImgList_Data = new List<Sprite>();
+        ModuleItemImgList_Data.AddRange(
+            Offset_ImgPath(
+                "Sprite/UI/",
+                "MUUI_Item_000"));
+
+        ModuleSynhronyImgList_Data = new List<Sprite>();
+        ModuleSynhronyImgList_Data.AddRange(
+            Offset_ImgPath(
+                "Sprite/UI/",
+                "MUUI_Synchrony_000"));
+    }
+
     private void Offset()
     {
         Offset_CSV();
         Offset_CharImg();
         Offset_MapImg();
+        Offset_ModuleItemImg();
     }
 
     #endregion
@@ -412,16 +486,83 @@ public class CSVManager : PersistentSingleton<CSVManager>
             if (DialogueElement_DataList[GameManager.LanguageID][i].ID == _ID)
                 return DialogueElement_DataList[GameManager.LanguageID][i]; 
         
-
         return null;
     }
 
     #endregion
 
+    #region To Module Base
 
-    #region To MapName
+    private List<ModuleBaseData> Offset_ModuleBase(string _Path, string _FileName)
+    {
+        List<ModuleBaseData> result = new List<ModuleBaseData>();
+
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Count; i++)
+        {
+            if (stringList[i][0] == "")
+            { break; }
+
+            int id = int.Parse(stringList[i][0]);
+            int r1mainChip = int.Parse(stringList[i][1]);
+            int r3mainChip = int.Parse(stringList[i][2]);
+            int r5mainChip = int.Parse(stringList[i][3]);
+
+            result.Add(new ModuleBaseData(id, new List<int> { r1mainChip, r3mainChip, r5mainChip }));
+        }
+
+        return result;
+    }
+
+    public int Get_AllModuleItemAmount()
+    {
+        return ModuleBaseList_Data.Count;
+    }
+
+    public int Get_AllModuleSynchronyAmount()
+    {
+        return MainChipName_Data.AllWordData.Count;
+    }
+
+    #endregion
+
+    #region To Word | Desc
 
     #region Offset
+
+    private List<WordData> Offset_WordDataList_ForParentID(string _Path, string _FileName, int _Amount)
+    {
+        List<WordData> result = new List<WordData>();
+        for (int i = 0; i < _Amount; i++)
+            result.Add(Offset_WordData_ForParentID(_Path, _FileName, i));
+
+        return result;
+    }
+
+    private WordData Offset_WordData_ForParentID(string _Path, string _FileName, int _TargetParentID)
+    {
+        List<WordElementData> element = new List<WordElementData>();
+
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Count; i++)
+        {
+            if (stringList[i][0] == "") break;
+
+            if (int.Parse(stringList[i][0]) != _TargetParentID) continue;
+
+            List<string> nameList = new List<string>();
+            int id = int.Parse(stringList[i][1]);
+
+            for (int j = 1; j < GameManager.KindOfLanguage.Count + 1; j++)
+                nameList.Add(stringList[i][j + 1]);
+
+            element.Add(new WordElementData(id, nameList));
+        }
+
+        return new WordData(element);
+    }
 
     private WordData Offset_WordData(string _Path, string _FileName)
     {
@@ -437,9 +578,8 @@ public class CSVManager : PersistentSingleton<CSVManager>
             int id = int.Parse(stringList[i][0]);
             
             for (int j = 0; j < GameManager.KindOfLanguage.Count; j++)
-            {
                 nameList.Add(stringList[i][j + 1]);
-            }
+            
             element.Add(new WordElementData(id, nameList));
         }
 
@@ -456,6 +596,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
         return StaticWord_Data.Get_Word(_ID);
     }
 
+    public string Get_StaticDesc(int _ID)
+    {
+        return StaticDesc_Data.Get_Word(_ID);
+    }
+
     // Map
     public string Get_MapName(int _ID)
     {
@@ -465,6 +610,54 @@ public class CSVManager : PersistentSingleton<CSVManager>
     public string Get_MapDesc(int _ID)
     {
         return MapDesc_Data.Get_Word(_ID);
+    }
+
+    // Skill
+    public string Get_SkillName(int _PlayerID, int _ID)
+    {
+        return SkillName_Data[_PlayerID].Get_Word(_ID);
+    }
+    
+    public string Get_SkillDesc(int _PlayerID, int _ID)
+    {
+        return SkillDesc_Data[_PlayerID].Get_Word(_ID);
+    }
+
+    // Module
+    public ItemData Get_ItemData(int _ID)
+    {
+        ItemData result = new ItemData(_ID);
+
+        result.Name = ModuleItemName_Data.Get_Word(_ID);
+        result.Description = ModuleItemDesc_Data.Get_Word(_ID);
+        result.EquipDescription = ModuleItemEquipDesc_Data.Get_Word(_ID);
+
+        result.ItemIcon = ModuleItemImgList_Data[_ID];
+
+        result.R1_MainChipID = ModuleBaseList_Data[_ID].ModuleMainChip[0];
+        result.R3_MainChipID = ModuleBaseList_Data[_ID].ModuleMainChip[1];
+        result.R5_MainChipID = ModuleBaseList_Data[_ID].ModuleMainChip[2];
+
+        return result;
+    }
+
+    // MainChip
+    public MainChipData Get_MainChipData(int _ID)
+    {
+        MainChipData result = new MainChipData();
+
+        result.ID = _ID;
+        result.Name = MainChipName_Data.Get_Word(_ID);
+        result.AmalgamationDescList = new List<string> 
+        {
+            MainChipDescList_Data[_ID].Get_Word(0),
+            MainChipDescList_Data[_ID].Get_Word(1),
+            MainChipDescList_Data[_ID].Get_Word(2)
+        };
+
+        result.ThisIcon = ModuleSynhronyImgList_Data[_ID];
+
+        return result;
     }
 
     #endregion
@@ -482,6 +675,26 @@ public class CSVManager : PersistentSingleton<CSVManager>
     public Sprite Get_CorrectCharacterImg(int _ID)
     {
         return CharacterImgList_Data[_ID];
+    }
+
+    public List<Sprite> Get_StageMapSpriteList(int _ID)
+    {
+        return MapImgList_Data[_ID];
+    }
+
+    public List<int> Get_StageMapMaterialList(int _ID)
+    {
+        return MapMaterialIndexList_Data[_ID];
+    }
+
+    #endregion
+
+    #region Clear
+
+    public void Clear_MapImgMaterial()
+    {
+        MapImgList_Data.Clear();
+        MapMaterialIndexList_Data.Clear();
     }
 
     #endregion

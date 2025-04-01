@@ -29,8 +29,7 @@ public class DurablityEUIController : ElementUIController
 
     #region - Hide
 
-    [HideInInspector] public static string DurablityStringTxt = "Durablity";
-    [HideInInspector] public static string IsBrokenAnno = "Broken: Interaction is Limited";
+    [HideInInspector] public static string DurablityStringTxt;
     [HideInInspector] private List<Image> FillImgList;
 
     #endregion
@@ -41,6 +40,8 @@ public class DurablityEUIController : ElementUIController
 
     public override void Offset()
     {
+        DurablityStringTxt = CSVManager.Instance.Get_StaticWord(23);
+
         DurablityTxt.text = DurablityStringTxt + " :";
 
         FillImgList = new List<Image>();
@@ -50,7 +51,7 @@ public class DurablityEUIController : ElementUIController
             FillImgList.Add(img);
         }
 
-        BrokenTxt.text = IsBrokenAnno;
+        BrokenTxt.text = CSVManager.Instance.Get_StaticWord(24) + ": " + CSVManager.Instance.Get_StaticDesc(16);
         DevTool.Set_Color(BrokenTxtColor, BrokenTxt);
     }
 

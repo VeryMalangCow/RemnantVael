@@ -16,14 +16,13 @@ public class DescMUEUIController : ElementUIController
     [Header("=== Item")]
     [SerializeField] private Image ItemIconImg;
     [SerializeField] public TMP_Text ItemNameTxt;
-    [SerializeField] public TMP_Text ITemIntroTxt;
+    [SerializeField] public TMP_Text ItemIntroTxt;
 
     [Space(10)]
     [Header("=== Rank")]
     [SerializeField] private Image CurrentRankImg;
     [SerializeField] public TMP_Text CurrentRankTxt;
     [SerializeField] public TMP_Text CurrentActualRankTxt;
-    [SerializeField] private string ExtraString_Rank;
 
     [Space(5)]
     [Header("-- MainChip")]
@@ -49,7 +48,13 @@ public class DescMUEUIController : ElementUIController
     [SerializeField] private ImgTxtAmountEUIController CurrentBoostLvMIAT;
     [SerializeField] public TMP_Text CurrentBoostLvTxt;
     [SerializeField] public TMP_Text CurrentActualBoostLvTxt;
-    [SerializeField] private string ExtraString_BoostLv;
+
+    #endregion
+
+    #region - Hide
+
+    [HideInInspector] private string ExtraString_Rank;
+    [HideInInspector] private string ExtraString_BoostLv;
 
     #endregion
 
@@ -59,6 +64,10 @@ public class DescMUEUIController : ElementUIController
 
     public override void Offset()
     {
+        // string
+        ExtraString_Rank = CSVManager.Instance.Get_StaticWord(25);
+        ExtraString_BoostLv = $"{CSVManager.Instance.Get_StaticWord(49)} {CSVManager.Instance.Get_StaticWord(34)}";
+
         CurrentBoostLvMIAT.Offset();
 
         ItemIconImg.color = new Color(1, 1, 1, 0);
@@ -82,7 +91,7 @@ public class DescMUEUIController : ElementUIController
         ItemIconImg.color = new Color(1, 1, 1, 1);
         ItemIconImg.sprite = ModuleItemManager.Instance.Get_CorrectItemIcon(_ID);
         ItemNameTxt.text = _Name;
-        ITemIntroTxt.text = _Desc;
+        ItemIntroTxt.text = _Desc;
     }
 
     private void SetOn_Rank(int _Rank)
@@ -205,7 +214,7 @@ public class DescMUEUIController : ElementUIController
         // Item
         ItemIconImg.color = new Color(1, 1, 1, 0);
         ItemNameTxt.text = "-";
-        ITemIntroTxt.text = "-";
+        ItemIntroTxt.text = "-";
 
         // Rank
         CurrentRankImg.color = new Color(1, 1, 1, 0);
@@ -246,7 +255,7 @@ public class DescMUEUIController : ElementUIController
     {
         List<Component> result = new List<Component>()
         {
-            ITemIntroTxt,
+            ItemIntroTxt,
             CurrentRankTxt,
             CurrentBoostLvTxt
         };

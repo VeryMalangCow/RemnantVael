@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,9 +34,11 @@ public class OutMainGameUIController : PanelUIController
     {
         base.Offset();
 
-        Offset_Btn();
+        Offset_Btn(); 
+        Offset_Txt();
         Offset_ColorComp();
     }
+
 
     private void Offset_Btn()
     {
@@ -47,6 +50,15 @@ public class OutMainGameUIController : PanelUIController
         QuitBtn.OwnerUIController = this;
 
         InnerImgs = DevTool.Get_ChildList<Image>(InnerParentTF);
+    }
+
+    private void Offset_Txt()
+    {
+        ThisPanelTabList[0].ThisTabBtn.ThisTxt.text = CSVManager.Instance.Get_StaticWord(22);
+
+        DevTool.Get_ComponentTType<TMP_Text>(ResumeBtn.gameObject.transform.GetChild(0).gameObject).text = CSVManager.Instance.Get_StaticWord(19);
+        DevTool.Get_ComponentTType<TMP_Text>(OptionBtn.gameObject.transform.GetChild(0).gameObject).text = CSVManager.Instance.Get_StaticWord(20);
+        DevTool.Get_ComponentTType<TMP_Text>(QuitBtn.gameObject.transform.GetChild(0).gameObject).text = CSVManager.Instance.Get_StaticWord(21);
     }
 
     private void Offset_ColorComp()

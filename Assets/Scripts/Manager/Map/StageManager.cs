@@ -66,11 +66,10 @@ public class StageManager : Singleton<StageManager>
     {
         for (int i = 0; i < AllStageData.Count; i++)
         {
-            AllStageData[i].Offset(CSVManager.Instance.MapImgList_Data[i], CSVManager.Instance.MapMaterialIndexList_Data[i]);
+            AllStageData[i].Offset(CSVManager.Instance.Get_StageMapSpriteList(i), CSVManager.Instance.Get_StageMapMaterialList(i));
         }
 
-        CSVManager.Instance.MapImgList_Data.Clear();
-        CSVManager.Instance.MapMaterialIndexList_Data.Clear();
+        CSVManager.Instance.Clear_MapImgMaterial();
     }
 
     #endregion

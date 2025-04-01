@@ -1,11 +1,8 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 using TMPro;
 using UniRx;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 
 public class ModuleUpgradeUIController : PanelUIController
@@ -43,6 +40,10 @@ public class ModuleUpgradeUIController : PanelUIController
     [Space(10)]
     [Header("=== Drag")]
     [SerializeField] private InventoryItemEUIController DragItemEUI;
+
+    [Space(10)]
+    [Header("=== Visual")]
+    [SerializeField] private List<TMP_Text> TabSideTxtList;
 
     #endregion
 
@@ -121,12 +122,13 @@ public class ModuleUpgradeUIController : PanelUIController
     #region - Hide
 
     // string
-    [HideInInspector] public static string LabelName = "MODULE UPGRADE SHOP";
-    [HideInInspector] public static string AmalgamationName = "Synchrony";
-    [HideInInspector] public static string Notice_Equiped = "This Module is Equipped";
-    [HideInInspector] public static string Warning_NotSameRank = "Not the same Rank";
-    [HideInInspector] public static string Warning_NotEnoughItem = "Not Enough Materials";
-    [HideInInspector] public static string Warning_AlreadyMaxLv = "It's already at the Maximum";
+    [HideInInspector] public static string LabelName;
+    [HideInInspector] public static List<string> TabBtnTxtList;
+    [HideInInspector] public static string AmalgamationName;
+    [HideInInspector] public static string Notice_Equiped;
+    [HideInInspector] public static string Warning_NotSameRank;
+    [HideInInspector] public static string Warning_NotEnoughItem;
+    [HideInInspector] public static string Warning_AlreadyMaxLv;
 
     // Current
     [HideInInspector] public InventoryItemEUIController CurrentItemBtn = null;
@@ -182,11 +184,27 @@ public class ModuleUpgradeUIController : PanelUIController
 
     private void Offset_Basic()
     {
-        // Tab
-        foreach (TabEUIController MET in ThisPanelTabList)
+        // String
+        LabelName = CSVManager.Instance.Get_StaticWord(27) + " " + CSVManager.Instance.Get_StaticWord(2);
+        TabBtnTxtList = new List<string>
         {
-            MET.Offset();
-            MET.ThisTabBtn.OwnerUIController = this;
+            CSVManager.Instance.Get_StaticWord(32),
+            CSVManager.Instance.Get_StaticWord(33),
+        };
+        AmalgamationName = CSVManager.Instance.Get_StaticWord(50);
+        Notice_Equiped = CSVManager.Instance.Get_StaticDesc(20);
+        Warning_NotSameRank = CSVManager.Instance.Get_StaticDesc(21);
+        Warning_NotEnoughItem = CSVManager.Instance.Get_StaticDesc(22);
+        Warning_AlreadyMaxLv = CSVManager.Instance.Get_StaticDesc(23);
+
+        // Tab
+        for (int i = 0; i < ThisPanelTabList.Count; i++)
+        {
+            ThisPanelTabList[i].Offset();
+            ThisPanelTabList[i].ThisTabBtn.OwnerUIController = this;
+
+            ThisPanelTabList[i].ThisTabBtn.Offset_Txt(TabBtnTxtList[i]);
+            TabSideTxtList[i].text = TabBtnTxtList[i];
         }
 
         // Label
@@ -201,6 +219,8 @@ public class ModuleUpgradeUIController : PanelUIController
         // Close
         CloseBtn.Offset();
         CloseBtn.OwnerUIController = this;
+        DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(0).gameObject).text =
+            CSVManager.Instance.Get_StaticWord(28);
 
         // Inventory
         Inventories = new List<InventoryEUIController>
@@ -270,11 +290,10 @@ public class ModuleUpgradeUIController : PanelUIController
     {
         Inventory_InForge.Offset();
 
-        for (int i = 0; i < ForgeInteractPanels.Count; i++)
-        {
-            ForgeInteractPanels[i].Offset(this);
-        }
-
+        ForgeInteractPanels[0].Offset(this, CSVManager.Instance.Get_StaticWord(51), CSVManager.Instance.Get_StaticDesc(24));
+        ForgeInteractPanels[1].Offset(this, CSVManager.Instance.Get_StaticWord(52), CSVManager.Instance.Get_StaticDesc(25));
+        ForgeInteractPanels[2].Offset(this, CSVManager.Instance.Get_StaticWord(53), CSVManager.Instance.Get_StaticDesc(26));
+        
         Offset_Forge_Decomposition();
         Offset_Forge_Fusion();
         Offset_Forge_Upgrade();
@@ -697,7 +716,7 @@ public class ModuleUpgradeUIController : PanelUIController
                 FusionSlotList[i].ThisItem.gameObject.SetActive(true);
                 FusionSlotList[i].ThisItem.Set_Data(new ItemData_UIVisual(data));
 
-                Inventory_InForge.Set_InventoryForgeSelectedUI(new CoupleData<int>(targetCol, targetRow), true, i + 1);
+                Inventory_InForge.Set_InventoryForgeSelectedUI(new CoupleData<int>(targetCol, targetRow), true, i);
             }
         }
 
@@ -788,13 +807,7 @@ public class ModuleUpgradeUIController : PanelUIController
             Set_Warning(true, Warning_NotSameRank);
             return;
         }
-        else if (ModuleItemManager.Get_MS_ForFusion(
-            ModuleItemManager.Instance.Get_ModuleState(index[0])) 
-                > PlayerManager.Instance.PlayerController.CurrentModuleShard.Value) // MS가 부족한가?
-        {
-            Set_Warning(true, Warning_NotEnoughItem);
-            return;
-        }
+
         for (int i = 0; i < index.Count; i++) // 이미 최대치인가?
         {
             if (ModuleItemManager.Instance.Get_ModuleState(index[i]).ThisItemData.Rank >= PlayerController.MaxRank)
@@ -803,6 +816,15 @@ public class ModuleUpgradeUIController : PanelUIController
                 return;
             }
         }
+
+        if (ModuleItemManager.Get_MS_ForFusion(
+            ModuleItemManager.Instance.Get_ModuleState(index[0])) 
+                > PlayerManager.Instance.PlayerController.CurrentModuleShard.Value) // MS가 부족한가?
+        {
+            Set_Warning(true, Warning_NotEnoughItem);
+            return;
+        }
+        
         for (int i = 0; i < index.Count; i++)
         {
             if (ModuleItemManager.Instance.Is_IncludeOnlyEquipped(index[i]))

@@ -67,6 +67,8 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
         ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
         ThisRT.sizeDelta = new Vector2(MinimumSize, ThisRT.sizeDelta.y);
         BuyBtn.Offset();
+        DevTool.Get_ComponentTType<TMP_Text>(CostImg.gameObject.transform.GetChild(0).gameObject).text = CSVManager.Instance.Get_StaticWord(46);
+        DevTool.Get_ComponentTType<TMP_Text>(BuyBtn.gameObject.transform.GetChild(0).gameObject).text = CSVManager.Instance.Get_StaticWord(47);
     }
 
     public void Offset(string _Name, string _Desc, BaseUpgradeUIController _Owner)
@@ -114,7 +116,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
         ThisRT.DOSizeDelta(new Vector2(MaximumSize, ThisRT.sizeDelta.y), SizeDeltaTime);
 
-        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(this);
+        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(this, SkillNameTxt.text);
     }
 
     public void OnPointerExit(PointerEventData eventData)

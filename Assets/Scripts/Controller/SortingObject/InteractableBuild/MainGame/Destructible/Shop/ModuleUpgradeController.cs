@@ -18,10 +18,7 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
 
     public static ModuleUpgradeController UsingShop = null;
 
-    [HideInInspector] public static string IsBrokenAnno = 
-        "<size=25&>Broken: Interaction is Limited</size>\n\n" +
-        "!!! If you close this window now, you will not be able to interact with this shop. !!!\n" +
-        "<size=50&>You are only allowed to Equip or Unequip.</size>";
+    [HideInInspector] public static string IsBrokenAnno;
 
     #endregion
 
@@ -29,6 +26,10 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
 
     protected override void Offset()
     {
+        IsBrokenAnno = $"<size=25&>{CSVManager.Instance.Get_StaticWord(24)}: {CSVManager.Instance.Get_StaticDesc(16)}</size>\n\n" +
+            $"{CSVManager.Instance.Get_StaticDesc(17)}\n" +
+            $"<size=50&>{CSVManager.Instance.Get_StaticDesc(19)}</size>";
+
         OnOffAC = UnitManager.Instance.MUShop_OnOffAC;
         OnOffStateAC = UnitManager.Instance.NeedChargeBettery_OnOffStateAC;
 

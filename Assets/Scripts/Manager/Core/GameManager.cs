@@ -2069,6 +2069,9 @@ public class BUShopData<T>
     [HideInInspector] public BUState<T> State;
     [HideInInspector] private BULevelData<T> LevelData;
 
+    [HideInInspector] public string Name;
+    [HideInInspector] public string Desc;
+
     #endregion
 
     #endregion
@@ -2079,19 +2082,22 @@ public class BUShopData<T>
         BUState<T> _State,
         BULevelData<T> _LevelData,
         List<BUShopData<T>> _AllList,
+        string _Name, string _Desc,
         BaseUpgradeUIController _Owner)
     {
         State = _State;
         LevelData = _LevelData;
 
-        UpgradeEUI.Offset(State.Name, State.Desc, _Owner);
+        Name = _Name;
+        Desc = _Desc;
+
+        UpgradeEUI.Offset(Name, Desc, _Owner);
 
         State.Offset(UpgradeEUI, LevelData);
         State.Set_BuffedState();
 
         _AllList.Add(this);
     }
-
 
     #endregion
 
@@ -2129,7 +2135,7 @@ public class BUShopData<T>
         UpgradeEUI.BuyBtn.ThisBtn.interactable = DevTool.BU_MaxLevel <= State.CurrentLevel.Value ? false : true;
 
         // Desc
-        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(UpgradeEUI);
+        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(UpgradeEUI, UpgradeEUI.SkillNameTxt.text);
     }
 
     #endregion
@@ -2532,19 +2538,15 @@ class ForgeInteractPanel
     [HideInInspector] public Tween rtTween = null;
 
     [Space(10)]
-    public string BtnString;
-    public string RoleString;
-
-    [Space(10)]
     public List<Image> InnerImgs;
 
     #endregion
 
-    public void Offset(ModuleUpgradeUIController _MUUC)
+    public void Offset(ModuleUpgradeUIController _MUUC, string _BtnName, string _BtnDesc)
     {
         PanelBtn.Offset();
 
-        PanelBtnTxt.text = BtnString;
+        PanelBtnTxt.text = _BtnName;
         PanelBtn.OwnerUIController = _MUUC;
 
         RoleBtn.Offset();
@@ -2552,10 +2554,10 @@ class ForgeInteractPanel
 
         PanelBtnCG = DevTool.Get_ComponentTType<CanvasGroup>(PanelBtn.gameObject);
 
-        RoleBtnTxt.text = ">>  " + BtnString + "  <<";
+        RoleBtnTxt.text = ">>  " + _BtnName + "  <<";
         RoleBtnTxtRT = DevTool.Get_ComponentTType<RectTransform>(RoleBtnTxt.gameObject);
 
-        RoleDescTxt.text = RoleString;
+        RoleDescTxt.text = _BtnDesc;
 
         rtTween = RoleBtnTxtRT.DOScale(1.15f, 1.0f)
                 .OnPlay(() => { RoleBtnTxtRT.localScale = Vector2.one; })
@@ -3390,6 +3392,7 @@ public class PlayerVisual<T>
 
 #region Class : CSV : Word
 
+[System.Serializable]
 public class WordData
 {
     public List<WordElementData> AllWordData;
@@ -3409,6 +3412,7 @@ public class WordData
     }
 }
 
+[System.Serializable]
 public class WordElementData
 {
     public int ID;
@@ -3418,6 +3422,23 @@ public class WordElementData
     {
         ID = _ID;
         Word = _MapName;
+    }
+}
+
+#endregion
+
+#region Class : CSV : ModuleInfo
+
+[System.Serializable]
+public class ModuleBaseData
+{
+    public int ID;
+    public List<int> ModuleMainChip;
+
+    public ModuleBaseData(int _ID, List<int> _MainChip)
+    {
+        ID = _ID;
+        ModuleMainChip = _MainChip;
     }
 }
 

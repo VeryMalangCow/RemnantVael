@@ -31,12 +31,10 @@ public class PlayerHUDController : UIController
 
     [Header("-- Player States")]
     [SerializeField] private RectTransform PlayerStatesCostParentRT;
-    [SerializeField] private List<string> PlayerStatesStringList;
     [SerializeField] private TMP_Text PlayerStatesTxt;
 
     [Header("-- Skill State")]
     [SerializeField] private RectTransform SkillStatesParentRT;
-    [SerializeField] private List<string> SkillStatesStringList;
     [SerializeField] private List<TMP_Text> SkillStatesTxtList;
 
     [Space(10)]
@@ -117,10 +115,12 @@ public class PlayerHUDController : UIController
     #region - Hide
 
     // String
-    [HideInInspector] private static string InteractEnableString = "-ENABLE-";
-    [HideInInspector] private static string InteractDisableString = "-DISABLE-";
-    [HideInInspector] private static string InteracInoperableString = "-INOPERABLE-";
-    [HideInInspector] private static string InteractNoneString = "< NONE >";
+    [HideInInspector] private static string InteractEnableString;
+    [HideInInspector] private static string InteractDisableString;
+    [HideInInspector] private static string InteracInoperableString;
+    [HideInInspector] private static string InteractNoneString;
+    [HideInInspector] private List<string> PlayerStatesStringList = new List<string>();
+    [HideInInspector] private List<string> SkillStatesStringList = new List<string>();
 
     // Comp
     [HideInInspector] public CanvasGroup ThisCG;
@@ -148,7 +148,6 @@ public class PlayerHUDController : UIController
 
     #endregion
 
-
     #region Offset
 
     public override void Offset()
@@ -165,6 +164,17 @@ public class PlayerHUDController : UIController
 
     private void Offset_Basic()
     {
+        InteractEnableString = CSVManager.Instance.Get_StaticWord(4);
+        InteractDisableString = CSVManager.Instance.Get_StaticWord(5);
+        InteracInoperableString = CSVManager.Instance.Get_StaticWord(6);
+        InteractNoneString = CSVManager.Instance.Get_StaticWord(7);
+
+        for (int i = 8; i <= 16; i++)
+            PlayerStatesStringList.Add(CSVManager.Instance.Get_StaticWord(i));
+
+        for (int i = 17; i <= 18; i++)
+            SkillStatesStringList.Add(CSVManager.Instance.Get_StaticWord(i));
+
         EP.Offset();
         CurrentEmptyBC.Offset();
         EmptyBC.Offset();
@@ -425,18 +435,18 @@ public class PlayerHUDController : UIController
         {
             if (canInteract)
             {
-                Set_InteractTxt(InteractEnableString, txt, InteractableColor);
+                Set_InteractTxt($"-{InteractEnableString}-", txt, InteractableColor);
                 Set_InteractFade(1f, 0.5f);
             }
             else
             {
-                Set_InteractTxt(InteracInoperableString, txt, UninteractableColor);
+                Set_InteractTxt($"-{InteracInoperableString}-", txt, UninteractableColor);
                 Set_InteractFade(1f, 0.5f);
             }
         }
         else
         {
-            Set_InteractTxt(InteractDisableString, InteractNoneString, new Color(1, 1, 1, InteractOnOffTxt.color.a));
+            Set_InteractTxt($"-{InteractDisableString}-", $"< {InteractNoneString} >", new Color(1, 1, 1, InteractOnOffTxt.color.a));
             Set_InteractFade(0.25f, 0.5f);
         }
     }
