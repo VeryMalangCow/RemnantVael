@@ -2251,9 +2251,6 @@ public class BUState<T>
     [SerializeField] public List<T> UpgradeValueByLevelRange;
     [SerializeField] public ReactiveProperty<T> ActualState;
 
-    [SerializeField] public string Name;
-    [TextArea] [SerializeField] public string Desc;
-
     #endregion
 
     #region - Hide

@@ -859,9 +859,6 @@ MonoBehaviour:
     - 10
     ActualState:
       value: 10
-    Name: DMG
-    Desc: Basic damage given to enemies. This goes into sum, and is calculated as
-      the first of all operations.
     CurrentLevel:
       value: 0
   MuzzleSpeed:
@@ -873,8 +870,6 @@ MonoBehaviour:
     - 1
     ActualState:
       value: 1
-    Name: Muzzle Speed
-    Desc: Muzzle speed refers to the speed at which a bullet travels.
     CurrentLevel:
       value: 0
   ROF:
@@ -886,9 +881,6 @@ MonoBehaviour:
     - 2
     ActualState:
       value: 5
-    Name: ROF
-    Desc: It means Rate of Fire. It is the default attack that fires per second,
-      and it applies at the speed at which both sides fire at once.
     CurrentLevel:
       value: 0
   CC:
@@ -900,9 +892,6 @@ MonoBehaviour:
     - 0.075
     ActualState:
       value: 0.1
-    Name: CC
-    Desc: This refers to the probability of a Critical Chance, which is calculated
-      as a sum. The bullets or skills fired look slightly different.
     CurrentLevel:
       value: 0
   CD:
@@ -914,9 +903,6 @@ MonoBehaviour:
     - 0.35
     ActualState:
       value: 1.5
-    Name: CD
-    Desc: It refers to the multiple of the Critical Damage, which is calculated as
-      the sum of the multiple. The shot bullets or skills look slightly different.
     CurrentLevel:
       value: 0
   AccuracyRate:
@@ -928,8 +914,6 @@ MonoBehaviour:
     - 3.25
     ActualState:
       value: 87
-    Name: AR
-    Desc: It means Accuracy Rate, and the higher the Aim attacks in the desired direction.
     CurrentLevel:
       value: 0
   KnockbackPower:
@@ -941,8 +925,6 @@ MonoBehaviour:
     - 2
     ActualState:
       value: 5
-    Name: KB
-    Desc: It means the power of KnockBack, and the enemy is pushed harder.
     CurrentLevel:
       value: 0
   BulletSpawnTFList:
@@ -1292,10 +1274,6 @@ MonoBehaviour:
     - 0.06
     ActualState:
       value: 0.5
-    Name: Avoid Chance
-    Desc: Increase the probability of evading an attack. High probability to avoid
-      attacks.When avoiding, the time is carried out, it does not affect EP or additional
-      effects.
     CurrentLevel:
       value: 0
   MaxEP:
@@ -1307,9 +1285,6 @@ MonoBehaviour:
     - 100
     ActualState:
       value: 100
-    Name: MaxEP
-    Desc: Upgrade maximum energy points. Used as a vitality and interactive and trading
-      Main Material.
     CurrentLevel:
       value: 0
   TakingDmgMultiple:
@@ -1321,8 +1296,6 @@ MonoBehaviour:
     - -0.07
     ActualState:
       value: 1
-    Name: Resist
-    Desc: Reduce damage, which is calculated as a multiple.
     CurrentLevel:
       value: 0
   SpawnESMultiple:
@@ -1334,9 +1307,6 @@ MonoBehaviour:
     - 0.5
     ActualState:
       value: 1
-    Name: Storage Efficiency
-    Desc: When you acquire Joules, it's a multiple of the EP you get. This proceeds
-      as a multiple, and the EPs with the enemy decreasing do not increase.
     CurrentLevel:
       value: 0
   NeedEP_ForSkillMultiple:
@@ -1348,10 +1318,6 @@ MonoBehaviour:
     - -0.12
     ActualState:
       value: 1
-    Name: Skill Cost
-    Desc: A multiple that reduces the amount of EP consumed by skill usage. It is
-      a multiple that reduces the amount of EP consumed by skill use. It is multiplied,
-      and does not affect cool time, attack, or tier.
     CurrentLevel:
       value: 0
   WalkSpeed:
@@ -1363,9 +1329,6 @@ MonoBehaviour:
     - 1
     ActualState:
       value: 3
-    Name: Speed
-    Desc: This is the speed of the basic movement. The speed of movement that decreases
-      in the event of a shooting is affected by this default speed.
     CurrentLevel:
       value: 0
   WalkSpeedWhenShotMultiple:
@@ -1377,9 +1340,6 @@ MonoBehaviour:
     - 0.13
     ActualState:
       value: 0.3
-    Name: Shooting Speed
-    Desc: It is a reduced multiple of the speed at the time of shooting, which is
-      calculated as a multiple of the basic speed.
     CurrentLevel:
       value: 0
   DecEnergyPointMultiple:
@@ -1391,9 +1351,6 @@ MonoBehaviour:
     - -0.12
     ActualState:
       value: 1
-    Name: Boost Cost
-    Desc: The amount of EP used per second for the boost level, which acts as a multiple
-      and applies to all levels equally.
     CurrentLevel:
       value: 0
   StateAnim: {fileID: 4725110972112075617}
@@ -1487,9 +1444,6 @@ MonoBehaviour:
     - 1.2
     ActualState:
       value: 5
-    Name: Dash Power
-    Desc: It's Dash power. Speed and instantaneous travel distance. Dash cannot be
-      stopped in the middle.
     CurrentLevel:
       value: 0
 --- !u!114 &4030414932115461039
@@ -2005,18 +1959,16 @@ MonoBehaviour:
   CurrentCooltime: 0
   ThisIcon: {fileID: 1779296857, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
   NeedEP:
-    value: 15
+    value: 10
   MaxCooltime:
-    BaseState: 10
+    BaseState: 6
     UpgradeValueByLevelRange:
-    - -0.25
-    - -0.4
-    - -0.55
-    - -0.8
+    - -0.15
+    - -0.3
+    - -0.45
+    - -0.9
     ActualState:
-      value: 1
-    Name: Cooltime
-    Desc: Cool time for skills. Calculated as a sum.
+      value: 6
     CurrentLevel:
       value: 0
   Tier:
@@ -2024,8 +1976,6 @@ MonoBehaviour:
     UpgradeValueByLevelRange: 01000000010000000100000001000000
     ActualState:
       value: 0
-    Name: Tier
-    Desc: Skill tier. Range increases by tier.
     CurrentLevel:
       value: 0
   Power:
@@ -2037,8 +1987,6 @@ MonoBehaviour:
     - 1.2
     ActualState:
       value: 5
-    Name: Power
-    Desc: Damage to skill. Shockwave damages enemy EP.
     CurrentLevel:
       value: 0
   PlayerController: {fileID: 0}
@@ -2115,28 +2063,23 @@ MonoBehaviour:
   CurrentCooltime: 0
   ThisIcon: {fileID: 987565495, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
   NeedEP:
-    value: 30
+    value: 20
   MaxCooltime:
     BaseState: 8
     UpgradeValueByLevelRange:
     - -0.2
-    - -0.35
-    - -0.5
+    - -0.4
+    - -0.6
     - -1
     ActualState:
-      value: 1
-    Name: Cooltime
-    Desc: Cool time for skills. Calculated as a sum.
+      value: 8
     CurrentLevel:
       value: 0
   Tier:
     BaseState: 0
     UpgradeValueByLevelRange: 01000000010000000100000001000000
     ActualState:
-      value: 10
-    Name: Tier
-    Desc: Skill tier. It's also the number of consecutive launches of missiles. (Tier
-      +1)
+      value: 0
     CurrentLevel:
       value: 0
   Power:
@@ -2147,9 +2090,7 @@ MonoBehaviour:
     - 0.2
     - 0.4
     ActualState:
-      value: 10
-    Name: Power
-    Desc: Damage multiple of missile calculated as multiple to basic attack.
+      value: 1.5
     CurrentLevel:
       value: 0
   PlayerController: {fileID: 0}

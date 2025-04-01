@@ -162,7 +162,8 @@ public class CameraController : MonoBehaviour
 
     private void Play_Shake(Transform _TF, float _Dur, float _Strength, int _Vibrato)
     {
-        _TF.DOShakePosition(_Dur, _Strength / 100, _Vibrato, 0f);
+        _Strength = Mathf.Min(_Strength, 20f) * 0.01f;
+        _TF.DOShakePosition(_Dur, _Strength, _Vibrato, 0f);
     }
 
     private void Play_Rebound(Transform _TF, float _Dur, float _Strength, Vector2 _Dir)
