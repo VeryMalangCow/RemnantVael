@@ -65,6 +65,17 @@ public class UnitManager : Singleton<UnitManager>
     [Header("-- Vault / State")]
     [SerializeField] public CoupleData<AnimationClip> Vault_StateAC;
 
+    [Space(5)]
+    [Header("-- Operator / Actual")]
+    [SerializeField] public CoupleData<AnimationClip> Operator_OnOffAC;
+    [SerializeField] public AnimationClip Operator_RepairAC;
+    [SerializeField] public AnimationClip Operator_OverriderRerollAC;
+    [SerializeField] public AnimationClip Operator_EnergyUpgradeAC;
+
+    [Space(5)]
+    [Header("-- Operator / State")]
+    [SerializeField] public CoupleData<AnimationClip> Operator_LightAC;
+
     #endregion
 
     #region Txt

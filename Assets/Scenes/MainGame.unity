@@ -1124,6 +1124,7 @@ Transform:
   - {fileID: 2134767816}
   - {fileID: 1638622684}
   - {fileID: 16263663}
+  - {fileID: 974550420}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &407687440
@@ -3080,6 +3081,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   KindOfMapAmount: 2
   EachKindOfMapAmount: 0200000001000000
+  MainChipDescList_Data: []
 --- !u!4 &830584170
 Transform:
   m_ObjectHideFlags: 0
@@ -3343,6 +3345,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960047938}
   m_CullTransparentMesh: 1
+--- !u!1001 &974550419
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 392753597}
+    m_Modifications:
+    - target: {fileID: 4995045585254079196, guid: a52794494980df442a6685865c19674b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: a52794494980df442a6685865c19674b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: a52794494980df442a6685865c19674b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: a52794494980df442a6685865c19674b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: a52794494980df442a6685865c19674b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: a52794494980df442a6685865c19674b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: a52794494980df442a6685865c19674b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: a52794494980df442a6685865c19674b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: a52794494980df442a6685865c19674b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: a52794494980df442a6685865c19674b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: a52794494980df442a6685865c19674b, type: 3}
+      propertyPath: m_Name
+      value: RepairOperator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a52794494980df442a6685865c19674b, type: 3}
+--- !u!4 &974550420 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4995045585254079196, guid: a52794494980df442a6685865c19674b, type: 3}
+  m_PrefabInstance: {fileID: 974550419}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &988178044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6476,6 +6540,15 @@ MonoBehaviour:
   Vault_StateAC:
     TypeBase: {fileID: 7400000, guid: 562065cf5e5d68743aeb531a01f17412, type: 2}
     TypeSpecial: {fileID: 7400000, guid: 309f2027ffe43bd438d0cee771f8e2a5, type: 2}
+  Operator_OnOffAC:
+    TypeBase: {fileID: 7400000, guid: bcb3c17b5304bed4da82c5051bec1bb6, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: 9ab7bb10d28890b468206898313b65cd, type: 2}
+  Operator_RepairAC: {fileID: 7400000, guid: 24d4408110be0fa4a8e99a5610af8855, type: 2}
+  Operator_OverriderRerollAC: {fileID: 7400000, guid: ceae7b7b1a1ada64b9abd264865b082c, type: 2}
+  Operator_EnergyUpgradeAC: {fileID: 7400000, guid: 66df5fa07be7572449b16403111df3a8, type: 2}
+  Operator_LightAC:
+    TypeBase: {fileID: 7400000, guid: 384479d6d73bac7428b68fda2a7d2996, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: c5d6fe57ff9fb874090d558ffa2bfd77, type: 2}
   LanguageTxtList:
   - ID: 0
     FontAssets:
