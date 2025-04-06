@@ -192,6 +192,9 @@ public class RoomController : IDController
                 InRoom_AllGate[i].Set_Open();
             }
         }
+
+        StageManager.Instance.Set_SetSpriteClearly();
+        StageManager.Instance.Set_SetAnimClearly();
     }
 
 

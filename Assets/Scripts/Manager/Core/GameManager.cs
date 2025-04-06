@@ -3229,7 +3229,8 @@ public class StageData
     public string MapIndexName;
 
     [Space(5)]
-    public List<Material> MapMaterial;
+    public List<Material> MapMaterialUnclear;
+    public List<Material> MapMaterialClear;
     public List<StageDoorAnim> MapDoorAnim;
 
     [HideInInspector] public List<Sprite> AllMapSprite;

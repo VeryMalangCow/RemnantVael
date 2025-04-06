@@ -16,13 +16,13 @@ public class BuildOpacityController : MonoBehaviour
     [SerializeField] private List<SpriteRenderer> SetSRList = new List<SpriteRenderer>();
 
     // Value
-    [HideInInspector] private bool IsCompletlyVisible = true;
+    [HideInInspector] private bool IsColliding = false;
     [HideInInspector] private float OpacityValue = 0.7f;
+    [HideInInspector] private float TargetOpactiyValue = 1f;
     [HideInInspector] private float DurTime = 0.3f;
 
     // Data
-    [HideInInspector] private Sequence ThisSeq;
-    [HideInInspector] private HashSet<Collider2D> currentCollisions = new HashSet<Collider2D>();
+    [HideInInspector] private Sequence ThisSeq = null;
 
     #endregion
 
@@ -86,46 +86,42 @@ public class BuildOpacityController : MonoBehaviour
         Offset();
     }
 
+    private void FixedUpdate()
+    {
+        IsColliding = false;
+    }
+
     private void LateUpdate()
     {
-        if (Is_Colliding() && IsCompletlyVisible == true)
-        {
-            IsCompletlyVisible = false;
-            Set_Visible(OpacityValue);
-        }
-        else if (!Is_Colliding() && IsCompletlyVisible == false)
-        {
-            IsCompletlyVisible = true;
-            Set_Visible();
-        }
+        Check_Visible();
     }
 
     #endregion
 
     #region Trigger
 
-    private void OnTriggerEnter2D(Collider2D _Col)
+    private void OnTriggerStay2D(Collider2D _Col)
     {
-        currentCollisions.Add(_Col);
-    }
-
-    private void OnTriggerExit2D(Collider2D _Col)
-    {
-        currentCollisions.Remove(_Col);
+        IsColliding = true;
     }
 
     #endregion
 
     #region Set State
 
-    public bool Is_Colliding()
+    private void Check_Visible()
     {
-        return currentCollisions.Count > 0;
+        if (IsColliding && TargetOpactiyValue != OpacityValue)
+            Set_Visible(OpacityValue);
+        else if (!IsColliding && TargetOpactiyValue != 1)
+            Set_Visible();
     }
 
     private void Set_Visible(float _Alpha = 1f)
     {
         if (SetSRList == null || SetSRList.Count <= 0) return;
+
+        TargetOpactiyValue = _Alpha;
 
         DevTool.Set_KillTween(ThisSeq);
 
@@ -134,6 +130,7 @@ public class BuildOpacityController : MonoBehaviour
         {
             ThisSeq.Join(SetSRList[i].DOFade(_Alpha, DurTime));
         }
+        ThisSeq.OnComplete(() => { ThisSeq = null; });
     }
 
     #endregion

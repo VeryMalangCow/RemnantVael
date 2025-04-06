@@ -56,6 +56,10 @@ public class StageManager : Singleton<StageManager>
     // 배치할 주변 Vec
     [HideInInspector] private List<Vector2Int> roundList = new List<Vector2Int>();
 
+    // 클리어와 클리어 전 머터리얼 셋
+    [HideInInspector] private HashSet<BuildSetSpriteController> CurrentSetSprites = new HashSet<BuildSetSpriteController>();
+    [HideInInspector] private HashSet<BuildSetAnimController> CurrentSetAnims = new HashSet<BuildSetAnimController>();
+
     #endregion
 
     #endregion
@@ -232,6 +236,9 @@ public class StageManager : Singleton<StageManager>
     {
         if (_TargetRC == null) yield break;
 
+        Remove_SetSprites();
+        Remove_SetAnims();
+
         // 현재 방 선택
         CurrentRoomController = _TargetRC;
 
@@ -386,13 +393,30 @@ public class StageManager : Singleton<StageManager>
     #endregion
 
     #region SR
+
     public void Set_MapSprite(SpriteRenderer _SR, string _SpriteKey)
     {
         if (!AllStageData[TargetStageID].MapSpriteReso.MapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey);  return; }
 
         SpriteMaterial spriteMatrial = AllStageData[TargetStageID].MapSpriteReso.MapSprite[_SpriteKey];
         _SR.sprite = spriteMatrial.Sprite;
-        _SR.material = AllStageData[TargetStageID].MapMaterial[spriteMatrial.MaterialIndex];
+        _SR.material = AllStageData[TargetStageID].MapMaterialUnclear[spriteMatrial.MaterialIndex];
+    }
+
+    public void Set_SetSpriteClearly()
+    {
+        if (CurrentSetSprites == null || CurrentSetSprites.Count <= 0) return;
+
+        foreach(BuildSetSpriteController setSprite in CurrentSetSprites)
+        {
+            if (DevTool.Get_ComponentTType(setSprite.gameObject, out SpriteRenderer sr))
+            {
+                int index = AllStageData[TargetStageID].MapMaterialUnclear.IndexOf(sr.sharedMaterial);
+                if (index == -1)
+                { Debug.Log(sr.gameObject.name + " / " + sr.gameObject.transform.parent.gameObject.name); }
+                sr.material = AllStageData[TargetStageID].MapMaterialClear[index];
+            }
+        }
     }
 
     #endregion
@@ -407,8 +431,23 @@ public class StageManager : Singleton<StageManager>
             if (doorAnim[i].Dir == _DoorDir)
             {
                 _Gate.ThisAC = doorAnim[i].DoorAnim;
-                _SR.material = AllStageData[TargetStageID].MapMaterial[doorAnim[i].MaterialIndex];
+                _SR.material = AllStageData[TargetStageID].MapMaterialUnclear[doorAnim[i].MaterialIndex];
             }
+    }
+
+    public void Set_SetAnimClearly()
+    {
+        if (CurrentSetAnims == null || CurrentSetAnims.Count <= 0) return;
+
+        foreach (BuildSetAnimController setAnim in CurrentSetAnims)
+        {
+            if (DevTool.Get_ComponentTType(setAnim.gameObject, out SpriteRenderer sr))
+            {
+                int index = AllStageData[TargetStageID].MapMaterialUnclear.IndexOf(sr.sharedMaterial);
+                Debug.Log(sr.material.name + " / Anim: " + index);
+                sr.material = AllStageData[TargetStageID].MapMaterialClear[index];
+            }
+        }
     }
 
     #endregion
@@ -620,6 +659,46 @@ public class StageManager : Singleton<StageManager>
                 alreadyExistSpeicalList.Add(eachRound[i]);
         }
 
+    }
+
+    #endregion
+
+    #region SR
+
+    public void Add_SetSprite(BuildSetSpriteController _SetSprite)
+    {
+        CurrentSetSprites.Add(_SetSprite);
+    }
+
+    #endregion
+
+    #region Anim
+
+    public void Add_SetAnim(BuildSetAnimController _SetAnim)
+    {
+        CurrentSetAnims.Add(_SetAnim);
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Remove
+
+    #region SR
+
+    private void Remove_SetSprites()
+    {
+        CurrentSetSprites.Clear();
+    }
+
+    #endregion
+
+    #region Anim
+
+    private void Remove_SetAnims()
+    {
+        CurrentSetAnims.Clear();
     }
 
     #endregion

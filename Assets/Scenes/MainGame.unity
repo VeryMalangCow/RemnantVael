@@ -2565,9 +2565,12 @@ MonoBehaviour:
       - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
     MapIndexName: Map00
-    MapMaterial:
+    MapMaterialUnclear:
     - {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
-    - {fileID: 2100000, guid: d93f257b918659143863780016cc3d38, type: 2}
+    - {fileID: 2100000, guid: 519ca4ba8ee8cd146a55966a26e1ea8c, type: 2}
+    MapMaterialClear:
+    - {fileID: 2100000, guid: 5411254558eda4f4883706ba9445ecf0, type: 2}
+    - {fileID: 2100000, guid: ebc0ed9589212f34fb9c3aa4df828ad6, type: 2}
     MapDoorAnim:
     - Dir: {x: 0, y: -1}
       DoorAnim: {fileID: 7400000, guid: 1c249b8fb21ab16409ac647a74f9d435, type: 2}

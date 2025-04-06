@@ -2154,6 +2154,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Map00_FloorLight
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 1
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c93b4f3ffe7bf3041a9630a0d5ef7a0a
+      internalID: 1247981843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2269,6 +2290,7 @@ TextureImporter:
       Map00_E_001: 368077036
       Map00_E_002: 433040308
       Map00_E_003: -2047084511
+      Map00_FloorLight: 1247981843
       Test00: -1233628555
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
