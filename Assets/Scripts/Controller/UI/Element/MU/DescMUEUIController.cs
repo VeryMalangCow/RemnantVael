@@ -37,24 +37,19 @@ public class DescMUEUIController : ElementUIController
     [Header("* Rank")]
     [SerializeField] private Image RankLv1_MainChipImg;
     [SerializeField] private List<Image> RankLv1_MainChipAmountImgs;
+    [SerializeField] private TMP_Text RankLv1_Name;
     [SerializeField] private Image RankLv3_MainChipImg;
     [SerializeField] private List<Image> RankLv3_MainChipAmountImgs;
+    [SerializeField] private TMP_Text RankLv3_Name;
     [SerializeField] private Image RankLv5_MainChipImg;
     [SerializeField] private List<Image> RankLv5_MainChipAmountImgs;
-
-    [Space(10)]
-    [Header("=== Boost Lv")]
-    [SerializeField] private Image BoostLvImg;
-    [SerializeField] private ImgTxtAmountEUIController CurrentBoostLvMIAT;
-    [SerializeField] public TMP_Text CurrentBoostLvTxt;
-    [SerializeField] public TMP_Text CurrentActualBoostLvTxt;
+    [SerializeField] private TMP_Text RankLv5_Name;
 
     #endregion
 
     #region - Hide
 
     [HideInInspector] private string ExtraString_Rank;
-    [HideInInspector] private string ExtraString_BoostLv;
 
     #endregion
 
@@ -66,20 +61,11 @@ public class DescMUEUIController : ElementUIController
     {
         // string
         ExtraString_Rank = CSVManager.Instance.Get_StaticWord(25);
-        ExtraString_BoostLv = $"{CSVManager.Instance.Get_StaticWord(49)} {CSVManager.Instance.Get_StaticWord(34)}";
-
-        CurrentBoostLvMIAT.Offset();
 
         ItemIconImg.color = new Color(1, 1, 1, 0);
         CurrentRankImg.color = new Color(1, 1, 1, 0);
-        Color clr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
-        clr.a = 0f;
-        BoostLvImg.color = clr;
+
         MainChipGO.gameObject.SetActive(false);
-
-        CurrentBoostLvMIAT.Set_Amount(0);
-
-        DevTool.Set_Color(clr, CurrentBoostLvMIAT.AmountImgs);
     }
 
     #endregion
@@ -110,14 +96,18 @@ public class DescMUEUIController : ElementUIController
         RankLv3_MainChipImg.sprite = ModuleItemManager.Instance.Get_CorrectMainChip(_R3_ID).ThisIcon;
         RankLv5_MainChipImg.sprite = ModuleItemManager.Instance.Get_CorrectMainChip(_R5_ID).ThisIcon;
 
+        RankLv1_Name.text = ModuleItemManager.Instance.Get_CorrectMainChip(_R1_ID).Name;
+        RankLv3_Name.text = ModuleItemManager.Instance.Get_CorrectMainChip(_R3_ID).Name;
+        RankLv5_Name.text = ModuleItemManager.Instance.Get_CorrectMainChip(_R5_ID).Name;
+
         SetOff_AllLocker();
-        SetOff_AllMainChipImgs();
+        SetOff_AllMainChipImgsTxts();
 
         SetOn_Locker(_Rank);
-        SetOn_MainChipImgs(_Rank);
+        SetOn_MainChipImgsTxts(_Rank);
     }
 
-    private void SetOn_MainChipImgs(int _Rank)
+    private void SetOn_MainChipImgsTxts(int _Rank)
     {
         if (_Rank >= 5)
         {
@@ -129,6 +119,15 @@ public class DescMUEUIController : ElementUIController
             RankLv3_MainChipAmountImgs[1].gameObject.SetActive(true);
 
             RankLv5_MainChipAmountImgs[0].gameObject.SetActive(true);
+
+            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
+
+            DevTool.Set_AlphaColor(RankLv1_Name, 1f);
+            DevTool.Set_AlphaColor(RankLv3_Name, 1f);
+            DevTool.Set_AlphaColor(RankLv5_Name, 1f);
+
         }
         else if (_Rank >= 3)
         {
@@ -136,23 +135,49 @@ public class DescMUEUIController : ElementUIController
             RankLv1_MainChipAmountImgs[1].gameObject.SetActive(true);
 
             RankLv3_MainChipAmountImgs[0].gameObject.SetActive(true);
+
+            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
+                                               
+            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(55)})</color></size>";
+
+            DevTool.Set_AlphaColor(RankLv1_Name, 1f);
+            DevTool.Set_AlphaColor(RankLv3_Name, 1f);
         }
         else
         {
             RankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
+
+            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
+                                               
+            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(55)})</color></size>";
+            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(55)})</color></size>";
+
+            DevTool.Set_AlphaColor(RankLv1_Name, 1f);
         }
     }
 
-    private void SetOff_AllMainChipImgs()
+    private void SetOff_AllMainChipImgsTxts()
     {
         for (int i = 0; i < RankLv1_MainChipAmountImgs.Count; i++)
+        {
             RankLv1_MainChipAmountImgs[i].gameObject.SetActive(false);
+        }
 
         for (int i = 0; i < RankLv3_MainChipAmountImgs.Count; i++)
+        {
             RankLv3_MainChipAmountImgs[i].gameObject.SetActive(false);
+        }
 
         for (int i = 0; i < RankLv5_MainChipAmountImgs.Count; i++)
+        {
             RankLv5_MainChipAmountImgs[i].gameObject.SetActive(false);
+        }
+
+
+        DevTool.Set_AlphaColor(RankLv1_Name, 0.3f);
+        DevTool.Set_AlphaColor(RankLv3_Name, 0.3f);
+        DevTool.Set_AlphaColor(RankLv5_Name, 0.3f);
     }
 
     private void SetOn_Locker(int _Rank)
@@ -172,16 +197,6 @@ public class DescMUEUIController : ElementUIController
     {
         RankLv3_LockerImg.gameObject.SetActive(true);
         RankLv5_LockerImg.gameObject.SetActive(true);
-    }
-
-    private void SetOn_BoostLv(int _BoostLv)
-    {
-        Color clr = BoostLvImg.color;
-        clr.a = (float)_BoostLv / (float)PlayerController.MaxBoostLv;
-        BoostLvImg.color = clr;
-        CurrentBoostLvMIAT.Set_Amount(_BoostLv);
-        CurrentBoostLvTxt.text = ExtraString_BoostLv;
-        CurrentActualBoostLvTxt.text = _BoostLv.ToString();
     }
 
     #endregion
@@ -204,9 +219,6 @@ public class DescMUEUIController : ElementUIController
         // MainChip
         SetOn_MainChip(_MS.ThisItemData.Rank,
             _MS.ThisItemData.R1_MainChipID, _MS.ThisItemData.R3_MainChipID, _MS.ThisItemData.R5_MainChipID);
-
-        // Boost Lv
-        SetOn_BoostLv(_MS.ThisItemData.BoostLv);
     }
 
     public void SetOff_Desc()
@@ -223,15 +235,6 @@ public class DescMUEUIController : ElementUIController
 
         // MainChip
         MainChipGO.gameObject.SetActive(false);
-
-        // Boost Lv
-        Color clr = BoostLvImg.color;
-        clr.a = 0;
-        BoostLvImg.color = clr;
-
-        CurrentBoostLvMIAT.Set_Amount(0);
-        CurrentBoostLvTxt.text = "-";
-        CurrentActualBoostLvTxt.text = "-";
     }
 
     #endregion
@@ -244,7 +247,9 @@ public class DescMUEUIController : ElementUIController
         {
             ItemNameTxt,
             CurrentActualRankTxt,
-            CurrentActualBoostLvTxt
+            RankLv1_Name,
+            RankLv3_Name,
+            RankLv5_Name
         };
 
 
@@ -256,8 +261,7 @@ public class DescMUEUIController : ElementUIController
         List<Component> result = new List<Component>()
         {
             ItemIntroTxt,
-            CurrentRankTxt,
-            CurrentBoostLvTxt
+            CurrentRankTxt
         };
 
         return result;

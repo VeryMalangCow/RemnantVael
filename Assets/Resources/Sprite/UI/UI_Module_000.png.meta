@@ -537,6 +537,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ModuleUI_ModuleItemUI
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 489
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 9, y: 9, z: 9, w: 9}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef688c7765b64fa4586c647ffcfe9627
+      internalID: 49686718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -563,6 +584,7 @@ TextureImporter:
       ModuleUI_GetIcon_Fire: 1422261253
       ModuleUI_GetIcon_Ice: -1253658894
       ModuleUI_Icon_Durablity: -372754867
+      ModuleUI_ModuleItemUI: 49686718
       ModuleUI_SideIconFrame: -945182851
       ModuleUI_TitleFrame: 121522765
       ModuleUI_UpFrame: -1972109538

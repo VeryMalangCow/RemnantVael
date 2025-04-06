@@ -271,13 +271,13 @@ public class StageManager : Singleton<StageManager>
 
     public void Play_CompleteKillAll()
     {
+        if (CurrentRoomController == null || CurrentRoomController.RoomRuleController.RoomType == eRoomType.Completed) return;
+
         StartCoroutine(Play_CompleteKillAll_Cor());
     }
 
     public IEnumerator Play_CompleteKillAll_Cor()
     {
-        if (CurrentRoomController == null) yield break;
-
         yield return new WaitForSeconds(0.5f);
 
         if (EnemyManager.Instance.CurrentEnemyList.Count <= 0)

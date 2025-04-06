@@ -22,7 +22,6 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
     [Header("=== Component")]
     [SerializeField] public Image ThisImg;
     [SerializeField] public Image RankImg;
-    [SerializeField] private ImgTxtAmountEUIController BoostLvEUI;
 
     // Seq
     [HideInInspector] private static readonly float SelectSize = 1.1f;
@@ -38,12 +37,6 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
         base.Offset();
 
         ThisRT.sizeDelta = ThisSizeDelta;
-        BoostLvEUI.Offset();
-
-        // Color Set
-        DevTool.Set_Color(
-            PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false),
-            BoostLvEUI.AmountImgs);
     }
 
     #endregion
@@ -55,8 +48,6 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
         ThisImg.sprite = _ItemEUI.ThisImg.sprite;
         RankImg.sprite = _ItemEUI.RankImg.sprite;
         RankImg.SetNativeSize();
-
-        BoostLvEUI.Set_Amount(_ItemEUI.BoostLvEUI.Get_GOEnableAmount(), 0.1f);
     }
 
     public void Set_Data(ItemData_UIVisual _State)
@@ -64,8 +55,6 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
         ThisImg.sprite = _State.Icon;
         RankImg.sprite = _State.RankIcon;
         RankImg.SetNativeSize();
-
-        BoostLvEUI.Set_Amount(_State.BoostLv, 0.1f);
     }
 
     public void Set_EquipedImg(bool _IsOn)

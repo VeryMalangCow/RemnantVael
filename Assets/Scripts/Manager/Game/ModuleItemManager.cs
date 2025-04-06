@@ -34,7 +34,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     [HideInInspector] private CoupleData<int> DecompositionIndex = new CoupleData<int>(-1, -1);
     [HideInInspector] private List<CoupleData<int>> FusionIndex = new List<CoupleData<int>>();
-    [HideInInspector] private CoupleData<int> UpgradeIndex = new CoupleData<int>(-1, -1);
 
     // Main Chip
     [HideInInspector] private Dictionary<int, int> MainChipAmalgamationDict = new Dictionary<int, int>();
@@ -277,12 +276,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return result;
     }
 
-    // ¾÷±Û ½½·Ô ÀÎµ¦½º
-    public CoupleData<int> Get_UpgradeIndex()
-    {
-        return new CoupleData<int>(UpgradeIndex);
-    }
-
     #endregion
 
     #region Item
@@ -294,7 +287,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public static int Get_BC_ByDescomposition(ModuleState _ModuleState)
     {
-        return _ModuleState.ThisItemData.BoostLv;
+        return _ModuleState.ThisItemData.Rank;
     }
 
     public static int Get_MS_ForFusion(ModuleState _ModuleState)
@@ -302,9 +295,14 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return (_ModuleState.ThisItemData.Rank + 1);
     }
 
-    public static int Get_EC_ForUpgrade(ModuleState _ModuleState)
+    public static int Get_MS_ForMake()
     {
-        return (_ModuleState.ThisItemData.BoostLv + 1);
+        return 7;
+    }
+
+    public static int Get_CB_ForMake()
+    {
+        return 4;
     }
 
     #endregion
@@ -434,16 +432,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Upgrade
 
-    // ¾÷±Û
-    public void Set_UpgradeSlot(CoupleData<int> _InteractIndex)
-    {
-        UpgradeIndex = _InteractIndex;
-    }
-    public void Set_UnUpgradeSlot()
-    {
-        UpgradeIndex = new CoupleData<int>(-1, -1);
-    }
-
     #endregion
 
     #endregion
@@ -534,12 +522,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return true;
     }
 
-    // ¾÷±Û ½½·Ô
-    public bool Is_EmptyUpgradeSlot()
-    {
-        return UpgradeIndex.TypeBase == -1 && UpgradeIndex.TypeSpecial == -1;
-    }
-
     // ÀåÂøµÈ ÀÎµ¦½ºµé Áß¿¡¼­ Æ÷ÇÔµÇ¾îÀÖ´ÂÁö
     public bool Is_IncludeOnlyEquipped(CoupleData<int> _Index)
     {
@@ -587,21 +569,13 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #endregion
 
-    #region Rank BoostLv
+    #region Rank
 
     public void Set_UpRank(CoupleData<int> _Index)
     {
         AllModuleData[_Index.TypeBase][_Index.TypeSpecial].ThisItemData.Rank++;
         MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_InventoryUI(AllModuleData);
         Reset_Interface();
-    }
-
-    public void Set_UpBoostLv(CoupleData<int> _Index)
-    {
-        AllModuleData[_Index.TypeBase][_Index.TypeSpecial].ThisItemData.BoostLv++;
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_InventoryUI(AllModuleData);
-        Reset_Interface();
-
     }
 
     #endregion
@@ -659,12 +633,17 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         ItemData_UIVisual stateUI = new ItemData_UIVisual(
             Get_CorrectItemIcon(_ItemDataField.ID),
-            _ItemDataField.Rank,
-            _BoostLv: 0);
+            _ItemDataField.Rank);
 
         AllModuleData[index.TypeBase][index.TypeSpecial] = newModuleState;
 
         MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_InventoryUI(AllModuleData);
+    }
+
+    // ¾ÆÀÌÅÛÀ» ·£´ýÇÏ°Ô È¹µæ
+    public void Gain_ModuleState()
+    {
+        Gain_ModuleState(Get_RandomInteractItem());
     }
 
     #endregion

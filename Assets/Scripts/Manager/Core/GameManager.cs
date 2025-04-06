@@ -2389,9 +2389,6 @@ public class ItemData : ItemData_Field
     public int R3_MainChipID;
     public int R5_MainChipID;
 
-    [Header("=== Boost")]
-    public int BoostLv = 1;
-
     public ItemData(int _ID) : base(_ID) { }
 
     public ItemData(ItemData_Field _Data) : base(_Data) { }
@@ -2406,8 +2403,6 @@ public class ItemData : ItemData_Field
         R1_MainChipID = _ItemData.R1_MainChipID;
         R3_MainChipID = _ItemData.R3_MainChipID;
         R5_MainChipID = _ItemData.R5_MainChipID;
-
-        BoostLv = _ItemData.BoostLv;
     }
 }
 
@@ -2466,23 +2461,13 @@ public class ModuleState : IWhen
         return ThisItemData.Rank;
     }
 
-    protected int Get_BoostLv()
-    {
-        int targetBoostLv = PlayerManager.Instance.PlayerController.CurrentBoostLv.Value;
-        if (targetBoostLv > ThisItemData.BoostLv)
-        {
-            targetBoostLv = ThisItemData.BoostLv;
-        }
-        return targetBoostLv;
-    }
-
     #endregion
 
     #region Interface
 
     public virtual void Play_When(EnemyController _EC = null)
     {
-        ThisActivityFuncDele(Get_Rank(), Get_BoostLv(), _EC);
+        ThisActivityFuncDele(Get_Rank(), _EC);
     }
 
     #endregion
@@ -3593,14 +3578,12 @@ public struct ItemData_UIVisual
     public Sprite Icon;
     public int Rank;
     public Sprite RankIcon;
-    public int BoostLv;
 
-    public ItemData_UIVisual(Sprite _Icon, int _Rank, int _BoostLv)
+    public ItemData_UIVisual(Sprite _Icon, int _Rank)
     {
         Icon = _Icon;
         Rank = _Rank;
         RankIcon = ModuleItemManager.Instance.Get_CorrectRankIcon(Rank);
-        BoostLv = _BoostLv;
     }
 
     public ItemData_UIVisual(ItemData _ItemData)
@@ -3608,7 +3591,6 @@ public struct ItemData_UIVisual
         Icon = _ItemData.ItemIcon;
         Rank = _ItemData.Rank;
         RankIcon = ModuleItemManager.Instance.Get_CorrectRankIcon(Rank);
-        BoostLv = _ItemData.BoostLv;
     }
 }
 

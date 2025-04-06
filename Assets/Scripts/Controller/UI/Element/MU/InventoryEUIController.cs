@@ -101,8 +101,7 @@ public class InventoryEUIController : ElementUIController
 
                     AllItem[i][j].Set_Data(new ItemData_UIVisual(
                         ms.ThisItemData.ItemIcon,
-                        ms.ThisItemData.Rank,
-                        ms.ThisItemData.BoostLv));
+                        ms.ThisItemData.Rank));
                 }
                 else
                 {

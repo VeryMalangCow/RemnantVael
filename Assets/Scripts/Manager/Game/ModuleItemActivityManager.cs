@@ -5,7 +5,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 {
     #region Value
 
-    public delegate void ActivityFuncDele(int _Rank, int BoostLv, EnemyController _EC = null);
+    public delegate void ActivityFuncDele(int _Rank, EnemyController _EC = null);
     [HideInInspector] public List<ActivityFuncDele> ActivityFuncList = new List<ActivityFuncDele>();
 
     #endregion
@@ -40,47 +40,43 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     #region ModuleItem
 
-    private void Activity_MI_000(int _Rank, int _BoostLv, EnemyController _EC = null)
+    private void Activity_MI_000(int _Rank, EnemyController _EC = null)
     {
-        Activity_Derivative(_Rank, _BoostLv, eDamageType.Energy, PoolingManager.Instance.MI_000_Bullets);
+        Activity_Derivative(_Rank, eDamageType.Energy, PoolingManager.Instance.MI_000_Bullets);
     }
 
-    private void Activity_MI_001(int _Rank, int _BoostLv, EnemyController _EC = null)
+    private void Activity_MI_001(int _Rank, EnemyController _EC = null)
     {
-        Activity_Derivative(_Rank, _BoostLv, eDamageType.Physics, PoolingManager.Instance.MI_001_Bullets);
+        Activity_Derivative(_Rank, eDamageType.Physics, PoolingManager.Instance.MI_001_Bullets);
     }
 
-    private void Activity_MI_002(int _Rank, int _BoostLv, EnemyController _EC = null)
+    private void Activity_MI_002(int _Rank, EnemyController _EC = null)
     {
-        float percent = 0.25f * _BoostLv;
-        if (percent > Random.Range(0f, 1f))
+        if (0.5f > Random.Range(0f, 1f))
         {
             Activity_InflictStatusEffect(eStatusEffect.Flame, _Rank, _EC);
         }
     }
 
-    private void Activity_MI_003(int _Rank, int _BoostLv, EnemyController _EC = null)
+    private void Activity_MI_003(int _Rank, EnemyController _EC = null)
     {
-        float percent = 0.25f * _BoostLv;
-        if (percent > Random.Range(0f, 1f))
+        if (0.5f > Random.Range(0f, 1f))
         {
             Activity_InflictStatusEffect(eStatusEffect.Cold, _Rank, _EC);
         }
     }
 
-    private void Activity_MI_004(int _Rank, int _BoostLv, EnemyController _EC = null)
+    private void Activity_MI_004(int _Rank, EnemyController _EC = null)
     {
-        float percent = 0.25f * _BoostLv;
-        if (percent > Random.Range(0f, 1f))
+        if (0.5f > Random.Range(0f, 1f))
         {
             Activity_InflictStatusEffect(eStatusEffect.Electricity, _Rank, _EC);
         }
     }
 
-    private void Activity_MI_005(int _Rank, int _BoostLv, EnemyController _EC = null)
+    private void Activity_MI_005(int _Rank, EnemyController _EC = null)
     {
-        float percent = 0.25f * _BoostLv;
-        if (percent > Random.Range(0f, 1f))
+        if (0.5f > Random.Range(0f, 1f))
         {
             Activity_InflictStatusEffect(eStatusEffect.Corrosion, _Rank, _EC);
         }
@@ -91,14 +87,14 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     #region Unique
 
     // 데미지 타입을 통해서, 유도탄을 발사하는 함수
-    private void Activity_Derivative(int _Rank, int _BoostLv, eDamageType _DmgType, TTypePooling<PlayerBulletController> _Bullet)
+    private void Activity_Derivative(int _Rank, eDamageType _DmgType, TTypePooling<PlayerBulletController> _Bullet)
     {
         // 편의성
         PlayerController PC = PlayerManager.Instance.PlayerController;
         PlayerWeaponController PCWeapon = PC.BaseWeapon;
 
         // 확률
-        if ((_Rank * _BoostLv) > UnityEngine.Random.Range(0, 100))
+        if ((_Rank * 10) > UnityEngine.Random.Range(0, 100))
         {
             // 데미지 계산
             float dmg = _Rank * PCWeapon.BaseDamage.ActualState.Value;

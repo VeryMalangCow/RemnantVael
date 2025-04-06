@@ -391,7 +391,7 @@ public class PlayerController : AliveObjectController
         CurrentOverrider.Value += _AddValue;
     }
 
-    // 충전 배터리 획득
+    // 충전 배터리 생성
     private void Make_ChargedBettery()
     {
         this.CurrentEP.Value -= NeedEP_ForMakeEC;
