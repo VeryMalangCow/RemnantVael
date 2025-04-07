@@ -1,25 +1,19 @@
 using UnityEngine;
 
-public class RepairOperatorController : InteractableBuildController
+public class RepairOperatorController : OperatorController
 {
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Operator ")]
+    [Header("<><><><><> Repair")]
 
     [Space(10)]
-    [Header("=== Comp")]
-    [SerializeField] protected StateAnimController IconStateAnim;
+    [Header("=== Build")]
+    [SerializeField] protected DestructibleBuildController TargetBuildController;
 
-    #endregion
-
-    #region Sorting
-
-    public override void Set_SortingOrder(int _SortingOrder)
-    {
-        base.Set_SortingOrder(_SortingOrder);
-        IconStateAnim.ThisSR.sortingOrder = _SortingOrder - 1;
-    }
+    // Value
+    [HideInInspector] private int Pay = 50;
+    [HideInInspector] private int UseAmount = 1;
 
     #endregion
 
@@ -27,22 +21,68 @@ public class RepairOperatorController : InteractableBuildController
 
     protected override void Offset()
     {
-        Set_AnimValue();
-        Set_StateAnim();
-
         base.Offset();
+
+        PayTxt.text = Get_NeedPay().ToString();
+    }
+
+    #endregion
+
+    #region Get
+
+    private int Get_NeedPay()
+    {
+        return (Pay * UseAmount);
     }
 
     #endregion
 
     #region Set
 
-    private void Set_AnimValue()
+    protected override void Set_AnimValue()
     {
-        OnOffAC = UnitManager.Instance.Operator_OnOffAC;
-        OnOffStateAC = UnitManager.Instance.Operator_LightAC;
+        base.Set_AnimValue();
 
         IconStateAnim.Set_Anim(new State_Anim(UnitManager.Instance.Operator_RepairAC, 1f), 1f);
+    }
+
+    public void Set_TargetBuild(DestructibleBuildController _TargetBuild)
+    {
+        TargetBuildController = _TargetBuild;
+        _TargetBuild.RepairOper = this;
+    }
+
+    #endregion
+
+    #region Is
+
+    public bool Can_Interact()
+    {
+        return !TargetBuildController.IsBroken;
+    }
+
+    #endregion
+
+    #region Interact
+
+    public override void Play_Interact()
+    {
+        if (TargetBuildController == null ||
+            TargetBuildController.Is_MaxDur() ||
+            PlayerManager.Instance.PlayerController.CurrentCredit.Value < Get_NeedPay()) return;
+
+        // 소비 아이템
+        PlayerManager.Instance.PlayerController.Add_CurrentCredit(-Get_NeedPay());
+        UseAmount++;
+
+        // 내구도 회복
+        TargetBuildController.Set_Repair();
+
+        // Pay
+        PayTxt.text = Get_NeedPay().ToString();
+
+        // Play
+        TargetBuildController.Play_Size();
     }
 
     #endregion

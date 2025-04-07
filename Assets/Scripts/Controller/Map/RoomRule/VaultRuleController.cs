@@ -10,12 +10,19 @@ public class VaultRuleController : RoomRuleController
 
     [Space(10)]
     [Header("=== ParentTF")]
-    public Transform InRoom_VaultParentTF;
+    [SerializeField] public Transform InRoom_VaultParentTF;
+    [SerializeField] public Transform InRoom_RepairOperactorParentTF;
+    [SerializeField] public Transform InRoom_RerollOperactorParentTF;
+    [SerializeField] public Transform InRoom_UpgradeOperactorParentTF;
 
     [HideInInspector] public VaultController Vault;
+    [HideInInspector] public RepairOperatorController RepairOperator;
+    [HideInInspector] public VaultUpgradeOperatorController UpgradeOperator;
+    [HideInInspector] public VaultRerollOperatorController RerollOperator;
 
     [HideInInspector] private static List<float> PercentVaultGrade = new List<float>
     { 0.4f, 0.3f, 0.15f, 0.1f, 0.05f };
+
     #endregion
 
     #region Set
@@ -35,11 +42,5 @@ public class VaultRuleController : RoomRuleController
 
     #endregion
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.B))
-        {
 
-        }
-    }
 }

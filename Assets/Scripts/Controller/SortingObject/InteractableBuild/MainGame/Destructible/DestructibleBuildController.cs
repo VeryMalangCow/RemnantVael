@@ -29,6 +29,9 @@ public class DestructibleBuildController : InteractableBuildController
     [HideInInspector] protected List<SpriteRenderer> DurFrameSRList = new List<SpriteRenderer>();
     [HideInInspector] protected List<SpriteRenderer> DurInnerSRList = new List<SpriteRenderer>();
 
+    // Operator
+    [SerializeField] public RepairOperatorController RepairOper = null;
+
     #endregion
 
     #region Offset
@@ -48,6 +51,7 @@ public class DestructibleBuildController : InteractableBuildController
         {
             Gen_EachInnerUI(i, Gen_EachFrameUI(i).transform);
         }
+        Debug.Log("»ý¼º");
     }
 
     #endregion
@@ -132,7 +136,7 @@ public class DestructibleBuildController : InteractableBuildController
 
     #region Dur
 
-    private void Set_DurAmount(int _Durablity)
+    public void Set_DurAmount(int _Durablity)
     {
         for (int i = 0; i < MaxDur; i++)
         {
@@ -187,6 +191,21 @@ public class DestructibleBuildController : InteractableBuildController
     {
         _SR.transform.localPosition = Vector2.zero;
         DurInnerSRList.Insert(0, _SR);
+    }
+
+    public void Set_Repair(int _Amount = 1)
+    {
+        CurrentDur = Mathf.Min(CurrentDur + _Amount, MaxDur);
+        Set_DurAmount(CurrentDur);
+    }
+
+    #endregion
+
+    #region Is
+
+    public bool Is_MaxDur()
+    {
+        return MaxDur <= CurrentDur;
     }
 
     #endregion

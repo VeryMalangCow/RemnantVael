@@ -11,6 +11,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<BetteryShardController> BetteryShard;
     [SerializeField] public TTypePooling<ModuleShardController> ModuleShard;
     [SerializeField] public TTypePooling<OverriderController> Overrider;
+    [SerializeField] public TTypePooling<CreditController> Credit;
     [SerializeField] public TTypePooling<InteractItemController> InteractItems;
     [SerializeField] public TTypePooling<PlayerAttackerController> PlayerAttackers;
 
@@ -126,6 +127,12 @@ public class PoolingManager : Singleton<PoolingManager>
     public OverriderController Get_OP_Overrider()
     {
         return Get_OP<OverriderController>(Overrider.Prefab, Overrider.ParentTF, Overrider.Queue);
+    }
+
+    // Credit
+    public CreditController Get_OP_Credit()
+    {
+        return Get_OP<CreditController>(Credit.Prefab, Credit.ParentTF, Credit.Queue);
     }
 
     // Interact Item For Each Kind

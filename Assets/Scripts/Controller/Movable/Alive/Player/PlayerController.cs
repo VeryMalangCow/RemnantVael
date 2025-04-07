@@ -27,10 +27,6 @@ public class PlayerController : AliveObjectController
     [SerializeField] public AfterImgGenerator AfterImgGenerator;
 
     [Space(10)]
-    [Header("=== Energy")]
-    [SerializeField] public Sprite ES_Sprite;
-
-    [Space(10)]
     [Header("=== BU State")]
     [SerializeField] public BUState<float> AvoidChance;
     [SerializeField] public BUState<float> MaxEP;
@@ -114,6 +110,7 @@ public class PlayerController : AliveObjectController
     [HideInInspector] public ReactiveProperty<int> CurrentChargedBettery = new();
     [HideInInspector] public ReactiveProperty<int> CurrentModuleShard = new();
     [HideInInspector] public ReactiveProperty<int> CurrentOverrider = new();
+    [HideInInspector] public ReactiveProperty<int> CurrentCredit = new();
 
     // BaseAnim
     [HideInInspector] private Sequence BaseSeq = null;
@@ -180,8 +177,10 @@ public class PlayerController : AliveObjectController
         BaseSeq.SetLoops(-1, LoopType.Yoyo);
 
 
-        Debug.Log("Test EC");
-        CurrentChargedBettery.Value = 100;
+        Debug.Log("Test Item");
+        CurrentChargedBettery.Value = 9999;
+        CurrentCredit.Value = 9999;
+        CurrentOverrider.Value = 9999;
     }
 
     protected override void Offset_Subscribe()
@@ -389,6 +388,12 @@ public class PlayerController : AliveObjectController
     public void Add_CurrentOverrider(int _AddValue)
     {
         CurrentOverrider.Value += _AddValue;
+    }
+
+    // 农饭调 裙垫
+    public void Add_CurrentCredit(int _AddValue)
+    {
+        CurrentCredit.Value += _AddValue;
     }
 
     // 面傈 硅磐府 积己

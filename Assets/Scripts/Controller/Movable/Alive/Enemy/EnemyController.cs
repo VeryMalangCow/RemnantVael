@@ -394,8 +394,10 @@ public class EnemyController : AliveObjectController
     protected override void Set_Die()
     {
         base.Set_Die();
-        if (CurrentEP.Value <= 0) DieStateType = eDamageType.Energy;
-        else DieStateType = eDamageType.Physics;
+        if (CurrentEP.Value <= 0) 
+            DieStateType = eDamageType.Energy;
+        else 
+            DieStateType = eDamageType.Physics;
 
         Set_Die_GenItem();
         Set_Die_Effect();
@@ -406,6 +408,7 @@ public class EnemyController : AliveObjectController
     {
         Gen_BS(1);
         Gen_MS(1);
+        Gen_Credit(10);
 
         if (DieStateType == eDamageType.Physics)
             Gen_Overrider(1);

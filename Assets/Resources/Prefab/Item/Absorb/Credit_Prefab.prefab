@@ -260,7 +260,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 861288542, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  m_Sprite: {fileID: 2070780405, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -280,10 +280,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4983076795123007794}
-  - component: {fileID: 3211205019894506409}
+  - component: {fileID: 5540744610436729323}
   - component: {fileID: 2744110499918854217}
   m_Layer: 0
-  m_Name: Overrider_Prefab
+  m_Name: Credit_Prefab
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -307,7 +307,7 @@ Transform:
   - {fileID: 1390364808915706417}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3211205019894506409
+--- !u!114 &5540744610436729323
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -316,12 +316,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8792791415299830887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab2f1e3eb0438c240b9e562aec9c6c52, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d23ec469c2b4b54abfb2c2a0e22cc92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
   TargetObject: {fileID: 3954661232278796110}
-  ThisSR: {fileID: 5987728594063451204}
+  ThisSR: {fileID: 839110263954315657}
   TargetRange: 0.4
   ThisRb: {fileID: 2744110499918854217}
   TargetGO: {fileID: 0}

@@ -1,18 +1,73 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class VaultRerollOperatorController : MonoBehaviour
+public class VaultRerollOperatorController : VaultOperatorController
 {
-    // Start is called before the first frame update
-    void Start()
+    #region Value
+
+    // Value
+    [HideInInspector] private int Pay = 5;
+    [HideInInspector] private int UseAmount = 1;
+
+    #endregion
+
+    #region Offset
+
+    protected override void Offset()
     {
-        
+        base.Offset();
+
+        PayTxt.text = Get_NeedPay().ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    #endregion
+
+    #region Get
+
+    private int Get_NeedPay()
     {
-        
+        return (Pay * UseAmount);
     }
+
+    #endregion
+
+    #region Set
+
+    protected override void Set_AnimValue()
+    {
+        base.Set_AnimValue();
+
+        IconStateAnim.Set_Anim(new State_Anim(UnitManager.Instance.Operator_RerollAC, 1f), 1f);
+    }
+
+    public override void Set_TargetBuild(VaultController _TargetVault)
+    {
+        base.Set_TargetBuild(_TargetVault);
+
+        _TargetVault.RerollOper = this;
+    }
+
+    #endregion
+
+    #region Interact
+
+    public override void Play_Interact()
+    {
+        if (TargetVault == null ||
+            PlayerManager.Instance.PlayerController.CurrentOverrider.Value < Get_NeedPay()) return;
+
+        // 소비 아이템
+        PlayerManager.Instance.PlayerController.Add_CurrentOverrider(-Get_NeedPay());
+        UseAmount++;
+
+        // 리롤
+        TargetVault.Change_ToOtherVault();
+
+        // Pay
+        PayTxt.text = Get_NeedPay().ToString();
+
+        // Play
+        TargetVault.Play_Size();
+    }
+
+    #endregion
 }

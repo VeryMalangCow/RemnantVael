@@ -800,7 +800,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2578115198859425988}
   - component: {fileID: 4810027994122376210}
-  - component: {fileID: 3354113259914166035}
+  - component: {fileID: 7910943029154672151}
   m_Layer: 8
   m_Name: Upside
   m_TagString: Wall
@@ -875,7 +875,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3354113259914166035
+--- !u!114 &7910943029154672151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -884,7 +884,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6838627500348933088}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteKey: 

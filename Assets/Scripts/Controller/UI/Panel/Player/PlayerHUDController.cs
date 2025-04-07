@@ -61,6 +61,7 @@ public class PlayerHUDController : UIController
 
     [Space(10)]
     [Header("=== Other Item")]
+    [SerializeField] private LootableItemEUIController Credit_EUI;
     [SerializeField] private LootableItemEUIController Overrider_EUI;
     [SerializeField] private LootableItemEUIController MS_EUI;
 
@@ -99,7 +100,6 @@ public class PlayerHUDController : UIController
 
     [Header("=== Color Or Icon")]
     [Header("-- Icon")]
-    [SerializeField] private List<Image> ESImgList;
     [HideInInspector] private List<Image> SkillImgList = new List<Image>();
 
     [Header("-- Buff")]
@@ -279,10 +279,11 @@ public class PlayerHUDController : UIController
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentModuleShard
-            .Subscribe(_CurrentMS =>
+
+        PlayerManager.Instance.PlayerController.CurrentCredit
+            .Subscribe(_CurrentCredit =>
             {
-                MS_EUI.Play_Amount(_CurrentMS);
+                Credit_EUI.Play_Amount(_CurrentCredit);
             })
             .AddTo(gameObject);
 
@@ -292,6 +293,14 @@ public class PlayerHUDController : UIController
                 Overrider_EUI.Play_Amount(_CurrentOverrider);
             })
             .AddTo(gameObject);
+
+        PlayerManager.Instance.PlayerController.CurrentModuleShard
+            .Subscribe(_CurrentMS =>
+            {
+                MS_EUI.Play_Amount(_CurrentMS);
+            })
+            .AddTo(gameObject);
+
 
         PlayerManager.Instance.PlayerController.CurrentBoostLv
             .Subscribe(_BoostLevel =>
@@ -314,10 +323,6 @@ public class PlayerHUDController : UIController
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart);
 
-        // ES 이미지
-        DevTool.Set_SpriteList(ESImgList, PlayerManager.Instance.PlayerController.ES_Sprite);
-        DevTool.Set_SpriteNativeSize(ESImgList);
-
         // 스킬 이미지
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
@@ -325,6 +330,7 @@ public class PlayerHUDController : UIController
             SkillImgList[i].sprite = PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].ThisIcon;
         }
 
+        Credit_EUI.Offset();
         Overrider_EUI.Offset();
         MS_EUI.Offset();
     }

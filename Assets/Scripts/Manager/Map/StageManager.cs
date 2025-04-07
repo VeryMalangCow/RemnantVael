@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +19,26 @@ public class StageManager : Singleton<StageManager>
 
     [Space(10)]
     [Header("=== Reso")]
+
+    [Space(5)]
+    [Header("-- Room")]
     [SerializeField] private GameObject StartRoomRulePrefab;
-    [SerializeField] private GameObject BUShopPrefab;
-    [SerializeField] private GameObject MUShopPrefab;
-    [SerializeField] private List<GameObject> VaultPrefabList;
-    [Space(10)]
     [SerializeField] private List<GameObject> RoomPrefabList;
     [SerializeField] private List<GameObject> RoomRulePrefabList;
     [SerializeField] private List<GameObject> RoomRuleEntrancePrefabList;
     [SerializeField] private List<GameObject> RoomRuleVaultPrefabList;
-    [Space(10)]
+
+    [Space(5)]
+    [Header("-- Build")]
+    [SerializeField] private GameObject BUShopPrefab;
+    [SerializeField] private GameObject MUShopPrefab;
+    [SerializeField] private List<GameObject> VaultPrefabList;
+    [SerializeField] private GameObject RepairOperatorPrefab;
+    [SerializeField] private GameObject VaultRerollOperatorPrefab;
+    [SerializeField] private GameObject VaultUpgradeOperatorPrefab;
+
+    [Space(5)]
+    [Header("-- Icon")]
     [SerializeField] private CoupleData<Sprite> Vault_Icon;
     [SerializeField] private CoupleData<Sprite> Elevator_Icon;
     [SerializeField] public List<MinimapIcon> MinimapIcons;
@@ -215,6 +226,18 @@ public class StageManager : Singleton<StageManager>
             VaultController vault = DevTool.Get_ComponentTType<VaultController>(Instantiate(DevTool.Get_RandomInList(VaultPrefabList), vaultRule.InRoom_VaultParentTF));
             vaultRule.Vault = vault;
             vault.gameObject.SetActive(false);
+
+            DevTool.Get_ComponentTType<RepairOperatorController>(
+                Instantiate(RepairOperatorPrefab, vaultRule.InRoom_RepairOperactorParentTF))
+                    .Set_TargetBuild(vault);
+
+            DevTool.Get_ComponentTType<VaultRerollOperatorController>(
+                Instantiate(VaultRerollOperatorPrefab, vaultRule.InRoom_RerollOperactorParentTF))
+                    .Set_TargetBuild(vault);
+
+            DevTool.Get_ComponentTType<VaultUpgradeOperatorController>(
+                Instantiate(VaultUpgradeOperatorPrefab, vaultRule.InRoom_UpgradeOperactorParentTF))
+                    .Set_TargetBuild(vault);
 
             room.Offset(_TempID);
             Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
@@ -413,7 +436,7 @@ public class StageManager : Singleton<StageManager>
             {
                 int index = AllStageData[TargetStageID].MapMaterialUnclear.IndexOf(sr.sharedMaterial);
                 if (index == -1)
-                { Debug.Log(sr.gameObject.name + " / " + sr.gameObject.transform.parent.gameObject.name); }
+                { Debug.Log(sr.gameObject.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
                 sr.material = AllStageData[TargetStageID].MapMaterialClear[index];
             }
         }
@@ -444,7 +467,8 @@ public class StageManager : Singleton<StageManager>
             if (DevTool.Get_ComponentTType(setAnim.gameObject, out SpriteRenderer sr))
             {
                 int index = AllStageData[TargetStageID].MapMaterialUnclear.IndexOf(sr.sharedMaterial);
-                Debug.Log(sr.material.name + " / Anim: " + index);
+                if (index == -1)
+                { Debug.Log(sr.material.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
                 sr.material = AllStageData[TargetStageID].MapMaterialClear[index];
             }
         }
@@ -515,7 +539,7 @@ public class StageManager : Singleton<StageManager>
     private RoomRuleController Get_CorrectRandomRoomRule(RoomController _Room)
     {
         List<RoomRuleController> roomRuleList = Get_CorrectRoomRuleList(_Room);
-        return roomRuleList[Random.Range(0, roomRuleList.Count)];
+        return roomRuleList[UnityEngine.Random.Range(0, roomRuleList.Count)];
     }
 
     #endregion
@@ -629,6 +653,19 @@ public class StageManager : Singleton<StageManager>
                 return null;
         }
 
+    }
+
+    #endregion
+
+    #region Vault
+
+    public GameObject Get_VaultCorrectType(Type _TypeVault) 
+    {
+        for (int i = 0; i < VaultPrefabList.Count; i++)
+            if (DevTool.Get_ComponentTType<VaultController>(VaultPrefabList[i]).GetType() == _TypeVault)
+                return VaultPrefabList[i];
+
+        return null;
     }
 
     #endregion

@@ -1578,6 +1578,30 @@ public class DevTool
             return CSVManager.Instance.Get_StaticWord(3);
         }
 
+        else if (Can_CastingTType(_II, out RepairOperatorController repairOper))
+        {
+            if (!repairOper.Can_Interact())
+                _CanInteract = false;
+
+            return CSVManager.Instance.Get_StaticWord(56);
+        }
+
+        else if (Can_CastingTType(_II, out VaultRerollOperatorController rerollOper))
+        {
+            if (!rerollOper.Can_Interact())
+                _CanInteract = false;
+
+            return CSVManager.Instance.Get_StaticWord(57);
+        }
+
+        else if (Can_CastingTType(_II, out VaultUpgradeOperatorController upgradeOper))
+        {
+            if (!upgradeOper.Can_Interact())
+                _CanInteract = false;
+
+            return CSVManager.Instance.Get_StaticWord(58);
+        }
+
         return "";
     }
 
@@ -3202,6 +3226,9 @@ public class SatelliteCenterController : SatelliteController
 [System.Serializable]
 public class StageData
 {
+    public string MapIndexName;
+
+    [Space(5)]
     public StageInfo InfoData;
 
     [Space(5)]
@@ -3210,8 +3237,6 @@ public class StageData
     [Space(5)]
     public StageEnemy EnemyData;
 
-    [Space(5)]
-    public string MapIndexName;
 
     [Space(5)]
     public List<Material> MapMaterialUnclear;

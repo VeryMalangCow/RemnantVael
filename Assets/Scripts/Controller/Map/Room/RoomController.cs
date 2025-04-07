@@ -166,6 +166,8 @@ public class RoomController : IDController
 
     public void Play_RoomState()
     {
+        if (RoomRuleController.IsAlreadyRoomClear == true) return;
+
         switch (RoomRuleController.RoomType)
         {
             case eRoomType.Completed:
@@ -184,6 +186,8 @@ public class RoomController : IDController
 
     private void Set_Completed()
     {
+        RoomRuleController.IsAlreadyRoomClear = true;
+
         // Gate
         for (int i = 0; i < InRoom_AllGate.Count; i++) 
         {

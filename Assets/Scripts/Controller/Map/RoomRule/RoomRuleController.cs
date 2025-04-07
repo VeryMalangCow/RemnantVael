@@ -20,6 +20,7 @@ public class RoomRuleController : MonoBehaviour
     [Space(5)]
     [Header("-- Type")]
     [SerializeField] public eRoomType RoomType;
+    [SerializeField] public bool IsAlreadyRoomClear = false;
 
 
     [Space(10)]

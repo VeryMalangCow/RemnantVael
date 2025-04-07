@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class InteractableBuildController : SortingObjectController
@@ -13,7 +14,7 @@ public class InteractableBuildController : SortingObjectController
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] protected bool IsOn = false;
+    [SerializeField] public bool IsOn = false;
     [SerializeField] protected Animator ThisAnimator;
 
     // Anim
@@ -41,6 +42,23 @@ public class InteractableBuildController : SortingObjectController
         base.Set_SortingOrder(_SortingOrder);
 
         ThisStateAnim.ThisSR.sortingOrder = _SortingOrder;
+    }
+
+    #endregion
+
+    #region Play
+
+    public void Play_Size()
+    {
+        DevTool.Set_KillTween(gameObject.transform.localScale);
+
+        gameObject.transform.localScale = Vector2.one;
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(gameObject.transform.DOScale(1.2f, 0.1f));
+        seq.Append(gameObject.transform.DOScale(1f, 0.1f));
+        seq.OnStart(() => { gameObject.transform.localScale = Vector2.one; })
+            .OnComplete(() => { gameObject.transform.localScale = Vector2.one; });
     }
 
     #endregion

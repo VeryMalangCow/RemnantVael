@@ -108,6 +108,14 @@ public class DepthController : IDController
             _Value);
     }
 
+    // Credit
+    protected void Gen_Credit(int _Value)
+    {
+        PoolingManager.Instance.Get_OP_Credit().Set_State(
+            _SpawnPos: gameObject.transform.position,
+            _Value);
+    }
+
     // Module Interact Item
     protected void Gen_II(int _Rank)
     {

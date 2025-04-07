@@ -1,5 +1,9 @@
-using System.Collections.Generic;
+using System;
+using System.Reflection;
+using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 public class VaultController : DestructibleBuildController
 {
@@ -14,8 +18,14 @@ public class VaultController : DestructibleBuildController
 
     [Space(10)]
     [Header("=== Grade")]
-    [SerializeField] protected int CurrentGrade = 0;
+    [SerializeField] public int CurrentGrade = 0;
 
+    // Grade
+    [HideInInspector] private int MaxGrade = 5;
+
+    // Oper
+    [SerializeField] public VaultRerollOperatorController RerollOper = null;
+    [SerializeField] public VaultUpgradeOperatorController UpgradeOper = null;
 
     #endregion
 
@@ -59,28 +69,85 @@ public class VaultController : DestructibleBuildController
         BrokenStateAC = UnitManager.Instance.Vault_StateAC.TypeBase;
     }
 
+    public void Set_Upgrade()
+    {
+        CurrentGrade++;
+        Set_Grade(CurrentGrade);
+    }
+
+    #endregion
+
+    #region Is
+
+    public bool Is_MaxGrade()
+    {
+        return CurrentGrade >= MaxGrade;
+    }
+
     #endregion
 
     #region Change
 
-    public void Change_ToOtherVault(VaultController _OtherVault)
+    public void Change_ToOtherVault()
     {
-        IsOn = true;
-        ThisAnimator = _OtherVault.ThisAnimator;
+        Type baseType = typeof(VaultController);
+        Type resultType = null;
 
-        OnOffAC = _OtherVault.OnOffAC;
-        OnOffStateAC = _OtherVault.OnOffStateAC;
+        List<Type> childTypes = Assembly.GetAssembly(baseType)
+            .GetTypes()
+            .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(baseType))
+            .ToList();
 
-        AOC = _OtherVault.AOC;
+        while (true)
+        {
+            resultType = childTypes[UnityEngine.Random.Range(0, childTypes.Count)];
 
-        int MaxDur = _OtherVault.MaxDur;
-        int CurrentDur = _OtherVault.CurrentDur;
+            if (resultType != this.GetType())
+                break;
+        }
 
-        BrokenAC = _OtherVault.BrokenAC;
-        BrokenStateAC = _OtherVault.BrokenStateAC;
+        VaultController targetVault = DevTool.Get_ComponentTType<VaultController>(Instantiate(StageManager.Instance.Get_VaultCorrectType(resultType), gameObject.transform.parent));
+        targetVault.transform.localPosition = transform.localPosition;
+        targetVault.Change_OperValue(RepairOper, RerollOper, UpgradeOper);
 
-        DurFrameSRList = _OtherVault.DurFrameSRList;
-        DurInnerSRList = _OtherVault.DurInnerSRList;
+        targetVault.Change_VaultValue(CurrentDur);
+
+        Destroy(gameObject);
+    }
+
+    private void Change_OperValue(RepairOperatorController _RepairOper, VaultRerollOperatorController _RerollOper, VaultUpgradeOperatorController _UpgradeOper)
+    {
+        if (_RepairOper != null) _RepairOper.Set_TargetBuild(this);
+        if (_RerollOper != null) _RerollOper.Set_TargetBuild(this);
+        if (_UpgradeOper != null) _UpgradeOper.Set_TargetBuild(this);
+    }
+
+
+    public void Change_VaultValue(int _Dur)
+    {
+        StartCoroutine(Change_VaultValue_Cor(_Dur));
+    }
+
+    private IEnumerator Change_VaultValue_Cor(int _Dur)
+    {
+        yield return new WaitForEndOfFrame();
+
+        CurrentDur = _Dur;
+        Set_DurAmount(CurrentDur);
+        Debug.Log("РќДо");
+    }
+
+    #endregion
+
+    #region Break
+
+    protected override void Play_NowBreak(bool _SpawnItem)
+    {
+        base.Play_NowBreak(_SpawnItem);
+
+        if (RepairOper != null) RepairOper.Set_TargetBuildBroken();
+        if (RerollOper != null) RerollOper.Set_TargetBuildBroken();
+        if (UpgradeOper != null) UpgradeOper.Set_TargetBuildBroken();
     }
 
     #endregion

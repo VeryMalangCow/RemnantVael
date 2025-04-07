@@ -69,8 +69,8 @@ public class UnitManager : Singleton<UnitManager>
     [Header("-- Operator / Actual")]
     [SerializeField] public CoupleData<AnimationClip> Operator_OnOffAC;
     [SerializeField] public AnimationClip Operator_RepairAC;
-    [SerializeField] public AnimationClip Operator_OverriderRerollAC;
-    [SerializeField] public AnimationClip Operator_EnergyUpgradeAC;
+    [SerializeField] public AnimationClip Operator_RerollAC;
+    [SerializeField] public AnimationClip Operator_UpgradeAC;
 
     [Space(5)]
     [Header("-- Operator / State")]

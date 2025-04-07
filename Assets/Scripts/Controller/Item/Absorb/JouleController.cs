@@ -22,8 +22,6 @@ public class JouleController : RangeAbsorbItemController
         EnergyValue = _Value;
 
         gameObject.SetActive(true);
-
-        ThisSR.sprite = PlayerManager.Instance.PlayerController.ES_Sprite;
     }
 
     #endregion
