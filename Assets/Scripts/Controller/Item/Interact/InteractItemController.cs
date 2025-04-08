@@ -19,8 +19,22 @@ public class InteractItemController : ItemController, IInteract
     [Space(10)]
     [Header("=== State")]
     [SerializeField] public ItemData_Field ItemDataField;
-    
+
+    [Space(10)]
+    [Header("=== Anim")]
+    [SerializeField] private Animator ThisAT;
+
+    [HideInInspector] private SpriteRenderer OutlinerSR;
+    [HideInInspector] private AnimatorOverrideController AOC;
+
     #endregion
+
+    protected override void Offset()
+    {
+        base.Offset();
+
+        OutlinerSR = DevTool.Get_ComponentTType(ThisAT.gameObject, out SpriteRenderer outlinerSr) ? outlinerSr : null;
+    }
 
     #region State
 
@@ -43,6 +57,15 @@ public class InteractItemController : ItemController, IInteract
     public void Set_RankState(int _Rank)
     {
         ItemDataField.Rank = _Rank;
+        DevTool.Set_Anim(ref AOC, ThisAT, UnitManager.Instance.ModuleItemOutlinerAC[_Rank - 1]);
+        ThisAT.speed = 1.5f;
+    }
+
+    public override void Set_SortingOrder(int _SortingOrder)
+    {
+        base.Set_SortingOrder(_SortingOrder);
+
+        OutlinerSR.sortingOrder = _SortingOrder;
     }
 
     #endregion

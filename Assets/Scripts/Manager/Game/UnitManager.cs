@@ -13,9 +13,19 @@ public class UnitManager : Singleton<UnitManager>
 
     [Space(10)]
     [Header("=== Material")]
+
+    [Space(5)]
+    [Header("-- Module")]
     [SerializeField] public Material ModuleM_000_Explosion;
     [SerializeField] public Material ModuleM_000_Hitted;
+
+    [Space(5)]
+    [Header("-- Enemy")]
     [SerializeField] public Material EnemyM_000_Explosion;
+
+    [Space(5)]
+    [Header("-- Build")]
+    [SerializeField] public Material Build_000;
 
     #endregion
 
@@ -41,6 +51,10 @@ public class UnitManager : Singleton<UnitManager>
 
     [Space(10)]
     [Header("=== Anim")]
+
+    [Space(5)]
+    [Header("-- ModuleItem")]
+    [SerializeField] public List<AnimationClip> ModuleItemOutlinerAC;
 
     [Space(5)]
     [Header("-- Shop / Actual")]

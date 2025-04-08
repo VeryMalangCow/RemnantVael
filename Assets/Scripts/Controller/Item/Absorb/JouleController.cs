@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class JouleController : RangeAbsorbItemController
@@ -10,6 +11,31 @@ public class JouleController : RangeAbsorbItemController
     [Space(10)]
     [Header("=== State")]
     [SerializeField] private float EnergyValue = 1f;
+    [SerializeField] private TMP_Text AmountTxt;
+
+    [HideInInspector] private MeshRenderer TxtMR;
+
+    #endregion
+
+    #region Offset
+
+    protected override void Offset()
+    {
+        base.Offset();
+
+        TxtMR = DevTool.Get_ComponentTType(AmountTxt.gameObject, out MeshRenderer mr) ? mr : null;
+    }
+
+    #endregion
+
+    #region Set
+
+    public override void Set_SortingOrder(int _SortingOrder)
+    {
+        base.Set_SortingOrder(_SortingOrder);
+
+        TxtMR.sortingOrder = _SortingOrder;
+    }
 
     #endregion
 
@@ -20,6 +46,8 @@ public class JouleController : RangeAbsorbItemController
         base.Set_State(_SpawnPos);
 
         EnergyValue = _Value;
+        string txt = _Value % 1 == 0 ? _Value.ToString() : _Value.ToString("0.0");
+        AmountTxt.text = $"(<size=150%>{txt}</size>)";
 
         gameObject.SetActive(true);
     }

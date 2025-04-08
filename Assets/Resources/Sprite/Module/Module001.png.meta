@@ -1,0 +1,2536 @@
+fileFormatVersion: 2
+guid: 4724d752921d4bb4bb2e633dfd1d2b86
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5abe380055974ec43aed3f5567efdb01
+      internalID: 1142604589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_01
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48591018ea4b050419afd947ad85bb18
+      internalID: -289386051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_02
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 595fa8a93b025774e8285f387b0ebd07
+      internalID: -1150839661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_03
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54300c80e236c3046b77255119753d3a
+      internalID: 1888918080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_04
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db51045deaa50fc41b9e85d236b01314
+      internalID: 1254074449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_05
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f12d554dba7d39e48b5b30cf35e86fd5
+      internalID: 196983859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_06
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70b53de7adec69b4ea8bf115bdefb51d
+      internalID: 13898908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_07
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5125a1803b7412949a4bfd7e6e7d462d
+      internalID: -1515412079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_08
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23ad2bf94d40ff2478931c96d78b2ee7
+      internalID: 1527210416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_09
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83d3ae215392e3e4f9d8259db7b4e1f0
+      internalID: 1719802213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_10
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55a63d696b991c94b88f7b795c534ffe
+      internalID: 638252213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d24620b35bafce45b080f2690a0c03d
+      internalID: 1993504932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_12
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38263daf8fcbb7b498a339d804d61e6c
+      internalID: -1452928302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_13
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98e01f84fe5909a49ac53ffdd3f9f699
+      internalID: 294676610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_14
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60b1147a2ecba144e9fb733e9b66416b
+      internalID: -251029757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_15
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 117230bf9284ca644a314946ede5ce0a
+      internalID: 1364658334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_16
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5ff8945f4945cd42a4212660ffad3be
+      internalID: -1230662639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_17
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea693202f5990d541a0ccd5040b078f6
+      internalID: 507987392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_18
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f16e87e0e6c220748b9d6027da9b6b92
+      internalID: -1450640960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_19
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d65f0c91d30af645bfb5314bf54c73a
+      internalID: -1980483207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_20
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0d090d2aaff94c41870d15efa1b82c0
+      internalID: -1643729958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R1_21
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56d748b5995d10641a3ca46763b26d5d
+      internalID: -736606317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 194
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c88c35b87b620604c9240c1d3d5e54c0
+      internalID: -1550924220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_01
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 194
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd776af0ab26f214e9787b5476ca24c8
+      internalID: -1912752126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_02
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 194
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c84bdebb00f42c4b8885d2d1d2fe25b
+      internalID: 813443492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_03
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 194
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d7932850147f7b45b30414ff1e60629
+      internalID: -1118720392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_04
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 194
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 679ed0356b657b049bae228d85bf0a3e
+      internalID: 1800703749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_05
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 194
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6768d37c06c994940844dad0ce74d830
+      internalID: 606069538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_06
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 194
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e4d64a78c1a7e54485ce7ae0acc7b1c
+      internalID: -994576068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_07
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 194
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29bae7ae92aeeda4999971cc32cd39b9
+      internalID: -1968330171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_08
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 194
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02add67f581a95941a1cbdfae56cfd29
+      internalID: 1655125406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_09
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 194
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f87e86634276b84478a0c3720a381b37
+      internalID: -1017226964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_10
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 194
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9c1de49d690a11479cab7be917a3063
+      internalID: 423602158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 173
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad89ab3712a60144698e0d9f50335dd4
+      internalID: -796372984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_12
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 173
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 756faa524a4bc8b41a178bee207da84c
+      internalID: 1460782264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_13
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 173
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17a34fa8f67009e4baaa145f7637744f
+      internalID: 1774948458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_14
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 173
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86c4423f8b650824e9a9a2e825c482d0
+      internalID: 1257488004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_15
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 173
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f81ad45ab63c2954cb0ed8ac73618a52
+      internalID: 555926419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_16
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 173
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d70fcd2eaeadeca4aac63808382e57aa
+      internalID: -260608614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_17
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 173
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1a75f65d9047d845a6746bc2bd49cd3
+      internalID: 584019932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_18
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 173
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fa4f569408f196469fd1afb076cf8ec
+      internalID: -37956358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_19
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 173
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c7f0fea83da1a04b8ad3a97b34d7018
+      internalID: -1755417078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_20
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 173
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60f9f7c1cbc8534439411cf569b23f93
+      internalID: 791555091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R2_21
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 173
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6de7f878c6cf92d44b14bb3e1f30fb22
+      internalID: -68144809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 152
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 866f8d80eff154e45a2229d03d188ab2
+      internalID: -1108260468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_01
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 152
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0dd6967d579ac747af2114d63955050
+      internalID: 400177179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_02
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 152
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d25fe08f6f2598441b6d99de7ceb3f76
+      internalID: 911242461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_03
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 152
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ba3e3a738abacb42bd55f45b540265f
+      internalID: 1428768799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_04
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 152
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f89ac068772e4724b918c70a5f0ca22a
+      internalID: 1074042566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_05
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 152
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d45ccab203b2d494db3fa71658826aef
+      internalID: 1424068573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_06
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 152
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6c85debd94a6eb4f85dc22210e2973b
+      internalID: -731434752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_07
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 152
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ff6d61107af14041885ceae0ef226b5
+      internalID: -282187822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_08
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 152
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cb78a4065357164b84e25dbfd01ef81
+      internalID: -1664395487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_09
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 152
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89d71be2a3010cf4592a781d33dd4e83
+      internalID: -1306318992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_10
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 152
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aa39a932d654c7478640dc524fc59dd
+      internalID: -967191103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adfc23818fd64984db4d9e67212a54e7
+      internalID: 1057723201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_12
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc9bf165596539c4a802b2232aba1f01
+      internalID: 977022618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_13
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 472056216f730bb4caf0b176db397e4e
+      internalID: 1845417267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_14
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a13a5f9a6cde7e49b4bb47b2d6a1765
+      internalID: 548729709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_15
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db16123c5438941418b1bd8363bff5eb
+      internalID: 1307807487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_16
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e24cb7f6bfab0742911429b6e108607
+      internalID: -1666203569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_17
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e003c05b251175a4dbba44615e655a03
+      internalID: 1917936496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_18
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa7b04dc0e20b9940a71731bd30e1b5a
+      internalID: -1041133425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_19
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71a35ddbe3eb2fb4c9d56415cbca3781
+      internalID: 1406764309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_20
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20b085179bf7a7346ab3abcc9b6d2efa
+      internalID: 1161652948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R3_21
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 131
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22c382a0783531746bda0105cff3ffd0
+      internalID: 1714839327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 110
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d583cc72b6a77a243aaddbf5768e3a2a
+      internalID: -718503150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_01
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 110
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39e3f23c613cf16449127ba0483e40f5
+      internalID: -1623585503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_02
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 110
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35e1b4816f259544fbf0b4719e16df8c
+      internalID: 1522321955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_03
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 110
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a163ad4a367013e448c5232faf5c39fc
+      internalID: 100731487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_04
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 110
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c5f1dac65ec6c842abc098a921f4f98
+      internalID: -572400026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_05
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 110
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b3996b110ce6184fb50a831927473a4
+      internalID: 1398591855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_06
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 110
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfb2c54760795cc409cdf6723b1eefea
+      internalID: -2063465662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_07
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 110
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ce741e5ed1003347b904f6a162985c5
+      internalID: -1440541857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_08
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 110
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c36bc817993573479ef91ee8217b5b8
+      internalID: -592800306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_09
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 110
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c259da647f561c4196898fd3c3994ac
+      internalID: -878554129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_10
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 110
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f8aad0206ce07b4198006f52e3db1b1
+      internalID: 778884926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 89
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e63ec8d570612ac46a01b588b91a3448
+      internalID: 1969630244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_12
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 89
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29da6ccfc0c707e43931a3d7984dcc09
+      internalID: -217635952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_13
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 89
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9697ce71756905469b31754d7eee227
+      internalID: 725444318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_14
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 89
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f408987bf91c2e4ab201043a6ae870c
+      internalID: -1991429980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_15
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 89
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fe35d7a137646140a89c43c72c10685
+      internalID: -1003551762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_16
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 89
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0284d96b6a950846956ad24169825a6
+      internalID: -1546802181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_17
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 89
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4877b4d0f56300b4192326bfc8eb672e
+      internalID: -2138028438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_18
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 89
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05766d60726aff4499766c501579ef35
+      internalID: 510886395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_19
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 89
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0d421775240aa74182ac9a658acc55e
+      internalID: 979531644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_20
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 89
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af4f69805a0470f429df4c0477b487b3
+      internalID: -72281070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R4_21
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 89
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e758392b234cb4e4e9cea2bdd08503ca
+      internalID: -1895534561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 68
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1dca3375ea5a0f4ebbfcaef7124bdb3
+      internalID: -1843305013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_01
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 68
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ef96f1a9f75fec4396e8a022bc32e68
+      internalID: 179622764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_02
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 68
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50868d135636dd746be61a0e1be81345
+      internalID: -1987433269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_03
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 68
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2212407ce8dce364b8e7bc8b1ec79c44
+      internalID: -23499262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_04
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 68
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 155f9c445b22c8648a8c5498b7580943
+      internalID: 119023451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_05
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 68
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3ab82dcce7f8a64e80b2e770f5cfa26
+      internalID: 1427479468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_06
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 68
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9dd245fb995d8e47ac26213c9d8e13f
+      internalID: -1971641697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_07
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 68
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9a0dabab7234774daf510988bf24c2d
+      internalID: -504903821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_08
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 68
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e77f3540db98a784d944a2c75a329000
+      internalID: 916915903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_09
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 68
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f0e06a0b0be3cc499ced5fdf75210a9
+      internalID: 1065458564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_10
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 68
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab944f4495250124499e503931827cc8
+      internalID: -199125140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 47
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c5fe224dc38d86488c4127eea0ca81c
+      internalID: 1935523440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_12
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 47
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba0d726bd803f654c9d19b46457eb825
+      internalID: 1678101818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_13
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 47
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bedeb7465b3419a4aaf1b2981e1363f5
+      internalID: -520695367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_14
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 47
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1f88abd3162ff04abaceb4771886f1a
+      internalID: -401780369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_15
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 47
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24ddfb4937c3ff44da7f742e8fdece8b
+      internalID: -1662812640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_16
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 47
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 953460f6bac22fb41abe2b4e693c1a0d
+      internalID: -1183202787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_17
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 47
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60165fa2ebe99ff43aa5ef2f1195d8ce
+      internalID: 789661926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_18
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 47
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53dcf29bdc2c4a84d9a311aad9e2c078
+      internalID: 1816032256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_19
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 47
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56d80a365a249f841800d02a380987e8
+      internalID: -1299475150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_20
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 47
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1909c809c89bec4da938ddbf6ba8348
+      internalID: -926484132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module001_ModuleVFX_R5_21
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 47
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c74f16e6eb0d0264cb87ed6bf627ce92
+      internalID: 993736209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 4c25dd0670f88b54c9d9a13a44f89fbf, type: 3}
+      name: _Emission
+    nameFileIdTable:
+      Module001_ModuleVFX_R1_00: 1142604589
+      Module001_ModuleVFX_R1_01: -289386051
+      Module001_ModuleVFX_R1_02: -1150839661
+      Module001_ModuleVFX_R1_03: 1888918080
+      Module001_ModuleVFX_R1_04: 1254074449
+      Module001_ModuleVFX_R1_05: 196983859
+      Module001_ModuleVFX_R1_06: 13898908
+      Module001_ModuleVFX_R1_07: -1515412079
+      Module001_ModuleVFX_R1_08: 1527210416
+      Module001_ModuleVFX_R1_09: 1719802213
+      Module001_ModuleVFX_R1_10: 638252213
+      Module001_ModuleVFX_R1_11: 1993504932
+      Module001_ModuleVFX_R1_12: -1452928302
+      Module001_ModuleVFX_R1_13: 294676610
+      Module001_ModuleVFX_R1_14: -251029757
+      Module001_ModuleVFX_R1_15: 1364658334
+      Module001_ModuleVFX_R1_16: -1230662639
+      Module001_ModuleVFX_R1_17: 507987392
+      Module001_ModuleVFX_R1_18: -1450640960
+      Module001_ModuleVFX_R1_19: -1980483207
+      Module001_ModuleVFX_R1_20: -1643729958
+      Module001_ModuleVFX_R1_21: -736606317
+      Module001_ModuleVFX_R2_00: -1550924220
+      Module001_ModuleVFX_R2_01: -1912752126
+      Module001_ModuleVFX_R2_02: 813443492
+      Module001_ModuleVFX_R2_03: -1118720392
+      Module001_ModuleVFX_R2_04: 1800703749
+      Module001_ModuleVFX_R2_05: 606069538
+      Module001_ModuleVFX_R2_06: -994576068
+      Module001_ModuleVFX_R2_07: -1968330171
+      Module001_ModuleVFX_R2_08: 1655125406
+      Module001_ModuleVFX_R2_09: -1017226964
+      Module001_ModuleVFX_R2_10: 423602158
+      Module001_ModuleVFX_R2_11: -796372984
+      Module001_ModuleVFX_R2_12: 1460782264
+      Module001_ModuleVFX_R2_13: 1774948458
+      Module001_ModuleVFX_R2_14: 1257488004
+      Module001_ModuleVFX_R2_15: 555926419
+      Module001_ModuleVFX_R2_16: -260608614
+      Module001_ModuleVFX_R2_17: 584019932
+      Module001_ModuleVFX_R2_18: -37956358
+      Module001_ModuleVFX_R2_19: -1755417078
+      Module001_ModuleVFX_R2_20: 791555091
+      Module001_ModuleVFX_R2_21: -68144809
+      Module001_ModuleVFX_R3_00: -1108260468
+      Module001_ModuleVFX_R3_01: 400177179
+      Module001_ModuleVFX_R3_02: 911242461
+      Module001_ModuleVFX_R3_03: 1428768799
+      Module001_ModuleVFX_R3_04: 1074042566
+      Module001_ModuleVFX_R3_05: 1424068573
+      Module001_ModuleVFX_R3_06: -731434752
+      Module001_ModuleVFX_R3_07: -282187822
+      Module001_ModuleVFX_R3_08: -1664395487
+      Module001_ModuleVFX_R3_09: -1306318992
+      Module001_ModuleVFX_R3_10: -967191103
+      Module001_ModuleVFX_R3_11: 1057723201
+      Module001_ModuleVFX_R3_12: 977022618
+      Module001_ModuleVFX_R3_13: 1845417267
+      Module001_ModuleVFX_R3_14: 548729709
+      Module001_ModuleVFX_R3_15: 1307807487
+      Module001_ModuleVFX_R3_16: -1666203569
+      Module001_ModuleVFX_R3_17: 1917936496
+      Module001_ModuleVFX_R3_18: -1041133425
+      Module001_ModuleVFX_R3_19: 1406764309
+      Module001_ModuleVFX_R3_20: 1161652948
+      Module001_ModuleVFX_R3_21: 1714839327
+      Module001_ModuleVFX_R4_00: -718503150
+      Module001_ModuleVFX_R4_01: -1623585503
+      Module001_ModuleVFX_R4_02: 1522321955
+      Module001_ModuleVFX_R4_03: 100731487
+      Module001_ModuleVFX_R4_04: -572400026
+      Module001_ModuleVFX_R4_05: 1398591855
+      Module001_ModuleVFX_R4_06: -2063465662
+      Module001_ModuleVFX_R4_07: -1440541857
+      Module001_ModuleVFX_R4_08: -592800306
+      Module001_ModuleVFX_R4_09: -878554129
+      Module001_ModuleVFX_R4_10: 778884926
+      Module001_ModuleVFX_R4_11: 1969630244
+      Module001_ModuleVFX_R4_12: -217635952
+      Module001_ModuleVFX_R4_13: 725444318
+      Module001_ModuleVFX_R4_14: -1991429980
+      Module001_ModuleVFX_R4_15: -1003551762
+      Module001_ModuleVFX_R4_16: -1546802181
+      Module001_ModuleVFX_R4_17: -2138028438
+      Module001_ModuleVFX_R4_18: 510886395
+      Module001_ModuleVFX_R4_19: 979531644
+      Module001_ModuleVFX_R4_20: -72281070
+      Module001_ModuleVFX_R4_21: -1895534561
+      Module001_ModuleVFX_R5_00: -1843305013
+      Module001_ModuleVFX_R5_01: 179622764
+      Module001_ModuleVFX_R5_02: -1987433269
+      Module001_ModuleVFX_R5_03: -23499262
+      Module001_ModuleVFX_R5_04: 119023451
+      Module001_ModuleVFX_R5_05: 1427479468
+      Module001_ModuleVFX_R5_06: -1971641697
+      Module001_ModuleVFX_R5_07: -504903821
+      Module001_ModuleVFX_R5_08: 916915903
+      Module001_ModuleVFX_R5_09: 1065458564
+      Module001_ModuleVFX_R5_10: -199125140
+      Module001_ModuleVFX_R5_11: 1935523440
+      Module001_ModuleVFX_R5_12: 1678101818
+      Module001_ModuleVFX_R5_13: -520695367
+      Module001_ModuleVFX_R5_14: -401780369
+      Module001_ModuleVFX_R5_15: -1662812640
+      Module001_ModuleVFX_R5_16: -1183202787
+      Module001_ModuleVFX_R5_17: 789661926
+      Module001_ModuleVFX_R5_18: 1816032256
+      Module001_ModuleVFX_R5_19: -1299475150
+      Module001_ModuleVFX_R5_20: -926484132
+      Module001_ModuleVFX_R5_21: 993736209
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

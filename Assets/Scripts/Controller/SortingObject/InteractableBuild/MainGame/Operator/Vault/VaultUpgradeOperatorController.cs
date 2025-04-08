@@ -5,7 +5,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     #region Value
 
     // Value
-    [HideInInspector] private int Pay = 25;
+    [HideInInspector] private int Pay = 5;
 
     #endregion
 

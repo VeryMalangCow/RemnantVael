@@ -69,24 +69,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "BoostMode",
-                    "type": "Button",
-                    "id": "a71f449c-d27b-44c5-85af-49df92e063bc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "UnBoostMode",
-                    "type": "Value",
-                    "id": "72afe0eb-af05-4892-9234-683915ae4f5d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "ChargeBettery",
                     "type": "Button",
                     "id": "49497404-3330-44c8-9df0-891f78999031",
@@ -214,17 +196,6 @@
                 },
                 {
                     "name": "",
-                    "id": "6727a1ed-3962-40d0-822b-70b647660d98",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BoostMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "62c65f71-e6d2-4783-b56c-ef317d2dac6a",
                     "path": "<Keyboard>/r",
                     "interactions": "",
@@ -247,19 +218,8 @@
                 },
                 {
                     "name": "",
-                    "id": "51255569-7576-4498-93ad-02c39d2eb9d5",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UnBoostMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d229c46b-f5f1-4943-950b-579e18c54ce2",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -270,7 +230,7 @@
                 {
                     "name": "",
                     "id": "1ec0d835-a69f-4a01-9036-d8abddc03621",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

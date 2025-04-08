@@ -123,7 +123,6 @@ public class PlayerController : AliveObjectController
     [HideInInspector] private CooltimeData CastingTime = new CooltimeData();
     [HideInInspector] private Dele ReservationDele = null;
     [HideInInspector] private CooltimeData InvincibleTime = new CooltimeData(0.5f);
-    [HideInInspector] private int TargetBoostLv = 0;
 
     #endregion
 
@@ -519,38 +518,6 @@ public class PlayerController : AliveObjectController
         Start_Casting(CombatModeInterval);
     }
 
-
-    // 조건: + 부스트 최대 레벨을 넘지 않도록
-    public void Try_BoostModeCheck()
-    {
-        if (!Can_Change() || TargetBoostLv >= MaxBoostLv)
-        { return; }
-
-        TargetBoostLv++;
-        StateAnim.Set_Anim(
-            new State_Anim(DmgTypeStateAC.TypeSpecial, 2f),
-            _InnerSprite: ChangeState_BoostUpDown.TypeSpecial);
-
-        Start_Casting(BoostModeInterval);
-    }
-
-
-
-    // 조건: + 부스트 레벨이 0 아래가 되지 않도록
-    public void Try_UnBoostModeCheck()
-    {
-        if (!Can_Change() || CurrentBoostLv.Value <= 0)
-        { return; }
-
-        TargetBoostLv--;
-        StateAnim.Set_Anim(
-            new State_Anim(DmgTypeStateAC.TypeSpecial, 2f),
-            _InnerSprite: ChangeState_BoostUpDown.TypeBase);
-
-        Start_Casting(UnBoostModeInterval);
-    }
-
-
     // 조건: + EP, BC가 충분한가?
     public void Try_ChargeBettery()
     {
@@ -643,7 +610,6 @@ public class PlayerController : AliveObjectController
 
             Set_CombatMode();
             Set_Skill();
-            Set_Boost();
         }
     }
 
@@ -693,16 +659,6 @@ public class PlayerController : AliveObjectController
             ReservationDele();
             ReservationDele = null;
 
-            Reset_StateAnim();
-        }
-    }
-
-    private void Set_Boost()
-    {
-        if(CurrentBoostLv.Value != TargetBoostLv)
-        {
-            CurrentBoostLv.Value = TargetBoostLv;
-            Set_BoostAnim(CurrentBoostLv.Value);
             Reset_StateAnim();
         }
     }

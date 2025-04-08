@@ -18,7 +18,6 @@ public class DestructibleBuildController : InteractableBuildController
     [Space(10)]
     [Header("=== Dur UI")]
     [SerializeField] private Transform DurParentTF;
-    [SerializeField] private Material BuildingMaterial;
     [SerializeField] private float FrameIntervalX = 0.08f;
 
     // State
@@ -30,7 +29,7 @@ public class DestructibleBuildController : InteractableBuildController
     [HideInInspector] protected List<SpriteRenderer> DurInnerSRList = new List<SpriteRenderer>();
 
     // Operator
-    [SerializeField] public RepairOperatorController RepairOper = null;
+    [HideInInspector] public RepairOperatorController RepairOper = null;
 
     #endregion
 
@@ -158,7 +157,7 @@ public class DestructibleBuildController : InteractableBuildController
                 DurParentTF,
                 "DurablityFrame_" + _Index,
                 UnitManager.Instance.BuildingDurFrame,
-                BuildingMaterial,
+                UnitManager.Instance.Build_000,
                 ThisStateAnim.ThisSR.sortingOrder - 1);
 
         Set_FrameUIPos(_Index, frameSr);
@@ -171,7 +170,7 @@ public class DestructibleBuildController : InteractableBuildController
                 _ParentTF,
                 "DurablityInner_" + _Index,
                 UnitManager.Instance.BuildingDurInner,
-                BuildingMaterial,
+                UnitManager.Instance.Build_000,
                 ThisStateAnim.ThisSR.sortingOrder);
         Set_InnerUIPos(innerSr);
         return innerSr;

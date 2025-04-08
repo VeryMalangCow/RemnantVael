@@ -21,11 +21,11 @@ public class VaultController : DestructibleBuildController
     [SerializeField] public int CurrentGrade = 0;
 
     // Grade
-    [HideInInspector] private int MaxGrade = 5;
+    [HideInInspector] private int MaxGrade = 4;
 
     // Oper
-    [SerializeField] public VaultRerollOperatorController RerollOper = null;
-    [SerializeField] public VaultUpgradeOperatorController UpgradeOper = null;
+    [HideInInspector] public VaultRerollOperatorController RerollOper = null;
+    [HideInInspector] public VaultUpgradeOperatorController UpgradeOper = null;
 
     #endregion
 

@@ -1,4 +1,5 @@
 
+using TMPro;
 using UnityEngine;
 
 public class CreditController : RangeAbsorbItemController
@@ -11,6 +12,31 @@ public class CreditController : RangeAbsorbItemController
     [Space(10)]
     [Header("=== State")]
     [SerializeField] private int GainAmount = 1;
+    [SerializeField] private TMP_Text AmountTxt;
+
+    [HideInInspector] private MeshRenderer TxtMR;
+
+    #endregion
+
+    #region Offset
+
+    protected override void Offset()
+    {
+        base.Offset();
+
+        TxtMR = DevTool.Get_ComponentTType(AmountTxt.gameObject, out MeshRenderer mr) ? mr : null;
+    }
+
+    #endregion
+
+    #region Set
+
+    public override void Set_SortingOrder(int _SortingOrder)
+    {
+        base.Set_SortingOrder(_SortingOrder);
+
+        TxtMR.sortingOrder = _SortingOrder;
+    }
 
     #endregion
 
@@ -21,6 +47,8 @@ public class CreditController : RangeAbsorbItemController
         base.Set_State(_SpawnPos);
 
         GainAmount = _Value;
+        AmountTxt.text = $"(<size=150%>{_Value}</size>)";
+
         gameObject.SetActive(true);
     }
 

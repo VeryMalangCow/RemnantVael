@@ -193,8 +193,6 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Dash"].performed += Input_Dash;
 
         PlayerInput.actions["CombatMode"].performed += Input_CombatMode;
-        PlayerInput.actions["BoostMode"].performed += Input_BoostMode;
-        PlayerInput.actions["UnBoostMode"].performed += Input_UnBoostMode;
         PlayerInput.actions["ChargeBettery"].performed += Input_ChargeBettery;
 
         PlayerInput.actions["Skill_0"].performed += Input_Skill_0;
@@ -228,8 +226,6 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Dash"].performed -= Input_Dash;
 
         PlayerInput.actions["CombatMode"].performed -= Input_CombatMode;
-        PlayerInput.actions["BoostMode"].performed -= Input_BoostMode;
-        PlayerInput.actions["UnBoostMode"].performed -= Input_UnBoostMode;
         PlayerInput.actions["ChargeBettery"].performed -= Input_ChargeBettery;
 
         PlayerInput.actions["Skill_0"].performed -= Input_Skill_0;
@@ -302,20 +298,6 @@ public class InputManager : Singleton<InputManager>
         if (_InputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
                 PlayerManager.Instance.PlayerController.Try_CombatModeCheck);
-    }
-
-    private void Input_BoostMode(InputAction.CallbackContext _InputValue)
-    {
-        if (_InputValue.ReadValueAsButton())
-            Play_BuffedApplyInput(
-                PlayerManager.Instance.PlayerController.Try_BoostModeCheck);
-    }
-
-    private void Input_UnBoostMode(InputAction.CallbackContext _InputValue)
-    {
-        if (_InputValue.ReadValueAsButton())
-            Play_BuffedApplyInput(
-                PlayerManager.Instance.PlayerController.Try_UnBoostModeCheck);
     }
 
     #endregion

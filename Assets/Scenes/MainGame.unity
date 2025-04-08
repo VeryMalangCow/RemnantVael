@@ -6626,9 +6626,16 @@ MonoBehaviour:
   ModuleM_000_Explosion: {fileID: 2100000, guid: 75b0116f582f3244aaf171b01df8ff63, type: 2}
   ModuleM_000_Hitted: {fileID: 2100000, guid: 02802480c4016274e9287aa5708f7288, type: 2}
   EnemyM_000_Explosion: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
+  Build_000: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
   BuildingDurFrame: {fileID: -2046568933, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
   BuildingDurInner: {fileID: 518337198, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
   RandomColor: {r: 1, g: 0, b: 0, a: 1}
+  ModuleItemOutlinerAC:
+  - {fileID: 7400000, guid: 35bfc1528075c6e428950576281e1be0, type: 2}
+  - {fileID: 7400000, guid: 0759e410f7a365843a010e663dcb0ede, type: 2}
+  - {fileID: 7400000, guid: b5c82c38202ccea49aeb4f80244bd688, type: 2}
+  - {fileID: 7400000, guid: fda530e94e5c23e47a1672a32ac5098e, type: 2}
+  - {fileID: 7400000, guid: 384b1af2a10c9d948aebf6e7b86da252, type: 2}
   BUShop_OnOffAC:
     TypeBase: {fileID: 7400000, guid: 5045f1f99dfa80f4bb8eff1229062de0, type: 2}
     TypeSpecial: {fileID: 7400000, guid: fece8302c854a824695c2cf6290a0957, type: 2}
