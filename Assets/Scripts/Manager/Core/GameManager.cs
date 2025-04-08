@@ -3276,6 +3276,9 @@ public class StageRoom
 
     [Space(10)]
     public List<GenSpecialRoomData> VaultRoom;
+
+    [Space(10)]
+    public List<GenSpecialRoomData> ShopRoom;
 }
 
 [System.Serializable]

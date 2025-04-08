@@ -2226,7 +2226,7 @@ TextureImporter:
         width: 7
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2247,7 +2247,7 @@ TextureImporter:
         width: 7
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2268,7 +2268,7 @@ TextureImporter:
         width: 11
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2289,7 +2289,7 @@ TextureImporter:
         width: 11
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2297,6 +2297,48 @@ TextureImporter:
       bones: []
       spriteID: 5e84db2700c3e4d4ea064e17f10acd03
       internalID: -609947336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_Icon_Shop
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 496
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a23f0aa8ea8d21146aa7370763ca230d
+      internalID: -57570492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_Icon_Shop
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 396
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fd3ff493839efd4dbde91f787509be2
+      internalID: -1992303690
       vertices: []
       indices: 
       edges: []
@@ -2369,6 +2411,7 @@ TextureImporter:
       PlayerHUD_IMM_006: -796665567
       PlayerHUD_IMM_007: 1287868922
       PlayerHUD_IMM_Icon_Elevator: -609947336
+      PlayerHUD_IMM_Icon_Shop: -1992303690
       PlayerHUD_IMM_Icon_Vault: -1483903491
       PlayerHUD_Icon_Acc: 35517159
       PlayerHUD_Icon_CC: -1255095136
@@ -2401,6 +2444,7 @@ TextureImporter:
       PlayerHUD_MM_006: 1540350132
       PlayerHUD_MM_007: -1297130982
       PlayerHUD_MM_Icon_Elevator: 58754797
+      PlayerHUD_MM_Icon_Shop: -57570492
       PlayerHUD_MM_Icon_Vault: -290701738
       PlayerHUD_MapIntro_Frame: 964077810
       PlayerHUD_MapNameFrame: -775422665

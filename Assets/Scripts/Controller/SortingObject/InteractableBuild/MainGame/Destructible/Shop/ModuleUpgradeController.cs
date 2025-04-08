@@ -48,7 +48,7 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
         base.OnEnable(); 
 
         // VFX
-        UnitManager.Instance.Build_ExplImgGenerator.Expl_Build(TargetObject.gameObject.transform.position);
+        //UnitManager.Instance.Build_ExplImgGenerator.Expl_Build(TargetObject.gameObject.transform.position);
     }
 
     #endregion

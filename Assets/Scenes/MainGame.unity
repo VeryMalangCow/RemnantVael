@@ -2563,6 +2563,9 @@ MonoBehaviour:
       VaultRoom:
       - ID: 0
         RuleID: 0
+      ShopRoom:
+      - ID: 0
+        RuleID: 0
     EnemyData:
       StageEnemyList:
       - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
@@ -2624,6 +2627,8 @@ MonoBehaviour:
   - {fileID: 8671702513593221327, guid: 94e8d848a0df5da448c46b0d8142de0a, type: 3}
   RoomRuleVaultPrefabList:
   - {fileID: 8671702513593221327, guid: fbb1a9e1842c4d94f99699c725af6f36, type: 3}
+  RoomRuleShopPrefabList:
+  - {fileID: 8671702513593221327, guid: d30915823e2e8eb43a9d195178a83b47, type: 3}
   BUShopPrefab: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
   MUShopPrefab: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
   VaultPrefabList:
@@ -2639,6 +2644,9 @@ MonoBehaviour:
   Elevator_Icon:
     TypeBase: {fileID: 58754797, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
     TypeSpecial: {fileID: -609947336, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  Shop_Icon:
+    TypeBase: {fileID: -57570492, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    TypeSpecial: {fileID: -1992303690, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
   MinimapIcons:
   - MinimapElementIcon:
       TypeBase:
@@ -3165,10 +3173,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2623676044639665203, guid: ee83beb77b674c44eaa658cff9b1b899, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee83beb77b674c44eaa658cff9b1b899, type: 3}
 --- !u!4 &898882983 stripped
 Transform:
@@ -3482,10 +3487,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5177685096593490439, guid: a52794494980df442a6685865c19674b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a52794494980df442a6685865c19674b, type: 3}
 --- !u!4 &974550420 stripped
 Transform:
@@ -3945,10 +3947,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4664702633057872252, guid: 07c41729688314b4598ff66a28e5f300, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07c41729688314b4598ff66a28e5f300, type: 3}
 --- !u!4 &1164544104 stripped
 Transform:

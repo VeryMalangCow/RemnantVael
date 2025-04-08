@@ -38,9 +38,10 @@ public class VaultRuleController : RoomRuleController
     {
         Vault.gameObject.SetActive(true);
         Vault.Set_Grade(DevTool.Get_Grade(PercentVaultGrade));
+        RepairOperator.gameObject.SetActive(true);
+        UpgradeOperator.gameObject.SetActive(true);
+        RerollOperator.gameObject.SetActive(true);
     }
 
     #endregion
-
-
 }

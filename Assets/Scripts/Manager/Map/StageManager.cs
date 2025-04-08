@@ -27,6 +27,7 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private List<GameObject> RoomRulePrefabList;
     [SerializeField] private List<GameObject> RoomRuleEntrancePrefabList;
     [SerializeField] private List<GameObject> RoomRuleVaultPrefabList;
+    [SerializeField] private List<GameObject> RoomRuleShopPrefabList; 
 
     [Space(5)]
     [Header("-- Build")]
@@ -41,6 +42,7 @@ public class StageManager : Singleton<StageManager>
     [Header("-- Icon")]
     [SerializeField] private CoupleData<Sprite> Vault_Icon;
     [SerializeField] private CoupleData<Sprite> Elevator_Icon;
+    [SerializeField] private CoupleData<Sprite> Shop_Icon;
     [SerializeField] public List<MinimapIcon> MinimapIcons;
 
     [Space(10)]
@@ -144,6 +146,13 @@ public class StageManager : Singleton<StageManager>
             TempID++;
         }
 
+        // 상점 방 생성
+        for (int i = 0; i < stageData.RoomData.ShopRoom.Count; i++)
+        {
+            Gen_ShopRoom(stageData.RoomData.ShopRoom[i], TempID);
+            TempID++;
+        }
+
         // 게이트 활성화
         Set_ParterAllGate();
         List<GateController> allGate = Get_AllGate(CurrentAllRoomController);
@@ -227,17 +236,60 @@ public class StageManager : Singleton<StageManager>
             vaultRule.Vault = vault;
             vault.gameObject.SetActive(false);
 
-            DevTool.Get_ComponentTType<RepairOperatorController>(
-                Instantiate(RepairOperatorPrefab, vaultRule.InRoom_RepairOperactorParentTF))
-                    .Set_TargetBuild(vault);
+            RepairOperatorController repairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
+                Instantiate(RepairOperatorPrefab, vaultRule.InRoom_RepairOperactorParentTF));
+            vaultRule.RepairOperator = repairOper;
+            repairOper.Set_TargetBuild(vault);
+            repairOper.gameObject.SetActive(false);
 
-            DevTool.Get_ComponentTType<VaultRerollOperatorController>(
-                Instantiate(VaultRerollOperatorPrefab, vaultRule.InRoom_RerollOperactorParentTF))
-                    .Set_TargetBuild(vault);
+            VaultRerollOperatorController rerollOper = DevTool.Get_ComponentTType<VaultRerollOperatorController>(
+                Instantiate(VaultRerollOperatorPrefab, vaultRule.InRoom_RerollOperactorParentTF));
+            vaultRule.RerollOperator = rerollOper;
+            rerollOper.Set_TargetBuild(vault);
+            rerollOper.gameObject.SetActive(false);
 
-            DevTool.Get_ComponentTType<VaultUpgradeOperatorController>(
-                Instantiate(VaultUpgradeOperatorPrefab, vaultRule.InRoom_UpgradeOperactorParentTF))
-                    .Set_TargetBuild(vault);
+            VaultUpgradeOperatorController upgradeOper = DevTool.Get_ComponentTType<VaultUpgradeOperatorController>(
+                Instantiate(VaultUpgradeOperatorPrefab, vaultRule.InRoom_UpgradeOperactorParentTF));
+            vaultRule.UpgradeOperator = upgradeOper;
+            upgradeOper.Set_TargetBuild(vault);
+            upgradeOper.gameObject.SetActive(false);
+
+            room.Offset(_TempID);
+            Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
+        }
+    }
+    
+    // 상점 방 하나 생성
+    private void Gen_ShopRoom(GenSpecialRoomData _ShopRoomData, int _TempID)
+    {
+        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_ShopRoomData.ID], MapParentTF), out RoomController room))
+        {
+            CurrentAllRoomController.Add(room);
+
+            if (DevTool.Get_ComponentTType(Instantiate(RoomRuleShopPrefabList[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+                room.RoomRuleController = roomRule;
+
+            ShopRuleController shopRule = DevTool.Get_CastingTType<ShopRuleController>(roomRule);
+
+            BaseUpgradeController BUShop = DevTool.Get_ComponentTType<BaseUpgradeController>(Instantiate(BUShopPrefab, shopRule.InRoom_BUShopParentTF));
+            shopRule.BUShop = BUShop;
+            BUShop.gameObject.SetActive(false);
+
+            ModuleUpgradeController MUShop = DevTool.Get_ComponentTType<ModuleUpgradeController>(Instantiate(MUShopPrefab, shopRule.InRoom_MUShopParentTF));
+            shopRule.MUShop = MUShop;
+            MUShop.gameObject.SetActive(false);
+
+            RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
+                Instantiate(RepairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
+            shopRule.BURepairOperator = BURepairOper;
+            BURepairOper.Set_TargetBuild(BUShop);
+            BURepairOper.gameObject.SetActive(false);
+
+            RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
+                Instantiate(RepairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
+            shopRule.MURepairOperator = MURepairOper;
+            MURepairOper.Set_TargetBuild(MUShop);
+            MURepairOper.gameObject.SetActive(false);
 
             room.Offset(_TempID);
             Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
@@ -648,6 +700,9 @@ public class StageManager : Singleton<StageManager>
 
             case EntranceRuleController:
                 return Elevator_Icon;
+
+            case ShopRuleController:
+                return Shop_Icon;
 
             default:
                 return null;
