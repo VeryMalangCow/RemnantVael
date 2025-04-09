@@ -281,6 +281,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5956502316695661957, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
   m_PrefabInstance: {fileID: 38671725}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &45941491
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 806215307}
+    m_Modifications:
+    - target: {fileID: -3535708446882393111, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: TargetPrisonController
+      value: 
+      objectReference: {fileID: 1941793648}
+    - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      propertyPath: m_Name
+      value: PrisonPuzzleOperator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+--- !u!4 &45941492 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4995045585254079196, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+  m_PrefabInstance: {fileID: 45941491}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &73963931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2548,15 +2614,15 @@ MonoBehaviour:
       - ID: 2
         Amount: 1
       - ID: 3
-        Amount: 1
+        Amount: 0
       - ID: 4
-        Amount: 1
+        Amount: 0
       - ID: 5
-        Amount: 1
+        Amount: 0
       - ID: 6
-        Amount: 1
+        Amount: 0
       - ID: 7
-        Amount: 1
+        Amount: 0
       EntranceRoom:
       - ID: 0
         RuleID: 0
@@ -2635,9 +2701,11 @@ MonoBehaviour:
   - {fileID: 5736045064323075691, guid: ee4da6a03b0a7f342bbe8b19563d73d9, type: 3}
   - {fileID: 5736045064323075691, guid: f99b58e75fa03314888f75f023a6c8df, type: 3}
   - {fileID: 5736045064323075691, guid: 251ad17552de25b468cade0a1ce29d90, type: 3}
+  PrisonPrefab: {fileID: 5736045064323075691, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
   RepairOperatorPrefab: {fileID: 5736045064323075691, guid: a52794494980df442a6685865c19674b, type: 3}
   VaultRerollOperatorPrefab: {fileID: 5736045064323075691, guid: ee83beb77b674c44eaa658cff9b1b899, type: 3}
   VaultUpgradeOperatorPrefab: {fileID: 5736045064323075691, guid: 07c41729688314b4598ff66a28e5f300, type: 3}
+  PrisonOperatorPrefab: {fileID: 0}
   Vault_Icon:
     TypeBase: {fileID: -290701738, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
     TypeSpecial: {fileID: -1483903491, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
@@ -3067,6 +3135,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 790310292}
   m_CullTransparentMesh: 1
+--- !u!1 &806215306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 806215307}
+  m_Layer: 0
+  m_Name: Test_Prison
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &806215307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806215306}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1941793647}
+  - {fileID: 45941492}
+  - {fileID: 1758032615}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &830584168
 GameObject:
   m_ObjectHideFlags: 0
@@ -6677,7 +6779,14 @@ MonoBehaviour:
   Operator_RepairAC: {fileID: 7400000, guid: ae65eb126b8a09a4e8c21cd9507c7c8d, type: 2}
   Operator_RerollAC: {fileID: 7400000, guid: ceae7b7b1a1ada64b9abd264865b082c, type: 2}
   Operator_UpgradeAC: {fileID: 7400000, guid: 66df5fa07be7572449b16403111df3a8, type: 2}
+  Operator_AllyAC: {fileID: 7400000, guid: 41f4516de64a84649a6b1e7bc84e73c0, type: 2}
   Operator_LightAC:
+    TypeBase: {fileID: 7400000, guid: 384479d6d73bac7428b68fda2a7d2996, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: c5d6fe57ff9fb874090d558ffa2bfd77, type: 2}
+  Prison_OnOffAC:
+    TypeBase: {fileID: 7400000, guid: 5045f1f99dfa80f4bb8eff1229062de0, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: fece8302c854a824695c2cf6290a0957, type: 2}
+  Prison_StateAC:
     TypeBase: {fileID: 7400000, guid: 384479d6d73bac7428b68fda2a7d2996, type: 2}
     TypeSpecial: {fileID: 7400000, guid: c5d6fe57ff9fb874090d558ffa2bfd77, type: 2}
   LanguageTxtList:
@@ -6726,6 +6835,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 379374679}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1748946533 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3535708446882393111, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+  m_PrefabInstance: {fileID: 45941491}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca4ece5a124cff46a4a54aa38253ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1749372779
 GameObject:
   m_ObjectHideFlags: 0
@@ -6757,6 +6877,83 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1684360777}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1758032614
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 806215307}
+    m_Modifications:
+    - target: {fileID: 140580054249692907, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: TargetPrisonController
+      value: 
+      objectReference: {fileID: 1941793648}
+    - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      propertyPath: m_Name
+      value: PrisonPayOperator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+--- !u!4 &1758032615 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4995045585254079196, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+  m_PrefabInstance: {fileID: 1758032614}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1758032616 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 140580054249692907, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+  m_PrefabInstance: {fileID: 1758032614}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85637c04df74b6a4a93c0b12d54953b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1762883269
 GameObject:
   m_ObjectHideFlags: 0
@@ -7853,6 +8050,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8b4eed02076eb45a6c5b1908d1eda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1941793646
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 806215307}
+    m_Modifications:
+    - target: {fileID: 4536760348866823036, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: PayOper
+      value: 
+      objectReference: {fileID: 1758032616}
+    - target: {fileID: 4536760348866823036, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: PuzzleOper
+      value: 
+      objectReference: {fileID: 1748946533}
+    - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.5131612
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.831494
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+      propertyPath: m_Name
+      value: Prison_StrikeTeam
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+--- !u!4 &1941793647 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+  m_PrefabInstance: {fileID: 1941793646}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1941793648 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4536760348866823036, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+  m_PrefabInstance: {fileID: 1941793646}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f73bb3e2ef5360541a8712b0b7b22aa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1948256982
 GameObject:
   m_ObjectHideFlags: 0
@@ -8713,3 +8991,4 @@ SceneRoots:
   - {fileID: 2025223312}
   - {fileID: 392753597}
   - {fileID: 2068126102}
+  - {fileID: 806215307}

@@ -1602,6 +1602,22 @@ public class DevTool
             return CSVManager.Instance.Get_StaticWord(58);
         }
 
+        else if (Can_CastingTType(_II, out PrisonPuzzleOperatorController prisonPuzzleOper))
+        {
+            if (!prisonPuzzleOper.Can_Interact())
+                _CanInteract = false;
+
+            return CSVManager.Instance.Get_StaticWord(59);
+        }
+
+        else if (Can_CastingTType(_II, out PrisonPayOperatorController prisonPayOper))
+        {
+            if (!prisonPayOper.Can_Interact())
+                _CanInteract = false;
+
+            return CSVManager.Instance.Get_StaticWord(60);
+        }
+
         return "";
     }
 

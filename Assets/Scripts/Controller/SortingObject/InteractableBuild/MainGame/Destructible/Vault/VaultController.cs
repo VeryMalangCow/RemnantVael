@@ -54,7 +54,7 @@ public class VaultController : DestructibleBuildController
 
     public virtual void Set_Grade(int _Grade)
     {
-        CurrentGrade = _Grade;
+        CurrentGrade = Mathf.Clamp(_Grade, 0, MaxGrade);
 
         Set_AnimValue();
         Set_StateAnim();
@@ -71,7 +71,7 @@ public class VaultController : DestructibleBuildController
 
     public void Set_Upgrade()
     {
-        CurrentGrade++;
+        CurrentGrade = Mathf.Min(CurrentGrade + 1, MaxGrade);
         Set_Grade(CurrentGrade);
     }
 

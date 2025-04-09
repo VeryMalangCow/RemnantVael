@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PrisonController : DestructibleBuildController
+public class PrisonController : InteractableBuildController
 {
     #region Value
 
@@ -13,16 +11,22 @@ public class PrisonController : DestructibleBuildController
     [Header("=== Grade")]
     [SerializeField] public int DangerRating = 0;
 
+    // Oper
+    [SerializeField] public PrisonPuzzleOperatorController PuzzleOper;
+    [SerializeField] public PrisonPayOperatorController PayOper;
+
     // Grade
     [HideInInspector] private int MaxRating = 4;
 
     #endregion
+
 
     #region Offset
 
     protected override void Offset()
     {
         Set_AnimValue();
+        Set_Rating(0);
 
         base.Offset();
     }
@@ -31,16 +35,19 @@ public class PrisonController : DestructibleBuildController
 
     #region Set
 
-
     private void Set_AnimValue()
     {
-        //OnOffAC = UnitManager.Instance.Vault_AC[DangerRank];
-        //OnOffStateAC = UnitManager.Instance.Vault_StateAC;
-
-        //BrokenAC = UnitManager.Instance.Vault_BrokenAC[DangerRank];
-        //BrokenStateAC = UnitManager.Instance.Vault_StateAC.TypeBase;
+        OnOffAC = UnitManager.Instance.Prison_OnOffAC;
+        OnOffStateAC = UnitManager.Instance.Prison_StateAC;
     }
 
+    private void Set_Rating(int _Rate)
+    {
+        DangerRating = Mathf.Clamp(_Rate, 0, MaxRating);
+
+        Set_AnimValue();
+        Set_StateAnim();
+    }
 
     #endregion
 }

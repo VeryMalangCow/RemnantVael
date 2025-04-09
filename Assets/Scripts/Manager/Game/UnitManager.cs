@@ -85,10 +85,19 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public AnimationClip Operator_RepairAC;
     [SerializeField] public AnimationClip Operator_RerollAC;
     [SerializeField] public AnimationClip Operator_UpgradeAC;
+    [SerializeField] public AnimationClip Operator_AllyAC;
 
     [Space(5)]
     [Header("-- Operator / State")]
     [SerializeField] public CoupleData<AnimationClip> Operator_LightAC;
+
+    [Space(5)]
+    [Header("-- Prison / Actual")]
+    [SerializeField] public CoupleData<AnimationClip> Prison_OnOffAC;
+
+    [Space(5)]
+    [Header("-- Prison / State")]
+    [SerializeField] public CoupleData<AnimationClip> Prison_StateAC;
 
     #endregion
 

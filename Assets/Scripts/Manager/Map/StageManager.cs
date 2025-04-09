@@ -30,13 +30,18 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private List<GameObject> RoomRuleShopPrefabList; 
 
     [Space(5)]
-    [Header("-- Build")]
+    [Header("-- Build / Actual")]
     [SerializeField] private GameObject BUShopPrefab;
     [SerializeField] private GameObject MUShopPrefab;
     [SerializeField] private List<GameObject> VaultPrefabList;
+    [SerializeField] private GameObject PrisonPrefab;
+
+    [Space(5)]
+    [Header("-- Build / Operator")]
     [SerializeField] private GameObject RepairOperatorPrefab;
     [SerializeField] private GameObject VaultRerollOperatorPrefab;
     [SerializeField] private GameObject VaultUpgradeOperatorPrefab;
+    [SerializeField] private GameObject PrisonOperatorPrefab;
 
     [Space(5)]
     [Header("-- Icon")]
@@ -131,25 +136,32 @@ public class StageManager : Singleton<StageManager>
             Gen_NormalRoom(RoomPrefabList[ShuffledRoomIndexList[i]], TempID);
             TempID++;
         }
+        /*
+                // 烹苞 规 积己
+                for (int i = 0; i < stageData.RoomData.EntranceRoom.Count; i++)
+                {
+                    Gen_EntranceRoom(stageData.RoomData.EntranceRoom[i], TempID);
+                    TempID++;
+                }
 
-        // 烹苞 规 积己
-        for (int i = 0; i < stageData.RoomData.EntranceRoom.Count; i++)
-        {
-            Gen_EntranceRoom(stageData.RoomData.EntranceRoom[i], TempID);
-            TempID++;
-        }
+                // 陛绊 规 积己
+                for (int i = 0; i < stageData.RoomData.VaultRoom.Count; i++)
+                {
+                    Gen_VaultRoom(stageData.RoomData.VaultRoom[i], TempID);
+                    TempID++;
+                }
 
-        // 陛绊 规 积己
-        for (int i = 0; i < stageData.RoomData.VaultRoom.Count; i++)
-        {
-            Gen_VaultRoom(stageData.RoomData.VaultRoom[i], TempID);
-            TempID++;
-        }
-
-        // 惑痢 规 积己
+                // 惑痢 规 积己
+                for (int i = 0; i < stageData.RoomData.ShopRoom.Count; i++)
+                {
+                    Gen_ShopRoom(stageData.RoomData.ShopRoom[i], TempID);
+                    TempID++;
+                }
+        */
+        // 皑苛 规 积己
         for (int i = 0; i < stageData.RoomData.ShopRoom.Count; i++)
         {
-            Gen_ShopRoom(stageData.RoomData.ShopRoom[i], TempID);
+            Gen_PrisonRoom(stageData.RoomData.ShopRoom[i], TempID);
             TempID++;
         }
 
@@ -261,6 +273,43 @@ public class StageManager : Singleton<StageManager>
     
     // 惑痢 规 窍唱 积己
     private void Gen_ShopRoom(GenSpecialRoomData _ShopRoomData, int _TempID)
+    {
+        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_ShopRoomData.ID], MapParentTF), out RoomController room))
+        {
+            CurrentAllRoomController.Add(room);
+
+            if (DevTool.Get_ComponentTType(Instantiate(RoomRuleShopPrefabList[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+                room.RoomRuleController = roomRule;
+
+            ShopRuleController shopRule = DevTool.Get_CastingTType<ShopRuleController>(roomRule);
+
+            BaseUpgradeController BUShop = DevTool.Get_ComponentTType<BaseUpgradeController>(Instantiate(BUShopPrefab, shopRule.InRoom_BUShopParentTF));
+            shopRule.BUShop = BUShop;
+            BUShop.gameObject.SetActive(false);
+
+            ModuleUpgradeController MUShop = DevTool.Get_ComponentTType<ModuleUpgradeController>(Instantiate(MUShopPrefab, shopRule.InRoom_MUShopParentTF));
+            shopRule.MUShop = MUShop;
+            MUShop.gameObject.SetActive(false);
+
+            RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
+                Instantiate(RepairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
+            shopRule.BURepairOperator = BURepairOper;
+            BURepairOper.Set_TargetBuild(BUShop);
+            BURepairOper.gameObject.SetActive(false);
+
+            RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
+                Instantiate(RepairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
+            shopRule.MURepairOperator = MURepairOper;
+            MURepairOper.Set_TargetBuild(MUShop);
+            MURepairOper.gameObject.SetActive(false);
+
+            room.Offset(_TempID);
+            Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
+        }
+    }
+
+    // 皑苛 规 窍唱 积己
+    private void Gen_PrisonRoom(GenSpecialRoomData _ShopRoomData, int _TempID)
     {
         if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_ShopRoomData.ID], MapParentTF), out RoomController room))
         {

@@ -1050,7 +1050,7 @@ TextureImporter:
         width: 16
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1058,6 +1058,27 @@ TextureImporter:
       bones: []
       spriteID: 780ff0892bc597c418cc4157c4532bc0
       internalID: 1063250824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module000_Puzzle
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 222
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a93962e1ae86ff4f907e45b71e22292
+      internalID: -1861517136
       vertices: []
       indices: 
       edges: []
@@ -1120,6 +1141,7 @@ TextureImporter:
       Module000_MI_001: 1408688113
       Module000_ModuleShard: -936175950
       Module000_Overrider: 861288542
+      Module000_Puzzle: -1861517136
       Module000_Smoke_00: -1746943924
       Module000_Smoke_01: 1391882910
       Module000_Smoke_02: 237403348
