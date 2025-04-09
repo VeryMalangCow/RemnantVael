@@ -30,7 +30,9 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
 
     public override void Play_Interact()
     {
+        if (TargetPrison == null) return;
 
+        Debug.Log("Puzzle");
     }
 
     #endregion

@@ -11,7 +11,7 @@ public class PrisonOperatorController : OperatorController
 
     [Space(10)]
     [Header("=== Build")]
-    [SerializeField] protected PrisonController TargetPrisonController;
+    [SerializeField] protected PrisonController TargetPrison;
 
     #endregion
 
@@ -26,7 +26,7 @@ public class PrisonOperatorController : OperatorController
 
     public virtual void Set_TargetBuild(PrisonController _TargetPrison)
     {
-        TargetPrisonController = _TargetPrison;
+        TargetPrison = _TargetPrison;
     }
 
     #endregion
@@ -35,7 +35,7 @@ public class PrisonOperatorController : OperatorController
 
     public bool Can_Interact()
     {
-        return !TargetPrisonController.IsOn;
+        return !TargetPrison.IsOn;
     }
 
     #endregion

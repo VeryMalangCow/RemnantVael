@@ -23,7 +23,7 @@ public class PrisonPayOperatorController : PrisonOperatorController
 
     private int Get_NeedPay()
     {
-        return Pay * (TargetPrisonController.DangerRating + 1);
+        return Pay * (TargetPrison.DangerRating + 1);
     }
 
     #endregion
@@ -43,7 +43,13 @@ public class PrisonPayOperatorController : PrisonOperatorController
 
     public override void Play_Interact()
     {
+        if (TargetPrison == null ||
+            PlayerManager.Instance.PlayerController.CurrentOverrider.Value < Get_NeedPay()) return;
 
+        // 소비 아이템
+        PlayerManager.Instance.PlayerController.Add_CurrentOverrider(-Get_NeedPay());
+
+        Debug.Log("Pay");
     }
 
     #endregion
