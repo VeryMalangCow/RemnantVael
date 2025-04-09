@@ -344,7 +344,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1666363983021575015, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
 --- !u!4 &45941492 stripped
 Transform:
@@ -6788,11 +6791,14 @@ MonoBehaviour:
     TypeBase: {fileID: 7400000, guid: 384479d6d73bac7428b68fda2a7d2996, type: 2}
     TypeSpecial: {fileID: 7400000, guid: c5d6fe57ff9fb874090d558ffa2bfd77, type: 2}
   Prison_OnOffAC:
-    TypeBase: {fileID: 7400000, guid: 5045f1f99dfa80f4bb8eff1229062de0, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: fece8302c854a824695c2cf6290a0957, type: 2}
+    TypeBase: {fileID: 7400000, guid: 5d773418cbb9b134da0277a74d954b9d, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: 5d773418cbb9b134da0277a74d954b9d, type: 2}
+  Prison_OnOffUpsideAC:
+    TypeBase: {fileID: 7400000, guid: d7363e36b659de64caed76425a90d112, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: d7363e36b659de64caed76425a90d112, type: 2}
   Prison_StateAC:
-    TypeBase: {fileID: 7400000, guid: 384479d6d73bac7428b68fda2a7d2996, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: c5d6fe57ff9fb874090d558ffa2bfd77, type: 2}
+    TypeBase: {fileID: 7400000, guid: f7f60388403362a4faeb5759f2834d95, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: a344ad4694ce9e142a5213b93881eeef, type: 2}
   LanguageTxtList:
   - ID: 0
     FontAssets:
@@ -6944,7 +6950,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3288465305582834613, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
 --- !u!4 &1758032615 stripped
 Transform:
@@ -8080,7 +8089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.831494
+      value: 3.15
       objectReference: {fileID: 0}
     - target: {fileID: 4995045585254079196, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
       propertyPath: m_LocalPosition.z

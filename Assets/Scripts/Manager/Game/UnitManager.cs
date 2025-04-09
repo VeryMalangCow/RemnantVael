@@ -94,6 +94,7 @@ public class UnitManager : Singleton<UnitManager>
     [Space(5)]
     [Header("-- Prison / Actual")]
     [SerializeField] public CoupleData<AnimationClip> Prison_OnOffAC;
+    [SerializeField] public CoupleData<AnimationClip> Prison_OnOffUpsideAC;
 
     [Space(5)]
     [Header("-- Prison / State")]
