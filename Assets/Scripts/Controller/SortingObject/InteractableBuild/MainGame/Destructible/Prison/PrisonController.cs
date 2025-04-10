@@ -14,7 +14,8 @@ public class PrisonController : InteractableBuildController
     // Oper
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] public Animator ThisUpsideAT;
+    [SerializeField] private SpriteRenderer ThisUpsideSR;
+    [SerializeField] private Animator ThisUpsideAT;
 
     [Space(10)]
     [Header("=== Operator")]
@@ -45,11 +46,21 @@ public class PrisonController : InteractableBuildController
 
     #region Set
 
+    public override void Set_SortingOrder(int _SortingOrder)
+    {
+        base.Set_SortingOrder(_SortingOrder);
+        ThisUpsideSR.sortingOrder = _SortingOrder - 2;
+    }
+
+
     protected override void Set_StateAnim()
     {
         base.Set_StateAnim();
 
         DevTool.Set_Anim(ref UpsideAOC, ThisUpsideAT, OnOffAC_Upside.Get_Special(IsOn));
+
+        ThisAnimator.speed = 1.5f;
+        ThisUpsideAT.speed = 1.5f;
     }
 
     private void Set_AnimValue()
