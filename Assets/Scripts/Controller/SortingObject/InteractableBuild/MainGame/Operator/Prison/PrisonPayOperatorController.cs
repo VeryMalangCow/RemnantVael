@@ -49,6 +49,8 @@ public class PrisonPayOperatorController : PrisonOperatorController
         // 소비 아이템
         PlayerManager.Instance.PlayerController.Add_CurrentOverrider(-Get_NeedPay());
 
+        TargetPrison.Set_Unlock();
+
         Debug.Log("Pay");
     }
 

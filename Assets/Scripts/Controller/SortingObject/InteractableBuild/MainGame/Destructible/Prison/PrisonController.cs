@@ -28,6 +28,7 @@ public class PrisonController : InteractableBuildController
     // AC
     [HideInInspector] private CoupleData<AnimationClip> OnOffAC_Upside;
     [HideInInspector] private AnimatorOverrideController UpsideAOC;
+    [HideInInspector] private CoupleData<Material> OnOffMaterial;
 
     #endregion
 
@@ -61,6 +62,9 @@ public class PrisonController : InteractableBuildController
 
         ThisAnimator.speed = 1.5f;
         ThisUpsideAT.speed = 1.5f;
+
+        ThisSR.material = OnOffMaterial.Get_Special(IsOn);
+        ThisUpsideSR.material = OnOffMaterial.Get_Special(IsOn);
     }
 
     private void Set_AnimValue()
@@ -68,6 +72,8 @@ public class PrisonController : InteractableBuildController
         OnOffAC = UnitManager.Instance.Prison_OnOffAC;
         OnOffAC_Upside = UnitManager.Instance.Prison_OnOffUpsideAC;
         OnOffStateAC = UnitManager.Instance.Prison_StateAC;
+
+        OnOffMaterial = UnitManager.Instance.Prison_OnOffMaterial;
     }
 
     private void Set_Rating(int _Rate)
@@ -75,6 +81,19 @@ public class PrisonController : InteractableBuildController
         DangerRating = Mathf.Clamp(_Rate, 0, MaxRating);
 
         Set_AnimValue();
+        Set_StateAnim();
+    }
+
+    public void Set_Unlock()
+    {
+        if (IsOn) return;
+
+        // Oper
+        if (PuzzleOper != null) PuzzleOper.Set_TargetBuildBroken();
+        if (PayOper != null) PayOper.Set_TargetBuildBroken();
+
+        // Set
+        IsOn = true;
         Set_StateAnim();
     }
 

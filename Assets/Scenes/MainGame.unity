@@ -344,10 +344,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1666363983021575015, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
 --- !u!4 &45941492 stripped
 Transform:
@@ -6736,6 +6733,9 @@ MonoBehaviour:
   ModuleM_000_Hitted: {fileID: 2100000, guid: 02802480c4016274e9287aa5708f7288, type: 2}
   EnemyM_000_Explosion: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
   Build_000: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
+  Prison_OnOffMaterial:
+    TypeBase: {fileID: 2100000, guid: f3771b62a007a8648aa61b96f08c895c, type: 2}
+    TypeSpecial: {fileID: 2100000, guid: 2a2a3079596044d46bf17c9cd6719978, type: 2}
   BuildingDurFrame: {fileID: -2046568933, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
   BuildingDurInner: {fileID: 518337198, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
   RandomColor: {r: 1, g: 0, b: 0, a: 1}
@@ -6792,10 +6792,10 @@ MonoBehaviour:
     TypeSpecial: {fileID: 7400000, guid: c5d6fe57ff9fb874090d558ffa2bfd77, type: 2}
   Prison_OnOffAC:
     TypeBase: {fileID: 7400000, guid: 5d773418cbb9b134da0277a74d954b9d, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: 5d773418cbb9b134da0277a74d954b9d, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: 84bf43dd79c66f1419b89bd546f16a25, type: 2}
   Prison_OnOffUpsideAC:
     TypeBase: {fileID: 7400000, guid: d7363e36b659de64caed76425a90d112, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: d7363e36b659de64caed76425a90d112, type: 2}
+    TypeSpecial: {fileID: 7400000, guid: 146ebc887ae33f54283b0021a66172e5, type: 2}
   Prison_StateAC:
     TypeBase: {fileID: 7400000, guid: f7f60388403362a4faeb5759f2834d95, type: 2}
     TypeSpecial: {fileID: 7400000, guid: a344ad4694ce9e142a5213b93881eeef, type: 2}
@@ -6950,10 +6950,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3288465305582834613, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
 --- !u!4 &1758032615 stripped
 Transform:

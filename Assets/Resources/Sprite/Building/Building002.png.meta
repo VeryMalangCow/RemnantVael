@@ -1,0 +1,908 @@
+fileFormatVersion: 2
+guid: 4214db0b8e495e5479e3b82b7287c978
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Building002_PrisonOff_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 909
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e780eeeb490b5b748b16281993f51123
+      internalID: 1867980147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_1
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 909
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c47f531458f9dd4fbffce7180dafd80
+      internalID: -545012190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_2
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 909
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c126f2e83d4e196488b0c1d182279028
+      internalID: -89655849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_3
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 909
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c4bcb480ee7b0746a27e4287b9d0984
+      internalID: 1306829550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_4
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 909
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5c202ed2145e5042b729e2164fa065f
+      internalID: -879626315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_5
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 909
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e318a5b5baa7fe42ba1c310f0dbc486
+      internalID: 1086011725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 794
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b305cb31beffe00449f2b347118db3f2
+      internalID: -7045439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_7
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 794
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4759c2648a49b547acedd4e6492ff40
+      internalID: -1472213355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_8
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 794
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba4e06d130053a34087b71f6ed4551a6
+      internalID: -990994094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_9
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 794
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 164091715f6a0e740b5b04fae6d60799
+      internalID: -2088707322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_10
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 794
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa38dd5cf5a178d4782bc3de2d62e9bb
+      internalID: 111386717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_11
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 794
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3722d947dc8316144bc8631d711fa695
+      internalID: -1854032583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 679
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f94ddd8d4b8cf8e448c1dc77285e575a
+      internalID: -1390331663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_13
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 679
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d48b36cac4c94fd41abae7a860b97009
+      internalID: 514053062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_14
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 679
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 109bb5161f7ba6c4086500912047591f
+      internalID: 7487326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_15
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 679
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33c930a3a29c4eb4db4b308c1519800e
+      internalID: 1005204101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_16
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 679
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1f5f13df25a32d4c96d93981cca4586
+      internalID: 1269555838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_17
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 679
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26bb821a59d8c73408ec684b4ed5714f
+      internalID: 909549603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 564
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcc5a6d22d6e1424e881393262f60731
+      internalID: 1596087761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_19
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 564
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb32808130c7a7945b6cf3398269b3d8
+      internalID: -1717396823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_20
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 564
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 116094642a71cd64cbb8e79483ce3ea7
+      internalID: -264184261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_21
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 564
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f3cccd3bfd67d5438d3810378f6824b
+      internalID: 617701985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_22
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 564
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d7f2225822ca8949b0f58e3a9c0168f
+      internalID: -1410281457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_23
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 564
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fc7c750e8d34ee4692258d8b110fc9f
+      internalID: 851651315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 449
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37db55b8d6e644b4abd03abf5314d57b
+      internalID: -1288176739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_25
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 449
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f91fcf424f90d2948b56ff22fbcf7818
+      internalID: 255136792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_26
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 449
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a244a1b6e8e97e440b42e1f7fa243fd2
+      internalID: 1162070323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_27
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 449
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dad30a47e7217d4f93d36781beeed22
+      internalID: -1855519472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_28
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 449
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42fd2d4d178ad274f810a3ce459dbd92
+      internalID: 274553794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_29
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 449
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a037bb33ef3ab74384156d00e729ba5
+      internalID: 1907927185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 334
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b403ff3d05ab30146ad33cb81c47a038
+      internalID: 2140509040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_31
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 334
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 216e30ac05a3b9e4d984c7fc49b26630
+      internalID: 96243255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_32
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 334
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b190094bae1a894892def7c63f9dfc2
+      internalID: -2139122386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_33
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 334
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1b7e261d4cdba645a4f4d306c9c6191
+      internalID: 2033496011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_34
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 334
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a25e51e0de7dcf4a8994c6cae4ce646
+      internalID: 325632160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building002_PrisonOff_35
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 334
+        width: 114
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0ce2fdb6d51b7541b5cdfa1596532ac
+      internalID: -1170120510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: eab271561f903f44194785a1adfeadf3, type: 3}
+      name: _Emission
+    nameFileIdTable:
+      Building002_PrisonOff_0: 1867980147
+      Building002_PrisonOff_1: -545012190
+      Building002_PrisonOff_10: 111386717
+      Building002_PrisonOff_11: -1854032583
+      Building002_PrisonOff_12: -1390331663
+      Building002_PrisonOff_13: 514053062
+      Building002_PrisonOff_14: 7487326
+      Building002_PrisonOff_15: 1005204101
+      Building002_PrisonOff_16: 1269555838
+      Building002_PrisonOff_17: 909549603
+      Building002_PrisonOff_18: 1596087761
+      Building002_PrisonOff_19: -1717396823
+      Building002_PrisonOff_2: -89655849
+      Building002_PrisonOff_20: -264184261
+      Building002_PrisonOff_21: 617701985
+      Building002_PrisonOff_22: -1410281457
+      Building002_PrisonOff_23: 851651315
+      Building002_PrisonOff_24: -1288176739
+      Building002_PrisonOff_25: 255136792
+      Building002_PrisonOff_26: 1162070323
+      Building002_PrisonOff_27: -1855519472
+      Building002_PrisonOff_28: 274553794
+      Building002_PrisonOff_29: 1907927185
+      Building002_PrisonOff_3: 1306829550
+      Building002_PrisonOff_30: 2140509040
+      Building002_PrisonOff_31: 96243255
+      Building002_PrisonOff_32: -2139122386
+      Building002_PrisonOff_33: 2033496011
+      Building002_PrisonOff_34: 325632160
+      Building002_PrisonOff_35: -1170120510
+      Building002_PrisonOff_4: -879626315
+      Building002_PrisonOff_5: 1086011725
+      Building002_PrisonOff_6: -7045439
+      Building002_PrisonOff_7: -1472213355
+      Building002_PrisonOff_8: -990994094
+      Building002_PrisonOff_9: -2088707322
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

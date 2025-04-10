@@ -26,6 +26,7 @@ public class UnitManager : Singleton<UnitManager>
     [Space(5)]
     [Header("-- Build")]
     [SerializeField] public Material Build_000;
+    [SerializeField] public CoupleData<Material> Prison_OnOffMaterial;
 
     #endregion
 
