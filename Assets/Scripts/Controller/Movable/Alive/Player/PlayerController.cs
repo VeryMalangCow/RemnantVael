@@ -837,7 +837,7 @@ public class PlayerController : AliveObjectController
             // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
             Take_Damaged(
                 DevTool.Get_DmgEffectByCold(state.DmgState.Dmg, _Bullet.Enemy.BuffController),
-                DevTool.Get_Dir(this.gameObject, _Bullet.gameObject),
+                DevTool.Get_Dir(_Bullet.gameObject, gameObject),
                 state.KnockbackState);
         }
     }
@@ -856,7 +856,7 @@ public class PlayerController : AliveObjectController
             // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
             Take_Damaged(
                 DevTool.Get_DmgEffectByCold(state.DmgState.Dmg, _Attacker.Enemy.BuffController),
-                DevTool.Get_Dir(this.gameObject, _Attacker.gameObject),
+                DevTool.Get_Dir(_Attacker.gameObject, gameObject),
                 state.KnockbackState);
         }
     }

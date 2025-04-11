@@ -137,7 +137,7 @@ public class CameraController : MonoBehaviour
     public void Play_KillAnim(float _Dur)
     {
         Play_Shake(EnemyKillShakeTF, _Dur, KillStrength, KillVibrato);
-        Play_SlowMotion(0.4f, 0.9f);
+        //Play_SlowMotion(0.4f, 0.9f);
         Play_POVSize(0.4f, CameraProjectionSize - 0.1f);
     }
 

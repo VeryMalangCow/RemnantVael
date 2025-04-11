@@ -6048,7 +6048,7 @@ TextureImporter:
         width: 13
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -6069,7 +6069,7 @@ TextureImporter:
         width: 13
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -6090,7 +6090,7 @@ TextureImporter:
         width: 13
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -6111,7 +6111,7 @@ TextureImporter:
         width: 13
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -6132,7 +6132,7 @@ TextureImporter:
         width: 13
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -6153,7 +6153,7 @@ TextureImporter:
         width: 13
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -6161,6 +6161,237 @@ TextureImporter:
       bones: []
       spriteID: 4813caaf1440f9a44a0047640b048d32
       internalID: 1023006561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building000_StrikeTeamMark_Small
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 474
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44e886a4a95c7a24aba3996b39e173d9
+      internalID: 336949551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building000_UplinkMark_Small
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 464
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5a6efe59c6f8cd4fb43d664f51ec2cf
+      internalID: -872969422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building000_TechDivisionMark_Small
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 454
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25373659a06dbb848912c5347a8ef591
+      internalID: 863555199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building000_TechDivisionMark_Big
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 456
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d423ca492c395840a1189679ef43da9
+      internalID: 2006006726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building000_UplinkMark_Big
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 470
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c54926701ecbd64685b122764260d7b
+      internalID: -169264779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building000_StrikeTeamMark_Big
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 470
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fd2834baa7f857459c3e31b920e1d16
+      internalID: 1032012468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building000_DangerRate1
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 498
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a47d9cad351074742962c7591b1db55f
+      internalID: 1319849266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building000_DangerRate2
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 498
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba2e158c6f888ee43934629ce8d0b306
+      internalID: -1063222384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building000_DangerRate3
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 484
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef47c3f77848d484cbbb14b001a9da2e
+      internalID: 400346637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building000_DangerRate4
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 484
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6313e8bc19900da48901b4cbfe9693d4
+      internalID: 1362796112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building000_DangerRate5
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 484
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7227f8e2e49c6f34abcea8d001ffda75
+      internalID: -1592704097
       vertices: []
       indices: 
       edges: []
@@ -6237,6 +6468,11 @@ TextureImporter:
       Building000_CreditSign_15: 732796686
       Building000_CreditSign_16: -1550627343
       Building000_CreditSign_17: -1577828301
+      Building000_DangerRate1: 1319849266
+      Building000_DangerRate2: -1063222384
+      Building000_DangerRate3: 400346637
+      Building000_DangerRate4: 1362796112
+      Building000_DangerRate5: -1592704097
       Building000_Durablity_Frame: -2046568933
       Building000_Durablity_Inner: 518337198
       Building000_EmptyVault_00: 926831203
@@ -6373,6 +6609,10 @@ TextureImporter:
       Building000_RerollSign_13: -99467405
       Building000_RerollSign_14: -1516622371
       Building000_RerollSign_15: -518726261
+      Building000_StrikeTeamMark_Big: 1032012468
+      Building000_StrikeTeamMark_Small: 336949551
+      Building000_TechDivisionMark_Big: 2006006726
+      Building000_TechDivisionMark_Small: 863555199
       Building000_Unlock_00: -105254964
       Building000_Unlock_01: -2021542926
       Building000_Unlock_02: 1792905966
@@ -6401,6 +6641,8 @@ TextureImporter:
       Building000_Upgrade_03: 853045171
       Building000_Upgrade_04: 1055351114
       Building000_Upgrade_05: 822558086
+      Building000_UplinkMark_Big: -169264779
+      Building000_UplinkMark_Small: -872969422
       Building000_VaultSign_BS_00: 1498889028
       Building000_VaultSign_BS_01: -2131850924
       Building000_VaultSign_BS_02: -581332328

@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PrisonController : InteractableBuildController
 {
@@ -9,13 +11,20 @@ public class PrisonController : InteractableBuildController
 
     [Space(10)]
     [Header("=== Grade")]
-    [SerializeField] public int DangerRating = 0;
+    [SerializeField] public int Rating = 0;
 
-    // Oper
     [Space(10)]
-    [Header("=== Comp")]
+    [Header("=== Extra Upside")]
     [SerializeField] private SpriteRenderer ThisUpsideSR;
     [SerializeField] private Animator ThisUpsideAT;
+
+    [Space(10)]
+    [Header("=== Icon")]
+    [SerializeField] private SortingGroup ExtraSG;
+    [SerializeField] private SpriteRenderer DangerIcon;
+    [SerializeField] private TMP_Text DangerTxt;
+    [SerializeField] protected SpriteRenderer TypeIcon;
+    [SerializeField] protected TMP_Text TypeTxt;
 
     [Space(10)]
     [Header("=== Operator")]
@@ -32,8 +41,27 @@ public class PrisonController : InteractableBuildController
 
     #endregion
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Rating = Mathf.Clamp(Rating + 1, 0, MaxRating);
+            Offset_DangerIconTxt();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Rating = Mathf.Clamp(Rating - 1, 0, MaxRating);
+            Offset_DangerIconTxt();
+        }
+    }
 
     #region Offset
+
+    private void Offset_DangerIconTxt()
+    {
+        DangerIcon.sprite = UnitManager.Instance.PrisonRateIconList[Rating];
+        DangerTxt.text = $"{UnitManager.Instance.RatingString }: ({Rating + 1}) { UnitManager.Instance.PrisonRateStringList[Rating]} <size=150%>(</size>";
+    }
 
     protected override void Offset()
     {
@@ -41,6 +69,8 @@ public class PrisonController : InteractableBuildController
         Set_Rating(0);
 
         base.Offset();
+
+        Offset_DangerIconTxt();
     }
 
     #endregion
@@ -50,7 +80,9 @@ public class PrisonController : InteractableBuildController
     public override void Set_SortingOrder(int _SortingOrder)
     {
         base.Set_SortingOrder(_SortingOrder);
+
         ThisUpsideSR.sortingOrder = _SortingOrder - 2;
+        ExtraSG.sortingOrder = _SortingOrder + 1;
     }
 
 
@@ -78,7 +110,7 @@ public class PrisonController : InteractableBuildController
 
     private void Set_Rating(int _Rate)
     {
-        DangerRating = Mathf.Clamp(_Rate, 0, MaxRating);
+        Rating = Mathf.Clamp(_Rate, 0, MaxRating);
 
         Set_AnimValue();
         Set_StateAnim();

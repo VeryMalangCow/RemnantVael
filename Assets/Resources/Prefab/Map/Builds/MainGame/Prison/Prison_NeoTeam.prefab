@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1032012468, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+  m_Sprite: {fileID: 2006006726, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -619,9 +619,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4995045585254079196}
-  - component: {fileID: 4536760348866823036}
+  - component: {fileID: 2784090784048974333}
   m_Layer: 6
-  m_Name: Prison_StrikeTeam
+  m_Name: Prison_NeoTeam
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -648,7 +648,7 @@ Transform:
   - {fileID: 5812866673874523809}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4536760348866823036
+--- !u!114 &2784090784048974333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -657,7 +657,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5736045064323075691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f73bb3e2ef5360541a8712b0b7b22aa0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6be5a0d1a2290504093113df7fb99d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0

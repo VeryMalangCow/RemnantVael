@@ -36,6 +36,10 @@ public class UnitManager : Singleton<UnitManager>
     [Header("=== Sprite")]
     [SerializeField] public Sprite BuildingDurFrame;
     [SerializeField] public Sprite BuildingDurInner;
+    [SerializeField] public List<Sprite> PrisonRateIconList;
+    [SerializeField] public CoupleData<Sprite> StrikeTeamIcon;
+    [SerializeField] public CoupleData<Sprite> UplinkTeamIcon;
+    [SerializeField] public CoupleData<Sprite> NeoTeamIcon;
 
     #endregion
 
@@ -128,6 +132,38 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
+    #region - Hide
+
+    // string
+    [HideInInspector] public string RatingString;
+    [HideInInspector] public List<string> PrisonRateStringList;
+    [HideInInspector] public string StrikeTeamString;
+    [HideInInspector] public string UplinkTeamString;
+    [HideInInspector] public string NeoTeamString;
+
+    #endregion
+
+    #endregion
+
+    #region Offset
+
+    private void Offset_String()
+    {
+        RatingString = CSVManager.Instance.Get_StaticWord(69);
+        PrisonRateStringList = new List<string>
+        {
+            CSVManager.Instance.Get_StaticWord(64),
+            CSVManager.Instance.Get_StaticWord(65),
+            CSVManager.Instance.Get_StaticWord(66),
+            CSVManager.Instance.Get_StaticWord(67),
+            CSVManager.Instance.Get_StaticWord(68)
+        };
+
+        StrikeTeamString = CSVManager.Instance.Get_StaticWord(61);
+        UplinkTeamString = CSVManager.Instance.Get_StaticWord(62);
+        NeoTeamString = CSVManager.Instance.Get_StaticWord(63);
+    }
+
     #endregion
 
     #region Framework
@@ -137,6 +173,7 @@ public class UnitManager : Singleton<UnitManager>
         base.Awake();
 
         Set_RainbowColorDotween();
+        Offset_String();
     }
 
     #endregion

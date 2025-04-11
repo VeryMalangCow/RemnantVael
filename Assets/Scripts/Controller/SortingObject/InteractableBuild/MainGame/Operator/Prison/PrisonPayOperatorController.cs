@@ -23,7 +23,7 @@ public class PrisonPayOperatorController : PrisonOperatorController
 
     private int Get_NeedPay()
     {
-        return Pay * (TargetPrison.DangerRating + 1);
+        return Pay * (TargetPrison.Rating + 1);
     }
 
     #endregion
