@@ -905,7 +905,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &243978802
 Transform:
   m_ObjectHideFlags: 0
@@ -1644,7 +1644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &486922369
 Transform:
   m_ObjectHideFlags: 0
@@ -7226,6 +7226,21 @@ MonoBehaviour:
   NeoTeamIcon:
     TypeBase: {fileID: 863555199, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
     TypeSpecial: {fileID: 2006006726, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+  StrikeTeamAllySprites:
+    Bind: {fileID: 306943780, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+    Fall: {fileID: 1426368537, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+    Stand: {fileID: -1003898951, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+    Salute: {fileID: -1924550454, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+  UplinkTeamAllySprites:
+    Bind: {fileID: 0}
+    Fall: {fileID: 0}
+    Stand: {fileID: 0}
+    Salute: {fileID: 0}
+  NeoTeamAllySprites:
+    Bind: {fileID: 0}
+    Fall: {fileID: 0}
+    Stand: {fileID: 0}
+    Salute: {fileID: 0}
   RandomColor: {r: 1, g: 0, b: 0, a: 1}
   ModuleItemOutlinerAC:
   - {fileID: 7400000, guid: 35bfc1528075c6e428950576281e1be0, type: 2}
@@ -7302,7 +7317,7 @@ MonoBehaviour:
   Build_ExplImgGenerator: {fileID: 4532320}
   Enemy_ExplImgGenerator: {fileID: 1129606755}
   OnceTime_AnimGenerator: {fileID: 2002655550}
-  PrisonSecurityLevelString: 
+  RatingString: 
   PrisonRateStringList: []
   StrikeTeamString: 
   UplinkTeamString: 

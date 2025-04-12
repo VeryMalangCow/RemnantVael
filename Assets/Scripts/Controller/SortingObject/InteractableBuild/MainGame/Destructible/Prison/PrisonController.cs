@@ -1,3 +1,7 @@
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -10,6 +14,10 @@ public class PrisonController : InteractableBuildController
     [Header("<><><><><> Prison ")]
 
     [Space(10)]
+    [Header("=== Comp")]
+    [SerializeField] private Collider2D ThisCol;
+
+    [Space(10)]
     [Header("=== Grade")]
     [SerializeField] public int Rating = 0;
 
@@ -19,12 +27,14 @@ public class PrisonController : InteractableBuildController
     [SerializeField] private Animator ThisUpsideAT;
 
     [Space(10)]
-    [Header("=== Icon")]
+    [Header("=== Extra Icon")]
     [SerializeField] private SortingGroup ExtraSG;
     [SerializeField] private SpriteRenderer DangerIcon;
-    [SerializeField] private TMP_Text DangerTxt;
     [SerializeField] protected SpriteRenderer TypeIcon;
-    [SerializeField] protected TMP_Text TypeTxt;
+
+    [Space(10)]
+    [Header("=== Ally")]
+    [SerializeField] private SortingGroup AllySG;
 
     [Space(10)]
     [Header("=== Operator")]
@@ -39,25 +49,69 @@ public class PrisonController : InteractableBuildController
     [HideInInspector] private AnimatorOverrideController UpsideAOC;
     [HideInInspector] private CoupleData<Material> OnOffMaterial;
 
-    #endregion
+    // Extra State
+    [HideInInspector] private TMP_Text DangerTxt;
+    [HideInInspector] protected TMP_Text TypeTxt;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Rating = Mathf.Clamp(Rating + 1, 0, MaxRating);
-            Offset_DangerIconTxt();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Rating = Mathf.Clamp(Rating - 1, 0, MaxRating);
-            Offset_DangerIconTxt();
-        }
-    }
+    // Ally
+    [HideInInspector] protected int AllyAmount = 0; 
+    [HideInInspector] protected List<Transform> PrisonAllAllyTFList = new List<Transform>();
+    [HideInInspector] protected List<Transform> PrisonActivingAllyTFList = new List<Transform>();
+    [HideInInspector] protected List<SpriteRenderer> PrisonAllySRList = new List<SpriteRenderer>();
+    [HideInInspector] protected List<SpriteRenderer> PrisonAllyShadowList = new List<SpriteRenderer>();
+    [HideInInspector] protected PrisonAllySprite AllySprites;
+
+    [HideInInspector]
+    private static List<float> PercentPrisonGrade = new List<float>
+    { 5f, 4f, 3f, 2f, 1f };
+
+    #endregion
 
     #region Offset
 
-    private void Offset_DangerIconTxt()
+    private void Offset_Value()
+    {
+        Rating = DevTool.Get_Grade(PercentPrisonGrade);
+        Debug.Log(Rating);
+        AllyAmount = Random.Range(Rating * 4, (Rating * 4) + 4) + 1;
+    }
+
+    private void Offset_Comp()
+    {
+        DangerTxt = DevTool.Get_ComponentTType(DangerIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text dangerTxt) ? dangerTxt : null;
+        TypeTxt = DevTool.Get_ComponentTType(TypeIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text typeTxt) ? typeTxt : null;
+
+        PrisonAllAllyTFList = DevTool.Get_ChildList<Transform>(AllySG.gameObject.transform);
+
+        PrisonActivingAllyTFList = new List<Transform>();
+        while (true)
+        {
+            Transform randomTF = PrisonAllAllyTFList[Random.Range(0, PrisonAllAllyTFList.Count)];
+            if (!PrisonActivingAllyTFList.Contains(randomTF))
+                PrisonActivingAllyTFList.Add(randomTF);
+
+            if (PrisonActivingAllyTFList.Count >= AllyAmount)
+                break;
+        }
+
+        PrisonAllySRList = new List<SpriteRenderer>();
+        PrisonAllyShadowList = new List<SpriteRenderer>();
+        for (int i = 0; i < PrisonAllAllyTFList.Count; i++)
+        {
+            if (PrisonActivingAllyTFList.Contains(PrisonAllAllyTFList[i]))
+            {
+                PrisonAllySRList.Add(DevTool.Get_ComponentTType<SpriteRenderer>(PrisonAllAllyTFList[i].transform.GetChild(0).gameObject));
+                PrisonAllyShadowList.Add(DevTool.Get_ComponentTType<SpriteRenderer>(PrisonAllAllyTFList[i].transform.GetChild(1).gameObject));
+                PrisonAllAllyTFList[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                PrisonAllAllyTFList[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void Offset_Danger()
     {
         DangerIcon.sprite = UnitManager.Instance.PrisonRateIconList[Rating];
         DangerTxt.text = $"{UnitManager.Instance.RatingString }: ({Rating + 1}) { UnitManager.Instance.PrisonRateStringList[Rating]} <size=150%>(</size>";
@@ -65,12 +119,14 @@ public class PrisonController : InteractableBuildController
 
     protected override void Offset()
     {
+        Offset_Value();
         Set_AnimValue();
-        Set_Rating(0);
+        Set_Rating(Rating);
 
         base.Offset();
 
-        Offset_DangerIconTxt();
+        Offset_Comp();
+        Offset_Danger();
     }
 
     #endregion
@@ -83,6 +139,7 @@ public class PrisonController : InteractableBuildController
 
         ThisUpsideSR.sortingOrder = _SortingOrder - 2;
         ExtraSG.sortingOrder = _SortingOrder + 1;
+        AllySG.sortingOrder = _SortingOrder;
     }
 
 
@@ -116,7 +173,17 @@ public class PrisonController : InteractableBuildController
         Set_StateAnim();
     }
 
+    #endregion
+
+    #region Unlock
+
     public void Set_Unlock()
+    {
+        Set_UnlockData();
+        StartCoroutine(Play_Unlock_Cor());
+    }
+
+    private void Set_UnlockData()
     {
         if (IsOn) return;
 
@@ -127,6 +194,72 @@ public class PrisonController : InteractableBuildController
         // Set
         IsOn = true;
         Set_StateAnim();
+
+    }
+
+    private IEnumerator Play_Unlock_Cor()
+    {
+        float fallingDelay = 0.1f;
+        float fallingTime = 0.3f;
+        float standTime = 0.7f;
+        float saluteTime = 1.2f;
+        float fadeTime = 1.5f;
+
+        for (int i = 0; i < PrisonActivingAllyTFList.Count; i++)
+        {
+            yield return new WaitForSeconds(fallingDelay);
+
+            int index = i;
+            Play_EachMoveDown(fallingTime, index);
+        }
+
+        yield return new WaitForSeconds(fallingTime + standTime);
+
+        for (int i = 0; i < PrisonAllySRList.Count; i++)
+        {
+            PrisonAllySRList[i].sprite = AllySprites.Salute;
+        }
+
+        yield return new WaitForSeconds(saluteTime);
+
+        for (int i = 0; i < PrisonAllySRList.Count; i++)
+        {
+            PrisonAllySRList[i].DOFade(0, fadeTime);
+            PrisonAllyShadowList[i].DOFade(0, fadeTime);
+        }
+
+        yield return new WaitForSeconds(fadeTime);
+
+        for (int i = 0; i < PrisonActivingAllyTFList.Count; i++)
+        {
+            PrisonActivingAllyTFList[i].gameObject.SetActive(false);
+        }
+
+        ThisCol.enabled = false;
+
+        PrisonAllAllyTFList.Clear();
+        PrisonActivingAllyTFList.Clear();
+        PrisonAllySRList.Clear();
+        PrisonAllyShadowList.Clear();
+
+        PrisonAllAllyTFList = null;
+        PrisonActivingAllyTFList = null;
+        PrisonAllySRList = null;
+        PrisonAllyShadowList = null;
+        AllySprites = null;
+    }
+
+
+    private void Play_EachMoveDown(float _FallingTime, int _Index)
+    {
+        Sequence seq = DOTween.Sequence();
+
+        Transform tf = PrisonActivingAllyTFList[_Index];
+        SpriteRenderer targetSr = DevTool.Get_ComponentTType(tf.GetChild(0).gameObject, out SpriteRenderer sr) ? sr : null;
+
+        seq.Append(tf.GetChild(0).DOLocalMoveY(0, _FallingTime)
+            .OnStart(() => { targetSr.sprite = AllySprites.Fall; })
+            .OnComplete(() => { targetSr.sprite = AllySprites.Stand; }));
     }
 
     #endregion

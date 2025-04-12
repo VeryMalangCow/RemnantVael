@@ -3417,6 +3417,19 @@ public class PlayerVisual<T>
 #endregion
 
 
+#region Class : Ally : Prison
+
+[System.Serializable]
+public class PrisonAllySprite
+{
+    public Sprite Bind;
+    public Sprite Fall;
+    public Sprite Stand;
+    public Sprite Salute;
+}
+
+#endregion
+
 #region Class : CSV : Word
 
 [System.Serializable]

@@ -34,12 +34,21 @@ public class UnitManager : Singleton<UnitManager>
 
     [Space(10)]
     [Header("=== Sprite")]
+
+    [Space(5)]
+    [Header("-- Build")]
     [SerializeField] public Sprite BuildingDurFrame;
     [SerializeField] public Sprite BuildingDurInner;
+
+    [Space(5)]
+    [Header("-- Prison")]
     [SerializeField] public List<Sprite> PrisonRateIconList;
     [SerializeField] public CoupleData<Sprite> StrikeTeamIcon;
     [SerializeField] public CoupleData<Sprite> UplinkTeamIcon;
     [SerializeField] public CoupleData<Sprite> NeoTeamIcon;
+    [SerializeField] public PrisonAllySprite StrikeTeamAllySprites;
+    [SerializeField] public PrisonAllySprite UplinkTeamAllySprites;
+    [SerializeField] public PrisonAllySprite NeoTeamAllySprites;
 
     #endregion
 
