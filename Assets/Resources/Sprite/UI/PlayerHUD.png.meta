@@ -2490,6 +2490,174 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_UpOpen
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 29
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 12, y: 0, z: 12, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b686fd3103868a4d84a6655c7a96a57
+      internalID: 1044665868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_UpClose
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 29
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 12, y: 0, z: 12, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9d453202644cb141abd638c75d796dc
+      internalID: 1727312508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_AllyUpsideInner_Arrow
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 12
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1f3424a4acb05d419ac973130dba96b
+      internalID: 759194257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Key1
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 18
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 834b3cc1a2bbfe34da8267441a37a56e
+      internalID: 708317594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Key2
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 18
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cb9385698a6a474b931c43a9216a295
+      internalID: -1312094444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_Key3
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 18
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1a5015bbc139da4f802a59878bdcc0e
+      internalID: -1406225623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_AllyUpsideInner_Right
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 12
+        width: 2
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6514eac361509f64895c944bf3b66ce3
+      internalID: 2033759823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_AllyUpsideInner_Left
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 12
+        width: 2
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38ff3b531e168034ba25d72fd503a4fc
+      internalID: 1311110076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2506,6 +2674,9 @@ TextureImporter:
       Module000_Anno_InnerL: 366330324
       Module000_Anno_InnerR: -594145359
       PlayerHUD_AllyFrame: 1087955068
+      PlayerHUD_AllyUpsideInner_Arrow: 759194257
+      PlayerHUD_AllyUpsideInner_Left: 1311110076
+      PlayerHUD_AllyUpsideInner_Right: 2033759823
       PlayerHUD_BC: -330596494
       PlayerHUD_BS_Charge_00: 64244325
       PlayerHUD_BS_Charge_01: 1203241232
@@ -2578,6 +2749,9 @@ TextureImporter:
       PlayerHUD_Interact_Frame: 261216347
       PlayerHUD_Interact_Inner: -893793875
       PlayerHUD_Interact_InnerUse: 235986038
+      PlayerHUD_Key1: 708317594
+      PlayerHUD_Key2: -1312094444
+      PlayerHUD_Key3: -1406225623
       PlayerHUD_MMO_000: -1569914105
       PlayerHUD_MMO_001: 2006052592
       PlayerHUD_MMO_002: 187598078
@@ -2615,6 +2789,8 @@ TextureImporter:
       PlayerHUD_SkillInner: 1577707779
       PlayerHUD_SkillSlot_Frame: -209309963
       PlayerHUD_SkillStateFrame: 1075042413
+      PlayerHUD_UpClose: 1727312508
+      PlayerHUD_UpOpen: 1044665868
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

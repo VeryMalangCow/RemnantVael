@@ -3357,11 +3357,18 @@ public class AllyPresence
     public TMP_Text PresenceValueTxt;
     public TMP_Text PresenceLangTxt;
 
+    [Space(10)]
+    public GameObject CanLvUpGO;
+    public GameObject CannotLvUpGO;
+
     public void Play_Amount(int _Amount, int _NeedLvUp)
     {
-        PresenceValueTxt.text = $"{_Amount}<size=50%>/{_NeedLvUp}</size>";
+        PresenceValueTxt.text = $"<b>{_Amount}</b><size=50%>/{_NeedLvUp}</size>";
 
-        float a = (_Amount >= _NeedLvUp) ? 1f : 0.5f;
+        bool canLvUp = (_Amount >= _NeedLvUp);
+        CanLvUpGO.SetActive(canLvUp);
+        CannotLvUpGO.SetActive(!canLvUp);
+        float a = canLvUp ? 1f : 0.5f;
         DevTool.Set_AlphaColor(PresenceValueTxt, a);
         DevTool.Set_AlphaColor(PresenceLangTxt, a);
 
