@@ -72,7 +72,6 @@ public class PrisonController : InteractableBuildController
     private void Offset_Value()
     {
         Rating = DevTool.Get_Grade(PercentPrisonGrade);
-        Debug.Log(Rating);
         AllyAmount = Random.Range(Rating * 4, (Rating * 4) + 4) + 1;
     }
 
@@ -177,7 +176,7 @@ public class PrisonController : InteractableBuildController
 
     #region Unlock
 
-    public void Set_Unlock()
+    public virtual void Set_Unlock()
     {
         Set_UnlockData();
         StartCoroutine(Play_Unlock_Cor());

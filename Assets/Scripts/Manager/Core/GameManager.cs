@@ -3295,6 +3295,9 @@ public class StageRoom
 
     [Space(10)]
     public List<GenSpecialRoomData> ShopRoom;
+
+    [Space(10)]
+    public List<GenPrisonRoomData> PrisonRoom;
 }
 
 [System.Serializable]
@@ -3309,6 +3312,12 @@ public class GenSpecialRoomData
 {
     public int ID;
     public int RuleID;
+}
+
+[System.Serializable]
+public class GenPrisonRoomData : GenSpecialRoomData
+{
+    public int TypeID;
 }
 
 #endregion
@@ -3341,6 +3350,26 @@ public class LanguageTxt
     public List<TMP_FontAsset> FontAssets;
 }
 
+[System.Serializable]
+public class AllyPresence
+{
+    public Image InnerImg;
+    public TMP_Text PresenceValueTxt;
+    public TMP_Text PresenceLangTxt;
+
+    public void Play_Amount(int _Amount, int _NeedLvUp)
+    {
+        PresenceValueTxt.text = $"{_Amount}<size=50%>/{_NeedLvUp}</size>";
+
+        float a = (_Amount >= _NeedLvUp) ? 1f : 0.5f;
+        DevTool.Set_AlphaColor(PresenceValueTxt, a);
+        DevTool.Set_AlphaColor(PresenceLangTxt, a);
+
+        DevTool.Set_KillTween(InnerImg);
+        DevTool.Play_FadePulse(InnerImg, 1f, 0.25f);
+    }
+
+}
 #endregion
 
 

@@ -67,7 +67,7 @@ public class EventManager : PersistentSingleton<EventManager>
         // Test Input
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Start_Event(0);
+            //Start_Event(0);
         }
     }
 

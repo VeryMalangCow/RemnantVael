@@ -7,10 +7,10 @@ public class StrikeTeamPrisonController : PrisonController
 
     private void Offset_Type()
     {
-        AllySprites = UnitManager.Instance.StrikeTeamAllySprites;
         TypeIcon.sprite = UnitManager.Instance.StrikeTeamIcon.TypeSpecial;
         TypeTxt.text = $"<size=150%>)</size> {UnitManager.Instance.StrikeTeamString}";
 
+        AllySprites = UnitManager.Instance.StrikeTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
         {
             PrisonAllySRList[i].sprite = AllySprites.Bind;
@@ -26,4 +26,14 @@ public class StrikeTeamPrisonController : PrisonController
 
     #endregion
 
+    #region Unlock
+
+    public override void Set_Unlock()
+    {
+        base.Set_Unlock();
+
+        PlayerManager.Instance.PlayerController.StrikeTeamPresence.Value += AllyAmount;
+    }
+
+    #endregion
 }

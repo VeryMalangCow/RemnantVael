@@ -168,9 +168,9 @@ public class UnitManager : Singleton<UnitManager>
             CSVManager.Instance.Get_StaticWord(68)
         };
 
-        StrikeTeamString = CSVManager.Instance.Get_StaticWord(61);
-        UplinkTeamString = CSVManager.Instance.Get_StaticWord(62);
-        NeoTeamString = CSVManager.Instance.Get_StaticWord(63);
+        StrikeTeamString = $"{CSVManager.Instance.Get_StaticWord(61)}<size=85%> ({CSVManager.Instance.Get_StaticWord(71)})</size>";
+        UplinkTeamString = $"{CSVManager.Instance.Get_StaticWord(62)}<size=85%> ({CSVManager.Instance.Get_StaticWord(72)})</size>";
+        NeoTeamString = $"{CSVManager.Instance.Get_StaticWord(63)}<size=85%> ({CSVManager.Instance.Get_StaticWord(73)})</size>";
     }
 
     #endregion

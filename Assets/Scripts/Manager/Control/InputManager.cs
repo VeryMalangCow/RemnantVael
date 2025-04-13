@@ -198,6 +198,10 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Skill_0"].performed += Input_Skill_0;
         PlayerInput.actions["Skill_1"].performed += Input_Skill_1;
 
+        PlayerInput.actions["STAlly"].performed += Input_STAlly;
+        PlayerInput.actions["UTAlly"].performed += Input_UTAlly;
+        PlayerInput.actions["NTAlly"].performed += Input_NTAlly;
+
         PlayerInput.actions["Interact"].performed += Input_Interact;
         PlayerInput.actions["TabInteract"].performed += Input_Tab;
         PlayerInput.actions["OutMainGame"].performed += Input_OMGUI;
@@ -230,6 +234,10 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["Skill_0"].performed -= Input_Skill_0;
         PlayerInput.actions["Skill_1"].performed -= Input_Skill_1;
+
+        PlayerInput.actions["STAlly"].performed -= Input_STAlly;
+        PlayerInput.actions["UTAlly"].performed -= Input_UTAlly;
+        PlayerInput.actions["NTAlly"].performed -= Input_NTAlly;
 
         PlayerInput.actions["Interact"].performed -= Input_Interact;
         PlayerInput.actions["TabInteract"].performed -= Input_Tab;
@@ -316,6 +324,31 @@ public class InputManager : Singleton<InputManager>
         if (_InputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
                 PlayerManager.Instance.PlayerController.Try_Skill1);
+    }
+
+    #endregion
+
+    #region Ally
+
+    private void Input_STAlly(InputAction.CallbackContext _InputValue)
+    {
+        Debug.Log("스트라이크 렙업 시도");
+        if (_InputValue.ReadValueAsButton())
+            PlayerManager.Instance.PlayerController.Try_STAllyLvUp();
+    }
+
+    private void Input_UTAlly(InputAction.CallbackContext _InputValue)
+    {
+        Debug.Log("업링크 렙업 시도");
+        if (_InputValue.ReadValueAsButton())
+            PlayerManager.Instance.PlayerController.Try_UTAllyLvUp();
+    }
+
+    private void Input_NTAlly(InputAction.CallbackContext _InputValue)
+    {
+        Debug.Log("네오 렙업 시도");
+        if (_InputValue.ReadValueAsButton())
+            PlayerManager.Instance.PlayerController.Try_NTAllyLvUp();
     }
 
     #endregion

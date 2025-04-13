@@ -51,6 +51,33 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "STAlly",
+                    "type": "Button",
+                    "id": "18a37250-77f9-442c-811e-6d510ea13d4d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UTAlly",
+                    "type": "Button",
+                    "id": "3d970a02-d070-4734-98d0-00c140048907",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NTAlly",
+                    "type": "Button",
+                    "id": "d46030bc-b950-4d17-875e-0ebf9a500113",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Dash",
                     "type": "PassThrough",
                     "id": "2357536a-14f4-43de-ab31-21421d98ac81",
@@ -314,6 +341,39 @@
                     "action": "Arrow",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "5024ced4-1e0e-479c-8a44-374f85392893",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NTAlly",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bae5dc15-fc48-43b2-9086-6bfc73b75792",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "STAlly",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dde40ba3-a78f-4db3-bdd7-6e894fc1d05f",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UTAlly",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

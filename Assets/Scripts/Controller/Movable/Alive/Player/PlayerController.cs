@@ -112,6 +112,15 @@ public class PlayerController : AliveObjectController
     [HideInInspector] public ReactiveProperty<int> CurrentOverrider = new();
     [HideInInspector] public ReactiveProperty<int> CurrentCredit = new();
 
+    // Ally
+    [HideInInspector] public ReactiveProperty<int> StrikeTeamPresence = new();
+    [HideInInspector] public ReactiveProperty<int> UplinkTeamPresence = new();
+    [HideInInspector] public ReactiveProperty<int> NeoTeamPresence = new();
+    [HideInInspector] public int NeedIntervalPresence = 5;
+    [HideInInspector] public ReactiveProperty<int> NeedStrikeTeamPresence = new();
+    [HideInInspector] public ReactiveProperty<int> NeedUplinkTeamPresence = new();
+    [HideInInspector] public ReactiveProperty<int> NeedNeoTeamPresence = new();
+
     // BaseAnim
     [HideInInspector] private Sequence BaseSeq = null;
     [HideInInspector] private readonly float BaseYLimit = 0.02f;
@@ -180,6 +189,14 @@ public class PlayerController : AliveObjectController
         CurrentChargedBettery.Value = 9999;
         CurrentCredit.Value = 9999;
         CurrentOverrider.Value = 9999;
+
+        NeedStrikeTeamPresence.Value = NeedIntervalPresence;
+        NeedUplinkTeamPresence.Value = NeedIntervalPresence;
+        NeedNeoTeamPresence.Value = NeedIntervalPresence;
+
+        StrikeTeamPresence.Value = 0;
+        UplinkTeamPresence.Value = 0;
+        NeoTeamPresence.Value = 0;
     }
 
     protected override void Offset_Subscribe()
@@ -974,6 +991,37 @@ public class PlayerController : AliveObjectController
             seq.Append(AfterImgGenerator.TargetSRList[i].DOFade(1, 0));
             seq.AppendInterval(intervalTime);
             seq.SetLoops(4, LoopType.Restart);
+        }
+    }
+
+    #endregion
+
+    #region Ally
+
+    public void Try_STAllyLvUp()
+    {
+        if (NeedStrikeTeamPresence.Value <= StrikeTeamPresence.Value)
+        {
+            NeedStrikeTeamPresence.Value += NeedIntervalPresence;
+            Debug.Log("½ºÆ®¶óÀÌÅ© ·¾¾÷");
+        }
+    }
+
+    public void Try_UTAllyLvUp()
+    {
+        if (NeedUplinkTeamPresence.Value <= UplinkTeamPresence.Value)
+        {
+            NeedUplinkTeamPresence.Value += NeedIntervalPresence;
+            Debug.Log("¾÷¸µÅ© ·¾¾÷");
+        }
+    }
+
+    public void Try_NTAllyLvUp()
+    {
+        if (NeedNeoTeamPresence.Value <= NeoTeamPresence.Value)
+        {
+            NeedNeoTeamPresence.Value += NeedIntervalPresence;
+            Debug.Log("³×¿À ·¾¾÷");
         }
     }
 

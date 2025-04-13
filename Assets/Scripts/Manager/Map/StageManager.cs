@@ -27,27 +27,32 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private List<GameObject> RoomRulePrefabList;
     [SerializeField] private List<GameObject> RoomRuleEntrancePrefabList;
     [SerializeField] private List<GameObject> RoomRuleVaultPrefabList;
-    [SerializeField] private List<GameObject> RoomRuleShopPrefabList; 
+    [SerializeField] private List<GameObject> RoomRuleShopPrefabList;
+    [SerializeField] private List<GameObject> RoomRulePrisonPrefabList;
 
     [Space(5)]
     [Header("-- Build / Actual")]
     [SerializeField] private GameObject BUShopPrefab;
     [SerializeField] private GameObject MUShopPrefab;
     [SerializeField] private List<GameObject> VaultPrefabList;
-    [SerializeField] private GameObject PrisonPrefab;
+    [SerializeField] private List<GameObject> PrisonPrefabList;
 
     [Space(5)]
     [Header("-- Build / Operator")]
     [SerializeField] private GameObject RepairOperatorPrefab;
     [SerializeField] private GameObject VaultRerollOperatorPrefab;
     [SerializeField] private GameObject VaultUpgradeOperatorPrefab;
-    [SerializeField] private GameObject PrisonOperatorPrefab;
+    [SerializeField] private GameObject PrisonPayOperatorPrefab;
+    [SerializeField] private GameObject PrisonPuzzleOperatorPrefab;
 
     [Space(5)]
     [Header("-- Icon")]
     [SerializeField] private CoupleData<Sprite> Vault_Icon;
     [SerializeField] private CoupleData<Sprite> Elevator_Icon;
     [SerializeField] private CoupleData<Sprite> Shop_Icon;
+    [SerializeField] private CoupleData<Sprite> ST_Prison_Icon;
+    [SerializeField] private CoupleData<Sprite> UT_Prison_Icon;
+    [SerializeField] private CoupleData<Sprite> NT_Prison_Icon;
     [SerializeField] public List<MinimapIcon> MinimapIcons;
 
     [Space(10)]
@@ -136,32 +141,32 @@ public class StageManager : Singleton<StageManager>
             Gen_NormalRoom(RoomPrefabList[ShuffledRoomIndexList[i]], TempID);
             TempID++;
         }
-        /*
-                // 烹苞 规 积己
-                for (int i = 0; i < stageData.RoomData.EntranceRoom.Count; i++)
-                {
-                    Gen_EntranceRoom(stageData.RoomData.EntranceRoom[i], TempID);
-                    TempID++;
-                }
+/*
+        // 烹苞 规 积己
+        for (int i = 0; i < stageData.RoomData.EntranceRoom.Count; i++)
+        {
+            Gen_EntranceRoom(stageData.RoomData.EntranceRoom[i], TempID);
+            TempID++;
+        }
 
-                // 陛绊 规 积己
-                for (int i = 0; i < stageData.RoomData.VaultRoom.Count; i++)
-                {
-                    Gen_VaultRoom(stageData.RoomData.VaultRoom[i], TempID);
-                    TempID++;
-                }
+        // 陛绊 规 积己
+        for (int i = 0; i < stageData.RoomData.VaultRoom.Count; i++)
+        {
+            Gen_VaultRoom(stageData.RoomData.VaultRoom[i], TempID);
+            TempID++;
+        }
 
-                // 惑痢 规 积己
-                for (int i = 0; i < stageData.RoomData.ShopRoom.Count; i++)
-                {
-                    Gen_ShopRoom(stageData.RoomData.ShopRoom[i], TempID);
-                    TempID++;
-                }
-        */
-        // 皑苛 规 积己
+        // 惑痢 规 积己
         for (int i = 0; i < stageData.RoomData.ShopRoom.Count; i++)
         {
-            Gen_PrisonRoom(stageData.RoomData.ShopRoom[i], TempID);
+            Gen_ShopRoom(stageData.RoomData.ShopRoom[i], TempID);
+            TempID++;
+        }
+*/
+        // 皑苛 规 积己
+        for (int i = 0; i < stageData.RoomData.PrisonRoom.Count; i++)
+        {
+            Gen_PrisonRoom(stageData.RoomData.PrisonRoom[i], TempID);
             TempID++;
         }
 
@@ -246,24 +251,28 @@ public class StageManager : Singleton<StageManager>
             VaultRuleController vaultRule = DevTool.Get_CastingTType<VaultRuleController>(roomRule);
             VaultController vault = DevTool.Get_ComponentTType<VaultController>(Instantiate(DevTool.Get_RandomInList(VaultPrefabList), vaultRule.InRoom_VaultParentTF));
             vaultRule.Vault = vault;
+            vault.gameObject.transform.localPosition = Vector2.zero;
             vault.gameObject.SetActive(false);
 
             RepairOperatorController repairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
                 Instantiate(RepairOperatorPrefab, vaultRule.InRoom_RepairOperactorParentTF));
             vaultRule.RepairOperator = repairOper;
             repairOper.Set_TargetBuild(vault);
+            repairOper.gameObject.transform.localPosition = Vector2.zero;
             repairOper.gameObject.SetActive(false);
 
             VaultRerollOperatorController rerollOper = DevTool.Get_ComponentTType<VaultRerollOperatorController>(
                 Instantiate(VaultRerollOperatorPrefab, vaultRule.InRoom_RerollOperactorParentTF));
             vaultRule.RerollOperator = rerollOper;
             rerollOper.Set_TargetBuild(vault);
+            rerollOper.gameObject.transform.localPosition = Vector2.zero;
             rerollOper.gameObject.SetActive(false);
 
             VaultUpgradeOperatorController upgradeOper = DevTool.Get_ComponentTType<VaultUpgradeOperatorController>(
                 Instantiate(VaultUpgradeOperatorPrefab, vaultRule.InRoom_UpgradeOperactorParentTF));
             vaultRule.UpgradeOperator = upgradeOper;
             upgradeOper.Set_TargetBuild(vault);
+            upgradeOper.gameObject.transform.localPosition = Vector2.zero;
             upgradeOper.gameObject.SetActive(false);
 
             room.Offset(_TempID);
@@ -285,22 +294,26 @@ public class StageManager : Singleton<StageManager>
 
             BaseUpgradeController BUShop = DevTool.Get_ComponentTType<BaseUpgradeController>(Instantiate(BUShopPrefab, shopRule.InRoom_BUShopParentTF));
             shopRule.BUShop = BUShop;
+            BUShop.gameObject.transform.localPosition = Vector2.zero;
             BUShop.gameObject.SetActive(false);
 
             ModuleUpgradeController MUShop = DevTool.Get_ComponentTType<ModuleUpgradeController>(Instantiate(MUShopPrefab, shopRule.InRoom_MUShopParentTF));
             shopRule.MUShop = MUShop;
+            MUShop.gameObject.transform.localPosition = Vector2.zero;
             MUShop.gameObject.SetActive(false);
 
             RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
                 Instantiate(RepairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
             shopRule.BURepairOperator = BURepairOper;
             BURepairOper.Set_TargetBuild(BUShop);
+            BURepairOper.gameObject.transform.localPosition = Vector2.zero;
             BURepairOper.gameObject.SetActive(false);
 
             RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
                 Instantiate(RepairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
             shopRule.MURepairOperator = MURepairOper;
             MURepairOper.Set_TargetBuild(MUShop);
+            MURepairOper.gameObject.transform.localPosition = Vector2.zero;
             MURepairOper.gameObject.SetActive(false);
 
             room.Offset(_TempID);
@@ -309,36 +322,33 @@ public class StageManager : Singleton<StageManager>
     }
 
     // 皑苛 规 窍唱 积己
-    private void Gen_PrisonRoom(GenSpecialRoomData _ShopRoomData, int _TempID)
+    private void Gen_PrisonRoom(GenPrisonRoomData _PrisonRoomData, int _TempID)
     {
-        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_ShopRoomData.ID], MapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_PrisonRoomData.ID], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(RoomRuleShopPrefabList[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(RoomRulePrisonPrefabList[_PrisonRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
-            ShopRuleController shopRule = DevTool.Get_CastingTType<ShopRuleController>(roomRule);
+            PrisonRuleController prisonRule = DevTool.Get_CastingTType<PrisonRuleController>(roomRule);
 
-            BaseUpgradeController BUShop = DevTool.Get_ComponentTType<BaseUpgradeController>(Instantiate(BUShopPrefab, shopRule.InRoom_BUShopParentTF));
-            shopRule.BUShop = BUShop;
-            BUShop.gameObject.SetActive(false);
+            PrisonController prison = DevTool.Get_ComponentTType<PrisonController>(Instantiate(PrisonPrefabList[_PrisonRoomData.TypeID], prisonRule.InRoom_PrisonParentTF));
+            prisonRule.Prison = prison;
+            prison.gameObject.transform.localPosition = Vector2.zero;
+            prison.gameObject.SetActive(false);
 
-            ModuleUpgradeController MUShop = DevTool.Get_ComponentTType<ModuleUpgradeController>(Instantiate(MUShopPrefab, shopRule.InRoom_MUShopParentTF));
-            shopRule.MUShop = MUShop;
-            MUShop.gameObject.SetActive(false);
+            PrisonPayOperatorController payOper = DevTool.Get_ComponentTType<PrisonPayOperatorController>(
+               Instantiate(PrisonPayOperatorPrefab, prisonRule.InRoom_PayOperactorParentTF));
+            prisonRule.PayOperator = payOper;
+            payOper.Set_TargetBuild(prison);
+            payOper.gameObject.SetActive(false);
 
-            RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                Instantiate(RepairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
-            shopRule.BURepairOperator = BURepairOper;
-            BURepairOper.Set_TargetBuild(BUShop);
-            BURepairOper.gameObject.SetActive(false);
-
-            RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                Instantiate(RepairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
-            shopRule.MURepairOperator = MURepairOper;
-            MURepairOper.Set_TargetBuild(MUShop);
-            MURepairOper.gameObject.SetActive(false);
+            PrisonPuzzleOperatorController puzzleOper = DevTool.Get_ComponentTType<PrisonPuzzleOperatorController>(
+               Instantiate(PrisonPuzzleOperatorPrefab, prisonRule.InRoom_PuzzleOperactorParentTF));
+            prisonRule.PuzzleOperator = puzzleOper;
+            puzzleOper.Set_TargetBuild(prison);
+            puzzleOper.gameObject.SetActive(false);
 
             room.Offset(_TempID);
             Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
@@ -752,6 +762,16 @@ public class StageManager : Singleton<StageManager>
 
             case ShopRuleController:
                 return Shop_Icon;
+
+            case PrisonRuleController prisonRule:
+                if (prisonRule.Prison is StrikeTeamPrisonController)
+                    return ST_Prison_Icon;
+                else if (prisonRule.Prison is UplinkTeamPrisonController)
+                    return UT_Prison_Icon;
+                else if (prisonRule.Prison is NeoTeamPrisonController)
+                    return NT_Prison_Icon;
+                else
+                    return null;
 
             default:
                 return null;

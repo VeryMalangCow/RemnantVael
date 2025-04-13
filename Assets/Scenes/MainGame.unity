@@ -281,6 +281,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5956502316695661957, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
   m_PrefabInstance: {fileID: 38671725}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &44683640 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5736045064323075691, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+  m_PrefabInstance: {fileID: 1941793646}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &45941491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -905,7 +910,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &243978802
 Transform:
   m_ObjectHideFlags: 0
@@ -1495,7 +1500,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5179974300967090457, guid: 37f1dfe24e381e841b3f63695875b308, type: 3}
   m_PrefabInstance: {fileID: 415166418}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1096672582}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d62f3313a222c26428c526474ea8c7e6, type: 3}
@@ -1644,7 +1649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &486922369
 Transform:
   m_ObjectHideFlags: 0
@@ -1738,7 +1743,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2784090784048974333, guid: f991a10c2348b56429f7dd5d07204c96, type: 3}
   m_PrefabInstance: {fileID: 506586843}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 850541574}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6be5a0d1a2290504093113df7fb99d70, type: 3}
@@ -2866,6 +2871,16 @@ MonoBehaviour:
       ShopRoom:
       - ID: 0
         RuleID: 0
+      PrisonRoom:
+      - ID: 0
+        RuleID: 0
+        TypeID: 0
+      - ID: 0
+        RuleID: 0
+        TypeID: 1
+      - ID: 0
+        RuleID: 0
+        TypeID: 2
     EnemyData:
       StageEnemyList:
       - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
@@ -2929,17 +2944,23 @@ MonoBehaviour:
   - {fileID: 8671702513593221327, guid: fbb1a9e1842c4d94f99699c725af6f36, type: 3}
   RoomRuleShopPrefabList:
   - {fileID: 8671702513593221327, guid: d30915823e2e8eb43a9d195178a83b47, type: 3}
+  RoomRulePrisonPrefabList:
+  - {fileID: 8671702513593221327, guid: 335bf5e4dca0a5043aab82f4958d5033, type: 3}
   BUShopPrefab: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
   MUShopPrefab: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
   VaultPrefabList:
   - {fileID: 5736045064323075691, guid: ee4da6a03b0a7f342bbe8b19563d73d9, type: 3}
   - {fileID: 5736045064323075691, guid: f99b58e75fa03314888f75f023a6c8df, type: 3}
   - {fileID: 5736045064323075691, guid: 251ad17552de25b468cade0a1ce29d90, type: 3}
-  PrisonPrefab: {fileID: 5736045064323075691, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
+  PrisonPrefabList:
+  - {fileID: 44683640}
+  - {fileID: 1096672582}
+  - {fileID: 850541574}
   RepairOperatorPrefab: {fileID: 5736045064323075691, guid: a52794494980df442a6685865c19674b, type: 3}
   VaultRerollOperatorPrefab: {fileID: 5736045064323075691, guid: ee83beb77b674c44eaa658cff9b1b899, type: 3}
   VaultUpgradeOperatorPrefab: {fileID: 5736045064323075691, guid: 07c41729688314b4598ff66a28e5f300, type: 3}
-  PrisonOperatorPrefab: {fileID: 0}
+  PrisonPayOperatorPrefab: {fileID: 5736045064323075691, guid: 2e418b4b6e977b948b9de3d517d3f17c, type: 3}
+  PrisonPuzzleOperatorPrefab: {fileID: 5736045064323075691, guid: d755ccdeb63a3444db8e29abb8dcd754, type: 3}
   Vault_Icon:
     TypeBase: {fileID: -290701738, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
     TypeSpecial: {fileID: -1483903491, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
@@ -2949,6 +2970,15 @@ MonoBehaviour:
   Shop_Icon:
     TypeBase: {fileID: -57570492, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
     TypeSpecial: {fileID: -1992303690, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  ST_Prison_Icon:
+    TypeBase: {fileID: -554058987, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    TypeSpecial: {fileID: 1653280872, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  UT_Prison_Icon:
+    TypeBase: {fileID: -1512498375, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    TypeSpecial: {fileID: 24279070, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  NT_Prison_Icon:
+    TypeBase: {fileID: -111883568, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    TypeSpecial: {fileID: 2030984323, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
   MinimapIcons:
   - MinimapElementIcon:
       TypeBase:
@@ -3531,6 +3561,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &850541574 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5736045064323075691, guid: f991a10c2348b56429f7dd5d07204c96, type: 3}
+  m_PrefabInstance: {fileID: 506586843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &898882982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4218,6 +4253,11 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1096672582 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5736045064323075691, guid: 37f1dfe24e381e841b3f63695875b308, type: 3}
+  m_PrefabInstance: {fileID: 415166418}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1119032467
 GameObject:
   m_ObjectHideFlags: 0
@@ -7232,15 +7272,15 @@ MonoBehaviour:
     Stand: {fileID: -1003898951, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
     Salute: {fileID: -1924550454, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
   UplinkTeamAllySprites:
-    Bind: {fileID: 0}
-    Fall: {fileID: 0}
-    Stand: {fileID: 0}
-    Salute: {fileID: 0}
+    Bind: {fileID: 2088213254, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+    Fall: {fileID: -1836539650, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+    Stand: {fileID: 140839510, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+    Salute: {fileID: 1461411430, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
   NeoTeamAllySprites:
-    Bind: {fileID: 0}
-    Fall: {fileID: 0}
-    Stand: {fileID: 0}
-    Salute: {fileID: 0}
+    Bind: {fileID: -108991560, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+    Fall: {fileID: -953435688, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+    Stand: {fileID: 2034139335, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+    Salute: {fileID: -2015462578, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
   RandomColor: {r: 1, g: 0, b: 0, a: 1}
   ModuleItemOutlinerAC:
   - {fileID: 7400000, guid: 35bfc1528075c6e428950576281e1be0, type: 2}
@@ -8736,7 +8776,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4536760348866823036, guid: 5f5fb190b6ff13c4ba531de07cd3e6c2, type: 3}
   m_PrefabInstance: {fileID: 1941793646}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 44683640}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f73bb3e2ef5360541a8712b0b7b22aa0, type: 3}

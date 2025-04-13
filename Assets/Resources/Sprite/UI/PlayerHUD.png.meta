@@ -1219,7 +1219,7 @@ TextureImporter:
         height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 8, y: 7, z: 8, w: 7}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2284,8 +2284,8 @@ TextureImporter:
       name: PlayerHUD_IMM_Icon_Elevator
       rect:
         serializedVersion: 2
-        x: 435
-        y: 408
+        x: 447
+        y: 420
         width: 11
         height: 11
       alignment: 0
@@ -2310,7 +2310,7 @@ TextureImporter:
         width: 7
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2327,11 +2327,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 435
-        y: 396
+        y: 408
         width: 11
         height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2339,6 +2339,153 @@ TextureImporter:
       bones: []
       spriteID: 4fd3ff493839efd4dbde91f787509be2
       internalID: -1992303690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_Icon_ST_Prison
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 408
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2a1a158b5e9a0a4197fb81fdd5b58d7
+      internalID: 1653280872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_Icon_ST_Prison
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 496
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb76820dad9c0dc4ca02d267cf4a4050
+      internalID: -554058987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_AllyFrame
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 13
+        width: 36
+        height: 39
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 18, y: 21, z: 18, w: 17}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9d02f22b1dd66d4fa520e35e2439530
+      internalID: 1087955068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_Icon_UT_Prison
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 488
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1dbff2149a4bfd489bc3e077a64ed3a
+      internalID: -1512498375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_Icon_NT_Prison
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 488
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 170650f5162e74f479511c89faf30396
+      internalID: -111883568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_Icon_UT_Prison
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 396
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 584d119965204964483f9083df0b4d8c
+      internalID: 24279070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_Icon_NT_Prison
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 396
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19eaccc1c22d1f241ad8280dfe305a70
+      internalID: 2030984323
       vertices: []
       indices: 
       edges: []
@@ -2358,6 +2505,7 @@ TextureImporter:
       Module000_Anno_FrameR: 439588742
       Module000_Anno_InnerL: 366330324
       Module000_Anno_InnerR: -594145359
+      PlayerHUD_AllyFrame: 1087955068
       PlayerHUD_BC: -330596494
       PlayerHUD_BS_Charge_00: 64244325
       PlayerHUD_BS_Charge_01: 1203241232
@@ -2411,7 +2559,10 @@ TextureImporter:
       PlayerHUD_IMM_006: -796665567
       PlayerHUD_IMM_007: 1287868922
       PlayerHUD_IMM_Icon_Elevator: -609947336
+      PlayerHUD_IMM_Icon_NT_Prison: 2030984323
+      PlayerHUD_IMM_Icon_ST_Prison: 1653280872
       PlayerHUD_IMM_Icon_Shop: -1992303690
+      PlayerHUD_IMM_Icon_UT_Prison: 24279070
       PlayerHUD_IMM_Icon_Vault: -1483903491
       PlayerHUD_Icon_Acc: 35517159
       PlayerHUD_Icon_CC: -1255095136
@@ -2444,7 +2595,10 @@ TextureImporter:
       PlayerHUD_MM_006: 1540350132
       PlayerHUD_MM_007: -1297130982
       PlayerHUD_MM_Icon_Elevator: 58754797
+      PlayerHUD_MM_Icon_NT_Prison: -111883568
+      PlayerHUD_MM_Icon_ST_Prison: -554058987
       PlayerHUD_MM_Icon_Shop: -57570492
+      PlayerHUD_MM_Icon_UT_Prison: -1512498375
       PlayerHUD_MM_Icon_Vault: -290701738
       PlayerHUD_MapIntro_Frame: 964077810
       PlayerHUD_MapNameFrame: -775422665

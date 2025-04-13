@@ -180,6 +180,174 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Ally000_UT_InPrison_Bind
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 219
+        width: 17
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.14}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bf5fbb7ea2b05642aeab5ffd93b86b8
+      internalID: 2088213254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally000_UT_InPrison_Fall
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 219
+        width: 17
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.14}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af6fefe14cddbe246a285710688c3f90
+      internalID: -1836539650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally000_UT_InPrison_Stand
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 219
+        width: 17
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.14}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eea07975397eb304289deeb91373aaf7
+      internalID: 140839510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally000_UT_InPrison_Salute
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 219
+        width: 17
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.14}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c066d8b8366930645b08f543866db673
+      internalID: 1461411430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally000_NT_InPrison_Bind
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 200
+        width: 17
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.14}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a7b8d77ded3d4a43aefa070c01247b2
+      internalID: -108991560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally000_NT_InPrison_Fall
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 200
+        width: 17
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.14}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef6690380dcd5e840ba6a13fe64a8468
+      internalID: -953435688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally000_NT_InPrison_Stand
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 200
+        width: 17
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.14}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba0c255f4cfeed14dbaacc92d65f182e
+      internalID: 2034139335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally000_NT_InPrison_Salute
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 200
+        width: 17
+        height: 18
+      alignment: 9
+      pivot: {x: 0.5, y: 0.14}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54b81fdd11f8e1647a9e01da5c3ee46d
+      internalID: -2015462578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -191,10 +359,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Ally000_NT_InPrison_Bind: -108991560
+      Ally000_NT_InPrison_Fall: -953435688
+      Ally000_NT_InPrison_Salute: -2015462578
+      Ally000_NT_InPrison_Stand: 2034139335
       Ally000_ST_InPrison_Bind: 306943780
       Ally000_ST_InPrison_Fall: 1426368537
       Ally000_ST_InPrison_Salute: -1924550454
       Ally000_ST_InPrison_Stand: -1003898951
+      Ally000_UT_InPrison_Bind: 996095104
+      Ally000_UT_InPrison_Fall: -1836539650
+      Ally000_UT_InPrison_Salute: 1461411430
+      Ally000_UT_InPrison_Stand: 140839510
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

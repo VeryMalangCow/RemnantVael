@@ -96,18 +96,20 @@ public class PlayerHUDController : UIController
     [SerializeField] private Image UsingInnerImg;
     [SerializeField] private Color UninteractableColor;
 
-    [HideInInspector] private bool IsActingInteractUI = false;
+    [Space(10)]
+    [Header("=== Ally")]
+    [SerializeField] private AllyPresence ST_AllyPresence;
+    [SerializeField] private AllyPresence UT_AllyPresence;
+    [SerializeField] private AllyPresence NT_AllyPresence;
 
-    [Header("=== Color Or Icon")]
-    [Header("-- Icon")]
-    [HideInInspector] private List<Image> SkillImgList = new List<Image>();
-
-    [Header("-- Buff")]
+    [Space(10)]
+    [Header("=== Buff")]
     [SerializeField] private Transform BuffParentTF;
     [SerializeField] public List<BuffIconEUIController> AllBuffIconUI;
     [SerializeField] private float BuffUI_XInterval = 12;
 
-    [Header("-- Screen")]
+    [Space(10)]
+    [Header("=== Screen")]
     [SerializeField] private Image HittedScreen;
 
     #endregion
@@ -133,6 +135,7 @@ public class PlayerHUDController : UIController
     [HideInInspector] public List<InventorySlotEUIController> ModuleSlots = new List<InventorySlotEUIController>();
 
     // Tab -> Skill State
+    [HideInInspector] private List<Image> SkillImgList = new List<Image>();
     [HideInInspector] private float DefaultPlayerStatesRectX;
     [HideInInspector] private float DefaultSkillStatesRectY;
 
@@ -143,6 +146,9 @@ public class PlayerHUDController : UIController
 
     // Tab
     [HideInInspector] private Sequence TabSeq;
+
+    // Interact
+    [HideInInspector] private bool IsActingInteractUI = false;
 
     #endregion
 
@@ -174,6 +180,10 @@ public class PlayerHUDController : UIController
 
         for (int i = 17; i <= 18; i++)
             SkillStatesStringList.Add(CSVManager.Instance.Get_StaticWord(i));
+
+        ST_AllyPresence.PresenceLangTxt.text = $"{CSVManager.Instance.Get_StaticWord(61)}<size=85%> {CSVManager.Instance.Get_StaticWord(70)}</size>";
+        UT_AllyPresence.PresenceLangTxt.text = $"{CSVManager.Instance.Get_StaticWord(62)}<size=85%> {CSVManager.Instance.Get_StaticWord(70)}</size>";
+        NT_AllyPresence.PresenceLangTxt.text = $"{CSVManager.Instance.Get_StaticWord(63)}<size=85%> {CSVManager.Instance.Get_StaticWord(70)}</size>";
 
         EP.Offset();
         CurrentEmptyBC.Offset();
@@ -314,6 +324,38 @@ public class PlayerHUDController : UIController
             })
             .AddTo(gameObject);
 
+
+        PlayerManager.Instance.PlayerController.StrikeTeamPresence
+            .Subscribe(_presence =>
+            {
+                ST_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.StrikeTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedStrikeTeamPresence.Value);
+            });
+        PlayerManager.Instance.PlayerController.UplinkTeamPresence
+            .Subscribe(_presence =>
+            {
+                UT_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.UplinkTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedUplinkTeamPresence.Value);
+            });
+        PlayerManager.Instance.PlayerController.NeoTeamPresence
+            .Subscribe(_presence =>
+            {
+                NT_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.NeoTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedNeoTeamPresence.Value);
+            });
+
+        PlayerManager.Instance.PlayerController.NeedStrikeTeamPresence
+            .Subscribe(_needPresence =>
+            {
+                ST_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.StrikeTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedStrikeTeamPresence.Value);
+            });
+        PlayerManager.Instance.PlayerController.NeedUplinkTeamPresence
+            .Subscribe(_needPresence =>
+            {
+                UT_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.UplinkTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedUplinkTeamPresence.Value);
+            });
+        PlayerManager.Instance.PlayerController.NeedNeoTeamPresence
+            .Subscribe(_needPresence =>
+            {
+                NT_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.NeoTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedNeoTeamPresence.Value);
+            });
     }
 
     private void Offset_Img()
@@ -726,6 +768,10 @@ public class PlayerHUDController : UIController
         for (int i = 0; i < DevTool.SkillAmount; i++)
             SubColorCompList.Add(SkillList[i].SkillInnerImg);
 
+        // Ally
+        SubColorCompList.Add(ST_AllyPresence.InnerImg);
+        SubColorCompList.Add(UT_AllyPresence.InnerImg);
+        SubColorCompList.Add(NT_AllyPresence.InnerImg);
 
         return result;
     }
