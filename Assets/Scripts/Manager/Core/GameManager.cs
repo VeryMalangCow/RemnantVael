@@ -3350,33 +3350,6 @@ public class LanguageTxt
     public List<TMP_FontAsset> FontAssets;
 }
 
-[System.Serializable]
-public class AllyPresence
-{
-    public Image InnerImg;
-    public TMP_Text PresenceValueTxt;
-    public TMP_Text PresenceLangTxt;
-
-    [Space(10)]
-    public GameObject CanLvUpGO;
-    public GameObject CannotLvUpGO;
-
-    public void Play_Amount(int _Amount, int _NeedLvUp)
-    {
-        PresenceValueTxt.text = $"<b>{_Amount}</b><size=50%>/{_NeedLvUp}</size>";
-
-        bool canLvUp = (_Amount >= _NeedLvUp);
-        CanLvUpGO.SetActive(canLvUp);
-        CannotLvUpGO.SetActive(!canLvUp);
-        float a = canLvUp ? 1f : 0.5f;
-        DevTool.Set_AlphaColor(PresenceValueTxt, a);
-        DevTool.Set_AlphaColor(PresenceLangTxt, a);
-
-        DevTool.Set_KillTween(InnerImg);
-        DevTool.Play_FadePulse(InnerImg, 1f, 0.25f);
-    }
-
-}
 #endregion
 
 

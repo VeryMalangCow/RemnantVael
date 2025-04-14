@@ -98,9 +98,9 @@ public class PlayerHUDController : UIController
 
     [Space(10)]
     [Header("=== Ally")]
-    [SerializeField] private AllyPresence ST_AllyPresence;
-    [SerializeField] private AllyPresence UT_AllyPresence;
-    [SerializeField] private AllyPresence NT_AllyPresence;
+    [SerializeField] private AllyPresenceEUIController ST_AllyPresence;
+    [SerializeField] private AllyPresenceEUIController UT_AllyPresence;
+    [SerializeField] private AllyPresenceEUIController NT_AllyPresence;
 
     [Space(10)]
     [Header("=== Buff")]
@@ -150,6 +150,9 @@ public class PlayerHUDController : UIController
     // Interact
     [HideInInspector] private bool IsActingInteractUI = false;
 
+    // Ally
+    [HideInInspector] private List<AllyPresenceEUIController> AllAllyPresence = new List<AllyPresenceEUIController>();
+
     #endregion
 
     #endregion
@@ -181,10 +184,14 @@ public class PlayerHUDController : UIController
         for (int i = 17; i <= 18; i++)
             SkillStatesStringList.Add(CSVManager.Instance.Get_StaticWord(i));
 
-        ST_AllyPresence.PresenceLangTxt.text = $"{CSVManager.Instance.Get_StaticWord(61)}<size=85%> {CSVManager.Instance.Get_StaticWord(70)}</size>";
-        UT_AllyPresence.PresenceLangTxt.text = $"{CSVManager.Instance.Get_StaticWord(62)}<size=85%> {CSVManager.Instance.Get_StaticWord(70)}</size>";
-        NT_AllyPresence.PresenceLangTxt.text = $"{CSVManager.Instance.Get_StaticWord(63)}<size=85%> {CSVManager.Instance.Get_StaticWord(70)}</size>";
+        AllAllyPresence = new List<AllyPresenceEUIController> { ST_AllyPresence, UT_AllyPresence, NT_AllyPresence };
 
+        for (int i = 0; i < AllAllyPresence.Count; i++)
+        {
+            AllAllyPresence[i].Offset();
+            AllAllyPresence[i].PresenceLangTxt.text = $"{CSVManager.Instance.Get_StaticWord(i + 61)}<size=85%> {CSVManager.Instance.Get_StaticWord(70)}</size>";
+        }
+        
         EP.Offset();
         CurrentEmptyBC.Offset();
         EmptyBC.Offset();
@@ -741,6 +748,11 @@ public class PlayerHUDController : UIController
             result.Add(SkillStatesTxtList[i]);
         }
 
+        // Ally
+        for (int i = 0; i < AllAllyPresence.Count; i++)
+            MainColorCompList.AddRange(DevTool.Get_ChildList<Image>(AllAllyPresence[i].CapMiddleRT.transform));
+        
+
         return result;
     }
 
@@ -769,10 +781,9 @@ public class PlayerHUDController : UIController
             SubColorCompList.Add(SkillList[i].SkillInnerImg);
 
         // Ally
-        SubColorCompList.Add(ST_AllyPresence.InnerImg);
-        SubColorCompList.Add(UT_AllyPresence.InnerImg);
-        SubColorCompList.Add(NT_AllyPresence.InnerImg);
-
+        for (int i = 0; i < AllAllyPresence.Count; i++)
+            SubColorCompList.Add(AllAllyPresence[i].InnerImg);
+        
         return result;
     }
 
