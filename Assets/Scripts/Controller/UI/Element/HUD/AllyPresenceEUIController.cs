@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +36,7 @@ public class AllyPresenceEUIController : ElementUIController
 
     public void Play_Amount(int _Amount, int _NeedLvUp)
     {
-        PresenceValueTxt.text = $"<b>{_Amount}</b><size=50%>/{_NeedLvUp}</size>";
+        PresenceValueTxt.text = $"<b>{_Amount}</b><size=60%>/{_NeedLvUp}</size>";
 
         bool canLvUp = (_Amount >= _NeedLvUp);
         float a = canLvUp ? 1f : 0.5f;

@@ -2646,7 +2646,7 @@ TextureImporter:
         width: 24
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 11, y: 4, z: 11, w: 0}
       outline: []
       physicsShape: []
@@ -2654,6 +2654,27 @@ TextureImporter:
       bones: []
       spriteID: c8100a3ebd3656a41b2d8be2427f1bf6
       internalID: -2111157498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_HittedInfo_Frame
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 28
+        width: 143
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 95, y: 13, z: 48, w: 13}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4ac3b21f2c022b46b0c0623188b71e1
+      internalID: -387336359
       vertices: []
       indices: 
       edges: []
@@ -2715,6 +2736,7 @@ TextureImporter:
       PlayerHUD_EP_InnerLine_Left: -232554943
       PlayerHUD_EP_InnerLine_Right: -51117568
       PlayerHUD_EP_Liner: -670417485
+      PlayerHUD_HittedInfo_Frame: -387336359
       PlayerHUD_IMMO_000: -1700199474
       PlayerHUD_IMMO_001: -1051798293
       PlayerHUD_IMMO_002: -1621447173

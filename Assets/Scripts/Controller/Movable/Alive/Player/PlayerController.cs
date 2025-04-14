@@ -131,7 +131,7 @@ public class PlayerController : AliveObjectController
     [HideInInspector] private eDamageType TargetDmgMode = eDamageType.Physics;
     [HideInInspector] private CooltimeData CastingTime = new CooltimeData();
     [HideInInspector] private Dele ReservationDele = null;
-    [HideInInspector] private CooltimeData InvincibleTime = new CooltimeData(0.5f);
+    [HideInInspector] private const float InvincibleTime = 0.5f;
 
     #endregion
 
@@ -611,7 +611,6 @@ public class PlayerController : AliveObjectController
     {
         Caculate_Casting(_DeltaTime);
         Caculate_Boosting(_DeltaTime, CurrentBoostLv.Value);
-        Caculate_Invincible(_DeltaTime);
     }
 
     private void Caculate_Casting(float _DeltaTime)
@@ -636,18 +635,6 @@ public class PlayerController : AliveObjectController
         {
             float decValue = DecEnergyPointByLevel[_BoostLv - 1] * DecEnergyPointMultiple.ActualState.Value;
             Add_CurrentEP(-decValue * _DeltaTime);
-        }
-    }
-
-    private void Caculate_Invincible(float _DeltaTime)
-    {
-        if (IsInvincible)
-        {
-            if (InvincibleTime.Is_Charge(_DeltaTime))
-            {
-                InvincibleTime.Current = 0f;
-                IsInvincible = false;
-            }
         }
     }
 
@@ -843,8 +830,10 @@ public class PlayerController : AliveObjectController
     // 타격: 총알
     public void Try_Hitted(EnemyBulletController _Bullet)
     {
-        if (IsInvincible && IsDead)
+        if (IsInvincible || IsDead)
         { return; }
+
+        IsInvincible = true;
 
         // 피격
         if (!Is_Avoid()) // 회피인지?
@@ -862,8 +851,10 @@ public class PlayerController : AliveObjectController
     // 타격: 어택커
     public void Try_Hitted(EnemyAttackerController _Attacker)
     {
-        if (IsInvincible && IsDead)
+        if (IsInvincible || IsDead)
         { return; }
+
+        IsInvincible = true;
 
         // 피격
         if (!Is_Avoid()) // 회피인지?
@@ -881,8 +872,10 @@ public class PlayerController : AliveObjectController
     // 타격: 건물어택커
     public void Try_Hitted(TrapObjectController _Attacker)
     {
-        if (IsInvincible && IsDead)
+        if (IsInvincible || IsDead)
         { return; }
+
+        IsInvincible = true;
 
         // 피격
         if (!Is_Avoid()) // 회피인지?
@@ -916,12 +909,13 @@ public class PlayerController : AliveObjectController
     {
         if (_ShowHUDEffect)
         {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Play_HittedPlayScreen(_DmgValue);
+            MainGameUIManager.Instance.PlayerHUD_UIController.Play_HittedPlayScreen(_DmgValue, 0.1f);
+            MainGameUIManager.Instance.PlayerHUD_UIController.Play_HittedPlayInfo(_DmgValue, InvincibleTime);
         }
 
         if (_HittedDir != Vector2.zero)
         {
-            PlayerManager.Instance.CameraController.Play_DamagedAnim(InvincibleTime.Max, _DmgValue * 0.1f, _HittedDir);
+            PlayerManager.Instance.CameraController.Play_DamagedAnim(InvincibleTime, _DmgValue * 0.1f, _HittedDir);
         }
        
 
@@ -964,7 +958,7 @@ public class PlayerController : AliveObjectController
         }
         else
         {
-            Set_Invincible();
+            SetOn_Invincible();
             return false;
         }
     }
@@ -972,17 +966,15 @@ public class PlayerController : AliveObjectController
     // 회피
     private void Play_Avoid()
     {
-        PlayerManager.Instance.CameraController.Play_AvoidAnim(InvincibleTime.Max);
+        PlayerManager.Instance.CameraController.Play_AvoidAnim(InvincibleTime);
         UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_Avoid(ID, TargetObject.transform.position);
+        MainGameUIManager.Instance.PlayerHUD_UIController.Play_AvoidPlayInfo(InvincibleTime);
     }
     
     // 회피하지 못함 => 무적
-    private void Set_Invincible()
+    private void SetOn_Invincible()
     {
-        IsInvincible = true;
-        InvincibleTime.Current = 0f;
-
-        float intervalTime = InvincibleTime.Max * 0.125f; // (1/8)
+        float intervalTime = InvincibleTime * 0.125f; // (1/8)
         for (int i = 0; i < AfterImgGenerator.TargetSRList.Count; i++)
         {
             Sequence seq = DOTween.Sequence();
@@ -992,6 +984,12 @@ public class PlayerController : AliveObjectController
             seq.AppendInterval(intervalTime);
             seq.SetLoops(4, LoopType.Restart);
         }
+    }
+
+    // 회피 끝
+    public void SetOff_Invincible()
+    {
+        IsInvincible = false;
     }
 
     #endregion

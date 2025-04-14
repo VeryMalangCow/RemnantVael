@@ -111,6 +111,9 @@ public class PlayerHUDController : UIController
     [Space(10)]
     [Header("=== Screen")]
     [SerializeField] private Image HittedScreen;
+    [SerializeField] private Transform HittedInfoPivotTF;
+    [SerializeField] private RectTransform HittedInfoRT;
+    [SerializeField] private TMP_Text HittedDmgTxt;
 
     #endregion
 
@@ -153,6 +156,8 @@ public class PlayerHUDController : UIController
     // Ally
     [HideInInspector] private List<AllyPresenceEUIController> AllAllyPresence = new List<AllyPresenceEUIController>();
 
+    // Hitted
+    [HideInInspector] private static float OffsetXPos;
     #endregion
 
     #endregion
@@ -216,6 +221,9 @@ public class PlayerHUDController : UIController
         PoolingManager.Instance.BuffIcons.ParentTF = BuffParentTF;
 
         ThisCG = DevTool.Get_ComponentTType(gameObject, out CanvasGroup cg) ? cg : null;
+
+        OffsetXPos = HittedInfoRT.anchoredPosition.x;
+
     }
 
     private void Offset_RectPosData()
@@ -608,15 +616,55 @@ public class PlayerHUDController : UIController
 
     #region Tween
 
+    #region Hitted
+
     // 피격 시 효과
-    public void Play_HittedPlayScreen(float _Dmg)
+    public void Play_HittedPlayScreen(float _Dmg, float _DurTime)
     {
         DevTool.Set_KillTween(HittedScreen);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(HittedScreen.DOFade((Math.Min(100, _Dmg) * 0.01f), 0.1f));
-        seq.Append(HittedScreen.DOFade(0, 0.1f));
+        seq.Append(HittedScreen.DOFade((Math.Min(100, _Dmg) * 0.01f), _DurTime));
+        seq.Append(HittedScreen.DOFade(0, _DurTime));
     }
+
+
+    // 피격 정보
+    public void Play_HittedPlayInfo(float _Dmg, float _DurTime)
+    {
+        HittedDmgTxt.text = $"<size=75%>{CSVManager.Instance.Get_StaticWord(74)}:</size> {_Dmg}";
+        HittedDmgTxt.color = UninteractableColor;
+
+        Play_Info(_DurTime);
+    }
+
+    // 회피 정보
+    public void Play_AvoidPlayInfo(float _DurTime)
+    {
+        HittedDmgTxt.text = $"{CSVManager.Instance.Get_StaticWord(75)}";
+        HittedDmgTxt.color = Color.white;
+
+        Play_Info(_DurTime);
+    }
+
+    // 정보
+    private void Play_Info(float _DurTime)
+    {
+        HittedInfoPivotTF.rotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(-5f, 5f));
+
+        DevTool.Set_KillTween(HittedInfoRT);
+
+        Sequence seq = DOTween.Sequence();
+
+        HittedInfoRT.anchoredPosition = new Vector2(OffsetXPos, 0);
+        seq.Append(HittedInfoRT.DOAnchorPosX(-50f, _DurTime * 0.2f).SetEase(Ease.Linear));
+        seq.Append(HittedInfoRT.DOAnchorPosX(50f, _DurTime * 0.6f).SetEase(Ease.Linear));
+        seq.Append(HittedInfoRT.DOAnchorPosX(-OffsetXPos, _DurTime * 0.2f).SetEase(Ease.Linear));
+    }
+
+    #endregion
+
+    #region Boost
 
     // 부스트 키기
     private void Play_ActiveBoost(GameObject[] _Arr, int _CurrentLv)
@@ -659,6 +707,9 @@ public class PlayerHUDController : UIController
                     });
     }
 
+    #endregion
+
+    #region Tab Interact
 
     // Tab 이동
     private Sequence Play_SeqInteract(
@@ -686,6 +737,8 @@ public class PlayerHUDController : UIController
         return seq;
     }
 
+
+
     // 상호작용 시 발생
     public void Play_UseInteractUI()
     {
@@ -704,6 +757,7 @@ public class PlayerHUDController : UIController
                 });
             });
     }
+    #endregion
 
 
     #endregion

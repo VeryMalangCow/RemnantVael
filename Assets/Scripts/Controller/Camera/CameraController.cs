@@ -137,14 +137,13 @@ public class CameraController : MonoBehaviour
     public void Play_KillAnim(float _Dur)
     {
         Play_Shake(EnemyKillShakeTF, _Dur, KillStrength, KillVibrato);
-        //Play_SlowMotion(0.4f, 0.9f);
         Play_POVSize(0.4f, CameraProjectionSize - 0.1f);
     }
 
     // È¸ÇÇ
     public void Play_AvoidAnim(float _Dur)
     {
-        Play_SlowMotion(_Dur * 0.8f, 0.5f);
+        Play_SlowMotion(_Dur * 2, 0.5f);
         Play_POVSize(_Dur, CameraProjectionSize - 1f);
     }
 
@@ -152,7 +151,7 @@ public class CameraController : MonoBehaviour
     public void Play_DamagedAnim(float _Dur, float _Strength, Vector2 _Dir)
     {
         Play_Rebound(DamagedShakeTF, _Dur, _Strength, _Dir);
-        Play_SlowMotion(_Dur * 0.5f, 0.25f);
+        Play_SlowMotion(_Dur * 2, 0.5f);
         Play_POVSize(_Dur, CameraProjectionSize + 0.75f);
     }
 
@@ -177,16 +176,15 @@ public class CameraController : MonoBehaviour
     private void Play_SlowMotion(float _Dur, float _SlowMultiple)
     {
         Sequence seq = DOTween.Sequence();
-        seq.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, _SlowMultiple, _Dur / 4));
-        seq.AppendInterval(_Dur / 2);
-        seq.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1, _Dur / 4));
+        Time.timeScale = _SlowMultiple;
+        seq.AppendInterval(_Dur);
         seq.SetUpdate(true)
             .OnComplete(() =>
             {
                 if (Time.timeScale != 1)
-                {
                     Time.timeScale = 1;
-                }
+
+                PlayerManager.Instance.PlayerController.SetOff_Invincible();
             });
     }
 
