@@ -144,7 +144,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
         CharacterImgList_Data.AddRange(
             Offset_ImgPath(
                 "Sprite/Character/",
-                "UI_CharacterImg_000"));
+                "CharacterImg_000"));
     }
 
     private void Offset_MapImg()

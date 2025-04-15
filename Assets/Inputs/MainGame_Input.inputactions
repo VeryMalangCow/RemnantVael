@@ -560,6 +560,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "AllyCardUI",
+            "id": "f643cb06-efac-4fa6-8fe1-686534ea6fd4",
+            "actions": [
+                {
+                    "name": "AllyCard_Select",
+                    "type": "Button",
+                    "id": "cc13c8d3-f03d-4ad1-848b-5b3bacadcd4d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AllyCard_OutPanel",
+                    "type": "Button",
+                    "id": "e2b80fba-3e8b-444f-9194-f5e7752543c1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9f27101d-c8bb-40ed-8f48-eb3b4464d072",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AllyCard_Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bda01032-5d28-4e9d-a471-f33b9705cab5",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AllyCard_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

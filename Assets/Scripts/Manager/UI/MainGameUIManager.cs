@@ -20,6 +20,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private GameObject OutMainGame_CanvasPrefab;
     [SerializeField] private GameObject InteractAnno_CanvasPrefab;
     [SerializeField] private GameObject MapIntro_CanvasPrefab;
+    [SerializeField] private GameObject AllyCard_CanvasPrefab;
 
     // Controller
     [HideInInspector] public PlayerHUDController PlayerHUD_UIController;
@@ -27,7 +28,8 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [HideInInspector] public ModuleUpgradeUIController ModuleUpgrade_UIController;
     [HideInInspector] public OutMainGameUIController OutMainGame_UIController;
     [HideInInspector] public InteractAnnoUIController InteractAnno_UIController;
-    [HideInInspector] public MapIntroUIController MapIntro_UIController;    
+    [HideInInspector] public MapIntroUIController MapIntro_UIController;
+    [HideInInspector] public AllyCardUIController AllyCard_UIController;
 
     [HideInInspector] public UIController CurrentOpening_UIController;
 
@@ -57,6 +59,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         MapIntro_UIController
             = Gen_UI<MapIntroUIController>(MapIntro_CanvasPrefab, false);
+
+        AllyCard_UIController
+            = Gen_UI<AllyCardUIController>(AllyCard_CanvasPrefab, false);
 
         Sequence startSeq = DOTween.Sequence();
 

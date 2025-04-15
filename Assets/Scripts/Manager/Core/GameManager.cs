@@ -3333,6 +3333,20 @@ public class StageEnemy
 #endregion
 
 
+#region Class : AllyUpgrade
+
+[System.Serializable]
+public class AllyCardData
+{
+    public int ID;
+    public int Rank;
+    public string Name;
+    public string Desc;
+}
+
+#endregion
+
+
 #region Class : UI
 
 [System.Serializable]
