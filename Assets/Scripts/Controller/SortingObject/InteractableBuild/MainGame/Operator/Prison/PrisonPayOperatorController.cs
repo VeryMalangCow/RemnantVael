@@ -4,7 +4,7 @@ public class PrisonPayOperatorController : PrisonOperatorController
 {
     #region Value
 
-    [HideInInspector] private int Pay = 10;
+    [HideInInspector] private int Pay = 20;
 
     #endregion
 
@@ -44,10 +44,10 @@ public class PrisonPayOperatorController : PrisonOperatorController
     public override void Play_Interact()
     {
         if (TargetPrison == null ||
-            PlayerManager.Instance.PlayerController.CurrentOverrider.Value < Get_NeedPay()) return;
+            PlayerManager.Instance.PlayerController.Get_CurrentEP().Value < Get_NeedPay()) return;
 
         // 소비 아이템
-        PlayerManager.Instance.PlayerController.Add_CurrentOverrider(-Get_NeedPay());
+        PlayerManager.Instance.PlayerController.Add_CurrentEP(-Get_NeedPay());
 
         TargetPrison.Set_Unlock();
 

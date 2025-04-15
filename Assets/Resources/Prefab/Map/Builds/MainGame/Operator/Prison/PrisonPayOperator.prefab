@@ -140,7 +140,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 861288542, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  m_Sprite: {fileID: 1063250824, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -259,8 +259,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293238992
-  m_fontColor: {r: 0.81568635, g: 0.627451, b: 0.8980393, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -547,7 +547,7 @@ MonoBehaviour:
   IconStateAnim: {fileID: 4984407967345628786}
   PaySG: {fileID: 5846024939281804955}
   PayTxt: {fileID: 7642195191772913210}
-  TargetPrisonController: {fileID: 0}
+  TargetPrison: {fileID: 0}
 --- !u!1 &6310173116161984221
 GameObject:
   m_ObjectHideFlags: 0
