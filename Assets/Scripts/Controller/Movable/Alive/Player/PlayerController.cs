@@ -1001,7 +1001,8 @@ public class PlayerController : AliveObjectController
         if (NeedStrikeTeamPresence.Value <= StrikeTeamPresence.Value)
         {
             NeedStrikeTeamPresence.Value += NeedIntervalPresence;
-            Debug.Log("½ºÆ®¶óÀÌÅ© ·¾¾÷");
+
+            MainGameUIManager.Instance.AllyCard_UIController.SetOn_ThisPanel();
         }
     }
 
@@ -1010,7 +1011,6 @@ public class PlayerController : AliveObjectController
         if (NeedUplinkTeamPresence.Value <= UplinkTeamPresence.Value)
         {
             NeedUplinkTeamPresence.Value += NeedIntervalPresence;
-            Debug.Log("¾÷¸µÅ© ·¾¾÷");
         }
     }
 
@@ -1019,7 +1019,6 @@ public class PlayerController : AliveObjectController
         if (NeedNeoTeamPresence.Value <= NeoTeamPresence.Value)
         {
             NeedNeoTeamPresence.Value += NeedIntervalPresence;
-            Debug.Log("³×¿À ·¾¾÷");
         }
     }
 

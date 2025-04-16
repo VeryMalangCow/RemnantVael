@@ -32,8 +32,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
     [HideInInspector] private List<List<DialogueElement>> DialogueElement_DataList = new List<List<DialogueElement>>();
     [HideInInspector] private List<DialogueID> DialogueID_Data;
 
-    // 모듀
+    // 모듈
     [HideInInspector] private List<ModuleBaseData> ModuleBaseList_Data;
+
+    // 동료 카드
+    [HideInInspector] private List<AllyCardBaseData> AllyCard_Data;
 
     // 워드
     // 스태틱
@@ -46,6 +49,8 @@ public class CSVManager : PersistentSingleton<CSVManager>
     // 모듈
     [HideInInspector] private WordData ModuleItemName_Data;
     [HideInInspector] private WordData MainChipName_Data;
+    // 동료 카드 이름
+    [HideInInspector] private WordData AllyCardName_Data;
 
     // 문장
     // 스태틱
@@ -56,6 +61,8 @@ public class CSVManager : PersistentSingleton<CSVManager>
     [HideInInspector] private WordData ModuleItemDesc_Data;
     [HideInInspector] private WordData ModuleItemEquipDesc_Data;
     [SerializeField] private List<WordData> MainChipDescList_Data;
+    // 동료 카드 설명
+    [HideInInspector] private WordData AllyCardDesc_Data;
 
     // 스프라이트
     // 캐릭터
@@ -98,6 +105,10 @@ public class CSVManager : PersistentSingleton<CSVManager>
         ModuleBaseList_Data = Offset_ModuleBase(modulePath, 
             "ModuleCSV");
 
+        // Ally Card
+        string allyCardPath = "CSV/AllyCard/";
+        AllyCard_Data = Offset_AllyCard(allyCardPath,
+            "AllyCardCSV");
 
         // Word
         // Static
@@ -116,6 +127,9 @@ public class CSVManager : PersistentSingleton<CSVManager>
         // MainChip
         MainChipName_Data = Offset_WordData(wordPath,
             "MainChipNameCSV");
+        // Ally Card
+        AllyCardName_Data = Offset_WordData(wordPath,
+            "AllyCardNameCSV");
 
         // Desc
         // Static
@@ -135,6 +149,9 @@ public class CSVManager : PersistentSingleton<CSVManager>
             "ModuleEquipDescCSV");
         MainChipDescList_Data = Offset_WordDataList_ForParentID(descPath,
             "MainChipDescCSV", MainChipName_Data.AllWordData.Count);
+        // Ally Card
+        AllyCardDesc_Data = Offset_WordData(descPath,
+            "AllyCardDescCSV");
     }
 
     private void Offset_CharImg()
@@ -176,14 +193,14 @@ public class CSVManager : PersistentSingleton<CSVManager>
         ModuleItemImgList_Data = new List<Sprite>();
         ModuleItemImgList_Data.AddRange(
             Offset_ImgPath(
-                "Sprite/UI/",
-                "MUUI_Item_000"));
+                "Sprite/UI/MU/",
+                "MUItemUI_000"));
 
         ModuleSynhronyImgList_Data = new List<Sprite>();
         ModuleSynhronyImgList_Data.AddRange(
             Offset_ImgPath(
-                "Sprite/UI/",
-                "MUUI_Synchrony_000"));
+                "Sprite/UI/MU/",
+                "MUSynchronyUI_000"));
     }
 
     private void Offset()
@@ -527,6 +544,31 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
     #endregion
 
+    #region To AllyCard
+
+    private List<AllyCardBaseData> Offset_AllyCard(string _Path, string _FileName)
+    {
+        List<AllyCardBaseData> result = new List<AllyCardBaseData>();
+
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Count; i++)
+        {
+            if (stringList[i][0] == "")
+            { break; }
+
+            int id = int.Parse(stringList[i][0]);
+            int rank = int.Parse(stringList[i][1]);
+            int essentialID = int.Parse(stringList[i][1]);
+
+            result.Add(new AllyCardBaseData(id, rank, essentialID));
+        }
+
+        return result;
+    }
+
+    #endregion
+
     #region To Word | Desc
 
     #region Offset
@@ -659,6 +701,17 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
         return result;
     }
+
+    // AllyCard
+    public List<AllyCardData> Get_AllAllyCardData()
+    {
+        List<AllyCardData> result = new List<AllyCardData>();
+        for (int i = 0; i < AllyCard_Data.Count; i++)
+            result.Add(new AllyCardData(AllyCard_Data[i], AllyCardName_Data.Get_Word(i), AllyCardDesc_Data.Get_Word(i)));
+
+        return result;
+    }
+
 
     #endregion
 

@@ -1297,6 +1297,7 @@ MonoBehaviour:
   OutMainGame_UIController: {fileID: 0}
   InteractAnno_UIController: {fileID: 0}
   MapIntro_UIController: {fileID: 0}
+  AllyCard_UIController: {fileID: 0}
   CurrentOpening_UIController: {fileID: 0}
 --- !u!1 &407909252
 GameObject:
@@ -7282,6 +7283,20 @@ MonoBehaviour:
     Fall: {fileID: -953435688, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
     Stand: {fileID: 2034139335, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
     Salute: {fileID: -2015462578, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
+  AllyCardFrameList:
+  - {fileID: 515967197, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: 774093144, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: -910939412, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: -33470791, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: 926330303, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: -1693418086, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  AllyCardLightList:
+  - {fileID: -1075939673, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: 1612754929, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: 597823526, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: 1239442733, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: 1295689204, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: -1023586996, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
   RandomColor: {r: 1, g: 0, b: 0, a: 1}
   ModuleItemOutlinerAC:
   - {fileID: 7400000, guid: 35bfc1528075c6e428950576281e1be0, type: 2}

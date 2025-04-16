@@ -3336,12 +3336,39 @@ public class StageEnemy
 #region Class : AllyUpgrade
 
 [System.Serializable]
+public class AllyCardBaseData
+{
+    public int ID;
+    public int Rank;
+    public int EssentialID;
+
+    public AllyCardBaseData(int _ID, int _Rank, int _EssentialID)
+    {
+        ID = _ID;
+        Rank = _Rank;
+        EssentialID = _EssentialID;
+    }
+}
+
+[System.Serializable]
 public class AllyCardData
 {
     public int ID;
     public int Rank;
+    public int EssentialID;
+
     public string Name;
     public string Desc;
+
+    public AllyCardData(AllyCardBaseData _BaseData, string _Name, string _Desc)
+    {
+        ID = _BaseData.ID;
+        Rank = _BaseData.Rank;
+        EssentialID = _BaseData.EssentialID;
+
+        Name = _Name;
+        Desc = _Desc;
+    }
 }
 
 #endregion

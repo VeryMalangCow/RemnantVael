@@ -50,6 +50,11 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public PrisonAllySprite UplinkTeamAllySprites;
     [SerializeField] public PrisonAllySprite NeoTeamAllySprites;
 
+    [Space(5)]
+    [Header("-- Ally Card")]
+    [SerializeField] public List<Sprite> AllyCardFrameList;
+    [SerializeField] public List<Sprite> AllyCardLightList;
+
     #endregion
 
     #region Color
@@ -149,6 +154,7 @@ public class UnitManager : Singleton<UnitManager>
     [HideInInspector] public string StrikeTeamString;
     [HideInInspector] public string UplinkTeamString;
     [HideInInspector] public string NeoTeamString;
+    [HideInInspector] public List<string> AllyCardRateList;
 
     #endregion
 
@@ -171,6 +177,16 @@ public class UnitManager : Singleton<UnitManager>
         StrikeTeamString = $"{CSVManager.Instance.Get_StaticWord(61)}<size=85%> ({CSVManager.Instance.Get_StaticWord(71)})</size>";
         UplinkTeamString = $"{CSVManager.Instance.Get_StaticWord(62)}<size=85%> ({CSVManager.Instance.Get_StaticWord(72)})</size>";
         NeoTeamString = $"{CSVManager.Instance.Get_StaticWord(63)}<size=85%> ({CSVManager.Instance.Get_StaticWord(73)})</size>";
+
+        AllyCardRateList = new List<string>
+        {
+            CSVManager.Instance.Get_StaticWord(76),
+            CSVManager.Instance.Get_StaticWord(77),
+            CSVManager.Instance.Get_StaticWord(78),
+            CSVManager.Instance.Get_StaticWord(79),
+            CSVManager.Instance.Get_StaticWord(80),
+            CSVManager.Instance.Get_StaticWord(81)
+        };
     }
 
     #endregion
