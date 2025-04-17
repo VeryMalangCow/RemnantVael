@@ -1002,6 +1002,7 @@ public class PlayerController : AliveObjectController
         {
             NeedStrikeTeamPresence.Value += NeedIntervalPresence;
 
+            MainGameUIManager.Instance.AllyCard_UIController.TypeIndex = 0;
             MainGameUIManager.Instance.AllyCard_UIController.SetOn_ThisPanel();
         }
     }

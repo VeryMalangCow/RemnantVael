@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AllyCardUIController : UIController
+public class AllyCardUIController : SinglePanelUIController
 {
     #region Value
 
@@ -9,10 +9,6 @@ public class AllyCardUIController : UIController
 
     [Space(20)]
     [Header("<><><><><> Ally Card UI")]
-
-    [Space(10)]
-    [Header("=== Value")]
-    [SerializeField] private string ThisInputMapName;
 
     [Space(10)]
     [Header("=== TF")]
@@ -51,22 +47,9 @@ public class AllyCardUIController : UIController
 
     #region Panel
 
-    public void SetOn_ThisPanel()
+    public override void SetOn_ThisPanel()
     {
-        // Basic
-        MainGameUIManager.Instance.CurrentOpening_UIController = this;
-        this.gameObject.SetActive(true);
-
-        // Aim & Mouse
-        InputManager.Instance.Set_AllPointer(_Aim: false, _Mouse: true);
-
-        // Input
-        InputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisInputMapName);
-        InputManager.Instance.InputMoveDir = Vector2.zero;
-
-        // Tab Input
-        MainGameUIManager.Instance.PlayerHUD_UIController.IsTabInputed = false;
-        MainGameUIManager.Instance.PlayerHUD_UIController.SetOff_TabInteract();
+        base.SetOn_ThisPanel();
 
         for (int i = 0; i < Cards.Count; i++)
             Cards[i].Set_Card(TypeIndex, AllyManager.Instance.Get_ChoiceAbleRandomData(Cards.Count)[i]);

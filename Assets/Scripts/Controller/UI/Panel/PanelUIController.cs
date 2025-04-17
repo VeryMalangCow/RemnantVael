@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PanelUIController : UIController
+public class PanelUIController : SinglePanelUIController
 {
     #region Value
 
@@ -11,10 +11,6 @@ public class PanelUIController : UIController
 
     [Space(20)]
     [Header("<><><><><> Panel")]
-
-    [Space(10)]
-    [Header("=== Input Map")]
-    [SerializeField] protected string ThisPanelInputMapName;
 
     [Space(10)]
     [Header("=== Tab")]
@@ -27,35 +23,15 @@ public class PanelUIController : UIController
     // Tab
     [HideInInspector] protected TabEUIController CurrentThisPanelTab;
 
-    // Btn
-    [HideInInspector] public OwnBtnEUIController CurrentBtn = null;
-
-    // Visual
-    [HideInInspector] public List<Component> MainColorCompList = new List<Component>();
-    [HideInInspector] public List<Component> SubColorCompList = new List<Component>();
-
     #endregion
 
     #endregion
 
     #region Set Panel
 
-    public virtual void SetOn_ThisPanel()
+    public override void SetOn_ThisPanel()
     {
-        // Basic
-        MainGameUIManager.Instance.CurrentOpening_UIController = this;
-        this.gameObject.SetActive(true);
-
-        // Aim & Mouse
-        InputManager.Instance.Set_AllPointer(_Aim: false, _Mouse: true);
-
-        // Input
-        InputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
-        InputManager.Instance.InputMoveDir = Vector2.zero;
-
-        // Tab Input
-        MainGameUIManager.Instance.PlayerHUD_UIController.IsTabInputed = false;
-        MainGameUIManager.Instance.PlayerHUD_UIController.SetOff_TabInteract();
+        base.SetOn_ThisPanel();
 
         // Actual Tab
         SetOn_Window(ThisPanelTabList[0]);
@@ -69,20 +45,12 @@ public class PanelUIController : UIController
 
         SetOn_Window(ThisPanelTabList[_indexWindow]);
     }
-
-    public virtual void SetOff_ThisPanel()
+/*
+    public override void SetOff_ThisPanel()
     {
-        // Basic
-        MainGameUIManager.Instance.CurrentOpening_UIController = null;
-        this.gameObject.SetActive(false);
-
-        // Aim & Mouse
-        InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
-
-        // Input
-        InputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
+        base.SetOff_ThisPanel();
     }
-
+*/
     #endregion
 
     #region On/Off Tab Window

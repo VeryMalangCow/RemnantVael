@@ -36,6 +36,8 @@ public class AllyCardEUIController : ElementUIController
         RankTxt.text = UnitManager.Instance.AllyCardRateList[_Data.Rank];
 
         NameTxt.text = _Data.Name;
+
+        gameObject.SetActive(true);
     }
 
     private void Set_CardBGMark(int _TypeID)

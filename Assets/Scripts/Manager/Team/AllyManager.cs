@@ -81,8 +81,10 @@ public class AllyManager : Singleton<AllyManager>
     public List<AllyCardData> Get_ChoiceAbleRandomData(int _LimitAmount)
     {
         List<AllyCardData> result = new List<AllyCardData>();
+        int i = 0;
         while (true)
         {
+            i++;
             AllyCardData randomData = AllAllyCardData[Random.Range(0, AllAllyCardData.Count)];
 
             if (Can_ChoiceAble(randomData, result))
@@ -90,6 +92,12 @@ public class AllyManager : Singleton<AllyManager>
 
             if (result.Count >= _LimitAmount)
                 break;
+
+            if (i > 30)
+            {
+                Debug.Log("무한 루프 가능성 높음!");
+                break;
+            }
         }
         return result;
     }

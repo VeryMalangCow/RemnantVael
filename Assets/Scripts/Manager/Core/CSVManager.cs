@@ -559,7 +559,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
             int id = int.Parse(stringList[i][0]);
             int rank = int.Parse(stringList[i][1]);
-            int essentialID = int.Parse(stringList[i][1]);
+            int essentialID = int.Parse(stringList[i][2]);
 
             result.Add(new AllyCardBaseData(id, rank, essentialID));
         }
