@@ -573,15 +573,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "AllyCard_OutPanel",
-                    "type": "Button",
-                    "id": "e2b80fba-3e8b-444f-9194-f5e7752543c1",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -593,17 +584,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "AllyCard_Select",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bda01032-5d28-4e9d-a471-f33b9705cab5",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AllyCard_OutPanel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

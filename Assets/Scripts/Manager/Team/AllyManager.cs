@@ -78,28 +78,50 @@ public class AllyManager : Singleton<AllyManager>
 
     #region Get
 
+    public AllyCardData Get_PreAllyCardData(AllyCardData _TargetCard)
+    {
+        if (_TargetCard.EssentialID == -1)
+            return null;
+
+        return AllAllyCardData[_TargetCard.EssentialID];
+    }
+
+    // 한 번에 여러개의 랜덤 카드 리턴
     public List<AllyCardData> Get_ChoiceAbleRandomData(int _LimitAmount)
     {
         List<AllyCardData> result = new List<AllyCardData>();
+
         int i = 0;
         while (true)
         {
-            i++;
             AllyCardData randomData = AllAllyCardData[Random.Range(0, AllAllyCardData.Count)];
 
             if (Can_ChoiceAble(randomData, result))
                 result.Add(randomData);
+            else
+                continue;
 
             if (result.Count >= _LimitAmount)
                 break;
 
+            i++;
             if (i > 30)
-            {
-                Debug.Log("무한 루프 가능성 높음!");
                 break;
-            }
         }
+        for (int j = 0; j < result.Count; j++) Debug.Log(result[j].ID);
         return result;
+    }
+
+    // 한 번에 한개의 랜덤 카드 리턴
+
+
+    #endregion
+
+    #region Add
+
+    public void Add_AllyCard(int _ID)
+    {
+        GottenAllyCards.Add(_ID);
     }
 
     #endregion

@@ -215,7 +215,6 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["MUUI_Drag"].performed += Input_MUUIDrag;
 
         PlayerInput.actions["AllyCard_Select"].performed += Input_AllyCardClick;
-        PlayerInput.actions["AllyCard_OutPanel"].performed += Input_AllyCardOutPanel;
 
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
@@ -255,7 +254,6 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["MUUI_Drag"].performed -= Input_MUUIDrag;
 
         PlayerInput.actions["AllyCard_Select"].performed -= Input_AllyCardClick;
-        PlayerInput.actions["AllyCard_OutPanel"].performed -= Input_AllyCardOutPanel;
 
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
@@ -452,12 +450,6 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             MainGameUIManager.Instance.AllyCard_UIController.Try_Interact();
-    }
-
-    private void Input_AllyCardOutPanel(InputAction.CallbackContext _InputValue)
-    {
-        if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.AllyCard_UIController.SetOff_ThisPanel();
     }
 
     #endregion

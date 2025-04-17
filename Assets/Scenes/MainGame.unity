@@ -7297,6 +7297,13 @@ MonoBehaviour:
   - {fileID: 1239442733, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
   - {fileID: 1295689204, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
   - {fileID: -1023586996, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  AllyCardColorList:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.8313726, g: 0.9803922, b: 0.79215693, a: 1}
+  - {r: 0.3921569, g: 0.97647065, b: 0.9725491, a: 1}
+  - {r: 0.7019608, g: 0.40000004, b: 0.9921569, a: 1}
+  - {r: 0.9960785, g: 0.29803923, b: 0.19215688, a: 1}
+  - {r: 1, g: 0.9988616, b: 0.8820755, a: 1}
   RandomColor: {r: 1, g: 0, b: 0, a: 1}
   ModuleItemOutlinerAC:
   - {fileID: 7400000, guid: 35bfc1528075c6e428950576281e1be0, type: 2}
@@ -7378,6 +7385,7 @@ MonoBehaviour:
   StrikeTeamString: 
   UplinkTeamString: 
   NeoTeamString: 
+  AllyCardRateList: []
 --- !u!1 &1717915346
 GameObject:
   m_ObjectHideFlags: 0

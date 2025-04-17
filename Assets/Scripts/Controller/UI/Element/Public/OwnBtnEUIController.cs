@@ -15,7 +15,7 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
     [HideInInspector] protected RectTransform ThisRT;
 
     // Owner
-    [HideInInspector] public PanelUIController OwnerUIController;
+    [HideInInspector] public SinglePanelUIController OwnerUIController;
     [HideInInspector] public Button ThisBtn;
 
     #endregion

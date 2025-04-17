@@ -194,9 +194,9 @@ public class PlayerController : AliveObjectController
         NeedUplinkTeamPresence.Value = NeedIntervalPresence;
         NeedNeoTeamPresence.Value = NeedIntervalPresence;
 
-        StrikeTeamPresence.Value = 0;
-        UplinkTeamPresence.Value = 0;
-        NeoTeamPresence.Value = 0;
+        StrikeTeamPresence.Value = 100;
+        UplinkTeamPresence.Value = 100;
+        NeoTeamPresence.Value = 100;
     }
 
     protected override void Offset_Subscribe()
