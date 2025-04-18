@@ -54,6 +54,7 @@ public class UnitManager : Singleton<UnitManager>
     [Header("-- Ally Card")]
     [SerializeField] public List<Sprite> AllyCardFrameList;
     [SerializeField] public List<Sprite> AllyCardLightList;
+    [SerializeField] public List<Sprite> AllyCardBGList;
     [SerializeField] public List<Color> AllyCardColorList;
 
     #endregion

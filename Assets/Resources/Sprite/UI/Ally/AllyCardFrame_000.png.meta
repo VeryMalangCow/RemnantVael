@@ -97,27 +97,6 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AllyCardFrame_000_BG
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 824
-        width: 145
-        height: 200
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 18e94edec20bc2c40a91cef417b85555
-      internalID: -1053109800
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: AllyCardFrame_000_Frame_00
       rect:
         serializedVersion: 2
@@ -411,6 +390,132 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: AllyCardFrame_000_BG_00
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 422
+        width: 145
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 913fc5064d669544b80fdfbf15c9e501
+      internalID: -634954609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardFrame_000_BG_01
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 422
+        width: 145
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed9a0592f8c03d408e2f80c9fc29b70
+      internalID: -1849966372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardFrame_000_BG_02
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 422
+        width: 145
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b75b1bb5195522499124da49b205820
+      internalID: 1307225057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardFrame_000_BG_03
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 422
+        width: 145
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09de1f76984e3934cade6dc58375f71a
+      internalID: -10937427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardFrame_000_BG_04
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 422
+        width: 145
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f80f9b67969bfcc4eb7a8d00e47a6af1
+      internalID: 2133909538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardFrame_000_BG_05
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 422
+        width: 145
+        height: 200
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5dce9c17f8f572438dbeeeeaf7f624a
+      internalID: -171284591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -423,6 +528,12 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       AllyCardFrame_000_BG: -1053109800
+      AllyCardFrame_000_BG_00: -634954609
+      AllyCardFrame_000_BG_01: -1849966372
+      AllyCardFrame_000_BG_02: 1307225057
+      AllyCardFrame_000_BG_03: -10937427
+      AllyCardFrame_000_BG_04: 2133909538
+      AllyCardFrame_000_BG_05: -171284591
       AllyCardFrame_000_Frame_00: 515967197
       AllyCardFrame_000_Frame_01: 774093144
       AllyCardFrame_000_Frame_02: -910939412

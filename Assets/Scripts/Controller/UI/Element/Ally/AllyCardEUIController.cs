@@ -12,6 +12,7 @@ public class AllyCardEUIController : OwnBtnEUIController
     [Header("=== Img")]
     [SerializeField] private Image FrameImg;
     [SerializeField] private Image LightImg;
+    [SerializeField] private Image BGImg;
     [SerializeField] private Image BGMarkImg;
     [SerializeField] private Image IconImg;
 
@@ -104,6 +105,7 @@ public class AllyCardEUIController : OwnBtnEUIController
     {
         FrameImg.sprite = UnitManager.Instance.AllyCardFrameList[_Data.Rank];
         LightImg.sprite = UnitManager.Instance.AllyCardLightList[_Data.Rank];
+        BGImg.sprite = UnitManager.Instance.AllyCardBGList[_Data.Rank];
         IconImg.sprite = AllyManager.Instance.Get_CardIcon(_TypeID, _Data.ID);
 
         LightSeq.timeScale = _Data.Rank + 1;
@@ -116,7 +118,7 @@ public class AllyCardEUIController : OwnBtnEUIController
 
         RankTxt.text = UnitManager.Instance.AllyCardRateList[_Data.Rank];
         RankTxt.color = UnitManager.Instance.AllyCardColorList[_Data.Rank];
-
+        BGImg.color = UnitManager.Instance.AllyCardColorList[_Data.Rank];
 
         AllyCardData preCardData = AllyManager.Instance.Get_PreAllyCardData(_TypeID, _Data);
         PreNameTxt.text = preCardData != null ? $"-({preCardData.Name})->" : "";

@@ -3545,9 +3545,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4324ac4fb584e16409bdc9916ef1e5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StrikeTeam_AllyCardIcon_Data: []
-  UplinkTeam_AllyCardIcon_Data: []
-  NeoTeam_AllyCardIcon_Data: []
 --- !u!4 &830584170
 Transform:
   m_ObjectHideFlags: 0
@@ -7297,6 +7294,13 @@ MonoBehaviour:
   - {fileID: 1239442733, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
   - {fileID: 1295689204, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
   - {fileID: -1023586996, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  AllyCardBGList:
+  - {fileID: -634954609, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: -1849966372, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: 1307225057, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: -10937427, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: 2133909538, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
+  - {fileID: -171284591, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
   AllyCardColorList:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 0.8313726, g: 0.9803922, b: 0.79215693, a: 1}
