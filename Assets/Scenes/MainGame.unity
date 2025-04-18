@@ -3545,9 +3545,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4324ac4fb584e16409bdc9916ef1e5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KindOfMapAmount: 2
-  EachKindOfMapAmount: 0200000001000000
-  MainChipDescList_Data: []
+  StrikeTeam_AllyCardIcon_Data: []
+  UplinkTeam_AllyCardIcon_Data: []
+  NeoTeam_AllyCardIcon_Data: []
 --- !u!4 &830584170
 Transform:
   m_ObjectHideFlags: 0

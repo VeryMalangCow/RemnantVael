@@ -369,6 +369,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: AllyCardFrame_000_Light_UL
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 4
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 20, y: 1, z: 1, w: 10}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67c73a37c3821904795db0e427d5b75e
+      internalID: 1375177499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardFrame_000_Light_DR
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 1
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 10, z: 20, w: 1}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6fdc33e2c8227b419b7568370fd3e28
+      internalID: 1934056826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -393,6 +435,8 @@ TextureImporter:
       AllyCardFrame_000_Light_03: 1239442733
       AllyCardFrame_000_Light_04: 1295689204
       AllyCardFrame_000_Light_05: -1023586996
+      AllyCardFrame_000_Light_DR: 1934056826
+      AllyCardFrame_000_Light_UL: 1375177499
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

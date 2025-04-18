@@ -70,7 +70,9 @@ public class AllyCardUIController : SinglePanelUIController
             Rerolls[i].gameObject.SetActive(false);
             Rerolls[i].Offset();
             Rerolls[i].OwnerUIController = this;
+
             Rerolls[i].TargetCardEUIController = Cards[i];
+            Cards[i].RerollEUI = Rerolls[i];
         }
 
         // Select Btn
@@ -94,6 +96,7 @@ public class AllyCardUIController : SinglePanelUIController
     public void Try_Interact()
     {
         if (Is_Interact_CardBooking()) return;
+        if (Is_Interact_Reroll()) return;
         if (Is_Interact_SelectBtn()) return;
     }
 
@@ -112,11 +115,28 @@ public class AllyCardUIController : SinglePanelUIController
 
     private bool Is_Interact_SelectBtn()
     {
-        if (CurrentBtn != SelectBtn)
+        if (CurrentBtn != SelectBtn ||
+            BookingCard == null)
             return false;
 
-        AllyManager.Instance.Add_AllyCard(BookingCard.CurrentID);
+        AllyManager.Instance.Add_AllyCard(TypeIndex, BookingCard.CurrentID);
         SetOff_ThisPanel();
+
+        return true;
+    }
+
+    private bool Is_Interact_Reroll()
+    {
+        if (!DevTool.Can_CastingTType(CurrentBtn, out AllyCardRerollEUIController reroll))
+            return false;
+
+        reroll.Try_Interact();
+        Set_NewCard(Rerolls.IndexOf(reroll));
+        if (BookingCard == reroll.TargetCardEUIController)
+        {
+            BookingCard = null;
+            CardBookingFrameImgRT.gameObject.SetActive(false);
+        }
 
         return true;
     }
@@ -129,16 +149,27 @@ public class AllyCardUIController : SinglePanelUIController
     {
         base.SetOn_ThisPanel();
 
-        Set_NewcardDeck();
+        Set_NewCardDeck();
     }
 
     #endregion
 
     #region Card
 
-    private void Set_NewcardDeck()
+    private void Set_NewCard(int _Index)
     {
-        List<AllyCardData> cardDeckData = AllyManager.Instance.Get_ChoiceAbleRandomData(Cards.Count);
+        List<int> idList = new List<int>();
+        for (int i = 0; i < Cards.Count; i++)
+            idList.Add(Cards[i].CurrentID);
+
+        AllyCardData cardData = AllyManager.Instance.Get_ChoiceAbleRandomData(TypeIndex, idList);
+
+        Cards[_Index].Set_Card(TypeIndex, cardData);
+    }
+
+    private void Set_NewCardDeck()
+    {
+        List<AllyCardData> cardDeckData = AllyManager.Instance.Get_ChoiceAbleRandomData(TypeIndex, Cards.Count);
 
         for (int i = 0; i < Cards.Count; i++)
             Cards[i].Set_Card(TypeIndex, cardDeckData[i]);

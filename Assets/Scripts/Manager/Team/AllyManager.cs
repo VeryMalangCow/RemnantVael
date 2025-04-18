@@ -20,8 +20,21 @@ public class AllyManager : Singleton<AllyManager>
     #region - Hide
 
     // Ally Card Data
-    [HideInInspector] private List<AllyCardData> AllAllyCardData = new List<AllyCardData>();
-    [HideInInspector] private HashSet<int> GottenAllyCards = new HashSet<int>();
+    [HideInInspector] private List<AllyCardData> ST_AllAllyCardData = new List<AllyCardData>();
+    [HideInInspector] private HashSet<int> ST_GottenAllyCards = new HashSet<int>();
+    [HideInInspector] private List<Sprite> ST_CardIconList = new List<Sprite>();
+
+    [HideInInspector] private List<AllyCardData> UT_AllAllyCardData = new List<AllyCardData>();
+    [HideInInspector] private HashSet<int> UT_GottenAllyCards = new HashSet<int>();
+    [HideInInspector] private List<Sprite> UT_CardIconList = new List<Sprite>();
+
+    [HideInInspector] private List<AllyCardData> NT_AllAllyCardData = new List<AllyCardData>();
+    [HideInInspector] private HashSet<int> NT_GottenAllyCards = new HashSet<int>();
+    [HideInInspector] private List<Sprite> NT_CardIconList = new List<Sprite>();
+
+    [HideInInspector] private List<List<AllyCardData>> AllAllyCardData = null;
+    [HideInInspector] private List<HashSet<int>> AllGottenAllyCards = null;
+    [HideInInspector] private List<List<Sprite>> AllIconList = null;
 
     #endregion
 
@@ -31,7 +44,22 @@ public class AllyManager : Singleton<AllyManager>
 
     private void Offset()
     {
-        AllAllyCardData = CSVManager.Instance.Get_AllAllyCardData();
+        // Card Data
+        ST_AllAllyCardData = CSVManager.Instance.Get_StrikeTeam_AllAllyCardData();
+        UT_AllAllyCardData = CSVManager.Instance.Get_UplinkTeam_AllAllyCardData();
+        NT_AllAllyCardData = CSVManager.Instance.Get_NeoTeam_AllAllyCardData();
+
+        // Icon
+        ST_CardIconList = CSVManager.Instance.Get_AllyCardSpriteIcon(0);
+        UT_CardIconList = CSVManager.Instance.Get_AllyCardSpriteIcon(1);
+        NT_CardIconList = CSVManager.Instance.Get_AllyCardSpriteIcon(2);
+
+        AllAllyCardData = new List<List<AllyCardData>>
+        { ST_AllAllyCardData, UT_AllAllyCardData, NT_AllAllyCardData };
+        AllGottenAllyCards = new List<HashSet<int>>
+        { ST_GottenAllyCards, UT_GottenAllyCards, NT_GottenAllyCards };
+        AllIconList = new List<List<Sprite>>
+        { ST_CardIconList, UT_CardIconList, NT_CardIconList };
     }
 
     #endregion
@@ -55,19 +83,19 @@ public class AllyManager : Singleton<AllyManager>
         return false;
     }
 
-    private bool Is_GottenEssentialCard(AllyCardData _TargetData)
+    private bool Is_GottenEssentialCard(int _TypeID, AllyCardData _TargetData)
     {
-        if (!Is_ExistEssentialID(_TargetData) || GottenAllyCards.Contains(_TargetData.EssentialID))
+        if (!Is_ExistEssentialID(_TargetData) || AllGottenAllyCards[_TypeID].Contains(_TargetData.EssentialID))
             return true;
 
         return false;
     }
 
     // 선택 가능한 ID 카드를 체크
-    private bool Can_ChoiceAble(AllyCardData _TargetData, List<AllyCardData> _AlreadyChoicedDataList)
+    private bool Can_ChoiceAble(int _TypeID, AllyCardData _TargetData, List<AllyCardData> _AlreadyChoicedDataList)
     {
-        if (!GottenAllyCards.Contains(_TargetData.ID) &&
-            Is_GottenEssentialCard(_TargetData) &&
+        if (!AllGottenAllyCards[_TypeID].Contains(_TargetData.ID) &&
+            Is_GottenEssentialCard(_TypeID, _TargetData) &&
             !_AlreadyChoicedDataList.Contains(_TargetData))
             return true;
 
@@ -78,25 +106,31 @@ public class AllyManager : Singleton<AllyManager>
 
     #region Get
 
-    public AllyCardData Get_PreAllyCardData(AllyCardData _TargetCard)
+    public Sprite Get_CardIcon(int _TypeID, int _CardID)
+    {
+        return AllIconList[_TypeID][_CardID];
+    }
+
+    // 선행 카드 정보
+    public AllyCardData Get_PreAllyCardData(int _TypeID, AllyCardData _TargetCard)
     {
         if (_TargetCard.EssentialID == -1)
             return null;
 
-        return AllAllyCardData[_TargetCard.EssentialID];
+        return AllAllyCardData[_TypeID][_TargetCard.EssentialID];
     }
 
     // 한 번에 여러개의 랜덤 카드 리턴
-    public List<AllyCardData> Get_ChoiceAbleRandomData(int _LimitAmount)
+    public List<AllyCardData> Get_ChoiceAbleRandomData(int _TypeID, int _LimitAmount)
     {
         List<AllyCardData> result = new List<AllyCardData>();
 
         int i = 0;
         while (true)
         {
-            AllyCardData randomData = AllAllyCardData[Random.Range(0, AllAllyCardData.Count)];
+            AllyCardData randomData = AllAllyCardData[_TypeID][Random.Range(0, AllAllyCardData[_TypeID].Count)];
 
-            if (Can_ChoiceAble(randomData, result))
+            if (Can_ChoiceAble(_TypeID, randomData, result))
                 result.Add(randomData);
             else
                 continue;
@@ -113,15 +147,34 @@ public class AllyManager : Singleton<AllyManager>
     }
 
     // 한 번에 한개의 랜덤 카드 리턴
+    public AllyCardData Get_ChoiceAbleRandomData(int _TypeID, List<int> _AlreadyPlacedAllyCardIndexer)
+    {
+        List<AllyCardData> alreadyPlacedAllyCard = new List<AllyCardData>();
+        for (int i = 0; i < _AlreadyPlacedAllyCardIndexer.Count; i++)
+            alreadyPlacedAllyCard.Add(AllAllyCardData[_TypeID][_AlreadyPlacedAllyCardIndexer[i]]);
 
+        int s = 0;
+        while (true)
+        {
+            AllyCardData randomData = AllAllyCardData[_TypeID][Random.Range(0, AllAllyCardData[_TypeID].Count)];
+
+            if (Can_ChoiceAble(_TypeID, randomData, alreadyPlacedAllyCard))
+                return randomData;
+
+            s++;
+            if (s > 30)
+                break;
+        }
+        return null;
+    }
 
     #endregion
 
     #region Add
 
-    public void Add_AllyCard(int _ID)
+    public void Add_AllyCard(int _TypeID, int _ID)
     {
-        GottenAllyCards.Add(_ID);
+        AllGottenAllyCards[_TypeID].Add(_ID);
     }
 
     #endregion

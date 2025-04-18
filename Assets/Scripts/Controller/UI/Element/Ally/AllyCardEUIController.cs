@@ -9,14 +9,23 @@ public class AllyCardEUIController : OwnBtnEUIController
     #region Value
 
     [Space(10)]
-    [Header("=== Comp")]
+    [Header("=== Img")]
     [SerializeField] private Image FrameImg;
     [SerializeField] private Image LightImg;
     [SerializeField] private Image BGMarkImg;
+    [SerializeField] private Image IconImg;
+
+    [Space(10)]
+    [Header("=== Txt")]
     [SerializeField] private TMP_Text RankTxt;
     [SerializeField] private TMP_Text PreNameTxt;
     [SerializeField] private TMP_Text NameTxt;
     [SerializeField] private TMP_Text DescTxt;
+
+
+    [Space(10)]
+    [Header("=== Other Comp")]
+    [SerializeField] private CanvasGroup ThisPanelCG;
 
     // Value
     [HideInInspector] public int CurrentID;
@@ -24,8 +33,14 @@ public class AllyCardEUIController : OwnBtnEUIController
     // Light
     [HideInInspector] private Sequence LightSeq;
 
+    // Comp
+    [HideInInspector] private RectTransform ThisPanelRT;
+
     // Owner
     [HideInInspector] public AllyCardUIController AllyOwnerUIController;
+
+    // Reroll
+    [HideInInspector] public AllyCardRerollEUIController RerollEUI;
 
     #endregion
 
@@ -37,6 +52,8 @@ public class AllyCardEUIController : OwnBtnEUIController
 
         LightSeq = Play_LightSeq();
         LightSeq.Pause();
+
+        ThisPanelRT = DevTool.Get_ComponentTType(ThisPanelCG.gameObject, out RectTransform rt) ? rt : null;
     }
 
     #endregion
@@ -61,22 +78,49 @@ public class AllyCardEUIController : OwnBtnEUIController
     {
         Set_CardBGMark(_TypeID);
 
+        CurrentID = _Data.ID;
+
+        Set_PanelAnim(0.5f);
+        Set_Sprite(_TypeID, _Data);
+        Set_Txt(_TypeID, _Data);
+
+        gameObject.SetActive(true);
+        RerollEUI.gameObject.SetActive(true);
+    }
+
+    private void Set_PanelAnim(float _DurTime)
+    {
+        DevTool.Set_KillTween(ThisPanelCG);
+        DevTool.Set_KillTween(ThisPanelRT);
+
+        ThisPanelCG.alpha = 0;
+        ThisPanelCG.DOFade(1f, _DurTime);
+
+        ThisPanelRT.transform.localScale = Vector2.one * 1.2f;
+        ThisPanelRT.transform.DOScale(1f, _DurTime);
+    }
+
+    private void Set_Sprite(int _TypeID, AllyCardData _Data)
+    {
         FrameImg.sprite = UnitManager.Instance.AllyCardFrameList[_Data.Rank];
         LightImg.sprite = UnitManager.Instance.AllyCardLightList[_Data.Rank];
-        RankTxt.text = UnitManager.Instance.AllyCardRateList[_Data.Rank];
-        RankTxt.color = UnitManager.Instance.AllyCardColorList[_Data.Rank];
+        IconImg.sprite = AllyManager.Instance.Get_CardIcon(_TypeID, _Data.ID);
 
-        CurrentID = _Data.ID;
+        LightSeq.timeScale = _Data.Rank + 1;
+    }
+
+    private void Set_Txt(int _TypeID, AllyCardData _Data)
+    {
         NameTxt.text = _Data.Name;
         DescTxt.text = _Data.Desc;
 
-        AllyCardData preCardData = AllyManager.Instance.Get_PreAllyCardData(_Data);
+        RankTxt.text = UnitManager.Instance.AllyCardRateList[_Data.Rank];
+        RankTxt.color = UnitManager.Instance.AllyCardColorList[_Data.Rank];
+
+
+        AllyCardData preCardData = AllyManager.Instance.Get_PreAllyCardData(_TypeID, _Data);
         PreNameTxt.text = preCardData != null ? $"-({preCardData.Name})->" : "";
         PreNameTxt.gameObject.SetActive(preCardData != null);
-
-        LightSeq.timeScale = _Data.Rank + 1;
-
-        gameObject.SetActive(true);
     }
 
     private void Set_CardBGMark(int _TypeID)

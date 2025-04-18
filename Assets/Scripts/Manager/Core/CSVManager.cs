@@ -7,18 +7,16 @@ public class CSVManager : PersistentSingleton<CSVManager>
 {
     #region Value
 
-    #region - Inspector
+    #region - Amount Set
 
-    [Space(20)]
-    [Header("<><><><><> CSV")]
-
-    [Space(10)]
-    [Header("=== CSV")]
-
-    [Space(5)]
-    [Header("=== Map")]
-    [SerializeField] private int KindOfMapAmount;
-    [SerializeField] private List<int> EachKindOfMapAmount;
+    // 맵 종류
+    [HideInInspector] private int KindOfMapAmount = 2;
+    // 각 맵에 사용할 스프라이트의 양
+    [HideInInspector] private List<int> EachKindOfMapAmount = new List<int> { 2, 1 };
+    // 카드 아이콘 양
+    [HideInInspector] private int STIconAmount = 1;
+    [HideInInspector] private int UTIconAmount = 1;
+    [HideInInspector] private int NTIconAmount = 1;
 
     #endregion
 
@@ -36,7 +34,9 @@ public class CSVManager : PersistentSingleton<CSVManager>
     [HideInInspector] private List<ModuleBaseData> ModuleBaseList_Data;
 
     // 동료 카드
-    [HideInInspector] private List<AllyCardBaseData> AllyCard_Data;
+    [HideInInspector] private List<AllyCardBaseData> StrikeTeam_AllyCard_Data;
+    [HideInInspector] private List<AllyCardBaseData> UplinkTeam_AllyCard_Data;
+    [HideInInspector] private List<AllyCardBaseData> NeoTeam_AllyCard_Data;
 
     // 워드
     // 스태틱
@@ -50,7 +50,9 @@ public class CSVManager : PersistentSingleton<CSVManager>
     [HideInInspector] private WordData ModuleItemName_Data;
     [HideInInspector] private WordData MainChipName_Data;
     // 동료 카드 이름
-    [HideInInspector] private WordData AllyCardName_Data;
+    [HideInInspector] private WordData StrikeTeam_AllyCardName_Data;
+    [HideInInspector] private WordData UplinkTeam_AllyCardName_Data;
+    [HideInInspector] private WordData NeoTeam_AllyCardName_Data;
 
     // 문장
     // 스태틱
@@ -60,9 +62,12 @@ public class CSVManager : PersistentSingleton<CSVManager>
     // 모듈
     [HideInInspector] private WordData ModuleItemDesc_Data;
     [HideInInspector] private WordData ModuleItemEquipDesc_Data;
-    [SerializeField] private List<WordData> MainChipDescList_Data;
+    [HideInInspector] private List<WordData> MainChipDescList_Data;
     // 동료 카드 설명
-    [HideInInspector] private WordData AllyCardDesc_Data;
+    [HideInInspector] private WordData StrikeTeam_AllyCardDesc_Data;
+    [HideInInspector] private WordData UplinkTeam_AllyCardDesc_Data;
+    [HideInInspector] private WordData NeoTeam_AllyCardDesc_Data;
+
 
     // 스프라이트
     // 캐릭터
@@ -75,6 +80,9 @@ public class CSVManager : PersistentSingleton<CSVManager>
     // 모듈
     [HideInInspector] private List<Sprite> ModuleItemImgList_Data;
     [HideInInspector] private List<Sprite> ModuleSynhronyImgList_Data;
+
+    // 카드 아이콘
+    [HideInInspector] private List<List<Sprite>> AllyCardIcon_Data;
 
     #endregion
 
@@ -107,9 +115,12 @@ public class CSVManager : PersistentSingleton<CSVManager>
 
         // Ally Card
         string allyCardPath = "CSV/AllyCard/";
-        AllyCard_Data = Offset_AllyCard(allyCardPath,
-            "AllyCardCSV");
-
+        StrikeTeam_AllyCard_Data = Offset_AllyCard(allyCardPath,
+            "AllyCard_StrikeTeam_CSV");
+        UplinkTeam_AllyCard_Data = Offset_AllyCard(allyCardPath,
+            "AllyCard_UplinkTeam_CSV"); 
+        NeoTeam_AllyCard_Data = Offset_AllyCard(allyCardPath,
+            "AllyCard_NeoTeam_CSV");
         // Word
         // Static
         string wordPath = "CSV/Word/";
@@ -128,8 +139,12 @@ public class CSVManager : PersistentSingleton<CSVManager>
         MainChipName_Data = Offset_WordData(wordPath,
             "MainChipNameCSV");
         // Ally Card
-        AllyCardName_Data = Offset_WordData(wordPath,
-            "AllyCardNameCSV");
+        StrikeTeam_AllyCardName_Data = Offset_WordData(wordPath,
+            "AllyCard_StrikeTeam_NameCSV");
+        UplinkTeam_AllyCardName_Data = Offset_WordData(wordPath,
+            "AllyCard_UplinkTeam_NameCSV");
+        NeoTeam_AllyCardName_Data = Offset_WordData(wordPath,
+            "AllyCard_NeoTeam_NameCSV");
 
         // Desc
         // Static
@@ -150,8 +165,12 @@ public class CSVManager : PersistentSingleton<CSVManager>
         MainChipDescList_Data = Offset_WordDataList_ForParentID(descPath,
             "MainChipDescCSV", MainChipName_Data.AllWordData.Count);
         // Ally Card
-        AllyCardDesc_Data = Offset_WordData(descPath,
-            "AllyCardDescCSV");
+        StrikeTeam_AllyCardDesc_Data = Offset_WordData(descPath,
+            "AllyCard_StrikeTeam_DescCSV");
+        UplinkTeam_AllyCardDesc_Data = Offset_WordData(descPath,
+            "AllyCard_UplinkTeam_DescCSV");
+        NeoTeam_AllyCardDesc_Data = Offset_WordData(descPath,
+            "AllyCard_NeoTeam_DescCSV");
     }
 
     private void Offset_CharImg()
@@ -203,12 +222,36 @@ public class CSVManager : PersistentSingleton<CSVManager>
                 "MUSynchronyUI_000"));
     }
 
+    private void Offset_AllyCardIcon()
+    {
+        AllyCardIcon_Data = new List<List<Sprite>>
+        {
+            Get_AllyCardIcon(STIconAmount, "ST"),
+            Get_AllyCardIcon(UTIconAmount, "UT"),
+            Get_AllyCardIcon(NTIconAmount, "NT")
+        };
+
+        List<Sprite> Get_AllyCardIcon(int _SpriteAmount, string _TypeName)
+        {
+            List<Sprite> result = new List<Sprite>();
+            for (int i = 0; i < _SpriteAmount; i++)
+            {
+                result.AddRange(
+                    Offset_ImgPath(
+                        $"Sprite/UI/Ally/",
+                        $"AllyCardIcon_{_TypeName}_{DevTool.Get_LengthString(i, 3)}"));
+            }
+            return result;
+        }
+    }
+
     private void Offset()
     {
         Offset_CSV();
         Offset_CharImg();
         Offset_MapImg();
         Offset_ModuleItemImg();
+        Offset_AllyCardIcon();
     }
 
     #endregion
@@ -567,6 +610,11 @@ public class CSVManager : PersistentSingleton<CSVManager>
         return result;
     }
 
+    public List<Sprite> Get_AllyCardSpriteIcon(int _Type)
+    {
+        return AllyCardIcon_Data[_Type];
+    }
+
     #endregion
 
     #region To Word | Desc
@@ -703,11 +751,27 @@ public class CSVManager : PersistentSingleton<CSVManager>
     }
 
     // AllyCard
-    public List<AllyCardData> Get_AllAllyCardData()
+    public List<AllyCardData> Get_StrikeTeam_AllAllyCardData()
     {
         List<AllyCardData> result = new List<AllyCardData>();
-        for (int i = 0; i < AllyCard_Data.Count; i++)
-            result.Add(new AllyCardData(AllyCard_Data[i], AllyCardName_Data.Get_Word(i), AllyCardDesc_Data.Get_Word(i)));
+        for (int i = 0; i < StrikeTeam_AllyCard_Data.Count; i++)
+            result.Add(new AllyCardData(StrikeTeam_AllyCard_Data[i], StrikeTeam_AllyCardName_Data.Get_Word(i), StrikeTeam_AllyCardDesc_Data.Get_Word(i)));
+
+        return result;
+    }
+    public List<AllyCardData> Get_UplinkTeam_AllAllyCardData()
+    {
+        List<AllyCardData> result = new List<AllyCardData>();
+        for (int i = 0; i < UplinkTeam_AllyCard_Data.Count; i++)
+            result.Add(new AllyCardData(UplinkTeam_AllyCard_Data[i], UplinkTeam_AllyCardName_Data.Get_Word(i), UplinkTeam_AllyCardDesc_Data.Get_Word(i)));
+
+        return result;
+    }
+    public List<AllyCardData> Get_NeoTeam_AllAllyCardData()
+    {
+        List<AllyCardData> result = new List<AllyCardData>();
+        for (int i = 0; i < NeoTeam_AllyCard_Data.Count; i++)
+            result.Add(new AllyCardData(UplinkTeam_AllyCard_Data[i], NeoTeam_AllyCardName_Data.Get_Word(i), NeoTeam_AllyCardDesc_Data.Get_Word(i)));
 
         return result;
     }

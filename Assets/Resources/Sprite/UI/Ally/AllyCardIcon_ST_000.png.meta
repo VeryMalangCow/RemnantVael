@@ -1,0 +1,2226 @@
+fileFormatVersion: 2
+guid: 4df2cc55a664b134496407750bb3a998
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 512
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 472
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ad14275f1f04e04890b7d0a02227a63
+      internalID: 644640655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_1
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 472
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea3f68f920bf8e243960bbd6289da764
+      internalID: -553032087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_2
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 472
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9ec181b24b72c14b8d7cc42e52d25be
+      internalID: -1563952492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_3
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 472
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 228d19bea879523479bab234818e7070
+      internalID: -680785885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_4
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 472
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a39dc634e46e0884aa0167dee8e54397
+      internalID: 1096415072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_5
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 472
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 483f6e5b1baaf194cbfeb5474fb8454e
+      internalID: -1970228435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_6
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 472
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 293fdf0c4e959b44eaaf84ae829a53ac
+      internalID: 1039093904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_7
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 472
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f618e65ea57f104ba5376bc1118fbef
+      internalID: 1620698478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 431
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d368d10d93749dc46a904e48c49c76ae
+      internalID: -407098238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_9
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 431
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd048d65690e45a42b5e46f47c632f70
+      internalID: -1730392612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_10
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 431
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7bfdd9c519726e4bae67e1c00245652
+      internalID: -466281227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_11
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 431
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdb21f25bf1ef7d4e9b1853b607518de
+      internalID: 1031767960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_12
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 431
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddb044d644a363f469b1f27b4ca2ad7c
+      internalID: -998233145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_13
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 431
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa69d99fd78e4e04a8a911a4c1b9c244
+      internalID: -1777575808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_14
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 431
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49f91b2d48ec6c543b3bad8f2926bcb6
+      internalID: 806018053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_15
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 431
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e561903cb2946074dab0a8f12fce38e9
+      internalID: 2111093030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 390
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71575ca0108a0af4aa8a2b948145b731
+      internalID: 56844144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_17
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 390
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c774cc1e31e06914bbc2d00825ce570b
+      internalID: -1056742502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_18
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 390
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5422057f1aab1f5478faf1da9688f6a3
+      internalID: 1661165202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_19
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 390
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e1353d5e35a92b40b6b56c2cf8989b3
+      internalID: -198684869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_20
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 390
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c18780327aa8e6e449b68d36ccf96b89
+      internalID: 1201659603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_21
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 390
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f93b349507ce21340b17c600b8aa126d
+      internalID: -308081344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_22
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 390
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e3d38ee2463ec94a804991a6d56cfaf
+      internalID: -508444417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_23
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 390
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ade97b562eb39624b9b7caae931925bc
+      internalID: -1917904874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 349
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 056ad063ea856454bb18460b736a90bc
+      internalID: 805965774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_25
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 349
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e411acde6dfb877408e9d6a636fac226
+      internalID: -175508029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_26
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 349
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0aa90de77873ec44aa0a9e3287fcd42a
+      internalID: -1201310747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_27
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 349
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e9cd03f82477264895fb019755f33dd
+      internalID: 952154889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_28
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 349
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66830b44b491e5d479264cdffd0a4d92
+      internalID: 232565857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_29
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 349
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 977c96ee732f6754687256e5840acc5c
+      internalID: 1824352948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_30
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 349
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e2107eade9291a45b74d52c848ad4a5
+      internalID: 966318247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_31
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 349
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9db12af06bbb7bc408cc334c1ce11e29
+      internalID: 1969087466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 308
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e156597a17d0633459389810ebb7bcd4
+      internalID: -682853192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_33
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 308
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ae5fee0e144b7044bbc3e74c92cf95f
+      internalID: -1330591347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_34
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 308
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db138b3dfc6f75840844a7876f6497b4
+      internalID: 385066544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_35
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 308
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c166dfc7e7c4a3b46a4e3cd317088dfd
+      internalID: -362111571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_36
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 308
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0efc3434a58ee4641b10b6019b7e5a37
+      internalID: -1909792162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_37
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 308
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 905eb484d21ca3746857ef6d7dd87889
+      internalID: 1747581617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_38
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 308
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de3cd13aca4a71e47a71fa087cc8b828
+      internalID: -1520124983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_39
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 308
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de2396fe60c74ab4badd2336f3354bcf
+      internalID: 584276855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 267
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17b90c2390d8f1b4abd76325be870768
+      internalID: -1488271251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_41
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 267
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59c6d045042fed44d9aae232576ebfad
+      internalID: -787622283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_42
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 267
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40635a021abbd144e833a5b4c57df0c5
+      internalID: -932864817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_43
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 267
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbe228f52872a56488599f49a24320da
+      internalID: 9926209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_44
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 267
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d6a693147b37ae4abe90a9a572f95bd
+      internalID: -225661344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_45
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 267
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f77cad254be1cb46991c1a941645cb5
+      internalID: 681682676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_46
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 267
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3d683d1f601b1c49bf2ff9db18b1f9b
+      internalID: -19278070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_47
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 267
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba1c2a54fff9dcd4f934a137f5defa4f
+      internalID: -1017129444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 226
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 533c646f78a3e4b40a57173cc3f15e8d
+      internalID: 1743357498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_49
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 226
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3eb7e3164df8ee409c96afb7fccb1f0
+      internalID: 219815686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_50
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 226
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d8197ec66106f047899cc63ca4525c8
+      internalID: 241110782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_51
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 226
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b3dccd9f43106b4dbde61efd355743e
+      internalID: -1493033682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_52
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 226
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a55a97cf5377a24eaf7acc00d304925
+      internalID: 2039076967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_53
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 226
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 902834bf5195cfe4da4d8cb4b4c6611f
+      internalID: -1705172318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_54
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 226
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc2f0fce627b7264197ec68898d75105
+      internalID: 362102243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_55
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 226
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65fbd650910c856489f511dc401c5543
+      internalID: -1761439453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 185
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42453e85a08128244bbf572b13bb6556
+      internalID: -1758203781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_57
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 185
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae07c7a2f572c5c488f8c9275557fcd6
+      internalID: 261466248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_58
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 185
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9a2f56c5f43c414584b546b3b64df35
+      internalID: 1331384264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_59
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 185
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e7c9a06870a28f49b3090990ef96bc6
+      internalID: -240675801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_60
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 185
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b8b1d88e303eeb49b94e0777caa7b45
+      internalID: 825601013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_61
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 185
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9583761741c22ac4fb04ed0b03b1e8e8
+      internalID: 1824945482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_62
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 185
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d75f80a0543451438cb65727f881b56
+      internalID: -2116428244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_63
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 185
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21448f55679ce384aae3bee931c860d0
+      internalID: 1345500573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_64
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 144
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2aa4595ebf1022468a936e75e4550f6
+      internalID: 649396940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_65
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 144
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 140a3f9167c62e1418cf548c008df72a
+      internalID: 1551535206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_66
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 144
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e22a14fc9cdd0a94fb4fa0d11db0fded
+      internalID: 1356966381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_67
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 144
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f213eab1cda6574294921add81d87cd
+      internalID: -1747611282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_68
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 144
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3224dc03983ef9d488d31416ddb183e5
+      internalID: -316890309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_69
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 144
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ecf82401450a0348bf75f6272fb6639
+      internalID: -1734867303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_70
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 144
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5611aa3e02202a4ea330194311b84dc
+      internalID: 1280080605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_71
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 144
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62aa594ee2cbe18469d1a48bed0b7227
+      internalID: -321767040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_72
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 103
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d18402e995bce144b95d7c4986ba3bf5
+      internalID: -482489193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_73
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 103
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c91c472e79cc4f4694d2744a9b30152
+      internalID: 229605610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_74
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 103
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d29ecf520d15bf44181ee96eb40fbf7b
+      internalID: -577856193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_75
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 103
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 706931787a015ed4e9552c7e0729cd0f
+      internalID: -914473766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_76
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 103
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79a92cda83042d043a97bc9ccd73f0c1
+      internalID: -1296453864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_77
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 103
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d62c38e9b482cd74bb1d4a96e49f0ae3
+      internalID: 328935843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_78
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 103
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddcac8a8c1a1c714daf8aa20e936b982
+      internalID: -2093195710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_79
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 103
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b93e66109b10abf4faa4dd401883629b
+      internalID: -61755124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_80
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 62
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 399dd33d81173a945bd9c0387817847c
+      internalID: -554912359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_81
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 62
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21b6034f6e48026418dc2933e72b7742
+      internalID: -79569017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_82
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 62
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c0e1827fc62f7d439417a0acefae65c
+      internalID: 1263268889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_83
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 62
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d42cf8be42c7ffd43a38367c0a5aa749
+      internalID: 1751844322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_84
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 62
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ecc7d23270ab3348b69f18694f0be27
+      internalID: -975798173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_85
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 62
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00d7cbb2b80869748acf7353d6cbb271
+      internalID: -1600364522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_86
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 62
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83e7ab622d6fd8c40aae1ea028140005
+      internalID: -1458900424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_87
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 62
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bb7fddf556babd4f9b3b1886ec2c64f
+      internalID: 835617699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_88
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 21
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b11b987ad98fbf488ead6d12d30fdab
+      internalID: -406153409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_89
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 21
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 516aee4c93804344e95471432b7d34c6
+      internalID: -307651924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_90
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 21
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdec800c930c2a943a816d558cfcbda2
+      internalID: 596465474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_91
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 21
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f473eafd50df25b49a3bd3935e2cb71c
+      internalID: -32022178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_92
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 21
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2db58fb13693d3f47bb36ede9422fee6
+      internalID: 670920787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_93
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 21
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd9264be8430a5146aa891b0f9a59348
+      internalID: -1773752768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_94
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 21
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5d1ae7e4d82db3469b0172fcb58022d
+      internalID: 1567287684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyCardIcon_ST_000_95
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 21
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 703b4a39569297a489484c698248c210
+      internalID: -1382357490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      AllyCardIcon_ST_000_0: 644640655
+      AllyCardIcon_ST_000_1: -553032087
+      AllyCardIcon_ST_000_10: -466281227
+      AllyCardIcon_ST_000_11: 1031767960
+      AllyCardIcon_ST_000_12: -998233145
+      AllyCardIcon_ST_000_13: -1777575808
+      AllyCardIcon_ST_000_14: 806018053
+      AllyCardIcon_ST_000_15: 2111093030
+      AllyCardIcon_ST_000_16: 56844144
+      AllyCardIcon_ST_000_17: -1056742502
+      AllyCardIcon_ST_000_18: 1661165202
+      AllyCardIcon_ST_000_19: -198684869
+      AllyCardIcon_ST_000_2: -1563952492
+      AllyCardIcon_ST_000_20: 1201659603
+      AllyCardIcon_ST_000_21: -308081344
+      AllyCardIcon_ST_000_22: -508444417
+      AllyCardIcon_ST_000_23: -1917904874
+      AllyCardIcon_ST_000_24: 805965774
+      AllyCardIcon_ST_000_25: -175508029
+      AllyCardIcon_ST_000_26: -1201310747
+      AllyCardIcon_ST_000_27: 952154889
+      AllyCardIcon_ST_000_28: 232565857
+      AllyCardIcon_ST_000_29: 1824352948
+      AllyCardIcon_ST_000_3: -680785885
+      AllyCardIcon_ST_000_30: 966318247
+      AllyCardIcon_ST_000_31: 1969087466
+      AllyCardIcon_ST_000_32: -682853192
+      AllyCardIcon_ST_000_33: -1330591347
+      AllyCardIcon_ST_000_34: 385066544
+      AllyCardIcon_ST_000_35: -362111571
+      AllyCardIcon_ST_000_36: -1909792162
+      AllyCardIcon_ST_000_37: 1747581617
+      AllyCardIcon_ST_000_38: -1520124983
+      AllyCardIcon_ST_000_39: 584276855
+      AllyCardIcon_ST_000_4: 1096415072
+      AllyCardIcon_ST_000_40: -1488271251
+      AllyCardIcon_ST_000_41: -787622283
+      AllyCardIcon_ST_000_42: -932864817
+      AllyCardIcon_ST_000_43: 9926209
+      AllyCardIcon_ST_000_44: -225661344
+      AllyCardIcon_ST_000_45: 681682676
+      AllyCardIcon_ST_000_46: -19278070
+      AllyCardIcon_ST_000_47: -1017129444
+      AllyCardIcon_ST_000_48: 1743357498
+      AllyCardIcon_ST_000_49: 219815686
+      AllyCardIcon_ST_000_5: -1970228435
+      AllyCardIcon_ST_000_50: 241110782
+      AllyCardIcon_ST_000_51: -1493033682
+      AllyCardIcon_ST_000_52: 2039076967
+      AllyCardIcon_ST_000_53: -1705172318
+      AllyCardIcon_ST_000_54: 362102243
+      AllyCardIcon_ST_000_55: -1761439453
+      AllyCardIcon_ST_000_56: -1758203781
+      AllyCardIcon_ST_000_57: 261466248
+      AllyCardIcon_ST_000_58: 1331384264
+      AllyCardIcon_ST_000_59: -240675801
+      AllyCardIcon_ST_000_6: 1039093904
+      AllyCardIcon_ST_000_60: 825601013
+      AllyCardIcon_ST_000_61: 1824945482
+      AllyCardIcon_ST_000_62: -2116428244
+      AllyCardIcon_ST_000_63: 1345500573
+      AllyCardIcon_ST_000_64: 649396940
+      AllyCardIcon_ST_000_65: 1551535206
+      AllyCardIcon_ST_000_66: 1356966381
+      AllyCardIcon_ST_000_67: -1747611282
+      AllyCardIcon_ST_000_68: -316890309
+      AllyCardIcon_ST_000_69: -1734867303
+      AllyCardIcon_ST_000_7: 1620698478
+      AllyCardIcon_ST_000_70: 1280080605
+      AllyCardIcon_ST_000_71: -321767040
+      AllyCardIcon_ST_000_72: -482489193
+      AllyCardIcon_ST_000_73: 229605610
+      AllyCardIcon_ST_000_74: -577856193
+      AllyCardIcon_ST_000_75: -914473766
+      AllyCardIcon_ST_000_76: -1296453864
+      AllyCardIcon_ST_000_77: 328935843
+      AllyCardIcon_ST_000_78: -2093195710
+      AllyCardIcon_ST_000_79: -61755124
+      AllyCardIcon_ST_000_8: -407098238
+      AllyCardIcon_ST_000_80: -554912359
+      AllyCardIcon_ST_000_81: -79569017
+      AllyCardIcon_ST_000_82: 1263268889
+      AllyCardIcon_ST_000_83: 1751844322
+      AllyCardIcon_ST_000_84: -975798173
+      AllyCardIcon_ST_000_85: -1600364522
+      AllyCardIcon_ST_000_86: -1458900424
+      AllyCardIcon_ST_000_87: 835617699
+      AllyCardIcon_ST_000_88: -406153409
+      AllyCardIcon_ST_000_89: -307651924
+      AllyCardIcon_ST_000_9: -1730392612
+      AllyCardIcon_ST_000_90: 596465474
+      AllyCardIcon_ST_000_91: -32022178
+      AllyCardIcon_ST_000_92: 670920787
+      AllyCardIcon_ST_000_93: -1773752768
+      AllyCardIcon_ST_000_94: 1567287684
+      AllyCardIcon_ST_000_95: -1382357490
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

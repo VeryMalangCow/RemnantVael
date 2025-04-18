@@ -1012,6 +1012,9 @@ public class PlayerController : AliveObjectController
         if (NeedUplinkTeamPresence.Value <= UplinkTeamPresence.Value)
         {
             NeedUplinkTeamPresence.Value += NeedIntervalPresence;
+
+            MainGameUIManager.Instance.AllyCard_UIController.TypeIndex = 1;
+            MainGameUIManager.Instance.AllyCard_UIController.SetOn_ThisPanel();
         }
     }
 
@@ -1020,6 +1023,9 @@ public class PlayerController : AliveObjectController
         if (NeedNeoTeamPresence.Value <= NeoTeamPresence.Value)
         {
             NeedNeoTeamPresence.Value += NeedIntervalPresence;
+
+            MainGameUIManager.Instance.AllyCard_UIController.TypeIndex = 2;
+            MainGameUIManager.Instance.AllyCard_UIController.SetOn_ThisPanel();
         }
     }
 
