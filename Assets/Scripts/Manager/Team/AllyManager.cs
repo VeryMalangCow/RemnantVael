@@ -175,6 +175,7 @@ public class AllyManager : Singleton<AllyManager>
     public void Add_AllyCard(int _TypeID, int _ID)
     {
         AllGottenAllyCards[_TypeID].Add(_ID);
+        AllyCardActivityManager.Instance.Action_CorrectCardActivity(_TypeID, _ID);
     }
 
     #endregion
