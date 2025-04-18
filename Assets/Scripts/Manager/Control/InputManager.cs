@@ -336,21 +336,18 @@ public class InputManager : Singleton<InputManager>
 
     private void Input_STAlly(InputAction.CallbackContext _InputValue)
     {
-        Debug.Log("스트라이크 렙업 시도");
         if (_InputValue.ReadValueAsButton())
             PlayerManager.Instance.PlayerController.Try_STAllyLvUp();
     }
 
     private void Input_UTAlly(InputAction.CallbackContext _InputValue)
     {
-        Debug.Log("업링크 렙업 시도");
         if (_InputValue.ReadValueAsButton())
             PlayerManager.Instance.PlayerController.Try_UTAllyLvUp();
     }
 
     private void Input_NTAlly(InputAction.CallbackContext _InputValue)
     {
-        Debug.Log("네오 렙업 시도");
         if (_InputValue.ReadValueAsButton())
             PlayerManager.Instance.PlayerController.Try_NTAllyLvUp();
     }

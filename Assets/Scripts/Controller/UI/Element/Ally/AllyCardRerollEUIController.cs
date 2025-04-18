@@ -59,7 +59,7 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
         string needAmountText = $"x <size=1{NeedAmount}0%><b>{NeedAmount}</b></size>";
         if (NeedAmount == MaxNeedAmount)
             needAmountText += $"<size=75%>({CSVManager.Instance.Get_StaticWord(84)})</size>";
-        Debug.Log(needAmountText);
+
         NeedAmountTxt.text = needAmountText;
     }
 

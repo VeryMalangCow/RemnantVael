@@ -142,7 +142,7 @@ public class AllyManager : Singleton<AllyManager>
             if (i > 30)
                 break;
         }
-        for (int j = 0; j < result.Count; j++) Debug.Log(result[j].ID);
+
         return result;
     }
 
