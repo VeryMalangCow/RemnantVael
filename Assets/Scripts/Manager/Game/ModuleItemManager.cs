@@ -11,11 +11,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     [Header("<><><><><> Module Item")]
 
     [Space(10)]
-    [Header("=== Data")]
-    [SerializeField] public List<ItemData> ItemDataList;
-    [SerializeField] private List<MainChipData> MainChipDataList;
-
-    [Space(10)]
     [Header("=== Resource")]
     [SerializeField] private List<Sprite> RankIconList;
     [SerializeField] private List<Sprite> MUUIDescRankIconList;
@@ -26,6 +21,10 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     #endregion
 
     #region - Hide
+
+    // Data
+    [HideInInspector] public List<ItemData> ItemDataList;
+    [HideInInspector] private List<MainChipData> MainChipDataList;
 
     // Module State
     [HideInInspector] private List<List<ModuleState>> AllModuleData = new List<List<ModuleState>>();

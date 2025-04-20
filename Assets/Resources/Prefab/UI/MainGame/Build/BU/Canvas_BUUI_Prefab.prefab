@@ -390,12 +390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisPanelInputMapName: BaseUpgradeUI
-  ThisPanelTabList:
-  - {fileID: 3841518684844216861}
-  - {fileID: 6102662024336250210}
-  - {fileID: 6818351780043364038}
-  - {fileID: 7242812692058387735}
-  - {fileID: 1305257962069800240}
   CurrentBtn: {fileID: 0}
   MainColorCompList:
   - {fileID: 9147036593615803499}
@@ -409,6 +403,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  ThisPanelTabList:
+  - {fileID: 3841518684844216861}
+  - {fileID: 6102662024336250210}
+  - {fileID: 6818351780043364038}
+  - {fileID: 7242812692058387735}
+  - {fileID: 1305257962069800240}
   LabelTxt: {fileID: 8601064820096719371}
   ThisDurEUI: {fileID: 1414314959910742180}
   ThisMsgEUI: {fileID: 3110014342129758097}
@@ -430,8 +430,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -443,8 +441,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -456,8 +452,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -469,8 +463,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -482,8 +474,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -495,8 +485,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -508,8 +496,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -521,8 +507,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -534,8 +518,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -547,8 +529,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -560,8 +540,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -573,8 +551,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -586,8 +562,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -599,8 +573,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -612,8 +584,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -625,8 +595,6 @@ MonoBehaviour:
       UpgradeValueByLevelRange: []
       ActualState:
         value: 0
-      Name: 
-      Desc: 
       CurrentLevel:
         value: 0
     Name: 
@@ -639,8 +607,6 @@ MonoBehaviour:
         UpgradeValueByLevelRange: []
         ActualState:
           value: 0
-        Name: 
-        Desc: 
         CurrentLevel:
           value: 0
       Name: 
@@ -652,8 +618,6 @@ MonoBehaviour:
         UpgradeValueByLevelRange: []
         ActualState:
           value: 0
-        Name: 
-        Desc: 
         CurrentLevel:
           value: 0
       Name: 
@@ -665,8 +629,6 @@ MonoBehaviour:
         UpgradeValueByLevelRange: 
         ActualState:
           value: 0
-        Name: 
-        Desc: 
         CurrentLevel:
           value: 0
       Name: 
@@ -678,8 +640,6 @@ MonoBehaviour:
         UpgradeValueByLevelRange: []
         ActualState:
           value: 0
-        Name: 
-        Desc: 
         CurrentLevel:
           value: 0
       Name: 
@@ -691,8 +651,6 @@ MonoBehaviour:
         UpgradeValueByLevelRange: []
         ActualState:
           value: 0
-        Name: 
-        Desc: 
         CurrentLevel:
           value: 0
       Name: 
@@ -704,8 +662,6 @@ MonoBehaviour:
         UpgradeValueByLevelRange: 
         ActualState:
           value: 0
-        Name: 
-        Desc: 
         CurrentLevel:
           value: 0
       Name: 
@@ -3201,6 +3157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsCanSelect: 1
+  ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
 --- !u!114 &7592445502468405992
@@ -3694,6 +3651,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 581637136754407790}
+  - component: {fileID: 7211645958703096996}
   - component: {fileID: 4995116033089370177}
   - component: {fileID: 554001450072738931}
   - component: {fileID: 660782555834958751}
@@ -3723,6 +3681,19 @@ RectTransform:
   m_AnchoredPosition: {x: -40, y: 0}
   m_SizeDelta: {x: 180, y: 108}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7211645958703096996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7478732070600960528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
 --- !u!222 &4995116033089370177
 CanvasRenderer:
   m_ObjectHideFlags: 0

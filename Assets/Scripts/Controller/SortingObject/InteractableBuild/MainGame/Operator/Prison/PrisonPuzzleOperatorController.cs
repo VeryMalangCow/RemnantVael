@@ -32,7 +32,23 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
     {
         if (TargetPrison == null) return;
 
-        Debug.Log("Puzzle");
+        string debugString = "";
+        switch (TargetPrison)
+        {
+            case StrikeTeamPrisonController:
+                MainGameUIManager.Instance.BoxLineConnector_UIController.CellAmount = TargetPrison.Rating + 4;
+                MainGameUIManager.Instance.BoxLineConnector_UIController.SetOn_ThisPanel();
+                break;
+            case UplinkTeamPrisonController:
+                break;
+            case NeoTeamPrisonController:
+                break;
+
+            default:
+                break;
+        }
+
+        debugString += "Puzzle";
     }
 
     #endregion

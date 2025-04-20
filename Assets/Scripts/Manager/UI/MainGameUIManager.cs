@@ -13,7 +13,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [Header("=== Screen")]
     [SerializeField] private float FadeOutTime = 3f;
 
-    [Header("=== refab")]
+    [Header("=== Prefab")]
     [SerializeField] private GameObject PlayerHUD_CanvasPrefab;
     [SerializeField] private GameObject BaseUpgrade_CanvasPrefab;
     [SerializeField] private GameObject ModuleUpgrade_CanvasPrefab;
@@ -21,6 +21,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private GameObject InteractAnno_CanvasPrefab;
     [SerializeField] private GameObject MapIntro_CanvasPrefab;
     [SerializeField] private GameObject AllyCard_CanvasPrefab;
+    [SerializeField] private GameObject Puzzle_BoxLineConnector_CanvasPrefab;
+    [SerializeField] private GameObject Puzzle_1_CanvasPrefab;
+    [SerializeField] private GameObject Puzzle_2_CanvasPrefab;
 
     // Controller
     [HideInInspector] public PlayerHUDController PlayerHUD_UIController;
@@ -30,6 +33,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [HideInInspector] public InteractAnnoUIController InteractAnno_UIController;
     [HideInInspector] public MapIntroUIController MapIntro_UIController;
     [HideInInspector] public AllyCardUIController AllyCard_UIController;
+    [HideInInspector] public BoxLineConnectorUIController BoxLineConnector_UIController;
 
     [HideInInspector] public UIController CurrentOpening_UIController;
 
@@ -62,6 +66,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         AllyCard_UIController
             = Gen_UI<AllyCardUIController>(AllyCard_CanvasPrefab, false);
+
+        BoxLineConnector_UIController
+            = Gen_UI<BoxLineConnectorUIController>(Puzzle_BoxLineConnector_CanvasPrefab, false);
 
         Sequence startSeq = DOTween.Sequence();
 

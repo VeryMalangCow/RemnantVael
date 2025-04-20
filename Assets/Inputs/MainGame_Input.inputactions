@@ -588,6 +588,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Puzzle_BoxLineConnectorUI",
+            "id": "e88dab18-9b5a-4209-8e5f-958100730634",
+            "actions": [
+                {
+                    "name": "BoxLineConnector_RightRoll",
+                    "type": "Button",
+                    "id": "c7132acf-13df-4c7f-bc83-1bb9d60fa573",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BoxLineConnector_LeftRoll",
+                    "type": "Button",
+                    "id": "da5a2628-7232-44f0-aa76-c83e69f59824",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "22fe7e76-0443-47d2-969c-99c36d626213",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BoxLineConnector_RightRoll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "11a490ef-5f3c-4747-83a9-dac9abd04102",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BoxLineConnector_LeftRoll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

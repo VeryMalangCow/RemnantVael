@@ -77,6 +77,12 @@ public class InputManager : Singleton<InputManager>
     private void LateUpdate()
     {
         Caculate_BufferedInput(Time.deltaTime);
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            MainGameUIManager.Instance.BoxLineConnector_UIController.CellAmount = 1 + 4;
+            MainGameUIManager.Instance.BoxLineConnector_UIController.SetOn_ThisPanel();
+        }
     }
 
     #endregion
@@ -216,6 +222,9 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["AllyCard_Select"].performed += Input_AllyCardClick;
 
+        PlayerInput.actions["BoxLineConnector_RightRoll"].performed += Input_BoxLineConnector_RightRoll;
+        PlayerInput.actions["BoxLineConnector_LeftRoll"].performed += Input_BoxLineConnector_LeftRoll;
+
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
     }
@@ -254,6 +263,9 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["MUUI_Drag"].performed -= Input_MUUIDrag;
 
         PlayerInput.actions["AllyCard_Select"].performed -= Input_AllyCardClick;
+
+        PlayerInput.actions["BoxLineConnector_RightRoll"].performed -= Input_BoxLineConnector_RightRoll;
+        PlayerInput.actions["BoxLineConnector_LeftRoll"].performed -= Input_BoxLineConnector_LeftRoll;
 
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
@@ -447,6 +459,21 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             MainGameUIManager.Instance.AllyCard_UIController.Try_Interact();
+    }
+
+    #endregion
+
+    #region Puzzle UI
+
+    private void Input_BoxLineConnector_RightRoll(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.BoxLineConnector_UIController.Try_Interact();
+    }
+    private void Input_BoxLineConnector_LeftRoll(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.BoxLineConnector_UIController.Try_InteractSub();
     }
 
     #endregion

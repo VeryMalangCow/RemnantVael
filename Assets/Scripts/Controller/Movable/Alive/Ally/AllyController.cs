@@ -1,5 +1,4 @@
 using System;
-using UniRx;
 using UnityEngine;
 
 public class AllyController : AliveObjectController
@@ -24,6 +23,7 @@ public class AllyController : AliveObjectController
     {
 
     }
+
     protected override void Offset_FirstSetting()
     {
         
@@ -63,6 +63,7 @@ public class AllyController : AliveObjectController
     {
         AddCurrentEP(-_DmgValue);
     }
+
     #endregion
 
 }

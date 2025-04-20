@@ -12,7 +12,7 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
 
     [Space(10)]
     [Header("=== Size")]
-    [HideInInspector] protected RectTransform ThisRT;
+    [HideInInspector] public RectTransform ThisRT;
 
     // Owner
     [HideInInspector] public SinglePanelUIController OwnerUIController;

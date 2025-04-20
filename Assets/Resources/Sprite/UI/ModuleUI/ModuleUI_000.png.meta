@@ -558,6 +558,216 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Puzzle_CellConnectLight
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 442
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 4, z: 0, w: 4}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75d869ab80811d54aa70c83b48efd745
+      internalID: -1320667443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Puzzle_CellInLight
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 444
+        width: 12
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b2d773c61e5f6a47ba24532e1c208c6
+      internalID: -1157258285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Puzzle_CellOutLight
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 442
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 4, z: 0, w: 6}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d4829931d5329b49a1d034803fefc84
+      internalID: -932553563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Puzzle_CellFrame_Back
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 442
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 15, y: 15, z: 15, w: 15}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bbe50c8366f4ac429096d7de0527416
+      internalID: -1828941558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Puzzle_CellFrame_Front
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 445
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 12, y: 12, z: 12, w: 12}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40356e997b2725e41980434dcc32c686
+      internalID: 1165298674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Puzzle_CellCenterLight
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 445
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c6da63a6996a3c41a7f19af1304137e
+      internalID: -744386328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Puzzle_CellCenterBackLight
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 447
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 32, y: 32, z: 32, w: 32}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79b1c85bad4c5824f8f2372b4f004832
+      internalID: -1882076546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Oneside_Light
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 483
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 24, y: 1, z: 1, w: 24}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebeb527a8c7e8d4409b03dc7dbc1cb68
+      internalID: -1052561421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Roller
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 130
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c14d7b29d236baa4ca0b41e8003fe45c
+      internalID: 1810036077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollerArrow
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 147
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f54b0468c1dd6df45a2ea8615095ed6e
+      internalID: -1073661461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -585,6 +795,16 @@ TextureImporter:
       ModuleUI_GetIcon_Ice: -1253658894
       ModuleUI_Icon_Durablity: -372754867
       ModuleUI_ModuleItemUI: 49686718
+      ModuleUI_Oneside_Light: -1052561421
+      ModuleUI_Puzzle_CellCenterBackLight: -1882076546
+      ModuleUI_Puzzle_CellCenterLight: -744386328
+      ModuleUI_Puzzle_CellConnectLight: -1320667443
+      ModuleUI_Puzzle_CellFrame_Back: -1828941558
+      ModuleUI_Puzzle_CellFrame_Front: 1165298674
+      ModuleUI_Puzzle_CellInLight: -1157258285
+      ModuleUI_Puzzle_CellOutLight: -932553563
+      ModuleUI_Roller: 1810036077
+      ModuleUI_RollerArrow: -1073661461
       ModuleUI_SideIconFrame: -945182851
       ModuleUI_TitleFrame: 121522765
       ModuleUI_UpFrame: -1972109538
