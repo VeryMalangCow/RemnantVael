@@ -112,13 +112,16 @@ public class DevTool
     public static bool Is_ChanceSuccess(float _Chance)
     {
         if (UnityEngine.Random.Range(0f, 1f) < _Chance)
-        {
             return true;
-        }
         else
-        {
             return false;
-        }
+        
+    }
+
+    // 일정 오차를 인정한다
+    public static bool Is_InRange(float _Value, float _Criterion, float _Range)
+    {
+        return _Criterion - _Range <= _Value && _Value <= _Criterion + _Range ? true : false; 
     }
 
     #endregion

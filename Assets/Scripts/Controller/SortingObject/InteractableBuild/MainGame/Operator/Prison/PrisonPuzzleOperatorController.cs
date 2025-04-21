@@ -36,7 +36,7 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
         switch (TargetPrison)
         {
             case StrikeTeamPrisonController:
-                MainGameUIManager.Instance.BoxLineConnector_UIController.CellAmount = TargetPrison.Rating + 4;
+                MainGameUIManager.Instance.BoxLineConnector_UIController.Offset_FirstValue(TargetPrison.Rating);
                 MainGameUIManager.Instance.BoxLineConnector_UIController.SetOn_ThisPanel();
                 break;
             case UplinkTeamPrisonController:

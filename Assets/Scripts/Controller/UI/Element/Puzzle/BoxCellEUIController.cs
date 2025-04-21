@@ -125,13 +125,20 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     public bool Is_CorrectDir()
     {
-        if (FrontGO.activeSelf &&
-            FrontRT.transform.eulerAngles.z != 0)
+        if (DevTool.Is_InRange(FrontRT.transform.eulerAngles.z, 0f, 10f))
+            return true;
+
+        if ((UpLineGO.activeSelf && DownLineGO.activeSelf && !LeftLineGO.activeSelf && !RightLineGO.activeSelf) || 
+            (RightLineGO.activeSelf && LeftLineGO.activeSelf && !UpLineGO.activeSelf && !DownLineGO.activeSelf))
         {
-            return false;
+            if (DevTool.Is_InRange(FrontRT.transform.eulerAngles.z, 180f, 10f))
+                return true;
         }
 
-        return true;
+        if (UpLineGO.activeSelf && DownLineGO.activeSelf && LeftLineGO.activeSelf && RightLineGO.activeSelf)
+            return true;
+
+        return false;
     }
 
     #endregion
@@ -144,13 +151,15 @@ public class BoxCellEUIController : OwnBtnEUIController
 
         IsTweening = true;
 
-        float targetAngle = FrontRT.transform.rotation.eulerAngles.z + _PlusAngle;
-        Quaternion endQuatValue = Quaternion.Euler(0f, 0f, targetAngle);
-        FrontRT.DORotateQuaternion(endQuatValue, _DurTime)
+        float targetAngle = FrontRT.rotation.eulerAngles.z + _PlusAngle;
+
+        FrontRT.DOLocalRotate(new Vector3(0f, 0f, targetAngle), _DurTime)
             .OnComplete(() =>
             {
-                FrontRT.transform.rotation = endQuatValue;
+                FrontRT.rotation = Quaternion.Euler(0f, 0f, targetAngle);
                 IsTweening = false;
+
+                OwnerPuzzleUIController.Check_CorrectLineSet();
             });
 
         Play_Seq(_DurTime);

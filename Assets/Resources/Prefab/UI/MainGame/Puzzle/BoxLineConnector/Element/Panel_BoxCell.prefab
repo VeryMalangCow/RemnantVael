@@ -248,7 +248,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -48}
-  m_SizeDelta: {x: 72, y: 92}
+  m_SizeDelta: {x: 72, y: 124}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4973808619225510514
 CanvasRenderer:
@@ -391,7 +391,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -48}
-  m_SizeDelta: {x: 72, y: 92}
+  m_SizeDelta: {x: 72, y: 124}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &714543551434268953
 CanvasRenderer:
@@ -640,7 +640,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -48}
-  m_SizeDelta: {x: 72, y: 92}
+  m_SizeDelta: {x: 72, y: 124}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2407140651569203469
 CanvasRenderer:
@@ -1038,7 +1038,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -16, y: -16}
+  m_SizeDelta: {x: -32, y: -32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &126480088857025074
 CanvasRenderer:
@@ -1172,8 +1172,6 @@ MonoBehaviour:
   RightLineGO: {fileID: 2554366130322566726}
   DownLineGO: {fileID: 4522919968379947435}
   LeftLineGO: {fileID: 3086675633062064840}
-  LockedClr: {r: 1, g: 1, b: 1, a: 1}
-  UnlockedClr: {r: 0.47704935, g: 0, b: 1, a: 1}
   OwnerPuzzleUIController: {fileID: 0}
 --- !u!114 &4826788674292079668
 MonoBehaviour:
@@ -1399,7 +1397,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 288, y: 288}
+  m_SizeDelta: {x: 344, y: 344}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7393783986636090567
 CanvasRenderer:
@@ -1505,7 +1503,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -48}
-  m_SizeDelta: {x: 72, y: 92}
+  m_SizeDelta: {x: 72, y: 124}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2854990204030485057
 CanvasRenderer:

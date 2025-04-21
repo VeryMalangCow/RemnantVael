@@ -57,6 +57,10 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public List<Sprite> AllyCardBGList;
     [SerializeField] public List<Color> AllyCardColorList;
 
+    [Space(5)]
+    [Header("-- Key")]
+    [SerializeField] public Sprite SpaceBarSprite;
+
     #endregion
 
     #region Color

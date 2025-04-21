@@ -756,7 +756,7 @@ TextureImporter:
         width: 20
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -764,6 +764,27 @@ TextureImporter:
       bones: []
       spriteID: f54b0468c1dd6df45a2ea8615095ed6e
       internalID: -1073661461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Input_SpaceBar
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 136
+        width: 55
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fad9fe82580942040b7d7d554544f7d1
+      internalID: -324453934
       vertices: []
       indices: 
       edges: []
@@ -794,6 +815,7 @@ TextureImporter:
       ModuleUI_GetIcon_Fire: 1422261253
       ModuleUI_GetIcon_Ice: -1253658894
       ModuleUI_Icon_Durablity: -372754867
+      ModuleUI_Input_SpaceBar: -324453934
       ModuleUI_ModuleItemUI: 49686718
       ModuleUI_Oneside_Light: -1052561421
       ModuleUI_Puzzle_CellCenterBackLight: -1882076546

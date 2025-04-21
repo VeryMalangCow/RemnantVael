@@ -80,7 +80,8 @@ public class InputManager : Singleton<InputManager>
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            MainGameUIManager.Instance.BoxLineConnector_UIController.CellAmount = 1 + 4;
+            int tempRate = 3;
+            MainGameUIManager.Instance.BoxLineConnector_UIController.Offset_FirstValue(tempRate);
             MainGameUIManager.Instance.BoxLineConnector_UIController.SetOn_ThisPanel();
         }
     }
@@ -224,6 +225,7 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["BoxLineConnector_RightRoll"].performed += Input_BoxLineConnector_RightRoll;
         PlayerInput.actions["BoxLineConnector_LeftRoll"].performed += Input_BoxLineConnector_LeftRoll;
+        PlayerInput.actions["BoxLineConnector_TryUnlock"].performed += Input_BoxLineConnector_TryUnlock;
 
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
@@ -266,6 +268,7 @@ public class InputManager : Singleton<InputManager>
 
         PlayerInput.actions["BoxLineConnector_RightRoll"].performed -= Input_BoxLineConnector_RightRoll;
         PlayerInput.actions["BoxLineConnector_LeftRoll"].performed -= Input_BoxLineConnector_LeftRoll;
+        PlayerInput.actions["BoxLineConnector_TryUnlock"].performed -= Input_BoxLineConnector_TryUnlock;
 
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
@@ -474,6 +477,12 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             MainGameUIManager.Instance.BoxLineConnector_UIController.Try_InteractSub();
+    }
+
+    private void Input_BoxLineConnector_TryUnlock(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.BoxLineConnector_UIController.Try_InteractUnlock();
     }
 
     #endregion

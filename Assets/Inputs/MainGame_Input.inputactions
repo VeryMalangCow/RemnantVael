@@ -610,6 +610,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "BoxLineConnector_TryUnlock",
+                    "type": "Button",
+                    "id": "b1226f29-6f47-471b-ba72-012535dcabae",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -632,6 +641,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "BoxLineConnector_LeftRoll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac3cbe49-90d8-4975-b494-8f9c16697c0e",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BoxLineConnector_TryUnlock",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
