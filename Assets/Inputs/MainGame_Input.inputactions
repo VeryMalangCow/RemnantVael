@@ -656,6 +656,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Puzzle_NumShapeColorPassword",
+            "id": "5dc24520-d4e7-4880-96ca-708e83a04daa",
+            "actions": [
+                {
+                    "name": "NumShapeColorPassword_Click",
+                    "type": "Button",
+                    "id": "26911e21-6e3e-4622-b9af-762c44fd7565",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NumShapeColorPassword_TryUnlock",
+                    "type": "Button",
+                    "id": "d3ce0874-59b4-4448-b478-433715d8b081",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "01bd2223-8325-4e10-9f2e-5c057d0a87fa",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NumShapeColorPassword_Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bdf74ab5-8bb7-4320-b3c1-78d81e446137",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NumShapeColorPassword_TryUnlock",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

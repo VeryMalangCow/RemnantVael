@@ -22,7 +22,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private GameObject MapIntro_CanvasPrefab;
     [SerializeField] private GameObject AllyCard_CanvasPrefab;
     [SerializeField] private GameObject Puzzle_BoxLineConnector_CanvasPrefab;
-    [SerializeField] private GameObject Puzzle_1_CanvasPrefab;
+    [SerializeField] private GameObject Puzzle_NumShapeColorPassword_CanvasPrefab;
     [SerializeField] private GameObject Puzzle_2_CanvasPrefab;
 
     // Controller
@@ -34,6 +34,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [HideInInspector] public MapIntroUIController MapIntro_UIController;
     [HideInInspector] public AllyCardUIController AllyCard_UIController;
     [HideInInspector] public BoxLineConnectorUIController BoxLineConnector_UIController;
+    [HideInInspector] public NumShapeColorPasswordUIController NumShapeColorPassword_UIController;
 
     [HideInInspector] public UIController CurrentOpening_UIController;
 
@@ -69,6 +70,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         BoxLineConnector_UIController
             = Gen_UI<BoxLineConnectorUIController>(Puzzle_BoxLineConnector_CanvasPrefab, false);
+
+        NumShapeColorPassword_UIController
+            = Gen_UI<NumShapeColorPasswordUIController>(Puzzle_NumShapeColorPassword_CanvasPrefab, false);
 
         Sequence startSeq = DOTween.Sequence();
 

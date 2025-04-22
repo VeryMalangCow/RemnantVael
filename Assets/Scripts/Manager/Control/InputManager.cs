@@ -77,13 +77,6 @@ public class InputManager : Singleton<InputManager>
     private void LateUpdate()
     {
         Caculate_BufferedInput(Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            int tempRate = 3;
-            MainGameUIManager.Instance.BoxLineConnector_UIController.Offset_FirstValue(tempRate);
-            MainGameUIManager.Instance.BoxLineConnector_UIController.SetOn_ThisPanel();
-        }
     }
 
     #endregion
@@ -194,6 +187,7 @@ public class InputManager : Singleton<InputManager>
             PlayerManager.Instance.PlayerController.gameObject, out PlayerInput input))
             PlayerInput = input; 
 
+        // Player
         PlayerInput.actions["Walk"].performed += Input_Walk;
         PlayerInput.actions["Arrow"].performed += Input_Arrow;
         PlayerInput.actions["Fire"].performed += Input_Fire;
@@ -213,20 +207,28 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["TabInteract"].performed += Input_Tab;
         PlayerInput.actions["OutMainGame"].performed += Input_OMGUI;
 
+        // BU UI
         PlayerInput.actions["BUUI_Select"].performed += Input_BUUIClick;
         PlayerInput.actions["BUUI_OutPanel"].performed += Input_BUUIOutPanel;
 
+        // MU UI
         PlayerInput.actions["MUUI_Select"].performed += Input_MUUIClick;
         PlayerInput.actions["MUUI_SelectSub"].performed += Input_MUUIClickSub;
         PlayerInput.actions["MUUI_OutPanel"].performed += Input_MUUIOutPanel;
         PlayerInput.actions["MUUI_Drag"].performed += Input_MUUIDrag;
 
+        // Ally Card
         PlayerInput.actions["AllyCard_Select"].performed += Input_AllyCardClick;
 
+        // Box Line Connector
         PlayerInput.actions["BoxLineConnector_RightRoll"].performed += Input_BoxLineConnector_RightRoll;
         PlayerInput.actions["BoxLineConnector_LeftRoll"].performed += Input_BoxLineConnector_LeftRoll;
         PlayerInput.actions["BoxLineConnector_TryUnlock"].performed += Input_BoxLineConnector_TryUnlock;
 
+        // Num Shape Color Password
+        PlayerInput.actions["NumShapeColorPassword_Click"].performed += Input_NumShapeColorPassword_Click;
+
+        // Out Main Game UI
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
     }
@@ -237,6 +239,7 @@ public class InputManager : Singleton<InputManager>
             PlayerManager.Instance.PlayerController.gameObject, out PlayerInput input))
             PlayerInput = input;
 
+        // Player
         PlayerInput.actions["Walk"].performed -= Input_Walk;
         PlayerInput.actions["Arrow"].performed -= Input_Arrow;
         PlayerInput.actions["Fire"].performed -= Input_Fire;
@@ -256,20 +259,28 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["TabInteract"].performed -= Input_Tab;
         PlayerInput.actions["OutMainGame"].performed -= Input_OMGUI;
 
+        // BU UI
         PlayerInput.actions["BUUI_Select"].performed -= Input_BUUIClick;
         PlayerInput.actions["BUUI_OutPanel"].performed -= Input_BUUIOutPanel;
 
+        // MU UI
         PlayerInput.actions["MUUI_Select"].performed -= Input_MUUIClick;
         PlayerInput.actions["MUUI_SelectSub"].performed -= Input_MUUIClickSub;
         PlayerInput.actions["MUUI_OutPanel"].performed -= Input_MUUIOutPanel;
         PlayerInput.actions["MUUI_Drag"].performed -= Input_MUUIDrag;
 
+        // Ally Card
         PlayerInput.actions["AllyCard_Select"].performed -= Input_AllyCardClick;
 
+        // Box Line Connector
         PlayerInput.actions["BoxLineConnector_RightRoll"].performed -= Input_BoxLineConnector_RightRoll;
         PlayerInput.actions["BoxLineConnector_LeftRoll"].performed -= Input_BoxLineConnector_LeftRoll;
         PlayerInput.actions["BoxLineConnector_TryUnlock"].performed -= Input_BoxLineConnector_TryUnlock;
 
+        // Num Shape Color Password
+        PlayerInput.actions["NumShapeColorPassword_Click"].performed -= Input_NumShapeColorPassword_Click;
+
+        // Out Main Game UI
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
     }
@@ -468,6 +479,9 @@ public class InputManager : Singleton<InputManager>
 
     #region Puzzle UI
 
+
+    #region Box Line Connector
+
     private void Input_BoxLineConnector_RightRoll(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
@@ -484,6 +498,20 @@ public class InputManager : Singleton<InputManager>
         if (_InputValue.ReadValueAsButton())
             MainGameUIManager.Instance.BoxLineConnector_UIController.Try_InteractUnlock();
     }
+
+    #endregion
+
+    #region Num Shape Color Password
+
+
+    private void Input_NumShapeColorPassword_Click(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.NumShapeColorPassword_UIController.Try_Interact();
+    }
+
+
+    #endregion
 
     #endregion
 
