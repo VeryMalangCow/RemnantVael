@@ -237,11 +237,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisPanelInputMapName: OutMainGameUI
-  ThisPanelTabList:
-  - {fileID: 4464154560753000492}
   CurrentBtn: {fileID: 0}
   MainColorCompList: []
   SubColorCompList: []
+  ThisPanelTabList:
+  - {fileID: 4464154560753000492}
   InnerParentTF: {fileID: 3077558567260407952}
   ResumeInnerImg: {fileID: 9027091104426887828}
   OptionInnerImg: {fileID: 3876438690470798528}
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.88235295}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.99215686}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1002,6 +1002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsCanSelect: 1
+  ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
 --- !u!114 &8043556908327189608
@@ -1349,6 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsCanSelect: 1
+  ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
 --- !u!114 &7586547989066725181
@@ -1593,6 +1595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsCanSelect: 1
+  ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
 --- !u!114 &840463346415372692

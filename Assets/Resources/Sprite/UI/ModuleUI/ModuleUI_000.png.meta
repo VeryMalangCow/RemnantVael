@@ -777,7 +777,7 @@ TextureImporter:
         width: 55
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -785,6 +785,888 @@ TextureImporter:
       bones: []
       spriteID: fad9fe82580942040b7d7d554544f7d1
       internalID: -324453934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_C_1
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 140
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c22c649b1aa03684f9e27249e387447f
+      internalID: -1954180720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_C_2
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 140
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc8faa11813ba9048aafb1ec0d1b8b70
+      internalID: 1525099260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_C_3
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 140
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e4a08f034c070b43b4ba905a2a8cd9b
+      internalID: 1305974482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_C_4
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 140
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e320fe2f64d2d84b89c50f0b329e65c
+      internalID: -2116035297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_C_5
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 140
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c26a2fbded4f3e749a27141d4a7c21ab
+      internalID: 587762323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_T_1
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 109
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 623211cd88a9d3b49ae392fa5c52be15
+      internalID: -1508467298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_T_2
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 109
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89a8b2bd19efcc741bd3e9710a60ca09
+      internalID: -1365262220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_T_3
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 109
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff875dfa82598974c9f15fead5887e1a
+      internalID: 1806403450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_T_4
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 109
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2b78fcee21e85a4e8c7044865d7cd14
+      internalID: -496060435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_T_5
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 109
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a86e83a9bce493d4598b63c9fbcd092b
+      internalID: -46947809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Num_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 99
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96ccd9ca5ba2c14459e274e12ea745bb
+      internalID: 589875603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Num_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 99
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1584dfc473e3ec4991165cd340ed9c4
+      internalID: -1119865037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Num_3
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 99
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0894f60596ae6040be373a9911333ff
+      internalID: 115428323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Num_4
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 99
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a504ef45b5811544ac4c2e522a6f435
+      internalID: 1797925640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Num_5
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 99
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 704a9201a543b7f44bcd0f9139ff9883
+      internalID: 377381750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_R_1
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 78
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 319c3c86207391f4cbad3fe052af2c48
+      internalID: 1337861068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_R_2
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 78
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab59b35a073485f499fd93e83ae1f5a2
+      internalID: -269374588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_R_3
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 78
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a55f49d6124b05b43a10b9c09fdccaff
+      internalID: -98201251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_R_4
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 78
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dab25a943824824d82ec184d14d63f0
+      internalID: 1701178770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_R_5
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 78
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8157df0e84107cd47bb8817aa0b3e181
+      internalID: -1731855663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Color_Red
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 68
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a3ae56fc040aab4499e040ebe7b047f
+      internalID: 1486879506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Color_Yellow
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 68
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 037499356f22de344a54c3d93ce9baa6
+      internalID: 2010356129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Color_Green
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 68
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69a4cea503cae27479487b6b2ade105a
+      internalID: -298067345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Color_Blue
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 68
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e00173603eedd946ac63fd056658442
+      internalID: 705626437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Color_Purple
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 68
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 062d6fae028a6284dbd549a309de4b12
+      internalID: -1722909111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_X_1
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 47
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eba2f00639ba5294cb6192ff82128cc9
+      internalID: 2052619393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_X_2
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 47
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56b68b71b8b47dc4b9a8db596d53e3b4
+      internalID: 1003264051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_X_3
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 47
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc215a4878d0ed3428c04e86ac28b0b3
+      internalID: -958308914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_X_4
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 47
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d45b20c49754d349b453d822081f4c2
+      internalID: -728275581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_X_5
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 47
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c683a6fbeb480545b5560ecae987c09
+      internalID: -709980043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Shape_Circle
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 37
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43b951081c3017742865b807853b366c
+      internalID: 241590047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Shape_Triangle
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 37
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c77c8ab80bbd1d74fbaf70742a005f89
+      internalID: -1180991755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Shape_Rectangle
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 37
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cbdaa120fc1f504f97b8efaa7d8c0db
+      internalID: 763752159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Shape_X
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 37
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0176383f05db1e74fb66660c5e385021
+      internalID: 2074071126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_Shape_HalfCircle
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 37
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f08a7bb4895a8f645b8cdc637d21d81c
+      internalID: 1866791157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_H_1
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 16
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31a39079f6dd43d438946468dba8f1a5
+      internalID: 2067096898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_H_2
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 16
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68b4896405b12234da9e8d951838ffd1
+      internalID: 1484054446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_H_3
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 16
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6db123c0d434dd4f8c6fb68daedc604
+      internalID: 1391310778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_H_4
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 16
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9947d53ab5e02ee4e9a5a1a58b81e00e
+      internalID: -857318272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RollSelect_A_H_5
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 16
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 520b02c987e7dca4ebeeb28917760a77
+      internalID: 428103374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_000_40
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 1
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76263303355eeb141bbc616195787281
+      internalID: -1610263300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_000_41
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 4
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f40fc88d49483640adce948732be62c
+      internalID: 1572026621
       vertices: []
       indices: 
       edges: []
@@ -800,6 +1682,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      ModuleUI_000_40: -1610263300
+      ModuleUI_000_41: 1572026621
       ModuleUI_Back: 486028521
       ModuleUI_Btn_00: 1661286057
       ModuleUI_DialogueCharBG: 1737750721
@@ -825,10 +1709,51 @@ TextureImporter:
       ModuleUI_Puzzle_CellFrame_Front: 1165298674
       ModuleUI_Puzzle_CellInLight: -1157258285
       ModuleUI_Puzzle_CellOutLight: -932553563
+      ModuleUI_RollSelect_A_C_1: -1954180720
+      ModuleUI_RollSelect_A_C_2: 1525099260
+      ModuleUI_RollSelect_A_C_3: 1305974482
+      ModuleUI_RollSelect_A_C_4: -2116035297
+      ModuleUI_RollSelect_A_C_5: 587762323
+      ModuleUI_RollSelect_A_H_1: 2067096898
+      ModuleUI_RollSelect_A_H_2: 1484054446
+      ModuleUI_RollSelect_A_H_3: 1391310778
+      ModuleUI_RollSelect_A_H_4: -857318272
+      ModuleUI_RollSelect_A_H_5: 428103374
+      ModuleUI_RollSelect_A_R_1: 1337861068
+      ModuleUI_RollSelect_A_R_2: -269374588
+      ModuleUI_RollSelect_A_R_3: -98201251
+      ModuleUI_RollSelect_A_R_4: 1701178770
+      ModuleUI_RollSelect_A_R_5: -1731855663
+      ModuleUI_RollSelect_A_T_1: -1508467298
+      ModuleUI_RollSelect_A_T_2: -1365262220
+      ModuleUI_RollSelect_A_T_3: 1806403450
+      ModuleUI_RollSelect_A_T_4: -496060435
+      ModuleUI_RollSelect_A_T_5: -46947809
+      ModuleUI_RollSelect_A_X_1: 2052619393
+      ModuleUI_RollSelect_A_X_2: 1003264051
+      ModuleUI_RollSelect_A_X_3: -958308914
+      ModuleUI_RollSelect_A_X_4: -728275581
+      ModuleUI_RollSelect_A_X_5: -709980043
+      ModuleUI_RollSelect_Color_Blue: 705626437
+      ModuleUI_RollSelect_Color_Green: -298067345
+      ModuleUI_RollSelect_Color_Purple: -1722909111
+      ModuleUI_RollSelect_Color_Red: 1486879506
+      ModuleUI_RollSelect_Color_Yellow: 2010356129
+      ModuleUI_RollSelect_Num_1: 589875603
+      ModuleUI_RollSelect_Num_2: -1119865037
+      ModuleUI_RollSelect_Num_3: 115428323
+      ModuleUI_RollSelect_Num_4: 1797925640
+      ModuleUI_RollSelect_Num_5: 377381750
+      ModuleUI_RollSelect_Shape_Circle: 241590047
+      ModuleUI_RollSelect_Shape_HalfCircle: 1866791157
+      ModuleUI_RollSelect_Shape_Rectangle: 763752159
+      ModuleUI_RollSelect_Shape_Triangle: -1180991755
+      ModuleUI_RollSelect_Shape_X: 2074071126
       ModuleUI_Roller: 1810036077
       ModuleUI_RollerArrow: -1073661461
       ModuleUI_SideIconFrame: -945182851
       ModuleUI_TitleFrame: 121522765
+      ModuleUI_UpDownGradient: 1852420375
       ModuleUI_UpFrame: -1972109538
       ModuleUI_UpsideLight: -452272784
       ModuleUI_UpsideLightFrame: 568212690

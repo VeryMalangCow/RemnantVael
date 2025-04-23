@@ -893,27 +893,27 @@ MonoBehaviour:
   CurrentBtn: {fileID: 0}
   MainColorCompList: []
   SubColorCompList: []
-  BoxCellParentTF: {fileID: 8621521661249664572}
-  BoxConnectionParentTF: {fileID: 4126164195546783550}
-  SelectingSignRT: {fileID: 6839620587357734253}
+  ReadyCG: {fileID: 4574094221341007586}
+  ReadyAnnoTxt: {fileID: 5414313265597447694}
+  ReadyTimeLimitTxt: {fileID: 6093671875499624536}
+  ReadyKeyAnnoTxt: {fileID: 7808057889661811074}
+  ReadyInputAnnoImg: {fileID: 8016660986448299620}
+  UnlockAnnoTxt: {fileID: 3732557669338588330}
+  SuccessAnnoTxt: {fileID: 1867586840761811329}
+  FailureAnnoTxt: {fileID: 8720711442358906749}
+  CountdownTxt: {fileID: 1998451894786678215}
+  CountdownPaneltyTxt: {fileID: 4944245619697114116}
   SuccessCG: {fileID: 3346870845975610564}
   FailureCG: {fileID: 686212503645755507}
   TryUnlockTxt: {fileID: 1399234103924481873}
   InputTxt: {fileID: 3348490108857441820}
   InputImg: {fileID: 2731045244154597653}
   RollingRT: {fileID: 5166854196520633086}
-  UnlockAnnoTxt: {fileID: 3732557669338588330}
-  SuccessAnnoTxt: {fileID: 1867586840761811329}
-  FailureAnnoTxt: {fileID: 8720711442358906749}
-  CountdownTxt: {fileID: 1998451894786678215}
-  CountdownPaneltyTxt: {fileID: 4944245619697114116}
-  ReadyCG: {fileID: 4574094221341007586}
-  ReadyAnnoTxt: {fileID: 5414313265597447694}
-  ReadyTimeLimitTxt: {fileID: 6093671875499624536}
-  ReadyKeyAnnoTxt: {fileID: 7808057889661811074}
-  ReadyInputAnnoImg: {fileID: 8016660986448299620}
   LockedClr: {r: 0.7665094, g: 0.5330188, b: 1, a: 1}
   UnlockedClr: {r: 1, g: 1, b: 1, a: 1}
+  BoxCellParentTF: {fileID: 8621521661249664572}
+  BoxConnectionParentTF: {fileID: 4126164195546783550}
+  SelectingSignRT: {fileID: 6839620587357734253}
 --- !u!223 &985950188665108820
 Canvas:
   m_ObjectHideFlags: 0
@@ -1010,7 +1010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.88235295}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.99215686}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
