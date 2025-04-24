@@ -3483,6 +3483,19 @@ public class PrisonAllySprite
 
 #endregion
 
+
+#region Class : Puzzle : NSC
+
+[System.Serializable]
+public class NSCAnswerSpriteSet
+{
+    public int ShapeIndex;
+    public List<Sprite> AllAnswerSet;
+}
+
+#endregion
+
+
 #region Class : CSV : Word
 
 [System.Serializable]
@@ -3998,6 +4011,15 @@ public enum eEnemy
 public enum eRoomType
 {
     Completed, KillAll, Survived, BossKill
+}
+
+#endregion
+
+#region Puzzle
+
+public enum eNSCPuzzleType
+{
+    Num, Shape, Color
 }
 
 #endregion

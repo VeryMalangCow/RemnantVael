@@ -226,7 +226,9 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["BoxLineConnector_TryUnlock"].performed += Input_BoxLineConnector_TryUnlock;
 
         // Num Shape Color Password
-        PlayerInput.actions["NumShapeColorPassword_Click"].performed += Input_NumShapeColorPassword_Click;
+        PlayerInput.actions["NumShapeColorPassword_RollForDown"].performed += Input_NumShapeColorPassword_RollForDown;
+        PlayerInput.actions["NumShapeColorPassword_RollForUp"].performed += Input_NumShapeColorPassword_RollForUp;
+        PlayerInput.actions["NumShapeColorPassword_TryUnlock"].performed += Input_NumShapeColorPassword_TryUnlock;
 
         // Out Main Game UI
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
@@ -278,7 +280,9 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["BoxLineConnector_TryUnlock"].performed -= Input_BoxLineConnector_TryUnlock;
 
         // Num Shape Color Password
-        PlayerInput.actions["NumShapeColorPassword_Click"].performed -= Input_NumShapeColorPassword_Click;
+        PlayerInput.actions["NumShapeColorPassword_RollForDown"].performed -= Input_NumShapeColorPassword_RollForDown;
+        PlayerInput.actions["NumShapeColorPassword_RollForUp"].performed -= Input_NumShapeColorPassword_RollForUp;
+        PlayerInput.actions["NumShapeColorPassword_TryUnlock"].performed -= Input_NumShapeColorPassword_TryUnlock;
 
         // Out Main Game UI
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
@@ -503,13 +507,21 @@ public class InputManager : Singleton<InputManager>
 
     #region Num Shape Color Password
 
-
-    private void Input_NumShapeColorPassword_Click(InputAction.CallbackContext _InputValue)
+    private void Input_NumShapeColorPassword_RollForDown(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
             MainGameUIManager.Instance.NumShapeColorPassword_UIController.Try_Interact();
     }
-
+    private void Input_NumShapeColorPassword_RollForUp(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.NumShapeColorPassword_UIController.Try_InteractSub();
+    }
+    private void Input_NumShapeColorPassword_TryUnlock(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.NumShapeColorPassword_UIController.Try_InteractUnlock();
+    }
 
     #endregion
 

@@ -29,6 +29,7 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     // Value
     [HideInInspector] private bool IsTweening = false;
+    [HideInInspector] private bool IsInteractable = true;
     [HideInInspector] private Dictionary<Vector2Int, GameObject> DirGODict;
 
     // Inner
@@ -94,13 +95,13 @@ public class BoxCellEUIController : OwnBtnEUIController
     private void SetOn_FrameBack()
     {
         FrameBackInnerList[0].gameObject.SetActive(true);
-        ThisBtn.interactable = true;
+        IsInteractable = true;
     }
 
     private void SetOff_FrameBack()
     {
         FrameBackInnerList[0].gameObject.SetActive(false);
-        ThisBtn.interactable = false;
+        IsInteractable = false;
     }
 
     public void Set_RandomAngle()
@@ -147,7 +148,7 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     public void Play_Roll(float _PlusAngle, float _DurTime)
     {
-        if (IsTweening) return;
+        if (IsTweening || !IsInteractable) return;
 
         IsTweening = true;
 

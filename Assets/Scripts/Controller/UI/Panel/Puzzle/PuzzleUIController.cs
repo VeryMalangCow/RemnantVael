@@ -10,6 +10,13 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     #region - Inspector
 
+    [Space(20)]
+    [Header("<><><><><> Puzzle UI")]
+
+    [Space(10)]
+    [Header("=== Value")]
+    [SerializeField] protected float BaseCountdown = 15f;
+
     [Space(10)]
     [Header("=== Ready Panel")]
     [SerializeField] private CanvasGroup ReadyCG;
@@ -295,6 +302,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
         Set_Roller(1f);
     }
+
     #endregion
 
     #region Anno

@@ -1210,11 +1210,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_RollSelect_Color_Red
+      name: ModuleUI_RollSelect_Color
       rect:
         serializedVersion: 2
-        x: 1
-        y: 68
+        x: 98
+        y: 140
         width: 30
         height: 30
       alignment: 0
@@ -1226,90 +1226,6 @@ TextureImporter:
       bones: []
       spriteID: 5a3ae56fc040aab4499e040ebe7b047f
       internalID: 1486879506
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ModuleUI_RollSelect_Color_Yellow
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 68
-        width: 30
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 037499356f22de344a54c3d93ce9baa6
-      internalID: 2010356129
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ModuleUI_RollSelect_Color_Green
-      rect:
-        serializedVersion: 2
-        x: 63
-        y: 68
-        width: 30
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 69a4cea503cae27479487b6b2ade105a
-      internalID: -298067345
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ModuleUI_RollSelect_Color_Blue
-      rect:
-        serializedVersion: 2
-        x: 94
-        y: 68
-        width: 30
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6e00173603eedd946ac63fd056658442
-      internalID: 705626437
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ModuleUI_RollSelect_Color_Purple
-      rect:
-        serializedVersion: 2
-        x: 125
-        y: 68
-        width: 30
-        height: 30
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 062d6fae028a6284dbd549a309de4b12
-      internalID: -1722909111
       vertices: []
       indices: 
       edges: []
@@ -1424,7 +1340,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 37
+        y: 68
         width: 30
         height: 30
       alignment: 0
@@ -1445,7 +1361,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 37
+        y: 68
         width: 30
         height: 30
       alignment: 0
@@ -1466,7 +1382,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 63
-        y: 37
+        y: 68
         width: 30
         height: 30
       alignment: 0
@@ -1487,7 +1403,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 94
-        y: 37
+        y: 68
         width: 30
         height: 30
       alignment: 0
@@ -1508,7 +1424,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 125
-        y: 37
+        y: 68
         width: 30
         height: 30
       alignment: 0
@@ -1734,10 +1650,10 @@ TextureImporter:
       ModuleUI_RollSelect_A_X_3: -958308914
       ModuleUI_RollSelect_A_X_4: -728275581
       ModuleUI_RollSelect_A_X_5: -709980043
+      ModuleUI_RollSelect_Color: 1486879506
       ModuleUI_RollSelect_Color_Blue: 705626437
       ModuleUI_RollSelect_Color_Green: -298067345
       ModuleUI_RollSelect_Color_Purple: -1722909111
-      ModuleUI_RollSelect_Color_Red: 1486879506
       ModuleUI_RollSelect_Color_Yellow: 2010356129
       ModuleUI_RollSelect_Num_1: 589875603
       ModuleUI_RollSelect_Num_2: -1119865037

@@ -61,6 +61,13 @@ public class UnitManager : Singleton<UnitManager>
     [Header("-- Key")]
     [SerializeField] public Sprite SpaceBarSprite;
 
+    [Space(5)]
+    [Header("-- NSC")]
+    [SerializeField] public List<Sprite> NSC_NumSpriteList;
+    [SerializeField] public List<Sprite> NSC_ShapeSpriteList;
+    [SerializeField] public Sprite NSC_ColorSprite;
+    [SerializeField] public List<Color> NSC_ColorList;
+
     #endregion
 
     #region Color
@@ -132,6 +139,14 @@ public class UnitManager : Singleton<UnitManager>
     [Space(10)]
     [Header("=== Font")]
     [SerializeField] public List<LanguageTxt> LanguageTxtList;
+
+    #endregion
+
+    #region Puzzle
+
+    [Space(10)]
+    [Header("=== Puzzle : NSC")]
+    [SerializeField] public List<NSCAnswerSpriteSet> AllNSCAnswerSpriteSet;
 
     #endregion
 
@@ -225,6 +240,15 @@ public class UnitManager : Singleton<UnitManager>
         RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(1, 0, 0, 1), 0.5f).SetEase(Ease.Linear));
 
         RandomColorSetSeq.SetLoops(-1, LoopType.Restart);
+    }
+
+    #endregion
+
+    #region Get
+
+    public Sprite Get_NSCAnswerSprite(int _ShapeIndex, int _NumIndex)
+    {
+        return AllNSCAnswerSpriteSet[_ShapeIndex].AllAnswerSet[_NumIndex];
     }
 
     #endregion

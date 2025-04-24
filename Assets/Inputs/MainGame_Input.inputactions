@@ -662,9 +662,18 @@
             "id": "5dc24520-d4e7-4880-96ca-708e83a04daa",
             "actions": [
                 {
-                    "name": "NumShapeColorPassword_Click",
+                    "name": "NumShapeColorPassword_RollForDown",
                     "type": "Button",
                     "id": "26911e21-6e3e-4622-b9af-762c44fd7565",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NumShapeColorPassword_RollForUp",
+                    "type": "Button",
+                    "id": "991a8f98-2c12-46c5-9e6b-fc41f535c916",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -688,7 +697,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "NumShapeColorPassword_Click",
+                    "action": "NumShapeColorPassword_RollForDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -700,6 +709,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "NumShapeColorPassword_TryUnlock",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6172d67c-f530-4246-bdfb-3d3cb36a7656",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NumShapeColorPassword_RollForUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

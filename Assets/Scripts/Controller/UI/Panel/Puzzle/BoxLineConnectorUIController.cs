@@ -51,8 +51,8 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         base.Offset_FirstValue(_Prison);
 
-        CellAmount = _Prison.Rating + 4;
-        CurrentCountdown = 12f - _Prison.Rating;
+        CellAmount = 4 + _Prison.Rating;
+        CurrentCountdown = BaseCountdown - _Prison.Rating;
     }
 
     public override void Offset()
@@ -84,23 +84,13 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         base.Set_AllStart();
 
-        // Cell
-        for (int i = 0; i < AllBoxCellEUI.Count; i++)
-        {
-            AllBoxCellEUI[i].Set_Active(false);
-            AllBoxCellEUI[i].Set_InnerColor(LockedClr);
-        }
+        Set_AllDefault();
+        Set_RandomPuzzleByRate();
+        SetOn_ByConditionToCell();
+        SetOn_ByConditionToConnector();
 
-        // Connection
-        for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
-        {
-            AllBoxConnectionEUI[i].Set_Active(false);
-            AllBoxConnectionEUI[i].Set_InnerColor(LockedClr);
-        }
-
-        // Selecting
-        SelectingBoxCellEUI = null;
-        SelectingSignRT.gameObject.SetActive(false);
+        // Check First
+        Check_CorrectLineSet();
     }
 
     protected override void Set_AllComplete()
@@ -127,6 +117,28 @@ public class BoxLineConnectorUIController : PuzzleUIController
     #endregion
 
     #region Set (Unique)
+
+    private void Set_AllDefault()
+    {
+        // Cell
+        for (int i = 0; i < AllBoxCellEUI.Count; i++)
+        {
+            AllBoxCellEUI[i].Set_Active(false);
+            AllBoxCellEUI[i].Set_InnerColor(LockedClr);
+        }
+
+        // Connection
+        for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
+        {
+            AllBoxConnectionEUI[i].Set_Active(false);
+            AllBoxConnectionEUI[i].Set_InnerColor(LockedClr);
+        }
+
+        // Selecting
+        SelectingBoxCellEUI = null;
+        SelectingSignRT.gameObject.SetActive(false);
+
+    }
 
     private void Set_RandomPuzzleByRate()
     {
@@ -224,21 +236,6 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     #endregion
 
-    #region Panel
-
-    public override void SetOn_ThisPanel()
-    {
-        base.SetOn_ThisPanel();
-
-        Set_RandomPuzzleByRate();
-        SetOn_ByConditionToCell();
-        SetOn_ByConditionToConnector();
-
-        Check_CorrectLineSet();
-    }
-
-    #endregion
-
     #region Interact
 
     public void Try_Interact()
@@ -263,7 +260,8 @@ public class BoxLineConnectorUIController : PuzzleUIController
     private bool Is_Interact_Roll(float _PlusAngle, float _DurTime)
     {
         if (!(CurrentBtn is BoxCellEUIController boxCell) ||
-            boxCell != SelectingBoxCellEUI)
+            boxCell != SelectingBoxCellEUI ||
+            !IsInteractable)
             return false;
 
         SelectingBoxCellEUI.Play_Roll(_PlusAngle, _DurTime);

@@ -7327,6 +7327,25 @@ MonoBehaviour:
   - {r: 0.9960785, g: 0.29803923, b: 0.19215688, a: 1}
   - {r: 1, g: 0.9988616, b: 0.8820755, a: 1}
   SpaceBarSprite: {fileID: -324453934, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  NSC_NumSpriteList:
+  - {fileID: 589875603, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -1119865037, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: 115428323, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: 1797925640, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: 377381750, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  NSC_ShapeSpriteList:
+  - {fileID: 241590047, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -1180991755, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: 763752159, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: 2074071126, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: 1866791157, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  NSC_ColorSprite: {fileID: 1486879506, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  NSC_ColorList:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0, b: 1, a: 1}
   RandomColor: {r: 1, g: 0, b: 0, a: 1}
   ModuleItemOutlinerAC:
   - {fileID: 7400000, guid: 35bfc1528075c6e428950576281e1be0, type: 2}
@@ -7399,6 +7418,42 @@ MonoBehaviour:
     - {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
     - {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
     - {fileID: 11400000, guid: 7421415d68e53434489f5eb9cce74908, type: 2}
+  AllNSCAnswerSpriteSet:
+  - ShapeIndex: 0
+    AllAnswerSet:
+    - {fileID: -1954180720, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: 1525099260, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: 1305974482, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: -2116035297, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: 587762323, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - ShapeIndex: 1
+    AllAnswerSet:
+    - {fileID: -1508467298, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: -1365262220, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: 1806403450, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: -496060435, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: -46947809, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - ShapeIndex: 2
+    AllAnswerSet:
+    - {fileID: 1337861068, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: -269374588, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: -98201251, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: 1701178770, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: -1731855663, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - ShapeIndex: 3
+    AllAnswerSet:
+    - {fileID: 2052619393, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: 1003264051, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: -958308914, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: -728275581, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: -709980043, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - ShapeIndex: 4
+    AllAnswerSet:
+    - {fileID: 2067096898, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: 1484054446, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: 1391310778, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: -857318272, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    - {fileID: 428103374, guid: 637ede47422025b48bd24c3773722caa, type: 3}
   Player_ExplImgGenerator: {fileID: 1603938535}
   Build_ExplImgGenerator: {fileID: 4532320}
   Enemy_ExplImgGenerator: {fileID: 1129606755}

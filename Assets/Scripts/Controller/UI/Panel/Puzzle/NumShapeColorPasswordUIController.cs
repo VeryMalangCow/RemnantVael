@@ -1,4 +1,4 @@
-using System.Collections;
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +6,148 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 {
     #region Value
 
+    #region - Inspector
 
+    [Space(20)]
+    [Header("<><><><><> NSC")]
+
+    [Space(10)]
+    [Header("=== RT")]
+    [SerializeField] private RectTransform AllNSCPanelEUIParentRT;
+    [SerializeField] private RectTransform SelectingSignRT;
+
+    #endregion
+
+    #region - Hide
+
+    // Value
+    [HideInInspector] private int UnlockedAmount = 0;
+    [HideInInspector] private int LockedAmount = 0;
+
+    // EUI
+    [HideInInspector] private List<NSCPanelEUIController> AllNSCPanelEUI;
+    [HideInInspector] private List<NSCRollCellEUIController> AllNSCRollCellEUI = new List<NSCRollCellEUIController>();
+    [HideInInspector] private List<int> LockedRollCellEUIIndexList;
+
+    // Input
+    [HideInInspector] private NSCRollCellEUIController SelectingRollCellEUI;
+
+    #endregion
+
+    #endregion
+
+    #region Offset
+
+    public override void Offset_FirstValue(PrisonController _Prison)
+    {
+        base.Offset_FirstValue(_Prison);
+
+        Debug.Log(_Prison.Rating);
+        UnlockedAmount = 4 + _Prison.Rating;
+        CurrentCountdown = BaseCountdown - _Prison.Rating;
+    }
+
+
+    public override void Offset()
+    {
+        base.Offset();
+
+        AllNSCPanelEUI = DevTool.Get_ChildList<NSCPanelEUIController>(AllNSCPanelEUIParentRT);
+
+        for (int i = 0; i < AllNSCPanelEUI.Count; i++)
+        {
+            AllNSCPanelEUI[i].OwnerUIController = this;
+            AllNSCPanelEUI[i].Offset();
+
+            AllNSCRollCellEUI.AddRange(AllNSCPanelEUI[i].AllRollEUI);
+        }
+    }
+
+    #endregion
+
+    #region Set (Start & Complete)
+
+    protected override void Set_AllStart()
+    {
+        base.Set_AllStart();
+
+        Set_AllNSCPanelEUI_DefaultAndRandom();
+        Set_LockByRating();
+
+        // First Check
+        Check_CorrectLineSet();
+    }
+
+
+    protected override void Set_AllComplete()
+    {
+        base.Set_AllComplete();
+
+        for (int i = 0; i < AllNSCPanelEUI.Count; i++)
+        {
+            AllNSCPanelEUI[i].Set_InnerColor(UnlockedClr);
+        }
+    }
+
+    #endregion
+
+    #region Set (Unique)
+
+    private void Set_AllNSCPanelEUI_DefaultAndRandom()
+    {
+        for (int i = 0; i < AllNSCPanelEUI.Count; i++)
+        {
+            AllNSCPanelEUI[i].Set_RollValueRandom();
+            AllNSCPanelEUI[i].Set_RandomAnswer();
+
+            AllNSCPanelEUI[i].Set_InnerColor(LockedClr);
+        }
+    }
+
+    private void Set_LockByRating()
+    {
+        LockedAmount = AllNSCRollCellEUI.Count - UnlockedAmount;
+        LockedRollCellEUIIndexList = new List<int>();
+        while (true)
+        {
+            int randomIndex = Random.Range(0, AllNSCRollCellEUI.Count);
+
+            if (!LockedRollCellEUIIndexList.Contains(randomIndex))
+                LockedRollCellEUIIndexList.Add(randomIndex);
+
+            if (LockedRollCellEUIIndexList.Count >= LockedAmount)
+                break;
+        }
+
+        for (int i = 0; i < LockedRollCellEUIIndexList.Count; i++)
+             AllNSCRollCellEUI[LockedRollCellEUIIndexList[i]].Set_ImgByAnswerAndLock();
+        
+    }
+
+    #endregion
+
+    #region Set (Select)
+
+    public void Set_RollCellSelect(NSCRollCellEUIController _RollCellEUI)
+    {
+        if (SelectingRollCellEUI != _RollCellEUI && IsInteractable)
+        {
+            SelectingRollCellEUI = _RollCellEUI;
+            SelectingSignRT.gameObject.SetActive(true);
+            SelectingSignRT.anchoredPosition = new Vector2(_RollCellEUI.ThisRT.anchoredPosition.x, _RollCellEUI.OwnerNSCPanelEUIController.ThisRT.anchoredPosition.y); 
+            Play_SelectingRT();
+        }
+    }
+
+    private void Play_SelectingRT()
+    {
+        DevTool.Set_KillTween(SelectingSignRT);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(SelectingSignRT.DOScale(1.05f, 0.1f));
+        seq.Append(SelectingSignRT.DOScale(1.0f, 0.1f));
+
+    }
 
     #endregion
 
@@ -14,17 +155,44 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     public void Try_Interact()
     {
-        if (Is_Interact_Click()) return;
+        if (Is_Interact_RollForDown()) return;
+    }
+
+    public void Try_InteractSub()
+    {
+        if (Is_Interact_RollForUp()) return;
+    }
+
+    public void Try_InteractUnlock()
+    {
+        if (Is_Interact_TryUnlock()) return;
     }
 
     #endregion
 
     #region Click
 
-    private bool Is_Interact_Click()
+    private bool Is_Interact_RollForDown()
     {
-        if (true)
+        return Is_Interact_Roll(true);
+    }
+
+    private bool Is_Interact_RollForUp()
+    {
+        return Is_Interact_Roll(false);
+    }
+
+    private bool Is_Interact_Roll(bool _RollDown)
+    {
+        if (!(CurrentBtn is NSCRollCellEUIController rollCellEUI) ||
+            rollCellEUI != SelectingRollCellEUI || 
+            !IsInteractable)
             return false;
+
+        if (_RollDown)
+            SelectingRollCellEUI.Play_RollForDown();
+        else
+            SelectingRollCellEUI.Play_RollForUp();
 
         return true;
     }
@@ -35,7 +203,11 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     public override bool Can_Success()
     {
-        return false;
+        for (int i = 0; i < AllNSCPanelEUI.Count; i++)
+            if (!AllNSCPanelEUI[i].Is_Answer())
+                return false;
+            
+        return true;
     }
 
     #endregion

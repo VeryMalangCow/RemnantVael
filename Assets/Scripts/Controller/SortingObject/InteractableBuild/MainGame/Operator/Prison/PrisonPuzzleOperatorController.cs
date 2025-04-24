@@ -40,6 +40,8 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
                 MainGameUIManager.Instance.BoxLineConnector_UIController.SetOn_ThisPanel();
                 break;
             case UplinkTeamPrisonController:
+                MainGameUIManager.Instance.NumShapeColorPassword_UIController.Offset_FirstValue(TargetPrison);
+                MainGameUIManager.Instance.NumShapeColorPassword_UIController.SetOn_ThisPanel();
                 break;
             case NeoTeamPrisonController:
                 break;
