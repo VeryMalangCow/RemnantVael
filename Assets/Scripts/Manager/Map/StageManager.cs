@@ -141,7 +141,7 @@ public class StageManager : Singleton<StageManager>
             Gen_NormalRoom(RoomPrefabList[ShuffledRoomIndexList[i]], TempID);
             TempID++;
         }
-/*
+
         // 烹苞 规 积己
         for (int i = 0; i < stageData.RoomData.EntranceRoom.Count; i++)
         {
@@ -162,7 +162,7 @@ public class StageManager : Singleton<StageManager>
             Gen_ShopRoom(stageData.RoomData.ShopRoom[i], TempID);
             TempID++;
         }
-*/
+
         // 皑苛 规 积己
         for (int i = 0; i < stageData.RoomData.PrisonRoom.Count; i++)
         {

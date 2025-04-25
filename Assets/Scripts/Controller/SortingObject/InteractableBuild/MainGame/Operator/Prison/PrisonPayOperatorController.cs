@@ -44,6 +44,7 @@ public class PrisonPayOperatorController : PrisonOperatorController
     public override void Play_Interact()
     {
         if (TargetPrison == null ||
+            TargetPrison.IsOn ||
             PlayerManager.Instance.PlayerController.Get_CurrentEP().Value < Get_NeedPay()) return;
 
         // 소비 아이템

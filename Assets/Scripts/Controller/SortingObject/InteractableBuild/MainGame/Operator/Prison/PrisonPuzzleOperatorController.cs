@@ -30,7 +30,7 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
 
     public override void Play_Interact()
     {
-        if (TargetPrison == null) return;
+        if (TargetPrison == null || TargetPrison.IsOn) return;
 
         string debugString = "";
         switch (TargetPrison)

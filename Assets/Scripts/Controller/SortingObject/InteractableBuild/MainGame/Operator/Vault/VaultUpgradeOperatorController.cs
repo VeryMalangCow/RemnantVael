@@ -52,7 +52,8 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     public override void Play_Interact()
     {
         if (TargetVault == null ||
-            TargetVault.Is_MaxGrade() ||
+            TargetVault.Is_MaxGrade() || 
+            TargetVault.IsBroken ||
             PlayerManager.Instance.PlayerController.Get_CurrentEP().Value < Get_NeedPay()) return;
 
         // 소비 아이템

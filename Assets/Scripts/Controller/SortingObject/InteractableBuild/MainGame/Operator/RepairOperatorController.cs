@@ -69,6 +69,7 @@ public class RepairOperatorController : OperatorController
     {
         if (TargetBuildController == null ||
             TargetBuildController.Is_MaxDur() ||
+            TargetBuildController.IsBroken ||
             PlayerManager.Instance.PlayerController.CurrentCredit.Value < Get_NeedPay()) return;
 
         // 소비 아이템
