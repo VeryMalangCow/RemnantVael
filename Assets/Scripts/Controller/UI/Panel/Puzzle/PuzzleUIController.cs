@@ -288,7 +288,6 @@ public abstract class PuzzleUIController : SinglePanelUIController
     public void Check_CorrectLineSet()
     {
         bool jugeNow = Can_Success();
-        Debug.Log("ÆÇº°:" + jugeNow);
         if (jugeNow == CanSuccess) return;
         CanSuccess = jugeNow;
 
@@ -375,6 +374,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
         }
         else
         {
+            StartCoroutine(Play_Unlock_Failure_Cor());
             IsInteractable = false;
             CurrentCountdown = 0f;
             Set_CountdownTxt();
@@ -400,7 +400,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
         {
             Play_SuccessAnno(1f, 1f);
             DevTool.Set_Color(UnlockedClr, CountdownTxt);
-            StartCoroutine(Play_Unlock_Cor());
+            StartCoroutine(Play_Unlock_Complete_Cor());
 
             return true;
         }
@@ -412,7 +412,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
         }
     }
 
-    private IEnumerator Play_Unlock_Cor()
+    private IEnumerator Play_Unlock_Complete_Cor()
     {
         Set_AllComplete();
 
@@ -428,6 +428,14 @@ public abstract class PuzzleUIController : SinglePanelUIController
         SetOff_ThisPanel();
     }
 
+    private IEnumerator Play_Unlock_Failure_Cor()
+    {
+        ThisCG.DOFade(0f, 1.5f).SetEase(Ease.Linear);
+
+        yield return new WaitForSeconds(2f);
+
+        SetOff_ThisPanel();
+    }
 
     #endregion
 }

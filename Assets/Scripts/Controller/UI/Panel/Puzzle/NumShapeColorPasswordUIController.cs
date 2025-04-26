@@ -170,7 +170,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     #endregion
 
-    #region Click
+    #region Interact (Roll)
 
     private bool Is_Interact_RollForDown()
     {

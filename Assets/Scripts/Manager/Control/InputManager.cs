@@ -230,6 +230,10 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["NumShapeColorPassword_RollForUp"].performed += Input_NumShapeColorPassword_RollForUp;
         PlayerInput.actions["NumShapeColorPassword_TryUnlock"].performed += Input_NumShapeColorPassword_TryUnlock;
 
+        // In Order Locker
+        PlayerInput.actions["InOrderLocker_Interact"].performed += Input_InOrderLocker_Interact;
+        PlayerInput.actions["InOrderLocker_TryUnlock"].performed += Input_InOrderLocker_TryUnlock;
+
         // Out Main Game UI
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
@@ -283,6 +287,10 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["NumShapeColorPassword_RollForDown"].performed -= Input_NumShapeColorPassword_RollForDown;
         PlayerInput.actions["NumShapeColorPassword_RollForUp"].performed -= Input_NumShapeColorPassword_RollForUp;
         PlayerInput.actions["NumShapeColorPassword_TryUnlock"].performed -= Input_NumShapeColorPassword_TryUnlock;
+
+        // In Order Locker
+        PlayerInput.actions["InOrderLocker_Interact"].performed -= Input_InOrderLocker_Interact;
+        PlayerInput.actions["InOrderLocker_TryUnlock"].performed -= Input_InOrderLocker_TryUnlock;
 
         // Out Main Game UI
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
@@ -521,6 +529,21 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             MainGameUIManager.Instance.NumShapeColorPassword_UIController.Try_InteractUnlock();
+    }
+
+    #endregion
+
+    #region In Order Locker
+
+    private void Input_InOrderLocker_Interact(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.InOrderLocker_UIController.Try_Interact();
+    }
+    private void Input_InOrderLocker_TryUnlock(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.InOrderLocker_UIController.Try_InteractUnlock();
     }
 
     #endregion

@@ -1587,6 +1587,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ModuleUI_IOLCellCenter
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 488
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 11, y: 11, z: 11, w: 11}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86bde817356148b48b04310757d83481
+      internalID: -1098991666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1614,6 +1635,7 @@ TextureImporter:
       ModuleUI_GetIcon_Corrosion: -1202784608
       ModuleUI_GetIcon_Fire: 1422261253
       ModuleUI_GetIcon_Ice: -1253658894
+      ModuleUI_IOLCellCenter: -1098991666
       ModuleUI_Icon_Durablity: -372754867
       ModuleUI_Input_SpaceBar: -324453934
       ModuleUI_ModuleItemUI: 49686718

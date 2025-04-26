@@ -724,6 +724,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Puzzle_InOrderLocker",
+            "id": "367950f8-a75c-476d-ba85-62c6287a0667",
+            "actions": [
+                {
+                    "name": "InOrderLocker_Interact",
+                    "type": "Button",
+                    "id": "0c66498e-05e9-4535-97a9-bbfa9809015d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "InOrderLocker_TryUnlock",
+                    "type": "Button",
+                    "id": "208705b6-87df-4202-8b1b-a81d65db76e6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fbb7e9df-c9f8-422b-882c-ef8e690dd836",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InOrderLocker_Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b8e0b616-32d6-4079-992a-50b9de592c5f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InOrderLocker_TryUnlock",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

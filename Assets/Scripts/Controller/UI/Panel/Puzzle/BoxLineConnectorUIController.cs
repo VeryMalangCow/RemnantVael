@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoxLineConnectorUIController : PuzzleUIController
 {
@@ -15,6 +16,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
     [Header("=== TF")]
     [SerializeField] private Transform BoxCellParentTF;
     [SerializeField] private Transform BoxConnectionParentTF;
+    [SerializeField] private Transform InnerParentTF;
 
     [Space(10)]
     [Header("=== Selecting")]
@@ -40,6 +42,9 @@ public class BoxLineConnectorUIController : PuzzleUIController
     // Selecting
     [HideInInspector] private BoxCellEUIController SelectingBoxCellEUI = null;
 
+    // Inner
+    [HideInInspector] private List<Image> InnerList;
+
 
     #endregion
 
@@ -61,6 +66,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
         AllBoxCellEUI = DevTool.Get_ChildList<BoxCellEUIController>(BoxCellParentTF);
         AllBoxConnectionEUI = DevTool.Get_ChildList<BoxConnectionEUIController>(BoxConnectionParentTF);
+        InnerList = DevTool.Get_ChildList<Image>(InnerParentTF);
 
         for (int i = 0; i < AllBoxCellEUI.Count; i++)
         {
@@ -97,17 +103,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        // Cell
-        for (int i = 0; i < AllBoxCellEUI.Count; i++)
-        {
-            AllBoxCellEUI[i].Set_InnerColor(UnlockedClr);
-        }
-
-        // Connection
-        for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
-        {
-            AllBoxConnectionEUI[i].Set_InnerColor(UnlockedClr);
-        }
+        Set_AllInnerColor(UnlockedClr);
 
         // Selecting
         SelectingBoxCellEUI = null;
@@ -118,21 +114,30 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     #region Set (Unique)
 
-    private void Set_AllDefault()
+    private void Set_AllInnerColor(Color _Clr)
     {
         // Cell
         for (int i = 0; i < AllBoxCellEUI.Count; i++)
-        {
-            AllBoxCellEUI[i].Set_Active(false);
             AllBoxCellEUI[i].Set_InnerColor(LockedClr);
-        }
+        
 
         // Connection
         for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
-        {
-            AllBoxConnectionEUI[i].Set_Active(false);
             AllBoxConnectionEUI[i].Set_InnerColor(LockedClr);
-        }
+        
+        // Inner 
+        for (int i = 0; i < InnerList.Count; i++)
+            DevTool.Set_Color(LockedClr, InnerList[i]);
+    }
+
+    private void Set_AllDefault()
+    {
+        for (int i = 0; i < AllBoxCellEUI.Count; i++)
+            AllBoxCellEUI[i].Set_Active(false);
+        for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
+            AllBoxConnectionEUI[i].Set_Active(false);
+
+        Set_AllInnerColor(LockedClr);
 
         // Selecting
         SelectingBoxCellEUI = null;
@@ -255,7 +260,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     #endregion
 
-    #region Intetact -> Roll
+    #region Intetact (Roll)
 
     private bool Is_Interact_Roll(float _PlusAngle, float _DurTime)
     {

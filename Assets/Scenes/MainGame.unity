@@ -1306,7 +1306,7 @@ MonoBehaviour:
   AllyCard_CanvasPrefab: {fileID: 977057849872143002, guid: f03abad0bb692904a96ccf2c423a8fe7, type: 3}
   Puzzle_BoxLineConnector_CanvasPrefab: {fileID: 977057849872143002, guid: 35b739b676c2f0c48b66c75e98920982, type: 3}
   Puzzle_NumShapeColorPassword_CanvasPrefab: {fileID: 977057849872143002, guid: 58fc63fff4e38b3479fc9c7e7bd24d0f, type: 3}
-  Puzzle_2_CanvasPrefab: {fileID: 0}
+  Puzzle_InOrderLocker_CanvasPrefab: {fileID: 977057849872143002, guid: 419f06a3a02035f4faf61bcfe0e3b6a5, type: 3}
   PlayerHUD_UIController: {fileID: 0}
   BaseUpgrade_UIController: {fileID: 0}
   ModuleUpgrade_UIController: {fileID: 0}
@@ -1316,6 +1316,7 @@ MonoBehaviour:
   AllyCard_UIController: {fileID: 0}
   BoxLineConnector_UIController: {fileID: 0}
   NumShapeColorPassword_UIController: {fileID: 0}
+  InOrderLocker_UIController: {fileID: 0}
   CurrentOpening_UIController: {fileID: 0}
 --- !u!1 &407909252
 GameObject:
