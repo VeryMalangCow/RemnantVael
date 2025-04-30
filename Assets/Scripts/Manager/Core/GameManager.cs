@@ -1659,6 +1659,16 @@ public class DevTool
     }
 
     #endregion
+
+    #region About TrueShadow
+
+    public static int Get_TSChildIndex<T>(T _T, int _Index) where T : MonoBehaviour
+    {
+        return _T.gameObject.transform.GetChild(_Index).name != $"{_T.gameObject.name}'s Shadow" ? 
+            _Index : _Index + 1;
+    }
+
+    #endregion
 }
 
 #endregion
@@ -4020,6 +4030,15 @@ public enum eRoomType
 public enum eNSCPuzzleType
 {
     Num, Shape, Color
+}
+
+#endregion
+
+#region Out Main Game UI
+
+public enum OutMainGameUIType
+{
+    BasePanel, OptionPanel
 }
 
 #endregion

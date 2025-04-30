@@ -20,16 +20,17 @@ public class LanguageTxtController : MonoBehaviour
 
     #region Awake
 
-    private void Awake()
+    private void Start()
     {
         Offset(GameManager.LanguageID);
+        UnitManager.Instance.Add_LanguageTxt(this);
     }
 
     #endregion
 
     #region Set
 
-    private void Set_Font(int _LanguageID)
+    public void Set_Font(int _LanguageID)
     {
         if (DevTool.Get_ComponentTType(gameObject, out TMP_Text txt))
             txt.font = UnitManager.Instance.LanguageTxtList[_LanguageID].FontAssets[Type];

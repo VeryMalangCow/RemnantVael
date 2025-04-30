@@ -567,7 +567,7 @@ public class InputManager : Singleton<InputManager>
     private void Input_OMGUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.OutMainGame_UIController.SetOff_ThisPanel();
+            MainGameUIManager.Instance.OutMainGame_UIController.Try_InteractBack();
     }
 
     #endregion

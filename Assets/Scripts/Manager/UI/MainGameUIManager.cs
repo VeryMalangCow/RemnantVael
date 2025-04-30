@@ -52,13 +52,14 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         PlayerHUD_UIController
             = Gen_UI<PlayerHUDController>(PlayerHUD_CanvasPrefab, true);
 
+        OutMainGame_UIController
+            = Gen_UI<OutMainGameUIController>(OutMainGame_CanvasPrefab, false);
+
         BaseUpgrade_UIController
             = Gen_UI<BaseUpgradeUIController>(BaseUpgrade_CanvasPrefab, false);
         ModuleUpgrade_UIController
             = Gen_UI<ModuleUpgradeUIController>(ModuleUpgrade_CanvasPrefab, false);
 
-        OutMainGame_UIController
-            = Gen_UI<OutMainGameUIController>(OutMainGame_CanvasPrefab, false);
 
         InteractAnno_UIController
             = Gen_UI<InteractAnnoUIController>(InteractAnno_CanvasPrefab, false);
@@ -108,6 +109,15 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         }
 
         return DevTool.Get_ComponentTType(uigo, out T tType) ? tType : default;
+    }
+
+    #endregion
+
+    #region Set
+
+    public void Set_LanguageTxt()
+    {
+        OutMainGame_UIController.Set_LanguageTxt();
     }
 
     #endregion

@@ -177,6 +177,9 @@ public class UnitManager : Singleton<UnitManager>
     [HideInInspector] public string NeoTeamString;
     [HideInInspector] public List<string> AllyCardRateList;
 
+    // Language
+    [HideInInspector] private HashSet<LanguageTxtController> AllLanguageTxtController = new HashSet<LanguageTxtController>();
+
     #endregion
 
     #endregion
@@ -224,7 +227,7 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
-    #region Set
+    #region Set (Color)
 
     // 무지개 컬러 Dotween
     private void Set_RainbowColorDotween()
@@ -244,7 +247,28 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
-    #region Get
+    #region Language
+
+    public void Add_LanguageTxt(LanguageTxtController _LangTxt)
+    {
+        AllLanguageTxtController.Add(_LangTxt);
+    }
+
+    public void Set_LanguageFont(int _LangID)
+    {
+        if (GameManager.LanguageID == _LangID) return;
+
+        GameManager.LanguageID = _LangID;
+        Debug.Log(AllLanguageTxtController.Count);
+        foreach (LanguageTxtController ltc in AllLanguageTxtController)
+            ltc.Set_Font(GameManager.LanguageID);
+        
+        MainGameUIManager.Instance.Set_LanguageTxt();
+    }
+
+    #endregion
+
+    #region Get (NSC)
 
     public Sprite Get_NSCAnswerSprite(int _ShapeIndex, int _NumIndex)
     {

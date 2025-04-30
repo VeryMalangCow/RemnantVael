@@ -45,12 +45,7 @@ public class PanelUIController : SinglePanelUIController
 
         SetOn_Window(ThisPanelTabList[_indexWindow]);
     }
-/*
-    public override void SetOff_ThisPanel()
-    {
-        base.SetOff_ThisPanel();
-    }
-*/
+
     #endregion
 
     #region On/Off Tab Window
