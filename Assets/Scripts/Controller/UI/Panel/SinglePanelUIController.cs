@@ -66,10 +66,4 @@ public class SinglePanelUIController : UIController
     }
 
     #endregion
-
-    #region Set Txt
-
-    public virtual void Set_LanguageTxt() { }
-
-    #endregion
 }

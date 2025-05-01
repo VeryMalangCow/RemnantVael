@@ -174,29 +174,16 @@ public class PlayerHUDController : UIController
         Offset_Img();
         Offset_ColorComp();
         Offset_AfterColorSet();
+        Set_LanguageTxt();
     }
 
     private void Offset_Basic()
     {
-        InteractEnableString = CSVManager.Instance.Get_StaticWord(4);
-        InteractDisableString = CSVManager.Instance.Get_StaticWord(5);
-        InteracInoperableString = CSVManager.Instance.Get_StaticWord(6);
-        InteractNoneString = CSVManager.Instance.Get_StaticWord(7);
-
-        for (int i = 8; i <= 16; i++)
-            PlayerStatesStringList.Add(CSVManager.Instance.Get_StaticWord(i));
-
-        for (int i = 17; i <= 18; i++)
-            SkillStatesStringList.Add(CSVManager.Instance.Get_StaticWord(i));
-
+        for (int i = 0; i < AllAllyPresence.Count; i++)
+            AllAllyPresence[i].Offset();
+        
         AllAllyPresence = new List<AllyPresenceEUIController> { ST_AllyPresence, UT_AllyPresence, NT_AllyPresence };
 
-        for (int i = 0; i < AllAllyPresence.Count; i++)
-        {
-            AllAllyPresence[i].Offset();
-            AllAllyPresence[i].PresenceLangTxt.text = $"{CSVManager.Instance.Get_StaticWord(i + 61)}<size=85%> {CSVManager.Instance.Get_StaticWord(70)}</size>";
-        }
-        
         EP.Offset();
         CurrentEmptyBC.Offset();
         EmptyBC.Offset();
@@ -534,11 +521,17 @@ public class PlayerHUDController : UIController
 
     #region Stage
 
-    public void Set_StageDescription(string _StageName, string _StageDescription)
+    public void Set_StageDescription()
     {
-        StageNameTxt.DOText(_StageName, 0.5f)
+        StageNameTxt.DOText(
+            CSVManager.Instance.Get_MapName(
+                StageManager.Instance.Get_CollectStageData(
+                    StageManager.Instance.TargetStageID).InfoData.StageID), 0.5f)
             .OnPlay(() => { StageNameTxt.text = ""; });
-        StageDescriptionTxt.DOText(_StageDescription, 0.5f)
+        StageDescriptionTxt.DOText(
+            CSVManager.Instance.Get_MapDesc(
+                StageManager.Instance.Get_CollectStageData(
+                    StageManager.Instance.TargetStageID).InfoData.StageID), 0.5f)
             .OnPlay(() => { StageDescriptionTxt.text = ""; });
     }
 
@@ -759,7 +752,6 @@ public class PlayerHUDController : UIController
     }
     #endregion
 
-
     #endregion
 
     #region Get
@@ -806,7 +798,6 @@ public class PlayerHUDController : UIController
         for (int i = 0; i < AllAllyPresence.Count; i++)
             MainColorCompList.AddRange(DevTool.Get_ChildList<Image>(AllAllyPresence[i].CapMiddleRT.transform));
         
-
         return result;
     }
 
@@ -899,6 +890,34 @@ public class PlayerHUDController : UIController
             result += "<b>" + strings[i] + "</b>\n";
         }
         return result;
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public override void Set_LanguageTxt()
+    {
+        base.Set_LanguageTxt();
+
+        InteractEnableString = CSVManager.Instance.Get_StaticWord(4);
+        InteractDisableString = CSVManager.Instance.Get_StaticWord(5);
+        InteracInoperableString = CSVManager.Instance.Get_StaticWord(6);
+        InteractNoneString = CSVManager.Instance.Get_StaticWord(7);
+
+        PlayerStatesStringList.Clear();
+        for (int i = 8; i <= 16; i++)
+            PlayerStatesStringList.Add(CSVManager.Instance.Get_StaticWord(i));
+
+        SkillStatesStringList.Clear();
+        for (int i = 17; i <= 18; i++)
+            SkillStatesStringList.Add(CSVManager.Instance.Get_StaticWord(i));
+
+        for (int i = 0; i < AllAllyPresence.Count; i++)
+            AllAllyPresence[i].PresenceLangTxt.text = $"{CSVManager.Instance.Get_StaticWord(i + 61)}<size=85%> {CSVManager.Instance.Get_StaticWord(70)}</size>";
+
+        Set_InteractUI();
+        Set_StageDescription();
     }
 
     #endregion

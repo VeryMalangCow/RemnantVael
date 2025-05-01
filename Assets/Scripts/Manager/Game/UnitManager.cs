@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,14 @@ public class UnitManager : Singleton<UnitManager>
 
     [Space(20)]
     [Header("<><><><><> Unit Manager")]
+
+    [SerializeField] private GameObject TestGO;
+
+    private IEnumerator Test_Cor()
+    {
+        yield return new WaitForSeconds(1f);
+        TestGO.gameObject.SetActive(true);
+    }
 
     #region Material
 
@@ -223,6 +232,8 @@ public class UnitManager : Singleton<UnitManager>
 
         Set_RainbowColorDotween();
         Offset_String();
+
+        StartCoroutine(Test_Cor());
     }
 
     #endregion

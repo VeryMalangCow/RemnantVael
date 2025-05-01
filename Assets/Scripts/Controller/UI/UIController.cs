@@ -7,4 +7,10 @@ public class UIController : MonoBehaviour
     public virtual void Offset() { }
 
     #endregion
+
+    #region Set Txt
+
+    public virtual void Set_LanguageTxt() { }
+
+    #endregion
 }
