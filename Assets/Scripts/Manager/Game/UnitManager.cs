@@ -10,12 +10,13 @@ public class UnitManager : Singleton<UnitManager>
     [Space(20)]
     [Header("<><><><><> Unit Manager")]
 
-    [SerializeField] private GameObject TestGO;
+    [SerializeField] private List<GameObject> TestGO;
 
     private IEnumerator Test_Cor()
     {
-        yield return new WaitForSeconds(1f);
-        TestGO.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        for (int i = 0; i < TestGO.Count; i++)
+            TestGO[i].gameObject.SetActive(true);
     }
 
     #region Material

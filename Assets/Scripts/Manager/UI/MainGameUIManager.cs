@@ -118,7 +118,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     public void Set_LanguageTxt()
     {
         OutMainGame_UIController.Set_LanguageTxt();
+
         PlayerHUD_UIController.Set_LanguageTxt();
+        InteractAnno_UIController.Set_LanguageTxt();
+
+        BaseUpgrade_UIController.Set_LanguageTxt();
+        ModuleUpgrade_UIController.Set_LanguageTxt();
     }
 
     #endregion

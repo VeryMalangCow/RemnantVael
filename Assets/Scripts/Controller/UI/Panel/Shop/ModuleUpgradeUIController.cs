@@ -170,7 +170,6 @@ public class ModuleUpgradeUIController : PanelUIController
 
     #region Offset
 
-
     public override void Offset()
     {
         base.Offset();
@@ -180,37 +179,19 @@ public class ModuleUpgradeUIController : PanelUIController
         Offset_Forge();
         Offset_ColorComp();
         Offset_Subscribe();
-    }
 
+        Set_BaseLanguageTxt();
+    }
 
     private void Offset_Basic()
     {
-        // String
-        LabelName = CSVManager.Instance.Get_StaticWord(27) + " " + CSVManager.Instance.Get_StaticWord(2);
-        TabBtnTxtList = new List<string>
-        {
-            CSVManager.Instance.Get_StaticWord(32),
-            CSVManager.Instance.Get_StaticWord(33),
-        };
-        AmalgamationName = CSVManager.Instance.Get_StaticWord(50);
-        Notice_Equiped = CSVManager.Instance.Get_StaticDesc(20);
-        Warning_NotSameRank = CSVManager.Instance.Get_StaticDesc(21);
-        Warning_NotEnoughItem = CSVManager.Instance.Get_StaticDesc(22);
-        Warning_AlreadyMaxLv = CSVManager.Instance.Get_StaticDesc(23);
-        Warning_InvenFull = CSVManager.Instance.Get_StaticDesc(27);
-
         // Tab
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
             ThisPanelTabList[i].Offset();
             ThisPanelTabList[i].ThisTabBtn.OwnerUIController = this;
-
-            ThisPanelTabList[i].ThisTabBtn.Offset_Txt(TabBtnTxtList[i]);
-            TabSideTxtList[i].text = TabBtnTxtList[i];
         }
 
-        // Label
-        LabelTxt.text = LabelName;
 
         // Dur
         ThisDurEUI.Offset();
@@ -221,8 +202,6 @@ public class ModuleUpgradeUIController : PanelUIController
         // Close
         CloseBtn.Offset();
         CloseBtn.OwnerUIController = this;
-        DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(0).gameObject).text =
-            CSVManager.Instance.Get_StaticWord(28);
 
         // Inventory
         Inventories = new List<InventoryEUIController>
@@ -238,6 +217,7 @@ public class ModuleUpgradeUIController : PanelUIController
         DragItemRT = DevTool.Get_ComponentTType(DragItemEUI.gameObject, out RectTransform rt) ? rt : null;
 
         DragItemEUI.gameObject.SetActive(false);
+
     }
 
 
@@ -283,7 +263,6 @@ public class ModuleUpgradeUIController : PanelUIController
             SynergySlotList[i].OwnerUIController = this;
         }
 
-        DevTool.Set_TxtList(AmalgamationTxtList, AmalgamationName);
     }
 
 
@@ -512,7 +491,7 @@ public class ModuleUpgradeUIController : PanelUIController
 
     #endregion
 
-    #region Set Panel
+    #region Set (Panel)
 
     public override void SetOn_ThisPanel()
     {
@@ -520,6 +499,7 @@ public class ModuleUpgradeUIController : PanelUIController
 
         base.SetOn_ThisPanel();
 
+        // Dur
         ThisDurEUI.Set_Dur(ModuleUpgradeController.UsingShop.CurrentDur);
     }
 
@@ -528,6 +508,25 @@ public class ModuleUpgradeUIController : PanelUIController
         Tween_Disable();
 
         base.SetOff_ThisPanel();
+
+        if (CurrentItemBtn != null)
+        {
+            CurrentItemBtn = null;
+            SetOff_Desc();
+        }
+
+        if (CurrentSlotBtn != null)
+        {
+            CurrentSlotBtn.Play_Selected(_TargetAlpha: 0f, _TargetScale: 1f, 0);
+            CurrentSlotBtn = null;
+        }
+
+        if (IsDragging)
+        {
+            DragItemRT.gameObject.SetActive(false);
+            IsDragging = false;
+            CurrentDraggingItemBtn = null;
+        }
 
         ModuleUpgradeController.UsingShop = null;
 
@@ -1301,7 +1300,9 @@ public class ModuleUpgradeUIController : PanelUIController
         // ¼Ò¸ð ÀçÈ­
         PlayerManager.Instance.PlayerController.Add_CurrentModuleShard(-ModuleItemManager.Get_MS_ForMake());
         PlayerManager.Instance.PlayerController.Use_ChargedBettery(ModuleItemManager.Get_CB_ForMake());
+        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
 
+        // º¸»ó È¹µæ
         ModuleItemManager.Instance.Gain_ModuleState();
 
         Check_MakeAnno();
@@ -1455,6 +1456,64 @@ public class ModuleUpgradeUIController : PanelUIController
             }
 
         }
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    private void Set_BaseLanguageTxt()
+    {
+        // Label
+        LabelName = CSVManager.Instance.Get_StaticWord(27) + " " + CSVManager.Instance.Get_StaticWord(2);
+        LabelTxt.text = LabelName;
+
+        TabBtnTxtList = new List<string>
+        {
+            CSVManager.Instance.Get_StaticWord(32),
+            CSVManager.Instance.Get_StaticWord(33),
+        };
+        AmalgamationName = CSVManager.Instance.Get_StaticWord(50);
+        Notice_Equiped = CSVManager.Instance.Get_StaticDesc(20);
+        Warning_NotSameRank = CSVManager.Instance.Get_StaticDesc(21);
+        Warning_NotEnoughItem = CSVManager.Instance.Get_StaticDesc(22);
+        Warning_AlreadyMaxLv = CSVManager.Instance.Get_StaticDesc(23);
+        Warning_InvenFull = CSVManager.Instance.Get_StaticDesc(27);
+
+        // Close
+        DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CloseBtn, 0)).gameObject).text =
+            CSVManager.Instance.Get_StaticWord(28);
+
+        // Tab
+        for (int i = 0; i < ThisPanelTabList.Count; i++)
+        {
+            ThisPanelTabList[i].ThisTabBtn.Offset_Txt(TabBtnTxtList[i]);
+            TabSideTxtList[i].text = TabBtnTxtList[i];
+        }
+
+        // Desc
+        ThisDescPanel.Set_LanguageTxt();
+
+        // Dur
+        ThisDurEUI.Set_LanguageTxt();
+
+        // Forge
+        ForgeInteractPanels[0].Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(51), CSVManager.Instance.Get_StaticDesc(24));
+        ForgeInteractPanels[1].Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(52), CSVManager.Instance.Get_StaticDesc(25));
+        ForgeInteractPanels[2].Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(53), CSVManager.Instance.Get_StaticDesc(26));
+
+        // Amalgamation
+        DevTool.Set_TxtList(AmalgamationTxtList, AmalgamationName);
+
+    }
+
+    public override void Set_LanguageTxt()
+    {
+        base.Set_LanguageTxt();
+
+        Set_BaseLanguageTxt();
+
+        ModuleItemManager.Instance.Set_DataLanguage();
     }
 
     #endregion

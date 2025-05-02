@@ -106,4 +106,15 @@ public class InteractAnnoUIController : UIController
     }
 
     #endregion
+
+    #region Set (Language)
+
+    public override void Set_LanguageTxt()
+    {
+        base.Set_LanguageTxt();
+
+        Set_UI();
+    }
+
+    #endregion
 }

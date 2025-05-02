@@ -104,33 +104,18 @@ public class BaseUpgradeUIController : PanelUIController
         Offset_BUShop();
         Offset_Subscribe();
         Offset_ColorComp();
+        Set_LanguageTxt();
     }
 
     private void Offset_Basic()
     {
-        // String
-        LabelName = CSVManager.Instance.Get_StaticWord(26) + " " + CSVManager.Instance.Get_StaticWord(2);
-        TabBtnTxtList = new List<string>
-        {
-            CSVManager.Instance.Get_StaticWord(29),
-            CSVManager.Instance.Get_StaticWord(30),
-            CSVManager.Instance.Get_StaticWord(31),
-            CSVManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 0),
-            CSVManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 1)
-        };
-
         // Tab
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
             ThisPanelTabList[i].Offset();
             ThisPanelTabList[i].ThisTabBtn.OwnerUIController = this;
-
-            ThisPanelTabList[i].ThisTabBtn.Offset_Txt(TabBtnTxtList[i]);
-            TabSideTxtList[i].text = TabBtnTxtList[i];
         }
 
-        // Label
-        LabelTxt.text = LabelName;
 
         // Dur
         ThisDurEUI.Offset();
@@ -141,9 +126,7 @@ public class BaseUpgradeUIController : PanelUIController
         // Close
         CloseBtn.Offset();
         CloseBtn.OwnerUIController = this;
-        DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(0).gameObject).text =
-            CSVManager.Instance.Get_StaticWord(28);
-
+        
         // Broken
         ThisMsgEUI.Offset();
     }
@@ -156,69 +139,31 @@ public class BaseUpgradeUIController : PanelUIController
         PlayerWeaponController pwc = pc.BaseWeapon;
         SkillWeaponController pswc = pc.SkillWeapon;
         BaseUpgradeManager bm = BaseUpgradeManager.Instance;
+        
+        MaxEPShop.Offset(pc.MaxEP, bm.BaseMaxEP_BUData, AllBUData_Float, this);
+        SpawnESMultipleShop.Offset(pc.SpawnESMultiple, bm.BaseSpawnESMultiple_BUData, AllBUData_Float, this);
+        NeedEP_ForSkillMultipleShop.Offset(pc.NeedEP_ForSkillMultiple, bm.BaseNeedEP_ForSkillMultiple_BUData, AllBUData_Float, this);
+        DecEnergyPointMultipleShop.Offset(pc.DecEnergyPointMultiple, bm.BaseDecEnergyPointMultiple_BUData, AllBUData_Float, this);
+        ResistShop.Offset(pc.TakingDmgMultiple, bm.BaseResist_BUData, AllBUData_Float, this);
 
-        MaxEPShop.Offset(pc.MaxEP, bm.BaseMaxEP_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(8), 
-            CSVManager.Instance.Get_StaticDesc(0), this);
-        SpawnESMultipleShop.Offset(pc.SpawnESMultiple, bm.BaseSpawnESMultiple_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(38), 
-            CSVManager.Instance.Get_StaticDesc(1), this);
-        NeedEP_ForSkillMultipleShop.Offset(pc.NeedEP_ForSkillMultiple, bm.BaseNeedEP_ForSkillMultiple_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(39), 
-            CSVManager.Instance.Get_StaticDesc(2), this);
-        DecEnergyPointMultipleShop.Offset(pc.DecEnergyPointMultiple, bm.BaseDecEnergyPointMultiple_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(42), 
-            CSVManager.Instance.Get_StaticDesc(3), this);
-        ResistShop.Offset(pc.TakingDmgMultiple, bm.BaseResist_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(37), 
-            CSVManager.Instance.Get_StaticDesc(4), this);
+        WalkSpeedShop.Offset(pc.WalkSpeed, bm.BaseWalkSpeed_BUData, AllBUData_Float, this);
+        WalkSpeedWhenShotMultipleShop.Offset(pc.WalkSpeedWhenShotMultiple, bm.BaseWalkSpeedWhenShotMultiple_BUData, AllBUData_Float, this);
+        WalkAvoidChance.Offset(pc.AvoidChance, bm.BaseAvoidChance_BUData, AllBUData_Float, this);
+        DashSpeedShop.Offset(pc.DashController.DashSpeed, bm.BaseDashSpeed_BUData, AllBUData_Float, this);
 
-        WalkSpeedShop.Offset(pc.WalkSpeed, bm.BaseWalkSpeed_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(40), 
-            CSVManager.Instance.Get_StaticDesc(5), this);
-        WalkSpeedWhenShotMultipleShop.Offset(pc.WalkSpeedWhenShotMultiple, bm.BaseWalkSpeedWhenShotMultiple_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(41), 
-            CSVManager.Instance.Get_StaticDesc(6), this);
-        WalkAvoidChance.Offset(pc.AvoidChance, bm.BaseAvoidChance_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(36), 
-            CSVManager.Instance.Get_StaticDesc(7), this);
-        DashSpeedShop.Offset(pc.DashController.DashSpeed, bm.BaseDashSpeed_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(12), 
-            CSVManager.Instance.Get_StaticDesc(8), this);
-
-        DamageShop.Offset(pwc.BaseDamage, bm.BaseDamage_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(12), 
-            CSVManager.Instance.Get_StaticDesc(9), this);
-        ROFShop.Offset(pwc.ROF, bm.BaseROF_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(13), 
-            CSVManager.Instance.Get_StaticDesc(10), this);
-        CCShop.Offset(pwc.CC, bm.BaseCC_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(15), 
-            CSVManager.Instance.Get_StaticDesc(11), this);
-        CDShop.Offset(pwc.CD, bm.BaseCD_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(16), 
-            CSVManager.Instance.Get_StaticDesc(12), this);
-        MuzzleShop.Offset(pwc.MuzzleSpeed, bm.BaseMuzzleSpeed_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(43), 
-            CSVManager.Instance.Get_StaticDesc(13), this);
-        AccuracyRateShop.Offset(pwc.AccuracyRate, bm.BaseAccuracyRate_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(14), 
-            CSVManager.Instance.Get_StaticDesc(14), this);
-        KnockbackShop.Offset(pwc.KnockbackPower, bm.Knockback_BUData, AllBUData_Float,
-            CSVManager.Instance.Get_StaticWord(44), 
-            CSVManager.Instance.Get_StaticDesc(15), this);
+        DamageShop.Offset(pwc.BaseDamage, bm.BaseDamage_BUData, AllBUData_Float, this);
+        ROFShop.Offset(pwc.ROF, bm.BaseROF_BUData, AllBUData_Float, this);
+        CCShop.Offset(pwc.CC, bm.BaseCC_BUData, AllBUData_Float, this);
+        CDShop.Offset(pwc.CD, bm.BaseCD_BUData, AllBUData_Float, this);
+        MuzzleShop.Offset(pwc.MuzzleSpeed, bm.BaseMuzzleSpeed_BUData, AllBUData_Float, this);
+        AccuracyRateShop.Offset(pwc.AccuracyRate, bm.BaseAccuracyRate_BUData, AllBUData_Float, this);
+        KnockbackShop.Offset(pwc.KnockbackPower, bm.Knockback_BUData, AllBUData_Float, this);
 
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
-            SkillShopList[i].Skill_CooltimeShop.Offset(pswc.SkillList[i].MaxCooltime, bm.Skill_BUDataList[i].Skill_Cooltime_BUData, AllBUData_Float,
-                CSVManager.Instance.Get_StaticWord(45), 
-                CSVManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 0), this);
-            SkillShopList[i].Skill_PowerShop.Offset(pswc.SkillList[i].Power, bm.Skill_BUDataList[i].Skill_Power_BUData, AllBUData_Float,
-                CSVManager.Instance.Get_StaticWord(18), 
-                CSVManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 1), this);
-            SkillShopList[i].Skill_TierShop.Offset(pswc.SkillList[i].Tier, bm.Skill_BUDataList[i].Skill_Tier_BUData, AllBUData_Int,
-                CSVManager.Instance.Get_StaticWord(17), 
-                CSVManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 2), this);
+            SkillShopList[i].Skill_CooltimeShop.Offset(pswc.SkillList[i].MaxCooltime, bm.Skill_BUDataList[i].Skill_Cooltime_BUData, AllBUData_Float, this);
+            SkillShopList[i].Skill_PowerShop.Offset(pswc.SkillList[i].Power, bm.Skill_BUDataList[i].Skill_Power_BUData, AllBUData_Float, this);
+            SkillShopList[i].Skill_TierShop.Offset(pswc.SkillList[i].Tier, bm.Skill_BUDataList[i].Skill_Tier_BUData, AllBUData_Int, this);
         }
 
         #endregion
@@ -315,7 +260,7 @@ public class BaseUpgradeUIController : PanelUIController
 
     #endregion
 
-    #region Set Panel
+    #region Set (Panel)
 
     public override void SetOn_ThisPanel()
     {
@@ -460,6 +405,72 @@ public class BaseUpgradeUIController : PanelUIController
         Sequence seq = DOTween.Sequence();
         seq.Append(FrameInnerImg.DOFade(1, 0.5f));
         seq.Append(FrameInnerImg.DOFade(0.5f, 0.5f));
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public override void Set_LanguageTxt()
+    {
+        base.Set_LanguageTxt();
+
+        // Label
+        LabelName = CSVManager.Instance.Get_StaticWord(26) + " " + CSVManager.Instance.Get_StaticWord(2);
+        LabelTxt.text = LabelName;
+
+        // Tab
+        TabBtnTxtList = new List<string>
+        {
+            CSVManager.Instance.Get_StaticWord(29),
+            CSVManager.Instance.Get_StaticWord(30),
+            CSVManager.Instance.Get_StaticWord(31),
+            CSVManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 0),
+            CSVManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 1)
+        };
+
+        for (int i = 0; i < ThisPanelTabList.Count; i++)
+        {
+            ThisPanelTabList[i].ThisTabBtn.Offset_Txt(TabBtnTxtList[i]);
+            TabSideTxtList[i].text = TabBtnTxtList[i];
+        }
+
+        // Close
+        DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CloseBtn, 0)).gameObject).text =
+            CSVManager.Instance.Get_StaticWord(28);
+
+        // Shop
+        MaxEPShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(8), CSVManager.Instance.Get_StaticDesc(0));
+        SpawnESMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(38), CSVManager.Instance.Get_StaticDesc(1));
+        NeedEP_ForSkillMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(39), CSVManager.Instance.Get_StaticDesc(2));
+        DecEnergyPointMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(42), CSVManager.Instance.Get_StaticDesc(3));
+        ResistShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(37), CSVManager.Instance.Get_StaticDesc(4));
+
+        WalkSpeedShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(40), CSVManager.Instance.Get_StaticDesc(5));
+        WalkSpeedWhenShotMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(41), CSVManager.Instance.Get_StaticDesc(6));
+        WalkAvoidChance.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(36), CSVManager.Instance.Get_StaticDesc(7));
+        DashSpeedShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(12), CSVManager.Instance.Get_StaticDesc(8));
+
+        DamageShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(12), CSVManager.Instance.Get_StaticDesc(9));
+        ROFShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(13), CSVManager.Instance.Get_StaticDesc(10));
+        CCShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(15), CSVManager.Instance.Get_StaticDesc(11));
+        CDShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(16), CSVManager.Instance.Get_StaticDesc(12));
+        MuzzleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(43), CSVManager.Instance.Get_StaticDesc(13));
+        AccuracyRateShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(14), CSVManager.Instance.Get_StaticDesc(14));
+        KnockbackShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(44), CSVManager.Instance.Get_StaticDesc(15));
+
+        for (int i = 0; i < DevTool.SkillAmount; i++)
+        {
+            SkillShopList[i].Skill_CooltimeShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(45), CSVManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 0));
+            SkillShopList[i].Skill_PowerShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(18), CSVManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 1));
+            SkillShopList[i].Skill_TierShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(17), CSVManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 2));
+        }
+
+        // Desc
+        ThisDescPanel.Set_LanguageTxt();
+
+        // Dur
+        ThisDurEUI.Set_LanguageTxt();
     }
 
     #endregion

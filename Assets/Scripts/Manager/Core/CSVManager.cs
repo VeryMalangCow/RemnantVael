@@ -718,9 +718,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
     {
         ItemData result = new ItemData(_ID);
 
-        result.Name = ModuleItemName_Data.Get_Word(_ID);
-        result.Description = ModuleItemDesc_Data.Get_Word(_ID);
-        result.EquipDescription = ModuleItemEquipDesc_Data.Get_Word(_ID);
+        Set_DataLanguage(result, _ID);
 
         result.ItemIcon = ModuleItemImgList_Data[_ID];
 
@@ -737,13 +735,8 @@ public class CSVManager : PersistentSingleton<CSVManager>
         MainChipData result = new MainChipData();
 
         result.ID = _ID;
-        result.Name = MainChipName_Data.Get_Word(_ID);
-        result.AmalgamationDescList = new List<string> 
-        {
-            MainChipDescList_Data[_ID].Get_Word(0),
-            MainChipDescList_Data[_ID].Get_Word(1),
-            MainChipDescList_Data[_ID].Get_Word(2)
-        };
+
+        Set_DataLanguage(result, _ID);
 
         result.ThisIcon = ModuleSynhronyImgList_Data[_ID];
 
@@ -776,6 +769,32 @@ public class CSVManager : PersistentSingleton<CSVManager>
         return result;
     }
 
+
+    #endregion
+
+    #region Set
+
+    public ItemData Set_DataLanguage(ItemData _ItemData, int _ID)
+    {
+        _ItemData.Name = ModuleItemName_Data.Get_Word(_ID);
+        _ItemData.Description = ModuleItemDesc_Data.Get_Word(_ID);
+        _ItemData.EquipDescription = ModuleItemEquipDesc_Data.Get_Word(_ID);
+
+        return _ItemData;
+    }
+
+    public MainChipData Set_DataLanguage(MainChipData _MainChipData, int _ID)
+    {
+        _MainChipData.Name = MainChipName_Data.Get_Word(_ID);
+        _MainChipData.AmalgamationDescList = new List<string>
+        {
+            MainChipDescList_Data[_ID].Get_Word(0),
+            MainChipDescList_Data[_ID].Get_Word(1),
+            MainChipDescList_Data[_ID].Get_Word(2)
+        };
+
+        return _MainChipData;
+    }
 
     #endregion
 

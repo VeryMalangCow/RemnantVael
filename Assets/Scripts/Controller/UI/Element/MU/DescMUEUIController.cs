@@ -55,12 +55,20 @@ public class DescMUEUIController : ElementUIController
 
     #endregion
 
+    #region Set (Language)
+
+    public void Set_LanguageTxt()
+    {
+        // string
+        ExtraString_Rank = CSVManager.Instance.Get_StaticWord(25);
+    }
+
+    #endregion
+
     #region Offset
 
     public override void Offset()
     {
-        // string
-        ExtraString_Rank = CSVManager.Instance.Get_StaticWord(25);
 
         ItemIconImg.color = new Color(1, 1, 1, 0);
         CurrentRankImg.color = new Color(1, 1, 1, 0);

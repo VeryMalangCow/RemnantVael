@@ -1026,6 +1026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsCanSelect: 1
+  ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
 --- !u!1 &2100571745291227996
@@ -2386,9 +2387,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -275, y: -43}
-  m_SizeDelta: {x: 725, y: 52}
-  m_Pivot: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -628, y: -43}
+  m_SizeDelta: {x: 816, y: 52}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &4187664185695747185
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -94,7 +94,7 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     #region Select
 
-    private void Play_Selected(float _TargetAlpha, float _TargetScale, float _DurTime)
+    public void Play_Selected(float _TargetAlpha, float _TargetScale, float _DurTime)
     {
         DevTool.Set_KillTween(SignSeq);
         SignSeq = DOTween.Sequence();

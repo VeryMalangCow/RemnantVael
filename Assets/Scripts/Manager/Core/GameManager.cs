@@ -1664,7 +1664,12 @@ public class DevTool
 
     public static int Get_TSChildIndex<T>(T _T, int _Index) where T : MonoBehaviour
     {
-        return _T.gameObject.transform.GetChild(_Index).name != $"{_T.gameObject.name}'s Shadow" ? 
+        return Get_TSChildIndex(_T.gameObject, _Index);
+    }
+
+    public static int Get_TSChildIndex(GameObject obj, int _Index)
+    {
+        return obj.transform.GetChild(_Index).name != $"{obj.name}'s Shadow" ?
             _Index : _Index + 1;
     }
 
@@ -2135,21 +2140,25 @@ public class BUShopData<T>
         BUState<T> _State,
         BULevelData<T> _LevelData,
         List<BUShopData<T>> _AllList,
-        string _Name, string _Desc,
         BaseUpgradeUIController _Owner)
     {
         State = _State;
         LevelData = _LevelData;
 
-        Name = _Name;
-        Desc = _Desc;
-
-        UpgradeEUI.Offset(Name, Desc, _Owner);
+        UpgradeEUI.Offset(_Owner);
 
         State.Offset(UpgradeEUI, LevelData);
         State.Set_BuffedState();
 
         _AllList.Add(this);
+    }
+
+    public void Set_LanguageTxt(string _Name, string _Desc)
+    {
+        Name = _Name;
+        Desc = _Desc;
+
+        UpgradeEUI.Set_LanguageTxt(Name, Desc);
     }
 
     #endregion
@@ -2448,14 +2457,19 @@ public class ItemData : ItemData_Field
 
     public ItemData(ItemData _ItemData) : base(_ItemData)
     {
-        Name = _ItemData.Name;
-        Description = _ItemData.Description;
-        EquipDescription = _ItemData.EquipDescription;
+        Set_LanguageTxt(_ItemData);
         ItemIcon = _ItemData.ItemIcon;
 
         R1_MainChipID = _ItemData.R1_MainChipID;
         R3_MainChipID = _ItemData.R3_MainChipID;
         R5_MainChipID = _ItemData.R5_MainChipID;
+    }
+
+    public void Set_LanguageTxt(ItemData _ItemData)
+    {
+        Name = _ItemData.Name;
+        Description = _ItemData.Description;
+        EquipDescription = _ItemData.EquipDescription;
     }
 }
 
@@ -2581,7 +2595,6 @@ class ForgeInteractPanel
     {
         PanelBtn.Offset();
 
-        PanelBtnTxt.text = _BtnName;
         PanelBtn.OwnerUIController = _MUUC;
 
         RoleBtn.Offset();
@@ -2589,10 +2602,9 @@ class ForgeInteractPanel
 
         PanelBtnCG = DevTool.Get_ComponentTType<CanvasGroup>(PanelBtn.gameObject);
 
-        RoleBtnTxt.text = ">>  " + _BtnName + "  <<";
         RoleBtnTxtRT = DevTool.Get_ComponentTType<RectTransform>(RoleBtnTxt.gameObject);
 
-        RoleDescTxt.text = _BtnDesc;
+        Set_LanguageTxt(_BtnName, _BtnDesc);
 
         rtTween = RoleBtnTxtRT.DOScale(1.15f, 1.0f)
                 .OnPlay(() => { RoleBtnTxtRT.localScale = Vector2.one; })
@@ -2600,6 +2612,13 @@ class ForgeInteractPanel
                 .SetLoops(-1, LoopType.Yoyo);
 
         DOTween.Play(rtTween);
+    }
+
+    public void Set_LanguageTxt(string _BtnName, string _BtnDesc)
+    {
+        PanelBtnTxt.text = _BtnName;
+        RoleBtnTxt.text = ">>  " + _BtnName + "  <<";
+        RoleDescTxt.text = _BtnDesc;
     }
 }
 

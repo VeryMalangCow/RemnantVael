@@ -67,17 +67,13 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
         ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
         ThisRT.sizeDelta = new Vector2(MinimumSize, ThisRT.sizeDelta.y);
         BuyBtn.Offset();
-        DevTool.Get_ComponentTType<TMP_Text>(CostImg.gameObject.transform.GetChild(0).gameObject).text = CSVManager.Instance.Get_StaticWord(46);
-        DevTool.Get_ComponentTType<TMP_Text>(BuyBtn.gameObject.transform.GetChild(0).gameObject).text = CSVManager.Instance.Get_StaticWord(47);
     }
 
-    public void Offset(string _Name, string _Desc, BaseUpgradeUIController _Owner)
+    public void Offset(BaseUpgradeUIController _Owner)
     {
         this.Offset();
         ThisImgTxtAmountEUI.Offset();
 
-        SkillNameTxt.text = _Name;
-        DescTxt.text = _Desc;
         BuyBtn.OwnerUIController = _Owner;
     }
 
@@ -126,6 +122,18 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
         ThisRT.DOSizeDelta(new Vector2(MinimumSize, ThisRT.sizeDelta.y), SizeDeltaTime);
 
         MainGameUIManager.Instance.BaseUpgrade_UIController.SetOff_Desc();
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public void Set_LanguageTxt(string _Name, string _Desc)
+    {
+        SkillNameTxt.text = _Name;
+        DescTxt.text = _Desc;
+        DevTool.Get_ComponentTType<TMP_Text>(CostImg.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CostImg, 0)).gameObject).text = CSVManager.Instance.Get_StaticWord(46);
+        DevTool.Get_ComponentTType<TMP_Text>(BuyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(BuyBtn, 0)).gameObject).text = CSVManager.Instance.Get_StaticWord(47);
     }
 
     #endregion

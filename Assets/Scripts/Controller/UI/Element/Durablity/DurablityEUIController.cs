@@ -29,10 +29,19 @@ public class DurablityEUIController : ElementUIController
 
     #region - Hide
 
-    [HideInInspector] public static string DurablityStringTxt;
     [HideInInspector] private List<Image> FillImgList;
 
     #endregion
+
+    #endregion
+
+    #region Set (Language)
+
+    public void Set_LanguageTxt()
+    {
+        DurablityTxt.text = CSVManager.Instance.Get_StaticWord(23) + " :";
+        BrokenTxt.text = CSVManager.Instance.Get_StaticWord(24) + ": " + CSVManager.Instance.Get_StaticDesc(16);
+    }
 
     #endregion
 
@@ -40,9 +49,7 @@ public class DurablityEUIController : ElementUIController
 
     public override void Offset()
     {
-        DurablityStringTxt = CSVManager.Instance.Get_StaticWord(23);
-
-        DurablityTxt.text = DurablityStringTxt + " :";
+        Set_LanguageTxt();
 
         FillImgList = new List<Image>();
         for (int i = 0; i < FillImgListParentTF.childCount; i++)
@@ -51,7 +58,6 @@ public class DurablityEUIController : ElementUIController
             FillImgList.Add(img);
         }
 
-        BrokenTxt.text = CSVManager.Instance.Get_StaticWord(24) + ": " + CSVManager.Instance.Get_StaticDesc(16);
         DevTool.Set_Color(BrokenTxtColor, BrokenTxt);
     }
 

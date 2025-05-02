@@ -79,13 +79,6 @@ public class DescBUEUIController : ElementUIController
 
     public override void Offset()
     {
-        // String
-        LeftLVTxt.text = CSVManager.Instance.Get_StaticWord(34);
-        LeftValueTxt.text = CSVManager.Instance.Get_StaticWord(35);
-
-        RightLVTxt.text = CSVManager.Instance.Get_StaticWord(34);
-        RightValueTxt.text = CSVManager.Instance.Get_StaticWord(35);
-
         CurrentRangeImg =
             DevTool.Get_ComponentTType(CurrentRangeRT.gameObject, out Image img) ? 
             img : null;
@@ -93,7 +86,7 @@ public class DescBUEUIController : ElementUIController
         LeftLVTxtList = DevTool.Get_ChildList<TMP_Text>(LeftLVTxtParentTF);
         LeftValueTxtList = DevTool.Get_ChildList<TMP_Text>(LeftValueTxtParentTF);
 
-        DevTool.Get_ComponentTType<TMP_Text>(CompletedSignGO.transform.GetChild(0).gameObject).text = CSVManager.Instance.Get_StaticWord(48);
+        Set_LanguageTxt();
     }
 
     #endregion
@@ -256,6 +249,22 @@ public class DescBUEUIController : ElementUIController
         return result;
     }
 
+
+    #endregion
+
+    #region Set (Language)
+
+    public void Set_LanguageTxt()
+    {
+        // String
+        LeftLVTxt.text = CSVManager.Instance.Get_StaticWord(34);
+        LeftValueTxt.text = CSVManager.Instance.Get_StaticWord(35);
+
+        RightLVTxt.text = CSVManager.Instance.Get_StaticWord(34);
+        RightValueTxt.text = CSVManager.Instance.Get_StaticWord(35);
+
+        DevTool.Get_ComponentTType<TMP_Text>(CompletedSignGO.transform.GetChild(DevTool.Get_TSChildIndex(CompletedSignGO, 0)).gameObject).text = CSVManager.Instance.Get_StaticWord(48);
+    }
 
     #endregion
 }

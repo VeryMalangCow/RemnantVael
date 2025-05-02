@@ -26,9 +26,7 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
 
     protected override void Offset()
     {
-        IsBrokenAnno = $"<size=25&>{CSVManager.Instance.Get_StaticWord(24)}: {CSVManager.Instance.Get_StaticDesc(16)}</size>\n\n" +
-            $"{CSVManager.Instance.Get_StaticDesc(17)}\n" +
-            $"<size=50&>{CSVManager.Instance.Get_StaticDesc(19)}</size>";
+        Set_LanguageTxt();
 
         OnOffAC = UnitManager.Instance.MUShop_OnOffAC;
         OnOffStateAC = UnitManager.Instance.NeedChargeBettery_OnOffStateAC;
@@ -69,6 +67,7 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
         if (IsOn)
         {
             UsingShop = this;
+            Set_LanguageTxt();
             MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOn_ThisPanel();
         }
         else if (Can_ShopPowerOn())
@@ -126,6 +125,17 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
     public override void Gen_ItemWhenBreak()
     {
         Gen_RandomMS(SpawnItem_BreakMin, SpawnItem_BreakMax);
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public void Set_LanguageTxt()
+    {
+        IsBrokenAnno = $"<size=25&>{CSVManager.Instance.Get_StaticWord(24)}: {CSVManager.Instance.Get_StaticDesc(16)}</size>\n\n" +
+            $"{CSVManager.Instance.Get_StaticDesc(17)}\n" +
+            $"<size=50&>{CSVManager.Instance.Get_StaticDesc(19)}</size>";
     }
 
     #endregion

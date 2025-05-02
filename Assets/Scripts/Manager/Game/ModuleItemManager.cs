@@ -57,7 +57,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #endregion
 
-
     #region Offset
 
     private void Offset()
@@ -718,6 +717,38 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         if (MainGameUIManager.Instance.ModuleUpgrade_UIController != null)
             MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_SynergySlots(MainChipAmalgamationDict);
     }
+
+    #endregion
+
+    #region Set (Language)
+
+    public void Set_DataLanguage()
+    {
+        Set_ItemDataLanguage();
+        Set_MainChipDataLanguage();
+
+        MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_EquipedUI(AllModuleData, EquippedIndex);
+    }
+
+    private void Set_ItemDataLanguage()
+    {
+        for (int i = 0; i < ItemDataList.Count; i++)
+            CSVManager.Instance.Set_DataLanguage(ItemDataList[i], i);
+
+        for (int i = 0; i < ColumnAmount; i++)
+            for (int j = 0; j < RowAmount; j++)
+                if (AllModuleData[i][j] != null)
+                {
+                    AllModuleData[i][j].ThisItemData.Set_LanguageTxt(ItemDataList[AllModuleData[i][j].ThisItemData.ID]);
+                }
+    }
+
+    private void Set_MainChipDataLanguage()
+    {
+        for (int i = 0; i < MainChipDataList.Count; i++)
+            CSVManager.Instance.Set_DataLanguage(MainChipDataList[i], i);
+    }
+
 
     #endregion
 }
