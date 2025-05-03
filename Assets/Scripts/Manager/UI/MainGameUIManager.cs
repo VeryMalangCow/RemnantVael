@@ -119,11 +119,14 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     {
         OutMainGame_UIController.Set_LanguageTxt();
 
+        MapIntro_UIController.Set_LanguageTxt();
         PlayerHUD_UIController.Set_LanguageTxt();
         InteractAnno_UIController.Set_LanguageTxt();
 
         BaseUpgrade_UIController.Set_LanguageTxt();
         ModuleUpgrade_UIController.Set_LanguageTxt();
+
+        AllyCard_UIController.Set_LanguageTxt();
     }
 
     #endregion

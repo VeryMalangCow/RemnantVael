@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class AllyManager : Singleton<AllyManager>
@@ -35,6 +34,7 @@ public class AllyManager : Singleton<AllyManager>
     [HideInInspector] private List<List<AllyCardData>> AllAllyCardData = null;
     [HideInInspector] private List<HashSet<int>> AllGottenAllyCards = null;
     [HideInInspector] private List<List<Sprite>> AllIconList = null;
+
 
     #endregion
 
@@ -166,6 +166,25 @@ public class AllyManager : Singleton<AllyManager>
                 break;
         }
         return null;
+    }
+
+    #endregion
+
+    #region Set
+
+    public void Set_LanguageTxt()
+    {
+        List<AllyCardData> stData = CSVManager.Instance.Get_StrikeTeam_AllAllyCardData();
+        for (int i = 0; i < ST_AllAllyCardData.Count; i++)
+            ST_AllAllyCardData[i].Set_LanguageTxt(stData[i].Name, stData[i].Desc);
+
+        List<AllyCardData> utData = CSVManager.Instance.Get_UplinkTeam_AllAllyCardData();
+        for (int i = 0; i < UT_AllAllyCardData.Count; i++)
+            UT_AllAllyCardData[i].Set_LanguageTxt(utData[i].Name, utData[i].Desc);
+
+        List<AllyCardData> ntData = CSVManager.Instance.Get_NeoTeam_AllAllyCardData();
+        for (int i = 0; i < NT_AllAllyCardData.Count; i++)
+            NT_AllAllyCardData[i].Set_LanguageTxt(ntData[i].Name, ntData[i].Desc);
     }
 
     #endregion

@@ -22,12 +22,10 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     #endregion
 
-    #region Offset
+    #region Set (Language)
 
-    public override void Offset()
+    public void Set_LanguageTxt()
     {
-        base.Offset();
-
         NameTxt.text = CSVManager.Instance.Get_StaticWord(57);
     }
 

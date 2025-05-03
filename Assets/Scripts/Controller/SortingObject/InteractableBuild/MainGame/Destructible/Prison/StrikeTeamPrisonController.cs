@@ -8,7 +8,6 @@ public class StrikeTeamPrisonController : PrisonController
     private void Offset_Type()
     {
         TypeIcon.sprite = UnitManager.Instance.StrikeTeamIcon.TypeSpecial;
-        TypeTxt.text = $"<size=150%>)</size> {UnitManager.Instance.StrikeTeamString}";
 
         AllySprites = UnitManager.Instance.StrikeTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
@@ -33,6 +32,17 @@ public class StrikeTeamPrisonController : PrisonController
         base.Set_Unlock();
 
         PlayerManager.Instance.PlayerController.StrikeTeamPresence.Value += AllyAmount;
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public override void Set_LanguageTxt()
+    {
+        base.Set_LanguageTxt();
+
+        TypeTxt.text = $"<size=150%>)</size> {UnitManager.Instance.StrikeTeamString}";
     }
 
     #endregion

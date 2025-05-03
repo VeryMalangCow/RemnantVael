@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -61,8 +60,7 @@ public class PrisonController : InteractableBuildController
     [HideInInspector] protected List<SpriteRenderer> PrisonAllyShadowList = new List<SpriteRenderer>();
     [HideInInspector] protected PrisonAllySprite AllySprites;
 
-    [HideInInspector]
-    private static List<float> PercentPrisonGrade = new List<float>
+    [HideInInspector] private static List<float> PercentPrisonGrade = new List<float>
     { 5f, 4f, 3f, 2f, 1f };
 
     #endregion
@@ -77,6 +75,8 @@ public class PrisonController : InteractableBuildController
 
     private void Offset_Comp()
     {
+        DangerIcon.sprite = UnitManager.Instance.PrisonRateIconList[Rating];
+
         DangerTxt = DevTool.Get_ComponentTType(DangerIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text dangerTxt) ? dangerTxt : null;
         TypeTxt = DevTool.Get_ComponentTType(TypeIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text typeTxt) ? typeTxt : null;
 
@@ -110,11 +110,6 @@ public class PrisonController : InteractableBuildController
         }
     }
 
-    private void Offset_Danger()
-    {
-        DangerIcon.sprite = UnitManager.Instance.PrisonRateIconList[Rating];
-        DangerTxt.text = $"{UnitManager.Instance.RatingString }: ({Rating + 1}) { UnitManager.Instance.PrisonRateStringList[Rating]} <size=150%>(</size>";
-    }
 
     protected override void Offset()
     {
@@ -125,7 +120,9 @@ public class PrisonController : InteractableBuildController
         base.Offset();
 
         Offset_Comp();
-        Offset_Danger();
+        Set_LanguageTxt();
+
+        UnitManager.Instance.AllPrison.Add(this);
     }
 
     #endregion
@@ -259,6 +256,18 @@ public class PrisonController : InteractableBuildController
         seq.Append(tf.GetChild(0).DOLocalMoveY(0, _FallingTime)
             .OnStart(() => { targetSr.sprite = AllySprites.Fall; })
             .OnComplete(() => { targetSr.sprite = AllySprites.Stand; }));
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public virtual void Set_LanguageTxt()
+    {
+        DangerTxt.text = $"{UnitManager.Instance.RatingString}: ({Rating + 1}) {UnitManager.Instance.PrisonRateStringList[Rating]} <size=150%>(</size>";
+
+        if (PuzzleOper != null) 
+            PuzzleOper.Set_Language();
     }
 
     #endregion

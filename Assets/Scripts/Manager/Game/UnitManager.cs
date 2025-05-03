@@ -190,40 +190,13 @@ public class UnitManager : Singleton<UnitManager>
     // Language
     [HideInInspector] private HashSet<LanguageTxtController> AllLanguageTxtController = new HashSet<LanguageTxtController>();
 
-    #endregion
+    // Prison
+    [HideInInspector] public HashSet<PrisonController> AllPrison = new HashSet<PrisonController>();
 
     #endregion
 
-    #region Offset
-
-    private void Offset_String()
-    {
-        RatingString = CSVManager.Instance.Get_StaticWord(69);
-        PrisonRateStringList = new List<string>
-        {
-            CSVManager.Instance.Get_StaticWord(64),
-            CSVManager.Instance.Get_StaticWord(65),
-            CSVManager.Instance.Get_StaticWord(66),
-            CSVManager.Instance.Get_StaticWord(67),
-            CSVManager.Instance.Get_StaticWord(68)
-        };
-
-        StrikeTeamString = $"{CSVManager.Instance.Get_StaticWord(61)}<size=85%> ({CSVManager.Instance.Get_StaticWord(71)})</size>";
-        UplinkTeamString = $"{CSVManager.Instance.Get_StaticWord(62)}<size=85%> ({CSVManager.Instance.Get_StaticWord(72)})</size>";
-        NeoTeamString = $"{CSVManager.Instance.Get_StaticWord(63)}<size=85%> ({CSVManager.Instance.Get_StaticWord(73)})</size>";
-
-        AllyCardRateList = new List<string>
-        {
-            CSVManager.Instance.Get_StaticWord(76),
-            CSVManager.Instance.Get_StaticWord(77),
-            CSVManager.Instance.Get_StaticWord(78),
-            CSVManager.Instance.Get_StaticWord(79),
-            CSVManager.Instance.Get_StaticWord(80),
-            CSVManager.Instance.Get_StaticWord(81)
-        };
-    }
-
     #endregion
+
 
     #region Framework
 
@@ -232,7 +205,7 @@ public class UnitManager : Singleton<UnitManager>
         base.Awake();
 
         Set_RainbowColorDotween();
-        Offset_String();
+        Set_LanguageTxt();
 
         StartCoroutine(Test_Cor());
     }
@@ -269,13 +242,48 @@ public class UnitManager : Singleton<UnitManager>
     public void Set_LanguageFont(int _LangID)
     {
         if (GameManager.LanguageID == _LangID) return;
-
         GameManager.LanguageID = _LangID;
-        Debug.Log(AllLanguageTxtController.Count);
+
+        // Change String
+        Set_LanguageTxt();
+
+        // Change Font Asset
         foreach (LanguageTxtController ltc in AllLanguageTxtController)
             ltc.Set_Font(GameManager.LanguageID);
-        
+
+        // Change UI
         MainGameUIManager.Instance.Set_LanguageTxt();
+
+        // Change PrisonInfo
+        foreach (PrisonController prison in AllPrison)
+            prison.Set_LanguageTxt();
+    }
+
+    private void Set_LanguageTxt()
+    {
+        RatingString = CSVManager.Instance.Get_StaticWord(69);
+        PrisonRateStringList = new List<string>
+        {
+            CSVManager.Instance.Get_StaticWord(64),
+            CSVManager.Instance.Get_StaticWord(65),
+            CSVManager.Instance.Get_StaticWord(66),
+            CSVManager.Instance.Get_StaticWord(67),
+            CSVManager.Instance.Get_StaticWord(68)
+        };
+
+        StrikeTeamString = $"{CSVManager.Instance.Get_StaticWord(61)}<size=85%> ({CSVManager.Instance.Get_StaticWord(71)})</size>";
+        UplinkTeamString = $"{CSVManager.Instance.Get_StaticWord(62)}<size=85%> ({CSVManager.Instance.Get_StaticWord(72)})</size>";
+        NeoTeamString = $"{CSVManager.Instance.Get_StaticWord(63)}<size=85%> ({CSVManager.Instance.Get_StaticWord(73)})</size>";
+
+        AllyCardRateList = new List<string>
+        {
+            CSVManager.Instance.Get_StaticWord(76),
+            CSVManager.Instance.Get_StaticWord(77),
+            CSVManager.Instance.Get_StaticWord(78),
+            CSVManager.Instance.Get_StaticWord(79),
+            CSVManager.Instance.Get_StaticWord(80),
+            CSVManager.Instance.Get_StaticWord(81)
+        };
     }
 
     #endregion

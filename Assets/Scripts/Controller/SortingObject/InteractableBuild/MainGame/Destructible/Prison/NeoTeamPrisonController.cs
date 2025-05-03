@@ -6,7 +6,6 @@ public class NeoTeamPrisonController : PrisonController
     private void Offset_TypeIconTxt()
     {
         TypeIcon.sprite = UnitManager.Instance.NeoTeamIcon.TypeSpecial;
-        TypeTxt.text = $"<size=150%>)</size> {UnitManager.Instance.NeoTeamString}"; 
         
         AllySprites = UnitManager.Instance.NeoTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
@@ -31,6 +30,17 @@ public class NeoTeamPrisonController : PrisonController
         base.Set_Unlock();
 
         PlayerManager.Instance.PlayerController.NeoTeamPresence.Value += AllyAmount;
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public override void Set_LanguageTxt()
+    {
+        base.Set_LanguageTxt();
+
+        TypeTxt.text = $"<size=150%>)</size> {UnitManager.Instance.NeoTeamString}";
     }
 
     #endregion

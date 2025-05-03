@@ -6,7 +6,6 @@ public class UplinkTeamPrisonController : PrisonController
     private void Offset_TypeIconTxt()
     {
         TypeIcon.sprite = UnitManager.Instance.UplinkTeamIcon.TypeSpecial;
-        TypeTxt.text = $"<size=150%>)</size> {UnitManager.Instance.UplinkTeamString}";
 
         AllySprites = UnitManager.Instance.UplinkTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
@@ -32,6 +31,17 @@ public class UplinkTeamPrisonController : PrisonController
         base.Set_Unlock();
 
         PlayerManager.Instance.PlayerController.UplinkTeamPresence.Value += AllyAmount;
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public override void Set_LanguageTxt()
+    {
+        base.Set_LanguageTxt();
+
+        TypeTxt.text = $"<size=150%>)</size> {UnitManager.Instance.UplinkTeamString}";
     }
 
     #endregion

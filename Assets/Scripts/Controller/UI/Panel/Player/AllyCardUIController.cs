@@ -47,8 +47,8 @@ public class AllyCardUIController : SinglePanelUIController
 
     public override void Offset() 
     {
-        Offset_Basic();
-        Offset_Txt();
+        Offset_Basic(); 
+        Set_BaseLanguageTxt();
     }
 
     private void Offset_Basic()
@@ -80,14 +80,6 @@ public class AllyCardUIController : SinglePanelUIController
         SelectBtn.OwnerUIController = this;
     }
 
-    private void Offset_Txt()
-    {
-        DevTool.Get_ComponentTType<TMP_Text>(CardBookingFrameImgRT.transform.GetChild(0).gameObject).text =
-            CSVManager.Instance.Get_StaticWord(82);
-
-        DevTool.Get_ComponentTType<TMP_Text>(SelectBtn.gameObject.transform.GetChild(0).gameObject).text =
-            CSVManager.Instance.Get_StaticWord(83);
-    }
 
     #endregion
 
@@ -225,6 +217,30 @@ public class AllyCardUIController : SinglePanelUIController
                 seq.Append(CardBookingFrameImgRT.DOAnchorPosY(i * 4, 0.05f));
             else
                 seq.Append(CardBookingFrameImgRT.DOAnchorPosY(-(i * 4), 0.05f));
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    private void Set_BaseLanguageTxt()
+    {
+        DevTool.Get_ComponentTType<TMP_Text>(CardBookingFrameImgRT.transform.GetChild(DevTool.Get_TSChildIndex(CardBookingFrameImgRT, 0)).gameObject).text =
+            CSVManager.Instance.Get_StaticWord(82);
+
+        DevTool.Get_ComponentTType<TMP_Text>(SelectBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(SelectBtn, 0)).gameObject).text =
+            CSVManager.Instance.Get_StaticWord(83);
+
+        for (int i = 0; i < Rerolls.Count; i++)
+            Rerolls[i].Set_LanguageTxt();
+    }
+
+    public override void Set_LanguageTxt()
+    {
+        base.Set_LanguageTxt();
+
+        AllyManager.Instance.Set_LanguageTxt();
+        Set_BaseLanguageTxt();
     }
 
     #endregion

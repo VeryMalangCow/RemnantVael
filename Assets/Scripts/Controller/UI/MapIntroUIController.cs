@@ -28,14 +28,9 @@ public class MapIntroUIController : UIController
 
     public void Play_IntroLabel()
     {
-        StageData sd = 
-            StageManager.Instance.Get_CollectStageData(StageManager.Instance.TargetStageID);
+        Set_LanguageTxt();
 
-        Set_Txt(
-            CSVManager.Instance.Get_MapName(sd.InfoData.StageID), 
-            CSVManager.Instance.Get_MapDesc(sd.InfoData.StageID));
-
-        Play_Label(1.5f, 3f, 2f)
+        Play_Label(_DownTime: 1.5f, _StayTime: 2.5f, _UpTime: 2f)
             .OnStart(() => { this.gameObject.SetActive(true); })
             .OnComplete(() => { this.gameObject.SetActive(false); });
     }
@@ -60,6 +55,22 @@ public class MapIntroUIController : UIController
         seq.Join(ThisShakingRT.DOShakeAnchorPos(_UpTime * 1.5f, 1f, 50, 90, false, true).SetEase(Ease.InCubic));
 
         return seq;
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public override void Set_LanguageTxt()
+    {
+        base.Set_LanguageTxt();
+
+        StageData sd =
+            StageManager.Instance.Get_CollectStageData(StageManager.Instance.TargetStageID);
+
+        Set_Txt(
+            CSVManager.Instance.Get_MapName(sd.InfoData.StageID),
+            CSVManager.Instance.Get_MapDesc(sd.InfoData.StageID));
     }
 
     #endregion

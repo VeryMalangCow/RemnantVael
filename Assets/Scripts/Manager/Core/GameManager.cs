@@ -1667,9 +1667,21 @@ public class DevTool
         return Get_TSChildIndex(_T.gameObject, _Index);
     }
 
-    public static int Get_TSChildIndex(GameObject obj, int _Index)
+    public static int Get_TSChildIndex(GameObject _GO, int _Index)
     {
-        return obj.transform.GetChild(_Index).name != $"{obj.name}'s Shadow" ?
+        return _GO.transform.GetChild(_Index).name != $"{_GO.name}'s Shadow" ?
+            _Index : _Index + 1;
+    }
+
+    public static int Get_TSChildIndex(Transform _TF, int _Index)
+    {
+        return _TF.GetChild(_Index).name != $"{_TF.gameObject.name}'s Shadow" ?
+            _Index : _Index + 1;
+    }
+
+    public static int Get_TSChildIndex(Component _Comp, int _Index)
+    {
+        return _Comp.gameObject.transform.GetChild(_Index).name != $"{_Comp.gameObject.name}'s Shadow" ?
             _Index : _Index + 1;
     }
 
@@ -3398,6 +3410,11 @@ public class AllyCardData
         Rank = _BaseData.Rank;
         EssentialID = _BaseData.EssentialID;
 
+        Set_LanguageTxt(_Name, _Desc);
+    }
+
+    public void Set_LanguageTxt(string _Name, string _Desc)
+    {
         Name = _Name;
         Desc = _Desc;
     }

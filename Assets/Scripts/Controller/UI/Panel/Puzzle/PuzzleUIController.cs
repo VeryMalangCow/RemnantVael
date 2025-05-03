@@ -128,12 +128,6 @@ public abstract class PuzzleUIController : SinglePanelUIController
         ReadyKeyAnnoRT = DevTool.Get_ComponentTType(ReadyKeyAnnoTxt.gameObject, out RectTransform readyKeyRt) ? readyKeyRt : null;
         ReadykeyAnnoRTPos = new CoupleData<Vector2>(ReadyKeyAnnoRT.anchoredPosition, new Vector2(1128f, -580f));
 
-        // Txt
-        TryUnlockTxt.text = CSVManager.Instance.Get_StaticWord(85);
-        InputTxt.text = CSVManager.Instance.Get_StaticWord(88);
-        SuccessTxt.text = CSVManager.Instance.Get_StaticWord(86);
-        FailureTxt.text = CSVManager.Instance.Get_StaticWord(87);
-
         // Key Img
         InputImg.sprite = UnitManager.Instance.SpaceBarSprite;
         InputImg.SetNativeSize();
@@ -172,10 +166,16 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     protected virtual void Set_AllStart()
     {
-        // txt
+        // Left Txt
         UnlockAnnoTxt.text = CSVManager.Instance.Get_StaticDesc(28).Replace("\\n", "\n");
         SuccessAnnoTxt.text = CSVManager.Instance.Get_StaticDesc(29).Replace("\\n", "\n");
         FailureAnnoTxt.text = CSVManager.Instance.Get_StaticDesc(30).Replace("\\n", "\n");
+
+        // Right Txt
+        TryUnlockTxt.text = CSVManager.Instance.Get_StaticWord(85);
+        InputTxt.text = CSVManager.Instance.Get_StaticWord(88);
+        SuccessTxt.text = CSVManager.Instance.Get_StaticWord(86);
+        FailureTxt.text = CSVManager.Instance.Get_StaticWord(87);
 
         // Right
         Play_LineSetChange();

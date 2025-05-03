@@ -9,8 +9,7 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
     protected override void Offset()
     {
         base.Offset();
-
-        PayTxt.text = CSVManager.Instance.Get_StaticWord(59);
+        Set_Language();
     }
 
     #endregion
@@ -53,6 +52,15 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
         }
 
         debugString += "Puzzle";
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public void Set_Language()
+    {
+        PayTxt.text = CSVManager.Instance.Get_StaticWord(59);
     }
 
     #endregion
