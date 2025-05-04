@@ -118,16 +118,15 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         // Cell
         for (int i = 0; i < AllBoxCellEUI.Count; i++)
-            AllBoxCellEUI[i].Set_InnerColor(LockedClr);
+            AllBoxCellEUI[i].Set_InnerColor(_Clr);
         
-
         // Connection
         for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
-            AllBoxConnectionEUI[i].Set_InnerColor(LockedClr);
+            AllBoxConnectionEUI[i].Set_InnerColor(_Clr);
         
         // Inner 
         for (int i = 0; i < InnerList.Count; i++)
-            DevTool.Set_Color(LockedClr, InnerList[i]);
+            DevTool.Set_Color(_Clr, InnerList[i]);
     }
 
     private void Set_AllDefault()
