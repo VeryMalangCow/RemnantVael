@@ -126,7 +126,7 @@ public class InOrderLockerUIController : PuzzleUIController
         base.Set_AllStart();
 
         Set_AllDefault();
-        Set_InnerColor(LockedClr);
+        Set_InnerColor(UnitManager.Instance.LockedClr);
         Set_InteractableAmount(CellAmount);
     }
 
@@ -134,7 +134,7 @@ public class InOrderLockerUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        Set_InnerColor(UnlockedClr);
+        Set_InnerColor(UnitManager.Instance.UnlockedClr);
     }
 
     #endregion

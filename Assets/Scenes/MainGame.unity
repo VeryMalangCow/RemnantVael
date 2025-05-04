@@ -7260,7 +7260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef74f5adbc6cf64f97153cd67a1719c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestGO: []
+  TestGO:
+  - {fileID: 806215306}
   ModuleM_000_Explosion: {fileID: 2100000, guid: 75b0116f582f3244aaf171b01df8ff63, type: 2}
   ModuleM_000_Hitted: {fileID: 2100000, guid: 02802480c4016274e9287aa5708f7288, type: 2}
   EnemyM_000_Explosion: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
@@ -7329,6 +7330,8 @@ MonoBehaviour:
   - {r: 0.9960785, g: 0.29803923, b: 0.19215688, a: 1}
   - {r: 1, g: 0.9988616, b: 0.8820755, a: 1}
   SpaceBarSprite: {fileID: -324453934, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  LockedClr: {r: 0.7647059, g: 0.53333336, b: 1, a: 1}
+  UnlockedClr: {r: 1, g: 1, b: 1, a: 1}
   NSC_NumSpriteList:
   - {fileID: 589875603, guid: 637ede47422025b48bd24c3773722caa, type: 3}
   - {fileID: -1119865037, guid: 637ede47422025b48bd24c3773722caa, type: 3}

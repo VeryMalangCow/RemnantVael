@@ -85,7 +85,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
         for (int i = 0; i < AllNSCPanelEUI.Count; i++)
         {
-            AllNSCPanelEUI[i].Set_InnerColor(UnlockedClr);
+            AllNSCPanelEUI[i].Set_InnerColor(UnitManager.Instance.UnlockedClr);
         }
     }
 
@@ -100,7 +100,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
             AllNSCPanelEUI[i].Set_RollValueRandom();
             AllNSCPanelEUI[i].Set_RandomAnswer();
 
-            AllNSCPanelEUI[i].Set_InnerColor(LockedClr);
+            AllNSCPanelEUI[i].Set_InnerColor(UnitManager.Instance.LockedClr);
         }
     }
 

@@ -19,33 +19,15 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== Ready Panel")]
-    [SerializeField] private CanvasGroup ReadyCG;
-    [SerializeField] private TMP_Text ReadyAnnoTxt;
-    [SerializeField] private TMP_Text ReadyTimeLimitTxt;
-    [SerializeField] private TMP_Text ReadyKeyAnnoTxt;
-    [SerializeField] private Image ReadyInputAnnoImg;
+    [SerializeField] private PuzzleReadyPanelEUIController ReadyPanelEUI;
 
     [Space(10)]
     [Header("=== Left")]
-    [SerializeField] private TMP_Text UnlockAnnoTxt;
-    [SerializeField] private TMP_Text SuccessAnnoTxt;
-    [SerializeField] private TMP_Text FailureAnnoTxt;
-    [SerializeField] private TMP_Text CountdownTxt;
-    [SerializeField] private TMP_Text CountdownPaneltyTxt;
+    [SerializeField] private PuzzleTimePanelEUIController TimePanelEUI;
 
     [Space(10)]
     [Header("=== Right")]
-    [SerializeField] private CanvasGroup SuccessCG;
-    [SerializeField] private CanvasGroup FailureCG;
-    [SerializeField] private TMP_Text TryUnlockTxt;
-    [SerializeField] private TMP_Text InputTxt;
-    [SerializeField] private Image InputImg;
-    [SerializeField] private RectTransform RollingRT;
-
-    [Space(10)]
-    [Header("=== Color")]
-    [SerializeField] protected Color LockedClr;
-    [SerializeField] protected Color UnlockedClr;
+    [SerializeField] private PuzzleUnlockPanelEUIController UnlockPanelEUI;
 
     #endregion
 
@@ -54,21 +36,10 @@ public abstract class PuzzleUIController : SinglePanelUIController
     // Canvas Group
     [HideInInspector] protected CanvasGroup ThisCG;
 
-    // RT
-    [HideInInspector] private RectTransform SuccessAnnoRT;
-    [HideInInspector] private RectTransform FailureAnnoRT;
-    [HideInInspector] private RectTransform CountdownPaneltyRT;
-    [HideInInspector] private RectTransform ReadyTimeLimitAnnoRT;
-    [HideInInspector] private RectTransform ReadyKeyAnnoRT;
 
-    // Txt
-    [HideInInspector] private TMP_Text SuccessTxt;
-    [HideInInspector] private TMP_Text FailureTxt;
 
     // Static Data
     [HideInInspector] private static string SecondString = "<size=50%>s</size>";
-    [HideInInspector] private CoupleData<Vector2> ReadyTimeLimitAnnoRTPos;
-    [HideInInspector] private CoupleData<Vector2> ReadykeyAnnoRTPos;
 
     // Success
     [HideInInspector] protected bool CanSuccess = false;
@@ -97,40 +68,18 @@ public abstract class PuzzleUIController : SinglePanelUIController
     {
         base.Offset();
         
-        // Color
-        UnlockedClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
-
         // CG
         ThisCG = DevTool.Get_ComponentTType(gameObject, out CanvasGroup cg) ? cg : null;
 
         // Left
-        FailureAnnoRT = DevTool.Get_ComponentTType(FailureAnnoTxt.gameObject, out RectTransform fRt) ? fRt : null;
-        SuccessAnnoRT = DevTool.Get_ComponentTType(SuccessAnnoTxt.gameObject, out RectTransform sRt) ? sRt : null;
-
-        DevTool.Set_Color(LockedClr, FailureAnnoTxt);
-        DevTool.Set_Color(UnlockedClr, SuccessAnnoTxt);
-
-        DevTool.Set_Color(LockedClr, CountdownPaneltyTxt);
+        TimePanelEUI.Offset();
 
         // Right
-        FailureTxt = DevTool.Get_ComponentTType(FailureCG.transform.GetChild(0).gameObject, out TMP_Text fTxt) ? fTxt : null;
-        SuccessTxt = DevTool.Get_ComponentTType(SuccessCG.transform.GetChild(0).gameObject, out TMP_Text sTxt) ? sTxt : null;
-
-        DevTool.Set_Color(LockedClr, FailureTxt);
-        DevTool.Set_Color(UnlockedClr, SuccessTxt);
-
-        CountdownPaneltyRT = DevTool.Get_ComponentTType(CountdownPaneltyTxt.gameObject, out RectTransform paneltyTimeRt) ? paneltyTimeRt : null;
+        UnlockPanelEUI.Offset();
 
         // Ready
-        ReadyTimeLimitAnnoRT = DevTool.Get_ComponentTType(ReadyTimeLimitTxt.gameObject, out RectTransform readyTimeRt) ? readyTimeRt : null;
-        ReadyTimeLimitAnnoRTPos = new CoupleData<Vector2>(readyTimeRt.anchoredPosition, new Vector2(-1128f, -152f));
+        ReadyPanelEUI.Offset();
 
-        ReadyKeyAnnoRT = DevTool.Get_ComponentTType(ReadyKeyAnnoTxt.gameObject, out RectTransform readyKeyRt) ? readyKeyRt : null;
-        ReadykeyAnnoRTPos = new CoupleData<Vector2>(ReadyKeyAnnoRT.anchoredPosition, new Vector2(1128f, -580f));
-
-        // Key Img
-        InputImg.sprite = UnitManager.Instance.SpaceBarSprite;
-        InputImg.SetNativeSize();
     }
 
     #endregion
@@ -167,37 +116,13 @@ public abstract class PuzzleUIController : SinglePanelUIController
     protected virtual void Set_AllStart()
     {
         // Left Txt
-        UnlockAnnoTxt.text = CSVManager.Instance.Get_StaticDesc(28).Replace("\\n", "\n");
-        SuccessAnnoTxt.text = CSVManager.Instance.Get_StaticDesc(29).Replace("\\n", "\n");
-        FailureAnnoTxt.text = CSVManager.Instance.Get_StaticDesc(30).Replace("\\n", "\n");
+        TimePanelEUI.Set_AllStart(CurrentCountdown, SecondString);
 
         // Right Txt
-        TryUnlockTxt.text = CSVManager.Instance.Get_StaticWord(85);
-        InputTxt.text = CSVManager.Instance.Get_StaticWord(88);
-        SuccessTxt.text = CSVManager.Instance.Get_StaticWord(86);
-        FailureTxt.text = CSVManager.Instance.Get_StaticWord(87);
-
-        // Right
-        Play_LineSetChange();
-
-        // Left
-        Set_CountdownTxt();
-        DevTool.Set_Color(LockedClr, CountdownTxt);
-        DevTool.Set_AlphaColor(CountdownPaneltyTxt, 0f);
+        UnlockPanelEUI.Set_AllStart(CanSuccess);
 
         // Ready
-        ReadyCG.alpha = 1f;
-        ReadyCG.gameObject.SetActive(true);
-        ReadyAnnoTxt.text = CSVManager.Instance.Get_StaticWord(90);
-        ReadyTimeLimitTxt.text = $"{(int)CurrentCountdown}{SecondString}";
-        ReadyInputAnnoImg.sprite = UnitManager.Instance.SpaceBarSprite;
-        ReadyKeyAnnoTxt.text = $"{CSVManager.Instance.Get_StaticWord(88)} : {CSVManager.Instance.Get_StaticWord(89)} & {CSVManager.Instance.Get_StaticWord(85)}";
-
-        ReadyTimeLimitAnnoRT.anchoredPosition = ReadyTimeLimitAnnoRTPos.TypeBase;
-        ReadyTimeLimitAnnoRT.localScale = Vector2.one;
-
-        ReadyKeyAnnoRT.anchoredPosition = ReadykeyAnnoRTPos.TypeBase;
-        ReadyKeyAnnoRT.localScale = Vector2.one;
+        ReadyPanelEUI.Set_AllStart(CurrentCountdown, SecondString);
     }
 
     protected virtual void Set_AllComplete()
@@ -208,82 +133,17 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     #endregion
 
-    #region Left
-
     #region Set (Panelty)
 
     private void Set_Panelty(float _PaneltyTime)
     {
         CurrentCountdown += _PaneltyTime;
-
-        CountdownPaneltyTxt.text = $"{_PaneltyTime.ToString("0.0")}{SecondString}";
-
-        DevTool.Set_KillTween(CountdownPaneltyRT);
-        DevTool.Set_KillTween(CountdownPaneltyTxt);
-
-
-        CountdownPaneltyRT.localScale = Vector2.one;
-        DevTool.Set_AlphaColor(CountdownPaneltyTxt, 1f);
-
-        Sequence seq = DOTween.Sequence();
-        seq.Append(CountdownPaneltyRT.DOScale(1.1f, 0.05f));
-        seq.Append(CountdownPaneltyRT.DOScale(0f, 1.95f));
-
-        CountdownPaneltyTxt.DOFade(0f, 2f);
+        TimePanelEUI.Set_Panelty(_PaneltyTime, SecondString);
     }
-
-    #endregion
-
-    #region Anno
-
-    private void Play_FailureAnno(float _OnDurTime, float _OffDurTime, float _IntervalTime = 0.5f)
-    {
-        Play_ExtraAnno(FailureAnnoRT, FailureAnnoTxt, _OnDurTime, _OffDurTime, _IntervalTime);
-    }
-
-    private void Play_SuccessAnno(float _OnDurTime, float _OffDurTime, float _IntervalTime = 0.5f)
-    {
-        Play_ExtraAnno(SuccessAnnoRT, SuccessAnnoTxt, _OnDurTime, _OffDurTime, _IntervalTime);
-    }
-
-    private void Play_ExtraAnno(RectTransform _RT, TMP_Text _Tmp, float _OnDurTime, float _OffDurTime, float _IntervalTime = 0.5f)
-    {
-        if (!IsInteractable) return;
-
-        DevTool.Set_KillTween(_RT);
-        DevTool.Set_KillTween(_Tmp);
-
-        Sequence ExtraAnnoSeq = DOTween.Sequence();
-
-        ExtraAnnoSeq.OnStart(() =>
-        {
-            _RT.anchoredPosition = new Vector2(0f, 300f);
-            DevTool.Set_AlphaColor(_Tmp, 0f);
-        });
-
-        ExtraAnnoSeq.Join(_RT.DOAnchorPosY(360f, _OnDurTime));
-        ExtraAnnoSeq.Join(_Tmp.DOFade(1f, _OnDurTime));
-        ExtraAnnoSeq.AppendInterval(_IntervalTime);
-        ExtraAnnoSeq.Join(_Tmp.DOFade(0f, _OffDurTime));
-    }
-
-    #endregion
-
-    #region Countdown
-
-    private void Set_CountdownTxt()
-    {
-        string countString = CurrentCountdown < 4 ? CurrentCountdown.ToString("0.0") : ((int)CurrentCountdown).ToString();
-        CountdownTxt.text = $"{countString}{SecondString}";
-    }
-
-    #endregion
 
     #endregion
 
     #region Right
-
-    #region Preview
 
     public void Check_CorrectLineSet()
     {
@@ -291,45 +151,8 @@ public abstract class PuzzleUIController : SinglePanelUIController
         if (jugeNow == CanSuccess) return;
         CanSuccess = jugeNow;
 
-        Play_LineSetChange();
+        UnlockPanelEUI.Play_LineSetChange(CanSuccess);
     }
-
-    private void Play_LineSetChange()
-    {
-        Set_SuccessPanel(0.5f);
-        Set_FailurePanel(0.5f);
-
-        Set_Roller(1f);
-    }
-
-    #endregion
-
-    #region Anno
-
-    private void Set_SuccessPanel(float _DurTime)
-    {
-        DevTool.Set_KillTween(SuccessCG);
-
-        SuccessCG.DOFade(CanSuccess ? 1f : 0.3f, _DurTime);
-    }
-
-    private void Set_FailurePanel(float _DurTime)
-    {
-        DevTool.Set_KillTween(FailureCG);
-
-        FailureCG.DOFade(CanSuccess ? 0.3f : 1f, _DurTime);
-    }
-
-    private void Set_Roller(float _DurTime)
-    {
-        DevTool.Set_KillTween(RollingRT);
-
-        float targetAngle = CanSuccess ? 0 : 180;
-        Quaternion endQuatValue = Quaternion.Euler(0f, 0f, targetAngle);
-        RollingRT.DORotateQuaternion(endQuatValue, _DurTime).SetEase(Ease.OutElastic);
-    }
-
-    #endregion
 
     #endregion
 
@@ -339,16 +162,10 @@ public abstract class PuzzleUIController : SinglePanelUIController
     {
         IsReady = false;
 
-        ReadyTimeLimitAnnoRT.DOAnchorPos(ReadyTimeLimitAnnoRTPos.TypeSpecial, _DurTime).SetEase(Ease.OutCubic);
-        ReadyTimeLimitAnnoRT.DOScale(0.5f, _DurTime);
-        ReadyKeyAnnoRT.DOAnchorPos(ReadykeyAnnoRTPos.TypeSpecial, _DurTime).SetEase(Ease.OutCubic);
-        ReadyKeyAnnoRT.DOScale(0.5f, _DurTime);
-
-        ReadyCG.DOFade(0f, _DurTime)
-            .SetEase(Ease.Linear)
+        ReadyPanelEUI.Play_ReadyToStart(_DurTime)
             .OnComplete(() =>
             {
-                ReadyCG.gameObject.SetActive(false);
+                ReadyPanelEUI.ReadyCG.gameObject.SetActive(false);
                 IsStart = true;
             });
     }
@@ -370,14 +187,14 @@ public abstract class PuzzleUIController : SinglePanelUIController
         if (CurrentCountdown > 0f)
         {
             CurrentCountdown -= _DeltaTime;
-            Set_CountdownTxt();
+            TimePanelEUI.Set_CountdownTxt(CurrentCountdown, SecondString);
         }
         else
         {
             StartCoroutine(Play_Unlock_Failure_Cor());
             IsInteractable = false;
             CurrentCountdown = 0f;
-            Set_CountdownTxt();
+            TimePanelEUI.Set_CountdownTxt(CurrentCountdown, SecondString);
         }
     }
     #endregion
@@ -398,15 +215,15 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
         if (CanSuccess)
         {
-            Play_SuccessAnno(1f, 1f);
-            DevTool.Set_Color(UnlockedClr, CountdownTxt);
+            TimePanelEUI.Play_SuccessAnno(1f, 1f);
+            DevTool.Set_Color(UnitManager.Instance.UnlockedClr, TimePanelEUI.CountdownTxt);
             StartCoroutine(Play_Unlock_Complete_Cor());
 
             return true;
         }
         else
         {
-            Play_FailureAnno(1f, 1f);
+            TimePanelEUI.Play_FailureAnno(1f, 1f);
             Set_Panelty(-0.5f);
             return false;
         }

@@ -184,6 +184,7 @@ public class PlayerController : AliveObjectController
 
         BaseSeq.SetLoops(-1, LoopType.Yoyo);
 
+        UnitManager.Instance.UnlockedClr = Get_CorrectColor(eDamageType.Energy, false);
 
         Debug.Log("Test Item");
         CurrentChargedBettery.Value = 9999;

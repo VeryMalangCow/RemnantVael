@@ -71,6 +71,11 @@ public class UnitManager : Singleton<UnitManager>
     [Header("-- Key")]
     [SerializeField] public Sprite SpaceBarSprite;
 
+    [Space(10)]
+    [Header("-- Puzzle Color")]
+    [SerializeField] public Color LockedClr;
+    [SerializeField] public Color UnlockedClr;
+
     [Space(5)]
     [Header("-- NSC")]
     [SerializeField] public List<Sprite> NSC_NumSpriteList;

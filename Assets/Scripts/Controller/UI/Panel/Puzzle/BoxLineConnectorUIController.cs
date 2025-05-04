@@ -103,7 +103,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        Set_AllInnerColor(UnlockedClr);
+        Set_AllInnerColor(UnitManager.Instance.UnlockedClr);
 
         // Selecting
         SelectingBoxCellEUI = null;
@@ -136,7 +136,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
         for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
             AllBoxConnectionEUI[i].Set_Active(false);
 
-        Set_AllInnerColor(LockedClr);
+        Set_AllInnerColor(UnitManager.Instance.LockedClr);
 
         // Selecting
         SelectingBoxCellEUI = null;
