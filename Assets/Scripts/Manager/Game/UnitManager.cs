@@ -70,6 +70,8 @@ public class UnitManager : Singleton<UnitManager>
     [Space(5)]
     [Header("-- Key")]
     [SerializeField] public Sprite SpaceBarSprite;
+    [SerializeField] public Sprite MLBSprite;
+    [SerializeField] public Sprite MRBSprite;
 
     [Space(10)]
     [Header("-- Puzzle Color")]

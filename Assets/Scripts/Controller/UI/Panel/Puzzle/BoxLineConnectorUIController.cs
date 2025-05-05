@@ -22,6 +22,11 @@ public class BoxLineConnectorUIController : PuzzleUIController
     [Header("=== Selecting")]
     [SerializeField] private RectTransform SelectingSignRT;
 
+    [Space(10)]
+    [Header("=== Ready KeyAnno")]
+    [SerializeField] private Image LeftRollInputImg;
+    [SerializeField] private Image RightRollInputImg;
+
     #endregion
 
     #region - Hide
@@ -80,6 +85,11 @@ public class BoxLineConnectorUIController : PuzzleUIController
         {
             AllBoxConnectionEUI[i].Offset();
         }
+
+        RightRollInputImg.sprite = UnitManager.Instance.MLBSprite;
+        RightRollInputImg.SetNativeSize();
+        LeftRollInputImg.sprite = UnitManager.Instance.MRBSprite;
+        LeftRollInputImg.SetNativeSize();
     }
 
     #endregion
@@ -89,6 +99,8 @@ public class BoxLineConnectorUIController : PuzzleUIController
     protected override void Set_AllStart()
     {
         base.Set_AllStart();
+
+        ReadyPanelEUI.Set_RuleDesc(CSVManager.Instance.Get_StaticDesc(33));
 
         Set_AllDefault();
         Set_RandomPuzzleByRate();

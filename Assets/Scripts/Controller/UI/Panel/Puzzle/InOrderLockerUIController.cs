@@ -24,6 +24,10 @@ public class InOrderLockerUIController : PuzzleUIController
     [SerializeField] private TMP_Text AnswerIndexTxt;
     [SerializeField] private TMP_Text AnswerCurrentSetTxt;
 
+    [Space(10)]
+    [Header("=== Ready KeyAnno")]
+    [SerializeField] private Image SelectInputImg;
+
     #endregion
 
     #region - Hide
@@ -55,7 +59,7 @@ public class InOrderLockerUIController : PuzzleUIController
 
         Debug.Log(_Prison.Rating);
         CellAmount = 5 + _Prison.Rating;
-        CurrentCountdown = BaseCountdown + (_Prison.Rating * 5);
+        CurrentCountdown = BaseCountdown + (_Prison.Rating * 4);
     }
 
     public override void Offset()
@@ -72,6 +76,9 @@ public class InOrderLockerUIController : PuzzleUIController
             AllIOLCell[i].OwnerIOLUIController = this;
             AllIOLCell[i].Offset();
         }
+
+        SelectInputImg.sprite = UnitManager.Instance.MLBSprite;
+        SelectInputImg.SetNativeSize();
     }
 
     #endregion
@@ -124,6 +131,8 @@ public class InOrderLockerUIController : PuzzleUIController
     protected override void Set_AllStart()
     {
         base.Set_AllStart();
+
+        ReadyPanelEUI.Set_RuleDesc(CSVManager.Instance.Get_StaticDesc(35));
 
         Set_AllDefault();
         Set_InnerColor(UnitManager.Instance.LockedClr);

@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NumShapeColorPasswordUIController : PuzzleUIController
 {
@@ -15,6 +16,11 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     [Header("=== RT")]
     [SerializeField] private RectTransform AllNSCPanelEUIParentRT;
     [SerializeField] private RectTransform SelectingSignRT;
+
+    [Space(10)]
+    [Header("=== Ready KeyAnno")]
+    [SerializeField] private Image DownRollInputImg;
+    [SerializeField] private Image UpRollInputImg;
 
     #endregion
 
@@ -61,6 +67,11 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
             AllNSCRollCellEUI.AddRange(AllNSCPanelEUI[i].AllRollEUI);
         }
+
+        DownRollInputImg.sprite = UnitManager.Instance.MLBSprite;
+        DownRollInputImg.SetNativeSize();
+        UpRollInputImg.sprite = UnitManager.Instance.MRBSprite;
+        UpRollInputImg.SetNativeSize();
     }
 
     #endregion
@@ -70,6 +81,8 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     protected override void Set_AllStart()
     {
         base.Set_AllStart();
+
+        ReadyPanelEUI.Set_RuleDesc(CSVManager.Instance.Get_StaticDesc(34));
 
         Set_AllNSCPanelEUI_DefaultAndRandom();
         Set_LockByRating();

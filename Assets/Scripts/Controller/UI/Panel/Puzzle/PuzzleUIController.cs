@@ -19,7 +19,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== Ready Panel")]
-    [SerializeField] private PuzzleReadyPanelEUIController ReadyPanelEUI;
+    [SerializeField] protected PuzzleReadyPanelEUIController ReadyPanelEUI;
 
     [Space(10)]
     [Header("=== Left")]
