@@ -114,6 +114,9 @@ public class PlayerHUDController : UIController
     [SerializeField] private Transform HittedInfoPivotTF;
     [SerializeField] private RectTransform HittedInfoRT;
     [SerializeField] private TMP_Text HittedDmgTxt;
+    [SerializeField] private CanvasGroup PaneltyAnnoCG;
+    [SerializeField] private TMP_Text PaneltyAnnoNameTxt;
+    [SerializeField] private TMP_Text PaneltyAnnoDescTxt;
 
     #endregion
 
@@ -377,6 +380,13 @@ public class PlayerHUDController : UIController
         Credit_EUI.Offset();
         Overrider_EUI.Offset();
         MS_EUI.Offset();
+
+        PaneltyAnnoCG.alpha = 0f;
+        DevTool.Set_Color(UninteractableColor, PaneltyAnnoNameTxt);
+        PaneltyAnnoNameTxt.text = "";
+        DevTool.Set_Color(UninteractableColor, PaneltyAnnoDescTxt);
+        PaneltyAnnoDescTxt.text = "";
+        PaneltyAnnoCG.gameObject.SetActive(false);
     }
 
     private void Offset_ColorComp()
@@ -609,6 +619,31 @@ public class PlayerHUDController : UIController
 
     #region Tween
 
+    #region Panelty
+
+    public void Play_PrisonPanelty()
+    {
+        Play_HittedPlayScreen(20, 1f);
+
+        string title = $"< {CSVManager.Instance.Get_StaticDesc(36).Replace("\\n", "\n")} >";
+        string desc = CSVManager.Instance.Get_StaticDesc(37).Replace("\\n", "\n");
+        PaneltyAnnoNameTxt.text = "";
+        PaneltyAnnoDescTxt.text = "";
+
+        Sequence seq = DOTween.Sequence();
+        PaneltyAnnoCG.gameObject.SetActive(true);
+
+        seq.Append(PaneltyAnnoCG.DOFade(1f, 0.5f));
+        seq.Join(PaneltyAnnoNameTxt.DOText(title, 0.5f));
+        seq.Join(PaneltyAnnoDescTxt.DOText(desc, 0.5f));
+        seq.AppendInterval(1f);
+        seq.Append(PaneltyAnnoCG.DOFade(0f, 2f));
+
+        seq.OnComplete(() => { PaneltyAnnoCG.gameObject.SetActive(false); });
+    }
+
+    #endregion
+
     #region Hitted
 
     // 피격 시 효과
@@ -625,7 +660,7 @@ public class PlayerHUDController : UIController
     // 피격 정보
     public void Play_HittedPlayInfo(float _Dmg, float _DurTime)
     {
-        HittedDmgTxt.text = $"<size=75%>{CSVManager.Instance.Get_StaticWord(74)}:</size> {_Dmg}";
+        HittedDmgTxt.text = $"<size=75%>{CSVManager.Instance.Get_StaticWord(74)}:</size> {_Dmg.ToString("0.0")}";
         HittedDmgTxt.color = UninteractableColor;
 
         Play_Info(_DurTime);

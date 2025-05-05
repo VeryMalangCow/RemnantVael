@@ -370,7 +370,7 @@ public class PlayerController : AliveObjectController
     // ¹èÅÍ¸® Á¶°¢ È¹µæ
     public void Add_CurrentBetteryShard(int _AddValue)
     {
-        CurrentBetteryShard.Value += _AddValue;
+        CurrentBetteryShard.Value = Mathf.Max(CurrentBetteryShard.Value + _AddValue, 0);
         if (CurrentBetteryShard.Value >= NeedBS_ForMakeBC)
         {
             Add_CurrentBettery();
@@ -380,13 +380,13 @@ public class PlayerController : AliveObjectController
     // ¸ðµâ Á¶°¢ È¹µæ
     public void Add_CurrentModuleShard(int _AddValue)
     {
-        CurrentModuleShard.Value += _AddValue;
+        CurrentModuleShard.Value = Mathf.Max(CurrentModuleShard.Value + _AddValue, 0);
     }
 
     // ¹èÅÍ¸® È¹µæ
     public void Add_CurrentBettery(int _AddValue)
     {
-        CurrentBettery.Value += _AddValue;
+        CurrentBettery.Value = Mathf.Max(CurrentBettery.Value + _AddValue, 0);
     }
 
     private void Add_CurrentBettery()
@@ -404,13 +404,13 @@ public class PlayerController : AliveObjectController
     // ¿À¹ö¶óÀÌ´õ È¹µæ
     public void Add_CurrentOverrider(int _AddValue)
     {
-        CurrentOverrider.Value += _AddValue;
+        CurrentOverrider.Value = Mathf.Max(CurrentOverrider.Value + _AddValue, 0);
     }
 
     // Å©·¹µ÷ È¹µæ
     public void Add_CurrentCredit(int _AddValue)
     {
-        CurrentCredit.Value += _AddValue;
+        CurrentCredit.Value = Mathf.Max(CurrentCredit.Value + _AddValue, 0);
     }
 
     // ÃæÀü ¹èÅÍ¸® »ý¼º
@@ -991,6 +991,21 @@ public class PlayerController : AliveObjectController
     public void SetOff_Invincible()
     {
         IsInvincible = false;
+    }
+
+    #endregion
+
+    #region Prison Panelty
+
+    public void Set_PrisonPanelty()
+    {
+        Add_CurrentCredit(-(int)(CurrentCredit.Value * 0.2f));
+        Add_CurrentOverrider(-(int)(CurrentOverrider.Value * 0.2f));
+        Add_CurrentModuleShard(-(int)(CurrentModuleShard.Value * 0.2f));
+
+        Take_Damaged(Get_CurrentEP().Value * 0.2f, Vector2.zero, false);
+
+        MainGameUIManager.Instance.PlayerHUD_UIController.Play_PrisonPanelty();
     }
 
     #endregion

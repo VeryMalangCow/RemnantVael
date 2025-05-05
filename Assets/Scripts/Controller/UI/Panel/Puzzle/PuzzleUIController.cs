@@ -131,6 +131,11 @@ public abstract class PuzzleUIController : SinglePanelUIController
         IsInteractable = false;
     }
 
+    protected virtual void Set_AllFailure()
+    {
+
+    }
+
     #endregion
 
     #region Set (Panelty)
@@ -245,11 +250,18 @@ public abstract class PuzzleUIController : SinglePanelUIController
         SetOff_ThisPanel();
     }
 
+
     private IEnumerator Play_Unlock_Failure_Cor()
     {
+        Set_AllFailure();
+
         ThisCG.DOFade(0f, 1.5f).SetEase(Ease.Linear);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+
+        PlayerManager.Instance.PlayerController.Set_PrisonPanelty();
+
+        yield return new WaitForSeconds(1f);
 
         SetOff_ThisPanel();
     }
