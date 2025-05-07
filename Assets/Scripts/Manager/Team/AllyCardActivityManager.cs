@@ -37,6 +37,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
             NT_CardActivity_000,
             NT_CardActivity_001,
             NT_CardActivity_002,
+            NT_CardActivity_003,
         };
 
         AllActivityFuncList = new List<List<ActivityFuncDele>>
@@ -99,18 +100,39 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #region Neo Team
 
+    #region Booster Upgrade (000 ~ 003)
+
     private void NT_CardActivity_000()
     {
         Debug.Log("NT_000 카드");
+        BoosterUpgrade(1);
     }
+
     private void NT_CardActivity_001()
     {
         Debug.Log("NT_001 카드");
+        BoosterUpgrade(2);
     }
+
     private void NT_CardActivity_002()
     {
         Debug.Log("NT_002 카드");
+        BoosterUpgrade(3);
     }
+
+    private void NT_CardActivity_003()
+    {
+        Debug.Log("NT_003 카드");
+        BoosterUpgrade(4);
+    }
+
+
+    private void BoosterUpgrade(int _BoostLv)
+    {
+        PlayerManager.Instance.PlayerController.CurrentBoostLv.Value = _BoostLv;
+    }
+
+    #endregion
 
     #endregion
 }

@@ -61,7 +61,7 @@ public class BaseUpgradeUIController : PanelUIController
     [SerializeField] private BUShopData<float> MaxEPShop;
     [SerializeField] private BUShopData<float> SpawnESMultipleShop;
     [SerializeField] private BUShopData<float> NeedEP_ForSkillMultipleShop;
-    [SerializeField] private BUShopData<float> DecEnergyPointMultipleShop;
+    //[SerializeField] private BUShopData<float> DecEnergyPointMultipleShop;
     [SerializeField] private BUShopData<float> ResistShop;
 
     [Space(5)]
@@ -143,7 +143,7 @@ public class BaseUpgradeUIController : PanelUIController
         MaxEPShop.Offset(pc.MaxEP, bm.BaseMaxEP_BUData, AllBUData_Float, this);
         SpawnESMultipleShop.Offset(pc.SpawnESMultiple, bm.BaseSpawnESMultiple_BUData, AllBUData_Float, this);
         NeedEP_ForSkillMultipleShop.Offset(pc.NeedEP_ForSkillMultiple, bm.BaseNeedEP_ForSkillMultiple_BUData, AllBUData_Float, this);
-        DecEnergyPointMultipleShop.Offset(pc.DecEnergyPointMultiple, bm.BaseDecEnergyPointMultiple_BUData, AllBUData_Float, this);
+        //DecEnergyPointMultipleShop.Offset(pc.DecEnergyPointMultiple, bm.BaseDecEnergyPointMultiple_BUData, AllBUData_Float, this);
         ResistShop.Offset(pc.TakingDmgMultiple, bm.BaseResist_BUData, AllBUData_Float, this);
 
         WalkSpeedShop.Offset(pc.WalkSpeed, bm.BaseWalkSpeed_BUData, AllBUData_Float, this);
@@ -443,7 +443,7 @@ public class BaseUpgradeUIController : PanelUIController
         MaxEPShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(8), CSVManager.Instance.Get_StaticDesc(0));
         SpawnESMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(38), CSVManager.Instance.Get_StaticDesc(1));
         NeedEP_ForSkillMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(39), CSVManager.Instance.Get_StaticDesc(2));
-        DecEnergyPointMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(42), CSVManager.Instance.Get_StaticDesc(3));
+        //DecEnergyPointMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(42), CSVManager.Instance.Get_StaticDesc(3));
         ResistShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(37), CSVManager.Instance.Get_StaticDesc(4));
 
         WalkSpeedShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(40), CSVManager.Instance.Get_StaticDesc(5));

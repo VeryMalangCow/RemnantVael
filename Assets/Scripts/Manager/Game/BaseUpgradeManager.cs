@@ -21,7 +21,7 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
     [SerializeField] public BULevelData<float> BaseMaxEP_BUData;
     [SerializeField] public BULevelData<float> BaseSpawnESMultiple_BUData;
     [SerializeField] public BULevelData<float> BaseNeedEP_ForSkillMultiple_BUData;
-    [SerializeField] public BULevelData<float> BaseDecEnergyPointMultiple_BUData;
+    //[SerializeField] public BULevelData<float> BaseDecEnergyPointMultiple_BUData;
     [SerializeField] public BULevelData<float> BaseResist_BUData;
 
     [Header("-- Movement")]
@@ -55,7 +55,7 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
         BaseMaxEP_BUData.Offset(_PC.MaxEP);
         BaseSpawnESMultiple_BUData.Offset(_PC.SpawnESMultiple);
         BaseNeedEP_ForSkillMultiple_BUData.Offset(_PC.NeedEP_ForSkillMultiple);
-        BaseDecEnergyPointMultiple_BUData.Offset(_PC.DecEnergyPointMultiple);
+        //BaseDecEnergyPointMultiple_BUData.Offset(_PC.DecEnergyPointMultiple);
         BaseResist_BUData.Offset(_PC.TakingDmgMultiple);
 
         BaseWalkSpeed_BUData.Offset(_PC.WalkSpeed);

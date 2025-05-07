@@ -35,7 +35,7 @@ public class PlayerController : AliveObjectController
     [SerializeField] public BUState<float> NeedEP_ForSkillMultiple;
     [SerializeField] public BUState<float> WalkSpeed;
     [SerializeField] public BUState<float> WalkSpeedWhenShotMultiple;
-    [SerializeField] public BUState<float> DecEnergyPointMultiple;
+    //[SerializeField] public BUState<float> DecEnergyPointMultiple;
 
     [Space(10)]
     [Header("=== Visual Comp")]
@@ -141,8 +141,7 @@ public class PlayerController : AliveObjectController
     [HideInInspector] public static readonly int MaxRank = 5;
     [HideInInspector] public readonly int NeedBS_ForMakeBC = 4;
     [HideInInspector] public readonly float NeedEP_ForMakeEC = 5f;
-    [HideInInspector] private List<float> DecEnergyPointByLevel
-        = new List<float>() { 1f, 2f, 3.5f, 5.5f };
+    //[HideInInspector] private List<float> DecEnergyPointByLevel = new List<float>() { 1f, 2f, 3.5f, 5.5f };
 
     #endregion
 
@@ -611,7 +610,7 @@ public class PlayerController : AliveObjectController
     private void Update_Caculate(float _DeltaTime)
     {
         Caculate_Casting(_DeltaTime);
-        Caculate_Boosting(_DeltaTime, CurrentBoostLv.Value);
+        //Caculate_Boosting(_DeltaTime, CurrentBoostLv.Value);
     }
 
     private void Caculate_Casting(float _DeltaTime)
@@ -630,6 +629,7 @@ public class PlayerController : AliveObjectController
         }
     }
 
+/*
     private void Caculate_Boosting(float _DeltaTime, int _BoostLv)
     {
         if(_BoostLv > 0)
@@ -638,6 +638,7 @@ public class PlayerController : AliveObjectController
             Add_CurrentEP(-decValue * _DeltaTime);
         }
     }
+*/
 
     #endregion
 

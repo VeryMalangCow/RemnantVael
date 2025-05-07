@@ -764,7 +764,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
     {
         List<AllyCardData> result = new List<AllyCardData>();
         for (int i = 0; i < NeoTeam_AllyCard_Data.Count; i++)
-            result.Add(new AllyCardData(UplinkTeam_AllyCard_Data[i], NeoTeam_AllyCardName_Data.Get_Word(i), NeoTeam_AllyCardDesc_Data.Get_Word(i)));
+            result.Add(new AllyCardData(NeoTeam_AllyCard_Data[i], NeoTeam_AllyCardName_Data.Get_Word(i), NeoTeam_AllyCardDesc_Data.Get_Word(i)));
 
         return result;
     }

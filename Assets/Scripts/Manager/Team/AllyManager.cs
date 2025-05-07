@@ -19,15 +19,15 @@ public class AllyManager : Singleton<AllyManager>
     #region - Hide
 
     // Ally Card Data
-    [HideInInspector] private List<AllyCardData> ST_AllAllyCardData = new List<AllyCardData>();
+    [SerializeField] private List<AllyCardData> ST_AllAllyCardData = new List<AllyCardData>();
     [HideInInspector] private HashSet<int> ST_GottenAllyCards = new HashSet<int>();
     [HideInInspector] private List<Sprite> ST_CardIconList = new List<Sprite>();
 
-    [HideInInspector] private List<AllyCardData> UT_AllAllyCardData = new List<AllyCardData>();
+    [SerializeField] private List<AllyCardData> UT_AllAllyCardData = new List<AllyCardData>();
     [HideInInspector] private HashSet<int> UT_GottenAllyCards = new HashSet<int>();
     [HideInInspector] private List<Sprite> UT_CardIconList = new List<Sprite>();
 
-    [HideInInspector] private List<AllyCardData> NT_AllAllyCardData = new List<AllyCardData>();
+    [SerializeField] private List<AllyCardData> NT_AllAllyCardData = new List<AllyCardData>();
     [HideInInspector] private HashSet<int> NT_GottenAllyCards = new HashSet<int>();
     [HideInInspector] private List<Sprite> NT_CardIconList = new List<Sprite>();
 

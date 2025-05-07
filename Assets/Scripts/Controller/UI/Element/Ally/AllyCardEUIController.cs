@@ -113,8 +113,8 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_Txt(int _TypeID, AllyCardData _Data)
     {
-        NameTxt.text = _Data.Name;
-        DescTxt.text = _Data.Desc;
+        NameTxt.text = _Data.Name.Replace("\\n", "\n");
+        DescTxt.text = _Data.Desc.Replace("\\n", "\n");
 
         RankTxt.text = UnitManager.Instance.AllyCardRateList[_Data.Rank];
         RankTxt.color = UnitManager.Instance.AllyCardColorList[_Data.Rank];

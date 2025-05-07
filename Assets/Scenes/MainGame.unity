@@ -1025,6 +1025,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllAllies: []
+  ST_AllAllyCardData: []
+  UT_AllAllyCardData: []
+  NT_AllAllyCardData: []
 --- !u!114 &355347631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,8 +1103,6 @@ MonoBehaviour:
   BaseSpawnESMultiple_BUData:
     LevelDataList: []
   BaseNeedEP_ForSkillMultiple_BUData:
-    LevelDataList: []
-  BaseDecEnergyPointMultiple_BUData:
     LevelDataList: []
   BaseResist_BUData:
     LevelDataList: []
@@ -4818,6 +4819,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1249327149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1249327150}
+  - component: {fileID: 1249327151}
+  m_Layer: 0
+  m_Name: '#SoundManager'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1249327150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249327149}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1249327151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249327149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfd9ede37c0c24408b98fb5bce193a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1262417008
 GameObject:
   m_ObjectHideFlags: 0
@@ -7261,7 +7306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TestGO:
-  - {fileID: 806215306}
+  - {fileID: 392753596}
   ModuleM_000_Explosion: {fileID: 2100000, guid: 75b0116f582f3244aaf171b01df8ff63, type: 2}
   ModuleM_000_Hitted: {fileID: 2100000, guid: 02802480c4016274e9287aa5708f7288, type: 2}
   EnemyM_000_Explosion: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
@@ -9771,6 +9816,7 @@ SceneRoots:
   - {fileID: 653704984}
   - {fileID: 1447344364}
   - {fileID: 830584170}
+  - {fileID: 1249327150}
   - {fileID: 73963933}
   - {fileID: 195290732}
   - {fileID: 2118929033}
