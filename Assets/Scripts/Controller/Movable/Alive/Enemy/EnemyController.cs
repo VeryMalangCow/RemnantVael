@@ -36,7 +36,6 @@ public class EnemyController : AliveObjectController
     [Space(10)]
     [Header("=== Nav")]
     [SerializeField] private NavMeshAgent ThisNavMeshAgent;
-    [SerializeField] public float NavRadius = 0.2f;
 
     [Space(10)]
     [Header("=== Pattern")]
@@ -564,7 +563,7 @@ public class EnemyController : AliveObjectController
 
     public bool Is_ExistWall(Transform _TargetTF)
     {
-        return DevTool.Is_Exist_UseCircle(this.transform, _TargetTF, "Wall", NavRadius);
+        return DevTool.Is_Exist_UseLine(this.transform, _TargetTF, "Wall");
     }
 
     #endregion

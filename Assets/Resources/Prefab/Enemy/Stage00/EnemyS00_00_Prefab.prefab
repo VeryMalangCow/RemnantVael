@@ -405,15 +405,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
-  StartDelay: 0.5
-  EndDelay: 0.5
+  StartDelay: 0
+  EndDelay: 0
   IsPlaying: 0
   FollowingSpeed: 2.25
   UntilForTargetRange: 1
   TargetRange: 4.5
   IgnoreWall: 0
   UntilForTargetTime: 0
-  TargetTime: 0
+  TargetTime: 2
   CurrentTime: 0
 --- !u!1 &3526138921433487785
 GameObject:
@@ -653,15 +653,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
-  StartDelay: 0.5
-  EndDelay: 0.5
+  StartDelay: 0
+  EndDelay: 0
   IsPlaying: 0
   FollowingSpeed: 2.25
   UntilForTargetRange: 1
-  TargetRange: 1.8
+  TargetRange: 2
   IgnoreWall: 0
   UntilForTargetTime: 0
-  TargetTime: 0
+  TargetTime: 2
   CurrentTime: 0
 --- !u!1 &7798985532177022493
 GameObject:

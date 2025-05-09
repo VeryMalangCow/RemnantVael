@@ -102,7 +102,7 @@ public abstract class BulletController : MovableDepthController
 
     public virtual void Set_State_PosAndRot(BulletState_PosAndRot _State_PosAndRot)
     {
-        this.transform.position = _State_PosAndRot.SpawnPos;
+        this.transform.position = _State_PosAndRot.SpawnPos + (_State_PosAndRot.Dir * _State_PosAndRot.Dis);
         this.transform.localRotation = DevTool.Get_RotFromDir(_State_PosAndRot.Dir);
 
         DevTool.Add_RotZValue(transform, _State_PosAndRot.SpreadAngle);

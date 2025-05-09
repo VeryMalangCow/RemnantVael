@@ -1237,8 +1237,13 @@ public class DevTool
     public static bool Is_Exist_UseLine<T>(T _Start, T _End, string _LayerName) where T : MonoBehaviour
     {
         return Physics2D.Linecast(_Start.transform.position, _End.transform.position, LayerMask.GetMask(_LayerName)).collider != null;
-
     }
+
+    public static bool Is_Exist_UseLine(Transform _Start, Transform _End, string _LayerName)
+    {
+        return Physics2D.Linecast(_Start.position, _End.position, LayerMask.GetMask(_LayerName)).collider != null;
+    }
+
     public static bool Is_Exist_UseCircle(Transform _StartTF, Transform _EndTF, string _LayerName, float _Radius)
     {
         return Physics2D.CircleCast(_StartTF.position, _Radius, (_EndTF.position - _StartTF.position).normalized,
@@ -3439,16 +3444,18 @@ public struct BulletState_PosAndRot
     public Vector2 SpawnPos;
     public Vector2 Dir;
     public float SpreadAngle;
+    public float Dis;
 
     #endregion
 
     #region Constructor
 
-    public BulletState_PosAndRot(Vector2 _SpawnPos, Vector2 _Dir, float _SpreadAngle)
+    public BulletState_PosAndRot(Vector2 _SpawnPos, Vector2 _Dir, float _SpreadAngle, float _Dis = 0)
     {
         SpawnPos = _SpawnPos;
         Dir = _Dir;
         SpreadAngle = _SpreadAngle;
+        Dis = _Dis;
     }
 
     #endregion

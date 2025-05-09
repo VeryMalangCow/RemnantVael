@@ -38,10 +38,16 @@ public class EnemyPattern_Range : EnemyPattern
     [SerializeField] private AnimationClip BulletAC;
 
     [HideInInspector] private Sequence BeforeEffectSeq;
+    [HideInInspector] private float BulletRadiusCondition = 0;
 
     #endregion
 
     #region Framework
+
+    private void Start()
+    {
+        BulletRadiusCondition = Get_BulletMaximumRadius();
+    }
 
     private void OnEnable()
     {
@@ -63,12 +69,32 @@ public class EnemyPattern_Range : EnemyPattern
     public override bool Can_PlayPattern()
     {
         float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.Instance.PlayerController.transform.position);
-        if (forPlayerDis >= MinRange && forPlayerDis < MaxRange)
+
+        if (forPlayerDis >= MinRange && forPlayerDis < MaxRange && Can_ShootByBulletRadius())
         {
             return true;
         }
 
         return false;
+    }
+
+    private bool Can_ShootByBulletRadius()
+    {
+        for (int i = 0; i < SpawnDepthList.Count; i++)
+        {
+            if (DevTool.Is_Exist_UseCircle(SpawnDepthList[i].transform, PlayerManager.Instance.PlayerController.transform, "Wall", BulletRadiusCondition * 2))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private float Get_BulletMaximumRadius()
+    {
+        return (BulletColSize.x > BulletColSize.y ? BulletColSize.x : BulletColSize.y) 
+            * (BulletShadowScale.x > BulletShadowScale.y ? BulletShadowScale.x : BulletShadowScale.y);
     }
 
     #endregion
@@ -77,7 +103,6 @@ public class EnemyPattern_Range : EnemyPattern
 
     protected override IEnumerator Play_ThisPattern_Cor()
     {
-
         Play_BeforeEffect(StartDelay);
         yield return new WaitForSeconds(StartDelay);
 
@@ -124,7 +149,7 @@ public class EnemyPattern_Range : EnemyPattern
 
     private BulletState_PosAndRot State_PosAndRot(Transform _TF, Vector2 _TargetDir)
     {
-        return new BulletState_PosAndRot(_TF.position, _TargetDir, 0);
+        return new BulletState_PosAndRot(_TF.position, _TargetDir, 0, BulletRadiusCondition);
     }
 
     private BulletState_Size State_Size()

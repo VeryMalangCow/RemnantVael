@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using static UnityEngine.GraphicsBuffer;
 
 public class EnemyPattern_Follow : EnemyPattern
 {

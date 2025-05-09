@@ -399,15 +399,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
-  StartDelay: 0.5
-  EndDelay: 0.5
+  StartDelay: 0
+  EndDelay: 0
   IsPlaying: 0
   FollowingSpeed: 2.5
   UntilForTargetRange: 1
   TargetRange: 4.5
   IgnoreWall: 0
-  UntilForTargetTime: 0
-  TargetTime: 0
+  UntilForTargetTime: 1
+  TargetTime: 2
   CurrentTime: 0
 --- !u!1 &4962291530876198273
 GameObject:
