@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyPattern_Follow : EnemyPattern
 {
@@ -21,9 +22,6 @@ public class EnemyPattern_Follow : EnemyPattern
     [SerializeField] private bool UntilForTargetTime = false;
     [SerializeField] private float TargetTime = 0f;
     [SerializeField] private float CurrentTime = 0f;
-
-    // Other
-    private static float FindRootDelay = 0.4f;
 
     #endregion
 
@@ -110,19 +108,38 @@ public class EnemyPattern_Follow : EnemyPattern
 
         #region Actual
 
+        ThisEnemy.Start_Nav(FollowingSpeed);
+        PlayerController targetPc = PlayerManager.Instance.PlayerController;
+
         while (true)
         {
             if (Can_PlayPattern())
             {
-                ThisEnemy.MoveAtPoint = ThisEnemy.Get_NavWay().transform.position;
-                yield return new WaitForSeconds(FindRootDelay);
+                ThisEnemy.Get_NavPos(targetPc.transform);
+                yield return null;
             }
             else
             {
                 break;
             }
-        }
 
+        }
+        ThisEnemy.End_Nav();
+
+        /*
+                while (true)
+                {
+                    if (Can_PlayPattern())
+                    {
+                        ThisEnemy.MoveAtPoint = ThisEnemy.Get_NavWay().transform.position;
+                        yield return new WaitForSeconds(FindRootDelay);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+        */
         #endregion
 
         yield return new WaitForSeconds(EndDelay);

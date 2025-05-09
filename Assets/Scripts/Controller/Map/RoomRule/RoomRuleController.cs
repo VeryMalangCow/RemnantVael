@@ -9,7 +9,7 @@ public class RoomRuleController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> Room Rule")]
-
+    
     [Space(10)]
     [Header("=== Data")]
 
@@ -101,6 +101,7 @@ public class RoomRuleController : MonoBehaviour
     public void Set_KillAll()
     {
         // Way Point
+        StageManager.Instance.Set_NavBake();
         SetOn_WayPointData();
         EndDele = new Dele(SetOff_WayPointData);
 

@@ -1,3 +1,4 @@
+using NavMeshPlus.Components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ public class StageManager : Singleton<StageManager>
 
     [Space(20)]
     [Header("<><><><><> Stage Manager")]
+
+    [Space(10)]
+    [Header("=== Nav")]
+    [SerializeField] private NavMeshSurface ThisNav;
 
     [Space(10)]
     [Header("=== Generate")]
@@ -875,6 +880,15 @@ public class StageManager : Singleton<StageManager>
     }
 
     #endregion
+
+    #endregion
+
+    #region Nav
+
+    public void Set_NavBake()
+    {
+        ThisNav.BuildNavMesh();
+    }
 
     #endregion
 }

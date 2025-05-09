@@ -1369,6 +1369,7 @@ MonoBehaviour:
   RoomVec:
   - {x: 0, y: 0}
   RoomType: 1
+  IsAlreadyRoomClear: 0
   InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
   InRoom_WayPointParentTF: {fileID: 1130655662164710366}
   InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}

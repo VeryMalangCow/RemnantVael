@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : AliveObjectController
 {
@@ -34,6 +35,7 @@ public class EnemyController : AliveObjectController
 
     [Space(10)]
     [Header("=== Nav")]
+    [SerializeField] private NavMeshAgent ThisNavMeshAgent;
     [Tooltip("This is Radius")]
     [SerializeField] private WayPointController WPController;
     [SerializeField] public float NavRadius = 0.2f;
@@ -52,6 +54,7 @@ public class EnemyController : AliveObjectController
     [HideInInspector] private EnemyPattern CurrentEnemyPattern = null;
 
     // 움직임을 통제
+
     [HideInInspector] private GameObject Target;
 
     [HideInInspector] public float MoveSpeed;
@@ -82,6 +85,13 @@ public class EnemyController : AliveObjectController
 
 
     #region Offset
+
+    protected override void Offset()
+    {
+        base.Offset();
+
+        Offset_Nav();
+    }
 
     protected override void Offset_FirstSetting()
     {
@@ -139,6 +149,13 @@ public class EnemyController : AliveObjectController
             BuffController = buff;
             BuffController.Offset(this);
         }
+    }
+
+    private void Offset_Nav()
+    {
+        ThisNavMeshAgent.updateRotation = false;
+        ThisNavMeshAgent.updateUpAxis = false;
+        ThisNavMeshAgent.enabled = false;
     }
 
     #endregion
@@ -434,6 +451,7 @@ public class EnemyController : AliveObjectController
     private void Set_Die_Data()
     {
         EndAll_Pattern();
+        End_Nav();
 
         // Remove
         DevTool.Remove_InList(EnemyManager.Instance.CurrentEnemyList, this);
@@ -552,6 +570,22 @@ public class EnemyController : AliveObjectController
 
     #region Nav
     
+    public void Start_Nav(float _FollowSpeed)
+    {
+        ThisNavMeshAgent.speed = _FollowSpeed;
+        ThisNavMeshAgent.enabled = true;
+    }
+
+    public void Get_NavPos(Transform _TargetTF)
+    {
+        ThisNavMeshAgent.SetDestination(_TargetTF.position);
+    }
+
+    public void End_Nav()
+    {
+        ThisNavMeshAgent.enabled = false;
+    }
+
     public WayPointController Get_NavWay()
     {
         List<WayPointController> way = DevTool.Get_Way(

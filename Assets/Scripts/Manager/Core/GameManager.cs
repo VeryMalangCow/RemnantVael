@@ -1408,7 +1408,7 @@ public class DevTool
         }
 
         List<List<WayPointController>> wayFromTarget =
-            Get_StartWay(_Target, allway);
+            Get_StartWay(_Target, allway, _NavRadius);
 
         bool startWayTurn = true;
         int test = 0;

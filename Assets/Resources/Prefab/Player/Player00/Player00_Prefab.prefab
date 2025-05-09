@@ -859,7 +859,7 @@ MonoBehaviour:
     - 3.5
     - 10
     ActualState:
-      value: 1000
+      value: 10
     CurrentLevel:
       value: 0
   MuzzleSpeed:
@@ -1424,17 +1424,6 @@ MonoBehaviour:
       value: 0.3
     CurrentLevel:
       value: 0
-  DecEnergyPointMultiple:
-    BaseState: 1
-    UpgradeValueByLevelRange:
-    - -0.02
-    - -0.04
-    - -0.06
-    - -0.12
-    ActualState:
-      value: 1
-    CurrentLevel:
-      value: 0
   StateAnim: {fileID: 4725110972112075617}
   MoveDirStateAnim: {fileID: 7420383875986210402}
   BaseAnimDepthList:
@@ -1505,6 +1494,19 @@ MonoBehaviour:
   CurrentOverrider:
     value: 0
   CurrentCredit:
+    value: 0
+  StrikeTeamPresence:
+    value: 0
+  UplinkTeamPresence:
+    value: 0
+  NeoTeamPresence:
+    value: 0
+  NeedIntervalPresence: 5
+  NeedStrikeTeamPresence:
+    value: 0
+  NeedUplinkTeamPresence:
+    value: 0
+  NeedNeoTeamPresence:
     value: 0
 --- !u!114 &8889954111637353817
 MonoBehaviour:
@@ -1626,16 +1628,8 @@ MonoBehaviour:
     m_ActionName: Player/CombatMode[/Keyboard/ctrl]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: a71f449c-d27b-44c5-85af-49df92e063bc
-    m_ActionName: Player/BoostMode[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 49497404-3330-44c8-9df0-891f78999031
     m_ActionName: Player/ChargeBettery[/Keyboard/r]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 72afe0eb-af05-4892-9234-683915ae4f5d
-    m_ActionName: Player/UnBoostMode[/Keyboard/g]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 4142ff3d-2695-4c66-a3af-a6f8b5081f1c
@@ -1692,6 +1686,54 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 09996428-b7ca-47ac-9ce7-88457a7614b3
     m_ActionName: ModuleUpgradeUI/MUUI_SelectSub[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 18a37250-77f9-442c-811e-6d510ea13d4d
+    m_ActionName: Player/STAlly[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3d970a02-d070-4734-98d0-00c140048907
+    m_ActionName: Player/UTAlly[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d46030bc-b950-4d17-875e-0ebf9a500113
+    m_ActionName: Player/NTAlly[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cc13c8d3-f03d-4ad1-848b-5b3bacadcd4d
+    m_ActionName: AllyCardUI/AllyCard_Select[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c7132acf-13df-4c7f-bc83-1bb9d60fa573
+    m_ActionName: Puzzle_BoxLineConnectorUI/BoxLineConnector_RightRoll[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: da5a2628-7232-44f0-aa76-c83e69f59824
+    m_ActionName: Puzzle_BoxLineConnectorUI/BoxLineConnector_LeftRoll[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b1226f29-6f47-471b-ba72-012535dcabae
+    m_ActionName: Puzzle_BoxLineConnectorUI/BoxLineConnector_TryUnlock[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 26911e21-6e3e-4622-b9af-762c44fd7565
+    m_ActionName: Puzzle_NumShapeColorPassword/NumShapeColorPassword_RollForDown[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 991a8f98-2c12-46c5-9e6b-fc41f535c916
+    m_ActionName: Puzzle_NumShapeColorPassword/NumShapeColorPassword_RollForUp[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d3ce0874-59b4-4448-b478-433715d8b081
+    m_ActionName: Puzzle_NumShapeColorPassword/NumShapeColorPassword_TryUnlock[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0c66498e-05e9-4535-97a9-bbfa9809015d
+    m_ActionName: Puzzle_InOrderLocker/InOrderLocker_Interact[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 208705b6-87df-4202-8b1b-a81d65db76e6
+    m_ActionName: Puzzle_InOrderLocker/InOrderLocker_TryUnlock[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
