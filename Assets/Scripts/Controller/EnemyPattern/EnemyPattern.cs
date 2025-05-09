@@ -53,11 +53,6 @@ public abstract class EnemyPattern : MonoBehaviour
         // Value
         IsPlaying = false;
         ThisEnemy.IsPlayingPattern = false;
-
-        // Enemy
-        ThisEnemy.MoveAtPoint = Vector2.zero;
-        ThisEnemy.MoveAtDir = Vector2.zero;
-        ThisEnemy.MoveSpeed = 0;
     }
 
     #endregion

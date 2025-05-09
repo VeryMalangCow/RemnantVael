@@ -31,10 +31,6 @@ public class RoomRuleController : MonoBehaviour
     [SerializeField] private Transform InRoom_ObstacleParentTF;
 
     [Space(5)]
-    [Header("-- WayPoint")]
-    [SerializeField] private Transform InRoom_WayPointParentTF;
-
-    [Space(5)]
     [Header("-- Enemy")]
     [SerializeField] private Transform InRoom_EnemySpawnParentTF;
 
@@ -43,7 +39,6 @@ public class RoomRuleController : MonoBehaviour
     #region - Hide
 
     [HideInInspector] private List<EnemySpawnContoller> InRoom_AllEnemySpawn;
-    [HideInInspector] public List<WayPointController> InRoom_AllWayPoint;
     [HideInInspector] public List<SortingObjectController> InRoom_AllObstacle;
     [HideInInspector] private InteractableBuildController InRoom_ShopBuild;
 
@@ -61,10 +56,6 @@ public class RoomRuleController : MonoBehaviour
         InRoom_AllObstacle = InRoom_ObstacleParentTF != null && 
             InRoom_ObstacleParentTF.childCount > 0 ?
             DevTool.Get_ChildList<SortingObjectController>(InRoom_ObstacleParentTF) : null;
-
-        InRoom_AllWayPoint = InRoom_WayPointParentTF != null &&
-            InRoom_WayPointParentTF.childCount > 0 ?
-            DevTool.Get_ChildList<WayPointController>(InRoom_WayPointParentTF) : null;
 
         InRoom_AllEnemySpawn = InRoom_EnemySpawnParentTF != null &&
             InRoom_EnemySpawnParentTF.childCount > 0 ?
@@ -102,8 +93,6 @@ public class RoomRuleController : MonoBehaviour
     {
         // Way Point
         StageManager.Instance.Set_NavBake();
-        SetOn_WayPointData();
-        EndDele = new Dele(SetOff_WayPointData);
 
         Spawn_AllEnemy();
     }
@@ -121,23 +110,6 @@ public class RoomRuleController : MonoBehaviour
 
             // VFX
             UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(spawnPos + (Vector2.up * enemy.TargetRange));
-        }
-    }
-
-    private void SetOn_WayPointData()
-    {
-        for (int i = 0; i < InRoom_AllWayPoint.Count; i++)
-        {
-            InRoom_AllWayPoint[i].AdjacentWPList =
-                DevTool.Get_AdjPoint_UseLine(InRoom_AllWayPoint[i], InRoom_AllWayPoint);
-        }
-    }
-
-    private void SetOff_WayPointData()
-    {
-        for (int i = 0; i < InRoom_AllWayPoint.Count; i++)
-        {
-            InRoom_AllWayPoint[i].AdjacentWPList.Clear();
         }
     }
 

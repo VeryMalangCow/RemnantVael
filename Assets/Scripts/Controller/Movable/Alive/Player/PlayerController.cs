@@ -21,7 +21,6 @@ public class PlayerController : AliveObjectController
     [SerializeField] public SkillWeaponController SkillWeapon;
     [SerializeField] public PlayerDashController DashController;
     [SerializeField] public RigidbodySolarController LowerController;
-    [SerializeField] public WayPointController ThisWayPoint;
 
     [Space(5)]
     [SerializeField] public AfterImgGenerator AfterImgGenerator;

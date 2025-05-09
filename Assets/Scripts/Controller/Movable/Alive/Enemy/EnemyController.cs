@@ -36,8 +36,6 @@ public class EnemyController : AliveObjectController
     [Space(10)]
     [Header("=== Nav")]
     [SerializeField] private NavMeshAgent ThisNavMeshAgent;
-    [Tooltip("This is Radius")]
-    [SerializeField] private WayPointController WPController;
     [SerializeField] public float NavRadius = 0.2f;
 
     [Space(10)]
@@ -54,13 +52,7 @@ public class EnemyController : AliveObjectController
     [HideInInspector] private EnemyPattern CurrentEnemyPattern = null;
 
     // 움직임을 통제
-
     [HideInInspector] private GameObject Target;
-
-    [HideInInspector] public float MoveSpeed;
-
-    [HideInInspector] public Vector2 MoveAtPoint = Vector2.zero;
-    [HideInInspector] public Vector2 MoveAtDir = Vector2.zero;
 
     [HideInInspector] public Vector2 LookAtPoint = Vector2.zero;
     [HideInInspector] public Vector2 LookAtDir = Vector2.zero;
@@ -182,7 +174,14 @@ public class EnemyController : AliveObjectController
         Play_Movement(Time.fixedDeltaTime);
     }
 
-    
+    #endregion
+
+    #region Movement
+
+    private void Play_Movement(float _DeltaTime)
+    {
+        Play_Walk(Vector2.zero, 0, _DeltaTime);
+    }
 
     #endregion
 
@@ -201,24 +200,6 @@ public class EnemyController : AliveObjectController
         if (CurrentRoomController == null) // 현재 Room
         { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
 
-    }
-
-    #endregion
-
-    #region Movement
-
-    private void Play_Movement(float _DeltaTime)
-    {
-        Update_MoveAtTarget();
-        Play_Walk(MoveAtDir, MoveSpeed, _DeltaTime);
-    }
-
-    private void Update_MoveAtTarget()
-    {
-        if (IsDead) return; 
-
-        MoveAtDir = MoveAtPoint != Vector2.zero ?
-            DevTool.Get_Dir(this.gameObject, MoveAtPoint) : Vector2.zero;
     }
 
     #endregion
@@ -487,13 +468,8 @@ public class EnemyController : AliveObjectController
         CurrentContinuousEnemyPattern = null;
         CurrentEnemyPattern = null;
 
-        MoveAtPoint = Vector2.zero;
-        MoveAtDir = Vector2.zero;
-
         LookAtPoint = Vector2.zero;
         LookAtDir = Vector2.zero;
-
-        MoveSpeed = 0f;
     }
 
     private void Start_PatternFromNone()
@@ -586,55 +562,10 @@ public class EnemyController : AliveObjectController
         ThisNavMeshAgent.enabled = false;
     }
 
-    public WayPointController Get_NavWay()
-    {
-        List<WayPointController> way = DevTool.Get_Way(
-            WPController,
-            PlayerManager.Instance.PlayerController.ThisWayPoint,
-            "Wall",
-            NavRadius);
-
-        if (way != null && way.Count >= 1)
-        {
-#if UNITY_EDITOR
-            Draw_Way(way);
-#endif
-            return way[1]; 
-        }
-#if UNITY_EDITOR
-        Draw_Way(new List<WayPointController> { WPController, PlayerManager.Instance.PlayerController.ThisWayPoint });
-#endif
-
-        return PlayerManager.Instance.PlayerController.ThisWayPoint;
-    }
-
-    // 이 객체로부터 특정 지점까지 벽이 있는지
     public bool Is_ExistWall(Transform _TargetTF)
     {
         return DevTool.Is_Exist_UseCircle(this.transform, _TargetTF, "Wall", NavRadius);
     }
 
     #endregion
-
-    #region Draw (Editor)
-
-#if UNITY_EDITOR
-    // Draw하기
-    public void Draw_Way(List<WayPointController> _Way)
-    {
-        if (_Way == null || _Way.Count < 2)
-        {
-            Debug.Log("길을 그릴 WayPoint가 충분하지 않습니다.");
-            return;
-        }
-
-        for (int i = 0; i < _Way.Count - 1; i++)
-        {
-            Debug.DrawLine(_Way[i].transform.position, _Way[i + 1].transform.position, Color.red, 0.2f);
-        }
-    }
-#endif
-
-    #endregion
-
 }

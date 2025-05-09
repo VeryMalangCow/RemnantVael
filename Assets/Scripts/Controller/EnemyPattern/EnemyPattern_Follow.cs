@@ -102,8 +102,6 @@ public class EnemyPattern_Follow : EnemyPattern
 
     protected override IEnumerator Play_ThisPattern_Cor()
     {
-        ThisEnemy.MoveSpeed = FollowingSpeed;
-
         yield return new WaitForSeconds(StartDelay);
 
         #region Actual
@@ -126,20 +124,6 @@ public class EnemyPattern_Follow : EnemyPattern
         }
         ThisEnemy.End_Nav();
 
-        /*
-                while (true)
-                {
-                    if (Can_PlayPattern())
-                    {
-                        ThisEnemy.MoveAtPoint = ThisEnemy.Get_NavWay().transform.position;
-                        yield return new WaitForSeconds(FindRootDelay);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-        */
         #endregion
 
         yield return new WaitForSeconds(EndDelay);
