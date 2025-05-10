@@ -132,6 +132,9 @@ public class PlayerController : AliveObjectController
     [HideInInspector] private Dele ReservationDele = null;
     [HideInInspector] private const float InvincibleTime = 0.5f;
 
+    // Audio
+    [HideInInspector] private AudioSource ThisAudioSource;
+
     #endregion
 
     #region - Data
@@ -219,6 +222,8 @@ public class PlayerController : AliveObjectController
         DashController.Offset();
         ThisSG = DevTool.Get_ComponentTType<SortingGroup>(gameObject); 
         ShadowSR = DevTool.Get_ComponentTType<SpriteRenderer>(transform.GetChild(0).gameObject);
+
+        ThisAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject);
     }
 
 
@@ -846,6 +851,8 @@ public class PlayerController : AliveObjectController
                 DevTool.Get_DmgEffectByCold(state.DmgState.Dmg, _Bullet.Enemy.BuffController),
                 DevTool.Get_Dir(_Bullet.gameObject, gameObject),
                 state.KnockbackState);
+
+            SoundManager.Instance.Play_2D_SFX(ThisAudioSource, "Player_Hitted");
         }
     }
 

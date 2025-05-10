@@ -6,6 +6,8 @@ public class PlayerWeaponController : PlayerSolarController
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Player")]
 
@@ -30,6 +32,26 @@ public class PlayerWeaponController : PlayerSolarController
     [Space(10)]
     [Header("=== GunPos")]
     [SerializeField] protected List<Transform> BulletSpawnTFList;
+
+    #endregion
+
+    #region - Hide
+
+    // Audio
+    [HideInInspector] private AudioSource ThisAudioSource;
+
+    #endregion
+
+    #endregion
+
+    #region Offset
+
+    protected override void Offset()
+    {
+        base.Offset();
+
+        ThisAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject);
+    }
 
     #endregion
 
@@ -102,6 +124,10 @@ public class PlayerWeaponController : PlayerSolarController
 
         // Tween
         this.transform.DOShakePosition(1f / ROF.ActualState.Value, 0.05f, 20, 90, false, true);
+
+        // Audio
+        SoundManager.Instance.Play_2D_SFX(ThisAudioSource,
+            "Player" + DevTool.Get_LengthString(PlayerController.Get_ID(), 2) + "_Shot");
     }
 
     // »ç°Ý
@@ -119,7 +145,7 @@ public class PlayerWeaponController : PlayerSolarController
             _State_Effect: null,
             _TargetSpawnDepth.TargetRange);
 
-        // Æø¹ß ÀÌÆåÆ®
+        // Æø¹ß ÀÌÆåÆ®   
         UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
             PlayerController.Get_ID(),
             (Vector2)_TargetSpawnDepth.TargetObject.transform.position + (dir * 0.1f),

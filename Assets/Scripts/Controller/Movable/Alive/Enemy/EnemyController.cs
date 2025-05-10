@@ -70,6 +70,9 @@ public class EnemyController : AliveObjectController
     // 죽음
     [HideInInspector] private eDamageType DieStateType;
 
+    // 사운드
+    [HideInInspector] private AudioSource ThisAudioSource;
+
     #endregion
 
     #endregion
@@ -140,6 +143,8 @@ public class EnemyController : AliveObjectController
             BuffController = buff;
             BuffController.Offset(this);
         }
+
+        ThisAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject);
     }
 
     private void Offset_Nav()
@@ -313,6 +318,12 @@ public class EnemyController : AliveObjectController
         Take_Damage(DevTool.Get_DmgEffectByCorrosion(actualDmg, BuffController),
             _State_Combat.DmgState.DmgType,
             _IsCritical);
+
+        // 사운드
+        if (!IsDead)
+        { SoundManager.Instance.Play_2D_SFX(ThisAudioSource, "Enemy_Hitted"); }
+        else
+        { SoundManager.Instance.Play_2D_SFX("Enemy_Hitted"); }
     }
 
     // 오직 데미지만을 계산
@@ -395,6 +406,8 @@ public class EnemyController : AliveObjectController
             DieStateType = eDamageType.Energy;
         else 
             DieStateType = eDamageType.Physics;
+
+        ThisAudioSource.Stop();
 
         Set_Die_GenItem();
         Set_Die_Effect();

@@ -3890,4 +3890,13 @@ public enum OutMainGameUIType
 
 #endregion
 
+#region Sound
+
+public enum SoundType
+{
+    SFX, BGM
+}
+
+#endregion
+
 #endregion

@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4502732498129023533
 Transform:
   m_ObjectHideFlags: 0
@@ -99,18 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815e01ad94974fe49a955953dfc9a890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 0
   TargetObject: {fileID: 6811369916013400513}
   ThisSR: {fileID: 0}
   TargetRange: 0.6
-  IsDead: 0
   ThisRb: {fileID: 9181612116873171030}
-  ThisExtraSrs: []
   AccelerationSpeed: 12
-  KnockbackStateList: []
-  BaseYLimit: 0.06
-  BaseTweenReTime: 0.3
-  ThisComponentGOList: []
-  ID: 0
+  Name: 
 --- !u!50 &9181612116873171030
 Rigidbody2D:
   serializedVersion: 4

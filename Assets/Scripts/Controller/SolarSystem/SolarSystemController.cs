@@ -30,7 +30,7 @@ public class SolarSystemController : MonoBehaviour
 
     #region Offset
 
-    private void Offset()
+    protected virtual void Offset()
     {
         Offset_TF();
     }

@@ -6,6 +6,8 @@ public class SkillWeaponController : PlayerSolarController
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Skill")]
 
@@ -14,15 +16,21 @@ public class SkillWeaponController : PlayerSolarController
 
     #endregion
 
+    #region - Hide
+
+    [HideInInspector] private AudioSource ThisAudioSource;
+
+    #endregion
+
+    #endregion
+
     #region Offset
 
-    private void Offset()
+    protected override void Offset()
     {
-        for (int i = 0; i < DevTool.SkillAmount; i++)
-        {
-            Offset_Variable(SkillList[i], SatelliteSideList[i]);
-            Offset_Subscribe(SkillList[i], MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i]);
-        }
+        base.Offset();
+
+        ThisAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject);
     }
 
     private void Offset_Variable(ActiveSkillController _Skill, SatelliteSideController _Satellite)
@@ -38,13 +46,22 @@ public class SkillWeaponController : PlayerSolarController
         });
     }
 
+    private void Offset_Start()
+    {
+        for (int i = 0; i < DevTool.SkillAmount; i++)
+        {
+            Offset_Variable(SkillList[i], SatelliteSideList[i]);
+            Offset_Subscribe(SkillList[i], MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i]);
+        }
+    }
+
     #endregion
 
     #region Framework
 
     private void Start()
     {
-        Offset();
+        Offset_Start();
     }
 
     protected override void Update()
