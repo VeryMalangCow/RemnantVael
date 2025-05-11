@@ -91,9 +91,6 @@ public class RoomRuleController : MonoBehaviour
 
     public void Set_KillAll()
     {
-        // Way Point
-        StageManager.Instance.Set_NavBake();
-
         Spawn_AllEnemy();
     }
 

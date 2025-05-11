@@ -403,6 +403,8 @@ public class StageManager : Singleton<StageManager>
         yield return new WaitForSeconds(0.5f);
 
         _TargetRC.Play_RoomState();
+        Set_NavBake();
+
         LayerOrderManager.Instance.NeedSortingObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
 
         // Minimap
