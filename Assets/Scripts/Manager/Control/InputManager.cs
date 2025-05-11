@@ -207,6 +207,8 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["TabInteract"].performed += Input_Tab;
         PlayerInput.actions["OutMainGame"].performed += Input_OMGUI;
 
+        PlayerInput.actions["Ping"].performed += Input_Ping;
+
         // BU UI
         PlayerInput.actions["BUUI_Select"].performed += Input_BUUIClick;
         PlayerInput.actions["BUUI_OutPanel"].performed += Input_BUUIOutPanel;
@@ -264,6 +266,8 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["Interact"].performed -= Input_Interact;
         PlayerInput.actions["TabInteract"].performed -= Input_Tab;
         PlayerInput.actions["OutMainGame"].performed -= Input_OMGUI;
+
+        PlayerInput.actions["Ping"].performed -= Input_Ping;
 
         // BU UI
         PlayerInput.actions["BUUI_Select"].performed -= Input_BUUIClick;
@@ -401,6 +405,16 @@ public class InputManager : Singleton<InputManager>
 
     #endregion
 
+    #region Ping
+
+    public void Input_Ping(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            PlayerManager.Instance.PlayerController.Try_PingEnemy(AimController);
+    }
+
+    #endregion
+
     #region Charge Bettery
 
     private void Input_ChargeBettery(InputAction.CallbackContext _InputValue)
@@ -490,7 +504,6 @@ public class InputManager : Singleton<InputManager>
     #endregion
 
     #region Puzzle UI
-
 
     #region Box Line Connector
 

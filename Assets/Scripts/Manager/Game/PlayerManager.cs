@@ -6,12 +6,19 @@ public class PlayerManager : Singleton<PlayerManager>
 
     [Header("=== TF")]
     [SerializeField] private Transform PlayerSpawnParentTF;
+    [SerializeField] private Transform PlayerPingFrameSpawnTF;
 
     [Header("=== Class")]
     [SerializeField] public CameraController CameraController;
 
+    [Header("=== Target Enemy")]
+    [SerializeField] private GameObject PlayerPingFramePrefab;
+
     [HideInInspector] public PlayerController PlayerController;
     [HideInInspector] public static int KindOfPlayerAmount = 1;
+
+    [HideInInspector] private PingController PlayerPing;
+    [HideInInspector] private EnemyController PingedEnemy;
 
     #endregion
 
@@ -25,6 +32,9 @@ public class PlayerManager : Singleton<PlayerManager>
     private void Start()
     {
         Gen_Player(out AimController aim, out AimRoundController aimRound);
+
+        PlayerPing = DevTool.Get_ComponentTType<PingController>(Gen_PlayerTargetEnemyGO());
+        SetOff_PingEnemy();
 
         InputManager.Instance.AimController = aim;
         InputManager.Instance.AimRoundController = aimRound;
@@ -48,6 +58,50 @@ public class PlayerManager : Singleton<PlayerManager>
             Instantiate(PlayerController.AimRoundPrefab, PlayerController.transform));
 
         return pc;
+    }
+
+    private GameObject Gen_PlayerTargetEnemyGO()
+    {
+        return Instantiate(PlayerPingFramePrefab, PlayerPingFrameSpawnTF);
+    }
+
+    #endregion
+
+    #region Is
+
+    public bool Is_PingedEnemy(EnemyController _Enemy)
+    {
+        return PingedEnemy == _Enemy;
+    }
+
+    #endregion
+
+    #region Set (Ping)
+
+    public void SetOff_PingEnemy()
+    {
+        PingedEnemy = null;
+
+        PlayerPing.SetOff_Ping(PlayerPingFrameSpawnTF);
+    }
+
+    public void SetOn_PingEnemy(EnemyController _Enemy)
+    {
+        if (PingedEnemy == _Enemy) return;
+
+        PingedEnemy = _Enemy;
+
+        PlayerPing.SetOn_Ping(_Enemy);
+    }
+
+    #endregion
+
+    #region Set (Ping Sort)
+
+    public void Set_SortingOrderPing(EnemyController _Enemy, int _Order)
+    {
+        if (Is_PingedEnemy(_Enemy))
+            PlayerPing.Set_SortingOrder(_Order);
     }
 
     #endregion

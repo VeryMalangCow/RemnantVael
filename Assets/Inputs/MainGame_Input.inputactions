@@ -33,8 +33,17 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Ping",
+                    "type": "Button",
+                    "id": "da9703f4-74e5-4aed-ad66-dbcd008c3b1c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Skill_0",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "f06ad066-3316-4399-9a9a-14b2523cacdd",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -43,7 +52,7 @@
                 },
                 {
                     "name": "Skill_1",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "41b142dc-dc14-4820-b1d0-defca7e56cb0",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -372,6 +381,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "UTAlly",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e6b04f86-2467-42ae-81b2-6d8a2400dc30",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ping",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

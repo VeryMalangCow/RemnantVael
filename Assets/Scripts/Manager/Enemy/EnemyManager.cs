@@ -50,6 +50,19 @@ public class EnemyManager : Singleton<EnemyManager>
                 DevTool.Get_GOList(CurrentEnemyList), _TargetGO));
     }
 
+    public EnemyController Get_ClosestEnemy(GameObject _TargetGO, out float _Dis)
+    {
+        _Dis = 0f;
+        if (CurrentEnemyList.Count == 0) return null;
+
+        EnemyController result = DevTool.Get_ComponentTType<EnemyController>(
+            DevTool.Get_ClosetGO(
+                DevTool.Get_GOList(CurrentEnemyList), _TargetGO));
+
+        _Dis = Vector2.Distance(_TargetGO.transform.position, result.gameObject.transform.position);
+        return result;
+    }
+
     // 가장 먼 적 찾기
     public EnemyController Get_FurthestEnemy(GameObject _TargetGO)
     {

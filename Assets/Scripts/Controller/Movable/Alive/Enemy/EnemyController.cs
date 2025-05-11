@@ -34,6 +34,11 @@ public class EnemyController : AliveObjectController
     [SerializeField] private RigidbodySolarController WalkingSatellite;
 
     [Space(10)]
+    [Header("=== Ping Data")]
+    [SerializeField] public Vector2 PingOffsetVec;
+    [SerializeField] public Vector2 PingSizeVec;
+
+    [Space(10)]
     [Header("=== Nav")]
     [SerializeField] private NavMeshAgent ThisNavMeshAgent;
 
@@ -453,6 +458,10 @@ public class EnemyController : AliveObjectController
         // Check Room State
         StageManager.Instance.Play_CompleteKillAll();
 
+        // Ping
+        if (PlayerManager.Instance.Is_PingedEnemy(this))
+            PlayerManager.Instance.SetOff_PingEnemy();
+
         // Set
         this.gameObject.SetActive(false);
         PoolingManager.Instance.Set_EnqueueEnemy(this);
@@ -460,12 +469,14 @@ public class EnemyController : AliveObjectController
 
     #endregion
 
-    #region UI
+    #region Sorting
 
     public override void Set_SortingOrder(int _SortingOrder)
     {
         base.Set_SortingOrder(_SortingOrder);
         HUD.ThisCanvas.sortingOrder = _SortingOrder;
+
+        PlayerManager.Instance.Set_SortingOrderPing(this, _SortingOrder);
     }
 
     #endregion

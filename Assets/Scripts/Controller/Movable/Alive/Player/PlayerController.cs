@@ -1053,4 +1053,17 @@ public class PlayerController : AliveObjectController
     }
 
     #endregion
+
+    #region Ping
+
+    public void Try_PingEnemy(AimController _Aim)
+    {
+        EnemyController enemy = EnemyManager.Instance.Get_ClosestEnemy(_Aim.gameObject, out float dis);
+        if (enemy != null && dis <= 3)
+            PlayerManager.Instance.SetOn_PingEnemy(enemy);
+        else
+            PlayerManager.Instance.SetOff_PingEnemy();
+    }
+
+    #endregion
 }
