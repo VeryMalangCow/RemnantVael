@@ -35,6 +35,7 @@ public class AllyManager : Singleton<AllyManager>
     [HideInInspector] private List<HashSet<int>> AllGottenAllyCards = null;
     [HideInInspector] private List<List<Sprite>> AllIconList = null;
 
+    [HideInInspector] public float BaseMoveSpeed;
 
     #endregion
 
@@ -60,6 +61,8 @@ public class AllyManager : Singleton<AllyManager>
         { ST_GottenAllyCards, UT_GottenAllyCards, NT_GottenAllyCards };
         AllIconList = new List<List<Sprite>>
         { ST_CardIconList, UT_CardIconList, NT_CardIconList };
+
+        BaseMoveSpeed = 1.5f;
     }
 
     #endregion
@@ -170,7 +173,35 @@ public class AllyManager : Singleton<AllyManager>
 
     #endregion
 
-    #region Set
+    #region Set (State)
+
+    public void Start_AllAllies_Combat()
+    {
+        if (AllAllies.Count <= 0) return;
+
+        for (int i = 0; i < AllAllies.Count; i++)
+            AllAllies[i].Start_MainCor();
+    }
+
+    public void Stop_AllAllies_Combat()
+    {
+        if (AllAllies.Count <= 0) return;
+
+        for (int i = 0; i < AllAllies.Count; i++)
+            AllAllies[i].Stop_MainCor();
+    }
+
+    public void Set_AllAllyPlayerNearPos()
+    {
+        if (AllAllies.Count <= 0) return;
+
+        for (int i = 0; i < AllAllies.Count; i++)
+            AllAllies[i].Set_PosRandomNearPlayer();
+    }
+
+    #endregion
+
+    #region Set (Lang)
 
     public void Set_LanguageTxt()
     {

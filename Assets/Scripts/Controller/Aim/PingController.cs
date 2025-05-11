@@ -22,6 +22,8 @@ public class PingController : MonoBehaviour
 
     [HideInInspector] private SortingGroup ThisSG;
 
+    [HideInInspector] public static bool IsPinged = false;
+
     #endregion
 
     #endregion
@@ -72,6 +74,8 @@ public class PingController : MonoBehaviour
 
         PingFrameSR.DOFade(1f, _DurTime);
         DOTween.To(() => PingFrameSR.size, vec => PingFrameSR.size = vec, _Enemy.PingSizeVec, _DurTime);
+
+        IsPinged = true;
     }
 
     public void SetOff_Ping(Transform _TF)
@@ -80,6 +84,8 @@ public class PingController : MonoBehaviour
         transform.SetParent(_TF);
 
         transform.localPosition = Vector2.zero;
+
+        IsPinged = false;
     }
 
     #endregion

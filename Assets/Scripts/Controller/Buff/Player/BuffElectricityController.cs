@@ -69,10 +69,8 @@ public class BuffElectricityController : BuffController, IWhen_GetElectricity
         PlayerManager.Instance.PlayerController.Take_Damaged(dmg, _HittedDir: Vector2.zero, _ShowHUDEffect: false);
         
         for (int i = 0; i < AllyManager.Instance.AllAllies.Count; i++)
-        {
             AllyManager.Instance.AllAllies[i].TakeDamage(dmg);
-        }
-
+        
         this.Reduct_Buff();
     }
 

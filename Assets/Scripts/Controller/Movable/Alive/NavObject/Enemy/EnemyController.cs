@@ -4,7 +4,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : AliveObjectController
+public class EnemyController : NavObjectController
 {
     #region Value
 
@@ -57,11 +57,6 @@ public class EnemyController : AliveObjectController
     [HideInInspector] public Vector2 LookAtPoint = Vector2.zero;
     [HideInInspector] public Vector2 LookAtDir = Vector2.zero;
 
-    [HideInInspector] public float MoveSpeed;
-
-    [HideInInspector] public Vector2 MoveAtDir = Vector2.zero;
-
-    [HideInInspector] private NavMeshPath NavPath;
 
     // น๖วม
     [HideInInspector] public EnemyBuffController BuffController = null;
@@ -87,12 +82,21 @@ public class EnemyController : AliveObjectController
 
     #region Offset
 
-    protected override void Offset_FirstSetting()
+    protected override void Offset()
+    {
+        base.Offset();
+
+        Offset_FirstSetting();
+        Offset_Subscribe();
+        Offset_Controller();
+    }
+
+    private void Offset_FirstSetting()
     {
         HUD.Offset(this);
     }
 
-    protected override void Offset_Subscribe()
+    private void Offset_Subscribe()
     {
         CurrentSP
             .Subscribe(_CurrentSP =>
@@ -136,7 +140,7 @@ public class EnemyController : AliveObjectController
             });
     }
 
-    protected override void Offset_Controller()
+    private void Offset_Controller()
     {
         if (DevTool.Get_ComponentTType(this.gameObject, out EnemyBuffController buff))
         {
@@ -551,45 +555,6 @@ public class EnemyController : AliveObjectController
     {
         CurrentEnemyPattern = CurrentContinuousEnemyPattern.EnemyPatternList[_OrderOfPattern + 1];
         CurrentEnemyPattern.Start_Pattern();
-    }
-
-    #endregion
-
-    #region Nav
-    
-    public void Start_Nav(float _FollowSpeed)
-    {
-        MoveSpeed = _FollowSpeed;
-    }
-
-    public void Set_NavPos(Transform _TargetTF)
-    {
-        MoveAtDir = Get_NextDir(transform.position, _TargetTF.position);
-    }
-
-    public Vector2 Get_NextDir(Vector3 currentPos, Vector3 targetPos)
-    {
-        NavPath = new NavMeshPath();
-
-        if (!NavMesh.CalculatePath(currentPos, targetPos, NavMesh.AllAreas, NavPath) || 
-            NavPath.corners.Length < 2)
-        {
-            return Vector2.zero;
-        }
-
-        return (NavPath.corners[1] - currentPos).normalized;
-    }
-
-
-    public void End_Nav()
-    {
-        NavPath = null;
-        MoveAtDir = Vector2.zero;
-    }
-
-    public bool Is_ExistWall(Transform _TargetTF)
-    {
-        return DevTool.Is_Exist_UseLine(this.transform, _TargetTF, "Wall");
     }
 
     #endregion

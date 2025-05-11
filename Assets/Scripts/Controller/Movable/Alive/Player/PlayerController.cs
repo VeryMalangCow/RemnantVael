@@ -152,7 +152,16 @@ public class PlayerController : AliveObjectController
 
     #region Offset
 
-    protected override void Offset_FirstSetting()
+    protected override void Offset()
+    {
+        base.Offset();
+
+        Offset_FirstSetting();
+        Offset_Subscribe();
+        Offset_Controller();
+    }
+
+    private void Offset_FirstSetting()
     {
         // State Anim
         Reset_StateAnim();
@@ -201,7 +210,7 @@ public class PlayerController : AliveObjectController
         NeoTeamPresence.Value = 100;
     }
 
-    protected override void Offset_Subscribe()
+    private void Offset_Subscribe()
     {
         CurrentInteractable
             .Subscribe(interact =>
@@ -217,7 +226,7 @@ public class PlayerController : AliveObjectController
             });
     }
 
-    protected override void Offset_Controller()
+    private void Offset_Controller()
     {
         DashController.Offset();
         ThisSG = DevTool.Get_ComponentTType<SortingGroup>(gameObject); 
@@ -1021,6 +1030,9 @@ public class PlayerController : AliveObjectController
 
     public void Try_STAllyLvUp()
     {
+        if (StageManager.Instance.CurrentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
+            return;
+
         if (NeedStrikeTeamPresence.Value <= StrikeTeamPresence.Value)
         {
             NeedStrikeTeamPresence.Value += NeedIntervalPresence;
@@ -1032,6 +1044,9 @@ public class PlayerController : AliveObjectController
 
     public void Try_UTAllyLvUp()
     {
+        if (StageManager.Instance.CurrentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
+            return;
+
         if (NeedUplinkTeamPresence.Value <= UplinkTeamPresence.Value)
         {
             NeedUplinkTeamPresence.Value += NeedIntervalPresence;
@@ -1043,6 +1058,9 @@ public class PlayerController : AliveObjectController
 
     public void Try_NTAllyLvUp()
     {
+        if (StageManager.Instance.CurrentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
+            return;
+
         if (NeedNeoTeamPresence.Value <= NeoTeamPresence.Value)
         {
             NeedNeoTeamPresence.Value += NeedIntervalPresence;

@@ -5,6 +5,8 @@ public class EnemyPattern_Follow : EnemyPattern
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Follow")]
 
@@ -21,6 +23,25 @@ public class EnemyPattern_Follow : EnemyPattern
     [SerializeField] private bool UntilForTargetTime = false;
     [SerializeField] private float TargetTime = 0f;
     [SerializeField] private float CurrentTime = 0f;
+
+    #endregion
+
+    #region - Hide
+
+    [HideInInspector] private float FollowInitDelay = 0.2f;
+
+    #endregion
+
+    #endregion
+
+    #region Offset
+
+    protected override void Offset()
+    {
+        base.Offset();
+
+        FollowInitDelay = 0.4f / FollowingSpeed; 
+    }
 
     #endregion
 
@@ -105,15 +126,15 @@ public class EnemyPattern_Follow : EnemyPattern
 
         #region Actual
 
-        ThisEnemy.Start_Nav(FollowingSpeed);
+        ThisEnemy.Set_MoveSpeed(FollowingSpeed);
         PlayerController targetPc = PlayerManager.Instance.PlayerController;
 
         while (true)
         {
             if (Can_PlayPattern())
             {
-                ThisEnemy.Set_NavPos(targetPc.transform);
-                yield return new WaitForSeconds(0.2f);
+                ThisEnemy.Set_NavDir(targetPc.transform);
+                yield return new WaitForSeconds(FollowInitDelay);
             }
             else
             {

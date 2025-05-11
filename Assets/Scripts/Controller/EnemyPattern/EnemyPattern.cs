@@ -18,11 +18,21 @@ public abstract class EnemyPattern : MonoBehaviour
 
     #endregion
 
-    #region Framework
+    #region Offset
 
-    private void Start()
+    protected virtual void Offset()
     {
         IsPlaying = false;
+    }
+
+    #endregion
+
+
+    #region Framework
+
+    private void Awake()
+    {
+        Offset();
     }
 
     #endregion

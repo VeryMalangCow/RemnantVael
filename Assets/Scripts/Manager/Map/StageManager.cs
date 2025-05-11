@@ -397,6 +397,10 @@ public class StageManager : Singleton<StageManager>
         CurrentRoomController.gameObject.SetActive(true);
         CurrentRoomController.Set_SortingStaticObjects();
 
+        // Ally
+        AllyManager.Instance.Set_AllAllyPlayerNearPos();
+        AllyManager.Instance.Stop_AllAllies_Combat();
+
         // Minimap
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Set_State();
 
@@ -410,6 +414,9 @@ public class StageManager : Singleton<StageManager>
         // Minimap
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Set_State();
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Play_Effect();
+
+        // Ally
+        AllyManager.Instance.Start_AllAllies_Combat();
     }
 
 

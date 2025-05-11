@@ -5,6 +5,21 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 {
     #region Value
 
+    #region - Inspector
+
+    [Space(20)]
+    [Header("<><><><><> Ally Card Activity Manager")]
+
+    [Space(10)]
+    [Header("=== Prefab")]
+    [SerializeField] private GameObject AssultAllyPrefab;
+
+    [Space(10)]
+    [Header("=== TF")]
+    [SerializeField] private Transform AllyParentTF;
+
+    #endregion
+
     #region - Hide
 
     public delegate void ActivityFuncDele();
@@ -66,18 +81,33 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #region Strike Team
 
+    #region Spawn Strike Ally (000 ~ 003)
+
     private void ST_CardActivity_000()
     {
         Debug.Log("ST_000 카드");
+        SpawnAlly(AssultAllyPrefab);
     }
     private void ST_CardActivity_001()
     {
         Debug.Log("ST_001 카드");
+        SpawnAlly(AssultAllyPrefab);
     }
     private void ST_CardActivity_002()
     {
         Debug.Log("ST_002 카드");
+        SpawnAlly(AssultAllyPrefab);
     }
+
+    private void SpawnAlly(GameObject _AllyPrefab)
+    {
+        AllyController ally = DevTool.Get_ComponentTType<AllyController>(
+            Instantiate(_AllyPrefab, AllyParentTF));
+
+        ally.Set_PosRandomNearPlayer();
+    }
+
+    #endregion
 
     #endregion
 

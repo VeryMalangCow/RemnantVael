@@ -1,6 +1,5 @@
 using UnityEngine;
 using UniRx;
-using Unity.VisualScripting;
 
 public class DirectionalImgController : DirectionalController<Sprite, SpriteRenderer>
 {

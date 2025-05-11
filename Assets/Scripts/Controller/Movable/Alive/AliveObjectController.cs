@@ -20,25 +20,6 @@ public abstract class AliveObjectController : MovableObjectController
 
     #endregion
 
-    #region Offset
-
-    protected override void Offset()
-    {
-        base.Offset();
-
-        Offset_FirstSetting();
-        Offset_Subscribe();
-        Offset_Controller();
-    }
-
-    protected abstract void Offset_Subscribe();
-
-    protected abstract void Offset_Controller();
-
-    protected abstract void Offset_FirstSetting();
-
-    #endregion
-
     #region Add Point (Percent)
 
     // Shield
