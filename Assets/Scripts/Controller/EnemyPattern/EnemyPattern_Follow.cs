@@ -112,8 +112,8 @@ public class EnemyPattern_Follow : EnemyPattern
         {
             if (Can_PlayPattern())
             {
-                ThisEnemy.Get_NavPos(targetPc.transform);
-                yield return null;
+                ThisEnemy.Set_NavPos(targetPc.transform);
+                yield return new WaitForSeconds(0.2f);
             }
             else
             {

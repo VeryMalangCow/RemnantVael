@@ -39,10 +39,6 @@ public class EnemyController : AliveObjectController
     [SerializeField] public Vector2 PingSizeVec;
 
     [Space(10)]
-    [Header("=== Nav")]
-    [SerializeField] private NavMeshAgent ThisNavMeshAgent;
-
-    [Space(10)]
     [Header("=== Pattern")]
     [Tooltip("This Order of Priority Equle Index")]
     [SerializeField] protected List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
@@ -60,6 +56,12 @@ public class EnemyController : AliveObjectController
 
     [HideInInspector] public Vector2 LookAtPoint = Vector2.zero;
     [HideInInspector] public Vector2 LookAtDir = Vector2.zero;
+
+    [HideInInspector] public float MoveSpeed;
+
+    [HideInInspector] public Vector2 MoveAtDir = Vector2.zero;
+
+    [HideInInspector] private NavMeshPath NavPath;
 
     // น๖วม
     [HideInInspector] public EnemyBuffController BuffController = null;
@@ -84,13 +86,6 @@ public class EnemyController : AliveObjectController
 
 
     #region Offset
-
-    protected override void Offset()
-    {
-        base.Offset();
-
-        Offset_Nav();
-    }
 
     protected override void Offset_FirstSetting()
     {
@@ -152,13 +147,6 @@ public class EnemyController : AliveObjectController
         ThisAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject);
     }
 
-    private void Offset_Nav()
-    {
-        ThisNavMeshAgent.updateRotation = false;
-        ThisNavMeshAgent.updateUpAxis = false;
-        ThisNavMeshAgent.enabled = false;
-    }
-
     #endregion
 
     #region Framework
@@ -189,7 +177,7 @@ public class EnemyController : AliveObjectController
 
     private void Play_Movement(float _DeltaTime)
     {
-        Play_Walk(Vector2.zero, 0, _DeltaTime);
+        Play_Walk(MoveAtDir, MoveSpeed, _DeltaTime);
     }
 
     #endregion
@@ -571,18 +559,32 @@ public class EnemyController : AliveObjectController
     
     public void Start_Nav(float _FollowSpeed)
     {
-        ThisNavMeshAgent.speed = _FollowSpeed;
-        ThisNavMeshAgent.enabled = true;
+        MoveSpeed = _FollowSpeed;
     }
 
-    public void Get_NavPos(Transform _TargetTF)
+    public void Set_NavPos(Transform _TargetTF)
     {
-        ThisNavMeshAgent.SetDestination(_TargetTF.position);
+        MoveAtDir = Get_NextDir(transform.position, _TargetTF.position);
     }
+
+    public Vector2 Get_NextDir(Vector3 currentPos, Vector3 targetPos)
+    {
+        NavPath = new NavMeshPath();
+
+        if (!NavMesh.CalculatePath(currentPos, targetPos, NavMesh.AllAreas, NavPath) || 
+            NavPath.corners.Length < 2)
+        {
+            return Vector2.zero;
+        }
+
+        return (NavPath.corners[1] - currentPos).normalized;
+    }
+
 
     public void End_Nav()
     {
-        ThisNavMeshAgent.enabled = false;
+        NavPath = null;
+        MoveAtDir = Vector2.zero;
     }
 
     public bool Is_ExistWall(Transform _TargetTF)

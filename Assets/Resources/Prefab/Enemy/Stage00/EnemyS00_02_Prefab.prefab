@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 848216773187047800}
   - component: {fileID: 5694203857495159564}
   - component: {fileID: 7671391899007426867}
-  - component: {fileID: 2525735454317568188}
   - component: {fileID: 1232844703756233022}
   m_Layer: 7
   m_Name: EnemyS00_02_Prefab
@@ -82,7 +81,6 @@ MonoBehaviour:
   WalkingSatellite: {fileID: 8314429211963477539}
   PingOffsetVec: {x: 0, y: 0.4}
   PingSizeVec: {x: 1.5, y: 1.7}
-  ThisNavMeshAgent: {fileID: 2525735454317568188}
   OrderOfPriorityEnemyPatternList:
   - EnemyPatternList:
     - EnemyPatternList:
@@ -96,6 +94,9 @@ MonoBehaviour:
       - {fileID: 8721225703925756054}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
+  MoveSpeed: 0
+  MoveAtPoint: {x: 0, y: 0}
+  MoveAtDir: {x: 0, y: 0}
   BuffController: {fileID: 5694203857495159564}
   IsPlayingPattern: 0
 --- !u!114 &5694203857495159564
@@ -219,28 +220,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!195 &2525735454317568188
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272305898077013730}
-  m_Enabled: 0
-  m_AgentTypeID: 0
-  m_Radius: 0.2
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.2
-  m_BaseOffset: 0.1
-  m_WalkableMask: 1
-  m_ObstacleAvoidanceType: 4
 --- !u!82 &1232844703756233022
 AudioSource:
   m_ObjectHideFlags: 0
