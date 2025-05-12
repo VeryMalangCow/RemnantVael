@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using UniRx;
 using UnityEngine;
@@ -20,8 +21,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     [HideInInspector] public readonly static int Order_BuildLower = 10000;
     [HideInInspector] public readonly static int Order_Aim = 20000;
 
-    // 내부 캐시 버퍼
-    private readonly List<DepthController> sortedBuffer = new();
+    [HideInInspector] private List<DepthController> LastSortedList = new();
 
     #endregion
 
@@ -35,7 +35,31 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
     #endregion
 
-    #region Set Cor
+    #region Get
+
+    // 안정적인 정렬: Y 기준 + ID 기준
+    private List<DepthController> Get_StableSortedList(List<DepthController> source)
+    {
+        return source
+            .OrderBy(obj => obj.transform.position.y)
+            .ThenBy(obj => obj.GetInstanceID()) // 같은 Y 위치일 때도 항상 같은 순서 보장
+            .ToList();
+    }
+
+    // 순서 비교
+    private bool IsSameList(List<DepthController> a, List<DepthController> b)
+    {
+        if (a.Count != b.Count) return false;
+        for (int i = 0; i < a.Count; i++)
+        {
+            if (a[i] != b[i]) return false;
+        }
+        return true;
+    }
+
+    #endregion
+
+    #region Play
 
     // 시작
     private void Start_LayerSorting()
@@ -53,49 +77,25 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         }
     }
 
-    /*
     // 종료
     private void End_LayerSorting()
     {
         StopCoroutine(LayerSortingCor);
     }
-    */
-
 
     #endregion
 
-    #region Sorting
+    #region Check
 
     // 솔팅이 필요한지를 판별해 솔트
     private void Check_Set_Sort()
     {
-        // NeedSortingObjects를 기준으로 정렬 버퍼 생성
-        sortedBuffer.Clear();
-        sortedBuffer.AddRange(NeedSortingObjects);
+        List<DepthController> sorted = Get_StableSortedList(NeedSortingObjects);
 
-        // Y값 기준 정렬
-        sortedBuffer.Sort((a, b) => a.transform.position.y.CompareTo(b.transform.position.y));
-
-        // 순서가 바뀌었는지 확인
-        bool changed = false;
-        for (int i = 0; i < sortedBuffer.Count; i++)
+        if (!IsSameList(sorted, LastSortedList))
         {
-            if (sortedBuffer[i] != NeedSortingObjects[i])
-            {
-                changed = true;
-                break;
-            }
-        }
-
-        if (changed)
-        {
-            Set_Sort(sortedBuffer);
-
-            // NeedSortingObjects에 정렬된 순서를 반영
-            for (int i = 0; i < sortedBuffer.Count; i++)
-            {
-                NeedSortingObjects[i] = sortedBuffer[i];
-            }
+            Set_Sort(sorted);
+            LastSortedList = sorted;
         }
     }
 
@@ -108,8 +108,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     {
         for (int i = 0; i < _ObjectList.Count; i++)
         {
-            int desiredOrder = Order_SortingObjTop - (10 * i);
-            _ObjectList[i].Set_SortingOrder(desiredOrder);
+            _ObjectList[i].Set_SortingOrder(Order_SortingObjTop - (10 * i));
         }
     }
 
