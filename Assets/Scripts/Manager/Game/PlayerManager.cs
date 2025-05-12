@@ -80,8 +80,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void SetOff_PingEnemy()
     {
-        PingedEnemy = null;
-
+        Set_PingedEnemy(null);
         PlayerPing.SetOff_Ping(PlayerPingFrameSpawnTF);
     }
 
@@ -89,9 +88,14 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         if (PingedEnemy == _Enemy) return;
 
-        PingedEnemy = _Enemy;
-
+        Set_PingedEnemy(_Enemy);
         PlayerPing.SetOn_Ping(_Enemy);
+    }
+
+    private void Set_PingedEnemy(EnemyController _Enemy)
+    {
+        PingedEnemy = _Enemy;
+        AllyManager.Instance.Set_AllAllyTargetEnemy(PingedEnemy);
     }
 
     #endregion
@@ -102,6 +106,15 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         if (Is_PingedEnemy(_Enemy))
             PlayerPing.Set_SortingOrder(_Order);
+    }
+
+    #endregion
+
+    #region Get
+
+    public EnemyController Get_PingedEnemy()
+    {
+        return PingedEnemy;
     }
 
     #endregion

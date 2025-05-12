@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2074109866832102680}
-  - component: {fileID: 1997331797996975387}
+  - component: {fileID: -7677951490283658699}
   - component: {fileID: 7751130478170212446}
   m_Layer: 10
-  m_Name: Ally_Prefab
+  m_Name: AssultAlly_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 7453947926858605448}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1997331797996975387
+--- !u!114 &-7677951490283658699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2537459090634405761}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88e5c820c4fcfca4291ca4d9290708a5, type: 3}
+  m_Script: {fileID: 11500000, guid: e210827fea44172408ac24c45d82d166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0

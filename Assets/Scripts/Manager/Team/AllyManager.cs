@@ -199,6 +199,13 @@ public class AllyManager : Singleton<AllyManager>
             AllAllies[i].Set_PosRandomNearPlayer();
     }
 
+    public void Set_AllAllyTargetEnemy(EnemyController _Enemy)
+    {
+        // Null 이여도 초기화
+        for (int i = 0; i < AllAllies.Count; i++)
+            AllAllies[i].Set_TargetEnemy(_Enemy);
+    }
+
     #endregion
 
     #region Set (Lang)

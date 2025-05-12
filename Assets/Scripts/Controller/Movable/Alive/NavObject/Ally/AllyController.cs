@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+// Ally는 Follow를 기본으로 가짐 (플레이어에게 가는 것이 필요하기 때문)
 public class AllyController : NavObjectController
 {
     #region Value
@@ -19,10 +20,15 @@ public class AllyController : NavObjectController
 
     #region - Hide
 
-    [HideInInspector] private float FollowInitDelay = 0.2f;
-    [HideInInspector] private float ForPlayerDis = 1f;
+    [HideInInspector] protected float FollowInitDelay = 0.2f;
 
-    [HideInInspector] private PlayerController Player;
+    // For Player
+    [HideInInspector] protected PlayerController Player;
+    [HideInInspector] protected float ForPlayerDis = 1f;
+
+    // For Enemy
+    [HideInInspector] protected EnemyController Enemy;
+    [HideInInspector] protected float ForEnemyDis = 1.5f;
 
     [HideInInspector] private IEnumerator ThisMainCor = null;
 
@@ -125,60 +131,27 @@ public class AllyController : NavObjectController
             MoveAtDir = Vector2.zero;
     }
 
-    protected IEnumerator Play_Main_Cor()
+    protected virtual IEnumerator Play_Main_Cor()
     {
         yield return new WaitForSeconds(0.5f);
-
-        while (true)
-        {
-            if (PingController.IsPinged)
-            {
-                Set_PingedState();
-                yield return new WaitForSeconds(FollowInitDelay);
-            }
-            else
-            {
-                Set_NoPingedState();
-                yield return new WaitForSeconds(FollowInitDelay);
-            }
-        }
     }
 
     #endregion
 
     #region Is
 
-    private bool Is_FollowState()
+    protected bool Is_FollowState(Transform _TargetTF, float _Dis, bool _CheckWall)
     {
-        if (ForPlayerDis < Vector2.Distance(Player.transform.position, this.transform.position)) 
-            return true;
+        bool disCondition = _Dis < Vector2.Distance(_TargetTF.position, this.transform.position);
+        bool wallCondition = _CheckWall ? Is_ExistWall(_TargetTF) : false;
 
-        return false;
+        return disCondition || wallCondition;
     }
 
-    #endregion
-
-    #region Set (Ping)
-
-    private void Set_PingedState()
+    protected void Stop_Follow()
     {
-
-    }
-
-
-    private void Set_NoPingedState()
-    {
-        // 따라가기
-        if (Is_FollowState())
-        {
-            Set_NavDir(Player.transform);
-        }
-        // 정지
-        else
-        {
-            if (MoveAtDir != Vector2.zero)
-                MoveAtDir = Vector2.zero;
-        }
+        if (MoveAtDir != Vector2.zero)
+            MoveAtDir = Vector2.zero;
     }
 
     #endregion
@@ -190,6 +163,11 @@ public class AllyController : NavObjectController
         transform.position =
             (Vector2)PlayerManager.Instance.PlayerController.transform.position +
             (new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized * NearPlayerDis);
+    }
+
+    public void Set_TargetEnemy(EnemyController _Enemy)
+    {
+        Enemy = _Enemy;
     }
 
     #endregion
