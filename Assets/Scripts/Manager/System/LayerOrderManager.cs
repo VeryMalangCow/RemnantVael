@@ -20,6 +20,9 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     [HideInInspector] public readonly static int Order_BuildLower = 10000;
     [HideInInspector] public readonly static int Order_Aim = 20000;
 
+    // 내부 캐시 버퍼
+    private readonly List<DepthController> sortedBuffer = new();
+
     #endregion
 
     #region Framework
@@ -46,17 +49,17 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         while(true)
         {
             Check_Set_Sort();
-
             yield return null;
         }
     }
 
+    /*
     // 종료
     private void End_LayerSorting()
     {
         StopCoroutine(LayerSortingCor);
     }
-
+    */
 
 
     #endregion
@@ -66,26 +69,34 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     // 솔팅이 필요한지를 판별해 솔트
     private void Check_Set_Sort()
     {
-        if (Get_NeedSort(Get_OrderByY(NeedSortingObjects)))
+        // NeedSortingObjects를 기준으로 정렬 버퍼 생성
+        sortedBuffer.Clear();
+        sortedBuffer.AddRange(NeedSortingObjects);
+
+        // Y값 기준 정렬
+        sortedBuffer.Sort((a, b) => a.transform.position.y.CompareTo(b.transform.position.y));
+
+        // 순서가 바뀌었는지 확인
+        bool changed = false;
+        for (int i = 0; i < sortedBuffer.Count; i++)
         {
-            Set_Sort(NeedSortingObjects);
+            if (sortedBuffer[i] != NeedSortingObjects[i])
+            {
+                changed = true;
+                break;
+            }
         }
-    }
 
-    #endregion
+        if (changed)
+        {
+            Set_Sort(sortedBuffer);
 
-    #region Get
-
-    // Y값 기준으로 내림차순
-    private List<DepthController> Get_OrderByY(List<DepthController> _ObjectList)
-    {
-        return _ObjectList.OrderBy(obj => obj.transform.position.y).ToList();
-    }
-    
-    // 솔팅이 필요한지?
-    private bool Get_NeedSort(List<DepthController> _ObjectList)
-    {
-        return !Enumerable.SequenceEqual(_ObjectList, NeedSortingObjects);
+            // NeedSortingObjects에 정렬된 순서를 반영
+            for (int i = 0; i < sortedBuffer.Count; i++)
+            {
+                NeedSortingObjects[i] = sortedBuffer[i];
+            }
+        }
     }
 
     #endregion
@@ -95,10 +106,10 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     // 솔팅
     private void Set_Sort(List<DepthController> _ObjectList)
     {
-        _ObjectList = Get_OrderByY(_ObjectList);
         for (int i = 0; i < _ObjectList.Count; i++)
         {
-            _ObjectList[i].Set_SortingOrder(Order_SortingObjTop - (10 * i));
+            int desiredOrder = Order_SortingObjTop - (10 * i);
+            _ObjectList[i].Set_SortingOrder(desiredOrder);
         }
     }
 

@@ -13,6 +13,8 @@ public class DepthController : IDController
     [SerializeField] public SpriteRenderer ThisSR;
     [SerializeField] public float TargetRange = 0.4f;
 
+    public int CurrentOrder { get; private set; } = int.MinValue;
+
     #endregion
 
     #region Offset
@@ -35,8 +37,14 @@ public class DepthController : IDController
 
     public virtual void Set_SortingOrder(int _SortingOrder)
     {
+        if (CurrentOrder == _SortingOrder) return;
+
+        CurrentOrder = _SortingOrder;
+
+#if UNITY_EDITOR
         if (ThisSR == null)
         { Debug.Log(this.gameObject.name); return; }
+#endif
 
         ThisSR.sortingOrder = _SortingOrder;
     }
