@@ -14,13 +14,18 @@ public class AllyController : NavObjectController
 
     [Space(10)]
     [Header("=== Value")]
+    [SerializeField] protected AllyState MultipleAllyState;
     [SerializeField] private float MaxEP = 100f;
+    [SerializeField] protected float ForEnemyDis = 1.5f;
 
     #endregion
 
     #region - Hide
 
+    // State
     [HideInInspector] protected float FollowInitDelay = 0.2f;
+
+    [HideInInspector] protected AllyState ActualAllyState = new AllyState();
 
     // For Player
     [HideInInspector] protected PlayerController Player;
@@ -28,7 +33,6 @@ public class AllyController : NavObjectController
 
     // For Enemy
     [HideInInspector] protected EnemyController Enemy;
-    [HideInInspector] protected float ForEnemyDis = 1.5f;
 
     [HideInInspector] private IEnumerator ThisMainCor = null;
 
@@ -58,8 +62,7 @@ public class AllyController : NavObjectController
         DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
 
         CurrentEP.Value = MaxEP;
-        Set_MovementSpeed(AllyManager.Instance.BaseMoveSpeed);
-
+        Set_AllState(AllyManager.Instance.GetAllyState);
 
         Start_MainCor();
     }
@@ -68,7 +71,6 @@ public class AllyController : NavObjectController
     {
         DevTool.Remove_InList(AllyManager.Instance.AllAllies, this);
         DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
-
 
         Stop_MainCor();
     }
@@ -86,15 +88,37 @@ public class AllyController : NavObjectController
 
     private void Play_Movement(float _DeltaTime)
     {
-        Play_Walk(MoveAtDir, MoveSpeed, _DeltaTime);
+        Play_Walk(MoveAtDir, ActualAllyState.MovementSpeed, _DeltaTime);
     }
 
-    public void Set_MovementSpeed(float _Speed)
+    #endregion
+
+    #region Set (State)
+
+    public void Set_AllState(AllyState _StateValue)
     {
-        MoveSpeed = _Speed;
-        FollowInitDelay = 0.4f / MoveSpeed;
-
+        Set_MovementSpeed(_StateValue.MovementSpeed);
+        Set_Dmg(_StateValue.Dmg);
+        Set_Rof(_StateValue.Rof);
     }
+
+
+    private void Set_MovementSpeed(float _Value)
+    {
+        ActualAllyState.MovementSpeed = _Value * MultipleAllyState.MovementSpeed;
+        FollowInitDelay = 0.4f / ActualAllyState.MovementSpeed;
+    }
+
+    private void Set_Dmg(float _Value)
+    {
+        ActualAllyState.Dmg = _Value * MultipleAllyState.Dmg;
+    }
+
+    private void Set_Rof(float _Value)
+    {
+        ActualAllyState.Rof = _Value * MultipleAllyState.Rof;
+    }
+
     #endregion
 
     #region EP

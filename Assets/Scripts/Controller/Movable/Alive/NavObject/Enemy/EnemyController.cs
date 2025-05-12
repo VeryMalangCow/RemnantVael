@@ -258,7 +258,7 @@ public class EnemyController : NavObjectController
     #region Hitted
 
     // 총알 데미지
-    public void Try_Hitted(PlayerBulletController _Bullet)
+    public void Try_Hitted(BulletController _Bullet)
     {
         if (IsDead)
         { return; }

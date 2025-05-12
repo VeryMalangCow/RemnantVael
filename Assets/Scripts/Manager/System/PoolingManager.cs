@@ -18,6 +18,9 @@ public class PoolingManager : Singleton<PoolingManager>
     [Header("=== Skill")]
     [SerializeField] public TTypePooling<MissileBulletController> MissileBullet;
 
+    [Header("=== Ally")]
+    [SerializeField] public TTypePooling<AllyBulletController> BaseAllyBullet;
+
     [Header("=== Enemy")]
     [SerializeField] public TTypePooling<EnemyBulletController> EnemyBullets;
     [SerializeField] public TTypePooling<EnemyAttackerController> EnemyAttackers;
@@ -89,6 +92,15 @@ public class PoolingManager : Singleton<PoolingManager>
             tTypeList.Add(Get_OP(_SpawnGO, _ParnetTF, _Queue)); 
         }
         return tTypeList;
+    }
+
+    #endregion
+
+    #region Ally
+
+    public AllyBulletController Get_OP_AllyBullet()
+    {
+        return Get_OP<AllyBulletController>(BaseAllyBullet.Prefab, BaseAllyBullet.ParentTF, BaseAllyBullet.Queue);
     }
 
     #endregion

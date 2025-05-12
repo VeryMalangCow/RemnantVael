@@ -35,7 +35,9 @@ public class AllyManager : Singleton<AllyManager>
     [HideInInspector] private List<HashSet<int>> AllGottenAllyCards = null;
     [HideInInspector] private List<List<Sprite>> AllIconList = null;
 
-    [HideInInspector] public float BaseMoveSpeed;
+    // Base State
+    [HideInInspector] private AllyState AllyState;
+    public AllyState GetAllyState { get { return AllyState; } }
 
     #endregion
 
@@ -62,7 +64,7 @@ public class AllyManager : Singleton<AllyManager>
         AllIconList = new List<List<Sprite>>
         { ST_CardIconList, UT_CardIconList, NT_CardIconList };
 
-        BaseMoveSpeed = 1.5f;
+        AllyState = new AllyState();
     }
 
     #endregion
@@ -108,7 +110,6 @@ public class AllyManager : Singleton<AllyManager>
     #endregion
 
     #region Get
-
     public Sprite Get_CardIcon(int _TypeID, int _CardID)
     {
         return AllIconList[_TypeID][_CardID];
@@ -173,7 +174,7 @@ public class AllyManager : Singleton<AllyManager>
 
     #endregion
 
-    #region Set (State)
+    #region Set (Ally Set)
 
     public void Start_AllAllies_Combat()
     {
@@ -204,6 +205,20 @@ public class AllyManager : Singleton<AllyManager>
         // Null 이여도 초기화
         for (int i = 0; i < AllAllies.Count; i++)
             AllAllies[i].Set_TargetEnemy(_Enemy);
+    }
+
+    #endregion
+
+    #region Set (State)
+
+    public void Set_AllState(AllyState _StateValue)
+    {
+        AllyState = new AllyState(_StateValue);
+
+        if (AllAllies.Count <= 0) return;
+
+        for (int i = 0; i < AllAllies.Count; i++)
+            AllAllies[i].Set_AllState(AllyState);
     }
 
     #endregion

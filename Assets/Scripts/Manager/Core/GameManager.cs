@@ -3231,6 +3231,46 @@ public class AllyCardData
 
 #endregion
 
+#region Class : Ally State
+
+[System.Serializable]
+public class AllyState
+{
+    #region Value
+    
+    public float MovementSpeed = 1f;
+    public float Dmg = 1f;
+    public float Rof = 1f;
+
+    #endregion
+
+    #region Constructor
+
+    public AllyState()
+    {
+        MovementSpeed = 1;
+        Dmg = 1;
+        Rof = 1;
+    }
+
+    public AllyState(AllyState _StateValue)
+    {
+        MovementSpeed = _StateValue.MovementSpeed;
+        Dmg = _StateValue.Dmg;
+        Rof = _StateValue.Rof;
+    }
+
+    public AllyState(float _MovementSpeed, float _Dmg, float _Rof)
+    {
+        MovementSpeed = _MovementSpeed;
+        Dmg = _Dmg;
+        Rof = _Rof;
+    }
+
+    #endregion
+}
+
+#endregion
 
 #region Class : UI
 

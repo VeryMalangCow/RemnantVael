@@ -3,6 +3,38 @@ using UnityEngine;
 
 public class AttackAllyController : AllyController
 {
+    #region Value
+
+    #region - Inspector
+/*
+    [Space(20)]
+    [Header("<><><><><> Attack")]
+
+    [Space(10)]
+    [Header("=== Value")]
+*/
+    #endregion
+    
+    #region - Hide
+
+    [HideInInspector] private bool IsAttacking = false;
+
+    [HideInInspector] private float CurrentRof = 0f;
+
+    #endregion
+
+    #endregion
+
+    #region Framework
+
+    protected override void Update()
+    {
+        base.Update();
+
+        Set_CaculateAttack(Time.deltaTime);
+    }
+
+    #endregion
 
     #region Play
 
@@ -27,6 +59,68 @@ public class AttackAllyController : AllyController
 
     #endregion
 
+    #region Attacking
+
+    private void Set_Attacking(bool _OnOff)
+    {
+        if (IsAttacking != _OnOff)
+        {
+            IsAttacking = _OnOff;
+            CurrentRof = 0;
+        }
+    }
+
+    private void Set_CaculateAttack(float _DeltaTime)
+    {
+        if (!IsAttacking) return;
+
+        if (CurrentRof < 1)
+        {
+            CurrentRof += _DeltaTime * ActualAllyState.Rof;
+        }
+        else
+        {
+            CurrentRof -= 1;
+            Play_Attack(PoolingManager.Instance.Get_OP_AllyBullet());
+        }
+    }
+
+    private void Play_Attack(AllyBulletController _Bullet)
+    {
+        // 총알 스탯과 SortingOrder 설정
+        _Bullet.Set_SortingOrder(ThisSR.sortingOrder - 1);
+        _Bullet.Set_State(
+            Get_BulletState(),
+            _State_PosAndRot: Get_BulletState_PosAndRot(),
+            _State_Size: null,
+            _State_Anim: null,
+            _State_Effect: null,
+            0.5f);
+    }
+
+    #endregion
+
+    #region State (Bullet)
+
+    private BulletState Get_BulletState()
+    {
+        return new BulletState(
+            new CombatState(
+                new DmgState(eDamageType.Physics, ActualAllyState.Dmg),
+                new CriticalState(0, 0),
+                new KnockbackState(false, 0, 0)),
+            false,
+            1f,
+            10f);
+    }
+
+    private BulletState_PosAndRot Get_BulletState_PosAndRot()
+    {
+        return new BulletState_PosAndRot(this.transform.position, (Enemy.transform.position - this.transform.position).normalized, 0);
+    }
+
+    #endregion
+
     #region Set (Ping)
 
     private void Set_PingedState() // 적에게
@@ -35,21 +129,24 @@ public class AttackAllyController : AllyController
         if (Is_FollowState(Enemy.transform, ForEnemyDis, true))
         {
             Set_NavDir(Enemy.transform);
+            Set_Attacking(false);
         }
         // 공격
         else
         {
             Stop_Follow();
+            Set_Attacking(true);
         }
     }
 
 
     private void Set_NoPingedState() // 플레이어에게
     {
+        Set_Attacking(false);
+
         // 따라가기
         if (Is_FollowState(Player.transform, ForPlayerDis, false))
         {
-            Debug.Log("Player Follow");
             Set_NavDir(Player.transform);
         }
         // 정지
