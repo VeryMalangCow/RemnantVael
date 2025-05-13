@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class EnemyController : NavObjectController
 {
@@ -12,6 +12,10 @@ public class EnemyController : NavObjectController
 
     [Space(20)]
     [Header("<><><><><> Enemy")]
+
+    [Space(10)]
+    [Header("=== Comp")]
+    [SerializeField] private SortingGroup ThisSG;
 
     [Space(10)]
     [Header("=== State")]
@@ -465,7 +469,8 @@ public class EnemyController : NavObjectController
 
     public override void Set_SortingOrder(int _SortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
+        ThisSG.sortingOrder = _SortingOrder;
+
         HUD.ThisCanvas.sortingOrder = _SortingOrder;
 
         PlayerManager.Instance.Set_SortingOrderPing(this, _SortingOrder);

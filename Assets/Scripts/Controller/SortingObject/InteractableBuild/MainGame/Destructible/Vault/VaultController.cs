@@ -45,6 +45,8 @@ public class VaultController : DestructibleBuildController
     public override void Set_SortingOrder(int _SortingOrder)
     {
         base.Set_SortingOrder(_SortingOrder);
+
+        // Vault의 안에 아이콘이 보이는 이미지
         IconStateAnim.ThisSR.sortingOrder = _SortingOrder - 1;
     }
 

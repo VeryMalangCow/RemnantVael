@@ -348,6 +348,7 @@ MonoBehaviour:
   IsBroken: 0
   MaxDur: 10
   CurrentDur: 0
+  DurSG: {fileID: 5271693368946486769}
   DurParentTF: {fileID: 3162411028315099261}
   FrameIntervalX: 0.08
   RepairOper: {fileID: 0}
@@ -366,6 +367,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3162411028315099261}
+  - component: {fileID: 5271693368946486769}
   m_Layer: 6
   m_Name: Durablity
   m_TagString: Untagged
@@ -388,6 +390,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4995045585254079196}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &5271693368946486769
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6208652108089971714}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &6310173116161984221
 GameObject:
   m_ObjectHideFlags: 0

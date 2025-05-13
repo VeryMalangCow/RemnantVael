@@ -6,13 +6,14 @@ public class AttackAllyController : AllyController
     #region Value
 
     #region - Inspector
-/*
+
     [Space(20)]
     [Header("<><><><><> Attack")]
 
     [Space(10)]
-    [Header("=== Value")]
-*/
+    [Header("=== Comp")]
+
+
     #endregion
     
     #region - Hide

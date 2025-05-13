@@ -12,9 +12,6 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     [Header("=== Movable Object")]
     [SerializeField] public List<DepthController> NeedSortingObjects;
 
-
-    [HideInInspector] private Coroutine LayerSortingCor = null;
-
     [HideInInspector] public readonly static int Order_BuildUpper = 1;
     [HideInInspector] public readonly static int Order_SortingObjTop = 5000;
     [HideInInspector] public readonly static int Order_EffectImg = 9999;
@@ -64,7 +61,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     // 시작
     private void Start_LayerSorting()
     {
-        LayerSortingCor = StartCoroutine(Play_LayerSorting_Cor());
+        StartCoroutine(Play_LayerSorting_Cor());
     }
 
     // 매 프레임 마다 레이어 솔팅
@@ -76,13 +73,13 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
             yield return null;
         }
     }
-
+/*
     // 종료
     private void End_LayerSorting()
     {
         StopCoroutine(LayerSortingCor);
     }
-
+*/
     #endregion
 
     #region Check

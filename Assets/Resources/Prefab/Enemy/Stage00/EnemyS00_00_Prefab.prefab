@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7842396115140642684}
   - component: {fileID: 7671391899007426867}
   - component: {fileID: 5115214460065696552}
+  - component: {fileID: 2508644275988564770}
   m_Layer: 7
   m_Name: EnemyS00_00_Prefab
   m_TagString: Enemy
@@ -66,6 +67,8 @@ MonoBehaviour:
     value: 0
   CurrentEP:
     value: 0
+  testbool: 0
+  ThisSG: {fileID: 2508644275988564770}
   ThisEnemyType: 0
   MaxHP: 250
   MaxEP: 150
@@ -100,9 +103,6 @@ MonoBehaviour:
       - {fileID: 8721225703925756054}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
-  MoveSpeed: 0
-  MoveAtPoint: {x: 0, y: 0}
-  MoveAtDir: {x: 0, y: 0}
   BuffController: {fileID: 7842396115140642684}
   IsPlayingPattern: 0
 --- !u!114 &7842396115140642684
@@ -322,6 +322,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!210 &2508644275988564770
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272305898077013730}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &2027737833063953392
 GameObject:
   m_ObjectHideFlags: 0

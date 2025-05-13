@@ -73,7 +73,7 @@ public class SolarSystemController : MonoBehaviour
             for (int i = 0; i < SatelliteSideList.Count; i++)
             {
                 SatelliteSideList[i].Set_Pos();
-                SatelliteSideList[i].Set_SortingOrder(PivotObjectSR.sortingOrder);
+                SatelliteSideList[i].Set_SortingOrder();
             }
         }
     }
@@ -85,7 +85,7 @@ public class SolarSystemController : MonoBehaviour
             for (int i = 0; i < SatelliteCenterList.Count; i++)
             {
                 SatelliteCenterList[i].Set_Pos();
-                SatelliteCenterList[i].Set_SortingOrder(PivotObjectSR.sortingOrder);
+                SatelliteCenterList[i].Set_SortingOrder();
             }
         }
     }

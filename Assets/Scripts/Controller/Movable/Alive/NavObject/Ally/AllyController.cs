@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 // Ally는 Follow를 기본으로 가짐 (플레이어에게 가는 것이 필요하기 때문)
 public class AllyController : NavObjectController
@@ -17,6 +18,10 @@ public class AllyController : NavObjectController
     [SerializeField] protected AllyState MultipleAllyState;
     [SerializeField] private float MaxEP = 100f;
     [SerializeField] protected float ForEnemyDis = 1.5f;
+
+    [Space(10)]
+    [Header("=== Comp")]
+    [SerializeField] private SortingGroup ThisSG;
 
     #endregion
 
@@ -192,6 +197,15 @@ public class AllyController : NavObjectController
     public void Set_TargetEnemy(EnemyController _Enemy)
     {
         Enemy = _Enemy;
+    }
+
+    #endregion
+
+    #region Set (Sorting)
+
+    public override void Set_SortingOrder(int _SortingOrder)
+    {
+        ThisSG.sortingOrder = _SortingOrder;
     }
 
     #endregion

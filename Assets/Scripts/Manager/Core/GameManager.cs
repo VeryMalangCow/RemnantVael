@@ -3041,7 +3041,7 @@ public abstract class SatelliteController
         Follower.transform.position = Target.position;
     }
 
-    public abstract void Set_SortingOrder(int _ObjectSortOrder);
+    public abstract void Set_SortingOrder();
 
     #endregion
 }
@@ -3060,9 +3060,9 @@ public class SatelliteSideController : SatelliteController
 
     #region Func
 
-    public override void Set_SortingOrder(int _ObjectSortOrder)
+    public override void Set_SortingOrder()
     {
-        Follower.Set_SortingOrder(_ObjectSortOrder + UpperOrder + 
+        Follower.Set_SortingOrder(UpperOrder + 
             (Is_LocalUpper(Follower.transform) ? -FarFromCenter : FarFromCenter));
     }
 
@@ -3079,9 +3079,9 @@ public class SatelliteCenterController : SatelliteController
 {
     #region Func
 
-    public override void Set_SortingOrder(int _ObjectSortOrder)
+    public override void Set_SortingOrder()
     {
-        Follower.Set_SortingOrder(_ObjectSortOrder + UpperOrder);
+        Follower.Set_SortingOrder(UpperOrder);
     }
 
     #endregion

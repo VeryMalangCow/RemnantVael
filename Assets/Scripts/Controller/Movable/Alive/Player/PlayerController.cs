@@ -40,6 +40,10 @@ public class PlayerController : AliveObjectController
     [Header("=== Visual Comp")]
 
     [Space(5)]
+    [Header("-- SG")]
+    [SerializeField] private SortingGroup BodySG;
+
+    [Space(5)]
     [SerializeField] private StateAnimController StateAnim;
     [SerializeField] private StateAnimController MoveDirStateAnim;
     [SerializeField] private List<MovableDepthController> BaseAnimDepthList;
@@ -242,16 +246,9 @@ public class PlayerController : AliveObjectController
 
     public override void Set_SortingOrder(int _SortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
+        BodySG.sortingOrder = _SortingOrder;
 
-        StateAnim.ThisSR.sortingOrder = _SortingOrder;
-        StateAnim.ThisInnerSR.sortingOrder = _SortingOrder;
-
-        for (int i = 0; i < BoostStateAnimController.TypeBase.Count; i++)
-            BoostStateAnimController.TypeBase[i].ThisSR.sortingOrder = _SortingOrder; 
-
-        for (int i = 0; i < BoostStateAnimController.TypeSpecial.Count; i++)
-            BoostStateAnimController.TypeSpecial[i].ThisSR.sortingOrder = _SortingOrder;
+        // base.Set_SortingOrder(_SortingOrder);
     }
 
     #endregion
@@ -294,7 +291,8 @@ public class PlayerController : AliveObjectController
     {
         ThisSG.enabled = false;
         ThisSG.sortingOrder = 0;
-        
+        ThisSR.sortingOrder = 0;
+
         StateAnim.transform.parent.transform.gameObject.SetActive(true); 
 
         StageManager.Instance.IsStartStage = false;

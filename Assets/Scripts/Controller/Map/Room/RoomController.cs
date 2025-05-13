@@ -155,8 +155,6 @@ public class RoomController : IDController
 
         Set_Sorting(lowerSrs, LayerOrderManager.Order_BuildLower);
 
-        Get_NeedSortingAllDepth();
-
         RoomRuleController.Set_SortingStaticObjects();
     }
 
@@ -369,27 +367,6 @@ public class RoomController : IDController
             return null;
         }
     }
-
-    #endregion
-
-    #region Sorting
-
-    public List<DepthController> Get_NeedSortingAllDepth()
-    {
-        List<DepthController> Depths = new List<DepthController>();
-
-        for (int i = 0; i < InRoom_AllGate.Count; i++)
-        {
-            if (InRoom_AllGate[i].NeedSortingLayers != null &&
-                InRoom_AllGate[i].NeedSortingLayers.Count > 0)
-            {
-                Depths.AddRange(InRoom_AllGate[i].NeedSortingLayers);
-            }
-        }
-
-        return Depths;
-    }
-
 
     #endregion
 

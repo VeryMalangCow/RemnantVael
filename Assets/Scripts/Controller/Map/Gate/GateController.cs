@@ -30,12 +30,12 @@ public class GateController : StaticDepthController, IInteract
 
     [Space(10)]
     [Header("=== Visual")]
-    [SerializeField] public List<SortingObjectController> NeedSortingLayers;
     [SerializeField] public List<SpriteRenderer> OpacityLowerSRList;
 
     [Space(10)]
     [Header("=== Is Wall")]
     [SerializeField] public GameObject ExtraTargetObject;
+
 
     #endregion
 

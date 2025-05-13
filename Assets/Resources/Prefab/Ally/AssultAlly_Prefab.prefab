@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2074109866832102680}
   - component: {fileID: -7677951490283658699}
   - component: {fileID: 7751130478170212446}
+  - component: {fileID: 6733897396435173674}
   m_Layer: 10
   m_Name: AssultAlly_Prefab
   m_TagString: Untagged
@@ -63,11 +64,11 @@ MonoBehaviour:
   CurrentEP:
     value: 0
   testbool: 0
-  MaxEP: 100
   MultipleAllyState:
     MovementSpeed: 1.5
     Dmg: 2
     Rof: 2
+  MaxEP: 100
   ForEnemyDis: 2.5
 --- !u!50 &7751130478170212446
 Rigidbody2D:
@@ -96,6 +97,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!210 &6733897396435173674
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2537459090634405761}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &3150172910818723931
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class DestructibleBuildController : InteractableBuildController
 {
@@ -17,6 +18,7 @@ public class DestructibleBuildController : InteractableBuildController
 
     [Space(10)]
     [Header("=== Dur UI")]
+    [SerializeField] private SortingGroup DurSG;
     [SerializeField] private Transform DurParentTF;
     [SerializeField] private float FrameIntervalX = 0.08f;
 
@@ -50,7 +52,6 @@ public class DestructibleBuildController : InteractableBuildController
         {
             Gen_EachInnerUI(i, Gen_EachFrameUI(i).transform);
         }
-        Debug.Log("»ý¼º");
     }
 
     #endregion
@@ -183,12 +184,14 @@ public class DestructibleBuildController : InteractableBuildController
     private void Set_FrameUIPos(int _Index, SpriteRenderer _SR)
     {
         _SR.transform.localPosition = new Vector2((_Index * FrameIntervalX) - DevTool.Get_MinusXPivot(FrameIntervalX, MaxDur), 0f);
+        _SR.sortingOrder = -1;
         DurFrameSRList.Insert(0, _SR);
     }
 
     private void Set_InnerUIPos(SpriteRenderer _SR)
     {
         _SR.transform.localPosition = Vector2.zero;
+        _SR.sortingOrder = 0;
         DurInnerSRList.Insert(0, _SR);
     }
 
@@ -215,11 +218,7 @@ public class DestructibleBuildController : InteractableBuildController
     {
         base.Set_SortingOrder(_SortingOrder);
 
-        for (int i = 0; i < DurInnerSRList.Count; i++)
-        {
-            DurInnerSRList[i].sortingOrder = _SortingOrder;
-            DurFrameSRList[i].sortingOrder = _SortingOrder - 1;
-        }
+        DurSG.sortingOrder = _SortingOrder;
     }
 
     #endregion
