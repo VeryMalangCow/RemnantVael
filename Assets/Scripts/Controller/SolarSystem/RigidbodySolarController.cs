@@ -16,7 +16,7 @@ public class RigidbodySolarController : SolarSystemController
 
     protected override void LateUpdate()
     {
-        Set_RotSmooth(ThisRb.velocity.normalized, Time.deltaTime);
+        Set_RotSmooth(ThisRb.velocity, Time.deltaTime);
 
         base.LateUpdate();
     }

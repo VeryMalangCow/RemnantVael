@@ -73,7 +73,10 @@ MonoBehaviour:
     AttackSize: 1
   MaxEP: 100
   ForEnemyDis: 2.5
+  AllyStateMode:
+    value: 0
   ThisSG: {fileID: 6733897396435173674}
+  ThisSolar: {fileID: 8582829566269682132}
   BulletSprite: {fileID: -1712732208, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
   BulletObjSize: {x: 0.05, y: 0.05}
   BulletColSize: {x: 1, y: 1}
@@ -488,7 +491,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1792023782833139252}
-  - component: {fileID: 3978620688074612268}
+  - component: {fileID: 8582829566269682132}
   m_Layer: 7
   m_Name: Rb_Satellite
   m_TagString: Player
@@ -512,7 +515,7 @@ Transform:
   - {fileID: 3422307620339894919}
   m_Father: {fileID: 2074109866832102680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3978620688074612268
+--- !u!114 &8582829566269682132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -521,7 +524,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6427374251441309756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78e48f2613d6a92458205387d1840c43, type: 3}
+  m_Script: {fileID: 11500000, guid: 390bbc7f291c7804fb933afff305d5db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PivotObjectSR: {fileID: 3509543857521266894}
@@ -534,7 +537,9 @@ MonoBehaviour:
     UpperOrder: 0
     FarFromCenter: 1
   SatelliteCenterList: []
+  ThisAlly: {fileID: -7677951490283658699}
   ThisRb: {fileID: 7751130478170212446}
+  AllyStateMode: 0
 --- !u!1 &6522692291850350311
 GameObject:
   m_ObjectHideFlags: 0

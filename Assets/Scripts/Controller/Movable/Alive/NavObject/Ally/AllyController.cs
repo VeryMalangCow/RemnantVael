@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -18,10 +19,13 @@ public class AllyController : NavObjectController
     [SerializeField] protected AllyState MultipleAllyState;
     [SerializeField] private float MaxEP = 100f;
     [SerializeField] protected float ForEnemyDis = 1.5f;
+    [SerializeField] protected ReactiveProperty<eAllyStateMode> AllyStateMode = new();
+
 
     [Space(10)]
     [Header("=== Comp")]
     [SerializeField] private SortingGroup ThisSG;
+    [SerializeField] private AllySolarController ThisSolar;
 
     #endregion
 
@@ -53,6 +57,12 @@ public class AllyController : NavObjectController
         base.Offset();
 
         Player = PlayerManager.Instance.PlayerController;
+
+        AllyStateMode
+            .Subscribe(value =>
+            {
+                ThisSolar.Set_AllyStateMode(value);
+            });
     }
 
     #endregion
@@ -180,7 +190,10 @@ public class AllyController : NavObjectController
     protected void Stop_Follow()
     {
         if (MoveAtDir != Vector2.zero)
+        {
             MoveAtDir = Vector2.zero;
+            AllyStateMode.Value = eAllyStateMode.Idle;
+        }
     }
 
     #endregion
@@ -207,6 +220,25 @@ public class AllyController : NavObjectController
     {
         ThisSG.sortingOrder = _SortingOrder;
     }
+
+    #endregion
+
+    #region Get (Dir)
+
+    // Not Normalize (최적화로 정규화를 하지않는 것이 더 도움이 됨)
+    public Vector2 Get_ForPlayerDir()
+    {
+        return (Player.transform.position - this.transform.position);
+    }
+
+    public Vector2 Get_ForEnemyDir()
+    {
+        if (Enemy == null)
+            return Vector2.down;
+
+        return (Enemy.transform.position - this.transform.position);
+    }
+
 
     #endregion
 }

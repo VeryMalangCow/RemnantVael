@@ -3943,4 +3943,13 @@ public enum SoundType
 
 #endregion
 
+#region Ally
+
+public enum eAllyStateMode
+{
+    Idle, Move, Attack
+}
+
+#endregion
+
 #endregion

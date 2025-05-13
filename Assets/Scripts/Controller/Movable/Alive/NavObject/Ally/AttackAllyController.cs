@@ -66,6 +66,16 @@ public class AttackAllyController : AllyController
 
     #endregion
 
+    #region State (Enum)
+
+    private void Set_AllyStateMode(eAllyStateMode _Mode)
+    {
+        if (AllyStateMode.Value != _Mode)
+            AllyStateMode.Value = _Mode;
+    }
+
+    #endregion
+
     #region Attacking
 
     private void Set_Attacking(bool _OnOff)
@@ -150,12 +160,14 @@ public class AttackAllyController : AllyController
         {
             Set_NavDir(Enemy.transform);
             Set_Attacking(false);
+            Set_AllyStateMode(eAllyStateMode.Move);
         }
         // 공격
         else
         {
             Stop_Follow();
             Set_Attacking(true);
+            Set_AllyStateMode(eAllyStateMode.Attack);
         }
     }
 
@@ -168,11 +180,13 @@ public class AttackAllyController : AllyController
         if (Is_FollowState(Player.transform, ForPlayerDis, false))
         {
             Set_NavDir(Player.transform);
+            Set_AllyStateMode(eAllyStateMode.Move);
         }
         // 정지
         else
         {
             Stop_Follow();
+            Set_AllyStateMode(eAllyStateMode.Idle);
         }
     }
 
