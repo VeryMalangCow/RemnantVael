@@ -30,6 +30,21 @@ public abstract class AttackerController : MovableDepthController
 
     #endregion
 
+    #region Framework
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+    }
+
+    protected void OnDisable()
+    {
+        DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+    }
+
+    #endregion
+
     #region Reset
 
     public void Reset_State()
