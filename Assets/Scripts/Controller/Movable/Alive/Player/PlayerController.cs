@@ -20,7 +20,7 @@ public class PlayerController : AliveObjectController
     [SerializeField] public PlayerWeaponController BaseWeapon;
     [SerializeField] public SkillWeaponController SkillWeapon;
     [SerializeField] public PlayerDashController DashController;
-    [SerializeField] public RigidbodySolarController LowerController;
+    [SerializeField] public RigidbodyAnimSolarController LowerController;
 
     [Space(5)]
     [SerializeField] public AfterImgGenerator AfterImgGenerator;

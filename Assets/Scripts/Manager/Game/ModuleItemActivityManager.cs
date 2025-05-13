@@ -114,10 +114,6 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             State_Anim? anim = null;
 
             pbc.Set_State(bulletState, posAndRot, size, anim, _State_Effect: null, 0.35f);
-
-            // Sorting Layer
-            if (PC.TargetObject.gameObject.TryGetComponent(out DepthController hst))
-            { pbc.ThisSR.sortingOrder = hst.ThisSR.sortingOrder - 1; }
         }
     }
 

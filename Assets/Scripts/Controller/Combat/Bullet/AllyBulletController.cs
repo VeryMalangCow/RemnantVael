@@ -3,22 +3,28 @@ using UnityEngine;
 public class AllyBulletController : BulletController
 {
     #region Value
-/*
+
     [Space(20)]
     [Header("<><><><><> Player")]
 
     [Space(10)]
-    [Header("=== Sprite")]
-*/
+    [Header("=== Comp")]
+    [SerializeField] private CapsuleCollider2D ThisCol;
+    
     #endregion
 
     #region State
-/*
-    public override void Set_State_Base(BulletState _BulletState, float _TargetRange)
+    public override void Set_State_Size(BulletState_Size? _State_Size)
     {
-        base.Set_State_Base(_BulletState, _TargetRange);
+        if (_State_Size.HasValue)
+        {
+            base.Set_State_Size(_State_Size);
+
+            ThisCol.transform.localScale = _State_Size.Value.ObjSize;
+            ThisCol.size = _State_Size.Value.ColSize;
+        }
     }
-*/
+
     #endregion
 
     #region Trigger

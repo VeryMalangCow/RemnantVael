@@ -3241,6 +3241,7 @@ public class AllyState
     public float MovementSpeed = 1f;
     public float Dmg = 1f;
     public float Rof = 1f;
+    public float AttackSize = 1f;
 
     #endregion
 
@@ -3251,6 +3252,7 @@ public class AllyState
         MovementSpeed = 1;
         Dmg = 1;
         Rof = 1;
+        AttackSize = 1;
     }
 
     public AllyState(AllyState _StateValue)
@@ -3258,13 +3260,15 @@ public class AllyState
         MovementSpeed = _StateValue.MovementSpeed;
         Dmg = _StateValue.Dmg;
         Rof = _StateValue.Rof;
+        AttackSize = _StateValue.AttackSize;
     }
 
-    public AllyState(float _MovementSpeed, float _Dmg, float _Rof)
+    public AllyState(float _MovementSpeed, float _Dmg, float _Rof, float _AttackSize)
     {
         MovementSpeed = _MovementSpeed;
         Dmg = _Dmg;
         Rof = _Rof;
+        AttackSize = _AttackSize;
     }
 
     #endregion

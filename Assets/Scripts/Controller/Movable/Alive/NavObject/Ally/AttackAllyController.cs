@@ -11,8 +11,14 @@ public class AttackAllyController : AllyController
     [Header("<><><><><> Attack")]
 
     [Space(10)]
-    [Header("=== Comp")]
+    [Header("=== Bullet")]
+    [SerializeField] private Sprite BulletSprite;
+    [SerializeField] private Vector2 BulletObjSize;
+    [SerializeField] private Vector2 BulletColSize;
 
+    [Space(10)]
+    [Header("=== Comp")]
+    [SerializeField] private Transform BulletSpawnTF;
 
     #endregion
     
@@ -89,14 +95,16 @@ public class AttackAllyController : AllyController
     private void Play_Attack(AllyBulletController _Bullet)
     {
         // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
-        _Bullet.Set_SortingOrder(ThisSR.sortingOrder - 1);
         _Bullet.Set_State(
             Get_BulletState(),
             _State_PosAndRot: Get_BulletState_PosAndRot(),
-            _State_Size: null,
+            _State_Size: Get_BulletState_Size(),
             _State_Anim: null,
             _State_Effect: null,
             0.5f);
+
+        // ÀÌ¹ÌÁö
+        _Bullet.ThisSR.sprite = BulletSprite;
     }
 
     #endregion
@@ -117,7 +125,18 @@ public class AttackAllyController : AllyController
 
     private BulletState_PosAndRot Get_BulletState_PosAndRot()
     {
-        return new BulletState_PosAndRot(this.transform.position, (Enemy.transform.position - this.transform.position).normalized, 0);
+        return new BulletState_PosAndRot(
+            BulletSpawnTF.position, 
+            (Enemy.transform.position - this.transform.position).normalized, 
+            0);
+    }
+
+    private BulletState_Size Get_BulletState_Size()
+    {
+        return new BulletState_Size(
+            BulletObjSize,
+            BulletColSize
+            );
     }
 
     #endregion

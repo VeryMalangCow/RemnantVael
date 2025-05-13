@@ -58,9 +58,7 @@ public class MissileSkillController : ActiveSkillController
             float angle = PlayerController.SkillWeapon.PitchTF.localRotation.eulerAngles.y;
             Vector2 dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
-            // Sorting Layer
-            missile.ThisSR.sortingOrder = DepthController.ThisSR.sortingOrder - 1;
-
+            // State
             missile.Set_State(
                 bulletState,
                 State_PosAndRot(dir), 

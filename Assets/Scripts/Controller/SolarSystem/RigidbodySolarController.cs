@@ -1,5 +1,3 @@
-using DG.Tweening;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RigidbodySolarController : SolarSystemController
@@ -11,8 +9,6 @@ public class RigidbodySolarController : SolarSystemController
 
     [Header("=== Component")]
     [SerializeField] public Rigidbody2D ThisRb;
-    [SerializeField] private List<DirectionalAnimController> ThisAnimatorList;
-
 
     #endregion
 
@@ -20,10 +16,7 @@ public class RigidbodySolarController : SolarSystemController
 
     protected override void LateUpdate()
     {
-        Vector2 dir = ThisRb.velocity;
-
-        Set_RotSmooth(dir.normalized, Time.deltaTime);
-        DevTool.Set_AnimSpeed(ThisAnimatorList, dir.sqrMagnitude * 0.3f);
+        Set_RotSmooth(ThisRb.velocity.normalized, Time.deltaTime);
 
         base.LateUpdate();
     }

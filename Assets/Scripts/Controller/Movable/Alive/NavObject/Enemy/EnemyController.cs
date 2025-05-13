@@ -35,7 +35,7 @@ public class EnemyController : NavObjectController
     [Space(10)]
     [Header("=== Satellite")]
     [SerializeField] private EnemySolarController LookingSatellite;
-    [SerializeField] private RigidbodySolarController WalkingSatellite;
+    [SerializeField] private RigidbodyAnimSolarController WalkingSatellite;
 
     [Space(10)]
     [Header("=== Ping Data")]

@@ -135,8 +135,6 @@ public class EnemyPattern_Range : EnemyPattern
             State_Effect(),
             targetShadow);
 
-        bullet.ThisSR.sortingOrder = _Depth.ThisSR.sortingOrder - 1;
-
         // Effect
         UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_Shoot(
             (Vector2)_Depth.TargetObject.transform.position + (_TargetDir * 0.3f),

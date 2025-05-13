@@ -136,7 +136,6 @@ public class PlayerWeaponController : PlayerSolarController
         Vector2 dir = DevTool.Get_MinFireDir(_TargetSpawnDepth.transform.position);
 
         // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
-        _Bullet.Set_SortingOrder(_TargetSpawnDepth.ThisSR.sortingOrder - 1);
         _Bullet.Set_State(
             Get_CurrentBulletState(),
             _State_PosAndRot: new BulletState_PosAndRot(_TargetSpawnDepth.transform.position, dir, _SpreadAngle),
