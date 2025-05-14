@@ -77,6 +77,7 @@ MonoBehaviour:
     value: 0
   ThisSG: {fileID: 6733897396435173674}
   ThisSolar: {fileID: 8582829566269682132}
+  ThisDirImg: {fileID: 8140379498466177624}
   BulletSprite: {fileID: -1712732208, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
   BulletObjSize: {x: 0.05, y: 0.05}
   BulletColSize: {x: 1, y: 1}
@@ -722,7 +723,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2466442339866521883}
   - component: {fileID: 3509543857521266894}
-  - component: {fileID: 7905804446392674531}
+  - component: {fileID: 8140379498466177624}
   m_Layer: 10
   m_Name: Target
   m_TagString: Item
@@ -797,7 +798,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7905804446392674531
+--- !u!114 &8140379498466177624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -806,17 +807,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8901846497403385796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 671f0fbb9eac8994a9c363e97583d66c, type: 3}
+  m_Script: {fileID: 11500000, guid: 95b585bb41118a14c9ce8135913a8694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RotationTargetTF: {fileID: 8546946258805197552}
   ThisComp: {fileID: 3509543857521266894}
-  ThisDirectionalList:
-  - {fileID: -515464492, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
-  - {fileID: -972784572, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
-  - {fileID: -1803079997, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
-  - {fileID: -88304461, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
-  - {fileID: 434900160, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
-  - {fileID: 1419512169, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
-  - {fileID: 2104107582, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
-  - {fileID: -1290030606, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
+  ThisDirectionalList: []

@@ -66,16 +66,6 @@ public class AttackAllyController : AllyController
 
     #endregion
 
-    #region State (Enum)
-
-    private void Set_AllyStateMode(eAllyStateMode _Mode)
-    {
-        if (AllyStateMode.Value != _Mode)
-            AllyStateMode.Value = _Mode;
-    }
-
-    #endregion
-
     #region Attacking
 
     private void Set_Attacking(bool _OnOff)

@@ -19,13 +19,14 @@ public class AllyController : NavObjectController
     [SerializeField] protected AllyState MultipleAllyState;
     [SerializeField] private float MaxEP = 100f;
     [SerializeField] protected float ForEnemyDis = 1.5f;
-    [SerializeField] protected ReactiveProperty<eAllyStateMode> AllyStateMode = new();
+    [SerializeField] private ReactiveProperty<eAllyStateMode> AllyStateMode = new();
 
 
     [Space(10)]
     [Header("=== Comp")]
     [SerializeField] private SortingGroup ThisSG;
     [SerializeField] private AllySolarController ThisSolar;
+    [SerializeField] protected DirectionalAllyTypeImgController ThisDirImg;
 
     #endregion
 
@@ -63,6 +64,8 @@ public class AllyController : NavObjectController
             {
                 ThisSolar.Set_AllyStateMode(value);
             });
+
+        Set_AllyStateMode(AllyStateMode.Value);
     }
 
     #endregion
@@ -104,6 +107,19 @@ public class AllyController : NavObjectController
     private void Play_Movement(float _DeltaTime)
     {
         Play_Walk(MoveAtDir, ActualAllyState.MovementSpeed, _DeltaTime);
+    }
+
+    #endregion
+
+    #region State (Enum)
+
+    protected void Set_AllyStateMode(eAllyStateMode _Mode)
+    {
+        if (AllyStateMode.Value != _Mode)
+        {
+            AllyStateMode.Value = _Mode;
+            ThisDirImg.Set_Type(_Mode);
+        }
     }
 
     #endregion
@@ -190,10 +206,8 @@ public class AllyController : NavObjectController
     protected void Stop_Follow()
     {
         if (MoveAtDir != Vector2.zero)
-        {
             MoveAtDir = Vector2.zero;
-            AllyStateMode.Value = eAllyStateMode.Idle;
-        }
+        
     }
 
     #endregion

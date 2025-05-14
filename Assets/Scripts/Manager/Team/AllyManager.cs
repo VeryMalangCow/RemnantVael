@@ -37,7 +37,10 @@ public class AllyManager : Singleton<AllyManager>
 
     // Base State
     [HideInInspector] private AllyState AllyState;
-    public AllyState GetAllyState { get { return AllyState; } }
+    [HideInInspector] public AllyState GetAllyState { get { return AllyState; } }
+
+    // Reso
+    [SerializeField] public AllySpriteSet AssultAllySpriteSet = new AllySpriteSet();
 
     #endregion
 
@@ -63,6 +66,9 @@ public class AllyManager : Singleton<AllyManager>
         { ST_GottenAllyCards, UT_GottenAllyCards, NT_GottenAllyCards };
         AllIconList = new List<List<Sprite>>
         { ST_CardIconList, UT_CardIconList, NT_CardIconList };
+
+        // Sprite
+        AssultAllySpriteSet.Offset("Assult");
 
         AllyState = new AllyState();
     }

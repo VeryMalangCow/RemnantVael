@@ -84,6 +84,10 @@ public class CSVManager : PersistentSingleton<CSVManager>
     // 카드 아이콘
     [HideInInspector] private List<List<Sprite>> AllyCardIcon_Data;
 
+    // 동료
+    [HideInInspector] private List<Sprite> AllySprite_Data;
+    private static readonly string[] directionOrder = new string[] { "UL", "U", "UR", "R", "DR", "D", "DL", "L" };
+
     #endregion
 
     #endregion
@@ -245,6 +249,15 @@ public class CSVManager : PersistentSingleton<CSVManager>
         }
     }
 
+    private void Offset_AllySprite()
+    {
+        AllySprite_Data = new List<Sprite>();
+        AllySprite_Data.AddRange(
+            Offset_ImgPath(
+                "Sprite/Ally/",
+                "Ally_001_00"));
+    }
+
     private void Offset()
     {
         Offset_CSV();
@@ -252,6 +265,7 @@ public class CSVManager : PersistentSingleton<CSVManager>
         Offset_MapImg();
         Offset_ModuleItemImg();
         Offset_AllyCardIcon();
+        Offset_AllySprite();
     }
 
     #endregion
@@ -821,6 +835,47 @@ public class CSVManager : PersistentSingleton<CSVManager>
     public List<int> Get_StageMapMaterialList(int _ID)
     {
         return MapMaterialIndexList_Data[_ID];
+    }
+
+    #endregion
+
+    #region To Ally Sprite
+
+    public List<Sprite> Get_AllySprite(string _Name, string _Type)
+    {
+        List<Sprite> result = new List<Sprite>();
+
+        int stringLength = 7 + _Name.Length + _Type.Length;
+
+        // 맞는 아트 리소스 가져오기
+        for (int i = 0; i < AllySprite_Data.Count; i++)
+        {
+            if (AllySprite_Data[i].name.Length >= stringLength &&
+                AllySprite_Data[i].name.Substring(0, stringLength) == $"Ally_{_Name}_{_Type}_")
+            {
+                result.Add(AllySprite_Data[i]);
+            }
+        }
+
+        // 방향에 따라 알맞는 순서 맞추기
+        return Get_SortSpritesByDirection(result);
+    }
+
+    public static List<Sprite> Get_SortSpritesByDirection(List<Sprite> sprites)
+    {
+        return sprites
+            .OrderBy(sprite => Get_DirectionIndex(sprite.name))
+            .ToList();
+    }
+
+    private static int Get_DirectionIndex(string spriteName)
+    {
+        // 예: "Sprite_Head_UL" → "UL" 추출
+        string[] parts = spriteName.Split('_');
+        string dir = parts[parts.Length - 1];
+
+        int index = System.Array.IndexOf(directionOrder, dir);
+        return index >= 0 ? index : int.MaxValue;
     }
 
     #endregion

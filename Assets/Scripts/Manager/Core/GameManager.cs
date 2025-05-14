@@ -3276,6 +3276,26 @@ public class AllyState
 
 #endregion
 
+#region Class : Ally Sprite
+
+[System.Serializable]
+public class AllySpriteSet
+{
+    public List<Sprite> AllyIdle;
+    public List<Sprite> AllyMove;
+    public List<Sprite> AllyAttack;
+
+    public void Offset(string _Name)
+    {
+        AllyIdle = CSVManager.Instance.Get_AllySprite(_Name, "Idle");
+        AllyMove = CSVManager.Instance.Get_AllySprite(_Name, "Move");
+        AllyAttack = CSVManager.Instance.Get_AllySprite(_Name, "Attack");
+    }
+}
+
+#endregion
+
+
 #region Class : UI
 
 [System.Serializable]
