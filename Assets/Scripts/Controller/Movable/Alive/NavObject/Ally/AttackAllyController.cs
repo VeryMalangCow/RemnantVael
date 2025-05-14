@@ -89,7 +89,7 @@ public class AttackAllyController : AllyController
 
     private void Set_CaculateAttack(float _DeltaTime)
     {
-        if (!IsAttacking) return;
+        if (!IsAttacking || Enemy == null) return;
 
         if (CurrentRof < 1)
         {
