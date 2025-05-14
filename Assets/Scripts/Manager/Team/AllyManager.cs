@@ -51,14 +51,14 @@ public class AllyManager : Singleton<AllyManager>
     private void Offset()
     {
         // Card Data
-        ST_AllAllyCardData = CSVManager.Instance.Get_StrikeTeam_AllAllyCardData();
-        UT_AllAllyCardData = CSVManager.Instance.Get_UplinkTeam_AllAllyCardData();
-        NT_AllAllyCardData = CSVManager.Instance.Get_NeoTeam_AllAllyCardData();
+        ST_AllAllyCardData = ResourceManager.Instance.Get_StrikeTeam_AllAllyCardData();
+        UT_AllAllyCardData = ResourceManager.Instance.Get_UplinkTeam_AllAllyCardData();
+        NT_AllAllyCardData = ResourceManager.Instance.Get_NeoTeam_AllAllyCardData();
 
         // Icon
-        ST_CardIconList = CSVManager.Instance.Get_AllyCardSpriteIcon(0);
-        UT_CardIconList = CSVManager.Instance.Get_AllyCardSpriteIcon(1);
-        NT_CardIconList = CSVManager.Instance.Get_AllyCardSpriteIcon(2);
+        ST_CardIconList = ResourceManager.Instance.Get_AllyCardSpriteIcon(0);
+        UT_CardIconList = ResourceManager.Instance.Get_AllyCardSpriteIcon(1);
+        NT_CardIconList = ResourceManager.Instance.Get_AllyCardSpriteIcon(2);
 
         AllAllyCardData = new List<List<AllyCardData>>
         { ST_AllAllyCardData, UT_AllAllyCardData, NT_AllAllyCardData };
@@ -233,15 +233,15 @@ public class AllyManager : Singleton<AllyManager>
 
     public void Set_LanguageTxt()
     {
-        List<AllyCardData> stData = CSVManager.Instance.Get_StrikeTeam_AllAllyCardData();
+        List<AllyCardData> stData = ResourceManager.Instance.Get_StrikeTeam_AllAllyCardData();
         for (int i = 0; i < ST_AllAllyCardData.Count; i++)
             ST_AllAllyCardData[i].Set_LanguageTxt(stData[i].Name, stData[i].Desc);
 
-        List<AllyCardData> utData = CSVManager.Instance.Get_UplinkTeam_AllAllyCardData();
+        List<AllyCardData> utData = ResourceManager.Instance.Get_UplinkTeam_AllAllyCardData();
         for (int i = 0; i < UT_AllAllyCardData.Count; i++)
             UT_AllAllyCardData[i].Set_LanguageTxt(utData[i].Name, utData[i].Desc);
 
-        List<AllyCardData> ntData = CSVManager.Instance.Get_NeoTeam_AllAllyCardData();
+        List<AllyCardData> ntData = ResourceManager.Instance.Get_NeoTeam_AllAllyCardData();
         for (int i = 0; i < NT_AllAllyCardData.Count; i++)
             NT_AllAllyCardData[i].Set_LanguageTxt(ntData[i].Name, ntData[i].Desc);
     }

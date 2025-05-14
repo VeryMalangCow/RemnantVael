@@ -39,8 +39,8 @@ public class DurablityEUIController : ElementUIController
 
     public void Set_LanguageTxt()
     {
-        DurablityTxt.text = CSVManager.Instance.Get_StaticWord(23) + " :";
-        BrokenTxt.text = CSVManager.Instance.Get_StaticWord(24) + ": " + CSVManager.Instance.Get_StaticDesc(16);
+        DurablityTxt.text = ResourceManager.Instance.Get_StaticWord(23) + " :";
+        BrokenTxt.text = ResourceManager.Instance.Get_StaticWord(24) + ": " + ResourceManager.Instance.Get_StaticDesc(16);
     }
 
     #endregion

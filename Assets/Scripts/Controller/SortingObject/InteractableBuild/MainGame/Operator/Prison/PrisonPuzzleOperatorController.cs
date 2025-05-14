@@ -60,7 +60,7 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
 
     public void Set_Language()
     {
-        PayTxt.text = CSVManager.Instance.Get_StaticWord(59);
+        PayTxt.text = ResourceManager.Instance.Get_StaticWord(59);
     }
 
     #endregion

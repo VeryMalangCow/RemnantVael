@@ -226,10 +226,10 @@ public class AllyCardUIController : SinglePanelUIController
     private void Set_BaseLanguageTxt()
     {
         DevTool.Get_ComponentTType<TMP_Text>(CardBookingFrameImgRT.transform.GetChild(DevTool.Get_TSChildIndex(CardBookingFrameImgRT, 0)).gameObject).text =
-            CSVManager.Instance.Get_StaticWord(82);
+            ResourceManager.Instance.Get_StaticWord(82);
 
         DevTool.Get_ComponentTType<TMP_Text>(SelectBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(SelectBtn, 0)).gameObject).text =
-            CSVManager.Instance.Get_StaticWord(83);
+            ResourceManager.Instance.Get_StaticWord(83);
 
         for (int i = 0; i < Rerolls.Count; i++)
             Rerolls[i].Set_LanguageTxt();

@@ -82,7 +82,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     {
         base.Set_AllStart();
 
-        ReadyPanelEUI.Set_RuleDesc(CSVManager.Instance.Get_StaticDesc(34));
+        ReadyPanelEUI.Set_RuleDesc(ResourceManager.Instance.Get_StaticDesc(34));
 
         Set_AllNSCPanelEUI_DefaultAndRandom();
         Set_LockByRating();

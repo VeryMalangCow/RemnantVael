@@ -1362,14 +1362,14 @@ public class DevTool
             return "";
 
         else if (Can_CastingTType(_II, out InteractItemController item))
-            return CSVManager.Instance.Get_StaticWord(0);
+            return ResourceManager.Instance.Get_StaticWord(0);
 
         else if (Can_CastingTType(_II, out GateController gate) && gate.ThingsGO.TypeSpecial.activeSelf)
         {
             if (!gate.IsOpen)
                 _CanInteract = false;
 
-            return CSVManager.Instance.Get_StaticWord(1);
+            return ResourceManager.Instance.Get_StaticWord(1);
         }
 
         else if (Can_CastingTType(_II, out DestructibleBuildController dbc) && 
@@ -1378,7 +1378,7 @@ public class DevTool
             if (dbc.IsBroken)
                 _CanInteract = false;
 
-            return CSVManager.Instance.Get_StaticWord(2);
+            return ResourceManager.Instance.Get_StaticWord(2);
         }
 
 
@@ -1387,7 +1387,7 @@ public class DevTool
             if (!elevator.IsOn)
                 _CanInteract = false;
 
-            return CSVManager.Instance.Get_StaticWord(3);
+            return ResourceManager.Instance.Get_StaticWord(3);
         }
 
         else if (Can_CastingTType(_II, out RepairOperatorController repairOper))
@@ -1395,7 +1395,7 @@ public class DevTool
             if (!repairOper.Can_Interact())
                 _CanInteract = false;
 
-            return CSVManager.Instance.Get_StaticWord(56);
+            return ResourceManager.Instance.Get_StaticWord(56);
         }
 
         else if (Can_CastingTType(_II, out VaultRerollOperatorController rerollOper))
@@ -1403,7 +1403,7 @@ public class DevTool
             if (!rerollOper.Can_Interact())
                 _CanInteract = false;
 
-            return CSVManager.Instance.Get_StaticWord(57);
+            return ResourceManager.Instance.Get_StaticWord(57);
         }
 
         else if (Can_CastingTType(_II, out VaultUpgradeOperatorController upgradeOper))
@@ -1411,7 +1411,7 @@ public class DevTool
             if (!upgradeOper.Can_Interact())
                 _CanInteract = false;
 
-            return CSVManager.Instance.Get_StaticWord(58);
+            return ResourceManager.Instance.Get_StaticWord(58);
         }
 
         else if (Can_CastingTType(_II, out PrisonPuzzleOperatorController prisonPuzzleOper))
@@ -1419,7 +1419,7 @@ public class DevTool
             if (!prisonPuzzleOper.Can_Interact())
                 _CanInteract = false;
 
-            return CSVManager.Instance.Get_StaticWord(59);
+            return ResourceManager.Instance.Get_StaticWord(59);
         }
 
         else if (Can_CastingTType(_II, out PrisonPayOperatorController prisonPayOper))
@@ -1427,7 +1427,7 @@ public class DevTool
             if (!prisonPayOper.Can_Interact())
                 _CanInteract = false;
 
-            return CSVManager.Instance.Get_StaticWord(60);
+            return ResourceManager.Instance.Get_StaticWord(60);
         }
 
         return "";
@@ -3287,9 +3287,9 @@ public class AllySpriteSet
 
     public void Offset(string _Name)
     {
-        AllyIdle = CSVManager.Instance.Get_AllySprite(_Name, "Idle");
-        AllyMove = CSVManager.Instance.Get_AllySprite(_Name, "Move");
-        AllyAttack = CSVManager.Instance.Get_AllySprite(_Name, "Attack");
+        AllyIdle = ResourceManager.Instance.Get_AllySprite(_Name, "Idle");
+        AllyMove = ResourceManager.Instance.Get_AllySprite(_Name, "Move");
+        AllyAttack = ResourceManager.Instance.Get_AllySprite(_Name, "Attack");
     }
 }
 

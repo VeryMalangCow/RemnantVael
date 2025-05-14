@@ -271,9 +271,9 @@ public class ModuleUpgradeUIController : PanelUIController
     {
         Inventory_InForge.Offset();
 
-        ForgeInteractPanels[0].Offset(this, CSVManager.Instance.Get_StaticWord(51), CSVManager.Instance.Get_StaticDesc(24));
-        ForgeInteractPanels[1].Offset(this, CSVManager.Instance.Get_StaticWord(52), CSVManager.Instance.Get_StaticDesc(25));
-        ForgeInteractPanels[2].Offset(this, CSVManager.Instance.Get_StaticWord(53), CSVManager.Instance.Get_StaticDesc(26));
+        ForgeInteractPanels[0].Offset(this, ResourceManager.Instance.Get_StaticWord(51), ResourceManager.Instance.Get_StaticDesc(24));
+        ForgeInteractPanels[1].Offset(this, ResourceManager.Instance.Get_StaticWord(52), ResourceManager.Instance.Get_StaticDesc(25));
+        ForgeInteractPanels[2].Offset(this, ResourceManager.Instance.Get_StaticWord(53), ResourceManager.Instance.Get_StaticDesc(26));
 
         Offset_Forge_Decomposition();
         Offset_Forge_Fusion();
@@ -1465,24 +1465,24 @@ public class ModuleUpgradeUIController : PanelUIController
     private void Set_BaseLanguageTxt()
     {
         // Label
-        LabelName = CSVManager.Instance.Get_StaticWord(27) + " " + CSVManager.Instance.Get_StaticWord(2);
+        LabelName = ResourceManager.Instance.Get_StaticWord(27) + " " + ResourceManager.Instance.Get_StaticWord(2);
         LabelTxt.text = LabelName;
 
         TabBtnTxtList = new List<string>
         {
-            CSVManager.Instance.Get_StaticWord(32),
-            CSVManager.Instance.Get_StaticWord(33),
+            ResourceManager.Instance.Get_StaticWord(32),
+            ResourceManager.Instance.Get_StaticWord(33),
         };
-        AmalgamationName = CSVManager.Instance.Get_StaticWord(50);
-        Notice_Equiped = CSVManager.Instance.Get_StaticDesc(20);
-        Warning_NotSameRank = CSVManager.Instance.Get_StaticDesc(21);
-        Warning_NotEnoughItem = CSVManager.Instance.Get_StaticDesc(22);
-        Warning_AlreadyMaxLv = CSVManager.Instance.Get_StaticDesc(23);
-        Warning_InvenFull = CSVManager.Instance.Get_StaticDesc(27);
+        AmalgamationName = ResourceManager.Instance.Get_StaticWord(50);
+        Notice_Equiped = ResourceManager.Instance.Get_StaticDesc(20);
+        Warning_NotSameRank = ResourceManager.Instance.Get_StaticDesc(21);
+        Warning_NotEnoughItem = ResourceManager.Instance.Get_StaticDesc(22);
+        Warning_AlreadyMaxLv = ResourceManager.Instance.Get_StaticDesc(23);
+        Warning_InvenFull = ResourceManager.Instance.Get_StaticDesc(27);
 
         // Close
         DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CloseBtn, 0)).gameObject).text =
-            CSVManager.Instance.Get_StaticWord(28);
+            ResourceManager.Instance.Get_StaticWord(28);
 
         // Tab
         for (int i = 0; i < ThisPanelTabList.Count; i++)
@@ -1498,9 +1498,9 @@ public class ModuleUpgradeUIController : PanelUIController
         ThisDurEUI.Set_LanguageTxt();
 
         // Forge
-        ForgeInteractPanels[0].Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(51), CSVManager.Instance.Get_StaticDesc(24));
-        ForgeInteractPanels[1].Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(52), CSVManager.Instance.Get_StaticDesc(25));
-        ForgeInteractPanels[2].Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(53), CSVManager.Instance.Get_StaticDesc(26));
+        ForgeInteractPanels[0].Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(51), ResourceManager.Instance.Get_StaticDesc(24));
+        ForgeInteractPanels[1].Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(52), ResourceManager.Instance.Get_StaticDesc(25));
+        ForgeInteractPanels[2].Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(53), ResourceManager.Instance.Get_StaticDesc(26));
 
         // Amalgamation
         DevTool.Set_TxtList(AmalgamationTxtList, AmalgamationName);

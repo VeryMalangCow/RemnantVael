@@ -54,10 +54,10 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
         DevTool.Set_Color(UnitManager.Instance.LockedClr, FailureTxt);
         DevTool.Set_Color(UnitManager.Instance.UnlockedClr, SuccessTxt);
 
-        TryUnlockTxt.text = CSVManager.Instance.Get_StaticWord(85);
-        InputTxt.text = CSVManager.Instance.Get_StaticWord(88);
-        SuccessTxt.text = CSVManager.Instance.Get_StaticWord(86);
-        FailureTxt.text = CSVManager.Instance.Get_StaticWord(87);
+        TryUnlockTxt.text = ResourceManager.Instance.Get_StaticWord(85);
+        InputTxt.text = ResourceManager.Instance.Get_StaticWord(88);
+        SuccessTxt.text = ResourceManager.Instance.Get_StaticWord(86);
+        FailureTxt.text = ResourceManager.Instance.Get_StaticWord(87);
 
         Play_LineSetChange(_CanSuccess);
     }

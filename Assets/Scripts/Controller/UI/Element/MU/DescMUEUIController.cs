@@ -60,7 +60,7 @@ public class DescMUEUIController : ElementUIController
     public void Set_LanguageTxt()
     {
         // string
-        ExtraString_Rank = CSVManager.Instance.Get_StaticWord(25);
+        ExtraString_Rank = ResourceManager.Instance.Get_StaticWord(25);
     }
 
     #endregion
@@ -128,9 +128,9 @@ public class DescMUEUIController : ElementUIController
 
             RankLv5_MainChipAmountImgs[0].gameObject.SetActive(true);
 
-            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
-            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
-            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
 
             DevTool.Set_AlphaColor(RankLv1_Name, 1f);
             DevTool.Set_AlphaColor(RankLv3_Name, 1f);
@@ -144,10 +144,10 @@ public class DescMUEUIController : ElementUIController
 
             RankLv3_MainChipAmountImgs[0].gameObject.SetActive(true);
 
-            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
-            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
                                                
-            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(55)})</color></size>";
+            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(55)})</color></size>";
 
             DevTool.Set_AlphaColor(RankLv1_Name, 1f);
             DevTool.Set_AlphaColor(RankLv3_Name, 1f);
@@ -156,10 +156,10 @@ public class DescMUEUIController : ElementUIController
         {
             RankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
 
-            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
                                                
-            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(55)})</color></size>";
-            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({CSVManager.Instance.Get_StaticWord(55)})</color></size>";
+            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(55)})</color></size>";
+            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(55)})</color></size>";
 
             DevTool.Set_AlphaColor(RankLv1_Name, 1f);
         }

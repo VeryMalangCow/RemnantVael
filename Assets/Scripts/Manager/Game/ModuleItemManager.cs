@@ -62,12 +62,12 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     private void Offset()
     {
         ItemDataList = new List<ItemData>();
-        for (int i = 0; i < CSVManager.Instance.Get_AllModuleItemAmount(); i++)
-            ItemDataList.Add(CSVManager.Instance.Get_ItemData(i));
+        for (int i = 0; i < ResourceManager.Instance.Get_AllModuleItemAmount(); i++)
+            ItemDataList.Add(ResourceManager.Instance.Get_ItemData(i));
 
         MainChipDataList = new List<MainChipData>();
-        for (int i = 0; i < CSVManager.Instance.Get_AllModuleSynchronyAmount(); i++)
-            MainChipDataList.Add(CSVManager.Instance.Get_MainChipData(i));
+        for (int i = 0; i < ResourceManager.Instance.Get_AllModuleSynchronyAmount(); i++)
+            MainChipDataList.Add(ResourceManager.Instance.Get_MainChipData(i));
         
 
         // 모든 MS List를 Null 값을 사용해 빈 공간을 지정
@@ -733,7 +733,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     private void Set_ItemDataLanguage()
     {
         for (int i = 0; i < ItemDataList.Count; i++)
-            CSVManager.Instance.Set_DataLanguage(ItemDataList[i], i);
+            ResourceManager.Instance.Set_DataLanguage(ItemDataList[i], i);
 
         for (int i = 0; i < ColumnAmount; i++)
             for (int j = 0; j < RowAmount; j++)
@@ -746,7 +746,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     private void Set_MainChipDataLanguage()
     {
         for (int i = 0; i < MainChipDataList.Count; i++)
-            CSVManager.Instance.Set_DataLanguage(MainChipDataList[i], i);
+            ResourceManager.Instance.Set_DataLanguage(MainChipDataList[i], i);
     }
 
 

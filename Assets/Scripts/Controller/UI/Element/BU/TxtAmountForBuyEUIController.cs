@@ -132,8 +132,8 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
     {
         SkillNameTxt.text = _Name;
         DescTxt.text = _Desc;
-        DevTool.Get_ComponentTType<TMP_Text>(CostImg.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CostImg, 0)).gameObject).text = CSVManager.Instance.Get_StaticWord(46);
-        DevTool.Get_ComponentTType<TMP_Text>(BuyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(BuyBtn, 0)).gameObject).text = CSVManager.Instance.Get_StaticWord(47);
+        DevTool.Get_ComponentTType<TMP_Text>(CostImg.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CostImg, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(46);
+        DevTool.Get_ComponentTType<TMP_Text>(BuyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(BuyBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(47);
     }
 
     #endregion

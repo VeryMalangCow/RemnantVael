@@ -1028,6 +1028,10 @@ MonoBehaviour:
   ST_AllAllyCardData: []
   UT_AllAllyCardData: []
   NT_AllAllyCardData: []
+  AssultAllySpriteSet:
+    AllyIdle: []
+    AllyMove: []
+    AllyAttack: []
 --- !u!114 &355347631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3681,7 +3685,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 830584168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4324ac4fb584e16409bdc9916ef1e5a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 01426f0a7d6066d4bbf9160f1f16a237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &830584170

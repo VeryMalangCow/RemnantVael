@@ -133,9 +133,9 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
 
     public void Set_LanguageTxt()
     {
-        IsBrokenAnno = $"<size=25&>{CSVManager.Instance.Get_StaticWord(24)}: {CSVManager.Instance.Get_StaticDesc(16)}</size>\n\n" +
-            $"{CSVManager.Instance.Get_StaticDesc(17)}\n" +
-            $"<size=50&>{CSVManager.Instance.Get_StaticDesc(19)}</size>";
+        IsBrokenAnno = $"<size=25&>{ResourceManager.Instance.Get_StaticWord(24)}: {ResourceManager.Instance.Get_StaticDesc(16)}</size>\n\n" +
+            $"{ResourceManager.Instance.Get_StaticDesc(17)}\n" +
+            $"<size=50&>{ResourceManager.Instance.Get_StaticDesc(19)}</size>";
     }
 
     #endregion

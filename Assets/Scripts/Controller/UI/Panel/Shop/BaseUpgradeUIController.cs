@@ -416,17 +416,17 @@ public class BaseUpgradeUIController : PanelUIController
         base.Set_LanguageTxt();
 
         // Label
-        LabelName = CSVManager.Instance.Get_StaticWord(26) + " " + CSVManager.Instance.Get_StaticWord(2);
+        LabelName = ResourceManager.Instance.Get_StaticWord(26) + " " + ResourceManager.Instance.Get_StaticWord(2);
         LabelTxt.text = LabelName;
 
         // Tab
         TabBtnTxtList = new List<string>
         {
-            CSVManager.Instance.Get_StaticWord(29),
-            CSVManager.Instance.Get_StaticWord(30),
-            CSVManager.Instance.Get_StaticWord(31),
-            CSVManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 0),
-            CSVManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 1)
+            ResourceManager.Instance.Get_StaticWord(29),
+            ResourceManager.Instance.Get_StaticWord(30),
+            ResourceManager.Instance.Get_StaticWord(31),
+            ResourceManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 0),
+            ResourceManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 1)
         };
 
         for (int i = 0; i < ThisPanelTabList.Count; i++)
@@ -437,33 +437,33 @@ public class BaseUpgradeUIController : PanelUIController
 
         // Close
         DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CloseBtn, 0)).gameObject).text =
-            CSVManager.Instance.Get_StaticWord(28);
+            ResourceManager.Instance.Get_StaticWord(28);
 
         // Shop
-        MaxEPShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(8), CSVManager.Instance.Get_StaticDesc(0));
-        SpawnESMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(38), CSVManager.Instance.Get_StaticDesc(1));
-        NeedEP_ForSkillMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(39), CSVManager.Instance.Get_StaticDesc(2));
+        MaxEPShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(8), ResourceManager.Instance.Get_StaticDesc(0));
+        SpawnESMultipleShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(38), ResourceManager.Instance.Get_StaticDesc(1));
+        NeedEP_ForSkillMultipleShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(39), ResourceManager.Instance.Get_StaticDesc(2));
         //DecEnergyPointMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(42), CSVManager.Instance.Get_StaticDesc(3));
-        ResistShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(37), CSVManager.Instance.Get_StaticDesc(4));
+        ResistShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(37), ResourceManager.Instance.Get_StaticDesc(4));
 
-        WalkSpeedShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(40), CSVManager.Instance.Get_StaticDesc(5));
-        WalkSpeedWhenShotMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(41), CSVManager.Instance.Get_StaticDesc(6));
-        WalkAvoidChance.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(36), CSVManager.Instance.Get_StaticDesc(7));
-        DashSpeedShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(12), CSVManager.Instance.Get_StaticDesc(8));
+        WalkSpeedShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(40), ResourceManager.Instance.Get_StaticDesc(5));
+        WalkSpeedWhenShotMultipleShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(41), ResourceManager.Instance.Get_StaticDesc(6));
+        WalkAvoidChance.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(36), ResourceManager.Instance.Get_StaticDesc(7));
+        DashSpeedShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(12), ResourceManager.Instance.Get_StaticDesc(8));
 
-        DamageShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(12), CSVManager.Instance.Get_StaticDesc(9));
-        ROFShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(13), CSVManager.Instance.Get_StaticDesc(10));
-        CCShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(15), CSVManager.Instance.Get_StaticDesc(11));
-        CDShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(16), CSVManager.Instance.Get_StaticDesc(12));
-        MuzzleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(43), CSVManager.Instance.Get_StaticDesc(13));
-        AccuracyRateShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(14), CSVManager.Instance.Get_StaticDesc(14));
-        KnockbackShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(44), CSVManager.Instance.Get_StaticDesc(15));
+        DamageShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(12), ResourceManager.Instance.Get_StaticDesc(9));
+        ROFShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(13), ResourceManager.Instance.Get_StaticDesc(10));
+        CCShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(15), ResourceManager.Instance.Get_StaticDesc(11));
+        CDShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(16), ResourceManager.Instance.Get_StaticDesc(12));
+        MuzzleShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(43), ResourceManager.Instance.Get_StaticDesc(13));
+        AccuracyRateShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(14), ResourceManager.Instance.Get_StaticDesc(14));
+        KnockbackShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(44), ResourceManager.Instance.Get_StaticDesc(15));
 
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
-            SkillShopList[i].Skill_CooltimeShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(45), CSVManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 0));
-            SkillShopList[i].Skill_PowerShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(18), CSVManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 1));
-            SkillShopList[i].Skill_TierShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(17), CSVManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 2));
+            SkillShopList[i].Skill_CooltimeShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(45), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 0));
+            SkillShopList[i].Skill_PowerShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(18), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 1));
+            SkillShopList[i].Skill_TierShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(17), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 2));
         }
 
         // Desc

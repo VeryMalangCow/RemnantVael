@@ -265,7 +265,7 @@ public class OutMainGameUIController : SinglePanelUIController
 
         IsInteractTweening = true;
         CurrentType = OutMainGameUIType.OptionPanel;
-        BaseInteractingPanelTxt.text = CSVManager.Instance.Get_StaticWord(20);
+        BaseInteractingPanelTxt.text = ResourceManager.Instance.Get_StaticWord(20);
 
         // Element
         OptionWarningTxt.gameObject.SetActive(false);
@@ -307,17 +307,17 @@ public class OutMainGameUIController : SinglePanelUIController
     {
         base.Set_LanguageTxt();
 
-        BasePanelBtnTxt.text = CSVManager.Instance.Get_StaticWord(22);
-        OptionWarningTxt.text = CSVManager.Instance.Get_StaticDesc(31);
+        BasePanelBtnTxt.text = ResourceManager.Instance.Get_StaticWord(22);
+        OptionWarningTxt.text = ResourceManager.Instance.Get_StaticDesc(31);
 
-        DevTool.Get_ComponentTType<TMP_Text>(OptionApplyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(OptionApplyBtn, 0)).gameObject).text = CSVManager.Instance.Get_StaticWord(91);
-        LanguagePanelEUI.HeaderTxt.text = CSVManager.Instance.Get_StaticWord(92);
+        DevTool.Get_ComponentTType<TMP_Text>(OptionApplyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(OptionApplyBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(91);
+        LanguagePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(92);
 
-        DevTool.Get_ComponentTType<TMP_Text>(ResumeBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ResumeBtn, 0)).gameObject).text = CSVManager.Instance.Get_StaticWord(19);
-        DevTool.Get_ComponentTType<TMP_Text>(OptionBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(OptionBtn, 0)).gameObject).text = CSVManager.Instance.Get_StaticWord(20);
-        DevTool.Get_ComponentTType<TMP_Text>(QuitBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(QuitBtn, 0)).gameObject).text = CSVManager.Instance.Get_StaticWord(21);
+        DevTool.Get_ComponentTType<TMP_Text>(ResumeBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ResumeBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(19);
+        DevTool.Get_ComponentTType<TMP_Text>(OptionBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(OptionBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(20);
+        DevTool.Get_ComponentTType<TMP_Text>(QuitBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(QuitBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(21);
 
-        BaseInteractingPanelTxt.text = CSVManager.Instance.Get_StaticWord(20);
+        BaseInteractingPanelTxt.text = ResourceManager.Instance.Get_StaticWord(20);
     }
 
     #endregion

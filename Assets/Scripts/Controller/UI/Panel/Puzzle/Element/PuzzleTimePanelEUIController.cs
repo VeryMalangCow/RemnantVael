@@ -58,9 +58,9 @@ public class PuzzleTimePanelEUIController : ElementUIController
         DevTool.Set_Color(UnitManager.Instance.LockedClr, CountdownTxt);
         DevTool.Set_AlphaColor(CountdownPaneltyTxt, 0f);
 
-        UnlockAnnoTxt.text = CSVManager.Instance.Get_StaticDesc(28).Replace("\\n", "\n");
-        SuccessAnnoTxt.text = CSVManager.Instance.Get_StaticDesc(29).Replace("\\n", "\n");
-        FailureAnnoTxt.text = CSVManager.Instance.Get_StaticDesc(30).Replace("\\n", "\n");
+        UnlockAnnoTxt.text = ResourceManager.Instance.Get_StaticDesc(28).Replace("\\n", "\n");
+        SuccessAnnoTxt.text = ResourceManager.Instance.Get_StaticDesc(29).Replace("\\n", "\n");
+        FailureAnnoTxt.text = ResourceManager.Instance.Get_StaticDesc(30).Replace("\\n", "\n");
         Set_CountdownTxt(_CurrentCountdown, _SecondString);
     }
 

@@ -85,7 +85,7 @@ public class EventManager : PersistentSingleton<EventManager>
         SetOn_EventOption();
 
         CurrentEvent = new EventData();
-        CurrentEvent.Events = new List<EventElement>(CSVManager.Instance.Get_CorrectEventList(_ID));
+        CurrentEvent.Events = new List<EventElement>(ResourceManager.Instance.Get_CorrectEventList(_ID));
         Play_Event();
     }
 
@@ -421,7 +421,7 @@ public class EventManager : PersistentSingleton<EventManager>
             noneDialogueComp.DialogueGO.SetActive(false);
 
             // Character Img
-            targetDialogueComp.DialogueImg.sprite = CSVManager.Instance.Get_CorrectCharacterImg(currentDialogue.ImgID);
+            targetDialogueComp.DialogueImg.sprite = ResourceManager.Instance.Get_CorrectCharacterImg(currentDialogue.ImgID);
 
             // Name
             targetDialogueComp.NameTxt.text = currentDialogue.Name;
@@ -591,7 +591,7 @@ public class EventElement_Dialogue : EventElement
 
     public DialogueID Get_DialogueList()
     {
-       return CSVManager.Instance.Get_CorrectDialogueID(TargetID);
+       return ResourceManager.Instance.Get_CorrectDialogueID(TargetID);
     }
 
 }

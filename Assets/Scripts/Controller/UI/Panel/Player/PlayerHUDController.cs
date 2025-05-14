@@ -534,12 +534,12 @@ public class PlayerHUDController : UIController
     public void Set_StageDescription()
     {
         StageNameTxt.DOText(
-            CSVManager.Instance.Get_MapName(
+            ResourceManager.Instance.Get_MapName(
                 StageManager.Instance.Get_CollectStageData(
                     StageManager.Instance.TargetStageID).InfoData.StageID), 0.5f)
             .OnPlay(() => { StageNameTxt.text = ""; });
         StageDescriptionTxt.DOText(
-            CSVManager.Instance.Get_MapDesc(
+            ResourceManager.Instance.Get_MapDesc(
                 StageManager.Instance.Get_CollectStageData(
                     StageManager.Instance.TargetStageID).InfoData.StageID), 0.5f)
             .OnPlay(() => { StageDescriptionTxt.text = ""; });
@@ -625,8 +625,8 @@ public class PlayerHUDController : UIController
     {
         Play_HittedPlayScreen(20, 1f);
 
-        string title = $"< {CSVManager.Instance.Get_StaticDesc(36).Replace("\\n", "\n")} >";
-        string desc = CSVManager.Instance.Get_StaticDesc(37).Replace("\\n", "\n");
+        string title = $"< {ResourceManager.Instance.Get_StaticDesc(36).Replace("\\n", "\n")} >";
+        string desc = ResourceManager.Instance.Get_StaticDesc(37).Replace("\\n", "\n");
         PaneltyAnnoNameTxt.text = "";
         PaneltyAnnoDescTxt.text = "";
 
@@ -660,7 +660,7 @@ public class PlayerHUDController : UIController
     // 피격 정보
     public void Play_HittedPlayInfo(float _Dmg, float _DurTime)
     {
-        HittedDmgTxt.text = $"<size=75%>{CSVManager.Instance.Get_StaticWord(74)}:</size> {_Dmg.ToString("0.0")}";
+        HittedDmgTxt.text = $"<size=75%>{ResourceManager.Instance.Get_StaticWord(74)}:</size> {_Dmg.ToString("0.0")}";
         HittedDmgTxt.color = UninteractableColor;
 
         Play_Info(_DurTime);
@@ -669,7 +669,7 @@ public class PlayerHUDController : UIController
     // 회피 정보
     public void Play_AvoidPlayInfo(float _DurTime)
     {
-        HittedDmgTxt.text = $"{CSVManager.Instance.Get_StaticWord(75)}";
+        HittedDmgTxt.text = $"{ResourceManager.Instance.Get_StaticWord(75)}";
         HittedDmgTxt.color = Color.white;
 
         Play_Info(_DurTime);
@@ -935,21 +935,21 @@ public class PlayerHUDController : UIController
     {
         base.Set_LanguageTxt();
 
-        InteractEnableString = CSVManager.Instance.Get_StaticWord(4);
-        InteractDisableString = CSVManager.Instance.Get_StaticWord(5);
-        InteracInoperableString = CSVManager.Instance.Get_StaticWord(6);
-        InteractNoneString = CSVManager.Instance.Get_StaticWord(7);
+        InteractEnableString = ResourceManager.Instance.Get_StaticWord(4);
+        InteractDisableString = ResourceManager.Instance.Get_StaticWord(5);
+        InteracInoperableString = ResourceManager.Instance.Get_StaticWord(6);
+        InteractNoneString = ResourceManager.Instance.Get_StaticWord(7);
 
         PlayerStatesStringList.Clear();
         for (int i = 8; i <= 16; i++)
-            PlayerStatesStringList.Add(CSVManager.Instance.Get_StaticWord(i));
+            PlayerStatesStringList.Add(ResourceManager.Instance.Get_StaticWord(i));
 
         SkillStatesStringList.Clear();
         for (int i = 17; i <= 18; i++)
-            SkillStatesStringList.Add(CSVManager.Instance.Get_StaticWord(i));
+            SkillStatesStringList.Add(ResourceManager.Instance.Get_StaticWord(i));
 
         for (int i = 0; i < AllAllyPresence.Count; i++)
-            AllAllyPresence[i].PresenceLangTxt.text = $"{CSVManager.Instance.Get_StaticWord(i + 61)}<size=85%> {CSVManager.Instance.Get_StaticWord(70)}</size>";
+            AllAllyPresence[i].PresenceLangTxt.text = $"{ResourceManager.Instance.Get_StaticWord(i + 61)}<size=85%> {ResourceManager.Instance.Get_StaticWord(70)}</size>";
 
         Set_InteractUI();
         Set_StageDescription();

@@ -132,7 +132,7 @@ public class InOrderLockerUIController : PuzzleUIController
     {
         base.Set_AllStart();
 
-        ReadyPanelEUI.Set_RuleDesc(CSVManager.Instance.Get_StaticDesc(35));
+        ReadyPanelEUI.Set_RuleDesc(ResourceManager.Instance.Get_StaticDesc(35));
 
         Set_AllDefault();
         Set_InnerColor(UnitManager.Instance.LockedClr);

@@ -268,28 +268,28 @@ public class UnitManager : Singleton<UnitManager>
 
     private void Set_LanguageTxt()
     {
-        RatingString = CSVManager.Instance.Get_StaticWord(69);
+        RatingString = ResourceManager.Instance.Get_StaticWord(69);
         PrisonRateStringList = new List<string>
         {
-            CSVManager.Instance.Get_StaticWord(64),
-            CSVManager.Instance.Get_StaticWord(65),
-            CSVManager.Instance.Get_StaticWord(66),
-            CSVManager.Instance.Get_StaticWord(67),
-            CSVManager.Instance.Get_StaticWord(68)
+            ResourceManager.Instance.Get_StaticWord(64),
+            ResourceManager.Instance.Get_StaticWord(65),
+            ResourceManager.Instance.Get_StaticWord(66),
+            ResourceManager.Instance.Get_StaticWord(67),
+            ResourceManager.Instance.Get_StaticWord(68)
         };
 
-        StrikeTeamString = $"{CSVManager.Instance.Get_StaticWord(61)}<size=85%> ({CSVManager.Instance.Get_StaticWord(71)})</size>";
-        UplinkTeamString = $"{CSVManager.Instance.Get_StaticWord(62)}<size=85%> ({CSVManager.Instance.Get_StaticWord(72)})</size>";
-        NeoTeamString = $"{CSVManager.Instance.Get_StaticWord(63)}<size=85%> ({CSVManager.Instance.Get_StaticWord(73)})</size>";
+        StrikeTeamString = $"{ResourceManager.Instance.Get_StaticWord(61)}<size=85%> ({ResourceManager.Instance.Get_StaticWord(71)})</size>";
+        UplinkTeamString = $"{ResourceManager.Instance.Get_StaticWord(62)}<size=85%> ({ResourceManager.Instance.Get_StaticWord(72)})</size>";
+        NeoTeamString = $"{ResourceManager.Instance.Get_StaticWord(63)}<size=85%> ({ResourceManager.Instance.Get_StaticWord(73)})</size>";
 
         AllyCardRateList = new List<string>
         {
-            CSVManager.Instance.Get_StaticWord(76),
-            CSVManager.Instance.Get_StaticWord(77),
-            CSVManager.Instance.Get_StaticWord(78),
-            CSVManager.Instance.Get_StaticWord(79),
-            CSVManager.Instance.Get_StaticWord(80),
-            CSVManager.Instance.Get_StaticWord(81)
+            ResourceManager.Instance.Get_StaticWord(76),
+            ResourceManager.Instance.Get_StaticWord(77),
+            ResourceManager.Instance.Get_StaticWord(78),
+            ResourceManager.Instance.Get_StaticWord(79),
+            ResourceManager.Instance.Get_StaticWord(80),
+            ResourceManager.Instance.Get_StaticWord(81)
         };
     }
 

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class CSVManager : PersistentSingleton<CSVManager>
+public class ResourceManager : PersistentSingleton<ResourceManager>
 {
     #region Value
 
