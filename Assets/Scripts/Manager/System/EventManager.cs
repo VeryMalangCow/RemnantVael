@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EventManager : PersistentSingleton<EventManager>
+public class EventManager : Singleton<EventManager>
 {
     #region Value
 
@@ -50,7 +50,6 @@ public class EventManager : PersistentSingleton<EventManager>
     [SerializeField] private EventData CurrentEvent = new EventData();
 
     [HideInInspector] private PlayerController PC;
-    [HideInInspector] private TitlePlayerManager TitlePC;
 
     #endregion
 
@@ -65,9 +64,9 @@ public class EventManager : PersistentSingleton<EventManager>
     private void Update()
     {
         // Test Input
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            //Start_Event(0);
+            Start_Event(0);
         }
     }
 
@@ -142,32 +141,19 @@ public class EventManager : PersistentSingleton<EventManager>
         string sceneName = SceneManager.GetActiveScene().name;
         if (_OnOff)
         {
-            if (sceneName == "TitleLobby")
-            {
-                TitleInputManager.Instance.SetOn_InputActive();
-            }
-            else if (sceneName == "MainGame")
-            {
-                InputManager.Instance.SetOn_InputAction();
-                InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
+            InputManager.Instance.SetOn_InputAction();
+            InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
 
-                InputManager.Instance.CanMouseInput = true;
-            }
+            InputManager.Instance.CanMouseInput = true;
+
         }
         else
         {
-            if (sceneName == "TitleLobby")
-            {
-                TitleInputManager.Instance.SetOff_InputActive();
-            }
-            else if (sceneName == "MainGame")
-            {
-                InputManager.Instance.SetOff_InputAction();
-                InputManager.Instance.Set_AllPointer(false);
+            InputManager.Instance.SetOff_InputAction();
+            InputManager.Instance.Set_AllPointer(false);
 
-                InputManager.Instance.InputMoveDir = Vector2.zero;
-                InputManager.Instance.CanMouseInput = false;
-            }
+            InputManager.Instance.InputMoveDir = Vector2.zero;
+            InputManager.Instance.CanMouseInput = false;
         }
     }
 
@@ -215,17 +201,7 @@ public class EventManager : PersistentSingleton<EventManager>
     // 다른 UI => On / Off
     private void Set_AnotherUI(bool _OnOff)
     {
-        string sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName == "TitleLobby")
-        {
-#if UNITY_EDITOR
-            Debug.Log("필요: 타이틀 로비의 UI 끄기");
-#endif
-        }
-        else if (sceneName == "MainGame")
-        {
-            MainGameUIManager.Instance.UIParent.gameObject.SetActive(_OnOff);
-        }
+        MainGameUIManager.Instance.UIParent.gameObject.SetActive(_OnOff);
     }
 
     #endregion
@@ -234,15 +210,8 @@ public class EventManager : PersistentSingleton<EventManager>
 
     private IEnumerator Play_Stay_Cor(EventElement_Stay _Event)
     {
-        string sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName == "TitleLobby") // 맵 구분
-        { 
-            TitleInputManager.Instance.InputMoveDir = Vector2.zero; 
-        }
-        else if (sceneName == "MainGame") // 맵 구분
-        { 
-            InputManager.Instance.InputMoveDir = Vector2.zero; 
-        }
+        InputManager.Instance.InputMoveDir = Vector2.zero; 
+
         yield return new WaitForSeconds(_Event.TargetTime);
 
         Play_Event();
@@ -253,65 +222,34 @@ public class EventManager : PersistentSingleton<EventManager>
         Vector2 targetPos = _Event.TargetPos;
         Vector2 dir = Vector2.zero;
 
-        string sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName == "TitleLobby") // 맵 구분
+        InputManager.Instance.InputMoveDir = Vector2.zero;
+        if (_Event.TargetType != "None") // NPC 등 목표가 들어갈 부분
         {
-            TitleInputManager.Instance.InputMoveDir = Vector2.zero;
-            if (_Event.TargetType != "None")
+            if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
             {
-                if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
+                NPCController npc = NPCManager.Instance.Get_CorrectNPC(_Event.TargetID);
+                if (npc != null)
                 {
-                    Vector2 npcPos = NPCManager.Instance.Get_CorrectNPC(_Event.TargetID).transform.position;
+                    Vector2 npcPos = npc.transform.position;
                     targetPos += npcPos;
                 }
-                else // 다른 목표가 있다면
-                {
-
-                }
             }
-            
-
-            while (0.01f < Vector2.Distance(targetPos, (Vector2)TitlePlayerManager.Instance.PlayerController.transform.position))
+            else // 다른 목표가 있다면
             {
-                dir = (targetPos - (Vector2)TitlePlayerManager.Instance.PlayerController.transform.position).normalized;
-                
-                TitleInputManager.Instance.InputMoveDir = dir;
 
-                yield return null;
             }
-            TitleInputManager.Instance.InputMoveDir = Vector2.zero;
         }
-        else if (sceneName == "MainGame") // 맵 구분
+
+        while (0.01f < Vector2.Distance(targetPos, (Vector2)PlayerManager.Instance.PlayerController.transform.position))
         {
-            InputManager.Instance.InputMoveDir = Vector2.zero;
-            if (_Event.TargetType != "None") // NPC 등 목표가 들어갈 부분
-            {
-                if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
-                {
-                    NPCController npc = NPCManager.Instance.Get_CorrectNPC(_Event.TargetID);
-                    if (npc != null)
-                    {
-                        Vector2 npcPos = npc.transform.position;
-                        targetPos += npcPos;
-                    }
-                }
-                else // 다른 목표가 있다면
-                {
+            dir = (targetPos - (Vector2)PlayerManager.Instance.PlayerController.transform.position).normalized;
 
-                }
-            }
+            InputManager.Instance.DirFromPlayerPos = dir;
+            InputManager.Instance.InputMoveDir = dir;
 
-            while (0.01f < Vector2.Distance(targetPos, (Vector2)PlayerManager.Instance.PlayerController.transform.position))
-            {
-                dir = (targetPos - (Vector2)PlayerManager.Instance.PlayerController.transform.position).normalized;
-                
-                InputManager.Instance.DirFromPlayerPos = dir;
-                InputManager.Instance.InputMoveDir = dir; 
-
-                yield return null;
-            }
-            InputManager.Instance.InputMoveDir = Vector2.zero;
+            yield return null;
         }
+        InputManager.Instance.InputMoveDir = Vector2.zero;
 
         Play_Event();
     }
@@ -319,21 +257,13 @@ public class EventManager : PersistentSingleton<EventManager>
     private IEnumerator Play_Look_Cor(EventElement_Look _Event)
     {
         yield return new WaitForSeconds(0.5f);
-        string sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName == "TitleLobby") // 맵 구분
-        {
-            TitleInputManager.Instance.InputMoveDir = Vector2.zero;
 
-            TitlePlayerManager.Instance.PlayerController.HigherBody.Set_Rot(_Event.TargetDir);
-        }
-        else if (sceneName == "MainGame") // 맵 구분
-        {
-            InputManager.Instance.DirFromPlayerPos = _Event.TargetDir;
+        InputManager.Instance.DirFromPlayerPos = _Event.TargetDir;
 
-            PlayerManager.Instance.PlayerController.LowerController.ThisRb.velocity = Vector2.zero;
+        PlayerManager.Instance.PlayerController.LowerController.ThisRb.velocity = Vector2.zero;
 
-            PlayerManager.Instance.PlayerController.LowerController.Set_Rot(_Event.TargetDir);
-        }
+        PlayerManager.Instance.PlayerController.LowerController.Set_Rot(_Event.TargetDir);
+
 
         yield return null;
 
@@ -470,7 +400,6 @@ public class EventManager : PersistentSingleton<EventManager>
     }
 
     #endregion
-
 }
 
 #region Event

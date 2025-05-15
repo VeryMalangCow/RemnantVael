@@ -16,8 +16,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     // Controller
     [HideInInspector] public TitleLobbyUIController TitleLobby_UIController;
-    [HideInInspector] public ChoiceCharacterUIController ChoiceCharacter_UIController;
-    [HideInInspector] public EntranceSpaceUIController EntranceSpace_UIController;
 
     [Header("=== Screen")]
     [SerializeField] private Canvas ScreenCanvas;
@@ -43,12 +41,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     {
         TitleLobby_UIController 
             = Gen_UI<TitleLobbyUIController>(TitleLobby_CanvasPrefab, true);
-
-        ChoiceCharacter_UIController
-            = Gen_UI<ChoiceCharacterUIController>(ChoiceCharacter_CanvasPrefab, false);
-
-        EntranceSpace_UIController
-            = Gen_UI<EntranceSpaceUIController>(EntranceSpace_CanvasPrefab, false);
 
         Start_FirstPlay();
     }
@@ -169,7 +161,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             {
                 ScreenCanvas.gameObject.SetActive(false);
                 GameManager.Instance.WasWatched = true;
-                TitleInputManager.Instance.SetOn_InputActive();
             });
 
         return firstSeq;

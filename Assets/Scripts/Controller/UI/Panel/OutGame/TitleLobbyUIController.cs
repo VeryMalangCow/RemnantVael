@@ -79,11 +79,6 @@ public class TitleLobbyUIController : PanelUIController
         if (DOTween.IsTweening("TitleUIPanel"))
         { return; }
 
-        TitleInputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
-        //InputManager.Instance.SetAim(false);
-
-        TitleInputManager.Instance.InputMoveDir = Vector2.zero;
-
         Sequence seq = DOTween.Sequence(); 
         this.gameObject.SetActive(true);
 
@@ -99,9 +94,6 @@ public class TitleLobbyUIController : PanelUIController
 
         if (DOTween.IsTweening("TitleUIPanel"))
         { return; }
-
-        TitleInputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
-        //InputManager.Instance.SetAim(true);
 
         Sequence seq = DOTween.Sequence();
         seq.Join(BtnsRT.DOAnchorPosX(-500f, DurTime));
