@@ -1,14 +1,34 @@
 using System.Collections.Generic;
+using System.IO;
+using TMPro;
 using UnityEngine;
 
 public class SaveDataManager : PersistentSingleton<SaveDataManager>
 {
     #region Value
 
+    #region - Inspector
+
     [Header("=== Data")]
     [SerializeField] public List<GameObject> CharacterPrefabs;
-    [HideInInspector] public CharacterSaveData CharacterSaveData = new CharacterSaveData();
 
+    [Header("=== Path")]
+    [SerializeField] private string JsonFilePath = "";
+    [SerializeField] private string CharacterPath = "";
+
+    #endregion
+
+    #region - Hide
+
+    // TempData
+    [Space(30)]
+    [SerializeField] public JsonData JsonData;
+
+    // Path
+    [HideInInspector] private string DataPath = "";
+
+
+    #endregion
 
     #endregion
 
@@ -19,47 +39,75 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         //Singleton
         base.Awake();
 
-        // Load Data
-        CharacterSaveData.Load_Data();
+        DataPath = $"{Application.dataPath}/{JsonFilePath}";
+        Load_JsonData();
+    }
+
+    #endregion
+
+    [ContextMenu("To Json Data")]
+    private void Save_JsonData_FromInspector()
+    {
+        DataPath = $"{Application.dataPath}/{JsonFilePath}";
+        Save_JsonData();
+    }
+
+
+    #region Reset & Save & Load
+
+    private void Reset_JsonData()
+    {
+        JsonData = new JsonData();
+        Save_JsonData();
+    }
+
+    private void Save_JsonData()
+    {
+        string jsonData = JsonUtility.ToJson(new SerializationList<EachCharacterJsonData>(JsonData.CharacterData), true);
+        string path = $"{DataPath}/{CharacterPath}.json";
+        File.WriteAllText(path, jsonData);
+    }
+
+    private void Load_JsonData()
+    {
+        JsonData = new JsonData();
+
+        string jsonData = File.ReadAllText($"{DataPath}/{CharacterPath}.json");
+        JsonData.CharacterData = JsonUtility.FromJson<SerializationList<EachCharacterJsonData>>(jsonData).ListData;
     }
 
     #endregion
 }
 
+#region Json
+
+[System.Serializable]
+public class JsonData
+{
+    public List<EachCharacterJsonData> CharacterData = new List<EachCharacterJsonData>();
+}
+
+[System.Serializable]
+public class SerializationList<T>
+{
+    public SerializationList(List<T> _ListData) => ListData = _ListData;
+    public List<T> ListData;
+}
+
+#endregion
+
 #region Character
 
-public class CharacterSaveData
+[System.Serializable]
+public class EachCharacterJsonData
 {
-    Dictionary<int, bool> SaveData;
+    public int ID = 0;
+    public bool CanUse = false;
 
-    public void Load_Data()
+    public EachCharacterJsonData(int _ID, bool _CanUse)
     {
-        SaveData = new Dictionary<int, bool>()
-        {
-            {0, true},
-            {1, true},
-            {2, false}
-        };
-    }
-
-    // ID값에 맞는 사용 여부
-    public bool Can_UseCharacter(int _ID)
-    {
-        return SaveData[_ID];
-    }
-
-    // 사용 가능한 리스트 가져오기
-    public List<int> Get_CanUseIDList()
-    {
-        List<int> IDs = new List<int>();
-        foreach (KeyValuePair<int, bool> keyValue in SaveData)
-        {
-            if (keyValue.Value == true)
-            {
-                IDs.Add(keyValue.Key);
-            }
-        }
-        return IDs;
+        ID = _ID;
+        CanUse = _CanUse;
     }
 }
 

@@ -72,6 +72,7 @@ public class ChoiceCharacterUIController : PanelUIController
 
     private void Reset_Data()
     {
+/*
         List<int> canUseIDList = SaveDataManager.Instance.CharacterSaveData.Get_CanUseIDList();
         for (int i = 0; i < CharacterBtnList.Count; i++)
         {
@@ -84,6 +85,7 @@ public class ChoiceCharacterUIController : PanelUIController
                 CharacterBtnList[i].ThisBtn.interactable = false;
             }
         }
+*/
     }
 
 

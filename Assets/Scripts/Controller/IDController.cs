@@ -34,7 +34,7 @@ public class IDController : MonoBehaviour
     }
 
     // ID가 맞는가 판별
-    public static bool Is_CorrectID(int _ID, IDController _Object)
+    private static bool Is_CorrectID(int _ID, IDController _Object)
     {
         if (_Object.ID == _ID) return true;
         return false;
