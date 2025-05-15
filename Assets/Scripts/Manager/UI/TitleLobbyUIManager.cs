@@ -11,8 +11,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     [Header("=== UI_Prefab")]
     [SerializeField] private Transform UIParent;
     [SerializeField] private GameObject TitleLobby_CanvasPrefab;
-    [SerializeField] private GameObject ChoiceCharacter_CanvasPrefab;
-    [SerializeField] private GameObject EntranceSpace_CanvasPrefab;
 
     // Controller
     [HideInInspector] public TitleLobbyUIController TitleLobby_UIController;
@@ -28,10 +26,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     [SerializeField] private float EachFadeOutTime = 1f;
     [SerializeField] private float EachStayTime = 1.5f;
     [SerializeField] private float EachDelayTime = 0.5f;
-
-    [Header("=== Map")]
-    [SerializeField] private Transform MapObjectParentTF;
-
 
     #endregion
 
@@ -90,9 +84,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             Get_WarningSeq()
             .OnComplete(() =>
             {
-                // Loading Map
-                MapObjectParentTF.gameObject.SetActive(true);
-
                 Get_SimpleCreditSeq()
                 .OnComplete(() =>
                 {

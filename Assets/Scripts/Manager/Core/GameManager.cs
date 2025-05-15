@@ -15,7 +15,6 @@ public class GameManager : PersistentSingleton<GameManager>
     [Space(10)]
     [Header("=== Passing Data")]
     [SerializeField] public GameObject DesignatedPlayerPrefab;
-    [SerializeField] public GameObject TitlePlayerPrefab;
 
     [Space(10)]
     [Header("=== Intro")]
