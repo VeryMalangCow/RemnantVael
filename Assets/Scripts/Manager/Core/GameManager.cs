@@ -141,15 +141,7 @@ public class DevTool
 
     public static string Get_LengthString(int _Value, int _TargetLength)
     {
-        string value = _Value.ToString();
-
-        _TargetLength++;
-
-        if (value.Length < _TargetLength)
-            for (int i = 0; i < _TargetLength - value.Length; i++)
-                value = "0" + value;
-            
-        return value;
+        return _Value.ToString().PadLeft(_TargetLength, '0');
     }
 
     #endregion
@@ -3111,8 +3103,8 @@ public class StageData
     public List<Material> MapMaterialClear;
     public List<StageDoorAnim> MapDoorAnim;
 
-    [HideInInspector] public List<Sprite> AllMapSprite;
-    [HideInInspector] public StageMapSprite MapSpriteReso;
+    [SerializeField] public List<Sprite> AllMapSprite;
+    [SerializeField] public StageMapSprite MapSpriteReso;
     
     public void Offset(List<Sprite> _AllSprite, List<int> _MaterialIndexList)
     {

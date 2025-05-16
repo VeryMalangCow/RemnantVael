@@ -11,7 +11,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private Canvas ScreenCanvas;
 
     [Header("=== Screen")]
-    [SerializeField] private float FadeOutTime = 3f;
+    [SerializeField] public float FadeOutTime = 3f;
 
     [Header("=== Prefab")]
     [SerializeField] private GameObject PlayerHUD_CanvasPrefab;

@@ -71,6 +71,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
         SFXAudioDict.Add("Enemy_Hitted", Resources.Load<AudioClip>(basePath + sfxPath + enemyPath + "Enemy_Hitted"));
 
         BGMAudioDict.Add("Stage00_BGM", Resources.Load<AudioClip>(basePath + bgmPath + stagePath + "Stage00_BGM"));
+        BGMAudioDict.Add("Stage99_BGM", Resources.Load<AudioClip>(basePath + bgmPath + stagePath + "Stage99_BGM"));
 
         ThisBgmAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject.transform.GetChild(0).gameObject);
         ThisSfxAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject.transform.GetChild(1).gameObject);

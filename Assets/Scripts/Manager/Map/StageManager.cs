@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
@@ -19,14 +20,16 @@ public class StageManager : Singleton<StageManager>
     [Space(10)]
     [Header("=== Generate")]
     [SerializeField] private Transform MapParentTF;
-    [SerializeField] public int TargetStageID;
-    [SerializeField] private List<StageData> AllStageData;
+    [SerializeField] public int TargetStageID = -1;
+    [Space(10)] [SerializeField] private StageData LobbyStageData;
+    [Space(10)] [SerializeField] private List<StageData> AllStageData;
 
     [Space(10)]
     [Header("=== Reso")]
 
     [Space(5)]
     [Header("-- Room")]
+    [SerializeField] private GameObject LobbyRoomRulePrefab;
     [SerializeField] private GameObject StartRoomRulePrefab;
     [SerializeField] private List<GameObject> RoomPrefabList;
     [SerializeField] private List<GameObject> RoomRulePrefabList;
@@ -88,6 +91,8 @@ public class StageManager : Singleton<StageManager>
     [HideInInspector] private HashSet<BuildSetSpriteController> CurrentSetSprites = new HashSet<BuildSetSpriteController>();
     [HideInInspector] private HashSet<BuildSetAnimController> CurrentSetAnims = new HashSet<BuildSetAnimController>();
 
+    [HideInInspector] private StageData CurrentStageData;
+
     #endregion
 
     #endregion
@@ -96,6 +101,8 @@ public class StageManager : Singleton<StageManager>
 
     private void Offset()
     {
+        LobbyStageData.Offset(ResourceManager.Instance.Get_LobbyStageMapSpriteList(), ResourceManager.Instance.Get_LobbyStageMapMaterialList());
+
         for (int i = 0; i < AllStageData.Count; i++)
         {
             AllStageData[i].Offset(ResourceManager.Instance.Get_StageMapSpriteList(i), ResourceManager.Instance.Get_StageMapMaterialList(i));
@@ -125,16 +132,28 @@ public class StageManager : Singleton<StageManager>
 
     #region Stage
 
+
     // 스테이지 생성
     public void Gen_Stage(int _StageID)
     {
         StageData stageData = Get_CollectStageData(_StageID);
-        if (stageData == null) return; 
+        if (stageData == null) return;
+
+        CurrentStageData = stageData;
+
+        int TempID = 0;
 
         // 처음 방
-        int TempID = 0;
-        Gen_StartRoom(RoomPrefabList[0], TempID);
-        TempID++;
+        if (stageData.InfoData.StageID == 99) // 로비 시작 방
+        {
+            Gen_LobbyRoom(RoomPrefabList[0], TempID);
+            TempID++;
+        }
+        else // 전투 스테이지 시작 방
+        {
+            Gen_StartRoom(RoomPrefabList[0], TempID);
+            TempID++;
+        }
 
         // 생성할 Room의 양을 계산에 1중 리스트로 변경 => 이들을 섞음
         ShuffledRoomIndexList = DevTool.Get_ShuffledList(
@@ -194,11 +213,43 @@ public class StageManager : Singleton<StageManager>
         SoundManager.Instance.Play_2D_BGM("Stage" + DevTool.Get_LengthString(stageData.InfoData.StageID, 2) + "_BGM");
 
         Reset_GenStageData();
+
+        if (TargetStageID == 99)
+            StartCoroutine(Play_LobbyStart_Cor(MainGameUIManager.Instance.FadeOutTime));
+    }
+
+    #endregion
+
+    #region Play (Lobby)
+
+    private IEnumerator Play_LobbyStart_Cor(float _DelayTime)
+    {
+        Debug.Log("시작");
+        yield return new WaitForSeconds(_DelayTime);
+
+        Debug.Log("셋");
+        PlayerManager.Instance.PlayerController.Set_StartStage();
+        EventManager.Instance.Set_Input(true);
     }
 
     #endregion
 
     #region Room
+
+    // 로비 방 생성
+    private void Gen_LobbyRoom(GameObject _Prefab, int _TempID)
+    {
+        if (DevTool.Get_ComponentTType(Instantiate(_Prefab, MapParentTF), out RoomController room))
+        {
+            CurrentAllRoomController.Add(room);
+
+            if (DevTool.Get_ComponentTType(Instantiate(LobbyRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
+                room.RoomRuleController = roomRule;
+
+            room.Offset(_TempID);
+            Add_RoundVec(new List<Vector2Int>() { Vector2Int.zero });
+        }
+    }
 
     // 시작 방 생성
     private void Gen_StartRoom(GameObject _Prefab, int _TempID)
@@ -546,11 +597,13 @@ public class StageManager : Singleton<StageManager>
 
     public void Set_MapSprite(SpriteRenderer _SR, string _SpriteKey)
     {
-        if (!AllStageData[TargetStageID].MapSpriteReso.MapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey);  return; }
+        if (!CurrentStageData.MapSpriteReso.MapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey); return; }
 
-        SpriteMaterial spriteMatrial = AllStageData[TargetStageID].MapSpriteReso.MapSprite[_SpriteKey];
+        SpriteMaterial spriteMatrial = CurrentStageData.MapSpriteReso.MapSprite[_SpriteKey];
         _SR.sprite = spriteMatrial.Sprite;
-        _SR.material = AllStageData[TargetStageID].MapMaterialUnclear[spriteMatrial.MaterialIndex];
+        _SR.material = CurrentStageData.MapMaterialUnclear[spriteMatrial.MaterialIndex];
+
+        return;
     }
 
     public void Set_SetSpriteClearly()
@@ -561,10 +614,10 @@ public class StageManager : Singleton<StageManager>
         {
             if (DevTool.Get_ComponentTType(setSprite.gameObject, out SpriteRenderer sr))
             {
-                int index = AllStageData[TargetStageID].MapMaterialUnclear.IndexOf(sr.sharedMaterial);
+                int index = CurrentStageData.MapMaterialUnclear.IndexOf(sr.sharedMaterial);
                 if (index == -1)
                 { Debug.Log(sr.gameObject.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
-                sr.material = AllStageData[TargetStageID].MapMaterialClear[index];
+                sr.material = CurrentStageData.MapMaterialClear[index];
             }
         }
     }
@@ -575,13 +628,12 @@ public class StageManager : Singleton<StageManager>
 
     public void Set_StageDoorAnim(GateController _Gate, SpriteRenderer _SR, Vector2Int _DoorDir)
     {
-        List<StageDoorAnim> doorAnim = AllStageData[TargetStageID].MapDoorAnim;
-
+        List<StageDoorAnim> doorAnim = CurrentStageData.MapDoorAnim;
         for (int i = 0; i < doorAnim.Count; i++)
             if (doorAnim[i].Dir == _DoorDir)
             {
                 _Gate.ThisAC = doorAnim[i].DoorAnim;
-                _SR.material = AllStageData[TargetStageID].MapMaterialUnclear[doorAnim[i].MaterialIndex];
+                _SR.material = CurrentStageData.MapMaterialUnclear[doorAnim[i].MaterialIndex];
             }
     }
 
@@ -593,10 +645,10 @@ public class StageManager : Singleton<StageManager>
         {
             if (DevTool.Get_ComponentTType(setAnim.gameObject, out SpriteRenderer sr))
             {
-                int index = AllStageData[TargetStageID].MapMaterialUnclear.IndexOf(sr.sharedMaterial);
+                int index = CurrentStageData.MapMaterialUnclear.IndexOf(sr.sharedMaterial);
                 if (index == -1)
                 { Debug.Log(sr.material.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
-                sr.material = AllStageData[TargetStageID].MapMaterialClear[index];
+                sr.material = CurrentStageData.MapMaterialClear[index];
             }
         }
     }
@@ -612,6 +664,9 @@ public class StageManager : Singleton<StageManager>
     // 올바른 Stage 데이터 구하기
     public StageData Get_CollectStageData(int _StageID)
     {
+        if (_StageID == 99)
+            return LobbyStageData;
+
         for (int i = 0; i < AllStageData.Count; i++)
             if (AllStageData[i].InfoData.StageID == _StageID)
                 return AllStageData[i];

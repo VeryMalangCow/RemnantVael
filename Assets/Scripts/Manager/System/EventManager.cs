@@ -138,14 +138,12 @@ public class EventManager : Singleton<EventManager>
     // ÀÎÇ² => On / Off
     public void Set_Input(bool _OnOff)
     {
-        string sceneName = SceneManager.GetActiveScene().name;
         if (_OnOff)
         {
             InputManager.Instance.SetOn_InputAction();
             InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
 
             InputManager.Instance.CanMouseInput = true;
-
         }
         else
         {

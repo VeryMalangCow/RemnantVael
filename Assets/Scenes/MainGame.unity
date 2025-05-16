@@ -2435,7 +2435,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DesignatedPlayerPrefab: {fileID: 4593839933363528314, guid: ce7a8006effa57a40a58c614cabbe5e2, type: 3}
-  TitlePlayerPrefab: {fileID: 4593839933363528314, guid: 2c4289593c9cc00419f120cbe3821822, type: 3}
   WasWatched: 0
 --- !u!1001 &658783085
 PrefabInstance:
@@ -2836,7 +2835,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ThisNav: {fileID: 535791893}
   MapParentTF: {fileID: 1948256983}
-  TargetStageID: 0
+  TargetStageID: 99
+  LobbyStageData:
+    MapIndexName: Map99
+    InfoData:
+      StageID: 99
+    RoomData:
+      RoomAmount: []
+      EntranceRoom: []
+      VaultRoom: []
+      ShopRoom: []
+      PrisonRoom: []
+    EnemyData:
+      StageEnemyList: []
+    MapMaterialUnclear:
+    - {fileID: 2100000, guid: 8f88455681ebf204ab1bec4124f2e8a5, type: 2}
+    - {fileID: 2100000, guid: d00759d6f63313746a8d499ed6169b9f, type: 2}
+    MapMaterialClear:
+    - {fileID: 2100000, guid: 3409bf52a3cc81e46984db08eb5e30d1, type: 2}
+    - {fileID: 2100000, guid: d58d9fae558fe2346a62ed1ddc81c4d6, type: 2}
+    MapDoorAnim:
+    - Dir: {x: 0, y: -1}
+      DoorAnim: {fileID: 7400000, guid: d5c5a5503aa5a7a43a5282ebc66ad54b, type: 2}
+      MaterialIndex: 0
+    - Dir: {x: -1, y: 0}
+      DoorAnim: {fileID: 7400000, guid: c10c6ff3cfb780547a625e9ed52e095d, type: 2}
+      MaterialIndex: 0
+    - Dir: {x: 1, y: 0}
+      DoorAnim: {fileID: 7400000, guid: fa88c644bb2c7b6499776c1db667f480, type: 2}
+      MaterialIndex: 0
+    - Dir: {x: 0, y: 1}
+      DoorAnim: {fileID: 7400000, guid: 655745c9192f3e149b5c0cc6ad4e851a, type: 2}
+      MaterialIndex: 0
+    AllMapSprite: []
   AllStageData:
   - MapIndexName: Map00
     InfoData:
@@ -2903,6 +2934,7 @@ MonoBehaviour:
       DoorAnim: {fileID: 7400000, guid: 8e9a3d8a8335eb143b62d2c56941ad53, type: 2}
       MaterialIndex: 0
     AllMapSprite: []
+  LobbyRoomRulePrefab: {fileID: 8671702513593221327, guid: 06718ff1f5b5f8e45bf2c005ca16fe14, type: 3}
   StartRoomRulePrefab: {fileID: 8671702513593221327, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
   RoomPrefabList:
   - {fileID: 8671702513593221327, guid: 4d637ae9ae2428743aef33630261c2ef, type: 3}
@@ -3540,6 +3572,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01426f0a7d6066d4bbf9160f1f16a237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MapLobbyImg_Data: []
+  MapLobbyMaterialIndexList_Data: 
 --- !u!4 &830584170
 Transform:
   m_ObjectHideFlags: 0

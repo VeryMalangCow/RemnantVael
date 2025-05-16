@@ -12,7 +12,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // 맵 종류
     [HideInInspector] private int KindOfMapAmount = 2;
     // 각 맵에 사용할 스프라이트의 양
-    [HideInInspector] private List<int> EachKindOfMapAmount = new List<int> { 2, 1 };
+    [HideInInspector] private int EachKindOfMapAmount = 2;
     // 카드 아이콘 양
     [HideInInspector] private int STIconAmount = 1;
     [HideInInspector] private int UTIconAmount = 1;
@@ -74,6 +74,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private List<Sprite> CharacterImgList_Data;
 
     // 맵
+    [HideInInspector] public List<Sprite> MapLobbyImg_Data;
+    [HideInInspector] public List<int> MapLobbyMaterialIndexList_Data;
+
     [HideInInspector] public List<List<Sprite>> MapImgList_Data;
     [HideInInspector] public List<List<int>> MapMaterialIndexList_Data;
 
@@ -189,6 +192,21 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     private void Offset_MapImg()
     {
+        // Lobby Map
+        MapLobbyImg_Data = new List<Sprite>();
+        MapLobbyMaterialIndexList_Data = new List<int>();
+
+        for (int j = 0; j < EachKindOfMapAmount; j++)
+        {
+            MapLobbyImg_Data.AddRange(
+            Offset_ImgPath(
+                $"Sprite/Map/MapLobby/",
+                $"MapLobby_{DevTool.Get_LengthString(j, 3)}"));
+
+            for (int k = 0; k < MapLobbyImg_Data.Count; k++)
+                MapLobbyMaterialIndexList_Data.Add(j);
+        }
+
         // Map
         MapImgList_Data = new List<List<Sprite>>();
         MapMaterialIndexList_Data = new List<List<int>>();
@@ -198,7 +216,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             MapImgList_Data.Add(new List<Sprite>());
             MapMaterialIndexList_Data.Add(new List<int>());
 
-            for (int j = 0; j < EachKindOfMapAmount[i]; j++)
+            for (int j = 0; j < EachKindOfMapAmount; j++)
             {
                 MapImgList_Data[i].AddRange(
                     Offset_ImgPath(
@@ -827,9 +845,20 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return CharacterImgList_Data[_ID];
     }
 
+
+    public List<Sprite> Get_LobbyStageMapSpriteList()
+    {
+        return MapLobbyImg_Data;
+    }
+
     public List<Sprite> Get_StageMapSpriteList(int _ID)
     {
         return MapImgList_Data[_ID];
+    }
+
+    public List<int> Get_LobbyStageMapMaterialList()
+    {
+        return MapLobbyMaterialIndexList_Data;
     }
 
     public List<int> Get_StageMapMaterialList(int _ID)
