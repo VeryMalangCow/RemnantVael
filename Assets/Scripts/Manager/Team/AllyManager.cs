@@ -182,6 +182,14 @@ public class AllyManager : Singleton<AllyManager>
 
     #region Set (Ally Set)
 
+    public void Set_AllAlliesActive(bool _OnOff)
+    {
+        if (AllAllies.Count <= 0) return;
+
+        for (int i = 0; i < AllAllies.Count; i++)
+            AllAllies[i].gameObject.SetActive(_OnOff);
+    }
+
     public void Start_AllAllies_Combat()
     {
         if (AllAllies.Count <= 0) return;

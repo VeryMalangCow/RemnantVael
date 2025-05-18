@@ -58,6 +58,7 @@ public class AllyController : NavObjectController
         base.Offset();
 
         Player = PlayerManager.Instance.PlayerController;
+        DevTool.Add_InList(AllyManager.Instance.AllAllies, this);
 
         AllyStateMode
             .Subscribe(value =>
@@ -76,7 +77,6 @@ public class AllyController : NavObjectController
     {
         base.OnEnable();
 
-        DevTool.Add_InList(AllyManager.Instance.AllAllies, this);
         DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
 
         CurrentEP.Value = MaxEP;
@@ -87,7 +87,7 @@ public class AllyController : NavObjectController
 
     private void OnDisable()
     {
-        DevTool.Remove_InList(AllyManager.Instance.AllAllies, this);
+        //DevTool.Remove_InList(AllyManager.Instance.AllAllies, this);
         DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
 
         Stop_MainCor();
@@ -170,6 +170,8 @@ public class AllyController : NavObjectController
 
     public void Start_MainCor()
     {
+        if (!gameObject.activeSelf) return;
+
         ThisMainCor = Play_Main_Cor();
         StartCoroutine(ThisMainCor);
     }

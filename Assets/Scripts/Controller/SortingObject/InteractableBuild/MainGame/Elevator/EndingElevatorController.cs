@@ -35,6 +35,10 @@ public class EndingElevatorController : ElevatorController, IInteract
         // Input
         EventManager.Instance.Set_Input(false);
 
+        // Ally
+        AllyManager.Instance.Stop_AllAllies_Combat();
+        AllyManager.Instance.Set_AllAlliesActive(false);
+
         // Screen
         MainGameUIManager.Instance.Play_FadeIn(3f);
         MainGameUIManager.Instance.Play_OnLoadingIcon(3f);

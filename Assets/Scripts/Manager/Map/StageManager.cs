@@ -455,6 +455,7 @@ public class StageManager : Singleton<StageManager>
 
             PrisonRuleController prisonRule = DevTool.Get_CastingTType<PrisonRuleController>(roomRule);
 
+            Debug.Log(_PrisonRoomData.TypeID);
             PrisonController prison = DevTool.Get_ComponentTType<PrisonController>(Instantiate(PrisonPrefabList[_PrisonRoomData.TypeID], prisonRule.InRoom_PrisonParentTF));
             prisonRule.Prison = prison;
             prison.gameObject.transform.localPosition = Vector2.zero;

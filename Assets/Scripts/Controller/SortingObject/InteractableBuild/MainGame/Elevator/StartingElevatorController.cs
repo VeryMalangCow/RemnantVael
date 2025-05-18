@@ -26,6 +26,11 @@ public class StartingElevatorController : ElevatorController
         // Input
         EventManager.Instance.Set_Input(true);
 
+        // Ally Pos
+        AllyManager.Instance.Set_AllAllyPlayerNearPos();
+        AllyManager.Instance.Set_AllAlliesActive(true);
+        AllyManager.Instance.Start_AllAllies_Combat();
+
         // Screen
         EventManager.Instance.Set_BlackUpDownCover(false);
 
