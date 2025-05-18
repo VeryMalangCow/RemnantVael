@@ -51,6 +51,38 @@ public class PoolingManager : Singleton<PoolingManager>
 
     #endregion
 
+    #region Remove
+
+    public void Remove_AllQueue()
+    {
+        PlayerBullet.Queue.Clear();
+        Joule.Queue.Clear();
+        BetteryShard.Queue.Clear();
+        ModuleShard.Queue.Clear();
+        Overrider.Queue.Clear();
+        Credit.Queue.Clear();
+        InteractItems.Queue.Clear();
+        PlayerAttackers.Queue.Clear();
+
+        MissileBullet.Queue.Clear();
+
+        BaseAllyBullet.Queue.Clear();
+
+        EnemyBullets.Queue.Clear();
+        EnemyAttackers.Queue.Clear();
+        for (int i = 0; i < CurrentStageEnemies.Count; i++)
+            CurrentStageEnemies[i].Queue.Clear();
+
+        AfterImgs.Queue.Clear();
+        ExplosionImgs.Queue.Clear();
+        OnlyOnceAnimators.Queue.Clear();
+
+        MI_000_Bullets.Queue.Clear();
+        MI_001_Bullets.Queue.Clear();
+    }
+
+    #endregion
+
     #region Get
 
     // Object (Single)

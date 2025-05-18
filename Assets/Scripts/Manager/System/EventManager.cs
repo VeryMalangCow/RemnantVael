@@ -140,6 +140,7 @@ public class EventManager : Singleton<EventManager>
     {
         if (_OnOff)
         {
+            Debug.Log("Input On");
             InputManager.Instance.SetOn_InputAction();
             InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
 
@@ -147,6 +148,7 @@ public class EventManager : Singleton<EventManager>
         }
         else
         {
+            Debug.Log("Input Off");
             InputManager.Instance.SetOff_InputAction();
             InputManager.Instance.Set_AllPointer(false);
 

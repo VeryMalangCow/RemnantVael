@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
@@ -86,6 +85,7 @@ public class StageManager : Singleton<StageManager>
     // 처음 시작하는 Room인가?
     [HideInInspector] public bool IsStartStage = true;
 
+
     // 스폰을 위한 리스트
     [HideInInspector] private List<int> ShuffledRoomIndexList = new List<int>();
 
@@ -96,7 +96,8 @@ public class StageManager : Singleton<StageManager>
     // 배치할 주변 Vec
     [HideInInspector] private List<Vector2Int> roundList = new List<Vector2Int>();
 
-    // 클리어와 클리어 전 머터리얼 셋
+
+    // 클리어와 클리어 전 머터리얼 셋 
     [HideInInspector] private HashSet<BuildSetSpriteController> CurrentSetSprites = new HashSet<BuildSetSpriteController>();
     [HideInInspector] private HashSet<BuildSetAnimController> CurrentSetAnims = new HashSet<BuildSetAnimController>();
 
@@ -130,9 +131,6 @@ public class StageManager : Singleton<StageManager>
 
         // 스테이지 소환
         Gen_Stage(TargetStageID);
-
-        // 처음 스타트맵
-        Play_CurrentRoom(Get_CorrectRoom(0));
     }
 
     #endregion
@@ -141,15 +139,15 @@ public class StageManager : Singleton<StageManager>
 
     #region Stage
 
-
     // 스테이지 생성
     public void Gen_Stage(int _StageID)
     {
+        TargetStageID = _StageID;
         StageData stageData = Get_CollectStageData(_StageID);
-        if (stageData == null) return;
 
+        // 전에 있는 데이터를 제거
+        Remove_CurrentStage();
         CurrentStageData = stageData;
-
 
         // 처음 방
         if (stageData.InfoData.StageID == 99) // 로비 시작 방
@@ -180,6 +178,9 @@ public class StageManager : Singleton<StageManager>
 
         if (TargetStageID == 99)
             StartCoroutine(Play_LobbyStart_Cor(MainGameUIManager.Instance.FadeOutTime));
+
+        // 처음 스타트맵
+        Play_CurrentRoom(Get_CorrectRoom(0));
     }
 
     private void Set_EntranceIndex(int _CurrentIndex)
@@ -483,6 +484,33 @@ public class StageManager : Singleton<StageManager>
 
     #endregion
 
+    #region Reset (StageData)
+
+    private void Remove_CurrentStage()
+    {
+        IsStartStage = true;
+
+        CurrentSetSprites.Clear();
+        CurrentSetAnims.Clear();
+
+        CurrentStageData = null;
+
+        int allRoomAmount = CurrentAllRoomController.Count;
+        for (int i = allRoomAmount - 1; i >= 0; i--)
+            Destroy(CurrentAllRoomController[i].gameObject);
+        CurrentAllRoomController.Clear();
+
+        int allEntranceRoomAmount = CurrentAllEntranceRoomController.Count;
+        CurrentAllEntranceRoomController.Clear();
+
+        CurrentRoomController = null;
+
+        PoolingManager.Instance.Remove_AllQueue();
+    }
+
+
+    #endregion
+
     #region Set State
 
     public void Play_CurrentRoom(RoomController _TargetRC)
@@ -520,7 +548,7 @@ public class StageManager : Singleton<StageManager>
         // Minimap
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Set_State();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
 
         _TargetRC.Play_RoomState();
         Set_NavBake();

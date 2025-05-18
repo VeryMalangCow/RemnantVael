@@ -36,14 +36,19 @@ public class EndingElevatorController : ElevatorController, IInteract
 
         // Screen
         MainGameUIManager.Instance.Play_FadeIn(3f);
+        EventManager.Instance.Set_BlackUpDownCover(true);
+
         ThisSR.sortingOrder = 3000;
 
+        // Intetactable Anno Panel
+        MainGameUIManager.Instance.InteractAnno_UIController.Set_VisualCG(false);
     }
 
     protected override void Tween_Complete()
     {
         base.Tween_Complete();
 
+        StageManager.Instance.Gen_Stage(NextStageIndex);
     }
 
     #endregion

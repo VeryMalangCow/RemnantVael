@@ -77,6 +77,7 @@ public class AfterImgGenerator : MonoBehaviour
         SR.DOFade(0f, StayDur)
             .OnComplete(() => 
             {
+                SR.gameObject.SetActive(false);
                 PoolingManager.Instance.AfterImgs.Queue.Enqueue(SR);
             });
         

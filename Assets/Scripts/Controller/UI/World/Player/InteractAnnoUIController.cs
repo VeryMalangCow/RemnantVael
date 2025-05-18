@@ -14,6 +14,7 @@ public class InteractAnnoUIController : UIController
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] private CanvasGroup ThisCG;
+    [SerializeField] private CanvasGroup VisualCG;
     [SerializeField] private Image InnerLImg;
     [SerializeField] private Image InnerRImg;
     [SerializeField] private TMP_Text AnnoTxt;
@@ -42,6 +43,13 @@ public class InteractAnnoUIController : UIController
     #endregion
 
     #region Set
+
+    public void Set_VisualCG(bool _OnOff, float _DurTime = 0.3f)
+    {
+        DevTool.Set_KillTween(VisualCG);
+
+        VisualCG.DOFade(_OnOff ? 1f : 0f, _DurTime);
+    }
 
     public void Set_UI()
     {

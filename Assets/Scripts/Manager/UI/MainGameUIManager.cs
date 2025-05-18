@@ -80,7 +80,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         Sequence startSeq = DOTween.Sequence();
 
-        Start_FadeOut(FadeOutTime);
+        Play_FadeOut(FadeOutTime);
     }
 
     #endregion
@@ -133,46 +133,47 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     #region FirstStart
 
-    private Sequence Start_FadeOut(float _DurTime)
+    public Sequence Play_FadeOut(float _DurTime) // ¹à¾ÆÁü
     {
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(ScreenCG.DOFade(0f, _DurTime)
-            .OnComplete(() =>
-            {
-                PlayerHUD_UIController.gameObject.SetActive(true);
-                ScreenCanvas.gameObject.SetActive(false);
-            }));
+        ScreenCanvas.gameObject.SetActive(true);
 
+        seq.Append(ScreenCG.DOFade(0f, _DurTime));
         seq.Append(PlayerHUD_UIController.ThisCG.DOFade(1f, _DurTime));
 
         seq.OnStart(() =>
-            {
-                PlayerHUD_UIController.gameObject.SetActive(false);
-                ScreenCanvas.gameObject.SetActive(true);
-                ScreenCG.alpha = 1f;
-                PlayerHUD_UIController.ThisCG.alpha = 0f;
-            });
+        {
+            ScreenCG.alpha = 1f;
+            PlayerHUD_UIController.ThisCG.alpha = 0f;
+
+        })
+        .OnComplete(() =>
+        {
+            ScreenCanvas.gameObject.SetActive(false);
+        });
 
         return seq;
     }
 
-    public Sequence Play_FadeIn(float _DurTime)
+    public Sequence Play_FadeIn(float _DurTime) // ¾îµÎ¿öÁü
     {
         Sequence seq = DOTween.Sequence();
+
+        ScreenCanvas.gameObject.SetActive(true);
 
         seq.Append(ScreenCG.DOFade(1f, _DurTime));
         seq.Append(PlayerHUD_UIController.ThisCG.DOFade(0f, _DurTime));
 
         seq.OnStart(() =>
-            {
-                ScreenCanvas.gameObject.SetActive(true);
-                ScreenCG.alpha = 0f;
-            })
-            .OnComplete(() =>
-            {
-                PlayerHUD_UIController.gameObject.SetActive(false);
-            });
+        {
+            ScreenCG.alpha = 0f;
+            PlayerHUD_UIController.ThisCG.alpha = 1f;
+        })
+        .OnComplete(() =>
+        {
+
+        });
 
         return seq;
     }

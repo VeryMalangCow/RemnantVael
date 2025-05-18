@@ -8,7 +8,11 @@ public class StartingElevatorController : ElevatorController
         base.Tween_Start();
 
         // Stage
+        EventManager.Instance.Set_BlackUpDownCover(true);
         PlayerManager.Instance.PlayerController.Set_PastStartStage();
+
+        // Screen
+        MainGameUIManager.Instance.Play_FadeOut(3f);
     }
 
     protected override void Tween_Complete()
@@ -23,6 +27,9 @@ public class StartingElevatorController : ElevatorController
 
         // Screen
         EventManager.Instance.Set_BlackUpDownCover(false);
+
+        // Intetactable Anno Panel
+        MainGameUIManager.Instance.InteractAnno_UIController.Set_VisualCG(true);
     }
 
     #endregion
@@ -33,7 +40,6 @@ public class StartingElevatorController : ElevatorController
     {
         base.Offset();
 
-        EventManager.Instance.Set_BlackUpDownCover(true);
         Play_MoveToTarget();
     }
 
