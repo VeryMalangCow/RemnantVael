@@ -9,6 +9,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] public Camera UICamera;
     [SerializeField] public Transform UIParent;
     [SerializeField] private Canvas ScreenCanvas;
+    [SerializeField] private Canvas LoadingIconCanvas;
 
     [Header("=== Screen")]
     [SerializeField] public float FadeOutTime = 3f;
@@ -40,7 +41,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [HideInInspector] public UIController CurrentOpening_UIController;
 
     [HideInInspector] private CanvasGroup ScreenCG;
-
+    [HideInInspector] private CanvasGroup LoadingIconCG;
+    [HideInInspector] private RectTransform LoadingIconRT;
+    [HideInInspector] private Tween CogwheelTween = null;
     #endregion
 
     #region Offset
@@ -48,6 +51,13 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     private void Offset()
     {
         ScreenCG = DevTool.Get_ComponentTType(ScreenCanvas.gameObject, out CanvasGroup cg) ? cg : null;
+        LoadingIconCG = DevTool.Get_ComponentTType(LoadingIconCanvas.gameObject, out CanvasGroup iconCg) ? iconCg : null;
+        LoadingIconRT = DevTool.Get_ComponentTType(LoadingIconCanvas.gameObject.transform.GetChild(0).gameObject, out RectTransform iconRt) ? iconRt : null;
+
+        CogwheelTween = LoadingIconRT
+            .DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
+            .SetEase(Ease.Linear)
+            .SetLoops(-1, LoopType.Restart);
 
         PlayerHUD_UIController
             = Gen_UI<PlayerHUDController>(PlayerHUD_CanvasPrefab, true);
@@ -81,6 +91,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         Sequence startSeq = DOTween.Sequence();
 
         Play_FadeOut(FadeOutTime);
+        Play_OffLoadingIcon(FadeOutTime);
     }
 
     #endregion
@@ -131,7 +142,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     #endregion
 
-    #region FirstStart
+    #region Fade
 
     public Sequence Play_FadeOut(float _DurTime) // 밝아짐
     {
@@ -173,6 +184,52 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         .OnComplete(() =>
         {
 
+        });
+
+        return seq;
+    }
+
+    #endregion
+
+    #region Loading
+
+    public Sequence Play_OnLoadingIcon(float _DurTime) // 나타나기
+    {
+        Sequence seq = DOTween.Sequence();
+
+        LoadingIconCanvas.gameObject.SetActive(true);
+
+        seq.Append(LoadingIconCG.DOFade(1f, _DurTime));
+
+        seq.OnStart(() =>
+        {
+            CogwheelTween.Play();
+            LoadingIconCG.alpha = 0f;
+        })
+        .OnComplete(() =>
+        {
+
+        });
+
+        return seq;
+    }
+
+    public Sequence Play_OffLoadingIcon(float _DurTime) // 사라지기
+    {
+        Sequence seq = DOTween.Sequence();
+
+        LoadingIconCanvas.gameObject.SetActive(true);
+
+        seq.Append(LoadingIconCG.DOFade(0f, _DurTime));
+
+        seq.OnStart(() =>
+        {
+            LoadingIconCG.alpha = 1f;
+        })
+        .OnComplete(() =>
+        {
+            CogwheelTween.Pause();
+            LoadingIconCanvas.gameObject.SetActive(false);
         });
 
         return seq;

@@ -13,6 +13,7 @@ public class StartingElevatorController : ElevatorController
 
         // Screen
         MainGameUIManager.Instance.Play_FadeOut(3f);
+        MainGameUIManager.Instance.Play_OffLoadingIcon(3f);
     }
 
     protected override void Tween_Complete()

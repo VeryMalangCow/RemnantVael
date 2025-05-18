@@ -142,7 +142,6 @@ public class StageManager : Singleton<StageManager>
     // 스테이지 생성
     public void Gen_Stage(int _StageID)
     {
-        TargetStageID = _StageID;
         StageData stageData = Get_CollectStageData(_StageID);
 
         // 전에 있는 데이터를 제거
@@ -1074,6 +1073,23 @@ public class StageManager : Singleton<StageManager>
 
         PlayerManager.Instance.PlayerController.Set_StartStage();
         EventManager.Instance.Set_Input(true);
+    }
+
+    #endregion
+
+    #region Play (Spawn another Stage)
+
+    public void Play_GenStage(int _StageID)
+    {
+        TargetStageID = _StageID;
+        StartCoroutine(Play_GenStage_Cor());
+    }
+
+    private IEnumerator Play_GenStage_Cor()
+    {
+        yield return new WaitForSeconds(1f);
+
+        Gen_Stage(TargetStageID);
     }
 
     #endregion

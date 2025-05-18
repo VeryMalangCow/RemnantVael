@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EndingElevatorController : ElevatorController, IInteract
@@ -36,6 +37,7 @@ public class EndingElevatorController : ElevatorController, IInteract
 
         // Screen
         MainGameUIManager.Instance.Play_FadeIn(3f);
+        MainGameUIManager.Instance.Play_OnLoadingIcon(3f);
         EventManager.Instance.Set_BlackUpDownCover(true);
 
         ThisSR.sortingOrder = 3000;
@@ -48,8 +50,13 @@ public class EndingElevatorController : ElevatorController, IInteract
     {
         base.Tween_Complete();
 
-        StageManager.Instance.Gen_Stage(NextStageIndex);
+        StageManager.Instance.Play_GenStage(NextStageIndex);
     }
+
+    #endregion
+
+    #region Play
+
 
     #endregion
 

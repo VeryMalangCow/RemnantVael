@@ -1755,6 +1755,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Cogwheel
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 33
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f34891a21ce3ff44786cc4697327431a
+      internalID: -707146146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1772,6 +1793,7 @@ TextureImporter:
       ModuleUI_BLC_RollRIght: 1122076015
       ModuleUI_Back: 486028521
       ModuleUI_Btn_00: 1661286057
+      ModuleUI_Cogwheel: -707146146
       ModuleUI_DialogueCharBG: 1737750721
       ModuleUI_DialogueCharFrame: -151358749
       ModuleUI_Dialogue_Field_00: -1927236403
