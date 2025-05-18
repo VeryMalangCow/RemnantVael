@@ -31,6 +31,14 @@ public class StageManager : Singleton<StageManager>
     [Header("-- Room")]
     [SerializeField] private GameObject LobbyRoomRulePrefab;
     [SerializeField] private GameObject StartRoomRulePrefab;
+
+    [Space(3)]
+    [Header("* Small Room")]
+    [SerializeField] private List<GameObject> SRoomPrefabList;
+    [SerializeField] private GameObject LobbyEntranceRoomRulePrefab;
+
+    [Space(3)]
+    [Header("* Normal Room")]
     [SerializeField] private List<GameObject> RoomPrefabList;
     [SerializeField] private List<GameObject> RoomRulePrefabList;
     [SerializeField] private List<GameObject> RoomRuleEntrancePrefabList;
@@ -70,6 +78,7 @@ public class StageManager : Singleton<StageManager>
     [Space(10)]
     [Header("=== Current")]
     [SerializeField] private List<RoomController> CurrentAllRoomController = new List<RoomController>();
+    [SerializeField] private List<EntranceRuleController> CurrentAllEntranceRoomController = new List<EntranceRuleController>();
     [SerializeField] public RoomController CurrentRoomController;
 
     #region - Hide
@@ -141,69 +150,24 @@ public class StageManager : Singleton<StageManager>
 
         CurrentStageData = stageData;
 
-        int TempID = 0;
 
         // 처음 방
         if (stageData.InfoData.StageID == 99) // 로비 시작 방
         {
-            Gen_LobbyRoom(RoomPrefabList[0], TempID);
-            TempID++;
+            Gen_LobbyStage();
         }
         else // 전투 스테이지 시작 방
         {
-            Gen_StartRoom(RoomPrefabList[0], TempID);
-            TempID++;
-        }
-
-        // 생성할 Room의 양을 계산에 1중 리스트로 변경 => 이들을 섞음
-        ShuffledRoomIndexList = DevTool.Get_ShuffledList(
-            Get_ListInt_FromGenRoomAmount(stageData.RoomData.RoomAmount));
-
-        // 기본 방 생성
-        for (int i = 0; i < ShuffledRoomIndexList.Count; i++)
-        {
-            Gen_NormalRoom(RoomPrefabList[ShuffledRoomIndexList[i]], TempID);
-            TempID++;
-        }
-
-        // 통과 방 생성
-        for (int i = 0; i < stageData.RoomData.EntranceRoom.Count; i++)
-        {
-            Gen_EntranceRoom(stageData.RoomData.EntranceRoom[i], TempID);
-            TempID++;
-        }
-
-        // 금고 방 생성
-        for (int i = 0; i < stageData.RoomData.VaultRoom.Count; i++)
-        {
-            Gen_VaultRoom(stageData.RoomData.VaultRoom[i], TempID);
-            TempID++;
-        }
-
-        // 상점 방 생성
-        for (int i = 0; i < stageData.RoomData.ShopRoom.Count; i++)
-        {
-            Gen_ShopRoom(stageData.RoomData.ShopRoom[i], TempID);
-            TempID++;
-        }
-
-        // 감옥 방 생성
-        for (int i = 0; i < stageData.RoomData.PrisonRoom.Count; i++)
-        {
-            Gen_PrisonRoom(stageData.RoomData.PrisonRoom[i], TempID);
-            TempID++;
+            Gen_CombatStage(stageData);
         }
 
         // 게이트 활성화
-        Set_ParterAllGate();
-        List<GateController> allGate = Get_AllGate(CurrentAllRoomController);
-        for (int i = 0; i < allGate.Count; i++)
-            if (allGate[i].ParterGate != null) 
-                allGate[i].Set_ExistDoorState(true);
-            else 
-                allGate[i].Set_ExistDoorState(false);
-        
+        Set_GateActiveOn();
 
+        // Entrance 활성화
+        Set_EntranceIndex(TargetStageID);
+
+        // UI 셋
         Set_StartUI(stageData);
 
         // 적 객체 오브젝트 풀링 시스템 세팅하기
@@ -218,23 +182,82 @@ public class StageManager : Singleton<StageManager>
             StartCoroutine(Play_LobbyStart_Cor(MainGameUIManager.Instance.FadeOutTime));
     }
 
-    #endregion
-
-    #region Play (Lobby)
-
-    private IEnumerator Play_LobbyStart_Cor(float _DelayTime)
+    private void Set_EntranceIndex(int _CurrentIndex)
     {
-        Debug.Log("시작");
-        yield return new WaitForSeconds(_DelayTime);
+        List<int> indexList = ResourceManager.Instance.Get_CorrectIndexList(_CurrentIndex);
 
-        Debug.Log("셋");
-        PlayerManager.Instance.PlayerController.Set_StartStage();
-        EventManager.Instance.Set_Input(true);
+        if (indexList.Count > 1)
+            indexList = DevTool.Get_ShuffledList(indexList);
+        
+        for (int i = 0; i < indexList.Count; i++)
+            CurrentAllEntranceRoomController[i].Set_ElevatorData(indexList[i]);
+    }
+
+    // Lobby 스테이지 생성
+    private void Gen_LobbyStage()
+    {
+        int TempID = 0;
+
+        Gen_LobbyRoom(RoomPrefabList[0], TempID);
+        TempID++;
+
+        Gen_LobbyEntranceRoom(TempID, new List<Vector2Int> { Vector2Int.up });
+        TempID++;
+    }
+
+    // Combat 스테이지 생성
+    private void Gen_CombatStage(StageData _StageData)
+    {
+        int TempID = 0;
+
+        Gen_StartRoom(RoomPrefabList[0], TempID);
+        TempID++;
+
+        // 생성할 Room의 양을 계산에 1중 리스트로 변경 => 이들을 섞음
+        ShuffledRoomIndexList = DevTool.Get_ShuffledList(
+            Get_ListInt_FromGenRoomAmount(_StageData.RoomData.RoomAmount));
+
+        // 기본 방 생성
+        for (int i = 0; i < ShuffledRoomIndexList.Count; i++)
+        {
+            Gen_NormalRoom(RoomPrefabList[ShuffledRoomIndexList[i]], TempID);
+            TempID++;
+        }
+
+        // 통과 방 생성
+        for (int i = 0; i < _StageData.RoomData.EntranceRoom.Count; i++)
+        {
+            Gen_EntranceRoom(_StageData.RoomData.EntranceRoom[i], TempID);
+            TempID++;
+        }
+
+        // 금고 방 생성
+        for (int i = 0; i < _StageData.RoomData.VaultRoom.Count; i++)
+        {
+            Gen_VaultRoom(_StageData.RoomData.VaultRoom[i], TempID);
+            TempID++;
+        }
+
+        // 상점 방 생성
+        for (int i = 0; i < _StageData.RoomData.ShopRoom.Count; i++)
+        {
+            Gen_ShopRoom(_StageData.RoomData.ShopRoom[i], TempID);
+            TempID++;
+        }
+
+        // 감옥 방 생성
+        for (int i = 0; i < _StageData.RoomData.PrisonRoom.Count; i++)
+        {
+            Gen_PrisonRoom(_StageData.RoomData.PrisonRoom[i], TempID);
+            TempID++;
+        }
     }
 
     #endregion
 
     #region Room
+
+    #region Start
 
     // 로비 방 생성
     private void Gen_LobbyRoom(GameObject _Prefab, int _TempID)
@@ -266,6 +289,10 @@ public class StageManager : Singleton<StageManager>
         }
     }
 
+    #endregion
+
+    #region Normal
+
     // 기본 방 생성
     private void Gen_NormalRoom(GameObject _Prefab, int _TempID)
     {
@@ -279,8 +306,11 @@ public class StageManager : Singleton<StageManager>
             room.Offset(_TempID);
             Set_NormalRelativeVec(room, _ConnectedRoomAmount: -1, _ApplySpecialExist: false);
         }
-            
     }
+
+    #endregion
+
+    #region Entrance
 
     // 통과 방 하나 생성
     private void Gen_EntranceRoom(GenSpecialRoomData _EntranceRoomData, int _TempID)
@@ -290,12 +320,37 @@ public class StageManager : Singleton<StageManager>
             CurrentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(RoomRuleEntrancePrefabList[_EntranceRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule; 
+                room.RoomRuleController = roomRule;
+
+            EntranceRuleController entranceRule = DevTool.Get_CastingTType<EntranceRuleController>(roomRule);
+            CurrentAllEntranceRoomController.Add(entranceRule);
 
             room.Offset(_TempID);
             Set_FurthestRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
         }
     }
+
+    // 로비 통과 방 하나 생성
+    private void Gen_LobbyEntranceRoom(int _TempID, List<Vector2Int> _RelativePos)
+    {
+        if (DevTool.Get_ComponentTType(Instantiate(SRoomPrefabList[0], MapParentTF), out RoomController room))
+        {
+            CurrentAllRoomController.Add(room);
+
+            if (DevTool.Get_ComponentTType(Instantiate(LobbyEntranceRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
+                room.RoomRuleController = roomRule;
+
+            EntranceRuleController entranceRule = DevTool.Get_CastingTType<EntranceRuleController>(roomRule);
+            CurrentAllEntranceRoomController.Add(entranceRule);
+
+            room.Offset(_TempID);
+            Set_NormalRelativeVec(room, _RelativePos);
+        }
+    }
+
+    #endregion
+
+    #region Vault
 
     // 금고 방 하나 생성
     private void Gen_VaultRoom(GenSpecialRoomData _VaultRoomData, int _TempID)
@@ -338,7 +393,11 @@ public class StageManager : Singleton<StageManager>
             Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
         }
     }
-    
+
+    #endregion
+
+    #region Shop
+
     // 상점 방 하나 생성
     private void Gen_ShopRoom(GenSpecialRoomData _ShopRoomData, int _TempID)
     {
@@ -380,6 +439,10 @@ public class StageManager : Singleton<StageManager>
         }
     }
 
+    #endregion
+
+    #region Prison
+
     // 감옥 방 하나 생성
     private void Gen_PrisonRoom(GenPrisonRoomData _PrisonRoomData, int _TempID)
     {
@@ -413,6 +476,8 @@ public class StageManager : Singleton<StageManager>
             Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
         }
     }
+
+    #endregion
 
     #endregion
 
@@ -555,6 +620,19 @@ public class StageManager : Singleton<StageManager>
         }
     }
 
+
+    // 현재 게이트 모두 활성화
+    private void Set_GateActiveOn()
+    {
+        Set_ParterAllGate();
+        List<GateController> allGate = Get_AllGate(CurrentAllRoomController);
+        for (int i = 0; i < allGate.Count; i++)
+            if (allGate[i].ParterGate != null)
+                allGate[i].Set_ExistDoorState(true);
+            else
+                allGate[i].Set_ExistDoorState(false);
+    }
+
     #endregion
 
     #region Round
@@ -570,6 +648,15 @@ public class StageManager : Singleton<StageManager>
     #endregion
 
     #region Relative
+
+    // 월드 기준: 상대적인 좌표 직접 지정
+    private void Set_NormalRelativeVec(RoomController _Room, List<Vector2Int> _RelativePos)
+    {
+        Set_RelativeVec(_Room, _RelativePos);
+
+        Set_RoomPos(_Room);
+        Add_RoundVec(_Room.RoomVec);
+    }
 
     // 월드 기준: 상대적인 좌표 삽입
     private void Set_NormalRelativeVec(RoomController _Room, int _ConnectedRoomAmount = -1, bool _ApplySpecialExist = false)
@@ -948,6 +1035,18 @@ public class StageManager : Singleton<StageManager>
     }
 
     #endregion
+
+    #endregion
+
+    #region Play (Lobby)
+
+    private IEnumerator Play_LobbyStart_Cor(float _DelayTime)
+    {
+        yield return new WaitForSeconds(_DelayTime);
+
+        PlayerManager.Instance.PlayerController.Set_StartStage();
+        EventManager.Instance.Set_Input(true);
+    }
 
     #endregion
 

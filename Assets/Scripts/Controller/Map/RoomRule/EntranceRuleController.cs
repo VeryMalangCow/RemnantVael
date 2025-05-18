@@ -31,5 +31,10 @@ public class EntranceRuleController : RoomRuleController
         }
     }
 
+    public void Set_ElevatorData(int _NextStageIndex)
+    {
+        InRoom_Elevator.Set_Data(_NextStageIndex);
+    }
+
     #endregion
 }

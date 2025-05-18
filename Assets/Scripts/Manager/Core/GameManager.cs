@@ -3103,8 +3103,8 @@ public class StageData
     public List<Material> MapMaterialClear;
     public List<StageDoorAnim> MapDoorAnim;
 
-    [SerializeField] public List<Sprite> AllMapSprite;
-    [SerializeField] public StageMapSprite MapSpriteReso;
+    [HideInInspector] public List<Sprite> AllMapSprite;
+    [HideInInspector] public StageMapSprite MapSpriteReso;
     
     public void Offset(List<Sprite> _AllSprite, List<int> _MaterialIndexList)
     {
@@ -3175,6 +3175,23 @@ public class StageEnemy
 }
 
 #endregion
+
+#region Class : Stage : NextIndex
+
+[System.Serializable]
+public class MapNextIndex
+{
+    public int PastIndex;
+    public List<int> NextIndexList;
+
+    public MapNextIndex(int _PastIndex, int _NextIndex)
+    {
+        PastIndex = _PastIndex;
+        NextIndexList = new List<int> { _NextIndex };
+    }
+}
+
+#endregion  
 
 
 #region Class : AllyUpgrade

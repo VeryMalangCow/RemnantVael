@@ -38,6 +38,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private List<AllyCardBaseData> UplinkTeam_AllyCard_Data;
     [HideInInspector] private List<AllyCardBaseData> NeoTeam_AllyCard_Data;
 
+    // 맵 다음 통과 인덱스
+    [SerializeField] private List<MapNextIndex> MapNextIndex_Data;
+
     // 워드
     // 스태틱
     [HideInInspector] private WordData StaticWord_Data;
@@ -128,6 +131,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             "AllyCard_UplinkTeam_CSV"); 
         NeoTeam_AllyCard_Data = Offset_AllyCard(allyCardPath,
             "AllyCard_NeoTeam_CSV");
+
+        // MapNextIndexList
+        string mapPath = "CSV/Map/";
+        MapNextIndex_Data = Offset_MapNextIndex(mapPath,
+            "MapEntranceIndexCSV");
+        
+
         // Word
         // Static
         string wordPath = "CSV/Word/";
@@ -647,6 +657,63 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return AllyCardIcon_Data[_Type];
     }
 
+    #endregion
+
+    #region To MapNextIndex
+
+    private bool Is_ExistMapIndex(List<MapNextIndex> _AllMapNextIndex, int _PastIndex, out MapNextIndex _MapNextIndex)
+    {
+        _MapNextIndex = null;
+        for (int i = 0; i < _AllMapNextIndex.Count; i++)
+        {
+            if (_AllMapNextIndex[i].PastIndex == _PastIndex)
+            {
+                _MapNextIndex = _AllMapNextIndex[i];
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<MapNextIndex> Offset_MapNextIndex(string _Path, string _FileName)
+    {
+        List<MapNextIndex> result = new List<MapNextIndex>();
+
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Count; i++)
+        {
+            if (stringList[i][0] == "")
+            { break; }
+
+            int pastIndex = int.Parse(stringList[i][0]);
+            int nextIndex = int.Parse(stringList[i][1]);
+
+            if (Is_ExistMapIndex(result, pastIndex, out MapNextIndex mapNextIndex)) // 이미 존재한다면
+            {
+                mapNextIndex.NextIndexList.Add(nextIndex);
+            }
+            else // 존재하지 않는다면
+            {
+                result.Add(new MapNextIndex(pastIndex, nextIndex));
+            }
+        }
+
+        return result;
+    }
+
+    public List<int> Get_CorrectIndexList(int _PastIndex)
+    {
+        for (int i = 0; i < MapNextIndex_Data.Count; i++)
+        {
+            if (MapNextIndex_Data[i].PastIndex == _PastIndex)
+            {
+                return MapNextIndex_Data[i].NextIndexList;
+            }
+        }
+
+        return null;
+    }
     #endregion
 
     #region To Word | Desc

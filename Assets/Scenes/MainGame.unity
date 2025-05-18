@@ -2893,6 +2893,8 @@ MonoBehaviour:
       EntranceRoom:
       - ID: 0
         RuleID: 0
+      - ID: 0
+        RuleID: 0
       VaultRoom:
       - ID: 0
         RuleID: 0
@@ -2936,8 +2938,11 @@ MonoBehaviour:
     AllMapSprite: []
   LobbyRoomRulePrefab: {fileID: 8671702513593221327, guid: 06718ff1f5b5f8e45bf2c005ca16fe14, type: 3}
   StartRoomRulePrefab: {fileID: 8671702513593221327, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
-  RoomPrefabList:
+  SRoomPrefabList:
   - {fileID: 8671702513593221327, guid: 4d637ae9ae2428743aef33630261c2ef, type: 3}
+  LobbyEntranceRoomRulePrefab: {fileID: 5785230773307874308, guid: 27c09aa286b5b9a4ca5323e92d94cf02, type: 3}
+  RoomPrefabList:
+  - {fileID: 8671702513593221327, guid: 3c54d8342469add46b6d029c394101a8, type: 3}
   - {fileID: 8671702513593221327, guid: 7e00fb37e72c2bd4382f11b048268c19, type: 3}
   - {fileID: 8671702513593221327, guid: d39952447f1100a46ae4d4779dd9302b, type: 3}
   - {fileID: 8671702513593221327, guid: a2b44feb0e6af09479d14743db3f8de0, type: 3}
@@ -3104,6 +3109,7 @@ MonoBehaviour:
     SpritePivot: {x: 0.25, y: 0.25}
   OffsetRoomSize: {x: 22, y: 14}
   CurrentAllRoomController: []
+  CurrentAllEntranceRoomController: []
   CurrentRoomController: {fileID: 0}
   IsStartStage: 1
 --- !u!1 &724611502
@@ -3572,6 +3578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01426f0a7d6066d4bbf9160f1f16a237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MapNextIndex_Data: []
   MapLobbyImg_Data: []
   MapLobbyMaterialIndexList_Data: 
 --- !u!4 &830584170
