@@ -7,6 +7,8 @@ public class MinimapEUIController : ElementUIController
 {
     #region Value
 
+    #region - Inspector
+
     [Space(10)]
     [Header("=== Prefab")]
     [SerializeField] private GameObject MinimapElement;
@@ -38,6 +40,13 @@ public class MinimapEUIController : ElementUIController
     [SerializeField] private RectTransform InteractablePoint;
     [SerializeField] private RectTransform InteractingPoint;
 
+    #endregion
+
+    #region - Hide
+
+    // Data
+    [HideInInspector] public List<MinimapCellEUIController> AllMMCEUI = new List<MinimapCellEUIController>();
+
     // CG
     [HideInInspector] private CanvasGroup NormalCG;
     [HideInInspector] private CanvasGroup InteractableCG;
@@ -47,7 +56,9 @@ public class MinimapEUIController : ElementUIController
     [HideInInspector] private RoomController MinimapSelectedElementRC;
 
     [HideInInspector] private bool CanInteractable = false;
-    Sequence TabSeq;
+    [HideInInspector] private Sequence TabSeq;
+
+    #endregion
 
     #endregion
 
@@ -99,10 +110,28 @@ public class MinimapEUIController : ElementUIController
     {
         if (DevTool.Get_ComponentTType(Instantiate(MinimapElement, _ParentTF), out MinimapCellEUIController mmc))
         {
+            AllMMCEUI.Add(mmc);
             mmc.gameObject.SetActive(false);
             mmc.Offset();
             mmc.Offset(_ConnetedRoom, _IsNormal);
         }
+    }
+
+    #endregion
+
+    #region Remove
+
+
+    public void Remove_AllMinimapCell()
+    {
+        int amount = AllMMCEUI.Count;
+        for (int i = amount - 1; i >= 0; i--)
+        {
+            Destroy(AllMMCEUI[i].gameObject);
+            AllMMCEUI.RemoveAt(i);
+        }
+
+        AllMMCEUI.Clear();
     }
 
     #endregion

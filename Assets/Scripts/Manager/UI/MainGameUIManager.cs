@@ -151,7 +151,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         ScreenCanvas.gameObject.SetActive(true);
 
         seq.Append(ScreenCG.DOFade(0f, _DurTime));
-        seq.Append(PlayerHUD_UIController.ThisCG.DOFade(1f, _DurTime));
+        seq.Join(PlayerHUD_UIController.ThisCG.DOFade(1f, _DurTime));
 
         seq.OnStart(() =>
         {
@@ -174,7 +174,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         ScreenCanvas.gameObject.SetActive(true);
 
         seq.Append(ScreenCG.DOFade(1f, _DurTime));
-        seq.Append(PlayerHUD_UIController.ThisCG.DOFade(0f, _DurTime));
+        seq.Join(PlayerHUD_UIController.ThisCG.DOFade(0f, _DurTime));
 
         seq.OnStart(() =>
         {

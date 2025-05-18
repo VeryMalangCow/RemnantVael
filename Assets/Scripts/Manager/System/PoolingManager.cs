@@ -72,6 +72,7 @@ public class PoolingManager : Singleton<PoolingManager>
         EnemyAttackers.Queue.Clear();
         for (int i = 0; i < CurrentStageEnemies.Count; i++)
             CurrentStageEnemies[i].Queue.Clear();
+        EnemyManager.Instance.Remove_PoolingAllEnemy();
 
         AfterImgs.Queue.Clear();
         ExplosionImgs.Queue.Clear();

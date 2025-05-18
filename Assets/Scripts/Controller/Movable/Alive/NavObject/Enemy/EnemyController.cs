@@ -93,6 +93,8 @@ public class EnemyController : NavObjectController
         Offset_FirstSetting();
         Offset_Subscribe();
         Offset_Controller();
+
+        EnemyManager.Instance.PoolingAllEnemyList.Add(this);
     }
 
     private void Offset_FirstSetting()
@@ -158,6 +160,7 @@ public class EnemyController : NavObjectController
     #endregion
 
     #region Framework
+
 
     protected override void OnEnable()
     {

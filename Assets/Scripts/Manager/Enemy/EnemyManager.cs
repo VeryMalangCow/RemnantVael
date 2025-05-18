@@ -5,6 +5,8 @@ public class EnemyManager : Singleton<EnemyManager>
 {
     #region Value
 
+    #region - Inspector
+
     [Space(10)]
     [Header("=== Materal")]
     [SerializeField] public Material EnemySmokeMaterial;
@@ -32,8 +34,15 @@ public class EnemyManager : Singleton<EnemyManager>
     [SerializeField] public AnimationClip HittedAC_1;
     [SerializeField] public AnimationClip HittedAC_2;
 
+    #endregion
+
+    #region - Hide
+
     // Current
     [HideInInspector] public List<EnemyController> CurrentEnemyList = new List<EnemyController>();
+    [HideInInspector] public List<EnemyController> PoolingAllEnemyList = new List<EnemyController>();
+
+    #endregion
 
     #endregion
 
@@ -94,6 +103,22 @@ public class EnemyManager : Singleton<EnemyManager>
     }
 
 
+
+    #endregion
+
+    #region Remove (AllEnemy)
+
+    public void Remove_PoolingAllEnemy()
+    {
+        int amount = PoolingAllEnemyList.Count;
+        for (int i = amount - 1; i >= 0; i--)
+        {
+            Destroy(PoolingAllEnemyList[i].gameObject);
+            PoolingAllEnemyList.RemoveAt(i);
+        }
+
+        PoolingAllEnemyList.Clear();
+    }
 
     #endregion
 }

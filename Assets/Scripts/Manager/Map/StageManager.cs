@@ -505,6 +505,8 @@ public class StageManager : Singleton<StageManager>
         CurrentRoomController = null;
 
         PoolingManager.Instance.Remove_AllQueue();
+
+        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Remove_AllMinimapCell();
     }
 
 
