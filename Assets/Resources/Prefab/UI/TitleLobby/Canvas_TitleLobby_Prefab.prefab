@@ -143,7 +143,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2462828982379747491}
-  - component: {fileID: 8827851892449804310}
   - component: {fileID: 8941357653355300680}
   m_Layer: 5
   m_Name: IntroPanel
@@ -173,18 +172,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!210 &8827851892449804310
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3440491010980537211}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
 --- !u!225 &8941357653355300680
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -249,16 +236,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c53c6ffe3311c42adb7ac3338c1922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelInputMapName: TitleUI
   CurrentBtn: {fileID: 0}
-  MainColorCompList: []
-  SubColorCompList: []
-  ThisPanelTabList: []
   BtnsRT: {fileID: 3820758631702085338}
   BGCG: {fileID: 8941357653355300680}
-  StartBtn: {fileID: 1845628432699096047}
-  OptionBtn: {fileID: 745578176873184402}
-  QuitBtn: {fileID: 3334797918720405421}
+  StartBtn: {fileID: 272147085251828283}
+  OptionBtn: {fileID: 51782969715762994}
+  QuitBtn: {fileID: 2216882043768022424}
   DurTime: 0.2
 --- !u!223 &6289730002180684578
 Canvas:
@@ -269,7 +252,7 @@ Canvas:
   m_GameObject: {fileID: 3736498433971572629}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -335,7 +318,7 @@ GameObject:
   - component: {fileID: 3008465643037700925}
   - component: {fileID: 4250980506395737913}
   - component: {fileID: 6811477577591802226}
-  - component: {fileID: 745578176873184402}
+  - component: {fileID: 51782969715762994}
   m_Layer: 5
   m_Name: OptionBtn
   m_TagString: Untagged
@@ -445,7 +428,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &745578176873184402
+--- !u!114 &51782969715762994
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -454,7 +437,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4688158266326376147}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c4eed149a8af314995d83a4ebc2b47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsCanSelect: 1
@@ -779,7 +762,7 @@ GameObject:
   - component: {fileID: 2441778677941992444}
   - component: {fileID: 7257585385139805916}
   - component: {fileID: 3315126287364635372}
-  - component: {fileID: 1845628432699096047}
+  - component: {fileID: 272147085251828283}
   m_Layer: 5
   m_Name: StartBtn
   m_TagString: Untagged
@@ -889,7 +872,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1845628432699096047
+--- !u!114 &272147085251828283
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -898,7 +881,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7454982625726709805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c4eed149a8af314995d83a4ebc2b47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsCanSelect: 1
@@ -917,7 +900,7 @@ GameObject:
   - component: {fileID: 6984469802502571144}
   - component: {fileID: 4400458199561582956}
   - component: {fileID: 8584762468296820243}
-  - component: {fileID: 3334797918720405421}
+  - component: {fileID: 2216882043768022424}
   m_Layer: 5
   m_Name: QuitBtn
   m_TagString: Untagged
@@ -1027,7 +1010,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3334797918720405421
+--- !u!114 &2216882043768022424
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1036,7 +1019,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8833952586824666876}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c4eed149a8af314995d83a4ebc2b47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsCanSelect: 1
@@ -1101,14 +1084,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1664204694, guid: 3c9bb1ed23e2e074592a2a7733c09307, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

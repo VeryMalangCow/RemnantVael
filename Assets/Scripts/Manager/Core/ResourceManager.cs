@@ -39,7 +39,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private List<AllyCardBaseData> NeoTeam_AllyCard_Data;
 
     // ¸Ê ´ÙÀ½ Åë°ú ÀÎµ¦½º
-    [SerializeField] private List<MapNextIndex> MapNextIndex_Data;
+    [HideInInspector] private List<MapNextIndex> MapNextIndex_Data;
 
     // ¿öµå
     // ½ºÅÂÆ½
@@ -972,16 +972,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         int index = System.Array.IndexOf(directionOrder, dir);
         return index >= 0 ? index : int.MaxValue;
-    }
-
-    #endregion
-
-    #region Clear
-
-    public void Clear_MapImgMaterial()
-    {
-        MapImgList_Data.Clear();
-        MapMaterialIndexList_Data.Clear();
     }
 
     #endregion

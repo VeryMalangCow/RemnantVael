@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class TitleLobbyUIController : PanelUIController
+public class TitleLobbyUIController : TitleSinglePanelUIController
 {
     #region Value
 
@@ -15,9 +15,9 @@ public class TitleLobbyUIController : PanelUIController
 
     [Space(10)]
     [Header("=== Btns")]
-    [SerializeField] private OwnBtnEUIController StartBtn;
-    [SerializeField] private OwnBtnEUIController OptionBtn;
-    [SerializeField] private OwnBtnEUIController QuitBtn;
+    [SerializeField] private TitleOwnBtnEUIController StartBtn;
+    [SerializeField] private TitleOwnBtnEUIController OptionBtn;
+    [SerializeField] private TitleOwnBtnEUIController QuitBtn;
 
     [Space(10)]
     [Header("=== Value")]
@@ -55,16 +55,23 @@ public class TitleLobbyUIController : PanelUIController
 
     public void Try_Interact()
     {
+/*
         if (CurrentBtn == null)
         { return; }
 
         if (CurrentBtn == StartBtn)
-        { SetOff_ThisPanel(); }
+        {
+            Debug.Log("시작");
+        }
         else if (CurrentBtn == OptionBtn)
-        { Debug.Log("옵션 창 키기"); }
+        { 
+            Debug.Log("옵션 창 키기");
+        }
         else if (CurrentBtn == QuitBtn)
-        { Application.Quit(); }
-
+        { 
+            Application.Quit(); 
+        }
+*/
 
     }
 
@@ -72,10 +79,8 @@ public class TitleLobbyUIController : PanelUIController
 
     #region Set Panel
 
-    public override void SetOn_ThisPanel()
+    public void SetOn_ThisPanel()
     {
-        //base.OpenThisPanel();
-
         if (DOTween.IsTweening("TitleUIPanel"))
         { return; }
 
@@ -88,7 +93,7 @@ public class TitleLobbyUIController : PanelUIController
         seq.SetId("TitleUIPanel");
     }
 
-    public override void SetOff_ThisPanel()
+    public void SetOff_ThisPanel()
     {
         //base.CloseThisPanel();
 

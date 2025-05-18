@@ -117,8 +117,6 @@ public class StageManager : Singleton<StageManager>
         {
             AllStageData[i].Offset(ResourceManager.Instance.Get_StageMapSpriteList(i), ResourceManager.Instance.Get_StageMapMaterialList(i));
         }
-
-        ResourceManager.Instance.Clear_MapImgMaterial();
     }
 
     #endregion

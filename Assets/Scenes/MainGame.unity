@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 73963933}
   - component: {fileID: 73963932}
   m_Layer: 0
-  m_Name: '#EventManager'
+  m_Name: EventManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,7 +262,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1800685855}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 195290732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &77619665
 GameObject:
@@ -676,6 +676,7 @@ Transform:
   - {fileID: 1430576402}
   - {fileID: 355347629}
   - {fileID: 1603310160}
+  - {fileID: 73963933}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &348206598
@@ -7597,7 +7598,6 @@ SceneRoots:
   - {fileID: 830584170}
   - {fileID: 1848101746}
   - {fileID: 1249327150}
-  - {fileID: 73963933}
   - {fileID: 195290732}
   - {fileID: 2118929033}
   - {fileID: 1637586521}

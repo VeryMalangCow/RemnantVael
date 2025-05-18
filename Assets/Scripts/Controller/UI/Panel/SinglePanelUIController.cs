@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,7 +35,7 @@ public class SinglePanelUIController : UIController
     public virtual void SetOn_ThisPanel()
     {
         // Basic
-        MainGameUIManager.Instance.CurrentOpening_UIController = this;
+        MainGameUIManager.CurrentOpening_UIController = this;
         this.gameObject.SetActive(true);
 
         // Aim & Mouse
@@ -55,7 +54,7 @@ public class SinglePanelUIController : UIController
     public virtual void SetOff_ThisPanel()
     {
         // Basic
-        MainGameUIManager.Instance.CurrentOpening_UIController = null;
+        MainGameUIManager.CurrentOpening_UIController = null;
         this.gameObject.SetActive(false);
 
         // Aim & Mouse

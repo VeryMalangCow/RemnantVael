@@ -38,7 +38,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [HideInInspector] public NumShapeColorPasswordUIController NumShapeColorPassword_UIController;
     [HideInInspector] public InOrderLockerUIController InOrderLocker_UIController;
 
-    [HideInInspector] public UIController CurrentOpening_UIController;
+    [HideInInspector] public static UIController CurrentOpening_UIController;
 
     [HideInInspector] private CanvasGroup ScreenCG;
     [HideInInspector] private CanvasGroup LoadingIconCG;
