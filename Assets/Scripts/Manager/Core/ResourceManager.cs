@@ -34,7 +34,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private List<ModuleBaseData> ModuleBaseList_Data;
 
     // 동료 카드
-    [HideInInspector] private List<AllyCardBaseData> StrikeTeam_AllyCard_Data;
+    [SerializeField] private List<AllyCardBaseData> StrikeTeam_AllyCard_Data;
     [HideInInspector] private List<AllyCardBaseData> UplinkTeam_AllyCard_Data;
     [HideInInspector] private List<AllyCardBaseData> NeoTeam_AllyCard_Data;
 
@@ -53,7 +53,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private WordData ModuleItemName_Data;
     [HideInInspector] private WordData MainChipName_Data;
     // 동료 카드 이름
-    [HideInInspector] private WordData StrikeTeam_AllyCardName_Data;
+    [SerializeField] private WordData StrikeTeam_AllyCardName_Data;
     [HideInInspector] private WordData UplinkTeam_AllyCardName_Data;
     [HideInInspector] private WordData NeoTeam_AllyCardName_Data;
 
@@ -67,7 +67,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private WordData ModuleItemEquipDesc_Data;
     [HideInInspector] private List<WordData> MainChipDescList_Data;
     // 동료 카드 설명
-    [HideInInspector] private WordData StrikeTeam_AllyCardDesc_Data;
+    [SerializeField] private WordData StrikeTeam_AllyCardDesc_Data;
     [HideInInspector] private WordData UplinkTeam_AllyCardDesc_Data;
     [HideInInspector] private WordData NeoTeam_AllyCardDesc_Data;
 

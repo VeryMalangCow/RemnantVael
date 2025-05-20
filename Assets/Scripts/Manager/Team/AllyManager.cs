@@ -138,6 +138,10 @@ public class AllyManager : Singleton<AllyManager>
         int i = 0;
         while (true)
         {
+            i++;
+            if (i > 100)
+                break;
+
             AllyCardData randomData = AllAllyCardData[_TypeID][Random.Range(0, AllAllyCardData[_TypeID].Count)];
 
             if (Can_ChoiceAble(_TypeID, randomData, result))
@@ -146,10 +150,6 @@ public class AllyManager : Singleton<AllyManager>
                 continue;
 
             if (result.Count >= _LimitAmount)
-                break;
-
-            i++;
-            if (i > 30)
                 break;
         }
 
@@ -161,20 +161,22 @@ public class AllyManager : Singleton<AllyManager>
     {
         List<AllyCardData> alreadyPlacedAllyCard = new List<AllyCardData>();
         for (int i = 0; i < _AlreadyPlacedAllyCardIndexer.Count; i++)
-            alreadyPlacedAllyCard.Add(AllAllyCardData[_TypeID][_AlreadyPlacedAllyCardIndexer[i]]);
+            if (_AlreadyPlacedAllyCardIndexer[i] != -1)
+                alreadyPlacedAllyCard.Add(AllAllyCardData[_TypeID][_AlreadyPlacedAllyCardIndexer[i]]);
 
         int s = 0;
         while (true)
         {
+            s++;
+            if (s > 100)
+                break;
+
             AllyCardData randomData = AllAllyCardData[_TypeID][Random.Range(0, AllAllyCardData[_TypeID].Count)];
 
             if (Can_ChoiceAble(_TypeID, randomData, alreadyPlacedAllyCard))
                 return randomData;
-
-            s++;
-            if (s > 30)
-                break;
         }
+
         return null;
     }
 
@@ -225,10 +227,20 @@ public class AllyManager : Singleton<AllyManager>
 
     #region Set (State)
 
-    public void Set_AllState(AllyState _StateValue)
+    public void Set_StateDmg(float _DmgMultiple)
     {
-        AllyState = new AllyState(_StateValue);
+        AllyState.Dmg = _DmgMultiple;
+        Set_AllState();
+    }
 
+    public void Set_StateRof(float _RofMultiple)
+    {
+        AllyState.Rof = _RofMultiple;
+        Set_AllState();
+    }
+
+    private void Set_AllState()
+    {
         if (AllAllies.Count <= 0) return;
 
         for (int i = 0; i < AllAllies.Count; i++)

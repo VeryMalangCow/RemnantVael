@@ -66,6 +66,7 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public List<Sprite> AllyCardLightList;
     [SerializeField] public List<Sprite> AllyCardBGList;
     [SerializeField] public List<Color> AllyCardColorList;
+    [SerializeField] public Sprite AllyNullIcon;
 
     [Space(5)]
     [Header("-- Key")]

@@ -77,16 +77,32 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     public void Set_Card(int _TypeID, AllyCardData _Data)
     {
-        Set_CardBGMark(_TypeID);
+        if (_Data == null)
+        {
+            Set_CardBGMark(_TypeID);
 
-        CurrentID = _Data.ID;
+            CurrentID = -1;
 
-        Set_PanelAnim(0.5f);
-        Set_Sprite(_TypeID, _Data);
-        Set_Txt(_TypeID, _Data);
+            Set_PanelAnim(0.5f);
+            Set_SpriteNull();
+            Set_TxtNull();
 
-        gameObject.SetActive(true);
-        RerollEUI.gameObject.SetActive(true);
+            gameObject.SetActive(true);
+            RerollEUI.gameObject.SetActive(true);
+        }
+        else
+        {
+            Set_CardBGMark(_TypeID);
+
+            CurrentID = _Data.ID;
+
+            Set_PanelAnim(0.5f);
+            Set_Sprite(_TypeID, _Data);
+            Set_Txt(_TypeID, _Data);
+
+            gameObject.SetActive(true);
+            RerollEUI.gameObject.SetActive(true);
+        }
     }
 
     private void Set_PanelAnim(float _DurTime)
@@ -106,9 +122,21 @@ public class AllyCardEUIController : OwnBtnEUIController
         FrameImg.sprite = UnitManager.Instance.AllyCardFrameList[_Data.Rank];
         LightImg.sprite = UnitManager.Instance.AllyCardLightList[_Data.Rank];
         BGImg.sprite = UnitManager.Instance.AllyCardBGList[_Data.Rank];
+
         IconImg.sprite = AllyManager.Instance.Get_CardIcon(_TypeID, _Data.ID);
 
         LightSeq.timeScale = _Data.Rank + 1;
+    }
+
+    private void Set_SpriteNull()
+    {
+        FrameImg.sprite = UnitManager.Instance.AllyCardFrameList[0];
+        LightImg.sprite = UnitManager.Instance.AllyCardLightList[0];
+        BGImg.sprite = UnitManager.Instance.AllyCardBGList[0];
+
+        IconImg.sprite = UnitManager.Instance.AllyNullIcon;
+
+        LightSeq.timeScale = 1;
     }
 
     private void Set_Txt(int _TypeID, AllyCardData _Data)
@@ -123,6 +151,18 @@ public class AllyCardEUIController : OwnBtnEUIController
         AllyCardData preCardData = AllyManager.Instance.Get_PreAllyCardData(_TypeID, _Data);
         PreNameTxt.text = preCardData != null ? $"-({preCardData.Name})->" : "";
         PreNameTxt.gameObject.SetActive(preCardData != null);
+    }
+
+    private void Set_TxtNull()
+    {
+        NameTxt.text = "NULL";
+        DescTxt.text = "NULL";
+
+        RankTxt.text = "NULL";
+        RankTxt.color = UnitManager.Instance.AllyCardColorList[0];
+        BGImg.color = UnitManager.Instance.AllyCardColorList[0];
+
+        PreNameTxt.gameObject.SetActive(false);
     }
 
     private void Set_CardBGMark(int _TypeID)

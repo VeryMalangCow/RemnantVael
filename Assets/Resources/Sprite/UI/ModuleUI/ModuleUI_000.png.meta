@@ -1764,7 +1764,7 @@ TextureImporter:
         width: 34
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1772,6 +1772,27 @@ TextureImporter:
       bones: []
       spriteID: f34891a21ce3ff44786cc4697327431a
       internalID: -707146146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Icon_NullCard
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 27
+        width: 60
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a21d1b49ca61f3342a77639d380c1075
+      internalID: -1772585977
       vertices: []
       indices: 
       edges: []
@@ -1809,6 +1830,7 @@ TextureImporter:
       ModuleUI_IOLCellCenter: -1098991666
       ModuleUI_IOL_InOrder: 1511633079
       ModuleUI_Icon_Durablity: -372754867
+      ModuleUI_Icon_NullCard: -1772585977
       ModuleUI_Input_SpaceBar: -324453934
       ModuleUI_MLB: -1993747541
       ModuleUI_MRB: -204797910
