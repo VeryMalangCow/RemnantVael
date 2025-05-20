@@ -168,11 +168,15 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     public void Try_Interact()
     {
+        InputManager.Instance.Play_MousePointerClick();
+
         if (Is_Interact_RollForDown()) return;
     }
 
     public void Try_InteractSub()
     {
+        InputManager.Instance.Play_MousePointerClick();
+
         if (Is_Interact_RollForUp()) return;
     }
 

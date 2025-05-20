@@ -39,6 +39,7 @@ public class InputManager : Singleton<InputManager>
     // Aim
     [HideInInspector] public AimController AimController;
     [HideInInspector] public AimRoundController AimRoundController;
+    [HideInInspector] private bool IsAim = false;
 
     // Dele
     [HideInInspector] private Dele CurrentBufferedDele = null;
@@ -69,7 +70,7 @@ public class InputManager : Singleton<InputManager>
         Offset();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Set_MousePos();
     }
@@ -139,6 +140,7 @@ public class InputManager : Singleton<InputManager>
     {
         AimController.gameObject.SetActive(_IsOn);
         AimRoundController.gameObject.SetActive(_IsOn);
+        IsAim = _IsOn;
     }
 
     private void Set_MousePointer(bool _IsOn)
@@ -159,13 +161,16 @@ public class InputManager : Singleton<InputManager>
         MousePosByWorld = Camera.main.ScreenToWorldPoint(MousePos);
         DirFromPlayerPos = MousePosByWorld - (Vector2)PlayerManager.Instance.PlayerController.gameObject.transform.position;
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            DevTool.Get_ComponentTType<RectTransform>(MousePointerRT.transform.parent.gameObject), // 변환할 UI(RectTransform)
-            MousePos, // 현재 마우스 좌표 (Screen Space)
-            MainGameUIManager.Instance.UICamera, // Canvas의 카메라 (Render Mode 따라 null 가능)
-            out Vector2 localPoint); // 변환된 Local 좌표
+        if (!IsAim)
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                DevTool.Get_ComponentTType<RectTransform>(MousePointerRT.transform.parent.gameObject), // 변환할 UI(RectTransform)
+                MousePos, // 현재 마우스 좌표 (Screen Space)
+                MainGameUIManager.Instance.UICamera, // Canvas의 카메라 (Render Mode 따라 null 가능)
+                out Vector2 localPoint); // 변환된 Local 좌표
 
-        MousePointerRT.anchoredPosition = localPoint;
+            MousePointerRT.anchoredPosition = localPoint;
+        }
     }
 
     public void Play_MousePointerClick()

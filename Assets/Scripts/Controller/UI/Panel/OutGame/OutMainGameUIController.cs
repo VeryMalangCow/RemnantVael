@@ -161,6 +161,8 @@ public class OutMainGameUIController : SinglePanelUIController
 
     public void Try_Interact()
     {
+        InputManager.Instance.Play_MousePointerClick();
+
         if (Is_Interact_BasePanel()) return;
         if (Is_Interact_OptionPanel()) return;
     }

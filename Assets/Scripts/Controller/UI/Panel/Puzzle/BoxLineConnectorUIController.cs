@@ -256,11 +256,15 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     public void Try_Interact()
     {
+        InputManager.Instance.Play_MousePointerClick();
+
         if (Is_Interact_Roll(-90, 0.1f)) return;
     }
 
     public void Try_InteractSub()
     {
+        InputManager.Instance.Play_MousePointerClick();
+
         if (Is_Interact_Roll(90, 0.1f)) return;
     }
 

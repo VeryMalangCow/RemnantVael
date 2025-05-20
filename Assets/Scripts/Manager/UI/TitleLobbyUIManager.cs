@@ -6,7 +6,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     #region Value
 
     [Header("=== UI_Camera")]
-    [SerializeField] private Camera UICamera;
+    [SerializeField] public Camera UICamera;
 
     [Header("=== UI_Prefab")]
     [SerializeField] private Transform UIParent;

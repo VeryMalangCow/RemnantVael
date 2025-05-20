@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -87,6 +86,8 @@ public class InOrderLockerUIController : PuzzleUIController
 
     public void Try_Interact()
     {
+        InputManager.Instance.Play_MousePointerClick();
+
         if (Is_Interact_On()) return;
     }
 

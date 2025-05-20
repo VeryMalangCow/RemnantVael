@@ -55,9 +55,10 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     public void Try_Interact()
     {
-/*
         if (CurrentBtn == null)
         { return; }
+
+        TitleInputManager.Instance.Play_MousePointerClick();
 
         if (CurrentBtn == StartBtn)
         {
@@ -71,42 +72,6 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         { 
             Application.Quit(); 
         }
-*/
-
-    }
-
-    #endregion
-
-    #region Set Panel
-
-    public void SetOn_ThisPanel()
-    {
-        if (DOTween.IsTweening("TitleUIPanel"))
-        { return; }
-
-        Sequence seq = DOTween.Sequence(); 
-        this.gameObject.SetActive(true);
-
-        seq.Join(BtnsRT.DOAnchorPosX(0f, DurTime));
-        seq.Join(BGCG.DOFade(1f, DurTime));
-
-        seq.SetId("TitleUIPanel");
-    }
-
-    public void SetOff_ThisPanel()
-    {
-        //base.CloseThisPanel();
-
-        if (DOTween.IsTweening("TitleUIPanel"))
-        { return; }
-
-        Sequence seq = DOTween.Sequence();
-        seq.Join(BtnsRT.DOAnchorPosX(-500f, DurTime));
-        seq.Join(BGCG.DOFade(0f, DurTime));
-
-        seq.SetId("TitleUIPanel")
-            .OnComplete(() =>
-            { this.gameObject.SetActive(false); });
     }
 
     #endregion

@@ -87,6 +87,8 @@ public class AllyCardUIController : SinglePanelUIController
 
     public void Try_Interact()
     {
+        InputManager.Instance.Play_MousePointerClick();
+
         if (Is_Interact_CardBooking()) return;
         if (Is_Interact_Reroll()) return;
         if (Is_Interact_SelectBtn()) return;
