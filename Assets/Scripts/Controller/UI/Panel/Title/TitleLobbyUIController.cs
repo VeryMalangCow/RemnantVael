@@ -1,9 +1,12 @@
 using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 
 public class TitleLobbyUIController : TitleSinglePanelUIController
 {
     #region Value
+
+    #region - Inspector
 
     [Space(20)]
     [Header("<><><><><> Title Lobby UI Controller")]
@@ -29,6 +32,15 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     #endregion
 
+    #region - Hide
+
+    // Value
+    [HideInInspector] private bool IsStarting = false;
+
+    #endregion
+
+    #endregion
+
     #region Offset
 
     public override void Offset()
@@ -47,6 +59,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         BtnsRT.anchoredPosition = Vector2.zero;
         BGCG.alpha = 1f;
 
+        IsStarting = false;
     }
 
     #endregion
@@ -55,14 +68,15 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     public void Try_Interact()
     {
-        if (CurrentBtn == null)
+        if (CurrentBtn == null || IsStarting)
         { return; }
 
         TitleInputManager.Instance.Play_MousePointerClick();
 
         if (CurrentBtn == StartBtn)
         {
-            Debug.Log("Ω√¿€");
+            IsStarting = true;
+            StartCoroutine(Play_Starting_Cor(2f));
         }
         else if (CurrentBtn == OptionBtn)
         { 
@@ -72,6 +86,19 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         { 
             Application.Quit(); 
         }
+    }
+
+    #endregion
+
+    #region Play
+
+    private IEnumerator Play_Starting_Cor(float _DelayTime)
+    {
+        TitleLobbyUIManager.Instance.Get_JustFadeIn(_DelayTime);
+
+        yield return new WaitForSeconds(_DelayTime + 0.2f);
+
+        LoadingSceneManager.Instance.Play_LoadScene("MainGame");
     }
 
     #endregion

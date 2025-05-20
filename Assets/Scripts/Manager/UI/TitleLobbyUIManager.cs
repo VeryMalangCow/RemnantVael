@@ -1,9 +1,12 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Device;
 
 public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 {
     #region Value
+
+    #region - Inspector
 
     [Header("=== UI_Camera")]
     [SerializeField] public Camera UICamera;
@@ -17,7 +20,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     [Header("=== Screen")]
     [SerializeField] private Canvas ScreenCanvas;
-    [HideInInspector] private CanvasGroup ScreenCG;
 
     [SerializeField] private CanvasGroup WarningCG;
     [SerializeField] private CanvasGroup SimpleCreditCG;
@@ -26,6 +28,14 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     [SerializeField] private float EachFadeOutTime = 1f;
     [SerializeField] private float EachStayTime = 1.5f;
     [SerializeField] private float EachDelayTime = 0.5f;
+
+    #endregion
+
+    #region - Hide
+
+    [HideInInspector] private CanvasGroup ScreenCG;
+
+    #endregion
 
     #endregion
 
@@ -61,8 +71,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
         else
         { return default; }
     }
-
-
 
     #endregion
 
@@ -155,6 +163,20 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             });
 
         return firstSeq;
+    }
+
+    public Sequence Get_JustFadeIn(float _DurTime)
+    {
+        WarningCG.alpha = 0;
+        SimpleCreditCG.alpha = 0;
+        ScreenCG.alpha = 0;
+
+        ScreenCanvas.gameObject.SetActive(true);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(ScreenCG.DOFade(1f, _DurTime));
+
+        return seq;
     }
 
     #endregion

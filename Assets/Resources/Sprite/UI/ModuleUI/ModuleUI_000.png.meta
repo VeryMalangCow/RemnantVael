@@ -1756,7 +1756,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_Cogwheel
+      name: ModuleUI_Cogwheel_0
       rect:
         serializedVersion: 2
         x: 1
@@ -1785,7 +1785,7 @@ TextureImporter:
         width: 60
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1793,6 +1793,69 @@ TextureImporter:
       bones: []
       spriteID: a21d1b49ca61f3342a77639d380c1075
       internalID: -1772585977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Cogwheel_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e800a72936b7ea44387e76cc6000a7ea
+      internalID: 716162092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Cogwheel_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 2
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 557ea91c7a240e0498d02d7342987cbd
+      internalID: 1222701743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_SliderCell
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 2
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 7, y: 0, z: 7, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0451c5184bbeed646854d9074370ab33
+      internalID: -2118155954
       vertices: []
       indices: 
       edges: []
@@ -1814,7 +1877,9 @@ TextureImporter:
       ModuleUI_BLC_RollRIght: 1122076015
       ModuleUI_Back: 486028521
       ModuleUI_Btn_00: 1661286057
-      ModuleUI_Cogwheel: -707146146
+      ModuleUI_Cogwheel_0: -707146146
+      ModuleUI_Cogwheel_1: 716162092
+      ModuleUI_Cogwheel_2: 1222701743
       ModuleUI_DialogueCharBG: 1737750721
       ModuleUI_DialogueCharFrame: -151358749
       ModuleUI_Dialogue_Field_00: -1927236403
@@ -1888,6 +1953,7 @@ TextureImporter:
       ModuleUI_Roller: 1810036077
       ModuleUI_RollerArrow: -1073661461
       ModuleUI_SideIconFrame: -945182851
+      ModuleUI_SliderCell: -2118155954
       ModuleUI_TitleFrame: 121522765
       ModuleUI_UpDownGradient: 1852420375
       ModuleUI_UpFrame: -1972109538
