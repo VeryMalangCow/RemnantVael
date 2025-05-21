@@ -91,6 +91,14 @@ public class TitleInputManager : Singleton<TitleInputManager>
         seq.Append(MousePointerRT.DOScale(1f, 0.05f));
     }
 
+    public Vector2 Get_AnchorMousePos()
+    {
+        Vector2 input = MousePointerRT.anchoredPosition;
+        float clampedX = Mathf.Clamp(input.x, -1440f, 1440f);
+        float clampedY = Mathf.Clamp(input.y, -810f, 810f);
+        return new Vector2(clampedX, clampedY);
+    }
+
     #endregion
 
     #region Input Set

@@ -1,4 +1,6 @@
 using DG.Tweening;
+using JetBrains.Annotations;
+using LeTai.TrueShadow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -1492,6 +1494,30 @@ public class DevTool
 
 #region ========== CLASS
 
+#region Class : Title UI
+
+[System.Serializable]
+public class TitleElement
+{
+    public RectTransform MovingRT;
+
+    public float MovingPowerX;
+    public float MovingPowerY;
+}
+
+[System.Serializable]
+public class TitleTSElement
+{
+    public List<TrueShadow> ThisTSList;
+
+    public float Min;
+    public float Max;
+
+    public float DurTime;
+}
+
+#endregion
+
 #region Class : PublicData
 
 [System.Serializable]
@@ -2674,7 +2700,7 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
     // 버프 증가
     public override void Gain_Stack(int _GainAmount, bool _ShowTxt)
     {
-        CurrentStack = Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
+        CurrentStack = System.Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
 
         if (IsResetWhenGain)
         {
@@ -2694,7 +2720,7 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
     {
         base.Reduce_Stack(_ReduceAmount);
 
-        CurrentStack = Math.Clamp(CurrentStack - _ReduceAmount, 0, MaxStack);
+        CurrentStack = System.Math.Clamp(CurrentStack - _ReduceAmount, 0, MaxStack);
         if (CurrentStack <= 0)
         {
             Remove_AllStack();
@@ -2922,7 +2948,7 @@ public class StatusEffect_Permanent_WithAmount : StatusEffect_Permanent
     // 버프 증가
     public override void Gain_Stack(int _GainAmount, bool _ShowTxt)
     {
-        CurrentStack = Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
+        CurrentStack = System.Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
 
         base.Gain_Stack(_GainAmount, _ShowTxt);
         BuffIconUI.Set_Icon(CurrentStack);

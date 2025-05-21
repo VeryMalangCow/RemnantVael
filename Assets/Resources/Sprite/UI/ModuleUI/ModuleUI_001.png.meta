@@ -97,15 +97,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ModuleUI_TitleScreen
+      name: ModuleUI_Title_Moon
       rect:
         serializedVersion: 2
         x: 1
-        y: 241
-        width: 480
-        height: 270
+        y: 381
+        width: 130
+        height: 130
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -128,7 +128,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ModuleUI_TitleScreen: 1664204694
+      ModuleUI_Title_Moon: 1664204694
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
