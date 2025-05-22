@@ -893,7 +893,11 @@ MonoBehaviour:
   JsonFilePath: Json
   CharacterPath: CharacterData
   JsonData:
-    CharacterData: []
+    CharacterData:
+    - ID: 0
+      CanUse: 1
+    - ID: 1
+      CanUse: 0
 --- !u!4 &680521050
 Transform:
   m_ObjectHideFlags: 0

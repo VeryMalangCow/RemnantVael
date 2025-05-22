@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using TMPro;
 using UnityEngine;
 
 public class SaveDataManager : PersistentSingleton<SaveDataManager>
@@ -20,7 +19,6 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     #region - Hide
 
-    // TempData
     [Space(30)]
     [SerializeField] public JsonData JsonData;
 
@@ -39,43 +37,142 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         //Singleton
         base.Awake();
 
-        DataPath = $"{Application.dataPath}/{JsonFilePath}";
         Load_JsonData();
     }
 
     #endregion
 
-    [ContextMenu("To Json Data")]
-    private void Save_JsonData_FromInspector()
-    {
-        DataPath = $"{Application.dataPath}/{JsonFilePath}";
-        Save_JsonData();
-    }
-
-
-    #region Reset & Save & Load
-
-    private void Reset_JsonData()
-    {
-        JsonData = new JsonData();
-        Save_JsonData();
-    }
+    #region Save
 
     private void Save_JsonData()
     {
-        string jsonData = JsonUtility.ToJson(new SerializationList<EachCharacterJsonData>(JsonData.CharacterData), true);
-        string path = $"{DataPath}/{CharacterPath}.json";
-        File.WriteAllText(path, jsonData);
+        DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath);
+
+        // 예시: CharacterData 저장
+        TrySave_EachJsonData(
+            this.CharacterPath,
+            new SerializationList<EachCharacterJsonData>(JsonData.CharacterData));
     }
+
+    #region TrySave (Each)
+
+    private void TrySave_EachJsonData<T>(string _EachPath, T _Data)
+    {
+        string eachJsonPath = Path.Combine(DataPath, $"{_EachPath}.json");
+
+        Create_DirectoryExists(eachJsonPath);
+
+        string jsonData = JsonUtility.ToJson(_Data, true);
+        File.WriteAllText(eachJsonPath, jsonData);
+
+        Debug.Log($"Save: {_EachPath}");
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Load
 
     private void Load_JsonData()
     {
+        DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath);
+
         JsonData = new JsonData();
 
-        string jsonData = File.ReadAllText($"{DataPath}/{CharacterPath}.json");
-        JsonData.CharacterData = JsonUtility.FromJson<SerializationList<EachCharacterJsonData>>(jsonData).ListData;
+        JsonData.CharacterData =
+            TryLoad_EachJsonData<SerializationList<EachCharacterJsonData>>(
+                this.CharacterPath,
+                Get_Default_CharacterData()).ListData;
     }
 
+    #region TryLoad (Each)
+
+    private T TryLoad_EachJsonData<T>(string _EachPath, string _DefaultData)
+    {
+        string eachJsonPath = Path.Combine(DataPath, $"{_EachPath}.json");
+
+        if (!File.Exists(eachJsonPath))
+        {
+            Debug.Log($"Create: {_EachPath}");
+            Create_DirectoryExists(eachJsonPath);
+            File.WriteAllText(eachJsonPath, _DefaultData);
+        }
+
+        string jsonData = File.ReadAllText(eachJsonPath);
+        Debug.Log($"Load: {_EachPath}");
+        return JsonUtility.FromJson<T>(jsonData);
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Reset
+
+    private void Reset_JsonData()
+    {
+        DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath);
+
+        TryReset_EachJsonData<SerializationList<EachCharacterJsonData>>(
+            this.CharacterPath,
+            Get_Default_CharacterData());
+    }
+
+    private void TryReset_EachJsonData<T>(string _EachPath, string _DefaultData)
+    {
+        string eachJsonPath = Path.Combine(DataPath, $"{_EachPath}.json");
+
+        if (!File.Exists(eachJsonPath))
+        {
+            Create_DirectoryExists(eachJsonPath);
+        }
+
+        File.WriteAllText(eachJsonPath, _DefaultData);
+    }
+
+    #endregion
+
+    #region Create
+
+    // File Create
+    private void Create_DirectoryExists(string _FullPath)
+    {
+        string dir = Path.GetDirectoryName(_FullPath);
+        if (!Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
+        }
+    }
+
+    // Default Character
+    private string Get_Default_CharacterData()
+    {
+        return Resources.Load<TextAsset>("Json/DefaultCharacterData").text;
+    }
+
+    #endregion
+
+
+    #region Test
+
+    [ContextMenu("(Test) Load Json")]
+    private void Load_JsonData_Test()
+    {
+        Load_JsonData();
+    }
+
+    [ContextMenu("(Test) Save Data")]
+    private void Save_JsonData_Test()
+    {
+        Save_JsonData();
+    }
+
+    [ContextMenu("(Test) Reset Data")]
+    private void Reset_JsonData_Test()
+    {
+        Reset_JsonData();
+    }
     #endregion
 }
 

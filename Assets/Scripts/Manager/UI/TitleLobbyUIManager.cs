@@ -107,8 +107,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
             Get_FadeOut();
         }
-        
-
     }
 
     private Sequence Get_WarningSeq()
@@ -160,6 +158,8 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             {
                 ScreenCanvas.gameObject.SetActive(false);
                 GameManager.Instance.WasWatched = true;
+
+                TitleLobby_UIController.IsInIntro = false;
             });
 
         return firstSeq;

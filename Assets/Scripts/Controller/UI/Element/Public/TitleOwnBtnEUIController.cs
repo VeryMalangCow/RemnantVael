@@ -1,8 +1,9 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandler, IPointerExitHandler
+public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandler /*, IPointerExitHandler*/
 {
     #region Value
 
@@ -36,16 +37,40 @@ public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandle
     {
         if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
 
-        if (OwnerUIController != null) OwnerUIController.CurrentBtn = this;
+        if (OwnerUIController != null)
+        {
+            OwnerUIController.Set_CurrentBtn(this);
+        }
     }
+    /*
+        public virtual void OnPointerExit(PointerEventData eventData)
+        {
+            if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
 
-    public virtual void OnPointerExit(PointerEventData eventData)
+            if (OwnerUIController != null) OwnerUIController.CurrentBtn = null;
+        }
+    */
+
+    #endregion
+
+    #region Set
+
+    public void Set_SelectOnThis(float _DurTime = 0.2f)
     {
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
-
-        if (OwnerUIController != null) OwnerUIController.CurrentBtn = null;
+        Set_SelectedThis(200f, _DurTime);
     }
 
+    public void Set_SelectOffThis(float _DurTime = 0.2f)
+    {
+        Set_SelectedThis(180f, _DurTime);
+    }
+
+    private void Set_SelectedThis(float _Height, float _DurTime = 0.2f)
+    {
+        DevTool.Set_KillTween(ThisRT);
+
+        ThisRT.DOSizeDelta(new Vector2(ThisRT.rect.width, _Height), _DurTime);
+    }
 
     #endregion
 }

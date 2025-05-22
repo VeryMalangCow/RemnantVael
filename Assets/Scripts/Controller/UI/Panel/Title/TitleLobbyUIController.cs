@@ -29,6 +29,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     [SerializeField] private TitleOwnBtnEUIController StartBtn;
     [SerializeField] private TitleOwnBtnEUIController OptionBtn;
     [SerializeField] private TitleOwnBtnEUIController QuitBtn;
+    [SerializeField] private RectTransform SelectedRT;
 
     [Space(10)]
     [Header("=== Value")]
@@ -43,8 +44,12 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     #region - Hide
 
     // Value
+    [HideInInspector] public bool IsInIntro = true;
     [HideInInspector] private bool IsStarting = false;
     [HideInInspector] private float UIElementMovingPowerMultiple = 0.002f;
+
+    // Btn
+    [HideInInspector] private List<TitleOwnBtnEUIController> TitleAllBtns;
 
     #endregion
 
@@ -65,6 +70,9 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         QuitBtn.Offset();
         QuitBtn.OwnerUIController = this;
 
+        TitleAllBtns = new List<TitleOwnBtnEUIController>
+        { StartBtn, OptionBtn, QuitBtn };
+
         BGCG.alpha = 1f;
 
         IsStarting = false;
@@ -78,6 +86,8 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         Set_UIElementTS(true);
         Set_UIElementTSTF(false);
+
+        Set_CurrentBtn(StartBtn);
     }
 
     private void LateUpdate()
@@ -161,7 +171,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     public void Try_Interact()
     {
-        if (CurrentBtn == null || IsStarting)
+        if (CurrentBtn == null || IsStarting || IsInIntro)
         { return; }
 
         TitleInputManager.Instance.Play_MousePointerClick();
@@ -178,6 +188,28 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         else if (CurrentBtn == QuitBtn)
         { 
             Application.Quit(); 
+        }
+    }
+
+    #endregion
+
+    #region Btn
+
+    public override void Set_CurrentBtn(TitleOwnBtnEUIController _TargetBtn)
+    {
+        if (CurrentBtn == _TargetBtn) return;
+
+        base.Set_CurrentBtn(_TargetBtn);
+
+        DevTool.Set_KillTween(SelectedRT);
+        SelectedRT.DOAnchorPosY(CurrentBtn.ThisRT.anchoredPosition.y, 0.2f);
+
+        for (int i = 0; i < TitleAllBtns.Count; i++)
+        {
+            if (CurrentBtn == TitleAllBtns[i])
+                TitleAllBtns[i].Set_SelectOnThis(0.2f);
+            else
+                TitleAllBtns[i].Set_SelectOffThis(0.2f);
         }
     }
 
