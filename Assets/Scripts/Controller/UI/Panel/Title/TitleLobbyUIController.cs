@@ -22,6 +22,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     [Header("=== Element")]
     [SerializeField] List<TitleElement> AllTitleElementUI;
     [SerializeField] List<TitleTSElement> AllTitleTSElementUI;
+    [SerializeField] List<TitleTSTFElement> AllTitleTSTFElementUI;
     
     [Space(10)]
     [Header("=== Btns")]
@@ -43,7 +44,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     // Value
     [HideInInspector] private bool IsStarting = false;
-    [HideInInspector] private float UIElementMovingPowerMultiple = 0.005f;
+    [HideInInspector] private float UIElementMovingPowerMultiple = 0.002f;
 
     #endregion
 
@@ -75,12 +76,13 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     private void Start()
     {
-        Set_UIElementTS();
+        Set_UIElementTS(true);
+        Set_UIElementTSTF(false);
     }
 
     private void LateUpdate()
     {
-        Vector2 movingPower = Get_MovingPowerVec();
+        Vector2 movingPower = Get_MovingPowerVec() * -1;
         Set_UIElementTF(movingPower);
     }
 
@@ -89,28 +91,43 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     #region UI Element (TS)
 
-    private void Set_UIElementTS()
+    private void Set_UIElementTS(bool _Loop)
     {
         for (int i = 0; i < AllTitleTSElementUI.Count; i++)
         {
-            Get_EachUIElementTS(AllTitleTSElementUI[i]);
+            int index = i;
+            TitleTSElement trueShadowElementSet = AllTitleTSElementUI[index];
+            Get_EachUIElementTS(trueShadowElementSet.ThisTSList, trueShadowElementSet.Max, trueShadowElementSet.Min, trueShadowElementSet.DurTime, _Loop);
         }
     }
 
-    private void Get_EachUIElementTS(TitleTSElement _TSElement)
+    private void Set_UIElementTSTF(bool _Loop)
     {
-        for (int i = 0; i < _TSElement.ThisTSList.Count; i++)
+        for (int i = 0; i < AllTitleTSTFElementUI.Count; i++)
+        {
+            int index = i;
+            TitleTSTFElement trueShadowTFElementSet = AllTitleTSTFElementUI[index];
+            List<TrueShadow> targetTsList = trueShadowTFElementSet.Get_TargetTSList();
+            Get_EachUIElementTS(targetTsList, trueShadowTFElementSet.Max, trueShadowTFElementSet.Min, trueShadowTFElementSet.DurTime, _Loop);
+        }
+    }
+
+    private void Get_EachUIElementTS(List<TrueShadow> _TSList, float _Max, float _Min, float _DurTime, bool _Loop = true)
+    {
+        for (int i = 0; i < _TSList.Count; i++)
         {
             int index = i;
 
-            _TSElement.ThisTSList[index].Size = _TSElement.Min;
+            _TSList[index].Size = _Min;
 
-            DOTween.To(
-                () => _TSElement.ThisTSList[index].Size, 
-                x => _TSElement.ThisTSList[index].Size = x, 
-                _TSElement.Max, _TSElement.DurTime * 0.5f)
-                .SetEase(Ease.Linear)
-                .SetLoops(-1, LoopType.Yoyo);
+            Tween tween = DOTween.To(
+                () => _TSList[index].Size,
+                x => _TSList[index].Size = x,
+                _Max, _DurTime * 0.5f)
+                .SetEase(Ease.Linear);
+
+            if (_Loop)
+                tween.SetLoops(-1, LoopType.Yoyo);
         }
     }
 

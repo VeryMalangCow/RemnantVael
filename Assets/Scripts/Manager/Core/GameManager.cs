@@ -1506,6 +1506,22 @@ public class TitleElement
 }
 
 [System.Serializable]
+public class TitleTSTFElement
+{
+    public Transform ThisTSParentTF;
+
+    public float Min;
+    public float Max;
+
+    public float DurTime;
+
+    public List<TrueShadow> Get_TargetTSList()
+    {
+        return DevTool.Get_ChildList<TrueShadow>(ThisTSParentTF);
+    }
+}
+
+[System.Serializable]
 public class TitleTSElement
 {
     public List<TrueShadow> ThisTSList;
