@@ -1062,6 +1062,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Title_Gr
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 1
+        width: 1
+        height: 510
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac843ee3f1225cb48bc6167b845c665f
+      internalID: 1251009093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Title_GrCell
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 510
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c4bde3485e51834782d5d1cd741b616
+      internalID: 1884918115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1119,6 +1161,8 @@ TextureImporter:
       ModuleUI_Title_Build3_08: 2070681254
       ModuleUI_Title_Build3_09: -1812413281
       ModuleUI_Title_Build3_10: -2129699549
+      ModuleUI_Title_Gr: 1251009093
+      ModuleUI_Title_GrCell: 1884918115
       ModuleUI_Title_Moon: 1664204694
       ModuleUI_Title_Tower: -1827187493
   mipmapLimitGroupName: 
