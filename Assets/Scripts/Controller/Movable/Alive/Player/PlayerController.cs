@@ -60,6 +60,7 @@ public class PlayerController : AliveObjectController
     [SerializeField] private List<AnimationClip> BoostVFXAnimList;
 
     [SerializeField] private PlayerVisual<Color> ThisClr;
+    [SerializeField] private PlayerVisual<Gradient> ThisGradient;
 
     [SerializeField] private PlayerVisual<AnimationClip> ThisHittedPointAC;
     [SerializeField] private TrioData<AnimationClip> DmgTypeStateAC;
@@ -769,12 +770,22 @@ public class PlayerController : AliveObjectController
 
     public Color Get_CorrectColor(eDamageType _DamageType, bool _IsCritical)
     {
-        return ThisClr.Get_CorrectType(_DamageType).Get_Special(_IsCritical);
+        return Get_CorrectTComponent(ThisClr, _DamageType, _IsCritical);
+    }
+
+    public Gradient Get_CorrectGradient(eDamageType _DamageType, bool _IsCritical)
+    {
+        return Get_CorrectTComponent(ThisGradient, _DamageType, _IsCritical);
     }
 
     public AnimationClip Get_CorrectAC(eDamageType _DamageType, bool _IsCritical)
     {
-        return ThisHittedPointAC.Get_CorrectType(_DamageType).Get_Special(_IsCritical);
+        return Get_CorrectTComponent(ThisHittedPointAC, _DamageType, _IsCritical);
+    }
+
+    private T Get_CorrectTComponent<T>(PlayerVisual<T> _T, eDamageType _DamageType, bool _IsCritical)
+    {
+        return _T.Get_CorrectType(_DamageType).Get_Special(_IsCritical);
     }
 
     #endregion

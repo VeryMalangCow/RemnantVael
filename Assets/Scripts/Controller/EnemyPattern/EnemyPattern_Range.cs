@@ -162,7 +162,7 @@ public class EnemyPattern_Range : EnemyPattern
 
     private BulletState_Effect State_Effect()
     {
-        return new BulletState_Effect(ExplAmount);
+        return new BulletState_Effect(ExplAmount, 1f);
     }
 
     #endregion

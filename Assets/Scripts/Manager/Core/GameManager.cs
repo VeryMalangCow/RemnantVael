@@ -3600,14 +3600,16 @@ public struct BulletState_Effect
     #region Value
 
     public int ExplAmount;
+    public float TrailTime;
 
     #endregion
 
     #region Constructor
 
-    public BulletState_Effect(int _ExplAmount)
+    public BulletState_Effect(int _ExplAmount, float _TrailTime)
     {
         ExplAmount = _ExplAmount;
+        TrailTime = _TrailTime;
     }
 
     #endregion

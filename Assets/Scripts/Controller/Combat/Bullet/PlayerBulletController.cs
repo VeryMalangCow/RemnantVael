@@ -11,6 +11,24 @@ public class PlayerBulletController : BulletController
     [Header("=== Sprite")]
     [SerializeField] public PlayerVisual<Sprite> BulletSprite;
 
+    [Space(10)]
+    [Header("=== Trail")]
+    [SerializeField] private float TrailTime;
+    [SerializeField] private float TrailStartWidth;
+
+    #endregion
+
+    #region Trail
+
+    protected override void SetOn_Trail()
+    {
+        base.SetOn_Trail();
+
+        ThisTrail.time = TrailTime;
+        ThisTrail.startWidth = TrailStartWidth;
+        ThisTrail.colorGradient = PlayerManager.Instance.PlayerController.Get_CorrectGradient(this.State.DmgState.DmgType, this.State.IsCritical);
+    }
+
     #endregion
 
     #region State

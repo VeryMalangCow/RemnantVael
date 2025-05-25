@@ -5,6 +5,8 @@ public abstract class BulletController : MovableDepthController
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Bullet Controller")]
     [SerializeField] protected string PoolingString = "";
@@ -14,8 +16,16 @@ public abstract class BulletController : MovableDepthController
     [SerializeField] public BulletState State;
 
     [Space(10)]
-    [Header("=== Component")]
+    [Header("=== Rb")]
     [SerializeField] protected Rigidbody2D ThisRb;
+
+    [Space(10)]
+    [Header("=== TR")]
+    [SerializeField] protected TrailRenderer ThisTrail;
+
+    #endregion
+
+    #region - Hide
 
     // Alive Time
     [HideInInspector] protected float CurrentAliveTime = 0;
@@ -32,6 +42,8 @@ public abstract class BulletController : MovableDepthController
     [SerializeField] protected bool IsGuided = false;
     [SerializeField] protected EnemyController TargetEnemyController = null;
     [SerializeField] protected float RotateSpeed = 1f; // Guided Power
+
+    #endregion
 
     #endregion
 
@@ -133,6 +145,37 @@ public abstract class BulletController : MovableDepthController
         gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
         ThisRb.simulated = true;
         gameObject.SetActive(true);
+
+        SetOn_Trail();
+    }
+
+    #endregion
+
+    #region Sorting Order
+
+    public override void Set_SortingOrder(int _SortingOrder)
+    {
+        base.Set_SortingOrder(_SortingOrder);
+
+        ThisTrail.sortingOrder = _SortingOrder - 1;
+    }
+
+    #endregion
+
+    #region Trail
+
+    protected virtual void SetOn_Trail()
+    {
+        ThisTrail.Clear();
+
+        ThisTrail.emitting = true;
+        ThisTrail.enabled = true;
+    }
+
+    private void SetOf_Trail()
+    {
+        ThisTrail.emitting = false;
+        ThisTrail.enabled = false;
     }
 
     #endregion
@@ -222,8 +265,11 @@ public abstract class BulletController : MovableDepthController
     // 오브젝트 파괴될 때, 항상 실행
     protected void Remove_Object()
     {
+        SetOf_Trail();
+
         Remove_Condition();
         Reset_State();
+
         this.gameObject.SetActive(false);
     }
 
