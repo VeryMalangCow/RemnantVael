@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public abstract class BulletController : MovableDepthController
 {
@@ -16,12 +17,12 @@ public abstract class BulletController : MovableDepthController
     [SerializeField] public BulletState State;
 
     [Space(10)]
-    [Header("=== Rb")]
+    [Header("=== Comp")]
     [SerializeField] protected Rigidbody2D ThisRb;
 
-    [Space(10)]
-    [Header("=== TR")]
     [SerializeField] protected TrailRenderer ThisTrail;
+
+    [SerializeField] protected Light2D ThisLight;
 
     #endregion
 
@@ -147,6 +148,7 @@ public abstract class BulletController : MovableDepthController
         gameObject.SetActive(true);
 
         SetOn_Trail();
+        SetOn_Light();
     }
 
     #endregion
@@ -162,6 +164,20 @@ public abstract class BulletController : MovableDepthController
 
     #endregion
 
+    #region Light
+
+    protected virtual void SetOn_Light()
+    {
+
+    }
+
+    private void SetOff_Light()
+    {
+
+    }
+
+    #endregion
+
     #region Trail
 
     protected virtual void SetOn_Trail()
@@ -172,7 +188,7 @@ public abstract class BulletController : MovableDepthController
         ThisTrail.enabled = true;
     }
 
-    private void SetOf_Trail()
+    private void SetOff_Trail()
     {
         ThisTrail.emitting = false;
         ThisTrail.enabled = false;
@@ -265,7 +281,8 @@ public abstract class BulletController : MovableDepthController
     // 오브젝트 파괴될 때, 항상 실행
     protected void Remove_Object()
     {
-        SetOf_Trail();
+        SetOff_Trail();
+        SetOff_Light();
 
         Remove_Condition();
         Reset_State();

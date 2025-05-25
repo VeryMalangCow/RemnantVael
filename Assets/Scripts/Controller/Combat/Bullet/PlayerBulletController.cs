@@ -12,9 +12,30 @@ public class PlayerBulletController : BulletController
     [SerializeField] public PlayerVisual<Sprite> BulletSprite;
 
     [Space(10)]
+    [Header("=== Light")]
+    [SerializeField] private float Intensity;
+
+    [Space(10)]
     [Header("=== Trail")]
     [SerializeField] private float TrailTime;
     [SerializeField] private float TrailStartWidth;
+
+
+    #endregion
+
+    #region Light
+
+    protected override void SetOn_Light()
+    {
+        base.SetOn_Light();
+
+        ThisLight.lightCookieSprite = ThisSR.sprite;
+        ThisLight.color = PlayerManager.Instance.PlayerController.Get_CorrectColor(this.State.DmgState.DmgType, this.State.IsCritical);
+        if (this.State.DmgState.DmgType == eDamageType.Physics)
+            ThisLight.intensity = Intensity;
+        else
+            ThisLight.intensity = Intensity * 0.5f;
+    }
 
     #endregion
 
