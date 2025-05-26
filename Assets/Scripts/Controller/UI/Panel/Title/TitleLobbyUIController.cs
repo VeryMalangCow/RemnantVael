@@ -20,9 +20,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     [Space(10)]
     [Header("=== Element")]
-    [SerializeField] List<TitleElement> AllTitleElementUI;
-    [SerializeField] List<TitleTSElement> AllTitleTSElementUI;
-    [SerializeField] List<TitleTSTFElement> AllTitleTSTFElementUI;
+    [SerializeField] private List<TitleElement> AllTitleElementUI;
+    [SerializeField] private List<TitleTSElement> AllTitleTSElementUI;
+    [SerializeField] private List<TitleTSTFElement> AllTitleTSTFElementUI;
+    [SerializeField] private List<TitleSmokeEUIController> AllTitleSmokeEUI;
+
+    [Space(10)]
+    [Header("=== Prefab")]
+    [SerializeField] public GameObject SmokeCellEUIPrefab;
     
     [Space(10)]
     [Header("=== Btns")]
@@ -50,6 +55,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     // Btn
     [HideInInspector] private List<TitleOwnBtnEUIController> TitleAllBtns;
+    [SerializeField] private TitleOwnBtnEUIController CurrentMouseBtn = null;
 
     #endregion
 
@@ -76,6 +82,12 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         BGCG.alpha = 1f;
 
         IsStarting = false;
+
+        for (int i = 0; i < AllTitleSmokeEUI.Count; i++)
+        {
+            AllTitleSmokeEUI[i].OwnerUIController = this;
+            AllTitleSmokeEUI[i].Offset();
+        }
     }
 
     #endregion
@@ -171,7 +183,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     public void Try_Interact()
     {
-        if (CurrentBtn == null || IsStarting || IsInIntro)
+        if (CurrentBtn == null || CurrentMouseBtn == null || IsStarting || IsInIntro)
         { return; }
 
         TitleInputManager.Instance.Play_MousePointerClick();
@@ -213,6 +225,13 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         }
     }
 
+    public void Set_CurrentMouseBtn(TitleOwnBtnEUIController _TargetBtn)
+    {
+        if (CurrentMouseBtn == _TargetBtn) return;
+
+        CurrentMouseBtn = _TargetBtn;
+    }
+
     #endregion
 
     #region Play
@@ -222,6 +241,9 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         TitleLobbyUIManager.Instance.Get_JustFadeIn(_DelayTime);
 
         yield return new WaitForSeconds(_DelayTime + 0.2f);
+
+        for (int i = 0; i < AllTitleSmokeEUI.Count; i++)
+            AllTitleSmokeEUI[i].Stop_VFX();
 
         LoadingSceneManager.Instance.Play_LoadScene("MainGame");
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandler /*, IPointerExitHandler*/
+public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandler, IPointerExitHandler
 {
     #region Value
 
@@ -16,7 +16,7 @@ public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandle
     [HideInInspector] public RectTransform ThisRT;
 
     // Owner
-    [HideInInspector] public TitleSinglePanelUIController OwnerUIController;
+    [HideInInspector] public TitleLobbyUIController OwnerUIController;
     [HideInInspector] public Button ThisBtn;
 
     #endregion
@@ -40,16 +40,17 @@ public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandle
         if (OwnerUIController != null)
         {
             OwnerUIController.Set_CurrentBtn(this);
+            OwnerUIController.Set_CurrentMouseBtn(this);
         }
     }
-    /*
-        public virtual void OnPointerExit(PointerEventData eventData)
-        {
-            if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
 
-            if (OwnerUIController != null) OwnerUIController.CurrentBtn = null;
-        }
-    */
+    public virtual void OnPointerExit(PointerEventData eventData)
+    {
+        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+
+        OwnerUIController.Set_CurrentMouseBtn(null);
+    }
+
 
     #endregion
 
