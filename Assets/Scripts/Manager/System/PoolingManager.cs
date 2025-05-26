@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -120,10 +121,26 @@ public class PoolingManager : Singleton<PoolingManager>
     public List<T> Get_OP_List<T>(GameObject _SpawnGO, Transform _ParnetTF, Queue<T> _Queue, int _Amount)
     {
         List<T> tTypeList = new List<T>();
-        for (int i = 0; i < _Amount; i++)
+
+        if (_Queue.Count < _Amount) // Queue 내에 오브젝트가 부족하다면
         {
-            tTypeList.Add(Get_OP(_SpawnGO, _ParnetTF, _Queue)); 
+            for (int i = 0; i < _Amount; i++)
+            {
+                GameObject GenGO = Instantiate(_SpawnGO, _ParnetTF);
+                GenGO.TryGetComponent(out T typeClass);
+                GenGO.SetActive(false);
+
+                tTypeList.Add(typeClass);
+            }
         }
+        else // Queue 내에 오브젝트가 충분하다면
+        {
+            for (int i = 0; i < _Amount; i++)
+            {
+                tTypeList.Add(_Queue.Dequeue());
+            }
+        }
+
         return tTypeList;
     }
 

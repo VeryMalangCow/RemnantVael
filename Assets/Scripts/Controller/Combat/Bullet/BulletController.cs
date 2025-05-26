@@ -141,6 +141,8 @@ public abstract class BulletController : MovableDepthController
 
     private void SetOn_State()
     {
+        CurrentAliveTime = 0;
+
         gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
         ThisRb.simulated = true;
         gameObject.SetActive(true);
@@ -279,6 +281,8 @@ public abstract class BulletController : MovableDepthController
     // 오브젝트 파괴될 때, 항상 실행
     protected void Remove_Object()
     {
+        if (CurrentAliveTime <= 0f) return;
+
         SetOff_Trail();
         SetOff_Light();
 
