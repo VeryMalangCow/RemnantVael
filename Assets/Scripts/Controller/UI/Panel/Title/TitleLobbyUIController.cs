@@ -23,11 +23,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     [SerializeField] private List<TitleElement> AllTitleElementUI;
     [SerializeField] private List<TitleTSElement> AllTitleTSElementUI;
     [SerializeField] private List<TitleTSTFElement> AllTitleTSTFElementUI;
+
     [SerializeField] private List<TitleSmokeEUIController> AllTitleSmokeEUI;
+    [SerializeField] private List<TitleCloudEUIController> AllTitleCloudEUI;
 
     [Space(10)]
     [Header("=== Prefab")]
     [SerializeField] public GameObject SmokeCellEUIPrefab;
+    [SerializeField] public GameObject CloudCellEUIPrefab;
     
     [Space(10)]
     [Header("=== Btns")]
@@ -87,6 +90,12 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         {
             AllTitleSmokeEUI[i].OwnerUIController = this;
             AllTitleSmokeEUI[i].Offset();
+        }
+
+        for (int i = 0; i < AllTitleCloudEUI.Count; i++)
+        {
+            AllTitleCloudEUI[i].OwnerUIController = this;
+            AllTitleCloudEUI[i].Offset();
         }
     }
 

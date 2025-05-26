@@ -1,9 +1,8 @@
 using DG.Tweening;
-using LeTai.TrueShadow;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TitleSmokeCellEUIController : ElementUIController
+public class TitleCloudCellEUIController : ElementUIController
 {
     #region Value
 
@@ -19,7 +18,7 @@ public class TitleSmokeCellEUIController : ElementUIController
 
     #region - Hide
 
-    [HideInInspector] public TitleSmokeEUIController OwnerEUIController;
+    [HideInInspector] public TitleCloudEUIController OwnerEUIController;
 
     [HideInInspector] private RectTransform ThisRT;
     [HideInInspector] private Image ThisImg;
@@ -29,6 +28,7 @@ public class TitleSmokeCellEUIController : ElementUIController
     #endregion
 
     #endregion
+
 
     #region Offset
 
@@ -45,25 +45,20 @@ public class TitleSmokeCellEUIController : ElementUIController
 
     #region Play
 
-    public void Play_Smoke(Sprite _Sprite, 
-        CoupleData<Color> _Color, float _StartSize,
-        float _StartPosX, float _MovingDis, float _DurTime)
+    public void Play_Cloud(Sprite _Sprite, float _StartSize,
+        float _StartPosY, float _EndPosX, float _DurTime)
     {
         ThisImg.sprite = _Sprite;
         ThisImg.SetNativeSize();
-        ThisImg.color = _Color.TypeBase;
+
         this.gameObject.transform.localScale = Vector2.one * _StartSize;
-        ThisRT.anchoredPosition = new Vector3(_StartPosX, 0, 0);
-        ThisRT.rotation = Quaternion.identity;
+        ThisRT.anchoredPosition = new Vector3(0, _StartPosY, 0);
 
         this.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Join(ThisRT.DOAnchorPosY(_MovingDis, _DurTime));
-        seq.Join(ThisImg.DOColor(_Color.TypeSpecial, _DurTime));
-        seq.Join(ThisRT.DOScale(0, _DurTime));
-        seq.Join(ThisRT.DORotate(new Vector3(0, 0, Random.Range(-360, 360)), _DurTime, RotateMode.FastBeyond360));
+        seq.Join(ThisRT.DOAnchorPosX(_EndPosX, _DurTime).SetEase(Ease.Linear));
 
         seq.OnComplete(() =>
         {
@@ -73,5 +68,4 @@ public class TitleSmokeCellEUIController : ElementUIController
     }
 
     #endregion
-
 }
