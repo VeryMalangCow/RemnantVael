@@ -453,7 +453,6 @@ public class StageManager : Singleton<StageManager>
 
             PrisonRuleController prisonRule = DevTool.Get_CastingTType<PrisonRuleController>(roomRule);
 
-            Debug.Log(_PrisonRoomData.TypeID);
             PrisonController prison = DevTool.Get_ComponentTType<PrisonController>(Instantiate(PrisonPrefabList[_PrisonRoomData.TypeID], prisonRule.InRoom_PrisonParentTF));
             prisonRule.Prison = prison;
             prison.gameObject.transform.localPosition = Vector2.zero;
@@ -536,8 +535,7 @@ public class StageManager : Singleton<StageManager>
         // 처음 엘베 레이어때문에 추가 하지않음
         if (!IsStartStage)
         { LayerOrderManager.Instance.NeedSortingObjects.Add(PlayerManager.Instance.PlayerController); }
-
-
+        
         CurrentRoomController.gameObject.SetActive(true);
         CurrentRoomController.Set_SortingStaticObjects();
 
@@ -550,6 +548,7 @@ public class StageManager : Singleton<StageManager>
 
         yield return new WaitForSeconds(0.2f);
 
+        PlayerManager.Instance.PlayerController.SetOn_Trail();
         _TargetRC.Play_RoomState();
         Set_NavBake();
 

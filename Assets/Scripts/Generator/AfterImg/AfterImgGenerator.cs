@@ -9,6 +9,7 @@ public class AfterImgGenerator : MonoBehaviour
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] public List<SpriteRenderer> TargetSRList;
+    [SerializeField] private Color ThisColor;
 
     [Space(10)]
     [Header("=== Caculate")]
@@ -39,7 +40,7 @@ public class AfterImgGenerator : MonoBehaviour
             if (CurrentGenTime >= DelayGenTime)
             {
                 CurrentGenTime = 0;
-                Gen_Img();
+                Gen_Img(ThisColor);
             }
         }
     }
@@ -61,14 +62,14 @@ public class AfterImgGenerator : MonoBehaviour
     }
 
     // Each Gen Img
-    private void Gen_Img(SpriteRenderer _TargetSR)
+    private void Gen_Img(SpriteRenderer _TargetSR, Color _Clr)
     {
         SpriteRenderer SR = PoolingManager.Instance.Get_OP_AfterImg();
         SR.gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
 
         SR.sprite = _TargetSR.sprite;
         SR.sortingOrder = _TargetSR.sortingOrder - 1;
-        Color clr = UnitManager.Instance.RandomColor;
+        Color clr = _Clr;
         clr.a = Mathf.Clamp(ImageAlpha, 0f, 1f);
         SR.color = clr;
         SR.gameObject.transform.position = _TargetSR.transform.position;
@@ -83,11 +84,11 @@ public class AfterImgGenerator : MonoBehaviour
         
     }
 
-    private void Gen_Img()
+    private void Gen_Img(Color _Clr)
     {
         for (int i = 0; i < TargetSRList.Count; i++)
         {
-            Gen_Img(TargetSRList[i]);
+            Gen_Img(TargetSRList[i], _Clr);
         }
     }
 

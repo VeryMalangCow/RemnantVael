@@ -10,7 +10,7 @@ public class AllyBulletController : BulletController
     [Space(10)]
     [Header("=== Comp")]
     [SerializeField] private CapsuleCollider2D ThisCol;
-    
+
     #endregion
 
     #region State
@@ -57,6 +57,27 @@ public class AllyBulletController : BulletController
     protected override void Remove_Condition()
     {
         PoolingManager.Instance.BaseAllyBullet.Queue.Enqueue(this);
+    }
+
+    #endregion
+
+    #region Light
+
+    public void SetOn_LightIntensity(float _Intensity)
+    {
+        ThisLight.intensity = _Intensity;
+        ThisLight.lightCookieSprite = ThisSR.sprite;
+    }
+
+    #endregion
+
+    #region Trail
+
+    public void SetOn_TrailState(float _Time, float _StartWidth, Gradient _Gradient)
+    {
+        ThisTrail.time = _Time;
+        ThisTrail.startWidth = _StartWidth;
+        ThisTrail.colorGradient = _Gradient;
     }
 
     #endregion

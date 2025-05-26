@@ -326,7 +326,6 @@ MonoBehaviour:
   ThisSR: {fileID: 9076609007504668469}
   TargetRange: 0.6
   ThisColGO: {fileID: 6945075702485005032}
-  ThisCol: {fileID: 0}
   ThisAnimator: {fileID: 3700956229177998945}
   ThisLight: {fileID: 7349482001544103476}
   AttackerState:
@@ -341,7 +340,6 @@ MonoBehaviour:
       KBPower: 0
       KBTime: 0
   HittedObjectList: []
-  IsColliding: 0
   Enemy: {fileID: 0}
 --- !u!50 &3501360633453498926
 Rigidbody2D:

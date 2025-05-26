@@ -44,11 +44,15 @@ public class PlayerController : AliveObjectController
     [SerializeField] private SortingGroup BodySG;
 
     [Space(5)]
+    [Header("-- Anim")]
     [SerializeField] private StateAnimController StateAnim;
     [SerializeField] private StateAnimController MoveDirStateAnim;
     [SerializeField] private List<MovableDepthController> BaseAnimDepthList;
     [SerializeField] private CoupleData<List<StateAnimController>> BoostStateAnimController;
 
+    [Space(5)]
+    [Header("-- VFX")]
+    [SerializeField] private TrailRenderer ThisTrail;
 
     [Space(10)]
     [Header("=== Visual Reso")]
@@ -298,6 +302,8 @@ public class PlayerController : AliveObjectController
 
         StageManager.Instance.IsStartStage = false;
         LayerOrderManager.Instance.NeedSortingObjects.Add(this);
+
+        SetOn_Trail();
     }
 
     // 스테이지 끝
@@ -307,6 +313,8 @@ public class PlayerController : AliveObjectController
         ThisSG.sortingOrder = 3001;
 
         StateAnim.transform.parent.transform.gameObject.SetActive(false);
+
+        SetOff_Trail();
     }
 
     #endregion
@@ -1090,6 +1098,22 @@ public class PlayerController : AliveObjectController
             PlayerManager.Instance.SetOn_PingEnemy(enemy);
         else
             PlayerManager.Instance.SetOff_PingEnemy();
+    }
+
+    #endregion
+
+    #region Trail
+
+    public void SetOn_Trail()
+    {
+        ThisTrail.Clear();
+        ThisTrail.emitting = true;
+    }
+
+    public void SetOff_Trail()
+    {
+        ThisTrail.emitting = false;
+        ThisTrail.Clear();
     }
 
     #endregion

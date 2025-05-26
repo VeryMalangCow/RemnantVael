@@ -131,6 +131,7 @@ public class GateController : StaticDepthController, IInteract
     {
         if (IsOpen && ParterGate != null)
         {
+            PlayerManager.Instance.PlayerController.SetOff_Trail();
             PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
             StageManager.Instance.Play_CurrentRoom(ParterGate.ThisRoom);
         }

@@ -88,15 +88,6 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
-    #region Color
-
-    [Space(10)]
-    [Header("=== Color")]
-    [SerializeField] public Color RandomColor = Color.red;
-    [HideInInspector] private Sequence RandomColorSetSeq;
-
-    #endregion
-
     #region Anim
 
     [Space(10)]
@@ -212,30 +203,9 @@ public class UnitManager : Singleton<UnitManager>
     {
         base.Awake();
 
-        Set_RainbowColorDotween();
         Set_LanguageTxt();
 
         StartCoroutine(Test_Cor());
-    }
-
-    #endregion
-
-    #region Set (Color)
-
-    // 무지개 컬러 Dotween
-    private void Set_RainbowColorDotween()
-    {
-        RandomColorSetSeq = DOTween.Sequence();
-        RandomColor = Color.red;
-
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(1, 1, 0, 1), 0.5f).SetEase(Ease.Linear));
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(0, 1, 0, 1), 0.5f).SetEase(Ease.Linear));
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(0, 1, 1, 1), 0.5f).SetEase(Ease.Linear));
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(0, 0, 1, 1), 0.5f).SetEase(Ease.Linear));
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(1, 0, 1, 1), 0.5f).SetEase(Ease.Linear));
-        RandomColorSetSeq.Append(DOTween.To(() => RandomColor, x => RandomColor = x, new Color(1, 0, 0, 1), 0.5f).SetEase(Ease.Linear));
-
-        RandomColorSetSeq.SetLoops(-1, LoopType.Restart);
     }
 
     #endregion

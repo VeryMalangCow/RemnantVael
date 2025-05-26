@@ -20,8 +20,18 @@ public class AttackAllyController : AllyController
     [Header("=== Comp")]
     [SerializeField] private Transform BulletSpawnTF;
 
+    [Space(10)]
+    [Header("=== Trail")]
+    [SerializeField] private float TrailTime;
+    [SerializeField] private float TrailStartWidth;
+    [SerializeField] private Gradient TrailGradient;
+
+    [Space(10)]
+    [Header("=== Light")]
+    [SerializeField] private float LightIntensity;
+
     #endregion
-    
+
     #region - Hide
 
     [HideInInspector] private bool IsAttacking = false;
@@ -102,6 +112,9 @@ public class AttackAllyController : AllyController
             _State_Anim: null,
             _State_Effect: null,
             0.5f);
+
+        _Bullet.SetOn_LightIntensity(LightIntensity);
+        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth, TrailGradient);
 
         // ¿ÃπÃ¡ˆ
         _Bullet.ThisSR.sprite = BulletSprite;
