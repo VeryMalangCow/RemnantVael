@@ -140,7 +140,7 @@ public class EventManager : Singleton<EventManager>
         if (_OnOff)
         {
             Debug.Log("Input On");
-            InputManager.Instance.SetOn_InputAction();
+            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, true);
             InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
 
             InputManager.Instance.CanMouseInput = true;
@@ -148,7 +148,7 @@ public class EventManager : Singleton<EventManager>
         else
         {
             Debug.Log("Input Off");
-            InputManager.Instance.SetOff_InputAction();
+            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, false);
             InputManager.Instance.Set_AllPointer(false);
 
             InputManager.Instance.InputMoveDir = Vector2.zero;

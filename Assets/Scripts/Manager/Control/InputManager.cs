@@ -186,7 +186,64 @@ public class InputManager : Singleton<InputManager>
 
     #region Input Set
 
-    public void SetOn_InputAction()
+    public void SetOnOff_InputAction(int _CurrentStageID, bool _OnOff)
+    {
+        if (_CurrentStageID == 99)
+        {
+            if (_OnOff)
+                SetOn_InputAction_InLobby();
+            else
+                SetOff_InputAction_InLobby();
+        }
+        else
+        {
+            if (_OnOff)
+                SetOn_InputAction_MainGame();
+            else
+                SetOff_InputAction_MainGame();
+        }
+    }
+
+
+    private void SetOn_InputAction_InLobby()
+    {
+        if (DevTool.Get_ComponentTType(
+            PlayerManager.Instance.PlayerController.gameObject, out PlayerInput input))
+            PlayerInput = input;
+
+        // Player
+        PlayerInput.actions["Walk"].performed += Input_Walk;
+        PlayerInput.actions["Arrow"].performed += Input_Arrow;
+
+        PlayerInput.actions["Interact"].performed += Input_Interact;
+        PlayerInput.actions["TabInteract"].performed += Input_Tab;
+        PlayerInput.actions["OutMainGame"].performed += Input_OMGUI;
+
+        // Out Main Game UI
+        PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
+        PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
+    }
+
+    private void SetOff_InputAction_InLobby()
+    {
+        if (DevTool.Get_ComponentTType(
+            PlayerManager.Instance.PlayerController.gameObject, out PlayerInput input))
+            PlayerInput = input;
+
+        // Player
+        PlayerInput.actions["Walk"].performed -= Input_Walk;
+        PlayerInput.actions["Arrow"].performed -= Input_Arrow;
+
+        PlayerInput.actions["Interact"].performed -= Input_Interact;
+        PlayerInput.actions["TabInteract"].performed -= Input_Tab;
+        PlayerInput.actions["OutMainGame"].performed -= Input_OMGUI;
+
+        // Out Main Game UI
+        PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
+        PlayerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
+    }
+
+    private void SetOn_InputAction_MainGame()
     {
         if (DevTool.Get_ComponentTType(
             PlayerManager.Instance.PlayerController.gameObject, out PlayerInput input))
@@ -246,7 +303,7 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
     }
 
-    public void SetOff_InputAction()
+    private void SetOff_InputAction_MainGame()
     {
         if (DevTool.Get_ComponentTType(
             PlayerManager.Instance.PlayerController.gameObject, out PlayerInput input))
