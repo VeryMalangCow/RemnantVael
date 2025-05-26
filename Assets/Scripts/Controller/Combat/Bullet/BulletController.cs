@@ -19,9 +19,7 @@ public abstract class BulletController : MovableDepthController
     [Space(10)]
     [Header("=== Comp")]
     [SerializeField] protected Rigidbody2D ThisRb;
-
     [SerializeField] protected TrailRenderer ThisTrail;
-
     [SerializeField] protected Light2D ThisLight;
 
     #endregion
@@ -307,6 +305,7 @@ public abstract class BulletController : MovableDepthController
         {
             dbc.Take_Damage(true);
         }
+
     }
 
     protected void Try_Remove(string _Tag)

@@ -19,6 +19,16 @@ public class EnemyPattern_Range : EnemyPattern
     [SerializeField] private Vector2 BulletShadowScale;
     [SerializeField] private Vector2 BulletColSize;
 
+    [Space(10)]
+    [Header("=== Trail")]
+    [SerializeField] private float TrailTime;
+    [SerializeField] private float TrailStartWidth;
+    [SerializeField] private Gradient TrailGradient;
+
+    [Space(10)]
+    [Header("=== Light")]
+    [SerializeField] private float LightIntensity;
+
 
     [Space(10)]
     [Header("=== Condition")]
@@ -134,6 +144,9 @@ public class EnemyPattern_Range : EnemyPattern
             State_Anim(),
             State_Effect(),
             targetShadow);
+
+        bullet.SetOn_LightIntensity(LightIntensity);
+        bullet.SetOn_TrailState(TrailTime, TrailStartWidth, TrailGradient);
 
         // Effect
         UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_Shoot(
