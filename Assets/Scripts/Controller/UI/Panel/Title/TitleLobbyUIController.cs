@@ -23,8 +23,16 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     [SerializeField] private List<TitleElement> AllTitleElementUI;
     [SerializeField] private List<TitleTSElement> AllTitleTSElementUI;
 
+    [Space(5)]
+    [Header("-- Smoke")]
     [SerializeField] private List<TitleSmokeEUIController> AllTitleSmokeEUI;
-    [SerializeField] private List<TitleCloudEUIController> AllTitleCloudEUI;
+
+    [Space(5)]
+    [Header("-- Cloud")]
+    [SerializeField] private List<RectTransform> CloudRTList_BackMoon;
+    [SerializeField] private List<RectTransform> CloudRTList_FrontMoon;
+    [SerializeField] private float CloudMovingLimit = 3000f;
+    [SerializeField] private float CloudMovingTime = 1f;
 
     [Space(10)]
     [Header("=== Prefab")]
@@ -57,14 +65,15 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     // Btn
     [HideInInspector] private List<TitleOwnBtnEUIController> TitleAllBtns;
-    [SerializeField] private TitleOwnBtnEUIController CurrentMouseBtn = null;
+    [HideInInspector] private TitleOwnBtnEUIController CurrentMouseBtn = null;
+
+    [HideInInspector] private List<Tween> CouldTween = null;
 
     #endregion
 
     #endregion
 
     #region Offset
-
     public override void Offset()
     {
         base.Offset();
@@ -93,11 +102,64 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
             AllTitleSmokeEUI[i].Offset();
         }
 
-        for (int i = 0; i < AllTitleCloudEUI.Count; i++)
+        CouldTween = new List<Tween>
         {
-            AllTitleCloudEUI[i].OwnerUIController = this;
-            AllTitleCloudEUI[i].Offset();
-        }
+            Play_CloudMoving_FromLeft(CloudRTList_BackMoon[0], CloudMovingTime),
+            Play_CloudMoving_FromLeft(CloudRTList_FrontMoon[0], CloudMovingTime),
+            Play_CloudMoving_FromCenter(CloudRTList_BackMoon[1], CloudMovingTime),
+            Play_CloudMoving_FromCenter(CloudRTList_FrontMoon[1], CloudMovingTime)
+        };
+    }
+
+    #endregion
+
+    #region Play
+
+    private void SetOff_Play()
+    {
+        for (int i = 0; i < AllTitleSmokeEUI.Count; i++)
+            AllTitleSmokeEUI[i].Stop_VFX();
+
+        for (int i = 0; i < CouldTween.Count; i++)
+            DevTool.Set_KillTween(CouldTween[i]);
+
+        CouldTween = null;
+    }
+
+    #endregion
+
+    #region Cloud
+
+    private Tween Play_CloudMoving_FromLeft(RectTransform _CloudRT, float _DurTime)
+    {
+        Tween tween = _CloudRT.DOAnchorPosX(CloudMovingLimit, _DurTime)
+            .OnComplete(() =>
+            {
+                _CloudRT.anchoredPosition = new Vector2(-CloudMovingLimit, 0);
+            })
+            .SetEase(Ease.Linear)
+            .SetLoops(-1, LoopType.Restart);
+
+
+        return tween;
+    }
+
+    private Tween Play_CloudMoving_FromCenter(RectTransform _CloudRT, float _DurTime)
+    {
+        Tween tween = _CloudRT.DOAnchorPosX(CloudMovingLimit, _DurTime * 0.5f)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                _CloudRT.anchoredPosition = new Vector2(-CloudMovingLimit, 0);
+                _CloudRT.DOAnchorPosX(CloudMovingLimit, _DurTime).OnComplete(() =>
+                {
+                    _CloudRT.anchoredPosition = new Vector2(-CloudMovingLimit, 0);
+                })
+                    .SetEase(Ease.Linear)
+                    .SetLoops(-1, LoopType.Restart);
+            });
+
+        return tween;
     }
 
     #endregion
@@ -241,8 +303,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         yield return new WaitForSeconds(_DelayTime + 0.2f);
 
-        for (int i = 0; i < AllTitleSmokeEUI.Count; i++)
-            AllTitleSmokeEUI[i].Stop_VFX();
+        SetOff_Play();
 
         LoadingSceneManager.Instance.Play_LoadScene("MainGame");
     }
