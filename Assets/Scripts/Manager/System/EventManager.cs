@@ -137,18 +137,20 @@ public class EventManager : Singleton<EventManager>
     // ÀÎÇ² => On / Off
     public void Set_Input(bool _OnOff)
     {
+        Debug.Log("Input " + (_OnOff ? "On" : "Off"));
         if (_OnOff)
         {
-            Debug.Log("Input On");
-            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, true);
-            InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
+            //InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, true);
+            InputManager.Instance.SetOnOff_InputAction(0, true);
 
+            InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
             InputManager.Instance.CanMouseInput = true;
         }
         else
         {
-            Debug.Log("Input Off");
-            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, false);
+            //InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, false);
+            InputManager.Instance.SetOnOff_InputAction(0, false);
+
             InputManager.Instance.Set_AllPointer(false);
 
             InputManager.Instance.InputMoveDir = Vector2.zero;

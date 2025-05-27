@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -47,28 +48,33 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     {
         List<ActivityFuncDele> delegateList = new List<ActivityFuncDele>();
 
-        // 현재 클래스 타입 정보 가져오기
         MethodInfo[] methods = GetType().GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
 
-        foreach (MethodInfo method in methods)
-        {
-            // 이름, 반환형, 파라미터 체크
-            if (method.Name.StartsWith(_MethodPrefix) &&
+        // 대상 메서드 필터링 및 정렬
+        var filteredMethods = methods
+            .Where(method =>
+                method.Name.StartsWith(_MethodPrefix) &&
                 method.ReturnType == typeof(void) &&
                 method.GetParameters().Length == 0)
+            .OrderBy(method =>
             {
-                try
-                {
-                    ActivityFuncDele del = method.IsStatic
-                        ? (ActivityFuncDele)Delegate.CreateDelegate(typeof(ActivityFuncDele), method)
-                        : (ActivityFuncDele)Delegate.CreateDelegate(typeof(ActivityFuncDele), this, method);
+                string numberPart = method.Name.Substring(_MethodPrefix.Length);
+                return int.TryParse(numberPart, out int result) ? result : int.MaxValue;
+            });
 
-                    delegateList.Add(del);
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogWarning($"델리게이트 생성 실패: {method.Name} - {ex.Message}");
-                }
+        foreach (MethodInfo method in filteredMethods)
+        {
+            try
+            {
+                ActivityFuncDele del = method.IsStatic
+                    ? (ActivityFuncDele)Delegate.CreateDelegate(typeof(ActivityFuncDele), method)
+                    : (ActivityFuncDele)Delegate.CreateDelegate(typeof(ActivityFuncDele), this, method);
+
+                delegateList.Add(del);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"델리게이트 생성 실패: {method.Name} - {ex.Message}");
             }
         }
 

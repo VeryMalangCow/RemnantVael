@@ -422,8 +422,6 @@ public class ModuleUpgradeUIController : PanelUIController
     // 장착 패널 리셋
     private void Reset_EquipPanel()
     {
-        ModuleItemManager.Instance.Set_MainChipData();
-
         EquippedPanelGO.gameObject.SetActive(true);
         SynergyPanelGO.gameObject.SetActive(false);
     }
@@ -915,8 +913,6 @@ public class ModuleUpgradeUIController : PanelUIController
                 EquippedPanelGO.SetActive(false);
                 SynergyPanelGO.SetActive(true);
                 SynergyDescsParentTF.gameObject.SetActive(false);
-
-                ModuleItemManager.Instance.Set_MainChipData();
             }
             else
             {

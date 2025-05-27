@@ -36,6 +36,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     // Main Chip
     [HideInInspector] private Dictionary<int, int> MainChipAmalgamationDict = new Dictionary<int, int>();
+    [SerializeField] private List<SynchoronyState> CurrentAllMainChipState = new List<SynchoronyState>();
 
     [HideInInspector] public static readonly int RowAmount = 5;
     [HideInInspector] public static readonly int ColumnAmount = 20;
@@ -52,6 +53,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     private List<IWhen_Hit> IWhen_HitList = new List<IWhen_Hit>();
     private List<IWhen_CriticalHit> IWhen_CriticalHitList = new List<IWhen_CriticalHit>();
     private List<IWhen_Fire> IWhen_FireList = new List<IWhen_Fire>();
+
+    private List<IWhenAlly_Fire> IWhenAlly_FireList = new List<IWhenAlly_Fire>();
 
     #endregion
 
@@ -94,16 +97,30 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Reset
 
-    private void Clear_Interface()
+    private void Clear_InterfaceMU()
     {
         IWhen_HitList.Clear();
         IWhen_FireList.Clear();
         IWhen_CriticalHitList.Clear();
     }
 
+    private void Clear_InterfaceMC()
+    {
+        CurrentAllMainChipState.Clear();
+
+        IWhenAlly_FireList.Clear();
+    }
+
+
     private void Reset_Interface()
     {
-        Clear_Interface();
+        Reset_InterfaceMU();
+        Reset_InterfaceMC();
+    }
+
+    private void Reset_InterfaceMU()
+    {
+        Clear_InterfaceMU();
 
         for (int i = 0; i < EquippedIndex.Count; i++)
         {
@@ -123,6 +140,13 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         }
     }
 
+    private void Reset_InterfaceMC()
+    {
+        Clear_InterfaceMC();
+
+        Set_MainChipData();
+    }
+
     #endregion
 
     #region Framework
@@ -132,6 +156,19 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         base.Awake();
 
         Offset();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            string s = "";
+            foreach (KeyValuePair<int, int> keyValue in MainChipAmalgamationDict)
+            {
+                s += keyValue.Key + " / " + keyValue.Value + "\n";
+            }
+            Debug.Log(s);
+        }
     }
 
     #endregion
@@ -235,6 +272,36 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public int Get_SynchronyAmount(int _ID)
     {
         return MainChipAmalgamationDict[_ID];
+    }
+
+    // 메인 칩의 랭크 가져오기
+    // 1~6 / 7~12 / 13~18
+    public int Get_SynchronyRank(int _Amalgamation)
+    {
+        return (_Amalgamation - 1) > 0 ? _Amalgamation / SynchoronyOneTierRange : 0;
+    }
+
+    // 모든 메인 칩 딕셔너리로 메인칩스탯 리스트 반환
+    private List<SynchoronyState> Get_CurrentMainChipState()
+    {
+        List<SynchoronyState> result = new List<SynchoronyState>();
+
+        string s = "";
+        foreach(KeyValuePair<int, int> mainChipAmalgamation in MainChipAmalgamationDict) // ID, Amount
+        {
+            int id = mainChipAmalgamation.Key;
+            int rank = Get_SynchronyRank(mainChipAmalgamation.Value);
+            if (rank <= 0) continue;
+
+            s += id + " / " + rank + "\n";
+
+            SynchoronyState mcs = new SynchoronyState();
+            mcs.Set_State(id, rank);
+
+            result.Add(mcs);
+        }
+        Debug.Log(s);
+        return result;
     }
 
     #endregion
@@ -357,7 +424,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         EquippedIndex[_EquipedIndex] = _InteractIndex;
 
         MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_EquipedUI(AllModuleData, EquippedIndex);
-        Reset_Interface();
+        
+        Reset_Interface(); 
     }
 
     public void Set_UnEquip(int _EquipedIndex)
@@ -365,7 +433,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         EquippedIndex[_EquipedIndex] = new CoupleData<int>(-1, -1);
 
         MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_EquipedUI(AllModuleData, EquippedIndex);
-        Reset_Interface();
+
+        Reset_Interface(); 
     }
 
     public void Set_SwitchEquipment(int _ListIndex0, int _ListIndex1)
@@ -646,7 +715,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #endregion
 
-    #region Interface
+    #region Interface (Base)
 
     public void Active_Hit(EnemyController _EC)
     {
@@ -670,6 +739,19 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         for (int i = 0; i < IWhen_FireList.Count; i++)
             IWhen_FireList[i].Play_When();
+    }
+
+
+    #endregion
+
+    #region Interface (Syn = Ally)
+
+    public void AllyActive_Fire()
+    {
+        if (IWhenAlly_FireList.Count <= 0) return;
+
+        for (int i = 0; i < IWhenAlly_FireList.Count; i++)
+            IWhenAlly_FireList[i].Play_When();
     }
 
 
@@ -716,6 +798,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         if (MainGameUIManager.Instance.ModuleUpgrade_UIController != null)
             MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_SynergySlots(MainChipAmalgamationDict);
+
+        CurrentAllMainChipState = Get_CurrentMainChipState();
     }
 
     #endregion

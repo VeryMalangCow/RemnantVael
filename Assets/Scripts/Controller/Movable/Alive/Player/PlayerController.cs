@@ -209,6 +209,7 @@ public class PlayerController : AliveObjectController
         CurrentChargedBettery.Value = 9999;
         CurrentCredit.Value = 9999;
         CurrentOverrider.Value = 9999;
+        CurrentModuleShard.Value = 9999;
 
         NeedStrikeTeamPresence.Value = NeedIntervalPresence;
         NeedUplinkTeamPresence.Value = NeedIntervalPresence;
@@ -253,6 +254,7 @@ public class PlayerController : AliveObjectController
     {
         BodySG.sortingOrder = _SortingOrder;
 
+        ThisTrail.sortingOrder = _SortingOrder - 1;
         // base.Set_SortingOrder(_SortingOrder);
     }
 

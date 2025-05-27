@@ -1,12 +1,18 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 {
     #region Value
 
-    public delegate void ActivityFuncDele(int _Rank, EnemyController _EC = null);
-    [HideInInspector] public List<ActivityFuncDele> ActivityFuncList = new List<ActivityFuncDele>();
+    public delegate void ActivityFuncDele_MI(int _Rank, EnemyController _EC = null);
+    public delegate void ActivityFuncDele_MC(int _Rank, AllyController _AC = null);
+
+    [HideInInspector] public List<ActivityFuncDele_MI> ActivityMIFuncList = new List<ActivityFuncDele_MI>();
+    [HideInInspector] public List<ActivityFuncDele_MC> ActivityMCFuncList = new List<ActivityFuncDele_MC>();
 
     #endregion
 
@@ -16,24 +22,100 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     {
         base.Awake();
 
-        ActivityFuncList = new List<ActivityFuncDele>
-        {
-            Activity_MI_000,
-            Activity_MI_001,
-            Activity_MI_002,
-            Activity_MI_003,
-            Activity_MI_004,
-            Activity_MI_005,
-        };
+        ActivityMIFuncList = Init_DelegateList_MI("Activity_MI_");
+        ActivityMCFuncList = Init_DelegateList_MC("Activity_MC_");
     }
 
     #endregion
 
     #region Get
 
-    public ActivityFuncDele Get_CollectActivity(int _ID)
+    public ActivityFuncDele_MI Get_CollectActivity_MI(int _ID)
     {
-        return ActivityFuncList[_ID];
+        return ActivityMIFuncList[_ID];
+    }
+
+    public ActivityFuncDele_MC Get_CollectActivity_MC(int _ID)
+    {
+        return ActivityMCFuncList[_ID];
+    }
+
+    public List<ActivityFuncDele_MI> Init_DelegateList_MI(string _MethodPrefix)
+    {
+        List<ActivityFuncDele_MI> delegateList = new List<ActivityFuncDele_MI>();
+
+        MethodInfo[] methods = GetType().GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+
+        // 대상 메서드 필터링 및 정렬
+        var filteredMethods = methods
+            .Where(method =>
+                method.Name.StartsWith(_MethodPrefix) &&
+                method.ReturnType == typeof(void) &&
+                method.GetParameters().Length == 2 &&
+                method.GetParameters()[0].ParameterType == typeof(int) &&
+                method.GetParameters()[1].ParameterType == typeof(EnemyController))
+            .OrderBy(method =>
+            {
+                string numberPart = method.Name.Substring(_MethodPrefix.Length);
+                return int.TryParse(numberPart, out int result) ? result : int.MaxValue;
+            });
+
+        foreach (MethodInfo method in filteredMethods)
+        {
+            try
+            {
+                ActivityFuncDele_MI del = method.IsStatic
+                    ? (ActivityFuncDele_MI)Delegate.CreateDelegate(typeof(ActivityFuncDele_MI), method)
+                    : (ActivityFuncDele_MI)Delegate.CreateDelegate(typeof(ActivityFuncDele_MI), this, method);
+
+                delegateList.Add(del);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"델리게이트 생성 실패: {method.Name} - {ex.Message}");
+            }
+        }
+
+        return delegateList;
+    }
+
+    public List<ActivityFuncDele_MC> Init_DelegateList_MC(string _MethodPrefix)
+    {
+        List<ActivityFuncDele_MC> delegateList = new List<ActivityFuncDele_MC>();
+
+        MethodInfo[] methods = GetType().GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+
+        // 대상 메서드 필터링 및 정렬
+        var filteredMethods = methods
+            .Where(method =>
+                method.Name.StartsWith(_MethodPrefix) &&
+                method.ReturnType == typeof(void) &&
+                method.GetParameters().Length == 2 &&
+                method.GetParameters()[0].ParameterType == typeof(int) &&
+                method.GetParameters()[1].ParameterType == typeof(AllyController))
+            .OrderBy(method =>
+            {
+                string numberPart = method.Name.Substring(_MethodPrefix.Length);
+                return int.TryParse(numberPart, out int result) ? result : int.MaxValue;
+            });
+
+        foreach (MethodInfo method in filteredMethods)
+        {
+            try
+            {
+                ActivityFuncDele_MC del = method.IsStatic
+                    ? (ActivityFuncDele_MC)Delegate.CreateDelegate(typeof(ActivityFuncDele_MC), method)
+                    : (ActivityFuncDele_MC)Delegate.CreateDelegate(typeof(ActivityFuncDele_MC), this, method);
+
+                delegateList.Add(del);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"델리게이트 생성 실패: {method.Name} - {ex.Message}");
+            }
+        }
+
+        return delegateList;
     }
 
     #endregion
@@ -52,7 +134,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     private void Activity_MI_002(int _Rank, EnemyController _EC = null)
     {
-        if (0.5f > Random.Range(0f, 1f))
+        if (0.5f > UnityEngine.Random.Range(0f, 1f))
         {
             Activity_InflictStatusEffect(eStatusEffect.Flame, _Rank, _EC);
         }
@@ -60,7 +142,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     private void Activity_MI_003(int _Rank, EnemyController _EC = null)
     {
-        if (0.5f > Random.Range(0f, 1f))
+        if (0.5f > UnityEngine.Random.Range(0f, 1f))
         {
             Activity_InflictStatusEffect(eStatusEffect.Cold, _Rank, _EC);
         }
@@ -68,7 +150,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     private void Activity_MI_004(int _Rank, EnemyController _EC = null)
     {
-        if (0.5f > Random.Range(0f, 1f))
+        if (0.5f > UnityEngine.Random.Range(0f, 1f))
         {
             Activity_InflictStatusEffect(eStatusEffect.Electricity, _Rank, _EC);
         }
@@ -76,7 +158,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     private void Activity_MI_005(int _Rank, EnemyController _EC = null)
     {
-        if (0.5f > Random.Range(0f, 1f))
+        if (0.5f > UnityEngine.Random.Range(0f, 1f))
         {
             Activity_InflictStatusEffect(eStatusEffect.Corrosion, _Rank, _EC);
         }
@@ -136,6 +218,16 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         {
             _Enemy.BuffController.CorrosionStack.Gain_Stack(_GainAmount, true);
         }
+    }
+
+    #endregion
+
+
+    #region MainChip
+
+    private void Activity_MC_000(int _Rank, AllyController _AC = null)
+    {
+
     }
 
     #endregion

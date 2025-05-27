@@ -2346,7 +2346,7 @@ public class ModuleState : IWhen
 
     public ItemData ThisItemData;
 
-    protected ModuleItemActivityManager.ActivityFuncDele ThisActivityFuncDele;
+    protected ModuleItemActivityManager.ActivityFuncDele_MI ThisActivityFuncDele;
 
     #endregion
 
@@ -2357,7 +2357,7 @@ public class ModuleState : IWhen
     public void Set_State(ItemData _ItemData)
     {
         ThisItemData = new ItemData(_ItemData);
-        ThisActivityFuncDele = ModuleItemActivityManager.Instance.Get_CollectActivity(ThisItemData.ID);
+        ThisActivityFuncDele = ModuleItemActivityManager.Instance.Get_CollectActivity_MI(ThisItemData.ID);
     }
 
     #endregion
@@ -2475,6 +2475,59 @@ class ForgeInteractPanel
         RoleDescTxt.text = _BtnDesc;
     }
 }
+
+#endregion
+
+
+#region Class : State : Player : MC
+
+[System.Serializable]
+public class SynchoronyState : IWhenAlly
+{
+    #region Value
+
+    [SerializeField] private int ID = 0;
+    [SerializeField] private int SynergyRank = 0;
+    protected ModuleItemActivityManager.ActivityFuncDele_MC ThisActivityFuncDele;
+
+    #endregion
+
+    #region Constructor
+
+    public void Set_State(int _ID, int _SynergyRank)
+    {
+        ID = _ID;
+        SynergyRank = _SynergyRank;
+        ThisActivityFuncDele = ModuleItemActivityManager.Instance.Get_CollectActivity_MC(ID);
+    }
+
+    #endregion
+
+    #region Get
+
+    public static List<SynchoronyState> Get_AllModuleState()
+    {
+        return new List<SynchoronyState>()
+        {
+            new SynchoronyState000(),
+        };
+    }
+
+    #endregion
+
+    #region Play
+
+    public void Play_When(AllyController _AC = null)
+    {
+        ThisActivityFuncDele(SynergyRank, _AC);
+    }
+
+    #endregion
+}
+
+public class SynchoronyState000 : SynchoronyState, IWhenAlly_Fire
+{ public SynchoronyState000() : base() { } }
+
 
 #endregion
 
@@ -3908,7 +3961,25 @@ public interface IInteract
 
 #endregion
 
-#region Interface : When
+#region Interface : When (Ally)
+
+public interface IWhenAlly
+{
+    public abstract void Play_When(AllyController _AC = null);
+}
+
+public interface IWhenAlly_Fire : IWhenAlly { }
+
+public interface IWhenAlly_Hit : IWhenAlly { }
+
+public interface IWhenAlly_CriticalHit : IWhenAlly { }
+
+public interface IWhenAlly_GetElectricity : IWhenAlly { }
+
+
+#endregion
+
+#region Interface : When (Base)
 
 public interface IWhen
 {
