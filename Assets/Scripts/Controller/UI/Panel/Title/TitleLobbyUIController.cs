@@ -22,7 +22,6 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     [Header("=== Element")]
     [SerializeField] private List<TitleElement> AllTitleElementUI;
     [SerializeField] private List<TitleTSElement> AllTitleTSElementUI;
-    [SerializeField] private List<TitleTSTFElement> AllTitleTSTFElementUI;
 
     [SerializeField] private List<TitleSmokeEUIController> AllTitleSmokeEUI;
     [SerializeField] private List<TitleCloudEUIController> AllTitleCloudEUI;
@@ -44,7 +43,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     [SerializeField] private float DurTime;
 
     [Space(10)]
-    [Header("=== Interact")]
+    [Header("=== Interact")]    
     [SerializeField] private IInteract CurrentInteractable;
 
     #endregion
@@ -69,6 +68,8 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     public override void Offset()
     {
         base.Offset();
+
+        DevTool.Get_ComponentTType<Canvas>(gameObject).planeDistance = 10;
 
         StartBtn.Offset();
         StartBtn.OwnerUIController = this;
@@ -106,7 +107,6 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     private void Start()
     {
         Set_UIElementTS(true);
-        Set_UIElementTSTF(false);
 
         Set_CurrentBtn(StartBtn);
     }
@@ -132,16 +132,6 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         }
     }
 
-    private void Set_UIElementTSTF(bool _Loop)
-    {
-        for (int i = 0; i < AllTitleTSTFElementUI.Count; i++)
-        {
-            int index = i;
-            TitleTSTFElement trueShadowTFElementSet = AllTitleTSTFElementUI[index];
-            List<TrueShadow> targetTsList = trueShadowTFElementSet.Get_TargetTSList();
-            Get_EachUIElementTS(targetTsList, trueShadowTFElementSet.Max, trueShadowTFElementSet.Min, trueShadowTFElementSet.DurTime, _Loop);
-        }
-    }
 
     private void Get_EachUIElementTS(List<TrueShadow> _TSList, float _Max, float _Min, float _DurTime, bool _Loop = true)
     {
