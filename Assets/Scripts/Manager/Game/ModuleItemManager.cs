@@ -14,6 +14,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     [Header("=== Resource")]
     [SerializeField] private List<Sprite> RankIconList;
     [SerializeField] private List<Sprite> MUUIDescRankIconList;
+
     [Space(5)]
     [SerializeField] public GameObject InventoryItemPrefab;
     [SerializeField] public GameObject InventorySlotPrefab;
@@ -145,6 +146,12 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         Clear_InterfaceMC();
 
         Set_MainChipData();
+
+        for (int i = 0; i < CurrentAllMainChipState.Count; i++)
+        {
+            if (CurrentAllMainChipState[i] is IWhenAlly_Fire iFire)
+                DevTool.Add_InList(IWhenAlly_FireList, iFire);
+        }
     }
 
     #endregion
@@ -156,19 +163,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         base.Awake();
 
         Offset();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            string s = "";
-            foreach (KeyValuePair<int, int> keyValue in MainChipAmalgamationDict)
-            {
-                s += keyValue.Key + " / " + keyValue.Value + "\n";
-            }
-            Debug.Log(s);
-        }
     }
 
     #endregion
@@ -286,21 +280,18 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         List<SynchoronyState> result = new List<SynchoronyState>();
 
-        string s = "";
         foreach(KeyValuePair<int, int> mainChipAmalgamation in MainChipAmalgamationDict) // ID, Amount
         {
             int id = mainChipAmalgamation.Key;
             int rank = Get_SynchronyRank(mainChipAmalgamation.Value);
             if (rank <= 0) continue;
 
-            s += id + " / " + rank + "\n";
-
-            SynchoronyState mcs = new SynchoronyState();
+            SynchoronyState mcs = SynchoronyState.Get_AllSynchoronyState()[id];
             mcs.Set_State(id, rank);
 
             result.Add(mcs);
         }
-        Debug.Log(s);
+
         return result;
     }
 
@@ -746,12 +737,12 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Interface (Syn = Ally)
 
-    public void AllyActive_Fire()
+    public void AllyActive_Fire(BulletController _Bullet)
     {
         if (IWhenAlly_FireList.Count <= 0) return;
 
         for (int i = 0; i < IWhenAlly_FireList.Count; i++)
-            IWhenAlly_FireList[i].Play_When();
+            IWhenAlly_FireList[i].Play_When(_AC: null, _Bullet);
     }
 
 

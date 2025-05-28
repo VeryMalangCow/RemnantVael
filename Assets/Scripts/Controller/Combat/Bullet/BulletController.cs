@@ -81,6 +81,7 @@ public abstract class BulletController : MovableDepthController
         transform.position = new Vector3(1000, 0, 0);
         transform.rotation = Quaternion.identity;
         transform.localScale = Vector3.one;
+        Set_Guided(false);
 
         ThisRb.simulated = false;
         CurrentAliveTime = 0;
@@ -318,6 +319,17 @@ public abstract class BulletController : MovableDepthController
         {
             Remove_Object();
         }
+    }
+
+    #endregion
+
+    #region Set
+
+    public void Set_Guided(bool _OnOff, float _Power = 0, EnemyController _TargetEC = null)
+    {
+        IsGuided = _OnOff;
+        RotateSpeed = _Power;
+        TargetEnemyController = _TargetEC;
     }
 
     #endregion

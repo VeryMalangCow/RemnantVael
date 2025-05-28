@@ -81,7 +81,6 @@ public class PingController : MonoBehaviour
         transform.SetParent(_TF);
 
         transform.localPosition = Vector2.zero;
-
     }
 
     #endregion

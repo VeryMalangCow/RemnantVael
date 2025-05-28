@@ -2505,7 +2505,7 @@ public class SynchoronyState : IWhenAlly
 
     #region Get
 
-    public static List<SynchoronyState> Get_AllModuleState()
+    public static List<SynchoronyState> Get_AllSynchoronyState()
     {
         return new List<SynchoronyState>()
         {
@@ -2517,9 +2517,9 @@ public class SynchoronyState : IWhenAlly
 
     #region Play
 
-    public void Play_When(AllyController _AC = null)
+    public void Play_When(AllyController _AC = null, BulletController _Bullet = null)
     {
-        ThisActivityFuncDele(SynergyRank, _AC);
+        ThisActivityFuncDele(SynergyRank, _AC, _Bullet);
     }
 
     #endregion
@@ -3965,7 +3965,7 @@ public interface IInteract
 
 public interface IWhenAlly
 {
-    public abstract void Play_When(AllyController _AC = null);
+    public abstract void Play_When(AllyController _AC = null, BulletController _Bullet = null);
 }
 
 public interface IWhenAlly_Fire : IWhenAlly { }

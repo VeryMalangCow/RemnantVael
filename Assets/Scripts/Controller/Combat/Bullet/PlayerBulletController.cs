@@ -8,6 +8,11 @@ public class PlayerBulletController : BulletController
     [Header("<><><><><> Player")]
 
     [Space(10)]
+    [Header("=== Value")]
+    [SerializeField] private bool LightIsApplyPlayerState = true;
+    [SerializeField] private bool TrailIsApplyPlayerState = true;
+
+    [Space(10)]
     [Header("=== Sprite")]
     [SerializeField] public PlayerVisual<Sprite> BulletSprite;
 
@@ -30,11 +35,14 @@ public class PlayerBulletController : BulletController
         base.SetOn_Light();
 
         ThisLight.lightCookieSprite = ThisSR.sprite;
-        ThisLight.color = PlayerManager.Instance.PlayerController.Get_CorrectColor(this.State.DmgState.DmgType, this.State.IsCritical);
-        if (this.State.DmgState.DmgType == eDamageType.Physics)
-            ThisLight.intensity = Intensity;
-        else
-            ThisLight.intensity = Intensity * 0.5f;
+        if (LightIsApplyPlayerState)
+        {
+            ThisLight.color = PlayerManager.Instance.PlayerController.Get_CorrectColor(this.State.DmgState.DmgType, this.State.IsCritical);
+            if (this.State.DmgState.DmgType == eDamageType.Physics)
+                ThisLight.intensity = Intensity;
+            else
+                ThisLight.intensity = Intensity * 0.5f;
+        }
     }
 
     #endregion
@@ -45,9 +53,12 @@ public class PlayerBulletController : BulletController
     {
         base.SetOn_Trail();
 
-        ThisTrail.time = TrailTime;
-        ThisTrail.startWidth = TrailStartWidth;
-        ThisTrail.colorGradient = PlayerManager.Instance.PlayerController.Get_CorrectGradient(this.State.DmgState.DmgType, this.State.IsCritical);
+        if (TrailIsApplyPlayerState)
+        {
+            ThisTrail.time = TrailTime;
+            ThisTrail.startWidth = TrailStartWidth;
+            ThisTrail.colorGradient = PlayerManager.Instance.PlayerController.Get_CorrectGradient(this.State.DmgState.DmgType, this.State.IsCritical);
+        }
     }
 
     #endregion

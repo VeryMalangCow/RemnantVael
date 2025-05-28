@@ -9,7 +9,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     #region Value
 
     public delegate void ActivityFuncDele_MI(int _Rank, EnemyController _EC = null);
-    public delegate void ActivityFuncDele_MC(int _Rank, AllyController _AC = null);
+    public delegate void ActivityFuncDele_MC(int _Rank, AllyController _AC = null, BulletController _Bullet = null);
 
     [HideInInspector] public List<ActivityFuncDele_MI> ActivityMIFuncList = new List<ActivityFuncDele_MI>();
     [HideInInspector] public List<ActivityFuncDele_MC> ActivityMCFuncList = new List<ActivityFuncDele_MC>();
@@ -90,9 +90,10 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             .Where(method =>
                 method.Name.StartsWith(_MethodPrefix) &&
                 method.ReturnType == typeof(void) &&
-                method.GetParameters().Length == 2 &&
+                method.GetParameters().Length == 3 &&
                 method.GetParameters()[0].ParameterType == typeof(int) &&
-                method.GetParameters()[1].ParameterType == typeof(AllyController))
+                method.GetParameters()[1].ParameterType == typeof(AllyController) &&
+                method.GetParameters()[2].ParameterType == typeof(BulletController))
             .OrderBy(method =>
             {
                 string numberPart = method.Name.Substring(_MethodPrefix.Length);
@@ -166,7 +167,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     #endregion
 
-    #region Unique
+    #region Unique (MI)
 
     // 데미지 타입을 통해서, 유도탄을 발사하는 함수
     private void Activity_Derivative(int _Rank, eDamageType _DmgType, TTypePooling<PlayerBulletController> _Bullet)
@@ -196,6 +197,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             State_Anim? anim = null;
 
             pbc.Set_State(bulletState, posAndRot, size, anim, _State_Effect: null, 0.35f);
+            pbc.Set_Guided(true, _Rank * _Rank);
         }
     }
 
@@ -222,12 +224,11 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     #endregion
 
-
     #region MainChip
 
-    private void Activity_MC_000(int _Rank, AllyController _AC = null)
+    private void Activity_MC_000(int _Rank, AllyController _AC = null, BulletController _Bullet = null)
     {
-
+        _Bullet.Set_Guided(true, _Rank * _Rank, PlayerManager.Instance.Get_PingedEnemy());
     }
 
     #endregion
