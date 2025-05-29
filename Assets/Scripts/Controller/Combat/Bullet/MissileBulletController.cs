@@ -13,6 +13,7 @@ public class MissileBulletController : PlayerBulletController
     [SerializeField] private GameObject Missile_Prefab;
     [SerializeField] private float ShadowRangeTarget = 0.4f;
     [SerializeField] private float SpreadTime = 1f;
+    [SerializeField] private float BaseRotatePower = 6f;
 
     #endregion
 
@@ -63,6 +64,8 @@ public class MissileBulletController : PlayerBulletController
 
         DOTween.To(() => TargetRange, y => TargetRange = y, ShadowRangeTarget, SpreadTime)
             .SetEase(Ease.Linear);
+
+        RotateSpeed += BaseRotatePower;
     }
 
     #endregion

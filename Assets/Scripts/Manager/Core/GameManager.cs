@@ -1684,6 +1684,18 @@ public class CurrentKnockbackState
 #endregion
 
 
+#region Class : Alive
+
+[System.Serializable]
+public class DeadParticleElement
+{
+    public Sprite Sprite;
+    public Vector2 ShadowSize;
+}
+
+
+#endregion
+
 #region Class : State : Combat
 
 [System.Serializable]

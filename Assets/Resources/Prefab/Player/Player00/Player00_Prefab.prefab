@@ -860,7 +860,7 @@ MonoBehaviour:
     - 3.5
     - 10
     ActualState:
-      value: 100
+      value: 10
     CurrentLevel:
       value: 0
   MuzzleSpeed:
@@ -1490,6 +1490,24 @@ MonoBehaviour:
     value: 0
   CurrentEP:
     value: 100
+  BrokenParticleData:
+  - Sprite: {fileID: 498605500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    ShadowSize: {x: 0.4, y: 0.2}
+  - Sprite: {fileID: 1353051295, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
+    ShadowSize: {x: 0.5, y: 0.25}
+  - Sprite: {fileID: -1437216109, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
+    ShadowSize: {x: 0.5, y: 0.25}
+  - Sprite: {fileID: 1243472912, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    ShadowSize: {x: 0.3, y: 0.15}
+  - Sprite: {fileID: -885338135, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    ShadowSize: {x: 0.3, y: 0.15}
+  - Sprite: {fileID: 1450471267, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    ShadowSize: {x: 0.3, y: 0.15}
+  - Sprite: {fileID: 308885252, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    ShadowSize: {x: 0.3, y: 0.15}
+  - Sprite: {fileID: -147571887, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    ShadowSize: {x: 0.3, y: 0.15}
+  ParticleThrowDis: 1
   BaseWeapon: {fileID: 1781130902238718875}
   SkillWeapon: {fileID: 2333396969492081116}
   DashController: {fileID: 8889954111637353817}

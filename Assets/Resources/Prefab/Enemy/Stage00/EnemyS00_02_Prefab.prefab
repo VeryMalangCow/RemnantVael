@@ -67,6 +67,14 @@ MonoBehaviour:
     value: 0
   CurrentEP:
     value: 0
+  BrokenParticleData:
+  - Sprite: {fileID: -1973428488, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    ShadowSize: {x: 0.3, y: 0.15}
+  - Sprite: {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    ShadowSize: {x: 0.3, y: 0.15}
+  - Sprite: {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    ShadowSize: {x: 0.3, y: 0.15}
+  ParticleThrowDis: 2
   testbool: 0
   ThisSG: {fileID: 8138059332026427226}
   ThisEnemyType: 0

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -13,10 +14,16 @@ public abstract class AliveObjectController : MovableObjectController
     [Header("=== Dead")]
     [SerializeField] protected bool IsDead = false;
 
+    [Space(10)]
     [Header("=== Point")]
     [SerializeField] protected ReactiveProperty<float> CurrentSP = new();
     [SerializeField] protected ReactiveProperty<float> CurrentHP = new();
     [SerializeField] protected ReactiveProperty<float> CurrentEP = new();
+
+    [Space(10)]
+    [Header("=== Dead Particle")]
+    [SerializeField] private List<DeadParticleElement> BrokenParticleData;
+    [SerializeField] private float ParticleThrowDis = 1f;
 
     #endregion
 
@@ -109,7 +116,24 @@ public abstract class AliveObjectController : MovableObjectController
     // Dead!
     protected virtual void Set_Die()
     {
+        Play_DeadParticle();
+    }
 
+    #endregion
+
+    #region Dead (Particle)
+
+    protected void Play_DeadParticle()
+    {
+        for (int i = 0; i < BrokenParticleData.Count; i++)
+        {
+            DeadParticleController particle = PoolingManager.Instance.Get_OP_DeadParticle();
+            particle.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+
+            particle.Play_DeadParticle(
+                BrokenParticleData[i].Sprite, BrokenParticleData[i].ShadowSize, transform.position,
+                _StartY: TargetRange, _ThrowDis: ParticleThrowDis, _DurTime: 1.5f, _DisappointTime: 3f);
+        }
     }
 
     #endregion

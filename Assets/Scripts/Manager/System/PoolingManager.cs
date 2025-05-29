@@ -29,6 +29,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public Transform EnemyParentTF;
 
     [Header("=== Effect Img")]
+    [SerializeField] public TTypePooling<DeadParticleController> DeadParticles;
     [SerializeField] public TTypePooling<SpriteRenderer> AfterImgs;
     [SerializeField] public TTypePooling<SpriteRenderer> ExplosionImgs;
     [SerializeField] public TTypePooling<OnceTimeAnimController> OnlyOnceAnimators;
@@ -311,6 +312,11 @@ public class PoolingManager : Singleton<PoolingManager>
         return Get_OP<OnceTimeAnimController>(OnlyOnceAnimators.Prefab, OnlyOnceAnimators.ParentTF, OnlyOnceAnimators.Queue);
     }
 
+    // Dead Particle
+    public DeadParticleController Get_OP_DeadParticle()
+    {
+        return Get_OP<DeadParticleController>(DeadParticles.Prefab, DeadParticles.ParentTF, DeadParticles.Queue);
+    }
     #endregion
 
     #region Module Item
