@@ -2144,6 +2144,9 @@ MonoBehaviour:
     ParentTF: {fileID: 77619666}
   CurrentStageEnemies: []
   EnemyParentTF: {fileID: 1717915347}
+  EnemyExplosions:
+    Prefab: {fileID: 2154807210293626544, guid: 088fa6673bd0bbf4db5b15dfe3b7037a, type: 3}
+    ParentTF: {fileID: 77619666}
   DeadParticles:
     Prefab: {fileID: 6683809427665404101, guid: d301ebd96706ca94a9feb5c0379381b5, type: 3}
     ParentTF: {fileID: 77619666}
@@ -3138,6 +3141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01426f0a7d6066d4bbf9160f1f16a237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SkillDesc_Data: []
   MapLobbyImg_Data: []
   MapLobbyMaterialIndexList_Data: 
 --- !u!4 &830584170
