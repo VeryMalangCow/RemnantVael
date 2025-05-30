@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3462109736182777009}
   - component: {fileID: 9076609007504668469}
   - component: {fileID: 3700956229177998945}
+  - component: {fileID: 84165615741674709}
   m_Layer: 0
   m_Name: Anim
   m_TagString: PlayerThing
@@ -32,6 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3589718252764540037}
+  - {fileID: 6240541402706899456}
   m_Father: {fileID: 8697378355204558337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &9076609007504668469
@@ -74,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3100
+  m_SortingOrder: 0
   m_Sprite: {fileID: -1265860573, guid: c9c75a02110f18140bf314a061d913f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -107,6 +109,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &84165615741674709
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947860357028516534}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &2154807210293626544
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +172,7 @@ MonoBehaviour:
   TargetObject: {fileID: 1947860357028516534}
   ThisSR: {fileID: 9076609007504668469}
   TargetRange: 0.6
+  ThisSG: {fileID: 84165615741674709}
   ThisAnimator: {fileID: 3700956229177998945}
   ThisCol: {fileID: 617587750482013127}
   ThisLight: {fileID: 6749085841042800825}
@@ -200,6 +215,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!1 &2729045797490136644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6240541402706899456}
+  m_Layer: 0
+  m_Name: ExtraAnims
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6240541402706899456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2729045797490136644}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3462109736182777009}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3351835880083535546
 GameObject:
   m_ObjectHideFlags: 0

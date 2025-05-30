@@ -503,6 +503,8 @@ public class ModuleUpgradeUIController : PanelUIController
 
     public override void SetOff_ThisPanel()
     {
+        if (Is_Interact_Msg()) return;
+
         Tween_Disable();
 
         base.SetOff_ThisPanel();

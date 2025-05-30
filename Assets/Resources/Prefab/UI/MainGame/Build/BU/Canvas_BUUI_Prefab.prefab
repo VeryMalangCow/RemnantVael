@@ -8179,6 +8179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_Broken
       objectReference: {fileID: 0}
+    - target: {fileID: 3919578816453419632, guid: e73bb440e526c3648bb7740784d723c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6138433334638490471, guid: e73bb440e526c3648bb7740784d723c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

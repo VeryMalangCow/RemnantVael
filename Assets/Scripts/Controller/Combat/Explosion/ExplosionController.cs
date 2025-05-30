@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public abstract class ExplosionController : StaticDepthController
@@ -15,6 +16,7 @@ public abstract class ExplosionController : StaticDepthController
 
     [Space(10)]
     [Header("=== Component")]
+    [SerializeField] private SortingGroup ThisSG;
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] protected CircleCollider2D ThisCol;
     [SerializeField] protected Light2D ThisLight;
@@ -76,7 +78,7 @@ public abstract class ExplosionController : StaticDepthController
     {
         this.State = new ExplosionState(_State);
 
-        ThisSR.sortingOrder = LayerOrderManager.Order_Explosion;
+        ThisSG.sortingOrder = LayerOrderManager.Order_Explosion;
         TargetRange = _TargetRange;
     }
 

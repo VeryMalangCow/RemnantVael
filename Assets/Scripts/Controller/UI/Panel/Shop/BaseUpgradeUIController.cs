@@ -273,6 +273,8 @@ public class BaseUpgradeUIController : PanelUIController
 
     public override void SetOff_ThisPanel()
     {
+        if (Is_Interact_Msg()) return;
+
         base.SetOff_ThisPanel();
 
         BaseUpgradeController.UsingShop = null;
