@@ -61,7 +61,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // 스태틱
     [HideInInspector] private WordData StaticDesc_Data;
     // 스킬
-    [HideInInspector] private List<WordData> SkillDesc_Data;
+    [SerializeField] private List<WordData> SkillDesc_Data;
     // 모듈
     [HideInInspector] private WordData ModuleItemDesc_Data;
     [HideInInspector] private WordData ModuleItemEquipDesc_Data;

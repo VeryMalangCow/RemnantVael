@@ -143,7 +143,6 @@ public class BaseUpgradeUIController : PanelUIController
         MaxEPShop.Offset(pc.MaxEP, bm.BaseMaxEP_BUData, AllBUData_Float, this);
         SpawnESMultipleShop.Offset(pc.SpawnESMultiple, bm.BaseSpawnESMultiple_BUData, AllBUData_Float, this);
         NeedEP_ForSkillMultipleShop.Offset(pc.NeedEP_ForSkillMultiple, bm.BaseNeedEP_ForSkillMultiple_BUData, AllBUData_Float, this);
-        //DecEnergyPointMultipleShop.Offset(pc.DecEnergyPointMultiple, bm.BaseDecEnergyPointMultiple_BUData, AllBUData_Float, this);
         ResistShop.Offset(pc.TakingDmgMultiple, bm.BaseResist_BUData, AllBUData_Float, this);
 
         WalkSpeedShop.Offset(pc.WalkSpeed, bm.BaseWalkSpeed_BUData, AllBUData_Float, this);
@@ -443,7 +442,6 @@ public class BaseUpgradeUIController : PanelUIController
         MaxEPShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(8), ResourceManager.Instance.Get_StaticDesc(0));
         SpawnESMultipleShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(38), ResourceManager.Instance.Get_StaticDesc(1));
         NeedEP_ForSkillMultipleShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(39), ResourceManager.Instance.Get_StaticDesc(2));
-        //DecEnergyPointMultipleShop.Set_LanguageTxt(CSVManager.Instance.Get_StaticWord(42), CSVManager.Instance.Get_StaticDesc(3));
         ResistShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(37), ResourceManager.Instance.Get_StaticDesc(4));
 
         WalkSpeedShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(40), ResourceManager.Instance.Get_StaticDesc(5));
@@ -461,9 +459,9 @@ public class BaseUpgradeUIController : PanelUIController
 
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
-            SkillShopList[i].Skill_CooltimeShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(45), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 0));
-            SkillShopList[i].Skill_PowerShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(18), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 1));
-            SkillShopList[i].Skill_TierShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(17), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * DevTool.SkillAmount) + 2));
+            SkillShopList[i].Skill_CooltimeShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(45), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 0));
+            SkillShopList[i].Skill_PowerShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(18), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 1));
+            SkillShopList[i].Skill_TierShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(17), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 2));
         }
 
         // Desc

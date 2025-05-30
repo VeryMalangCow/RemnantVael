@@ -15,6 +15,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<CreditController> Credit;
     [SerializeField] public TTypePooling<InteractItemController> InteractItems;
     [SerializeField] public TTypePooling<PlayerAttackerController> PlayerAttackers;
+    [SerializeField] public TTypePooling<PlayerExplosionController> PlayerExplosions;
 
     [Header("=== Skill")]
     [SerializeField] public TTypePooling<MissileBulletController> MissileBullet;
@@ -208,6 +209,12 @@ public class PoolingManager : Singleton<PoolingManager>
     public PlayerAttackerController Get_OP_PlayerAttacker()
     {
         return Get_OP<PlayerAttackerController>(PlayerAttackers.Prefab, PlayerAttackers.ParentTF, PlayerAttackers.Queue);
+    }
+
+    // Player Explosion
+    public PlayerExplosionController Get_OP_PlayerExplosion()
+    {
+        return Get_OP<PlayerExplosionController>(PlayerExplosions.Prefab, PlayerExplosions.ParentTF, PlayerExplosions.Queue);
     }
 
     #endregion

@@ -16,6 +16,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     [HideInInspector] public readonly static int Order_SortingObjTop = 5000;
     [HideInInspector] public readonly static int Order_EffectImg = 9999;
     [HideInInspector] public readonly static int Order_BuildLower = 10000;
+    [HideInInspector] public readonly static int Order_Explosion = 19999;
     [HideInInspector] public readonly static int Order_Aim = 20000;
 
     [HideInInspector] private List<DepthController> LastSortedList = new();

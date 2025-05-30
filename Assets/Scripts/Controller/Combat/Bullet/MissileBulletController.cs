@@ -74,6 +74,8 @@ public class MissileBulletController : PlayerBulletController
 
     protected override void Remove_Condition()
     {
+        Play_ExplosionAttack();
+
         switch (PoolingString)
         {
             case "MissileBullet":
@@ -92,6 +94,36 @@ public class MissileBulletController : PlayerBulletController
         }
 
         base.Remove_Condition();
+    }
+
+    #endregion
+
+    #region Explosion
+
+    private void Play_ExplosionAttack()
+    {
+        PlayerExplosionController pec = PoolingManager.Instance.Get_OP_PlayerExplosion();
+        pec.Set_State(
+            Get_ExlposionState(), 
+            _ColRadius: ExplosionController.BigExplostionColSize,
+            _AC: UnitManager.Instance.BigExplosionAC,
+            _ThisM: PlayerManager.Instance.PlayerController.Explosion_Material,
+            Get_SpawnTF(),
+            this.TargetRange);
+    }
+
+    private ExplosionState Get_ExlposionState()
+    {
+        return new ExplosionState(
+            new CombatState(
+                new DmgState(eDamageType.Physics, State.DmgState.Dmg * 2),
+                new CriticalState(State.CriticalState),
+                new KnockbackState(true, State.KnockbackState.KBPower * 2, State.KnockbackState.KBTime)));
+    }
+
+    private State_TF2D Get_SpawnTF()
+    {
+        return new State_TF2D(transform.position, Quaternion.identity, Vector2.one);
     }
 
     #endregion

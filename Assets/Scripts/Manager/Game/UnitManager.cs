@@ -98,6 +98,11 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public List<AnimationClip> ModuleItemOutlinerAC;
 
     [Space(5)]
+    [Header("-- Expl")]
+    [SerializeField] public AnimationClip BigExplosionAC;
+    [SerializeField] public AnimationClip MiddleExplosionAC;
+
+    [Space(5)]
     [Header("-- Shop / Actual")]
     [SerializeField] public CoupleData<AnimationClip> BUShop_OnOffAC;
     [SerializeField] public CoupleData<AnimationClip> MUShop_OnOffAC;

@@ -7,13 +7,14 @@ public abstract class AttackerController : MovableDepthController
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Attacker")]
 
     [Space(10)]
     [Header("=== Component")]
     [SerializeField] protected GameObject ThisColGO;
-    [HideInInspector] protected Collider2D ThisCol;
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] private Light2D ThisLight;
 
@@ -25,8 +26,14 @@ public abstract class AttackerController : MovableDepthController
     [Header("=== Object")]
     [SerializeField] protected List<StaticDepthController> HittedObjectList = new List<StaticDepthController>();
 
+    #endregion
 
+    #region - Hide
+
+    [HideInInspector] protected Collider2D ThisCol;
     [HideInInspector] private AnimatorOverrideController AOC;
+
+    #endregion
 
     #endregion
 

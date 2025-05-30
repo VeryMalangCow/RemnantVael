@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -280,7 +281,7 @@ public class EnemyController : NavObjectController
     }
 
     // 어택커 데미지
-    public void Try_Hitted(PlayerAttackerController _Attacker)
+    public void Try_Hitted(AttackerController _Attacker)
     {
         if (IsDead)
         { return; }
@@ -292,6 +293,21 @@ public class EnemyController : NavObjectController
             state,
             DevTool.Is_ChanceSuccess(state.CriticalState.CC),
             DevTool.Get_Dir(_Attacker.gameObject, this.gameObject));
+    }
+
+    // 폭발 데미지
+    public void Try_Hitted(ExplosionController _Explosion)
+    {
+        if (IsDead)
+        { return; }
+
+        ExplosionState state = _Explosion.State;
+
+        // Damage
+        Take_Damaged(
+            state,
+            DevTool.Is_ChanceSuccess(state.CriticalState.CC),
+            DevTool.Get_Dir(_Explosion.gameObject, this.gameObject));
     }
 
     #endregion

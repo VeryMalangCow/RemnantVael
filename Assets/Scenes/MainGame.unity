@@ -2127,6 +2127,9 @@ MonoBehaviour:
   PlayerAttackers:
     Prefab: {fileID: 2154807210293626544, guid: e9907211ca267024c8887bfe754167b7, type: 3}
     ParentTF: {fileID: 77619666}
+  PlayerExplosions:
+    Prefab: {fileID: 2154807210293626544, guid: e502bef22cc08a54295e688e2ba80666, type: 3}
+    ParentTF: {fileID: 77619666}
   MissileBullet:
     Prefab: {fileID: 2192280153704162206, guid: d05f25d52068dd74988f837decc0268e, type: 3}
     ParentTF: {fileID: 77619666}
@@ -6564,6 +6567,8 @@ MonoBehaviour:
   - {fileID: 7400000, guid: b5c82c38202ccea49aeb4f80244bd688, type: 2}
   - {fileID: 7400000, guid: fda530e94e5c23e47a1672a32ac5098e, type: 2}
   - {fileID: 7400000, guid: 384b1af2a10c9d948aebf6e7b86da252, type: 2}
+  BigExplosionAC: {fileID: 7400000, guid: 9caa685e3f9cfdb44a1eb1c8622c9b14, type: 2}
+  MiddleExplosionAC: {fileID: 7400000, guid: 79e83ff6bbc6e8048990f1d2e6a901dd, type: 2}
   BUShop_OnOffAC:
     TypeBase: {fileID: 7400000, guid: 5045f1f99dfa80f4bb8eff1229062de0, type: 2}
     TypeSpecial: {fileID: 7400000, guid: fece8302c854a824695c2cf6290a0957, type: 2}

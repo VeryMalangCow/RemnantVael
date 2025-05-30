@@ -1838,6 +1838,27 @@ public class AttackerState : CombatState
 
 #endregion
 
+#region Class : State : Combat : Explosion
+
+[System.Serializable]
+public class ExplosionState : CombatState
+{
+    #region Value
+
+    public bool IsFire = false;
+    
+
+    #endregion
+
+    #region Constructor
+
+    public ExplosionState(CombatState _State) : base(_State.DmgState, _State.CriticalState, _State.KnockbackState) { }
+
+    #endregion
+}
+
+#endregion
+
 
 #region Class : State : CombatElement
 
