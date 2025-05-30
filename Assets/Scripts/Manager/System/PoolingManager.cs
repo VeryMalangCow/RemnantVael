@@ -28,6 +28,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<EnemyAttackerController> EnemyAttackers;
     [HideInInspector] public List<TTypePooling<EnemyController>> CurrentStageEnemies;
     [SerializeField] public Transform EnemyParentTF;
+    [SerializeField] public TTypePooling<EnemyExplosionController> EnemyExplosions;
 
     [Header("=== Effect Img")]
     [SerializeField] public TTypePooling<DeadParticleController> DeadParticles;
@@ -279,6 +280,12 @@ public class PoolingManager : Singleton<PoolingManager>
     public EnemyAttackerController Get_OP_EnemyAttacker()
     {
         return Get_OP<EnemyAttackerController>(EnemyAttackers.Prefab, EnemyAttackers.ParentTF, EnemyAttackers.Queue);
+    }
+
+    // Enemy Explosion
+    public EnemyExplosionController Get_OP_EnemyExplosion()
+    {
+        return Get_OP<EnemyExplosionController>(EnemyExplosions.Prefab, EnemyExplosions.ParentTF, EnemyExplosions.Queue);
     }
 
     #endregion

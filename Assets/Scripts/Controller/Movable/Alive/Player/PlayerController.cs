@@ -909,6 +909,28 @@ public class PlayerController : AliveObjectController
         }
     }
 
+    // 타격: 어택커
+    public void Try_Hitted(EnemyExplosionController _Explosion)
+    {
+        if (IsInvincible || IsDead)
+        { return; }
+
+        IsInvincible = true;
+
+        // 피격
+        if (!Is_Avoid()) // 회피인지?
+        {
+            ExplosionState state = _Explosion.State;
+
+            // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
+            Take_Damaged(
+                DevTool.Get_DmgEffectByCold(state.DmgState.Dmg, _Explosion.Enemy.BuffController),
+                DevTool.Get_Dir(_Explosion.gameObject, gameObject),
+                state.KnockbackState);
+        }
+    }
+
+
     // 타격: 건물어택커
     public void Try_Hitted(TrapObjectController _Attacker)
     {
