@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class PlayerExplosionController : ExplosionController
 {
+    #region State
+
+    public override void Set_State_Extra() 
+    {
+        ThisSR.material = UnitManager.Instance.PlayerExplosionM; 
+    }
+
+    #endregion
+
     #region Remove
 
     protected override void Remove_Condition()

@@ -54,7 +54,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6f1fb8e49118567498c8f00ee93758b5, type: 2}
+  - {fileID: 2100000, guid: cf42237da85accb44a08cefd0f119851, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 8350683347677216643}
   - component: {fileID: 3501360633453498926}
   m_Layer: 0
-  m_Name: Enemy_BigExplAttacker_Prefab
+  m_Name: Enemy_ExplAttacker_Prefab
   m_TagString: PlayerThing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,6 +160,7 @@ MonoBehaviour:
   TargetRange: 0.4
   ThisAnimator: {fileID: 3700956229177998945}
   ThisCol: {fileID: 617587750482013127}
+  ThisLight: {fileID: 6749085841042800825}
   State:
     DmgState:
       DmgType: 0
@@ -172,6 +173,7 @@ MonoBehaviour:
       KBPower: 0
       KBTime: 0
     IsFire: 0
+  Enemy: {fileID: 0}
 --- !u!50 &3501360633453498926
 Rigidbody2D:
   serializedVersion: 4
@@ -215,7 +217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3589718252764540037
 Transform:
   m_ObjectHideFlags: 0
@@ -247,7 +249,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.5518868, g: 0.9151375, b: 1, a: 1}
+  m_Color: {r: 0.49803922, g: 0, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -270,7 +272,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 359.99997
   m_PointLightOuterAngle: 359.99997
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 0
+  m_PointLightOuterRadius: 1.8
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1

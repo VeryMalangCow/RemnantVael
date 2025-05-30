@@ -1,6 +1,8 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public abstract class ExplosionController : StaticDepthController
 {
@@ -15,6 +17,7 @@ public abstract class ExplosionController : StaticDepthController
     [Header("=== Component")]
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] protected CircleCollider2D ThisCol;
+    [SerializeField] protected Light2D ThisLight;
 
     [Space(10)]
     [Header("=== State")]
@@ -45,6 +48,7 @@ public abstract class ExplosionController : StaticDepthController
         AOC = null;
         State.Reset_State();
         HittedObjectList.Clear();
+        ThisLight.intensity = 0;
     }
 
     #endregion
@@ -56,7 +60,6 @@ public abstract class ExplosionController : StaticDepthController
         ExplosionState _State,
         float _ColRadius,
         AnimationClip _AC,
-        Material _ThisM,
         State_TF2D _State_StartTF,
         float _TargetRange = 0.4f)
     {
@@ -79,7 +82,8 @@ public abstract class ExplosionController : StaticDepthController
 
     public virtual void Set_State_Juge(float _ColRadius)
     {
-        ThisCol.radius = _ColRadius;   
+        ThisCol.radius = _ColRadius;
+        ThisLight.pointLightOuterRadius = _ColRadius;
     }
 
     public virtual void Set_State_Anim(AnimationClip _AC)
@@ -109,7 +113,11 @@ public abstract class ExplosionController : StaticDepthController
 
     private IEnumerator Start_Play_Cor()
     {
-        yield return new WaitForSeconds(JugeTime);
+        DOTween.To(() => ThisLight.intensity, x => ThisLight.intensity = x, 1f, JugeTime * 0.2f);
+        yield return new WaitForSeconds(JugeTime * 0.2f);
+
+        DOTween.To(() => ThisLight.intensity, x => ThisLight.intensity = x, 0f, JugeTime * 0.2f);
+        yield return new WaitForSeconds(JugeTime * 0.8f);
 
         Remove_Object();
     }

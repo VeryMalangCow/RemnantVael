@@ -10,6 +10,15 @@ public class EnemyExplosionController : ExplosionController
 
     #endregion
 
+    #region State
+
+    public override void Set_State_Extra() 
+    {
+        ThisSR.material = UnitManager.Instance.EnemyExplosionM;
+    }
+
+    #endregion
+
     #region Remove
 
     protected override void Remove_Condition()

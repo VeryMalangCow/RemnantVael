@@ -76,10 +76,6 @@ public class PlayerController : AliveObjectController
     [SerializeField] public GameObject AimPrefab;
     [SerializeField] public GameObject AimRoundPrefab;
 
-    [Space(5)]
-    [Header("-- Explosion")]
-    [SerializeField] public Material Explosion_Material;
-
     #endregion
 
     #region - Hide

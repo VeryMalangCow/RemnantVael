@@ -107,7 +107,6 @@ public class MissileBulletController : PlayerBulletController
             Get_ExlposionState(), 
             _ColRadius: ExplosionController.BigExplostionColSize,
             _AC: UnitManager.Instance.BigExplosionAC,
-            _ThisM: PlayerManager.Instance.PlayerController.Explosion_Material,
             Get_SpawnTF(),
             this.TargetRange);
     }

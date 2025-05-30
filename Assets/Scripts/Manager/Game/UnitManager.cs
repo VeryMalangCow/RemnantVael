@@ -38,6 +38,11 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public Material Build_000;
     [SerializeField] public CoupleData<Material> Prison_OnOffMaterial;
 
+    [Space(5)]
+    [Header("-- Expl")]
+    [SerializeField] public Material PlayerExplosionM;
+    [SerializeField] public Material EnemyExplosionM;
+
     #endregion
 
     #region Sprite
@@ -101,6 +106,7 @@ public class UnitManager : Singleton<UnitManager>
     [Header("-- Expl")]
     [SerializeField] public AnimationClip BigExplosionAC;
     [SerializeField] public AnimationClip MiddleExplosionAC;
+
 
     [Space(5)]
     [Header("-- Shop / Actual")]
