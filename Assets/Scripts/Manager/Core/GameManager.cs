@@ -1845,14 +1845,25 @@ public class ExplosionState : CombatState
 {
     #region Value
 
-    public bool IsFire = false;
+    public bool IsFire = true;
+    public bool IsCold = false;
+    public bool IsElectricity = false;
+    public bool IsCorrosion = false;
     
-
     #endregion
 
     #region Constructor
 
     public ExplosionState(CombatState _State) : base(_State.DmgState, _State.CriticalState, _State.KnockbackState) { }
+
+    #endregion
+
+    #region Get 
+
+    public List<bool> Get_AttributeCondition()
+    {
+        return new List<bool> { IsFire, IsCold, IsElectricity, IsCorrosion };
+    }
 
     #endregion
 }

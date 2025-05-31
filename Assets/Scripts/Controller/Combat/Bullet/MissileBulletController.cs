@@ -106,7 +106,7 @@ public class MissileBulletController : PlayerBulletController
         pec.Set_State(
             Get_ExlposionState(), 
             _ColRadius: ExplosionController.BigExplostionColSize,
-            _AC: UnitManager.Instance.BigExplosionAC,
+            _AC: UnitManager.Instance.ExplosionAC,
             Get_SpawnTF(),
             this.TargetRange);
     }

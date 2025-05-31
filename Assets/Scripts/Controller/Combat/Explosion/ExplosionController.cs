@@ -34,7 +34,6 @@ public abstract class ExplosionController : StaticDepthController
     [HideInInspector] private AnimatorOverrideController AOC;
 
     [HideInInspector] public static readonly float BigExplostionColSize = 1.8f;
-    [HideInInspector] public static readonly float MiddleExplostionColSize = 1f;
 
     [HideInInspector] public static readonly float AnimSpeed = 2f;
     [HideInInspector] public static readonly float JugeTime = 0.5f;
@@ -45,7 +44,7 @@ public abstract class ExplosionController : StaticDepthController
 
     #region State (Reset)
 
-    private void Reset_State()
+    protected virtual void Reset_State()
     {
         AOC = null;
         State.Reset_State();

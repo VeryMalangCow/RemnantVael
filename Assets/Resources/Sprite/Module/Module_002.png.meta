@@ -353,7 +353,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 270
+        y: 271
         width: 80
         height: 80
       alignment: 0
@@ -370,7 +370,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_00
+      name: Module_Explosion_Fire_00
       rect:
         serializedVersion: 2
         x: 81
@@ -384,14 +384,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4097e5675b98a8a46a64281a538685ea
-      internalID: 1617335578
+      spriteID: 60714d59748202148bbfc822344d36a3
+      internalID: -1184873174
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_01
+      name: Module_Explosion_Fire_07
       rect:
         serializedVersion: 2
         x: 130
@@ -405,14 +405,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b9189c812d959645a9493b7f8afdbba
-      internalID: 53826322
+      spriteID: 10065a3540254fd4d91ccfc4f10ab810
+      internalID: -1537758761
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_02
+      name: Module_Explosion_Cold_00
       rect:
         serializedVersion: 2
         x: 179
@@ -426,14 +426,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a555ca4dbf8b8fd488483e3b0ab97546
-      internalID: -28442215
+      spriteID: 375361235dc56aa4893b907dda48e06a
+      internalID: -172817737
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_03
+      name: Module_Explosion_Cold_07
       rect:
         serializedVersion: 2
         x: 228
@@ -447,14 +447,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f87796a82f68d2a4d86b5f201554bbae
-      internalID: -326345247
+      spriteID: 3a1319d8ecf13aa4eb45644d9594bb6c
+      internalID: -592945642
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_04
+      name: Module_Explosion_Electicity_00
       rect:
         serializedVersion: 2
         x: 277
@@ -468,14 +468,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e6ced6c88aaa474782ec92e5ead7fd5
-      internalID: 605562677
+      spriteID: b8c2b227a0412574f8c63cd2caa01eb3
+      internalID: -1052390694
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_05
+      name: Module_Explosion_Electicity_07
       rect:
         serializedVersion: 2
         x: 326
@@ -489,14 +489,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1409fe87faae56f4c86424d94de3d7e0
-      internalID: 1989192490
+      spriteID: 9d3521714b3c90c40ac09f4ba3951a5a
+      internalID: 1408695811
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_06
+      name: Module_Explosion_Corrosion_00
       rect:
         serializedVersion: 2
         x: 375
@@ -510,14 +510,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 932d4f51214fea64daea71a4147dcb17
-      internalID: 1450190255
+      spriteID: da76e8c75cacdf144bb2ef03424cc120
+      internalID: -684827220
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_07
+      name: Module_Explosion_Corrosion_07
       rect:
         serializedVersion: 2
         x: 424
@@ -531,14 +531,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3cc68395936320e47b7290ccb73a29f2
-      internalID: -916463034
+      spriteID: 371a6949cd58fc344934577735e9d9e0
+      internalID: -1959635572
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_08
+      name: Module_Explosion_Fire_01
       rect:
         serializedVersion: 2
         x: 81
@@ -552,14 +552,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77e05b56b3c66864786f42365d5dc9df
-      internalID: 1557803358
+      spriteID: 6e16c45077ef80d40be0f7edb7346e9d
+      internalID: 1136306250
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_09
+      name: Module_Explosion_Fire_08
       rect:
         serializedVersion: 2
         x: 130
@@ -573,14 +573,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ded475c91e7a28249a8664dfc3f3c261
-      internalID: 1623201745
+      spriteID: 001344c9594804a45bd2063d23b79892
+      internalID: 2129973350
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_10
+      name: Module_Explosion_Cold_01
       rect:
         serializedVersion: 2
         x: 179
@@ -594,14 +594,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbdc14c48eca2504f9e62f6cb16269c3
-      internalID: -1993677377
+      spriteID: 3e3330f445ccb3747b2d7d343331380a
+      internalID: 228743731
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_11
+      name: Module_Explosion_Cold_08
       rect:
         serializedVersion: 2
         x: 228
@@ -615,14 +615,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e00bee6eb1390648a08bb8b1c6b98be
-      internalID: 599768991
+      spriteID: fdff24531bfabb44985a2addf4b11ce4
+      internalID: 1402907160
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Module_Explosion_Middle_12
+      name: Module_Explosion_Electicity_01
       rect:
         serializedVersion: 2
         x: 277
@@ -636,8 +636,827 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5c6a7266ab5af147996727229639229
-      internalID: 336238339
+      spriteID: 1b4870fb0ef3fe6489c22b3bf6d3f45c
+      internalID: 767638914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Electicity_08
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 253
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52521f8d0086212418fbd713bf7aca94
+      internalID: 188638983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Corrosion_01
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 253
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3518646d156768346b3d5660baa43086
+      internalID: 1023909779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Corrosion_08
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 253
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35fc2238b50d2714aa7c23ccbef41570
+      internalID: -1196375115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Fire_02
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 204
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daeca612be4a64e4e833cacd068216e7
+      internalID: 163250500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Fire_09
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 204
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 059ffff4e898d2c4c9463125d5ffb7da
+      internalID: -483079025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Cold_02
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 204
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92f3abf8fcde6cb4babe2989fcc43ec1
+      internalID: -309361238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Cold_09
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 204
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5d7896f1033cac47955be9a4ddcc047
+      internalID: -1834463795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Electicity_02
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 204
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df1d594bb600df348a46dd47642dd97c
+      internalID: 1528898812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Electicity_09
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 204
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 415bbd568a8852b488915991cef2ee1b
+      internalID: -839876536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Corrosion_02
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 204
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e9da6c5176de014285af5170b6c42ba
+      internalID: -1389374695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Corrosion_09
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 204
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2729ba74413fd34a9f32394fc1c14a2
+      internalID: -1646586152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Fire_03
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 155
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf1ef68b3a74aea4da728e475acb8546
+      internalID: 1511644051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Fire_10
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 155
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bddaf4c345ef8f43b095986eb7669e9
+      internalID: 1501703126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Cold_03
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 155
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19599ffb7d0cbdd4092d64331b96d400
+      internalID: -1437071269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Cold_10
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 155
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85c0628d87be186499d4e3c989b2d777
+      internalID: -1466840867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Electicity_03
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 155
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4498b9d1e19e70344a8e35779756000d
+      internalID: 565078903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Electicity_10
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 155
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f90030dbb9c44db42ba068e297465509
+      internalID: -1188605333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Corrosion_03
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 155
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c29eec6317373b9468cc3cab529646ca
+      internalID: 1104734854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Corrosion_10
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 155
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dac13a8aa05e2c43a1390935c652467
+      internalID: -685628717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Fire_04
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 106
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0777870aac768694a8a31163a7aad13f
+      internalID: -1298688734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Fire_11
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 106
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ae1d7dd4252e9a4e91c23b380914ca1
+      internalID: -570813136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Cold_04
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 106
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dabef54e5ae37224aa4da43f54afd8e3
+      internalID: -786166501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Cold_11
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 106
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30fd152afdc14774eb7d88b42820f81c
+      internalID: 1329907180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Electicity_04
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 106
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5e5b74cff0ce3f42b1ee4cc4f898bd8
+      internalID: -925338814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Electicity_11
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 106
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80d4b10e39db72347b366e8f999b7af9
+      internalID: -1022496399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Corrosion_04
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 106
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16477c75c7ac5cd4897db35db41c1202
+      internalID: 1350446026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Corrosion_11
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 106
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7709c6dfb914c14f948a1ff1e827a48
+      internalID: -1830751649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Fire_05
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 57
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aabfb4f3f267aa46848be79af3ab00a
+      internalID: 2080697481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Fire_12
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 57
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd10b2692460dbb47bf663c5d202baf6
+      internalID: -753995776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Cold_05
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 57
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7ee748ce641d6c47ad992fadf67967c
+      internalID: -400490498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Cold_12
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 57
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d7372633deea50498a3f73cf2806608
+      internalID: 2102552249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Electicity_05
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 57
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4563a90bdbce2ae4ea6c0c4bd9913a1f
+      internalID: 1981969938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Electicity_12
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 57
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1253070efb0e5940afe6b20528b60ad
+      internalID: -947126608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Corrosion_05
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 57
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f795ea37bc1476d469e8470e37b4e4ac
+      internalID: -529718395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Corrosion_12
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 57
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6918d3c544e59ea4cb6d23bea3fc1e3f
+      internalID: -1968818196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Fire_06
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 8
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae8eb125321f62643856dbf80cbbe255
+      internalID: 1370943926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Cold_06
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 8
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb94af49a5a15e7498ac660758c62273
+      internalID: -1437567703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Electicity_06
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 8
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d149d3305188f249aa34f2cbfbbccf1
+      internalID: -495816667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_Explosion_Corrosion_06
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 8
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b313cba91ace62746889d083cacce798
+      internalID: -1085836948
       vertices: []
       indices: 
       edges: []
@@ -668,6 +1487,58 @@ TextureImporter:
       Module_Explosion_Big_10: -2042458260
       Module_Explosion_Big_11: 753804848
       Module_Explosion_Big_12: 121660367
+      Module_Explosion_Cold_00: -172817737
+      Module_Explosion_Cold_01: 228743731
+      Module_Explosion_Cold_02: -309361238
+      Module_Explosion_Cold_03: -1437071269
+      Module_Explosion_Cold_04: -786166501
+      Module_Explosion_Cold_05: -400490498
+      Module_Explosion_Cold_06: -1437567703
+      Module_Explosion_Cold_07: -592945642
+      Module_Explosion_Cold_08: 1402907160
+      Module_Explosion_Cold_09: -1834463795
+      Module_Explosion_Cold_10: -1466840867
+      Module_Explosion_Cold_11: 1329907180
+      Module_Explosion_Cold_12: 2102552249
+      Module_Explosion_Corrosion_00: -684827220
+      Module_Explosion_Corrosion_01: 1023909779
+      Module_Explosion_Corrosion_02: -1389374695
+      Module_Explosion_Corrosion_03: 1104734854
+      Module_Explosion_Corrosion_04: 1350446026
+      Module_Explosion_Corrosion_05: -529718395
+      Module_Explosion_Corrosion_06: -1085836948
+      Module_Explosion_Corrosion_07: -1959635572
+      Module_Explosion_Corrosion_08: -1196375115
+      Module_Explosion_Corrosion_09: -1646586152
+      Module_Explosion_Corrosion_10: -685628717
+      Module_Explosion_Corrosion_11: -1830751649
+      Module_Explosion_Corrosion_12: -1968818196
+      Module_Explosion_Electicity_00: -1052390694
+      Module_Explosion_Electicity_01: 767638914
+      Module_Explosion_Electicity_02: 1528898812
+      Module_Explosion_Electicity_03: 565078903
+      Module_Explosion_Electicity_04: -925338814
+      Module_Explosion_Electicity_05: 1981969938
+      Module_Explosion_Electicity_06: -495816667
+      Module_Explosion_Electicity_07: 1408695811
+      Module_Explosion_Electicity_08: 188638983
+      Module_Explosion_Electicity_09: -839876536
+      Module_Explosion_Electicity_10: -1188605333
+      Module_Explosion_Electicity_11: -1022496399
+      Module_Explosion_Electicity_12: -947126608
+      Module_Explosion_Fire_00: -1184873174
+      Module_Explosion_Fire_01: 1136306250
+      Module_Explosion_Fire_02: 163250500
+      Module_Explosion_Fire_03: 1511644051
+      Module_Explosion_Fire_04: -1298688734
+      Module_Explosion_Fire_05: 2080697481
+      Module_Explosion_Fire_06: 1370943926
+      Module_Explosion_Fire_07: -1537758761
+      Module_Explosion_Fire_08: 2129973350
+      Module_Explosion_Fire_09: -483079025
+      Module_Explosion_Fire_10: 1501703126
+      Module_Explosion_Fire_11: -570813136
+      Module_Explosion_Fire_12: -753995776
       Module_Explosion_Middle_00: 1617335578
       Module_Explosion_Middle_01: 53826322
       Module_Explosion_Middle_02: -28442215
