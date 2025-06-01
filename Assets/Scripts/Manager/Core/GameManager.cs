@@ -1203,8 +1203,7 @@ public class DevTool
     #endregion
 
     #region About Collider
-
-    public static bool Can_Collding<T>(Collider2D _Col, string _Tag, List<StaticDepthController> _AlreadyList, out T _TType) where T : StaticDepthController
+    public static bool Can_Collding<T>(Collider2D _Col, string _Tag, HashSet<StaticDepthController> _AlreadyList, out T _TType) where T : StaticDepthController
     {
         _TType = null;
 

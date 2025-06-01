@@ -29,7 +29,7 @@ public abstract class ExplosionController : StaticDepthController
 
     #region - Hide
 
-    [HideInInspector] protected List<StaticDepthController> HittedObjectList = new List<StaticDepthController>();
+    [HideInInspector] protected HashSet<StaticDepthController> HittedObjectList = new HashSet<StaticDepthController>();
 
     [HideInInspector] private AnimatorOverrideController AOC;
 
@@ -59,13 +59,12 @@ public abstract class ExplosionController : StaticDepthController
 
     public void Set_State(
         ExplosionState _State,
-        float _ColRadius,
         AnimationClip _AC,
         State_TF2D _State_StartTF,
         float _TargetRange = 0.4f)
     {
         Set_State_Base(_State, _TargetRange);
-        Set_State_Juge(_ColRadius);
+        Set_State_Juge(BigExplostionColSize);
         Set_State_Anim(_AC);
         Set_State_StartTF(_State_StartTF);
         Set_State_Extra();
@@ -124,6 +123,15 @@ public abstract class ExplosionController : StaticDepthController
     }
 
 
+    #endregion
+
+    #region Add
+
+    public void Add_HittedObjectList(StaticDepthController _Object)
+    {
+        HittedObjectList.Add(_Object);
+    }
+    
     #endregion
 
     #region Trigger

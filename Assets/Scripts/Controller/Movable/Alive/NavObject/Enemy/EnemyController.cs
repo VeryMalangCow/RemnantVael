@@ -278,6 +278,8 @@ public class EnemyController : NavObjectController
             state, 
             state.IsCritical, 
             DevTool.Get_DirFromAngle(_Bullet.transform.eulerAngles.z));
+
+        Try_GainStack(true, BuffController.ColdStack);
     }
 
     // 어택커 데미지

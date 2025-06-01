@@ -24,7 +24,7 @@ public abstract class AttackerController : MovableDepthController
 
     [Space(10)]
     [Header("=== Object")]
-    [SerializeField] protected List<StaticDepthController> HittedObjectList = new List<StaticDepthController>();
+    [SerializeField] protected HashSet<StaticDepthController> HittedObjectList = new HashSet<StaticDepthController>();
 
     #endregion
 
@@ -73,7 +73,7 @@ public abstract class AttackerController : MovableDepthController
         gameObject.SetActive(false);
 
         AOC = null;
-        HittedObjectList = new List<StaticDepthController>();
+        HittedObjectList = new HashSet<StaticDepthController>();
     }
 
     protected virtual void Reset_Other()

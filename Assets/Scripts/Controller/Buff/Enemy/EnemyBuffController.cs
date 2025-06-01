@@ -41,6 +41,7 @@ public class EnemyBuffController : MonoBehaviour
 
 
     [HideInInspector] public EnemyController Enemy;
+    [HideInInspector] private float StatusExplosionSize = 1.7f;
 
     #endregion
 
@@ -267,41 +268,75 @@ public class EnemyBuffController : MonoBehaviour
     }
 
     // 각각 속성이 최대치일 때
+
+    // Inferno
     private void Active_FlameFullStack()
     {
-        Active_FullStack(
-            FlameStack, 
-            InfernoStack, 
-            DevTool.Get_FlameExplDmg(out eDamageType dmgType),
-            dmgType);
+        float dmg = DevTool.Get_FlameExplDmg(out eDamageType dmgType);
+        Active_FullStack(FlameStack, InfernoStack, dmg, dmgType);
+
+        Play_ExplosionAttack(dmgType, dmg, 0);
     }
 
+    // AbsoliteZero
     private void Active_ColdFullStack()
     {
-        Active_FullStack(
-            ColdStack,
-            AbsoluteZeroStack,
-            DevTool.Get_ColdExplDmg(out eDamageType dmgType),
-            dmgType);
+        float dmg = DevTool.Get_ColdExplDmg(out eDamageType dmgType);
+        Active_FullStack(ColdStack, AbsoluteZeroStack, dmg, dmgType);
+
+        Play_ExplosionAttack(dmgType, dmg, 1);
     }
 
+    // Plasma
     private void Active_ElectricityFullStack()
     {
-        Active_FullStack(
-            ElectricityStack,
-            PlasmaStack,
-            DevTool.Get_ElectricityExplDmg(out eDamageType dmgType),
-            dmgType);
+        float dmg = DevTool.Get_ElectricityExplDmg(out eDamageType dmgType);
+        Active_FullStack(ElectricityStack, PlasmaStack, dmg, dmgType);
+
+        Play_ExplosionAttack(dmgType, dmg, 2);
     }
 
+    // Decay
     private void Active_CorrosionFullStack()
     {
-        Active_FullStack(
-            CorrosionStack,
-            DecayStack,
-            DevTool.Get_CorrosionExplDmg(out eDamageType dmgType),
-            dmgType);
+        float dmg = DevTool.Get_CorrosionExplDmg(out eDamageType dmgType);
+        Active_FullStack(CorrosionStack, DecayStack, dmg, dmgType);
+
+        Play_ExplosionAttack(dmgType, dmg, 3);
     }
+    #endregion
+
+    #region Explosion
+
+    private void Play_ExplosionAttack(eDamageType _DmgType, float _Dmg, int _StatusIndex)
+    {
+        PlayerExplosionController pec = PoolingManager.Instance.Get_OP_PlayerExplosion();
+        pec.Add_HittedObjectList(Enemy);
+        pec.Set_State(
+            Get_ExlposionState(_DmgType, _Dmg, _StatusIndex),
+            _AC: UnitManager.Instance.ExplosionAC,
+            Get_SpawnTF(StatusExplosionSize),
+            Enemy.TargetRange);
+    }
+
+    private ExplosionState Get_ExlposionState(eDamageType _DmgType, float _Dmg, int _StatusIndex)
+    {
+        List<bool> statusBool = new List<bool> { false, false, false, false }; // Fire, Cold, Electricity, Corrosion
+        statusBool[_StatusIndex] = true;
+
+        return new ExplosionState(
+            new CombatState(
+                new DmgState(_DmgType, _Dmg),
+                new CriticalState(0, 1),
+                new KnockbackState(true, 10f, 0.2f)), 
+            statusBool); 
+    }
+
+    private State_TF2D Get_SpawnTF(float _Size)
+    {
+        return new State_TF2D(transform.position, Quaternion.identity, Vector2.one * _Size);
+    }
+
     #endregion
 
     #endregion
