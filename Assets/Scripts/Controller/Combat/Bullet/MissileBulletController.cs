@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class MissileBulletController : PlayerBulletController
 {
@@ -117,7 +118,8 @@ public class MissileBulletController : PlayerBulletController
             new CombatState(
                 new DmgState(eDamageType.Physics, State.DmgState.Dmg * 2),
                 new CriticalState(State.CriticalState),
-                new KnockbackState(true, State.KnockbackState.KBPower * 2, State.KnockbackState.KBTime)));
+                new KnockbackState(true, State.KnockbackState.KBPower * 2, State.KnockbackState.KBTime)),
+            new List<bool> { false, true, false, false}); // Fire, Cold, Electricity, Corrosion
     }
 
     private State_TF2D Get_SpawnTF()

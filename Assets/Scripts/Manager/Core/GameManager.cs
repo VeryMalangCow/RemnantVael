@@ -1854,7 +1854,20 @@ public class ExplosionState : CombatState
 
     #region Constructor
 
-    public ExplosionState(CombatState _State) : base(_State.DmgState, _State.CriticalState, _State.KnockbackState) { }
+    public ExplosionState(CombatState _State, List<bool> _IsStatusList) : base(_State.DmgState, _State.CriticalState, _State.KnockbackState) 
+    {
+        IsFire = _IsStatusList[0];
+        IsCold = _IsStatusList[1];
+        IsElectricity = _IsStatusList[2];
+        IsCorrosion = _IsStatusList[3];
+    }
+    public ExplosionState(ExplosionState _State) : base(_State.DmgState, _State.CriticalState, _State.KnockbackState)
+    {
+        IsFire = _State.IsFire;
+        IsCold = _State.IsCold;
+        IsElectricity = _State.IsElectricity;
+        IsCorrosion = _State.IsCorrosion;
+    }
 
     #endregion
 
