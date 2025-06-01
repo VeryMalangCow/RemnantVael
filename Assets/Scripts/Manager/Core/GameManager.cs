@@ -1845,7 +1845,7 @@ public class ExplosionState : CombatState
 {
     #region Value
 
-    public bool IsFire = true;
+    public bool IsFire = false;
     public bool IsCold = false;
     public bool IsElectricity = false;
     public bool IsCorrosion = false;

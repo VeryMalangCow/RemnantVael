@@ -308,6 +308,16 @@ public class EnemyController : NavObjectController
             state,
             DevTool.Is_ChanceSuccess(state.CriticalState.CC),
             DevTool.Get_Dir(_Explosion.gameObject, this.gameObject));
+
+        Try_GainStack(state.IsFire, BuffController.FlameStack);
+        Try_GainStack(state.IsCold, BuffController.ColdStack);
+        Try_GainStack(state.IsElectricity, BuffController.ElectricityStack);
+        Try_GainStack(state.IsCorrosion, BuffController.CorrosionStack);
+    }
+
+    private void Try_GainStack(bool _Is, StatusEffect_Temporary_WithAmount _TargetDebuff)
+    {
+        if (_Is) _TargetDebuff.Gain_Stack(1, true);
     }
 
     #endregion

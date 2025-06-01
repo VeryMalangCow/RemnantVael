@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Explosion_Player_Fire
+  m_Name: Explosion_Player_Corrosion
   m_Shader: {fileID: -6465566751694194690, guid: 139ac6e302fda2245b74575f8c30928c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -76,7 +76,7 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     m_Colors:
-    - _Color: {r: 23.96863, g: 1.2360158, b: 0, a: 1}
+    - _Color: {r: 0.28533968, g: 23.968622, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
