@@ -9,7 +9,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     #region Value
 
     public delegate void ActivityFuncDele_MI(int _Rank, EnemyController _EC = null);
-    public delegate void ActivityFuncDele_MC(int _Rank, AllyController _AC = null, BulletController _Bullet = null);
+    public delegate void ActivityFuncDele_MC(int _Rank, BulletController _Bullet = null);
 
     [HideInInspector] public List<ActivityFuncDele_MI> ActivityMIFuncList = new List<ActivityFuncDele_MI>();
     [HideInInspector] public List<ActivityFuncDele_MC> ActivityMCFuncList = new List<ActivityFuncDele_MC>();
@@ -90,10 +90,9 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             .Where(method =>
                 method.Name.StartsWith(_MethodPrefix) &&
                 method.ReturnType == typeof(void) &&
-                method.GetParameters().Length == 3 &&
+                method.GetParameters().Length == 2 &&
                 method.GetParameters()[0].ParameterType == typeof(int) &&
-                method.GetParameters()[1].ParameterType == typeof(AllyController) &&
-                method.GetParameters()[2].ParameterType == typeof(BulletController))
+                method.GetParameters()[1].ParameterType == typeof(BulletController))
             .OrderBy(method =>
             {
                 string numberPart = method.Name.Substring(_MethodPrefix.Length);
@@ -121,8 +120,11 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     #endregion
 
-    #region ModuleItem
+    #region Func (Module Item)
 
+    #region Derivative Bullet
+
+    // 유도탄 발사
     private void Activity_MI_000(int _Rank, EnemyController _EC = null)
     {
         Activity_Derivative(_Rank, eDamageType.Energy, PoolingManager.Instance.MI_000_Bullets);
@@ -133,6 +135,11 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         Activity_Derivative(_Rank, eDamageType.Physics, PoolingManager.Instance.MI_001_Bullets);
     }
 
+    #endregion
+
+    #region Inflict Status When Critical
+
+    // 크리티컬 시, 상태이상 부여
     private void Activity_MI_002(int _Rank, EnemyController _EC = null)
     {
         if (0.5f > UnityEngine.Random.Range(0f, 1f))
@@ -164,6 +171,8 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             Activity_InflictStatusEffect(eStatusEffect.Corrosion, _Rank, _EC);
         }
     }
+
+    #endregion
 
     #endregion
 
@@ -224,11 +233,18 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     #endregion
 
-    #region MainChip
+    #region Func (Synchrony)
 
-    private void Activity_MC_000(int _Rank, AllyController _AC = null, BulletController _Bullet = null)
+    // 유도
+    private void Activity_MC_000(int _Rank,  BulletController _Bullet = null)
     {
-        _Bullet.Set_Guided(true, _Rank * _Rank, PlayerManager.Instance.Get_PingedEnemy());
+        _Bullet.Set_Guided(true, _Rank);
+    }
+
+    // 화염
+    private void Activity_MC_001(int _Rank, BulletController _Bullet = null)
+    {
+
     }
 
     #endregion

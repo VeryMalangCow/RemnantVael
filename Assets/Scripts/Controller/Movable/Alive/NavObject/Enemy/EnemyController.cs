@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -278,8 +277,6 @@ public class EnemyController : NavObjectController
             state, 
             state.IsCritical, 
             DevTool.Get_DirFromAngle(_Bullet.transform.eulerAngles.z));
-
-        Try_GainStack(true, BuffController.ColdStack);
     }
 
     // 어택커 데미지
@@ -329,6 +326,28 @@ public class EnemyController : NavObjectController
     // 데미지, 넉백, 크리티컬, 모듈 호과 등
     private void Take_Damaged(CombatState _State_Combat, bool _IsCritical, Vector2 _DirKB)
     {
+        Debug.Log("속성 테스트");
+        int a = Random.Range(0, 4);
+        switch (a)
+        {
+            case 0:
+                Try_GainStack(true, BuffController.FlameStack);
+                break;
+
+            case 1:
+                Try_GainStack(true, BuffController.ColdStack);
+                break;
+
+            case 2:
+                Try_GainStack(true, BuffController.ElectricityStack);
+                break;
+
+            case 3:
+                Try_GainStack(true, BuffController.CorrosionStack);
+                break;
+        }
+
+
         float actualDmg = _State_Combat.DmgState.Dmg;
 
         // INTERFACE: 맞을 때 효과 

@@ -144,6 +144,8 @@ public class PlayerWeaponController : PlayerSolarController
             _State_Effect: null,
             _TargetSpawnDepth.TargetRange);
 
+        ModuleItemManager.Instance.SynchronyActive_Fire(_Bullet);
+
         // Æø¹ß ÀÌÆåÆ®   
         UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
             PlayerController.Get_ID(),

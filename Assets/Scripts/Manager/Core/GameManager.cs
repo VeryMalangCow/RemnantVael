@@ -2538,7 +2538,7 @@ class ForgeInteractPanel
 #region Class : State : Player : MC
 
 [System.Serializable]
-public class SynchoronyState : IWhenAlly
+public class SynchoronyState : IWhenSynchrony
 {
     #region Value
 
@@ -2573,9 +2573,9 @@ public class SynchoronyState : IWhenAlly
 
     #region Play
 
-    public void Play_When(AllyController _AC = null, BulletController _Bullet = null)
+    public void Play_When(BulletController _Bullet = null)
     {
-        ThisActivityFuncDele(SynergyRank, _AC, _Bullet);
+        ThisActivityFuncDele(SynergyRank, _Bullet);
     }
 
     #endregion
@@ -4017,20 +4017,20 @@ public interface IInteract
 
 #endregion
 
-#region Interface : When (Ally)
+#region Interface : When (Synchrony)
 
-public interface IWhenAlly
+public interface IWhenSynchrony
 {
-    public abstract void Play_When(AllyController _AC = null, BulletController _Bullet = null);
+    public abstract void Play_When(BulletController _Bullet = null);
 }
 
-public interface IWhenAlly_Fire : IWhenAlly { }
+public interface IWhenAlly_Fire : IWhenSynchrony { }
 
-public interface IWhenAlly_Hit : IWhenAlly { }
+public interface IWhenAlly_Hit : IWhenSynchrony { }
 
-public interface IWhenAlly_CriticalHit : IWhenAlly { }
+public interface IWhenAlly_CriticalHit : IWhenSynchrony { }
 
-public interface IWhenAlly_GetElectricity : IWhenAlly { }
+public interface IWhenAlly_GetElectricity : IWhenSynchrony { }
 
 
 #endregion

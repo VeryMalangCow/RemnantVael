@@ -735,14 +735,14 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #endregion
 
-    #region Interface (Syn = Ally)
+    #region Interface (Synchrony)
 
-    public void AllyActive_Fire(BulletController _Bullet)
+    public void SynchronyActive_Fire(BulletController _Bullet)
     {
         if (IWhenAlly_FireList.Count <= 0) return;
 
         for (int i = 0; i < IWhenAlly_FireList.Count; i++)
-            IWhenAlly_FireList[i].Play_When(_AC: null, _Bullet);
+            IWhenAlly_FireList[i].Play_When(_Bullet);
     }
 
 

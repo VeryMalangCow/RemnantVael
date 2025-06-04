@@ -14,6 +14,7 @@ public class AllyBulletController : BulletController
     #endregion
 
     #region State
+
     public override void Set_State_Size(BulletState_Size? _State_Size)
     {
         if (_State_Size.HasValue)
