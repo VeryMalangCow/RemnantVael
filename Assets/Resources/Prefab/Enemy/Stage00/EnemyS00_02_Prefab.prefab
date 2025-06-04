@@ -79,6 +79,7 @@ MonoBehaviour:
   ThisSG: {fileID: 8138059332026427226}
   ThisEnemyType: 0
   MaxHP: 150
+  MaxEP: 150
   ChargeEPSpeed: 10
   ItemDropPercent: 1
   ItemRankPercents:
@@ -103,6 +104,9 @@ MonoBehaviour:
   - EnemyPatternList:
     - EnemyPatternList:
       - {fileID: 8721225703925756054}
+  SpecialPattern:
+    EnemyPatternList:
+    - {fileID: 386546918868841986}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
   BuffController: {fileID: 5694203857495159564}
@@ -381,8 +385,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
   StartDelay: 0
   EndDelay: 0.5
+  IsSpecialPattern: 0
+  IsSpecialEndPattern: 0
   IsPlaying: 0
 --- !u!1 &2486564893073553752
 GameObject:
@@ -496,8 +503,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
   StartDelay: 0
   EndDelay: 0
+  IsSpecialPattern: 0
+  IsSpecialEndPattern: 0
   IsPlaying: 0
   FollowingSpeed: 2.5
   UntilForTargetRange: 1
@@ -626,6 +636,121 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1}
   m_Direction: 1
+--- !u!1 &6941762234563741687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3560546325541260281}
+  - component: {fileID: 386546918868841986}
+  m_Layer: 7
+  m_Name: Charge_RangeMultishotAT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3560546325541260281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6941762234563741687}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8805351947020054373}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &386546918868841986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6941762234563741687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcbe35e835cba79449c6846867a03aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 3
+  StartDelay: 1
+  EndDelay: 0.2
+  IsSpecialPattern: 1
+  IsSpecialEndPattern: 1
+  IsPlaying: 0
+  ThisBS:
+    DmgState:
+      DmgType: 0
+      Dmg: 5
+    CriticalState:
+      CC: 0
+      CD: 0
+    KnockbackState:
+      CanKB: 1
+      KBPower: 1
+      KBTime: 1
+    IsCritical: 0
+    MuzzleSpeed: 1.5
+    AliveTime: 6
+  BulletShadowScale: {x: 0.32, y: 0.32}
+  BulletColSize: {x: 2, y: 3}
+  TrailTime: 0.7
+  TrailStartWidth: 0.4
+  TrailGradient:
+    serializedVersion: 2
+    key0: {r: 0.6528621, g: 0, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 0}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 32768
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  LightIntensity: 5
+  MaxRange: 0
+  MinRange: 0
+  ShootExplAmount: 8
+  ExplAmount: 8
+  SpawnDepthList:
+  - {fileID: 848216773187047800}
+  BeforeEffectDepthList:
+  - {fileID: 5139810350627272259}
+  - {fileID: 4056894064819751254}
+  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  BulletAC: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
+  AngleList:
+  - -20
+  - 0
+  - 20
 --- !u!1 &7798985532177022493
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,8 +796,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
   StartDelay: 1.5
   EndDelay: 0.75
+  IsSpecialPattern: 0
+  IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisBS:
     DmgState:
@@ -766,6 +894,7 @@ Transform:
   - {fileID: 6344438746737160783}
   - {fileID: 1383470367207219228}
   - {fileID: 4562256001103424427}
+  - {fileID: 3560546325541260281}
   m_Father: {fileID: 5956502316695661957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &69425944245334037

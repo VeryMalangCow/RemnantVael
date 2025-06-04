@@ -8,7 +8,7 @@ public class EnemyPattern_Range : EnemyPattern
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Melee")]
+    [Header("<><><><><> Range")]
 
     [Space(10)]
     [Header("=== State")]
@@ -78,6 +78,8 @@ public class EnemyPattern_Range : EnemyPattern
 
     public override bool Can_PlayPattern()
     {
+        if (IsSpecialPattern) return true;
+
         float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.Instance.PlayerController.transform.position);
 
         if (forPlayerDis >= MinRange && forPlayerDis < MaxRange && Can_ShootByBulletRadius())
@@ -118,21 +120,36 @@ public class EnemyPattern_Range : EnemyPattern
 
         #region Actual 
 
+        CurrentRepeatAmount++;
+
         Vector2 targetDir = DevTool.Get_DirForPlayer(ThisEnemy);
 
-        for (int i = 0; i < SpawnDepthList.Count; i++)
-            Play_ActualPattern(SpawnDepthList[i], targetDir);
+        Play_ActualPattern(targetDir);
 
         #endregion
 
         Play_AfterEffect(EndDelay);
         yield return new WaitForSeconds(EndDelay);
 
-        End_Pattern();
-        ThisEnemy.Play_Pattern();
+        if (CurrentRepeatAmount >= RepeatAmount) // 반복을 마침
+        {
+            End_Pattern();
+            ThisEnemy.Play_Pattern();
+        }
+        else
+        {
+            ThisEnemy.CurrentPatternCor = Play_ThisPattern_Cor();
+            StartCoroutine(ThisEnemy.CurrentPatternCor);
+        }
     }
 
-    private void Play_ActualPattern(DepthController _Depth, Vector2 _TargetDir)
+    protected virtual void Play_ActualPattern(Vector2 _TargetDir)
+    {
+        for (int i = 0; i < SpawnDepthList.Count; i++)
+            Play_ActualPattern_Each(SpawnDepthList[i], _TargetDir);
+    }
+
+    private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)
     {
         EnemyBulletController bullet = PoolingManager.Instance.Get_OP_EnemyBullet();
         bullet.Enemy = ThisEnemy;

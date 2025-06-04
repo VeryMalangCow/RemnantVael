@@ -21,6 +21,7 @@ public class EnemyController : NavObjectController
     [Header("=== State")]
     [SerializeField] private eEnemy ThisEnemyType;
     [SerializeField] private float MaxHP;
+    [SerializeField] private float MaxEP = 100f;
     [SerializeField] private float ChargeEPSpeed = 1f;
 
     [Space(10)]
@@ -46,14 +47,13 @@ public class EnemyController : NavObjectController
     [Header("=== Pattern")]
     [Tooltip("This Order of Priority Equle Index")]
     [SerializeField] protected List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
+    [SerializeField] protected ContinuousEnemyPattern SpecialPattern;
 
 
     #endregion
 
     #region - Hide
 
-    // EP
-    [HideInInspector] private float MaxEP = 100f;
 
     // Discharge
     [HideInInspector] private bool IsDischarge = false;
@@ -61,7 +61,8 @@ public class EnemyController : NavObjectController
     [HideInInspector] private float DischargeDelayCurrentTime = 0f;
 
     // FullCharge
-    [HideInInspector] private bool IsFullCharge = false;
+    [HideInInspector] protected bool IsFullCharge = false;
+    [HideInInspector] private bool IsPlayingSpecialPattern = false;
 
     // 패턴
     [HideInInspector] private EnemyPattern CurrentEnemyPattern = null;
@@ -218,7 +219,7 @@ public class EnemyController : NavObjectController
         {
             Caculate_DischargeDelay(_DeltaTime);
         }
-        else // 충전
+        else if (!IsFullCharge) // 충전
         {
             Add_CurrentEP(ChargeEPSpeed * _DeltaTime);
         }
@@ -235,6 +236,16 @@ public class EnemyController : NavObjectController
         }
     }
 
+    public void Reset_ChargeState()
+    {
+        IsDischarge = true;
+        DischargeDelayCurrentTime = 0f;
+        CurrentEP.Value = 0f;
+
+        IsFullCharge = false;
+        IsPlayingSpecialPattern = false;
+    }
+
     #endregion
 
     #region Reset
@@ -249,11 +260,7 @@ public class EnemyController : NavObjectController
         CurrentEP.Value = 0;
 
         // Discharge
-        IsDischarge = true;
-        DischargeDelayCurrentTime = 0f;
-
-        // FullCharge
-        IsFullCharge = false;
+        Reset_ChargeState();
 
         if (Target == null) // 타겟 Player
         { Target = PlayerManager.Instance.PlayerController.gameObject; }
@@ -303,7 +310,9 @@ public class EnemyController : NavObjectController
     }
 
     private void Add_CurrentEP(float _AddValue)
-    { 
+    {
+        if (IsFullCharge) return;
+
         Add_CurrentEP(_AddValue, MaxEP);
 
         // 방전
@@ -316,7 +325,7 @@ public class EnemyController : NavObjectController
         // 풀 충전
         if (CurrentEP.Value >= MaxEP)
         {
-            Debug.Log("충전!");
+            IsFullCharge = true;
         }
     }
 
@@ -627,7 +636,9 @@ public class EnemyController : NavObjectController
 
     public void Play_Pattern()
     {
-        if (IsDead) return; 
+        if (IsDead) return;
+
+        if (TryPlay_ChargeStatePattern()) return;
 
         // 이미 있는지 진행 중인 패턴이 있는지 확인
         int orderOfPattern = Get_NextPatternIndex();
@@ -668,6 +679,21 @@ public class EnemyController : NavObjectController
     {
         CurrentEnemyPattern = CurrentContinuousEnemyPattern.EnemyPatternList[_OrderOfPattern + 1];
         CurrentEnemyPattern.Start_Pattern();
+    }
+
+    private bool TryPlay_ChargeStatePattern()
+    {
+        if (IsFullCharge && !IsPlayingSpecialPattern) // 풀 차징 시
+        {
+            IsPlayingSpecialPattern = true;
+            CurrentContinuousEnemyPattern = SpecialPattern;
+            CurrentEnemyPattern = SpecialPattern.EnemyPatternList[0];
+            CurrentEnemyPattern.Start_Pattern();
+
+            return true;
+        }
+
+        return false;
     }
 
     #endregion

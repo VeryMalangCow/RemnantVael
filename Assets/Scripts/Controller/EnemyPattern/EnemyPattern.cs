@@ -5,16 +5,32 @@ public abstract class EnemyPattern : MonoBehaviour
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Pattern")]
 
     [Space(10)]
     [Header("=== Value")]
     [SerializeField] protected EnemyController ThisEnemy;
+    [SerializeField] protected int RepeatAmount = 1;
+    
     [SerializeField] protected float StartDelay = 0f;
     [SerializeField] protected float EndDelay = 0f;
 
+    [Space(10)]
+    [Header("=== Special")]
+    [SerializeField] protected bool IsSpecialPattern = false;
+    [SerializeField] private bool IsSpecialEndPattern = false;
+
+    #endregion
+
+    #region - Hide
+
     [HideInInspector] public bool IsPlaying = false;
+    [HideInInspector] protected int CurrentRepeatAmount = 0;
+
+    #endregion
 
     #endregion
 
@@ -52,6 +68,7 @@ public abstract class EnemyPattern : MonoBehaviour
         // Value
         IsPlaying = true;
         ThisEnemy.IsPlayingPattern = true;
+        CurrentRepeatAmount = 0;
 
         // Pattern
         ThisEnemy.CurrentPatternCor = Play_ThisPattern_Cor();
@@ -63,6 +80,12 @@ public abstract class EnemyPattern : MonoBehaviour
         // Value
         IsPlaying = false;
         ThisEnemy.IsPlayingPattern = false;
+        CurrentRepeatAmount = 0;
+
+        if (IsSpecialEndPattern)
+        {
+            ThisEnemy.Reset_ChargeState();
+        }
     }
 
     #endregion

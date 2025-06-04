@@ -60,6 +60,8 @@ public class EnemyPattern_Melee : EnemyPattern
 
     public override bool Can_PlayPattern()
     {
+        if (IsSpecialPattern) return true;
+
         float forPlayerDis = DevTool.Get_DisForPlayer(ThisEnemy);
         if (forPlayerDis >= MinRange && forPlayerDis < MaxRange)
         {
@@ -81,6 +83,8 @@ public class EnemyPattern_Melee : EnemyPattern
 
         #region Actual
 
+        CurrentRepeatAmount++;
+
         Vector2 targetDir = DevTool.Get_DirForPlayer(ThisEnemy);
 
         for (int i = 0; i < SpawnDepthList.Count; i++)
@@ -91,8 +95,16 @@ public class EnemyPattern_Melee : EnemyPattern
         Play_AfterEffect(EndDelay);
         yield return new WaitForSeconds(EndDelay);
 
-        End_Pattern();
-        ThisEnemy.Play_Pattern();
+        if (CurrentRepeatAmount >= RepeatAmount) // 반복을 마침
+        {
+            End_Pattern();
+            ThisEnemy.Play_Pattern();
+        }
+        else
+        {
+            ThisEnemy.CurrentPatternCor = Play_ThisPattern_Cor();
+            StartCoroutine(ThisEnemy.CurrentPatternCor);
+        }
     }
 
     private void Play_ActualPattern(DepthController _Depth, Vector2 _TargetDir)
