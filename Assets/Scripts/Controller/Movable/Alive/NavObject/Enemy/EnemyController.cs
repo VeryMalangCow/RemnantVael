@@ -21,7 +21,7 @@ public class EnemyController : NavObjectController
     [Header("=== State")]
     [SerializeField] private eEnemy ThisEnemyType;
     [SerializeField] private float MaxHP;
-    [SerializeField] private float MaxEP;
+    [SerializeField] private float ChargeEPSpeed = 1f;
 
     [Space(10)]
     [Header("=== Item")]
@@ -46,11 +46,22 @@ public class EnemyController : NavObjectController
     [Header("=== Pattern")]
     [Tooltip("This Order of Priority Equle Index")]
     [SerializeField] protected List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
-    
+
 
     #endregion
 
     #region - Hide
+
+    // EP
+    [HideInInspector] private float MaxEP = 100f;
+
+    // Discharge
+    [HideInInspector] private bool IsDischarge = false;
+    [HideInInspector] private float DischargeDelayTime = 1f;
+    [HideInInspector] private float DischargeDelayCurrentTime = 0f;
+
+    // FullCharge
+    [HideInInspector] private bool IsFullCharge = false;
 
     // 패턴
     [HideInInspector] private EnemyPattern CurrentEnemyPattern = null;
@@ -161,7 +172,6 @@ public class EnemyController : NavObjectController
 
     #region Framework
 
-
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -172,6 +182,13 @@ public class EnemyController : NavObjectController
 
         // Pattern
         Start_PatternFromNone();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        Caculate_Charge(Time.deltaTime);
     }
 
     protected override void FixedUpdate()
@@ -193,6 +210,33 @@ public class EnemyController : NavObjectController
 
     #endregion
 
+    #region Energy
+
+    private void Caculate_Charge(float _DeltaTime)
+    {
+        if (IsDischarge) // 방전 회복 딜레이
+        {
+            Caculate_DischargeDelay(_DeltaTime);
+        }
+        else // 충전
+        {
+            Add_CurrentEP(ChargeEPSpeed * _DeltaTime);
+        }
+    }
+
+
+    private void Caculate_DischargeDelay(float _DeltaTime)
+    {
+        DischargeDelayCurrentTime += _DeltaTime;
+        if (DischargeDelayTime <= DischargeDelayCurrentTime)
+        {
+            DischargeDelayCurrentTime = 0f;
+            IsDischarge = false;
+        }
+    }
+
+    #endregion
+
     #region Reset
 
     private void Reset_State()
@@ -200,7 +244,16 @@ public class EnemyController : NavObjectController
         base.IsDead = false;
         CurrentSP.Value = 0;
         CurrentHP.Value = MaxHP;
-        CurrentEP.Value = MaxEP;
+
+        // Energy
+        CurrentEP.Value = 0;
+
+        // Discharge
+        IsDischarge = true;
+        DischargeDelayCurrentTime = 0f;
+
+        // FullCharge
+        IsFullCharge = false;
 
         if (Target == null) // 타겟 Player
         { Target = PlayerManager.Instance.PlayerController.gameObject; }
@@ -252,7 +305,19 @@ public class EnemyController : NavObjectController
     private void Add_CurrentEP(float _AddValue)
     { 
         Add_CurrentEP(_AddValue, MaxEP);
-        Check_IsDead(CurrentEP.Value);
+
+        // 방전
+        if (CurrentEP.Value <= 0)
+        {
+            IsDischarge = true;
+            DischargeDelayCurrentTime = 0f;
+        }
+
+        // 풀 충전
+        if (CurrentEP.Value >= MaxEP)
+        {
+            Debug.Log("충전!");
+        }
     }
 
     public float Get_PercentHP(float _Percent)
@@ -327,6 +392,7 @@ public class EnemyController : NavObjectController
     private void Take_Damaged(CombatState _State_Combat, bool _IsCritical, Vector2 _DirKB)
     {
         Debug.Log("속성 테스트");
+/*
         int a = Random.Range(0, 4);
         switch (a)
         {
@@ -346,7 +412,7 @@ public class EnemyController : NavObjectController
                 Try_GainStack(true, BuffController.CorrosionStack);
                 break;
         }
-
+*/
 
         float actualDmg = _State_Combat.DmgState.Dmg;
 
@@ -453,10 +519,6 @@ public class EnemyController : NavObjectController
     protected override void Set_Die()
     {
         base.Set_Die();
-        if (CurrentEP.Value <= 0) 
-            DieStateType = eDamageType.Energy;
-        else 
-            DieStateType = eDamageType.Physics;
 
         ThisAudioSource.Stop();
 
@@ -467,16 +529,12 @@ public class EnemyController : NavObjectController
 
     private void Set_Die_GenItem()
     {
-        Gen_BS(1);
-        Gen_MS(1);
-        Gen_Credit(10);
-
-        if (DieStateType == eDamageType.Physics)
-            Gen_Overrider(1);
-        else
-            Gen_J(10 * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value);
+        Gen_BS(1); // 베터리 조각
+        Gen_MS(1); // 모듈 조각
+        Gen_Credit(10); // 크레딧
+        Gen_Overrider(1); // 오버라이더
+        Gen_J(10 * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value); // 줄
         
-
         // Drop Module Item
         if (DevTool.Is_ChanceSuccess(ItemDropPercent))
         {

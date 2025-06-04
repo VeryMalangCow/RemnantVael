@@ -79,7 +79,7 @@ MonoBehaviour:
   ThisSG: {fileID: 8138059332026427226}
   ThisEnemyType: 0
   MaxHP: 150
-  MaxEP: 150
+  ChargeEPSpeed: 10
   ItemDropPercent: 1
   ItemRankPercents:
   - 0.2

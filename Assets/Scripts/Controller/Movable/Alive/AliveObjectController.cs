@@ -77,7 +77,7 @@ public abstract class AliveObjectController : MovableObjectController
     // Point
     private void Add_CurrentPoint(ref ReactiveProperty<float> _Value, float _AddValue, float _Max)
     {
-        _Value.Value = Math.Min(_Value.Value + _AddValue, _Max);
+        _Value.Value = Math.Clamp(_Value.Value + _AddValue, 0, _Max);
     }
 
     #endregion
