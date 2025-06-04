@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -47,6 +48,11 @@ public class AllyController : NavObjectController
     [HideInInspector] private IEnumerator ThisMainCor = null;
 
     [HideInInspector] private readonly float NearPlayerDis = 0.5f;
+
+    // Name
+    [SerializeField] private int NameID = -1;
+    [SerializeField] private List<string> Name = null; 
+
     #endregion
 
     #endregion
@@ -67,6 +73,9 @@ public class AllyController : NavObjectController
             });
 
         Set_AllyStateMode(AllyStateMode.Value);
+
+        NameID = AllyManager.Instance.Get_AllyNameID();
+        Name = AllyManager.Instance.Get_AllyName(NameID);
     }
 
     #endregion

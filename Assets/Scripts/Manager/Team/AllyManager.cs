@@ -19,15 +19,15 @@ public class AllyManager : Singleton<AllyManager>
     #region - Hide
 
     // Ally Card Data
-    [SerializeField] private List<AllyCardData> ST_AllAllyCardData = new List<AllyCardData>();
+    [HideInInspector] private List<AllyCardData> ST_AllAllyCardData = new List<AllyCardData>();
     [HideInInspector] private HashSet<int> ST_GottenAllyCards = new HashSet<int>();
     [HideInInspector] private List<Sprite> ST_CardIconList = new List<Sprite>();
 
-    [SerializeField] private List<AllyCardData> UT_AllAllyCardData = new List<AllyCardData>();
+    [HideInInspector] private List<AllyCardData> UT_AllAllyCardData = new List<AllyCardData>();
     [HideInInspector] private HashSet<int> UT_GottenAllyCards = new HashSet<int>();
     [HideInInspector] private List<Sprite> UT_CardIconList = new List<Sprite>();
 
-    [SerializeField] private List<AllyCardData> NT_AllAllyCardData = new List<AllyCardData>();
+    [HideInInspector] private List<AllyCardData> NT_AllAllyCardData = new List<AllyCardData>();
     [HideInInspector] private HashSet<int> NT_GottenAllyCards = new HashSet<int>();
     [HideInInspector] private List<Sprite> NT_CardIconList = new List<Sprite>();
 
@@ -40,7 +40,11 @@ public class AllyManager : Singleton<AllyManager>
     [HideInInspector] public AllyState GetAllyState { get { return AllyState; } }
 
     // Reso
-    [SerializeField] public AllySpriteSet AssultAllySpriteSet = new AllySpriteSet();
+    [HideInInspector] public AllySpriteSet AssultAllySpriteSet = new AllySpriteSet();
+
+    // Name
+    [HideInInspector] private List<List<string>> AllyAllNameList = new List<List<string>>();
+    [HideInInspector] private HashSet<int> UsedAllyName = new HashSet<int>();
 
     #endregion
 
@@ -71,6 +75,9 @@ public class AllyManager : Singleton<AllyManager>
         AssultAllySpriteSet.Offset("Assult");
 
         AllyState = new AllyState();
+
+        // Random Name
+        AllyAllNameList = ResourceManager.Instance.Get_AllAllyRandomName();
     }
 
     #endregion
@@ -245,6 +252,40 @@ public class AllyManager : Singleton<AllyManager>
 
         for (int i = 0; i < AllAllies.Count; i++)
             AllAllies[i].Set_AllState(AllyState);
+    }
+
+    #endregion
+
+    #region Ally Name
+
+    public int Get_AllyNameID()
+    {
+        int randomIndex = -1;
+
+        int safeInt = 0;
+        while (true)
+        {
+            safeInt++;
+            if (safeInt > 100)
+            { break; }
+
+            randomIndex = Random.Range(0, AllyAllNameList.Count);
+            if (!UsedAllyName.Contains(randomIndex))
+            {
+                UsedAllyName.Add(randomIndex);
+                break;
+            }
+        }
+
+        return randomIndex;
+    }
+
+    public List<string> Get_AllyName(int _ID)
+    {
+        if (_ID == -1) 
+            return null;
+
+        return AllyAllNameList[_ID];
     }
 
     #endregion

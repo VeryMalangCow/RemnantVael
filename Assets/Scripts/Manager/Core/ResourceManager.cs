@@ -56,12 +56,14 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private WordData StrikeTeam_AllyCardName_Data;
     [HideInInspector] private WordData UplinkTeam_AllyCardName_Data;
     [HideInInspector] private WordData NeoTeam_AllyCardName_Data;
+    // 동료 이름 랜덤
+    [HideInInspector] private WordData RandomName_Data;
 
     // 문장
     // 스태틱
     [HideInInspector] private WordData StaticDesc_Data;
     // 스킬
-    [SerializeField] private List<WordData> SkillDesc_Data;
+    [HideInInspector] private List<WordData> SkillDesc_Data;
     // 모듈
     [HideInInspector] private WordData ModuleItemDesc_Data;
     [HideInInspector] private WordData ModuleItemEquipDesc_Data;
@@ -162,6 +164,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             "AllyCard_UplinkTeam_NameCSV");
         NeoTeam_AllyCardName_Data = Offset_WordData(wordPath,
             "AllyCard_NeoTeam_NameCSV");
+        // Random Name
+        RandomName_Data = Offset_WordData(wordPath,
+            "RandomNameCSV");
 
         // Desc
         // Static
@@ -897,6 +902,22 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
+    #endregion
+
+    #region To AllyName
+
+    public List<List<string>> Get_AllAllyRandomName()
+    {
+        List<List<string>> result = new List<List<string>>();
+
+        for (int i = 0; i < RandomName_Data.AllWordData.Count; i++)
+        {
+            result.Add(RandomName_Data.AllWordData[i].Word);
+        }
+
+        return result;
+    }
+         
     #endregion
 
     #region To SpriteList
