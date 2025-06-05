@@ -87,9 +87,8 @@ public class EnemyPattern_Melee : EnemyPattern
 
         Vector2 targetDir = DevTool.Get_DirForPlayer(ThisEnemy);
 
-        for (int i = 0; i < SpawnDepthList.Count; i++)
-            Play_ActualPattern(SpawnDepthList[i], targetDir);
-        
+        Play_ActualPattern(targetDir);
+
         #endregion
 
         Play_AfterEffect(EndDelay);
@@ -107,7 +106,13 @@ public class EnemyPattern_Melee : EnemyPattern
         }
     }
 
-    private void Play_ActualPattern(DepthController _Depth, Vector2 _TargetDir)
+    protected virtual void Play_ActualPattern(Vector2 _TargetDir)
+    {
+        for (int i = 0; i < SpawnDepthList.Count; i++)
+            Play_ActualPattern_Each(SpawnDepthList[i], _TargetDir);
+    }
+
+    private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)
     {
         EnemyAttackerController attacker = PoolingManager.Instance.Get_OP_EnemyAttacker();
         attacker.Enemy = ThisEnemy;

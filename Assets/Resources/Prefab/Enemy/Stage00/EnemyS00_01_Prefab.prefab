@@ -40,6 +40,7 @@ Transform:
   - {fileID: 7394369904378021601}
   - {fileID: 4679443053586091781}
   - {fileID: 8805351947020054373}
+  - {fileID: 7056815889248580774}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &848216773187047800
@@ -79,6 +80,7 @@ MonoBehaviour:
   ThisSG: {fileID: 6876125761614079064}
   ThisEnemyType: 0
   MaxHP: 200
+  MaxEP: 150
   ChargeEPSpeed: 10
   ItemDropPercent: 1
   ItemRankPercents:
@@ -103,6 +105,10 @@ MonoBehaviour:
   - EnemyPatternList:
     - EnemyPatternList:
       - {fileID: 8721225703925756054}
+  SpecialPattern:
+    EnemyPatternList:
+    - {fileID: 3027093978741269310}
+    - {fileID: 2132980542444816405}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
   BuffController: {fileID: 9119119182518581804}
@@ -381,8 +387,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
   StartDelay: 0
   EndDelay: 0.5
+  IsSpecialPattern: 0
+  IsSpecialStartPattern: 0
+  IsSpecialEndPattern: 0
   IsPlaying: 0
 --- !u!1 &2486564893073553752
 GameObject:
@@ -496,8 +506,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
   StartDelay: 1.75
   EndDelay: 1.25
+  IsSpecialPattern: 0
+  IsSpecialStartPattern: 0
+  IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisAS:
     DmgState:
@@ -526,6 +540,149 @@ MonoBehaviour:
   - {fileID: 3188852279976695383}
   - {fileID: 6006018085818984770}
   BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!1 &4395761102907170852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5647704713377728837}
+  - component: {fileID: 2132980542444816405}
+  m_Layer: 7
+  m_Name: SectorFormMeleeAT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5647704713377728837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4395761102907170852}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.8491088, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7056815889248580774}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2132980542444816405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4395761102907170852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b39ef2afe1a81c44bbef1e46c886cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 2
+  StartDelay: 1
+  EndDelay: 0.2
+  IsSpecialPattern: 1
+  IsSpecialStartPattern: 0
+  IsSpecialEndPattern: 1
+  IsPlaying: 0
+  ThisAS:
+    DmgState:
+      DmgType: 0
+      Dmg: 10
+    CriticalState:
+      CC: 0
+      CD: 0
+    KnockbackState:
+      CanKB: 1
+      KBPower: 1.5
+      KBTime: 1
+  ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
+  JugeAndTweenTime: 0.5
+  AnimSpeed: 2.6
+  SpawnDis: 0.7
+  EndDis: 2.5
+  LightOn: 1
+  LightSize: 2.3
+  MaxRange: 2
+  MinRange: 0
+  SpawnDepthList:
+  - {fileID: 3188852279976695383}
+  - {fileID: 6006018085818984770}
+  BeforeEffectDepthList:
+  - {fileID: 3188852279976695383}
+  - {fileID: 6006018085818984770}
+  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  AngleList:
+  - -60
+  - -20
+  - 20
+  - 60
+--- !u!1 &4794421036598074330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1074040432157278272}
+  - component: {fileID: 3027093978741269310}
+  m_Layer: 7
+  m_Name: Follow_ForMelee
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1074040432157278272
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4794421036598074330}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.8491088, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7056815889248580774}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3027093978741269310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4794421036598074330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8de6a45c3f84ce459bbb0eff180a7a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
+  StartDelay: 0
+  EndDelay: 0
+  IsSpecialPattern: 1
+  IsSpecialStartPattern: 1
+  IsSpecialEndPattern: 0
+  IsPlaying: 0
+  FollowingSpeed: 4
+  UntilForTargetRange: 1
+  TargetRange: 1.8
+  IgnoreWall: 0
+  UntilForTargetTime: 1
+  TargetTime: 2
+  CurrentTime: 0
 --- !u!1 &4962291530876198273
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,6 +803,39 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 1}
   m_Direction: 1
+--- !u!1 &5381920442778387425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7056815889248580774}
+  m_Layer: 0
+  m_Name: SpecialPatterns
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7056815889248580774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5381920442778387425}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8491088, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1074040432157278272}
+  - {fileID: 5647704713377728837}
+  m_Father: {fileID: 5956502316695661957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5698261995103477055
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,8 +881,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
   StartDelay: 0
   EndDelay: 0
+  IsSpecialPattern: 0
+  IsSpecialStartPattern: 0
+  IsSpecialEndPattern: 0
   IsPlaying: 0
   FollowingSpeed: 2.75
   UntilForTargetRange: 1
@@ -711,7 +905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8805351947020054373}
   m_Layer: 7
-  m_Name: Patterns
+  m_Name: NormalPatterns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

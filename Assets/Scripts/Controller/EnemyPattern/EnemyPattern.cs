@@ -21,6 +21,7 @@ public abstract class EnemyPattern : MonoBehaviour
     [Space(10)]
     [Header("=== Special")]
     [SerializeField] protected bool IsSpecialPattern = false;
+    [SerializeField] private bool IsSpecialStartPattern = false;
     [SerializeField] private bool IsSpecialEndPattern = false;
 
     #endregion
@@ -73,6 +74,11 @@ public abstract class EnemyPattern : MonoBehaviour
         // Pattern
         ThisEnemy.CurrentPatternCor = Play_ThisPattern_Cor();
         StartCoroutine(ThisEnemy.CurrentPatternCor);
+
+        if (IsSpecialStartPattern)
+        {
+            ThisEnemy.HUD.Set_Patterning(true);
+        }
     }
 
     public virtual void End_Pattern()

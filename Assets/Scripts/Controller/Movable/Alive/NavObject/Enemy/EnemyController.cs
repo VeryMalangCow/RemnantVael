@@ -244,6 +244,8 @@ public class EnemyController : NavObjectController
 
         IsFullCharge = false;
         IsPlayingSpecialPattern = false;
+
+        HUD.Reset_HUD();
     }
 
     #endregion
@@ -326,6 +328,7 @@ public class EnemyController : NavObjectController
         if (CurrentEP.Value >= MaxEP)
         {
             IsFullCharge = true;
+            HUD.Set_Charged(IsFullCharge);
         }
     }
 
@@ -563,6 +566,7 @@ public class EnemyController : NavObjectController
     {
         EndAll_Pattern();
         End_Nav();
+        HUD.Reset_HUD();
 
         // Remove
         DevTool.Remove_InList(EnemyManager.Instance.CurrentEnemyList, this);

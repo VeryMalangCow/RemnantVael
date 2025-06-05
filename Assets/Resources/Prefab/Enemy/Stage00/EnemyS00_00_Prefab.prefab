@@ -40,6 +40,7 @@ Transform:
   - {fileID: 360977065808654353}
   - {fileID: 833490795501186431}
   - {fileID: 8805351947020054373}
+  - {fileID: 5747991092817442853}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &848216773187047800
@@ -79,7 +80,8 @@ MonoBehaviour:
   ThisSG: {fileID: 2508644275988564770}
   ThisEnemyType: 0
   MaxHP: 250
-  ChargeEPSpeed: 10
+  MaxEP: 150
+  ChargeEPSpeed: 15
   ItemDropPercent: 1
   ItemRankPercents:
   - 0.2
@@ -109,6 +111,11 @@ MonoBehaviour:
   - EnemyPatternList:
     - EnemyPatternList:
       - {fileID: 8721225703925756054}
+  SpecialPattern:
+    EnemyPatternList:
+    - {fileID: 534347174908003449}
+    - {fileID: 6526060448916950425}
+    - {fileID: 5273711906912117066}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
   BuffController: {fileID: 7842396115140642684}
@@ -342,6 +349,65 @@ SortingGroup:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_SortAtRoot: 0
+--- !u!1 &379664489227312123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1057878837494016466}
+  - component: {fileID: 534347174908003449}
+  m_Layer: 7
+  m_Name: Follow_ForMelee
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1057878837494016466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379664489227312123}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.8491088, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5747991092817442853}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &534347174908003449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379664489227312123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8de6a45c3f84ce459bbb0eff180a7a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
+  StartDelay: 0
+  EndDelay: 0
+  IsSpecialPattern: 1
+  IsSpecialStartPattern: 1
+  IsSpecialEndPattern: 0
+  IsPlaying: 0
+  FollowingSpeed: 3.5
+  UntilForTargetRange: 1
+  TargetRange: 1.8
+  IgnoreWall: 0
+  UntilForTargetTime: 1
+  TargetTime: 2
+  CurrentTime: 0
 --- !u!1 &2027737833063953392
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,8 +453,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
   StartDelay: 0
   EndDelay: 0.5
+  IsSpecialPattern: 0
+  IsSpecialStartPattern: 0
+  IsSpecialEndPattern: 0
   IsPlaying: 0
 --- !u!1 &2486564893073553752
 GameObject:
@@ -502,8 +572,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
   StartDelay: 0
   EndDelay: 0
+  IsSpecialPattern: 0
+  IsSpecialStartPattern: 0
+  IsSpecialEndPattern: 0
   IsPlaying: 0
   FollowingSpeed: 2.25
   UntilForTargetRange: 1
@@ -557,8 +631,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
   StartDelay: 2
   EndDelay: 1
+  IsSpecialPattern: 0
+  IsSpecialStartPattern: 0
+  IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisAS:
     DmgState:
@@ -585,6 +663,40 @@ MonoBehaviour:
   BeforeEffectDepthList:
   - {fileID: 5281239173370443760}
   BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!1 &4173975992571935623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5747991092817442853}
+  m_Layer: 0
+  m_Name: SpecialPatterns
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5747991092817442853
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4173975992571935623}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8491088, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1057878837494016466}
+  - {fileID: 8715774590403241572}
+  - {fileID: 4153877519449486488}
+  m_Father: {fileID: 5956502316695661957}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4962291530876198273
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,8 +862,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
   StartDelay: 0
   EndDelay: 0
+  IsSpecialPattern: 0
+  IsSpecialStartPattern: 0
+  IsSpecialEndPattern: 0
   IsPlaying: 0
   FollowingSpeed: 2.25
   UntilForTargetRange: 1
@@ -760,6 +876,201 @@ MonoBehaviour:
   UntilForTargetTime: 0
   TargetTime: 2
   CurrentTime: 0
+--- !u!1 &6315084899939329600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4153877519449486488}
+  - component: {fileID: 5273711906912117066}
+  m_Layer: 7
+  m_Name: SectorFormRangeAT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4153877519449486488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315084899939329600}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.8491088, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5747991092817442853}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5273711906912117066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6315084899939329600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcbe35e835cba79449c6846867a03aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
+  StartDelay: 0.5
+  EndDelay: 1
+  IsSpecialPattern: 1
+  IsSpecialStartPattern: 0
+  IsSpecialEndPattern: 1
+  IsPlaying: 0
+  ThisBS:
+    DmgState:
+      DmgType: 0
+      Dmg: 5
+    CriticalState:
+      CC: 0
+      CD: 0
+    KnockbackState:
+      CanKB: 1
+      KBPower: 1
+      KBTime: 1
+    IsCritical: 0
+    MuzzleSpeed: 1
+    AliveTime: 3
+  BulletShadowScale: {x: 0.32, y: 0.32}
+  BulletColSize: {x: 2, y: 3}
+  TrailTime: 0.5
+  TrailStartWidth: 0.2
+  TrailGradient:
+    serializedVersion: 2
+    key0: {r: 0.6528621, g: 0, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 0}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 32768
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  LightIntensity: 3
+  MaxRange: 0
+  MinRange: 0
+  ShootExplAmount: 4
+  ExplAmount: 4
+  SpawnDepthList:
+  - {fileID: 3914198638638926053}
+  BeforeEffectDepthList:
+  - {fileID: 3914198638638926053}
+  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
+  AngleList:
+  - -10
+  - 10
+--- !u!1 &6326363304499726266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8715774590403241572}
+  - component: {fileID: 6526060448916950425}
+  m_Layer: 7
+  m_Name: SectorFormMeleeAT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8715774590403241572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6326363304499726266}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.8491088, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5747991092817442853}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6526060448916950425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6326363304499726266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b39ef2afe1a81c44bbef1e46c886cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
+  StartDelay: 1
+  EndDelay: 0.5
+  IsSpecialPattern: 1
+  IsSpecialStartPattern: 0
+  IsSpecialEndPattern: 0
+  IsPlaying: 0
+  ThisAS:
+    DmgState:
+      DmgType: 0
+      Dmg: 10
+    CriticalState:
+      CC: 0
+      CD: 0
+    KnockbackState:
+      CanKB: 1
+      KBPower: 1.5
+      KBTime: 1
+  ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
+  JugeAndTweenTime: 0.5
+  AnimSpeed: 2.6
+  SpawnDis: 0.7
+  EndDis: 2.5
+  LightOn: 1
+  LightSize: 2.3
+  MaxRange: 2
+  MinRange: 0
+  SpawnDepthList:
+  - {fileID: 5281239173370443760}
+  BeforeEffectDepthList:
+  - {fileID: 5281239173370443760}
+  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  AngleList:
+  - -45
+  - 0
+  - 45
 --- !u!1 &7798985532177022493
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,8 +1116,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
+  RepeatAmount: 1
   StartDelay: 1.25
   EndDelay: 0.75
+  IsSpecialPattern: 0
+  IsSpecialStartPattern: 0
+  IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisBS:
     DmgState:
@@ -877,7 +1192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8805351947020054373}
   m_Layer: 7
-  m_Name: Patterns
+  m_Name: NormalPatterns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
