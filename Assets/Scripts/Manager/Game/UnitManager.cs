@@ -241,6 +241,9 @@ public class UnitManager : Singleton<UnitManager>
         // Change PrisonInfo
         foreach (PrisonController prison in AllPrison)
             prison.Set_LanguageTxt();
+
+        // Ally
+        AllyManager.Instance.Set_Language();
     }
 
     private void Set_LanguageTxt()

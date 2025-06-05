@@ -18,6 +18,7 @@ public class AllyController : NavObjectController
     [Space(10)]
     [Header("=== Value")]
     [SerializeField] protected AllyState MultipleAllyState;
+    [SerializeField] private float MaxHP = 150f;
     [SerializeField] private float MaxEP = 100f;
     [SerializeField] protected float ForEnemyDis = 1.5f;
     [SerializeField] private ReactiveProperty<eAllyStateMode> AllyStateMode = new();
@@ -28,6 +29,10 @@ public class AllyController : NavObjectController
     [SerializeField] private SortingGroup ThisSG;
     [SerializeField] private AllySolarController ThisSolar;
     [SerializeField] protected DirectionalAllyTypeImgController ThisDirImg;
+
+    [Space(10)]
+    [Header("=== HUD")]
+    [SerializeField] private AllyHUDController HUD;
 
     #endregion
 
@@ -66,16 +71,73 @@ public class AllyController : NavObjectController
         Player = PlayerManager.Instance.PlayerController;
         DevTool.Add_InList(AllyManager.Instance.AllAllies, this);
 
+        CurrentHP.Value = MaxHP;
+        CurrentEP.Value = 0;
+
+        Set_AllyStateMode(AllyStateMode.Value);
+
+        Offset_UI();
+        Offset_Subscribe();
+    }
+
+    private void Offset_UI()
+    {
+        NameID = AllyManager.Instance.Get_AllyNameID();
+        Name = AllyManager.Instance.Get_AllyName(NameID);
+        Set_Name();
+
+        HUD.Offset();
+    }
+
+    private void Offset_Subscribe()
+    {
         AllyStateMode
             .Subscribe(value =>
             {
                 ThisSolar.Set_AllyStateMode(value);
             });
 
-        Set_AllyStateMode(AllyStateMode.Value);
 
-        NameID = AllyManager.Instance.Get_AllyNameID();
-        Name = AllyManager.Instance.Get_AllyName(NameID);
+        CurrentSP
+            .Subscribe(_CurrentSP =>
+            {
+                HUD.StateUI.SP_ProgressBar.Set_FillImgSmooth(CurrentSP.Value, MaxHP);
+
+                if (CurrentSP.Value <= 0)
+                {
+                    CurrentSP.Value = 0;
+                    HUD.StateUI.SP_ProgressBar.Set_NoNum();
+                    HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
+                    HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
+
+                    //if (BuffController.ShieldBuff.IsOn)
+                    //{ BuffController.ShieldBuff.Remove_AllStack(); }
+
+                }
+                else
+                {
+                    HUD.StateUI.HP_ProgressBar.Set_NoNum();
+                    HUD.StateUI.EP_ProgressBar.Set_NoNum();
+                }
+            });
+
+        CurrentHP
+            .Subscribe(_CurrentHP =>
+            {
+                HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
+
+                if (CurrentSP.Value > 0)
+                { HUD.StateUI.HP_ProgressBar.Set_NoNum(); }
+            });
+
+        CurrentEP
+            .Subscribe(_CurrentEP =>
+            {
+                HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
+
+                if (CurrentSP.Value > 0)
+                { HUD.StateUI.EP_ProgressBar.Set_NoNum(); }
+            });
     }
 
     #endregion
@@ -88,7 +150,6 @@ public class AllyController : NavObjectController
 
         DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
 
-        CurrentEP.Value = MaxEP;
         Set_AllState(AllyManager.Instance.GetAllyState);
 
         Start_MainCor();
@@ -244,6 +305,8 @@ public class AllyController : NavObjectController
     public override void Set_SortingOrder(int _SortingOrder)
     {
         ThisSG.sortingOrder = _SortingOrder;
+
+        HUD.ThisCanvas.sortingOrder = _SortingOrder;
     }
 
     #endregion
@@ -264,6 +327,24 @@ public class AllyController : NavObjectController
         return (Enemy.transform.position - this.transform.position);
     }
 
+
+    #endregion
+
+    #region Set (Name)
+
+    private void Set_Name()
+    {
+        HUD.Set_Name(Name[GameManager.LanguageID]);
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public void Set_Language()
+    {
+        Set_Name();
+    }
 
     #endregion
 }

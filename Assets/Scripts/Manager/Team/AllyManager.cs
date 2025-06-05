@@ -288,6 +288,12 @@ public class AllyManager : Singleton<AllyManager>
         return AllyAllNameList[_ID];
     }
 
+    public void Set_Language()
+    {
+        for (int i = 0; i < AllAllies.Count; i++)
+            AllAllies[i].Set_Language();
+    }
+
     #endregion
 
     #region Set (Lang)

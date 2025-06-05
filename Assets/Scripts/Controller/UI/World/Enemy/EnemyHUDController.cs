@@ -35,7 +35,7 @@ public class EnemyHUDController : MonoBehaviour
 
     #region Offset
 
-    public void Offset(EnemyController _Enemy)
+    public void Offset()
     {
         StateUI.Offset(this);
         TemporaryBuffUI.Offset(this);

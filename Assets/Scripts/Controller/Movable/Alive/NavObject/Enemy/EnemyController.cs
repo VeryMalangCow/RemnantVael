@@ -111,7 +111,7 @@ public class EnemyController : NavObjectController
 
     private void Offset_FirstSetting()
     {
-        HUD.Offset(this);
+        HUD.Offset();
     }
 
     private void Offset_Subscribe()
