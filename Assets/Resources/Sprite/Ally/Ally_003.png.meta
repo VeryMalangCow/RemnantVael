@@ -122,12 +122,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 236
-        width: 60
-        height: 17
+        y: 240
+        width: 50
+        height: 13
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 24, y: 0, z: 24, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -143,9 +143,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 229
-        width: 52
-        height: 6
+        y: 234
+        width: 44
+        height: 5
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,9 +164,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 222
-        width: 52
-        height: 6
+        y: 228
+        width: 44
+        height: 5
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,9 +185,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 212
-        width: 52
-        height: 9
+        y: 220
+        width: 44
+        height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,10 +205,10 @@ TextureImporter:
       name: Ally_HP_Liner
       rect:
         serializedVersion: 2
-        x: 54
-        y: 225
+        x: 46
+        y: 231
         width: 1
-        height: 10
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,10 +226,10 @@ TextureImporter:
       name: Ally_EP_Liner
       rect:
         serializedVersion: 2
-        x: 56
-        y: 225
+        x: 48
+        y: 231
         width: 1
-        height: 10
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,10 +247,10 @@ TextureImporter:
       name: Ally_SP_Liner
       rect:
         serializedVersion: 2
-        x: 54
-        y: 211
+        x: 46
+        y: 221
         width: 1
-        height: 13
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

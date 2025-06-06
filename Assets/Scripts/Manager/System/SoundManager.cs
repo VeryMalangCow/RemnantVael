@@ -13,12 +13,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     [Space(10)]
     [Header("=== Comp")]
-    /// <summary>
-    /// 오디오 믹서, 오디오의 타입별로 사운드를 조절할 수 있도록 한다.
-    /// </summary>
     [SerializeField] private AudioMixer mAudioMixer;
-
-
 
     #endregion
 
