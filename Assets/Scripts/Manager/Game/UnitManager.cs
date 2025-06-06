@@ -105,10 +105,20 @@ public class UnitManager : Singleton<UnitManager>
 
     [Space(5)]
     [Header("-- Shop / Actual")]
+
+    [Space(3)]
+    [Header("* Player")]
     [SerializeField] public CoupleData<AnimationClip> BUShop_OnOffAC;
-    [SerializeField] public CoupleData<AnimationClip> MUShop_OnOffAC;
     [SerializeField] public AnimationClip BUShop_BrokenAC;
+    [SerializeField] public CoupleData<AnimationClip> MUShop_OnOffAC;
     [SerializeField] public AnimationClip MUShop_BrokenAC;
+
+    [Space(3)]
+    [Header("* Ally")]
+    [SerializeField] public CoupleData<AnimationClip> AllyBUShop_OnOffAC;
+    [SerializeField] public AnimationClip AllyBUShop_BrokenAC;
+    [SerializeField] public CoupleData<AnimationClip> AllyMUShop_OnOffAC;
+    [SerializeField] public AnimationClip AllyMUShop_BrokenAC;
 
     [Header("-- Shop / State")]
     [SerializeField] public AnimationClip BrokenStateAC;

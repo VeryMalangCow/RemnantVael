@@ -39,18 +39,6 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
 
     #endregion
 
-    #region Framework
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-
-        // VFX
-        //UnitManager.Instance.Build_ExplImgGenerator.Expl_Build(TargetObject.gameObject.transform.position);
-    }
-
-    #endregion
-
     #region Interact
 
     public void Play_Interact()

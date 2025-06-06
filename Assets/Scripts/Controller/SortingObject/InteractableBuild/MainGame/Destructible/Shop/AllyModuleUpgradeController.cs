@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ModuleUpgradeController : DestructibleBuildController, IInteract
+public class AllyModuleUpgradeController : DestructibleBuildController, IInteract
 {
     #region Value
 
@@ -16,7 +18,7 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
     [SerializeField] public int SpawnItem_BreakMin;
     [SerializeField] public int SpawnItem_BreakMax;
 
-    public static ModuleUpgradeController UsingShop = null;
+    public static AllyModuleUpgradeController UsingShop = null;
 
     [HideInInspector] public static string IsBrokenAnno;
 
@@ -28,10 +30,10 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
     {
         Set_LanguageTxt();
 
-        OnOffAC = UnitManager.Instance.MUShop_OnOffAC;
+        OnOffAC = UnitManager.Instance.AllyMUShop_OnOffAC;
         OnOffStateAC = UnitManager.Instance.NeedChargeBettery_OnOffStateAC;
 
-        BrokenAC = UnitManager.Instance.MUShop_BrokenAC;
+        BrokenAC = UnitManager.Instance.AllyMUShop_BrokenAC;
         BrokenStateAC = UnitManager.Instance.BrokenStateAC;
 
         base.Offset();
@@ -56,7 +58,7 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
         {
             UsingShop = this;
             Set_LanguageTxt();
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOn_ThisPanel();
+            //MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOn_ThisPanel();
         }
         else if (Can_ShopPowerOn())
         {
@@ -78,15 +80,15 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
     {
         base.Take_Damage(_SpawnItem);
 
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
+        // MainGameUIManager.Instance.ModuleUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
     }
 
     protected override void Play_NowBreak(bool _SpawnItem)
     {
         base.Play_NowBreak(_SpawnItem);
 
-        if (MainGameUIManager.Instance.ModuleUpgrade_UIController.gameObject.activeSelf)
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
+        // if (MainGameUIManager.Instance.ModuleUpgrade_UIController.gameObject.activeSelf)
+        //     MainGameUIManager.Instance.ModuleUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
     }
 
     #endregion
@@ -121,9 +123,9 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
 
     public void Set_LanguageTxt()
     {
-        IsBrokenAnno = $"<size=25&>{ResourceManager.Instance.Get_StaticWord(24)}: {ResourceManager.Instance.Get_StaticDesc(16)}</size>\n\n" +
-            $"{ResourceManager.Instance.Get_StaticDesc(17)}\n" +
-            $"<size=50&>{ResourceManager.Instance.Get_StaticDesc(19)}</size>";
+        //IsBrokenAnno = $"<size=25&>{ResourceManager.Instance.Get_StaticWord(24)}: {ResourceManager.Instance.Get_StaticDesc(16)}</size>\n\n" +
+        //    $"{ResourceManager.Instance.Get_StaticDesc(17)}\n" +
+        //    $"<size=50&>{ResourceManager.Instance.Get_StaticDesc(19)}</size>";
     }
 
     #endregion
