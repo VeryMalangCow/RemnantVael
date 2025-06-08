@@ -567,12 +567,14 @@ public class InputManager : Singleton<InputManager>
 
     private void Input_ABUUIClick(InputAction.CallbackContext _InputValue)
     {
-
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.AllyBaseUpgrade_UIController.Try_Interact();
     }
 
     private void Input_ABUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
-
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.AllyBaseUpgrade_UIController.SetOff_ThisPanel();
     }
 
     #endregion
@@ -581,11 +583,15 @@ public class InputManager : Singleton<InputManager>
     private void Input_AMUUIClick(InputAction.CallbackContext _InputValue)
     {
 
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.AllyModuleUpgrade_UIController.Try_Interact();
     }
 
     private void Input_AMUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
 
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.AllyModuleUpgrade_UIController.SetOff_ThisPanel();
     }
 
     #endregion

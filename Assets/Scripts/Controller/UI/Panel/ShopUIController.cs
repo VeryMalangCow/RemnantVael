@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class ShopUIController : PanelUIController
     #region - Inspector
 
     [Space(20)]
-    [Header("<><><><><> Shop")]
+    [Header("<><><><><> Player Shop")]
 
     [Space(10)]
     [Header("=== Label")]
@@ -20,14 +21,9 @@ public class ShopUIController : PanelUIController
     [SerializeField] public DurablityEUIController ThisDurEUI;
     [SerializeField] public MessageWindowEUIController ThisMsgEUI;
 
-
     [Space(10)]
     [Header("=== Close")]
     [SerializeField] protected OwnBtnEUIController CloseBtn;
-
-    [Space(10)]
-    [Header("=== Visual")]
-    [SerializeField] protected List<TMP_Text> TabSideTxtList;
 
     #endregion
 

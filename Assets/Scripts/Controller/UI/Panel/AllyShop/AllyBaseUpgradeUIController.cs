@@ -1,9 +1,6 @@
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class AllyBaseUpgradeUIController : PanelUIController
+public class AllyBaseUpgradeUIController : AllyShopUIController
 {
     #region Value
 
@@ -13,37 +10,36 @@ public class AllyBaseUpgradeUIController : PanelUIController
     [Header("<><><><><> Ally Base Upgrade Shop")]
 
     [Space(10)]
-    [Header("=== Label")]
-    [SerializeField] private TMP_Text LabelTxt;
-
-    [Space(10)]
-    [Header("=== Durablity")]
-    [SerializeField] public DurablityEUIController ThisDurEUI;
-    [SerializeField] public MessageWindowEUIController ThisMsgEUI;
-
-    [Space(10)]
-    [Header("=== Item")]
-    [SerializeField] public TMP_Text BCTxt;
-    [SerializeField] public TMP_Text ECTxt;
-    
-    [Space(10)]
-    [Header("=== Close")]
-    [SerializeField] private OwnBtnEUIController CloseBtn;
-
-    [Space(10)]
-    [Header("=== Visual")]
-    [SerializeField] public Image FrameInnerImg;
-    [SerializeField] private List<TMP_Text> TabSideTxtList;
+    [Header("=== Cell")]
+    [SerializeField] private int test = 1;
 
     #endregion
 
     #region - Hide
 
-    // String
-    [HideInInspector] public static string LabelName;
-    [HideInInspector] public static List<string> TabBtnTxtList;
+    #endregion
 
     #endregion
+
+    #region Interact
+
+    public void Try_Interact()
+    {
+
+    }
+
+    #endregion
+
+    #region Set (Language)
+
+    public override void Set_LanguageTxt()
+    {
+        base.Set_LanguageTxt();
+
+        // Label
+        LabelName = ResourceManager.Instance.Get_StaticWord(95) + " " + ResourceManager.Instance.Get_StaticWord(26) + " " + ResourceManager.Instance.Get_StaticWord(2);
+        LabelTxt.text = LabelName;
+    }
 
     #endregion
 }

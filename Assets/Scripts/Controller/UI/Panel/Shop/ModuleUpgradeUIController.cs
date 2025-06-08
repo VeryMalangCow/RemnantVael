@@ -5,7 +5,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModuleUpgradeUIController : ShopUIController
+public class ModuleUpgradeUIController : PlayerShopUIController
 {
     #region Value
 
@@ -27,6 +27,7 @@ public class ModuleUpgradeUIController : ShopUIController
     [Space(10)]
     [Header("=== Drag")]
     [SerializeField] private InventoryItemEUIController DragItemEUI;
+
 
     #endregion
 
@@ -1423,20 +1424,13 @@ public class ModuleUpgradeUIController : ShopUIController
             ResourceManager.Instance.Get_StaticWord(32),
             ResourceManager.Instance.Get_StaticWord(33),
         };
+
         AmalgamationName = ResourceManager.Instance.Get_StaticWord(50);
         Notice_Equiped = ResourceManager.Instance.Get_StaticDesc(20);
         Warning_NotSameRank = ResourceManager.Instance.Get_StaticDesc(21);
         Warning_NotEnoughItem = ResourceManager.Instance.Get_StaticDesc(22);
         Warning_AlreadyMaxLv = ResourceManager.Instance.Get_StaticDesc(23);
         Warning_InvenFull = ResourceManager.Instance.Get_StaticDesc(27);
-
-
-        // Tab
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
-        {
-            ThisPanelTabList[i].ThisTabBtn.Offset_Txt(TabBtnTxtList[i]);
-            TabSideTxtList[i].text = TabBtnTxtList[i];
-        }
 
         // Desc
         ThisDescPanel.Set_LanguageTxt();

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class BaseUpgradeUIController : ShopUIController
+public class BaseUpgradeUIController : PlayerShopUIController
 {
     #region Value
 
@@ -26,7 +26,6 @@ public class BaseUpgradeUIController : ShopUIController
     [Space(10)]
     [Header("=== Visual")]
     [SerializeField] public Image FrameInnerImg;
-
     #region - BU State
 
     [Space(10)]
@@ -388,11 +387,6 @@ public class BaseUpgradeUIController : ShopUIController
             ResourceManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 1)
         };
 
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
-        {
-            ThisPanelTabList[i].ThisTabBtn.Offset_Txt(TabBtnTxtList[i]);
-            TabSideTxtList[i].text = TabBtnTxtList[i];
-        }
 
         // Shop
         MaxEPShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(8), ResourceManager.Instance.Get_StaticDesc(0));
