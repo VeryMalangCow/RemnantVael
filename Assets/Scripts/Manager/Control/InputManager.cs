@@ -281,6 +281,14 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["MUUI_OutPanel"].performed += Input_MUUIOutPanel;
         PlayerInput.actions["MUUI_Drag"].performed += Input_MUUIDrag;
 
+        // A BU UI
+        PlayerInput.actions["ABUUI_Select"].performed += Input_ABUUIClick;
+        PlayerInput.actions["ABUUI_OutPanel"].performed += Input_ABUUIOutPanel;
+
+        // A MU UI
+        PlayerInput.actions["AMUUI_Select"].performed += Input_AMUUIClick;
+        PlayerInput.actions["AMUUI_OutPanel"].performed += Input_AMUUIOutPanel;
+
         // Ally Card
         PlayerInput.actions["AllyCard_Select"].performed += Input_AllyCardClick;
 
@@ -511,7 +519,7 @@ public class InputManager : Singleton<InputManager>
 
     #endregion
 
-    #region BaseUpgrade UI
+    #region BUUI
 
     private void Input_BUUIClick(InputAction.CallbackContext _InputValue)
     {
@@ -527,7 +535,7 @@ public class InputManager : Singleton<InputManager>
 
     #endregion
     
-    #region ModuleUpgrade UI
+    #region MUUI
 
     private void Input_MUUIClick(InputAction.CallbackContext _InputValue)
     {
@@ -551,6 +559,33 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_ThisPanel();
+    }
+
+    #endregion
+
+    #region ABUUI
+
+    private void Input_ABUUIClick(InputAction.CallbackContext _InputValue)
+    {
+
+    }
+
+    private void Input_ABUUIOutPanel(InputAction.CallbackContext _InputValue)
+    {
+
+    }
+
+    #endregion
+
+    #region AMUUI
+    private void Input_AMUUIClick(InputAction.CallbackContext _InputValue)
+    {
+
+    }
+
+    private void Input_AMUUIOutPanel(InputAction.CallbackContext _InputValue)
+    {
+
     }
 
     #endregion

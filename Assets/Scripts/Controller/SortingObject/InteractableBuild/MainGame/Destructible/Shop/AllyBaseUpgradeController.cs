@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
 {
     #region Value
+
+    #region - Inspector
 
     [Space(20)]
     [Header("<><><><><> BU")]
@@ -18,9 +18,15 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
     [SerializeField] public int SpawnItem_BreakMin;
     [SerializeField] public int SpawnItem_BreakMax;
 
+    #endregion
+
+    #region - Hide
+
     public static AllyBaseUpgradeController UsingShop = null;
 
     [HideInInspector] public static string IsBrokenAnno;
+
+    #endregion
 
     #endregion
 
@@ -57,7 +63,7 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
         {
             UsingShop = this;
             Set_LanguageTxt();
-            //MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_ThisPanel();
+            MainGameUIManager.Instance.AllyBaseUpgrade_UIController.SetOn_ThisPanel();
         }
         else if (Can_ShopPowerOn())
         {
@@ -79,15 +85,15 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
     {
         base.Take_Damage(_SpawnItem);
 
-        // MainGameUIManager.Instance.BaseUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
+        MainGameUIManager.Instance.AllyBaseUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
     }
 
     protected override void Play_NowBreak(bool _SpawnItem)
     {
         base.Play_NowBreak(_SpawnItem);
 
-        // if (MainGameUIManager.Instance.BaseUpgrade_UIController.gameObject.activeSelf)
-        //    MainGameUIManager.Instance.BaseUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
+        if (MainGameUIManager.Instance.AllyBaseUpgrade_UIController.gameObject.activeSelf)
+            MainGameUIManager.Instance.AllyBaseUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
     }
 
     #endregion

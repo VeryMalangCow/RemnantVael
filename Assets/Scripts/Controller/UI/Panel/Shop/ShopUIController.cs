@@ -1,0 +1,123 @@
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class ShopUIController : PanelUIController
+{
+    #region Value
+
+    #region - Inspector
+
+    [Space(20)]
+    [Header("<><><><><> Shop")]
+
+    [Space(10)]
+    [Header("=== Label")]
+    [SerializeField] protected TMP_Text LabelTxt;
+
+    [Space(10)]
+    [Header("=== Durablity")]
+    [SerializeField] public DurablityEUIController ThisDurEUI;
+    [SerializeField] public MessageWindowEUIController ThisMsgEUI;
+
+
+    [Space(10)]
+    [Header("=== Close")]
+    [SerializeField] protected OwnBtnEUIController CloseBtn;
+
+    [Space(10)]
+    [Header("=== Visual")]
+    [SerializeField] protected List<TMP_Text> TabSideTxtList;
+
+    #endregion
+
+    #region - Hide 
+
+    // String
+    [HideInInspector] public static string LabelName;
+    [HideInInspector] public static List<string> TabBtnTxtList;
+
+    #endregion
+
+    #endregion
+
+    #region Offset
+
+    public override void Offset()
+    {
+        base.Offset();
+
+        Offset_Basic();
+        Offset_ColorComp();
+    }
+
+    private void Offset_Basic()
+    {
+        // Tab
+        for (int i = 0; i < ThisPanelTabList.Count; i++)
+        {
+            ThisPanelTabList[i].Offset();
+            ThisPanelTabList[i].ThisTabBtn.OwnerUIController = this;
+        }
+
+        // Dur
+        ThisDurEUI.Offset();
+
+        // Close
+        CloseBtn.Offset();
+        CloseBtn.OwnerUIController = this;
+
+        // Broken
+        ThisMsgEUI.Offset();
+    }
+
+    private void Offset_ColorComp()
+    {
+        // Label
+        MainColorCompList.Add(LabelTxt);
+
+        // Close
+        SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+
+        // Tab Btn
+        MainColorCompList.AddRange(Get_AllTabBtn_Txt());
+        SubColorCompList.AddRange(Get_AllTabBtn_Img());
+
+
+        // Set Color
+        Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+        DevTool.Set_Color(mainClr, MainColorCompList);
+        MainColorCompList.Clear();
+        MainColorCompList = null;
+    }
+
+    #endregion
+
+    #region Framework
+
+    protected virtual void OnEnable()
+    {
+        foreach (TabEUIController MET in ThisPanelTabList)
+        {
+            MET.Reset_ScrollBar();
+        }
+    }
+
+    #endregion
+
+    #region Language
+
+    public override void Set_LanguageTxt()
+    {
+        base.Set_LanguageTxt();
+
+        // Close
+        DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CloseBtn, 0)).gameObject).text =
+            ResourceManager.Instance.Get_StaticWord(28);
+
+        // Dur
+        ThisDurEUI.Set_LanguageTxt();
+    }
+
+    #endregion
+}

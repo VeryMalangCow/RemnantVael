@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class BaseUpgradeUIController : PanelUIController
+public class BaseUpgradeUIController : ShopUIController
 {
     #region Value
 
@@ -15,31 +15,17 @@ public class BaseUpgradeUIController : PanelUIController
     [Header("<><><><><> Base Upgrade Shop")]
 
     [Space(10)]
-    [Header("=== Label")]
-    [SerializeField] private TMP_Text LabelTxt;
-
-    [Space(10)]
-    [Header("=== Durablity")]
-    [SerializeField] public DurablityEUIController ThisDurEUI;
-    [SerializeField] public MessageWindowEUIController ThisMsgEUI;
-
-    [Space(10)]
     [Header("=== Item")]
     [SerializeField] public TMP_Text BCTxt;
     [SerializeField] public TMP_Text ECTxt;
 
     [Space(10)]
     [Header("=== Desc")]
-    [SerializeField] private DescBUEUIController ThisDescPanel;
-
-    [Space(10)]
-    [Header("=== Close")]
-    [SerializeField] private OwnBtnEUIController CloseBtn;
+    [SerializeField] protected DescBUEUIController ThisDescPanel;
 
     [Space(10)]
     [Header("=== Visual")]
     [SerializeField] public Image FrameInnerImg;
-    [SerializeField] private List<TMP_Text> TabSideTxtList;
 
     #region - BU State
 
@@ -81,10 +67,6 @@ public class BaseUpgradeUIController : PanelUIController
 
     #region - Hide
 
-    // String
-    [HideInInspector] public static string LabelName;
-    [HideInInspector] public static List<string> TabBtnTxtList;
-
     // BU Stata Data -> List
     [HideInInspector] public List<BUShopData<float>> AllBUData_Float = new List<BUShopData<float>>();
     [HideInInspector] public List<BUShopData<int>> AllBUData_Int = new List<BUShopData<int>>();
@@ -109,26 +91,9 @@ public class BaseUpgradeUIController : PanelUIController
 
     private void Offset_Basic()
     {
-        // Tab
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
-        {
-            ThisPanelTabList[i].Offset();
-            ThisPanelTabList[i].ThisTabBtn.OwnerUIController = this;
-        }
-
-
-        // Dur
-        ThisDurEUI.Offset();
-
         // Desc
         ThisDescPanel.Offset();
 
-        // Close
-        CloseBtn.Offset();
-        CloseBtn.OwnerUIController = this;
-        
-        // Broken
-        ThisMsgEUI.Offset();
     }
 
     private void Offset_BUShop()
@@ -195,6 +160,10 @@ public class BaseUpgradeUIController : PanelUIController
 
     private void Offset_ColorComp()
     {
+        MainColorCompList = new List<Component>();
+        SubColorCompList = new List<Component>();
+
+
         // BUShop
         for (int i = 0; i < AllBUData_Float.Count; i++)
         {
@@ -221,17 +190,7 @@ public class BaseUpgradeUIController : PanelUIController
         MainColorCompList.AddRange(ThisDescPanel.Get_MainColorList());
         SubColorCompList.AddRange(ThisDescPanel.Get_SubColorList());
 
-        // Label
-        MainColorCompList.Add(LabelTxt);
-
         SubColorCompList.Add(FrameInnerImg);
-
-        SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-
-        // Tab Btn => Txt & LightImg
-        MainColorCompList.AddRange(Get_AllTabBtn_Txt());
-        SubColorCompList.AddRange(Get_AllTabBtn_Img());
-
 
         Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
@@ -249,12 +208,11 @@ public class BaseUpgradeUIController : PanelUIController
 
     #region Framework
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        foreach(TabEUIController MET in ThisPanelTabList)
-        {
-            MET.Reset_ScrollBar();
-        }
+        base.OnEnable();
+
+        ThisMsgEUI.Reset_Data();
     }
 
     #endregion
@@ -436,10 +394,6 @@ public class BaseUpgradeUIController : PanelUIController
             TabSideTxtList[i].text = TabBtnTxtList[i];
         }
 
-        // Close
-        DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CloseBtn, 0)).gameObject).text =
-            ResourceManager.Instance.Get_StaticWord(28);
-
         // Shop
         MaxEPShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(8), ResourceManager.Instance.Get_StaticDesc(0));
         SpawnESMultipleShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(38), ResourceManager.Instance.Get_StaticDesc(1));
@@ -469,8 +423,6 @@ public class BaseUpgradeUIController : PanelUIController
         // Desc
         ThisDescPanel.Set_LanguageTxt();
 
-        // Dur
-        ThisDurEUI.Set_LanguageTxt();
     }
 
     #endregion

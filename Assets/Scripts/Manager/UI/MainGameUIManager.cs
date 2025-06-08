@@ -16,30 +16,46 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     [Header("=== Prefab")]
     [SerializeField] private GameObject PlayerHUD_CanvasPrefab;
+
     [SerializeField] private GameObject BaseUpgrade_CanvasPrefab;
     [SerializeField] private GameObject ModuleUpgrade_CanvasPrefab;
+
+    [SerializeField] private GameObject AllyBaseUpgrade_CanvasPrefab;
+    [SerializeField] private GameObject AllyModuleUpgrade_CanvasPrefab;
+
     [SerializeField] private GameObject OutMainGame_CanvasPrefab;
     [SerializeField] private GameObject InteractAnno_CanvasPrefab;
     [SerializeField] private GameObject MapIntro_CanvasPrefab;
+
     [SerializeField] private GameObject AllyCard_CanvasPrefab;
+
     [SerializeField] private GameObject Puzzle_BoxLineConnector_CanvasPrefab;
     [SerializeField] private GameObject Puzzle_NumShapeColorPassword_CanvasPrefab;
     [SerializeField] private GameObject Puzzle_InOrderLocker_CanvasPrefab;
 
     // Controller
     [HideInInspector] public PlayerHUDController PlayerHUD_UIController;
+
     [HideInInspector] public BaseUpgradeUIController BaseUpgrade_UIController;
     [HideInInspector] public ModuleUpgradeUIController ModuleUpgrade_UIController;
+
+    [HideInInspector] public AllyBaseUpgradeUIController AllyBaseUpgrade_UIController;
+    [HideInInspector] public AllyModuleUpgradeUIController AllyModuleUpgrade_UIController;
+
     [HideInInspector] public OutMainGameUIController OutMainGame_UIController;
     [HideInInspector] public InteractAnnoUIController InteractAnno_UIController;
     [HideInInspector] public MapIntroUIController MapIntro_UIController;
+
     [HideInInspector] public AllyCardUIController AllyCard_UIController;
+
     [HideInInspector] public BoxLineConnectorUIController BoxLineConnector_UIController;
     [HideInInspector] public NumShapeColorPasswordUIController NumShapeColorPassword_UIController;
     [HideInInspector] public InOrderLockerUIController InOrderLocker_UIController;
 
+    // Current
     [HideInInspector] public static UIController CurrentOpening_UIController;
 
+    // Production
     [HideInInspector] private CanvasGroup ScreenCG;
     [HideInInspector] private CanvasGroup LoadingIconCG;
     [HideInInspector] private RectTransform LoadingIconRT;
@@ -70,6 +86,10 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         ModuleUpgrade_UIController
             = Gen_UI<ModuleUpgradeUIController>(ModuleUpgrade_CanvasPrefab, false);
 
+        AllyBaseUpgrade_UIController
+            = Gen_UI<AllyBaseUpgradeUIController>(AllyBaseUpgrade_CanvasPrefab, false);
+        AllyModuleUpgrade_UIController
+            = Gen_UI<AllyModuleUpgradeUIController>(AllyModuleUpgrade_CanvasPrefab, false);
 
         InteractAnno_UIController
             = Gen_UI<InteractAnnoUIController>(InteractAnno_CanvasPrefab, false);

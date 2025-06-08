@@ -792,6 +792,102 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "AllyBaseUpgradeUI",
+            "id": "bd44c9f9-e135-4c11-b8d1-594bcd0a1f5d",
+            "actions": [
+                {
+                    "name": "ABUUI_OutPanel",
+                    "type": "Button",
+                    "id": "df1fdf7b-db8b-4abb-b7f2-9bd0459b98fb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ABUUI_Select",
+                    "type": "Button",
+                    "id": "60c6a7b2-963e-4e44-8ffe-43e1ad6fb1f3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b76df109-150a-452f-a2f4-ba80160f4a33",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ABUUI_Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d8fa0f3b-3d5a-459e-9752-7d25ca107698",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ABUUI_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "AllyModuleUpgradeUI",
+            "id": "16aa2fea-fb41-49d9-bbb5-ef6338c1b3d3",
+            "actions": [
+                {
+                    "name": "AMUUI_OutPanel",
+                    "type": "Button",
+                    "id": "39ff8160-c9b5-4d62-85b6-1e0b44bcbdd2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "AMUUI_Select",
+                    "type": "Button",
+                    "id": "96ba41ec-0f22-427f-a85e-ee197383617d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0acf9501-3abd-40a7-b3ab-d347c669d5ac",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AMUUI_Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1aacf12f-2463-4e8a-a252-d580bb8b1aa0",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AMUUI_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

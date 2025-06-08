@@ -5,7 +5,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModuleUpgradeUIController : PanelUIController
+public class ModuleUpgradeUIController : ShopUIController
 {
     #region Value
 
@@ -13,15 +13,6 @@ public class ModuleUpgradeUIController : PanelUIController
 
     [Space(20)]
     [Header("<><><><><> Module Upgrade Shop")]
-
-    [Space(10)]
-    [Header("=== Label")]
-    [SerializeField] private TMP_Text LabelTxt;
-
-    [Space(10)]
-    [Header("=== Durablity")]
-    [SerializeField] public DurablityEUIController ThisDurEUI;
-    [SerializeField] public MessageWindowEUIController ThisMsgEUI;
 
     [Space(10)]
     [Header("=== Item")]
@@ -34,16 +25,8 @@ public class ModuleUpgradeUIController : PanelUIController
     [SerializeField] private DescMUEUIController ThisDescPanel;
 
     [Space(10)]
-    [Header("=== Close")]
-    [SerializeField] private OwnBtnEUIController CloseBtn;
-
-    [Space(10)]
     [Header("=== Drag")]
     [SerializeField] private InventoryItemEUIController DragItemEUI;
-
-    [Space(10)]
-    [Header("=== Visual")]
-    [SerializeField] private List<TMP_Text> TabSideTxtList;
 
     #endregion
 
@@ -122,8 +105,6 @@ public class ModuleUpgradeUIController : PanelUIController
     #region - Hide
 
     // string
-    [HideInInspector] public static string LabelName;
-    [HideInInspector] public static List<string> TabBtnTxtList;
     [HideInInspector] public static string AmalgamationName;
     [HideInInspector] public static string Notice_Equiped;
     [HideInInspector] public static string Warning_NotSameRank;
@@ -185,23 +166,8 @@ public class ModuleUpgradeUIController : PanelUIController
 
     private void Offset_Basic()
     {
-        // Tab
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
-        {
-            ThisPanelTabList[i].Offset();
-            ThisPanelTabList[i].ThisTabBtn.OwnerUIController = this;
-        }
-
-
-        // Dur
-        ThisDurEUI.Offset();
-
         // Desc
         ThisDescPanel.Offset();
-
-        // Close
-        CloseBtn.Offset();
-        CloseBtn.OwnerUIController = this;
 
         // Inventory
         Inventories = new List<InventoryEUIController>
@@ -209,15 +175,11 @@ public class ModuleUpgradeUIController : PanelUIController
             Inventory_InEquip, Inventory_InForge
         };
 
-        // Broken
-        ThisMsgEUI.Offset();
-
         // Drag
         DragItemEUI.Offset();
         DragItemRT = DevTool.Get_ComponentTType(DragItemEUI.gameObject, out RectTransform rt) ? rt : null;
 
         DragItemEUI.gameObject.SetActive(false);
-
     }
 
 
@@ -322,8 +284,8 @@ public class ModuleUpgradeUIController : PanelUIController
 
     private void Offset_ColorComp()
     {
-        // Label
-        MainColorCompList.Add(LabelTxt);
+        MainColorCompList = new List<Component>();
+        SubColorCompList = new List<Component>();
 
         // Equiped
         SubColorCompList.AddRange(EquipPanelInnerList);
@@ -376,13 +338,6 @@ public class ModuleUpgradeUIController : PanelUIController
         MainColorCompList.Add(Preview_NeedMS_ForFusion);
         MainColorCompList.Add(Preview_NeedMS_ForMake);
         MainColorCompList.Add(Preview_NeedCB_ForMake);
-
-        // Tab Btn
-        MainColorCompList.AddRange(Get_AllTabBtn_Txt());
-        SubColorCompList.AddRange(Get_AllTabBtn_Img());
-
-        // Close Btn
-        SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
         Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
@@ -470,12 +425,9 @@ public class ModuleUpgradeUIController : PanelUIController
 
     #region Framework
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        foreach (TabEUIController MET in ThisPanelTabList)
-        {
-            MET.Reset_ScrollBar();
-        }
+        base.OnEnable();
 
         Reset_EquipPanel();
         Reset_ForgePanel();
@@ -1478,9 +1430,6 @@ public class ModuleUpgradeUIController : PanelUIController
         Warning_AlreadyMaxLv = ResourceManager.Instance.Get_StaticDesc(23);
         Warning_InvenFull = ResourceManager.Instance.Get_StaticDesc(27);
 
-        // Close
-        DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CloseBtn, 0)).gameObject).text =
-            ResourceManager.Instance.Get_StaticWord(28);
 
         // Tab
         for (int i = 0; i < ThisPanelTabList.Count; i++)
@@ -1491,9 +1440,6 @@ public class ModuleUpgradeUIController : PanelUIController
 
         // Desc
         ThisDescPanel.Set_LanguageTxt();
-
-        // Dur
-        ThisDurEUI.Set_LanguageTxt();
 
         // Forge
         ForgeInteractPanels[0].Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(51), ResourceManager.Instance.Get_StaticDesc(24));
