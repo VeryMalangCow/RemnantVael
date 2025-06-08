@@ -162,7 +162,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         Offset_ColorComp();
         Offset_Subscribe();
 
-        Set_BaseLanguageTxt();
+        Set_LanguageTxt();
     }
 
     private void Offset_Basic()
@@ -1413,12 +1413,13 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     #region Set (Language)
 
-    private void Set_BaseLanguageTxt()
+    public override void Set_LanguageTxt()
     {
         // Label
         LabelName = ResourceManager.Instance.Get_StaticWord(27) + " " + ResourceManager.Instance.Get_StaticWord(2);
         LabelTxt.text = LabelName;
 
+        // Tab
         TabBtnTxtList = new List<string>
         {
             ResourceManager.Instance.Get_StaticWord(32),
@@ -1443,15 +1444,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         // Amalgamation
         DevTool.Set_TxtList(AmalgamationTxtList, AmalgamationName);
 
-    }
-
-    public override void Set_LanguageTxt()
-    {
         base.Set_LanguageTxt();
-
-        Set_BaseLanguageTxt();
-
-        ModuleItemManager.Instance.Set_DataLanguage();
     }
 
     #endregion

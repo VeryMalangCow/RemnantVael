@@ -88,8 +88,8 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         AllyBaseUpgrade_UIController
             = Gen_UI<AllyBaseUpgradeUIController>(AllyBaseUpgrade_CanvasPrefab, false);
-        AllyModuleUpgrade_UIController
-            = Gen_UI<AllyModuleUpgradeUIController>(AllyModuleUpgrade_CanvasPrefab, false);
+        //AllyModuleUpgrade_UIController
+        //    = Gen_UI<AllyModuleUpgradeUIController>(AllyModuleUpgrade_CanvasPrefab, false);
 
         InteractAnno_UIController
             = Gen_UI<InteractAnnoUIController>(InteractAnno_CanvasPrefab, false);
@@ -156,6 +156,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         BaseUpgrade_UIController.Set_LanguageTxt();
         ModuleUpgrade_UIController.Set_LanguageTxt();
+        ModuleItemManager.Instance.Set_DataLanguage();
 
         AllyCard_UIController.Set_LanguageTxt();
     }

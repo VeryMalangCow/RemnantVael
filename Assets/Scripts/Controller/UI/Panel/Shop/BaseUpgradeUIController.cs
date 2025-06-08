@@ -26,6 +26,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
     [Space(10)]
     [Header("=== Visual")]
     [SerializeField] public Image FrameInnerImg;
+
     #region - BU State
 
     [Space(10)]
@@ -85,6 +86,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         Offset_BUShop();
         Offset_Subscribe();
         Offset_ColorComp();
+
         Set_LanguageTxt();
     }
 
@@ -161,7 +163,6 @@ public class BaseUpgradeUIController : PlayerShopUIController
     {
         MainColorCompList = new List<Component>();
         SubColorCompList = new List<Component>();
-
 
         // BUShop
         for (int i = 0; i < AllBUData_Float.Count; i++)
@@ -371,8 +372,6 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     public override void Set_LanguageTxt()
     {
-        base.Set_LanguageTxt();
-
         // Label
         LabelName = ResourceManager.Instance.Get_StaticWord(26) + " " + ResourceManager.Instance.Get_StaticWord(2);
         LabelTxt.text = LabelName;
@@ -386,7 +385,6 @@ public class BaseUpgradeUIController : PlayerShopUIController
             ResourceManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 0),
             ResourceManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 1)
         };
-
 
         // Shop
         MaxEPShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(8), ResourceManager.Instance.Get_StaticDesc(0));
@@ -417,6 +415,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         // Desc
         ThisDescPanel.Set_LanguageTxt();
 
+        base.Set_LanguageTxt();
     }
 
     #endregion

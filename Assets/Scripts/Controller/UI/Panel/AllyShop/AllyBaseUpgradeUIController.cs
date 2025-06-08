@@ -10,14 +10,26 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     [Header("<><><><><> Ally Base Upgrade Shop")]
 
     [Space(10)]
-    [Header("=== Cell")]
-    [SerializeField] private int test = 1;
+    [Header("=== EUI")]
+    [SerializeField] private int test = 0;
 
     #endregion
 
     #region - Hide
 
+
     #endregion
+
+    #endregion
+
+    #region Offset
+
+    public override void Offset()
+    {
+        base.Offset();
+
+        Set_LanguageTxt();
+    }
 
     #endregion
 
@@ -34,11 +46,23 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     public override void Set_LanguageTxt()
     {
-        base.Set_LanguageTxt();
-
         // Label
         LabelName = ResourceManager.Instance.Get_StaticWord(95) + " " + ResourceManager.Instance.Get_StaticWord(26) + " " + ResourceManager.Instance.Get_StaticWord(2);
         LabelTxt.text = LabelName;
+
+        base.Set_LanguageTxt();
+    }
+
+    #endregion
+
+    #region Set (Panel)
+
+    public override void SetOn_ThisPanel()
+    {
+        base.SetOn_ThisPanel();
+
+        // Dur
+        ThisDurEUI.Set_Dur(AllyBaseUpgradeController.UsingShop.CurrentDur);
     }
 
     #endregion

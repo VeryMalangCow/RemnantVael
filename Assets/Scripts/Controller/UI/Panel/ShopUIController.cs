@@ -85,6 +85,11 @@ public class ShopUIController : PanelUIController
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
+
+        Color subClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
+        DevTool.Set_Color(subClr, SubColorCompList);
+        SubColorCompList.Clear();
+        SubColorCompList = null;
     }
 
     #endregion

@@ -1,3 +1,4 @@
+using System;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -18,6 +19,8 @@ public class TabEUIController : ElementUIController, IScrollHandler
     [HideInInspector] private float ActualAreaY;
     [HideInInspector] private float MovableY;
 
+    IDisposable disposable = null;
+
     #endregion
 
     #region Offset
@@ -26,11 +29,25 @@ public class TabEUIController : ElementUIController, IScrollHandler
     {
         ThisTabBtn.Offset();
 
-        ActualAreaY = ActualMovableRT.rect.height;
-        MovableY = ActualAreaY - VisibleY;
+        Set_ScrollPanel(VisibleY);
+    }
 
-        ThisTabScrollbar.size = Mathf.Clamp((VisibleY / ActualAreaY), 0f, 1f);
-        ThisTabScrollbar.OnValueChangedAsObservable()
+    #endregion
+
+    #region Scroll
+
+    public void Set_ScrollPanel(float _VisibleY)
+    {
+        if (disposable != null)
+        {
+            disposable.Dispose();
+        }
+
+        ActualAreaY = ActualMovableRT.rect.height;
+        MovableY = ActualAreaY - _VisibleY;
+
+        ThisTabScrollbar.size = Mathf.Clamp((_VisibleY / ActualAreaY), 0f, 1f);
+        disposable = ThisTabScrollbar.OnValueChangedAsObservable()
             .Subscribe(_Value =>
             {
                 float targetY = MovableY * _Value;

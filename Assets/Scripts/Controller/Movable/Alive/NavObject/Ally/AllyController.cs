@@ -34,6 +34,10 @@ public class AllyController : NavObjectController
     [Header("=== HUD")]
     [SerializeField] private AllyHUDController HUD;
 
+    [Space(10)]
+    [Header("=== UI")]
+    [SerializeField] private Sprite FaceSprite;
+
     #endregion
 
     #region - Hide
@@ -311,7 +315,7 @@ public class AllyController : NavObjectController
 
     #endregion
 
-    #region Get (Dir)
+    #region Dir
 
     // Not Normalize (최적화로 정규화를 하지않는 것이 더 도움이 됨)
     public Vector2 Get_ForPlayerDir()
@@ -330,7 +334,21 @@ public class AllyController : NavObjectController
 
     #endregion
 
-    #region Set (Name)
+    #region Face
+
+    public Sprite Get_FaceImg()
+    {
+        return FaceSprite;
+    }
+
+    #endregion
+
+    #region Name
+
+    public string Get_Name()
+    {
+        return Name[GameManager.LanguageID];
+    }
 
     private void Set_Name()
     {
