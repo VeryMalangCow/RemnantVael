@@ -10,7 +10,7 @@ public class ShopUIController : PanelUIController
     #region - Inspector
 
     [Space(20)]
-    [Header("<><><><><> Player Shop")]
+    [Header("<><><><><> Shop")]
 
     [Space(10)]
     [Header("=== Label")]
@@ -118,6 +118,10 @@ public class ShopUIController : PanelUIController
 
         // Dur
         ThisDurEUI.Set_LanguageTxt();
+
+
+        for (int i = 0; i < ThisPanelTabList.Count; i++)
+            ThisPanelTabList[i].ThisTabBtn.Offset_Txt(TabBtnTxtList[i]);
     }
 
     #endregion

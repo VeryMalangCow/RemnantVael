@@ -1362,13 +1362,22 @@ public class DevTool
             return ResourceManager.Instance.Get_StaticWord(1);
         }
 
-        else if (Can_CastingTType(_II, out DestructibleBuildController dbc) && 
-            (Can_CastingTType(_II, out BaseUpgradeController buc) || Can_CastingTType(_II, out ModuleUpgradeController muc)))
+        else if (Can_CastingTType(_II, out DestructibleBuildController dbc))
         {
             if (dbc.IsBroken)
                 _CanInteract = false;
 
-            return ResourceManager.Instance.Get_StaticWord(2);
+            if (Can_CastingTType(_II, out BaseUpgradeController buc))
+                return ResourceManager.Instance.Get_StaticWord(97);
+            
+            else if (Can_CastingTType(_II, out ModuleUpgradeController muc))
+                return ResourceManager.Instance.Get_StaticWord(98);
+
+            else if (Can_CastingTType(_II, out AllyBaseUpgradeController abuc))
+                return ResourceManager.Instance.Get_StaticWord(99);
+
+            else if (Can_CastingTType(_II, out AllyModuleUpgradeController amuc))
+                return ResourceManager.Instance.Get_StaticWord(100);
         }
 
 

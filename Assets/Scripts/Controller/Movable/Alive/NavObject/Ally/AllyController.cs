@@ -14,6 +14,7 @@ public class AllyController : NavObjectController
 
     [Space(20)]
     [Header("<><><><><> Ally")]
+    [SerializeField] private int AllyTypeIndex = 0;
 
     [Space(10)]
     [Header("=== Value")]
@@ -36,7 +37,9 @@ public class AllyController : NavObjectController
 
     [Space(10)]
     [Header("=== UI")]
-    [SerializeField] private Sprite FaceSprite;
+    [SerializeField] private Sprite LeftFaceSprite;
+    [SerializeField] private Sprite FrontFaceSprite;
+    [SerializeField] private Sprite RightFaceSprite;
 
     #endregion
 
@@ -336,9 +339,19 @@ public class AllyController : NavObjectController
 
     #region Face
 
-    public Sprite Get_FaceImg()
+    public Sprite Get_LeftFaceImg()
     {
-        return FaceSprite;
+        return LeftFaceSprite;
+    }
+
+    public Sprite Get_FrontFaceImg()
+    {
+        return FrontFaceSprite;
+    }
+
+    public Sprite Get_RightFaceImg()
+    {
+        return RightFaceSprite;
     }
 
     #endregion

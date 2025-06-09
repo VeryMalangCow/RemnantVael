@@ -158,6 +158,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         ModuleUpgrade_UIController.Set_LanguageTxt();
         ModuleItemManager.Instance.Set_DataLanguage();
 
+        AllyBaseUpgrade_UIController.Set_LanguageTxt();
+        // AllyModuleUpgrade_UIController.Set_LanguageTxt();
+
         AllyCard_UIController.Set_LanguageTxt();
     }
 

@@ -69,6 +69,7 @@ MonoBehaviour:
   BrokenParticleData: []
   ParticleThrowDis: 1
   testbool: 0
+  AllyTypeIndex: 0
   MultipleAllyState:
     MovementSpeed: 1.5
     Dmg: 2
@@ -83,7 +84,9 @@ MonoBehaviour:
   ThisSolar: {fileID: 8582829566269682132}
   ThisDirImg: {fileID: 8140379498466177624}
   HUD: {fileID: 82095112155882869}
-  FaceSprite: {fileID: 662672575, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
+  LeftFaceSprite: {fileID: 662672575, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
+  FrontFaceSprite: {fileID: 662672575, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
+  RightFaceSprite: {fileID: 662672575, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
   NameID: -1
   Name: []
   BulletSprite: {fileID: -1712732208, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}

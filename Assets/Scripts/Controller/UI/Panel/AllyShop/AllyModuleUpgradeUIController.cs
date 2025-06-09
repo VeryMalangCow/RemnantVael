@@ -34,9 +34,12 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #region Interact
 
-    public void Try_Interact()
+    public override bool Try_Interact()
     {
+        if (base.Try_Interact()) return false;
 
+
+        return false;
     }
 
     #endregion

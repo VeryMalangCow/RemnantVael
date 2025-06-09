@@ -31,10 +31,7 @@ public class PlayerShopUIController : ShopUIController
         base.Set_LanguageTxt();
 
         for (int i = 0; i < ThisPanelTabList.Count; i++)
-        {
-            ThisPanelTabList[i].ThisTabBtn.Offset_Txt(TabBtnTxtList[i]);
             TabSideTxtList[i].text = TabBtnTxtList[i];
-        }
     }
 
     #endregion

@@ -582,7 +582,6 @@ public class InputManager : Singleton<InputManager>
     #region AMUUI
     private void Input_AMUUIClick(InputAction.CallbackContext _InputValue)
     {
-
         if (_InputValue.ReadValueAsButton())
             MainGameUIManager.Instance.AllyModuleUpgrade_UIController.Try_Interact();
     }
