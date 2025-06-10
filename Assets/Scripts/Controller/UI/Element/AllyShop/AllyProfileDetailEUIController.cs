@@ -11,14 +11,10 @@ public class AllyProfileDetailEUIController : ElementUIController
     [Header("<><><><><> Profile Detail")]
 
     [Space(10)]
-    [Header("=== Always Panel")]
-    [SerializeField] private GameObject AlwaysPanelGO;
-    [SerializeField] private TMP_Text NameTxt;
-
-    [Space(10)]
     [Header("=== On Panel")]
     [SerializeField] private GameObject OnPanelGO;
-    [SerializeField] private List<Image> FaceImgList;
+    [SerializeField] private Image FaceImg;
+    [SerializeField] private TMP_Text NameTxt;
 
     [Space(10)]
     [Header("=== Off Panel")]
@@ -41,9 +37,7 @@ public class AllyProfileDetailEUIController : ElementUIController
     {
         Set_Panel(true);
         NameTxt.text = $"-[ {_Ally.Get_Name()} ]-";
-        FaceImgList[0].sprite = _Ally.Get_LeftFaceImg();
-        FaceImgList[1].sprite = _Ally.Get_FrontFaceImg();
-        FaceImgList[2].sprite = _Ally.Get_RightFaceImg();
+        FaceImg.sprite = _Ally.Get_FrontFaceImg();
     }
 
     public void SetOff_Panel()

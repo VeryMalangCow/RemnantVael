@@ -44,7 +44,7 @@ public class ShopUIController : PanelUIController
         base.Offset();
 
         Offset_Basic();
-        Offset_ColorComp();
+        Offset_ExtraColorComp();
     }
 
     private void Offset_Basic()
@@ -67,8 +67,11 @@ public class ShopUIController : PanelUIController
         ThisMsgEUI.Offset();
     }
 
-    private void Offset_ColorComp()
+    private void Offset_ExtraColorComp()
     {
+        MainColorCompList = new List<Component>();
+        SubColorCompList = new List<Component>();   
+
         // Label
         MainColorCompList.Add(LabelTxt);
 
