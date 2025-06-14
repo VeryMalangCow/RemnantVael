@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class OwnCGBtnEUIController : OwnBtnEUIController
 {
     #region Value
 
+    [SerializeField] public TMP_Text ThisTxt;
     [HideInInspector] public CanvasGroup ThisCG;
 
     #endregion

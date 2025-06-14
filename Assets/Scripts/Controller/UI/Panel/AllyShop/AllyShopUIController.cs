@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -38,6 +37,15 @@ public class AllyShopUIController : ShopUIController
     [Header("-- Btn")]
     [SerializeField] private List<OwnCGBtnEUIController> StateBtnList;
 
+    [Space(5)]
+    [Header("-- In State")]
+    [SerializeField] private List<TMP_Text> StateTitleTxtList;
+
+    [Space(2)]
+    [Header("* State")]
+    [SerializeField] private ScrollPanelEUIController StateScrollPanel;
+    [SerializeField] private List<AllyProfileStateEUIController> StateEUIList;
+
 
     [Space(10)]
     [Header("=== Inner")]
@@ -63,7 +71,9 @@ public class AllyShopUIController : ShopUIController
     [HideInInspector] private static readonly float AllyProfilePanelMinHeight = 800;
 
     // Picked
+    [HideInInspector] private AllyController CurrentPickedAlly = null;
     [HideInInspector] private CanvasGroup AllyProfilePickedSignCG;
+    [HideInInspector] private int CurrentExtraPanelIndex = 0;
 
     // Profile Detail
     [HideInInspector] private bool ProfileDetailExtraIsOpen = false;
@@ -111,6 +121,8 @@ public class AllyShopUIController : ShopUIController
             StateBtnList[i].OwnerUIController = this;
             StateBtnList[i].Offset();
         }
+
+        StateScrollPanel.Offset();
     }
 
     private void Offset_ColorComp()
@@ -147,11 +159,14 @@ public class AllyShopUIController : ShopUIController
         CurrentActiveProfileEUIList.Clear();
         CurrentSelectProfileEUI = null;
         CurrentPickedProfileEUI = null;
+
         AllyProfilePickedSignRT.gameObject.SetActive(false);
+        CurrentExtraPanelIndex = 0;
 
         ProfileDetailExtraIsOpen = false;
         IsTweening = false;
-        StatePanelCG.alpha = 0;
+        StatePanelCG.alpha = 0; 
+        
     }
 
     // 프로필 리스트 리셋
@@ -264,6 +279,7 @@ public class AllyShopUIController : ShopUIController
         if (IsTweening) return;
 
         CurrentPickedProfileEUI = _EUI;
+        CurrentPickedAlly = CurrentPickedProfileEUI.Get_ThisAlly();
 
         AllyProfilePickedSignRT.gameObject.SetActive(true);
         AllyProfilePickedSignRT.SetParent(CurrentSelectProfileEUI.transform);
@@ -278,17 +294,22 @@ public class AllyShopUIController : ShopUIController
         AllyProfilePickedSignCG.alpha = 0f;
         AllyProfilePickedSignCG.DOFade(1f, 0.2f);
 
+        // Data UI Set
+        Set_AllyState(CurrentPickedAlly);
+
         // Detail Panel
-        ProfileDetailEUI.SetOn_Panel(CurrentPickedProfileEUI.Get_ThisAlly());
+        ProfileDetailEUI.SetOn_Panel(CurrentPickedAlly);
 
         // Extra Panel
-        Play_ProfileExtraY_CloseAndOpen(0);
+        Play_ProfileExtraY_CloseAndOpen(CurrentExtraPanelIndex);
     }
 
     #endregion
 
     #region Profile Detail
 
+
+    // Extra, Y 패널
     private Sequence Play_ProfileDetailExtraCG(int _ExtraIndex, float _DurTime)
     {
         Sequence seq = DOTween.Sequence();
@@ -321,7 +342,7 @@ public class AllyShopUIController : ShopUIController
             if (index == _ExtraIndex)
                 seq.Join(StateBtnList[index].ThisCG.DOFade(1f, _DurTime));
             else
-                seq.Join(StateBtnList[index].ThisCG.DOFade(0.5f, _DurTime));
+                seq.Join(StateBtnList[index].ThisCG.DOFade(0.4f, _DurTime));
         }
 
         return seq;
@@ -334,6 +355,7 @@ public class AllyShopUIController : ShopUIController
 
         Sequence seq = DOTween.Sequence();
 
+        CurrentExtraPanelIndex = _ExtraIndex;
         float durTime = ProfileDetailExtraIsOpen ? 0.24f : 0.12f;
 
         if (ProfileDetailExtraIsOpen)
@@ -365,9 +387,25 @@ public class AllyShopUIController : ShopUIController
 
         seq.Append(ProfileDetailExtraRT.DOSizeDelta(new Vector2(ProfileDetailExtraRT.rect.width, _Y), _DurTime));
 
+        Play_ProfileDetailExtraBtn(-1, 0.12f);
+
         return seq;
     }
 
+
+    // 실제 데이터값
+    private void Set_AllyState(AllyController _Ally)
+    {
+        AllyState cardBaseState = _Ally.Get_CardState();
+        StateEUIList[0].ValueTxt.text = cardBaseState.Dmg.ToString();
+        StateEUIList[1].ValueTxt.text = cardBaseState.Rof.ToString();
+        StateEUIList[2].ValueTxt.text = cardBaseState.MovementSpeed.ToString();
+
+        AllyState upgradeState = _Ally.Get_UpgradeAllState();
+        StateEUIList[0].ExtraValueTxt.text = "+ " + upgradeState.Dmg.ToString();
+        StateEUIList[1].ExtraValueTxt.text = "+ " + upgradeState.Rof.ToString();
+        StateEUIList[2].ExtraValueTxt.text = "+ " + upgradeState.MovementSpeed.ToString();
+    }
 
     #endregion
 
@@ -399,6 +437,7 @@ public class AllyShopUIController : ShopUIController
         if (CurrentBtn is OwnCGBtnEUIController btn &&
             StateBtnList.Contains(btn))
         {
+
             Play_ProfileExtraY_CloseAndOpen(StateBtnList.IndexOf(btn));
 
             return true;
@@ -421,6 +460,23 @@ public class AllyShopUIController : ShopUIController
 
         // Profile Detail
         ProfileDetailTxt.text = ResourceManager.Instance.Get_StaticWord(101);
+
+        string state = ResourceManager.Instance.Get_StaticWord(102);
+        string bu = ResourceManager.Instance.Get_StaticWord(26);
+        string mu = ResourceManager.Instance.Get_StaticWord(27);
+
+
+        StateBtnList[0].ThisTxt.text = state;
+        StateBtnList[1].ThisTxt.text = bu;
+        StateBtnList[2].ThisTxt.text = mu;
+
+        StateTitleTxtList[0].text = state;
+        StateTitleTxtList[1].text = bu;
+        StateTitleTxtList[2].text = mu;
+
+        StateEUIList[0].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(12)} >";    // 공격력
+        StateEUIList[1].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(13)} >";    // 연사력
+        StateEUIList[2].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(9)} >";     // 이동속도
 
         base.Set_LanguageTxt();
     }

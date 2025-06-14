@@ -1550,6 +1550,7 @@ public class TrioData<T>
     [SerializeField] public T TypeB;
 }
 
+
 [System.Serializable]
 public class CoupleData<T>
 {
@@ -3421,6 +3422,15 @@ public class AllyState
         AttackSize = 1;
     }
 
+    public void Set_AllyStateZero()
+    {
+        MovementSpeed = 0;
+        Dmg = 0;
+        Rof = 0;
+        AttackSize = 0;
+    }
+
+
     public AllyState(AllyState _StateValue)
     {
         MovementSpeed = _StateValue.MovementSpeed;
@@ -3478,6 +3488,7 @@ public class LanguageTxt
     public int ID;
     public List<TMP_FontAsset> FontAssets;
 }
+
 
 #endregion
 

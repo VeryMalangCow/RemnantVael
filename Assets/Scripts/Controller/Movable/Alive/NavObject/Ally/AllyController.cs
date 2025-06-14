@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
+using static UnityEngine.Rendering.DebugUI;
 
 // Ally는 Follow를 기본으로 가짐 (플레이어에게 가는 것이 필요하기 때문)
 public class AllyController : NavObjectController
@@ -46,6 +47,7 @@ public class AllyController : NavObjectController
     // State
     [HideInInspector] protected float FollowInitDelay = 0.2f;
 
+    [HideInInspector] private AllyState UpgradeAllyState = new AllyState();
     [HideInInspector] protected AllyState ActualAllyState = new AllyState();
 
     // For Player
@@ -75,6 +77,7 @@ public class AllyController : NavObjectController
 
         Player = PlayerManager.Instance.PlayerController;
         DevTool.Add_InList(AllyManager.Instance.AllAllies, this);
+        UpgradeAllyState.Set_AllyStateZero();
 
         CurrentHP.Value = MaxHP;
         CurrentEP.Value = 0;
@@ -155,7 +158,7 @@ public class AllyController : NavObjectController
 
         DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
 
-        Set_AllState(AllyManager.Instance.GetAllyState);
+        Set_AllState();
 
         Start_MainCor();
     }
@@ -201,28 +204,51 @@ public class AllyController : NavObjectController
 
     #region Set (State)
 
-    public void Set_AllState(AllyState _StateValue)
-    {
-        Set_MovementSpeed(_StateValue.MovementSpeed);
-        Set_Dmg(_StateValue.Dmg);
-        Set_Rof(_StateValue.Rof);
-    }
 
-
-    private void Set_MovementSpeed(float _Value)
+    public void Set_AllState() // 카드와 업그레이드 모두 적용
     {
-        ActualAllyState.MovementSpeed = _Value * MultipleAllyState.MovementSpeed;
+        ActualAllyState = Get_AllState();
+
         FollowInitDelay = 0.4f / ActualAllyState.MovementSpeed;
     }
 
-    private void Set_Dmg(float _Value)
+    public AllyState Get_AllState() // 카드와 업그레이드 모두 적용된 스탯
     {
-        ActualAllyState.Dmg = _Value * MultipleAllyState.Dmg;
+        return Get_ApplyMultipleState(
+            MultipleAllyState, 
+            Get_TotalAddableState(AllyManager.Instance.GetAllyState, UpgradeAllyState));
     }
 
-    private void Set_Rof(float _Value)
+    public AllyState Get_CardState() // 카드만 적용된 스탯
     {
-        ActualAllyState.Rof = _Value * MultipleAllyState.Rof;
+        return Get_ApplyMultipleState(MultipleAllyState, AllyManager.Instance.GetAllyState);
+    }
+
+    public AllyState Get_UpgradeAllState() // 업그레이드만 카드 적용된 스탯
+    {
+        return Get_ApplyMultipleState(MultipleAllyState, UpgradeAllyState);
+    }
+
+    private AllyState Get_TotalAddableState(AllyState _State1, AllyState _State2)
+    {
+        AllyState result = new AllyState();
+
+        result.MovementSpeed = _State1.MovementSpeed + _State2.MovementSpeed;
+        result.Dmg = _State1.Dmg + _State2.Dmg;
+        result.Rof = _State1.Rof + _State2.Rof;
+
+        return result;
+    }
+
+    private AllyState Get_ApplyMultipleState(AllyState _State1, AllyState _State2)
+    {
+        AllyState result = new AllyState();
+
+        result.MovementSpeed = _State1.MovementSpeed * _State2.MovementSpeed;
+        result.Dmg = _State1.Dmg * _State2.Dmg;
+        result.Rof = _State1.Rof * _State2.Rof;
+
+        return result;
     }
 
     #endregion

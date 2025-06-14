@@ -251,7 +251,7 @@ public class AllyManager : Singleton<AllyManager>
         if (AllAllies.Count <= 0) return;
 
         for (int i = 0; i < AllAllies.Count; i++)
-            AllAllies[i].Set_AllState(AllyState);
+            AllAllies[i].Set_AllState();
     }
 
     #endregion
