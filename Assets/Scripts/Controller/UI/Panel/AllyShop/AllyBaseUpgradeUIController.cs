@@ -43,7 +43,6 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         return false;
     }
 
-
     #endregion
 
     #region Set (Language)

@@ -86,15 +86,15 @@ public class AllyModuleUpgradeController : DestructibleBuildController, IInterac
     {
         base.Take_Damage(_SpawnItem);
 
-        // MainGameUIManager.Instance.AllyModuleUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
+        MainGameUIManager.Instance.AllyModuleUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
     }
 
     protected override void Play_NowBreak(bool _SpawnItem)
     {
         base.Play_NowBreak(_SpawnItem);
 
-        // if (MainGameUIManager.Instance.AllyModuleUpgrade_UIController.gameObject.activeSelf)
-        //     MainGameUIManager.Instance.AllyModuleUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
+        if (MainGameUIManager.Instance.AllyModuleUpgrade_UIController.gameObject.activeSelf)
+            MainGameUIManager.Instance.AllyModuleUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
     }
 
     #endregion

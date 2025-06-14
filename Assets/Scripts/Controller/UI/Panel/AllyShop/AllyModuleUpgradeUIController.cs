@@ -17,6 +17,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #region - Hide
 
+
     #endregion
 
     #endregion
