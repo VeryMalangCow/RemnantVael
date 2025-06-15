@@ -1112,6 +1112,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllAllies: []
+  TunerTypeIcon:
+  - {fileID: -1080434544, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
+  - {fileID: -1374723442, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
+  - {fileID: 1299543531, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   AssultAllySpriteSet:
     AllyIdle: []
     AllyMove: []

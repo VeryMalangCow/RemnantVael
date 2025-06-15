@@ -14,6 +14,9 @@ public class AllyManager : Singleton<AllyManager>
     [Header("=== Ally Controller")]
     [SerializeField] public List<AllyController> AllAllies = new List<AllyController>();
 
+    [SerializeField] private List<Sprite> TunerTypeIcon;
+
+
     #endregion
 
     #region - Hide
@@ -45,6 +48,11 @@ public class AllyManager : Singleton<AllyManager>
     // Name
     [HideInInspector] private List<List<string>> AllyAllNameList = new List<List<string>>();
     [HideInInspector] private HashSet<int> UsedAllyName = new HashSet<int>();
+
+    // Base Upgrade Data
+    [HideInInspector] public static List<float> TunerTypePercent = new List<float> { 8, 5, 3, 2, 1 };
+    [HideInInspector] public static readonly List<string> TunerTypeList = new List<string> { "Dmg", "Rof", "MovementSpeed", };
+    [HideInInspector] private Dictionary<string, Sprite> TunerTypeIconDict;
 
     #endregion
 
@@ -78,6 +86,10 @@ public class AllyManager : Singleton<AllyManager>
 
         // Random Name
         AllyAllNameList = ResourceManager.Instance.Get_AllAllyRandomName();
+
+        TunerTypeIconDict = new Dictionary<string, Sprite>();
+        for (int i = 0; i < TunerTypeList.Count; i++)
+            TunerTypeIconDict.Add(TunerTypeList[i], TunerTypeIcon[i]);
     }
 
     #endregion
@@ -122,7 +134,7 @@ public class AllyManager : Singleton<AllyManager>
 
     #endregion
 
-    #region Get
+    #region Get (Card)
     public Sprite Get_CardIcon(int _TypeID, int _CardID)
     {
         return AllIconList[_TypeID][_CardID];
@@ -185,6 +197,15 @@ public class AllyManager : Singleton<AllyManager>
         }
 
         return null;
+    }
+
+    #endregion
+
+    #region Get (BU)
+
+    public Sprite Get_BUIcon(string _Type)
+    {
+        return TunerTypeIconDict[_Type];
     }
 
     #endregion

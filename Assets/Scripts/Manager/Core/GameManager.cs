@@ -3353,7 +3353,7 @@ public class MapNextIndex
 #endregion  
 
 
-#region Class : AllyUpgrade
+#region Class : AllyUpgrade : Card
 
 [System.Serializable]
 public class AllyCardBaseData
@@ -3393,6 +3393,63 @@ public class AllyCardData
     {
         Name = _Name;
         Desc = _Desc;
+    }
+}
+
+#endregion
+
+#region Class : AllyUpgrade : Base
+
+[System.Serializable]
+public class AllyBaseUpradeTunerSet
+{
+    public List<AllyTunerData> AllyTunerDataList;
+
+    public void Offset(int _Amount, List<string> _TypeList, List<float> _RankPercent)
+    {
+        AllyTunerDataList = new List<AllyTunerData>();
+        for (int i = 0; i < _Amount; i++)
+        {
+            AllyTunerDataList.Add(new AllyTunerData(_TypeList, _RankPercent));
+        }
+    }
+}
+
+[System.Serializable]
+public class AllyTunerData
+{
+    public AllyEachTunerData Positive0;
+    public AllyEachTunerData Positive1;
+    public AllyEachTunerData Negative;
+
+    public AllyTunerData(List<string> _TypeList, List<float> _RankPercent)
+    {
+        Set_Data(_TypeList, _RankPercent);
+    }
+
+    public void Set_Data(List<string> _TypeList, List<float> _RankPercent)
+    {
+        Positive0 = new AllyEachTunerData(_TypeList, _RankPercent);
+        Positive1 = new AllyEachTunerData(_TypeList, _RankPercent);
+        Negative = new AllyEachTunerData(_TypeList, _RankPercent);
+    }
+}
+
+[System.Serializable]
+public class AllyEachTunerData
+{
+    public string Type = "";
+    public int Rank = 0;
+
+    public AllyEachTunerData(List<string> _TypeList, List<float> _RankPercent)
+    {
+        Set_Data(_TypeList, _RankPercent);
+    }
+
+    public void Set_Data(List<string> _TypeList, List<float> _RankPercent)
+    {
+        Type = _TypeList[UnityEngine.Random.Range(0, _TypeList.Count)];
+        Rank = DevTool.Get_Rank(_RankPercent);
     }
 }
 

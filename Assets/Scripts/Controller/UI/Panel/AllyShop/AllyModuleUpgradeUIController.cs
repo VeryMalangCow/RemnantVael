@@ -38,8 +38,19 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     public override bool Try_Interact()
     {
         if (base.Try_Interact()) return false;
+        if (Is_Interact_CloseBtn()) return true;
 
 
+        return false;
+    }
+
+    private bool Is_Interact_CloseBtn()
+    {
+        if (CurrentBtn == CloseBtn)
+        {
+            MainGameUIManager.Instance.AllyModuleUpgrade_UIController.SetOff_ThisPanel();
+            return true;
+        }
         return false;
     }
 

@@ -137,13 +137,11 @@ public class AllyShopUIController : ShopUIController
 
         // Set Color
         Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
-        Debug.Log(mainClr);
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
         Color subClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
-        Debug.Log(subClr);
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
@@ -418,6 +416,7 @@ public class AllyShopUIController : ShopUIController
 
         return false;
     }
+
 
     private bool Interact_ProfileList()
     {
