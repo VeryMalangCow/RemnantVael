@@ -3401,6 +3401,35 @@ public class AllyCardData
 #region Class : AllyUpgrade : Base
 
 [System.Serializable]
+public class AllyBaseTunerData
+{
+    public AllyEachBaseTunerData Positive0;
+    public AllyEachBaseTunerData Positive1;
+    public AllyEachBaseTunerData Negative;
+
+    public AllyBaseTunerData(AllyTunerData _Data)
+    {
+        Positive0 = new AllyEachBaseTunerData(_Data.Positive0);
+        Positive1 = new AllyEachBaseTunerData(_Data.Positive1);
+        Negative = new AllyEachBaseTunerData(_Data.Negative);
+    }
+}
+
+[System.Serializable]
+public class AllyEachBaseTunerData
+{
+    public string Type = "";
+    public int Rank = 0;
+
+    public AllyEachBaseTunerData(AllyEachTunerData _Data)
+    {
+        Type = _Data.Type;
+        Rank = _Data.Rank;
+    }
+}
+
+
+[System.Serializable]
 public class AllyBaseUpradeTunerSet
 {
     public List<AllyTunerData> AllyTunerDataList;
@@ -3422,6 +3451,8 @@ public class AllyTunerData
     public AllyEachTunerData Positive1;
     public AllyEachTunerData Negative;
 
+    public int NeedPay = 0;
+
     public AllyTunerData(List<string> _TypeList, List<float> _RankPercent)
     {
         Set_Data(_TypeList, _RankPercent);
@@ -3432,6 +3463,8 @@ public class AllyTunerData
         Positive0 = new AllyEachTunerData(_TypeList, _RankPercent);
         Positive1 = new AllyEachTunerData(_TypeList, _RankPercent);
         Negative = new AllyEachTunerData(_TypeList, _RankPercent);
+
+        NeedPay = (int)((Positive0.Rank + Positive1.Rank - Negative.Rank + 4) * 0.5f);
     }
 }
 

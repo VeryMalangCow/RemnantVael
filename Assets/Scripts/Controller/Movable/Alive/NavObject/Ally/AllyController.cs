@@ -62,8 +62,13 @@ public class AllyController : NavObjectController
     [HideInInspector] private readonly float NearPlayerDis = 0.5f;
 
     // Name
-    [SerializeField] private int NameID = -1;
-    [SerializeField] private List<string> Name = null; 
+    [HideInInspector] private int NameID = -1;
+    [HideInInspector] private List<string> Name = null;
+
+
+    // Tuner
+    [Space(40)]
+    [SerializeField] private List<AllyBaseTunerData> ThisTunerData;
 
     #endregion
 
@@ -78,6 +83,8 @@ public class AllyController : NavObjectController
         Player = PlayerManager.Instance.PlayerController;
         DevTool.Add_InList(AllyManager.Instance.AllAllies, this);
         UpgradeAllyState.Set_AllyStateZero();
+
+        ThisTunerData = new List<AllyBaseTunerData>();
 
         CurrentHP.Value = MaxHP;
         CurrentEP.Value = 0;
@@ -380,6 +387,22 @@ public class AllyController : NavObjectController
     private void Set_Name()
     {
         HUD.Set_Name(Name[GameManager.LanguageID]);
+    }
+
+    #endregion
+
+    #region Tuner
+
+    public List<AllyBaseTunerData> Get_ThisTunerData()
+    {
+        return ThisTunerData;
+    }
+
+    public void Add_Tuner(AllyTunerData _Data)
+    {
+        AllyBaseTunerData addData = new AllyBaseTunerData(_Data);
+
+        ThisTunerData.Add(addData);
     }
 
     #endregion

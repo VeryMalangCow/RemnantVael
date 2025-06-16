@@ -44,6 +44,16 @@ public class EachTunerEUIController : ElementUIController
         ThisArrowImg.color = frameClr;
     }
 
+    public void Set_UI(AllyEachBaseTunerData _EachTunerData)
+    {
+        ThisImg.sprite = AllyManager.Instance.Get_BUIcon(_EachTunerData.Type); // Icon
+        ThisRankImg.sprite = ModuleItemManager.Instance.Get_CorrectRankIcon(_EachTunerData.Rank); // Rank
+
+        Color frameClr = UnitManager.Instance.AllyCardColorList[_EachTunerData.Rank - 1];
+        ThisFrameImg.color = frameClr;
+        ThisArrowImg.color = frameClr;
+    }
+
     #endregion
 
     #region Play

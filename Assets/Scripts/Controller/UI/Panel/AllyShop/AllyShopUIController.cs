@@ -46,6 +46,12 @@ public class AllyShopUIController : ShopUIController
     [SerializeField] private ScrollPanelEUIController StateScrollPanel;
     [SerializeField] private List<AllyProfileStateEUIController> StateEUIList;
 
+    [Space(2)]
+    [Header("* Tuner")]
+    [SerializeField] private ScrollPanelEUIController TunerScrollPanel;
+    [SerializeField] private RectTransform InStateTunerParentRT;
+    [SerializeField] private GameObject InStateTunerPrefab;
+
 
     [Space(10)]
     [Header("=== Inner")]
@@ -64,22 +70,29 @@ public class AllyShopUIController : ShopUIController
     [HideInInspector] private List<AllyProfileEUIController> CurrentActiveProfileEUIList = new List<AllyProfileEUIController>();
 
     [HideInInspector] private AllyProfileEUIController CurrentSelectProfileEUI = null;
-    [HideInInspector] private AllyProfileEUIController CurrentPickedProfileEUI = null;
+    [HideInInspector] protected AllyProfileEUIController CurrentPickedProfileEUI = null;
 
     [HideInInspector] private static readonly float AllyProfileIntervalY = 160;
     [HideInInspector] private static readonly float AllyProfileEachHeight = 140;
     [HideInInspector] private static readonly float AllyProfilePanelMinHeight = 800;
 
     // Picked
-    [HideInInspector] private AllyController CurrentPickedAlly = null;
+    [HideInInspector] protected AllyController CurrentPickedAlly = null;
     [HideInInspector] private CanvasGroup AllyProfilePickedSignCG;
     [HideInInspector] private int CurrentExtraPanelIndex = 0;
 
     // Profile Detail
     [HideInInspector] private bool ProfileDetailExtraIsOpen = false;
-    [HideInInspector] private bool IsTweening = false;
+    [HideInInspector] protected bool IsTweening = false;
     [HideInInspector] private static readonly float ProfileDetailExtraRT_OpenHeight = 650f;
     [HideInInspector] private static readonly float ProfileDetailExtraRT_CloseHeight = 80f;
+    [HideInInspector] private static readonly float ProfileDetailExtraRT_ScrollMin = 550f;
+
+    // In State - Tuner
+    [HideInInspector] private List<TunerEUIController> InStateTunerEUIList;
+    [HideInInspector] private static readonly float InStateTunerEUI_BaseX = -12f;
+    [HideInInspector] private static readonly float InStateTunerEUI_BaseY = 60f;
+    [HideInInspector] private static readonly float InStateTunerEUI_Interval = 120f;
 
     #endregion
 
@@ -123,6 +136,10 @@ public class AllyShopUIController : ShopUIController
         }
 
         StateScrollPanel.Offset();
+        TunerScrollPanel.Offset();
+
+        // In State - Tuner
+        InStateTunerEUIList = new List<TunerEUIController>();
     }
 
     private void Offset_ColorComp()
@@ -227,7 +244,7 @@ public class AllyShopUIController : ShopUIController
         }
     }
 
-    // 프로필 패널의 사이즈 조절 (Scroll을 위함)
+    // 프로필 항목 패널의 사이즈 조절 (Scroll을 위함)
     private void Set_AllyProfileListPanelY(int _Amount)
     {
         float y = Mathf.Max(((_Amount - 1) * AllyProfileIntervalY) + AllyProfileEachHeight, AllyProfilePanelMinHeight);
@@ -272,7 +289,7 @@ public class AllyShopUIController : ShopUIController
 
     // 실제로 인풋으로 클릭이나 지정하는 것
     // 인풋을 통해, Ally를 픽 (UI 변경 필요)
-    private void Pick_AllyProfile(AllyProfileEUIController _EUI)
+    protected virtual void Pick_AllyProfile(AllyProfileEUIController _EUI)
     {
         if (IsTweening) return;
 
@@ -294,6 +311,7 @@ public class AllyShopUIController : ShopUIController
 
         // Data UI Set
         Set_AllyState(CurrentPickedAlly);
+        Set_AllyTuner(CurrentPickedAlly);
 
         // Detail Panel
         ProfileDetailEUI.SetOn_Panel(CurrentPickedAlly);
@@ -304,8 +322,7 @@ public class AllyShopUIController : ShopUIController
 
     #endregion
 
-    #region Profile Detail
-
+    #region Profile Detail (Panel)
 
     // Extra, Y 패널
     private Sequence Play_ProfileDetailExtraCG(int _ExtraIndex, float _DurTime)
@@ -390,6 +407,9 @@ public class AllyShopUIController : ShopUIController
         return seq;
     }
 
+    #endregion
+
+    #region Profile Detail (State)
 
     // 실제 데이터값
     private void Set_AllyState(AllyController _Ally)
@@ -403,6 +423,63 @@ public class AllyShopUIController : ShopUIController
         StateEUIList[0].ExtraValueTxt.text = "+ " + upgradeState.Dmg.ToString();
         StateEUIList[1].ExtraValueTxt.text = "+ " + upgradeState.Rof.ToString();
         StateEUIList[2].ExtraValueTxt.text = "+ " + upgradeState.MovementSpeed.ToString();
+    }
+
+    #endregion
+
+    #region Profile Detail (Tuner)
+
+    protected void Set_AllyTuner(AllyController _Ally)
+    {
+        List<AllyBaseTunerData> tunerData = _Ally.Get_ThisTunerData();
+
+        // 만약 UI EUI가 부족하다면 생성
+        if (InStateTunerEUIList.Count < tunerData.Count)
+        {
+            int needEUIAmount = tunerData.Count - InStateTunerEUIList.Count;
+            for (int i = 0; i < needEUIAmount; i++)
+                InStateTunerEUIList.Add(Gen_TunerEUI());
+        }
+
+        // 모든 Tuner EUI 끄기
+        SetOff_AllTunerEUI();
+
+        // 튜너에 맞추어 키기
+        SetOn_TunerEUI(tunerData);
+
+        float scrollY = Mathf.Max(
+            ProfileDetailExtraRT_ScrollMin,
+            InStateTunerEUI_BaseY + (tunerData.Count * InStateTunerEUI_Interval));
+
+        Debug.Log(scrollY);
+        TunerScrollPanel.Set_ScrollHeight(scrollY);
+    }
+
+    private TunerEUIController Gen_TunerEUI()
+    {
+        TunerEUIController result = DevTool.Get_ComponentTType<TunerEUIController>(Instantiate(InStateTunerPrefab, InStateTunerParentRT));
+        result.Offset();
+
+        return result;
+    }
+
+    private void SetOff_AllTunerEUI()
+    {
+        if (InStateTunerEUIList.Count <= 0) return;
+
+        for (int i = 0; i < InStateTunerEUIList.Count; i++)
+            InStateTunerEUIList[i].gameObject.SetActive(false);
+    }
+
+    private void SetOn_TunerEUI(List<AllyBaseTunerData> _Data)
+    {
+        for (int i = 0; i < _Data.Count; i++)
+        {
+            InStateTunerEUIList[i].gameObject.SetActive(true);
+            InStateTunerEUIList[i].ThisRT.anchoredPosition = new Vector2(InStateTunerEUI_BaseX, -(InStateTunerEUI_BaseY + (InStateTunerEUI_Interval * i)));
+            InStateTunerEUIList[i].Set_UI(_Data[i]);
+        }
+
     }
 
     #endregion
@@ -461,7 +538,7 @@ public class AllyShopUIController : ShopUIController
         ProfileDetailTxt.text = ResourceManager.Instance.Get_StaticWord(101);
 
         string state = ResourceManager.Instance.Get_StaticWord(102);
-        string bu = ResourceManager.Instance.Get_StaticWord(26);
+        string bu = ResourceManager.Instance.Get_StaticWord(106);
         string mu = ResourceManager.Instance.Get_StaticWord(27);
 
 

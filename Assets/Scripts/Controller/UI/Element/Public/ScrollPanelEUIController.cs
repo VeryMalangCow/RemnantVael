@@ -47,6 +47,11 @@ public class ScrollPanelEUIController : ElementUIController, IScrollHandler
 
     #region Set
 
+    public void Set_ScrollHeight(float _Height)
+    {
+        ActualMovableRT.sizeDelta = new Vector2(0, _Height);
+        Set_ScrollPanel(VisibleY);
+    }
     public void Set_ScrollPanel(float _VisibleY)
     {
         if (disposable != null)

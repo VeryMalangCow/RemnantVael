@@ -1869,7 +1869,7 @@ TextureImporter:
         width: 9
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1890,7 +1890,7 @@ TextureImporter:
         width: 9
         height: 9
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1898,6 +1898,27 @@ TextureImporter:
       bones: []
       spriteID: 9c1ff5342965daa41a985df91bb12ae0
       internalID: -1354965341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Arrow_RD
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 480
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64d3172d13cc9484d81e76df281f669c
+      internalID: -1961704668
       vertices: []
       indices: 
       edges: []
@@ -1917,6 +1938,7 @@ TextureImporter:
       ModuleUI_000_41: 1572026621
       ModuleUI_ArrowDown: -1354965341
       ModuleUI_ArrowUp: -779374344
+      ModuleUI_Arrow_RD: -1961704668
       ModuleUI_BLC_RollLeft: 100949053
       ModuleUI_BLC_RollRIght: 1122076015
       ModuleUI_Back: 486028521

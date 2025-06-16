@@ -92,6 +92,9 @@ MonoBehaviour:
   - {fileID: 9158419743226469957}
   - {fileID: 8495894079207018883}
   - {fileID: 6673598563671004417}
+  TunerScrollPanel: {fileID: 6486262153703449168}
+  InStateTunerParentRT: {fileID: 1386686837164556022}
+  InStateTunerPrefab: {fileID: 572117140870774827, guid: 4d58e8f957b034c4593b1d2aa1c1e949, type: 3}
   ExtraMainColorImgList:
   - {fileID: 3892319867972009670}
   - {fileID: 2284026126660960140}
@@ -973,6 +976,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5073335959108908224}
     m_Modifications:
+    - target: {fileID: 2005766860836495662, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2005766860836495662, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2005766860836495662, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2585486701952995798, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1113,6 +1128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1386686837164556022 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1316913298952763551, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+  m_PrefabInstance: {fileID: 105867576054515305}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2284026126660960140 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2218691692920338917, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
@@ -1275,6 +1295,17 @@ CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 6457411924514015970, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
   m_PrefabInstance: {fileID: 105867576054515305}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6486262153703449168 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6592083412578460729, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+  m_PrefabInstance: {fileID: 105867576054515305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c47ef53805ab2468d28a7433f5207c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6673598563671004417 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6765954163447485288, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
