@@ -99,10 +99,18 @@ public class DevTool
         return 0;
     }
 
+    // ·©Å©
     public static int Get_Rank(List<float> _RankPercents)
     {
         return Get_Grade(_RankPercents) + 1;
     }
+
+    // Round
+    public static string Get_RoundFloatString(float _Value, int _RoundRange = 3)
+    {
+        return _Value >= 0 ? $"+{System.Math.Round(_Value, _RoundRange)}" : $"{System.Math.Round(_Value, _RoundRange)}";
+    }
+
 
     #endregion
 
@@ -3549,14 +3557,6 @@ public class AllyState
         AttackSize = new RefData<float>(_AttackSize);
     }
 
-
-    public void Set_AllyStateMultiple(float _Multiple)
-    {
-        MovementSpeed.Value *= _Multiple;
-        Dmg.Value *= _Multiple;
-        Rof.Value *= _Multiple;
-        AttackSize.Value *= _Multiple;
-    }
 
     public void Set_AllyStateZero()
     {

@@ -1,5 +1,5 @@
+using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TunerDescEUIController : ElementUIController
@@ -31,9 +31,7 @@ public class TunerDescEUIController : ElementUIController
         NameTxt.text = ResourceManager.Instance.Get_TunerDescName(index);
 
         // Value Txt
-        string valueTxt = _IsIncrease ? "+" : "-";
-        valueTxt += $"{_Data.Rank * AllyController.AllyTunerStateMultiple}%</color>";
-        ValueTxt.text = valueTxt;
+        ValueTxt.text = $"{DevTool.Get_RoundFloatString((100f * AllyController.AllyTunerStateMultiple * _Data.Rank))}%</color>";
         ValueTxt.color = UnitManager.Instance.AllyCardColorList[_Data.Rank - 1];
     }
 

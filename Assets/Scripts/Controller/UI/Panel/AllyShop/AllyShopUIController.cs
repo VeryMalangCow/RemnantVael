@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -416,19 +417,18 @@ public class AllyShopUIController : ShopUIController
     protected void Set_AllyState(AllyController _Ally)
     {
         AllyState cardBaseState = _Ally.Get_CardState();
-        StateEUIList[0].ValueTxt.text = cardBaseState.Dmg.Value.ToString();
-        StateEUIList[1].ValueTxt.text = cardBaseState.Rof.Value.ToString();
-        StateEUIList[2].ValueTxt.text = cardBaseState.MovementSpeed.Value.ToString();
+        StateEUIList[0].ValueTxt.text = DevTool.Get_RoundFloatString(cardBaseState.Dmg.Value);
+        StateEUIList[1].ValueTxt.text = DevTool.Get_RoundFloatString(cardBaseState.Rof.Value);
+        StateEUIList[2].ValueTxt.text = DevTool.Get_RoundFloatString(cardBaseState.MovementSpeed.Value);
 
         AllyState upgradeState = _Ally.Get_UpgradeAllState();
-        StateEUIList[0].ExtraValueTxt.text = upgradeState.Dmg.Value >= 0 ? 
-            $"+{upgradeState.Dmg.Value.ToString()}" : upgradeState.Dmg.Value.ToString();
-        StateEUIList[1].ExtraValueTxt.text = upgradeState.Rof.Value >= 0 ? 
-            $"+{upgradeState.Rof.Value.ToString()}" : upgradeState.Rof.Value.ToString();
-        StateEUIList[2].ExtraValueTxt.text = upgradeState.MovementSpeed.Value >= 0 ? 
-            $"+{upgradeState.MovementSpeed.Value.ToString()}" : upgradeState.MovementSpeed.Value.ToString();
+        StateEUIList[0].ExtraValueTxt.text = DevTool.Get_RoundFloatString(upgradeState.Dmg.Value);
+        StateEUIList[1].ExtraValueTxt.text = DevTool.Get_RoundFloatString(upgradeState.Rof.Value);
+        StateEUIList[2].ExtraValueTxt.text = DevTool.Get_RoundFloatString(upgradeState.MovementSpeed.Value);
+
     }
 
+    
     #endregion
 
     #region Profile Detail (Tuner)
