@@ -164,7 +164,6 @@ public class AllyCardUIController : SinglePanelUIController
     private void Set_NewCardDeck()
     {
         List<AllyCardData> cardDeckData = AllyManager.Instance.Get_ChoiceAbleRandomData(TypeIndex, Cards.Count);
-        Debug.Log(cardDeckData.Count);
 
         int needMoreDataAmount = Cards.Count - cardDeckData.Count;
         if (needMoreDataAmount >= 0)

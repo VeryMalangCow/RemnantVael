@@ -21,9 +21,16 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     [SerializeField] private TunerEUIController DetailTunerEUI;
     [SerializeField] private RectTransform TunerDetailExtraRT;
 
+    [Space(10)]
+    [Header("-- Tuner Element Desc")]
+    [SerializeField] private TunerDescEUIController Positive0_ElementDescEUI;
+    [SerializeField] private TunerDescEUIController Positive1_ElementDescEUI;
+    [SerializeField] private TunerDescEUIController Negative_ElementDescEUI;
+
     [Space(5)]
     [Header("-- Buy")]
     [SerializeField] private OwnCGBtnEUIController BuyBtnEUI;
+    [SerializeField] private GameObject CanBuyArrowGO;
 
     [Space(5)]
     [Header("-- Goods")]
@@ -122,6 +129,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         base.Pick_AllyProfile(_EUI);
 
         BuyBtnEUI.ThisCG.alpha = Can_Buy() ? 1f : 0.5f;
+        CanBuyArrowGO.gameObject.SetActive(Can_Buy());
     }
 
     #endregion
@@ -136,13 +144,14 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
         TunerDetailOffGO.SetActive(!onOff);
         TunerDetailOnGO.SetActive(onOff);
+        CanBuyArrowGO.gameObject.SetActive(false);
 
         PickTunerListSignRT.gameObject.SetActive(onOff);
         NeedChargedBettery = 0;
 
         if (onOff)
         {
-            Set_TunerUI(DetailTunerEUI, PickedTunerData);
+            Set_TunerDetailUI(DetailTunerEUI, PickedTunerData);
             NeedChargedBettery = PickedTunerData.NeedPay;
 
             PickTunerListSignRT.SetParent(AllTunerEUI[AllyTunerSet.AllyTunerDataList.IndexOf(PickedTunerData)].transform);
@@ -151,6 +160,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
             PickTunerListSignRT.SetAsLastSibling();
 
             BuyBtnEUI.ThisCG.alpha = Can_Buy() ? 1f : 0.5f;
+            CanBuyArrowGO.gameObject.SetActive(Can_Buy());
         }
         Set_ChargedBetteryUI(PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value, NeedChargedBettery);
 
@@ -172,9 +182,13 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         AllTunerEUI[_Index].Set_UI(AllyTunerSet.AllyTunerDataList[_Index], NeedOverrider);
     }
 
-    private void Set_TunerUI(TunerEUIController _TargetEUI, AllyTunerData _Data)
+    private void Set_TunerDetailUI(TunerEUIController _TargetEUI, AllyTunerData _Data)
     {
         _TargetEUI.Set_UI(_Data);
+
+        Positive0_ElementDescEUI.Set_UI(_Data.Positive0, true);
+        Positive1_ElementDescEUI.Set_UI(_Data.Positive1, true);
+        Negative_ElementDescEUI.Set_UI(_Data.Negative, false);
     }
 
     #endregion
@@ -296,18 +310,22 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     {
         // 데이터
         PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value -= NeedChargedBettery;
-        
+        CurrentPickedAlly.Add_Tuner(PickedTunerData);
+
         // 소비 효과
         Play_UseTxt(ChargeBetteryUseTxt, NeedChargedBettery, 30f);
 
-        // State 창에 UI
-        CurrentPickedAlly.Add_Tuner(PickedTunerData);
+        // Extra 창에 State UI
+        Set_AllyState(CurrentPickedAlly);
+
+        // Extra 창에 Tuner UI
         Set_AllyTuner(CurrentPickedAlly);
 
         // 구매한 튜너를 바꿈
         int index = AllyTunerSet.AllyTunerDataList.IndexOf(PickedTunerData);
         Set_TunerData(index);
         Set_TunerUI(index);
+
     }
 
     #endregion
@@ -365,6 +383,11 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
             AllTunerEUI[i].Set_Language();
 
         BuyBtnEUI.ThisTxt.text = ResourceManager.Instance.Get_StaticWord(47) + " & " + ResourceManager.Instance.Get_StaticWord(105);
+
+        // Desc
+        Positive0_ElementDescEUI.IncreaseTxt.text = ResourceManager.Instance.Get_StaticWord(108);
+        Positive1_ElementDescEUI.IncreaseTxt.text = ResourceManager.Instance.Get_StaticWord(108);
+        Negative_ElementDescEUI.IncreaseTxt.text = ResourceManager.Instance.Get_StaticWord(109);
 
         base.Set_LanguageTxt();
     }

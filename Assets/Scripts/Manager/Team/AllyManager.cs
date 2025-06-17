@@ -39,7 +39,7 @@ public class AllyManager : Singleton<AllyManager>
     [HideInInspector] private List<List<Sprite>> AllIconList = null;
 
     // Base State
-    [HideInInspector] private AllyState AllyState;
+    [HideInInspector] private AllyState AllyState = new AllyState();
     [HideInInspector] public AllyState GetAllyState { get { return AllyState; } }
 
     // Reso
@@ -257,13 +257,13 @@ public class AllyManager : Singleton<AllyManager>
 
     public void Set_StateDmg(float _DmgMultiple)
     {
-        AllyState.Dmg = _DmgMultiple;
+        AllyState.Dmg.Value = _DmgMultiple;
         Set_AllState();
     }
 
     public void Set_StateRof(float _RofMultiple)
     {
-        AllyState.Rof = _RofMultiple;
+        AllyState.Rof.Value = _RofMultiple;
         Set_AllState();
     }
 

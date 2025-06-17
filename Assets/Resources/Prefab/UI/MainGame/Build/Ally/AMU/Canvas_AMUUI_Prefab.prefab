@@ -88,6 +88,7 @@ MonoBehaviour:
   - {fileID: 8487248919507052289}
   - {fileID: 3150557410670388532}
   StateScrollPanel: {fileID: 1081234859069208321}
+  StateLimitTxt: {fileID: 3654930174854676251}
   StateEUIList:
   - {fileID: 9158419743226469957}
   - {fileID: 8495894079207018883}
@@ -1198,6 +1199,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3252652729541764218, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
   m_PrefabInstance: {fileID: 105867576054515305}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3654930174854676251 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3729251378286541170, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+  m_PrefabInstance: {fileID: 105867576054515305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3863839279119279212 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3812016320592814597, guid: 851dc6925a70993488e99d94b70b50df, type: 3}

@@ -44,6 +44,7 @@ public class AllyShopUIController : ShopUIController
     [Space(2)]
     [Header("* State")]
     [SerializeField] private ScrollPanelEUIController StateScrollPanel;
+    [SerializeField] private TMP_Text StateLimitTxt;
     [SerializeField] private List<AllyProfileStateEUIController> StateEUIList;
 
     [Space(2)]
@@ -412,17 +413,20 @@ public class AllyShopUIController : ShopUIController
     #region Profile Detail (State)
 
     // 실제 데이터값
-    private void Set_AllyState(AllyController _Ally)
+    protected void Set_AllyState(AllyController _Ally)
     {
         AllyState cardBaseState = _Ally.Get_CardState();
-        StateEUIList[0].ValueTxt.text = cardBaseState.Dmg.ToString();
-        StateEUIList[1].ValueTxt.text = cardBaseState.Rof.ToString();
-        StateEUIList[2].ValueTxt.text = cardBaseState.MovementSpeed.ToString();
+        StateEUIList[0].ValueTxt.text = cardBaseState.Dmg.Value.ToString();
+        StateEUIList[1].ValueTxt.text = cardBaseState.Rof.Value.ToString();
+        StateEUIList[2].ValueTxt.text = cardBaseState.MovementSpeed.Value.ToString();
 
         AllyState upgradeState = _Ally.Get_UpgradeAllState();
-        StateEUIList[0].ExtraValueTxt.text = "+ " + upgradeState.Dmg.ToString();
-        StateEUIList[1].ExtraValueTxt.text = "+ " + upgradeState.Rof.ToString();
-        StateEUIList[2].ExtraValueTxt.text = "+ " + upgradeState.MovementSpeed.ToString();
+        StateEUIList[0].ExtraValueTxt.text = upgradeState.Dmg.Value >= 0 ? 
+            $"+{upgradeState.Dmg.Value.ToString()}" : upgradeState.Dmg.Value.ToString();
+        StateEUIList[1].ExtraValueTxt.text = upgradeState.Rof.Value >= 0 ? 
+            $"+{upgradeState.Rof.Value.ToString()}" : upgradeState.Rof.Value.ToString();
+        StateEUIList[2].ExtraValueTxt.text = upgradeState.MovementSpeed.Value >= 0 ? 
+            $"+{upgradeState.MovementSpeed.Value.ToString()}" : upgradeState.MovementSpeed.Value.ToString();
     }
 
     #endregion
@@ -451,7 +455,6 @@ public class AllyShopUIController : ShopUIController
             ProfileDetailExtraRT_ScrollMin,
             InStateTunerEUI_BaseY + (tunerData.Count * InStateTunerEUI_Interval));
 
-        Debug.Log(scrollY);
         TunerScrollPanel.Set_ScrollHeight(scrollY);
     }
 
@@ -553,6 +556,9 @@ public class AllyShopUIController : ShopUIController
         StateEUIList[0].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(12)} >";    // 공격력
         StateEUIList[1].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(13)} >";    // 연사력
         StateEUIList[2].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(9)} >";     // 이동속도
+
+        // Limit
+        StateLimitTxt.text = $"( {ResourceManager.Instance.Get_StaticWord(107)}: {AllyController.MinLimitUpgradeValue} )";
 
         base.Set_LanguageTxt();
     }

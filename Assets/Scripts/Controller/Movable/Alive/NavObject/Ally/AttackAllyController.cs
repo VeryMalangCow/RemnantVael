@@ -93,7 +93,7 @@ public class AttackAllyController : AllyController
 
         if (CurrentRof < 1)
         {
-            CurrentRof += _DeltaTime * ActualAllyState.Rof;
+            CurrentRof += _DeltaTime * ActualAllyState.Rof.Value;
         }
         else
         {
@@ -128,7 +128,7 @@ public class AttackAllyController : AllyController
     {
         return new BulletState(
             new CombatState(
-                new DmgState(eDamageType.Physics, ActualAllyState.Dmg),
+                new DmgState(eDamageType.Physics, ActualAllyState.Dmg.Value),
                 new CriticalState(0, 0),
                 new KnockbackState(false, 0, 0)),
             false,

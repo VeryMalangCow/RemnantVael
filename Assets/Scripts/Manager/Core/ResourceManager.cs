@@ -56,6 +56,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private WordData StrikeTeam_AllyCardName_Data;
     [HideInInspector] private WordData UplinkTeam_AllyCardName_Data;
     [HideInInspector] private WordData NeoTeam_AllyCardName_Data;
+    // 동료 튜너 설명
+    [HideInInspector] private WordData TunerStateName_Data;
+
     // 동료 이름 랜덤
     [HideInInspector] private WordData RandomName_Data;
 
@@ -164,6 +167,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             "AllyCard_UplinkTeam_NameCSV");
         NeoTeam_AllyCardName_Data = Offset_WordData(wordPath,
             "AllyCard_NeoTeam_NameCSV");
+        // Tuner
+        TunerStateName_Data = Offset_WordData(wordPath,
+            "TunerStateNameCSV");
         // Random Name
         RandomName_Data = Offset_WordData(wordPath,
             "RandomNameCSV");
@@ -873,6 +879,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return result;
     }
 
+    // Tuner
+    public string Get_TunerDescName(int _Index)
+    {
+        return TunerStateName_Data.Get_Word(_Index);
+    }
 
     #endregion
 

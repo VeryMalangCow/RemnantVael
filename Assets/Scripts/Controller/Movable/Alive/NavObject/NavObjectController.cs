@@ -12,7 +12,6 @@ public class NavObjectController : AliveObjectController
 
     [Space(10)]
     [Header("=== Temp")]
-    [SerializeField] protected bool testbool = false;
 
     #endregion
 

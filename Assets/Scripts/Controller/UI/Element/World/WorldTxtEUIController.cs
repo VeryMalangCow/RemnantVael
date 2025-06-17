@@ -14,7 +14,16 @@ public class WorldTxtEUIController : ElementUIController
     [HideInInspector] private static readonly float NormalSize = 18;
     [HideInInspector] private static readonly float CriticalSize = 26;
     [HideInInspector] private static readonly float DischargeSize = 22;
-        
+
+    #endregion
+
+    #region Framework
+
+    private void Start()
+    {
+        ThisCanvas.sortingOrder = LayerOrderManager.Order_DmgTxt;
+    }
+
     #endregion
 
     #region Offset
@@ -30,7 +39,6 @@ public class WorldTxtEUIController : ElementUIController
 
     private void Reset_Comp()
     {
-        ThisCanvas.sortingOrder = 4000;
         ThisTxt.color = new Color(1f, 1f, 1f, 0f);
         ThisTxt.transform.localScale = Vector3.zero;
     }

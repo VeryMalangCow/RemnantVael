@@ -1543,6 +1543,18 @@ public class TitleTSElement
 #region Class : PublicData
 
 [System.Serializable]
+public class RefData<T>
+{
+    public T Value;
+
+    public RefData(T _t)
+    {
+        Value = _t;
+    }
+
+}
+
+[System.Serializable]
 public class TrioData<T>
 {
     [SerializeField] public T TypeA;
@@ -3490,15 +3502,16 @@ public class AllyEachTunerData
 
 #region Class : Ally State
 
+
 [System.Serializable]
 public class AllyState
 {
     #region Value
     
-    public float MovementSpeed = 1f;
-    public float Dmg = 1f;
-    public float Rof = 1f;
-    public float AttackSize = 1f;
+    public RefData<float> MovementSpeed;
+    public RefData<float> Dmg;
+    public RefData<float> Rof;
+    public RefData<float> AttackSize;
 
     #endregion
 
@@ -3506,35 +3519,59 @@ public class AllyState
 
     public AllyState()
     {
-        MovementSpeed = 1;
-        Dmg = 1;
-        Rof = 1;
-        AttackSize = 1;
+        MovementSpeed = new RefData<float>(1);
+        Dmg = new RefData<float>(1);
+        Rof = new RefData<float>(1);
+        AttackSize = new RefData<float>(1);
     }
 
-    public void Set_AllyStateZero()
+    public AllyState(bool _IsZero) : this()
     {
-        MovementSpeed = 0;
-        Dmg = 0;
-        Rof = 0;
-        AttackSize = 0;
+        if (_IsZero)
+        {
+            Set_AllyStateZero();
+        }
     }
-
 
     public AllyState(AllyState _StateValue)
     {
-        MovementSpeed = _StateValue.MovementSpeed;
-        Dmg = _StateValue.Dmg;
-        Rof = _StateValue.Rof;
-        AttackSize = _StateValue.AttackSize;
+        MovementSpeed = new RefData<float>(_StateValue.MovementSpeed.Value);
+        Dmg = new RefData<float>(_StateValue.Dmg.Value);
+        Rof = new RefData<float>(_StateValue.Rof.Value);
+        AttackSize = new RefData<float>(_StateValue.AttackSize.Value);
     }
 
     public AllyState(float _MovementSpeed, float _Dmg, float _Rof, float _AttackSize)
     {
-        MovementSpeed = _MovementSpeed;
-        Dmg = _Dmg;
-        Rof = _Rof;
-        AttackSize = _AttackSize;
+        MovementSpeed = new RefData<float>(_MovementSpeed);
+        Dmg = new RefData<float>(_Dmg);
+        Rof = new RefData<float>(_Rof);
+        AttackSize = new RefData<float>(_AttackSize);
+    }
+
+
+    public void Set_AllyStateMultiple(float _Multiple)
+    {
+        MovementSpeed.Value *= _Multiple;
+        Dmg.Value *= _Multiple;
+        Rof.Value *= _Multiple;
+        AttackSize.Value *= _Multiple;
+    }
+
+    public void Set_AllyStateZero()
+    {
+        MovementSpeed.Value = 0;
+        Dmg.Value = 0;
+        Rof.Value = 0;
+        AttackSize.Value = 0;
+    }
+
+    public void Set_ValueLimitRange(float _Min)
+    {
+        MovementSpeed.Value = Mathf.Max(_Min, MovementSpeed.Value);
+        Dmg.Value = Mathf.Max(_Min, Dmg.Value);
+        Rof.Value = Mathf.Max(_Min, Rof.Value);
+        AttackSize.Value = Mathf.Max(_Min, AttackSize.Value);
     }
 
     #endregion

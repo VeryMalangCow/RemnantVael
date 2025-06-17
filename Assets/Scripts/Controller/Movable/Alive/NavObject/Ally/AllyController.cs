@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
-using static UnityEngine.Rendering.DebugUI;
 
 // Ally는 Follow를 기본으로 가짐 (플레이어에게 가는 것이 필요하기 때문)
 public class AllyController : NavObjectController
@@ -47,7 +46,6 @@ public class AllyController : NavObjectController
     // State
     [HideInInspector] protected float FollowInitDelay = 0.2f;
 
-    [HideInInspector] private AllyState UpgradeAllyState = new AllyState();
     [HideInInspector] protected AllyState ActualAllyState = new AllyState();
 
     // For Player
@@ -67,8 +65,12 @@ public class AllyController : NavObjectController
 
 
     // Tuner
-    [Space(40)]
-    [SerializeField] private List<AllyBaseTunerData> ThisTunerData;
+    [HideInInspector] public static readonly float MinLimitUpgradeValue = 0.01f;
+    [HideInInspector] public static readonly float AllyTunerStateMultiple = 0.05f;
+    [HideInInspector] private AllyState UpgradeAllyState = new AllyState(true);
+    [HideInInspector] private List<AllyBaseTunerData> ThisTunerData;
+
+    [HideInInspector] private Dictionary<string, RefData<float>> UpgradeStateDict;
 
     #endregion
 
@@ -82,7 +84,6 @@ public class AllyController : NavObjectController
 
         Player = PlayerManager.Instance.PlayerController;
         DevTool.Add_InList(AllyManager.Instance.AllAllies, this);
-        UpgradeAllyState.Set_AllyStateZero();
 
         ThisTunerData = new List<AllyBaseTunerData>();
 
@@ -93,6 +94,7 @@ public class AllyController : NavObjectController
 
         Offset_UI();
         Offset_Subscribe();
+        Offset_TunerUpgrade();
     }
 
     private void Offset_UI()
@@ -155,6 +157,16 @@ public class AllyController : NavObjectController
             });
     }
 
+    private void Offset_TunerUpgrade()
+    {
+        UpgradeStateDict = new Dictionary<string, RefData<float>> 
+        {
+            { AllyManager.TunerTypeList[0], UpgradeAllyState.Dmg },
+            { AllyManager.TunerTypeList[1], UpgradeAllyState.Rof },
+            { AllyManager.TunerTypeList[2], UpgradeAllyState.MovementSpeed },
+        };
+    }
+
     #endregion
 
     #region Framework
@@ -191,7 +203,7 @@ public class AllyController : NavObjectController
 
     private void Play_Movement(float _DeltaTime)
     {
-        Play_Walk(MoveAtDir, ActualAllyState.MovementSpeed, _DeltaTime);
+        Play_Walk(MoveAtDir, ActualAllyState.MovementSpeed.Value, _DeltaTime);
     }
 
     #endregion
@@ -216,7 +228,7 @@ public class AllyController : NavObjectController
     {
         ActualAllyState = Get_AllState();
 
-        FollowInitDelay = 0.4f / ActualAllyState.MovementSpeed;
+        FollowInitDelay = 0.4f / ActualAllyState.MovementSpeed.Value;
     }
 
     public AllyState Get_AllState() // 카드와 업그레이드 모두 적용된 스탯
@@ -240,9 +252,9 @@ public class AllyController : NavObjectController
     {
         AllyState result = new AllyState();
 
-        result.MovementSpeed = _State1.MovementSpeed + _State2.MovementSpeed;
-        result.Dmg = _State1.Dmg + _State2.Dmg;
-        result.Rof = _State1.Rof + _State2.Rof;
+        result.MovementSpeed.Value = _State1.MovementSpeed.Value + _State2.MovementSpeed.Value;
+        result.Dmg.Value = _State1.Dmg.Value + _State2.Dmg.Value;
+        result.Rof.Value = _State1.Rof.Value + _State2.Rof.Value;
 
         return result;
     }
@@ -251,9 +263,9 @@ public class AllyController : NavObjectController
     {
         AllyState result = new AllyState();
 
-        result.MovementSpeed = _State1.MovementSpeed * _State2.MovementSpeed;
-        result.Dmg = _State1.Dmg * _State2.Dmg;
-        result.Rof = _State1.Rof * _State2.Rof;
+        result.MovementSpeed.Value = _State1.MovementSpeed.Value * _State2.MovementSpeed.Value;
+        result.Dmg.Value = _State1.Dmg.Value * _State2.Dmg.Value;
+        result.Rof.Value = _State1.Rof.Value * _State2.Rof.Value;
 
         return result;
     }
@@ -403,7 +415,31 @@ public class AllyController : NavObjectController
         AllyBaseTunerData addData = new AllyBaseTunerData(_Data);
 
         ThisTunerData.Add(addData);
+
+        Set_TunerUpgradeState();
+        Set_AllState();
     }
+
+    private void Set_TunerUpgradeState()
+    {
+        UpgradeAllyState.Set_AllyStateZero();
+
+        for (int i = 0; i < ThisTunerData.Count; i++)
+        {
+            Add_UpgradeState(ThisTunerData[i].Positive0.Type, ThisTunerData[i].Positive0.Rank);
+            Add_UpgradeState(ThisTunerData[i].Positive1.Type, ThisTunerData[i].Positive1.Rank);
+            Add_UpgradeState(ThisTunerData[i].Negative.Type, -ThisTunerData[i].Negative.Rank);
+        }
+
+        UpgradeAllyState.Set_AllyStateMultiple(AllyTunerStateMultiple);
+        UpgradeAllyState.Set_ValueLimitRange(MinLimitUpgradeValue);
+    }
+
+    private void Add_UpgradeState(string _Type, float _Value)
+    {
+        UpgradeStateDict[_Type].Value += _Value;
+    }
+
 
     #endregion
 
