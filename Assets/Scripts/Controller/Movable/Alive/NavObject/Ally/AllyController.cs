@@ -67,7 +67,7 @@ public class AllyController : NavObjectController
     // Tuner
     [HideInInspector] public static readonly float MinLimitUpgradeValue = 0.01f;
     [HideInInspector] public static readonly float AllyTunerStateMultiple = 0.05f;
-    [HideInInspector] private AllyState UpgradeAllyState = new AllyState(true);
+    [SerializeField] private AllyState UpgradeAllyState = new AllyState();
     [HideInInspector] private List<AllyBaseTunerData> ThisTunerData;
 
     [HideInInspector] private Dictionary<string, RefData<float>> UpgradeStateDict;
@@ -234,9 +234,7 @@ public class AllyController : NavObjectController
 
     public AllyState Get_AllState() // 카드와 업그레이드 모두 적용된 스탯
     {
-        return Get_ApplyMultipleState(
-            MultipleAllyState, 
-            Get_TotalAddableState(AllyManager.Instance.GetAllyState, UpgradeAllyState));
+        return Get_ApplyMultipleState(Get_CardState(), UpgradeAllyState);
     }
 
     public AllyState Get_CardState() // 카드만 적용된 스탯
@@ -246,19 +244,9 @@ public class AllyController : NavObjectController
 
     public AllyState Get_UpgradeAllState() // 업그레이드만 카드 적용된 스탯
     {
-        return Get_ApplyMultipleState(MultipleAllyState, UpgradeAllyState);
+        return AllyState.Get_Subtraction(Get_AllState(), Get_CardState());
     }
 
-    private AllyState Get_TotalAddableState(AllyState _State1, AllyState _State2)
-    {
-        AllyState result = new AllyState();
-
-        result.MovementSpeed.Value = _State1.MovementSpeed.Value + _State2.MovementSpeed.Value;
-        result.Dmg.Value = _State1.Dmg.Value + _State2.Dmg.Value;
-        result.Rof.Value = _State1.Rof.Value + _State2.Rof.Value;
-
-        return result;
-    }
 
     private AllyState Get_ApplyMultipleState(AllyState _State1, AllyState _State2)
     {
@@ -423,7 +411,7 @@ public class AllyController : NavObjectController
 
     private void Set_TunerUpgradeState()
     {
-        UpgradeAllyState.Set_AllyStateZero();
+        UpgradeAllyState.Reset();
 
         for (int i = 0; i < ThisTunerData.Count; i++)
         {

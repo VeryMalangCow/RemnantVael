@@ -3418,7 +3418,7 @@ public class AllyCardData
 
 #endregion
 
-#region Class : AllyUpgrade : Base
+#region Class : AllyUpgrade : Base(Tuner)
 
 [System.Serializable]
 public class AllyBaseTunerData
@@ -3484,7 +3484,7 @@ public class AllyTunerData
         Positive1 = new AllyEachTunerData(_TypeList, _RankPercent);
         Negative = new AllyEachTunerData(_TypeList, _RankPercent);
 
-        NeedPay = (int)((Positive0.Rank + Positive1.Rank - Negative.Rank + 4) * 0.5f);
+        NeedPay = (int)((Positive0.Rank + Positive1.Rank - Negative.Rank + 5) * 0.5f);
     }
 }
 
@@ -3533,37 +3533,32 @@ public class AllyState
         AttackSize = new RefData<float>(1);
     }
 
-    public AllyState(bool _IsZero) : this()
-    {
-        if (_IsZero)
-        {
-            Set_AllyStateZero();
-        }
-    }
-
     public AllyState(AllyState _StateValue)
     {
-        MovementSpeed = new RefData<float>(_StateValue.MovementSpeed.Value);
         Dmg = new RefData<float>(_StateValue.Dmg.Value);
         Rof = new RefData<float>(_StateValue.Rof.Value);
+        MovementSpeed = new RefData<float>(_StateValue.MovementSpeed.Value);
         AttackSize = new RefData<float>(_StateValue.AttackSize.Value);
     }
 
-    public AllyState(float _MovementSpeed, float _Dmg, float _Rof, float _AttackSize)
+    public void Reset()
     {
-        MovementSpeed = new RefData<float>(_MovementSpeed);
-        Dmg = new RefData<float>(_Dmg);
-        Rof = new RefData<float>(_Rof);
-        AttackSize = new RefData<float>(_AttackSize);
+        MovementSpeed.Value = 1;
+        Dmg.Value = 1;
+        Rof.Value = 1;
+        AttackSize.Value = 1;
     }
 
-
-    public void Set_AllyStateZero()
+    public static AllyState Get_Subtraction(AllyState _Original, AllyState _Exclude)
     {
-        MovementSpeed.Value = 0;
-        Dmg.Value = 0;
-        Rof.Value = 0;
-        AttackSize.Value = 0;
+        AllyState result = new AllyState();
+
+        result.Dmg = new RefData<float>(_Original.Dmg.Value - _Exclude.Dmg.Value);
+        result.Rof = new RefData<float>(_Original.Rof.Value - _Exclude.Rof.Value);
+        result.MovementSpeed = new RefData<float>(_Original.MovementSpeed.Value - _Exclude.MovementSpeed.Value);
+        result.AttackSize = new RefData<float>(_Original.AttackSize.Value - _Exclude.AttackSize.Value);
+
+        return result;
     }
 
     public void Set_ValueLimitRange(float _Min)
