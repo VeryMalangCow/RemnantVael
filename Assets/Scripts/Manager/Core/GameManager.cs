@@ -570,6 +570,36 @@ public class DevTool
 
     #endregion
 
+    #region Row & Colume
+
+    public static List<List<T>> Get_RowColumeList<T>(List<T> _List, int _Row)
+    {
+        int totalCount = _List.Count;
+        int totalRows = (totalCount + _Row - 1) / _Row; // 올림 나눗셈
+
+        List<List<T>> result = new List<List<T>>();
+
+        for (int i = 0; i < totalRows; i++)
+        {
+            List<T> row = new List<T>();
+
+            for (int j = 0; j < _Row; j++)
+            {
+                int index = i * _Row + j;
+                if (index >= totalCount)
+                    break;
+
+                row.Add(_List[index]);
+            }
+
+            result.Add(row);
+        }
+
+        return result;
+    }
+
+    #endregion
+
     #region Unique
 
     // 'T 타입' List 두개를 합
@@ -2562,7 +2592,6 @@ class ForgeInteractPanel
 
 #endregion
 
-
 #region Class : State : Player : MC
 
 [System.Serializable]
@@ -2612,6 +2641,25 @@ public class SynchoronyState : IWhenSynchrony
 public class SynchoronyState000 : SynchoronyState, IWhenAlly_Fire
 { public SynchoronyState000() : base() { } }
 
+
+#endregion
+
+
+#region Class : State : Ally : MU
+
+public class CopyModuleState
+{
+    public ModuleState MS;
+    public CoupleData<int> OriginalIndex;
+    public bool IsEquipped;
+
+    public CopyModuleState(ModuleState _MS, CoupleData<int> _OriginalIndex, bool _IsEquipped)
+    {
+        MS = _MS;
+        OriginalIndex = _OriginalIndex;
+        IsEquipped = _IsEquipped;
+    }
+}
 
 #endregion
 

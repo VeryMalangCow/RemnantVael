@@ -17,7 +17,7 @@ public class PanelUIController : SinglePanelUIController
     [SerializeField] protected List<TabEUIController> ThisPanelTabList;
 
     #endregion
-    
+
     #region - Hide
 
     // Tab
@@ -35,7 +35,6 @@ public class PanelUIController : SinglePanelUIController
 
         // Actual Tab
         SetOn_Window(ThisPanelTabList[0]);
-
     }
 
     public virtual void Change_ThisPanel(int _indexWindow)

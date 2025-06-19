@@ -38,6 +38,9 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
     [HideInInspector] private static readonly float SignImgAnimDurTime = 0.1f;
     [HideInInspector] private static readonly float SignImgAnimSize = 1.6f;
 
+    // Owner
+    [HideInInspector] public SinglePanelUIController OwnerUIController = null;
+
     // Seq
     [HideInInspector] private Sequence SignSeq;
 
@@ -75,8 +78,8 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
         Play_Selected(_TargetAlpha: 1f, _TargetScale: SignImgAnimSize, SignImgAnimDurTime);
 
-        if (MainGameUIManager.Instance.ModuleUpgrade_UIController.gameObject.activeSelf)
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSlotBtn = this;
+        if (OwnerUIController.gameObject.activeSelf)
+            OwnerUIController.CurrentSlotBtn = this;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -86,8 +89,8 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
         Play_Selected(_TargetAlpha: 0f, _TargetScale: 1f, SignImgAnimDurTime);
 
-        if (MainGameUIManager.Instance.ModuleUpgrade_UIController.gameObject.activeSelf)
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentSlotBtn = null;
+        if (OwnerUIController.gameObject.activeSelf)
+            OwnerUIController.CurrentSlotBtn = null;
     }
 
     #endregion
@@ -103,6 +106,15 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
         SignSeq.Join(SignRT.DOScale(_TargetScale, _DurTime).SetEase(Ease.Linear));
     }
 
+    public void Set_SelectedOff()
+    {
+        DevTool.Set_KillTween(SignSeq);
+
+        DevTool.Get_AlphaColor(SignImg, 0f);
+        SignRT.localScale = Vector2.one;
+    }
+
+
     #endregion
 
     #region Equiped
@@ -114,6 +126,17 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
         if (_IsOn)
         {
             ThisEquipedTxt.text = $"#{_EquipedSlotIndex + 1}";
+            ThisEquipedTxt.transform.SetAsLastSibling();
+        }
+    }
+
+    public void Set_EquipedTxt(bool _IsOn, string _EquipedTxt)
+    {
+        ThisEquipedTxt.gameObject.SetActive(_IsOn);
+
+        if (_IsOn)
+        {
+            ThisEquipedTxt.text = _EquipedTxt;
             ThisEquipedTxt.transform.SetAsLastSibling();
         }
     }

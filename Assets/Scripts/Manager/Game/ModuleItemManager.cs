@@ -197,6 +197,32 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return AllModuleData[_ItemEUI.ThisSlot.Col][_ItemEUI.ThisSlot.Row];
     }
 
+    // 모든 아이템의 Vector값(PlayerModuleUI기준) 리스트로 가져오기
+    public List<CopyModuleState> Get_ExistModuleState(List<CopyModuleState> _ExcludeModuleState)
+    {
+        List<CopyModuleState> result = new List<CopyModuleState>();
+        List<ModuleState> excludeMsList = new List<ModuleState>();
+
+        for (int i = 0; i < _ExcludeModuleState.Count; i++)
+            excludeMsList.Add(_ExcludeModuleState[i].MS);
+
+        for (int i = 0; i < AllModuleData.Count; i++)
+        {
+            for (int j = 0; j < AllModuleData[i].Count; j++)
+            {
+                ModuleState ms = AllModuleData[i][j];
+                if (ms != null && !excludeMsList.Contains(ms))
+                {
+                    CopyModuleState copyMs = new CopyModuleState(AllModuleData[i][j], new CoupleData<int>(i, j), false);
+                    result.Add(copyMs);
+                }
+            }
+        }
+                
+        return result;
+    }
+
+
     #endregion
 
     #region Equipped
@@ -248,6 +274,26 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         for (int i = 0; i < EquippedIndex.Count; i++)
             if (EquippedIndex[i].TypeBase != -1 && EquippedIndex[i].TypeSpecial != -1)
                 result.Add(EquippedIndex[i]);
+
+        return result;
+    }
+
+    // 장착되어 있는 아이템의 모듈
+    public List<CopyModuleState> Get_EquippedModuleState()
+    {
+        List<CopyModuleState> result = new List<CopyModuleState>();
+
+        for (int i = 0; i < EquippedIndex.Count; i++)
+        {
+            if (EquippedIndex[i].TypeBase != -1 && EquippedIndex[i].TypeSpecial != -1)
+            {
+                result.Add(
+                    new CopyModuleState(
+                        Get_ModuleState(EquippedIndex[i].TypeBase, EquippedIndex[i].TypeSpecial),
+                        new CoupleData<int>(EquippedIndex[i].TypeBase, EquippedIndex[i].TypeSpecial), 
+                        true));
+            }
+        }
 
         return result;
     }

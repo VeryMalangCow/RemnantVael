@@ -26,6 +26,10 @@ public class SinglePanelUIController : UIController
     [HideInInspector] public List<Component> MainColorCompList = new List<Component>();
     [HideInInspector] public List<Component> SubColorCompList = new List<Component>();
 
+    // Inven
+    [SerializeField] public InventorySlotEUIController CurrentSlotBtn = null;
+    [SerializeField] public InventoryItemEUIController CurrentItemBtn = null;
+
     #endregion
 
     #endregion
@@ -62,6 +66,15 @@ public class SinglePanelUIController : UIController
 
         // Input
         InputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
+
+        // Inven
+        if (CurrentSlotBtn != null)
+        {
+            CurrentSlotBtn.Set_SelectedOff();
+            CurrentSlotBtn = null;
+        }
+
+        CurrentItemBtn = null;
     }
 
     #endregion

@@ -256,21 +256,6 @@ public class BaseUpgradeUIController : PlayerShopUIController
         if (Is_Interact_TabPanel()) return;
     }
 
-    #region Msg
-
-    private bool Is_Interact_Msg()
-    {
-        if (ThisMsgEUI.gameObject.activeSelf)
-        {
-            if (ThisMsgEUI.CanPass) ThisMsgEUI.Play_Off(0.5f);
-
-            return true;
-        }
-        return false;
-    }
-
-    #endregion
-
     #region Buy
 
     private bool Is_Interact_Buy_Float()
@@ -305,18 +290,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     #endregion
 
-    #region Other
-
-    private bool Is_Interact_CloseBtn()
-    {
-        if (CurrentBtn == CloseBtn)
-        {
-            MainGameUIManager.Instance.BaseUpgrade_UIController.SetOff_ThisPanel();
-            return true;
-        }
-        return false;
-    }
-
+    #region Interact
 
     private bool Is_Interact_TabPanel()
     {

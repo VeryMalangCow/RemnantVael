@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -24,6 +23,7 @@ public class ShopUIController : PanelUIController
     [Space(10)]
     [Header("=== Close")]
     [SerializeField] protected OwnBtnEUIController CloseBtn;
+
 
     #endregion
 
@@ -105,6 +105,31 @@ public class ShopUIController : PanelUIController
         {
             MET.Reset_ScrollBar();
         }
+    }
+
+    #endregion
+
+    #region Interact (Panel)
+
+    protected bool Is_Interact_Msg()
+    {
+        if (ThisMsgEUI.gameObject.activeSelf)
+        {
+            if (ThisMsgEUI.CanPass) ThisMsgEUI.Play_Off(0.5f);
+
+            return true;
+        }
+        return false;
+    }
+
+    protected bool Is_Interact_CloseBtn()
+    {
+        if (CurrentBtn == CloseBtn)
+        {
+            SetOff_ThisPanel();
+            return true;
+        }
+        return false;
     }
 
     #endregion

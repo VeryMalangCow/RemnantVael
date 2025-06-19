@@ -114,9 +114,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     [HideInInspector] public static string Warning_InvenFull;
 
     // Current
-    [HideInInspector] public InventoryItemEUIController CurrentItemBtn = null;
     [HideInInspector] public InventoryItemEUIController CurrentDraggingItemBtn = null;
-    [HideInInspector] public InventorySlotEUIController CurrentSlotBtn = null;
 
     // Inventory
     [HideInInspector] private List<InventoryEUIController> Inventories;
@@ -188,6 +186,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private void Offset_Equip()
     {
         Inventory_InEquip.Offset();
+        Inventory_InEquip.Gen_AllSlotAndItem(this);
 
         ToggleBtn_InEquip.Offset();
         ToggleBtn_InEquip.OwnerUIController = this;
@@ -204,6 +203,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         EquipedSlots = DevTool.Get_ChildList<InventorySlotEUIController>(EquippedSlotsParentTF);
         for (int i = 0; i < EquipedSlots.Count; i++)
         {
+            EquipedSlots[i].OwnerUIController = this;
             EquipedSlots[i].Offset();
             EquipedSlots[i].ThisItem.Offset();
             EquipedSlots[i].ThisItem.OwnerUIController = this;
@@ -226,6 +226,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             SynergySlotList[i].OwnerUIController = this;
         }
 
+        SetOnOff_SynergySlot(false);
     }
 
 
@@ -233,6 +234,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private void Offset_Forge()
     {
         Inventory_InForge.Offset();
+        Inventory_InForge.Gen_AllSlotAndItem(this);
 
         ForgeInteractPanels[0].Offset(this, ResourceManager.Instance.Get_StaticWord(51), ResourceManager.Instance.Get_StaticDesc(24));
         ForgeInteractPanels[1].Offset(this, ResourceManager.Instance.Get_StaticWord(52), ResourceManager.Instance.Get_StaticDesc(25));
@@ -257,6 +259,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     private void Offset_Forge_Decomposition()
     {
+        DecompositionSlot.OwnerUIController = this;
         DecompositionSlot.Offset();
         DecompositionSlot.ThisItem.Offset();
         DecompositionSlot.ThisItem.OwnerUIController = this;
@@ -268,6 +271,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         for (int i = 0; i < FusionSlotList.Count; i++)
         {
+            FusionSlotList[i].OwnerUIController = this;
             FusionSlotList[i].Offset();
             FusionSlotList[i].ThisItem.Offset();
             FusionSlotList[i].ThisItem.OwnerUIController = this;
@@ -458,21 +462,10 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (Is_Interact_Msg()) return;
 
-        Tween_Disable();
-
         base.SetOff_ThisPanel();
 
-        if (CurrentItemBtn != null)
-        {
-            CurrentItemBtn = null;
-            SetOff_Desc();
-        }
-
-        if (CurrentSlotBtn != null)
-        {
-            CurrentSlotBtn.Play_Selected(_TargetAlpha: 0f, _TargetScale: 1f, 0);
-            CurrentSlotBtn = null;
-        }
+        Tween_Disable();
+        SetOff_Desc();
 
         if (IsDragging)
         {
@@ -482,8 +475,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         }
 
         ModuleUpgradeController.UsingShop = null;
-
     }
+
     public override void Change_ThisPanel(int _indexWindow)
     {
         // 인벤토리의 Scroll 벨류를 그대로 가져감
@@ -993,21 +986,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     #endregion
 
-    #region Msg
-
-    private bool Is_Interact_Msg()
-    {
-        if (ThisMsgEUI.gameObject.activeSelf)
-        {
-            if (ThisMsgEUI.CanPass) ThisMsgEUI.Play_Off(0.5f);
-
-            return true;
-        }
-        return false;
-    }
-
-    #endregion
-
     #region Item
 
     // 모듈 아이템
@@ -1257,20 +1235,6 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         ModuleItemManager.Instance.Gain_ModuleState();
 
         Check_MakeAnno();
-    }
-
-    #endregion
-
-    #region Close
-
-    private bool Is_Interact_CloseBtn()
-    {
-        if (CurrentBtn == CloseBtn)
-        {
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_ThisPanel();
-            return true;
-        }
-        return false;
     }
 
     #endregion

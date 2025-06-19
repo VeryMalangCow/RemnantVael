@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UniRx;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class AllyBaseUpgradeUIController : AllyShopUIController
 {
@@ -207,15 +206,6 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         return false;
     }
 
-    private bool Is_Interact_CloseBtn()
-    {
-        if (CurrentBtn == CloseBtn)
-        {
-            MainGameUIManager.Instance.AllyBaseUpgrade_UIController.SetOff_ThisPanel();
-            return true;
-        }
-        return false;
-    }
     #endregion
 
     #region Interact (Tuner List)
@@ -405,6 +395,15 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
         // Picked Tuner Detail
         Set_PickedTuner(null);
+    }
+
+    public override void SetOff_ThisPanel()
+    {
+        if (Is_Interact_Msg()) return;
+
+        base.SetOff_ThisPanel();
+
+        AllyBaseUpgradeController.UsingShop = null;
     }
 
     #endregion

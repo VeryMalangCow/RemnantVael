@@ -29,15 +29,13 @@ public class InventoryEUIController : ElementUIController
         ThisRT.sizeDelta = new Vector2(
             ((ModuleItemManager.RowAmount * 110) + 10), 
             ((ModuleItemManager.ColumnAmount * 110) + 10));
-        
-        Gen_AllSlotAndItem();
     }
 
     #endregion
 
     #region Gen
 
-    private void Gen_AllSlotAndItem()
+    public void Gen_AllSlotAndItem(SinglePanelUIController _OwnerUI)
     {
         for (int i = 0; i < ModuleItemManager.ColumnAmount; i++) 
         {
@@ -74,7 +72,8 @@ public class InventoryEUIController : ElementUIController
                     slot.ThisItem = item;
                     item.ThisSlot = slot;
 
-                    item.OwnerUIController = MainGameUIManager.Instance.ModuleUpgrade_UIController;
+                    slot.OwnerUIController = _OwnerUI;
+                    item.OwnerUIController = _OwnerUI;
                 }
             }
 
@@ -87,29 +86,72 @@ public class InventoryEUIController : ElementUIController
 
     #region Set
 
+    // Player Module Shop
     public void Set_InventoryUI(List<List<ModuleState>> _AllModuleData)
     {
+        SetOff_AllInventoryUI();
+
         for (int i = 0; i < _AllModuleData.Count; i++)
         {
             for (int j = 0; j < _AllModuleData[i].Count; j++)
             {
                 ModuleState ms = _AllModuleData[i][j];
 
-                if (ms != null)
-                {
-                    AllItem[i][j].gameObject.SetActive(true);
+                Set_InventoryItem(ms, AllItem[i][j]);
+            }
+        }
+    }
 
-                    AllItem[i][j].Set_Data(new ItemData_UIVisual(
-                        ms.ThisItemData.ItemIcon,
-                        ms.ThisItemData.Rank));
-                }
-                else
+    // Ally Module Shop
+    public void Set_InventoryUI(List<List<CopyModuleState>> _AllModuleData)
+    {
+        SetOff_AllInventoryUI();
+
+        for (int i = 0; i < _AllModuleData.Count; i++)
+        {
+            for (int j = 0; j < _AllModuleData[i].Count; j++)
+            {
+                ModuleState ms = _AllModuleData[i][j].MS;
+
+                Set_InventoryItem(ms, AllItem[i][j]);
+
+                if (_AllModuleData[i][j].IsEquipped)
                 {
-                    AllItem[i][j].gameObject.SetActive(false);
+                    AllItem[i][j].ThisSlot.Set_EquipedTxt(true, "#"); 
+                    AllItem[i][j].Set_EquipedImg(true);
                 }
             }
         }
     }
+    public void SetOff_AllInventoryUI()
+    {
+        for (int i = 0; i < AllItem.Count; i++)
+        {
+            for (int j = 0; j < AllItem[i].Count; j++)
+            {
+                AllSlot[i][j].Set_SelectedOff();
+                AllItem[i][j].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    // Each
+    private void Set_InventoryItem(ModuleState _MS, InventoryItemEUIController _ItemEUI)
+    {
+        if (_MS != null)
+        {
+            _ItemEUI.gameObject.SetActive(true);
+
+            _ItemEUI.Set_Data(new ItemData_UIVisual(
+                _MS.ThisItemData.ItemIcon,
+                _MS.ThisItemData.Rank));
+        }
+        else
+        {
+            _ItemEUI.gameObject.SetActive(false);
+        }
+    }
+
 
     #region Equiped
 
@@ -131,7 +173,7 @@ public class InventoryEUIController : ElementUIController
         }
     }
 
-    private void SetOff_AllInventoryEquipedUI()
+    public void SetOff_AllInventoryEquipedUI()
     {
         for (int i = 0; i < AllSlot.Count; i++)
         {

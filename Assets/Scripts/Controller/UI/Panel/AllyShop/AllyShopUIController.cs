@@ -217,7 +217,6 @@ public class AllyShopUIController : ShopUIController
         Reset_AllyProfileDetailPanel();
 
         Play_ProfileExtraY(ProfileDetailExtraRT_CloseHeight, 0.3f);
-
     }
 
     #endregion

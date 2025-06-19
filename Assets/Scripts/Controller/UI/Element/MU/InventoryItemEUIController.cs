@@ -75,8 +75,10 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
 
         Play_Selected(SelectSize, SelectDurTime);
 
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentItemBtn = this;
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOn_Desc(this);
+        OwnerUIController.CurrentItemBtn = this;
+
+        if (DevTool.Can_CastingTType(OwnerUIController, out ModuleUpgradeUIController muui))
+            muui.SetOn_Desc(this);
     }
 
     public override void OnPointerExit(PointerEventData eventData)
@@ -88,8 +90,10 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
 
         Play_Selected(1f, SelectDurTime);
 
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.CurrentItemBtn = null;
-        MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_Desc();
+        OwnerUIController.CurrentItemBtn = null;
+
+        if (DevTool.Can_CastingTType(OwnerUIController, out ModuleUpgradeUIController muui))
+            muui.SetOff_Desc();
     }
 
     #endregion
