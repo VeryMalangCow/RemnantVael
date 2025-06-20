@@ -3314,6 +3314,8 @@ MonoBehaviour:
   CurrentBtn: {fileID: 0}
   MainColorCompList: []
   SubColorCompList: []
+  CurrentSlotBtn: {fileID: 0}
+  CurrentItemBtn: {fileID: 0}
   ThisPanelTabList:
   - {fileID: 3841518684844216861}
   - {fileID: 1840091123255668984}
@@ -3408,9 +3410,7 @@ MonoBehaviour:
   Preview_NeedMS_ForFusion: {fileID: 6744962779368797448}
   Preview_NeedMS_ForMake: {fileID: 6013375180680982823}
   Preview_NeedCB_ForMake: {fileID: 3793425638312885780}
-  CurrentItemBtn: {fileID: 0}
   CurrentDraggingItemBtn: {fileID: 0}
-  CurrentSlotBtn: {fileID: 0}
 --- !u!114 &7285601847160733366
 MonoBehaviour:
   m_ObjectHideFlags: 0

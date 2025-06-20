@@ -69,11 +69,9 @@ public class SinglePanelUIController : UIController
 
         // Inven
         if (CurrentSlotBtn != null)
-        {
             CurrentSlotBtn.Set_SelectedOff();
-            CurrentSlotBtn = null;
-        }
-
+        
+        CurrentSlotBtn = null;
         CurrentItemBtn = null;
     }
 

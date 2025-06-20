@@ -11,7 +11,6 @@ public class SynergySlotEUIController : OwnBtnEUIController
     [HideInInspector] public Image ThisTierImg;
     [HideInInspector] public TMP_Text ThisTxt;
 
-
     #endregion
 
     #region Offset

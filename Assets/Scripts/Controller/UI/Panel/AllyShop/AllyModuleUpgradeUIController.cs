@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class AllyModuleUpgradeUIController : AllyShopUIController
@@ -16,11 +17,46 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     [SerializeField] private ScrollPanelEUIController InventoryScrollPanelEUI;
     [SerializeField] private InventoryEUIController InventoryEUI;
 
+    [Space(10)]
+    [Header("=== Picked Item")]
+
+    [Space(5)]
+    [Header("-- Off")]
+    [SerializeField] private GameObject PickedOffGO;
+
+    [Space(5)]
+    [Header("-- On")]
+    [SerializeField] private GameObject PickedOnGO;
+
+    [Space(2)]
+    [Header("* Item & Slot")]
+    [SerializeField] private InventorySlotEUIController PickedPanelSlotEUI;
+    [SerializeField] private TMP_Text PickedPanelItemNameTxt;
+    [SerializeField] private TMP_Text PickedPanelItemRankTxt;
+
+    [Space(2)]
+    [Header("* Synergy")]
+    [SerializeField] private List<AllySynergySlotEUIController> PickedPanelSynergyEUIList;
+
+
+    [Space(10)]
+    [Header("=== Txt")]
+    [SerializeField] private TMP_Text ModuleInventoryTxt;
+    [SerializeField] private TMP_Text ModuleDetailTxt;
+
     #endregion
 
     #region - Hide
 
+    // Inven Data
+    [HideInInspector] private List<List<CoupleData<int>>> IndexData;
     [HideInInspector] private Dictionary<CoupleData<int>, CopyModuleState> CurrentData;
+
+    // Picked
+    [HideInInspector] private InventoryItemEUIController PickedItemEUI;
+    [HideInInspector] private ModuleState PickedModule;
+    [HideInInspector] private List<int> PickedModuleMainChipID;
+
 
     #endregion
 
@@ -42,6 +78,18 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         InventoryScrollPanelEUI.Offset();
         InventoryEUI.Offset();
         InventoryEUI.Gen_AllSlotAndItem(this);
+
+        PickedPanelSlotEUI.Offset();
+        PickedPanelSlotEUI.OwnerUIController = this;
+
+        PickedPanelSlotEUI.ThisItem.Offset();
+        PickedPanelSlotEUI.ThisItem.OwnerUIController = this;
+
+        for (int i = 0; i < PickedPanelSynergyEUIList.Count; i++)
+        {
+            PickedPanelSynergyEUIList[i].OwnerUIController = this;
+            PickedPanelSynergyEUIList[i].Offset();
+        }
     }
 
 
@@ -64,10 +112,14 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private bool Is_Interact_ModuleInInventory()
     {
-        if (CurrentBtn == null || CurrentBtn is not InventoryItemEUIController eui) return false;
+        if (CurrentBtn is InventoryItemEUIController eui)
+        {
+            Set_Picked(eui);
 
+            return true;
+        }        
 
-        return true;
+        return false;
     }
 
     #endregion
@@ -79,6 +131,15 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         // Label
         LabelName = ResourceManager.Instance.Get_StaticWord(95) + " " + ResourceManager.Instance.Get_StaticWord(27) + " " + ResourceManager.Instance.Get_StaticWord(2);
         LabelTxt.text = LabelName;
+
+        // Tuner
+        ModuleInventoryTxt.text = ResourceManager.Instance.Get_StaticWord(110);
+        ModuleDetailTxt.text = ResourceManager.Instance.Get_StaticWord(111);
+
+        //BuyBtnEUI.ThisTxt.text = ResourceManager.Instance.Get_StaticWord(47) + " & " + ResourceManager.Instance.Get_StaticWord(105);
+
+        // Desc
+
 
         base.Set_LanguageTxt();
     }
@@ -100,10 +161,12 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
             .OrderByDescending(obj => obj.MS.ThisItemData.Rank).ToList();
 
         Set_CopyAllyShopMSInventory(unEquippedMsList, equippedMsList);
+        Set_Picked(null);
     }
 
     private void Set_CopyAllyShopMSInventory(List<CopyModuleState> _UnEq, List<CopyModuleState> _Eq)
     {
+        IndexData = new List<List<CoupleData<int>>>();
         CurrentData = new Dictionary<CoupleData<int>, CopyModuleState>();
 
         // 순서대로, Row Col 로 이중 리스트로 사용
@@ -111,9 +174,12 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         
         for (int i = 0; i < combineData.Count; i++)
         {
+            IndexData.Add(new List<CoupleData<int>>());
             for (int j = 0; j < combineData[i].Count; j++)
             {
-                CurrentData.Add(new CoupleData<int>(i, j), combineData[i][j]);
+                CoupleData<int> indexData = new CoupleData<int>(i, j);
+                IndexData[i].Add(indexData);
+                CurrentData.Add(indexData, combineData[i][j]);
             }
         }
 
@@ -123,6 +189,77 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         InventoryEUI.Set_InventoryUI(combineData);
 
         return;
+    }
+
+    #endregion
+
+    #region Set (Picked)
+
+    private void Set_PickedOnOffPanel(bool _OnOff)
+    {
+        PickedOnGO.SetActive(_OnOff);
+        PickedOffGO.SetActive(!_OnOff);
+    }
+
+    private void Set_Picked(InventoryItemEUIController _ItemEUI)
+    {
+        if (_ItemEUI == null)
+        {
+            Set_PickedOnOffPanel(false);
+
+            PickedItemEUI = null;
+            PickedModule = null;
+            PickedModuleMainChipID = null;
+
+            InventoryEUI.SetOff_AllInventoryForgeSelectedUI();
+        }
+        else
+        {
+            Set_PickedOnOffPanel(true);
+
+            PickedItemEUI = _ItemEUI; // 아이템 EUI
+            PickedModule = Get_CorrectMS(PickedItemEUI.ThisSlot); // MS
+            PickedModuleMainChipID = ModuleItemManager.Instance.Get_MainChipIDData(PickedModule); // MainChip
+
+            Set_PickedInventoryUI(); // Inventory UI
+            Set_PickedModuleUI(); // Module UI
+            Set_PickedSynergyUI(); // Synergy UI
+        }
+    }
+
+    private void Set_PickedInventoryUI()
+    {
+        InventoryEUI.SetOff_AllInventoryForgeSelectedUI();
+        PickedItemEUI.ThisSlot.Set_ForgeSelectedTxt(true);
+    }
+
+    private void Set_PickedModuleUI()
+    {
+        PickedPanelItemNameTxt.text = $"[ {PickedModule.ThisItemData.Name} ]";
+        PickedPanelItemRankTxt.text = $"<size=70%>(R: {PickedModule.ThisItemData.Rank})</size>";
+        PickedPanelItemRankTxt.color = UnitManager.Instance.AllyCardColorList[PickedModule.ThisItemData.Rank - 1];
+
+        PickedPanelSlotEUI.ThisItem.Set_Data(new ItemData_UIVisual(
+            PickedModule.ThisItemData.ItemIcon,
+            PickedModule.ThisItemData.Rank));
+    }
+
+    private void Set_PickedSynergyUI()
+    {
+        for (int i = 0; i < PickedPanelSynergyEUIList.Count; i++)
+        {
+            MainChipData MDC = ModuleItemManager.Instance.Get_CorrectMainChip(PickedModuleMainChipID[i]);
+            PickedPanelSynergyEUIList[i].Set_SynergySlot(MDC.ID, MDC.ThisIcon, ResourceManager.Instance.Get_MainChipBaseDesc(MDC.ID));
+        }
+    }
+
+    #endregion
+
+    #region Get (MS)
+
+    private ModuleState Get_CorrectMS(InventorySlotEUIController _SlotBtn)
+    {
+        return CurrentData[IndexData[_SlotBtn.Col][_SlotBtn.Row]].MS;
     }
 
     #endregion
@@ -148,7 +285,6 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         AllyModuleUpgradeController.UsingShop = null;
     }
-
 
     #endregion
 }

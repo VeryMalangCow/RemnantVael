@@ -796,26 +796,34 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region MainChip
 
+    public List<int> Get_MainChipIDData(ModuleState _ModuleState)
+    {
+        return new List<int>
+        {
+            _ModuleState.ThisItemData.R1_MainChipID,
+            _ModuleState.ThisItemData.R3_MainChipID,
+            _ModuleState.ThisItemData.R5_MainChipID
+        };
+    }
+
     private void Add_MainChipData(ModuleState _ModuleState)
     {
-        int synergyID_1 = _ModuleState.ThisItemData.R1_MainChipID;
-        int synergyID_3 = _ModuleState.ThisItemData.R3_MainChipID;
-        int synergyID_5 = _ModuleState.ThisItemData.R5_MainChipID;
+        var synergyIDList = Get_MainChipIDData(_ModuleState);
 
         if (_ModuleState.ThisItemData.Rank >= 5)
         {
-            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyID_1, 3);
-            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyID_3, 2);
-            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyID_5, 1);
+            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyIDList[0], 3);
+            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyIDList[1], 2);
+            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyIDList[2], 1);
         }
         else if (_ModuleState.ThisItemData.Rank >= 3)
         {
-            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyID_1, 2);
-            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyID_3, 1);
+            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyIDList[0], 2);
+            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyIDList[1], 1);
         }
         else
         {
-            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyID_1, 1);
+            DevTool.Add_AmountForDict(ref MainChipAmalgamationDict, synergyIDList[0], 1);
         }
     }
 

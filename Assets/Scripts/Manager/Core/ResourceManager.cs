@@ -70,6 +70,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // 모듈
     [HideInInspector] private WordData ModuleItemDesc_Data;
     [HideInInspector] private WordData ModuleItemEquipDesc_Data;
+    [HideInInspector] private WordData MainChipAllyDescList_Data;
     [HideInInspector] private List<WordData> MainChipDescList_Data;
     // 동료 카드 설명
     [HideInInspector] private WordData StrikeTeam_AllyCardDesc_Data;
@@ -190,6 +191,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             "ModuleDescCSV");
         ModuleItemEquipDesc_Data = Offset_WordData(descPath,
             "ModuleEquipDescCSV");
+        MainChipAllyDescList_Data = Offset_WordData(descPath,
+            "MainChipAllyDescCSV");
         MainChipDescList_Data = Offset_WordDataList_ForParentID(descPath,
             "MainChipDescCSV", MainChipName_Data.AllWordData.Count);
         // Ally Card
@@ -885,6 +888,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return TunerStateName_Data.Get_Word(_Index);
     }
 
+    // MainChip Ally Desc
+    public string Get_MainChipBaseDesc(int _ID)
+    {
+        return MainChipAllyDescList_Data.Get_Word(_ID);
+    }
     #endregion
 
     #region Set
