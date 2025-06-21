@@ -298,6 +298,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return result;
     }
 
+
     #endregion
 
     #region MainChip
@@ -808,7 +809,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     private void Add_MainChipData(ModuleState _ModuleState)
     {
-        var synergyIDList = Get_MainChipIDData(_ModuleState);
+        List<int> synergyIDList = Get_MainChipIDData(_ModuleState);
 
         if (_ModuleState.ThisItemData.Rank >= 5)
         {
@@ -845,6 +846,18 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_SynergySlots(MainChipAmalgamationDict);
 
         CurrentAllMainChipState = Get_CurrentMainChipState();
+    }
+
+    public int Get_MainChipAmount(int _ID)
+    {
+        if (MainChipAmalgamationDict.ContainsKey(_ID))
+        {
+            return MainChipAmalgamationDict[_ID];
+        }
+        else
+        {
+            return -1;
+        }
     }
 
     #endregion

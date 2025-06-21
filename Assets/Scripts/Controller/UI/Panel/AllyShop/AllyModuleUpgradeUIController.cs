@@ -54,7 +54,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     // Picked
     [HideInInspector] private InventoryItemEUIController PickedItemEUI;
-    [HideInInspector] private ModuleState PickedModule;
+    [HideInInspector] private CopyModuleState PickedModule;
     [HideInInspector] private List<int> PickedModuleMainChipID;
 
 
@@ -102,20 +102,39 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         if (base.Try_Interact()) return true;
         if (Is_Interact_CloseBtn()) return true;
         if (Is_Interact_ModuleInInventory()) return true;
+        if (Is_Interact_ModulePickSynergy()) return true;
 
         return false;
     }
 
     #endregion
 
-    #region Interact (Module)
+    #region Interact (Picked)
+
+    private bool Is_Interact_ModulePickSynergy()
+    {
+        if (CurrentBtn is AllySynergySlotEUIController eui)
+        {
+            if (!PickedModule.IsEquipped)
+                eui.Set_SelectChange();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    #endregion
+
+    #region Interact (Inven)
 
     private bool Is_Interact_ModuleInInventory()
     {
         if (CurrentBtn is InventoryItemEUIController eui)
         {
-            Set_Picked(eui);
-
+            if (PickedItemEUI != eui)
+                Set_Picked(eui);
+            
             return true;
         }        
 
@@ -219,7 +238,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
             PickedItemEUI = _ItemEUI; // æ∆¿Ã≈€ EUI
             PickedModule = Get_CorrectMS(PickedItemEUI.ThisSlot); // MS
-            PickedModuleMainChipID = ModuleItemManager.Instance.Get_MainChipIDData(PickedModule); // MainChip
+            PickedModuleMainChipID = ModuleItemManager.Instance.Get_MainChipIDData(PickedModule.MS); // MainChip
 
             Set_PickedInventoryUI(); // Inventory UI
             Set_PickedModuleUI(); // Module UI
@@ -235,13 +254,16 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private void Set_PickedModuleUI()
     {
-        PickedPanelItemNameTxt.text = $"[ {PickedModule.ThisItemData.Name} ]";
-        PickedPanelItemRankTxt.text = $"<size=70%>(R: {PickedModule.ThisItemData.Rank})</size>";
-        PickedPanelItemRankTxt.color = UnitManager.Instance.AllyCardColorList[PickedModule.ThisItemData.Rank - 1];
-
+        string name = $"[ {PickedModule.MS.ThisItemData.Name} ]";
+        if (PickedModule.IsEquipped) name += $" <size=75%><color=#7F7F7F>({ResourceManager.Instance.Get_StaticWord(112)})</size></color>";
+        PickedPanelItemNameTxt.text = name;
+        PickedPanelItemRankTxt.text = $"<size=70%>(R: {PickedModule.MS.ThisItemData.Rank})</size>";
+        PickedPanelItemRankTxt.color = UnitManager.Instance.AllyCardColorList[PickedModule.MS.ThisItemData.Rank - 1];
+        PickedPanelSlotEUI.Set_EquipedTxt_NoneNum(PickedModule.IsEquipped);
+        
         PickedPanelSlotEUI.ThisItem.Set_Data(new ItemData_UIVisual(
-            PickedModule.ThisItemData.ItemIcon,
-            PickedModule.ThisItemData.Rank));
+            PickedModule.MS.ThisItemData.ItemIcon,
+            PickedModule.MS.ThisItemData.Rank));
     }
 
     private void Set_PickedSynergyUI()
@@ -250,6 +272,8 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         {
             MainChipData MDC = ModuleItemManager.Instance.Get_CorrectMainChip(PickedModuleMainChipID[i]);
             PickedPanelSynergyEUIList[i].Set_SynergySlot(MDC.ID, MDC.ThisIcon, ResourceManager.Instance.Get_MainChipBaseDesc(MDC.ID));
+            PickedPanelSynergyEUIList[i].Set_PlayerSynergyTxt(ModuleItemManager.Instance.Get_MainChipAmount(MDC.ID));
+            PickedPanelSynergyEUIList[i].Set_Select(false);
         }
     }
 
@@ -257,10 +281,12 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #region Get (MS)
 
-    private ModuleState Get_CorrectMS(InventorySlotEUIController _SlotBtn)
+    private CopyModuleState Get_CorrectMS(InventorySlotEUIController _SlotBtn)
     {
-        return CurrentData[IndexData[_SlotBtn.Col][_SlotBtn.Row]].MS;
+        return CurrentData[IndexData[_SlotBtn.Col][_SlotBtn.Row]];
     }
+
+    
 
     #endregion
 

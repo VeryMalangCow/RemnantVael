@@ -119,6 +119,17 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     #region Equiped
 
+    public void Set_EquipedTxt_NoneNum(bool _IsOn)
+    {
+        ThisEquipedTxt.gameObject.SetActive(_IsOn);
+
+        if (_IsOn)
+        {
+            ThisEquipedTxt.text = "#";
+            ThisEquipedTxt.transform.SetAsLastSibling();
+        }
+    }
+
     public void Set_EquipedTxt(bool _IsOn, int _EquipedSlotIndex = 0)
     {
         ThisEquipedTxt.gameObject.SetActive(_IsOn);
