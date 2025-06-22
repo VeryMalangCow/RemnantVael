@@ -1911,7 +1911,7 @@ TextureImporter:
         width: 12
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1919,6 +1919,27 @@ TextureImporter:
       bones: []
       spriteID: 64d3172d13cc9484d81e76df281f669c
       internalID: -1961704668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_SmallLock
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 505
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d4266bd050cc824889c62e7e703cd07
+      internalID: 114152918
       vertices: []
       indices: 
       edges: []
@@ -2020,6 +2041,7 @@ TextureImporter:
       ModuleUI_RollerArrow: -1073661461
       ModuleUI_SideIconFrame: -945182851
       ModuleUI_SliderCell: -2118155954
+      ModuleUI_SmallLock: 114152918
       ModuleUI_TitleFrame: 121522765
       ModuleUI_UpDownGradient: 1852420375
       ModuleUI_UpFrame: -1972109538

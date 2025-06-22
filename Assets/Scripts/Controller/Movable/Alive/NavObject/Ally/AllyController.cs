@@ -72,6 +72,10 @@ public class AllyController : NavObjectController
 
     [HideInInspector] private Dictionary<string, RefData<float>> UpgradeStateDict;
 
+    // Sync
+    [HideInInspector] private Dictionary<int, int> SyncData;
+    [HideInInspector] public static readonly int SyncMax = 3;
+
     #endregion
 
     #endregion
@@ -94,7 +98,8 @@ public class AllyController : NavObjectController
 
         Offset_UI();
         Offset_Subscribe();
-        Offset_TunerUpgrade();
+        Offset_TunerUpgrade(); 
+        Offset_SyncUpgrade();
     }
 
     private void Offset_UI()
@@ -165,6 +170,11 @@ public class AllyController : NavObjectController
             { AllyManager.TunerTypeList[1], UpgradeAllyState.Rof },
             { AllyManager.TunerTypeList[2], UpgradeAllyState.MovementSpeed },
         };
+    }
+
+    private void Offset_SyncUpgrade()
+    {
+        SyncData = new Dictionary<int, int>();
     }
 
     #endregion
@@ -388,6 +398,31 @@ public class AllyController : NavObjectController
     private void Set_Name()
     {
         HUD.Set_Name(Name[GameManager.LanguageID]);
+    }
+
+    #endregion
+
+    #region Sync
+
+    public Dictionary<int, int> Get_ThisSyncData()
+    {
+        return SyncData;
+    }
+
+    public void Add_Sync(List<int> _SyncList)
+    {
+        for (int i = 0; i < _SyncList.Count; i++)
+        {
+            if (SyncData.ContainsKey(_SyncList[i]))
+            {
+                int currentAmount = SyncData[_SyncList[i]];
+                SyncData[_SyncList[i]] = currentAmount + 1;
+            }
+            else
+            {
+                SyncData.Add(_SyncList[i], 1);
+            }
+        }
     }
 
     #endregion

@@ -14,6 +14,7 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
     [Header("=== Ally Synergy")]
     [SerializeField] private RectTransform ThisFrameRT;
     [SerializeField] private Image ThisSelectImg;
+    [SerializeField] private Image ThisLockImg;
     [SerializeField] private TMP_Text ThisTxt;
     [SerializeField] private TMP_Text PlayerSynergyStackTxt;
 
@@ -21,7 +22,7 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
 
     #region - Hide
 
-    [HideInInspector] private bool isOn = false;
+    [HideInInspector] private bool IsOn = false;
     [HideInInspector] private Image ThisImg;
     [HideInInspector] private int ID = -1;
 
@@ -41,16 +42,30 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
 
     #endregion
 
+    #region Get
+
+    public bool Get_IsOn()
+    {
+        return IsOn;
+    }
+
+    public int Get_ID()
+    {
+        return ID;
+    }
+
+    #endregion
+
     #region Set
 
     public void Set_SelectChange()
     {
-        Set_Select(!isOn);
+        Set_Select(!IsOn);
     }
 
     public void Set_Select(bool _OnOff)
     {
-        isOn = _OnOff;
+        IsOn = _OnOff;
         ThisSelectImg.gameObject.SetActive(_OnOff);
     }
 
@@ -76,6 +91,11 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
             PlayerSynergyStackTxt.text = $"( {ResourceManager.Instance.Get_StaticDesc(39)}: <size=150%>{_Amount}</size> )";
         }
         
+    }
+
+    public void Set_Lock(bool _IsOn)
+    {
+        ThisLockImg.gameObject.SetActive(_IsOn);
     }
 
     #endregion

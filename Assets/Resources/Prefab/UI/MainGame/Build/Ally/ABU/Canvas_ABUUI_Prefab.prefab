@@ -608,6 +608,8 @@ MonoBehaviour:
   CurrentBtn: {fileID: 0}
   MainColorCompList: []
   SubColorCompList: []
+  CurrentSlotBtn: {fileID: 0}
+  CurrentItemBtn: {fileID: 0}
   ThisPanelTabList:
   - {fileID: 8455122825941353994}
   LabelTxt: {fileID: 8601064820096719371}
@@ -642,6 +644,9 @@ MonoBehaviour:
   TunerScrollPanel: {fileID: 6486262153703449168}
   InStateTunerParentRT: {fileID: 1386686837164556022}
   InStateTunerPrefab: {fileID: 572117140870774827, guid: 4d58e8f957b034c4593b1d2aa1c1e949, type: 3}
+  SyncScrollPanel: {fileID: 6259436081182577572}
+  InStateSyncParentRT: {fileID: 2034599382729010932}
+  InStateSyncPrefab: {fileID: 9162822552647618182, guid: 2cc122d1a00c02d4d80dcc9f5dd92afc, type: 3}
   ExtraMainColorImgList:
   - {fileID: 3892319867972009670}
   - {fileID: 2284026126660960140}
@@ -668,12 +673,12 @@ MonoBehaviour:
   TunerDetailOffGO: {fileID: 8072068436615862163}
   TunerDetailOnGO: {fileID: 7129603115609960942}
   DetailTunerEUI: {fileID: 8408166784659283448}
-  TunerDetailExtraRT: {fileID: 2663244429990861616}
   Positive0_ElementDescEUI: {fileID: 872646535009376339}
   Positive1_ElementDescEUI: {fileID: 5312263062244360221}
   Negative_ElementDescEUI: {fileID: 4791990012586286431}
   BuyBtnEUI: {fileID: 2401676383777979222}
   CanBuyArrowGO: {fileID: 1775168971037644668}
+  TunerDetailExtraRT: {fileID: 2663244429990861616}
   ChargeBetteryTxt: {fileID: 8391261698703898512}
   ChargeBetteryUseTxt: {fileID: 1271936693060036830}
   OverriderTxt: {fileID: 8989865427933097102}
@@ -1351,10 +1356,10 @@ RectTransform:
   - {fileID: 6285911185320958088}
   m_Father: {fileID: 6225747546473289800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -84, y: 0}
-  m_SizeDelta: {x: 352, y: 200}
+  m_SizeDelta: {x: -248, y: -80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1918638692715091045
 GameObject:
@@ -4051,10 +4056,10 @@ RectTransform:
   - {fileID: 2217781375485190590}
   m_Father: {fileID: 6225747546473289800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 176, y: 0}
-  m_SizeDelta: {x: 168, y: 200}
+  m_SizeDelta: {x: -432, y: -80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5219577752597633875
 GameObject:
@@ -7175,6 +7180,18 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5112692415668785691, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5112692415668785691, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5112692415668785691, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5777165108767333088, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -7222,6 +7239,11 @@ MonoBehaviour:
 --- !u!224 &1386686837164556022 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1316913298952763551, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+  m_PrefabInstance: {fileID: 105867576054515305}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2034599382729010932 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2108885996752644253, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
   m_PrefabInstance: {fileID: 105867576054515305}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &2284026126660960140 stripped
@@ -7390,6 +7412,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61145d762607f7846976de99959a74b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6259436081182577572 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6315706993530148301, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+  m_PrefabInstance: {fileID: 105867576054515305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c47ef53805ab2468d28a7433f5207c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!225 &6405605284583148683 stripped

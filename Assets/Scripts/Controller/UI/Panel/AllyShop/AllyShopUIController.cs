@@ -54,6 +54,13 @@ public class AllyShopUIController : ShopUIController
     [SerializeField] private RectTransform InStateTunerParentRT;
     [SerializeField] private GameObject InStateTunerPrefab;
 
+    [Space(2)]
+    [Header("* Sync")]
+    [SerializeField] private ScrollPanelEUIController SyncScrollPanel;
+    [SerializeField] private RectTransform InStateSyncParentRT;
+    [SerializeField] private GameObject InStateSyncPrefab;
+    [SerializeField] public List<Sprite> PickedPanelSyncProgressSpriteList;
+
 
     [Space(10)]
     [Header("=== Inner")]
@@ -95,6 +102,14 @@ public class AllyShopUIController : ShopUIController
     [HideInInspector] private static readonly float InStateTunerEUI_BaseX = -12f;
     [HideInInspector] private static readonly float InStateTunerEUI_BaseY = 60f;
     [HideInInspector] private static readonly float InStateTunerEUI_Interval = 120f;
+
+    // In State - Sync
+    [HideInInspector] private List<AllySyncIconEUIController> InStateSyncEUIList;
+    [HideInInspector] private static readonly float InStateSyncEUI_BaseX = 74f;
+    [HideInInspector] private static readonly float InStateSyncEUI_BaseY = -116;
+    [HideInInspector] private static readonly float InStateSyncEUI_IntervalX = 108;
+    [HideInInspector] private static readonly float InStateSyncEUI_IntervalY = -140;
+    [HideInInspector] private static readonly int InStateSyncEUI_WidthAmount = 4;
 
     #endregion
 
@@ -142,6 +157,9 @@ public class AllyShopUIController : ShopUIController
 
         // In State - Tuner
         InStateTunerEUIList = new List<TunerEUIController>();
+
+        // In State - Sync
+        InStateSyncEUIList = new List<AllySyncIconEUIController>();
     }
 
     private void Offset_ColorComp()
@@ -313,6 +331,7 @@ public class AllyShopUIController : ShopUIController
         // Data UI Set
         Set_AllyState(CurrentPickedAlly);
         Set_AllyTuner(CurrentPickedAlly);
+        Set_AllySync(CurrentPickedAlly);
 
         // Detail Panel
         ProfileDetailEUI.SetOn_Panel(CurrentPickedAlly);
@@ -486,6 +505,70 @@ public class AllyShopUIController : ShopUIController
 
     #endregion
 
+    #region Profile Detail (Sync)
+
+    protected void Set_AllySync(AllyController _Ally)
+    {
+        Dictionary<int, int> syncData = _Ally.Get_ThisSyncData();
+
+        // 만약 UI EUI가 부족하다면 생성
+        if (InStateSyncEUIList.Count < syncData.Count)
+        {
+            int needEUIAmount = syncData.Count - InStateSyncEUIList.Count;
+            for (int i = 0; i < needEUIAmount; i++)
+                InStateSyncEUIList.Add(Gen_SyncEUI());
+        }
+
+        // 모든 Tuner EUI 끄기
+        SetOff_AllSyncEUI();
+
+        // 튜너에 맞추어 키기
+        SetOn_SyncEUI(syncData, out float lastY);
+
+        float scrollY = Mathf.Max(
+            ProfileDetailExtraRT_ScrollMin,
+            lastY + 100f);
+        
+        TunerScrollPanel.Set_ScrollHeight(scrollY);
+    }
+
+    private AllySyncIconEUIController Gen_SyncEUI()
+    {
+        AllySyncIconEUIController result = DevTool.Get_ComponentTType<AllySyncIconEUIController>(Instantiate(InStateSyncPrefab, InStateSyncParentRT));
+        result.Offset();
+
+        return result;
+    }
+
+    private void SetOff_AllSyncEUI()
+    {
+        if (InStateSyncEUIList.Count <= 0) return;
+
+        for (int i = 0; i < InStateSyncEUIList.Count; i++)
+            InStateSyncEUIList[i].gameObject.SetActive(false);
+    }
+
+    private void SetOn_SyncEUI(Dictionary<int, int> _Data, out float _LastY)
+    {
+        int currentOrder = 0;
+        _LastY = 0;
+        foreach (KeyValuePair<int, int> value in _Data)
+        {
+            int x = currentOrder % InStateSyncEUI_WidthAmount;
+            int y = currentOrder / InStateSyncEUI_WidthAmount;
+
+            InStateSyncEUIList[currentOrder].gameObject.SetActive(true);
+            InStateSyncEUIList[currentOrder].ThisRT.anchoredPosition = new Vector2(
+                InStateSyncEUI_BaseX + (x * InStateSyncEUI_IntervalX),
+                InStateSyncEUI_BaseY + (y * InStateSyncEUI_IntervalY));
+            _LastY = InStateSyncEUIList[currentOrder].ThisRT.anchoredPosition.y;
+            InStateSyncEUIList[currentOrder].Set_UI(value.Key, value.Value);
+            currentOrder++;
+        }
+    }
+
+    #endregion
+
     #region Interact
 
     public virtual bool Try_Interact()
@@ -522,6 +605,25 @@ public class AllyShopUIController : ShopUIController
         }
 
         return false;
+    }
+
+    #endregion
+
+    #region Play
+
+    protected void Play_UseTxt(TMP_Text _Txt, int _Pay, float _UpY, float _DurTime = 0.5f)
+    {
+        RectTransform rt = DevTool.Get_ComponentTType<RectTransform>(_Txt.gameObject);
+
+        DevTool.Set_KillTween(_Txt);
+        DevTool.Set_KillTween(rt);
+
+        _Txt.text = $"-{_Pay}";
+        DevTool.Set_AlphaColor(_Txt, 1f);
+        rt.anchoredPosition = Vector2.zero;
+
+        _Txt.DOFade(0f, _DurTime);
+        rt.DOAnchorPosY(_UpY, _DurTime);
     }
 
     #endregion

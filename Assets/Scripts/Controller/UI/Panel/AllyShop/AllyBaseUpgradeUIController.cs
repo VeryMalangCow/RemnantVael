@@ -18,7 +18,6 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     [SerializeField] private GameObject TunerDetailOffGO;
     [SerializeField] private GameObject TunerDetailOnGO;
     [SerializeField] private TunerEUIController DetailTunerEUI;
-    [SerializeField] private RectTransform TunerDetailExtraRT;
 
     [Space(10)]
     [Header("-- Tuner Element Desc")]
@@ -30,6 +29,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     [Header("-- Buy")]
     [SerializeField] private OwnCGBtnEUIController BuyBtnEUI;
     [SerializeField] private GameObject CanBuyArrowGO;
+    [SerializeField] private RectTransform TunerDetailExtraRT;
 
     [Space(5)]
     [Header("-- Goods")]
@@ -161,6 +161,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
             BuyBtnEUI.ThisCG.alpha = Can_Buy() ? 1f : 0.5f;
             CanBuyArrowGO.gameObject.SetActive(Can_Buy());
         }
+
         Set_ChargedBetteryUI(PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value, NeedChargedBettery);
 
         DevTool.Set_KillTween(TunerDetailExtraRT);
@@ -315,7 +316,6 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         int index = AllyTunerSet.AllyTunerDataList.IndexOf(PickedTunerData);
         Set_TunerData(index);
         Set_TunerUI(index);
-
     }
 
     #endregion
@@ -339,22 +339,6 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         OverriderTxt.text = _Amount.ToString();
     }
 
-
-    private void Play_UseTxt(TMP_Text _Txt, int _Pay, float _UpY, float _DurTime = 0.5f)
-    {
-        RectTransform rt = DevTool.Get_ComponentTType<RectTransform>(_Txt.gameObject);
-
-        DevTool.Set_KillTween(_Txt);
-        DevTool.Set_KillTween(rt);
-
-        _Txt.text = $"-{_Pay}";
-        DevTool.Set_AlphaColor(_Txt, 1f);
-        rt.anchoredPosition = Vector2.zero;
-
-        _Txt.DOFade(0f, _DurTime);
-        rt.DOAnchorPosY(_UpY, _DurTime);
-    }
-
     #endregion
 
     #region Set (Language)
@@ -372,6 +356,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         for (int i = 0; i < AllTunerEUI.Count; i++)
             AllTunerEUI[i].Set_Language();
 
+        // Buy Btn
         BuyBtnEUI.ThisTxt.text = ResourceManager.Instance.Get_StaticWord(47) + " & " + ResourceManager.Instance.Get_StaticWord(105);
 
         // Desc
