@@ -59,7 +59,7 @@ public class AllyShopUIController : ShopUIController
     [SerializeField] private ScrollPanelEUIController SyncScrollPanel;
     [SerializeField] private RectTransform InStateSyncParentRT;
     [SerializeField] private GameObject InStateSyncPrefab;
-    [SerializeField] public List<Sprite> PickedPanelSyncProgressSpriteList;
+    [SerializeField] private List<Sprite> PickedPanelSyncProgressSpriteList;
 
 
     [Space(10)]
@@ -666,4 +666,12 @@ public class AllyShopUIController : ShopUIController
 
     #endregion
 
+    #region Get
+
+    public Sprite Get_SyncProgressSprite(int _Progress)
+    {
+        return PickedPanelSyncProgressSpriteList[Mathf.Clamp(_Progress - 1, 0, AllyController.SyncMax - 1)];
+    }
+
+    #endregion
 }

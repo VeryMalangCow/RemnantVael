@@ -22,6 +22,27 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     [Space(10)]
     [Header("=== Picked Item")]
+    [SerializeField] private OwnBtnEUIController ToggleBtn;
+
+    [Space(5)]
+    [Header("-- Panel (Player)")]
+    [SerializeField] private GameObject PickedModulePanel_PlayerGO;
+    [SerializeField] private TMP_Text PlayerSyncNameTxt;
+
+    [Space(2)]
+    [Header("* Off")]
+    [SerializeField] private GameObject PlayerSynergyEmptyGO;
+
+    [Space(2)]
+    [Header("* On")]
+    [SerializeField] private GameObject PlayerSynergyExsitGO;
+    [SerializeField] private Transform PlayerSynergySlotParentTF;
+    [SerializeField] private GameObject PlayerSynergyDescGO;
+    [SerializeField] private TMP_Text PlayerSynergyDescTxt;
+
+    [Space(5)]
+    [Header("-- Panel (Ally)")]
+    [SerializeField] private GameObject PickedModulePanel_AllyGO;
 
     [Space(5)]
     [Header("-- Off")]
@@ -75,6 +96,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // Tuner Detail
     [HideInInspector] private Vector2 ModuleDetailExtraRTOpen;
 
+    // Player Sync
+    [SerializeField] private List<SynergySlotEUIController> PlayerSyncSlotEUIList;
+
     #endregion
 
     #endregion
@@ -113,6 +137,22 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         ModuleDetailExtraRTOpen = ModuleDetailExtraRT.sizeDelta;
 
+        // Toggle
+        ToggleBtn.OwnerUIController = this;
+        ToggleBtn.Offset();
+
+        // Player Sync
+        PlayerSyncSlotEUIList = new List<SynergySlotEUIController>();
+        for (int i = 0; i < PlayerSynergySlotParentTF.childCount; i++)
+        {
+            if (PlayerSynergySlotParentTF.GetChild(i).TryGetComponent(out SynergySlotEUIController ssEui))
+            {
+                ssEui.OwnerUIController = this;
+                ssEui.Offset();
+                PlayerSyncSlotEUIList.Add(ssEui);
+            }
+        }
+
         // Buy
         BuyBtnEUI.OwnerUIController = this;
         BuyBtnEUI.Offset();
@@ -135,8 +175,10 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     {
         if (base.Try_Interact()) return true;
         if (Is_Interact_CloseBtn()) return true;
+        if (Is_Interact_ToggleBtn()) return true;
         if (Is_Interact_ModuleInInventory()) return true;
         if (Is_Interact_ModulePickSynergy()) return true;
+        if (Is_Interact_PlayerSync()) return true;
         if (Try_Interact_Buy()) return true;
 
         return false;
@@ -164,11 +206,43 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #endregion
 
+    #region Interact (Picked Ally Or Player)
+
+    private bool Is_Interact_ToggleBtn()
+    {
+        if (CurrentBtn == ToggleBtn)
+        {
+            Set_ToggleAllyPlayerSyncPanel();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    #endregion
+
+    #region Interact (Player Sync)
+
+    private bool Is_Interact_PlayerSync()
+    {
+        if (CurrentBtn is SynergySlotEUIController ssEui && PlayerSyncSlotEUIList.Contains(ssEui))
+        {
+            Debug.Log("¸ÂÀ½");
+            SetOn_PlayerSynergyDesc(ssEui.ID);
+            return true;
+        }
+
+        return false;
+    }
+
+    #endregion
+
     #region Interact (Inven)
 
     private bool Is_Interact_ModuleInInventory()
     {
-        if (CurrentBtn is InventoryItemEUIController eui)
+        if (CurrentBtn is InventoryItemEUIController eui && eui == CurrentItemBtn)
         {
             if (PickedItemEUI != eui)
             {
@@ -250,7 +324,8 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         return isExist && 
             PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value >= _Goods &&
-            CurrentPickedProfileEUI != null;
+            CurrentPickedProfileEUI != null &&
+            PickedModulePanel_AllyGO.activeSelf;
     }
 
     private void Buy()
@@ -426,6 +501,73 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #endregion
 
+    #region Set (Picked Ally Or Player)
+
+    private void Set_ToggleAllyPlayerSyncPanel()
+    {
+        if (PickedModulePanel_AllyGO.activeSelf)
+            SetOn_ToggleAllySyncPanel(false);
+        else
+            SetOn_ToggleAllySyncPanel(true);
+    }
+
+    
+    private void SetOn_ToggleAllySyncPanel(bool _IsOn)
+    {
+        PickedModulePanel_AllyGO.SetActive(_IsOn);
+        PickedModulePanel_PlayerGO.SetActive(!_IsOn);
+    }
+
+    private void Set_PlayerSyncState()
+    {
+        SetOff_PlayerSyncState();
+
+        int orderIndex = 0;
+        Dictionary<int, int> playerSync = ModuleItemManager.Instance.Get_CurrentMainChipData();
+
+        if (playerSync.Count <= 0)
+        {
+            PlayerSynergyEmptyGO.gameObject.SetActive(true);
+            PlayerSynergyExsitGO.gameObject.SetActive(false);
+        }
+        else
+        {
+            PlayerSynergyEmptyGO.gameObject.SetActive(false);
+            PlayerSynergyExsitGO.gameObject.SetActive(true);
+
+            foreach (KeyValuePair<int, int> sync in playerSync)
+            {
+                MainChipData MDC = ModuleItemManager.Instance.Get_CorrectMainChip(sync.Key);
+                PlayerSyncSlotEUIList[orderIndex].SetOn_SynergySlot(sync.Key, MDC.ThisIcon, sync.Value);
+                orderIndex++;
+            }
+        }   
+    }
+
+    private void SetOff_PlayerSyncState()
+    {
+        for (int i = 0; i < PlayerSyncSlotEUIList.Count; i++)
+            PlayerSyncSlotEUIList[i].SetOff_SynergySlot();
+    }
+
+    #endregion
+
+    #region Set (Player Sync Desc)
+
+    private void SetOff_PlayerSynergyDesc()
+    {
+        PlayerSynergyDescGO.SetActive(false);
+    }
+
+    private void SetOn_PlayerSynergyDesc(int _ID)
+    {
+        PlayerSynergyDescGO.SetActive(true);
+
+        PlayerSynergyDescTxt.text = ResourceManager.Instance.Get_MainChipBaseDesc(_ID);
+    }
+
+    #endregion
+
     #region Get (MS)
 
     private CopyModuleState Get_CorrectMS(InventorySlotEUIController _SlotBtn)
@@ -444,11 +586,14 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         // Dur
         ThisDurEUI.Set_Dur(AllyModuleUpgradeController.UsingShop.CurrentDur);
 
-        // Inven
         Set_Inventory();
-
-        // Btn
         Set_BuyBtn();
+
+        // Toggle
+        Set_PlayerSyncState();
+        SetOn_ToggleAllySyncPanel(true);
+
+        SetOff_PlayerSynergyDesc();
     }
 
     public override void SetOff_ThisPanel()
@@ -477,9 +622,8 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         // Buy
         BuyBtnEUI.ThisTxt.text = ResourceManager.Instance.Get_StaticWord(47) + " & " + ResourceManager.Instance.Get_StaticWord(105);
 
-        // Desc
-
-
+        // Player Sync
+        PlayerSyncNameTxt.text = $"[ {ResourceManager.Instance.Get_StaticWord(113)} {ResourceManager.Instance.Get_StaticWord(50)} ]";
         base.Set_LanguageTxt();
     }
 

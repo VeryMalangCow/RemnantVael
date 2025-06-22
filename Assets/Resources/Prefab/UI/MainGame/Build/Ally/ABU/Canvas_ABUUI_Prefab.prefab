@@ -647,6 +647,10 @@ MonoBehaviour:
   SyncScrollPanel: {fileID: 6259436081182577572}
   InStateSyncParentRT: {fileID: 2034599382729010932}
   InStateSyncPrefab: {fileID: 9162822552647618182, guid: 2cc122d1a00c02d4d80dcc9f5dd92afc, type: 3}
+  PickedPanelSyncProgressSpriteList:
+  - {fileID: 1202484619, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  - {fileID: 820826029, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
+  - {fileID: -1956723818, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
   ExtraMainColorImgList:
   - {fileID: 3892319867972009670}
   - {fileID: 2284026126660960140}

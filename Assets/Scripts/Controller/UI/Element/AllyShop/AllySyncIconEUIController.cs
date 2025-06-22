@@ -10,6 +10,7 @@ public class AllySyncIconEUIController : ElementUIController
     [SerializeField] private Image ProgressImg;
     [SerializeField] private TMP_Text ProgressTxt;
     [SerializeField] private TMP_Text ProgressMaxTxt;
+    [SerializeField] private TMP_Text ThisApplyStateTxt;
 
     [HideInInspector] public RectTransform ThisRT;
 
@@ -32,10 +33,12 @@ public class AllySyncIconEUIController : ElementUIController
         MainChipData MDC = ModuleItemManager.Instance.Get_CorrectMainChip(_ID);
         
         ThisIconImg.sprite = MDC.ThisIcon;
-        ProgressImg.sprite = MainGameUIManager.Instance.AllyModuleUpgrade_UIController.PickedPanelSyncProgressSpriteList[_Amount - 1];
+        ProgressImg.sprite = MainGameUIManager.Instance.AllyModuleUpgrade_UIController.Get_SyncProgressSprite(_Amount);
         ProgressTxt.text = _Amount.ToString();
-        DevTool.Set_AlphaColor(ProgressImg, (float)_Amount / AllyController.SyncMax);
-        DevTool.Set_AlphaColor(ProgressTxt, (float)_Amount / AllyController.SyncMax);
+        float progressing = (float)_Amount / AllyController.SyncMax;
+        DevTool.Set_AlphaColor(ProgressTxt, progressing);
+
+        ThisApplyStateTxt.gameObject.SetActive(progressing >= 1 ? true : false);
     }
 
     #endregion

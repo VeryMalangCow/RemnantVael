@@ -797,6 +797,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region MainChip
 
+    public Dictionary<int, int> Get_CurrentMainChipData()
+    {
+        return MainChipAmalgamationDict;
+    }
+
     public List<int> Get_MainChipIDData(ModuleState _ModuleState)
     {
         return new List<int>
