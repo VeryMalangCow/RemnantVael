@@ -12,6 +12,9 @@ public class BuffManager : Singleton<BuffManager>
     [HideInInspector] private List<BuffController> AllBuffs = new List<BuffController>();
     [HideInInspector] public List<IWhen_GetElectricity> IWhen_GetElectricityList = new List<IWhen_GetElectricity>();
 
+    // Init
+    [HideInInspector] private List<BuffController> WhenSyncSetInit = new List<BuffController>();
+
     #endregion
 
     #region Framework
@@ -23,6 +26,10 @@ public class BuffManager : Singleton<BuffManager>
         for (int i = 0; i < bcArray.Length; i++)
         {
             AllBuffs.Add(bcArray[i]);
+            if (bcArray[i].Condition_PlayerSyncSet)
+            {
+                WhenSyncSetInit.Add(bcArray[i]);
+            }
         }
     }
 
@@ -54,6 +61,14 @@ public class BuffManager : Singleton<BuffManager>
         if (correctBuff != null) correctBuff.Reduct_Buff();
     }
 
+    // 버프 종료
+    public void End_Buff(int _ID)
+    {
+        BuffController correctBuff = Get_CorrectBuff(_ID);
+
+        if (correctBuff != null) correctBuff.End_Buff();
+    }
+
     #endregion
 
     #region Get
@@ -71,6 +86,18 @@ public class BuffManager : Singleton<BuffManager>
     public void Active_GetElectricity()
     {
         DevTool.Play_AllIWhen(IWhen_GetElectricityList);
+    }
+
+    #endregion
+
+    #region another Condition
+
+    public void Init_SyncSetBuff()
+    {
+        for (int i = 0; i < WhenSyncSetInit.Count; i++)
+        {
+            End_Buff(WhenSyncSetInit[i].Get_ID());
+        }
     }
 
     #endregion

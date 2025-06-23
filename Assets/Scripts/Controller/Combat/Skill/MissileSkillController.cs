@@ -94,7 +94,7 @@ public class MissileSkillController : ActiveSkillController
         return new BulletState(
             new CombatState(
                 new DmgState(eDamageType.Physics, PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value * 1.5f),
-                new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value),
+                new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.BuffedState),
                 new KnockbackState(true, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * 1.5f, 0.4f)),
             _CheckIsCritical: true, 
             _MuzzleSpeed: PlayerController.BaseWeapon.MuzzleSpeed.ActualState.Value * 1.5f, 

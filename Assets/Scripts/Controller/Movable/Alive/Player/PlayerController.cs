@@ -34,7 +34,6 @@ public class PlayerController : AliveObjectController
     [SerializeField] public BUState<float> NeedEP_ForSkillMultiple;
     [SerializeField] public BUState<float> WalkSpeed;
     [SerializeField] public BUState<float> WalkSpeedWhenShotMultiple;
-    //[SerializeField] public BUState<float> DecEnergyPointMultiple;
 
     [Space(10)]
     [Header("=== Visual Comp")]
@@ -152,8 +151,7 @@ public class PlayerController : AliveObjectController
     [HideInInspector] public static readonly int MaxRank = 5;
     [HideInInspector] public readonly int NeedBS_ForMakeBC = 4;
     [HideInInspector] public readonly float NeedEP_ForMakeEC = 5f;
-    //[HideInInspector] private List<float> DecEnergyPointByLevel = new List<float>() { 1f, 2f, 3.5f, 5.5f };
-
+    
     #endregion
 
     #endregion

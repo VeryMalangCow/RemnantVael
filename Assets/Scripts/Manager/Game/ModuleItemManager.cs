@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,11 +52,25 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region - Interface
 
+    // Module Base
     private List<IWhen_Hit> IWhen_HitList = new List<IWhen_Hit>();
     private List<IWhen_CriticalHit> IWhen_CriticalHitList = new List<IWhen_CriticalHit>();
     private List<IWhen_Fire> IWhen_FireList = new List<IWhen_Fire>();
 
-    private List<IWhenAlly_Fire> IWhenAlly_FireList = new List<IWhenAlly_Fire>();
+    // Sync
+    private List<IWhenSync_Start> IWhenSync_StartList = new List<IWhenSync_Start>();
+
+    private List<IWhenSync_Fire> IWhenSync_FireList = new List<IWhenSync_Fire>();
+    private List<IWhenSync_AfterFire> IWhenSync_AfterFireList = new List<IWhenSync_AfterFire>();
+
+    private List<IWhenSync_Hit> IWhenSync_HitList = new List<IWhenSync_Hit>();
+    private List<IWhenSync_CriticalHit> IWhenSync_CriticalHitList = new List<IWhenSync_CriticalHit>();
+
+    private List<IWhenSync_GetFire> IWhenSync_GetFireList = new List<IWhenSync_GetFire>();
+    private List<IWhenSync_GetCold> IWhenSync_GetColdList = new List<IWhenSync_GetCold>();
+    private List<IWhenSync_GetElectricity> IWhenSync_GetElectricityList = new List<IWhenSync_GetElectricity>();
+    private List<IWhenSync_GetCorrosion> IWhenSync_GetCorrosionList = new List<IWhenSync_GetCorrosion>();
+
 
     #endregion
 
@@ -91,8 +106,28 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         for (int i = 0; i < 2; i++)
             FusionIndex.Add(new CoupleData<int>(-1, -1));
+
+        //StartCoroutine(CorTest());
     }
 
+    private IEnumerator CorTest()
+    {
+        yield return new WaitForSeconds(1f);
+
+        SynchoronyState mcs0 = SynchoronyState.Get_AllSynchoronyState()[6];
+        mcs0.Set_State(6, 1);
+        IWhenSync_StartList.Add((IWhenSync_Start)mcs0);
+
+        SynchoronyState mcs1 = SynchoronyState.Get_AllSynchoronyState()[7];
+        mcs1.Set_State(7, 1);
+        IWhenSync_HitList.Add((IWhenSync_Hit)mcs1);
+
+        SynchoronyState mcs2 = SynchoronyState.Get_AllSynchoronyState()[8];
+        mcs2.Set_State(8, 1);
+        IWhenSync_AfterFireList.Add((IWhenSync_AfterFire)mcs2);
+
+        ActiveSync_Start();
+    }
 
     #endregion
 
@@ -109,14 +144,29 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         CurrentAllMainChipState.Clear();
 
-        IWhenAlly_FireList.Clear();
+        IWhenSync_StartList.Clear();
+
+        IWhenSync_FireList.Clear();
+        IWhenSync_AfterFireList.Clear();
+
+        IWhenSync_HitList.Clear();
+        IWhenSync_CriticalHitList.Clear();
+
+        IWhenSync_GetFireList.Clear();
+        IWhenSync_GetColdList.Clear();
+        IWhenSync_GetElectricityList.Clear();
+        IWhenSync_GetCorrosionList.Clear();
     }
 
 
     private void Reset_Interface()
     {
+        BuffManager.Instance.Init_SyncSetBuff();
+
         Reset_InterfaceMU();
         Reset_InterfaceMC();
+
+        ActiveSync_Start();
     }
 
     private void Reset_InterfaceMU()
@@ -127,18 +177,17 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         {
             CoupleData<int> colRow = EquippedIndex[i];
             if (colRow.TypeBase == -1 || colRow.TypeSpecial == -1)
-            {
                 continue; 
-            }
             else
-            {
-                ModuleState ms = Get_EquippedModuleState(i);
-
-                if (ms is IWhen_Hit iHit) DevTool.Add_InList(IWhen_HitList, iHit);
-                if (ms is IWhen_Fire iFire) DevTool.Add_InList(IWhen_FireList, iFire);
-                if (ms is IWhen_CriticalHit iCriticalHit) DevTool.Add_InList(IWhen_CriticalHitList, iCriticalHit);
-            }
+                Try_AddIWhen(Get_EquippedModuleState(i));
         }
+    }
+
+    private void Try_AddIWhen(ModuleState _MS)
+    {
+        if (_MS is IWhen_Hit iHit) DevTool.Add_InList(IWhen_HitList, iHit);
+        else if (_MS is IWhen_Fire iFire) DevTool.Add_InList(IWhen_FireList, iFire);
+        else if (_MS is IWhen_CriticalHit iCriticalHit) DevTool.Add_InList(IWhen_CriticalHitList, iCriticalHit);
     }
 
     private void Reset_InterfaceMC()
@@ -148,10 +197,23 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         Set_MainChipData();
 
         for (int i = 0; i < CurrentAllMainChipState.Count; i++)
-        {
-            if (CurrentAllMainChipState[i] is IWhenAlly_Fire iFire)
-                DevTool.Add_InList(IWhenAlly_FireList, iFire);
-        }
+            Try_AddIWhenSync(CurrentAllMainChipState[i]);
+    }
+
+    private void Try_AddIWhenSync(SynchoronyState _SS)
+    {
+        if (_SS is IWhenSync_Start iStart) DevTool.Add_InList(IWhenSync_StartList, iStart);
+
+        else if (_SS is IWhenSync_Fire iFire) DevTool.Add_InList(IWhenSync_FireList, iFire);
+        else if (_SS is IWhenSync_AfterFire iAfterFire) DevTool.Add_InList(IWhenSync_AfterFireList, iAfterFire);
+
+        else if (_SS is IWhenSync_Hit iHit) DevTool.Add_InList(IWhenSync_HitList, iHit);
+        else if (_SS is IWhenSync_CriticalHit iCriticalHit) DevTool.Add_InList(IWhenSync_CriticalHitList, iCriticalHit);
+
+        else if (_SS is IWhenSync_GetFire iGetFire) DevTool.Add_InList(IWhenSync_GetFireList, iGetFire);
+        else if (_SS is IWhenSync_GetCold iGetCold) DevTool.Add_InList(IWhenSync_GetColdList, iGetCold);
+        else if (_SS is IWhenSync_GetElectricity iGetElectricity) DevTool.Add_InList(IWhenSync_GetElectricityList, iGetElectricity);
+        else if (_SS is IWhenSync_GetCorrosion iGetCorrosion) DevTool.Add_InList(IWhenSync_GetCorrosionList, iGetCorrosion);
     }
 
     #endregion
@@ -757,41 +819,90 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public void Active_Hit(EnemyController _EC)
     {
-        if (IWhen_HitList.Count <= 0) return;
-
-        for (int i = 0; i < IWhen_HitList.Count; i++)
-            IWhen_HitList[i].Play_When(_EC);
+        Active(IWhen_HitList, _EC);
     }
 
     public void Active_CriticalHit(EnemyController _EC)
     {
-        if (IWhen_CriticalHitList.Count <= 0) return;
-
-        for (int i = 0; i < IWhen_CriticalHitList.Count; i++)
-            IWhen_CriticalHitList[i].Play_When(_EC);
+        Active(IWhen_CriticalHitList, _EC);
     }
 
     public void Active_Fire()
     {
-        if (IWhen_FireList.Count <= 0) return;
-
-        for (int i = 0; i < IWhen_FireList.Count; i++)
-            IWhen_FireList[i].Play_When();
+        Active(IWhen_FireList);
     }
 
+
+    // Base
+    private void Active<T>(List<T> _IWhenList, EnemyController _Enemy = null) where T : IWhen
+    {
+        if (_IWhenList.Count <= 0) return;
+
+        for (int i = 0; i < _IWhenList.Count; i++)
+            _IWhenList[i].Play_When(_Enemy);
+    }
 
     #endregion
 
     #region Interface (Synchrony)
 
-    public void SynchronyActive_Fire(BulletController _Bullet)
+    public void ActiveSync_Start()
     {
-        if (IWhenAlly_FireList.Count <= 0) return;
-
-        for (int i = 0; i < IWhenAlly_FireList.Count; i++)
-            IWhenAlly_FireList[i].Play_When(_Bullet);
+        ActiveSync(IWhenSync_StartList);
     }
 
+
+    public void ActiveSync_Fire(BulletController _Bullet)
+    {
+        ActiveSync(IWhenSync_FireList, null, _Bullet);
+    }
+
+    public void ActiveSync_AfterFire()
+    {
+        ActiveSync(IWhenSync_AfterFireList);
+    }
+
+
+    public void ActiveSync_Hit()
+    {
+        ActiveSync(IWhenSync_HitList);
+    }
+
+    public void ActiveSync_CriticalHit()
+    {
+        ActiveSync(IWhenSync_CriticalHitList);
+    }
+
+
+    public void ActiveSync_EnemyTakingFire(EnemyController _Enemy)
+    {
+        ActiveSync(IWhenSync_GetFireList, _Enemy);
+    }
+
+    public void ActiveSync_EnemyTakingCold(EnemyController _Enemy)
+    {
+        ActiveSync(IWhenSync_GetColdList, _Enemy);
+    }
+
+    public void ActiveSync_EnemyTakingElectricity(EnemyController _Enemy)
+    {
+        ActiveSync(IWhenSync_GetElectricityList, _Enemy);
+    }
+
+    public void ActiveSync_EnemyTakingCorrosion(EnemyController _Enemy)
+    {
+        ActiveSync(IWhenSync_GetCorrosionList, _Enemy);
+    }
+
+
+    // Base
+    private void ActiveSync<T>(List<T> _IWhenList, EnemyController _Enemy = null, BulletController _Bullet = null) where T : IWhenSync
+    {
+        if (_IWhenList.Count <= 0) return;
+
+        for (int i = 0; i < _IWhenList.Count; i++)
+            _IWhenList[i].Play_When(_Enemy, _Bullet);
+    }
 
     #endregion
 

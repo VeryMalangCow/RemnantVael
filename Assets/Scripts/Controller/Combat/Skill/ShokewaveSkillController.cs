@@ -86,7 +86,7 @@ public class ShockwaveSkillController : ActiveSkillController
                     PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value),
                 new CriticalState(
                     PlayerController.BaseWeapon.CC.ActualState.Value, 
-                    PlayerController.BaseWeapon.CD.ActualState.Value),
+                    PlayerController.BaseWeapon.CD.BuffedState),
                 new KnockbackState(
                     true, 
                     PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * (Tier.ActualState.Value + 1) * 10f,

@@ -1504,6 +1504,11 @@ public class DevTool
             _IWhenList[i].Play_When();
     }
 
+    public static T Get_SyncValue<T>(T _T1, T _T2, T _T3, int _SyncRank)
+    {
+        return new List<T> { _T1, _T2, _T3 }[_SyncRank - 1];
+    }
+
     #endregion
 
     #region About TrueShadow
@@ -1768,6 +1773,7 @@ public class CombatState : State
 
     [Space(20)]
     [Header("<><><><><> Combat State")]
+    [SerializeField] public string ThisType;
 
     [Space(10)]
     [Header("=== Damage")]
@@ -2595,7 +2601,7 @@ class ForgeInteractPanel
 #region Class : State : Player : MC
 
 [System.Serializable]
-public class SynchoronyState : IWhenSynchrony
+public class SynchoronyState : IWhenSync
 {
     #region Value
 
@@ -2607,7 +2613,7 @@ public class SynchoronyState : IWhenSynchrony
 
     #region Constructor
 
-    public void Set_State(int _ID, int _SynergyRank)
+    public virtual void Set_State(int _ID, int _SynergyRank)
     {
         ID = _ID;
         SynergyRank = _SynergyRank;
@@ -2623,6 +2629,14 @@ public class SynchoronyState : IWhenSynchrony
         return new List<SynchoronyState>()
         {
             new SynchoronyState000(),
+            new SynchoronyState001(),
+            new SynchoronyState002(),
+            new SynchoronyState003(),
+            new SynchoronyState004(),
+            new SynchoronyState005(),
+            new SynchoronyState006(),
+            new SynchoronyState007(),
+            new SynchoronyState008(),
         };
     }
 
@@ -2630,17 +2644,86 @@ public class SynchoronyState : IWhenSynchrony
 
     #region Play
 
-    public void Play_When(BulletController _Bullet = null)
+    public void Play_When(EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-        ThisActivityFuncDele(SynergyRank, _Bullet);
+        ThisActivityFuncDele(SynergyRank, _Enemy, _Bullet);
     }
 
     #endregion
 }
 
-public class SynchoronyState000 : SynchoronyState, IWhenAlly_Fire
+public class SynchoronyState000 : SynchoronyState, IWhenSync_Fire
 { public SynchoronyState000() : base() { } }
 
+public class SynchoronyState001 : SynchoronyState, IWhenSync_GetFire
+{ public SynchoronyState001() : base() { } }
+public class SynchoronyState002 : SynchoronyState, IWhenSync_GetCold
+{ public SynchoronyState002() : base() { } }
+public class SynchoronyState003 : SynchoronyState, IWhenSync_GetElectricity
+{ public SynchoronyState003() : base() { } }
+public class SynchoronyState004 : SynchoronyState, IWhenSync_GetCorrosion
+{ public SynchoronyState004() : base() { } }
+
+public class SynchoronyState005 : SynchoronyState, IWhenSync_CriticalHit
+{ 
+    public SynchoronyState005() : base() { }
+
+    public override void Set_State(int _ID, int _SynergyRank)
+    {
+        base.Set_State(_ID, _SynergyRank);
+
+        if (BuffManager.Instance.Get_CorrectBuff(1) is BuffDmgController dmgBuff)
+            dmgBuff.Set_Value(DevTool.Get_SyncValue(0.15f, 0.35f, 0.6f, _SynergyRank)); 
+    }
+}
+
+public class SynchoronyState006 : SynchoronyState, IWhenSync_Start
+{
+    public SynchoronyState006() : base() { }
+
+    public override void Set_State(int _ID, int _SynergyRank)
+    {
+        base.Set_State(_ID, _SynergyRank);
+
+        if (BuffManager.Instance.Get_CorrectBuff(8) is BuffCDController CDBuff)
+            CDBuff.Set_Value(DevTool.Get_SyncValue(0.2f, 0.5f, 1f, _SynergyRank));
+    }
+}
+
+public class SynchoronyState007 : SynchoronyState, IWhenSync_Hit
+{
+    public SynchoronyState007() : base() { }
+
+    public override void Set_State(int _ID, int _SynergyRank)
+    {
+        base.Set_State(_ID, _SynergyRank);
+
+        if (BuffManager.Instance.Get_CorrectBuff(9) is BuffRofController rofBuff)
+        {
+            rofBuff.Set_Value(DevTool.Get_SyncValue(0.04f, 0.06f, 0.08f, _SynergyRank));
+            rofBuff.Set_MaxChargeValue(DevTool.Get_SyncValue(5, 7, 10, _SynergyRank));
+        }
+    }
+}
+
+public class SynchoronyState008 : SynchoronyState, IWhenSync_AfterFire
+{
+    public SynchoronyState008() : base() { }
+
+    public override void Set_State(int _ID, int _SynergyRank)
+    {
+        base.Set_State(_ID, _SynergyRank);
+
+        if (BuffManager.Instance.Get_CorrectBuff(10) is BuffDmgController dmgBuff)
+        {
+            dmgBuff.Set_Value(DevTool.Get_SyncValue(1f, 1.5f, 2f, _SynergyRank));
+            dmgBuff.Set_MaxChargeValue(DevTool.Get_SyncValue(2, 3, 4, _SynergyRank));
+            dmgBuff.Set_CoolTimeValue(DevTool.Get_SyncValue(2f, 1.5f, 1f, _SynergyRank));
+
+            dmgBuff.Max_Buff();
+        }
+    }
+}
 
 #endregion
 
@@ -2872,6 +2955,8 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
 
     protected EffectDele FullStack = null;
 
+    private DeleEnemy IDele;
+
     #endregion
 
     #region Contruct
@@ -2884,6 +2969,25 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
         : base(_Enemy, _MaxCooltime, _GainFunc, _ReduceFunc, _IconSprite)
     {
         StatusType = _StatusType;
+
+        switch (StatusType)
+        {
+            case eStatusEffect.Flame:
+                IDele = new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingFire);
+                break;
+
+            case eStatusEffect.Cold:
+                IDele = new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingCold);
+                break;
+
+            case eStatusEffect.Electricity:
+                IDele = new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingElectricity);
+                break;
+
+            case eStatusEffect.Corrosion:
+                IDele = new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingCorrosion);
+                break;
+        }
 
         MaxStack = _MaxStack;
         CurrentStack = 0;
@@ -2898,10 +3002,15 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
 
     #region Func
 
+    public int CurrentGainStack = 0;
     // 버프 증가
     public override void Gain_Stack(int _GainAmount, bool _ShowTxt)
     {
         CurrentStack = System.Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
+
+        // 화염 속성을 얻을 시 (MC)
+        CurrentGainStack = _GainAmount;
+        IDele(Enemy);
 
         if (IsResetWhenGain)
         {
@@ -2914,6 +3023,11 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
         {
             FullStack();
         }
+    }
+
+    public void ReGain_Stack()
+    {
+        CurrentStack = System.Math.Clamp(CurrentStack + CurrentGainStack, 0, MaxStack);
     }
 
     // 버프 감소
@@ -2958,7 +3072,7 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
         if (BuffIconUI != null)
         {
             base.Caculate_Cooltime(_DeltaTime);
-            BuffIconUI.Set_Icon(CurrentStack);
+            BuffIconUI.Set_Icon(CurrentStack, MaxStack);
         }
 
     }
@@ -3152,7 +3266,7 @@ public class StatusEffect_Permanent_WithAmount : StatusEffect_Permanent
         CurrentStack = System.Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
 
         base.Gain_Stack(_GainAmount, _ShowTxt);
-        BuffIconUI.Set_Icon(CurrentStack);
+        BuffIconUI.Set_Icon(CurrentStack, MaxStack);
 
         if (CurrentStack >= MaxStack && FullStack != null)
         {
@@ -4207,18 +4321,23 @@ public interface IInteract
 
 #region Interface : When (Synchrony)
 
-public interface IWhenSynchrony
+public interface IWhenSync
 {
-    public abstract void Play_When(BulletController _Bullet = null);
+    public abstract void Play_When(EnemyController _Enemy = null, BulletController _Bullet = null);
 }
 
-public interface IWhenAlly_Fire : IWhenSynchrony { }
+public interface IWhenSync_Start : IWhenSync { }
 
-public interface IWhenAlly_Hit : IWhenSynchrony { }
+public interface IWhenSync_Fire : IWhenSync { }
+public interface IWhenSync_AfterFire : IWhenSync { }
 
-public interface IWhenAlly_CriticalHit : IWhenSynchrony { }
+public interface IWhenSync_Hit : IWhenSync { }
+public interface IWhenSync_CriticalHit : IWhenSync { }
 
-public interface IWhenAlly_GetElectricity : IWhenSynchrony { }
+public interface IWhenSync_GetFire : IWhenSync { }
+public interface IWhenSync_GetCold : IWhenSync { }
+public interface IWhenSync_GetElectricity : IWhenSync { }
+public interface IWhenSync_GetCorrosion : IWhenSync { }
 
 
 #endregion
@@ -4252,6 +4371,10 @@ public delegate void Dele_RefT_T<T>(ref T _Item1, T _Item2);
 
 public delegate void Dele_T_U<T, U>(T _Item1, U _Item2);
 public delegate void Dele_RefT_U<T, U>(ref T _Item1, U _Item2);
+
+
+
+public delegate void DeleEnemy(EnemyController _Enemy);
 
 #endregion
 

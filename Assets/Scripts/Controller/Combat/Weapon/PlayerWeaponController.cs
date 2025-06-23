@@ -72,7 +72,7 @@ public class PlayerWeaponController : PlayerSolarController
     {
         if (CurrentDelayROF < 1f)
         {
-            CurrentDelayROF += _DeltaTime * ROF.ActualState.Value;
+            CurrentDelayROF += _DeltaTime * ROF.BuffedState;
             IsShooting = true;
         }
         else
@@ -92,7 +92,7 @@ public class PlayerWeaponController : PlayerSolarController
         if (Check_Fire())
         {
             Play_Fire(PoolingManager.Instance.Get_OP_PlayerBullet(BulletSpawnTFList.Count));
-            PlayerManager.Instance.CameraController.Play_ShotAnim(1 / ROF.ActualState.Value, PlayerController.BaseWeapon.BaseDamage.BuffedState);
+            PlayerManager.Instance.CameraController.Play_ShotAnim(1 / ROF.BuffedState, PlayerController.BaseWeapon.BaseDamage.BuffedState);
             ModuleItemManager.Instance.Active_Fire();
         }
     }
@@ -109,7 +109,7 @@ public class PlayerWeaponController : PlayerSolarController
         return false;
     }
 
-    // 사격 (한발)
+    // 사격 (발사)
     protected void Play_Fire(List<PlayerBulletController> _BulletList)
     {
         float randomAngle = DevTool.Get_RandomValueBaseZero(100 - AccuracyRate.ActualState.Value);
@@ -122,15 +122,18 @@ public class PlayerWeaponController : PlayerSolarController
         InputManager.Instance.AimController.Set_ActivingAttack(true);
         CurrentDelayROF -= 1;
 
+        // 모듈 싱크 효과 => 사격 후
+        ModuleItemManager.Instance.ActiveSync_AfterFire();
+
         // Tween
-        this.transform.DOShakePosition(1f / ROF.ActualState.Value, 0.05f, 20, 90, false, true);
+        this.transform.DOShakePosition(1f / ROF.BuffedState, 0.05f, 20, 90, false, true);
 
         // Audio
         SoundManager.Instance.Play_2D_SFX(ThisAudioSource,
             "Player" + DevTool.Get_LengthString(PlayerController.Get_ID(), 2) + "_Shot");
     }
 
-    // 사격
+    // 사격 (한발마다)
     private void Play_Fire(PlayerBulletController _Bullet, DepthController _TargetSpawnDepth, float _SpreadAngle)
     {
         Vector2 dir = DevTool.Get_MinFireDir(_TargetSpawnDepth.transform.position);
@@ -144,7 +147,7 @@ public class PlayerWeaponController : PlayerSolarController
             _State_Effect: null,
             _TargetSpawnDepth.TargetRange);
 
-        ModuleItemManager.Instance.SynchronyActive_Fire(_Bullet);
+        ModuleItemManager.Instance.ActiveSync_Fire(_Bullet);
 
         // 폭발 이펙트   
         UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
@@ -165,7 +168,7 @@ public class PlayerWeaponController : PlayerSolarController
         return new BulletState(
             new CombatState(
                 new DmgState(DamageType, PlayerController.BaseWeapon.BaseDamage.BuffedState),
-                new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.ActualState.Value),
+                new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.BuffedState),
                 new KnockbackState(DamageType == eDamageType.Physics ? true : false, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value, 0.2f)),
             _CheckIsCritical: true,
             _MuzzleSpeed: MuzzleSpeed.ActualState.Value,

@@ -50,10 +50,10 @@ public class BuffIconEUIController : ElementUIController
     }
 
 
-    public void Set_Icon(Sprite _Sprite, int _BuffAmount)
+    public void Set_Icon(Sprite _Sprite, int _BuffAmount, int _MaxBuffAmount)
     {
         Set_Icon(_Sprite);
-        Set_Icon(_BuffAmount);
+        Set_Icon(_BuffAmount, _MaxBuffAmount);
     }
 
     public void Set_Icon(Sprite _Sprite)
@@ -61,9 +61,9 @@ public class BuffIconEUIController : ElementUIController
         ThisImg.sprite = _Sprite;
     }
 
-    public void Set_Icon(int _BuffAmount)
+    public void Set_Icon(int _BuffAmount, int _MaxBuffAmount)
     {
-        if (_BuffAmount > 1)
+        if (_BuffAmount > 0 && _MaxBuffAmount != 1)
         {
             ThisTxt.gameObject.SetActive(true);
             ThisTxt.text = _BuffAmount.ToString();

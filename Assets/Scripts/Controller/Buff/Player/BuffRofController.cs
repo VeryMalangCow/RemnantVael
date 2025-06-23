@@ -1,12 +1,12 @@
 using UniRx;
 using UnityEngine;
 
-public class BuffDmgController : BuffController
+public class BuffRofController : BuffController
 {
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Dmg Add")]
+    [Header("<><><><><> Rof Add")]
 
     [Space(10)]
     [SerializeField] private BuffState<float> Multiple = new BuffState<float>();
@@ -14,7 +14,6 @@ public class BuffDmgController : BuffController
     #endregion
 
     #region Framework
-
 
     protected override void Start()
     {
@@ -27,40 +26,31 @@ public class BuffDmgController : BuffController
             });
     }
 
-
     #endregion
 
     #region Buff
-
-    public override void Max_Buff()
-    {
-        base.Max_Buff();
-
-        PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.Gain_Buff(Multiple);
-        PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.Set_BuffedState();
-    }
 
     public override void Gain_Buff()
     {
         base.Gain_Buff();
 
-        PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.Gain_Buff(Multiple); 
-        PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.Set_BuffedState();
+        PlayerManager.Instance.PlayerController.BaseWeapon.ROF.Gain_Buff(Multiple);
+        PlayerManager.Instance.PlayerController.BaseWeapon.ROF.Set_BuffedState();
     }
 
     public override void Reduct_Buff()
     {
         base.Reduct_Buff();
 
-        PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.Set_BuffedState();
+        PlayerManager.Instance.PlayerController.BaseWeapon.ROF.Set_BuffedState();
     }
 
     public override void End_Buff()
     {
         base.End_Buff();
 
-        PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.Lose_Buff(Multiple);
-        PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.Set_BuffedState();
+        PlayerManager.Instance.PlayerController.BaseWeapon.ROF.Lose_Buff(Multiple);
+        PlayerManager.Instance.PlayerController.BaseWeapon.ROF.Set_BuffedState();
     }
 
     #endregion
@@ -75,11 +65,6 @@ public class BuffDmgController : BuffController
     public void Set_MaxChargeValue(int _Value)
     {
         MaxBuffCharge = _Value;
-    }
-
-    public void Set_CoolTimeValue(float _Value)
-    {
-        MaxDurTime = _Value;
     }
 
     #endregion

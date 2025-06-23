@@ -398,38 +398,16 @@ public class EnemyController : NavObjectController
 
     #endregion
 
-    #region Damaged
+    #region Damaged (Type)
 
     // 데미지, 넉백, 크리티컬, 모듈 호과 등
     private void Take_Damaged(CombatState _State_Combat, bool _IsCritical, Vector2 _DirKB)
     {
-        Debug.Log("속성 테스트");
-/*
-        int a = Random.Range(0, 4);
-        switch (a)
-        {
-            case 0:
-                Try_GainStack(true, BuffController.FlameStack);
-                break;
-
-            case 1:
-                Try_GainStack(true, BuffController.ColdStack);
-                break;
-
-            case 2:
-                Try_GainStack(true, BuffController.ElectricityStack);
-                break;
-
-            case 3:
-                Try_GainStack(true, BuffController.CorrosionStack);
-                break;
-        }
-*/
-
         float actualDmg = _State_Combat.DmgState.Dmg;
 
         // INTERFACE: 맞을 때 효과 
-        ModuleItemManager.Instance.Active_Hit(this); 
+        ModuleItemManager.Instance.Active_Hit(this);
+        ModuleItemManager.Instance.ActiveSync_Hit();
 
         // KB
         if (_State_Combat.KnockbackState.CanKB)
@@ -441,6 +419,7 @@ public class EnemyController : NavObjectController
         {
             actualDmg *= _State_Combat.CriticalState.CD;
             ModuleItemManager.Instance.Active_CriticalHit(this); // INTERFACE: 치명타를 맞을 때 효과 
+            ModuleItemManager.Instance.ActiveSync_CriticalHit();
         }
 
         // 데미지 구현 (Dmg: 적의 부식 디버프 계산)
@@ -454,6 +433,10 @@ public class EnemyController : NavObjectController
         else
         { SoundManager.Instance.Play_2D_SFX("Enemy_Hitted"); }
     }
+
+    #endregion
+
+    #region Damaged (Caculate)
 
     // 오직 데미지만을 계산
     public void Take_Damage(float _DmgValue, eDamageType _DmgType, bool _IsCritical = false)

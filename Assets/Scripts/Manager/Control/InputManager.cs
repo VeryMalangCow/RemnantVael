@@ -588,7 +588,6 @@ public class InputManager : Singleton<InputManager>
 
     private void Input_AMUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
-
         if (_InputValue.ReadValueAsButton())
             MainGameUIManager.Instance.AllyModuleUpgrade_UIController.SetOff_ThisPanel();
     }

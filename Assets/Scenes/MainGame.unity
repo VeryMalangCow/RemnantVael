@@ -1465,7 +1465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 848216773187047800, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
       propertyPath: MaxHP
-      value: 10
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5203,6 +5203,9 @@ GameObject:
   - component: {fileID: 1430576412}
   - component: {fileID: 1430576409}
   - component: {fileID: 1430576413}
+  - component: {fileID: 1430576415}
+  - component: {fileID: 1430576414}
+  - component: {fileID: 1430576416}
   m_Layer: 0
   m_Name: BuffManager
   m_TagString: Untagged
@@ -5247,6 +5250,7 @@ MonoBehaviour:
   MaxDurTime: 0
   InitializationWhenGain: 1
   InitializationWhenLoss: 0
+  Condition_PlayerSyncSet: 0
   ThisIconSprite: {fileID: -154321793, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   ThisShield:
     ShieldID: Shockwave's Buff
@@ -5278,19 +5282,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 1
-  BuffName: Test Attack Buff
-  MaxBuffCharge: 10
+  BuffName: PlayerSync_005
+  MaxBuffCharge: 1
   GainCharge: 1
   ReductionCharge: 1
   IsIncreaseByTime: 0
   Condition_DurTimer: 1
-  MaxDurTime: 3
+  MaxDurTime: 5
   InitializationWhenGain: 1
   InitializationWhenLoss: 0
+  Condition_PlayerSyncSet: 0
   ThisIconSprite: {fileID: -1956518223, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   Multiple:
-    BuffID: testDmgBuff
-    BaseValue: 0.05
+    BuffID: PlayerSync_005
+    BaseValue: 0.15
     ActualValue: 0
 --- !u!114 &1430576408
 MonoBehaviour:
@@ -5314,6 +5319,7 @@ MonoBehaviour:
   MaxDurTime: 2
   InitializationWhenGain: 0
   InitializationWhenLoss: 0
+  Condition_PlayerSyncSet: 0
   ThisIconSprite: {fileID: 579021722, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   MaxHpPercent: 0
   ConstPoint: 0
@@ -5331,7 +5337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 6
-  BuffName: 
+  BuffName: TestTickHeal
   MaxBuffCharge: 1
   GainCharge: 1
   ReductionCharge: 1
@@ -5340,7 +5346,8 @@ MonoBehaviour:
   MaxDurTime: 1
   InitializationWhenGain: 0
   InitializationWhenLoss: 0
-  ThisIconSprite: {fileID: -776551882, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  Condition_PlayerSyncSet: 0
+  ThisIconSprite: {fileID: -1489417253, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   MaxHpPercent: 10
   ConstPoint: 0
   StackHeal: 0
@@ -5366,6 +5373,7 @@ MonoBehaviour:
   MaxDurTime: 1
   InitializationWhenGain: 0
   InitializationWhenLoss: 0
+  Condition_PlayerSyncSet: 0
   ThisIconSprite: {fileID: -1972510542, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   Multiple:
     BuffID: cold
@@ -5393,6 +5401,7 @@ MonoBehaviour:
   MaxDurTime: 5
   InitializationWhenGain: 0
   InitializationWhenLoss: 0
+  Condition_PlayerSyncSet: 0
   ThisIconSprite: {fileID: 1663980525, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   MaxHpPercent: 0
   ConstPoint: 0
@@ -5419,6 +5428,7 @@ MonoBehaviour:
   MaxDurTime: 5
   InitializationWhenGain: 1
   InitializationWhenLoss: 0
+  Condition_PlayerSyncSet: 0
   ThisIconSprite: {fileID: -776551882, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   Multiple:
     BuffID: Corrosion
@@ -5446,12 +5456,97 @@ MonoBehaviour:
   MaxDurTime: 0
   InitializationWhenGain: 1
   InitializationWhenLoss: 0
-  ThisIconSprite: {fileID: -154321793, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  Condition_PlayerSyncSet: 0
+  ThisIconSprite: {fileID: 682448351, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   ThisShield:
     ShieldID: Shockwave's Buff
     ShieldMaxValue: 20
     ShieldCurrentValue: 0
   ActivingBuff: []
+--- !u!114 &1430576414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f21b61d886fa3a542a391977871329af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 9
+  BuffName: PlayerSync_007
+  MaxBuffCharge: 5
+  GainCharge: 1
+  ReductionCharge: 100
+  IsIncreaseByTime: 0
+  Condition_DurTimer: 1
+  MaxDurTime: 3
+  InitializationWhenGain: 1
+  InitializationWhenLoss: 0
+  Condition_PlayerSyncSet: 0
+  ThisIconSprite: {fileID: 397062668, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  Multiple:
+    BuffID: PlayerSync_007
+    BaseValue: 0.04
+    ActualValue: 0
+--- !u!114 &1430576415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d719ba7ddb4ab40acba08f6a9e2271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 8
+  BuffName: PlayerSync_006
+  MaxBuffCharge: 1
+  GainCharge: 1
+  ReductionCharge: 1
+  IsIncreaseByTime: 0
+  Condition_DurTimer: 0
+  MaxDurTime: 1
+  InitializationWhenGain: 1
+  InitializationWhenLoss: 0
+  Condition_PlayerSyncSet: 1
+  ThisIconSprite: {fileID: 456725532, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  Multiple:
+    BuffID: PlayerSync_006
+    BaseValue: 0.2
+    ActualValue: 0
+--- !u!114 &1430576416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c158bf245239c1847956c904ee8aff75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 10
+  BuffName: PlayerSync_008
+  MaxBuffCharge: 2
+  GainCharge: 1
+  ReductionCharge: 100
+  IsIncreaseByTime: 1
+  Condition_DurTimer: 1
+  MaxDurTime: 2
+  InitializationWhenGain: 0
+  InitializationWhenLoss: 1
+  Condition_PlayerSyncSet: 1
+  ThisIconSprite: {fileID: -2123982221, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  Multiple:
+    BuffID: PlayerSync_008
+    BaseValue: 1
+    ActualValue: 0
 --- !u!1 &1475998875
 GameObject:
   m_ObjectHideFlags: 0

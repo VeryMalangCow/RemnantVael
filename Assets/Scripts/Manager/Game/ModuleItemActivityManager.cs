@@ -9,7 +9,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     #region Value
 
     public delegate void ActivityFuncDele_MI(int _Rank, EnemyController _EC = null);
-    public delegate void ActivityFuncDele_MC(int _Rank, BulletController _Bullet = null);
+    public delegate void ActivityFuncDele_MC(int _Rank, EnemyController _EC = null, BulletController _Bullet = null);
 
     [HideInInspector] public List<ActivityFuncDele_MI> ActivityMIFuncList = new List<ActivityFuncDele_MI>();
     [HideInInspector] public List<ActivityFuncDele_MC> ActivityMCFuncList = new List<ActivityFuncDele_MC>();
@@ -90,9 +90,10 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             .Where(method =>
                 method.Name.StartsWith(_MethodPrefix) &&
                 method.ReturnType == typeof(void) &&
-                method.GetParameters().Length == 2 &&
+                method.GetParameters().Length == 3 &&
                 method.GetParameters()[0].ParameterType == typeof(int) &&
-                method.GetParameters()[1].ParameterType == typeof(BulletController))
+                method.GetParameters()[1].ParameterType == typeof(EnemyController) &&
+                method.GetParameters()[2].ParameterType == typeof(BulletController))
             .OrderBy(method =>
             {
                 string numberPart = method.Name.Substring(_MethodPrefix.Length);
@@ -176,6 +177,66 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     #endregion
 
+
+    #region Func (Synchrony)
+
+    // 유도
+    private void Activity_MC_000(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    {
+        _Bullet.Set_Guided(true, _Rank);
+    }
+
+    // 화염
+    private void Activity_MC_001(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    {
+        Activity_InflictStatusOneMoreEffect(eStatusEffect.Flame, _Rank, _Enemy);
+    }
+
+    // 냉기
+    private void Activity_MC_002(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    {
+        Activity_InflictStatusOneMoreEffect(eStatusEffect.Cold, _Rank, _Enemy);
+    }
+
+    // 전기
+    private void Activity_MC_003(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    {
+        Activity_InflictStatusOneMoreEffect(eStatusEffect.Electricity, _Rank, _Enemy);
+    }
+
+    // 부식
+    private void Activity_MC_004(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    {
+        Activity_InflictStatusOneMoreEffect(eStatusEffect.Corrosion, _Rank, _Enemy);
+    }
+
+    // 치명타 발생 => 공격력 버프
+    private void Activity_MC_005(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    {
+        BuffManager.Instance.Gain_Buff(1);
+    }
+
+    // 치명타 배수 버프
+    private void Activity_MC_006(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    {
+        BuffManager.Instance.Gain_Buff(8);
+    }
+
+    // 기본 공격 적중 => 공속 버프
+    private void Activity_MC_007(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    {
+        BuffManager.Instance.Gain_Buff(9);
+    }
+
+    // 공격 일정 시간 하지 않으면 => 공격력 버프
+    private void Activity_MC_008(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    {
+        BuffManager.Instance.Reduce_Buff(10);
+    }
+
+    #endregion
+
+
     #region Unique (MI)
 
     // 데미지 타입을 통해서, 유도탄을 발사하는 함수
@@ -213,38 +274,54 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     // 상태이상을 적에게 가하는 함수
     private void Activity_InflictStatusEffect(eStatusEffect _Kind, int _GainAmount, EnemyController _Enemy)
     {
-        if (_Kind == eStatusEffect.Flame)
+        switch (_Kind)
         {
-            _Enemy.BuffController.FlameStack.Gain_Stack(_GainAmount, true);
-        }
-        else if (_Kind == eStatusEffect.Cold)
-        {
-            _Enemy.BuffController.ColdStack.Gain_Stack(_GainAmount, true);
-        }
-        else if (_Kind == eStatusEffect.Electricity)
-        {
-            _Enemy.BuffController.ElectricityStack.Gain_Stack(_GainAmount, true);
-        }
-        else
-        {
-            _Enemy.BuffController.CorrosionStack.Gain_Stack(_GainAmount, true);
+            case eStatusEffect.Flame: 
+                _Enemy.BuffController.FlameStack.Gain_Stack(_GainAmount, true);
+                return;
+
+            case eStatusEffect.Cold:
+                _Enemy.BuffController.ColdStack.Gain_Stack(_GainAmount, true);
+                return;
+
+            case eStatusEffect.Electricity:
+                _Enemy.BuffController.ElectricityStack.Gain_Stack(_GainAmount, true);
+                return;
+
+            case eStatusEffect.Corrosion:
+                _Enemy.BuffController.CorrosionStack.Gain_Stack(_GainAmount, true);
+                return;
+
+            default: return;
         }
     }
 
-    #endregion
-
-    #region Func (Synchrony)
-
-    // 유도
-    private void Activity_MC_000(int _Rank,  BulletController _Bullet = null)
+    // 상태이상을 한번 더 가하는 함수
+    private void Activity_InflictStatusOneMoreEffect(eStatusEffect _Kind, int _Rank, EnemyController _Enemy)
     {
-        _Bullet.Set_Guided(true, _Rank);
-    }
+        if (UnityEngine.Random.Range(0, 100) < new List<int>() { 25, 60, 100 }[_Rank - 1])
+        {
+            switch (_Kind)
+            {
+                case eStatusEffect.Flame:
+                    _Enemy.BuffController.FlameStack.ReGain_Stack();
+                    return;
 
-    // 화염
-    private void Activity_MC_001(int _Rank, BulletController _Bullet = null)
-    {
+                case eStatusEffect.Cold:
+                    _Enemy.BuffController.ColdStack.ReGain_Stack();
+                    return;
 
+                case eStatusEffect.Electricity:
+                    _Enemy.BuffController.ElectricityStack.ReGain_Stack();
+                    return;
+
+                case eStatusEffect.Corrosion:
+                    _Enemy.BuffController.CorrosionStack.ReGain_Stack();
+                    return;
+
+                default: return;
+            }
+        }
     }
 
     #endregion

@@ -242,7 +242,7 @@ public class EnemyBuffController : MonoBehaviour
 
         for (int i = 0; i < targetEnemies.Count; i++)
         {
-            targetEnemies[i].Take_Damage(dmg, eDamageType.Energy);
+            targetEnemies[i].Take_Damage(dmg, eDamageType.Physics);
         }
 
 

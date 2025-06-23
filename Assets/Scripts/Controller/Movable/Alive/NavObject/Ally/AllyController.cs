@@ -14,7 +14,6 @@ public class AllyController : NavObjectController
 
     [Space(20)]
     [Header("<><><><><> Ally")]
-    [SerializeField] private int AllyTypeIndex = 0;
 
     [Space(10)]
     [Header("=== Value")]
