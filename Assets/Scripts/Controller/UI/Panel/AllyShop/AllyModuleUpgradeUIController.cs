@@ -37,7 +37,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     [Header("* On")]
     [SerializeField] private GameObject PlayerSynergyExsitGO;
     [SerializeField] private Transform PlayerSynergySlotParentTF;
-    [SerializeField] private GameObject PlayerSynergyDescGO;
+    [SerializeField] private Image PlayerSynergyDescImg;
     [SerializeField] private TMP_Text PlayerSynergyDescTxt;
 
     [Space(5)]
@@ -556,13 +556,14 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private void SetOff_PlayerSynergyDesc()
     {
-        PlayerSynergyDescGO.SetActive(false);
+        PlayerSynergyDescImg.gameObject.SetActive(false);
     }
 
     private void SetOn_PlayerSynergyDesc(int _ID)
     {
-        PlayerSynergyDescGO.SetActive(true);
+        PlayerSynergyDescImg.gameObject.SetActive(true);
 
+        PlayerSynergyDescImg.sprite = ModuleItemManager.Instance.Get_CorrectMainChip(_ID).ThisIcon;
         PlayerSynergyDescTxt.text = ResourceManager.Instance.Get_MainChipBaseDesc(_ID);
     }
 

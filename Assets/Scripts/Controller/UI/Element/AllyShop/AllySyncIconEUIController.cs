@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,11 +7,24 @@ public class AllySyncIconEUIController : ElementUIController
 {
     #region Value
 
+    [Space(10)]
+    [Header("=== Comp")]
+    [SerializeField] public int ID;
     [SerializeField] private Image ThisIconImg;
+
+    [Space(5)]
+    [Header("-- Progress")]
     [SerializeField] private Image ProgressImg;
     [SerializeField] private TMP_Text ProgressTxt;
     [SerializeField] private TMP_Text ProgressMaxTxt;
-    [SerializeField] private TMP_Text ThisApplyStateTxt;
+
+    [Space(5)]
+    [Header("-- State")]
+    [SerializeField] private Image ThisApplyStateImg;
+    [SerializeField] private Image ThisConnectStateImg;
+
+    [Space(2)]
+    [SerializeField] private CanvasGroup CompletelyCG;
 
     [HideInInspector] public RectTransform ThisRT;
 
@@ -22,6 +36,15 @@ public class AllySyncIconEUIController : ElementUIController
     {
         ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
         ProgressMaxTxt.text = $"/{AllyController.SyncMax}";
+        ThisConnectStateImg.color = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+        Set_ConnectUI(false);
+
+        List<Image> list = DevTool.Get_ChildList<Image>(CompletelyCG.gameObject.transform);
+        for (int i = 0; i < list.Count; i++)
+        {
+            list[i].color = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+            DevTool.Get_AlphaColor(list[i], 0.5f);
+        } 
     }
 
     #endregion
@@ -30,6 +53,8 @@ public class AllySyncIconEUIController : ElementUIController
 
     public void Set_UI(int _ID, int _Amount)
     {
+        ID = _ID;
+
         MainChipData MDC = ModuleItemManager.Instance.Get_CorrectMainChip(_ID);
         
         ThisIconImg.sprite = MDC.ThisIcon;
@@ -38,7 +63,22 @@ public class AllySyncIconEUIController : ElementUIController
         float progressing = (float)_Amount / AllyController.SyncMax;
         DevTool.Set_AlphaColor(ProgressTxt, progressing);
 
-        ThisApplyStateTxt.gameObject.SetActive(progressing >= 1 ? true : false);
+        ThisApplyStateImg.gameObject.SetActive(progressing >= 1 ? true : false);
+        Set_Completely();
+    }
+
+    public void Set_ConnectUI(bool _IsConnect)
+    {
+        ThisConnectStateImg.gameObject.SetActive(_IsConnect);
+        Set_Completely();
+    }
+
+    private void Set_Completely()
+    {
+        if (ThisApplyStateImg.gameObject.activeSelf && ThisConnectStateImg.gameObject.activeSelf)
+            CompletelyCG.gameObject.SetActive(true);
+        else
+            CompletelyCG.gameObject.SetActive(false);
     }
 
     #endregion

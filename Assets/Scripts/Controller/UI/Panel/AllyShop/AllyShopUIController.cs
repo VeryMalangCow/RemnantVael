@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -105,6 +106,7 @@ public class AllyShopUIController : ShopUIController
 
     // In State - Sync
     [HideInInspector] private List<AllySyncIconEUIController> InStateSyncEUIList;
+    [HideInInspector] private List<AllySyncIconEUIController> InStateSyncActingEUIList;
     [HideInInspector] private static readonly float InStateSyncEUI_BaseX = 74f;
     [HideInInspector] private static readonly float InStateSyncEUI_BaseY = -116;
     [HideInInspector] private static readonly float InStateSyncEUI_IntervalX = 108;
@@ -160,6 +162,7 @@ public class AllyShopUIController : ShopUIController
 
         // In State - Sync
         InStateSyncEUIList = new List<AllySyncIconEUIController>();
+        InStateSyncActingEUIList = new List<AllySyncIconEUIController>();
     }
 
     private void Offset_ColorComp()
@@ -466,7 +469,7 @@ public class AllyShopUIController : ShopUIController
         // 모든 Tuner EUI 끄기
         SetOff_AllTunerEUI();
 
-        // 튜너에 맞추어 키기
+        // Tuner에 맞추어 키기
         SetOn_TunerEUI(tunerData);
 
         float scrollY = Mathf.Max(
@@ -519,17 +522,32 @@ public class AllyShopUIController : ShopUIController
                 InStateSyncEUIList.Add(Gen_SyncEUI());
         }
 
-        // 모든 Tuner EUI 끄기
+        // 모든 Sync EUI 끄기
         SetOff_AllSyncEUI();
 
-        // 튜너에 맞추어 키기
+        // Sync에 맞추어 키기
         SetOn_SyncEUI(syncData, out float lastY);
 
         float scrollY = Mathf.Max(
             ProfileDetailExtraRT_ScrollMin,
             lastY + 100f);
         
-        TunerScrollPanel.Set_ScrollHeight(scrollY);
+        SyncScrollPanel.Set_ScrollHeight(scrollY);
+
+        // 모든 Sync UI의 연결로서 활성화되었는지
+        Set_AllySync_ApplyState();
+    }
+
+    private void Set_AllySync_ApplyState()
+    {
+        if (CurrentPickedAlly == null) return;
+
+        List<int> connectIdList = CurrentPickedAlly.Get_ConnectingSync();
+        for (int i = 0; i < InStateSyncActingEUIList.Count; i++)
+        {
+            bool isOn = connectIdList.Contains(InStateSyncActingEUIList[i].ID);
+            InStateSyncActingEUIList[i].Set_ConnectUI(isOn);
+        }
     }
 
     private AllySyncIconEUIController Gen_SyncEUI()
@@ -550,6 +568,8 @@ public class AllyShopUIController : ShopUIController
 
     private void SetOn_SyncEUI(Dictionary<int, int> _Data, out float _LastY)
     {
+        InStateSyncActingEUIList.Clear();
+
         int currentOrder = 0;
         _LastY = 0;
         foreach (KeyValuePair<int, int> value in _Data)
@@ -562,7 +582,9 @@ public class AllyShopUIController : ShopUIController
                 InStateSyncEUI_BaseX + (x * InStateSyncEUI_IntervalX),
                 InStateSyncEUI_BaseY + (y * InStateSyncEUI_IntervalY));
             _LastY = InStateSyncEUIList[currentOrder].ThisRT.anchoredPosition.y;
+
             InStateSyncEUIList[currentOrder].Set_UI(value.Key, value.Value);
+            InStateSyncActingEUIList.Add(InStateSyncEUIList[currentOrder]);
             currentOrder++;
         }
     }

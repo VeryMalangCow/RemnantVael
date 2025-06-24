@@ -1932,7 +1932,7 @@ TextureImporter:
         width: 7
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1940,6 +1940,48 @@ TextureImporter:
       bones: []
       spriteID: 0d4266bd050cc824889c62e7e703cd07
       internalID: 114152918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_AllySync_Connect
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 499
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85e91564ff326454fa3ac3c4df733938
+      internalID: 2033871001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_AllySync_Apply
+      rect:
+        serializedVersion: 2
+        x: 497
+        y: 493
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16489ddb1b172164fa4a143f4a7269d5
+      internalID: -1896784765
       vertices: []
       indices: 
       edges: []
@@ -1957,6 +1999,8 @@ TextureImporter:
     nameFileIdTable:
       ModuleUI_000_40: -1610263300
       ModuleUI_000_41: 1572026621
+      ModuleUI_AllySync_Apply: -1896784765
+      ModuleUI_AllySync_Connect: 2033871001
       ModuleUI_ArrowDown: -1354965341
       ModuleUI_ArrowUp: -779374344
       ModuleUI_Arrow_RD: -1961704668

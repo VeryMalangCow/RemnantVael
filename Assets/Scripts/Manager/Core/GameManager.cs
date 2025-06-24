@@ -2605,8 +2605,8 @@ public class SynchoronyState : IWhenSync
 {
     #region Value
 
-    [SerializeField] private int ID = 0;
-    [SerializeField] private int SynergyRank = 0;
+    [SerializeField] public int ID = 0;
+    [SerializeField] public int SynergyRank = 0;
     protected ModuleItemActivityManager.ActivityFuncDele_MC ThisActivityFuncDele;
 
     #endregion
@@ -4319,6 +4319,23 @@ public interface IInteract
 
 #endregion
 
+#region Interface : When (Base)
+
+public interface IWhen
+{
+    public abstract void Play_When(EnemyController _EC = null);
+}
+
+public interface IWhen_Fire : IWhen { }
+
+public interface IWhen_Hit : IWhen { }
+
+public interface IWhen_CriticalHit : IWhen { }
+
+public interface IWhen_GetElectricity : IWhen { }
+
+#endregion
+
 #region Interface : When (Synchrony)
 
 public interface IWhenSync
@@ -4339,25 +4356,29 @@ public interface IWhenSync_GetCold : IWhenSync { }
 public interface IWhenSync_GetElectricity : IWhenSync { }
 public interface IWhenSync_GetCorrosion : IWhenSync { }
 
-
 #endregion
 
-#region Interface : When (Base)
+#region Interface : When (Ally Sync)
 
-public interface IWhen
+public interface IWhenAlly
 {
-    public abstract void Play_When(EnemyController _EC = null);
+    public abstract void Play_When(EnemyController _Enemy = null, BulletController _Bullet = null);
 }
 
-public interface IWhen_Fire : IWhen { }
+public interface IWhenAlly_Start : IWhenAlly { }
 
-public interface IWhen_Hit : IWhen { }
+public interface IWhenAlly_Fire : IWhenAlly { }
+public interface IWhenAlly_AfterFire : IWhenAlly { }
 
-public interface IWhen_CriticalHit : IWhen { }
+public interface IWhenAlly_Hit : IWhenAlly { }
+public interface IWhenAlly_CriticalHit : IWhenAlly { }
 
-public interface IWhen_GetElectricity : IWhen { }
-
+public interface IWhenAlly_GetFire : IWhenAlly { }
+public interface IWhenAlly_GetCold : IWhenAlly { }
+public interface IWhenAlly_GetElectricity : IWhenAlly { }
+public interface IWhenAlly_GetCorrosion : IWhenAlly { }
 #endregion
+
 
 #endregion
 

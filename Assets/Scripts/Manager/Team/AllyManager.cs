@@ -103,8 +103,32 @@ public class AllyManager : Singleton<AllyManager>
 
     #endregion
 
+    #region State
+
+    public void Set_StateDmg(float _DmgMultiple)
+    {
+        AllyState.Dmg.Value = _DmgMultiple;
+        Set_AllState();
+    }
+
+    public void Set_StateRof(float _RofMultiple)
+    {
+        AllyState.Rof.Value = _RofMultiple;
+        Set_AllState();
+    }
+
+    private void Set_AllState()
+    {
+        if (AllAllies.Count <= 0) return;
+
+        for (int i = 0; i < AllAllies.Count; i++)
+            AllAllies[i].Set_AllState();
+    }
+
+    #endregion
+
     #region Is
-    
+
     private bool Is_ExistEssentialID(AllyCardData _TargetData)
     {
         if (_TargetData.EssentialID != -1)
@@ -134,7 +158,8 @@ public class AllyManager : Singleton<AllyManager>
 
     #endregion
 
-    #region Get (Card)
+    #region Card
+
     public Sprite Get_CardIcon(int _TypeID, int _CardID)
     {
         return AllIconList[_TypeID][_CardID];
@@ -199,13 +224,33 @@ public class AllyManager : Singleton<AllyManager>
         return null;
     }
 
+    public void Add_AllyCard(int _TypeID, int _ID)
+    {
+        AllGottenAllyCards[_TypeID].Add(_ID);
+        AllyCardActivityManager.Instance.Action_CorrectCardActivity(_TypeID, _ID);
+    }
+
     #endregion
 
-    #region Get (BU)
+    #region BU
 
     public Sprite Get_BUIcon(string _Type)
     {
         return TunerTypeIconDict[_Type];
+    }
+
+    #endregion
+
+    #region MU
+
+    public void Set_AllAlliesSync()
+    {
+        if (AllAllies.Count <= 0) return;
+
+        for (int i = 0; i < AllAllies.Count; i++)
+        {
+            AllAllies[i].Set_ActingSync();
+        }
     }
 
     #endregion
@@ -253,31 +298,7 @@ public class AllyManager : Singleton<AllyManager>
 
     #endregion
 
-    #region Set (State)
-
-    public void Set_StateDmg(float _DmgMultiple)
-    {
-        AllyState.Dmg.Value = _DmgMultiple;
-        Set_AllState();
-    }
-
-    public void Set_StateRof(float _RofMultiple)
-    {
-        AllyState.Rof.Value = _RofMultiple;
-        Set_AllState();
-    }
-
-    private void Set_AllState()
-    {
-        if (AllAllies.Count <= 0) return;
-
-        for (int i = 0; i < AllAllies.Count; i++)
-            AllAllies[i].Set_AllState();
-    }
-
-    #endregion
-
-    #region Ally Name
+    #region Name
 
     public int Get_AllyNameID()
     {
@@ -332,16 +353,6 @@ public class AllyManager : Singleton<AllyManager>
         List<AllyCardData> ntData = ResourceManager.Instance.Get_NeoTeam_AllAllyCardData();
         for (int i = 0; i < NT_AllAllyCardData.Count; i++)
             NT_AllAllyCardData[i].Set_LanguageTxt(ntData[i].Name, ntData[i].Desc);
-    }
-
-    #endregion
-
-    #region Add
-
-    public void Add_AllyCard(int _TypeID, int _ID)
-    {
-        AllGottenAllyCards[_TypeID].Add(_ID);
-        AllyCardActivityManager.Instance.Action_CorrectCardActivity(_TypeID, _ID);
     }
 
     #endregion

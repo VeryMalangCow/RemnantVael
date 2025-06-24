@@ -133,6 +133,17 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Reset
 
+    private void Reset_Interface()
+    {
+        BuffManager.Instance.Init_SyncSetBuff();
+
+        Reset_InterfaceMU();
+        Reset_InterfaceMC();
+
+        ActiveSync_Start();
+    }
+
+
     private void Clear_InterfaceMU()
     {
         IWhen_HitList.Clear();
@@ -159,16 +170,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     }
 
 
-    private void Reset_Interface()
-    {
-        BuffManager.Instance.Init_SyncSetBuff();
-
-        Reset_InterfaceMU();
-        Reset_InterfaceMC();
-
-        ActiveSync_Start();
-    }
-
     private void Reset_InterfaceMU()
     {
         Clear_InterfaceMU();
@@ -190,6 +191,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         else if (_MS is IWhen_CriticalHit iCriticalHit) DevTool.Add_InList(IWhen_CriticalHitList, iCriticalHit);
     }
 
+
     private void Reset_InterfaceMC()
     {
         Clear_InterfaceMC();
@@ -198,6 +200,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         for (int i = 0; i < CurrentAllMainChipState.Count; i++)
             Try_AddIWhenSync(CurrentAllMainChipState[i]);
+
+        AllyManager.Instance.Set_AllAlliesSync();
     }
 
     private void Try_AddIWhenSync(SynchoronyState _SS)
@@ -215,6 +219,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         else if (_SS is IWhenSync_GetElectricity iGetElectricity) DevTool.Add_InList(IWhenSync_GetElectricityList, iGetElectricity);
         else if (_SS is IWhenSync_GetCorrosion iGetCorrosion) DevTool.Add_InList(IWhenSync_GetCorrosionList, iGetCorrosion);
     }
+
 
     #endregion
 
@@ -399,6 +404,19 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             mcs.Set_State(id, rank);
 
             result.Add(mcs);
+        }
+
+        return result;
+    }
+
+    // 현재 모든 Sync int, int 딕셔너리로 반환
+    public Dictionary<int, int> Get_CurrentSyncData()
+    {
+        Dictionary<int, int> result = new Dictionary<int, int>();
+
+        foreach (SynchoronyState stateData in CurrentAllMainChipState)
+        {
+            result.Add(stateData.ID, stateData.SynergyRank);
         }
 
         return result;

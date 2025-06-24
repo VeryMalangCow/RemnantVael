@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -72,7 +73,8 @@ public class AllyController : NavObjectController
     [HideInInspector] private Dictionary<string, RefData<float>> UpgradeStateDict;
 
     // Sync
-    [HideInInspector] private Dictionary<int, int> SyncData;
+    [HideInInspector] private Dictionary<int, int> SyncData; // ID, Amount
+    [HideInInspector] private Dictionary<int, int> ConnectSyncData; // ID, PlayerAmount
     [HideInInspector] public static readonly int SyncMax = 3;
 
     #endregion
@@ -174,6 +176,7 @@ public class AllyController : NavObjectController
     private void Offset_SyncUpgrade()
     {
         SyncData = new Dictionary<int, int>();
+        ConnectSyncData = new Dictionary<int, int>();
     }
 
     #endregion
@@ -422,6 +425,35 @@ public class AllyController : NavObjectController
                 SyncData.Add(_SyncList[i], 1);
             }
         }
+
+        Set_ActingSync();
+    }
+
+    private Dictionary<int, int> Get_ActingSync()
+    {
+        Dictionary<int, int> playerSyncDataDict = ModuleItemManager.Instance.Get_CurrentSyncData();
+        List<int> allyIds = SyncData.Keys.ToList();
+
+        Dictionary<int, int> resultSyncDataDict = new Dictionary<int, int>();
+        foreach (KeyValuePair<int, int> playerSyncData in playerSyncDataDict)
+        {
+            if (allyIds.Contains(playerSyncData.Key))
+            {
+                resultSyncDataDict.Add(playerSyncData.Key, SyncData[playerSyncData.Key]);
+            }
+        }
+
+        return resultSyncDataDict;
+    }
+
+    public void Set_ActingSync()
+    {
+        ConnectSyncData = Get_ActingSync();
+    }
+
+    public List<int> Get_ConnectingSync()
+    {
+        return ConnectSyncData.Keys.ToList();
     }
 
     #endregion
