@@ -73,8 +73,18 @@ public class AllyController : NavObjectController
     [HideInInspector] private Dictionary<string, RefData<float>> UpgradeStateDict;
 
     // Sync
-    [HideInInspector] private Dictionary<int, int> SyncData; // ID, Amount
-    [HideInInspector] private Dictionary<int, int> ConnectSyncData; // ID, PlayerAmount
+
+    // ID, Amount
+    // => 현재 가지고 있는 모든 Sync
+    [HideInInspector] private Dictionary<int, int> SyncData;
+    // ID, PlayerAmount 
+    // => 현재 가지고 있는 Sync 중 플레이어가 Sync가 되어 있는                                         
+    [HideInInspector] private Dictionary<int, int> ConnectSyncData;
+    // ID, PlayerAmount =>
+    // => 현재 가지고 있는 Sync 중 플레어가 가지고 있으며, 완성된 Ally Sync          
+    [HideInInspector] private Dictionary<int, int> CompletelySyncData; 
+                                                                        
+
     [HideInInspector] public static readonly int SyncMax = 3;
 
     #endregion
@@ -177,6 +187,7 @@ public class AllyController : NavObjectController
     {
         SyncData = new Dictionary<int, int>();
         ConnectSyncData = new Dictionary<int, int>();
+        CompletelySyncData = new Dictionary<int, int>();
     }
 
     #endregion
@@ -429,7 +440,7 @@ public class AllyController : NavObjectController
         Set_ActingSync();
     }
 
-    private Dictionary<int, int> Get_ActingSync()
+    private Dictionary<int, int> Get_ConnectingSync()
     {
         Dictionary<int, int> playerSyncDataDict = ModuleItemManager.Instance.Get_CurrentSyncData();
         List<int> allyIds = SyncData.Keys.ToList();
@@ -446,14 +457,35 @@ public class AllyController : NavObjectController
         return resultSyncDataDict;
     }
 
-    public void Set_ActingSync()
+    private Dictionary<int, int> Get_CompletelySync()
     {
-        ConnectSyncData = Get_ActingSync();
+        Dictionary<int, int> resultSyncDataDict = new Dictionary<int, int>();
+        foreach (KeyValuePair<int,  int> connectSync in ConnectSyncData)
+        {
+            if (SyncData[connectSync.Key] >= SyncMax)
+            {
+                resultSyncDataDict.Add(connectSync.Key, SyncData[connectSync.Key]);
+            }
+        }
+        return resultSyncDataDict;
     }
 
-    public List<int> Get_ConnectingSync()
+    public void Set_ActingSync()
+    {
+        ConnectSyncData = Get_ConnectingSync();
+        CompletelySyncData = Get_CompletelySync();
+
+        Debug.Log("이곳에 현재 실제 적용되는");
+    }
+
+    public List<int> Get_ConnectingSyncToKeyList()
     {
         return ConnectSyncData.Keys.ToList();
+    }
+
+    public List<int> Get_CompletelySyncToKeyList()
+    {
+        return CompletelySyncData.Keys.ToList();
     }
 
     #endregion

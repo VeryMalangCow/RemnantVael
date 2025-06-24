@@ -200,8 +200,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         for (int i = 0; i < CurrentAllMainChipState.Count; i++)
             Try_AddIWhenSync(CurrentAllMainChipState[i]);
-
-        AllyManager.Instance.Set_AllAlliesSync();
     }
 
     private void Try_AddIWhenSync(SynchoronyState _SS)
@@ -543,7 +541,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_EquipedUI(AllModuleData, EquippedIndex);
         
-        Reset_Interface(); 
+        Reset_Interface();
+        AllyManager.Instance.Set_AllAlliesSync();
     }
 
     public void Set_UnEquip(int _EquipedIndex)
@@ -553,6 +552,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         MainGameUIManager.Instance.ModuleUpgrade_UIController.Set_EquipedUI(AllModuleData, EquippedIndex);
 
         Reset_Interface(); 
+        AllyManager.Instance.Set_AllAlliesSync();
     }
 
     public void Set_SwitchEquipment(int _ListIndex0, int _ListIndex1)

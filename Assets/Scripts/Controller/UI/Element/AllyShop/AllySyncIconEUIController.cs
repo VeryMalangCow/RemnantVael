@@ -43,7 +43,6 @@ public class AllySyncIconEUIController : ElementUIController
         for (int i = 0; i < list.Count; i++)
         {
             list[i].color = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
-            DevTool.Get_AlphaColor(list[i], 0.5f);
         } 
     }
 
@@ -64,21 +63,16 @@ public class AllySyncIconEUIController : ElementUIController
         DevTool.Set_AlphaColor(ProgressTxt, progressing);
 
         ThisApplyStateImg.gameObject.SetActive(progressing >= 1 ? true : false);
-        Set_Completely();
     }
 
     public void Set_ConnectUI(bool _IsConnect)
     {
         ThisConnectStateImg.gameObject.SetActive(_IsConnect);
-        Set_Completely();
     }
 
-    private void Set_Completely()
+    public void Set_Completely(bool _IsCompletely)
     {
-        if (ThisApplyStateImg.gameObject.activeSelf && ThisConnectStateImg.gameObject.activeSelf)
-            CompletelyCG.gameObject.SetActive(true);
-        else
-            CompletelyCG.gameObject.SetActive(false);
+        CompletelyCG.gameObject.SetActive(_IsCompletely);
     }
 
     #endregion

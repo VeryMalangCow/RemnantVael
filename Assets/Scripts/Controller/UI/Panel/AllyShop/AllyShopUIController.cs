@@ -542,11 +542,18 @@ public class AllyShopUIController : ShopUIController
     {
         if (CurrentPickedAlly == null) return;
 
-        List<int> connectIdList = CurrentPickedAlly.Get_ConnectingSync();
+        List<int> connectIdList = CurrentPickedAlly.Get_ConnectingSyncToKeyList();
         for (int i = 0; i < InStateSyncActingEUIList.Count; i++)
         {
-            bool isOn = connectIdList.Contains(InStateSyncActingEUIList[i].ID);
-            InStateSyncActingEUIList[i].Set_ConnectUI(isOn);
+            InStateSyncActingEUIList[i].Set_ConnectUI(
+                connectIdList.Contains(InStateSyncActingEUIList[i].ID));
+        }
+
+        List<int> completelyIdList = CurrentPickedAlly.Get_CompletelySyncToKeyList();
+        for (int i = 0; i < InStateSyncActingEUIList.Count; i++)
+        {
+            InStateSyncActingEUIList[i].Set_Completely(
+                completelyIdList.Contains(InStateSyncActingEUIList[i].ID));
         }
     }
 
