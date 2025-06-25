@@ -83,9 +83,21 @@ public class AllyController : NavObjectController
     // ID, PlayerAmount =>
     // => 현재 가지고 있는 Sync 중 플레어가 가지고 있으며, 완성된 Ally Sync          
     [HideInInspector] private Dictionary<int, int> CompletelySyncData; 
-                                                                        
-
     [HideInInspector] public static readonly int SyncMax = 3;
+
+    // Sync
+    private List<IWhenAlly_Start> IWhenAlly_StartList = new List<IWhenAlly_Start>();
+
+    private List<IWhenAlly_Fire> IWhenAlly_FireList = new List<IWhenAlly_Fire>();
+    private List<IWhenAlly_AfterFire> IWhenAlly_AfterFireList = new List<IWhenAlly_AfterFire>();
+
+    private List<IWhenAlly_Hit> IWhenAlly_HitList = new List<IWhenAlly_Hit>();
+    private List<IWhenAlly_CriticalHit> IWhenAlly_CriticalHitList = new List<IWhenAlly_CriticalHit>();
+
+    private List<IWhenAlly_GetFire> IWhenAlly_GetFireList = new List<IWhenAlly_GetFire>();
+    private List<IWhenAlly_GetCold> IWhenAlly_GetColdList = new List<IWhenAlly_GetCold>();
+    private List<IWhenAlly_GetElectricity> IWhenAlly_GetElectricityList = new List<IWhenAlly_GetElectricity>();
+    private List<IWhenAlly_GetCorrosion> IWhenAlly_GetCorrosionList = new List<IWhenAlly_GetCorrosion>();
 
     #endregion
 
@@ -475,7 +487,7 @@ public class AllyController : NavObjectController
         ConnectSyncData = Get_ConnectingSync();
         CompletelySyncData = Get_CompletelySync();
 
-        Debug.Log("이곳에 현재 실제 적용되는");
+        Set_Interface();
     }
 
     public List<int> Get_ConnectingSyncToKeyList()
@@ -487,6 +499,119 @@ public class AllyController : NavObjectController
     {
         return CompletelySyncData.Keys.ToList();
     }
+
+    #endregion
+
+    #region Sync (Interface)
+
+    private void Reset_Interface()
+    {
+        IWhenAlly_StartList.Clear();
+
+        IWhenAlly_FireList.Clear();
+        IWhenAlly_AfterFireList.Clear();
+
+        IWhenAlly_HitList.Clear();
+        IWhenAlly_CriticalHitList.Clear();
+
+        IWhenAlly_GetFireList.Clear();
+        IWhenAlly_GetColdList.Clear();
+        IWhenAlly_GetElectricityList.Clear();
+        IWhenAlly_GetCorrosionList.Clear();
+    }
+
+    private void Set_Interface()
+    {
+        Debug.Log("이곳에 현재 실제 적용되는");
+
+        Reset_Interface();
+
+        foreach (KeyValuePair<int, int> syncData in CompletelySyncData) // ID, Amount
+        {
+            AllySyncState state = AllySyncState.Get_AllSyncState()[syncData.Key];
+            state.Set_State(this, syncData.Key, syncData.Value);
+            Try_AddIWhenAlly(state);
+        }
+    }
+
+    private void Try_AddIWhenAlly(AllySyncState _State)
+    {
+        if (_State is IWhenAlly_Start iStart) DevTool.Add_InList(IWhenAlly_StartList, iStart);
+
+        else if (_State is IWhenAlly_Fire iFire) DevTool.Add_InList(IWhenAlly_FireList, iFire);
+        else if (_State is IWhenAlly_AfterFire iAfterFire) DevTool.Add_InList(IWhenAlly_AfterFireList, iAfterFire);
+                                
+        else if (_State is IWhenAlly_Hit iHit) DevTool.Add_InList(IWhenAlly_HitList, iHit);
+        else if (_State is IWhenAlly_CriticalHit iCriticalHit) DevTool.Add_InList(IWhenAlly_CriticalHitList, iCriticalHit);
+                                
+        else if (_State is IWhenAlly_GetFire iGetFire) DevTool.Add_InList(IWhenAlly_GetFireList, iGetFire);
+        else if (_State is IWhenAlly_GetCold iGetCold) DevTool.Add_InList(IWhenAlly_GetColdList, iGetCold);
+        else if (_State is IWhenAlly_GetElectricity iGetElectricity) DevTool.Add_InList(IWhenAlly_GetElectricityList, iGetElectricity);
+        else if (_State is IWhenAlly_GetCorrosion iGetCorrosion) DevTool.Add_InList(IWhenAlly_GetCorrosionList, iGetCorrosion);
+    }
+
+    #endregion
+
+    #region Active
+
+    public void ActiveAlly_Start()
+    {
+        ActiveAlly(IWhenAlly_StartList);
+    }
+
+
+    public void ActiveAlly_Fire(BulletController _Bullet)
+    {
+        ActiveAlly(IWhenAlly_FireList, null, _Bullet);
+    }
+
+    public void ActiveAlly_AfterFire()
+    {
+        ActiveAlly(IWhenAlly_AfterFireList);
+    }
+
+
+    public void ActiveAlly_Hit()
+    {
+        ActiveAlly(IWhenAlly_HitList);
+    }
+
+    public void ActiveAlly_CriticalHit()
+    {
+        ActiveAlly(IWhenAlly_CriticalHitList);
+    }
+
+
+    public void ActiveAlly_EnemyTakingFire(EnemyController _Enemy)
+    {
+        ActiveAlly(IWhenAlly_GetFireList, _Enemy);
+    }
+
+    public void ActiveAlly_EnemyTakingCold(EnemyController _Enemy)
+    {
+        ActiveAlly(IWhenAlly_GetColdList, _Enemy);
+    }
+
+    public void ActiveAlly_EnemyTakingElectricity(EnemyController _Enemy)
+    {
+        ActiveAlly(IWhenAlly_GetElectricityList, _Enemy);
+    }
+
+    public void ActiveAlly_EnemyTakingCorrosion(EnemyController _Enemy)
+    {
+        ActiveAlly(IWhenAlly_GetCorrosionList, _Enemy);
+    }
+
+
+    // Base
+    private void ActiveAlly<T>(List<T> _IWhenList, EnemyController _Enemy = null, BulletController _Bullet = null) where T : IWhenAlly
+    {
+        if (_IWhenList.Count <= 0) return;
+
+        for (int i = 0; i < _IWhenList.Count; i++)
+            _IWhenList[i].Play_When(_Enemy, _Bullet);
+    }
+
 
     #endregion
 

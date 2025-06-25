@@ -40,6 +40,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         return ActivityMCFuncList[_ID];
     }
 
+
     public List<ActivityFuncDele_MI> Init_DelegateList_MI(string _MethodPrefix)
     {
         List<ActivityFuncDele_MI> delegateList = new List<ActivityFuncDele_MI>();
@@ -177,7 +178,6 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     #endregion
 
-
     #region Func (Synchrony)
 
     // À¯µµ
@@ -235,7 +235,6 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     }
 
     #endregion
-
 
     #region Unique (MI)
 

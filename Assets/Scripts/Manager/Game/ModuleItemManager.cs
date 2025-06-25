@@ -45,7 +45,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     [HideInInspector] public static readonly int EquipedAmount = 6;
 
-    [HideInInspector] public static int SynchoronyOneTierRange = 6;
+    [HideInInspector] public static int SynchoronyOneTierRange = 3;
     [HideInInspector] public static int SynchoronyMaxLv = 3;
 
     #endregion
@@ -381,10 +381,10 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     }
 
     // 메인 칩의 랭크 가져오기
-    // 1~6 / 7~12 / 13~18
+    // 1~3 / 4~6 / 7~9
     public int Get_SynchronyRank(int _Amalgamation)
     {
-        return (_Amalgamation - 1) > 0 ? _Amalgamation / SynchoronyOneTierRange : 0;
+        return Mathf.Min((_Amalgamation - 1) > 0 ? _Amalgamation / SynchoronyOneTierRange : 0, SynchoronyMaxLv);
     }
 
     // 모든 메인 칩 딕셔너리로 메인칩스탯 리스트 반환

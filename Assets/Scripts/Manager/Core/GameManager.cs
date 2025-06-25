@@ -2746,6 +2746,82 @@ public class CopyModuleState
 
 #endregion
 
+#region Class : State : Ally : Sync
+
+public class AllySyncState : IWhenAlly
+{
+    #region Value
+
+    [SerializeField] public int ID = 0;
+    [SerializeField] public int SynergyRank = 0;
+
+    protected AllyController ThisAlly;
+    protected AllySyncManager.ActivityFuncDele_Sync ThisActivityFuncDele;
+
+    #endregion
+
+    #region Constructor
+
+    public virtual void Set_State(AllyController _Ally, int _ID, int _SynergyRank)
+    {
+        ThisAlly = _Ally;
+        ID = _ID;
+        SynergyRank = _SynergyRank;
+        ThisActivityFuncDele = AllySyncManager.Instance.Get_CollectActivity_Sync(ID);
+    }
+
+    #endregion
+
+    #region Get
+
+    public static List<AllySyncState> Get_AllSyncState()
+    {
+        return new List<AllySyncState>()
+        {
+            new AllySyncState000(),
+            new AllySyncState001(),
+            new AllySyncState002(),
+            new AllySyncState003(),
+            new AllySyncState004(),
+            new AllySyncState005(),
+            new AllySyncState006(),
+            new AllySyncState007(),
+            new AllySyncState008(),
+        };
+    }
+
+    #endregion
+
+    #region Play
+
+    public void Play_When(EnemyController _Enemy = null, BulletController _Bullet = null)
+    {
+        ThisActivityFuncDele(ThisAlly, SynergyRank, _Enemy, _Bullet);
+    }
+
+    #endregion
+}
+public class AllySyncState000 : AllySyncState, IWhenAlly_Fire 
+{ public AllySyncState000() : base() { } }
+
+public class AllySyncState001 : AllySyncState 
+{ public AllySyncState001() : base() { } }
+public class AllySyncState002 : AllySyncState 
+{ public AllySyncState002() : base() { } }
+public class AllySyncState003 : AllySyncState 
+{ public AllySyncState003() : base() { } }
+public class AllySyncState004 : AllySyncState 
+{ public AllySyncState004() : base() { } }
+public class AllySyncState005 : AllySyncState 
+{ public AllySyncState005() : base() { } }
+public class AllySyncState006 : AllySyncState
+{ public AllySyncState006() : base() { } }
+public class AllySyncState007 : AllySyncState 
+{ public AllySyncState007() : base() { } }
+public class AllySyncState008 : AllySyncState 
+{ public AllySyncState008() : base() { } }
+
+#endregion
 
 #region Class : State : Player : Other
 

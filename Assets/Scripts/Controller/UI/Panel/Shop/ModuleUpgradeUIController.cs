@@ -21,6 +21,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     [SerializeField] public TMP_Text MSTxt;
 
     [Space(10)]
+    [SerializeField] private List<TMP_Text> SynergyLvTxtList;
+
+    [Space(10)]
     [Header("=== Desc")]
     [SerializeField] private DescMUEUIController ThisDescPanel;
 
@@ -179,6 +182,11 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         DragItemRT = DevTool.Get_ComponentTType(DragItemEUI.gameObject, out RectTransform rt) ? rt : null;
 
         DragItemEUI.gameObject.SetActive(false);
+
+        // Sync Lv Txt
+        for (int i = 0; i < SynergyLvTxtList.Count; i++)
+            SynergyLvTxtList[i].text = (ModuleItemManager.SynchoronyMaxLv * (i + 1)).ToString();
+        
     }
 
 

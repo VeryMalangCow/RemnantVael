@@ -113,6 +113,9 @@ public class AttackAllyController : AllyController
             _State_Effect: null,
             0.5f);
 
+        // Sync
+        ActiveAlly_Fire(_Bullet);
+
         _Bullet.SetOn_LightIntensity(LightIntensity);
         _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth, TrailGradient);
 
