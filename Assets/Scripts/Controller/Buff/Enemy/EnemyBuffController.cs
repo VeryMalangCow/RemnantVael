@@ -175,7 +175,7 @@ public class EnemyBuffController : MonoBehaviour
     public void ShieldGain(float _Value)
     {
         ShieldPercent = _Value;
-        ShieldBuff.Gain_Stack(1, false);
+        ShieldBuff.Gain_Stack(1, false, null);
     }
 
     private void ShieldGainEffect()
@@ -326,6 +326,7 @@ public class EnemyBuffController : MonoBehaviour
 
         return new ExplosionState(
             new CombatState(
+                new CombatOwner(eCombatOwner.Enemy),
                 new DmgState(_DmgType, _Dmg),
                 new CriticalState(0, 1),
                 new KnockbackState(true, 10f, 0.2f)), 

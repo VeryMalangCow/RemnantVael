@@ -167,6 +167,7 @@ public class PlayerWeaponController : PlayerSolarController
     {
         return new BulletState(
             new CombatState(
+                new CombatOwner(eCombatOwner.Player),
                 new DmgState(DamageType, PlayerController.BaseWeapon.BaseDamage.BuffedState),
                 new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.BuffedState),
                 new KnockbackState(DamageType == eDamageType.Physics ? true : false, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value, 0.2f)),

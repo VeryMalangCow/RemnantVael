@@ -144,34 +144,22 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     // 크리티컬 시, 상태이상 부여
     private void Activity_MI_002(int _Rank, EnemyController _EC = null)
     {
-        if (0.5f > UnityEngine.Random.Range(0f, 1f))
-        {
-            Activity_InflictStatusEffect(eStatusEffect.Flame, _Rank, _EC);
-        }
+        Activity_InflictStatusEffect(eStatusEffect.Flame, _Rank, _EC);
     }
 
     private void Activity_MI_003(int _Rank, EnemyController _EC = null)
     {
-        if (0.5f > UnityEngine.Random.Range(0f, 1f))
-        {
-            Activity_InflictStatusEffect(eStatusEffect.Cold, _Rank, _EC);
-        }
+        Activity_InflictStatusEffect(eStatusEffect.Cold, _Rank, _EC);
     }
 
     private void Activity_MI_004(int _Rank, EnemyController _EC = null)
     {
-        if (0.5f > UnityEngine.Random.Range(0f, 1f))
-        {
-            Activity_InflictStatusEffect(eStatusEffect.Electricity, _Rank, _EC);
-        }
+        Activity_InflictStatusEffect(eStatusEffect.Electricity, _Rank, _EC);
     }
 
     private void Activity_MI_005(int _Rank, EnemyController _EC = null)
     {
-        if (0.5f > UnityEngine.Random.Range(0f, 1f))
-        {
-            Activity_InflictStatusEffect(eStatusEffect.Corrosion, _Rank, _EC);
-        }
+        Activity_InflictStatusEffect(eStatusEffect.Corrosion, _Rank, _EC);
     }
 
     #endregion
@@ -246,7 +234,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         PlayerWeaponController PCWeapon = PC.BaseWeapon;
 
         // 확률
-        if ((_Rank * 10) > UnityEngine.Random.Range(0, 100))
+        if (_Rank > UnityEngine.Random.Range(0, 10))
         {
             // 데미지 계산
             float dmg = _Rank * PCWeapon.BaseDamage.ActualState.Value;
@@ -260,7 +248,15 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             CriticalState criticalState = new CriticalState(0, 1);
             KnockbackState knockbackState = new KnockbackState(false, 0, 0);
 
-            BulletState bulletState = new BulletState(new CombatState(dmgState, criticalState, knockbackState), false, PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2f);
+            BulletState bulletState = 
+                new BulletState(
+                    new CombatState(
+                        new CombatOwner(eCombatOwner.Player),
+                        dmgState, 
+                        criticalState, 
+                        knockbackState), 
+                    false, 
+                    PCWeapon.MuzzleSpeed.ActualState.Value * 0.7f, 2f);
             BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(PC.transform.position, dir, 10);
             BulletState_Size? size = null;
             State_Anim? anim = null;
@@ -276,19 +272,19 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         switch (_Kind)
         {
             case eStatusEffect.Flame: 
-                _Enemy.BuffController.FlameStack.Gain_Stack(_GainAmount, true);
+                _Enemy.BuffController.FlameStack.Gain_Stack(_GainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             case eStatusEffect.Cold:
-                _Enemy.BuffController.ColdStack.Gain_Stack(_GainAmount, true);
+                _Enemy.BuffController.ColdStack.Gain_Stack(_GainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             case eStatusEffect.Electricity:
-                _Enemy.BuffController.ElectricityStack.Gain_Stack(_GainAmount, true);
+                _Enemy.BuffController.ElectricityStack.Gain_Stack(_GainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             case eStatusEffect.Corrosion:
-                _Enemy.BuffController.CorrosionStack.Gain_Stack(_GainAmount, true);
+                _Enemy.BuffController.CorrosionStack.Gain_Stack(_GainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             default: return;

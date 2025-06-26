@@ -86,25 +86,25 @@ public class AllySyncManager : Singleton<AllySyncManager>
     // 화염
     private void Activity_Sync_001(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-
+        Activity_InflictStatusOneMoreEffect(eStatusEffect.Flame, _Rank, _Enemy);
     }
 
     // 냉기
     private void Activity_Sync_002(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-
+        Activity_InflictStatusOneMoreEffect(eStatusEffect.Cold, _Rank, _Enemy);
     }
 
     // 전기
     private void Activity_Sync_003(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-
+        Activity_InflictStatusOneMoreEffect(eStatusEffect.Electricity, _Rank, _Enemy);
     }
 
     // 부식
     private void Activity_Sync_004(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-
+        Activity_InflictStatusOneMoreEffect(eStatusEffect.Corrosion, _Rank, _Enemy);
     }
 
     // 치명타 발생 => 공격력 버프

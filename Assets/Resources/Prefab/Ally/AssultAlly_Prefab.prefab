@@ -68,8 +68,6 @@ MonoBehaviour:
     value: 0
   BrokenParticleData: []
   ParticleThrowDis: 1
-  testbool: 0
-  AllyTypeIndex: 0
   MultipleAllyState:
     MovementSpeed:
       Value: 1.5
@@ -79,6 +77,8 @@ MonoBehaviour:
       Value: 2
     AttackSize:
       Value: 1
+    CC:
+      Value: 0.1
   MaxHP: 150
   MaxEP: 100
   ForEnemyDis: 2.5
@@ -89,6 +89,17 @@ MonoBehaviour:
   ThisDirImg: {fileID: 8140379498466177624}
   HUD: {fileID: 82095112155882869}
   FrontFaceSprite: {fileID: 662672575, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
+  UpgradeAllyState:
+    MovementSpeed:
+      Value: 1
+    Dmg:
+      Value: 1
+    Rof:
+      Value: 1
+    AttackSize:
+      Value: 1
+    CC:
+      Value: 1
   BulletSprite: {fileID: -1712732208, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
   BulletObjSize: {x: 0.05, y: 0.05}
   BulletColSize: {x: 1, y: 1}

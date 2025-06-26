@@ -111,6 +111,7 @@ public class AllyController : NavObjectController
 
         Player = PlayerManager.Instance.PlayerController;
         DevTool.Add_InList(AllyManager.Instance.AllAllies, this);
+        ID = AllyManager.Instance.AllAllies.IndexOf(this);
 
         ThisTunerData = new List<AllyBaseTunerData>();
 
@@ -197,6 +198,19 @@ public class AllyController : NavObjectController
 
     private void Offset_SyncUpgrade()
     {
+        IWhenAlly_StartList = new List<IWhenAlly_Start>();
+
+        IWhenAlly_FireList = new List<IWhenAlly_Fire>();
+        IWhenAlly_AfterFireList = new List<IWhenAlly_AfterFire>();
+
+        IWhenAlly_HitList = new List<IWhenAlly_Hit>();
+        IWhenAlly_CriticalHitList = new List<IWhenAlly_CriticalHit>();
+
+        IWhenAlly_GetFireList = new List<IWhenAlly_GetFire>();
+        IWhenAlly_GetColdList = new List<IWhenAlly_GetCold>();
+        IWhenAlly_GetElectricityList = new List<IWhenAlly_GetElectricity>();
+        IWhenAlly_GetCorrosionList = new List<IWhenAlly_GetCorrosion>();
+
         SyncData = new Dictionary<int, int>();
         ConnectSyncData = new Dictionary<int, int>();
         CompletelySyncData = new Dictionary<int, int>();
@@ -269,29 +283,17 @@ public class AllyController : NavObjectController
 
     public AllyState Get_AllState() // 카드와 업그레이드 모두 적용된 스탯
     {
-        return Get_ApplyMultipleState(Get_CardState(), UpgradeAllyState);
+        return AllyState.Get_Multiple(Get_CardState(), UpgradeAllyState);
     }
 
     public AllyState Get_CardState() // 카드만 적용된 스탯
     {
-        return Get_ApplyMultipleState(MultipleAllyState, AllyManager.Instance.GetAllyState);
+        return AllyState.Get_Multiple(MultipleAllyState, AllyManager.Instance.GetAllyState);
     }
 
     public AllyState Get_UpgradeAllState() // 업그레이드만 카드 적용된 스탯
     {
         return AllyState.Get_Subtraction(Get_AllState(), Get_CardState());
-    }
-
-
-    private AllyState Get_ApplyMultipleState(AllyState _State1, AllyState _State2)
-    {
-        AllyState result = new AllyState();
-
-        result.MovementSpeed.Value = _State1.MovementSpeed.Value * _State2.MovementSpeed.Value;
-        result.Dmg.Value = _State1.Dmg.Value * _State2.Dmg.Value;
-        result.Rof.Value = _State1.Rof.Value * _State2.Rof.Value;
-
-        return result;
     }
 
     #endregion
@@ -476,7 +478,7 @@ public class AllyController : NavObjectController
         {
             if (SyncData[connectSync.Key] >= SyncMax)
             {
-                resultSyncDataDict.Add(connectSync.Key, SyncData[connectSync.Key]);
+                resultSyncDataDict.Add(connectSync.Key, ModuleItemManager.Instance.Get_CurrentSyncData()[connectSync.Key]);
             }
         }
         return resultSyncDataDict;
@@ -522,8 +524,6 @@ public class AllyController : NavObjectController
 
     private void Set_Interface()
     {
-        Debug.Log("이곳에 현재 실제 적용되는");
-
         Reset_Interface();
 
         foreach (KeyValuePair<int, int> syncData in CompletelySyncData) // ID, Amount

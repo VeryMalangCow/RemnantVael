@@ -385,15 +385,15 @@ public class EnemyController : NavObjectController
             DevTool.Is_ChanceSuccess(state.CriticalState.CC),
             DevTool.Get_Dir(_Explosion.gameObject, this.gameObject));
 
-        Try_GainStack(state.IsFire, BuffController.FlameStack);
-        Try_GainStack(state.IsCold, BuffController.ColdStack);
-        Try_GainStack(state.IsElectricity, BuffController.ElectricityStack);
-        Try_GainStack(state.IsCorrosion, BuffController.CorrosionStack);
+        Try_GainStack(state.IsFire, BuffController.FlameStack, state.OwnerData);
+        Try_GainStack(state.IsCold, BuffController.ColdStack, state.OwnerData);
+        Try_GainStack(state.IsElectricity, BuffController.ElectricityStack, state.OwnerData);
+        Try_GainStack(state.IsCorrosion, BuffController.CorrosionStack, state.OwnerData);
     }
 
-    private void Try_GainStack(bool _Is, StatusEffect_Temporary_WithAmount _TargetDebuff)
+    private void Try_GainStack(bool _Is, StatusEffect_Temporary_WithAmount _TargetDebuff, CombatOwner _CombatOwner)
     {
-        if (_Is) _TargetDebuff.Gain_Stack(1, true);
+        if (_Is) _TargetDebuff.Gain_Stack(1, true, _CombatOwner);
     }
 
     #endregion
@@ -401,30 +401,50 @@ public class EnemyController : NavObjectController
     #region Damaged (Type)
 
     // 데미지, 넉백, 크리티컬, 모듈 호과 등
-    private void Take_Damaged(CombatState _State_Combat, bool _IsCritical, Vector2 _DirKB)
+    private void Take_Damaged(CombatState _State, bool _IsCritical, Vector2 _DirKB)
     {
-        float actualDmg = _State_Combat.DmgState.Dmg;
+        float actualDmg = _State.DmgState.Dmg;
 
         // INTERFACE: 맞을 때 효과 
-        ModuleItemManager.Instance.Active_Hit(this);
-        ModuleItemManager.Instance.ActiveSync_Hit();
+        if (_State.OwnerData.Owner == eCombatOwner.Player)
+        {
+            ModuleItemManager.Instance.Active_Hit(this);
+            ModuleItemManager.Instance.ActiveSync_Hit();
+        }
+        else if (_State.OwnerData.Owner == eCombatOwner.Ally)
+        {
+            Try_GainStack(true, BuffController.FlameStack, _State.OwnerData);
+            Try_GainStack(true, BuffController.ColdStack, _State.OwnerData);
+            Try_GainStack(true, BuffController.ElectricityStack, _State.OwnerData);
+            Try_GainStack(true, BuffController.CorrosionStack, _State.OwnerData);
+            AllyManager.Instance.AllAllies[_State.OwnerData.ID].ActiveAlly_Hit();
+        }
 
         // KB
-        if (_State_Combat.KnockbackState.CanKB)
+        if (_State.KnockbackState.CanKB)
         {
-            Gain_Knockback(new CurrentKnockbackState(_DirKB, _State_Combat.KnockbackState.KBPower, _State_Combat.KnockbackState.KBTime));
+            Gain_Knockback(new CurrentKnockbackState(_DirKB, _State.KnockbackState.KBPower, _State.KnockbackState.KBTime));
         }
         // 치명타 계산
         if (_IsCritical)
         {
-            actualDmg *= _State_Combat.CriticalState.CD;
-            ModuleItemManager.Instance.Active_CriticalHit(this); // INTERFACE: 치명타를 맞을 때 효과 
-            ModuleItemManager.Instance.ActiveSync_CriticalHit();
+            actualDmg *= _State.CriticalState.CD;
+
+            // INTERFACE: 치명타를 맞을 때 효과 
+            if (_State.OwnerData.Owner == eCombatOwner.Player)
+            {
+                ModuleItemManager.Instance.Active_CriticalHit(this);
+                ModuleItemManager.Instance.ActiveSync_CriticalHit();
+            }
+            else if (_State.OwnerData.Owner == eCombatOwner.Ally)
+            {
+                AllyManager.Instance.AllAllies[_State.OwnerData.ID].ActiveAlly_CriticalHit();
+            }
         }
 
         // 데미지 구현 (Dmg: 적의 부식 디버프 계산)
         Take_Damage(DevTool.Get_DmgEffectByCorrosion(actualDmg, BuffController),
-            _State_Combat.DmgState.DmgType,
+            _State.DmgState.DmgType,
             _IsCritical);
 
         // 사운드

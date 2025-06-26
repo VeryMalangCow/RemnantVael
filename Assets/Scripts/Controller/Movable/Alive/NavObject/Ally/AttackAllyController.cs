@@ -131,6 +131,7 @@ public class AttackAllyController : AllyController
     {
         return new BulletState(
             new CombatState(
+                new CombatOwner(eCombatOwner.Ally, ID),
                 new DmgState(eDamageType.Physics, ActualAllyState.Dmg.Value),
                 new CriticalState(0, 0),
                 new KnockbackState(false, 0, 0)),

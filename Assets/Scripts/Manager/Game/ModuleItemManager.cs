@@ -114,17 +114,21 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         yield return new WaitForSeconds(1f);
 
-        SynchoronyState mcs0 = SynchoronyState.Get_AllSynchoronyState()[6];
-        mcs0.Set_State(6, 1);
-        IWhenSync_StartList.Add((IWhenSync_Start)mcs0);
+        SynchoronyState mcs0 = SynchoronyState.Get_AllSynchoronyState()[1];
+        mcs0.Set_State(1, 1);
+        IWhenSync_GetFireList.Add((IWhenSync_GetFire)mcs0);
 
-        SynchoronyState mcs1 = SynchoronyState.Get_AllSynchoronyState()[7];
-        mcs1.Set_State(7, 1);
-        IWhenSync_HitList.Add((IWhenSync_Hit)mcs1);
+        SynchoronyState mcs1 = SynchoronyState.Get_AllSynchoronyState()[2];
+        mcs1.Set_State(2, 1);
+        IWhenSync_GetColdList.Add((IWhenSync_GetCold)mcs1);
 
-        SynchoronyState mcs2 = SynchoronyState.Get_AllSynchoronyState()[8];
-        mcs2.Set_State(8, 1);
-        IWhenSync_AfterFireList.Add((IWhenSync_AfterFire)mcs2);
+        SynchoronyState mcs2 = SynchoronyState.Get_AllSynchoronyState()[3];
+        mcs2.Set_State(3, 1); 
+        IWhenSync_GetElectricityList.Add((IWhenSync_GetElectricity)mcs2);
+
+        SynchoronyState mcs3 = SynchoronyState.Get_AllSynchoronyState()[4];
+        mcs3.Set_State(4, 1); 
+        IWhenSync_GetCorrosionList.Add((IWhenSync_GetCorrosion)mcs3);
 
         ActiveSync_Start();
     }
@@ -239,7 +243,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     // 랜덤한 아이템
     public ItemData_Field Get_RandomInteractItem()
     {
-        return new ItemData_Field(ItemDataList[Random.Range(0, ItemDataList.Count)]);
+        var data = new ItemData_Field(ItemDataList[Random.Range(0, ItemDataList.Count)]);
+        data.Rank = 3;
+        return data;
     }
 
     #endregion

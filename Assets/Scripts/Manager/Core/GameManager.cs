@@ -1761,6 +1761,25 @@ public class DeadParticleElement
 #region Class : State : Combat
 
 [System.Serializable]
+public class CombatOwner
+{
+    public eCombatOwner Owner;
+    public int ID;
+
+    public CombatOwner(CombatOwner _Owner)
+    {
+        Owner = _Owner.Owner;
+        ID = _Owner.ID;
+    }
+
+    public CombatOwner(eCombatOwner _TypeOwner, int _ID = -1)
+    {
+        Owner = _TypeOwner;
+        ID = _ID;
+    }
+}
+
+[System.Serializable]
 public abstract class State
 {
     public virtual void Reset_State() { }
@@ -1773,7 +1792,7 @@ public class CombatState : State
 
     [Space(20)]
     [Header("<><><><><> Combat State")]
-    [SerializeField] public string ThisType;
+    [SerializeField] public CombatOwner OwnerData;
 
     [Space(10)]
     [Header("=== Damage")]
@@ -1793,13 +1812,15 @@ public class CombatState : State
 
     public CombatState(CombatState _State)
     {
+        OwnerData = new CombatOwner(_State.OwnerData);
         DmgState = new DmgState(_State.DmgState);
         CriticalState = new CriticalState(_State.CriticalState);
         KnockbackState = new KnockbackState(_State.KnockbackState);
     }
 
-    public CombatState(DmgState _DmgState, CriticalState _CriticalState, KnockbackState _KnockbackState)
+    public CombatState(CombatOwner _Owner, DmgState _DmgState, CriticalState _CriticalState, KnockbackState _KnockbackState)
     {
+        OwnerData = new CombatOwner(_Owner);
         DmgState = new DmgState(_DmgState);
         CriticalState = new CriticalState(_CriticalState);
         KnockbackState = new KnockbackState(_KnockbackState);
@@ -1838,7 +1859,8 @@ public class BulletState : CombatState
 
     #region Constructor
 
-    public BulletState(CombatState _State, bool _CheckIsCritical, float _MuzzleSpeed, float _AliveTime) : base(_State)
+    public BulletState(CombatState _State, bool _CheckIsCritical, float _MuzzleSpeed, float _AliveTime) : 
+        base(_State)
     {
         if (_CheckIsCritical)
         {
@@ -1853,7 +1875,8 @@ public class BulletState : CombatState
         AliveTime = _AliveTime;
     }
 
-    public BulletState(BulletState _State, bool _CheckIsCritical) : base(_State.DmgState, _State.CriticalState, _State.KnockbackState)
+    public BulletState(BulletState _State, bool _CheckIsCritical) : 
+        base(_State.OwnerData, _State.DmgState, _State.CriticalState, _State.KnockbackState)
     {
         if (_CheckIsCritical)
         {
@@ -1894,7 +1917,8 @@ public class AttackerState : CombatState
 {
     #region Constructor
 
-    public AttackerState(CombatState _State) : base(_State.DmgState, _State.CriticalState, _State.KnockbackState) { }
+    public AttackerState(CombatState _State) : 
+        base(_State.OwnerData, _State.DmgState, _State.CriticalState, _State.KnockbackState) { }
 
     #endregion
 }
@@ -1917,14 +1941,16 @@ public class ExplosionState : CombatState
 
     #region Constructor
 
-    public ExplosionState(CombatState _State, List<bool> _IsStatusList) : base(_State.DmgState, _State.CriticalState, _State.KnockbackState) 
+    public ExplosionState(CombatState _State, List<bool> _IsStatusList) : 
+        base(_State.OwnerData, _State.DmgState, _State.CriticalState, _State.KnockbackState) 
     {
         IsFire = _IsStatusList[0];
         IsCold = _IsStatusList[1];
         IsElectricity = _IsStatusList[2];
         IsCorrosion = _IsStatusList[3];
     }
-    public ExplosionState(ExplosionState _State) : base(_State.DmgState, _State.CriticalState, _State.KnockbackState)
+    public ExplosionState(ExplosionState _State) : 
+        base(_State.OwnerData, _State.DmgState, _State.CriticalState, _State.KnockbackState)
     {
         IsFire = _State.IsFire;
         IsCold = _State.IsCold;
@@ -2804,14 +2830,15 @@ public class AllySyncState : IWhenAlly
 public class AllySyncState000 : AllySyncState, IWhenAlly_Fire 
 { public AllySyncState000() : base() { } }
 
-public class AllySyncState001 : AllySyncState 
+public class AllySyncState001 : AllySyncState, IWhenAlly_GetFire
 { public AllySyncState001() : base() { } }
-public class AllySyncState002 : AllySyncState 
+public class AllySyncState002 : AllySyncState, IWhenAlly_GetCold
 { public AllySyncState002() : base() { } }
-public class AllySyncState003 : AllySyncState 
+public class AllySyncState003 : AllySyncState, IWhenAlly_GetElectricity
 { public AllySyncState003() : base() { } }
-public class AllySyncState004 : AllySyncState 
+public class AllySyncState004 : AllySyncState, IWhenAlly_GetCorrosion
 { public AllySyncState004() : base() { } }
+
 public class AllySyncState005 : AllySyncState 
 { public AllySyncState005() : base() { } }
 public class AllySyncState006 : AllySyncState
@@ -2955,7 +2982,7 @@ public class StatusEffect_Temporary : StatusEffect
     #region Func
 
     // 버프 증가
-    public virtual void Gain_Stack(int _GainAmount, bool _ShowTxt)
+    public virtual void Gain_Stack(int _GainAmount, bool _ShowTxt, CombatOwner _CombatOwner)
     {
         if (BuffIconUI == null)
         { Start_FirstStack(_ShowTxt); }
@@ -3031,8 +3058,6 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
 
     protected EffectDele FullStack = null;
 
-    private DeleEnemy IDele;
-
     #endregion
 
     #region Contruct
@@ -3046,25 +3071,6 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
     {
         StatusType = _StatusType;
 
-        switch (StatusType)
-        {
-            case eStatusEffect.Flame:
-                IDele = new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingFire);
-                break;
-
-            case eStatusEffect.Cold:
-                IDele = new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingCold);
-                break;
-
-            case eStatusEffect.Electricity:
-                IDele = new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingElectricity);
-                break;
-
-            case eStatusEffect.Corrosion:
-                IDele = new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingCorrosion);
-                break;
-        }
-
         MaxStack = _MaxStack;
         CurrentStack = 0;
         OnceTimeReduceAmount = _OnceTimeReduceAmount;
@@ -3076,24 +3082,70 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
 
     #endregion
 
+    #region Active Func
+
+    private DeleEnemy Get_PlayerIDele()
+    {
+        switch (StatusType)
+        {
+            case eStatusEffect.Flame:
+                return new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingFire);
+
+            case eStatusEffect.Cold:
+                return new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingCold);
+
+            case eStatusEffect.Electricity:
+                return new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingElectricity);
+
+            case eStatusEffect.Corrosion:
+                return new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingCorrosion);
+        }
+        return null;
+    }
+
+    private DeleEnemy Get_AllyIDele(int _ID)
+    {
+        AllyController ally = AllyManager.Instance.AllAllies[_ID];
+        switch (StatusType)
+        {
+            case eStatusEffect.Flame:
+                return new DeleEnemy(ally.ActiveAlly_EnemyTakingFire);
+
+            case eStatusEffect.Cold: 
+                return new DeleEnemy(ally.ActiveAlly_EnemyTakingCold);
+
+            case eStatusEffect.Electricity: 
+                return new DeleEnemy(ally.ActiveAlly_EnemyTakingElectricity);
+
+            case eStatusEffect.Corrosion: 
+                return new DeleEnemy(ally.ActiveAlly_EnemyTakingCorrosion);
+        }
+        return null;
+    }
+
+    #endregion
+
     #region Func
 
     public int CurrentGainStack = 0;
     // 버프 증가
-    public override void Gain_Stack(int _GainAmount, bool _ShowTxt)
+    public override void Gain_Stack(int _GainAmount, bool _ShowTxt, CombatOwner _CombatOwner)
     {
         CurrentStack = System.Math.Clamp(CurrentStack + _GainAmount, 0, MaxStack);
 
-        // 화염 속성을 얻을 시 (MC)
+        // 플레이어 속성
         CurrentGainStack = _GainAmount;
-        IDele(Enemy);
+        if (_CombatOwner.Owner == eCombatOwner.Player)
+            Get_PlayerIDele()(Enemy);
+        else if (_CombatOwner.Owner == eCombatOwner.Ally)
+            Get_AllyIDele(_CombatOwner.ID)(Enemy);
 
         if (IsResetWhenGain)
         {
             CurrentCooltime = 0;
         }
 
-        base.Gain_Stack(_GainAmount, _ShowTxt);
+        base.Gain_Stack(_GainAmount, _ShowTxt, _CombatOwner);
 
         if (CurrentStack >= MaxStack && FullStack != null)
         {
@@ -3183,10 +3235,10 @@ public class StatusEffect_Temporary_WithoutAmount : StatusEffect_Temporary
     #region Func
 
     // 버프 획득
-    public override void Gain_Stack(int _GainAmount, bool _ShowTxt)
+    public override void Gain_Stack(int _GainAmount, bool _ShowTxt, CombatOwner _CombatOwner)
     {
         CurrentCooltime = 0;
-        base.Gain_Stack(_GainAmount, _ShowTxt);
+        base.Gain_Stack(_GainAmount, _ShowTxt, _CombatOwner);
     }
 
     // 버프 제거
@@ -3758,6 +3810,7 @@ public class AllyState
     public RefData<float> Dmg;
     public RefData<float> Rof;
     public RefData<float> AttackSize;
+    public RefData<float> CC;
 
     #endregion
 
@@ -3769,6 +3822,7 @@ public class AllyState
         Dmg = new RefData<float>(1);
         Rof = new RefData<float>(1);
         AttackSize = new RefData<float>(1);
+        CC = new RefData<float>(1);
     }
 
     public AllyState(AllyState _StateValue)
@@ -3777,6 +3831,7 @@ public class AllyState
         Rof = new RefData<float>(_StateValue.Rof.Value);
         MovementSpeed = new RefData<float>(_StateValue.MovementSpeed.Value);
         AttackSize = new RefData<float>(_StateValue.AttackSize.Value);
+        CC = new RefData<float>(_StateValue.CC.Value);
     }
 
     public void Reset()
@@ -3785,6 +3840,20 @@ public class AllyState
         Dmg.Value = 1;
         Rof.Value = 1;
         AttackSize.Value = 1;
+        CC.Value = 1;
+    }
+
+    public static AllyState Get_Multiple(AllyState _Original, AllyState _Exclude)
+    {
+        AllyState result = new AllyState();
+
+        result.Dmg = new RefData<float>(_Original.Dmg.Value * _Exclude.Dmg.Value);
+        result.Rof = new RefData<float>(_Original.Rof.Value * _Exclude.Rof.Value);
+        result.MovementSpeed = new RefData<float>(_Original.MovementSpeed.Value * _Exclude.MovementSpeed.Value);
+        result.AttackSize = new RefData<float>(_Original.AttackSize.Value * _Exclude.AttackSize.Value);
+        result.CC = new RefData<float>(_Original.CC.Value * _Exclude.CC.Value);
+
+        return result;
     }
 
     public static AllyState Get_Subtraction(AllyState _Original, AllyState _Exclude)
@@ -3795,6 +3864,7 @@ public class AllyState
         result.Rof = new RefData<float>(_Original.Rof.Value - _Exclude.Rof.Value);
         result.MovementSpeed = new RefData<float>(_Original.MovementSpeed.Value - _Exclude.MovementSpeed.Value);
         result.AttackSize = new RefData<float>(_Original.AttackSize.Value - _Exclude.AttackSize.Value);
+        result.CC = new RefData<float>(_Original.CC.Value - _Exclude.CC.Value);
 
         return result;
     }
@@ -3805,6 +3875,7 @@ public class AllyState
         Dmg.Value = Mathf.Max(_Min, Dmg.Value);
         Rof.Value = Mathf.Max(_Min, Rof.Value);
         AttackSize.Value = Mathf.Max(_Min, AttackSize.Value);
+        CC.Value = Mathf.Max(_Min, CC.Value);
     }
 
     #endregion
@@ -4478,6 +4549,11 @@ public delegate void DeleEnemy(EnemyController _Enemy);
 #region ========== ENUM
 
 #region About Combat
+
+public enum eCombatOwner
+{
+    Player, Ally, Enemy
+}
 
 public enum eDamageType
 {

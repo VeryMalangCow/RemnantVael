@@ -81,6 +81,8 @@ public class ShockwaveSkillController : ActiveSkillController
     {
         return new AttackerState(
             new CombatState(
+                new CombatOwner(
+                    eCombatOwner.Player),
                 new DmgState(
                     eDamageType.Energy, 
                     PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value),

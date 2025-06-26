@@ -115,6 +115,7 @@ public class MissileBulletController : PlayerBulletController
     {
         return new ExplosionState(
             new CombatState(
+                new CombatOwner(eCombatOwner.Player),
                 new DmgState(eDamageType.Physics, State.DmgState.Dmg * 2),
                 new CriticalState(State.CriticalState),
                 new KnockbackState(true, State.KnockbackState.KBPower * 2, State.KnockbackState.KBTime)),

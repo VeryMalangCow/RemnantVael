@@ -944,11 +944,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 848216773187047800, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       propertyPath: MaxHP
-      value: 10
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1474,11 +1474,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 848216773187047800, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
       propertyPath: MaxHP
-      value: 10000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3617,11 +3617,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 848216773187047800, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
       propertyPath: MaxHP
-      value: 10
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5835078756228912696, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
       propertyPath: offset.x
@@ -4014,7 +4014,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &989995807
 Transform:
   m_ObjectHideFlags: 0

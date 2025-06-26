@@ -228,7 +228,6 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     {
         if (CurrentBtn is SynergySlotEUIController ssEui && PlayerSyncSlotEUIList.Contains(ssEui))
         {
-            Debug.Log("¸ÂÀ½");
             SetOn_PlayerSynergyDesc(ssEui.ID);
             return true;
         }
