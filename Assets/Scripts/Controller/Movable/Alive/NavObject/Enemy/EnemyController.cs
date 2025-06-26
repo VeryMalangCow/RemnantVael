@@ -413,10 +413,6 @@ public class EnemyController : NavObjectController
         }
         else if (_State.OwnerData.Owner == eCombatOwner.Ally)
         {
-            Try_GainStack(true, BuffController.FlameStack, _State.OwnerData);
-            Try_GainStack(true, BuffController.ColdStack, _State.OwnerData);
-            Try_GainStack(true, BuffController.ElectricityStack, _State.OwnerData);
-            Try_GainStack(true, BuffController.CorrosionStack, _State.OwnerData);
             AllyManager.Instance.AllAllies[_State.OwnerData.ID].ActiveAlly_Hit();
         }
 

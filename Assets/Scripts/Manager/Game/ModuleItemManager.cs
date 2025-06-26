@@ -107,7 +107,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         for (int i = 0; i < 2; i++)
             FusionIndex.Add(new CoupleData<int>(-1, -1));
 
-        StartCoroutine(CorTest());
+        //StartCoroutine(CorTest());
     }
 
     private IEnumerator CorTest()
