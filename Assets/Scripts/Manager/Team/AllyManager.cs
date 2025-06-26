@@ -11,15 +11,25 @@ public class AllyManager : Singleton<AllyManager>
     [Header("<><><><><> Ally Manager")]
 
     [Space(10)]
-    [Header("=== Ally Controller")]
-    [SerializeField] public List<AllyController> AllAllies = new List<AllyController>();
+    [Header("=== Reso")]
 
+    [Space(5)]
+    [Header("-- Tuner")]
     [SerializeField] private List<Sprite> TunerTypeIcon;
 
+    [Space(5)]
+    [Header("-- Buff")]
+    [SerializeField] private Sprite Dmg_BuffSprite;
+    [SerializeField] private Sprite CD_BuffSprite;
+    [SerializeField] private Sprite Rof_BuffSprite;
+    [SerializeField] private Sprite ChargeDmg_BuffSprite;
 
     #endregion
 
     #region - Hide
+
+    // Allies
+    [HideInInspector] public List<AllyController> AllAllies = new List<AllyController>();
 
     // Ally Card Data
     [HideInInspector] private List<AllyCardData> ST_AllAllyCardData = new List<AllyCardData>();

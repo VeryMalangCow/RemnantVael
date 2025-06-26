@@ -944,7 +944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 848216773187047800, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       propertyPath: MaxHP
@@ -1116,11 +1116,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c6e61de8c43ab47b554571f2608e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllAllies: []
   TunerTypeIcon:
   - {fileID: -1080434544, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: -1374723442, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: 1299543531, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
+  Dmg_BuffSprite: {fileID: 0}
+  CD_BuffSprite: {fileID: 0}
+  Rof_BuffSprite: {fileID: 0}
+  ChargeDmg_BuffSprite: {fileID: 0}
+  AllAllies: []
   AssultAllySpriteSet:
     AllyIdle: []
     AllyMove: []

@@ -107,28 +107,28 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         for (int i = 0; i < 2; i++)
             FusionIndex.Add(new CoupleData<int>(-1, -1));
 
-        //StartCoroutine(CorTest());
+        StartCoroutine(CorTest());
     }
 
     private IEnumerator CorTest()
     {
         yield return new WaitForSeconds(1f);
 
-        SynchoronyState mcs0 = SynchoronyState.Get_AllSynchoronyState()[1];
-        mcs0.Set_State(1, 1);
-        IWhenSync_GetFireList.Add((IWhenSync_GetFire)mcs0);
+        SynchoronyState mcs0 = SynchoronyState.Get_AllSynchoronyState()[5];
+        mcs0.Set_State(5, 3);
+        IWhenSync_CriticalHitList.Add((IWhenSync_CriticalHit)mcs0);
 
-        SynchoronyState mcs1 = SynchoronyState.Get_AllSynchoronyState()[2];
-        mcs1.Set_State(2, 1);
-        IWhenSync_GetColdList.Add((IWhenSync_GetCold)mcs1);
+        SynchoronyState mcs1 = SynchoronyState.Get_AllSynchoronyState()[6];
+        mcs1.Set_State(6, 3);
+        IWhenSync_StartList.Add((IWhenSync_Start)mcs1);
 
-        SynchoronyState mcs2 = SynchoronyState.Get_AllSynchoronyState()[3];
-        mcs2.Set_State(3, 1); 
-        IWhenSync_GetElectricityList.Add((IWhenSync_GetElectricity)mcs2);
+        SynchoronyState mcs2 = SynchoronyState.Get_AllSynchoronyState()[7];
+        mcs2.Set_State(7, 3); 
+        IWhenSync_HitList.Add((IWhenSync_Hit)mcs2);
 
-        SynchoronyState mcs3 = SynchoronyState.Get_AllSynchoronyState()[4];
-        mcs3.Set_State(4, 1); 
-        IWhenSync_GetCorrosionList.Add((IWhenSync_GetCorrosion)mcs3);
+        SynchoronyState mcs3 = SynchoronyState.Get_AllSynchoronyState()[8];
+        mcs3.Set_State(8, 3); 
+        IWhenSync_AfterFireList.Add((IWhenSync_AfterFire)mcs3);
 
         ActiveSync_Start();
     }
