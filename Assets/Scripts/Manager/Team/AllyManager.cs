@@ -17,13 +17,6 @@ public class AllyManager : Singleton<AllyManager>
     [Header("-- Tuner")]
     [SerializeField] private List<Sprite> TunerTypeIcon;
 
-    [Space(5)]
-    [Header("-- Buff")]
-    [SerializeField] private Sprite Dmg_BuffSprite;
-    [SerializeField] private Sprite CD_BuffSprite;
-    [SerializeField] private Sprite Rof_BuffSprite;
-    [SerializeField] private Sprite ChargeDmg_BuffSprite;
-
     #endregion
 
     #region - Hide
@@ -59,9 +52,13 @@ public class AllyManager : Singleton<AllyManager>
     [HideInInspector] private List<List<string>> AllyAllNameList = new List<List<string>>();
     [HideInInspector] private HashSet<int> UsedAllyName = new HashSet<int>();
 
+    // String
+    [HideInInspector]
+    public static readonly List<string> StateTypeList
+        = new List<string> { "Dmg", "Rof", "MovementSpeed", "AttackSize", "CC", "CD" };
+
     // Base Upgrade Data
     [HideInInspector] public static List<float> TunerTypePercent = new List<float> { 8, 5, 3, 2, 1 };
-    [HideInInspector] public static readonly List<string> TunerTypeList = new List<string> { "Dmg", "Rof", "MovementSpeed", };
     [HideInInspector] private Dictionary<string, Sprite> TunerTypeIconDict;
 
     #endregion
@@ -98,8 +95,8 @@ public class AllyManager : Singleton<AllyManager>
         AllyAllNameList = ResourceManager.Instance.Get_AllAllyRandomName();
 
         TunerTypeIconDict = new Dictionary<string, Sprite>();
-        for (int i = 0; i < TunerTypeList.Count; i++)
-            TunerTypeIconDict.Add(TunerTypeList[i], TunerTypeIcon[i]);
+        for (int i = 0; i < StateTypeList.Count; i++)
+            TunerTypeIconDict.Add(StateTypeList[i], TunerTypeIcon[i]);
     }
 
     #endregion

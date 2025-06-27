@@ -27,7 +27,7 @@ public class TunerDescEUIController : ElementUIController
     public void Set_UI(AllyEachTunerData _Data, bool _IsIncrease)
     {
         // Name Txt
-        int index = AllyManager.TunerTypeList.IndexOf(_Data.Type);
+        int index = AllyManager.StateTypeList.IndexOf(_Data.Type);
         NameTxt.text = ResourceManager.Instance.Get_TunerDescName(index);
 
         // Value Txt

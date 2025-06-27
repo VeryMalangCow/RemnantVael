@@ -944,7 +944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 848216773187047800, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
       propertyPath: MaxHP
@@ -1082,6 +1082,7 @@ GameObject:
   - component: {fileID: 355347630}
   - component: {fileID: 355347631}
   - component: {fileID: 355347632}
+  - component: {fileID: 355347633}
   m_Layer: 0
   m_Name: AllyManager
   m_TagString: Untagged
@@ -1120,10 +1121,9 @@ MonoBehaviour:
   - {fileID: -1080434544, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: -1374723442, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: 1299543531, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
-  Dmg_BuffSprite: {fileID: 0}
-  CD_BuffSprite: {fileID: 0}
-  Rof_BuffSprite: {fileID: 0}
-  ChargeDmg_BuffSprite: {fileID: 0}
+  - {fileID: 299411387, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
+  - {fileID: -749255590, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
+  - {fileID: 681309432, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   AllAllies: []
   AssultAllySpriteSet:
     AllyIdle: []
@@ -1155,6 +1155,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d42f0807dd2b7744ada7373674996dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &355347633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355347628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2b1a0b748214be4286b3c78a80ba314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sync005_OriginalBuff:
+    Type: Dmg
+    IconSprite: {fileID: 1188069800, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    BuffValue: 0.15
+    BuffMaxAmount: 1
+    MaxCooltime: 5
+    IsIncrease: 0
+    IsPermanent: 0
+  Sync006_OriginalBuff:
+    Type: CD
+    IconSprite: {fileID: -2127429938, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    BuffValue: 0.2
+    BuffMaxAmount: 1
+    MaxCooltime: 100
+    IsIncrease: 0
+    IsPermanent: 1
 --- !u!1 &361561066
 GameObject:
   m_ObjectHideFlags: 0

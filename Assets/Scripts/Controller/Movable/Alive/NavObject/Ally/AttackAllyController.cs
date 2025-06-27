@@ -133,11 +133,11 @@ public class AttackAllyController : AllyController
             new CombatState(
                 new CombatOwner(eCombatOwner.Ally, ID),
                 new DmgState(eDamageType.Physics, ActualAllyState.Dmg.Value),
-                new CriticalState(0, 0),
+                new CriticalState(ActualAllyState.CC.Value, 1 + ActualAllyState.CD.Value),
                 new KnockbackState(false, 0, 0)),
-            false,
-            1f,
-            10f);
+            _CheckIsCritical: true,
+            _MuzzleSpeed: 1f,
+            _AliveTime: 10f);
     }
 
     private BulletState_PosAndRot Get_BulletState_PosAndRot()
@@ -198,4 +198,5 @@ public class AttackAllyController : AllyController
     }
 
     #endregion
+
 }

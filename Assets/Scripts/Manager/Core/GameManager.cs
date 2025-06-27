@@ -2839,16 +2839,285 @@ public class AllySyncState003 : AllySyncState, IWhenAlly_GetElectricity
 public class AllySyncState004 : AllySyncState, IWhenAlly_GetCorrosion
 { public AllySyncState004() : base() { } }
 
-public class AllySyncState005 : AllySyncState 
-{ public AllySyncState005() : base() { } }
-public class AllySyncState006 : AllySyncState
-{ public AllySyncState006() : base() { } }
+public class AllySyncState005 : AllySyncState, IWhenAlly_CriticalHit
+{ 
+    public AllySyncState005() : base() { }
+
+    public override void Set_State(AllyController _Ally, int _ID, int _SynergyRank)
+    {
+        base.Set_State(_Ally, _ID, _SynergyRank);
+
+        _Ally.BuffController.Get_AllyBuff("Sync005").Set_Value(
+            DevTool.Get_SyncValue(0.15f, 0.35f, 0.6f, _SynergyRank));
+
+        _Ally.BuffController.Get_AllyBuff("Sync005").SetOn_State(_ShowAlwaysOnOff: false);
+    }
+}
+public class AllySyncState006 : AllySyncState, IWhenAlly_Start
+{ 
+    public AllySyncState006() : base() { }
+
+    public override void Set_State(AllyController _Ally, int _ID, int _SynergyRank)
+    {
+        base.Set_State(_Ally, _ID, _SynergyRank);
+
+        _Ally.BuffController.Get_AllyBuff("Sync006").Set_Value(
+            DevTool.Get_SyncValue(0.2f, 0.5f, 1.0f, _SynergyRank));
+
+        _Ally.BuffController.Get_AllyBuff("Sync006").SetOn_State(_ShowAlwaysOnOff: false);
+    }
+}
 public class AllySyncState007 : AllySyncState 
 { public AllySyncState007() : base() { } }
 public class AllySyncState008 : AllySyncState 
 { public AllySyncState008() : base() { } }
 
 #endregion
+
+#region Class : State : Ally : Buff
+
+[Serializable]
+public class OriginalAllyBuff
+{
+    [SerializeField] public string Type;
+    [SerializeField] public Sprite IconSprite;
+
+    [SerializeField] public float BuffValue = 0;
+    [SerializeField] public int BuffMaxAmount = 0;
+    [SerializeField] public float MaxCooltime = 0;
+    [SerializeField] public bool IsIncrease = false;
+    [SerializeField] public bool IsPermanent = false;
+}
+
+
+[Serializable]
+public class AllyBuff : OriginalAllyBuff
+{
+    #region Value
+
+    private AllyController Ally;
+    private BuffIconEUIController BuffIconUI = null;
+
+    [SerializeField] private int BuffAmount = 0;
+    private RefData<float> ActualBuffValue;
+
+    private bool IsOn = false;
+    private bool IsAlwaysShowUI = false;
+
+    [SerializeField] private float CurrentCooltime = 0;
+
+    #endregion
+
+    #region Constructor
+
+    public AllyBuff(AllyController _Ally, OriginalAllyBuff _Original) : base()
+    {
+        Ally = _Ally;
+
+        Type = _Original.Type;
+        IconSprite = _Original.IconSprite;
+        BuffValue = _Original.BuffValue;
+        BuffMaxAmount = _Original.BuffMaxAmount;
+        MaxCooltime = _Original.MaxCooltime;
+        IsIncrease = _Original.IsIncrease;
+        IsPermanent = _Original.IsPermanent;
+
+        IsOn = false;
+        IsAlwaysShowUI = false;
+        BuffAmount = 0;
+        CurrentCooltime = 0;
+        ActualBuffValue = new RefData<float>(0);
+    }
+
+    #endregion
+
+    #region Set
+
+    public void SetOn_State(bool _ShowAlwaysOnOff)
+    {
+        BuffAmount = 0;
+        CurrentCooltime = 0;
+        ActualBuffValue.Value = 0;
+
+        Ally.BuffController.BuffingState.Add_List(this, Type);
+        Set_OnOff(true);
+        Set_AlwaysShowUI(_ShowAlwaysOnOff); 
+
+        Ally.BuffController.BuffingState.Set_BuffedAllyState();
+        Ally.Set_AllState();
+    }
+
+    public void SetOff_State()
+    {
+        BuffAmount = 0;
+        CurrentCooltime = 0;
+        ActualBuffValue.Value = 0;
+
+        Ally.BuffController.BuffingState.Remove_List(this, Type);
+        Set_OnOff(false);
+        Set_AlwaysShowUI(false); 
+
+        Ally.BuffController.BuffingState.Set_BuffedAllyState();
+        Ally.Set_AllState();
+    }
+
+    private void Set_OnOff(bool _OnOff)
+    {
+        if (IsOn == _OnOff) return;
+        
+        IsOn = _OnOff;
+
+        if (!IsOn && BuffIconUI != null) // ²¨Áü
+        {
+            Ally.HUD.TemporaryBuffUI.Remove_BuffIconUI(BuffIconUI);
+            BuffIconUI = null;
+        }
+    }
+
+    private void Set_AlwaysShowUI(bool _OnOff)
+    {
+        if (IsAlwaysShowUI == _OnOff) return;
+
+        IsAlwaysShowUI = _OnOff;
+
+        if (IsAlwaysShowUI) // Ç×»ó ÄÑÁü
+        {
+            BuffIconUI = Ally.HUD.TemporaryBuffUI.Get_BuffIconUI();
+            BuffIconUI.SetOn(IconSprite, IsAlwaysShowUI ? true : !(BuffAmount == 0));
+        }
+    }
+
+    #endregion
+
+    #region Set (Change Value)
+
+    public void Set_Value(float _Value)
+    {
+        BuffValue = _Value;
+    }
+
+    public void Set_MaxAmount(int _Value)
+    {
+        BuffMaxAmount = _Value;
+    }
+
+
+    #endregion
+
+    #region Gain Loss
+
+    public void Gain_Buff(int _Stack = 1)
+    {
+        // ui first
+        if (BuffIconUI == null)
+        {
+            BuffIconUI = Ally.HUD.TemporaryBuffUI.Get_BuffIconUI();
+        }
+
+        // value
+        BuffAmount = Mathf.Min(BuffAmount + _Stack, BuffMaxAmount);
+        Set_Value();
+        Ally.BuffController.BuffingState.Set_BuffedAllyState();
+        Ally.Set_AllState();
+
+        if (!IsIncrease) CurrentCooltime = 0;
+
+        // ui
+        BuffIconUI.SetOn(IconSprite, IsAlwaysShowUI ? true : !(BuffAmount == 0));
+    }
+
+    public void Reduce_Buff(int _Stack = 1)
+    {
+        // value
+        BuffAmount = Mathf.Max(BuffAmount - _Stack, 0);
+        Set_Value();
+        Ally.BuffController.BuffingState.Set_BuffedAllyState();
+        Ally.Set_AllState();
+
+        if (IsIncrease) CurrentCooltime = 0;
+
+        // ui
+        BuffIconUI.SetOn(IconSprite, IsAlwaysShowUI ? true : !(BuffAmount == 0));
+
+        // ui last
+        if (BuffAmount == 0 && !IsAlwaysShowUI && BuffIconUI != null)
+        {
+            Ally.HUD.TemporaryBuffUI.Remove_BuffIconUI(BuffIconUI);
+            BuffIconUI = null;
+        }
+    }
+
+    #endregion
+
+    #region Cooltime
+
+    public void Caculate_Cooltime(float _DeltaTime)
+    {
+        if (!IsOn || IsPermanent) return;
+
+        if (IsIncrease)
+            Caculate_Cooltime_Increase(_DeltaTime);
+        else
+            Caculate_Cooltime_Decrease(_DeltaTime);
+
+        if (BuffIconUI != null)
+        {
+            BuffIconUI.Set_Cooltime(CurrentCooltime / MaxCooltime);
+            BuffIconUI.Set_Icon(BuffAmount, BuffMaxAmount);
+        }
+    }
+
+    private void Caculate_Cooltime_Increase(float _DeltaTime)
+    {
+        if (BuffAmount >= BuffMaxAmount) return;
+
+        if (MaxCooltime <= CurrentCooltime) // ½ºÅÃ °¨¼Ò
+        {
+            CurrentCooltime -= MaxCooltime;
+            Gain_Buff(1);
+        }
+        else // ÄðÅ¸ÀÓ µ¹¸²
+        {
+            CurrentCooltime += _DeltaTime;
+        }
+    }
+
+    private void Caculate_Cooltime_Decrease(float _DeltaTime)
+    {
+        if (BuffAmount <= 0) return;
+
+        if (MaxCooltime <= CurrentCooltime) // ½ºÅÃ °¨¼Ò
+        {
+            CurrentCooltime -= MaxCooltime;
+            Reduce_Buff(1);
+        }
+        else // ÄðÅ¸ÀÓ µ¹¸²
+        {
+            CurrentCooltime += _DeltaTime;
+        }
+    }
+
+    #endregion
+
+    #region Value
+
+    private void Set_Value()
+    {
+        ActualBuffValue.Value = BuffAmount * BuffValue;
+    }
+    
+    public float Get_Value()
+    {
+        return ActualBuffValue.Value;
+    }
+
+    #endregion
+
+}
+
+
+#endregion
+
 
 #region Class : State : Player : Other
 
@@ -2870,6 +3139,7 @@ public class BuffState<T>
 }
 
 #endregion
+
 
 
 #region Class : Spawn : Enemy
@@ -3267,7 +3537,6 @@ public class StatusEffect_Temporary_WithoutAmount : StatusEffect_Temporary
         {
             base.Caculate_Cooltime(_DeltaTime);
         }
-
     }
 
     #endregion
@@ -3805,12 +4074,13 @@ public class AllyEachTunerData
 public class AllyState
 {
     #region Value
-    
-    public RefData<float> MovementSpeed;
+
     public RefData<float> Dmg;
     public RefData<float> Rof;
+    public RefData<float> MovementSpeed;
     public RefData<float> AttackSize;
     public RefData<float> CC;
+    public RefData<float> CD;
 
     #endregion
 
@@ -3818,11 +4088,12 @@ public class AllyState
 
     public AllyState()
     {
-        MovementSpeed = new RefData<float>(1);
         Dmg = new RefData<float>(1);
         Rof = new RefData<float>(1);
+        MovementSpeed = new RefData<float>(1);
         AttackSize = new RefData<float>(1);
         CC = new RefData<float>(1);
+        CD = new RefData<float>(1);
     }
 
     public AllyState(AllyState _StateValue)
@@ -3832,26 +4103,29 @@ public class AllyState
         MovementSpeed = new RefData<float>(_StateValue.MovementSpeed.Value);
         AttackSize = new RefData<float>(_StateValue.AttackSize.Value);
         CC = new RefData<float>(_StateValue.CC.Value);
+        CD = new RefData<float>(_StateValue.CD.Value);
     }
 
     public void Reset()
     {
-        MovementSpeed.Value = 1;
         Dmg.Value = 1;
         Rof.Value = 1;
+        MovementSpeed.Value = 1;
         AttackSize.Value = 1;
         CC.Value = 1;
+        CD.Value = 1;
     }
 
-    public static AllyState Get_Multiple(AllyState _Original, AllyState _Exclude)
+    public static AllyState Get_Multiple(AllyState _State0, AllyState _State1)
     {
         AllyState result = new AllyState();
 
-        result.Dmg = new RefData<float>(_Original.Dmg.Value * _Exclude.Dmg.Value);
-        result.Rof = new RefData<float>(_Original.Rof.Value * _Exclude.Rof.Value);
-        result.MovementSpeed = new RefData<float>(_Original.MovementSpeed.Value * _Exclude.MovementSpeed.Value);
-        result.AttackSize = new RefData<float>(_Original.AttackSize.Value * _Exclude.AttackSize.Value);
-        result.CC = new RefData<float>(_Original.CC.Value * _Exclude.CC.Value);
+        result.Dmg = new RefData<float>(_State0.Dmg.Value * _State1.Dmg.Value);
+        result.Rof = new RefData<float>(_State0.Rof.Value * _State1.Rof.Value);
+        result.MovementSpeed = new RefData<float>(_State0.MovementSpeed.Value * _State1.MovementSpeed.Value);
+        result.AttackSize = new RefData<float>(_State0.AttackSize.Value * _State1.AttackSize.Value);
+        result.CC = new RefData<float>(_State0.CC.Value * _State1.CC.Value);
+        result.CD = new RefData<float>(_State0.CD.Value * _State1.CD.Value);
 
         return result;
     }
@@ -3865,21 +4139,138 @@ public class AllyState
         result.MovementSpeed = new RefData<float>(_Original.MovementSpeed.Value - _Exclude.MovementSpeed.Value);
         result.AttackSize = new RefData<float>(_Original.AttackSize.Value - _Exclude.AttackSize.Value);
         result.CC = new RefData<float>(_Original.CC.Value - _Exclude.CC.Value);
+        result.CD = new RefData<float>(_Original.CD.Value - _Exclude.CD.Value);
 
         return result;
     }
 
     public void Set_ValueLimitRange(float _Min)
     {
-        MovementSpeed.Value = Mathf.Max(_Min, MovementSpeed.Value);
         Dmg.Value = Mathf.Max(_Min, Dmg.Value);
         Rof.Value = Mathf.Max(_Min, Rof.Value);
+        MovementSpeed.Value = Mathf.Max(_Min, MovementSpeed.Value);
         AttackSize.Value = Mathf.Max(_Min, AttackSize.Value);
         CC.Value = Mathf.Max(_Min, CC.Value);
+        CD.Value = Mathf.Max(_Min, CD.Value);
     }
 
     #endregion
 }
+
+[System.Serializable]
+public class AllyBuffState : AllyState
+{
+    [HideInInspector] public List<AllyBuff> Dmg_BuffList;
+    [HideInInspector] public List<AllyBuff> Rof_BuffList;
+    [HideInInspector] public List<AllyBuff> MovementSpeed_BuffList;
+    [HideInInspector] public List<AllyBuff> AttackSize_BuffList;
+    [HideInInspector] public List<AllyBuff> CC_BuffList;
+    [HideInInspector] public List<AllyBuff> CD_BuffList;
+
+    [HideInInspector] private RefData<bool> Dmg_IsExist;
+    [HideInInspector] private RefData<bool> Rof_IsExist;
+    [HideInInspector] private RefData<bool> MovementSpeed_IsExist;
+    [HideInInspector] private RefData<bool> AttackSize_IsExist;
+    [HideInInspector] private RefData<bool> CC_IsExist;
+    [HideInInspector] private RefData<bool> CD_IsExist;
+
+    [HideInInspector] Dictionary<string, List<AllyBuff>> BuffDict;
+    [HideInInspector] Dictionary<string, RefData<bool>> BuffIsOnDict;
+
+    public AllyBuffState() : base()
+    {
+        Dmg_BuffList = new List<AllyBuff>();
+        Rof_BuffList = new List<AllyBuff>();
+        MovementSpeed_BuffList = new List<AllyBuff>();
+        AttackSize_BuffList = new List<AllyBuff>();
+        CC_BuffList = new List<AllyBuff>();
+        CD_BuffList = new List<AllyBuff>();
+
+        Dmg_IsExist = new RefData<bool>(false);
+        Rof_IsExist = new RefData<bool>(false);
+        MovementSpeed_IsExist = new RefData<bool>(false);
+        AttackSize_IsExist = new RefData<bool>(false);
+        CC_IsExist = new RefData<bool>(false);
+        CD_IsExist = new RefData<bool>(false);
+
+        BuffDict = new Dictionary<string, List<AllyBuff>>
+        {
+            { AllyManager.StateTypeList[0], Dmg_BuffList },
+            { AllyManager.StateTypeList[1], Rof_BuffList },
+            { AllyManager.StateTypeList[2], MovementSpeed_BuffList },
+            { AllyManager.StateTypeList[3], AttackSize_BuffList },
+            { AllyManager.StateTypeList[4], CC_BuffList },
+            { AllyManager.StateTypeList[5], CD_BuffList }
+        };
+
+        BuffIsOnDict = new Dictionary<string, RefData<bool>>
+        {
+            { AllyManager.StateTypeList[0], Dmg_IsExist },
+            { AllyManager.StateTypeList[1], Rof_IsExist },
+            { AllyManager.StateTypeList[2], MovementSpeed_IsExist },
+            { AllyManager.StateTypeList[3], AttackSize_IsExist },
+            { AllyManager.StateTypeList[4], CC_IsExist },
+            { AllyManager.StateTypeList[5], CD_IsExist }
+        };
+    }
+
+    public void Add_List(AllyBuff _Buff, string _Type)
+    {
+        DevTool.Add_InList(BuffDict[_Type], _Buff);
+
+        if (!BuffIsOnDict[_Type].Value)
+            BuffIsOnDict[_Type].Value = true;
+    }
+
+    public void Remove_List(AllyBuff _Buff, string _Type)
+    {
+        DevTool.Remove_InList(BuffDict[_Type], _Buff);
+
+        if (BuffDict[_Type].Count <= 0)
+            BuffIsOnDict[_Type].Value = false;
+    }
+
+    public AllyState Get_BuffedAllyState()
+    {
+        return this;
+    }
+
+    public void UpdateData(float _DeltaTime)
+    {
+        foreach(var data in BuffDict)
+            if (BuffIsOnDict[data.Key].Value)
+                UpdateData(data.Value);
+            
+        void UpdateData(List<AllyBuff> _BuffList)
+        {
+            for (int i = 0; i < _BuffList.Count; i++)
+                _BuffList[i].Caculate_Cooltime(_DeltaTime);
+        }
+    }
+
+
+
+    public void Set_BuffedAllyState()
+    {
+        MovementSpeed.Value = Get_BuffValue(MovementSpeed_BuffList);
+        Dmg.Value = Get_BuffValue(Dmg_BuffList);
+        Rof.Value = Get_BuffValue(Rof_BuffList);
+        AttackSize.Value = Get_BuffValue(AttackSize_BuffList);
+        CC.Value = Get_BuffValue(CC_BuffList);
+        CD.Value = Get_BuffValue(CD_BuffList);
+    }
+
+    private float Get_BuffValue(List<AllyBuff> _BuffList)
+    {
+        float result = 1;
+        for (int i = 0; i < _BuffList.Count; i++)
+        {
+            result += _BuffList[i].Get_Value();
+        }
+        return result;
+    }
+}
+
 
 #endregion
 

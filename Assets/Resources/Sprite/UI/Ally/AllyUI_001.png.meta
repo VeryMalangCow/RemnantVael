@@ -159,6 +159,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: AllyUI_BU_AttackSize
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bebc713443348744ae3c0eeb3354af1
+      internalID: 299411387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_BU_CC
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70ec8def2e91ca44bb400071c19dd91e
+      internalID: -749255590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_BU_CD
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1142fbf780361941a70b411e82c2489
+      internalID: 681309432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -170,6 +233,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      AllyUI_BU_AttackSize: 299411387
+      AllyUI_BU_CC: -749255590
+      AllyUI_BU_CD: 681309432
       AllyUI_BU_DMG: -1080434544
       AllyUI_BU_MovementSpeed: 1299543531
       AllyUI_BU_ROF: -1374723442

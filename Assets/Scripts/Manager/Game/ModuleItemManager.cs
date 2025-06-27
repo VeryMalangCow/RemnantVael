@@ -244,7 +244,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public ItemData_Field Get_RandomInteractItem()
     {
         var data = new ItemData_Field(ItemDataList[Random.Range(0, ItemDataList.Count)]);
-        data.Rank = 3;
+        Debug.Log("Module Rank Test");
+        data.Rank = 5;
         return data;
     }
 

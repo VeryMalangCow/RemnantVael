@@ -82,7 +82,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     {
         // Data Set (Must set First)
         AllyTunerSet = new AllyBaseUpradeTunerSet();
-        AllyTunerSet.Offset(TunerAmount, AllyManager.TunerTypeList, AllyManager.TunerTypePercent);
+        AllyTunerSet.Offset(TunerAmount, AllyManager.StateTypeList, AllyManager.TunerTypePercent);
 
         // UI Set
         for (int i = 0; i < AllTunerEUI.Count; i++)
@@ -174,7 +174,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     private void Set_TunerData(int _Index)
     {
-        AllyTunerSet.AllyTunerDataList[_Index].Set_Data(AllyManager.TunerTypeList, AllyManager.TunerTypePercent);
+        AllyTunerSet.AllyTunerDataList[_Index].Set_Data(AllyManager.StateTypeList, AllyManager.TunerTypePercent);
     }
 
     private void Set_TunerUI(int _Index)

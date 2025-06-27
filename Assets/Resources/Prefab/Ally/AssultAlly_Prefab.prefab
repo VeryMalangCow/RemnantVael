@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2074109866832102680}
   - component: {fileID: -7677951490283658699}
+  - component: {fileID: 1545880728986693634}
   - component: {fileID: 7751130478170212446}
   - component: {fileID: 6733897396435173674}
   m_Layer: 10
@@ -69,16 +70,18 @@ MonoBehaviour:
   BrokenParticleData: []
   ParticleThrowDis: 1
   MultipleAllyState:
-    MovementSpeed:
-      Value: 1.5
     Dmg:
       Value: 2
     Rof:
       Value: 2
+    MovementSpeed:
+      Value: 1.5
     AttackSize:
       Value: 1
     CC:
       Value: 0.1
+    CD:
+      Value: 0.5
   MaxHP: 150
   MaxEP: 100
   ForEnemyDis: 2.5
@@ -87,18 +90,21 @@ MonoBehaviour:
   ThisSG: {fileID: 6733897396435173674}
   ThisSolar: {fileID: 8582829566269682132}
   ThisDirImg: {fileID: 8140379498466177624}
+  BuffController: {fileID: 1545880728986693634}
   HUD: {fileID: 82095112155882869}
   FrontFaceSprite: {fileID: 662672575, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
   UpgradeAllyState:
-    MovementSpeed:
-      Value: 1
     Dmg:
       Value: 1
     Rof:
       Value: 1
+    MovementSpeed:
+      Value: 1
     AttackSize:
       Value: 1
     CC:
+      Value: 1
+    CD:
       Value: 1
   BulletSprite: {fileID: -1712732208, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
   BulletObjSize: {x: 0.05, y: 0.05}
@@ -137,6 +143,43 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   LightIntensity: 1
+--- !u!114 &1545880728986693634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2537459090634405761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d160d6e9771cba488b06ea50ed0e05e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sync005_Buff:
+    Type: 
+    IconSprite: {fileID: 0}
+    BuffValue: 0
+    BuffMaxAmount: 0
+    MaxCooltime: 0
+  BuffingState:
+    Dmg:
+      Value: 1
+    Rof:
+      Value: 1
+    MovementSpeed:
+      Value: 1
+    AttackSize:
+      Value: 1
+    CC:
+      Value: 1
+    CD:
+      Value: 1
+    Dmg_BuffList: []
+    Rof_BuffList: []
+    MovementSpeed_BuffList: []
+    AttackSize_BuffList: []
+    CC_BuffList: []
+    CD_BuffList: []
 --- !u!50 &7751130478170212446
 Rigidbody2D:
   serializedVersion: 4

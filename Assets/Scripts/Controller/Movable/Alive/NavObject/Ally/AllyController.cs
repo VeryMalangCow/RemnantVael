@@ -30,10 +30,11 @@ public class AllyController : NavObjectController
     [SerializeField] private SortingGroup ThisSG;
     [SerializeField] private AllySolarController ThisSolar;
     [SerializeField] protected DirectionalAllyTypeImgController ThisDirImg;
+    [SerializeField] public AllyBuffController BuffController;
 
     [Space(10)]
     [Header("=== HUD")]
-    [SerializeField] private AllyHUDController HUD;
+    [SerializeField] public AllyHUDController HUD;
 
     [Space(10)]
     [Header("=== UI")]
@@ -124,6 +125,7 @@ public class AllyController : NavObjectController
         Offset_Subscribe();
         Offset_TunerUpgrade(); 
         Offset_SyncUpgrade();
+        Offset_Comp();
     }
 
     private void Offset_UI()
@@ -190,9 +192,9 @@ public class AllyController : NavObjectController
     {
         UpgradeStateDict = new Dictionary<string, RefData<float>> 
         {
-            { AllyManager.TunerTypeList[0], UpgradeAllyState.Dmg },
-            { AllyManager.TunerTypeList[1], UpgradeAllyState.Rof },
-            { AllyManager.TunerTypeList[2], UpgradeAllyState.MovementSpeed },
+            { AllyManager.StateTypeList[0], UpgradeAllyState.Dmg },
+            { AllyManager.StateTypeList[1], UpgradeAllyState.Rof },
+            { AllyManager.StateTypeList[2], UpgradeAllyState.MovementSpeed },
         };
     }
 
@@ -214,6 +216,11 @@ public class AllyController : NavObjectController
         SyncData = new Dictionary<int, int>();
         ConnectSyncData = new Dictionary<int, int>();
         CompletelySyncData = new Dictionary<int, int>();
+    }
+
+    private void Offset_Comp()
+    {
+        BuffController.Offset(this);
     }
 
     #endregion
@@ -272,16 +279,20 @@ public class AllyController : NavObjectController
 
     #region Set (State)
 
-
     public void Set_AllState() // 카드와 업그레이드 모두 적용
     {
-        ActualAllyState = Get_AllState();
+        ActualAllyState = Get_AllBuffedState();
         ActualAllyState.Set_ValueLimitRange(MinLimitUpgradeValue);
 
         FollowInitDelay = 0.4f / ActualAllyState.MovementSpeed.Value;
     }
 
-    public AllyState Get_AllState() // 카드와 업그레이드 모두 적용된 스탯
+    private AllyState Get_AllBuffedState()
+    {
+        return AllyState.Get_Multiple(Get_AllBasicState(), BuffController.Get_BuffedState());
+    }
+
+    public AllyState Get_AllBasicState() // 카드와 업그레이드 모두 적용된 스탯
     {
         return AllyState.Get_Multiple(Get_CardState(), UpgradeAllyState);
     }
@@ -293,7 +304,7 @@ public class AllyController : NavObjectController
 
     public AllyState Get_UpgradeAllState() // 업그레이드만 카드 적용된 스탯
     {
-        return AllyState.Get_Subtraction(Get_AllState(), Get_CardState());
+        return AllyState.Get_Subtraction(Get_AllBasicState(), Get_CardState());
     }
 
     #endregion
@@ -520,6 +531,8 @@ public class AllyController : NavObjectController
         IWhenAlly_GetColdList.Clear();
         IWhenAlly_GetElectricityList.Clear();
         IWhenAlly_GetCorrosionList.Clear();
+
+        BuffController.Reset_SyncState();
     }
 
     private void Set_Interface()
@@ -532,6 +545,8 @@ public class AllyController : NavObjectController
             state.Set_State(this, syncData.Key, syncData.Value);
             Try_AddIWhenAlly(state);
         }
+
+        ActiveAlly_Start();
     }
 
     private void Try_AddIWhenAlly(AllySyncState _State)
@@ -556,6 +571,7 @@ public class AllyController : NavObjectController
 
     public void ActiveAlly_Start()
     {
+        Debug.Log(IWhenAlly_StartList.Count);
         ActiveAlly(IWhenAlly_StartList);
     }
 

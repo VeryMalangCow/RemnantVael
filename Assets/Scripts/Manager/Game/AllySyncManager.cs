@@ -110,13 +110,13 @@ public class AllySyncManager : Singleton<AllySyncManager>
     // 치명타 발생 => 공격력 버프
     private void Activity_Sync_005(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-
+        _Ally.BuffController.Get_AllyBuff("Sync005").Gain_Buff();
     }
 
     // 치명타 배수 버프
     private void Activity_Sync_006(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-
+        _Ally.BuffController.Get_AllyBuff("Sync006").Gain_Buff();
     }
 
     // 기본 공격 적중 => 공속 버프
