@@ -50,8 +50,9 @@ public class ScrollPanelEUIController : ElementUIController, IScrollHandler
     public void Set_ScrollHeight(float _Height)
     {
         ActualMovableRT.sizeDelta = new Vector2(0, _Height);
-        Set_ScrollPanel(VisibleY);
+        Set_ScrollPanel();
     }
+
     public void Set_ScrollPanel(float _VisibleY)
     {
         if (disposable != null)
@@ -69,6 +70,11 @@ public class ScrollPanelEUIController : ElementUIController, IScrollHandler
                 float targetY = MovableY * _Value;
                 ActualMovableRT.anchoredPosition = new Vector2(ActualMovableRT.anchoredPosition.x, targetY);
             });
+    }
+
+    public void Set_ScrollPanel()
+    {
+        Set_ScrollPanel(VisibleY);
     }
 
     #endregion

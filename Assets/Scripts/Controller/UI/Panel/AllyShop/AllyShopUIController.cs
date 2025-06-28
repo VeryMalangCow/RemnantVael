@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -156,6 +155,7 @@ public class AllyShopUIController : ShopUIController
 
         StateScrollPanel.Offset();
         TunerScrollPanel.Offset();
+        SyncScrollPanel.Offset();
 
         // In State - Tuner
         InStateTunerEUIList = new List<TunerEUIController>();
@@ -438,15 +438,22 @@ public class AllyShopUIController : ShopUIController
     protected void Set_AllyState(AllyController _Ally)
     {
         AllyState cardBaseState = _Ally.Get_CardState();
-        StateEUIList[0].ValueTxt.text = DevTool.Get_RoundFloatString(cardBaseState.Dmg.Value);
-        StateEUIList[1].ValueTxt.text = DevTool.Get_RoundFloatString(cardBaseState.Rof.Value);
-        StateEUIList[2].ValueTxt.text = DevTool.Get_RoundFloatString(cardBaseState.MovementSpeed.Value);
+        StateEUIList[0].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.Dmg.Value).Replace("+", "")}";
+        StateEUIList[1].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.Rof.Value).Replace("+", "")}<size=65%>/s</size>";
+        StateEUIList[2].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.MovementSpeed.Value).Replace("+", "")}";
+        StateEUIList[3].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.AttackSize.Value).Replace("+", "")}";
+        StateEUIList[4].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.CC.Value * 100).Replace("+", "")}<size=65%>%</size>";
+        StateEUIList[5].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.CD.Value + 1).Replace("+", "")}<size=65%>x</size>";
 
         AllyState upgradeState = _Ally.Get_UpgradeAllState();
-        StateEUIList[0].ExtraValueTxt.text = DevTool.Get_RoundFloatString(upgradeState.Dmg.Value);
-        StateEUIList[1].ExtraValueTxt.text = DevTool.Get_RoundFloatString(upgradeState.Rof.Value);
-        StateEUIList[2].ExtraValueTxt.text = DevTool.Get_RoundFloatString(upgradeState.MovementSpeed.Value);
+        StateEUIList[0].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.Dmg.Value)}";
+        StateEUIList[1].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.Rof.Value)}<size=65%>/s</size>";
+        StateEUIList[2].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.MovementSpeed.Value)}";
+        StateEUIList[3].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.AttackSize.Value)}";
+        StateEUIList[4].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.CC.Value * 100)}<size=65%>%</size>";
+        StateEUIList[5].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.CD.Value)}<size=65%>x</size>";
 
+        StateScrollPanel.Set_ScrollPanel();
     }
 
     
@@ -686,6 +693,9 @@ public class AllyShopUIController : ShopUIController
         StateEUIList[0].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(12)} >";    // 공격력
         StateEUIList[1].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(13)} >";    // 연사력
         StateEUIList[2].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(9)} >";     // 이동속도
+        StateEUIList[3].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(114)} >";    // 크기
+        StateEUIList[4].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(15)} >";    // 치확
+        StateEUIList[5].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(16)} >";     // 치뎀
 
         // Limit
         StateLimitTxt.text = $"( {ResourceManager.Instance.Get_StaticWord(107)}: {AllyController.MinLimitUpgradeValue} )";
