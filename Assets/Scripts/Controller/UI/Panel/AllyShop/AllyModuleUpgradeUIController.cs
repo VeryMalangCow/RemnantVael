@@ -173,6 +173,10 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     public override bool Try_Interact()
     {
+        if (Is_Interact_Msg()) return true;
+
+        if (CurrentBtn == null || AllyModuleUpgradeController.UsingShop == null) return true;
+
         if (base.Try_Interact()) return true;
         if (Is_Interact_CloseBtn()) return true;
         if (Is_Interact_ToggleBtn()) return true;
@@ -267,6 +271,8 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
             {
                 Buy();
                 Set_Picked(null);
+
+                AllyModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
             }
 
             return true;
@@ -321,7 +327,8 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
             }
         }
 
-        return isExist && 
+        return !AllyModuleUpgradeController.UsingShop.IsBroken &&
+            isExist && 
             PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value >= _Goods &&
             CurrentPickedProfileEUI != null &&
             PickedModulePanel_AllyGO.activeSelf;

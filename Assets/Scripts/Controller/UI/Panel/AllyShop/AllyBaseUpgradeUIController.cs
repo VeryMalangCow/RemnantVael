@@ -164,8 +164,11 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
         Set_ChargedBetteryUI(PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value, NeedChargedBettery);
 
-        DevTool.Set_KillTween(TunerDetailExtraRT);
-        TunerDetailExtraRT.DOSizeDelta(onOff ? TunerDetailExtraRTOpen : new Vector2(TunerDetailExtraRTOpen.x, 0), 0.2f);
+        if (!AllyBaseUpgradeController.UsingShop.IsBroken)
+        {
+            DevTool.Set_KillTween(TunerDetailExtraRT);
+            TunerDetailExtraRT.DOSizeDelta(onOff ? TunerDetailExtraRTOpen : new Vector2(TunerDetailExtraRTOpen.x, 0), 0.2f);
+        }
     }
 
     #endregion
@@ -197,6 +200,10 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     public override bool Try_Interact()
     {
+        if (Is_Interact_Msg()) return true;
+
+        if (CurrentBtn == null || AllyBaseUpgradeController.UsingShop == null) return true;
+
         if (base.Try_Interact()) return true;
         if (Is_Interact_CloseBtn()) return true;
 
@@ -279,6 +286,8 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
             {
                 Buy();
                 Set_PickedTuner(null);
+
+                AllyBaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
             }
 
             return true;
@@ -293,7 +302,8 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     private bool Can_Buy()
     {
-        return (PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value >= NeedChargedBettery) &&
+        return !AllyBaseUpgradeController.UsingShop.IsBroken &&
+            (PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value >= NeedChargedBettery) &&
             CurrentPickedProfileEUI != null;
     }
     
