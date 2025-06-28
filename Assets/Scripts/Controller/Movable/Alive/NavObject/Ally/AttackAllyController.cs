@@ -120,7 +120,7 @@ public class AttackAllyController : AllyController
         ActiveAlly_AfterFire();
 
         _Bullet.SetOn_LightIntensity(LightIntensity);
-        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth, TrailGradient);
+        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.AttackSize.Value, TrailGradient);
 
         // ¿ÃπÃ¡ˆ
         _Bullet.ThisSR.sprite = BulletSprite;
@@ -154,8 +154,8 @@ public class AttackAllyController : AllyController
     private BulletState_Size Get_BulletState_Size()
     {
         return new BulletState_Size(
-            BulletObjSize,
-            BulletColSize
+            BulletObjSize * ActualAllyState.AttackSize.Value,
+            BulletColSize * ActualAllyState.AttackSize.Value
             );
     }
 

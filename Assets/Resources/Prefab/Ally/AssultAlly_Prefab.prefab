@@ -107,8 +107,8 @@ MonoBehaviour:
     CD:
       Value: 1
   BulletSprite: {fileID: -1712732208, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
-  BulletObjSize: {x: 0.05, y: 0.05}
-  BulletColSize: {x: 1, y: 1}
+  BulletObjSize: {x: 1, y: 1}
+  BulletColSize: {x: 0.05, y: 0.05}
   BulletSpawnTF: {fileID: 1521131796336763097}
   TrailTime: 0.8
   TrailStartWidth: 0.02
@@ -161,6 +161,40 @@ MonoBehaviour:
     BuffValue: 0
     BuffMaxAmount: 0
     MaxCooltime: 0
+    IsIncrease: 0
+    IsPermanent: 0
+    BuffAmount: 0
+    CurrentCooltime: 0
+  Sync006_Buff:
+    Type: 
+    IconSprite: {fileID: 0}
+    BuffValue: 0
+    BuffMaxAmount: 0
+    MaxCooltime: 0
+    IsIncrease: 0
+    IsPermanent: 0
+    BuffAmount: 0
+    CurrentCooltime: 0
+  Sync007_Buff:
+    Type: 
+    IconSprite: {fileID: 0}
+    BuffValue: 0
+    BuffMaxAmount: 0
+    MaxCooltime: 0
+    IsIncrease: 0
+    IsPermanent: 0
+    BuffAmount: 0
+    CurrentCooltime: 0
+  Sync008_Buff:
+    Type: 
+    IconSprite: {fileID: 0}
+    BuffValue: 0
+    BuffMaxAmount: 0
+    MaxCooltime: 0
+    IsIncrease: 0
+    IsPermanent: 0
+    BuffAmount: 0
+    CurrentCooltime: 0
   BuffingState:
     Dmg:
       Value: 1

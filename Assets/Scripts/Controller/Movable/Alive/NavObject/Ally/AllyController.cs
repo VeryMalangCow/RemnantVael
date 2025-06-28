@@ -195,6 +195,9 @@ public class AllyController : NavObjectController
             { AllyManager.StateTypeList[0], UpgradeAllyState.Dmg },
             { AllyManager.StateTypeList[1], UpgradeAllyState.Rof },
             { AllyManager.StateTypeList[2], UpgradeAllyState.MovementSpeed },
+            { AllyManager.StateTypeList[3], UpgradeAllyState.AttackSize },
+            { AllyManager.StateTypeList[4], UpgradeAllyState.CC },
+            { AllyManager.StateTypeList[5], UpgradeAllyState.CD },
         };
     }
 
