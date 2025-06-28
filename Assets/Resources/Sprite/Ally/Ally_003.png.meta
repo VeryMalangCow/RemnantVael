@@ -264,6 +264,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Ally_Buff_Sync005
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 245
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7d324b802b16094db8dd8f6599ef7f7
+      internalID: -1449385789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Buff_Sync006
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 234
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05bed5c5957ee1a4db1c2a80406ea06b
+      internalID: 1160235244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Buff_Sync007
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 223
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 557bc5b8e1fd0624da0fdcffd7c856dc
+      internalID: 923316139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Buff_Sync008
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 212
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af4c5fd42a564b84986b645bd1287440
+      internalID: -1834734568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -279,6 +363,10 @@ TextureImporter:
     nameFileIdTable:
       Ally_BarFrame: -1182420997
       Ally_BaseBullet: -1712732208
+      Ally_Buff_Sync005: -1449385789
+      Ally_Buff_Sync006: 1160235244
+      Ally_Buff_Sync007: 923316139
+      Ally_Buff_Sync008: -1834734568
       Ally_EP_Bar: 922952304
       Ally_EP_Liner: -769393496
       Ally_HP_Bar: -293243768

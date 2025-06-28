@@ -116,6 +116,9 @@ public class AttackAllyController : AllyController
         // Sync
         ActiveAlly_Fire(_Bullet);
 
+        // 모듈 싱크 효과 => 사격 후
+        ActiveAlly_AfterFire();
+
         _Bullet.SetOn_LightIntensity(LightIntensity);
         _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth, TrailGradient);
 

@@ -122,13 +122,13 @@ public class AllySyncManager : Singleton<AllySyncManager>
     // 기본 공격 적중 => 공속 버프
     private void Activity_Sync_007(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-
+        _Ally.BuffController.Get_AllyBuff("Sync007").Gain_Buff();
     }
 
     // 공격 일정 시간 하지 않으면 => 공격력 버프
     private void Activity_Sync_008(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-
+        _Ally.BuffController.Get_AllyBuff("Sync008").Reduce_Buff(10);
     }
 
     #endregion

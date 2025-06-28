@@ -67,5 +67,10 @@ public class BuffRofController : BuffController
         MaxBuffCharge = _Value;
     }
 
+    public void Set_CoolTimeValue(float _Value)
+    {
+        MaxDurTime = _Value;
+    }
+
     #endregion
 }

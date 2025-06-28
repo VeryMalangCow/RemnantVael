@@ -1169,15 +1169,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sync005_OriginalBuff:
     Type: Dmg
-    IconSprite: {fileID: 1188069800, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    IconSprite: {fileID: -1449385789, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
     BuffValue: 0.15
     BuffMaxAmount: 1
     MaxCooltime: 5
     IsIncrease: 0
     IsPermanent: 0
+  Sync008_OriginalBuff:
+    Type: Dmg
+    IconSprite: {fileID: -1834734568, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+    BuffValue: 1
+    BuffMaxAmount: 2
+    MaxCooltime: 2
+    IsIncrease: 1
+    IsPermanent: 0
+  Sync007_OriginalBuff:
+    Type: Rof
+    IconSprite: {fileID: 923316139, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+    BuffValue: 0
+    BuffMaxAmount: 5
+    MaxCooltime: 3
+    IsIncrease: 0
+    IsPermanent: 0
   Sync006_OriginalBuff:
     Type: CD
-    IconSprite: {fileID: -2127429938, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    IconSprite: {fileID: 1160235244, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
     BuffValue: 0.2
     BuffMaxAmount: 1
     MaxCooltime: 100

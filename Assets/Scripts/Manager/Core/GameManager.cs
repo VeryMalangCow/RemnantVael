@@ -1504,9 +1504,9 @@ public class DevTool
             _IWhenList[i].Play_When();
     }
 
-    public static T Get_SyncValue<T>(T _T1, T _T2, T _T3, int _SyncRank)
+    public static T Get_SyncValue<T>(List<T> _TList, int _SyncRank)
     {
-        return new List<T> { _T1, _T2, _T3 }[_SyncRank - 1];
+        return _TList[_SyncRank - 1];
     }
 
     #endregion
@@ -2694,12 +2694,18 @@ public class SynchoronyState005 : SynchoronyState, IWhenSync_CriticalHit
 { 
     public SynchoronyState005() : base() { }
 
+    public static List<float> ValueList = new List<float> { 0.15f, 0.35f, 0.6f };
+    public static List<float> CooltimeList = new List<float> { 5f, 6f, 7f };
+
     public override void Set_State(int _ID, int _SynergyRank)
     {
         base.Set_State(_ID, _SynergyRank);
 
         if (BuffManager.Instance.Get_CorrectBuff(1) is BuffDmgController dmgBuff)
-            dmgBuff.Set_Value(DevTool.Get_SyncValue(0.15f, 0.35f, 0.6f, _SynergyRank)); 
+        {
+            dmgBuff.Set_Value(DevTool.Get_SyncValue(ValueList, _SynergyRank));
+            dmgBuff.Set_CoolTimeValue(DevTool.Get_SyncValue(CooltimeList, _SynergyRank));
+        }
     }
 }
 
@@ -2707,12 +2713,16 @@ public class SynchoronyState006 : SynchoronyState, IWhenSync_Start
 {
     public SynchoronyState006() : base() { }
 
+    public static List<float> ValueList = new List<float> { 0.2f, 0.5f, 1f };
+
     public override void Set_State(int _ID, int _SynergyRank)
     {
         base.Set_State(_ID, _SynergyRank);
 
         if (BuffManager.Instance.Get_CorrectBuff(8) is BuffCDController CDBuff)
-            CDBuff.Set_Value(DevTool.Get_SyncValue(0.2f, 0.5f, 1f, _SynergyRank));
+        {
+            CDBuff.Set_Value(DevTool.Get_SyncValue(ValueList, _SynergyRank));
+        }
     }
 }
 
@@ -2720,14 +2730,19 @@ public class SynchoronyState007 : SynchoronyState, IWhenSync_Hit
 {
     public SynchoronyState007() : base() { }
 
+    public static List<float> ValueList = new List<float> { 0.04f, 0.06f, 0.08f };
+    public static List<int> MaxChargeList = new List<int> { 5, 7, 10 };
+    public static List<float> CooltimeList = new List<float> { 3, 4, 5 };
+
     public override void Set_State(int _ID, int _SynergyRank)
     {
         base.Set_State(_ID, _SynergyRank);
 
         if (BuffManager.Instance.Get_CorrectBuff(9) is BuffRofController rofBuff)
         {
-            rofBuff.Set_Value(DevTool.Get_SyncValue(0.04f, 0.06f, 0.08f, _SynergyRank));
-            rofBuff.Set_MaxChargeValue(DevTool.Get_SyncValue(5, 7, 10, _SynergyRank));
+            rofBuff.Set_Value(DevTool.Get_SyncValue(ValueList, _SynergyRank));
+            rofBuff.Set_MaxChargeValue(DevTool.Get_SyncValue(MaxChargeList, _SynergyRank));
+            rofBuff.Set_CoolTimeValue(DevTool.Get_SyncValue(CooltimeList, _SynergyRank));
         }
     }
 }
@@ -2736,15 +2751,19 @@ public class SynchoronyState008 : SynchoronyState, IWhenSync_AfterFire
 {
     public SynchoronyState008() : base() { }
 
+    public static List<float> ValueList = new List<float> { 1f, 1.5f, 2f };
+    public static List<int> MaxChargeList = new List<int> { 2, 3, 4 };
+    public static List<float> CooltimeList = new List<float> { 2f, 1.5f, 1f };
+
     public override void Set_State(int _ID, int _SynergyRank)
     {
         base.Set_State(_ID, _SynergyRank);
 
         if (BuffManager.Instance.Get_CorrectBuff(10) is BuffDmgController dmgBuff)
         {
-            dmgBuff.Set_Value(DevTool.Get_SyncValue(1f, 1.5f, 2f, _SynergyRank));
-            dmgBuff.Set_MaxChargeValue(DevTool.Get_SyncValue(2, 3, 4, _SynergyRank));
-            dmgBuff.Set_CoolTimeValue(DevTool.Get_SyncValue(2f, 1.5f, 1f, _SynergyRank));
+            dmgBuff.Set_Value(DevTool.Get_SyncValue(ValueList, _SynergyRank));
+            dmgBuff.Set_MaxChargeValue(DevTool.Get_SyncValue(MaxChargeList, _SynergyRank));
+            dmgBuff.Set_CoolTimeValue(DevTool.Get_SyncValue(CooltimeList, _SynergyRank));
 
             dmgBuff.Max_Buff();
         }
@@ -2847,10 +2866,12 @@ public class AllySyncState005 : AllySyncState, IWhenAlly_CriticalHit
     {
         base.Set_State(_Ally, _ID, _SynergyRank);
 
-        _Ally.BuffController.Get_AllyBuff("Sync005").Set_Value(
-            DevTool.Get_SyncValue(0.15f, 0.35f, 0.6f, _SynergyRank));
+        AllyBuff buff = _Ally.BuffController.Get_AllyBuff("Sync005");
 
-        _Ally.BuffController.Get_AllyBuff("Sync005").SetOn_State(_ShowAlwaysOnOff: false);
+        buff.Set_Value(DevTool.Get_SyncValue(SynchoronyState005.ValueList, _SynergyRank));
+        buff.Set_Cooltime(DevTool.Get_SyncValue(SynchoronyState005.CooltimeList, _SynergyRank));
+
+        buff.SetOn_State(_ShowAlwaysOnOff: false);
     }
 }
 public class AllySyncState006 : AllySyncState, IWhenAlly_Start
@@ -2861,16 +2882,48 @@ public class AllySyncState006 : AllySyncState, IWhenAlly_Start
     {
         base.Set_State(_Ally, _ID, _SynergyRank);
 
-        _Ally.BuffController.Get_AllyBuff("Sync006").Set_Value(
-            DevTool.Get_SyncValue(0.2f, 0.5f, 1.0f, _SynergyRank));
+        AllyBuff buff = _Ally.BuffController.Get_AllyBuff("Sync006");
 
-        _Ally.BuffController.Get_AllyBuff("Sync006").SetOn_State(_ShowAlwaysOnOff: false);
+        buff.Set_Value(DevTool.Get_SyncValue(SynchoronyState006.ValueList, _SynergyRank));
+
+        buff.SetOn_State(_ShowAlwaysOnOff: false);
     }
 }
-public class AllySyncState007 : AllySyncState 
-{ public AllySyncState007() : base() { } }
-public class AllySyncState008 : AllySyncState 
-{ public AllySyncState008() : base() { } }
+public class AllySyncState007 : AllySyncState, IWhenAlly_AfterFire
+{ 
+    public AllySyncState007() : base() { }
+
+    public override void Set_State(AllyController _Ally, int _ID, int _SynergyRank)
+    {
+        base.Set_State(_Ally, _ID, _SynergyRank);
+
+        AllyBuff buff = _Ally.BuffController.Get_AllyBuff("Sync007");
+
+        buff.Set_Value(DevTool.Get_SyncValue(SynchoronyState007.ValueList, _SynergyRank));
+        buff.Set_MaxAmount(DevTool.Get_SyncValue(SynchoronyState007.MaxChargeList, _SynergyRank));
+        buff.Set_Cooltime(DevTool.Get_SyncValue(SynchoronyState007.CooltimeList, _SynergyRank));
+
+        buff.SetOn_State(_ShowAlwaysOnOff: false);
+    }
+}
+
+public class AllySyncState008 : AllySyncState, IWhenAlly_Hit
+{
+    public AllySyncState008() : base() { }
+
+    public override void Set_State(AllyController _Ally, int _ID, int _SynergyRank)
+    {
+        base.Set_State(_Ally, _ID, _SynergyRank);
+
+        AllyBuff buff = _Ally.BuffController.Get_AllyBuff("Sync008");
+
+        buff.Set_Value(DevTool.Get_SyncValue(SynchoronyState008.ValueList, _SynergyRank));
+        buff.Set_MaxAmount(DevTool.Get_SyncValue(SynchoronyState008.MaxChargeList, _SynergyRank));
+        buff.Set_Cooltime(DevTool.Get_SyncValue(SynchoronyState008.CooltimeList, _SynergyRank));
+
+        buff.SetOn_State(_ShowAlwaysOnOff: true);
+    }
+}
 
 #endregion
 
@@ -3001,6 +3054,10 @@ public class AllyBuff : OriginalAllyBuff
         BuffMaxAmount = _Value;
     }
 
+    public void Set_Cooltime(float _Value)
+    {
+        MaxCooltime = _Value;
+    }
 
     #endregion
 

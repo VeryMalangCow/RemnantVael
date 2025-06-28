@@ -14,6 +14,8 @@ public class AllyBuffController : MonoBehaviour
     [Header("=== Dmg")]
     [SerializeField] private AllyBuff Sync005_Buff;
     [SerializeField] private AllyBuff Sync006_Buff;
+    [SerializeField] private AllyBuff Sync007_Buff;
+    [SerializeField] private AllyBuff Sync008_Buff;
 
     #endregion
 
@@ -46,6 +48,8 @@ public class AllyBuffController : MonoBehaviour
     {
         Sync005_Buff = new AllyBuff(Ally, AllyBuffManager.Instance.Sync005_OriginalBuff);
         Sync006_Buff = new AllyBuff(Ally, AllyBuffManager.Instance.Sync006_OriginalBuff);
+        Sync007_Buff = new AllyBuff(Ally, AllyBuffManager.Instance.Sync007_OriginalBuff);
+        Sync008_Buff = new AllyBuff(Ally, AllyBuffManager.Instance.Sync008_OriginalBuff);
     }
     
     private void Offset_BuffDict()
@@ -53,7 +57,9 @@ public class AllyBuffController : MonoBehaviour
         BuffDict = new Dictionary<string, AllyBuff>
         {
             { "Sync005", Sync005_Buff },
-            { "Sync006", Sync006_Buff }
+            { "Sync006", Sync006_Buff },
+            { "Sync007", Sync007_Buff },
+            { "Sync008", Sync008_Buff }
         };
     }
 
@@ -74,6 +80,8 @@ public class AllyBuffController : MonoBehaviour
     {
         Sync005_Buff.SetOff_State();
         Sync006_Buff.SetOff_State();
+        Sync007_Buff.SetOff_State();
+        Sync008_Buff.SetOff_State();
     }
 
     #endregion

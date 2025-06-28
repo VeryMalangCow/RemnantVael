@@ -15,6 +15,10 @@ public class AllyBuffManager : Singleton<AllyBuffManager>
 
     [Header("* Dmg")]
     [SerializeField] public OriginalAllyBuff Sync005_OriginalBuff;
+    [SerializeField] public OriginalAllyBuff Sync008_OriginalBuff;
+
+    [Header("* Rof")]
+    [SerializeField] public OriginalAllyBuff Sync007_OriginalBuff;
 
     [Header("* CD")]
     [SerializeField] public OriginalAllyBuff Sync006_OriginalBuff;
