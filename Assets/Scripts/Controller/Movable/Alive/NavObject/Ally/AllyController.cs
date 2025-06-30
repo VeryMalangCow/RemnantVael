@@ -67,7 +67,6 @@ public class AllyController : NavObjectController
 
     // Tuner
     [HideInInspector] public static readonly float MinLimitUpgradeValue = 0.01f;
-    [HideInInspector] public static readonly float AllyTunerStateMultiple = 0.05f;
     [SerializeField] private AllyState UpgradeAllyState = new AllyState();
     [HideInInspector] private List<AllyBaseTunerData> ThisTunerData;
 
@@ -657,20 +656,15 @@ public class AllyController : NavObjectController
 
         for (int i = 0; i < ThisTunerData.Count; i++)
         {
-            Add_UpgradeState(ThisTunerData[i].Positive0.Type, Get_TunerState(ThisTunerData[i].Positive0.Rank));
-            Add_UpgradeState(ThisTunerData[i].Positive1.Type, Get_TunerState(ThisTunerData[i].Positive1.Rank));
-            Add_UpgradeState(ThisTunerData[i].Negative.Type, -Get_TunerState(ThisTunerData[i].Negative.Rank));
+            Add_UpgradeState(ThisTunerData[i].Positive0.Type, ThisTunerData[i].Positive0.Rank);
+            Add_UpgradeState(ThisTunerData[i].Positive1.Type, ThisTunerData[i].Positive1.Rank);
+            Add_UpgradeState(ThisTunerData[i].Negative.Type, -ThisTunerData[i].Negative.Rank);
         }
     }
 
-    private void Add_UpgradeState(string _Type, float _Value)
+    private void Add_UpgradeState(string _Type, int _Rank)
     {
-        UpgradeStateDict[_Type].Value += _Value;
-    }
-
-    private float Get_TunerState(int _Rank)
-    {
-        return AllyTunerStateMultiple * _Rank;
+        UpgradeStateDict[_Type].Value += AllyManager.Get_AllyTunerStateMultiple(_Type) * _Rank;
     }
 
     #endregion

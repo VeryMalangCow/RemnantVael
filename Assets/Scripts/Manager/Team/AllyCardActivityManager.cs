@@ -158,9 +158,9 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
 
-    private void Upgrade_Dmg(float _DmgMultiple)
+    private void Upgrade_Dmg(float _Value)
     {
-        AllyManager.Instance.Set_StateDmg(_DmgMultiple);
+        AllyManager.Instance.Set_StateDmg(_Value);
     }
 
     #endregion
@@ -189,9 +189,133 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
 
-    private void Upgrade_Rof(float _DmgMultiple)
+    private void Upgrade_Rof(float _Value)
     {
-        AllyManager.Instance.Set_StateRof(_DmgMultiple);
+        AllyManager.Instance.Set_StateRof(_Value);
+    }
+
+    #endregion
+
+    #region Movement Upgrade
+
+    private void ST_CardActivity_013()
+    {
+        Upgrade_Movement(1.1f);
+    }
+    private void ST_CardActivity_014()
+    {
+        Upgrade_Movement(1.3f);
+    }
+    private void ST_CardActivity_015()
+    {
+        Upgrade_Movement(1.6f);
+    }
+    private void ST_CardActivity_016()
+    {
+        Upgrade_Movement(2f);
+    }
+    private void ST_CardActivity_017()
+    {
+        Upgrade_Movement(2.5f);
+    }
+
+
+    private void Upgrade_Movement(float _Value)
+    {
+        AllyManager.Instance.Set_StateMovementSpeed(_Value);
+    }
+
+    #endregion
+
+    #region AttackSize Upgrade
+
+    private void ST_CardActivity_018()
+    {
+        Upgrade_AttackSize(1.5f);
+    }
+    private void ST_CardActivity_019()
+    {
+        Upgrade_AttackSize(2.1f);
+    }
+    private void ST_CardActivity_020()
+    {
+        Upgrade_AttackSize(2.8f);
+    }
+    private void ST_CardActivity_021()
+    {
+        Upgrade_AttackSize(3.6f);
+    }
+    private void ST_CardActivity_022()
+    {
+        Upgrade_AttackSize(4.5f);
+    }
+
+
+    private void Upgrade_AttackSize(float _Value)
+    {
+        AllyManager.Instance.Set_StateAttackSize(_Value);
+    }
+
+    #endregion
+    
+    #region CC Upgrade
+
+    private void ST_CardActivity_023()
+    {
+        Upgrade_CC(1.15f);
+    }
+    private void ST_CardActivity_024()
+    {
+        Upgrade_CC(1.3f);
+    }
+    private void ST_CardActivity_025()
+    {
+        Upgrade_CC(1.55f);
+    }
+    private void ST_CardActivity_026()
+    {
+        Upgrade_CC(1.8f);
+    }
+    private void ST_CardActivity_027()
+    {
+        Upgrade_CC(2.2f);
+    }
+
+
+    private void Upgrade_CC(float _Value)
+    {
+        AllyManager.Instance.Set_StateCC(_Value);
+    }
+
+    #endregion
+
+    #region CD Upgrade
+
+    private void ST_CardActivity_028()
+    {
+        Upgrade_CD(1.2f);
+    }
+    private void ST_CardActivity_029()
+    {
+        Upgrade_CD(1.5f);
+    }
+    private void ST_CardActivity_030()
+    {
+        Upgrade_CD(1.9f);
+    }
+    private void ST_CardActivity_031()
+    {
+        Upgrade_CD(2.4f);
+    }
+    private void ST_CardActivity_032()
+    {
+        Upgrade_CD(3f);
+    }
+
+
+    private void Upgrade_CD(float _Value)
+    {
+        AllyManager.Instance.Set_StateCD(_Value);
     }
 
     #endregion

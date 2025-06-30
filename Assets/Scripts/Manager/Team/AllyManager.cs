@@ -54,12 +54,16 @@ public class AllyManager : Singleton<AllyManager>
 
     // String
     [HideInInspector]
-    public static readonly List<string> StateTypeList
-        = new List<string> { "Dmg", "Rof", "MovementSpeed", "AttackSize", "CC", "CD" };
+    public static readonly List<string> StateTypeList = new List<string> 
+        { "Dmg", "Rof", "MovementSpeed", "AttackSize", "CC", "CD" };
 
     // Base Upgrade Data
     [HideInInspector] public static List<float> TunerTypePercent = new List<float> { 8, 5, 3, 2, 1 };
     [HideInInspector] private Dictionary<string, Sprite> TunerTypeIconDict;
+
+    [HideInInspector] public static List<float> TunerMultipleValueByType = new List<float> 
+        { 0.05f, 0.05f, 0.05f, 0.1f, 0.05f, 0.1f };
+    [HideInInspector] private static Dictionary<string, float> TunerTypeMultipleValueDict;
 
     #endregion
 
@@ -97,7 +101,12 @@ public class AllyManager : Singleton<AllyManager>
         TunerTypeIconDict = new Dictionary<string, Sprite>();
         for (int i = 0; i < StateTypeList.Count; i++)
             TunerTypeIconDict.Add(StateTypeList[i], TunerTypeIcon[i]);
+
+        TunerTypeMultipleValueDict = new Dictionary<string, float>();
+        for (int i = 0; i < StateTypeList.Count; i++)
+            TunerTypeMultipleValueDict.Add(StateTypeList[i], TunerMultipleValueByType[i]);
     }
+
 
     #endregion
 
@@ -112,15 +121,38 @@ public class AllyManager : Singleton<AllyManager>
 
     #region State
 
-    public void Set_StateDmg(float _DmgMultiple)
+    public void Set_StateDmg(float _Value)
     {
-        AllyState.Dmg.Value = _DmgMultiple;
+        AllyState.Dmg.Value = _Value;
         Set_AllState();
     }
 
-    public void Set_StateRof(float _RofMultiple)
+    public void Set_StateRof(float _Value)
     {
-        AllyState.Rof.Value = _RofMultiple;
+        AllyState.Rof.Value = _Value;
+        Set_AllState();
+    }
+
+    public void Set_StateMovementSpeed(float _Value)
+    {
+        AllyState.MovementSpeed.Value = _Value;
+        Set_AllState();
+    }
+
+    public void Set_StateAttackSize(float _Value)
+    {
+        AllyState.AttackSize.Value = _Value;
+        Set_AllState();
+    }
+
+    public void Set_StateCC(float _Value)
+    {
+        AllyState.CC.Value = _Value;
+        Set_AllState();
+    }
+    public void Set_StateCD(float _Value)
+    {
+        AllyState.CD.Value = _Value;
         Set_AllState();
     }
 
@@ -240,6 +272,11 @@ public class AllyManager : Singleton<AllyManager>
     #endregion
 
     #region BU
+
+    public static float Get_AllyTunerStateMultiple(string _Type)
+    {
+        return TunerTypeMultipleValueDict[_Type];
+    }
 
     public Sprite Get_BUIcon(string _Type)
     {
