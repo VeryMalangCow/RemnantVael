@@ -1953,7 +1953,7 @@ TextureImporter:
         width: 7
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1974,7 +1974,7 @@ TextureImporter:
         width: 5
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1982,6 +1982,27 @@ TextureImporter:
       bones: []
       spriteID: 16489ddb1b172164fa4a143f4a7269d5
       internalID: -1896784765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_NoneSync
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 48
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a373820a991fd564eb36ea98bb97a713
+      internalID: -1892059354
       vertices: []
       indices: 
       edges: []
@@ -2033,6 +2054,7 @@ TextureImporter:
       ModuleUI_ModuleItemUI: 49686718
       ModuleUI_NSC_RollDown: -34109165
       ModuleUI_NSC_RollUp: 929365370
+      ModuleUI_NoneSync: -1892059354
       ModuleUI_Oneside_Light: -1052561421
       ModuleUI_Puzzle_CellCenterBackLight: -1882076546
       ModuleUI_Puzzle_CellCenterLight: -744386328

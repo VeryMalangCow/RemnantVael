@@ -83,7 +83,10 @@ public class AllyController : NavObjectController
     // ID, PlayerAmount =>
     // => 현재 가지고 있는 Sync 중 플레어가 가지고 있으며, 완성된 Ally Sync          
     [HideInInspector] private Dictionary<int, int> CompletelySyncData; 
+
     [HideInInspector] public static readonly int SyncMax = 3;
+    [HideInInspector] public static readonly int NoneSyncNeedOneBuy = 3;
+    [HideInInspector] private int HadNoneSyncAmount = 0;
 
     // Sync
     private List<IWhenAlly_Start> IWhenAlly_StartList = new List<IWhenAlly_Start>();
@@ -456,7 +459,15 @@ public class AllyController : NavObjectController
             if (SyncData.ContainsKey(_SyncList[i]))
             {
                 int currentAmount = SyncData[_SyncList[i]];
-                SyncData[_SyncList[i]] = currentAmount + 1;
+
+                if (currentAmount < SyncMax) // 추가
+                {
+                    SyncData[_SyncList[i]] = currentAmount + 1;
+                }
+                else // 초과라면
+                {
+                    HadNoneSyncAmount++;
+                }
             }
             else
             {
@@ -514,6 +525,35 @@ public class AllyController : NavObjectController
     {
         return CompletelySyncData.Keys.ToList();
     }
+
+
+    #region None Sync
+
+    // 아직 완성하지 못한 Sync 가져오기
+    public Dictionary<int, int> Get_NoFullSyncData()
+    {
+        Dictionary<int, int> result = new Dictionary<int, int>();
+        foreach (KeyValuePair<int, int> pair in SyncData)
+        {
+            if (pair.Value < SyncMax)
+            {
+                result.Add(pair.Key, pair.Value);
+            }
+        }
+        return result;
+    }
+
+    public int Get_HadNoneSyncAmount()
+    {
+        return HadNoneSyncAmount;
+    }
+
+    public void Use_HadNoneSyncAmount(int _Amount)
+    {
+        HadNoneSyncAmount -= _Amount;
+    }
+
+    #endregion
 
     #endregion
 
@@ -573,7 +613,6 @@ public class AllyController : NavObjectController
 
     public void ActiveAlly_Start()
     {
-        Debug.Log(IWhenAlly_StartList.Count);
         ActiveAlly(IWhenAlly_StartList);
     }
 

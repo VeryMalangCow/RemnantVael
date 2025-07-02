@@ -19,6 +19,26 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     [Header("=== Inventory")]
     [SerializeField] private ScrollPanelEUIController InventoryScrollPanelEUI;
     [SerializeField] private InventoryEUIController InventoryEUI;
+    [SerializeField] private GameObject NoneSyncArrowPanelGO;
+    [SerializeField] private OwnBtnEUIController NoneSyneToggleBtn;
+
+    [Space(10)]
+    [Header("-- Panel (Inven Or NoneSyne)")]
+    [SerializeField] private ScrollPanelEUIController NoneSyncScrollPanelEUI;
+    [SerializeField] private GameObject InventoryPanel_InventoryGO;
+    [SerializeField] private GameObject InventoryPanel_NoneSyneGO;
+
+    [Space(10)]
+    [Header("* Panel (NoneSyne)")]
+    [SerializeField] private GameObject NoneSyncPanel_EmptyGO;
+    [SerializeField] private GameObject NoneSyncPanel_ExistGO;
+    [SerializeField] private Transform NoneSyncItemParentTF;
+    [SerializeField] private GameObject NoneSyncItemPrefab;
+    [SerializeField] private OwnBtnEUIController NoneSyneBuyBtn;
+    [SerializeField] private GameObject NoneSyncCanBuyGO;
+    [SerializeField] private TMP_Text NoneSyncCanBuyTxt;
+    [SerializeField] private GameObject NoneSyncCannotBuyGO;
+
 
     [Space(10)]
     [Header("=== Picked Item")]
@@ -73,6 +93,8 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     [Header("-- Goods")]
     [SerializeField] private TMP_Text ChargeBetteryTxt;
     [SerializeField] private TMP_Text ChargeBetteryUseTxt;
+    [SerializeField] private TMP_Text NoneSyncTxt;
+    [SerializeField] private TMP_Text NoneSyncUseTxt;
 
     [Space(10)]
     [Header("=== Txt")]
@@ -99,6 +121,15 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // Player Sync
     [SerializeField] private List<SynergySlotEUIController> PlayerSyncSlotEUIList;
 
+    // None Sync
+    [HideInInspector] private List<AllyNoneSynergySlotEUIController> NoneSyncItemEUIList;
+    [HideInInspector] private List<AllyNoneSynergySlotEUIController> UsingNoneSyncItemEUIList;
+    [HideInInspector] private List<int> SelectedNoneSyncIDList;
+
+    [HideInInspector] private static readonly Vector2 NoneSyncItemOffset = new Vector2(78, -80);
+    [HideInInspector] private static readonly float NoneSyncItemInterval = 134;
+    [HideInInspector] private static readonly int NoneSyncRowAmount = 4;
+
     #endregion
 
     #endregion
@@ -122,6 +153,8 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         InventoryEUI.Offset();
         InventoryEUI.Gen_AllSlotAndItem(this);
 
+        NoneSyncScrollPanelEUI.Offset();
+
         // Picked Panel
         PickedPanelSlotEUI.Offset();
         PickedPanelSlotEUI.OwnerUIController = this;
@@ -141,6 +174,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         ToggleBtn.OwnerUIController = this;
         ToggleBtn.Offset();
 
+        NoneSyneToggleBtn.OwnerUIController = this;
+        NoneSyneToggleBtn.Offset();
+
         // Player Sync
         PlayerSyncSlotEUIList = new List<SynergySlotEUIController>();
         for (int i = 0; i < PlayerSynergySlotParentTF.childCount; i++)
@@ -156,6 +192,15 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         // Buy
         BuyBtnEUI.OwnerUIController = this;
         BuyBtnEUI.Offset();
+
+        NoneSyncItemEUIList = new List<AllyNoneSynergySlotEUIController>();
+        UsingNoneSyncItemEUIList = new List<AllyNoneSynergySlotEUIController>();
+        SelectedNoneSyncIDList = new List<int>();
+
+        // None Sync
+        NoneSyncCanBuyTxt.text = ResourceManager.Instance.Get_StaticWord(115);
+        NoneSyneBuyBtn.OwnerUIController = this;
+        NoneSyneBuyBtn.Offset();
     }
 
     private void Offset_Subscribe()
@@ -180,10 +225,13 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         if (base.Try_Interact()) return true;
         if (Is_Interact_CloseBtn()) return true;
         if (Is_Interact_ToggleBtn()) return true;
+        if (Is_Interact_NoneSyneToggleBtn()) return true;
         if (Is_Interact_ModuleInInventory()) return true;
         if (Is_Interact_ModulePickSynergy()) return true;
         if (Is_Interact_PlayerSync()) return true;
         if (Try_Interact_Buy()) return true;
+        if (Is_Interact_NoneSyncSelect()) return true;
+        if (Is_Interact_NoneSyncBu()) return true;
 
         return false;
     }
@@ -210,13 +258,25 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #endregion
 
-    #region Interact (Picked Ally Or Player)
+    #region Interact (Toggle)
 
     private bool Is_Interact_ToggleBtn()
     {
         if (CurrentBtn == ToggleBtn)
         {
             Set_ToggleAllyPlayerSyncPanel();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool Is_Interact_NoneSyneToggleBtn()
+    {
+        if (CurrentBtn == NoneSyneToggleBtn)
+        {
+            Set_ToggleNoneSyncPanel();
 
             return true;
         }
@@ -261,6 +321,45 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #endregion
 
+    #region Interact (None Sync)
+
+    private bool Is_Interact_NoneSyncSelect()
+    {
+        if (CurrentBtn is AllyNoneSynergySlotEUIController eui)
+        {
+            eui.Set_SelectChange();
+
+            if (eui.Get_IsOn())
+                DevTool.Add_InList(SelectedNoneSyncIDList, eui.Get_ID());
+            else
+                DevTool.Remove_InList(SelectedNoneSyncIDList, eui.Get_ID());
+
+            Set_NoneSyncAmountTxt(CurrentPickedAlly.Get_HadNoneSyncAmount(), Get_CurrentNeedNoneSync());
+            Set_NoneSyncBuyBtn();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool Is_Interact_NoneSyncBu()
+    {
+        if (CurrentBtn is OwnBtnEUIController eui && eui == NoneSyneBuyBtn)
+        {
+            if (Can_NoneSyncBuy())
+            {
+                Buy_FromNoneSync();
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    #endregion
+
     #region Interact (Buy)
 
     private bool Try_Interact_Buy()
@@ -291,7 +390,214 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         base.Pick_AllyProfile(_EUI);
 
+        Set_NoneSynePanel();
+
         Set_BuyBtn();
+    }
+
+    #endregion
+
+    #region None Sync (Buy)
+
+    // 현재 선택한 Sync에서 필요한 NoneSync
+    private int Get_CurrentNeedNoneSync()
+    {
+        return SelectedNoneSyncIDList.Count * AllyController.NoneSyncNeedOneBuy;
+    }
+
+    // Sync를 살 수 있는가
+    private bool Can_NoneSyncBuy()
+    {
+        if (CurrentPickedAlly == null) return false;
+
+        return SelectedNoneSyncIDList.Count > 0 &&
+            CurrentPickedAlly.Get_HadNoneSyncAmount() >= Get_CurrentNeedNoneSync() &&
+            !AllyModuleUpgradeController.UsingShop.IsBroken;
+    }
+
+    // None Sync 패널의 버튼 활성화/비활성화 (살 수 있느냐에 따라)
+    private void Set_NoneSyncBuyBtn()
+    {
+        if (Can_NoneSyncBuy())
+        {
+            NoneSyncCanBuyGO.SetActive(true);
+            NoneSyncCannotBuyGO.SetActive(false);
+        }
+        else
+        {
+            NoneSyncCanBuyGO.SetActive(false);
+            NoneSyncCannotBuyGO.SetActive(true);
+        }
+    }
+
+    // None Sync 구매
+    private void Buy_FromNoneSync()
+    {
+        // 추가
+        CurrentPickedAlly.Add_Sync(SelectedNoneSyncIDList);
+
+        // 재화 소모
+        int needGoods = Get_CurrentNeedNoneSync();
+        CurrentPickedAlly.Use_HadNoneSyncAmount(needGoods);
+        AllyModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
+
+        // 소비 효과
+        Play_UseTxt(NoneSyncUseTxt, needGoods, 30f);
+
+        // Extra 창에 State UI
+        Set_AllyState(CurrentPickedAlly);
+
+        // Extra 창에 Sync UI
+        Set_AllySync(CurrentPickedAlly);
+
+        // 패널 다시 세팅
+        Set_NoneSynePanel();
+
+    }
+
+    #endregion
+
+    #region None Sync (Toggle)
+
+    // 현재 None Sync 패널에 진입할 수 있는지?
+    private bool Can_EnterNoneSyncPanel()
+    {
+        if (CurrentPickedAlly.Get_HadNoneSyncAmount() >= AllyController.NoneSyncNeedOneBuy)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    // 진입 가능한지에 따라 Arrow, Toggle Btn 키고 끄기
+    private void Set_NoneSyncEnterPanel()
+    {
+        if (Can_EnterNoneSyncPanel())
+            SetOn_NoneSyncEnterPanel();
+        else
+            SetOff_NoneSyncEnterPanel();
+    }
+
+    // Arrow, Toggle Btn 키기
+    private void SetOn_NoneSyncEnterPanel()
+    {
+        NoneSyncArrowPanelGO.gameObject.SetActive(true);
+    }
+
+    // Arrow, Toggle Btn 끄기
+    private void SetOff_NoneSyncEnterPanel()
+    {
+        NoneSyncArrowPanelGO.gameObject.SetActive(false);
+
+        if (InventoryPanel_NoneSyneGO.activeSelf)
+            SetOn_ToggleNoneSyncPanel(false);
+        
+    }
+
+    #endregion
+
+    #region None Sync (Panel)
+
+    // 현재 추가 획득할 수 있는 NoneSync 패널 세팅
+    private void Set_NoneSynePanel()
+    {
+        if (CurrentPickedAlly == null)
+        {
+            Set_NoneSyncAmountTxt();
+            SetOn_NoneSyneEmptyPanel(true);
+            SetOff_NoneSyncEnterPanel();
+        }
+        else
+        {
+            Set_NoneSyncAmountTxt(CurrentPickedAlly.Get_HadNoneSyncAmount());
+            SetOn_NoneSyneEmptyPanel(false);
+
+            Dictionary<int, int> noFullSyncData = CurrentPickedAlly.Get_NoFullSyncData();
+            Debug.Log(noFullSyncData.Count);
+            Gen_NoneSyncItemEUI(noFullSyncData.Count);
+            SetOff_AllNoneSyncEUI();
+            SetOn_NoneSyncEUI(noFullSyncData); 
+            Set_NoneSyncEnterPanel();
+        }
+
+        Set_NoneSyncBuyBtn();
+    }
+
+    // 현재 가지고 있는 NoneSync 개수
+    private void Set_NoneSyncAmountTxt(int _Amount = -1, int _Need = 0)
+    {
+        string result = "";
+        if (_Amount == -1)
+        {
+            result += "?";
+        }
+        else
+        {
+            result += CurrentPickedAlly.Get_HadNoneSyncAmount().ToString();
+            
+            if (_Need != 0)
+            {
+                result += $" <color=#933C8E>- {_Need}</color>";
+            }
+        }
+
+        NoneSyncTxt.text = result;
+    }
+
+    // 필요한 만큼 생성하기
+    private void Gen_NoneSyncItemEUI(int _NeedAmount)
+    {
+        if (NoneSyncItemEUIList.Count < _NeedAmount)
+        {
+            int genAmount = _NeedAmount - NoneSyncItemEUIList.Count;
+
+            for (int i = 0; i < genAmount; i++)
+            {
+                AllyNoneSynergySlotEUIController genEUI = DevTool.Get_ComponentTType<AllyNoneSynergySlotEUIController>(
+                    Instantiate(NoneSyncItemPrefab, NoneSyncItemParentTF));
+                genEUI.OwnerUIController = this;
+                genEUI.Offset();
+
+                NoneSyncItemEUIList.Add(genEUI);
+            }
+        }
+    }
+
+    // 모두 끄기
+    private void SetOff_AllNoneSyncEUI()
+    {
+        for (int i = 0; i < NoneSyncItemEUIList.Count; i++)
+        {
+            NoneSyncItemEUIList[i].gameObject.SetActive(false);
+            NoneSyncItemEUIList[i].Set_Select(false);
+        }
+    }
+
+    // 키기
+    private void SetOn_NoneSyncEUI(Dictionary<int, int> _ApplySyncData)
+    {
+        UsingNoneSyncItemEUIList.Clear();
+        SelectedNoneSyncIDList.Clear();
+
+        float lastY = 0;
+        int index = 0;
+        foreach(KeyValuePair<int, int> pair in _ApplySyncData)
+        {
+            int id = pair.Key;
+            NoneSyncItemEUIList[index].gameObject.SetActive(true);
+            NoneSyncItemEUIList[index].ThisRT.anchoredPosition = 
+                NoneSyncItemOffset + 
+                new Vector2(
+                    (index % NoneSyncRowAmount) * NoneSyncItemInterval, 
+                    -((index / NoneSyncRowAmount) * NoneSyncItemInterval));
+            NoneSyncItemEUIList[index].Set_SynergySlot(id);
+            UsingNoneSyncItemEUIList.Add(NoneSyncItemEUIList[index]);
+            lastY = NoneSyncItemEUIList[index].ThisRT.anchoredPosition.y;
+            index++;
+        }
+
+        NoneSyncScrollPanelEUI.Set_ScrollHeight(Mathf.Max(-lastY + 76, 716));
     }
 
     #endregion
@@ -355,6 +661,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         Set_Inventory();
         Set_Picked(null);
         Set_BuyBtn();
+        Set_NoneSynePanel();
     }
 
     private List<int> Get_PickedSyncList()
@@ -507,6 +814,33 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #endregion
 
+    #region Set (Inventory Or NoneSync)
+
+    private void Set_ToggleNoneSyncPanel()
+    {
+        if (InventoryPanel_NoneSyneGO.activeSelf)
+            SetOn_ToggleNoneSyncPanel(false);
+        else
+            SetOn_ToggleNoneSyncPanel(true);
+    }
+
+
+    private void SetOn_ToggleNoneSyncPanel(bool _IsOn)
+    {
+        InventoryPanel_NoneSyneGO.SetActive(_IsOn);
+        InventoryPanel_InventoryGO.SetActive(!_IsOn);
+    }
+
+    private void SetOn_NoneSyneEmptyPanel(bool _IsOn)
+    {
+        NoneSyncPanel_EmptyGO.SetActive(_IsOn);
+        NoneSyncPanel_ExistGO.SetActive(!_IsOn);
+    }
+
+
+
+    #endregion
+
     #region Set (Picked Ally Or Player)
 
     private void Set_ToggleAllyPlayerSyncPanel()
@@ -595,6 +929,10 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         Set_Inventory();
         Set_BuyBtn();
+
+        // None Sync
+        Set_NoneSynePanel();
+        SetOn_ToggleNoneSyncPanel(false);
 
         // Toggle
         Set_PlayerSyncState();
