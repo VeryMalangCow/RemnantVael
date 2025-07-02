@@ -1855,6 +1855,9 @@ public class BulletState : CombatState
     [SerializeField] public float MuzzleSpeed;
     [SerializeField] public float AliveTime;
 
+    [SerializeField] public bool IsStatus = false;
+    [SerializeField] public eStatusEffect StatusType;
+
     #endregion
 
     #region Constructor
@@ -1894,6 +1897,16 @@ public class BulletState : CombatState
 
     #endregion
 
+    #region Status
+
+    public void Set_Status(bool _IsOn, eStatusEffect _StatueType)
+    {
+        IsStatus = _IsOn;
+        StatusType = _StatueType;
+    }
+
+    #endregion
+
     #region Reset
 
     public override void Reset_State()
@@ -1903,6 +1916,7 @@ public class BulletState : CombatState
         IsCritical = false;
         MuzzleSpeed = 0;
         AliveTime = 0;
+        IsStatus = false;
     }
 
     #endregion

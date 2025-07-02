@@ -354,6 +354,25 @@ public class EnemyController : NavObjectController
             state, 
             state.IsCritical, 
             DevTool.Get_DirFromAngle(_Bullet.transform.eulerAngles.z));
+
+        if (state.IsStatus)
+        {
+            switch (state.StatusType)
+            {
+                case eStatusEffect.Flame:
+                    BuffController.FlameStack.Gain_Stack(1, true, state.OwnerData);
+                    break;
+                case eStatusEffect.Cold:
+                    BuffController.ColdStack.Gain_Stack(1, true, state.OwnerData);
+                    break;
+                case eStatusEffect.Electricity:
+                    BuffController.ElectricityStack.Gain_Stack(1, true, state.OwnerData);
+                    break;
+                case eStatusEffect.Corrosion:
+                    BuffController.CorrosionStack.Gain_Stack(1, true, state.OwnerData);
+                    break;
+            }
+        }
     }
 
     // 어택커 데미지

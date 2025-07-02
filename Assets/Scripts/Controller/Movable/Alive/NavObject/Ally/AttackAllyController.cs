@@ -11,6 +11,12 @@ public class AttackAllyController : AllyController
     [Header("<><><><><> Attack")]
 
     [Space(10)]
+    [Header("=== Value")]
+    [SerializeField] private bool IsAlwaysStatus;
+    [SerializeField] private eStatusEffect StateType;
+
+
+    [Space(10)]
     [Header("=== Bullet")]
     [SerializeField] private Sprite BulletSprite;
     [SerializeField] private Vector2 BulletObjSize;
@@ -113,6 +119,10 @@ public class AttackAllyController : AllyController
             _State_Effect: null,
             0.5f);
 
+        // 상태이상 총알이면
+        if (IsAlwaysStatus)
+            _Bullet.State.Set_Status(IsAlwaysStatus, StateType);
+        
         // Sync
         ActiveAlly_Fire(_Bullet);
 

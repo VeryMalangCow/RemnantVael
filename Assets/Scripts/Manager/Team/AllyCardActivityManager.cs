@@ -14,10 +14,6 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     [Header("<><><><><> Ally Card Activity Manager")]
 
     [Space(10)]
-    [Header("=== Prefab")]
-    [SerializeField] private GameObject AssultAllyPrefab;
-
-    [Space(10)]
     [Header("=== TF")]
     [SerializeField] private Transform AllyParentTF;
 
@@ -109,32 +105,24 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #region Strike Team
 
-    #region Spawn Strike Ally (000 ~ 003)
+    #region (000 ~ 002) Spawn < Assult >
 
     private void ST_CardActivity_000()
     {
-        SpawnAlly(AssultAllyPrefab);
+        SpawnAlly(ResourceManager.Instance.Get_Ally("Assult"));
     }
     private void ST_CardActivity_001()
     {
-        SpawnAlly(AssultAllyPrefab);
+        SpawnAlly(ResourceManager.Instance.Get_Ally("Assult"));
     }
     private void ST_CardActivity_002()
     {
-        SpawnAlly(AssultAllyPrefab);
-    }
-
-    private void SpawnAlly(GameObject _AllyPrefab)
-    {
-        AllyController ally = DevTool.Get_ComponentTType<AllyController>(
-            Instantiate(_AllyPrefab, AllyParentTF));
-
-        ally.Set_PosRandomNearPlayer();
+        SpawnAlly(ResourceManager.Instance.Get_Ally("Assult"));
     }
 
     #endregion
 
-    #region Dmg Upgrade
+    #region (003 ~ 007) Dmg Upgrade
 
     private void ST_CardActivity_003()
     {
@@ -165,7 +153,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #endregion
 
-    #region Rof Upgrade
+    #region (008 ~ 012) Rof Upgrade
 
     private void ST_CardActivity_008()
     {
@@ -196,7 +184,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #endregion
 
-    #region Movement Upgrade
+    #region (013 ~ 017) Movement Upgrade
 
     private void ST_CardActivity_013()
     {
@@ -227,7 +215,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #endregion
 
-    #region AttackSize Upgrade
+    #region (018 ~ 022) AttackSize Upgrade
 
     private void ST_CardActivity_018()
     {
@@ -257,8 +245,8 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
     #endregion
-    
-    #region CC Upgrade
+
+    #region (023 ~ 027) CC Upgrade
 
     private void ST_CardActivity_023()
     {
@@ -289,7 +277,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #endregion
 
-    #region CD Upgrade
+    #region (028 ~ 032) CD Upgrade
 
     private void ST_CardActivity_028()
     {
@@ -322,20 +310,62 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #endregion
 
-    #region Uplink Team
+    #region Uplink Team 
+
+    #region (000 ~ 001) Spawn < Ignis >
 
     private void UT_CardActivity_000()
     {
-        Debug.Log("UT_000 카드");
+        SpawnAlly(ResourceManager.Instance.Get_Ally("Ignis"));
     }
     private void UT_CardActivity_001()
     {
-        Debug.Log("UT_001 카드");
+        SpawnAlly(ResourceManager.Instance.Get_Ally("Ignis"));
     }
+
+    #endregion
+
+    #region (002 ~ 003) Spawn < Glacia >
+
     private void UT_CardActivity_002()
     {
-        Debug.Log("UT_002 카드");
+        SpawnAlly(ResourceManager.Instance.Get_Ally("Glacia"));
     }
+
+    private void UT_CardActivity_003()
+    {
+        SpawnAlly(ResourceManager.Instance.Get_Ally("Glacia"));
+    }
+
+    #endregion
+
+    #region (004 ~ 005) Spawn < Volt >
+
+    private void UT_CardActivity_004()
+    {
+        SpawnAlly(ResourceManager.Instance.Get_Ally("Volt"));
+    }
+
+    private void UT_CardActivity_005()
+    {
+        SpawnAlly(ResourceManager.Instance.Get_Ally("Volt"));
+    }
+
+    #endregion
+
+    #region (006 ~ 007) Spawn < Tox >
+
+    private void UT_CardActivity_006()
+    {
+        SpawnAlly(ResourceManager.Instance.Get_Ally("Tox"));
+    }
+
+    private void UT_CardActivity_007()
+    {
+        SpawnAlly(ResourceManager.Instance.Get_Ally("Tox"));
+    }
+
+    #endregion
 
     #endregion
 
@@ -370,6 +400,21 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
     #endregion
+
+    #endregion
+
+
+    #region Unique
+
+    // Ally 생성
+    private void SpawnAlly(GameObject _AllyPrefab)
+    {
+        AllyController ally = DevTool.Get_ComponentTType<AllyController>(
+            Instantiate(_AllyPrefab, AllyParentTF));
+
+        ally.Set_PosRandomNearPlayer();
+    }
+
 
     #endregion
 }

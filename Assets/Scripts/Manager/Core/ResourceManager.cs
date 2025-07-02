@@ -100,6 +100,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private List<Sprite> AllySprite_Data;
     private static readonly string[] directionOrder = new string[] { "UL", "U", "UR", "R", "DR", "D", "DL", "L" };
 
+    // Prefab
+    [HideInInspector] private Dictionary<string, GameObject> Ally_PrefabDict;
+
     #endregion
 
     #endregion
@@ -300,6 +303,22 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
                 "Ally_001_00"));
     }
 
+    private void Offset_Prefab()
+    {
+        string prefabPath = "Prefab/";
+
+        string allyPath = prefabPath + "Ally/";
+        Ally_PrefabDict = new Dictionary<string, GameObject>
+        {
+            { "Assult", Get_Prefab(allyPath, "AssultAlly_Prefab") },
+
+            { "Ignis", Get_Prefab(allyPath, "IginsAlly_Prefab") },
+            { "Glacia", Get_Prefab(allyPath, "GlaciaAlly_Prefab") },
+            { "Volt", Get_Prefab(allyPath, "VoltAlly_Prefab") },
+            { "Tox", Get_Prefab(allyPath, "ToxAlly_Prefab") }
+        };
+    }
+
     private void Offset()
     {
         Offset_CSV();
@@ -308,6 +327,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_ModuleItemImg();
         Offset_AllyCardIcon();
         Offset_AllySprite();
+        Offset_Prefab();
     }
 
     #endregion
@@ -1013,6 +1033,24 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         int index = System.Array.IndexOf(directionOrder, dir);
         return index >= 0 ? index : int.MaxValue;
     }
+
+    #endregion
+
+    #region To Prefab
+
+    private GameObject Get_Prefab(string _Path, string _FileName)
+    {
+        return Resources.Load<GameObject>(_Path + _FileName);
+    }
+
+    #region Ally
+
+    public GameObject Get_Ally(string _Name)
+    {
+        return Ally_PrefabDict[_Name];
+    }
+
+    #endregion
 
     #endregion
 }
