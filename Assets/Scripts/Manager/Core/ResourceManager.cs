@@ -300,7 +300,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         AllySprite_Data.AddRange(
             Offset_ImgPath(
                 "Sprite/Ally/",
-                "Ally_001_00"));
+                "Ally_001"));
     }
 
     private void Offset_Prefab()
@@ -312,7 +312,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         {
             { "Assult", Get_Prefab(allyPath, "AssultAlly_Prefab") },
 
-            { "Ignis", Get_Prefab(allyPath, "IginsAlly_Prefab") },
+            { "Ignis", Get_Prefab(allyPath, "IgnisAlly_Prefab") },
             { "Glacia", Get_Prefab(allyPath, "GlaciaAlly_Prefab") },
             { "Volt", Get_Prefab(allyPath, "VoltAlly_Prefab") },
             { "Tox", Get_Prefab(allyPath, "ToxAlly_Prefab") }

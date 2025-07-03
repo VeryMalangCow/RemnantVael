@@ -46,7 +46,7 @@ public class AllyManager : Singleton<AllyManager>
     [HideInInspector] public AllyState GetAllyState { get { return AllyState; } }
 
     // Reso
-    [HideInInspector] public AllySpriteSet AssultAllySpriteSet = new AllySpriteSet();
+    [HideInInspector] public Dictionary<string, AllySpriteSet> AllySpriteSetDict;
 
     // Name
     [HideInInspector] private List<List<string>> AllyAllNameList = new List<List<string>>();
@@ -91,7 +91,23 @@ public class AllyManager : Singleton<AllyManager>
         { ST_CardIconList, UT_CardIconList, NT_CardIconList };
 
         // Sprite
-        AssultAllySpriteSet.Offset("Assult");
+        AllySpriteSetDict = new Dictionary<string, AllySpriteSet>
+        {
+            { "Assult", new AllySpriteSet("Assult") },
+
+            { "Ignis", new AllySpriteSet("Ignis") },
+            { "Glacia", new AllySpriteSet("Glacia") },
+            { "Volt", new AllySpriteSet("Volt") },
+            { "Tox", new AllySpriteSet("Tox") }
+        };
+
+        foreach (var set in AllySpriteSetDict)
+        {
+            for (int i = 0; i < set.Value.AllyIdle.Count; i++)
+            {
+                Debug.Log(set.Value.AllyIdle[i].name);
+            }
+        }
 
         AllyState = new AllyState();
 

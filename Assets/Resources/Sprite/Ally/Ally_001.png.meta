@@ -1,0 +1,2800 @@
+fileFormatVersion: 2
+guid: 1e73437af30c479448298c2acc45ac8b
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 256
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Ally_Assult_Move_UL
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad4b81df5d51f6a4394c51cecbd5a7d9
+      internalID: -515464492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Move_U
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96bf9fddd491ebe428ae99ae6b25b0ae
+      internalID: -972784572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Move_UR
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edc864a5581d39343b05f837705b01a3
+      internalID: -1803079997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Move_R
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3b9a739734127840972dbb07669c01e
+      internalID: -88304461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Move_DR
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b8dad0b878ca2440a5492650cf669e5
+      internalID: 434900160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Move_D
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8284446d908ad8947bb9c50fb9cdd480
+      internalID: 1419512169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Move_DL
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94fa38f20b5190f4d924075b2187487e
+      internalID: 2104107582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Move_L
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ee3311c3a2509c4bbc309d5fd6c5edf
+      internalID: -1290030606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Idle_UL
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dca4a24a58aaaf45a398c72f4cccf94
+      internalID: -1930221587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Idle_U
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a3fed821629db24b8c659d917ebdbea
+      internalID: 624247066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Idle_UR
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a117f189f046896409231663f533c9d8
+      internalID: -358163894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Idle_R
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96d7e5464e6da8f4e897cff9dedc8326
+      internalID: 62584506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Idle_DR
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed64790f67b9601438bb4994588cd194
+      internalID: -2121992110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Idle_D
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31ea14b533786af41a8ed929861e6c35
+      internalID: 1572653625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Idle_DL
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc97903f01423804ab1b5ee8d51c1974
+      internalID: 1773472436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Idle_L
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d0f3acba35ef6946a68134621ba6698
+      internalID: -1418731823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Attack_UL
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6952fd67c4a369a4fb50c22a148dad58
+      internalID: -2083930672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Attack_U
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c79495e01957cb147af8a89a25e33d5e
+      internalID: -2073948716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Attack_UR
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e00325b7f9396f947832548c292ca7f0
+      internalID: 1636975480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Attack_R
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2acb4451185f224d9b8406eb0f51d05
+      internalID: 76425225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Attack_DR
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d92bb9116c39f5142ad9a26bbaecdffc
+      internalID: -186783370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Attack_D
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f32475f0863256544a1c42e5dd8a49e7
+      internalID: -1518455390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Attack_DL
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b3a81582bf9615429271d5b2205ca45
+      internalID: -1874136331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Attack_L
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a59bbca85b8d14bb5a5ab2eea551c0
+      internalID: 466539414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Assult_Knockdown
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 10
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f581533dbb96c4a47b7da203f9a512d0
+      internalID: -1226139540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Idle_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62c93605e21f44142af797c58b77e927
+      internalID: 317550914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Idle_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 809a5a74cc049754ea9126fcac28a880
+      internalID: 2024787832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Idle_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb77017978830414bbefd14d410e7f74
+      internalID: -386029942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Idle_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35ec6f37c140a984c98e58bceb4a2805
+      internalID: -1046237143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Idle_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d7cafc0b24979441a345948c22fd4e1
+      internalID: 463629765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Idle_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 276fde1168e4f0f4a938fda4f0964f96
+      internalID: -2064505983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Idle_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fcb88c2346103e43a600f76616e9346
+      internalID: 1025039176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Idle_L
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 238
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30e5e2cd3a1786244b5e97363c28f435
+      internalID: 403153987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Attack_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0034c6156eea9b24f9b22b0fd3dcffcc
+      internalID: -240281408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Attack_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 182dc3c72c06317468719144151d1b6b
+      internalID: 948243216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Attack_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce305175a5fd6ce47bf2cf20deb05556
+      internalID: 2000013416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Attack_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1634af5ffa47450438321d28d86549c1
+      internalID: 1280569992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Attack_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e9e8f7744e11a74eb6e12425b96b909
+      internalID: 1582754531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Attack_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bedd52d8cb0a1bd429fd660a1c986844
+      internalID: 564290336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Attack_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36b4aa6270c3bc44b8b41b17fae67a09
+      internalID: 493170848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Attack_L
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 219
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 022d4c614334a24449ebbbb39dcc01b3
+      internalID: 1446941449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Move_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad9aed8382565b24daa4b7bbbc9b2cbd
+      internalID: 209338776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Move_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84433c1557986484a96c5635192acbf5
+      internalID: -827003178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Move_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e40dc117fe79f7b439a4cc581f1dd791
+      internalID: -1790538321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Move_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fd27f82ae929a246b016b99535ad8c2
+      internalID: -800118431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Move_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82cb79ff781a11245860dcade3fe7219
+      internalID: 603603376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Move_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 627be651ecd0b1a4a8c1a6384fd60c93
+      internalID: -371331114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Move_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68134b45008bf65438b44e5cf8b69ef3
+      internalID: -1539856258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Ignis_Move_L
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 200
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cacc0c3805c2cf408f74b2e4674f54b
+      internalID: 697574852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Idle_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 181
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5129ff9c371ac0b4b90a51bdb788ccd3
+      internalID: -948621930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Idle_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 181
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77465b2dc4a62a947a8b4c4f7fe976a7
+      internalID: -1355599365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Idle_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 181
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 701029a010266704997046bf6f349dee
+      internalID: -1349711751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Idle_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 181
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7544c38e4e45b1f4f8ff577bff0cc013
+      internalID: -1929910621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Idle_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 181
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aaf367ecbc81aa4d8668fd5ddb47c46
+      internalID: 2077661271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Idle_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 181
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe6392a335d83c44d91484c2cb7b548e
+      internalID: 458350581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Idle_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 181
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1995f9642bccd64caf9c3a381fd14bd
+      internalID: -919331796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Idle_L
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 181
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bd8a6246278f7d4a837d780996a03c9
+      internalID: -626668016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Attack_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 162
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7adee16efa6a5546aa4e6704be5f764
+      internalID: -308687013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Attack_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 162
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33481d244fd90f942abe74997f2979c5
+      internalID: 495532566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Attack_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 162
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e15ce9ed3da268445bd238fe0c48a217
+      internalID: 1522234580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Attack_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 162
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6dcb8eb0eb90cd45a3ccd44bdd1f566
+      internalID: 1799104616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Attack_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 162
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 706240e3f21c85d458f8024a939db40f
+      internalID: 109295060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Attack_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 162
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2698fecf6f25c564686a85d61fc6f90f
+      internalID: -1077681501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Attack_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 162
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03df224ce054bad4ca1824b3b4ed4b20
+      internalID: 179943177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Attack_L
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 162
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6208f7bbbace8641b0a1a06a0ac6260
+      internalID: -1895424338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Move_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 143
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 687418d33aec78c439bf2f9b172ad2f1
+      internalID: -865919325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Move_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 143
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15eec430ba8fd26418d53beec28fc54c
+      internalID: -1656910689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Move_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 143
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63c2bf6e1f8ec274888cc9cc4e127989
+      internalID: 1217154027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Move_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 143
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e1afda11b32c19418de0df99b674920
+      internalID: 1716802980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Move_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 143
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f312af86a5f872843aad1fc17b02937e
+      internalID: 775395785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Move_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 143
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4052ae59864479e478f5885c7520bf17
+      internalID: -1324136712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Move_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 143
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9ccf5c5dbec57a4eb706a63d9245ccb
+      internalID: 321970281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Glacia_Move_L
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 143
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ff0f0a6d3748974ea72c655b5b23bfb
+      internalID: 883524747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Idle_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 124
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0be1be0ef9947b47939a630ee4749d0
+      internalID: 2084643532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Idle_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 124
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0c9b8e56318a0d4f8e692d94d90ca9f
+      internalID: -733241032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Idle_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 124
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e88ad359c10e4724eb5f03dba6cb6e8b
+      internalID: 635456902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Idle_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 124
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 530d269ec167fb44d996c27594eea917
+      internalID: -436057075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Idle_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 124
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c295a74c7025914d94d029f8c55369b
+      internalID: 180628003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Idle_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 124
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5c49ea1ae30cd64aa181361f055ecc9
+      internalID: 468323468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Idle_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 124
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c6c56f967aa1a84f82eac5bbc4c4c39
+      internalID: -1705083424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Idle_L
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 124
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09c22b46f559e66418b64b87d98b93b4
+      internalID: 1684841031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Attack_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 105
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aa35e9de72d3b94380c44ac9a48da55
+      internalID: -1781860999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Attack_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 105
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6be9807f6aa41784ea935c52c2542c36
+      internalID: -1478540494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Attack_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 105
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9b4ba851fb3b2445b1f0aaa548283e8
+      internalID: -1435635815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Attack_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 105
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5cce9665641b064bb351ec7a3842760
+      internalID: 1480072443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Attack_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 105
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98a5158fef26f25439f672969153bae8
+      internalID: 1221462645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Attack_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 105
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 553d177a369bcb5468cfc855996218df
+      internalID: 512414341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Attack_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 105
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3b05bafc7856c442a96b911780171d5
+      internalID: 2010732035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Attack_Dl
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 105
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b612e42ff0a6f942ba187cf85763f8f
+      internalID: -1378497391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Move_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 86
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a922e3cf6abe57948b5c89e56fe7bd0b
+      internalID: -916807846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Move_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 86
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 188932fefef60b244875f8f3fdfc9ea9
+      internalID: -2073876423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Move_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 86
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa84913f8ccaf114e8e0a07b4aa583d8
+      internalID: 537736280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Move_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 86
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd3d57ecb3e638143a4f8447326e2708
+      internalID: 2088323880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Move_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 86
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6fb2bcd4b1875e4b9896b4acf57ee9d
+      internalID: -1100530872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Move_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 86
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f82e188edc20024d9178e848d122e9b
+      internalID: 83583626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Move_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 86
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b53cb3fc58949540832f98bd09d6eac
+      internalID: 290482978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Volt_Move_L
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 86
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b85484ba6866ddf40b12b43e2b8bc1f8
+      internalID: -363762253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Idle_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 67
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fdbf6115224c9041a8b660380545dfb
+      internalID: -1690054809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Idle_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 67
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 222a7e4e79a31a04ab926c832fe1769b
+      internalID: 2055261349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Idle_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 67
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 296dc4bf6762e934caa05726e23a1519
+      internalID: 1977795566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Idle_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 67
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55e2d37071317a44d920de56b5701db3
+      internalID: -591369812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Idle_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 67
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8728739a0febb347896dcdcb7d07fff
+      internalID: 1152148597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Idle_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 67
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7898283885d5634438c7300415fc3bed
+      internalID: -619969147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Idle_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 67
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fa5bbc7217ddd844bfd472febb39b82
+      internalID: 762848643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Idle_L
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 67
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac8624d9c6668054f86df71b0eba20a2
+      internalID: -818528411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Attack_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 48
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0114ce4584a877548a6df199fdd0a498
+      internalID: 606084367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Attack_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 48
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 743a6049731730a458fbb33352926b3f
+      internalID: -543436608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Attack_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 48
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbaed0c1010953143901e8b9b0a44acf
+      internalID: 1968104696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Attack_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 48
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 475b1e03106b20743bd0b42210e629e2
+      internalID: 1055034475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Attack_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 48
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fabdc23164e4ed344bbb49f40952cdd2
+      internalID: 1181426113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Attack_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 48
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 271bf38645bd23c4d89c09256fb9fd99
+      internalID: -382414215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Attack_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 48
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bac0ac2384225c54380949a491ee2bda
+      internalID: 15161025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Attack_L
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 48
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23deb6b4147a0064ab2a185b416b5022
+      internalID: -380391323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Move_UL
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 29
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04888e3e3add0d84280ce4fb12b24c5e
+      internalID: -543498400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Move_U
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 29
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 657e473e6ff868e40bcdacbdec85ce8f
+      internalID: -1637208810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Move_UR
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 29
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dc993617b9e65841ac4d42be25723c5
+      internalID: -1924466540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Move_R
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 29
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6c8000b4fb8a1e4a9a3eb8d8356cbc0
+      internalID: 587319135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Move_DR
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 29
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca66ddc9834fad24bae2279bd07a7868
+      internalID: -1821517538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Move_D
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 29
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8004c26a269785b4a9d8932e527fb2f5
+      internalID: 371849501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Move_DL
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 29
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 213560836d059774791ce4a64374267e
+      internalID: 1426385259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Tox_Move_L
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 29
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7238eec78597e548b4398463fb86dc5
+      internalID: -1112997882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_U_Knockdown
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 10
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1e78e2f9078c40438345bdacafedf8a
+      internalID: -516038164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 904eed55986e1b54ead47f5892c5ca60, type: 3}
+      name: _Emission
+    nameFileIdTable:
+      Ally_Assult_Attack_D: -1518455390
+      Ally_Assult_Attack_DL: -1874136331
+      Ally_Assult_Attack_DR: -186783370
+      Ally_Assult_Attack_L: 466539414
+      Ally_Assult_Attack_R: 76425225
+      Ally_Assult_Attack_U: -2073948716
+      Ally_Assult_Attack_UL: -2083930672
+      Ally_Assult_Attack_UR: 1636975480
+      Ally_Assult_Idle_D: 1572653625
+      Ally_Assult_Idle_DL: 1773472436
+      Ally_Assult_Idle_DR: -2121992110
+      Ally_Assult_Idle_L: -1418731823
+      Ally_Assult_Idle_R: 62584506
+      Ally_Assult_Idle_U: 624247066
+      Ally_Assult_Idle_UL: -1930221587
+      Ally_Assult_Idle_UR: -358163894
+      Ally_Assult_Knockdown: -1226139540
+      Ally_Assult_Move_D: 1419512169
+      Ally_Assult_Move_DL: 2104107582
+      Ally_Assult_Move_DR: 434900160
+      Ally_Assult_Move_L: -1290030606
+      Ally_Assult_Move_R: -88304461
+      Ally_Assult_Move_U: -972784572
+      Ally_Assult_Move_UL: -515464492
+      Ally_Assult_Move_UR: -1803079997
+      Ally_Glacia_Attack_D: -1077681501
+      Ally_Glacia_Attack_DL: 179943177
+      Ally_Glacia_Attack_DR: 109295060
+      Ally_Glacia_Attack_L: -1895424338
+      Ally_Glacia_Attack_R: 1799104616
+      Ally_Glacia_Attack_U: 495532566
+      Ally_Glacia_Attack_UL: -308687013
+      Ally_Glacia_Attack_UR: 1522234580
+      Ally_Glacia_Idle_D: 458350581
+      Ally_Glacia_Idle_DL: -919331796
+      Ally_Glacia_Idle_DR: 2077661271
+      Ally_Glacia_Idle_L: -626668016
+      Ally_Glacia_Idle_R: -1929910621
+      Ally_Glacia_Idle_U: -1355599365
+      Ally_Glacia_Idle_UL: -948621930
+      Ally_Glacia_Idle_UR: -1349711751
+      Ally_Glacia_Move_D: -1324136712
+      Ally_Glacia_Move_DL: 321970281
+      Ally_Glacia_Move_DR: 775395785
+      Ally_Glacia_Move_L: 883524747
+      Ally_Glacia_Move_R: 1716802980
+      Ally_Glacia_Move_U: -1656910689
+      Ally_Glacia_Move_UL: -865919325
+      Ally_Glacia_Move_UR: 1217154027
+      Ally_Ignis_Attack_D: 564290336
+      Ally_Ignis_Attack_DL: 493170848
+      Ally_Ignis_Attack_DR: 1582754531
+      Ally_Ignis_Attack_L: 1446941449
+      Ally_Ignis_Attack_R: 1280569992
+      Ally_Ignis_Attack_U: 948243216
+      Ally_Ignis_Attack_UL: -240281408
+      Ally_Ignis_Attack_UR: 2000013416
+      Ally_Ignis_Idle_D: -2064505983
+      Ally_Ignis_Idle_DL: 1025039176
+      Ally_Ignis_Idle_DR: 463629765
+      Ally_Ignis_Idle_L: 403153987
+      Ally_Ignis_Idle_R: -1046237143
+      Ally_Ignis_Idle_U: 2024787832
+      Ally_Ignis_Idle_UL: 317550914
+      Ally_Ignis_Idle_UR: -386029942
+      Ally_Ignis_Move_D: -348311200
+      Ally_Ignis_Move_DL: 1359531498
+      Ally_Ignis_Move_DR: 1595848674
+      Ally_Ignis_Move_L: 69176712
+      Ally_Ignis_Move_R: -619969898
+      Ally_Ignis_Move_U: -725981143
+      Ally_Ignis_Move_UL: 209338776
+      Ally_Ignis_Move_UR: -586081215
+      Ally_Tox_Attack_D: -382414215
+      Ally_Tox_Attack_DL: 15161025
+      Ally_Tox_Attack_DR: 1181426113
+      Ally_Tox_Attack_L: -380391323
+      Ally_Tox_Attack_R: 1055034475
+      Ally_Tox_Attack_U: -543436608
+      Ally_Tox_Attack_UL: 606084367
+      Ally_Tox_Attack_UR: 1968104696
+      Ally_Tox_Idle_D: -619969147
+      Ally_Tox_Idle_DL: 762848643
+      Ally_Tox_Idle_DR: 1152148597
+      Ally_Tox_Idle_L: -818528411
+      Ally_Tox_Idle_R: -591369812
+      Ally_Tox_Idle_U: 2055261349
+      Ally_Tox_Idle_UL: -1690054809
+      Ally_Tox_Idle_UR: 1977795566
+      Ally_Tox_Move_D: 371849501
+      Ally_Tox_Move_DL: 1426385259
+      Ally_Tox_Move_DR: -1821517538
+      Ally_Tox_Move_L: -1112997882
+      Ally_Tox_Move_R: 587319135
+      Ally_Tox_Move_U: -1637208810
+      Ally_Tox_Move_UL: -543498400
+      Ally_Tox_Move_UR: -1924466540
+      Ally_U_Knockdown: -516038164
+      Ally_Volt_Attack_D: 512414341
+      Ally_Volt_Attack_DL: 2010732035
+      Ally_Volt_Attack_DR: 1221462645
+      Ally_Volt_Attack_Dl: -1378497391
+      Ally_Volt_Attack_R: 1480072443
+      Ally_Volt_Attack_U: -1478540494
+      Ally_Volt_Attack_UL: -1781860999
+      Ally_Volt_Attack_UR: -1435635815
+      Ally_Volt_Idle_D: 468323468
+      Ally_Volt_Idle_DL: -1705083424
+      Ally_Volt_Idle_DR: 180628003
+      Ally_Volt_Idle_L: 1684841031
+      Ally_Volt_Idle_R: -436057075
+      Ally_Volt_Idle_U: -733241032
+      Ally_Volt_Idle_UL: 2084643532
+      Ally_Volt_Idle_UR: 635456902
+      Ally_Volt_Move_D: 83583626
+      Ally_Volt_Move_DL: 290482978
+      Ally_Volt_Move_DR: -1100530872
+      Ally_Volt_Move_L: -363762253
+      Ally_Volt_Move_R: 2088323880
+      Ally_Volt_Move_U: -2073876423
+      Ally_Volt_Move_UL: -916807846
+      Ally_Volt_Move_UR: 537736280
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

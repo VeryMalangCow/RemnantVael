@@ -51,7 +51,7 @@ public class AllyController : NavObjectController
 
     // For Player
     [HideInInspector] protected PlayerController Player;
-    [HideInInspector] protected float ForPlayerDis = 1f;
+    [HideInInspector] protected float ForPlayerDis = 2.5f;
 
     // For Enemy
     [HideInInspector] protected EnemyController Enemy;

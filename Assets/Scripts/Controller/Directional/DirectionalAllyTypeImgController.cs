@@ -11,6 +11,7 @@ public class DirectionalAllyTypeImgController : DirectionalImgController
 
     [Space(10)]
     [Header("=== Sprite")]
+    [SerializeField] private string ThisSpriteSetName;
     [SerializeField] private AllySpriteSet AllySpriteSet;
 
     #endregion
@@ -19,7 +20,7 @@ public class DirectionalAllyTypeImgController : DirectionalImgController
 
     protected override void Start()
     {
-        AllySpriteSet = AllyManager.Instance.AssultAllySpriteSet;
+        AllySpriteSet = AllyManager.Instance.AllySpriteSetDict[ThisSpriteSetName];
         Set_Type(eAllyStateMode.Idle);
 
         base.Start();

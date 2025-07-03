@@ -4354,7 +4354,7 @@ public class AllySpriteSet
     public List<Sprite> AllyMove;
     public List<Sprite> AllyAttack;
 
-    public void Offset(string _Name)
+    public AllySpriteSet(string _Name)
     {
         AllyIdle = ResourceManager.Instance.Get_AllySprite(_Name, "Idle");
         AllyMove = ResourceManager.Instance.Get_AllySprite(_Name, "Move");
