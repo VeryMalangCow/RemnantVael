@@ -91,32 +91,11 @@ MonoBehaviour:
   ThisSolar: {fileID: 8582829566269682132}
   ThisDirImg: {fileID: 8140379498466177624}
   BuffController: {fileID: 1545880728986693634}
-  HUD: {fileID: 82095112155882869}
-  FrontFaceSprite: {fileID: 662672575, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
-  UpgradeAllyState:
-    Dmg:
-      Value: 1
-    Rof:
-      Value: 1
-    MovementSpeed:
-      Value: 1
-    AttackSize:
-      Value: 1
-    CC:
-      Value: 1
-    CD:
-      Value: 1
-  IsAlwaysStatus: 1
-  StateType: 3
-  BulletSprite: {fileID: -1712732208, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
-  BulletObjSize: {x: 1, y: 1}
-  BulletColSize: {x: 0.13, y: 0.13}
-  BulletSpawnTF: {fileID: 1521131796336763097}
-  TrailTime: 0.8
-  TrailStartWidth: 0.02
-  TrailGradient:
+  ThisColor: {r: 1, g: 1, b: 0.49803922, a: 1}
+  ThisExtraColor: {r: 0.28773582, g: 1, b: 0.5548349, a: 1}
+  ThisExtraGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 0.49803922}
+    key0: {r: 0.2901961, g: 1, b: 0.5568628, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -133,7 +112,7 @@ MonoBehaviour:
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 32768
+    atime1: 65535
     atime2: 0
     atime3: 0
     atime4: 0
@@ -144,7 +123,30 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  LightIntensity: 1
+  HUD: {fileID: 82095112155882869}
+  FrontFaceSprite: {fileID: -796970769, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
+  UpgradeAllyState:
+    Dmg:
+      Value: 1
+    Rof:
+      Value: 1
+    MovementSpeed:
+      Value: 1
+    AttackSize:
+      Value: 1
+    CC:
+      Value: 1
+    CD:
+      Value: 1
+  IsAlwaysStatus: 1
+  StateType: 3
+  BulletSprite: {fileID: -1346664078, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+  BulletObjSize: {x: 1, y: 1}
+  BulletColSize: {x: 0.13, y: 0.13}
+  BulletSpawnTF: {fileID: 1521131796336763097}
+  TrailTime: 0.8
+  TrailStartWidth: 0.05
+  LightIntensity: 0.5
 --- !u!114 &1545880728986693634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -895,7 +897,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -585842305, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  m_Sprite: {fileID: -1346563491, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -921,14 +923,14 @@ MonoBehaviour:
   RotationTargetTF: {fileID: 8546946258805197552}
   ThisComp: {fileID: 3373301920055886677}
   ThisDirectionalList:
-  - {fileID: 1511410422, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: -1944132667, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 274322793, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 944645886, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: -1273699333, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: -585842305, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 201978387, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: -909175778, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: 1751104109, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: 1097920277, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: -1712046468, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: -529214198, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: -1120461699, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: -1346563491, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: 2138980948, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: -868216612, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
 --- !u!1 &8901846497403385796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,7 +1006,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1419512169, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
+  m_Sprite: {fileID: 371849501, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

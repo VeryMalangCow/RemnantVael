@@ -30,7 +30,6 @@ public class AttackAllyController : AllyController
     [Header("=== Trail")]
     [SerializeField] private float TrailTime;
     [SerializeField] private float TrailStartWidth;
-    [SerializeField] private Gradient TrailGradient;
 
     [Space(10)]
     [Header("=== Light")]
@@ -119,6 +118,8 @@ public class AttackAllyController : AllyController
             _State_Effect: null,
             0.5f);
 
+        _Bullet.ThisSR.color = this.ThisExtraColor;
+
         // 상태이상 총알이면
         if (IsAlwaysStatus)
             _Bullet.State.Set_Status(IsAlwaysStatus, StateType);
@@ -130,7 +131,7 @@ public class AttackAllyController : AllyController
         ActiveAlly_AfterFire();
 
         _Bullet.SetOn_LightIntensity(LightIntensity);
-        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.AttackSize.Value, TrailGradient);
+        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.AttackSize.Value, ThisExtraGradient);
 
         // 이미지
         _Bullet.ThisSR.sprite = BulletSprite;

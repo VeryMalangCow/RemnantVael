@@ -105,7 +105,7 @@ TextureImporter:
         width: 27
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -113,6 +113,90 @@ TextureImporter:
       bones: []
       spriteID: ed3e6342258557745ba189a62c6efbca
       internalID: 662672575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_Face_Ignis
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 229
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d64b1d46b0d16b240bcf221806ce8fa9
+      internalID: 141280962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_Face_Glacia
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 229
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68efbf2896d16e7418a24e9d98ce18d9
+      internalID: 1360343483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_Face_Volt
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 229
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e14e21465082e114bb2e9619726060c6
+      internalID: -1270189365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_Face_Tox
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 229
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de96cc7b0b12ae54e8c07a5608d6d7f1
+      internalID: -796970769
       vertices: []
       indices: 
       edges: []
@@ -129,6 +213,10 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       AllyUI_Face_Assult: 662672575
+      AllyUI_Face_Glacia: 1360343483
+      AllyUI_Face_Ignis: 141280962
+      AllyUI_Face_Tox: -796970769
+      AllyUI_Face_Volt: -1270189365
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

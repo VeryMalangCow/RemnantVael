@@ -24,13 +24,18 @@ public class AllyController : NavObjectController
     [SerializeField] protected float ForEnemyDis = 1.5f;
     [SerializeField] private ReactiveProperty<eAllyStateMode> AllyStateMode = new();
 
-
     [Space(10)]
     [Header("=== Comp")]
     [SerializeField] private SortingGroup ThisSG;
     [SerializeField] private AllySolarController ThisSolar;
     [SerializeField] protected DirectionalAllyTypeImgController ThisDirImg;
     [SerializeField] public AllyBuffController BuffController;
+
+    [Space(10)]
+    [Header("=== Visible")]
+    [SerializeField] protected Color ThisColor;
+    [SerializeField] protected Color ThisExtraColor;
+    [SerializeField] protected Gradient ThisExtraGradient;
 
     [Space(10)]
     [Header("=== HUD")]

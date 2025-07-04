@@ -273,7 +273,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -294,7 +294,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -315,7 +315,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -336,7 +336,7 @@ TextureImporter:
         width: 10
         height: 10
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -344,6 +344,27 @@ TextureImporter:
       bones: []
       spriteID: af4c5fd42a564b84986b645bd1287440
       internalID: -1834734568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_BaseMiddleBullet
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 252
+        width: 3
+        height: 3
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63d29c79d3401014997896744d351f31
+      internalID: -1346664078
       vertices: []
       indices: 
       edges: []
@@ -363,6 +384,7 @@ TextureImporter:
     nameFileIdTable:
       Ally_BarFrame: -1182420997
       Ally_BaseBullet: -1712732208
+      Ally_BaseMiddleBullet: -1346664078
       Ally_Buff_Sync005: -1449385789
       Ally_Buff_Sync006: 1160235244
       Ally_Buff_Sync007: 923316139
