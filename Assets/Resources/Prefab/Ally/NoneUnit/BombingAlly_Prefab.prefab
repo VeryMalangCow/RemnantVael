@@ -1,0 +1,139 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6738623650480507159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4550052632230427534}
+  - component: {fileID: 7945985655687647614}
+  m_Layer: 0
+  m_Name: BombingAlly_Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4550052632230427534
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6738623650480507159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7945985655687647614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6738623650480507159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e210827fea44172408ac24c45d82d166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  TargetObject: {fileID: 0}
+  ThisSR: {fileID: 0}
+  TargetRange: 0.5
+  ThisRb: {fileID: 0}
+  AccelerationSpeed: 12
+  IsDead: 0
+  CurrentSP:
+    value: 0
+  CurrentHP:
+    value: 0
+  CurrentEP:
+    value: 0
+  BrokenParticleData: []
+  ParticleThrowDis: 1
+  MultipleAllyState:
+    Dmg:
+      Value: 2
+    Rof:
+      Value: 2
+    MovementSpeed:
+      Value: 1.5
+    AttackSize:
+      Value: 1
+    CC:
+      Value: 0.1
+    CD:
+      Value: 0.5
+  MaxHP: 150
+  MaxEP: 100
+  ForEnemyDis: 2.5
+  AllyStateMode:
+    value: 0
+  ThisSG: {fileID: 0}
+  ThisSolar: {fileID: 0}
+  ThisDirImg: {fileID: 0}
+  BuffController: {fileID: 0}
+  ThisColor: {r: 1, g: 0.5613208, b: 0.5613208, a: 1}
+  ThisExtraColor: {r: 1, g: 1, b: 1, a: 1}
+  ThisExtraGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  HUD: {fileID: 0}
+  FrontFaceSprite: {fileID: 662672575, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
+  UpgradeAllyState:
+    Dmg:
+      Value: 1
+    Rof:
+      Value: 1
+    MovementSpeed:
+      Value: 1
+    AttackSize:
+      Value: 1
+    CC:
+      Value: 1
+    CD:
+      Value: 1
+  IsAlwaysStatus: 0
+  StateType: 0
+  BulletSprite: {fileID: -1712732208, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+  BulletObjSize: {x: 1, y: 1}
+  BulletColSize: {x: 0.05, y: 0.05}
+  BulletSpawnTF: {fileID: 0}
+  TrailTime: 0.8
+  TrailStartWidth: 0.02
+  LightIntensity: 1

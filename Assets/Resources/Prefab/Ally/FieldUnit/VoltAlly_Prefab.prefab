@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7751130478170212446}
   - component: {fileID: 6733897396435173674}
   m_Layer: 10
-  m_Name: GlaciaAlly_Prefab
+  m_Name: VoltAlly_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,6 +82,8 @@ MonoBehaviour:
       Value: 0
     CD:
       Value: 0
+    MuzzleSpeed:
+      Value: 0.4
   MaxHP: 100
   MaxEP: 100
   ForEnemyDis: 3.5
@@ -92,10 +94,10 @@ MonoBehaviour:
   ThisDirImg: {fileID: 8140379498466177624}
   BuffController: {fileID: 1545880728986693634}
   ThisColor: {r: 1, g: 1, b: 0.49803922, a: 1}
-  ThisExtraColor: {r: 0, g: 0.5019608, b: 0.8980393, a: 1}
+  ThisExtraColor: {r: 0.92158335, g: 1, b: 0.16509432, a: 1}
   ThisExtraGradient:
     serializedVersion: 2
-    key0: {r: 0, g: 0.5019608, b: 0.8980392, a: 1}
+    key0: {r: 0.9254902, g: 1, b: 0.16862746, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -124,7 +126,7 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   HUD: {fileID: 82095112155882869}
-  FrontFaceSprite: {fileID: 1360343483, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
+  FrontFaceSprite: {fileID: -1270189365, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
   UpgradeAllyState:
     Dmg:
       Value: 1
@@ -138,8 +140,10 @@ MonoBehaviour:
       Value: 1
     CD:
       Value: 1
+    MuzzleSpeed:
+      Value: 1
   IsAlwaysStatus: 1
-  StateType: 1
+  StateType: 2
   BulletSprite: {fileID: -1346664078, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
   BulletObjSize: {x: 1, y: 1}
   BulletColSize: {x: 0.13, y: 0.13}
@@ -212,12 +216,15 @@ MonoBehaviour:
       Value: 1
     CD:
       Value: 1
+    MuzzleSpeed:
+      Value: 1
     Dmg_BuffList: []
     Rof_BuffList: []
     MovementSpeed_BuffList: []
     AttackSize_BuffList: []
     CC_BuffList: []
     CD_BuffList: []
+    MuzzleSpeed_BuffList: []
 --- !u!50 &7751130478170212446
 Rigidbody2D:
   serializedVersion: 4
@@ -436,7 +443,7 @@ Transform:
   - {fileID: 8546946258805197552}
   m_Father: {fileID: 1792023782833139252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3926486182685317280
+--- !u!1 &3564315922217749886
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -444,40 +451,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 202980173528425446}
-  m_Layer: 7
-  m_Name: Rb_Object
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &202980173528425446
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3926486182685317280}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1521131796336763097}
-  m_Father: {fileID: 2074109866832102680}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4080945744355087991
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8456240839360331070}
-  - component: {fileID: 3370052890351595646}
+  - component: {fileID: 3220712191824728072}
+  - component: {fileID: 2555915637720363927}
   m_Layer: 7
   m_Name: Light (1)
   m_TagString: Untagged
@@ -485,13 +460,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8456240839360331070
+--- !u!4 &3220712191824728072
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4080945744355087991}
+  m_GameObject: {fileID: 3564315922217749886}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -500,13 +475,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2466442339866521883}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3370052890351595646
+--- !u!114 &2555915637720363927
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4080945744355087991}
+  m_GameObject: {fileID: 3564315922217749886}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
@@ -550,6 +525,38 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!1 &3926486182685317280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 202980173528425446}
+  m_Layer: 7
+  m_Name: Rb_Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &202980173528425446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3926486182685317280}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1521131796336763097}
+  m_Father: {fileID: 2074109866832102680}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4707549194518615502
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +904,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1055958011, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  m_Sprite: {fileID: 1745578017, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -923,14 +930,14 @@ MonoBehaviour:
   RotationTargetTF: {fileID: 8546946258805197552}
   ThisComp: {fileID: 3373301920055886677}
   ThisDirectionalList:
-  - {fileID: 1902223786, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 971011935, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 1790022902, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 1783631834, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 1487237815, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: -1055958011, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: 2010334169, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
-  - {fileID: -1313612348, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: 1779051288, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: -14212541, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: -2041570404, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: 1601942260, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: -1641209575, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: 1745578017, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: 291841374, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
+  - {fileID: 668347480, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
 --- !u!1 &8901846497403385796
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,7 +969,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8456240839360331070}
+  - {fileID: 3220712191824728072}
   m_Father: {fileID: 2074109866832102680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3509543857521266894
@@ -1006,7 +1013,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1324136712, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
+  m_Sprite: {fileID: 83583626, guid: 1e73437af30c479448298c2acc45ac8b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1032,7 +1039,7 @@ MonoBehaviour:
   RotationTargetTF: {fileID: 8546946258805197552}
   ThisComp: {fileID: 3509543857521266894}
   ThisDirectionalList: []
-  ThisSpriteSetName: Glacia
+  ThisSpriteSetName: Volt
   AllySpriteSet:
     AllyIdle: []
     AllyMove: []

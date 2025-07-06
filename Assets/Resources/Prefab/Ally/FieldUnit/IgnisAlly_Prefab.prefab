@@ -82,6 +82,8 @@ MonoBehaviour:
       Value: 0
     CD:
       Value: 0
+    MuzzleSpeed:
+      Value: 0.4
   MaxHP: 100
   MaxEP: 100
   ForEnemyDis: 3.5
@@ -137,6 +139,8 @@ MonoBehaviour:
     CC:
       Value: 1
     CD:
+      Value: 1
+    MuzzleSpeed:
       Value: 1
   IsAlwaysStatus: 1
   StateType: 0
@@ -212,12 +216,15 @@ MonoBehaviour:
       Value: 1
     CD:
       Value: 1
+    MuzzleSpeed:
+      Value: 1
     Dmg_BuffList: []
     Rof_BuffList: []
     MovementSpeed_BuffList: []
     AttackSize_BuffList: []
     CC_BuffList: []
     CD_BuffList: []
+    MuzzleSpeed_BuffList: []
 --- !u!50 &7751130478170212446
 Rigidbody2D:
   serializedVersion: 4

@@ -4152,6 +4152,7 @@ public class AllyState
     public RefData<float> AttackSize;
     public RefData<float> CC;
     public RefData<float> CD;
+    public RefData<float> MuzzleSpeed;
 
     #endregion
 
@@ -4165,6 +4166,7 @@ public class AllyState
         AttackSize = new RefData<float>(1);
         CC = new RefData<float>(1);
         CD = new RefData<float>(1);
+        MuzzleSpeed = new RefData<float>(1);
     }
 
     public AllyState(AllyState _StateValue)
@@ -4175,6 +4177,7 @@ public class AllyState
         AttackSize = new RefData<float>(_StateValue.AttackSize.Value);
         CC = new RefData<float>(_StateValue.CC.Value);
         CD = new RefData<float>(_StateValue.CD.Value);
+        MuzzleSpeed = new RefData<float>(_StateValue.MuzzleSpeed.Value);
     }
 
     public void Reset()
@@ -4185,6 +4188,7 @@ public class AllyState
         AttackSize.Value = 1;
         CC.Value = 1;
         CD.Value = 1;
+        MuzzleSpeed.Value = 1;
     }
 
     public static AllyState Get_Multiple(AllyState _State0, AllyState _State1)
@@ -4197,6 +4201,7 @@ public class AllyState
         result.AttackSize = new RefData<float>(_State0.AttackSize.Value * _State1.AttackSize.Value);
         result.CC = new RefData<float>(_State0.CC.Value * _State1.CC.Value);
         result.CD = new RefData<float>(_State0.CD.Value * _State1.CD.Value);
+        result.MuzzleSpeed = new RefData<float>(_State0.MuzzleSpeed.Value * _State1.MuzzleSpeed.Value);
 
         return result;
     }
@@ -4211,6 +4216,7 @@ public class AllyState
         result.AttackSize = new RefData<float>(_Original.AttackSize.Value - _Exclude.AttackSize.Value);
         result.CC = new RefData<float>(_Original.CC.Value - _Exclude.CC.Value);
         result.CD = new RefData<float>(_Original.CD.Value - _Exclude.CD.Value);
+        result.MuzzleSpeed = new RefData<float>(_Original.MuzzleSpeed.Value - _Exclude.MuzzleSpeed.Value);
 
         return result;
     }
@@ -4223,6 +4229,7 @@ public class AllyState
         AttackSize.Value = Mathf.Max(_Min, AttackSize.Value);
         CC.Value = Mathf.Max(_Min, CC.Value);
         CD.Value = Mathf.Max(_Min, CD.Value);
+        MuzzleSpeed.Value = Mathf.Max(_Min, MuzzleSpeed.Value);
     }
 
     #endregion
@@ -4237,6 +4244,7 @@ public class AllyBuffState : AllyState
     [HideInInspector] public List<AllyBuff> AttackSize_BuffList;
     [HideInInspector] public List<AllyBuff> CC_BuffList;
     [HideInInspector] public List<AllyBuff> CD_BuffList;
+    [HideInInspector] public List<AllyBuff> MuzzleSpeed_BuffList;
 
     [HideInInspector] private RefData<bool> Dmg_IsExist;
     [HideInInspector] private RefData<bool> Rof_IsExist;
@@ -4244,6 +4252,7 @@ public class AllyBuffState : AllyState
     [HideInInspector] private RefData<bool> AttackSize_IsExist;
     [HideInInspector] private RefData<bool> CC_IsExist;
     [HideInInspector] private RefData<bool> CD_IsExist;
+    [HideInInspector] private RefData<bool> MuzzleSpeed_IsExist;
 
     [HideInInspector] Dictionary<string, List<AllyBuff>> BuffDict;
     [HideInInspector] Dictionary<string, RefData<bool>> BuffIsOnDict;
@@ -4256,6 +4265,7 @@ public class AllyBuffState : AllyState
         AttackSize_BuffList = new List<AllyBuff>();
         CC_BuffList = new List<AllyBuff>();
         CD_BuffList = new List<AllyBuff>();
+        MuzzleSpeed_BuffList = new List<AllyBuff>();
 
         Dmg_IsExist = new RefData<bool>(false);
         Rof_IsExist = new RefData<bool>(false);
@@ -4263,6 +4273,7 @@ public class AllyBuffState : AllyState
         AttackSize_IsExist = new RefData<bool>(false);
         CC_IsExist = new RefData<bool>(false);
         CD_IsExist = new RefData<bool>(false);
+        MuzzleSpeed_IsExist = new RefData<bool>(false);
 
         BuffDict = new Dictionary<string, List<AllyBuff>>
         {
@@ -4271,7 +4282,8 @@ public class AllyBuffState : AllyState
             { AllyManager.StateTypeList[2], MovementSpeed_BuffList },
             { AllyManager.StateTypeList[3], AttackSize_BuffList },
             { AllyManager.StateTypeList[4], CC_BuffList },
-            { AllyManager.StateTypeList[5], CD_BuffList }
+            { AllyManager.StateTypeList[5], CD_BuffList },
+            { AllyManager.StateTypeList[6], MuzzleSpeed_BuffList }
         };
 
         BuffIsOnDict = new Dictionary<string, RefData<bool>>
@@ -4281,7 +4293,8 @@ public class AllyBuffState : AllyState
             { AllyManager.StateTypeList[2], MovementSpeed_IsExist },
             { AllyManager.StateTypeList[3], AttackSize_IsExist },
             { AllyManager.StateTypeList[4], CC_IsExist },
-            { AllyManager.StateTypeList[5], CD_IsExist }
+            { AllyManager.StateTypeList[5], CD_IsExist },
+            { AllyManager.StateTypeList[6], MuzzleSpeed_IsExist }
         };
     }
 
@@ -4329,6 +4342,7 @@ public class AllyBuffState : AllyState
         AttackSize.Value = Get_BuffValue(AttackSize_BuffList);
         CC.Value = Get_BuffValue(CC_BuffList);
         CD.Value = Get_BuffValue(CD_BuffList);
+        MuzzleSpeed.Value = Get_BuffValue(MuzzleSpeed_BuffList);
     }
 
     private float Get_BuffValue(List<AllyBuff> _BuffList)
@@ -5093,6 +5107,11 @@ public enum SoundType
 public enum eAllyStateMode
 {
     Idle, Move, Attack
+}
+
+public enum eAllyNoneUnitStateMode
+{
+    Stay, Attack
 }
 
 #endregion

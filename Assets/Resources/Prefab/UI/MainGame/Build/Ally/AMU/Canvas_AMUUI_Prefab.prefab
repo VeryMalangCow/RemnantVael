@@ -2341,6 +2341,7 @@ MonoBehaviour:
   - {fileID: 6027667009557986572}
   - {fileID: 2342518975960596067}
   - {fileID: 254374148058726759}
+  - {fileID: 5603569808292780015}
   TunerScrollPanel: {fileID: 6486262153703449168}
   InStateTunerParentRT: {fileID: 1386686837164556022}
   InStateTunerPrefab: {fileID: 572117140870774827, guid: 4d58e8f957b034c4593b1d2aa1c1e949, type: 3}
@@ -22116,6 +22117,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5603569808292780015 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5529291087708098950, guid: 851dc6925a70993488e99d94b70b50df, type: 3}
+  m_PrefabInstance: {fileID: 105867576054515305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2938fb28bef42364e9fbbba9f7ead791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &5757474070097746923 stripped

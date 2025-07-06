@@ -101,7 +101,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     private static readonly string[] directionOrder = new string[] { "UL", "U", "UR", "R", "DR", "D", "DL", "L" };
 
     // Prefab
-    [HideInInspector] private Dictionary<string, GameObject> Ally_PrefabDict;
+    [HideInInspector] private Dictionary<string, GameObject> AllyFieldUnit_PrefabDict;
+    [HideInInspector] private Dictionary<string, GameObject> AllyNoneUnit_PrefabDict;
 
     #endregion
 
@@ -308,14 +309,22 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         string prefabPath = "Prefab/";
 
         string allyPath = prefabPath + "Ally/";
-        Ally_PrefabDict = new Dictionary<string, GameObject>
-        {
-            { "Assult", Get_Prefab(allyPath, "AssultAlly_Prefab") },
 
-            { "Ignis", Get_Prefab(allyPath, "IgnisAlly_Prefab") },
-            { "Glacia", Get_Prefab(allyPath, "GlaciaAlly_Prefab") },
-            { "Volt", Get_Prefab(allyPath, "VoltAlly_Prefab") },
-            { "Tox", Get_Prefab(allyPath, "ToxAlly_Prefab") }
+        string fieldUnitPath = allyPath + "FieldUnit/";
+        AllyFieldUnit_PrefabDict = new Dictionary<string, GameObject>
+        {
+            { "Assult", Get_Prefab(fieldUnitPath, "AssultAlly_Prefab") },
+
+            { "Ignis", Get_Prefab(fieldUnitPath, "IgnisAlly_Prefab") },
+            { "Glacia", Get_Prefab(fieldUnitPath, "GlaciaAlly_Prefab") },
+            { "Volt", Get_Prefab(fieldUnitPath, "VoltAlly_Prefab") },
+            { "Tox", Get_Prefab(fieldUnitPath, "ToxAlly_Prefab") }
+        };
+
+        string noneUnitPath = allyPath + "NoneUnit/";
+        AllyNoneUnit_PrefabDict = new Dictionary<string, GameObject>
+        {
+            { "Bombing", Get_Prefab(noneUnitPath, "BombingAlly_Prefab") }
         };
     }
 
@@ -1047,7 +1056,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     public GameObject Get_Ally(string _Name)
     {
-        return Ally_PrefabDict[_Name];
+        return AllyFieldUnit_PrefabDict[_Name];
+    }
+
+    public GameObject Get_NoneUnitAlly(string _Name)
+    {
+        return AllyNoneUnit_PrefabDict[_Name];
     }
 
     #endregion

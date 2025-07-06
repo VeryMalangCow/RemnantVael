@@ -308,6 +308,37 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #endregion
 
+    #region (033 ~ 037) Muzzle Upgrade
+
+    private void ST_CardActivity_033()
+    {
+        Upgrade_Muzzle(1.3f);
+    }
+    private void ST_CardActivity_034()
+    {
+        Upgrade_Muzzle(1.7f);
+    }
+    private void ST_CardActivity_035()
+    {
+        Upgrade_Muzzle(2.2f);
+    }
+    private void ST_CardActivity_036()
+    {
+        Upgrade_Muzzle(2.8f);
+    }
+    private void ST_CardActivity_037()
+    {
+        Upgrade_Muzzle(3.5f);
+    }
+
+
+    private void Upgrade_Muzzle(float _Value)
+    {
+        AllyManager.Instance.Set_StateMuzzleSpeed(_Value);
+    }
+
+    #endregion
+
     #endregion
 
     #region Uplink Team 

@@ -150,7 +150,7 @@ public class AttackAllyController : AllyController
                 new CriticalState(ActualAllyState.CC.Value, 1 + ActualAllyState.CD.Value),
                 new KnockbackState(false, 0, 0)),
             _CheckIsCritical: true,
-            _MuzzleSpeed: 1f,
+            _MuzzleSpeed: ActualAllyState.MuzzleSpeed.Value,
             _AliveTime: 10f);
     }
 

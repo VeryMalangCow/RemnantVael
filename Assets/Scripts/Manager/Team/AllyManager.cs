@@ -55,14 +55,15 @@ public class AllyManager : Singleton<AllyManager>
     // String
     [HideInInspector]
     public static readonly List<string> StateTypeList = new List<string> 
-        { "Dmg", "Rof", "MovementSpeed", "AttackSize", "CC", "CD" };
+        { "Dmg", "Rof", "MovementSpeed", "AttackSize", "CC", "CD", "MuzzleSpeed" };
+    [HideInInspector]
+    public static List<float> TunerMultipleValueByType = new List<float>
+        { 0.05f, 0.05f, 0.05f, 0.1f, 0.05f, 0.1f, 0.1f };
 
     // Base Upgrade Data
     [HideInInspector] public static List<float> TunerTypePercent = new List<float> { 8, 5, 3, 2, 1 };
     [HideInInspector] private Dictionary<string, Sprite> TunerTypeIconDict;
 
-    [HideInInspector] public static List<float> TunerMultipleValueByType = new List<float> 
-        { 0.05f, 0.05f, 0.05f, 0.1f, 0.05f, 0.1f };
     [HideInInspector] private static Dictionary<string, float> TunerTypeMultipleValueDict;
 
     #endregion
@@ -166,9 +167,16 @@ public class AllyManager : Singleton<AllyManager>
         AllyState.CC.Value = _Value;
         Set_AllState();
     }
+
     public void Set_StateCD(float _Value)
     {
         AllyState.CD.Value = _Value;
+        Set_AllState();
+    }
+
+    public void Set_StateMuzzleSpeed(float _Value)
+    {
+        AllyState.MuzzleSpeed.Value = _Value;
         Set_AllState();
     }
 
