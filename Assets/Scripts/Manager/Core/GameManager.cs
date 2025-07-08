@@ -3446,7 +3446,7 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
 
     private DeleEnemy Get_AllyIDele(int _ID)
     {
-        AllyController ally = AllyManager.Instance.AllAllies[_ID];
+        AllyController ally = AllyManager.Instance.AllAlly[_ID];
         switch (StatusType)
         {
             case eStatusEffect.Flame:
@@ -5107,11 +5107,6 @@ public enum SoundType
 public enum eAllyStateMode
 {
     Idle, Move, Attack
-}
-
-public enum eAllyNoneUnitStateMode
-{
-    Stay, Attack
 }
 
 #endregion

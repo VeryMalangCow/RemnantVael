@@ -58,7 +58,7 @@ public class BuffElectricityController : BuffController, IWhen_GetElectricity
         if (MaxHpPercent != 0)
         { value += DevTool.Get_Percent(MaxHpPercent, PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value); }
 
-        value *= (AllyManager.Instance.AllAllies.Count + 1);
+        value *= (AllyManager.Instance.AllAlly.Count + 1);
 
         return value;
     }
@@ -68,8 +68,8 @@ public class BuffElectricityController : BuffController, IWhen_GetElectricity
         float dmg = Get_DmgValue();
         PlayerManager.Instance.PlayerController.Take_Damaged(dmg, _HittedDir: Vector2.zero, _ShowHUDEffect: false);
         
-        for (int i = 0; i < AllyManager.Instance.AllAllies.Count; i++)
-            AllyManager.Instance.AllAllies[i].TakeDamage(dmg);
+        for (int i = 0; i < AllyManager.Instance.AllAlly.Count; i++)
+            AllyManager.Instance.AllAlly[i].TakeDamage(dmg);
         
         this.Reduct_Buff();
     }

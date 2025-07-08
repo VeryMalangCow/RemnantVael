@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class AttackAllyController : AllyController
+public class ShootingAllyController : FieldUnitAllyController
 {
     #region Value
 

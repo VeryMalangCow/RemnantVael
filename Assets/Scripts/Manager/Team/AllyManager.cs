@@ -22,7 +22,7 @@ public class AllyManager : Singleton<AllyManager>
     #region - Hide
 
     // Allies
-    [HideInInspector] public List<AllyController> AllAllies = new List<AllyController>();
+    [HideInInspector] public List<AllyController> AllAlly = new List<AllyController>();
 
     // Ally Card Data
     [HideInInspector] private List<AllyCardData> ST_AllAllyCardData = new List<AllyCardData>();
@@ -102,14 +102,6 @@ public class AllyManager : Singleton<AllyManager>
             { "Tox", new AllySpriteSet("Tox") }
         };
 
-        foreach (var set in AllySpriteSetDict)
-        {
-            for (int i = 0; i < set.Value.AllyIdle.Count; i++)
-            {
-                Debug.Log(set.Value.AllyIdle[i].name);
-            }
-        }
-
         AllyState = new AllyState();
 
         // Random Name
@@ -182,10 +174,10 @@ public class AllyManager : Singleton<AllyManager>
 
     private void Set_AllState()
     {
-        if (AllAllies.Count <= 0) return;
+        if (AllAlly.Count <= 0) return;
 
-        for (int i = 0; i < AllAllies.Count; i++)
-            AllAllies[i].Set_AllState();
+        for (int i = 0; i < AllAlly.Count; i++)
+            AllAlly[i].Set_AllState();
     }
 
     #endregion
@@ -313,11 +305,11 @@ public class AllyManager : Singleton<AllyManager>
 
     public void Set_AllAlliesSync()
     {
-        if (AllAllies.Count <= 0) return;
+        if (AllAlly.Count <= 0) return;
 
-        for (int i = 0; i < AllAllies.Count; i++)
+        for (int i = 0; i < AllAlly.Count; i++)
         {
-            AllAllies[i].Set_ActingSync();
+            AllAlly[i].Set_ActingSync();
         }
     }
 
@@ -327,41 +319,45 @@ public class AllyManager : Singleton<AllyManager>
 
     public void Set_AllAlliesActive(bool _OnOff)
     {
-        if (AllAllies.Count <= 0) return;
+        if (AllAlly.Count <= 0) return;
 
-        for (int i = 0; i < AllAllies.Count; i++)
-            AllAllies[i].gameObject.SetActive(_OnOff);
+        for (int i = 0; i < AllAlly.Count; i++)
+            AllAlly[i].gameObject.SetActive(_OnOff);
     }
 
     public void Start_AllAllies_Combat()
     {
-        if (AllAllies.Count <= 0) return;
+        if (AllAlly.Count <= 0) return;
 
-        for (int i = 0; i < AllAllies.Count; i++)
-            AllAllies[i].Start_MainCor();
+        for (int i = 0; i < AllAlly.Count; i++)
+            AllAlly[i].Start_MainCor();
     }
 
     public void Stop_AllAllies_Combat()
     {
-        if (AllAllies.Count <= 0) return;
+        if (AllAlly.Count <= 0) return;
 
-        for (int i = 0; i < AllAllies.Count; i++)
-            AllAllies[i].Stop_MainCor();
+        for (int i = 0; i < AllAlly.Count; i++)
+            AllAlly[i].Stop_MainCor();
     }
 
     public void Set_AllAllyPlayerNearPos()
     {
-        if (AllAllies.Count <= 0) return;
+        if (AllAlly.Count <= 0) return;
 
-        for (int i = 0; i < AllAllies.Count; i++)
-            AllAllies[i].Set_PosRandomNearPlayer();
+        for (int i = 0; i < AllAlly.Count; i++)
+        {
+            if (AllAlly[i] is FieldUnitAllyController fuAlly)
+                fuAlly.Set_PosRandomNearPlayer();
+
+        }
     }
 
     public void Set_AllAllyTargetEnemy(EnemyController _Enemy)
     {
         // Null 이여도 초기화
-        for (int i = 0; i < AllAllies.Count; i++)
-            AllAllies[i].Set_TargetEnemy(_Enemy);
+        for (int i = 0; i < AllAlly.Count; i++)
+            AllAlly[i].Set_TargetEnemy(_Enemy);
     }
 
     #endregion
@@ -400,8 +396,8 @@ public class AllyManager : Singleton<AllyManager>
 
     public void Set_Language()
     {
-        for (int i = 0; i < AllAllies.Count; i++)
-            AllAllies[i].Set_Language();
+        for (int i = 0; i < AllAlly.Count; i++)
+            AllAlly[i].Set_Language();
     }
 
     #endregion

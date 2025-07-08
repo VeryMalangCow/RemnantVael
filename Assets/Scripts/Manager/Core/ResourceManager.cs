@@ -313,7 +313,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         string fieldUnitPath = allyPath + "FieldUnit/";
         AllyFieldUnit_PrefabDict = new Dictionary<string, GameObject>
         {
-            { "Assult", Get_Prefab(fieldUnitPath, "AssultAlly_Prefab") },
+            { "Grunt", Get_Prefab(fieldUnitPath, "GruntAlly_Prefab") },
 
             { "Ignis", Get_Prefab(fieldUnitPath, "IgnisAlly_Prefab") },
             { "Glacia", Get_Prefab(fieldUnitPath, "GlaciaAlly_Prefab") },
@@ -324,7 +324,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         string noneUnitPath = allyPath + "NoneUnit/";
         AllyNoneUnit_PrefabDict = new Dictionary<string, GameObject>
         {
-            { "Bombing", Get_Prefab(noneUnitPath, "BombingAlly_Prefab") }
+            { "Booma", Get_Prefab(noneUnitPath, "BoomaAlly_Prefab") }
         };
     }
 
@@ -1054,7 +1054,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #region Ally
 
-    public GameObject Get_Ally(string _Name)
+    public GameObject Get_FieldUnitAlly(string _Name)
     {
         return AllyFieldUnit_PrefabDict[_Name];
     }

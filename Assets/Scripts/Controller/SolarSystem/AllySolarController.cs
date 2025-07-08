@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class AllySolarController : SolarSystemController
@@ -9,7 +8,7 @@ public class AllySolarController : SolarSystemController
     [Header("<><><><><> Ally Solar")]
 
     [Header("=== Owner")]
-    [SerializeField] private AllyController ThisAlly;
+    [SerializeField] private FieldUnitAllyController ThisAlly;
 
     [Header("=== Comp")]
     [SerializeField] public Rigidbody2D ThisRb;

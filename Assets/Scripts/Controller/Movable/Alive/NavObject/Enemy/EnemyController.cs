@@ -432,7 +432,7 @@ public class EnemyController : NavObjectController
         }
         else if (_State.OwnerData.Owner == eCombatOwner.Ally)
         {
-            AllyManager.Instance.AllAllies[_State.OwnerData.ID].ActiveAlly_Hit();
+            AllyManager.Instance.AllAlly[_State.OwnerData.ID].ActiveAlly_Hit();
         }
 
         // KB
@@ -453,7 +453,7 @@ public class EnemyController : NavObjectController
             }
             else if (_State.OwnerData.Owner == eCombatOwner.Ally)
             {
-                AllyManager.Instance.AllAllies[_State.OwnerData.ID].ActiveAlly_CriticalHit();
+                AllyManager.Instance.AllAlly[_State.OwnerData.ID].ActiveAlly_CriticalHit();
             }
         }
 

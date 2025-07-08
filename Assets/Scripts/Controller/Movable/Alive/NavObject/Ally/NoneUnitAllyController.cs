@@ -1,39 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using UniRx;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public class NoneUnitAllyController : MonoBehaviour
+public class NoneUnitAllyController : AllyController
 {
     #region Value
 
     #region - Inspector
 
     [Space(20)]
-    [Header("<><><><><> None Unit Ally")]
-
-    [Space(10)]
-    [Header("=== Value")]
-    [SerializeField] protected AllyState MultipleAllyState;
-    [SerializeField] private float MaxHP = 150f;
-    [SerializeField] private float MaxEP = 100f;
-    [SerializeField] private ReactiveProperty<eAllyNoneUnitStateMode> AllyStateMode = new();
+    [Header("<><><><><> None Unit")]
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] public AllyBuffController BuffController;
-
-    [Space(10)]
-    [Header("=== UI")]
-    [SerializeField] private Sprite FrontFaceSprite;
-
 
     #endregion
 
     #region - Hide
 
+    // Spawn
+    [HideInInspector] public static readonly Vector3 SpawnPos = new Vector3(20000, 20000, -11);
+
     #endregion
+
+    #endregion
+
+    #region Set
+
+    public override void Set_SpawnFirst()
+    {
+        base.Set_SpawnFirst();
+
+        transform.position = SpawnPos;
+    }
 
     #endregion
 }

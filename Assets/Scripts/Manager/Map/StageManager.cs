@@ -553,7 +553,7 @@ public class StageManager : Singleton<StageManager>
         Set_NavBake();
 
         LayerOrderManager.Instance.NeedSortingObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
-        LayerOrderManager.Instance.NeedSortingObjects.AddRange(AllyManager.Instance.AllAllies);
+        LayerOrderManager.Instance.NeedSortingObjects.AddRange(AllyManager.Instance.AllAlly);
 
         // Minimap
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Set_State();

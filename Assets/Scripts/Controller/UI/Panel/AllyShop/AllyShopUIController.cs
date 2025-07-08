@@ -209,11 +209,11 @@ public class AllyShopUIController : ShopUIController
     // 프로필 리스트 리셋
     private void Reset_AllyProfileListPanel()
     {
-        List<AllyController> AllAlly = AllyManager.Instance.AllAllies;
+        List<AllyController> allAlly = AllyManager.Instance.AllAlly;
 
         Set_AllAllyProfileListOff();
-        Set_AllyProfileListOn(AllAlly);
-        Set_AllyProfileListPanelY(AllAlly.Count);
+        Set_AllyProfileListOn(allAlly);
+        Set_AllyProfileListPanelY(allAlly.Count);
         Select_DefaultAllyProfile();
     }
     
