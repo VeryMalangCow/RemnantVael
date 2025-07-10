@@ -23,6 +23,20 @@ public class NoneUnitAllyController : AllyController
 
     #endregion
 
+    #region Framework
+
+    protected override void OnEnable()
+    {
+        // base.OnEnable();
+    }
+
+    protected override void Update()
+    {
+        // base.Update();
+    }
+
+    #endregion
+
     #region Set
 
     public override void Set_SpawnFirst()
