@@ -1272,6 +1272,12 @@ public class DevTool
         return Physics2D.Linecast(_Start.position, _End.position, LayerMask.GetMask(_LayerName)).collider != null;
     }
 
+    public static bool Is_Exist_UseLine(Vector2 _Start, Vector2 _End, string _LayerName)
+    {
+        return Physics2D.Linecast(_Start, _End, LayerMask.GetMask(_LayerName)).collider != null;
+    }
+
+
     public static bool Is_Exist_UseCircle(Transform _StartTF, Transform _EndTF, string _LayerName, float _Radius)
     {
         return Physics2D.CircleCast(_StartTF.position, _Radius, (_EndTF.position - _StartTF.position).normalized,

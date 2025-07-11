@@ -86,13 +86,10 @@ MonoBehaviour:
       Value: 0.4
   MaxHP: 100
   MaxEP: 100
-  ForEnemyDis: 3.5
   AllyStateMode:
     value: 0
-  ThisSG: {fileID: 6733897396435173674}
-  ThisSolar: {fileID: 8582829566269682132}
-  ThisDirImg: {fileID: 8140379498466177624}
   BuffController: {fileID: 1545880728986693634}
+  FrontFaceSprite: {fileID: -796970769, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
   ThisColor: {r: 1, g: 1, b: 0.49803922, a: 1}
   ThisExtraColor: {r: 0.28773582, g: 1, b: 0.5548349, a: 1}
   ThisExtraGradient:
@@ -126,7 +123,6 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   HUD: {fileID: 82095112155882869}
-  FrontFaceSprite: {fileID: -796970769, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
   UpgradeAllyState:
     Dmg:
       Value: 1
@@ -142,6 +138,11 @@ MonoBehaviour:
       Value: 1
     MuzzleSpeed:
       Value: 1
+  ForEnemyDis: 3.5
+  ThisSG: {fileID: 6733897396435173674}
+  ThisSolar: {fileID: 8582829566269682132}
+  ThisDirImg: {fileID: 8140379498466177624}
+  randomPosAreaRadius: 6
   IsAlwaysStatus: 1
   StateType: 3
   BulletSprite: {fileID: -1346664078, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}

@@ -21,6 +21,10 @@ public class FieldUnitAllyController : AllyController
     [SerializeField] private AllySolarController ThisSolar;
     [SerializeField] protected DirectionalAllyTypeImgController ThisDirImg;
 
+    [Space(10)]
+    [Header("=== Random Pos")]
+    [SerializeField] private float randomPosAreaRadius = 5f;
+
     #endregion
 
     #region - Hide
@@ -31,6 +35,11 @@ public class FieldUnitAllyController : AllyController
     // For Player
     [HideInInspector] protected float ForPlayerDis = 2.5f;
     [HideInInspector] private readonly float NearPlayerDis = 0.5f;
+
+    // Nav
+    [HideInInspector] private readonly float RandomPosDelay = 5f;
+    [HideInInspector] private float CurrentRandomPosDelay = 5f;
+    [HideInInspector] protected Vector2 RandomPos;
 
     #endregion
 
@@ -118,11 +127,53 @@ public class FieldUnitAllyController : AllyController
         DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        Caculate_RandomPos(Time.deltaTime);
+    }
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
 
         Play_Movement(Time.fixedDeltaTime);
+    }
+
+    #endregion
+
+    #region Random Pos
+
+    private void Caculate_RandomPos(float _DeltaTime)
+    {
+        if (RandomPosDelay > CurrentRandomPosDelay)
+        {
+            CurrentRandomPosDelay += _DeltaTime;
+        }
+        else
+        {
+            CurrentRandomPosDelay -= RandomPosDelay;
+            Set_RandomPos();
+        }
+    }
+
+    private void Set_RandomPos()
+    {
+        RandomPos = Get_RandomNavPos(randomPosAreaRadius);
+    }
+
+    #endregion
+
+    #region Play
+
+    public override void Start_MainCor()
+    {
+        if (!gameObject.activeSelf) return;
+
+        base.Start_MainCor();
+
+        Set_RandomPos();
     }
 
     #endregion
@@ -163,10 +214,10 @@ public class FieldUnitAllyController : AllyController
 
     #region Is
 
-    protected bool Is_FollowState(Transform _TargetTF, float _Dis, bool _CheckWall)
+    protected bool Is_FollowState(Vector2 _TargetPos, float _Dis, bool _CheckWall)
     {
-        bool disCondition = _Dis < Vector2.Distance(_TargetTF.position, this.transform.position);
-        bool wallCondition = _CheckWall ? Is_ExistWall(_TargetTF) : false;
+        bool disCondition = _Dis < Vector2.Distance(_TargetPos, this.transform.position);
+        bool wallCondition = _CheckWall ? Is_ExistWall(_TargetPos) : false;
 
         return disCondition || wallCondition;
     }

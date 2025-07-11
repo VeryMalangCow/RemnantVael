@@ -330,7 +330,9 @@ public class AllyManager : Singleton<AllyManager>
         if (AllAlly.Count <= 0) return;
 
         for (int i = 0; i < AllAlly.Count; i++)
+        {
             AllAlly[i].Start_MainCor();
+        }
     }
 
     public void Stop_AllAllies_Combat()

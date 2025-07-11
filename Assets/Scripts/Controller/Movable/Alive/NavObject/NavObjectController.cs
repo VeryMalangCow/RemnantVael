@@ -38,7 +38,12 @@ public class NavObjectController : AliveObjectController
 
     public void Set_NavDir(Transform _TargetTF)
     {
-        MoveAtDir = Get_NextDir(transform.position, _TargetTF.position);
+        Set_NavDir(_TargetTF.position);
+    }
+
+    public void Set_NavDir(Vector2 _TargetPos)
+    {
+        MoveAtDir = Get_NextDir(transform.position, _TargetPos);
     }
 
     public Vector2 Get_NextDir(Vector3 currentPos, Vector3 targetPos)
@@ -54,7 +59,6 @@ public class NavObjectController : AliveObjectController
         return (navPath.corners[1] - currentPos).normalized;
     }
 
-
     public void End_Nav()
     {
         MoveAtDir = Vector2.zero;
@@ -63,6 +67,22 @@ public class NavObjectController : AliveObjectController
     public bool Is_ExistWall(Transform _TargetTF)
     {
         return DevTool.Is_Exist_UseLine(this.transform, _TargetTF, "Wall");
+    }
+
+    public bool Is_ExistWall(Vector2 _TargetPos)
+    {
+        return DevTool.Is_Exist_UseLine(this.transform.position, _TargetPos, "Wall");
+    }
+
+    protected Vector2 Get_RandomNavPos(float _radius)
+    {
+        Vector3 randomPos = Random.insideUnitSphere * _radius;
+        randomPos += transform.position;
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomPos, out hit, _radius, NavMesh.AllAreas);
+
+        return hit.position;
     }
 
     #endregion

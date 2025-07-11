@@ -120,8 +120,8 @@ public class AllyController : NavObjectController
 
         Player = PlayerManager.Instance.PlayerController;
 
-        ID = AllyManager.Instance.AllAlly.IndexOf(this);
         DevTool.Add_InList(AllyManager.Instance.AllAlly, this);
+        ID = AllyManager.Instance.AllAlly.IndexOf(this);
 
         Set_AllyStateMode(AllyStateMode.Value);
 
@@ -222,7 +222,7 @@ public class AllyController : NavObjectController
 
     #region Play
 
-    public void Start_MainCor()
+    public virtual void Start_MainCor()
     {
         if (!gameObject.activeSelf) return;
 

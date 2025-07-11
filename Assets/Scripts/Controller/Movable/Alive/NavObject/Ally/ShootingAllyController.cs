@@ -66,7 +66,7 @@ public class ShootingAllyController : FieldUnitAllyController
 
         while (true)
         {
-            if (Enemy != null)
+            if (PlayerManager.Instance.Get_PingedEnemy() != null)
             {
                 Set_PingedState();
                 yield return new WaitForSeconds(FollowInitDelay);
@@ -88,19 +88,19 @@ public class ShootingAllyController : FieldUnitAllyController
         if (IsAttacking != _OnOff)
         {
             IsAttacking = _OnOff;
-            CurrentRof = 0;
         }
     }
 
     private void Set_CaculateAttack(float _DeltaTime)
     {
-        if (!IsAttacking || Enemy == null) return;
-
         if (CurrentRof < 1)
         {
             CurrentRof += _DeltaTime * ActualAllyState.Rof.Value;
         }
-        else
+
+        if (!IsAttacking || Enemy == null) return;
+
+        if (CurrentRof >= 1)
         {
             CurrentRof -= 1;
             Play_Attack(PoolingManager.Instance.Get_OP_AllyBullet());
@@ -166,18 +166,17 @@ public class ShootingAllyController : FieldUnitAllyController
     {
         return new BulletState_Size(
             BulletObjSize * ActualAllyState.AttackSize.Value,
-            BulletColSize * ActualAllyState.AttackSize.Value
-            );
+            BulletColSize * ActualAllyState.AttackSize.Value);
     }
 
     #endregion
 
     #region Set (Ping)
 
-    private void Set_PingedState() // 적에게
+    private void Set_PingedState() // 핑 상태
     {
         // 따라가기
-        if (Is_FollowState(Enemy.transform, ForEnemyDis, true))
+        if (Is_FollowState(Enemy.transform.position, ForEnemyDis, true))
         {
             Set_NavDir(Enemy.transform);
             Set_Attacking(false);
@@ -193,22 +192,53 @@ public class ShootingAllyController : FieldUnitAllyController
     }
 
 
-    private void Set_NoPingedState() // 플레이어에게
+    private void Set_NoPingedState() // 일반 상태
     {
-        Set_Attacking(false);
+        EnemyController closestEnemy = EnemyManager.Instance.Get_ClosestEnemy(gameObject);
 
+        bool isFollow = true;
+        if (closestEnemy != null)
+            isFollow = Is_FollowState(closestEnemy.transform.position, ForEnemyDis, true);
+        
         // 따라가기
-        if (Is_FollowState(Player.transform, ForPlayerDis, false))
+        if (Is_FollowState(RandomPos, 1f, false))
         {
-            Set_NavDir(Player.transform);
-            Set_AllyStateMode(eAllyStateMode.Move);
+            if (isFollow)
+            {
+                Set_NavDir(RandomPos);
+                Set_Attacking(false);
+                Enemy = null;
+                Set_AllyStateMode(eAllyStateMode.Move);
+            }
+            else
+            {
+                Stop_Follow();
+                Set_Attacking(true);
+                Enemy = closestEnemy;
+                Set_AllyStateMode(eAllyStateMode.Attack);
+            }
+
         }
         // 정지
         else
         {
             Stop_Follow();
-            Set_AllyStateMode(eAllyStateMode.Idle);
+
+            if (isFollow)
+            {
+                Set_Attacking(false);
+                Enemy = null;
+                Set_AllyStateMode(eAllyStateMode.Idle);
+            }
+            else
+            {
+                Set_Attacking(true);
+                Enemy = closestEnemy;
+                Set_AllyStateMode(eAllyStateMode.Attack);
+            }
         }
+
+
     }
 
     #endregion
