@@ -9,7 +9,7 @@ public abstract class BulletController : MovableDepthController
     #region - Inspector
 
     [Space(20)]
-    [Header("<><><><><> Bullet Controller")]
+    [Header("<><><><><> Bullet")]
     [SerializeField] protected string PoolingString = "";
 
     [Space(10)]
@@ -22,15 +22,6 @@ public abstract class BulletController : MovableDepthController
     [SerializeField] protected TrailRenderer ThisTrail;
     [SerializeField] protected Light2D ThisLight;
 
-    #endregion
-
-    #region - Hide
-
-    // Alive Time
-    [HideInInspector] protected float CurrentAliveTime = 0;
-    [HideInInspector] private static float BaseBulletSpeed = 200f; 
-
-
     [Space(10)]
     [Header("=== Judg")]
     [SerializeField] protected List<string> DestroyTagList;
@@ -41,6 +32,14 @@ public abstract class BulletController : MovableDepthController
     [SerializeField] protected bool IsGuided = false;
     [SerializeField] protected EnemyController TargetEnemyController = null;
     [SerializeField] protected float RotateSpeed = 1f; // Guided Power
+
+    #endregion
+
+    #region - Hide
+
+    // Alive Time
+    [HideInInspector] protected float CurrentAliveTime = 0;
+    [HideInInspector] private static float BaseBulletSpeed = 200f; 
 
     #endregion
 

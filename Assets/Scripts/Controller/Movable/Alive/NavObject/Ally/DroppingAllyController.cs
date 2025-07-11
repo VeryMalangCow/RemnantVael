@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DroppingAllyController : NoneUnitAllyController
@@ -8,10 +7,6 @@ public class DroppingAllyController : NoneUnitAllyController
 
     [Space(20)]
     [Header("<><><><><> Dropping")]
-
-    [Space(10)]
-    [Header("=== Prefab")]
-    [SerializeField] private GameObject GenPrefab;
 
     [Space(10)]
     [Header("=== Value")]
