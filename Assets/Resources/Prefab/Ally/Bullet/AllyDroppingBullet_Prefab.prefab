@@ -188,13 +188,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2192280153704162206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f216769d4550d44994e103ddf35fbda, type: 3}
+  m_Script: {fileID: 11500000, guid: 40a39f87533861747ab619234fc27d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
   TargetObject: {fileID: 7754987835335729850}
   ThisSR: {fileID: 2506341436009816347}
   TargetRange: 10
+  ShadowTF: {fileID: 4030447465785416527}
+  DroppingTime: 3
+  CurrentDroppingTime: 0
+  ShadowSize: {x: 0, y: 0}
+  TopYPos: 5
+  BottomYPos: 0
+  ZeroToOneTime: 0
   PoolingString: 
   State:
     OwnerData:
@@ -210,11 +217,6 @@ MonoBehaviour:
       CanKB: 0
       KBPower: 0
       KBTime: 0
-    IsCritical: 0
-    MuzzleSpeed: 0
-    AliveTime: 0
-    IsStatus: 0
-    StatusType: 0
   ThisTrail: {fileID: 7307784400060210891}
   ThisLight: {fileID: 8889175613378231609}
 --- !u!1 &3054027541298377550
@@ -309,7 +311,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4030447465785416527}
   - component: {fileID: 9029377394207986547}
-  - component: {fileID: 7842866708527823414}
   m_Layer: 0
   m_Name: Shadow
   m_TagString: PlayerThing
@@ -327,8 +328,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 0.3, y: 0.15, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4772996866839286768}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -384,41 +385,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &7842866708527823414
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5421178766637357404}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
-  m_Direction: 0
 --- !u!1 &7754987835335729850
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +460,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3000
-  m_Sprite: {fileID: -1712732208, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+  m_Sprite: {fileID: -1054698537, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

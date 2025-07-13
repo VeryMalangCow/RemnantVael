@@ -68,44 +68,6 @@ public class FieldUnitAllyController : AllyController
             {
                 ThisSolar.Set_AllyStateMode(value);
             });
-
-
-        CurrentSP
-            .Subscribe(_CurrentSP =>
-            {
-                HUD.StateUI.SP_ProgressBar.Set_FillImgSmooth(CurrentSP.Value, MaxHP);
-
-                if (CurrentSP.Value <= 0)
-                {
-                    CurrentSP.Value = 0;
-                    HUD.StateUI.SP_ProgressBar.Set_NoNum();
-                    HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
-                    HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
-                }
-                else
-                {
-                    HUD.StateUI.HP_ProgressBar.Set_NoNum();
-                    HUD.StateUI.EP_ProgressBar.Set_NoNum();
-                }
-            });
-
-        CurrentHP
-            .Subscribe(_CurrentHP =>
-            {
-                HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
-
-                if (CurrentSP.Value > 0)
-                { HUD.StateUI.HP_ProgressBar.Set_NoNum(); }
-            });
-
-        CurrentEP
-            .Subscribe(_CurrentEP =>
-            {
-                HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
-
-                if (CurrentSP.Value > 0)
-                { HUD.StateUI.EP_ProgressBar.Set_NoNum(); }
-            });
     }
 
     #endregion

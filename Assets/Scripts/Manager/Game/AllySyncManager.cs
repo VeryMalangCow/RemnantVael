@@ -8,7 +8,11 @@ public class AllySyncManager : Singleton<AllySyncManager>
 {
     #region Value
 
-    public delegate void ActivityFuncDele_Sync(AllyController _Ally, int _Rank, EnemyController _EC = null, BulletController _Bullet = null);
+    public delegate void ActivityFuncDele_Sync(
+        AllyController _Ally, int _Rank, 
+        EnemyController _EC = null, 
+        BulletController _Bullet = null,
+        DroppingBombController _DroppingBullet = null);
 
     [HideInInspector] public List<ActivityFuncDele_Sync> ActivitySyncFuncList = new List<ActivityFuncDele_Sync>();
 
@@ -43,11 +47,12 @@ public class AllySyncManager : Singleton<AllySyncManager>
             .Where(method =>
                 method.Name.StartsWith(_MethodPrefix) &&
                 method.ReturnType == typeof(void) &&
-                method.GetParameters().Length == 4 &&
+                method.GetParameters().Length == 5 &&
                 method.GetParameters()[0].ParameterType == typeof(AllyController) &&
                 method.GetParameters()[1].ParameterType == typeof(int) &&
                 method.GetParameters()[2].ParameterType == typeof(EnemyController) &&
-                method.GetParameters()[3].ParameterType == typeof(BulletController))
+                method.GetParameters()[3].ParameterType == typeof(BulletController) &&
+                method.GetParameters()[4].ParameterType == typeof(DroppingBombController))
             .OrderBy(method =>
             {
                 string numberPart = method.Name.Substring(_MethodPrefix.Length);
@@ -78,55 +83,83 @@ public class AllySyncManager : Singleton<AllySyncManager>
     #region Func (Synchrony)
 
     // 유도
-    private void Activity_Sync_000(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    private void Activity_Sync_000(AllyController _Ally, int _Rank, 
+        EnemyController _Enemy = null, 
+        BulletController _Bullet = null,
+        DroppingBombController _DroppingBullet = null)
     {
-        _Bullet.Set_Guided(true, _Rank);
+        if (_Bullet != null)
+            _Bullet.Set_Guided(true, _Rank);
     }
 
     // 화염
-    private void Activity_Sync_001(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    private void Activity_Sync_001(AllyController _Ally, int _Rank, 
+        EnemyController _Enemy = null, 
+        BulletController _Bullet = null,
+        DroppingBombController _DroppingBullet = null)
     {
         Activity_InflictStatusOneMoreEffect(eStatusEffect.Flame, _Rank, _Enemy);
     }
 
     // 냉기
-    private void Activity_Sync_002(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    private void Activity_Sync_002(AllyController _Ally, int _Rank, 
+        EnemyController _Enemy = null, 
+        BulletController _Bullet = null,
+        DroppingBombController _DroppingBullet = null)
     {
         Activity_InflictStatusOneMoreEffect(eStatusEffect.Cold, _Rank, _Enemy);
     }
 
     // 전기
-    private void Activity_Sync_003(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    private void Activity_Sync_003(AllyController _Ally, int _Rank, 
+        EnemyController _Enemy = null, 
+        BulletController _Bullet = null,
+        DroppingBombController _DroppingBullet = null)
     {
         Activity_InflictStatusOneMoreEffect(eStatusEffect.Electricity, _Rank, _Enemy);
     }
 
     // 부식
-    private void Activity_Sync_004(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    private void Activity_Sync_004(AllyController _Ally, int _Rank, 
+        EnemyController _Enemy = null, 
+        BulletController _Bullet = null,
+        DroppingBombController _DroppingBullet = null)
     {
         Activity_InflictStatusOneMoreEffect(eStatusEffect.Corrosion, _Rank, _Enemy);
     }
 
     // 치명타 발생 => 공격력 버프
-    private void Activity_Sync_005(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    private void Activity_Sync_005(AllyController _Ally, int _Rank, 
+        EnemyController _Enemy = null, 
+        BulletController _Bullet = null,
+        DroppingBombController _DroppingBullet = null)
     {
         _Ally.BuffController.Get_AllyBuff("Sync005").Gain_Buff();
     }
 
     // 치명타 배수 버프
-    private void Activity_Sync_006(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    private void Activity_Sync_006(AllyController _Ally, int _Rank,
+        EnemyController _Enemy = null, 
+        BulletController _Bullet = null,
+        DroppingBombController _DroppingBullet = null)
     {
         _Ally.BuffController.Get_AllyBuff("Sync006").Gain_Buff();
     }
 
     // 기본 공격 적중 => 공속 버프
-    private void Activity_Sync_007(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    private void Activity_Sync_007(AllyController _Ally, int _Rank, 
+        EnemyController _Enemy = null, 
+        BulletController _Bullet = null,
+        DroppingBombController _DroppingBullet = null)
     {
         _Ally.BuffController.Get_AllyBuff("Sync007").Gain_Buff();
     }
 
     // 공격 일정 시간 하지 않으면 => 공격력 버프
-    private void Activity_Sync_008(AllyController _Ally, int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
+    private void Activity_Sync_008(AllyController _Ally, int _Rank, 
+        EnemyController _Enemy = null, 
+        BulletController _Bullet = null,
+        DroppingBombController _DroppingBullet = null)
     {
         _Ally.BuffController.Get_AllyBuff("Sync008").Reduce_Buff(10);
     }

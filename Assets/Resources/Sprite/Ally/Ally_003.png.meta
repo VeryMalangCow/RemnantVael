@@ -357,7 +357,7 @@ TextureImporter:
         width: 3
         height: 3
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -365,6 +365,27 @@ TextureImporter:
       bones: []
       spriteID: 63d29c79d3401014997896744d351f31
       internalID: -1346664078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Missile
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 242
+        width: 5
+        height: 9
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e57917a1995c764ba17d8fdfe25559d
+      internalID: -1054698537
       vertices: []
       indices: 
       edges: []
@@ -393,6 +414,7 @@ TextureImporter:
       Ally_EP_Liner: -769393496
       Ally_HP_Bar: -293243768
       Ally_HP_Liner: 1895697299
+      Ally_Missile: -1054698537
       Ally_SP_Bar: 417705846
       Ally_SP_Liner: -2020534716
   mipmapLimitGroupName: 

@@ -125,7 +125,7 @@ public class ShootingAllyController : FieldUnitAllyController
             _Bullet.State.Set_Status(IsAlwaysStatus, StateType);
         
         // Sync
-        ActiveAlly_Fire(_Bullet);
+        ActiveAlly_Fire(_Bullet, null);
 
         // 모듈 싱크 효과 => 사격 후
         ActiveAlly_AfterFire();

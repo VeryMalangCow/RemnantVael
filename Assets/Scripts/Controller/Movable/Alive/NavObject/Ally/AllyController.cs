@@ -111,6 +111,7 @@ public class AllyController : NavObjectController
         Offset_SyncUpgrade();
         Offset_TunerUpgrade();
         Offset_Name();
+        Offset_Subscribe();
     }
 
     private void Offset_Base()
@@ -168,6 +169,46 @@ public class AllyController : NavObjectController
     {
         NameID = AllyManager.Instance.Get_AllyNameID();
         Name = AllyManager.Instance.Get_AllyName(NameID);
+    }
+
+    private void Offset_Subscribe()
+    {
+        CurrentSP
+            .Subscribe(_CurrentSP =>
+            {
+                HUD.StateUI.SP_ProgressBar.Set_FillImgSmooth(CurrentSP.Value, MaxHP);
+
+                if (CurrentSP.Value <= 0)
+                {
+                    CurrentSP.Value = 0;
+                    HUD.StateUI.SP_ProgressBar.Set_NoNum();
+                    HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
+                    HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
+                }
+                else
+                {
+                    HUD.StateUI.HP_ProgressBar.Set_NoNum();
+                    HUD.StateUI.EP_ProgressBar.Set_NoNum();
+                }
+            });
+
+        CurrentHP
+            .Subscribe(_CurrentHP =>
+            {
+                HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
+
+                if (CurrentSP.Value > 0)
+                { HUD.StateUI.HP_ProgressBar.Set_NoNum(); }
+            });
+
+        CurrentEP
+            .Subscribe(_CurrentEP =>
+            {
+                HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
+
+                if (CurrentSP.Value > 0)
+                { HUD.StateUI.EP_ProgressBar.Set_NoNum(); }
+            });
     }
 
     #endregion
@@ -459,9 +500,9 @@ public class AllyController : NavObjectController
     }
 
 
-    public void ActiveAlly_Fire(BulletController _Bullet)
+    public void ActiveAlly_Fire(BulletController _Bullet, DroppingBombController _DroppingBullet)
     {
-        ActiveAlly(IWhenAlly_FireList, null, _Bullet);
+        ActiveAlly(IWhenAlly_FireList, null, _Bullet, _DroppingBullet);
     }
 
     public void ActiveAlly_AfterFire()
@@ -503,7 +544,7 @@ public class AllyController : NavObjectController
 
 
     // Base
-    private void ActiveAlly<T>(List<T> _IWhenList, EnemyController _Enemy = null, BulletController _Bullet = null) where T : IWhenAlly
+    private void ActiveAlly<T>(List<T> _IWhenList, EnemyController _Enemy = null, BulletController _Bullet = null, DroppingBombController _DroppingBullet = null) where T : IWhenAlly
     {
         if (_IWhenList.Count <= 0) return;
 

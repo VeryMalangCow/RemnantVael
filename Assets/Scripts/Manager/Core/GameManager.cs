@@ -2859,9 +2859,12 @@ public class AllySyncState : IWhenAlly
 
     #region Play
 
-    public void Play_When(EnemyController _Enemy = null, BulletController _Bullet = null)
+    public void Play_When(
+        EnemyController _Enemy = null, 
+        BulletController _Bullet = null, 
+        DroppingBombController _DroppingBullet = null)
     {
-        ThisActivityFuncDele(ThisAlly, SynergyRank, _Enemy, _Bullet);
+        ThisActivityFuncDele(ThisAlly, SynergyRank, _Enemy, _Bullet, _DroppingBullet);
     }
 
     #endregion
@@ -4991,7 +4994,10 @@ public interface IWhenSync_GetCorrosion : IWhenSync { }
 
 public interface IWhenAlly
 {
-    public abstract void Play_When(EnemyController _Enemy = null, BulletController _Bullet = null);
+    public abstract void Play_When(
+        EnemyController _Enemy = null,
+        BulletController _Bullet = null,
+        DroppingBombController _DroppingBullet = null);
 }
 
 public interface IWhenAlly_Start : IWhenAlly { }

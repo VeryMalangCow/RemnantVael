@@ -33,6 +33,13 @@ public class PlayerHUDController : UIController
     [SerializeField] private RectTransform PlayerStatesCostParentRT;
     [SerializeField] private TMP_Text PlayerStatesTxt;
 
+    [Header("-- Ally States")]
+    [SerializeField] private RectTransform AllyStateParentRT;
+    [SerializeField] private List<RectTransform> AllyHUDList = new List<RectTransform>();
+    [SerializeField] private readonly static int MaxCol = 6;
+    [SerializeField] private readonly static float ColInterval = -120;
+    [SerializeField] private readonly static float RowInterval = 240;
+
     [Header("-- Skill State")]
     [SerializeField] private RectTransform SkillStatesParentRT;
     [SerializeField] private List<TMP_Text> SkillStatesTxtList;
@@ -581,6 +588,29 @@ public class PlayerHUDController : UIController
         TabSeq.Join(Play_FadeCGs(0, TabInteractDurTime));
 
         ThisMinimap.SetOff_TabInteract(TabInteractDurTime);
+    }
+
+    #endregion
+
+    #region Ally State
+
+    public void Add_AllyState(AllyHUDController _HUD)
+    {
+        if (_HUD.gameObject.TryGetComponent(out RectTransform rt))
+        {
+            rt.gameObject.transform.SetParent(AllyStateParentRT);
+            rt.gameObject.layer = LayerMask.NameToLayer("UI");
+
+            rt.pivot = new Vector2(0, 1);
+            rt.localScale = Vector3.one;
+
+            int currentAmount = AllyHUDList.Count;
+            float y = currentAmount == 0 ? 0 : (currentAmount % MaxCol) * ColInterval;
+            float x = currentAmount == 0 ? 0 : (currentAmount / MaxCol) * RowInterval;
+            rt.anchoredPosition3D = new Vector3(x, y, 0);
+
+            AllyHUDList.Add(rt);
+        }
     }
 
     #endregion

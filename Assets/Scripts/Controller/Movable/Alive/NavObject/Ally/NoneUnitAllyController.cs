@@ -28,11 +28,17 @@ public class NoneUnitAllyController : AllyController
     protected override void OnEnable()
     {
         // base.OnEnable();
+
+        Set_AllState();
+
+        Start_MainCor();
     }
 
     protected override void Update()
     {
         // base.Update();
+
+        Stop_MainCor();
     }
 
     #endregion
@@ -44,6 +50,8 @@ public class NoneUnitAllyController : AllyController
         base.Set_SpawnFirst();
 
         transform.position = SpawnPos;
+
+        MainGameUIManager.Instance.PlayerHUD_UIController.Add_AllyState(HUD);
     }
 
     #endregion

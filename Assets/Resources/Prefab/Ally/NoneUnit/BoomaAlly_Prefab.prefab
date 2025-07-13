@@ -65,7 +65,7 @@ MonoBehaviour:
     Dmg:
       Value: 1
     Rof:
-      Value: 1
+      Value: 0.08
     MovementSpeed:
       Value: 1
     AttackSize:
@@ -75,19 +75,19 @@ MonoBehaviour:
     CD:
       Value: 1
     MuzzleSpeed:
-      Value: 1
+      Value: 0.3
   MaxHP: 150
   MaxEP: 100
   AllyStateMode:
     value: 0
   BuffController: {fileID: 1999153423990081965}
   FrontFaceSprite: {fileID: -1506652042, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
-  ThisColor: {r: 0, g: 0, b: 0, a: 0}
-  ThisExtraColor: {r: 0, g: 0, b: 0, a: 0}
+  ThisColor: {r: 1, g: 0.56078434, b: 0.56078434, a: 1}
+  ThisExtraColor: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
   ThisExtraGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
+    key0: {r: 0.7294118, g: 0.7294118, b: 0.7294118, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -130,6 +130,9 @@ MonoBehaviour:
       Value: 1
     MuzzleSpeed:
       Value: 1
+  CurrentChargeTime: 0
+  BulletSprite: {fileID: -1054698537, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+  BulletObjSize: {x: 1, y: 1}
 --- !u!114 &1999153423990081965
 MonoBehaviour:
   m_ObjectHideFlags: 0

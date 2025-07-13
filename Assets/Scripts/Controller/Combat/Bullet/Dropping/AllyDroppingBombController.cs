@@ -1,7 +1,6 @@
 
-public class AllyDroppingBulletController : DroppingBulletController
+public class AllyDroppingBombController : DroppingBombController
 {
-
 
     #region Remove
 

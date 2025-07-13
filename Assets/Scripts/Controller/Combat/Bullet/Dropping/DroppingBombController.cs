@@ -1,7 +1,8 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public abstract class DroppingBulletController : MovableDepthController
+public abstract class DroppingBombController : DroppingDepthController
 {
     #region Value
 
@@ -13,7 +14,7 @@ public abstract class DroppingBulletController : MovableDepthController
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] public BulletState State;
+    [SerializeField] public CombatState State;
     // 스탯을 Drop형으로 바꾸던 아니면, 스탯을 추가하던 하셈
 
     [Space(10)]
@@ -40,6 +41,13 @@ public abstract class DroppingBulletController : MovableDepthController
     protected void OnDisable()
     {
         DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+
     }
 
     #endregion
@@ -71,29 +79,24 @@ public abstract class DroppingBulletController : MovableDepthController
     #region State
 
     public void Set_State(
-        BulletState _State,
+        CombatState _State, float _DroppingTime, float _TopYPos,
         BulletState_PosAndRot _State_PosAndRot,
-        BulletState_Size? _State_Size,
-        State_Anim? _State_Anim,
-        BulletState_Effect? _State_Effect,
-        float _TargetRange = 0.4f)
+        BulletState_Size _State_Size)
     {
-        Set_State_Base(_State, _TargetRange);
+        Set_State_Base(_State, _DroppingTime, _TopYPos);
+
         Set_State_PosAndRot(_State_PosAndRot);
-        Set_State_Size(_State_Size);
-        Set_State_Anim(_State_Anim);
-        Set_State_Effect(_State_Effect);
-        Set_State_Extra();
+        Set_State_ShadowSize(_State_Size);
 
         SetOn_State();
     }
 
 
-    public virtual void Set_State_Base(BulletState _State, float _TargetRange = 0.4f)
+    public override void Set_State_Base(CombatState _State, float _DroppingTime, float _TopYPos = 5f)
     {
-        this.State = new BulletState(_State, false);
+        base.Set_State_Base(_State, _DroppingTime, _TopYPos);
 
-        TargetRange = _TargetRange;
+        this.State = new CombatState(_State);
     }
 
     public virtual void Set_State_PosAndRot(BulletState_PosAndRot _State_PosAndRot)
@@ -104,22 +107,24 @@ public abstract class DroppingBulletController : MovableDepthController
         DevTool.Add_RotZValue(transform, _State_PosAndRot.SpreadAngle);
     }
 
-    public virtual void Set_State_Size(BulletState_Size? _State_Size) { }
-
-    public virtual void Set_State_Anim(State_Anim? _State_Anim) { }
-
-    public virtual void Set_State_Effect(BulletState_Effect? _State_Effect) { }
-
-    public virtual void Set_State_Extra() { }
-
-
-    private void SetOn_State()
+    protected override void SetOn_State()
     {
         gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
         gameObject.SetActive(true);
 
         SetOn_Trail();
         SetOn_Light();
+
+        base.SetOn_State();
+    }
+
+    #endregion
+
+    #region Active
+
+    protected override void Active()
+    {
+        Debug.Log("실행");
     }
 
     #endregion
