@@ -74,7 +74,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 0.8
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -196,11 +196,10 @@ MonoBehaviour:
   ThisSR: {fileID: 2506341436009816347}
   TargetRange: 10
   ShadowTF: {fileID: 4030447465785416527}
-  DroppingTime: 3
+  DroppingSpeed: 0
   CurrentDroppingTime: 0
   ShadowSize: {x: 0, y: 0}
-  TopYPos: 5
-  BottomYPos: 0
+  DropBottomYPos: 0
   ZeroToOneTime: 0
   PoolingString: 
   State:
@@ -272,7 +271,7 @@ MonoBehaviour:
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
-  m_LightCookieSprite: {fileID: 1440707567, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+  m_LightCookieSprite: {fileID: -1054698537, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
@@ -286,7 +285,7 @@ MonoBehaviour:
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.16, y: 0.16, z: 0}
+    m_Extent: {x: 0.1, y: 0.18, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.24

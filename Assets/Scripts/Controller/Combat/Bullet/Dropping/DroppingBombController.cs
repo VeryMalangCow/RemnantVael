@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -79,11 +78,11 @@ public abstract class DroppingBombController : DroppingDepthController
     #region State
 
     public void Set_State(
-        CombatState _State, float _DroppingTime, float _TopYPos,
+        CombatState _State, float _DroppingTime, float _TopYPos, float _BottomYPos,
         BulletState_PosAndRot _State_PosAndRot,
         BulletState_Size _State_Size)
     {
-        Set_State_Base(_State, _DroppingTime, _TopYPos);
+        Set_State_Base(_State, _DroppingTime, _TopYPos, _BottomYPos);
 
         Set_State_PosAndRot(_State_PosAndRot);
         Set_State_ShadowSize(_State_Size);
@@ -92,9 +91,9 @@ public abstract class DroppingBombController : DroppingDepthController
     }
 
 
-    public override void Set_State_Base(CombatState _State, float _DroppingTime, float _TopYPos = 5f)
+    public override void Set_State_Base(CombatState _State, float _DroppingTime, float _TopYPos = 5f, float _DropBottomYPos = 0f)
     {
-        base.Set_State_Base(_State, _DroppingTime, _TopYPos);
+        base.Set_State_Base(_State, _DroppingTime, _TopYPos, _DropBottomYPos);
 
         this.State = new CombatState(_State);
     }
@@ -120,12 +119,16 @@ public abstract class DroppingBombController : DroppingDepthController
 
     #endregion
 
-    #region Active
+    #region Explosion
 
     protected override void Active()
     {
-        Debug.Log("½ÇÇà");
+        Gen_Explosion();
+
+        Remove_Object();
     }
+
+    protected abstract void Gen_Explosion();
 
     #endregion
 

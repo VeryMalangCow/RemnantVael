@@ -63,7 +63,7 @@ MonoBehaviour:
   ParticleThrowDis: 0
   MultipleAllyState:
     Dmg:
-      Value: 1
+      Value: 15
     Rof:
       Value: 0.08
     MovementSpeed:
@@ -71,11 +71,13 @@ MonoBehaviour:
     AttackSize:
       Value: 1
     CC:
-      Value: 1
+      Value: 0.05
     CD:
       Value: 1
     MuzzleSpeed:
-      Value: 0.3
+      Value: 0.5
+    KBPower:
+      Value: 1
   MaxHP: 150
   MaxEP: 100
   AllyStateMode:
@@ -130,9 +132,15 @@ MonoBehaviour:
       Value: 1
     MuzzleSpeed:
       Value: 1
+    KBPower:
+      Value: 1
   CurrentChargeTime: 0
+  DropBottomYPos: 0.2
   BulletSprite: {fileID: -1054698537, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
   BulletObjSize: {x: 1, y: 1}
+  TrailTime: 0.8
+  TrailStartWidth: 0.04
+  LightIntensity: 1
 --- !u!114 &1999153423990081965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +208,8 @@ MonoBehaviour:
       Value: 1
     MuzzleSpeed:
       Value: 1
+    KBPower:
+      Value: 1
     Dmg_BuffList: []
     Rof_BuffList: []
     MovementSpeed_BuffList: []
@@ -207,6 +217,7 @@ MonoBehaviour:
     CC_BuffList: []
     CD_BuffList: []
     MuzzleSpeed_BuffList: []
+    KBPower_BuffList: []
 --- !u!1001 &996228871578156790
 PrefabInstance:
   m_ObjectHideFlags: 0

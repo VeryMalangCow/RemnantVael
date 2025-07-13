@@ -1,7 +1,8 @@
+using System.Collections.Generic;
+using UnityEngine;
 
 public class AllyDroppingBombController : DroppingBombController
 {
-
     #region Remove
 
     protected override void Remove_Condition()
@@ -11,4 +12,59 @@ public class AllyDroppingBombController : DroppingBombController
 
     #endregion
 
+    #region Explosion
+
+    protected override void Gen_Explosion()
+    {
+        Play_ExplosionAttack();
+    }
+
+    private void Play_ExplosionAttack()
+    {
+        AllyExplosionController aec = PoolingManager.Instance.Get_OP_AllyExplosion();
+        aec.Set_State(
+            Get_ExlposionState(),
+            _AC: UnitManager.Instance.ExplosionAC,
+            Get_SpawnTF(),
+            this.TargetRange);
+    }
+
+    private ExplosionState Get_ExlposionState()
+    {
+        return new ExplosionState(
+            new CombatState(
+                new CombatOwner(eCombatOwner.Ally, ID),
+                new DmgState(eDamageType.Physics, State.DmgState.Dmg),
+                new CriticalState(State.CriticalState),
+                new KnockbackState(true, State.KnockbackState.KBPower, State.KnockbackState.KBTime)),
+            new List<bool> { false, false, false, false }); // Fire, Cold, Electricity, Corrosion
+    }
+
+    private State_TF2D Get_SpawnTF()
+    {
+        return new State_TF2D(transform.position, Quaternion.identity, Vector2.one);
+    }
+
+    #endregion
+
+    #region Light
+
+    public void SetOn_LightIntensity(float _Intensity)
+    {
+        ThisLight.intensity = _Intensity;
+        ThisLight.lightCookieSprite = ThisSR.sprite;
+    }
+
+    #endregion
+
+    #region Trail
+
+    public void SetOn_TrailState(float _Time, float _StartWidth, Gradient _Gradient)
+    {
+        ThisTrail.time = _Time;
+        ThisTrail.startWidth = _StartWidth;
+        ThisTrail.colorGradient = _Gradient;
+    }
+
+    #endregion
 }

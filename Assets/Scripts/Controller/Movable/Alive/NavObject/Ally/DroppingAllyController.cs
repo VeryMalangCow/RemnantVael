@@ -11,11 +11,21 @@ public class DroppingAllyController : NoneUnitAllyController
     [Space(10)]
     [Header("=== Value")]
     [SerializeField] private float CurrentChargeTime = 0f;
+    [SerializeField] private float DropBottomYPos = 0f;
 
     [Space(10)]
     [Header("=== Bullet")]
     [SerializeField] private Sprite BulletSprite;
     [SerializeField] private Vector2 BulletObjSize;
+
+    [Space(10)]
+    [Header("=== Trail")]
+    [SerializeField] private float TrailTime;
+    [SerializeField] private float TrailStartWidth;
+
+    [Space(10)]
+    [Header("=== Light")]
+    [SerializeField] private float LightIntensity;
 
     #endregion
 
@@ -58,7 +68,7 @@ public class DroppingAllyController : NoneUnitAllyController
             if (targetEnemy == null)
             {
                 targetEnemy = EnemyManager.Instance.CurrentEnemyList[
-                    UnityEngine.Random.Range(0, EnemyManager.Instance.CurrentEnemyList.Count)];
+                    Random.Range(0, EnemyManager.Instance.CurrentEnemyList.Count)];
             }
 
             Fire(PoolingManager.Instance.Get_OP_DroppingAllyBullet(), targetEnemy.transform.position);
@@ -74,11 +84,16 @@ public class DroppingAllyController : NoneUnitAllyController
     {
         // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
         _Bullet.Set_State(
-            Get_BulletState(), _DroppingTime: ActualAllyState.MuzzleSpeed.Value, _TopYPos: 5f,
+            Get_BulletState(), 
+            _DroppingTime: ActualAllyState.MuzzleSpeed.Value, 
+            _TopYPos: 5f, 
+            _BottomYPos: DropBottomYPos,
             _State_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
             _State_Size: Get_BulletState_Shadow_Size());
 
-        _Bullet.ThisSR.color = this.ThisExtraColor;
+        //_Bullet.ThisSR.color = this.ThisExtraColor;
+        _Bullet.SetOn_LightIntensity(LightIntensity);
+        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.AttackSize.Value, ThisExtraGradient);
 
         // Sync
         ActiveAlly_Fire(null, _Bullet);
@@ -97,7 +112,7 @@ public class DroppingAllyController : NoneUnitAllyController
             new CombatOwner(eCombatOwner.Ally, ID),
             new DmgState(eDamageType.Physics, ActualAllyState.Dmg.Value),
             new CriticalState(ActualAllyState.CC.Value, 1 + ActualAllyState.CD.Value),
-            new KnockbackState(false, 0, 0));
+            new KnockbackState(true, ActualAllyState.KBPower.Value, 0.2f));
     }
 
     private BulletState_PosAndRot Get_BulletState_PosAndRot(Vector2 _TargetPos)

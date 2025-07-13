@@ -1125,6 +1125,7 @@ MonoBehaviour:
   - {fileID: -749255590, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: 681309432, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: -1043234133, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
+  - {fileID: -1043234133, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   AllAlly: []
 --- !u!114 &355347631
 MonoBehaviour:
@@ -2534,6 +2535,9 @@ MonoBehaviour:
     ParentTF: {fileID: 77619666}
   DroppingAllyBullet:
     Prefab: {fileID: 2192280153704162206, guid: 13e2d6bacdd29ce4d963435c84ae990c, type: 3}
+    ParentTF: {fileID: 77619666}
+  AllyExplosions:
+    Prefab: {fileID: 2154807210293626544, guid: cc5f08912ea1231458da9db1522f4d10, type: 3}
     ParentTF: {fileID: 77619666}
   EnemyBullets:
     Prefab: {fileID: 2192280153704162206, guid: baf318852ebf135459cd69f0478fe943, type: 3}
