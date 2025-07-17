@@ -415,6 +415,20 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #endregion
 
+    #region (008~009) Spawn < >
+
+    private void UT_CardActivity_008()
+    {
+        SpawnAlly(ResourceManager.Instance.Get_NoneUnitAlly("Test"));
+    }
+
+    private void UT_CardActivity_009()
+    {
+        SpawnAlly(ResourceManager.Instance.Get_NoneUnitAlly("Test"));
+    }
+
+    #endregion
+
     #endregion
 
     #region Neo Team

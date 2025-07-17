@@ -42,13 +42,6 @@ public abstract class DroppingBombController : DroppingDepthController
         DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
     }
 
-    protected override void Update()
-    {
-        base.Update();
-
-
-    }
-
     #endregion
 
     #region Reset

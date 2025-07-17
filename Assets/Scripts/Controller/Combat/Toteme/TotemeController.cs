@@ -1,7 +1,7 @@
 using UnityEngine.Rendering.Universal;
 using UnityEngine;
 
-public class TotemeController : DroppingDepthController
+public abstract class TotemeController : DroppingDepthController
 {
     #region Value
 
@@ -24,9 +24,40 @@ public class TotemeController : DroppingDepthController
 
     #endregion
 
+    #region Framework
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+    }
+
+    protected void OnDisable()
+    {
+        DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+    }
+
+    #endregion
+
+    #region Reset
+
+    public void Reset_State()
+    {
+        Reset_BaseToteme();
+    }
+
+    private void Reset_BaseToteme()
+    {
+        transform.position = new Vector3(1000, 0, 0);
+        transform.rotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
+    }
+
+    #endregion
+
     #region State
 
-    
+
     protected override void SetOn_State()
     {
         gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
@@ -44,7 +75,20 @@ public class TotemeController : DroppingDepthController
 
     protected override void Active()
     {
-        ThisTrail.enabled = false;
+        SetOff_Trail();
+
+
+    }
+
+    #endregion
+
+    #region Sorting Order
+
+    public override void Set_SortingOrder(int _SortingOrder)
+    {
+        base.Set_SortingOrder(_SortingOrder);
+
+        ThisTrail.sortingOrder = _SortingOrder - 1;
     }
 
     #endregion
@@ -77,6 +121,23 @@ public class TotemeController : DroppingDepthController
     {
         ThisTrail.emitting = false;
         ThisTrail.enabled = false;
+    }
+
+    #endregion
+
+    #region Remove
+
+    protected abstract void Remove_Condition();
+
+    protected void Remove_Object()
+    {
+        SetOff_Trail();
+        SetOff_Light();
+
+        Remove_Condition();
+        Reset_State();
+
+        this.gameObject.SetActive(false);
     }
 
     #endregion

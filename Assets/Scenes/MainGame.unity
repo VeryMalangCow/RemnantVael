@@ -2539,6 +2539,9 @@ MonoBehaviour:
   AllyExplosions:
     Prefab: {fileID: 2154807210293626544, guid: cc5f08912ea1231458da9db1522f4d10, type: 3}
     ParentTF: {fileID: 77619666}
+  AllyTotemes:
+    Prefab: {fileID: 2192280153704162206, guid: 384d654e20209db47ba14aac6bb038b4, type: 3}
+    ParentTF: {fileID: 77619666}
   EnemyBullets:
     Prefab: {fileID: 2192280153704162206, guid: baf318852ebf135459cd69f0478fe943, type: 3}
     ParentTF: {fileID: 77619666}

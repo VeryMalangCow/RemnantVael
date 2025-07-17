@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4772996866839286768}
-  - component: {fileID: 5880778542346265808}
+  - component: {fileID: 1527876159234004793}
   m_Layer: 0
   m_Name: AllyToteme_Prefab
   m_TagString: PlayerThing
@@ -179,7 +179,7 @@ Transform:
   - {fileID: 4030447465785416527}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5880778542346265808
+--- !u!114 &1527876159234004793
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2192280153704162206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40a39f87533861747ab619234fc27d6c, type: 3}
+  m_Script: {fileID: 11500000, guid: e2d8282f613147c47b6a122063a79ea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
@@ -202,20 +202,6 @@ MonoBehaviour:
   DropBottomYPos: 0
   ZeroToOneTime: 0
   PoolingString: 
-  State:
-    OwnerData:
-      Owner: 0
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 0
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 0
-      KBPower: 0
-      KBTime: 0
   ThisTrail: {fileID: 7307784400060210891}
   ThisLight: {fileID: 8889175613378231609}
 --- !u!1 &3054027541298377550
@@ -459,7 +445,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3000
-  m_Sprite: {fileID: -1054698537, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+  m_Sprite: {fileID: -769393496, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

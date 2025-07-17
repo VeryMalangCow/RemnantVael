@@ -24,6 +24,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<AllyBulletController> BaseAllyBullet;
     [SerializeField] public TTypePooling<AllyDroppingBombController> DroppingAllyBullet;
     [SerializeField] public TTypePooling<AllyExplosionController> AllyExplosions;
+    [SerializeField] public TTypePooling<AllyTotemeController> AllyTotemes;
 
     [Header("=== Enemy")]
     [SerializeField] public TTypePooling<EnemyBulletController> EnemyBullets;
@@ -163,10 +164,14 @@ public class PoolingManager : Singleton<PoolingManager>
         return Get_OP<AllyDroppingBombController>(DroppingAllyBullet.Prefab, DroppingAllyBullet.ParentTF, DroppingAllyBullet.Queue);
     }
 
-    // Player Explosion
     public AllyExplosionController Get_OP_AllyExplosion()
     {
         return Get_OP<AllyExplosionController>(AllyExplosions.Prefab, AllyExplosions.ParentTF, AllyExplosions.Queue);
+    }
+
+    public AllyTotemeController Get_OP_AllyToteme()
+    {
+        return Get_OP<AllyTotemeController>(AllyTotemes.Prefab, AllyTotemes.ParentTF, AllyTotemes.Queue) ;
     }
 
     #endregion

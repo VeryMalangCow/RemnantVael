@@ -324,7 +324,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         string noneUnitPath = allyPath + "NoneUnit/";
         AllyNoneUnit_PrefabDict = new Dictionary<string, GameObject>
         {
-            { "Booma", Get_Prefab(noneUnitPath, "BoomaAlly_Prefab") }
+            { "Booma", Get_Prefab(noneUnitPath, "BoomaAlly_Prefab") },
+            { "B", Get_Prefab(noneUnitPath, "BAlly_Prefab") }
         };
     }
 
