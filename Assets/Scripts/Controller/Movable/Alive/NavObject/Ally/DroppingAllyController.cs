@@ -1,8 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class DroppingAllyController : NoneUnitAllyController
+public abstract class DroppingAllyController : NoneUnitAllyController
 {
+
     #region Value
 
     [Space(20)]
@@ -11,21 +13,20 @@ public class DroppingAllyController : NoneUnitAllyController
     [Space(10)]
     [Header("=== Value")]
     [SerializeField] private float CurrentChargeTime = 0f;
-    [SerializeField] private float DropBottomYPos = 0f;
+    [SerializeField] protected float DropBottomYPos = 0f;
 
     [Space(10)]
     [Header("=== Bullet")]
-    [SerializeField] private Sprite BulletSprite;
-    [SerializeField] private Vector2 BulletObjSize;
+    [SerializeField] protected Sprite ThisSprite;
 
     [Space(10)]
     [Header("=== Trail")]
-    [SerializeField] private float TrailTime;
-    [SerializeField] private float TrailStartWidth;
+    [SerializeField] protected float TrailTime;
+    [SerializeField] protected float TrailStartWidth;
 
     [Space(10)]
     [Header("=== Light")]
-    [SerializeField] private float LightIntensity;
+    [SerializeField] protected float LightIntensity;
 
     #endregion
 
@@ -41,93 +42,35 @@ public class DroppingAllyController : NoneUnitAllyController
 
     #endregion
 
+    #region Caculate
+    private void Caculate_AttackCharge(float _DeltaTime)
+    {
+        if (CurrentChargeTime < 1)
+        {
+            CurrentChargeTime += ActualAllyState.Rof.Value * _DeltaTime;
+        }
+
+        if (Can_Shot())
+        {
+            Shot();
+        }
+    }
+
+    #endregion
+
+    #region Shot
+
+    protected virtual bool Can_Shot() { }
+
+    protected abstract void Shot();
+
+    #endregion
+
     #region Play
 
     protected override IEnumerator Play_Main_Cor()
     {
         yield return StartCoroutine(base.Play_Main_Cor());
-    }
-
-    #endregion
-
-    #region Attack
-
-    private void Caculate_AttackCharge(float _DeltaTime)
-    {
-        if (CurrentChargeTime < 1)
-        {
-            Debug.Log(ActualAllyState.Rof.Value);
-            CurrentChargeTime += ActualAllyState.Rof.Value * _DeltaTime;
-        }
-
-        if (Can_Attack())
-        {
-            CurrentChargeTime -= 1;
-
-            EnemyController targetEnemy = PlayerManager.Instance.Get_PingedEnemy();
-            if (targetEnemy == null)
-            {
-                targetEnemy = EnemyManager.Instance.CurrentEnemyList[
-                    Random.Range(0, EnemyManager.Instance.CurrentEnemyList.Count)];
-            }
-
-            Fire(PoolingManager.Instance.Get_OP_DroppingAllyBullet(), targetEnemy.transform.position);
-        }
-    }
-
-    private bool Can_Attack()
-    {
-        return CurrentChargeTime >= 1 && EnemyManager.Instance.CurrentEnemyList.Count > 0;
-    }
-
-    private void Fire(AllyDroppingBombController _Bullet, Vector2 _TargetPos)
-    {
-        // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
-        _Bullet.Set_State(
-            Get_BulletState(), 
-            _DroppingTime: ActualAllyState.MuzzleSpeed.Value, 
-            _TopYPos: 5f, 
-            _BottomYPos: DropBottomYPos,
-            _State_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
-            _State_Size: Get_BulletState_Shadow_Size());
-
-        //_Bullet.ThisSR.color = this.ThisExtraColor;
-        _Bullet.SetOn_LightIntensity(LightIntensity);
-        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.AttackSize.Value, ThisExtraGradient);
-
-        // Sync
-        ActiveAlly_Fire(null, _Bullet);
-
-        // ÀÌ¹ÌÁö
-        _Bullet.ThisSR.sprite = BulletSprite;
-    }
-
-    #endregion
-
-    #region State (Bullet)
-
-    private CombatState Get_BulletState()
-    {
-        return new CombatState(
-            new CombatOwner(eCombatOwner.Ally, ID),
-            new DmgState(eDamageType.Physics, ActualAllyState.Dmg.Value),
-            new CriticalState(ActualAllyState.CC.Value, 1 + ActualAllyState.CD.Value),
-            new KnockbackState(true, ActualAllyState.KBPower.Value, 0.2f));
-    }
-
-    private BulletState_PosAndRot Get_BulletState_PosAndRot(Vector2 _TargetPos)
-    {
-        return new BulletState_PosAndRot(
-            _TargetPos,
-            Vector2.zero,
-            0);
-    }
-
-    private BulletState_Size Get_BulletState_Shadow_Size()
-    {
-        return new BulletState_Size(
-            BulletObjSize * ActualAllyState.AttackSize.Value,
-            new Vector2(0.3f, 0.15f));
     }
 
     #endregion
