@@ -18,12 +18,12 @@ public class DroppingAttackAllyController : DroppingAllyController
 
     protected override bool Can_Shot()
     {
-        return CurrentChargeTime >= 1 && EnemyManager.Instance.CurrentEnemyList.Count > 0;
+        return Can_Shot() && EnemyManager.Instance.CurrentEnemyList.Count > 0;
     }
 
     protected override void Shot()
     {
-        CurrentChargeTime -= 1;
+        base.Shot();
         Fire_Bullet(PoolingManager.Instance.Get_OP_DroppingAllyBullet(), Get_TargetEnemy().transform.position);
     }
 

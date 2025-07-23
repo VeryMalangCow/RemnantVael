@@ -136,11 +136,11 @@ MonoBehaviour:
       Value: 1
   CurrentChargeTime: 0
   DropBottomYPos: 0.2
-  BulletSprite: {fileID: -1054698537, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
-  BulletObjSize: {x: 1, y: 1}
+  ThisSprite: {fileID: -1054698537, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
   TrailTime: 0.8
   TrailStartWidth: 0.04
   LightIntensity: 1
+  BulletObjSize: {x: 1, y: 1}
 --- !u!114 &1999153423990081965
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DroppingAllyController : NoneUnitAllyController
+public class DroppingAllyController : NoneUnitAllyController
 {
 
     #region Value
@@ -60,9 +60,15 @@ public abstract class DroppingAllyController : NoneUnitAllyController
 
     #region Shot
 
-    protected virtual bool Can_Shot() { }
+    protected virtual bool Can_Shot() 
+    {
+        return CurrentChargeTime >= 1;
+    }
 
-    protected abstract void Shot();
+    protected virtual void Shot()
+    {
+        CurrentChargeTime -= 1;
+    }
 
     #endregion
 
