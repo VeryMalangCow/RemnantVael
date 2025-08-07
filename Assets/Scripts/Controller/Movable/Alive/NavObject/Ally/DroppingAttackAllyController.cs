@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class DroppingAttackAllyController : DroppingAllyController
@@ -18,9 +17,9 @@ public class DroppingAttackAllyController : DroppingAllyController
 
     protected override bool Can_Shot()
     {
-        return Can_Shot() && EnemyManager.Instance.CurrentEnemyList.Count > 0;
+        return base.Can_Shot() && EnemyManager.Instance.CurrentEnemyList.Count > 0;
     }
-
+    
     protected override void Shot()
     {
         base.Shot();

@@ -162,6 +162,7 @@ public class AllyController : NavObjectController
             { AllyManager.StateTypeList[4], UpgradeAllyState.CC },
             { AllyManager.StateTypeList[5], UpgradeAllyState.CD },
             { AllyManager.StateTypeList[6], UpgradeAllyState.MuzzleSpeed },
+            { AllyManager.StateTypeList[7], UpgradeAllyState.KBPower }
         };
     }
 
@@ -169,10 +170,18 @@ public class AllyController : NavObjectController
     {
         NameID = AllyManager.Instance.Get_AllyNameID();
         Name = AllyManager.Instance.Get_AllyName(NameID);
+
+        Set_Name();
     }
 
     private void Offset_Subscribe()
     {
+        HUD.Offset();
+
+        HUD.StateUI.SP_ProgressBar.Set_FillImgSmooth(CurrentSP.Value, MaxHP);
+        HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
+        HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
+
         CurrentSP
             .Subscribe(_CurrentSP =>
             {
@@ -299,7 +308,7 @@ public class AllyController : NavObjectController
 
     protected virtual void Set_Name()
     {
-        
+        HUD.Set_Name(Name[GameManager.LanguageID]);
     }
 
 

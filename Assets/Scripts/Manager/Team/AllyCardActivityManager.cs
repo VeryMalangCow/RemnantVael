@@ -419,12 +419,12 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void UT_CardActivity_008()
     {
-        SpawnAlly(ResourceManager.Instance.Get_NoneUnitAlly("Test"));
+        SpawnAlly(ResourceManager.Instance.Get_NoneUnitAlly("Totis"));
     }
 
     private void UT_CardActivity_009()
     {
-        SpawnAlly(ResourceManager.Instance.Get_NoneUnitAlly("Test"));
+        SpawnAlly(ResourceManager.Instance.Get_NoneUnitAlly("Totis"));
     }
 
     #endregion

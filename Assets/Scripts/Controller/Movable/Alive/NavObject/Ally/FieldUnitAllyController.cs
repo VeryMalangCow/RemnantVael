@@ -51,15 +51,9 @@ public class FieldUnitAllyController : AllyController
     {
         base.Offset();
 
-        Offset_UI();
         Offset_Subscribe();
     }
 
-    private void Offset_UI()
-    {
-        Set_Name();
-        HUD.Offset();
-    }
 
     private void Offset_Subscribe()
     {
@@ -237,17 +231,6 @@ public class FieldUnitAllyController : AllyController
         return (Enemy.transform.position - this.transform.position);
     }
 
-
-    #endregion
-
-    #region Name
-
-    protected override void Set_Name()
-    {
-        base.Set_Name();
-
-        HUD.Set_Name(Name[GameManager.LanguageID]);
-    }
 
     #endregion
 }

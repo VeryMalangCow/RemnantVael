@@ -444,6 +444,7 @@ public class AllyShopUIController : ShopUIController
         StateEUIList[4].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.CC.Value * 100).Replace("+", "")}<size=65%>%</size>";
         StateEUIList[5].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.CD.Value + 1).Replace("+", "")}<size=65%>x</size>";
         StateEUIList[6].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.MuzzleSpeed.Value + 1).Replace("+", "")}";
+        StateEUIList[7].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.KBPower.Value).Replace("+", "")}";
 
         AllyState upgradeState = _Ally.Get_UpgradeAllState();
         StateEUIList[0].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.Dmg.Value)}";
@@ -453,6 +454,7 @@ public class AllyShopUIController : ShopUIController
         StateEUIList[4].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.CC.Value * 100)}<size=65%>%</size>";
         StateEUIList[5].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.CD.Value)}<size=65%>x</size>";
         StateEUIList[6].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.MuzzleSpeed.Value)}";
+        StateEUIList[7].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.KBPower.Value)}";
 
         StateScrollPanel.Set_ScrollPanel();
     }
@@ -698,6 +700,7 @@ public class AllyShopUIController : ShopUIController
         StateEUIList[4].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(15)} >";    // Ä¡È®
         StateEUIList[5].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(16)} >";     // Ä¡µ©
         StateEUIList[6].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(43)} >";     // Åº¼Ó
+        StateEUIList[7].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(44)} >";     // ³Ë¹é (ÆÄ¿ö)
 
         // Limit
         StateLimitTxt.text = $"( {ResourceManager.Instance.Get_StaticWord(107)}: {AllyController.MinLimitUpgradeValue} )";
