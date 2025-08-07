@@ -47,7 +47,7 @@ public class DroppingAttackAllyController : DroppingAllyController
             _State_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
             _State_Size: Get_BulletState_Shadow_Size());
 
-        //_Bullet.ThisSR.color = this.ThisExtraColor;
+        // Light & Trail
         _Bullet.SetOn_LightIntensity(LightIntensity);
         _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.AttackSize.Value, ThisExtraGradient);
 

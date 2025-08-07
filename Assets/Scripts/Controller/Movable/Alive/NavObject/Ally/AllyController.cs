@@ -162,7 +162,8 @@ public class AllyController : NavObjectController
             { AllyManager.StateTypeList[4], UpgradeAllyState.CC },
             { AllyManager.StateTypeList[5], UpgradeAllyState.CD },
             { AllyManager.StateTypeList[6], UpgradeAllyState.MuzzleSpeed },
-            { AllyManager.StateTypeList[7], UpgradeAllyState.KBPower }
+            { AllyManager.StateTypeList[7], UpgradeAllyState.KBPower },
+            { AllyManager.StateTypeList[8], UpgradeAllyState.Dur }
         };
     }
 

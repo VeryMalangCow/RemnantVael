@@ -46,7 +46,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     }
 
     // 순서 비교
-    private bool IsSameList(List<DepthController> a, List<DepthController> b)
+    private bool Is_SameList(List<DepthController> a, List<DepthController> b)
     {
         if (a.Count != b.Count) return false;
         for (int i = 0; i < a.Count; i++)
@@ -91,7 +91,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     {
         List<DepthController> sorted = Get_StableSortedList(NeedSortingObjects);
 
-        if (!IsSameList(sorted, LastSortedList))
+        if (!Is_SameList(sorted, LastSortedList))
         {
             Set_Sort(sorted);
             LastSortedList = sorted;

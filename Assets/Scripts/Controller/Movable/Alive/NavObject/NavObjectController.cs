@@ -74,13 +74,24 @@ public class NavObjectController : AliveObjectController
         return DevTool.Is_Exist_UseLine(this.transform.position, _TargetPos, "Wall");
     }
 
-    protected Vector2 Get_RandomNavPos(float _radius)
+    protected Vector2 Get_RandomNavPos(Vector3 _CenterPos, float _Radius)
     {
-        Vector3 randomPos = Random.insideUnitSphere * _radius;
+        Vector3 randomPos = Random.insideUnitSphere * _Radius;
+        randomPos += _CenterPos;
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomPos, out hit, _Radius, NavMesh.AllAreas);
+
+        return hit.position;
+    }
+
+    protected Vector2 Get_RandomNavPos(float _Radius)
+    {
+        Vector3 randomPos = Random.insideUnitSphere * _Radius;
         randomPos += transform.position;
 
         NavMeshHit hit;
-        NavMesh.SamplePosition(randomPos, out hit, _radius, NavMesh.AllAreas);
+        NavMesh.SamplePosition(randomPos, out hit, _Radius, NavMesh.AllAreas);
 
         return hit.position;
     }

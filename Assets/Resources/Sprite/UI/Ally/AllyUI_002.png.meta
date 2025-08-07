@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2db6bd9c13e6b654e8540d055cdcea47
+guid: b55cdd5cdf612b845aa2631ea2868346
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,34 +97,34 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AllyUI_Face_Assult
+      name: AllyUI_BarFrame
       rect:
         serializedVersion: 2
-        x: 0
-        y: 229
-        width: 27
-        height: 27
+        x: 1
+        y: 242
+        width: 50
+        height: 13
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 24, y: 0, z: 24, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed3e6342258557745ba189a62c6efbca
-      internalID: 662672575
+      spriteID: 26a58dda49927994d8f17d404257db6a
+      internalID: -1182420997
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AllyUI_Face_Ignis
+      name: AllyUI_HP_Bar
       rect:
         serializedVersion: 2
-        x: 28
-        y: 229
-        width: 27
-        height: 27
+        x: 1
+        y: 236
+        width: 44
+        height: 5
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +132,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d64b1d46b0d16b240bcf221806ce8fa9
-      internalID: 141280962
+      spriteID: abff0e5dd8e501c439e667778e9d7823
+      internalID: -293243768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AllyUI_Face_Glacia
+      name: AllyUI_EP_Bar
       rect:
         serializedVersion: 2
-        x: 56
-        y: 229
-        width: 27
-        height: 27
+        x: 1
+        y: 230
+        width: 44
+        height: 5
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68efbf2896d16e7418a24e9d98ce18d9
-      internalID: 1360343483
+      spriteID: 71ad76bf7292ecb47af44281f8188db2
+      internalID: 922952304
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AllyUI_Face_Volt
+      name: AllyUI_SP_Bar
       rect:
         serializedVersion: 2
-        x: 84
-        y: 229
-        width: 27
-        height: 27
+        x: 1
+        y: 222
+        width: 44
+        height: 7
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +174,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e14e21465082e114bb2e9619726060c6
-      internalID: -1270189365
+      spriteID: 784096367ebefc648a35b9f52a63b8f2
+      internalID: 417705846
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AllyUI_Face_Tox
+      name: AllyUI_HP_Liner
       rect:
         serializedVersion: 2
-        x: 112
-        y: 229
-        width: 27
-        height: 27
+        x: 46
+        y: 233
+        width: 1
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +195,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de96cc7b0b12ae54e8c07a5608d6d7f1
-      internalID: -796970769
+      spriteID: d51c33fc69ffde248b119aecc0043b7f
+      internalID: 1895697299
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AllyUI_Face_Booma
+      name: AllyUI_EP_Liner
       rect:
         serializedVersion: 2
-        x: 140
-        y: 229
-        width: 27
-        height: 27
+        x: 48
+        y: 233
+        width: 1
+        height: 8
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +216,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d6f9f284b914d04da6e5a8b4736e2b8
-      internalID: -1506652042
+      spriteID: c94ef18fb2e1f134d88184bd6bd4594a
+      internalID: -769393496
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AllyUI_Face_Totis
+      name: AllyUI_SP_Liner
       rect:
         serializedVersion: 2
-        x: 168
-        y: 229
-        width: 27
-        height: 27
+        x: 46
+        y: 223
+        width: 1
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,8 +237,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bc00d8ce4c96752478429aa730137356
-      internalID: -936771605
+      spriteID: f4eb29a4691b91b41981bf554473beb5
+      internalID: -2020534716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_Buff_Sync005
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 245
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7d324b802b16094db8dd8f6599ef7f7
+      internalID: -1449385789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_Buff_Sync006
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 234
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05bed5c5957ee1a4db1c2a80406ea06b
+      internalID: 1160235244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_Buff_Sync007
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 223
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 557bc5b8e1fd0624da0fdcffd7c856dc
+      internalID: 923316139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_Buff_Sync008
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 212
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af4c5fd42a564b84986b645bd1287440
+      internalID: -1834734568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_Missile
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 205
+        width: 7
+        height: 16
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e57917a1995c764ba17d8fdfe25559d
+      internalID: -1054698537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_Toteme_ATK
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 205
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ecf4668dab58254f988604bbcc4335f
+      internalID: -1210033136
       vertices: []
       indices: 
       edges: []
@@ -254,13 +380,21 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AllyUI_Face_Assult: 662672575
-      AllyUI_Face_Booma: -1506652042
-      AllyUI_Face_Glacia: 1360343483
-      AllyUI_Face_Ignis: 141280962
-      AllyUI_Face_Totis: -936771605
-      AllyUI_Face_Tox: -796970769
-      AllyUI_Face_Volt: -1270189365
+      AllyUI_BarFrame: -1182420997
+      AllyUI_Buff_Sync005: -1449385789
+      AllyUI_Buff_Sync006: 1160235244
+      AllyUI_Buff_Sync007: 923316139
+      AllyUI_Buff_Sync008: -1834734568
+      AllyUI_EP_Bar: 922952304
+      AllyUI_EP_Liner: -769393496
+      AllyUI_HP_Bar: -293243768
+      AllyUI_HP_Liner: 1895697299
+      AllyUI_Missile: -1054698537
+      AllyUI_SP_Bar: 417705846
+      AllyUI_SP_Liner: -2020534716
+      AllyUI_Toteme_ATK: -1210033136
+      Ally_BaseBullet: -1712732208
+      Ally_BaseMiddleBullet: -1346664078
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

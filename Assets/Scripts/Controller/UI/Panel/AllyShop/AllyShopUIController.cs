@@ -445,6 +445,7 @@ public class AllyShopUIController : ShopUIController
         StateEUIList[5].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.CD.Value + 1).Replace("+", "")}<size=65%>x</size>";
         StateEUIList[6].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.MuzzleSpeed.Value + 1).Replace("+", "")}";
         StateEUIList[7].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.KBPower.Value).Replace("+", "")}";
+        StateEUIList[8].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.Dur.Value).Replace("+", "")}<size=65%>s</size>";
 
         AllyState upgradeState = _Ally.Get_UpgradeAllState();
         StateEUIList[0].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.Dmg.Value)}";
@@ -455,6 +456,7 @@ public class AllyShopUIController : ShopUIController
         StateEUIList[5].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.CD.Value)}<size=65%>x</size>";
         StateEUIList[6].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.MuzzleSpeed.Value)}";
         StateEUIList[7].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.KBPower.Value)}";
+        StateEUIList[8].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.Dur.Value)}<size=65%>s</size>";
 
         StateScrollPanel.Set_ScrollPanel();
     }
@@ -701,6 +703,7 @@ public class AllyShopUIController : ShopUIController
         StateEUIList[5].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(16)} >";     // 치뎀
         StateEUIList[6].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(43)} >";     // 탄속
         StateEUIList[7].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(44)} >";     // 넉백 (파워)
+        StateEUIList[8].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(116)} >";     // 지속시간
 
         // Limit
         StateLimitTxt.text = $"( {ResourceManager.Instance.Get_StaticWord(107)}: {AllyController.MinLimitUpgradeValue} )";

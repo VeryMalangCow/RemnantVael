@@ -6,6 +6,7 @@ using System.Linq;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class GameManager : PersistentSingleton<GameManager>
@@ -1325,6 +1326,10 @@ public class DevTool
         _Comp.color = new Color(_Clr.r, _Clr.g, _Clr.b, _Comp.color.a);
     }
 
+    public static void Set_AlphaColor(Light2D _Light, float _A)
+    {
+        _Light.color = Get_AlphaColor(_Light, _A);
+    }
 
     public static void Set_AlphaColor(Image _Img, float _A)
     {
@@ -1336,6 +1341,13 @@ public class DevTool
         _Txt.color = Get_AlphaColor(_Txt, _A);
     }
 
+
+    public static Color Get_AlphaColor(Light2D _Light, float _A)
+    {
+        Color clr = _Light.color;
+        clr.a = _A;
+        return clr;
+    }
 
     public static Color Get_AlphaColor(Image _Img, float _A)
     {
@@ -4163,6 +4175,7 @@ public class AllyState
     public RefData<float> CD;
     public RefData<float> MuzzleSpeed;
     public RefData<float> KBPower;
+    public RefData<float> Dur;
 
     #endregion
 
@@ -4178,6 +4191,7 @@ public class AllyState
         CD = new RefData<float>(1);
         MuzzleSpeed = new RefData<float>(1);
         KBPower = new RefData<float>(1);
+        Dur = new RefData<float>(1);
     }
 
     public AllyState(AllyState _StateValue)
@@ -4190,6 +4204,7 @@ public class AllyState
         CD = new RefData<float>(_StateValue.CD.Value);
         MuzzleSpeed = new RefData<float>(_StateValue.MuzzleSpeed.Value);
         KBPower = new RefData<float>(_StateValue.KBPower.Value);
+        Dur = new RefData<float>(_StateValue.Dur.Value);
     }
 
     public void Reset()
@@ -4202,6 +4217,7 @@ public class AllyState
         CD.Value = 1;
         MuzzleSpeed.Value = 1;
         KBPower.Value = 1;
+        Dur.Value = 1;
     }
 
     public static AllyState Get_Multiple(AllyState _State0, AllyState _State1)
@@ -4216,6 +4232,7 @@ public class AllyState
         result.CD = new RefData<float>(_State0.CD.Value * _State1.CD.Value);
         result.MuzzleSpeed = new RefData<float>(_State0.MuzzleSpeed.Value * _State1.MuzzleSpeed.Value);
         result.KBPower = new RefData<float>(_State0.KBPower.Value * _State1.KBPower.Value);
+        result.Dur = new RefData<float>(_State0.Dur.Value * _State1.Dur.Value);
 
         return result;
     }
@@ -4232,6 +4249,7 @@ public class AllyState
         result.CD = new RefData<float>(_Original.CD.Value - _Exclude.CD.Value);
         result.MuzzleSpeed = new RefData<float>(_Original.MuzzleSpeed.Value - _Exclude.MuzzleSpeed.Value);
         result.KBPower = new RefData<float>(_Original.KBPower.Value - _Exclude.KBPower.Value);
+        result.Dur = new RefData<float>(_Original.Dur.Value - _Exclude.Dur.Value);
 
         return result;
     }
@@ -4246,6 +4264,7 @@ public class AllyState
         CD.Value = Mathf.Max(_Min, CD.Value);
         MuzzleSpeed.Value = Mathf.Max(_Min, MuzzleSpeed.Value);
         KBPower.Value = Mathf.Max(_Min, KBPower.Value);
+        Dur.Value = Mathf.Max(_Min, Dur.Value);
     }
 
     #endregion
@@ -4262,6 +4281,7 @@ public class AllyBuffState : AllyState
     [HideInInspector] public List<AllyBuff> CD_BuffList;
     [HideInInspector] public List<AllyBuff> MuzzleSpeed_BuffList;
     [HideInInspector] public List<AllyBuff> KBPower_BuffList;
+    [HideInInspector] public List<AllyBuff> Dur_BuffList;
 
     [HideInInspector] private RefData<bool> Dmg_IsExist;
     [HideInInspector] private RefData<bool> Rof_IsExist;
@@ -4271,6 +4291,7 @@ public class AllyBuffState : AllyState
     [HideInInspector] private RefData<bool> CD_IsExist;
     [HideInInspector] private RefData<bool> MuzzleSpeed_IsExist;
     [HideInInspector] private RefData<bool> KBPower_IsExist;
+    [HideInInspector] private RefData<bool> Dur_IsExist;
 
     [HideInInspector] Dictionary<string, List<AllyBuff>> BuffDict;
     [HideInInspector] Dictionary<string, RefData<bool>> BuffIsOnDict;
@@ -4285,6 +4306,7 @@ public class AllyBuffState : AllyState
         CD_BuffList = new List<AllyBuff>();
         MuzzleSpeed_BuffList = new List<AllyBuff>();
         KBPower_BuffList = new List<AllyBuff>();
+        Dur_BuffList = new List<AllyBuff>();
 
         Dmg_IsExist = new RefData<bool>(false);
         Rof_IsExist = new RefData<bool>(false);
@@ -4294,6 +4316,7 @@ public class AllyBuffState : AllyState
         CD_IsExist = new RefData<bool>(false);
         MuzzleSpeed_IsExist = new RefData<bool>(false);
         KBPower_IsExist = new RefData<bool>(false);
+        Dur_IsExist = new RefData<bool>(false);
 
         BuffDict = new Dictionary<string, List<AllyBuff>>
         {
@@ -4304,7 +4327,8 @@ public class AllyBuffState : AllyState
             { AllyManager.StateTypeList[4], CC_BuffList },
             { AllyManager.StateTypeList[5], CD_BuffList },
             { AllyManager.StateTypeList[6], MuzzleSpeed_BuffList },
-            { AllyManager.StateTypeList[7], KBPower_BuffList }
+            { AllyManager.StateTypeList[7], KBPower_BuffList },
+            { AllyManager.StateTypeList[8], Dur_BuffList }
         };
 
         BuffIsOnDict = new Dictionary<string, RefData<bool>>
@@ -4316,7 +4340,8 @@ public class AllyBuffState : AllyState
             { AllyManager.StateTypeList[4], CC_IsExist },
             { AllyManager.StateTypeList[5], CD_IsExist },
             { AllyManager.StateTypeList[6], MuzzleSpeed_IsExist },
-            { AllyManager.StateTypeList[7], KBPower_IsExist }
+            { AllyManager.StateTypeList[7], KBPower_IsExist },
+            { AllyManager.StateTypeList[8], Dur_IsExist }
         };
     }
 
@@ -4366,6 +4391,7 @@ public class AllyBuffState : AllyState
         CD.Value = Get_BuffValue(CD_BuffList);
         MuzzleSpeed.Value = Get_BuffValue(MuzzleSpeed_BuffList);
         KBPower.Value = Get_BuffValue(KBPower_BuffList);
+        Dur.Value = Get_BuffValue(Dur_BuffList);
     }
 
     private float Get_BuffValue(List<AllyBuff> _BuffList)

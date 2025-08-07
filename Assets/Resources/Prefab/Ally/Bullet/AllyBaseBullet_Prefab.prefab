@@ -214,6 +214,8 @@ MonoBehaviour:
     IsCritical: 0
     MuzzleSpeed: 0
     AliveTime: 0
+    IsStatus: 0
+    StatusType: 0
   ThisRb: {fileID: 3702076010934528879}
   ThisTrail: {fileID: 7307784400060210891}
   ThisLight: {fileID: 8889175613378231609}
@@ -529,12 +531,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3000
-  m_Sprite: {fileID: -1712732208, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+  m_Sprite: {fileID: 1568274887, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 0.04, y: 0.04}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

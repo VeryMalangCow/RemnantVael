@@ -252,7 +252,7 @@ TextureImporter:
         width: 20
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -260,6 +260,27 @@ TextureImporter:
       bones: []
       spriteID: ba1b717663905ac4fa6e78ee683c2248
       internalID: -625728284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllyUI_BU_Dur
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 236
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57cb96de9bba6f4468590e2d8fbb698a
+      internalID: 768085294
       vertices: []
       indices: 
       edges: []
@@ -279,6 +300,7 @@ TextureImporter:
       AllyUI_BU_CC: -749255590
       AllyUI_BU_CD: 681309432
       AllyUI_BU_DMG: -1080434544
+      AllyUI_BU_Dur: 768085294
       AllyUI_BU_KBPower: -625728284
       AllyUI_BU_MovementSpeed: 1299543531
       AllyUI_BU_MuzzleSpeed: -1043234133

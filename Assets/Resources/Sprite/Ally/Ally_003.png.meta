@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b55cdd5cdf612b845aa2631ea2868346
+guid: fb7967240dd84ea46bb4394c89be8e72
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -111,249 +111,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 720f15ea605218148b27c4b5dbd8f9aa
-      internalID: -1712732208
+      spriteID: 25c80368923d39d40bd9f112c69db2d9
+      internalID: 1568274887
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ally_BarFrame
+      name: Ally_BiggerBullet
       rect:
         serializedVersion: 2
         x: 1
-        y: 240
-        width: 50
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 24, y: 0, z: 24, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 26a58dda49927994d8f17d404257db6a
-      internalID: -1182420997
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ally_HP_Bar
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 234
-        width: 44
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: abff0e5dd8e501c439e667778e9d7823
-      internalID: -293243768
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ally_EP_Bar
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 228
-        width: 44
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 71ad76bf7292ecb47af44281f8188db2
-      internalID: 922952304
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ally_SP_Bar
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 220
-        width: 44
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 784096367ebefc648a35b9f52a63b8f2
-      internalID: 417705846
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ally_HP_Liner
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 231
-        width: 1
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d51c33fc69ffde248b119aecc0043b7f
-      internalID: 1895697299
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ally_EP_Liner
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 231
-        width: 1
-        height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c94ef18fb2e1f134d88184bd6bd4594a
-      internalID: -769393496
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ally_SP_Liner
-      rect:
-        serializedVersion: 2
-        x: 46
-        y: 221
-        width: 1
-        height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f4eb29a4691b91b41981bf554473beb5
-      internalID: -2020534716
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ally_Buff_Sync005
-      rect:
-        serializedVersion: 2
-        x: 245
-        y: 245
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b7d324b802b16094db8dd8f6599ef7f7
-      internalID: -1449385789
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ally_Buff_Sync006
-      rect:
-        serializedVersion: 2
-        x: 245
-        y: 234
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 05bed5c5957ee1a4db1c2a80406ea06b
-      internalID: 1160235244
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ally_Buff_Sync007
-      rect:
-        serializedVersion: 2
-        x: 245
-        y: 223
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 557bc5b8e1fd0624da0fdcffd7c856dc
-      internalID: 923316139
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ally_Buff_Sync008
-      rect:
-        serializedVersion: 2
-        x: 245
-        y: 212
-        width: 10
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: af4c5fd42a564b84986b645bd1287440
-      internalID: -1834734568
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ally_BaseMiddleBullet
-      rect:
-        serializedVersion: 2
-        x: 52
-        y: 252
+        y: 250
         width: 3
         height: 3
       alignment: 0
@@ -363,8 +132,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63d29c79d3401014997896744d351f31
-      internalID: -1346664078
+      spriteID: 1260de01c7a1c2a448f28e991302f525
+      internalID: 58842612
       vertices: []
       indices: 
       edges: []
@@ -373,19 +142,61 @@ TextureImporter:
       name: Ally_Missile
       rect:
         serializedVersion: 2
-        x: 52
-        y: 242
-        width: 5
-        height: 9
-      alignment: 9
+        x: 1
+        y: 235
+        width: 8
+        height: 14
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e57917a1995c764ba17d8fdfe25559d
-      internalID: -1054698537
+      spriteID: cee3ccb12094a66418df426a22f36ec7
+      internalID: 1620505241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_TotemeStick
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 234
+        width: 11
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 225655ce1f49d1345b0bbee250fbaf54
+      internalID: 1336410039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ally_Toteme_Holo_ATK
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 246
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aa98d1dc93cba946b997b4e2bff6d05
+      internalID: 2036969429
       vertices: []
       indices: 
       edges: []
@@ -403,20 +214,11 @@ TextureImporter:
     - texture: {fileID: 2800000, guid: fa14ad5c23d83034096bd413e31cd849, type: 3}
       name: _Emission
     nameFileIdTable:
-      Ally_BarFrame: -1182420997
-      Ally_BaseBullet: -1712732208
-      Ally_BaseMiddleBullet: -1346664078
-      Ally_Buff_Sync005: -1449385789
-      Ally_Buff_Sync006: 1160235244
-      Ally_Buff_Sync007: 923316139
-      Ally_Buff_Sync008: -1834734568
-      Ally_EP_Bar: 922952304
-      Ally_EP_Liner: -769393496
-      Ally_HP_Bar: -293243768
-      Ally_HP_Liner: 1895697299
-      Ally_Missile: -1054698537
-      Ally_SP_Bar: 417705846
-      Ally_SP_Liner: -2020534716
+      Ally_BaseBullet: 1568274887
+      Ally_BiggerBullet: 58842612
+      Ally_Missile: 1620505241
+      Ally_TotemeStick: 1336410039
+      Ally_Toteme_Holo_ATK: 2036969429
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

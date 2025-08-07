@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public abstract class DroppingBombController : DroppingDepthController
 {
@@ -16,31 +15,12 @@ public abstract class DroppingBombController : DroppingDepthController
     [SerializeField] public CombatState State;
     // 스탯을 Drop형으로 바꾸던 아니면, 스탯을 추가하던 하셈
 
-    [Space(10)]
-    [Header("=== Comp")]
-    [SerializeField] protected TrailRenderer ThisTrail;
-    [SerializeField] protected Light2D ThisLight;
 
     #endregion
 
     #region - Hide
 
     #endregion
-
-    #endregion
-
-    #region Framework
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
-    }
-
-    protected void OnDisable()
-    {
-        DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
-    }
 
     #endregion
 
@@ -105,7 +85,6 @@ public abstract class DroppingBombController : DroppingDepthController
         gameObject.SetActive(true);
 
         SetOn_Trail();
-        SetOn_Light();
 
         base.SetOn_State();
     }
@@ -132,20 +111,6 @@ public abstract class DroppingBombController : DroppingDepthController
         base.Set_SortingOrder(_SortingOrder);
 
         ThisTrail.sortingOrder = _SortingOrder - 1;
-    }
-
-    #endregion
-
-    #region Light
-
-    protected virtual void SetOn_Light()
-    {
-
-    }
-
-    private void SetOff_Light()
-    {
-
     }
 
     #endregion
@@ -177,7 +142,6 @@ public abstract class DroppingBombController : DroppingDepthController
     protected void Remove_Object()
     {
         SetOff_Trail();
-        SetOff_Light();
 
         Remove_Condition();
         Reset_State();

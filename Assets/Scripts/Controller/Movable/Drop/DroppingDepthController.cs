@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public abstract class DroppingDepthController : MovableDepthController
 {
@@ -11,6 +12,8 @@ public abstract class DroppingDepthController : MovableDepthController
     [Space(10)]
     [Header("=== Comp")]
     [SerializeField] protected Transform ShadowTF;
+    [SerializeField] protected TrailRenderer ThisTrail;
+    [SerializeField] protected Light2D ThisLight;
 
     [Space(10)]
     [Header("=== Value")]
@@ -31,6 +34,21 @@ public abstract class DroppingDepthController : MovableDepthController
     [Space(5)]
     [Header("-- Alpha")]
     [SerializeField] private float ZeroToOneTime;
+
+    #endregion
+
+    #region Framework
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+    }
+
+    protected void OnDisable()
+    {
+        DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+    }
 
     #endregion
 
@@ -82,6 +100,28 @@ public abstract class DroppingDepthController : MovableDepthController
     #region Active
 
     protected abstract void Active();
+
+    #endregion
+
+    #region Light
+
+    public void SetOn_LightIntensity(float _Intensity)
+    {
+        ThisLight.intensity = _Intensity;
+        ThisLight.lightCookieSprite = ThisSR.sprite;
+        DevTool.Set_AlphaColor(ThisLight, 0.5f);
+    }
+
+    #endregion
+
+    #region Trail
+
+    public void SetOn_TrailState(float _Time, float _StartWidth, Gradient _Gradient)
+    {
+        ThisTrail.time = _Time;
+        ThisTrail.startWidth = _StartWidth;
+        ThisTrail.colorGradient = _Gradient;
+    }
 
     #endregion
 }

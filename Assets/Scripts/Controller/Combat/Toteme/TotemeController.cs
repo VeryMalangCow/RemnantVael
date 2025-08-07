@@ -1,5 +1,5 @@
-using UnityEngine.Rendering.Universal;
 using UnityEngine;
+using System.Collections;
 
 public abstract class TotemeController : DroppingDepthController
 {
@@ -12,30 +12,15 @@ public abstract class TotemeController : DroppingDepthController
     [SerializeField] protected string PoolingString = "";
 
     [Space(10)]
-    [Header("=== Comp")]
-    [SerializeField] protected TrailRenderer ThisTrail;
-    [SerializeField] protected Light2D ThisLight;
+    [Header("=== Buff")]
+    [SerializeField] private int PlayerBuffID;
+    [SerializeField] private int AllyBuffID;
 
     #endregion
 
     #region - Hide
 
     #endregion
-
-    #endregion
-
-    #region Framework
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
-    }
-
-    protected void OnDisable()
-    {
-        DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
-    }
 
     #endregion
 
@@ -57,6 +42,26 @@ public abstract class TotemeController : DroppingDepthController
 
     #region State
 
+    public void Set_State(
+        float _DroppingTime, float _TopYPos, float _BottomYPos,
+        BulletState_PosAndRot _State_PosAndRot,
+        BulletState_Size _State_Size)
+    {
+        base.Set_State_Base(null, _DroppingTime, _TopYPos, _BottomYPos);
+        Set_State_PosAndRot(_State_PosAndRot);
+        Set_State_ShadowSize(_State_Size);
+
+        SetOn_State();
+    }
+
+    public virtual void Set_State_PosAndRot(BulletState_PosAndRot _State_PosAndRot)
+    {
+        this.transform.position = _State_PosAndRot.SpawnPos + (_State_PosAndRot.Dir * _State_PosAndRot.Dis);
+        this.transform.localRotation = DevTool.Get_RotFromDir(_State_PosAndRot.Dir);
+
+        DevTool.Add_RotZValue(transform, _State_PosAndRot.SpreadAngle);
+    }
+
 
     protected override void SetOn_State()
     {
@@ -64,7 +69,6 @@ public abstract class TotemeController : DroppingDepthController
         gameObject.SetActive(true);
 
         SetOn_Trail();
-        SetOn_Light();
 
         base.SetOn_State();
     }
@@ -77,7 +81,14 @@ public abstract class TotemeController : DroppingDepthController
     {
         SetOff_Trail();
 
+        StartCoroutine(Play_BuffArea_Cor());
+    }
 
+    private IEnumerator Play_BuffArea_Cor()
+    {
+        yield return new WaitForSeconds(2f);
+
+        Remove_Object();
     }
 
     #endregion
@@ -89,20 +100,6 @@ public abstract class TotemeController : DroppingDepthController
         base.Set_SortingOrder(_SortingOrder);
 
         ThisTrail.sortingOrder = _SortingOrder - 1;
-    }
-
-    #endregion
-
-    #region Light
-
-    protected virtual void SetOn_Light()
-    {
-
-    }
-
-    private void SetOff_Light()
-    {
-
     }
 
     #endregion
@@ -132,7 +129,6 @@ public abstract class TotemeController : DroppingDepthController
     protected void Remove_Object()
     {
         SetOff_Trail();
-        SetOff_Light();
 
         Remove_Condition();
         Reset_State();

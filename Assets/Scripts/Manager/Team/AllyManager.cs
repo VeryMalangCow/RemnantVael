@@ -55,10 +55,10 @@ public class AllyManager : Singleton<AllyManager>
     // String
     [HideInInspector]
     public static readonly List<string> StateTypeList = new List<string> 
-        { "Dmg", "Rof", "MovementSpeed", "AttackSize", "CC", "CD", "MuzzleSpeed", "KBPower" };
+        { "Dmg", "Rof", "MovementSpeed", "AttackSize", "CC", "CD", "MuzzleSpeed", "KBPower", "Dur" };
     [HideInInspector]
     public static List<float> TunerMultipleValueByType = new List<float>
-        { 0.05f, 0.05f, 0.05f, 0.1f, 0.05f, 0.1f, 0.1f, 0.1f };
+        { 0.05f, 0.05f, 0.05f, 0.1f, 0.05f, 0.1f, 0.1f, 0.1f, 0.05f };
 
     // Base Upgrade Data
     [HideInInspector] public static List<float> TunerTypePercent = new List<float> { 8, 5, 3, 2, 1 };

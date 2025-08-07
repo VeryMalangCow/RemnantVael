@@ -46,25 +46,4 @@ public class AllyDroppingBombController : DroppingBombController
     }
 
     #endregion
-
-    #region Light
-
-    public void SetOn_LightIntensity(float _Intensity)
-    {
-        ThisLight.intensity = _Intensity;
-        ThisLight.lightCookieSprite = ThisSR.sprite;
-    }
-
-    #endregion
-
-    #region Trail
-
-    public void SetOn_TrailState(float _Time, float _StartWidth, Gradient _Gradient)
-    {
-        ThisTrail.time = _Time;
-        ThisTrail.startWidth = _StartWidth;
-        ThisTrail.colorGradient = _Gradient;
-    }
-
-    #endregion
 }

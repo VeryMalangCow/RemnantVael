@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NoneUnitAllyController : AllyController
 {
@@ -11,6 +12,7 @@ public class NoneUnitAllyController : AllyController
 
     [Space(10)]
     [Header("=== Comp")]
+
 
     #endregion
 

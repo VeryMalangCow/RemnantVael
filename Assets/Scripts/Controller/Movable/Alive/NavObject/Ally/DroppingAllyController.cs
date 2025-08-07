@@ -18,6 +18,7 @@ public class DroppingAllyController : NoneUnitAllyController
     [Header("=== Bullet")]
     [SerializeField] protected Sprite ThisSprite;
 
+
     [Space(10)]
     [Header("=== Trail")]
     [SerializeField] protected float TrailTime;
