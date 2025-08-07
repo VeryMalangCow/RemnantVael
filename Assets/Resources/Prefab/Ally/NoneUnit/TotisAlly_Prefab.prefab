@@ -77,7 +77,9 @@ MonoBehaviour:
     MuzzleSpeed:
       Value: 0.5
     KBPower:
-      Value: 1
+      Value: 0
+    Dur:
+      Value: 5
   MaxHP: 150
   MaxEP: 100
   AllyStateMode:
@@ -134,13 +136,16 @@ MonoBehaviour:
       Value: 1
     KBPower:
       Value: 1
+    Dur:
+      Value: 1
   CurrentChargeTime: 0
   DropBottomYPos: 0.35
   ThisSprite: {fileID: 1336410039, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
   TrailTime: 0.8
   TrailStartWidth: 0.04
-  LightIntensity: 0.5
+  LightIntensity: 0.2
   BulletObjSize: {x: 1, y: 1}
+  HoloSprite: {fileID: 2036969429, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
 --- !u!114 &1999153423990081965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +215,8 @@ MonoBehaviour:
       Value: 1
     KBPower:
       Value: 1
+    Dur:
+      Value: 1
     Dmg_BuffList: []
     Rof_BuffList: []
     MovementSpeed_BuffList: []
@@ -218,6 +225,7 @@ MonoBehaviour:
     CD_BuffList: []
     MuzzleSpeed_BuffList: []
     KBPower_BuffList: []
+    Dur_BuffList: []
 --- !u!1001 &7963981104507379668
 PrefabInstance:
   m_ObjectHideFlags: 0

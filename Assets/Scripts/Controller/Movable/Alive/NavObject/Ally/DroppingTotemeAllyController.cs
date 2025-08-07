@@ -10,6 +10,7 @@ public class DroppingTotemeAllyController : DroppingAllyController
     [Space(10)]
     [Header("=== Bullet")]
     [SerializeField] private Vector2 BulletObjSize;
+    [SerializeField] private Sprite HoloSprite;
 
     #endregion
 
@@ -36,6 +37,8 @@ public class DroppingTotemeAllyController : DroppingAllyController
             _DroppingTime: ActualAllyState.MuzzleSpeed.Value,
             _TopYPos: 5f,
             _BottomYPos: DropBottomYPos,
+            _Dur: ActualAllyState.Dur.Value,
+            _HoloSprite: HoloSprite,
             _State_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
             _State_Size: Get_BulletState_Shadow_Size());
 

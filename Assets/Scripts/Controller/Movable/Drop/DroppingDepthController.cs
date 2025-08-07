@@ -77,7 +77,7 @@ public abstract class DroppingDepthController : MovableDepthController
 
         float _droppingTime = 1 / DroppingSpeed;
         seq.Join(ShadowTF.DOScale(ShadowSize, _droppingTime).SetEase(Ease.Linear)); // 그림자
-        seq.Join(DOTween.To(() => TargetRange, x => TargetRange = x, DropBottomYPos, _droppingTime).SetEase(Ease.Linear)); // 떨어지는 이미지
+        seq.Join(DOTween.To(() => TargetRange, x => TargetRange = x, DropBottomYPos, _droppingTime).SetEase(Ease.InCubic)); // 떨어지는 이미지
         seq.Join(ThisSR.DOFade(1f, _droppingTime * 0.3f).SetEase(Ease.Linear));
         seq.OnComplete(() =>
         {
@@ -105,7 +105,7 @@ public abstract class DroppingDepthController : MovableDepthController
 
     #region Light
 
-    public void SetOn_LightIntensity(float _Intensity)
+    public virtual void SetOn_LightIntensity(float _Intensity)
     {
         ThisLight.intensity = _Intensity;
         ThisLight.lightCookieSprite = ThisSR.sprite;

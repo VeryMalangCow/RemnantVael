@@ -86,6 +86,8 @@ MonoBehaviour:
       Value: 0.4
     KBPower:
       Value: 1
+    Dur:
+      Value: 0
   MaxHP: 100
   MaxEP: 100
   AllyStateMode:
@@ -141,6 +143,8 @@ MonoBehaviour:
     MuzzleSpeed:
       Value: 1
     KBPower:
+      Value: 1
+    Dur:
       Value: 1
   ForEnemyDis: 3.5
   ThisSG: {fileID: 6733897396435173674}
@@ -225,6 +229,8 @@ MonoBehaviour:
       Value: 1
     KBPower:
       Value: 1
+    Dur:
+      Value: 1
     Dmg_BuffList: []
     Rof_BuffList: []
     MovementSpeed_BuffList: []
@@ -233,6 +239,7 @@ MonoBehaviour:
     CD_BuffList: []
     MuzzleSpeed_BuffList: []
     KBPower_BuffList: []
+    Dur_BuffList: []
 --- !u!50 &7751130478170212446
 Rigidbody2D:
   serializedVersion: 4
