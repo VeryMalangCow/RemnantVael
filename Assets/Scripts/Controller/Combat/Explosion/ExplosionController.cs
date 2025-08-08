@@ -64,7 +64,7 @@ public abstract class ExplosionController : StaticDepthController
         float _TargetRange = 0.4f)
     {
         Set_State_Base(_State, _TargetRange);
-        Set_State_Juge(BigExplostionColSize);
+        Set_State_Juge(BigExplostionColSize, _State.AttackSizeState.Size);
         Set_State_Anim(_AC);
         Set_State_StartTF(_State_StartTF);
         Set_State_Extra();
@@ -80,10 +80,11 @@ public abstract class ExplosionController : StaticDepthController
         TargetRange = _TargetRange;
     }
 
-    public virtual void Set_State_Juge(float _ColRadius)
+    public virtual void Set_State_Juge(float _ExplosionSize, float _ColRadius)
     {
-        ThisCol.radius = _ColRadius;
-        ThisLight.pointLightOuterRadius = _ColRadius;
+        TargetObject.transform.localScale = Vector2.one * _ColRadius;
+        ThisCol.radius = _ExplosionSize * _ColRadius;
+        ThisLight.pointLightOuterRadius = _ExplosionSize * _ColRadius;
     }
 
     public virtual void Set_State_Anim(AnimationClip _AC)

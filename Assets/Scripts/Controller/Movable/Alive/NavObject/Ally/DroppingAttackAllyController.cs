@@ -3,14 +3,13 @@ using UnityEngine;
 public class DroppingAttackAllyController : DroppingAllyController
 {
     #region Value
-
+/*
     [Space(20)]
     [Header("<><><><><> Dropping")]
 
     [Space(10)]
     [Header("=== Bullet")]
-    [SerializeField] private Vector2 BulletObjSize;
-
+*/
     #endregion
 
     #region Attack
@@ -82,7 +81,7 @@ public class DroppingAttackAllyController : DroppingAllyController
     private BulletState_Size Get_BulletState_Shadow_Size()
     {
         return new BulletState_Size(
-            BulletObjSize * ActualAllyState.AttackSize.Value,
+            Vector2.one * ActualAllyState.AttackSize.Value,
             new Vector2(0.3f, 0.15f));
     }
 

@@ -329,7 +329,8 @@ public class EnemyBuffController : MonoBehaviour
                 new CombatOwner(eCombatOwner.Enemy),
                 new DmgState(_DmgType, _Dmg),
                 new CriticalState(0, 1),
-                new KnockbackState(true, 10f, 0.2f)), 
+                new KnockbackState(true, 10f, 0.2f)),
+            new AttackSizeState(1f),
             statusBool); 
     }
 

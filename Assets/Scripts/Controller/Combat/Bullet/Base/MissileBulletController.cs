@@ -119,6 +119,7 @@ public class MissileBulletController : PlayerBulletController
                 new DmgState(eDamageType.Physics, State.DmgState.Dmg * 2),
                 new CriticalState(State.CriticalState),
                 new KnockbackState(true, State.KnockbackState.KBPower * 2, State.KnockbackState.KBTime)),
+            new AttackSizeState(1f),
             new List<bool> { false, true, false, false}); // Fire, Cold, Electricity, Corrosion
     }
 

@@ -37,6 +37,7 @@ public class AllyDroppingBombController : DroppingBombController
                 new DmgState(eDamageType.Physics, State.DmgState.Dmg),
                 new CriticalState(State.CriticalState),
                 new KnockbackState(true, State.KnockbackState.KBPower, State.KnockbackState.KBTime)),
+            SizeState,
             new List<bool> { false, false, false, false }); // Fire, Cold, Electricity, Corrosion
     }
 

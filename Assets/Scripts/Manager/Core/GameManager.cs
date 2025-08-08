@@ -1964,18 +1964,24 @@ public class ExplosionState : CombatState
 {
     #region Value
 
+    [Space(10)]
+    [Header("=== AttackSize")]
+    [SerializeField] public AttackSizeState AttackSizeState;
+
     public bool IsFire = false;
     public bool IsCold = false;
     public bool IsElectricity = false;
     public bool IsCorrosion = false;
-    
+
     #endregion
 
     #region Constructor
 
-    public ExplosionState(CombatState _State, List<bool> _IsStatusList) : 
+    public ExplosionState(CombatState _State, AttackSizeState _SizeState, List<bool> _IsStatusList) : 
         base(_State.OwnerData, _State.DmgState, _State.CriticalState, _State.KnockbackState) 
     {
+        AttackSizeState = new AttackSizeState(_SizeState);
+
         IsFire = _IsStatusList[0];
         IsCold = _IsStatusList[1];
         IsElectricity = _IsStatusList[2];
@@ -1984,6 +1990,8 @@ public class ExplosionState : CombatState
     public ExplosionState(ExplosionState _State) : 
         base(_State.OwnerData, _State.DmgState, _State.CriticalState, _State.KnockbackState)
     {
+        AttackSizeState = new AttackSizeState(_State.AttackSizeState);
+
         IsFire = _State.IsFire;
         IsCold = _State.IsCold;
         IsElectricity = _State.IsElectricity;
@@ -2123,6 +2131,39 @@ public class KnockbackState : ElementState
         CanKB = false;
         KBPower = 0;
         KBTime = 0;
+    }
+
+    #endregion
+}
+
+[System.Serializable]
+public class AttackSizeState : ElementState
+{
+    #region Value
+
+    [SerializeField] public float Size;
+
+    #endregion
+
+    #region Constructor
+
+    public AttackSizeState(AttackSizeState _State)
+    {
+        Size = _State.Size;
+    }
+
+    public AttackSizeState(float _Size)
+    {
+        Size = _Size;
+    }
+
+    #endregion
+
+    #region Reset
+
+    public override void Reset_State()
+    {
+        Size = 1f;
     }
 
     #endregion

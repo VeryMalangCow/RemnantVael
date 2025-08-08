@@ -13,6 +13,7 @@ public abstract class DroppingBombController : DroppingDepthController
     [Space(10)]
     [Header("=== State")]
     [SerializeField] public CombatState State;
+    [SerializeField] protected AttackSizeState SizeState;
     // 스탯을 Drop형으로 바꾸던 아니면, 스탯을 추가하던 하셈
 
 
@@ -77,6 +78,13 @@ public abstract class DroppingBombController : DroppingDepthController
         this.transform.localRotation = DevTool.Get_RotFromDir(_State_PosAndRot.Dir);
 
         DevTool.Add_RotZValue(transform, _State_PosAndRot.SpreadAngle);
+    }
+
+    public override void Set_State_ShadowSize(BulletState_Size _State_Size)
+    {
+        base.Set_State_ShadowSize(_State_Size);
+
+        SizeState = new AttackSizeState(_State_Size.ObjSize.x);
     }
 
     protected override void SetOn_State()

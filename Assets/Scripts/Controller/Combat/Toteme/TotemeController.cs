@@ -26,12 +26,14 @@ public abstract class TotemeController : DroppingDepthController
     [Header("=== Comp")]
     [SerializeField] private SpriteRenderer HoloSR;
     [SerializeField] private Light2D HoloLight;
+    [SerializeField] private CapsuleCollider2D BuffCol;
 
     #endregion
 
     #region - Hide
 
     [HideInInspector] private bool Is_Activating = false;
+    [HideInInspector] private static readonly Vector2 BuffColBaseSize = new Vector2(2, 1);
 
     #endregion
 
@@ -84,7 +86,7 @@ public abstract class TotemeController : DroppingDepthController
 
     public void Set_State(
         float _DroppingTime, float _TopYPos, float _BottomYPos, float _Dur,
-        Sprite _HoloSprite,
+        Sprite _HoloSprite, float _BuffAreaSize,
         BulletState_PosAndRot _State_PosAndRot,
         BulletState_Size _State_Size)
     {
@@ -104,6 +106,14 @@ public abstract class TotemeController : DroppingDepthController
 
         DevTool.Add_RotZValue(transform, _State_PosAndRot.SpreadAngle);
     }
+
+    public override void Set_State_ShadowSize(BulletState_Size _State_Size)
+    {
+        base.Set_State_ShadowSize(_State_Size);
+
+        BuffCol.size = BuffColBaseSize * _State_Size.ObjSize;
+    }
+
 
     private void Set_State_Toteme(float _Dur, Sprite _HoloSprite)
     {

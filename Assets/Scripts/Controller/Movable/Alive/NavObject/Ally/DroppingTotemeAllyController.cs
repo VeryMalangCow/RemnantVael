@@ -9,7 +9,6 @@ public class DroppingTotemeAllyController : DroppingAllyController
 
     [Space(10)]
     [Header("=== Bullet")]
-    [SerializeField] private Vector2 BulletObjSize;
     [SerializeField] private Sprite HoloSprite;
 
     #endregion
@@ -39,6 +38,7 @@ public class DroppingTotemeAllyController : DroppingAllyController
             _BottomYPos: DropBottomYPos,
             _Dur: ActualAllyState.Dur.Value,
             _HoloSprite: HoloSprite,
+            _BuffAreaSize: 1f,
             _State_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
             _State_Size: Get_BulletState_Shadow_Size());
 
@@ -65,7 +65,7 @@ public class DroppingTotemeAllyController : DroppingAllyController
     private BulletState_Size Get_BulletState_Shadow_Size()
     {
         return new BulletState_Size(
-            BulletObjSize * ActualAllyState.AttackSize.Value,
+            Vector2.one * ActualAllyState.AttackSize.Value,
             new Vector2(0.3f, 0.15f));
     }
 
