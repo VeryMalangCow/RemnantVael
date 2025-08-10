@@ -2566,6 +2566,9 @@ MonoBehaviour:
   OnlyOnceAnimators:
     Prefab: {fileID: 5890781269332614966, guid: dee81b65873639948b499612e7d22c8f, type: 3}
     ParentTF: {fileID: 77619666}
+  AreaPointSRs:
+    Prefab: {fileID: 3144508379382086641, guid: 48e181cbe6747b44e8342029a96cc4cc, type: 3}
+    ParentTF: {fileID: 77619666}
   DmgTxtCanvases:
     Prefab: {fileID: 3929266293630113405, guid: 9f39834d26e7b4b42b07427807f08835, type: 3}
     ParentTF: {fileID: 523388470}

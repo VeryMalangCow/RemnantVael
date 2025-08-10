@@ -30,7 +30,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<EnemyBulletController> EnemyBullets;
     [SerializeField] public TTypePooling<EnemyAttackerController> EnemyAttackers;
     [HideInInspector] public List<TTypePooling<EnemyController>> CurrentStageEnemies;
-    [SerializeField] public Transform EnemyParentTF;
+    [SerializeField] public Transform EnemyParentTF;    
     [SerializeField] public TTypePooling<EnemyExplosionController> EnemyExplosions;
 
     [Header("=== Effect Img")]
@@ -38,6 +38,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<SpriteRenderer> AfterImgs;
     [SerializeField] public TTypePooling<SpriteRenderer> ExplosionImgs;
     [SerializeField] public TTypePooling<OnceTimeAnimController> OnlyOnceAnimators;
+    [SerializeField] public TTypePooling<SpriteRenderer> AreaPointSRs;
 
     [Header("=== UI")]
     [SerializeField] public TTypePooling<WorldTxtEUIController> DmgTxtCanvases;
@@ -349,6 +350,14 @@ public class PoolingManager : Singleton<PoolingManager>
     {
         return Get_OP<DeadParticleController>(DeadParticles.Prefab, DeadParticles.ParentTF, DeadParticles.Queue);
     }
+
+    // Area Point
+    public List<SpriteRenderer> Get_OP_AreaPointSRList(int _Amount)
+    {
+        return Get_OP_List<SpriteRenderer>(AreaPointSRs, _Amount);
+    }
+
+    
     #endregion
 
     #region Module Item

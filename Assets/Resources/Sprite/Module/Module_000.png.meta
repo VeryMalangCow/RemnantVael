@@ -1134,7 +1134,7 @@ TextureImporter:
         width: 9
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1142,6 +1142,27 @@ TextureImporter:
       bones: []
       spriteID: bb366dc490126504b95f6b3cd4771d78
       internalID: 760498540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_AreaPoint
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 221
+        width: 3
+        height: 3
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b21bd9aa9d015b8429c860c4262b3243
+      internalID: -1904997858
       vertices: []
       indices: 
       edges: []
@@ -1209,6 +1230,7 @@ TextureImporter:
       Module000_Smoke_01: 1391882910
       Module000_Smoke_02: 237403348
       Module000_Smoke_03: 366755556
+      Module_AreaPoint: -1904997858
       Module_ModuleFieldItem: -1758125111
       Module_OverriderBigItem: 760498540
       Module_PingFrame: 97448768

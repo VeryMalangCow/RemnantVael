@@ -38,6 +38,7 @@ public class DroppingTotemeAllyController : DroppingAllyController
             _BottomYPos: DropBottomYPos,
             _Dur: ActualAllyState.Dur.Value,
             _HoloSprite: HoloSprite,
+            _Clr: ThisExtraColor,
             _BuffAreaSize: 1f,
             _State_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
             _State_Size: Get_BulletState_Shadow_Size());

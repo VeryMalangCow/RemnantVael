@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine.Rendering.Universal;
+using System.Collections.Generic;
 
 public abstract class TotemeController : DroppingDepthController
 {
@@ -26,14 +27,22 @@ public abstract class TotemeController : DroppingDepthController
     [Header("=== Comp")]
     [SerializeField] private SpriteRenderer HoloSR;
     [SerializeField] private Light2D HoloLight;
+
+    [Space(10)]
+    [Header("=== Buff Area")]
+    [SerializeField] private GameObject BuffAreaGO;
     [SerializeField] private CapsuleCollider2D BuffCol;
+    [SerializeField] private Transform BuffPointParentTF;
 
     #endregion
 
     #region - Hide
 
+    // Activating
     [HideInInspector] private bool Is_Activating = false;
     [HideInInspector] private static readonly Vector2 BuffColBaseSize = new Vector2(2, 1);
+    [HideInInspector] private static readonly int PointAmountPerSize = 12;
+    [HideInInspector] private List<SpriteRenderer> BuffPointList = new List<SpriteRenderer>();
 
     #endregion
 
@@ -46,7 +55,7 @@ public abstract class TotemeController : DroppingDepthController
         base.Update();
 
         if (Is_Activating)
-            HoloSR.transform.Rotate(new Vector3(0, 135f * Time.deltaTime, 0));
+            HoloSR.transform.Rotate(new Vector3(0, 180f * Time.deltaTime, 0));
     }
 
     #endregion
@@ -78,6 +87,7 @@ public abstract class TotemeController : DroppingDepthController
 
         Is_Activating = false;
         HoloSR.gameObject.SetActive(false);
+        BuffAreaGO.gameObject.SetActive(false);
     }
 
     #endregion
@@ -86,7 +96,7 @@ public abstract class TotemeController : DroppingDepthController
 
     public void Set_State(
         float _DroppingTime, float _TopYPos, float _BottomYPos, float _Dur,
-        Sprite _HoloSprite, float _BuffAreaSize,
+        Sprite _HoloSprite, Color _Clr, float _BuffAreaSize,
         BulletState_PosAndRot _State_PosAndRot,
         BulletState_Size _State_Size)
     {
@@ -95,6 +105,8 @@ public abstract class TotemeController : DroppingDepthController
         Set_State_PosAndRot(_State_PosAndRot);
         Set_State_ShadowSize(_State_Size);
         Set_State_Toteme(_Dur, _HoloSprite);
+
+        Set_State_BuffAreaPoint(_State_Size.ObjSize, _Clr);
 
         SetOn_State();
     }
@@ -112,6 +124,23 @@ public abstract class TotemeController : DroppingDepthController
         base.Set_State_ShadowSize(_State_Size);
 
         BuffCol.size = BuffColBaseSize * _State_Size.ObjSize;
+    }
+
+    private void Set_State_BuffAreaPoint(Vector2 _AreaSize, Color _Clr)
+    {
+        Vector2 targetArea = BuffCol.size;
+        int amount = (int)(_AreaSize.x * PointAmountPerSize);
+
+        List<Vector2> pointPosList = Get_PointPosList(targetArea, amount);
+        BuffPointList = PoolingManager.Instance.Get_OP_AreaPointSRList(amount);
+
+        for (int i = 0; i < amount; i++)
+        {
+            BuffPointList[i].color = _Clr;
+            BuffPointList[i].transform.SetParent(BuffPointParentTF, false); // 로컬 좌표 유지
+            BuffPointList[i].transform.localPosition = pointPosList[i]; // 로컬 좌표로 설정
+            BuffPointList[i].gameObject.SetActive(true);
+        }
     }
 
 
@@ -160,6 +189,7 @@ public abstract class TotemeController : DroppingDepthController
         Is_Activating = true;
         HoloSR.gameObject.SetActive(true);
         HoloSR.DOFade(1f, 0.5f).SetEase(Ease.Linear);
+        BuffAreaGO.gameObject.SetActive(true);
     }
 
     private void Active_FadeOut()
@@ -178,6 +208,69 @@ public abstract class TotemeController : DroppingDepthController
 
         HoloSR.sortingOrder = _SortingOrder;
         ThisTrail.sortingOrder = _SortingOrder - 1;
+    }
+
+    #endregion
+
+    #region Area Point
+
+    private List<Vector2> Get_PointPosList(Vector2 _CapsuleSize, int _Amount)
+    {
+        List<Vector2> points = new List<Vector2>();
+
+        float width = _CapsuleSize.x;
+        float height = _CapsuleSize.y;
+
+        float radius = height / 2f;
+        float straight = width - (radius * 2f);
+        if (straight < 0f) straight = 0f;
+
+        float arcLength = Mathf.PI * radius;
+        float perimeter = (straight * 2f) + (arcLength * 2f);
+
+        for (int i = 0; i < _Amount; i++)
+        {
+            float dist = (perimeter * i) / _Amount;
+            Vector2 pos;
+
+            // 1. 상단 직선 (왼 → 오)
+            if (dist <= straight)
+            {
+                pos = new Vector2(-straight / 2f + dist, radius);
+            }
+            // 2. 오른쪽 반원 (위 → 아래)
+            else if (dist <= straight + arcLength)
+            {
+                float arcDist = dist - straight;
+                float t = arcDist / arcLength; // 0~1
+                float angle = 90f - t * 180f; // 90 → -90
+                pos = new Vector2(straight / 2f + Mathf.Cos(angle * Mathf.Deg2Rad) * radius,
+                    Mathf.Sin(angle * Mathf.Deg2Rad) * radius);
+            }
+            // 3. 하단 직선 (오 → 왼)
+            else if (dist <= straight + arcLength + straight)
+            {
+                float lineDist = dist - (straight + arcLength);
+                pos = new Vector2(straight / 2f - lineDist, -radius);
+            }
+            // 4. 왼쪽 반원 (아래 → 위)
+            else
+            {
+                float arcDist = dist - (straight * 2f + arcLength);
+                float t = arcDist / arcLength; // 0 ~ 1
+
+                // 변경: -90 → 90 이 아니라 270 → 90 으로 (아래 -> 왼쪽 -> 위)
+                float angle = 270f - t * 180f; // 270 -> 90
+                float rad = angle * Mathf.Deg2Rad;
+
+                pos = new Vector2(-straight / 2f + Mathf.Cos(rad) * radius,
+                    Mathf.Sin(rad) * radius);
+            }
+
+            points.Add(pos);
+        }
+
+        return points;
     }
 
     #endregion
@@ -211,7 +304,28 @@ public abstract class TotemeController : DroppingDepthController
         Remove_Condition();
         Reset_State();
 
+        for (int i = 0; i < BuffPointList.Count; i++)
+        {
+            BuffPointList[i].gameObject.SetActive(false);
+            PoolingManager.Instance.AreaPointSRs.Queue.Enqueue(BuffPointList[i]);
+        }
+        BuffPointList = null;
+
         this.gameObject.SetActive(false);
+    }
+
+    #endregion
+
+    #region Trigger
+
+    private void OnTriggerEnter2D(Collider2D _Other)
+    {
+        
+    }
+
+    private void OnTriggerExit2D(Collider2D _Other)
+    {
+        
     }
 
     #endregion
