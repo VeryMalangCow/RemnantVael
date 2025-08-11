@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1232844703756233022}
   - component: {fileID: 8138059332026427226}
   m_Layer: 7
-  m_Name: EnemyS00_02_Prefab
+  m_Name: EnemyS00_03_Prefab
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ MonoBehaviour:
   ThisEnemyType: 0
   MaxHP: 150
   MaxEP: 150
-  ChargeEPSpeed: 10
+  ChargeEPSpeed: 50
   ItemDropPercent: 1
   ItemRankPercents:
   - 0.2
@@ -96,17 +96,17 @@ MonoBehaviour:
   OrderOfPriorityEnemyPatternList:
   - EnemyPatternList:
     - EnemyPatternList:
-      - {fileID: 8493327633309841782}
+      - {fileID: 658148181341960540}
   - EnemyPatternList:
     - EnemyPatternList:
       - {fileID: 3988373326148802438}
-      - {fileID: 8493327633309841782}
+      - {fileID: 658148181341960540}
   - EnemyPatternList:
     - EnemyPatternList:
       - {fileID: 8721225703925756054}
   SpecialPattern:
     EnemyPatternList:
-    - {fileID: 386546918868841986}
+    - {fileID: 5304281735289498022}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
   BuffController: {fileID: 5694203857495159564}
@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 6344438746737160783}
   - component: {fileID: 3988373326148802438}
   m_Layer: 7
-  m_Name: Follow_ForRange
+  m_Name: Follow_ForThrust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -517,7 +517,7 @@ MonoBehaviour:
   IsPlaying: 0
   FollowingSpeed: 2.5
   UntilForTargetRange: 1
-  TargetRange: 4.8
+  TargetRange: 2.5
   IgnoreWall: 0
   UntilForTargetTime: 0
   TargetTime: 2
@@ -651,9 +651,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3560546325541260281}
-  - component: {fileID: 386546918868841986}
+  - component: {fileID: 5304281735289498022}
   m_Layer: 7
-  m_Name: SectorFormRangeAT
+  m_Name: ThrustAT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -674,7 +674,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6681861465552561479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &386546918868841986
+--- !u!114 &5304281735289498022
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -683,86 +683,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 6941762234563741687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcbe35e835cba79449c6846867a03aac, type: 3}
+  m_Script: {fileID: 11500000, guid: 2443ff40f389b3a40a373143c1966741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
   RepeatAmount: 3
   StartDelay: 1
-  EndDelay: 0.2
+  EndDelay: 0.5
   IsSpecialPattern: 1
   IsSpecialStartPattern: 1
   IsSpecialEndPattern: 1
   IsPlaying: 0
-  ThisBS:
+  ThisAS:
     OwnerData:
-      Owner: 0
+      Owner: 2
       ID: 0
     DmgState:
       DmgType: 0
-      Dmg: 5
+      Dmg: 15
     CriticalState:
       CC: 0
       CD: 0
     KnockbackState:
       CanKB: 1
-      KBPower: 1
+      KBPower: 2
       KBTime: 1
-    IsCritical: 0
-    MuzzleSpeed: 1.5
-    AliveTime: 6
-    IsStatus: 0
-    StatusType: 0
-  BulletShadowScale: {x: 0.32, y: 0.32}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.7
-  TrailStartWidth: 0.4
-  TrailGradient:
-    serializedVersion: 2
-    key0: {r: 0.6528621, g: 0, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 0}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 32768
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: -1
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  LightIntensity: 5
-  MaxRange: 0
+  ThisAC: {fileID: 7400000, guid: c58fd7094374ac043917207fc75e6b47, type: 2}
+  JugeAndTweenTime: 1
+  AnimSpeed: 2.6
+  Dis: 7
+  LightOn: 1
+  LightSize: 1
+  MaxRange: 2.8
   MinRange: 0
-  ShootExplAmount: 8
-  ExplAmount: 8
   SpawnDepthList:
-  - {fileID: 848216773187047800}
+  - {fileID: 5139810350627272259}
+  - {fileID: 4056894064819751254}
   BeforeEffectDepthList:
   - {fileID: 5139810350627272259}
   - {fileID: 4056894064819751254}
   BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
-  AngleList:
-  - -20
-  - 0
-  - 20
 --- !u!1 &7798985532177022493
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,9 +732,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1383470367207219228}
-  - component: {fileID: 8493327633309841782}
+  - component: {fileID: 658148181341960540}
   m_Layer: 7
-  m_Name: RangeAT
+  m_Name: ThrustAT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -795,7 +755,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8805351947020054373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8493327633309841782
+--- !u!114 &658148181341960540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -804,82 +764,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 7798985532177022493}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e621be8eda9ca334da6b1868422ce61e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2443ff40f389b3a40a373143c1966741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
   RepeatAmount: 1
-  StartDelay: 1.5
-  EndDelay: 0.75
+  StartDelay: 2
+  EndDelay: 1
   IsSpecialPattern: 0
   IsSpecialStartPattern: 0
   IsSpecialEndPattern: 0
   IsPlaying: 0
-  ThisBS:
+  ThisAS:
     OwnerData:
-      Owner: 0
+      Owner: 2
       ID: 0
     DmgState:
       DmgType: 0
-      Dmg: 5
+      Dmg: 15
     CriticalState:
       CC: 0
       CD: 0
     KnockbackState:
       CanKB: 1
-      KBPower: 1
+      KBPower: 2
       KBTime: 1
-    IsCritical: 0
-    MuzzleSpeed: 1.5
-    AliveTime: 6
-    IsStatus: 0
-    StatusType: 0
-  BulletShadowScale: {x: 0.32, y: 0.32}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.7
-  TrailStartWidth: 0.4
-  TrailGradient:
-    serializedVersion: 2
-    key0: {r: 0.6528621, g: 0, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 0}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 32768
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: -1
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  LightIntensity: 5
-  MaxRange: 4.5
+  ThisAC: {fileID: 7400000, guid: c58fd7094374ac043917207fc75e6b47, type: 2}
+  JugeAndTweenTime: 0.7
+  AnimSpeed: 2.6
+  Dis: 4.5
+  LightOn: 1
+  LightSize: 1
+  MaxRange: 2.8
   MinRange: 0
-  ShootExplAmount: 8
-  ExplAmount: 8
   SpawnDepthList:
-  - {fileID: 848216773187047800}
+  - {fileID: 5139810350627272259}
+  - {fileID: 4056894064819751254}
   BeforeEffectDepthList:
   - {fileID: 5139810350627272259}
   - {fileID: 4056894064819751254}
   BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
 --- !u!1 &8118620993618137944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,42 +1040,78 @@ PrefabInstance:
       propertyPath: EnemyController
       value: 
       objectReference: {fileID: 848216773187047800}
+    - target: {fileID: 2222629274383368526, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 40959158, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 2331373582162172994, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: ThisDirectionalList.Array.data[0]
+      value: 
+      objectReference: {fileID: -1252191565, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 2331373582162172994, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: ThisDirectionalList.Array.data[1]
+      value: 
+      objectReference: {fileID: 5385064, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 2331373582162172994, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: ThisDirectionalList.Array.data[2]
+      value: 
+      objectReference: {fileID: 255948971, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 2331373582162172994, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: ThisDirectionalList.Array.data[3]
+      value: 
+      objectReference: {fileID: -231966634, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 2331373582162172994, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: ThisDirectionalList.Array.data[4]
+      value: 
+      objectReference: {fileID: 84910132, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 2331373582162172994, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: ThisDirectionalList.Array.data[5]
+      value: 
+      objectReference: {fileID: 40959158, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 2331373582162172994, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: ThisDirectionalList.Array.data[6]
+      value: 
+      objectReference: {fileID: -638733810, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 2331373582162172994, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: ThisDirectionalList.Array.data[7]
+      value: 
+      objectReference: {fileID: -906948046, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: ThisDirectionalList.Array.data[0]
       value: 
-      objectReference: {fileID: -176571284, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+      objectReference: {fileID: -1252191565, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: ThisDirectionalList.Array.data[1]
       value: 
-      objectReference: {fileID: -802095933, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+      objectReference: {fileID: 5385064, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: ThisDirectionalList.Array.data[2]
       value: 
-      objectReference: {fileID: -730727061, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+      objectReference: {fileID: 255948971, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: ThisDirectionalList.Array.data[3]
       value: 
-      objectReference: {fileID: -571167311, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+      objectReference: {fileID: -231966634, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: ThisDirectionalList.Array.data[4]
       value: 
-      objectReference: {fileID: 1787400998, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+      objectReference: {fileID: 84910132, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: ThisDirectionalList.Array.data[5]
       value: 
-      objectReference: {fileID: -287199551, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+      objectReference: {fileID: 40959158, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: ThisDirectionalList.Array.data[6]
       value: 
-      objectReference: {fileID: 2076636446, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+      objectReference: {fileID: -638733810, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: ThisDirectionalList.Array.data[7]
       value: 
-      objectReference: {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+      objectReference: {fileID: -906948046, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 6554919075280264633, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -287199551, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+      objectReference: {fileID: 40959158, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 6904064703115002294, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -95,7 +95,6 @@ public class EnemyController : NavObjectController
 
     #endregion
 
-
     #region Offset
 
     protected override void Offset()

@@ -91,15 +91,17 @@ public abstract class AttackerController : MovableDepthController
         State_Anim _State_Anim,
         State_TF2D _State_StartTF,
         AttackerState_EndTF _State_EndTF,
-        float _TargetRange = 0.4f) where T : Collider2D
+        float _TargetRange = 0.4f,
+        Transform _Parent = null,
+        bool _IsLocal = false) where T : Collider2D
     {
         Sequence seq = DOTween.Sequence();
 
         Set_State_Base(_State, _TargetRange);
         Set_State_Juge<T>(_State_Juge);
         Set_State_Anim(_State_Anim);
-        Set_State_StartTF(_State_StartTF);
-        seq.Join(Set_State_EndTF(_State_EndTF));
+        Set_State_StartTF(_State_StartTF, _Parent, _IsLocal);
+        seq.Join(Set_State_EndTF(_State_EndTF, _IsLocal));
         Set_State_Extra();
 
         SetOn_State(seq);
@@ -136,20 +138,37 @@ public abstract class AttackerController : MovableDepthController
         ThisAnimator.speed = _State_Anim.Speed;
     }
 
-    public virtual void Set_State_StartTF(State_TF2D _State_StartTF)
+    public virtual void Set_State_StartTF(State_TF2D _State_StartTF, Transform _Parent, bool _IsLocalPos)
     {
-        this.transform.position = _State_StartTF.Pos;
+        if (_IsLocalPos)
+        {
+            this.transform.SetParent(_Parent);
+            this.transform.localPosition = _State_StartTF.Pos;
+        }
+        else
+        {
+            this.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+            this.transform.position = _State_StartTF.Pos;
+        }
         this.transform.rotation = _State_StartTF.Rot;
         this.transform.localScale = _State_StartTF.LocalScale;
     }
 
-    public virtual Sequence Set_State_EndTF(AttackerState_EndTF _State_EndTF) 
+    public virtual Sequence Set_State_EndTF(AttackerState_EndTF _State_EndTF, bool _IsLocalPos) 
     {
         Sequence seq = DOTween.Sequence();
 
-        seq.Join(this.transform.DOMove(_State_EndTF.TF.Pos, _State_EndTF.Time));
-        seq.Join(TargetObject.transform.DORotateQuaternion(_State_EndTF.TF.Rot, _State_EndTF.Time));
-        seq.Join(this.transform.DOScale(_State_EndTF.TF.LocalScale, _State_EndTF.Time));
+        if (_IsLocalPos)
+        {
+            seq.Join(this.transform.DOLocalMove(_State_EndTF.TF.Pos, _State_EndTF.Time).SetEase(Ease.Linear));
+        }
+        else
+        {
+            seq.Join(this.transform.DOMove(_State_EndTF.TF.Pos, _State_EndTF.Time).SetEase(Ease.Linear));
+        }
+
+        seq.Join(TargetObject.transform.DORotateQuaternion(_State_EndTF.TF.Rot, _State_EndTF.Time).SetEase(Ease.Linear));
+        seq.Join(this.transform.DOScale(_State_EndTF.TF.LocalScale, _State_EndTF.Time).SetEase(Ease.Linear));
 
         return seq;
     }
@@ -160,7 +179,7 @@ public abstract class AttackerController : MovableDepthController
     private void SetOn_State(Sequence _TotalSeq)
     {
         this.gameObject.SetActive(true);
-        this.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        //this.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
 
         _TotalSeq.OnComplete(() =>
         {

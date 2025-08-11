@@ -1293,6 +1293,174 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Enemy00_Lance_LU
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 166
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ffd72ff328b78149916df59aeae0753
+      internalID: -1252191565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_Lance_U
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 166
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71ecca9af0975d843a61c48636c05022
+      internalID: 5385064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_Lance_RU
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 166
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05bb1d989add99c4597c18bfb14807a3
+      internalID: 255948971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_Lance_R
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 166
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c70644995c7e5e047a229c5ecf65a209
+      internalID: -231966634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_Lance_RD
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 166
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8507c004ed6487c4cad704dbeeed0d44
+      internalID: 84910132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_Lance_D
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 166
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93df86453f360b845905c42b9b71ef9e
+      internalID: 40959158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_Lance_LD
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 166
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b70e038e9e8c6b5418347a4fddb4a51c
+      internalID: -638733810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_Lance_L
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 166
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 724681209989f33489b3a7818456aa0f
+      internalID: -906948046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1317,6 +1485,14 @@ TextureImporter:
       Enemy00_EnergyGun_RD: 1787400998
       Enemy00_EnergyGun_RU: -730727061
       Enemy00_EnergyGun_U: -802095933
+      Enemy00_Lance_D: 40959158
+      Enemy00_Lance_L: -906948046
+      Enemy00_Lance_LD: -638733810
+      Enemy00_Lance_LU: -1252191565
+      Enemy00_Lance_R: -231966634
+      Enemy00_Lance_RD: 84910132
+      Enemy00_Lance_RU: 255948971
+      Enemy00_Lance_U: 5385064
       Enemy00_Main_D: -1973428488
       Enemy00_Main_L: 2073786952
       Enemy00_Main_LD: -1501272803
