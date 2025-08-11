@@ -144,8 +144,9 @@ MonoBehaviour:
   TrailTime: 0.8
   TrailStartWidth: 0.04
   LightIntensity: 0.2
-  BulletObjSize: {x: 1, y: 1}
   HoloSprite: {fileID: 2036969429, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
+  PlayerBuffID: 11
+  AllyBuffID: TotisToteme
 --- !u!114 &1999153423990081965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +190,16 @@ MonoBehaviour:
     BuffAmount: 0
     CurrentCooltime: 0
   Sync008_Buff:
+    Type: 
+    IconSprite: {fileID: 0}
+    BuffValue: 0
+    BuffMaxAmount: 0
+    MaxCooltime: 0
+    IsIncrease: 0
+    IsPermanent: 0
+    BuffAmount: 0
+    CurrentCooltime: 0
+  TotisToteme_Buff:
     Type: 
     IconSprite: {fileID: 0}
     BuffValue: 0

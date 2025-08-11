@@ -11,6 +11,9 @@ public class DroppingTotemeAllyController : DroppingAllyController
     [Header("=== Bullet")]
     [SerializeField] private Sprite HoloSprite;
 
+    [SerializeField] private int PlayerBuffID;
+    [SerializeField] private string AllyBuffID;
+
     #endregion
 
     #region Attack
@@ -42,6 +45,8 @@ public class DroppingTotemeAllyController : DroppingAllyController
             _BuffAreaSize: 1f,
             _State_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
             _State_Size: Get_BulletState_Shadow_Size());
+
+        _Toteme.Set_State_BuffID(PlayerBuffID, AllyBuffID);
 
         // Light & Trail
         _Toteme.SetOn_LightIntensity(LightIntensity);

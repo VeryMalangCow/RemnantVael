@@ -17,7 +17,7 @@ public abstract class TotemeController : DroppingDepthController
     [Space(10)]
     [Header("=== Buff")]
     [SerializeField] private int PlayerBuffID;
-    [SerializeField] private int AllyBuffID;
+    [SerializeField] private string AllyBuffID;
 
     [Space(10)]
     [Header("=== State")]
@@ -43,6 +43,10 @@ public abstract class TotemeController : DroppingDepthController
     [HideInInspector] private static readonly Vector2 BuffColBaseSize = new Vector2(2, 1);
     [HideInInspector] private static readonly int PointAmountPerSize = 12;
     [HideInInspector] private List<SpriteRenderer> BuffPointList = new List<SpriteRenderer>();
+
+    // Buff
+    [HideInInspector] private bool InAreaPlayer = false;
+    [HideInInspector] private List<AllyController> InAreaAllies = null;
 
     #endregion
 
@@ -88,6 +92,9 @@ public abstract class TotemeController : DroppingDepthController
         Is_Activating = false;
         HoloSR.gameObject.SetActive(false);
         BuffAreaGO.gameObject.SetActive(false);
+
+        InAreaPlayer = false;
+        InAreaAllies = null;
     }
 
     #endregion
@@ -154,10 +161,18 @@ public abstract class TotemeController : DroppingDepthController
     {
         gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
         gameObject.SetActive(true);
+        TimerManager.Instance.Add_Toteme(this);
 
         SetOn_Trail();
 
         base.SetOn_State();
+    }
+
+
+    public void Set_State_BuffID(int _PlayerBuffID, string _AllyBuffID)
+    {
+        PlayerBuffID = _PlayerBuffID;
+        AllyBuffID = _AllyBuffID;
     }
 
     #endregion
@@ -186,6 +201,8 @@ public abstract class TotemeController : DroppingDepthController
 
     private void Active_StartSetting()
     {
+        InAreaAllies = new List<AllyController>();
+
         Is_Activating = true;
         HoloSR.gameObject.SetActive(true);
         HoloSR.DOFade(1f, 0.5f).SetEase(Ease.Linear);
@@ -196,6 +213,24 @@ public abstract class TotemeController : DroppingDepthController
     {
         ThisSR.DOFade(0f, 0.9f).SetEase(Ease.Linear);
         HoloSR.DOFade(0f, 0.9f).SetEase(Ease.Linear);
+    }
+
+    #endregion
+
+    #region Active Buff
+
+    public void Active_Buff()
+    {
+        if (!Is_Activating) return;
+
+        if (InAreaPlayer)
+            BuffManager.Instance.Gain_Buff(PlayerBuffID);
+        
+        for (int i = 0; i < InAreaAllies.Count; i++)
+        {
+            AllyBuff buff = InAreaAllies[i].BuffController.Get_AllyBuff(AllyBuffID);
+            buff.SetAndGain_Buff(1);
+        }
     }
 
     #endregion
@@ -303,15 +338,20 @@ public abstract class TotemeController : DroppingDepthController
 
         Remove_Condition();
         Reset_State();
+        SetOff_BuffPoint();
 
+        TimerManager.Instance.Remove_Toteme(this);
+        this.gameObject.SetActive(false);
+    }
+
+    private void SetOff_BuffPoint()
+    {
         for (int i = 0; i < BuffPointList.Count; i++)
         {
             BuffPointList[i].gameObject.SetActive(false);
             PoolingManager.Instance.AreaPointSRs.Queue.Enqueue(BuffPointList[i]);
         }
         BuffPointList = null;
-
-        this.gameObject.SetActive(false);
     }
 
     #endregion
@@ -320,12 +360,32 @@ public abstract class TotemeController : DroppingDepthController
 
     private void OnTriggerEnter2D(Collider2D _Other)
     {
-        
+        if (_Other.tag == "Player")
+        {
+            InAreaPlayer = true; 
+        }
+        else if (_Other.tag == "Ally")
+        {
+            if (_Other.gameObject.transform.parent.gameObject.TryGetComponent(out AllyController ally))
+            {
+                DevTool.Add_InList(InAreaAllies, ally);
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D _Other)
     {
-        
+        if (_Other.tag == "Player")
+        {
+            InAreaPlayer = false;
+        }
+        else if (_Other.tag == "Ally")
+        {
+            if (_Other.gameObject.transform.parent.gameObject.TryGetComponent(out AllyController ally))
+            {
+                DevTool.Remove_InList(InAreaAllies, ally);
+            }
+        }
     }
 
     #endregion

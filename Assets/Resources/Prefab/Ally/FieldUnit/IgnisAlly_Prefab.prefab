@@ -38,7 +38,6 @@ Transform:
   - {fileID: 202980173528425446}
   - {fileID: 8338880006226946716}
   - {fileID: 7453947926858605448}
-  - {fileID: 9085471192785977447}
   - {fileID: 8702638338271555023}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -203,6 +202,16 @@ MonoBehaviour:
     BuffAmount: 0
     CurrentCooltime: 0
   Sync008_Buff:
+    Type: 
+    IconSprite: {fileID: 0}
+    BuffValue: 0
+    BuffMaxAmount: 0
+    MaxCooltime: 0
+    IsIncrease: 0
+    IsPermanent: 0
+    BuffAmount: 0
+    CurrentCooltime: 0
+  TotisToteme_Buff:
     Type: 
     IconSprite: {fileID: 0}
     BuffValue: 0
@@ -614,9 +623,9 @@ GameObject:
   - component: {fileID: 8338880006226946716}
   - component: {fileID: 4118884336899611277}
   - component: {fileID: 8461151025667366780}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Shadow
-  m_TagString: Item
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -813,37 +822,6 @@ Transform:
   - {fileID: 889026132765390611}
   - {fileID: 2699746127319541684}
   m_Father: {fileID: 3422307620339894919}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6543819448884125167
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9085471192785977447}
-  m_Layer: 10
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9085471192785977447
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6543819448884125167}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2074109866832102680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7357743068536337124
 GameObject:

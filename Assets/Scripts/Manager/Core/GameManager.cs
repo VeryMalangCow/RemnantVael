@@ -1697,6 +1697,7 @@ public class CouplePair<T>
     }
 }
 
+
 [System.Serializable]
 public class CooltimeData
 {
@@ -1714,16 +1715,48 @@ public class CooltimeData
         Max = _Max;
         Current = _Current;
     }
+}
+
+[System.Serializable]
+public class ChargeCooltimeData : CooltimeData
+{
+    public ChargeCooltimeData() : base() { }
+
+    public ChargeCooltimeData(float _Max, float _Current = 0f) : base(_Max, _Current) { }
 
     public bool Is_Charge(float _DeltaTime)
     {
         if (Current >= Max)
         {
+            Current = 0;
             return true;
         }
         else
         {
-            Current += Time.deltaTime;
+            Current += _DeltaTime;
+            return false;
+        }
+    }
+}
+
+[System.Serializable]
+public class AlwaysCooltimeData : CooltimeData
+{
+    public AlwaysCooltimeData() : base() { }
+
+    public AlwaysCooltimeData(float _Max, float _Current = 0f) : base(_Max, _Current) { }
+
+    public bool Is_Full(float _DeltaTime)
+    {
+        Current += _DeltaTime;
+
+        if (Current >= Max)
+        {
+            Current -= Max;
+            return true;
+        }
+        else
+        {
             return false;
         }
     }
@@ -3136,6 +3169,14 @@ public class AllyBuff : OriginalAllyBuff
     }
 
     #endregion
+
+    public void SetAndGain_Buff(int _Stack = 1)
+    {
+        Ally.BuffController.BuffingState.Add_List(this, Type);
+        Set_OnOff(true);
+        Set_AlwaysShowUI(false);
+        Gain_Buff(_Stack);
+    }
 
     #region Gain Loss
 

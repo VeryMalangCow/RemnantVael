@@ -369,6 +369,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: AllyUI_Buff_TotisToteme
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 201
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2575859e4b983e44922514f3ada8507
+      internalID: -1083493216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -385,6 +406,7 @@ TextureImporter:
       AllyUI_Buff_Sync006: 1160235244
       AllyUI_Buff_Sync007: 923316139
       AllyUI_Buff_Sync008: -1834734568
+      AllyUI_Buff_TotisToteme: -1083493216
       AllyUI_EP_Bar: 922952304
       AllyUI_EP_Liner: -769393496
       AllyUI_HP_Bar: -293243768

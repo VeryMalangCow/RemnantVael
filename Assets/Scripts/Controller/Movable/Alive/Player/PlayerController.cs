@@ -136,7 +136,7 @@ public class PlayerController : AliveObjectController
 
     // Book
     [HideInInspector] private eDamageType TargetDmgMode = eDamageType.Physics;
-    [HideInInspector] private CooltimeData CastingTime = new CooltimeData();
+    [HideInInspector] private ChargeCooltimeData CastingTime = new ChargeCooltimeData();
     [HideInInspector] private Dele ReservationDele = null;
     [HideInInspector] private const float InvincibleTime = 0.5f;
 
@@ -640,7 +640,6 @@ public class PlayerController : AliveObjectController
 
         if (CastingTime.Is_Charge(_DeltaTime)) // 캐스팅 완료
         {
-            CastingTime.Current = 0f;
             MovementState = eMovementState.IdleOrWalk;
             InputManager.Instance.IsPlayingBuffered = false;
 

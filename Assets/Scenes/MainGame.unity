@@ -814,6 +814,7 @@ Transform:
   - {fileID: 355347629}
   - {fileID: 1603310160}
   - {fileID: 73963933}
+  - {fileID: 591762694}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &294952414
@@ -1180,6 +1181,14 @@ MonoBehaviour:
     BuffMaxAmount: 2
     MaxCooltime: 2
     IsIncrease: 1
+    IsPermanent: 0
+  TotisToteme_OriginalBuff:
+    Type: Dmg
+    IconSprite: {fileID: -1083493216, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+    BuffValue: 0.3
+    BuffMaxAmount: 1
+    MaxCooltime: 5
+    IsIncrease: 0
     IsPermanent: 0
   Sync007_OriginalBuff:
     Type: Rof
@@ -2158,6 +2167,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589082916}
   m_CullTransparentMesh: 1
+--- !u!1 &591762693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 591762694}
+  - component: {fileID: 591762695}
+  m_Layer: 0
+  m_Name: TimerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &591762694
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591762693}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 195290732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &591762695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591762693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea9b6a90ce525c64fb4eee9a3201c5bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &591994164
 GameObject:
   m_ObjectHideFlags: 0
@@ -5277,6 +5330,7 @@ GameObject:
   - component: {fileID: 1430576415}
   - component: {fileID: 1430576414}
   - component: {fileID: 1430576416}
+  - component: {fileID: 1430576417}
   m_Layer: 0
   m_Name: BuffManager
   m_TagString: Untagged
@@ -5617,6 +5671,34 @@ MonoBehaviour:
   Multiple:
     BuffID: PlayerSync_008
     BaseValue: 1
+    ActualValue: 0
+--- !u!114 &1430576417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430576401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c158bf245239c1847956c904ee8aff75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 11
+  BuffName: AllyTotisToteme
+  MaxBuffCharge: 1
+  GainCharge: 1
+  ReductionCharge: 1
+  IsIncreaseByTime: 0
+  Condition_DurTimer: 1
+  MaxDurTime: 3
+  InitializationWhenGain: 1
+  InitializationWhenLoss: 0
+  Condition_PlayerSyncSet: 0
+  ThisIconSprite: {fileID: -644871782, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  Multiple:
+    BuffID: AllyTotisToteme
+    BaseValue: 0.3
     ActualValue: 0
 --- !u!1 &1475998875
 GameObject:

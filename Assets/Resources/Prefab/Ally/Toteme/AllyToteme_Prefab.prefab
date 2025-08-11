@@ -322,6 +322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4772996866839286768}
   - component: {fileID: 1527876159234004793}
+  - component: {fileID: 3271850111374263514}
   m_Layer: 0
   m_Name: AllyToteme_Prefab
   m_TagString: PlayerThing
@@ -380,7 +381,33 @@ MonoBehaviour:
   BuffAreaGO: {fileID: 3697190235348723809}
   BuffCol: {fileID: 5498339831587576101}
   BuffPointParentTF: {fileID: 3729883349172316446}
-  AreaPointClr: {r: 1, g: 0, b: 0, a: 1}
+--- !u!50 &3271850111374263514
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2192280153704162206}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 2147485567
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3054027541298377550
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +654,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2147484543
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
