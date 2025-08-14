@@ -76,8 +76,9 @@ MonoBehaviour:
   - Sprite: {fileID: -425848612, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     ShadowSize: {x: 0.3, y: 0.15}
   ParticleThrowDis: 2
-  testbool: 0
   ThisSG: {fileID: 6876125761614079064}
+  ThisAudioSource: {fileID: 8200650119425290761}
+  BuffController: {fileID: 9119119182518581804}
   ThisEnemyType: 0
   MaxHP: 200
   MaxEP: 150
@@ -111,7 +112,6 @@ MonoBehaviour:
     - {fileID: 2132980542444816405}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
-  BuffController: {fileID: 9119119182518581804}
   IsPlayingPattern: 0
 --- !u!114 &9119119182518581804
 MonoBehaviour:
@@ -145,6 +145,7 @@ MonoBehaviour:
     MaxStack: 0
     CurrentStack: 0
     OnceTimeReduceAmount: 0
+    CurrentGainStack: 0
   InfernoStack:
     Enemy: {fileID: 0}
     BuffIconUI: {fileID: 0}
@@ -163,6 +164,7 @@ MonoBehaviour:
     MaxStack: 0
     CurrentStack: 0
     OnceTimeReduceAmount: 0
+    CurrentGainStack: 0
   AbsoluteZeroStack:
     Enemy: {fileID: 0}
     BuffIconUI: {fileID: 0}
@@ -181,6 +183,7 @@ MonoBehaviour:
     MaxStack: 0
     CurrentStack: 0
     OnceTimeReduceAmount: 0
+    CurrentGainStack: 0
   PlasmaStack:
     Enemy: {fileID: 0}
     BuffIconUI: {fileID: 0}
@@ -199,6 +202,7 @@ MonoBehaviour:
     MaxStack: 0
     CurrentStack: 0
     OnceTimeReduceAmount: 0
+    CurrentGainStack: 0
   DecayStack:
     Enemy: {fileID: 0}
     BuffIconUI: {fileID: 0}
@@ -514,6 +518,9 @@ MonoBehaviour:
   IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisAS:
+    OwnerData:
+      Owner: 0
+      ID: 0
     DmgState:
       DmgType: 0
       Dmg: 10
@@ -593,6 +600,9 @@ MonoBehaviour:
   IsSpecialEndPattern: 1
   IsPlaying: 0
   ThisAS:
+    OwnerData:
+      Owner: 0
+      ID: 0
     DmgState:
       DmgType: 0
       Dmg: 10

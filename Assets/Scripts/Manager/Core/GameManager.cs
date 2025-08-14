@@ -6,6 +6,7 @@ using System.Linq;
 using TMPro;
 using UniRx;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
@@ -1283,6 +1284,76 @@ public class DevTool
     {
         return Physics2D.CircleCast(_StartTF.position, _Radius, (_EndTF.position - _StartTF.position).normalized,
             Vector2.Distance(_StartTF.position, _EndTF.position), LayerMask.GetMask(_LayerName)).collider != null;
+    }
+
+    #endregion
+
+    #region Get
+
+    public static bool TryGetDirNavMeshEnd(
+        Vector2 start,
+        Vector2 dir,
+        out Vector2 endPoint,
+        float maxDistance = 100f,
+        int areaMask = NavMesh.AllAreas,
+        bool planeXY = true)
+    {
+        endPoint = default;
+
+        if (dir.sqrMagnitude < 1e-8f)
+            return false;
+
+        // 2D -> 3D 변환 (세팅에 따라 XY 또는 XZ)
+        Vector3 To3(Vector2 v2) => planeXY
+            ? new Vector3(v2.x, v2.y, 0f)
+            : new Vector3(v2.x, 0f, v2.y);
+
+        Vector2 To2(Vector3 v3) => planeXY
+            ? new Vector2(v3.x, v3.y)
+            : new Vector2(v3.x, v3.z);
+
+        // 시작 지점을 NavMesh 위의 유효 지점으로 스냅
+        Vector3 s3 = To3(start);
+        if (!NavMesh.SamplePosition(s3, out var sHit, 0.2f, areaMask))
+        {
+            // 근처 반경을 조금 늘려 재시도
+            if (!NavMesh.SamplePosition(s3, out sHit, 1.0f, areaMask))
+                return false; // NavMesh 위에서 시작하지 않음
+        }
+
+        Vector3 dir3 = To3(dir.normalized) - To3(Vector2.zero);
+
+        // 지수를 키우며(Raycast 실패 시) 멀리까지 쏴서 '첫 경계'를 찾는다
+        float dist = Mathf.Max(1f, maxDistance);
+        const float MaxCap = 100000f;   // 안전 상한
+        const int MaxIters = 20;        // 안전 반복 상한
+
+        for (int i = 0; i < MaxIters && dist <= MaxCap; i++)
+        {
+            Vector3 target = sHit.position + dir3 * dist;
+
+            // NavMesh 직선 경로 상의 장애/경계 검사
+            if (NavMesh.Raycast(sHit.position, target, out var hit, areaMask))
+            {
+                // 첫 번째 경계(또는 장애물) 지점
+                endPoint = To2(hit.position);
+                return true;
+            }
+
+            // 아직 경계에 닿지 않았다면 더 멀리
+            dist *= 2f;
+        }
+
+        // 여기까지 왔다면 매우 멀리까지도 경계가 없었던 상황.
+        // 마지막 타깃 근처의 NavMesh 유효 지점을 반환(사실상 무한 직선상 최원점).
+        Vector3 farTarget = sHit.position + dir3 * Mathf.Min(dist, MaxCap);
+        if (NavMesh.SamplePosition(farTarget, out var farHit, 2f, areaMask))
+        {
+            endPoint = To2(farHit.position);
+            return true;
+        }
+
+        return false;
     }
 
     #endregion

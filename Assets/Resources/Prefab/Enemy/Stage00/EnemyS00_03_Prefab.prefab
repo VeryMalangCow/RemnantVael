@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0c7844095423b4ea47c40cce09ac66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 2
+  ID: 3
   TargetObject: {fileID: 8603897730151291316}
   ThisSR: {fileID: 7051792676472209556}
   TargetRange: 0.6
@@ -77,6 +77,8 @@ MonoBehaviour:
     ShadowSize: {x: 0.3, y: 0.15}
   ParticleThrowDis: 2
   ThisSG: {fileID: 8138059332026427226}
+  ThisAudioSource: {fileID: 1232844703756233022}
+  BuffController: {fileID: 5694203857495159564}
   ThisEnemyType: 0
   MaxHP: 150
   MaxEP: 150
@@ -109,7 +111,6 @@ MonoBehaviour:
     - {fileID: 5304281735289498022}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
-  BuffController: {fileID: 5694203857495159564}
   IsPlayingPattern: 0
 --- !u!114 &5694203857495159564
 MonoBehaviour:
@@ -688,8 +689,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ThisEnemy: {fileID: 848216773187047800}
   RepeatAmount: 3
-  StartDelay: 1
-  EndDelay: 0.5
+  StartDelay: 0.7
+  EndDelay: 1
   IsSpecialPattern: 1
   IsSpecialStartPattern: 1
   IsSpecialEndPattern: 1
@@ -708,13 +709,14 @@ MonoBehaviour:
       CanKB: 1
       KBPower: 2
       KBTime: 1
+  Guiding: 0
   ThisAC: {fileID: 7400000, guid: c58fd7094374ac043917207fc75e6b47, type: 2}
   JugeAndTweenTime: 1
   AnimSpeed: 2.6
-  Dis: 7
+  Speed: 6
   LightOn: 1
   LightSize: 1
-  MaxRange: 2.8
+  MaxRange: 4
   MinRange: 0
   SpawnDepthList:
   - {fileID: 5139810350627272259}
@@ -789,13 +791,14 @@ MonoBehaviour:
       CanKB: 1
       KBPower: 2
       KBTime: 1
+  Guiding: 0
   ThisAC: {fileID: 7400000, guid: c58fd7094374ac043917207fc75e6b47, type: 2}
   JugeAndTweenTime: 0.7
   AnimSpeed: 2.6
-  Dis: 4.5
+  Speed: 4
   LightOn: 1
   LightSize: 1
-  MaxRange: 2.8
+  MaxRange: 3.2
   MinRange: 0
   SpawnDepthList:
   - {fileID: 5139810350627272259}

@@ -16,6 +16,8 @@ public class EnemyController : NavObjectController
     [Space(10)]
     [Header("=== Comp")]
     [SerializeField] private SortingGroup ThisSG;
+    [SerializeField] private AudioSource ThisAudioSource;
+    [SerializeField] public EnemyBuffController BuffController;
 
     [Space(10)]
     [Header("=== State")]
@@ -74,9 +76,6 @@ public class EnemyController : NavObjectController
     [HideInInspector] public Vector2 LookAtDir = Vector2.zero;
 
 
-    // 버프
-    [HideInInspector] public EnemyBuffController BuffController = null;
-
     // 패턴
     [HideInInspector] private ContinuousEnemyPattern CurrentContinuousEnemyPattern = null;
     [HideInInspector] public bool IsPlayingPattern = false;
@@ -88,8 +87,6 @@ public class EnemyController : NavObjectController
     // 죽음
     [HideInInspector] private eDamageType DieStateType;
 
-    // 사운드
-    [HideInInspector] private AudioSource ThisAudioSource;
 
     #endregion
 
@@ -159,13 +156,7 @@ public class EnemyController : NavObjectController
 
     private void Offset_Controller()
     {
-        if (DevTool.Get_ComponentTType(this.gameObject, out EnemyBuffController buff))
-        {
-            BuffController = buff;
-            BuffController.Offset(this);
-        }
-
-        ThisAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject);
+        BuffController.Offset(this);
     }
 
     #endregion

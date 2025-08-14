@@ -17,10 +17,12 @@ public class EnemyPattern_Thrust : EnemyPattern
 
     [Space(10)]
     [Header("=== Value")]
+    [SerializeField] private float Guiding = 0f;
+    [SerializeField] private Vector2 DirForTarget = Vector2.zero;
     [SerializeField] private AnimationClip ThisAC;
     [SerializeField] private float JugeAndTweenTime = 0.5f;
     [SerializeField] private float AnimSpeed = 2.6f;
-    [SerializeField] private float Dis = 1.5f;
+    [SerializeField] private float Speed = 1.5f;
     [SerializeField] bool LightOn = false;
     [SerializeField] float LightSize = 1f;
 
@@ -35,6 +37,7 @@ public class EnemyPattern_Thrust : EnemyPattern
     [SerializeField] private List<DepthController> BeforeEffectDepthList;
     [SerializeField] private Color BeforeEffectColor;
 
+    [HideInInspector] private bool IsThrusting = false;
     [HideInInspector] private Sequence BeforeEffectSeq;
 
     #endregion
@@ -51,6 +54,23 @@ public class EnemyPattern_Thrust : EnemyPattern
         if (!IsPlaying)
         {
             StopCoroutine(Play_ThisPattern_Cor());
+        }
+
+        if (IsThrusting && Guiding > 0)
+        {
+            Vector2 targetDir = Vector2.Lerp(
+                DirForTarget, 
+                DevTool.Get_DirForPlayer(ThisEnemy),
+                Guiding * Time.deltaTime);
+
+            if (DevTool.TryGetDirNavMeshEnd(
+            ThisEnemy.transform.position,
+            targetDir,
+            out Vector2 endPoint))
+            {
+                ThisEnemy.Set_NavDir(endPoint);
+                DirForTarget = targetDir;
+            }
         }
     }
 
@@ -85,6 +105,7 @@ public class EnemyPattern_Thrust : EnemyPattern
         CurrentRepeatAmount++;
 
         Vector2 targetDir = DevTool.Get_DirForPlayer(ThisEnemy);
+        DirForTarget = targetDir;
 
         Play_ActualPattern(targetDir);
 
@@ -93,8 +114,7 @@ public class EnemyPattern_Thrust : EnemyPattern
         Play_AfterEffect(EndDelay);
         yield return new WaitForSeconds(EndDelay);
 
-        ThisEnemy.Set_NavDir(Vector2.zero);
-        ThisEnemy.Set_MoveSpeed(0);
+        Stop_ActualPattern();
         if (CurrentRepeatAmount >= RepeatAmount) // 반복을 마침
         {
             End_Pattern();
@@ -109,12 +129,20 @@ public class EnemyPattern_Thrust : EnemyPattern
 
     protected virtual void Play_ActualPattern(Vector2 _TargetDir)
     {
+        IsThrusting = true;
+
         // Attacker
         for (int i = 0; i < SpawnDepthList.Count; i++)
             Play_ActualPattern_Each(SpawnDepthList[i], _TargetDir);
 
-        ThisEnemy.Set_NavDir((Vector2)ThisEnemy.transform.position + (_TargetDir * Dis));
-        ThisEnemy.Set_MoveSpeed(Dis);
+        if (DevTool.TryGetDirNavMeshEnd(
+            ThisEnemy.transform.position, 
+            _TargetDir,
+            out Vector2 endPoint))
+        {
+            ThisEnemy.Set_NavDir(endPoint);
+            ThisEnemy.Set_MoveSpeed(Speed);
+        }
     }
 
     private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)
@@ -136,6 +164,14 @@ public class EnemyPattern_Thrust : EnemyPattern
         if (LightOn)
             attacker.Set_Light(
                 LightSize, JugeAndTweenTime);
+    }
+
+    private void Stop_ActualPattern()
+    {
+        IsThrusting = false;
+        DirForTarget = Vector2.zero;
+        ThisEnemy.Set_NavDir(Vector2.zero);
+        ThisEnemy.Set_MoveSpeed(0);
     }
 
     #endregion

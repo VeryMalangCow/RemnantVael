@@ -77,6 +77,8 @@ MonoBehaviour:
     ShadowSize: {x: 0.3, y: 0.15}
   ParticleThrowDis: 2
   ThisSG: {fileID: 8138059332026427226}
+  ThisAudioSource: {fileID: 1232844703756233022}
+  BuffController: {fileID: 5694203857495159564}
   ThisEnemyType: 0
   MaxHP: 150
   MaxEP: 150
@@ -109,7 +111,6 @@ MonoBehaviour:
     - {fileID: 386546918868841986}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
-  BuffController: {fileID: 5694203857495159564}
   IsPlayingPattern: 0
 --- !u!114 &5694203857495159564
 MonoBehaviour:

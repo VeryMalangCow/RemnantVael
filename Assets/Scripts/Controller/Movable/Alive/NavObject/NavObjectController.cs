@@ -46,6 +46,11 @@ public class NavObjectController : AliveObjectController
         MoveAtDir = Get_NextDir(transform.position, _TargetPos);
     }
 
+    public Vector2 Get_NavDir()
+    {
+        return MoveAtDir;
+    }
+
     public Vector2 Get_NextDir(Vector3 currentPos, Vector3 targetPos)
     {
         NavMeshPath navPath = new NavMeshPath();

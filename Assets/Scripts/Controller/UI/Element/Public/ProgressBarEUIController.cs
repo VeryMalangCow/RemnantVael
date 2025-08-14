@@ -132,7 +132,7 @@ public class ProgressBarEUIController : ElementUIController
     private Vector2 Get_LinerPos()
     {
         if (ThisRT == null) return Vector2.zero;
-
+        Debug.Log(ThisRT.sizeDelta.x * ActualImg.fillAmount);
         return new Vector2(ThisRT.sizeDelta.x * ActualImg.fillAmount, 0f);
     }
 
