@@ -545,7 +545,7 @@ public abstract class EnemyController : NavObjectController
         Set_Die_GenItem();
         Set_Die_Effect();
         Set_Die_Data();
-        Set_Die_Enqueue();
+        Set_Die_Extra();
     }
 
     private void Set_Die_GenItem()
@@ -592,7 +592,7 @@ public abstract class EnemyController : NavObjectController
         this.gameObject.SetActive(false);
     }
 
-    protected abstract void Set_Die_Enqueue();
+    protected abstract void Set_Die_Extra();
 
     #endregion
 

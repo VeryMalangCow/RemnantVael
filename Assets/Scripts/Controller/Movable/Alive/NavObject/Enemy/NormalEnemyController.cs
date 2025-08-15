@@ -13,7 +13,7 @@ public class NormalEnemyController : EnemyController
 
     #region Die
 
-    protected override void Set_Die_Enqueue()
+    protected override void Set_Die_Extra()
     {
         PoolingManager.Instance.Set_EnqueueEnemy(this);
     }

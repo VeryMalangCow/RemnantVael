@@ -369,7 +369,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         WalkSpeedShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(40), ResourceManager.Instance.Get_StaticDesc(5));
         WalkSpeedWhenShotMultipleShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(41), ResourceManager.Instance.Get_StaticDesc(6));
         WalkAvoidChance.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(36), ResourceManager.Instance.Get_StaticDesc(7));
-        DashSpeedShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(12), ResourceManager.Instance.Get_StaticDesc(8));
+        DashSpeedShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(10), ResourceManager.Instance.Get_StaticDesc(8));
 
         DamageShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(12), ResourceManager.Instance.Get_StaticDesc(9));
         ROFShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(13), ResourceManager.Instance.Get_StaticDesc(10));

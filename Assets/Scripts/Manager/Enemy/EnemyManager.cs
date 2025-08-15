@@ -42,7 +42,7 @@ public class EnemyManager : Singleton<EnemyManager>
     [HideInInspector] public List<EnemyController> CurrentEnemyList = new List<EnemyController>();
     [HideInInspector] public List<EnemyController> PoolingAllEnemyList = new List<EnemyController>();
 
-    [HideInInspector] public List<EliteEnemyController> CurrentEliteEnemyList = new List<EliteEnemyController>();
+    [SerializeField] private List<EliteEnemyController> CurrentEliteEnemyList = new List<EliteEnemyController>();
     
     #endregion
 
@@ -120,6 +120,30 @@ public class EnemyManager : Singleton<EnemyManager>
         }
 
         PoolingAllEnemyList.Clear();
+    }
+
+    #endregion
+
+    #region Elite
+
+    public void Add_EliteEnemy(EliteEnemyController _EliteEnemy)
+    {
+        DevTool.Add_InList(CurrentEliteEnemyList, _EliteEnemy);
+        Set_EliteEnemyHUD();
+    }
+
+    public void Remove_EliteEnemy(EliteEnemyController _EliteEnemy)
+    {
+        DevTool.Remove_InList(CurrentEliteEnemyList, _EliteEnemy);
+        Set_EliteEnemyHUD();
+    }
+
+    private void Set_EliteEnemyHUD()
+    {
+        for (int i = 0; i < CurrentEliteEnemyList.Count; i++)
+        {
+            CurrentEliteEnemyList[i].Set_HUDPanelPos(i);
+        }
     }
 
     #endregion

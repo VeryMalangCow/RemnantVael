@@ -13,9 +13,21 @@ public class EliteEnemyController : EnemyController
 
     #region - Hide
 
-    [HideInInspector] private static readonly Vector2 HUDBaseAnchorPos = new Vector2(-812, 300);
-    
+    [HideInInspector] private static readonly Vector2 HUDBaseAnchorPos = new Vector2(-812, 290);
+    [HideInInspector] private static readonly float HUDIntervalY = 80f;
+
     #endregion
+
+    #endregion
+
+    #region Framework
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        EnemyManager.Instance.Add_EliteEnemy(this);
+    }
 
     #endregion
 
@@ -26,16 +38,26 @@ public class EliteEnemyController : EnemyController
         base.Offset();
 
         HUD.ThisCanvas.worldCamera = MainGameUIManager.Instance.UICamera;
-        PanelRT.anchoredPosition = HUDBaseAnchorPos;
     }
 
     #endregion
 
+    #region HUD
+
+    public void Set_HUDPanelPos(int _Index)
+    {
+        Debug.Log(new Vector2(HUDBaseAnchorPos.x, HUDBaseAnchorPos.y + (HUDIntervalY * _Index)));
+        PanelRT.anchoredPosition = new Vector2(HUDBaseAnchorPos.x, HUDBaseAnchorPos.y + (HUDIntervalY * _Index));
+    }
+
+    #endregion
 
     #region Die
 
-    protected override void Set_Die_Enqueue()
+    protected override void Set_Die_Extra()
     {
+        EnemyManager.Instance.Remove_EliteEnemy(this);
+
         PoolingManager.Instance.Set_EnqueueEliteEnemy(this);
     }
 
