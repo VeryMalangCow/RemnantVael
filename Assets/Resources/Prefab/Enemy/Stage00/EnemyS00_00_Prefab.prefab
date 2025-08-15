@@ -644,7 +644,7 @@ MonoBehaviour:
   IsPlaying: 0
   ThisAS:
     OwnerData:
-      Owner: 0
+      Owner: 2
       ID: 0
     DmgState:
       DmgType: 0
@@ -937,7 +937,7 @@ MonoBehaviour:
   IsPlaying: 0
   ThisBS:
     OwnerData:
-      Owner: 0
+      Owner: 2
       ID: 0
     DmgState:
       DmgType: 0
@@ -954,6 +954,7 @@ MonoBehaviour:
     AliveTime: 3
     IsStatus: 0
     StatusType: 0
+  BaseAngle: 0
   BulletShadowScale: {x: 0.32, y: 0.32}
   BulletColSize: {x: 2, y: 3}
   TrailTime: 0.5
@@ -1056,7 +1057,7 @@ MonoBehaviour:
   IsPlaying: 0
   ThisAS:
     OwnerData:
-      Owner: 0
+      Owner: 2
       ID: 0
     DmgState:
       DmgType: 0
@@ -1140,7 +1141,7 @@ MonoBehaviour:
   IsPlaying: 0
   ThisBS:
     OwnerData:
-      Owner: 0
+      Owner: 2
       ID: 0
     DmgState:
       DmgType: 0
@@ -1157,6 +1158,7 @@ MonoBehaviour:
     AliveTime: 3
     IsStatus: 0
     StatusType: 0
+  BaseAngle: 0
   BulletShadowScale: {x: 0.16, y: 0.16}
   BulletColSize: {x: 2, y: 3}
   TrailTime: 0.5

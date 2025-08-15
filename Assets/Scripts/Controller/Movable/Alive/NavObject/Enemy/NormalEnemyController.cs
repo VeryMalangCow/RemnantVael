@@ -11,5 +11,12 @@ public class NormalEnemyController : EnemyController
 
     #endregion
 
+    #region Die
 
+    protected override void Set_Die_Enqueue()
+    {
+        PoolingManager.Instance.Set_EnqueueEnemy(this);
+    }
+
+    #endregion
 }

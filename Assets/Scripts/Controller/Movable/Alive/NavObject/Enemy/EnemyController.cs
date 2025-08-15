@@ -4,7 +4,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class EnemyController : NavObjectController
+public abstract class EnemyController : NavObjectController
 {
     #region Value
 
@@ -545,6 +545,7 @@ public class EnemyController : NavObjectController
         Set_Die_GenItem();
         Set_Die_Effect();
         Set_Die_Data();
+        Set_Die_Enqueue();
     }
 
     private void Set_Die_GenItem()
@@ -589,8 +590,9 @@ public class EnemyController : NavObjectController
 
         // Set
         this.gameObject.SetActive(false);
-        PoolingManager.Instance.Set_EnqueueEnemy(this);
     }
+
+    protected abstract void Set_Die_Enqueue();
 
     #endregion
 

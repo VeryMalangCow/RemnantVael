@@ -42,6 +42,8 @@ public class EnemyManager : Singleton<EnemyManager>
     [HideInInspector] public List<EnemyController> CurrentEnemyList = new List<EnemyController>();
     [HideInInspector] public List<EnemyController> PoolingAllEnemyList = new List<EnemyController>();
 
+    [HideInInspector] public List<EliteEnemyController> CurrentEliteEnemyList = new List<EliteEnemyController>();
+    
     #endregion
 
     #endregion

@@ -13,6 +13,7 @@ public class EnemyPattern_Range : EnemyPattern
     [Space(10)]
     [Header("=== State")]
     [SerializeField] private BulletState ThisBS;
+    [SerializeField] private float BaseAngle = 0f;
 
     [Space(10)]
     [Header("=== Size")]
@@ -146,7 +147,9 @@ public class EnemyPattern_Range : EnemyPattern
     protected virtual void Play_ActualPattern(Vector2 _TargetDir)
     {
         for (int i = 0; i < SpawnDepthList.Count; i++)
-            Play_ActualPattern_Each(SpawnDepthList[i], _TargetDir);
+            Play_ActualPattern_Each(SpawnDepthList[i], 
+                DevTool.Get_DirFromAngle(
+                    DevTool.Get_AngleFromDir(_TargetDir) + BaseAngle));
     }
 
     private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)

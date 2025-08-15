@@ -96,7 +96,6 @@ public class EnemyBulletController : BulletController
 
     #endregion
 
-
     #region Light
 
     public void SetOn_LightIntensity(float _Intensity)

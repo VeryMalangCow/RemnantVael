@@ -29,7 +29,8 @@ public class PoolingManager : Singleton<PoolingManager>
     [Header("=== Enemy")]
     [SerializeField] public TTypePooling<EnemyBulletController> EnemyBullets;
     [SerializeField] public TTypePooling<EnemyAttackerController> EnemyAttackers;
-    [HideInInspector] public List<TTypePooling<EnemyController>> CurrentStageEnemies;
+    [HideInInspector] public List<TTypePooling<NormalEnemyController>> CurrentStageEnemies;
+    [HideInInspector] public List<TTypePooling<EliteEnemyController>> CurrentStageEliteEnemies;
     [SerializeField] public Transform EnemyParentTF;    
     [SerializeField] public TTypePooling<EnemyExplosionController> EnemyExplosions;
 
@@ -79,8 +80,12 @@ public class PoolingManager : Singleton<PoolingManager>
 
         EnemyBullets.Queue.Clear();
         EnemyAttackers.Queue.Clear();
+
         for (int i = 0; i < CurrentStageEnemies.Count; i++)
             CurrentStageEnemies[i].Queue.Clear();
+        for (int i = 0; i < CurrentStageEliteEnemies.Count; i++)
+            CurrentStageEliteEnemies[i].Queue.Clear();
+
         EnemyManager.Instance.Remove_PoolingAllEnemy();
 
         AfterImgs.Queue.Clear();
@@ -252,38 +257,76 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Enemy
 
     // Enemy
-    public EnemyController Get_OP_Enemy(int _EnemyID)
+
+    public EnemyController Get_OP_Enemy(eEnemy _Type, int _EnemyID)
     {
-        TTypePooling<EnemyController> enemy = Get_CorrectEnemyQueue(_EnemyID);
-        return Get_OP<EnemyController>(enemy.Prefab, enemy.ParentTF, enemy.Queue);
+        if (_Type == eEnemy.Normal)
+        {
+            TTypePooling<NormalEnemyController> enemy = Get_CorrectEnemyQueue(_EnemyID);
+            return Get_OP<NormalEnemyController>(enemy.Prefab, enemy.ParentTF, enemy.Queue);
+        }
+        else if (_Type == eEnemy.Elite)
+        {
+            TTypePooling<EliteEnemyController> enemy = Get_CorrectEliteEnemyQueue(_EnemyID);
+            return Get_OP<EliteEnemyController>(enemy.Prefab, enemy.ParentTF, enemy.Queue);
+        }
+
+#if UNITY_EDITOR
+        Debug.Log("\'Get_OP_Enemy\' cannot FIND!");
+#endif
+        return null;
     }
 
-    public void Set_EnqueueEnemy(EnemyController _Enemy)
+    public void Set_EnqueueEnemy(NormalEnemyController _Enemy)
     {
         Get_CorrectEnemyQueue(_Enemy.Get_ID()).Queue.Enqueue(_Enemy);
     }
 
-    // Offset
-    public void Offset_EnemiesPooling(List<GameObject> _EnemyGOs)
+    public void Set_EnqueueEliteEnemy(EliteEnemyController _EliteEnemy)
     {
-        CurrentStageEnemies = new List<TTypePooling<EnemyController>>();
+        Get_CorrectEliteEnemyQueue(_EliteEnemy.Get_ID()).Queue.Enqueue(_EliteEnemy);
+    }
 
+    // Offset
+    public void Offset_EnemiesPooling(List<GameObject> _EnemyGOs, List<GameObject> _EliteEnemyGOs)
+    {
+        CurrentStageEnemies = new List<TTypePooling<NormalEnemyController>>();
         for (int i = 0; i < _EnemyGOs.Count; i++)
-            CurrentStageEnemies.Add(new TTypePooling<EnemyController>(_EnemyGOs[i], EnemyParentTF));
+            CurrentStageEnemies.Add(new TTypePooling<NormalEnemyController>(_EnemyGOs[i], EnemyParentTF));
+
+        CurrentStageEliteEnemies = new List<TTypePooling<EliteEnemyController>>();
+        for (int i = 0; i < _EliteEnemyGOs.Count; i++)
+            CurrentStageEliteEnemies.Add(new TTypePooling<EliteEnemyController>(_EliteEnemyGOs[i], EnemyParentTF));
     }
 
     // Find
-    private TTypePooling<EnemyController> Get_CorrectEnemyQueue(int _EnemyID)
+    private TTypePooling<NormalEnemyController> Get_CorrectEnemyQueue(int _EnemyID)
     {
         for (int i = 0; i < CurrentStageEnemies.Count; i++)
         {
-            if (CurrentStageEnemies[i].Prefab.TryGetComponent(out EnemyController EC) && EC.Get_ID() == _EnemyID)
+            if (CurrentStageEnemies[i].Prefab.TryGetComponent(out NormalEnemyController EC) && EC.Get_ID() == _EnemyID)
             {
                 return CurrentStageEnemies[i];
             }
         }
 #if UNITY_EDITOR
         Debug.Log("\'Enemy Queue\' cannot FIND!");
+#endif
+        return null;
+    }
+
+    private TTypePooling<EliteEnemyController> Get_CorrectEliteEnemyQueue(int _EliteEnemyID)
+    {
+
+        for (int i = 0; i < CurrentStageEliteEnemies.Count; i++)
+        {
+            if (CurrentStageEliteEnemies[i].Prefab.TryGetComponent(out EliteEnemyController EC) && EC.Get_ID() == _EliteEnemyID)
+            {
+                return CurrentStageEliteEnemies[i];
+            }
+        }
+#if UNITY_EDITOR
+        Debug.Log("\'Elite Enemy Queue\' cannot FIND!");
 #endif
         return null;
     }

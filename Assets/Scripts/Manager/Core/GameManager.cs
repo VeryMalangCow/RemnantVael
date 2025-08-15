@@ -4155,6 +4155,7 @@ public class GenPrisonRoomData : GenSpecialRoomData
 public class StageEnemy
 {
     public List<GameObject> StageEnemyList;
+    public List<GameObject> StageEliteEnemyList;
 }
 
 #endregion
