@@ -10,6 +10,21 @@ public class EnemyAttackerController : AttackerController
 
     #endregion
 
+    #region Set State
+
+    // 적의 판정은 조금 줄이도록하는 편법 사용
+    public override void Set_State_Juge<T>(AttackerState_Juge<T> _State_Juge)
+    {
+        base.Set_State_Juge(_State_Juge);
+
+        if (DevTool.Can_CastingTType(ThisCol, out CapsuleCollider2D capsule2D))
+            capsule2D.size *= 0.8f;
+        else if (DevTool.Can_CastingTType(ThisCol, out CircleCollider2D circle2D))
+            circle2D.radius *= 0.8f;
+    }
+
+    #endregion
+
     #region Remove
 
     protected override void Remove_Condition()

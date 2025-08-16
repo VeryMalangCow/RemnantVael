@@ -1713,6 +1713,741 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Enemy00_LB_00
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 148
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e32c646bf766024f9195c29b37bd27c
+      internalID: -938161262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_LB_01
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 148
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbfd9f9028c549842ac65becd76fb767
+      internalID: -1130011100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_LB_02
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 148
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f323f4c7782ba7c488d3397f04416569
+      internalID: 394434684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_Main_LU
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 124
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6d341867802b0944a0ee90031816b84
+      internalID: 995770962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_Main_U
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 124
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e192baccaa9db74baa1d89fbb260dac
+      internalID: -1238955834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_Main_RU
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 124
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 915b4d407135a714c8ddf02635071209
+      internalID: 1560116925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_Main_R
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 124
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f8e0daee4ad1f948b5381f1633114ed
+      internalID: -709366498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_Main_RD
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 124
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 519c3b231aa6b8e4fb013a3e08350d42
+      internalID: 1736186243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_Main_D
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 124
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48ff9fbc77250ab4ab4be71f86410c58
+      internalID: -1666094639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_Main_LD
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 124
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45a6f6265e87e1543a51cae907e0343c
+      internalID: -1605350458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_Main_L
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 124
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ae14146c27c1a1438fc6dd7f2200ac7
+      internalID: 992159658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigSword_LU
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 100
+        width: 26
+        height: 24
+      alignment: 9
+      pivot: {x: 0.7896599, y: 0.32131004}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 796c32183e7676e4b8efff58fa055d79
+      internalID: -1370744984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigSword_U
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 100
+        width: 26
+        height: 24
+      alignment: 9
+      pivot: {x: 0.49597695, y: 0.19927724}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7adf99b3dadc0bc41a76e459bbcb6902
+      internalID: 895566792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigSword_RU
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 100
+        width: 26
+        height: 24
+      alignment: 9
+      pivot: {x: 0.2103402, y: 0.31695175}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8e13995c3d5aae4393fbd36d8dae5b1
+      internalID: -466871879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigSword_R
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 100
+        width: 26
+        height: 24
+      alignment: 9
+      pivot: {x: 0.1620636, y: 0.43462595}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b52683baafc8d447984dcf224bb4882
+      internalID: 1451315509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigSword_RD
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 100
+        width: 26
+        height: 24
+      alignment: 9
+      pivot: {x: 0.18620183, y: 0.6438246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efc744b181ca9b340aba06d48c5d313e
+      internalID: -559908794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigSword_D
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 100
+        width: 26
+        height: 24
+      alignment: 9
+      pivot: {x: 0.49597755, y: 0.80072373}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64806b14e5ca59a4db82691574253ec7
+      internalID: 319446414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigSword_LD
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 100
+        width: 26
+        height: 24
+      alignment: 9
+      pivot: {x: 0.8097757, y: 0.65254146}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 889e8cc072a24f049b8b11d6ff70b0a0
+      internalID: 310103437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigSword_L
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 100
+        width: 26
+        height: 24
+      alignment: 9
+      pivot: {x: 0.8298909, y: 0.43898425}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72d42a03ab820d44eb2f9e20cf2d302f
+      internalID: -471157717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_MainBody_LU_RD
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 40
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c3f6b2e897fbc7498fc9b709066fd43
+      internalID: 429603935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigWheel_LU_RD_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 22
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c83624c2492c646418a4b3a9e2e2f61e
+      internalID: -1754718469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigWheel_LU_RD_01
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 22
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8868ba3f21fff8f4aa8f63bf8d89af87
+      internalID: -336862240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_MainBody_U_D
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 40
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4853862b0964ea419050f72dac2c682
+      internalID: 95519621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_MainBody_LD_RU
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 40
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1335cd6eddb66a54c88e824be5abd2c9
+      internalID: 57598050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_MainBody_L_R
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 40
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 026caf4b36312d841ad12087ba660a75
+      internalID: -1685858139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigWheel_U_D_00
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 22
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3134da5d2135e894b9285e1103be0272
+      internalID: -1006898750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigWheel_U_D_01
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 22
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f521a778aee22ed42ae42517c67dd2df
+      internalID: 188619383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigWheel_LD_RU_00
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 22
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cdfa37e69adcfd4886f7cee7ec48faf
+      internalID: -1089608541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigWheel_LD_RU_01
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 22
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bd8583873d287a4883b6cc83d2b27d5
+      internalID: -781214044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigWheel_L_R_00
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 22
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f6436918b9f9a94b83d08eb9a05fcd7
+      internalID: 751338603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy00_BigWheel_L_R_01
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 22
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7f1a3f90346a98438eba0ddcdda5bdc
+      internalID: -1262715236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_MainUpBody_LU_RD
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 72
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b99454773b139a469f88124fb061519
+      internalID: -2087368878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_MainUpBody_U_D
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 72
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55522a27549d2d54fade90c873b84017
+      internalID: -140397928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_MainUpBody_LD_RU
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 72
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06d0b6fef6d294944b58df275a4c85c0
+      internalID: 755008558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossEnemy00_MainUpBody_L_R
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 72
+        width: 36
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1e0d4c8efe28f14aba574cd0fdc0485
+      internalID: 865187936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1726,6 +2461,22 @@ TextureImporter:
     - texture: {fileID: 2800000, guid: 0abf441cd924f2348919b40d9b0ef75d, type: 3}
       name: _Emission
     nameFileIdTable:
+      BossEnemy00_MainBody_LD_RU: 57598050
+      BossEnemy00_MainBody_LU_RD: 429603935
+      BossEnemy00_MainBody_L_R: -1685858139
+      BossEnemy00_MainBody_U_D: 95519621
+      BossEnemy00_MainUpBody_LD_RU: 755008558
+      BossEnemy00_MainUpBody_LU_RD: -2087368878
+      BossEnemy00_MainUpBody_L_R: 865187936
+      BossEnemy00_MainUpBody_U_D: -140397928
+      BossEnemy00_Main_D: -1666094639
+      BossEnemy00_Main_L: 992159658
+      BossEnemy00_Main_LD: -1605350458
+      BossEnemy00_Main_LU: 995770962
+      BossEnemy00_Main_R: -709366498
+      BossEnemy00_Main_RD: 1736186243
+      BossEnemy00_Main_RU: 1560116925
+      BossEnemy00_Main_U: -1238955834
       EliteEnemy00_Main_D: 54874701
       EliteEnemy00_Main_L: 1806680504
       EliteEnemy00_Main_LD: 1531499655
@@ -1737,6 +2488,22 @@ TextureImporter:
       Enemy00_B_00: -1394026320
       Enemy00_B_01: -587695485
       Enemy00_B_02: -973824730
+      Enemy00_BigSword_D: 319446414
+      Enemy00_BigSword_L: -471157717
+      Enemy00_BigSword_LD: 310103437
+      Enemy00_BigSword_LU: 140936770
+      Enemy00_BigSword_R: 1451315509
+      Enemy00_BigSword_RD: -559908794
+      Enemy00_BigSword_RU: -466871879
+      Enemy00_BigSword_U: 895566792
+      Enemy00_BigWheel_LD_RU_00: -1089608541
+      Enemy00_BigWheel_LD_RU_01: -781214044
+      Enemy00_BigWheel_LU_RD_00: -1754718469
+      Enemy00_BigWheel_LU_RD_01: -336862240
+      Enemy00_BigWheel_L_R_00: 751338603
+      Enemy00_BigWheel_L_R_01: -1262715236
+      Enemy00_BigWheel_U_D_00: -1006898750
+      Enemy00_BigWheel_U_D_01: 188619383
       Enemy00_E_00: 191573939
       Enemy00_E_01: 2002850892
       Enemy00_E_02: 458983273
@@ -1749,6 +2516,9 @@ TextureImporter:
       Enemy00_EnergyGun_RD: 1787400998
       Enemy00_EnergyGun_RU: -730727061
       Enemy00_EnergyGun_U: -802095933
+      Enemy00_LB_00: -938161262
+      Enemy00_LB_01: -1130011100
+      Enemy00_LB_02: 394434684
       Enemy00_Lance_D: 40959158
       Enemy00_Lance_L: -906948046
       Enemy00_Lance_LD: -638733810

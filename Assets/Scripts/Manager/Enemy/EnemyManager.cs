@@ -43,7 +43,8 @@ public class EnemyManager : Singleton<EnemyManager>
     [HideInInspector] public List<EnemyController> PoolingAllEnemyList = new List<EnemyController>();
 
     [SerializeField] private List<EliteEnemyController> CurrentEliteEnemyList = new List<EliteEnemyController>();
-    
+    [SerializeField] private BossEnemyController CurrentBossEnemy = null;
+
     #endregion
 
     #endregion
@@ -129,20 +130,48 @@ public class EnemyManager : Singleton<EnemyManager>
     public void Add_EliteEnemy(EliteEnemyController _EliteEnemy)
     {
         DevTool.Add_InList(CurrentEliteEnemyList, _EliteEnemy);
-        Set_EliteEnemyHUD();
+        Set_SpecialEnemyHUD();
     }
 
     public void Remove_EliteEnemy(EliteEnemyController _EliteEnemy)
     {
         DevTool.Remove_InList(CurrentEliteEnemyList, _EliteEnemy);
-        Set_EliteEnemyHUD();
+        Set_SpecialEnemyHUD();
     }
 
-    private void Set_EliteEnemyHUD()
+    #endregion
+
+    #region Boss
+
+    public void SetOn_BossEnemy(BossEnemyController _BossEnemy)
     {
+        CurrentBossEnemy = _BossEnemy;
+        Set_SpecialEnemyHUD();
+    }
+    
+    public void SetOff_BossEnemy()
+    {
+        CurrentBossEnemy = null;
+        Set_SpecialEnemyHUD();
+    }
+
+    #endregion
+
+    #region HUD
+
+    private void Set_SpecialEnemyHUD()
+    {
+        int index = 0;
+        if (CurrentBossEnemy != null)
+        {
+            CurrentBossEnemy.Set_HUDPanelPos();
+            index++;
+        }
+        
         for (int i = 0; i < CurrentEliteEnemyList.Count; i++)
         {
-            CurrentEliteEnemyList[i].Set_HUDPanelPos(i);
+            CurrentEliteEnemyList[i].Set_HUDPanelPos(index); 
+            index++;
         }
     }
 

@@ -272,7 +272,7 @@ public class PoolingManager : Singleton<PoolingManager>
         }
 
 #if UNITY_EDITOR
-        Debug.Log("\'Get_OP_Enemy\' cannot FIND!");
+            Debug.Log("\'Get_OP_Enemy\' cannot FIND!");
 #endif
         return null;
     }
@@ -330,7 +330,6 @@ public class PoolingManager : Singleton<PoolingManager>
 #endif
         return null;
     }
-
 
     // Enemy Bullet
     public EnemyBulletController Get_OP_EnemyBullet()

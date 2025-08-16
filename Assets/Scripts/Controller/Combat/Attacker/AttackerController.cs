@@ -130,6 +130,8 @@ public abstract class AttackerController : MovableDepthController
         {
             circle2D.radius = _State_Juge.ColSize.x;
         }
+
+        ThisAnimator.transform.localScale = _State_Juge.ColSize;
     }
 
     public virtual void Set_State_Anim(State_Anim _State_Anim)

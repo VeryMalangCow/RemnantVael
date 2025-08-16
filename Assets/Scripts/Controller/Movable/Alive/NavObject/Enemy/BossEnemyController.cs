@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class EliteEnemyController : EnemyController
+public class BossEnemyController : EnemyController
 {
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Elite")]
+    [Header("<><><><><> Boss")]
 
     [Space(10)]
     [Header("=== Comp")]
@@ -14,7 +14,6 @@ public class EliteEnemyController : EnemyController
     #region - Hide
 
     [HideInInspector] private static readonly Vector2 HUDBaseAnchorPos = new Vector2(-812, 290);
-    [HideInInspector] private static readonly float HUDIntervalY = 80f;
 
     #endregion
 
@@ -26,7 +25,7 @@ public class EliteEnemyController : EnemyController
     {
         base.OnEnable();
 
-        EnemyManager.Instance.Add_EliteEnemy(this);
+        EnemyManager.Instance.SetOn_BossEnemy(this);
     }
 
     #endregion
@@ -44,9 +43,9 @@ public class EliteEnemyController : EnemyController
 
     #region HUD
 
-    public void Set_HUDPanelPos(int _Index)
+    public void Set_HUDPanelPos()
     {
-        PanelRT.anchoredPosition = new Vector2(HUDBaseAnchorPos.x, HUDBaseAnchorPos.y + (HUDIntervalY * _Index));
+        PanelRT.anchoredPosition = HUDBaseAnchorPos;
     }
 
     #endregion
@@ -55,9 +54,8 @@ public class EliteEnemyController : EnemyController
 
     protected override void Set_Die_Extra()
     {
-        EnemyManager.Instance.Remove_EliteEnemy(this);
-
-        PoolingManager.Instance.Set_EnqueueEliteEnemy(this);
+        EnemyManager.Instance.SetOff_BossEnemy();
+        Destroy(this.gameObject);
     }
 
     #endregion

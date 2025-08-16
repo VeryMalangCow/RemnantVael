@@ -5267,7 +5267,7 @@ public enum eDashStyle
 
 public enum eEnemy
 {
-    Normal, Elite, SemiBoss, Boss
+    Normal, Elite, Boss
 }
 
 #endregion

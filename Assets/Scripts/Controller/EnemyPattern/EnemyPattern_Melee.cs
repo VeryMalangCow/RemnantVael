@@ -21,6 +21,8 @@ public class EnemyPattern_Melee : EnemyPattern
     [SerializeField] private float AnimSpeed = 2.6f;
     [SerializeField] private float SpawnDis = 1f;
     [SerializeField] private float EndDis = 1.5f;
+    [SerializeField] private Vector2 AttackSizeVec = Vector2.one;
+    [SerializeField] private bool IsShadowRangeByDepthController = true;
     [SerializeField] bool LightOn = false;
     [SerializeField] float LightSize = 1f;
 
@@ -77,15 +79,14 @@ public class EnemyPattern_Melee : EnemyPattern
 
     protected override IEnumerator Play_ThisPattern_Cor()
     {
-
         Play_BeforeEffect(StartDelay);
         yield return new WaitForSeconds(StartDelay);
 
         #region Actual
 
-        CurrentRepeatAmount++;
-
         Vector2 targetDir = DevTool.Get_DirForPlayer(ThisEnemy);
+
+        CurrentRepeatAmount++;
 
         Play_ActualPattern(targetDir);
 
@@ -116,7 +117,8 @@ public class EnemyPattern_Melee : EnemyPattern
     {
         EnemyAttackerController attacker = PoolingManager.Instance.Get_OP_EnemyAttacker();
         attacker.Enemy = ThisEnemy;
-        float targetShadow = _Depth.TargetRange;
+        float targetShadow = IsShadowRangeByDepthController ? _Depth.TargetRange : 0.6f;
+        
         attacker.Set_State(
             ThisAS,
             State_Juge(),
@@ -136,7 +138,7 @@ public class EnemyPattern_Melee : EnemyPattern
 
     private AttackerState_Juge<CircleCollider2D> State_Juge()
     {
-        return new AttackerState_Juge<CircleCollider2D>(Vector2.one);
+        return new AttackerState_Juge<CircleCollider2D>(AttackSizeVec);
     }
 
     private State_Anim State_Anim()
