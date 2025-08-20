@@ -574,6 +574,7 @@ public class StageManager : Singleton<StageManager>
         StartCoroutine(Play_CompleteKillAll_Cor());
     }
 
+    // 모든 적을 처치했을 시, Complete로 바뀌는 부분
     public IEnumerator Play_CompleteKillAll_Cor()
     {
         yield return new WaitForSeconds(0.5f);
@@ -582,6 +583,10 @@ public class StageManager : Singleton<StageManager>
         {
             CurrentRoomController.RoomRuleController.RoomType = eRoomType.Completed;
             CurrentRoomController.Play_RoomState();
+
+            // 상호작용 UI 변경 (문이나 아이템에 붙어있을 때, 상황을 바꾸어줌)
+            MainGameUIManager.Instance.PlayerHUD_UIController.Set_InteractUI(); 
+            MainGameUIManager.Instance.InteractAnno_UIController.Set_UI();
 
             // Minimap
             MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Set_State();
@@ -657,10 +662,28 @@ public class StageManager : Singleton<StageManager>
         Set_ParterAllGate();
         List<GateController> allGate = Get_AllGate(CurrentAllRoomController);
         for (int i = 0; i < allGate.Count; i++)
+        {
             if (allGate[i].ParterGate != null)
+            {
+                // 게이트 활성화
                 allGate[i].Set_ExistDoorState(true);
+
+                // 게이트가 특정 방의 게이트라면 특정 필요 키카드 삽입
+                int needKeyCardID = allGate[i].ThisRoom.RoomRuleController.Get_NeedKeyCardID();
+                if (needKeyCardID != -1)
+                {
+                    allGate[i].Set_NeedKeyCard(needKeyCardID);
+                    allGate[i].ParterGate.Set_NeedKeyCard(needKeyCardID);
+                }
+            }
             else
+            {
+                // 게이트 비활성화
                 allGate[i].Set_ExistDoorState(false);
+            }
+        }
+
+
     }
 
     #endregion

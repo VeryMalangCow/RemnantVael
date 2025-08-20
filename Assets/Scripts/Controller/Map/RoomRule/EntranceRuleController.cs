@@ -13,6 +13,17 @@ public class EntranceRuleController : RoomRuleController
 
     #endregion
 
+    #region Offset
+
+    public override void Offset()
+    {
+        base.Offset();
+
+        NeedKeyCardID = 0;
+    }
+
+    #endregion
+
     #region Set
 
     public override void Set_Completed()

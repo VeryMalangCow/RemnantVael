@@ -1483,7 +1483,7 @@ public class DevTool
 
         else if (Can_CastingTType(_II, out GateController gate) && gate.ThingsGO.TypeSpecial.activeSelf)
         {
-            if (!gate.IsOpen)
+            if (!gate.IsOpen || !gate.Can_Open_ByKeycard())
                 _CanInteract = false;
 
             return ResourceManager.Instance.Get_StaticWord(1);

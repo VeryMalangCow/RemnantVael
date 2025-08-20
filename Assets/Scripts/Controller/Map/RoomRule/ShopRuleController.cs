@@ -23,6 +23,17 @@ public class ShopRuleController : RoomRuleController
 
     #endregion
 
+    #region Offset
+
+    public override void Offset()
+    {
+        base.Offset();
+
+        NeedKeyCardID = 3;
+    }
+
+    #endregion
+
     #region Set
 
     public override void Set_Completed()

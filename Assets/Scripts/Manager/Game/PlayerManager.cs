@@ -176,6 +176,10 @@ public class PlayerManager : Singleton<PlayerManager>
 #endif
     }
 
+    public bool Can_UseKeyCard(int _KeyCardID)
+    {
+        return HavingKeyCardDict.ContainsKey(_KeyCardID) && HavingKeyCardDict[_KeyCardID] > 0;
+    }
 
     #endregion
 }

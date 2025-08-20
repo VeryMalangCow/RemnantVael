@@ -20,6 +20,17 @@ public class PrisonRuleController : RoomRuleController
 
     #endregion
 
+    #region Offset
+
+    public override void Offset()
+    {
+        base.Offset();
+
+        NeedKeyCardID = 2;
+    }
+
+    #endregion
+
     #region Set
 
     public override void Set_Completed()

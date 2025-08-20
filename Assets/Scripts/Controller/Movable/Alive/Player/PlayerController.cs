@@ -851,7 +851,6 @@ public class PlayerController : AliveObjectController
                 CurrentInteractable.Value = i;
             }
         }
-
     }
 
     #endregion

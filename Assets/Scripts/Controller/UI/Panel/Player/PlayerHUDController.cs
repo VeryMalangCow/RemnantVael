@@ -536,6 +536,7 @@ public class PlayerHUDController : UIController
         }
     }
 
+
     private void Set_InteractTxt(string _OnOffTxt, string _InteractableTxt, Color _OnOffTxtColor)
     {
         InteractOnOffTxt.text = _OnOffTxt;

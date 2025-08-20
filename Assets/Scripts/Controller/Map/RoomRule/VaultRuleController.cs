@@ -25,6 +25,17 @@ public class VaultRuleController : RoomRuleController
 
     #endregion
 
+    #region Offset
+
+    public override void Offset()
+    {
+        base.Offset();
+
+        NeedKeyCardID = 1;
+    }
+
+    #endregion
+
     #region Set
 
     public override void Set_Completed()

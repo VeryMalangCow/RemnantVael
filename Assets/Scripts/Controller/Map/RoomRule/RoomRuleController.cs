@@ -42,8 +42,7 @@ public class RoomRuleController : MonoBehaviour
     [HideInInspector] public List<SortingObjectController> InRoom_AllObstacle;
     [HideInInspector] private InteractableBuildController InRoom_ShopBuild;
 
-    // Kill All
-    [HideInInspector] private Dele EndDele = null;
+    [HideInInspector] protected int NeedKeyCardID = -1;
 
     #endregion
 
@@ -70,9 +69,6 @@ public class RoomRuleController : MonoBehaviour
 
     public virtual void Set_Completed()
     {
-        // Waypoint
-        if (EndDele != null) EndDele(); 
-
         SetOn_Shop();
     }
 
@@ -122,6 +118,15 @@ public class RoomRuleController : MonoBehaviour
     {
         if (InRoom_AllObstacle != null && InRoom_AllObstacle.Count > 0)
             LayerOrderManager.Instance.NeedSortingObjects.AddRange(InRoom_AllObstacle);
+    }
+
+    #endregion
+
+    #region KeyCard
+
+    public int Get_NeedKeyCardID()
+    {
+        return NeedKeyCardID;
     }
 
     #endregion

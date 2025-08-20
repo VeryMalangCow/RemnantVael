@@ -16,7 +16,6 @@ public class GateController : StaticDepthController, IInteract
     [Space(10)]
     [Header("-- State")]
     [SerializeField] private int NeedKeyCardID = -1;
-    [SerializeField] private bool IsUnlocked = false;
 
     [Space(5)]
     [Header("-- Vec")]
@@ -135,9 +134,26 @@ public class GateController : StaticDepthController, IInteract
     {
         if (IsOpen && ParterGate != null)
         {
-            PlayerManager.Instance.PlayerController.SetOff_Trail();
-            PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
-            StageManager.Instance.Play_CurrentRoom(ParterGate.ThisRoom);
+            if (NeedKeyCardID != -1)
+            {
+                // 키카드 사용해서 열기
+                if (PlayerManager.Instance.Can_UseKeyCard(NeedKeyCardID))
+                {
+                    PlayerManager.Instance.Use_KeyCard(NeedKeyCardID);
+                    NeedKeyCardID = -1;
+                    ParterGate.NeedKeyCardID = -1;
+                    Set_Open();
+
+                    MainGameUIManager.Instance.PlayerHUD_UIController.Set_InteractUI(); 
+                    MainGameUIManager.Instance.InteractAnno_UIController.Set_UI();
+                }
+            }
+            else
+            {
+                PlayerManager.Instance.PlayerController.SetOff_Trail();
+                PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
+                StageManager.Instance.Play_CurrentRoom(ParterGate.ThisRoom); 
+            }
         }
     }
 
@@ -168,14 +184,14 @@ public class GateController : StaticDepthController, IInteract
 
     #region Can
 
-    private bool Can_Open_ByKey()
+    public bool Can_Open_ByKeycard()
     {
-        return IsUnlocked || NeedKeyCardID == -1;
+        return NeedKeyCardID == -1;
     }
 
     private bool Can_Open()
     {
-        return Can_Open_ByKey() &&
+        return Can_Open_ByKeycard() &&
             ThingsGO.TypeSpecial.activeSelf && 
             ParterGate != null &&
             IsOpen;
@@ -187,6 +203,15 @@ public class GateController : StaticDepthController, IInteract
         return ThingsGO.TypeSpecial.activeSelf &&
             ThisAnimator.enabled &&
             DevTool.Is_AnimIsDone(ThisAnimator);
+    }
+
+    #endregion
+
+    #region Key
+
+    public void Set_NeedKeyCard(int _ID)
+    {
+        NeedKeyCardID = _ID;
     }
 
     #endregion
