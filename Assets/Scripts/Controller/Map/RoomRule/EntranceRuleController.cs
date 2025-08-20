@@ -48,4 +48,13 @@ public class EntranceRuleController : RoomRuleController
     }
 
     #endregion
+
+    #region Lobby
+
+    public void Set_EntranceRuleInLobby()
+    {
+        NeedKeyCardID = -1;
+    }
+
+    #endregion
 }

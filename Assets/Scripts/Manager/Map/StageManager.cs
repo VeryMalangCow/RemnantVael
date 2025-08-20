@@ -345,6 +345,7 @@ public class StageManager : Singleton<StageManager>
             CurrentAllEntranceRoomController.Add(entranceRule);
 
             room.Offset(_TempID);
+            entranceRule.Set_EntranceRuleInLobby();
             Set_NormalRelativeVec(room, _RelativePos);
         }
     }
@@ -742,6 +743,7 @@ public class StageManager : Singleton<StageManager>
         SpriteMaterial spriteMatrial = CurrentStageData.MapSpriteReso.MapSprite[_SpriteKey];
         _SR.sprite = spriteMatrial.Sprite;
         _SR.material = CurrentStageData.MapMaterialUnclear[spriteMatrial.MaterialIndex];
+        Debug.Log("!");
 
         return;
     }
