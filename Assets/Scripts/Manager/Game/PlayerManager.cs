@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : Singleton<PlayerManager>
 {
     #region Value
+
+    #region - Inspector
 
     [Header("=== TF")]
     [SerializeField] private Transform PlayerSpawnParentTF;
@@ -14,11 +17,19 @@ public class PlayerManager : Singleton<PlayerManager>
     [Header("=== Target Enemy")]
     [SerializeField] private GameObject PlayerPingFramePrefab;
 
+    #endregion
+
+    #region - Hide
+
     [HideInInspector] public PlayerController PlayerController;
     [HideInInspector] public static int KindOfPlayerAmount = 1;
 
     [HideInInspector] private PingController PlayerPing;
     [HideInInspector] private EnemyController PingedEnemy;
+
+    [HideInInspector] private Dictionary<int, int> HavingKeyCardDict = new Dictionary<int, int>();
+
+    #endregion
 
     #endregion
 
@@ -41,6 +52,20 @@ public class PlayerManager : Singleton<PlayerManager>
 
         CameraController.TargetTF = PlayerController.gameObject.transform;
         BaseUpgradeManager.Instance.Offset(PlayerController);
+
+        Offset_KeyCard();
+    }
+
+    #endregion
+
+    #region Offset
+
+    private void Offset_KeyCard()
+    {
+        HavingKeyCardDict = new Dictionary<int, int>();
+
+        for (int i = 0; i < MainGameUIManager.Instance.Get_KindOfKeyCardAmount(); i++)
+            HavingKeyCardDict.Add(i, 0);
     }
 
     #endregion
@@ -116,6 +141,41 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         return PingedEnemy;
     }
+
+    #endregion
+
+    #region KeyCard
+
+    public void Gain_KeyCard(int _KeyCardID, int _Amount = 1)
+    {
+        if (HavingKeyCardDict.ContainsKey(_KeyCardID))
+        {
+            HavingKeyCardDict[_KeyCardID] += _Amount;
+            MainGameUIManager.Instance.PlayerHUD_UIController.Set_KeyItem(HavingKeyCardDict);
+        }
+#if UNITY_EDITOR
+        else
+        {
+            Debug.Log($"No Exist That Key Card : {_KeyCardID}");
+        }
+#endif
+    }
+
+    public void Use_KeyCard(int _KeyCardID, int _Amount = 1)
+    {
+        if (HavingKeyCardDict.ContainsKey(_KeyCardID))
+        {
+            HavingKeyCardDict[_KeyCardID] -= _Amount;
+            MainGameUIManager.Instance.PlayerHUD_UIController.Set_KeyItem(HavingKeyCardDict);
+        }
+#if UNITY_EDITOR
+        else
+        {
+            Debug.Log($"No Exist That Key Card : {_KeyCardID}");
+        }
+#endif
+    }
+
 
     #endregion
 }

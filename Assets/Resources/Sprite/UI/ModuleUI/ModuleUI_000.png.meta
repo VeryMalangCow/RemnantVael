@@ -1995,7 +1995,7 @@ TextureImporter:
         width: 19
         height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2003,6 +2003,90 @@ TextureImporter:
       bones: []
       spriteID: a373820a991fd564eb36ea98bb97a713
       internalID: -1892059354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_KeyCard_Boss
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 2
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2ff0143c0a900641b3f80517c734174
+      internalID: 1110492473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_KeyCard_Vault
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 2
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abbee66ce484b664a9fb61d7b7c37e25
+      internalID: 1228292069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_KeyCard_Prison
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 2
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64fa1e28cad594e44a33d66a2af1b5ca
+      internalID: -1364629468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_KeyCard_Shop
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 2
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 333ca4b3c2c9679438ef7b853cad289c
+      internalID: -2136574193
       vertices: []
       indices: 
       edges: []
@@ -2049,6 +2133,10 @@ TextureImporter:
       ModuleUI_Icon_Durablity: -372754867
       ModuleUI_Icon_NullCard: -1772585977
       ModuleUI_Input_SpaceBar: -324453934
+      ModuleUI_KeyCard_Boss: 1110492473
+      ModuleUI_KeyCard_Prison: -1364629468
+      ModuleUI_KeyCard_Shop: -2136574193
+      ModuleUI_KeyCard_Vault: 1228292069
       ModuleUI_MLB: -1993747541
       ModuleUI_MRB: -204797910
       ModuleUI_ModuleItemUI: 49686718

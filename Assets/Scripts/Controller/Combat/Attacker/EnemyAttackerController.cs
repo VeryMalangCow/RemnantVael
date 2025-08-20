@@ -18,9 +18,9 @@ public class EnemyAttackerController : AttackerController
         base.Set_State_Juge(_State_Juge);
 
         if (DevTool.Can_CastingTType(ThisCol, out CapsuleCollider2D capsule2D))
-            capsule2D.size *= 0.8f;
+            capsule2D.size *= 0.7f;
         else if (DevTool.Can_CastingTType(ThisCol, out CircleCollider2D circle2D))
-            circle2D.radius *= 0.8f;
+            circle2D.radius *= 0.7f;
     }
 
     #endregion

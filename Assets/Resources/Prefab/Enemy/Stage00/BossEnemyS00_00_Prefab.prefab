@@ -509,7 +509,7 @@ MonoBehaviour:
   JugeAndTweenTime: 0.75
   AnimSpeed: 1.733333
   SpawnDis: 1
-  EndDis: 5
+  EndDis: 5.5
   AttackSizeVec: {x: 3, y: 3}
   IsShadowRangeByDepthController: 0
   LightOn: 1
@@ -597,7 +597,7 @@ MonoBehaviour:
   IsShadowRangeByDepthController: 0
   LightOn: 1
   LightSize: 2.3
-  MaxRange: 4
+  MaxRange: 2.8
   MinRange: 0
   SpawnDepthList:
   - {fileID: 1586031869316449163}
@@ -1514,7 +1514,7 @@ MonoBehaviour:
   IsPlaying: 0
   FollowingSpeed: 3.3
   UntilForTargetRange: 1
-  TargetRange: 2
+  TargetRange: 2.5
   IgnoreWall: 0
   UntilForTargetTime: 0
   TargetTime: 2
@@ -2703,15 +2703,15 @@ MonoBehaviour:
       KBPower: 1.7
       KBTime: 1
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
-  JugeAndTweenTime: 0.5
-  AnimSpeed: 2.6
+  JugeAndTweenTime: 0.65
+  AnimSpeed: 2
   SpawnDis: 1.6
   EndDis: 2.6
   AttackSizeVec: {x: 2, y: 2}
   IsShadowRangeByDepthController: 0
   LightOn: 1
   LightSize: 2.3
-  MaxRange: 4
+  MaxRange: 2.8
   MinRange: 0
   SpawnDepthList:
   - {fileID: 5139810350627272259}
@@ -3211,10 +3211,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5956502316695661957}
     m_Modifications:
+    - target: {fileID: 2007552178795358445, guid: ecc52c4823637994a82aed73cdc0076c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 52
+      objectReference: {fileID: 0}
+    - target: {fileID: 2007552178795358445, guid: ecc52c4823637994a82aed73cdc0076c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 48
+      objectReference: {fileID: 0}
     - target: {fileID: 2226384266029832256, guid: ecc52c4823637994a82aed73cdc0076c, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -741016898, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+      objectReference: {fileID: -1533359489, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 5157714867513104668, guid: ecc52c4823637994a82aed73cdc0076c, type: 3}
       propertyPath: m_Pivot.x
       value: 0

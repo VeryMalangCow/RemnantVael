@@ -31,6 +31,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<EnemyAttackerController> EnemyAttackers;
     [HideInInspector] public List<TTypePooling<NormalEnemyController>> CurrentStageEnemies;
     [HideInInspector] public List<TTypePooling<EliteEnemyController>> CurrentStageEliteEnemies;
+    [HideInInspector] public List<TTypePooling<BossEnemyController>> CurrentStageBossEnemies;
     [SerializeField] public Transform EnemyParentTF;    
     [SerializeField] public TTypePooling<EnemyExplosionController> EnemyExplosions;
 
@@ -85,6 +86,8 @@ public class PoolingManager : Singleton<PoolingManager>
             CurrentStageEnemies[i].Queue.Clear();
         for (int i = 0; i < CurrentStageEliteEnemies.Count; i++)
             CurrentStageEliteEnemies[i].Queue.Clear();
+        for (int i = 0; i < CurrentStageBossEnemies.Count; i++)
+            CurrentStageBossEnemies[i].Queue.Clear();
 
         EnemyManager.Instance.Remove_PoolingAllEnemy();
 
@@ -270,6 +273,11 @@ public class PoolingManager : Singleton<PoolingManager>
             TTypePooling<EliteEnemyController> enemy = Get_CorrectEliteEnemyQueue(_EnemyID);
             return Get_OP<EliteEnemyController>(enemy.Prefab, enemy.ParentTF, enemy.Queue);
         }
+        else if (_Type == eEnemy.Boss)
+        {
+            TTypePooling<BossEnemyController> enemy = Get_CorrectBossEnemyQueue(_EnemyID);
+            return Get_OP<BossEnemyController>(enemy.Prefab, enemy.ParentTF, enemy.Queue);
+        }
 
 #if UNITY_EDITOR
             Debug.Log("\'Get_OP_Enemy\' cannot FIND!");
@@ -287,8 +295,13 @@ public class PoolingManager : Singleton<PoolingManager>
         Get_CorrectEliteEnemyQueue(_EliteEnemy.Get_ID()).Queue.Enqueue(_EliteEnemy);
     }
 
+    public void Set_EnqueueBossEnemy(BossEnemyController _BossEnemy)
+    {
+        Get_CorrectBossEnemyQueue(_BossEnemy.Get_ID()).Queue.Enqueue(_BossEnemy);
+    }
+
     // Offset
-    public void Offset_EnemiesPooling(List<GameObject> _EnemyGOs, List<GameObject> _EliteEnemyGOs)
+    public void Offset_EnemiesPooling(List<GameObject> _EnemyGOs, List<GameObject> _EliteEnemyGOs, List<GameObject> _BossEnemyGOs)
     {
         CurrentStageEnemies = new List<TTypePooling<NormalEnemyController>>();
         for (int i = 0; i < _EnemyGOs.Count; i++)
@@ -297,6 +310,11 @@ public class PoolingManager : Singleton<PoolingManager>
         CurrentStageEliteEnemies = new List<TTypePooling<EliteEnemyController>>();
         for (int i = 0; i < _EliteEnemyGOs.Count; i++)
             CurrentStageEliteEnemies.Add(new TTypePooling<EliteEnemyController>(_EliteEnemyGOs[i], EnemyParentTF));
+
+        CurrentStageBossEnemies = new List<TTypePooling<BossEnemyController>>();
+        for (int i = 0; i < _BossEnemyGOs.Count; i++)
+            CurrentStageBossEnemies.Add(new TTypePooling<BossEnemyController>(_BossEnemyGOs[i], EnemyParentTF));
+
     }
 
     // Find
@@ -317,7 +335,6 @@ public class PoolingManager : Singleton<PoolingManager>
 
     private TTypePooling<EliteEnemyController> Get_CorrectEliteEnemyQueue(int _EliteEnemyID)
     {
-
         for (int i = 0; i < CurrentStageEliteEnemies.Count; i++)
         {
             if (CurrentStageEliteEnemies[i].Prefab.TryGetComponent(out EliteEnemyController EC) && EC.Get_ID() == _EliteEnemyID)
@@ -327,6 +344,21 @@ public class PoolingManager : Singleton<PoolingManager>
         }
 #if UNITY_EDITOR
         Debug.Log("\'Elite Enemy Queue\' cannot FIND!");
+#endif
+        return null;
+    }
+
+    private TTypePooling<BossEnemyController> Get_CorrectBossEnemyQueue(int _BossEnemyID)
+    {
+        for (int i = 0; i < CurrentStageBossEnemies.Count; i++)
+        {
+            if (CurrentStageBossEnemies[i].Prefab.TryGetComponent(out BossEnemyController EC) && EC.Get_ID() == _BossEnemyID)
+            {
+                return CurrentStageBossEnemies[i];
+            }
+        }
+#if UNITY_EDITOR
+        Debug.Log("\'Boss Enemy Queue\' cannot FIND!");
 #endif
         return null;
     }

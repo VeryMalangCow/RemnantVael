@@ -4156,6 +4156,7 @@ public class StageEnemy
 {
     public List<GameObject> StageEnemyList;
     public List<GameObject> StageEliteEnemyList;
+    public List<GameObject> StageBossEnemyList;
 }
 
 #endregion

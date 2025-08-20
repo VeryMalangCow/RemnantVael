@@ -1,9 +1,12 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MainGameUIManager : Singleton<MainGameUIManager>
 {
     #region Value
+
+    #region - Inspector
 
     [Header("=== Class")]
     [SerializeField] public Camera UICamera;
@@ -33,6 +36,11 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private GameObject Puzzle_NumShapeColorPassword_CanvasPrefab;
     [SerializeField] private GameObject Puzzle_InOrderLocker_CanvasPrefab;
 
+    [SerializeField] private List<Sprite> KeyCardSpriteList;
+    #endregion
+
+    #region - Hide
+
     // Controller
     [HideInInspector] public PlayerHUDController PlayerHUD_UIController;
 
@@ -60,6 +68,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [HideInInspector] private CanvasGroup LoadingIconCG;
     [HideInInspector] private RectTransform LoadingIconRT;
     [HideInInspector] private Tween CogwheelTween = null;
+
+    #endregion
+
     #endregion
 
     #region Offset
@@ -257,6 +268,44 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         });
 
         return seq;
+    }
+
+    #endregion
+
+    #region Get
+
+    public Sprite Get_KeyCardSprite(int _Key)
+    {
+        return KeyCardSpriteList[_Key];
+    }
+
+    public int Get_KindOfKeyCardAmount()
+    {
+        return KeyCardSpriteList.Count;
+    }
+
+    #endregion
+
+    #region Test
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            PlayerManager.Instance.Gain_KeyCard(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            PlayerManager.Instance.Gain_KeyCard(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            PlayerManager.Instance.Gain_KeyCard(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            PlayerManager.Instance.Gain_KeyCard(3);
+        }
     }
 
     #endregion

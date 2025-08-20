@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GateController : StaticDepthController, IInteract
@@ -13,6 +12,11 @@ public class GateController : StaticDepthController, IInteract
 
     [Space(10)]
     [Header("=== Data")]
+
+    [Space(10)]
+    [Header("-- State")]
+    [SerializeField] private int NeedKeyCardID = -1;
+    [SerializeField] private bool IsUnlocked = false;
 
     [Space(5)]
     [Header("-- Vec")]
@@ -164,9 +168,15 @@ public class GateController : StaticDepthController, IInteract
 
     #region Can
 
+    private bool Can_Open_ByKey()
+    {
+        return IsUnlocked || NeedKeyCardID == -1;
+    }
+
     private bool Can_Open()
     {
-        return ThingsGO.TypeSpecial.activeSelf && 
+        return Can_Open_ByKey() &&
+            ThingsGO.TypeSpecial.activeSelf && 
             ParterGate != null &&
             IsOpen;
     }

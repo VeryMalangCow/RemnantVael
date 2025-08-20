@@ -168,7 +168,8 @@ public class StageManager : Singleton<StageManager>
         // 적 객체 오브젝트 풀링 시스템 세팅하기
         PoolingManager.Instance.Offset_EnemiesPooling(
             stageData.EnemyData.StageEnemyList,
-            stageData.EnemyData.StageEliteEnemyList);
+            stageData.EnemyData.StageEliteEnemyList,
+            stageData.EnemyData.StageBossEnemyList);
 
         // Sound (BGM) 시작
         SoundManager.Instance.Play_2D_BGM("Stage" + DevTool.Get_LengthString(stageData.InfoData.StageID, 2) + "_BGM");

@@ -1189,13 +1189,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_Buff_Shadow
+      name: Enemy_Icon_BossPhase_0
       rect:
         serializedVersion: 2
-        x: 224
-        y: 246
-        width: 10
-        height: 10
+        x: 217
+        y: 244
+        width: 11
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2448,6 +2448,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Enemy_Icon_BossPhase_1
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 232
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9c8d34b42c01bd4c87f430238316b20
+      internalID: 154245012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_Icon_BossPhase_2
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 220
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42b29f1d9c04361429ff43df3ee60c16
+      internalID: -1813370868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2553,7 +2595,6 @@ TextureImporter:
       Enemy00_Wheel_U_D_01: 342643262
       Enemy_BarFrame: -1099338925
       Enemy_Buff_ATK: 1188069800
-      Enemy_Buff_Shadow: -1533359489
       Enemy_Buff_Shield: -2127429938
       Enemy_Debuff_AbsoluteZero: -1060793222
       Enemy_Debuff_Cold: -1121378016
@@ -2567,6 +2608,9 @@ TextureImporter:
       Enemy_EP_Liner: -564090988
       Enemy_HP_Bar: 1625135349
       Enemy_HP_Liner: -818321709
+      Enemy_Icon_BossPhase_0: -1533359489
+      Enemy_Icon_BossPhase_1: 154245012
+      Enemy_Icon_BossPhase_2: -1813370868
       Enemy_SP_Bar: 153615729
       Enemy_SP_Liner: 377559776
       Enemy_Smoke_00: 736608773

@@ -125,6 +125,11 @@ public class PlayerHUDController : UIController
     [SerializeField] private TMP_Text PaneltyAnnoNameTxt;
     [SerializeField] private TMP_Text PaneltyAnnoDescTxt;
 
+    [Space(10)]
+    [Header("=== Key Item")]
+    [SerializeField] private List<Image> KeyItemImgList;
+    
+
     #endregion
 
     #region - Hide
@@ -168,6 +173,10 @@ public class PlayerHUDController : UIController
 
     // Hitted
     [HideInInspector] private static float OffsetXPos;
+
+    // KeyItem
+    [HideInInspector] private List<TMP_Text> KeyItemAmountTxtList;
+
     #endregion
 
     #endregion
@@ -394,6 +403,15 @@ public class PlayerHUDController : UIController
         DevTool.Set_Color(UninteractableColor, PaneltyAnnoDescTxt);
         PaneltyAnnoDescTxt.text = "";
         PaneltyAnnoCG.gameObject.SetActive(false);
+
+        // Key
+        KeyItemAmountTxtList = new List<TMP_Text>();
+        for (int i = 0; i < KeyItemImgList.Count; i++)
+        {
+            KeyItemAmountTxtList.Add(DevTool.Get_ComponentTType<TMP_Text>(KeyItemImgList[i].gameObject.transform.GetChild(0).gameObject));
+            KeyItemImgList[i].gameObject.SetActive(false);
+        }
+
     }
 
     private void Offset_ColorComp()
@@ -955,6 +973,29 @@ public class PlayerHUDController : UIController
             result += "<b>" + strings[i] + "</b>\n";
         }
         return result;
+    }
+
+    #endregion
+
+    #region Key Item
+
+    public void Set_KeyItem(Dictionary<int, int> _KeyItemDict)
+    {
+        for (int i = 0; i < KeyItemImgList.Count; i++)
+            KeyItemImgList[i].gameObject.SetActive(false);
+
+        int index = 0;
+
+        foreach(var keyItem in _KeyItemDict)
+        {
+            if (keyItem.Value == 0) continue;
+
+            KeyItemImgList[index].sprite = MainGameUIManager.Instance.Get_KeyCardSprite(keyItem.Key);
+            KeyItemAmountTxtList[index].text = keyItem.Value.ToString();
+            KeyItemImgList[index].gameObject.SetActive(true);
+
+            index++;
+        }
     }
 
     #endregion

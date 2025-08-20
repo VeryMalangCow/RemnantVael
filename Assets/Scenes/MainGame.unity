@@ -972,6 +972,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3543952611254395321, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
+      propertyPath: offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3543952611254395321, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
+      propertyPath: offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542970539250711240, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
+      propertyPath: offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4542970539250711240, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
+      propertyPath: offset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4868308482458279683, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1050,6 +1066,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4868308482458279683, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5032867697063718230, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
+      propertyPath: offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5032867697063718230, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
+      propertyPath: offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5280224771657755233, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
+      propertyPath: offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5280224771657755233, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
+      propertyPath: offset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049560912935989764, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
+      propertyPath: offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049560912935989764, guid: 327692ede47485f44b9dda5f15069aba, type: 3}
+      propertyPath: offset.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1886,6 +1926,11 @@ MonoBehaviour:
   Puzzle_BoxLineConnector_CanvasPrefab: {fileID: 977057849872143002, guid: 35b739b676c2f0c48b66c75e98920982, type: 3}
   Puzzle_NumShapeColorPassword_CanvasPrefab: {fileID: 977057849872143002, guid: 58fc63fff4e38b3479fc9c7e7bd24d0f, type: 3}
   Puzzle_InOrderLocker_CanvasPrefab: {fileID: 977057849872143002, guid: 419f06a3a02035f4faf61bcfe0e3b6a5, type: 3}
+  KeyCardSpriteList:
+  - {fileID: 1110492473, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: 1228292069, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -1364629468, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -2136574193, guid: 637ede47422025b48bd24c3773722caa, type: 3}
   PlayerHUD_UIController: {fileID: 0}
   BaseUpgrade_UIController: {fileID: 0}
   ModuleUpgrade_UIController: {fileID: 0}
@@ -2917,6 +2962,7 @@ MonoBehaviour:
     ParentTF: {fileID: 77619666}
   CurrentStageEnemies: []
   CurrentStageEliteEnemies: []
+  CurrentStageBossEnemies: []
   EnemyParentTF: {fileID: 1717915347}
   EnemyExplosions:
     Prefab: {fileID: 2154807210293626544, guid: 088fa6673bd0bbf4db5b15dfe3b7037a, type: 3}
@@ -3114,6 +3160,7 @@ MonoBehaviour:
     EnemyData:
       StageEnemyList: []
       StageEliteEnemyList: []
+      StageBossEnemyList: []
     MapMaterialUnclear:
     - {fileID: 2100000, guid: 8f88455681ebf204ab1bec4124f2e8a5, type: 2}
     - {fileID: 2100000, guid: d00759d6f63313746a8d499ed6169b9f, type: 2}
@@ -3158,9 +3205,9 @@ MonoBehaviour:
         Amount: 1
       EntranceRoom:
       - ID: 0
-        RuleID: 0
+        RuleID: 1
       - ID: 0
-        RuleID: 0
+        RuleID: 2
       VaultRoom:
       - ID: 0
         RuleID: 0
@@ -3187,6 +3234,8 @@ MonoBehaviour:
       - {fileID: 272305898077013730, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
       - {fileID: 272305898077013730, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
       - {fileID: 272305898077013730, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
+      StageBossEnemyList:
+      - {fileID: 272305898077013730, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
     MapMaterialUnclear:
     - {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
     - {fileID: 2100000, guid: 519ca4ba8ee8cd146a55966a26e1ea8c, type: 2}
@@ -4445,7 +4494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &989995807
 Transform:
   m_ObjectHideFlags: 0
