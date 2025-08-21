@@ -743,7 +743,6 @@ public class StageManager : Singleton<StageManager>
         SpriteMaterial spriteMatrial = CurrentStageData.MapSpriteReso.MapSprite[_SpriteKey];
         _SR.sprite = spriteMatrial.Sprite;
         _SR.material = CurrentStageData.MapMaterialUnclear[spriteMatrial.MaterialIndex];
-        Debug.Log("!");
 
         return;
     }

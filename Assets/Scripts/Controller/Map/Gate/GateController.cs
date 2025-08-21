@@ -14,8 +14,9 @@ public class GateController : StaticDepthController, IInteract
     [Header("=== Data")]
 
     [Space(10)]
-    [Header("-- State")]
+    [Header("-- KeyCard")]
     [SerializeField] private int NeedKeyCardID = -1;
+    [SerializeField] private SpriteRenderer KeyCardIconSR;
 
     [Space(5)]
     [Header("-- Vec")]
@@ -74,6 +75,9 @@ public class GateController : StaticDepthController, IInteract
 
         ThisAnimator = DevTool.Get_ComponentTType<Animator>(TargetObject);
         StageManager.Instance.Set_StageDoorAnim(this, DevTool.Get_ComponentTType<SpriteRenderer>(TargetObject), GateDir);
+
+        KeyCardIconSR.gameObject.SetActive(false);
+        KeyCardIconSR.sortingOrder = LayerOrderManager.Order_DoorIcon;
     }
 
     #endregion
@@ -115,6 +119,16 @@ public class GateController : StaticDepthController, IInteract
     public void Set_Open()
     {
         IsOpen = true;
+        
+        if (!Can_Open_ByKeycard())
+        {
+            KeyCardIconSR.sprite = MainGameUIManager.Instance.Get_KeyCardSprite(NeedKeyCardID);
+            KeyCardIconSR.gameObject.SetActive(true);
+        }
+        else
+        {
+            KeyCardIconSR.gameObject.SetActive(false);
+        }
 
         if (Can_Open())
         {
@@ -177,6 +191,7 @@ public class GateController : StaticDepthController, IInteract
         if (Can_AT_Disable())
         {
             ThisAnimator.enabled = false;
+            ThisSR.sprite = DevTool.Get_LastFrameSprite(ThisAC, ThisSR);
         }
     }
 

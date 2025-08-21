@@ -1011,6 +1011,29 @@ public class DevTool
         }
     }
 
+    // 지정 애니메이션 클립에서 마지막 프레임 스프라이트 반환
+    public static Sprite Get_LastFrameSprite(AnimationClip _Clip, SpriteRenderer _TargetSR)
+    {
+        if (_Clip == null || _TargetSR == null)
+            return null;
+
+        // 마지막 프레임 시간 계산
+        float epsilon = 1f / Mathf.Max(_Clip.frameRate, 30f) * 0.5f;
+        float sampleTime = Mathf.Max(0f, _Clip.length - epsilon);
+
+        // 현재 sprite 기억
+        Sprite original = _TargetSR.sprite;
+
+        // 샘플링해서 마지막 프레임 적용
+        _Clip.SampleAnimation(_TargetSR.gameObject, sampleTime);
+        Sprite last = _TargetSR.sprite;
+
+        // 원래 sprite로 복구 (부작용 방지)
+        _TargetSR.sprite = original;
+
+        return last;
+    }
+
     #endregion
 
     #region Is
