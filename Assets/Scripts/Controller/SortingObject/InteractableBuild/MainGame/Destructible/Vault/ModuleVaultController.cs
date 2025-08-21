@@ -45,7 +45,7 @@ public class ModuleVaultController : VaultController
 
     private void Gen_II_ByGrade()
     {
-        Gen_II(DevTool.Get_Rank(CurrentPercentByGrade));
+        Gen_ModuleItem(DevTool.Get_Rank(CurrentPercentByGrade));
     }
 
     public override void Gen_ItemWhenHitted()

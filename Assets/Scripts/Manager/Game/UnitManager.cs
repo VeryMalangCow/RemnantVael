@@ -98,6 +98,11 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public List<AnimationClip> ModuleItemOutlinerAC;
 
     [Space(5)]
+    [Header("-- Keycard")]
+    [SerializeField] public AnimationClip KeycardItemOutlinerAC;
+    [SerializeField] public List<Color> KeycardItemOutlinerColorList;
+
+    [Space(5)]
     [Header("-- Expl")]
     [SerializeField] public AnimationClip ExplosionAC;
     [SerializeField] public List<AnimationClip> AttributeExplosionACList;

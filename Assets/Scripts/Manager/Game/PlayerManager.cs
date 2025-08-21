@@ -27,7 +27,7 @@ public class PlayerManager : Singleton<PlayerManager>
     [HideInInspector] private PingController PlayerPing;
     [HideInInspector] private EnemyController PingedEnemy;
 
-    [HideInInspector] private Dictionary<int, int> HavingKeyCardDict = new Dictionary<int, int>();
+    [HideInInspector] private Dictionary<int, int> HavingKeycardDict = new Dictionary<int, int>();
 
     #endregion
 
@@ -62,10 +62,10 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void Offset_KeyCard()
     {
-        HavingKeyCardDict = new Dictionary<int, int>();
+        HavingKeycardDict = new Dictionary<int, int>();
 
         for (int i = 0; i < MainGameUIManager.Instance.Get_KindOfKeyCardAmount(); i++)
-            HavingKeyCardDict.Add(i, 0);
+            HavingKeycardDict.Add(i, 0);
     }
 
     #endregion
@@ -148,10 +148,11 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void Gain_KeyCard(int _KeyCardID, int _Amount = 1)
     {
-        if (HavingKeyCardDict.ContainsKey(_KeyCardID))
+        if (HavingKeycardDict.ContainsKey(_KeyCardID))
         {
-            HavingKeyCardDict[_KeyCardID] += _Amount;
-            MainGameUIManager.Instance.PlayerHUD_UIController.Set_KeyItem(HavingKeyCardDict);
+            HavingKeycardDict[_KeyCardID] += _Amount;
+            MainGameUIManager.Instance.PlayerHUD_UIController.Set_KeyItem(HavingKeycardDict);
+            MainGameUIManager.Instance.PlayerHUD_UIController.Effect_KeyIcon(_KeyCardID);
         }
 #if UNITY_EDITOR
         else
@@ -163,10 +164,10 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void Use_KeyCard(int _KeyCardID, int _Amount = 1)
     {
-        if (HavingKeyCardDict.ContainsKey(_KeyCardID))
+        if (HavingKeycardDict.ContainsKey(_KeyCardID))
         {
-            HavingKeyCardDict[_KeyCardID] -= _Amount;
-            MainGameUIManager.Instance.PlayerHUD_UIController.Set_KeyItem(HavingKeyCardDict);
+            HavingKeycardDict[_KeyCardID] -= _Amount;
+            MainGameUIManager.Instance.PlayerHUD_UIController.Set_KeyItem(HavingKeycardDict);
         }
 #if UNITY_EDITOR
         else
@@ -178,7 +179,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public bool Can_UseKeyCard(int _KeyCardID)
     {
-        return HavingKeyCardDict.ContainsKey(_KeyCardID) && HavingKeyCardDict[_KeyCardID] > 0;
+        return HavingKeycardDict.ContainsKey(_KeyCardID) && HavingKeycardDict[_KeyCardID] > 0;
     }
 
     #endregion

@@ -5,27 +5,24 @@ public class InteractItemController : ItemController, IInteract
 {
     #region Value
 
-    [Space(20)] 
+    [Space(20)]
     [Header("<><><><><> Interact Item")]
 
     [Space(10)]
     [Header("=== Physics")]
     [SerializeField] private float SpreadPower = 10f;
     [SerializeField] private float DecSpreadPowerSpeed = 1f;
-    [SerializeField] private float CurrentSpreadPower = 0f;
-    [SerializeField] private Vector2 SettedSpreadDir;
+    [SerializeField] protected float CurrentSpreadPower = 0f;
+    [SerializeField] protected Vector2 SettedSpreadDir;
     private Sequence UpDownSeq = null;
 
-    [Space(10)]
-    [Header("=== State")]
-    [SerializeField] public ItemData_Field ItemDataField;
 
     [Space(10)]
     [Header("=== Anim")]
-    [SerializeField] private Animator ThisAT;
+    [SerializeField] protected Animator ThisAT;
 
     [HideInInspector] private SpriteRenderer OutlinerSR;
-    [HideInInspector] private AnimatorOverrideController AOC;
+    [HideInInspector] protected AnimatorOverrideController AOC;
 
     #endregion
 
@@ -47,18 +44,8 @@ public class InteractItemController : ItemController, IInteract
         SettedSpreadDir = DevTool.Get_RandomDir();
         Start_Tween();
 
-        // Data
-        ItemDataField = new ItemData_Field(ModuleItemManager.Instance.Get_RandomInteractItem());
-
         // Set
         this.gameObject.SetActive(true);
-    }
-
-    public void Set_RankState(int _Rank)
-    {
-        ItemDataField.Rank = _Rank;
-        DevTool.Set_Anim(ref AOC, ThisAT, UnitManager.Instance.ModuleItemOutlinerAC[_Rank - 1]);
-        ThisAT.speed = 1.5f;
     }
 
     public override void Set_SortingOrder(int _SortingOrder)
@@ -75,24 +62,6 @@ public class InteractItemController : ItemController, IInteract
     protected void LateUpdate()
     {
         Play_Spread(CurrentSpreadPower);
-    }
-
-    #endregion
-
-    #region Interact
-
-    public void Play_Interact()
-    {
-        PlayerManager.Instance.PlayerController.CurrentInteractable.Value = null;
-        CurrentSpreadPower = 0f;
-        SettedSpreadDir = Vector2.zero;
-
-        ModuleItemManager.Instance.Gain_ModuleState(ItemDataField);
-        PoolingManager.Instance.InteractItems.Queue.Enqueue(this);
-
-        End_Tween();
-
-        this.gameObject.SetActive(false);
     }
 
     #endregion
@@ -114,13 +83,11 @@ public class InteractItemController : ItemController, IInteract
             .SetLoops(-1, LoopType.Restart);
     }
 
-
-    private void End_Tween()
+    protected void End_Tween()
     {
         DOTween.Kill(UpDownSeq);
         UpDownSeq = null;
     }
-
 
     private void Play_Spread(float _SpreadPower)
     {
@@ -134,6 +101,21 @@ public class InteractItemController : ItemController, IInteract
             CurrentSpreadPower = 0f;
             ThisRb.velocity = Vector2.zero;
         }
+    }
+
+    #endregion
+
+    #region Interact
+
+    public virtual void Play_Interact()
+    {
+        PlayerManager.Instance.PlayerController.CurrentInteractable.Value = null;
+        CurrentSpreadPower = 0f;
+        SettedSpreadDir = Vector2.zero;
+
+        End_Tween();
+
+        this.gameObject.SetActive(false);
     }
 
     #endregion

@@ -1502,7 +1502,12 @@ public class DevTool
             return "";
 
         else if (Can_CastingTType(_II, out InteractItemController item))
-            return ResourceManager.Instance.Get_StaticWord(0);
+        {
+            if (Can_CastingTType(_II, out ModuleItemController moduleItem))
+                return ResourceManager.Instance.Get_StaticWord(0);
+            else if (Can_CastingTType(_II, out KeycardItemController keycardItem))
+                return ResourceManager.Instance.Get_StaticWord(117);
+        }
 
         else if (Can_CastingTType(_II, out GateController gate) && gate.ThingsGO.TypeSpecial.activeSelf)
         {

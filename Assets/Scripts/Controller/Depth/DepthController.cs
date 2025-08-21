@@ -124,13 +124,22 @@ public class DepthController : IDController
             _Value);
     }
 
-    // Module Interact Item
-    protected void Gen_II(int _Rank)
+    // Module Item
+    protected void Gen_ModuleItem(int _Rank)
     {
-        InteractItemController IIC = PoolingManager.Instance.Get_OP_InteractableItem();
-        IIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
-        IIC.Set_State(this.transform.position);
-        IIC.Set_RankState(_Rank);
+        ModuleItemController MIC = PoolingManager.Instance.Get_OP_ModuleItem();
+        MIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        MIC.Set_State(this.transform.position);
+        MIC.Set_RankState(_Rank);
+    }
+
+    // Keycard Item
+    protected void Gen_KeycardItem(int _ID)
+    {
+        KeycardItemController KIC = PoolingManager.Instance.Get_OP_KeycardItem();
+        KIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        KIC.Set_State(this.transform.position);
+        KIC.Set_TypeState(_ID);
     }
 
     #endregion

@@ -2643,8 +2643,11 @@ MonoBehaviour:
   Credit:
     Prefab: {fileID: 8792791415299830887, guid: 5bfa6e16d42f78747805f0c480c1fa55, type: 3}
     ParentTF: {fileID: 77619666}
-  InteractItems:
+  ModuleItems:
     Prefab: {fileID: 8792791415299830887, guid: 0fe28c02c65319a499cbd9bf935f3f8c, type: 3}
+    ParentTF: {fileID: 77619666}
+  KeycardItems:
+    Prefab: {fileID: 8792791415299830887, guid: f8839f6fde1cb794bb8918c78a774ae5, type: 3}
     ParentTF: {fileID: 77619666}
   PlayerAttackers:
     Prefab: {fileID: 2154807210293626544, guid: e9907211ca267024c8887bfe754167b7, type: 3}
@@ -7619,6 +7622,12 @@ MonoBehaviour:
   - {fileID: 7400000, guid: b5c82c38202ccea49aeb4f80244bd688, type: 2}
   - {fileID: 7400000, guid: fda530e94e5c23e47a1672a32ac5098e, type: 2}
   - {fileID: 7400000, guid: 384b1af2a10c9d948aebf6e7b86da252, type: 2}
+  KeycardItemOutlinerAC: {fileID: 7400000, guid: 8e08fca8fee45e44d9cba4199d2fbaa3, type: 2}
+  KeycardItemOutlinerColorList:
+  - {r: 1, g: 0.4481132, b: 0.49662337, a: 1}
+  - {r: 1, g: 0.9558776, b: 0.6084906, a: 1}
+  - {r: 0.6273585, g: 1, b: 0.98882514, a: 1}
+  - {r: 0.62571836, g: 1, b: 0.5990566, a: 1}
   ExplosionAC: {fileID: 7400000, guid: 9caa685e3f9cfdb44a1eb1c8622c9b14, type: 2}
   AttributeExplosionACList:
   - {fileID: 7400000, guid: 100332c32a24cf8418b9b4fc4096bfc8, type: 2}

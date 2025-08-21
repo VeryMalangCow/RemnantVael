@@ -13,7 +13,8 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<ModuleShardController> ModuleShard;
     [SerializeField] public TTypePooling<OverriderController> Overrider;
     [SerializeField] public TTypePooling<CreditController> Credit;
-    [SerializeField] public TTypePooling<InteractItemController> InteractItems;
+    [SerializeField] public TTypePooling<ModuleItemController> ModuleItems;
+    [SerializeField] public TTypePooling<KeycardItemController> KeycardItems;
     [SerializeField] public TTypePooling<PlayerAttackerController> PlayerAttackers;
     [SerializeField] public TTypePooling<PlayerExplosionController> PlayerExplosions;
 
@@ -71,7 +72,7 @@ public class PoolingManager : Singleton<PoolingManager>
         ModuleShard.Queue.Clear();
         Overrider.Queue.Clear();
         Credit.Queue.Clear();
-        InteractItems.Queue.Clear();
+        ModuleItems.Queue.Clear();
         PlayerAttackers.Queue.Clear();
 
         MissileBullet.Queue.Clear();
@@ -227,10 +228,16 @@ public class PoolingManager : Singleton<PoolingManager>
         return Get_OP<CreditController>(Credit.Prefab, Credit.ParentTF, Credit.Queue);
     }
 
-    // Interact Item For Each Kind
-    public InteractItemController Get_OP_InteractableItem()
+    // Module Item
+    public ModuleItemController Get_OP_ModuleItem()
     {
-        return Get_OP<InteractItemController>(InteractItems.Prefab, InteractItems.ParentTF, InteractItems.Queue);
+        return Get_OP<ModuleItemController>(ModuleItems.Prefab, ModuleItems.ParentTF, ModuleItems.Queue);
+    }
+
+    // Keycard Item
+    public KeycardItemController Get_OP_KeycardItem()
+    {
+        return Get_OP<KeycardItemController>(KeycardItems.Prefab, KeycardItems.ParentTF, KeycardItems.Queue);
     }
 
     // Player Attacker

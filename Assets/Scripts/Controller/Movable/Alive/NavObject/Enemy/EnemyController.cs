@@ -559,8 +559,11 @@ public abstract class EnemyController : NavObjectController
         // Drop Module Item
         if (DevTool.Is_ChanceSuccess(ItemDropPercent))
         {
-            Gen_II(DevTool.Get_Rank(ItemRankPercents));
+            Gen_ModuleItem(DevTool.Get_Rank(ItemRankPercents));
         }
+
+        // Drop Keycard
+        Gen_KeycardItem(Random.Range(0, MainGameUIManager.Instance.Get_KindOfKeyCardAmount()));
     }
 
     private void Set_Die_Effect()

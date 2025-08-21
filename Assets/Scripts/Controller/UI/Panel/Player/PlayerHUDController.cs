@@ -127,6 +127,7 @@ public class PlayerHUDController : UIController
 
     [Space(10)]
     [Header("=== Key Item")]
+    [SerializeField] private Image KeyItemVFXImg;
     [SerializeField] private List<Image> KeyItemImgList;
     
 
@@ -983,7 +984,9 @@ public class PlayerHUDController : UIController
     public void Set_KeyItem(Dictionary<int, int> _KeyItemDict)
     {
         for (int i = 0; i < KeyItemImgList.Count; i++)
+        {
             KeyItemImgList[i].gameObject.SetActive(false);
+        }
 
         int index = 0;
 
@@ -996,6 +999,34 @@ public class PlayerHUDController : UIController
             KeyItemImgList[index].gameObject.SetActive(true);
 
             index++;
+        }
+    }
+
+    public void Effect_KeyIcon(int _ID)
+    {
+        Sequence seq = DOTween.Sequence();
+        for (int i = 0; i < KeyItemImgList.Count; i++)
+        {
+            if (KeyItemImgList[i].gameObject.activeSelf && KeyItemImgList[i].sprite == MainGameUIManager.Instance.Get_KeyCardSprite(_ID))
+            {
+                seq.Append(KeyItemImgList[i].transform.DOScale(1.3f, 0.1f));
+                seq.Append(KeyItemImgList[i].transform.DOScale(1f, 0.3f));
+
+                if (KeyItemVFXImg.TryGetComponent(out RectTransform vfxRt) &&
+                    KeyItemImgList[i].TryGetComponent(out RectTransform imgRt))
+                {
+                    DevTool.Set_KillTween(vfxRt);
+                    vfxRt.anchoredPosition = imgRt.anchoredPosition;
+                    vfxRt.rotation = Quaternion.identity;
+                    vfxRt.DORotate(Vector3.forward * 360, 1f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
+
+                    vfxRt.transform.localScale = Vector3.one;
+                    vfxRt.DOScale(0.5f, 1f);
+                }
+                DevTool.Set_KillTween(KeyItemVFXImg);
+                KeyItemVFXImg.color = new Color(1, 1, 1, 0.7f);
+                KeyItemVFXImg.DOFade(0f, 1f);
+            }
         }
     }
 
