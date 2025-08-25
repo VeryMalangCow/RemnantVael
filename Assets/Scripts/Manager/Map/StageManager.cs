@@ -155,6 +155,7 @@ public class StageManager : Singleton<StageManager>
         else // 전투 스테이지 시작 방
         {
             Gen_CombatStage(stageData);
+            EliteEnemyController.IsDroppedBossKeycard = false;
         }
 
         // 게이트 활성화

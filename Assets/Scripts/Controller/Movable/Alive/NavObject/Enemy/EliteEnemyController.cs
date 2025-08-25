@@ -16,6 +16,8 @@ public class EliteEnemyController : EnemyController
     [HideInInspector] private static readonly Vector2 HUDBaseAnchorPos = new Vector2(-812, 290);
     [HideInInspector] private static readonly float HUDIntervalY = 80f;
 
+    [HideInInspector] public static bool IsDroppedBossKeycard = false;
+
     #endregion
 
     #endregion
@@ -52,6 +54,17 @@ public class EliteEnemyController : EnemyController
     #endregion
 
     #region Die
+
+    protected override void Set_Die_GenItem()
+    {
+        base.Set_Die_GenItem();
+
+        if (!IsDroppedBossKeycard)
+        {
+            Gen_KeycardItem(0); // Boss Keycard
+            IsDroppedBossKeycard = true;
+        }
+    }
 
     protected override void Set_Die_Extra()
     {

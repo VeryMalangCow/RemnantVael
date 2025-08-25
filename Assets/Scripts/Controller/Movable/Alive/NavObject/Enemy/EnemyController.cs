@@ -547,7 +547,7 @@ public abstract class EnemyController : NavObjectController
         Set_Die_Extra();
     }
 
-    private void Set_Die_GenItem()
+    protected virtual void Set_Die_GenItem()
     {
         EnemyDropItemPercent genP = EnemyDropItemPercent;
         Gen_BS(Random.Range(
