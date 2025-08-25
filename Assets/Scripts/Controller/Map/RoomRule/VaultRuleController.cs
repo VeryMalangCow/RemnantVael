@@ -20,8 +20,8 @@ public class VaultRuleController : RoomRuleController
     [HideInInspector] public VaultUpgradeOperatorController UpgradeOperator;
     [HideInInspector] public VaultRerollOperatorController RerollOperator;
 
-    [HideInInspector] private static List<float> PercentVaultGrade = new List<float>
-    { 0.4f, 0.3f, 0.15f, 0.1f, 0.05f };
+    [HideInInspector] private static List<int> PercentVaultGrade = new List<int>
+        { 8, 6, 3, 2, 1 };
 
     #endregion
 

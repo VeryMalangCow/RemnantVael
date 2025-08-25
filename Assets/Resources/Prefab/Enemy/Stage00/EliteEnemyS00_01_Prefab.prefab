@@ -77,13 +77,25 @@ MonoBehaviour:
   MaxHP: 600
   MaxEP: 200
   ChargeEPSpeed: 50
-  ItemDropPercent: 1
-  ItemRankPercents:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
+  EnemyDropItemPercent:
+    ModuleDropPercent: 1
+    ModuleRankPercents: 2b0000001b0000000f0000000900000006000000
+    keycardDropPercent: 0.35
+    BSAmountMinMax:
+      TypeBase: 3
+      TypeSpecial: 5
+    MSAmountMinMax:
+      TypeBase: 0
+      TypeSpecial: 4
+    CreditAmountMinMax:
+      TypeBase: 20
+      TypeSpecial: 30
+    OverriderAmountMinMax:
+      TypeBase: 2
+      TypeSpecial: 4
+    JouleAmountMinMax:
+      TypeBase: 10
+      TypeSpecial: 20
   HUD: {fileID: 929499903805823867}
   LookingSatellite: {fileID: 8376210550337142964}
   WalkingSatellite: {fileID: 8314429211963477539}

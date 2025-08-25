@@ -77,13 +77,43 @@ MonoBehaviour:
   MaxHP: 600
   MaxEP: 200
   ChargeEPSpeed: 50
-  ItemDropPercent: 1
-  ItemRankPercents:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
+  EnemyDropItemPercent:
+    ModuleDropPercent: 1
+    ModuleRankPercents: 2b0000001b0000000f0000000900000006000000
+    keycardDropPercent: 0.35
+    BSAmountMinMax:
+      TypeBase: 3
+      TypeSpecial: 5
+    MSAmountMinMax:
+      TypeBase: 0
+      TypeSpecial: 4
+    CreditAmountMinMax:
+      TypeBase: 20
+      TypeSpecial: 30
+    OverriderAmountMinMax:
+      TypeBase: 2
+      TypeSpecial: 4
+    JouleAmountMinMax:
+      TypeBase: 10
+      TypeSpecial: 20
+  ModuleDropPercent: 1
+  ModuleRankPercents: 2b0000001b0000000f0000000900000006000000
+  keycardDropPercent: 0.35
+  BSAmountMinMax:
+    TypeBase: 0
+    TypeSpecial: 0
+  MSAmountMinMax:
+    TypeBase: 0
+    TypeSpecial: 0
+  CreditAmountMinMax:
+    TypeBase: 0
+    TypeSpecial: 0
+  OverriderAmountMinMax:
+    TypeBase: 0
+    TypeSpecial: 0
+  JouleAmountMinMax:
+    TypeBase: 0
+    TypeSpecial: 0
   HUD: {fileID: 929499903805823867}
   LookingSatellite: {fileID: 8376210550337142964}
   WalkingSatellite: {fileID: 8314429211963477539}
@@ -772,6 +802,8 @@ MonoBehaviour:
   AnimSpeed: 2.6
   SpawnDis: 1.4
   EndDis: 2.2
+  AttackSizeVec: {x: 1, y: 1}
+  IsShadowRangeByDepthController: 1
   LightOn: 1
   LightSize: 2.3
   MaxRange: 2.3
@@ -1871,6 +1903,8 @@ MonoBehaviour:
   AnimSpeed: 2.6
   SpawnDis: 0.8
   EndDis: 1.6
+  AttackSizeVec: {x: 1, y: 1}
+  IsShadowRangeByDepthController: 1
   LightOn: 1
   LightSize: 2.3
   MaxRange: 2.3
@@ -2257,6 +2291,8 @@ MonoBehaviour:
   AnimSpeed: 2.6
   SpawnDis: 1.4
   EndDis: 2.2
+  AttackSizeVec: {x: 1, y: 1}
+  IsShadowRangeByDepthController: 1
   LightOn: 1
   LightSize: 2.3
   MaxRange: 2.3
@@ -2624,6 +2660,8 @@ MonoBehaviour:
   AnimSpeed: 2.6
   SpawnDis: 0.8
   EndDis: 1.6
+  AttackSizeVec: {x: 1, y: 1}
+  IsShadowRangeByDepthController: 1
   LightOn: 1
   LightSize: 2.3
   MaxRange: 2.3
@@ -2861,6 +2899,8 @@ MonoBehaviour:
   AnimSpeed: 2.6
   SpawnDis: 2
   EndDis: 2.8
+  AttackSizeVec: {x: 1, y: 1}
+  IsShadowRangeByDepthController: 1
   LightOn: 1
   LightSize: 2.3
   MaxRange: 2.3
@@ -2939,10 +2979,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5956502316695661957}
     m_Modifications:
-    - target: {fileID: 2226384266029832256, guid: ecc52c4823637994a82aed73cdc0076c, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -741016898, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 5157714867513104668, guid: ecc52c4823637994a82aed73cdc0076c, type: 3}
       propertyPath: m_Pivot.x
       value: 0

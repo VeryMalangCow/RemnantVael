@@ -28,8 +28,7 @@ public abstract class EnemyController : NavObjectController
 
     [Space(10)]
     [Header("=== Item")]
-    [SerializeField] private float ItemDropPercent = 0.0f;
-    [SerializeField] private List<float> ItemRankPercents;
+    [SerializeField] private EnemyDropItemPercent EnemyDropItemPercent;
 
     [Space(10)]
     [Header("=== UI")]
@@ -550,20 +549,26 @@ public abstract class EnemyController : NavObjectController
 
     private void Set_Die_GenItem()
     {
-        Gen_BS(1); // 베터리 조각
-        Gen_MS(1); // 모듈 조각
-        Gen_Credit(10); // 크레딧
-        Gen_Overrider(1); // 오버라이더
-        Gen_J(10 * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value); // 줄
+        EnemyDropItemPercent genP = EnemyDropItemPercent;
+        Gen_BS(Random.Range(
+            genP.BSAmountMinMax.TypeBase, genP.BSAmountMinMax.TypeSpecial)); // 베터리 조각
+        Gen_MS(Random.Range(
+            genP.MSAmountMinMax.TypeBase, genP.MSAmountMinMax.TypeSpecial)); // 모듈 조각
+        Gen_Credit(Random.Range(
+            genP.CreditAmountMinMax.TypeBase, genP.CreditAmountMinMax.TypeSpecial)); // 크레딧
+        Gen_Overrider(Random.Range(
+            genP.OverriderAmountMinMax.TypeBase, genP.OverriderAmountMinMax.TypeSpecial)); // 오버라이더
+        Gen_J(Random.Range(
+            genP.JouleAmountMinMax.TypeBase, genP.JouleAmountMinMax.TypeSpecial)
+            * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value); // 줄
         
         // Drop Module Item
-        if (DevTool.Is_ChanceSuccess(ItemDropPercent))
-        {
-            Gen_ModuleItem(DevTool.Get_Rank(ItemRankPercents));
-        }
-
+        if (DevTool.Is_ChanceSuccess(genP.ModuleDropPercent))
+            Gen_ModuleItem(DevTool.Get_Rank(genP.ModuleRankPercents));
+        
         // Drop Keycard
-        Gen_KeycardItem(Random.Range(0, MainGameUIManager.Instance.Get_KindOfKeyCardAmount()));
+        if (DevTool.Is_ChanceSuccess(genP.keycardDropPercent))
+            Gen_KeycardItem(Random.Range(1, MainGameUIManager.Instance.Get_KindOfKeyCardAmount()));
     }
 
     private void Set_Die_Effect()

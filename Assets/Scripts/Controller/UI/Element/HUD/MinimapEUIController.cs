@@ -145,8 +145,8 @@ public class MinimapEUIController : ElementUIController
         Set_AnchorPos(CurrentRC.ThisMME, NormalMMEParentRT, 0.3f);
         Set_AnchorPos(CurrentRC.ThisIMME, InteractableMMEParentRT, 0.3f);
 
-        Set_Point(NormalPoint, CurrentRC.ThisMME);
-        Set_Point(InteractablePoint, CurrentRC.ThisIMME);
+        //Set_Point(NormalPoint, CurrentRC.ThisMME);
+        //Set_Point(InteractablePoint, CurrentRC.ThisIMME);
 
         Set_ActiveMME(CurrentRC.ThisMME);
         Set_ActiveMME(CurrentRC.ThisIMME);

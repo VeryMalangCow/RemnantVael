@@ -84,7 +84,7 @@ public class DevTool
     }
 
     // È®·ü¿¡ µû¸¥ µî±Þ
-    public static int Get_Grade(List<float> _RankPercents)
+    public static int Get_Grade(List<int> _RankPercents)
     {
         float currentSum = 0f;
         float randomValue = UnityEngine.Random.Range(0f, Get_SumFloat(_RankPercents));
@@ -102,7 +102,7 @@ public class DevTool
     }
 
     // ·©Å©
-    public static int Get_Rank(List<float> _RankPercents)
+    public static int Get_Rank(List<int> _RankPercents)
     {
         return Get_Grade(_RankPercents) + 1;
     }
@@ -387,12 +387,12 @@ public class DevTool
 
     #region float
 
-    public static float Get_SumFloat(List<float> _FloatList)
+    public static float Get_SumFloat(List<int> _IntList)
     {
         float result = 0;
-        for (int i = 0; i < _FloatList.Count; i++)
+        for (int i = 0; i < _IntList.Count; i++)
         {
-            result += _FloatList[i];
+            result += _IntList[i];
         }
         return result;
     }
@@ -4019,6 +4019,44 @@ public class StatusEffect_Permanent_WithoutAmount : StatusEffect_Permanent
 #endregion
 
 
+#region Class : Enemy : BossPhase
+
+[System.Serializable]
+public class BossPhaseData
+{
+    public int ThisPhase;
+    public float ThisPhaseLimitPercentHP;
+}
+
+#endregion
+
+#region Class : Enemy : DropItem
+
+[System.Serializable]
+public class EnemyDropItemPercent
+{
+    [Space(5)]
+    [Header("-- Module")]
+    [SerializeField] public float ModuleDropPercent = 0.0f;
+    [SerializeField] public List<int> ModuleRankPercents;
+
+    [Space(5)]
+    [Header("-- Keycard")]
+    [SerializeField] public float keycardDropPercent = 0.0f;
+
+    [Space(5)]
+    [Header("-- Goods")]
+    [SerializeField] public CoupleData<int> BSAmountMinMax;
+    [SerializeField] public CoupleData<int> MSAmountMinMax;
+    [SerializeField] public CoupleData<int> CreditAmountMinMax;
+    [SerializeField] public CoupleData<int> OverriderAmountMinMax;
+    [SerializeField] public CoupleData<float> JouleAmountMinMax;
+}
+
+#endregion
+
+
+
 #region Class : Satellite
 
 [System.Serializable]
@@ -4143,6 +4181,9 @@ public class StageRoom
     public List<GenRoomData> RoomAmount;
 
     [Space(10)]
+    public List<GenDesignatedRoom> DesignatedRoom; 
+
+    [Space(10)]
     public List<GenSpecialRoomData> EntranceRoom;
 
     [Space(10)]
@@ -4160,6 +4201,13 @@ public class GenRoomData
 {
     public int ID;
     public int Amount;
+}
+
+[System.Serializable]
+public class GenDesignatedRoom
+{
+    public int ID;
+    public int RuleID;
 }
 
 [System.Serializable]
@@ -4288,7 +4336,7 @@ public class AllyBaseUpradeTunerSet
 {
     public List<AllyTunerData> AllyTunerDataList;
 
-    public void Offset(int _Amount, List<string> _TypeList, List<float> _RankPercent)
+    public void Offset(int _Amount, List<string> _TypeList, List<int> _RankPercent)
     {
         AllyTunerDataList = new List<AllyTunerData>();
         for (int i = 0; i < _Amount; i++)
@@ -4307,12 +4355,12 @@ public class AllyTunerData
 
     public int NeedPay = 0;
 
-    public AllyTunerData(List<string> _TypeList, List<float> _RankPercent)
+    public AllyTunerData(List<string> _TypeList, List<int> _RankPercent)
     {
         Set_Data(_TypeList, _RankPercent);
     }
 
-    public void Set_Data(List<string> _TypeList, List<float> _RankPercent)
+    public void Set_Data(List<string> _TypeList, List<int> _RankPercent)
     {
         Positive0 = new AllyEachTunerData(_TypeList, _RankPercent);
         Positive1 = new AllyEachTunerData(_TypeList, _RankPercent);
@@ -4328,12 +4376,12 @@ public class AllyEachTunerData
     public string Type = "";
     public int Rank = 0;
 
-    public AllyEachTunerData(List<string> _TypeList, List<float> _RankPercent)
+    public AllyEachTunerData(List<string> _TypeList, List<int> _RankPercent)
     {
         Set_Data(_TypeList, _RankPercent);
     }
 
-    public void Set_Data(List<string> _TypeList, List<float> _RankPercent)
+    public void Set_Data(List<string> _TypeList, List<int> _RankPercent)
     {
         Type = _TypeList[UnityEngine.Random.Range(0, _TypeList.Count)];
         Rank = DevTool.Get_Rank(_RankPercent);

@@ -1137,4 +1137,24 @@ public class PlayerController : AliveObjectController
     }
 
     #endregion
+
+
+    #region Test
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            BaseWeapon.BaseDamage.ActualState.Value = 100f;
+            BaseWeapon.BaseDamage.BuffedState = 100f;
+            WalkSpeed.ActualState.Value = 15f;
+            Debug.Log("TEST State Up");
+
+            UnitManager.Instance.Test_Cor(); 
+        }
+    }
+
+    #endregion
 }

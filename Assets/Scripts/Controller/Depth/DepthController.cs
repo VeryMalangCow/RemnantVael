@@ -71,6 +71,8 @@ public class DepthController : IDController
     // Bettery Shard
     protected void Gen_BS(int _Value)
     {
+        if (_Value <= 0) return;
+
         PoolingManager.Instance.Get_OP_BetteryShard().Set_State(
             _SpawnPos: gameObject.transform.position, 
             _Value);
@@ -79,6 +81,8 @@ public class DepthController : IDController
     // Bettery Shard: Random
     protected void Gen_RandomBS(int _Min, int _Max, int _Value = 1)
     {
+        if (_Value <= 0) return;
+
         int amount = Random.Range(_Min, _Max + 1);
 
         for (int i = 0; i < amount; i++) Gen_BS(_Value);
@@ -87,6 +91,8 @@ public class DepthController : IDController
     // Module Shard
     protected void Gen_MS(int _Value)
     {
+        if (_Value <= 0) return;
+
         PoolingManager.Instance.Get_OP_ModuleShard().Set_State(
             _SpawnPos: gameObject.transform.position, 
             _Value);
@@ -95,6 +101,8 @@ public class DepthController : IDController
     // Module Shard: Random
     protected void Gen_RandomMS(int _Min, int _Max, int _Value = 1)
     {
+        if (_Value <= 0) return;
+
         int amount = Random.Range(_Min, _Max + 1);
 
         for (int i = 0; i < amount; i++) Gen_MS(_Value);
@@ -103,6 +111,8 @@ public class DepthController : IDController
     // Joule
     protected void Gen_J(float _Value)
     {
+        if (_Value <= 0) return;
+
         PoolingManager.Instance.Get_OP_Joule().Set_State(
             _SpawnPos: gameObject.transform.position, 
             _Value);
@@ -111,6 +121,8 @@ public class DepthController : IDController
     // Overrider
     protected void Gen_Overrider(int _Value)
     {
+        if (_Value <= 0) return;
+
         PoolingManager.Instance.Get_OP_Overrider().Set_State(
             _SpawnPos: gameObject.transform.position,
             _Value);
@@ -119,6 +131,8 @@ public class DepthController : IDController
     // Credit
     protected void Gen_Credit(int _Value)
     {
+        if (_Value <= 0) return;
+
         PoolingManager.Instance.Get_OP_Credit().Set_State(
             _SpawnPos: gameObject.transform.position,
             _Value);

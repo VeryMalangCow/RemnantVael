@@ -83,13 +83,43 @@ MonoBehaviour:
   MaxHP: 250
   MaxEP: 150
   ChargeEPSpeed: 15
-  ItemDropPercent: 1
-  ItemRankPercents:
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
-  - 0.2
+  EnemyDropItemPercent:
+    ModuleDropPercent: 0.1
+    ModuleRankPercents: 500000000c000000050000000200000001000000
+    keycardDropPercent: 0.05
+    BSAmountMinMax:
+      TypeBase: 1
+      TypeSpecial: 4
+    MSAmountMinMax:
+      TypeBase: 0
+      TypeSpecial: 2
+    CreditAmountMinMax:
+      TypeBase: 1
+      TypeSpecial: 10
+    OverriderAmountMinMax:
+      TypeBase: 0
+      TypeSpecial: 2
+    JouleAmountMinMax:
+      TypeBase: 1
+      TypeSpecial: 3
+  ModuleDropPercent: 0.1
+  ModuleRankPercents: 500000000c000000050000000200000001000000
+  keycardDropPercent: 0.05
+  BSAmountMinMax:
+    TypeBase: 0
+    TypeSpecial: 0
+  MSAmountMinMax:
+    TypeBase: 0
+    TypeSpecial: 0
+  CreditAmountMinMax:
+    TypeBase: 0
+    TypeSpecial: 0
+  OverriderAmountMinMax:
+    TypeBase: 0
+    TypeSpecial: 0
+  JouleAmountMinMax:
+    TypeBase: 0
+    TypeSpecial: 0
   HUD: {fileID: 7241037580816432991}
   LookingSatellite: {fileID: 8800238567124451591}
   WalkingSatellite: {fileID: 9179056310911047704}
@@ -661,6 +691,8 @@ MonoBehaviour:
   AnimSpeed: 2.6
   SpawnDis: 0.7
   EndDis: 1.3
+  AttackSizeVec: {x: 1, y: 1}
+  IsShadowRangeByDepthController: 1
   LightOn: 1
   LightSize: 2.3
   MaxRange: 2
@@ -1074,6 +1106,8 @@ MonoBehaviour:
   AnimSpeed: 2.6
   SpawnDis: 0.7
   EndDis: 2.5
+  AttackSizeVec: {x: 1, y: 1}
+  IsShadowRangeByDepthController: 1
   LightOn: 1
   LightSize: 2.3
   MaxRange: 2

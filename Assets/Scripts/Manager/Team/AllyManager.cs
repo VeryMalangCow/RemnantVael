@@ -61,7 +61,7 @@ public class AllyManager : Singleton<AllyManager>
         { 0.05f, 0.05f, 0.05f, 0.1f, 0.05f, 0.1f, 0.1f, 0.1f, 0.05f };
 
     // Base Upgrade Data
-    [HideInInspector] public static List<float> TunerTypePercent = new List<float> { 8, 5, 3, 2, 1 };
+    [HideInInspector] public static List<int> TunerTypePercent = new List<int> { 8, 5, 3, 2, 1 };
     [HideInInspector] private Dictionary<string, Sprite> TunerTypeIconDict;
 
     [HideInInspector] private static Dictionary<string, float> TunerTypeMultipleValueDict;

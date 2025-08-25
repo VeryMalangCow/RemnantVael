@@ -5,16 +5,16 @@ public class ModuleVaultController : VaultController
 {
     #region Value
 
-    [HideInInspector] private readonly static Dictionary<int, List<float>> PercentByGrade = new Dictionary<int, List<float>>
+    [HideInInspector] private readonly static Dictionary<int, List<int>> PercentByGrade = new Dictionary<int, List<int>>
     {
-        { 0, new List<float> { 0.80f, 0.10f, 0.06f, 0.03f, 0.01f } },
-        { 1, new List<float> { 0.60f, 0.20f, 0.10f, 0.07f, 0.03f } },
-        { 2, new List<float> { 0.40f, 0.25f, 0.15f, 0.15f, 0.05f } },
-        { 3, new List<float> { 0.20f, 0.20f, 0.20f, 0.25f, 0.15f } },
-        { 4, new List<float> { 0.05f, 0.25f, 0.25f, 0.25f, 0.20f } }
+        { 0, new List<int> { 80, 10, 6, 3, 1 } },
+        { 1, new List<int> { 60, 20, 10, 7, 3 } },
+        { 2, new List<int> { 40, 25, 15, 15, 5 } },
+        { 3, new List<int> { 20, 20, 20, 25, 15 } },
+        { 4, new List<int> { 5, 25, 25, 25, 20 } }
     };
 
-    private List<float> CurrentPercentByGrade;
+    private List<int> CurrentPercentByGrade;
 
     #endregion
 

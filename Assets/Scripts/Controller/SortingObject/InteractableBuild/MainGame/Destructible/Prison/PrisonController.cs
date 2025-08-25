@@ -60,8 +60,8 @@ public class PrisonController : InteractableBuildController
     [HideInInspector] protected List<SpriteRenderer> PrisonAllyShadowList = new List<SpriteRenderer>();
     [HideInInspector] protected PrisonAllySprite AllySprites;
 
-    [HideInInspector] private static List<float> PercentPrisonGrade = new List<float>
-    { 5f, 4f, 3f, 2f, 1f };
+    [HideInInspector] private static List<int> PercentPrisonGrade = new List<int>
+    { 5, 4, 3, 2, 1 };
 
     #endregion
 

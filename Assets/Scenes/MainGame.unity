@@ -291,7 +291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272305898077013730, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2869,6 +2869,7 @@ MonoBehaviour:
       StageID: 99
     RoomData:
       RoomAmount: []
+      DesignatedRoom: []
       EntranceRoom: []
       VaultRoom: []
       ShopRoom: []
@@ -2904,21 +2905,26 @@ MonoBehaviour:
     RoomData:
       RoomAmount:
       - ID: 0
-        Amount: 10
+        Amount: 8
       - ID: 1
-        Amount: 1
+        Amount: 2
       - ID: 2
-        Amount: 1
-      - ID: 3
-        Amount: 1
+        Amount: 2
       - ID: 4
-        Amount: 1
+        Amount: 2
       - ID: 5
-        Amount: 1
+        Amount: 2
       - ID: 6
-        Amount: 1
+        Amount: 2
       - ID: 7
-        Amount: 1
+        Amount: 2
+      DesignatedRoom:
+      - ID: 0
+        RuleID: 0
+      - ID: 0
+        RuleID: 1
+      - ID: 0
+        RuleID: 2
       EntranceRoom:
       - ID: 3
         RuleID: 0
@@ -2986,6 +2992,10 @@ MonoBehaviour:
   - {fileID: 8671702513593221327, guid: b6a9c06dc727bc148b314b203219dc8f, type: 3}
   - {fileID: 8671702513593221327, guid: c7fdb27c083fcf34d9eb8f3bdc6779be, type: 3}
   - {fileID: 8671702513593221327, guid: d4ab8a3de61f65446a274276ca6587be, type: 3}
+  RoomDesignatedPrefabList:
+  - {fileID: 8671702513593221327, guid: 167c3c9155577f94ca7bf487960f56f4, type: 3}
+  - {fileID: 8671702513593221327, guid: 599f57c33d83f4e4bb5b446cb0d01ac6, type: 3}
+  - {fileID: 8671702513593221327, guid: 4d1ff289429789b4c95e1785cab887f8, type: 3}
   RoomRulePrefabList:
   - {fileID: 8671702513593221327, guid: 8cf2e8f83e6b9754793f6d767a5c7813, type: 3}
   - {fileID: 8671702513593221327, guid: 67fa92153a88e8148a72c2fb2684f1ad, type: 3}
@@ -4209,7 +4219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &989995807
 Transform:
   m_ObjectHideFlags: 0
@@ -7533,6 +7543,10 @@ MonoBehaviour:
     TypeSpecial: {fileID: 2100000, guid: 2a2a3079596044d46bf17c9cd6719978, type: 2}
   BuildingDurFrame: {fileID: -2046568933, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
   BuildingDurInner: {fileID: 518337198, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
+  EnemyPhaseIconList:
+  - {fileID: -1533359489, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+  - {fileID: 154245012, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+  - {fileID: -1813370868, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   PrisonRateIconList:
   - {fileID: 1319849266, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
   - {fileID: -1063222384, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}

@@ -12,9 +12,8 @@ public class UnitManager : Singleton<UnitManager>
 
     [SerializeField] private List<GameObject> TestGO;
 
-    private IEnumerator Test_Cor()
+    public void Test_Cor()
     {
-        yield return new WaitForSeconds(2f);
         for (int i = 0; i < TestGO.Count; i++)
             TestGO[i].gameObject.SetActive(true);
     }
@@ -49,6 +48,10 @@ public class UnitManager : Singleton<UnitManager>
     [Header("-- Build")]
     [SerializeField] public Sprite BuildingDurFrame;
     [SerializeField] public Sprite BuildingDurInner;
+
+    [Space(5)]
+    [Header("-- Enemy")]
+    [SerializeField] public List<Sprite> EnemyPhaseIconList;
 
     [Space(5)]
     [Header("-- Prison")]
@@ -225,8 +228,6 @@ public class UnitManager : Singleton<UnitManager>
         base.Awake();
 
         Set_LanguageTxt();
-
-        StartCoroutine(Test_Cor());
     }
 
     #endregion

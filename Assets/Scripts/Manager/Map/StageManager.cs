@@ -39,6 +39,7 @@ public class StageManager : Singleton<StageManager>
     [Space(3)]
     [Header("* Normal Room")]
     [SerializeField] private List<GameObject> RoomPrefabList;
+    [SerializeField] private List<GameObject> RoomDesignatedPrefabList;
     [SerializeField] private List<GameObject> RoomRulePrefabList;
     [SerializeField] private List<GameObject> RoomRuleEntrancePrefabList;
     [SerializeField] private List<GameObject> RoomRuleVaultPrefabList;
@@ -225,6 +226,13 @@ public class StageManager : Singleton<StageManager>
             TempID++;
         }
 
+        // 지정된 방 생성 (일반 룸과 같지만 특정 구성만 다름 ex.Elite)
+        for (int i = 0; i < _StageData.RoomData.DesignatedRoom.Count; i++)
+        {
+            Gen_DesignatedRoom(_StageData.RoomData.DesignatedRoom[i], TempID);
+            TempID++;
+        }
+
         // 통과 방 생성
         for (int i = 0; i < _StageData.RoomData.EntranceRoom.Count; i++)
         {
@@ -302,6 +310,25 @@ public class StageManager : Singleton<StageManager>
             CurrentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(Get_CorrectRandomRoomRule(room).gameObject, room.gameObject.transform), out RoomRuleController roomRule))
+                room.RoomRuleController = roomRule;
+
+            room.Offset(_TempID);
+            Set_NormalRelativeVec(room, _ConnectedRoomAmount: -1, _ApplySpecialExist: false);
+        }
+    }
+
+    #endregion
+
+    #region Designated
+
+    // 지정 방 생성
+    private void Gen_DesignatedRoom(GenDesignatedRoom _DesignatedRoomData, int _TempID)
+    {
+        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_DesignatedRoomData.ID], MapParentTF), out RoomController room))
+        {
+            CurrentAllRoomController.Add(room);
+
+            if (DevTool.Get_ComponentTType(Instantiate(RoomDesignatedPrefabList[_DesignatedRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             room.Offset(_TempID);
