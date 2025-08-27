@@ -6,6 +6,18 @@ public class NormalEnemyController : EnemyController
 
     #endregion
 
+    #region Framework
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        // Pattern
+        Start_PatternFromNone();
+    }
+
+    #endregion
+
     #region Pattern
 
 

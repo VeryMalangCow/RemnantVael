@@ -4026,6 +4026,9 @@ public class BossPhaseData
 {
     public int ThisPhase;
     public float ThisPhaseLimitPercentHP;
+    public List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
+    public ContinuousEnemyPattern SpecialPattern;
+
 }
 
 #endregion

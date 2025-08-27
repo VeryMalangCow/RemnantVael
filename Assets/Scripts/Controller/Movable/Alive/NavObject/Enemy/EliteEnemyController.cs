@@ -29,6 +29,9 @@ public class EliteEnemyController : EnemyController
         base.OnEnable();
 
         EnemyManager.Instance.Add_EliteEnemy(this);
+
+        // Pattern
+        Start_PatternFromNone();
     }
 
     #endregion

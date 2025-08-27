@@ -169,9 +169,6 @@ public abstract class EnemyController : NavObjectController
         Reset_State();
 
         DevTool.Add_InList(EnemyManager.Instance.CurrentEnemyList, this);
-
-        // Pattern
-        Start_PatternFromNone();
     }
 
     protected override void Update()
@@ -214,7 +211,6 @@ public abstract class EnemyController : NavObjectController
         }
     }
 
-
     private void Caculate_DischargeDelay(float _DeltaTime)
     {
         DischargeDelayCurrentTime += _DeltaTime;
@@ -235,6 +231,16 @@ public abstract class EnemyController : NavObjectController
         IsPlayingSpecialPattern = false;
 
         HUD.Reset_HUD();
+    }
+
+    #endregion
+
+    #region HP
+
+    // HP
+    protected float Get_PercentHP()
+    {
+        return (CurrentHP.Value / MaxHP) * 100f;
     }
 
     #endregion
@@ -619,10 +625,13 @@ public abstract class EnemyController : NavObjectController
 
     #region Pattern
 
-    private void EndAll_Pattern()
+    protected void EndAll_Pattern()
     {
-        if (CurrentEnemyPattern != null) CurrentEnemyPattern.End_Pattern();
-        StopCoroutine(CurrentPatternCor);
+        if (CurrentEnemyPattern != null)
+            CurrentEnemyPattern.End_Pattern();
+        
+        if (CurrentPatternCor != null)
+            StopCoroutine(CurrentPatternCor);
 
         CurrentContinuousEnemyPattern = null;
         CurrentEnemyPattern = null;
@@ -631,11 +640,10 @@ public abstract class EnemyController : NavObjectController
         LookAtDir = Vector2.zero;
     }
 
-    private void Start_PatternFromNone()
+    protected void Start_PatternFromNone()
     {
         OrderOfPriorityEnemyPatternList[OrderOfPriorityEnemyPatternList.Count - 1].EnemyPatternList[0].EnemyPatternList[0].Start_Pattern();
     }
-
 
     private int Get_NextPatternIndex()
     {
@@ -656,7 +664,7 @@ public abstract class EnemyController : NavObjectController
         return orderOfPattern;
     }
 
-    public void Play_Pattern()
+    public virtual void Play_Pattern()
     {
         if (IsDead) return;
 
