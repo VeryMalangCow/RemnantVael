@@ -17,6 +17,7 @@ public class BossEnemyController : EnemyController
     [Header("=== Comp")]
     [SerializeField] public RectTransform PanelRT;
     [SerializeField] private Image ThisHUDIcon;
+    [SerializeField] private List<GameObject> ThisAuraParticleGOList;
 
     [Space(10)]
     [Header("=== Data")]
@@ -82,7 +83,16 @@ public class BossEnemyController : EnemyController
             Debug.Log("Boss Phase :" + actualCurrentPhase.ThisPhase);
             // Play new Pattern by Phase
             StartCoroutine(Set_NewPhase(actualCurrentPhase));
+            
+            // Icon
             ThisHUDIcon.sprite = UnitManager.Instance.EnemyPhaseIconList[actualCurrentPhase.ThisPhase];
+            
+            // Particle
+            for (int i = 0; i < ThisAuraParticleGOList.Count; i++)
+            {
+                ThisAuraParticleGOList[i].gameObject.SetActive(actualCurrentPhase.ThisPhase > i);
+            }
+
             return true;
         }
 
