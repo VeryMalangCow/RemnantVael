@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     [Header("=== Path")]
     [SerializeField] private string JsonFilePath = "";
     [SerializeField] private string CharacterPath = "";
+    [SerializeField] private string ItemPath = "";
 
     #endregion
 
@@ -48,10 +50,9 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     {
         DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath);
 
-        // 예시: CharacterData 저장
-        TrySave_EachJsonData(
-            this.CharacterPath,
-            new SerializationList<EachCharacterJsonData>(JsonData.CharacterData));
+        TrySave_EachJsonData(this.CharacterPath, new SerializationList<EachCharacterJsonData>(JsonData.CharacterData));
+        TrySave_EachJsonData(this.ItemPath, new SerializationList<EachItemJsonData>(JsonData.ItemData));
+
     }
 
     #region TrySave (Each)
@@ -84,6 +85,11 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
             TryLoad_EachJsonData<SerializationList<EachCharacterJsonData>>(
                 this.CharacterPath,
                 Get_Default_CharacterData()).ListData;
+
+        JsonData.ItemData =
+            TryLoad_EachJsonData<SerializationList<EachItemJsonData>>(
+                this.ItemPath,
+                Get_Default_ItemData()).ListData;
     }
 
     #region TryLoad (Each)
@@ -117,6 +123,10 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         TryReset_EachJsonData<SerializationList<EachCharacterJsonData>>(
             this.CharacterPath,
             Get_Default_CharacterData());
+
+        TryReset_EachJsonData<SerializationList<EachItemJsonData>>(
+            this.ItemPath,
+            Get_Default_ItemData());
     }
 
     private void TryReset_EachJsonData<T>(string _EachPath, string _DefaultData)
@@ -151,6 +161,12 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         return Resources.Load<TextAsset>("Json/DefaultCharacterData").text;
     }
 
+    // Default Item
+    private string Get_Default_ItemData()
+    {
+        return Resources.Load<TextAsset>("Json/DefaultItemData").text;
+    }
+
     #endregion
 
 
@@ -182,7 +198,20 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 public class JsonData
 {
     public List<EachCharacterJsonData> CharacterData = new List<EachCharacterJsonData>();
+    public List<EachItemJsonData> ItemData = new List<EachItemJsonData>();
+
+    public void Gain_Item(int _ID, int _Amount)
+    {
+        if (ItemData.Count > _ID)
+        {
+            ItemData[_ID].Amount += _Amount;
+        }
+    }
 }
+
+#endregion
+
+#region List Convertor
 
 [System.Serializable]
 public class SerializationList<T>
@@ -205,6 +234,25 @@ public class EachCharacterJsonData
     {
         ID = _ID;
         CanUse = _CanUse;
+    }
+}
+
+#endregion
+
+#region Item
+
+[System.Serializable]
+public class EachItemJsonData
+{
+    public int ID = 0;
+    public string Name = "";
+    public int Amount = 0;
+
+    public EachItemJsonData(int _ID, string _Name, int _Amount = 0)
+    {
+        ID = _ID;
+        Name = _Name;
+        Amount = _Amount;
     }
 }
 

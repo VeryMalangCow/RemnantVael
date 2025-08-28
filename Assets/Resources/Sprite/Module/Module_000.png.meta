@@ -1155,7 +1155,7 @@ TextureImporter:
         width: 3
         height: 3
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1163,6 +1163,69 @@ TextureImporter:
       bones: []
       spriteID: b21bd9aa9d015b8429c860c4262b3243
       internalID: -1904997858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_ProtoCore
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 213
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 074995af823f9e54b868172bc4b05339
+      internalID: -1609351845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_EtherCore
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 213
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca1218e8fecb2d044bb54a804045f715
+      internalID: 286137507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Module_OriginCore
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 213
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c362478ce67e4dc4e81fb6ba8c3e674b
+      internalID: 118361644
       vertices: []
       indices: 
       edges: []
@@ -1231,9 +1294,12 @@ TextureImporter:
       Module000_Smoke_02: 237403348
       Module000_Smoke_03: 366755556
       Module_AreaPoint: -1904997858
+      Module_EtherCore: 286137507
       Module_ModuleFieldItem: -1758125111
+      Module_OriginCore: 118361644
       Module_OverriderBigItem: 760498540
       Module_PingFrame: 97448768
+      Module_ProtoCore: -1609351845
       Module_TargetEnemyFrame: 227598604
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

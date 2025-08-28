@@ -67,6 +67,11 @@ public class EliteEnemyController : EnemyController
             Gen_KeycardItem(0); // Boss Keycard
             IsDroppedBossKeycard = true;
         }
+
+        if (EnemyDropItemPercent.CoreItemPercent != 0 && DevTool.Is_ChanceSuccess(EnemyDropItemPercent.CoreItemPercent))
+        {
+            Gen_CoreItem(EnemyDropItemPercent.CoreItemID);
+        }
     }
 
     protected override void Set_Die_Extra()

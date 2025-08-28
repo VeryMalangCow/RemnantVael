@@ -291,7 +291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 272305898077013730, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2628,6 +2628,12 @@ MonoBehaviour:
   PlayerBullet:
     Prefab: {fileID: 2192280153704162206, guid: e3533e47eb7af7049a0cd38d3c2ddce4, type: 3}
     ParentTF: {fileID: 77619666}
+  PlayerAttackers:
+    Prefab: {fileID: 2154807210293626544, guid: e9907211ca267024c8887bfe754167b7, type: 3}
+    ParentTF: {fileID: 77619666}
+  PlayerExplosions:
+    Prefab: {fileID: 2154807210293626544, guid: e502bef22cc08a54295e688e2ba80666, type: 3}
+    ParentTF: {fileID: 77619666}
   Joule:
     Prefab: {fileID: 8792791415299830887, guid: 9462772553ccac241a9af78a94de5b3f, type: 3}
     ParentTF: {fileID: 77619666}
@@ -2649,11 +2655,8 @@ MonoBehaviour:
   KeycardItems:
     Prefab: {fileID: 8792791415299830887, guid: f8839f6fde1cb794bb8918c78a774ae5, type: 3}
     ParentTF: {fileID: 77619666}
-  PlayerAttackers:
-    Prefab: {fileID: 2154807210293626544, guid: e9907211ca267024c8887bfe754167b7, type: 3}
-    ParentTF: {fileID: 77619666}
-  PlayerExplosions:
-    Prefab: {fileID: 2154807210293626544, guid: e502bef22cc08a54295e688e2ba80666, type: 3}
+  CoreItems:
+    Prefab: {fileID: 8792791415299830887, guid: 398c1abb62692d74aaaf97ea9f7cc814, type: 3}
     ParentTF: {fileID: 77619666}
   MissileBullet:
     Prefab: {fileID: 2192280153704162206, guid: d05f25d52068dd74988f837decc0268e, type: 3}
@@ -4621,6 +4624,14 @@ PrefabInstance:
       propertyPath: MaxHP
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 2232013880238854159, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
+      propertyPath: EnemyDropItemPercent.CoreItemID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232013880238854159, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
+      propertyPath: EnemyDropItemPercent.CoreItemPercent
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.74
@@ -5499,6 +5510,14 @@ PrefabInstance:
     - target: {fileID: 2232013880238854159, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
       propertyPath: MaxHP
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232013880238854159, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
+      propertyPath: EnemyDropItemPercent.CoreItemID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232013880238854159, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
+      propertyPath: EnemyDropItemPercent.CoreItemPercent
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7541,6 +7560,13 @@ MonoBehaviour:
   Prison_OnOffMaterial:
     TypeBase: {fileID: 2100000, guid: f3771b62a007a8648aa61b96f08c895c, type: 2}
     TypeSpecial: {fileID: 2100000, guid: 2a2a3079596044d46bf17c9cd6719978, type: 2}
+  CoreSprites:
+  - ID: 1
+    TypeClass: {fileID: -1609351845, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  - ID: 2
+    TypeClass: {fileID: 286137507, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
+  - ID: 3
+    TypeClass: {fileID: 118361644, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
   BuildingDurFrame: {fileID: -2046568933, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
   BuildingDurInner: {fileID: 518337198, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
   EnemyPhaseIconList:
@@ -7642,6 +7668,7 @@ MonoBehaviour:
   - {r: 1, g: 0.9558776, b: 0.6084906, a: 1}
   - {r: 0.6273585, g: 1, b: 0.98882514, a: 1}
   - {r: 0.62571836, g: 1, b: 0.5990566, a: 1}
+  CoreItemOutlinerAC: {fileID: 7400000, guid: 85952a4c3f7a20a49b5096db45d80602, type: 2}
   ExplosionAC: {fileID: 7400000, guid: 9caa685e3f9cfdb44a1eb1c8622c9b14, type: 2}
   AttributeExplosionACList:
   - {fileID: 7400000, guid: 100332c32a24cf8418b9b4fc4096bfc8, type: 2}
@@ -7923,6 +7950,14 @@ PrefabInstance:
     - target: {fileID: 2232013880238854159, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
       propertyPath: MaxHP
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232013880238854159, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
+      propertyPath: EnemyDropItemPercent.CoreItemID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232013880238854159, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
+      propertyPath: EnemyDropItemPercent.CoreItemPercent
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5956502316695661957, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8642,12 +8677,26 @@ MonoBehaviour:
   - {fileID: 4593839933363528314, guid: ce7a8006effa57a40a58c614cabbe5e2, type: 3}
   JsonFilePath: Json
   CharacterPath: CharacterData
+  ItemPath: ItemData
   JsonData:
     CharacterData:
     - ID: 0
       CanUse: 1
     - ID: 1
       CanUse: 0
+    ItemData:
+    - ID: 0
+      Name: Premium Credit
+      Amount: 0
+    - ID: 1
+      Name: Proto Core
+      Amount: 0
+    - ID: 2
+      Name: Ether Core
+      Amount: 0
+    - ID: 3
+      Name: Origin Core
+      Amount: 0
 --- !u!1001 &1851887257
 PrefabInstance:
   m_ObjectHideFlags: 0

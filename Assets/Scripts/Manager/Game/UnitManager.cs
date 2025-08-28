@@ -37,6 +37,10 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public Material Build_000;
     [SerializeField] public CoupleData<Material> Prison_OnOffMaterial;
 
+    [Space(5)]
+    [Header("-- Core")]
+    [SerializeField] public List<IDWithClass<Sprite>> CoreSprites; 
+
     #endregion
 
     #region Sprite
@@ -104,6 +108,10 @@ public class UnitManager : Singleton<UnitManager>
     [Header("-- Keycard")]
     [SerializeField] public AnimationClip KeycardItemOutlinerAC;
     [SerializeField] public List<Color> KeycardItemOutlinerColorList;
+
+    [Space(5)]
+    [Header("-- Core")]
+    [SerializeField] public AnimationClip CoreItemOutlinerAC;
 
     [Space(5)]
     [Header("-- Expl")]
@@ -296,6 +304,21 @@ public class UnitManager : Singleton<UnitManager>
     public Sprite Get_NSCAnswerSprite(int _ShapeIndex, int _NumIndex)
     {
         return AllNSCAnswerSpriteSet[_ShapeIndex].AllAnswerSet[_NumIndex];
+    }
+
+    #endregion
+
+    #region Get Core Item
+
+    public Sprite Get_CoreSprite(int _ID)
+    {
+        for (int i = 0; i < CoreSprites.Count; i++)
+        {
+            if (CoreSprites[i].ID == _ID)
+                return CoreSprites[i].TypeClass;
+        }
+
+        return null;
     }
 
     #endregion

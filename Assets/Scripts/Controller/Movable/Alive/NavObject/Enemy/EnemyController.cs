@@ -28,7 +28,7 @@ public abstract class EnemyController : NavObjectController
 
     [Space(10)]
     [Header("=== Item")]
-    [SerializeField] private EnemyDropItemPercent EnemyDropItemPercent;
+    [SerializeField] protected EnemyDropItemPercent EnemyDropItemPercent;
 
     [Space(10)]
     [Header("=== UI")]

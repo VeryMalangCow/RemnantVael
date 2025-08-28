@@ -8,6 +8,10 @@ public class PoolingManager : Singleton<PoolingManager>
 
     [Header("=== Player")]
     [SerializeField] public TTypePooling<PlayerBulletController> PlayerBullet;
+    [SerializeField] public TTypePooling<PlayerAttackerController> PlayerAttackers;
+    [SerializeField] public TTypePooling<PlayerExplosionController> PlayerExplosions;
+
+    [Header("=== Item")]
     [SerializeField] public TTypePooling<JouleController> Joule;
     [SerializeField] public TTypePooling<BetteryShardController> BetteryShard;
     [SerializeField] public TTypePooling<ModuleShardController> ModuleShard;
@@ -15,8 +19,7 @@ public class PoolingManager : Singleton<PoolingManager>
     [SerializeField] public TTypePooling<CreditController> Credit;
     [SerializeField] public TTypePooling<ModuleItemController> ModuleItems;
     [SerializeField] public TTypePooling<KeycardItemController> KeycardItems;
-    [SerializeField] public TTypePooling<PlayerAttackerController> PlayerAttackers;
-    [SerializeField] public TTypePooling<PlayerExplosionController> PlayerExplosions;
+    [SerializeField] public TTypePooling<CoreItemController> CoreItems;
 
     [Header("=== Skill")]
     [SerializeField] public TTypePooling<MissileBulletController> MissileBullet;
@@ -198,6 +201,23 @@ public class PoolingManager : Singleton<PoolingManager>
         return Get_OP_List<PlayerBulletController>(PlayerBullet.Prefab, PlayerBullet.ParentTF, PlayerBullet.Queue, _Amount);
     }
 
+
+    // Player Attacker
+    public PlayerAttackerController Get_OP_PlayerAttacker()
+    {
+        return Get_OP<PlayerAttackerController>(PlayerAttackers.Prefab, PlayerAttackers.ParentTF, PlayerAttackers.Queue);
+    }
+
+    // Player Explosion
+    public PlayerExplosionController Get_OP_PlayerExplosion()
+    {
+        return Get_OP<PlayerExplosionController>(PlayerExplosions.Prefab, PlayerExplosions.ParentTF, PlayerExplosions.Queue);
+    }
+
+    #endregion
+
+    #region Item
+
     // Joule
     public JouleController Get_OP_Joule()
     {
@@ -215,7 +235,7 @@ public class PoolingManager : Singleton<PoolingManager>
     {
         return Get_OP<ModuleShardController>(ModuleShard.Prefab, ModuleShard.ParentTF, ModuleShard.Queue);
     }
-    
+
     // Overrider
     public OverriderController Get_OP_Overrider()
     {
@@ -240,16 +260,10 @@ public class PoolingManager : Singleton<PoolingManager>
         return Get_OP<KeycardItemController>(KeycardItems.Prefab, KeycardItems.ParentTF, KeycardItems.Queue);
     }
 
-    // Player Attacker
-    public PlayerAttackerController Get_OP_PlayerAttacker()
+    // Core Item
+    public CoreItemController Get_OP_CoreItem()
     {
-        return Get_OP<PlayerAttackerController>(PlayerAttackers.Prefab, PlayerAttackers.ParentTF, PlayerAttackers.Queue);
-    }
-
-    // Player Explosion
-    public PlayerExplosionController Get_OP_PlayerExplosion()
-    {
-        return Get_OP<PlayerExplosionController>(PlayerExplosions.Prefab, PlayerExplosions.ParentTF, PlayerExplosions.Queue);
+        return Get_OP<CoreItemController>(CoreItems.Prefab, CoreItems.ParentTF, CoreItems.Queue);
     }
 
     #endregion

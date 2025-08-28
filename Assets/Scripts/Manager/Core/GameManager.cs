@@ -1507,6 +1507,18 @@ public class DevTool
                 return ResourceManager.Instance.Get_StaticWord(0);
             else if (Can_CastingTType(_II, out KeycardItemController keycardItem))
                 return ResourceManager.Instance.Get_StaticWord(117);
+            else if (Can_CastingTType(_II, out CoreItemController coreItem))
+                switch (coreItem.Get_ID())
+                {
+                    case 1:
+                        return ResourceManager.Instance.Get_StaticWord(118);
+                    case 2:
+                        return ResourceManager.Instance.Get_StaticWord(119);
+                    case 3:
+                        return ResourceManager.Instance.Get_StaticWord(120);
+                    default:
+                        return "";
+                }
         }
 
         else if (Can_CastingTType(_II, out GateController gate) && gate.ThingsGO.TypeSpecial.activeSelf)
@@ -1714,6 +1726,8 @@ public class RefData<T>
 
 }
 
+
+
 [System.Serializable]
 public class TrioData<T>
 {
@@ -1721,7 +1735,6 @@ public class TrioData<T>
     [SerializeField] public T TypeSpecial;
     [SerializeField] public T TypeB;
 }
-
 
 [System.Serializable]
 public class CoupleData<T>
@@ -1859,6 +1872,14 @@ public class AlwaysCooltimeData : CooltimeData
             return false;
         }
     }
+}
+
+
+[System.Serializable]
+public class IDWithClass<T>
+{
+    public int ID;
+    public T TypeClass;
 }
 
 #endregion
@@ -4046,6 +4067,11 @@ public class EnemyDropItemPercent
     [Space(5)]
     [Header("-- Keycard")]
     [SerializeField] public float keycardDropPercent = 0.0f;
+
+    [Space(5)]
+    [Header("-- Core")]
+    [SerializeField] public int CoreItemID = 0;
+    [SerializeField] public float CoreItemPercent = 0.0f;
 
     [Space(5)]
     [Header("-- Goods")]

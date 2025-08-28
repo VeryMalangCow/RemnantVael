@@ -156,5 +156,14 @@ public class DepthController : IDController
         KIC.Set_TypeState(_ID);
     }
 
+    // Core Item
+    protected void Gen_CoreItem(int _ID)
+    {
+        CoreItemController CIC = PoolingManager.Instance.Get_OP_CoreItem();
+        CIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        CIC.Set_State(this.transform.position);
+        CIC.Set_TypeState(_ID);
+    }
+
     #endregion
 }
