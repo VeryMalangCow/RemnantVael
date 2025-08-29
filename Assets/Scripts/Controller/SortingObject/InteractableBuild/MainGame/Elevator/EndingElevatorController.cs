@@ -14,11 +14,16 @@ public class EndingElevatorController : ElevatorController, IInteract
 
     #endregion
 
-    #region Set
+    #region Data
 
     public void Set_Data(int _NextStageIndex)
     {
         NextStageIndex = _NextStageIndex;
+    }
+
+    public int Get_Data()
+    {
+        return NextStageIndex;
     }
 
     #endregion

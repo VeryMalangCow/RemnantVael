@@ -3156,6 +3156,11 @@ MonoBehaviour:
     - {x: 1, y: 1}
     SpritePivot: {x: 0.25, y: 0.25}
   OffsetRoomSize: {x: 22, y: 14}
+  StageIconLobby: {fileID: -545570758, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  StageIconList:
+  - {fileID: -1530078879, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -16964757, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -869181761, guid: 637ede47422025b48bd24c3773722caa, type: 3}
   CurrentAllRoomController: []
   CurrentAllEntranceRoomController: []
   CurrentRoomController: {fileID: 0}

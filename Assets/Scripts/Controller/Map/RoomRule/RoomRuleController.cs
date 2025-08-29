@@ -22,7 +22,6 @@ public class RoomRuleController : MonoBehaviour
     [SerializeField] public eRoomType RoomType;
     [SerializeField] public bool IsAlreadyRoomClear = false;
 
-
     [Space(10)]
     [Header("=== Parent TF")]
 

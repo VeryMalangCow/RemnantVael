@@ -88,6 +88,7 @@ public class PlayerHUDController : UIController
     [Space(10)]
     [Header("=== Minimap")]
     [SerializeField] public MinimapEUIController ThisMinimap;
+    [SerializeField] public Image StageIcon;
 
     [Space(10)]
     [Header("=== Map Anno")]
@@ -129,7 +130,6 @@ public class PlayerHUDController : UIController
     [Header("=== Key Item")]
     [SerializeField] private Image KeyItemVFXImg;
     [SerializeField] private List<Image> KeyItemImgList;
-    
 
     #endregion
 

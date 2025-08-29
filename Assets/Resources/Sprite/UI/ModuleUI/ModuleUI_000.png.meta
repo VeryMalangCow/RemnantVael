@@ -2016,7 +2016,7 @@ TextureImporter:
         width: 17
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2037,7 +2037,7 @@ TextureImporter:
         width: 17
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2058,7 +2058,7 @@ TextureImporter:
         width: 17
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2079,7 +2079,7 @@ TextureImporter:
         width: 17
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2087,6 +2087,90 @@ TextureImporter:
       bones: []
       spriteID: 333ca4b3c2c9679438ef7b853cad289c
       internalID: -2136574193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_StageIcon_Lobby
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 154
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 545c0d6a6a356e14eb33a092b39f4ae5
+      internalID: -545570758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_StageIcon_00
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 154
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbe61c59ced3d3146a7dfac2c75b3085
+      internalID: -1530078879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_StageIcon_01
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 154
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6972612a487bad945a040743068109e2
+      internalID: -16964757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_StageIcon_02
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 154
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 623e80b479d591248896305f67d6a0ae
+      internalID: -869181761
       vertices: []
       indices: 
       edges: []
@@ -2196,6 +2280,10 @@ TextureImporter:
       ModuleUI_SideIconFrame: -945182851
       ModuleUI_SliderCell: -2118155954
       ModuleUI_SmallLock: 114152918
+      ModuleUI_StageIcon_00: -1530078879
+      ModuleUI_StageIcon_01: -16964757
+      ModuleUI_StageIcon_02: -869181761
+      ModuleUI_StageIcon_Lobby: -545570758
       ModuleUI_TitleFrame: 121522765
       ModuleUI_UpDownGradient: 1852420375
       ModuleUI_UpFrame: -1972109538

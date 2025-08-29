@@ -33,6 +33,10 @@ public class EntranceRuleController : RoomRuleController
         SetOn_Elevator();
     }
 
+    #endregion
+
+    #region Elevator
+
     private void SetOn_Elevator()
     {
         if (InRoom_Elevator != null &&
@@ -45,6 +49,11 @@ public class EntranceRuleController : RoomRuleController
     public void Set_ElevatorData(int _NextStageIndex)
     {
         InRoom_Elevator.Set_Data(_NextStageIndex);
+    }
+
+    public int Get_ElevatorData()
+    {
+        return InRoom_Elevator.Get_Data();
     }
 
     #endregion

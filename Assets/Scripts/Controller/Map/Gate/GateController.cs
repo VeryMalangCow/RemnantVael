@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,10 +14,14 @@ public class GateController : StaticDepthController, IInteract
     [Space(10)]
     [Header("=== Data")]
 
-    [Space(10)]
+    [Space(5)]
     [Header("-- KeyCard")]
     [SerializeField] private int NeedKeyCardID = -1;
     [SerializeField] private SpriteRenderer KeyCardIconSR;
+
+    [Space(5)]
+    [Header("-- Entrance")]
+    [SerializeField] private SpriteRenderer NextMapIconSR;
 
     [Space(5)]
     [Header("-- Vec")]
@@ -227,6 +232,26 @@ public class GateController : StaticDepthController, IInteract
     public void Set_NeedKeyCard(int _ID)
     {
         NeedKeyCardID = _ID;
+
+    }
+
+    #endregion
+
+    #region Map
+
+    public void Set_NextMap()
+    {
+        if (DevTool.Can_CastingTType(ParterGate.ThisRoom.RoomRuleController, out EntranceRuleController erc))
+        {
+            int index = erc.Get_ElevatorData();
+            Debug.Log(index);
+            NextMapIconSR.sprite = StageManager.Instance.StageIconDict[index];
+            NextMapIconSR.gameObject.SetActive(true);
+        }
+        else
+        {
+            NextMapIconSR.gameObject.SetActive(false);
+        }
     }
 
     #endregion

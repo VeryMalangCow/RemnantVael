@@ -76,6 +76,12 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private Vector2 OffsetRoomSize;
 
     [Space(10)]
+    [Header("=== Icon")]
+    [SerializeField] private Sprite StageIconLobby;
+    [SerializeField] private List<Sprite> StageIconList;
+    [HideInInspector] public Dictionary<int, Sprite> StageIconDict;
+
+    [Space(10)]
     [Header("=== Current")]
     [SerializeField] private List<RoomController> CurrentAllRoomController = new List<RoomController>();
     [SerializeField] private List<EntranceRuleController> CurrentAllEntranceRoomController = new List<EntranceRuleController>();
@@ -118,6 +124,17 @@ public class StageManager : Singleton<StageManager>
         {
             AllStageData[i].Offset(ResourceManager.Instance.Get_StageMapSpriteList(i), ResourceManager.Instance.Get_StageMapMaterialList(i));
         }
+
+        StageIconDict = new Dictionary<int, Sprite>();
+
+        StageIconDict.Add(99, StageIconLobby);
+        StageIconLobby = null;
+
+        for (int i = 0; i < StageIconList.Count; i++)
+        {
+            StageIconDict.Add(i, StageIconList[i]);
+        }
+        StageIconList = null;
     }
 
     #endregion
@@ -158,11 +175,11 @@ public class StageManager : Singleton<StageManager>
             EliteEnemyController.IsDroppedBossKeycard = false;
         }
 
-        // 게이트 활성화
-        Set_GateActiveOn();
-
         // Entrance 활성화
         Set_EntranceIndex(TargetStageID);
+
+        // 게이트 활성화
+        Set_GateActiveOn();
 
         // UI 셋
         Set_StartUI(stageData);
@@ -646,6 +663,7 @@ public class StageManager : Singleton<StageManager>
     {
         MainGameUIManager.Instance.MapIntro_UIController.Play_IntroLabel();
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Gen_Minimap();
+        MainGameUIManager.Instance.PlayerHUD_UIController.StageIcon.sprite = StageIconDict[TargetStageID];
         MainGameUIManager.Instance.PlayerHUD_UIController.Set_StageDescription();
     }
 
@@ -704,6 +722,9 @@ public class StageManager : Singleton<StageManager>
                     allGate[i].Set_NeedKeyCard(needKeyCardID);
                     allGate[i].ParterGate.Set_NeedKeyCard(needKeyCardID);
                 }
+
+                // Next Map Icon
+                allGate[i].Set_NextMap();
             }
             else
             {

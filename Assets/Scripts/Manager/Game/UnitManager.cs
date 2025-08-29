@@ -39,7 +39,8 @@ public class UnitManager : Singleton<UnitManager>
 
     [Space(5)]
     [Header("-- Core")]
-    [SerializeField] public List<IDWithClass<Sprite>> CoreSprites; 
+    [SerializeField] private List<IDWithClass<Sprite>> CoreSprites;
+    [HideInInspector] private Dictionary<int, Sprite> CoreSpriteDict;
 
     #endregion
 
@@ -228,6 +229,19 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
+    #region Offset
+
+    private void Set_DictData()
+    {
+        CoreSpriteDict = new Dictionary<int, Sprite>();
+        for (int i = 0; i < CoreSprites.Count; i++)
+        {
+            CoreSpriteDict.Add(CoreSprites[i].ID, CoreSprites[i].TypeClass);
+        }
+        CoreSprites = null;
+    }
+
+    #endregion
 
     #region Framework
 
@@ -236,6 +250,7 @@ public class UnitManager : Singleton<UnitManager>
         base.Awake();
 
         Set_LanguageTxt();
+        Set_DictData();
     }
 
     #endregion
@@ -312,13 +327,7 @@ public class UnitManager : Singleton<UnitManager>
 
     public Sprite Get_CoreSprite(int _ID)
     {
-        for (int i = 0; i < CoreSprites.Count; i++)
-        {
-            if (CoreSprites[i].ID == _ID)
-                return CoreSprites[i].TypeClass;
-        }
-
-        return null;
+        return CoreSpriteDict.ContainsKey(_ID) ? CoreSpriteDict[_ID] : null;
     }
 
     #endregion
