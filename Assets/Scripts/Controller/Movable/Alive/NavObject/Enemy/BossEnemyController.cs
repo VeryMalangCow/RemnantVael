@@ -23,6 +23,10 @@ public class BossEnemyController : EnemyController
     [Header("=== Data")]
     [SerializeField] private List<BossPhaseData> BossPhaseData;
 
+    [Space(10)]
+    [Header("=== Item")]
+    [SerializeField] public CoreDropItemPercent CoreDropItemPercent;
+
     #endregion
 
     #region - Hide
@@ -141,6 +145,16 @@ public class BossEnemyController : EnemyController
     #endregion
 
     #region Die
+
+    protected override void Set_Die_GenItem()
+    {
+        base.Set_Die_GenItem();
+
+        if (CoreDropItemPercent.CoreItemPercent != 0 && DevTool.Is_ChanceSuccess(CoreDropItemPercent.CoreItemPercent))
+        {
+            Gen_CoreItem(CoreDropItemPercent.CoreItemID);
+        }
+    }
 
     protected override void Set_Die_Extra()
     {

@@ -4069,17 +4069,21 @@ public class EnemyDropItemPercent
     [SerializeField] public float keycardDropPercent = 0.0f;
 
     [Space(5)]
-    [Header("-- Core")]
-    [SerializeField] public int CoreItemID = 0;
-    [SerializeField] public float CoreItemPercent = 0.0f;
-
-    [Space(5)]
     [Header("-- Goods")]
     [SerializeField] public CoupleData<int> BSAmountMinMax;
     [SerializeField] public CoupleData<int> MSAmountMinMax;
     [SerializeField] public CoupleData<int> CreditAmountMinMax;
     [SerializeField] public CoupleData<int> OverriderAmountMinMax;
     [SerializeField] public CoupleData<float> JouleAmountMinMax;
+}
+
+[System.Serializable]
+public class CoreDropItemPercent
+{
+    [Space(5)]
+    [Header("-- Core")]
+    [SerializeField] public int CoreItemID = 0;
+    [SerializeField] public float CoreItemPercent = 0.0f;
 }
 
 #endregion

@@ -11,6 +11,10 @@ public class EliteEnemyController : EnemyController
     [Header("=== Comp")]
     [SerializeField] public RectTransform PanelRT;
 
+    [Space(10)]
+    [Header("=== Item")]
+    [SerializeField] public CoreDropItemPercent CoreDropItemPercent;
+
     #region - Hide
 
     [HideInInspector] private static readonly Vector2 HUDBaseAnchorPos = new Vector2(-812, 290);
@@ -68,9 +72,9 @@ public class EliteEnemyController : EnemyController
             IsDroppedBossKeycard = true;
         }
 
-        if (EnemyDropItemPercent.CoreItemPercent != 0 && DevTool.Is_ChanceSuccess(EnemyDropItemPercent.CoreItemPercent))
+        if (CoreDropItemPercent.CoreItemPercent != 0 && DevTool.Is_ChanceSuccess(CoreDropItemPercent.CoreItemPercent))
         {
-            Gen_CoreItem(EnemyDropItemPercent.CoreItemID);
+            Gen_CoreItem(CoreDropItemPercent.CoreItemID);
         }
     }
 

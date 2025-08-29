@@ -95,8 +95,6 @@ MonoBehaviour:
     ModuleDropPercent: 1
     ModuleRankPercents: 2b0000001b0000000f0000000900000006000000
     keycardDropPercent: 0.35
-    CoreItemID: 1
-    CoreItemPercent: 0.35
     BSAmountMinMax:
       TypeBase: 3
       TypeSpecial: 5
@@ -140,6 +138,9 @@ MonoBehaviour:
   LookAtDir: {x: 0, y: 0}
   IsPlayingPattern: 0
   PanelRT: {fileID: 7357834850077609870}
+  CoreDropItemPercent:
+    CoreItemID: 1
+    CoreItemPercent: 1
 --- !u!114 &5694203857495159564
 MonoBehaviour:
   m_ObjectHideFlags: 0
