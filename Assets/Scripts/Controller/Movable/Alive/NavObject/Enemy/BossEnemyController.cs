@@ -161,8 +161,6 @@ public class BossEnemyController : EnemyController
         EnemyManager.Instance.SetOff_BossEnemy();
 
         PoolingManager.Instance.Set_EnqueueBossEnemy(this);
-
-        Destroy(this.gameObject);
     }
 
     #endregion

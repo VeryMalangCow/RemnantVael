@@ -10,6 +10,10 @@ using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class GameManager : PersistentSingleton<GameManager>
 {
     #region Value

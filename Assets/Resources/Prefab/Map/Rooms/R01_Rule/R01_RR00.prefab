@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 0
 --- !u!1 &652176868144815386
 GameObject:
@@ -89,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 0
 --- !u!1 &1293419098515352407
 GameObject:
@@ -134,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 0
 --- !u!1 &1592302916714379417
 GameObject:
@@ -406,7 +409,6 @@ MonoBehaviour:
   RoomType: 1
   IsAlreadyRoomClear: 0
   InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
-  InRoom_WayPointParentTF: {fileID: 0}
   InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
   InRoom_AllObstacle: []
 --- !u!1 &8791385821537764060

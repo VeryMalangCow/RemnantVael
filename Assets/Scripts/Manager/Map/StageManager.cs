@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
@@ -45,6 +46,11 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private List<GameObject> RoomRuleVaultPrefabList;
     [SerializeField] private List<GameObject> RoomRuleShopPrefabList;
     [SerializeField] private List<GameObject> RoomRulePrisonPrefabList;
+
+    [Space(5)]
+    [Header("-- Passage")]
+    [SerializeField] private GameObject PassageRoomPrefab;
+    [SerializeField] private GameObject PassageRulePrefab;
 
     [Space(5)]
     [Header("-- Build / Actual")]
@@ -110,6 +116,12 @@ public class StageManager : Singleton<StageManager>
 
     [HideInInspector] private StageData CurrentStageData;
 
+    // Passage
+    [HideInInspector] private int BeforeStageID = -1;
+    [HideInInspector] private int AfterStageID = -1;
+    [HideInInspector] private StageData BeforeStageData;
+    [HideInInspector] private StageData AfterStageData;
+
     #endregion
 
     #endregion
@@ -161,17 +173,18 @@ public class StageManager : Singleton<StageManager>
         StageData stageData = Get_CollectStageData(_StageID);
 
         // 전에 있는 데이터를 제거
+        Remove_PassageStage();
         Remove_CurrentStage();
         CurrentStageData = stageData;
 
         // 처음 방
         if (stageData.InfoData.StageID == 99) // 로비 시작 방
         {
-            Gen_LobbyStage();
+            Gen_Type_LobbyStage();
         }
         else // 전투 스테이지 시작 방
         {
-            Gen_CombatStage(stageData);
+            Gen_Type_CombatStage(stageData);
             EliteEnemyController.IsDroppedBossKeycard = false;
         }
 
@@ -202,6 +215,31 @@ public class StageManager : Singleton<StageManager>
         Play_CurrentRoom(Get_CorrectRoom(0));
     }
 
+    // 통로 스테이지 생성
+    public void Gen_PassageStage(int _NextStageID)
+    {
+        // 전에 있는 데이터를 제거
+        Remove_CurrentStage();
+
+        // Gen
+        Gen_PassageRoom(_NextStageID);
+
+        // 게이트 활성화
+        Set_GateActiveOn();
+
+        // UI 셋
+        Set_StartPassageUI();
+
+        // Sound (BGM) 시작
+        //SoundManager.Instance.Play_2D_BGM("Stage" + DevTool.Get_LengthString(stageData.InfoData.StageID, 2) + "_BGM");
+
+        Reset_GenStageData();
+
+        // 처음 스타트맵
+        Play_CurrentRoom(Get_CorrectRoom(0));
+    }
+
+
     private void Set_EntranceIndex(int _CurrentIndex)
     {
         List<int> indexList = ResourceManager.Instance.Get_CorrectIndexList(_CurrentIndex);
@@ -214,7 +252,7 @@ public class StageManager : Singleton<StageManager>
     }
 
     // Lobby 스테이지 생성
-    private void Gen_LobbyStage()
+    private void Gen_Type_LobbyStage()
     {
         int TempID = 0;
 
@@ -226,7 +264,7 @@ public class StageManager : Singleton<StageManager>
     }
 
     // Combat 스테이지 생성
-    private void Gen_CombatStage(StageData _StageData)
+    private void Gen_Type_CombatStage(StageData _StageData)
     {
         int TempID = 0;
 
@@ -526,6 +564,26 @@ public class StageManager : Singleton<StageManager>
 
     #endregion
 
+    #region Passage
+
+    private void Gen_PassageRoom(int _NextStageID)
+    {
+        if (DevTool.Get_ComponentTType(Instantiate(PassageRoomPrefab, MapParentTF), out RoomController room))
+        {
+            CurrentAllRoomController.Add(room);
+
+            if (DevTool.Get_ComponentTType(Instantiate(PassageRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
+                room.RoomRuleController = roomRule;
+
+            PassageRuleController passageRule = DevTool.Get_CastingTType<PassageRuleController>(roomRule);
+            passageRule.Set_ElevatorData(_NextStageID);
+
+            room.Offset(0);
+        }
+    }
+
+    #endregion
+
     #endregion
 
     #endregion
@@ -556,6 +614,14 @@ public class StageManager : Singleton<StageManager>
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Remove_AllMinimapCell();
     }
 
+    private void Remove_PassageStage()
+    {
+        BeforeStageID = -1;
+        AfterStageID = -1;
+
+        BeforeStageData = null;
+        AfterStageData = null;
+    }
 
     #endregion
 
@@ -663,8 +729,15 @@ public class StageManager : Singleton<StageManager>
     {
         MainGameUIManager.Instance.MapIntro_UIController.Play_IntroLabel();
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Gen_Minimap();
+        MainGameUIManager.Instance.PlayerHUD_UIController.StageIcon.gameObject.SetActive(true);
         MainGameUIManager.Instance.PlayerHUD_UIController.StageIcon.sprite = StageIconDict[TargetStageID];
         MainGameUIManager.Instance.PlayerHUD_UIController.Set_StageDescription();
+    }
+
+    private void Set_StartPassageUI()
+    {
+        MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Gen_Minimap();
+        MainGameUIManager.Instance.PlayerHUD_UIController.StageIcon.gameObject.SetActive(false);
     }
 
     #endregion
@@ -732,8 +805,6 @@ public class StageManager : Singleton<StageManager>
                 allGate[i].Set_ExistDoorState(false);
             }
         }
-
-
     }
 
     #endregion
@@ -785,15 +856,19 @@ public class StageManager : Singleton<StageManager>
 
     #region SR
 
-    public void Set_MapSprite(SpriteRenderer _SR, string _SpriteKey)
+    public void Set_CurrentMapSprite(SpriteRenderer _SR, string _SpriteKey)
     {
-        if (!CurrentStageData.MapSpriteReso.MapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey); return; }
+        Set_MapSprite(CurrentStageData, _SR, _SpriteKey);
+    }
 
-        SpriteMaterial spriteMatrial = CurrentStageData.MapSpriteReso.MapSprite[_SpriteKey];
-        _SR.sprite = spriteMatrial.Sprite;
-        _SR.material = CurrentStageData.MapMaterialUnclear[spriteMatrial.MaterialIndex];
+    public void Set_BeforeMapSprite(SpriteRenderer _SR, string _SpriteKey)
+    {
+        Set_MapSprite(BeforeStageData, _SR, _SpriteKey);
+    }
 
-        return;
+    public void Set_AfterMapSprite(SpriteRenderer _SR, string _SpriteKey)
+    {
+        Set_MapSprite(AfterStageData, _SR, _SpriteKey);
     }
 
     public void Set_SetSpriteClearly()
@@ -810,6 +885,15 @@ public class StageManager : Singleton<StageManager>
                 sr.material = CurrentStageData.MapMaterialClear[index];
             }
         }
+    }
+
+    private void Set_MapSprite(StageData _StageData, SpriteRenderer _SR, string _SpriteKey)
+    {
+        if (!_StageData.MapSpriteReso.MapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey); return; }
+
+        SpriteMaterial spriteMatrial = _StageData.MapSpriteReso.MapSprite[_SpriteKey];
+        _SR.sprite = spriteMatrial.Sprite;
+        _SR.material = _StageData.MapMaterialUnclear[spriteMatrial.MaterialIndex];
     }
 
     #endregion
@@ -1167,6 +1251,29 @@ public class StageManager : Singleton<StageManager>
 
         Gen_Stage(TargetStageID);
     }
+
+    #endregion
+
+    #region Play (Spawn another Passage Stage)
+
+    public void Play_GenPassageStage(int _AfterStageID)
+    {
+        BeforeStageID = TargetStageID;
+        AfterStageID = _AfterStageID;
+
+        BeforeStageData = Get_CollectStageData(BeforeStageID);
+        AfterStageData = Get_CollectStageData(AfterStageID);
+
+        StartCoroutine(Play_GenPassageStage_Cor());
+    }
+
+    private IEnumerator Play_GenPassageStage_Cor()
+    {
+        yield return new WaitForSeconds(1f);
+
+        Gen_PassageStage(AfterStageID);
+    }
+
 
     #endregion
 

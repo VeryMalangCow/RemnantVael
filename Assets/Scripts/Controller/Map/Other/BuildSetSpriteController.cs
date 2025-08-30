@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
+// +클리어할 시 변경 적용하는 Build Sprite System
 public class BuildSetSpriteController : BuildSpriteController
 {
     #region Set

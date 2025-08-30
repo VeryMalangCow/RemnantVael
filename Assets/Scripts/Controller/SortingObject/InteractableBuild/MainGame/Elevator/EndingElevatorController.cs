@@ -5,6 +5,8 @@ public class EndingElevatorController : ElevatorController, IInteract
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Entrance")]
 
@@ -12,13 +14,27 @@ public class EndingElevatorController : ElevatorController, IInteract
     [Header("=== Data")]
     [SerializeField] private int NextStageIndex;
 
+    [SerializeField] private bool Is_LobbyElevator = false;
+    [SerializeField] private bool ForPassageElevator = true;
+
+    #endregion
+
+    #region - Hide
+
+    #endregion
+
     #endregion
 
     #region Data
 
-    public void Set_Data(int _NextStageIndex)
+    public void Set_Data(int _NextStageIndex, bool _ForPassage)
     {
         NextStageIndex = _NextStageIndex;
+
+        if (StageManager.Instance.TargetStageID == 99)
+            Is_LobbyElevator = true;
+
+        ForPassageElevator = _ForPassage;
     }
 
     public int Get_Data()
@@ -59,7 +75,16 @@ public class EndingElevatorController : ElevatorController, IInteract
     {
         base.Tween_Complete();
 
-        StageManager.Instance.Play_GenStage(NextStageIndex);
+        // 로비 엘레베이터면 바로 맵 생성 OR
+        // 통로 맵으로 가는 엘레베이터가 아니면 맵 생성
+        if (Is_LobbyElevator == true || !ForPassageElevator) 
+        {
+            StageManager.Instance.Play_GenStage(NextStageIndex);
+        }
+        else // 둘 모두 아니면 통로 맵 생성
+        {
+            StageManager.Instance.Play_GenPassageStage(NextStageIndex);
+        }
     }
 
     #endregion

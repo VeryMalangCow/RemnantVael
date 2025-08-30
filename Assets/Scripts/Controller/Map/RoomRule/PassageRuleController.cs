@@ -1,11 +1,12 @@
+
 using UnityEngine;
 
-public class EntranceRuleController : RoomRuleController
+public class PassageRuleController : RoomRuleController
 {
     #region Value
 
     [Space(20)]
-    [Header("<><><><><> Entrance")]
+    [Header("<><><><><> Passage")]
 
     [Space(10)]
     [Header("=== Elevator")]
@@ -48,21 +49,7 @@ public class EntranceRuleController : RoomRuleController
 
     public void Set_ElevatorData(int _NextStageIndex)
     {
-        InRoom_Elevator.Set_Data(_NextStageIndex, true);
-    }
-
-    public int Get_ElevatorData()
-    {
-        return InRoom_Elevator.Get_Data();
-    }
-
-    #endregion
-
-    #region Lobby
-
-    public void Set_EntranceRuleInLobby()
-    {
-        NeedKeyCardID = -1;
+        InRoom_Elevator.Set_Data(_NextStageIndex, false);
     }
 
     #endregion

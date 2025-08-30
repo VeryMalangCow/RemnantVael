@@ -1,13 +1,13 @@
 using UnityEngine;
 
-// 스테이지 생성 시 적용하는 Build Sprite System
-public class BuildSpriteController : MonoBehaviour
+public class BuildPassageSpriteController : MonoBehaviour
 {
     #region Value
 
     [Space(20)]
     [Header("<><><><><> Build Sprite")]
     [SerializeField] private string SpriteKey;
+    [SerializeField] private bool IsBeforeMap = true;
 
     #endregion
 
@@ -20,7 +20,10 @@ public class BuildSpriteController : MonoBehaviour
             if (SpriteKey == "")
                 SpriteKey = sr.sprite.name.Substring(5, sr.sprite.name.Length - 5);
 
-            StageManager.Instance.Set_CurrentMapSprite(sr, SpriteKey);
+            if (IsBeforeMap)
+                StageManager.Instance.Set_BeforeMapSprite(sr, SpriteKey);
+            else
+                StageManager.Instance.Set_AfterMapSprite(sr, SpriteKey);
         }
     }
 
