@@ -558,6 +558,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Map00_PU_End
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 386
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f36d6eca31c71b3409ffc72d4f1a310d
+      internalID: 387059972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_PU_Start
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 386
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a0a9353d7044fb4a8daf9863cf0cbbf
+      internalID: 1485813712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -596,6 +638,8 @@ TextureImporter:
       Map00_E_U_02: -1052169092
       Map00_E_U_03: -1308435981
       Map00_ElevatorPlatform: 354283741
+      Map00_PU_End: 387059972
+      Map00_PU_Start: 1485813712
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

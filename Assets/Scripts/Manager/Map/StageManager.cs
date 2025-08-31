@@ -858,17 +858,17 @@ public class StageManager : Singleton<StageManager>
 
     public void Set_CurrentMapSprite(SpriteRenderer _SR, string _SpriteKey)
     {
-        Set_MapSprite(CurrentStageData, _SR, _SpriteKey);
+        Set_MapUnclearSprite(CurrentStageData, _SR, _SpriteKey);
     }
 
     public void Set_BeforeMapSprite(SpriteRenderer _SR, string _SpriteKey)
     {
-        Set_MapSprite(BeforeStageData, _SR, _SpriteKey);
+        Set_MapClearSprite(BeforeStageData, _SR, _SpriteKey);
     }
 
     public void Set_AfterMapSprite(SpriteRenderer _SR, string _SpriteKey)
     {
-        Set_MapSprite(AfterStageData, _SR, _SpriteKey);
+        Set_MapClearSprite(AfterStageData, _SR, _SpriteKey);
     }
 
     public void Set_SetSpriteClearly()
@@ -886,14 +886,33 @@ public class StageManager : Singleton<StageManager>
             }
         }
     }
+/*
+    private Material Get_MaterialClear(SpriteRenderer _SR)
+    {
+        int index = CurrentStageData.MapMaterialUnclear.IndexOf(_SR.sharedMaterial);
 
-    private void Set_MapSprite(StageData _StageData, SpriteRenderer _SR, string _SpriteKey)
+        if (index == -1)
+        { Debug.Log(_SR.gameObject.name + " / " + _SR.gameObject.transform.parent.gameObject.name); return null; }
+
+        return CurrentStageData.MapMaterialClear[index];
+    }
+*/
+    private void Set_MapUnclearSprite(StageData _StageData, SpriteRenderer _SR, string _SpriteKey)
     {
         if (!_StageData.MapSpriteReso.MapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey); return; }
 
         SpriteMaterial spriteMatrial = _StageData.MapSpriteReso.MapSprite[_SpriteKey];
         _SR.sprite = spriteMatrial.Sprite;
         _SR.material = _StageData.MapMaterialUnclear[spriteMatrial.MaterialIndex];
+    }
+
+    private void Set_MapClearSprite(StageData _StageData, SpriteRenderer _SR, string _SpriteKey)
+    {
+        if (!_StageData.MapSpriteReso.MapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey); return; }
+
+        SpriteMaterial spriteMatrial = _StageData.MapSpriteReso.MapSprite[_SpriteKey];
+        _SR.sprite = spriteMatrial.Sprite;
+        _SR.material = _StageData.MapMaterialClear[spriteMatrial.MaterialIndex];
     }
 
     #endregion

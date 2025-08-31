@@ -2981,6 +2981,85 @@ MonoBehaviour:
       DoorAnim: {fileID: 7400000, guid: 8e9a3d8a8335eb143b62d2c56941ad53, type: 2}
       MaterialIndex: 0
     AllMapSprite: []
+  - MapIndexName: Map01
+    InfoData:
+      StageID: 1
+    RoomData:
+      RoomAmount:
+      - ID: 0
+        Amount: 8
+      - ID: 1
+        Amount: 2
+      - ID: 2
+        Amount: 2
+      - ID: 4
+        Amount: 2
+      - ID: 5
+        Amount: 2
+      - ID: 6
+        Amount: 2
+      - ID: 7
+        Amount: 2
+      DesignatedRoom:
+      - ID: 0
+        RuleID: 0
+      - ID: 0
+        RuleID: 1
+      - ID: 0
+        RuleID: 2
+      EntranceRoom:
+      - ID: 3
+        RuleID: 0
+      - ID: 3
+        RuleID: 1
+      VaultRoom:
+      - ID: 0
+        RuleID: 0
+      ShopRoom:
+      - ID: 0
+        RuleID: 0
+      PrisonRoom:
+      - ID: 0
+        RuleID: 0
+        TypeID: 0
+      - ID: 0
+        RuleID: 0
+        TypeID: 1
+      - ID: 0
+        RuleID: 0
+        TypeID: 2
+    EnemyData:
+      StageEnemyList:
+      - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
+      - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
+      - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
+      - {fileID: 272305898077013730, guid: 82ae2858bc289e949994ce56dd3e5659, type: 3}
+      StageEliteEnemyList:
+      - {fileID: 272305898077013730, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
+      - {fileID: 272305898077013730, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
+      - {fileID: 272305898077013730, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
+      StageBossEnemyList:
+      - {fileID: 272305898077013730, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
+    MapMaterialUnclear:
+    - {fileID: 2100000, guid: 8b689d8c19f30334a98c2f0d67d608c5, type: 2}
+    - {fileID: 2100000, guid: deb9be69c28c64944b4e86b3c81e6b83, type: 2}
+    MapMaterialClear:
+    - {fileID: 2100000, guid: 812b285c29f3cce4a82f4413446f12af, type: 2}
+    - {fileID: 2100000, guid: 3e7a34fe58e2bad4b8e82d8e6bc05f21, type: 2}
+    MapDoorAnim:
+    - Dir: {x: 0, y: -1}
+      DoorAnim: {fileID: 7400000, guid: 647f2f6a2c56c3841b90aa7bbdd9650a, type: 2}
+      MaterialIndex: 0
+    - Dir: {x: -1, y: 0}
+      DoorAnim: {fileID: 7400000, guid: 12522e083c51e4343a9c15968ff996d2, type: 2}
+      MaterialIndex: 0
+    - Dir: {x: 1, y: 0}
+      DoorAnim: {fileID: 7400000, guid: b16066ca352c5084fa29fd87112d0a3b, type: 2}
+      MaterialIndex: 0
+    - Dir: {x: 0, y: 1}
+      DoorAnim: {fileID: 7400000, guid: 19beff2bef1253549a67f648a1d06b47, type: 2}
+      MaterialIndex: 0
+    AllMapSprite: []
   LobbyRoomRulePrefab: {fileID: 8671702513593221327, guid: 06718ff1f5b5f8e45bf2c005ca16fe14, type: 3}
   StartRoomRulePrefab: {fileID: 8671702513593221327, guid: 7d91ffd6d962ddd488d0bb73b2696e36, type: 3}
   SRoomPrefabList:
@@ -4229,7 +4308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &989995807
 Transform:
   m_ObjectHideFlags: 0
@@ -9900,7 +9979,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2050881736
 Transform:
   m_ObjectHideFlags: 0
