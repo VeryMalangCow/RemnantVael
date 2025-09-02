@@ -244,7 +244,6 @@ public class GateController : StaticDepthController, IInteract
         if (DevTool.Can_CastingTType(ParterGate.ThisRoom.RoomRuleController, out EntranceRuleController erc))
         {
             int index = erc.Get_ElevatorData();
-            Debug.Log(index);
             NextMapIconSR.sprite = StageManager.Instance.StageIconDict[index];
             NextMapIconSR.gameObject.SetActive(true);
         }

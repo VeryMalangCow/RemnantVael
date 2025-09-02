@@ -3,12 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
 {
     #region Value
+
+    #region - Inspector
 
     [Space(20)]
     [Header("<><><><><> Stage Manager")]
@@ -52,6 +53,11 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private GameObject PassageRoomPrefab;
     [SerializeField] private GameObject PassageRulePrefab;
 
+    [Space(3)]
+    [Header("* Material")]
+    [SerializeField] private List<Material> PassageMiddleMaterialList; 
+    [HideInInspector] private AllPassageMiddleSpriteData PassageMiddleSpriteData;
+
     [Space(5)]
     [Header("-- Build / Actual")]
     [SerializeField] private GameObject BUShopPrefab;
@@ -92,6 +98,8 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private List<RoomController> CurrentAllRoomController = new List<RoomController>();
     [SerializeField] private List<EntranceRuleController> CurrentAllEntranceRoomController = new List<EntranceRuleController>();
     [SerializeField] public RoomController CurrentRoomController;
+
+    #endregion
 
     #region - Hide
 
@@ -147,6 +155,8 @@ public class StageManager : Singleton<StageManager>
             StageIconDict.Add(i, StageIconList[i]);
         }
         StageIconList = null;
+
+        Init_PassageMiddleData();
     }
 
     #endregion
@@ -856,6 +866,15 @@ public class StageManager : Singleton<StageManager>
 
     #region SR
 
+    public void Set_PassageMiddleSprite(SpriteRenderer _SR, string _Key)
+    {
+        Sprite data = PassageMiddleSpriteData.Get_CorrectSprite(_Key, out int materialIndex);
+        if (data == null) return;
+
+        _SR.sprite = data;
+        _SR.material = PassageMiddleMaterialList[materialIndex];
+    }
+
     public void Set_CurrentMapSprite(SpriteRenderer _SR, string _SpriteKey)
     {
         Set_MapUnclearSprite(CurrentStageData, _SR, _SpriteKey);
@@ -886,17 +905,7 @@ public class StageManager : Singleton<StageManager>
             }
         }
     }
-/*
-    private Material Get_MaterialClear(SpriteRenderer _SR)
-    {
-        int index = CurrentStageData.MapMaterialUnclear.IndexOf(_SR.sharedMaterial);
 
-        if (index == -1)
-        { Debug.Log(_SR.gameObject.name + " / " + _SR.gameObject.transform.parent.gameObject.name); return null; }
-
-        return CurrentStageData.MapMaterialClear[index];
-    }
-*/
     private void Set_MapUnclearSprite(StageData _StageData, SpriteRenderer _SR, string _SpriteKey)
     {
         if (!_StageData.MapSpriteReso.MapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey); return; }
@@ -1293,6 +1302,15 @@ public class StageManager : Singleton<StageManager>
         Gen_PassageStage(AfterStageID);
     }
 
+    public int Get_BeforeStageID()
+    {
+        return BeforeStageID;
+    }
+
+    public int Get_AfterStageID()
+    {
+        return AfterStageID;
+    }
 
     #endregion
 
@@ -1301,6 +1319,16 @@ public class StageManager : Singleton<StageManager>
     public void Set_NavBake()
     {
         ThisNav.BuildNavMesh();
+    }
+
+    #endregion
+
+    #region Init
+
+    // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
+    public void Init_PassageMiddleData()
+    {
+        PassageMiddleSpriteData = new AllPassageMiddleSpriteData(ResourceManager.Instance.MapPassageImgList_Data);
     }
 
     #endregion

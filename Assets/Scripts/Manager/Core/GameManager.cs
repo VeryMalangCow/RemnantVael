@@ -4291,6 +4291,64 @@ public class MapNextIndex
 
 #endregion  
 
+#region Class : Passage : Middle
+
+public class AllPassageMiddleSpriteData
+{
+    private Dictionary<string, EachPassageMiddleSpriteData> PassageMiddleSpriteDict;
+
+    public AllPassageMiddleSpriteData(List<List<Sprite>> _AllSprite)
+    {
+        PassageMiddleSpriteDict = new Dictionary<string, EachPassageMiddleSpriteData>();
+        for (int i = 0; i < _AllSprite.Count; i++)
+        {
+            for (int j = 0; j < _AllSprite.Count; j++)
+            {
+                string[] fullName = _AllSprite[i][j].name.Split("_");
+
+                PassageMiddleSpriteDict.Add(
+                    $"{fullName[1]}_{fullName[3]}_{fullName[5]}", 
+                    new EachPassageMiddleSpriteData(_AllSprite[i][j], i));
+            }
+        }
+    }
+
+    public Sprite Get_CorrectSprite(string _Key, out int _MaterialIndex)
+    {
+        _MaterialIndex = -1;
+        if (PassageMiddleSpriteDict.ContainsKey(_Key))
+        {
+            EachPassageMiddleSpriteData data = PassageMiddleSpriteDict[_Key];
+            _MaterialIndex = data.Get_MaterialIndex();
+            return data.Get_Sprite();
+        }
+        return null;
+    }
+}
+
+public class EachPassageMiddleSpriteData
+{
+    private Sprite Sprite;
+	private int MaterialIndex;
+
+    public EachPassageMiddleSpriteData(Sprite _Sprite, int _MaterialIndex)
+    {
+        Sprite = _Sprite;
+        MaterialIndex = _MaterialIndex;
+    }
+
+    public Sprite Get_Sprite()
+    {
+        return Sprite;
+    }
+
+    public int Get_MaterialIndex()
+    {
+        return MaterialIndex;
+    }
+}
+
+#endregion
 
 #region Class : AllyUpgrade : Card
 

@@ -3109,6 +3109,8 @@ MonoBehaviour:
   - {fileID: 8671702513593221327, guid: 335bf5e4dca0a5043aab82f4958d5033, type: 3}
   PassageRoomPrefab: {fileID: 8671702513593221327, guid: a5fc5d9c3d2354c49ba4369bc383e0b8, type: 3}
   PassageRulePrefab: {fileID: 8671702513593221327, guid: fe55da7b226a81246a2e6de6f81224a1, type: 3}
+  PassageMiddleMaterialList:
+  - {fileID: 2100000, guid: 55264e190318654408539c732bde9c75, type: 2}
   BUShopPrefab: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
   MUShopPrefab: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
   VaultPrefabList:
@@ -3241,6 +3243,8 @@ MonoBehaviour:
   StageIconList:
   - {fileID: -1530078879, guid: 637ede47422025b48bd24c3773722caa, type: 3}
   - {fileID: -16964757, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -869181761, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -869181761, guid: 637ede47422025b48bd24c3773722caa, type: 3}
   - {fileID: -869181761, guid: 637ede47422025b48bd24c3773722caa, type: 3}
   CurrentAllRoomController: []
   CurrentAllEntranceRoomController: []

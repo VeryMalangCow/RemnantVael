@@ -567,7 +567,7 @@ TextureImporter:
         width: 62
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -588,7 +588,7 @@ TextureImporter:
         width: 62
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -596,6 +596,48 @@ TextureImporter:
       bones: []
       spriteID: 4a0a9353d7044fb4a8daf9863cf0cbbf
       internalID: 1485813712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_PD_End
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 386
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66932c2afb97027488ed04c6e0334f7d
+      internalID: -1218843425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map00_PD_Start
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 386
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3545981af9252124689669838d916c76
+      internalID: -1452632850
       vertices: []
       indices: 
       edges: []
@@ -638,6 +680,8 @@ TextureImporter:
       Map00_E_U_02: -1052169092
       Map00_E_U_03: -1308435981
       Map00_ElevatorPlatform: 354283741
+      Map00_PD_End: -1218843425
+      Map00_PD_Start: -1452632850
       Map00_PU_End: 387059972
       Map00_PU_Start: 1485813712
   mipmapLimitGroupName: 

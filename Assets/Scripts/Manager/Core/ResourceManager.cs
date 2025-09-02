@@ -10,9 +10,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region - Amount Set
 
     // 맵 종류
-    [HideInInspector] private int KindOfMapAmount = 2;
+    [HideInInspector] public static int KindOfMapAmount = 2;
     // 각 맵에 사용할 스프라이트의 양
     [HideInInspector] private int EachKindOfMapAmount = 2;
+    // Passage 맵 스프라이트 양
+    [HideInInspector] private int KindOfMapPassageAmount = 1;
+
     // 카드 아이콘 양
     [HideInInspector] private int STIconAmount = 1;
     [HideInInspector] private int UTIconAmount = 1;
@@ -88,6 +91,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     [HideInInspector] public List<List<Sprite>> MapImgList_Data;
     [HideInInspector] public List<List<int>> MapMaterialIndexList_Data;
+
+
+    [HideInInspector] public List<List<Sprite>> MapPassageImgList_Data;
 
     // 모듈
     [HideInInspector] private List<Sprite> ModuleItemImgList_Data;
@@ -254,6 +260,18 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
                 for (int k = 0; k < MapImgList_Data[i].Count; k++)
                     MapMaterialIndexList_Data[i].Add(j);
             }
+        }
+
+        // Passage Map
+        MapPassageImgList_Data = new List<List<Sprite>>();
+
+        for (int i = 0; i < KindOfMapPassageAmount; i++)
+        {
+            MapPassageImgList_Data.Add(new List<Sprite>());
+            MapPassageImgList_Data[i].AddRange(
+                Offset_ImgPath(
+                    $"Sprite/Map/MapPassage/",
+                    $"MapPassage_{DevTool.Get_LengthString(i, 3)}"));
         }
     }
 

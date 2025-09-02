@@ -600,6 +600,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Map01_PD_End
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 386
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfdeace66970d6440a0ae255112ae0dd
+      internalID: -271673952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map01_PD_Start
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 386
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d7332f9097dee14a8648bb968f311d9
+      internalID: -1298368932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -638,6 +680,8 @@ TextureImporter:
       Map00_E_U_02: -1052169092
       Map00_E_U_03: -1308435981
       Map00_ElevatorPlatform: 354283741
+      Map01_PD_End: -271673952
+      Map01_PD_Start: -1298368932
       Map01_PU_End: 109933650
       Map01_PU_Start: 770063888
   mipmapLimitGroupName: 
