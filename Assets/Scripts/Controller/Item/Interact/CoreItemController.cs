@@ -23,6 +23,23 @@ public class CoreItemController : InteractItemController
 
     #region Interact
 
+    public override string Get_InteractName(out bool _CanInteract)
+    {
+        _CanInteract = true;
+
+        switch (ID)
+        {
+            case 1:
+                return ResourceManager.Instance.Get_StaticWord(118);
+            case 2:
+                return ResourceManager.Instance.Get_StaticWord(119);
+            case 3:
+                return ResourceManager.Instance.Get_StaticWord(120);
+            default:
+                return "";
+        }
+    }
+
     public override void Play_Interact()
     {
         base.Play_Interact();

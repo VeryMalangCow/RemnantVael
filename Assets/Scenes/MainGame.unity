@@ -646,6 +646,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AllyModuleUpgradeShop
       objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: 7ece7392832399a448b1fd4fa3e614cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1127,6 +1131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AllyBaseUpgradeShop
       objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: 797ae61b16816be4abeb050b4474072b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1417,6 +1425,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseUpgradeShop
       objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1581,6 +1593,72 @@ Transform:
   - {fileID: 1717915347}
   m_Father: {fileID: 1553356942}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &388300917
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2050881736}
+    m_Modifications:
+    - target: {fileID: 4995045585254079196, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995045585254079196, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_Name
+      value: Converter_PremiumCredit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+--- !u!4 &388300918 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4995045585254079196, guid: 30d21d71ad99ca144a7bfb20e5e0350d, type: 3}
+  m_PrefabInstance: {fileID: 388300917}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &395151278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2524,6 +2602,10 @@ PrefabInstance:
     - target: {fileID: 5736045064323075691, guid: 7ece7392832399a448b1fd4fa3e614cf, type: 3}
       propertyPath: m_Name
       value: AllyModuleUpgradeShop (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: 7ece7392832399a448b1fd4fa3e614cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3860,6 +3942,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AllyBaseUpgradeShop (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: 797ae61b16816be4abeb050b4474072b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4954,6 +5040,10 @@ PrefabInstance:
     - target: {fileID: 5736045064323075691, guid: 7ece7392832399a448b1fd4fa3e614cf, type: 3}
       propertyPath: m_Name
       value: AllyModuleUpgradeShop (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: 7ece7392832399a448b1fd4fa3e614cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7874,6 +7964,10 @@ MonoBehaviour:
     - {fileID: 1391310778, guid: 637ede47422025b48bd24c3773722caa, type: 3}
     - {fileID: -857318272, guid: 637ede47422025b48bd24c3773722caa, type: 3}
     - {fileID: 428103374, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  ConverterReso:
+    ConverterResoList:
+    - AC: {fileID: 7400000, guid: 14e4de62f6a70db49bcca3c765d95b65, type: 2}
+      Material: {fileID: 2100000, guid: 292b17cb377c0334eb2c547e5485d5fc, type: 2}
   Player_ExplImgGenerator: {fileID: 1603938535}
   Build_ExplImgGenerator: {fileID: 4532320}
   Enemy_ExplImgGenerator: {fileID: 1129606755}
@@ -8603,6 +8697,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ModuleUpgradeShop
       objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8838,6 +8936,10 @@ PrefabInstance:
     - target: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
       propertyPath: m_Name
       value: ModuleUpgradeShop (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9223,6 +9325,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseUpgradeShop (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9357,6 +9463,10 @@ PrefabInstance:
     - target: {fileID: 5736045064323075691, guid: 797ae61b16816be4abeb050b4474072b, type: 3}
       propertyPath: m_Name
       value: AllyBaseUpgradeShop (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: 797ae61b16816be4abeb050b4474072b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9707,6 +9817,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseUpgradeShop (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9843,6 +9957,10 @@ PrefabInstance:
     - target: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
       propertyPath: m_Name
       value: ModuleUpgradeShop (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9983,7 +10101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2050881736
 Transform:
   m_ObjectHideFlags: 0
@@ -10009,6 +10127,7 @@ Transform:
   - {fileID: 166033217}
   - {fileID: 1171843860}
   - {fileID: 628434339}
+  - {fileID: 388300918}
   m_Father: {fileID: 1168812489}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2118929032

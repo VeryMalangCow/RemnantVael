@@ -49,8 +49,17 @@ public class VaultUpgradeOperatorController : VaultOperatorController
 
     #region Interact
 
+    public override string Get_InteractName(out bool _CanInteract)
+    {
+        //base.Get_InteractName(out bool _CanInteract);
+        _CanInteract = Can_Interact();
+        return ResourceManager.Instance.Get_StaticWord(58);
+    }
+
     public override void Play_Interact()
     {
+        base.Play_Interact();
+
         if (TargetVault == null ||
             TargetVault.Is_MaxGrade() || 
             TargetVault.IsBroken ||

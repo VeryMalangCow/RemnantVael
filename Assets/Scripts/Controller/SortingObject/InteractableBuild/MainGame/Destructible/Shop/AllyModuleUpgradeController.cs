@@ -49,6 +49,12 @@ public class AllyModuleUpgradeController : DestructibleBuildController, IInterac
 
     #region Interact
 
+    public string Get_InteractName(out bool _CanInteract)
+    {
+        _CanInteract = !IsBroken;
+        return ResourceManager.Instance.Get_StaticWord(100);
+    }
+
     public void Play_Interact()
     {
         if (IsBroken)

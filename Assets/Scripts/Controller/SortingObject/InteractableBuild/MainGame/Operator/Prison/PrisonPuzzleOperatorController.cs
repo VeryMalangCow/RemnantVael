@@ -27,8 +27,17 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
 
     #region Interact
 
+    public override string Get_InteractName(out bool _CanInteract)
+    {
+        //base.Get_InteractName();
+        _CanInteract = Can_Interact();
+        return ResourceManager.Instance.Get_StaticWord(59);
+    }
+
     public override void Play_Interact()
     {
+        base.Play_Interact();
+
         if (TargetPrison == null || TargetPrison.IsOn) return;
 
         string debugString = "";

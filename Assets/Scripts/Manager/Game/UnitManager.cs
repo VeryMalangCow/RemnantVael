@@ -7,6 +7,8 @@ public class UnitManager : Singleton<UnitManager>
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Unit Manager")]
 
@@ -192,6 +194,14 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
+    #region Converter
+
+    [Space(10)]
+    [Header("=== Converter")]
+    [SerializeField] public ConverterReso ConverterReso;
+
+    #endregion
+
     #region Generator
 
     [Space(10)]
@@ -206,6 +216,8 @@ public class UnitManager : Singleton<UnitManager>
     [Space(5)]
     [Header("-- Anim")]
     [SerializeField] public OnceTimeAnimGenerator OnceTime_AnimGenerator;
+
+    #endregion
 
     #endregion
 

@@ -50,8 +50,17 @@ public class VaultRerollOperatorController : VaultOperatorController
 
     #region Interact
 
+    public override string Get_InteractName(out bool _CanInteract)
+    {
+        //base.Get_InteractName(out bool _CanInteract);
+        _CanInteract = Can_Interact();
+        return ResourceManager.Instance.Get_StaticWord(57);
+    }
+
     public override void Play_Interact()
     {
+        base.Play_Interact();
+
         if (TargetVault == null ||
             TargetVault.IsBroken ||
             PlayerManager.Instance.PlayerController.CurrentOverrider.Value < Get_NeedPay()) return;

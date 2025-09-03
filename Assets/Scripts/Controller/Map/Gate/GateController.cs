@@ -149,6 +149,20 @@ public class GateController : StaticDepthController, IInteract
 
     #region Interact
 
+    public string Get_InteractName(out bool _CanInteract)
+    {
+        if (ThingsGO.TypeBase.activeSelf)
+        {
+            _CanInteract = false;
+            return "";
+        }
+        else
+        {
+            _CanInteract = IsOpen && Can_Open_ByKeycard();
+            return ResourceManager.Instance.Get_StaticWord(1);
+        }
+    }
+
     public void Play_Interact()
     {
         if (IsOpen && ParterGate != null)

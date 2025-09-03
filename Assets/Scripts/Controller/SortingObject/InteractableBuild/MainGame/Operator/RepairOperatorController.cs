@@ -65,6 +65,12 @@ public class RepairOperatorController : OperatorController
 
     #region Interact
 
+    public override string Get_InteractName(out bool _CanInteract)
+    {
+        _CanInteract = Can_Interact();
+        return ResourceManager.Instance.Get_StaticWord(56);
+    }
+
     public override void Play_Interact()
     {
         if (TargetBuildController == null ||

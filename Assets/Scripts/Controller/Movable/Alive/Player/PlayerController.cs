@@ -1148,6 +1148,7 @@ public class PlayerController : AliveObjectController
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             BaseWeapon.BaseDamage.BuffedState = 300f;
+            BaseWeapon.AccuracyRate.ActualState.Value = 100f;
             WalkSpeed.ActualState.Value = 15f;
             Debug.Log("TEST State Up");
 

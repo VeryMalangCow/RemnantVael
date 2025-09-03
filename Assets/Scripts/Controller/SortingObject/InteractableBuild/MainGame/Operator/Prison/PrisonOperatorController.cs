@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PrisonOperatorController : OperatorController
@@ -41,6 +39,12 @@ public class PrisonOperatorController : OperatorController
     #endregion
 
     #region Interact
+
+    public override string Get_InteractName(out bool _CanInteract)
+    {
+        _CanInteract = false;
+        return "";
+    }
 
     public override void Play_Interact()
     {

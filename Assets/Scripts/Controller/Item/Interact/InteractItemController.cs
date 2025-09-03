@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class InteractItemController : ItemController, IInteract
+public abstract class InteractItemController : ItemController, IInteract
 {
     #region Value
 
@@ -26,12 +26,16 @@ public class InteractItemController : ItemController, IInteract
 
     #endregion
 
+    #region Offset
+
     protected override void Offset()
     {
         base.Offset();
 
         OutlinerSR = DevTool.Get_ComponentTType(ThisAT.gameObject, out SpriteRenderer outlinerSr) ? outlinerSr : null;
     }
+
+    #endregion
 
     #region State
 
@@ -106,6 +110,8 @@ public class InteractItemController : ItemController, IInteract
     #endregion
 
     #region Interact
+
+    public abstract string Get_InteractName(out bool _CanInteract);
 
     public virtual void Play_Interact()
     {

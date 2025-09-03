@@ -61,6 +61,8 @@ public abstract class OperatorController : InteractableBuildController, IInterac
 
     #region Interact
 
+    public abstract string Get_InteractName(out bool _CanInteract);
+
     public abstract void Play_Interact();
 
     #endregion

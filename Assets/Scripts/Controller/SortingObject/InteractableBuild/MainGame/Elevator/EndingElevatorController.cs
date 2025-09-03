@@ -96,6 +96,12 @@ public class EndingElevatorController : ElevatorController, IInteract
 
     #region Interact
 
+    public string Get_InteractName(out bool _CanInteract)
+    {
+        _CanInteract = IsOn;
+        return ResourceManager.Instance.Get_StaticWord(3);
+    }
+
     public void Play_Interact()
     {
         if (IsOn)

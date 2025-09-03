@@ -31,6 +31,12 @@ public class ModuleItemController : InteractItemController
 
     #region Interact
 
+    public override string Get_InteractName(out bool _CanInteract)
+    {
+        _CanInteract = true;
+        return ResourceManager.Instance.Get_StaticWord(0);
+    }
+
     public override void Play_Interact()
     {
         base.Play_Interact();

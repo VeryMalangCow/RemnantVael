@@ -33,6 +33,12 @@ public class VaultOperatorController : OperatorController
 
     #region Interact
 
+    public override string Get_InteractName(out bool _CanInteract)
+    {
+        _CanInteract = false;
+        return "";
+    }
+
     public override void Play_Interact()
     {
         

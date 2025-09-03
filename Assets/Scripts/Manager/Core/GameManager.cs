@@ -9,6 +9,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using System.Runtime.CompilerServices;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -1501,106 +1503,13 @@ public class DevTool
     public static string Get_InteractingAnnoTxt(IInteract _II, out bool _CanInteract)
     {
         _CanInteract = true;
-
         if (_II == null)
             return "";
 
-        else if (Can_CastingTType(_II, out InteractItemController item))
-        {
-            if (Can_CastingTType(_II, out ModuleItemController moduleItem))
-                return ResourceManager.Instance.Get_StaticWord(0);
-            else if (Can_CastingTType(_II, out KeycardItemController keycardItem))
-                return ResourceManager.Instance.Get_StaticWord(117);
-            else if (Can_CastingTType(_II, out CoreItemController coreItem))
-                switch (coreItem.Get_ID())
-                {
-                    case 1:
-                        return ResourceManager.Instance.Get_StaticWord(118);
-                    case 2:
-                        return ResourceManager.Instance.Get_StaticWord(119);
-                    case 3:
-                        return ResourceManager.Instance.Get_StaticWord(120);
-                    default:
-                        return "";
-                }
-        }
+        string result = _II.Get_InteractName(out bool canInteract);
+        _CanInteract = canInteract;
 
-        else if (Can_CastingTType(_II, out GateController gate) && gate.ThingsGO.TypeSpecial.activeSelf)
-        {
-            if (!gate.IsOpen || !gate.Can_Open_ByKeycard())
-                _CanInteract = false;
-
-            return ResourceManager.Instance.Get_StaticWord(1);
-        }
-
-        else if (Can_CastingTType(_II, out DestructibleBuildController dbc))
-        {
-            if (dbc.IsBroken)
-                _CanInteract = false;
-
-            if (Can_CastingTType(_II, out BaseUpgradeController buc))
-                return ResourceManager.Instance.Get_StaticWord(97);
-            
-            else if (Can_CastingTType(_II, out ModuleUpgradeController muc))
-                return ResourceManager.Instance.Get_StaticWord(98);
-
-            else if (Can_CastingTType(_II, out AllyBaseUpgradeController abuc))
-                return ResourceManager.Instance.Get_StaticWord(99);
-
-            else if (Can_CastingTType(_II, out AllyModuleUpgradeController amuc))
-                return ResourceManager.Instance.Get_StaticWord(100);
-        }
-
-
-        else if (Can_CastingTType(_II, out EndingElevatorController elevator))
-        {
-            if (!elevator.IsOn)
-                _CanInteract = false;
-
-            return ResourceManager.Instance.Get_StaticWord(3);
-        }
-
-        else if (Can_CastingTType(_II, out RepairOperatorController repairOper))
-        {
-            if (!repairOper.Can_Interact())
-                _CanInteract = false;
-
-            return ResourceManager.Instance.Get_StaticWord(56);
-        }
-
-        else if (Can_CastingTType(_II, out VaultRerollOperatorController rerollOper))
-        {
-            if (!rerollOper.Can_Interact())
-                _CanInteract = false;
-
-            return ResourceManager.Instance.Get_StaticWord(57);
-        }
-
-        else if (Can_CastingTType(_II, out VaultUpgradeOperatorController upgradeOper))
-        {
-            if (!upgradeOper.Can_Interact())
-                _CanInteract = false;
-
-            return ResourceManager.Instance.Get_StaticWord(58);
-        }
-
-        else if (Can_CastingTType(_II, out PrisonPuzzleOperatorController prisonPuzzleOper))
-        {
-            if (!prisonPuzzleOper.Can_Interact())
-                _CanInteract = false;
-
-            return ResourceManager.Instance.Get_StaticWord(59);
-        }
-
-        else if (Can_CastingTType(_II, out PrisonPayOperatorController prisonPayOper))
-        {
-            if (!prisonPayOper.Can_Interact())
-                _CanInteract = false;
-
-            return ResourceManager.Instance.Get_StaticWord(60);
-        }
-
-        return "";
+        return result;
     }
 
     #endregion
@@ -4848,6 +4757,24 @@ public class PlayerVisual<T>
 #endregion
 
 
+#region Class : Build : Converter
+
+[System.Serializable]
+public class ConverterReso
+{
+    public List<EachConverterReso> ConverterResoList;
+}
+
+[System.Serializable]
+public class EachConverterReso
+{
+    public AnimationClip AC;
+    public Material Material;
+}
+
+#endregion
+
+
 #region Class : Ally : Prison
 
 [System.Serializable]
@@ -5313,6 +5240,8 @@ public struct ExplState
 public interface IInteract
 {
     public void Play_Interact();
+
+    public string Get_InteractName(out bool _CanInteract);
 }
 
 #endregion
