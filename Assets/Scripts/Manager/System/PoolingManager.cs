@@ -69,23 +69,30 @@ public class PoolingManager : Singleton<PoolingManager>
 
     public void Remove_AllQueue()
     {
+        // Player
         PlayerBullet.Queue.Clear();
+        PlayerAttackers.Queue.Clear();
+
+        // Player_00
+        MissileBullet.Queue.Clear();
+
+        // Item
         Joule.Queue.Clear();
         BetteryShard.Queue.Clear();
         ModuleShard.Queue.Clear();
         Overrider.Queue.Clear();
         Credit.Queue.Clear();
         ModuleItems.Queue.Clear();
-        PlayerAttackers.Queue.Clear();
 
-        MissileBullet.Queue.Clear();
-
+        // Ally Attack
         BaseAllyBullet.Queue.Clear();
         DroppingAllyBullet.Queue.Clear();
 
+        // Enemy Attack
         EnemyBullets.Queue.Clear();
         EnemyAttackers.Queue.Clear();
 
+        // Enemy
         for (int i = 0; i < CurrentStageEnemies.Count; i++)
             CurrentStageEnemies[i].Queue.Clear();
         for (int i = 0; i < CurrentStageEliteEnemies.Count; i++)
@@ -95,10 +102,13 @@ public class PoolingManager : Singleton<PoolingManager>
 
         EnemyManager.Instance.Remove_PoolingAllEnemy();
 
+        // VFX
         AfterImgs.Queue.Clear();
         ExplosionImgs.Queue.Clear();
         OnlyOnceAnimators.Queue.Clear();
+        DeadParticles.Queue.Clear();
 
+        // Module Sync
         MI_000_Bullets.Queue.Clear();
         MI_001_Bullets.Queue.Clear();
     }
