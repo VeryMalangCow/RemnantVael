@@ -2679,6 +2679,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_MM_Icon_AllyShop
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 480
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dcf93cc2d1f7dd4593cd727c03ac6d2
+      internalID: 2035667602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerHUD_IMM_Icon_AllyShop
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 384
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebe44cc34a4e4fb49b2e9c842768a6d5
+      internalID: 1433479093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2753,6 +2795,7 @@ TextureImporter:
       PlayerHUD_IMM_005: 1279793552
       PlayerHUD_IMM_006: -796665567
       PlayerHUD_IMM_007: 1287868922
+      PlayerHUD_IMM_Icon_AllyShop: 1433479093
       PlayerHUD_IMM_Icon_Elevator: -609947336
       PlayerHUD_IMM_Icon_NT_Prison: 2030984323
       PlayerHUD_IMM_Icon_ST_Prison: 1653280872
@@ -2792,6 +2835,7 @@ TextureImporter:
       PlayerHUD_MM_005: -1527273314
       PlayerHUD_MM_006: 1540350132
       PlayerHUD_MM_007: -1297130982
+      PlayerHUD_MM_Icon_AllyShop: 2035667602
       PlayerHUD_MM_Icon_Elevator: 58754797
       PlayerHUD_MM_Icon_NT_Prison: -111883568
       PlayerHUD_MM_Icon_ST_Prison: -554058987

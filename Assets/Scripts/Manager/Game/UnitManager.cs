@@ -265,6 +265,35 @@ public class UnitManager : Singleton<UnitManager>
         Set_DictData();
     }
 
+
+    #region Test
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            PlayerManager.Instance.Gain_KeyCard(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            PlayerManager.Instance.Gain_KeyCard(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            PlayerManager.Instance.Gain_KeyCard(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            PlayerManager.Instance.Gain_KeyCard(3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            PlayerManager.Instance.Gain_KeyCard(4);
+        }
+    }
+
+    #endregion
+
     #endregion
 
     #region Language

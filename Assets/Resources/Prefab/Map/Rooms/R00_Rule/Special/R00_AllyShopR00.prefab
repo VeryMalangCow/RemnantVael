@@ -6472,9 +6472,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2234060382953184247}
-  - component: {fileID: 3635096754202495175}
+  - component: {fileID: 4164879491352479518}
   m_Layer: 0
-  m_Name: R00_ShopR00
+  m_Name: R00_AllyShopR00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6503,7 +6503,7 @@ Transform:
   - {fileID: 6189231151297402367}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3635096754202495175
+--- !u!114 &4164879491352479518
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6512,7 +6512,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8671702513593221327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f9a5d74f0bb35c47a3d0d7f61ccb7da, type: 3}
+  m_Script: {fileID: 11500000, guid: ddd2f34660d018b448179723b2684dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RoomVec:

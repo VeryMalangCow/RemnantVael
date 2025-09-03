@@ -4139,6 +4139,9 @@ public class StageRoom
     public List<GenSpecialRoomData> ShopRoom;
 
     [Space(10)]
+    public List<GenSpecialRoomData> AllyShopRoom;
+
+    [Space(10)]
     public List<GenPrisonRoomData> PrisonRoom;
 }
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShopRuleController : RoomRuleController
+public class AllyShopRuleController : RoomRuleController
 {
     #region Value
 
@@ -14,8 +14,8 @@ public class ShopRuleController : RoomRuleController
     [SerializeField] public Transform InRoom_BURepairOperactorParentTF;
     [SerializeField] public Transform InRoom_MURepairOperactorParentTF;
 
-    [HideInInspector] public BaseUpgradeController BUShop;
-    [HideInInspector] public ModuleUpgradeController MUShop;
+    [HideInInspector] public AllyBaseUpgradeController BUShop;
+    [HideInInspector] public AllyModuleUpgradeController MUShop;
     [HideInInspector] public RepairOperatorController BURepairOperator;
     [HideInInspector] public RepairOperatorController MURepairOperator;
 
@@ -27,7 +27,7 @@ public class ShopRuleController : RoomRuleController
     {
         base.Offset();
 
-        NeedKeyCardID = 3;
+        NeedKeyCardID = 4;
     }
 
     #endregion

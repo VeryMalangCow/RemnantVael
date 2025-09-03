@@ -46,6 +46,7 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private List<GameObject> RoomRuleEntrancePrefabList;
     [SerializeField] private List<GameObject> RoomRuleVaultPrefabList;
     [SerializeField] private List<GameObject> RoomRuleShopPrefabList;
+    [SerializeField] private List<GameObject> RoomRuleAllyShopPrefabList;
     [SerializeField] private List<GameObject> RoomRulePrisonPrefabList;
 
     [Space(5)]
@@ -62,6 +63,8 @@ public class StageManager : Singleton<StageManager>
     [Header("-- Build / Actual")]
     [SerializeField] private GameObject BUShopPrefab;
     [SerializeField] private GameObject MUShopPrefab;
+    [SerializeField] private GameObject ABUShopPrefab;
+    [SerializeField] private GameObject AMUShopPrefab;
     [SerializeField] private List<GameObject> VaultPrefabList;
     [SerializeField] private List<GameObject> PrisonPrefabList;
 
@@ -78,6 +81,7 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] private CoupleData<Sprite> Vault_Icon;
     [SerializeField] private CoupleData<Sprite> Elevator_Icon;
     [SerializeField] private CoupleData<Sprite> Shop_Icon;
+    [SerializeField] private CoupleData<Sprite> AllyShop_Icon;
     [SerializeField] private CoupleData<Sprite> ST_Prison_Icon;
     [SerializeField] private CoupleData<Sprite> UT_Prison_Icon;
     [SerializeField] private CoupleData<Sprite> NT_Prison_Icon;
@@ -320,6 +324,13 @@ public class StageManager : Singleton<StageManager>
             TempID++;
         }
 
+        // Ally 惑痢 规 积己
+        for (int i = 0; i < _StageData.RoomData.AllyShopRoom.Count; i++)
+        {
+            Gen_AllyShopRoom(_StageData.RoomData.AllyShopRoom[i], TempID);
+            TempID++;
+        }
+
         // 皑苛 规 积己
         for (int i = 0; i < _StageData.RoomData.PrisonRoom.Count; i++)
         {
@@ -526,6 +537,51 @@ public class StageManager : Singleton<StageManager>
                 Instantiate(RepairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
             shopRule.MURepairOperator = MURepairOper;
             MURepairOper.Set_TargetBuild(MUShop);
+            MURepairOper.gameObject.transform.localPosition = Vector2.zero;
+            MURepairOper.gameObject.SetActive(false);
+
+            room.Offset(_TempID);
+            Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
+        }
+    }
+
+    #endregion
+
+    #region Ally Shop
+
+    // 惑痢 规 窍唱 积己
+    private void Gen_AllyShopRoom(GenSpecialRoomData _ShopRoomData, int _TempID)
+    {
+        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_ShopRoomData.ID], MapParentTF), out RoomController room))
+        {
+            CurrentAllRoomController.Add(room);
+
+            if (DevTool.Get_ComponentTType(Instantiate(RoomRuleAllyShopPrefabList[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+                room.RoomRuleController = roomRule;
+
+            AllyShopRuleController shopRule = DevTool.Get_CastingTType<AllyShopRuleController>(roomRule);
+
+            AllyBaseUpgradeController ABUShop = DevTool.Get_ComponentTType<AllyBaseUpgradeController>(Instantiate(ABUShopPrefab, shopRule.InRoom_BUShopParentTF));
+            shopRule.BUShop = ABUShop;
+            ABUShop.gameObject.transform.localPosition = Vector2.zero;
+            ABUShop.gameObject.SetActive(false);
+
+            AllyModuleUpgradeController AMUShop = DevTool.Get_ComponentTType<AllyModuleUpgradeController>(Instantiate(AMUShopPrefab, shopRule.InRoom_MUShopParentTF));
+            shopRule.MUShop = AMUShop;
+            AMUShop.gameObject.transform.localPosition = Vector2.zero;
+            AMUShop.gameObject.SetActive(false);
+
+            RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
+                Instantiate(RepairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
+            shopRule.BURepairOperator = BURepairOper;
+            BURepairOper.Set_TargetBuild(ABUShop);
+            BURepairOper.gameObject.transform.localPosition = Vector2.zero;
+            BURepairOper.gameObject.SetActive(false);
+
+            RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
+                Instantiate(RepairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
+            shopRule.MURepairOperator = MURepairOper;
+            MURepairOper.Set_TargetBuild(AMUShop);
             MURepairOper.gameObject.transform.localPosition = Vector2.zero;
             MURepairOper.gameObject.SetActive(false);
 
@@ -1135,6 +1191,9 @@ public class StageManager : Singleton<StageManager>
 
             case ShopRuleController:
                 return Shop_Icon;
+
+            case AllyShopRuleController:
+                return AllyShop_Icon;
 
             case PrisonRuleController prisonRule:
                 if (prisonRule.Prison is StrikeTeamPrisonController)
