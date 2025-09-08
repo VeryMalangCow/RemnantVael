@@ -306,9 +306,19 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["InOrderLocker_Interact"].performed += Input_InOrderLocker_Interact;
         PlayerInput.actions["InOrderLocker_TryUnlock"].performed += Input_InOrderLocker_TryUnlock;
 
-        // Cvt PremiumCredit
+        // Cvt
+        // PremiumCredit
         PlayerInput.actions["CPCUI_Select"].performed += Input_Cvt_PC_Click;
         PlayerInput.actions["CPCUI_OutPanel"].performed += Input_Cvt_PC_OutPanel;
+        // ProtoCore
+        PlayerInput.actions["CPUI_Select"].performed += Input_Cvt_P_Click;
+        PlayerInput.actions["CPUI_OutPanel"].performed += Input_Cvt_P_OutPanel;
+        // EtherCore
+        PlayerInput.actions["CEUI_Select"].performed += Input_Cvt_E_Click;
+        PlayerInput.actions["CEUI_OutPanel"].performed += Input_Cvt_E_OutPanel;
+        // ProtoCore
+        PlayerInput.actions["COUI_Select"].performed += Input_Cvt_O_Click;
+        PlayerInput.actions["COUI_OutPanel"].performed += Input_Cvt_O_OutPanel;
 
         // Out Main Game UI
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
@@ -370,9 +380,19 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["InOrderLocker_Interact"].performed -= Input_InOrderLocker_Interact;
         PlayerInput.actions["InOrderLocker_TryUnlock"].performed -= Input_InOrderLocker_TryUnlock;
 
-        // Cvt PremiumCredit
+        // Cvt
+        // PremiumCredit
         PlayerInput.actions["CPCUI_Select"].performed -= Input_Cvt_PC_Click;
         PlayerInput.actions["CPCUI_OutPanel"].performed -= Input_Cvt_PC_OutPanel;
+        // ProtoCore
+        PlayerInput.actions["CPUI_Select"].performed -= Input_Cvt_P_Click;
+        PlayerInput.actions["CPUI_OutPanel"].performed -= Input_Cvt_P_OutPanel;
+        // EtherCore
+        PlayerInput.actions["CEUI_Select"].performed -= Input_Cvt_E_Click;
+        PlayerInput.actions["CEUI_OutPanel"].performed -= Input_Cvt_E_OutPanel;
+        // ProtoCore
+        PlayerInput.actions["COUI_Select"].performed -= Input_Cvt_O_Click;
+        PlayerInput.actions["COUI_OutPanel"].performed -= Input_Cvt_O_OutPanel;
 
         // Out Main Game UI
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
@@ -672,8 +692,9 @@ public class InputManager : Singleton<InputManager>
 
     #endregion
 
-    #region Cvt PremiumCredit
+    #region Cvt
 
+    // PC (Premium Credit)
     private void Input_Cvt_PC_Click(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
@@ -685,6 +706,51 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             MainGameUIManager.Instance.PremiumCreditCvt_UIController.SetOff_ThisPanel();
+    }
+
+
+    // P (Proto Core)
+    private void Input_Cvt_P_Click(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.ProtoCoreCvt_UIController.Try_Interact();
+    }
+
+
+    private void Input_Cvt_P_OutPanel(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.ProtoCoreCvt_UIController.SetOff_ThisPanel();
+    }
+
+
+    // E (Ether Core)
+    private void Input_Cvt_E_Click(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.EtherCoreCvt_UIController.Try_Interact();
+    }
+
+
+    private void Input_Cvt_E_OutPanel(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.EtherCoreCvt_UIController.SetOff_ThisPanel();
+    }
+
+
+    // O (Origin Core)
+    private void Input_Cvt_O_Click(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.OriginCoreCvt_UIController.Try_Interact();
+    }
+
+
+    private void Input_Cvt_O_OutPanel(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.OriginCoreCvt_UIController.SetOff_ThisPanel();
     }
 
     #endregion

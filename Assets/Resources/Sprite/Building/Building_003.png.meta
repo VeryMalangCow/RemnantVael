@@ -861,7 +861,7 @@ TextureImporter:
         width: 34
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -882,7 +882,7 @@ TextureImporter:
         width: 34
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -903,7 +903,7 @@ TextureImporter:
         width: 34
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -924,7 +924,7 @@ TextureImporter:
         width: 34
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -945,7 +945,7 @@ TextureImporter:
         width: 34
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -966,7 +966,7 @@ TextureImporter:
         width: 34
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -987,7 +987,7 @@ TextureImporter:
         width: 34
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1008,7 +1008,7 @@ TextureImporter:
         width: 34
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1029,7 +1029,7 @@ TextureImporter:
         width: 34
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1050,7 +1050,7 @@ TextureImporter:
         width: 34
         height: 34
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1058,6 +1058,636 @@ TextureImporter:
       bones: []
       spriteID: 773c97db4c8be854596315117c036b0a
       internalID: -1175832103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_ProtoCore_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 308
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3d84a721a5e1a14d823f0c39e784e24
+      internalID: -1590674350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_ProtoCore_01
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 308
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fadb65e0b98a284a965e2ca54ba7de9
+      internalID: -724425651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_ProtoCore_02
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 308
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2316db16e40fa134bbd261d66ccb25b4
+      internalID: 646781509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_ProtoCore_03
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 308
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4db9df1e92465f44c9f120e0085b8791
+      internalID: -1234214895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_ProtoCore_04
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 308
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d28c9a8598d4fa743bbe77217c6fa2f7
+      internalID: -1110657520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_ProtoCore_05
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 308
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a782063ff012df438519d5b6abb85d6
+      internalID: -1052245478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_ProtoCore_06
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 308
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9635e3b226db90f4588a6d2067ba1ee1
+      internalID: -993986432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_ProtoCore_07
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 308
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44a71c8ea3da8b347a52f585bb9f6cc2
+      internalID: 1886129446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_ProtoCore_08
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 308
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de2d633222de50d4789d50818840a906
+      internalID: 1927556096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_ProtoCore_09
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 308
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09dac485187c3784fba9cffcb764c142
+      internalID: -658795967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_EtherCore_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 274
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9348cdc3489b43b41b98c97663922291
+      internalID: 1547856794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_EtherCore_01
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 274
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7bb6f40569a0ab4ea5e8219969e4418
+      internalID: -1243915754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_EtherCore_02
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 274
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 838f01173204d8c4492be372da0b3595
+      internalID: -2101612926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_EtherCore_03
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 274
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f28556f2ba46054a9b9a09302aa6976
+      internalID: -587293382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_EtherCore_04
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 274
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46ed723c60040e042abd67dbf929c5ed
+      internalID: 2098689079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_EtherCore_05
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 274
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 615cd9e6f0f3ad44180c93819ea74ca3
+      internalID: -950593083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_EtherCore_06
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 274
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6a52dacca1ab7143b9500e6f20cd231
+      internalID: 1863156383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_EtherCore_07
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 274
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb3091fa06c82ff428702471d0d797f8
+      internalID: 1171283536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_EtherCore_08
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 274
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca09731a75f46c740973291c0675a59b
+      internalID: -1421305325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_EtherCore_09
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 274
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b835b9f144f231445a5ec4097c933175
+      internalID: 1886357413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_OriginCore_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 240
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3359942257f7794f8dd354ac22f0af0
+      internalID: 2141050703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_OriginCore_01
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 240
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c63131d35d7cde04db1f61d650020c22
+      internalID: 728831629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_OriginCore_02
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 240
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 295e46a603e701d46b88c477fe85dbd9
+      internalID: -29267141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_OriginCore_03
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 240
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f25b58cfbe872704382d0d99580110b0
+      internalID: -935973910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_OriginCore_04
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 240
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 600c8125d98b54e4fa0d1c0a209847be
+      internalID: 451978938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_OriginCore_05
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 240
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eca50278ad71d2c49986b2f2aa899de7
+      internalID: 894857675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_OriginCore_06
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 240
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67f0497f1d4ff9b4f90e7fbdaa2050c6
+      internalID: 51486694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_OriginCore_07
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 240
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48d7b7dc7d76d864995ab498bdb4a486
+      internalID: -2102638755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_OriginCore_08
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 240
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29cb5518471f7134791843d69cf8c5f7
+      internalID: 42718612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Building_Cvt_OriginCore_09
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 240
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72bb1350d22513c4da104e784b9b77ee
+      internalID: -168808861
       vertices: []
       indices: 
       edges: []
@@ -1111,6 +1741,26 @@ TextureImporter:
       Building_AllyMUShopOn_05: -867085589
       Building_AllyMUShopOn_06: 894348240
       Building_AllyMUShopOn_07: -345355895
+      Building_Cvt_EtherCore_00: 1547856794
+      Building_Cvt_EtherCore_01: -1243915754
+      Building_Cvt_EtherCore_02: -2101612926
+      Building_Cvt_EtherCore_03: -587293382
+      Building_Cvt_EtherCore_04: 2098689079
+      Building_Cvt_EtherCore_05: -950593083
+      Building_Cvt_EtherCore_06: 1863156383
+      Building_Cvt_EtherCore_07: 1171283536
+      Building_Cvt_EtherCore_08: -1421305325
+      Building_Cvt_EtherCore_09: 1886357413
+      Building_Cvt_OriginCore_00: 2141050703
+      Building_Cvt_OriginCore_01: 728831629
+      Building_Cvt_OriginCore_02: -29267141
+      Building_Cvt_OriginCore_03: -935973910
+      Building_Cvt_OriginCore_04: 451978938
+      Building_Cvt_OriginCore_05: 894857675
+      Building_Cvt_OriginCore_06: 51486694
+      Building_Cvt_OriginCore_07: -2102638755
+      Building_Cvt_OriginCore_08: 42718612
+      Building_Cvt_OriginCore_09: -168808861
       Building_Cvt_PremiumCredit_00: 1107183818
       Building_Cvt_PremiumCredit_01: 1695991816
       Building_Cvt_PremiumCredit_02: -1407583309
@@ -1121,6 +1771,16 @@ TextureImporter:
       Building_Cvt_PremiumCredit_07: 1626289906
       Building_Cvt_PremiumCredit_08: -2118288269
       Building_Cvt_PremiumCredit_09: -1175832103
+      Building_Cvt_ProtoCore_00: -1590674350
+      Building_Cvt_ProtoCore_01: -724425651
+      Building_Cvt_ProtoCore_02: 646781509
+      Building_Cvt_ProtoCore_03: -1234214895
+      Building_Cvt_ProtoCore_04: -1110657520
+      Building_Cvt_ProtoCore_05: -1052245478
+      Building_Cvt_ProtoCore_06: -993986432
+      Building_Cvt_ProtoCore_07: 1886129446
+      Building_Cvt_ProtoCore_08: 1927556096
+      Building_Cvt_ProtoCore_09: -658795967
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -2352,7 +2352,7 @@ TextureImporter:
         width: 13
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2360,6 +2360,90 @@ TextureImporter:
       bones: []
       spriteID: e7e0298f22bf9fa499f76b4a917a8bde
       internalID: -721544048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Cvt_CB
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 295
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f69e17fd1ef4a548bd1ee20da52f326
+      internalID: -1901297469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Cvt_ProtoCore
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 281
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80230ff9ca2e43b489cb54da2fae156e
+      internalID: -1776099186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Cvt_EtherCore
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 281
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9745e77c022437142a4611f85fe80404
+      internalID: 916261362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Cvt_OriginCore
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 267
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee685c5c2f42a7f4ca45b3b543e95fa2
+      internalID: -2089630484
       vertices: []
       indices: 
       edges: []
@@ -2390,10 +2474,14 @@ TextureImporter:
       ModuleUI_Cogwheel_0: -707146146
       ModuleUI_Cogwheel_1: 716162092
       ModuleUI_Cogwheel_2: 1222701743
+      ModuleUI_Cvt_CB: -1901297469
       ModuleUI_Cvt_Credit: -1440381744
       ModuleUI_Cvt_EP: -2076485528
+      ModuleUI_Cvt_EtherCore: 916261362
       ModuleUI_Cvt_O: 1473322856
+      ModuleUI_Cvt_OriginCore: -2089630484
       ModuleUI_Cvt_PremiumCredit: -721544048
+      ModuleUI_Cvt_ProtoCore: -1776099186
       ModuleUI_Cvt_X: -365479874
       ModuleUI_DialogueCharBG: 1737750721
       ModuleUI_DialogueCharFrame: -151358749

@@ -216,6 +216,14 @@ public class JsonData
         }
         return 0;
     }
+
+    public void Use_Item(int _ID, int _Amount)
+    {
+        if (ItemData.Count > _ID)
+        {
+            ItemData[_ID].Amount -= _Amount;
+        }
+    }
 }
 
 #endregion

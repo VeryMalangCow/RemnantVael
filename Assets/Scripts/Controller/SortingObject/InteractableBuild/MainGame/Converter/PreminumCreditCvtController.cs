@@ -15,5 +15,4 @@ public class PreminumCreditCvtController : ConverterController, IInteract
     }
 
     #endregion
-
 }

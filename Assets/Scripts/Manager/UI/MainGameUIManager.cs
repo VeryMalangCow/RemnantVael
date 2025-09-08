@@ -37,6 +37,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private GameObject Puzzle_InOrderLocker_CanvasPrefab;
 
     [SerializeField] private GameObject Cvt_PremiumCredit_CanvasPrefab;
+    [SerializeField] private GameObject Cvt_ProtoCore_CanvasPrefab;
+    [SerializeField] private GameObject Cvt_EtherCore_CanvasPrefab;
+    [SerializeField] private GameObject Cvt_OriginCore_CanvasPrefab;
 
     [SerializeField] private List<Sprite> KeyCardSpriteList;
     #endregion
@@ -63,6 +66,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [HideInInspector] public InOrderLockerUIController InOrderLocker_UIController;
 
     [HideInInspector] public PremiumCreditCvtUIController PremiumCreditCvt_UIController;
+    [HideInInspector] public ProtoCoreCvtUIController ProtoCoreCvt_UIController;
+    [HideInInspector] public EtherCoreCvtUIController EtherCoreCvt_UIController;
+    [HideInInspector] public OriginCoreCvtUIController OriginCoreCvt_UIController;
 
     // Current
     [HideInInspector] public static UIController CurrentOpening_UIController;
@@ -124,6 +130,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         PremiumCreditCvt_UIController
             = Gen_UI<PremiumCreditCvtUIController>(Cvt_PremiumCredit_CanvasPrefab, false);
+        ProtoCoreCvt_UIController
+            = Gen_UI<ProtoCoreCvtUIController>(Cvt_ProtoCore_CanvasPrefab, false);
+        EtherCoreCvt_UIController
+            = Gen_UI<EtherCoreCvtUIController>(Cvt_EtherCore_CanvasPrefab, false);
+        OriginCoreCvt_UIController
+            = Gen_UI<OriginCoreCvtUIController>(Cvt_OriginCore_CanvasPrefab, false);
 
         Sequence startSeq = DOTween.Sequence();
 

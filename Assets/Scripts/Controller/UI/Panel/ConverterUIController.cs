@@ -147,7 +147,9 @@ public abstract class ConverterUIController : SinglePanelUIController
     {
         if (CurrentBtn == CloseBtn)
         {
-            SetOff_ThisPanel();
+            if (!ConvertingNow) 
+                SetOff_ThisPanel();
+
             return true;
         }
         return false;
@@ -248,6 +250,13 @@ public abstract class ConverterUIController : SinglePanelUIController
         base.SetOn_ThisPanel();
         Set_AcquAmount(AcquisitionItemID);
         Set_AcquBookAmount(1);
+    }
+
+    public override void SetOff_ThisPanel()
+    {
+        if (ConvertingNow) return;
+            
+        base.SetOff_ThisPanel();
     }
 
     #endregion

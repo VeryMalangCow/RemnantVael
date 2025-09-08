@@ -936,6 +936,150 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "CvtProtoCoreUI",
+            "id": "ce97ffc1-5301-4c9b-8d08-993f10eb072e",
+            "actions": [
+                {
+                    "name": "CPUI_OutPanel",
+                    "type": "Button",
+                    "id": "9d42456e-2793-4ac6-8fc1-8a6b548cab52",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CPUI_Select",
+                    "type": "Button",
+                    "id": "e583cf40-c729-4851-a91e-e5d930081ac0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f87f65b6-4b46-4a03-a2f1-191ac55d50e7",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CPUI_Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e537627c-9982-4a5d-8622-b3225f73d90d",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CPUI_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "CvtEtherCoreUI",
+            "id": "f5113bd8-c6ec-4b5e-8d9e-730991440c5d",
+            "actions": [
+                {
+                    "name": "CEUI_OutPanel",
+                    "type": "Button",
+                    "id": "cfb100fc-5f04-4fe4-b1c0-c71ecb5ffd8e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CEUI_Select",
+                    "type": "Button",
+                    "id": "1460e18b-1abc-4fdc-b86e-9e9f71bd5528",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3c8e777b-30f8-43cd-9904-9136dfefc42b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CEUI_Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f460c7e4-d5f5-4005-9e7a-59a7d0c60618",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CEUI_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "CvtOriginCoreUI",
+            "id": "512cdcd0-f913-4307-a307-8d53579cf76b",
+            "actions": [
+                {
+                    "name": "COUI_OutPanel",
+                    "type": "Button",
+                    "id": "91d71739-74f6-493f-8cb4-d58d60fdd704",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "COUI_Select",
+                    "type": "Button",
+                    "id": "447165d2-0178-46e8-8e4e-457414177e81",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6ef8f81f-b499-43b4-83c1-3ce84e5f8c68",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "COUI_Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a91431e9-8f19-4f2e-a2d9-26717d17ab4f",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "COUI_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
