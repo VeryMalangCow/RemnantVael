@@ -888,6 +888,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "CvtPremiumCreditUI",
+            "id": "32513709-ac1b-449f-8b33-44946ddc0490",
+            "actions": [
+                {
+                    "name": "CPCUI_OutPanel",
+                    "type": "Button",
+                    "id": "71262d3a-2ad4-4314-adba-6d24580c427e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CPCUI_Select",
+                    "type": "Button",
+                    "id": "59a2ec7d-b1f4-4e7a-a3af-64f19b296197",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c43f0a1c-c1e5-487d-bff9-9ee0bcb7804a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CPCUI_Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "caee72db-143e-4874-9786-e70e004a88eb",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CPCUI_OutPanel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

@@ -36,6 +36,8 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private GameObject Puzzle_NumShapeColorPassword_CanvasPrefab;
     [SerializeField] private GameObject Puzzle_InOrderLocker_CanvasPrefab;
 
+    [SerializeField] private GameObject Cvt_PremiumCredit_CanvasPrefab;
+
     [SerializeField] private List<Sprite> KeyCardSpriteList;
     #endregion
 
@@ -59,6 +61,8 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [HideInInspector] public BoxLineConnectorUIController BoxLineConnector_UIController;
     [HideInInspector] public NumShapeColorPasswordUIController NumShapeColorPassword_UIController;
     [HideInInspector] public InOrderLockerUIController InOrderLocker_UIController;
+
+    [HideInInspector] public PremiumCreditCvtUIController PremiumCreditCvt_UIController;
 
     // Current
     [HideInInspector] public static UIController CurrentOpening_UIController;
@@ -118,6 +122,8 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         InOrderLocker_UIController
             = Gen_UI<InOrderLockerUIController>(Puzzle_InOrderLocker_CanvasPrefab, false);
 
+        PremiumCreditCvt_UIController
+            = Gen_UI<PremiumCreditCvtUIController>(Cvt_PremiumCredit_CanvasPrefab, false);
 
         Sequence startSeq = DOTween.Sequence();
 

@@ -648,7 +648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: 7ece7392832399a448b1fd4fa3e614cf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1133,7 +1133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: 797ae61b16816be4abeb050b4474072b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1427,7 +1427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1790,6 +1790,7 @@ MonoBehaviour:
   Puzzle_BoxLineConnector_CanvasPrefab: {fileID: 977057849872143002, guid: 35b739b676c2f0c48b66c75e98920982, type: 3}
   Puzzle_NumShapeColorPassword_CanvasPrefab: {fileID: 977057849872143002, guid: 58fc63fff4e38b3479fc9c7e7bd24d0f, type: 3}
   Puzzle_InOrderLocker_CanvasPrefab: {fileID: 977057849872143002, guid: 419f06a3a02035f4faf61bcfe0e3b6a5, type: 3}
+  Cvt_PremiumCredit_CanvasPrefab: {fileID: 977057849872143002, guid: 57c3efdf20b913748bbcce69c4570346, type: 3}
   KeyCardSpriteList:
   - {fileID: 1110492473, guid: 637ede47422025b48bd24c3773722caa, type: 3}
   - {fileID: 1228292069, guid: 637ede47422025b48bd24c3773722caa, type: 3}
@@ -1808,6 +1809,7 @@ MonoBehaviour:
   BoxLineConnector_UIController: {fileID: 0}
   NumShapeColorPassword_UIController: {fileID: 0}
   InOrderLocker_UIController: {fileID: 0}
+  PremiumCreditCvt_UIController: {fileID: 0}
 --- !u!1 &407909252
 GameObject:
   m_ObjectHideFlags: 0
@@ -2606,7 +2608,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: 7ece7392832399a448b1fd4fa3e614cf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3074,11 +3076,11 @@ MonoBehaviour:
     RoomData:
       RoomAmount:
       - ID: 0
-        Amount: 8
+        Amount: 5
       - ID: 1
-        Amount: 2
+        Amount: 3
       - ID: 2
-        Amount: 2
+        Amount: 3
       - ID: 4
         Amount: 2
       - ID: 5
@@ -3105,7 +3107,9 @@ MonoBehaviour:
       ShopRoom:
       - ID: 0
         RuleID: 0
-      AllyShopRoom: []
+      AllyShopRoom:
+      - ID: 0
+        RuleID: 0
       PrisonRoom:
       - ID: 0
         RuleID: 0
@@ -3957,7 +3961,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: 797ae61b16816be4abeb050b4474072b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5056,7 +5060,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: 7ece7392832399a448b1fd4fa3e614cf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7849,6 +7853,9 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
   - {r: 1, g: 0, b: 1, a: 1}
+  CvtMaterialConditionIcon:
+    TypeBase: {fileID: -365479874, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+    TypeSpecial: {fileID: 1473322856, guid: 637ede47422025b48bd24c3773722caa, type: 3}
   ModuleItemOutlinerAC:
   - {fileID: 7400000, guid: 35bfc1528075c6e428950576281e1be0, type: 2}
   - {fileID: 7400000, guid: 0759e410f7a365843a010e663dcb0ede, type: 2}
@@ -8713,7 +8720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8953,7 +8960,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9341,7 +9348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9480,7 +9487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: 797ae61b16816be4abeb050b4474072b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9833,7 +9840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: cadf82861f418414c8b6f9fb8ba6c056, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9974,7 +9981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5736045064323075691, guid: bcfde6c4d899dab49b932218be6962d2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

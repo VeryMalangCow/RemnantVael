@@ -586,7 +586,7 @@ public class PlayerHUDController : UIController
         DevTool.Set_KillTween(TabSeq);
 
         TabSeq = Play_SeqInteract(
-            0f, 0f, 0f, 0f,
+            0f, 700f, 0f, 0f, 0f,
             0f, 1f, TabInteractDurTime, Ease.OutCubic);
 
         TabSeq.Join(Play_FadeCGs(1, TabInteractDurTime));
@@ -602,7 +602,7 @@ public class PlayerHUDController : UIController
         DevTool.Set_KillTween(TabSeq);
 
         TabSeq = Play_SeqInteract(
-            DefaultModuleRectX, DefaultPlayerStatesRectX, DefaultSkillStatesRectY, DefaultBoostRectY,
+            DefaultModuleRectX, 20f, DefaultPlayerStatesRectX, DefaultSkillStatesRectY, DefaultBoostRectY,
             1f, 0f, TabInteractDurTime, Ease.InCubic);
 
         TabSeq.Join(Play_FadeCGs(0, TabInteractDurTime));
@@ -791,12 +791,13 @@ public class PlayerHUDController : UIController
 
     // Tab ¿Ãµø
     private Sequence Play_SeqInteract(
-        float _ModuleRtX, float _CostRtX, float _SkillRtY, float _BoostRtY,
+        float _ModuleRtX, float _AllyStateRtX, float _CostRtX, float _SkillRtY, float _BoostRtY,
         float _StageNameAlpha, float _StageDescAlpha,
         float _DurTime, Ease _Ease)
     {
         Sequence seq = DOTween.Sequence();
         seq.Join(ModuleListParentRT.DOAnchorPosX(_ModuleRtX, _DurTime));
+        seq.Join(AllyStateParentRT.DOAnchorPosX(_AllyStateRtX, _DurTime));
         seq.Join(PlayerStatesCostParentRT.DOAnchorPosX(_CostRtX, _DurTime));
         seq.Join(SkillStatesParentRT.DOAnchorPosY(_SkillRtY, _DurTime));
         seq.Join(BoostRT.DOAnchorPosY(_BoostRtY, _DurTime));

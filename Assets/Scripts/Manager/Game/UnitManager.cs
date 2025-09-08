@@ -1,5 +1,3 @@
-using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -95,6 +93,10 @@ public class UnitManager : Singleton<UnitManager>
     [SerializeField] public List<Sprite> NSC_ShapeSpriteList;
     [SerializeField] public Sprite NSC_ColorSprite;
     [SerializeField] public List<Color> NSC_ColorList;
+
+    [Space(5)]
+    [Header("-- Cvt")]
+    [SerializeField] public CoupleData<Sprite> CvtMaterialConditionIcon;
 
     #endregion
 

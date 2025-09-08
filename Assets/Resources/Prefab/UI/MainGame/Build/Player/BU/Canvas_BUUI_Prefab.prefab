@@ -403,6 +403,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  CurrentSlotBtn: {fileID: 0}
+  CurrentItemBtn: {fileID: 0}
   ThisPanelTabList:
   - {fileID: 3841518684844216861}
   - {fileID: 6102662024336250210}
@@ -412,17 +414,17 @@ MonoBehaviour:
   LabelTxt: {fileID: 8601064820096719371}
   ThisDurEUI: {fileID: 1414314959910742180}
   ThisMsgEUI: {fileID: 3110014342129758097}
-  BCTxt: {fileID: 140443884870657023}
-  ECTxt: {fileID: 8921095934941749506}
-  ThisDescPanel: {fileID: 1649420452426937716}
   CloseBtn: {fileID: 4642890815464369897}
-  FrameInnerImg: {fileID: 1137730085738591900}
   TabSideTxtList:
   - {fileID: 5821918825504258283}
   - {fileID: 1823300100589107299}
   - {fileID: 867890153064930433}
   - {fileID: 4847656498727823303}
   - {fileID: 8417459336443311116}
+  BCTxt: {fileID: 140443884870657023}
+  ECTxt: {fileID: 8921095934941749506}
+  ThisDescPanel: {fileID: 1649420452426937716}
+  FrameInnerImg: {fileID: 1137730085738591900}
   DamageShop:
     UpgradeEUI: {fileID: 7439659564662900833}
     State:

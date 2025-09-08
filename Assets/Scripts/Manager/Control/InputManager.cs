@@ -306,6 +306,10 @@ public class InputManager : Singleton<InputManager>
         PlayerInput.actions["InOrderLocker_Interact"].performed += Input_InOrderLocker_Interact;
         PlayerInput.actions["InOrderLocker_TryUnlock"].performed += Input_InOrderLocker_TryUnlock;
 
+        // Cvt PremiumCredit
+        PlayerInput.actions["CPCUI_Select"].performed += Input_Cvt_PC_Click;
+        PlayerInput.actions["CPCUI_OutPanel"].performed += Input_Cvt_PC_OutPanel;
+
         // Out Main Game UI
         PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
         PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
@@ -365,6 +369,10 @@ public class InputManager : Singleton<InputManager>
         // In Order Locker
         PlayerInput.actions["InOrderLocker_Interact"].performed -= Input_InOrderLocker_Interact;
         PlayerInput.actions["InOrderLocker_TryUnlock"].performed -= Input_InOrderLocker_TryUnlock;
+
+        // Cvt PremiumCredit
+        PlayerInput.actions["CPCUI_Select"].performed -= Input_Cvt_PC_Click;
+        PlayerInput.actions["CPCUI_OutPanel"].performed -= Input_Cvt_PC_OutPanel;
 
         // Out Main Game UI
         PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
@@ -661,6 +669,23 @@ public class InputManager : Singleton<InputManager>
     }
 
     #endregion
+
+    #endregion
+
+    #region Cvt PremiumCredit
+
+    private void Input_Cvt_PC_Click(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.PremiumCreditCvt_UIController.Try_Interact();
+    }
+
+
+    private void Input_Cvt_PC_OutPanel(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            MainGameUIManager.Instance.PremiumCreditCvt_UIController.SetOff_ThisPanel();
+    }
 
     #endregion
 

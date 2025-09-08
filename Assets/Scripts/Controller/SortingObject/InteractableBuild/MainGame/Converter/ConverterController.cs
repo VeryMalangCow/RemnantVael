@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ConverterController : SortingObjectController, IInteract
+public abstract class ConverterController : SortingObjectController
 {
     #region Value
 
@@ -45,18 +45,4 @@ public class ConverterController : SortingObjectController, IInteract
 
     #endregion
 
-    #region Interact
-
-    public string Get_InteractName(out bool _CanInteract)
-    {
-        _CanInteract = true;
-        return "";
-    }
-
-    public void Play_Interact()
-    {
-        
-    }
-
-    #endregion
 }
