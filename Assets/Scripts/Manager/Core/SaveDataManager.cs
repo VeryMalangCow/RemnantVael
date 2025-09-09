@@ -46,7 +46,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     #region Save
 
-    private void Save_JsonData()
+    public void Save_JsonData()
     {
         DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath);
 

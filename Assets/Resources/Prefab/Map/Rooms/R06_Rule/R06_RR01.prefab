@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 0
 --- !u!1 &1592302916714379417
 GameObject:
@@ -205,6 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 0
 --- !u!1 &2885220588133597347
 GameObject:
@@ -250,6 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 0
 --- !u!1 &2960297978511708107
 GameObject:
@@ -261,7 +264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8116180852228766646}
   - component: {fileID: 6107446067874700691}
-  - component: {fileID: 8358022677943295253}
+  - component: {fileID: 2269446785853737310}
   m_Layer: 0
   m_Name: Platform (6)
   m_TagString: Untagged
@@ -337,7 +340,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &8358022677943295253
+--- !u!114 &2269446785853737310
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -346,7 +349,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2960297978511708107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteKey: 

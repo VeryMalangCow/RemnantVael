@@ -1648,7 +1648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 43500725796715544}
   - component: {fileID: 3780817180012205049}
-  - component: {fileID: 8928251614339821009}
+  - component: {fileID: 5759895218828216343}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -1724,7 +1724,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &8928251614339821009
+--- !u!114 &5759895218828216343
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1733,7 +1733,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2332036762206780842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteKey: 
@@ -6490,7 +6490,6 @@ MonoBehaviour:
   RoomType: 0
   IsAlreadyRoomClear: 0
   InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
-  InRoom_WayPointParentTF: {fileID: 0}
   InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
   InRoom_AllObstacle: []
   InRoom_PrisonParentTF: {fileID: 6437868854590021796}

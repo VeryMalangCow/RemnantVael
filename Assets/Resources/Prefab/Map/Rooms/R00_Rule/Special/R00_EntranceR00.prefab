@@ -339,6 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 2
 --- !u!1 &683107278277243359
 GameObject:
@@ -483,7 +484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2778887354516494378}
   - component: {fileID: 5186889194699400692}
-  - component: {fileID: 7049990230980041307}
+  - component: {fileID: 6136322090688974273}
   m_Layer: 0
   m_Name: Platform (4)
   m_TagString: Untagged
@@ -559,7 +560,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &7049990230980041307
+--- !u!114 &6136322090688974273
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -568,7 +569,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1046422035791905954}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteKey: 
@@ -944,6 +945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 1
 --- !u!1 &1592302916714379417
 GameObject:
@@ -986,7 +988,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1221838649305814008}
   - component: {fileID: 848165240868311820}
-  - component: {fileID: 4807215183309835136}
+  - component: {fileID: 1510184837196537409}
   m_Layer: 0
   m_Name: Platform (6)
   m_TagString: Untagged
@@ -1062,7 +1064,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &4807215183309835136
+--- !u!114 &1510184837196537409
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1071,7 +1073,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1668195440382448517}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteKey: 
@@ -1085,7 +1087,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2133752968637181006}
   - component: {fileID: 6500484596498242327}
-  - component: {fileID: 5990016076827993684}
+  - component: {fileID: 7049287027963937324}
   m_Layer: 0
   m_Name: Platform (5)
   m_TagString: Untagged
@@ -1161,7 +1163,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &5990016076827993684
+--- !u!114 &7049287027963937324
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1170,7 +1172,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1683068107952908074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteKey: 
@@ -2559,6 +2561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 1
 --- !u!1 &6152773841202903452
 GameObject:
@@ -3605,7 +3608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7001880012173566853}
   - component: {fileID: 1928193548590635901}
-  - component: {fileID: 4431553136410351975}
+  - component: {fileID: 8006114827984097001}
   m_Layer: 0
   m_Name: Platform (7)
   m_TagString: Untagged
@@ -3681,7 +3684,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &4431553136410351975
+--- !u!114 &8006114827984097001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3690,7 +3693,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7691774366830696901}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteKey: 
@@ -4018,6 +4021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 2
 --- !u!1 &8518308066549779910
 GameObject:

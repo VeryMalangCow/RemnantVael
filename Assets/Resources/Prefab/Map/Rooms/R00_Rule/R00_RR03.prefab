@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 2
 --- !u!1 &992467403653113564
 GameObject:
@@ -89,6 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 1
 --- !u!1 &1592302916714379417
 GameObject:
@@ -167,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 1
 --- !u!1 &5894810147068047141
 GameObject:
@@ -296,6 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyType: 0
   SpawnID: 2
 --- !u!1 &7401636336463548477
 GameObject:
@@ -307,7 +311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5604307435713841509}
   - component: {fileID: 2597447173159881141}
-  - component: {fileID: 8676172232757410705}
+  - component: {fileID: 1095191712516357205}
   m_Layer: 0
   m_Name: Platform (1)
   m_TagString: Untagged
@@ -383,7 +387,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &8676172232757410705
+--- !u!114 &1095191712516357205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -392,7 +396,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7401636336463548477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteKey: 
@@ -448,7 +452,6 @@ MonoBehaviour:
   RoomType: 1
   IsAlreadyRoomClear: 0
   InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
-  InRoom_WayPointParentTF: {fileID: 0}
   InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
   InRoom_AllObstacle: []
 --- !u!1 &8791385821537764060

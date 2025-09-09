@@ -85,6 +85,8 @@ public class EndingElevatorController : ElevatorController, IInteract
         {
             StageManager.Instance.Play_GenPassageStage(NextStageIndex);
         }
+
+        SaveDataManager.Instance.Save_JsonData();
     }
 
     #endregion
