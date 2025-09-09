@@ -2373,7 +2373,7 @@ TextureImporter:
         width: 13
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2394,7 +2394,7 @@ TextureImporter:
         width: 13
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2415,7 +2415,7 @@ TextureImporter:
         width: 13
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2436,7 +2436,7 @@ TextureImporter:
         width: 13
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2444,6 +2444,27 @@ TextureImporter:
       bones: []
       spriteID: ee685c5c2f42a7f4ca45b3b543e95fa2
       internalID: -2089630484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_SaveIcon
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 139
+        width: 20
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33ffcc619d328e14c847356d322fd19a
+      internalID: -1429337711
       vertices: []
       indices: 
       edges: []
@@ -2563,6 +2584,7 @@ TextureImporter:
       ModuleUI_RollSelect_Shape_X: 2074071126
       ModuleUI_Roller: 1810036077
       ModuleUI_RollerArrow: -1073661461
+      ModuleUI_SaveIcon: -1429337711
       ModuleUI_SideIconFrame: -945182851
       ModuleUI_SliderCell: -2118155954
       ModuleUI_SmallLock: 114152918

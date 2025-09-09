@@ -45,7 +45,6 @@ public class GateController : StaticDepthController, IInteract
     [Header("=== Is Wall")]
     [SerializeField] public GameObject ExtraTargetObject;
 
-
     #endregion
 
     #region - Hide

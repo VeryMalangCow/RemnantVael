@@ -87,6 +87,7 @@ public class EndingElevatorController : ElevatorController, IInteract
         }
 
         SaveDataManager.Instance.Save_JsonData();
+        MainGameUIManager.Instance.Play_SaveData();
     }
 
     #endregion

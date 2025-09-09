@@ -17,6 +17,9 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [Header("=== Screen")]
     [SerializeField] public float FadeOutTime = 3f;
 
+    [Header("=== Save")]
+    [SerializeField] private CanvasGroup SaveDataCG;
+
     [Header("=== Prefab")]
     [SerializeField] private GameObject PlayerHUD_CanvasPrefab;
 
@@ -90,6 +93,8 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         ScreenCG = DevTool.Get_ComponentTType(ScreenCanvas.gameObject, out CanvasGroup cg) ? cg : null;
         LoadingIconCG = DevTool.Get_ComponentTType(LoadingIconCanvas.gameObject, out CanvasGroup iconCg) ? iconCg : null;
         LoadingIconRT = DevTool.Get_ComponentTType(LoadingIconCanvas.gameObject.transform.GetChild(0).gameObject, out RectTransform iconRt) ? iconRt : null;
+
+        SaveDataCG.gameObject.SetActive(false);
 
         CogwheelTween = LoadingIconRT
             .DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
@@ -286,6 +291,30 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         });
 
         return seq;
+    }
+
+    #endregion
+
+    #region SaveData
+
+    public void Play_SaveData()
+    {
+        Sequence seq = DOTween.Sequence();
+
+        SaveDataCG.alpha = 0f;
+        SaveDataCG.gameObject.SetActive(true);
+
+        seq.Append(SaveDataCG.DOFade(1f, 0.3f));
+        seq.Append(SaveDataCG.DOFade(0f, 0.3f));
+        seq.Append(SaveDataCG.DOFade(1f, 0.3f));
+        seq.Append(SaveDataCG.DOFade(0f, 0.3f));
+        seq.Append(SaveDataCG.DOFade(1f, 0.3f));
+        seq.AppendInterval(1.5f);
+        seq.Append(SaveDataCG.DOFade(0f, 1.5f));
+        seq.OnComplete(() =>
+        {
+            SaveDataCG.gameObject.SetActive(false);
+        });
     }
 
     #endregion
