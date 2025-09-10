@@ -112,12 +112,8 @@ public class GateController : StaticDepthController, IInteract
         ThingsGO.TypeBase.SetActive(!_IsExist);
         ThingsGO.TypeSpecial.SetActive(_IsExist);
 
-        if (_IsExist)
-        {
-            DevTool.Set_Anim(ref AOC, ThisAnimator, ThisAC);
-            DevTool.Set_AnimSpeed(ThisAnimator, 0f);
-        }
     }
+
 
     // ¹® ¿­±â/´Ý±â
     public void Set_Open()
@@ -136,6 +132,7 @@ public class GateController : StaticDepthController, IInteract
 
         if (Can_Open())
         {
+            ThisAnimator.enabled = true;
             DevTool.Set_Anim(ref AOC, ThisAnimator, ThisAC);
             DevTool.Set_AnimSpeed(ThisAnimator, 1f);
 

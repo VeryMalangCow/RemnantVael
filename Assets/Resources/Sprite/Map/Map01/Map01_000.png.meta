@@ -622,7 +622,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Map01A_B_UD_00
+      name: Map01_FF_B_UD_00
       rect:
         serializedVersion: 2
         x: 0
@@ -2175,6 +2175,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Map01_000_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 323
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d9de011b31f55c4f8a1f85a73d51fd1
+      internalID: -1491746142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map01_FF_B_DD_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 134
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd19ac1af34e7ea4480a086f9d60a3ba
+      internalID: -716667967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map01_000_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 323
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 805ac43d6989c6e4bad2ca9acba7b422
+      internalID: 1801296085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map01_FF_B_RD_00
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 260
+        width: 36
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10cb77821beb75945942eb3b0934cb7a
+      internalID: 419610325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map01_FF_B_LD_00
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 197
+        width: 36
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ed935b43b30a304fb0c77a7013f8ac1
+      internalID: 107033104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2291,6 +2396,12 @@ TextureImporter:
       Map00_E_002: 433040308
       Map00_E_003: -2047084511
       Map00_FloorLight: 1247981843
+      Map01_000_0: -1491746142
+      Map01_000_1: 1801296085
+      Map01_FF_B_DD_00: -716667967
+      Map01_FF_B_LD_00: 107033104
+      Map01_FF_B_RD_00: 419610325
+      Map01_FF_B_UD_00: 240204495
       Test00: -1233628555
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
