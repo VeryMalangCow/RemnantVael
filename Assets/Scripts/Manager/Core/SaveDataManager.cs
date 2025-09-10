@@ -205,6 +205,7 @@ public class JsonData
         if (ItemData.Count > _ID)
         {
             ItemData[_ID].Amount += _Amount;
+            MainGameUIManager.Instance.PlayerHUD_UIController.Init_HighLvItemUI();
         }
     }
 
@@ -222,6 +223,7 @@ public class JsonData
         if (ItemData.Count > _ID)
         {
             ItemData[_ID].Amount -= _Amount;
+            MainGameUIManager.Instance.PlayerHUD_UIController.Init_HighLvItemUI();
         }
     }
 }

@@ -282,8 +282,8 @@ MonoBehaviour:
   CvtAcquisitionEUI: {fileID: 42129489271048920}
   AcquisitionItemID: 1
   CloseBtn: {fileID: 809685415976490221}
-  CB_CvtMaterialEUI: {fileID: 7068248352956301776}
-  C_CvtMaterialEUI: {fileID: 65202584743671896}
+  CB_CvtMaterialEUI: {fileID: 65202584743671896}
+  C_CvtMaterialEUI: {fileID: 7068248352956301776}
 --- !u!223 &985950188665108820
 Canvas:
   m_ObjectHideFlags: 0
@@ -983,7 +983,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1865986227488274988, guid: 401a868d93adad1439a5e26d200bc824, type: 3}
       propertyPath: m_Name
-      value: Panel_CB
+      value: Panel_Credit
       objectReference: {fileID: 0}
     - target: {fileID: 6388084419628573457, guid: 401a868d93adad1439a5e26d200bc824, type: 3}
       propertyPath: m_Sprite
@@ -1104,7 +1104,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1865986227488274988, guid: 401a868d93adad1439a5e26d200bc824, type: 3}
       propertyPath: m_Name
-      value: Panel_Credit
+      value: Panel_CB
       objectReference: {fileID: 0}
     - target: {fileID: 4511296444949302189, guid: 401a868d93adad1439a5e26d200bc824, type: 3}
       propertyPath: m_SizeDelta.x

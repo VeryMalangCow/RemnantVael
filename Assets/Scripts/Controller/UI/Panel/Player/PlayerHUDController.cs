@@ -131,6 +131,11 @@ public class PlayerHUDController : UIController
     [SerializeField] private Image KeyItemVFXImg;
     [SerializeField] private List<Image> KeyItemImgList;
 
+    [Space(10)]
+    [Header("=== High Lv Item")]
+    [SerializeField] private RectTransform HighLvItemRT;
+    [SerializeField] private List<TMP_Text> HighLvItemAmountTxtList;
+
     #endregion
 
     #region - Hide
@@ -171,12 +176,16 @@ public class PlayerHUDController : UIController
 
     // Ally
     [HideInInspector] private List<AllyPresenceEUIController> AllAllyPresence = new List<AllyPresenceEUIController>();
+    [HideInInspector] private float DefaultAllyStateRectX;
 
     // Hitted
     [HideInInspector] private static float OffsetXPos;
 
     // KeyItem
     [HideInInspector] private List<TMP_Text> KeyItemAmountTxtList;
+
+    // High Lv Item
+    [HideInInspector] private float DefaultHighLvItemRectX;
 
     #endregion
 
@@ -194,6 +203,7 @@ public class PlayerHUDController : UIController
         Offset_Img();
         Offset_ColorComp();
         Offset_AfterColorSet();
+        Offset_HighLvItem();
         Set_LanguageTxt();
     }
 
@@ -256,6 +266,12 @@ public class PlayerHUDController : UIController
 
         // 부스트
         DefaultBoostRectY = BoostRT.anchoredPosition.y;
+
+        // Ally
+        DefaultAllyStateRectX = AllyStateParentRT.anchoredPosition.x;
+
+        // High Lv Item
+        DefaultHighLvItemRectX = HighLvItemRT.anchoredPosition.x;
     }
 
     private void Offset_Subscribe()
@@ -442,6 +458,11 @@ public class PlayerHUDController : UIController
         ThisMinimap.Offset();
     }
 
+    private void Offset_HighLvItem()
+    {
+        Init_HighLvItemUI();
+    }
+
     #endregion
 
     #region Reset
@@ -586,8 +607,15 @@ public class PlayerHUDController : UIController
         DevTool.Set_KillTween(TabSeq);
 
         TabSeq = Play_SeqInteract(
-            0f, 700f, 0f, 0f, 0f,
-            0f, 1f, TabInteractDurTime, Ease.OutCubic);
+            _ModuleRtX: 0f,
+            _AllyStateRtX: 700f,
+            _CostRtX: 0f,
+            _SkillRtY: 0f,
+            _BoostRtY: 0f,
+            _HighLvItemRtX: 0f,
+            _StageNameAlpha: 0f,
+            _StageDescAlpha: 1f,
+            TabInteractDurTime, Ease.OutCubic);
 
         TabSeq.Join(Play_FadeCGs(1, TabInteractDurTime));
 
@@ -602,8 +630,15 @@ public class PlayerHUDController : UIController
         DevTool.Set_KillTween(TabSeq);
 
         TabSeq = Play_SeqInteract(
-            DefaultModuleRectX, 20f, DefaultPlayerStatesRectX, DefaultSkillStatesRectY, DefaultBoostRectY,
-            1f, 0f, TabInteractDurTime, Ease.InCubic);
+            DefaultModuleRectX,
+            DefaultAllyStateRectX, 
+            DefaultPlayerStatesRectX,
+            DefaultSkillStatesRectY, 
+            DefaultBoostRectY,
+            DefaultHighLvItemRectX,
+            _StageNameAlpha: 1f,
+            _StageDescAlpha: 0f, 
+            TabInteractDurTime, Ease.InCubic);
 
         TabSeq.Join(Play_FadeCGs(0, TabInteractDurTime));
 
@@ -663,6 +698,19 @@ public class PlayerHUDController : UIController
     {
         for (int i = 0; i < AllBuffIconUI.Count; i++)
             AllBuffIconUI[i].ThisRT.anchoredPosition = new Vector2(i * (AllBuffIconUI[i].ThisRT.rect.width + BuffUI_XInterval), 0);
+    }
+
+    #endregion
+
+    #region High Lv Item
+
+    public void Init_HighLvItemUI()
+    {
+        List<EachItemJsonData> itemData = SaveDataManager.Instance.JsonData.ItemData;
+        for (int i = 0; i < itemData.Count; i++)
+        {
+            HighLvItemAmountTxtList[i].text = itemData[i].Amount.ToString();
+        }
     }
 
     #endregion
@@ -791,7 +839,7 @@ public class PlayerHUDController : UIController
 
     // Tab 이동
     private Sequence Play_SeqInteract(
-        float _ModuleRtX, float _AllyStateRtX, float _CostRtX, float _SkillRtY, float _BoostRtY,
+        float _ModuleRtX, float _AllyStateRtX, float _CostRtX, float _SkillRtY, float _BoostRtY, float _HighLvItemRtX,
         float _StageNameAlpha, float _StageDescAlpha,
         float _DurTime, Ease _Ease)
     {
@@ -801,6 +849,8 @@ public class PlayerHUDController : UIController
         seq.Join(PlayerStatesCostParentRT.DOAnchorPosX(_CostRtX, _DurTime));
         seq.Join(SkillStatesParentRT.DOAnchorPosY(_SkillRtY, _DurTime));
         seq.Join(BoostRT.DOAnchorPosY(_BoostRtY, _DurTime));
+        seq.Join(HighLvItemRT.DOAnchorPosX(_HighLvItemRtX, _DurTime));
+
         seq.Join(StageNameTxt.DOFade(_StageNameAlpha, _DurTime));
         seq.Join(StageDescriptionTxt.DOFade(_StageDescAlpha, _DurTime));
         seq.SetEase(_Ease);
