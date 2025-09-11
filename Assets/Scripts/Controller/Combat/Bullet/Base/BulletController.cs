@@ -310,6 +310,10 @@ public abstract class BulletController : MovableDepthController
             dbc.Take_Damage(true);
         }
 
+        else if (DevTool.Can_Collding(_Col, "FieldObj", out DestructibleObjectController doc))
+        {
+            doc.Destruct();
+        }
     }
 
     protected void Try_Remove(string _Tag)

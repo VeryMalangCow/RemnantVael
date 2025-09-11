@@ -2175,6 +2175,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Map99_FF_B_UD_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 323
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2c580dc408722c41886131b03ed3c9b
+      internalID: 758134325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map99_FF_B_DD_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 134
+        width: 62
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cc73884a3b2f1c4890ccc4e121a0675
+      internalID: 487662476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map99_FF_B_RD_00
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 260
+        width: 36
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e8a0c5ac67b8304fa84c91fbb039703
+      internalID: -2118214780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Map99_FF_B_LD_00
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 197
+        width: 36
+        height: 63
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ec3a728dde2af54581543eedfcbc701
+      internalID: 1890157211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2290,6 +2374,10 @@ TextureImporter:
       Map99_B_U_Outer: -958936281
       Map99_B_U_SL: -646720798
       Map99_B_U_SR: 621473509
+      Map99_FF_B_DD_00: 487662476
+      Map99_FF_B_LD_00: 1890157211
+      Map99_FF_B_RD_00: -2118214780
+      Map99_FF_B_UD_00: 758134325
       Map99_FloorLight: 1247981843
       Test00: -1233628555
   mipmapLimitGroupName: 

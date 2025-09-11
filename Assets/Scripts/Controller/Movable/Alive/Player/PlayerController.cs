@@ -800,8 +800,10 @@ public class PlayerController : AliveObjectController
     #region Trigger
 
     // Enter
-    private void OnTriggerEnter2D(Collider2D _Col) // 판별을 위한 IInteract GO 추가
+    protected override void OnTriggerEnter2D(Collider2D _Col) // 판별을 위한 IInteract GO 추가
     {
+        base.OnTriggerEnter2D(_Col);
+
         GameObject targetGO = _Col.gameObject.transform.parent.gameObject;
         if (DevTool.Get_ComponentTType<IInteract>(targetGO) != null)
         {

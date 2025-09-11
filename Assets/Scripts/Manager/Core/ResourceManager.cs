@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -13,6 +14,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] public static int KindOfMapAmount = 2;
     // 각 맵에 사용할 스프라이트의 양
     [HideInInspector] private int EachKindOfMapAmount = 2;
+    [HideInInspector] private int FieldObjKindOfType = 3;
+
     // Passage 맵 스프라이트 양
     [HideInInspector] private int KindOfMapPassageAmount = 1;
 
@@ -90,6 +93,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] public List<int> MapLobbyMaterialIndexList_Data;
 
     [HideInInspector] public List<List<Sprite>> MapImgList_Data;
+    [HideInInspector] public List<List<List<Sprite>>> MapFieldObjList_Data;
     [HideInInspector] public List<List<int>> MapMaterialIndexList_Data;
 
 
@@ -262,6 +266,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             }
         }
 
+        // Kind of Map / Type / List
+        MapFieldObjList_Data = new List<List<List<Sprite>>>();
+        for (int i = 0; i < MapImgList_Data.Count; i++)
+        {
+            MapFieldObjList_Data.Add(Get_FieldObj(MapImgList_Data[i]));
+        }
+
         // Passage Map
         MapPassageImgList_Data = new List<List<Sprite>>();
 
@@ -274,6 +285,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
                     $"MapPassage_{DevTool.Get_LengthString(i, 3)}"));
         }
     }
+
 
     private void Offset_ModuleItemImg()
     {
@@ -1019,6 +1031,34 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public List<int> Get_StageMapMaterialList(int _ID)
     {
         return MapMaterialIndexList_Data[_ID];
+    }
+
+    // Type / SpriteList
+    private List<List<Sprite>> Get_FieldObj(List<Sprite> _AllSprite)
+    {
+        List<List<Sprite>> result = new List<List<Sprite>>();
+
+        for (int j = 0; j < FieldObjKindOfType; j++)
+            result.Add(new List<Sprite>());
+
+        for (int i = 0; i < _AllSprite.Count; i++)
+        {
+            string[] name = _AllSprite[i].name.Split("_");
+            if (name[1] == "FieldObj")
+            {
+                int type = Int32.Parse(name[2].Substring(1, 2));
+                result[type].Add(_AllSprite[i]);
+            }
+        }
+
+        return result;
+    }
+
+
+    public Sprite Get_FieldObjSprite(int _StageID, int _TypeID)
+    {
+        List<Sprite> spriteList = MapFieldObjList_Data[_StageID][_TypeID];
+        return spriteList[UnityEngine.Random.Range(0, spriteList.Count)];
     }
 
     #endregion

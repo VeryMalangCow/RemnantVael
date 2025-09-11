@@ -63,4 +63,16 @@ public class MovableObjectController : MovableDepthController
     }
 
     #endregion
+
+    #region Trigger
+
+    protected virtual void OnTriggerEnter2D(Collider2D _Col)
+    {
+        if (DevTool.Can_Collding(_Col, "FieldObj", out DestructibleObjectController doc))
+        {
+            doc.Destruct();
+        }
+    }
+
+    #endregion
 }

@@ -583,13 +583,12 @@ public class PlayerHUDController : UIController
     {
         StageNameTxt.DOText(
             ResourceManager.Instance.Get_MapName(
-                StageManager.Instance.Get_CollectStageData(
-                    StageManager.Instance.TargetStageID).InfoData.StageID), 0.5f)
+                StageManager.Instance.Get_CurrentStageData().InfoData.StageID), 0.5f)
             .OnPlay(() => { StageNameTxt.text = ""; });
+
         StageDescriptionTxt.DOText(
             ResourceManager.Instance.Get_MapDesc(
-                StageManager.Instance.Get_CollectStageData(
-                    StageManager.Instance.TargetStageID).InfoData.StageID), 0.5f)
+                StageManager.Instance.Get_CurrentStageData().InfoData.StageID), 0.5f)
             .OnPlay(() => { StageDescriptionTxt.text = ""; });
     }
 

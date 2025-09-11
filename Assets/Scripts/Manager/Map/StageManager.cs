@@ -1032,6 +1032,11 @@ public class StageManager : Singleton<StageManager>
         return null;
     }
 
+    public StageData Get_CurrentStageData()
+    {
+        return Get_CollectStageData(TargetStageID);
+    }
+
     #endregion
 
     #region Room

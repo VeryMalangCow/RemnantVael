@@ -200,11 +200,15 @@ public abstract class AttackerController : MovableDepthController
 
     protected void Try_Hit_DestructibleObject(Collider2D _Col)
     {
-        if (DevTool.Can_Collding(_Col, "DestructibleObject", 
-            HittedObjectList, out DestructibleBuildController dbc))
+        if (DevTool.Can_Collding(_Col, "DestructibleObject", HittedObjectList, out DestructibleBuildController dbc))
         {
             dbc.Take_Damage(true);
             HittedObjectList.Add(dbc);
+        }
+
+        else if (DevTool.Can_Collding(_Col, "FieldObj", HittedObjectList, out DestructibleObjectController doc))
+        {
+            doc.Destruct();
         }
     }
 

@@ -26,4 +26,20 @@ public class BuildExplImgGenerator : ExplosionImgGenerator
     }
 
     #endregion
+
+
+    #region Field Obj
+
+    // ÆÄ±«¿¡ »ç¿ë
+    public void Expl_FieldObj(Vector2 _SpawnPos)
+    {
+        Gen_ExplImg_Circle(
+            new ExplState(
+                new ExplState_Base(_SpawnPos, 8),
+                new ExplState_Sprite(SmokeSpriteList, UnitManager.Instance.ModuleM_000_Explosion),
+                new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.25f, _Scale: 1.0f, _Time: 0.075f, 0.025f),
+                new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.6f, _Scale: 0.2f, _Time: 1.000f, 0.500f)));
+    }
+
+    #endregion
 }

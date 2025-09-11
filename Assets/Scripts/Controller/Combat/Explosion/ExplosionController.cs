@@ -149,6 +149,10 @@ public abstract class ExplosionController : StaticDepthController
             dbc.Take_Damage(true);
             HittedObjectList.Add(dbc);
         }
+        else if (DevTool.Can_Collding(_Col, "FieldObj", HittedObjectList, out DestructibleObjectController doc))
+        {
+            doc.Destruct();
+        }
     }
 
     #endregion
