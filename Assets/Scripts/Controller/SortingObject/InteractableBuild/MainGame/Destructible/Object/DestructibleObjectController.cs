@@ -37,5 +37,20 @@ public class DestructibleObjectController : SortingObjectController
         Destroy(gameObject);
     }
 
+    private void OnlyDestruct()
+    {
+        Destroy(gameObject);
+    }
+
+    #endregion
+
+    #region 
+
+    private void OnTriggerEnter2D(Collider2D _Col)
+    {
+        if (_Col.tag == "Wall" || _Col.tag == "FieldObj") 
+            OnlyDestruct();
+    }
+
     #endregion
 }

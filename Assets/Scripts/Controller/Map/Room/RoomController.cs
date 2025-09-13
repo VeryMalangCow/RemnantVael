@@ -25,6 +25,7 @@ public class RoomController : IDController
     [SerializeField] private Transform InRoom_LowerWallParentTF;
     [SerializeField] private Transform InRoom_UpperGateParentTF;
     [SerializeField] private Transform InRoom_LowerGateParentTF;
+    [SerializeField] private Transform InRoom_FieldObjSpawnerParentTF;
 
     [Space(10)]
     [Header("=== Room Static ID")]
@@ -369,6 +370,46 @@ public class RoomController : IDController
     }
 
     #endregion
+
+    #endregion
+
+    #region FieldObj
+
+    public void Spawn_FieldObj()
+    {
+        List<Vector2> data = Get_FieldObjPos();
+
+        Debug.Log(data.Count);
+
+        for (int i = 0; i < data.Count; i++)
+            EachSpawn_FieldObj(data[i]);
+    }
+
+    private void EachSpawn_FieldObj(Vector2 _Pos)
+    {
+        if (Instantiate(ResourceManager.Instance.Get_RandomFieldObj_Prefab()).TryGetComponent(out DestructibleObjectController ddoc))
+        {
+            ddoc.gameObject.transform.SetParent(InRoom_FieldObjSpawnerParentTF);
+            ddoc.gameObject.transform.position = _Pos;
+        }
+    }
+
+    private List<Vector2> Get_FieldObjPos()
+    {
+        List<FieldObjectSpawnController> fieldObjSpawners = InRoom_FieldObjSpawnerParentTF != null &&
+            InRoom_FieldObjSpawnerParentTF.childCount > 0 ?
+            DevTool.Get_AllChildList<FieldObjectSpawnController>(InRoom_FieldObjSpawnerParentTF) : null;
+
+        List<Vector2> result = new List<Vector2>();
+
+        if (fieldObjSpawners != null)
+            for (int i = 0; i < fieldObjSpawners.Count; i++)
+                result.AddRange(fieldObjSpawners[i].Get_RandomPointsInSector_Self());
+
+        result.AddRange(RoomRuleController.Get_FieldObjPos());
+
+        return result.Distinct().ToList();
+    }
 
     #endregion
 }

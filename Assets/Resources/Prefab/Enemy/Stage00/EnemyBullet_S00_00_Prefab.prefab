@@ -135,6 +135,9 @@ MonoBehaviour:
   TargetRange: 0.35
   PoolingString: EnemyBullet
   State:
+    OwnerData:
+      Owner: 0
+      ID: 0
     DmgState:
       DmgType: 0
       Dmg: 0
@@ -148,6 +151,8 @@ MonoBehaviour:
     IsCritical: 0
     MuzzleSpeed: 0
     AliveTime: 0
+    IsStatus: 0
+    StatusType: 0
   ThisRb: {fileID: 3702076010934528879}
   ThisTrail: {fileID: 753930731239720714}
   ThisLight: {fileID: 1515672372309586995}
@@ -155,6 +160,7 @@ MonoBehaviour:
   - Player
   - Wall
   - DestructibleObject
+  - FieldObj
   IsGuided: 0
   TargetEnemyController: {fileID: 0}
   RotateSpeed: 1

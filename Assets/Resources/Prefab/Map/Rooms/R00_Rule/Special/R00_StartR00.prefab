@@ -3892,6 +3892,7 @@ MonoBehaviour:
   IsAlreadyRoomClear: 0
   InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
   InRoom_EnemySpawnParentTF: {fileID: 6316570959573844000}
+  InRoom_FieldObjSpawnerParentTF: {fileID: 0}
   InRoom_AllObstacle: []
 --- !u!1 &8700667360421185181
 GameObject:

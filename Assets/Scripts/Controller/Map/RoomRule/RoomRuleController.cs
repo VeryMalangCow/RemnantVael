@@ -9,7 +9,7 @@ public class RoomRuleController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> Room Rule")]
-    
+
     [Space(10)]
     [Header("=== Data")]
 
@@ -33,6 +33,10 @@ public class RoomRuleController : MonoBehaviour
     [Header("-- Enemy")]
     [SerializeField] private Transform InRoom_EnemySpawnParentTF;
 
+    [Space(5)]
+    [Header("-- Field Obj")]
+    [SerializeField] private Transform InRoom_FieldObjSpawnerParentTF;
+
     #endregion
 
     #region - Hide
@@ -51,7 +55,7 @@ public class RoomRuleController : MonoBehaviour
 
     public virtual void Offset()
     {
-        InRoom_AllObstacle = InRoom_ObstacleParentTF != null && 
+        InRoom_AllObstacle = InRoom_ObstacleParentTF != null &&
             InRoom_ObstacleParentTF.childCount > 0 ?
             DevTool.Get_ChildList<SortingObjectController>(InRoom_ObstacleParentTF) : null;
 
@@ -73,7 +77,7 @@ public class RoomRuleController : MonoBehaviour
 
     private void SetOn_Shop()
     {
-        if (InRoom_ShopBuild != null && 
+        if (InRoom_ShopBuild != null &&
             !InRoom_ShopBuild.gameObject.activeSelf)
         {
             InRoom_ShopBuild.gameObject.SetActive(true);
@@ -98,7 +102,7 @@ public class RoomRuleController : MonoBehaviour
             EnemyController enemy = PoolingManager.Instance.Get_OP_Enemy(
                 InRoom_AllEnemySpawn[i].Get_EnemyType(),
                 InRoom_AllEnemySpawn[i].Get_SpawnID());
-            
+
             enemy.transform.position = spawnPos;
             enemy.gameObject.SetActive(true);
 
@@ -126,6 +130,25 @@ public class RoomRuleController : MonoBehaviour
     public int Get_NeedKeyCardID()
     {
         return NeedKeyCardID;
+    }
+
+    #endregion
+
+    #region FieldObj
+
+    public List<Vector2> Get_FieldObjPos()
+    {
+        List<FieldObjectSpawnController> fieldObjSpawners = InRoom_FieldObjSpawnerParentTF != null &&
+            InRoom_FieldObjSpawnerParentTF.childCount > 0 ?
+            DevTool.Get_AllChildList<FieldObjectSpawnController>(InRoom_FieldObjSpawnerParentTF) : null;
+
+        List<Vector2> result = new List<Vector2>();
+
+        if (fieldObjSpawners != null)
+            for (int i = 0; i < fieldObjSpawners.Count; i++)
+                result.AddRange(fieldObjSpawners[i].Get_RandomPointsInSector_Self());
+
+        return result;
     }
 
     #endregion

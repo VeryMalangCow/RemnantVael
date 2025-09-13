@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ResourceManager : PersistentSingleton<ResourceManager>
@@ -23,6 +24,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private int STIconAmount = 1;
     [HideInInspector] private int UTIconAmount = 1;
     [HideInInspector] private int NTIconAmount = 1;
+
+    // FieldObj
+    [HideInInspector] private int KindOfFieldObj = 3;
 
     #endregion
 
@@ -111,8 +115,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     private static readonly string[] directionOrder = new string[] { "UL", "U", "UR", "R", "DR", "D", "DL", "L" };
 
     // Prefab
+    // Ally
     [HideInInspector] private Dictionary<string, GameObject> AllyFieldUnit_PrefabDict;
     [HideInInspector] private Dictionary<string, GameObject> AllyNoneUnit_PrefabDict;
+
+    // FieldObj
+    [HideInInspector] private GameObject[] FieldObjArray;
 
     #endregion
 
@@ -286,7 +294,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         }
     }
 
-
     private void Offset_ModuleItemImg()
     {
         ModuleItemImgList_Data = new List<Sprite>();
@@ -338,6 +345,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         string prefabPath = "Prefab/";
 
+        // Ally
         string allyPath = prefabPath + "Ally/";
 
         string fieldUnitPath = allyPath + "FieldUnit/";
@@ -357,6 +365,15 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             { "Booma", Get_Prefab(noneUnitPath, "BoomaAlly_Prefab") },
             { "Totis", Get_Prefab(noneUnitPath, "TotisAlly_Prefab") }
         };
+
+        // Field Obj
+        string fieldObjPath = prefabPath + "FieldObj/";
+
+        FieldObjArray = new GameObject[KindOfFieldObj];
+
+        for (int i = 0; i < KindOfFieldObj; i++)
+            FieldObjArray[i] = (Get_Prefab(fieldObjPath, $"FieldObj_T{DevTool.Get_LengthString(i, 2)}"));
+        
     }
 
     private void Offset()
@@ -1104,6 +1121,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
+
     #region To Prefab
 
     private GameObject Get_Prefab(string _Path, string _FileName)
@@ -1121,6 +1139,15 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public GameObject Get_NoneUnitAlly(string _Name)
     {
         return AllyNoneUnit_PrefabDict[_Name];
+    }
+
+    #endregion
+
+    #region Field Obj
+
+    public GameObject Get_RandomFieldObj_Prefab()
+    {
+        return FieldObjArray[UnityEngine.Random.Range(0, FieldObjArray.Length)];
     }
 
     #endregion

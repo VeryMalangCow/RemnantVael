@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class StageManager : Singleton<StageManager>
 {
@@ -88,7 +89,7 @@ public class StageManager : Singleton<StageManager>
     [SerializeField] public List<MinimapIcon> MinimapIcons;
 
     [Space(10)]
-    [Header("=== Value0")]
+    [Header("=== Room Value")]
     [SerializeField] private Vector2 OffsetRoomSize;
 
     [Space(10)]
@@ -372,6 +373,8 @@ public class StageManager : Singleton<StageManager>
 
             room.Offset(_TempID);
             Add_RoundVec(new List<Vector2Int>() { Vector2Int.zero });
+
+            Set_FieldObjPos(room);
         }
     }
 
@@ -818,6 +821,15 @@ public class StageManager : Singleton<StageManager>
 
     #endregion
 
+    #region Field Obj
+
+    private void Set_FieldObjPos(RoomController _RC)
+    {
+        _RC.Spawn_FieldObj();
+    }
+
+    #endregion
+
     #region Gate
 
     // 게이트에 모든 짝꿍 게이트 지정과 세팅
@@ -895,6 +907,7 @@ public class StageManager : Singleton<StageManager>
         Set_RelativeVec(_Room, _RelativePos);
 
         Set_RoomPos(_Room);
+        Set_FieldObjPos(_Room);
         Add_RoundVec(_Room.RoomVec);
     }
 
@@ -904,6 +917,7 @@ public class StageManager : Singleton<StageManager>
         Set_RelativeVec(_Room, Get_FindCorrectWorldVec_Normal(_Room, _ConnectedRoomAmount, _ApplySpecialExist));
 
         Set_RoomPos(_Room);
+        Set_FieldObjPos(_Room);
         Add_RoundVec(_Room.RoomVec);
     }
 
@@ -913,6 +927,7 @@ public class StageManager : Singleton<StageManager>
         Set_RelativeVec(_Room, Get_FindCorrectWorldVec_Furthest(_Room, _ConnectedRoomAmount, _ApplySpecialExist));
 
         Set_RoomPos(_Room);
+        Set_FieldObjPos(_Room);
         Add_RoundVec(_Room.RoomVec);
 
         Add_RoundSpecialVec(_Room.RoomVec);

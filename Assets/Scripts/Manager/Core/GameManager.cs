@@ -10,6 +10,7 @@ using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -492,6 +493,39 @@ public class DevTool
             if (TF.TryGetComponent(out T type))
             {
                 result.Add(type);
+            }
+        }
+        return result;
+    }
+
+    public static List<T> Get_AllChildList<T>(Transform _Parent) where T : Component
+    {
+        List<T> result = new List<T>();
+        Transform[] allChildren = _Parent.GetComponentsInChildren<Transform>();
+        foreach (Transform TF in allChildren)
+        {
+            if (TF == _Parent) continue;
+
+            if (TF.TryGetComponent(out T type))
+            {
+                result.Add(type);
+            }
+        }
+
+        return result;
+    }
+
+    public static List<T> Get_ChildList_OnlyOnceUnder<T>(Transform _Parent) where T : Component
+    {
+        List<T> result = new List<T>();
+        if (_Parent.childCount > 0)
+        {
+            for (int i = 0; i < _Parent.childCount; i++)
+            {
+                if (_Parent.GetChild(i).gameObject.TryGetComponent(out T type))
+                {
+                    result.Add(type);
+                }
             }
         }
         return result;
@@ -1284,6 +1318,19 @@ public class DevTool
         return _Col.tag == _Tag &&
             _Col.transform.parent.TryGetComponent(out _TType);
     }
+/*
+    public static bool Has_SolidColliderAt(Vector2 _WorldPos, LayerMask _LayerMask = default)
+    {
+        Collider2D hit;
+
+        if (_LayerMask.value == 0) // 레이어 지정 없으면 전부 검사
+            hit = Physics2D.OverlapPoint(_WorldPos);
+        else
+            hit = Physics2D.OverlapPoint(_WorldPos, _LayerMask);
+
+        return hit != null && !hit.isTrigger;
+    }
+*/
     #endregion
 
     #region About Nav
@@ -1312,7 +1359,15 @@ public class DevTool
         return Physics2D.CircleCast(_StartTF.position, _Radius, (_EndTF.position - _StartTF.position).normalized,
             Vector2.Distance(_StartTF.position, _EndTF.position), LayerMask.GetMask(_LayerName)).collider != null;
     }
+    public static bool IsOnNavMesh(Vector2 _Point, float _MaxDistance = 0.1f, int _AreaMask = NavMesh.AllAreas, bool _PlaneXY = true)
+    {
+        // Vector2 → Vector3 변환
+        Vector3 pos3 = _PlaneXY
+            ? new Vector3(_Point.x, _Point.y, 0f) // XY 평면
+            : new Vector3(_Point.x, 0f, _Point.y); // XZ 평면
 
+        return NavMesh.SamplePosition(pos3, out _, _MaxDistance, _AreaMask);
+    }
     #endregion
 
     #region Get
