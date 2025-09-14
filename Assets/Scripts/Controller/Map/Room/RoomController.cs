@@ -379,8 +379,6 @@ public class RoomController : IDController
     {
         List<Vector2> data = Get_FieldObjPos();
 
-        Debug.Log(data.Count);
-
         for (int i = 0; i < data.Count; i++)
             EachSpawn_FieldObj(data[i]);
     }
