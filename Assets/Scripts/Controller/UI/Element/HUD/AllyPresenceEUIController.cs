@@ -9,13 +9,14 @@ public class AllyPresenceEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Main")]
-    public Image InnerImg;
-    public TMP_Text PresenceValueTxt;
-    public TMP_Text PresenceLangTxt;
+    [SerializeField] public Image InnerImg;
+    [SerializeField] public TMP_Text PresenceValueTxt;
+    [SerializeField] public TMP_Text PresenceLangTxt;
 
     [Space(10)]
     [Header("=== Cap")]
-    public RectTransform CapRT;
+    [SerializeField] public RectTransform CapRT;
+
 
     [HideInInspector] public Transform CapMiddleRT;
     [HideInInspector] public static readonly float CapCloseY = 24f;

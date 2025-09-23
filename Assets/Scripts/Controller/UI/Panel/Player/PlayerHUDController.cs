@@ -18,7 +18,7 @@ public class PlayerHUDController : UIController
 
     [Space(10)]
     [Header("=== Tab")]
-    [SerializeField] public bool IsTabInteracted = false;
+    [SerializeField] public ReactiveProperty<bool> IsTabInteracted = new ReactiveProperty<bool>();
     [SerializeField] public bool IsTabInputed = false;
     [SerializeField] private static float TabInputedMaxTime = 0.25f;
     [SerializeField] private float TabInputedCurrentTime = 0f;
@@ -109,6 +109,8 @@ public class PlayerHUDController : UIController
     [SerializeField] private AllyPresenceEUIController ST_AllyPresence;
     [SerializeField] private AllyPresenceEUIController UT_AllyPresence;
     [SerializeField] private AllyPresenceEUIController NT_AllyPresence;
+    [SerializeField] private Image AllyReputationImg;
+    [SerializeField] private TMP_Text AllyReputationTxt;
 
     [Space(10)]
     [Header("=== Buff")]
@@ -240,6 +242,8 @@ public class PlayerHUDController : UIController
         ThisCG = DevTool.Get_ComponentTType(gameObject, out CanvasGroup cg) ? cg : null;
 
         OffsetXPos = HittedInfoRT.anchoredPosition.x;
+
+        IsTabInteracted.Value = false;
 
     }
 
@@ -508,7 +512,7 @@ public class PlayerHUDController : UIController
         }
         else // 인풋 시간 충분 상태
         {
-            if (!IsTabInteracted)
+            if (!IsTabInteracted.Value)
             {
                 SetOn_TabInteract();
             }
@@ -521,7 +525,7 @@ public class PlayerHUDController : UIController
         {
             TabInputedCurrentTime = 0f;
         }
-        if (IsTabInteracted)
+        if (IsTabInteracted.Value)
         {
             SetOff_TabInteract();
         }
@@ -598,8 +602,8 @@ public class PlayerHUDController : UIController
 
     public void SetOn_TabInteract()
     {
-        if (IsTabInteracted) return;
-        IsTabInteracted = true;
+        if (IsTabInteracted.Value) return;
+        IsTabInteracted.Value = true;
 
         Reset_Tab();
 
@@ -623,8 +627,8 @@ public class PlayerHUDController : UIController
 
     public void SetOff_TabInteract()
     {
-        if (!IsTabInteracted) return; 
-        IsTabInteracted = false;
+        if (!IsTabInteracted.Value) return; 
+        IsTabInteracted.Value = false;
 
         DevTool.Set_KillTween(TabSeq);
 
@@ -1078,6 +1082,17 @@ public class PlayerHUDController : UIController
                 KeyItemVFXImg.DOFade(0f, 1f);
             }
         }
+    }
+
+    #endregion
+
+    #region Ally Reputation
+
+    public void Set_AllyReputation(float _Value)
+    {
+        AllyReputationTxt.text = $"{_Value} %"; 
+        AllyReputationImg.fillAmount = _Value * 0.01f;
+        AllyReputationImg.color = Color.Lerp(new Color(0.8f, 1f, 0.8f, 1f), new Color(0.35f, 1f, 0.35f, 1f), AllyReputationImg.fillAmount);
     }
 
     #endregion

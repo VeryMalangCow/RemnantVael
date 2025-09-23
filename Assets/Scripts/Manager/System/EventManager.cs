@@ -60,15 +60,6 @@ public class EventManager : Singleton<EventManager>
         base.Awake();
     }
 
-    private void Update()
-    {
-        // Test Input
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Start_Event(0);
-        }
-    }
-
     #endregion
 
     #region Event Start

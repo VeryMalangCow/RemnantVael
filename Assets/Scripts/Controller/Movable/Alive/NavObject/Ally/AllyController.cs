@@ -18,7 +18,7 @@ public class AllyController : NavObjectController
     [Header("=== Value")]
     [SerializeField] protected AllyState MultipleAllyState;
     [SerializeField] protected float MaxHP = 150f;
-    [SerializeField] protected float MaxEP = 100f;
+    [HideInInspector] protected static readonly float MaxEP = 100f;
     [SerializeField] protected ReactiveProperty<eAllyStateMode> AllyStateMode = new();
 
     [Space(10)]
@@ -96,6 +96,9 @@ public class AllyController : NavObjectController
     [HideInInspector] private List<AllyBaseTunerData> ThisTunerData;
 
     [HideInInspector] private Dictionary<string, RefData<float>> UpgradeStateDict;
+
+    // Ally Request
+    [HideInInspector] private AllyRequest Request = null;
 
     #endregion
 
@@ -224,6 +227,11 @@ public class AllyController : NavObjectController
     #endregion
 
     #region Framework
+
+    private void Awake()
+    {
+        StartNew_Request();
+    }
 
     protected override void OnEnable()
     {
@@ -617,16 +625,44 @@ public class AllyController : NavObjectController
 
     #endregion
 
-    #region EP
-
-    public void AddCurrentEP(float _AddValue)
-    {
-        CurrentEP.Value = Math.Clamp(CurrentEP.Value + _AddValue, 0, MaxEP);
-    }
+    #region HP
 
     public void TakeDamage(float _DmgValue)
     {
-        AddCurrentEP(-_DmgValue);
+        Add_CurrentHP(-_DmgValue, MaxHP);
+    }
+
+    #endregion
+
+    #region Trust (EP)
+
+    public void Gain_Trust(float _Value)
+    {
+        Add_CurrentEP(_Value, MaxEP);
+    }
+
+    public void Reduce_Trust(float _Value)
+    {
+        Add_CurrentEP(-_Value, MaxEP);
+    }
+
+
+    #endregion
+
+    #region Request
+
+    public void StartNew_Request()
+    {
+        Request = AllyRequest.Get_AllyRequestType(this);
+
+        HUD.RequestUI.Set_RequestTxt_Language(Request);
+    }
+
+
+    public void DataOff_Request()
+    {
+        Request = null;
+        StartNew_Request();
     }
 
     #endregion
@@ -636,6 +672,7 @@ public class AllyController : NavObjectController
     public virtual void Set_Language()
     {
         Set_Name();
+        HUD.RequestUI.Set_RequestTxt_Language(Request);
     }
 
     #endregion

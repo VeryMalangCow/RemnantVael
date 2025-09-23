@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 public class PlayerController : AliveObjectController
 {
@@ -120,6 +121,8 @@ public class PlayerController : AliveObjectController
     [HideInInspector] public ReactiveProperty<int> CurrentCredit = new();
 
     // Ally
+
+    // Ally Presence
     [HideInInspector] public ReactiveProperty<int> StrikeTeamPresence = new();
     [HideInInspector] public ReactiveProperty<int> UplinkTeamPresence = new();
     [HideInInspector] public ReactiveProperty<int> NeoTeamPresence = new();
@@ -127,6 +130,13 @@ public class PlayerController : AliveObjectController
     [HideInInspector] public ReactiveProperty<int> NeedStrikeTeamPresence = new();
     [HideInInspector] public ReactiveProperty<int> NeedUplinkTeamPresence = new();
     [HideInInspector] public ReactiveProperty<int> NeedNeoTeamPresence = new();
+
+    // Ally Reputation
+    [HideInInspector] private ReactiveProperty<float> Reputation = new ReactiveProperty<float>();
+    [HideInInspector] public float Get_Reputation { get { return Reputation.Value; } }
+
+
+
 
     // BaseAnim
     [HideInInspector] private Sequence BaseSeq = null;
@@ -166,6 +176,7 @@ public class PlayerController : AliveObjectController
         Offset_FirstSetting();
         Offset_Subscribe();
         Offset_Controller();
+        Offset_Reputation();
     }
 
     private void Offset_FirstSetting()
@@ -241,6 +252,16 @@ public class PlayerController : AliveObjectController
         ShadowSR = DevTool.Get_ComponentTType<SpriteRenderer>(transform.GetChild(0).gameObject);
 
         ThisAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject);
+    }
+
+    private void Offset_Reputation()
+    {
+        Reputation.Subscribe(value =>
+            {
+                MainGameUIManager.Instance.PlayerHUD_UIController.Set_AllyReputation(value);
+            });
+
+        Reputation.Value = 1f;
     }
 
 
@@ -963,6 +984,8 @@ public class PlayerController : AliveObjectController
     // 오직 데미지만 계산 (넉백, 애니메이션 등 설정)
     public void Take_Damaged(float _DmgValue, Vector2 _HittedDir, bool _ShowHUDEffect = true)
     {
+        AllyRequestManager.Instance.Play_TakingDamage();
+
         if (_ShowHUDEffect)
         {
             MainGameUIManager.Instance.PlayerHUD_UIController.Play_HittedPlayScreen(_DmgValue, 0.1f);
@@ -1140,6 +1163,20 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
+    #region Reputation
+
+
+    public void Gain_Reputation(float _Value)
+    {
+        Reputation.Value = Mathf.Min(Reputation.Value + _Value, 100f);
+    }
+
+    public void Reduce_Reputation(float _Value)
+    {
+        Reputation.Value = Mathf.Max(Reputation.Value - _Value, 0f);
+    }
+
+    #endregion
 
     #region Test
 
@@ -1155,6 +1192,32 @@ public class PlayerController : AliveObjectController
             Debug.Log("TEST State Up");
 
             UnitManager.Instance.Test_Cor(); 
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            PlayerManager.Instance.Gain_KeyCard(0);
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            PlayerManager.Instance.Gain_KeyCard(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            PlayerManager.Instance.Gain_KeyCard(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            PlayerManager.Instance.Gain_KeyCard(3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            PlayerManager.Instance.Gain_KeyCard(4);
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Z))
+        {
+            EventManager.Instance.Start_Event(0);
         }
     }
 

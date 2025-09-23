@@ -9,6 +9,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using System.Linq.Expressions;
+using UnityEngine.InputSystem.HID;
+
+
 
 
 #if UNITY_EDITOR
@@ -1847,6 +1851,8 @@ public class IDWithClass<T>
     public int ID;
     public T TypeClass;
 }
+
+
 
 #endregion
 
@@ -4315,6 +4321,7 @@ public class EachPassageMiddleSpriteData
 
 #endregion
 
+
 #region Class : AllyUpgrade : Card
 
 [System.Serializable]
@@ -4449,6 +4456,7 @@ public class AllyEachTunerData
 }
 
 #endregion
+
 
 #region Class : Ally State
 
@@ -4699,6 +4707,7 @@ public class AllyBuffState : AllyState
 
 #endregion
 
+
 #region Class : Ally Sprite
 
 [System.Serializable]
@@ -4718,6 +4727,323 @@ public class AllySpriteSet
 
 #endregion
 
+
+#region Class : Ally Request
+
+public class AllyCompleteList<T> where T : IWhen_Request
+{
+    public List<T> List = new List<T>();
+
+    public void Play_Request()
+    {
+        if (List.Count <= 0) return;
+
+        for (int i = 0; i < List.Count; i++)
+            List[i].Play_When_Request();
+    }
+
+}
+
+public class AllyFailList<T> where T : IWhen_Fail
+{
+    public List<T> List = new List<T>();
+
+    // KillEnemy
+    public void Start_Fail(T _Request)
+    {
+        List.Add(_Request);
+    }
+
+    public void Play_Request()
+    {
+        if (List.Count <= 0) return;
+
+        for (int i = 0; i < List.Count; i++)
+            List[i].Play_When_Fail();
+    }
+}
+
+
+public abstract class AllyRequest
+{
+    #region Variable
+
+    protected AllyController Ally;
+
+    protected float CompleteProgress = 0;
+    protected float MaxCompleteProgress = 0;
+    protected float GainCompleteOnceProgress = 0;
+
+    protected float FailProgress = 0;
+    protected float MaxFailProgress = 0;
+    protected float GainFailOnceProgress = 0;
+
+    protected int Rank = 0;
+
+    private float Point = 0;
+
+    #endregion
+
+    #region Constructor
+
+    public AllyRequest(AllyController _Ally)
+    {
+        Ally = _Ally;
+
+        Rank = Get_RandomRank();
+
+        CompleteProgress = 0;
+        FailProgress = 0;
+
+        Point = (Rank + 1) * 4;
+
+        Set_IWhenAdd();
+
+        Ally.HUD.RequestUI.Set_Request_CompleteProgress(0);
+        Ally.HUD.RequestUI.Set_Request_FailProgress(0);
+    }
+
+    #endregion
+
+    #region Extra Constructor Func (Static)
+
+    private static List<Func<AllyController, AllyRequest>> RequestTypeList = new()
+    {
+        Get_AllyRequestType_000,
+        Get_AllyRequestType_001
+    };
+
+    private static AllyRequest Get_AllyRequestType_000(AllyController _Ally) => new AllyRequest_Slayer(_Ally);
+    private static AllyRequest Get_AllyRequestType_001(AllyController _Ally) => new AllyRequest_BountyHunter(_Ally);
+
+
+    public static AllyRequest Get_AllyRequestType(AllyController _Ally)
+    {
+        return RequestTypeList[UnityEngine.Random.Range(0, RequestTypeList.Count)](_Ally);
+    }
+
+
+    #endregion
+
+    #region Rank
+
+
+    // Min: 0 <-> Max: 4
+    private static List<int> RankPercent = new List<int>() { 10, 6, 3, 2, 1 };
+    public static int Get_RandomRank()
+    {
+        return DevTool.Get_Grade(RankPercent);
+    }
+
+    #endregion
+
+    #region Progress
+
+    protected virtual void Inc_CompleteProgress()
+    {
+        CompleteProgress = Mathf.Min(CompleteProgress + GainCompleteOnceProgress, MaxCompleteProgress);
+        Ally.HUD.RequestUI.Set_Request_CompleteProgress(CompleteProgress / MaxCompleteProgress);
+
+        if (CompleteProgress >= MaxCompleteProgress) Complete();
+    }
+
+    protected virtual void Inc_FailProgress()
+    {
+        FailProgress = Mathf.Min(FailProgress + GainFailOnceProgress, MaxFailProgress);
+        Ally.HUD.RequestUI.Set_Request_FailProgress(FailProgress / MaxFailProgress);
+
+        if (FailProgress >= MaxFailProgress) Fail();
+    }
+
+    #endregion
+
+    #region Result
+
+    public void Complete()
+    {
+        Ally.Gain_Trust(Point);
+        Ally.DataOff_Request();
+        Set_IWhenRemove();
+        Ally = null;
+    }
+
+    public void Fail()
+    {
+        Ally.Reduce_Trust(Point);
+        Ally.DataOff_Request();
+        Set_IWhenRemove();
+        Ally = null;
+    }
+
+    #endregion
+
+    #region Get (Abstract)
+
+    public abstract string Get_Name();
+    public abstract string Get_CompleteDesc();
+    public abstract string Get_FailDesc();
+
+    #endregion
+
+    #region Set (Abstract)
+
+    public abstract void Set_IWhenAdd();
+    public abstract void Set_IWhenRemove();
+    
+
+    #endregion
+}
+
+
+// Type
+
+public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, IWhen_Fail_TakingDamage
+{
+    #region Constructor
+
+    public AllyRequest_Slayer(AllyController _Ally) : base(_Ally)
+    {
+        MaxCompleteProgress = (Rank + 1) * 5; // 총 처치 수
+        GainCompleteOnceProgress = 1;
+
+        MaxFailProgress = 6 - Rank; // 실패 피격 수
+        GainFailOnceProgress = 1; 
+        
+        Ally.HUD.RequestUI.Set_Request_CompleteTxt(0, $"{CompleteProgress}/{MaxCompleteProgress}");
+        Ally.HUD.RequestUI.Set_Request_FailTxt(0, $"{FailProgress}/{MaxFailProgress}");
+    }
+
+    #endregion
+
+    #region Play
+
+    public void Play_When_Request()
+    {
+        Inc_CompleteProgress();
+    }
+
+    public void Play_When_Fail()
+    {
+        Inc_FailProgress();
+    }
+
+    #endregion
+
+    #region Progress
+
+    protected override void Inc_CompleteProgress()
+    {
+        base.Inc_CompleteProgress();
+        Ally.HUD.RequestUI.Set_Request_CompleteTxt(CompleteProgress / MaxCompleteProgress, $"{CompleteProgress}/{MaxCompleteProgress}");
+    }
+
+    protected override void Inc_FailProgress()
+    {
+        base.Inc_FailProgress();
+        Ally.HUD.RequestUI.Set_Request_FailTxt(FailProgress / MaxFailProgress, $"{FailProgress}/{MaxFailProgress}");
+    }
+
+    #endregion
+
+    #region Get
+
+    public override string Get_Name() { return ResourceManager.Instance.Get_RequestName(0); }
+    public override string Get_CompleteDesc() { return ((IWhen_Complete_KillNormalEnemy)this).Get_WhenDesc(); }
+    public override string Get_FailDesc() { return ((IWhen_Fail_TakingDamage)this).Get_WhenDesc(); }
+
+    #endregion
+
+    #region Set
+
+    public override void Set_IWhenAdd()
+    {
+        ((IWhen_Complete_KillNormalEnemy)this).Add_IWhenList();
+        ((IWhen_Fail_TakingDamage)this).Add_IWhenList();
+    }
+
+    public override void Set_IWhenRemove()
+    {
+        ((IWhen_Complete_KillNormalEnemy)this).Remove_IWhenList();
+        ((IWhen_Fail_TakingDamage)this).Remove_IWhenList();
+    }
+
+    #endregion
+}
+
+public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnemy, IWhen_Fail_TakingDamage
+{
+    #region Constructor
+
+    public AllyRequest_BountyHunter(AllyController _Ally) : base(_Ally)
+    {
+        MaxCompleteProgress = (Rank + 1); // 총 처치 수
+        GainCompleteOnceProgress = 1;
+
+        MaxFailProgress = 8 - Rank; // 실패 피격 수
+        GainFailOnceProgress = 1;
+
+        Ally.HUD.RequestUI.Set_Request_CompleteTxt(0, $"{CompleteProgress}/{MaxCompleteProgress}");
+        Ally.HUD.RequestUI.Set_Request_FailTxt(0, $"{FailProgress}/{MaxFailProgress}");
+    }
+
+    #endregion
+
+    #region Play
+
+    public void Play_When_Request()
+    {
+        Inc_CompleteProgress();
+    }
+
+    public void Play_When_Fail()
+    {
+        Inc_FailProgress();
+    }
+
+    #endregion
+
+    #region Progress
+
+    protected override void Inc_CompleteProgress()
+    {
+        Ally.HUD.RequestUI.Set_Request_CompleteTxt(CompleteProgress / MaxCompleteProgress, $"{CompleteProgress}/{MaxCompleteProgress}");
+
+        base.Inc_CompleteProgress();
+    }
+
+    protected override void Inc_FailProgress()
+    {
+        Ally.HUD.RequestUI.Set_Request_FailTxt(FailProgress / MaxFailProgress, $"{FailProgress}/{MaxFailProgress}");
+
+        base.Inc_FailProgress();
+    }
+    #endregion
+
+    #region Get
+
+    public override string Get_Name() { return ResourceManager.Instance.Get_RequestName(1); }
+    public override string Get_CompleteDesc() { return ((IWhen_Complete_KillEliteEnemy)this).Get_WhenDesc(); }
+    public override string Get_FailDesc() { return ((IWhen_Fail_TakingDamage)this).Get_WhenDesc(); }
+
+    #endregion
+
+    #region Set
+
+    public override void Set_IWhenAdd()
+    {
+        ((IWhen_Complete_KillEliteEnemy)this).Add_IWhenList();
+        ((IWhen_Fail_TakingDamage)this).Add_IWhenList();
+    }
+    public override void Set_IWhenRemove()
+    {
+        ((IWhen_Complete_KillEliteEnemy)this).Remove_IWhenList();
+        ((IWhen_Fail_TakingDamage)this).Remove_IWhenList();
+    }
+
+    #endregion
+}
+
+#endregion
 
 #region Class : UI
 
@@ -5316,6 +5642,50 @@ public interface IWhen_Hit : IWhen { }
 public interface IWhen_CriticalHit : IWhen { }
 
 public interface IWhen_GetElectricity : IWhen { }
+
+
+#endregion
+
+#region Interface : When (Request)
+
+// Request
+public interface IWhen_Request
+{
+    public abstract void Play_When_Request();
+}
+
+public interface IWhen_Complete_KillNormalEnemy : IWhen_Request 
+{
+    public string Get_WhenDesc() { return ResourceManager.Instance.Get_RequestCompleteDesc(0); }
+    public void Add_IWhenList() { AllyRequestManager.Instance.Add_RequestComplete("KillNormalEnemy", this); }
+    public void Remove_IWhenList() { AllyRequestManager.Instance.Remove_RequestComplete("KillNormalEnemy", this); }
+}
+public interface IWhen_Complete_KillEliteEnemy : IWhen_Request
+{
+    public string Get_WhenDesc() { return ResourceManager.Instance.Get_RequestCompleteDesc(1); }
+    public void Add_IWhenList() { AllyRequestManager.Instance.Add_RequestComplete("KillEliteEnemy", this); }
+    public void Remove_IWhenList() { AllyRequestManager.Instance.Remove_RequestComplete("KillEliteEnemy", this); }
+}
+
+
+// Fail
+public interface IWhen_Fail
+{
+    public abstract void Play_When_Fail();
+}
+
+public interface IWhen_Fail_TakingDamage : IWhen_Fail 
+{
+    public string Get_WhenDesc() { return ResourceManager.Instance.Get_RequestFailDesc(0); }
+    public void Add_IWhenList() { AllyRequestManager.Instance.Add_RequestFail("TakingDamage", this); }
+    public void Remove_IWhenList() { AllyRequestManager.Instance.Remove_RequestFail("TakingDamage", this); }
+}
+public interface IWhen_Fail_UsingSkill : IWhen_Fail
+{
+    public string Get_WhenDesc() { return ResourceManager.Instance.Get_RequestFailDesc(1); }
+    public void Add_IWhenList() { AllyRequestManager.Instance.Add_RequestFail("UsingSkill", this); }
+    public void Remove_IWhenList() { AllyRequestManager.Instance.Remove_RequestFail("UsingSkill", this); }
+}
 
 #endregion
 

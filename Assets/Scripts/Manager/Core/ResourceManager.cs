@@ -68,9 +68,14 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private WordData NeoTeam_AllyCardName_Data;
     // 동료 튜너 설명
     [HideInInspector] private WordData TunerStateName_Data;
+    // 동료 퀘스트
+    [HideInInspector] private WordData RequestName_Data;
+    [HideInInspector] private WordData RequestCompleteDesc_Data;
+    [HideInInspector] private WordData RequestFailDesc_Data;
 
     // 동료 이름 랜덤
     [HideInInspector] private WordData RandomName_Data;
+
 
     // 문장
     // 스태틱
@@ -160,6 +165,15 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         NeoTeam_AllyCard_Data = Offset_AllyCard(allyCardPath,
             "AllyCard_NeoTeam_CSV");
 
+        // Ally Request
+        string allyRequestPath = "CSV/AllyRequest/";
+        RequestName_Data = Offset_WordData(allyRequestPath,
+            "RequestName_CSV");
+        RequestCompleteDesc_Data = Offset_WordData(allyRequestPath,
+            "RequestCompleteDesc_CSV");
+        RequestFailDesc_Data = Offset_WordData(allyRequestPath,
+            "RequestFailDesc_CSV");
+
         // MapNextIndexList
         string mapPath = "CSV/Map/";
         MapNextIndex_Data = Offset_MapNextIndex(mapPath,
@@ -193,6 +207,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         // Tuner
         TunerStateName_Data = Offset_WordData(wordPath,
             "TunerStateNameCSV");
+
         // Random Name
         RandomName_Data = Offset_WordData(wordPath,
             "RandomNameCSV");
@@ -958,6 +973,21 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         return result;
     }
+
+    // Ally Request
+    public string Get_RequestName(int _ID)
+    {
+        return RequestName_Data.Get_Word(_ID);
+    }
+    public string Get_RequestCompleteDesc(int _ID)
+    {
+        return RequestCompleteDesc_Data.Get_Word(_ID);
+    }
+    public string Get_RequestFailDesc(int _ID)
+    {
+        return RequestFailDesc_Data.Get_Word(_ID);
+    }
+
 
     // Tuner
     public string Get_TunerDescName(int _Index)

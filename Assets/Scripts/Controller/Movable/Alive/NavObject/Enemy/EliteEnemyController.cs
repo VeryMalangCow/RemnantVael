@@ -83,6 +83,8 @@ public class EliteEnemyController : EnemyController
         EnemyManager.Instance.Remove_EliteEnemy(this);
 
         PoolingManager.Instance.Set_EnqueueEliteEnemy(this);
+
+        AllyRequestManager.Instance.Play_KillEliteEnemy();
     }
 
     #endregion

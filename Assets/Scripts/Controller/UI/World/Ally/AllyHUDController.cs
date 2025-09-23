@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UniRx;
 
 public class AllyHUDController : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class AllyHUDController : MonoBehaviour
     [SerializeField] public AllyStateUIController StateUI;
     [SerializeField] public AllyBuffUIController TemporaryBuffUI;
     [SerializeField] public AllyBuffUIController PermanentBuffUI;
+    [SerializeField] public AllyRequestUIController RequestUI;
+
+    [SerializeField] private CanvasGroup BaseCG;
+    [SerializeField] private CanvasGroup RequestCG;
 
     [Space(10)]
     [Header("=== Name")]
@@ -37,6 +42,18 @@ public class AllyHUDController : MonoBehaviour
         StateUI.Offset(this);
         TemporaryBuffUI.Offset(this);
         PermanentBuffUI.Offset(this);
+        RequestUI.Offset(this);
+
+        Offset_Subscribe();
+    }
+
+    public void Offset_Subscribe()
+    {
+        MainGameUIManager.Instance.PlayerHUD_UIController.IsTabInteracted.Subscribe(_Value =>
+            {
+                BaseCG.alpha = _Value ? 0f : 1f;
+                RequestCG.alpha = _Value ? 1f : 0f;
+            });
     }
 
     #endregion

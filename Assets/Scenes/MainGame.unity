@@ -1389,6 +1389,7 @@ GameObject:
   - component: {fileID: 355347631}
   - component: {fileID: 355347632}
   - component: {fileID: 355347633}
+  - component: {fileID: 355347634}
   m_Layer: 0
   m_Name: AllyManager
   m_TagString: Untagged
@@ -1511,6 +1512,18 @@ MonoBehaviour:
     MaxCooltime: 100
     IsIncrease: 0
     IsPermanent: 1
+--- !u!114 &355347634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355347628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 905af46599ff3a6408f029fa964d542f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &361561066
 GameObject:
   m_ObjectHideFlags: 0
