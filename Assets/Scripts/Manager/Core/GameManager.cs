@@ -11,6 +11,8 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using System.Linq.Expressions;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.InputSystem;
+
 
 
 
@@ -4778,10 +4780,6 @@ public abstract class AllyRequest
     protected float MaxFailProgress = 0;
     protected float GainFailOnceProgress = 0;
 
-    protected int Rank = 0;
-
-    private float Point = 0;
-
     #endregion
 
     #region Constructor
@@ -4791,17 +4789,21 @@ public abstract class AllyRequest
         Ally = _Ally;
 
         Rank = Get_RandomRank();
+        List<string> keyList = RewardDict.Keys.ToList();
+        RewardType = keyList[UnityEngine.Random.Range(0, keyList.Count)];
 
         CompleteProgress = 0;
         FailProgress = 0;
-
-        Point = (Rank + 1) * 4;
 
         Set_IWhenAdd();
 
         Ally.HUD.RequestUI.Set_Request_CompleteProgress(0);
         Ally.HUD.RequestUI.Set_Request_FailProgress(0);
     }
+
+    #endregion
+
+    #region Get
 
     #endregion
 
@@ -4827,9 +4829,14 @@ public abstract class AllyRequest
 
     #region Rank
 
+    protected int Rank = 0;
+    public int Get_Rank()
+    {
+        return Rank;
+    }
 
     // Min: 0 <-> Max: 4
-    private static List<int> RankPercent = new List<int>() { 10, 6, 3, 2, 1 };
+    private static List<int> RankPercent = new List<int>() { 7, 5, 3, 2, 1 };
     public static int Get_RandomRank()
     {
         return DevTool.Get_Grade(RankPercent);
@@ -4861,19 +4868,64 @@ public abstract class AllyRequest
 
     public void Complete()
     {
-        Ally.Gain_Trust(Point);
+        Ally.Gain_Trust(Rank + 1);
+        PlayerManager.Instance.PlayerController.Gain_Reputation((Rank + 1) * 0.2f);
+        RewardDict[RewardType](Rank);
         Ally.DataOff_Request();
         Set_IWhenRemove();
+
         Ally = null;
+        RewardType = null;
     }
 
     public void Fail()
     {
-        Ally.Reduce_Trust(Point);
+        Ally.Reduce_Trust(Rank + 1);
+        PlayerManager.Instance.PlayerController.Reduce_Reputation((Rank + 1) * 0.2f);
         Ally.DataOff_Request();
         Set_IWhenRemove();
+
         Ally = null;
+        RewardType = null;
     }
+
+    #endregion
+
+    #region Reward
+
+    private string RewardType = "";
+    public string Get_RewardType()
+    {
+        return RewardType;
+    }
+
+    private static Dictionary<string, Dele_T<int>> RewardDict = new Dictionary<string, Dele_T<int>>
+    {
+        { "BC", new Dele_T<int>(Gain_Reward_BC) },
+        { "Credit", new Dele_T<int>(Gain_Reward_Credit) },
+        { "EP", new Dele_T<int>(Gain_Reward_EP) }
+    };
+
+    public static Dictionary<string, Func<int, int>> RewardCaculateDict = new Dictionary<string, Func<int, int>>
+    {
+        { "BC", new Func<int, int>(Get_BookReward_BC) },
+        { "Credit", new Func<int, int>(Get_BookReward_Credit) },
+        { "EP", new Func<int, int>(Get_BookReward_EP) }
+    };
+
+#if UNITY_EDITOR
+
+    public static int RewardKindOfTypeAmount() { return RewardDict.Count; }
+
+#endif
+
+    private static void Gain_Reward_BC(int _Rank) { PlayerManager.Instance.PlayerController.Add_CurrentBettery(Get_BookReward_BC(_Rank)); }
+    private static void Gain_Reward_Credit(int _Rank) { PlayerManager.Instance.PlayerController.Add_CurrentCredit(Get_BookReward_Credit(_Rank)); }
+    private static void Gain_Reward_EP(int _Rank) { PlayerManager.Instance.PlayerController.Add_CurrentEP(Get_BookReward_EP(_Rank)); }
+
+    private static int Get_BookReward_BC(int _Rank) { return _Rank + 1; }
+    private static int Get_BookReward_Credit(int _Rank) { return (_Rank + 1) * 3; }
+    private static int Get_BookReward_EP(int _Rank) { return (_Rank + 1) * 5; }
 
     #endregion
 
@@ -4934,12 +4986,16 @@ public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, I
     protected override void Inc_CompleteProgress()
     {
         base.Inc_CompleteProgress();
+
+        if (!Ally) return;
         Ally.HUD.RequestUI.Set_Request_CompleteTxt(CompleteProgress / MaxCompleteProgress, $"{CompleteProgress}/{MaxCompleteProgress}");
     }
 
     protected override void Inc_FailProgress()
     {
         base.Inc_FailProgress();
+
+        if (!Ally) return;
         Ally.HUD.RequestUI.Set_Request_FailTxt(FailProgress / MaxFailProgress, $"{FailProgress}/{MaxFailProgress}");
     }
 
@@ -5045,6 +5101,7 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
 
 #endregion
 
+
 #region Class : UI
 
 [System.Serializable]
@@ -5062,6 +5119,12 @@ public class LanguageTxt
     public List<TMP_FontAsset> FontAssets;
 }
 
+[System.Serializable]
+public class SpriteTypeName
+{
+    public string Name;
+    public Sprite Sprite;
+}
 
 #endregion
 

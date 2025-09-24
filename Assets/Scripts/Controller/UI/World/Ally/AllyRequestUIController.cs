@@ -6,24 +6,43 @@ public class AllyRequestUIController : MonoBehaviour
 {
     #region Value
 
+    #region - Inspector
+
     [Space(20)]
     [Header("<><><><><> Request")]
 
     [Space(10)]
-    [Header("=== Comp")]
+    [Header("=== Public")]
     [SerializeField] private TMP_Text RequestNameTxt;
 
-    [Space(5)]
+    [Space(10)]
+    [Header("=== Complete")]
     [SerializeField] private TMP_Text CompleteDescTxt;
     [SerializeField] private Image CompleteGageImg;
     [SerializeField] private TMP_Text CompletePercentTxt;
 
-    [Space(5)]
+    [Space(10)]
+    [Header("=== Fail")]
     [SerializeField] private TMP_Text FailDescTxt;
     [SerializeField] private Image FailGageImg;
     [SerializeField] private TMP_Text FailPercentTxt;
 
+    [Space(10)]
+    [Header("=== Difficulty")]
+    [SerializeField] private Image DiffcultyImg;
+
+    [Space(10)]
+    [Header("=== Reward")]
+    [SerializeField] private Image RewardImg;
+    [SerializeField] private TMP_Text RewardExtraTxt;
+
+    #endregion
+
+    #region -Hide
+
     [HideInInspector] public AllyHUDController AllyHUD;
+
+    #endregion
 
     #endregion
 
@@ -45,6 +64,19 @@ public class AllyRequestUIController : MonoBehaviour
         RequestNameTxt.text = _Request.Get_Name();
         CompleteDescTxt.text = _Request.Get_CompleteDesc();
         FailDescTxt.text = _Request.Get_FailDesc();
+
+        DiffcultyImg.sprite = UnitManager.Instance.RequestRankSpriteList[_Request.Get_Rank()];
+        RewardImg.sprite = UnitManager.Instance.RequestRewardDict[_Request.Get_RewardType()];
+
+        int extraAmount = AllyRequest.RewardCaculateDict[_Request.Get_RewardType()](_Request.Get_Rank());
+        if (extraAmount != -1)
+        {
+            RewardExtraTxt.text = $"+{extraAmount}";
+        }
+        else
+        {
+            Debug.Log("타입이 다른 보상");
+        }
     }
 
     public void Set_Request_CompleteProgress(float _Value)

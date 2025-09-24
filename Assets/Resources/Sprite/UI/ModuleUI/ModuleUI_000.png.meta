@@ -2014,7 +2014,7 @@ TextureImporter:
         x: 70
         y: 2
         width: 17
-        height: 17
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2035,7 +2035,7 @@ TextureImporter:
         x: 88
         y: 2
         width: 17
-        height: 17
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2056,7 +2056,7 @@ TextureImporter:
         x: 106
         y: 2
         width: 17
-        height: 17
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2077,7 +2077,7 @@ TextureImporter:
         x: 124
         y: 2
         width: 17
-        height: 17
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2179,10 +2179,10 @@ TextureImporter:
       name: ModuleUI_KeyCard_AllyShop
       rect:
         serializedVersion: 2
-        x: 106
-        y: 20
+        x: 142
+        y: 2
         width: 17
-        height: 17
+        height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -2239,7 +2239,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_Cvt_EP
+      name: ModuleUI_13s_EP
       rect:
         serializedVersion: 2
         x: 482
@@ -2260,7 +2260,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_Cvt_Credit
+      name: ModuleUI_13s_Credit
       rect:
         serializedVersion: 2
         x: 496
@@ -2281,7 +2281,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_Cvt_X
+      name: ModuleUI_13s_X
       rect:
         serializedVersion: 2
         x: 482
@@ -2302,7 +2302,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_Cvt_O
+      name: ModuleUI_13s_O
       rect:
         serializedVersion: 2
         x: 496
@@ -2344,7 +2344,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_Cvt_PremiumCredit
+      name: ModuleUI_13s_PremiumCredit
       rect:
         serializedVersion: 2
         x: 482
@@ -2365,7 +2365,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_Cvt_CB
+      name: ModuleUI_13s_CB
       rect:
         serializedVersion: 2
         x: 496
@@ -2386,7 +2386,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_Cvt_ProtoCore
+      name: ModuleUI_13s_ProtoCore
       rect:
         serializedVersion: 2
         x: 482
@@ -2407,7 +2407,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_Cvt_EtherCore
+      name: ModuleUI_13s_EtherCore
       rect:
         serializedVersion: 2
         x: 496
@@ -2428,7 +2428,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ModuleUI_Cvt_OriginCore
+      name: ModuleUI_13s_OriginCore
       rect:
         serializedVersion: 2
         x: 482
@@ -2469,6 +2469,132 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RequestRank_0
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 1
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7be40388514f68849a3105e9b13f96e0
+      internalID: -1946409032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RequestRank_1
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 1
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3270fdce45ad07b46b121d5d6a299549
+      internalID: -120224021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RequestRank_2
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 1
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff4f25302dfdd474a893b99ec3fdac88
+      internalID: 145658695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RequestRank_3
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 1
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abc7e64407a1bf1469f72ce2685226bb
+      internalID: 1025710746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_RequestRank_4
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 1
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d3d1a703fb748e4bb9fe56ec824a38f
+      internalID: 247684480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_13s_BC
+      rect:
+        serializedVersion: 2
+        x: 496
+        y: 267
+        width: 13
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ddc115fda628f04e8f4ed5ae5137dca
+      internalID: 903242896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2482,6 +2608,16 @@ TextureImporter:
     nameFileIdTable:
       ModuleUI_000_40: -1610263300
       ModuleUI_000_41: 1572026621
+      ModuleUI_13s_BC: 903242896
+      ModuleUI_13s_CB: -1901297469
+      ModuleUI_13s_Credit: -1440381744
+      ModuleUI_13s_EP: -2076485528
+      ModuleUI_13s_EtherCore: 916261362
+      ModuleUI_13s_O: 1473322856
+      ModuleUI_13s_OriginCore: -2089630484
+      ModuleUI_13s_PremiumCredit: -721544048
+      ModuleUI_13s_ProtoCore: -1776099186
+      ModuleUI_13s_X: -365479874
       ModuleUI_Acquisition: -1043766937
       ModuleUI_AllySync_Apply: -1896784765
       ModuleUI_AllySync_Connect: 2033871001
@@ -2495,15 +2631,6 @@ TextureImporter:
       ModuleUI_Cogwheel_0: -707146146
       ModuleUI_Cogwheel_1: 716162092
       ModuleUI_Cogwheel_2: 1222701743
-      ModuleUI_Cvt_CB: -1901297469
-      ModuleUI_Cvt_Credit: -1440381744
-      ModuleUI_Cvt_EP: -2076485528
-      ModuleUI_Cvt_EtherCore: 916261362
-      ModuleUI_Cvt_O: 1473322856
-      ModuleUI_Cvt_OriginCore: -2089630484
-      ModuleUI_Cvt_PremiumCredit: -721544048
-      ModuleUI_Cvt_ProtoCore: -1776099186
-      ModuleUI_Cvt_X: -365479874
       ModuleUI_DialogueCharBG: 1737750721
       ModuleUI_DialogueCharFrame: -151358749
       ModuleUI_Dialogue_Field_00: -1927236403
@@ -2542,6 +2669,11 @@ TextureImporter:
       ModuleUI_Puzzle_CellFrame_Front: 1165298674
       ModuleUI_Puzzle_CellInLight: -1157258285
       ModuleUI_Puzzle_CellOutLight: -932553563
+      ModuleUI_RequestRank_0: -1946409032
+      ModuleUI_RequestRank_1: -120224021
+      ModuleUI_RequestRank_2: 145658695
+      ModuleUI_RequestRank_3: 1025710746
+      ModuleUI_RequestRank_4: 247684480
       ModuleUI_RollSelect_A_C_1: -1954180720
       ModuleUI_RollSelect_A_C_2: 1525099260
       ModuleUI_RollSelect_A_C_3: 1305974482

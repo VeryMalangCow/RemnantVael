@@ -9042,6 +9042,19 @@ MonoBehaviour:
   CvtMaterialConditionIcon:
     TypeBase: {fileID: -365479874, guid: 637ede47422025b48bd24c3773722caa, type: 3}
     TypeSpecial: {fileID: 1473322856, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  RequestRankSpriteList:
+  - {fileID: -1946409032, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: -120224021, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: 145658695, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: 1025710746, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - {fileID: 247684480, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  RequestRewardSpriteList:
+  - Name: BC
+    Sprite: {fileID: 903242896, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - Name: Credit
+    Sprite: {fileID: -1440381744, guid: 637ede47422025b48bd24c3773722caa, type: 3}
+  - Name: EP
+    Sprite: {fileID: -2076485528, guid: 637ede47422025b48bd24c3773722caa, type: 3}
   ModuleItemOutlinerAC:
   - {fileID: 7400000, guid: 35bfc1528075c6e428950576281e1be0, type: 2}
   - {fileID: 7400000, guid: 0759e410f7a365843a010e663dcb0ede, type: 2}

@@ -98,6 +98,11 @@ public class UnitManager : Singleton<UnitManager>
     [Header("-- Cvt")]
     [SerializeField] public CoupleData<Sprite> CvtMaterialConditionIcon;
 
+    [Space(5)]
+    [Header("-- Request")]
+    [SerializeField] public List<Sprite> RequestRankSpriteList;
+    [SerializeField] private List<SpriteTypeName> RequestRewardSpriteList;
+
     #endregion
 
     #region Anim
@@ -239,6 +244,9 @@ public class UnitManager : Singleton<UnitManager>
     // Prison
     [HideInInspector] public HashSet<PrisonController> AllPrison = new HashSet<PrisonController>();
 
+    // Request Reward
+    [HideInInspector] public Dictionary<string, Sprite> RequestRewardDict = new Dictionary<string, Sprite>();
+
     #endregion
 
     #endregion
@@ -253,9 +261,21 @@ public class UnitManager : Singleton<UnitManager>
             CoreSpriteDict.Add(CoreSprites[i].ID, CoreSprites[i].TypeClass);
         }
         CoreSprites = null;
+
+        for (int i = 0; i < RequestRewardSpriteList.Count; i++) 
+        {
+            RequestRewardDict.Add(RequestRewardSpriteList[i].Name, RequestRewardSpriteList[i].Sprite);
+        }
+
+#if UNITY_EDITOR
+        if (RequestRewardSpriteList.Count != AllyRequest.RewardKindOfTypeAmount())
+        {
+            Debug.Assert(false, "NOT SAME AMOUNT FOR REQUEST REWARD SPRITE!");
+        }
+#endif
     }
 
-    #endregion
+#endregion
 
     #region Framework
 

@@ -183,7 +183,7 @@ public abstract class TotemeController : DroppingDepthController
     {
         SetOff_Trail();
 
-        StartCoroutine(Play_BuffArea_Cor());
+        StartCoroutine(this.Play_BuffArea_Cor());
     }
 
     private IEnumerator Play_BuffArea_Cor()
@@ -340,6 +340,7 @@ public abstract class TotemeController : DroppingDepthController
         Reset_State();
         SetOff_BuffPoint();
 
+        StopCoroutine(this.Play_BuffArea_Cor());
         TimerManager.Instance.Remove_Toteme(this);
         this.gameObject.SetActive(false);
     }
