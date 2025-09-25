@@ -2595,6 +2595,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: ModuleUI_Icon_Trust
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 40
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e9f390cfff70b1488b67ac41e959611
+      internalID: 1466281300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -2647,6 +2668,7 @@ TextureImporter:
       ModuleUI_IOL_InOrder: 1511633079
       ModuleUI_Icon_Durablity: -372754867
       ModuleUI_Icon_NullCard: -1772585977
+      ModuleUI_Icon_Trust: 1466281300
       ModuleUI_Input_SpaceBar: -324453934
       ModuleUI_KeyCard_AllyShop: -513438669
       ModuleUI_KeyCard_Boss: 1110492473

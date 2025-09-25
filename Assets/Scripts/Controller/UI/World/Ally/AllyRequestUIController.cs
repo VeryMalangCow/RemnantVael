@@ -30,6 +30,7 @@ public class AllyRequestUIController : MonoBehaviour
     [Space(10)]
     [Header("=== Difficulty")]
     [SerializeField] private Image DiffcultyImg;
+    [SerializeField] private TMP_Text DiffcultyExtraTxt;
 
     [Space(10)]
     [Header("=== Reward")]
@@ -66,13 +67,12 @@ public class AllyRequestUIController : MonoBehaviour
         FailDescTxt.text = _Request.Get_FailDesc();
 
         DiffcultyImg.sprite = UnitManager.Instance.RequestRankSpriteList[_Request.Get_Rank()];
-        RewardImg.sprite = UnitManager.Instance.RequestRewardDict[_Request.Get_RewardType()];
+        DiffcultyExtraTxt.text = $"{(_Request.Get_Rank() + 1)}";
 
+        RewardImg.sprite = UnitManager.Instance.RequestRewardDict[_Request.Get_RewardType()];
         int extraAmount = AllyRequest.RewardCaculateDict[_Request.Get_RewardType()](_Request.Get_Rank());
         if (extraAmount != -1)
-        {
-            RewardExtraTxt.text = $"+{extraAmount}";
-        }
+        { RewardExtraTxt.text = $"+{extraAmount}"; }
         else
         {
             Debug.Log("타입이 다른 보상");
