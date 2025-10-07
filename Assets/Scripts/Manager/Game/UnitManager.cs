@@ -300,6 +300,7 @@ public class UnitManager : Singleton<UnitManager>
     {
         if (GameManager.LanguageID == _LangID) return;
         GameManager.LanguageID = _LangID;
+        SaveDataManager.Instance.JsonData.OptionData.LanguageID = GameManager.LanguageID;
 
         // Change String
         Set_LanguageTxt();

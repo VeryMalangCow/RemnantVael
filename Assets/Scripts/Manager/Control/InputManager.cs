@@ -180,6 +180,7 @@ public class InputManager : Singleton<InputManager>
         Sequence seq = DOTween.Sequence();
         seq.Append(MousePointerRT.DOScale(1.4f, 0.05f));
         seq.Append(MousePointerRT.DOScale(1f, 0.05f));
+        seq.SetUpdate(true);
     }
 
     #endregion

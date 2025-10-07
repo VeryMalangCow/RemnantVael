@@ -51,6 +51,8 @@ public class OutMainGameUIController : SinglePanelUIController
     [Space(10)]
     [Header("=== Option Element")]
     [SerializeField] private LRSlidingItemEUIController LanguagePanelEUI;
+    [SerializeField] private FillScrollbarEUIController BGMVolumePanelEUI;
+    [SerializeField] private FillScrollbarEUIController SFXVolumePanelEUI;
 
     #endregion
 
@@ -92,8 +94,15 @@ public class OutMainGameUIController : SinglePanelUIController
         OptionApplyBtn.OwnerUIController = this;
         OptionApplyBtn.Offset();
 
+
         LanguagePanelEUI.Set_OwnerUIController(this);
         LanguagePanelEUI.Offset();
+
+        BGMVolumePanelEUI.Set_OwnerUIController(this);
+        BGMVolumePanelEUI.Offset();
+
+        SFXVolumePanelEUI.Set_OwnerUIController(this);
+        SFXVolumePanelEUI.Offset();
     }
 
     private void Offset_Btn()
@@ -123,7 +132,9 @@ public class OutMainGameUIController : SinglePanelUIController
         SubColorCompList.AddRange(InnerImgs);
 
         MainColorCompList.AddRange(LanguagePanelEUI.Get_InnerMainColorList());
-        
+        MainColorCompList.AddRange(BGMVolumePanelEUI.Get_InnerMainColorList());
+        MainColorCompList.AddRange(SFXVolumePanelEUI.Get_InnerMainColorList());
+
         Color clr = new Color(1, 1, 1, 0.1f);
         ResumeInnerImg.color = clr;
         OptionInnerImg.color = clr;
@@ -153,6 +164,25 @@ public class OutMainGameUIController : SinglePanelUIController
         OptionPanelRT.anchoredPosition = Vector2.zero;
 
         BaseInteractingPanelCG.alpha = 0f;
+    }
+
+    #endregion
+
+    #region Set (Panel)
+
+    public override void SetOn_ThisPanel()
+    {
+        base.SetOn_ThisPanel();
+
+        PlayerManager.Instance.CameraController.Stop_SlowMotion();
+        Time.timeScale = 0f;
+    }
+
+    public override void SetOff_ThisPanel()
+    {
+        base.SetOff_ThisPanel();
+
+        Time.timeScale = 1f;
     }
 
     #endregion
@@ -229,7 +259,9 @@ public class OutMainGameUIController : SinglePanelUIController
             OptionWarningTxt.gameObject.SetActive(false);
             return true;
         }
-        else if(Is_Interact_OptionElement(LanguagePanelEUI)) return true;
+        else if (Is_Interact_OptionElement(LanguagePanelEUI)) return true;
+        else if (Is_Interact_OptionElement(BGMVolumePanelEUI)) return true;
+        else if (Is_Interact_OptionElement(SFXVolumePanelEUI)) return true;
 
         return false;
     }
@@ -252,6 +284,24 @@ public class OutMainGameUIController : SinglePanelUIController
         return false;
     }
 
+    private bool Is_Interact_OptionElement(FillScrollbarEUIController _ScrollEUI)
+    {
+        if (CurrentBtn == _ScrollEUI.LeftBtn)
+        {
+            _ScrollEUI.Dec();
+            OptionWarningTxt.gameObject.SetActive(true);
+            return true;
+        }
+        else if (CurrentBtn == _ScrollEUI.RightBtn)
+        {
+            _ScrollEUI.Inc();
+            OptionWarningTxt.gameObject.SetActive(true);
+            return true;
+        }
+
+        return false;
+    }
+
     #endregion
 
     #region Set (Option)
@@ -259,6 +309,8 @@ public class OutMainGameUIController : SinglePanelUIController
     private void Set_OptionValueApply()
     {
         UnitManager.Instance.Set_LanguageFont(LanguagePanelEUI.Get_CurrentIndex());
+        SoundManager.Instance.Set_BgmVolume(BGMVolumePanelEUI.Get_Value());
+        SoundManager.Instance.Set_SfxVolume(SFXVolumePanelEUI.Get_Value());
     }
 
     private void SetOn_OptionPanel()
@@ -272,6 +324,8 @@ public class OutMainGameUIController : SinglePanelUIController
         // Element
         OptionWarningTxt.gameObject.SetActive(false);
         LanguagePanelEUI.Set_Item(GameManager.LanguageID);
+        BGMVolumePanelEUI.Set_Value(SoundManager.Instance.BVolume);
+        SFXVolumePanelEUI.Set_Value(SoundManager.Instance.SVolume);
 
         Sequence seq = DOTween.Sequence();
 
@@ -282,6 +336,7 @@ public class OutMainGameUIController : SinglePanelUIController
         {
             IsInteractTweening = false; 
         });
+        seq.SetUpdate(true);    
     }
 
     private void SetOff_OptionPanel()
@@ -299,6 +354,7 @@ public class OutMainGameUIController : SinglePanelUIController
         {
             IsInteractTweening = false;
         });
+        seq.SetUpdate(true);
     }
 
     #endregion
@@ -314,6 +370,8 @@ public class OutMainGameUIController : SinglePanelUIController
 
         DevTool.Get_ComponentTType<TMP_Text>(OptionApplyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(OptionApplyBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(91);
         LanguagePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(92);
+        BGMVolumePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(138);
+        SFXVolumePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(139);
 
         DevTool.Get_ComponentTType<TMP_Text>(ResumeBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ResumeBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(19);
         DevTool.Get_ComponentTType<TMP_Text>(OptionBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(OptionBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(20);

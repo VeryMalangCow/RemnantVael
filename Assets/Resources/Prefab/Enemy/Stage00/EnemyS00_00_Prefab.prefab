@@ -102,24 +102,6 @@ MonoBehaviour:
     JouleAmountMinMax:
       TypeBase: 1
       TypeSpecial: 3
-  ModuleDropPercent: 0.1
-  ModuleRankPercents: 500000000c000000050000000200000001000000
-  keycardDropPercent: 0.05
-  BSAmountMinMax:
-    TypeBase: 0
-    TypeSpecial: 0
-  MSAmountMinMax:
-    TypeBase: 0
-    TypeSpecial: 0
-  CreditAmountMinMax:
-    TypeBase: 0
-    TypeSpecial: 0
-  OverriderAmountMinMax:
-    TypeBase: 0
-    TypeSpecial: 0
-  JouleAmountMinMax:
-    TypeBase: 0
-    TypeSpecial: 0
   HUD: {fileID: 7241037580816432991}
   LookingSatellite: {fileID: 8800238567124451591}
   WalkingSatellite: {fileID: 9179056310911047704}
@@ -284,7 +266,7 @@ AudioSource:
   m_GameObject: {fileID: 272305898077013730}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2470590188468172164, guid: f4fe09b156f3b524c802c439d5c704f9, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

@@ -9,9 +9,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
-using System.Linq.Expressions;
-using UnityEngine.InputSystem.HID;
-using UnityEngine.InputSystem;
 
 
 
@@ -46,6 +43,10 @@ public class GameManager : PersistentSingleton<GameManager>
         //Singleton
         base.Awake();
         
+    }
+
+    private void Start()
+    {
         Set_BaseOption();
     }
 
@@ -55,6 +56,10 @@ public class GameManager : PersistentSingleton<GameManager>
 
     private void Set_BaseOption()
     {
+        OptionJsonData savedData = SaveDataManager.Instance.JsonData.OptionData;
+        UnitManager.Instance.Set_LanguageFont(savedData.LanguageID);
+        SoundManager.Instance.Set_BgmVolume(savedData.BGMVolume);
+        SoundManager.Instance.Set_BgmVolume(savedData.SFXVolume);
         Application.targetFrameRate = 144;
     }
 

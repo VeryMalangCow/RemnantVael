@@ -173,12 +173,15 @@ public class CameraController : MonoBehaviour
         seq.Append(_TF.DOMove(Vector2.zero, _Dur * 3 / 5).SetEase(Ease.OutBack));
     }
 
+    private Sequence SlowMotionSeq = null;
     private void Play_SlowMotion(float _Dur, float _SlowMultiple)
     {
-        Sequence seq = DOTween.Sequence();
+        Stop_SlowMotion();
+
+        SlowMotionSeq = DOTween.Sequence();
         Time.timeScale = _SlowMultiple;
-        seq.AppendInterval(_Dur);
-        seq.SetUpdate(true)
+        SlowMotionSeq.AppendInterval(_Dur);
+        SlowMotionSeq.SetUpdate(true)
             .OnComplete(() =>
             {
                 if (Time.timeScale != 1)
@@ -186,6 +189,12 @@ public class CameraController : MonoBehaviour
 
                 PlayerManager.Instance.PlayerController.SetOff_Invincible();
             });
+    }
+
+    public void Stop_SlowMotion()
+    {
+        DevTool.Set_KillTween(SlowMotionSeq); 
+        Time.timeScale = 1;
     }
 
     private void Play_POVSize(float _Dur, float _PojectionSize)

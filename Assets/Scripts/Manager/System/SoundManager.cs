@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 
 public class SoundManager : PersistentSingleton<SoundManager>
 {
@@ -13,11 +14,14 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private AudioMixer mAudioMixer;
+    [SerializeField] private AudioMixer MasterAudioMixer;
 
     #endregion
 
     #region - Hide
+
+    [HideInInspector] public float BVolume = 0.5f;
+    [HideInInspector] public float SVolume = 0.5f;
 
     [HideInInspector] private AudioSource ThisBgmAudioSource;
     [HideInInspector] private AudioSource ThisSfxAudioSource;
@@ -85,6 +89,28 @@ public class SoundManager : PersistentSingleton<SoundManager>
     private AudioClip Get_SfxAudioClip(string _ClipName)
     {
         return SFXAudioDict[_ClipName];
+    }
+
+    #endregion
+
+    #region Set
+
+    public void Set_BgmVolume(float _Value)
+    {
+        BVolume = _Value;
+        SaveDataManager.Instance.JsonData.OptionData.BGMVolume = BVolume;
+
+        float dB = Mathf.Log10(Mathf.Clamp(BVolume, 0.0001f, 1f)) * 20f;
+        MasterAudioMixer.SetFloat("BGM", dB);
+    }
+
+    public void Set_SfxVolume(float _Value)
+    {
+        SVolume = _Value;
+        SaveDataManager.Instance.JsonData.OptionData.SFXVolume = SVolume;
+
+        float dB = Mathf.Log10(Mathf.Clamp(SVolume, 0.0001f, 1f)) * 20f;
+        MasterAudioMixer.SetFloat("SFX", dB);
     }
 
     #endregion

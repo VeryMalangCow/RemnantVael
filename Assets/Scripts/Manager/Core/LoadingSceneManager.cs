@@ -49,6 +49,7 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
         seq.Join(Get_CogSeq(LoadingIconRT_Clockwise, 360, _DurTime));
         seq.Join(Get_CogSeq(LoadingIconRT_CounterClockwise, -360, _DurTime));
         seq.SetLoops(-1, LoopType.Restart);
+        seq.SetUpdate(true);
 
         return seq;
     }
@@ -65,6 +66,7 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
                 .SetEase(Ease.Linear));
         }
 
+        seq.SetUpdate(true);
         return seq;
     }
 
@@ -81,6 +83,7 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
         seq.Append(SlidingImgRT.DOAnchorPosX(-SlidingImgX, _DurTime * 0.8f).SetEase(Ease.Linear));
         seq.AppendInterval(_DurTime * 0.2f);
         seq.SetLoops(-1, LoopType.Restart);
+        seq.SetUpdate(true);
 
         return seq;
     }
@@ -104,9 +107,9 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 
         LoadingCG.gameObject.SetActive(true);
 
-        LoadingCG.DOFade(1f, 1f);
+        LoadingCG.DOFade(1f, 1f).SetUpdate(true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         AsyncOperation oper = SceneManager.LoadSceneAsync(_SceneName);
 
@@ -118,16 +121,18 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
             yield return null;
         }
 
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSecondsRealtime(0.8f);
 
-        LoadingCG.DOFade(0f, 0.5f);
+        LoadingCG.DOFade(0f, 0.5f).SetUpdate(true);
 
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSecondsRealtime(0.6f);
 
         CogwheelSeq.Pause();
         SlidingImgSeq.Pause();
 
         LoadingCG.gameObject.SetActive(false);
+
+        if (Time.timeScale != 1) Time.timeScale = 1f;
     }
 
     #endregion

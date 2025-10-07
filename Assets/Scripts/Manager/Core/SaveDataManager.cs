@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -16,6 +15,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     [SerializeField] private string JsonFilePath = "";
     [SerializeField] private string CharacterPath = "";
     [SerializeField] private string ItemPath = "";
+    [SerializeField] private string OptionPath = "";
 
     #endregion
 
@@ -52,10 +52,11 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
         TrySave_EachJsonData(this.CharacterPath, new SerializationList<EachCharacterJsonData>(JsonData.CharacterData));
         TrySave_EachJsonData(this.ItemPath, new SerializationList<EachItemJsonData>(JsonData.ItemData));
+        TrySave_EachJsonData(this.OptionPath, JsonData.OptionData);
 
     }
 
-    #region TrySave (Each)
+    #region TrySave (Each Module)
 
     private void TrySave_EachJsonData<T>(string _EachPath, T _Data)
     {
@@ -90,9 +91,14 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
             TryLoad_EachJsonData<SerializationList<EachItemJsonData>>(
                 this.ItemPath,
                 Get_Default_ItemData()).ListData;
+
+        JsonData.OptionData =
+            TryLoad_EachJsonData<OptionJsonData>(
+                this.OptionPath,
+                Get_Default_OptionData());
     }
 
-    #region TryLoad (Each)
+    #region TryLoad (Each Module)
 
     private T TryLoad_EachJsonData<T>(string _EachPath, string _DefaultData)
     {
@@ -127,7 +133,13 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         TryReset_EachJsonData<SerializationList<EachItemJsonData>>(
             this.ItemPath,
             Get_Default_ItemData());
+
+        TryReset_EachJsonData<OptionJsonData>(
+            this.OptionPath,
+            Get_Default_OptionData());
     }
+
+    #region TryReset (Each Module)
 
     private void TryReset_EachJsonData<T>(string _EachPath, string _DefaultData)
     {
@@ -143,6 +155,8 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     #endregion
 
+    #endregion
+
     #region Create
 
     // File Create
@@ -155,17 +169,15 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         }
     }
 
-    // Default Character
-    private string Get_Default_CharacterData()
-    {
-        return Resources.Load<TextAsset>("Json/DefaultCharacterData").text;
-    }
+    #endregion
 
-    // Default Item
-    private string Get_Default_ItemData()
-    {
-        return Resources.Load<TextAsset>("Json/DefaultItemData").text;
-    }
+    #region Get
+
+    private string Get_Default_CharacterData() => Resources.Load<TextAsset>("Json/DefaultCharacterData").text;
+
+    private string Get_Default_ItemData() => Resources.Load<TextAsset>("Json/DefaultItemData").text;
+
+    private string Get_Default_OptionData() => Resources.Load<TextAsset>("Json/DefaultOptionData").text;
 
     #endregion
 
@@ -199,6 +211,7 @@ public class JsonData
 {
     public List<EachCharacterJsonData> CharacterData = new List<EachCharacterJsonData>();
     public List<EachItemJsonData> ItemData = new List<EachItemJsonData>();
+    public OptionJsonData OptionData = new OptionJsonData();
 
     public void Gain_Item(int _ID, int _Amount)
     {
@@ -226,17 +239,6 @@ public class JsonData
             MainGameUIManager.Instance.PlayerHUD_UIController.Init_HighLvItemUI();
         }
     }
-}
-
-#endregion
-
-#region List Convertor
-
-[System.Serializable]
-public class SerializationList<T>
-{
-    public SerializationList(List<T> _ListData) => ListData = _ListData;
-    public List<T> ListData;
 }
 
 #endregion
@@ -273,6 +275,31 @@ public class EachItemJsonData
         Name = _Name;
         Amount = _Amount;
     }
+}
+
+#endregion
+
+#region Option
+
+[System.Serializable]
+public class OptionJsonData
+{
+    public int LanguageID = 0;
+    public float BGMVolume = 0.2f;
+    public float SFXVolume = 0.2f;
+}
+
+#endregion
+
+
+
+#region List Convertor
+
+[System.Serializable]
+public class SerializationList<T>
+{
+    public SerializationList(List<T> _ListData) => ListData = _ListData;
+    public List<T> ListData;
 }
 
 #endregion
