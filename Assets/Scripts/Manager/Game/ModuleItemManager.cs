@@ -231,6 +231,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         base.Awake();
 
+    }
+
+    private void Start()
+    {
+
         Offset();
     }
 

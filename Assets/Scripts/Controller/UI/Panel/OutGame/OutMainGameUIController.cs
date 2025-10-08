@@ -51,6 +51,9 @@ public class OutMainGameUIController : SinglePanelUIController
     [Space(10)]
     [Header("=== Option Element")]
     [SerializeField] private LRSlidingItemEUIController LanguagePanelEUI;
+    [SerializeField] private LRSlidingItemEUIController ScreenModePanelEUI;
+    [SerializeField] private LRSlidingItemEUIController ResolutionPanelEUI;
+    [SerializeField] private LRSlidingItemEUIController FPSPanelEUI;
     [SerializeField] private FillScrollbarEUIController BGMVolumePanelEUI;
     [SerializeField] private FillScrollbarEUIController SFXVolumePanelEUI;
 
@@ -98,6 +101,15 @@ public class OutMainGameUIController : SinglePanelUIController
         LanguagePanelEUI.Set_OwnerUIController(this);
         LanguagePanelEUI.Offset();
 
+        ScreenModePanelEUI.Set_OwnerUIController(this);
+        ScreenModePanelEUI.Offset();
+
+        ResolutionPanelEUI.Set_OwnerUIController(this);
+        ResolutionPanelEUI.Offset();
+
+        FPSPanelEUI.Set_OwnerUIController(this);
+        FPSPanelEUI.Offset();
+
         BGMVolumePanelEUI.Set_OwnerUIController(this);
         BGMVolumePanelEUI.Offset();
 
@@ -132,6 +144,9 @@ public class OutMainGameUIController : SinglePanelUIController
         SubColorCompList.AddRange(InnerImgs);
 
         MainColorCompList.AddRange(LanguagePanelEUI.Get_InnerMainColorList());
+        MainColorCompList.AddRange(ScreenModePanelEUI.Get_InnerMainColorList());
+        MainColorCompList.AddRange(ResolutionPanelEUI.Get_InnerMainColorList());
+        MainColorCompList.AddRange(FPSPanelEUI.Get_InnerMainColorList());
         MainColorCompList.AddRange(BGMVolumePanelEUI.Get_InnerMainColorList());
         MainColorCompList.AddRange(SFXVolumePanelEUI.Get_InnerMainColorList());
 
@@ -260,10 +275,13 @@ public class OutMainGameUIController : SinglePanelUIController
             return true;
         }
         else if (Is_Interact_OptionElement(LanguagePanelEUI)) return true;
+        else if (Is_Interact_OptionElement(ScreenModePanelEUI)) return true;
+        else if (Is_Interact_OptionElement(ResolutionPanelEUI)) return true;
         else if (Is_Interact_OptionElement(BGMVolumePanelEUI)) return true;
         else if (Is_Interact_OptionElement(SFXVolumePanelEUI)) return true;
+        else if (Is_Interact_OptionElement(FPSPanelEUI)) return true;
 
-        return false;
+            return false;
     }
 
     private bool Is_Interact_OptionElement(LRSlidingItemEUIController _LRSlidingEUI)
@@ -309,6 +327,10 @@ public class OutMainGameUIController : SinglePanelUIController
     private void Set_OptionValueApply()
     {
         UnitManager.Instance.Set_LanguageFont(LanguagePanelEUI.Get_CurrentIndex());
+        GameManager.Instance.Set_Screen(
+            (eResolution)ResolutionPanelEUI.Get_CurrentIndex(),
+            (eScreenMode)ScreenModePanelEUI.Get_CurrentIndex());
+        GameManager.Instance.Set_FPS((eFPS)FPSPanelEUI.Get_CurrentIndex());
         SoundManager.Instance.Set_BgmVolume(BGMVolumePanelEUI.Get_Value());
         SoundManager.Instance.Set_SfxVolume(SFXVolumePanelEUI.Get_Value());
     }
@@ -324,6 +346,9 @@ public class OutMainGameUIController : SinglePanelUIController
         // Element
         OptionWarningTxt.gameObject.SetActive(false);
         LanguagePanelEUI.Set_Item(GameManager.LanguageID);
+        ScreenModePanelEUI.Set_Item((int)GameManager.ScreenMode);
+        ResolutionPanelEUI.Set_Item((int)GameManager.ResolutionMode);
+        FPSPanelEUI.Set_Item((int)GameManager.FPS);
         BGMVolumePanelEUI.Set_Value(SoundManager.Instance.BVolume);
         SFXVolumePanelEUI.Set_Value(SoundManager.Instance.SVolume);
 
@@ -370,6 +395,9 @@ public class OutMainGameUIController : SinglePanelUIController
 
         DevTool.Get_ComponentTType<TMP_Text>(OptionApplyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(OptionApplyBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(91);
         LanguagePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(92);
+        ScreenModePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(140);
+        ResolutionPanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(137);
+        FPSPanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(141);
         BGMVolumePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(138);
         SFXVolumePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(139);
 

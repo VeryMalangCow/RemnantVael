@@ -285,8 +285,26 @@ public class EachItemJsonData
 public class OptionJsonData
 {
     public int LanguageID = 0;
+    public eScreenMode ScreenMode = eScreenMode.FullScreen;
+    public eResolution ResolutionMode = eResolution.w1920h1080;
+    public eFPS FPS = eFPS.f144;
     public float BGMVolume = 0.2f;
     public float SFXVolume = 0.2f;
+}
+
+public enum eScreenMode
+{
+    FullScreen, Borderless, Window
+}
+
+public enum eResolution
+{
+    w1280h720, w1600h900, w1920h1080, w2560h1440
+}
+
+public enum eFPS
+{
+    f30, f60, f120, f144, f200
 }
 
 #endregion

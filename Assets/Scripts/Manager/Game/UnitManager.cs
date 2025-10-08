@@ -283,8 +283,12 @@ public class UnitManager : Singleton<UnitManager>
     {
         base.Awake();
 
-        Set_LanguageTxt();
         Set_DictData();
+    }
+
+    private void Start()
+    {
+        Set_LanguageTxt();
     }
 
     #endregion

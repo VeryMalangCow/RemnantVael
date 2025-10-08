@@ -9,10 +9,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
-
-
-
-
+using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -32,6 +29,9 @@ public class GameManager : PersistentSingleton<GameManager>
     [SerializeField] public bool WasWatched = false;
 
     public static int LanguageID = 1;
+    public static eScreenMode ScreenMode = eScreenMode.FullScreen;
+    public static eResolution ResolutionMode = eResolution.w1920h1080;
+    public static eFPS FPS = eFPS.f144;
     public readonly static List<string> KindOfLanguage = new List<string> { "Eng", "Kor" };
 
     #endregion
@@ -57,10 +57,40 @@ public class GameManager : PersistentSingleton<GameManager>
     private void Set_BaseOption()
     {
         OptionJsonData savedData = SaveDataManager.Instance.JsonData.OptionData;
-        UnitManager.Instance.Set_LanguageFont(savedData.LanguageID);
+
+        if (SceneManager.GetActiveScene().name == "MainGame")
+            UnitManager.Instance.Set_LanguageFont(savedData.LanguageID);
+
+        Set_Screen(savedData.ResolutionMode, savedData.ScreenMode);
+        Set_FPS(savedData.FPS);
         SoundManager.Instance.Set_BgmVolume(savedData.BGMVolume);
-        SoundManager.Instance.Set_BgmVolume(savedData.SFXVolume);
-        Application.targetFrameRate = 144;
+        SoundManager.Instance.Set_SfxVolume(savedData.SFXVolume);
+    }
+
+    public void Set_Screen(eResolution _ResolutionMode, eScreenMode _ScreenMode)
+    {
+        ResolutionMode = _ResolutionMode;
+        SaveDataManager.Instance.JsonData.OptionData.ResolutionMode = _ResolutionMode;
+        ScreenMode = _ScreenMode;
+        SaveDataManager.Instance.JsonData.OptionData.ScreenMode = _ScreenMode;
+
+        string[] reso = _ResolutionMode.ToString().Split("h");
+        reso[0] = reso[0].Replace("w", "");
+        FullScreenMode mode = FullScreenMode.MaximizedWindow;
+        if (_ScreenMode == eScreenMode.FullScreen) mode = FullScreenMode.FullScreenWindow;
+        else if (_ScreenMode == eScreenMode.Window) mode = FullScreenMode.Windowed;
+        else mode = FullScreenMode.MaximizedWindow;
+
+        Screen.SetResolution(Convert.ToInt32(reso[0]), Convert.ToInt32(reso[1]), mode);
+    }
+
+    public void Set_FPS(eFPS _Mode)
+    {
+        FPS = _Mode;
+        SaveDataManager.Instance.JsonData.OptionData.FPS = _Mode;
+
+        int fps = Convert.ToInt32(FPS.ToString().Replace("f", "")); 
+        Application.targetFrameRate = fps;
     }
 
     #endregion
