@@ -13,7 +13,7 @@ public class ScrollPanelEUIController : ElementUIController, IScrollHandler
 
     [Header("=== Scroll Bar")]
     [SerializeField] public Scrollbar ThisTabScrollbar;
-    [SerializeField] protected RectTransform ActualMovableRT;
+    [SerializeField] public RectTransform ActualMovableRT;
     [SerializeField] protected float VisibleY = 725;
     [HideInInspector] protected float ActualAreaY;
     [HideInInspector] protected float MovableY;

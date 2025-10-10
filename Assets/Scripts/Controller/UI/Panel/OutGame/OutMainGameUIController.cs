@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,7 +44,9 @@ public class OutMainGameUIController : SinglePanelUIController
     [SerializeField] private RectTransform BasePanelRT;
     [SerializeField] private CanvasGroup BaseInteractingPanelCG;
 
-    
+    #endregion
+
+    #region Option & State
 
     [Space(10)]
     [Header("=== Option")]
@@ -89,27 +90,41 @@ public class OutMainGameUIController : SinglePanelUIController
 
         [Space(10)]
         [Header("=== Player")]
-        [SerializeField] public TMP_Text PlayerStateNameTxt;
-        [SerializeField] public ScrollPanelEUIController ScrollEUI;
-
+        [SerializeField] private TMP_Text PlayerStateNameTxt;
+        [SerializeField] private ScrollPanelEUIController PlayerScrollEUI;
         // DMG, ROF, CC, CD, MS, AR, KB
         // MaxEP, ESValue, SkillCost, Resist
         // WalkS, WalkSWhileS, DashP, AvoidC
         // Skill 00: Cooltime, Power, Tier
         // Skill 01: Cooltime, Power, Tier
-        [SerializeField] public StandbyPlayerBUEUIController[] BUEUIArr;
-        [SerializeField] public Image[] BUInnerImgArr;
+        [SerializeField] private StandbyPlayerBUEUIController[] BUEUIArr;
+        [SerializeField] private Image[] BUInnerImgArr;
 
+        [Space(10)]
+        [Header("=== Ally")]
+        [SerializeField] private TMP_Text AllyStateNameTxt;
+        [SerializeField] private ScrollPanelEUIController AllyScrollEUI;
+        [SerializeField] private GameObject AllyBUEUIPrefab;
+        [HideInInspector] private List<StandbyAllyBUEUIController> AllyBUEUIList = new List<StandbyAllyBUEUIController>();
+
+        #region Set
 
         public void Offset()
         {
-            ScrollEUI.Offset();
+            PlayerScrollEUI.Offset();
+            AllyScrollEUI.Offset();
 
             for (int i = 0; i < BUEUIArr.Length; i++)
                 BUEUIArr[i].Offset();
         }
 
-        public void Set_Color(Color _ImgClr, Color _TxtClr)
+        string Get(int _Index) => ResourceManager.Instance.Get_StaticWord(_Index);
+
+        #endregion
+
+        #region Color
+
+        public void Set_PlayerColor(Color _ImgClr, Color _TxtClr)
         {
             PlayerStateNameTxt.color = _ImgClr;
 
@@ -120,11 +135,20 @@ public class OutMainGameUIController : SinglePanelUIController
                 BUInnerImgArr[i].color = _ImgClr;
         }
 
-        public void Set_LanguageTxt()
+        public void Set_AllyColor(Color _ImgClr, Color _TxtClr)
         {
-            string Get(int _Index) => ResourceManager.Instance.Get_StaticWord(_Index);
+            AllyStateNameTxt.color = _ImgClr;
 
-            PlayerStateNameTxt.text = $"<size=70%>{Get(102)} - </size><b>{Get(113)}</b>";
+
+        }
+
+        #endregion
+
+        #region Language
+
+        public void Set_PlayerLanguageTxt()
+        {
+            PlayerStateNameTxt.text = $"<size=70%><color=#808080>{Get(102)} - </color></size><b>[{Get(113)}]</b>";
 
             // DMG, ROF, CC, CD, MS, AR, KB
             BUEUIArr[0].Set_LanguageTxt(Get(12));
@@ -153,6 +177,97 @@ public class OutMainGameUIController : SinglePanelUIController
             BUEUIArr[19].Set_LanguageTxt(Get(18));
             BUEUIArr[20].Set_LanguageTxt(Get(17));
         }
+
+        public void Set_AllyLanguageTxt()
+        {
+            AllyStateNameTxt.text = $"<size=70%><color=#808080>{Get(102)} - </color><color=#FFFFFF></size><b>[{Get(95)}]</b></color>";
+
+
+        }
+
+        #endregion
+
+        #region State
+
+        public void Set_PlayerState()
+        {
+            // Element
+            PlayerController pc = PlayerManager.Instance.PlayerController;
+            PlayerWeaponController pwc = pc.BaseWeapon;
+            SkillWeaponController swc = pc.SkillWeapon;
+            PlayerDashController pdc = pc.DashController;
+
+            // DMG, ROF, CC, CD, MS, AR, KB
+            BUEUIArr[0].Set(pwc.BaseDamage.CurrentLevel.Value);
+            BUEUIArr[1].Set(pwc.ROF.CurrentLevel.Value);
+            BUEUIArr[2].Set(pwc.CC.CurrentLevel.Value);
+            BUEUIArr[3].Set(pwc.CD.CurrentLevel.Value);
+            BUEUIArr[4].Set(pwc.MuzzleSpeed.CurrentLevel.Value);
+            BUEUIArr[5].Set(pwc.AccuracyRate.CurrentLevel.Value);
+            BUEUIArr[6].Set(pwc.KnockbackPower.CurrentLevel.Value);
+            // MaxEP, ESValue, SkillCost, Resist
+            BUEUIArr[7].Set(pc.MaxEP.CurrentLevel.Value);
+            BUEUIArr[8].Set(pc.SpawnESMultiple.CurrentLevel.Value);
+            BUEUIArr[9].Set(pc.NeedEP_ForSkillMultiple.CurrentLevel.Value);
+            BUEUIArr[10].Set(pc.TakingDmgMultiple.CurrentLevel.Value);
+            // WalkS, WalkSWhileS, DashP, AvoidC
+            BUEUIArr[11].Set(pc.WalkSpeed.CurrentLevel.Value);
+            BUEUIArr[12].Set(pc.WalkSpeedWhenShotMultiple.CurrentLevel.Value);
+            BUEUIArr[13].Set(pdc.DashSpeed.CurrentLevel.Value);
+            BUEUIArr[14].Set(pc.AvoidChance.CurrentLevel.Value);
+            // Skill 00: Cooltime, Power, Tier
+            BUEUIArr[15].Set(swc.SkillList[0].MaxCooltime.CurrentLevel.Value);
+            BUEUIArr[16].Set(swc.SkillList[0].Power.CurrentLevel.Value);
+            BUEUIArr[17].Set(swc.SkillList[0].Tier.CurrentLevel.Value);
+            // Skill 01: Cooltime, Power, Tier
+            BUEUIArr[18].Set(swc.SkillList[1].MaxCooltime.CurrentLevel.Value);
+            BUEUIArr[19].Set(swc.SkillList[1].Power.CurrentLevel.Value);
+            BUEUIArr[20].Set(swc.SkillList[1].Tier.CurrentLevel.Value);
+        }
+
+        public void Set_AllyState(List<AllyController> _AllAlly)
+        {
+            TryGen_AllyStateEUI(_AllAlly.Count);
+
+            for (int i = 0; i < AllyBUEUIList.Count; i++)
+            {
+                if (_AllAlly.Count > i)
+                {
+                    AllyBUEUIList[i].gameObject.SetActive(true);
+                    AllyBUEUIList[i].Set_Data(_AllAlly[i]);
+                }
+                else
+                {
+                    AllyBUEUIList[i].gameObject.SetActive(false);
+                }
+            }
+        }
+
+
+        private void TryGen_AllyStateEUI(int _TargetAmount)
+        {
+            if (AllyBUEUIList.Count >= _TargetAmount) return;
+
+            float baseX = -16;
+            float baseY = -32;
+            float intervalY = -180;
+
+            int needAmount = _TargetAmount - AllyBUEUIList.Count;
+            for (int i = 0; i < needAmount; i++)
+            {
+                Instantiate(AllyBUEUIPrefab, AllyScrollEUI.ActualMovableRT).TryGetComponent(out StandbyAllyBUEUIController eui);
+                eui.Offset();
+                eui.Set_Pos(new Vector2(baseX, baseY + (intervalY * AllyBUEUIList.Count)));
+                AllyBUEUIList.Add(eui);
+            }
+
+            AllyScrollEUI.ActualMovableRT.sizeDelta = new Vector2(AllyScrollEUI.ActualMovableRT.sizeDelta.x,
+                -((baseY * 1.5f) + (intervalY * AllyBUEUIList.Count)));
+            AllyScrollEUI.Set_ScrollPanel();
+        }
+
+        #endregion
+
     }
 
 
@@ -273,7 +388,8 @@ public class OutMainGameUIController : SinglePanelUIController
         SubColorCompList.Clear();
         SubColorCompList = null;
 
-        StateUI.Set_Color(mainClr, subClr);
+        StateUI.Set_PlayerColor(mainClr, subClr);
+        StateUI.Set_AllyColor(mainClr, subClr);
     }
 
     private void Offset_PosValue()
@@ -472,6 +588,7 @@ public class OutMainGameUIController : SinglePanelUIController
     {
         if (IsInteractTweening) return;
 
+        BaseInteractingPanelTxt.text = ResourceManager.Instance.Get_StaticWord(20);
         SetOn_Panel(OutMainGameUIType.OptionPanel, OptionUI.PanelRT);
 
         // Element
@@ -493,41 +610,11 @@ public class OutMainGameUIController : SinglePanelUIController
     {
         if (IsInteractTweening) return;
 
+        BaseInteractingPanelTxt.text = ResourceManager.Instance.Get_StaticWord(102);
         SetOn_Panel(OutMainGameUIType.StatePanel, StateUI.PanelRT);
 
-        // Element
-        PlayerController pc = PlayerManager.Instance.PlayerController;
-        PlayerWeaponController pwc = pc.BaseWeapon;
-        SkillWeaponController swc = pc.SkillWeapon;
-        PlayerDashController pdc = pc.DashController;
-
-        // DMG, ROF, CC, CD, MS, AR, KB
-        StateUI.BUEUIArr[0].Set(pwc.BaseDamage.CurrentLevel.Value);
-        StateUI.BUEUIArr[1].Set(pwc.ROF.CurrentLevel.Value);
-        StateUI.BUEUIArr[2].Set(pwc.CC.CurrentLevel.Value);
-        StateUI.BUEUIArr[3].Set(pwc.CD.CurrentLevel.Value);
-        StateUI.BUEUIArr[4].Set(pwc.MuzzleSpeed.CurrentLevel.Value);
-        StateUI.BUEUIArr[5].Set(pwc.AccuracyRate.CurrentLevel.Value);
-        StateUI.BUEUIArr[6].Set(pwc.KnockbackPower.CurrentLevel.Value);
-        // MaxEP, ESValue, SkillCost, Resist
-        StateUI.BUEUIArr[7].Set(pc.MaxEP.CurrentLevel.Value);
-        StateUI.BUEUIArr[8].Set(pc.SpawnESMultiple.CurrentLevel.Value);
-        StateUI.BUEUIArr[9].Set(pc.NeedEP_ForSkillMultiple.CurrentLevel.Value);
-        StateUI.BUEUIArr[10].Set(pc.TakingDmgMultiple.CurrentLevel.Value);
-        // WalkS, WalkSWhileS, DashP, AvoidC
-        StateUI.BUEUIArr[11].Set(pc.WalkSpeed.CurrentLevel.Value);
-        StateUI.BUEUIArr[12].Set(pc.WalkSpeedWhenShotMultiple.CurrentLevel.Value);
-        StateUI.BUEUIArr[13].Set(pdc.DashSpeed.CurrentLevel.Value);
-        StateUI.BUEUIArr[14].Set(pc.AvoidChance.CurrentLevel.Value);
-        // Skill 00: Cooltime, Power, Tier
-        StateUI.BUEUIArr[15].Set(swc.SkillList[0].MaxCooltime.CurrentLevel.Value);
-        StateUI.BUEUIArr[16].Set(swc.SkillList[0].Power.CurrentLevel.Value);
-        StateUI.BUEUIArr[17].Set(swc.SkillList[0].Tier.CurrentLevel.Value);
-        // Skill 01: Cooltime, Power, Tier
-        StateUI.BUEUIArr[18].Set(swc.SkillList[1].MaxCooltime.CurrentLevel.Value);
-        StateUI.BUEUIArr[19].Set(swc.SkillList[1].Power.CurrentLevel.Value);
-        StateUI.BUEUIArr[20].Set(swc.SkillList[1].Tier.CurrentLevel.Value);
-
+        StateUI.Set_PlayerState();
+        StateUI.Set_AllyState(AllyManager.Instance.AllAlly);
     }
 
     #endregion
@@ -538,7 +625,6 @@ public class OutMainGameUIController : SinglePanelUIController
     {
         IsInteractTweening = true;
         CurrentType = _Type;
-        BaseInteractingPanelTxt.text = ResourceManager.Instance.Get_StaticWord(20);
         _RT.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
@@ -587,7 +673,8 @@ public class OutMainGameUIController : SinglePanelUIController
         DevTool.Get_ComponentTType<TMP_Text>(QuitBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(QuitBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(21);
 
         OptionUI.Set_LanguageTxt();
-        StateUI.Set_LanguageTxt();
+        StateUI.Set_PlayerLanguageTxt();
+        StateUI.Set_AllyLanguageTxt();
 
         int langId = 0;
         switch (CurrentType)

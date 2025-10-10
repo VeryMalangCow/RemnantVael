@@ -45,6 +45,7 @@ public class AllyController : NavObjectController
 
     // State
     [HideInInspector] protected AllyState ActualAllyState = new AllyState();
+    [HideInInspector] public AllyState Get_ActaulAllyState() => ActualAllyState;
 
     // Player
     [HideInInspector] protected PlayerController Player;
