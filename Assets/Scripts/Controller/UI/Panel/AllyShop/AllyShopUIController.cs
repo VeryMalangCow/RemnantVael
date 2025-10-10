@@ -164,7 +164,7 @@ public class AllyShopUIController : ShopUIController
         InStateSyncActingEUIList = new List<AllySyncIconEUIController>();
     }
 
-    private void Offset_ColorComp()
+    public void Offset_ColorComp()
     {
         MainColorCompList = new List<Component>();
         SubColorCompList = new List<Component>();

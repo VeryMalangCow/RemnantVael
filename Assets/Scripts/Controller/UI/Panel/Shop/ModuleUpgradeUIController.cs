@@ -295,7 +295,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     }
 
 
-    private void Offset_ColorComp()
+    public void Offset_ColorComp()
     {
         MainColorCompList = new List<Component>();
         SubColorCompList = new List<Component>();

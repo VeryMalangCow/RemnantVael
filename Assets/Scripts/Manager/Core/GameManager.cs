@@ -5919,7 +5919,7 @@ public enum eNSCPuzzleType
 
 public enum OutMainGameUIType
 {
-    BasePanel, OptionPanel
+    BasePanel, OptionPanel, StatePanel
 }
 
 #endregion

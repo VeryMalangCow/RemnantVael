@@ -435,7 +435,7 @@ public class PlayerHUDController : UIController
 
     }
 
-    private void Offset_ColorComp()
+    public void Offset_ColorComp()
     {
         DevTool.Set_AlphaColor(StageNameTxt, 1);
         DevTool.Set_AlphaColor(StageDescriptionTxt, 0);

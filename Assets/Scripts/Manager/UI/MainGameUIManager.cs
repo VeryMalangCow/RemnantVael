@@ -45,6 +45,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private GameObject Cvt_OriginCore_CanvasPrefab;
 
     [SerializeField] private List<Sprite> KeyCardSpriteList;
+
     #endregion
 
     #region - Hide
@@ -196,6 +197,20 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         AllyModuleUpgrade_UIController.Set_LanguageTxt();
 
         AllyCard_UIController.Set_LanguageTxt();
+    }
+
+    public void Set_Color()
+    {
+        OutMainGame_UIController.Offset_ColorComp();
+
+        PlayerHUD_UIController.Offset_ColorComp();
+        InteractAnno_UIController.Offset_ColorComp();
+
+        BaseUpgrade_UIController.Offset_ColorComp();
+        ModuleUpgrade_UIController.Offset_ColorComp();
+
+        AllyBaseUpgrade_UIController.Offset_ColorComp();
+        AllyModuleUpgrade_UIController.Offset_ColorComp();
     }
 
     #endregion

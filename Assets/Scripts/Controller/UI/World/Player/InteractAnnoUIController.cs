@@ -31,8 +31,12 @@ public class InteractAnnoUIController : UIController
     {
         base.Offset();
 
+        Offset_ColorComp();
         ThisCG.alpha = 0;
+    }
 
+    public void Offset_ColorComp()
+    {
         Color clr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
 
         InteractableColor = clr;
