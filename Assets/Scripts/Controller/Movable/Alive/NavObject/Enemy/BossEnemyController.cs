@@ -27,6 +27,10 @@ public class BossEnemyController : EnemyController
     [Header("=== Item")]
     [SerializeField] public CoreDropItemPercent CoreDropItemPercent;
 
+    [Space(10)]
+    [Header("=== Reso")]
+    [SerializeField] public Sprite BattleProdSprite;
+
     #endregion
 
     #region - Hide

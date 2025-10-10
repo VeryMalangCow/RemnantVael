@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -179,11 +180,30 @@ public class GateController : StaticDepthController, IInteract
             }
             else
             {
-                PlayerManager.Instance.PlayerController.SetOff_Trail();
-                PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
-                StageManager.Instance.Play_CurrentRoom(ParterGate.ThisRoom); 
+                if (ParterGate.ThisRoom.RoomRuleController.Is_EliteEnemyRoom(out int eliteID))
+                {
+                    StageManager.Instance.Get_CurrentStageData().EnemyData.StageEliteEnemyList[eliteID].TryGetComponent(out EliteEnemyController eliteEnemy);
+                    StageManager.Instance.Play_GoInBossRoom(this, eliteEnemy.BattleProdSprite);
+                }
+                else if (ParterGate.ThisRoom.RoomRuleController.Is_BossEnemyRoom(out int bossID))
+                {
+                    StageManager.Instance.Get_CurrentStageData().EnemyData.StageEliteEnemyList[bossID].TryGetComponent(out BossEnemyController bossEnemy);
+                    StageManager.Instance.Play_GoInBossRoom(this, bossEnemy.BattleProdSprite);
+                }
+                else
+                {
+                    PassGateForBossRoom();
+                }
+
             }
         }
+    }
+
+    public void PassGateForBossRoom()
+    {
+        PlayerManager.Instance.PlayerController.SetOff_Trail();
+        PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
+        StageManager.Instance.Play_CurrentRoom(ParterGate.ThisRoom);
     }
 
     #endregion

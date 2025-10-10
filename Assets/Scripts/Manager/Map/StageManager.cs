@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class StageManager : Singleton<StageManager>
 {
@@ -1389,6 +1388,34 @@ public class StageManager : Singleton<StageManager>
     public int Get_AfterStageID()
     {
         return AfterStageID;
+    }
+
+    #endregion
+
+    #region Play (Boss Gate)
+    
+    public void Play_GoInBossRoom(GateController _Gate, Sprite _BattleProdEnemySprite)
+    {
+        EventManager.Instance.Set_Input(false);
+
+        StartCoroutine(Play_GoInBattleRoom_Cor(_Gate, _BattleProdEnemySprite));
+    }
+
+    private IEnumerator Play_GoInBattleRoom_Cor(GateController _Gate, Sprite _BattleProdEnemySprite)
+    {
+        MainGameUIManager.Instance.Play_BattleOnProd(
+            PlayerManager.Instance.PlayerController.BattleProdSprite,
+            null,
+            out float _DurTime);
+
+        yield return new WaitForSeconds(_DurTime);
+
+        _Gate.PassGateForBossRoom();
+        MainGameUIManager.Instance.Play_BattleOffProd(out float _OutDurTime);
+
+        yield return new WaitForSeconds(_OutDurTime);
+
+        EventManager.Instance.Set_Input(true);
     }
 
     #endregion

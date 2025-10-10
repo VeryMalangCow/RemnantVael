@@ -15,6 +15,10 @@ public class EliteEnemyController : EnemyController
     [Header("=== Item")]
     [SerializeField] public CoreDropItemPercent CoreDropItemPercent;
 
+    [Space(10)]
+    [Header("=== Reso")]
+    [SerializeField] public Sprite BattleProdSprite;
+
     #region - Hide
 
     [HideInInspector] private static readonly Vector2 HUDBaseAnchorPos = new Vector2(-812, 290);

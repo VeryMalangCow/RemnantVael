@@ -20,6 +20,7 @@ public class RoomRuleController : MonoBehaviour
     [Space(5)]
     [Header("-- Type")]
     [SerializeField] public eRoomType RoomType;
+    [SerializeField] private eEnemy EnemyType = eEnemy.Normal;
     [SerializeField] public bool IsAlreadyRoomClear = false;
 
     [Space(10)]
@@ -62,6 +63,49 @@ public class RoomRuleController : MonoBehaviour
         InRoom_AllEnemySpawn = InRoom_EnemySpawnParentTF != null &&
             InRoom_EnemySpawnParentTF.childCount > 0 ?
             DevTool.Get_ChildList<EnemySpawnContoller>(InRoom_EnemySpawnParentTF) : null;
+
+    }
+
+    #endregion
+
+    #region KillAll
+
+    public bool Is_EliteEnemyRoom(out int _EliteEnemyID)
+    {
+        _EliteEnemyID = 0;
+        if (EnemyType != eEnemy.Elite || 
+            RoomType != eRoomType.KillAll) 
+            return false;
+
+        for (int i = 0; i < InRoom_AllEnemySpawn.Count; i++)
+        {
+            if (InRoom_AllEnemySpawn[i].Get_EnemyType() == eEnemy.Elite)
+            {
+                _EliteEnemyID = InRoom_AllEnemySpawn[i].Get_SpawnID();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool Is_BossEnemyRoom(out int _BossEnemyID)
+    {
+        _BossEnemyID = 0;
+        if (EnemyType != eEnemy.Boss ||
+            RoomType != eRoomType.KillAll)
+            return false;
+
+        for (int i = 0; i < InRoom_AllEnemySpawn.Count; i++)
+        {
+            if (InRoom_AllEnemySpawn[i].Get_EnemyType() == eEnemy.Boss)
+            {
+                _BossEnemyID = InRoom_AllEnemySpawn[i].Get_SpawnID();
+                return true;
+            }
+        }
+
+        return false;
     }
 
     #endregion

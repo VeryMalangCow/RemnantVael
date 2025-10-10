@@ -1103,6 +1103,7 @@ MonoBehaviour:
   - {x: 0, y: 1}
   - {x: 1, y: 1}
   RoomType: 1
+  EnemyType: 2
   IsAlreadyRoomClear: 0
   InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
   InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}

@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemySpawnContoller : MonoBehaviour
 {
     [SerializeField] private eEnemy EnemyType;
-    [SerializeField] public int SpawnID;
+    [SerializeField] private int SpawnID;
 
     public eEnemy Get_EnemyType()
     {

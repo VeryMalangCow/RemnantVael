@@ -76,6 +76,8 @@ public class PlayerController : AliveObjectController
     [SerializeField] public GameObject AimPrefab;
     [SerializeField] public GameObject AimRoundPrefab;
 
+    [SerializeField] public Sprite BattleProdSprite;
+
     #endregion
 
     #region - Hide

@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainGameUIManager : Singleton<MainGameUIManager>
 {
@@ -43,6 +44,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [SerializeField] private GameObject Cvt_ProtoCore_CanvasPrefab;
     [SerializeField] private GameObject Cvt_EtherCore_CanvasPrefab;
     [SerializeField] private GameObject Cvt_OriginCore_CanvasPrefab;
+
+    [SerializeField] private CanvasGroup BattleProd_CG;
+    [SerializeField] private RectTransform BattleProd_PlayerRT;
+    [SerializeField] private Image BattleProd_PlayerImg;
+    [SerializeField] private RectTransform BattleProd_EnemyRT;
+    [SerializeField] private Image BattleProd_EnemyImg;
 
     [SerializeField] private List<Sprite> KeyCardSpriteList;
 
@@ -147,7 +154,10 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         Play_FadeOut(FadeOutTime);
         Play_OffLoadingIcon(FadeOutTime);
+
+        Offset_BattleProd();
     }
+
 
     #endregion
 
@@ -344,6 +354,48 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     public int Get_KindOfKeyCardAmount()
     {
         return KeyCardSpriteList.Count;
+    }
+
+    #endregion
+
+    #region BattleProd
+
+    private void Offset_BattleProd()
+    {
+        BattleProd_CG.gameObject.SetActive(false);
+        BattleProd_CG.alpha = 0;
+        BattleProd_PlayerRT.anchoredPosition = new Vector2(-100, 0);
+        BattleProd_EnemyRT.anchoredPosition = new Vector2(100, 0);
+    }
+
+    public void Play_BattleOnProd(Sprite _PlayerImg, Sprite _EnemyImg, out float _DurTime)
+    {
+        BattleProd_CG.gameObject.SetActive(true);
+        BattleProd_PlayerImg.sprite = _PlayerImg;
+        BattleProd_PlayerImg.SetNativeSize();
+        BattleProd_EnemyImg.sprite = _EnemyImg;
+        BattleProd_EnemyImg.SetNativeSize();
+
+        Sequence seq = DOTween.Sequence();
+
+        float time0 = 0.2f;
+        seq.Append(BattleProd_CG.DOFade(1f, time0));
+        float time1 = 1f;
+        seq.Append(BattleProd_PlayerRT.DOAnchorPosX(650f, time1).SetEase(Ease.Linear));
+        //seq.Join(BattleProd_EnemyRT.DOAnchorPosX(-650f, time1).SetEase(Ease.Linear));
+        float time2 = 3f;
+        seq.Append(BattleProd_PlayerRT.DOAnchorPosX(700, time2).SetEase(Ease.OutQuad));
+        //seq.Join(BattleProd_EnemyRT.DOAnchorPosX(-700, time2).SetEase(Ease.OutQuad));
+
+        _DurTime = time0 + time1 + time2;
+    }
+
+    public void Play_BattleOffProd(out float _DurTime)
+    {
+        _DurTime = 0.25f;
+        BattleProd_CG.DOFade(0f, _DurTime)
+            .OnComplete(() => Offset_BattleProd())
+            .SetUpdate(true);
     }
 
     #endregion
