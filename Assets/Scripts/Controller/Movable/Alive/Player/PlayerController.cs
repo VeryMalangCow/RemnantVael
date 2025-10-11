@@ -17,6 +17,11 @@ public class PlayerController : AliveObjectController
     [Header("<><><><><> Player")]
 
     [Space(10)]
+    [Header("=== Data")]
+    [SerializeField] private int NameID;
+    public int GetNameID => NameID;
+
+    [Space(10)]
     [Header("=== Controller & Generator")]
     [SerializeField] public PlayerWeaponController BaseWeapon;
     [SerializeField] public SkillWeaponController SkillWeapon;

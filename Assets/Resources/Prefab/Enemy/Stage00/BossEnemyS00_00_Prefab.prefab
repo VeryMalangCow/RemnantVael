@@ -173,6 +173,7 @@ MonoBehaviour:
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
   IsPlayingPattern: 0
+  NameID: 3
   PanelRT: {fileID: 7357834850077609870}
   ThisHUDIcon: {fileID: 4214274085582620679}
   ThisAuraParticleGOList:
@@ -220,6 +221,7 @@ MonoBehaviour:
   CoreDropItemPercent:
     CoreItemID: 2
     CoreItemPercent: 1
+  BattleProdSprite: {fileID: 0}
 --- !u!114 &5694203857495159564
 MonoBehaviour:
   m_ObjectHideFlags: 0

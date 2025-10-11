@@ -76,6 +76,10 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // 동료 이름 랜덤
     [HideInInspector] private WordData RandomName_Data;
 
+    // 특수 객체 이름
+    [HideInInspector] private WordData PlayerName_Data;
+    [HideInInspector] private WordData EnemyName_Data;
+
 
     // 문장
     // 스태틱
@@ -211,6 +215,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         // Random Name
         RandomName_Data = Offset_WordData(wordPath,
             "RandomNameCSV");
+
+        PlayerName_Data = Offset_WordData(wordPath,
+            "PlayerNameCSV");
+        EnemyName_Data = Offset_WordData(wordPath,
+            "EnemyNameCSV");
 
         // Desc
         // Static
@@ -1043,7 +1052,14 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         return result;
     }
-         
+
+    #endregion
+
+    #region To Name
+
+    public string Get_PlayerName(int _ID) => PlayerName_Data.Get_Word(_ID);
+    public string Get_EnemyName(int _ID) => EnemyName_Data.Get_Word(_ID);
+
     #endregion
 
     #region To SpriteList

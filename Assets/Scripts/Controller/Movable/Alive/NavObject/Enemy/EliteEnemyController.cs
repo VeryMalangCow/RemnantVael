@@ -8,6 +8,11 @@ public class EliteEnemyController : EnemyController
     [Header("<><><><><> Elite")]
 
     [Space(10)]
+    [Header("=== Data")]
+    [SerializeField] private int NameID;
+    public int GetNameID => NameID;
+
+    [Space(10)]
     [Header("=== Comp")]
     [SerializeField] public RectTransform PanelRT;
 

@@ -1394,24 +1394,30 @@ public class StageManager : Singleton<StageManager>
 
     #region Play (Boss Gate)
     
-    public void Play_GoInBossRoom(GateController _Gate, Sprite _BattleProdEnemySprite)
+    public void Play_GoInBossRoom(GateController _Gate, EliteEnemyController _Enemy)
     {
-        EventManager.Instance.Set_Input(false);
+        MainGameUIManager.Instance.BattleProd_UIController.Play_BattleOnProd(
+            PlayerManager.Instance.PlayerController, _Enemy, out float _DurTime);
 
-        StartCoroutine(Play_GoInBattleRoom_Cor(_Gate, _BattleProdEnemySprite));
+        StartCoroutine(Play_GoInBattleRoom_Cor(_Gate, _DurTime));
     }
 
-    private IEnumerator Play_GoInBattleRoom_Cor(GateController _Gate, Sprite _BattleProdEnemySprite)
+    public void Play_GoInBossRoom(GateController _Gate, BossEnemyController _Enemy)
     {
-        MainGameUIManager.Instance.Play_BattleOnProd(
-            PlayerManager.Instance.PlayerController.BattleProdSprite,
-            null,
-            out float _DurTime);
+        MainGameUIManager.Instance.BattleProd_UIController.Play_BattleOnProd(
+            PlayerManager.Instance.PlayerController, _Enemy, out float _DurTime);
+
+        StartCoroutine(Play_GoInBattleRoom_Cor(_Gate, _DurTime));
+    }
+
+    private IEnumerator Play_GoInBattleRoom_Cor(GateController _Gate, float _DurTime)
+    {
+        EventManager.Instance.Set_Input(false);
 
         yield return new WaitForSeconds(_DurTime);
 
         _Gate.PassGateForBossRoom();
-        MainGameUIManager.Instance.Play_BattleOffProd(out float _OutDurTime);
+        MainGameUIManager.Instance.BattleProd_UIController.Play_BattleOffProd(out float _OutDurTime);
 
         yield return new WaitForSeconds(_OutDurTime);
 

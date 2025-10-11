@@ -14,6 +14,11 @@ public class BossEnemyController : EnemyController
     [Header("<><><><><> Boss")]
 
     [Space(10)]
+    [Header("=== Data")]
+    [SerializeField] private int NameID;
+    public int GetNameID => NameID;
+
+    [Space(10)]
     [Header("=== Comp")]
     [SerializeField] public RectTransform PanelRT;
     [SerializeField] private Image ThisHUDIcon;
