@@ -197,19 +197,6 @@ public class MinimapEUIController : ElementUIController
         }
     }
 
-    // ¡ﬂæ” ∆˜¿Œ≈Õ
-    private void Set_Point(RectTransform _Point, MinimapCellEUIController _MME)
-    {
-        _Point.transform.SetParent(_MME.transform);
-
-        if (DevTool.Get_ComponentTType(_MME.gameObject, out RectTransform rt))
-        {
-            Vector2 pivot = Vector2.one - rt.pivot;
-            _Point.pivot = pivot;
-            _Point.anchoredPosition = Vector2.zero;
-        }
-    }
-
     // ¿Ã∆Â∆Æ
     public void Play_Effect()
     {

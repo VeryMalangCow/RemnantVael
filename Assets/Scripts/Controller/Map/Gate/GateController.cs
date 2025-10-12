@@ -187,7 +187,7 @@ public class GateController : StaticDepthController, IInteract
                 }
                 else if (ParterGate.ThisRoom.RoomRuleController.Is_BossEnemyRoom(out int bossID))
                 {
-                    StageManager.Instance.Get_CurrentStageData().EnemyData.StageEliteEnemyList[bossID].TryGetComponent(out BossEnemyController bossEnemy);
+                    StageManager.Instance.Get_CurrentStageData().EnemyData.StageBossEnemyList[bossID].TryGetComponent(out BossEnemyController bossEnemy);
                     StageManager.Instance.Play_GoInBossRoom(this, bossEnemy);
                 }
                 else

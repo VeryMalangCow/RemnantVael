@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -101,11 +101,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 372
-        width: 140
-        height: 140
+        y: 1945
+        width: 120
+        height: 103
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -113,6 +113,90 @@ TextureImporter:
       bones: []
       spriteID: a2944f7486e063c4a8d7f165d93f479c
       internalID: 967936309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_S00_EliteEnemy00_Battle
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1803
+        width: 106
+        height: 141
+      alignment: 9
+      pivot: {x: 0.50397253, y: 0.4552071}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 904fc08572407ac498ec08a311ff1050
+      internalID: 1850782038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_S00_EliteEnemy01_Battle
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 1803
+        width: 135
+        height: 141
+      alignment: 9
+      pivot: {x: 0.4937622, y: 0.4522203}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb86e2ad83bc8604f8c7f36b1a2a0eda
+      internalID: 1123147809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_S00_EliteEnemy02_Battle
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 1803
+        width: 204
+        height: 141
+      alignment: 9
+      pivot: {x: 0.5330236, y: 0.4552071}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0e40c7f1e1fe324388b14a967ed4c6d
+      internalID: -1632904894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ModuleUI_S00_BossEnemy00_Battle
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1611
+        width: 225
+        height: 191
+      alignment: 9
+      pivot: {x: 0.58847755, y: 0.4791247}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18d3fd1cb78a3ba46ab7bdd6e9753f3a
+      internalID: 200019942
       vertices: []
       indices: 
       edges: []
@@ -129,6 +213,10 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       ModuleUI_Player00_Battle: 967936309
+      ModuleUI_S00_BossEnemy00_Battle: 200019942
+      ModuleUI_S00_EliteEnemy00_Battle: 1850782038
+      ModuleUI_S00_EliteEnemy01_Battle: 1123147809
+      ModuleUI_S00_EliteEnemy02_Battle: -1632904894
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

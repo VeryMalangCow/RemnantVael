@@ -137,10 +137,12 @@ MonoBehaviour:
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
   IsPlayingPattern: 0
+  NameID: 0
   PanelRT: {fileID: 7357834850077609870}
   CoreDropItemPercent:
     CoreItemID: 1
     CoreItemPercent: 1
+  BattleProdSprite: {fileID: 1850782038, guid: 52f91939743298f4f8b005d682be328c, type: 3}
 --- !u!114 &5694203857495159564
 MonoBehaviour:
   m_ObjectHideFlags: 0

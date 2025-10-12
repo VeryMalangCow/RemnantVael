@@ -339,7 +339,8 @@ public class RoomController : IDController
         List<GateController> bothOpenedGates = new List<GateController>();
         for (int i = 0; i < singleOpenedGates.Count; i++)
         {
-            if (singleOpenedGates[i].ParterGate.ThisRoom.RoomRuleController.RoomType == eRoomType.Completed)
+            if (singleOpenedGates[i].ParterGate.ThisRoom.RoomRuleController.RoomType == eRoomType.Completed &&
+                singleOpenedGates[i].ParterGate.IsOpen)
             {
                 bothOpenedGates.Add(singleOpenedGates[i]);
             }
