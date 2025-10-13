@@ -285,7 +285,8 @@ public class MinimapEUIController : ElementUIController
     }
     private void Set_Complete_OffInteract()
     {
-        if (InteractingBookGate != null && StageManager.Instance.CurrentRoomController != InteractingBookGate.ParterGate.ThisRoom)
+        if (InteractingBookGate != null && 
+            StageManager.Instance.CurrentRoomController != InteractingBookGate.ParterGate.ThisRoom)
         {
             InteractingBookGate.Play_Interact();
         }

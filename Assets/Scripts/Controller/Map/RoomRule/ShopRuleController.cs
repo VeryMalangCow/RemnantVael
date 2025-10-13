@@ -43,10 +43,11 @@ public class ShopRuleController : RoomRuleController
 
     private void SetOn_Shop()
     {
-        BUShop.gameObject.SetActive(true);
-        MUShop.gameObject.SetActive(true);
-        BURepairOperator.gameObject.SetActive(true);
-        MURepairOperator.gameObject.SetActive(true);
+        if (BUShop) BUShop.gameObject.SetActive(true);
+        if (BURepairOperator) BURepairOperator.gameObject.SetActive(true);
+
+        if (MUShop) MUShop.gameObject.SetActive(true);
+        if (MURepairOperator) MURepairOperator.gameObject.SetActive(true);
     }
 
     #endregion

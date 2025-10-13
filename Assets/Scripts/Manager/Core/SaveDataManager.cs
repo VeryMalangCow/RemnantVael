@@ -16,6 +16,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     [SerializeField] private string CharacterPath = "";
     [SerializeField] private string ItemPath = "";
     [SerializeField] private string OptionPath = "";
+    [SerializeField] private string GameProgressPath = "";
 
     #endregion
 
@@ -53,6 +54,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         TrySave_EachJsonData(this.CharacterPath, new SerializationList<EachCharacterJsonData>(JsonData.CharacterData));
         TrySave_EachJsonData(this.ItemPath, new SerializationList<EachItemJsonData>(JsonData.ItemData));
         TrySave_EachJsonData(this.OptionPath, JsonData.OptionData);
+        TrySave_EachJsonData(this.GameProgressPath, JsonData.GameProgressData);
 
     }
 
@@ -96,6 +98,11 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
             TryLoad_EachJsonData<OptionJsonData>(
                 this.OptionPath,
                 Get_Default_OptionData());
+
+        JsonData.GameProgressData =
+            TryLoad_EachJsonData<GameProgressJsonData>(
+                this.GameProgressPath,
+                Get_Default_GameProgressData());
     }
 
     #region TryLoad (Each Module)
@@ -137,6 +144,10 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         TryReset_EachJsonData<OptionJsonData>(
             this.OptionPath,
             Get_Default_OptionData());
+
+        TryReset_EachJsonData<GameProgressJsonData>(
+            this.GameProgressPath,
+            Get_Default_GameProgressData());
     }
 
     #region TryReset (Each Module)
@@ -179,6 +190,8 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     private string Get_Default_OptionData() => Resources.Load<TextAsset>("Json/DefaultOptionData").text;
 
+    private string Get_Default_GameProgressData() => Resources.Load<TextAsset>("Json/DefaultGameProgressData").text;
+
     #endregion
 
 
@@ -212,6 +225,7 @@ public class JsonData
     public List<EachCharacterJsonData> CharacterData = new List<EachCharacterJsonData>();
     public List<EachItemJsonData> ItemData = new List<EachItemJsonData>();
     public OptionJsonData OptionData = new OptionJsonData();
+    public GameProgressJsonData GameProgressData = new GameProgressJsonData();
 
     public void Gain_Item(int _ID, int _Amount)
     {
@@ -305,6 +319,26 @@ public enum eResolution
 public enum eFPS
 {
     f30, f60, f120, f144, f200
+}
+
+#endregion
+
+#region Game Progress
+
+[System.Serializable]
+public class GameProgressJsonData
+{
+    public bool UsableVault = false;
+
+    public bool UsableBU = false;
+    public bool UsableMU = false;
+
+    public bool UsableABU = false;
+    public bool UsableAMU = false;
+
+    public bool UsableSTPrison = false;
+    public bool UsableUTPrison = false;
+    public bool UsableNTPrison = false;
 }
 
 #endregion

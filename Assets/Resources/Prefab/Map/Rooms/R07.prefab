@@ -2162,7 +2162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amount: 8
-  SpreadDir: {x: -1, y: -1}
+  SpreadDir: {x: 1, y: -1}
   Angle: 90
   Radius: 8
   RadialBias: 4

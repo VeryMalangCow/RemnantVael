@@ -313,29 +313,29 @@ public class StageManager : Singleton<StageManager>
         // 陛绊 规 积己
         for (int i = 0; i < _StageData.RoomData.VaultRoom.Count; i++)
         {
-            Gen_VaultRoom(_StageData.RoomData.VaultRoom[i], TempID);
-            TempID++;
+            Gen_VaultRoom(_StageData.RoomData.VaultRoom[i], TempID, out bool generated);
+            if (generated) TempID++;
         }
 
         // 惑痢 规 积己
         for (int i = 0; i < _StageData.RoomData.ShopRoom.Count; i++)
         {
-            Gen_ShopRoom(_StageData.RoomData.ShopRoom[i], TempID);
-            TempID++;
+            Gen_ShopRoom(_StageData.RoomData.ShopRoom[i], TempID, out bool generated);
+            if (generated) TempID++;
         }
 
         // Ally 惑痢 规 积己
         for (int i = 0; i < _StageData.RoomData.AllyShopRoom.Count; i++)
         {
-            Gen_AllyShopRoom(_StageData.RoomData.AllyShopRoom[i], TempID);
-            TempID++;
+            Gen_AllyShopRoom(_StageData.RoomData.AllyShopRoom[i], TempID, out bool generated);
+            if (generated) TempID++;
         }
 
         // 皑苛 规 积己
         for (int i = 0; i < _StageData.RoomData.PrisonRoom.Count; i++)
         {
-            Gen_PrisonRoom(_StageData.RoomData.PrisonRoom[i], TempID);
-            TempID++;
+            Gen_PrisonRoom(_StageData.RoomData.PrisonRoom[i], TempID, out bool generated);
+            if (generated) TempID++;
         }
     }
 
@@ -461,8 +461,13 @@ public class StageManager : Singleton<StageManager>
     #region Vault
 
     // 陛绊 规 窍唱 积己
-    private void Gen_VaultRoom(GenSpecialRoomData _VaultRoomData, int _TempID)
+    private void Gen_VaultRoom(GenSpecialRoomData _VaultRoomData, int _TempID, out bool _Generated)
     {
+        _Generated = false;
+        GameProgressJsonData data = SaveDataManager.Instance.JsonData.GameProgressData;
+
+        if (!data.UsableVault) return;
+
         if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_VaultRoomData.ID], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
@@ -499,6 +504,8 @@ public class StageManager : Singleton<StageManager>
 
             room.Offset(_TempID);
             Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
+
+            _Generated = true;
         }
     }
 
@@ -507,8 +514,13 @@ public class StageManager : Singleton<StageManager>
     #region Shop
 
     // 惑痢 规 窍唱 积己
-    private void Gen_ShopRoom(GenSpecialRoomData _ShopRoomData, int _TempID)
+    private void Gen_ShopRoom(GenSpecialRoomData _ShopRoomData, int _TempID, out bool _Generated)
     {
+        _Generated = false;
+        GameProgressJsonData data = SaveDataManager.Instance.JsonData.GameProgressData;
+
+        if (!data.UsableBU && !data.UsableMU) return;
+
         if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_ShopRoomData.ID], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
@@ -518,32 +530,40 @@ public class StageManager : Singleton<StageManager>
 
             ShopRuleController shopRule = DevTool.Get_CastingTType<ShopRuleController>(roomRule);
 
-            BaseUpgradeController BUShop = DevTool.Get_ComponentTType<BaseUpgradeController>(Instantiate(BUShopPrefab, shopRule.InRoom_BUShopParentTF));
-            shopRule.BUShop = BUShop;
-            BUShop.gameObject.transform.localPosition = Vector2.zero;
-            BUShop.gameObject.SetActive(false);
+            if (data.UsableBU)
+            {
+                BaseUpgradeController BUShop = DevTool.Get_ComponentTType<BaseUpgradeController>(Instantiate(BUShopPrefab, shopRule.InRoom_BUShopParentTF));
+                shopRule.BUShop = BUShop;
+                BUShop.gameObject.transform.localPosition = Vector2.zero;
+                BUShop.gameObject.SetActive(false);
 
-            ModuleUpgradeController MUShop = DevTool.Get_ComponentTType<ModuleUpgradeController>(Instantiate(MUShopPrefab, shopRule.InRoom_MUShopParentTF));
-            shopRule.MUShop = MUShop;
-            MUShop.gameObject.transform.localPosition = Vector2.zero;
-            MUShop.gameObject.SetActive(false);
-
-            RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
+                RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
                 Instantiate(RepairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
-            shopRule.BURepairOperator = BURepairOper;
-            BURepairOper.Set_TargetBuild(BUShop);
-            BURepairOper.gameObject.transform.localPosition = Vector2.zero;
-            BURepairOper.gameObject.SetActive(false);
+                shopRule.BURepairOperator = BURepairOper;
+                BURepairOper.Set_TargetBuild(BUShop);
+                BURepairOper.gameObject.transform.localPosition = Vector2.zero;
+                BURepairOper.gameObject.SetActive(false);
+            }
+            
+            if (data.UsableMU)
+            {
+                ModuleUpgradeController MUShop = DevTool.Get_ComponentTType<ModuleUpgradeController>(Instantiate(MUShopPrefab, shopRule.InRoom_MUShopParentTF));
+                shopRule.MUShop = MUShop;
+                MUShop.gameObject.transform.localPosition = Vector2.zero;
+                MUShop.gameObject.SetActive(false);
 
-            RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                Instantiate(RepairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
-            shopRule.MURepairOperator = MURepairOper;
-            MURepairOper.Set_TargetBuild(MUShop);
-            MURepairOper.gameObject.transform.localPosition = Vector2.zero;
-            MURepairOper.gameObject.SetActive(false);
-
+                RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
+                    Instantiate(RepairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
+                shopRule.MURepairOperator = MURepairOper;
+                MURepairOper.Set_TargetBuild(MUShop);
+                MURepairOper.gameObject.transform.localPosition = Vector2.zero;
+                MURepairOper.gameObject.SetActive(false);
+            }
+           
             room.Offset(_TempID);
             Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
+
+            _Generated = true;
         }
     }
 
@@ -552,8 +572,13 @@ public class StageManager : Singleton<StageManager>
     #region Ally Shop
 
     // 惑痢 规 窍唱 积己
-    private void Gen_AllyShopRoom(GenSpecialRoomData _ShopRoomData, int _TempID)
+    private void Gen_AllyShopRoom(GenSpecialRoomData _ShopRoomData, int _TempID, out bool _Generated)
     {
+        _Generated = false;
+        GameProgressJsonData data = SaveDataManager.Instance.JsonData.GameProgressData;
+
+        if (!data.UsableABU && !data.UsableAMU) return;
+
         if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_ShopRoomData.ID], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
@@ -563,32 +588,40 @@ public class StageManager : Singleton<StageManager>
 
             AllyShopRuleController shopRule = DevTool.Get_CastingTType<AllyShopRuleController>(roomRule);
 
-            AllyBaseUpgradeController ABUShop = DevTool.Get_ComponentTType<AllyBaseUpgradeController>(Instantiate(ABUShopPrefab, shopRule.InRoom_BUShopParentTF));
-            shopRule.BUShop = ABUShop;
-            ABUShop.gameObject.transform.localPosition = Vector2.zero;
-            ABUShop.gameObject.SetActive(false);
+            if (data.UsableABU)
+            {
+                AllyBaseUpgradeController ABUShop = DevTool.Get_ComponentTType<AllyBaseUpgradeController>(Instantiate(ABUShopPrefab, shopRule.InRoom_BUShopParentTF));
+                shopRule.BUShop = ABUShop;
+                ABUShop.gameObject.transform.localPosition = Vector2.zero;
+                ABUShop.gameObject.SetActive(false);
 
-            AllyModuleUpgradeController AMUShop = DevTool.Get_ComponentTType<AllyModuleUpgradeController>(Instantiate(AMUShopPrefab, shopRule.InRoom_MUShopParentTF));
-            shopRule.MUShop = AMUShop;
-            AMUShop.gameObject.transform.localPosition = Vector2.zero;
-            AMUShop.gameObject.SetActive(false);
+                RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
+                    Instantiate(RepairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
+                shopRule.BURepairOperator = BURepairOper;
+                BURepairOper.Set_TargetBuild(ABUShop);
+                BURepairOper.gameObject.transform.localPosition = Vector2.zero;
+                BURepairOper.gameObject.SetActive(false);
+            }
 
-            RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                Instantiate(RepairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
-            shopRule.BURepairOperator = BURepairOper;
-            BURepairOper.Set_TargetBuild(ABUShop);
-            BURepairOper.gameObject.transform.localPosition = Vector2.zero;
-            BURepairOper.gameObject.SetActive(false);
+            if (data.UsableAMU)
+            {
+                AllyModuleUpgradeController AMUShop = DevTool.Get_ComponentTType<AllyModuleUpgradeController>(Instantiate(AMUShopPrefab, shopRule.InRoom_MUShopParentTF));
+                shopRule.MUShop = AMUShop;
+                AMUShop.gameObject.transform.localPosition = Vector2.zero;
+                AMUShop.gameObject.SetActive(false);
 
-            RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                Instantiate(RepairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
-            shopRule.MURepairOperator = MURepairOper;
-            MURepairOper.Set_TargetBuild(AMUShop);
-            MURepairOper.gameObject.transform.localPosition = Vector2.zero;
-            MURepairOper.gameObject.SetActive(false);
+                RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
+                    Instantiate(RepairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
+                shopRule.MURepairOperator = MURepairOper;
+                MURepairOper.Set_TargetBuild(AMUShop);
+                MURepairOper.gameObject.transform.localPosition = Vector2.zero;
+                MURepairOper.gameObject.SetActive(false);
+            }
 
             room.Offset(_TempID);
             Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
+
+            _Generated = true;
         }
     }
 
@@ -597,8 +630,18 @@ public class StageManager : Singleton<StageManager>
     #region Prison
 
     // 皑苛 规 窍唱 积己
-    private void Gen_PrisonRoom(GenPrisonRoomData _PrisonRoomData, int _TempID)
+    private void Gen_PrisonRoom(GenPrisonRoomData _PrisonRoomData, int _TempID, out bool _Generated)
     {
+        _Generated = false;
+        GameProgressJsonData data = SaveDataManager.Instance.JsonData.GameProgressData;
+
+        switch (_PrisonRoomData.TypeID)
+        {
+            case 0: if (!data.UsableSTPrison) return; break;
+            case 1: if (!data.UsableUTPrison) return; break;
+            case 2: if (!data.UsableNTPrison) return; break;
+        }
+
         if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_PrisonRoomData.ID], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
@@ -627,6 +670,8 @@ public class StageManager : Singleton<StageManager>
 
             room.Offset(_TempID);
             Set_NormalRelativeVec(room, _ConnectedRoomAmount: 1, _ApplySpecialExist: true);
+
+            _Generated = true;
         }
     }
 
