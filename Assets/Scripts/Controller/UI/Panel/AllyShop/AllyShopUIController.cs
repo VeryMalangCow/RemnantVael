@@ -184,6 +184,9 @@ public class AllyShopUIController : ShopUIController
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
+
+        for (int i = 0; i < InStateSyncEUIList.Count; i++)
+            InStateSyncEUIList[i].Set_Color();
     }
 
     #endregion

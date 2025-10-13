@@ -36,14 +36,9 @@ public class AllySyncIconEUIController : ElementUIController
     {
         ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
         ProgressMaxTxt.text = $"/{AllyController.SyncMax}";
-        ThisConnectStateImg.color = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
-        Set_ConnectUI(false);
 
-        List<Image> list = DevTool.Get_ChildList<Image>(CompletelyCG.gameObject.transform);
-        for (int i = 0; i < list.Count; i++)
-        {
-            list[i].color = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
-        } 
+        Set_ConnectUI(false);
+        Set_Color();
     }
 
     #endregion
@@ -73,6 +68,17 @@ public class AllySyncIconEUIController : ElementUIController
     public void Set_Completely(bool _IsCompletely)
     {
         CompletelyCG.gameObject.SetActive(_IsCompletely);
+    }
+
+
+    public void Set_Color()
+    {
+        ThisConnectStateImg.color = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+        List<Image> list = DevTool.Get_ChildList<Image>(CompletelyCG.gameObject.transform);
+        for (int i = 0; i < list.Count; i++)
+        {
+            list[i].color = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+        }
     }
 
     #endregion

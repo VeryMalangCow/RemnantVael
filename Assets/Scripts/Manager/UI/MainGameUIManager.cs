@@ -357,6 +357,4 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     }
 
     #endregion
-
-    
 }

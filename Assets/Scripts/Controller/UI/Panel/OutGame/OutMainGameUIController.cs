@@ -46,7 +46,7 @@ public class OutMainGameUIController : SinglePanelUIController
 
     #endregion
 
-    #region Option & State
+    #region - Option
 
     [Space(10)]
     [Header("=== Option")]
@@ -66,6 +66,45 @@ public class OutMainGameUIController : SinglePanelUIController
         [SerializeField] public FillScrollbarEUIController BGMVolumePanelEUI;
         [SerializeField] public FillScrollbarEUIController SFXVolumePanelEUI;
 
+        public void Offset(OutMainGameUIController _UIController)
+        {
+            BackBtn.OwnerUIController = _UIController;
+            BackBtn.Offset();
+
+            ApplyBtn.OwnerUIController = _UIController;
+            ApplyBtn.Offset();
+
+            LanguagePanelEUI.Set_OwnerUIController(_UIController);
+            LanguagePanelEUI.Offset();
+
+            ScreenModePanelEUI.Set_OwnerUIController(_UIController);
+            ScreenModePanelEUI.Offset();
+
+            ResolutionPanelEUI.Set_OwnerUIController(_UIController);
+            ResolutionPanelEUI.Offset();
+
+            FPSPanelEUI.Set_OwnerUIController(_UIController);
+            FPSPanelEUI.Offset();
+
+            BGMVolumePanelEUI.Set_OwnerUIController(_UIController);
+            BGMVolumePanelEUI.Offset();
+
+            SFXVolumePanelEUI.Set_OwnerUIController(_UIController);
+            SFXVolumePanelEUI.Offset();
+        }
+
+        public void Set_Panel()
+        {
+            PanelRT.gameObject.SetActive(true);
+            WarningTxt.gameObject.SetActive(false);
+            LanguagePanelEUI.Set_Item(GameManager.LanguageID);
+            ScreenModePanelEUI.Set_Item((int)GameManager.ScreenMode);
+            ResolutionPanelEUI.Set_Item((int)GameManager.ResolutionMode);
+            FPSPanelEUI.Set_Item((int)GameManager.FPS);
+            BGMVolumePanelEUI.Set_Value(SoundManager.Instance.BVolume);
+            SFXVolumePanelEUI.Set_Value(SoundManager.Instance.SVolume);
+        }
+
         public void Set_LanguageTxt()
         {
             WarningTxt.text = ResourceManager.Instance.Get_StaticDesc(31);
@@ -80,74 +119,152 @@ public class OutMainGameUIController : SinglePanelUIController
         }
     }
 
+    #endregion
+
+    #region - State
+
     [Space(10)]
     [Header("=== State")]
     [SerializeField] private StateUIController StateUI;
     [Serializable] private class StateUIController
     {
+        #region Value
+
         [SerializeField] public RectTransform PanelRT;
         [SerializeField] public OwnBtnEUIController BackBtn;
+        [SerializeField] public OwnBtnEUIController ChangeTypeBtn;
+        [SerializeField] public bool IsBUPanelOn = true;
 
-        [Space(10)]
-        [Header("=== Player")]
         [SerializeField] private TMP_Text PlayerStateNameTxt;
-        [SerializeField] private ScrollPanelEUIController PlayerScrollEUI;
+        [SerializeField] private TMP_Text AllyStateNameTxt;
+        [SerializeField] private Image[] InnerImgArr;
+
+        #endregion
+
+        #region Value - Player
+
         // DMG, ROF, CC, CD, MS, AR, KB
         // MaxEP, ESValue, SkillCost, Resist
         // WalkS, WalkSWhileS, DashP, AvoidC
         // Skill 00: Cooltime, Power, Tier
         // Skill 01: Cooltime, Power, Tier
+        [Space(10)]
+        [Header("=== Player - BU")]
+        [SerializeField] private GameObject PlayerBUPanelGO;
+        [SerializeField] private ScrollPanelEUIController PlayerBUScrollEUI;
         [SerializeField] private StandbyPlayerBUEUIController[] BUEUIArr;
-        [SerializeField] private Image[] BUInnerImgArr;
 
         [Space(10)]
-        [Header("=== Ally")]
-        [SerializeField] private TMP_Text AllyStateNameTxt;
+        [Header("=== Player - MU")]
+        [SerializeField] private GameObject PlayerMUPanelGO;
+        [SerializeField] private ScrollPanelEUIController PlayerMUScrollEUI;
+        [SerializeField] private StandbyPlayerMUEUIController[] MUEUIArr;
+        [SerializeField] private StandbyPlayerSynergyEUIController[] SynergyEUIArr;
+
+        #endregion
+
+        #region Value - Ally
+
+        [Space(10)]
+        [Header("=== Ally - BU")]
         [SerializeField] private ScrollPanelEUIController AllyScrollEUI;
         [SerializeField] private GameObject AllyBUEUIPrefab;
         [HideInInspector] private List<StandbyAllyBUEUIController> AllyBUEUIList = new List<StandbyAllyBUEUIController>();
 
-        #region Set
+        #endregion
 
-        public void Offset()
+        #region Offset
+
+        public void Offset(OutMainGameUIController _UIController)
         {
-            PlayerScrollEUI.Offset();
+            BackBtn.OwnerUIController = _UIController;
+            BackBtn.Offset();
+
+            ChangeTypeBtn.OwnerUIController = _UIController;
+            ChangeTypeBtn.Offset();
+
+            PlayerBUScrollEUI.Offset();
+            PlayerMUScrollEUI.Offset();
+
             AllyScrollEUI.Offset();
 
             for (int i = 0; i < BUEUIArr.Length; i++)
                 BUEUIArr[i].Offset();
+
+            for (int i = 0; i < MUEUIArr.Length; i++)
+                MUEUIArr[i].Offset();
+
+            for (int i = 0; i < SynergyEUIArr.Length; i++)
+                SynergyEUIArr[i].Offset();
+
+            Set_Panel(true);
         }
+
+
+        #endregion
+
+        #region Panel
+
+        public void Change_Panel()
+        {
+            Set_Panel(!IsBUPanelOn);
+        }
+
+        public void Set_Panel(bool _IsBUPanelOn)
+        {
+            IsBUPanelOn = _IsBUPanelOn;
+
+            PlayerBUPanelGO.gameObject.SetActive(_IsBUPanelOn);
+            PlayerMUPanelGO.gameObject.SetActive(!_IsBUPanelOn);
+
+            for (int i = 0; i < AllyBUEUIList.Count; i++)
+            {
+                AllyBUEUIList[i].Set_Panel(_IsBUPanelOn);
+            }
+        }
+
+        #endregion
+
+        #region Set
 
         string Get(int _Index) => ResourceManager.Instance.Get_StaticWord(_Index);
 
-        #endregion
-
-        #region Color
-
-        public void Set_PlayerColor(Color _ImgClr, Color _TxtClr)
+        public void Set_Color(Color _ImgClr, Color _TxtClr)
         {
+            for (int i = 0; i < InnerImgArr.Length; i++)
+                InnerImgArr[i].color = _ImgClr;
+
+            #region Player
+
             PlayerStateNameTxt.color = _ImgClr;
 
+            // BU
             for (int i = 0; i < BUEUIArr.Length; i++)
                 BUEUIArr[i].Set_Color(_ImgClr, _TxtClr);
 
-            for (int i = 0; i < BUInnerImgArr.Length; i++)
-                BUInnerImgArr[i].color = _ImgClr;
-        }
+            // MU
+            for (int i = 0; i < MUEUIArr.Length; i++)
+                MUEUIArr[i].Set_Color(_TxtClr);
 
-        public void Set_AllyColor(Color _ImgClr, Color _TxtClr)
-        {
+            for (int i = 0; i < SynergyEUIArr.Length; i++)
+                SynergyEUIArr[i].Set_Color(_ImgClr, _TxtClr);
+
+            #endregion
+
+            #region Ally
+
             AllyStateNameTxt.color = _ImgClr;
 
+            for (int i = 0; i < AllyBUEUIList.Count; i++)
+                AllyBUEUIList[i].Set_Color();
 
+            #endregion
         }
 
-        #endregion
-
-        #region Language
-
-        public void Set_PlayerLanguageTxt()
+        public void Set_LanguageTxt()
         {
+            #region Player
+
             PlayerStateNameTxt.text = $"<size=70%><color=#808080>{Get(102)} - </color></size><b>[{Get(113)}]</b>";
 
             // DMG, ROF, CC, CD, MS, AR, KB
@@ -158,44 +275,49 @@ public class OutMainGameUIController : SinglePanelUIController
             BUEUIArr[4].Set_LanguageTxt(Get(43));
             BUEUIArr[5].Set_LanguageTxt(Get(14));
             BUEUIArr[6].Set_LanguageTxt(Get(44));
+
             // MaxEP, ESValue, SkillCost, Resist
             BUEUIArr[7].Set_LanguageTxt(Get(8));
             BUEUIArr[8].Set_LanguageTxt(Get(38));
             BUEUIArr[9].Set_LanguageTxt(Get(39));
             BUEUIArr[10].Set_LanguageTxt(Get(37));
+
             // WalkS, WalkSWhileS, DashP, AvoidC
             BUEUIArr[11].Set_LanguageTxt(Get(40));
             BUEUIArr[12].Set_LanguageTxt(Get(41));
             BUEUIArr[13].Set_LanguageTxt(Get(10));
             BUEUIArr[14].Set_LanguageTxt(Get(36));
+
             // Skill 00: Cooltime, Power, Tier
             BUEUIArr[15].Set_LanguageTxt(Get(45));
             BUEUIArr[16].Set_LanguageTxt(Get(18));
             BUEUIArr[17].Set_LanguageTxt(Get(17));
+
             // Skill 01: Cooltime, Power, Tier
             BUEUIArr[18].Set_LanguageTxt(Get(45));
             BUEUIArr[19].Set_LanguageTxt(Get(18));
             BUEUIArr[20].Set_LanguageTxt(Get(17));
-        }
 
-        public void Set_AllyLanguageTxt()
-        {
+            #endregion
+
+            #region Ally
+
+            // Ally - BU
             AllyStateNameTxt.text = $"<size=70%><color=#808080>{Get(102)} - </color><color=#FFFFFF></size><b>[{Get(95)}]</b></color>";
 
-
+            #endregion
         }
 
-        #endregion
-
-        #region State
-
-        public void Set_PlayerState()
+        public void Set_State(List<AllyController> _AllAlly)
         {
-            // Element
+            #region Player
+
             PlayerController pc = PlayerManager.Instance.PlayerController;
             PlayerWeaponController pwc = pc.BaseWeapon;
             SkillWeaponController swc = pc.SkillWeapon;
             PlayerDashController pdc = pc.DashController;
+
+            #region Player BU
 
             // DMG, ROF, CC, CD, MS, AR, KB
             BUEUIArr[0].Set(pwc.BaseDamage.CurrentLevel.Value);
@@ -223,10 +345,40 @@ public class OutMainGameUIController : SinglePanelUIController
             BUEUIArr[18].Set(swc.SkillList[1].MaxCooltime.CurrentLevel.Value);
             BUEUIArr[19].Set(swc.SkillList[1].Power.CurrentLevel.Value);
             BUEUIArr[20].Set(swc.SkillList[1].Tier.CurrentLevel.Value);
-        }
 
-        public void Set_AllyState(List<AllyController> _AllAlly)
-        {
+            #endregion
+
+            #region Player MU
+
+            // Module
+            List<CopyModuleState> states = ModuleItemManager.Instance.Get_EquippedModuleState();
+            for (int i = 0; i < MUEUIArr.Length; i++)
+            {
+                
+                if (i < states.Count)
+                    MUEUIArr[i].SetOn(states[i].MS);
+                else
+                    MUEUIArr[i].SetOff();
+            }
+
+            // Sync
+            for (int i = 0; i < SynergyEUIArr.Length; i++)
+                SynergyEUIArr[i].SetOff();
+
+            int index = 0;
+            Dictionary<int, int> syncData = ModuleItemManager.Instance.Get_CurrentMainChipData();
+            foreach (KeyValuePair<int, int> data in syncData)
+            {
+                SynergyEUIArr[index].SetOn(data.Key, data.Value);
+                index++;
+            }
+
+            #endregion
+
+            #endregion
+
+            #region Ally
+
             TryGen_AllyStateEUI(_AllAlly.Count);
 
             for (int i = 0; i < AllyBUEUIList.Count; i++)
@@ -234,15 +386,21 @@ public class OutMainGameUIController : SinglePanelUIController
                 if (_AllAlly.Count > i)
                 {
                     AllyBUEUIList[i].gameObject.SetActive(true);
+
+                    #region Ally BU
+
                     AllyBUEUIList[i].Set_Data(_AllAlly[i]);
+
+                    #endregion
                 }
                 else
                 {
                     AllyBUEUIList[i].gameObject.SetActive(false);
                 }
             }
-        }
 
+            #endregion
+        }
 
         private void TryGen_AllyStateEUI(int _TargetAmount)
         {
@@ -267,7 +425,6 @@ public class OutMainGameUIController : SinglePanelUIController
         }
 
         #endregion
-
     }
 
 
@@ -305,31 +462,8 @@ public class OutMainGameUIController : SinglePanelUIController
 
     private void Offset_EUI()
     {
-        OptionUI.BackBtn.OwnerUIController = this;
-        OptionUI.BackBtn.Offset();
-
-        OptionUI.ApplyBtn.OwnerUIController = this;
-        OptionUI.ApplyBtn.Offset();
-
-        OptionUI.LanguagePanelEUI.Set_OwnerUIController(this);
-        OptionUI.LanguagePanelEUI.Offset();
-
-        OptionUI.ScreenModePanelEUI.Set_OwnerUIController(this);
-        OptionUI.ScreenModePanelEUI.Offset();
-
-        OptionUI.ResolutionPanelEUI.Set_OwnerUIController(this);
-        OptionUI.ResolutionPanelEUI.Offset();
-
-        OptionUI.FPSPanelEUI.Set_OwnerUIController(this);
-        OptionUI.FPSPanelEUI.Offset();
-
-        OptionUI.BGMVolumePanelEUI.Set_OwnerUIController(this);
-        OptionUI.BGMVolumePanelEUI.Offset();
-
-        OptionUI.SFXVolumePanelEUI.Set_OwnerUIController(this);
-        OptionUI.SFXVolumePanelEUI.Offset();
-
-        StateUI.Offset();
+        OptionUI.Offset(this);
+        StateUI.Offset(this);
     }
 
     private void Offset_Btn()
@@ -388,8 +522,7 @@ public class OutMainGameUIController : SinglePanelUIController
         SubColorCompList.Clear();
         SubColorCompList = null;
 
-        StateUI.Set_PlayerColor(mainClr, subClr);
-        StateUI.Set_AllyColor(mainClr, subClr);
+        StateUI.Set_Color(mainClr, subClr);
     }
 
     private void Offset_PosValue()
@@ -565,6 +698,11 @@ public class OutMainGameUIController : SinglePanelUIController
             SetOff_Panel(StateUI.PanelRT);
             return true;
         }
+        if (CurrentBtn == StateUI.ChangeTypeBtn)
+        {
+            StateUI.Change_Panel();
+            return true;
+        }
 
         return false;
     }
@@ -591,15 +729,7 @@ public class OutMainGameUIController : SinglePanelUIController
         BaseInteractingPanelTxt.text = ResourceManager.Instance.Get_StaticWord(20);
         SetOn_Panel(OutMainGameUIType.OptionPanel, OptionUI.PanelRT);
 
-        // Element
-        OptionUI.PanelRT.gameObject.SetActive(true);
-        OptionUI.WarningTxt.gameObject.SetActive(false);
-        OptionUI.LanguagePanelEUI.Set_Item(GameManager.LanguageID);
-        OptionUI.ScreenModePanelEUI.Set_Item((int)GameManager.ScreenMode);
-        OptionUI.ResolutionPanelEUI.Set_Item((int)GameManager.ResolutionMode);
-        OptionUI.FPSPanelEUI.Set_Item((int)GameManager.FPS);
-        OptionUI.BGMVolumePanelEUI.Set_Value(SoundManager.Instance.BVolume);
-        OptionUI.SFXVolumePanelEUI.Set_Value(SoundManager.Instance.SVolume);
+        OptionUI.Set_Panel();
     }
 
     #endregion
@@ -613,13 +743,13 @@ public class OutMainGameUIController : SinglePanelUIController
         BaseInteractingPanelTxt.text = ResourceManager.Instance.Get_StaticWord(102);
         SetOn_Panel(OutMainGameUIType.StatePanel, StateUI.PanelRT);
 
-        StateUI.Set_PlayerState();
-        StateUI.Set_AllyState(AllyManager.Instance.AllAlly);
+        StateUI.Set_Panel(true);
+        StateUI.Set_State(AllyManager.Instance.AllAlly);
     }
 
     #endregion
 
-    #region Set (Module)
+    #region Set (Capsule)
 
     private void SetOn_Panel(OutMainGameUIType _Type, RectTransform _RT)
     {
@@ -673,8 +803,7 @@ public class OutMainGameUIController : SinglePanelUIController
         DevTool.Get_ComponentTType<TMP_Text>(QuitBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(QuitBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(21);
 
         OptionUI.Set_LanguageTxt();
-        StateUI.Set_PlayerLanguageTxt();
-        StateUI.Set_AllyLanguageTxt();
+        StateUI.Set_LanguageTxt();
 
         int langId = 0;
         switch (CurrentType)
@@ -686,6 +815,11 @@ public class OutMainGameUIController : SinglePanelUIController
         }
         BaseInteractingPanelTxt.text = ResourceManager.Instance.Get_StaticWord(langId);
     }
+
+    #endregion
+
+    #region Set (Color)
+
 
     #endregion
 }

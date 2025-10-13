@@ -10122,16 +10122,17 @@ MonoBehaviour:
       ScreenMode: 0
       ResolutionMode: 2
       FPS: 3
-      BGMVolume: 0.5
-      SFXVolume: 0.5
+      BGMVolume: 0.1
+      SFXVolume: 0.1
     GameProgressData:
-      UsableBU: 0
-      UsableMU: 0
-      UsableABU: 0
-      UsableAMU: 0
-      UsableSTPrison: 0
-      UsableUTPrison: 0
-      UsableNTPrison: 0
+      UsableVault: 1
+      UsableBU: 1
+      UsableMU: 1
+      UsableABU: 1
+      UsableAMU: 1
+      UsableSTPrison: 1
+      UsableUTPrison: 1
+      UsableNTPrison: 1
 --- !u!1001 &1851887257
 PrefabInstance:
   m_ObjectHideFlags: 0

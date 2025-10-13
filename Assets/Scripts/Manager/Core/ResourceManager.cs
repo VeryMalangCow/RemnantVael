@@ -988,10 +988,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         return RequestName_Data.Get_Word(_ID);
     }
+
     public string Get_RequestCompleteDesc(int _ID)
     {
         return RequestCompleteDesc_Data.Get_Word(_ID);
     }
+
     public string Get_RequestFailDesc(int _ID)
     {
         return RequestFailDesc_Data.Get_Word(_ID);
@@ -1002,6 +1004,18 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public string Get_TunerDescName(int _Index)
     {
         return TunerStateName_Data.Get_Word(_Index);
+    }
+
+    // Module Name
+    public string Get_ModuleName(int _ID)
+    {
+        return ModuleItemName_Data.Get_Word(_ID);
+    }
+
+    // Module Name
+    public string Get_SynergyName(int _ID)
+    {
+        return MainChipName_Data.Get_Word(_ID);
     }
 
     // MainChip Ally Desc

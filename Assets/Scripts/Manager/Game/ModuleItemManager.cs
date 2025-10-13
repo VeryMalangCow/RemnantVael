@@ -110,29 +110,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         //StartCoroutine(CorTest());
     }
 
-    private IEnumerator CorTest()
-    {
-        yield return new WaitForSeconds(1f);
-
-        SynchoronyState mcs0 = SynchoronyState.Get_AllSynchoronyState()[5];
-        mcs0.Set_State(5, 3);
-        IWhenSync_CriticalHitList.Add((IWhenSync_CriticalHit)mcs0);
-
-        SynchoronyState mcs1 = SynchoronyState.Get_AllSynchoronyState()[6];
-        mcs1.Set_State(6, 3);
-        IWhenSync_StartList.Add((IWhenSync_Start)mcs1);
-
-        SynchoronyState mcs2 = SynchoronyState.Get_AllSynchoronyState()[7];
-        mcs2.Set_State(7, 3); 
-        IWhenSync_HitList.Add((IWhenSync_Hit)mcs2);
-
-        SynchoronyState mcs3 = SynchoronyState.Get_AllSynchoronyState()[8];
-        mcs3.Set_State(8, 3); 
-        IWhenSync_AfterFireList.Add((IWhenSync_AfterFire)mcs3);
-
-        ActiveSync_Start();
-    }
-
     #endregion
 
     #region Reset
