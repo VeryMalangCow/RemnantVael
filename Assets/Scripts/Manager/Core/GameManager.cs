@@ -9,7 +9,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -1358,19 +1357,19 @@ public class DevTool
         return _Col.tag == _Tag &&
             _Col.transform.parent.TryGetComponent(out _TType);
     }
-/*
-    public static bool Has_SolidColliderAt(Vector2 _WorldPos, LayerMask _LayerMask = default)
-    {
-        Collider2D hit;
+    /*
+        public static bool Has_SolidColliderAt(Vector2 _WorldPos, LayerMask _LayerMask = default)
+        {
+            Collider2D hit;
 
-        if (_LayerMask.value == 0) // 레이어 지정 없으면 전부 검사
-            hit = Physics2D.OverlapPoint(_WorldPos);
-        else
-            hit = Physics2D.OverlapPoint(_WorldPos, _LayerMask);
+            if (_LayerMask.value == 0) // 레이어 지정 없으면 전부 검사
+                hit = Physics2D.OverlapPoint(_WorldPos);
+            else
+                hit = Physics2D.OverlapPoint(_WorldPos, _LayerMask);
 
-        return hit != null && !hit.isTrigger;
-    }
-*/
+            return hit != null && !hit.isTrigger;
+        }
+    */
     #endregion
 
     #region About Nav

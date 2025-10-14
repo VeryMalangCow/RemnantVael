@@ -1482,7 +1482,7 @@ MonoBehaviour:
   ThisSR: {fileID: 8514484191356774825}
   TargetRange: 0.6
   ThisRb: {fileID: 334434472153228344}
-  AccelerationSpeed: 12
+  AccelerationSpeed: 2
   IsDead: 0
   CurrentSP:
     value: 0
@@ -1508,6 +1508,7 @@ MonoBehaviour:
   - Sprite: {fileID: -147571887, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
     ShadowSize: {x: 0.3, y: 0.15}
   ParticleThrowDis: 1
+  NameID: 0
   BaseWeapon: {fileID: 1781130902238718875}
   SkillWeapon: {fileID: 2333396969492081116}
   DashController: {fileID: 8889954111637353817}
