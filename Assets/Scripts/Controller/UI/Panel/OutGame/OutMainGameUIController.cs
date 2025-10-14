@@ -51,7 +51,7 @@ public class OutMainGameUIController : SinglePanelUIController
     [Space(10)]
     [Header("=== Option")]
     [SerializeField] private OptionUIController OptionUI; 
-    [Serializable] private class OptionUIController
+    [Serializable] public class OptionUIController
     {
         [SerializeField] public RectTransform PanelRT;
         [SerializeField] public OwnBtnEUIController BackBtn;
@@ -713,7 +713,7 @@ public class OutMainGameUIController : SinglePanelUIController
 
     private void Set_OptionValueApply()
     {
-        UnitManager.Instance.Set_LanguageFont(OptionUI.LanguagePanelEUI.Get_CurrentIndex());
+        ResourceManager.Instance.Set_LanguageFont(OptionUI.LanguagePanelEUI.Get_CurrentIndex());
         GameManager.Instance.Set_Screen(
             (eResolution)OptionUI.ResolutionPanelEUI.Get_CurrentIndex(),
             (eScreenMode)OptionUI.ScreenModePanelEUI.Get_CurrentIndex());
@@ -815,11 +815,6 @@ public class OutMainGameUIController : SinglePanelUIController
         }
         BaseInteractingPanelTxt.text = ResourceManager.Instance.Get_StaticWord(langId);
     }
-
-    #endregion
-
-    #region Set (Color)
-
 
     #endregion
 }

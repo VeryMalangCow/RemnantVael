@@ -110,6 +110,7 @@ public class TitleInputManager : Singleton<TitleInputManager>
 
         // Title
         PlayerInput.actions["TU_Select"].performed += Input_TU_Select;
+        PlayerInput.actions["TU_OutPanel"].performed += Input_TU_OutPanel;
     }
 
     public void SetOff_InputAction()
@@ -119,6 +120,7 @@ public class TitleInputManager : Singleton<TitleInputManager>
 
         // Title
         PlayerInput.actions["TU_Select"].performed -= Input_TU_Select;
+        PlayerInput.actions["TU_OutPanel"].performed -= Input_TU_OutPanel;
     }
 
     #endregion
@@ -129,6 +131,12 @@ public class TitleInputManager : Singleton<TitleInputManager>
     {
         if (_InputValue.ReadValueAsButton())
             TitleLobbyUIManager.Instance.TitleLobby_UIController.Try_Interact();
+    }
+
+    private void Input_TU_OutPanel(InputAction.CallbackContext _InputValue)
+    {
+        if (_InputValue.ReadValueAsButton())
+            TitleLobbyUIManager.Instance.TitleLobby_UIController.Try_OutInteract();
     }
 
     #endregion

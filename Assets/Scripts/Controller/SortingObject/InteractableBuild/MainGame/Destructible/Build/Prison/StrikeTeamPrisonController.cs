@@ -42,7 +42,7 @@ public class StrikeTeamPrisonController : PrisonController
     {
         base.Set_LanguageTxt();
 
-        TypeTxt.text = $"<size=150%>)</size> {UnitManager.Instance.StrikeTeamString}";
+        TypeTxt.text = $"<size=150%>)</size> {ResourceManager.Instance.StrikeTeamString}";
     }
 
     #endregion

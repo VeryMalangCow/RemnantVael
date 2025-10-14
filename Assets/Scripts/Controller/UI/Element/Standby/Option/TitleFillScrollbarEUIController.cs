@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FillScrollbarEUIController : ElementUIController
+public class TitleFillScrollbarEUIController : ElementUIController
 {
     #region Value
 
@@ -16,14 +16,14 @@ public class FillScrollbarEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== LR")]
-    [SerializeField] public OwnBtnEUIController LeftBtn;
-    [SerializeField] public OwnBtnEUIController RightBtn;
+    [SerializeField] public TitleOwnBtnEUIController LeftBtn;
+    [SerializeField] public TitleOwnBtnEUIController RightBtn;
 
     #endregion
 
     #region Offset
 
-    public void Set_OwnerUIController(SinglePanelUIController _OwnerUIController)
+    public void Set_OwnerUIController(TitleLobbyUIController _OwnerUIController)
     {
         LeftBtn.OwnerUIController = _OwnerUIController;
         RightBtn.OwnerUIController = _OwnerUIController;

@@ -41,7 +41,7 @@ public class UplinkTeamPrisonController : PrisonController
     {
         base.Set_LanguageTxt();
 
-        TypeTxt.text = $"<size=150%>)</size> {UnitManager.Instance.UplinkTeamString}";
+        TypeTxt.text = $"<size=150%>)</size> {ResourceManager.Instance.UplinkTeamString}";
     }
 
     #endregion

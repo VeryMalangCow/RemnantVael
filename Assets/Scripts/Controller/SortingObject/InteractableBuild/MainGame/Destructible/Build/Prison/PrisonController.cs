@@ -122,7 +122,7 @@ public class PrisonController : InteractableBuildController
         Offset_Comp();
         Set_LanguageTxt();
 
-        UnitManager.Instance.AllPrison.Add(this);
+        ResourceManager.Instance.AllPrison.Add(this);
     }
 
     #endregion
@@ -264,7 +264,7 @@ public class PrisonController : InteractableBuildController
 
     public virtual void Set_LanguageTxt()
     {
-        DangerTxt.text = $"{UnitManager.Instance.RatingString}: ({Rating + 1}) {UnitManager.Instance.PrisonRateStringList[Rating]} <size=150%>(</size>";
+        DangerTxt.text = $"{ResourceManager.Instance.RatingString}: ({Rating + 1}) {ResourceManager.Instance.PrisonRateStringList[Rating]} <size=150%>(</size>";
 
         if (PuzzleOper != null) 
             PuzzleOper.Set_Language();

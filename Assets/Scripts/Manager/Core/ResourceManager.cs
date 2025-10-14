@@ -2,12 +2,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ResourceManager : PersistentSingleton<ResourceManager>
 {
     #region Value
+
+    #region - Inspector
+
+    [Space(10)]
+    [Header("=== Font")]
+    [SerializeField] public List<LanguageTxt> LanguageTxtList;
+
+    // Language
+    [HideInInspector] private HashSet<LanguageTxtController> AllLanguageTxtController = new HashSet<LanguageTxtController>();
+
+    // string
+    [HideInInspector] public string RatingString;
+    [HideInInspector] public List<string> PrisonRateStringList;
+    [HideInInspector] public string StrikeTeamString;
+    [HideInInspector] public string UplinkTeamString;
+    [HideInInspector] public string NeoTeamString;
+    [HideInInspector] public List<string> AllyCardRateList;
+
+    // Prison
+    [HideInInspector] public HashSet<PrisonController> AllPrison = new HashSet<PrisonController>();
+
+
+    #endregion
 
     #region - Amount Set
 
@@ -421,6 +444,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         base.Awake();
 
         Offset();
+    }
+
+    private void Start()
+    {
+        Set_LanguageTxt();
     }
 
     #endregion
@@ -1181,6 +1209,82 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
+    #region Set Language
+
+    public void Add_LanguageTxt(LanguageTxtController _LangTxt)
+    {
+        AllLanguageTxtController.Add(_LangTxt);
+    }
+
+    public void Clear_LanguageTxt()
+    {
+        AllLanguageTxtController.Clear();
+    }
+
+    public void Set_LanguageFont(int _LangID)
+    {
+        if (GameManager.LanguageID == _LangID) return;
+        GameManager.LanguageID = _LangID;
+        SaveDataManager.Instance.JsonData.OptionData.LanguageID = GameManager.LanguageID;
+
+        // Change String
+        Set_LanguageTxt();
+
+        // Change Font Asset
+        foreach (LanguageTxtController ltc in AllLanguageTxtController)
+            ltc.Set_Font(GameManager.LanguageID);
+
+        string sceneName = SceneManager.GetActiveScene().name;
+        // Change UI
+        if (sceneName == "MainGame")
+        {
+            // UI
+            MainGameUIManager.Instance.Set_LanguageTxt();
+
+            // Ally
+            AllyManager.Instance.Set_Language();
+
+            // Change PrisonInfo
+            foreach (PrisonController prison in AllPrison)
+                prison.Set_LanguageTxt();
+        }
+        else if (sceneName == "TitleLobby")
+        {
+            // UI
+            TitleLobbyUIManager.Instance.Set_LanguageTxt();
+        }
+
+    }
+
+    private void Set_LanguageTxt()
+    {
+        RatingString = Get_StaticWord(69);
+        PrisonRateStringList = new List<string>
+        {
+            Get_StaticWord(64),
+            Get_StaticWord(65),
+            Get_StaticWord(66),
+            Get_StaticWord(67),
+            Get_StaticWord(68)
+        };
+
+        StrikeTeamString = $"{Get_StaticWord(61)}<size=85%> ({Get_StaticWord(71)})</size>";
+        UplinkTeamString = $"{Get_StaticWord(62)}<size=85%> ({Get_StaticWord(72)})</size>";
+        NeoTeamString = $"{Get_StaticWord(63)}<size=85%> ({Get_StaticWord(73)})</size>";
+
+        AllyCardRateList = new List<string>
+        {
+            Get_StaticWord(76),
+            Get_StaticWord(77),
+            Get_StaticWord(78),
+            Get_StaticWord(79),
+            Get_StaticWord(80),
+            Get_StaticWord(81)
+        };
+    }
+
+
+    #endregion
 
     #region To Prefab
 

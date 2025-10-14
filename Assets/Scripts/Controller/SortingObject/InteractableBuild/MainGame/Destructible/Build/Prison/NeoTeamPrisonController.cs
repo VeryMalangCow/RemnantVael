@@ -40,7 +40,7 @@ public class NeoTeamPrisonController : PrisonController
     {
         base.Set_LanguageTxt();
 
-        TypeTxt.text = $"<size=150%>)</size> {UnitManager.Instance.NeoTeamString}";
+        TypeTxt.text = $"<size=150%>)</size> {ResourceManager.Instance.NeoTeamString}";
     }
 
     #endregion

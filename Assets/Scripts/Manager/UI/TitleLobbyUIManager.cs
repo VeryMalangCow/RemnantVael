@@ -74,6 +74,15 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     #endregion
 
+    #region Set
+
+    public void Set_LanguageTxt()
+    {
+        TitleLobby_UIController.Set_LanguageTxt();
+    }
+
+    #endregion
+
     #region FirstStart
 
     private void Start_FirstPlay()

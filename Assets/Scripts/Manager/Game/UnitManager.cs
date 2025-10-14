@@ -185,14 +185,6 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
-    #region Txt
-
-    [Space(10)]
-    [Header("=== Font")]
-    [SerializeField] public List<LanguageTxt> LanguageTxtList;
-
-    #endregion
-
     #region Puzzle
 
     [Space(10)]
@@ -229,20 +221,6 @@ public class UnitManager : Singleton<UnitManager>
     #endregion
 
     #region - Hide
-
-    // string
-    [HideInInspector] public string RatingString;
-    [HideInInspector] public List<string> PrisonRateStringList;
-    [HideInInspector] public string StrikeTeamString;
-    [HideInInspector] public string UplinkTeamString;
-    [HideInInspector] public string NeoTeamString;
-    [HideInInspector] public List<string> AllyCardRateList;
-
-    // Language
-    [HideInInspector] private HashSet<LanguageTxtController> AllLanguageTxtController = new HashSet<LanguageTxtController>();
-
-    // Prison
-    [HideInInspector] public HashSet<PrisonController> AllPrison = new HashSet<PrisonController>();
 
     // Request Reward
     [HideInInspector] public Dictionary<string, Sprite> RequestRewardDict = new Dictionary<string, Sprite>();
@@ -286,70 +264,6 @@ public class UnitManager : Singleton<UnitManager>
         Set_DictData();
     }
 
-    private void Start()
-    {
-        Set_LanguageTxt();
-    }
-
-    #endregion
-
-    #region Language
-
-    public void Add_LanguageTxt(LanguageTxtController _LangTxt)
-    {
-        AllLanguageTxtController.Add(_LangTxt);
-    }
-
-    public void Set_LanguageFont(int _LangID)
-    {
-        if (GameManager.LanguageID == _LangID) return;
-        GameManager.LanguageID = _LangID;
-        SaveDataManager.Instance.JsonData.OptionData.LanguageID = GameManager.LanguageID;
-
-        // Change String
-        Set_LanguageTxt();
-
-        // Change Font Asset
-        foreach (LanguageTxtController ltc in AllLanguageTxtController)
-            ltc.Set_Font(GameManager.LanguageID);
-
-        // Change UI
-        MainGameUIManager.Instance.Set_LanguageTxt();
-
-        // Change PrisonInfo
-        foreach (PrisonController prison in AllPrison)
-            prison.Set_LanguageTxt();
-
-        // Ally
-        AllyManager.Instance.Set_Language();
-    }
-
-    private void Set_LanguageTxt()
-    {
-        RatingString = ResourceManager.Instance.Get_StaticWord(69);
-        PrisonRateStringList = new List<string>
-        {
-            ResourceManager.Instance.Get_StaticWord(64),
-            ResourceManager.Instance.Get_StaticWord(65),
-            ResourceManager.Instance.Get_StaticWord(66),
-            ResourceManager.Instance.Get_StaticWord(67),
-            ResourceManager.Instance.Get_StaticWord(68)
-        };
-
-        StrikeTeamString = $"{ResourceManager.Instance.Get_StaticWord(61)}<size=85%> ({ResourceManager.Instance.Get_StaticWord(71)})</size>";
-        UplinkTeamString = $"{ResourceManager.Instance.Get_StaticWord(62)}<size=85%> ({ResourceManager.Instance.Get_StaticWord(72)})</size>";
-        NeoTeamString = $"{ResourceManager.Instance.Get_StaticWord(63)}<size=85%> ({ResourceManager.Instance.Get_StaticWord(73)})</size>";
-
-        AllyCardRateList = new List<string>
-        {
-            ResourceManager.Instance.Get_StaticWord(76),
-            ResourceManager.Instance.Get_StaticWord(77),
-            ResourceManager.Instance.Get_StaticWord(78),
-            ResourceManager.Instance.Get_StaticWord(79),
-            ResourceManager.Instance.Get_StaticWord(80),
-            ResourceManager.Instance.Get_StaticWord(81)
-        };
-    }
 
     #endregion
 

@@ -94,6 +94,8 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 
     public void Play_LoadScene(string _SceneName)
     {
+        ResourceManager.Instance.Clear_LanguageTxt();
+
         StartCoroutine(Play_LoadSceneAsync_Cor(_SceneName));
     }
 

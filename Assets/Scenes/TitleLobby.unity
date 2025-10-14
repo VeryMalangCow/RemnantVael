@@ -894,22 +894,44 @@ MonoBehaviour:
   - {fileID: 4593839933363528314, guid: ce7a8006effa57a40a58c614cabbe5e2, type: 3}
   JsonFilePath: Json
   CharacterPath: CharacterData
-  ItemPath: 
-  OptionPath: 
+  ItemPath: ItemData
+  OptionPath: OptionData
+  GameProgressPath: GameProgressPath
   JsonData:
     CharacterData:
     - ID: 0
       CanUse: 1
     - ID: 1
       CanUse: 0
-    ItemData: []
+    ItemData:
+    - ID: 0
+      Name: Premium Credit
+      Amount: 0
+    - ID: 1
+      Name: Proto Core
+      Amount: 0
+    - ID: 2
+      Name: Ether Core
+      Amount: 0
+    - ID: 3
+      Name: Origin Core
+      Amount: 0
     OptionData:
-      LanguageID: 0
+      LanguageID: 1
       ScreenMode: 0
       ResolutionMode: 2
       FPS: 3
-      BGMVolume: 0.2
-      SFXVolume: 0.2
+      BGMVolume: 0.1
+      SFXVolume: 0.1
+    GameProgressData:
+      UsableVault: 1
+      UsableBU: 1
+      UsableMU: 1
+      UsableABU: 1
+      UsableAMU: 1
+      UsableSTPrison: 1
+      UsableUTPrison: 1
+      UsableNTPrison: 1
 --- !u!4 &680521050
 Transform:
   m_ObjectHideFlags: 0
@@ -1803,6 +1825,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01426f0a7d6066d4bbf9160f1f16a237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LanguageTxtList:
+  - ID: 0
+    FontAssets:
+    - {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
+    - {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
+    - {fileID: 11400000, guid: 7421415d68e53434489f5eb9cce74908, type: 2}
+  - ID: 1
+    FontAssets:
+    - {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
+    - {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
+    - {fileID: 11400000, guid: 7421415d68e53434489f5eb9cce74908, type: 2}
   MapLobbyImg_Data: []
   MapLobbyMaterialIndexList_Data: 
 --- !u!4 &1463225871
