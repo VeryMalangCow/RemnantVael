@@ -526,7 +526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &112929676
 Transform:
   m_ObjectHideFlags: 0
@@ -3637,7 +3637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ThisNav: {fileID: 535791893}
   MapParentTF: {fileID: 1948256983}
-  TargetStageID: 0
+  TargetStageID: 99
   LobbyStageData:
     MapIndexName: Map99
     InfoData:
@@ -4663,6 +4663,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
     - {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
     - {fileID: 11400000, guid: 7421415d68e53434489f5eb9cce74908, type: 2}
+  RatingString: 
+  PrisonRateStringList: []
+  StrikeTeamString: 
+  UplinkTeamString: 
+  NeoTeamString: 
+  AllyCardRateList: []
   MapLobbyImg_Data: []
   MapLobbyMaterialIndexList_Data: 
 --- !u!4 &830584170
@@ -9152,17 +9158,6 @@ MonoBehaviour:
   Prison_StateAC:
     TypeBase: {fileID: 7400000, guid: f7f60388403362a4faeb5759f2834d95, type: 2}
     TypeSpecial: {fileID: 7400000, guid: a344ad4694ce9e142a5213b93881eeef, type: 2}
-  LanguageTxtList:
-  - ID: 0
-    FontAssets:
-    - {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
-    - {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
-    - {fileID: 11400000, guid: 7421415d68e53434489f5eb9cce74908, type: 2}
-  - ID: 1
-    FontAssets:
-    - {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
-    - {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
-    - {fileID: 11400000, guid: 7421415d68e53434489f5eb9cce74908, type: 2}
   AllNSCAnswerSpriteSet:
   - ShapeIndex: 0
     AllAnswerSet:
@@ -9213,12 +9208,6 @@ MonoBehaviour:
   Build_ExplImgGenerator: {fileID: 4532320}
   Enemy_ExplImgGenerator: {fileID: 1129606755}
   OnceTime_AnimGenerator: {fileID: 2002655550}
-  RatingString: 
-  PrisonRateStringList: []
-  StrikeTeamString: 
-  UplinkTeamString: 
-  NeoTeamString: 
-  AllyCardRateList: []
 --- !u!1 &1717915346
 GameObject:
   m_ObjectHideFlags: 0

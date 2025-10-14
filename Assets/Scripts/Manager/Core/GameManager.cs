@@ -5294,8 +5294,12 @@ public class WordData
 
     public string Get_Word(int _ID)
     {
-        if (AllWordData[_ID].ID == _ID) 
+        if (AllWordData.Count > _ID && AllWordData[_ID].ID == _ID) 
             return AllWordData[_ID].Word[GameManager.LanguageID];
+
+        for (int i = 0; i < AllWordData.Count; i++)
+            if (AllWordData[i].ID == _ID)
+                return AllWordData[i].Word[GameManager.LanguageID];
 
         return "";
     }
