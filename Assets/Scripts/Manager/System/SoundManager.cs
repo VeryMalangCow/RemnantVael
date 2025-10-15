@@ -71,6 +71,8 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         string player00Path = playerPath + "Player00/";
 
+        SFXAudioDict.Add("Player00_BreakBullet", Resources.Load<AudioClip>(player00Path + "Player00_BreakBullet"));
+
         // Shot Type Amount
         for (int i = 0; i < 2; i++)
         {
