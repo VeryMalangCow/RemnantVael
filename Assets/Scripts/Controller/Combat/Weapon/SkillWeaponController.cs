@@ -18,20 +18,11 @@ public class SkillWeaponController : PlayerSolarController
 
     #region - Hide
 
-    [HideInInspector] private AudioSource ThisAudioSource;
-
     #endregion
 
     #endregion
 
     #region Offset
-
-    protected override void Offset()
-    {
-        base.Offset();
-
-        ThisAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject);
-    }
 
     private void Offset_Variable(ActiveSkillController _Skill, SatelliteSideController _Satellite)
     {

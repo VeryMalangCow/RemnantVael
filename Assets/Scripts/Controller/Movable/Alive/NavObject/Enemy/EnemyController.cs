@@ -16,7 +16,6 @@ public abstract class EnemyController : NavObjectController
     [Space(10)]
     [Header("=== Comp")]
     [SerializeField] private SortingGroup ThisSG;
-    [SerializeField] private AudioSource ThisAudioSource;
     [SerializeField] public EnemyBuffController BuffController;
 
     [Space(10)]
@@ -50,6 +49,9 @@ public abstract class EnemyController : NavObjectController
     [SerializeField] protected List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
     [SerializeField] protected ContinuousEnemyPattern SpecialPattern;
 
+    [Space(10)]
+    [Header("=== Sound")]
+    [SerializeField] private ASQueueSet ASQueueSet;
 
     #endregion
 
@@ -156,6 +158,7 @@ public abstract class EnemyController : NavObjectController
     private void Offset_Controller()
     {
         BuffController.Offset(this);
+        ASQueueSet.Offset();
     }
 
     #endregion
@@ -459,7 +462,7 @@ public abstract class EnemyController : NavObjectController
 
         // »ç¿îµå
         if (!IsDead)
-        { SoundManager.Instance.Play_2D_SFX(ThisAudioSource, "Enemy_Hitted"); }
+        { SoundManager.Instance.Play_2D_SFX(Get_AS(), "Enemy_Hitted"); }
         else
         { SoundManager.Instance.Play_2D_SFX("Enemy_Hitted"); }
     }
@@ -545,7 +548,7 @@ public abstract class EnemyController : NavObjectController
     {
         base.Set_Die();
 
-        ThisAudioSource.Stop();
+        ASQueueSet.StopAll();
 
         Set_Die_GenItem();
         Set_Die_Effect();
@@ -724,6 +727,15 @@ public abstract class EnemyController : NavObjectController
         }
 
         return false;
+    }
+
+    #endregion
+
+    #region Sound
+
+    public AudioSource Get_AS()
+    {
+        return ASQueueSet.Get_AS();
     }
 
     #endregion

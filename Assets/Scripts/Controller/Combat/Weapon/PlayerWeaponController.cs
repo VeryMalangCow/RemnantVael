@@ -35,24 +35,6 @@ public class PlayerWeaponController : PlayerSolarController
 
     #endregion
 
-    #region - Hide
-
-    // Audio
-    [HideInInspector] private AudioSource ThisAudioSource;
-
-    #endregion
-
-    #endregion
-
-    #region Offset
-
-    protected override void Offset()
-    {
-        base.Offset();
-
-        ThisAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject);
-    }
-
     #endregion
 
     #region Framework
@@ -129,8 +111,9 @@ public class PlayerWeaponController : PlayerSolarController
         this.transform.DOShakePosition(1f / ROF.BuffedState, 0.05f, 20, 90, false, true);
 
         // Audio
-        SoundManager.Instance.Play_2D_SFX(ThisAudioSource,
-            "Player" + DevTool.Get_LengthString(PlayerController.Get_ID(), 2) + "_Shot");
+        SoundManager.Instance.Play_2D_SFX_Random(
+            PlayerController.Get_AS(), 
+            "Player" + DevTool.Get_LengthString(PlayerController.Get_ID(), 2) + "_Shot_", 2);
     }
 
     // 사격 (한발마다)

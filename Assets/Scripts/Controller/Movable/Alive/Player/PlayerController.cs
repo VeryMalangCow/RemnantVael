@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 using System.Linq;
 using System.Collections.Generic;
 using System;
-using System.Collections;
 
 public class PlayerController : AliveObjectController
 {
@@ -83,6 +82,10 @@ public class PlayerController : AliveObjectController
 
     [SerializeField] public Sprite BattleProdSprite;
 
+    [Space(10)]
+    [Header("=== Sound")]
+    [SerializeField] private ASQueueSet ASQueueSet;
+
     #endregion
 
     #region - Hide
@@ -156,9 +159,6 @@ public class PlayerController : AliveObjectController
     [HideInInspector] private ChargeCooltimeData CastingTime = new ChargeCooltimeData();
     [HideInInspector] private Dele ReservationDele = null;
     [HideInInspector] private const float InvincibleTime = 0.5f;
-
-    // Audio
-    [HideInInspector] private AudioSource ThisAudioSource;
 
     #endregion
 
@@ -258,7 +258,7 @@ public class PlayerController : AliveObjectController
         ThisSG = DevTool.Get_ComponentTType<SortingGroup>(gameObject); 
         ShadowSR = DevTool.Get_ComponentTType<SpriteRenderer>(transform.GetChild(0).gameObject);
 
-        ThisAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject);
+        ASQueueSet.Offset();
     }
 
     private void Offset_Reputation()
@@ -906,7 +906,7 @@ public class PlayerController : AliveObjectController
                 DevTool.Get_Dir(_Bullet.gameObject, gameObject),
                 state.KnockbackState);
 
-            SoundManager.Instance.Play_2D_SFX(ThisAudioSource, "Player_Hitted");
+            //SoundManager.Instance.Play_2D_SFX(ThisAudioSource, "Player_Hitted");
         }
     }
 
@@ -1181,6 +1181,15 @@ public class PlayerController : AliveObjectController
     public void Reduce_Reputation(float _Value)
     {
         Reputation.Value = Mathf.Max(Reputation.Value - _Value, 0f);
+    }
+
+    #endregion
+
+    #region Sound
+
+    public AudioSource Get_AS()
+    {
+        return ASQueueSet.Get_AS();
     }
 
     #endregion

@@ -5336,6 +5336,47 @@ public class ModuleBaseData
 
 #endregion
 
+
+
+#region Class : Sound
+
+[System.Serializable]
+public class ASQueueSet
+{
+    [SerializeField] private Transform ThisASParentTF;
+    [HideInInspector] private List<AudioSource> ThisASList = new List<AudioSource>();
+
+    private int totalAmount = 0;
+    private int currentAmount = -1;
+
+    public void Offset()
+    {
+        totalAmount = ThisASParentTF.childCount;
+        for (int i = 0; i < totalAmount; i++)
+        {
+            ThisASList.Add(DevTool.Get_ComponentTType<AudioSource>(ThisASParentTF.GetChild(i).gameObject));
+        }
+    }
+
+    public AudioSource Get_AS()
+    {
+        currentAmount++;
+        if (currentAmount >= totalAmount)
+        {
+            currentAmount = 0;
+        }
+        return ThisASList[currentAmount];
+    }
+
+    public void StopAll()
+    {
+        for (int i = 0; i < ThisASList.Count; i++)
+            ThisASList[i].Stop();
+    }
+}
+
+#endregion
+
 #endregion
 
 #region ========== STRUCT

@@ -120,7 +120,7 @@ public class MissileBulletController : PlayerBulletController
                 new CriticalState(State.CriticalState),
                 new KnockbackState(true, State.KnockbackState.KBPower * 2, State.KnockbackState.KBTime)),
             new AttackSizeState(1f),
-            new List<bool> { false, true, false, false}); // Fire, Cold, Electricity, Corrosion
+            new List<bool> { false, false, false, true }); // Fire, Cold, Electricity, Corrosion
     }
 
     private State_TF2D Get_SpawnTF()

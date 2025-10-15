@@ -20,6 +20,7 @@ public abstract class ExplosionController : StaticDepthController
     [SerializeField] private Animator ThisAnimator;
     [SerializeField] protected CircleCollider2D ThisCol;
     [SerializeField] protected Light2D ThisLight;
+    [SerializeField] private AudioSource ThisAS;
 
     [Space(10)]
     [Header("=== State")]
@@ -105,6 +106,14 @@ public abstract class ExplosionController : StaticDepthController
     private void SetOn_State()
     {
         this.gameObject.SetActive(true);
+
+        SoundManager.Instance.Play_2D_SFX(ThisAS, "Explosion");
+
+        if (State.IsFire) SoundManager.Instance.Play_2D_SFX("Fire_Status");
+        if (State.IsCold) SoundManager.Instance.Play_2D_SFX("Cold_Status");
+        if (State.IsElectricity) SoundManager.Instance.Play_2D_SFX("Electricity_Status");
+        if (State.IsCorrosion) SoundManager.Instance.Play_2D_SFX("Corrosion_Status");
+
         StartCoroutine(Start_Play_Cor());
     }
 

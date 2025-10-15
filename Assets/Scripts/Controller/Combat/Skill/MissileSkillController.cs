@@ -74,11 +74,14 @@ public class MissileSkillController : ActiveSkillController
                 dir,
                 bulletState.IsCritical);
 
-
-
             // Effect Shake
             DepthController.transform.DOShakePosition(ShotDelay, 0.05f, 20, 90, false, true);
             PlayerManager.Instance.CameraController.Play_ShotAnim(ShotDelay, bulletState.DmgState.Dmg * 0.5f);
+
+            // Sound
+            SoundManager.Instance.Play_2D_SFX_Random(
+                PlayerController.Get_AS(),
+                "Player" + DevTool.Get_LengthString(PlayerController.Get_ID(), 2) + "_MShot_", 2);
         }
 
     }
