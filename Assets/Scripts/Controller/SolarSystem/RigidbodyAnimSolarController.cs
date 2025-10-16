@@ -11,7 +11,6 @@ public class RigidbodyAnimSolarController : RigidbodySolarController
     [Header("=== Component")]
     [SerializeField] private List<DirectionalAnimController> ThisAnimatorList;
 
-
     #endregion
 
     #region Fremework

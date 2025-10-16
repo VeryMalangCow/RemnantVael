@@ -6,7 +6,6 @@ public class PlayerBulletController : BulletController
 
     [Space(20)]
     [Header("<><><><><> Player")]
-    [SerializeField] private int PlayerID;
 
     [Space(10)]
     [Header("=== Value")]
@@ -113,9 +112,7 @@ public class PlayerBulletController : BulletController
                     TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical, 1.0f);
                 UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ObjectDestroy(
                     PlayerManager.Instance.PlayerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-
-                SoundManager.Instance.Play_2D_SFX($"Player{DevTool.Get_LengthString(PlayerID, 2)}_BreakBullet");
-
+                
                 PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
                 break;
 

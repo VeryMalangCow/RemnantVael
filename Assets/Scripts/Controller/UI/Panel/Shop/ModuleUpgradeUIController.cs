@@ -854,6 +854,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                     ForgeInteractPanels[i].PanelBtnCG.alpha = 0.5f;
                 }
             }
+
+            SoundManager.Instance.Play_2D_SFX("UI_Click");
             return true;
         }
         return false;
@@ -875,6 +877,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 EquippedPanelGO.SetActive(true);
                 SynergyPanelGO.SetActive(false);
             }
+
+            SoundManager.Instance.Play_2D_SFX("UI_Click");
+
             return true;
         }
         return false;
@@ -885,6 +890,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (CurrentBtn is SynergySlotEUIController synergySlot && SynergySlotList.Contains(synergySlot))
         {
+            SoundManager.Instance.Play_2D_SFX("UI_Click");
+
             SynergyDescsParentTF.gameObject.SetActive(true);
             SelectedSynergySlot = synergySlot;
 
@@ -975,6 +982,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             DragItemEUI.gameObject.SetActive(true);
             DragItemEUI.Set_Data(CurrentItemBtn);
 
+            SoundManager.Instance.Play_2D_SFX("UI_Click");
+
             IsDragging = true;
         }
     }
@@ -984,6 +993,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         if (!DragItemEUI.gameObject.activeSelf) return;
 
         DragItemEUI.gameObject.SetActive(false);
+
+        SoundManager.Instance.Play_2D_SFX("UI_Click");
 
         IsDragging = false;
 
@@ -1046,6 +1057,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         }
         // 삽입
         ModuleItemManager.Instance.Set_Equip(_EquipSlotIndex, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
+
+        // 사운드
+        SoundManager.Instance.Play_2D_SFX("UI_Equip");
     }
 
     // 장착 해제
@@ -1054,6 +1068,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         int index = EquipedSlots.IndexOf(_ItemEUI.ThisSlot);
 
         ModuleItemManager.Instance.Set_UnEquip(index);
+
+        // 사운드
+        SoundManager.Instance.Play_2D_SFX("UI_Unequip");
 
         CurrentItemBtn = null;
         CurrentBtn = null;
@@ -1194,11 +1211,14 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         PlayerManager.Instance.PlayerController.Add_CurrentModuleShard(
             ModuleItemManager.Get_MS_ByDecomposition(ModuleItemManager.Instance.Get_ModuleState(index)));
 
-        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
+        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
 
 
         // 모듈 아이템 제거
         ModuleItemManager.Instance.Remove_ModuleState(index);
+
+        // 사운드
+        SoundManager.Instance.Play_2D_SFX("UI_Decomposition");
 
         // 기타 UI와 정보 초기화
         Reset_ForgeElementPanel();
@@ -1216,7 +1236,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         PlayerManager.Instance.PlayerController.Add_CurrentModuleShard(
             -ModuleItemManager.Get_MS_ForFusion(ModuleItemManager.Instance.Get_ModuleState(indexList[0])));
 
-        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
+        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
 
         // 보상 획득
         ModuleItemManager.Instance.Set_UpRank(indexList[0]);
@@ -1224,6 +1244,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         // 모듈 아이템 제거
         indexList.RemoveAt(0);
         ModuleItemManager.Instance.Remove_ModuleState(indexList);
+
+        // 사운드
+        SoundManager.Instance.Play_2D_SFX("UI_Fusion");
 
         // 기타 UI와 정보 초기화
         Reset_ForgeElementPanel();
@@ -1237,10 +1260,13 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         // 소모 재화
         PlayerManager.Instance.PlayerController.Add_CurrentModuleShard(-ModuleItemManager.Get_MS_ForMake());
         PlayerManager.Instance.PlayerController.Use_ChargedBettery(ModuleItemManager.Get_CB_ForMake());
-        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
+        ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
 
         // 보상 획득
         ModuleItemManager.Instance.Gain_ModuleState();
+
+        // 사운드
+        SoundManager.Instance.Play_2D_SFX("UI_Make");
 
         Check_MakeAnno();
     }

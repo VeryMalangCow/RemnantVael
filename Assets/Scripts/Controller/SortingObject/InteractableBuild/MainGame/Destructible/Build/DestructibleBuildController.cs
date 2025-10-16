@@ -58,7 +58,7 @@ public class DestructibleBuildController : InteractableBuildController
 
     #region Break
 
-    public virtual void Take_Damage(bool _SpawnItem)
+    public virtual void Take_Damage(bool _SpawnItem, bool _SoundOn)
     {
         if (!IsBroken)
         {
@@ -79,6 +79,9 @@ public class DestructibleBuildController : InteractableBuildController
         {
             Play_AlreadyBreak();
         }
+
+        if (_SoundOn)
+            SoundManager.Instance.Play_2D_SFX("Build_Damaged");
     }
 
     protected virtual void Play_NotYetBreak(bool _SpawnItem)

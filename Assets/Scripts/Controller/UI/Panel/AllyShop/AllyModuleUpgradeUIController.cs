@@ -246,6 +246,8 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         {
             if (!PickedModule.IsEquipped)
             {
+                // 사운드
+                SoundManager.Instance.Play_2D_SFX("UI_Click");
                 eui.Set_SelectChange();
                 Set_BuyBtn();           
             }
@@ -371,7 +373,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
                 Buy();
                 Set_Picked(null);
 
-                AllyModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
+                AllyModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
             }
 
             return true;
@@ -439,7 +441,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         // 재화 소모
         int needGoods = Get_CurrentNeedNoneSync();
         CurrentPickedAlly.Use_HadNoneSyncAmount(needGoods);
-        AllyModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
+        AllyModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
 
         // 소비 효과
         Play_UseTxt(NoneSyncUseTxt, needGoods, 30f);
@@ -662,6 +664,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         Set_Picked(null);
         Set_BuyBtn();
         Set_NoneSynePanel();
+
+        // 사운드
+        SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
     }
 
     private List<int> Get_PickedSyncList()
@@ -766,6 +771,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         }
         else
         {
+            // 사운드
+            SoundManager.Instance.Play_2D_SFX("UI_Click");
+
             Set_PickedOnOffPanel(true);
 
             PickedItemEUI = _ItemEUI; // 아이템 EUI
@@ -856,6 +864,8 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     {
         PickedModulePanel_AllyGO.SetActive(_IsOn);
         PickedModulePanel_PlayerGO.SetActive(!_IsOn);
+        // 사운드
+        SoundManager.Instance.Play_2D_SFX("UI_Click");
     }
 
     private void Set_PlayerSyncState()
@@ -901,6 +911,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private void SetOn_PlayerSynergyDesc(int _ID)
     {
+        // 사운드
+        SoundManager.Instance.Play_2D_SFX("UI_Click");
+
         PlayerSynergyDescImg.gameObject.SetActive(true);
 
         PlayerSynergyDescImg.sprite = ModuleItemManager.Instance.Get_CorrectMainChip(_ID).ThisIcon;

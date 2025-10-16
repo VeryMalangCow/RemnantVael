@@ -76,6 +76,7 @@ public class AllyModuleUpgradeController : DestructibleBuildController, IInterac
         {
             PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value--;
             IsOn = true;
+            SoundManager.Instance.Play_2D_SFX("Build_PowerOn");
         }
     }
 
@@ -88,9 +89,9 @@ public class AllyModuleUpgradeController : DestructibleBuildController, IInterac
 
     #region Break
 
-    public override void Take_Damage(bool _SpawnItem)
+    public override void Take_Damage(bool _SpawnItem, bool _SoundOn)
     {
-        base.Take_Damage(_SpawnItem);
+        base.Take_Damage(_SpawnItem, _SoundOn);
 
         MainGameUIManager.Instance.AllyModuleUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
     }

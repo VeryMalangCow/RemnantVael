@@ -85,6 +85,7 @@ public class PlayerController : AliveObjectController
     [Space(10)]
     [Header("=== Sound")]
     [SerializeField] private ASQueueSet ASQueueSet;
+    [SerializeField] private AudioSource MovementAS;
 
     #endregion
 
@@ -258,7 +259,8 @@ public class PlayerController : AliveObjectController
         ThisSG = DevTool.Get_ComponentTType<SortingGroup>(gameObject); 
         ShadowSR = DevTool.Get_ComponentTType<SpriteRenderer>(transform.GetChild(0).gameObject);
 
-        ASQueueSet.Offset();
+        ASQueueSet.Offset(); 
+        MovementAS.volume = 0.2f;
     }
 
     private void Offset_Reputation()
@@ -535,7 +537,9 @@ public class PlayerController : AliveObjectController
     {
         IsLowerTweening = true;
         _TargetTF.DOShakePosition(1f, 0.01f, 20, 0, false, false)
-            .SetLoops(-1, LoopType.Restart);
+            .SetLoops(-1, LoopType.Restart)
+            .OnStart(() => { MovementAS.volume = 0.35f; })
+            .OnKill(() => { MovementAS.volume = 0.2f; });
     }
 
     private void SetOff_Tween(Transform _TargetTF)
@@ -905,8 +909,6 @@ public class PlayerController : AliveObjectController
                 DevTool.Get_DmgEffectByCold(state.DmgState.Dmg, _Bullet.Enemy.BuffController),
                 DevTool.Get_Dir(_Bullet.gameObject, gameObject),
                 state.KnockbackState);
-
-            //SoundManager.Instance.Play_2D_SFX(ThisAudioSource, "Player_Hitted");
         }
     }
 
@@ -1031,6 +1033,17 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
+    #region Died
+
+    // Dead!
+    protected override void Set_Die()
+    {
+        base.Set_Die();
+        SoundManager.Instance.Play_2D_SFX("Player_Killed");
+    }
+
+    #endregion
+
     #region Avoid
 
     // È¸ÇÇ?
@@ -1040,11 +1053,13 @@ public class PlayerController : AliveObjectController
         if (DevTool.Is_ChanceSuccess(AvoidChance.ActualState.Value))
         {
             Play_Avoid();
+            SoundManager.Instance.Play_2D_SFX(ASQueueSet.Get_AS(), "Player_Avoid");
             return true;
         }
         else
         {
             SetOn_Invincible();
+            SoundManager.Instance.Play_2D_SFX(ASQueueSet.Get_AS(), "Player_Hitted");
             return false;
         }
     }

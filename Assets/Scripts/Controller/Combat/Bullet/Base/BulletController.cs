@@ -307,7 +307,7 @@ public abstract class BulletController : MovableDepthController
     {
         if (DevTool.Can_Collding(_Col, "DestructibleObject", out DestructibleBuildController dbc))
         {
-            dbc.Take_Damage(true);
+            dbc.Take_Damage(_SpawnItem: true, _SoundOn: true);
         }
 
         else if (DevTool.Can_Collding(_Col, "FieldObj", out DestructibleObjectController doc))

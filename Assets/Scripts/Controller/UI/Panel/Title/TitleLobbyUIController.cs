@@ -349,11 +349,33 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         TitleInputManager.Instance.Play_MousePointerClick();
 
-        if (CurrentBtn == StartBtn) StartCoroutine(Play_Starting_Cor(2f));
-        else if (CurrentBtn == OptionBtn) SetOn_OptionPanel();
-        else if (CurrentBtn == OptionUI.BackBtn) SetOff_OptionPanel();
-        else if (CurrentBtn == OptionUI.ApplyBtn) Set_OptionValueApply();
-        else if (CurrentBtn == QuitBtn) Application.Quit();
+        string soundSfxName = "";
+
+        if (CurrentBtn == StartBtn) 
+        {
+            soundSfxName = "UI_Click_Approve";
+            Play_Starting();
+        }
+        else if (CurrentBtn == OptionBtn)
+        {
+            soundSfxName = "UI_Click";
+            SetOn_OptionPanel();
+        }
+        else if (CurrentBtn == OptionUI.BackBtn)
+        {
+            soundSfxName = "UI_Click_Reject";
+            SetOff_OptionPanel(); 
+        }
+        else if (CurrentBtn == OptionUI.ApplyBtn)
+        {
+            soundSfxName = "UI_Click_Approve";
+            Set_OptionValueApply(); 
+        }
+        else if (CurrentBtn == QuitBtn)
+        {
+            soundSfxName = "UI_Click_Reject";
+            Application.Quit(); 
+        }
 
         else if (Is_Interact_OptionElement(OptionUI.LanguagePanelEUI)) return;
         else if (Is_Interact_OptionElement(OptionUI.ScreenModePanelEUI)) return;
@@ -361,6 +383,9 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         else if (Is_Interact_OptionElement(OptionUI.BGMVolumePanelEUI)) return;
         else if (Is_Interact_OptionElement(OptionUI.SFXVolumePanelEUI)) return;
         else if (Is_Interact_OptionElement(OptionUI.FPSPanelEUI)) return;
+
+        if (soundSfxName != "")
+            SoundManager.Instance.Play_2D_SFX(soundSfxName);
     }
 
     public void Try_OutInteract()
@@ -409,6 +434,11 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     #endregion
 
     #region Play
+
+    private void Play_Starting()
+    {
+        StartCoroutine(Play_Starting_Cor(2f));
+    }
 
     private IEnumerator Play_Starting_Cor(float _DelayTime)
     {
@@ -465,16 +495,20 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         if (CurrentBtn == _LRSlidingEUI.LeftBtn)
         {
+            SoundManager.Instance.Play_2D_SFX("UI_Click");
             _LRSlidingEUI.Change_Left();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (CurrentBtn == _LRSlidingEUI.RightBtn)
         {
+            SoundManager.Instance.Play_2D_SFX("UI_Click");
             _LRSlidingEUI.Change_Right();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
+
+            
 
         return false;
     }
@@ -483,12 +517,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         if (CurrentBtn == _ScrollEUI.LeftBtn)
         {
+            SoundManager.Instance.Play_2D_SFX("UI_Click");
             _ScrollEUI.Dec();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (CurrentBtn == _ScrollEUI.RightBtn)
         {
+            SoundManager.Instance.Play_2D_SFX("UI_Click");
             _ScrollEUI.Inc();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;

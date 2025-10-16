@@ -343,6 +343,9 @@ public class AllyShopUIController : ShopUIController
 
         // Extra Panel
         Play_ProfileExtraY_CloseAndOpen(CurrentExtraPanelIndex);
+
+        // Sound
+        SoundManager.Instance.Play_2D_SFX("UI_Click");
     }
 
     #endregion
@@ -414,6 +417,9 @@ public class AllyShopUIController : ShopUIController
         ProfileDetailExtraIsOpen = true;
 
         seq.OnComplete(() => { IsTweening = false; });
+
+        // Sound
+        SoundManager.Instance.Play_2D_SFX("UI_Click");
 
         return seq;
     }
@@ -642,7 +648,6 @@ public class AllyShopUIController : ShopUIController
         if (CurrentBtn is OwnCGBtnEUIController btn &&
             StateBtnList.Contains(btn))
         {
-
             Play_ProfileExtraY_CloseAndOpen(StateBtnList.IndexOf(btn));
 
             return true;

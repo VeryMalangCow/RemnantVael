@@ -464,7 +464,7 @@ public abstract class EnemyController : NavObjectController
         if (!IsDead)
         { SoundManager.Instance.Play_2D_SFX(Get_AS(), "Enemy_Hitted"); }
         else
-        { SoundManager.Instance.Play_2D_SFX("Enemy_Hitted"); }
+        { SoundManager.Instance.Play_2D_SFX("Enemy_Killed"); }
     }
 
     #endregion

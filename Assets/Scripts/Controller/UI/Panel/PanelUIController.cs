@@ -34,15 +34,24 @@ public class PanelUIController : SinglePanelUIController
         base.SetOn_ThisPanel();
 
         // Actual Tab
+        SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
         SetOn_Window(ThisPanelTabList[0]);
     }
 
     public virtual void Change_ThisPanel(int _indexWindow)
     {
         //Other
-        if (CurrentThisPanelTab == ThisPanelTabList[_indexWindow]) return; 
+        if (CurrentThisPanelTab == ThisPanelTabList[_indexWindow]) return;
 
+        SoundManager.Instance.Play_2D_SFX("UI_Click");
         SetOn_Window(ThisPanelTabList[_indexWindow]);
+    }
+
+    public override void SetOff_ThisPanel()
+    {
+        base.SetOff_ThisPanel();
+
+        SoundManager.Instance.Play_2D_SFX("UI_Click_Reject");
     }
 
     #endregion

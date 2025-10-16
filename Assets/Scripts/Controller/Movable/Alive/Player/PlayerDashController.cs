@@ -80,8 +80,9 @@ public class PlayerDashController : MonoBehaviour
         if (!Booked)
         {
             BookCaculateVec = InputManager.Instance.DirFromPlayerPos.normalized;
+            SoundManager.Instance.Play_2D_SFX(PlayerController.Get_AS(), "Player_Dash");
+            Booked = true;
         }
-        Booked = true;
 
         if (Is_Dashing()) // ม๘วเ
         {

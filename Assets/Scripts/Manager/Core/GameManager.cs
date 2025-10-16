@@ -2409,8 +2409,10 @@ public class BUShopData<T>
     {
         if (Can_Buy())
         {
+            SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
+
             // Dur
-            BaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
+            BaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
 
             // Cost
             PlayerManager.Instance.PlayerController.Use_ChargedBettery(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade);

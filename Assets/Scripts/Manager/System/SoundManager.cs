@@ -26,7 +26,6 @@ public class SoundManager : PersistentSingleton<SoundManager>
     [HideInInspector] public float BVolume = 0.5f;
     [HideInInspector] public float SVolume = 0.5f;
 
-
     [HideInInspector] private Dictionary<string, AudioClip> BGMAudioDict = new Dictionary<string, AudioClip>();
     [HideInInspector] private Dictionary<string, AudioClip> SFXAudioDict = new Dictionary<string, AudioClip>();
 
@@ -65,13 +64,14 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         string playerPath = sfxPath + "Player/";
 
+        SFXAudioDict.Add("Player_Dash", Resources.Load<AudioClip>(playerPath + "Player_Dash"));
+        SFXAudioDict.Add("Player_Avoid", Resources.Load<AudioClip>(playerPath + "Player_Avoid"));
         SFXAudioDict.Add("Player_Hitted", Resources.Load<AudioClip>(playerPath + "Player_Hitted"));
+        SFXAudioDict.Add("Player_Killed", Resources.Load<AudioClip>(playerPath + "Player_Killed"));
 
         #region Player00
 
         string player00Path = playerPath + "Player00/";
-
-        SFXAudioDict.Add("Player00_BreakBullet", Resources.Load<AudioClip>(player00Path + "Player00_BreakBullet"));
 
         // Shot Type Amount
         for (int i = 0; i < 2; i++)
@@ -96,6 +96,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
         string enemyPath = sfxPath + "Enemy/";
 
         SFXAudioDict.Add("Enemy_Hitted", Resources.Load<AudioClip>(enemyPath + "Enemy_Hitted"));
+        SFXAudioDict.Add("Enemy_Killed", Resources.Load<AudioClip>(enemyPath + "Enemy_Killed"));
 
         #endregion
 
@@ -117,6 +118,32 @@ public class SoundManager : PersistentSingleton<SoundManager>
         SFXAudioDict.Add("Fire_Status", Resources.Load<AudioClip>(statusPath + "Fire_Status"));
 
 
+
+        #endregion
+
+        #region Build
+
+        string buildPath = sfxPath + "Build/";
+
+        SFXAudioDict.Add("Build_PowerOn", Resources.Load<AudioClip>(buildPath + "Build_PowerOn"));
+        SFXAudioDict.Add("Build_Damaged", Resources.Load<AudioClip>(buildPath + "Build_Damaged"));
+
+        #endregion
+
+        #region UI
+
+        string uiPath = sfxPath + "UI/";
+
+        SFXAudioDict.Add("UI_Click", Resources.Load<AudioClip>(uiPath + "UI_Click"));
+        SFXAudioDict.Add("UI_Click_Approve", Resources.Load<AudioClip>(uiPath + "UI_Click_Approve"));
+        SFXAudioDict.Add("UI_Click_Reject", Resources.Load<AudioClip>(uiPath + "UI_Click_Reject"));
+
+        SFXAudioDict.Add("UI_Equip", Resources.Load<AudioClip>(uiPath + "UI_Equip"));
+        SFXAudioDict.Add("UI_Unequip", Resources.Load<AudioClip>(uiPath + "UI_Unequip"));
+
+        SFXAudioDict.Add("UI_Decomposition", Resources.Load<AudioClip>(uiPath + "UI_Decomposition"));
+        SFXAudioDict.Add("UI_Fusion", Resources.Load<AudioClip>(uiPath + "UI_Fusion"));
+        SFXAudioDict.Add("UI_Make", Resources.Load<AudioClip>(uiPath + "UI_Make"));
 
         #endregion
 

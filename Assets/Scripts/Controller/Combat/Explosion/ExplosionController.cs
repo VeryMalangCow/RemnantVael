@@ -155,7 +155,7 @@ public abstract class ExplosionController : StaticDepthController
     {
         if (DevTool.Can_Collding(_Col, "DestructibleObject", HittedObjectList, out DestructibleBuildController dbc))
         {
-            dbc.Take_Damage(true);
+            dbc.Take_Damage(_SpawnItem: true, _SoundOn: true);
             HittedObjectList.Add(dbc);
         }
         else if (DevTool.Can_Collding(_Col, "FieldObj", HittedObjectList, out DestructibleObjectController doc))

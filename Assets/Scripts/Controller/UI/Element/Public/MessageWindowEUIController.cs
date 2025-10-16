@@ -76,6 +76,8 @@ public class MessageWindowEUIController : ElementUIController
 
     public Sequence Play_On(string _Txt, float _DurTime)
     {
+        SoundManager.Instance.Play_2D_SFX("UI_Click_Reject");
+
         Sequence seq = DOTween.Sequence();
 
         seq.Join(ThisRT.DOSizeDelta(new Vector2(ThisRT.rect.width, ActivingHeight), _DurTime));
@@ -98,6 +100,8 @@ public class MessageWindowEUIController : ElementUIController
 
     public Sequence Play_Off(float _DurTime)
     {
+        SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
+
         Sequence seq = DOTween.Sequence();
 
         seq.Join(ThisRT.DOSizeDelta(new Vector2(ThisRT.rect.width, 0), _DurTime));

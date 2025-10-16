@@ -61,8 +61,10 @@ public class ShockwaveSkillController : ActiveSkillController
         // 버프
         BuffManager.Instance.Gain_Buff(0);
 
-        yield return new WaitForSeconds(JugeAndTweenTime);
+        // 사운드
+        SoundManager.Instance.Play_2D_SFX(PlayerController.Get_AS(), "Explosion");
 
+        yield return new WaitForSeconds(JugeAndTweenTime);
 
         // ==========
         End_SkillUI();

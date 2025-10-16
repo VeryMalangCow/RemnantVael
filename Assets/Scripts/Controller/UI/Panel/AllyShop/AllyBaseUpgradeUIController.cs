@@ -160,6 +160,9 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
             BuyBtnEUI.ThisCG.alpha = Can_Buy() ? 1f : 0.5f;
             CanBuyArrowGO.gameObject.SetActive(Can_Buy());
+
+            // 사운드
+            SoundManager.Instance.Play_2D_SFX("UI_Click");
         }
 
         Set_ChargedBetteryUI(PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value, NeedChargedBettery);
@@ -256,6 +259,9 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
                 Play_RerollTuner(i);
                 Play_UseTxt(OverriderUseTxt, NeedOverrider, 30f);
 
+                // 사운드
+                SoundManager.Instance.Play_2D_SFX("UI_Click");
+
                 return true;
             }
         }
@@ -287,7 +293,8 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
                 Buy();
                 Set_PickedTuner(null);
 
-                AllyBaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false);
+
+                AllyBaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
             }
 
             return true;
@@ -326,6 +333,9 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         int index = AllyTunerSet.AllyTunerDataList.IndexOf(PickedTunerData);
         Set_TunerData(index);
         Set_TunerUI(index);
+
+        // 사운드
+        SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
     }
 
     #endregion

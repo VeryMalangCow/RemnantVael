@@ -202,7 +202,7 @@ public abstract class AttackerController : MovableDepthController
     {
         if (DevTool.Can_Collding(_Col, "DestructibleObject", HittedObjectList, out DestructibleBuildController dbc))
         {
-            dbc.Take_Damage(true);
+            dbc.Take_Damage(_SpawnItem: true, _SoundOn: true);
             HittedObjectList.Add(dbc);
         }
 
