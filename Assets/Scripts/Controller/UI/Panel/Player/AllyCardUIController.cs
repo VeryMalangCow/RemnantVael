@@ -114,6 +114,9 @@ public class AllyCardUIController : SinglePanelUIController
             return false;
 
         AllyManager.Instance.Add_AllyCard(TypeIndex, BookingCard.CurrentID);
+
+        SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
+
         SetOff_ThisPanel();
 
         return true;
@@ -131,6 +134,7 @@ public class AllyCardUIController : SinglePanelUIController
             BookingCard = null;
             CardBookingFrameImgRT.gameObject.SetActive(false);
         }
+        SoundManager.Instance.Play_2D_SFX("UI_Reroll");
 
         return true;
     }
@@ -142,6 +146,7 @@ public class AllyCardUIController : SinglePanelUIController
     public override void SetOn_ThisPanel()
     {
         base.SetOn_ThisPanel();
+        SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
 
         Set_NewCardDeck();
     }
@@ -209,6 +214,8 @@ public class AllyCardUIController : SinglePanelUIController
         CardBookingFrameImgRT.gameObject.SetActive(true);
 
         Play_BookingRT();
+
+        SoundManager.Instance.Play_2D_SFX("UI_Click");
     }
 
     #endregion

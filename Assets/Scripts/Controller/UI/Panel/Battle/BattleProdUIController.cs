@@ -61,6 +61,8 @@ public class BattleProdUIController : UIController
 
     private void Play_BattleOnProd(Sprite _PlayerImg, Sprite _EnemyImg, string _PlayerName, string _EnemyName, out float _DurTime)
     {
+        SoundManager.Instance.Play_2D_SFX("UI_StartBattleProd");
+
         BattleProd_CG.gameObject.SetActive(true);
 
         BattleProd_PlayerImg.sprite = _PlayerImg;

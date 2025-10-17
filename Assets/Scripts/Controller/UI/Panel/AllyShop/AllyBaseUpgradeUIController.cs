@@ -260,7 +260,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
                 Play_UseTxt(OverriderUseTxt, NeedOverrider, 30f);
 
                 // »ç¿îµå
-                SoundManager.Instance.Play_2D_SFX("UI_Click");
+                SoundManager.Instance.Play_2D_SFX("UI_Reroll");
 
                 return true;
             }

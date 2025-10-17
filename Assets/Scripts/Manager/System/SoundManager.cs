@@ -128,6 +128,18 @@ public class SoundManager : PersistentSingleton<SoundManager>
         SFXAudioDict.Add("Build_PowerOn", Resources.Load<AudioClip>(buildPath + "Build_PowerOn"));
         SFXAudioDict.Add("Build_Damaged", Resources.Load<AudioClip>(buildPath + "Build_Damaged"));
 
+        SFXAudioDict.Add("Build_UseKeycard", Resources.Load<AudioClip>(buildPath + "Build_UseKeycard"));
+
+        #endregion
+
+        #region Room
+
+        string roomPath = sfxPath + "Room/";
+
+        SFXAudioDict.Add("Room_Start_KillAll", Resources.Load<AudioClip>(roomPath + "Room_Start_KillAll"));
+
+        SFXAudioDict.Add("Room_Complete_KillAll", Resources.Load<AudioClip>(roomPath + "Room_Complete_KillAll"));
+
         #endregion
 
         #region UI
@@ -144,6 +156,9 @@ public class SoundManager : PersistentSingleton<SoundManager>
         SFXAudioDict.Add("UI_Decomposition", Resources.Load<AudioClip>(uiPath + "UI_Decomposition"));
         SFXAudioDict.Add("UI_Fusion", Resources.Load<AudioClip>(uiPath + "UI_Fusion"));
         SFXAudioDict.Add("UI_Make", Resources.Load<AudioClip>(uiPath + "UI_Make"));
+
+        SFXAudioDict.Add("UI_Reroll", Resources.Load<AudioClip>(uiPath + "UI_Reroll"));
+        SFXAudioDict.Add("UI_StartBattleProd", Resources.Load<AudioClip>(uiPath + "UI_StartBattleProd"));
 
         #endregion
 

@@ -153,6 +153,8 @@ public class RoomRuleController : MonoBehaviour
             // VFX
             UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(spawnPos + (Vector2.up * enemy.TargetRange));
         }
+
+        SoundManager.Instance.Play_2D_SFX("Room_Start_KillAll");
     }
 
     #endregion

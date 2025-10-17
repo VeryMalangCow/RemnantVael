@@ -807,6 +807,7 @@ public class StageManager : Singleton<StageManager>
         if (EnemyManager.Instance.CurrentEnemyList.Count <= 0)
         {
             CurrentRoomController.RoomRuleController.RoomType = eRoomType.Completed;
+            SoundManager.Instance.Play_2D_SFX("Room_Complete_KillAll");
             CurrentRoomController.Play_RoomState();
 
             // 상호작용 UI 변경 (문이나 아이템에 붙어있을 때, 상황을 바꾸어줌)
