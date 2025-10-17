@@ -538,8 +538,8 @@ public class PlayerController : AliveObjectController
         IsLowerTweening = true;
         _TargetTF.DOShakePosition(1f, 0.01f, 20, 0, false, false)
             .SetLoops(-1, LoopType.Restart)
-            .OnStart(() => { MovementAS.volume = 0.35f; })
-            .OnKill(() => { MovementAS.volume = 0.2f; });
+            .OnStart(() => MovementAS.volume = 0.25f )
+            .OnKill(() => MovementAS.volume = 0.1f );
     }
 
     private void SetOff_Tween(Transform _TargetTF)
@@ -1039,7 +1039,7 @@ public class PlayerController : AliveObjectController
     protected override void Set_Die()
     {
         base.Set_Die();
-        SoundManager.Instance.Play_2D_SFX("Player_Killed");
+        SoundManager.Instance.Play_2D_SFX_Player("Killed");
     }
 
     #endregion
@@ -1053,13 +1053,13 @@ public class PlayerController : AliveObjectController
         if (DevTool.Is_ChanceSuccess(AvoidChance.ActualState.Value))
         {
             Play_Avoid();
-            SoundManager.Instance.Play_2D_SFX(ASQueueSet.Get_AS(), "Player_Avoid");
+            SoundManager.Instance.Play_2D_SFX_Player(ASQueueSet.Get_AS(), "Avoid");
             return true;
         }
         else
         {
             SetOn_Invincible();
-            SoundManager.Instance.Play_2D_SFX(ASQueueSet.Get_AS(), "Player_Hitted");
+            SoundManager.Instance.Play_2D_SFX_Player(ASQueueSet.Get_AS(), "Hitted");
             return false;
         }
     }

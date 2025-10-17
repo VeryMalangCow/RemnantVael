@@ -79,9 +79,8 @@ public class MissileSkillController : ActiveSkillController
             PlayerManager.Instance.CameraController.Play_ShotAnim(ShotDelay, bulletState.DmgState.Dmg * 0.5f);
 
             // Sound
-            SoundManager.Instance.Play_2D_SFX_Random(
-                PlayerController.Get_AS(),
-                "Player" + DevTool.Get_LengthString(PlayerController.Get_ID(), 2) + "_MShot_", 2);
+            SoundManager.Instance.Play_2D_SFX_Player_Random(
+                PlayerController.Get_AS(), PlayerController.Get_ID(), "MShot", 2);
         }
 
     }

@@ -247,7 +247,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
             if (!PickedModule.IsEquipped)
             {
                 // 사운드
-                SoundManager.Instance.Play_2D_SFX("UI_Click");
+                SoundManager.Instance.Play_2D_SFX_UI("Click");
                 eui.Set_SelectChange();
                 Set_BuyBtn();           
             }
@@ -666,7 +666,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         Set_NoneSynePanel();
 
         // 사운드
-        SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
     }
 
     private List<int> Get_PickedSyncList()
@@ -772,7 +772,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         else
         {
             // 사운드
-            SoundManager.Instance.Play_2D_SFX("UI_Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click");
 
             Set_PickedOnOffPanel(true);
 
@@ -865,7 +865,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         PickedModulePanel_AllyGO.SetActive(_IsOn);
         PickedModulePanel_PlayerGO.SetActive(!_IsOn);
         // 사운드
-        SoundManager.Instance.Play_2D_SFX("UI_Click");
+        SoundManager.Instance.Play_2D_SFX_UI("Click");
     }
 
     private void Set_PlayerSyncState()
@@ -912,7 +912,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     private void SetOn_PlayerSynergyDesc(int _ID)
     {
         // 사운드
-        SoundManager.Instance.Play_2D_SFX("UI_Click");
+        SoundManager.Instance.Play_2D_SFX_UI("Click");
 
         PlayerSynergyDescImg.gameObject.SetActive(true);
 

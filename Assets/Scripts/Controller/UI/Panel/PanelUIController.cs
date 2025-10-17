@@ -34,7 +34,7 @@ public class PanelUIController : SinglePanelUIController
         base.SetOn_ThisPanel();
 
         // Actual Tab
-        SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
         SetOn_Window(ThisPanelTabList[0]);
     }
 
@@ -43,7 +43,7 @@ public class PanelUIController : SinglePanelUIController
         //Other
         if (CurrentThisPanelTab == ThisPanelTabList[_indexWindow]) return;
 
-        SoundManager.Instance.Play_2D_SFX("UI_Click");
+        SoundManager.Instance.Play_2D_SFX_UI("Click");
         SetOn_Window(ThisPanelTabList[_indexWindow]);
     }
 
@@ -51,7 +51,7 @@ public class PanelUIController : SinglePanelUIController
     {
         base.SetOff_ThisPanel();
 
-        SoundManager.Instance.Play_2D_SFX("UI_Click_Reject");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
     }
 
     #endregion

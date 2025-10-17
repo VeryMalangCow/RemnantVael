@@ -192,15 +192,16 @@ public class GateController : StaticDepthController, IInteract
                 }
                 else
                 {
-                    PassGateForBossRoom();
+                    EnterGate();
                 }
 
             }
         }
     }
 
-    public void PassGateForBossRoom()
+    public void EnterGate()
     {
+        SoundManager.Instance.Play_2D_SFX_Build("EnterGate");
         PlayerManager.Instance.PlayerController.SetOff_Trail();
         PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
         StageManager.Instance.Play_CurrentRoom(ParterGate.ThisRoom);

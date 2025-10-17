@@ -353,27 +353,27 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         if (CurrentBtn == StartBtn) 
         {
-            soundSfxName = "UI_Click_Approve";
+            soundSfxName = "Click_Approve";
             Play_Starting();
         }
         else if (CurrentBtn == OptionBtn)
         {
-            soundSfxName = "UI_Click";
+            soundSfxName = "Click";
             SetOn_OptionPanel();
         }
         else if (CurrentBtn == OptionUI.BackBtn)
         {
-            soundSfxName = "UI_Click_Reject";
+            soundSfxName = "Click_Reject";
             SetOff_OptionPanel(); 
         }
         else if (CurrentBtn == OptionUI.ApplyBtn)
         {
-            soundSfxName = "UI_Click_Approve";
+            soundSfxName = "Click_Approve";
             Set_OptionValueApply(); 
         }
         else if (CurrentBtn == QuitBtn)
         {
-            soundSfxName = "UI_Click_Reject";
+            soundSfxName = "Click_Reject";
             Application.Quit(); 
         }
 
@@ -385,7 +385,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         else if (Is_Interact_OptionElement(OptionUI.FPSPanelEUI)) return;
 
         if (soundSfxName != "")
-            SoundManager.Instance.Play_2D_SFX(soundSfxName);
+            SoundManager.Instance.Play_2D_SFX_UI(soundSfxName);
     }
 
     public void Try_OutInteract()
@@ -495,14 +495,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         if (CurrentBtn == _LRSlidingEUI.LeftBtn)
         {
-            SoundManager.Instance.Play_2D_SFX("UI_Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click");
             _LRSlidingEUI.Change_Left();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (CurrentBtn == _LRSlidingEUI.RightBtn)
         {
-            SoundManager.Instance.Play_2D_SFX("UI_Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click");
             _LRSlidingEUI.Change_Right();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
@@ -517,14 +517,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         if (CurrentBtn == _ScrollEUI.LeftBtn)
         {
-            SoundManager.Instance.Play_2D_SFX("UI_Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click");
             _ScrollEUI.Dec();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (CurrentBtn == _ScrollEUI.RightBtn)
         {
-            SoundManager.Instance.Play_2D_SFX("UI_Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click");
             _ScrollEUI.Inc();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;

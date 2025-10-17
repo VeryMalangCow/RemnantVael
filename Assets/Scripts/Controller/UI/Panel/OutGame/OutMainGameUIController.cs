@@ -207,7 +207,7 @@ public class OutMainGameUIController : SinglePanelUIController
 
         public void Change_Panel()
         {
-            SoundManager.Instance.Play_2D_SFX("UI_Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click");
             Set_Panel(!IsBUPanelOn);
         }
 
@@ -546,7 +546,7 @@ public class OutMainGameUIController : SinglePanelUIController
     {
         base.SetOn_ThisPanel();
 
-        SoundManager.Instance.Play_2D_SFX("UI_Click_Reject");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
         PlayerManager.Instance.CameraController.Stop_SlowMotion();
         Time.timeScale = 0f;
     }
@@ -555,7 +555,7 @@ public class OutMainGameUIController : SinglePanelUIController
     {
         base.SetOff_ThisPanel();
 
-        SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
         Time.timeScale = 1f;
     }
 
@@ -617,7 +617,7 @@ public class OutMainGameUIController : SinglePanelUIController
         }
         else if (CurrentBtn == QuitBtn)
         {
-            SoundManager.Instance.Play_2D_SFX("UI_Click_Reject");
+            SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
             LoadingSceneManager.Instance.Play_LoadScene("TitleLobby");
         }
 
@@ -657,14 +657,14 @@ public class OutMainGameUIController : SinglePanelUIController
     {
         if (CurrentBtn == _LRSlidingEUI.LeftBtn)
         {
-            SoundManager.Instance.Play_2D_SFX("UI_Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click");
             _LRSlidingEUI.Change_Left();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (CurrentBtn == _LRSlidingEUI.RightBtn)
         {
-            SoundManager.Instance.Play_2D_SFX("UI_Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click");
             _LRSlidingEUI.Change_Right();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
@@ -677,14 +677,14 @@ public class OutMainGameUIController : SinglePanelUIController
     {
         if (CurrentBtn == _ScrollEUI.LeftBtn)
         {
-            SoundManager.Instance.Play_2D_SFX("UI_Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click");
             _ScrollEUI.Dec();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (CurrentBtn == _ScrollEUI.RightBtn)
         {
-            SoundManager.Instance.Play_2D_SFX("UI_Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click");
             _ScrollEUI.Inc();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
@@ -721,7 +721,7 @@ public class OutMainGameUIController : SinglePanelUIController
 
     private void Set_OptionValueApply()
     {
-        SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
 
         ResourceManager.Instance.Set_LanguageFont(OptionUI.LanguagePanelEUI.Get_CurrentIndex());
         GameManager.Instance.Set_Screen(
@@ -763,7 +763,7 @@ public class OutMainGameUIController : SinglePanelUIController
 
     private void SetOn_Panel(OutMainGameUIType _Type, RectTransform _RT)
     {
-        SoundManager.Instance.Play_2D_SFX("UI_Click");
+        SoundManager.Instance.Play_2D_SFX_UI("Click");
 
         IsInteractTweening = true;
         CurrentType = _Type;
@@ -783,7 +783,7 @@ public class OutMainGameUIController : SinglePanelUIController
 
     private void SetOff_Panel(RectTransform _RT)
     {
-        SoundManager.Instance.Play_2D_SFX("UI_Click_Reject");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
 
         if (IsInteractTweening) return;
         IsInteractTweening = true;

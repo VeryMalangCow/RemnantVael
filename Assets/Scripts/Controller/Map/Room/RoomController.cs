@@ -169,18 +169,49 @@ public class RoomController : IDController
 
         switch (RoomRuleController.RoomType)
         {
-            case eRoomType.Completed:
-                Set_Completed();
-                RoomRuleController.Set_Completed();
-                break;
+            case eRoomType.Completed: Set_Completed(); break;
+            case eRoomType.KillAll: Set_KillAll(); break;
+            case eRoomType.Safe: Set_Safe(); break;
+            case eRoomType.Prison: Set_Prison(); break;
 
-            case eRoomType.KillAll:
-                RoomRuleController.Set_KillAll();
-                break;
-
-            default:
-                break;
+            default: break;
         }
+    }
+
+    public void PlaySet_RoomStateComplete()
+    {
+        switch (RoomRuleController.RoomType)
+        {
+            case eRoomType.KillAll: SoundManager.Instance.Play_2D_SFX_Room("Complete_KillAll"); break;
+
+            default: break;
+        }
+        RoomRuleController.RoomType = eRoomType.Completed;
+
+        Play_RoomState();
+    }
+
+    private void Set_KillAll()
+    {
+        SoundManager.Instance.Play_2D_SFX_Room("Start_KillAll");
+
+        RoomRuleController.Set_KillAll();
+    }
+
+    private void Set_Safe()
+    {
+        SoundManager.Instance.Play_2D_SFX_Room("Start_Safe");
+
+        RoomRuleController.RoomType = eRoomType.Completed;
+        Set_Completed();
+    }
+
+    private void Set_Prison()
+    {
+        SoundManager.Instance.Play_2D_SFX_Room("Start_Prison");
+
+        RoomRuleController.RoomType = eRoomType.Completed;
+        Set_Completed();
     }
 
     private void Set_Completed()
@@ -198,8 +229,9 @@ public class RoomController : IDController
 
         StageManager.Instance.Set_SetSpriteClearly();
         StageManager.Instance.Set_SetAnimClearly();
-    }
 
+        RoomRuleController.Set_Completed();
+    }
 
     #endregion
 

@@ -47,6 +47,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             = Gen_UI<TitleLobbyUIController>(TitleLobby_CanvasPrefab, true);
 
         Start_FirstPlay();
+        SoundManager.Instance.Play_2D_BGM("TitleLobby");
     }
 
     #endregion

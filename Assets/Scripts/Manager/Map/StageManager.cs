@@ -218,7 +218,7 @@ public class StageManager : Singleton<StageManager>
             stageData.EnemyData.StageBossEnemyList);
 
         // Sound (BGM) 시작
-        SoundManager.Instance.Play_2D_BGM("Stage" + DevTool.Get_LengthString(stageData.InfoData.StageID, 2) + "_BGM");
+        SoundManager.Instance.Play_2D_BGM_Stage(stageData.InfoData.StageID);
 
         Reset_GenStageData();
 
@@ -806,9 +806,7 @@ public class StageManager : Singleton<StageManager>
 
         if (EnemyManager.Instance.CurrentEnemyList.Count <= 0)
         {
-            CurrentRoomController.RoomRuleController.RoomType = eRoomType.Completed;
-            SoundManager.Instance.Play_2D_SFX("Room_Complete_KillAll");
-            CurrentRoomController.Play_RoomState();
+            CurrentRoomController.PlaySet_RoomStateComplete();
 
             // 상호작용 UI 변경 (문이나 아이템에 붙어있을 때, 상황을 바꾸어줌)
             MainGameUIManager.Instance.PlayerHUD_UIController.Set_InteractUI(); 
@@ -1462,7 +1460,7 @@ public class StageManager : Singleton<StageManager>
 
         yield return new WaitForSeconds(_DurTime);
 
-        _Gate.PassGateForBossRoom();
+        _Gate.EnterGate();
         MainGameUIManager.Instance.BattleProd_UIController.Play_BattleOffProd(out float _OutDurTime);
 
         yield return new WaitForSeconds(_OutDurTime);

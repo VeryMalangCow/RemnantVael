@@ -168,7 +168,7 @@ public class PlayerManager : Singleton<PlayerManager>
         {
             HavingKeycardDict[_KeyCardID] -= _Amount;
             MainGameUIManager.Instance.PlayerHUD_UIController.Set_KeyItem(HavingKeycardDict);
-            SoundManager.Instance.Play_2D_SFX("Build_UseKeycard");
+            SoundManager.Instance.Play_2D_SFX_Build("UseKeycard");
         }
 #if UNITY_EDITOR
         else

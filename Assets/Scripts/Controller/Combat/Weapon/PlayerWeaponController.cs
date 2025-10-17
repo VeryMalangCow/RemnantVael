@@ -111,9 +111,10 @@ public class PlayerWeaponController : PlayerSolarController
         this.transform.DOShakePosition(1f / ROF.BuffedState, 0.05f, 20, 90, false, true);
 
         // Audio
-        SoundManager.Instance.Play_2D_SFX_Random(
-            PlayerController.Get_AS(), 
-            "Player" + DevTool.Get_LengthString(PlayerController.Get_ID(), 2) + "_Shot_", 2);
+
+        // Sound
+        SoundManager.Instance.Play_2D_SFX_Player_Random(
+            PlayerController.Get_AS(), PlayerController.Get_ID(), "Shot", 2);
     }
 
     // 사격 (한발마다)

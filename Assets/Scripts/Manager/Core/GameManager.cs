@@ -2409,7 +2409,7 @@ public class BUShopData<T>
     {
         if (Can_Buy())
         {
-            SoundManager.Instance.Play_2D_SFX("UI_Click_Approve");
+            SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
 
             // Dur
             BaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
@@ -5945,7 +5945,7 @@ public enum eEnemy
 
 public enum eRoomType
 {
-    Completed, KillAll, Survived, BossKill
+    Completed, KillAll, Survived, Safe, Prison
 }
 
 #endregion

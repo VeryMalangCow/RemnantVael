@@ -76,7 +76,7 @@ public class AllyModuleUpgradeController : DestructibleBuildController, IInterac
         {
             PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value--;
             IsOn = true;
-            SoundManager.Instance.Play_2D_SFX("Build_PowerOn");
+            SoundManager.Instance.Play_2D_SFX_Build("PowerOn");
         }
     }
 

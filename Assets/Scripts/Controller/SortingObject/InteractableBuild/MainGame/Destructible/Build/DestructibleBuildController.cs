@@ -81,7 +81,7 @@ public class DestructibleBuildController : InteractableBuildController
         }
 
         if (_SoundOn)
-            SoundManager.Instance.Play_2D_SFX("Build_Damaged");
+            SoundManager.Instance.Play_2D_SFX_Build("Damaged");
     }
 
     protected virtual void Play_NotYetBreak(bool _SpawnItem)
