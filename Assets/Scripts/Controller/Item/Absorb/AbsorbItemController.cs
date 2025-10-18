@@ -87,6 +87,8 @@ public class AbsorbItemController : ItemController
 
     protected virtual void Gain_Item()
     {
+        SoundManager.Instance.Play_2D_SFX_Item_Random(PlayerManager.Instance.PlayerController.Get_AS(), "Absorb", 2);
+
         this.gameObject.SetActive(false);
     }
 

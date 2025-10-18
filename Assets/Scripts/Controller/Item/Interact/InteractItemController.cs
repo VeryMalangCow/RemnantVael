@@ -121,6 +121,8 @@ public abstract class InteractItemController : ItemController, IInteract
 
         End_Tween();
 
+        SoundManager.Instance.Play_2D_SFX_Item_Random(PlayerManager.Instance.PlayerController.Get_AS(), "Interact", 2);
+
         this.gameObject.SetActive(false);
     }
 

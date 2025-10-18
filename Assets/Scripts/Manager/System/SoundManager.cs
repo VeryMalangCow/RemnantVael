@@ -141,6 +141,9 @@ public class SoundManager : PersistentSingleton<SoundManager>
         // Interact - Prison
         SFXAudioDict.Add("Build_PrisonUnlock", Resources.Load<AudioClip>(buildPath + "Build_PrisonUnlock"));
 
+        // Field Obj
+        SFXAudioDict.Add("Build_BreakFieldObj", Resources.Load<AudioClip>(buildPath + "Build_BreakFieldObj"));
+
         #endregion
 
         #region Room
@@ -152,6 +155,25 @@ public class SoundManager : PersistentSingleton<SoundManager>
         SFXAudioDict.Add("Room_Start_Prison", Resources.Load<AudioClip>(roomPath + "Room_Start_Prison"));
 
         SFXAudioDict.Add("Room_Complete_KillAll", Resources.Load<AudioClip>(roomPath + "Room_Complete_KillAll"));
+
+        #endregion
+
+        #region Item
+
+        string itemPath = sfxPath + "Item/";
+
+        // Absorb
+        for (int i = 0; i < 2; i++)
+        {
+            string s = $"Item_Absorb_{DevTool.Get_LengthString(i, 2)}";
+            SFXAudioDict.Add(s, Resources.Load<AudioClip>(itemPath + s));
+        }
+        // Interact
+        for (int i = 0; i < 2; i++)
+        {
+            string s = $"Item_Interact_{DevTool.Get_LengthString(i, 2)}";
+            SFXAudioDict.Add(s, Resources.Load<AudioClip>(itemPath + s));
+        }
 
         #endregion
 
@@ -234,7 +256,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
     // Player
     public void Play_2D_SFX_Player_Random(AudioSource _AudioSource, int _ID, string _Name, int _Amount)
     {
-        Play_2D_SFX_Random(_AudioSource, $"Player{DevTool.Get_LengthString(_ID, 2)}_{_Name}", 2);
+        Play_2D_SFX_Random(_AudioSource, $"Player{DevTool.Get_LengthString(_ID, 2)}_{_Name}", _Amount);
     }
 
     public void Play_2D_SFX_Player(string _Name)
@@ -260,6 +282,12 @@ public class SoundManager : PersistentSingleton<SoundManager>
     public void Play_2D_SFX_Combat(AudioSource _AudioSource, string _Name)
     {
         Play_2D_SFX(_AudioSource, "Combat_" + _Name);
+    }
+
+    // Item
+    public void Play_2D_SFX_Item_Random(AudioSource _AudioSource, string _Name, int _Amount)
+    {
+        Play_2D_SFX_Random(_AudioSource, $"Item_{_Name}", _Amount);
     }
 
     // UI
