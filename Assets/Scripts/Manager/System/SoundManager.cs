@@ -98,6 +98,21 @@ public class SoundManager : PersistentSingleton<SoundManager>
         SFXAudioDict.Add("Enemy_Hitted", Resources.Load<AudioClip>(enemyPath + "Enemy_Hitted"));
         SFXAudioDict.Add("Enemy_Killed", Resources.Load<AudioClip>(enemyPath + "Enemy_Killed"));
 
+        // Attack
+        for (int i = 0; i < 2; i++)
+        {
+            string index = DevTool.Get_LengthString(i, 2);
+
+            string sword = $"Enemy_Attack_Sword_{index}";
+            SFXAudioDict.Add(sword, Resources.Load<AudioClip>(enemyPath + sword));
+
+            string bullet = $"Enemy_Attack_Bullet_{index}";
+            SFXAudioDict.Add(bullet, Resources.Load<AudioClip>(enemyPath + bullet));
+
+            string thrust = $"Enemy_Attack_Thrust_{index}";
+            SFXAudioDict.Add(thrust, Resources.Load<AudioClip>(enemyPath + thrust));
+        }
+
         #endregion
 
         #region Combat
@@ -181,8 +196,12 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         string uiPath = sfxPath + "UI/";
 
-        SFXAudioDict.Add("UI_Click_00", Resources.Load<AudioClip>(uiPath + "UI_Click_00"));
-        SFXAudioDict.Add("UI_Click_01", Resources.Load<AudioClip>(uiPath + "UI_Click_01"));
+        // Click
+        for (int i = 0; i < 2; i++)
+        {
+            string s = $"UI_Click_{DevTool.Get_LengthString(i, 2)}";
+            SFXAudioDict.Add(s, Resources.Load<AudioClip>(uiPath + s));
+        }
 
         SFXAudioDict.Add("UI_Click_Approve", Resources.Load<AudioClip>(uiPath + "UI_Click_Approve"));
         SFXAudioDict.Add("UI_Click_Reject", Resources.Load<AudioClip>(uiPath + "UI_Click_Reject"));
@@ -276,6 +295,10 @@ public class SoundManager : PersistentSingleton<SoundManager>
     public void Play_2D_SFX_Enemy(AudioSource _AudioSource, string _Name)
     {
         Play_2D_SFX(_AudioSource, "Enemy_" + _Name);
+    }
+    public void Play_2D_SFX_EnemyAttack_Random(AudioSource _AudioSource, string _Name, int _Amount)
+    {
+        Play_2D_SFX_Random(_AudioSource, $"Enemy_Attack_{_Name}", _Amount);
     }
 
     // Combat

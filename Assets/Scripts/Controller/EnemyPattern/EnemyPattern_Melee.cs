@@ -89,6 +89,7 @@ public class EnemyPattern_Melee : EnemyPattern
         CurrentRepeatAmount++;
 
         Play_ActualPattern(targetDir);
+        SoundManager.Instance.Play_2D_SFX_EnemyAttack_Random(ThisEnemy.Get_AS(), "Sword", 2);
 
         #endregion
 

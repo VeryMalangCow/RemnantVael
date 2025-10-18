@@ -143,6 +143,8 @@ public class EnemyPattern_Thrust : EnemyPattern
             ThisEnemy.Set_NavDir(endPoint);
             ThisEnemy.Set_MoveSpeed(Speed);
         }
+
+        SoundManager.Instance.Play_2D_SFX_EnemyAttack_Random(ThisEnemy.Get_AS(), "Thrust", 2);
     }
 
     private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)
