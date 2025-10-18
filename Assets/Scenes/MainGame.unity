@@ -722,10 +722,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1186392408}
+  - {fileID: 126442188}
   - {fileID: 1959778811}
   - {fileID: 785426029}
   - {fileID: 1299242379}
-  - {fileID: 126442188}
   - {fileID: 523388470}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -870,7 +870,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 9998
   m_TargetDisplay: 0
 --- !u!114 &126442190
 MonoBehaviour:
