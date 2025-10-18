@@ -311,5 +311,11 @@ public class MinimapEUIController : ElementUIController
         }
     }
 
+    public void Reset_BookRoom()
+    {
+        Set_Start_OnInteract(); 
+        Set_Complete_OnInteract();
+    }
+
     #endregion
 }

@@ -154,12 +154,6 @@ public class PlayerManager : Singleton<PlayerManager>
             MainGameUIManager.Instance.PlayerHUD_UIController.Set_KeyItem(HavingKeycardDict);
             MainGameUIManager.Instance.PlayerHUD_UIController.Effect_KeyIcon(_KeyCardID);
         }
-#if UNITY_EDITOR
-        else
-        {
-            Debug.Log($"No Exist That Key Card : {_KeyCardID}");
-        }
-#endif
     }
 
     public void Use_KeyCard(int _KeyCardID, int _Amount = 1)
@@ -170,12 +164,6 @@ public class PlayerManager : Singleton<PlayerManager>
             MainGameUIManager.Instance.PlayerHUD_UIController.Set_KeyItem(HavingKeycardDict);
             SoundManager.Instance.Play_2D_SFX_Build("UseKeycard");
         }
-#if UNITY_EDITOR
-        else
-        {
-            Debug.Log($"No Exist That Key Card : {_KeyCardID}");
-        }
-#endif
     }
 
     public bool Can_UseKeyCard(int _KeyCardID)

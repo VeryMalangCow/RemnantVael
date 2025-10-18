@@ -244,13 +244,6 @@ public class UnitManager : Singleton<UnitManager>
         {
             RequestRewardDict.Add(RequestRewardSpriteList[i].Name, RequestRewardSpriteList[i].Sprite);
         }
-
-#if UNITY_EDITOR
-        if (RequestRewardSpriteList.Count != AllyRequest.RewardKindOfTypeAmount())
-        {
-            Debug.Assert(false, "NOT SAME AMOUNT FOR REQUEST REWARD SPRITE!");
-        }
-#endif
     }
 
 #endregion

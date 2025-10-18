@@ -40,12 +40,6 @@ public class DepthController : IDController
         if (CurrentOrder == _SortingOrder) return;
 
         CurrentOrder = _SortingOrder;
-
-#if UNITY_EDITOR
-        if (ThisSR == null)
-        { Debug.Log(this.gameObject.name); return; }
-#endif
-
         ThisSR.sortingOrder = _SortingOrder;
     }
 

@@ -244,12 +244,6 @@ public class EnemyBuffController : MonoBehaviour
         {
             targetEnemies[i].Take_Damage(dmg, eDamageType.Physics);
         }
-
-
-
-#if UNITY_EDITOR
-        ShowDebug(targetEnemies);
-#endif
     }
 
     #endregion
@@ -340,24 +334,6 @@ public class EnemyBuffController : MonoBehaviour
     }
 
     #endregion
-
-    #endregion
-
-    #region Editor
-
-#if UNITY_EDITOR
-
-    private void ShowDebug(List<EnemyController> targetEnemies)
-    {
-        for (int i = 0; i < targetEnemies.Count - 1; i++)
-        {
-            Debug.DrawRay(targetEnemies[i].transform.position,
-                (targetEnemies[i + 1].transform.position - targetEnemies[i].transform.position),
-                Color.blue, 3f);
-        }
-    }
-
-#endif
 
     #endregion
 }

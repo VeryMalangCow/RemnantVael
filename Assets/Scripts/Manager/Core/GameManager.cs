@@ -10,10 +10,6 @@ using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
 public class GameManager : PersistentSingleton<GameManager>
 {
     #region Value
@@ -4947,12 +4943,6 @@ public abstract class AllyRequest
         { "Credit", new Func<int, int>(Get_BookReward_Credit) },
         { "EP", new Func<int, int>(Get_BookReward_EP) }
     };
-
-#if UNITY_EDITOR
-
-    public static int RewardKindOfTypeAmount() { return RewardDict.Count; }
-
-#endif
 
     private static void Gain_Reward_BC(int _Rank) { PlayerManager.Instance.PlayerController.Add_CurrentBettery(Get_BookReward_BC(_Rank)); }
     private static void Gain_Reward_Credit(int _Rank) { PlayerManager.Instance.PlayerController.Add_CurrentCredit(Get_BookReward_Credit(_Rank)); }

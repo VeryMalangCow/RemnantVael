@@ -297,22 +297,19 @@ public class PoolingManager : Singleton<PoolingManager>
         if (_Type == eEnemy.Normal)
         {
             TTypePooling<NormalEnemyController> enemy = Get_CorrectEnemyQueue(_EnemyID);
-            return Get_OP<NormalEnemyController>(enemy.Prefab, enemy.ParentTF, enemy.Queue);
+            return Get_OP(enemy.Prefab, enemy.ParentTF, enemy.Queue);
         }
         else if (_Type == eEnemy.Elite)
         {
             TTypePooling<EliteEnemyController> enemy = Get_CorrectEliteEnemyQueue(_EnemyID);
-            return Get_OP<EliteEnemyController>(enemy.Prefab, enemy.ParentTF, enemy.Queue);
+            return Get_OP(enemy.Prefab, enemy.ParentTF, enemy.Queue);
         }
         else if (_Type == eEnemy.Boss)
         {
             TTypePooling<BossEnemyController> enemy = Get_CorrectBossEnemyQueue(_EnemyID);
-            return Get_OP<BossEnemyController>(enemy.Prefab, enemy.ParentTF, enemy.Queue);
+            return Get_OP(enemy.Prefab, enemy.ParentTF, enemy.Queue);
         }
 
-#if UNITY_EDITOR
-            Debug.Log("\'Get_OP_Enemy\' cannot FIND!");
-#endif
         return null;
     }
 
@@ -358,9 +355,6 @@ public class PoolingManager : Singleton<PoolingManager>
                 return CurrentStageEnemies[i];
             }
         }
-#if UNITY_EDITOR
-        Debug.Log("\'Enemy Queue\' cannot FIND!");
-#endif
         return null;
     }
 
@@ -373,9 +367,6 @@ public class PoolingManager : Singleton<PoolingManager>
                 return CurrentStageEliteEnemies[i];
             }
         }
-#if UNITY_EDITOR
-        Debug.Log("\'Elite Enemy Queue\' cannot FIND!");
-#endif
         return null;
     }
 
@@ -388,9 +379,6 @@ public class PoolingManager : Singleton<PoolingManager>
                 return CurrentStageBossEnemies[i];
             }
         }
-#if UNITY_EDITOR
-        Debug.Log("\'Boss Enemy Queue\' cannot FIND!");
-#endif
         return null;
     }
 

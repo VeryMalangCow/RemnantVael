@@ -194,7 +194,6 @@ public class GateController : StaticDepthController, IInteract
                 {
                     EnterGate();
                 }
-
             }
         }
     }
@@ -205,6 +204,9 @@ public class GateController : StaticDepthController, IInteract
         PlayerManager.Instance.PlayerController.SetOff_Trail();
         PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
         StageManager.Instance.Play_CurrentRoom(ParterGate.ThisRoom);
+
+        PlayerHUDController hud = MainGameUIManager.Instance.PlayerHUD_UIController;
+        if (hud.IsTabInteracted.Value) hud.ThisMinimap.Reset_BookRoom();
     }
 
     #endregion
