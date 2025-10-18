@@ -97,40 +97,50 @@ public abstract class ConverterUIController : SinglePanelUIController
         {
             if (CurrentBtn == CvtAcquisitionEUI.MaxBtn)
             {
+                SoundManager.Instance.Play_2D_SFX_UI("Click");
                 Set_MaxAcquBookAmount();
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.MinBtn)
             {
+                SoundManager.Instance.Play_2D_SFX_UI("Click");
                 Set_MinAcquBookAmount();
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.More1Btn)
             {
+                SoundManager.Instance.Play_2D_SFX_UI("Click");
                 Set_MoreAcquBookAmount(1);
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.More10Btn)
             {
+                SoundManager.Instance.Play_2D_SFX_UI("Click");
                 Set_MoreAcquBookAmount(10);
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.Less1Btn)
             {
+                SoundManager.Instance.Play_2D_SFX_UI("Click");
                 Set_LessAcquBookAmount(1);
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.Less10Btn)
             {
+                SoundManager.Instance.Play_2D_SFX_UI("Click");
                 Set_LessAcquBookAmount(10);
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.ConvertBtn)
             {
                 if (CanConvert)
+                {
                     Play_Convert();
+                }
                 else
+                {
                     Play_Failure();
+                }
 
                 return true;
             }
@@ -212,6 +222,8 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     private IEnumerator Play_Failure_Cor()
     {
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
+
         ConvertingNow = true;
 
         CvtAcquisitionEUI.Play_FailComp();
@@ -222,6 +234,8 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     private IEnumerator Play_Convert_Cor()
     {
+        SoundManager.Instance.Play_2D_SFX_UI("Make");
+
         ConvertingNow = true;
 
         CvtAcquisitionEUI.Play_VisualComp();
@@ -229,8 +243,11 @@ public abstract class ConverterUIController : SinglePanelUIController
 
         Convert();
 
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
+
         CvtAcquisitionEUI.Play_SuccessComp();
         yield return new WaitForSeconds(0.6f);
+
 
         ConvertingNow = false;
     }
@@ -248,6 +265,8 @@ public abstract class ConverterUIController : SinglePanelUIController
     public override void SetOn_ThisPanel()
     {
         base.SetOn_ThisPanel();
+
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
         Set_AcquAmount(AcquisitionItemID);
         Set_AcquBookAmount(1);
     }
@@ -255,7 +274,8 @@ public abstract class ConverterUIController : SinglePanelUIController
     public override void SetOff_ThisPanel()
     {
         if (ConvertingNow) return;
-            
+
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
         base.SetOff_ThisPanel();
     }
 

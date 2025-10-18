@@ -61,7 +61,8 @@ public class PrisonPayOperatorController : PrisonOperatorController
 
         TargetPrison.Set_Unlock();
 
-        Debug.Log("Pay");
+        // Sound
+        SoundManager.Instance.Play_2D_SFX_Build("PrisonUnlock");
     }
 
     #endregion

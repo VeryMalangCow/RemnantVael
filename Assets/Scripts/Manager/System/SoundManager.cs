@@ -125,12 +125,21 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         string buildPath = sfxPath + "Build/";
 
+        // Gate
         SFXAudioDict.Add("Build_EnterGate", Resources.Load<AudioClip>(buildPath + "Build_EnterGate"));
+        SFXAudioDict.Add("Build_UseKeycard", Resources.Load<AudioClip>(buildPath + "Build_UseKeycard"));
 
+        // Interact - Shop
         SFXAudioDict.Add("Build_PowerOn", Resources.Load<AudioClip>(buildPath + "Build_PowerOn"));
         SFXAudioDict.Add("Build_Damaged", Resources.Load<AudioClip>(buildPath + "Build_Damaged"));
 
-        SFXAudioDict.Add("Build_UseKeycard", Resources.Load<AudioClip>(buildPath + "Build_UseKeycard"));
+        // Interact - Operator
+        SFXAudioDict.Add("Build_Repair", Resources.Load<AudioClip>(buildPath + "Build_Repair"));
+        SFXAudioDict.Add("Build_Replacement", Resources.Load<AudioClip>(buildPath + "Build_Replacement"));
+        SFXAudioDict.Add("Build_Enchance", Resources.Load<AudioClip>(buildPath + "Build_Enchance"));
+
+        // Interact - Prison
+        SFXAudioDict.Add("Build_PrisonUnlock", Resources.Load<AudioClip>(buildPath + "Build_PrisonUnlock"));
 
         #endregion
 

@@ -43,6 +43,9 @@ public class VaultUpgradeOperatorController : VaultOperatorController
         base.Set_TargetBuild(_TargetVault);
 
         _TargetVault.UpgradeOper = this;
+
+        // Pay
+        PayTxt.text = Get_NeedPay().ToString();
     }
 
     #endregion
@@ -76,6 +79,9 @@ public class VaultUpgradeOperatorController : VaultOperatorController
 
         // Play
         TargetVault.Play_Size();
+
+        // Sound
+        SoundManager.Instance.Play_2D_SFX_Build("Enchance");
     }
 
     #endregion

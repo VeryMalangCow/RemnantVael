@@ -129,6 +129,9 @@ public abstract class PuzzleUIController : SinglePanelUIController
     {
         // Value
         IsInteractable = false;
+
+        // Sound
+        SoundManager.Instance.Play_2D_SFX_Build("PrisonUnlock");
     }
 
     protected virtual void Set_AllFailure()
