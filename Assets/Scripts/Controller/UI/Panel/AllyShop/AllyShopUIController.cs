@@ -345,7 +345,7 @@ public class AllyShopUIController : ShopUIController
         Play_ProfileExtraY_CloseAndOpen(CurrentExtraPanelIndex);
 
         // Sound
-        SoundManager.Instance.Play_2D_SFX_UI("Click");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
     }
 
     #endregion
@@ -419,7 +419,7 @@ public class AllyShopUIController : ShopUIController
         seq.OnComplete(() => { IsTweening = false; });
 
         // Sound
-        SoundManager.Instance.Play_2D_SFX_UI("Click");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
 
         return seq;
     }

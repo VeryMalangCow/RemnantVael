@@ -1,8 +1,6 @@
 using DG.Tweening;
 using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public abstract class PuzzleUIController : SinglePanelUIController
 {
@@ -123,20 +121,21 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
         // Ready
         ReadyPanelEUI.Set_AllStart(CurrentCountdown, SecondString);
+
+        // Sound
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
     }
 
     protected virtual void Set_AllComplete()
     {
         // Value
         IsInteractable = false;
-
-        // Sound
-        SoundManager.Instance.Play_2D_SFX_Build("PrisonUnlock");
     }
 
     protected virtual void Set_AllFailure()
     {
-
+        // Sound
+        SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
     }
 
     #endregion
@@ -147,6 +146,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
     {
         CurrentCountdown += _PaneltyTime;
         TimePanelEUI.Set_Panelty(_PaneltyTime, SecondString);
+        SoundManager.Instance.Play_2D_SFX_Build("Damaged");
     }
 
     #endregion
@@ -169,6 +169,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
     private void Play_ReadyToStart(float _DurTime)
     {
         IsReady = false;
+        SoundManager.Instance.Play_2D_SFX_UI("Click_00");
 
         ReadyPanelEUI.Play_ReadyToStart(_DurTime)
             .OnComplete(() =>
@@ -218,11 +219,11 @@ public abstract class PuzzleUIController : SinglePanelUIController
             return true;
         }
 
-        if (!IsInteractable || !IsStart)
-            return false;
+        if (!IsInteractable || !IsStart) return false;
 
         if (CanSuccess)
         {
+            SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
             TimePanelEUI.Play_SuccessAnno(1f, 1f);
             DevTool.Set_Color(UnitManager.Instance.UnlockedClr, TimePanelEUI.CountdownTxt);
             StartCoroutine(Play_Unlock_Complete_Cor());
@@ -231,8 +232,10 @@ public abstract class PuzzleUIController : SinglePanelUIController
         }
         else
         {
+            SoundManager.Instance.Play_2D_SFX_UI("Click_00");
             TimePanelEUI.Play_FailureAnno(1f, 1f);
             Set_Panelty(-0.5f);
+
             return false;
         }
     }

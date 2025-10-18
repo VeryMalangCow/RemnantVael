@@ -215,7 +215,7 @@ public class AllyCardUIController : SinglePanelUIController
 
         Play_BookingRT();
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
     }
 
     #endregion

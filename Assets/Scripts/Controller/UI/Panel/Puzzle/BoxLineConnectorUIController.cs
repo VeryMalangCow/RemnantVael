@@ -284,6 +284,8 @@ public class BoxLineConnectorUIController : PuzzleUIController
             !IsInteractable)
             return false;
 
+        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+
         SelectingBoxCellEUI.Play_Roll(_PlusAngle, _DurTime);
 
         return true;

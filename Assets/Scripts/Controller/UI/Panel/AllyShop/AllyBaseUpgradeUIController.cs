@@ -162,7 +162,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
             CanBuyArrowGO.gameObject.SetActive(Can_Buy());
 
             // »ç¿îµå
-            SoundManager.Instance.Play_2D_SFX_UI("Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
         }
 
         Set_ChargedBetteryUI(PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value, NeedChargedBettery);

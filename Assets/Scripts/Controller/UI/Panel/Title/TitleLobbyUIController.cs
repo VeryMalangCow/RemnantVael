@@ -358,7 +358,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         }
         else if (CurrentBtn == OptionBtn)
         {
-            soundSfxName = "Click";
+            soundSfxName = "Click_01";
             SetOn_OptionPanel();
         }
         else if (CurrentBtn == OptionUI.BackBtn)
@@ -495,14 +495,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         if (CurrentBtn == _LRSlidingEUI.LeftBtn)
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
             _LRSlidingEUI.Change_Left();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (CurrentBtn == _LRSlidingEUI.RightBtn)
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
             _LRSlidingEUI.Change_Right();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
@@ -517,14 +517,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         if (CurrentBtn == _ScrollEUI.LeftBtn)
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
             _ScrollEUI.Dec();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (CurrentBtn == _ScrollEUI.RightBtn)
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
             _ScrollEUI.Inc();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;

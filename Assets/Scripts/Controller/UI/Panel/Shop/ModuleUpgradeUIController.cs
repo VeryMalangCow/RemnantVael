@@ -855,7 +855,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 }
             }
 
-            SoundManager.Instance.Play_2D_SFX_UI("Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
             return true;
         }
         return false;
@@ -878,7 +878,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 SynergyPanelGO.SetActive(false);
             }
 
-            SoundManager.Instance.Play_2D_SFX_UI("Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
 
             return true;
         }
@@ -890,7 +890,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (CurrentBtn is SynergySlotEUIController synergySlot && SynergySlotList.Contains(synergySlot))
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
 
             SynergyDescsParentTF.gameObject.SetActive(true);
             SelectedSynergySlot = synergySlot;
@@ -982,7 +982,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             DragItemEUI.gameObject.SetActive(true);
             DragItemEUI.Set_Data(CurrentItemBtn);
 
-            SoundManager.Instance.Play_2D_SFX_UI("Click");
+            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
 
             IsDragging = true;
         }
@@ -994,7 +994,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         DragItemEUI.gameObject.SetActive(false);
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
 
         IsDragging = false;
 

@@ -159,7 +159,9 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         string uiPath = sfxPath + "UI/";
 
-        SFXAudioDict.Add("UI_Click", Resources.Load<AudioClip>(uiPath + "UI_Click"));
+        SFXAudioDict.Add("UI_Click_00", Resources.Load<AudioClip>(uiPath + "UI_Click_00"));
+        SFXAudioDict.Add("UI_Click_01", Resources.Load<AudioClip>(uiPath + "UI_Click_01"));
+
         SFXAudioDict.Add("UI_Click_Approve", Resources.Load<AudioClip>(uiPath + "UI_Click_Approve"));
         SFXAudioDict.Add("UI_Click_Reject", Resources.Load<AudioClip>(uiPath + "UI_Click_Reject"));
 

@@ -97,37 +97,37 @@ public abstract class ConverterUIController : SinglePanelUIController
         {
             if (CurrentBtn == CvtAcquisitionEUI.MaxBtn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click");
+                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
                 Set_MaxAcquBookAmount();
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.MinBtn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click");
+                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
                 Set_MinAcquBookAmount();
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.More1Btn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click");
+                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
                 Set_MoreAcquBookAmount(1);
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.More10Btn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click");
+                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
                 Set_MoreAcquBookAmount(10);
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.Less1Btn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click");
+                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
                 Set_LessAcquBookAmount(1);
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.Less10Btn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click");
+                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
                 Set_LessAcquBookAmount(10);
                 return true;
             }

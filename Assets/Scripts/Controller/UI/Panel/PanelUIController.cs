@@ -43,7 +43,7 @@ public class PanelUIController : SinglePanelUIController
         //Other
         if (CurrentThisPanelTab == ThisPanelTabList[_indexWindow]) return;
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click");
+        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
         SetOn_Window(ThisPanelTabList[_indexWindow]);
     }
 

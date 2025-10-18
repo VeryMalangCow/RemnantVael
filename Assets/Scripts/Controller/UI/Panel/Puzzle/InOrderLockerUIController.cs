@@ -198,7 +198,10 @@ public class InOrderLockerUIController : PuzzleUIController
 
     private void Set_SelectingIncludeValue(IOLCellEUIController _CellEUI)
     {
+        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+
         int targetCellEUIIndex = AllIOLCell.IndexOf(_CellEUI);
+
         // 처음 선택
         if (NeedNextSelectEUIIndex == -1 ||
             NeedNextSelectEUIIndex != targetCellEUIIndex)
@@ -208,7 +211,6 @@ public class InOrderLockerUIController : PuzzleUIController
 
         SelectingIntList.Add(targetCellEUIIndex);
         NeedNextSelectEUIIndex = Get_NextTargetIndex(targetCellEUIIndex);
-        Debug.Log(SelectingIntList.Count);
 
         Set_SelectingValueTxt(SelectingIntList);
     }
