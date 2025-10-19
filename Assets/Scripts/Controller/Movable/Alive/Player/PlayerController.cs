@@ -222,11 +222,13 @@ public class PlayerController : AliveObjectController
 
         UnitManager.Instance.UnlockedClr = Get_CorrectColor(eDamageType.Energy, false);
 
+        // Item
         CurrentChargedBettery.Value = 0;
         CurrentCredit.Value = 0;
         CurrentOverrider.Value = 0;
         CurrentModuleShard.Value = 0;
 
+        // Presence
         NeedStrikeTeamPresence.Value = NeedIntervalPresence;
         NeedUplinkTeamPresence.Value = NeedIntervalPresence;
         NeedNeoTeamPresence.Value = NeedIntervalPresence;
