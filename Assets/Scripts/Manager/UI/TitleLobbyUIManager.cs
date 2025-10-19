@@ -47,7 +47,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             = Gen_UI<TitleLobbyUIController>(TitleLobby_CanvasPrefab, true);
 
         Start_FirstPlay();
-        SoundManager.Instance.Play_2D_BGM("TitleLobby");
     }
 
     #endregion
@@ -88,6 +87,11 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     private void Start_FirstPlay()
     {
+        SoundManager.Instance.Play_2D_BGM_Title();
+
+        // Sound
+        SoundManager.Instance.Set_MasterVolume(0f, 1f, 1f);
+
         if (ScreenCG == null && ScreenCanvas.TryGetComponent(out CanvasGroup CG))
         {
             ScreenCG = CG;

@@ -18,9 +18,7 @@ public class StartingElevatorController : ElevatorController
         MainGameUIManager.Instance.Play_OffLoadingIcon(3f);
 
         // Sound
-        float v = 0f;
-        DOTween.To(() => v, _v => v = _v, 1f, 1f)
-            .OnUpdate(() => SoundManager.Instance.Set_MasterVolume(v));
+        SoundManager.Instance.Set_MasterVolume(0f, 1f, 2.5f);
     }
 
     protected override void Tween_Complete()

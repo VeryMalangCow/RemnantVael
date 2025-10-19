@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -341,24 +342,45 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     #region Play (BGM)
 
-    public void Play_2D_BGM(string _ClipName)
+    #region Module
+
+    private void Play_2D_BGM(string _ClipName)
     {
         ThisBgmAudioSource.clip = BGMAudioDict[_ClipName];
         ThisBgmAudioSource.Play();
     }
+
+    #endregion
+
+    #region Element
+
+    public void Play_2D_BGM_Title()
+    {
+        Play_2D_BGM("TitleLobby");
+    }
+
     public void Play_2D_BGM_Stage(int _ID)
     {
         Play_2D_BGM($"Stage{DevTool.Get_LengthString(_ID, 2)}");
     }
 
     #endregion
-    
+    #endregion
+
     #region Set
 
-    public void Set_MasterVolume(float _Value)
+    private void Set_MasterVolume(float _Value)
     {
         float dB = Mathf.Log10(Mathf.Clamp(_Value, 0.0001f, 1f)) * 20f;
         MasterAudioMixer.SetFloat("Master", dB);
+    }
+
+    public void Set_MasterVolume(float _StartV, float _TargetV, float _DurTime)
+    {
+        float v = _StartV;
+        DOTween.To(() => v, _v => v = _v, _TargetV, _DurTime)
+            .OnStart(() => Set_MasterVolume(_StartV))
+            .OnUpdate(() => Set_MasterVolume(v));
     }
 
     public void Set_BgmVolume(float _Value)

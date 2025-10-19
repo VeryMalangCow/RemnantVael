@@ -222,19 +222,18 @@ public class PlayerController : AliveObjectController
 
         UnitManager.Instance.UnlockedClr = Get_CorrectColor(eDamageType.Energy, false);
 
-        Debug.Log("Test Item");
-        CurrentChargedBettery.Value = 9999;
-        CurrentCredit.Value = 9999;
-        CurrentOverrider.Value = 9999;
-        CurrentModuleShard.Value = 9999;
+        CurrentChargedBettery.Value = 0;
+        CurrentCredit.Value = 0;
+        CurrentOverrider.Value = 0;
+        CurrentModuleShard.Value = 0;
 
         NeedStrikeTeamPresence.Value = NeedIntervalPresence;
         NeedUplinkTeamPresence.Value = NeedIntervalPresence;
         NeedNeoTeamPresence.Value = NeedIntervalPresence;
 
-        StrikeTeamPresence.Value = 100;
-        UplinkTeamPresence.Value = 100;
-        NeoTeamPresence.Value = 100;
+        StrikeTeamPresence.Value = 0;
+        UplinkTeamPresence.Value = 0;
+        NeoTeamPresence.Value = 0;
     }
 
     private void Offset_Subscribe()
@@ -1220,6 +1219,15 @@ public class PlayerController : AliveObjectController
             BaseWeapon.BaseDamage.BuffedState = 300f;
             BaseWeapon.AccuracyRate.ActualState.Value = 100f;
             WalkSpeed.ActualState.Value = 15f;
+
+            CurrentChargedBettery.Value = 9999;
+            CurrentCredit.Value = 9999;
+            CurrentOverrider.Value = 9999;
+            CurrentModuleShard.Value = 9999;
+
+            StrikeTeamPresence.Value = 100;
+            UplinkTeamPresence.Value = 100;
+            NeoTeamPresence.Value = 100;
 
             Debug.Log("DEV TEST: STATE UP");
         }
