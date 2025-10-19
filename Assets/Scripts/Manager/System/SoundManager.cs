@@ -264,7 +264,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     private void Play_2D_SFX(string _ClipName)
     {
-        Play_2D_SFX(ThisSfxASQueueSet.Get_AS(), _ClipName);
+        Play_2D_SFX(ThisSfxASQueueSet.Get_T(), _ClipName);
     }
 
     #endregion

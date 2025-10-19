@@ -1,4 +1,4 @@
-ID,Name,"Stay, BlackScreen: DurTime / Look, Move: TargetPos / Move: TargetID",Move: TargetType,Move: TargetPos(FromTarget)
+ID,Name,"Stay, BlackScreen: DurTime / Look, Move: TargetPos / Move: TargetID","Move: TargetType, Cutscene: SoundID",Move: TargetPos(FromTarget)
 0,Stay,0.5,,
 1,Stay,1,,
 2,Stay,1.5,,
@@ -13,16 +13,20 @@ ID,Name,"Stay, BlackScreen: DurTime / Look, Move: TargetPos / Move: TargetID",Mo
 11,Look,-1/-1,,
 12,Look,-1/0,,
 13,Look,-1/1,,
-14,BlackScreenIn,1,,
-15,BlackScreenIn,1.5,,
-16,BlackScreenIn,2,,
-17,BlackScreenIn,2.5,,
-18,BlackScreenIn,3,,
-19,BlackScreenOut,1,,
-20,BlackScreenOut,1.5,,
-21,BlackScreenOut,2,,
-22,BlackScreenOut,2.5,,
-23,BlackScreenOut,3,,
-24,Move,0,NPC,-1/0
-25,Move,-1,None,-1/0
-26,Dialogue,0,,
+14,BlackScreenIn,0,,
+15,BlackScreenIn,0.5,,
+16,BlackScreenIn,1,,
+17,BlackScreenIn,1.5,,
+18,BlackScreenIn,2,,
+19,BlackScreenIn,2.5,,
+20,BlackScreenIn,3,,
+21,BlackScreenOut,1,,
+22,BlackScreenOut,1.5,,
+23,BlackScreenOut,2,,
+24,BlackScreenOut,2.5,,
+25,BlackScreenOut,3,,
+26,Move,0,NPC,-1/0
+27,Move,-1,None,-1/0
+28,Dialogue,0,,
+29,Cutscene,0,0,
+30,Dialogue,1,,

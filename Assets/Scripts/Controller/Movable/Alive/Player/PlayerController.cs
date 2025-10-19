@@ -1054,13 +1054,13 @@ public class PlayerController : AliveObjectController
         if (DevTool.Is_ChanceSuccess(AvoidChance.ActualState.Value))
         {
             Play_Avoid();
-            SoundManager.Instance.Play_2D_SFX_Player(ASQueueSet.Get_AS(), "Avoid");
+            SoundManager.Instance.Play_2D_SFX_Player(ASQueueSet.Get_T(), "Avoid");
             return true;
         }
         else
         {
             SetOn_Invincible();
-            SoundManager.Instance.Play_2D_SFX_Player(ASQueueSet.Get_AS(), "Hitted");
+            SoundManager.Instance.Play_2D_SFX_Player(ASQueueSet.Get_T(), "Hitted");
             return false;
         }
     }
@@ -1205,7 +1205,7 @@ public class PlayerController : AliveObjectController
 
     public AudioSource Get_AS()
     {
-        return ASQueueSet.Get_AS();
+        return ASQueueSet.Get_T();
     }
 
     #endregion

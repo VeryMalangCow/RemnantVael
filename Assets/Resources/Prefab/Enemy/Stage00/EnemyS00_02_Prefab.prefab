@@ -121,7 +121,7 @@ MonoBehaviour:
     EnemyPatternList:
     - {fileID: 386546918868841986}
   ASQueueSet:
-    ThisASParentTF: {fileID: 7218355777931535123}
+    ThisParentTF: {fileID: 7218355777931535123}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
   IsPlayingPattern: 0

@@ -5330,41 +5330,63 @@ public class ModuleBaseData
 
 
 
-#region Class : Sound
+#region Class : QueueSet
 
 [System.Serializable]
-public class ASQueueSet
+public class QueueSet<T> where T : Component
 {
-    [SerializeField] private Transform ThisASParentTF;
-    [HideInInspector] private List<AudioSource> ThisASList = new List<AudioSource>();
+    [SerializeField] private Transform ThisParentTF;
+    [HideInInspector] protected T[] ThisArr;
 
     private int totalAmount = 0;
     private int currentAmount = -1;
 
-    public void Offset()
+    public virtual void Offset()
     {
-        totalAmount = ThisASParentTF.childCount;
+        totalAmount = ThisParentTF.childCount;
+        ThisArr = new T[totalAmount];
         for (int i = 0; i < totalAmount; i++)
         {
-            ThisASList.Add(DevTool.Get_ComponentTType<AudioSource>(ThisASParentTF.GetChild(i).gameObject));
+            ThisArr[i] = DevTool.Get_ComponentTType<T>(ThisParentTF.GetChild(i).gameObject);
         }
     }
 
-    public AudioSource Get_AS()
+    public T Get_T()
     {
         currentAmount++;
         if (currentAmount >= totalAmount)
         {
             currentAmount = 0;
         }
-        return ThisASList[currentAmount];
+        return ThisArr[currentAmount];
     }
 
+    public void Set_All(bool _OnOff)
+    {
+        for (int i = 0; i < totalAmount; i++)
+            ThisArr[i].gameObject.SetActive(_OnOff);
+    }
+}
+
+[System.Serializable]
+public class ASQueueSet : QueueSet<AudioSource>
+{
     public void StopAll()
     {
-        for (int i = 0; i < ThisASList.Count; i++)
-            ThisASList[i].Stop();
+        for (int i = 0; i < ThisArr.Length; i++)
+            ThisArr[i].Stop();
     }
+}
+
+[System.Serializable]
+public class ImgQueueSet : QueueSet<Image>
+{
+    public override void Offset()
+    {
+        base.Offset();
+        Set_All(false);
+    }
+
 }
 
 #endregion

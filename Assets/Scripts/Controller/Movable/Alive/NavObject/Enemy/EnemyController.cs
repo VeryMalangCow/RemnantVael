@@ -735,7 +735,7 @@ public abstract class EnemyController : NavObjectController
 
     public AudioSource Get_AS()
     {
-        return ASQueueSet.Get_AS();
+        return ASQueueSet.Get_T();
     }
 
     #endregion

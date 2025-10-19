@@ -63,6 +63,10 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private List<List<DialogueElement>> DialogueElement_DataList = new List<List<DialogueElement>>();
     [HideInInspector] private List<DialogueID> DialogueID_Data;
 
+    // ÄÆ¾À
+    [HideInInspector] private List<List<CutsceneElement>> CutsceneElement_DataList = new List<List<CutsceneElement>>();
+    [HideInInspector] private List<CutsceneID> CutsceneID_Data;
+
     // ¸ðµâ
     [HideInInspector] private List<ModuleBaseData> ModuleBaseList_Data;
 
@@ -154,6 +158,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // FieldObj
     [HideInInspector] private GameObject[] FieldObjArray;
 
+    // ÄÆ¾À
+    [HideInInspector] public List<Sprite> CutsceneImgList_Data;
+
     #endregion
 
     #endregion
@@ -172,11 +179,20 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         // Dialogue
         string dialoguePath = "CSV/Dialogue/";
         for (int i = 0; i < GameManager.KindOfLanguage.Count; i++)
-            DialogueElement_DataList.Add(Offset_DialougeEleventList(dialoguePath, 
+            DialogueElement_DataList.Add(Offset_DialougeElementList(dialoguePath, 
                 $"DialogueElement_{GameManager.KindOfLanguage[i]}"));
         
         DialogueID_Data = Offset_DialougeIDList(dialoguePath, 
             "DialogueID");
+
+        // Cutscene
+        string cutscenePath = "CSV/Cutscene/";
+        for (int i = 0; i < GameManager.KindOfLanguage.Count; i++)
+            CutsceneElement_DataList.Add(Offset_CutsceneElementList(cutscenePath,
+                $"CutsceneElement_{GameManager.KindOfLanguage[i]}"));
+
+        CutsceneID_Data = Offset_CutsceneIDList(cutscenePath,
+            "CutsceneID");
 
         // ModuleBase
         string modulePath = "CSV/Module/";
@@ -388,6 +404,15 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
                 "Ally_001"));
     }
 
+    private void Offset_CutsceneItemImg()
+    {
+        CutsceneImgList_Data = new List<Sprite>();
+        CutsceneImgList_Data.AddRange(
+            Offset_ImgPath(
+                "Sprite/UI/Cutscene/",
+                "CutsceneSet_00"));
+    }
+
     private void Offset_Prefab()
     {
         string prefabPath = "Prefab/";
@@ -430,7 +455,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_MapImg();
         Offset_ModuleItemImg();
         Offset_AllyCardIcon();
-        Offset_AllySprite();
+        Offset_AllySprite(); 
+        Offset_CutsceneItemImg();
         Offset_Prefab();
     }
 
@@ -500,6 +526,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     #endregion
+
 
     #region To Event ID
 
@@ -609,6 +636,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
                 eventElement = new EventElement_Dialogue(id, targetId);
             }
+            // ÄÆ¾À
+            else if (name == "Cutscene")
+            {
+                int targetId = int.Parse(stringList[i][2]);
+
+                eventElement = new EventElement_Cutscene(id, targetId);
+            }
 
             result.Add(eventElement);
         }
@@ -650,6 +684,89 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     #endregion
+
+
+    #region To Cutscene
+
+    // ¿ÀÇÁ¼Â
+    private List<CutsceneID> Offset_CutsceneIDList(string _Path, string _FileName)
+    {
+        List<CutsceneID> result = new List<CutsceneID>();
+
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Count; i++)
+        {
+            if (stringList[i][0] == "")
+            { break; }
+
+            int id = int.Parse(stringList[i][0]);
+
+            List<CutsceneElement> cutsceneList = new List<CutsceneElement>();
+            for (int j = 1; j < stringList[i].Count; j++)
+            {
+                if (stringList[i][j] == "" || stringList[i][j] == null)
+                { break; }
+                int elementId = int.Parse(stringList[i][j]);
+                cutsceneList.Add(Get_CorrectCutsceneElement(elementId));
+            }
+
+            result.Add(new CutsceneID(id, cutsceneList));
+        }
+
+        return result;
+    }
+    // ID¿¡ ¸Â´Â ÄÆ¾À ¸®½ºÆ®¸¦ ±¸ÇÔ
+    public CutsceneID Get_CorrectCutsceneID(int _ID)
+    {
+        for (int i = 0; i < CutsceneID_Data.Count; i++)
+        {
+            if (CutsceneID_Data[i].ID == _ID)
+            { return CutsceneID_Data[i]; }
+        }
+
+        return null;
+    }
+
+    #endregion
+
+    #region To Cutscene Element
+
+    // ¿ÀÇÁ¼Â
+
+    private List<CutsceneElement> Offset_CutsceneElementList(string _Path, string _FileName)
+    {
+        List<CutsceneElement> result = new List<CutsceneElement>();
+
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Count; i++)
+        {
+            if (stringList[i][0] == "")
+            { break; }
+
+            int id = int.Parse(stringList[i][0]);
+            string script = stringList[i][1];
+
+            result.Add(new CutsceneElement(id, script));
+        }
+
+        return result;
+    }
+
+
+    // ID¿¡ ¸Â´Â Cutscene 1°³¸¦ ±¸ÇÔ
+    private CutsceneElement Get_CorrectCutsceneElement(int _ID)
+    {
+        for (int i = 0; i < CutsceneElement_DataList[GameManager.LanguageID].Count; i++)
+            if (CutsceneElement_DataList[GameManager.LanguageID][i].ID == _ID)
+                return CutsceneElement_DataList[GameManager.LanguageID][i];
+
+        return null;
+    }
+
+    #endregion
+
 
     #region To DialougeID
 
@@ -700,7 +817,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     // ¿ÀÇÁ¼Â
 
-    private List<DialogueElement> Offset_DialougeEleventList(string _Path, string _FileName)
+    private List<DialogueElement> Offset_DialougeElementList(string _Path, string _FileName)
     {
         List<DialogueElement> result = new List<DialogueElement>();
 
@@ -735,6 +852,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     #endregion
+
 
     #region To Module Base
 
@@ -1209,6 +1327,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
+    #region To Cutscene Sprite
+
+    public Sprite Get_Cutscene(int _ID) => CutsceneImgList_Data[_ID];
+
+    #endregion
+
     #region Set Language
 
     public void Add_LanguageTxt(LanguageTxtController _LangTxt)
@@ -1285,6 +1409,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     #endregion
+
 
     #region To Prefab
 

@@ -1834,7 +1834,7 @@ MonoBehaviour:
   AimRoundPrefab: {fileID: 1597265562462728527, guid: d2969078f44a95045a455dab4043e798, type: 3}
   BattleProdSprite: {fileID: 967936309, guid: 52f91939743298f4f8b005d682be328c, type: 3}
   ASQueueSet:
-    ThisASParentTF: {fileID: 6423599216468934238}
+    ThisParentTF: {fileID: 6423599216468934238}
   MovementAS: {fileID: 2884303428552650349}
   MovementState: 1
   CurrentBoostLv:

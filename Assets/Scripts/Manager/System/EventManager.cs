@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class EventManager : Singleton<EventManager>
 {
@@ -45,10 +46,16 @@ public class EventManager : Singleton<EventManager>
     [HideInInspector] private List<DialogueElement> CurrentDialogues;
 
     [Space(10)]
+    [Header("=== Cutscene")]
+    [SerializeField] private bool IsPlayingCutscene = false;
+    [SerializeField] private GameObject CutsceneGO;
+    [SerializeField] private ImgQueueSet ImgQueueSet;
+    [SerializeField] private TMP_Text CutsceneTxt;
+    [HideInInspector] private List<CutsceneElement> CurrentCutscenes;
+
+    [Space(10)]
     [Header("=== Current")]
     [SerializeField] private EventData CurrentEvent = new EventData();
-
-    [HideInInspector] private PlayerController PC;
 
     #endregion
 
@@ -57,7 +64,18 @@ public class EventManager : Singleton<EventManager>
     protected override void Awake()
     {
         //Singleton
-        base.Awake();
+        base.Awake(); 
+
+        Offset();
+    }
+
+    #endregion
+
+    #region Offset
+
+    private void Offset()
+    {
+        ImgQueueSet.Offset();
     }
 
     #endregion
@@ -99,6 +117,8 @@ public class EventManager : Singleton<EventManager>
         { StartCoroutine(Play_BlackScreenOut_Cor(blackScreenOut)); }
         else if (CurrentEvent.Events[0] is EventElement_Dialogue dialogue)
         { StartCoroutine(Play_Dialogue_Cor(dialogue)); }
+        else if (CurrentEvent.Events[0] is EventElement_Cutscene cutscene)
+        { StartCoroutine(Play_Cutscene_Cor(cutscene)); }
 
         CurrentEvent.Remove_OnePart();
     }
@@ -131,16 +151,14 @@ public class EventManager : Singleton<EventManager>
         Debug.Log("Input " + (_OnOff ? "On" : "Off"));
         if (_OnOff)
         {
-            //InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, true);
-            InputManager.Instance.SetOnOff_InputAction(0, true);
+            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, true);
 
             InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
             InputManager.Instance.CanMouseInput = true;
         }
         else
         {
-            //InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, false);
-            InputManager.Instance.SetOnOff_InputAction(0, false);
+            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, false);
 
             InputManager.Instance.Set_AllPointer(false);
 
@@ -304,6 +322,20 @@ public class EventManager : Singleton<EventManager>
         Play_Event();
     }
 
+    private IEnumerator Play_Cutscene_Cor(EventElement_Cutscene _Event)
+    {
+        CutsceneID id = _Event.Get_CutsceneList();
+
+        Start_Cutscene(id);
+
+        // 현재 사운드 저장해서
+        //SoundManager.Instance.Play_2D_BGM(_Event.TargetID);
+        yield return new WaitUntil(() => !IsPlayingCutscene);
+        // 이곳에 다시 재생
+
+        Play_Event();
+    }
+
     #endregion
 
     #region Dialogue
@@ -389,6 +421,107 @@ public class EventManager : Singleton<EventManager>
         CurrentDialogues = null;
 
         IsPlayingDialogue = false;
+    }
+
+    #endregion
+
+    #region Cutscene
+
+    private void Start_Cutscene(CutsceneID _CutsceneID)
+    {
+        if (IsPlayingCutscene)
+        { return; }
+
+        IsPlayingCutscene = true;
+        CurrentCutscenes = new List<CutsceneElement>(_CutsceneID.Cutscenes);
+        StartCoroutine(Play_Cutscene_Cor());
+    }
+
+    private IEnumerator Play_Cutscene_Cor()
+    {
+        CutsceneGO.gameObject.SetActive(true);
+
+        bool canInteract = false;
+
+        bool isAppearing = false;
+        bool isDisappearing = false;
+
+        bool eachComplete = false;
+
+        Sequence seq;
+
+        while (true)
+        {
+            if (CurrentCutscenes.Count <= 0)
+            { break; }
+
+            eachComplete = false;
+
+            CutsceneElement currentCutscene = CurrentCutscenes[0];
+
+            // Character Img
+            Image img = ImgQueueSet.Get_T();
+            img.gameObject.SetActive(true);
+            img.color = new Color(1f, 1f, 1f, 0f);
+            img.sprite = ResourceManager.Instance.Get_Cutscene(currentCutscene.ID);
+
+            // Script
+            seq = DOTween.Sequence();
+
+            CutsceneTxt.text = "";
+
+            isAppearing = true;
+            seq.Join(CutsceneTxt.DOText(currentCutscene.Script, currentCutscene.Script.Length / 5f));
+            seq.Join(img.DOFade(1f, 3f));
+            seq.OnComplete(() => isAppearing = false);
+
+            while (true)
+            {
+                if (canInteract && Input.anyKeyDown)
+                {
+                    if (isAppearing) // 나타나기
+                    {
+                        seq.Complete();
+                    }
+                    else if (!isDisappearing) // 사라지기
+                    {
+                        isDisappearing = true;
+                        canInteract = false;
+
+                        seq = DOTween.Sequence();
+
+                        CutsceneTxt.text = "";
+                        seq.Join(img.DOFade(0f, 3f));
+                        seq.OnComplete(() => 
+                        { 
+                            isDisappearing = false;
+                            img.gameObject.SetActive(false);
+                            CurrentCutscenes.Remove(currentCutscene);
+                            eachComplete = true;
+                        });
+                    }
+                }
+
+                canInteract = true;
+
+                yield return null;
+
+                if (eachComplete)
+                    break;
+            }
+        }
+
+        End_Cutscene();
+    }
+
+
+    private void End_Cutscene()
+    {
+        CutsceneGO.gameObject.SetActive(false);
+
+        CurrentCutscenes = null;
+
+        IsPlayingCutscene = false;
     }
 
     #endregion
@@ -510,11 +643,53 @@ public class EventElement_Dialogue : EventElement
         TargetID = _TargetID;
     }
 
-    public DialogueID Get_DialogueList()
+    public DialogueID Get_DialogueList() => ResourceManager.Instance.Get_CorrectDialogueID(TargetID);
+    
+}
+
+[Serializable]
+public class EventElement_Cutscene : EventElement
+{
+    public int TargetID;
+
+    public EventElement_Cutscene(int _ID, int _TargetID) : base(_ID)
     {
-       return ResourceManager.Instance.Get_CorrectDialogueID(TargetID);
+        TargetID = _TargetID;
     }
 
+    public CutsceneID Get_CutsceneList() => ResourceManager.Instance.Get_CorrectCutsceneID(TargetID);
+
+}
+
+
+#endregion
+
+#region Cutscene
+
+[Serializable]
+public class CutsceneID
+{
+    public int ID;
+    public List<CutsceneElement> Cutscenes;
+
+    public CutsceneID(int _ID, List<CutsceneElement> _Cutscenes)
+    {
+        ID = _ID;
+        Cutscenes = _Cutscenes;
+    }
+}
+
+[Serializable]
+public class CutsceneElement
+{
+    public int ID;
+    public string Script;
+
+    public CutsceneElement(int _ID, string _Script)
+    {
+        ID = _ID;
+        Script = _Script;
+    }
 }
 
 #endregion
