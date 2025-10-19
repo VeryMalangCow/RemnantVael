@@ -1203,6 +1203,11 @@ public class StageManager : Singleton<StageManager>
             // 주변 공간에 배치할 시 배치 할 수 있는지에 대한
             for (int i = 0; i < _RoomVec.Count; i++)
             {
+                if (_RoundList.Count <= randomIndex || _RoomVec.Count <= i)
+                {
+                    break;
+                }
+
                 WorldVecList.Add(_RoundList[randomIndex] + _RoomVec[i]);
 
                 if (_ExistList.Contains(WorldVecList[i]))
@@ -1216,6 +1221,11 @@ public class StageManager : Singleton<StageManager>
                 wrongPlace = true;
 
             randomIndex++;
+
+            if (randomIndex > 100)
+            {
+                Debug.Assert(false, "생성에 문제!");
+            }
 
             // 안된다면 다시 시작
             if (!wrongPlace) break;

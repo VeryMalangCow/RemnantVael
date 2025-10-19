@@ -101,6 +101,12 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 
     private IEnumerator Play_LoadSceneAsync_Cor(string _SceneName)
     {
+        // Sound
+        float v = 1f;
+        DOTween.To(() => v, _v => v = _v, 0f, 0.5f)
+            .OnUpdate(() => SoundManager.Instance.Set_MasterVolume(v));
+
+        // UI
         CogwheelSeq.Play();
         SlidingImgSeq.Play();
 
@@ -126,6 +132,9 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
         yield return new WaitForSecondsRealtime(0.8f);
 
         LoadingCG.DOFade(0f, 0.5f).SetUpdate(true);
+
+        DOTween.To(() => v, _v => v = _v, 1f, 0.5f)
+            .OnUpdate(() => SoundManager.Instance.Set_MasterVolume(v));
 
         yield return new WaitForSecondsRealtime(0.6f);
 

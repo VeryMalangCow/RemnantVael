@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
@@ -69,6 +70,11 @@ public class EndingElevatorController : ElevatorController, IInteract
 
         // Intetactable Anno Panel
         MainGameUIManager.Instance.InteractAnno_UIController.Set_VisualCG(false);
+
+        // Sound
+        float v = 1f;
+        DOTween.To(() => v, _v => v = _v, 0f, 1f)
+            .OnUpdate(() => SoundManager.Instance.Set_MasterVolume(v));
     }
 
     protected override void Tween_Complete()

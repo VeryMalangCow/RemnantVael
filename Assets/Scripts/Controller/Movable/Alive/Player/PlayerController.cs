@@ -1209,7 +1209,7 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-    #region Test
+#if UNITY_EDITOR
 
     protected override void Update()
     {
@@ -1220,37 +1220,35 @@ public class PlayerController : AliveObjectController
             BaseWeapon.BaseDamage.BuffedState = 300f;
             BaseWeapon.AccuracyRate.ActualState.Value = 100f;
             WalkSpeed.ActualState.Value = 15f;
-            Debug.Log("TEST State Up");
 
-            UnitManager.Instance.Test_Cor(); 
+            Debug.Log("DEV TEST: STATE UP");
         }
 
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            PlayerManager.Instance.Gain_KeyCard(0);
+            UnitManager.Instance.Test_Cor();
+
+            Debug.Log("DEV TEST: GEN BUILD");
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            PlayerManager.Instance.Gain_KeyCard(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            PlayerManager.Instance.Gain_KeyCard(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            PlayerManager.Instance.Gain_KeyCard(3);
-        }
+
         else if (Input.GetKeyDown(KeyCode.Alpha8))
         {
+            PlayerManager.Instance.Gain_KeyCard(0);
+            PlayerManager.Instance.Gain_KeyCard(1);
+            PlayerManager.Instance.Gain_KeyCard(2);
+            PlayerManager.Instance.Gain_KeyCard(3);
             PlayerManager.Instance.Gain_KeyCard(4);
+
+            Debug.Log("DEV TEST: GET KEYCARDS");
         }
 
-        else if (Input.GetKeyDown(KeyCode.Z))
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             EventManager.Instance.Start_Event(0);
+
+            Debug.Log("DEV TEST: TEMP EVENT");
         }
     }
 
-    #endregion
+#endif
 }

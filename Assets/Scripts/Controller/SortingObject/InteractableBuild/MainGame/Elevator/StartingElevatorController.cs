@@ -1,4 +1,6 @@
 
+using DG.Tweening;
+
 public class StartingElevatorController : ElevatorController
 {
     #region Tween
@@ -14,6 +16,11 @@ public class StartingElevatorController : ElevatorController
         // Screen
         MainGameUIManager.Instance.Play_FadeOut(3f);
         MainGameUIManager.Instance.Play_OffLoadingIcon(3f);
+
+        // Sound
+        float v = 0f;
+        DOTween.To(() => v, _v => v = _v, 1f, 1f)
+            .OnUpdate(() => SoundManager.Instance.Set_MasterVolume(v));
     }
 
     protected override void Tween_Complete()
@@ -36,6 +43,7 @@ public class StartingElevatorController : ElevatorController
 
         // Intetactable Anno Panel
         MainGameUIManager.Instance.InteractAnno_UIController.Set_VisualCG(true);
+
     }
 
     #endregion

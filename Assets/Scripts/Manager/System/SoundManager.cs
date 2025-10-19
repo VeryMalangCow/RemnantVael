@@ -355,6 +355,12 @@ public class SoundManager : PersistentSingleton<SoundManager>
     
     #region Set
 
+    public void Set_MasterVolume(float _Value)
+    {
+        float dB = Mathf.Log10(Mathf.Clamp(_Value, 0.0001f, 1f)) * 20f;
+        MasterAudioMixer.SetFloat("Master", dB);
+    }
+
     public void Set_BgmVolume(float _Value)
     {
         BVolume = _Value;
