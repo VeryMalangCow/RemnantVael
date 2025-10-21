@@ -242,6 +242,7 @@ public class EventManager : Singleton<EventManager>
                 {
                     Vector2 npcPos = npc.transform.position;
                     targetPos += npcPos;
+                    Debug.Log(targetPos);
                 }
             }
             else // 다른 목표가 있다면
@@ -381,10 +382,12 @@ public class EventManager : Singleton<EventManager>
             targetDialogueComp.NameTxt.text = currentDialogue.Name;
 
             // Script
+            string targetScript = Get_ProductionString(currentDialogue.Script);
             targetDialogueComp.DialogueTxt.text = "";
             isScripting = true;
             scriptingTween = targetDialogueComp.DialogueTxt
-                .DOText(currentDialogue.Script, currentDialogue.Script.Length / 10f)
+                .DOText(targetScript, targetScript.Length / 30f)
+                .SetEase(Ease.Linear)
                 .OnComplete(() => { isScripting = false; });
 
             while (true)
@@ -470,8 +473,10 @@ public class EventManager : Singleton<EventManager>
 
             CutsceneTxt.text = "";
 
+            string targetScrpit = Get_ProductionString(currentCutscene.Script);
+
             isAppearing = true;
-            seq.Join(CutsceneTxt.DOText(currentCutscene.Script, currentCutscene.Script.Length / 5f));
+            seq.Join(CutsceneTxt.DOText(targetScrpit, targetScrpit.Length / 20f).SetEase(Ease.Linear));
             seq.Join(img.DOFade(1f, 3f));
             seq.OnComplete(() => isAppearing = false);
 
@@ -491,7 +496,7 @@ public class EventManager : Singleton<EventManager>
                         seq = DOTween.Sequence();
 
                         CutsceneTxt.text = "";
-                        seq.Join(img.DOFade(0f, 3f));
+                        seq.Join(img.DOFade(0f, 2f));
                         seq.OnComplete(() => 
                         { 
                             isDisappearing = false;
@@ -525,6 +530,17 @@ public class EventManager : Singleton<EventManager>
     }
 
     #endregion
+
+    private string Get_ProductionString(string _String) 
+        => _String
+            .Replace("<Comma>", ",")
+            .Replace("<EnterLine>", "\n")
+            .Replace("<TriplePeriod>", "...")
+            .Replace("<SingleQuote>", "\'<b>")
+            .Replace("<DoubleQuote>", "\"<b>")
+            .Replace("</SingleQuote>", "</b>\'")
+            .Replace("</DoubleQuote>", "</b>\"");
+    
 }
 
 #region Event
@@ -636,28 +652,28 @@ public class EventElement_BlackScreenOut : EventElement
 [Serializable]
 public class EventElement_Dialogue : EventElement
 {
-    public int TargetID;
+    public int TargetDialogueID;
 
     public EventElement_Dialogue(int _ID, int _TargetID) : base(_ID)
     {
-        TargetID = _TargetID;
+        TargetDialogueID = _TargetID;
     }
 
-    public DialogueID Get_DialogueList() => ResourceManager.Instance.Get_CorrectDialogueID(TargetID);
+    public DialogueID Get_DialogueList() => ResourceManager.Instance.Get_CorrectDialogueID(TargetDialogueID);
     
 }
 
 [Serializable]
 public class EventElement_Cutscene : EventElement
 {
-    public int TargetID;
+    public int TargetCutsceneID;
 
     public EventElement_Cutscene(int _ID, int _TargetID) : base(_ID)
     {
-        TargetID = _TargetID;
+        TargetCutsceneID = _TargetID;
     }
 
-    public CutsceneID Get_CutsceneList() => ResourceManager.Instance.Get_CorrectCutsceneID(TargetID);
+    public CutsceneID Get_CutsceneList() => ResourceManager.Instance.Get_CorrectCutsceneID(TargetCutsceneID);
 
 }
 

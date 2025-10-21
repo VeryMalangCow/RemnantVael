@@ -25,8 +25,8 @@ ID,Name,"Stay, BlackScreen: DurTime / Look, Move: TargetPos / Move: TargetID","M
 23,BlackScreenOut,2,,
 24,BlackScreenOut,2.5,,
 25,BlackScreenOut,3,,
-26,Move,0,NPC,-1/0
-27,Move,-1,None,-1/0
+26,Move,0,NPC,0/-2.5
+27,Move,-1,None,0/0
 28,Dialogue,0,,
 29,Cutscene,0,0,
 30,Dialogue,1,,

@@ -828,6 +828,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             if (stringList[i][0] == "")
             { break; }
 
+            Debug.Log(i);
             int id = int.Parse(stringList[i][0]);
             string name = stringList[i][1];
             string script = stringList[i][2];
