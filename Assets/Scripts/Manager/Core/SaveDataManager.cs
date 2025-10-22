@@ -328,6 +328,8 @@ public enum eFPS
 [System.Serializable]
 public class GameProgressJsonData
 {
+    public int CurrentProgressing = 0;
+
     public bool UsableVault = false;
 
     public bool UsableBU = false;
@@ -342,8 +344,6 @@ public class GameProgressJsonData
 }
 
 #endregion
-
-
 
 #region List Convertor
 

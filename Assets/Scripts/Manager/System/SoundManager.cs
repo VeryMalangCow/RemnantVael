@@ -29,6 +29,8 @@ public class SoundManager : PersistentSingleton<SoundManager>
     [HideInInspector] private Dictionary<string, AudioClip> BGMAudioDict = new Dictionary<string, AudioClip>();
     [HideInInspector] private Dictionary<string, AudioClip> SFXAudioDict = new Dictionary<string, AudioClip>();
 
+    [HideInInspector] private static readonly int CutsceneSoundAmount = 1;
+
     #endregion
 
     #endregion
@@ -223,15 +225,27 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         BGMAudioDict.Add("TitleLobby", Resources.Load<AudioClip>(bgmPath + "TitleLobby"));
 
-        #region Main Game (Stage)
+        #region Main Game
 
         string stagePath = bgmPath + "Stage/";
 
-        BGMAudioDict.Add("Stage99", Resources.Load<AudioClip>(stagePath + "Stage99"));
+        BGMAudioDict.Add("Stage_99", Resources.Load<AudioClip>(stagePath + "Stage_99"));
         for (int i = 0; i < ResourceManager.KindOfMapAmount; i++)
         {
-            string id = DevTool.Get_LengthString(i, 2);
-            BGMAudioDict.Add($"Stage{id}", Resources.Load<AudioClip>(stagePath + $"Stage{id}"));
+            string id = $"Stage_{DevTool.Get_LengthString(i, 2)}";
+            BGMAudioDict.Add(id, Resources.Load<AudioClip>(stagePath + id));
+        }
+
+        #endregion
+
+        #region Cutscene
+
+        string cutscenePath = bgmPath + "Cutscene/";
+
+        for (int i = 0; i < CutsceneSoundAmount; i++)
+        {
+            string id = $"Cutscene_{DevTool.Get_LengthString(i, 3)}";
+            BGMAudioDict.Add(id, Resources.Load<AudioClip>(cutscenePath + id));
         }
 
         #endregion
@@ -361,10 +375,16 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     public void Play_2D_BGM_Stage(int _ID)
     {
-        Play_2D_BGM($"Stage{DevTool.Get_LengthString(_ID, 2)}");
+        Play_2D_BGM($"Stage_{DevTool.Get_LengthString(_ID, 2)}");
+    }
+
+    public void Play_2D_BGM_Cutscene(int _ID)
+    {
+        Play_2D_BGM($"Cutscene_{DevTool.Get_LengthString(_ID, 3)}");
     }
 
     #endregion
+
     #endregion
 
     #region Set

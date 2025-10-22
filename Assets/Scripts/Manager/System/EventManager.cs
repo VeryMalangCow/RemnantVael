@@ -2,10 +2,10 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 public class EventManager : Singleton<EventManager>
 {
@@ -47,15 +47,16 @@ public class EventManager : Singleton<EventManager>
 
     [Space(10)]
     [Header("=== Cutscene")]
-    [SerializeField] private bool IsPlayingCutscene = false;
+    [SerializeField] public bool IsPlayingCutscene = false;
     [SerializeField] private GameObject CutsceneGO;
     [SerializeField] private ImgQueueSet ImgQueueSet;
     [SerializeField] private TMP_Text CutsceneTxt;
+    [SerializeField] private Image CutsceneNextImg;
     [HideInInspector] private List<CutsceneElement> CurrentCutscenes;
 
     [Space(10)]
     [Header("=== Current")]
-    [SerializeField] private EventData CurrentEvent = new EventData();
+    [SerializeField] private EventData CurrentEvent = null;
 
     #endregion
 
@@ -67,6 +68,11 @@ public class EventManager : Singleton<EventManager>
         base.Awake(); 
 
         Offset();
+    }
+
+    private void Start()
+    {
+        TryStart_Event(0);
     }
 
     #endregion
@@ -82,8 +88,14 @@ public class EventManager : Singleton<EventManager>
 
     #region Event Start
 
+    public void TryStart_Event(int _ID)
+    {
+        if (SaveDataManager.Instance.JsonData.GameProgressData.CurrentProgressing + 1 == _ID)
+            Start_Event(_ID);
+    }
+
     // 이벤트 시작
-    public void Start_Event(int _ID)
+    private void Start_Event(int _ID)
     {
         // 다른 이벤트 중이라면 취소
         if (IsPlayingEvent)
@@ -91,8 +103,7 @@ public class EventManager : Singleton<EventManager>
 
         SetOn_EventOption();
 
-        CurrentEvent = new EventData();
-        CurrentEvent.Events = new List<EventElement>(ResourceManager.Instance.Get_CorrectEventList(_ID));
+        CurrentEvent = new EventData(_ID, new List<EventElement>(ResourceManager.Instance.Get_CorrectEventList(_ID)));
         Play_Event();
     }
 
@@ -137,6 +148,20 @@ public class EventManager : Singleton<EventManager>
     // 이벤트 실행 시, 설정 오프
     private void SetOff_EventOption()
     {
+        bool needSave = false;
+        switch (CurrentEvent.ID)
+        {
+            case 0:
+                SaveDataManager.Instance.JsonData.GameProgressData.CurrentProgressing++;
+                needSave = true;
+                break;
+
+            default:
+                break; 
+        }
+
+        if (needSave) SaveDataManager.Instance.Save_JsonData();
+
         CurrentEvent = null;
         IsPlayingEvent = false;
 
@@ -148,6 +173,8 @@ public class EventManager : Singleton<EventManager>
     // 인풋 => On / Off
     public void Set_Input(bool _OnOff)
     {
+        if (IsPlayingEvent) return;
+
         Debug.Log("Input " + (_OnOff ? "On" : "Off"));
         if (_OnOff)
         {
@@ -379,7 +406,7 @@ public class EventManager : Singleton<EventManager>
             targetDialogueComp.DialogueImg.sprite = ResourceManager.Instance.Get_CorrectCharacterImg(currentDialogue.ImgID);
 
             // Name
-            targetDialogueComp.NameTxt.text = currentDialogue.Name;
+            targetDialogueComp.NameTxt.text = ReplaceNPlaceholders(currentDialogue.Name);
 
             // Script
             string targetScript = Get_ProductionString(currentDialogue.Script);
@@ -435,6 +462,7 @@ public class EventManager : Singleton<EventManager>
         if (IsPlayingCutscene)
         { return; }
 
+        SoundManager.Instance.Play_2D_BGM_Cutscene(_CutsceneID.ID);
         IsPlayingCutscene = true;
         CurrentCutscenes = new List<CutsceneElement>(_CutsceneID.Cutscenes);
         StartCoroutine(Play_Cutscene_Cor());
@@ -477,34 +505,32 @@ public class EventManager : Singleton<EventManager>
 
             isAppearing = true;
             seq.Join(CutsceneTxt.DOText(targetScrpit, targetScrpit.Length / 20f).SetEase(Ease.Linear));
-            seq.Join(img.DOFade(1f, 3f));
-            seq.OnComplete(() => isAppearing = false);
+            seq.Join(img.DOFade(1f, 3f).SetEase(Ease.Linear));
+            seq.OnComplete(() => 
+            { 
+                isAppearing = false;
+                CutsceneNextImg.gameObject.SetActive(true);
+            });
 
             while (true)
             {
-                if (canInteract && Input.anyKeyDown)
+                if (!isAppearing && !isDisappearing && canInteract && Input.anyKeyDown)
                 {
-                    if (isAppearing) // 나타나기
-                    {
-                        seq.Complete();
-                    }
-                    else if (!isDisappearing) // 사라지기
-                    {
-                        isDisappearing = true;
-                        canInteract = false;
+                    isDisappearing = true;
+                    canInteract = false;
+                    CutsceneNextImg.gameObject.SetActive(false);
 
-                        seq = DOTween.Sequence();
+                    seq = DOTween.Sequence();
 
-                        CutsceneTxt.text = "";
-                        seq.Join(img.DOFade(0f, 2f));
-                        seq.OnComplete(() => 
-                        { 
-                            isDisappearing = false;
-                            img.gameObject.SetActive(false);
-                            CurrentCutscenes.Remove(currentCutscene);
-                            eachComplete = true;
-                        });
-                    }
+                    CutsceneTxt.text = "";
+                    seq.Join(img.DOFade(0f, 2f).SetEase(Ease.Linear));
+                    seq.OnComplete(() =>
+                    {
+                        isDisappearing = false;
+                        img.gameObject.SetActive(false);
+                        CurrentCutscenes.Remove(currentCutscene);
+                        eachComplete = true;
+                    });
                 }
 
                 canInteract = true;
@@ -527,20 +553,84 @@ public class EventManager : Singleton<EventManager>
         CurrentCutscenes = null;
 
         IsPlayingCutscene = false;
+
+        SoundManager.Instance.Play_2D_BGM_Stage(StageManager.Instance.Get_CurrentStageData().InfoData.StageID);
     }
 
     #endregion
 
-    private string Get_ProductionString(string _String) 
-        => _String
-            .Replace("<Comma>", ",")
-            .Replace("<EnterLine>", "\n")
-            .Replace("<TriplePeriod>", "...")
-            .Replace("<SingleQuote>", "\'<b>")
-            .Replace("<DoubleQuote>", "\"<b>")
-            .Replace("</SingleQuote>", "</b>\'")
-            .Replace("</DoubleQuote>", "</b>\"");
-    
+    private string Get_ProductionString(string _String)
+    {
+        string result = _String
+            .Replace("<c>", ",")
+            .Replace("<el>", "\n");
+
+        result = ReplaceNPlaceholders(result);
+
+        return result;
+    }
+
+    public string ReplaceNPlaceholders(string s)
+    {
+        if (string.IsNullOrEmpty(s)) return s;
+
+        const string marker = "<n>(";
+        StringBuilder sb = null;
+        int pos = 0;
+
+        while (true)
+        {
+            int idx = s.IndexOf(marker, pos, StringComparison.Ordinal);
+            if (idx < 0) break;
+
+            int digitsStart = idx + marker.Length; // 숫자 시작 위치
+            int i = digitsStart;
+
+            // 숫자 파싱 (수동, 빠름)
+            int val = 0;
+            bool hasDigit = false;
+
+            while (i < s.Length)
+            {
+                char c = s[i];
+                if ((uint)(c - '0') <= 9)
+                {
+                    hasDigit = true;
+                    // overflow 방지용 (int 범위 넘어가면 실패 처리)
+                    int next = val * 10 + (c - '0');
+                    if (next < val) { hasDigit = false; break; }
+                    val = next;
+                    i++;
+                }
+                else break;
+            }
+
+            // 패턴 유효성: 최소 1개 숫자 + 닫는 괄호 ')'
+            bool valid = hasDigit && i < s.Length && s[i] == ')';
+
+            if (!valid)
+            {
+                // 유효하지 않으면 "<n>"까지만 지나가며 계속
+                if (sb == null) sb = new StringBuilder(s.Length);
+                sb.Append(s, pos, (idx + 3) - pos); // "<n>"까지 복사
+                pos = idx + 3;
+                continue;
+            }
+
+            // 유효: 교체 수행
+            if (sb == null) sb = new StringBuilder(s.Length + 16);
+            sb.Append(s, pos, idx - pos); // 패턴 앞부분 복사
+
+            string replacement = ResourceManager.Instance.Get_ProperNounWord(val);
+            sb.Append(replacement);
+
+            pos = i + 1; // ')' 다음 위치로 진행
+        }
+
+        if (sb == null) return s; // 교체된 게 하나도 없으면 원문 반환
+        if (pos < s.Length) sb.Append(s, pos, s.Length - pos); // 꼬리 붙이기
+        return sb.ToString();
+    }
 }
 
 #region Event
@@ -548,7 +638,14 @@ public class EventManager : Singleton<EventManager>
 [Serializable]
 public class EventData
 {
+    public int ID;
     public List<EventElement> Events;
+
+    public EventData(int _ID, List<EventElement> _Events)
+    {
+        ID = _ID;
+        Events = _Events;
+    }
 
     public void Remove_OnePart()
     {

@@ -5278,19 +5278,19 @@ public class WordData
 {
     public List<WordElementData> AllWordData;
 
-    public WordData(List<WordElementData> _AllMapNameData)
+    public WordData(List<WordElementData> _AllWordData)
     {
-        AllWordData = _AllMapNameData;
+        AllWordData = _AllWordData;
     }
 
     public string Get_Word(int _ID)
     {
         if (AllWordData.Count > _ID && AllWordData[_ID].ID == _ID) 
-            return AllWordData[_ID].Word[GameManager.LanguageID];
+            return AllWordData[_ID].Words[GameManager.LanguageID];
 
         for (int i = 0; i < AllWordData.Count; i++)
             if (AllWordData[i].ID == _ID)
-                return AllWordData[i].Word[GameManager.LanguageID];
+                return AllWordData[i].Words[GameManager.LanguageID];
 
         return "";
     }
@@ -5300,12 +5300,49 @@ public class WordData
 public class WordElementData
 {
     public int ID;
-    public List<string> Word;
+    public List<string> Words;
 
-    public WordElementData(int _ID, List<string> _MapName)
+    public WordElementData(int _ID, List<string> _Words)
     {
         ID = _ID;
-        Word = _MapName;
+        Words = _Words;
+    }
+}
+
+
+[System.Serializable]
+public class WordData_WithClr
+{
+    public List<WordElementData_WithClr> AllWordData;
+
+    public WordData_WithClr(List<WordElementData_WithClr> _AllMapNameData)
+    {
+        AllWordData = _AllMapNameData;
+    }
+
+    public string Get_Word(int _ID)
+    {
+        WordElementData_WithClr data = null;
+
+        if (AllWordData.Count > _ID && AllWordData[_ID].ID == _ID)
+            data = AllWordData[_ID];
+
+        for (int i = 0; i < AllWordData.Count; i++)
+            if (AllWordData[i].ID == _ID)
+                data = AllWordData[_ID];
+
+        return $"<color=#{data.ClrHex}><b>\"{data.Words[GameManager.LanguageID]}\"</color></b>";
+    }
+}
+
+[System.Serializable]
+public class WordElementData_WithClr : WordElementData
+{
+    public string ClrHex;
+
+    public WordElementData_WithClr(int _ID, string _ClrHex, List<string> _MapName) : base(_ID, _MapName)
+    {
+        ClrHex = _ClrHex;
     }
 }
 

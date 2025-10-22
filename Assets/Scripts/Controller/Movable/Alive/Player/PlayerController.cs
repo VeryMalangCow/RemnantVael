@@ -1254,7 +1254,7 @@ public class PlayerController : AliveObjectController
 
         else if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            EventManager.Instance.Start_Event(0);
+            EventManager.Instance.TryStart_Event(0);
 
             Debug.Log("DEV TEST: TEMP EVENT");
         }

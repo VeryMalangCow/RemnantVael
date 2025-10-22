@@ -81,6 +81,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // 워드
     // 스태틱
     [HideInInspector] private WordData StaticWord_Data;
+    // 고유 명사
+    [HideInInspector] private WordData_WithClr ProperNoun_Data;
     // 맵 이름
     [HideInInspector] private WordData MapName_Data;
     [HideInInspector] private WordData MapDesc_Data;
@@ -172,32 +174,32 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         // Event
         string eventPath = "CSV/Event/";
         EventElement_Data = Offset_EventElementList(eventPath, 
-            "EventElement");
-        EventID_Data = Offset_EventIDList(eventPath, 
-            "EventID");
+            "EventElement_CSV");
+        EventID_Data = Offset_EventIDList(eventPath,
+            "EventID_CSV");
 
         // Dialogue
         string dialoguePath = "CSV/Dialogue/";
         for (int i = 0; i < GameManager.KindOfLanguage.Count; i++)
             DialogueElement_DataList.Add(Offset_DialougeElementList(dialoguePath, 
-                $"DialogueElement_{GameManager.KindOfLanguage[i]}"));
+                $"DialogueElement_{GameManager.KindOfLanguage[i]}_CSV"));
         
-        DialogueID_Data = Offset_DialougeIDList(dialoguePath, 
-            "DialogueID");
+        DialogueID_Data = Offset_DialougeIDList(dialoguePath,
+            "DialogueID_CSV");
 
         // Cutscene
         string cutscenePath = "CSV/Cutscene/";
         for (int i = 0; i < GameManager.KindOfLanguage.Count; i++)
             CutsceneElement_DataList.Add(Offset_CutsceneElementList(cutscenePath,
-                $"CutsceneElement_{GameManager.KindOfLanguage[i]}"));
+                $"CutsceneElement_{GameManager.KindOfLanguage[i]}_CSV"));
 
         CutsceneID_Data = Offset_CutsceneIDList(cutscenePath,
-            "CutsceneID");
+            "CutsceneID_CSV");
 
         // ModuleBase
         string modulePath = "CSV/Module/";
-        ModuleBaseList_Data = Offset_ModuleBase(modulePath, 
-            "ModuleCSV");
+        ModuleBaseList_Data = Offset_ModuleBase(modulePath,
+            "Module_CSV");
 
         // Ally Card
         string allyCardPath = "CSV/AllyCard/";
@@ -220,73 +222,76 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         // MapNextIndexList
         string mapPath = "CSV/Map/";
         MapNextIndex_Data = Offset_MapNextIndex(mapPath,
-            "MapEntranceIndexCSV");
+            "MapEntranceIndex_CSV");
         
 
         // Word
         // Static
         string wordPath = "CSV/Word/";
         StaticWord_Data = Offset_WordData(wordPath,
-            "StaticWordCSV");
+            "StaticWord_CSV");
+        // ProperNoun
+        ProperNoun_Data = Offset_WordData_Clr(wordPath,
+            "ProperNoun_CSV");
         // Map
-        MapName_Data = Offset_WordData(wordPath, 
-            "MapNameCSV");
+        MapName_Data = Offset_WordData(wordPath,
+            "MapName_CSV");
         // Skill
         SkillName_Data = Offset_WordDataList_ForParentID(wordPath,
-            "SkillNameCSV", PlayerManager.KindOfPlayerAmount);
+            "SkillName_CSV", PlayerManager.KindOfPlayerAmount);
         // Module
         ModuleItemName_Data = Offset_WordData(wordPath,
-            "ModuleNameCSV");
+            "ModuleName_CSV");
         // MainChip
         MainChipName_Data = Offset_WordData(wordPath,
-            "MainChipNameCSV");
+            "MainChipName_CSV");
         // Ally Card
         StrikeTeam_AllyCardName_Data = Offset_WordData(wordPath,
-            "AllyCard_StrikeTeam_NameCSV");
+            "AllyCard_StrikeTeam_Name_CSV");
         UplinkTeam_AllyCardName_Data = Offset_WordData(wordPath,
-            "AllyCard_UplinkTeam_NameCSV");
+            "AllyCard_UplinkTeam_Name_CSV");
         NeoTeam_AllyCardName_Data = Offset_WordData(wordPath,
-            "AllyCard_NeoTeam_NameCSV");
+            "AllyCard_NeoTeam_Name_CSV");
         // Tuner
         TunerStateName_Data = Offset_WordData(wordPath,
-            "TunerStateNameCSV");
+            "TunerStateName_CSV");
 
         // Random Name
         RandomName_Data = Offset_WordData(wordPath,
-            "RandomNameCSV");
+            "RandomName_CSV");
 
         PlayerName_Data = Offset_WordData(wordPath,
-            "PlayerNameCSV");
+            "PlayerName_CSV");
         EnemyName_Data = Offset_WordData(wordPath,
-            "EnemyNameCSV");
+            "EnemyName_CSV");
 
         // Desc
         // Static
         string descPath = "CSV/Desc/";
         StaticDesc_Data = Offset_WordData(descPath,
-            "StaticDescCSV");
+            "StaticDesc_CSV");
         // Map
         MapDesc_Data = Offset_WordData(descPath,
-            "MapDescCSV");
+            "MapDesc_CSV");
         // Skill
         SkillDesc_Data = Offset_WordDataList_ForParentID(descPath,
-            "SkillDescCSV", PlayerManager.KindOfPlayerAmount);
+            "SkillDesc_CSV", PlayerManager.KindOfPlayerAmount);
         // Module
         ModuleItemDesc_Data = Offset_WordData(descPath,
-            "ModuleDescCSV");
+            "ModuleDesc_CSV");
         ModuleItemEquipDesc_Data = Offset_WordData(descPath,
-            "ModuleEquipDescCSV");
+            "ModuleEquipDesc_CSV");
         MainChipAllyDescList_Data = Offset_WordData(descPath,
-            "MainChipAllyDescCSV");
+            "MainChipAllyDesc_CSV");
         MainChipDescList_Data = Offset_WordDataList_ForParentID(descPath,
-            "MainChipDescCSV", MainChipName_Data.AllWordData.Count);
+            "MainChipDesc_CSV", MainChipName_Data.AllWordData.Count);
         // Ally Card
         StrikeTeam_AllyCardDesc_Data = Offset_WordData(descPath,
-            "AllyCard_StrikeTeam_DescCSV");
+            "AllyCard_StrikeTeam_Desc_CSV");
         UplinkTeam_AllyCardDesc_Data = Offset_WordData(descPath,
-            "AllyCard_UplinkTeam_DescCSV");
+            "AllyCard_UplinkTeam_Desc_CSV");
         NeoTeam_AllyCardDesc_Data = Offset_WordData(descPath,
-            "AllyCard_NeoTeam_DescCSV");
+            "AllyCard_NeoTeam_Desc_CSV");
     }
 
     private void Offset_CharImg()
@@ -828,7 +833,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             if (stringList[i][0] == "")
             { break; }
 
-            Debug.Log(i);
             int id = int.Parse(stringList[i][0]);
             string name = stringList[i][1];
             string script = stringList[i][2];
@@ -1037,6 +1041,29 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return new WordData(element);
     }
 
+    private WordData_WithClr Offset_WordData_Clr(string _Path, string _FileName)
+    {
+        List<WordElementData_WithClr> element = new List<WordElementData_WithClr>();
+
+        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Count; i++)
+        {
+            if (stringList[i][0] == "") break;
+
+            int id = int.Parse(stringList[i][0]);
+            string clrHex = stringList[i][1];
+
+            List<string> nameList = new List<string>();
+            for (int j = 0; j < GameManager.KindOfLanguage.Count; j++)
+                nameList.Add(stringList[i][j + 2]);
+
+            element.Add(new WordElementData_WithClr(id, clrHex, nameList));
+        }
+
+        return new WordData_WithClr(element);
+    }
+
     #endregion
 
     #region Get 
@@ -1050,6 +1077,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public string Get_StaticDesc(int _ID)
     {
         return StaticDesc_Data.Get_Word(_ID);
+    }
+
+    // ProperNoun
+    public string Get_ProperNounWord(int _ID)
+    {
+        return ProperNoun_Data.Get_Word(_ID);
     }
 
     // Map
@@ -1208,7 +1241,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 0; i < RandomName_Data.AllWordData.Count; i++)
         {
-            result.Add(RandomName_Data.AllWordData[i].Word);
+            result.Add(RandomName_Data.AllWordData[i].Words);
         }
 
         return result;
