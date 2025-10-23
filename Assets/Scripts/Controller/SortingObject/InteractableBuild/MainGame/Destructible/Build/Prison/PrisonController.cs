@@ -267,7 +267,7 @@ public class PrisonController : InteractableBuildController
 
     public virtual void Set_LanguageTxt()
     {
-        DangerTxt.text = $"{ResourceManager.Instance.RatingString}: ({Rating + 1}) {ResourceManager.Instance.PrisonRateStringList[Rating]} <size=150%>(</size>";
+        DangerTxt.text = $"{ResourceManager.Instance.RatingString}: ({Rating + 1}) {ResourceManager.Instance.PrisonRateStringArr[Rating]} <size=150%>(</size>";
 
         if (PuzzleOper != null) 
             PuzzleOper.Set_Language();

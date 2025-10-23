@@ -33,7 +33,7 @@ public class LanguageTxtController : MonoBehaviour
     public void Set_Font(int _LanguageID)
     {
         if (DevTool.Get_ComponentTType(gameObject, out TMP_Text txt))
-            txt.font = ResourceManager.Instance.LanguageTxtList[_LanguageID].FontAssets[Type];
+            txt.font = ResourceManager.Instance.LanguageTxtArr[_LanguageID].FontAssets[Type];
     }
 
     #endregion

@@ -33,6 +33,14 @@ public class IDController : MonoBehaviour
         return default;
     }
 
+    public static T Get_CorrectIDObject<T>(int _ID, Dictionary<int, T> _ObjectDict) where T : IDController
+    {
+        if (_ObjectDict.ContainsKey(_ID)) 
+            return _ObjectDict[_ID];
+
+        return null;
+    }
+
     // ID가 맞는가 판별
     private static bool Is_CorrectID(int _ID, IDController _Object)
     {

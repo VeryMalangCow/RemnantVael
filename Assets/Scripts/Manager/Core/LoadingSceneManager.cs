@@ -12,8 +12,8 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
     [SerializeField] private CanvasGroup LoadingCG;
     [SerializeField] private Image LoadingBarImg;
 
-    [SerializeField] private List<RectTransform> LoadingIconRT_Clockwise;
-    [SerializeField] private List<RectTransform> LoadingIconRT_CounterClockwise;
+    [SerializeField] private RectTransform[] LoadingIconRT_Clockwise;
+    [SerializeField] private RectTransform[] LoadingIconRT_CounterClockwise;
 
     [SerializeField] private RectTransform SlidingImgRT;
     
@@ -54,14 +54,14 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
         return seq;
     }
 
-    private Sequence Get_CogSeq(List<RectTransform> _RTList, float _Angle, float _DurTime)
+    private Sequence Get_CogSeq(RectTransform[] _RTArr, float _Angle, float _DurTime)
     {
         Sequence seq = DOTween.Sequence();
 
-        for (int i = 0; i < _RTList.Count; i++)
+        for (int i = 0; i < _RTArr.Length; i++)
         {
             int index = i;
-            seq.Join(_RTList[index]
+            seq.Join(_RTArr[index]
                 .DORotate(new Vector3(0, 0, _Angle), _DurTime, RotateMode.FastBeyond360)
                 .SetEase(Ease.Linear));
         }

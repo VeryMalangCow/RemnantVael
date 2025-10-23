@@ -27,7 +27,7 @@ public class GameManager : PersistentSingleton<GameManager>
     public static eScreenMode ScreenMode = eScreenMode.FullScreen;
     public static eResolution ResolutionMode = eResolution.w1920h1080;
     public static eFPS FPS = eFPS.f144;
-    public readonly static List<string> KindOfLanguage = new List<string> { "Eng", "Kor" };
+    public readonly static string[] KindOfLanguage = new string[] { "Eng", "Kor" };
 
     #endregion
 
@@ -5141,7 +5141,13 @@ public class MinimapIcon
 public class LanguageTxt
 {
     public int ID;
-    public List<TMP_FontAsset> FontAssets;
+    public TMP_FontAsset[] FontAssets;
+
+    public LanguageTxt(int _ID, TMP_FontAsset[] _FontAssets)
+    {
+        ID = _ID;
+        FontAssets = _FontAssets;
+    }
 }
 
 [System.Serializable]

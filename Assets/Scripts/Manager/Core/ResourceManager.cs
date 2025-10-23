@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,33 +10,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 {
     #region Value
 
-    #region - Inspector
-
-    [Space(10)]
-    [Header("=== Font")]
-    [SerializeField] public List<LanguageTxt> LanguageTxtList;
-
-    // Language
-    [HideInInspector] private HashSet<LanguageTxtController> AllLanguageTxtController = new HashSet<LanguageTxtController>();
-
-    // string
-    [HideInInspector] public string RatingString;
-    [HideInInspector] public List<string> PrisonRateStringList;
-    [HideInInspector] public string StrikeTeamString;
-    [HideInInspector] public string UplinkTeamString;
-    [HideInInspector] public string NeoTeamString;
-    [HideInInspector] public List<string> AllyCardRateList;
-
-    // Prison
-    [HideInInspector] public HashSet<PrisonController> AllPrison = new HashSet<PrisonController>();
-
-
-    #endregion
-
     #region - Amount Set
 
     // 맵 종류
     [HideInInspector] public static int KindOfMapAmount = 2;
+
     // 각 맵에 사용할 스프라이트의 양
     [HideInInspector] private int EachKindOfMapAmount = 2;
     [HideInInspector] private int FieldObjKindOfType = 3;
@@ -43,10 +22,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // Passage 맵 스프라이트 양
     [HideInInspector] private int KindOfMapPassageAmount = 1;
 
+
     // 카드 아이콘 양
     [HideInInspector] private int STIconAmount = 1;
     [HideInInspector] private int UTIconAmount = 1;
     [HideInInspector] private int NTIconAmount = 1;
+
 
     // FieldObj
     [HideInInspector] private int KindOfFieldObj = 3;
@@ -55,17 +36,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #region - Hide
 
-    // 이벤트
-    [HideInInspector] private List<EventID> EventID_Data;
-    [HideInInspector] private List<EventElement> EventElement_Data;
-
-    // 다이얼로그
-    [HideInInspector] private List<List<DialogueElement>> DialogueElement_DataList = new List<List<DialogueElement>>();
-    [HideInInspector] private List<DialogueID> DialogueID_Data;
-
-    // 컷씬
-    [HideInInspector] private List<List<CutsceneElement>> CutsceneElement_DataList = new List<List<CutsceneElement>>();
-    [HideInInspector] private List<CutsceneID> CutsceneID_Data;
 
     // 모듈
     [HideInInspector] private List<ModuleBaseData> ModuleBaseList_Data;
@@ -127,8 +97,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     // 스프라이트
-    // 캐릭터
-    [HideInInspector] private List<Sprite> CharacterImgList_Data;
 
     // 맵
     [HideInInspector] public List<Sprite> MapLobbyImg_Data;
@@ -160,10 +128,84 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // FieldObj
     [HideInInspector] private GameObject[] FieldObjArray;
 
-    // 컷씬
-    [HideInInspector] public List<Sprite> CutsceneImgList_Data;
 
     #endregion
+
+    #endregion
+
+
+    #region File
+
+    #region T
+
+    private T[] Get_Arr<T>(string _Path, string _FileName) where T : UnityEngine.Object
+        => Resources.LoadAll<T>(_Path + _FileName);
+
+
+    private T Get<T>(string _Path, string _FileName) where T : UnityEngine.Object
+        => Resources.Load<T>(_Path + _FileName);
+
+    #endregion
+
+    #region CSV
+
+    [HideInInspector] private static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
+    [HideInInspector] private static string WORD_SPLIT_RE = @",";
+
+    // 파일 => 스트링
+    private string Get_FileString(TextAsset _TextAsset)
+    {
+        return _TextAsset.text;
+    }
+
+    // 행 길이 구하기
+    private int Get_FileRowAmount(TextAsset _TextAsset)
+    {
+        return Get_AllLine(_TextAsset).Length;
+    }
+
+    // 행 받아오기
+    private string[] Get_AllLine(TextAsset _TextAsset)
+    {
+        return Regex.Split(Get_FileString(_TextAsset), LINE_SPLIT_RE);
+    }
+
+    // 열을 쉼표로 나누기
+    private string[] Get_Words(TextAsset _TextAsset, int _Row)
+    {
+        return Regex.Split(Get_AllLine(_TextAsset)[_Row], WORD_SPLIT_RE);
+    }
+
+    // 파일을 이중 리스트(string)으로 변경
+    private string[][] Get_DoubleArr(TextAsset _TextAsset)
+    {
+        List<string[]> result = new List<string[]>();
+        int amount = Get_FileRowAmount(_TextAsset);
+        for (int i = 0; i < amount; i++)
+        {
+            result.Add(Get_Words(_TextAsset, i));
+        }
+        return result.ToArray();
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Framework
+
+    protected override void Awake()
+    {
+        //Singleton
+        base.Awake();
+
+        Offset();
+    }
+
+    private void Start()
+    {
+        Set_LanguageTxt();
+    }
 
     #endregion
 
@@ -171,30 +213,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     private void Offset_CSV()
     {
-        // Event
-        string eventPath = "CSV/Event/";
-        EventElement_Data = Offset_EventElementList(eventPath, 
-            "EventElement_CSV");
-        EventID_Data = Offset_EventIDList(eventPath,
-            "EventID_CSV");
+        Offset_CSV_Event();
+        Offset_CSV_Cutscene();
+        Offset_CSV_Dialogue();
 
-        // Dialogue
-        string dialoguePath = "CSV/Dialogue/";
-        for (int i = 0; i < GameManager.KindOfLanguage.Count; i++)
-            DialogueElement_DataList.Add(Offset_DialougeElementList(dialoguePath, 
-                $"DialogueElement_{GameManager.KindOfLanguage[i]}_CSV"));
-        
-        DialogueID_Data = Offset_DialougeIDList(dialoguePath,
-            "DialogueID_CSV");
-
-        // Cutscene
-        string cutscenePath = "CSV/Cutscene/";
-        for (int i = 0; i < GameManager.KindOfLanguage.Count; i++)
-            CutsceneElement_DataList.Add(Offset_CutsceneElementList(cutscenePath,
-                $"CutsceneElement_{GameManager.KindOfLanguage[i]}_CSV"));
-
-        CutsceneID_Data = Offset_CutsceneIDList(cutscenePath,
-            "CutsceneID_CSV");
+        #region Yet
 
         // ModuleBase
         string modulePath = "CSV/Module/";
@@ -206,7 +229,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         StrikeTeam_AllyCard_Data = Offset_AllyCard(allyCardPath,
             "AllyCard_StrikeTeam_CSV");
         UplinkTeam_AllyCard_Data = Offset_AllyCard(allyCardPath,
-            "AllyCard_UplinkTeam_CSV"); 
+            "AllyCard_UplinkTeam_CSV");
         NeoTeam_AllyCard_Data = Offset_AllyCard(allyCardPath,
             "AllyCard_NeoTeam_CSV");
 
@@ -223,7 +246,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         string mapPath = "CSV/Map/";
         MapNextIndex_Data = Offset_MapNextIndex(mapPath,
             "MapEntranceIndex_CSV");
-        
+
 
         // Word
         // Static
@@ -292,17 +315,27 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             "AllyCard_UplinkTeam_Desc_CSV");
         NeoTeam_AllyCardDesc_Data = Offset_WordData(descPath,
             "AllyCard_NeoTeam_Desc_CSV");
+
+        #endregion
     }
 
-    private void Offset_CharImg()
+    private void Offset_Sprite()
     {
-        // Char
-        CharacterImgList_Data = new List<Sprite>();
-        CharacterImgList_Data.AddRange(
-            Offset_ImgPath(
-                "Sprite/Character/",
-                "CharacterImg_000"));
+        Offset_CutsceneSprite();
+        Offset_DialogueSprite();
+
+        #region Yet
+
+        Offset_MapImg();
+        Offset_ModuleItemImg();
+        Offset_AllySprite();
+        Offset_AllyCardIcon();
+
+        #endregion
     }
+
+
+    #region Sprite Yet
 
     private void Offset_MapImg()
     {
@@ -313,7 +346,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         for (int j = 0; j < EachKindOfMapAmount; j++)
         {
             MapLobbyImg_Data.AddRange(
-            Offset_ImgPath(
+            Get_Arr<Sprite>(
                 $"Sprite/Map/MapLobby/",
                 $"MapLobby_{DevTool.Get_LengthString(j, 3)}"));
 
@@ -333,7 +366,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             for (int j = 0; j < EachKindOfMapAmount; j++)
             {
                 MapImgList_Data[i].AddRange(
-                    Offset_ImgPath(
+                    Get_Arr<Sprite>(
                         $"Sprite/Map/Map{DevTool.Get_LengthString(i, 2)}/",
                         $"Map{DevTool.Get_LengthString(i, 2)}_{DevTool.Get_LengthString(j, 3)}"));
 
@@ -356,7 +389,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         {
             MapPassageImgList_Data.Add(new List<Sprite>());
             MapPassageImgList_Data[i].AddRange(
-                Offset_ImgPath(
+                Get_Arr<Sprite>(
                     $"Sprite/Map/MapPassage/",
                     $"MapPassage_{DevTool.Get_LengthString(i, 3)}"));
         }
@@ -366,13 +399,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         ModuleItemImgList_Data = new List<Sprite>();
         ModuleItemImgList_Data.AddRange(
-            Offset_ImgPath(
+            Get_Arr<Sprite>(
                 "Sprite/UI/MU/",
                 "MUItemUI_000"));
 
         ModuleSynhronyImgList_Data = new List<Sprite>();
         ModuleSynhronyImgList_Data.AddRange(
-            Offset_ImgPath(
+            Get_Arr<Sprite>(
                 "Sprite/UI/MU/",
                 "MUSynchronyUI_000"));
     }
@@ -392,7 +425,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             for (int i = 0; i < _SpriteAmount; i++)
             {
                 result.AddRange(
-                    Offset_ImgPath(
+                    Get_Arr<Sprite>(
                         $"Sprite/UI/Ally/",
                         $"AllyCardIcon_{_TypeName}_{DevTool.Get_LengthString(i, 3)}"));
             }
@@ -404,22 +437,18 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         AllySprite_Data = new List<Sprite>();
         AllySprite_Data.AddRange(
-            Offset_ImgPath(
+            Get_Arr<Sprite>(
                 "Sprite/Ally/",
                 "Ally_001"));
     }
 
-    private void Offset_CutsceneItemImg()
-    {
-        CutsceneImgList_Data = new List<Sprite>();
-        CutsceneImgList_Data.AddRange(
-            Offset_ImgPath(
-                "Sprite/UI/Cutscene/",
-                "CutsceneSet_00"));
-    }
+    #endregion
+
 
     private void Offset_Prefab()
     {
+        #region Yet
+
         string prefabPath = "Prefab/";
 
         // Ally
@@ -428,19 +457,19 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         string fieldUnitPath = allyPath + "FieldUnit/";
         AllyFieldUnit_PrefabDict = new Dictionary<string, GameObject>
         {
-            { "Grunt", Get_Prefab(fieldUnitPath, "GruntAlly_Prefab") },
+            { "Grunt", Get<GameObject>(fieldUnitPath, "GruntAlly_Prefab") },
 
-            { "Ignis", Get_Prefab(fieldUnitPath, "IgnisAlly_Prefab") },
-            { "Glacia", Get_Prefab(fieldUnitPath, "GlaciaAlly_Prefab") },
-            { "Volt", Get_Prefab(fieldUnitPath, "VoltAlly_Prefab") },
-            { "Tox", Get_Prefab(fieldUnitPath, "ToxAlly_Prefab") }
+            { "Ignis", Get<GameObject>(fieldUnitPath, "IgnisAlly_Prefab") },
+            { "Glacia", Get<GameObject>(fieldUnitPath, "GlaciaAlly_Prefab") },
+            { "Volt", Get<GameObject>(fieldUnitPath, "VoltAlly_Prefab") },
+            { "Tox", Get<GameObject>(fieldUnitPath, "ToxAlly_Prefab") }
         };
 
         string noneUnitPath = allyPath + "NoneUnit/";
         AllyNoneUnit_PrefabDict = new Dictionary<string, GameObject>
         {
-            { "Booma", Get_Prefab(noneUnitPath, "BoomaAlly_Prefab") },
-            { "Totis", Get_Prefab(noneUnitPath, "TotisAlly_Prefab") }
+            { "Booma", Get<GameObject>(noneUnitPath, "BoomaAlly_Prefab") },
+            { "Totis", Get<GameObject>(noneUnitPath, "TotisAlly_Prefab") }
         };
 
         // Field Obj
@@ -449,163 +478,178 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         FieldObjArray = new GameObject[KindOfFieldObj];
 
         for (int i = 0; i < KindOfFieldObj; i++)
-            FieldObjArray[i] = (Get_Prefab(fieldObjPath, $"FieldObj_T{DevTool.Get_LengthString(i, 2)}"));
-        
+            FieldObjArray[i] = (Get<GameObject>(fieldObjPath, $"FieldObj_T{DevTool.Get_LengthString(i, 2)}"));
+
+        #endregion
     }
 
     private void Offset()
     {
+        Offset_SDF();
         Offset_CSV();
-        Offset_CharImg();
-        Offset_MapImg();
-        Offset_ModuleItemImg();
-        Offset_AllyCardIcon();
-        Offset_AllySprite(); 
-        Offset_CutsceneItemImg();
+        Offset_Sprite();
         Offset_Prefab();
     }
 
     #endregion
 
-    #region Framework
+    #region SDF + Language
 
-    protected override void Awake()
+    // SDF
+    [HideInInspector] public LanguageTxt[] LanguageTxtArr;
+
+    // 언어 변경을 위한 컴포넌트
+    [HideInInspector] private HashSet<LanguageTxtController> AllLanguageTxtController = new HashSet<LanguageTxtController>();
+    [HideInInspector] public HashSet<PrisonController> AllPrison = new HashSet<PrisonController>();
+
+    // string
+    [HideInInspector] public string RatingString;
+    [HideInInspector] public string[] PrisonRateStringArr;
+    [HideInInspector] public string StrikeTeamString;
+    [HideInInspector] public string UplinkTeamString;
+    [HideInInspector] public string NeoTeamString;
+    [HideInInspector] public string[] AllyCardRateArr;
+
+
+    private void Offset_SDF()
     {
-        //Singleton
-        base.Awake();
+        string sdfPath = "SDF/";
 
-        Offset();
+        List<LanguageTxt> result = new List<LanguageTxt>();
+        for (int i = 0; i < GameManager.KindOfLanguage.Length; i++)
+            result.Add(new LanguageTxt(i, GetAsset_SDF(sdfPath, GameManager.KindOfLanguage[i], 3)));
+
+        LanguageTxtArr = result.ToArray();
     }
 
-    private void Start()
+    private TMP_FontAsset[] GetAsset_SDF(string _Path, string _Type, int _Amount)
     {
+        List<TMP_FontAsset> result = new List<TMP_FontAsset>();
+        for (int i = 0; i < _Amount; i++)
+        {
+            string name = $"{_Type}_{i}_SDF";
+            result.Add(Resources.Load<TMP_FontAsset>(_Path + name));
+        }
+
+        return result.ToArray();
+    }
+
+
+    public void Add_LanguageTxt(LanguageTxtController _LangTxt)
+    {
+        AllLanguageTxtController.Add(_LangTxt);
+    }
+
+    public void Clear_LanguageTxt()
+    {
+        AllLanguageTxtController.Clear();
+    }
+
+    public void Set_LanguageFont(int _LangID)
+    {
+        if (GameManager.LanguageID == _LangID) return;
+        GameManager.LanguageID = _LangID;
+        SaveDataManager.Instance.JsonData.OptionData.LanguageID = GameManager.LanguageID;
+
+        // Change String
         Set_LanguageTxt();
+
+        // Change Font Asset
+        foreach (LanguageTxtController ltc in AllLanguageTxtController)
+            ltc.Set_Font(GameManager.LanguageID);
+
+        string sceneName = SceneManager.GetActiveScene().name;
+        // Change UI
+        if (sceneName == "MainGame")
+        {
+            // UI
+            MainGameUIManager.Instance.Set_LanguageTxt();
+
+            // Ally
+            AllyManager.Instance.Set_Language();
+
+            // Change PrisonInfo
+            foreach (PrisonController prison in AllPrison)
+                prison.Set_LanguageTxt();
+        }
+        else if (sceneName == "TitleLobby")
+        {
+            // UI
+            TitleLobbyUIManager.Instance.Set_LanguageTxt();
+        }
+
+    }
+
+    private void Set_LanguageTxt()
+    {
+        RatingString = Get_StaticWord(69);
+        PrisonRateStringArr = new string[]
+        {
+            Get_StaticWord(64),
+            Get_StaticWord(65),
+            Get_StaticWord(66),
+            Get_StaticWord(67),
+            Get_StaticWord(68)
+        };
+
+        StrikeTeamString = $"{Get_StaticWord(61)}<size=85%> ({Get_StaticWord(71)})</size>";
+        UplinkTeamString = $"{Get_StaticWord(62)}<size=85%> ({Get_StaticWord(72)})</size>";
+        NeoTeamString = $"{Get_StaticWord(63)}<size=85%> ({Get_StaticWord(73)})</size>";
+
+        AllyCardRateArr = new string[]
+        {
+            Get_StaticWord(76),
+            Get_StaticWord(77),
+            Get_StaticWord(78),
+            Get_StaticWord(79),
+            Get_StaticWord(80),
+            Get_StaticWord(81)
+        };
     }
 
     #endregion
 
-    #region Getting for File
+    #region Event (CSV)
 
-    [HideInInspector] private static string LINE_SPLIT_RE = @"\r\n|\n\r|\n|\r";
-    [HideInInspector] private static string WORD_SPLIT_RE = @",";
+    [HideInInspector] private EventID[] EventID_Data;
+    [HideInInspector] private EventElement[] EventElement_Data;
 
-    // 파일 => 스트링
-    private string Get_FileString(TextAsset _TextAsset)
+    // Offset
+    private void Offset_CSV_Event()
     {
-        return _TextAsset.text;
+        // Event
+        string path = "CSV/Event/";
+        EventElement_Data = Get_EventElement(path, "EventElement_CSV");
+        EventID_Data = Get_EventID(path, "EventID_CSV");
     }
 
-    // 행 길이 구하기
-    private int Get_FileRowAmount(TextAsset _TextAsset)
-    {
-        return Get_AllLine(_TextAsset).Length;
-    }
-
-    // 행 받아오기
-    private string[] Get_AllLine(TextAsset _TextAsset)
-    {
-        return Regex.Split(Get_FileString(_TextAsset), LINE_SPLIT_RE);
-    }
-
-    // 열 하나를 받아오기 (인자: 행)
-    private string Get_Line(TextAsset _TextAsset, int _Row)
-    {
-        return Get_AllLine(_TextAsset)[_Row];
-    }
-
-    // 열을 쉼표로 나누기
-    private string[] Get_Words(TextAsset _TextAsset, int _Row)
-    {
-        return Regex.Split(Get_AllLine(_TextAsset)[_Row], WORD_SPLIT_RE);
-    }
-
-    // 파일을 이중 리스트(string)으로 변경
-    private List<List<string>> Get_DoubleList(TextAsset _TextAsset)
-    {
-        List<List<string>> doubleList = new List<List<string>>();
-        for (int i = 0; i < Get_FileRowAmount(_TextAsset); i++)
-        {
-            doubleList.Add(Get_Words(_TextAsset, i).ToList());
-        }
-        return doubleList;
-    }
-
-    #endregion
-
-
-    #region To Event ID
-
-    // 오프셋
-    private List<EventID> Offset_EventIDList(string _Path, string _FileName)
-    {
-        List<EventID> result = new List<EventID>();
-
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
-
-        for (int i = 1; i < stringList.Count; i++)
-        {
-            if (stringList[i][0] == "")
-            { break; }
-
-            int id = int.Parse(stringList[i][0]);
-            List<int> idList = new List<int>();
-            
-            for (int j = 1; j < stringList[i].Count; j++)
-            {
-                if (stringList[i][j] == "" || stringList[i][j] == null)
-                {  break; }
-                idList.Add(int.Parse(stringList[i][j]));
-            }
-
-            result.Add(new EventID(id, idList));
-        }
-
-        return result;
-    }
-
-    // ID에 맞는 EventID
-    private EventID Get_CorrectEventID(int _ID)
-    {
-        for (int i = 0; i < EventID_Data.Count; i++)
-        {
-            if (EventID_Data[i].ID == _ID)
-            { return EventID_Data[i]; }
-        }
-
-        return null;
-    }
-
-    #endregion
-
-    #region To Event Element
-
-    // 오프셋
-    private List<EventElement> Offset_EventElementList(string _Path, string _FileName)
+    // Get
+    private EventElement[] Get_EventElement(string _Path, string _FileName)
     {
         List<EventElement> result = new List<EventElement>();
 
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringArr = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
-        for (int i = 1; i < stringList.Count; i++)
+        for (int i = 1; i < stringArr.Length; i++)
         {
-            if (stringList[i][0] == "")
-            { break; }
+            if (stringArr[i][0] == "") break; 
 
             EventElement eventElement = new EventElement();
 
-            int id = int.Parse(stringList[i][0]);
-            string name = stringList[i][1];
+            int id = int.Parse(stringArr[i][0]);
+            string name = stringArr[i][1];
 
             // 정지
             if (name == "Stay")
             {
-                float targetTime = float.Parse(stringList[i][2]);
+                float targetTime = float.Parse(stringArr[i][2]);
 
                 eventElement = new EventElement_Stay(id, targetTime);
             }
+            // 바라보기
             else if (name == "Look")
             {
-                string[] vectorString = stringList[i][2].Split("/");
+                string[] vectorString = stringArr[i][2].Split("/");
                 Vector2 vector = new Vector2(float.Parse(vectorString[0]), float.Parse(vectorString[1]));
 
                 eventElement = new EventElement_Look(id, vector);
@@ -613,9 +657,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             // 이동
             else if (name == "Move")
             {
-                int targetId = int.Parse(stringList[i][2]);
-                string targetType = stringList[i][3];
-                string[] vectorString = stringList[i][4].Split("/");
+                int targetId = int.Parse(stringArr[i][2]);
+                string targetType = stringArr[i][3];
+                string[] vectorString = stringArr[i][4].Split("/");
                 Vector2 vector = new Vector2(float.Parse(vectorString[0]), float.Parse(vectorString[1]));
 
                 eventElement = new EventElement_Move(id, targetId, targetType, vector);
@@ -623,63 +667,76 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             // 검은 화면 키기
             else if (name == "BlackScreenIn")
             {
-                float targetTime = float.Parse(stringList[i][2]);
+                float targetTime = float.Parse(stringArr[i][2]);
 
                 eventElement = new EventElement_BlackScreenIn(id, targetTime);
             }
             // 검은 화면 끄기
             else if (name == "BlackScreenOut")
             {
-                float targetTime = float.Parse(stringList[i][2]);
+                float targetTime = float.Parse(stringArr[i][2]);
 
                 eventElement = new EventElement_BlackScreenOut(id, targetTime);
             }
             // 다이얼로그
             else if (name == "Dialogue")
             {
-                int targetId = int.Parse(stringList[i][2]);
+                int targetId = int.Parse(stringArr[i][2]);
 
                 eventElement = new EventElement_Dialogue(id, targetId);
             }
             // 컷씬
             else if (name == "Cutscene")
             {
-                int targetId = int.Parse(stringList[i][2]);
+                int targetId = int.Parse(stringArr[i][2]);
+                int soundId = int.Parse(stringArr[i][3]);
 
-                eventElement = new EventElement_Cutscene(id, targetId);
+                eventElement = new EventElement_Cutscene(id, targetId, soundId);
             }
 
             result.Add(eventElement);
         }
 
-        return result;
+        return result.ToArray();
     }
 
-    // ID에 맞는 EventElement
-    public EventElement Get_CorrectEvent(int _ID)
+    private EventID[] Get_EventID(string _Path, string _FileName)
     {
-        for (int i = 0; i < EventElement_Data.Count; i++)
+        List<EventID> result = new List<EventID>();
+
+        string[][] stringArr = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringArr.Length; i++)
         {
-            if (EventElement_Data[i].ID == _ID)
-            { return EventElement_Data[i]; }
+            if (stringArr[i][0] == "") break; 
+
+            int id = int.Parse(stringArr[i][0]);
+            List<int> idList = new List<int>();
+
+            for (int j = 1; j < stringArr[i].Length; j++)
+            {
+                if (stringArr[i][j] == "" || stringArr[i][j] == null) break;
+
+                idList.Add(int.Parse(stringArr[i][j]));
+            }
+
+            result.Add(new EventID(id, idList.ToArray()));
         }
-        return null;
+
+        return result.ToArray();
     }
+    
 
     // ID에 맞는 EventID를 가져온 후, 그에 맞는 EventElement List를 가져옴
-    public List<EventElement> Get_CorrectEventList(int _ID)
+    public List<EventElement> Get_CorrectEventArr(int _ID)
     {
         List<EventElement> result = new List<EventElement>();
 
-        List<int> IDs = Get_CorrectEventID(_ID).EventIDs;
-        if (IDs == null)
-        { return null; }
+        int[] IDs = EventID_Data[_ID].EventIDs;
 
-        for (int i = 0; i < IDs.Count; i++)
+        for (int i = 0; i < IDs.Length; i++)
         {
-            EventElement eventElement = Get_CorrectEvent(IDs[i]);
-            if (eventElement == null)
-            { return null; }
+            EventElement eventElement = EventElement_Data[IDs[i]];
 
             result.Add(eventElement);
         }
@@ -687,68 +744,35 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return result;
     }
 
-
     #endregion
 
+    #region Cutscene (CSV)
 
-    #region To Cutscene
+    [HideInInspector] private CutsceneID[] CutsceneID_Data;
+    [HideInInspector] private CutsceneElement[][] CutsceneElement_DataList;
 
-    // 오프셋
-    private List<CutsceneID> Offset_CutsceneIDList(string _Path, string _FileName)
+    // Offset
+    private void Offset_CSV_Cutscene()
     {
-        List<CutsceneID> result = new List<CutsceneID>();
+        string path = "CSV/Cutscene/";
 
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
-
-        for (int i = 1; i < stringList.Count; i++)
-        {
-            if (stringList[i][0] == "")
-            { break; }
-
-            int id = int.Parse(stringList[i][0]);
-
-            List<CutsceneElement> cutsceneList = new List<CutsceneElement>();
-            for (int j = 1; j < stringList[i].Count; j++)
-            {
-                if (stringList[i][j] == "" || stringList[i][j] == null)
-                { break; }
-                int elementId = int.Parse(stringList[i][j]);
-                cutsceneList.Add(Get_CorrectCutsceneElement(elementId));
-            }
-
-            result.Add(new CutsceneID(id, cutsceneList));
-        }
-
-        return result;
-    }
-    // ID에 맞는 컷씬 리스트를 구함
-    public CutsceneID Get_CorrectCutsceneID(int _ID)
-    {
-        for (int i = 0; i < CutsceneID_Data.Count; i++)
-        {
-            if (CutsceneID_Data[i].ID == _ID)
-            { return CutsceneID_Data[i]; }
-        }
-
-        return null;
+        CutsceneElement_DataList = new CutsceneElement[GameManager.KindOfLanguage.Length][];
+        for (int i = 0; i < CutsceneElement_DataList.Length; i++)
+            CutsceneElement_DataList[i] = Get_CutsceneElement(path, $"CutsceneElement_{GameManager.KindOfLanguage[i]}_CSV");
+        
+        CutsceneID_Data = Get_CutsceneID(path, "CutsceneID_CSV");
     }
 
-    #endregion
-
-    #region To Cutscene Element
-
-    // 오프셋
-
-    private List<CutsceneElement> Offset_CutsceneElementList(string _Path, string _FileName)
+    // Get
+    private CutsceneElement[] Get_CutsceneElement(string _Path, string _FileName)
     {
         List<CutsceneElement> result = new List<CutsceneElement>();
 
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
-        for (int i = 1; i < stringList.Count; i++)
+        for (int i = 1; i < stringList.Length; i++)
         {
-            if (stringList[i][0] == "")
-            { break; }
+            if (stringList[i][0] == "") break; 
 
             int id = int.Parse(stringList[i][0]);
             string script = stringList[i][1];
@@ -756,82 +780,95 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             result.Add(new CutsceneElement(id, script));
         }
 
-        return result;
+        return result.ToArray();
     }
 
-
-    // ID에 맞는 Cutscene 1개를 구함
-    private CutsceneElement Get_CorrectCutsceneElement(int _ID)
+    private CutsceneID[] Get_CutsceneID(string _Path, string _FileName)
     {
-        for (int i = 0; i < CutsceneElement_DataList[GameManager.LanguageID].Count; i++)
-            if (CutsceneElement_DataList[GameManager.LanguageID][i].ID == _ID)
-                return CutsceneElement_DataList[GameManager.LanguageID][i];
+        List<CutsceneID> result = new List<CutsceneID>();
 
-        return null;
-    }
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
-    #endregion
-
-
-    #region To DialougeID
-
-    // 오프셋
-    private List<DialogueID> Offset_DialougeIDList(string _Path, string _FileName)
-    {
-        List<DialogueID> result = new List<DialogueID>();
-
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
-
-        for (int i = 1; i < stringList.Count; i++)
+        for (int i = 1; i < stringList.Length; i++)
         {
-            if (stringList[i][0] == "")
-            { break; }
+            if (stringList[i][0] == "") break; 
 
             int id = int.Parse(stringList[i][0]);
 
-            List<DialogueElement> dialogueList = new List<DialogueElement>();
-            for (int j = 1; j < stringList[i].Count; j++)
+            List<int> idList = new List<int>();
+            for (int j = 1; j < stringList[i].Length; j++)
             {
-                if (stringList[i][j] == "" || stringList[i][j] == null)
-                { break; }
+                if (stringList[i][j] == "" || stringList[i][j] == null) break; 
+
                 int elementId = int.Parse(stringList[i][j]);
-                dialogueList.Add(Get_CorrectDialogueElement(elementId));
+                idList.Add(elementId);
             }
 
-            result.Add(new DialogueID(id, dialogueList));
+            result.Add(new CutsceneID(id, idList.ToArray()));
+        }
+
+        return result.ToArray();
+    }
+
+
+    // ID에 맞는 CutsceneID를 가져온 후, 그에 맞는 CutsceneElement List를 가져옴
+    public List<CutsceneElement> Get_CorrectCutsceneElementList(int _ID)
+    {
+        List<CutsceneElement> result = new List<CutsceneElement>();
+
+        int[] IDs = CutsceneID_Data[_ID].Cutscenes;
+
+        for (int i = 0; i < IDs.Length; i++)
+        {
+            CutsceneElement cutsceneElement = CutsceneElement_DataList[GameManager.LanguageID][i];
+
+            result.Add(cutsceneElement);
         }
 
         return result;
     }
 
-    // ID에 맞는 다이얼로그 리스트를 구함
-    public DialogueID Get_CorrectDialogueID(int _ID)
-    {
-        for (int i = 0; i < DialogueID_Data.Count; i++)
-        {
-            if (DialogueID_Data[i].ID == _ID)
-            { return DialogueID_Data[i]; }
-        }
 
-        return null;
+    #endregion
+    #region Cutscene (Sprite)
+
+
+    [HideInInspector] private Sprite[] CutsceneSprite_Data;
+
+    private void Offset_CutsceneSprite()
+    {
+        CutsceneSprite_Data = Get_Arr<Sprite>("Sprite/UI/Cutscene/", "CutsceneSet_00");
     }
+
+    public Sprite Get_CutsceneImg(int _ID) => CutsceneSprite_Data[_ID];
 
     #endregion
 
-    #region To Dialogue Element
+    #region Dialogue (CSV)
 
-    // 오프셋
+    [HideInInspector] private DialogueID[] DialogueID_Data;
+    [HideInInspector] private DialogueElement[][] DialogueElement_DataList;
 
-    private List<DialogueElement> Offset_DialougeElementList(string _Path, string _FileName)
+    private void Offset_CSV_Dialogue()
+    {
+        string path = "CSV/Dialogue/";
+
+        DialogueElement_DataList = new DialogueElement[GameManager.KindOfLanguage.Length][];
+        for (int i = 0; i < DialogueElement_DataList.Length; i++)
+            DialogueElement_DataList[i] = Get_DialogueElement(path, $"DialogueElement_{GameManager.KindOfLanguage[i]}_CSV");
+
+        DialogueID_Data = Get_DialogueID(path, "DialogueID_CSV");
+    }
+
+    private DialogueElement[] Get_DialogueElement(string _Path, string _FileName)
     {
         List<DialogueElement> result = new List<DialogueElement>();
 
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
-        for (int i = 1; i < stringList.Count; i++)
+        for (int i = 1; i < stringList.Length; i++)
         {
-            if (stringList[i][0] == "")
-            { break; }
+            if (stringList[i][0] == "") break; 
 
             int id = int.Parse(stringList[i][0]);
             string name = stringList[i][1];
@@ -842,21 +879,68 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             result.Add(new DialogueElement(id, name, script, imgId, isLeft));
         }
 
+        return result.ToArray();
+    }
+
+    private DialogueID[] Get_DialogueID(string _Path, string _FileName)
+    {
+        List<DialogueID> result = new List<DialogueID>();
+
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Length; i++)
+        {
+            if (stringList[i][0] == "") break;
+
+            int id = int.Parse(stringList[i][0]);
+
+            List<int> idList = new List<int>();
+            for (int j = 1; j < stringList[i].Length; j++)
+            {
+                if (stringList[i][j] == "" || stringList[i][j] == null) break;
+                int elementId = int.Parse(stringList[i][j]);
+                idList.Add(elementId);
+            }
+
+            result.Add(new DialogueID(id, idList.ToArray()));
+        }
+
+        return result.ToArray();
+    }
+
+
+    // ID에 맞는 DialogueID를 가져온 후, 그에 맞는 DialogueElement List를 가져옴
+    public List<DialogueElement> Get_CorrectDialogueElementList(int _ID)
+    {
+        List<DialogueElement> result = new List<DialogueElement>();
+
+        int[] IDs = DialogueID_Data[_ID].Dialogus;
+
+        for (int i = 0; i < IDs.Length; i++)
+        {
+            DialogueElement cutsceneElement = DialogueElement_DataList[GameManager.LanguageID][i];
+
+            result.Add(cutsceneElement);
+        }
+
         return result;
     }
 
+    #endregion
+    #region Dialogue (Sprite)
 
-    // ID에 맞는 다이얼로그 1개를 구함
-    private DialogueElement Get_CorrectDialogueElement(int _ID)
+
+    [HideInInspector] private Sprite[] DialoguCharSprite_Data;
+
+    private void Offset_DialogueSprite()
     {
-        for (int i = 0; i < DialogueElement_DataList[GameManager.LanguageID].Count; i++)
-            if (DialogueElement_DataList[GameManager.LanguageID][i].ID == _ID)
-                return DialogueElement_DataList[GameManager.LanguageID][i]; 
-        
-        return null;
+        DialoguCharSprite_Data = Get_Arr<Sprite>("Sprite/UI/Dialogue/", "CharacterSet_000");
     }
 
+    public Sprite Get_DialogueCharImg(int _ID) => DialoguCharSprite_Data[_ID];
+
     #endregion
+
 
 
     #region To Module Base
@@ -865,9 +949,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         List<ModuleBaseData> result = new List<ModuleBaseData>();
 
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
-        for (int i = 1; i < stringList.Count; i++)
+        for (int i = 1; i < stringList.Length; i++)
         {
             if (stringList[i][0] == "")
             { break; }
@@ -901,9 +985,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         List<AllyCardBaseData> result = new List<AllyCardBaseData>();
 
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
-        for (int i = 1; i < stringList.Count; i++)
+        for (int i = 1; i < stringList.Length; i++)
         {
             if (stringList[i][0] == "")
             { break; }
@@ -945,9 +1029,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         List<MapNextIndex> result = new List<MapNextIndex>();
 
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
-        for (int i = 1; i < stringList.Count; i++)
+        for (int i = 1; i < stringList.Length; i++)
         {
             if (stringList[i][0] == "")
             { break; }
@@ -999,9 +1083,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         List<WordElementData> element = new List<WordElementData>();
 
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
-        for (int i = 1; i < stringList.Count; i++)
+        for (int i = 1; i < stringList.Length; i++)
         {
             if (stringList[i][0] == "") break;
 
@@ -1010,7 +1094,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             List<string> nameList = new List<string>();
             int id = int.Parse(stringList[i][1]);
 
-            for (int j = 1; j < GameManager.KindOfLanguage.Count + 1; j++)
+            for (int j = 1; j < GameManager.KindOfLanguage.Length + 1; j++)
                 nameList.Add(stringList[i][j + 1]);
 
             element.Add(new WordElementData(id, nameList));
@@ -1023,16 +1107,16 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         List<WordElementData> element = new List<WordElementData>();
 
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
-        for (int i = 1; i < stringList.Count; i++)
+        for (int i = 1; i < stringList.Length; i++)
         {
             if (stringList[i][0] == "") break; 
 
             List<string> nameList = new List<string>();
             int id = int.Parse(stringList[i][0]);
             
-            for (int j = 0; j < GameManager.KindOfLanguage.Count; j++)
+            for (int j = 0; j < GameManager.KindOfLanguage.Length; j++)
                 nameList.Add(stringList[i][j + 1]);
             
             element.Add(new WordElementData(id, nameList));
@@ -1045,9 +1129,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         List<WordElementData_WithClr> element = new List<WordElementData_WithClr>();
 
-        List<List<string>> stringList = Get_DoubleList(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
-        for (int i = 1; i < stringList.Count; i++)
+        for (int i = 1; i < stringList.Length; i++)
         {
             if (stringList[i][0] == "") break;
 
@@ -1055,7 +1139,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             string clrHex = stringList[i][1];
 
             List<string> nameList = new List<string>();
-            for (int j = 0; j < GameManager.KindOfLanguage.Count; j++)
+            for (int j = 0; j < GameManager.KindOfLanguage.Length; j++)
                 nameList.Add(stringList[i][j + 2]);
 
             element.Add(new WordElementData_WithClr(id, clrHex, nameList));
@@ -1256,18 +1340,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
+
     #region To SpriteList
 
-    private List<Sprite> Offset_ImgPath(string _Path, string _FileName)
-    {
-        List<Sprite> result = new List<Sprite>();
-        return Resources.LoadAll<Sprite>(_Path + _FileName).ToList();
-    }
-
-    public Sprite Get_CorrectCharacterImg(int _ID)
-    {
-        return CharacterImgList_Data[_ID];
-    }
 
 
     public List<Sprite> Get_LobbyStageMapSpriteList()
@@ -1361,96 +1436,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
-    #region To Cutscene Sprite
-
-    public Sprite Get_Cutscene(int _ID) => CutsceneImgList_Data[_ID];
-
-    #endregion
-
-    #region Set Language
-
-    public void Add_LanguageTxt(LanguageTxtController _LangTxt)
-    {
-        AllLanguageTxtController.Add(_LangTxt);
-    }
-
-    public void Clear_LanguageTxt()
-    {
-        AllLanguageTxtController.Clear();
-    }
-
-    public void Set_LanguageFont(int _LangID)
-    {
-        if (GameManager.LanguageID == _LangID) return;
-        GameManager.LanguageID = _LangID;
-        SaveDataManager.Instance.JsonData.OptionData.LanguageID = GameManager.LanguageID;
-
-        // Change String
-        Set_LanguageTxt();
-
-        // Change Font Asset
-        foreach (LanguageTxtController ltc in AllLanguageTxtController)
-            ltc.Set_Font(GameManager.LanguageID);
-
-        string sceneName = SceneManager.GetActiveScene().name;
-        // Change UI
-        if (sceneName == "MainGame")
-        {
-            // UI
-            MainGameUIManager.Instance.Set_LanguageTxt();
-
-            // Ally
-            AllyManager.Instance.Set_Language();
-
-            // Change PrisonInfo
-            foreach (PrisonController prison in AllPrison)
-                prison.Set_LanguageTxt();
-        }
-        else if (sceneName == "TitleLobby")
-        {
-            // UI
-            TitleLobbyUIManager.Instance.Set_LanguageTxt();
-        }
-
-    }
-
-    private void Set_LanguageTxt()
-    {
-        RatingString = Get_StaticWord(69);
-        PrisonRateStringList = new List<string>
-        {
-            Get_StaticWord(64),
-            Get_StaticWord(65),
-            Get_StaticWord(66),
-            Get_StaticWord(67),
-            Get_StaticWord(68)
-        };
-
-        StrikeTeamString = $"{Get_StaticWord(61)}<size=85%> ({Get_StaticWord(71)})</size>";
-        UplinkTeamString = $"{Get_StaticWord(62)}<size=85%> ({Get_StaticWord(72)})</size>";
-        NeoTeamString = $"{Get_StaticWord(63)}<size=85%> ({Get_StaticWord(73)})</size>";
-
-        AllyCardRateList = new List<string>
-        {
-            Get_StaticWord(76),
-            Get_StaticWord(77),
-            Get_StaticWord(78),
-            Get_StaticWord(79),
-            Get_StaticWord(80),
-            Get_StaticWord(81)
-        };
-    }
-
-
-    #endregion
-
-
     #region To Prefab
-
-    private GameObject Get_Prefab(string _Path, string _FileName)
-    {
-        return Resources.Load<GameObject>(_Path + _FileName);
-    }
 
     #region Ally
 

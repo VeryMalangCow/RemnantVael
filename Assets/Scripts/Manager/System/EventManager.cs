@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -103,7 +104,7 @@ public class EventManager : Singleton<EventManager>
 
         SetOn_EventOption();
 
-        CurrentEvent = new EventData(_ID, new List<EventElement>(ResourceManager.Instance.Get_CorrectEventList(_ID)));
+        CurrentEvent = new EventData(_ID, new List<EventElement>(ResourceManager.Instance.Get_CorrectEventArr(_ID)));
         Play_Event();
     }
 
@@ -342,9 +343,8 @@ public class EventManager : Singleton<EventManager>
 
     private IEnumerator Play_Dialogue_Cor(EventElement_Dialogue _Event)
     {
-        DialogueID id = _Event.Get_DialogueList();
+        Start_Dialogue(_Event);
 
-        Start_Dialogue(id);
         yield return new WaitUntil(() => !IsPlayingDialogue);
 
         Play_Event();
@@ -352,14 +352,9 @@ public class EventManager : Singleton<EventManager>
 
     private IEnumerator Play_Cutscene_Cor(EventElement_Cutscene _Event)
     {
-        CutsceneID id = _Event.Get_CutsceneList();
+        Start_Cutscene(_Event);
 
-        Start_Cutscene(id);
-
-        // 현재 사운드 저장해서
-        //SoundManager.Instance.Play_2D_BGM(_Event.TargetID);
         yield return new WaitUntil(() => !IsPlayingCutscene);
-        // 이곳에 다시 재생
 
         Play_Event();
     }
@@ -368,13 +363,12 @@ public class EventManager : Singleton<EventManager>
 
     #region Dialogue
 
-    private void Start_Dialogue(DialogueID _DialogueID)
+    private void Start_Dialogue(EventElement_Dialogue _Event)
     {
-        if (IsPlayingDialogue)
-        { return; }
+        if (IsPlayingDialogue) return;
 
         IsPlayingDialogue = true;
-        CurrentDialogues = new List<DialogueElement>(_DialogueID.Dialogues);
+        CurrentDialogues = ResourceManager.Instance.Get_CorrectDialogueElementList(_Event.TargetDialogueID);
         StartCoroutine(Play_Dialogue_Cor());
     }
 
@@ -403,7 +397,7 @@ public class EventManager : Singleton<EventManager>
             noneDialogueComp.DialogueGO.SetActive(false);
 
             // Character Img
-            targetDialogueComp.DialogueImg.sprite = ResourceManager.Instance.Get_CorrectCharacterImg(currentDialogue.ImgID);
+            targetDialogueComp.DialogueImg.sprite = ResourceManager.Instance.Get_DialogueCharImg(currentDialogue.ImgID);
 
             // Name
             targetDialogueComp.NameTxt.text = ReplaceNPlaceholders(currentDialogue.Name);
@@ -457,14 +451,14 @@ public class EventManager : Singleton<EventManager>
 
     #region Cutscene
 
-    private void Start_Cutscene(CutsceneID _CutsceneID)
+    private void Start_Cutscene(EventElement_Cutscene _Event)
     {
-        if (IsPlayingCutscene)
-        { return; }
+        if (IsPlayingCutscene) return; 
 
-        SoundManager.Instance.Play_2D_BGM_Cutscene(_CutsceneID.ID);
+        SoundManager.Instance.Play_2D_BGM_Cutscene(_Event.TargetSoundID);
+
         IsPlayingCutscene = true;
-        CurrentCutscenes = new List<CutsceneElement>(_CutsceneID.Cutscenes);
+        CurrentCutscenes = ResourceManager.Instance.Get_CorrectCutsceneElementList(_Event.TargetCutsceneID);
         StartCoroutine(Play_Cutscene_Cor());
     }
 
@@ -494,7 +488,7 @@ public class EventManager : Singleton<EventManager>
             Image img = ImgQueueSet.Get_T();
             img.gameObject.SetActive(true);
             img.color = new Color(1f, 1f, 1f, 0f);
-            img.sprite = ResourceManager.Instance.Get_Cutscene(currentCutscene.ID);
+            img.sprite = ResourceManager.Instance.Get_CutsceneImg(currentCutscene.ID);
 
             // Script
             seq = DOTween.Sequence();
@@ -558,6 +552,8 @@ public class EventManager : Singleton<EventManager>
     }
 
     #endregion
+
+    #region Prod. String
 
     private string Get_ProductionString(string _String)
     {
@@ -631,6 +627,8 @@ public class EventManager : Singleton<EventManager>
         if (pos < s.Length) sb.Append(s, pos, s.Length - pos); // 꼬리 붙이기
         return sb.ToString();
     }
+
+    #endregion
 }
 
 #region Event
@@ -659,11 +657,11 @@ public class EventData
 public class EventID
 {
     public int ID;
-    public List<int> EventIDs;
+    public int[] EventIDs;
 
     public EventID() { }
 
-    public EventID(int _ID, List<int> _EventIDs)
+    public EventID(int _ID, int[] _EventIDs)
     {
         ID = _ID;
         EventIDs = _EventIDs;
@@ -755,8 +753,6 @@ public class EventElement_Dialogue : EventElement
     {
         TargetDialogueID = _TargetID;
     }
-
-    public DialogueID Get_DialogueList() => ResourceManager.Instance.Get_CorrectDialogueID(TargetDialogueID);
     
 }
 
@@ -764,14 +760,13 @@ public class EventElement_Dialogue : EventElement
 public class EventElement_Cutscene : EventElement
 {
     public int TargetCutsceneID;
+    public int TargetSoundID;
 
-    public EventElement_Cutscene(int _ID, int _TargetID) : base(_ID)
+    public EventElement_Cutscene(int _ID, int _TargetID, int _TargetSoundID) : base(_ID)
     {
         TargetCutsceneID = _TargetID;
+        TargetSoundID = _TargetSoundID;
     }
-
-    public CutsceneID Get_CutsceneList() => ResourceManager.Instance.Get_CorrectCutsceneID(TargetCutsceneID);
-
 }
 
 
@@ -783,9 +778,9 @@ public class EventElement_Cutscene : EventElement
 public class CutsceneID
 {
     public int ID;
-    public List<CutsceneElement> Cutscenes;
+    public int[] Cutscenes;
 
-    public CutsceneID(int _ID, List<CutsceneElement> _Cutscenes)
+    public CutsceneID(int _ID, int[] _Cutscenes)
     {
         ID = _ID;
         Cutscenes = _Cutscenes;
@@ -813,12 +808,12 @@ public class CutsceneElement
 public class DialogueID
 {
     public int ID;
-    public List<DialogueElement> Dialogues;
+    public int[] Dialogus;
 
-    public DialogueID(int _ID, List<DialogueElement> _Dialogues)
+    public DialogueID(int _ID, int[] _Dialogus)
     {
         ID = _ID;
-        Dialogues = _Dialogues;
+        Dialogus = _Dialogus;
     }
 }
 
