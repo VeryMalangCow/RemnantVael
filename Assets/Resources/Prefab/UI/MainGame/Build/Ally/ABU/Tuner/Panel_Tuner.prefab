@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5637396410057332111}
   - component: {fileID: 46891637873381345}
   - component: {fileID: 1477774246674091819}
-  - component: {fileID: 3681080787110317309}
   m_Layer: 5
   m_Name: Img_Frame
   m_TagString: Untagged
@@ -76,36 +75,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028009650459800866}
   m_CullTransparentMesh: 1
---- !u!114 &3681080787110317309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1028009650459800866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.29411766}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &1354649459640220886
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 8
+  size: 4
   spread: 0
   useGlobalAngle: 0
   offsetAngle: 0
@@ -448,7 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 8
+  size: 4
   spread: 0
   useGlobalAngle: 0
   offsetAngle: 0
@@ -614,7 +583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 8
+  size: 2
   spread: 0
   useGlobalAngle: 0
   offsetAngle: 0
@@ -780,7 +749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 8
+  size: 2
   spread: 0
   useGlobalAngle: 0
   offsetAngle: 0
@@ -809,7 +778,6 @@ GameObject:
   - component: {fileID: 3532117969653781115}
   - component: {fileID: 2379582443946085874}
   - component: {fileID: 4751563305191531861}
-  - component: {fileID: 7125351999879609323}
   m_Layer: 5
   m_Name: Img_BG
   m_TagString: Untagged
@@ -874,36 +842,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9185749246207556116}
   m_CullTransparentMesh: 1
---- !u!114 &7125351999879609323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9185749246207556116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.29411766}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1001 &984168355134056057
 PrefabInstance:
   m_ObjectHideFlags: 0

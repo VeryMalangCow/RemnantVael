@@ -696,7 +696,7 @@ MonoBehaviour:
   MasterAudioMixer: {fileID: 24100000, guid: f4fe09b156f3b524c802c439d5c704f9, type: 2}
   ThisBgmAudioSource: {fileID: 1024529728}
   ThisSfxASQueueSet:
-    ThisASParentTF: {fileID: 2011945290}
+    ThisParentTF: {fileID: 2011945290}
   BVolume: 0.5
   SVolume: 0.5
 --- !u!4 &203924968
@@ -2335,6 +2335,7 @@ MonoBehaviour:
       BGMVolume: 0.25
       SFXVolume: 0.25
     GameProgressData:
+      CurrentProgressing: 0
       UsableVault: 1
       UsableBU: 1
       UsableMU: 1
@@ -4407,6 +4408,7 @@ MonoBehaviour:
   AllyCardRateList: []
   MapLobbyImg_Data: []
   MapLobbyMaterialIndexList_Data: 
+  CutsceneImgList_Data: []
 --- !u!4 &1463225871
 Transform:
   m_ObjectHideFlags: 0

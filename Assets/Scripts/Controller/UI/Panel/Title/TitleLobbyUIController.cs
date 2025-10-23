@@ -537,6 +537,8 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     // Apply
     private void Set_OptionValueApply()
     {
+        if (!OptionUI.WarningTxt.gameObject.activeSelf) return;
+
         OptionUI.WarningTxt.gameObject.SetActive(false);
 
         ResourceManager.Instance.Set_LanguageFont(OptionUI.LanguagePanelEUI.Get_CurrentIndex());
@@ -546,6 +548,8 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         GameManager.Instance.Set_FPS((eFPS)OptionUI.FPSPanelEUI.Get_CurrentIndex());
         SoundManager.Instance.Set_BgmVolume(OptionUI.BGMVolumePanelEUI.Get_Value());
         SoundManager.Instance.Set_SfxVolume(OptionUI.SFXVolumePanelEUI.Get_Value());
+
+        SaveDataManager.Instance.Save_OptionJsonData();
     }
 
 

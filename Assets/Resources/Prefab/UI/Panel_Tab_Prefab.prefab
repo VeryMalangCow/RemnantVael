@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5360869656290925982}
   - component: {fileID: 2018702370599105063}
   - component: {fileID: 3304173387595426040}
-  - component: {fileID: 1603774268637738431}
   m_Layer: 5
   m_Name: Scrollbar
   m_TagString: Untagged
@@ -127,36 +126,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1603774268637738431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 699162095396883261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.29411766}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &1082636524044632212
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +137,6 @@ GameObject:
   - component: {fileID: 8230466649783861369}
   - component: {fileID: 1858667137655251876}
   - component: {fileID: 5676206351735012595}
-  - component: {fileID: 4743040115049297775}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -233,36 +201,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4743040115049297775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1082636524044632212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.29411766}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &1267058122558630905
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +248,6 @@ GameObject:
   - component: {fileID: 819760992973880560}
   - component: {fileID: 4451218094052273357}
   - component: {fileID: 8669279143791595803}
-  - component: {fileID: 4124948211288083065}
   m_Layer: 5
   m_Name: Img_BG
   m_TagString: Untagged
@@ -379,36 +316,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798253878614055653}
   m_CullTransparentMesh: 1
---- !u!114 &4124948211288083065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798253878614055653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.29411766}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &5988223413417993345
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,10 +485,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisPanelRT: {fileID: 1035116205380479849}
-  ThisTabBtn: {fileID: 0}
   ThisTabScrollbar: {fileID: 3304173387595426040}
   ActualMovableRT: {fileID: 3113516829583566096}
   VisibleY: 725
+  ThisTabBtn: {fileID: 0}
 --- !u!1 &8271031497769550424
 GameObject:
   m_ObjectHideFlags: 0

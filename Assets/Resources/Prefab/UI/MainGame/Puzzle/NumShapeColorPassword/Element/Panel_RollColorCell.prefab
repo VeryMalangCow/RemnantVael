@@ -162,7 +162,6 @@ GameObject:
   - component: {fileID: 7779671382527250083}
   - component: {fileID: 6294511418296649338}
   - component: {fileID: 2071886899573161303}
-  - component: {fileID: 2852570783754017935}
   - component: {fileID: 1794085833031095686}
   m_Layer: 5
   m_Name: Panel_RollColorCell
@@ -211,6 +210,7 @@ MonoBehaviour:
   RollImgParentRT: {fileID: 512683922110866375}
   ThisNSCType: 2
   LockedRT: {fileID: 968239383482749551}
+  AnswerIndex: 0
   OwnerNSCPanelEUIController: {fileID: 0}
   OwnerNSCUIController: {fileID: 0}
 --- !u!222 &6294511418296649338
@@ -251,36 +251,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2852570783754017935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3836064031373535968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 4
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.29411766}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!114 &1794085833031095686
 MonoBehaviour:
   m_ObjectHideFlags: 0

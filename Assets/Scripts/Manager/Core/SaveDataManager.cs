@@ -51,18 +51,23 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     {
         DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath);
 
-        TrySave_EachJsonData(this.CharacterPath, new SerializationList<EachCharacterJsonData>(JsonData.CharacterData));
-        TrySave_EachJsonData(this.ItemPath, new SerializationList<EachItemJsonData>(JsonData.ItemData));
-        TrySave_EachJsonData(this.OptionPath, JsonData.OptionData);
-        TrySave_EachJsonData(this.GameProgressPath, JsonData.GameProgressData);
+        TrySave_EachJsonData(DataPath, this.CharacterPath, new SerializationList<EachCharacterJsonData>(JsonData.CharacterData));
+        TrySave_EachJsonData(DataPath, this.ItemPath, new SerializationList<EachItemJsonData>(JsonData.ItemData));
+        TrySave_EachJsonData(DataPath, this.OptionPath, JsonData.OptionData);
+        TrySave_EachJsonData(DataPath, this.GameProgressPath, JsonData.GameProgressData);
+    }
 
+    public void Save_OptionJsonData()
+    {
+        DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath); 
+        TrySave_EachJsonData(DataPath, this.OptionPath, JsonData.OptionData);
     }
 
     #region TrySave (Each Module)
 
-    private void TrySave_EachJsonData<T>(string _EachPath, T _Data)
+    private void TrySave_EachJsonData<T>(string _DataPath, string _EachPath, T _Data)
     {
-        string eachJsonPath = Path.Combine(DataPath, $"{_EachPath}.json");
+        string eachJsonPath = Path.Combine(_DataPath, $"{_EachPath}.json");
 
         Create_DirectoryExists(eachJsonPath);
 

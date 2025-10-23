@@ -100,6 +100,8 @@ MonoBehaviour:
   CurrentBtn: {fileID: 0}
   MainColorCompList: []
   SubColorCompList: []
+  CurrentSlotBtn: {fileID: 0}
+  CurrentItemBtn: {fileID: 0}
   CardParentTF: {fileID: 8804223866111845911}
   CardRerollParentTF: {fileID: 3126822040818665967}
   CardBookingFrameImgRT: {fileID: 4657037224854145231}
@@ -231,7 +233,6 @@ GameObject:
   - component: {fileID: 6582656059248440249}
   - component: {fileID: 1989444248090777583}
   - component: {fileID: 2545532285559014740}
-  - component: {fileID: 7185542904957949564}
   m_Layer: 5
   m_Name: Btn_Choice
   m_TagString: Untagged
@@ -357,36 +358,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7185542904957949564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1313737395196137419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.24705882}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &2967024887187571911
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 8
+  size: 4
   spread: 0
   useGlobalAngle: 0
   offsetAngle: 0
@@ -623,7 +594,6 @@ GameObject:
   - component: {fileID: 5391030800948681722}
   - component: {fileID: 4893593398411643971}
   - component: {fileID: 8599084252140725002}
-  - component: {fileID: 5597096614500944789}
   m_Layer: 5
   m_Name: Img_FrameRight
   m_TagString: Untagged
@@ -689,36 +659,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5597096614500944789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5191411566877987123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &7568153531571521792
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 4
+  size: 2
   spread: 0
   useGlobalAngle: 0
   offsetAngle: 0
@@ -997,7 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 1
 --- !u!222 &6077150338510113617
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1028,10 +968,10 @@ MonoBehaviour:
       m_Calls: []
   m_text: this
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
-  m_sharedMaterial: {fileID: -2272981892841196511, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
+  m_sharedMaterial: {fileID: 2755052046293950483, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
   m_fontSharedMaterials:
-  - {fileID: -2272981892841196511, guid: e51b9e27ae3c84147916711774189bb5, type: 2}
+  - {fileID: 2755052046293950483, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1108,7 +1048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 4
+  size: 2
   spread: 0
   useGlobalAngle: 0
   offsetAngle: 0
@@ -1137,7 +1077,6 @@ GameObject:
   - component: {fileID: 7170379363051585403}
   - component: {fileID: 3036447299378024457}
   - component: {fileID: 5988934622096037297}
-  - component: {fileID: 7639178985540586177}
   m_Layer: 5
   m_Name: Img_FrameLeft
   m_TagString: Untagged
@@ -1203,36 +1142,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7639178985540586177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8602236614573013495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.49803922}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &9102325214667465013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1321,7 +1230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 8
+  size: 4
   spread: 0
   useGlobalAngle: 0
   offsetAngle: 0

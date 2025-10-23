@@ -836,7 +836,6 @@ GameObject:
   - component: {fileID: 591210669953967672}
   - component: {fileID: 7295207665167295730}
   - component: {fileID: 1394368322240690093}
-  - component: {fileID: 9129204050896538560}
   m_Layer: 7
   m_Name: Frame
   m_TagString: Untagged
@@ -901,36 +900,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &9129204050896538560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1421773411046778177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.19607843}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!1 &1574437211699578611
 GameObject:
   m_ObjectHideFlags: 0
@@ -2808,7 +2777,7 @@ RectTransform:
   m_GameObject: {fileID: 7840703969565982099}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4793493093337718729}
@@ -2972,7 +2941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 8
+  size: 4
   spread: 0
   useGlobalAngle: 0
   offsetAngle: 0
@@ -3959,84 +3928,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 135605784987328998, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 181918434595451582}
-    - targetCorrespondingSourceObject: {fileID: 160036643257833432, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 319052444867154614}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
---- !u!1 &421654510022228813 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 160036643257833432, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-  m_PrefabInstance: {fileID: 568180263121398933}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &319052444867154614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 421654510022228813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.19607843}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
---- !u!1 &433278286908706163 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 135605784987328998, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-  m_PrefabInstance: {fileID: 568180263121398933}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &181918434595451582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 433278286908706163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.19607843}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!224 &3854157400944150372 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3647391558481030129, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
@@ -4442,84 +4335,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 135605784987328998, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6066110399027490044}
-    - targetCorrespondingSourceObject: {fileID: 160036643257833432, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4262168527376993088}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
---- !u!1 &1552344812847197343 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 160036643257833432, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-  m_PrefabInstance: {fileID: 1707877026469296967}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4262168527376993088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552344812847197343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.19607843}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
---- !u!1 &1608450981944154785 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 135605784987328998, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-  m_PrefabInstance: {fileID: 1707877026469296967}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6066110399027490044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608450981944154785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.19607843}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!224 &2679002237837349046 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3647391558481030129, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
@@ -5701,89 +5518,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 135605784987328998, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2239760966732822013}
-    - targetCorrespondingSourceObject: {fileID: 160036643257833432, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5353459620358733022}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
 --- !u!224 &908154669850694273 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3647391558481030129, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
   m_PrefabInstance: {fileID: 4468778714365507952}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4340584842689834664 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 160036643257833432, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-  m_PrefabInstance: {fileID: 4468778714365507952}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5353459620358733022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4340584842689834664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.19607843}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
---- !u!1 &4604242523789809814 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 135605784987328998, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}
-  m_PrefabInstance: {fileID: 4468778714365507952}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2239760966732822013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4604242523789809814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c162dc854d2f24fa639ba0623de5ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 8
-  spread: 0
-  useGlobalAngle: 0
-  offsetAngle: 0
-  offsetDistance: 0
-  offset: {x: 0, y: 0}
-  color: {r: 1, g: 1, b: 1, a: 0.19607843}
-  inset: 0
-  blendMode: 0
-  useCasterAlpha: 1
-  ignoreCasterColor: 0
-  colorBleedMode: 2
-  disableFitCompensation: 0
-  shadowAsSibling: 0
-  cutout: 0
-  baked: 0
-  modifiedFromInspector: 0
-  bakedShadows: []
 --- !u!114 &6979235873629460237 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6836306577957187197, guid: 7b06237ad9debbc4ea27bc6d0437ed54, type: 3}

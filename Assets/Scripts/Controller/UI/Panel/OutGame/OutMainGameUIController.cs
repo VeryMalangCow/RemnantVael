@@ -721,6 +721,8 @@ public class OutMainGameUIController : SinglePanelUIController
 
     private void Set_OptionValueApply()
     {
+        if (!OptionUI.WarningTxt.gameObject.activeSelf) return;
+
         SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
 
         ResourceManager.Instance.Set_LanguageFont(OptionUI.LanguagePanelEUI.Get_CurrentIndex());
@@ -730,6 +732,8 @@ public class OutMainGameUIController : SinglePanelUIController
         GameManager.Instance.Set_FPS((eFPS)OptionUI.FPSPanelEUI.Get_CurrentIndex());
         SoundManager.Instance.Set_BgmVolume(OptionUI.BGMVolumePanelEUI.Get_Value());
         SoundManager.Instance.Set_SfxVolume(OptionUI.SFXVolumePanelEUI.Get_Value());
+
+        SaveDataManager.Instance.Save_OptionJsonData();
     }
 
     private void SetOn_OptionPanel()
