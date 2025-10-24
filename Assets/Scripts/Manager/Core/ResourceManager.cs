@@ -23,10 +23,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private int KindOfMapPassageAmount = 1;
 
 
-    // 카드 아이콘 양
-    [HideInInspector] private int STIconAmount = 1;
-    [HideInInspector] private int UTIconAmount = 1;
-    [HideInInspector] private int NTIconAmount = 1;
 
 
     // FieldObj
@@ -37,84 +33,30 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region - Hide
 
 
-    // 모듈
-    [HideInInspector] private List<ModuleBaseData> ModuleBaseList_Data;
 
-    // 동료 카드
-    [HideInInspector] private List<AllyCardBaseData> StrikeTeam_AllyCard_Data;
-    [HideInInspector] private List<AllyCardBaseData> UplinkTeam_AllyCard_Data;
-    [HideInInspector] private List<AllyCardBaseData> NeoTeam_AllyCard_Data;
-
-    // 맵 다음 통과 인덱스
-    [HideInInspector] private List<MapNextIndex> MapNextIndex_Data;
-
-    // 워드
-    // 스태틱
-    [HideInInspector] private WordData StaticWord_Data;
-    // 고유 명사
-    [HideInInspector] private WordData_WithClr ProperNoun_Data;
-    // 맵 이름
-    [HideInInspector] private WordData MapName_Data;
-    [HideInInspector] private WordData MapDesc_Data;
     // 스킬
-    [HideInInspector] private List<WordData> SkillName_Data;
-    // 모듈
-    [HideInInspector] private WordData ModuleItemName_Data;
-    [HideInInspector] private WordData MainChipName_Data;
+    [HideInInspector] private WordData[] SkillName_Data;
     // 동료 카드 이름
     [HideInInspector] private WordData StrikeTeam_AllyCardName_Data;
     [HideInInspector] private WordData UplinkTeam_AllyCardName_Data;
     [HideInInspector] private WordData NeoTeam_AllyCardName_Data;
     // 동료 튜너 설명
     [HideInInspector] private WordData TunerStateName_Data;
-    // 동료 퀘스트
-    [HideInInspector] private WordData RequestName_Data;
-    [HideInInspector] private WordData RequestCompleteDesc_Data;
-    [HideInInspector] private WordData RequestFailDesc_Data;
 
     // 동료 이름 랜덤
-    [HideInInspector] private WordData RandomName_Data;
 
     // 특수 객체 이름
-    [HideInInspector] private WordData PlayerName_Data;
-    [HideInInspector] private WordData EnemyName_Data;
 
 
     // 문장
-    // 스태틱
-    [HideInInspector] private WordData StaticDesc_Data;
     // 스킬
-    [HideInInspector] private List<WordData> SkillDesc_Data;
-    // 모듈
-    [HideInInspector] private WordData ModuleItemDesc_Data;
-    [HideInInspector] private WordData ModuleItemEquipDesc_Data;
-    [HideInInspector] private WordData MainChipAllyDescList_Data;
-    [HideInInspector] private List<WordData> MainChipDescList_Data;
-    // 동료 카드 설명
-    [HideInInspector] private WordData StrikeTeam_AllyCardDesc_Data;
-    [HideInInspector] private WordData UplinkTeam_AllyCardDesc_Data;
-    [HideInInspector] private WordData NeoTeam_AllyCardDesc_Data;
+    [HideInInspector] private WordData[] SkillDesc_Data;
 
 
     // 스프라이트
-
     // 맵
-    [HideInInspector] public List<Sprite> MapLobbyImg_Data;
-    [HideInInspector] public List<int> MapLobbyMaterialIndexList_Data;
-
-    [HideInInspector] public List<List<Sprite>> MapImgList_Data;
-    [HideInInspector] public List<List<List<Sprite>>> MapFieldObjList_Data;
-    [HideInInspector] public List<List<int>> MapMaterialIndexList_Data;
 
 
-    [HideInInspector] public List<List<Sprite>> MapPassageImgList_Data;
-
-    // 모듈
-    [HideInInspector] private List<Sprite> ModuleItemImgList_Data;
-    [HideInInspector] private List<Sprite> ModuleSynhronyImgList_Data;
-
-    // 카드 아이콘
-    [HideInInspector] private List<List<Sprite>> AllyCardIcon_Data;
 
     // 동료
     [HideInInspector] private List<Sprite> AllySprite_Data;
@@ -213,225 +155,44 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     private void Offset_CSV()
     {
+        Offset_CSV_Static();
         Offset_CSV_Event();
         Offset_CSV_Cutscene();
         Offset_CSV_Dialogue();
-
-        #region Yet
-
-        // ModuleBase
-        string modulePath = "CSV/Module/";
-        ModuleBaseList_Data = Offset_ModuleBase(modulePath,
-            "Module_CSV");
-
-        // Ally Card
-        string allyCardPath = "CSV/AllyCard/";
-        StrikeTeam_AllyCard_Data = Offset_AllyCard(allyCardPath,
-            "AllyCard_StrikeTeam_CSV");
-        UplinkTeam_AllyCard_Data = Offset_AllyCard(allyCardPath,
-            "AllyCard_UplinkTeam_CSV");
-        NeoTeam_AllyCard_Data = Offset_AllyCard(allyCardPath,
-            "AllyCard_NeoTeam_CSV");
-
-        // Ally Request
-        string allyRequestPath = "CSV/AllyRequest/";
-        RequestName_Data = Offset_WordData(allyRequestPath,
-            "RequestName_CSV");
-        RequestCompleteDesc_Data = Offset_WordData(allyRequestPath,
-            "RequestCompleteDesc_CSV");
-        RequestFailDesc_Data = Offset_WordData(allyRequestPath,
-            "RequestFailDesc_CSV");
-
-        // MapNextIndexList
-        string mapPath = "CSV/Map/";
-        MapNextIndex_Data = Offset_MapNextIndex(mapPath,
-            "MapEntranceIndex_CSV");
+        Offset_CSV_Module();
+        Offset_CSV_AllyCard();
+        Offset_CSV_AllyRequest();
+        Offset_CSV_Map();
 
 
-        // Word
-        // Static
         string wordPath = "CSV/Word/";
-        StaticWord_Data = Offset_WordData(wordPath,
-            "StaticWord_CSV");
-        // ProperNoun
-        ProperNoun_Data = Offset_WordData_Clr(wordPath,
-            "ProperNoun_CSV");
-        // Map
-        MapName_Data = Offset_WordData(wordPath,
-            "MapName_CSV");
-        // Skill
-        SkillName_Data = Offset_WordDataList_ForParentID(wordPath,
+        string descPath = "CSV/Desc/";
+
+        SkillName_Data = GetAsset_WordDataArr_ForParentID(wordPath,
             "SkillName_CSV", PlayerManager.KindOfPlayerAmount);
-        // Module
-        ModuleItemName_Data = Offset_WordData(wordPath,
-            "ModuleName_CSV");
-        // MainChip
-        MainChipName_Data = Offset_WordData(wordPath,
-            "MainChipName_CSV");
-        // Ally Card
-        StrikeTeam_AllyCardName_Data = Offset_WordData(wordPath,
-            "AllyCard_StrikeTeam_Name_CSV");
-        UplinkTeam_AllyCardName_Data = Offset_WordData(wordPath,
-            "AllyCard_UplinkTeam_Name_CSV");
-        NeoTeam_AllyCardName_Data = Offset_WordData(wordPath,
-            "AllyCard_NeoTeam_Name_CSV");
-        // Tuner
-        TunerStateName_Data = Offset_WordData(wordPath,
+
+        SkillDesc_Data = GetAsset_WordDataArr_ForParentID(descPath,
+            "SkillDesc_CSV", PlayerManager.KindOfPlayerAmount);
+
+        TunerStateName_Data = GetAsset_WordData(wordPath,
             "TunerStateName_CSV");
 
-        // Random Name
-        RandomName_Data = Offset_WordData(wordPath,
-            "RandomName_CSV");
-
-        PlayerName_Data = Offset_WordData(wordPath,
-            "PlayerName_CSV");
-        EnemyName_Data = Offset_WordData(wordPath,
-            "EnemyName_CSV");
-
-        // Desc
-        // Static
-        string descPath = "CSV/Desc/";
-        StaticDesc_Data = Offset_WordData(descPath,
-            "StaticDesc_CSV");
-        // Map
-        MapDesc_Data = Offset_WordData(descPath,
-            "MapDesc_CSV");
-        // Skill
-        SkillDesc_Data = Offset_WordDataList_ForParentID(descPath,
-            "SkillDesc_CSV", PlayerManager.KindOfPlayerAmount);
-        // Module
-        ModuleItemDesc_Data = Offset_WordData(descPath,
-            "ModuleDesc_CSV");
-        ModuleItemEquipDesc_Data = Offset_WordData(descPath,
-            "ModuleEquipDesc_CSV");
-        MainChipAllyDescList_Data = Offset_WordData(descPath,
-            "MainChipAllyDesc_CSV");
-        MainChipDescList_Data = Offset_WordDataList_ForParentID(descPath,
-            "MainChipDesc_CSV", MainChipName_Data.AllWordData.Count);
-        // Ally Card
-        StrikeTeam_AllyCardDesc_Data = Offset_WordData(descPath,
-            "AllyCard_StrikeTeam_Desc_CSV");
-        UplinkTeam_AllyCardDesc_Data = Offset_WordData(descPath,
-            "AllyCard_UplinkTeam_Desc_CSV");
-        NeoTeam_AllyCardDesc_Data = Offset_WordData(descPath,
-            "AllyCard_NeoTeam_Desc_CSV");
-
-        #endregion
     }
 
     private void Offset_Sprite()
     {
-        Offset_CutsceneSprite();
-        Offset_DialogueSprite();
+        Offset_Sprite_Cutscene();
+        Offset_Sprite_Dialogue();
+        Offset_Sprite_ModuleItem();
+        Offset_Sprite_AllyCard();
+        Offset_Sprite_Map();
 
-        #region Yet
-
-        Offset_MapImg();
-        Offset_ModuleItemImg();
         Offset_AllySprite();
-        Offset_AllyCardIcon();
-
-        #endregion
     }
 
 
     #region Sprite Yet
 
-    private void Offset_MapImg()
-    {
-        // Lobby Map
-        MapLobbyImg_Data = new List<Sprite>();
-        MapLobbyMaterialIndexList_Data = new List<int>();
-
-        for (int j = 0; j < EachKindOfMapAmount; j++)
-        {
-            MapLobbyImg_Data.AddRange(
-            Get_Arr<Sprite>(
-                $"Sprite/Map/MapLobby/",
-                $"MapLobby_{DevTool.Get_LengthString(j, 3)}"));
-
-            for (int k = 0; k < MapLobbyImg_Data.Count; k++)
-                MapLobbyMaterialIndexList_Data.Add(j);
-        }
-
-        // Map
-        MapImgList_Data = new List<List<Sprite>>();
-        MapMaterialIndexList_Data = new List<List<int>>();
-
-        for (int i = 0; i < KindOfMapAmount; i++)
-        {
-            MapImgList_Data.Add(new List<Sprite>());
-            MapMaterialIndexList_Data.Add(new List<int>());
-
-            for (int j = 0; j < EachKindOfMapAmount; j++)
-            {
-                MapImgList_Data[i].AddRange(
-                    Get_Arr<Sprite>(
-                        $"Sprite/Map/Map{DevTool.Get_LengthString(i, 2)}/",
-                        $"Map{DevTool.Get_LengthString(i, 2)}_{DevTool.Get_LengthString(j, 3)}"));
-
-                for (int k = 0; k < MapImgList_Data[i].Count; k++)
-                    MapMaterialIndexList_Data[i].Add(j);
-            }
-        }
-
-        // Kind of Map / Type / List
-        MapFieldObjList_Data = new List<List<List<Sprite>>>();
-        for (int i = 0; i < MapImgList_Data.Count; i++)
-        {
-            MapFieldObjList_Data.Add(Get_FieldObj(MapImgList_Data[i]));
-        }
-
-        // Passage Map
-        MapPassageImgList_Data = new List<List<Sprite>>();
-
-        for (int i = 0; i < KindOfMapPassageAmount; i++)
-        {
-            MapPassageImgList_Data.Add(new List<Sprite>());
-            MapPassageImgList_Data[i].AddRange(
-                Get_Arr<Sprite>(
-                    $"Sprite/Map/MapPassage/",
-                    $"MapPassage_{DevTool.Get_LengthString(i, 3)}"));
-        }
-    }
-
-    private void Offset_ModuleItemImg()
-    {
-        ModuleItemImgList_Data = new List<Sprite>();
-        ModuleItemImgList_Data.AddRange(
-            Get_Arr<Sprite>(
-                "Sprite/UI/MU/",
-                "MUItemUI_000"));
-
-        ModuleSynhronyImgList_Data = new List<Sprite>();
-        ModuleSynhronyImgList_Data.AddRange(
-            Get_Arr<Sprite>(
-                "Sprite/UI/MU/",
-                "MUSynchronyUI_000"));
-    }
-
-    private void Offset_AllyCardIcon()
-    {
-        AllyCardIcon_Data = new List<List<Sprite>>
-        {
-            Get_AllyCardIcon(STIconAmount, "ST"),
-            Get_AllyCardIcon(UTIconAmount, "UT"),
-            Get_AllyCardIcon(NTIconAmount, "NT")
-        };
-
-        List<Sprite> Get_AllyCardIcon(int _SpriteAmount, string _TypeName)
-        {
-            List<Sprite> result = new List<Sprite>();
-            for (int i = 0; i < _SpriteAmount; i++)
-            {
-                result.AddRange(
-                    Get_Arr<Sprite>(
-                        $"Sprite/UI/Ally/",
-                        $"AllyCardIcon_{_TypeName}_{DevTool.Get_LengthString(i, 3)}"));
-            }
-            return result;
-        }
-    }
 
     private void Offset_AllySprite()
     {
@@ -609,6 +370,55 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
+    #region Static (CSV)
+
+    // Value
+    [HideInInspector] private WordData StaticWord_Data;
+    [HideInInspector] private WordData StaticDesc_Data;
+
+    [HideInInspector] private WordData PlayerName_Data;
+    [HideInInspector] private WordData EnemyName_Data;
+
+    [HideInInspector] private WordData_WithClr ProperNoun_Data;
+    [HideInInspector] private WordData RandomName_Data;
+
+    // Offset
+    private void Offset_CSV_Static()
+    {
+        string path = "CSV/Static/";
+
+        StaticWord_Data = GetAsset_WordData(path, "StaticWord_CSV");
+        StaticDesc_Data = GetAsset_WordData(path, "StaticDesc_CSV");
+
+        PlayerName_Data = GetAsset_WordData(path, "PlayerName_CSV");
+        EnemyName_Data = GetAsset_WordData(path, "EnemyName_CSV");
+
+        ProperNoun_Data = GetAsset_WordData_Clr(path, "ProperNoun_CSV");
+        RandomName_Data = GetAsset_WordData(path, "RandomName_CSV");
+    }
+
+
+    // Get
+    public string Get_StaticWord(int _ID) => StaticWord_Data.Get_Word(_ID);
+    public string Get_StaticDesc(int _ID) => StaticDesc_Data.Get_Word(_ID);
+
+    public string Get_PlayerName(int _ID) => PlayerName_Data.Get_Word(_ID);
+    public string Get_EnemyName(int _ID) => EnemyName_Data.Get_Word(_ID);
+
+    public string Get_ProperNounWord(int _ID) => ProperNoun_Data.Get_Word(_ID);
+
+    public string[][] Get_AllAllyRandomName()
+    {
+        List<string[]> result = new List<string[]>();
+
+        for (int i = 0; i < RandomName_Data.AllWordData.Count; i++)
+            result.Add(RandomName_Data.AllWordData[i].Words);
+        
+        return result.ToArray();
+    }
+
+    #endregion
+
     #region Event (CSV)
 
     [HideInInspector] private EventID[] EventID_Data;
@@ -623,7 +433,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         EventID_Data = Get_EventID(path, "EventID_CSV");
     }
 
-    // Get
     private EventElement[] Get_EventElement(string _Path, string _FileName)
     {
         List<EventElement> result = new List<EventElement>();
@@ -748,23 +557,23 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #region Cutscene (CSV)
 
+    // Value
     [HideInInspector] private CutsceneID[] CutsceneID_Data;
-    [HideInInspector] private CutsceneElement[][] CutsceneElement_DataList;
+    [HideInInspector] private CutsceneElement[][] CutsceneElement_Data;
 
     // Offset
     private void Offset_CSV_Cutscene()
     {
         string path = "CSV/Cutscene/";
 
-        CutsceneElement_DataList = new CutsceneElement[GameManager.KindOfLanguage.Length][];
-        for (int i = 0; i < CutsceneElement_DataList.Length; i++)
-            CutsceneElement_DataList[i] = Get_CutsceneElement(path, $"CutsceneElement_{GameManager.KindOfLanguage[i]}_CSV");
+        CutsceneElement_Data = new CutsceneElement[GameManager.KindOfLanguage.Length][];
+        for (int i = 0; i < CutsceneElement_Data.Length; i++)
+            CutsceneElement_Data[i] = GetAsset_CutsceneElement(path, $"CutsceneElement_{GameManager.KindOfLanguage[i]}_CSV");
         
-        CutsceneID_Data = Get_CutsceneID(path, "CutsceneID_CSV");
+        CutsceneID_Data = GetAsset_CutsceneID(path, "CutsceneID_CSV");
     }
 
-    // Get
-    private CutsceneElement[] Get_CutsceneElement(string _Path, string _FileName)
+    private CutsceneElement[] GetAsset_CutsceneElement(string _Path, string _FileName)
     {
         List<CutsceneElement> result = new List<CutsceneElement>();
 
@@ -783,7 +592,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return result.ToArray();
     }
 
-    private CutsceneID[] Get_CutsceneID(string _Path, string _FileName)
+    private CutsceneID[] GetAsset_CutsceneID(string _Path, string _FileName)
     {
         List<CutsceneID> result = new List<CutsceneID>();
 
@@ -820,7 +629,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 0; i < IDs.Length; i++)
         {
-            CutsceneElement cutsceneElement = CutsceneElement_DataList[GameManager.LanguageID][i];
+            CutsceneElement cutsceneElement = CutsceneElement_Data[GameManager.LanguageID][i];
 
             result.Add(cutsceneElement);
         }
@@ -835,32 +644,37 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     [HideInInspector] private Sprite[] CutsceneSprite_Data;
 
-    private void Offset_CutsceneSprite()
+    // Offset
+    private void Offset_Sprite_Cutscene()
     {
-        CutsceneSprite_Data = Get_Arr<Sprite>("Sprite/UI/Cutscene/", "CutsceneSet_00");
+        string path = "Sprite/UI/Cutscene/";
+        CutsceneSprite_Data = Get_Arr<Sprite>(path, "CutsceneSet_00");
     }
 
+    // Get
     public Sprite Get_CutsceneImg(int _ID) => CutsceneSprite_Data[_ID];
 
     #endregion
 
     #region Dialogue (CSV)
 
+    // Value
     [HideInInspector] private DialogueID[] DialogueID_Data;
-    [HideInInspector] private DialogueElement[][] DialogueElement_DataList;
+    [HideInInspector] private DialogueElement[][] DialogueElement_Data;
 
+    // Offset
     private void Offset_CSV_Dialogue()
     {
         string path = "CSV/Dialogue/";
 
-        DialogueElement_DataList = new DialogueElement[GameManager.KindOfLanguage.Length][];
-        for (int i = 0; i < DialogueElement_DataList.Length; i++)
-            DialogueElement_DataList[i] = Get_DialogueElement(path, $"DialogueElement_{GameManager.KindOfLanguage[i]}_CSV");
+        DialogueElement_Data = new DialogueElement[GameManager.KindOfLanguage.Length][];
+        for (int i = 0; i < DialogueElement_Data.Length; i++)
+            DialogueElement_Data[i] = GetAsset_DialogueElement(path, $"DialogueElement_{GameManager.KindOfLanguage[i]}_CSV");
 
-        DialogueID_Data = Get_DialogueID(path, "DialogueID_CSV");
+        DialogueID_Data = GetAsset_DialogueID(path, "DialogueID_CSV");
     }
 
-    private DialogueElement[] Get_DialogueElement(string _Path, string _FileName)
+    private DialogueElement[] GetAsset_DialogueElement(string _Path, string _FileName)
     {
         List<DialogueElement> result = new List<DialogueElement>();
 
@@ -882,7 +696,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return result.ToArray();
     }
 
-    private DialogueID[] Get_DialogueID(string _Path, string _FileName)
+    private DialogueID[] GetAsset_DialogueID(string _Path, string _FileName)
     {
         List<DialogueID> result = new List<DialogueID>();
 
@@ -918,7 +732,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 0; i < IDs.Length; i++)
         {
-            DialogueElement cutsceneElement = DialogueElement_DataList[GameManager.LanguageID][i];
+            DialogueElement cutsceneElement = DialogueElement_Data[GameManager.LanguageID][i];
 
             result.Add(cutsceneElement);
         }
@@ -929,23 +743,52 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #endregion
     #region Dialogue (Sprite)
 
-
+    // Value
     [HideInInspector] private Sprite[] DialoguCharSprite_Data;
 
-    private void Offset_DialogueSprite()
+    // Offset
+    private void Offset_Sprite_Dialogue()
     {
-        DialoguCharSprite_Data = Get_Arr<Sprite>("Sprite/UI/Dialogue/", "CharacterSet_000");
+        string path = "Sprite/UI/Dialogue/";
+        DialoguCharSprite_Data = Get_Arr<Sprite>(path, "CharacterSet_000");
     }
 
+    // Get
     public Sprite Get_DialogueCharImg(int _ID) => DialoguCharSprite_Data[_ID];
 
     #endregion
 
+    #region Item - Module (CSV)
 
+    // Value
+    [HideInInspector] private ModuleBaseData[] ModuleBaseList_Data;
 
-    #region To Module Base
+    // 모듈
+    [HideInInspector] private WordData ModuleItemName_Data;
+    [HideInInspector] private WordData MainChipName_Data;
 
-    private List<ModuleBaseData> Offset_ModuleBase(string _Path, string _FileName)
+    [HideInInspector] private WordData ModuleItemDesc_Data;
+    [HideInInspector] private WordData ModuleItemEquipDesc_Data;
+
+    [HideInInspector] private WordData[] MainChipDesc_Data;
+    [HideInInspector] private WordData MainChipAllyDesc_Data;
+
+    // Offset
+    private void Offset_CSV_Module()
+    {
+        string path = "CSV/Module/";
+        ModuleBaseList_Data = GetAsset_ModuleBaseData(path, "Module_CSV");
+
+        ModuleItemName_Data = GetAsset_WordData(path, "ModuleName_CSV");
+        MainChipName_Data = GetAsset_WordData(path, "MainChipName_CSV");
+
+        ModuleItemDesc_Data = GetAsset_WordData(path, "ModuleDesc_CSV");
+        ModuleItemEquipDesc_Data = GetAsset_WordData(path, "ModuleEquipDesc_CSV");
+        MainChipDesc_Data = GetAsset_WordDataArr_ForParentID(path, "MainChipDesc_CSV", MainChipName_Data.AllWordData.Count);
+        MainChipAllyDesc_Data = GetAsset_WordData(path, "MainChipAllyDesc_CSV");
+    }
+
+    private ModuleBaseData[] GetAsset_ModuleBaseData(string _Path, string _FileName)
     {
         List<ModuleBaseData> result = new List<ModuleBaseData>();
 
@@ -953,8 +796,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 1; i < stringList.Length; i++)
         {
-            if (stringList[i][0] == "")
-            { break; }
+            if (stringList[i][0] == "") break; 
 
             int id = int.Parse(stringList[i][0]);
             int r1mainChip = int.Parse(stringList[i][1]);
@@ -964,333 +806,43 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             result.Add(new ModuleBaseData(id, new List<int> { r1mainChip, r3mainChip, r5mainChip }));
         }
 
-        return result;
+        return result.ToArray();
     }
 
-    public int Get_AllModuleItemAmount()
-    {
-        return ModuleBaseList_Data.Count;
-    }
 
-    public int Get_AllModuleSynchronyAmount()
-    {
-        return MainChipName_Data.AllWordData.Count;
-    }
 
-    #endregion
-
-    #region To AllyCard
-
-    private List<AllyCardBaseData> Offset_AllyCard(string _Path, string _FileName)
-    {
-        List<AllyCardBaseData> result = new List<AllyCardBaseData>();
-
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
-
-        for (int i = 1; i < stringList.Length; i++)
-        {
-            if (stringList[i][0] == "")
-            { break; }
-
-            int id = int.Parse(stringList[i][0]);
-            int rank = int.Parse(stringList[i][1]);
-            int essentialID = int.Parse(stringList[i][2]);
-
-            result.Add(new AllyCardBaseData(id, rank, essentialID));
-        }
-
-        return result;
-    }
-
-    public List<Sprite> Get_AllyCardSpriteIcon(int _Type)
-    {
-        return AllyCardIcon_Data[_Type];
-    }
-
-    #endregion
-
-    #region To MapNextIndex
-
-    private bool Is_ExistMapIndex(List<MapNextIndex> _AllMapNextIndex, int _PastIndex, out MapNextIndex _MapNextIndex)
-    {
-        _MapNextIndex = null;
-        for (int i = 0; i < _AllMapNextIndex.Count; i++)
-        {
-            if (_AllMapNextIndex[i].PastIndex == _PastIndex)
-            {
-                _MapNextIndex = _AllMapNextIndex[i];
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private List<MapNextIndex> Offset_MapNextIndex(string _Path, string _FileName)
-    {
-        List<MapNextIndex> result = new List<MapNextIndex>();
-
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
-
-        for (int i = 1; i < stringList.Length; i++)
-        {
-            if (stringList[i][0] == "")
-            { break; }
-
-            int pastIndex = int.Parse(stringList[i][0]);
-            int nextIndex = int.Parse(stringList[i][1]);
-
-            if (Is_ExistMapIndex(result, pastIndex, out MapNextIndex mapNextIndex)) // 이미 존재한다면
-            {
-                mapNextIndex.NextIndexList.Add(nextIndex);
-            }
-            else // 존재하지 않는다면
-            {
-                result.Add(new MapNextIndex(pastIndex, nextIndex));
-            }
-        }
-
-        return result;
-    }
-
-    public List<int> Get_CorrectIndexList(int _PastIndex)
-    {
-        for (int i = 0; i < MapNextIndex_Data.Count; i++)
-        {
-            if (MapNextIndex_Data[i].PastIndex == _PastIndex)
-            {
-                return MapNextIndex_Data[i].NextIndexList;
-            }
-        }
-
-        return null;
-    }
-    #endregion
-
-    #region To Word | Desc
-
-    #region Offset
-
-    private List<WordData> Offset_WordDataList_ForParentID(string _Path, string _FileName, int _Amount)
-    {
-        List<WordData> result = new List<WordData>();
-        for (int i = 0; i < _Amount; i++)
-            result.Add(Offset_WordData_ForParentID(_Path, _FileName, i));
-
-        return result;
-    }
-
-    private WordData Offset_WordData_ForParentID(string _Path, string _FileName, int _TargetParentID)
-    {
-        List<WordElementData> element = new List<WordElementData>();
-
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
-
-        for (int i = 1; i < stringList.Length; i++)
-        {
-            if (stringList[i][0] == "") break;
-
-            if (int.Parse(stringList[i][0]) != _TargetParentID) continue;
-
-            List<string> nameList = new List<string>();
-            int id = int.Parse(stringList[i][1]);
-
-            for (int j = 1; j < GameManager.KindOfLanguage.Length + 1; j++)
-                nameList.Add(stringList[i][j + 1]);
-
-            element.Add(new WordElementData(id, nameList));
-        }
-
-        return new WordData(element);
-    }
-
-    private WordData Offset_WordData(string _Path, string _FileName)
-    {
-        List<WordElementData> element = new List<WordElementData>();
-
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
-
-        for (int i = 1; i < stringList.Length; i++)
-        {
-            if (stringList[i][0] == "") break; 
-
-            List<string> nameList = new List<string>();
-            int id = int.Parse(stringList[i][0]);
-            
-            for (int j = 0; j < GameManager.KindOfLanguage.Length; j++)
-                nameList.Add(stringList[i][j + 1]);
-            
-            element.Add(new WordElementData(id, nameList));
-        }
-
-        return new WordData(element);
-    }
-
-    private WordData_WithClr Offset_WordData_Clr(string _Path, string _FileName)
-    {
-        List<WordElementData_WithClr> element = new List<WordElementData_WithClr>();
-
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
-
-        for (int i = 1; i < stringList.Length; i++)
-        {
-            if (stringList[i][0] == "") break;
-
-            int id = int.Parse(stringList[i][0]);
-            string clrHex = stringList[i][1];
-
-            List<string> nameList = new List<string>();
-            for (int j = 0; j < GameManager.KindOfLanguage.Length; j++)
-                nameList.Add(stringList[i][j + 2]);
-
-            element.Add(new WordElementData_WithClr(id, clrHex, nameList));
-        }
-
-        return new WordData_WithClr(element);
-    }
-
-    #endregion
-
-    #region Get 
-
-    // Static
-    public string Get_StaticWord(int _ID)
-    {
-        return StaticWord_Data.Get_Word(_ID);
-    }
-
-    public string Get_StaticDesc(int _ID)
-    {
-        return StaticDesc_Data.Get_Word(_ID);
-    }
-
-    // ProperNoun
-    public string Get_ProperNounWord(int _ID)
-    {
-        return ProperNoun_Data.Get_Word(_ID);
-    }
-
-    // Map
-    public string Get_MapName(int _ID)
-    {
-        return MapName_Data.Get_Word(_ID);
-    }
-
-    public string Get_MapDesc(int _ID)
-    {
-        return MapDesc_Data.Get_Word(_ID);
-    }
-
-    // Skill
-    public string Get_SkillName(int _PlayerID, int _ID)
-    {
-        return SkillName_Data[_PlayerID].Get_Word(_ID);
-    }
-    
-    public string Get_SkillDesc(int _PlayerID, int _ID)
-    {
-        return SkillDesc_Data[_PlayerID].Get_Word(_ID);
-    }
-
-    // Module
+    // Get Data
     public ItemData Get_ItemData(int _ID)
     {
-        ItemData result = new ItemData(_ID);
+        ItemData result = new ItemData(_ID, ModuleItemSprite_Data[_ID],
+            ModuleBaseList_Data[_ID].ModuleMainChip[0],
+            ModuleBaseList_Data[_ID].ModuleMainChip[1],
+            ModuleBaseList_Data[_ID].ModuleMainChip[2]);
 
         Set_DataLanguage(result, _ID);
-
-        result.ItemIcon = ModuleItemImgList_Data[_ID];
-
-        result.R1_MainChipID = ModuleBaseList_Data[_ID].ModuleMainChip[0];
-        result.R3_MainChipID = ModuleBaseList_Data[_ID].ModuleMainChip[1];
-        result.R5_MainChipID = ModuleBaseList_Data[_ID].ModuleMainChip[2];
 
         return result;
     }
 
-    // MainChip
     public MainChipData Get_MainChipData(int _ID)
     {
-        MainChipData result = new MainChipData();
-
-        result.ID = _ID;
+        MainChipData result = new MainChipData(_ID, ModuleSynhronySpritet_Data[_ID]);
 
         Set_DataLanguage(result, _ID);
 
-        result.ThisIcon = ModuleSynhronyImgList_Data[_ID];
-
         return result;
     }
 
-    // AllyCard
-    public List<AllyCardData> Get_StrikeTeam_AllAllyCardData()
-    {
-        List<AllyCardData> result = new List<AllyCardData>();
-        for (int i = 0; i < StrikeTeam_AllyCard_Data.Count; i++)
-            result.Add(new AllyCardData(StrikeTeam_AllyCard_Data[i], StrikeTeam_AllyCardName_Data.Get_Word(i), StrikeTeam_AllyCardDesc_Data.Get_Word(i)));
+    // Get Name
+    public string Get_ModuleName(int _ID) => ModuleItemName_Data.Get_Word(_ID);
+    public string Get_SynergyName(int _ID) => MainChipName_Data.Get_Word(_ID);
+    public string Get_MainChipBaseDesc(int _ID) => MainChipAllyDesc_Data.Get_Word(_ID);
 
-        return result;
-    }
-    public List<AllyCardData> Get_UplinkTeam_AllAllyCardData()
-    {
-        List<AllyCardData> result = new List<AllyCardData>();
-        for (int i = 0; i < UplinkTeam_AllyCard_Data.Count; i++)
-            result.Add(new AllyCardData(UplinkTeam_AllyCard_Data[i], UplinkTeam_AllyCardName_Data.Get_Word(i), UplinkTeam_AllyCardDesc_Data.Get_Word(i)));
+    // Get Amount
+    public int Get_AllModuleItemAmount() => ModuleBaseList_Data.Length;
+    public int Get_AllModuleSynchronyAmount() => MainChipName_Data.AllWordData.Count;
 
-        return result;
-    }
-    public List<AllyCardData> Get_NeoTeam_AllAllyCardData()
-    {
-        List<AllyCardData> result = new List<AllyCardData>();
-        for (int i = 0; i < NeoTeam_AllyCard_Data.Count; i++)
-            result.Add(new AllyCardData(NeoTeam_AllyCard_Data[i], NeoTeam_AllyCardName_Data.Get_Word(i), NeoTeam_AllyCardDesc_Data.Get_Word(i)));
-
-        return result;
-    }
-
-    // Ally Request
-    public string Get_RequestName(int _ID)
-    {
-        return RequestName_Data.Get_Word(_ID);
-    }
-
-    public string Get_RequestCompleteDesc(int _ID)
-    {
-        return RequestCompleteDesc_Data.Get_Word(_ID);
-    }
-
-    public string Get_RequestFailDesc(int _ID)
-    {
-        return RequestFailDesc_Data.Get_Word(_ID);
-    }
-
-
-    // Tuner
-    public string Get_TunerDescName(int _Index)
-    {
-        return TunerStateName_Data.Get_Word(_Index);
-    }
-
-    // Module Name
-    public string Get_ModuleName(int _ID)
-    {
-        return ModuleItemName_Data.Get_Word(_ID);
-    }
-
-    // Module Name
-    public string Get_SynergyName(int _ID)
-    {
-        return MainChipName_Data.Get_Word(_ID);
-    }
-
-    // MainChip Ally Desc
-    public string Get_MainChipBaseDesc(int _ID)
-    {
-        return MainChipAllyDescList_Data.Get_Word(_ID);
-    }
-    #endregion
-
-    #region Set
-
+    // Set
     public ItemData Set_DataLanguage(ItemData _ItemData, int _ID)
     {
         _ItemData.Name = ModuleItemName_Data.Get_Word(_ID);
@@ -1303,77 +855,353 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public MainChipData Set_DataLanguage(MainChipData _MainChipData, int _ID)
     {
         _MainChipData.Name = MainChipName_Data.Get_Word(_ID);
-        _MainChipData.AmalgamationDescList = new List<string>
+        _MainChipData.AmalgamationDescArr = new string[]
         {
-            MainChipDescList_Data[_ID].Get_Word(0),
-            MainChipDescList_Data[_ID].Get_Word(1),
-            MainChipDescList_Data[_ID].Get_Word(2)
+            MainChipDesc_Data[_ID].Get_Word(0),
+            MainChipDesc_Data[_ID].Get_Word(1),
+            MainChipDesc_Data[_ID].Get_Word(2)
         };
 
         return _MainChipData;
     }
 
     #endregion
+    #region Item - Module (Sprite)
+
+    [HideInInspector] private Sprite[] ModuleItemSprite_Data;
+    [HideInInspector] private Sprite[] ModuleSynhronySpritet_Data;
+
+    private void Offset_Sprite_ModuleItem()
+    {
+        ModuleItemSprite_Data = Get_Arr<Sprite>("Sprite/UI/MU/", "MUItemUI_000");
+        ModuleSynhronySpritet_Data = Get_Arr<Sprite>("Sprite/UI/MU/", "MUSynchronyUI_000");
+    }
 
     #endregion
 
-    #region To AllyName
+    #region Item - AllyCard (CSV)
+    
+    // Value
+    [HideInInspector] private AllyCardBaseData[] StrikeTeam_AllyCard_Data;
+    [HideInInspector] private AllyCardBaseData[] UplinkTeam_AllyCard_Data;
+    [HideInInspector] private AllyCardBaseData[] NeoTeam_AllyCard_Data;
 
-    public List<List<string>> Get_AllAllyRandomName()
+    [HideInInspector] private WordData StrikeTeam_AllyCardDesc_Data;
+    [HideInInspector] private WordData UplinkTeam_AllyCardDesc_Data;
+    [HideInInspector] private WordData NeoTeam_AllyCardDesc_Data;
+
+    // Offset
+    private void Offset_CSV_AllyCard()
     {
-        List<List<string>> result = new List<List<string>>();
+        string path = "CSV/AllyCard/";
 
-        for (int i = 0; i < RandomName_Data.AllWordData.Count; i++)
+        StrikeTeam_AllyCard_Data = GetAsset_AllyCard(path,
+            "AllyCard_StrikeTeam_CSV");
+        UplinkTeam_AllyCard_Data = GetAsset_AllyCard(path,
+            "AllyCard_UplinkTeam_CSV");
+        NeoTeam_AllyCard_Data = GetAsset_AllyCard(path,
+            "AllyCard_NeoTeam_CSV");
+
+        StrikeTeam_AllyCardName_Data = GetAsset_WordData(path,
+            "AllyCard_StrikeTeam_Name_CSV");
+        UplinkTeam_AllyCardName_Data = GetAsset_WordData(path,
+            "AllyCard_UplinkTeam_Name_CSV");
+        NeoTeam_AllyCardName_Data = GetAsset_WordData(path,
+            "AllyCard_NeoTeam_Name_CSV");
+
+        StrikeTeam_AllyCardDesc_Data = GetAsset_WordData(path,
+            "AllyCard_StrikeTeam_Desc_CSV");
+        UplinkTeam_AllyCardDesc_Data = GetAsset_WordData(path,
+            "AllyCard_UplinkTeam_Desc_CSV");
+        NeoTeam_AllyCardDesc_Data = GetAsset_WordData(path,
+            "AllyCard_NeoTeam_Desc_CSV");
+    }
+
+    private AllyCardBaseData[] GetAsset_AllyCard(string _Path, string _FileName)
+    {
+        List<AllyCardBaseData> result = new List<AllyCardBaseData>();
+
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Length; i++)
         {
-            result.Add(RandomName_Data.AllWordData[i].Words);
+            if (stringList[i][0] == "") break; 
+
+            int id = int.Parse(stringList[i][0]);
+            int rank = int.Parse(stringList[i][1]);
+            int essentialID = int.Parse(stringList[i][2]);
+
+            result.Add(new AllyCardBaseData(id, rank, essentialID));
+        }
+
+        return result.ToArray();
+    }
+
+
+    // Get
+    public AllyCardData[] Get_StrikeTeam_AllAllyCardData() => Get_Team_AllAllyCardData(StrikeTeam_AllyCard_Data, StrikeTeam_AllyCardName_Data, StrikeTeam_AllyCardDesc_Data);
+    public AllyCardData[] Get_UplinkTeam_AllAllyCardData() => Get_Team_AllAllyCardData(UplinkTeam_AllyCard_Data, UplinkTeam_AllyCardName_Data, UplinkTeam_AllyCardDesc_Data);
+    public AllyCardData[] Get_NeoTeam_AllAllyCardData() => Get_Team_AllAllyCardData(NeoTeam_AllyCard_Data, NeoTeam_AllyCardName_Data, NeoTeam_AllyCardDesc_Data);
+    
+    public AllyCardData[] Get_Team_AllAllyCardData(AllyCardBaseData[] _Data, WordData _NameWord, WordData _DescWord)
+    {
+        List<AllyCardData> result = new List<AllyCardData>();
+        for (int i = 0; i < _Data.Length; i++)
+            result.Add(new AllyCardData(_Data[i], _NameWord.Get_Word(i), _DescWord.Get_Word(i)));
+
+        return result.ToArray();
+    }
+
+    #endregion
+    #region Item - AllyCard (Sprite)
+
+    // Value
+    [HideInInspector] private Sprite[][] AllyCardIcon_Data;
+
+    [HideInInspector] private static readonly int STIconAmount = 1;
+    [HideInInspector] private static readonly int UTIconAmount = 1;
+    [HideInInspector] private static readonly int NTIconAmount = 1;
+
+    // Offset
+    private void Offset_Sprite_AllyCard()
+    {
+        AllyCardIcon_Data = new Sprite[][]
+        {
+            GetAsset_AllyCardIcon(STIconAmount, "ST"),
+            GetAsset_AllyCardIcon(UTIconAmount, "UT"),
+            GetAsset_AllyCardIcon(NTIconAmount, "NT")
+        };
+    }
+
+    private Sprite[] GetAsset_AllyCardIcon(int _SpriteAmount, string _TypeName)
+    {
+        List<Sprite> result = new List<Sprite>();
+        for (int i = 0; i < _SpriteAmount; i++)
+        {
+            result.AddRange(
+                Get_Arr<Sprite>(
+                    $"Sprite/UI/Ally/",
+                    $"AllyCardIcon_{_TypeName}_{DevTool.Get_LengthString(i, 3)}"));
+        }
+        return result.ToArray();
+    }
+
+    // Get
+    public Sprite[] Get_AllyCardSpriteIcon(int _Type) => AllyCardIcon_Data[_Type];
+
+    #endregion
+
+    #region AllyRequest (CSV)
+
+    // Value
+    [HideInInspector] private WordData RequestName_Data;
+    [HideInInspector] private WordData RequestCompleteDesc_Data;
+    [HideInInspector] private WordData RequestFailDesc_Data;
+
+    // Offset
+    private void Offset_CSV_AllyRequest()
+    {
+        string path = "CSV/AllyRequest/";
+        RequestName_Data = GetAsset_WordData(path, "RequestName_CSV");
+        RequestCompleteDesc_Data = GetAsset_WordData(path, "RequestCompleteDesc_CSV");
+        RequestFailDesc_Data = GetAsset_WordData(path, "RequestFailDesc_CSV");
+    }
+
+    // Get
+    public string Get_RequestName(int _ID) => RequestName_Data.Get_Word(_ID);
+    public string Get_RequestCompleteDesc(int _ID) => RequestCompleteDesc_Data.Get_Word(_ID);
+    public string Get_RequestFailDesc(int _ID) => RequestFailDesc_Data.Get_Word(_ID);
+
+    #endregion
+
+    #region Map (CSV)
+
+    // Value
+    [HideInInspector] private Dictionary<int, MapNextIndex> MapNextIndex_Data;
+
+    [HideInInspector] private WordData MapName_Data;
+    [HideInInspector] private WordData MapDesc_Data;
+
+
+    // Offset
+    private void Offset_CSV_Map()
+    {
+        string path = "CSV/Map/";
+        MapNextIndex_Data = Offset_MapNextIndex(path, "MapEntranceIndex_CSV");
+        string s = "";
+        foreach(var data in MapNextIndex_Data)
+        {
+            s += $"{data.Value.PastIndex} : ";
+            for (int i = 0; i < data.Value.NextIndexList.Count; i++)
+            {
+                s += $"{data.Value.NextIndexList[i]} /";
+            }
+            s += "\n";
+        }
+        Debug.Log(s);
+        MapName_Data = GetAsset_WordData(path, "MapName_CSV");
+        MapDesc_Data = GetAsset_WordData(path, "MapDesc_CSV");
+    }
+
+    private Dictionary<int, MapNextIndex> Offset_MapNextIndex(string _Path, string _FileName)
+    {
+        Dictionary<int, MapNextIndex> result = new Dictionary<int, MapNextIndex>();
+
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Length; i++)
+        {
+            if (stringList[i][0] == "") break; 
+
+            int pastIndex = int.Parse(stringList[i][0]);
+            int nextIndex = int.Parse(stringList[i][1]);
+
+            List<MapNextIndex> indexList = new List<MapNextIndex>();
+            if (Is_ExistMapIndex(result, pastIndex, out MapNextIndex mapNextIndex)) // 이미 존재한다면
+            {
+                mapNextIndex.NextIndexList.Add(nextIndex);
+            }
+            else // 존재하지 않는다면
+            {
+                result.Add(pastIndex, new MapNextIndex(pastIndex, nextIndex));
+            }
         }
 
         return result;
     }
 
+    private bool Is_ExistMapIndex(Dictionary<int, MapNextIndex> _AllMapNextIndex, int _PastIndex, out MapNextIndex _MapNextIndex)
+    {
+        _MapNextIndex = null;
+        if (_AllMapNextIndex.ContainsKey(_PastIndex))
+        {
+            _MapNextIndex = _AllMapNextIndex[_PastIndex];
+            return true;
+        }
+        return false;
+    }
+
+
+    // Get
+    public string Get_MapName(int _ID) => MapName_Data.Get_Word(_ID);
+    public string Get_MapDesc(int _ID) => MapDesc_Data.Get_Word(_ID);
+
+    public List<int> Get_CorrectIndexList(int _PastIndex)
+    {
+        if (MapNextIndex_Data.ContainsKey(_PastIndex))
+            return MapNextIndex_Data[_PastIndex].NextIndexList;
+        
+        return null;
+    }
+
+    #endregion
+    #region Map (Sprite)
+
+    // Value
+    [HideInInspector] public Sprite[] MapLobbyImg_Data;
+    [HideInInspector] public int[] MapLobbyMaterialIndexList_Data;
+
+    [HideInInspector] public Sprite[][] MapImgList_Data;
+    [HideInInspector] public int[][] MapMaterialIndexList_Data;
+
+    [HideInInspector] public List<List<Sprite>> MapPassageImgList_Data;
+
+    [HideInInspector] public List<List<List<Sprite>>> MapFieldObjList_Data;
+
+    // Offset
+    private void Offset_Sprite_Map()
+    {
+        string path = $"Sprite/Map/";
+
+
+        // Lobby Map
+        List<int> LobbyStageindexList = new List<int>();
+
+        string lobbyName = $"MapLobby";
+        for (int j = 0; j < EachKindOfMapAmount; j++)
+        {
+            MapLobbyImg_Data = Get_Arr<Sprite>(path + lobbyName + "/", $"{lobbyName}_{DevTool.Get_LengthString(j, 3)}");
+
+            for (int k = 0; k < MapLobbyImg_Data.Length; k++)
+                LobbyStageindexList.Add(j);
+        }
+
+        MapLobbyMaterialIndexList_Data = LobbyStageindexList.ToArray();
+
+
+        // Map
+        List<Sprite[]> mapImgList_Data = new List<Sprite[]>();
+        List<int[]> mapMaterialIndexList_Data = new List<int[]>();
+
+        for (int i = 0; i < KindOfMapAmount; i++)
+        {
+            List<Sprite> eachMapSprites = new List<Sprite>();
+            List<int> eachMapMaterialIndexs = new List<int>();
+
+            string mapName = $"Map{DevTool.Get_LengthString(i, 2)}";
+            for (int j = 0; j < EachKindOfMapAmount; j++)
+            {
+                eachMapSprites.AddRange(Get_Arr<Sprite>(path + mapName + "/", $"{mapName}_{DevTool.Get_LengthString(j, 3)}"));
+
+                for (int k = 0; k < eachMapSprites.Count; k++)
+                    eachMapMaterialIndexs.Add(j);
+            }
+
+            mapImgList_Data.Add(eachMapSprites.ToArray());
+            mapMaterialIndexList_Data.Add(eachMapMaterialIndexs.ToArray());
+        }
+
+        MapImgList_Data = mapImgList_Data.ToArray();
+        MapMaterialIndexList_Data = mapMaterialIndexList_Data.ToArray();
+
+
+
+
+        // Kind of Map / Type / List
+        MapFieldObjList_Data = new List<List<List<Sprite>>>();
+        for (int i = 0; i < MapImgList_Data.Length; i++)
+        {
+            MapFieldObjList_Data.Add(Get_FieldObj(MapImgList_Data[i]));
+        }
+
+        // Passage Map
+        MapPassageImgList_Data = new List<List<Sprite>>();
+
+        for (int i = 0; i < KindOfMapPassageAmount; i++)
+        {
+            MapPassageImgList_Data.Add(new List<Sprite>());
+            MapPassageImgList_Data[i].AddRange(
+                Get_Arr<Sprite>($"Sprite/Map/MapPassage/", $"MapPassage_{DevTool.Get_LengthString(i, 3)}"));
+        }
+    }
+
+    // Get
+    public Sprite[] Get_LobbyStageMapSpriteList() => MapLobbyImg_Data;
+    public Sprite[] Get_StageMapSpriteList(int _ID) => MapImgList_Data[_ID];
+    public int[] Get_LobbyStageMapMaterialList() => MapLobbyMaterialIndexList_Data;
+    public int[] Get_StageMapMaterialList(int _ID) => MapMaterialIndexList_Data[_ID].ToArray();
+
     #endregion
 
-    #region To Name
 
-    public string Get_PlayerName(int _ID) => PlayerName_Data.Get_Word(_ID);
-    public string Get_EnemyName(int _ID) => EnemyName_Data.Get_Word(_ID);
+    #region Get
 
-    #endregion
-
-
-    #region To SpriteList
-
-
-
-    public List<Sprite> Get_LobbyStageMapSpriteList()
-    {
-        return MapLobbyImg_Data;
-    }
-
-    public List<Sprite> Get_StageMapSpriteList(int _ID)
-    {
-        return MapImgList_Data[_ID];
-    }
-
-    public List<int> Get_LobbyStageMapMaterialList()
-    {
-        return MapLobbyMaterialIndexList_Data;
-    }
-
-    public List<int> Get_StageMapMaterialList(int _ID)
-    {
-        return MapMaterialIndexList_Data[_ID];
-    }
-
+    // Skill
+    public string Get_SkillName(int _PlayerID, int _ID) => SkillName_Data[_PlayerID].Get_Word(_ID);
+    public string Get_SkillDesc(int _PlayerID, int _ID) => SkillDesc_Data[_PlayerID].Get_Word(_ID);
+    
+    // Tuner
+    public string Get_TunerDescName(int _Index) => TunerStateName_Data.Get_Word(_Index);
+    
     // Type / SpriteList
-    private List<List<Sprite>> Get_FieldObj(List<Sprite> _AllSprite)
+    private List<List<Sprite>> Get_FieldObj(Sprite[] _AllSprite)
     {
         List<List<Sprite>> result = new List<List<Sprite>>();
 
         for (int j = 0; j < FieldObjKindOfType; j++)
             result.Add(new List<Sprite>());
 
-        for (int i = 0; i < _AllSprite.Count; i++)
+        for (int i = 0; i < _AllSprite.Length; i++)
         {
             string[] name = _AllSprite[i].name.Split("_");
             if (name[1] == "FieldObj")
@@ -1385,7 +1213,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         return result;
     }
-
 
     public Sprite Get_FieldObjSprite(int _StageID, int _TypeID)
     {
@@ -1460,6 +1287,90 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     #endregion
+
+    #endregion
+
+
+
+    #region GetAsset_WordData
+
+    private WordData[] GetAsset_WordDataArr_ForParentID(string _Path, string _FileName, int _Amount)
+    {
+        List<WordData> result = new List<WordData>();
+        for (int i = 0; i < _Amount; i++)
+            result.Add(GetAsset_WordData_ForParentID(_Path, _FileName, i));
+
+        return result.ToArray();
+    }
+
+    private WordData GetAsset_WordData_ForParentID(string _Path, string _FileName, int _TargetParentID)
+    {
+        List<WordElementData> element = new List<WordElementData>();
+
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Length; i++)
+        {
+            if (stringList[i][0] == "") break;
+
+            if (int.Parse(stringList[i][0]) != _TargetParentID) continue;
+
+            List<string> nameList = new List<string>();
+            int id = int.Parse(stringList[i][1]);
+
+            for (int j = 1; j < GameManager.KindOfLanguage.Length + 1; j++)
+                nameList.Add(stringList[i][j + 1]);
+
+            element.Add(new WordElementData(id, nameList.ToArray()));
+        }
+
+        return new WordData(element);
+    }
+
+    private WordData GetAsset_WordData(string _Path, string _FileName)
+    {
+        List<WordElementData> element = new List<WordElementData>();
+
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Length; i++)
+        {
+            if (stringList[i][0] == "") break;
+
+            List<string> nameList = new List<string>();
+            int id = int.Parse(stringList[i][0]);
+
+            for (int j = 0; j < GameManager.KindOfLanguage.Length; j++)
+                nameList.Add(stringList[i][j + 1]);
+
+            element.Add(new WordElementData(id, nameList.ToArray()));
+        }
+
+        return new WordData(element);
+    }
+
+    private WordData_WithClr GetAsset_WordData_Clr(string _Path, string _FileName)
+    {
+        List<WordElementData_WithClr> element = new List<WordElementData_WithClr>();
+
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+
+        for (int i = 1; i < stringList.Length; i++)
+        {
+            if (stringList[i][0] == "") break;
+
+            int id = int.Parse(stringList[i][0]);
+            string clrHex = stringList[i][1];
+
+            List<string> nameList = new List<string>();
+            for (int j = 0; j < GameManager.KindOfLanguage.Length; j++)
+                nameList.Add(stringList[i][j + 2]);
+
+            element.Add(new WordElementData_WithClr(id, clrHex, nameList.ToArray()));
+        }
+
+        return new WordData_WithClr(element);
+    }
 
     #endregion
 }

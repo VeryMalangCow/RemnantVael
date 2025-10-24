@@ -26,21 +26,21 @@ public class AllyManager : Singleton<AllyManager>
     [HideInInspector] public List<AllyController> AllAlly = new List<AllyController>();
 
     // Ally Card Data
-    [HideInInspector] private List<AllyCardData> ST_AllAllyCardData = new List<AllyCardData>();
+    [HideInInspector] private AllyCardData[] ST_AllAllyCardData;
     [HideInInspector] private HashSet<int> ST_GottenAllyCards = new HashSet<int>();
-    [HideInInspector] private List<Sprite> ST_CardIconList = new List<Sprite>();
+    [HideInInspector] private Sprite[] ST_CardIconArr;
 
-    [HideInInspector] private List<AllyCardData> UT_AllAllyCardData = new List<AllyCardData>();
+    [HideInInspector] private AllyCardData[] UT_AllAllyCardData;
     [HideInInspector] private HashSet<int> UT_GottenAllyCards = new HashSet<int>();
-    [HideInInspector] private List<Sprite> UT_CardIconList = new List<Sprite>();
+    [HideInInspector] private Sprite[] UT_CardIconArr;
 
-    [HideInInspector] private List<AllyCardData> NT_AllAllyCardData = new List<AllyCardData>();
+    [HideInInspector] private AllyCardData[] NT_AllAllyCardData;
     [HideInInspector] private HashSet<int> NT_GottenAllyCards = new HashSet<int>();
-    [HideInInspector] private List<Sprite> NT_CardIconList = new List<Sprite>();
+    [HideInInspector] private Sprite[] NT_CardIconArr;
 
-    [HideInInspector] private List<List<AllyCardData>> AllAllyCardData = null;
-    [HideInInspector] private List<HashSet<int>> AllGottenAllyCards = null;
-    [HideInInspector] private List<List<Sprite>> AllIconList = null;
+    [HideInInspector] private AllyCardData[][] AllAllyCardData = null;
+    [HideInInspector] private HashSet<int>[] AllGottenAllyCards = null;
+    [HideInInspector] private Sprite[][] AllIconArr = null;
 
     // Base State
     [HideInInspector] private AllyState AllyState = new AllyState();
@@ -50,7 +50,7 @@ public class AllyManager : Singleton<AllyManager>
     [HideInInspector] public Dictionary<string, AllySpriteSet> AllySpriteSetDict;
 
     // Name
-    [HideInInspector] private List<List<string>> AllyAllNameList = new List<List<string>>();
+    [HideInInspector] private string[][] AllyAllNameArr;
     [HideInInspector] private HashSet<int> UsedAllyName = new HashSet<int>();
 
     // String
@@ -81,16 +81,14 @@ public class AllyManager : Singleton<AllyManager>
         NT_AllAllyCardData = ResourceManager.Instance.Get_NeoTeam_AllAllyCardData();
 
         // Icon
-        ST_CardIconList = ResourceManager.Instance.Get_AllyCardSpriteIcon(0);
-        UT_CardIconList = ResourceManager.Instance.Get_AllyCardSpriteIcon(1);
-        NT_CardIconList = ResourceManager.Instance.Get_AllyCardSpriteIcon(2);
+        ST_CardIconArr = ResourceManager.Instance.Get_AllyCardSpriteIcon(0);
+        UT_CardIconArr = ResourceManager.Instance.Get_AllyCardSpriteIcon(1);
+        NT_CardIconArr = ResourceManager.Instance.Get_AllyCardSpriteIcon(2);
 
-        AllAllyCardData = new List<List<AllyCardData>>
-        { ST_AllAllyCardData, UT_AllAllyCardData, NT_AllAllyCardData };
-        AllGottenAllyCards = new List<HashSet<int>>
-        { ST_GottenAllyCards, UT_GottenAllyCards, NT_GottenAllyCards };
-        AllIconList = new List<List<Sprite>>
-        { ST_CardIconList, UT_CardIconList, NT_CardIconList };
+        // Arr
+        AllAllyCardData = new AllyCardData[][] { ST_AllAllyCardData, UT_AllAllyCardData, NT_AllAllyCardData };
+        AllGottenAllyCards = new HashSet<int>[] { ST_GottenAllyCards, UT_GottenAllyCards, NT_GottenAllyCards };
+        AllIconArr = new Sprite[][] { ST_CardIconArr, UT_CardIconArr, NT_CardIconArr };
 
         // Sprite
         AllySpriteSetDict = new Dictionary<string, AllySpriteSet>
@@ -106,7 +104,7 @@ public class AllyManager : Singleton<AllyManager>
         AllyState = new AllyState();
 
         // Random Name
-        AllyAllNameList = ResourceManager.Instance.Get_AllAllyRandomName();
+        AllyAllNameArr = ResourceManager.Instance.Get_AllAllyRandomName();
 
         TunerTypeIconDict = new Dictionary<string, Sprite>();
         for (int i = 0; i < StateTypeList.Count; i++)
@@ -218,7 +216,7 @@ public class AllyManager : Singleton<AllyManager>
 
     public Sprite Get_CardIcon(int _TypeID, int _CardID)
     {
-        return AllIconList[_TypeID][_CardID];
+        return AllIconArr[_TypeID][_CardID];
     }
 
     // 선행 카드 정보
@@ -242,7 +240,7 @@ public class AllyManager : Singleton<AllyManager>
             if (i > 100)
                 break;
 
-            AllyCardData randomData = AllAllyCardData[_TypeID][Random.Range(0, AllAllyCardData[_TypeID].Count)];
+            AllyCardData randomData = AllAllyCardData[_TypeID][Random.Range(0, AllAllyCardData[_TypeID].Length)];
 
             if (Can_ChoiceAble(_TypeID, randomData, result))
                 result.Add(randomData);
@@ -271,7 +269,7 @@ public class AllyManager : Singleton<AllyManager>
             if (s > 100)
                 break;
 
-            AllyCardData randomData = AllAllyCardData[_TypeID][Random.Range(0, AllAllyCardData[_TypeID].Count)];
+            AllyCardData randomData = AllAllyCardData[_TypeID][Random.Range(0, AllAllyCardData[_TypeID].Length)];
 
             if (Can_ChoiceAble(_TypeID, randomData, alreadyPlacedAllyCard))
                 return randomData;
@@ -378,7 +376,7 @@ public class AllyManager : Singleton<AllyManager>
             if (safeInt > 100)
             { break; }
 
-            randomIndex = Random.Range(0, AllyAllNameList.Count);
+            randomIndex = Random.Range(0, AllyAllNameArr.Length);
             if (!UsedAllyName.Contains(randomIndex))
             {
                 UsedAllyName.Add(randomIndex);
@@ -389,12 +387,12 @@ public class AllyManager : Singleton<AllyManager>
         return randomIndex;
     }
 
-    public List<string> Get_AllyName(int _ID)
+    public string[] Get_AllyName(int _ID)
     {
         if (_ID == -1) 
             return null;
 
-        return AllyAllNameList[_ID];
+        return AllyAllNameArr[_ID];
     }
 
     public void Set_Language()
@@ -409,16 +407,16 @@ public class AllyManager : Singleton<AllyManager>
 
     public void Set_LanguageTxt()
     {
-        List<AllyCardData> stData = ResourceManager.Instance.Get_StrikeTeam_AllAllyCardData();
-        for (int i = 0; i < ST_AllAllyCardData.Count; i++)
+        AllyCardData[] stData = ResourceManager.Instance.Get_StrikeTeam_AllAllyCardData();
+        for (int i = 0; i < ST_AllAllyCardData.Length; i++)
             ST_AllAllyCardData[i].Set_LanguageTxt(stData[i].Name, stData[i].Desc);
 
-        List<AllyCardData> utData = ResourceManager.Instance.Get_UplinkTeam_AllAllyCardData();
-        for (int i = 0; i < UT_AllAllyCardData.Count; i++)
+        AllyCardData[] utData = ResourceManager.Instance.Get_UplinkTeam_AllAllyCardData();
+        for (int i = 0; i < UT_AllAllyCardData.Length; i++)
             UT_AllAllyCardData[i].Set_LanguageTxt(utData[i].Name, utData[i].Desc);
 
-        List<AllyCardData> ntData = ResourceManager.Instance.Get_NeoTeam_AllAllyCardData();
-        for (int i = 0; i < NT_AllAllyCardData.Count; i++)
+        AllyCardData[] ntData = ResourceManager.Instance.Get_NeoTeam_AllAllyCardData();
+        for (int i = 0; i < NT_AllAllyCardData.Length; i++)
             NT_AllAllyCardData[i].Set_LanguageTxt(ntData[i].Name, ntData[i].Desc);
     }
 

@@ -59,7 +59,7 @@ public class AllyController : NavObjectController
 
     // Name
     [HideInInspector] protected int NameID = -1;
-    [HideInInspector] protected List<string> Name = null;
+    [HideInInspector] protected string[] Name = null;
 
 
     // Sync

@@ -917,7 +917,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
             for (int i = 0; i < AmalgamationDescTxtList.Count; i++)
             {
-                AmalgamationDescTxtList[i].text = MCD.AmalgamationDescList[i];
+                AmalgamationDescTxtList[i].text = MCD.AmalgamationDescArr[i];
 
                 if (i < synchoronyLvLimit)
                     DevTool.Set_AlphaColor(AmalgamationDescTxtList[i], 1f);

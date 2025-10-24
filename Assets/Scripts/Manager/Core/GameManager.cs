@@ -2702,6 +2702,14 @@ public class ItemData : ItemData_Field
         Description = _ItemData.Description;
         EquipDescription = _ItemData.EquipDescription;
     }
+
+    public ItemData(int _ID, Sprite _Icon, int _R1, int _R3, int _R5) : base(_ID)
+    {
+        ItemIcon = _Icon;
+        R1_MainChipID = _R1;
+        R3_MainChipID = _R3;
+        R5_MainChipID = _R5;
+    }
 }
 
 [System.Serializable]
@@ -2710,7 +2718,13 @@ public class MainChipData
     public Sprite ThisIcon;
     public int ID;
     public string Name;
-    public List<string> AmalgamationDescList;
+    public string[] AmalgamationDescArr;
+
+    public MainChipData(int _ID, Sprite _Icon)
+    {
+        ID = _ID;
+        ThisIcon = _Icon;
+    }
 }
 
 #endregion
@@ -4193,7 +4207,7 @@ public class StageData
     [HideInInspector] public List<Sprite> AllMapSprite;
     [HideInInspector] public StageMapSprite MapSpriteReso;
     
-    public void Offset(List<Sprite> _AllSprite, List<int> _MaterialIndexList)
+    public void Offset(Sprite[] _AllSprite, int[] _MaterialIndexList)
     {
         MapSpriteReso.Offset(_AllSprite, _MaterialIndexList, MapIndexName);
     }
@@ -5169,9 +5183,9 @@ public class StageMapSprite
 
     public Dictionary<string, SpriteMaterial> MapSprite = new Dictionary<string, SpriteMaterial>();
 
-    public void Offset(List<Sprite> _AllSprite, List<int> _MaterialIndexList, string _MapIndexName)
+    public void Offset(Sprite[] _AllSprite, int[] _MaterialIndexList, string _MapIndexName)
     {
-        for (int i = 0; i < _AllSprite.Count; i++)
+        for (int i = 0; i < _AllSprite.Length; i++)
         {
             if (_AllSprite[i].name.Length > 5)
             {
@@ -5306,9 +5320,9 @@ public class WordData
 public class WordElementData
 {
     public int ID;
-    public List<string> Words;
+    public string[] Words;
 
-    public WordElementData(int _ID, List<string> _Words)
+    public WordElementData(int _ID, string[] _Words)
     {
         ID = _ID;
         Words = _Words;
@@ -5346,7 +5360,7 @@ public class WordElementData_WithClr : WordElementData
 {
     public string ClrHex;
 
-    public WordElementData_WithClr(int _ID, string _ClrHex, List<string> _MapName) : base(_ID, _MapName)
+    public WordElementData_WithClr(int _ID, string _ClrHex, string[] _Names) : base(_ID, _Names)
     {
         ClrHex = _ClrHex;
     }
