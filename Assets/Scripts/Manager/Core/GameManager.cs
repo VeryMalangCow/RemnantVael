@@ -4181,6 +4181,34 @@ public class SatelliteCenterController : SatelliteController
 
 #endregion
 
+#region Class : Map Reso
+
+[System.Serializable]
+public class MapReso
+{
+    public MapResoElement[] MapResoElements;
+
+    public MapReso(MapResoElement[] _MapResoElements)
+    {
+        MapResoElements = _MapResoElements;
+    }
+}
+
+[System.Serializable]
+public class MapResoElement
+{
+    public Sprite Sprite;
+    public int MaterialIndex;
+
+    public MapResoElement(Sprite _Sprite, int _MaterialIndex)
+    {
+        Sprite = _Sprite;
+        MaterialIndex = _MaterialIndex;
+    }
+}
+
+
+#endregion
 
 #region Class : Stage
 
@@ -4207,9 +4235,9 @@ public class StageData
     [HideInInspector] public List<Sprite> AllMapSprite;
     [HideInInspector] public StageMapSprite MapSpriteReso;
     
-    public void Offset(Sprite[] _AllSprite, int[] _MaterialIndexList)
+    public void Offset(MapReso _Reso)
     {
-        MapSpriteReso.Offset(_AllSprite, _MaterialIndexList, MapIndexName);
+        MapSpriteReso.Offset(_Reso, MapIndexName);
     }
 }
 
@@ -4315,19 +4343,16 @@ public class AllPassageMiddleSpriteData
 {
     private Dictionary<string, EachPassageMiddleSpriteData> PassageMiddleSpriteDict;
 
-    public AllPassageMiddleSpriteData(List<List<Sprite>> _AllSprite)
+    public AllPassageMiddleSpriteData(MapReso _AllSprite)
     {
         PassageMiddleSpriteDict = new Dictionary<string, EachPassageMiddleSpriteData>();
-        for (int i = 0; i < _AllSprite.Count; i++)
+        for (int i = 0; i < _AllSprite.MapResoElements.Length; i++)
         {
-            for (int j = 0; j < _AllSprite.Count; j++)
-            {
-                string[] fullName = _AllSprite[i][j].name.Split("_");
+            string[] fullName = _AllSprite.MapResoElements[i].Sprite.name.Split("_");
 
-                PassageMiddleSpriteDict.Add(
-                    $"{fullName[1]}_{fullName[3]}_{fullName[5]}", 
-                    new EachPassageMiddleSpriteData(_AllSprite[i][j], i));
-            }
+            PassageMiddleSpriteDict.Add(
+                $"{fullName[1]}_{fullName[3]}_{fullName[5]}",
+                new EachPassageMiddleSpriteData(_AllSprite.MapResoElements[i].Sprite, _AllSprite.MapResoElements[i].MaterialIndex));
         }
     }
 
@@ -5183,17 +5208,17 @@ public class StageMapSprite
 
     public Dictionary<string, SpriteMaterial> MapSprite = new Dictionary<string, SpriteMaterial>();
 
-    public void Offset(Sprite[] _AllSprite, int[] _MaterialIndexList, string _MapIndexName)
+    public void Offset(MapReso _Reso, string _MapIndexName)
     {
-        for (int i = 0; i < _AllSprite.Length; i++)
+        for (int i = 0; i < _Reso.MapResoElements.Length; i++)
         {
-            if (_AllSprite[i].name.Length > 5)
+            if (_Reso.MapResoElements[i].Sprite.name.Length > 5)
             {
-                if (_AllSprite[i].name[5] == 'A') continue; 
+                if (_Reso.MapResoElements[i].Sprite.name[5] == 'A') continue; 
                 
                 MapSprite.Add(
-                    _AllSprite[i].name.Substring(5, _AllSprite[i].name.Length - 5),
-                    new SpriteMaterial(_AllSprite[i], _MaterialIndexList[i]));
+                    _Reso.MapResoElements[i].Sprite.name.Substring(5, _Reso.MapResoElements[i].Sprite.name.Length - 5),
+                    new SpriteMaterial(_Reso.MapResoElements[i].Sprite, _Reso.MapResoElements[i].MaterialIndex));
             }
         }
     }

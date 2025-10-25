@@ -87,13 +87,13 @@ public class InventoryEUIController : ElementUIController
     #region Set
 
     // Player Module Shop
-    public void Set_InventoryUI(List<List<ModuleState>> _AllModuleData)
+    public void Set_InventoryUI(ModuleState[][] _AllModuleData)
     {
         SetOff_AllInventoryUI();
 
-        for (int i = 0; i < _AllModuleData.Count; i++)
+        for (int i = 0; i < _AllModuleData.Length; i++)
         {
-            for (int j = 0; j < _AllModuleData[i].Count; j++)
+            for (int j = 0; j < _AllModuleData[i].Length; j++)
             {
                 ModuleState ms = _AllModuleData[i][j];
 

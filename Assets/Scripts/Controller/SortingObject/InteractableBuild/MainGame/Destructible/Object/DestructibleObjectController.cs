@@ -20,7 +20,7 @@ public class DestructibleObjectController : SortingObjectController
     {
         base.Offset();
 
-        ThisSR.sprite = ResourceManager.Instance.Get_FieldObjSprite(
+        ThisSR.sprite = ResourceManager.Instance.Get_RandomFieldObjSprite(
             StageManager.Instance.TargetStageID,
             TypeIndex);
 

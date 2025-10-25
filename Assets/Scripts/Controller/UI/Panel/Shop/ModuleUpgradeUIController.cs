@@ -565,14 +565,14 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     #region Item UI
 
     // ÀÎº¥Åä¸® UI ¼Â
-    public void Set_InventoryUI(List<List<ModuleState>> _AllModuleState)
+    public void Set_InventoryUI(ModuleState[][] _AllModuleState)
     {
         for (int i = 0; i < Inventories.Count; i++)
             Inventories[i].Set_InventoryUI(_AllModuleState);
     }
 
     // ÀåÂø ½½·Ô UI ¼Â
-    public void Set_EquipedUI(List<List<ModuleState>> _AllModuleState, List<CoupleData<int>> _EquipedData)
+    public void Set_EquipedUI(ModuleState[][] _AllModuleState, List<CoupleData<int>> _EquipedData)
     {
         for (int i = 0; i < _EquipedData.Count; i++)
         {
@@ -647,7 +647,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     }
 
     // ÇÕ¼º ½½·Ô UI ¼Â
-    public void Set_FusionUI(List<List<ModuleState>> _AllModuleState, List<CoupleData<int>> _SlottedData)
+    public void Set_FusionUI(ModuleState[][] _AllModuleState, List<CoupleData<int>> _SlottedData)
     {
         Inventory_InForge.SetOff_AllInventoryForgeSelectedUI();
 

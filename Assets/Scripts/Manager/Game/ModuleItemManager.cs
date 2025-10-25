@@ -13,8 +13,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     [Space(10)]
     [Header("=== Resource")]
-    [SerializeField] private List<Sprite> RankIconList;
-    [SerializeField] private List<Sprite> MUUIDescRankIconList;
+    [SerializeField] private Sprite[] RankIconList;
+    [SerializeField] private Sprite[] MUUIDescRankIconList;
 
     [Space(5)]
     [SerializeField] public GameObject InventoryItemPrefab;
@@ -25,11 +25,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     #region - Hide
 
     // Data
-    [HideInInspector] public List<ItemData> ItemDataList;
-    [HideInInspector] private List<MainChipData> MainChipDataList;
+    [HideInInspector] public ItemData[] ItemDataArr;
+    [HideInInspector] private MainChipData[] MainChipDataArr;
 
     // Module State
-    [HideInInspector] private List<List<ModuleState>> AllModuleData = new List<List<ModuleState>>();
+    [HideInInspector] private ModuleState[][] AllModuleData;
     
     [HideInInspector] private List<CoupleData<int>> EquippedIndex = new List<CoupleData<int>>();
 
@@ -80,25 +80,14 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     private void Offset()
     {
-        ItemDataList = new List<ItemData>();
-        for (int i = 0; i < ResourceManager.Instance.Get_AllModuleItemAmount(); i++)
-            ItemDataList.Add(ResourceManager.Instance.Get_ItemData(i));
-
-        MainChipDataList = new List<MainChipData>();
-        for (int i = 0; i < ResourceManager.Instance.Get_AllModuleSynchronyAmount(); i++)
-            MainChipDataList.Add(ResourceManager.Instance.Get_MainChipData(i));
-        
+        ItemDataArr = ResourceManager.Instance.Get_ItemDataArr();
+        MainChipDataArr = ResourceManager.Instance.Get_MainChipDataArr();
 
         // 모든 MS List를 Null 값을 사용해 빈 공간을 지정
-        for (int i = 0; i < ColumnAmount; i++)
-        {
-            List<ModuleState> eachColumnMSList = new List<ModuleState>();
-            for (int j = 0; j < RowAmount; j++)
-            {
-                eachColumnMSList.Add(null);
-            }
-            AllModuleData.Add(eachColumnMSList);
-        }
+        AllModuleData = new ModuleState[ColumnAmount][];
+        for (int i = 0; i < AllModuleData.Length; i++)
+            AllModuleData[i] = new ModuleState[RowAmount];
+
 
         // 인덱스도 초기화
         for (int i = 0; i < EquipedAmount; i++)
@@ -225,7 +214,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     // 랜덤한 아이템
     public ItemData_Field Get_RandomInteractItem()
     {
-        var data = new ItemData_Field(ItemDataList[Random.Range(0, ItemDataList.Count)]);
+        var data = new ItemData_Field(ItemDataArr[Random.Range(0, ItemDataArr.Length)]);
         //Debug.Log("Module Rank Test");
         //data.Rank = 5;
         return data;
@@ -260,9 +249,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         for (int i = 0; i < _ExcludeModuleState.Count; i++)
             excludeMsList.Add(_ExcludeModuleState[i].MS);
 
-        for (int i = 0; i < AllModuleData.Count; i++)
+        for (int i = 0; i < AllModuleData.Length; i++)
         {
-            for (int j = 0; j < AllModuleData[i].Count; j++)
+            for (int j = 0; j < AllModuleData[i].Length; j++)
             {
                 ModuleState ms = AllModuleData[i][j];
                 if (ms != null && !excludeMsList.Contains(ms))
@@ -360,7 +349,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     // 메인칩 데이터 찾기
     public MainChipData Get_CorrectMainChip(int _ID)
     {
-        return MainChipDataList[_ID];
+        return MainChipDataArr[_ID];
     }
 
     // 현재 메인 칩의 양 구하기
@@ -415,7 +404,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public Sprite Get_CorrectItemIcon(int _ID)
     {
-        return ItemDataList[_ID].ItemIcon;
+        return ItemDataArr[_ID].ItemIcon;
     }
     public Sprite Get_CorrectRankIcon(int _Rank)
     {
@@ -802,7 +791,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
        
         // 아이템 데이터 초기화
         ModuleState newModuleState = ModuleState.Get_AllModuleState()[_ItemDataField.ID];
-        newModuleState.Set_State(ItemDataList[_ItemDataField.ID]);
+        newModuleState.Set_State(ItemDataArr[_ItemDataField.ID]);
         newModuleState.ThisItemData.Rank = _ItemDataField.Rank;
 
         ItemData_UIVisual stateUI = new ItemData_UIVisual(
@@ -997,21 +986,21 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     private void Set_ItemDataLanguage()
     {
-        for (int i = 0; i < ItemDataList.Count; i++)
-            ResourceManager.Instance.Set_DataLanguage(ItemDataList[i], i);
+        for (int i = 0; i < ItemDataArr.Length; i++)
+            ResourceManager.Instance.Set_DataLanguage(ItemDataArr[i], i);
 
         for (int i = 0; i < ColumnAmount; i++)
             for (int j = 0; j < RowAmount; j++)
                 if (AllModuleData[i][j] != null)
                 {
-                    AllModuleData[i][j].ThisItemData.Set_LanguageTxt(ItemDataList[AllModuleData[i][j].ThisItemData.ID]);
+                    AllModuleData[i][j].ThisItemData.Set_LanguageTxt(ItemDataArr[AllModuleData[i][j].ThisItemData.ID]);
                 }
     }
 
     private void Set_MainChipDataLanguage()
     {
-        for (int i = 0; i < MainChipDataList.Count; i++)
-            ResourceManager.Instance.Set_DataLanguage(MainChipDataList[i], i);
+        for (int i = 0; i < MainChipDataArr.Length; i++)
+            ResourceManager.Instance.Set_DataLanguage(MainChipDataArr[i], i);
     }
 
 

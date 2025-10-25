@@ -142,11 +142,11 @@ public class StageManager : Singleton<StageManager>
 
     private void Offset()
     {
-        LobbyStageData.Offset(ResourceManager.Instance.Get_LobbyStageMapSpriteList(), ResourceManager.Instance.Get_LobbyStageMapMaterialList());
+        LobbyStageData.Offset(ResourceManager.Instance.Get_LobbyMapReso());
 
         for (int i = 0; i < AllStageData.Count; i++)
         {
-            AllStageData[i].Offset(ResourceManager.Instance.Get_StageMapSpriteList(i), ResourceManager.Instance.Get_StageMapMaterialList(i));
+            AllStageData[i].Offset(ResourceManager.Instance.Get_StageMapReso(i));
         }
 
         StageIconDict = new Dictionary<int, Sprite>();
@@ -1494,7 +1494,7 @@ public class StageManager : Singleton<StageManager>
     // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
     public void Init_PassageMiddleData()
     {
-        PassageMiddleSpriteData = new AllPassageMiddleSpriteData(ResourceManager.Instance.MapPassageImgList_Data);
+        PassageMiddleSpriteData = new AllPassageMiddleSpriteData(ResourceManager.Instance.Get_PassageMapReso());
     }
 
     #endregion

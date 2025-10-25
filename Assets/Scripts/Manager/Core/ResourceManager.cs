@@ -8,74 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class ResourceManager : PersistentSingleton<ResourceManager>
 {
-    #region Value
-
-    #region - Amount Set
-
-    // 맵 종류
-    [HideInInspector] public static int KindOfMapAmount = 2;
-
-    // 각 맵에 사용할 스프라이트의 양
-    [HideInInspector] private int EachKindOfMapAmount = 2;
-    [HideInInspector] private int FieldObjKindOfType = 3;
-
-    // Passage 맵 스프라이트 양
-    [HideInInspector] private int KindOfMapPassageAmount = 1;
-
-
-
-
-    // FieldObj
-    [HideInInspector] private int KindOfFieldObj = 3;
-
-    #endregion
-
-    #region - Hide
-
-
-
-    // 스킬
-    [HideInInspector] private WordData[] SkillName_Data;
-    // 동료 카드 이름
-    [HideInInspector] private WordData StrikeTeam_AllyCardName_Data;
-    [HideInInspector] private WordData UplinkTeam_AllyCardName_Data;
-    [HideInInspector] private WordData NeoTeam_AllyCardName_Data;
-    // 동료 튜너 설명
-    [HideInInspector] private WordData TunerStateName_Data;
-
-    // 동료 이름 랜덤
-
-    // 특수 객체 이름
-
-
-    // 문장
-    // 스킬
-    [HideInInspector] private WordData[] SkillDesc_Data;
-
-
-    // 스프라이트
-    // 맵
-
-
-
-    // 동료
-    [HideInInspector] private List<Sprite> AllySprite_Data;
-    private static readonly string[] directionOrder = new string[] { "UL", "U", "UR", "R", "DR", "D", "DL", "L" };
-
-    // Prefab
-    // Ally
-    [HideInInspector] private Dictionary<string, GameObject> AllyFieldUnit_PrefabDict;
-    [HideInInspector] private Dictionary<string, GameObject> AllyNoneUnit_PrefabDict;
-
-    // FieldObj
-    [HideInInspector] private GameObject[] FieldObjArray;
-
-
-    #endregion
-
-    #endregion
-
-
     #region File
 
     #region T
@@ -153,6 +85,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #region Offset
 
+    private void Offset_Other()
+    {
+        Offset_SDF();
+    }
+
     private void Offset_CSV()
     {
         Offset_CSV_Static();
@@ -163,20 +100,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_CSV_AllyCard();
         Offset_CSV_AllyRequest();
         Offset_CSV_Map();
-
-
-        string wordPath = "CSV/Word/";
-        string descPath = "CSV/Desc/";
-
-        SkillName_Data = GetAsset_WordDataArr_ForParentID(wordPath,
-            "SkillName_CSV", PlayerManager.KindOfPlayerAmount);
-
-        SkillDesc_Data = GetAsset_WordDataArr_ForParentID(descPath,
-            "SkillDesc_CSV", PlayerManager.KindOfPlayerAmount);
-
-        TunerStateName_Data = GetAsset_WordData(wordPath,
-            "TunerStateName_CSV");
-
+        Offset_CSV_Skill();
+        Offset_CSV_Tuner();
     }
 
     private void Offset_Sprite()
@@ -186,67 +111,18 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Sprite_ModuleItem();
         Offset_Sprite_AllyCard();
         Offset_Sprite_Map();
-
-        Offset_AllySprite();
+        Offset_Sprite_Ally();
     }
-
-
-    #region Sprite Yet
-
-
-    private void Offset_AllySprite()
-    {
-        AllySprite_Data = new List<Sprite>();
-        AllySprite_Data.AddRange(
-            Get_Arr<Sprite>(
-                "Sprite/Ally/",
-                "Ally_001"));
-    }
-
-    #endregion
-
 
     private void Offset_Prefab()
     {
-        #region Yet
-
-        string prefabPath = "Prefab/";
-
-        // Ally
-        string allyPath = prefabPath + "Ally/";
-
-        string fieldUnitPath = allyPath + "FieldUnit/";
-        AllyFieldUnit_PrefabDict = new Dictionary<string, GameObject>
-        {
-            { "Grunt", Get<GameObject>(fieldUnitPath, "GruntAlly_Prefab") },
-
-            { "Ignis", Get<GameObject>(fieldUnitPath, "IgnisAlly_Prefab") },
-            { "Glacia", Get<GameObject>(fieldUnitPath, "GlaciaAlly_Prefab") },
-            { "Volt", Get<GameObject>(fieldUnitPath, "VoltAlly_Prefab") },
-            { "Tox", Get<GameObject>(fieldUnitPath, "ToxAlly_Prefab") }
-        };
-
-        string noneUnitPath = allyPath + "NoneUnit/";
-        AllyNoneUnit_PrefabDict = new Dictionary<string, GameObject>
-        {
-            { "Booma", Get<GameObject>(noneUnitPath, "BoomaAlly_Prefab") },
-            { "Totis", Get<GameObject>(noneUnitPath, "TotisAlly_Prefab") }
-        };
-
-        // Field Obj
-        string fieldObjPath = prefabPath + "FieldObj/";
-
-        FieldObjArray = new GameObject[KindOfFieldObj];
-
-        for (int i = 0; i < KindOfFieldObj; i++)
-            FieldObjArray[i] = (Get<GameObject>(fieldObjPath, $"FieldObj_T{DevTool.Get_LengthString(i, 2)}"));
-
-        #endregion
+        Offset_Prefab_Ally();
+        Offset_Prefab_FieldObj();
     }
 
     private void Offset()
     {
-        Offset_SDF();
+        Offset_Other();
         Offset_CSV();
         Offset_Sprite();
         Offset_Prefab();
@@ -812,25 +688,31 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     // Get Data
-    public ItemData Get_ItemData(int _ID)
+    public ItemData[] Get_ItemDataArr()
     {
-        ItemData result = new ItemData(_ID, ModuleItemSprite_Data[_ID],
-            ModuleBaseList_Data[_ID].ModuleMainChip[0],
-            ModuleBaseList_Data[_ID].ModuleMainChip[1],
-            ModuleBaseList_Data[_ID].ModuleMainChip[2]);
+        ItemData[] data = new ItemData[ModuleBaseList_Data.Length];
+        for (int i = 0; i < data.Length; i++)
+        {
+            data[i] = new ItemData(i, ModuleItemSprite_Data[i],
+                ModuleBaseList_Data[i].ModuleMainChip[0],
+                ModuleBaseList_Data[i].ModuleMainChip[1],
+                ModuleBaseList_Data[i].ModuleMainChip[2]);
 
-        Set_DataLanguage(result, _ID);
-
-        return result;
+            Set_DataLanguage(data[i], i);
+        }
+        return data;
     }
 
-    public MainChipData Get_MainChipData(int _ID)
+    public MainChipData[] Get_MainChipDataArr()
     {
-        MainChipData result = new MainChipData(_ID, ModuleSynhronySpritet_Data[_ID]);
+        MainChipData[] data = new MainChipData[MainChipName_Data.AllWordData.Count];
+        for (int i = 0; i < data.Length; i++)
+        {
+            data[i] = new MainChipData(i, ModuleSynhronySpritet_Data[i]);
 
-        Set_DataLanguage(result, _ID);
-
-        return result;
+            Set_DataLanguage(data[i], i);
+        }
+        return data;
     }
 
     // Get Name
@@ -838,9 +720,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public string Get_SynergyName(int _ID) => MainChipName_Data.Get_Word(_ID);
     public string Get_MainChipBaseDesc(int _ID) => MainChipAllyDesc_Data.Get_Word(_ID);
 
-    // Get Amount
-    public int Get_AllModuleItemAmount() => ModuleBaseList_Data.Length;
-    public int Get_AllModuleSynchronyAmount() => MainChipName_Data.AllWordData.Count;
 
     // Set
     public ItemData Set_DataLanguage(ItemData _ItemData, int _ID)
@@ -885,6 +764,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private AllyCardBaseData[] StrikeTeam_AllyCard_Data;
     [HideInInspector] private AllyCardBaseData[] UplinkTeam_AllyCard_Data;
     [HideInInspector] private AllyCardBaseData[] NeoTeam_AllyCard_Data;
+
+
+    [HideInInspector] private WordData StrikeTeam_AllyCardName_Data;
+    [HideInInspector] private WordData UplinkTeam_AllyCardName_Data;
+    [HideInInspector] private WordData NeoTeam_AllyCardName_Data;
 
     [HideInInspector] private WordData StrikeTeam_AllyCardDesc_Data;
     [HideInInspector] private WordData UplinkTeam_AllyCardDesc_Data;
@@ -988,6 +872,95 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     // Get
     public Sprite[] Get_AllyCardSpriteIcon(int _Type) => AllyCardIcon_Data[_Type];
+
+    #endregion
+
+    #region Ally (Sprite)
+
+    // Value
+    private static readonly string[] directionOrder = new string[] { "UL", "U", "UR", "R", "DR", "D", "DL", "L" };
+    [HideInInspector] private Sprite[] AllySprite_Data;
+
+    // Offset
+    private void Offset_Sprite_Ally()
+    {
+        string path = "Sprite/Ally/";
+        AllySprite_Data = Get_Arr<Sprite>(path,"Ally_001");
+    }
+
+    // Get
+    public List<Sprite> Get_AllySprite(string _Name, string _Type)
+    {
+        List<Sprite> result = new List<Sprite>();
+
+        int stringLength = 7 + _Name.Length + _Type.Length;
+
+        // 맞는 아트 리소스 가져오기
+        for (int i = 0; i < AllySprite_Data.Length; i++)
+        {
+            if (AllySprite_Data[i].name.Length >= stringLength &&
+                AllySprite_Data[i].name.Substring(0, stringLength) == $"Ally_{_Name}_{_Type}_")
+            {
+                result.Add(AllySprite_Data[i]);
+            }
+        }
+
+        // 방향에 따라 알맞는 순서 맞추기
+        return Get_SortSpritesByDirection(result);
+    }
+
+    public static List<Sprite> Get_SortSpritesByDirection(List<Sprite> sprites)
+    {
+        return sprites
+            .OrderBy(sprite => Get_DirectionIndex(sprite.name))
+            .ToList();
+    }
+
+    private static int Get_DirectionIndex(string spriteName)
+    {
+        // 예: "Sprite_Head_UL" → "UL" 추출
+        string[] parts = spriteName.Split('_');
+        string dir = parts[parts.Length - 1];
+
+        int index = System.Array.IndexOf(directionOrder, dir);
+        return index >= 0 ? index : int.MaxValue;
+    }
+
+
+    #endregion
+    #region Ally (Prefab)
+
+    // Value
+    [HideInInspector] private Dictionary<string, GameObject> AllyFieldUnit_PrefabDict;
+    [HideInInspector] private Dictionary<string, GameObject> AllyNoneUnit_PrefabDict;
+
+    // Offset
+    private void Offset_Prefab_Ally()
+    {
+        string path = "Prefab/Ally/";
+
+        string fieldUnitPath = path + "FieldUnit/";
+        AllyFieldUnit_PrefabDict = new Dictionary<string, GameObject>
+        {
+            { "Grunt", Get<GameObject>(fieldUnitPath, "GruntAlly_Prefab") },
+
+            { "Ignis", Get<GameObject>(fieldUnitPath, "IgnisAlly_Prefab") },
+            { "Glacia", Get<GameObject>(fieldUnitPath, "GlaciaAlly_Prefab") },
+            { "Volt", Get<GameObject>(fieldUnitPath, "VoltAlly_Prefab") },
+            { "Tox", Get<GameObject>(fieldUnitPath, "ToxAlly_Prefab") }
+        };
+
+        string noneUnitPath = path + "NoneUnit/";
+        AllyNoneUnit_PrefabDict = new Dictionary<string, GameObject>
+        {
+            { "Booma", Get<GameObject>(noneUnitPath, "BoomaAlly_Prefab") },
+            { "Totis", Get<GameObject>(noneUnitPath, "TotisAlly_Prefab") }
+        };
+    }
+
+    // Get
+    public GameObject Get_FieldUnitAlly(string _Name) => AllyFieldUnit_PrefabDict[_Name];
+    public GameObject Get_NoneUnitAlly(string _Name) => AllyNoneUnit_PrefabDict[_Name];
 
     #endregion
 
@@ -1098,199 +1071,163 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region Map (Sprite)
 
     // Value
-    [HideInInspector] public Sprite[] MapLobbyImg_Data;
-    [HideInInspector] public int[] MapLobbyMaterialIndexList_Data;
+    [HideInInspector] private int EachKindOfMapAmount = 2;
 
-    [HideInInspector] public Sprite[][] MapImgList_Data;
-    [HideInInspector] public int[][] MapMaterialIndexList_Data;
+    [HideInInspector] private MapReso LobbyMapReso;
 
-    [HideInInspector] public List<List<Sprite>> MapPassageImgList_Data;
+    [HideInInspector] public static int KindOfMapAmount = 2;
+    [HideInInspector] private MapReso[] StageMapReso;
 
-    [HideInInspector] public List<List<List<Sprite>>> MapFieldObjList_Data;
+    [HideInInspector] private MapReso PassageMapReso;
+
+    [HideInInspector] private int KindOfFieldObjType = 3;
+    [HideInInspector] private Sprite[][][] MapFieldObjList_Data;
 
     // Offset
     private void Offset_Sprite_Map()
     {
         string path = $"Sprite/Map/";
 
-
         // Lobby Map
-        List<int> LobbyStageindexList = new List<int>();
-
         string lobbyName = $"MapLobby";
-        for (int j = 0; j < EachKindOfMapAmount; j++)
-        {
-            MapLobbyImg_Data = Get_Arr<Sprite>(path + lobbyName + "/", $"{lobbyName}_{DevTool.Get_LengthString(j, 3)}");
+        LobbyMapReso = GetAsset_MapReso(path, lobbyName);
 
-            for (int k = 0; k < MapLobbyImg_Data.Length; k++)
-                LobbyStageindexList.Add(j);
-        }
-
-        MapLobbyMaterialIndexList_Data = LobbyStageindexList.ToArray();
-
-
-        // Map
-        List<Sprite[]> mapImgList_Data = new List<Sprite[]>();
-        List<int[]> mapMaterialIndexList_Data = new List<int[]>();
-
+        // Stage Map
+        List<MapReso> resos = new List<MapReso>();
         for (int i = 0; i < KindOfMapAmount; i++)
         {
-            List<Sprite> eachMapSprites = new List<Sprite>();
-            List<int> eachMapMaterialIndexs = new List<int>();
-
-            string mapName = $"Map{DevTool.Get_LengthString(i, 2)}";
-            for (int j = 0; j < EachKindOfMapAmount; j++)
-            {
-                eachMapSprites.AddRange(Get_Arr<Sprite>(path + mapName + "/", $"{mapName}_{DevTool.Get_LengthString(j, 3)}"));
-
-                for (int k = 0; k < eachMapSprites.Count; k++)
-                    eachMapMaterialIndexs.Add(j);
-            }
-
-            mapImgList_Data.Add(eachMapSprites.ToArray());
-            mapMaterialIndexList_Data.Add(eachMapMaterialIndexs.ToArray());
+            string stageName = $"Map{DevTool.Get_LengthString(i, 2)}";
+            resos.Add(GetAsset_MapReso(path, stageName));
         }
-
-        MapImgList_Data = mapImgList_Data.ToArray();
-        MapMaterialIndexList_Data = mapMaterialIndexList_Data.ToArray();
-
-
-
-
-        // Kind of Map / Type / List
-        MapFieldObjList_Data = new List<List<List<Sprite>>>();
-        for (int i = 0; i < MapImgList_Data.Length; i++)
-        {
-            MapFieldObjList_Data.Add(Get_FieldObj(MapImgList_Data[i]));
-        }
+        StageMapReso = resos.ToArray();
 
         // Passage Map
-        MapPassageImgList_Data = new List<List<Sprite>>();
+        string passageName = $"MapPassage/";
+        PassageMapReso = GetAsset_MapReso(path, passageName);
 
-        for (int i = 0; i < KindOfMapPassageAmount; i++)
+        // Kind of Map / Type / List
+        List<Sprite[][]> mapFieldObjList_Data = new List<Sprite[][]>();
+        for (int i = 0; i < StageMapReso.Length; i++)
         {
-            MapPassageImgList_Data.Add(new List<Sprite>());
-            MapPassageImgList_Data[i].AddRange(
-                Get_Arr<Sprite>($"Sprite/Map/MapPassage/", $"MapPassage_{DevTool.Get_LengthString(i, 3)}"));
+            mapFieldObjList_Data.Add(Get_FieldObj(StageMapReso[i]));
         }
+        MapFieldObjList_Data = mapFieldObjList_Data.ToArray();
     }
 
-    // Get
-    public Sprite[] Get_LobbyStageMapSpriteList() => MapLobbyImg_Data;
-    public Sprite[] Get_StageMapSpriteList(int _ID) => MapImgList_Data[_ID];
-    public int[] Get_LobbyStageMapMaterialList() => MapLobbyMaterialIndexList_Data;
-    public int[] Get_StageMapMaterialList(int _ID) => MapMaterialIndexList_Data[_ID].ToArray();
+    private MapReso GetAsset_MapReso(string _Path, string _Name)
+    {
+        List<MapResoElement> mapResoElements = new List<MapResoElement>();
 
-    #endregion
+        for (int i = 0; i < EachKindOfMapAmount; i++)
+        {
+            Sprite[] spriteArr = Get_Arr<Sprite>(_Path + _Name + "/", $"{_Name}_{DevTool.Get_LengthString(i, 3)}");
 
+            for (int j = 0; j < spriteArr.Length; j++)
+            {
+                mapResoElements.Add(new MapResoElement(spriteArr[j], i));
+            }
+        }
 
-    #region Get
+        return new MapReso(mapResoElements.ToArray());
+    }
 
-    // Skill
-    public string Get_SkillName(int _PlayerID, int _ID) => SkillName_Data[_PlayerID].Get_Word(_ID);
-    public string Get_SkillDesc(int _PlayerID, int _ID) => SkillDesc_Data[_PlayerID].Get_Word(_ID);
-    
-    // Tuner
-    public string Get_TunerDescName(int _Index) => TunerStateName_Data.Get_Word(_Index);
-    
-    // Type / SpriteList
-    private List<List<Sprite>> Get_FieldObj(Sprite[] _AllSprite)
+    private Sprite[][] Get_FieldObj(MapReso _Reso) // Type / SpriteList
     {
         List<List<Sprite>> result = new List<List<Sprite>>();
 
-        for (int j = 0; j < FieldObjKindOfType; j++)
-            result.Add(new List<Sprite>());
-
-        for (int i = 0; i < _AllSprite.Length; i++)
+        for (int i = 0; i < KindOfFieldObjType; i++)
         {
-            string[] name = _AllSprite[i].name.Split("_");
+            result.Add(new List<Sprite>());
+        }
+
+        for (int i = 0; i < _Reso.MapResoElements.Length; i++)
+        {
+            string[] name = _Reso.MapResoElements[i].Sprite.name.Split("_");
             if (name[1] == "FieldObj")
             {
                 int type = Int32.Parse(name[2].Substring(1, 2));
-                result[type].Add(_AllSprite[i]);
+                result[type].Add(_Reso.MapResoElements[i].Sprite);
             }
         }
 
-        return result;
-    }
-
-    public Sprite Get_FieldObjSprite(int _StageID, int _TypeID)
-    {
-        List<Sprite> spriteList = MapFieldObjList_Data[_StageID][_TypeID];
-        return spriteList[UnityEngine.Random.Range(0, spriteList.Count)];
-    }
-
-    #endregion
-
-    #region To Ally Sprite
-
-    public List<Sprite> Get_AllySprite(string _Name, string _Type)
-    {
-        List<Sprite> result = new List<Sprite>();
-
-        int stringLength = 7 + _Name.Length + _Type.Length;
-
-        // 맞는 아트 리소스 가져오기
-        for (int i = 0; i < AllySprite_Data.Count; i++)
+        List<Sprite[]> result2 = new List<Sprite[]>();
+        for (int i = 0; i < result.Count; i++)
         {
-            if (AllySprite_Data[i].name.Length >= stringLength &&
-                AllySprite_Data[i].name.Substring(0, stringLength) == $"Ally_{_Name}_{_Type}_")
-            {
-                result.Add(AllySprite_Data[i]);
-            }
+            result2.Add(result[i].ToArray());
         }
 
-        // 방향에 따라 알맞는 순서 맞추기
-        return Get_SortSpritesByDirection(result);
+        return result2.ToArray();
     }
 
-    public static List<Sprite> Get_SortSpritesByDirection(List<Sprite> sprites)
+    // Get
+    public MapReso Get_LobbyMapReso() => LobbyMapReso;
+    public MapReso Get_StageMapReso(int _ID) => StageMapReso[_ID];
+    public MapReso Get_PassageMapReso() => PassageMapReso;
+
+    public Sprite Get_RandomFieldObjSprite(int _StageID, int _TypeID)
     {
-        return sprites
-            .OrderBy(sprite => Get_DirectionIndex(sprite.name))
-            .ToList();
+        Sprite[] spriteArr = MapFieldObjList_Data[_StageID][_TypeID];
+        return spriteArr[UnityEngine.Random.Range(0, spriteArr.Length)];
     }
 
-    private static int Get_DirectionIndex(string spriteName)
+
+    #endregion
+    #region Map (Prefab)
+
+    // Value
+    [HideInInspector] private GameObject[] FieldObjArray;
+
+    // Offset
+    private void Offset_Prefab_FieldObj()
     {
-        // 예: "Sprite_Head_UL" → "UL" 추출
-        string[] parts = spriteName.Split('_');
-        string dir = parts[parts.Length - 1];
+        string path = "Prefab/FieldObj/";
 
-        int index = System.Array.IndexOf(directionOrder, dir);
-        return index >= 0 ? index : int.MaxValue;
+        FieldObjArray = new GameObject[KindOfFieldObjType];
+
+        for (int i = 0; i < KindOfFieldObjType; i++)
+            FieldObjArray[i] = Get<GameObject>(path, $"FieldObj_T{DevTool.Get_LengthString(i, 2)}");
     }
+
+    // Get
+    public GameObject Get_RandomFieldObj_Prefab() => FieldObjArray[UnityEngine.Random.Range(0, FieldObjArray.Length)];
 
     #endregion
 
-    #region To Prefab
+    #region Skill (CSV)
 
-    #region Ally
+    // Value
+    [HideInInspector] private WordData[] SkillName_Data;
+    [HideInInspector] private WordData[] SkillDesc_Data;
 
-    public GameObject Get_FieldUnitAlly(string _Name)
+    private void Offset_CSV_Skill()
     {
-        return AllyFieldUnit_PrefabDict[_Name];
+        string path = "CSV/Skill/";
+        SkillName_Data = GetAsset_WordDataArr_ForParentID(path, "SkillName_CSV", PlayerManager.KindOfPlayerAmount);
+        SkillDesc_Data = GetAsset_WordDataArr_ForParentID(path, "SkillDesc_CSV", PlayerManager.KindOfPlayerAmount);
     }
 
-    public GameObject Get_NoneUnitAlly(string _Name)
-    {
-        return AllyNoneUnit_PrefabDict[_Name];
-    }
+    // Get
+    public string Get_SkillName(int _PlayerID, int _ID) => SkillName_Data[_PlayerID].Get_Word(_ID);
+    public string Get_SkillDesc(int _PlayerID, int _ID) => SkillDesc_Data[_PlayerID].Get_Word(_ID);
 
     #endregion
 
-    #region Field Obj
+    #region Tuner (CSV)
 
-    public GameObject Get_RandomFieldObj_Prefab()
+    // Value
+    [HideInInspector] private WordData TunerStateName_Data;
+
+    // Offset
+    private void Offset_CSV_Tuner()
     {
-        return FieldObjArray[UnityEngine.Random.Range(0, FieldObjArray.Length)];
+        string path = "CSV/Tuner/";
+        TunerStateName_Data = GetAsset_WordData(path, "TunerStateName_CSV");
     }
 
-    #endregion
+    // Get
+    public string Get_TunerDescName(int _Index) => TunerStateName_Data.Get_Word(_Index);
 
     #endregion
-
-
 
     #region GetAsset_WordData
 
