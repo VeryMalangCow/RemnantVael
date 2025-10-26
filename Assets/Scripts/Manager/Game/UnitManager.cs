@@ -10,11 +10,11 @@ public class UnitManager : Singleton<UnitManager>
     [Space(20)]
     [Header("<><><><><> Unit Manager")]
 
-    [SerializeField] private List<GameObject> TestGO;
+    [SerializeField] private GameObject[] TestGO;
 
     public void Test_Cor()
     {
-        for (int i = 0; i < TestGO.Count; i++)
+        for (int i = 0; i < TestGO.Length; i++)
             TestGO[i].gameObject.SetActive(true);
     }
 

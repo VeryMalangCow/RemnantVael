@@ -14,7 +14,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
         BulletController _Bullet = null,
         DroppingBombController _DroppingBullet = null);
 
-    [HideInInspector] public List<ActivityFuncDele_Sync> ActivitySyncFuncList = new List<ActivityFuncDele_Sync>();
+    [HideInInspector] public ActivityFuncDele_Sync[] ActivitySyncFuncList;
 
     #endregion
 
@@ -36,7 +36,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
         return ActivitySyncFuncList[_ID];
     }
 
-    public List<ActivityFuncDele_Sync> Init_DelegateList_Sync(string _MethodPrefix)
+    public ActivityFuncDele_Sync[] Init_DelegateList_Sync(string _MethodPrefix)
     {
         List<ActivityFuncDele_Sync> delegateList = new List<ActivityFuncDele_Sync>();
 
@@ -75,7 +75,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
             }
         }
 
-        return delegateList;
+        return delegateList.ToArray();
     }
 
     #endregion

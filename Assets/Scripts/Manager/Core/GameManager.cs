@@ -5633,14 +5633,14 @@ public struct ItemData_UIVisual
     {
         Icon = _Icon;
         Rank = _Rank;
-        RankIcon = ModuleItemManager.Instance.Get_CorrectRankIcon(Rank);
+        RankIcon = ResourceManager.Instance.Get_RankIcon(Rank);
     }
 
     public ItemData_UIVisual(ItemData _ItemData)
     {
         Icon = _ItemData.ItemIcon;
         Rank = _ItemData.Rank;
-        RankIcon = ModuleItemManager.Instance.Get_CorrectRankIcon(Rank);
+        RankIcon = ResourceManager.Instance.Get_RankIcon(Rank);
     }
 }
 

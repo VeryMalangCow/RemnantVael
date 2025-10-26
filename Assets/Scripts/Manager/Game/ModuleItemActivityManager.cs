@@ -11,8 +11,8 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     public delegate void ActivityFuncDele_MI(int _Rank, EnemyController _EC = null);
     public delegate void ActivityFuncDele_MC(int _Rank, EnemyController _EC = null, BulletController _Bullet = null);
 
-    [HideInInspector] public List<ActivityFuncDele_MI> ActivityMIFuncList = new List<ActivityFuncDele_MI>();
-    [HideInInspector] public List<ActivityFuncDele_MC> ActivityMCFuncList = new List<ActivityFuncDele_MC>();
+    [HideInInspector] public ActivityFuncDele_MI[] ActivityMIFuncList;
+    [HideInInspector] public ActivityFuncDele_MC[] ActivityMCFuncList;
 
     #endregion
 
@@ -30,18 +30,11 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
     #region Get
 
-    public ActivityFuncDele_MI Get_CollectActivity_MI(int _ID)
-    {
-        return ActivityMIFuncList[_ID];
-    }
+    public ActivityFuncDele_MI Get_CollectActivity_MI(int _ID) => ActivityMIFuncList[_ID];
+    public ActivityFuncDele_MC Get_CollectActivity_MC(int _ID) => ActivityMCFuncList[_ID];
+    
 
-    public ActivityFuncDele_MC Get_CollectActivity_MC(int _ID)
-    {
-        return ActivityMCFuncList[_ID];
-    }
-
-
-    public List<ActivityFuncDele_MI> Init_DelegateList_MI(string _MethodPrefix)
+    public ActivityFuncDele_MI[] Init_DelegateList_MI(string _MethodPrefix)
     {
         List<ActivityFuncDele_MI> delegateList = new List<ActivityFuncDele_MI>();
 
@@ -77,10 +70,9 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             }
         }
 
-        return delegateList;
+        return delegateList.ToArray();
     }
-
-    public List<ActivityFuncDele_MC> Init_DelegateList_MC(string _MethodPrefix)
+    public ActivityFuncDele_MC[] Init_DelegateList_MC(string _MethodPrefix)
     {
         List<ActivityFuncDele_MC> delegateList = new List<ActivityFuncDele_MC>();
 
@@ -117,8 +109,9 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             }
         }
 
-        return delegateList;
+        return delegateList.ToArray();
     }
+
 
     #endregion
 

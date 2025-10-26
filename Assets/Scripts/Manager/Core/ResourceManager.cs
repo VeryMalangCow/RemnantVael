@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.U2D;
 
 public class ResourceManager : PersistentSingleton<ResourceManager>
 {
@@ -12,11 +13,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #region T
 
-    private T[] Get_Arr<T>(string _Path, string _FileName) where T : UnityEngine.Object
+    private T[] GetAsset_Arr<T>(string _Path, string _FileName) where T : UnityEngine.Object
         => Resources.LoadAll<T>(_Path + _FileName);
 
 
-    private T Get<T>(string _Path, string _FileName) where T : UnityEngine.Object
+    private T GetAsset<T>(string _Path, string _FileName) where T : UnityEngine.Object
         => Resources.Load<T>(_Path + _FileName);
 
     #endregion
@@ -118,6 +119,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         Offset_Prefab_Ally();
         Offset_Prefab_FieldObj();
+        Offset_Prefab_ModuleItem();
     }
 
     private void Offset()
@@ -524,7 +526,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     private void Offset_Sprite_Cutscene()
     {
         string path = "Sprite/UI/Cutscene/";
-        CutsceneSprite_Data = Get_Arr<Sprite>(path, "CutsceneSet_00");
+        CutsceneSprite_Data = GetAsset_Arr<Sprite>(path, "CutsceneSet_00");
     }
 
     // Get
@@ -626,7 +628,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     private void Offset_Sprite_Dialogue()
     {
         string path = "Sprite/UI/Dialogue/";
-        DialoguCharSprite_Data = Get_Arr<Sprite>(path, "CharacterSet_000");
+        DialoguCharSprite_Data = GetAsset_Arr<Sprite>(path, "CharacterSet_000");
     }
 
     // Get
@@ -747,19 +749,70 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #endregion
     #region Item - Module (Sprite)
 
+    // Value
     [HideInInspector] private Sprite[] ModuleItemSprite_Data;
     [HideInInspector] private Sprite[] ModuleSynhronySpritet_Data;
 
+    [HideInInspector] private Sprite[] RankIconArr;
+    [HideInInspector] private Sprite[] MUUIDescRankIconArr;
+    
+    // Offset
     private void Offset_Sprite_ModuleItem()
     {
-        ModuleItemSprite_Data = Get_Arr<Sprite>("Sprite/UI/MU/", "MUItemUI_000");
-        ModuleSynhronySpritet_Data = Get_Arr<Sprite>("Sprite/UI/MU/", "MUSynchronyUI_000");
+        string path = "Sprite/UI/MU/";
+        ModuleItemSprite_Data = GetAsset_Arr<Sprite>(path, "MUItemUI_000");
+        ModuleSynhronySpritet_Data = GetAsset_Arr<Sprite>(path, "MUSynchronyUI_000");
+
+        RankIconArr = new Sprite[5];
+        MUUIDescRankIconArr = new Sprite[5];
+
+        Sprite[] allMUUI = GetAsset_Arr<Sprite>(path, "MUUI_000");
+        string rankSpriteName = "MUUI_Rank_";
+        string rankDescSpriteName = "MUUI_DescRank_";
+        for (int i = 0; i < allMUUI.Length; i++)
+        {
+            Sprite sprite = allMUUI[i];
+
+            if (sprite.name.Length > rankSpriteName.Length && sprite.name.StartsWith(rankSpriteName))
+            {
+                int index = int.Parse(sprite.name.Replace(rankSpriteName, "")) - 1;
+                RankIconArr[index] = sprite;
+            }
+            else if (sprite.name.Length > rankDescSpriteName.Length && sprite.name.StartsWith(rankDescSpriteName))
+            {
+                int index = int.Parse(sprite.name.Replace(rankDescSpriteName, "")) - 1;
+                MUUIDescRankIconArr[index] = sprite;
+            }
+        }
     }
+
+    // Get
+    public Sprite Get_RankIcon(int _Rank) => RankIconArr[_Rank - 1];
+    public Sprite Get_DescRankIcon(int _Rank) => MUUIDescRankIconArr[_Rank - 1];
+
+    #endregion
+    #region Item - Module (Prefab)
+
+    // Value
+    [SerializeField] private GameObject InventoryItemPrefab;
+    [SerializeField] private GameObject InventorySlotPrefab;
+
+    // Offset
+    private void Offset_Prefab_ModuleItem()
+    {
+        string path = "Prefab/UI/MainGame/Build/Player/MU/Inventory/";
+        InventoryItemPrefab = GetAsset<GameObject>(path, "Panel_Item_Prefab");
+        InventorySlotPrefab = GetAsset<GameObject>(path, "Panel_ItemSlot_Prefab");
+    }
+
+    // Get
+    public GameObject Get_ModuleItemUI_Prefab() => InventoryItemPrefab;
+    public GameObject Get_ModuleSlotUI_Prefab() => InventorySlotPrefab;
 
     #endregion
 
     #region Item - AllyCard (CSV)
-    
+
     // Value
     [HideInInspector] private AllyCardBaseData[] StrikeTeam_AllyCard_Data;
     [HideInInspector] private AllyCardBaseData[] UplinkTeam_AllyCard_Data;
@@ -863,7 +916,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         for (int i = 0; i < _SpriteAmount; i++)
         {
             result.AddRange(
-                Get_Arr<Sprite>(
+                GetAsset_Arr<Sprite>(
                     $"Sprite/UI/Ally/",
                     $"AllyCardIcon_{_TypeName}_{DevTool.Get_LengthString(i, 3)}"));
         }
@@ -885,7 +938,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     private void Offset_Sprite_Ally()
     {
         string path = "Sprite/Ally/";
-        AllySprite_Data = Get_Arr<Sprite>(path,"Ally_001");
+        AllySprite_Data = GetAsset_Arr<Sprite>(path,"Ally_001");
     }
 
     // Get
@@ -942,19 +995,19 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         string fieldUnitPath = path + "FieldUnit/";
         AllyFieldUnit_PrefabDict = new Dictionary<string, GameObject>
         {
-            { "Grunt", Get<GameObject>(fieldUnitPath, "GruntAlly_Prefab") },
+            { "Grunt", GetAsset<GameObject>(fieldUnitPath, "GruntAlly_Prefab") },
 
-            { "Ignis", Get<GameObject>(fieldUnitPath, "IgnisAlly_Prefab") },
-            { "Glacia", Get<GameObject>(fieldUnitPath, "GlaciaAlly_Prefab") },
-            { "Volt", Get<GameObject>(fieldUnitPath, "VoltAlly_Prefab") },
-            { "Tox", Get<GameObject>(fieldUnitPath, "ToxAlly_Prefab") }
+            { "Ignis", GetAsset<GameObject>(fieldUnitPath, "IgnisAlly_Prefab") },
+            { "Glacia", GetAsset<GameObject>(fieldUnitPath, "GlaciaAlly_Prefab") },
+            { "Volt", GetAsset<GameObject>(fieldUnitPath, "VoltAlly_Prefab") },
+            { "Tox", GetAsset<GameObject>(fieldUnitPath, "ToxAlly_Prefab") }
         };
 
         string noneUnitPath = path + "NoneUnit/";
         AllyNoneUnit_PrefabDict = new Dictionary<string, GameObject>
         {
-            { "Booma", Get<GameObject>(noneUnitPath, "BoomaAlly_Prefab") },
-            { "Totis", Get<GameObject>(noneUnitPath, "TotisAlly_Prefab") }
+            { "Booma", GetAsset<GameObject>(noneUnitPath, "BoomaAlly_Prefab") },
+            { "Totis", GetAsset<GameObject>(noneUnitPath, "TotisAlly_Prefab") }
         };
     }
 
@@ -1001,17 +1054,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         string path = "CSV/Map/";
         MapNextIndex_Data = Offset_MapNextIndex(path, "MapEntranceIndex_CSV");
-        string s = "";
-        foreach(var data in MapNextIndex_Data)
-        {
-            s += $"{data.Value.PastIndex} : ";
-            for (int i = 0; i < data.Value.NextIndexList.Count; i++)
-            {
-                s += $"{data.Value.NextIndexList[i]} /";
-            }
-            s += "\n";
-        }
-        Debug.Log(s);
         MapName_Data = GetAsset_WordData(path, "MapName_CSV");
         MapDesc_Data = GetAsset_WordData(path, "MapDesc_CSV");
     }
@@ -1120,7 +1162,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 0; i < EachKindOfMapAmount; i++)
         {
-            Sprite[] spriteArr = Get_Arr<Sprite>(_Path + _Name + "/", $"{_Name}_{DevTool.Get_LengthString(i, 3)}");
+            Sprite[] spriteArr = GetAsset_Arr<Sprite>(_Path + _Name + "/", $"{_Name}_{DevTool.Get_LengthString(i, 3)}");
 
             for (int j = 0; j < spriteArr.Length; j++)
             {
@@ -1185,7 +1227,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         FieldObjArray = new GameObject[KindOfFieldObjType];
 
         for (int i = 0; i < KindOfFieldObjType; i++)
-            FieldObjArray[i] = Get<GameObject>(path, $"FieldObj_T{DevTool.Get_LengthString(i, 2)}");
+            FieldObjArray[i] = GetAsset<GameObject>(path, $"FieldObj_T{DevTool.Get_LengthString(i, 2)}");
     }
 
     // Get

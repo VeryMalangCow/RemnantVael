@@ -572,9 +572,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     }
 
     // ÀåÂø ½½·Ô UI ¼Â
-    public void Set_EquipedUI(ModuleState[][] _AllModuleState, List<CoupleData<int>> _EquipedData)
+    public void Set_EquipedUI(ModuleState[][] _AllModuleState, CoupleData<int>[] _EquipedData)
     {
-        for (int i = 0; i < _EquipedData.Count; i++)
+        for (int i = 0; i < _EquipedData.Length; i++)
         {
             int targetCol = _EquipedData[i].TypeBase;
             int targetRow = _EquipedData[i].TypeSpecial;
@@ -647,13 +647,13 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     }
 
     // ÇÕ¼º ½½·Ô UI ¼Â
-    public void Set_FusionUI(ModuleState[][] _AllModuleState, List<CoupleData<int>> _SlottedData)
+    public void Set_FusionUI(ModuleState[][] _AllModuleState, CoupleData<int>[] _SlottedData)
     {
         Inventory_InForge.SetOff_AllInventoryForgeSelectedUI();
 
         string needMS = "-";
 
-        for (int i = 0; i < _SlottedData.Count; i++)
+        for (int i = 0; i < _SlottedData.Length; i++)
         {
             int targetCol = _SlottedData[i].TypeBase;
             int targetRow = _SlottedData[i].TypeSpecial;

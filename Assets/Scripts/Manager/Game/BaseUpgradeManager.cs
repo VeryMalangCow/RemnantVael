@@ -30,12 +30,12 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
     [SerializeField] public BULevelData<float> BaseAvoidChance_BUData;
 
     [Header("-- Skill")]
-    [SerializeField] public List<BULevelSkillData<float, int>> Skill_BUDataList;
+    [SerializeField] public BULevelSkillData<float, int>[] Skill_BUDataList;
 
 
     [Space(10)]
     [Header("=== Sprite")]
-    [SerializeField] public List<Sprite> CostSpriteList;
+    [SerializeField] public Sprite[] CostSpriteList;
 
     #endregion
 

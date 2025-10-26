@@ -8,18 +8,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region - Inspector
 
-    [Space(20)]
-    [Header("<><><><><> Module Item")]
-
-    [Space(10)]
-    [Header("=== Resource")]
-    [SerializeField] private Sprite[] RankIconList;
-    [SerializeField] private Sprite[] MUUIDescRankIconList;
-
-    [Space(5)]
-    [SerializeField] public GameObject InventoryItemPrefab;
-    [SerializeField] public GameObject InventorySlotPrefab;
-
     #endregion
 
     #region - Hide
@@ -29,21 +17,21 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     [HideInInspector] private MainChipData[] MainChipDataArr;
 
     // Module State
+    [HideInInspector] public static readonly int RowAmount = 5;
+    [HideInInspector] public static readonly int ColumnAmount = 20;
     [HideInInspector] private ModuleState[][] AllModuleData;
-    
-    [HideInInspector] private List<CoupleData<int>> EquippedIndex = new List<CoupleData<int>>();
+
+    [HideInInspector] public static readonly int EquipedAmount = 6;
+    [HideInInspector] private CoupleData<int>[] EquippedIndex;
 
     [HideInInspector] private CoupleData<int> DecompositionIndex = new CoupleData<int>(-1, -1);
-    [HideInInspector] private List<CoupleData<int>> FusionIndex = new List<CoupleData<int>>();
+
+    [HideInInspector] public static readonly int FusionAmount = 2;
+    [HideInInspector] private CoupleData<int>[] FusionIndex;
 
     // Main Chip
     [HideInInspector] private Dictionary<int, int> MainChipAmalgamationDict = new Dictionary<int, int>();
-    [SerializeField] private List<SynchoronyState> CurrentAllMainChipState = new List<SynchoronyState>();
-
-    [HideInInspector] public static readonly int RowAmount = 5;
-    [HideInInspector] public static readonly int ColumnAmount = 20;
-
-    [HideInInspector] public static readonly int EquipedAmount = 6;
+    [HideInInspector] private List<SynchoronyState> CurrentAllMainChipState = new List<SynchoronyState>();
 
     [HideInInspector] public static int SynchoronyOneTierRange = 3;
     [HideInInspector] public static int SynchoronyMaxLv = 3;
@@ -83,20 +71,20 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         ItemDataArr = ResourceManager.Instance.Get_ItemDataArr();
         MainChipDataArr = ResourceManager.Instance.Get_MainChipDataArr();
 
-        // 모든 MS List를 Null 값을 사용해 빈 공간을 지정
+        // Inven
         AllModuleData = new ModuleState[ColumnAmount][];
         for (int i = 0; i < AllModuleData.Length; i++)
             AllModuleData[i] = new ModuleState[RowAmount];
 
-
-        // 인덱스도 초기화
+        // Equip
+        EquippedIndex = new CoupleData<int>[EquipedAmount];
         for (int i = 0; i < EquipedAmount; i++)
-            EquippedIndex.Add(new CoupleData<int>(-1, -1));
+            EquippedIndex[i] = new CoupleData<int>(-1, -1);
 
-        for (int i = 0; i < 2; i++)
-            FusionIndex.Add(new CoupleData<int>(-1, -1));
-
-        //StartCoroutine(CorTest());
+        // Fuison
+        FusionIndex = new CoupleData<int>[FusionAmount];
+        for (int i = 0; i < FusionAmount; i++)
+            FusionIndex[i] = new CoupleData<int>(-1, -1);
     }
 
     #endregion
@@ -144,7 +132,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         Clear_InterfaceMU();
 
-        for (int i = 0; i < EquippedIndex.Count; i++)
+        for (int i = 0; i < EquippedIndex.Length; i++)
         {
             CoupleData<int> colRow = EquippedIndex[i];
             if (colRow.TypeBase == -1 || colRow.TypeSpecial == -1)
@@ -290,7 +278,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     // 비어 있는 장착 슬롯 인덱스 찾기
     public int Get_EmptyEquippedIndex(CoupleData<int> _Exclude)
     {
-        for (int i = 0; i < EquippedIndex.Count; i++)
+        for (int i = 0; i < EquippedIndex.Length; i++)
         {
             if (EquippedIndex[i].TypeBase == _Exclude.TypeBase &&
                 EquippedIndex[i].TypeSpecial == _Exclude.TypeSpecial)
@@ -311,14 +299,14 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     }
 
     // 장착되어 있는 아이템의 인덱스들만
-    public List<CoupleData<int>> Get_OnlyEquippedIndex()
+    public CoupleData<int>[] Get_OnlyEquippedIndex()
     {
         List<CoupleData<int>> result = new List<CoupleData<int>>();
-        for (int i = 0; i < EquippedIndex.Count; i++)
+        for (int i = 0; i < EquippedIndex.Length; i++)
             if (EquippedIndex[i].TypeBase != -1 && EquippedIndex[i].TypeSpecial != -1)
                 result.Add(EquippedIndex[i]);
 
-        return result;
+        return result.ToArray();
     }
 
     // 장착되어 있는 아이템의 모듈
@@ -326,7 +314,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         List<CopyModuleState> result = new List<CopyModuleState>();
 
-        for (int i = 0; i < EquippedIndex.Count; i++)
+        for (int i = 0; i < EquippedIndex.Length; i++)
         {
             if (EquippedIndex[i].TypeBase != -1 && EquippedIndex[i].TypeSpecial != -1)
             {
@@ -406,14 +394,6 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         return ItemDataArr[_ID].ItemIcon;
     }
-    public Sprite Get_CorrectRankIcon(int _Rank)
-    {
-        return RankIconList[_Rank - 1];
-    }
-    public Sprite Get_CorrectDescRankIcon(int _Rank)
-    {
-        return MUUIDescRankIconList[_Rank - 1];
-    }
 
     #endregion
 
@@ -429,7 +409,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public List<CoupleData<int>> Get_FusionIndex()
     {
         List<CoupleData<int>> result = new List<CoupleData<int>>();
-        for (int i = 0; i < FusionIndex.Count; i++)
+        for (int i = 0; i < FusionIndex.Length; i++)
             result.Add(FusionIndex[i]);
 
         return result;
@@ -577,7 +557,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     }
     public void Set_UnFusionSlotAll()
     {
-        for (int i = 0; i < FusionIndex.Count; i++)
+        for (int i = 0; i < FusionIndex.Length; i++)
             FusionIndex[i] = new CoupleData<int>(-1, -1);
     }
     public void Set_SwitchFusion(int _ListIndex0, int _ListIndex1)
@@ -610,7 +590,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     // 퓨전 슬롯
     public bool Is_EmptyFusionSlot()
     {
-        for (int i = 0; i < FusionIndex.Count; i++)
+        for (int i = 0; i < FusionIndex.Length; i++)
         {
             if (FusionIndex[i].TypeBase == -1 && FusionIndex[i].TypeSpecial == -1)
             {
@@ -622,7 +602,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public bool Is_EmptyFusionSlot(out int _EmptyIndex)
     {
-        for (int i = 0; i < FusionIndex.Count; i++)
+        for (int i = 0; i < FusionIndex.Length; i++)
         {
             if (FusionIndex[i].TypeBase == -1 && FusionIndex[i].TypeSpecial == -1)
             {
@@ -660,7 +640,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public bool Is_AllEmptyFusionSlot()
     {
         bool result = true;
-        for (int i = 0; i < FusionIndex.Count; i++)
+        for (int i = 0; i < FusionIndex.Length; i++)
         {
             if (FusionIndex[i].TypeBase != -1 || FusionIndex[i].TypeSpecial != -1)
             {
@@ -673,7 +653,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     // 퓨전 슬롯의 랭크가 같은가?
     public bool Is_SameRankFusionSlots()
     {
-        for (int i = 1; i < FusionIndex.Count; i++)
+        for (int i = 1; i < FusionIndex.Length; i++)
         {
             // 랭크가 다르다면
             if (Get_ModuleState(FusionIndex[0].TypeBase, FusionIndex[0].TypeSpecial).ThisItemData.Rank !=
@@ -700,9 +680,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     }
 
     // 이미 가지고 있는가
-    public bool Is_Include(CoupleData<int> _Index, List<CoupleData<int>> _IndexList)
+    public bool Is_Include(CoupleData<int> _Index, CoupleData<int>[] _IndexList)
     {
-        for (int i = 0; i < _IndexList.Count; i++)
+        for (int i = 0; i < _IndexList.Length; i++)
         {
             if (_IndexList[i].TypeBase == _Index.TypeBase &&
                 _IndexList[i].TypeSpecial == _Index.TypeSpecial)
@@ -714,9 +694,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return false;
     }
 
-    public bool Is_Include(CoupleData<int> _Index, List<CoupleData<int>> _IndexList, out int _IncludeListIndex)
+    public bool Is_Include(CoupleData<int> _Index, CoupleData<int>[] _IndexList, out int _IncludeListIndex)
     {
-        for (int i = 0; i < _IndexList.Count; i++)
+        for (int i = 0; i < _IndexList.Length; i++)
         {
             if (_IndexList[i].TypeBase == _Index.TypeBase &&
                 _IndexList[i].TypeSpecial == _Index.TypeSpecial)
@@ -943,7 +923,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public void Set_MainChipData()
     {
         MainChipAmalgamationDict = new Dictionary<int, int>();
-        for (int i = 0; i < EquippedIndex.Count; i++)
+        for (int i = 0; i < EquippedIndex.Length; i++)
         {
             int col = EquippedIndex[i].TypeBase;
             int row = EquippedIndex[i].TypeSpecial;

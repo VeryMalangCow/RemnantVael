@@ -45,8 +45,8 @@ public class InventoryEUIController : ElementUIController
             for (int j = 0; j < ModuleItemManager.RowAmount; j++)
             {
                 // Generate GO
-                GameObject slotGO = Instantiate(ModuleItemManager.Instance.InventorySlotPrefab, this.transform);
-                GameObject itemGO = Instantiate(ModuleItemManager.Instance.InventoryItemPrefab, slotGO.transform);
+                GameObject slotGO = Instantiate(ResourceManager.Instance.Get_ModuleSlotUI_Prefab(), this.transform);
+                GameObject itemGO = Instantiate(ResourceManager.Instance.Get_ModuleItemUI_Prefab(), slotGO.transform);
 
                 slotGO.name = $"Slot_Col:{i}_Row:{j}";
                 itemGO.name = $"Item_Col:{i}_Row:{j}";
@@ -155,11 +155,11 @@ public class InventoryEUIController : ElementUIController
 
     #region Equiped
 
-    public void Set_InventoryEquipedUI(List<CoupleData<int>> _EquipedIndex)
+    public void Set_InventoryEquipedUI(CoupleData<int>[] _EquipedIndex)
     {
         SetOff_AllInventoryEquipedUI();
 
-        for (int i = 0; i < _EquipedIndex.Count; i++)
+        for (int i = 0; i < _EquipedIndex.Length; i++)
         {
             int targetCol = _EquipedIndex[i].TypeBase;
             int targetRow = _EquipedIndex[i].TypeSpecial;

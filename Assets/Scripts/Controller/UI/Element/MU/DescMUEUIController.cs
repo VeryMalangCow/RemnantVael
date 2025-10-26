@@ -91,7 +91,7 @@ public class DescMUEUIController : ElementUIController
     private void SetOn_Rank(int _Rank)
     {
         CurrentRankImg.color = new Color(1, 1, 1, 1);
-        CurrentRankImg.sprite = ModuleItemManager.Instance.Get_CorrectDescRankIcon(_Rank);
+        CurrentRankImg.sprite = ResourceManager.Instance.Get_DescRankIcon(_Rank);
         CurrentRankTxt.text = ExtraString_Rank;
         CurrentActualRankTxt.text = _Rank.ToString();
     }
