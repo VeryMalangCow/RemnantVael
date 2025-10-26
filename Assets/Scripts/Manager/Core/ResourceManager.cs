@@ -251,14 +251,14 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region Static (CSV)
 
     // Value
-    [HideInInspector] private WordData StaticWord_Data;
-    [HideInInspector] private WordData StaticDesc_Data;
+    [HideInInspector] private WordSet_Just StaticWord_Data;
+    [HideInInspector] private WordSet_Just StaticDesc_Data;
 
-    [HideInInspector] private WordData PlayerName_Data;
-    [HideInInspector] private WordData EnemyName_Data;
+    [HideInInspector] private WordSet_Just PlayerName_Data;
+    [HideInInspector] private WordSet_Just EnemyName_Data;
 
-    [HideInInspector] private WordData_WithClr ProperNoun_Data;
-    [HideInInspector] private WordData RandomName_Data;
+    [HideInInspector] private WordSet_WithClr ProperNoun_Data;
+    [HideInInspector] private WordSet_Just RandomName_Data;
 
     // Offset
     private void Offset_CSV_Static()
@@ -285,15 +285,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     public string Get_ProperNounWord(int _ID) => ProperNoun_Data.Get_Word(_ID);
 
-    public string[][] Get_AllAllyRandomName()
-    {
-        List<string[]> result = new List<string[]>();
-
-        for (int i = 0; i < RandomName_Data.AllWordData.Count; i++)
-            result.Add(RandomName_Data.AllWordData[i].Words);
-        
-        return result.ToArray();
-    }
+    public string[] Get_AllyRandomName(int _ID) => RandomName_Data.Get_Words(_ID);
+    public int Get_AllAllyRandomNameAmount() => RandomName_Data.Get_Amount();
 
     #endregion
 
@@ -642,14 +635,14 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private ModuleBaseData[] ModuleBaseList_Data;
 
     // ¸ðµâ
-    [HideInInspector] private WordData ModuleItemName_Data;
-    [HideInInspector] private WordData MainChipName_Data;
+    [HideInInspector] private WordSet_Just ModuleItemName_Data;
+    [HideInInspector] private WordSet_Just MainChipName_Data;
 
-    [HideInInspector] private WordData ModuleItemDesc_Data;
-    [HideInInspector] private WordData ModuleItemEquipDesc_Data;
+    [HideInInspector] private WordSet_Just ModuleItemDesc_Data;
+    [HideInInspector] private WordSet_Just ModuleItemEquipDesc_Data;
 
-    [HideInInspector] private WordData[] MainChipDesc_Data;
-    [HideInInspector] private WordData MainChipAllyDesc_Data;
+    [HideInInspector] private WordSet_Just[] MainChipDesc_Data;
+    [HideInInspector] private WordSet_Just MainChipAllyDesc_Data;
 
     // Offset
     private void Offset_CSV_Module()
@@ -662,7 +655,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         ModuleItemDesc_Data = GetAsset_WordData(path, "ModuleDesc_CSV");
         ModuleItemEquipDesc_Data = GetAsset_WordData(path, "ModuleEquipDesc_CSV");
-        MainChipDesc_Data = GetAsset_WordDataArr_ForParentID(path, "MainChipDesc_CSV", MainChipName_Data.AllWordData.Count);
+        MainChipDesc_Data = GetAsset_WordDataArr_ForParentID(path, "MainChipDesc_CSV", MainChipName_Data.Get_Amount());
         MainChipAllyDesc_Data = GetAsset_WordData(path, "MainChipAllyDesc_CSV");
     }
 
@@ -707,7 +700,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     public MainChipData[] Get_MainChipDataArr()
     {
-        MainChipData[] data = new MainChipData[MainChipName_Data.AllWordData.Count];
+        MainChipData[] data = new MainChipData[MainChipName_Data.Get_Amount()];
         for (int i = 0; i < data.Length; i++)
         {
             data[i] = new MainChipData(i, ModuleSynhronySpritet_Data[i]);
@@ -819,13 +812,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private AllyCardBaseData[] NeoTeam_AllyCard_Data;
 
 
-    [HideInInspector] private WordData StrikeTeam_AllyCardName_Data;
-    [HideInInspector] private WordData UplinkTeam_AllyCardName_Data;
-    [HideInInspector] private WordData NeoTeam_AllyCardName_Data;
+    [HideInInspector] private WordSet_Just StrikeTeam_AllyCardName_Data;
+    [HideInInspector] private WordSet_Just UplinkTeam_AllyCardName_Data;
+    [HideInInspector] private WordSet_Just NeoTeam_AllyCardName_Data;
 
-    [HideInInspector] private WordData StrikeTeam_AllyCardDesc_Data;
-    [HideInInspector] private WordData UplinkTeam_AllyCardDesc_Data;
-    [HideInInspector] private WordData NeoTeam_AllyCardDesc_Data;
+    [HideInInspector] private WordSet_Just StrikeTeam_AllyCardDesc_Data;
+    [HideInInspector] private WordSet_Just UplinkTeam_AllyCardDesc_Data;
+    [HideInInspector] private WordSet_Just NeoTeam_AllyCardDesc_Data;
 
     // Offset
     private void Offset_CSV_AllyCard()
@@ -880,7 +873,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public AllyCardData[] Get_UplinkTeam_AllAllyCardData() => Get_Team_AllAllyCardData(UplinkTeam_AllyCard_Data, UplinkTeam_AllyCardName_Data, UplinkTeam_AllyCardDesc_Data);
     public AllyCardData[] Get_NeoTeam_AllAllyCardData() => Get_Team_AllAllyCardData(NeoTeam_AllyCard_Data, NeoTeam_AllyCardName_Data, NeoTeam_AllyCardDesc_Data);
     
-    public AllyCardData[] Get_Team_AllAllyCardData(AllyCardBaseData[] _Data, WordData _NameWord, WordData _DescWord)
+    public AllyCardData[] Get_Team_AllAllyCardData(AllyCardBaseData[] _Data, WordSet_Just _NameWord, WordSet_Just _DescWord)
     {
         List<AllyCardData> result = new List<AllyCardData>();
         for (int i = 0; i < _Data.Length; i++)
@@ -1020,9 +1013,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region AllyRequest (CSV)
 
     // Value
-    [HideInInspector] private WordData RequestName_Data;
-    [HideInInspector] private WordData RequestCompleteDesc_Data;
-    [HideInInspector] private WordData RequestFailDesc_Data;
+    [HideInInspector] private WordSet_Just RequestName_Data;
+    [HideInInspector] private WordSet_Just RequestCompleteDesc_Data;
+    [HideInInspector] private WordSet_Just RequestFailDesc_Data;
 
     // Offset
     private void Offset_CSV_AllyRequest()
@@ -1045,8 +1038,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // Value
     [HideInInspector] private Dictionary<int, MapNextIndex> MapNextIndex_Data;
 
-    [HideInInspector] private WordData MapName_Data;
-    [HideInInspector] private WordData MapDesc_Data;
+    [HideInInspector] private WordSet_Just MapName_Data;
+    [HideInInspector] private WordSet_Just MapDesc_Data;
 
 
     // Offset
@@ -1238,8 +1231,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region Skill (CSV)
 
     // Value
-    [HideInInspector] private WordData[] SkillName_Data;
-    [HideInInspector] private WordData[] SkillDesc_Data;
+    [HideInInspector] private WordSet_Just[] SkillName_Data;
+    [HideInInspector] private WordSet_Just[] SkillDesc_Data;
 
     private void Offset_CSV_Skill()
     {
@@ -1257,7 +1250,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region Tuner (CSV)
 
     // Value
-    [HideInInspector] private WordData TunerStateName_Data;
+    [HideInInspector] private WordSet_Just TunerStateName_Data;
 
     // Offset
     private void Offset_CSV_Tuner()
@@ -1273,18 +1266,18 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #region GetAsset_WordData
 
-    private WordData[] GetAsset_WordDataArr_ForParentID(string _Path, string _FileName, int _Amount)
+    private WordSet_Just[] GetAsset_WordDataArr_ForParentID(string _Path, string _FileName, int _Amount)
     {
-        List<WordData> result = new List<WordData>();
+        List<WordSet_Just> result = new List<WordSet_Just>();
         for (int i = 0; i < _Amount; i++)
             result.Add(GetAsset_WordData_ForParentID(_Path, _FileName, i));
 
         return result.ToArray();
     }
 
-    private WordData GetAsset_WordData_ForParentID(string _Path, string _FileName, int _TargetParentID)
+    private WordSet_Just GetAsset_WordData_ForParentID(string _Path, string _FileName, int _TargetParentID)
     {
-        List<WordElementData> element = new List<WordElementData>();
+        Dictionary<int, WordElement_Just> elementDict = new Dictionary<int, WordElement_Just>();
 
         string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
@@ -1300,15 +1293,15 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             for (int j = 1; j < GameManager.KindOfLanguage.Length + 1; j++)
                 nameList.Add(stringList[i][j + 1]);
 
-            element.Add(new WordElementData(id, nameList.ToArray()));
+            elementDict.Add(id, new WordElement_Just(id, nameList.ToArray()));
         }
 
-        return new WordData(element);
+        return new WordSet_Just(elementDict);
     }
 
-    private WordData GetAsset_WordData(string _Path, string _FileName)
+    private WordSet_Just GetAsset_WordData(string _Path, string _FileName)
     {
-        List<WordElementData> element = new List<WordElementData>();
+        Dictionary<int, WordElement_Just> elementDict = new Dictionary<int, WordElement_Just>();
 
         string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
@@ -1322,15 +1315,15 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             for (int j = 0; j < GameManager.KindOfLanguage.Length; j++)
                 nameList.Add(stringList[i][j + 1]);
 
-            element.Add(new WordElementData(id, nameList.ToArray()));
+            elementDict.Add(id, new WordElement_Just(id, nameList.ToArray()));
         }
 
-        return new WordData(element);
+        return new WordSet_Just(elementDict);
     }
 
-    private WordData_WithClr GetAsset_WordData_Clr(string _Path, string _FileName)
+    private WordSet_WithClr GetAsset_WordData_Clr(string _Path, string _FileName)
     {
-        List<WordElementData_WithClr> element = new List<WordElementData_WithClr>();
+        Dictionary<int, WordElement_WithClr> elementDict = new Dictionary<int, WordElement_WithClr>();
 
         string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
 
@@ -1345,10 +1338,10 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             for (int j = 0; j < GameManager.KindOfLanguage.Length; j++)
                 nameList.Add(stringList[i][j + 2]);
 
-            element.Add(new WordElementData_WithClr(id, clrHex, nameList.ToArray()));
+            elementDict.Add(id, new WordElement_WithClr(id, clrHex, nameList.ToArray()));
         }
 
-        return new WordData_WithClr(element);
+        return new WordSet_WithClr(elementDict);
     }
 
     #endregion

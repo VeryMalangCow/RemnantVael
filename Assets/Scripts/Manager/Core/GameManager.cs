@@ -5318,74 +5318,86 @@ public class NSCAnswerSpriteSet
 
 #region Class : CSV : Word
 
-[System.Serializable]
-public class WordData
+public abstract class WordSet<T>
 {
-    public List<WordElementData> AllWordData;
+    protected Dictionary<int, T> AllWord;
 
-    public WordData(List<WordElementData> _AllWordData)
+    public WordSet(Dictionary<int, T> _AllWordData)
     {
-        AllWordData = _AllWordData;
+        AllWord = _AllWordData;
     }
 
-    public string Get_Word(int _ID)
-    {
-        if (AllWordData.Count > _ID && AllWordData[_ID].ID == _ID) 
-            return AllWordData[_ID].Words[GameManager.LanguageID];
+    public Dictionary<int, T> Get_WordData() => AllWord;
+    public int Get_Amount() => AllWord.Count;
 
-        for (int i = 0; i < AllWordData.Count; i++)
-            if (AllWordData[i].ID == _ID)
-                return AllWordData[i].Words[GameManager.LanguageID];
+    public abstract string Get_Word(int _ID);
+}
+
+
+[System.Serializable]
+public class WordSet_Just : WordSet<WordElement_Just>
+{
+    public WordSet_Just(Dictionary<int, WordElement_Just> _Dict) : base(_Dict) 
+    { }
+
+    public override string Get_Word(int _ID)
+    {
+        if (AllWord.ContainsKey(_ID))
+            return AllWord[_ID].Words[GameManager.LanguageID];
 
         return "";
+    }
+
+    public string[] Get_Words(int _ID)
+    {
+        if (AllWord.ContainsKey(_ID))
+            return AllWord[_ID].Words;
+
+        return null;
     }
 }
 
 [System.Serializable]
-public class WordElementData
+public class WordSet_WithClr : WordSet<WordElement_WithClr>
+{
+    public WordSet_WithClr(Dictionary<int, WordElement_WithClr> _Dict) : base(_Dict)
+    { }
+
+    public override string Get_Word(int _ID)
+    {
+        if (AllWord.ContainsKey(_ID))
+        {
+            WordElement_WithClr data = AllWord[_ID];
+            return $"<color=#{data.ClrHex}><b>\"{data.Words[GameManager.LanguageID]}\"</color></b>";
+        }
+        else
+        {
+            return "";
+        }
+    }
+}
+
+
+
+[System.Serializable]
+public class WordElement_Just
 {
     public int ID;
     public string[] Words;
 
-    public WordElementData(int _ID, string[] _Words)
+    public WordElement_Just(int _ID, string[] _Words)
     {
         ID = _ID;
         Words = _Words;
     }
 }
 
-
 [System.Serializable]
-public class WordData_WithClr
-{
-    public List<WordElementData_WithClr> AllWordData;
-
-    public WordData_WithClr(List<WordElementData_WithClr> _AllMapNameData)
-    {
-        AllWordData = _AllMapNameData;
-    }
-
-    public string Get_Word(int _ID)
-    {
-        WordElementData_WithClr data = null;
-
-        if (AllWordData.Count > _ID && AllWordData[_ID].ID == _ID)
-            data = AllWordData[_ID];
-
-        for (int i = 0; i < AllWordData.Count; i++)
-            if (AllWordData[i].ID == _ID)
-                data = AllWordData[_ID];
-
-        return $"<color=#{data.ClrHex}><b>\"{data.Words[GameManager.LanguageID]}\"</color></b>";
-    }
-}
-
-[System.Serializable]
-public class WordElementData_WithClr : WordElementData
+public class WordElement_WithClr : WordElement_Just
 {
     public string ClrHex;
 
-    public WordElementData_WithClr(int _ID, string _ClrHex, string[] _Names) : base(_ID, _Names)
+    public WordElement_WithClr(int _ID, string _ClrHex, string[] _Names) : base(_ID, _Names)
     {
         ClrHex = _ClrHex;
     }

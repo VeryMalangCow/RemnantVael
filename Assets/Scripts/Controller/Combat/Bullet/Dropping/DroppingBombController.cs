@@ -16,7 +16,6 @@ public abstract class DroppingBombController : DroppingDepthController
     [SerializeField] protected AttackSizeState SizeState;
     // 스탯을 Drop형으로 바꾸던 아니면, 스탯을 추가하던 하셈
 
-
     #endregion
 
     #region - Hide

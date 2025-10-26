@@ -80,4 +80,11 @@ public class DroppingAllyController : NoneUnitAllyController
     }
 
     #endregion
+
+    #region Sort
+
+    public override void Set_SortingOrder(int _SortingOrder)
+    { /* Need Nothing */ }
+
+    #endregion
 }

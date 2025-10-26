@@ -45,7 +45,7 @@ public abstract class DroppingDepthController : MovableDepthController
         DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
     }
 
-    protected void OnDisable()
+    protected virtual void OnDisable()
     {
         DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
     }

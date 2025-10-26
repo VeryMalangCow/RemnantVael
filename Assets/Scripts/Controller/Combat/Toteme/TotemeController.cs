@@ -48,11 +48,19 @@ public abstract class TotemeController : DroppingDepthController
     [HideInInspector] private bool InAreaPlayer = false;
     [HideInInspector] private List<AllyController> InAreaAllies = null;
 
+    [HideInInspector] private Coroutine Cor = null;
     #endregion
 
     #endregion
 
     #region Framework
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+
+        Remove_Object();
+    }
 
     protected override void Update()
     {
@@ -183,7 +191,7 @@ public abstract class TotemeController : DroppingDepthController
     {
         SetOff_Trail();
 
-        StartCoroutine(this.Play_BuffArea_Cor());
+        Cor = StartCoroutine(this.Play_BuffArea_Cor());
     }
 
     private IEnumerator Play_BuffArea_Cor()
@@ -336,11 +344,16 @@ public abstract class TotemeController : DroppingDepthController
     {
         SetOff_Trail();
 
+        if (Cor != null)
+        {
+            StopCoroutine(Cor);
+            Cor = null;
+        }
+
         Remove_Condition();
         Reset_State();
         SetOff_BuffPoint();
 
-        StopCoroutine(this.Play_BuffArea_Cor());
         TimerManager.Instance.Remove_Toteme(this);
         this.gameObject.SetActive(false);
     }

@@ -50,7 +50,6 @@ public class AllyManager : Singleton<AllyManager>
     [HideInInspector] public Dictionary<string, AllySpriteSet> AllySpriteSetDict;
 
     // Name
-    [HideInInspector] private string[][] AllyAllNameArr;
     [HideInInspector] private HashSet<int> UsedAllyName = new HashSet<int>();
 
     // String
@@ -102,9 +101,6 @@ public class AllyManager : Singleton<AllyManager>
         };
 
         AllyState = new AllyState();
-
-        // Random Name
-        AllyAllNameArr = ResourceManager.Instance.Get_AllAllyRandomName();
 
         TunerTypeIconDict = new Dictionary<string, Sprite>();
         for (int i = 0; i < StateTypeList.Count; i++)
@@ -373,10 +369,9 @@ public class AllyManager : Singleton<AllyManager>
         while (true)
         {
             safeInt++;
-            if (safeInt > 100)
-            { break; }
+            if (safeInt > 100) break; 
 
-            randomIndex = Random.Range(0, AllyAllNameArr.Length);
+            randomIndex = Random.Range(0, ResourceManager.Instance.Get_AllAllyRandomNameAmount());
             if (!UsedAllyName.Contains(randomIndex))
             {
                 UsedAllyName.Add(randomIndex);
@@ -392,7 +387,7 @@ public class AllyManager : Singleton<AllyManager>
         if (_ID == -1) 
             return null;
 
-        return AllyAllNameArr[_ID];
+        return ResourceManager.Instance.Get_AllyRandomName(_ID);
     }
 
     public void Set_Language()

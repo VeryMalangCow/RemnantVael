@@ -6997,14 +6997,13 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 599e2be424569044d9d00e05fa08f1fb, type: 2}
     - {fileID: 11400000, guid: 7421415d68e53434489f5eb9cce74908, type: 2}
   RatingString: 
-  PrisonRateStringList: []
+  PrisonRateStringArr: []
   StrikeTeamString: 
   UplinkTeamString: 
   NeoTeamString: 
-  AllyCardRateList: []
-  MapLobbyImg_Data: []
-  MapLobbyMaterialIndexList_Data: 
-  CutsceneImgList_Data: []
+  AllyCardRateArr: []
+  InventoryItemPrefab: {fileID: 0}
+  InventorySlotPrefab: {fileID: 0}
 --- !u!4 &830584170
 Transform:
   m_ObjectHideFlags: 0
@@ -15653,22 +15652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8641267fcbb6cd48a4f143288053176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RankIconList:
-  - {fileID: -2071839289, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  - {fileID: 1624950903, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  - {fileID: 216245208, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  - {fileID: -589924007, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  - {fileID: -1684214863, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  MUUIDescRankIconList:
-  - {fileID: -1597416641, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  - {fileID: -449346525, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  - {fileID: -43159055, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  - {fileID: 299157854, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  - {fileID: 631822970, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  InventoryItemPrefab: {fileID: 2601900739378343266, guid: 951c3fe4543da204c8bed0ca79322ca7, type: 3}
-  InventorySlotPrefab: {fileID: 2601900739378343266, guid: affa1baef144b8144bd5d40b3609e16a, type: 3}
-  ItemDataList: []
-  CurrentAllMainChipState: []
+  ItemDataArr: []
 --- !u!114 &1939506649
 MonoBehaviour:
   m_ObjectHideFlags: 0
