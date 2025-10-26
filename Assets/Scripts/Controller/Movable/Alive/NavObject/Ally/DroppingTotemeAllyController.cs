@@ -20,8 +20,7 @@ public class DroppingTotemeAllyController : DroppingAllyController
 
     protected override bool Can_Shot()
     {
-        return base.Can_Shot();
-        //return base.Can_Shot() && StageManager.Instance.CurrentRoomController.RoomRuleController.RoomType != eRoomType.Completed;
+        return base.Can_Shot();   
     }
 
     protected override void Shot()
@@ -29,6 +28,8 @@ public class DroppingTotemeAllyController : DroppingAllyController
         base.Shot();
 
         Fire_Toteme(PoolingManager.Instance.Get_OP_AllyToteme(), Get_RandomNavPos(PlayerManager.Instance.PlayerController.transform.position, 5f));
+
+        Debug.Log(Name[1] + ": Toteme");
     }
 
 

@@ -195,7 +195,7 @@ public class BuffController : IDController
         DevTool.Remove_InList(MainGameUIManager.Instance.PlayerHUD_UIController.AllBuffIconUI, ThisBuffEUI);
 
         ThisBuffEUI.gameObject.SetActive(false);
-        PoolingManager.Instance.BuffIcons.Queue.Enqueue(ThisBuffEUI);
+        PoolingManager.Instance.BuffIcons.Enqueue(ThisBuffEUI);
         ThisBuffEUI = null;
     }
 

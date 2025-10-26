@@ -16,13 +16,17 @@ public class DroppingAttackAllyController : DroppingAllyController
 
     protected override bool Can_Shot()
     {
-        return base.Can_Shot() && EnemyManager.Instance.CurrentEnemyList.Count > 0;
+        return base.Can_Shot();
     }
     
     protected override void Shot()
     {
         base.Shot();
-        Fire_Bullet(PoolingManager.Instance.Get_OP_DroppingAllyBullet(), Get_TargetEnemy().transform.position);
+        if (EnemyManager.Instance.CurrentEnemyList.Count > 0)
+        {
+            Fire_Bullet(PoolingManager.Instance.Get_OP_DroppingAllyBullet(), Get_TargetEnemy().transform.position);
+        }
+        Debug.Log(Name[1] + ": Bomb Attack");
     }
 
     private EnemyController Get_TargetEnemy()
@@ -55,6 +59,9 @@ public class DroppingAttackAllyController : DroppingAllyController
 
         // ¿ÃπÃ¡ˆ
         _Bullet.ThisSR.sprite = ThisSprite;
+
+        // HUD
+
     }
 
     #endregion

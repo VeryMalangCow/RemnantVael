@@ -100,28 +100,48 @@ public class PlayerBulletController : BulletController
 
     #endregion
 
-    #region Remove
+    #region Effect
 
-    protected override void Remove_Condition()
+    protected override void ExtraEffect()
     {
         switch (PoolingString)
         {
             case "PlayerBullet": // ±âº»Åº
-
                 UnitManager.Instance.OnceTime_AnimGenerator.Anim_AttackSuccess(
                     TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical, 1.0f);
                 UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ObjectDestroy(
                     PlayerManager.Instance.PlayerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
-                
-                PoolingManager.Instance.PlayerBullet.Queue.Enqueue(this);
                 break;
 
             case "MI_000_Bullet": // ¿¡³ÊÁö À¯µµÅº
-                PoolingManager.Instance.MI_000_Bullets.Queue.Enqueue(this);
                 break;
 
             case "MI_001_Bullet": // ¹°¸® À¯µµÅº
-                PoolingManager.Instance.MI_001_Bullets.Queue.Enqueue(this);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    #endregion
+
+    #region Pooling
+
+    protected override void PoolingSet()
+    {
+        switch (PoolingString)
+        {
+            case "PlayerBullet": // ±âº»Åº
+                PoolingManager.Instance.PlayerBullet.Enqueue(this);
+                break;
+
+            case "MI_000_Bullet": // ¿¡³ÊÁö À¯µµÅº
+                PoolingManager.Instance.MI_000_Bullets.Enqueue(this);
+                break;
+
+            case "MI_001_Bullet": // ¹°¸® À¯µµÅº
+                PoolingManager.Instance.MI_001_Bullets.Enqueue(this);
                 break;
 
             default:

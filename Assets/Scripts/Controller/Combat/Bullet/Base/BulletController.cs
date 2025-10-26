@@ -275,9 +275,6 @@ public abstract class BulletController : MovableDepthController
 
     #region Remove
 
-    // 오브젝트 풀링 시스템과 추가 효과 등을 추상
-    protected abstract void Remove_Condition();
-
     // 오브젝트 파괴될 때, 항상 실행
     protected void Remove_Object()
     {
@@ -286,7 +283,7 @@ public abstract class BulletController : MovableDepthController
         SetOff_Trail();
         SetOff_Light();
 
-        Remove_Condition();
+        PoolingSet();
         Reset_State();
 
         this.gameObject.SetActive(false);
@@ -320,6 +317,7 @@ public abstract class BulletController : MovableDepthController
     {
         if (DestroyTagList.Contains(_Tag))
         {
+            ExtraEffect();
             Remove_Object();
         }
     }
@@ -334,6 +332,18 @@ public abstract class BulletController : MovableDepthController
         RotateSpeed = _Power;
         TargetEnemyController = _TargetEC;
     }
+
+    #endregion
+
+    #region Effect
+
+    protected abstract void ExtraEffect();
+
+    #endregion
+
+    #region Pooling
+
+    protected abstract void PoolingSet();
 
     #endregion
 }

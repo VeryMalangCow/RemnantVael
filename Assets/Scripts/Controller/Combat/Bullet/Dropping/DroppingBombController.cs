@@ -18,10 +18,6 @@ public abstract class DroppingBombController : DroppingDepthController
 
     #endregion
 
-    #region - Hide
-
-    #endregion
-
     #endregion
 
     #region Reset
@@ -142,19 +138,25 @@ public abstract class DroppingBombController : DroppingDepthController
 
     #region Remove
 
-    // 오브젝트 풀링 시스템과 추가 효과 등을 추상
-    protected abstract void Remove_Condition();
 
     // 오브젝트 파괴될 때, 항상 실행
     protected void Remove_Object()
     {
+        End_Seq();
         SetOff_Trail();
 
-        Remove_Condition();
         Reset_State();
+        PoolingSet();
 
         this.gameObject.SetActive(false);
     }
+
+    #endregion
+
+    #region Pooling
+
+    // 오브젝트 풀링 시스템과 추가 효과 등을 추상
+    protected abstract void PoolingSet();
 
     #endregion
 }

@@ -41,7 +41,7 @@ public abstract class TotemeController : DroppingDepthController
     // Activating
     [HideInInspector] private bool Is_Activating = false;
     [HideInInspector] private static readonly Vector2 BuffColBaseSize = new Vector2(2, 1);
-    [HideInInspector] private static readonly int PointAmountPerSize = 12;
+    [HideInInspector] private static readonly int PointAmountPerSize = 15;
     [HideInInspector] private List<SpriteRenderer> BuffPointList = new List<SpriteRenderer>();
 
     // Buff
@@ -54,13 +54,6 @@ public abstract class TotemeController : DroppingDepthController
     #endregion
 
     #region Framework
-
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-
-        Remove_Object();
-    }
 
     protected override void Update()
     {
@@ -169,7 +162,6 @@ public abstract class TotemeController : DroppingDepthController
     {
         gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
         gameObject.SetActive(true);
-        TimerManager.Instance.Add_Toteme(this);
 
         SetOn_Trail();
 
@@ -202,13 +194,14 @@ public abstract class TotemeController : DroppingDepthController
 
         // 그라데이션 되는 부분
         Active_FadeOut();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
 
         Remove_Object();
     }
 
     private void Active_StartSetting()
     {
+        TimerManager.Instance.Add_Toteme(this);
         InAreaAllies = new List<AllyController>();
 
         Is_Activating = true;
@@ -336,13 +329,17 @@ public abstract class TotemeController : DroppingDepthController
 
     #endregion
 
-    #region Remove
+    #region Pooling
 
-    protected abstract void Remove_Condition();
+    protected abstract void PoolingSet();
+
+    #endregion
+
+    #region Remove
 
     protected void Remove_Object()
     {
-        SetOff_Trail();
+        End_Seq();
 
         if (Cor != null)
         {
@@ -350,20 +347,22 @@ public abstract class TotemeController : DroppingDepthController
             Cor = null;
         }
 
-        Remove_Condition();
         Reset_State();
         SetOff_BuffPoint();
-
         TimerManager.Instance.Remove_Toteme(this);
+
+        PoolingSet();
+
         this.gameObject.SetActive(false);
     }
 
     private void SetOff_BuffPoint()
     {
+        if (BuffPointList == null) return;
         for (int i = 0; i < BuffPointList.Count; i++)
         {
             BuffPointList[i].gameObject.SetActive(false);
-            PoolingManager.Instance.AreaPointSRs.Queue.Enqueue(BuffPointList[i]);
+            PoolingManager.Instance.AreaPointSRs.Enqueue(BuffPointList[i]);
         }
         BuffPointList = null;
     }

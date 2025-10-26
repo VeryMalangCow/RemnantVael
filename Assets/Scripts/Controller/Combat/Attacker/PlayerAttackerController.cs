@@ -6,7 +6,7 @@ public class PlayerAttackerController : AttackerController
 
     protected override void Remove_Condition()
     {
-        PoolingManager.Instance.PlayerAttackers.Queue.Enqueue(this);
+        PoolingManager.Instance.PlayerAttackers.Enqueue(this);
     }
 
     #endregion

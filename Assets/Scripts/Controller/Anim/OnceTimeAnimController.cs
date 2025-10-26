@@ -56,7 +56,7 @@ public class OnceTimeAnimController : MonoBehaviour
 
         this.gameObject.SetActive(false);
 
-        PoolingManager.Instance.OnlyOnceAnimators.Queue.Enqueue(this);
+        PoolingManager.Instance.OnlyOnceAnimators.Enqueue(this);
     }
 
     #endregion

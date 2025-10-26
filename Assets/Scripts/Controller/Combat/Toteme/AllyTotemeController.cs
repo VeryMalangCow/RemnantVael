@@ -3,9 +3,9 @@ using UnityEngine;
 public class AllyTotemeController : TotemeController
 {
 
-    protected override void Remove_Condition()
+    protected override void PoolingSet()
     {
-        PoolingManager.Instance.AllyTotemes.Queue.Enqueue(this);
+        PoolingManager.Instance.AllyTotemes.Enqueue(this);
     }
 
 

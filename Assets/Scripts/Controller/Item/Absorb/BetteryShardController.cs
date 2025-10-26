@@ -62,7 +62,7 @@ public class BetteryShardController : RangeAbsorbItemController
         IsSpawnNow = false;
 
         PlayerManager.Instance.PlayerController.Add_CurrentBetteryShard(BetteryValue);
-        PoolingManager.Instance.BetteryShard.Queue.Enqueue(this);
+        PoolingManager.Instance.BetteryShard.Enqueue(this);
     }
 
     #endregion

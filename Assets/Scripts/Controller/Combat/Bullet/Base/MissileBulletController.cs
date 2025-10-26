@@ -71,22 +71,39 @@ public class MissileBulletController : PlayerBulletController
 
     #endregion
 
-    #region Remove
+    #region Effect
 
-    protected override void Remove_Condition()
+    protected override void ExtraEffect()
     {
-        Play_ExplosionAttack();
+        //base.ExtraEffect();
 
+        Play_ExplosionAttack();
         switch (PoolingString)
         {
             case "MissileBullet":
-
                 UnitManager.Instance.OnceTime_AnimGenerator.Anim_AttackSuccess(
                     TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical, 1.8f);
                 UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_BigObjectDestroy(
                     PlayerManager.Instance.PlayerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                break;
 
-                PoolingManager.Instance.MissileBullet.Queue.Enqueue(this);
+            default:
+                break;
+        }
+    }
+
+    #endregion
+
+    #region Pooling
+
+    protected override void PoolingSet()
+    {
+        //base.PoolingSet();
+
+        switch (PoolingString)
+        {
+            case "MissileBullet":
+                PoolingManager.Instance.MissileBullet.Enqueue(this);
 
                 break;
 
@@ -94,7 +111,6 @@ public class MissileBulletController : PlayerBulletController
                 break;
         }
 
-        base.Remove_Condition();
     }
 
     #endregion

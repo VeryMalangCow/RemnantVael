@@ -78,15 +78,32 @@ public class EnemyBulletController : BulletController
 
     #endregion
 
-    #region Remove
+    #region Effect
 
-    protected override void Remove_Condition()
+    protected override void ExtraEffect()
     {
         switch (PoolingString)
         {
             case "EnemyBullet":
                 UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, ExplAmount);
-                PoolingManager.Instance.EnemyBullets.Queue.Enqueue(this);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    #endregion
+
+    #region Pooling
+
+    protected override void PoolingSet()
+    {
+        switch (PoolingString)
+        {
+            case "EnemyBullet":
+                UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, ExplAmount);
+                PoolingManager.Instance.EnemyBullets.Enqueue(this);
                 break;
 
             default:

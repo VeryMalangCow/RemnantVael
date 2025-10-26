@@ -14,7 +14,7 @@ public class EnemyExplosionController : ExplosionController
 
     protected override void Remove_Condition()
     {
-        PoolingManager.Instance.EnemyExplosions.Queue.Enqueue(this);
+        PoolingManager.Instance.EnemyExplosions.Enqueue(this);
     }
 
     #endregion

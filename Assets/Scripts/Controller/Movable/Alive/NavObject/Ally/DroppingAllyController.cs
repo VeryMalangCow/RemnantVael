@@ -52,6 +52,7 @@ public class DroppingAllyController : NoneUnitAllyController
 
         if (Can_Shot())
         {
+            HUD.Play_IconRT();
             Shot();
         }
     }

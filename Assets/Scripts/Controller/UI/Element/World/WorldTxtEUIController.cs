@@ -77,7 +77,7 @@ public class WorldTxtEUIController : ElementUIController
             .OnComplete(() =>
             {
                 this.gameObject.SetActive(false);
-                PoolingManager.Instance.DmgTxtCanvases.Queue.Enqueue(this);
+                PoolingManager.Instance.DmgTxtCanvases.Enqueue(this);
             });
 
         return totalSeq;

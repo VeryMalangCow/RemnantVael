@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UniRx;
+using DG.Tweening;
 
 public class AllyHUDController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class AllyHUDController : MonoBehaviour
     [SerializeField] public AllyBuffUIController TemporaryBuffUI;
     [SerializeField] public AllyBuffUIController PermanentBuffUI;
     [SerializeField] public AllyRequestUIController RequestUI;
+    [SerializeField] private RectTransform IconRT;
 
     [SerializeField] private CanvasGroup BaseCG;
     [SerializeField] private CanvasGroup RequestCG;
@@ -63,6 +65,19 @@ public class AllyHUDController : MonoBehaviour
     public void Set_Name(string _Name)
     {
         NameTxt.text = _Name;
+    }
+
+    #endregion
+
+    #region ActiveFX
+
+    public void Play_IconRT()
+    {
+        DevTool.Set_KillTween(IconRT);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(IconRT.DOScale(1.25f, 0.1f));
+        seq.Append(IconRT.DOScale(1f, 0.1f));
     }
 
     #endregion

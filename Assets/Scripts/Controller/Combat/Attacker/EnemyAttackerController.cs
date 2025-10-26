@@ -29,7 +29,7 @@ public class EnemyAttackerController : AttackerController
 
     protected override void Remove_Condition()
     {
-        PoolingManager.Instance.EnemyAttackers.Queue.Enqueue(this);
+        PoolingManager.Instance.EnemyAttackers.Enqueue(this);
     }
 
     #endregion

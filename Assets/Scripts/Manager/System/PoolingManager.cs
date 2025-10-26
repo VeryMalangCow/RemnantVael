@@ -194,7 +194,7 @@ public class PoolingManager : Singleton<PoolingManager>
 
     public AllyTotemeController Get_OP_AllyToteme()
     {
-        return Get_OP<AllyTotemeController>(AllyTotemes.Prefab, AllyTotemes.ParentTF, AllyTotemes.Queue) ;
+        return Get_OP<AllyTotemeController>(AllyTotemes.Prefab, AllyTotemes.ParentTF, AllyTotemes.Queue);
     }
 
     #endregion
@@ -315,17 +315,17 @@ public class PoolingManager : Singleton<PoolingManager>
 
     public void Set_EnqueueEnemy(NormalEnemyController _Enemy)
     {
-        Get_CorrectEnemyQueue(_Enemy.Get_ID()).Queue.Enqueue(_Enemy);
+        Get_CorrectEnemyQueue(_Enemy.Get_ID()).Enqueue(_Enemy);
     }
 
     public void Set_EnqueueEliteEnemy(EliteEnemyController _EliteEnemy)
     {
-        Get_CorrectEliteEnemyQueue(_EliteEnemy.Get_ID()).Queue.Enqueue(_EliteEnemy);
+        Get_CorrectEliteEnemyQueue(_EliteEnemy.Get_ID()).Enqueue(_EliteEnemy);
     }
 
     public void Set_EnqueueBossEnemy(BossEnemyController _BossEnemy)
     {
-        Get_CorrectBossEnemyQueue(_BossEnemy.Get_ID()).Queue.Enqueue(_BossEnemy);
+        Get_CorrectBossEnemyQueue(_BossEnemy.Get_ID()).Enqueue(_BossEnemy);
     }
 
     // Offset
@@ -481,5 +481,11 @@ public class TTypePooling<T>
     { 
         Prefab = _Prefab;
         ParentTF = _ParentTF;
+    }
+
+    public void Enqueue(T _Element)
+    {
+        if (!Queue.Contains(_Element)) 
+            Queue.Enqueue(_Element);
     }
 }

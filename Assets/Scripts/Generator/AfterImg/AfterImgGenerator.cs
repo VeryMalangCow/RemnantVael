@@ -79,7 +79,7 @@ public class AfterImgGenerator : MonoBehaviour
             .OnComplete(() => 
             {
                 SR.gameObject.SetActive(false);
-                PoolingManager.Instance.AfterImgs.Queue.Enqueue(SR);
+                PoolingManager.Instance.AfterImgs.Enqueue(SR);
             });
         
     }

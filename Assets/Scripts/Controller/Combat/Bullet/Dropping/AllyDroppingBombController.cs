@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class AllyDroppingBombController : DroppingBombController
 {
-    #region Remove
+    #region Pooling
 
-    protected override void Remove_Condition()
+    protected override void PoolingSet()
     {
-        PoolingManager.Instance.DroppingAllyBullet.Queue.Enqueue(this);
+        PoolingManager.Instance.DroppingAllyBullet.Enqueue(this);
     }
 
     #endregion

@@ -35,6 +35,7 @@ public abstract class DroppingDepthController : MovableDepthController
     [Header("-- Alpha")]
     [SerializeField] private float ZeroToOneTime;
 
+    [HideInInspector] private Sequence Seq = null;
     #endregion
 
     #region Framework
@@ -48,6 +49,8 @@ public abstract class DroppingDepthController : MovableDepthController
     protected virtual void OnDisable()
     {
         DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+
+        Init_Data();
     }
 
     #endregion
@@ -73,15 +76,16 @@ public abstract class DroppingDepthController : MovableDepthController
     {
         Init_Data();
 
-        Sequence seq = DOTween.Sequence();
+        Seq = DOTween.Sequence();
 
         float _droppingTime = 1 / DroppingSpeed;
-        seq.Join(ShadowTF.DOScale(ShadowSize, _droppingTime).SetEase(Ease.Linear)); // 그림자
-        seq.Join(DOTween.To(() => TargetRange, x => TargetRange = x, DropBottomYPos, _droppingTime).SetEase(Ease.InCubic)); // 떨어지는 이미지
-        seq.Join(ThisSR.DOFade(1f, _droppingTime * 0.3f).SetEase(Ease.Linear));
-        seq.OnComplete(() =>
+        Seq.Join(ShadowTF.DOScale(ShadowSize, _droppingTime).SetEase(Ease.Linear)); // 그림자
+        Seq.Join(DOTween.To(() => TargetRange, x => TargetRange = x, DropBottomYPos, _droppingTime).SetEase(Ease.InCubic)); // 떨어지는 이미지
+        Seq.Join(ThisSR.DOFade(1f, _droppingTime * 0.3f).SetEase(Ease.Linear));
+        Seq.OnComplete(() =>
         {
             Active();
+            Seq = null;
         });
     }
 
@@ -100,6 +104,20 @@ public abstract class DroppingDepthController : MovableDepthController
     #region Active
 
     protected abstract void Active();
+
+    #endregion
+
+    #region Tween
+
+    protected void End_Seq()
+    {
+        if (Seq != null)
+        {
+            DOTween.Kill(Seq);
+            Seq = null;
+            Debug.Log("KILL!");
+        }
+    }
 
     #endregion
 

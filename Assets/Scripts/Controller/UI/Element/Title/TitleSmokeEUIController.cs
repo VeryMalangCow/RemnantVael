@@ -101,7 +101,8 @@ public class TitleSmokeEUIController : ElementUIController
 
     public void Set_OP_Enqueue(TitleSmokeCellEUIController _CellEUI)
     {
-        CellQueue.Enqueue(_CellEUI);
+        if (!CellQueue.Contains(_CellEUI))
+            CellQueue.Enqueue(_CellEUI);
     }
 
     #endregion

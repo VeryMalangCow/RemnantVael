@@ -53,11 +53,20 @@ public class AllyBulletController : BulletController
 
     #endregion
 
-    #region Remove
+    #region Effect
 
-    protected override void Remove_Condition()
+    protected override void ExtraEffect()
     {
-        PoolingManager.Instance.BaseAllyBullet.Queue.Enqueue(this);
+
+    }
+
+    #endregion
+
+    #region Pooling
+
+    protected override void PoolingSet()
+    {
+        PoolingManager.Instance.BaseAllyBullet.Enqueue(this);
     }
 
     #endregion

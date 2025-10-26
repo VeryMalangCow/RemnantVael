@@ -859,7 +859,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575208167296921376}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -2140,7 +2140,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4504230374354273688}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -3601,6 +3601,7 @@ MonoBehaviour:
   TemporaryBuffUI: {fileID: 5500449450094810055}
   PermanentBuffUI: {fileID: 7589234531623557095}
   RequestUI: {fileID: 2488108413162212646}
+  IconRT: {fileID: 965917362759543746}
   BaseCG: {fileID: 3772600419711063805}
   RequestCG: {fileID: 5699592724001304932}
   NameTxt: {fileID: 2714846724262090839}

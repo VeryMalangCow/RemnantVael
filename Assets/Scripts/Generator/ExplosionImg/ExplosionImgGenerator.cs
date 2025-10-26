@@ -140,7 +140,7 @@ public class ExplosionImgGenerator : MonoBehaviour
     {
         _SR.gameObject.SetActive(false);
 
-        PoolingManager.Instance.ExplosionImgs.Queue.Enqueue(_SR);
+        PoolingManager.Instance.ExplosionImgs.Enqueue(_SR);
     }
 
     #endregion
