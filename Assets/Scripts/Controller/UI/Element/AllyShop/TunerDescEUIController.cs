@@ -33,7 +33,7 @@ public class TunerDescEUIController : ElementUIController
         // Value Txt
         string valueTxt = $"{DevTool.Get_RoundFloatString((100f * AllyManager.Get_AllyTunerStateMultiple(_Data.Type) * _Data.Rank))}%</color>";
         ValueTxt.text = _IsIncrease ? valueTxt : valueTxt.Replace("+", "-");
-        ValueTxt.color = UnitManager.Instance.AllyCardColorList[_Data.Rank - 1];
+        ValueTxt.color = ResourceManager.Instance.Get_AllyCardColor(_Data.Rank - 1);
     }
 
     #endregion

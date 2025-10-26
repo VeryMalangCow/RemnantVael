@@ -220,7 +220,7 @@ public class PlayerController : AliveObjectController
 
         BaseSeq.SetLoops(-1, LoopType.Yoyo);
 
-        UnitManager.Instance.UnlockedClr = Get_CorrectColor(eDamageType.Energy, false);
+        ResourceManager.Instance.UnlockedClr = Get_CorrectColor(eDamageType.Energy, false);
 
         // Item
         CurrentChargedBettery.Value = 0;

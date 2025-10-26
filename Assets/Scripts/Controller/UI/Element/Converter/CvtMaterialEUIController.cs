@@ -76,7 +76,7 @@ public class CvtMaterialEUIController : ElementUIController
 
     public void Set_Condition(bool _Can)
     {
-        ConditionIconImg.sprite = UnitManager.Instance.CvtMaterialConditionIcon.Get_Special(_Can);
+        ConditionIconImg.sprite = ResourceManager.Instance.CvtMaterialConditionIcon.Get_Special(_Can);
         LineCG.alpha = _Can ? 1f : 0.2f;
     }
 

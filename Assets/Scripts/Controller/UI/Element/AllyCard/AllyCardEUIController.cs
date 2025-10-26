@@ -119,9 +119,9 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_Sprite(int _TypeID, AllyCardData _Data)
     {
-        FrameImg.sprite = UnitManager.Instance.AllyCardFrameList[_Data.Rank];
-        LightImg.sprite = UnitManager.Instance.AllyCardLightList[_Data.Rank];
-        BGImg.sprite = UnitManager.Instance.AllyCardBGList[_Data.Rank];
+        FrameImg.sprite = ResourceManager.Instance.Get_AllyCardFrame(_Data.Rank);
+        LightImg.sprite = ResourceManager.Instance.Get_AllyCardLight(_Data.Rank);
+        BGImg.sprite = ResourceManager.Instance.Get_AllyCardBG(_Data.Rank);
 
         IconImg.sprite = AllyManager.Instance.Get_CardIcon(_TypeID, _Data.ID);
 
@@ -130,11 +130,11 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_SpriteNull()
     {
-        FrameImg.sprite = UnitManager.Instance.AllyCardFrameList[0];
-        LightImg.sprite = UnitManager.Instance.AllyCardLightList[0];
-        BGImg.sprite = UnitManager.Instance.AllyCardBGList[0];
+        FrameImg.sprite = ResourceManager.Instance.Get_AllyCardFrame(0);
+        LightImg.sprite = ResourceManager.Instance.Get_AllyCardFrame(0);
+        BGImg.sprite = ResourceManager.Instance.Get_AllyCardBG(0);
 
-        IconImg.sprite = UnitManager.Instance.AllyNullIcon;
+        IconImg.sprite = ResourceManager.Instance.AllyNullIcon;
 
         LightSeq.timeScale = 1;
     }
@@ -145,8 +145,8 @@ public class AllyCardEUIController : OwnBtnEUIController
         DescTxt.text = _Data.Desc.Replace("\\n", "\n");
 
         RankTxt.text = ResourceManager.Instance.AllyCardRateArr[_Data.Rank];
-        RankTxt.color = UnitManager.Instance.AllyCardColorList[_Data.Rank];
-        BGImg.color = UnitManager.Instance.AllyCardColorList[_Data.Rank];
+        RankTxt.color = ResourceManager.Instance.Get_AllyCardColor(_Data.Rank);
+        BGImg.color = ResourceManager.Instance.Get_AllyCardColor(_Data.Rank);
 
         AllyCardData preCardData = AllyManager.Instance.Get_PreAllyCardData(_TypeID, _Data);
         PreNameTxt.text = preCardData != null ? $"-({preCardData.Name})->" : "";
@@ -159,8 +159,8 @@ public class AllyCardEUIController : OwnBtnEUIController
         DescTxt.text = "NULL";
 
         RankTxt.text = "NULL";
-        RankTxt.color = UnitManager.Instance.AllyCardColorList[0];
-        BGImg.color = UnitManager.Instance.AllyCardColorList[0];
+        RankTxt.color = ResourceManager.Instance.Get_AllyCardColor(0);
+        BGImg.color = ResourceManager.Instance.Get_AllyCardColor(0);
 
         PreNameTxt.gameObject.SetActive(false);
     }
@@ -170,13 +170,13 @@ public class AllyCardEUIController : OwnBtnEUIController
         switch(_TypeID)
         {
             case 0:
-                BGMarkImg.sprite = UnitManager.Instance.StrikeTeamIcon.TypeSpecial;
+                BGMarkImg.sprite = ResourceManager.Instance.Get_STPrisonIcon(false);
                 break;
             case 1:
-                BGMarkImg.sprite = UnitManager.Instance.UplinkTeamIcon.TypeSpecial;
+                BGMarkImg.sprite = ResourceManager.Instance.Get_UTPrisonIcon(false);
                 break;
             case 2:
-                BGMarkImg.sprite = UnitManager.Instance.NeoTeamIcon.TypeSpecial;
+                BGMarkImg.sprite = ResourceManager.Instance.Get_NTPrisonIcon(false);
                 break;
 
             default:

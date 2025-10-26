@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
+    #region Value
 
-    [SerializeField] private List<BulletController> CurrentBullets = new List<BulletController>();
-    [SerializeField] private List<DroppingBombController> CurrentBombs = new List<DroppingBombController>();
-    [SerializeField] private List<TotemeController> CurrentTotemes = new List<TotemeController>();
-    [SerializeField] private List<AttackerController> CurrentAttackers = new List<AttackerController>();
+    #region - Current Unit
+
+    [HideInInspector] private List<BulletController> CurrentBullets = new List<BulletController>();
+    [HideInInspector] private List<DroppingBombController> CurrentBombs = new List<DroppingBombController>();
+    [HideInInspector] private List<TotemeController> CurrentTotemes = new List<TotemeController>();
+    [HideInInspector] private List<AttackerController> CurrentAttackers = new List<AttackerController>();
 
     public void Add_Unit(BulletController _Unit) => DevTool.Add_InList(CurrentBullets, _Unit);
     public void Remove_Unit(BulletController _Unit) => DevTool.Remove_InList(CurrentBullets, _Unit);
@@ -44,11 +47,26 @@ public class UnitManager : Singleton<UnitManager>
         CurrentAttackers.Clear();
     }
 
+    #endregion
 
+    #region - Generator
 
-    #region Value
+    [Space(10)]
+    [Header("=== Generator")]
 
-    #region - Inspector
+    [Space(5)]
+    [Header("-- Explosion")]
+    [SerializeField] public PlayerExplImgGenerator Player_ExplImgGenerator;
+    [SerializeField] public BuildExplImgGenerator Build_ExplImgGenerator;
+    [SerializeField] public EnemyExplImgGenerator Enemy_ExplImgGenerator;
+
+    [Space(5)]
+    [Header("-- Anim")]
+    [SerializeField] public OnceTimeAnimGenerator OnceTime_AnimGenerator;
+
+    #endregion
+
+    #endregion
 
     [Space(20)]
     [Header("<><><><><> Unit Manager")]
@@ -60,93 +78,6 @@ public class UnitManager : Singleton<UnitManager>
         for (int i = 0; i < TestGO.Length; i++)
             TestGO[i].gameObject.SetActive(true);
     }
-
-    #region Material
-
-    [Space(10)]
-    [Header("=== Material")]
-
-    [Space(5)]
-    [Header("-- Module")]
-    [SerializeField] public Material ModuleM_000_Explosion;
-    [SerializeField] public Material ModuleM_000_Hitted;
-
-    [Space(5)]
-    [Header("-- Enemy")]
-    [SerializeField] public Material EnemyM_000_Explosion;
-
-    [Space(5)]
-    [Header("-- Build")]
-    [SerializeField] public Material Build_000;
-    [SerializeField] public CoupleData<Material> Prison_OnOffMaterial;
-
-    [Space(5)]
-    [Header("-- Core")]
-    [SerializeField] private List<IDWithClass<Sprite>> CoreSprites;
-    [HideInInspector] private Dictionary<int, Sprite> CoreSpriteDict;
-
-    #endregion
-
-    #region Sprite
-
-    [Space(10)]
-    [Header("=== Sprite")]
-
-    [Space(5)]
-    [Header("-- Build")]
-    [SerializeField] public Sprite BuildingDurFrame;
-    [SerializeField] public Sprite BuildingDurInner;
-
-    [Space(5)]
-    [Header("-- Enemy")]
-    [SerializeField] public List<Sprite> EnemyPhaseIconList;
-
-    [Space(5)]
-    [Header("-- Prison")]
-    [SerializeField] public List<Sprite> PrisonRateIconList;
-    [SerializeField] public CoupleData<Sprite> StrikeTeamIcon;
-    [SerializeField] public CoupleData<Sprite> UplinkTeamIcon;
-    [SerializeField] public CoupleData<Sprite> NeoTeamIcon;
-    [SerializeField] public PrisonAllySprite StrikeTeamAllySprites;
-    [SerializeField] public PrisonAllySprite UplinkTeamAllySprites;
-    [SerializeField] public PrisonAllySprite NeoTeamAllySprites;
-
-    [Space(5)]
-    [Header("-- Ally Card")]
-    [SerializeField] public List<Sprite> AllyCardFrameList;
-    [SerializeField] public List<Sprite> AllyCardLightList;
-    [SerializeField] public List<Sprite> AllyCardBGList;
-    [SerializeField] public List<Color> AllyCardColorList;
-    [SerializeField] public Sprite AllyNullIcon;
-
-    [Space(5)]
-    [Header("-- Key")]
-    [SerializeField] public Sprite SpaceBarSprite;
-    [SerializeField] public Sprite MLBSprite;
-    [SerializeField] public Sprite MRBSprite;
-
-    [Space(10)]
-    [Header("-- Puzzle Color")]
-    [SerializeField] public Color LockedClr;
-    [SerializeField] public Color UnlockedClr;
-
-    [Space(5)]
-    [Header("-- NSC")]
-    [SerializeField] public List<Sprite> NSC_NumSpriteList;
-    [SerializeField] public List<Sprite> NSC_ShapeSpriteList;
-    [SerializeField] public Sprite NSC_ColorSprite;
-    [SerializeField] public List<Color> NSC_ColorList;
-
-    [Space(5)]
-    [Header("-- Cvt")]
-    [SerializeField] public CoupleData<Sprite> CvtMaterialConditionIcon;
-
-    [Space(5)]
-    [Header("-- Request")]
-    [SerializeField] public List<Sprite> RequestRankSpriteList;
-    [SerializeField] private List<SpriteTypeName> RequestRewardSpriteList;
-
-    #endregion
 
     #region Anim
 
@@ -228,96 +159,4 @@ public class UnitManager : Singleton<UnitManager>
 
     #endregion
 
-    #region Puzzle
-
-    [Space(10)]
-    [Header("=== Puzzle : NSC")]
-    [SerializeField] public List<NSCAnswerSpriteSet> AllNSCAnswerSpriteSet;
-
-    #endregion
-
-    #region Converter
-
-    [Space(10)]
-    [Header("=== Converter")]
-    [SerializeField] public ConverterReso ConverterReso;
-
-    #endregion
-
-    #region Generator
-
-    [Space(10)]
-    [Header("=== Generator")]
-
-    [Space(5)]
-    [Header("-- Explosion")]
-    [SerializeField] public PlayerExplImgGenerator Player_ExplImgGenerator;
-    [SerializeField] public BuildExplImgGenerator Build_ExplImgGenerator;
-    [SerializeField] public EnemyExplImgGenerator Enemy_ExplImgGenerator;
-
-    [Space(5)]
-    [Header("-- Anim")]
-    [SerializeField] public OnceTimeAnimGenerator OnceTime_AnimGenerator;
-
-    #endregion
-
-    #endregion
-
-    #region - Hide
-
-    // Request Reward
-    [HideInInspector] public Dictionary<string, Sprite> RequestRewardDict = new Dictionary<string, Sprite>();
-
-    #endregion
-
-    #endregion
-
-    #region Offset
-
-    private void Set_DictData()
-    {
-        CoreSpriteDict = new Dictionary<int, Sprite>();
-        for (int i = 0; i < CoreSprites.Count; i++)
-        {
-            CoreSpriteDict.Add(CoreSprites[i].ID, CoreSprites[i].TypeClass);
-        }
-        CoreSprites = null;
-
-        for (int i = 0; i < RequestRewardSpriteList.Count; i++) 
-        {
-            RequestRewardDict.Add(RequestRewardSpriteList[i].Name, RequestRewardSpriteList[i].Sprite);
-        }
-    }
-
-    #endregion
-
-    #region Framework
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        Set_DictData();
-    }
-
-
-    #endregion
-
-    #region Get (NSC)
-
-    public Sprite Get_NSCAnswerSprite(int _ShapeIndex, int _NumIndex)
-    {
-        return AllNSCAnswerSpriteSet[_ShapeIndex].AllAnswerSet[_NumIndex];
-    }
-
-    #endregion
-
-    #region Get Core Item
-
-    public Sprite Get_CoreSprite(int _ID)
-    {
-        return CoreSpriteDict.ContainsKey(_ID) ? CoreSpriteDict[_ID] : null;
-    }
-
-    #endregion
 }

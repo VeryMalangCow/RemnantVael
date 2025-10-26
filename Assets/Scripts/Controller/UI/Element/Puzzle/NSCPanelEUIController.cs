@@ -97,8 +97,8 @@ public class NSCPanelEUIController : ElementUIController
         ColorRollEUI.AnswerIndex = Random.Range(0, ColorRollEUI.Get_IndexAmount());
         NumRollEUI.AnswerIndex = Random.Range(0, NumRollEUI.Get_IndexAmount());
 
-        AnswerImg.sprite = UnitManager.Instance.Get_NSCAnswerSprite(ShapeRollEUI.AnswerIndex, NumRollEUI.AnswerIndex);
-        AnswerImg.color = UnitManager.Instance.NSC_ColorList[ColorRollEUI.AnswerIndex];
+        AnswerImg.sprite = ResourceManager.Instance.Get_NSCAnswerSprite(ShapeRollEUI.AnswerIndex, NumRollEUI.AnswerIndex);
+        AnswerImg.color = ResourceManager.Instance.NSC_ColorArr[ColorRollEUI.AnswerIndex];
 
         for (int i = 0; i < AllRollEUI.Count; i++)
             AllRollEUI[i].Set_NoLock();

@@ -29,7 +29,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
         State_TF2D tf = new State_TF2D(
             _SpawnPos, DevTool.Get_FlipRotation(_Rotation), Vector2.one);
         State_Sprite sprite = new State_Sprite(
-            UnitManager.Instance.ModuleM_000_Explosion, Color.white);
+            ResourceManager.Instance.Get_ModuleMaterial("Explosion"), Color.white);
 
         Gen_OOA().Start_Anim(anim, tf, sprite);
     }
@@ -47,7 +47,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
             State_TF2D tf = new State_TF2D(
                 _SpawnPos, DevTool.Add_RotZValue(_Rotation, i == 0 ? -45 : 45), Vector2.one);
             State_Sprite sprite = new State_Sprite(
-                UnitManager.Instance.ModuleM_000_Explosion, Color.white);
+                ResourceManager.Instance.Get_ModuleMaterial("Explosion"), Color.white);
 
             Gen_OOA().Start_Anim(anim, tf, sprite);
         }
@@ -62,7 +62,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
         State_TF2D tf = new State_TF2D(
             _SpawnPos, DevTool.Add_RotZValue(Quaternion.identity, DevTool.Get_RandomValueBaseZero(45f)), Vector2.one * 2f);
         State_Sprite sprite = new State_Sprite(
-            UnitManager.Instance.ModuleM_000_Explosion, Color.white);
+            ResourceManager.Instance.Get_ModuleMaterial("Explosion"), Color.white);
 
         Gen_OOA().Start_Anim(anim, tf, sprite);
     }

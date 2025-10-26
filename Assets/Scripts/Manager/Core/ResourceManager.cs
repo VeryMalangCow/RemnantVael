@@ -5,10 +5,28 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.U2D;
 
 public class ResourceManager : PersistentSingleton<ResourceManager>
 {
+    [Space(5)]
+    [Header("-- ModuleItem")]
+    [SerializeField] public List<AnimationClip> ModuleItemOutlinerAC;
+
+    [Space(5)]
+    [Header("-- Keycard")]
+    [SerializeField] public AnimationClip KeycardItemOutlinerAC;
+    [SerializeField] public List<Color> KeycardItemOutlinerColorList;
+
+    [Space(5)]
+    [Header("-- Core")]
+    [SerializeField] public AnimationClip CoreItemOutlinerAC;
+
+    [Space(5)]
+    [Header("-- Expl")]
+    [SerializeField] public AnimationClip ExplosionAC;
+    [SerializeField] public List<AnimationClip> AttributeExplosionACList;
+
+
     #region File
 
     #region T
@@ -67,6 +85,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
+
     #region Framework
 
     protected override void Awake()
@@ -107,12 +126,20 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     private void Offset_Sprite()
     {
+        Offset_Sprite_Static();
         Offset_Sprite_Cutscene();
         Offset_Sprite_Dialogue();
         Offset_Sprite_ModuleItem();
         Offset_Sprite_AllyCard();
+        Offset_Sprite_AllyRequest();
         Offset_Sprite_Map();
         Offset_Sprite_Ally();
+        Offset_Sprite_PuzzleNSC();
+    }
+
+    private void Offset_Material()
+    {
+        Offset_Material_Static();
     }
 
     private void Offset_Prefab()
@@ -122,15 +149,23 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Prefab_ModuleItem();
     }
 
+    private void Offset_Anim()
+    {
+        Offset_Anim_Converter();
+    }
+
     private void Offset()
     {
         Offset_Other();
         Offset_CSV();
         Offset_Sprite();
-        Offset_Prefab();
+        Offset_Material();
+        Offset_Prefab(); 
+        Offset_Anim();
     }
 
     #endregion
+
 
     #region SDF + Language
 
@@ -148,7 +183,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] public string UplinkTeamString;
     [HideInInspector] public string NeoTeamString;
     [HideInInspector] public string[] AllyCardRateArr;
-
 
     private void Offset_SDF()
     {
@@ -289,6 +323,159 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public int Get_AllAllyRandomNameAmount() => RandomName_Data.Get_Amount();
 
     #endregion
+    #region Static (Sprite)
+
+    // Value
+    [HideInInspector] private Dictionary<int, Sprite> CoreSpriteDict;
+    [HideInInspector] private Sprite[] EnemyPhaseSpriteArr;
+    [HideInInspector] private Sprite[] PrisonRateIconArr;
+
+    [HideInInspector] public Sprite BuildingDurFrame { get; private set; }
+    [HideInInspector] public Sprite BuildingDurInner { get; private set; }
+
+    [HideInInspector] public Sprite SpaceBarSprite { get; private set; }
+    [HideInInspector] public Sprite MLBSprite { get; private set; }
+    [HideInInspector] public Sprite MRBSprite { get; private set; }
+
+    [HideInInspector] public Color LockedClr { get; private set; }
+    [HideInInspector] public Color UnlockedClr;
+
+    [HideInInspector] public CoupleData<Sprite> CvtMaterialConditionIcon { get; private set; }
+
+    // Offset
+    private void Offset_Sprite_Static()
+    {
+        string path = "Sprite/";
+
+        #region Module
+
+        string modulePath = path + "Module/";
+        CoreSpriteDict = new Dictionary<int, Sprite>();
+        Sprite[] moduleSprites = GetAsset_Arr<Sprite>(modulePath, "Module_000");
+        for (int i = 0; i < moduleSprites.Length; i++)
+        {
+            Sprite sprite = moduleSprites[i];
+
+            if (sprite.name == "Module_ProtoCore")
+                CoreSpriteDict.Add(1, sprite);
+            else if (sprite.name == "Module_EtherCore")
+                CoreSpriteDict.Add(2, sprite);
+            else if (sprite.name == "Module_OriginCore")
+                CoreSpriteDict.Add(3, sprite);
+        }
+
+        #endregion
+
+        #region Module UI
+
+        string moduleUIPath = path + "UI/ModuleUI/";
+        Sprite[] moduleUISprites = GetAsset_Arr<Sprite>(moduleUIPath, "ModuleUI_000");
+        CvtMaterialConditionIcon = new CoupleData<Sprite>(null, null);
+        for (int i = 0; i < moduleUISprites.Length; i++)
+        {
+            Sprite sprite = moduleUISprites[i];
+
+            if (sprite.name == "ModuleUI_Input_SpaceBar")
+                SpaceBarSprite = sprite;
+            else if (sprite.name == "ModuleUI_MLB")
+                MLBSprite = sprite;
+            else if (sprite.name == "ModuleUI_MRB")
+                MRBSprite = sprite;
+
+            else if (sprite.name == "ModuleUI_13s_X")
+                CvtMaterialConditionIcon.TypeBase = sprite;
+            else if (sprite.name == "ModuleUI_13s_O")
+                CvtMaterialConditionIcon.TypeSpecial = sprite;
+        }
+
+        #endregion
+
+        #region Enemy
+
+        string enemyPath = path + "Enemy/";
+        EnemyPhaseSpriteArr = new Sprite[3]; // 3
+        Sprite[] enemySprites = GetAsset_Arr<Sprite>(enemyPath, "Enemy00_000");
+        for (int i = 0; i < enemySprites.Length; i++)
+        {
+            Sprite sprite = enemySprites[i];
+
+            if (Get_InSpriteName(sprite, "Enemy_Icon_BossPhase_", out int index0))
+                EnemyPhaseSpriteArr[index0] = sprite;
+        }
+
+        #endregion
+
+        #region Building
+
+        string buildingPath = path + "Building/";
+        PrisonRateIconArr = new Sprite[5]; // 5
+        Sprite[] building000Sprites = GetAsset_Arr<Sprite>(buildingPath, "Building_000");
+        for (int i = 0; i < building000Sprites.Length; i++)
+        {
+            Sprite sprite = building000Sprites[i];
+
+            if (sprite.name == "Building000_Durablity_Frame")
+                BuildingDurFrame = sprite;
+            else if (sprite.name == "Building000_Durablity_Inner")
+                BuildingDurInner = sprite;
+
+            else if (Get_InSpriteName(sprite, "Building000_DangerRate", out int index))
+                PrisonRateIconArr[index - 1] = sprite;
+        }
+
+        #endregion
+
+        #region Color
+
+        ColorUtility.TryParseHtmlString("#C388FF", out Color lockedClr);
+        LockedClr = lockedClr;
+        ColorUtility.TryParseHtmlString("#FFFFFF", out Color unlockedClr);
+        UnlockedClr = unlockedClr;
+
+        #endregion
+    }
+
+    // Get
+    public Sprite Get_CoreSprite(int _ID) => CoreSpriteDict[_ID];
+    public Sprite Get_BossPhaseSprite(int _ID) => EnemyPhaseSpriteArr[_ID];
+    public Sprite Get_PrisonRankSprite(int _ID) => PrisonRateIconArr[_ID];
+
+    #endregion
+    #region Static (Material)
+
+    // Value
+    [HideInInspector] private Dictionary<string, Material> StaticMaterialDict;
+
+    // Offset
+    private void Offset_Material_Static()
+    {
+        string path = "Material/";
+        string modulePath = path + "Module/";
+        string enemyPath = path + "Enemy/";
+        string buildPath = path + "Build/";
+
+        StaticMaterialDict = new Dictionary<string, Material>()
+        {
+            { "Module_Explosion", GetAsset<Material>(modulePath, "Module_000_Explosion") },
+            { "Module_Hitted", GetAsset<Material>(modulePath, "Module_000_Hitted") },
+
+            { "Enemy_Explosion", GetAsset<Material>(enemyPath, "Enemy00_000") },
+
+            { "Build_Durablity", GetAsset<Material>(buildPath, "Build_000") },
+            { "Build_PrisonOff", GetAsset<Material>(buildPath, "Build_001") },
+            { "Build_PrisonOn", GetAsset<Material>(buildPath, "Build_002") }
+        };
+
+    }
+
+    // Get
+    public Material Get_ModuleMaterial(string _Name) => StaticMaterialDict[$"Module_{_Name}"];
+    public Material Get_EnemyMaterial(string _Name) => StaticMaterialDict[$"Enemy_{_Name}"];
+    public Material Get_BuildMaterial(string _Name) => StaticMaterialDict[$"Build_{_Name}"];
+    public CoupleData<Material> Get_CoupleBuildMaterial(string _BaseName, string _SpecialName)
+        => new CoupleData<Material>(Get_BuildMaterial(_BaseName), Get_BuildMaterial(_SpecialName));
+
+    #endregion
 
     #region Event (CSV)
 
@@ -312,7 +499,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 1; i < stringArr.Length; i++)
         {
-            if (stringArr[i][0] == "") break; 
+            if (stringArr[i][0] == "") break;
 
             EventElement eventElement = new EventElement();
 
@@ -388,7 +575,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 1; i < stringArr.Length; i++)
         {
-            if (stringArr[i][0] == "") break; 
+            if (stringArr[i][0] == "") break;
 
             int id = int.Parse(stringArr[i][0]);
             List<int> idList = new List<int>();
@@ -405,7 +592,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         return result.ToArray();
     }
-    
+
 
     // ID에 맞는 EventID를 가져온 후, 그에 맞는 EventElement List를 가져옴
     public List<EventElement> Get_CorrectEventArr(int _ID)
@@ -440,7 +627,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         CutsceneElement_Data = new CutsceneElement[GameManager.KindOfLanguage.Length][];
         for (int i = 0; i < CutsceneElement_Data.Length; i++)
             CutsceneElement_Data[i] = GetAsset_CutsceneElement(path, $"CutsceneElement_{GameManager.KindOfLanguage[i]}_CSV");
-        
+
         CutsceneID_Data = GetAsset_CutsceneID(path, "CutsceneID_CSV");
     }
 
@@ -452,7 +639,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 1; i < stringList.Length; i++)
         {
-            if (stringList[i][0] == "") break; 
+            if (stringList[i][0] == "") break;
 
             int id = int.Parse(stringList[i][0]);
             string script = stringList[i][1];
@@ -471,14 +658,14 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 1; i < stringList.Length; i++)
         {
-            if (stringList[i][0] == "") break; 
+            if (stringList[i][0] == "") break;
 
             int id = int.Parse(stringList[i][0]);
 
             List<int> idList = new List<int>();
             for (int j = 1; j < stringList[i].Length; j++)
             {
-                if (stringList[i][j] == "" || stringList[i][j] == null) break; 
+                if (stringList[i][j] == "" || stringList[i][j] == null) break;
 
                 int elementId = int.Parse(stringList[i][j]);
                 idList.Add(elementId);
@@ -553,7 +740,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 1; i < stringList.Length; i++)
         {
-            if (stringList[i][0] == "") break; 
+            if (stringList[i][0] == "") break;
 
             int id = int.Parse(stringList[i][0]);
             string name = stringList[i][1];
@@ -667,7 +854,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 1; i < stringList.Length; i++)
         {
-            if (stringList[i][0] == "") break; 
+            if (stringList[i][0] == "") break;
 
             int id = int.Parse(stringList[i][0]);
             int r1mainChip = int.Parse(stringList[i][1]);
@@ -747,8 +934,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private Sprite[] ModuleSynhronySpritet_Data;
 
     [HideInInspector] private Sprite[] RankIconArr;
-    [HideInInspector] private Sprite[] MUUIDescRankIconArr;
-    
+    [HideInInspector] private Sprite[] DescRankIconArr;
+
     // Offset
     private void Offset_Sprite_ModuleItem()
     {
@@ -756,39 +943,32 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         ModuleItemSprite_Data = GetAsset_Arr<Sprite>(path, "MUItemUI_000");
         ModuleSynhronySpritet_Data = GetAsset_Arr<Sprite>(path, "MUSynchronyUI_000");
 
-        RankIconArr = new Sprite[5];
-        MUUIDescRankIconArr = new Sprite[5];
+        RankIconArr = new Sprite[5]; // 5
+        DescRankIconArr = new Sprite[5]; // 5
 
         Sprite[] allMUUI = GetAsset_Arr<Sprite>(path, "MUUI_000");
-        string rankSpriteName = "MUUI_Rank_";
-        string rankDescSpriteName = "MUUI_DescRank_";
         for (int i = 0; i < allMUUI.Length; i++)
         {
             Sprite sprite = allMUUI[i];
 
-            if (sprite.name.Length > rankSpriteName.Length && sprite.name.StartsWith(rankSpriteName))
-            {
-                int index = int.Parse(sprite.name.Replace(rankSpriteName, "")) - 1;
-                RankIconArr[index] = sprite;
-            }
-            else if (sprite.name.Length > rankDescSpriteName.Length && sprite.name.StartsWith(rankDescSpriteName))
-            {
-                int index = int.Parse(sprite.name.Replace(rankDescSpriteName, "")) - 1;
-                MUUIDescRankIconArr[index] = sprite;
-            }
+            if (Get_InSpriteName(sprite, "MUUI_Rank_", out int index0))
+                RankIconArr[index0 - 1] = sprite;
+            else if (Get_InSpriteName(sprite, "MUUI_DescRank_", out int index1))
+                DescRankIconArr[index1 - 1] = sprite;
+            
         }
     }
 
     // Get
     public Sprite Get_RankIcon(int _Rank) => RankIconArr[_Rank - 1];
-    public Sprite Get_DescRankIcon(int _Rank) => MUUIDescRankIconArr[_Rank - 1];
+    public Sprite Get_DescRankIcon(int _Rank) => DescRankIconArr[_Rank - 1];
 
     #endregion
     #region Item - Module (Prefab)
 
     // Value
-    [SerializeField] private GameObject InventoryItemPrefab;
-    [SerializeField] private GameObject InventorySlotPrefab;
+    [HideInInspector] private GameObject InventoryItemPrefab;
+    [HideInInspector] private GameObject InventorySlotPrefab;
 
     // Offset
     private void Offset_Prefab_ModuleItem()
@@ -804,7 +984,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
-    #region Item - AllyCard (CSV)
+    #region AllyCard (CSV)
 
     // Value
     [HideInInspector] private AllyCardBaseData[] StrikeTeam_AllyCard_Data;
@@ -855,7 +1035,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 1; i < stringList.Length; i++)
         {
-            if (stringList[i][0] == "") break; 
+            if (stringList[i][0] == "") break;
 
             int id = int.Parse(stringList[i][0]);
             int rank = int.Parse(stringList[i][1]);
@@ -872,7 +1052,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public AllyCardData[] Get_StrikeTeam_AllAllyCardData() => Get_Team_AllAllyCardData(StrikeTeam_AllyCard_Data, StrikeTeam_AllyCardName_Data, StrikeTeam_AllyCardDesc_Data);
     public AllyCardData[] Get_UplinkTeam_AllAllyCardData() => Get_Team_AllAllyCardData(UplinkTeam_AllyCard_Data, UplinkTeam_AllyCardName_Data, UplinkTeam_AllyCardDesc_Data);
     public AllyCardData[] Get_NeoTeam_AllAllyCardData() => Get_Team_AllAllyCardData(NeoTeam_AllyCard_Data, NeoTeam_AllyCardName_Data, NeoTeam_AllyCardDesc_Data);
-    
+
     public AllyCardData[] Get_Team_AllAllyCardData(AllyCardBaseData[] _Data, WordSet_Just _NameWord, WordSet_Just _DescWord)
     {
         List<AllyCardData> result = new List<AllyCardData>();
@@ -883,7 +1063,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     #endregion
-    #region Item - AllyCard (Sprite)
+    #region AllyCard (Sprite & Color)
 
     // Value
     [HideInInspector] private Sprite[][] AllyCardIcon_Data;
@@ -892,15 +1072,63 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private static readonly int UTIconAmount = 1;
     [HideInInspector] private static readonly int NTIconAmount = 1;
 
+    [HideInInspector] private Sprite[] AllyCardFrameArr;
+    [HideInInspector] private Sprite[] AllyCardLightArr;
+    [HideInInspector] private Sprite[] AllyCardBGArr;
+
+    [HideInInspector] private Color[] AllyCardColorArr;
+    [HideInInspector] public Sprite AllyNullIcon { get; private set; }
+
     // Offset
     private void Offset_Sprite_AllyCard()
     {
+        string path = "Sprite/";
+
         AllyCardIcon_Data = new Sprite[][]
         {
             GetAsset_AllyCardIcon(STIconAmount, "ST"),
             GetAsset_AllyCardIcon(UTIconAmount, "UT"),
             GetAsset_AllyCardIcon(NTIconAmount, "NT")
         };
+
+        string allyCardPath = path + "UI/Ally/";
+
+        Sprite[] allyCardFrameSprites = GetAsset_Arr<Sprite>(allyCardPath, "AllyCardFrame_000");
+        AllyCardFrameArr = new Sprite[6]; // 6
+        AllyCardLightArr = new Sprite[6];
+        AllyCardBGArr = new Sprite[6];
+        for (int i = 0; i < allyCardFrameSprites.Length; i++)
+        {
+            Sprite sprite = allyCardFrameSprites[i];
+
+            if (Get_InSpriteName(sprite, "AllyCardFrame_000_Frame_", out int indexf))
+                AllyCardFrameArr[indexf] = sprite;
+            else if (Get_InSpriteName(sprite, "AllyCardFrame_000_Light_", out int indexl))
+                AllyCardLightArr[indexl] = sprite;
+            else if (Get_InSpriteName(sprite, "AllyCardFrame_000_BG_", out int indexB))
+                AllyCardBGArr[indexB] = sprite;
+        }
+
+
+        AllyCardColorArr = new Color[6];
+        ColorUtility.TryParseHtmlString("#FFFFFF", out AllyCardColorArr[0]);
+        ColorUtility.TryParseHtmlString("#D4FACA", out AllyCardColorArr[1]);
+        ColorUtility.TryParseHtmlString("#64F9F8", out AllyCardColorArr[2]);
+        ColorUtility.TryParseHtmlString("#B366FD", out AllyCardColorArr[3]);
+        ColorUtility.TryParseHtmlString("#FE4C31", out AllyCardColorArr[4]);
+        ColorUtility.TryParseHtmlString("#FFFFE1", out AllyCardColorArr[5]);
+
+
+        string moduleUiPath = path + "UI/ModuleUI/";
+
+        Sprite[] moduleUiSprites = GetAsset_Arr<Sprite>(moduleUiPath, "ModuleUI_000");
+        for (int i = 0; i < moduleUiSprites.Length; i++)
+        {
+            Sprite sprite = moduleUiSprites[i];
+
+            if (sprite.name == "ModuleUI_Icon_NullCard")
+                AllyNullIcon = sprite;
+        }
     }
 
     private Sprite[] GetAsset_AllyCardIcon(int _SpriteAmount, string _TypeName)
@@ -919,6 +1147,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // Get
     public Sprite[] Get_AllyCardSpriteIcon(int _Type) => AllyCardIcon_Data[_Type];
 
+    public Sprite Get_AllyCardFrame(int _Rank) => AllyCardFrameArr[_Rank];
+    public Sprite Get_AllyCardLight(int _Rank) => AllyCardLightArr[_Rank];
+    public Sprite Get_AllyCardBG(int _Rank) => AllyCardBGArr[_Rank];
+
+    public Color Get_AllyCardColor(int _Rank) => AllyCardColorArr[_Rank];
+
     #endregion
 
     #region Ally (Sprite)
@@ -927,11 +1161,52 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     private static readonly string[] directionOrder = new string[] { "UL", "U", "UR", "R", "DR", "D", "DL", "L" };
     [HideInInspector] private Sprite[] AllySprite_Data;
 
+    [HideInInspector] private CoupleData<Sprite> StrikeTeamIcon = new CoupleData<Sprite>(null, null);
+    [HideInInspector] private CoupleData<Sprite> UplinkTeamIcon = new CoupleData<Sprite>(null, null);
+    [HideInInspector] private CoupleData<Sprite> NeoTeamIcon = new CoupleData<Sprite>(null, null);
+
+    [HideInInspector] public PrisonAllySprite StrikeTeamAllySprites { get; private set; }
+    [HideInInspector] public PrisonAllySprite UplinkTeamAllySprites { get; private set; }
+    [HideInInspector] public PrisonAllySprite NeoTeamAllySprites { get; private set; }
+
     // Offset
     private void Offset_Sprite_Ally()
     {
-        string path = "Sprite/Ally/";
-        AllySprite_Data = GetAsset_Arr<Sprite>(path,"Ally_001");
+        string path = "Sprite/";
+
+        string allyPath = path + "Ally/";
+
+        AllySprite_Data = GetAsset_Arr<Sprite>(allyPath, "Ally_001");
+
+        string buildingPath = path + "Building/";
+        Sprite[] building000Sprites = GetAsset_Arr<Sprite>(buildingPath, "Building_000");
+        for (int i = 0; i < building000Sprites.Length; i++)
+        {
+            Sprite sprite = building000Sprites[i];
+
+            if (Get_InSpriteName(sprite, StrikeTeamIcon, "Building000_StrikeTeamMark_", "Small", "Big"))
+                continue;
+            else if (Get_InSpriteName(sprite, UplinkTeamIcon, "Building000_UplinkTeamMark_", "Small", "Big"))
+                continue;
+            else if (Get_InSpriteName(sprite, NeoTeamIcon, "Building000_NeoTeamMark_", "Small", "Big"))
+                continue;
+        }
+
+        StrikeTeamAllySprites = new PrisonAllySprite();
+        UplinkTeamAllySprites = new PrisonAllySprite();
+        NeoTeamAllySprites = new PrisonAllySprite();
+        Sprite[] ally000Sprites = GetAsset_Arr<Sprite>(allyPath, "Ally_000");
+        for (int i = 0; i < ally000Sprites.Length; i++)
+        {
+            Sprite sprite = ally000Sprites[i];
+
+            if (Get_InSpriteName(sprite, StrikeTeamAllySprites, "Ally000_ST_InPrison_"))
+                continue;
+            if (Get_InSpriteName(sprite, UplinkTeamAllySprites, "Ally000_UT_InPrison_"))
+                continue;
+            if (Get_InSpriteName(sprite, NeoTeamAllySprites, "Ally000_NT_InPrison_"))
+                continue;
+        }
     }
 
     // Get
@@ -971,6 +1246,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         int index = System.Array.IndexOf(directionOrder, dir);
         return index >= 0 ? index : int.MaxValue;
     }
+
+
+    public Sprite Get_STPrisonIcon(bool _IsBase) => StrikeTeamIcon.Get_Base(_IsBase);
+    public Sprite Get_UTPrisonIcon(bool _IsBase) => UplinkTeamIcon.Get_Base(_IsBase);
+    public Sprite Get_NTPrisonIcon(bool _IsBase) => NeoTeamIcon.Get_Base(_IsBase);
 
 
     #endregion
@@ -1032,6 +1312,43 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public string Get_RequestFailDesc(int _ID) => RequestFailDesc_Data.Get_Word(_ID);
 
     #endregion
+    #region AllyRequest (Sprite)
+
+    // Value
+    [HideInInspector] private Sprite[] RequestRankSpriteList;
+    [HideInInspector] private Dictionary<string, Sprite> RequestRewardDict;
+
+    // Offset
+    private void Offset_Sprite_AllyRequest()
+    {
+        string path = "Sprite/";
+
+        string moduleUIPath = path + "UI/ModuleUI/";
+        Sprite[] moduleUISprites = GetAsset_Arr<Sprite>(moduleUIPath, "ModuleUI_000");
+        RequestRankSpriteList = new Sprite[5];
+        RequestRewardDict = new Dictionary<string, Sprite>();
+        for (int i = 0; i < moduleUISprites.Length; i++)
+        {
+            Sprite sprite = moduleUISprites[i];
+
+            if (Get_InSpriteName(sprite, "ModuleUI_RequestRank_", out int index))
+                RequestRankSpriteList[index] = sprite;
+
+            else if (sprite.name == "ModuleUI_13s_BC")
+                RequestRewardDict.Add("BC", sprite);
+            else if (sprite.name == "ModuleUI_13s_Credit")
+                RequestRewardDict.Add("Credit", sprite);
+            else if (sprite.name == "ModuleUI_13s_EP")
+                RequestRewardDict.Add("EP", sprite);
+        }
+
+    }
+
+    // Get
+    public Sprite Get_AllyRequestRank(int _Rank) => RequestRankSpriteList[_Rank];
+    public Sprite Get_AllyRequestReward(string _Type) => RequestRewardDict[_Type];
+
+    #endregion
 
     #region Map (CSV)
 
@@ -1059,7 +1376,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 1; i < stringList.Length; i++)
         {
-            if (stringList[i][0] == "") break; 
+            if (stringList[i][0] == "") break;
 
             int pastIndex = int.Parse(stringList[i][0]);
             int nextIndex = int.Parse(stringList[i][1]);
@@ -1098,12 +1415,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         if (MapNextIndex_Data.ContainsKey(_PastIndex))
             return MapNextIndex_Data[_PastIndex].NextIndexList;
-        
+
         return null;
     }
 
     #endregion
-    #region Map (Sprite)
+    #region Map (Sprite & Material)
 
     // Value
     [HideInInspector] private int EachKindOfMapAmount = 2;
@@ -1264,6 +1581,114 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
+    #region Puzzle NSC (Sprite & Color)
+
+    // Value
+    [HideInInspector] public Sprite[] NSC_NumSpriteArr { get; private set; }
+    [HideInInspector] public Sprite[] NSC_ShapeSpriteArr { get; private set; }
+    [HideInInspector] public Color[] NSC_ColorArr { get; private set; }
+    [HideInInspector] public Sprite NSC_ColorSprite { get; private set; }
+
+
+    [HideInInspector] private NSCAnswerSpriteSet[] AllNSCAnswerSpriteSet;
+
+    // Offset
+    private void Offset_Sprite_PuzzleNSC()
+    {
+        string path = "Sprite/";
+
+        string moduleUIPath = path + "UI/ModuleUI/";
+        NSC_NumSpriteArr = new Sprite[5]; //5
+        NSC_ShapeSpriteArr = new Sprite[5];
+        AllNSCAnswerSpriteSet = new NSCAnswerSpriteSet[5];
+        for (int i = 0; i < AllNSCAnswerSpriteSet.Length; i++)
+        {
+            AllNSCAnswerSpriteSet[i] = new NSCAnswerSpriteSet();
+            AllNSCAnswerSpriteSet[i].ShapeIndex = i;
+            AllNSCAnswerSpriteSet[i].AllAnswerSet = new Sprite[5];
+        }
+        Sprite[] moduleUISprites = GetAsset_Arr<Sprite>(moduleUIPath, "ModuleUI_000");
+        for (int i = 0; i < moduleUISprites.Length; i++)
+        {
+            Sprite sprite = moduleUISprites[i];
+
+            if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_Num_", out int index))
+                NSC_NumSpriteArr[index - 1] = sprite;
+            else if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_Shape_", out string indexS))
+            {
+                switch (indexS)
+                {
+                    case "Circle": NSC_ShapeSpriteArr[0] = sprite; break;
+                    case "Triangle": NSC_ShapeSpriteArr[1] = sprite; break;
+                    case "Rectangle": NSC_ShapeSpriteArr[2] = sprite; break;
+                    case "X": NSC_ShapeSpriteArr[3] = sprite; break;
+                    case "HalfCircle": NSC_ShapeSpriteArr[4] = sprite; break;
+                    default: break;
+                }
+            }
+            else if (sprite.name == "ModuleUI_RollSelect_Color")
+                NSC_ColorSprite = sprite;
+
+            else if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_A_C_", out int index_a_c))
+                AllNSCAnswerSpriteSet[0].AllAnswerSet[index_a_c - 1] = sprite;
+            else if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_A_T_", out int index_a_t))
+                AllNSCAnswerSpriteSet[1].AllAnswerSet[index_a_t - 1] = sprite;
+            else if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_A_R_", out int index_a_r))
+                AllNSCAnswerSpriteSet[2].AllAnswerSet[index_a_r - 1] = sprite;
+            else if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_A_X_", out int index_a_x))
+                AllNSCAnswerSpriteSet[3].AllAnswerSet[index_a_x - 1] = sprite;
+            else if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_A_H_", out int index_a_h))
+                AllNSCAnswerSpriteSet[4].AllAnswerSet[index_a_h - 1] = sprite;
+        }
+
+
+        NSC_ColorArr = new Color[5];
+        ColorUtility.TryParseHtmlString("#FF0000", out NSC_ColorArr[0]);
+        ColorUtility.TryParseHtmlString("#FFFF00", out NSC_ColorArr[1]);
+        ColorUtility.TryParseHtmlString("#00FF00", out NSC_ColorArr[2]);
+        ColorUtility.TryParseHtmlString("#0000FF", out NSC_ColorArr[3]);
+        ColorUtility.TryParseHtmlString("#FF00FF", out NSC_ColorArr[4]);
+    }
+
+    // Get
+    public Sprite Get_NSCAnswerSprite(int _ShapeIndex, int _NumIndex) => AllNSCAnswerSpriteSet[_ShapeIndex].AllAnswerSet[_NumIndex];
+
+    #endregion
+
+    #region Converter (Material & Anim)
+
+    // Value
+    [SerializeField] private ConverterReso ConverterReso;
+
+    // Offset
+    private void Offset_Anim_Converter()
+    {
+        string materialPath = "Material/Build/";
+        string animPath = "Anim/Building/Converter/";
+
+        string converterAnimName = "Clip_Converter_";
+        string converterMaterialName = "Build_003";
+        ConverterReso = new ConverterReso();
+
+        ConverterReso.Add(new EachConverterReso(
+            GetAsset<AnimationClip>(animPath, converterAnimName + "PremiumCredit"),
+            GetAsset<Material>(materialPath, converterMaterialName)));
+        ConverterReso.Add(new EachConverterReso(
+            GetAsset<AnimationClip>(animPath, converterAnimName + "ProtoCore"),
+            GetAsset<Material>(materialPath, converterMaterialName)));
+        ConverterReso.Add(new EachConverterReso(
+            GetAsset<AnimationClip>(animPath, converterAnimName + "EtherCore"),
+            GetAsset<Material>(materialPath, converterMaterialName)));
+        ConverterReso.Add(new EachConverterReso(
+            GetAsset<AnimationClip>(animPath, converterAnimName + "OriginCore"),
+            GetAsset<Material>(materialPath, converterMaterialName)));
+    }
+
+    // Get
+    public EachConverterReso Get_ConverterReso(int _ID) => ConverterReso.ConverterResoList[_ID];
+
+    #endregion
+
     #region GetAsset_WordData
 
     private WordSet_Just[] GetAsset_WordDataArr_ForParentID(string _Path, string _FileName, int _Amount)
@@ -1342,6 +1767,80 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         }
 
         return new WordSet_WithClr(elementDict);
+    }
+
+    #endregion
+
+    #region GetAsset_SpriteName
+
+    private bool Get_InSpriteName(Sprite _Sprite, string _Name, out int _Index)
+    {
+        _Index = -1;
+        if (_Sprite.name.Length > _Name.Length && _Sprite.name.StartsWith(_Name))
+        {
+            if (int.TryParse(_Sprite.name.Replace(_Name, ""), out _Index))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool Get_InSpriteName(Sprite _Sprite, string _Name, out string _Index)
+    {
+        _Index = "";
+        if (_Sprite.name.Length > _Name.Length && _Sprite.name.StartsWith(_Name))
+        {
+            _Index = _Sprite.name.Replace(_Name, "");
+            return true;
+        }
+        return false;
+    }
+
+    private bool Get_InSpriteName(Sprite _Sprite, CoupleData<Sprite> _Data, string _Name, string _Base, string _Special)
+    {
+        if (Get_InSpriteName(_Sprite, _Name, out string _index))
+        {
+            if (_index == _Base)
+            {
+                _Data.TypeBase = _Sprite;
+                return true;
+            }  
+            else if (_index == _Special)
+            {
+                _Data.TypeSpecial = _Sprite;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool Get_InSpriteName(Sprite _Sprite, PrisonAllySprite _Data, string _Name)
+    {
+        if (Get_InSpriteName(_Sprite, _Name, out string _index))
+        {
+            if (_index == "Bind")
+            { 
+                _Data.Bind = _Sprite;
+                return true;
+            }
+            else if (_index == "Fall")
+            { 
+                _Data.Fall = _Sprite;
+                return true;
+            }
+            else if (_index == "Stand")
+            { 
+                _Data.Stand = _Sprite;
+                return true;
+            }
+            else if (_index == "Salute")
+            { 
+                _Data.Salute = _Sprite;
+                return true;
+            }
+        }
+        return false;
     }
 
     #endregion

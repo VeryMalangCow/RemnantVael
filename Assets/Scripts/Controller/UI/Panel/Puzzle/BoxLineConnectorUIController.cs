@@ -86,9 +86,9 @@ public class BoxLineConnectorUIController : PuzzleUIController
             AllBoxConnectionEUI[i].Offset();
         }
 
-        RightRollInputImg.sprite = UnitManager.Instance.MLBSprite;
+        RightRollInputImg.sprite = ResourceManager.Instance.MLBSprite;
         RightRollInputImg.SetNativeSize();
-        LeftRollInputImg.sprite = UnitManager.Instance.MRBSprite;
+        LeftRollInputImg.sprite = ResourceManager.Instance.MRBSprite;
         LeftRollInputImg.SetNativeSize();
     }
 
@@ -115,7 +115,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        Set_AllInnerColor(UnitManager.Instance.UnlockedClr);
+        Set_AllInnerColor(ResourceManager.Instance.UnlockedClr);
 
         // Selecting
         SelectingBoxCellEUI = null;
@@ -148,7 +148,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
         for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
             AllBoxConnectionEUI[i].Set_Active(false);
 
-        Set_AllInnerColor(UnitManager.Instance.LockedClr);
+        Set_AllInnerColor(ResourceManager.Instance.LockedClr);
 
         // Selecting
         SelectingBoxCellEUI = null;

@@ -5,9 +5,9 @@ public class UplinkTeamPrisonController : PrisonController
 
     private void Offset_TypeIconTxt()
     {
-        TypeIcon.sprite = UnitManager.Instance.UplinkTeamIcon.TypeSpecial;
+        TypeIcon.sprite = ResourceManager.Instance.Get_UTPrisonIcon(false);
 
-        AllySprites = UnitManager.Instance.UplinkTeamAllySprites;
+        AllySprites = ResourceManager.Instance.UplinkTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
         {
             PrisonAllySRList[i].sprite = AllySprites.Bind;

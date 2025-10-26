@@ -66,10 +66,10 @@ public class AllyRequestUIController : MonoBehaviour
         CompleteDescTxt.text = _Request.Get_CompleteDesc();
         FailDescTxt.text = _Request.Get_FailDesc();
 
-        DiffcultyImg.sprite = UnitManager.Instance.RequestRankSpriteList[_Request.Get_Rank()];
+        DiffcultyImg.sprite = ResourceManager.Instance.Get_AllyRequestRank(_Request.Get_Rank());
         DiffcultyExtraTxt.text = $"{(_Request.Get_Rank() + 1)}";
 
-        RewardImg.sprite = UnitManager.Instance.RequestRewardDict[_Request.Get_RewardType()];
+        RewardImg.sprite = ResourceManager.Instance.Get_AllyRequestReward(_Request.Get_RewardType());
         int extraAmount = AllyRequest.RewardCaculateDict[_Request.Get_RewardType()](_Request.Get_Rank());
         if (extraAmount != -1)
         { RewardExtraTxt.text = $"+{extraAmount}"; }

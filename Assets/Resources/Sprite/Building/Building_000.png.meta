@@ -6187,7 +6187,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building000_UplinkMark_Small
+      name: Building000_UplinkTeamMark_Small
       rect:
         serializedVersion: 2
         x: 432
@@ -6208,7 +6208,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building000_TechDivisionMark_Small
+      name: Building000_NeoTeamMark_Small
       rect:
         serializedVersion: 2
         x: 432
@@ -6229,7 +6229,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building000_TechDivisionMark_Big
+      name: Building000_NeoTeamMark_Big
       rect:
         serializedVersion: 2
         x: 442
@@ -6250,7 +6250,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Building000_UplinkMark_Big
+      name: Building000_UplinkTeamMark_Big
       rect:
         serializedVersion: 2
         x: 456
@@ -6510,6 +6510,8 @@ TextureImporter:
       Building000_NeedEC_03: 105316966
       Building000_NeedEC_04: -740621940
       Building000_NeedEC_05: -238422221
+      Building000_NeoTeamMark_Big: 2006006726
+      Building000_NeoTeamMark_Small: 863555199
       Building000_OperatorOn_00: -94530884
       Building000_OperatorOn_01: -791081922
       Building000_OperatorOn_02: -944241014
@@ -6573,8 +6575,6 @@ TextureImporter:
       Building000_RerollSign_15: -518726261
       Building000_StrikeTeamMark_Big: 1032012468
       Building000_StrikeTeamMark_Small: 336949551
-      Building000_TechDivisionMark_Big: 2006006726
-      Building000_TechDivisionMark_Small: 863555199
       Building000_Unlock_00: -105254964
       Building000_Unlock_01: -2021542926
       Building000_Unlock_02: 1792905966
@@ -6603,8 +6603,8 @@ TextureImporter:
       Building000_Upgrade_03: 853045171
       Building000_Upgrade_04: 1055351114
       Building000_Upgrade_05: 822558086
-      Building000_UplinkMark_Big: -169264779
-      Building000_UplinkMark_Small: -872969422
+      Building000_UplinkTeamMark_Big: -169264779
+      Building000_UplinkTeamMark_Small: -872969422
       Building000_VaultSign_BS_00: 1498889028
       Building000_VaultSign_BS_01: -2131850924
       Building000_VaultSign_BS_02: -581332328

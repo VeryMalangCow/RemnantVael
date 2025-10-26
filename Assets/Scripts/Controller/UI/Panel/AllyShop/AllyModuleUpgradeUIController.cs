@@ -798,7 +798,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         if (PickedModule.IsEquipped) name += $" <size=75%><color=#7F7F7F>({ResourceManager.Instance.Get_StaticWord(112)})</size></color>";
         PickedPanelItemNameTxt.text = name;
         PickedPanelItemRankTxt.text = $"<size=70%>(R: {PickedModule.MS.ThisItemData.Rank})</size>";
-        PickedPanelItemRankTxt.color = UnitManager.Instance.AllyCardColorList[PickedModule.MS.ThisItemData.Rank - 1];
+        PickedPanelItemRankTxt.color = ResourceManager.Instance.Get_AllyCardColor(PickedModule.MS.ThisItemData.Rank - 1);
         PickedPanelSlotEUI.Set_EquipedTxt_NoneNum(PickedModule.IsEquipped);
         
         PickedPanelSlotEUI.ThisItem.Set_Data(new ItemData_UIVisual(

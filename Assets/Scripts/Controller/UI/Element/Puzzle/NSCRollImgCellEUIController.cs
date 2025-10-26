@@ -20,7 +20,7 @@ public class NSCRollImgCellEUIController : NSCRollCellEUIController
 
 
     // Comp
-    [HideInInspector] private List<Sprite> RollSpriteList;
+    [HideInInspector] private Sprite[] RollSpriteList;
 
     #endregion
 
@@ -40,11 +40,11 @@ public class NSCRollImgCellEUIController : NSCRollCellEUIController
         switch (ThisNSCType)
         {
             case eNSCPuzzleType.Shape:
-                RollSpriteList = UnitManager.Instance.NSC_ShapeSpriteList;
+                RollSpriteList = ResourceManager.Instance.NSC_ShapeSpriteArr;
                 break;
 
             case eNSCPuzzleType.Num:
-                RollSpriteList = UnitManager.Instance.NSC_NumSpriteList;
+                RollSpriteList = ResourceManager.Instance.NSC_NumSpriteArr;
                 break;
 
             default:

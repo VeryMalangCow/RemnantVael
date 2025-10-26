@@ -75,7 +75,7 @@ public class PrisonController : InteractableBuildController
 
     private void Offset_Comp()
     {
-        DangerIcon.sprite = UnitManager.Instance.PrisonRateIconList[Rating];
+        DangerIcon.sprite = ResourceManager.Instance.Get_PrisonRankSprite(Rating);
 
         DangerTxt = DevTool.Get_ComponentTType(DangerIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text dangerTxt) ? dangerTxt : null;
         TypeTxt = DevTool.Get_ComponentTType(TypeIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text typeTxt) ? typeTxt : null;
@@ -158,7 +158,7 @@ public class PrisonController : InteractableBuildController
         OnOffAC_Upside = UnitManager.Instance.Prison_OnOffUpsideAC;
         OnOffStateAC = UnitManager.Instance.Prison_StateAC;
 
-        OnOffMaterial = UnitManager.Instance.Prison_OnOffMaterial;
+        OnOffMaterial = ResourceManager.Instance.Get_CoupleBuildMaterial("PrisonOff", "PrisonOn");
     }
 
     private void Set_Rating(int _Rate)

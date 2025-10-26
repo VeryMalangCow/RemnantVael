@@ -19,7 +19,7 @@ public class NSCRollColorCellEUIController : NSCRollCellEUIController
 
     #region - Hide
 
-    [HideInInspector] private List<Color> RollColorList;
+    [HideInInspector] private Color[] RollColorArr;
 
     #endregion
 
@@ -39,9 +39,9 @@ public class NSCRollColorCellEUIController : NSCRollCellEUIController
         switch (ThisNSCType)
         {
             case eNSCPuzzleType.Color:
-                RollColorList = UnitManager.Instance.NSC_ColorList;
+                RollColorArr = ResourceManager.Instance.NSC_ColorArr;
                 for (int i = 0; i < RollImgList.Count; i++)
-                    RollImgList[i].sprite = UnitManager.Instance.NSC_ColorSprite;
+                    RollImgList[i].sprite = ResourceManager.Instance.NSC_ColorSprite;
                 break;
 
             default:
@@ -58,7 +58,7 @@ public class NSCRollColorCellEUIController : NSCRollCellEUIController
         for (int i = 0; i < RollImgList.Count; i++)
         {
             int targetIndex = (_Index + i) % RollImgList.Count;
-            RollImgList[i].color = RollColorList[targetIndex];
+            RollImgList[i].color = RollColorArr[targetIndex];
         }
     }
 

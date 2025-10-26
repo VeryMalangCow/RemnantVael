@@ -7,9 +7,9 @@ public class StrikeTeamPrisonController : PrisonController
 
     private void Offset_Type()
     {
-        TypeIcon.sprite = UnitManager.Instance.StrikeTeamIcon.TypeSpecial;
+        TypeIcon.sprite = ResourceManager.Instance.Get_STPrisonIcon(false);
 
-        AllySprites = UnitManager.Instance.StrikeTeamAllySprites;
+        AllySprites = ResourceManager.Instance.StrikeTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
         {
             PrisonAllySRList[i].sprite = AllySprites.Bind;

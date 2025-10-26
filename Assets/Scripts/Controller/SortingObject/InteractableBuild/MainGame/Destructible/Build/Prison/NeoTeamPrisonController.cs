@@ -5,9 +5,9 @@ public class NeoTeamPrisonController : PrisonController
 
     private void Offset_TypeIconTxt()
     {
-        TypeIcon.sprite = UnitManager.Instance.NeoTeamIcon.TypeSpecial;
-        
-        AllySprites = UnitManager.Instance.NeoTeamAllySprites;
+        TypeIcon.sprite = ResourceManager.Instance.Get_NTPrisonIcon(false);
+
+        AllySprites = ResourceManager.Instance.NeoTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
         {
             PrisonAllySRList[i].sprite = AllySprites.Bind;

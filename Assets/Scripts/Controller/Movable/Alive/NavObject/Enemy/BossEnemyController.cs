@@ -98,7 +98,7 @@ public class BossEnemyController : EnemyController
             StartCoroutine(Set_NewPhase(actualCurrentPhase));
             
             // Icon
-            ThisHUDIcon.sprite = UnitManager.Instance.EnemyPhaseIconList[actualCurrentPhase.ThisPhase];
+            ThisHUDIcon.sprite = ResourceManager.Instance.Get_BossPhaseSprite(actualCurrentPhase.ThisPhase);
             
             // Particle
             for (int i = 0; i < ThisAuraParticleGOList.Count; i++)

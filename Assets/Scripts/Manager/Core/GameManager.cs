@@ -3,6 +3,7 @@ using LeTai.TrueShadow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -194,6 +195,7 @@ public class DevTool
     {
         return _Value.ToString().PadLeft(_TargetLength, '0');
     }
+    public static string Get_MemberName<T>(Expression<Func<T>> _MemberExpression) => ((MemberExpression)_MemberExpression.Body).Member.Name;
 
     #endregion
 
@@ -1874,16 +1876,6 @@ public class AlwaysCooltimeData : CooltimeData
         }
     }
 }
-
-
-[System.Serializable]
-public class IDWithClass<T>
-{
-    public int ID;
-    public T TypeClass;
-}
-
-
 
 #endregion
 
@@ -5278,6 +5270,16 @@ public class PlayerVisual<T>
 public class ConverterReso
 {
     public List<EachConverterReso> ConverterResoList;
+
+    public ConverterReso()
+    {
+        ConverterResoList = new List<EachConverterReso>();
+    }
+
+    public void Add(EachConverterReso _Reso)
+    {
+        ConverterResoList.Add(_Reso);
+    }
 }
 
 [System.Serializable]
@@ -5285,6 +5287,12 @@ public class EachConverterReso
 {
     public AnimationClip AC;
     public Material Material;
+
+    public EachConverterReso(AnimationClip _AC, Material _Material)
+    {
+        AC = _AC;
+        Material = _Material;
+    }
 }
 
 #endregion
@@ -5310,7 +5318,7 @@ public class PrisonAllySprite
 public class NSCAnswerSpriteSet
 {
     public int ShapeIndex;
-    public List<Sprite> AllAnswerSet;
+    public Sprite[] AllAnswerSet;
 }
 
 #endregion

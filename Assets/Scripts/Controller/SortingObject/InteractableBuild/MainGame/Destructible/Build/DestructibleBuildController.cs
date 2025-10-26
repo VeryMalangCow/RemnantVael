@@ -160,8 +160,8 @@ public class DestructibleBuildController : InteractableBuildController
         SpriteRenderer frameSr = DevTool.Gen_Component_SR(
                 DurParentTF,
                 "DurablityFrame_" + _Index,
-                UnitManager.Instance.BuildingDurFrame,
-                UnitManager.Instance.Build_000,
+                ResourceManager.Instance.BuildingDurFrame,
+                ResourceManager.Instance.Get_BuildMaterial("Durablity"),
                 ThisStateAnim.ThisSR.sortingOrder - 1);
 
         Set_FrameUIPos(_Index, frameSr);
@@ -173,8 +173,8 @@ public class DestructibleBuildController : InteractableBuildController
         SpriteRenderer innerSr = DevTool.Gen_Component_SR(
                 _ParentTF,
                 "DurablityInner_" + _Index,
-                UnitManager.Instance.BuildingDurInner,
-                UnitManager.Instance.Build_000,
+                ResourceManager.Instance.BuildingDurInner,
+                ResourceManager.Instance.Get_BuildMaterial("Durablity"),
                 ThisStateAnim.ThisSR.sortingOrder);
         Set_InnerUIPos(innerSr);
         return innerSr;
