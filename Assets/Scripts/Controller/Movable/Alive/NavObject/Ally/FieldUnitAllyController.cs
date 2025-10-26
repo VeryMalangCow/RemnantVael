@@ -72,15 +72,14 @@ public class FieldUnitAllyController : AllyController
     {
         base.OnEnable();
 
-        DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
-
+        LayerOrderManager.Instance.Add_NeedSortObj(this);
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
 
-        DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+        LayerOrderManager.Instance.Remove_NeedSortObj(this);
     }
 
     protected override void Update()

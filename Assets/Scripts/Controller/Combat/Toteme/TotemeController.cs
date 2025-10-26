@@ -48,7 +48,6 @@ public abstract class TotemeController : DroppingDepthController
     [HideInInspector] private bool InAreaPlayer = false;
     [HideInInspector] private List<AllyController> InAreaAllies = null;
 
-    [HideInInspector] private Coroutine Cor = null;
     #endregion
 
     #endregion
@@ -108,6 +107,8 @@ public abstract class TotemeController : DroppingDepthController
         BulletState_PosAndRot _State_PosAndRot,
         BulletState_Size _State_Size)
     {
+        UnitManager.Instance.Add_Unit(this);
+
         base.Set_State_Base(null, _DroppingTime, _TopYPos, _BottomYPos);
 
         Set_State_PosAndRot(_State_PosAndRot);
@@ -182,8 +183,10 @@ public abstract class TotemeController : DroppingDepthController
     protected override void Active()
     {
         SetOff_Trail();
-
-        Cor = StartCoroutine(this.Play_BuffArea_Cor());
+        if (gameObject.activeSelf)
+            StartCoroutine(this.Play_BuffArea_Cor());
+        else
+            Remove_Object();
     }
 
     private IEnumerator Play_BuffArea_Cor()
@@ -337,15 +340,16 @@ public abstract class TotemeController : DroppingDepthController
 
     #region Remove
 
-    protected void Remove_Object()
+    private void Remove_Object()
     {
-        End_Seq();
+        UnitManager.Instance.Remove_Unit(this);
 
-        if (Cor != null)
-        {
-            StopCoroutine(Cor);
-            Cor = null;
-        }
+        RemoveForce_Object();
+    }
+
+    public void RemoveForce_Object()
+    {
+        StopCoroutine(this.Play_BuffArea_Cor());
 
         Reset_State();
         SetOff_BuffPoint();

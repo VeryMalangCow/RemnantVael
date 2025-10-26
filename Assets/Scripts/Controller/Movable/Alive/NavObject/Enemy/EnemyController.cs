@@ -596,7 +596,7 @@ public abstract class EnemyController : NavObjectController
 
         // Remove
         DevTool.Remove_InList(EnemyManager.Instance.CurrentEnemyList, this);
-        DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+        LayerOrderManager.Instance.Remove_NeedSortObj(this);
 
         // Check Room State
         StageManager.Instance.Play_CompleteKillAll();

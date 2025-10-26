@@ -32,7 +32,7 @@ public class DeadParticleController : MovableDepthController
         ThisShadow.transform.localScale = _ShadowSize;
         this.gameObject.SetActive(true);
 
-        DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+        LayerOrderManager.Instance.Add_NeedSortObj(this);
     }
 
     #endregion
@@ -71,7 +71,7 @@ public class DeadParticleController : MovableDepthController
 
         Play_Disappoint(_DisappointTime).OnComplete(() =>
             {
-                DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+                LayerOrderManager.Instance.Remove_NeedSortObj(this);
                 this.gameObject.SetActive(false);
                 PoolingManager.Instance.DeadParticles.Enqueue(this);
             });

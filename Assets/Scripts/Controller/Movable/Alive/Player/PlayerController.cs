@@ -332,7 +332,7 @@ public class PlayerController : AliveObjectController
         StateAnim.transform.parent.transform.gameObject.SetActive(true); 
 
         StageManager.Instance.IsStartStage = false;
-        LayerOrderManager.Instance.NeedSortingObjects.Add(this);
+        LayerOrderManager.Instance.Add_NeedSortObj(this);
 
         SetOn_Trail();
     }

@@ -51,6 +51,8 @@ public abstract class DroppingBombController : DroppingDepthController
         BulletState_PosAndRot _State_PosAndRot,
         BulletState_Size _State_Size)
     {
+        UnitManager.Instance.Add_Unit(this);
+
         Set_State_Base(_State, _DroppingTime, _TopYPos, _BottomYPos);
 
         Set_State_PosAndRot(_State_PosAndRot);
@@ -140,9 +142,15 @@ public abstract class DroppingBombController : DroppingDepthController
 
 
     // 오브젝트 파괴될 때, 항상 실행
-    protected void Remove_Object()
+    private void Remove_Object()
     {
-        End_Seq();
+        UnitManager.Instance.Remove_Unit(this);
+
+        RemoveForce_Object();
+    }
+
+    public void RemoveForce_Object()
+    {
         SetOff_Trail();
 
         Reset_State();

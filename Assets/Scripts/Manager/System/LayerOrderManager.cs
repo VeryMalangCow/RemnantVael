@@ -10,7 +10,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     #region Value
 
     [Header("=== Movable Object")]
-    [SerializeField] public List<DepthController> NeedSortingObjects;
+    [SerializeField] private List<DepthController> NeedSortingObjects;
 
     [HideInInspector] public readonly static int Order_BuildUpper = 1;
     [HideInInspector] public readonly static int Order_SortingObjTop = 5000;
@@ -32,6 +32,31 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         Start_LayerSorting();
     }
 
+
+    #endregion
+
+    #region List
+
+    public void Clear_NeedSortObj()
+    {
+        NeedSortingObjects.Clear();
+    }
+
+    public void Add_NeedSortObj(DepthController _Depth)
+    {
+        DevTool.Add_InList(NeedSortingObjects, _Depth);
+    }
+
+    public void Add_NeedSortObj<T>(List<T> _Depths) where T : DepthController
+    {
+        for (int i = 0; i < _Depths.Count; i++)
+            Add_NeedSortObj(_Depths[i]);
+    }
+
+    public void Remove_NeedSortObj(DepthController _Depth)
+    {
+        DevTool.Remove_InList(NeedSortingObjects, _Depth);
+    }
 
     #endregion
 

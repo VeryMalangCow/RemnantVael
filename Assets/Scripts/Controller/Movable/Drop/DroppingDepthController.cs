@@ -43,12 +43,12 @@ public abstract class DroppingDepthController : MovableDepthController
     protected override void OnEnable()
     {
         base.OnEnable();
-        DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+        LayerOrderManager.Instance.Add_NeedSortObj(this);
     }
 
     protected virtual void OnDisable()
     {
-        DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+        LayerOrderManager.Instance.Remove_NeedSortObj(this);
 
         Init_Data();
     }
@@ -104,20 +104,6 @@ public abstract class DroppingDepthController : MovableDepthController
     #region Active
 
     protected abstract void Active();
-
-    #endregion
-
-    #region Tween
-
-    protected void End_Seq()
-    {
-        if (Seq != null)
-        {
-            DOTween.Kill(Seq);
-            Seq = null;
-            Debug.Log("KILL!");
-        }
-    }
 
     #endregion
 

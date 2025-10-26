@@ -3,6 +3,49 @@ using UnityEngine;
 
 public class UnitManager : Singleton<UnitManager>
 {
+
+    [SerializeField] private List<BulletController> CurrentBullets = new List<BulletController>();
+    [SerializeField] private List<DroppingBombController> CurrentBombs = new List<DroppingBombController>();
+    [SerializeField] private List<TotemeController> CurrentTotemes = new List<TotemeController>();
+    [SerializeField] private List<AttackerController> CurrentAttackers = new List<AttackerController>();
+
+    public void Add_Unit(BulletController _Unit) => DevTool.Add_InList(CurrentBullets, _Unit);
+    public void Remove_Unit(BulletController _Unit) => DevTool.Remove_InList(CurrentBullets, _Unit);
+
+
+    public void Add_Unit(DroppingBombController _Unit) => DevTool.Add_InList(CurrentBombs, _Unit);
+    public void Remove_Unit(DroppingBombController _Unit) => DevTool.Remove_InList(CurrentBombs, _Unit);
+
+    public void Add_Unit(TotemeController _Unit) => DevTool.Add_InList(CurrentTotemes, _Unit);
+    public void Remove_Unit(TotemeController _Unit) => DevTool.Remove_InList(CurrentTotemes, _Unit);
+
+    public void Add_Unit(AttackerController _Unit) => DevTool.Add_InList(CurrentAttackers, _Unit);
+    public void Remove_Unit(AttackerController _Unit) => DevTool.Remove_InList(CurrentAttackers, _Unit);
+
+
+
+    public void RemoveUnits()
+    {
+        for (int i = 0; i < CurrentBullets.Count; i++)
+            CurrentBullets[i].RemoveForce_Object();
+
+        for (int i = 0; i < CurrentBombs.Count; i++)
+            CurrentBombs[i].RemoveForce_Object();
+
+        for (int i = 0; i < CurrentTotemes.Count; i++)
+            CurrentTotemes[i].RemoveForce_Object();
+
+        for (int i = 0; i < CurrentAttackers.Count; i++)
+            CurrentAttackers[i].RemoveForce_Object();
+
+        CurrentBullets.Clear();
+        CurrentBombs.Clear();
+        CurrentTotemes.Clear();
+        CurrentAttackers.Clear();
+    }
+
+
+
     #region Value
 
     #region - Inspector
@@ -246,7 +289,7 @@ public class UnitManager : Singleton<UnitManager>
         }
     }
 
-#endregion
+    #endregion
 
     #region Framework
 

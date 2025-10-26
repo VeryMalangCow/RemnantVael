@@ -25,9 +25,9 @@ public class EnemyAttackerController : AttackerController
 
     #endregion
 
-    #region Remove
+    #region Pooling
 
-    protected override void Remove_Condition()
+    protected override void PoolingSet()
     {
         PoolingManager.Instance.EnemyAttackers.Enqueue(this);
     }

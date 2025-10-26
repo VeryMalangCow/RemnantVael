@@ -42,12 +42,13 @@ public abstract class AttackerController : MovableDepthController
     protected override void OnEnable()
     {
         base.OnEnable();
-        DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+
+        LayerOrderManager.Instance.Add_NeedSortObj(this);
     }
 
     protected void OnDisable()
     {
-        DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+        LayerOrderManager.Instance.Remove_NeedSortObj(this);
     }
 
     #endregion
@@ -95,6 +96,8 @@ public abstract class AttackerController : MovableDepthController
         Transform _Parent = null,
         bool _IsLocal = false) where T : Collider2D
     {
+        UnitManager.Instance.Add_Unit(this);
+
         Sequence seq = DOTween.Sequence();
 
         Set_State_Base(_State, _TargetRange);
@@ -137,7 +140,10 @@ public abstract class AttackerController : MovableDepthController
     public virtual void Set_State_Anim(State_Anim _State_Anim)
     {
         DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.AC);
+
         ThisAnimator.speed = _State_Anim.Speed;
+
+        ThisAnimator.Rebind();
     }
 
     public virtual void Set_State_StartTF(State_TF2D _State_StartTF, Transform _Parent, bool _IsLocalPos)
@@ -214,14 +220,25 @@ public abstract class AttackerController : MovableDepthController
 
     #endregion
 
-    #region Remove
+    #region Pooling
 
-    protected abstract void Remove_Condition();
+    protected abstract void PoolingSet();
+
+    #endregion
+
+    #region Remove
 
     public virtual void Remove_Object()
     {
-        Remove_Condition();
+        UnitManager.Instance.Add_Unit(this);
+
+        RemoveForce_Object();
+    }
+
+    public void RemoveForce_Object()
+    {
         Reset_State();
+        PoolingSet();
         this.gameObject.SetActive(false);
     }
 

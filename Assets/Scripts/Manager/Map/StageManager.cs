@@ -749,6 +749,7 @@ public class StageManager : Singleton<StageManager>
     {
         if (_TargetRC == null) yield break;
 
+        // 필요없는 유닛 제거
         Remove_SetSprites();
         Remove_SetAnims();
 
@@ -758,11 +759,12 @@ public class StageManager : Singleton<StageManager>
         DevTool.Set_Active(CurrentAllRoomController, false);
 
         // Layer 초기화
-        LayerOrderManager.Instance.NeedSortingObjects = new List<DepthController>();
+        LayerOrderManager.Instance.Clear_NeedSortObj();
+
 
         // 처음 엘베 레이어때문에 추가 하지않음
         if (!IsStartStage)
-        { LayerOrderManager.Instance.NeedSortingObjects.Add(PlayerManager.Instance.PlayerController); }
+        { LayerOrderManager.Instance.Add_NeedSortObj(PlayerManager.Instance.PlayerController); }
         
         CurrentRoomController.gameObject.SetActive(true);
         CurrentRoomController.Set_SortingStaticObjects();
@@ -780,8 +782,8 @@ public class StageManager : Singleton<StageManager>
         _TargetRC.Play_RoomState();
         Set_NavBake();
 
-        LayerOrderManager.Instance.NeedSortingObjects.AddRange(EnemyManager.Instance.CurrentEnemyList);
-        LayerOrderManager.Instance.NeedSortingObjects.AddRange(AllyManager.Instance.AllAlly);
+        LayerOrderManager.Instance.Add_NeedSortObj(EnemyManager.Instance.CurrentEnemyList); 
+        LayerOrderManager.Instance.Add_NeedSortObj(AllyManager.Instance.AllAlly);
 
         // Minimap
         MainGameUIManager.Instance.PlayerHUD_UIController.ThisMinimap.Set_State();

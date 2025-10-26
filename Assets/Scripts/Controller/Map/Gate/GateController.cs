@@ -180,6 +180,7 @@ public class GateController : StaticDepthController, IInteract
             }
             else
             {
+                UnitManager.Instance.RemoveUnits();
                 if (ParterGate.ThisRoom.RoomRuleController.Is_EliteEnemyRoom(out int eliteID))
                 {
                     StageManager.Instance.Get_CurrentStageData().EnemyData.StageEliteEnemyList[eliteID].TryGetComponent(out EliteEnemyController eliteEnemy);

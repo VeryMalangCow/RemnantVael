@@ -50,12 +50,13 @@ public abstract class BulletController : MovableDepthController
     protected override void OnEnable()
     {
         base.OnEnable();
-        DevTool.Add_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+
+        LayerOrderManager.Instance.Add_NeedSortObj(this);
     }
 
     protected void OnDisable()
     {
-        DevTool.Remove_InList(LayerOrderManager.Instance.NeedSortingObjects, this);
+        LayerOrderManager.Instance.Remove_NeedSortObj(this);
     }
 
     protected virtual void FixedUpdate()
@@ -104,6 +105,8 @@ public abstract class BulletController : MovableDepthController
         BulletState_Effect? _State_Effect,
         float _TargetRange = 0.4f)
     {
+        UnitManager.Instance.Add_Unit(this);
+
         Set_State_Base(_State, _TargetRange);
         Set_State_PosAndRot(_State_PosAndRot);
         Set_State_Size(_State_Size);
@@ -276,10 +279,17 @@ public abstract class BulletController : MovableDepthController
     #region Remove
 
     // 오브젝트 파괴될 때, 항상 실행
-    protected void Remove_Object()
+    private void Remove_Object()
     {
-        if (CurrentAliveTime <= 0f) return;
+        if (CurrentAliveTime <= 0f) return; 
 
+        UnitManager.Instance.Remove_Unit(this);
+
+        RemoveForce_Object();
+    }
+
+    public void RemoveForce_Object()
+    {
         SetOff_Trail();
         SetOff_Light();
 
