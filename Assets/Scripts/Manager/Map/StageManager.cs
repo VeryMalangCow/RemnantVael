@@ -29,27 +29,6 @@ public class StageManager : Singleton<StageManager>
     [Header("=== Reso")]
 
     [Space(5)]
-    [Header("-- Room")]
-    [SerializeField] private GameObject LobbyRoomRulePrefab;
-    [SerializeField] private GameObject StartRoomRulePrefab;
-
-    [Space(3)]
-    [Header("* Small Room")]
-    [SerializeField] private List<GameObject> SRoomPrefabList;
-    [SerializeField] private GameObject LobbyEntranceRoomRulePrefab;
-
-    [Space(3)]
-    [Header("* Normal Room")]
-    [SerializeField] private List<GameObject> RoomPrefabList;
-    [SerializeField] private List<GameObject> RoomDesignatedPrefabList;
-    [SerializeField] private List<GameObject> RoomRulePrefabList;
-    [SerializeField] private List<GameObject> RoomRuleEntrancePrefabList;
-    [SerializeField] private List<GameObject> RoomRuleVaultPrefabList;
-    [SerializeField] private List<GameObject> RoomRuleShopPrefabList;
-    [SerializeField] private List<GameObject> RoomRuleAllyShopPrefabList;
-    [SerializeField] private List<GameObject> RoomRulePrisonPrefabList;
-
-    [Space(5)]
     [Header("-- Passage")]
     [SerializeField] private GameObject PassageRoomPrefab;
     [SerializeField] private GameObject PassageRulePrefab;
@@ -270,7 +249,7 @@ public class StageManager : Singleton<StageManager>
     {
         int TempID = 0;
 
-        Gen_LobbyRoom(RoomPrefabList[0], TempID);
+        Gen_LobbyRoom(ResourceManager.Instance.RoomPrefabArr[0], TempID);
         TempID++;
 
         Gen_LobbyEntranceRoom(TempID, new List<Vector2Int> { Vector2Int.up });
@@ -282,7 +261,7 @@ public class StageManager : Singleton<StageManager>
     {
         int TempID = 0;
 
-        Gen_StartRoom(RoomPrefabList[0], TempID);
+        Gen_StartRoom(ResourceManager.Instance.RoomPrefabArr[0], TempID);
         TempID++;
 
         // 생성할 Room의 양을 계산에 1중 리스트로 변경 => 이들을 섞음
@@ -292,7 +271,7 @@ public class StageManager : Singleton<StageManager>
         // 기본 방 생성
         for (int i = 0; i < ShuffledRoomIndexList.Count; i++)
         {
-            Gen_NormalRoom(RoomPrefabList[ShuffledRoomIndexList[i]], TempID);
+            Gen_NormalRoom(ResourceManager.Instance.RoomPrefabArr[ShuffledRoomIndexList[i]], TempID);
             TempID++;
         }
 
@@ -352,7 +331,7 @@ public class StageManager : Singleton<StageManager>
         {
             CurrentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(LobbyRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.LobbyRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             room.Offset(_TempID);
@@ -367,7 +346,7 @@ public class StageManager : Singleton<StageManager>
         {
             CurrentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(StartRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.StartRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             room.Offset(_TempID);
@@ -403,11 +382,11 @@ public class StageManager : Singleton<StageManager>
     // 지정 방 생성
     private void Gen_DesignatedRoom(GenDesignatedRoom _DesignatedRoomData, int _TempID)
     {
-        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_DesignatedRoomData.ID], MapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomPrefabArr[_DesignatedRoomData.ID], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(RoomDesignatedPrefabList[_DesignatedRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomDesignatedPrefabArr[_DesignatedRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             room.Offset(_TempID);
@@ -422,11 +401,11 @@ public class StageManager : Singleton<StageManager>
     // 통과 방 하나 생성
     private void Gen_EntranceRoom(GenSpecialRoomData _EntranceRoomData, int _TempID)
     {
-        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_EntranceRoomData.ID], MapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomPrefabArr[_EntranceRoomData.ID], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(RoomRuleEntrancePrefabList[_EntranceRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomRuleEntrancePrefabArr[_EntranceRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             EntranceRuleController entranceRule = DevTool.Get_CastingTType<EntranceRuleController>(roomRule);
@@ -440,11 +419,11 @@ public class StageManager : Singleton<StageManager>
     // 로비 통과 방 하나 생성
     private void Gen_LobbyEntranceRoom(int _TempID, List<Vector2Int> _RelativePos)
     {
-        if (DevTool.Get_ComponentTType(Instantiate(SRoomPrefabList[0], MapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.SRoomPrefabList[0], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(LobbyEntranceRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.LobbyEntranceRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             EntranceRuleController entranceRule = DevTool.Get_CastingTType<EntranceRuleController>(roomRule);
@@ -468,11 +447,11 @@ public class StageManager : Singleton<StageManager>
 
         if (!data.UsableVault) return;
 
-        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_VaultRoomData.ID], MapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomPrefabArr[_VaultRoomData.ID], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(RoomRuleVaultPrefabList[_VaultRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomRuleVaultPrefabArr[_VaultRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             VaultRuleController vaultRule = DevTool.Get_CastingTType<VaultRuleController>(roomRule);
@@ -521,11 +500,11 @@ public class StageManager : Singleton<StageManager>
 
         if (!data.UsableBU && !data.UsableMU) return;
 
-        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_ShopRoomData.ID], MapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomPrefabArr[_ShopRoomData.ID], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(RoomRuleShopPrefabList[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomRuleShopPrefabArr[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             ShopRuleController shopRule = DevTool.Get_CastingTType<ShopRuleController>(roomRule);
@@ -579,11 +558,11 @@ public class StageManager : Singleton<StageManager>
 
         if (!data.UsableABU && !data.UsableAMU) return;
 
-        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_ShopRoomData.ID], MapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomPrefabArr[_ShopRoomData.ID], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(RoomRuleAllyShopPrefabList[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomRuleAllyShopPrefabArr[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             AllyShopRuleController shopRule = DevTool.Get_CastingTType<AllyShopRuleController>(roomRule);
@@ -642,11 +621,11 @@ public class StageManager : Singleton<StageManager>
             case 2: if (!data.UsableNTPrison) return; break;
         }
 
-        if (DevTool.Get_ComponentTType(Instantiate(RoomPrefabList[_PrisonRoomData.ID], MapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomPrefabArr[_PrisonRoomData.ID], MapParentTF), out RoomController room))
         {
             CurrentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(RoomRulePrisonPrefabList[_PrisonRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.RoomRulePrisonPrefabArr[_PrisonRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             PrisonRuleController prisonRule = DevTool.Get_CastingTType<PrisonRuleController>(roomRule);
@@ -1133,8 +1112,8 @@ public class StageManager : Singleton<StageManager>
     {
         List<Vector2Int> roomIndex = _Room.RoomVec;
         List<RoomRuleController> result = new List<RoomRuleController>();
-        for (int i = 0; i < RoomRulePrefabList.Count; i++)
-            if (RoomRulePrefabList[i].TryGetComponent(out RoomRuleController rrc) && rrc.RoomVec.SequenceEqual(roomIndex))
+        for (int i = 0; i < ResourceManager.Instance.RoomRulePrefabArr.Length; i++)
+            if (ResourceManager.Instance.RoomRulePrefabArr[i].TryGetComponent(out RoomRuleController rrc) && rrc.RoomVec.SequenceEqual(roomIndex))
                 result.Add(rrc);
             
         return result;

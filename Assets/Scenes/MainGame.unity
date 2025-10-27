@@ -7002,8 +7002,20 @@ MonoBehaviour:
   UplinkTeamString: 
   NeoTeamString: 
   AllyCardRateArr: []
-  InventoryItemPrefab: {fileID: 0}
-  InventorySlotPrefab: {fileID: 0}
+  UnlockedClr: {r: 0, g: 0, b: 0, a: 0}
+  KeycardOutlineColorArr: []
+  LobbyRoomRulePrefab: {fileID: 0}
+  SRoomPrefabList: []
+  LobbyEntranceRoomRulePrefab: {fileID: 0}
+  StartRoomRulePrefab: {fileID: 0}
+  RoomPrefabArr: []
+  RoomDesignatedPrefabArr: []
+  RoomRulePrefabArr: []
+  RoomRuleEntrancePrefabArr: []
+  RoomRuleVaultPrefabArr: []
+  RoomRuleShopPrefabArr: []
+  RoomRuleAllyShopPrefabArr: []
+  RoomRulePrisonPrefabArr: []
 --- !u!4 &830584170
 Transform:
   m_ObjectHideFlags: 0
@@ -13582,259 +13594,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ef74f5adbc6cf64f97153cd67a1719c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestGO:
-  - {fileID: 1168812488}
-  ModuleM_000_Explosion: {fileID: 2100000, guid: 75b0116f582f3244aaf171b01df8ff63, type: 2}
-  ModuleM_000_Hitted: {fileID: 2100000, guid: 02802480c4016274e9287aa5708f7288, type: 2}
-  EnemyM_000_Explosion: {fileID: 2100000, guid: 897817bdc2ce03344a23c3a4d79b5fb3, type: 2}
-  Build_000: {fileID: 2100000, guid: 478cb5a23f0fbbf41a398c5a3209cd47, type: 2}
-  Prison_OnOffMaterial:
-    TypeBase: {fileID: 2100000, guid: f3771b62a007a8648aa61b96f08c895c, type: 2}
-    TypeSpecial: {fileID: 2100000, guid: 2a2a3079596044d46bf17c9cd6719978, type: 2}
-  CoreSprites:
-  - ID: 1
-    TypeClass: {fileID: -1609351845, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-  - ID: 2
-    TypeClass: {fileID: 286137507, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-  - ID: 3
-    TypeClass: {fileID: 118361644, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
-  BuildingDurFrame: {fileID: -2046568933, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-  BuildingDurInner: {fileID: 518337198, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-  EnemyPhaseIconList:
-  - {fileID: -1533359489, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-  - {fileID: 154245012, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-  - {fileID: -1813370868, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-  PrisonRateIconList:
-  - {fileID: 1319849266, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-  - {fileID: -1063222384, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-  - {fileID: 400346637, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-  - {fileID: 1362796112, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-  - {fileID: -1592704097, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-  StrikeTeamIcon:
-    TypeBase: {fileID: 336949551, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-    TypeSpecial: {fileID: 1032012468, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-  UplinkTeamIcon:
-    TypeBase: {fileID: -872969422, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-    TypeSpecial: {fileID: -169264779, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-  NeoTeamIcon:
-    TypeBase: {fileID: 863555199, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-    TypeSpecial: {fileID: 2006006726, guid: b418badf9b87f8e4f902df204f9e77c9, type: 3}
-  StrikeTeamAllySprites:
-    Bind: {fileID: 306943780, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-    Fall: {fileID: 1426368537, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-    Stand: {fileID: -1003898951, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-    Salute: {fileID: -1924550454, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-  UplinkTeamAllySprites:
-    Bind: {fileID: 2088213254, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-    Fall: {fileID: -1836539650, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-    Stand: {fileID: 140839510, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-    Salute: {fileID: 1461411430, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-  NeoTeamAllySprites:
-    Bind: {fileID: -108991560, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-    Fall: {fileID: -953435688, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-    Stand: {fileID: 2034139335, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-    Salute: {fileID: -2015462578, guid: 9033982b82b5fa2478970ec53cd597a0, type: 3}
-  AllyCardFrameList:
-  - {fileID: 515967197, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: 774093144, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: -910939412, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: -33470791, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: 926330303, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: -1693418086, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  AllyCardLightList:
-  - {fileID: -1075939673, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: 1612754929, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: 597823526, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: 1239442733, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: 1295689204, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: -1023586996, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  AllyCardBGList:
-  - {fileID: -634954609, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: -1849966372, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: 1307225057, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: -10937427, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: 2133909538, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  - {fileID: -171284591, guid: e10fd62d737eec8428242ec93a28b45d, type: 3}
-  AllyCardColorList:
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 0.8313726, g: 0.9803922, b: 0.79215693, a: 1}
-  - {r: 0.3921569, g: 0.97647065, b: 0.9725491, a: 1}
-  - {r: 0.7019608, g: 0.40000004, b: 0.9921569, a: 1}
-  - {r: 0.9960785, g: 0.29803923, b: 0.19215688, a: 1}
-  - {r: 1, g: 0.9988616, b: 0.8820755, a: 1}
-  AllyNullIcon: {fileID: -1772585977, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  SpaceBarSprite: {fileID: -324453934, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  MLBSprite: {fileID: -1993747541, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  MRBSprite: {fileID: -204797910, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  LockedClr: {r: 0.7647059, g: 0.53333336, b: 1, a: 1}
-  UnlockedClr: {r: 1, g: 1, b: 1, a: 1}
-  NSC_NumSpriteList:
-  - {fileID: 589875603, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: -1119865037, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: 115428323, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: 1797925640, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: 377381750, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  NSC_ShapeSpriteList:
-  - {fileID: 241590047, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: -1180991755, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: 763752159, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: 2074071126, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: 1866791157, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  NSC_ColorSprite: {fileID: 1486879506, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  NSC_ColorList:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
-  CvtMaterialConditionIcon:
-    TypeBase: {fileID: -365479874, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    TypeSpecial: {fileID: 1473322856, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  RequestRankSpriteList:
-  - {fileID: -1946409032, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: -120224021, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: 145658695, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: 1025710746, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - {fileID: 247684480, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  RequestRewardSpriteList:
-  - Name: BC
-    Sprite: {fileID: 903242896, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - Name: Credit
-    Sprite: {fileID: -1440381744, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - Name: EP
-    Sprite: {fileID: -2076485528, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  ModuleItemOutlinerAC:
-  - {fileID: 7400000, guid: 35bfc1528075c6e428950576281e1be0, type: 2}
-  - {fileID: 7400000, guid: 0759e410f7a365843a010e663dcb0ede, type: 2}
-  - {fileID: 7400000, guid: b5c82c38202ccea49aeb4f80244bd688, type: 2}
-  - {fileID: 7400000, guid: fda530e94e5c23e47a1672a32ac5098e, type: 2}
-  - {fileID: 7400000, guid: 384b1af2a10c9d948aebf6e7b86da252, type: 2}
-  KeycardItemOutlinerAC: {fileID: 7400000, guid: 8e08fca8fee45e44d9cba4199d2fbaa3, type: 2}
-  KeycardItemOutlinerColorList:
-  - {r: 1, g: 0.4481132, b: 0.49662337, a: 1}
-  - {r: 1, g: 0.9558776, b: 0.6084906, a: 1}
-  - {r: 0.6273585, g: 1, b: 0.98882514, a: 1}
-  - {r: 0.62571836, g: 1, b: 0.5990566, a: 1}
-  - {r: 0.6, g: 1, b: 0.81690514, a: 1}
-  CoreItemOutlinerAC: {fileID: 7400000, guid: 85952a4c3f7a20a49b5096db45d80602, type: 2}
-  ExplosionAC: {fileID: 7400000, guid: 9caa685e3f9cfdb44a1eb1c8622c9b14, type: 2}
-  AttributeExplosionACList:
-  - {fileID: 7400000, guid: 100332c32a24cf8418b9b4fc4096bfc8, type: 2}
-  - {fileID: 7400000, guid: 793ed81aea83f57438005540518adff5, type: 2}
-  - {fileID: 7400000, guid: fe0885ffb88b46e43ae1332bd3e0eda9, type: 2}
-  - {fileID: 7400000, guid: 27f1b7f5d78352847af837270bbf9714, type: 2}
-  BUShop_OnOffAC:
-    TypeBase: {fileID: 7400000, guid: 5045f1f99dfa80f4bb8eff1229062de0, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: fece8302c854a824695c2cf6290a0957, type: 2}
-  BUShop_BrokenAC: {fileID: 7400000, guid: e77de0415e6cb5449b47929753e4c19e, type: 2}
-  MUShop_OnOffAC:
-    TypeBase: {fileID: 7400000, guid: 7541e8cb7a256f241b74635813a82969, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: 3ab90354ea05d2f4db9bd450b755bccb, type: 2}
-  MUShop_BrokenAC: {fileID: 7400000, guid: ccf2baaa3d5c62e4a9f25a36d4c60fb1, type: 2}
-  AllyBUShop_OnOffAC:
-    TypeBase: {fileID: 7400000, guid: 41a709630e268844292d5512a9d2f278, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: 2b8a0f046cdd9fc45992b5f891eb0fab, type: 2}
-  AllyBUShop_BrokenAC: {fileID: 7400000, guid: c0d64f9421bc4c04c8f2c03264668ce5, type: 2}
-  AllyMUShop_OnOffAC:
-    TypeBase: {fileID: 7400000, guid: f5b2fe782f5147849b05e5db8ef764a5, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: 8bbfe006c5679314eae7fef5acdc599c, type: 2}
-  AllyMUShop_BrokenAC: {fileID: 7400000, guid: fbb4618049b5bf94a93228530e68519a, type: 2}
-  BrokenStateAC: {fileID: 7400000, guid: 64fffc49c04e0724ea315643a037a838, type: 2}
-  NeedChargeBettery_OnOffStateAC:
-    TypeBase: {fileID: 7400000, guid: ae13dcb3fc70f88488a0d6741e925e3e, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: 48082fc27c9dba443808bb444c51ba4f, type: 2}
-  Vault_AC:
-  - TypeBase: {fileID: 7400000, guid: e423d6b8c38da204c943e43604e4a8d6, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: e423d6b8c38da204c943e43604e4a8d6, type: 2}
-  - TypeBase: {fileID: 7400000, guid: a4e21d9c4a19b1f42bd263a6f414e025, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: a4e21d9c4a19b1f42bd263a6f414e025, type: 2}
-  - TypeBase: {fileID: 7400000, guid: d79a39396b7c6a94d9866bfd0a38633b, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: d79a39396b7c6a94d9866bfd0a38633b, type: 2}
-  - TypeBase: {fileID: 7400000, guid: 85a1df4d38d1cac4190cb8ecfcfac255, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: 85a1df4d38d1cac4190cb8ecfcfac255, type: 2}
-  - TypeBase: {fileID: 7400000, guid: c2f070267700bf744a35e6c1a23daa74, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: c2f070267700bf744a35e6c1a23daa74, type: 2}
-  Vault_BrokenAC:
-  - {fileID: 7400000, guid: f2c5543e367eca14e87c39798fb991fb, type: 2}
-  - {fileID: 7400000, guid: 8a8a385901c556a4dae371a940cdb342, type: 2}
-  - {fileID: 7400000, guid: 624f2ebc4470ed94aa0358614cd873df, type: 2}
-  - {fileID: 7400000, guid: 59a372e4a6c7a094783390dd452679d2, type: 2}
-  - {fileID: 7400000, guid: 5a8b81a9005c4584e90382b3300eedbd, type: 2}
-  Vault_ModuleIconAC: {fileID: 7400000, guid: ea95a027d7eda204f86655b1c6da4514, type: 2}
-  Vault_BSIconAC: {fileID: 7400000, guid: d12ed5751e6341240be07ec74e33ff3f, type: 2}
-  Vault_JIconAC: {fileID: 7400000, guid: d1853ff69a1ea6d4e9f2aed528b46a64, type: 2}
-  Vault_StateAC:
-    TypeBase: {fileID: 7400000, guid: 562065cf5e5d68743aeb531a01f17412, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: 309f2027ffe43bd438d0cee771f8e2a5, type: 2}
-  Operator_OnOffAC:
-    TypeBase: {fileID: 7400000, guid: bcb3c17b5304bed4da82c5051bec1bb6, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: 9ab7bb10d28890b468206898313b65cd, type: 2}
-  Operator_RepairAC: {fileID: 7400000, guid: ae65eb126b8a09a4e8c21cd9507c7c8d, type: 2}
-  Operator_RerollAC: {fileID: 7400000, guid: ceae7b7b1a1ada64b9abd264865b082c, type: 2}
-  Operator_UpgradeAC: {fileID: 7400000, guid: 66df5fa07be7572449b16403111df3a8, type: 2}
-  Operator_AllyAC: {fileID: 7400000, guid: 41f4516de64a84649a6b1e7bc84e73c0, type: 2}
-  Operator_LightAC:
-    TypeBase: {fileID: 7400000, guid: 384479d6d73bac7428b68fda2a7d2996, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: c5d6fe57ff9fb874090d558ffa2bfd77, type: 2}
-  Prison_OnOffAC:
-    TypeBase: {fileID: 7400000, guid: 5d773418cbb9b134da0277a74d954b9d, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: 84bf43dd79c66f1419b89bd546f16a25, type: 2}
-  Prison_OnOffUpsideAC:
-    TypeBase: {fileID: 7400000, guid: d7363e36b659de64caed76425a90d112, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: 146ebc887ae33f54283b0021a66172e5, type: 2}
-  Prison_StateAC:
-    TypeBase: {fileID: 7400000, guid: f7f60388403362a4faeb5759f2834d95, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: a344ad4694ce9e142a5213b93881eeef, type: 2}
-  AllNSCAnswerSpriteSet:
-  - ShapeIndex: 0
-    AllAnswerSet:
-    - {fileID: -1954180720, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: 1525099260, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: 1305974482, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: -2116035297, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: 587762323, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - ShapeIndex: 1
-    AllAnswerSet:
-    - {fileID: -1508467298, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: -1365262220, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: 1806403450, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: -496060435, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: -46947809, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - ShapeIndex: 2
-    AllAnswerSet:
-    - {fileID: 1337861068, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: -269374588, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: -98201251, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: 1701178770, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: -1731855663, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - ShapeIndex: 3
-    AllAnswerSet:
-    - {fileID: 2052619393, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: 1003264051, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: -958308914, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: -728275581, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: -709980043, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  - ShapeIndex: 4
-    AllAnswerSet:
-    - {fileID: 2067096898, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: 1484054446, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: 1391310778, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: -857318272, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-    - {fileID: 428103374, guid: 637ede47422025b48bd24c3773722caa, type: 3}
-  ConverterReso:
-    ConverterResoList:
-    - AC: {fileID: 7400000, guid: 14e4de62f6a70db49bcca3c765d95b65, type: 2}
-      Material: {fileID: 2100000, guid: 292b17cb377c0334eb2c547e5485d5fc, type: 2}
-    - AC: {fileID: 7400000, guid: 86de40357d020964888f6fe693e35d4c, type: 2}
-      Material: {fileID: 2100000, guid: 292b17cb377c0334eb2c547e5485d5fc, type: 2}
-    - AC: {fileID: 7400000, guid: cde880e5f1060734fb13fe878064d508, type: 2}
-      Material: {fileID: 2100000, guid: 292b17cb377c0334eb2c547e5485d5fc, type: 2}
-    - AC: {fileID: 7400000, guid: 3c98f21a94d04b54c8cea3ea12a9c27d, type: 2}
-      Material: {fileID: 2100000, guid: 292b17cb377c0334eb2c547e5485d5fc, type: 2}
   Player_ExplImgGenerator: {fileID: 1603938535}
   Build_ExplImgGenerator: {fileID: 4532320}
   Enemy_ExplImgGenerator: {fileID: 1129606755}
   OnceTime_AnimGenerator: {fileID: 2002655550}
+  TestGO:
+  - {fileID: 1168812488}
 --- !u!1 &1715836047
 GameObject:
   m_ObjectHideFlags: 0
