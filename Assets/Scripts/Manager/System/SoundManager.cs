@@ -229,11 +229,6 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         #endregion
 
-        foreach (var data in BGMAudioDict)
-        {
-            Debug.Log(data.Key);
-        }
-
         #region Cutscene
 
         string cutscenePath = bgmPath + "Cutscene/";

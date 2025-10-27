@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using System;
 
 public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 {
@@ -126,6 +127,11 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 
             yield return null;
         }
+
+        Debug.Log("Unload Unused Assets + GC");
+        yield return Resources.UnloadUnusedAssets();
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
 
         yield return new WaitForSecondsRealtime(0.8f);
 
