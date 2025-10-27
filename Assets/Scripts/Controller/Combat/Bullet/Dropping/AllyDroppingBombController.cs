@@ -24,7 +24,7 @@ public class AllyDroppingBombController : DroppingBombController
         AllyExplosionController aec = PoolingManager.Instance.Get_OP_AllyExplosion();
         aec.Set_State(
             Get_ExlposionState(),
-            _AC: UnitManager.Instance.ExplosionAC,
+            _AC: ResourceManager.Instance.ExplosionAC,
             Get_SpawnTF(),
             this.TargetRange);
     }

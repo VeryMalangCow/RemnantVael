@@ -23,7 +23,7 @@ public class ModuleItemController : InteractItemController
     public void Set_RankState(int _Rank)
     {
         ItemDataField.Rank = _Rank;
-        DevTool.Set_Anim(ref AOC, ThisAT, UnitManager.Instance.ModuleItemOutlinerAC[_Rank - 1]);
+        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.Instance.Get_ModuleOutlineAC(_Rank - 1));
         ThisAT.speed = 1.5f;
     }
 

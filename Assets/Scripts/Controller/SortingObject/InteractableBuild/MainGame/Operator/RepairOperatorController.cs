@@ -43,7 +43,7 @@ public class RepairOperatorController : OperatorController
     {
         base.Set_AnimValue();
 
-        IconStateAnim.Set_Anim(new State_Anim(UnitManager.Instance.Operator_RepairAC, 1f), 1f);
+        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.Operator_RepairAC, 1f), 1f);
     }
 
     public void Set_TargetBuild(DestructibleBuildController _TargetBuild)

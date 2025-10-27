@@ -28,11 +28,11 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
     {
         Set_LanguageTxt();
 
-        OnOffAC = UnitManager.Instance.BUShop_OnOffAC;
-        OnOffStateAC = UnitManager.Instance.NeedChargeBettery_OnOffStateAC;
+        OnOffAC = ResourceManager.Instance.BUShop_OnOffAC;
+        OnOffStateAC = ResourceManager.Instance.NeedChargeBettery_OnOffStateAC;
 
-        BrokenAC = UnitManager.Instance.BUShop_BrokenAC;
-        BrokenStateAC = UnitManager.Instance.BrokenStateAC;
+        BrokenAC = ResourceManager.Instance.BUShop_BrokenAC;
+        BrokenStateAC = ResourceManager.Instance.BrokenStateAC;
 
         base.Offset();
     }

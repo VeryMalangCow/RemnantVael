@@ -22,7 +22,7 @@ public class BetteryShardVaultController : VaultController
 
     protected override void Offset()
     {
-        IconStateAnim.Set_Anim(new State_Anim(UnitManager.Instance.Vault_BSIconAC));
+        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.Vault_BSIconAC));
         CurrentAmountByGrade = AmountByGrade[CurrentGrade];
 
         base.Offset();

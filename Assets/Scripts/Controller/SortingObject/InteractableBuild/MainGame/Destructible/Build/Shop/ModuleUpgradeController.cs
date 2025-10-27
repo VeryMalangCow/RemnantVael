@@ -28,11 +28,11 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
     {
         Set_LanguageTxt();
 
-        OnOffAC = UnitManager.Instance.MUShop_OnOffAC;
-        OnOffStateAC = UnitManager.Instance.NeedChargeBettery_OnOffStateAC;
+        OnOffAC = ResourceManager.Instance.MUShop_OnOffAC;
+        OnOffStateAC = ResourceManager.Instance.NeedChargeBettery_OnOffStateAC;
 
-        BrokenAC = UnitManager.Instance.MUShop_BrokenAC;
-        BrokenStateAC = UnitManager.Instance.BrokenStateAC;
+        BrokenAC = ResourceManager.Instance.MUShop_BrokenAC;
+        BrokenStateAC = ResourceManager.Instance.BrokenStateAC;
 
         base.Offset();
     }

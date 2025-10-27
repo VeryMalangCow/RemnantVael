@@ -36,11 +36,11 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
     {
         Set_LanguageTxt();
 
-        OnOffAC = UnitManager.Instance.AllyBUShop_OnOffAC;
-        OnOffStateAC = UnitManager.Instance.NeedChargeBettery_OnOffStateAC;
+        OnOffAC = ResourceManager.Instance.AllyBUShop_OnOffAC;
+        OnOffStateAC = ResourceManager.Instance.NeedChargeBettery_OnOffStateAC;
         
-        BrokenAC = UnitManager.Instance.AllyBUShop_BrokenAC;
-        BrokenStateAC = UnitManager.Instance.BrokenStateAC;
+        BrokenAC = ResourceManager.Instance.AllyBUShop_BrokenAC;
+        BrokenStateAC = ResourceManager.Instance.BrokenStateAC;
 
         base.Offset();
     }

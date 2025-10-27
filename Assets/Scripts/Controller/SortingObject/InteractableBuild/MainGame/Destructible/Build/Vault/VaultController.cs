@@ -64,11 +64,11 @@ public class VaultController : DestructibleBuildController
 
     private void Set_AnimValue()
     {
-        OnOffAC = UnitManager.Instance.Vault_AC[CurrentGrade];
-        OnOffStateAC = UnitManager.Instance.Vault_StateAC;
+        OnOffAC = ResourceManager.Instance.Get_VaultAnim(CurrentGrade);
+        OnOffStateAC = ResourceManager.Instance.Vault_StateAC;
 
-        BrokenAC = UnitManager.Instance.Vault_BrokenAC[CurrentGrade];
-        BrokenStateAC = UnitManager.Instance.Vault_StateAC.TypeBase;
+        BrokenAC = ResourceManager.Instance.Get_VaultBrokenAnim(CurrentGrade);
+        BrokenStateAC = ResourceManager.Instance.Vault_StateAC.TypeBase;
     }
 
     public void Set_Upgrade()

@@ -8,23 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class ResourceManager : PersistentSingleton<ResourceManager>
 {
-    [Space(5)]
-    [Header("-- ModuleItem")]
-    [SerializeField] public List<AnimationClip> ModuleItemOutlinerAC;
-
-    [Space(5)]
-    [Header("-- Keycard")]
-    [SerializeField] public AnimationClip KeycardItemOutlinerAC;
-    [SerializeField] public List<Color> KeycardItemOutlinerColorList;
-
-    [Space(5)]
-    [Header("-- Core")]
-    [SerializeField] public AnimationClip CoreItemOutlinerAC;
-
-    [Space(5)]
-    [Header("-- Expl")]
-    [SerializeField] public AnimationClip ExplosionAC;
-    [SerializeField] public List<AnimationClip> AttributeExplosionACList;
 
 
     #region File
@@ -130,8 +113,10 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Sprite_Cutscene();
         Offset_Sprite_Dialogue();
         Offset_Sprite_ModuleItem();
+        Offset_Sprite_Core();
         Offset_Sprite_AllyCard();
         Offset_Sprite_AllyRequest();
+        Offset_Sprite_Prison();
         Offset_Sprite_Map();
         Offset_Sprite_Ally();
         Offset_Sprite_PuzzleNSC();
@@ -151,7 +136,16 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     private void Offset_Anim()
     {
+        Offset_Anim_Static();
+        Offset_Anim_Module();
+        Offset_Anim_Keycard();
+        Offset_Anim_PlayerShop();
+        Offset_Anim_AllyShop();
+        Offset_Anim_Vault();
+        Offset_Anim_Prison();
+        Offset_Anim_Operator();
         Offset_Anim_Converter();
+        Offset_Anim_Core();
     }
 
     private void Offset()
@@ -326,10 +320,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region Static (Sprite)
 
     // Value
-    [HideInInspector] private Dictionary<int, Sprite> CoreSpriteDict;
     [HideInInspector] private Sprite[] EnemyPhaseSpriteArr;
-    [HideInInspector] private Sprite[] PrisonRateIconArr;
-
     [HideInInspector] public Sprite BuildingDurFrame { get; private set; }
     [HideInInspector] public Sprite BuildingDurInner { get; private set; }
 
@@ -346,25 +337,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     private void Offset_Sprite_Static()
     {
         string path = "Sprite/";
-
-        #region Module
-
-        string modulePath = path + "Module/";
-        CoreSpriteDict = new Dictionary<int, Sprite>();
-        Sprite[] moduleSprites = GetAsset_Arr<Sprite>(modulePath, "Module_000");
-        for (int i = 0; i < moduleSprites.Length; i++)
-        {
-            Sprite sprite = moduleSprites[i];
-
-            if (sprite.name == "Module_ProtoCore")
-                CoreSpriteDict.Add(1, sprite);
-            else if (sprite.name == "Module_EtherCore")
-                CoreSpriteDict.Add(2, sprite);
-            else if (sprite.name == "Module_OriginCore")
-                CoreSpriteDict.Add(3, sprite);
-        }
-
-        #endregion
 
         #region Module UI
 
@@ -418,9 +390,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
                 BuildingDurFrame = sprite;
             else if (sprite.name == "Building000_Durablity_Inner")
                 BuildingDurInner = sprite;
-
-            else if (Get_InSpriteName(sprite, "Building000_DangerRate", out int index))
-                PrisonRateIconArr[index - 1] = sprite;
         }
 
         #endregion
@@ -436,9 +405,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Sprite Get_CoreSprite(int _ID) => CoreSpriteDict[_ID];
     public Sprite Get_BossPhaseSprite(int _ID) => EnemyPhaseSpriteArr[_ID];
-    public Sprite Get_PrisonRankSprite(int _ID) => PrisonRateIconArr[_ID];
 
     #endregion
     #region Static (Material)
@@ -474,6 +441,30 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public Material Get_BuildMaterial(string _Name) => StaticMaterialDict[$"Build_{_Name}"];
     public CoupleData<Material> Get_CoupleBuildMaterial(string _BaseName, string _SpecialName)
         => new CoupleData<Material>(Get_BuildMaterial(_BaseName), Get_BuildMaterial(_SpecialName));
+
+    #endregion
+    #region Static (Anim)
+
+    // Value
+    [HideInInspector] public AnimationClip ExplosionAC { get; private set; }
+    [HideInInspector] private AnimationClip[] AttributeExplosionACArr;
+
+    // Offset
+    private void Offset_Anim_Static()
+    {
+        string path = "Anim/";
+
+        string explosionPath = path + "Explosion/";
+
+        AttributeExplosionACArr = new AnimationClip[4];
+        AttributeExplosionACArr[0] = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion_Fire");
+        AttributeExplosionACArr[1] = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion_Cold");
+        AttributeExplosionACArr[2] = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion_Electicity");
+        AttributeExplosionACArr[3] = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion_Corrosion");
+    }
+
+    // Get
+    public AnimationClip Get_AttributeExplosionAC(int _ID) => AttributeExplosionACArr[_ID];
 
     #endregion
 
@@ -981,6 +972,103 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // Get
     public GameObject Get_ModuleItemUI_Prefab() => InventoryItemPrefab;
     public GameObject Get_ModuleSlotUI_Prefab() => InventorySlotPrefab;
+
+    #endregion
+    #region Item - Module (Anim)
+
+    // Value
+    [HideInInspector] private AnimationClip[] ModuleOutlineACs;
+
+    // Offset
+    private void Offset_Anim_Module()
+    {
+        string path = "Anim/";
+
+        string modulePath = path + "Module/";
+
+        ModuleOutlineACs = new AnimationClip[5]; // 5
+        for (int i = 0; i < ModuleOutlineACs.Length; i++)
+            ModuleOutlineACs[i] = GetAsset<AnimationClip>(modulePath, $"Clip_ModuleItemOutline_R{i + 1}");
+    }
+
+    // Get
+    public AnimationClip Get_ModuleOutlineAC(int _Rank) => ModuleOutlineACs[_Rank];
+
+    #endregion
+
+    #region Item - Keycard (Anim & Color)
+
+    // Value
+    [HideInInspector] public AnimationClip KeycardOutlineAC { get; private set; }
+    [HideInInspector] public Color[] KeycardOutlineColorArr;
+
+    // Offset
+    private void Offset_Anim_Keycard()
+    {
+        string path = "Anim/";
+
+        string modulePath = path + "Module/";
+
+        KeycardOutlineAC = GetAsset<AnimationClip>(modulePath, "Clip_KeycardOutline");
+        KeycardOutlineColorArr = new Color[5];
+        ColorUtility.TryParseHtmlString("#FF727F", out KeycardOutlineColorArr[0]);
+        ColorUtility.TryParseHtmlString("#FFF49B", out KeycardOutlineColorArr[1]);
+        ColorUtility.TryParseHtmlString("#A0FFFC", out KeycardOutlineColorArr[2]);
+        ColorUtility.TryParseHtmlString("#A0FF99", out KeycardOutlineColorArr[3]);
+        ColorUtility.TryParseHtmlString("#99FFD0", out KeycardOutlineColorArr[4]);
+    }
+
+    // Get
+    public Color Get_KeycardColor(int _ID) => KeycardOutlineColorArr[_ID];
+
+    #endregion
+
+    #region Item - Core (Sprite)
+
+    // Value
+    [HideInInspector] private Dictionary<int, Sprite> CoreSpriteDict;
+
+    // Offset
+    private void Offset_Sprite_Core()
+    {
+        string path = "Sprite/";
+
+        string modulePath = path + "Module/";
+        CoreSpriteDict = new Dictionary<int, Sprite>();
+        Sprite[] moduleSprites = GetAsset_Arr<Sprite>(modulePath, "Module_000");
+        for (int i = 0; i < moduleSprites.Length; i++)
+        {
+            Sprite sprite = moduleSprites[i];
+
+            if (sprite.name == "Module_ProtoCore")
+                CoreSpriteDict.Add(1, sprite);
+            else if (sprite.name == "Module_EtherCore")
+                CoreSpriteDict.Add(2, sprite);
+            else if (sprite.name == "Module_OriginCore")
+                CoreSpriteDict.Add(3, sprite);
+        }
+    }
+
+    // Get
+    public Sprite Get_CoreSprite(int _ID) => CoreSpriteDict[_ID];
+
+    #endregion
+    #region Item - Core (Anim)
+
+    // Value
+    [SerializeField] public AnimationClip CoreOutlineAC { get; private set; }
+
+    // Offset
+    private void Offset_Anim_Core()
+    {
+        string path = "Anim/";
+
+        string modulePath = path + "Module/";
+
+        CoreOutlineAC = GetAsset<AnimationClip>(modulePath, "Clip_CoreOutline");
+    }
+
+    // Get
 
     #endregion
 
@@ -1655,10 +1743,213 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
-    #region Converter (Material & Anim)
+    #region Shop - BU & MU (Anim)
 
     // Value
-    [SerializeField] private ConverterReso ConverterReso;
+    [HideInInspector] public CoupleData<AnimationClip> BUShop_OnOffAC { get; private set; }
+    [HideInInspector] public AnimationClip BUShop_BrokenAC { get; private set; }
+    [HideInInspector] public CoupleData<AnimationClip> MUShop_OnOffAC { get; private set; }
+    [HideInInspector] public AnimationClip MUShop_BrokenAC { get; private set; }
+
+
+    [HideInInspector] public AnimationClip BrokenStateAC { get; private set; }
+    [HideInInspector] public CoupleData<AnimationClip> NeedChargeBettery_OnOffStateAC { get; private set; }
+
+    // Offset
+    private void Offset_Anim_PlayerShop()
+    {
+        string path = "Anim/";
+
+        string shopPath = path + "Building/Shop/";
+
+        string buPath = shopPath + "BU/";
+        BUShop_OnOffAC = new CoupleData<AnimationClip>(
+            GetAsset<AnimationClip>(buPath, "Clip_BUShop_Off"), GetAsset<AnimationClip>(buPath, "Clip_BUShop_Off"));
+        BUShop_BrokenAC = GetAsset<AnimationClip>(buPath, "Clip_BUShop_Broken");
+
+        string muPath = shopPath + "MU/";
+        MUShop_OnOffAC = new CoupleData<AnimationClip>(
+            GetAsset<AnimationClip>(muPath, "Clip_MUShop_Off"), GetAsset<AnimationClip>(muPath, "Clip_MUShop_Off"));
+        MUShop_BrokenAC = GetAsset<AnimationClip>(muPath, "Clip_MUShop_Broken");
+
+        BrokenStateAC = GetAsset<AnimationClip>(shopPath, "Clip_Broken");
+        NeedChargeBettery_OnOffStateAC = new CoupleData<AnimationClip>(
+            GetAsset<AnimationClip>(shopPath, "Clip_NeedEC"), GetAsset<AnimationClip>(shopPath, "Clip_Upgrade"));
+    }
+
+    #endregion
+
+    #region Shop - ABU & AMU (Anim)
+
+    // Value
+    [HideInInspector] public CoupleData<AnimationClip> AllyBUShop_OnOffAC { get; private set; }
+    [HideInInspector] public AnimationClip AllyBUShop_BrokenAC { get; private set; }
+    [HideInInspector] public CoupleData<AnimationClip> AllyMUShop_OnOffAC { get; private set; }
+    [HideInInspector] public AnimationClip AllyMUShop_BrokenAC { get; private set; }
+
+    // Offset
+    private void Offset_Anim_AllyShop()
+    {
+        string path = "Anim/";
+
+        string shopPath = path + "Building/AllyShop/";
+
+        string buPath = shopPath + "BU/";
+        AllyBUShop_OnOffAC = new CoupleData<AnimationClip>(
+            GetAsset<AnimationClip>(buPath, "Clip_AllyBUShop_Off"), GetAsset<AnimationClip>(buPath, "Clip_AllyBUShop_Off"));
+        AllyBUShop_BrokenAC = GetAsset<AnimationClip>(buPath, "Clip_AllyBUShop_Broken");
+
+        string muPath = shopPath + "MU/";
+        AllyMUShop_OnOffAC = new CoupleData<AnimationClip>(
+            GetAsset<AnimationClip>(muPath, "Clip_AllyMUShop_Off"), GetAsset<AnimationClip>(muPath, "Clip_AllyMUShop_Off"));
+        AllyMUShop_BrokenAC = GetAsset<AnimationClip>(muPath, "Clip_AllyMUShop_Broken");
+    }
+
+    #endregion
+
+    #region Vault (Anim)
+
+    // Value
+    [HideInInspector] private CoupleData<AnimationClip>[] Vault_AC;
+    [HideInInspector] private AnimationClip[] Vault_BrokenAC;
+
+    [HideInInspector] public AnimationClip Vault_ModuleIconAC { get; private set; }
+    [HideInInspector] public AnimationClip Vault_BSIconAC { get; private set; }
+    [HideInInspector] public AnimationClip Vault_JIconAC { get; private set; }
+    
+    [HideInInspector] public CoupleData<AnimationClip> Vault_StateAC { get; private set; }
+
+    // Offset
+    private void Offset_Anim_Vault()
+    {
+        string path = "Anim/";
+
+        string vaultPath = path + "Building/Vault/";
+
+        Vault_AC = new CoupleData<AnimationClip>[5];
+        Vault_BrokenAC = new AnimationClip[5];
+        for (int i = 0; i < Vault_AC.Length; i++)
+        {
+            AnimationClip ac = GetAsset<AnimationClip>(vaultPath, $"Clip_Vault_G{i}");
+            Vault_AC[i] = new CoupleData<AnimationClip>(ac, ac);
+
+            Vault_BrokenAC[i] = GetAsset<AnimationClip>(vaultPath, $"Clip_Vault_G{i}_Broken");
+        }
+
+        string iconName = "Clip_Vault_Icon_";
+        Vault_ModuleIconAC = GetAsset<AnimationClip>(vaultPath, $"{iconName}Module");
+        Vault_BSIconAC = GetAsset<AnimationClip>(vaultPath, $"{iconName}BetteryShard");
+        Vault_JIconAC = GetAsset<AnimationClip>(vaultPath, $"{iconName}Joule");
+
+        Vault_StateAC = new CoupleData<AnimationClip>(
+            GetAsset<AnimationClip>(vaultPath, $"Clip_VaultEmpty_State"), GetAsset<AnimationClip>(vaultPath, $"Clip_Vault_State"));
+    }
+
+    // Get
+    public CoupleData<AnimationClip> Get_VaultAnim(int _Grade) => Vault_AC[_Grade];
+    public AnimationClip Get_VaultBrokenAnim(int _Grade) => Vault_BrokenAC[_Grade];
+
+    #endregion
+
+    #region Prison (Sprite)
+
+    // Value
+    [HideInInspector] private Sprite[] PrisonRateIconArr;
+
+    // Offset
+    private void Offset_Sprite_Prison()
+    {
+        string path = "Sprite/";
+        string buildingPath = path + "Building/";
+        PrisonRateIconArr = new Sprite[5]; // 5
+        Sprite[] building000Sprites = GetAsset_Arr<Sprite>(buildingPath, "Building_000");
+        for (int i = 0; i < building000Sprites.Length; i++)
+        {
+            Sprite sprite = building000Sprites[i];
+
+            if (Get_InSpriteName(sprite, "Building000_DangerRate", out int index))
+                PrisonRateIconArr[index - 1] = sprite;
+        }
+    }
+
+    // Get
+    public Sprite Get_PrisonRankSprite(int _ID) => PrisonRateIconArr[_ID];
+
+    #endregion
+    #region Prison (Anim)
+
+    // Value 
+    [SerializeField] public CoupleData<AnimationClip> Prison_OnOffAC { get; private set; }
+    [SerializeField] public CoupleData<AnimationClip> Prison_OnOffUpsideAC { get; private set; }
+
+    [SerializeField] public CoupleData<AnimationClip> Prison_StateAC { get; private set; }
+
+    // Offset
+    private void Offset_Anim_Prison()
+    {
+        string path = "Anim/";
+
+        string prisonPath = path + "Building/Prison/";
+
+        string prisonName = "Clip_Prison";
+        string iconName = "Clip_Icon_";
+
+        string downName = "_Downside";
+        string upName = "_Upside";
+        string lockName = "Lock";
+        string UnlockName = "Unlock";
+
+        Prison_OnOffAC = new CoupleData<AnimationClip>(
+            GetAsset<AnimationClip>(prisonPath, $"{prisonName}{lockName}{downName}"), GetAsset<AnimationClip>(prisonPath, $"{prisonName}{UnlockName}{downName}"));
+        Prison_OnOffUpsideAC = new CoupleData<AnimationClip>(
+            GetAsset<AnimationClip>(prisonPath, $"{prisonName}{lockName}{upName}"), GetAsset<AnimationClip>(prisonPath, $"{prisonName}{UnlockName}{upName}"));
+
+        Prison_StateAC = new CoupleData<AnimationClip>(
+            GetAsset<AnimationClip>(prisonPath, $"{iconName}{lockName}"), GetAsset<AnimationClip>(prisonPath, $"{iconName}{UnlockName}"));
+    }
+
+    // Get
+
+    #endregion
+
+    #region Operator (Anim)
+
+    // Value
+    [SerializeField] public CoupleData<AnimationClip> Operator_OnOffAC { get; private set; }
+    [SerializeField] public AnimationClip Operator_RepairAC { get; private set; }
+    [SerializeField] public AnimationClip Operator_RerollAC { get; private set; }
+    [SerializeField] public AnimationClip Operator_UpgradeAC { get; private set; }
+    [SerializeField] public AnimationClip Operator_AllyAC { get; private set; }
+
+    [SerializeField] public CoupleData<AnimationClip> Operator_LightAC { get; private set; }
+
+    // Offset
+    private void Offset_Anim_Operator()
+    {
+        string path = "Anim/";
+
+        string OperPath = path + "Building/Operator/";
+
+        string operName = "Clip_Operator";
+        Operator_OnOffAC = new CoupleData<AnimationClip>(
+            GetAsset<AnimationClip>(OperPath, $"{operName}Off"), GetAsset<AnimationClip>(OperPath, $"{operName}On"));
+
+        string iconName = "Clip_Icon_";
+        Operator_RepairAC = GetAsset<AnimationClip>(OperPath, $"{iconName}Repair");
+        Operator_RerollAC = GetAsset<AnimationClip>(OperPath, $"{iconName}Reroll");
+        Operator_UpgradeAC = GetAsset<AnimationClip>(OperPath, $"{iconName}Upgrade");
+        Operator_AllyAC = GetAsset<AnimationClip>(OperPath, $"{iconName}Ally");
+
+        Operator_LightAC = new CoupleData<AnimationClip>(
+            GetAsset<AnimationClip>(OperPath, $"Clip_LightOff"), GetAsset<AnimationClip>(OperPath, $"Clip_LightOn"));
+    }
+
+    #endregion
+
+    #region Shop - Converter (Material & Anim)
+
+    // Value
+    [HideInInspector] private ConverterReso ConverterReso;
 
     // Offset
     private void Offset_Anim_Converter()

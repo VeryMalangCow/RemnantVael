@@ -15,8 +15,8 @@ public class KeycardItemController : InteractItemController
         ID = _ID;
 
         ThisSR.sprite = MainGameUIManager.Instance.Get_KeyCardSprite(ID);
-        AnimSR.color = UnitManager.Instance.KeycardItemOutlinerColorList[ID];
-        DevTool.Set_Anim(ref AOC, ThisAT, UnitManager.Instance.KeycardItemOutlinerAC);
+        AnimSR.color = ResourceManager.Instance.Get_KeycardColor(ID);
+        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.Instance.KeycardOutlineAC);
         ThisAT.speed = 1.1f;
     }
 

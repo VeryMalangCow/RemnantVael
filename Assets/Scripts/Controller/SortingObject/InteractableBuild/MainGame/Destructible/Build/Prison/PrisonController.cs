@@ -154,9 +154,9 @@ public class PrisonController : InteractableBuildController
 
     private void Set_AnimValue()
     {
-        OnOffAC = UnitManager.Instance.Prison_OnOffAC;
-        OnOffAC_Upside = UnitManager.Instance.Prison_OnOffUpsideAC;
-        OnOffStateAC = UnitManager.Instance.Prison_StateAC;
+        OnOffAC = ResourceManager.Instance.Prison_OnOffAC;
+        OnOffAC_Upside = ResourceManager.Instance.Prison_OnOffUpsideAC;
+        OnOffStateAC = ResourceManager.Instance.Prison_StateAC;
 
         OnOffMaterial = ResourceManager.Instance.Get_CoupleBuildMaterial("PrisonOff", "PrisonOn");
     }
