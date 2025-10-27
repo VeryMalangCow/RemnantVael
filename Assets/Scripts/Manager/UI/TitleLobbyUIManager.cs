@@ -13,7 +13,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     [Header("=== UI_Prefab")]
     [SerializeField] private Transform UIParent;
-    [SerializeField] private GameObject TitleLobby_CanvasPrefab;
 
     // Controller
     [HideInInspector] public TitleLobbyUIController TitleLobby_UIController;
@@ -44,7 +43,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     private void Start()
     {
         TitleLobby_UIController 
-            = Gen_UI<TitleLobbyUIController>(TitleLobby_CanvasPrefab, true);
+            = Gen_UI<TitleLobbyUIController>(ResourceManager.Instance.TitleLobby_CanvasPrefab, true);
 
         Start_FirstPlay();
     }

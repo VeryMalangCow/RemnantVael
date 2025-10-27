@@ -1048,7 +1048,7 @@ public class PlayerHUDController : UIController
         {
             if (keyItem.Value == 0) continue;
 
-            KeyItemImgList[index].sprite = MainGameUIManager.Instance.Get_KeyCardSprite(keyItem.Key);
+            KeyItemImgList[index].sprite = ResourceManager.Instance.Get_KeyCardSprite(keyItem.Key);
             KeyItemAmountTxtList[index].text = keyItem.Value.ToString();
             KeyItemImgList[index].gameObject.SetActive(true);
 
@@ -1061,7 +1061,7 @@ public class PlayerHUDController : UIController
         Sequence seq = DOTween.Sequence();
         for (int i = 0; i < KeyItemImgList.Count; i++)
         {
-            if (KeyItemImgList[i].gameObject.activeSelf && KeyItemImgList[i].sprite == MainGameUIManager.Instance.Get_KeyCardSprite(_ID))
+            if (KeyItemImgList[i].gameObject.activeSelf && KeyItemImgList[i].sprite == ResourceManager.Instance.Get_KeyCardSprite(_ID))
             {
                 seq.Append(KeyItemImgList[i].transform.DOScale(1.3f, 0.1f));
                 seq.Append(KeyItemImgList[i].transform.DOScale(1f, 0.3f));

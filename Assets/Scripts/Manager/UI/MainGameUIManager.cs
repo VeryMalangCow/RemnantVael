@@ -21,35 +21,6 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     [Header("=== Save")]
     [SerializeField] private CanvasGroup SaveDataCG;
 
-    [Header("=== Prefab")]
-    [SerializeField] private GameObject PlayerHUD_CanvasPrefab;
-
-    [SerializeField] private GameObject BaseUpgrade_CanvasPrefab;
-    [SerializeField] private GameObject ModuleUpgrade_CanvasPrefab;
-
-    [SerializeField] private GameObject AllyBaseUpgrade_CanvasPrefab;
-    [SerializeField] private GameObject AllyModuleUpgrade_CanvasPrefab;
-
-    [SerializeField] private GameObject OutMainGame_CanvasPrefab;
-    [SerializeField] private GameObject InteractAnno_CanvasPrefab;
-    [SerializeField] private GameObject MapIntro_CanvasPrefab;
-
-    [SerializeField] private GameObject AllyCard_CanvasPrefab;
-
-    [SerializeField] private GameObject Puzzle_BoxLineConnector_CanvasPrefab;
-    [SerializeField] private GameObject Puzzle_NumShapeColorPassword_CanvasPrefab;
-    [SerializeField] private GameObject Puzzle_InOrderLocker_CanvasPrefab;
-
-    [SerializeField] private GameObject Cvt_PremiumCredit_CanvasPrefab;
-    [SerializeField] private GameObject Cvt_ProtoCore_CanvasPrefab;
-    [SerializeField] private GameObject Cvt_EtherCore_CanvasPrefab;
-    [SerializeField] private GameObject Cvt_OriginCore_CanvasPrefab;
-
-    [SerializeField] private GameObject BattleProd_CanvasPrefab;
-
-
-    [SerializeField] private List<Sprite> KeyCardSpriteList;
-
     #endregion
 
     #region - Hide
@@ -109,48 +80,48 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
             .SetLoops(-1, LoopType.Restart);
 
         PlayerHUD_UIController
-            = Gen_UI<PlayerHUDController>(PlayerHUD_CanvasPrefab, true);
+            = Gen_UI<PlayerHUDController>(ResourceManager.Instance.PlayerHUD_CanvasPrefab, true);
 
         OutMainGame_UIController
-            = Gen_UI<OutMainGameUIController>(OutMainGame_CanvasPrefab, false);
+            = Gen_UI<OutMainGameUIController>(ResourceManager.Instance.OutMainGame_CanvasPrefab, false);
 
         BaseUpgrade_UIController
-            = Gen_UI<BaseUpgradeUIController>(BaseUpgrade_CanvasPrefab, false);
+            = Gen_UI<BaseUpgradeUIController>(ResourceManager.Instance.BaseUpgrade_CanvasPrefab, false);
         ModuleUpgrade_UIController
-            = Gen_UI<ModuleUpgradeUIController>(ModuleUpgrade_CanvasPrefab, false);
+            = Gen_UI<ModuleUpgradeUIController>(ResourceManager.Instance.ModuleUpgrade_CanvasPrefab, false);
 
         AllyBaseUpgrade_UIController
-            = Gen_UI<AllyBaseUpgradeUIController>(AllyBaseUpgrade_CanvasPrefab, false);
+            = Gen_UI<AllyBaseUpgradeUIController>(ResourceManager.Instance.AllyBaseUpgrade_CanvasPrefab, false);
         AllyModuleUpgrade_UIController
-            = Gen_UI<AllyModuleUpgradeUIController>(AllyModuleUpgrade_CanvasPrefab, false);
+            = Gen_UI<AllyModuleUpgradeUIController>(ResourceManager.Instance.AllyModuleUpgrade_CanvasPrefab, false);
 
         InteractAnno_UIController
-            = Gen_UI<InteractAnnoUIController>(InteractAnno_CanvasPrefab, false);
+            = Gen_UI<InteractAnnoUIController>(ResourceManager.Instance.InteractAnno_CanvasPrefab, false);
 
         MapIntro_UIController
-            = Gen_UI<MapIntroUIController>(MapIntro_CanvasPrefab, false);
+            = Gen_UI<MapIntroUIController>(ResourceManager.Instance.MapIntro_CanvasPrefab, false);
 
         AllyCard_UIController
-            = Gen_UI<AllyCardUIController>(AllyCard_CanvasPrefab, false);
+            = Gen_UI<AllyCardUIController>(ResourceManager.Instance.AllyCard_CanvasPrefab, false);
 
         BoxLineConnector_UIController
-            = Gen_UI<BoxLineConnectorUIController>(Puzzle_BoxLineConnector_CanvasPrefab, false);
+            = Gen_UI<BoxLineConnectorUIController>(ResourceManager.Instance.Puzzle_BoxLineConnector_CanvasPrefab, false);
         NumShapeColorPassword_UIController
-            = Gen_UI<NumShapeColorPasswordUIController>(Puzzle_NumShapeColorPassword_CanvasPrefab, false);
+            = Gen_UI<NumShapeColorPasswordUIController>(ResourceManager.Instance.Puzzle_NumShapeColorPassword_CanvasPrefab, false);
         InOrderLocker_UIController
-            = Gen_UI<InOrderLockerUIController>(Puzzle_InOrderLocker_CanvasPrefab, false);
+            = Gen_UI<InOrderLockerUIController>(ResourceManager.Instance.Puzzle_InOrderLocker_CanvasPrefab, false);
 
         PremiumCreditCvt_UIController
-            = Gen_UI<PremiumCreditCvtUIController>(Cvt_PremiumCredit_CanvasPrefab, false);
+            = Gen_UI<PremiumCreditCvtUIController>(ResourceManager.Instance.Cvt_PremiumCredit_CanvasPrefab, false);
         ProtoCoreCvt_UIController
-            = Gen_UI<ProtoCoreCvtUIController>(Cvt_ProtoCore_CanvasPrefab, false);
+            = Gen_UI<ProtoCoreCvtUIController>(ResourceManager.Instance.Cvt_ProtoCore_CanvasPrefab, false);
         EtherCoreCvt_UIController
-            = Gen_UI<EtherCoreCvtUIController>(Cvt_EtherCore_CanvasPrefab, false);
+            = Gen_UI<EtherCoreCvtUIController>(ResourceManager.Instance.Cvt_EtherCore_CanvasPrefab, false);
         OriginCoreCvt_UIController
-            = Gen_UI<OriginCoreCvtUIController>(Cvt_OriginCore_CanvasPrefab, false);
+            = Gen_UI<OriginCoreCvtUIController>(ResourceManager.Instance.Cvt_OriginCore_CanvasPrefab, false);
 
         BattleProd_UIController
-            = Gen_UI<BattleProdUIController>(BattleProd_CanvasPrefab, false);
+            = Gen_UI<BattleProdUIController>(ResourceManager.Instance.BattleProd_CanvasPrefab, false);
 
         Sequence startSeq = DOTween.Sequence();
 
@@ -340,20 +311,6 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         {
             SaveDataCG.gameObject.SetActive(false);
         });
-    }
-
-    #endregion
-
-    #region Get
-
-    public Sprite Get_KeyCardSprite(int _Key)
-    {
-        return KeyCardSpriteList[_Key];
-    }
-
-    public int Get_KindOfKeyCardAmount()
-    {
-        return KeyCardSpriteList.Count;
     }
 
     #endregion

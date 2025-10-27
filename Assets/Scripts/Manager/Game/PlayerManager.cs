@@ -64,7 +64,7 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         HavingKeycardDict = new Dictionary<int, int>();
 
-        for (int i = 0; i < MainGameUIManager.Instance.Get_KindOfKeyCardAmount(); i++)
+        for (int i = 0; i < ResourceManager.Instance.Get_KeycardAmount(); i++)
             HavingKeycardDict.Add(i, 0);
     }
 

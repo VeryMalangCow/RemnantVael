@@ -517,6 +517,14 @@ public class DevTool
             return _TargetList[UnityEngine.Random.Range(0, _TargetList.Count)];
     }
 
+    public static T Get_RandomInList<T>(T[] _TargetArr)
+    {
+        if (_TargetArr == null || _TargetArr.Length <= 0)
+            return default;
+        else
+            return _TargetArr[UnityEngine.Random.Range(0, _TargetArr.Length)];
+    }
+
     #endregion
 
     #region Child
@@ -1786,6 +1794,12 @@ public class CouplePair<T>
 {
     [SerializeField] public CoupleData<T> TypeBase;
     [SerializeField] public CoupleData<T> TypeSpecial;
+
+    public CouplePair(CoupleData<T> _Base, CoupleData<T> _Special)
+    {
+        TypeBase = _Base;
+        TypeSpecial = _Special;
+    }
 
     public CoupleData<T> Get_Base(bool _Yes)
     {
@@ -5164,8 +5178,15 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
 public class MinimapIcon
 {
     public CouplePair<Sprite> MinimapElementIcon;
-    public List<Vector2Int> RoomVec;
+    public Vector2Int[] RoomVec;
     public Vector2 SpritePivot;
+
+    public MinimapIcon(CouplePair<Sprite> _Pair, Vector2Int[] _RoomVec, Vector2 _Pivot)
+    {
+        MinimapElementIcon = _Pair;
+        RoomVec = _RoomVec;
+        SpritePivot = _Pivot;
+    }
 }
 
 [System.Serializable]

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class ResourceManager : PersistentSingleton<ResourceManager>
@@ -117,19 +118,22 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Sprite_Map();
         Offset_Sprite_Ally();
         Offset_Sprite_PuzzleNSC();
+        Offset_Sprite_Minimap();
     }
 
     private void Offset_Material()
     {
         Offset_Material_Static();
+        Offset_Material_Map();
     }
 
     private void Offset_Prefab()
     {
         Offset_Prefab_Ally();
-        Offset_Prefab_FieldObj();
         Offset_Prefab_ModuleItem();
-        Offset_Room_Prefab();
+        Offset_Prefab_Map();
+        Offset_Prefab_Build(); 
+        Offset_Prefab_CanvasUI();
     }
 
     private void Offset_Anim()
@@ -1165,6 +1169,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private Color[] AllyCardColorArr;
     [HideInInspector] public Sprite AllyNullIcon { get; private set; }
 
+    [HideInInspector] private Sprite[] KeyCardSpriteArr;
+
     // Offset
     private void Offset_Sprite_AllyCard()
     {
@@ -1196,7 +1202,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         }
 
 
-        AllyCardColorArr = new Color[6];
+        AllyCardColorArr = new Color[6]; // Keycard Color: 6
         ColorUtility.TryParseHtmlString("#FFFFFF", out AllyCardColorArr[0]);
         ColorUtility.TryParseHtmlString("#D4FACA", out AllyCardColorArr[1]);
         ColorUtility.TryParseHtmlString("#64F9F8", out AllyCardColorArr[2]);
@@ -1204,7 +1210,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         ColorUtility.TryParseHtmlString("#FE4C31", out AllyCardColorArr[4]);
         ColorUtility.TryParseHtmlString("#FFFFE1", out AllyCardColorArr[5]);
 
-
+        KeyCardSpriteArr = new Sprite[5]; // Keycard: 5
         string moduleUiPath = path + "UI/ModuleUI/";
 
         Sprite[] moduleUiSprites = GetAsset_Arr<Sprite>(moduleUiPath, "ModuleUI_000");
@@ -1214,6 +1220,19 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
             if (sprite.name == "ModuleUI_Icon_NullCard")
                 AllyNullIcon = sprite;
+            else if (Get_InSpriteName(sprite, "ModuleUI_KeyCard_", out string s))
+            {
+                switch (s)
+                {
+                    case "Boss": KeyCardSpriteArr[0] = sprite; break;
+                    case "Vault": KeyCardSpriteArr[1] = sprite; break;
+                    case "Prison": KeyCardSpriteArr[2] = sprite; break;
+                    case "Shop": KeyCardSpriteArr[3] = sprite; break;
+                    case "AllyShop": KeyCardSpriteArr[4] = sprite; break;
+
+                    default: break;
+                }
+            }
         }
     }
 
@@ -1238,6 +1257,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public Sprite Get_AllyCardBG(int _Rank) => AllyCardBGArr[_Rank];
 
     public Color Get_AllyCardColor(int _Rank) => AllyCardColorArr[_Rank];
+    public Sprite Get_KeyCardSprite(int _ID) => KeyCardSpriteArr[_ID];
+    public int Get_KeycardAmount() => KeyCardSpriteArr.Length;
 
     #endregion
 
@@ -1521,6 +1542,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private int KindOfFieldObjType = 3;
     [HideInInspector] private Sprite[][][] MapFieldObjList_Data;
 
+    [HideInInspector] private Material[] PassageMiddleMaterialArr;
+
     // Offset
     private void Offset_Sprite_Map()
     {
@@ -1550,6 +1573,16 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             mapFieldObjList_Data.Add(Get_FieldObj(StageMapReso[i]));
         }
         MapFieldObjList_Data = mapFieldObjList_Data.ToArray();
+    }
+    private void Offset_Material_Map()
+    {
+        string path = "Material/";
+
+        string mapPassagePath = path + "Map/MapPassage/";
+        PassageMiddleMaterialArr = new Material[1];
+        for (int i = 0; i < PassageMiddleMaterialArr.Length; i++)
+            PassageMiddleMaterialArr[i] = GetAsset<Material>(mapPassagePath, $"MapPassage_{DevTool.Get_LengthString(i, 3)}");
+
     }
 
     private MapReso GetAsset_MapReso(string _Path, string _Name)
@@ -1608,16 +1641,139 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return spriteArr[UnityEngine.Random.Range(0, spriteArr.Length)];
     }
 
+    public Material Get_PassageMiddleMaterial(int _Idx) => PassageMiddleMaterialArr[_Idx];
 
     #endregion
     #region Map (Prefab)
 
     // Value
+    [HideInInspector] public GameObject LobbyRoomRulePrefab { get; private set; } // Lobby
+    [HideInInspector] public GameObject[] SRoomPrefabList { get; private set; }
+    [HideInInspector] public GameObject LobbyEntranceRoomRulePrefab { get; private set; }
+
+    [HideInInspector] public GameObject StartRoomRulePrefab { get; private set; }  // Start
+
+    [HideInInspector] public GameObject[] RoomPrefabArr { get; private set; } // Room
+    [HideInInspector] public GameObject[] RoomDesignatedPrefabArr { get; private set; }
+
+    [HideInInspector] public GameObject[] RoomRulePrefabArr { get; private set; } // Rule
+    [HideInInspector] public GameObject[] RoomRuleEntrancePrefabArr { get; private set; }
+    [HideInInspector] public GameObject[] RoomRuleVaultPrefabArr { get; private set; }
+    [HideInInspector] public GameObject[] RoomRuleShopPrefabArr { get; private set; }
+    [HideInInspector] public GameObject[] RoomRuleAllyShopPrefabArr { get; private set; }
+    [HideInInspector] public GameObject[] RoomRulePrisonPrefabArr { get; private set; }
+
+
+    [SerializeField] public GameObject PassageRoomPrefab{ get; private set; } // Passage // Room
+    [SerializeField] public GameObject PassageRulePrefab { get; private set; } // Rule
+
     [HideInInspector] private GameObject[] FieldObjArray;
 
     // Offset
-    private void Offset_Prefab_FieldObj()
+    private void Offset_Prefab_Map()
     {
+        string mapPath = "Prefab/Map/";
+        string roomPath = mapPath + "Rooms/";
+
+        // Dict
+        Dictionary<string, Action<GameObject>> prefabDict = new Dictionary<string, Action<GameObject>>
+        {
+            { "R00_LobbyR00", go => LobbyRoomRulePrefab = go },
+            { "RS00_EntranceR00", go => LobbyEntranceRoomRulePrefab = go },
+            { "R00_StartR00", go => StartRoomRulePrefab = go },
+            { "RP01", go => PassageRoomPrefab = go },
+            { "R01_PassageR00", go => PassageRulePrefab = go }
+        };
+
+        // 지역 복사본 (클로즈 캡쳐 주의)
+        SRoomPrefabList = new GameObject[1]; // Small: 1
+        for (int i = 0; i < SRoomPrefabList.Length; i++)
+        {
+            int idx = i;
+            prefabDict.Add($"RS{DevTool.Get_LengthString(idx, 2)}", go => SRoomPrefabList[idx] = go);
+        }
+
+        RoomPrefabArr = new GameObject[8]; // Room: 8
+        for (int i = 0; i < RoomPrefabArr.Length; i++)
+        {
+            int idx = i;
+            prefabDict.Add($"R{DevTool.Get_LengthString(idx, 2)}", go => RoomPrefabArr[idx] = go);
+        }
+
+        RoomDesignatedPrefabArr = new GameObject[3]; // Room - Designated: 3
+        for (int i = 0; i < RoomDesignatedPrefabArr.Length; i++)
+        {
+            int idx = i;
+            prefabDict.Add($"R00_EliteEnemyR{DevTool.Get_LengthString(idx, 2)}", go => RoomDesignatedPrefabArr[idx] = go);
+        }
+
+        int[] rAmount = new int[] { /*0*/5, /*1*/2, /*2*/2, /*3*/2, /*4*/2, /*5*/2, /*6*/2, /*7*/2 };
+        RoomRulePrefabArr = new GameObject[19]; // Rule - Base: 19
+        int roomIdx = 0;
+        int ruleIdx = 0;
+        int orderIdx = 0;
+        for (int i = 0; i < rAmount.Length; i++)
+        {
+            for (int j = 0; j < rAmount[i]; j++)
+            {
+                int idx = roomIdx;
+                int idx2 = ruleIdx;
+                int order = orderIdx;
+                prefabDict.Add($"R{DevTool.Get_LengthString(idx, 2)}_RR{DevTool.Get_LengthString(idx2, 2)}", go => RoomRulePrefabArr[order] = go);
+                ruleIdx++;
+                orderIdx++;
+            }
+            ruleIdx = 0;
+            roomIdx++;
+        }
+
+        RoomRuleEntrancePrefabArr = new GameObject[2]; // Rule - Entrance: 2
+        for (int i = 0; i < RoomRuleEntrancePrefabArr.Length; i++)
+        {
+            int idx = i;
+            prefabDict.Add($"R03_EntranceR{DevTool.Get_LengthString(idx, 2)}", go => RoomRuleEntrancePrefabArr[idx] = go);
+        }
+
+        RoomRuleVaultPrefabArr = new GameObject[1]; // Rule - Vault: 1
+        for (int i = 0; i < RoomRuleVaultPrefabArr.Length; i++)
+        {
+            int idx = i;
+            prefabDict.Add($"R00_VaultR{DevTool.Get_LengthString(idx, 2)}", go => RoomRuleVaultPrefabArr[idx] = go);
+        }
+
+        RoomRuleShopPrefabArr = new GameObject[1]; // Rule - Shop: 1
+        for (int i = 0; i < RoomRuleShopPrefabArr.Length; i++)
+        {
+            int idx = i;
+            prefabDict.Add($"R00_ShopR{DevTool.Get_LengthString(idx, 2)}", go => RoomRuleShopPrefabArr[idx] = go);
+        }
+
+        RoomRuleAllyShopPrefabArr = new GameObject[1]; // Rule - Ally Shop: 1
+        for (int i = 0; i < RoomRuleAllyShopPrefabArr.Length; i++)
+        {
+            int idx = i;
+            prefabDict.Add($"R00_AllyShopR{DevTool.Get_LengthString(idx, 2)}", go => RoomRuleAllyShopPrefabArr[idx] = go);
+        }
+
+        RoomRulePrisonPrefabArr = new GameObject[1]; // Rule - Prison: 1
+        for (int i = 0; i < RoomRulePrisonPrefabArr.Length; i++)
+        {
+            int idx = i;
+            prefabDict.Add($"R00_PrisonR{DevTool.Get_LengthString(idx, 2)}", go => RoomRulePrisonPrefabArr[idx] = go);
+        }
+
+        // Init
+        GameObject[] allRoomReso = GetAsset_Arr<GameObject>(roomPath);
+        for (int i = 0; i < allRoomReso.Length; i++)
+        {
+            GameObject prefab = allRoomReso[i];
+            if (prefabDict.TryGetValue(prefab.name, out Action<GameObject> set))
+            {
+                set(prefab);
+            }
+        }
+
+        // Field Obj
         string path = "Prefab/FieldObj/";
 
         FieldObjArray = new GameObject[KindOfFieldObjType];
@@ -1740,6 +1896,69 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public Sprite Get_NSCAnswerSprite(int _ShapeIndex, int _NumIndex) => AllNSCAnswerSpriteSet[_ShapeIndex].AllAnswerSet[_NumIndex];
 
     #endregion
+    #region Build (Prefab)
+
+    // Value
+    [HideInInspector] public GameObject BUShopPrefab { get; private set; } // Player Shop
+    [HideInInspector] public GameObject MUShopPrefab { get; private set; }
+
+    [HideInInspector] public GameObject ABUShopPrefab { get; private set; }  // Ally Shop
+    [HideInInspector] public GameObject AMUShopPrefab { get; private set; }
+
+    [HideInInspector] public GameObject[] VaultPrefabArr { get; private set; } // Value
+    [HideInInspector] public GameObject[] PrisonPrefabArr { get; private set; } // Prison
+
+
+    [HideInInspector] public GameObject RepairOperatorPrefab { get; private set; }  // Oper
+
+    [HideInInspector] public GameObject VaultRerollOperatorPrefab { get; private set; }
+    [HideInInspector] public GameObject VaultUpgradeOperatorPrefab { get; private set; }
+
+    [HideInInspector] public GameObject PrisonPayOperatorPrefab { get; private set; }
+    [HideInInspector] public GameObject PrisonPuzzleOperatorPrefab { get; private set; }
+
+    // Offset
+    private void Offset_Prefab_Build()
+    {
+        string shop = "Shop";
+        string vault = "Vault";
+        string prison = "Prison";
+        string oper = "Operator";
+
+        string path = "Prefab/Build/MainGame/";
+
+        string playerPath = path + shop + "/";
+        BUShopPrefab = GetAsset<GameObject>(playerPath, $"BaseUpgrade{shop}");
+        MUShopPrefab = GetAsset<GameObject>(playerPath, $"ModuleUpgrade{shop}");
+
+        string allyPath = path + "Ally" + shop + "/";
+        ABUShopPrefab = GetAsset<GameObject>(allyPath, $"AllyBaseUpgrade{shop}");
+        AMUShopPrefab = GetAsset<GameObject>(allyPath, $"AllyModuleUpgrade{shop}");
+
+        string vaultPath = path + vault + "/";
+        VaultPrefabArr = new GameObject[3]; // 3
+        VaultPrefabArr[0] = GetAsset<GameObject>(vaultPath, $"BetteryShard{vault}");
+        VaultPrefabArr[1] = GetAsset<GameObject>(vaultPath, $"Joule{vault}");
+        VaultPrefabArr[2] = GetAsset<GameObject>(vaultPath, $"Module{vault}");
+
+        string prisonPath = path + prison + "/";
+        PrisonPrefabArr = new GameObject[3]; // 3
+        PrisonPrefabArr[0] = GetAsset<GameObject>(prisonPath, $"{prison}_StrikeTeam");
+        PrisonPrefabArr[1] = GetAsset<GameObject>(prisonPath, $"{prison}_UplinkTeam");
+        PrisonPrefabArr[2] = GetAsset<GameObject>(prisonPath, $"{prison}_NeoTeam");
+
+
+        string operPath = path + oper + "/";
+        RepairOperatorPrefab = GetAsset<GameObject>(operPath, $"Repair{oper}");
+        string vaultOperPath = operPath + vault + "/";
+        VaultRerollOperatorPrefab = GetAsset<GameObject>(vaultOperPath, $"VaultReroll{oper}");
+        VaultUpgradeOperatorPrefab = GetAsset<GameObject>(vaultOperPath, $"VaultUpgrade{oper}");
+        string prisonOperPath = operPath + prison + "/";
+        PrisonPayOperatorPrefab = GetAsset<GameObject>(prisonOperPath, $"PrisonPay{oper}");
+        PrisonPuzzleOperatorPrefab = GetAsset<GameObject>(prisonOperPath, $"PrisonPuzzle{oper}");
+    }
+
+    #endregion
 
     #region Shop - BU & MU (Anim)
 
@@ -1776,7 +1995,6 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     #endregion
-
     #region Shop - ABU & AMU (Anim)
 
     // Value
@@ -1978,132 +2196,212 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #endregion
 
-    #region Room (Prefab)
+    #region Minimap (Sprite)
 
     // Value
-    [SerializeField] public GameObject LobbyRoomRulePrefab { get; private set; } // Lobby
-    [SerializeField] public GameObject[] SRoomPrefabList { get; private set; }
-    [SerializeField] public GameObject LobbyEntranceRoomRulePrefab { get; private set; }
+    [HideInInspector] public CoupleData<Sprite> Vault_Icon { get; private set; }
+    [HideInInspector] public CoupleData<Sprite> Elevator_Icon { get; private set; }
+    [HideInInspector] public CoupleData<Sprite> Shop_Icon { get; private set; }
+    [HideInInspector] public CoupleData<Sprite> AllyShop_Icon { get; private set; }
+    [HideInInspector] public CoupleData<Sprite> ST_Prison_Icon { get; private set; }
+    [HideInInspector] public CoupleData<Sprite> UT_Prison_Icon { get; private set; }
+    [HideInInspector] public CoupleData<Sprite> NT_Prison_Icon { get; private set; }
 
-    [SerializeField] public GameObject StartRoomRulePrefab { get; private set; }  // Start
+    [HideInInspector] private MinimapIcon[] MinimapIcons;
 
+    [HideInInspector] private Dictionary<int, Sprite> StageIconDict;
 
-    [SerializeField] public GameObject[] RoomPrefabArr { get; private set; }
-    [SerializeField] public GameObject[] RoomDesignatedPrefabArr { get; private set; }
-    [SerializeField] public GameObject[] RoomRulePrefabArr { get; private set; }
-    [SerializeField] public GameObject[] RoomRuleEntrancePrefabArr { get; private set; }
-    [SerializeField] public GameObject[] RoomRuleVaultPrefabArr { get; private set; }
-    [SerializeField] public GameObject[] RoomRuleShopPrefabArr { get; private set; }
-    [SerializeField] public GameObject[] RoomRuleAllyShopPrefabArr { get; private set; }
-    [SerializeField] public GameObject[] RoomRulePrisonPrefabArr { get; private set; }
 
     // Offset
-    private void Offset_Room_Prefab()
+    private void Offset_Sprite_Minimap()
     {
-        string mapPath = "Prefab/Map/";
-        string roomPath = mapPath + "Rooms/";
+        string path = "Sprite/UI/HUD/";
 
-        // Dict
-        Dictionary<string, Action<GameObject>> prefabDict = new Dictionary<string, Action<GameObject>>
-        {
-            { "R00_LobbyR00", go => LobbyRoomRulePrefab = go },
-            { "RS00_EntranceR00", go => LobbyEntranceRoomRulePrefab = go },
-            { "R00_StartR00", go => StartRoomRulePrefab = go }
-        };
 
-        // 지역 복사본 (클로즈 캡쳐 주의)
-        SRoomPrefabList = new GameObject[1]; // Small: 1
-        for (int i = 0; i < SRoomPrefabList.Length; i++)
+        string mmName = "PlayerHUD_MM_";
+        string mmoName = "PlayerHUD_MMO_";
+        string immName = "PlayerHUD_IMM_";
+        string immoName = "PlayerHUD_IMMO_";
+
+        string mmIconName = "PlayerHUD_MM_Icon_";
+        string immIconName = "PlayerHUD_IMM_Icon_";
+
+        Sprite[] hud000S = GetAsset_Arr<Sprite>(path, "PlayerHUD_000");
+        Dictionary<string, Sprite> hud000dict = new Dictionary<string, Sprite>();
+        for (int i = 0; i < hud000S.Length; i++)
         {
-            int idx = i;
-            prefabDict.Add($"RS{DevTool.Get_LengthString(idx, 2)}", go => SRoomPrefabList[idx] = go);
+            hud000dict.Add(hud000S[i].name, hud000S[i]);
         }
 
-        RoomPrefabArr = new GameObject[8]; // Room: 8
-        for (int i = 0; i < RoomPrefabArr.Length; i++)
-        {
-            int idx = i; 
-            prefabDict.Add($"R{DevTool.Get_LengthString(idx, 2)}", go => RoomPrefabArr[idx] = go);
-        }
+        Vault_Icon = new CoupleData<Sprite>(
+            hud000dict[$"{mmIconName}Vault"], hud000dict[$"{immIconName}Vault"]);
+        Elevator_Icon = new CoupleData<Sprite>(
+            hud000dict[$"{mmIconName}Elevator"], hud000dict[$"{immIconName}Elevator"]);
+        Shop_Icon = new CoupleData<Sprite>(
+            hud000dict[$"{mmIconName}Shop"], hud000dict[$"{immIconName}Shop"]);
+        AllyShop_Icon = new CoupleData<Sprite>(
+            hud000dict[$"{mmIconName}AllyShop"], hud000dict[$"{immIconName}AllyShop"]);
+        ST_Prison_Icon = new CoupleData<Sprite>(
+            hud000dict[$"{mmIconName}ST_Prison"], hud000dict[$"{immIconName}ST_Prison"]);
+        UT_Prison_Icon = new CoupleData<Sprite>(
+            hud000dict[$"{mmIconName}UT_Prison"], hud000dict[$"{immIconName}UT_Prison"]);
+        NT_Prison_Icon = new CoupleData<Sprite>(
+            hud000dict[$"{mmIconName}NT_Prison"], hud000dict[$"{immIconName}NT_Prison"]);
 
-        RoomDesignatedPrefabArr = new GameObject[3]; // Room - Designated: 3
-        for (int i = 0; i < RoomDesignatedPrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R00_EliteEnemyR{DevTool.Get_LengthString(idx, 2)}", go => RoomDesignatedPrefabArr[idx] = go);
-        }
+        MinimapIcons = new MinimapIcon[8]; // 8
 
-        int[] rAmount = new int[] { /*0*/5, /*1*/2, /*2*/2, /*3*/2, /*4*/2, /*5*/2, /*6*/2, /*7*/2 };
-        RoomRulePrefabArr = new GameObject[19]; // Rule - Base: 19
-        int roomIdx = 0;
-        int ruleIdx = 0;
-        int orderIdx = 0;
-        for (int i = 0; i < rAmount.Length; i++)
+        MinimapIcons[0] = new MinimapIcon(
+            new CouplePair<Sprite>(
+                new CoupleData<Sprite>(hud000dict[$"{mmName}000"], hud000dict[$"{mmoName}000"]),
+                new CoupleData<Sprite>(hud000dict[$"{immName}000"], hud000dict[$"{immoName}000"])),
+            new Vector2Int[] { new Vector2Int(0, 0) }, 
+            new Vector2(0.5f, 0.5f));
+
+        MinimapIcons[1] = new MinimapIcon(
+            new CouplePair<Sprite>(
+                new CoupleData<Sprite>(hud000dict[$"{mmName}001"], hud000dict[$"{mmoName}001"]),
+                new CoupleData<Sprite>(hud000dict[$"{immName}001"], hud000dict[$"{immoName}001"])),
+            new Vector2Int[] { new Vector2Int(0, 0), new Vector2Int(1, 0) }, 
+            new Vector2(0.25f, 0.5f));
+
+        MinimapIcons[2] = new MinimapIcon(
+            new CouplePair<Sprite>(
+                new CoupleData<Sprite>(hud000dict[$"{mmName}002"], hud000dict[$"{mmoName}002"]),
+                new CoupleData<Sprite>(hud000dict[$"{immName}002"], hud000dict[$"{immoName}002"])),
+            new Vector2Int[] { new Vector2Int(0, 0), new Vector2Int(0, 1) },
+            new Vector2(0.5f, 0.25f));
+
+        MinimapIcons[3] = new MinimapIcon(
+            new CouplePair<Sprite>(
+                new CoupleData<Sprite>(hud000dict[$"{mmName}003"], hud000dict[$"{mmoName}003"]),
+                new CoupleData<Sprite>(hud000dict[$"{immName}003"], hud000dict[$"{immoName}003"])),
+            new Vector2Int[] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(0, 1), new Vector2Int(1, 1) },
+            new Vector2(0.25f, 0.25f));
+
+        MinimapIcons[4] = new MinimapIcon(
+            new CouplePair<Sprite>(
+                new CoupleData<Sprite>(hud000dict[$"{mmName}004"], hud000dict[$"{mmoName}004"]),
+                new CoupleData<Sprite>(hud000dict[$"{immName}004"], hud000dict[$"{immoName}004"])),
+            new Vector2Int[] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(0, -1) },
+            new Vector2(0.25f, 0.75f));
+
+        MinimapIcons[5] = new MinimapIcon(
+            new CouplePair<Sprite>(
+                new CoupleData<Sprite>(hud000dict[$"{mmName}005"], hud000dict[$"{mmoName}005"]),
+                new CoupleData<Sprite>(hud000dict[$"{immName}005"], hud000dict[$"{immoName}005"])),
+            new Vector2Int[] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(0, 1) },
+            new Vector2(0.25f, 0.25f));
+        
+        MinimapIcons[6] = new MinimapIcon(
+            new CouplePair<Sprite>(
+                new CoupleData<Sprite>(hud000dict[$"{mmName}006"], hud000dict[$"{mmoName}006"]),
+                new CoupleData<Sprite>(hud000dict[$"{immName}006"], hud000dict[$"{immoName}006"])),
+            new Vector2Int[] { new Vector2Int(0, 0), new Vector2Int(0, 1), new Vector2Int(1, 1) },
+            new Vector2(0.25f, 0.25f));
+
+        MinimapIcons[7] = new MinimapIcon(
+            new CouplePair<Sprite>(
+                new CoupleData<Sprite>(hud000dict[$"{mmName}007"], hud000dict[$"{mmoName}007"]),
+                new CoupleData<Sprite>(hud000dict[$"{immName}007"], hud000dict[$"{immoName}007"])),
+            new Vector2Int[] { new Vector2Int(0, 0), new Vector2Int(1, 0), new Vector2Int(1, 1) },
+            new Vector2(0.25f, 0.25f));
+
+        string stageIconName = "ModuleUI_StageIcon_";
+
+        string moduleUIPath = "Sprite/UI/ModuleUI/";
+        StageIconDict = new Dictionary<int, Sprite>();
+        Sprite[] moduleUIS = GetAsset_Arr<Sprite>(moduleUIPath);
+        for (int i = 0; i < moduleUIS.Length; i++)
         {
-            for (int j = 0; j < rAmount[i]; j++)
+            Sprite s = moduleUIS[i];
+            if (Get_InSpriteName(s, stageIconName, out int idx))
             {
-                int idx = roomIdx;
-                int idx2 = ruleIdx;
-                int order = orderIdx;
-                prefabDict.Add($"R{DevTool.Get_LengthString(idx, 2)}_RR{DevTool.Get_LengthString(idx2, 2)}", go => RoomRulePrefabArr[order] = go);
-                ruleIdx++;
-                orderIdx++;
+                StageIconDict.Add(idx, s);
             }
-            ruleIdx = 0;
-            roomIdx++;
-        }
-
-        RoomRuleEntrancePrefabArr = new GameObject[2]; // Rule - Entrance: 2
-        for (int i = 0; i < RoomRuleEntrancePrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R03_EntranceR{DevTool.Get_LengthString(idx, 2)}", go => RoomRuleEntrancePrefabArr[idx] = go);
-        }
-
-        RoomRuleVaultPrefabArr = new GameObject[1]; // Rule - Vault: 1
-        for (int i = 0; i < RoomRuleVaultPrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R00_VaultR{DevTool.Get_LengthString(idx, 2)}", go => RoomRuleVaultPrefabArr[idx] = go);
-        }
-
-        RoomRuleShopPrefabArr = new GameObject[1]; // Rule - Shop: 1
-        for (int i = 0; i < RoomRuleShopPrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R00_ShopR{DevTool.Get_LengthString(idx, 2)}", go => RoomRuleShopPrefabArr[idx] = go);
-        }
-
-        RoomRuleAllyShopPrefabArr = new GameObject[1]; // Rule - Ally Shop: 1
-        for (int i = 0; i < RoomRuleAllyShopPrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R00_AllyShopR{DevTool.Get_LengthString(idx, 2)}", go => RoomRuleAllyShopPrefabArr[idx] = go);
-        }
-
-        RoomRulePrisonPrefabArr = new GameObject[1]; // Rule - Prison: 1
-        for (int i = 0; i < RoomRulePrisonPrefabArr.Length; i++)
-        {
-            int idx = i;
-            prefabDict.Add($"R00_PrisonR{DevTool.Get_LengthString(idx, 2)}", go => RoomRulePrisonPrefabArr[idx] = go);
-        }
-
-        // Init
-        GameObject[] allRoomReso = GetAsset_Arr<GameObject>(roomPath);
-        for (int i = 0; i < allRoomReso.Length; i++)
-        {
-            GameObject prefab = allRoomReso[i];
-            if (prefabDict.TryGetValue(prefab.name, out Action<GameObject> set))
+            else if (Get_InSpriteName(s, stageIconName, out string idxS) && idxS == "Lobby")
             {
-                set(prefab);
+                StageIconDict.Add(99, s);
             }
         }
     }
 
     // Get
+    public MinimapIcon Get_MinimapIcon(int _ID) => MinimapIcons[_ID];
+    public Sprite Get_StageIcon(int _ID) => StageIconDict[_ID];
 
     #endregion
 
+    #region Canvas UI (Prefab)
+
+    // Value
+    [SerializeField] public GameObject TitleLobby_CanvasPrefab { get; private set; }
+
+    [SerializeField] public GameObject PlayerHUD_CanvasPrefab { get; private set; }
+
+    [SerializeField] public GameObject BaseUpgrade_CanvasPrefab { get; private set; }
+    [SerializeField] public GameObject ModuleUpgrade_CanvasPrefab { get; private set; }
+
+    [SerializeField] public GameObject AllyBaseUpgrade_CanvasPrefab { get; private set; }
+    [SerializeField] public GameObject AllyModuleUpgrade_CanvasPrefab { get; private set; }
+
+    [SerializeField] public GameObject OutMainGame_CanvasPrefab { get; private set; }
+    [SerializeField] public GameObject InteractAnno_CanvasPrefab { get; private set; }
+    [SerializeField] public GameObject MapIntro_CanvasPrefab { get; private set; }
+
+    [SerializeField] public GameObject AllyCard_CanvasPrefab { get; private set; }
+
+    [SerializeField] public GameObject Puzzle_BoxLineConnector_CanvasPrefab { get; private set; }
+    [SerializeField] public GameObject Puzzle_NumShapeColorPassword_CanvasPrefab { get; private set; }
+    [SerializeField] public GameObject Puzzle_InOrderLocker_CanvasPrefab { get; private set; }
+
+    [SerializeField] public GameObject Cvt_PremiumCredit_CanvasPrefab { get; private set; }
+    [SerializeField] public GameObject Cvt_ProtoCore_CanvasPrefab { get; private set; }
+    [SerializeField] public GameObject Cvt_EtherCore_CanvasPrefab { get; private set; }
+    [SerializeField] public GameObject Cvt_OriginCore_CanvasPrefab { get; private set; }
+
+    [SerializeField] public GameObject BattleProd_CanvasPrefab { get; private set; }
+
+    // Offset
+    private void Offset_Prefab_CanvasUI()
+    {
+        string path = "Prefab/UI/";
+
+        Dictionary<string, GameObject> dict = new Dictionary<string, GameObject>();
+        GameObject[] prefabs = GetAsset_Arr<GameObject>(path);
+        for (int i = 0; i < prefabs.Length; i++)
+            dict.Add(prefabs[i].name, prefabs[i]);
+
+        TitleLobby_CanvasPrefab = dict[Get_CanvasName("TitleLobby")];
+
+        PlayerHUD_CanvasPrefab = dict[Get_CanvasName("PlayerInfoHUD")];
+
+        BaseUpgrade_CanvasPrefab = dict[Get_CanvasName("BUUI")];
+        ModuleUpgrade_CanvasPrefab = dict[Get_CanvasName("MUUI")];
+
+        AllyBaseUpgrade_CanvasPrefab = dict[Get_CanvasName("ABUUI")];
+        AllyModuleUpgrade_CanvasPrefab = dict[Get_CanvasName("AMUUI")];
+
+        OutMainGame_CanvasPrefab = dict[Get_CanvasName("OutMainGame")];
+        InteractAnno_CanvasPrefab = dict[Get_CanvasName("InteractAnnoHUD")];
+        MapIntro_CanvasPrefab = dict[Get_CanvasName("MapIntroHUD")];
+
+        AllyCard_CanvasPrefab = dict[Get_CanvasName("AllyUpgrade")];
+
+        Puzzle_BoxLineConnector_CanvasPrefab = dict[Get_CanvasName("Puzzle_BoxLineConnector")];
+        Puzzle_NumShapeColorPassword_CanvasPrefab = dict[Get_CanvasName("Puzzle_NumShapeColorPassword")];
+        Puzzle_InOrderLocker_CanvasPrefab = dict[Get_CanvasName("Puzzle_InOrderLocker")];
+
+        Cvt_PremiumCredit_CanvasPrefab = dict[Get_CanvasName("PremiumCreditCvt")];
+        Cvt_ProtoCore_CanvasPrefab = dict[Get_CanvasName("ProtoCoreCvt")];
+        Cvt_EtherCore_CanvasPrefab = dict[Get_CanvasName("EtherCoreCvt")];
+        Cvt_OriginCore_CanvasPrefab = dict[Get_CanvasName("OriginCoreCvt")];
+
+        BattleProd_CanvasPrefab = dict[Get_CanvasName("Battle")];
+
+        string Get_CanvasName(string _Name) => "Canvas_" + _Name + "_Prefab";
+    }
+
+    #endregion
 
     #region GetAsset_WordData
 
