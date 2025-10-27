@@ -20,7 +20,7 @@ public class RoomRuleController : MonoBehaviour
     [Space(5)]
     [Header("-- Type")]
     [SerializeField] public eRoomType RoomType;
-    [SerializeField] private eEnemy EnemyType = eEnemy.Normal;
+    [SerializeField] public eEnemy EnemyType = eEnemy.Normal;
     [SerializeField] public bool IsAlreadyRoomClear = false;
 
     [Space(10)]
@@ -117,6 +117,9 @@ public class RoomRuleController : MonoBehaviour
     public virtual void Set_Completed()
     {
         SetOn_Shop();
+
+        if (!SoundManager.IsPlayingBaseBGM)
+            SoundManager.Instance.CastBGM_ToBase();
     }
 
     private void SetOn_Shop()
@@ -128,6 +131,7 @@ public class RoomRuleController : MonoBehaviour
         }
     }
 
+
     #endregion
 
     #region Kill All
@@ -135,6 +139,17 @@ public class RoomRuleController : MonoBehaviour
     public void Set_KillAll()
     {
         Spawn_AllEnemy();
+
+        if (EnemyType == eEnemy.Elite && SoundManager.IsPlayingBaseBGM)
+        {
+            SoundManager.Instance.CastBGM_ToExtra();
+            SoundManager.Instance.Play_2D_ExtraBGM("Elite");
+        }
+        else if (EnemyType == eEnemy.Boss && SoundManager.IsPlayingBaseBGM)
+        {
+            SoundManager.Instance.CastBGM_ToExtra();
+            SoundManager.Instance.Play_2D_ExtraBGM("Boss");
+        }
     }
 
     private void Spawn_AllEnemy()

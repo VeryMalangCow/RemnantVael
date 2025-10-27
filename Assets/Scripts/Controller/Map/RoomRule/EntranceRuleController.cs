@@ -56,6 +56,11 @@ public class EntranceRuleController : RoomRuleController
         return InRoom_Elevator.Get_Data();
     }
 
+    public bool IsOn_Elevator()
+    {
+        return InRoom_Elevator.IsOn;
+    }
+
     #endregion
 
     #region Lobby

@@ -41,6 +41,7 @@ public class BattleProdUIController : UIController
 
     public void Play_BattleOnProd(PlayerController _Player, EliteEnemyController _Enemy, out float _DurTime)
     {
+        SoundManager.Instance.Play_2D_SFX_UI("StartBattleProd");
         Play_BattleOnProd(
             _Player.BattleProdSprite, 
             _Enemy.BattleProdSprite, 
@@ -51,6 +52,7 @@ public class BattleProdUIController : UIController
 
     public void Play_BattleOnProd(PlayerController _Player, BossEnemyController _Enemy, out float _DurTime)
     {
+        SoundManager.Instance.Play_2D_SFX_UI("StartBossBattleProd");
         Play_BattleOnProd(
             _Player.BattleProdSprite,
             _Enemy.BattleProdSprite,
@@ -61,8 +63,6 @@ public class BattleProdUIController : UIController
 
     private void Play_BattleOnProd(Sprite _PlayerImg, Sprite _EnemyImg, string _PlayerName, string _EnemyName, out float _DurTime)
     {
-        SoundManager.Instance.Play_2D_SFX_UI("StartBattleProd");
-
         BattleProd_CG.gameObject.SetActive(true);
 
         BattleProd_PlayerImg.sprite = _PlayerImg;

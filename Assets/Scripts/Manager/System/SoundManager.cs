@@ -16,7 +16,13 @@ public class SoundManager : PersistentSingleton<SoundManager>
     [Header("=== Comp")]
     [SerializeField] private AudioMixer MasterAudioMixer;
 
-    [SerializeField] private AudioSource ThisBgmAudioSource;
+    [Space(5)]
+    [Header("-- BGM")]
+    [SerializeField] private AudioSource ThisBaseBgmAudioSource;
+    [SerializeField] private AudioSource ThisExtraBgmAudioSource;
+
+    [Space(5)]
+    [Header("-- SFX")]
     [SerializeField] private ASQueueSet ThisSfxASQueueSet;
 
     #endregion
@@ -30,6 +36,9 @@ public class SoundManager : PersistentSingleton<SoundManager>
     [HideInInspector] private Dictionary<string, AudioClip> SFXAudioDict = new Dictionary<string, AudioClip>();
 
     [HideInInspector] private static readonly int CutsceneSoundAmount = 1;
+
+    [HideInInspector] private Sequence BgmCastingSeq;
+    [HideInInspector] public static bool IsPlayingBaseBGM = true;
 
     #endregion
 
@@ -65,10 +74,10 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         string playerPath = sfxPath + "Player/";
 
-        SFXAudioDict.Add("Player_Dash", Resources.Load<AudioClip>(playerPath + "Player_Dash"));
-        SFXAudioDict.Add("Player_Avoid", Resources.Load<AudioClip>(playerPath + "Player_Avoid"));
-        SFXAudioDict.Add("Player_Hitted", Resources.Load<AudioClip>(playerPath + "Player_Hitted"));
-        SFXAudioDict.Add("Player_Killed", Resources.Load<AudioClip>(playerPath + "Player_Killed"));
+        Add_SFX(playerPath, "Player_Dash");
+        Add_SFX(playerPath, "Player_Avoid");
+        Add_SFX(playerPath, "Player_Hitted");
+        Add_SFX(playerPath, "Player_Killed");
 
         #region Player00
 
@@ -76,18 +85,12 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         // Shot Type Amount
         for (int i = 0; i < 2; i++)
-        {
-            string name = $"Player00_Shot_{DevTool.Get_LengthString(i, 2)}";
-            SFXAudioDict.Add(name, Resources.Load<AudioClip>(player00Path + name));
-        }
-
+            Add_SFX(player00Path, $"Player00_Shot_{DevTool.Get_LengthString(i, 2)}");
+        
         // Missile Shot Type Amount
         for (int i = 0; i < 2; i++)
-        {
-            string name = $"Player00_MShot_{DevTool.Get_LengthString(i, 2)}";
-            SFXAudioDict.Add(name, Resources.Load<AudioClip>(player00Path + name));
-        }
-
+            Add_SFX(player00Path, $"Player00_MShot_{DevTool.Get_LengthString(i, 2)}");
+        
         #endregion
 
         #endregion
@@ -96,22 +99,17 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         string enemyPath = sfxPath + "Enemy/";
 
-        SFXAudioDict.Add("Enemy_Hitted", Resources.Load<AudioClip>(enemyPath + "Enemy_Hitted"));
-        SFXAudioDict.Add("Enemy_Killed", Resources.Load<AudioClip>(enemyPath + "Enemy_Killed"));
+        Add_SFX(enemyPath, "Enemy_Hitted");
+        Add_SFX(enemyPath, "Enemy_Killed");
 
         // Attack
         for (int i = 0; i < 2; i++)
         {
             string index = DevTool.Get_LengthString(i, 2);
 
-            string sword = $"Enemy_Attack_Sword_{index}";
-            SFXAudioDict.Add(sword, Resources.Load<AudioClip>(enemyPath + sword));
-
-            string bullet = $"Enemy_Attack_Bullet_{index}";
-            SFXAudioDict.Add(bullet, Resources.Load<AudioClip>(enemyPath + bullet));
-
-            string thrust = $"Enemy_Attack_Thrust_{index}";
-            SFXAudioDict.Add(thrust, Resources.Load<AudioClip>(enemyPath + thrust));
+            Add_SFX(enemyPath, $"Enemy_Attack_Sword_{index}");
+            Add_SFX(enemyPath, $"Enemy_Attack_Bullet_{index}");
+            Add_SFX(enemyPath, $"Enemy_Attack_Thrust_{index}");
         }
 
         #endregion
@@ -120,7 +118,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         string explosionPath = sfxPath + "Combat/";
 
-        SFXAudioDict.Add("Combat_Explosion", Resources.Load<AudioClip>(explosionPath + "Combat_Explosion"));
+        Add_SFX(explosionPath, "Combat_Explosion");
 
         #endregion
 
@@ -128,12 +126,10 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         string statusPath = sfxPath + "Status/";
 
-        SFXAudioDict.Add("Status_Fire", Resources.Load<AudioClip>(statusPath + "Status_Fire"));
-        SFXAudioDict.Add("Status_Cold", Resources.Load<AudioClip>(statusPath + "Status_Cold"));
-        SFXAudioDict.Add("Status_Electricity", Resources.Load<AudioClip>(statusPath + "Status_Electricity"));
-        SFXAudioDict.Add("Status_Corrosion", Resources.Load<AudioClip>(statusPath + "Status_Corrosion"));
-
-
+        Add_SFX(statusPath, "Status_Fire");
+        Add_SFX(statusPath, "Status_Cold");
+        Add_SFX(statusPath, "Status_Electricity");
+        Add_SFX(statusPath, "Status_Corrosion");
 
         #endregion
 
@@ -142,23 +138,19 @@ public class SoundManager : PersistentSingleton<SoundManager>
         string buildPath = sfxPath + "Build/";
 
         // Gate
-        SFXAudioDict.Add("Build_EnterGate", Resources.Load<AudioClip>(buildPath + "Build_EnterGate"));
-        SFXAudioDict.Add("Build_UseKeycard", Resources.Load<AudioClip>(buildPath + "Build_UseKeycard"));
+        Add_SFX(buildPath, "Build_EnterGate");
+        Add_SFX(buildPath, "Build_UseKeycard");
 
-        // Interact - Shop
-        SFXAudioDict.Add("Build_PowerOn", Resources.Load<AudioClip>(buildPath + "Build_PowerOn"));
-        SFXAudioDict.Add("Build_Damaged", Resources.Load<AudioClip>(buildPath + "Build_Damaged"));
+        Add_SFX(buildPath, "Build_PowerOn");
+        Add_SFX(buildPath, "Build_Damaged");
 
-        // Interact - Operator
-        SFXAudioDict.Add("Build_Repair", Resources.Load<AudioClip>(buildPath + "Build_Repair"));
-        SFXAudioDict.Add("Build_Replacement", Resources.Load<AudioClip>(buildPath + "Build_Replacement"));
-        SFXAudioDict.Add("Build_Enchance", Resources.Load<AudioClip>(buildPath + "Build_Enchance"));
+        Add_SFX(buildPath, "Build_Repair");
+        Add_SFX(buildPath, "Build_Replacement");
+        Add_SFX(buildPath, "Build_Enchance");
 
-        // Interact - Prison
-        SFXAudioDict.Add("Build_PrisonUnlock", Resources.Load<AudioClip>(buildPath + "Build_PrisonUnlock"));
+        Add_SFX(buildPath, "Build_PrisonUnlock");
 
-        // Field Obj
-        SFXAudioDict.Add("Build_BreakFieldObj", Resources.Load<AudioClip>(buildPath + "Build_BreakFieldObj"));
+        Add_SFX(buildPath, "Build_BreakFieldObj");
 
         #endregion
 
@@ -166,11 +158,11 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         string roomPath = sfxPath + "Room/";
 
-        SFXAudioDict.Add("Room_Start_KillAll", Resources.Load<AudioClip>(roomPath + "Room_Start_KillAll"));
-        SFXAudioDict.Add("Room_Start_Safe", Resources.Load<AudioClip>(roomPath + "Room_Start_Safe"));
-        SFXAudioDict.Add("Room_Start_Prison", Resources.Load<AudioClip>(roomPath + "Room_Start_Prison"));
+        Add_SFX(roomPath, "Room_Start_KillAll");
+        Add_SFX(roomPath, "Room_Start_Safe");
+        Add_SFX(roomPath, "Room_Start_Prison");
 
-        SFXAudioDict.Add("Room_Complete_KillAll", Resources.Load<AudioClip>(roomPath + "Room_Complete_KillAll"));
+        Add_SFX(roomPath, "Room_Complete_KillAll");
 
         #endregion
 
@@ -180,17 +172,12 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         // Absorb
         for (int i = 0; i < 2; i++)
-        {
-            string s = $"Item_Absorb_{DevTool.Get_LengthString(i, 2)}";
-            SFXAudioDict.Add(s, Resources.Load<AudioClip>(itemPath + s));
-        }
+            Add_SFX(itemPath, $"Item_Absorb_{DevTool.Get_LengthString(i, 2)}");
+        
         // Interact
         for (int i = 0; i < 2; i++)
-        {
-            string s = $"Item_Interact_{DevTool.Get_LengthString(i, 2)}";
-            SFXAudioDict.Add(s, Resources.Load<AudioClip>(itemPath + s));
-        }
-
+            Add_SFX(itemPath, $"Item_Interact_{DevTool.Get_LengthString(i, 2)}");
+        
         #endregion
 
         #region UI
@@ -199,23 +186,23 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         // Click
         for (int i = 0; i < 2; i++)
-        {
-            string s = $"UI_Click_{DevTool.Get_LengthString(i, 2)}";
-            SFXAudioDict.Add(s, Resources.Load<AudioClip>(uiPath + s));
-        }
+            Add_SFX(uiPath, $"UI_Click_{DevTool.Get_LengthString(i, 2)}");
 
-        SFXAudioDict.Add("UI_Click_Approve", Resources.Load<AudioClip>(uiPath + "UI_Click_Approve"));
-        SFXAudioDict.Add("UI_Click_Reject", Resources.Load<AudioClip>(uiPath + "UI_Click_Reject"));
 
-        SFXAudioDict.Add("UI_Equip", Resources.Load<AudioClip>(uiPath + "UI_Equip"));
-        SFXAudioDict.Add("UI_Unequip", Resources.Load<AudioClip>(uiPath + "UI_Unequip"));
+        Add_SFX(uiPath, $"UI_Click_Approve");
+        Add_SFX(uiPath, $"UI_Click_Reject");
 
-        SFXAudioDict.Add("UI_Decomposition", Resources.Load<AudioClip>(uiPath + "UI_Decomposition"));
-        SFXAudioDict.Add("UI_Fusion", Resources.Load<AudioClip>(uiPath + "UI_Fusion"));
-        SFXAudioDict.Add("UI_Make", Resources.Load<AudioClip>(uiPath + "UI_Make"));
+        Add_SFX(uiPath, $"UI_Equip");
+        Add_SFX(uiPath, $"UI_Unequip");
 
-        SFXAudioDict.Add("UI_Reroll", Resources.Load<AudioClip>(uiPath + "UI_Reroll"));
-        SFXAudioDict.Add("UI_StartBattleProd", Resources.Load<AudioClip>(uiPath + "UI_StartBattleProd"));
+        Add_SFX(uiPath, $"UI_Decomposition");
+        Add_SFX(uiPath, $"UI_Fusion");
+        Add_SFX(uiPath, $"UI_Make");
+
+        Add_SFX(uiPath, $"UI_Reroll");
+
+        Add_SFX(uiPath, $"UI_StartBattleProd");
+        Add_SFX(uiPath, $"UI_StartBossBattleProd");
 
         #endregion
 
@@ -223,42 +210,57 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         #region BGM
 
-        BGMAudioDict.Add("TitleLobby", Resources.Load<AudioClip>(bgmPath + "TitleLobby"));
+        Add_BGM(bgmPath, "TitleLobby");
 
         #region Main Game
 
         string stagePath = bgmPath + "Stage/";
 
-        BGMAudioDict.Add("Stage_99", Resources.Load<AudioClip>(stagePath + "Stage_99"));
+        Add_BGM(stagePath, "Stage_99");
+
         for (int i = 0; i < ResourceManager.KindOfMapAmount; i++)
-        {
-            string id = $"Stage_{DevTool.Get_LengthString(i, 2)}";
-            BGMAudioDict.Add(id, Resources.Load<AudioClip>(stagePath + id));
-        }
+            Add_BGM(stagePath, $"Stage_{DevTool.Get_LengthString(i, 2)}");
+
+
+        string battlePath = bgmPath + "Battle/";
+
+        Add_BGM(battlePath, "Elite");
+        Add_BGM(battlePath, "Boss");
 
         #endregion
+
+        foreach (var data in BGMAudioDict)
+        {
+            Debug.Log(data.Key);
+        }
 
         #region Cutscene
 
         string cutscenePath = bgmPath + "Cutscene/";
 
         for (int i = 0; i < CutsceneSoundAmount; i++)
-        {
-            string id = $"Cutscene_{DevTool.Get_LengthString(i, 3)}";
-            BGMAudioDict.Add(id, Resources.Load<AudioClip>(cutscenePath + id));
-        }
+            Add_BGM(cutscenePath, $"Cutscene_{DevTool.Get_LengthString(i, 3)}");
 
         #endregion
+
+        ThisBaseBgmAudioSource.volume = 1f;
+        ThisBaseBgmAudioSource.Play();
+        ThisExtraBgmAudioSource.volume = 0f;
+        ThisExtraBgmAudioSource.Pause();
 
         #endregion
 
         #region Comp
 
-        ThisBgmAudioSource = DevTool.Get_ComponentTType<AudioSource>(gameObject.transform.GetChild(0).gameObject);
         ThisSfxASQueueSet.Offset();
 
         #endregion
     }
+
+
+    void Add_SFX(string _Path, string _Name) => SFXAudioDict.Add(_Name, Resources.Load<AudioClip>(_Path + _Name));
+    void Add_BGM(string _Path, string _Name) => BGMAudioDict.Add(_Name, Resources.Load<AudioClip>(_Path + _Name));
+
 
     #endregion
 
@@ -358,10 +360,47 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     #region Module
 
+    public void Pause_2D_BGM()
+    {
+        ThisBaseBgmAudioSource.Pause();
+    }
+
     private void Play_2D_BGM(string _ClipName)
     {
-        ThisBgmAudioSource.clip = BGMAudioDict[_ClipName];
-        ThisBgmAudioSource.Play();
+        ThisBaseBgmAudioSource.clip = BGMAudioDict[_ClipName];
+        ThisBaseBgmAudioSource.Play();
+    }
+
+    public void Play_2D_ExtraBGM(string _ClipName)
+    {
+        ThisExtraBgmAudioSource.clip = BGMAudioDict[_ClipName];
+        ThisExtraBgmAudioSource.Play();
+    }
+
+    #endregion
+
+    #region Cast
+
+    public void CastBGM_ToExtra()
+    {
+        IsPlayingBaseBGM = false;
+
+        ThisBaseBgmAudioSource.Pause();
+        ThisBaseBgmAudioSource.volume = 0f;
+
+        ThisExtraBgmAudioSource.Play(); 
+        ThisExtraBgmAudioSource.volume = 1f;
+    }
+
+    public void CastBGM_ToBase()
+    {
+        IsPlayingBaseBGM = true;
+
+        ThisBaseBgmAudioSource.Play();
+        ThisBaseBgmAudioSource.volume = 1f;
+
+        ThisExtraBgmAudioSource.Pause();
+        ThisExtraBgmAudioSource.volume = 0f;
     }
 
     #endregion
