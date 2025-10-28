@@ -96,7 +96,6 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
     public void Play_LoadScene(string _SceneName)
     {
         ResourceManager.Instance.Clear_LanguageTxt();
-
         StartCoroutine(Play_LoadSceneAsync_Cor(_SceneName));
     }
 
@@ -104,19 +103,20 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
     {
         // Sound
         SoundManager.Instance.Set_MasterVolume(1f, 0f, 1f);
-
-        // UI
         CogwheelSeq.Play();
         SlidingImgSeq.Play();
 
         LoadingCG.alpha = 0.0f;
         LoadingBarImg.fillAmount = 0.0f;
-
         LoadingCG.gameObject.SetActive(true);
-
         LoadingCG.DOFade(1f, 1f).SetUpdate(true);
 
         yield return new WaitForSecondsRealtime(1f);
+
+        yield return Resources.UnloadUnusedAssets();       // 네이티브 리소스 해제
+        GC.Collect();                                       // 관리 힙 수거
+        GC.WaitForPendingFinalizers();
+        GC.Collect();
 
         AsyncOperation oper = SceneManager.LoadSceneAsync(_SceneName);
 
@@ -124,27 +124,18 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
         {
             float progressValue = Mathf.Clamp01(oper.progress / 0.9f);
             LoadingBarImg.fillAmount = progressValue;
-
             yield return null;
         }
 
-        Debug.Log("Unload Unused Assets + GC");
-        yield return Resources.UnloadUnusedAssets();
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
-
         yield return new WaitForSecondsRealtime(0.8f);
-
         LoadingCG.DOFade(0f, 0.5f).SetUpdate(true);
 
         // Sound
         SoundManager.Instance.Set_MasterVolume(0f, 1f, 1f);
-
         yield return new WaitForSecondsRealtime(0.6f);
 
         CogwheelSeq.Pause();
         SlidingImgSeq.Pause();
-
         LoadingCG.gameObject.SetActive(false);
 
         if (Time.timeScale != 1) Time.timeScale = 1f;

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -164,6 +165,8 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         Add_SFX(roomPath, "Room_Complete_KillAll");
 
+        Add_SFX(roomPath, "Room_BattleWin");
+
         #endregion
 
         #region Item
@@ -177,7 +180,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
         // Interact
         for (int i = 0; i < 2; i++)
             Add_SFX(itemPath, $"Item_Interact_{DevTool.Get_LengthString(i, 2)}");
-        
+
         #endregion
 
         #region UI

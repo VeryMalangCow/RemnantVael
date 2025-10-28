@@ -94,10 +94,10 @@ public class EndingElevatorController : ElevatorController, IInteract
         SaveDataManager.Instance.Save_JsonData();
         MainGameUIManager.Instance.Play_SaveData();
 
-        Debug.Log("Unload Unused Assets + GC");
         Resources.UnloadUnusedAssets();
         GC.Collect();
         GC.WaitForPendingFinalizers();
+        GC.Collect();
     }
 
     #endregion

@@ -182,7 +182,12 @@ public class RoomController : IDController
     {
         switch (RoomRuleController.RoomType)
         {
-            case eRoomType.KillAll: SoundManager.Instance.Play_2D_SFX_Room("Complete_KillAll"); break;
+            case eRoomType.KillAll:
+                if (RoomRuleController.EnemyType == eEnemy.Normal) 
+                     SoundManager.Instance.Play_2D_SFX_Room("Complete_KillAll"); 
+                else
+                    SoundManager.Instance.Play_2D_SFX_Room("BattleWin");
+                break;
 
             default: break;
         }
