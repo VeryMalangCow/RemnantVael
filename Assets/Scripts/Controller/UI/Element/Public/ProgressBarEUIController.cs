@@ -74,11 +74,15 @@ public class ProgressBarEUIController : ElementUIController
     // 부드럽게 변동
     public void Set_FillImgSmooth(float _CurrentValue, float _MaxValue)
     {
+
         DevTool.Set_KillTween(ActualImg.fillAmount);
 
         ActualImg.DOFillAmount(_CurrentValue / _MaxValue, 0.1f);
 
-        StartCoroutine(Set_FillImgSmooth_AfterImg_Cor());
+        if (isActiveAndEnabled)
+            StartCoroutine(Set_FillImgSmooth_AfterImg_Cor());
+        else
+            AfterImg.fillAmount = 0;
 
         if (Txt != null)
         { Txt.text = (int)_CurrentValue + "<size=70%>/" + (int)_MaxValue + "</size>"; }

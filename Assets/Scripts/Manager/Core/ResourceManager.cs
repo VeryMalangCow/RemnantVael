@@ -738,7 +738,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             int id = int.Parse(stringList[i][0]);
             string name = stringList[i][1];
             string script = stringList[i][2];
-            int imgId = int.Parse(stringList[i][3]);
+            string imgId = stringList[i][3];
             bool isLeft = bool.Parse(stringList[i][4]);
 
             result.Add(new DialogueElement(id, name, script, imgId, isLeft));
@@ -783,7 +783,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         for (int i = 0; i < IDs.Length; i++)
         {
-            DialogueElement cutsceneElement = DialogueElement_Data[GameManager.LanguageID][i];
+            DialogueElement cutsceneElement = DialogueElement_Data[GameManager.LanguageID][IDs[i]];
 
             result.Add(cutsceneElement);
         }
@@ -795,17 +795,21 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     #region Dialogue (Sprite)
 
     // Value
-    [HideInInspector] private Sprite[] DialoguCharSprite_Data;
+    [HideInInspector] private Dictionary<string, Sprite> DialogueCharSprite_Data;
 
     // Offset
     private void Offset_Sprite_Dialogue()
     {
         string path = "Sprite/UI/Dialogue/";
-        DialoguCharSprite_Data = GetAsset_Arr<Sprite>(path, "CharacterSet_000");
+
+        DialogueCharSprite_Data = new Dictionary<string, Sprite>();
+        Sprite[] sprites = GetAsset_Arr<Sprite>(path, "CharacterSet_000");
+        for (int i = 0; i < sprites.Length; i++)
+            DialogueCharSprite_Data.Add(sprites[i].name, sprites[i]);
     }
 
     // Get
-    public Sprite Get_DialogueCharImg(int _ID) => DialoguCharSprite_Data[_ID];
+    public Sprite Get_DialogueCharImg(string _ID) => DialogueCharSprite_Data[_ID];
 
     #endregion
 

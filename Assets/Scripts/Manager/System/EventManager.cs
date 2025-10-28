@@ -396,7 +396,10 @@ public class EventManager : Singleton<EventManager>
             noneDialogueComp.DialogueGO.SetActive(false);
 
             // Character Img
-            targetDialogueComp.DialogueImg.sprite = ResourceManager.Instance.Get_DialogueCharImg(currentDialogue.ImgID);
+            string imgId = currentDialogue.ImgID.StartsWith("Player") ?
+                currentDialogue.ImgID.Replace("Player", $"Player{DevTool.Get_LengthString(PlayerManager.Instance.PlayerController.Get_ID(), 2)}") :
+                currentDialogue.ImgID;
+            targetDialogueComp.DialogueImg.sprite = ResourceManager.Instance.Get_DialogueCharImg(imgId);
 
             // Name
             targetDialogueComp.NameTxt.text = ReplaceNPlaceholders(currentDialogue.Name);
@@ -497,8 +500,8 @@ public class EventManager : Singleton<EventManager>
             string targetScrpit = Get_ProductionString(currentCutscene.Script);
 
             isAppearing = true;
-            seq.Join(CutsceneTxt.DOText(targetScrpit, targetScrpit.Length / 20f).SetEase(Ease.Linear));
-            seq.Join(img.DOFade(1f, 3f).SetEase(Ease.Linear));
+            seq.Join(CutsceneTxt.DOText(targetScrpit, targetScrpit.Length / 100f).SetEase(Ease.Linear)); // 20
+            seq.Join(img.DOFade(1f, 0.1f).SetEase(Ease.Linear)); // 3
             seq.OnComplete(() => 
             { 
                 isAppearing = false;
@@ -516,7 +519,7 @@ public class EventManager : Singleton<EventManager>
                     seq = DOTween.Sequence();
 
                     CutsceneTxt.text = "";
-                    seq.Join(img.DOFade(0f, 2f).SetEase(Ease.Linear));
+                    seq.Join(img.DOFade(0f, 0.1f).SetEase(Ease.Linear)); // 2
                     seq.OnComplete(() =>
                     {
                         isDisappearing = false;
@@ -822,10 +825,10 @@ public class DialogueElement
     public int ID;
     public string Name;
     public string Script;
-    public int ImgID;
+    public string ImgID;
     public bool IsLeft;
 
-    public DialogueElement(int _ID, string _Name, string _Script, int _ImgID, bool _IsLeft)
+    public DialogueElement(int _ID, string _Name, string _Script, string _ImgID, bool _IsLeft)
     {
         ID = _ID;
         Name = _Name;
