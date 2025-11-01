@@ -335,6 +335,9 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     private Vector2 Get_MovingPowerVec()
     {
+        if (TitleInputManager.Instance == null) 
+            return Vector2.zero;
+
         return UIElementMovingPowerMultiple * TitleInputManager.Instance.Get_AnchorMousePos();
     }
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class NPCController : MovableObjectController
 {
@@ -6,7 +7,7 @@ public class NPCController : MovableObjectController
 
     [Space(20)]
     [Header("<><><><><> NPC")]
-    [SerializeField] public string Name;
+    [SerializeField] private SortingGroup ThisSG;
 
     #endregion
 
@@ -17,6 +18,22 @@ public class NPCController : MovableObjectController
         base.OnEnable();
 
         DevTool.Add_InList(NPCManager.Instance.AllNPCs, this);
+        LayerOrderManager.Instance.Add_NeedSortObj(this);
+    }
+
+    private void OnDisable()
+    {
+        LayerOrderManager.Instance.Remove_NeedSortObj(this);
+    }
+
+    #endregion
+
+    #region Sorting
+
+    public override void Set_SortingOrder(int _SortingOrder)
+    {
+        // Base
+        ThisSG.sortingOrder = _SortingOrder;
     }
 
     #endregion

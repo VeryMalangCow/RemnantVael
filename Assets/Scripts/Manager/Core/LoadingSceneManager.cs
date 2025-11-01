@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 using System;
 
 public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
@@ -91,6 +90,47 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 
     #endregion
 
+    #region Instance
+
+    private void Set_InstanceNull(string _SceneName)
+    {
+        if (_SceneName == "TitleLobby")
+        {
+            Set_TitleLobby_InstanceNull();
+        }
+        else if (_SceneName == "MainGame")
+        {
+            Set_MainGame_InstanceNull();
+        }
+    }
+
+    private void Set_MainGame_InstanceNull()
+    {
+        TitleInputManager.Instance = null;
+        TitleLobbyUIManager.Instance = null;
+    }
+
+    private void Set_TitleLobby_InstanceNull()
+    {
+        PlayerManager.Instance = null;
+        PoolingManager.Instance = null;
+        LayerOrderManager.Instance = null;
+        InputManager.Instance = null;
+        EnemyManager.Instance = null;
+        BaseUpgradeManager.Instance = null;
+        ModuleItemManager.Instance = null;
+        MainGameUIManager.Instance = null;
+        UnitManager.Instance = null;
+        StageManager.Instance = null;
+        BuffManager.Instance = null;
+        AllyManager.Instance = null;
+        NPCManager.Instance = null;
+        EventManager.Instance = null;
+        TimerManager.Instance = null;
+    }
+
+    #endregion
+
     #region Load
 
     public void Play_LoadScene(string _SceneName)
@@ -129,6 +169,7 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 
         yield return new WaitForSecondsRealtime(0.8f);
         LoadingCG.DOFade(0f, 0.5f).SetUpdate(true);
+        Set_InstanceNull(SceneManager.GetActiveScene().name);
 
         // Sound
         SoundManager.Instance.Set_MasterVolume(0f, 1f, 1f);

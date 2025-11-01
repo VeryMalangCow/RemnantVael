@@ -18,16 +18,14 @@ public class OutMainGameUIController : SinglePanelUIController
     [Header("=== Inner")]
     [SerializeField] private Transform InnerParentTF;
     [SerializeField] private Transform BaseInteractingPanelInnerParentTF;
-    [SerializeField] private Image ResumeInnerImg;
-    [SerializeField] private Image OptionInnerImg;
-    [SerializeField] private Image StateInnerImg;
-    [SerializeField] private Image QuitInnerImg;
+    [SerializeField] private Image[] InnerImgArr;
 
     [Space(10)]
     [Header("=== Btn")]
     [SerializeField] private OwnBtnEUIController ResumeBtn;
     [SerializeField] private OwnBtnEUIController StateBtn;
     [SerializeField] private OwnBtnEUIController OptionBtn;
+    [SerializeField] private OwnBtnEUIController ReturnBtn;
     [SerializeField] private OwnBtnEUIController QuitBtn;
 
     [Space(10)]
@@ -472,11 +470,13 @@ public class OutMainGameUIController : SinglePanelUIController
         ResumeBtn.OwnerUIController = this;
         OptionBtn.OwnerUIController = this;
         StateBtn.OwnerUIController = this;
+        ReturnBtn.OwnerUIController = this;
         QuitBtn.OwnerUIController = this;
 
         ResumeBtn.Offset();
         OptionBtn.Offset();
         StateBtn.Offset();
+        ReturnBtn.Offset();
         QuitBtn.Offset();
 
         InnerImgs = DevTool.Get_ChildList<Image>(InnerParentTF);
@@ -503,15 +503,10 @@ public class OutMainGameUIController : SinglePanelUIController
         MainColorCompList.AddRange(OptionUI.SFXVolumePanelEUI.Get_InnerMainColorList());
 
         Color clr = new Color(1, 1, 1, 0.1f);
-        ResumeInnerImg.color = clr;
-        StateInnerImg.color = clr;
-        OptionInnerImg.color = clr;
-        QuitInnerImg.color = clr;
+        for (int i = 0; i < InnerImgArr.Length; i++)
+            InnerImgArr[i].color = clr;
 
-        MainColorCompList.Add(ResumeInnerImg);
-        MainColorCompList.Add(OptionInnerImg);
-        MainColorCompList.Add(StateInnerImg);
-        MainColorCompList.Add(QuitInnerImg);
+        MainColorCompList.AddRange(InnerImgArr);
 
         Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
@@ -615,9 +610,16 @@ public class OutMainGameUIController : SinglePanelUIController
         {
             SetOn_OptionPanel();
         }
+        else if (CurrentBtn == ReturnBtn)
+        {
+            SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
+            EventManager.Instance.Set_Input(false);
+            LoadingSceneManager.Instance.Play_LoadScene("MainGame");
+        }
         else if (CurrentBtn == QuitBtn)
         {
             SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
+            EventManager.Instance.Set_Input(false);
             LoadingSceneManager.Instance.Play_LoadScene("TitleLobby");
         }
 
@@ -818,6 +820,7 @@ public class OutMainGameUIController : SinglePanelUIController
         DevTool.Get_ComponentTType<TMP_Text>(ResumeBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ResumeBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(19);
         DevTool.Get_ComponentTType<TMP_Text>(OptionBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(OptionBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(20);
         DevTool.Get_ComponentTType<TMP_Text>(StateBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(StateBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(102);
+        DevTool.Get_ComponentTType<TMP_Text>(ReturnBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ReturnBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(143);
         DevTool.Get_ComponentTType<TMP_Text>(QuitBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(QuitBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(21);
 
         OptionUI.Set_LanguageTxt();

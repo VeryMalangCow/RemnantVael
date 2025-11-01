@@ -127,6 +127,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         Play_FadeOut(FadeOutTime);
         Play_OffLoadingIcon(FadeOutTime);
+        ScreenCG.alpha = 1f;
     }
 
 
