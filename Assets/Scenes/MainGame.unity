@@ -14643,7 +14643,8 @@ MonoBehaviour:
   CharacterPath: CharacterData
   ItemPath: ItemData
   OptionPath: OptionData
-  GameProgressPath: GameProgressPath
+  GameProgressPath: GameProgressData
+  InfoPath: InfoData
   JsonData:
     CharacterData:
     - ID: 0
@@ -14664,22 +14665,33 @@ MonoBehaviour:
       Name: Origin Core
       Amount: 0
     OptionData:
-      LanguageID: 1
+      LanguageID: 0
       ScreenMode: 0
       ResolutionMode: 2
       FPS: 3
-      BGMVolume: 0.2
-      SFXVolume: 0.2
+      BGMVolume: 0.5
+      SFXVolume: 0.5
     GameProgressData:
       CurrentProgressing: -1
       UsableVault: 1
       UsableBU: 1
-      UsableMU: 1
+      UsableMU: 0
       UsableABU: 1
-      UsableAMU: 1
+      UsableAMU: 0
       UsableSTPrison: 1
-      UsableUTPrison: 1
-      UsableNTPrison: 1
+      UsableUTPrison: 0
+      UsableNTPrison: 0
+    InfoData:
+    - ID: 0
+      CanVisible: 1
+    - ID: 1
+      CanVisible: 1
+    - ID: 2
+      CanVisible: 1
+    - ID: 3
+      CanVisible: 1
+    - ID: 4
+      CanVisible: 1
 --- !u!1001 &1851887257
 PrefabInstance:
   m_ObjectHideFlags: 0

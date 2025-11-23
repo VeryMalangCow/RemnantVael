@@ -17,6 +17,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     [SerializeField] private string ItemPath = "";
     [SerializeField] private string OptionPath = "";
     [SerializeField] private string GameProgressPath = "";
+    [SerializeField] private string InfoPath = "";
 
     #endregion
 
@@ -55,6 +56,8 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         TrySave_EachJsonData(DataPath, this.ItemPath, new SerializationList<EachItemJsonData>(JsonData.ItemData));
         TrySave_EachJsonData(DataPath, this.OptionPath, JsonData.OptionData);
         TrySave_EachJsonData(DataPath, this.GameProgressPath, JsonData.GameProgressData);
+        TrySave_EachJsonData(DataPath, this.InfoPath, new SerializationList<EachInfoJsonData>(JsonData.InfoData));
+
     }
 
     public void Save_OptionJsonData()
@@ -108,6 +111,11 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
             TryLoad_EachJsonData<GameProgressJsonData>(
                 this.GameProgressPath,
                 Get_Default_GameProgressData());
+
+        JsonData.InfoData =
+            TryLoad_EachJsonData<SerializationList<EachInfoJsonData>>(
+                this.InfoPath,
+                Get_Default_InfoData()).ListData;
     }
 
     #region TryLoad (Each Module)
@@ -153,6 +161,10 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
         TryReset_EachJsonData<GameProgressJsonData>(
             this.GameProgressPath,
             Get_Default_GameProgressData());
+
+        TryReset_EachJsonData<SerializationList<EachInfoJsonData>>(
+            this.InfoPath,
+            Get_Default_InfoData());
     }
 
     #region TryReset (Each Module)
@@ -197,6 +209,8 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     private string Get_Default_GameProgressData() => Resources.Load<TextAsset>("Json/DefaultGameProgressData").text;
 
+    private string Get_Default_InfoData() => Resources.Load<TextAsset>("Json/DefaultInfoData").text;
+
     #endregion
 
 
@@ -231,6 +245,7 @@ public class JsonData
     public List<EachItemJsonData> ItemData = new List<EachItemJsonData>();
     public OptionJsonData OptionData = new OptionJsonData();
     public GameProgressJsonData GameProgressData = new GameProgressJsonData();
+    public List<EachInfoJsonData> InfoData = new List<EachInfoJsonData>();
 
     public void Gain_Item(int _ID, int _Amount)
     {
@@ -258,6 +273,7 @@ public class JsonData
             MainGameUIManager.Instance.PlayerHUD_UIController.Init_HighLvItemUI();
         }
     }
+
 }
 
 #endregion
@@ -347,6 +363,24 @@ public class GameProgressJsonData
     public bool UsableUTPrison = false;
     public bool UsableNTPrison = false;
 }
+
+#endregion
+
+#region Info
+
+[System.Serializable]
+public class EachInfoJsonData
+{
+    public int ID = 0;
+    public bool CanVisible = false;
+
+    public EachInfoJsonData(int _ID, bool _CanUse)
+    {
+        ID = _ID;
+        CanVisible = _CanUse;
+    }
+}
+
 
 #endregion
 

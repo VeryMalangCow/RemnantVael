@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class ResourceManager : PersistentSingleton<ResourceManager>
@@ -97,6 +96,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_CSV_Event();
         Offset_CSV_Cutscene();
         Offset_CSV_Dialogue();
+        Offset_CSV_Info();
         Offset_CSV_Module();
         Offset_CSV_AllyCard();
         Offset_CSV_AllyRequest();
@@ -810,6 +810,27 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     // Get
     public Sprite Get_DialogueCharImg(string _ID) => DialogueCharSprite_Data[_ID];
+
+    #endregion
+
+    #region Info (CSV)
+
+    // Value
+    [HideInInspector] private WordSet_Just InfoName_Data;
+    [HideInInspector] private WordSet_Just[] InfoDetail_Data;
+
+    // Offset
+    private void Offset_CSV_Info()
+    {
+        string path = "CSV/Info/";
+
+        InfoName_Data = GetAsset_WordData(path, "InfoName_CSV");
+        int amount = InfoName_Data.Get_Amount();
+        InfoDetail_Data = GetAsset_WordDataArr_ForParentID(path, "InfoDetail_CSV", amount);
+    }
+
+    public string Get_InfoName(int _ID) => InfoName_Data.Get_Word(_ID);
+    public WordSet_Just Get_InfoDetail(int _ID) => InfoDetail_Data[_ID];
 
     #endregion
 

@@ -138,6 +138,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     private void Start()
     {
         Offset();
+        GameManager.Instance.Set_BaseOption();
     }
 
     #endregion

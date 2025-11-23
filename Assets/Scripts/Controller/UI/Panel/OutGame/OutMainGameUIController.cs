@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,7 @@ public class OutMainGameUIController : SinglePanelUIController
     [SerializeField] private OwnBtnEUIController ResumeBtn;
     [SerializeField] private OwnBtnEUIController StateBtn;
     [SerializeField] private OwnBtnEUIController OptionBtn;
+    [SerializeField] private OwnBtnEUIController InfoBtn;
     [SerializeField] private OwnBtnEUIController ReturnBtn;
     [SerializeField] private OwnBtnEUIController QuitBtn;
 
@@ -41,81 +43,6 @@ public class OutMainGameUIController : SinglePanelUIController
     [Header("=== Base")]
     [SerializeField] private RectTransform BasePanelRT;
     [SerializeField] private CanvasGroup BaseInteractingPanelCG;
-
-    #endregion
-
-    #region - Option
-
-    [Space(10)]
-    [Header("=== Option")]
-    [SerializeField] private OptionUIController OptionUI; 
-    [Serializable] public class OptionUIController
-    {
-        [SerializeField] public RectTransform PanelRT;
-        [SerializeField] public OwnBtnEUIController BackBtn;
-        [SerializeField] public OwnBtnEUIController ApplyBtn;
-        [SerializeField] public TMP_Text WarningTxt;
-
-        [Space(10)]
-        [SerializeField] public LRSlidingItemEUIController LanguagePanelEUI;
-        [SerializeField] public LRSlidingItemEUIController ScreenModePanelEUI;
-        [SerializeField] public LRSlidingItemEUIController ResolutionPanelEUI;
-        [SerializeField] public LRSlidingItemEUIController FPSPanelEUI;
-        [SerializeField] public FillScrollbarEUIController BGMVolumePanelEUI;
-        [SerializeField] public FillScrollbarEUIController SFXVolumePanelEUI;
-
-        public void Offset(OutMainGameUIController _UIController)
-        {
-            BackBtn.OwnerUIController = _UIController;
-            BackBtn.Offset();
-
-            ApplyBtn.OwnerUIController = _UIController;
-            ApplyBtn.Offset();
-
-            LanguagePanelEUI.Set_OwnerUIController(_UIController);
-            LanguagePanelEUI.Offset();
-
-            ScreenModePanelEUI.Set_OwnerUIController(_UIController);
-            ScreenModePanelEUI.Offset();
-
-            ResolutionPanelEUI.Set_OwnerUIController(_UIController);
-            ResolutionPanelEUI.Offset();
-
-            FPSPanelEUI.Set_OwnerUIController(_UIController);
-            FPSPanelEUI.Offset();
-
-            BGMVolumePanelEUI.Set_OwnerUIController(_UIController);
-            BGMVolumePanelEUI.Offset();
-
-            SFXVolumePanelEUI.Set_OwnerUIController(_UIController);
-            SFXVolumePanelEUI.Offset();
-        }
-
-        public void Set_Panel()
-        {
-            PanelRT.gameObject.SetActive(true);
-            WarningTxt.gameObject.SetActive(false);
-            LanguagePanelEUI.Set_Item(GameManager.LanguageID);
-            ScreenModePanelEUI.Set_Item((int)GameManager.ScreenMode);
-            ResolutionPanelEUI.Set_Item((int)GameManager.ResolutionMode);
-            FPSPanelEUI.Set_Item((int)GameManager.FPS);
-            BGMVolumePanelEUI.Set_Value(SoundManager.Instance.BVolume);
-            SFXVolumePanelEUI.Set_Value(SoundManager.Instance.SVolume);
-        }
-
-        public void Set_LanguageTxt()
-        {
-            WarningTxt.text = ResourceManager.Instance.Get_StaticDesc(31);
-
-            DevTool.Get_ComponentTType<TMP_Text>(ApplyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ApplyBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(91);
-            LanguagePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(92);
-            ScreenModePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(140);
-            ResolutionPanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(137);
-            FPSPanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(141);
-            BGMVolumePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(138);
-            SFXVolumePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(139);
-        }
-    }
 
     #endregion
 
@@ -429,6 +356,215 @@ public class OutMainGameUIController : SinglePanelUIController
 
     #endregion
 
+    #region - Option
+
+    [Space(10)]
+    [Header("=== Option")]
+    [SerializeField] private OptionUIController OptionUI; 
+    [Serializable] public class OptionUIController
+    {
+        [SerializeField] public RectTransform PanelRT;
+        [SerializeField] public OwnBtnEUIController BackBtn;
+        [SerializeField] public OwnBtnEUIController ApplyBtn;
+        [SerializeField] public TMP_Text WarningTxt;
+
+        [Space(10)]
+        [SerializeField] public LRSlidingItemEUIController LanguagePanelEUI;
+        [SerializeField] public LRSlidingItemEUIController ScreenModePanelEUI;
+        [SerializeField] public LRSlidingItemEUIController ResolutionPanelEUI;
+        [SerializeField] public LRSlidingItemEUIController FPSPanelEUI;
+        [SerializeField] public FillScrollbarEUIController BGMVolumePanelEUI;
+        [SerializeField] public FillScrollbarEUIController SFXVolumePanelEUI;
+
+        public void Offset(OutMainGameUIController _UIController)
+        {
+            BackBtn.OwnerUIController = _UIController;
+            BackBtn.Offset();
+
+            ApplyBtn.OwnerUIController = _UIController;
+            ApplyBtn.Offset();
+
+            LanguagePanelEUI.Set_OwnerUIController(_UIController);
+            LanguagePanelEUI.Offset();
+
+            ScreenModePanelEUI.Set_OwnerUIController(_UIController);
+            ScreenModePanelEUI.Offset();
+
+            ResolutionPanelEUI.Set_OwnerUIController(_UIController);
+            ResolutionPanelEUI.Offset();
+
+            FPSPanelEUI.Set_OwnerUIController(_UIController);
+            FPSPanelEUI.Offset();
+
+            BGMVolumePanelEUI.Set_OwnerUIController(_UIController);
+            BGMVolumePanelEUI.Offset();
+
+            SFXVolumePanelEUI.Set_OwnerUIController(_UIController);
+            SFXVolumePanelEUI.Offset();
+        }
+
+        public void Set_Panel()
+        {
+            PanelRT.gameObject.SetActive(true);
+            WarningTxt.gameObject.SetActive(false);
+            LanguagePanelEUI.Set_Item(GameManager.LanguageID);
+            ScreenModePanelEUI.Set_Item((int)GameManager.ScreenMode);
+            ResolutionPanelEUI.Set_Item((int)GameManager.ResolutionMode);
+            FPSPanelEUI.Set_Item((int)GameManager.FPS);
+            BGMVolumePanelEUI.Set_Value(SoundManager.Instance.BVolume);
+            SFXVolumePanelEUI.Set_Value(SoundManager.Instance.SVolume);
+        }
+
+        public void Set_LanguageTxt()
+        {
+            WarningTxt.text = ResourceManager.Instance.Get_StaticDesc(31);
+
+            DevTool.Get_ComponentTType<TMP_Text>(ApplyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ApplyBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(91);
+            LanguagePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(92);
+            ScreenModePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(140);
+            ResolutionPanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(137);
+            FPSPanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(141);
+            BGMVolumePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(138);
+            SFXVolumePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(139);
+        }
+
+        public List<Component> Get_MainColorComps()
+        {
+            List<Component> result = new List<Component>();
+
+            result.AddRange(LanguagePanelEUI.Get_InnerMainColorList());
+            result.AddRange(ScreenModePanelEUI.Get_InnerMainColorList());
+            result.AddRange(ResolutionPanelEUI.Get_InnerMainColorList());
+            result.AddRange(FPSPanelEUI.Get_InnerMainColorList());
+            result.AddRange(BGMVolumePanelEUI.Get_InnerMainColorList());
+            result.AddRange(SFXVolumePanelEUI.Get_InnerMainColorList());
+
+            return result;            
+        }
+    }
+
+    #endregion
+
+    #region - Info
+
+    [Space(10)]
+    [Header("=== State")]
+    [SerializeField] private InfoUIController InfoUI;
+    [Serializable] private class InfoUIController
+    {
+        [Header("=== Comp")]
+        [SerializeField] public TMP_Text ListTxt;
+        [SerializeField] public TMP_Text DetailTxt;
+
+        [SerializeField] public RectTransform PanelRT;
+        [SerializeField] public OwnBtnEUIController BackBtn;
+        [SerializeField] private ScrollPanelEUIController ListScrollPanelEUI;
+
+        [Header("=== Element")]
+        [SerializeField] private Transform ListElementParentTF;
+        [HideInInspector] private InfoEUIController[] ListEUIArr;
+        
+        [SerializeField] private Transform DetailElementParentTF;
+        [HideInInspector] private InfoDetailEUIController[] DetailEUIArr;
+        [HideInInspector] private InfoDetailEUIController CurrentDetailEUI;
+
+        public void Offset(OutMainGameUIController _OwnerUI)
+        {
+            BackBtn.Offset();
+            BackBtn.OwnerUIController = _OwnerUI;
+
+            ListScrollPanelEUI.Offset();
+
+            int amount = ListElementParentTF.childCount;
+            
+            ListEUIArr = new InfoEUIController[amount];
+            DetailEUIArr = new InfoDetailEUIController[amount];
+            for (int i = 0; i < amount; i++)
+            {
+                ListEUIArr[i] = ListElementParentTF.GetChild(i).TryGetComponent(out InfoEUIController infoListEUI) ? infoListEUI : null;
+                ListEUIArr[i].OwnerUIController = _OwnerUI;
+                ListEUIArr[i].Offset();
+
+                DetailEUIArr[i] = DetailElementParentTF.GetChild(i).TryGetComponent(out InfoDetailEUIController infoDetailEUI) ? infoDetailEUI : null;
+                DetailEUIArr[i].Offset();
+            }
+
+            Set_LanguageTxt();
+            Set_List();
+        }
+
+        public void Set_List()
+        {
+            List<EachInfoJsonData> data = SaveDataManager.Instance.JsonData.InfoData;
+
+            List<InfoEUIController> visibleEUIs = new List<InfoEUIController>();
+            for (int i = 0; i < ListEUIArr.Length; i++)
+            {
+                if (data[i].CanVisible)
+                {
+                    ListEUIArr[i].gameObject.SetActive(true);
+                    ListEUIArr[i].ThisRT.anchoredPosition = new Vector2(ListEUIArr[i].ThisRT.anchoredPosition.x, -20 + (-140 * (visibleEUIs.Count)));
+                    visibleEUIs.Add(ListEUIArr[i]);
+                }
+                else
+                {
+                    ListEUIArr[i].gameObject.SetActive(false);
+                }
+            }
+
+            float y = (140 * visibleEUIs.Count) + 20;
+            ListScrollPanelEUI.Set_ScrollHeight(y);
+        }
+
+        public void Set_Panel(bool _OnOff)
+        {
+            PanelRT.gameObject.SetActive(_OnOff);
+
+            if (!_OnOff)
+            {
+                SetOff_DetailWindow();
+            }
+        }
+
+        public bool Is_ListBtn(OwnBtnEUIController _Btn)
+        {
+            return ListEUIArr.Contains((InfoEUIController)_Btn);
+        }
+
+        public void SetOn_DetailWindow(InfoEUIController _ListBtn)
+        {
+            SetOff_DetailWindow();
+
+            int index = Array.IndexOf(ListEUIArr, _ListBtn);
+            CurrentDetailEUI = DetailEUIArr[index];
+            CurrentDetailEUI.gameObject.SetActive(true);
+        }
+
+        private void SetOff_DetailWindow()
+        {
+            if (CurrentDetailEUI != null)
+            {
+                CurrentDetailEUI.gameObject.SetActive(false);
+                CurrentDetailEUI = null;
+            }
+        }
+
+        public void Set_LanguageTxt()
+        {
+            ListTxt.text = ResourceManager.Instance.Get_StaticWord(145);
+            DetailTxt.text = ResourceManager.Instance.Get_StaticWord(144);
+
+            for (int i = 0; i < ListEUIArr.Length; i++)
+                ListEUIArr[i].Set_LanguageTxt();
+
+            for (int i = 0; i < DetailEUIArr.Length; i++)
+                DetailEUIArr[i].Set_LanguageTxt();
+        }
+    }
+
+
+    #endregion
+
     #region - Hide
 
     // Inner
@@ -463,19 +599,22 @@ public class OutMainGameUIController : SinglePanelUIController
     {
         OptionUI.Offset(this);
         StateUI.Offset(this);
+        InfoUI.Offset(this);
     }
 
     private void Offset_Btn()
     {
         ResumeBtn.OwnerUIController = this;
+        InfoBtn.OwnerUIController = this;
         OptionBtn.OwnerUIController = this;
         StateBtn.OwnerUIController = this;
         ReturnBtn.OwnerUIController = this;
         QuitBtn.OwnerUIController = this;
 
         ResumeBtn.Offset();
-        OptionBtn.Offset();
         StateBtn.Offset();
+        OptionBtn.Offset();
+        InfoBtn.Offset();
         ReturnBtn.Offset();
         QuitBtn.Offset();
 
@@ -495,12 +634,7 @@ public class OutMainGameUIController : SinglePanelUIController
         MainColorCompList.AddRange(DevTool.Get_ChildList<Image>(BaseInteractingPanelInnerParentTF));
         SubColorCompList.AddRange(InnerImgs);
 
-        MainColorCompList.AddRange(OptionUI.LanguagePanelEUI.Get_InnerMainColorList());
-        MainColorCompList.AddRange(OptionUI.ScreenModePanelEUI.Get_InnerMainColorList());
-        MainColorCompList.AddRange(OptionUI.ResolutionPanelEUI.Get_InnerMainColorList());
-        MainColorCompList.AddRange(OptionUI.FPSPanelEUI.Get_InnerMainColorList());
-        MainColorCompList.AddRange(OptionUI.BGMVolumePanelEUI.Get_InnerMainColorList());
-        MainColorCompList.AddRange(OptionUI.SFXVolumePanelEUI.Get_InnerMainColorList());
+        MainColorCompList.AddRange(OptionUI.Get_MainColorComps());
 
         Color clr = new Color(1, 1, 1, 0.1f);
         for (int i = 0; i < InnerImgArr.Length; i++)
@@ -565,6 +699,7 @@ public class OutMainGameUIController : SinglePanelUIController
         if (Is_Interact_BasePanel()) return;
         if (Is_Interact_OptionPanel()) return;
         if (Is_Interact_StatePanel()) return;
+        if (Is_Interact_InfoPanel()) return;
     }
 
     public void Try_InteractBack()
@@ -582,6 +717,11 @@ public class OutMainGameUIController : SinglePanelUIController
 
             case OutMainGameUIType.StatePanel:
                 SetOff_Panel(StateUI.PanelRT);
+                break;
+
+            case OutMainGameUIType.InfoPanel:
+                SetOff_Panel(InfoUI.PanelRT);
+                InfoUI.Set_Panel(false);
                 break;
 
             default:
@@ -609,6 +749,10 @@ public class OutMainGameUIController : SinglePanelUIController
         else if (CurrentBtn == OptionBtn)
         {
             SetOn_OptionPanel();
+        }
+        else if (CurrentBtn == InfoBtn)
+        {
+            SetOn_InfoPanel();
         }
         else if (CurrentBtn == ReturnBtn)
         {
@@ -719,6 +863,29 @@ public class OutMainGameUIController : SinglePanelUIController
 
     #endregion
 
+    #region Interact (Info Panel)
+
+    private bool Is_Interact_InfoPanel()
+    {
+        if (CurrentType != OutMainGameUIType.InfoPanel) return false;
+
+        if (CurrentBtn == InfoUI.BackBtn)
+        {
+            SetOff_Panel(InfoUI.PanelRT);
+            InfoUI.Set_Panel(false);
+            return true;
+        }
+        if (InfoUI.Is_ListBtn(CurrentBtn))
+        {
+            InfoUI.SetOn_DetailWindow((InfoEUIController)CurrentBtn);
+            return true;
+        }
+
+        return false;
+    }
+
+    #endregion
+
     #region Set (Option)
 
     private void Set_OptionValueApply()
@@ -761,6 +928,20 @@ public class OutMainGameUIController : SinglePanelUIController
 
         StateUI.Set_Panel(true);
         StateUI.Set_State(AllyManager.Instance.AllAlly);
+    }
+
+    #endregion
+
+    #region Set (Info)
+
+    private void SetOn_InfoPanel()
+    {
+        if (IsInteractTweening) return;
+
+        BaseInteractingPanelTxt.text = ResourceManager.Instance.Get_StaticWord(144);
+        SetOn_Panel(OutMainGameUIType.InfoPanel, InfoUI.PanelRT);
+
+        InfoUI.Set_Panel(true);
     }
 
     #endregion
@@ -818,19 +999,22 @@ public class OutMainGameUIController : SinglePanelUIController
 
         BasePanelBtnTxt.text = ResourceManager.Instance.Get_StaticWord(22);
         DevTool.Get_ComponentTType<TMP_Text>(ResumeBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ResumeBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(19);
-        DevTool.Get_ComponentTType<TMP_Text>(OptionBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(OptionBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(20);
         DevTool.Get_ComponentTType<TMP_Text>(StateBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(StateBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(102);
+        DevTool.Get_ComponentTType<TMP_Text>(OptionBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(OptionBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(20);
+        DevTool.Get_ComponentTType<TMP_Text>(InfoBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(InfoBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(144);
         DevTool.Get_ComponentTType<TMP_Text>(ReturnBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ReturnBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(143);
         DevTool.Get_ComponentTType<TMP_Text>(QuitBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(QuitBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(21);
 
         OptionUI.Set_LanguageTxt();
         StateUI.Set_LanguageTxt();
+        InfoUI.Set_LanguageTxt();
 
         int langId = 0;
         switch (CurrentType)
         {
-            case OutMainGameUIType.OptionPanel: langId = 20; break;
             case OutMainGameUIType.StatePanel: langId = 102; break;
+            case OutMainGameUIType.OptionPanel: langId = 20; break;
+            case OutMainGameUIType.InfoPanel: langId = 144; break;
 
             default: break;
         }

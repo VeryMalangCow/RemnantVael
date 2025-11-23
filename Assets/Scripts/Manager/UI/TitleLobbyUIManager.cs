@@ -45,6 +45,8 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
         TitleLobby_UIController 
             = Gen_UI<TitleLobbyUIController>(ResourceManager.Instance.TitleLobby_CanvasPrefab, true);
 
+        GameManager.Instance.Set_BaseOption();
+
         Start_FirstPlay();
     }
 

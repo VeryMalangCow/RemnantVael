@@ -41,16 +41,11 @@ public class GameManager : PersistentSingleton<GameManager>
         
     }
 
-    private void Start()
-    {
-        Set_BaseOption();
-    }
-
     #endregion
 
     #region Option
 
-    private void Set_BaseOption()
+    public void Set_BaseOption()
     {
         OptionJsonData savedData = SaveDataManager.Instance.JsonData.OptionData;
 
@@ -6098,7 +6093,7 @@ public enum eNSCPuzzleType
 
 public enum OutMainGameUIType
 {
-    BasePanel, OptionPanel, StatePanel
+    BasePanel, OptionPanel, StatePanel, InfoPanel
 }
 
 #endregion
