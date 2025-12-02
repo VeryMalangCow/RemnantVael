@@ -110,6 +110,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         Offset_Sprite_Static();
         Offset_Sprite_Cutscene();
         Offset_Sprite_Dialogue();
+        Offset_Sprite_Info();
         Offset_Sprite_ModuleItem();
         Offset_Sprite_Core();
         Offset_Sprite_AllyCard();
@@ -831,6 +832,22 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     public string Get_InfoName(int _ID) => InfoName_Data.Get_Word(_ID);
     public WordSet_Just Get_InfoDetail(int _ID) => InfoDetail_Data[_ID];
+
+    #endregion
+    #region Info (Sprite)
+
+    // Value
+    [HideInInspector] private Sprite[] InfoSprite_Data;
+
+    // Offset
+    private void Offset_Sprite_Info()
+    {
+        string path = "Sprite/UI/Info/";
+        InfoSprite_Data = GetAsset_Arr<Sprite>(path, "Info_00");
+    }
+
+    // Get
+    public Sprite Get_InfoImg(int _ID) => InfoSprite_Data[_ID];
 
     #endregion
 
