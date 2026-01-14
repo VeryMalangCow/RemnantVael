@@ -164,6 +164,11 @@ public class GateController : StaticDepthController, IInteract
     {
         if (IsOpen && ParterGate != null)
         {
+            if (ParterGate.ThisRoom.RoomRuleController is EntranceRuleController erc && erc.Get_ElevatorData() == 2)
+            {
+                Debug.Log("FOR NEOWIZ QUEST: 02 스테이지는 미구현");
+                return;
+            }
             if (NeedKeyCardID != -1)
             {
                 // 키카드 사용해서 열기

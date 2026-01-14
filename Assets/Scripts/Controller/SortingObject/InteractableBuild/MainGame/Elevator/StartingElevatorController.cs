@@ -1,5 +1,5 @@
-
-using DG.Tweening;
+using System.Collections;
+using UnityEngine;
 
 public class StartingElevatorController : ElevatorController
 {
@@ -42,6 +42,10 @@ public class StartingElevatorController : ElevatorController
         // Intetactable Anno Panel
         MainGameUIManager.Instance.InteractAnno_UIController.Set_VisualCG(true);
 
+        if (StageManager.Instance.TargetStageID == 1)
+        {
+            MainGameUIManager.Instance.Play_EndGameProd();
+        }
     }
 
     #endregion

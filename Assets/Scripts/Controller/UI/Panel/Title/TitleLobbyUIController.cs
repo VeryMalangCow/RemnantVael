@@ -40,7 +40,6 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     [Space(10)]
     [Header("=== Prefab")]
     [SerializeField] public GameObject SmokeCellEUIPrefab;
-    [SerializeField] public GameObject CloudCellEUIPrefab;
     
     [Space(10)]
     [Header("=== Btns")]
@@ -51,6 +50,13 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     [SerializeField] private TitleOwnBtnEUIController QuitBtn;
     [SerializeField] private TMP_Text QuitTxt;
     [SerializeField] private RectTransform SelectedRT;
+
+    [Space(10)]
+    [Header("=== Reset Panel")]
+    [SerializeField] private GameObject ResetPanelGO;
+    [SerializeField] private TitleOwnBtnEUIController ResetBtn;
+    [SerializeField] private TitleOwnBtnEUIController ResetSureYesBtn;
+    [SerializeField] private TitleOwnBtnEUIController ResetSureNoBtn;
 
     [Space(10)]
     [Header("=== Value")]
@@ -188,6 +194,15 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         TitleAllBtns = new List<TitleOwnBtnEUIController>
         { StartBtn, OptionBtn, QuitBtn };
+
+        ResetBtn.Offset();
+        ResetBtn.OwnerUIController = this;
+
+        ResetSureYesBtn.Offset();
+        ResetSureYesBtn.OwnerUIController = this;
+
+        ResetSureNoBtn.Offset();
+        ResetSureNoBtn.OwnerUIController = this;
 
         BGCG.alpha = 1f;
 
@@ -354,7 +369,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         string soundSfxName = "";
 
-        if (CurrentBtn == StartBtn) 
+        if (CurrentBtn == StartBtn)
         {
             soundSfxName = "Click_Approve";
             Play_Starting();
@@ -367,17 +382,17 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         else if (CurrentBtn == OptionUI.BackBtn)
         {
             soundSfxName = "Click_Reject";
-            SetOff_OptionPanel(); 
+            SetOff_OptionPanel();
         }
         else if (CurrentBtn == OptionUI.ApplyBtn)
         {
             soundSfxName = "Click_Approve";
-            Set_OptionValueApply(); 
+            Set_OptionValueApply();
         }
         else if (CurrentBtn == QuitBtn)
         {
             soundSfxName = "Click_Reject";
-            Application.Quit(); 
+            Application.Quit();
         }
 
         else if (Is_Interact_OptionElement(OptionUI.LanguagePanelEUI)) return;
@@ -386,6 +401,21 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         else if (Is_Interact_OptionElement(OptionUI.BGMVolumePanelEUI)) return;
         else if (Is_Interact_OptionElement(OptionUI.SFXVolumePanelEUI)) return;
         else if (Is_Interact_OptionElement(OptionUI.FPSPanelEUI)) return;
+
+        else if (CurrentBtn == ResetBtn)
+        {
+            Set_ResetPanel(true);
+        }
+        else if (CurrentBtn == ResetSureNoBtn)
+        {
+            Set_ResetPanel(false);
+        }
+        else if (CurrentBtn == ResetSureYesBtn)
+        {
+            SaveDataManager.Instance.Reset_JsonData();
+            SaveDataManager.Instance.Load_JsonData();
+            LoadingSceneManager.Instance.Play_LoadScene("TitleLobby");
+        }
 
         if (soundSfxName != "")
             SoundManager.Instance.Play_2D_SFX_UI(soundSfxName);
@@ -432,6 +462,16 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         if (CurrentMouseBtn == _TargetBtn) return;
 
         CurrentMouseBtn = _TargetBtn;
+    }
+
+    #endregion
+
+    #region Reset
+
+    private void Set_ResetPanel(bool _OnOff)
+    {
+        ResetPanelGO.gameObject.SetActive(_OnOff);
+        CurrentBtn = null;
     }
 
     #endregion

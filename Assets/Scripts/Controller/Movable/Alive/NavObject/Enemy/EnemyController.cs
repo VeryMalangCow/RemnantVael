@@ -628,7 +628,7 @@ public abstract class EnemyController : NavObjectController
 
     #region Pattern
 
-    protected void EndAll_Pattern()
+    public void EndAll_Pattern()
     {
         if (CurrentEnemyPattern != null)
             CurrentEnemyPattern.End_Pattern();

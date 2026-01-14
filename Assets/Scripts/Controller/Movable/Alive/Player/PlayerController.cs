@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : AliveObjectController
 {
@@ -895,6 +896,12 @@ public class PlayerController : AliveObjectController
     // 타격: 총알
     public void Try_Hitted(EnemyBulletController _Bullet)
     {
+        if (isUltraMode)
+        {
+            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            return;
+        }
+
         if (IsInvincible || IsDead)
         { return; }
 
@@ -916,6 +923,12 @@ public class PlayerController : AliveObjectController
     // 타격: 어택커
     public void Try_Hitted(EnemyAttackerController _Attacker)
     {
+        if (isUltraMode)
+        {
+            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            return;
+        }
+
         if (IsInvincible || IsDead)
         { return; }
 
@@ -937,6 +950,12 @@ public class PlayerController : AliveObjectController
     // 타격: 어택커
     public void Try_Hitted(EnemyExplosionController _Explosion)
     {
+        if (isUltraMode)
+        {
+            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            return;
+        }
+
         if (IsInvincible || IsDead)
         { return; }
 
@@ -959,6 +978,12 @@ public class PlayerController : AliveObjectController
     // 타격: 건물어택커
     public void Try_Hitted(TrapObjectController _Attacker)
     {
+        if (isUltraMode)
+        {
+            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            return;
+        }
+
         if (IsInvincible || IsDead)
         { return; }
 
@@ -977,6 +1002,12 @@ public class PlayerController : AliveObjectController
     // 데미지 계산
     private void Take_Damaged(float _DmgValue, Vector2 _HittedDir, KnockbackState _State_KB)
     {
+        if (isUltraMode)
+        {
+            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            return;
+        }
+
         // Multiple
         _DmgValue *= TakingDmgMultiple.BuffedState;
 
@@ -994,6 +1025,12 @@ public class PlayerController : AliveObjectController
     // 오직 데미지만 계산 (넉백, 애니메이션 등 설정)
     public void Take_Damaged(float _DmgValue, Vector2 _HittedDir, bool _ShowHUDEffect = true)
     {
+        if (isUltraMode)
+        {
+            Debug.Log("FOR NEOWIZ QUEST: 울트라 모드");
+            return;
+        }
+
         AllyRequestManager.Instance.Play_TakingDamage();
 
         if (_ShowHUDEffect)
@@ -1040,7 +1077,18 @@ public class PlayerController : AliveObjectController
     protected override void Set_Die()
     {
         base.Set_Die();
+
         SoundManager.Instance.Play_2D_SFX_Player("Killed");
+
+        EventManager.Instance.Set_Input(false);
+
+        LayerOrderManager.Instance.Remove_NeedSortObj(this);
+
+        EnemyManager.Instance.SetOff_AllEnemyPattern();
+
+        this.gameObject.SetActive(false);
+
+        MainGameUIManager.Instance.Play_DeadProd();
     }
 
     #endregion
@@ -1212,15 +1260,19 @@ public class PlayerController : AliveObjectController
 
 #if UNITY_EDITOR
 
+    private static bool isUltraMode = false;
+
     protected override void Update()
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Alpha4) && StageManager.Instance.TargetStageID != 99)
         {
+            /*
             BaseWeapon.BaseDamage.BuffedState = 300f;
             BaseWeapon.AccuracyRate.ActualState.Value = 100f;
             WalkSpeed.ActualState.Value = 15f;
+            */
 
             CurrentChargedBettery.Value = 9999;
             CurrentCredit.Value = 9999;
@@ -1231,32 +1283,27 @@ public class PlayerController : AliveObjectController
             UplinkTeamPresence.Value = 100;
             NeoTeamPresence.Value = 100;
 
-            Debug.Log("DEV TEST: STATE UP");
+            PlayerManager.Instance.Gain_KeyCard(0, 99);
+            PlayerManager.Instance.Gain_KeyCard(1, 99);
+            PlayerManager.Instance.Gain_KeyCard(2, 99);
+            PlayerManager.Instance.Gain_KeyCard(3, 99);
+            PlayerManager.Instance.Gain_KeyCard(4, 99);
+
+            Debug.Log("Alpha4: Get Many Goods");
         }
 
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        else if (Input.GetKeyDown(KeyCode.Alpha5) && StageManager.Instance.TargetStageID != 99)
         {
             UnitManager.Instance.Test_Cor();
 
-            Debug.Log("DEV TEST: GEN BUILD");
+            Debug.Log("Alpha5: Spawn Builds");
         }
 
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        else if (Input.GetKeyDown(KeyCode.Alpha6) && StageManager.Instance.TargetStageID != 99)
         {
-            PlayerManager.Instance.Gain_KeyCard(0);
-            PlayerManager.Instance.Gain_KeyCard(1);
-            PlayerManager.Instance.Gain_KeyCard(2);
-            PlayerManager.Instance.Gain_KeyCard(3);
-            PlayerManager.Instance.Gain_KeyCard(4);
+            isUltraMode = !isUltraMode;
 
-            Debug.Log("DEV TEST: GET KEYCARDS");
-        }
-
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            EventManager.Instance.TryStart_Event(0);
-
-            Debug.Log("DEV TEST: TEMP EVENT");
+            Debug.Log("Alpha6: Ultra Mode " + isUltraMode);
         }
     }
 

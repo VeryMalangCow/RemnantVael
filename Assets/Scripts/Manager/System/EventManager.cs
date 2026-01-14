@@ -409,7 +409,7 @@ public class EventManager : Singleton<EventManager>
             targetDialogueComp.DialogueTxt.text = "";
             isScripting = true;
             scriptingTween = targetDialogueComp.DialogueTxt
-                .DOText(targetScript, targetScript.Length / 30f)
+                .DOText(targetScript, targetScript.Length / 20f)
                 .SetEase(Ease.Linear)
                 .OnComplete(() => { isScripting = false; });
 
@@ -500,8 +500,8 @@ public class EventManager : Singleton<EventManager>
             string targetScrpit = Get_ProductionString(currentCutscene.Script);
 
             isAppearing = true;
-            seq.Join(CutsceneTxt.DOText(targetScrpit, targetScrpit.Length / 100f).SetEase(Ease.Linear)); // 20
-            seq.Join(img.DOFade(1f, 0.1f).SetEase(Ease.Linear)); // 3
+            seq.Join(CutsceneTxt.DOText(targetScrpit, targetScrpit.Length / 35f).SetEase(Ease.Linear));
+            seq.Join(img.DOFade(1f, 3f).SetEase(Ease.Linear));
             seq.OnComplete(() => 
             { 
                 isAppearing = false;
@@ -519,7 +519,7 @@ public class EventManager : Singleton<EventManager>
                     seq = DOTween.Sequence();
 
                     CutsceneTxt.text = "";
-                    seq.Join(img.DOFade(0f, 0.1f).SetEase(Ease.Linear)); // 2
+                    seq.Join(img.DOFade(0f, 2f).SetEase(Ease.Linear));
                     seq.OnComplete(() =>
                     {
                         isDisappearing = false;

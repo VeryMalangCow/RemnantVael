@@ -1,5 +1,7 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -314,6 +316,66 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
             SaveDataCG.gameObject.SetActive(false);
         });
     }
+
+    #endregion
+
+    #region Player Dead
+
+    [SerializeField] private TMP_Text DeadTxt;
+    [SerializeField] private TMP_Text EndGameTxt;
+
+    public void Play_DeadProd()
+    {
+        Debug.Log("Á×À½");
+        StartCoroutine(Play_DeadProd_Cor());
+    }
+
+    private IEnumerator Play_DeadProd_Cor(float _FadeInTime = 2f, float _TxtFadeInTime = 1f, float _StayTime = 2f)
+    {
+        EventManager.Instance.Set_Input(false);
+        Play_FadeIn(_FadeInTime);
+
+        yield return new WaitForSeconds(_FadeInTime);
+
+        DeadTxt.DOFade(1f, _TxtFadeInTime);
+        DOTween.To(() => DeadTxt.characterSpacing, x => DeadTxt.characterSpacing = x, 20, _TxtFadeInTime);
+
+        yield return new WaitForSeconds(_TxtFadeInTime + _StayTime);
+
+        DeadTxt.DOFade(0f, _TxtFadeInTime);
+
+        yield return new WaitForSeconds(_TxtFadeInTime);
+
+        LoadingSceneManager.Instance.Play_LoadScene("MainGame");
+    }
+
+    public void Play_EndGameProd()
+    {
+        Debug.Log("Á¾·á");
+        StartCoroutine(Play_EndGameProd_Cor());
+    }
+
+    private IEnumerator Play_EndGameProd_Cor(float _FadeInTime = 2f, float _TxtFadeInTime = 1f, float _StayTime = 2f)
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        EventManager.Instance.Set_Input(false);
+        Play_FadeIn(_FadeInTime);
+
+        yield return new WaitForSeconds(_FadeInTime);
+
+        EndGameTxt.DOFade(1f, _TxtFadeInTime);
+        DOTween.To(() => EndGameTxt.characterSpacing, x => EndGameTxt.characterSpacing = x, 20, _TxtFadeInTime);
+
+        yield return new WaitForSeconds(_TxtFadeInTime + _StayTime);
+
+        EndGameTxt.DOFade(0f, _TxtFadeInTime);
+
+        yield return new WaitForSeconds(_TxtFadeInTime);
+
+        LoadingSceneManager.Instance.Play_LoadScene("TitleLobby");
+    }
+
 
     #endregion
 }

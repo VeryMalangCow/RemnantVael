@@ -176,4 +176,24 @@ public class EnemyManager : Singleton<EnemyManager>
     }
 
     #endregion
+
+    #region All Pattern Off
+
+    public void SetOff_AllEnemyPattern()
+    {
+        for (int i = 0; i < CurrentEnemyList.Count; i++)
+        {
+            CurrentEnemyList[i].EndAll_Pattern();
+        }
+        for (int i = 0; i < CurrentEliteEnemyList.Count; i++)
+        {
+            CurrentEliteEnemyList[i].EndAll_Pattern();
+        }
+        if (CurrentBossEnemy != null)
+        {
+            CurrentBossEnemy.EndAll_Pattern();
+        }
+    }
+
+    #endregion
 }

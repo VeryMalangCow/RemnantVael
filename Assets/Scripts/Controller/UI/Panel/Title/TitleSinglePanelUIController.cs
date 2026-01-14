@@ -4,7 +4,7 @@ public class TitleSinglePanelUIController : UIController
 {
     #region Value
 
-    [HideInInspector] protected TitleOwnBtnEUIController CurrentBtn = null;
+    [SerializeField] protected TitleOwnBtnEUIController CurrentBtn = null;
 
     #endregion
 

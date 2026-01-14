@@ -86,7 +86,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     #region Load
 
-    private void Load_JsonData()
+    public void Load_JsonData()
     {
         DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath);
 
@@ -142,7 +142,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     #region Reset
 
-    private void Reset_JsonData()
+    public void Reset_JsonData()
     {
         DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath);
 

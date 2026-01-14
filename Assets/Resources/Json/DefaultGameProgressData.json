@@ -1,15 +1,15 @@
 {
-  "CurrentProgressing": 0,
+  "CurrentProgressing": -1,
 
   "UsableVault": true,
 
   "UsableBU": true,
-  "UsableMU": false,
+  "UsableMU": true,
 
   "UsableABU": true,
-  "UsableAMU": false,
+  "UsableAMU": true,
 
   "UsableSTPrison": true,
-  "UsableUTPrison": false,
-  "UsableNTPrison": false
+  "UsableUTPrison": true,
+  "UsableNTPrison": true
 }
