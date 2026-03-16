@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 using System.Linq;
 using System.Collections.Generic;
 using System;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : AliveObjectController
 {
@@ -1258,8 +1257,6 @@ public class PlayerController : AliveObjectController
 
     #endregion
 
-#if UNITY_EDITOR
-
     private static bool isUltraMode = false;
 
     protected override void Update()
@@ -1302,10 +1299,10 @@ public class PlayerController : AliveObjectController
         else if (Input.GetKeyDown(KeyCode.Alpha6) && StageManager.Instance.TargetStageID != 99)
         {
             isUltraMode = !isUltraMode;
+            UnitManager.Instance.Set_UltraModeGO(isUltraMode);
 
             Debug.Log("Alpha6: Ultra Mode " + isUltraMode);
         }
     }
 
-#endif
 }

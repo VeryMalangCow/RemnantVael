@@ -79,7 +79,12 @@ public class PlayerDashController : MonoBehaviour
         // 직진 예약 방향이 정하기
         if (!Booked)
         {
-            BookCaculateVec = InputManager.Instance.DirFromPlayerPos.normalized;
+            // 움직이는 방향으로 대시
+            BookCaculateVec = InputManager.Instance.InputMoveDir;
+
+            // 마우스 방향으로 대시
+            //BookCaculateVec = InputManager.Instance.DirFromPlayerPos.normalized;
+
             SoundManager.Instance.Play_2D_SFX_Player(PlayerController.Get_AS(), "Dash");
             Booked = true;
         }

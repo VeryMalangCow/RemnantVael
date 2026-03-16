@@ -459,6 +459,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
         string explosionPath = path + "Explosion/";
 
+        ExplosionAC = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion");
+
         AttributeExplosionACArr = new AnimationClip[4];
         AttributeExplosionACArr[0] = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion_Fire");
         AttributeExplosionACArr[1] = GetAsset<AnimationClip>(explosionPath, "Clip_Explosion_Cold");

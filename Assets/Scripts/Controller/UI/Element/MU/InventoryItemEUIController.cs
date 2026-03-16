@@ -70,10 +70,15 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
     {
         base.OnPointerEnter(eventData);
 
-        if (!IsCanSelect)
+        if (!IsCanSelect || OwnerUIController == null)
         { return; }
 
         Play_Selected(SelectSize, SelectDurTime);
+
+        if (OwnerUIController == null)
+        {
+            return;
+        }
 
         OwnerUIController.CurrentItemBtn = this;
 
@@ -85,7 +90,7 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
     {
         base.OnPointerEnter(eventData);
 
-        if (!IsCanSelect)
+        if (!IsCanSelect || OwnerUIController == null)
         { return; }
 
         Play_Selected(1f, SelectDurTime);

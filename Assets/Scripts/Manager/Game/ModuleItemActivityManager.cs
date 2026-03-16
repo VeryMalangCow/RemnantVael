@@ -8,11 +8,11 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 {
     #region Value
 
-    public delegate void ActivityFuncDele_MI(int _Rank, EnemyController _EC = null);
-    public delegate void ActivityFuncDele_MC(int _Rank, EnemyController _EC = null, BulletController _Bullet = null);
+    public delegate void ActivityFuncDele_MI(int rank, EnemyController enemy = null);
+    public delegate void ActivityFuncDele_MC(int rank, EnemyController enemy = null, BulletController bullet = null);
 
-    [HideInInspector] public ActivityFuncDele_MI[] ActivityMIFuncList;
-    [HideInInspector] public ActivityFuncDele_MC[] ActivityMCFuncList;
+    [HideInInspector] public ActivityFuncDele_MI[] activityMIFuncList;
+    [HideInInspector] public ActivityFuncDele_MC[] activityMCFuncList;
 
     #endregion
 
@@ -22,19 +22,19 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     {
         base.Awake();
 
-        ActivityMIFuncList = Init_DelegateList_MI("Activity_MI_");
-        ActivityMCFuncList = Init_DelegateList_MC("Activity_MC_");
+        activityMIFuncList = InitDelegateListMI("Activity_MI_");
+        activityMCFuncList = InitDelegateListMC("Activity_MC_");
     }
 
     #endregion
 
     #region Get
 
-    public ActivityFuncDele_MI Get_CollectActivity_MI(int _ID) => ActivityMIFuncList[_ID];
-    public ActivityFuncDele_MC Get_CollectActivity_MC(int _ID) => ActivityMCFuncList[_ID];
+    public ActivityFuncDele_MI Get_CollectActivity_MI(int _ID) => activityMIFuncList[_ID];
+    public ActivityFuncDele_MC Get_CollectActivity_MC(int _ID) => activityMCFuncList[_ID];
     
 
-    public ActivityFuncDele_MI[] Init_DelegateList_MI(string _MethodPrefix)
+    public ActivityFuncDele_MI[] InitDelegateListMI(string _MethodPrefix)
     {
         List<ActivityFuncDele_MI> delegateList = new List<ActivityFuncDele_MI>();
 
@@ -72,7 +72,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
 
         return delegateList.ToArray();
     }
-    public ActivityFuncDele_MC[] Init_DelegateList_MC(string _MethodPrefix)
+    public ActivityFuncDele_MC[] InitDelegateListMC(string _MethodPrefix)
     {
         List<ActivityFuncDele_MC> delegateList = new List<ActivityFuncDele_MC>();
 
@@ -120,14 +120,14 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     #region Derivative Bullet
 
     // 유도탄 발사
-    private void Activity_MI_000(int _Rank, EnemyController _EC = null)
+    private void Activity_MI_000(int rank, EnemyController enemy = null)
     {
-        Activity_Derivative(_Rank, eDamageType.Energy, PoolingManager.Instance.MI_000_Bullets);
+        Activity_Derivative(rank, eDamageType.Energy, PoolingManager.Instance.MI_000_Bullets);
     }
 
-    private void Activity_MI_001(int _Rank, EnemyController _EC = null)
+    private void Activity_MI_001(int rank, EnemyController enemy = null)
     {
-        Activity_Derivative(_Rank, eDamageType.Physics, PoolingManager.Instance.MI_001_Bullets);
+        Activity_Derivative(rank, eDamageType.Physics, PoolingManager.Instance.MI_001_Bullets);
     }
 
     #endregion
@@ -135,24 +135,24 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     #region Inflict Status When Critical
 
     // 크리티컬 시, 상태이상 부여
-    private void Activity_MI_002(int _Rank, EnemyController _EC = null)
+    private void Activity_MI_002(int rank, EnemyController enemy = null)
     {
-        Activity_InflictStatusEffect(eStatusEffect.Flame, _Rank, _EC);
+        Activity_InflictStatusEffect(eStatusEffect.Flame, rank, enemy);
     }
 
-    private void Activity_MI_003(int _Rank, EnemyController _EC = null)
+    private void Activity_MI_003(int rank, EnemyController enemy = null)
     {
-        Activity_InflictStatusEffect(eStatusEffect.Cold, _Rank, _EC);
+        Activity_InflictStatusEffect(eStatusEffect.Cold, rank, enemy);
     }
 
-    private void Activity_MI_004(int _Rank, EnemyController _EC = null)
+    private void Activity_MI_004(int rank, EnemyController enemy = null)
     {
-        Activity_InflictStatusEffect(eStatusEffect.Electricity, _Rank, _EC);
+        Activity_InflictStatusEffect(eStatusEffect.Electricity, rank, enemy);
     }
 
-    private void Activity_MI_005(int _Rank, EnemyController _EC = null)
+    private void Activity_MI_005(int rank, EnemyController enemy = null)
     {
-        Activity_InflictStatusEffect(eStatusEffect.Corrosion, _Rank, _EC);
+        Activity_InflictStatusEffect(eStatusEffect.Corrosion, rank, enemy);
     }
 
     #endregion

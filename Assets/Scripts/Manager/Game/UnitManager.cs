@@ -72,10 +72,16 @@ public class UnitManager : Singleton<UnitManager>
     [Header("<><><><><> Unit Manager")]
 
     [SerializeField] private GameObject[] TestGO;
-
+    [SerializeField] private GameObject UltraModeGO;
     public void Test_Cor()
     {
         for (int i = 0; i < TestGO.Length; i++)
             TestGO[i].gameObject.SetActive(true);
     }
+
+    public void Set_UltraModeGO(bool _OnOff)
+    {
+        UltraModeGO.SetActive(_OnOff);
+    }
+
 }

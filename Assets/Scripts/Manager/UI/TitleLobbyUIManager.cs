@@ -25,7 +25,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     [SerializeField] private TMP_Text WarningTitleTxt;
     [SerializeField] private TMP_Text WarningTxt;
     [SerializeField] private TMP_Text WarningExtraTxt;
-    [SerializeField] private CanvasGroup SimpleCreditCG;
 
     [SerializeField] private float EachFadeInTime = 1f;
     [SerializeField] private float EachFadeOutTime = 1f;
@@ -147,23 +146,17 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
         {
             ScreenCG.alpha = 1f;
             WarningCG.alpha = 0f;
-            SimpleCreditCG.alpha = 0f;
 
             Get_WarningSeq()
             .OnComplete(() =>
             {
-                Get_SimpleCreditSeq()
-                .OnComplete(() =>
-                {
-                    Get_FadeOut();
-                });
+                Get_FadeOut();
             });
         }
         else
         {
             ScreenCG.alpha = 0f;
             WarningCG.alpha = 0f;
-            SimpleCreditCG.alpha = 1f;
 
             Get_FadeOut();
         }
@@ -189,26 +182,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
         return warningSeq;
     }
 
-    private Sequence Get_SimpleCreditSeq()
-    {
-        Sequence simpleCreditSeq = DOTween.Sequence();
-        simpleCreditSeq.Append(SimpleCreditCG.DOFade(1f, EachFadeInTime));
-        simpleCreditSeq.AppendInterval(EachStayTime);
-        simpleCreditSeq.Append(SimpleCreditCG.DOFade(0f, EachFadeOutTime));
-        simpleCreditSeq.AppendInterval(EachDelayTime);
-        simpleCreditSeq
-            .SetId("SimpleCreditSeq")
-            .OnUpdate(() =>
-            {
-                if (Input.anyKeyDown)
-                {
-                    DOTween.Complete("SimpleCreditSeq");
-                }
-            });
-
-        return simpleCreditSeq;
-    }
-
     private Sequence Get_FadeOut()
     {
         Sequence firstSeq = DOTween.Sequence();
@@ -228,7 +201,6 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     public Sequence Get_JustFadeIn(float _DurTime)
     {
         WarningCG.alpha = 0;
-        SimpleCreditCG.alpha = 0;
         ScreenCG.alpha = 0;
 
         ScreenCanvas.gameObject.SetActive(true);

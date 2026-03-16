@@ -41,15 +41,15 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     #region - Interface
 
     // Module Base
-    private List<IWhen_Hit> IWhen_HitList = new List<IWhen_Hit>();
-    private List<IWhen_CriticalHit> IWhen_CriticalHitList = new List<IWhen_CriticalHit>();
-    private List<IWhen_Fire> IWhen_FireList = new List<IWhen_Fire>();
+    private List<IWhen_Hit> iWhen_HitList = new List<IWhen_Hit>();
+    private List<IWhen_CriticalHit> iWhen_CriticalHitList = new List<IWhen_CriticalHit>();
+    private List<IWhen_Fire> iWhen_FireList = new List<IWhen_Fire>();
 
     // Sync
-    private List<IWhenSync_Start> IWhenSync_StartList = new List<IWhenSync_Start>();
+    private List<IWhenSync_Start> iWhenSync_StartList = new List<IWhenSync_Start>();
 
-    private List<IWhenSync_Fire> IWhenSync_FireList = new List<IWhenSync_Fire>();
-    private List<IWhenSync_AfterFire> IWhenSync_AfterFireList = new List<IWhenSync_AfterFire>();
+    private List<IWhenSync_Fire> iWhenSync_FireList = new List<IWhenSync_Fire>();
+    private List<IWhenSync_AfterFire> iWhenSync_AfterFireList = new List<IWhenSync_AfterFire>();
 
     private List<IWhenSync_Hit> IWhenSync_HitList = new List<IWhenSync_Hit>();
     private List<IWhenSync_CriticalHit> IWhenSync_CriticalHitList = new List<IWhenSync_CriticalHit>();
@@ -104,19 +104,19 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     private void Clear_InterfaceMU()
     {
-        IWhen_HitList.Clear();
-        IWhen_FireList.Clear();
-        IWhen_CriticalHitList.Clear();
+        iWhen_HitList.Clear();
+        iWhen_FireList.Clear();
+        iWhen_CriticalHitList.Clear();
     }
 
     private void Clear_InterfaceMC()
     {
         CurrentAllMainChipState.Clear();
 
-        IWhenSync_StartList.Clear();
+        iWhenSync_StartList.Clear();
 
-        IWhenSync_FireList.Clear();
-        IWhenSync_AfterFireList.Clear();
+        iWhenSync_FireList.Clear();
+        iWhenSync_AfterFireList.Clear();
 
         IWhenSync_HitList.Clear();
         IWhenSync_CriticalHitList.Clear();
@@ -144,9 +144,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     private void Try_AddIWhen(ModuleState _MS)
     {
-        if (_MS is IWhen_Hit iHit) DevTool.Add_InList(IWhen_HitList, iHit);
-        else if (_MS is IWhen_Fire iFire) DevTool.Add_InList(IWhen_FireList, iFire);
-        else if (_MS is IWhen_CriticalHit iCriticalHit) DevTool.Add_InList(IWhen_CriticalHitList, iCriticalHit);
+        if (_MS is IWhen_Hit iHit) DevTool.Add_InList(iWhen_HitList, iHit);
+        else if (_MS is IWhen_Fire iFire) DevTool.Add_InList(iWhen_FireList, iFire);
+        else if (_MS is IWhen_CriticalHit iCriticalHit) DevTool.Add_InList(iWhen_CriticalHitList, iCriticalHit);
     }
 
 
@@ -162,10 +162,10 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     private void Try_AddIWhenSync(SynchoronyState _SS)
     {
-        if (_SS is IWhenSync_Start iStart) DevTool.Add_InList(IWhenSync_StartList, iStart);
+        if (_SS is IWhenSync_Start iStart) DevTool.Add_InList(iWhenSync_StartList, iStart);
 
-        else if (_SS is IWhenSync_Fire iFire) DevTool.Add_InList(IWhenSync_FireList, iFire);
-        else if (_SS is IWhenSync_AfterFire iAfterFire) DevTool.Add_InList(IWhenSync_AfterFireList, iAfterFire);
+        else if (_SS is IWhenSync_Fire iFire) DevTool.Add_InList(iWhenSync_FireList, iFire);
+        else if (_SS is IWhenSync_AfterFire iAfterFire) DevTool.Add_InList(iWhenSync_AfterFireList, iAfterFire);
 
         else if (_SS is IWhenSync_Hit iHit) DevTool.Add_InList(IWhenSync_HitList, iHit);
         else if (_SS is IWhenSync_CriticalHit iCriticalHit) DevTool.Add_InList(IWhenSync_CriticalHitList, iCriticalHit);
@@ -793,19 +793,19 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Interface (Base)
 
-    public void Active_Hit(EnemyController _EC)
+    public void Active_Hit(EnemyController enemy)
     {
-        Active(IWhen_HitList, _EC);
+        Active(iWhen_HitList, enemy);
     }
 
-    public void Active_CriticalHit(EnemyController _EC)
+    public void Active_CriticalHit(EnemyController enemy)
     {
-        Active(IWhen_CriticalHitList, _EC);
+        Active(iWhen_CriticalHitList, enemy);
     }
 
     public void Active_Fire()
     {
-        Active(IWhen_FireList);
+        Active(iWhen_FireList);
     }
 
 
@@ -824,18 +824,18 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public void ActiveSync_Start()
     {
-        ActiveSync(IWhenSync_StartList);
+        ActiveSync(iWhenSync_StartList);
     }
 
 
     public void ActiveSync_Fire(BulletController _Bullet)
     {
-        ActiveSync(IWhenSync_FireList, null, _Bullet);
+        ActiveSync(iWhenSync_FireList, null, _Bullet);
     }
 
     public void ActiveSync_AfterFire()
     {
-        ActiveSync(IWhenSync_AfterFireList);
+        ActiveSync(iWhenSync_AfterFireList);
     }
 
 
