@@ -23,7 +23,7 @@ public class BuffShieldController : BuffController
         base.Gain_Buff();
 
         ThisShield.ShieldCurrentValue = ThisShield.ShieldMaxValue;
-        PlayerManager.Instance.PlayerController.Gain_Shield(ThisShield);
+        PlayerManager.Instance.playerController.Gain_Shield(ThisShield);
     }
 
     public override void End_Buff()

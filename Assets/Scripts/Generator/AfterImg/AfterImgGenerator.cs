@@ -65,7 +65,7 @@ public class AfterImgGenerator : MonoBehaviour
     private void Gen_Img(SpriteRenderer _TargetSR, Color _Clr)
     {
         SpriteRenderer SR = PoolingManager.Instance.Get_OP_AfterImg();
-        SR.gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        SR.gameObject.transform.SetParent(StageManager.Instance.currentRoomController.transform);
 
         SR.sprite = _TargetSR.sprite;
         SR.sortingOrder = _TargetSR.sortingOrder - 1;
@@ -79,7 +79,7 @@ public class AfterImgGenerator : MonoBehaviour
             .OnComplete(() => 
             {
                 SR.gameObject.SetActive(false);
-                PoolingManager.Instance.AfterImgs.Enqueue(SR);
+                PoolingManager.Instance.afterImgs.Enqueue(SR);
             });
         
     }

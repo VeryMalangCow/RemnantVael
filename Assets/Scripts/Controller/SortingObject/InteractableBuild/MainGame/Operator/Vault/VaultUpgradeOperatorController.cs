@@ -35,7 +35,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     {
         base.Set_AnimValue();
 
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.Operator_UpgradeAC, 1f), 1f);
+        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.operator_UpgradeAC, 1f), 1f);
     }
 
     public override void Set_TargetBuild(VaultController _TargetVault)
@@ -66,10 +66,10 @@ public class VaultUpgradeOperatorController : VaultOperatorController
         if (TargetVault == null ||
             TargetVault.Is_MaxGrade() || 
             TargetVault.IsBroken ||
-            PlayerManager.Instance.PlayerController.Get_CurrentEP().Value < Get_NeedPay()) return;
+            PlayerManager.Instance.playerController.Get_CurrentEP().Value < Get_NeedPay()) return;
 
         // 소비 아이템
-        PlayerManager.Instance.PlayerController.Add_CurrentEP(-Get_NeedPay());
+        PlayerManager.Instance.playerController.Add_CurrentEP(-Get_NeedPay());
 
         // 업그레이드
         TargetVault.Set_Upgrade();

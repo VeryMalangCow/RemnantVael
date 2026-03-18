@@ -222,7 +222,7 @@ public class PlayerHUDController : UIController
         FullEC.Offset();
 
         // EP Txt
-        ECCostTxt.text = PlayerManager.Instance.PlayerController.NeedEP_ForMakeEC.ToString();
+        ECCostTxt.text = PlayerManager.Instance.playerController.NeedEP_ForMakeEC.ToString();
 
         // 스킬
         for (int i = 0; i < SkillList.Count; i++) SkillList[i].Offset();
@@ -237,7 +237,7 @@ public class PlayerHUDController : UIController
         }
 
         // 버프
-        PoolingManager.Instance.BuffIcons.ParentTF = BuffParentTF;
+        //PoolingManager.Instance.BuffIcons.ParentTF = BuffParentTF;
 
         ThisCG = DevTool.Get_ComponentTType(gameObject, out CanvasGroup cg) ? cg : null;
 
@@ -280,44 +280,44 @@ public class PlayerHUDController : UIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.Instance.PlayerController.MaxEP.ActualState
+        PlayerManager.Instance.playerController.MaxEP.ActualState
             .Subscribe(_MaxEP =>
             {
                 EP.Set_MaxFillRT(_MaxEP * 3);
 
                 EP.Set_FillImgSmooth(
-                    PlayerManager.Instance.PlayerController.Get_CurrentEP().Value,
-                    PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value);
+                    PlayerManager.Instance.playerController.Get_CurrentEP().Value,
+                    PlayerManager.Instance.playerController.MaxEP.ActualState.Value);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.Get_CurrentEP()
+        PlayerManager.Instance.playerController.Get_CurrentEP()
             .Subscribe(_CurrentEP =>
             {
                 EP.Set_FillImgSmooth(
-                    PlayerManager.Instance.PlayerController.Get_CurrentEP().Value,
-                    PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value);
+                    PlayerManager.Instance.playerController.Get_CurrentEP().Value,
+                    PlayerManager.Instance.playerController.MaxEP.ActualState.Value);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentBetteryShard
+        PlayerManager.Instance.playerController.CurrentBetteryShard
             .Subscribe(_CurrentBS =>
             {
-                if (PlayerManager.Instance.PlayerController.CurrentBetteryShard.Value < PlayerManager.Instance.PlayerController.NeedBS_ForMakeBC)
+                if (PlayerManager.Instance.playerController.CurrentBetteryShard.Value < PlayerManager.Instance.playerController.NeedBS_ForMakeBC)
                 {
                     CurrentEmptyBC.Change_Sprite(_CurrentBS);
                 }
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentBettery
+        PlayerManager.Instance.playerController.CurrentBettery
             .Subscribe(_CurrentBC =>
             {
                 EmptyBC.Set_Amount(_CurrentBC, 0.5f);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentChargedBettery
+        PlayerManager.Instance.playerController.CurrentChargedBettery
             .Subscribe(_CurrentEC =>
             {
                 FullEC.Set_Amount(_CurrentEC, 0.5f);
@@ -332,21 +332,21 @@ public class PlayerHUDController : UIController
             .AddTo(gameObject);
 
 
-        PlayerManager.Instance.PlayerController.CurrentCredit
+        PlayerManager.Instance.playerController.CurrentCredit
             .Subscribe(_CurrentCredit =>
             {
                 Credit_EUI.Play_Amount(_CurrentCredit);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentOverrider
+        PlayerManager.Instance.playerController.CurrentOverrider
             .Subscribe(_CurrentOverrider =>
             {
                 Overrider_EUI.Play_Amount(_CurrentOverrider);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.PlayerController.CurrentModuleShard
+        PlayerManager.Instance.playerController.CurrentModuleShard
             .Subscribe(_CurrentMS =>
             {
                 MS_EUI.Play_Amount(_CurrentMS);
@@ -354,7 +354,7 @@ public class PlayerHUDController : UIController
             .AddTo(gameObject);
 
 
-        PlayerManager.Instance.PlayerController.CurrentBoostLv
+        PlayerManager.Instance.playerController.CurrentBoostLv
             .Subscribe(_BoostLevel =>
             {
                 Set_TextOfBoost(_BoostLevel);
@@ -367,36 +367,36 @@ public class PlayerHUDController : UIController
             .AddTo(gameObject);
 
 
-        PlayerManager.Instance.PlayerController.StrikeTeamPresence
+        PlayerManager.Instance.playerController.StrikeTeamPresence
             .Subscribe(_presence =>
             {
-                ST_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.StrikeTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedStrikeTeamPresence.Value);
+                ST_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.StrikeTeamPresence.Value, PlayerManager.Instance.playerController.NeedStrikeTeamPresence.Value);
             });
-        PlayerManager.Instance.PlayerController.UplinkTeamPresence
+        PlayerManager.Instance.playerController.UplinkTeamPresence
             .Subscribe(_presence =>
             {
-                UT_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.UplinkTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedUplinkTeamPresence.Value);
+                UT_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.UplinkTeamPresence.Value, PlayerManager.Instance.playerController.NeedUplinkTeamPresence.Value);
             });
-        PlayerManager.Instance.PlayerController.NeoTeamPresence
+        PlayerManager.Instance.playerController.NeoTeamPresence
             .Subscribe(_presence =>
             {
-                NT_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.NeoTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedNeoTeamPresence.Value);
+                NT_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.NeoTeamPresence.Value, PlayerManager.Instance.playerController.NeedNeoTeamPresence.Value);
             });
 
-        PlayerManager.Instance.PlayerController.NeedStrikeTeamPresence
+        PlayerManager.Instance.playerController.NeedStrikeTeamPresence
             .Subscribe(_needPresence =>
             {
-                ST_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.StrikeTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedStrikeTeamPresence.Value);
+                ST_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.StrikeTeamPresence.Value, PlayerManager.Instance.playerController.NeedStrikeTeamPresence.Value);
             });
-        PlayerManager.Instance.PlayerController.NeedUplinkTeamPresence
+        PlayerManager.Instance.playerController.NeedUplinkTeamPresence
             .Subscribe(_needPresence =>
             {
-                UT_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.UplinkTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedUplinkTeamPresence.Value);
+                UT_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.UplinkTeamPresence.Value, PlayerManager.Instance.playerController.NeedUplinkTeamPresence.Value);
             });
-        PlayerManager.Instance.PlayerController.NeedNeoTeamPresence
+        PlayerManager.Instance.playerController.NeedNeoTeamPresence
             .Subscribe(_needPresence =>
             {
-                NT_AllyPresence.Play_Amount(PlayerManager.Instance.PlayerController.NeoTeamPresence.Value, PlayerManager.Instance.PlayerController.NeedNeoTeamPresence.Value);
+                NT_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.NeoTeamPresence.Value, PlayerManager.Instance.playerController.NeedNeoTeamPresence.Value);
             });
     }
 
@@ -411,7 +411,7 @@ public class PlayerHUDController : UIController
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
             SkillImgList.Add(DevTool.Get_ComponentTType<Image>(SkillList[i].gameObject));
-            SkillImgList[i].sprite = PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].ThisIcon;
+            SkillImgList[i].sprite = PlayerManager.Instance.playerController.SkillWeapon.SkillList[i].ThisIcon;
         }
 
         Credit_EUI.Offset();
@@ -444,12 +444,12 @@ public class PlayerHUDController : UIController
         SubColorCompList.AddRange(Get_SubColorTxt());
 
         // Color Set
-        Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color mainClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
+        Color subClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
@@ -473,7 +473,7 @@ public class PlayerHUDController : UIController
 
     private void Reset_Tab()
     {
-        PlayerController player = PlayerManager.Instance.PlayerController;
+        PlayerController player = PlayerManager.Instance.playerController;
         PlayerWeaponController weapon = player.BaseWeapon;
         SkillWeaponController skill = player.SkillWeapon;
 
@@ -539,7 +539,7 @@ public class PlayerHUDController : UIController
     {
         if (IsActingInteractUI) return; 
 
-        IInteract ii = PlayerManager.Instance.PlayerController.CurrentInteractable.Value;
+        IInteract ii = PlayerManager.Instance.playerController.CurrentInteractable.Value;
         string txt = DevTool.Get_InteractingAnnoTxt(ii, out bool canInteract);
 
         if (ii != null && txt != "")
@@ -709,7 +709,7 @@ public class PlayerHUDController : UIController
 
     public void Init_HighLvItemUI()
     {
-        List<EachItemJsonData> itemData = SaveDataManager.Instance.JsonData.ItemData;
+        List<EachItemJsonData> itemData = SaveDataManager.Instance.jsonData.ItemData;
         for (int i = 0; i < itemData.Count; i++)
         {
             HighLvItemAmountTxtList[i].text = itemData[i].Amount.ToString();

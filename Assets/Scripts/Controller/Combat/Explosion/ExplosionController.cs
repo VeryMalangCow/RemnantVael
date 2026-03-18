@@ -77,7 +77,7 @@ public abstract class ExplosionController : StaticDepthController
     {
         this.State = new ExplosionState(_State);
 
-        ThisSG.sortingOrder = LayerOrderManager.Order_Explosion;
+        ThisSG.sortingOrder = LayerOrderManager.order_Explosion;
         TargetRange = _TargetRange;
     }
 

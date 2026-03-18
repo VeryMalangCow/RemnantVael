@@ -9,40 +9,40 @@ public class InputManager : Singleton<InputManager>
     #region - Inspector
 
     [Header("=== Mouse")]
-    [SerializeField] private RectTransform MousePointerRT;
+    [SerializeField] private RectTransform mousePointerRT;
 
     [Header("=== Buffered")]
     [Tooltip("선입력 가능 시간의 적용(최대) 시간")]
-    [SerializeField] private float EndBufferedInputTime = 0.5f;
+    [SerializeField] private float endBufferedInputTime = 0.5f;
 
     #endregion
 
     #region - Hide
 
     // Buffered
-    [HideInInspector] public bool IsPlayingBuffered = false;
-    [HideInInspector] private float CurrentBufferedInputTime = 0f;
+    [HideInInspector] public bool isPlayingBuffered = false;
+    [HideInInspector] private float currentBufferedInputTime = 0f;
 
     // Mouse Vec
-    [HideInInspector] public bool CanMouseInput = false;
-    [HideInInspector] public Vector2 MousePos; // 현재 마우스 위치
-    [HideInInspector] public Vector2 MousePosByWorld; // 세상 기준 마우스 위치
-    [HideInInspector] public Vector2 DirFromPlayerPos; // 플레이어부터 마우스까지의 Vec
+    [HideInInspector] public bool canMouseInput = false;
+    [HideInInspector] public Vector2 mousePos; // 현재 마우스 위치
+    [HideInInspector] public Vector2 mousePosByWorld; // 세상 기준 마우스 위치
+    [HideInInspector] public Vector2 dirFromPlayerPos; // 플레이어부터 마우스까지의 Vec
 
     // Movement Vec
-    [HideInInspector] public Vector2 InputMoveDir;
-    [HideInInspector] public Vector2Int InputArrowDir;
+    [HideInInspector] public Vector2 inputMoveDir;
+    [HideInInspector] public Vector2Int inputArrowDir;
 
     // Input
-    [HideInInspector] public PlayerInput PlayerInput;
+    [HideInInspector] public PlayerInput playerInput;
 
     // Aim
-    [HideInInspector] public AimController AimController;
-    [HideInInspector] public AimRoundController AimRoundController;
-    [HideInInspector] private bool IsAim = false;
+    [HideInInspector] public AimController aimController;
+    [HideInInspector] public AimRoundController aimRoundController;
+    [HideInInspector] private bool isAim = false;
 
     // Dele
-    [HideInInspector] private Dele CurrentBufferedDele = null;
+    [HideInInspector] private Dele currentBufferedDele = null;
 
     #endregion
 
@@ -86,18 +86,18 @@ public class InputManager : Singleton<InputManager>
 
     private void Caculate_BufferedInput(float _DeltaTime)
     {
-        if (CurrentBufferedDele != null)
+        if (currentBufferedDele != null)
         {
-            CurrentBufferedInputTime += Time.deltaTime;
+            currentBufferedInputTime += Time.deltaTime;
 
-            if (CurrentBufferedInputTime >= EndBufferedInputTime)
+            if (currentBufferedInputTime >= endBufferedInputTime)
             {
                 SetOff_BufferedInput();
             }
 
-            if (!IsPlayingBuffered && CurrentBufferedDele != null)
+            if (!isPlayingBuffered && currentBufferedDele != null)
             {
-                CurrentBufferedDele();
+                currentBufferedDele();
                 SetOff_BufferedInput();
             }
         }
@@ -105,19 +105,19 @@ public class InputManager : Singleton<InputManager>
 
     private void SetOn_BufferedInput(Dele _Buffered)
     {
-        CurrentBufferedDele = _Buffered;
-        CurrentBufferedInputTime = 0f;
+        currentBufferedDele = _Buffered;
+        currentBufferedInputTime = 0f;
     }
 
     private void SetOff_BufferedInput()
     {
-        CurrentBufferedDele = null;
-        CurrentBufferedInputTime = 0f;
+        currentBufferedDele = null;
+        currentBufferedInputTime = 0f;
     }
 
     private void Play_BuffedApplyInput(Dele _Func)
     {
-        if (IsPlayingBuffered) SetOn_BufferedInput(_Func);
+        if (isPlayingBuffered) SetOn_BufferedInput(_Func);
         else _Func();
     }
 
@@ -138,14 +138,14 @@ public class InputManager : Singleton<InputManager>
 
     private void Set_AimPointer(bool _IsOn)
     {
-        AimController.gameObject.SetActive(_IsOn);
-        AimRoundController.gameObject.SetActive(_IsOn);
-        IsAim = _IsOn;
+        aimController.gameObject.SetActive(_IsOn);
+        aimRoundController.gameObject.SetActive(_IsOn);
+        isAim = _IsOn;
     }
 
     private void Set_MousePointer(bool _IsOn)
     {
-        MousePointerRT.gameObject.SetActive(_IsOn);
+        mousePointerRT.gameObject.SetActive(_IsOn);
     }
 
 
@@ -155,31 +155,31 @@ public class InputManager : Singleton<InputManager>
 
     private void Set_MousePos()
     {
-        if (!CanMouseInput) return; 
+        if (!canMouseInput) return; 
 
-        MousePos = Input.mousePosition;
-        MousePosByWorld = Camera.main.ScreenToWorldPoint(MousePos);
-        DirFromPlayerPos = MousePosByWorld - (Vector2)PlayerManager.Instance.PlayerController.gameObject.transform.position;
+        mousePos = Input.mousePosition;
+        mousePosByWorld = Camera.main.ScreenToWorldPoint(mousePos);
+        dirFromPlayerPos = mousePosByWorld - (Vector2)PlayerManager.Instance.playerController.gameObject.transform.position;
 
-        if (!IsAim)
+        if (!isAim)
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                DevTool.Get_ComponentTType<RectTransform>(MousePointerRT.transform.parent.gameObject), // 변환할 UI(RectTransform)
-                MousePos, // 현재 마우스 좌표 (Screen Space)
-                MainGameUIManager.Instance.UICamera, // Canvas의 카메라 (Render Mode 따라 null 가능)
+                DevTool.Get_ComponentTType<RectTransform>(mousePointerRT.transform.parent.gameObject), // 변환할 UI(RectTransform)
+                mousePos, // 현재 마우스 좌표 (Screen Space)
+                MainGameUIManager.Instance.uiCamera, // Canvas의 카메라 (Render Mode 따라 null 가능)
                 out Vector2 localPoint); // 변환된 Local 좌표
 
-            MousePointerRT.anchoredPosition = localPoint;
+            mousePointerRT.anchoredPosition = localPoint;
         }
     }
 
     public void Play_MousePointerClick()
     {
-        DevTool.Set_KillTween(MousePointerRT);
+        DevTool.Set_KillTween(mousePointerRT);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(MousePointerRT.DOScale(1.4f, 0.05f));
-        seq.Append(MousePointerRT.DOScale(1f, 0.05f));
+        seq.Append(mousePointerRT.DOScale(1.4f, 0.05f));
+        seq.Append(mousePointerRT.DOScale(1f, 0.05f));
         seq.SetUpdate(true);
     }
 
@@ -209,195 +209,195 @@ public class InputManager : Singleton<InputManager>
     private void SetOn_InputAction_InLobby()
     {
         if (DevTool.Get_ComponentTType(
-            PlayerManager.Instance.PlayerController.gameObject, out PlayerInput input))
-            PlayerInput = input;
+            PlayerManager.Instance.playerController.gameObject, out PlayerInput input))
+            playerInput = input;
 
         // Player
-        PlayerInput.actions["Walk"].performed += Input_Walk;
-        PlayerInput.actions["Arrow"].performed += Input_Arrow;
+        playerInput.actions["Walk"].performed += Input_Walk;
+        playerInput.actions["Arrow"].performed += Input_Arrow;
 
-        PlayerInput.actions["Interact"].performed += Input_Interact;
-        PlayerInput.actions["TabInteract"].performed += Input_Tab;
-        PlayerInput.actions["OutMainGame"].performed += Input_OMGUI;
+        playerInput.actions["Interact"].performed += Input_Interact;
+        playerInput.actions["TabInteract"].performed += Input_Tab;
+        playerInput.actions["OutMainGame"].performed += Input_OMGUI;
 
         // Out Main Game UI
-        PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
-        PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
+        playerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
+        playerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
     }
 
     private void SetOff_InputAction_InLobby()
     {
         if (DevTool.Get_ComponentTType(
-            PlayerManager.Instance.PlayerController.gameObject, out PlayerInput input))
-            PlayerInput = input;
+            PlayerManager.Instance.playerController.gameObject, out PlayerInput input))
+            playerInput = input;
 
         // Player
-        PlayerInput.actions["Walk"].performed -= Input_Walk;
-        PlayerInput.actions["Arrow"].performed -= Input_Arrow;
+        playerInput.actions["Walk"].performed -= Input_Walk;
+        playerInput.actions["Arrow"].performed -= Input_Arrow;
 
-        PlayerInput.actions["Interact"].performed -= Input_Interact;
-        PlayerInput.actions["TabInteract"].performed -= Input_Tab;
-        PlayerInput.actions["OutMainGame"].performed -= Input_OMGUI;
+        playerInput.actions["Interact"].performed -= Input_Interact;
+        playerInput.actions["TabInteract"].performed -= Input_Tab;
+        playerInput.actions["OutMainGame"].performed -= Input_OMGUI;
 
         // Out Main Game UI
-        PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
-        PlayerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
+        playerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
+        playerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
     }
 
     private void SetOn_InputAction_MainGame()
     {
         if (DevTool.Get_ComponentTType(
-            PlayerManager.Instance.PlayerController.gameObject, out PlayerInput input))
-            PlayerInput = input; 
+            PlayerManager.Instance.playerController.gameObject, out PlayerInput input))
+            playerInput = input; 
 
         // Player
-        PlayerInput.actions["Walk"].performed += Input_Walk;
-        PlayerInput.actions["Arrow"].performed += Input_Arrow;
-        PlayerInput.actions["Fire"].performed += Input_Fire;
-        PlayerInput.actions["Dash"].performed += Input_Dash;
+        playerInput.actions["Walk"].performed += Input_Walk;
+        playerInput.actions["Arrow"].performed += Input_Arrow;
+        playerInput.actions["Fire"].performed += Input_Fire;
+        playerInput.actions["Dash"].performed += Input_Dash;
 
-        PlayerInput.actions["CombatMode"].performed += Input_CombatMode;
-        PlayerInput.actions["ChargeBettery"].performed += Input_ChargeBettery;
+        playerInput.actions["CombatMode"].performed += Input_CombatMode;
+        playerInput.actions["ChargeBettery"].performed += Input_ChargeBettery;
 
-        PlayerInput.actions["Skill_0"].performed += Input_Skill_0;
-        PlayerInput.actions["Skill_1"].performed += Input_Skill_1;
+        playerInput.actions["Skill_0"].performed += Input_Skill_0;
+        playerInput.actions["Skill_1"].performed += Input_Skill_1;
 
-        PlayerInput.actions["STAlly"].performed += Input_STAlly;
-        PlayerInput.actions["UTAlly"].performed += Input_UTAlly;
-        PlayerInput.actions["NTAlly"].performed += Input_NTAlly;
+        playerInput.actions["STAlly"].performed += Input_STAlly;
+        playerInput.actions["UTAlly"].performed += Input_UTAlly;
+        playerInput.actions["NTAlly"].performed += Input_NTAlly;
 
-        PlayerInput.actions["Interact"].performed += Input_Interact;
-        PlayerInput.actions["TabInteract"].performed += Input_Tab;
-        PlayerInput.actions["OutMainGame"].performed += Input_OMGUI;
+        playerInput.actions["Interact"].performed += Input_Interact;
+        playerInput.actions["TabInteract"].performed += Input_Tab;
+        playerInput.actions["OutMainGame"].performed += Input_OMGUI;
 
-        PlayerInput.actions["Ping"].performed += Input_Ping;
+        playerInput.actions["Ping"].performed += Input_Ping;
 
         // BU UI
-        PlayerInput.actions["BUUI_Select"].performed += Input_BUUIClick;
-        PlayerInput.actions["BUUI_OutPanel"].performed += Input_BUUIOutPanel;
+        playerInput.actions["BUUI_Select"].performed += Input_BUUIClick;
+        playerInput.actions["BUUI_OutPanel"].performed += Input_BUUIOutPanel;
 
         // MU UI
-        PlayerInput.actions["MUUI_Select"].performed += Input_MUUIClick;
-        PlayerInput.actions["MUUI_SelectSub"].performed += Input_MUUIClickSub;
-        PlayerInput.actions["MUUI_OutPanel"].performed += Input_MUUIOutPanel;
-        PlayerInput.actions["MUUI_Drag"].performed += Input_MUUIDrag;
+        playerInput.actions["MUUI_Select"].performed += Input_MUUIClick;
+        playerInput.actions["MUUI_SelectSub"].performed += Input_MUUIClickSub;
+        playerInput.actions["MUUI_OutPanel"].performed += Input_MUUIOutPanel;
+        playerInput.actions["MUUI_Drag"].performed += Input_MUUIDrag;
 
         // A BU UI
-        PlayerInput.actions["ABUUI_Select"].performed += Input_ABUUIClick;
-        PlayerInput.actions["ABUUI_OutPanel"].performed += Input_ABUUIOutPanel;
+        playerInput.actions["ABUUI_Select"].performed += Input_ABUUIClick;
+        playerInput.actions["ABUUI_OutPanel"].performed += Input_ABUUIOutPanel;
 
         // A MU UI
-        PlayerInput.actions["AMUUI_Select"].performed += Input_AMUUIClick;
-        PlayerInput.actions["AMUUI_OutPanel"].performed += Input_AMUUIOutPanel;
+        playerInput.actions["AMUUI_Select"].performed += Input_AMUUIClick;
+        playerInput.actions["AMUUI_OutPanel"].performed += Input_AMUUIOutPanel;
 
         // Ally Card
-        PlayerInput.actions["AllyCard_Select"].performed += Input_AllyCardClick;
+        playerInput.actions["AllyCard_Select"].performed += Input_AllyCardClick;
 
         // Box Line Connector
-        PlayerInput.actions["BoxLineConnector_RightRoll"].performed += Input_BoxLineConnector_RightRoll;
-        PlayerInput.actions["BoxLineConnector_LeftRoll"].performed += Input_BoxLineConnector_LeftRoll;
-        PlayerInput.actions["BoxLineConnector_TryUnlock"].performed += Input_BoxLineConnector_TryUnlock;
+        playerInput.actions["BoxLineConnector_RightRoll"].performed += Input_BoxLineConnector_RightRoll;
+        playerInput.actions["BoxLineConnector_LeftRoll"].performed += Input_BoxLineConnector_LeftRoll;
+        playerInput.actions["BoxLineConnector_TryUnlock"].performed += Input_BoxLineConnector_TryUnlock;
 
         // Num Shape Color Password
-        PlayerInput.actions["NumShapeColorPassword_RollForDown"].performed += Input_NumShapeColorPassword_RollForDown;
-        PlayerInput.actions["NumShapeColorPassword_RollForUp"].performed += Input_NumShapeColorPassword_RollForUp;
-        PlayerInput.actions["NumShapeColorPassword_TryUnlock"].performed += Input_NumShapeColorPassword_TryUnlock;
+        playerInput.actions["NumShapeColorPassword_RollForDown"].performed += Input_NumShapeColorPassword_RollForDown;
+        playerInput.actions["NumShapeColorPassword_RollForUp"].performed += Input_NumShapeColorPassword_RollForUp;
+        playerInput.actions["NumShapeColorPassword_TryUnlock"].performed += Input_NumShapeColorPassword_TryUnlock;
 
         // In Order Locker
-        PlayerInput.actions["InOrderLocker_Interact"].performed += Input_InOrderLocker_Interact;
-        PlayerInput.actions["InOrderLocker_TryUnlock"].performed += Input_InOrderLocker_TryUnlock;
+        playerInput.actions["InOrderLocker_Interact"].performed += Input_InOrderLocker_Interact;
+        playerInput.actions["InOrderLocker_TryUnlock"].performed += Input_InOrderLocker_TryUnlock;
 
         // Cvt
         // PremiumCredit
-        PlayerInput.actions["CPCUI_Select"].performed += Input_Cvt_PC_Click;
-        PlayerInput.actions["CPCUI_OutPanel"].performed += Input_Cvt_PC_OutPanel;
+        playerInput.actions["CPCUI_Select"].performed += Input_Cvt_PC_Click;
+        playerInput.actions["CPCUI_OutPanel"].performed += Input_Cvt_PC_OutPanel;
         // ProtoCore
-        PlayerInput.actions["CPUI_Select"].performed += Input_Cvt_P_Click;
-        PlayerInput.actions["CPUI_OutPanel"].performed += Input_Cvt_P_OutPanel;
+        playerInput.actions["CPUI_Select"].performed += Input_Cvt_P_Click;
+        playerInput.actions["CPUI_OutPanel"].performed += Input_Cvt_P_OutPanel;
         // EtherCore
-        PlayerInput.actions["CEUI_Select"].performed += Input_Cvt_E_Click;
-        PlayerInput.actions["CEUI_OutPanel"].performed += Input_Cvt_E_OutPanel;
+        playerInput.actions["CEUI_Select"].performed += Input_Cvt_E_Click;
+        playerInput.actions["CEUI_OutPanel"].performed += Input_Cvt_E_OutPanel;
         // ProtoCore
-        PlayerInput.actions["COUI_Select"].performed += Input_Cvt_O_Click;
-        PlayerInput.actions["COUI_OutPanel"].performed += Input_Cvt_O_OutPanel;
+        playerInput.actions["COUI_Select"].performed += Input_Cvt_O_Click;
+        playerInput.actions["COUI_OutPanel"].performed += Input_Cvt_O_OutPanel;
 
         // Out Main Game UI
-        PlayerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
-        PlayerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
+        playerInput.actions["OMGUI_Select"].performed += Input_OMGUIClick;
+        playerInput.actions["OMGUI_OutPanel"].performed += Input_OMGUIOutPanel;
     }
 
     private void SetOff_InputAction_MainGame()
     {
         if (DevTool.Get_ComponentTType(
-            PlayerManager.Instance.PlayerController.gameObject, out PlayerInput input))
-            PlayerInput = input;
+            PlayerManager.Instance.playerController.gameObject, out PlayerInput input))
+            playerInput = input;
 
         // Player
-        PlayerInput.actions["Walk"].performed -= Input_Walk;
-        PlayerInput.actions["Arrow"].performed -= Input_Arrow;
-        PlayerInput.actions["Fire"].performed -= Input_Fire;
-        PlayerInput.actions["Dash"].performed -= Input_Dash;
+        playerInput.actions["Walk"].performed -= Input_Walk;
+        playerInput.actions["Arrow"].performed -= Input_Arrow;
+        playerInput.actions["Fire"].performed -= Input_Fire;
+        playerInput.actions["Dash"].performed -= Input_Dash;
 
-        PlayerInput.actions["CombatMode"].performed -= Input_CombatMode;
-        PlayerInput.actions["ChargeBettery"].performed -= Input_ChargeBettery;
+        playerInput.actions["CombatMode"].performed -= Input_CombatMode;
+        playerInput.actions["ChargeBettery"].performed -= Input_ChargeBettery;
 
-        PlayerInput.actions["Skill_0"].performed -= Input_Skill_0;
-        PlayerInput.actions["Skill_1"].performed -= Input_Skill_1;
+        playerInput.actions["Skill_0"].performed -= Input_Skill_0;
+        playerInput.actions["Skill_1"].performed -= Input_Skill_1;
 
-        PlayerInput.actions["STAlly"].performed -= Input_STAlly;
-        PlayerInput.actions["UTAlly"].performed -= Input_UTAlly;
-        PlayerInput.actions["NTAlly"].performed -= Input_NTAlly;
+        playerInput.actions["STAlly"].performed -= Input_STAlly;
+        playerInput.actions["UTAlly"].performed -= Input_UTAlly;
+        playerInput.actions["NTAlly"].performed -= Input_NTAlly;
 
-        PlayerInput.actions["Interact"].performed -= Input_Interact;
-        PlayerInput.actions["TabInteract"].performed -= Input_Tab;
-        PlayerInput.actions["OutMainGame"].performed -= Input_OMGUI;
+        playerInput.actions["Interact"].performed -= Input_Interact;
+        playerInput.actions["TabInteract"].performed -= Input_Tab;
+        playerInput.actions["OutMainGame"].performed -= Input_OMGUI;
 
-        PlayerInput.actions["Ping"].performed -= Input_Ping;
+        playerInput.actions["Ping"].performed -= Input_Ping;
 
         // BU UI
-        PlayerInput.actions["BUUI_Select"].performed -= Input_BUUIClick;
-        PlayerInput.actions["BUUI_OutPanel"].performed -= Input_BUUIOutPanel;
+        playerInput.actions["BUUI_Select"].performed -= Input_BUUIClick;
+        playerInput.actions["BUUI_OutPanel"].performed -= Input_BUUIOutPanel;
 
         // MU UI
-        PlayerInput.actions["MUUI_Select"].performed -= Input_MUUIClick;
-        PlayerInput.actions["MUUI_SelectSub"].performed -= Input_MUUIClickSub;
-        PlayerInput.actions["MUUI_OutPanel"].performed -= Input_MUUIOutPanel;
-        PlayerInput.actions["MUUI_Drag"].performed -= Input_MUUIDrag;
+        playerInput.actions["MUUI_Select"].performed -= Input_MUUIClick;
+        playerInput.actions["MUUI_SelectSub"].performed -= Input_MUUIClickSub;
+        playerInput.actions["MUUI_OutPanel"].performed -= Input_MUUIOutPanel;
+        playerInput.actions["MUUI_Drag"].performed -= Input_MUUIDrag;
 
         // Ally Card
-        PlayerInput.actions["AllyCard_Select"].performed -= Input_AllyCardClick;
+        playerInput.actions["AllyCard_Select"].performed -= Input_AllyCardClick;
 
         // Box Line Connector
-        PlayerInput.actions["BoxLineConnector_RightRoll"].performed -= Input_BoxLineConnector_RightRoll;
-        PlayerInput.actions["BoxLineConnector_LeftRoll"].performed -= Input_BoxLineConnector_LeftRoll;
-        PlayerInput.actions["BoxLineConnector_TryUnlock"].performed -= Input_BoxLineConnector_TryUnlock;
+        playerInput.actions["BoxLineConnector_RightRoll"].performed -= Input_BoxLineConnector_RightRoll;
+        playerInput.actions["BoxLineConnector_LeftRoll"].performed -= Input_BoxLineConnector_LeftRoll;
+        playerInput.actions["BoxLineConnector_TryUnlock"].performed -= Input_BoxLineConnector_TryUnlock;
 
         // Num Shape Color Password
-        PlayerInput.actions["NumShapeColorPassword_RollForDown"].performed -= Input_NumShapeColorPassword_RollForDown;
-        PlayerInput.actions["NumShapeColorPassword_RollForUp"].performed -= Input_NumShapeColorPassword_RollForUp;
-        PlayerInput.actions["NumShapeColorPassword_TryUnlock"].performed -= Input_NumShapeColorPassword_TryUnlock;
+        playerInput.actions["NumShapeColorPassword_RollForDown"].performed -= Input_NumShapeColorPassword_RollForDown;
+        playerInput.actions["NumShapeColorPassword_RollForUp"].performed -= Input_NumShapeColorPassword_RollForUp;
+        playerInput.actions["NumShapeColorPassword_TryUnlock"].performed -= Input_NumShapeColorPassword_TryUnlock;
 
         // In Order Locker
-        PlayerInput.actions["InOrderLocker_Interact"].performed -= Input_InOrderLocker_Interact;
-        PlayerInput.actions["InOrderLocker_TryUnlock"].performed -= Input_InOrderLocker_TryUnlock;
+        playerInput.actions["InOrderLocker_Interact"].performed -= Input_InOrderLocker_Interact;
+        playerInput.actions["InOrderLocker_TryUnlock"].performed -= Input_InOrderLocker_TryUnlock;
 
         // Cvt
         // PremiumCredit
-        PlayerInput.actions["CPCUI_Select"].performed -= Input_Cvt_PC_Click;
-        PlayerInput.actions["CPCUI_OutPanel"].performed -= Input_Cvt_PC_OutPanel;
+        playerInput.actions["CPCUI_Select"].performed -= Input_Cvt_PC_Click;
+        playerInput.actions["CPCUI_OutPanel"].performed -= Input_Cvt_PC_OutPanel;
         // ProtoCore
-        PlayerInput.actions["CPUI_Select"].performed -= Input_Cvt_P_Click;
-        PlayerInput.actions["CPUI_OutPanel"].performed -= Input_Cvt_P_OutPanel;
+        playerInput.actions["CPUI_Select"].performed -= Input_Cvt_P_Click;
+        playerInput.actions["CPUI_OutPanel"].performed -= Input_Cvt_P_OutPanel;
         // EtherCore
-        PlayerInput.actions["CEUI_Select"].performed -= Input_Cvt_E_Click;
-        PlayerInput.actions["CEUI_OutPanel"].performed -= Input_Cvt_E_OutPanel;
+        playerInput.actions["CEUI_Select"].performed -= Input_Cvt_E_Click;
+        playerInput.actions["CEUI_OutPanel"].performed -= Input_Cvt_E_OutPanel;
         // ProtoCore
-        PlayerInput.actions["COUI_Select"].performed -= Input_Cvt_O_Click;
-        PlayerInput.actions["COUI_OutPanel"].performed -= Input_Cvt_O_OutPanel;
+        playerInput.actions["COUI_Select"].performed -= Input_Cvt_O_Click;
+        playerInput.actions["COUI_OutPanel"].performed -= Input_Cvt_O_OutPanel;
 
         // Out Main Game UI
-        PlayerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
-        PlayerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
+        playerInput.actions["OMGUI_Select"].performed -= Input_OMGUIClick;
+        playerInput.actions["OMGUI_OutPanel"].performed -= Input_OMGUIOutPanel;
     }
 
     #endregion
@@ -408,20 +408,20 @@ public class InputManager : Singleton<InputManager>
 
     public void Input_Walk(InputAction.CallbackContext _InputValue)
     {
-        InputMoveDir = _InputValue.ReadValue<Vector2>().normalized;
+        inputMoveDir = _InputValue.ReadValue<Vector2>().normalized;
     }
 
     public void Input_Dash(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
         {
-            if (IsPlayingBuffered)
+            if (isPlayingBuffered)
             {
-                SetOn_BufferedInput(PlayerManager.Instance.PlayerController.Try_Dash);
+                SetOn_BufferedInput(PlayerManager.Instance.playerController.Try_Dash);
                 return;
             }
 
-            PlayerManager.Instance.PlayerController.Try_Dash();
+            PlayerManager.Instance.playerController.Try_Dash();
         }
     }
 
@@ -430,15 +430,15 @@ public class InputManager : Singleton<InputManager>
         Vector2 v2 = _InputValue.ReadValue<Vector2>();
         if (v2.x != 0)
         {
-            InputArrowDir = v2.x > 0 ? Vector2Int.right : Vector2Int.left;
+            inputArrowDir = v2.x > 0 ? Vector2Int.right : Vector2Int.left;
         }
         else if (v2.y != 0)
         {
-            InputArrowDir = v2.y > 0 ? Vector2Int.up : Vector2Int.down;
+            inputArrowDir = v2.y > 0 ? Vector2Int.up : Vector2Int.down;
         }
         else
         {
-            InputArrowDir = Vector2Int.zero;
+            inputArrowDir = Vector2Int.zero;
         }
     }
 
@@ -450,7 +450,7 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
-                PlayerManager.Instance.PlayerController.Try_CombatModeCheck);
+                PlayerManager.Instance.playerController.Try_CombatModeCheck);
     }
 
     #endregion
@@ -461,14 +461,14 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
-                PlayerManager.Instance.PlayerController.Try_Skill0);
+                PlayerManager.Instance.playerController.Try_Skill0);
     }
 
     private void Input_Skill_1(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
-                PlayerManager.Instance.PlayerController.Try_Skill1);
+                PlayerManager.Instance.playerController.Try_Skill1);
     }
 
     #endregion
@@ -478,19 +478,19 @@ public class InputManager : Singleton<InputManager>
     private void Input_STAlly(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            PlayerManager.Instance.PlayerController.Try_STAllyLvUp();
+            PlayerManager.Instance.playerController.Try_STAllyLvUp();
     }
 
     private void Input_UTAlly(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            PlayerManager.Instance.PlayerController.Try_UTAllyLvUp();
+            PlayerManager.Instance.playerController.Try_UTAllyLvUp();
     }
 
     private void Input_NTAlly(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            PlayerManager.Instance.PlayerController.Try_NTAllyLvUp();
+            PlayerManager.Instance.playerController.Try_NTAllyLvUp();
     }
 
     #endregion
@@ -499,7 +499,7 @@ public class InputManager : Singleton<InputManager>
 
     private void Input_Fire(InputAction.CallbackContext _InputValue)
     {
-        PlayerManager.Instance.PlayerController.BaseWeapon.IsInputed = _InputValue.ReadValueAsButton();
+        PlayerManager.Instance.playerController.BaseWeapon.IsInputed = _InputValue.ReadValueAsButton();
     }
 
     #endregion
@@ -509,7 +509,7 @@ public class InputManager : Singleton<InputManager>
     public void Input_Ping(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            PlayerManager.Instance.PlayerController.Try_PingEnemy(AimController);
+            PlayerManager.Instance.playerController.Try_PingEnemy(aimController);
     }
 
     #endregion
@@ -520,7 +520,7 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
-                PlayerManager.Instance.PlayerController.Try_ChargeBettery);
+                PlayerManager.Instance.playerController.Try_ChargeBettery);
     }
 
     #endregion
@@ -530,7 +530,7 @@ public class InputManager : Singleton<InputManager>
     private void Input_Interact(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            PlayerManager.Instance.PlayerController.Try_Interact();
+            PlayerManager.Instance.playerController.Try_Interact();
     }
 
 
@@ -540,7 +540,7 @@ public class InputManager : Singleton<InputManager>
 
     private void Input_Tab(InputAction.CallbackContext _InputValue)
     {
-        MainGameUIManager.Instance.PlayerHUD_UIController.IsTabInputed = 
+        MainGameUIManager.Instance.playerHUD_UIController.IsTabInputed = 
             _InputValue.ReadValueAsButton();
     }
 
@@ -553,13 +553,13 @@ public class InputManager : Singleton<InputManager>
     private void Input_BUUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.BaseUpgrade_UIController.Try_Interact();
+            MainGameUIManager.Instance.baseUpgrade_UIController.Try_Interact();
     }
 
     private void Input_BUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.BaseUpgrade_UIController.SetOff_ThisPanel();
+            MainGameUIManager.Instance.baseUpgrade_UIController.SetOff_ThisPanel();
     }
 
     #endregion
@@ -569,25 +569,25 @@ public class InputManager : Singleton<InputManager>
     private void Input_MUUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.Try_Interact();
+            MainGameUIManager.Instance.moduleUpgrade_UIController.Try_Interact();
     }
     private void Input_MUUIClickSub(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.Try_InteractSub();
+            MainGameUIManager.Instance.moduleUpgrade_UIController.Try_InteractSub();
     }
     private void Input_MUUIDrag(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.Try_InteractDragOn();
+            MainGameUIManager.Instance.moduleUpgrade_UIController.Try_InteractDragOn();
         else
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.Try_InteractDragOff();
+            MainGameUIManager.Instance.moduleUpgrade_UIController.Try_InteractDragOff();
     }
 
     private void Input_MUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.ModuleUpgrade_UIController.SetOff_ThisPanel();
+            MainGameUIManager.Instance.moduleUpgrade_UIController.SetOff_ThisPanel();
     }
 
     #endregion
@@ -597,13 +597,13 @@ public class InputManager : Singleton<InputManager>
     private void Input_ABUUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.AllyBaseUpgrade_UIController.Try_Interact();
+            MainGameUIManager.Instance.allyBaseUpgrade_UIController.Try_Interact();
     }
 
     private void Input_ABUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.AllyBaseUpgrade_UIController.SetOff_ThisPanel();
+            MainGameUIManager.Instance.allyBaseUpgrade_UIController.SetOff_ThisPanel();
     }
 
     #endregion
@@ -612,13 +612,13 @@ public class InputManager : Singleton<InputManager>
     private void Input_AMUUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.AllyModuleUpgrade_UIController.Try_Interact();
+            MainGameUIManager.Instance.allyModuleUpgrade_UIController.Try_Interact();
     }
 
     private void Input_AMUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.AllyModuleUpgrade_UIController.SetOff_ThisPanel();
+            MainGameUIManager.Instance.allyModuleUpgrade_UIController.SetOff_ThisPanel();
     }
 
     #endregion
@@ -628,7 +628,7 @@ public class InputManager : Singleton<InputManager>
     private void Input_AllyCardClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.AllyCard_UIController.Try_Interact();
+            MainGameUIManager.Instance.allyCard_UIController.Try_Interact();
     }
 
     #endregion
@@ -640,18 +640,18 @@ public class InputManager : Singleton<InputManager>
     private void Input_BoxLineConnector_RightRoll(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.BoxLineConnector_UIController.Try_Interact();
+            MainGameUIManager.Instance.boxLineConnector_UIController.Try_Interact();
     }
     private void Input_BoxLineConnector_LeftRoll(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.BoxLineConnector_UIController.Try_InteractSub();
+            MainGameUIManager.Instance.boxLineConnector_UIController.Try_InteractSub();
     }
 
     private void Input_BoxLineConnector_TryUnlock(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.BoxLineConnector_UIController.Try_InteractUnlock();
+            MainGameUIManager.Instance.boxLineConnector_UIController.Try_InteractUnlock();
     }
 
     #endregion
@@ -661,17 +661,17 @@ public class InputManager : Singleton<InputManager>
     private void Input_NumShapeColorPassword_RollForDown(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.NumShapeColorPassword_UIController.Try_Interact();
+            MainGameUIManager.Instance.numShapeColorPassword_UIController.Try_Interact();
     }
     private void Input_NumShapeColorPassword_RollForUp(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.NumShapeColorPassword_UIController.Try_InteractSub();
+            MainGameUIManager.Instance.numShapeColorPassword_UIController.Try_InteractSub();
     }
     private void Input_NumShapeColorPassword_TryUnlock(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.NumShapeColorPassword_UIController.Try_InteractUnlock();
+            MainGameUIManager.Instance.numShapeColorPassword_UIController.Try_InteractUnlock();
     }
 
     #endregion
@@ -681,12 +681,12 @@ public class InputManager : Singleton<InputManager>
     private void Input_InOrderLocker_Interact(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.InOrderLocker_UIController.Try_Interact();
+            MainGameUIManager.Instance.inOrderLocker_UIController.Try_Interact();
     }
     private void Input_InOrderLocker_TryUnlock(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.InOrderLocker_UIController.Try_InteractUnlock();
+            MainGameUIManager.Instance.inOrderLocker_UIController.Try_InteractUnlock();
     }
 
     #endregion
@@ -699,14 +699,14 @@ public class InputManager : Singleton<InputManager>
     private void Input_Cvt_PC_Click(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.PremiumCreditCvt_UIController.Try_Interact();
+            MainGameUIManager.Instance.premiumCreditCvt_UIController.Try_Interact();
     }
 
 
     private void Input_Cvt_PC_OutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.PremiumCreditCvt_UIController.SetOff_ThisPanel();
+            MainGameUIManager.Instance.premiumCreditCvt_UIController.SetOff_ThisPanel();
     }
 
 
@@ -714,14 +714,14 @@ public class InputManager : Singleton<InputManager>
     private void Input_Cvt_P_Click(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.ProtoCoreCvt_UIController.Try_Interact();
+            MainGameUIManager.Instance.protoCoreCvt_UIController.Try_Interact();
     }
 
 
     private void Input_Cvt_P_OutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.ProtoCoreCvt_UIController.SetOff_ThisPanel();
+            MainGameUIManager.Instance.protoCoreCvt_UIController.SetOff_ThisPanel();
     }
 
 
@@ -729,14 +729,14 @@ public class InputManager : Singleton<InputManager>
     private void Input_Cvt_E_Click(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.EtherCoreCvt_UIController.Try_Interact();
+            MainGameUIManager.Instance.etherCoreCvt_UIController.Try_Interact();
     }
 
 
     private void Input_Cvt_E_OutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.EtherCoreCvt_UIController.SetOff_ThisPanel();
+            MainGameUIManager.Instance.etherCoreCvt_UIController.SetOff_ThisPanel();
     }
 
 
@@ -744,14 +744,14 @@ public class InputManager : Singleton<InputManager>
     private void Input_Cvt_O_Click(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.OriginCoreCvt_UIController.Try_Interact();
+            MainGameUIManager.Instance.originCoreCvt_UIController.Try_Interact();
     }
 
 
     private void Input_Cvt_O_OutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.OriginCoreCvt_UIController.SetOff_ThisPanel();
+            MainGameUIManager.Instance.originCoreCvt_UIController.SetOff_ThisPanel();
     }
 
     #endregion
@@ -761,19 +761,19 @@ public class InputManager : Singleton<InputManager>
     private void Input_OMGUI(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.OutMainGame_UIController.SetOn_ThisPanel();
+            MainGameUIManager.Instance.outMainGame_UIController.SetOn_ThisPanel();
     }
 
     private void Input_OMGUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.OutMainGame_UIController.Try_Interact();
+            MainGameUIManager.Instance.outMainGame_UIController.Try_Interact();
     }
 
     private void Input_OMGUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.OutMainGame_UIController.Try_InteractBack();
+            MainGameUIManager.Instance.outMainGame_UIController.Try_InteractBack();
     }
 
     #endregion

@@ -43,7 +43,7 @@ public class RepairOperatorController : OperatorController
     {
         base.Set_AnimValue();
 
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.Operator_RepairAC, 1f), 1f);
+        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.operator_RepairAC, 1f), 1f);
     }
 
     public void Set_TargetBuild(DestructibleBuildController _TargetBuild)
@@ -76,10 +76,10 @@ public class RepairOperatorController : OperatorController
         if (TargetBuildController == null ||
             TargetBuildController.Is_MaxDur() ||
             TargetBuildController.IsBroken ||
-            PlayerManager.Instance.PlayerController.CurrentCredit.Value < Get_NeedPay()) return;
+            PlayerManager.Instance.playerController.CurrentCredit.Value < Get_NeedPay()) return;
 
         // 소비 아이템
-        PlayerManager.Instance.PlayerController.Add_CurrentCredit(-Get_NeedPay());
+        PlayerManager.Instance.playerController.Add_CurrentCredit(-Get_NeedPay());
         UseAmount++;
 
         // 내구도 회복

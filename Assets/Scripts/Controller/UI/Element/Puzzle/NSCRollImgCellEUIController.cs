@@ -40,11 +40,11 @@ public class NSCRollImgCellEUIController : NSCRollCellEUIController
         switch (ThisNSCType)
         {
             case eNSCPuzzleType.Shape:
-                RollSpriteList = ResourceManager.Instance.NSC_ShapeSpriteArr;
+                RollSpriteList = ResourceManager.Instance.nsc_shapeSpriteArr;
                 break;
 
             case eNSCPuzzleType.Num:
-                RollSpriteList = ResourceManager.Instance.NSC_NumSpriteArr;
+                RollSpriteList = ResourceManager.Instance.nsc_numSpriteArr;
                 break;
 
             default:

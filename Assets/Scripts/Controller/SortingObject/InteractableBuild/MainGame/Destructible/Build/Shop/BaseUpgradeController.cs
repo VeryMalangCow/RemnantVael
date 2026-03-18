@@ -28,11 +28,11 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
     {
         Set_LanguageTxt();
 
-        OnOffAC = ResourceManager.Instance.BUShop_OnOffAC;
-        OnOffStateAC = ResourceManager.Instance.NeedChargeBettery_OnOffStateAC;
+        OnOffAC = ResourceManager.Instance.buShop_OnOffAC;
+        OnOffStateAC = ResourceManager.Instance.needChargeBettery_OnOffStateAC;
 
-        BrokenAC = ResourceManager.Instance.BUShop_BrokenAC;
-        BrokenStateAC = ResourceManager.Instance.BrokenStateAC;
+        BrokenAC = ResourceManager.Instance.buShop_BrokenAC;
+        BrokenStateAC = ResourceManager.Instance.brokenStateAC;
 
         base.Offset();
     }
@@ -61,11 +61,11 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
         {
             UsingShop = this;
             Set_LanguageTxt();
-            MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_ThisPanel();
+            MainGameUIManager.Instance.baseUpgrade_UIController.SetOn_ThisPanel();
         }
         else if (Can_ShopPowerOn())
         {
-            PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value--;
+            PlayerManager.Instance.playerController.CurrentChargedBettery.Value--;
             IsOn = true;
             SoundManager.Instance.Play_2D_SFX_Build("PowerOn");
         }
@@ -73,7 +73,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
 
     private bool Can_ShopPowerOn()
     {
-        return !IsOn && PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value > 0;
+        return !IsOn && PlayerManager.Instance.playerController.CurrentChargedBettery.Value > 0;
     }
 
     #endregion
@@ -84,15 +84,15 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
     {
         base.Take_Damage(_SpawnItem, _SoundOn);
 
-        MainGameUIManager.Instance.BaseUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
+        MainGameUIManager.Instance.baseUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
     }
 
     protected override void Play_NowBreak(bool _SpawnItem)
     {
         base.Play_NowBreak(_SpawnItem);
 
-        if (MainGameUIManager.Instance.BaseUpgrade_UIController.gameObject.activeSelf)
-            MainGameUIManager.Instance.BaseUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
+        if (MainGameUIManager.Instance.baseUpgrade_UIController.gameObject.activeSelf)
+            MainGameUIManager.Instance.baseUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
     }
 
     #endregion

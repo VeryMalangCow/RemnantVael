@@ -123,7 +123,7 @@ public class AllyController : NavObjectController
         CurrentHP.Value = MaxHP;
         CurrentEP.Value = 0;
 
-        Player = PlayerManager.Instance.PlayerController;
+        Player = PlayerManager.Instance.playerController;
 
         DevTool.Add_InList(AllyManager.Instance.AllAlly, this);
         ID = AllyManager.Instance.AllAlly.IndexOf(this);
@@ -313,12 +313,12 @@ public class AllyController : NavObjectController
 
     public string Get_Name()
     {
-        return Name[GameManager.LanguageID];
+        return Name[GameManager.languageID];
     }
 
     protected virtual void Set_Name()
     {
-        HUD.Set_Name(Name[GameManager.LanguageID]);
+        HUD.Set_Name(Name[GameManager.languageID]);
     }
 
 

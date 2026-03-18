@@ -74,12 +74,12 @@ public abstract class ConverterUIController : SinglePanelUIController
         SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
 
-        Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color mainClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
+        Color subClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
@@ -194,7 +194,7 @@ public abstract class ConverterUIController : SinglePanelUIController
     protected void Set_AcquAmount(int _ItemID)
     {
         CvtAcquisitionEUI.Set_PossessionAmountTxt(
-            SaveDataManager.Instance.JsonData.Get_ItemAmount(AcquisitionItemID).ToString());
+            SaveDataManager.Instance.jsonData.Get_ItemAmount(AcquisitionItemID).ToString());
     }
 
     // Data
@@ -254,7 +254,7 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     protected virtual void Convert()
     {
-        SaveDataManager.Instance.JsonData.Gain_Item(AcquisitionItemID, AcquisitionBookAmount);
+        SaveDataManager.Instance.jsonData.Gain_Item(AcquisitionItemID, AcquisitionBookAmount);
         Set_AcquAmount(AcquisitionItemID);
     }
 

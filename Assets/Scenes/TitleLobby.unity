@@ -345,19 +345,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994cd264941e8b84fbbe2fe5032aa8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UICamera: {fileID: 2117026243}
-  UIParent: {fileID: 621373651}
-  TitleLobby_UIController: {fileID: 0}
-  ScreenCanvas: {fileID: 733198937}
-  WarningCG: {fileID: 8086392}
-  WarningTitleTxt: {fileID: 646857026}
-  WarningTxt: {fileID: 140325940}
-  WarningExtraTxt: {fileID: 147986669}
-  SimpleCreditCG: {fileID: 1807692006}
-  EachFadeInTime: 1
-  EachFadeOutTime: 1
-  EachStayTime: 1.5
-  EachDelayTime: 0.5
+  uiCamera: {fileID: 2117026243}
+  uiParent: {fileID: 621373651}
+  titleLobby_UIController: {fileID: 0}
+  screenCanvas: {fileID: 733198937}
+  warningCG: {fileID: 8086392}
+  warningTitleTxt: {fileID: 646857026}
+  warningTxt: {fileID: 140325940}
+  warningExtraTxt: {fileID: 147986669}
+  eachFadeInTime: 1
+  eachFadeOutTime: 1
+  eachStayTime: 1.5
+  eachDelayTime: 0.5
 --- !u!1 &140325938
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,15 +810,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce91264f8efde5e4face5bfce76d3e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadingCG: {fileID: 1127585603}
-  LoadingBarImg: {fileID: 1012746374}
-  LoadingIconRT_Clockwise:
+  loadingCG: {fileID: 1127585603}
+  loadingBarImg: {fileID: 1012746374}
+  loadingIconRT_Clockwise:
   - {fileID: 584235988}
   - {fileID: 433329700}
-  LoadingIconRT_CounterClockwise:
+  loadingIconRT_CounterClockwise:
   - {fileID: 1686316675}
   - {fileID: 2132879062}
-  SlidingImgRT: {fileID: 1572435277}
+  slidingImgRT: {fileID: 1572435277}
 --- !u!4 &163899510
 Transform:
   m_ObjectHideFlags: 0
@@ -993,10 +992,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dfd9ede37c0c24408b98fb5bce193a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MasterAudioMixer: {fileID: 24100000, guid: f4fe09b156f3b524c802c439d5c704f9, type: 2}
-  ThisBaseBgmAudioSource: {fileID: 1024529728}
-  ThisExtraBgmAudioSource: {fileID: 1046942486}
-  ThisSfxASQueueSet:
+  masterAudioMixer: {fileID: 24100000, guid: f4fe09b156f3b524c802c439d5c704f9, type: 2}
+  thisBaseBgmAudioSource: {fileID: 1024529728}
+  thisExtraBgmAudioSource: {fileID: 1046942486}
+  thisSfxASQueueSet:
     ThisParentTF: {fileID: 2011945290}
   BVolume: 0.5
   SVolume: 0.5
@@ -2616,15 +2615,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e3e0dca7c95ce45be8b868a4d3e16a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterPrefabs:
+  characterPrefabs:
   - {fileID: 4593839933363528314, guid: ce7a8006effa57a40a58c614cabbe5e2, type: 3}
-  JsonFilePath: Json
-  CharacterPath: CharacterData
-  ItemPath: ItemData
-  OptionPath: OptionData
-  GameProgressPath: GameProgressData
-  InfoPath: InfoData
-  JsonData:
+  jsonFilePath: Json
+  characterPath: CharacterData
+  itemPath: ItemData
+  optionPath: OptionData
+  gameProgressPath: GameProgressData
+  infoPath: InfoData
+  jsonData:
     CharacterData:
     - ID: 0
       CanUse: 1
@@ -2651,7 +2650,7 @@ MonoBehaviour:
       BGMVolume: 0.5
       SFXVolume: 0.5
     GameProgressData:
-      CurrentProgressing: -1
+      CurrentProgressing: 0
       UsableVault: 1
       UsableBU: 1
       UsableMU: 1
@@ -4686,10 +4685,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3586f326757e75548af860e6bf31c82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MousePointerCanvas: {fileID: 1967998085}
-  MousePointerRT: {fileID: 1102182840}
-  MousePos: {x: 0, y: 0}
-  PlayerInput: {fileID: 0}
+  mousePointerCanvas: {fileID: 1967998085}
+  mousePointerRT: {fileID: 1102182840}
+  mousePos: {x: 0, y: 0}
+  playerInput: {fileID: 0}
 --- !u!114 &1301042539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4877,15 +4876,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01426f0a7d6066d4bbf9160f1f16a237, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LanguageTxtArr: []
-  RatingString: 
-  PrisonRateStringArr: []
-  StrikeTeamString: 
-  UplinkTeamString: 
-  NeoTeamString: 
-  AllyCardRateArr: []
-  UnlockedClr: {r: 0, g: 0, b: 0, a: 0}
-  KeycardOutlineColorArr: []
+  languageTxtArr: []
+  ratingString: 
+  prisonRateStringArr: []
+  strikeTeamString: 
+  uplinkTeamString: 
+  neoTeamString: 
+  allyCardRateArr: []
+  unlockedClr: {r: 0, g: 0, b: 0, a: 0}
+  keycardOutlineColorArr: []
 --- !u!4 &1463225871
 Transform:
   m_ObjectHideFlags: 0
@@ -5389,8 +5388,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce8cce342d2e4c74da9aafa6c1684b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DesignatedPlayerPrefab: {fileID: 4593839933363528314, guid: ce7a8006effa57a40a58c614cabbe5e2, type: 3}
-  WasWatched: 0
+  designatedPlayerPrefab: {fileID: 4593839933363528314, guid: ce7a8006effa57a40a58c614cabbe5e2, type: 3}
+  wasWatched: 0
 --- !u!4 &1684543364
 Transform:
   m_ObjectHideFlags: 0

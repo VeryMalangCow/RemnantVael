@@ -1,9 +1,7 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MainGameUIManager : Singleton<MainGameUIManager>
 {
@@ -12,55 +10,59 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     #region - Inspector
 
     [Header("=== Class")]
-    [SerializeField] public Camera UICamera;
-    [SerializeField] public Transform UIParent;
-    [SerializeField] private Canvas ScreenCanvas;
-    [SerializeField] private Canvas LoadingIconCanvas;
+    [SerializeField] public Camera uiCamera;
+    [SerializeField] public Transform uiParent;
+    [SerializeField] private Canvas screenCanvas;
+    [SerializeField] private Canvas loadingIconCanvas;
 
     [Header("=== Screen")]
-    [SerializeField] public float FadeOutTime = 3f;
+    [SerializeField] public float fadeOutTime = 2f;
 
     [Header("=== Save")]
-    [SerializeField] private CanvasGroup SaveDataCG;
+    [SerializeField] private CanvasGroup saveDataCG;
+
+    [Header("=== Dead")]
+    [SerializeField] private TMP_Text deadTxt;
+    [SerializeField] private TMP_Text endGameTxt;
 
     #endregion
 
     #region - Hide
 
     // Controller
-    [HideInInspector] public PlayerHUDController PlayerHUD_UIController;
+    [HideInInspector] public PlayerHUDController playerHUD_UIController;
 
-    [HideInInspector] public BaseUpgradeUIController BaseUpgrade_UIController;
-    [HideInInspector] public ModuleUpgradeUIController ModuleUpgrade_UIController;
+    [HideInInspector] public BaseUpgradeUIController baseUpgrade_UIController;
+    [HideInInspector] public ModuleUpgradeUIController moduleUpgrade_UIController;
 
-    [HideInInspector] public AllyBaseUpgradeUIController AllyBaseUpgrade_UIController;
-    [HideInInspector] public AllyModuleUpgradeUIController AllyModuleUpgrade_UIController;
+    [HideInInspector] public AllyBaseUpgradeUIController allyBaseUpgrade_UIController;
+    [HideInInspector] public AllyModuleUpgradeUIController allyModuleUpgrade_UIController;
 
-    [HideInInspector] public OutMainGameUIController OutMainGame_UIController;
-    [HideInInspector] public InteractAnnoUIController InteractAnno_UIController;
-    [HideInInspector] public MapIntroUIController MapIntro_UIController;
+    [HideInInspector] public OutMainGameUIController outMainGame_UIController;
+    [HideInInspector] public InteractAnnoUIController interactAnno_UIController;
+    [HideInInspector] public MapIntroUIController mapIntro_UIController;
 
-    [HideInInspector] public AllyCardUIController AllyCard_UIController;
+    [HideInInspector] public AllyCardUIController allyCard_UIController;
 
-    [HideInInspector] public BoxLineConnectorUIController BoxLineConnector_UIController;
-    [HideInInspector] public NumShapeColorPasswordUIController NumShapeColorPassword_UIController;
-    [HideInInspector] public InOrderLockerUIController InOrderLocker_UIController;
+    [HideInInspector] public BoxLineConnectorUIController boxLineConnector_UIController;
+    [HideInInspector] public NumShapeColorPasswordUIController numShapeColorPassword_UIController;
+    [HideInInspector] public InOrderLockerUIController inOrderLocker_UIController;
 
-    [HideInInspector] public PremiumCreditCvtUIController PremiumCreditCvt_UIController;
-    [HideInInspector] public ProtoCoreCvtUIController ProtoCoreCvt_UIController;
-    [HideInInspector] public EtherCoreCvtUIController EtherCoreCvt_UIController;
-    [HideInInspector] public OriginCoreCvtUIController OriginCoreCvt_UIController;
+    [HideInInspector] public PremiumCreditCvtUIController premiumCreditCvt_UIController;
+    [HideInInspector] public ProtoCoreCvtUIController protoCoreCvt_UIController;
+    [HideInInspector] public EtherCoreCvtUIController etherCoreCvt_UIController;
+    [HideInInspector] public OriginCoreCvtUIController originCoreCvt_UIController;
 
-    [HideInInspector] public BattleProdUIController BattleProd_UIController;
+    [HideInInspector] public BattleProdUIController battleProd_UIController;
 
     // Current
-    [HideInInspector] public static UIController CurrentOpening_UIController;
+    [HideInInspector] public static UIController currentOpening_UIController;
 
     // Production
-    [HideInInspector] private CanvasGroup ScreenCG;
-    [HideInInspector] private CanvasGroup LoadingIconCG;
-    [HideInInspector] private RectTransform LoadingIconRT;
-    [HideInInspector] private Tween CogwheelTween = null;
+    [HideInInspector] private CanvasGroup screenCG;
+    [HideInInspector] private CanvasGroup loadingIconCG;
+    [HideInInspector] private RectTransform loadingIconRT;
+    [HideInInspector] private Tween cogwheelTween = null;
 
     #endregion
 
@@ -70,66 +72,66 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     private void Offset()
     {
-        ScreenCG = DevTool.Get_ComponentTType(ScreenCanvas.gameObject, out CanvasGroup cg) ? cg : null;
-        LoadingIconCG = DevTool.Get_ComponentTType(LoadingIconCanvas.gameObject, out CanvasGroup iconCg) ? iconCg : null;
-        LoadingIconRT = DevTool.Get_ComponentTType(LoadingIconCanvas.gameObject.transform.GetChild(0).gameObject, out RectTransform iconRt) ? iconRt : null;
+        screenCG = DevTool.Get_ComponentTType(screenCanvas.gameObject, out CanvasGroup cg) ? cg : null;
+        loadingIconCG = DevTool.Get_ComponentTType(loadingIconCanvas.gameObject, out CanvasGroup iconCg) ? iconCg : null;
+        loadingIconRT = DevTool.Get_ComponentTType(loadingIconCanvas.gameObject.transform.GetChild(0).gameObject, out RectTransform iconRt) ? iconRt : null;
 
-        SaveDataCG.gameObject.SetActive(false);
+        saveDataCG.gameObject.SetActive(false);
 
-        CogwheelTween = LoadingIconRT
+        cogwheelTween = loadingIconRT
             .DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360)
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart);
 
-        PlayerHUD_UIController
-            = Gen_UI<PlayerHUDController>(ResourceManager.Instance.PlayerHUD_CanvasPrefab, true);
+        playerHUD_UIController
+            = Gen_UI<PlayerHUDController>(ResourceManager.Instance.playerHUD_CanvasPrefab, true);
 
-        OutMainGame_UIController
-            = Gen_UI<OutMainGameUIController>(ResourceManager.Instance.OutMainGame_CanvasPrefab, false);
+        outMainGame_UIController
+            = Gen_UI<OutMainGameUIController>(ResourceManager.Instance.outMainGame_CanvasPrefab, false);
 
-        BaseUpgrade_UIController
-            = Gen_UI<BaseUpgradeUIController>(ResourceManager.Instance.BaseUpgrade_CanvasPrefab, false);
-        ModuleUpgrade_UIController
-            = Gen_UI<ModuleUpgradeUIController>(ResourceManager.Instance.ModuleUpgrade_CanvasPrefab, false);
+        baseUpgrade_UIController
+            = Gen_UI<BaseUpgradeUIController>(ResourceManager.Instance.baseUpgrade_CanvasPrefab, false);
+        moduleUpgrade_UIController
+            = Gen_UI<ModuleUpgradeUIController>(ResourceManager.Instance.moduleUpgrade_CanvasPrefab, false);
 
-        AllyBaseUpgrade_UIController
-            = Gen_UI<AllyBaseUpgradeUIController>(ResourceManager.Instance.AllyBaseUpgrade_CanvasPrefab, false);
-        AllyModuleUpgrade_UIController
-            = Gen_UI<AllyModuleUpgradeUIController>(ResourceManager.Instance.AllyModuleUpgrade_CanvasPrefab, false);
+        allyBaseUpgrade_UIController
+            = Gen_UI<AllyBaseUpgradeUIController>(ResourceManager.Instance.allyBaseUpgrade_CanvasPrefab, false);
+        allyModuleUpgrade_UIController
+            = Gen_UI<AllyModuleUpgradeUIController>(ResourceManager.Instance.allyModuleUpgrade_CanvasPrefab, false);
 
-        InteractAnno_UIController
-            = Gen_UI<InteractAnnoUIController>(ResourceManager.Instance.InteractAnno_CanvasPrefab, false);
+        interactAnno_UIController
+            = Gen_UI<InteractAnnoUIController>(ResourceManager.Instance.interactAnno_CanvasPrefab, false);
 
-        MapIntro_UIController
-            = Gen_UI<MapIntroUIController>(ResourceManager.Instance.MapIntro_CanvasPrefab, false);
+        mapIntro_UIController
+            = Gen_UI<MapIntroUIController>(ResourceManager.Instance.mapIntro_CanvasPrefab, false);
 
-        AllyCard_UIController
-            = Gen_UI<AllyCardUIController>(ResourceManager.Instance.AllyCard_CanvasPrefab, false);
+        allyCard_UIController
+            = Gen_UI<AllyCardUIController>(ResourceManager.Instance.allyCard_CanvasPrefab, false);
 
-        BoxLineConnector_UIController
-            = Gen_UI<BoxLineConnectorUIController>(ResourceManager.Instance.Puzzle_BoxLineConnector_CanvasPrefab, false);
-        NumShapeColorPassword_UIController
-            = Gen_UI<NumShapeColorPasswordUIController>(ResourceManager.Instance.Puzzle_NumShapeColorPassword_CanvasPrefab, false);
-        InOrderLocker_UIController
-            = Gen_UI<InOrderLockerUIController>(ResourceManager.Instance.Puzzle_InOrderLocker_CanvasPrefab, false);
+        boxLineConnector_UIController
+            = Gen_UI<BoxLineConnectorUIController>(ResourceManager.Instance.puzzle_BoxLineConnector_CanvasPrefab, false);
+        numShapeColorPassword_UIController
+            = Gen_UI<NumShapeColorPasswordUIController>(ResourceManager.Instance.puzzle_NumShapeColorPassword_CanvasPrefab, false);
+        inOrderLocker_UIController
+            = Gen_UI<InOrderLockerUIController>(ResourceManager.Instance.puzzle_InOrderLocker_CanvasPrefab, false);
 
-        PremiumCreditCvt_UIController
-            = Gen_UI<PremiumCreditCvtUIController>(ResourceManager.Instance.Cvt_PremiumCredit_CanvasPrefab, false);
-        ProtoCoreCvt_UIController
-            = Gen_UI<ProtoCoreCvtUIController>(ResourceManager.Instance.Cvt_ProtoCore_CanvasPrefab, false);
-        EtherCoreCvt_UIController
-            = Gen_UI<EtherCoreCvtUIController>(ResourceManager.Instance.Cvt_EtherCore_CanvasPrefab, false);
-        OriginCoreCvt_UIController
-            = Gen_UI<OriginCoreCvtUIController>(ResourceManager.Instance.Cvt_OriginCore_CanvasPrefab, false);
+        premiumCreditCvt_UIController
+            = Gen_UI<PremiumCreditCvtUIController>(ResourceManager.Instance.cvt_PremiumCredit_CanvasPrefab, false);
+        protoCoreCvt_UIController
+            = Gen_UI<ProtoCoreCvtUIController>(ResourceManager.Instance.cvt_ProtoCore_CanvasPrefab, false);
+        etherCoreCvt_UIController
+            = Gen_UI<EtherCoreCvtUIController>(ResourceManager.Instance.cvt_EtherCore_CanvasPrefab, false);
+        originCoreCvt_UIController
+            = Gen_UI<OriginCoreCvtUIController>(ResourceManager.Instance.cvt_OriginCore_CanvasPrefab, false);
 
-        BattleProd_UIController
-            = Gen_UI<BattleProdUIController>(ResourceManager.Instance.BattleProd_CanvasPrefab, false);
+        battleProd_UIController
+            = Gen_UI<BattleProdUIController>(ResourceManager.Instance.battleProd_CanvasPrefab, false);
 
         Sequence startSeq = DOTween.Sequence();
 
-        Play_FadeOut(FadeOutTime);
-        Play_OffLoadingIcon(FadeOutTime);
-        ScreenCG.alpha = 1f;
+        Play_FadeOut(fadeOutTime);
+        Play_OffLoadingIcon(fadeOutTime);
+        screenCG.alpha = 1f;
     }
 
 
@@ -149,14 +151,14 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     private T Gen_UI<T>(GameObject _UIGO, bool _OnOff)
     {
-        GameObject uigo = Instantiate(_UIGO, UIParent);
+        GameObject uigo = Instantiate(_UIGO, uiParent);
 
         uigo.gameObject.SetActive(_OnOff);
         if (DevTool.Get_ComponentTType(uigo, out UIController uiController) &&
             DevTool.Get_ComponentTType(uigo, out Canvas uiCanvas))
         {
             uiController.Offset();
-            uiCanvas.worldCamera = UICamera;
+            uiCanvas.worldCamera = uiCamera;
         }
 
         return DevTool.Get_ComponentTType(uigo, out T tType) ? tType : default;
@@ -168,34 +170,34 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     public void Set_LanguageTxt()
     {
-        OutMainGame_UIController.Set_LanguageTxt();
+        outMainGame_UIController.Set_LanguageTxt();
 
-        MapIntro_UIController.Set_LanguageTxt();
-        PlayerHUD_UIController.Set_LanguageTxt();
-        InteractAnno_UIController.Set_LanguageTxt();
+        mapIntro_UIController.Set_LanguageTxt();
+        playerHUD_UIController.Set_LanguageTxt();
+        interactAnno_UIController.Set_LanguageTxt();
 
-        BaseUpgrade_UIController.Set_LanguageTxt();
-        ModuleUpgrade_UIController.Set_LanguageTxt();
+        baseUpgrade_UIController.Set_LanguageTxt();
+        moduleUpgrade_UIController.Set_LanguageTxt();
         ModuleItemManager.Instance.Set_DataLanguage();
 
-        AllyBaseUpgrade_UIController.Set_LanguageTxt();
-        AllyModuleUpgrade_UIController.Set_LanguageTxt();
+        allyBaseUpgrade_UIController.Set_LanguageTxt();
+        allyModuleUpgrade_UIController.Set_LanguageTxt();
 
-        AllyCard_UIController.Set_LanguageTxt();
+        allyCard_UIController.Set_LanguageTxt();
     }
 
     public void Set_Color()
     {
-        OutMainGame_UIController.Offset_ColorComp();
+        outMainGame_UIController.Offset_ColorComp();
 
-        PlayerHUD_UIController.Offset_ColorComp();
-        InteractAnno_UIController.Offset_ColorComp();
+        playerHUD_UIController.Offset_ColorComp();
+        interactAnno_UIController.Offset_ColorComp();
 
-        BaseUpgrade_UIController.Offset_ColorComp();
-        ModuleUpgrade_UIController.Offset_ColorComp();
+        baseUpgrade_UIController.Offset_ColorComp();
+        moduleUpgrade_UIController.Offset_ColorComp();
 
-        AllyBaseUpgrade_UIController.Offset_ColorComp();
-        AllyModuleUpgrade_UIController.Offset_ColorComp();
+        allyBaseUpgrade_UIController.Offset_ColorComp();
+        allyModuleUpgrade_UIController.Offset_ColorComp();
     }
 
     #endregion
@@ -206,20 +208,20 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     {
         Sequence seq = DOTween.Sequence();
 
-        ScreenCanvas.gameObject.SetActive(true);
+        screenCanvas.gameObject.SetActive(true);
 
-        seq.Append(ScreenCG.DOFade(0f, _DurTime));
-        seq.Join(PlayerHUD_UIController.ThisCG.DOFade(1f, _DurTime));
+        seq.Append(screenCG.DOFade(0f, _DurTime));
+        seq.Join(playerHUD_UIController.ThisCG.DOFade(1f, _DurTime));
 
         seq.OnStart(() =>
         {
-            ScreenCG.alpha = 1f;
-            PlayerHUD_UIController.ThisCG.alpha = 0f;
+            screenCG.alpha = 1f;
+            playerHUD_UIController.ThisCG.alpha = 0f;
 
         })
         .OnComplete(() =>
         {
-            ScreenCanvas.gameObject.SetActive(false);
+            screenCanvas.gameObject.SetActive(false);
         });
 
         return seq;
@@ -229,15 +231,15 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     {
         Sequence seq = DOTween.Sequence();
 
-        ScreenCanvas.gameObject.SetActive(true);
+        screenCanvas.gameObject.SetActive(true);
 
-        seq.Append(ScreenCG.DOFade(1f, _DurTime));
-        seq.Join(PlayerHUD_UIController.ThisCG.DOFade(0f, _DurTime));
+        seq.Append(screenCG.DOFade(1f, _DurTime));
+        seq.Join(playerHUD_UIController.ThisCG.DOFade(0f, _DurTime));
 
         seq.OnStart(() =>
         {
-            ScreenCG.alpha = 0f;
-            PlayerHUD_UIController.ThisCG.alpha = 1f;
+            screenCG.alpha = 0f;
+            playerHUD_UIController.ThisCG.alpha = 1f;
         })
         .OnComplete(() =>
         {
@@ -255,14 +257,14 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     {
         Sequence seq = DOTween.Sequence();
 
-        LoadingIconCanvas.gameObject.SetActive(true);
+        loadingIconCanvas.gameObject.SetActive(true);
 
-        seq.Append(LoadingIconCG.DOFade(1f, _DurTime));
+        seq.Append(loadingIconCG.DOFade(1f, _DurTime));
 
         seq.OnStart(() =>
         {
-            CogwheelTween.Play();
-            LoadingIconCG.alpha = 0f;
+            cogwheelTween.Play();
+            loadingIconCG.alpha = 0f;
         })
         .OnComplete(() =>
         {
@@ -276,18 +278,18 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     {
         Sequence seq = DOTween.Sequence();
 
-        LoadingIconCanvas.gameObject.SetActive(true);
+        loadingIconCanvas.gameObject.SetActive(true);
 
-        seq.Append(LoadingIconCG.DOFade(0f, _DurTime));
+        seq.Append(loadingIconCG.DOFade(0f, _DurTime));
 
         seq.OnStart(() =>
         {
-            LoadingIconCG.alpha = 1f;
+            loadingIconCG.alpha = 1f;
         })
         .OnComplete(() =>
         {
-            CogwheelTween.Pause();
-            LoadingIconCanvas.gameObject.SetActive(false);
+            cogwheelTween.Pause();
+            loadingIconCanvas.gameObject.SetActive(false);
         });
 
         return seq;
@@ -301,28 +303,25 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     {
         Sequence seq = DOTween.Sequence();
 
-        SaveDataCG.alpha = 0f;
-        SaveDataCG.gameObject.SetActive(true);
+        saveDataCG.alpha = 0f;
+        saveDataCG.gameObject.SetActive(true);
 
-        seq.Append(SaveDataCG.DOFade(1f, 0.3f));
-        seq.Append(SaveDataCG.DOFade(0f, 0.3f));
-        seq.Append(SaveDataCG.DOFade(1f, 0.3f));
-        seq.Append(SaveDataCG.DOFade(0f, 0.3f));
-        seq.Append(SaveDataCG.DOFade(1f, 0.3f));
+        seq.Append(saveDataCG.DOFade(1f, 0.3f));
+        seq.Append(saveDataCG.DOFade(0f, 0.3f));
+        seq.Append(saveDataCG.DOFade(1f, 0.3f));
+        seq.Append(saveDataCG.DOFade(0f, 0.3f));
+        seq.Append(saveDataCG.DOFade(1f, 0.3f));
         seq.AppendInterval(1.5f);
-        seq.Append(SaveDataCG.DOFade(0f, 1.5f));
+        seq.Append(saveDataCG.DOFade(0f, 1.5f));
         seq.OnComplete(() =>
         {
-            SaveDataCG.gameObject.SetActive(false);
+            saveDataCG.gameObject.SetActive(false);
         });
     }
 
     #endregion
 
     #region Player Dead
-
-    [SerializeField] private TMP_Text DeadTxt;
-    [SerializeField] private TMP_Text EndGameTxt;
 
     public void Play_DeadProd()
     {
@@ -337,12 +336,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         yield return new WaitForSeconds(_FadeInTime);
 
-        DeadTxt.DOFade(1f, _TxtFadeInTime);
-        DOTween.To(() => DeadTxt.characterSpacing, x => DeadTxt.characterSpacing = x, 20, _TxtFadeInTime);
+        deadTxt.DOFade(1f, _TxtFadeInTime);
+        DOTween.To(() => deadTxt.characterSpacing, x => deadTxt.characterSpacing = x, 20, _TxtFadeInTime);
 
         yield return new WaitForSeconds(_TxtFadeInTime + _StayTime);
 
-        DeadTxt.DOFade(0f, _TxtFadeInTime);
+        deadTxt.DOFade(0f, _TxtFadeInTime);
 
         yield return new WaitForSeconds(_TxtFadeInTime);
 
@@ -364,12 +363,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         yield return new WaitForSeconds(_FadeInTime);
 
-        EndGameTxt.DOFade(1f, _TxtFadeInTime);
-        DOTween.To(() => EndGameTxt.characterSpacing, x => EndGameTxt.characterSpacing = x, 20, _TxtFadeInTime);
+        endGameTxt.DOFade(1f, _TxtFadeInTime);
+        DOTween.To(() => endGameTxt.characterSpacing, x => endGameTxt.characterSpacing = x, 20, _TxtFadeInTime);
 
         yield return new WaitForSeconds(_TxtFadeInTime + _StayTime);
 
-        EndGameTxt.DOFade(0f, _TxtFadeInTime);
+        endGameTxt.DOFade(0f, _TxtFadeInTime);
 
         yield return new WaitForSeconds(_TxtFadeInTime);
 

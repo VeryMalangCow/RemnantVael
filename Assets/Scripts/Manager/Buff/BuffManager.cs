@@ -9,11 +9,11 @@ public class BuffManager : Singleton<BuffManager>
     [Header("<><><><><> Buff Manager")]
 
     // Current Data
-    [HideInInspector] private Dictionary<int, BuffController> AllBuffDict = new Dictionary<int, BuffController>();
-    [HideInInspector] public List<IWhen_GetElectricity> IWhen_GetElectricityList = new List<IWhen_GetElectricity>();
+    [HideInInspector] private Dictionary<int, BuffController> allBuffDict = new Dictionary<int, BuffController>();
+    [HideInInspector] public List<IWhen_GetElectricity> iWhen_GetElectricityList = new List<IWhen_GetElectricity>();
 
     // Init
-    [HideInInspector] private Dictionary<int, BuffController> AllWhenSyncSetDict = new Dictionary<int, BuffController>();
+    [HideInInspector] private Dictionary<int, BuffController> allWhenSyncSetDict = new Dictionary<int, BuffController>();
 
     #endregion
 
@@ -33,16 +33,16 @@ public class BuffManager : Singleton<BuffManager>
     private void Offset()
     {
         // Set All Buff Controller
-        AllBuffDict = new Dictionary<int, BuffController>();
-        AllWhenSyncSetDict = new Dictionary<int, BuffController>();
+        allBuffDict = new Dictionary<int, BuffController>();
+        allWhenSyncSetDict = new Dictionary<int, BuffController>();
 
         BuffController[] bcArray = this.gameObject.GetComponents<BuffController>();
         for (int i = 0; i < bcArray.Length; i++)
         {
-            AllBuffDict.Add(bcArray[i].Get_ID(), bcArray[i]);
+            allBuffDict.Add(bcArray[i].Get_ID(), bcArray[i]);
             if (bcArray[i].Condition_PlayerSyncSet)
             {
-                AllWhenSyncSetDict.Add(bcArray[i].Get_ID(), bcArray[i]);
+                allWhenSyncSetDict.Add(bcArray[i].Get_ID(), bcArray[i]);
             }
         }
     }
@@ -82,7 +82,7 @@ public class BuffManager : Singleton<BuffManager>
 
     public BuffController Get_CorrectBuff(int _ID)
     {
-        return IDController.Get_CorrectIDObject(_ID, new Dictionary<int, BuffController>(AllBuffDict));
+        return IDController.Get_CorrectIDObject(_ID, new Dictionary<int, BuffController>(allBuffDict));
     }
 
     #endregion
@@ -92,7 +92,7 @@ public class BuffManager : Singleton<BuffManager>
     // 전기 속성 디버프를 얻을 시
     public void Active_GetElectricity()
     {
-        DevTool.Play_AllIWhen(IWhen_GetElectricityList);
+        DevTool.Play_AllIWhen(iWhen_GetElectricityList);
     }
 
     #endregion
@@ -101,7 +101,7 @@ public class BuffManager : Singleton<BuffManager>
 
     public void Init_SyncSetBuff()
     {
-        foreach(KeyValuePair<int, BuffController> syncBuff in AllWhenSyncSetDict)
+        foreach(KeyValuePair<int, BuffController> syncBuff in allWhenSyncSetDict)
         {
             End_Buff(syncBuff.Value.Get_ID());
         }

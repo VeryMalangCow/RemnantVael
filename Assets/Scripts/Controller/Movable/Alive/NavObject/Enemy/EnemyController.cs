@@ -103,7 +103,7 @@ public abstract class EnemyController : NavObjectController
         Offset_Subscribe();
         Offset_Controller();
 
-        EnemyManager.Instance.PoolingAllEnemyList.Add(this);
+        EnemyManager.Instance.poolingAllEnemyList.Add(this);
     }
 
     private void Offset_FirstSetting()
@@ -171,7 +171,7 @@ public abstract class EnemyController : NavObjectController
 
         Reset_State();
 
-        DevTool.Add_InList(EnemyManager.Instance.CurrentEnemyList, this);
+        DevTool.Add_InList(EnemyManager.Instance.currentEnemyList, this);
     }
 
     protected override void Update()
@@ -263,10 +263,10 @@ public abstract class EnemyController : NavObjectController
         Reset_ChargeState();
 
         if (Target == null) // 타겟 Player
-        { Target = PlayerManager.Instance.PlayerController.gameObject; }
+        { Target = PlayerManager.Instance.playerController.gameObject; }
 
         if (CurrentRoomController == null) // 현재 Room
-        { CurrentRoomController = StageManager.Instance.CurrentRoomController; }
+        { CurrentRoomController = StageManager.Instance.currentRoomController; }
 
     }
 
@@ -569,7 +569,7 @@ public abstract class EnemyController : NavObjectController
             genP.OverriderAmountMinMax.TypeBase, genP.OverriderAmountMinMax.TypeSpecial)); // 오버라이더
         Gen_J(Random.Range(
             genP.JouleAmountMinMax.TypeBase, genP.JouleAmountMinMax.TypeSpecial)
-            * PlayerManager.Instance.PlayerController.SpawnESMultiple.ActualState.Value); // 줄
+            * PlayerManager.Instance.playerController.SpawnESMultiple.ActualState.Value); // 줄
         
         // Drop Module Item
         if (DevTool.Is_ChanceSuccess(genP.ModuleDropPercent))
@@ -583,9 +583,9 @@ public abstract class EnemyController : NavObjectController
     private void Set_Die_Effect()
     {
         // Effect
-        PlayerManager.Instance.CameraController.Play_KillAnim(_Dur: 0.2f);
-        UnitManager.Instance.OnceTime_AnimGenerator.Anim_Attacked_BigSlice(TargetObject.transform.position);
-        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
+        PlayerManager.Instance.cameraController.Play_KillAnim(_Dur: 0.2f);
+        UnitManager.Instance.onceTime_AnimGenerator.Anim_Attacked_BigSlice(TargetObject.transform.position);
+        UnitManager.Instance.enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
     }
 
     private void Set_Die_Data()
@@ -595,7 +595,7 @@ public abstract class EnemyController : NavObjectController
         HUD.Reset_HUD();
 
         // Remove
-        DevTool.Remove_InList(EnemyManager.Instance.CurrentEnemyList, this);
+        DevTool.Remove_InList(EnemyManager.Instance.currentEnemyList, this);
         LayerOrderManager.Instance.Remove_NeedSortObj(this);
 
         // Check Room State

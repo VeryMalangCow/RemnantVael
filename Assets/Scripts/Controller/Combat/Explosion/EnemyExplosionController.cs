@@ -14,7 +14,7 @@ public class EnemyExplosionController : ExplosionController
 
     protected override void Remove_Condition()
     {
-        PoolingManager.Instance.EnemyExplosions.Enqueue(this);
+        PoolingManager.Instance.enemyExplosions.Enqueue(this);
     }
 
     #endregion
@@ -35,7 +35,7 @@ public class EnemyExplosionController : ExplosionController
             HittedObjectList, out PlayerController pc))
         {
             //Damage
-            PlayerManager.Instance.PlayerController.Try_Hitted(this);
+            PlayerManager.Instance.playerController.Try_Hitted(this);
             HittedObjectList.Add(pc);
         }
     }

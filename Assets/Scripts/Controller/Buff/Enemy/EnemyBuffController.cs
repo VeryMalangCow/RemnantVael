@@ -58,7 +58,7 @@ public class EnemyBuffController : MonoBehaviour
             _MaxCooltime: ShieldDurTime,
             _GainFunc: ShieldGainEffect,
             _ReduceFunc: ShieldReduceEffect,
-            EnemyManager.Instance.ShieldIcon);
+            EnemyManager.Instance.shieldIcon);
 
         #endregion
 
@@ -72,7 +72,7 @@ public class EnemyBuffController : MonoBehaviour
             _GainFunc: null,
             _ReduceFunc: Active_FlameReduce,
             _FullStack: Active_FlameFullStack,
-            EnemyManager.Instance.FlameIcon);
+            EnemyManager.Instance.flameIcon);
 
         ColdStack = new StatusEffect_Temporary_WithAmount(
             Enemy, eStatusEffect.Cold, ColdMax,
@@ -82,7 +82,7 @@ public class EnemyBuffController : MonoBehaviour
             _GainFunc: null,
             _ReduceFunc: null, 
             _FullStack: Active_ColdFullStack,
-            EnemyManager.Instance.ColdIcon);
+            EnemyManager.Instance.coldIcon);
 
         ElectricityStack = new StatusEffect_Temporary_WithAmount(
             Enemy, eStatusEffect.Electricity, ElectricityMax, 
@@ -92,7 +92,7 @@ public class EnemyBuffController : MonoBehaviour
             _GainFunc: Active_ElectricityGain,
             _ReduceFunc: null, 
             _FullStack: Active_ElectricityFullStack,
-            EnemyManager.Instance.ElectricityIcon);
+            EnemyManager.Instance.electricityIcon);
 
         CorrosionStack = new StatusEffect_Temporary_WithAmount(
             Enemy, eStatusEffect.Corrosion, CorrosionMax,
@@ -102,32 +102,32 @@ public class EnemyBuffController : MonoBehaviour
             _GainFunc: null,
             _ReduceFunc: null, 
             _FullStack: Active_CorrosionFullStack,
-            EnemyManager.Instance.CorrosionIcon);
+            EnemyManager.Instance.corrosionIcon);
 
         #endregion
 
         #region High Level Status Debuff
 
         InfernoStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.InfernoIcon,
+            Enemy, EnemyManager.Instance.infernoIcon,
             _GainFunc: null, 
             _FullStack: null, 
             _MaxStack: 3);
 
         AbsoluteZeroStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.AbsoluteZeroIcon,
+            Enemy, EnemyManager.Instance.absoluteZeroIcon,
             _GainFunc: null, 
             _FullStack: null, 
             _MaxStack: 3);
 
         PlasmaStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.PlasmaIcon,
+            Enemy, EnemyManager.Instance.plasmaIcon,
             _GainFunc: null, 
             _FullStack: null, 
             _MaxStack: 3);
 
         DecayStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.DecayIcon,
+            Enemy, EnemyManager.Instance.decayIcon,
             _GainFunc: null, 
             _FullStack: null, 
             _MaxStack: 3);
@@ -308,7 +308,7 @@ public class EnemyBuffController : MonoBehaviour
         pec.Add_HittedObjectList(Enemy);
         pec.Set_State(
             Get_ExlposionState(_DmgType, _Dmg, _StatusIndex),
-            _AC: ResourceManager.Instance.ExplosionAC,
+            _AC: ResourceManager.Instance.explosionAC,
             Get_SpawnTF(StatusExplosionSize),
             Enemy.TargetRange);
     }

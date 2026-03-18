@@ -197,7 +197,7 @@ public class FieldUnitAllyController : AllyController
     public void Set_PosRandomNearPlayer()
     {
         transform.position =
-            (Vector2)PlayerManager.Instance.PlayerController.transform.position +
+            (Vector2)PlayerManager.Instance.playerController.transform.position +
             (new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized * NearPlayerDis);
     }
 

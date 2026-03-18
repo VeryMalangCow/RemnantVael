@@ -81,7 +81,7 @@ public class EnemyPattern_Range : EnemyPattern
     {
         if (IsSpecialPattern) return true;
 
-        float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.Instance.PlayerController.transform.position);
+        float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.Instance.playerController.transform.position);
 
         if (forPlayerDis >= MinRange && forPlayerDis < MaxRange && Can_ShootByBulletRadius())
         {
@@ -95,7 +95,7 @@ public class EnemyPattern_Range : EnemyPattern
     {
         for (int i = 0; i < SpawnDepthList.Count; i++)
         {
-            if (DevTool.Is_Exist_UseCircle(SpawnDepthList[i].transform, PlayerManager.Instance.PlayerController.transform, "Wall", BulletRadiusCondition * 2))
+            if (DevTool.Is_Exist_UseCircle(SpawnDepthList[i].transform, PlayerManager.Instance.playerController.transform, "Wall", BulletRadiusCondition * 2))
             {
                 return false;
             }
@@ -170,7 +170,7 @@ public class EnemyPattern_Range : EnemyPattern
         bullet.SetOn_TrailState(TrailTime, TrailStartWidth, TrailGradient);
 
         // Effect
-        UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_Shoot(
+        UnitManager.Instance.enemy_ExplImgGenerator.Expl_Enemy_Shoot(
             (Vector2)_Depth.TargetObject.transform.position + (_TargetDir * 0.3f),
             _TargetDir, ShootExplAmount);
     }

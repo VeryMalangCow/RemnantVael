@@ -18,17 +18,17 @@ public class GameManager : PersistentSingleton<GameManager>
 
     [Space(10)]
     [Header("=== Passing Data")]
-    [SerializeField] public GameObject DesignatedPlayerPrefab;
+    [SerializeField] public GameObject designatedPlayerPrefab;
 
     [Space(10)]
     [Header("=== Intro")]
-    [SerializeField] public bool WasWatched = false;
+    [SerializeField] public bool wasWatched = false;
 
-    public static int LanguageID = 1;
-    public static eScreenMode ScreenMode = eScreenMode.FullScreen;
-    public static eResolution ResolutionMode = eResolution.w1920h1080;
-    public static eFPS FPS = eFPS.f144;
-    public readonly static string[] KindOfLanguage = new string[] { "Eng", "Kor" };
+    public static int languageID = 1;
+    public static eScreenMode screenMode = eScreenMode.FullScreen;
+    public static eResolution resolutionMode = eResolution.w1920h1080;
+    public static eFPS fps = eFPS.f144;
+    public readonly static string[] kindOfLanguage = new string[] { "Eng", "Kor" };
 
     #endregion
 
@@ -47,7 +47,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void Set_BaseOption()
     {
-        OptionJsonData savedData = SaveDataManager.Instance.JsonData.OptionData;
+        OptionJsonData savedData = SaveDataManager.Instance.jsonData.OptionData;
 
         ResourceManager.Instance.Set_LanguageFont(savedData.LanguageID);
 
@@ -59,10 +59,10 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void Set_Screen(eResolution _ResolutionMode, eScreenMode _ScreenMode)
     {
-        ResolutionMode = _ResolutionMode;
-        SaveDataManager.Instance.JsonData.OptionData.ResolutionMode = _ResolutionMode;
-        ScreenMode = _ScreenMode;
-        SaveDataManager.Instance.JsonData.OptionData.ScreenMode = _ScreenMode;
+        resolutionMode = _ResolutionMode;
+        SaveDataManager.Instance.jsonData.OptionData.ResolutionMode = _ResolutionMode;
+        screenMode = _ScreenMode;
+        SaveDataManager.Instance.jsonData.OptionData.ScreenMode = _ScreenMode;
 
         string[] reso = _ResolutionMode.ToString().Split("h");
         reso[0] = reso[0].Replace("w", "");
@@ -76,10 +76,10 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void Set_FPS(eFPS _Mode)
     {
-        FPS = _Mode;
-        SaveDataManager.Instance.JsonData.OptionData.FPS = _Mode;
+        GameManager.fps = _Mode;
+        SaveDataManager.Instance.jsonData.OptionData.FPS = _Mode;
 
-        int fps = Convert.ToInt32(FPS.ToString().Replace("f", "")); 
+        int fps = Convert.ToInt32(GameManager.fps.ToString().Replace("f", "")); 
         Application.targetFrameRate = fps;
     }
 
@@ -891,11 +891,11 @@ public class DevTool
     private static float FireMinDisLimit = 4;
     public static Vector2 Get_MinFireDir(Vector2 _SpawnPos)
     {
-        Vector2 targetPos = InputManager.Instance.MousePosByWorld;
-        if (FireMinDisLimit > Vector3.Magnitude(InputManager.Instance.DirFromPlayerPos))
+        Vector2 targetPos = InputManager.Instance.mousePosByWorld;
+        if (FireMinDisLimit > Vector3.Magnitude(InputManager.Instance.dirFromPlayerPos))
         {
-            targetPos = (Vector2)PlayerManager.Instance.PlayerController.transform.position +
-                InputManager.Instance.DirFromPlayerPos.normalized * FireMinDisLimit;
+            targetPos = (Vector2)PlayerManager.Instance.playerController.transform.position +
+                InputManager.Instance.dirFromPlayerPos.normalized * FireMinDisLimit;
         }
 
         return (targetPos - _SpawnPos).normalized;
@@ -1245,12 +1245,12 @@ public class DevTool
 
     public static Vector2 Get_DirForPlayer<T>(T _TType) where T : MonoBehaviour
     {
-        return Get_Dir(_TType.gameObject, PlayerManager.Instance.PlayerController.gameObject);
+        return Get_Dir(_TType.gameObject, PlayerManager.Instance.playerController.gameObject);
     }
 
     public static float Get_DisForPlayer<T>(T _TType) where T : MonoBehaviour
     {
-        return Get_Dis(_TType.gameObject, PlayerManager.Instance.PlayerController.gameObject);
+        return Get_Dis(_TType.gameObject, PlayerManager.Instance.playerController.gameObject);
     }
 
     #endregion
@@ -1294,7 +1294,7 @@ public class DevTool
     // È­¿°
     public static float Get_FrameDmg(EnemyBuffController _Buff)
     {
-        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 0.01f
             * _Buff.FlameStack.CurrentStack
             * (_Buff.InfernoStack.CurrentStack + 1);
@@ -1302,7 +1302,7 @@ public class DevTool
     public static float Get_FlameExplDmg(out eDamageType _DmgType)
     {
         _DmgType = eDamageType.Physics;
-        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 10f;
     }
 
@@ -1311,7 +1311,7 @@ public class DevTool
     public static float Get_ColdExplDmg(out eDamageType _DmgType)
     {
         _DmgType = eDamageType.Energy;
-        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 7.5f;
     }
 
@@ -1319,7 +1319,7 @@ public class DevTool
     // Àü±â
     public static float Get_ElectricityDmg(EnemyBuffController _Buff)
     {
-        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 0.005f
             * _Buff.ElectricityStack.CurrentStack
             * (_Buff.PlasmaStack.CurrentStack + 1);
@@ -1327,7 +1327,7 @@ public class DevTool
     public static float Get_ElectricityExplDmg(out eDamageType _DmgType)
     {
         _DmgType = eDamageType.Energy;
-        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 7.5f;
     }
 
@@ -1335,7 +1335,7 @@ public class DevTool
     public static float Get_CorrosionExplDmg(out eDamageType _DmgType)
     {
         _DmgType = eDamageType.Physics;
-        return PlayerManager.Instance.PlayerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 5f;
     }
 
@@ -2397,7 +2397,7 @@ public class BUShopData<T>
 
     private bool Can_Buy()
     {
-        return PlayerManager.Instance.PlayerController.Is_EnoughChargedBettery(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade) &&
+        return PlayerManager.Instance.playerController.Is_EnoughChargedBettery(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade) &&
             BaseUpgradeController.UsingShop != null &&
             BaseUpgradeController.UsingShop.CurrentDur > 0;
     }
@@ -2412,7 +2412,7 @@ public class BUShopData<T>
             BaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
 
             // Cost
-            PlayerManager.Instance.PlayerController.Use_ChargedBettery(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade);
+            PlayerManager.Instance.playerController.Use_ChargedBettery(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade);
 
             Set_LevelUp();
         }
@@ -2429,7 +2429,7 @@ public class BUShopData<T>
         UpgradeEUI.BuyBtn.ThisBtn.interactable = DevTool.BU_MaxLevel <= State.CurrentLevel.Value ? false : true;
 
         // Desc
-        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(UpgradeEUI, UpgradeEUI.SkillNameTxt.text);
+        MainGameUIManager.Instance.baseUpgrade_UIController.SetOn_Desc(UpgradeEUI, UpgradeEUI.SkillNameTxt.text);
     }
 
     #endregion
@@ -4940,7 +4940,7 @@ public abstract class AllyRequest
     public void Complete()
     {
         Ally.Gain_Trust(Rank + 1);
-        PlayerManager.Instance.PlayerController.Gain_Reputation((Rank + 1) * 0.2f);
+        PlayerManager.Instance.playerController.Gain_Reputation((Rank + 1) * 0.2f);
         RewardDict[RewardType](Rank);
         Ally.DataOff_Request();
         Set_IWhenRemove();
@@ -4952,7 +4952,7 @@ public abstract class AllyRequest
     public void Fail()
     {
         Ally.Reduce_Trust(Rank + 1);
-        PlayerManager.Instance.PlayerController.Reduce_Reputation((Rank + 1) * 0.2f);
+        PlayerManager.Instance.playerController.Reduce_Reputation((Rank + 1) * 0.2f);
         Ally.DataOff_Request();
         Set_IWhenRemove();
 
@@ -4984,9 +4984,9 @@ public abstract class AllyRequest
         { "EP", new Func<int, int>(Get_BookReward_EP) }
     };
 
-    private static void Gain_Reward_BC(int _Rank) { PlayerManager.Instance.PlayerController.Add_CurrentBettery(Get_BookReward_BC(_Rank)); }
-    private static void Gain_Reward_Credit(int _Rank) { PlayerManager.Instance.PlayerController.Add_CurrentCredit(Get_BookReward_Credit(_Rank)); }
-    private static void Gain_Reward_EP(int _Rank) { PlayerManager.Instance.PlayerController.Add_CurrentEP(Get_BookReward_EP(_Rank)); }
+    private static void Gain_Reward_BC(int _Rank) { PlayerManager.Instance.playerController.Add_CurrentBettery(Get_BookReward_BC(_Rank)); }
+    private static void Gain_Reward_Credit(int _Rank) { PlayerManager.Instance.playerController.Add_CurrentCredit(Get_BookReward_Credit(_Rank)); }
+    private static void Gain_Reward_EP(int _Rank) { PlayerManager.Instance.playerController.Add_CurrentEP(Get_BookReward_EP(_Rank)); }
 
     private static int Get_BookReward_BC(int _Rank) { return _Rank + 1; }
     private static int Get_BookReward_Credit(int _Rank) { return (_Rank + 1) * 3; }
@@ -5367,7 +5367,7 @@ public class WordSet_Just : WordSet<WordElement_Just>
     public override string Get_Word(int _ID)
     {
         if (AllWord.ContainsKey(_ID))
-            return AllWord[_ID].Words[GameManager.LanguageID];
+            return AllWord[_ID].Words[GameManager.languageID];
 
         return "";
     }
@@ -5392,7 +5392,7 @@ public class WordSet_WithClr : WordSet<WordElement_WithClr>
         if (AllWord.ContainsKey(_ID))
         {
             WordElement_WithClr data = AllWord[_ID];
-            return $"<color=#{data.ClrHex}><b>\"{data.Words[GameManager.LanguageID]}\"</color></b>";
+            return $"<color=#{data.ClrHex}><b>\"{data.Words[GameManager.languageID]}\"</color></b>";
         }
         else
         {

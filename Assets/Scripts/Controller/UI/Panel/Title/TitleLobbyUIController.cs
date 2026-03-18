@@ -121,10 +121,10 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
             PanelRT.gameObject.SetActive(true);
             BGImg.gameObject.SetActive(true);
             WarningTxt.gameObject.SetActive(false);
-            LanguagePanelEUI.Set_Item(GameManager.LanguageID);
-            ScreenModePanelEUI.Set_Item((int)GameManager.ScreenMode);
-            ResolutionPanelEUI.Set_Item((int)GameManager.ResolutionMode);
-            FPSPanelEUI.Set_Item((int)GameManager.FPS);
+            LanguagePanelEUI.Set_Item(GameManager.languageID);
+            ScreenModePanelEUI.Set_Item((int)GameManager.screenMode);
+            ResolutionPanelEUI.Set_Item((int)GameManager.resolutionMode);
+            FPSPanelEUI.Set_Item((int)GameManager.fps);
             BGMVolumePanelEUI.Set_Value(SoundManager.Instance.BVolume);
             SFXVolumePanelEUI.Set_Value(SoundManager.Instance.SVolume);
 

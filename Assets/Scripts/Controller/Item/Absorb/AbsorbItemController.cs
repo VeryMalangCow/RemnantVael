@@ -45,10 +45,10 @@ public class AbsorbItemController : ItemController
     {
         base.Set_State(_SpawnPos);
 
-        TargetGO = PlayerManager.Instance.PlayerController.gameObject;
+        TargetGO = PlayerManager.Instance.playerController.gameObject;
         IsAbsorbing = false;
 
-        transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        transform.SetParent(StageManager.Instance.currentRoomController.transform);
     }
 
     #endregion
@@ -87,7 +87,7 @@ public class AbsorbItemController : ItemController
 
     protected virtual void Gain_Item()
     {
-        SoundManager.Instance.Play_2D_SFX_Item_Random(PlayerManager.Instance.PlayerController.Get_AS(), "Absorb", 2);
+        SoundManager.Instance.Play_2D_SFX_Item_Random(PlayerManager.Instance.playerController.Get_AS(), "Absorb", 2);
 
         this.gameObject.SetActive(false);
     }

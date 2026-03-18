@@ -68,7 +68,7 @@ public class MissileSkillController : ActiveSkillController
                 DepthController.TargetRange);
 
             // Effect Explosion -> Physics DMG
-            UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_Skill0(
+            UnitManager.Instance.player_ExplImgGenerator.Expl_Player_Skill0(
                 PlayerController.Get_ID(),
                 (Vector2)DepthController.TargetObject.gameObject.transform.position + (dir * 0.1f),
                 dir,
@@ -76,7 +76,7 @@ public class MissileSkillController : ActiveSkillController
 
             // Effect Shake
             DepthController.transform.DOShakePosition(ShotDelay, 0.05f, 20, 90, false, true);
-            PlayerManager.Instance.CameraController.Play_ShotAnim(ShotDelay, bulletState.DmgState.Dmg * 0.5f);
+            PlayerManager.Instance.cameraController.Play_ShotAnim(ShotDelay, bulletState.DmgState.Dmg * 0.5f);
 
             // Sound
             SoundManager.Instance.Play_2D_SFX_Player_Random(

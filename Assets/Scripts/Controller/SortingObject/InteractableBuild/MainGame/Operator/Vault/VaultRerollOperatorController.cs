@@ -36,7 +36,7 @@ public class VaultRerollOperatorController : VaultOperatorController
     {
         base.Set_AnimValue();
 
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.Operator_RerollAC, 1f), 1f);
+        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.operator_RerollAC, 1f), 1f);
     }
 
     public override void Set_TargetBuild(VaultController _TargetVault)
@@ -63,10 +63,10 @@ public class VaultRerollOperatorController : VaultOperatorController
 
         if (TargetVault == null ||
             TargetVault.IsBroken ||
-            PlayerManager.Instance.PlayerController.CurrentOverrider.Value < Get_NeedPay()) return;
+            PlayerManager.Instance.playerController.CurrentOverrider.Value < Get_NeedPay()) return;
 
         // 소비 아이템
-        PlayerManager.Instance.PlayerController.Add_CurrentOverrider(-Get_NeedPay());
+        PlayerManager.Instance.playerController.Add_CurrentOverrider(-Get_NeedPay());
         UseAmount++;
 
         // 리롤

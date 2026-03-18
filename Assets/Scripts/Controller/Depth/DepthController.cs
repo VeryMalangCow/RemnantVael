@@ -136,7 +136,7 @@ public class DepthController : IDController
     protected void Gen_ModuleItem(int _Rank)
     {
         ModuleItemController MIC = PoolingManager.Instance.Get_OP_ModuleItem();
-        MIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        MIC.transform.SetParent(StageManager.Instance.currentRoomController.transform);
         MIC.Set_State(this.transform.position);
         MIC.Set_RankState(_Rank);
     }
@@ -145,7 +145,7 @@ public class DepthController : IDController
     protected void Gen_KeycardItem(int _ID)
     {
         KeycardItemController KIC = PoolingManager.Instance.Get_OP_KeycardItem();
-        KIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        KIC.transform.SetParent(StageManager.Instance.currentRoomController.transform);
         KIC.Set_State(this.transform.position);
         KIC.Set_TypeState(_ID);
     }
@@ -154,7 +154,7 @@ public class DepthController : IDController
     protected void Gen_CoreItem(int _ID)
     {
         CoreItemController CIC = PoolingManager.Instance.Get_OP_CoreItem();
-        CIC.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        CIC.transform.SetParent(StageManager.Instance.currentRoomController.transform);
         CIC.Set_State(this.transform.position);
         CIC.Set_TypeState(_ID);
     }

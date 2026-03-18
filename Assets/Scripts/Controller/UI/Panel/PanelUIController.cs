@@ -109,8 +109,8 @@ public class PanelUIController : SinglePanelUIController
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             DevTool.Get_ComponentTType<RectTransform>(gameObject), // 변환할 UI(RectTransform)
-            InputManager.Instance.MousePos, // 현재 마우스 좌표 (Screen Space)
-            MainGameUIManager.Instance.UICamera, // Canvas의 카메라 (Render Mode 따라 null 가능)
+            InputManager.Instance.mousePos, // 현재 마우스 좌표 (Screen Space)
+            MainGameUIManager.Instance.uiCamera, // Canvas의 카메라 (Render Mode 따라 null 가능)
             out Vector2 localPoint); // 변환된 Local 좌표
 
         return localPoint;

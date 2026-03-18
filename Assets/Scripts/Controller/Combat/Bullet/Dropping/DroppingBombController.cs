@@ -86,7 +86,7 @@ public abstract class DroppingBombController : DroppingDepthController
 
     protected override void SetOn_State()
     {
-        gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        gameObject.transform.SetParent(StageManager.Instance.currentRoomController.transform);
         gameObject.SetActive(true);
 
         SetOn_Trail();

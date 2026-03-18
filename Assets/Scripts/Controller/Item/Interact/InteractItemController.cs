@@ -115,13 +115,13 @@ public abstract class InteractItemController : ItemController, IInteract
 
     public virtual void Play_Interact()
     {
-        PlayerManager.Instance.PlayerController.CurrentInteractable.Value = null;
+        PlayerManager.Instance.playerController.CurrentInteractable.Value = null;
         CurrentSpreadPower = 0f;
         SettedSpreadDir = Vector2.zero;
 
         End_Tween();
 
-        SoundManager.Instance.Play_2D_SFX_Item_Random(PlayerManager.Instance.PlayerController.Get_AS(), "Interact", 2);
+        SoundManager.Instance.Play_2D_SFX_Item_Random(PlayerManager.Instance.playerController.Get_AS(), "Interact", 2);
 
         this.gameObject.SetActive(false);
     }

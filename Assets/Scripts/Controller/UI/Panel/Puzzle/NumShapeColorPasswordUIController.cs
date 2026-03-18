@@ -68,9 +68,9 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
             AllNSCRollCellEUI.AddRange(AllNSCPanelEUI[i].AllRollEUI);
         }
 
-        DownRollInputImg.sprite = ResourceManager.Instance.MLBSprite;
+        DownRollInputImg.sprite = ResourceManager.Instance.mlbSprite;
         DownRollInputImg.SetNativeSize();
-        UpRollInputImg.sprite = ResourceManager.Instance.MRBSprite;
+        UpRollInputImg.sprite = ResourceManager.Instance.mrbSprite;
         UpRollInputImg.SetNativeSize();
     }
 
@@ -98,7 +98,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
         for (int i = 0; i < AllNSCPanelEUI.Count; i++)
         {
-            AllNSCPanelEUI[i].Set_InnerColor(ResourceManager.Instance.UnlockedClr);
+            AllNSCPanelEUI[i].Set_InnerColor(ResourceManager.Instance.unlockedClr);
         }
     }
 
@@ -113,7 +113,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
             AllNSCPanelEUI[i].Set_RollValueRandom();
             AllNSCPanelEUI[i].Set_RandomAnswer();
 
-            AllNSCPanelEUI[i].Set_InnerColor(ResourceManager.Instance.LockedClr);
+            AllNSCPanelEUI[i].Set_InnerColor(ResourceManager.Instance.lockedClr);
         }
     }
 

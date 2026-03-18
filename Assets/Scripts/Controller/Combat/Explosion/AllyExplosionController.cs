@@ -88,7 +88,7 @@ public class AllyExplosionController : ExplosionController
 
     protected override void Remove_Condition()
     {
-        PoolingManager.Instance.AllyExplosions.Enqueue(this);
+        PoolingManager.Instance.allyExplosions.Enqueue(this);
     }
 
     #endregion

@@ -7,7 +7,7 @@ public class AllyDroppingBombController : DroppingBombController
 
     protected override void PoolingSet()
     {
-        PoolingManager.Instance.DroppingAllyBullet.Enqueue(this);
+        PoolingManager.Instance.droppingAllyBullet.Enqueue(this);
     }
 
     #endregion
@@ -24,7 +24,7 @@ public class AllyDroppingBombController : DroppingBombController
         AllyExplosionController aec = PoolingManager.Instance.Get_OP_AllyExplosion();
         aec.Set_State(
             Get_ExlposionState(),
-            _AC: ResourceManager.Instance.ExplosionAC,
+            _AC: ResourceManager.Instance.explosionAC,
             Get_SpawnTF(),
             this.TargetRange);
     }

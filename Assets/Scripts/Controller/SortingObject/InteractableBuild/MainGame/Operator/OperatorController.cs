@@ -46,8 +46,8 @@ public abstract class OperatorController : InteractableBuildController, IInterac
 
     protected virtual void Set_AnimValue()
     {
-        OnOffAC = ResourceManager.Instance.Operator_OnOffAC;
-        OnOffStateAC = ResourceManager.Instance.Operator_LightAC;
+        OnOffAC = ResourceManager.Instance.operator_OnOffAC;
+        OnOffStateAC = ResourceManager.Instance.operator_LightAC;
     }
 
     public void Set_TargetBuildBroken()

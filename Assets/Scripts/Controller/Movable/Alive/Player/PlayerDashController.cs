@@ -40,7 +40,7 @@ public class PlayerDashController : MonoBehaviour
 
     public void Offset()
     {
-        PlayerController = PlayerManager.Instance.PlayerController;
+        PlayerController = PlayerManager.Instance.playerController;
     }
 
     #endregion
@@ -80,7 +80,7 @@ public class PlayerDashController : MonoBehaviour
         if (!Booked)
         {
             // 움직이는 방향으로 대시
-            BookCaculateVec = InputManager.Instance.InputMoveDir;
+            BookCaculateVec = InputManager.Instance.inputMoveDir;
 
             // 마우스 방향으로 대시
             //BookCaculateVec = InputManager.Instance.DirFromPlayerPos.normalized;
@@ -109,7 +109,7 @@ public class PlayerDashController : MonoBehaviour
         {
             PlayerController.ThisRb.velocity = Vector2.Lerp(
                 a: PlayerController.ThisRb.velocity.normalized,
-                b: InputManager.Instance.InputMoveDir,
+                b: InputManager.Instance.inputMoveDir,
                 t: RotateLerpValue * _DeltaTime) * DashSpeed.ActualState.Value;
 
             CurrentDashProcessTime += _DeltaTime;
@@ -126,7 +126,7 @@ public class PlayerDashController : MonoBehaviour
         if (!Booked)
         {
             PlayerController.ThisRb.velocity = Vector2.zero;
-            BookCaculateVec = InputManager.Instance.MousePosByWorld;
+            BookCaculateVec = InputManager.Instance.mousePosByWorld;
         }
         Booked = true;
 
@@ -161,7 +161,7 @@ public class PlayerDashController : MonoBehaviour
         BookCaculateVec = Vector2.zero;
         CurrentDashProcessTime = 0;
 
-        InputManager.Instance.IsPlayingBuffered = false;
+        InputManager.Instance.isPlayingBuffered = false;
     }
 
     #endregion

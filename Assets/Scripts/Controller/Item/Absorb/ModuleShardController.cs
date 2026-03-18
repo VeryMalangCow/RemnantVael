@@ -61,8 +61,8 @@ public class ModuleShardController : RangeAbsorbItemController
 
         IsSpawnNow = false;
 
-        PlayerManager.Instance.PlayerController.Add_CurrentModuleShard(ModuleValue);
-        PoolingManager.Instance.ModuleShard.Enqueue(this);
+        PlayerManager.Instance.playerController.Add_CurrentModuleShard(ModuleValue);
+        PoolingManager.Instance.moduleShard.Enqueue(this);
     }
 
     #endregion

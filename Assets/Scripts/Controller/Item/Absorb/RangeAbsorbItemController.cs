@@ -23,7 +23,7 @@ public class RangeAbsorbItemController : AbsorbItemController
         if (!IsAbsorbing)
         {
             IsAbsorbing =
-                Vector2.Distance(PlayerManager.Instance.PlayerController.gameObject.transform.position, this.gameObject.transform.position)
+                Vector2.Distance(PlayerManager.Instance.playerController.gameObject.transform.position, this.gameObject.transform.position)
                 <= AbsorbRange;
         }
     }

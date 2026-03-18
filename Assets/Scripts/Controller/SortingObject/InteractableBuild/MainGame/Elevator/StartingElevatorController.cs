@@ -11,7 +11,7 @@ public class StartingElevatorController : ElevatorController
 
         // Stage
         EventManager.Instance.Set_BlackUpDownCover(true);
-        PlayerManager.Instance.PlayerController.Set_PastStartStage();
+        PlayerManager.Instance.playerController.Set_PastStartStage();
 
         // Screen
         MainGameUIManager.Instance.Play_FadeOut(3f);
@@ -26,7 +26,7 @@ public class StartingElevatorController : ElevatorController
         base.Tween_Complete();
 
         // Stage
-        PlayerManager.Instance.PlayerController.Set_StartStage();
+        PlayerManager.Instance.playerController.Set_StartStage();
 
         // Input
         EventManager.Instance.Set_Input(true);
@@ -40,9 +40,9 @@ public class StartingElevatorController : ElevatorController
         EventManager.Instance.Set_BlackUpDownCover(false);
 
         // Intetactable Anno Panel
-        MainGameUIManager.Instance.InteractAnno_UIController.Set_VisualCG(true);
+        MainGameUIManager.Instance.interactAnno_UIController.Set_VisualCG(true);
 
-        if (StageManager.Instance.TargetStageID == 1)
+        if (StageManager.Instance.targetStageID == 1)
         {
             MainGameUIManager.Instance.Play_EndGameProd();
         }

@@ -50,12 +50,12 @@ public class PuzzleTimePanelEUIController : ElementUIController
 
     public void Set_AllStart(float _CurrentCountdown, string _SecondString)
     {
-        DevTool.Set_Color(ResourceManager.Instance.LockedClr, FailureAnnoTxt);
-        DevTool.Set_Color(ResourceManager.Instance.UnlockedClr, SuccessAnnoTxt);
+        DevTool.Set_Color(ResourceManager.Instance.lockedClr, FailureAnnoTxt);
+        DevTool.Set_Color(ResourceManager.Instance.unlockedClr, SuccessAnnoTxt);
 
-        DevTool.Set_Color(ResourceManager.Instance.LockedClr, CountdownPaneltyTxt);
+        DevTool.Set_Color(ResourceManager.Instance.lockedClr, CountdownPaneltyTxt);
 
-        DevTool.Set_Color(ResourceManager.Instance.LockedClr, CountdownTxt);
+        DevTool.Set_Color(ResourceManager.Instance.lockedClr, CountdownTxt);
         DevTool.Set_AlphaColor(CountdownPaneltyTxt, 0f);
 
         UnlockAnnoTxt.text = ResourceManager.Instance.Get_StaticDesc(28).Replace("\\n", "\n");

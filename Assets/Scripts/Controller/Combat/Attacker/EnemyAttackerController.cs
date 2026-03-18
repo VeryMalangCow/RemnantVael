@@ -29,7 +29,7 @@ public class EnemyAttackerController : AttackerController
 
     protected override void PoolingSet()
     {
-        PoolingManager.Instance.EnemyAttackers.Enqueue(this);
+        PoolingManager.Instance.enemyAttackers.Enqueue(this);
     }
 
     #endregion
@@ -50,7 +50,7 @@ public class EnemyAttackerController : AttackerController
             HittedObjectList, out PlayerController pc))
         {
             //Damage
-            PlayerManager.Instance.PlayerController.Try_Hitted(this);
+            PlayerManager.Instance.playerController.Try_Hitted(this);
             HittedObjectList.Add(pc);
         }
     }

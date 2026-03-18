@@ -33,7 +33,7 @@ public class AimRoundController : StaticDepthController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.Instance.PlayerController.BaseWeapon.AccuracyRate.ActualState
+        PlayerManager.Instance.playerController.BaseWeapon.AccuracyRate.ActualState
             .Subscribe(value =>
             {
                 Set_AngleRoundValue(value);
@@ -43,7 +43,7 @@ public class AimRoundController : StaticDepthController
     private void Offset_Sorting()
     {
         for (int i = 0; i < LineList.Count; i++)
-            DevTool.Get_ComponentTType<SpriteRenderer>(LineList[i].transform.GetChild(0).gameObject).sortingOrder = LayerOrderManager.Order_Aim;
+            DevTool.Get_ComponentTType<SpriteRenderer>(LineList[i].transform.GetChild(0).gameObject).sortingOrder = LayerOrderManager.order_Aim;
     }
 
     #endregion
@@ -64,13 +64,13 @@ public class AimRoundController : StaticDepthController
     {
         TargetObject.transform.localRotation = Quaternion.Slerp(
             TargetObject.transform.localRotation,
-            Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, InputManager.Instance.DirFromPlayerPos)),
+            Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, InputManager.Instance.dirFromPlayerPos)),
             AimFollowSpeed * Time.deltaTime);
     }
 
     private void Update_AimDis()
     {
-        float dis = Vector2.Distance(Vector2.zero, InputManager.Instance.DirFromPlayerPos);
+        float dis = Vector2.Distance(Vector2.zero, InputManager.Instance.dirFromPlayerPos);
         for (int i = 0; i < LineList.Count; i++)
         {
             LineList[i].GetChild(0).localPosition =

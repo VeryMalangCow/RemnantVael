@@ -76,7 +76,7 @@ public class InOrderLockerUIController : PuzzleUIController
             AllIOLCell[i].Offset();
         }
 
-        SelectInputImg.sprite = ResourceManager.Instance.MLBSprite;
+        SelectInputImg.sprite = ResourceManager.Instance.mlbSprite;
         SelectInputImg.SetNativeSize();
     }
 
@@ -136,7 +136,7 @@ public class InOrderLockerUIController : PuzzleUIController
         ReadyPanelEUI.Set_RuleDesc(ResourceManager.Instance.Get_StaticDesc(35));
 
         Set_AllDefault();
-        Set_InnerColor(ResourceManager.Instance.LockedClr);
+        Set_InnerColor(ResourceManager.Instance.lockedClr);
         Set_InteractableAmount(CellAmount);
     }
 
@@ -144,7 +144,7 @@ public class InOrderLockerUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        Set_InnerColor(ResourceManager.Instance.UnlockedClr);
+        Set_InnerColor(ResourceManager.Instance.unlockedClr);
     }
 
     #endregion

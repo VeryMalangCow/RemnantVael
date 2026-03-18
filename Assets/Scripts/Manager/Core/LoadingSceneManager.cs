@@ -9,19 +9,19 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 {
     #region Value
 
-    [SerializeField] private CanvasGroup LoadingCG;
-    [SerializeField] private Image LoadingBarImg;
+    [SerializeField] private CanvasGroup loadingCG;
+    [SerializeField] private Image loadingBarImg;
 
-    [SerializeField] private RectTransform[] LoadingIconRT_Clockwise;
-    [SerializeField] private RectTransform[] LoadingIconRT_CounterClockwise;
+    [SerializeField] private RectTransform[] loadingIconRT_Clockwise;
+    [SerializeField] private RectTransform[] loadingIconRT_CounterClockwise;
 
-    [SerializeField] private RectTransform SlidingImgRT;
+    [SerializeField] private RectTransform slidingImgRT;
     
 
-    [HideInInspector] private Sequence CogwheelSeq = null;
+    [HideInInspector] private Sequence cogwheelSeq = null;
 
-    [HideInInspector] private float SlidingImgX = 0;
-    [HideInInspector] private Sequence SlidingImgSeq = null;
+    [HideInInspector] private float slidingImgX = 0;
+    [HideInInspector] private Sequence slidingImgSeq = null;
 
     #endregion
 
@@ -31,11 +31,11 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
     {
         base.Awake();
 
-        SlidingImgSeq = Get_SlidingSeq(1f);
-        SlidingImgSeq.Pause();
+        slidingImgSeq = Get_SlidingSeq(1f);
+        slidingImgSeq.Pause();
 
-        CogwheelSeq = Get_CogSeq(1f);
-        CogwheelSeq.Pause();
+        cogwheelSeq = Get_CogSeq(1f);
+        cogwheelSeq.Pause();
     }
 
     #endregion
@@ -46,8 +46,8 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
     {
         Sequence seq = DOTween.Sequence();
 
-        seq.Join(Get_CogSeq(LoadingIconRT_Clockwise, 360, _DurTime));
-        seq.Join(Get_CogSeq(LoadingIconRT_CounterClockwise, -360, _DurTime));
+        seq.Join(Get_CogSeq(loadingIconRT_Clockwise, 360, _DurTime));
+        seq.Join(Get_CogSeq(loadingIconRT_CounterClockwise, -360, _DurTime));
         seq.SetLoops(-1, LoopType.Restart);
         seq.SetUpdate(true);
 
@@ -76,11 +76,11 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
 
     private Sequence Get_SlidingSeq(float _DurTime = 1f)
     {
-        SlidingImgX = SlidingImgRT.anchoredPosition.x;
+        slidingImgX = slidingImgRT.anchoredPosition.x;
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(SlidingImgRT.DOAnchorPosX(-SlidingImgX, _DurTime * 0.8f).SetEase(Ease.Linear));
+        seq.Append(slidingImgRT.DOAnchorPosX(-slidingImgX, _DurTime * 0.8f).SetEase(Ease.Linear));
         seq.AppendInterval(_DurTime * 0.2f);
         seq.SetLoops(-1, LoopType.Restart);
         seq.SetUpdate(true);
@@ -143,13 +143,13 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
     {
         // Sound
         SoundManager.Instance.Set_MasterVolume(1f, 0f, 1f);
-        CogwheelSeq.Play();
-        SlidingImgSeq.Play();
+        cogwheelSeq.Play();
+        slidingImgSeq.Play();
 
-        LoadingCG.alpha = 0.0f;
-        LoadingBarImg.fillAmount = 0.0f;
-        LoadingCG.gameObject.SetActive(true);
-        LoadingCG.DOFade(1f, 1f).SetUpdate(true);
+        loadingCG.alpha = 0.0f;
+        loadingBarImg.fillAmount = 0.0f;
+        loadingCG.gameObject.SetActive(true);
+        loadingCG.DOFade(1f, 1f).SetUpdate(true);
 
         yield return new WaitForSecondsRealtime(1f);
 
@@ -163,21 +163,21 @@ public class LoadingSceneManager : PersistentSingleton<LoadingSceneManager>
         while (!oper.isDone)
         {
             float progressValue = Mathf.Clamp01(oper.progress / 0.9f);
-            LoadingBarImg.fillAmount = progressValue;
+            loadingBarImg.fillAmount = progressValue;
             yield return null;
         }
 
         yield return new WaitForSecondsRealtime(0.8f);
-        LoadingCG.DOFade(0f, 0.5f).SetUpdate(true);
+        loadingCG.DOFade(0f, 0.5f).SetUpdate(true);
         Set_InstanceNull(SceneManager.GetActiveScene().name);
 
         // Sound
         SoundManager.Instance.Set_MasterVolume(0f, 1f, 1f);
         yield return new WaitForSecondsRealtime(0.6f);
 
-        CogwheelSeq.Pause();
-        SlidingImgSeq.Pause();
-        LoadingCG.gameObject.SetActive(false);
+        cogwheelSeq.Pause();
+        slidingImgSeq.Pause();
+        loadingCG.gameObject.SetActive(false);
 
         if (Time.timeScale != 1) Time.timeScale = 1f;
     }

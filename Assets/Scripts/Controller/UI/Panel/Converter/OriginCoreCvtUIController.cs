@@ -48,13 +48,13 @@ public class OriginCoreCvtUIController : ConverterUIController
 
     public void Offset_Subscribe()
     {
-        PlayerManager.Instance.PlayerController.CurrentChargedBettery
+        PlayerManager.Instance.playerController.CurrentChargedBettery
             .Subscribe(_Value =>
             {
                 CB_CvtMaterialEUI.Set_PossessionAmountTxt(_Value.ToString());
             });
 
-        PlayerManager.Instance.PlayerController.CurrentCredit
+        PlayerManager.Instance.playerController.CurrentCredit
             .Subscribe(_Value =>
             {
                 C_CvtMaterialEUI.Set_PossessionAmountTxt(_Value.ToString());
@@ -120,7 +120,7 @@ public class OriginCoreCvtUIController : ConverterUIController
     protected override void Set_MaxAcquBookAmount()
     {
         // Data
-        PlayerController pc = PlayerManager.Instance.PlayerController;
+        PlayerController pc = PlayerManager.Instance.playerController;
 
         int currentPossibilityCredit =
             Get_Acquisitable_Credit(pc.CurrentCredit.Value);
@@ -129,7 +129,7 @@ public class OriginCoreCvtUIController : ConverterUIController
             Get_Acquisitable_ChargedBettery(pc.CurrentChargedBettery.Value);
 
         int currentPossibilityEtherC =
-            Get_Acquisitable_EtherC(SaveDataManager.Instance.JsonData.Get_ItemAmount(2));
+            Get_Acquisitable_EtherC(SaveDataManager.Instance.jsonData.Get_ItemAmount(2));
 
         int result = currentPossibilityCredit < currentPossibilityCB ? currentPossibilityCredit : currentPossibilityCB;
         result = result < currentPossibilityEtherC ? result : currentPossibilityEtherC;
@@ -143,7 +143,7 @@ public class OriginCoreCvtUIController : ConverterUIController
         base.Set_AcquBookAmount(_Amount);
 
         // Data
-        PlayerController pc = PlayerManager.Instance.PlayerController;
+        PlayerController pc = PlayerManager.Instance.playerController;
         Debug.Assert(pc, "Player is Null");
 
         int needCredit = AcquisitionBookAmount * Need_Credit;
@@ -158,7 +158,7 @@ public class OriginCoreCvtUIController : ConverterUIController
 
         float needEtherC = AcquisitionBookAmount * Need_EtherC;
         EtherC_CvtMaterialEUI.Set_NecessaryAmountTxt(needEtherC.ToString());
-        bool canCvtByEtherC = needEtherC <= (SaveDataManager.Instance.JsonData.Get_ItemAmount(2));
+        bool canCvtByEtherC = needEtherC <= (SaveDataManager.Instance.jsonData.Get_ItemAmount(2));
         EtherC_CvtMaterialEUI.Set_Condition(canCvtByEtherC);
 
         CanConvert = canCvtByCredit && canCvtByCB && canCvtByEtherC;
@@ -169,7 +169,7 @@ public class OriginCoreCvtUIController : ConverterUIController
     private void Set_AcquAmount_Core()
     {
         EtherC_CvtMaterialEUI.Set_PossessionAmountTxt(
-            SaveDataManager.Instance.JsonData.Get_ItemAmount(2).ToString());
+            SaveDataManager.Instance.jsonData.Get_ItemAmount(2).ToString());
     }
 
     #endregion
@@ -181,10 +181,10 @@ public class OriginCoreCvtUIController : ConverterUIController
         base.Convert(); // Gain
 
         // Lost
-        PlayerController pc = PlayerManager.Instance.PlayerController;
+        PlayerController pc = PlayerManager.Instance.playerController;
         pc.Add_CurrentCredit(-(AcquisitionBookAmount * Need_Credit));
         pc.Use_ChargedBettery(AcquisitionBookAmount * Need_ChargedBettery);
-        SaveDataManager.Instance.JsonData.Use_Item(2, AcquisitionBookAmount * Need_EtherC);
+        SaveDataManager.Instance.jsonData.Use_Item(2, AcquisitionBookAmount * Need_EtherC);
 
         Set_AcquAmount_Core();
         Set_AcquAmount(AcquisitionItemID);

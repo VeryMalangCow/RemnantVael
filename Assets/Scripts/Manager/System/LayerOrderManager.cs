@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using UniRx;
 using UnityEngine;
@@ -10,18 +9,18 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     #region Value
 
     [Header("=== Movable Object")]
-    [SerializeField] private List<DepthController> NeedSortingObjects;
+    [SerializeField] private List<DepthController> needSortingObjects;
 
-    [HideInInspector] public readonly static int Order_BuildUpper = 1;
-    [HideInInspector] public readonly static int Order_SortingObjTop = 5000;
-    [HideInInspector] public readonly static int Order_EffectImg = 9999;
-    [HideInInspector] public readonly static int Order_BuildLower = 10000;
-    [HideInInspector] public readonly static int Order_DoorIcon = 19998;
-    [HideInInspector] public readonly static int Order_Explosion = 19999;
-    [HideInInspector] public readonly static int Order_Aim = 20000;
-    [HideInInspector] public readonly static int Order_DmgTxt = 20001;
+    [HideInInspector] public readonly static int order_BuildUpper = 1;
+    [HideInInspector] public readonly static int order_SortingObjTop = 5000;
+    [HideInInspector] public readonly static int order_EffectImg = 9999;
+    [HideInInspector] public readonly static int order_BuildLower = 10000;
+    [HideInInspector] public readonly static int order_DoorIcon = 19998;
+    [HideInInspector] public readonly static int order_Explosion = 19999;
+    [HideInInspector] public readonly static int order_Aim = 20000;
+    [HideInInspector] public readonly static int order_DmgTxt = 20001;
 
-    [HideInInspector] private List<DepthController> LastSortedList = new();
+    [HideInInspector] private List<DepthController> lastSortedList = new();
 
     #endregion
 
@@ -39,12 +38,12 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
     public void Clear_NeedSortObj()
     {
-        NeedSortingObjects.Clear();
+        needSortingObjects.Clear();
     }
 
     public void Add_NeedSortObj(DepthController _Depth)
     {
-        DevTool.Add_InList(NeedSortingObjects, _Depth);
+        DevTool.Add_InList(needSortingObjects, _Depth);
     }
 
     public void Add_NeedSortObj<T>(List<T> _Depths) where T : DepthController
@@ -55,7 +54,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
 
     public void Remove_NeedSortObj(DepthController _Depth)
     {
-        DevTool.Remove_InList(NeedSortingObjects, _Depth);
+        DevTool.Remove_InList(needSortingObjects, _Depth);
     }
 
     #endregion
@@ -115,12 +114,12 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     // 솔팅이 필요한지를 판별해 솔트
     private void Check_Set_Sort()
     {
-        List<DepthController> sorted = Get_StableSortedList(NeedSortingObjects);
+        List<DepthController> sorted = Get_StableSortedList(needSortingObjects);
 
-        if (!Is_SameList(sorted, LastSortedList))
+        if (!Is_SameList(sorted, lastSortedList))
         {
             Set_Sort(sorted);
-            LastSortedList = sorted;
+            lastSortedList = sorted;
         }
     }
 
@@ -133,7 +132,7 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     {
         for (int i = 0; i < _ObjectList.Count; i++)
         {
-            _ObjectList[i].Set_SortingOrder(Order_SortingObjTop - (10 * i));
+            _ObjectList[i].Set_SortingOrder(order_SortingObjTop - (10 * i));
         }
     }
 

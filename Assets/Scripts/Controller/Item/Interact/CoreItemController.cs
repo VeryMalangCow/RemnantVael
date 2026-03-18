@@ -14,7 +14,7 @@ public class CoreItemController : InteractItemController
     {
         ID = _ID;
 
-        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.Instance.CoreOutlineAC);
+        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.Instance.coreOutlineAC);
         ThisSR.sprite = ResourceManager.Instance.Get_CoreSprite(ID);
         ThisAT.speed = 1f;
     }
@@ -44,8 +44,8 @@ public class CoreItemController : InteractItemController
     {
         base.Play_Interact();
 
-        SaveDataManager.Instance.JsonData.Gain_Item(ID, 1);
-        PoolingManager.Instance.CoreItems.Enqueue(this);
+        SaveDataManager.Instance.jsonData.Gain_Item(ID, 1);
+        PoolingManager.Instance.coreItems.Enqueue(this);
     }
 
     #endregion

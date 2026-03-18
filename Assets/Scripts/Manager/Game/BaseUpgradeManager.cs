@@ -9,33 +9,33 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
     [Header("=== Data")]
 
     [Header("-- Attack")]
-    [SerializeField] public BULevelData<float> BaseDamage_BUData;
-    [SerializeField] public BULevelData<float> BaseROF_BUData;
-    [SerializeField] public BULevelData<float> BaseCC_BUData;
-    [SerializeField] public BULevelData<float> BaseCD_BUData;
-    [SerializeField] public BULevelData<float> BaseMuzzleSpeed_BUData;
-    [SerializeField] public BULevelData<float> BaseAccuracyRate_BUData;
-    [SerializeField] public BULevelData<float> Knockback_BUData;
+    [SerializeField] public BULevelData<float> baseDamage_BUData;
+    [SerializeField] public BULevelData<float> baseROF_BUData;
+    [SerializeField] public BULevelData<float> baseCC_BUData;
+    [SerializeField] public BULevelData<float> baseCD_BUData;
+    [SerializeField] public BULevelData<float> baseMuzzleSpeed_BUData;
+    [SerializeField] public BULevelData<float> baseAccuracyRate_BUData;
+    [SerializeField] public BULevelData<float> knockback_BUData;
 
     [Header("-- EP")]
-    [SerializeField] public BULevelData<float> BaseMaxEP_BUData;
-    [SerializeField] public BULevelData<float> BaseSpawnESMultiple_BUData;
-    [SerializeField] public BULevelData<float> BaseNeedEP_ForSkillMultiple_BUData;
-    [SerializeField] public BULevelData<float> BaseResist_BUData;
+    [SerializeField] public BULevelData<float> baseMaxEP_BUData;
+    [SerializeField] public BULevelData<float> baseSpawnESMultiple_BUData;
+    [SerializeField] public BULevelData<float> baseNeedEP_ForSkillMultiple_BUData;
+    [SerializeField] public BULevelData<float> baseResist_BUData;
 
     [Header("-- Movement")]
-    [SerializeField] public BULevelData<float> BaseWalkSpeed_BUData;
-    [SerializeField] public BULevelData<float> BaseWalkSpeedWhenShotMultiple_BUData;
-    [SerializeField] public BULevelData<float> BaseDashSpeed_BUData;
-    [SerializeField] public BULevelData<float> BaseAvoidChance_BUData;
+    [SerializeField] public BULevelData<float> baseWalkSpeed_BUData;
+    [SerializeField] public BULevelData<float> baseWalkSpeedWhenShotMultiple_BUData;
+    [SerializeField] public BULevelData<float> baseDashSpeed_BUData;
+    [SerializeField] public BULevelData<float> baseAvoidChance_BUData;
 
     [Header("-- Skill")]
-    [SerializeField] public BULevelSkillData<float, int>[] Skill_BUDataList;
+    [SerializeField] public BULevelSkillData<float, int>[] skill_BUDataList;
 
 
     [Space(10)]
     [Header("=== Sprite")]
-    [SerializeField] public Sprite[] CostSpriteList;
+    [SerializeField] public Sprite[] costSpriteList;
 
     #endregion
 
@@ -43,29 +43,29 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
 
     public void Offset(PlayerController _PC)
     {
-        BaseDamage_BUData.Offset(_PC.BaseWeapon.BaseDamage);
-        BaseROF_BUData.Offset(_PC.BaseWeapon.ROF);
-        BaseCC_BUData.Offset(_PC.BaseWeapon.CC);
-        BaseCD_BUData.Offset(_PC.BaseWeapon.CD);
-        BaseMuzzleSpeed_BUData.Offset(_PC.BaseWeapon.MuzzleSpeed);
-        BaseAccuracyRate_BUData.Offset(_PC.BaseWeapon.AccuracyRate);
-        Knockback_BUData.Offset(_PC.BaseWeapon.KnockbackPower);
+        baseDamage_BUData.Offset(_PC.BaseWeapon.BaseDamage);
+        baseROF_BUData.Offset(_PC.BaseWeapon.ROF);
+        baseCC_BUData.Offset(_PC.BaseWeapon.CC);
+        baseCD_BUData.Offset(_PC.BaseWeapon.CD);
+        baseMuzzleSpeed_BUData.Offset(_PC.BaseWeapon.MuzzleSpeed);
+        baseAccuracyRate_BUData.Offset(_PC.BaseWeapon.AccuracyRate);
+        knockback_BUData.Offset(_PC.BaseWeapon.KnockbackPower);
 
-        BaseMaxEP_BUData.Offset(_PC.MaxEP);
-        BaseSpawnESMultiple_BUData.Offset(_PC.SpawnESMultiple);
-        BaseNeedEP_ForSkillMultiple_BUData.Offset(_PC.NeedEP_ForSkillMultiple);
-        BaseResist_BUData.Offset(_PC.TakingDmgMultiple);
+        baseMaxEP_BUData.Offset(_PC.MaxEP);
+        baseSpawnESMultiple_BUData.Offset(_PC.SpawnESMultiple);
+        baseNeedEP_ForSkillMultiple_BUData.Offset(_PC.NeedEP_ForSkillMultiple);
+        baseResist_BUData.Offset(_PC.TakingDmgMultiple);
 
-        BaseWalkSpeed_BUData.Offset(_PC.WalkSpeed);
-        BaseWalkSpeedWhenShotMultiple_BUData.Offset(_PC.WalkSpeedWhenShotMultiple);
-        BaseDashSpeed_BUData.Offset(_PC.DashController.DashSpeed);
-        BaseAvoidChance_BUData.Offset(_PC.AvoidChance);
+        baseWalkSpeed_BUData.Offset(_PC.WalkSpeed);
+        baseWalkSpeedWhenShotMultiple_BUData.Offset(_PC.WalkSpeedWhenShotMultiple);
+        baseDashSpeed_BUData.Offset(_PC.DashController.DashSpeed);
+        baseAvoidChance_BUData.Offset(_PC.AvoidChance);
 
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
-            Skill_BUDataList[i].Skill_Cooltime_BUData.Offset(_PC.SkillWeapon.SkillList[i].MaxCooltime);
-            Skill_BUDataList[i].Skill_Power_BUData.Offset(_PC.SkillWeapon.SkillList[i].Power);
-            Skill_BUDataList[i].Skill_Tier_BUData.Offset(_PC.SkillWeapon.SkillList[i].Tier);
+            skill_BUDataList[i].Skill_Cooltime_BUData.Offset(_PC.SkillWeapon.SkillList[i].MaxCooltime);
+            skill_BUDataList[i].Skill_Power_BUData.Offset(_PC.SkillWeapon.SkillList[i].Power);
+            skill_BUDataList[i].Skill_Tier_BUData.Offset(_PC.SkillWeapon.SkillList[i].Tier);
         }
     }
 

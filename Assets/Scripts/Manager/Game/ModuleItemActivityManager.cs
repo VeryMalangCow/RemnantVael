@@ -122,12 +122,12 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     // À¯µµÅº ¹ß»ç
     private void Activity_MI_000(int rank, EnemyController enemy = null)
     {
-        Activity_Derivative(rank, eDamageType.Energy, PoolingManager.Instance.MI_000_Bullets);
+        Activity_Derivative(rank, eDamageType.Energy, PoolingManager.Instance.moduleItem_000_Bullets);
     }
 
     private void Activity_MI_001(int rank, EnemyController enemy = null)
     {
-        Activity_Derivative(rank, eDamageType.Physics, PoolingManager.Instance.MI_001_Bullets);
+        Activity_Derivative(rank, eDamageType.Physics, PoolingManager.Instance.moduleItem_001_Bullets);
     }
 
     #endregion
@@ -223,7 +223,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     private void Activity_Derivative(int _Rank, eDamageType _DmgType, TTypePooling<PlayerBulletController> _Bullet)
     {
         // ÆíÀÇ¼º
-        PlayerController PC = PlayerManager.Instance.PlayerController;
+        PlayerController PC = PlayerManager.Instance.playerController;
         PlayerWeaponController PCWeapon = PC.BaseWeapon;
 
         // È®·ü

@@ -21,7 +21,7 @@ public class DestructibleObjectController : SortingObjectController
         base.Offset();
 
         ThisSR.sprite = ResourceManager.Instance.Get_RandomFieldObjSprite(
-            StageManager.Instance.TargetStageID,
+            StageManager.Instance.targetStageID,
             TypeIndex);
 
         ThisSR.material = StageManager.Instance.Get_CurrentStageData().MapMaterialClear[1];
@@ -33,7 +33,7 @@ public class DestructibleObjectController : SortingObjectController
 
     public void Destruct()
     {
-        UnitManager.Instance.Build_ExplImgGenerator.Expl_FieldObj(TargetObject.gameObject.transform.position);
+        UnitManager.Instance.build_ExplImgGenerator.Expl_FieldObj(TargetObject.gameObject.transform.position);
         SoundManager.Instance.Play_2D_SFX_Build("BreakFieldObj");
         Destroy(gameObject);
     }

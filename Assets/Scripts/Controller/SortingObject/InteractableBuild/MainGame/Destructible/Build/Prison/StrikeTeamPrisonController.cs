@@ -9,7 +9,7 @@ public class StrikeTeamPrisonController : PrisonController
     {
         TypeIcon.sprite = ResourceManager.Instance.Get_STPrisonIcon(false);
 
-        AllySprites = ResourceManager.Instance.StrikeTeamAllySprites;
+        AllySprites = ResourceManager.Instance.strikeTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
         {
             PrisonAllySRList[i].sprite = AllySprites.Bind;
@@ -31,7 +31,7 @@ public class StrikeTeamPrisonController : PrisonController
     {
         base.Set_Unlock();
 
-        PlayerManager.Instance.PlayerController.StrikeTeamPresence.Value += AllyAmount;
+        PlayerManager.Instance.playerController.StrikeTeamPresence.Value += AllyAmount;
     }
 
     #endregion
@@ -42,7 +42,7 @@ public class StrikeTeamPrisonController : PrisonController
     {
         base.Set_LanguageTxt();
 
-        TypeTxt.text = $"<size=150%>)</size> {ResourceManager.Instance.StrikeTeamString}";
+        TypeTxt.text = $"<size=150%>)</size> {ResourceManager.Instance.strikeTeamString}";
     }
 
     #endregion

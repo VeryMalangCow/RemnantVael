@@ -36,11 +36,11 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
     {
         Set_LanguageTxt();
 
-        OnOffAC = ResourceManager.Instance.AllyBUShop_OnOffAC;
-        OnOffStateAC = ResourceManager.Instance.NeedChargeBettery_OnOffStateAC;
+        OnOffAC = ResourceManager.Instance.allyBuShop_OnOffAC;
+        OnOffStateAC = ResourceManager.Instance.needChargeBettery_OnOffStateAC;
         
-        BrokenAC = ResourceManager.Instance.AllyBUShop_BrokenAC;
-        BrokenStateAC = ResourceManager.Instance.BrokenStateAC;
+        BrokenAC = ResourceManager.Instance.allyBuShop_BrokenAC;
+        BrokenStateAC = ResourceManager.Instance.brokenStateAC;
 
         base.Offset();
     }
@@ -69,11 +69,11 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
         {
             UsingShop = this;
             Set_LanguageTxt();
-            MainGameUIManager.Instance.AllyBaseUpgrade_UIController.SetOn_ThisPanel();
+            MainGameUIManager.Instance.allyBaseUpgrade_UIController.SetOn_ThisPanel();
         }
         else if (Can_ShopPowerOn())
         {
-            PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value--;
+            PlayerManager.Instance.playerController.CurrentChargedBettery.Value--;
             IsOn = true;
             SoundManager.Instance.Play_2D_SFX_Build("PowerOn");
         }
@@ -81,7 +81,7 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
 
     private bool Can_ShopPowerOn()
     {
-        return !IsOn && PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value > 0;
+        return !IsOn && PlayerManager.Instance.playerController.CurrentChargedBettery.Value > 0;
     }
 
     #endregion
@@ -92,15 +92,15 @@ public class AllyBaseUpgradeController : DestructibleBuildController, IInteract
     {
         base.Take_Damage(_SpawnItem, _SoundOn);
 
-        MainGameUIManager.Instance.AllyBaseUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
+        MainGameUIManager.Instance.allyBaseUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
     }
 
     protected override void Play_NowBreak(bool _SpawnItem)
     {
         base.Play_NowBreak(_SpawnItem);
 
-        if (MainGameUIManager.Instance.AllyBaseUpgrade_UIController.gameObject.activeSelf)
-            MainGameUIManager.Instance.AllyBaseUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
+        if (MainGameUIManager.Instance.allyBaseUpgrade_UIController.gameObject.activeSelf)
+            MainGameUIManager.Instance.allyBaseUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
     }
 
     #endregion

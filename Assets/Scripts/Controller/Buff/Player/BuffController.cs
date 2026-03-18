@@ -126,12 +126,12 @@ public class BuffController : IDController
 
     private void Add_BuffEffect()
     {
-        DevTool.Add_InList(PlayerManager.Instance.PlayerController.CurrentBuffs, this);
+        DevTool.Add_InList(PlayerManager.Instance.playerController.CurrentBuffs, this);
 
         switch (this)
         {
             case IWhen_GetElectricity elec:
-                DevTool.Add_InList(BuffManager.Instance.IWhen_GetElectricityList, elec);
+                DevTool.Add_InList(BuffManager.Instance.iWhen_GetElectricityList, elec);
                 break;
 
             default:
@@ -141,12 +141,12 @@ public class BuffController : IDController
 
     private void Remove_BuffEffect()
     {
-        DevTool.Remove_InList(PlayerManager.Instance.PlayerController.CurrentBuffs, this);
+        DevTool.Remove_InList(PlayerManager.Instance.playerController.CurrentBuffs, this);
 
         switch (this)
         {
             case IWhen_GetElectricity elec:
-                DevTool.Remove_InList(BuffManager.Instance.IWhen_GetElectricityList, elec);
+                DevTool.Remove_InList(BuffManager.Instance.iWhen_GetElectricityList, elec);
                 break;
 
             default:
@@ -185,17 +185,17 @@ public class BuffController : IDController
         ThisBuffEUI.Offset();
         ThisBuffEUI.ThisShadowImg.fillAmount = 0;
 
-        DevTool.Add_InList(MainGameUIManager.Instance.PlayerHUD_UIController.AllBuffIconUI, ThisBuffEUI);
+        DevTool.Add_InList(MainGameUIManager.Instance.playerHUD_UIController.AllBuffIconUI, ThisBuffEUI);
 
         ThisBuffEUI.gameObject.SetActive(true);
     }
 
     private void Remove_BuffUI()
     {
-        DevTool.Remove_InList(MainGameUIManager.Instance.PlayerHUD_UIController.AllBuffIconUI, ThisBuffEUI);
+        DevTool.Remove_InList(MainGameUIManager.Instance.playerHUD_UIController.AllBuffIconUI, ThisBuffEUI);
 
         ThisBuffEUI.gameObject.SetActive(false);
-        PoolingManager.Instance.BuffIcons.Enqueue(ThisBuffEUI);
+        PoolingManager.Instance.buffIcons.Enqueue(ThisBuffEUI);
         ThisBuffEUI = null;
     }
 
@@ -217,7 +217,7 @@ public class BuffController : IDController
             Gain_BuffUI();
         }
 
-        MainGameUIManager.Instance.PlayerHUD_UIController.Set_BuffPosUI();
+        MainGameUIManager.Instance.playerHUD_UIController.Set_BuffPosUI();
         ThisBuffEUI.Set_Icon(ThisIconSprite, CurrentBuffCharge.Value, MaxBuffCharge);
 
         enabled = true;
@@ -242,7 +242,7 @@ public class BuffController : IDController
             Gain_BuffUI();
         }
 
-        MainGameUIManager.Instance.PlayerHUD_UIController.Set_BuffPosUI();
+        MainGameUIManager.Instance.playerHUD_UIController.Set_BuffPosUI();
         ThisBuffEUI.Set_Icon(ThisIconSprite, CurrentBuffCharge.Value, MaxBuffCharge);
 
         enabled = true;
@@ -263,7 +263,7 @@ public class BuffController : IDController
         }
 
         // UI
-        MainGameUIManager.Instance.PlayerHUD_UIController.Set_BuffPosUI();
+        MainGameUIManager.Instance.playerHUD_UIController.Set_BuffPosUI();
         ThisBuffEUI.Set_Icon(ThisIconSprite, CurrentBuffCharge.Value, MaxBuffCharge);
 
         //
@@ -283,7 +283,7 @@ public class BuffController : IDController
             Remove_BuffUI();
         }
 
-        MainGameUIManager.Instance.PlayerHUD_UIController.Set_BuffPosUI();
+        MainGameUIManager.Instance.playerHUD_UIController.Set_BuffPosUI();
 
         enabled = false; 
     }

@@ -220,7 +220,7 @@ public class PlayerController : AliveObjectController
 
         BaseSeq.SetLoops(-1, LoopType.Yoyo);
 
-        ResourceManager.Instance.UnlockedClr = Get_CorrectColor(eDamageType.Energy, false);
+        ResourceManager.Instance.unlockedClr = Get_CorrectColor(eDamageType.Energy, false);
 
         // Item
         CurrentChargedBettery.Value = 0;
@@ -243,14 +243,14 @@ public class PlayerController : AliveObjectController
         CurrentInteractable
             .Subscribe(interact =>
             {
-                MainGameUIManager.Instance.PlayerHUD_UIController.Set_InteractUI();
-                MainGameUIManager.Instance.InteractAnno_UIController.Set_UI();
+                MainGameUIManager.Instance.playerHUD_UIController.Set_InteractUI();
+                MainGameUIManager.Instance.interactAnno_UIController.Set_UI();
                 Set_MoveDir();
             });
         CurrentSP
             .Subscribe(value =>
             {
-                MainGameUIManager.Instance.PlayerHUD_UIController.Set_ShieldGage(value);
+                MainGameUIManager.Instance.playerHUD_UIController.Set_ShieldGage(value);
             });
     }
 
@@ -268,7 +268,7 @@ public class PlayerController : AliveObjectController
     {
         Reputation.Subscribe(value =>
             {
-                MainGameUIManager.Instance.PlayerHUD_UIController.Set_AllyReputation(value);
+                MainGameUIManager.Instance.playerHUD_UIController.Set_AllyReputation(value);
             });
 
         Reputation.Value = 1f;
@@ -301,7 +301,7 @@ public class PlayerController : AliveObjectController
 
     private void LateUpdate()
     {
-        MainGameUIManager.Instance.InteractAnno_UIController.Set_PosIfNot(CurrentInteractable.Value);
+        MainGameUIManager.Instance.interactAnno_UIController.Set_PosIfNot(CurrentInteractable.Value);
         Set_Tween(LowerController.transform, ThisRb.velocity);
     }
 
@@ -331,7 +331,7 @@ public class PlayerController : AliveObjectController
 
         StateAnim.transform.parent.transform.gameObject.SetActive(true); 
 
-        StageManager.Instance.IsStartStage = false;
+        StageManager.Instance.isStartStage = false;
         LayerOrderManager.Instance.Add_NeedSortObj(this);
 
         SetOn_Trail();
@@ -441,7 +441,7 @@ public class PlayerController : AliveObjectController
 
     private void Add_CurrentBettery()
     {
-        MainGameUIManager.Instance.PlayerHUD_UIController.CurrentEmptyBC.Set_Complete(
+        MainGameUIManager.Instance.playerHUD_UIController.CurrentEmptyBC.Set_Complete(
             _FadeInTime: 0.3f,
             _StayTime: 0.1f, 
             _FadeOutTime: 0.5f);
@@ -504,14 +504,14 @@ public class PlayerController : AliveObjectController
         float multiple =
             BaseWeapon.IsShooting ? WalkSpeedWhenShotMultiple.ActualState.Value : 1f;
         Play_Walk(
-            InputManager.Instance.InputMoveDir, WalkSpeed.ActualState.Value * multiple, _DeltaTime);
+            InputManager.Instance.inputMoveDir, WalkSpeed.ActualState.Value * multiple, _DeltaTime);
     }
 
     public void Try_Dash()
     {
         if (Can_Change() && DashController.Is_EnoughEP())
         {
-            InputManager.Instance.IsPlayingBuffered = true;
+            InputManager.Instance.isPlayingBuffered = true;
             AfterImgGenerator.Start_Gen(0.7f, 0.03f, 0.5f);
             Add_CurrentEP(-DashController.Get_ActualNeedEP());
             MovementState = eMovementState.Dash;
@@ -619,7 +619,7 @@ public class PlayerController : AliveObjectController
 
         if (!SkillWeapon.SkillList[_Index].Can_Active())
         {
-            MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[_Index].Play_ErrorUI();
+            MainGameUIManager.Instance.playerHUD_UIController.SkillList[_Index].Play_ErrorUI();
             return;
         }
 
@@ -638,7 +638,7 @@ public class PlayerController : AliveObjectController
         MovementState = eMovementState.Casting;
         ThisRb.velocity = Vector2.zero;
 
-        InputManager.Instance.IsPlayingBuffered = true;
+        InputManager.Instance.isPlayingBuffered = true;
     }
 
     #endregion
@@ -653,7 +653,7 @@ public class PlayerController : AliveObjectController
 
         CurrentInteractable.Value.Play_Interact();
         
-        MainGameUIManager.Instance.PlayerHUD_UIController.Play_UseInteractUI();
+        MainGameUIManager.Instance.playerHUD_UIController.Play_UseInteractUI();
     }
 
     #endregion
@@ -674,7 +674,7 @@ public class PlayerController : AliveObjectController
         if (CastingTime.Is_Charge(_DeltaTime)) // 캐스팅 완료
         {
             MovementState = eMovementState.IdleOrWalk;
-            InputManager.Instance.IsPlayingBuffered = false;
+            InputManager.Instance.isPlayingBuffered = false;
 
             Set_CombatMode();
             Set_Skill();
@@ -706,7 +706,7 @@ public class PlayerController : AliveObjectController
             BaseWeapon.DamageType = TargetDmgMode;
 
             Reset_StateAnim();
-            InputManager.Instance.AimController.Set_DmgType(TargetDmgMode);
+            InputManager.Instance.aimController.Set_DmgType(TargetDmgMode);
         }
     }
 
@@ -1034,13 +1034,13 @@ public class PlayerController : AliveObjectController
 
         if (_ShowHUDEffect)
         {
-            MainGameUIManager.Instance.PlayerHUD_UIController.Play_HittedPlayScreen(_DmgValue, 0.1f);
-            MainGameUIManager.Instance.PlayerHUD_UIController.Play_HittedPlayInfo(_DmgValue, InvincibleTime);
+            MainGameUIManager.Instance.playerHUD_UIController.Play_HittedPlayScreen(_DmgValue, 0.1f);
+            MainGameUIManager.Instance.playerHUD_UIController.Play_HittedPlayInfo(_DmgValue, InvincibleTime);
         }
 
         if (_HittedDir != Vector2.zero)
         {
-            PlayerManager.Instance.CameraController.Play_DamagedAnim(InvincibleTime, _DmgValue * 0.1f, _HittedDir);
+            PlayerManager.Instance.cameraController.Play_DamagedAnim(InvincibleTime, _DmgValue * 0.1f, _HittedDir);
         }
        
 
@@ -1115,9 +1115,9 @@ public class PlayerController : AliveObjectController
     // 회피
     private void Play_Avoid()
     {
-        PlayerManager.Instance.CameraController.Play_AvoidAnim(InvincibleTime);
-        UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_Avoid(ID, TargetObject.transform.position);
-        MainGameUIManager.Instance.PlayerHUD_UIController.Play_AvoidPlayInfo(InvincibleTime);
+        PlayerManager.Instance.cameraController.Play_AvoidAnim(InvincibleTime);
+        UnitManager.Instance.player_ExplImgGenerator.Expl_Player_Avoid(ID, TargetObject.transform.position);
+        MainGameUIManager.Instance.playerHUD_UIController.Play_AvoidPlayInfo(InvincibleTime);
     }
     
     // 회피하지 못함 => 무적
@@ -1153,7 +1153,7 @@ public class PlayerController : AliveObjectController
 
         Take_Damaged(Get_CurrentEP().Value * 0.2f, Vector2.zero, false);
 
-        MainGameUIManager.Instance.PlayerHUD_UIController.Play_PrisonPanelty();
+        MainGameUIManager.Instance.playerHUD_UIController.Play_PrisonPanelty();
     }
 
     #endregion
@@ -1162,43 +1162,43 @@ public class PlayerController : AliveObjectController
 
     public void Try_STAllyLvUp()
     {
-        if (StageManager.Instance.CurrentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
+        if (StageManager.Instance.currentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
             return;
 
         if (NeedStrikeTeamPresence.Value <= StrikeTeamPresence.Value)
         {
             NeedStrikeTeamPresence.Value += NeedIntervalPresence;
 
-            MainGameUIManager.Instance.AllyCard_UIController.TypeIndex = 0;
-            MainGameUIManager.Instance.AllyCard_UIController.SetOn_ThisPanel();
+            MainGameUIManager.Instance.allyCard_UIController.TypeIndex = 0;
+            MainGameUIManager.Instance.allyCard_UIController.SetOn_ThisPanel();
         }
     }
 
     public void Try_UTAllyLvUp()
     {
-        if (StageManager.Instance.CurrentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
+        if (StageManager.Instance.currentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
             return;
 
         if (NeedUplinkTeamPresence.Value <= UplinkTeamPresence.Value)
         {
             NeedUplinkTeamPresence.Value += NeedIntervalPresence;
 
-            MainGameUIManager.Instance.AllyCard_UIController.TypeIndex = 1;
-            MainGameUIManager.Instance.AllyCard_UIController.SetOn_ThisPanel();
+            MainGameUIManager.Instance.allyCard_UIController.TypeIndex = 1;
+            MainGameUIManager.Instance.allyCard_UIController.SetOn_ThisPanel();
         }
     }
 
     public void Try_NTAllyLvUp()
     {
-        if (StageManager.Instance.CurrentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
+        if (StageManager.Instance.currentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
             return;
 
         if (NeedNeoTeamPresence.Value <= NeoTeamPresence.Value)
         {
             NeedNeoTeamPresence.Value += NeedIntervalPresence;
 
-            MainGameUIManager.Instance.AllyCard_UIController.TypeIndex = 2;
-            MainGameUIManager.Instance.AllyCard_UIController.SetOn_ThisPanel();
+            MainGameUIManager.Instance.allyCard_UIController.TypeIndex = 2;
+            MainGameUIManager.Instance.allyCard_UIController.SetOn_ThisPanel();
         }
     }
 
@@ -1263,7 +1263,7 @@ public class PlayerController : AliveObjectController
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Alpha4) && StageManager.Instance.TargetStageID != 99)
+        if (Input.GetKeyDown(KeyCode.Alpha4) && StageManager.Instance.targetStageID != 99)
         {
             /*
             BaseWeapon.BaseDamage.BuffedState = 300f;
@@ -1289,14 +1289,14 @@ public class PlayerController : AliveObjectController
             Debug.Log("Alpha4: Get Many Goods");
         }
 
-        else if (Input.GetKeyDown(KeyCode.Alpha5) && StageManager.Instance.TargetStageID != 99)
+        else if (Input.GetKeyDown(KeyCode.Alpha5) && StageManager.Instance.targetStageID != 99)
         {
             UnitManager.Instance.Test_Cor();
 
             Debug.Log("Alpha5: Spawn Builds");
         }
 
-        else if (Input.GetKeyDown(KeyCode.Alpha6) && StageManager.Instance.TargetStageID != 99)
+        else if (Input.GetKeyDown(KeyCode.Alpha6) && StageManager.Instance.targetStageID != 99)
         {
             isUltraMode = !isUltraMode;
             UnitManager.Instance.Set_UltraModeGO(isUltraMode);

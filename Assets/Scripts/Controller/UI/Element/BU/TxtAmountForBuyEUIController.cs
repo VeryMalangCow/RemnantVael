@@ -84,7 +84,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
     public void Set(int _Level, int _CostValue)
     {
         ThisImgTxtAmountEUI.Set_Amount(_Level, 0.2f);
-        CostImg.sprite = BaseUpgradeManager.Instance.CostSpriteList[_CostValue];
+        CostImg.sprite = BaseUpgradeManager.Instance.costSpriteList[_CostValue];
 
         SkillLvTxt.text = "[ LV : <b><#FFFFFF>" + _Level + "</color></b> ]";
     }
@@ -112,7 +112,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
         ThisRT.DOSizeDelta(new Vector2(MaximumSize, ThisRT.sizeDelta.y), SizeDeltaTime);
 
-        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOn_Desc(this, SkillNameTxt.text);
+        MainGameUIManager.Instance.baseUpgrade_UIController.SetOn_Desc(this, SkillNameTxt.text);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -121,7 +121,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
         ThisRT.DOSizeDelta(new Vector2(MinimumSize, ThisRT.sizeDelta.y), SizeDeltaTime);
 
-        MainGameUIManager.Instance.BaseUpgrade_UIController.SetOff_Desc();
+        MainGameUIManager.Instance.baseUpgrade_UIController.SetOff_Desc();
     }
 
     #endregion

@@ -185,7 +185,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         // Sync Lv Txt
         for (int i = 0; i < SynergyLvTxtList.Count; i++)
-            SynergyLvTxtList[i].text = (ModuleItemManager.SynchoronyMaxLv * (i + 1)).ToString();
+            SynergyLvTxtList[i].text = (ModuleItemManager.synchoronyMaxLv * (i + 1)).ToString();
         
     }
 
@@ -352,12 +352,12 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         MainColorCompList.Add(Preview_NeedMS_ForMake);
         MainColorCompList.Add(Preview_NeedCB_ForMake);
 
-        Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color mainClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
+        Color subClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
@@ -366,17 +366,17 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private void Offset_Subscribe()
     {
         // BC // EC
-        PlayerManager.Instance.PlayerController.CurrentBettery
+        PlayerManager.Instance.playerController.CurrentBettery
             .Subscribe(value =>
             {
                 BCTxt.text = value.ToString();
             });
-        PlayerManager.Instance.PlayerController.CurrentChargedBettery
+        PlayerManager.Instance.playerController.CurrentChargedBettery
             .Subscribe(value =>
             {
                 ECTxt.text = value.ToString();
             });
-        PlayerManager.Instance.PlayerController.CurrentModuleShard
+        PlayerManager.Instance.playerController.CurrentModuleShard
             .Subscribe(value =>
             {
                 MSTxt.text = value.ToString();
@@ -583,7 +583,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             {
                 EquipedSlots[i].ThisItem.gameObject.SetActive(false);
 
-                MainGameUIManager.Instance.PlayerHUD_UIController.ModuleSlots[i].ThisItem.gameObject.SetActive(false);
+                MainGameUIManager.Instance.playerHUD_UIController.ModuleSlots[i].ThisItem.gameObject.SetActive(false);
 
                 Set_EquipedDesc(i);
             }
@@ -594,8 +594,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 EquipedSlots[i].ThisItem.gameObject.SetActive(true);
                 EquipedSlots[i].ThisItem.Set_Data(new ItemData_UIVisual(data));
 
-                MainGameUIManager.Instance.PlayerHUD_UIController.ModuleSlots[i].ThisItem.gameObject.SetActive(true);
-                MainGameUIManager.Instance.PlayerHUD_UIController.ModuleSlots[i].ThisItem.Set_Data(new ItemData_UIVisual(data));
+                MainGameUIManager.Instance.playerHUD_UIController.ModuleSlots[i].ThisItem.gameObject.SetActive(true);
+                MainGameUIManager.Instance.playerHUD_UIController.ModuleSlots[i].ThisItem.Set_Data(new ItemData_UIVisual(data));
 
                 Set_EquipedDesc(i, data);
             }
@@ -717,8 +717,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             Set_Warning(true, Warning_InvenFull);
             return;
         }
-        else if (PlayerManager.Instance.PlayerController.CurrentModuleShard.Value < ModuleItemManager.Get_MS_ForMake() ||
-            !PlayerManager.Instance.PlayerController.Is_EnoughChargedBettery(ModuleItemManager.Get_CB_ForMake()))
+        else if (PlayerManager.Instance.playerController.CurrentModuleShard.Value < ModuleItemManager.Get_MS_ForMake() ||
+            !PlayerManager.Instance.playerController.Is_EnoughChargedBettery(ModuleItemManager.Get_CB_ForMake()))
         {
             Set_Warning(true, Warning_NotEnoughItem);
             return;
@@ -758,7 +758,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         if (ModuleItemManager.Get_MS_ForFusion(
             ModuleItemManager.Instance.Get_ModuleState(index[0]))
-                > PlayerManager.Instance.PlayerController.CurrentModuleShard.Value) // MS가 부족한가?
+                > PlayerManager.Instance.playerController.CurrentModuleShard.Value) // MS가 부족한가?
         {
             Set_Warning(true, Warning_NotEnoughItem);
             return;
@@ -906,9 +906,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             int synchoronyAmount = ModuleItemManager.Instance.Get_SynchronyAmount(synergySlot.ID);
             int synchoronyLvLimit = 0;
 
-            for (int i = ModuleItemManager.SynchoronyMaxLv; i > 0; i--)
+            for (int i = ModuleItemManager.synchoronyMaxLv; i > 0; i--)
             {
-                if ((ModuleItemManager.SynchoronyOneTierRange * i) <= synchoronyAmount)
+                if ((ModuleItemManager.synchoronyOneTierRange * i) <= synchoronyAmount)
                 {
                     synchoronyLvLimit = i;
                     break;
@@ -1205,10 +1205,10 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         CoupleData<int> index = ModuleItemManager.Instance.Get_DecompositionIndex();
 
         // 보상 획득
-        PlayerManager.Instance.PlayerController.Add_CurrentBettery(
+        PlayerManager.Instance.playerController.Add_CurrentBettery(
             ModuleItemManager.Get_BC_ByDescomposition(ModuleItemManager.Instance.Get_ModuleState(index)));
 
-        PlayerManager.Instance.PlayerController.Add_CurrentModuleShard(
+        PlayerManager.Instance.playerController.Add_CurrentModuleShard(
             ModuleItemManager.Get_MS_ByDecomposition(ModuleItemManager.Instance.Get_ModuleState(index)));
 
         ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
@@ -1233,7 +1233,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         List<CoupleData<int>> indexList = ModuleItemManager.Instance.Get_FusionIndex();
 
         // 소모 재화
-        PlayerManager.Instance.PlayerController.Add_CurrentModuleShard(
+        PlayerManager.Instance.playerController.Add_CurrentModuleShard(
             -ModuleItemManager.Get_MS_ForFusion(ModuleItemManager.Instance.Get_ModuleState(indexList[0])));
 
         ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
@@ -1258,8 +1258,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             ModuleUpgradeController.UsingShop.CurrentDur <= 0) return;
 
         // 소모 재화
-        PlayerManager.Instance.PlayerController.Add_CurrentModuleShard(-ModuleItemManager.Get_MS_ForMake());
-        PlayerManager.Instance.PlayerController.Use_ChargedBettery(ModuleItemManager.Get_CB_ForMake());
+        PlayerManager.Instance.playerController.Add_CurrentModuleShard(-ModuleItemManager.Get_MS_ForMake());
+        PlayerManager.Instance.playerController.Use_ChargedBettery(ModuleItemManager.Get_CB_ForMake());
         ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
 
         // 보상 획득

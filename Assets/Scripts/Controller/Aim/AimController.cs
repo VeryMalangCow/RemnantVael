@@ -42,10 +42,10 @@ public class AimController : StaticDepthController
 
     private void Offset_Sorting()
     {
-        CenterSR.sortingOrder = LayerOrderManager.Order_Aim;
-        AimSR.TypeBase.sortingOrder = LayerOrderManager.Order_Aim;
-        AimSR.TypeSpecial.sortingOrder = LayerOrderManager.Order_Aim;
-        for (int i = 0; i < SkillAimList.Count; i++) SkillAimList[i].sortingOrder = LayerOrderManager.Order_Aim;
+        CenterSR.sortingOrder = LayerOrderManager.order_Aim;
+        AimSR.TypeBase.sortingOrder = LayerOrderManager.order_Aim;
+        AimSR.TypeSpecial.sortingOrder = LayerOrderManager.order_Aim;
+        for (int i = 0; i < SkillAimList.Count; i++) SkillAimList[i].sortingOrder = LayerOrderManager.order_Aim;
     }
 
     #endregion
@@ -68,7 +68,7 @@ public class AimController : StaticDepthController
     {
         gameObject.transform.position = Vector2.Lerp(
             this.transform.position, 
-            InputManager.Instance.MousePosByWorld, 
+            InputManager.Instance.mousePosByWorld, 
             AimFollowSpeed * _DeltaTime);
     }
 
@@ -77,7 +77,7 @@ public class AimController : StaticDepthController
     {
         TargetObject.transform.localRotation = Quaternion.Slerp(
             TargetObject.transform.localRotation,
-            DevTool.Get_RotFromDir(InputManager.Instance.DirFromPlayerPos), 
+            DevTool.Get_RotFromDir(InputManager.Instance.dirFromPlayerPos), 
             AimFollowSpeed * _DeltaTime);
     }
 

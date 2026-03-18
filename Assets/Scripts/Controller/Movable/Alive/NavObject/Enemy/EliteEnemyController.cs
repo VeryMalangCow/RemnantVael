@@ -55,7 +55,7 @@ public class EliteEnemyController : EnemyController
     {
         base.Offset();
 
-        HUD.ThisCanvas.worldCamera = MainGameUIManager.Instance.UICamera;
+        HUD.ThisCanvas.worldCamera = MainGameUIManager.Instance.uiCamera;
     }
 
     #endregion

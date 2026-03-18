@@ -7,7 +7,7 @@ public class NeoTeamPrisonController : PrisonController
     {
         TypeIcon.sprite = ResourceManager.Instance.Get_NTPrisonIcon(false);
 
-        AllySprites = ResourceManager.Instance.NeoTeamAllySprites;
+        AllySprites = ResourceManager.Instance.neoTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
         {
             PrisonAllySRList[i].sprite = AllySprites.Bind;
@@ -29,7 +29,7 @@ public class NeoTeamPrisonController : PrisonController
     {
         base.Set_Unlock();
 
-        PlayerManager.Instance.PlayerController.NeoTeamPresence.Value += AllyAmount;
+        PlayerManager.Instance.playerController.NeoTeamPresence.Value += AllyAmount;
     }
 
     #endregion
@@ -40,7 +40,7 @@ public class NeoTeamPrisonController : PrisonController
     {
         base.Set_LanguageTxt();
 
-        TypeTxt.text = $"<size=150%>)</size> {ResourceManager.Instance.NeoTeamString}";
+        TypeTxt.text = $"<size=150%>)</size> {ResourceManager.Instance.neoTeamString}";
     }
 
     #endregion

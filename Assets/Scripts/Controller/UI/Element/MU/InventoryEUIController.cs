@@ -27,8 +27,8 @@ public class InventoryEUIController : ElementUIController
         ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
 
         ThisRT.sizeDelta = new Vector2(
-            ((ModuleItemManager.RowAmount * 110) + 10), 
-            ((ModuleItemManager.ColumnAmount * 110) + 10));
+            ((ModuleItemManager.rowAmount * 110) + 10), 
+            ((ModuleItemManager.columnAmount * 110) + 10));
     }
 
     #endregion
@@ -37,12 +37,12 @@ public class InventoryEUIController : ElementUIController
 
     public void Gen_AllSlotAndItem(SinglePanelUIController _OwnerUI)
     {
-        for (int i = 0; i < ModuleItemManager.ColumnAmount; i++) 
+        for (int i = 0; i < ModuleItemManager.columnAmount; i++) 
         {
             List<InventorySlotEUIController> colSlot = new List<InventorySlotEUIController>();
             List<InventoryItemEUIController> colItem = new List<InventoryItemEUIController>();
 
-            for (int j = 0; j < ModuleItemManager.RowAmount; j++)
+            for (int j = 0; j < ModuleItemManager.rowAmount; j++)
             {
                 // Generate GO
                 GameObject slotGO = Instantiate(ResourceManager.Instance.Get_ModuleSlotUI_Prefab(), this.transform);

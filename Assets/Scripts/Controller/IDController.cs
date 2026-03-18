@@ -8,6 +8,8 @@ public class IDController : MonoBehaviour
     [Space(20)]
     [Header("<><><><><> ID")]
     [SerializeField] protected int ID = 0;
+    [SerializeField] protected int id = 0;
+
     public int Get_ID() { return ID; }
 
     #endregion

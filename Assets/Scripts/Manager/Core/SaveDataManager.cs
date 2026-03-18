@@ -9,25 +9,25 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     #region - Inspector
 
     [Header("=== Data")]
-    [SerializeField] public List<GameObject> CharacterPrefabs;
+    [SerializeField] public List<GameObject> characterPrefabs;
 
     [Header("=== Path")]
-    [SerializeField] private string JsonFilePath = "";
-    [SerializeField] private string CharacterPath = "";
-    [SerializeField] private string ItemPath = "";
-    [SerializeField] private string OptionPath = "";
-    [SerializeField] private string GameProgressPath = "";
-    [SerializeField] private string InfoPath = "";
+    [SerializeField] private string jsonFilePath = "Json";
+    [SerializeField] private string characterPath = "CharacterData";
+    [SerializeField] private string itemPath = "ItemData";
+    [SerializeField] private string optionPath = "OptionData";
+    [SerializeField] private string gameProgressPath = "GameProgressData";
+    [SerializeField] private string infoPath = "InfoData";
 
     #endregion
 
     #region - Hide
 
     [Space(30)]
-    [SerializeField] public JsonData JsonData;
+    [SerializeField] public JsonData jsonData;
 
     // Path
-    [HideInInspector] private string DataPath = "";
+    [HideInInspector] private string dataPath = "";
 
 
     #endregion
@@ -50,20 +50,20 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     public void Save_JsonData()
     {
-        DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath);
+        dataPath = Path.Combine(Application.persistentDataPath, jsonFilePath);
 
-        TrySave_EachJsonData(DataPath, this.CharacterPath, new SerializationList<EachCharacterJsonData>(JsonData.CharacterData));
-        TrySave_EachJsonData(DataPath, this.ItemPath, new SerializationList<EachItemJsonData>(JsonData.ItemData));
-        TrySave_EachJsonData(DataPath, this.OptionPath, JsonData.OptionData);
-        TrySave_EachJsonData(DataPath, this.GameProgressPath, JsonData.GameProgressData);
-        TrySave_EachJsonData(DataPath, this.InfoPath, new SerializationList<EachInfoJsonData>(JsonData.InfoData));
+        TrySave_EachJsonData(dataPath, this.characterPath, new SerializationList<EachCharacterJsonData>(jsonData.CharacterData));
+        TrySave_EachJsonData(dataPath, this.itemPath, new SerializationList<EachItemJsonData>(jsonData.ItemData));
+        TrySave_EachJsonData(dataPath, this.optionPath, jsonData.OptionData);
+        TrySave_EachJsonData(dataPath, this.gameProgressPath, jsonData.GameProgressData);
+        TrySave_EachJsonData(dataPath, this.infoPath, new SerializationList<EachInfoJsonData>(jsonData.InfoData));
 
     }
 
     public void Save_OptionJsonData()
     {
-        DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath); 
-        TrySave_EachJsonData(DataPath, this.OptionPath, JsonData.OptionData);
+        dataPath = Path.Combine(Application.persistentDataPath, jsonFilePath); 
+        TrySave_EachJsonData(dataPath, this.optionPath, jsonData.OptionData);
     }
 
     #region TrySave (Each Module)
@@ -88,33 +88,33 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     public void Load_JsonData()
     {
-        DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath);
+        dataPath = Path.Combine(Application.persistentDataPath, jsonFilePath);
 
-        JsonData = new JsonData();
+        jsonData = new JsonData();
 
-        JsonData.CharacterData =
+        jsonData.CharacterData =
             TryLoad_EachJsonData<SerializationList<EachCharacterJsonData>>(
-                this.CharacterPath,
+                this.characterPath,
                 Get_Default_CharacterData()).ListData;
 
-        JsonData.ItemData =
+        jsonData.ItemData =
             TryLoad_EachJsonData<SerializationList<EachItemJsonData>>(
-                this.ItemPath,
+                this.itemPath,
                 Get_Default_ItemData()).ListData;
 
-        JsonData.OptionData =
+        jsonData.OptionData =
             TryLoad_EachJsonData<OptionJsonData>(
-                this.OptionPath,
+                this.optionPath,
                 Get_Default_OptionData());
 
-        JsonData.GameProgressData =
+        jsonData.GameProgressData =
             TryLoad_EachJsonData<GameProgressJsonData>(
-                this.GameProgressPath,
+                this.gameProgressPath,
                 Get_Default_GameProgressData());
 
-        JsonData.InfoData =
+        jsonData.InfoData =
             TryLoad_EachJsonData<SerializationList<EachInfoJsonData>>(
-                this.InfoPath,
+                this.infoPath,
                 Get_Default_InfoData()).ListData;
     }
 
@@ -122,7 +122,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     private T TryLoad_EachJsonData<T>(string _EachPath, string _DefaultData)
     {
-        string eachJsonPath = Path.Combine(DataPath, $"{_EachPath}.json");
+        string eachJsonPath = Path.Combine(dataPath, $"{_EachPath}.json");
 
         if (!File.Exists(eachJsonPath))
         {
@@ -144,26 +144,26 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     public void Reset_JsonData()
     {
-        DataPath = Path.Combine(Application.persistentDataPath, JsonFilePath);
+        dataPath = Path.Combine(Application.persistentDataPath, jsonFilePath);
 
         TryReset_EachJsonData<SerializationList<EachCharacterJsonData>>(
-            this.CharacterPath,
+            this.characterPath,
             Get_Default_CharacterData());
 
         TryReset_EachJsonData<SerializationList<EachItemJsonData>>(
-            this.ItemPath,
+            this.itemPath,
             Get_Default_ItemData());
 
         TryReset_EachJsonData<OptionJsonData>(
-            this.OptionPath,
+            this.optionPath,
             Get_Default_OptionData());
 
         TryReset_EachJsonData<GameProgressJsonData>(
-            this.GameProgressPath,
+            this.gameProgressPath,
             Get_Default_GameProgressData());
 
         TryReset_EachJsonData<SerializationList<EachInfoJsonData>>(
-            this.InfoPath,
+            this.infoPath,
             Get_Default_InfoData());
     }
 
@@ -171,7 +171,7 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     private void TryReset_EachJsonData<T>(string _EachPath, string _DefaultData)
     {
-        string eachJsonPath = Path.Combine(DataPath, $"{_EachPath}.json");
+        string eachJsonPath = Path.Combine(dataPath, $"{_EachPath}.json");
 
         if (!File.Exists(eachJsonPath))
         {
@@ -252,7 +252,7 @@ public class JsonData
         if (ItemData.Count > _ID)
         {
             ItemData[_ID].Amount += _Amount;
-            MainGameUIManager.Instance.PlayerHUD_UIController.Init_HighLvItemUI();
+            MainGameUIManager.Instance.playerHUD_UIController.Init_HighLvItemUI();
         }
     }
 
@@ -270,7 +270,7 @@ public class JsonData
         if (ItemData.Count > _ID)
         {
             ItemData[_ID].Amount -= _Amount;
-            MainGameUIManager.Instance.PlayerHUD_UIController.Init_HighLvItemUI();
+            MainGameUIManager.Instance.playerHUD_UIController.Init_HighLvItemUI();
         }
     }
 

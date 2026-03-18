@@ -90,7 +90,7 @@ public class EventManager : Singleton<EventManager>
 
     public void TryStart_Event(int _ID)
     {
-        if (SaveDataManager.Instance.JsonData.GameProgressData.CurrentProgressing + 1 == _ID)
+        if (SaveDataManager.Instance.jsonData.GameProgressData.CurrentProgressing + 1 == _ID)
             Start_Event(_ID);
     }
 
@@ -152,7 +152,7 @@ public class EventManager : Singleton<EventManager>
         switch (CurrentEvent.ID)
         {
             case 0:
-                SaveDataManager.Instance.JsonData.GameProgressData.CurrentProgressing++;
+                SaveDataManager.Instance.jsonData.GameProgressData.CurrentProgressing++;
                 needSave = true;
                 break;
 
@@ -178,19 +178,19 @@ public class EventManager : Singleton<EventManager>
         Debug.Log("Input " + (_OnOff ? "On" : "Off"));
         if (_OnOff)
         {
-            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, true);
+            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.targetStageID, true);
 
             InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
-            InputManager.Instance.CanMouseInput = true;
+            InputManager.Instance.canMouseInput = true;
         }
         else
         {
-            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.TargetStageID, false);
+            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.targetStageID, false);
 
             InputManager.Instance.Set_AllPointer(false);
 
-            InputManager.Instance.InputMoveDir = Vector2.zero;
-            InputManager.Instance.CanMouseInput = false;
+            InputManager.Instance.inputMoveDir = Vector2.zero;
+            InputManager.Instance.canMouseInput = false;
         }
     }
 
@@ -238,7 +238,7 @@ public class EventManager : Singleton<EventManager>
     // 다른 UI => On / Off
     private void Set_AnotherUI(bool _OnOff)
     {
-        MainGameUIManager.Instance.UIParent.gameObject.SetActive(_OnOff);
+        MainGameUIManager.Instance.uiParent.gameObject.SetActive(_OnOff);
     }
 
     #endregion
@@ -247,7 +247,7 @@ public class EventManager : Singleton<EventManager>
 
     private IEnumerator Play_Stay_Cor(EventElement_Stay _Event)
     {
-        InputManager.Instance.InputMoveDir = Vector2.zero; 
+        InputManager.Instance.inputMoveDir = Vector2.zero; 
 
         yield return new WaitForSeconds(_Event.TargetTime);
 
@@ -259,7 +259,7 @@ public class EventManager : Singleton<EventManager>
         Vector2 targetPos = _Event.TargetPos;
         Vector2 dir = Vector2.zero;
 
-        InputManager.Instance.InputMoveDir = Vector2.zero;
+        InputManager.Instance.inputMoveDir = Vector2.zero;
         if (_Event.TargetType != "None") // NPC 등 목표가 들어갈 부분
         {
             if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
@@ -278,16 +278,16 @@ public class EventManager : Singleton<EventManager>
             }
         }
 
-        while (0.01f < Vector2.Distance(targetPos, (Vector2)PlayerManager.Instance.PlayerController.transform.position))
+        while (0.01f < Vector2.Distance(targetPos, (Vector2)PlayerManager.Instance.playerController.transform.position))
         {
-            dir = (targetPos - (Vector2)PlayerManager.Instance.PlayerController.transform.position).normalized;
+            dir = (targetPos - (Vector2)PlayerManager.Instance.playerController.transform.position).normalized;
 
-            InputManager.Instance.DirFromPlayerPos = dir;
-            InputManager.Instance.InputMoveDir = dir;
+            InputManager.Instance.dirFromPlayerPos = dir;
+            InputManager.Instance.inputMoveDir = dir;
 
             yield return null;
         }
-        InputManager.Instance.InputMoveDir = Vector2.zero;
+        InputManager.Instance.inputMoveDir = Vector2.zero;
 
         Play_Event();
     }
@@ -296,11 +296,11 @@ public class EventManager : Singleton<EventManager>
     {
         yield return new WaitForSeconds(0.5f);
 
-        InputManager.Instance.DirFromPlayerPos = _Event.TargetDir;
+        InputManager.Instance.dirFromPlayerPos = _Event.TargetDir;
 
-        PlayerManager.Instance.PlayerController.LowerController.ThisRb.velocity = Vector2.zero;
+        PlayerManager.Instance.playerController.LowerController.ThisRb.velocity = Vector2.zero;
 
-        PlayerManager.Instance.PlayerController.LowerController.Set_Rot(_Event.TargetDir);
+        PlayerManager.Instance.playerController.LowerController.Set_Rot(_Event.TargetDir);
 
 
         yield return null;
@@ -397,7 +397,7 @@ public class EventManager : Singleton<EventManager>
 
             // Character Img
             string imgId = currentDialogue.ImgID.StartsWith("Player") ?
-                currentDialogue.ImgID.Replace("Player", $"Player{DevTool.Get_LengthString(PlayerManager.Instance.PlayerController.Get_ID(), 2)}") :
+                currentDialogue.ImgID.Replace("Player", $"Player{DevTool.Get_LengthString(PlayerManager.Instance.playerController.Get_ID(), 2)}") :
                 currentDialogue.ImgID;
             targetDialogueComp.DialogueImg.sprite = ResourceManager.Instance.Get_DialogueCharImg(imgId);
 

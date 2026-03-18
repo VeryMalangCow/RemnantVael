@@ -122,7 +122,7 @@ public class PrisonController : InteractableBuildController
         Offset_Comp();
         Set_LanguageTxt();
 
-        ResourceManager.Instance.AllPrison.Add(this);
+        ResourceManager.Instance.allPrisons.Add(this);
     }
 
     #endregion
@@ -154,9 +154,9 @@ public class PrisonController : InteractableBuildController
 
     private void Set_AnimValue()
     {
-        OnOffAC = ResourceManager.Instance.Prison_OnOffAC;
-        OnOffAC_Upside = ResourceManager.Instance.Prison_OnOffUpsideAC;
-        OnOffStateAC = ResourceManager.Instance.Prison_StateAC;
+        OnOffAC = ResourceManager.Instance.prison_OnOffAC;
+        OnOffAC_Upside = ResourceManager.Instance.prison_OnOffUpsideAC;
+        OnOffStateAC = ResourceManager.Instance.prison_StateAC;
 
         OnOffMaterial = ResourceManager.Instance.Get_CoupleBuildMaterial("PrisonOff", "PrisonOn");
     }
@@ -267,7 +267,7 @@ public class PrisonController : InteractableBuildController
 
     public virtual void Set_LanguageTxt()
     {
-        DangerTxt.text = $"{ResourceManager.Instance.RatingString}: ({Rating + 1}) {ResourceManager.Instance.PrisonRateStringArr[Rating]} <size=150%>(</size>";
+        DangerTxt.text = $"{ResourceManager.Instance.ratingString}: ({Rating + 1}) {ResourceManager.Instance.prisonRateStringArr[Rating]} <size=150%>(</size>";
 
         if (PuzzleOper != null) 
             PuzzleOper.Set_Language();

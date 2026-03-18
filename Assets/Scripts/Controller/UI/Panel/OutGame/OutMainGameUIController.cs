@@ -238,7 +238,7 @@ public class OutMainGameUIController : SinglePanelUIController
         {
             #region Player
 
-            PlayerController pc = PlayerManager.Instance.PlayerController;
+            PlayerController pc = PlayerManager.Instance.playerController;
             PlayerWeaponController pwc = pc.BaseWeapon;
             SkillWeaponController swc = pc.SkillWeapon;
             PlayerDashController pdc = pc.DashController;
@@ -407,10 +407,10 @@ public class OutMainGameUIController : SinglePanelUIController
         {
             PanelRT.gameObject.SetActive(true);
             WarningTxt.gameObject.SetActive(false);
-            LanguagePanelEUI.Set_Item(GameManager.LanguageID);
-            ScreenModePanelEUI.Set_Item((int)GameManager.ScreenMode);
-            ResolutionPanelEUI.Set_Item((int)GameManager.ResolutionMode);
-            FPSPanelEUI.Set_Item((int)GameManager.FPS);
+            LanguagePanelEUI.Set_Item(GameManager.languageID);
+            ScreenModePanelEUI.Set_Item((int)GameManager.screenMode);
+            ResolutionPanelEUI.Set_Item((int)GameManager.resolutionMode);
+            FPSPanelEUI.Set_Item((int)GameManager.fps);
             BGMVolumePanelEUI.Set_Value(SoundManager.Instance.BVolume);
             SFXVolumePanelEUI.Set_Value(SoundManager.Instance.SVolume);
         }
@@ -495,7 +495,7 @@ public class OutMainGameUIController : SinglePanelUIController
 
         public void Set_List()
         {
-            List<EachInfoJsonData> data = SaveDataManager.Instance.JsonData.InfoData;
+            List<EachInfoJsonData> data = SaveDataManager.Instance.jsonData.InfoData;
 
             List<InfoEUIController> visibleEUIs = new List<InfoEUIController>();
             for (int i = 0; i < ListEUIArr.Length; i++)
@@ -642,12 +642,12 @@ public class OutMainGameUIController : SinglePanelUIController
 
         MainColorCompList.AddRange(InnerImgArr);
 
-        Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color mainClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
+        Color subClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
@@ -676,7 +676,7 @@ public class OutMainGameUIController : SinglePanelUIController
         base.SetOn_ThisPanel();
 
         SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
-        PlayerManager.Instance.CameraController.Stop_SlowMotion();
+        PlayerManager.Instance.cameraController.Stop_SlowMotion();
         Time.timeScale = 0f;
     }
 

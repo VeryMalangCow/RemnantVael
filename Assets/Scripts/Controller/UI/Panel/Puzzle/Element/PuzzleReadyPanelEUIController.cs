@@ -78,7 +78,7 @@ public class PuzzleReadyPanelEUIController : ElementUIController
         ReadyCG.gameObject.SetActive(true);
         ReadyAnnoTxt.text = $"<< {ResourceManager.Instance.Get_StaticWord(90)} >>";
         ReadyTimeLimitTxt.text = $"{(int)_CurrentCountdown}{_SecondString}";
-        ReadyInputAnnoImg.sprite = ResourceManager.Instance.SpaceBarSprite;
+        ReadyInputAnnoImg.sprite = ResourceManager.Instance.spaceBarSprite;
         ReadyKeyAnnoTxt.text = $"{ResourceManager.Instance.Get_StaticWord(88)} : {ResourceManager.Instance.Get_StaticWord(89)} & {ResourceManager.Instance.Get_StaticWord(85)}";
 
         WarningRT.anchoredPosition = new Vector2(RuleWarningXRTPos.TypeBase, WarningRT.anchoredPosition.y);
@@ -91,14 +91,14 @@ public class PuzzleReadyPanelEUIController : ElementUIController
         ReadyKeyAnnoRT.localScale = Vector2.one;
 
         // Rule (Left)
-        DevTool.Set_Color(ResourceManager.Instance.UnlockedClr, RuleTxt);
-        DevTool.Set_Color(ResourceManager.Instance.UnlockedClr, RuleDescTxt);
+        DevTool.Set_Color(ResourceManager.Instance.unlockedClr, RuleTxt);
+        DevTool.Set_Color(ResourceManager.Instance.unlockedClr, RuleDescTxt);
 
         RuleTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(94)} >";
 
         // Warning (Right)
-        DevTool.Set_Color(ResourceManager.Instance.LockedClr, WarningTxt);
-        DevTool.Set_Color(ResourceManager.Instance.LockedClr, WarningDescTxt);
+        DevTool.Set_Color(ResourceManager.Instance.lockedClr, WarningTxt);
+        DevTool.Set_Color(ResourceManager.Instance.lockedClr, WarningDescTxt);
 
         WarningTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(93)} >";
         WarningDescTxt.text = ResourceManager.Instance.Get_StaticDesc(32).Replace("\\n", "\n");

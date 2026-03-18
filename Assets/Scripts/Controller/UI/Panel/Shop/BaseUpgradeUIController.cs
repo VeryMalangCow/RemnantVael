@@ -101,34 +101,34 @@ public class BaseUpgradeUIController : PlayerShopUIController
     {
         #region Each Offset
 
-        PlayerController pc = PlayerManager.Instance.PlayerController;
+        PlayerController pc = PlayerManager.Instance.playerController;
         PlayerWeaponController pwc = pc.BaseWeapon;
         SkillWeaponController pswc = pc.SkillWeapon;
         BaseUpgradeManager bm = BaseUpgradeManager.Instance;
         
-        MaxEPShop.Offset(pc.MaxEP, bm.BaseMaxEP_BUData, AllBUData_Float, this);
-        SpawnESMultipleShop.Offset(pc.SpawnESMultiple, bm.BaseSpawnESMultiple_BUData, AllBUData_Float, this);
-        NeedEP_ForSkillMultipleShop.Offset(pc.NeedEP_ForSkillMultiple, bm.BaseNeedEP_ForSkillMultiple_BUData, AllBUData_Float, this);
-        ResistShop.Offset(pc.TakingDmgMultiple, bm.BaseResist_BUData, AllBUData_Float, this);
+        MaxEPShop.Offset(pc.MaxEP, bm.baseMaxEP_BUData, AllBUData_Float, this);
+        SpawnESMultipleShop.Offset(pc.SpawnESMultiple, bm.baseSpawnESMultiple_BUData, AllBUData_Float, this);
+        NeedEP_ForSkillMultipleShop.Offset(pc.NeedEP_ForSkillMultiple, bm.baseNeedEP_ForSkillMultiple_BUData, AllBUData_Float, this);
+        ResistShop.Offset(pc.TakingDmgMultiple, bm.baseResist_BUData, AllBUData_Float, this);
 
-        WalkSpeedShop.Offset(pc.WalkSpeed, bm.BaseWalkSpeed_BUData, AllBUData_Float, this);
-        WalkSpeedWhenShotMultipleShop.Offset(pc.WalkSpeedWhenShotMultiple, bm.BaseWalkSpeedWhenShotMultiple_BUData, AllBUData_Float, this);
-        WalkAvoidChance.Offset(pc.AvoidChance, bm.BaseAvoidChance_BUData, AllBUData_Float, this);
-        DashSpeedShop.Offset(pc.DashController.DashSpeed, bm.BaseDashSpeed_BUData, AllBUData_Float, this);
+        WalkSpeedShop.Offset(pc.WalkSpeed, bm.baseWalkSpeed_BUData, AllBUData_Float, this);
+        WalkSpeedWhenShotMultipleShop.Offset(pc.WalkSpeedWhenShotMultiple, bm.baseWalkSpeedWhenShotMultiple_BUData, AllBUData_Float, this);
+        WalkAvoidChance.Offset(pc.AvoidChance, bm.baseAvoidChance_BUData, AllBUData_Float, this);
+        DashSpeedShop.Offset(pc.DashController.DashSpeed, bm.baseDashSpeed_BUData, AllBUData_Float, this);
 
-        DamageShop.Offset(pwc.BaseDamage, bm.BaseDamage_BUData, AllBUData_Float, this);
-        ROFShop.Offset(pwc.ROF, bm.BaseROF_BUData, AllBUData_Float, this);
-        CCShop.Offset(pwc.CC, bm.BaseCC_BUData, AllBUData_Float, this);
-        CDShop.Offset(pwc.CD, bm.BaseCD_BUData, AllBUData_Float, this);
-        MuzzleShop.Offset(pwc.MuzzleSpeed, bm.BaseMuzzleSpeed_BUData, AllBUData_Float, this);
-        AccuracyRateShop.Offset(pwc.AccuracyRate, bm.BaseAccuracyRate_BUData, AllBUData_Float, this);
-        KnockbackShop.Offset(pwc.KnockbackPower, bm.Knockback_BUData, AllBUData_Float, this);
+        DamageShop.Offset(pwc.BaseDamage, bm.baseDamage_BUData, AllBUData_Float, this);
+        ROFShop.Offset(pwc.ROF, bm.baseROF_BUData, AllBUData_Float, this);
+        CCShop.Offset(pwc.CC, bm.baseCC_BUData, AllBUData_Float, this);
+        CDShop.Offset(pwc.CD, bm.baseCD_BUData, AllBUData_Float, this);
+        MuzzleShop.Offset(pwc.MuzzleSpeed, bm.baseMuzzleSpeed_BUData, AllBUData_Float, this);
+        AccuracyRateShop.Offset(pwc.AccuracyRate, bm.baseAccuracyRate_BUData, AllBUData_Float, this);
+        KnockbackShop.Offset(pwc.KnockbackPower, bm.knockback_BUData, AllBUData_Float, this);
 
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
-            SkillShopList[i].Skill_CooltimeShop.Offset(pswc.SkillList[i].MaxCooltime, bm.Skill_BUDataList[i].Skill_Cooltime_BUData, AllBUData_Float, this);
-            SkillShopList[i].Skill_PowerShop.Offset(pswc.SkillList[i].Power, bm.Skill_BUDataList[i].Skill_Power_BUData, AllBUData_Float, this);
-            SkillShopList[i].Skill_TierShop.Offset(pswc.SkillList[i].Tier, bm.Skill_BUDataList[i].Skill_Tier_BUData, AllBUData_Int, this);
+            SkillShopList[i].Skill_CooltimeShop.Offset(pswc.SkillList[i].MaxCooltime, bm.skill_BUDataList[i].Skill_Cooltime_BUData, AllBUData_Float, this);
+            SkillShopList[i].Skill_PowerShop.Offset(pswc.SkillList[i].Power, bm.skill_BUDataList[i].Skill_Power_BUData, AllBUData_Float, this);
+            SkillShopList[i].Skill_TierShop.Offset(pswc.SkillList[i].Tier, bm.skill_BUDataList[i].Skill_Tier_BUData, AllBUData_Int, this);
         }
 
         #endregion
@@ -136,23 +136,23 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState
+        PlayerManager.Instance.playerController.NeedEP_ForSkillMultiple.ActualState
             .Subscribe(_Value =>
             {
                 for (int i = 0; i < DevTool.SkillAmount; i++)
                 {
-                    MainGameUIManager.Instance.PlayerHUD_UIController.SkillList[i].Set_CostText(
-                        _Value * PlayerManager.Instance.PlayerController.SkillWeapon.SkillList[i].NeedEP.Value);
+                    MainGameUIManager.Instance.playerHUD_UIController.SkillList[i].Set_CostText(
+                        _Value * PlayerManager.Instance.playerController.SkillWeapon.SkillList[i].NeedEP.Value);
                 }
             });
 
-        PlayerManager.Instance.PlayerController.CurrentBettery
+        PlayerManager.Instance.playerController.CurrentBettery
             .Subscribe(value =>
             {
                 BCTxt.text = value.ToString();
             });
 
-        PlayerManager.Instance.PlayerController.CurrentChargedBettery
+        PlayerManager.Instance.playerController.CurrentChargedBettery
             .Subscribe(value =>
             {
                 ECTxt.text = value.ToString();
@@ -192,12 +192,12 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
         SubColorCompList.Add(FrameInnerImg);
 
-        Color mainClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color mainClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true);
+        Color subClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
@@ -356,8 +356,8 @@ public class BaseUpgradeUIController : PlayerShopUIController
             ResourceManager.Instance.Get_StaticWord(29),
             ResourceManager.Instance.Get_StaticWord(30),
             ResourceManager.Instance.Get_StaticWord(31),
-            ResourceManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 0),
-            ResourceManager.Instance.Get_SkillName(PlayerManager.Instance.PlayerController.Get_ID(), 1)
+            ResourceManager.Instance.Get_SkillName(PlayerManager.Instance.playerController.Get_ID(), 0),
+            ResourceManager.Instance.Get_SkillName(PlayerManager.Instance.playerController.Get_ID(), 1)
         };
 
         // Shop
@@ -381,9 +381,9 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
-            SkillShopList[i].Skill_CooltimeShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(45), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 0));
-            SkillShopList[i].Skill_PowerShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(18), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 1));
-            SkillShopList[i].Skill_TierShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(17), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.PlayerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 2));
+            SkillShopList[i].Skill_CooltimeShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(45), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.playerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 0));
+            SkillShopList[i].Skill_PowerShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(18), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.playerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 1));
+            SkillShopList[i].Skill_TierShop.Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(17), ResourceManager.Instance.Get_SkillDesc(PlayerManager.Instance.playerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 2));
         }
 
         // Desc

@@ -166,7 +166,7 @@ public class RoomRuleController : MonoBehaviour
             enemy.gameObject.SetActive(true);
 
             // VFX
-            UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy(spawnPos + (Vector2.up * enemy.TargetRange));
+            UnitManager.Instance.enemy_ExplImgGenerator.Expl_Enemy(spawnPos + (Vector2.up * enemy.TargetRange));
         }
     }
 

@@ -21,8 +21,8 @@ public class LootableItemEUIController : ElementUIController
 
     public override void Offset()
     {
-        DevTool.Set_Color(PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, false), AmountTxt);
-        DevTool.Set_Color(PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, true), InnerImg);
+        DevTool.Set_Color(PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false), AmountTxt);
+        DevTool.Set_Color(PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true), InnerImg);
     }
 
     #endregion

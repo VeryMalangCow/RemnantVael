@@ -75,7 +75,7 @@ public class ExplosionImgGenerator : MonoBehaviour
     private Sequence Gen_EachExplImg(Vector2 _SpawnPos, ExplState_Sprite _SpriteState, ExplState_MoveAndScale _FirstState, ExplState_MoveAndScale _SecondState)
     {
         SpriteRenderer sr = PoolingManager.Instance.Get_OP_ExplosionImg();
-        sr.gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        sr.gameObject.transform.SetParent(StageManager.Instance.currentRoomController.transform);
         return Play_ExplImg(sr, _SpawnPos, _SpriteState, _FirstState, _SecondState);
     }
 
@@ -128,7 +128,7 @@ public class ExplosionImgGenerator : MonoBehaviour
         _SR.transform.localScale = Vector2.zero;
 
         _SR.color = Color.white;
-        _SR.sortingOrder = LayerOrderManager.Order_EffectImg;
+        _SR.sortingOrder = LayerOrderManager.order_EffectImg;
 
         _SR.sprite = DevTool.Get_Random(_State.Sprite);
         _SR.material = _State.Material;
@@ -140,7 +140,7 @@ public class ExplosionImgGenerator : MonoBehaviour
     {
         _SR.gameObject.SetActive(false);
 
-        PoolingManager.Instance.ExplosionImgs.Enqueue(_SR);
+        PoolingManager.Instance.explosionImgs.Enqueue(_SR);
     }
 
     #endregion

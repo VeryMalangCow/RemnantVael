@@ -155,7 +155,7 @@ public abstract class AttackerController : MovableDepthController
         }
         else
         {
-            this.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+            this.transform.SetParent(StageManager.Instance.currentRoomController.transform);
             this.transform.position = _State_StartTF.Pos;
         }
         this.transform.rotation = _State_StartTF.Rot;

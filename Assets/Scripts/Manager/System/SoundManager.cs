@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -15,16 +14,16 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private AudioMixer MasterAudioMixer;
+    [SerializeField] private AudioMixer masterAudioMixer;
 
     [Space(5)]
     [Header("-- BGM")]
-    [SerializeField] private AudioSource ThisBaseBgmAudioSource;
-    [SerializeField] private AudioSource ThisExtraBgmAudioSource;
+    [SerializeField] private AudioSource thisBaseBgmAudioSource;
+    [SerializeField] private AudioSource thisExtraBgmAudioSource;
 
     [Space(5)]
     [Header("-- SFX")]
-    [SerializeField] private ASQueueSet ThisSfxASQueueSet;
+    [SerializeField] private ASQueueSet thisSfxASQueueSet;
 
     #endregion
 
@@ -221,7 +220,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         Add_BGM(stagePath, "Stage_99");
 
-        for (int i = 0; i < ResourceManager.KindOfMapAmount; i++)
+        for (int i = 0; i < ResourceManager.kindOfMapAmount; i++)
             Add_BGM(stagePath, $"Stage_{DevTool.Get_LengthString(i, 2)}");
 
 
@@ -241,16 +240,16 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         #endregion
 
-        ThisBaseBgmAudioSource.volume = 1f;
-        ThisBaseBgmAudioSource.Play();
-        ThisExtraBgmAudioSource.volume = 0f;
-        ThisExtraBgmAudioSource.Pause();
+        thisBaseBgmAudioSource.volume = 1f;
+        thisBaseBgmAudioSource.Play();
+        thisExtraBgmAudioSource.volume = 0f;
+        thisExtraBgmAudioSource.Pause();
 
         #endregion
 
         #region Comp
 
-        ThisSfxASQueueSet.Offset();
+        thisSfxASQueueSet.Offset();
 
         #endregion
     }
@@ -278,7 +277,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     private void Play_2D_SFX(string _ClipName)
     {
-        Play_2D_SFX(ThisSfxASQueueSet.Get_T(), _ClipName);
+        Play_2D_SFX(thisSfxASQueueSet.Get_T(), _ClipName);
     }
 
     #endregion
@@ -360,19 +359,19 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     public void Pause_2D_BGM()
     {
-        ThisBaseBgmAudioSource.Pause();
+        thisBaseBgmAudioSource.Pause();
     }
 
     private void Play_2D_BGM(string _ClipName)
     {
-        ThisBaseBgmAudioSource.clip = BGMAudioDict[_ClipName];
-        ThisBaseBgmAudioSource.Play();
+        thisBaseBgmAudioSource.clip = BGMAudioDict[_ClipName];
+        thisBaseBgmAudioSource.Play();
     }
 
     public void Play_2D_ExtraBGM(string _ClipName)
     {
-        ThisExtraBgmAudioSource.clip = BGMAudioDict[_ClipName];
-        ThisExtraBgmAudioSource.Play();
+        thisExtraBgmAudioSource.clip = BGMAudioDict[_ClipName];
+        thisExtraBgmAudioSource.Play();
     }
 
     #endregion
@@ -383,22 +382,22 @@ public class SoundManager : PersistentSingleton<SoundManager>
     {
         IsPlayingBaseBGM = false;
 
-        ThisBaseBgmAudioSource.Pause();
-        ThisBaseBgmAudioSource.volume = 0f;
+        thisBaseBgmAudioSource.Pause();
+        thisBaseBgmAudioSource.volume = 0f;
 
-        ThisExtraBgmAudioSource.Play(); 
-        ThisExtraBgmAudioSource.volume = 1f;
+        thisExtraBgmAudioSource.Play(); 
+        thisExtraBgmAudioSource.volume = 1f;
     }
 
     public void CastBGM_ToBase()
     {
         IsPlayingBaseBGM = true;
 
-        ThisBaseBgmAudioSource.Play();
-        ThisBaseBgmAudioSource.volume = 1f;
+        thisBaseBgmAudioSource.Play();
+        thisBaseBgmAudioSource.volume = 1f;
 
-        ThisExtraBgmAudioSource.Pause();
-        ThisExtraBgmAudioSource.volume = 0f;
+        thisExtraBgmAudioSource.Pause();
+        thisExtraBgmAudioSource.volume = 0f;
     }
 
     #endregion
@@ -429,7 +428,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
     private void Set_MasterVolume(float _Value)
     {
         float dB = Mathf.Log10(Mathf.Clamp(_Value, 0.0001f, 1f)) * 20f;
-        MasterAudioMixer.SetFloat("Master", dB);
+        masterAudioMixer.SetFloat("Master", dB);
     }
 
     public void Set_MasterVolume(float _StartV, float _TargetV, float _DurTime)
@@ -443,19 +442,19 @@ public class SoundManager : PersistentSingleton<SoundManager>
     public void Set_BgmVolume(float _Value)
     {
         BVolume = _Value;
-        SaveDataManager.Instance.JsonData.OptionData.BGMVolume = BVolume;
+        SaveDataManager.Instance.jsonData.OptionData.BGMVolume = BVolume;
 
         float dB = Mathf.Log10(Mathf.Clamp(BVolume, 0.0001f, 1f)) * 20f;
-        MasterAudioMixer.SetFloat("BGM", dB);
+        masterAudioMixer.SetFloat("BGM", dB);
     }
 
     public void Set_SfxVolume(float _Value)
     {
         SVolume = _Value;
-        SaveDataManager.Instance.JsonData.OptionData.SFXVolume = SVolume;
+        SaveDataManager.Instance.jsonData.OptionData.SFXVolume = SVolume;
 
         float dB = Mathf.Log10(Mathf.Clamp(SVolume, 0.0001f, 1f)) * 20f;
-        MasterAudioMixer.SetFloat("SFX", dB);
+        masterAudioMixer.SetFloat("SFX", dB);
     }
 
     #endregion

@@ -65,7 +65,7 @@ public class BossEnemyController : EnemyController
     {
         base.Offset();
 
-        HUD.ThisCanvas.worldCamera = MainGameUIManager.Instance.UICamera;
+        HUD.ThisCanvas.worldCamera = MainGameUIManager.Instance.uiCamera;
 
         BossPhaseData = BossPhaseData.OrderByDescending(obj => obj.ThisPhaseLimitPercentHP).ToList();
         Try_PlayNewPatternByPhase();

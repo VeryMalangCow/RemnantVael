@@ -62,8 +62,8 @@ public class CreditController : RangeAbsorbItemController
 
         IsSpawnNow = false;
 
-        PlayerManager.Instance.PlayerController.Add_CurrentCredit(GainAmount);
-        PoolingManager.Instance.Credit.Enqueue(this);
+        PlayerManager.Instance.playerController.Add_CurrentCredit(GainAmount);
+        PoolingManager.Instance.credit.Enqueue(this);
     }
 
     #endregion

@@ -8,26 +8,26 @@ public class PlayerManager : Singleton<PlayerManager>
     #region - Inspector
 
     [Header("=== TF")]
-    [SerializeField] private Transform PlayerSpawnParentTF;
-    [SerializeField] private Transform PlayerPingFrameSpawnTF;
+    [SerializeField] private Transform playerSpawnParentTF;
+    [SerializeField] private Transform playerPingFrameSpawnTF;
 
     [Header("=== Class")]
-    [SerializeField] public CameraController CameraController;
+    [SerializeField] public CameraController cameraController;
 
     [Header("=== Target Enemy")]
-    [SerializeField] private GameObject PlayerPingFramePrefab;
+    [SerializeField] private GameObject playerPingFramePrefab;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] public PlayerController PlayerController;
-    [HideInInspector] public static int KindOfPlayerAmount = 1;
+    [HideInInspector] public PlayerController playerController;
+    [HideInInspector] public static int kindOfPlayerAmount = 1;
 
-    [HideInInspector] private PingController PlayerPing;
-    [HideInInspector] private EnemyController PingedEnemy;
+    [HideInInspector] private PingController playerPing;
+    [HideInInspector] private EnemyController pingedEnemy;
 
-    [HideInInspector] private Dictionary<int, int> HavingKeycardDict = new Dictionary<int, int>();
+    [HideInInspector] private Dictionary<int, int> havingKeycardDict = new Dictionary<int, int>();
 
     #endregion
 
@@ -44,14 +44,14 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         Gen_Player(out AimController aim, out AimRoundController aimRound);
 
-        PlayerPing = DevTool.Get_ComponentTType<PingController>(Gen_PlayerTargetEnemyGO());
+        playerPing = DevTool.Get_ComponentTType<PingController>(Gen_PlayerTargetEnemyGO());
         SetOff_PingEnemy();
 
-        InputManager.Instance.AimController = aim;
-        InputManager.Instance.AimRoundController = aimRound;
+        InputManager.Instance.aimController = aim;
+        InputManager.Instance.aimRoundController = aimRound;
 
-        CameraController.TargetTF = PlayerController.gameObject.transform;
-        BaseUpgradeManager.Instance.Offset(PlayerController);
+        cameraController.TargetTF = playerController.gameObject.transform;
+        BaseUpgradeManager.Instance.Offset(playerController);
 
         Offset_KeyCard();
     }
@@ -62,10 +62,10 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private void Offset_KeyCard()
     {
-        HavingKeycardDict = new Dictionary<int, int>();
+        havingKeycardDict = new Dictionary<int, int>();
 
         for (int i = 0; i < ResourceManager.Instance.Get_KeycardAmount(); i++)
-            HavingKeycardDict.Add(i, 0);
+            havingKeycardDict.Add(i, 0);
     }
 
     #endregion
@@ -74,20 +74,20 @@ public class PlayerManager : Singleton<PlayerManager>
 
     private PlayerController Gen_Player(out AimController _Aim, out AimRoundController _AimRound)
     {
-        PlayerController pc = this.PlayerController =
+        PlayerController pc = this.playerController =
             DevTool.Get_ComponentTType<PlayerController>(
-                Instantiate(GameManager.Instance.DesignatedPlayerPrefab, PlayerSpawnParentTF));
+                Instantiate(GameManager.Instance.designatedPlayerPrefab, playerSpawnParentTF));
         _Aim = DevTool.Get_ComponentTType<AimController>(
-            Instantiate(PlayerController.AimPrefab, PlayerSpawnParentTF));
+            Instantiate(playerController.AimPrefab, playerSpawnParentTF));
         _AimRound = DevTool.Get_ComponentTType<AimRoundController>(
-            Instantiate(PlayerController.AimRoundPrefab, PlayerController.transform));
+            Instantiate(playerController.AimRoundPrefab, playerController.transform));
 
         return pc;
     }
 
     private GameObject Gen_PlayerTargetEnemyGO()
     {
-        return Instantiate(PlayerPingFramePrefab, PlayerPingFrameSpawnTF);
+        return Instantiate(playerPingFramePrefab, playerPingFrameSpawnTF);
     }
 
     #endregion
@@ -96,7 +96,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public bool Is_PingedEnemy(EnemyController _Enemy)
     {
-        return PingedEnemy == _Enemy;
+        return pingedEnemy == _Enemy;
     }
 
     #endregion
@@ -106,21 +106,21 @@ public class PlayerManager : Singleton<PlayerManager>
     public void SetOff_PingEnemy()
     {
         Set_PingedEnemy(null);
-        PlayerPing.SetOff_Ping(PlayerPingFrameSpawnTF);
+        playerPing.SetOff_Ping(playerPingFrameSpawnTF);
     }
 
     public void SetOn_PingEnemy(EnemyController _Enemy)
     {
-        if (PingedEnemy == _Enemy) return;
+        if (pingedEnemy == _Enemy) return;
 
         Set_PingedEnemy(_Enemy);
-        PlayerPing.SetOn_Ping(_Enemy);
+        playerPing.SetOn_Ping(_Enemy);
     }
 
     private void Set_PingedEnemy(EnemyController _Enemy)
     {
-        PingedEnemy = _Enemy;
-        AllyManager.Instance.Set_AllAllyTargetEnemy(PingedEnemy);
+        pingedEnemy = _Enemy;
+        AllyManager.Instance.Set_AllAllyTargetEnemy(pingedEnemy);
     }
 
     #endregion
@@ -130,7 +130,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public void Set_SortingOrderPing(EnemyController _Enemy, int _Order)
     {
         if (Is_PingedEnemy(_Enemy))
-            PlayerPing.Set_SortingOrder(_Order);
+            playerPing.Set_SortingOrder(_Order);
     }
 
     #endregion
@@ -139,7 +139,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public EnemyController Get_PingedEnemy()
     {
-        return PingedEnemy;
+        return pingedEnemy;
     }
 
     #endregion
@@ -148,27 +148,27 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void Gain_KeyCard(int _KeyCardID, int _Amount = 1)
     {
-        if (HavingKeycardDict.ContainsKey(_KeyCardID))
+        if (havingKeycardDict.ContainsKey(_KeyCardID))
         {
-            HavingKeycardDict[_KeyCardID] += _Amount;
-            MainGameUIManager.Instance.PlayerHUD_UIController.Set_KeyItem(HavingKeycardDict);
-            MainGameUIManager.Instance.PlayerHUD_UIController.Effect_KeyIcon(_KeyCardID);
+            havingKeycardDict[_KeyCardID] += _Amount;
+            MainGameUIManager.Instance.playerHUD_UIController.Set_KeyItem(havingKeycardDict);
+            MainGameUIManager.Instance.playerHUD_UIController.Effect_KeyIcon(_KeyCardID);
         }
     }
 
     public void Use_KeyCard(int _KeyCardID, int _Amount = 1)
     {
-        if (HavingKeycardDict.ContainsKey(_KeyCardID))
+        if (havingKeycardDict.ContainsKey(_KeyCardID))
         {
-            HavingKeycardDict[_KeyCardID] -= _Amount;
-            MainGameUIManager.Instance.PlayerHUD_UIController.Set_KeyItem(HavingKeycardDict);
+            havingKeycardDict[_KeyCardID] -= _Amount;
+            MainGameUIManager.Instance.playerHUD_UIController.Set_KeyItem(havingKeycardDict);
             SoundManager.Instance.Play_2D_SFX_Build("UseKeycard");
         }
     }
 
     public bool Can_UseKeyCard(int _KeyCardID)
     {
-        return HavingKeycardDict.ContainsKey(_KeyCardID) && HavingKeycardDict[_KeyCardID] > 0;
+        return havingKeycardDict.ContainsKey(_KeyCardID) && havingKeycardDict[_KeyCardID] > 0;
     }
 
     #endregion

@@ -134,7 +134,7 @@ public class AllyCardEUIController : OwnBtnEUIController
         LightImg.sprite = ResourceManager.Instance.Get_AllyCardFrame(0);
         BGImg.sprite = ResourceManager.Instance.Get_AllyCardBG(0);
 
-        IconImg.sprite = ResourceManager.Instance.AllyNullIcon;
+        IconImg.sprite = ResourceManager.Instance.allyNullIcon;
 
         LightSeq.timeScale = 1;
     }
@@ -144,7 +144,7 @@ public class AllyCardEUIController : OwnBtnEUIController
         NameTxt.text = _Data.Name.Replace("\\n", "\n");
         DescTxt.text = _Data.Desc.Replace("\\n", "\n");
 
-        RankTxt.text = ResourceManager.Instance.AllyCardRateArr[_Data.Rank];
+        RankTxt.text = ResourceManager.Instance.allyCardRateArr[_Data.Rank];
         RankTxt.color = ResourceManager.Instance.Get_AllyCardColor(_Data.Rank);
         BGImg.color = ResourceManager.Instance.Get_AllyCardColor(_Data.Rank);
 

@@ -205,7 +205,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.Instance.PlayerController.CurrentChargedBettery
+        PlayerManager.Instance.playerController.CurrentChargedBettery
             .Subscribe(_Value =>
             {
                 Set_ChargedBetteryUI(_Value, NeedChargedBettery);
@@ -616,7 +616,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         ModuleDetailExtraRT.DOSizeDelta(can ? ModuleDetailExtraRTOpen : new Vector2(ModuleDetailExtraRTOpen.x, 0), 0.2f);
 
         NeedChargedBettery = can ? goods : 0;
-        Set_ChargedBetteryUI(PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value, NeedChargedBettery);
+        Set_ChargedBetteryUI(PlayerManager.Instance.playerController.CurrentChargedBettery.Value, NeedChargedBettery);
     }
 
     private bool Can_Buy(out int _Goods)
@@ -637,7 +637,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         return !AllyModuleUpgradeController.UsingShop.IsBroken &&
             isExist && 
-            PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value >= _Goods &&
+            PlayerManager.Instance.playerController.CurrentChargedBettery.Value >= _Goods &&
             CurrentPickedProfileEUI != null &&
             PickedModulePanel_AllyGO.activeSelf;
     }
@@ -645,7 +645,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     private void Buy()
     {
         // 데이터
-        PlayerManager.Instance.PlayerController.CurrentChargedBettery.Value -= NeedChargedBettery;
+        PlayerManager.Instance.playerController.CurrentChargedBettery.Value -= NeedChargedBettery;
         ModuleItemManager.Instance.Remove_ModuleState(Get_CorrectMS(PickedItemEUI.ThisSlot).OriginalIndex);
 
         CurrentPickedAlly.Add_Sync(Get_PickedSyncList());
@@ -726,7 +726,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         CurrentData = new Dictionary<CoupleData<int>, CopyModuleState>();
 
         // 순서대로, Row Col 로 이중 리스트로 사용
-        List<List<CopyModuleState>> combineData = DevTool.Get_RowColumeList(DevTool.Get_CombineList(_UnEq, _Eq), ModuleItemManager.RowAmount);
+        List<List<CopyModuleState>> combineData = DevTool.Get_RowColumeList(DevTool.Get_CombineList(_UnEq, _Eq), ModuleItemManager.rowAmount);
         
         for (int i = 0; i < combineData.Count; i++)
         {

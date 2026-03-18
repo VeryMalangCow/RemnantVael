@@ -28,7 +28,7 @@ public class BuffTickDmgController : BuffController
 
     public override void Reduct_Buff()
     {
-        PlayerManager.Instance.PlayerController.Take_Damaged(Get_DmgValue(), _HittedDir: Vector2.zero, _ShowHUDEffect: true);
+        PlayerManager.Instance.playerController.Take_Damaged(Get_DmgValue(), _HittedDir: Vector2.zero, _ShowHUDEffect: true);
 
         base.Reduct_Buff();
     }
@@ -54,7 +54,7 @@ public class BuffTickDmgController : BuffController
         { value += ConstPoint; }
 
         if (MaxHpPercent != 0)
-        { value += DevTool.Get_Percent(MaxHpPercent, PlayerManager.Instance.PlayerController.MaxEP.ActualState.Value); }
+        { value += DevTool.Get_Percent(MaxHpPercent, PlayerManager.Instance.playerController.MaxEP.ActualState.Value); }
         
 
         return value;

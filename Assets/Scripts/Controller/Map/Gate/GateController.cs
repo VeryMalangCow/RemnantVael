@@ -82,7 +82,7 @@ public class GateController : StaticDepthController, IInteract
         StageManager.Instance.Set_StageDoorAnim(this, DevTool.Get_ComponentTType<SpriteRenderer>(TargetObject), GateDir);
 
         KeyCardIconSR.gameObject.SetActive(false);
-        KeyCardIconSR.sortingOrder = LayerOrderManager.Order_DoorIcon;
+        KeyCardIconSR.sortingOrder = LayerOrderManager.order_DoorIcon;
     }
 
     #endregion
@@ -179,8 +179,8 @@ public class GateController : StaticDepthController, IInteract
                     ParterGate.NeedKeyCardID = -1;
                     Set_Open();
 
-                    MainGameUIManager.Instance.PlayerHUD_UIController.Set_InteractUI(); 
-                    MainGameUIManager.Instance.InteractAnno_UIController.Set_UI();
+                    MainGameUIManager.Instance.playerHUD_UIController.Set_InteractUI(); 
+                    MainGameUIManager.Instance.interactAnno_UIController.Set_UI();
                 }
             }
             else
@@ -210,11 +210,11 @@ public class GateController : StaticDepthController, IInteract
     public void EnterGate()
     {
         SoundManager.Instance.Play_2D_SFX_Build("EnterGate");
-        PlayerManager.Instance.PlayerController.SetOff_Trail();
-        PlayerManager.Instance.PlayerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
+        PlayerManager.Instance.playerController.SetOff_Trail();
+        PlayerManager.Instance.playerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
         StageManager.Instance.Play_CurrentRoom(ParterGate.ThisRoom);
 
-        PlayerHUDController hud = MainGameUIManager.Instance.PlayerHUD_UIController;
+        PlayerHUDController hud = MainGameUIManager.Instance.playerHUD_UIController;
         if (hud.IsTabInteracted.Value) hud.ThisMinimap.Reset_BookRoom();
     }
 

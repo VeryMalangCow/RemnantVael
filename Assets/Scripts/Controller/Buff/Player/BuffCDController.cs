@@ -34,23 +34,23 @@ public class BuffCDController : BuffController
     {
         base.Gain_Buff();
 
-        PlayerManager.Instance.PlayerController.BaseWeapon.CD.Gain_Buff(Multiple);
-        PlayerManager.Instance.PlayerController.BaseWeapon.CD.Set_BuffedState();
+        PlayerManager.Instance.playerController.BaseWeapon.CD.Gain_Buff(Multiple);
+        PlayerManager.Instance.playerController.BaseWeapon.CD.Set_BuffedState();
     }
 
     public override void Reduct_Buff()
     {
         base.Reduct_Buff();
 
-        PlayerManager.Instance.PlayerController.BaseWeapon.CD.Set_BuffedState();
+        PlayerManager.Instance.playerController.BaseWeapon.CD.Set_BuffedState();
     }
 
     public override void End_Buff()
     {
         base.End_Buff();
 
-        PlayerManager.Instance.PlayerController.BaseWeapon.CD.Lose_Buff(Multiple);
-        PlayerManager.Instance.PlayerController.BaseWeapon.CD.Set_BuffedState();
+        PlayerManager.Instance.playerController.BaseWeapon.CD.Lose_Buff(Multiple);
+        PlayerManager.Instance.playerController.BaseWeapon.CD.Set_BuffedState();
     }
 
     #endregion

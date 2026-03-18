@@ -146,7 +146,7 @@ public abstract class BulletController : MovableDepthController
     {
         CurrentAliveTime = 0;
 
-        gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        gameObject.transform.SetParent(StageManager.Instance.currentRoomController.transform);
         ThisRb.simulated = true;
         gameObject.SetActive(true);
 

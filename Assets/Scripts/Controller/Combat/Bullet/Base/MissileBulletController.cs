@@ -81,10 +81,10 @@ public class MissileBulletController : PlayerBulletController
         switch (PoolingString)
         {
             case "MissileBullet":
-                UnitManager.Instance.OnceTime_AnimGenerator.Anim_AttackSuccess(
+                UnitManager.Instance.onceTime_AnimGenerator.Anim_AttackSuccess(
                     TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical, 1.8f);
-                UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_BigObjectDestroy(
-                    PlayerManager.Instance.PlayerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                UnitManager.Instance.player_ExplImgGenerator.Expl_Player_BigObjectDestroy(
+                    PlayerManager.Instance.playerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
                 break;
 
             default:
@@ -103,7 +103,7 @@ public class MissileBulletController : PlayerBulletController
         switch (PoolingString)
         {
             case "MissileBullet":
-                PoolingManager.Instance.MissileBullet.Enqueue(this);
+                PoolingManager.Instance.missileBullet.Enqueue(this);
 
                 break;
 
@@ -122,7 +122,7 @@ public class MissileBulletController : PlayerBulletController
         PlayerExplosionController pec = PoolingManager.Instance.Get_OP_PlayerExplosion();
         pec.Set_State(
             Get_ExlposionState(),
-            _AC: ResourceManager.Instance.ExplosionAC,
+            _AC: ResourceManager.Instance.explosionAC,
             Get_SpawnTF(),
             this.TargetRange);
     }

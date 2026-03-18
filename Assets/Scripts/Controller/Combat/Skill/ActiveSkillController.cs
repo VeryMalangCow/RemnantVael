@@ -31,7 +31,7 @@ public class ActiveSkillController : MonoBehaviour
     private void Offset()
     {
         DepthController = DevTool.Get_ComponentTType<DepthController>(gameObject);
-        PlayerController = PlayerManager.Instance.PlayerController;
+        PlayerController = PlayerManager.Instance.playerController;
     }
 
     #endregion
@@ -103,7 +103,7 @@ public class ActiveSkillController : MonoBehaviour
     public bool Can_Active()
     {
         return CurrentChargeAmount > 0 &&
-            (PlayerManager.Instance.PlayerController.Get_CurrentEP().Value > NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value) &&
+            (PlayerManager.Instance.playerController.Get_CurrentEP().Value > NeedEP.Value * PlayerManager.Instance.playerController.NeedEP_ForSkillMultiple.ActualState.Value) &&
             PlayerController.MovementState == eMovementState.IdleOrWalk;
     }
 
@@ -112,7 +112,7 @@ public class ActiveSkillController : MonoBehaviour
         // Consume
         CurrentChargeAmount--;
         PlayerController.Add_CurrentEP(
-            -(NeedEP.Value * PlayerManager.Instance.PlayerController.NeedEP_ForSkillMultiple.ActualState.Value));
+            -(NeedEP.Value * PlayerManager.Instance.playerController.NeedEP_ForSkillMultiple.ActualState.Value));
 
         AllyRequestManager.Instance.Play_UsingSkill();
     }
@@ -121,24 +121,24 @@ public class ActiveSkillController : MonoBehaviour
     protected void Start_SkillUI()
     {
         // 스킬 라인 효과 이미지
-        MainGameUIManager.Instance.PlayerHUD_UIController.SkillList
-           [DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this)]
+        MainGameUIManager.Instance.playerHUD_UIController.SkillList
+           [DevTool.Get_IndexInList(PlayerManager.Instance.playerController.SkillWeapon.SkillList, this)]
            .Play_StartInnerUI(); 
         // Aim
-        InputManager.Instance.AimController.Set_ActivingSkill(
-            DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this),
+        InputManager.Instance.aimController.Set_ActivingSkill(
+            DevTool.Get_IndexInList(PlayerManager.Instance.playerController.SkillWeapon.SkillList, this),
             true);
     }
 
     protected void End_SkillUI()
     {
         // 스킬 라인 효과 이미지
-        MainGameUIManager.Instance.PlayerHUD_UIController.SkillList
-           [DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this)]
+        MainGameUIManager.Instance.playerHUD_UIController.SkillList
+           [DevTool.Get_IndexInList(PlayerManager.Instance.playerController.SkillWeapon.SkillList, this)]
            .Play_EndInnerUI();
         // Aim
-        InputManager.Instance.AimController.Set_ActivingSkill(
-            DevTool.Get_IndexInList(PlayerManager.Instance.PlayerController.SkillWeapon.SkillList, this),
+        InputManager.Instance.aimController.Set_ActivingSkill(
+            DevTool.Get_IndexInList(PlayerManager.Instance.playerController.SkillWeapon.SkillList, this),
             false);
     }
 

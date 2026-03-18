@@ -96,7 +96,7 @@ public class DestructibleBuildController : InteractableBuildController
         transform.DOShakePosition(0.8f, 0.25f, 20, 90, false, true);
 
         IsBroken = true;
-        UnitManager.Instance.Build_ExplImgGenerator.Expl_Build(TargetObject.gameObject.transform.position);
+        UnitManager.Instance.build_ExplImgGenerator.Expl_Build(TargetObject.gameObject.transform.position);
         Set_StateAnim();
 
         if (_SpawnItem)
@@ -160,7 +160,7 @@ public class DestructibleBuildController : InteractableBuildController
         SpriteRenderer frameSr = DevTool.Gen_Component_SR(
                 DurParentTF,
                 "DurablityFrame_" + _Index,
-                ResourceManager.Instance.BuildingDurFrame,
+                ResourceManager.Instance.buildingDurFrame,
                 ResourceManager.Instance.Get_BuildMaterial("Durablity"),
                 ThisStateAnim.ThisSR.sortingOrder - 1);
 
@@ -173,7 +173,7 @@ public class DestructibleBuildController : InteractableBuildController
         SpriteRenderer innerSr = DevTool.Gen_Component_SR(
                 _ParentTF,
                 "DurablityInner_" + _Index,
-                ResourceManager.Instance.BuildingDurInner,
+                ResourceManager.Instance.buildingDurInner,
                 ResourceManager.Instance.Get_BuildMaterial("Durablity"),
                 ThisStateAnim.ThisSR.sortingOrder);
         Set_InnerUIPos(innerSr);

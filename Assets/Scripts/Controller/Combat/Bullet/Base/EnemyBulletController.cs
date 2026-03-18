@@ -85,7 +85,7 @@ public class EnemyBulletController : BulletController
         switch (PoolingString)
         {
             case "EnemyBullet":
-                UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, ExplAmount);
+                UnitManager.Instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, ExplAmount);
                 break;
 
             default:
@@ -102,8 +102,8 @@ public class EnemyBulletController : BulletController
         switch (PoolingString)
         {
             case "EnemyBullet":
-                UnitManager.Instance.Enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, ExplAmount);
-                PoolingManager.Instance.EnemyBullets.Enqueue(this);
+                UnitManager.Instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, ExplAmount);
+                PoolingManager.Instance.enemyBullets.Enqueue(this);
                 break;
 
             default:

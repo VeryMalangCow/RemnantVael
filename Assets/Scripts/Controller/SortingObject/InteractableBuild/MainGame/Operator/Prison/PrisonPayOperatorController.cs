@@ -54,10 +54,10 @@ public class PrisonPayOperatorController : PrisonOperatorController
 
         if (TargetPrison == null ||
             TargetPrison.IsOn ||
-            PlayerManager.Instance.PlayerController.Get_CurrentEP().Value <= Get_NeedPay()) return;
+            PlayerManager.Instance.playerController.Get_CurrentEP().Value <= Get_NeedPay()) return;
 
         // 소비 아이템
-        PlayerManager.Instance.PlayerController.Add_CurrentEP(-Get_NeedPay());
+        PlayerManager.Instance.playerController.Add_CurrentEP(-Get_NeedPay());
 
         TargetPrison.Set_Unlock();
     }

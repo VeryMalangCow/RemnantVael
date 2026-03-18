@@ -21,7 +21,7 @@ public class WorldTxtEUIController : ElementUIController
 
     private void Start()
     {
-        ThisCanvas.sortingOrder = LayerOrderManager.Order_DmgTxt;
+        ThisCanvas.sortingOrder = LayerOrderManager.order_DmgTxt;
     }
 
     #endregion
@@ -77,7 +77,7 @@ public class WorldTxtEUIController : ElementUIController
             .OnComplete(() =>
             {
                 this.gameObject.SetActive(false);
-                PoolingManager.Instance.DmgTxtCanvases.Enqueue(this);
+                PoolingManager.Instance.dmgTxtCanvases.Enqueue(this);
             });
 
         return totalSeq;
@@ -166,7 +166,7 @@ public class WorldTxtEUIController : ElementUIController
     {
         Set_Bold(_IsCritical);
         Play_DamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
-            PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Physics, _IsCritical), Color.black, 
+            PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Physics, _IsCritical), Color.black, 
             Get_FontSize_ByCritical(_IsCritical),
             new Vector2(-0.2f, 0.2f), 1f);
         
@@ -176,7 +176,7 @@ public class WorldTxtEUIController : ElementUIController
     {
         Set_Bold(_IsCritical);
         Play_DamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
-            PlayerManager.Instance.PlayerController.Get_CorrectColor(eDamageType.Energy, _IsCritical), Color.black, 
+            PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, _IsCritical), Color.black, 
             Get_FontSize_ByCritical(_IsCritical),
             new Vector2(-0.2f, 0.2f), 1f);
         

@@ -16,7 +16,7 @@ public class KeycardItemController : InteractItemController
 
         ThisSR.sprite = ResourceManager.Instance.Get_KeyCardSprite(ID);
         AnimSR.color = ResourceManager.Instance.Get_KeycardColor(ID);
-        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.Instance.KeycardOutlineAC);
+        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.Instance.keycardOutlineAC);
         ThisAT.speed = 1.1f;
     }
 
@@ -35,7 +35,7 @@ public class KeycardItemController : InteractItemController
         base.Play_Interact();
 
         PlayerManager.Instance.Gain_KeyCard(ID);
-        PoolingManager.Instance.KeycardItems.Enqueue(this);
+        PoolingManager.Instance.keycardItems.Enqueue(this);
     }
 
     #endregion

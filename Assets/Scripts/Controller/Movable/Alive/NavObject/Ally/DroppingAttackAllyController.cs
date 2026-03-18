@@ -22,7 +22,7 @@ public class DroppingAttackAllyController : DroppingAllyController
     protected override void Shot()
     {
         base.Shot();
-        if (EnemyManager.Instance.CurrentEnemyList.Count > 0)
+        if (EnemyManager.Instance.currentEnemyList.Count > 0)
         {
             Fire_Bullet(PoolingManager.Instance.Get_OP_DroppingAllyBullet(), Get_TargetEnemy().transform.position);
         }
@@ -34,7 +34,7 @@ public class DroppingAttackAllyController : DroppingAllyController
         EnemyController targetEnemy = PlayerManager.Instance.Get_PingedEnemy();
         if (targetEnemy == null)
         {
-            targetEnemy = EnemyManager.Instance.CurrentEnemyList[Random.Range(0, EnemyManager.Instance.CurrentEnemyList.Count)];
+            targetEnemy = EnemyManager.Instance.currentEnemyList[Random.Range(0, EnemyManager.Instance.currentEnemyList.Count)];
         }
         return targetEnemy;
     }

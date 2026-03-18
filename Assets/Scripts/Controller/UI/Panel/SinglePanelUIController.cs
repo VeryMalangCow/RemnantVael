@@ -39,33 +39,33 @@ public class SinglePanelUIController : UIController
     public virtual void SetOn_ThisPanel()
     {
         // Basic
-        MainGameUIManager.CurrentOpening_UIController = this;
+        MainGameUIManager.currentOpening_UIController = this;
         this.gameObject.SetActive(true);
 
         // Aim & Mouse
         InputManager.Instance.Set_AllPointer(_Aim: false, _Mouse: true);
 
         // Input
-        InputManager.Instance.PlayerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
-        InputManager.Instance.InputMoveDir = Vector2.zero;
+        InputManager.Instance.playerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
+        InputManager.Instance.inputMoveDir = Vector2.zero;
 
         // Tab Input
-        MainGameUIManager.Instance.PlayerHUD_UIController.IsTabInputed = false;
-        MainGameUIManager.Instance.PlayerHUD_UIController.SetOff_TabInteract();
+        MainGameUIManager.Instance.playerHUD_UIController.IsTabInputed = false;
+        MainGameUIManager.Instance.playerHUD_UIController.SetOff_TabInteract();
 
     }
 
     public virtual void SetOff_ThisPanel()
     {
         // Basic
-        MainGameUIManager.CurrentOpening_UIController = null;
+        MainGameUIManager.currentOpening_UIController = null;
         this.gameObject.SetActive(false);
 
         // Aim & Mouse
         InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
 
         // Input
-        InputManager.Instance.PlayerInput.SwitchCurrentActionMap("Player");
+        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
 
         // Inven
         if (CurrentSlotBtn != null)

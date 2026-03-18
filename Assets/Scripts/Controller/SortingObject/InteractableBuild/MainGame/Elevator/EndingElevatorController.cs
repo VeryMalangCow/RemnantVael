@@ -31,7 +31,7 @@ public class EndingElevatorController : ElevatorController, IInteract
     {
         NextStageIndex = _NextStageIndex;
 
-        if (StageManager.Instance.TargetStageID == 99)
+        if (StageManager.Instance.targetStageID == 99)
             Is_LobbyElevator = true;
 
         ForPassageElevator = _ForPassage;
@@ -51,7 +51,7 @@ public class EndingElevatorController : ElevatorController, IInteract
         base.Tween_Start();
         
         // Stage
-        PlayerManager.Instance.PlayerController.Set_EndStage();
+        PlayerManager.Instance.playerController.Set_EndStage();
 
         // Input
         EventManager.Instance.Set_Input(false);
@@ -68,7 +68,7 @@ public class EndingElevatorController : ElevatorController, IInteract
         ThisSR.sortingOrder = 3000;
 
         // Intetactable Anno Panel
-        MainGameUIManager.Instance.InteractAnno_UIController.Set_VisualCG(false);
+        MainGameUIManager.Instance.interactAnno_UIController.Set_VisualCG(false);
 
         // Sound
         SoundManager.Instance.Set_MasterVolume(1f, 0f, 2.5f);
@@ -117,7 +117,7 @@ public class EndingElevatorController : ElevatorController, IInteract
     {
         if (IsOn)
         {
-            PlayerManager.Instance.PlayerController.CurrentInteractable.Value = null;
+            PlayerManager.Instance.playerController.CurrentInteractable.Value = null;
             Play_MoveToTarget();
         }
     }

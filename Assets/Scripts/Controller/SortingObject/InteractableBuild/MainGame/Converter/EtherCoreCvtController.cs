@@ -11,7 +11,7 @@ public class EtherCoreCvtController : ConverterController, IInteract
 
     public void Play_Interact()
     {
-        MainGameUIManager.Instance.EtherCoreCvt_UIController.SetOn_ThisPanel();
+        MainGameUIManager.Instance.etherCoreCvt_UIController.SetOn_ThisPanel();
     }
 
     #endregion

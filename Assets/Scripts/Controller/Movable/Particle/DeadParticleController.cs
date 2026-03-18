@@ -73,7 +73,7 @@ public class DeadParticleController : MovableDepthController
             {
                 LayerOrderManager.Instance.Remove_NeedSortObj(this);
                 this.gameObject.SetActive(false);
-                PoolingManager.Instance.DeadParticles.Enqueue(this);
+                PoolingManager.Instance.deadParticles.Enqueue(this);
             });
     }
 

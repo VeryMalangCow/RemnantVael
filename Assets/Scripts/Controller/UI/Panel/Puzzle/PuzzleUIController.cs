@@ -225,7 +225,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
         {
             SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
             TimePanelEUI.Play_SuccessAnno(1f, 1f);
-            DevTool.Set_Color(ResourceManager.Instance.UnlockedClr, TimePanelEUI.CountdownTxt);
+            DevTool.Set_Color(ResourceManager.Instance.unlockedClr, TimePanelEUI.CountdownTxt);
             StartCoroutine(Play_Unlock_Complete_Cor());
 
             return true;
@@ -265,7 +265,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
         yield return new WaitForSeconds(1f);
 
-        PlayerManager.Instance.PlayerController.Set_PrisonPanelty();
+        PlayerManager.Instance.playerController.Set_PrisonPanelty();
 
         yield return new WaitForSeconds(1f);
 

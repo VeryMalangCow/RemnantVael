@@ -59,7 +59,7 @@ public class PlayerWeaponController : PlayerSolarController
         }
         else
         {
-            InputManager.Instance.AimController.Set_ActivingAttack(false);
+            InputManager.Instance.aimController.Set_ActivingAttack(false);
             IsShooting = false;
         }
     }
@@ -74,7 +74,7 @@ public class PlayerWeaponController : PlayerSolarController
         if (Check_Fire())
         {
             Play_Fire(PoolingManager.Instance.Get_OP_PlayerBullet(BulletSpawnTFList.Count));
-            PlayerManager.Instance.CameraController.Play_ShotAnim(1 / ROF.BuffedState, PlayerController.BaseWeapon.BaseDamage.BuffedState);
+            PlayerManager.Instance.cameraController.Play_ShotAnim(1 / ROF.BuffedState, PlayerController.BaseWeapon.BaseDamage.BuffedState);
             ModuleItemManager.Instance.Active_Fire();
         }
     }
@@ -101,7 +101,7 @@ public class PlayerWeaponController : PlayerSolarController
             Play_Fire(_BulletList[i], DevTool.Get_ComponentTType<DepthController>(BulletSpawnTFList[i].gameObject), randomAngle);
         }
 
-        InputManager.Instance.AimController.Set_ActivingAttack(true);
+        InputManager.Instance.aimController.Set_ActivingAttack(true);
         CurrentDelayROF -= 1;
 
         // ¸ðµâ ½ÌÅ© È¿°ú => »ç°Ý ÈÄ
@@ -134,7 +134,7 @@ public class PlayerWeaponController : PlayerSolarController
         ModuleItemManager.Instance.ActiveSync_Fire(_Bullet);
 
         // Æø¹ß ÀÌÆåÆ®   
-        UnitManager.Instance.Player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
+        UnitManager.Instance.player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
             PlayerController.Get_ID(),
             (Vector2)_TargetSpawnDepth.TargetObject.transform.position + (dir * 0.1f),
             dir,

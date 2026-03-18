@@ -161,7 +161,7 @@ public abstract class TotemeController : DroppingDepthController
 
     protected override void SetOn_State()
     {
-        gameObject.transform.SetParent(StageManager.Instance.CurrentRoomController.transform);
+        gameObject.transform.SetParent(StageManager.Instance.currentRoomController.transform);
         gameObject.SetActive(true);
 
         SetOn_Trail();
@@ -366,7 +366,7 @@ public abstract class TotemeController : DroppingDepthController
         for (int i = 0; i < BuffPointList.Count; i++)
         {
             BuffPointList[i].gameObject.SetActive(false);
-            PoolingManager.Instance.AreaPointSRs.Enqueue(BuffPointList[i]);
+            PoolingManager.Instance.areaPointSRs.Enqueue(BuffPointList[i]);
         }
         BuffPointList = null;
     }
