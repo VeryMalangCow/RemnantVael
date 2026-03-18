@@ -17,7 +17,7 @@ public class PlayerSolarController : SolarSystemController
 
     protected virtual void Update()
     {
-        Set_RotSmooth(InputManager.Instance.dirFromPlayerPos, Time.deltaTime);
+        Set_RotSmooth(InputManager.instance.dirFromPlayerPos, Time.deltaTime);
     }
 
     #endregion

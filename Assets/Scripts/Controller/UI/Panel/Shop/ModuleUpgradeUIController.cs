@@ -244,9 +244,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         Inventory_InForge.Offset();
         Inventory_InForge.Gen_AllSlotAndItem(this);
 
-        ForgeInteractPanels[0].Offset(this, ResourceManager.Instance.Get_StaticWord(51), ResourceManager.Instance.Get_StaticDesc(24));
-        ForgeInteractPanels[1].Offset(this, ResourceManager.Instance.Get_StaticWord(52), ResourceManager.Instance.Get_StaticDesc(25));
-        ForgeInteractPanels[2].Offset(this, ResourceManager.Instance.Get_StaticWord(53), ResourceManager.Instance.Get_StaticDesc(26));
+        ForgeInteractPanels[0].Offset(this, ResourceManager.instance.Get_StaticWord(51), ResourceManager.instance.Get_StaticDesc(24));
+        ForgeInteractPanels[1].Offset(this, ResourceManager.instance.Get_StaticWord(52), ResourceManager.instance.Get_StaticDesc(25));
+        ForgeInteractPanels[2].Offset(this, ResourceManager.instance.Get_StaticWord(53), ResourceManager.instance.Get_StaticDesc(26));
 
         Offset_Forge_Decomposition();
         Offset_Forge_Fusion();
@@ -352,12 +352,12 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         MainColorCompList.Add(Preview_NeedMS_ForMake);
         MainColorCompList.Add(Preview_NeedCB_ForMake);
 
-        Color mainClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
+        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
@@ -366,17 +366,17 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private void Offset_Subscribe()
     {
         // BC // EC
-        PlayerManager.Instance.playerController.CurrentBettery
+        PlayerManager.instance.playerController.CurrentBettery
             .Subscribe(value =>
             {
                 BCTxt.text = value.ToString();
             });
-        PlayerManager.Instance.playerController.CurrentChargedBettery
+        PlayerManager.instance.playerController.CurrentChargedBettery
             .Subscribe(value =>
             {
                 ECTxt.text = value.ToString();
             });
-        PlayerManager.Instance.playerController.CurrentModuleShard
+        PlayerManager.instance.playerController.CurrentModuleShard
             .Subscribe(value =>
             {
                 MSTxt.text = value.ToString();
@@ -415,8 +415,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 강화 패널 리셋
     public void Reset_ForgeElementPanel()
     {
-        ModuleItemManager.Instance.Set_UnDecompositionSlot();
-        ModuleItemManager.Instance.Set_UnFusionSlotAll();
+        ModuleItemManager.instance.Set_UnDecompositionSlot();
+        ModuleItemManager.instance.Set_UnFusionSlotAll();
 
         Inventory_InForge.SetOff_AllInventoryForgeSelectedUI();
 
@@ -543,7 +543,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             int currentSynergies = 0;
             foreach (KeyValuePair<int, int> keyValuePair in _Dict)
             {
-                MainChipData MDC = ModuleItemManager.Instance.Get_CorrectMainChip(keyValuePair.Key);
+                MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(keyValuePair.Key);
                 SynergySlotList[currentSynergies].SetOn_SynergySlot(keyValuePair.Key, MDC.ThisIcon, keyValuePair.Value);
 
                 currentSynergies++;
@@ -583,7 +583,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             {
                 EquipedSlots[i].ThisItem.gameObject.SetActive(false);
 
-                MainGameUIManager.Instance.playerHUD_UIController.ModuleSlots[i].ThisItem.gameObject.SetActive(false);
+                MainGameUIManager.instance.playerHUD_UIController.ModuleSlots[i].ThisItem.gameObject.SetActive(false);
 
                 Set_EquipedDesc(i);
             }
@@ -594,8 +594,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 EquipedSlots[i].ThisItem.gameObject.SetActive(true);
                 EquipedSlots[i].ThisItem.Set_Data(new ItemData_UIVisual(data));
 
-                MainGameUIManager.Instance.playerHUD_UIController.ModuleSlots[i].ThisItem.gameObject.SetActive(true);
-                MainGameUIManager.Instance.playerHUD_UIController.ModuleSlots[i].ThisItem.Set_Data(new ItemData_UIVisual(data));
+                MainGameUIManager.instance.playerHUD_UIController.ModuleSlots[i].ThisItem.gameObject.SetActive(true);
+                MainGameUIManager.instance.playerHUD_UIController.ModuleSlots[i].ThisItem.Set_Data(new ItemData_UIVisual(data));
 
                 Set_EquipedDesc(i, data);
             }
@@ -623,7 +623,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         if (col != -1 && row != -1) // 만약 슬롯에 등록하는 것이라면
         {
-            ModuleState moduleState = ModuleItemManager.Instance.Get_ModuleState(_ItemEUI);
+            ModuleState moduleState = ModuleItemManager.instance.Get_ModuleState(_ItemEUI);
 
             setActive = true;
             gainBC = ModuleItemManager.Get_BC_ByDescomposition(moduleState).ToString();
@@ -673,10 +673,10 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             }
         }
 
-        if (!ModuleItemManager.Instance.Is_EmptyFusionSlot() &&
-            ModuleItemManager.Instance.Is_SameRankFusionSlots())
+        if (!ModuleItemManager.instance.Is_EmptyFusionSlot() &&
+            ModuleItemManager.instance.Is_SameRankFusionSlots())
         {
-            ModuleState ms = ModuleItemManager.Instance.Get_ModuleState(_SlottedData[0].TypeBase, _SlottedData[0].TypeSpecial);
+            ModuleState ms = ModuleItemManager.instance.Get_ModuleState(_SlottedData[0].TypeBase, _SlottedData[0].TypeSpecial);
             if (ms.ThisItemData.Rank < PlayerController.MaxRank)
                 needMS = ModuleItemManager.Get_MS_ForFusion(ms).ToString();
         }
@@ -693,13 +693,13 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 분해 경고
     private void Check_DecompositionAnno()
     {
-        CoupleData<int> index = ModuleItemManager.Instance.Get_DecompositionIndex();
+        CoupleData<int> index = ModuleItemManager.instance.Get_DecompositionIndex();
         if (index.TypeBase == -1 || index.TypeSpecial == -1)
         {
             SetOff_Anno();
             return;
         }
-        else if (ModuleItemManager.Instance.Is_IncludeOnlyEquipped(index)) // 장비하고 있나?
+        else if (ModuleItemManager.instance.Is_IncludeOnlyEquipped(index)) // 장비하고 있나?
         {
             Set_Notice(true, Notice_Equiped);
             return;
@@ -711,14 +711,14 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 조립 경고
     private void Check_MakeAnno()
     {
-        CoupleData<int> index = ModuleItemManager.Instance.Get_EmptyModuleState();
+        CoupleData<int> index = ModuleItemManager.instance.Get_EmptyModuleState();
         if (index.TypeBase == -1 || index.TypeSpecial == -1)
         {
             Set_Warning(true, Warning_InvenFull);
             return;
         }
-        else if (PlayerManager.Instance.playerController.CurrentModuleShard.Value < ModuleItemManager.Get_MS_ForMake() ||
-            !PlayerManager.Instance.playerController.Is_EnoughChargedBettery(ModuleItemManager.Get_CB_ForMake()))
+        else if (PlayerManager.instance.playerController.CurrentModuleShard.Value < ModuleItemManager.Get_MS_ForMake() ||
+            !PlayerManager.instance.playerController.Is_EnoughChargedBettery(ModuleItemManager.Get_CB_ForMake()))
         {
             Set_Warning(true, Warning_NotEnoughItem);
             return;
@@ -731,7 +731,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 합성 경고
     private void Check_FusionAnno()
     {
-        List<CoupleData<int>> index = ModuleItemManager.Instance.Get_FusionIndex();
+        List<CoupleData<int>> index = ModuleItemManager.instance.Get_FusionIndex();
 
         for (int i = 0; i < index.Count; i++)
         {
@@ -741,7 +741,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 return;
             }
         }
-        if (!ModuleItemManager.Instance.Is_SameRankFusionSlots()) // 랭크가 다른가?
+        if (!ModuleItemManager.instance.Is_SameRankFusionSlots()) // 랭크가 다른가?
         {
             Set_Warning(true, Warning_NotSameRank);
             return;
@@ -749,7 +749,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         for (int i = 0; i < index.Count; i++) // 이미 최대치인가?
         {
-            if (ModuleItemManager.Instance.Get_ModuleState(index[i]).ThisItemData.Rank >= PlayerController.MaxRank)
+            if (ModuleItemManager.instance.Get_ModuleState(index[i]).ThisItemData.Rank >= PlayerController.MaxRank)
             {
                 Set_Warning(true, Warning_AlreadyMaxLv);
                 return;
@@ -757,8 +757,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         }
 
         if (ModuleItemManager.Get_MS_ForFusion(
-            ModuleItemManager.Instance.Get_ModuleState(index[0]))
-                > PlayerManager.Instance.playerController.CurrentModuleShard.Value) // MS가 부족한가?
+            ModuleItemManager.instance.Get_ModuleState(index[0]))
+                > PlayerManager.instance.playerController.CurrentModuleShard.Value) // MS가 부족한가?
         {
             Set_Warning(true, Warning_NotEnoughItem);
             return;
@@ -766,7 +766,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         for (int i = 0; i < index.Count; i++)
         {
-            if (ModuleItemManager.Instance.Is_IncludeOnlyEquipped(index[i]))
+            if (ModuleItemManager.instance.Is_IncludeOnlyEquipped(index[i]))
             {
                 Set_Notice(true, Notice_Equiped);
                 return;
@@ -855,7 +855,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 }
             }
 
-            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.Play_2D_SFX_UI("Click_01");
             return true;
         }
         return false;
@@ -878,7 +878,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 SynergyPanelGO.SetActive(false);
             }
 
-            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
             return true;
         }
@@ -890,12 +890,12 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (CurrentBtn is SynergySlotEUIController synergySlot && SynergySlotList.Contains(synergySlot))
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
             SynergyDescsParentTF.gameObject.SetActive(true);
             SelectedSynergySlot = synergySlot;
 
-            MainChipData MCD = ModuleItemManager.Instance.Get_CorrectMainChip(SelectedSynergySlot.ID);
+            MainChipData MCD = ModuleItemManager.instance.Get_CorrectMainChip(SelectedSynergySlot.ID);
 
             // 기본 정보
             SelectViewImg.sprite = SelectedSynergySlot.ThisImg.sprite;
@@ -903,7 +903,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             SelectViewName.text = MCD.Name.ToString();
 
             // 적용 중인 시너지 싱크로니 레벨 Txt
-            int synchoronyAmount = ModuleItemManager.Instance.Get_SynchronyAmount(synergySlot.ID);
+            int synchoronyAmount = ModuleItemManager.instance.Get_SynchronyAmount(synergySlot.ID);
             int synchoronyLvLimit = 0;
 
             for (int i = ModuleItemManager.synchoronyMaxLv; i > 0; i--)
@@ -939,7 +939,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (IsDragging) return;
 
-        InputManager.Instance.Play_MousePointerClick();
+        InputManager.instance.Play_MousePointerClick();
 
         if (Is_Interact_Msg()) return;
 
@@ -957,7 +957,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (IsDragging) return;
 
-        InputManager.Instance.Play_MousePointerClick();
+        InputManager.instance.Play_MousePointerClick();
 
         if (ThisMsgEUI.gameObject.activeSelf || ModuleUpgradeController.UsingShop == null) return;
 
@@ -982,7 +982,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             DragItemEUI.gameObject.SetActive(true);
             DragItemEUI.Set_Data(CurrentItemBtn);
 
-            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
             IsDragging = true;
         }
@@ -994,7 +994,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         DragItemEUI.gameObject.SetActive(false);
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
         IsDragging = false;
 
@@ -1048,18 +1048,18 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (_EquipSlotIndex == -1) // 빈 공간을 찾아 장착
         {
-            _EquipSlotIndex = ModuleItemManager.Instance.Get_EmptyEquippedIndex(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
+            _EquipSlotIndex = ModuleItemManager.instance.Get_EmptyEquippedIndex(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
             if (_EquipSlotIndex == -1) return;
         }
-        else if (ModuleItemManager.Instance.Is_IncludeEquipped(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row), out int _ListIndex)) // 특정 위치에 이미 있다면, 제거
+        else if (ModuleItemManager.instance.Is_IncludeEquipped(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row), out int _ListIndex)) // 특정 위치에 이미 있다면, 제거
         {
-            ModuleItemManager.Instance.Set_UnEquip(_ListIndex);
+            ModuleItemManager.instance.Set_UnEquip(_ListIndex);
         }
         // 삽입
-        ModuleItemManager.Instance.Set_Equip(_EquipSlotIndex, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
+        ModuleItemManager.instance.Set_Equip(_EquipSlotIndex, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
 
         // 사운드
-        SoundManager.Instance.Play_2D_SFX_UI("Equip");
+        SoundManager.instance.Play_2D_SFX_UI("Equip");
     }
 
     // 장착 해제
@@ -1067,10 +1067,10 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         int index = EquipedSlots.IndexOf(_ItemEUI.ThisSlot);
 
-        ModuleItemManager.Instance.Set_UnEquip(index);
+        ModuleItemManager.instance.Set_UnEquip(index);
 
         // 사운드
-        SoundManager.Instance.Play_2D_SFX_UI("Unequip");
+        SoundManager.instance.Play_2D_SFX_UI("Unequip");
 
         CurrentItemBtn = null;
         CurrentBtn = null;
@@ -1083,7 +1083,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         int index0 = EquipedSlots.IndexOf(_ItemEUI0.ThisSlot);
         int index1 = EquipedSlots.IndexOf(_ItemEUI1.ThisSlot);
-        ModuleItemManager.Instance.Set_SwitchEquipment(index0, index1);
+        ModuleItemManager.instance.Set_SwitchEquipment(index0, index1);
     }
 
     #endregion
@@ -1094,10 +1094,10 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private void Interact_DecompositionInit(InventoryItemEUIController _ItemEUI)
     {
         // 이미 존재한다면
-        if (!ModuleItemManager.Instance.Is_EmptyDecompositionSlot())
+        if (!ModuleItemManager.instance.Is_EmptyDecompositionSlot())
             Interact_UnDecompositionInit(DecompositionSlot.ThisItem);
 
-        ModuleItemManager.Instance.Set_DecompositionSlot(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
+        ModuleItemManager.instance.Set_DecompositionSlot(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
 
         Set_DecompositionUI(_ItemEUI, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
     }
@@ -1105,12 +1105,12 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 분해 해제
     private void Interact_UnDecompositionInit(InventoryItemEUIController _ItemEUI)
     {
-        if (!ModuleItemManager.Instance.Is_EmptyDecompositionSlot())
+        if (!ModuleItemManager.instance.Is_EmptyDecompositionSlot())
         {
             // 미리 값을 저장해야함 => 삭제할 것임
-            CoupleData<int> applyIndex = ModuleItemManager.Instance.Get_DecompositionIndex();
+            CoupleData<int> applyIndex = ModuleItemManager.instance.Get_DecompositionIndex();
 
-            ModuleItemManager.Instance.Set_UnDecompositionSlot();
+            ModuleItemManager.instance.Set_UnDecompositionSlot();
 
             Set_DecompositionUI(_ItemEUI, applyIndex);
 
@@ -1127,29 +1127,29 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (_SlotIndex == -1)
         {
-            if (ModuleItemManager.Instance.Is_EmptyFusionSlot(out int index) &&
-                !ModuleItemManager.Instance.Is_IncludeFusionSlots(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row)))
+            if (ModuleItemManager.instance.Is_EmptyFusionSlot(out int index) &&
+                !ModuleItemManager.instance.Is_IncludeFusionSlots(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row)))
             {
-                ModuleItemManager.Instance.Set_FusionSlot(index, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
+                ModuleItemManager.instance.Set_FusionSlot(index, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
             }
         }
         else
         {
             // 이미 슬롯에 있다면, 제거
-            if (ModuleItemManager.Instance.Is_IncludeFusionSlots(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row), out int listIndex))
+            if (ModuleItemManager.instance.Is_IncludeFusionSlots(new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row), out int listIndex))
                 Interact_UnFusionInit(FusionSlotList[listIndex].ThisItem);
             // 해당 인덱스 슬롯에 비어있지 않다면, 제거
-            if (!ModuleItemManager.Instance.Is_EmptyFusionSlot(_SlotIndex))
+            if (!ModuleItemManager.instance.Is_EmptyFusionSlot(_SlotIndex))
                 Interact_UnFusionInit(FusionSlotList[_SlotIndex].ThisItem);
 
-            ModuleItemManager.Instance.Set_FusionSlot(_SlotIndex, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
+            ModuleItemManager.instance.Set_FusionSlot(_SlotIndex, new CoupleData<int>(_ItemEUI.ThisSlot.Col, _ItemEUI.ThisSlot.Row));
         }
     }
 
     // 합성 해제
     private void Interact_UnFusionInit(InventoryItemEUIController _ItemEUI)
     {
-        if (!ModuleItemManager.Instance.Is_AllEmptyFusionSlot())
+        if (!ModuleItemManager.instance.Is_AllEmptyFusionSlot())
         {
             List<InventoryItemEUIController> itemEUIList = new List<InventoryItemEUIController>();
             for (int i = 0; i < FusionSlotList.Count; i++)
@@ -1157,9 +1157,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
             int index = itemEUIList.IndexOf(_ItemEUI);
 
-            CoupleData<int> applyIndex = ModuleItemManager.Instance.Get_FusionIndex()[index];
+            CoupleData<int> applyIndex = ModuleItemManager.instance.Get_FusionIndex()[index];
 
-            ModuleItemManager.Instance.Set_UnFusionSlot(index);
+            ModuleItemManager.instance.Set_UnFusionSlot(index);
 
             CurrentItemBtn = null;
         }
@@ -1170,7 +1170,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         int index0 = FusionSlotList.IndexOf(_ItemEUI0.ThisSlot);
         int index1 = FusionSlotList.IndexOf(_ItemEUI1.ThisSlot);
-        ModuleItemManager.Instance.Set_SwitchFusion(index0, index1);
+        ModuleItemManager.instance.Set_SwitchFusion(index0, index1);
     }
 
     #endregion
@@ -1198,27 +1198,27 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     private void Role_Decomposition()
     {
-        if (ModuleItemManager.Instance.Is_EmptyDecompositionSlot() ||
+        if (ModuleItemManager.instance.Is_EmptyDecompositionSlot() ||
             WarningCG.gameObject.activeSelf ||
             ModuleUpgradeController.UsingShop.CurrentDur <= 0) return;
 
-        CoupleData<int> index = ModuleItemManager.Instance.Get_DecompositionIndex();
+        CoupleData<int> index = ModuleItemManager.instance.Get_DecompositionIndex();
 
         // 보상 획득
-        PlayerManager.Instance.playerController.Add_CurrentBettery(
-            ModuleItemManager.Get_BC_ByDescomposition(ModuleItemManager.Instance.Get_ModuleState(index)));
+        PlayerManager.instance.playerController.Add_CurrentBettery(
+            ModuleItemManager.Get_BC_ByDescomposition(ModuleItemManager.instance.Get_ModuleState(index)));
 
-        PlayerManager.Instance.playerController.Add_CurrentModuleShard(
-            ModuleItemManager.Get_MS_ByDecomposition(ModuleItemManager.Instance.Get_ModuleState(index)));
+        PlayerManager.instance.playerController.Add_CurrentModuleShard(
+            ModuleItemManager.Get_MS_ByDecomposition(ModuleItemManager.instance.Get_ModuleState(index)));
 
         ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
 
 
         // 모듈 아이템 제거
-        ModuleItemManager.Instance.Remove_ModuleState(index);
+        ModuleItemManager.instance.Remove_ModuleState(index);
 
         // 사운드
-        SoundManager.Instance.Play_2D_SFX_UI("Decomposition");
+        SoundManager.instance.Play_2D_SFX_UI("Decomposition");
 
         // 기타 UI와 정보 초기화
         Reset_ForgeElementPanel();
@@ -1226,27 +1226,27 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     private void Role_Fusion()
     {
-        if (ModuleItemManager.Instance.Is_EmptyFusionSlot() ||
+        if (ModuleItemManager.instance.Is_EmptyFusionSlot() ||
             WarningCG.gameObject.activeSelf ||
             ModuleUpgradeController.UsingShop.CurrentDur <= 0) return;
 
-        List<CoupleData<int>> indexList = ModuleItemManager.Instance.Get_FusionIndex();
+        List<CoupleData<int>> indexList = ModuleItemManager.instance.Get_FusionIndex();
 
         // 소모 재화
-        PlayerManager.Instance.playerController.Add_CurrentModuleShard(
-            -ModuleItemManager.Get_MS_ForFusion(ModuleItemManager.Instance.Get_ModuleState(indexList[0])));
+        PlayerManager.instance.playerController.Add_CurrentModuleShard(
+            -ModuleItemManager.Get_MS_ForFusion(ModuleItemManager.instance.Get_ModuleState(indexList[0])));
 
         ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
 
         // 보상 획득
-        ModuleItemManager.Instance.Set_UpRank(indexList[0]);
+        ModuleItemManager.instance.Set_UpRank(indexList[0]);
 
         // 모듈 아이템 제거
         indexList.RemoveAt(0);
-        ModuleItemManager.Instance.Remove_ModuleState(indexList);
+        ModuleItemManager.instance.Remove_ModuleState(indexList);
 
         // 사운드
-        SoundManager.Instance.Play_2D_SFX_UI("Fusion");
+        SoundManager.instance.Play_2D_SFX_UI("Fusion");
 
         // 기타 UI와 정보 초기화
         Reset_ForgeElementPanel();
@@ -1258,15 +1258,15 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             ModuleUpgradeController.UsingShop.CurrentDur <= 0) return;
 
         // 소모 재화
-        PlayerManager.Instance.playerController.Add_CurrentModuleShard(-ModuleItemManager.Get_MS_ForMake());
-        PlayerManager.Instance.playerController.Use_ChargedBettery(ModuleItemManager.Get_CB_ForMake());
+        PlayerManager.instance.playerController.Add_CurrentModuleShard(-ModuleItemManager.Get_MS_ForMake());
+        PlayerManager.instance.playerController.Use_ChargedBettery(ModuleItemManager.Get_CB_ForMake());
         ModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
 
         // 보상 획득
-        ModuleItemManager.Instance.Gain_ModuleState();
+        ModuleItemManager.instance.Gain_ModuleState();
 
         // 사운드
-        SoundManager.Instance.Play_2D_SFX_UI("Make");
+        SoundManager.instance.Play_2D_SFX_UI("Make");
 
         Check_MakeAnno();
     }
@@ -1286,13 +1286,13 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         {
             if (EquipedSlots.Contains(_ItemEUI.ThisSlot)) // 장비 창
             {
-                moduleState = ModuleItemManager.Instance.Get_EquippedModuleState(
+                moduleState = ModuleItemManager.instance.Get_EquippedModuleState(
                     EquipedSlots.IndexOf(_ItemEUI.ThisSlot));
             }
         }
         else // 인벤토리
         {
-            moduleState = ModuleItemManager.Instance.Get_ModuleState(_ItemEUI);
+            moduleState = ModuleItemManager.instance.Get_ModuleState(_ItemEUI);
         }
 
         ThisDescPanel.SetOn_Desc(moduleState);
@@ -1335,7 +1335,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         // => 인벤토리로
         if (targetIndex.TypeBase != -1 && targetIndex.TypeSpecial != -1)
         {
-            ModuleItemManager.Instance.Set_ChangeInventorySlot(originalIndex, targetIndex); // 인벤토리 내 아이템 위치 변경
+            ModuleItemManager.instance.Set_ChangeInventorySlot(originalIndex, targetIndex); // 인벤토리 내 아이템 위치 변경
         }
         else // => 상호작용 슬롯으로
         {
@@ -1414,30 +1414,30 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     public override void Set_LanguageTxt()
     {
         // Label
-        LabelName = ResourceManager.Instance.Get_StaticWord(27) + " " + ResourceManager.Instance.Get_StaticWord(2);
+        LabelName = ResourceManager.instance.Get_StaticWord(27) + " " + ResourceManager.instance.Get_StaticWord(2);
         LabelTxt.text = LabelName;
 
         // Tab
         TabBtnTxtList = new List<string>
         {
-            ResourceManager.Instance.Get_StaticWord(32),
-            ResourceManager.Instance.Get_StaticWord(33),
+            ResourceManager.instance.Get_StaticWord(32),
+            ResourceManager.instance.Get_StaticWord(33),
         };
 
-        AmalgamationName = ResourceManager.Instance.Get_StaticWord(50);
-        Notice_Equiped = ResourceManager.Instance.Get_StaticDesc(20);
-        Warning_NotSameRank = ResourceManager.Instance.Get_StaticDesc(21);
-        Warning_NotEnoughItem = ResourceManager.Instance.Get_StaticDesc(22);
-        Warning_AlreadyMaxLv = ResourceManager.Instance.Get_StaticDesc(23);
-        Warning_InvenFull = ResourceManager.Instance.Get_StaticDesc(27);
+        AmalgamationName = ResourceManager.instance.Get_StaticWord(50);
+        Notice_Equiped = ResourceManager.instance.Get_StaticDesc(20);
+        Warning_NotSameRank = ResourceManager.instance.Get_StaticDesc(21);
+        Warning_NotEnoughItem = ResourceManager.instance.Get_StaticDesc(22);
+        Warning_AlreadyMaxLv = ResourceManager.instance.Get_StaticDesc(23);
+        Warning_InvenFull = ResourceManager.instance.Get_StaticDesc(27);
 
         // Desc
         ThisDescPanel.Set_LanguageTxt();
 
         // Forge
-        ForgeInteractPanels[0].Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(51), ResourceManager.Instance.Get_StaticDesc(24));
-        ForgeInteractPanels[1].Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(52), ResourceManager.Instance.Get_StaticDesc(25));
-        ForgeInteractPanels[2].Set_LanguageTxt(ResourceManager.Instance.Get_StaticWord(53), ResourceManager.Instance.Get_StaticDesc(26));
+        ForgeInteractPanels[0].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(51), ResourceManager.instance.Get_StaticDesc(24));
+        ForgeInteractPanels[1].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(52), ResourceManager.instance.Get_StaticDesc(25));
+        ForgeInteractPanels[2].Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(53), ResourceManager.instance.Get_StaticDesc(26));
 
         // Amalgamation
         DevTool.Set_TxtList(AmalgamationTxtList, AmalgamationName);

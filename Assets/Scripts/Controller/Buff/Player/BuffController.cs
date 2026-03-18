@@ -7,36 +7,35 @@ public class BuffController : IDController
 
     [Space(20)]
     [Header("<><><><><> Buff")]
-    [SerializeField] public string BuffName = "";
+    [SerializeField] public string buffName = "";
 
     [Space(10)]
     [Header("=== Charge")]
-    [SerializeField] protected int MaxBuffCharge = 1;
-    [SerializeField] private int GainCharge = 1;
-    [SerializeField] private int ReductionCharge = 1;
-    // False = Reduction / True = Increase
-    [SerializeField] protected bool IsIncreaseByTime = false;
+    [SerializeField] public int maxBuffCharge = 1;
+    [SerializeField] public int gainCharge = 1;
+    [SerializeField] public int reductionCharge = 1;
+    [SerializeField] public bool isIncreaseByTime = false;
 
 
     [Space(10)]
     [Header("=== Timer")]
-    [SerializeField] private bool Condition_DurTimer = false;
-    [SerializeField] protected float MaxDurTime = 1;
-    [SerializeField] private bool InitializationWhenGain = true;
-    [SerializeField] private bool InitializationWhenLoss = false;
+    [SerializeField] private bool condition_DurTimer = false;
+    [SerializeField] protected float maxDurTime = 1;
+    [SerializeField] private bool initializationWhenGain = true;
+    [SerializeField] private bool initializationWhenLoss = false;
 
     [Space(10)]
     [Header("=== Other Condition")]
-    [SerializeField] public bool Condition_PlayerSyncSet = false;
+    [SerializeField] public bool condition_PlayerSyncSet = false;
 
     [Space(10)]
     [Header("=== UI")]
-    [SerializeField] private Sprite ThisIconSprite;
+    [SerializeField] private Sprite thisIconSprite;
 
 
-    [HideInInspector] protected ReactiveProperty<int> CurrentBuffCharge = new();
-    [HideInInspector] private ReactiveProperty<float> CurrentDurTime = new();
-    [HideInInspector] protected BuffIconEUIController ThisBuffEUI = null;
+    [HideInInspector] protected ReactiveProperty<int> currentBuffCharge = new();
+    [HideInInspector] private ReactiveProperty<float> currentDurTime = new();
+    [HideInInspector] protected BuffIconEUIController thisBuffEUI = null;
 
     #endregion
 
@@ -44,8 +43,8 @@ public class BuffController : IDController
 
     protected virtual void Start()
     {
-        CurrentDurTime.Value = 0;
-        CurrentBuffCharge.Value = 0;
+        currentDurTime.Value = 0;
+        currentBuffCharge.Value = 0;
 
         this.enabled = false;
     }
@@ -61,9 +60,9 @@ public class BuffController : IDController
 
     private void Caculate_Timer()
     {
-        if (!Condition_DurTimer) return;
+        if (!condition_DurTimer) return;
 
-        if (IsIncreaseByTime)
+        if (isIncreaseByTime)
         {
             Caculate_IncreaseTimer();
         }
@@ -75,7 +74,7 @@ public class BuffController : IDController
 
     private void Caculate_ReductionTimer()
     {
-        if (CurrentBuffCharge.Value <= 0) return;
+        if (currentBuffCharge.Value <= 0) return;
 
         Caculate_Cooltime();
         Caculate_BuffUI(_IsReductionTimer: true);
@@ -85,7 +84,7 @@ public class BuffController : IDController
 
     private void Caculate_IncreaseTimer()
     {
-        if (CurrentBuffCharge.Value >= MaxBuffCharge) return;
+        if (currentBuffCharge.Value >= maxBuffCharge) return;
 
         Caculate_Cooltime();
         Caculate_BuffUI(_IsReductionTimer: false);
@@ -95,27 +94,27 @@ public class BuffController : IDController
 
     private void Caculate_Cooltime()
     {
-        if (CurrentDurTime.Value < MaxDurTime)
+        if (currentDurTime.Value < maxDurTime)
         {
-            CurrentDurTime.Value += Time.deltaTime;
+            currentDurTime.Value += Time.deltaTime;
         }
     }
 
     private void Caculate_CoolTimeCharge(Dele _Dele)
     {
-        if (CurrentDurTime.Value >= MaxDurTime)
+        if (currentDurTime.Value >= maxDurTime)
         {
-            CurrentDurTime.Value -= MaxDurTime;
+            currentDurTime.Value -= maxDurTime;
             _Dele();
         }
     }
 
     private void Caculate_BuffUI(bool _IsReductionTimer)
     {
-        if (ThisBuffEUI != null)
+        if (thisBuffEUI != null)
         {
-            float percent = CurrentDurTime.Value / MaxDurTime;
-            ThisBuffEUI.ThisShadowImg.fillAmount = _IsReductionTimer ?
+            float percent = currentDurTime.Value / maxDurTime;
+            thisBuffEUI.ThisShadowImg.fillAmount = _IsReductionTimer ?
                 percent : (1f - percent);
         }
     }
@@ -126,12 +125,12 @@ public class BuffController : IDController
 
     private void Add_BuffEffect()
     {
-        DevTool.Add_InList(PlayerManager.Instance.playerController.CurrentBuffs, this);
+        DevTool.Add_InList(PlayerManager.instance.playerController.CurrentBuffs, this);
 
         switch (this)
         {
             case IWhen_GetElectricity elec:
-                DevTool.Add_InList(BuffManager.Instance.iWhen_GetElectricityList, elec);
+                DevTool.Add_InList(BuffManager.instance.iWhen_GetElectricityList, elec);
                 break;
 
             default:
@@ -141,12 +140,12 @@ public class BuffController : IDController
 
     private void Remove_BuffEffect()
     {
-        DevTool.Remove_InList(PlayerManager.Instance.playerController.CurrentBuffs, this);
+        DevTool.Remove_InList(PlayerManager.instance.playerController.CurrentBuffs, this);
 
         switch (this)
         {
             case IWhen_GetElectricity elec:
-                DevTool.Remove_InList(BuffManager.Instance.iWhen_GetElectricityList, elec);
+                DevTool.Remove_InList(BuffManager.instance.iWhen_GetElectricityList, elec);
                 break;
 
             default:
@@ -160,18 +159,18 @@ public class BuffController : IDController
 
     private void Is_MaxBuff()
     {
-        if (CurrentBuffCharge.Value >= MaxBuffCharge)
+        if (currentBuffCharge.Value >= maxBuffCharge)
         {
-            CurrentDurTime.Value = 0;
+            currentDurTime.Value = 0;
         }
     }
 
     private void Is_EndBuff()
     {
-        if (CurrentBuffCharge.Value <= 0 && !IsIncreaseByTime)
+        if (currentBuffCharge.Value <= 0 && !isIncreaseByTime)
         {
             End_Buff();
-            CurrentDurTime.Value = 0;
+            currentDurTime.Value = 0;
         }
     }
 
@@ -181,22 +180,22 @@ public class BuffController : IDController
 
     private void Gain_BuffUI()
     {
-        ThisBuffEUI = PoolingManager.Instance.Get_OP_BuffUI();
-        ThisBuffEUI.Offset();
-        ThisBuffEUI.ThisShadowImg.fillAmount = 0;
+        thisBuffEUI = PoolingManager.instance.Get_OP_BuffUI();
+        thisBuffEUI.Offset();
+        thisBuffEUI.ThisShadowImg.fillAmount = 0;
 
-        DevTool.Add_InList(MainGameUIManager.Instance.playerHUD_UIController.AllBuffIconUI, ThisBuffEUI);
+        DevTool.Add_InList(MainGameUIManager.instance.playerHUD_UIController.AllBuffIconUI, thisBuffEUI);
 
-        ThisBuffEUI.gameObject.SetActive(true);
+        thisBuffEUI.gameObject.SetActive(true);
     }
 
     private void Remove_BuffUI()
     {
-        DevTool.Remove_InList(MainGameUIManager.Instance.playerHUD_UIController.AllBuffIconUI, ThisBuffEUI);
+        DevTool.Remove_InList(MainGameUIManager.instance.playerHUD_UIController.AllBuffIconUI, thisBuffEUI);
 
-        ThisBuffEUI.gameObject.SetActive(false);
-        PoolingManager.Instance.buffIcons.Enqueue(ThisBuffEUI);
-        ThisBuffEUI = null;
+        thisBuffEUI.gameObject.SetActive(false);
+        PoolingManager.instance.buffIcons.Enqueue(thisBuffEUI);
+        thisBuffEUI = null;
     }
 
     #endregion
@@ -206,19 +205,19 @@ public class BuffController : IDController
     public virtual void Max_Buff()
     {
         // Value
-        CurrentBuffCharge.Value = MaxBuffCharge;
+        currentBuffCharge.Value = maxBuffCharge;
 
         Add_BuffEffect();
         Is_MaxBuff();
 
         // UI
-        if (ThisBuffEUI == null)
+        if (thisBuffEUI == null)
         {
             Gain_BuffUI();
         }
 
-        MainGameUIManager.Instance.playerHUD_UIController.Set_BuffPosUI();
-        ThisBuffEUI.Set_Icon(ThisIconSprite, CurrentBuffCharge.Value, MaxBuffCharge);
+        MainGameUIManager.instance.playerHUD_UIController.Set_BuffPosUI();
+        thisBuffEUI.Set_Icon(thisIconSprite, currentBuffCharge.Value, maxBuffCharge);
 
         enabled = true;
     }
@@ -226,24 +225,24 @@ public class BuffController : IDController
     public virtual void Gain_Buff()
     {
         // Value
-        CurrentBuffCharge.Value = Mathf.Min(CurrentBuffCharge.Value + GainCharge, MaxBuffCharge);
+        currentBuffCharge.Value = Mathf.Min(currentBuffCharge.Value + gainCharge, maxBuffCharge);
         
         // Initialization
-        if (InitializationWhenGain)
-        { CurrentDurTime.Value = 0; }
+        if (initializationWhenGain)
+        { currentDurTime.Value = 0; }
 
         //
         Add_BuffEffect();
         Is_MaxBuff();
 
         // UI
-        if (ThisBuffEUI == null)
+        if (thisBuffEUI == null)
         {
             Gain_BuffUI();
         }
 
-        MainGameUIManager.Instance.playerHUD_UIController.Set_BuffPosUI();
-        ThisBuffEUI.Set_Icon(ThisIconSprite, CurrentBuffCharge.Value, MaxBuffCharge);
+        MainGameUIManager.instance.playerHUD_UIController.Set_BuffPosUI();
+        thisBuffEUI.Set_Icon(thisIconSprite, currentBuffCharge.Value, maxBuffCharge);
 
         enabled = true;
     }
@@ -251,20 +250,20 @@ public class BuffController : IDController
     public virtual void Reduct_Buff()
     {
         // Value
-        CurrentBuffCharge.Value = Mathf.Max(CurrentBuffCharge.Value - ReductionCharge, 0);
+        currentBuffCharge.Value = Mathf.Max(currentBuffCharge.Value - reductionCharge, 0);
 
         // Initialization
-        if (InitializationWhenLoss)
-        { CurrentDurTime.Value = 0; }
+        if (initializationWhenLoss)
+        { currentDurTime.Value = 0; }
 
-        if (ThisBuffEUI == null)
+        if (thisBuffEUI == null)
         {
             Gain_BuffUI();
         }
 
         // UI
-        MainGameUIManager.Instance.playerHUD_UIController.Set_BuffPosUI();
-        ThisBuffEUI.Set_Icon(ThisIconSprite, CurrentBuffCharge.Value, MaxBuffCharge);
+        MainGameUIManager.instance.playerHUD_UIController.Set_BuffPosUI();
+        thisBuffEUI.Set_Icon(thisIconSprite, currentBuffCharge.Value, maxBuffCharge);
 
         //
         Is_EndBuff();
@@ -273,17 +272,17 @@ public class BuffController : IDController
     public virtual void End_Buff()
     {
         // Value
-        CurrentBuffCharge.Value = 0;
-        CurrentDurTime.Value = 0;
+        currentBuffCharge.Value = 0;
+        currentDurTime.Value = 0;
 
         Remove_BuffEffect();
 
-        if (ThisBuffEUI != null)
+        if (thisBuffEUI != null)
         {
             Remove_BuffUI();
         }
 
-        MainGameUIManager.Instance.playerHUD_UIController.Set_BuffPosUI();
+        MainGameUIManager.instance.playerHUD_UIController.Set_BuffPosUI();
 
         enabled = false; 
     }

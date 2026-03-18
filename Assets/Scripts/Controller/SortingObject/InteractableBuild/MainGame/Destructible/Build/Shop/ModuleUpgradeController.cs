@@ -28,11 +28,11 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
     {
         Set_LanguageTxt();
 
-        OnOffAC = ResourceManager.Instance.muShop_OnOffAC;
-        OnOffStateAC = ResourceManager.Instance.needChargeBettery_OnOffStateAC;
+        OnOffAC = ResourceManager.instance.muShop_OnOffAC;
+        OnOffStateAC = ResourceManager.instance.needChargeBettery_OnOffStateAC;
 
-        BrokenAC = ResourceManager.Instance.muShop_BrokenAC;
-        BrokenStateAC = ResourceManager.Instance.brokenStateAC;
+        BrokenAC = ResourceManager.instance.muShop_BrokenAC;
+        BrokenStateAC = ResourceManager.instance.brokenStateAC;
 
         base.Offset();
     }
@@ -44,7 +44,7 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
     public string Get_InteractName(out bool _CanInteract)
     {
         _CanInteract = !IsBroken;
-        return ResourceManager.Instance.Get_StaticWord(98);
+        return ResourceManager.instance.Get_StaticWord(98);
     }
 
     public void Play_Interact()
@@ -62,19 +62,19 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
         {
             UsingShop = this;
             Set_LanguageTxt();
-            MainGameUIManager.Instance.moduleUpgrade_UIController.SetOn_ThisPanel();
+            MainGameUIManager.instance.moduleUpgrade_UIController.SetOn_ThisPanel();
         }
         else if (Can_ShopPowerOn())
         {
-            PlayerManager.Instance.playerController.CurrentChargedBettery.Value--;
+            PlayerManager.instance.playerController.CurrentChargedBettery.Value--;
             IsOn = true;
-            SoundManager.Instance.Play_2D_SFX_Build("PowerOn");
+            SoundManager.instance.Play_2D_SFX_Build("PowerOn");
         }
     }
 
     private bool Can_ShopPowerOn()
     {
-        return !IsOn && PlayerManager.Instance.playerController.CurrentChargedBettery.Value > 0;
+        return !IsOn && PlayerManager.instance.playerController.CurrentChargedBettery.Value > 0;
     }
 
     #endregion
@@ -85,15 +85,15 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
     {
         base.Take_Damage(_SpawnItem, _SoundOn);
 
-        MainGameUIManager.Instance.moduleUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
+        MainGameUIManager.instance.moduleUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
     }
 
     protected override void Play_NowBreak(bool _SpawnItem)
     {
         base.Play_NowBreak(_SpawnItem);
 
-        if (MainGameUIManager.Instance.moduleUpgrade_UIController.gameObject.activeSelf)
-            MainGameUIManager.Instance.moduleUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
+        if (MainGameUIManager.instance.moduleUpgrade_UIController.gameObject.activeSelf)
+            MainGameUIManager.instance.moduleUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
     }
 
     #endregion
@@ -128,9 +128,9 @@ public class ModuleUpgradeController : DestructibleBuildController, IInteract
 
     public void Set_LanguageTxt()
     {
-        IsBrokenAnno = $"<size=25&>{ResourceManager.Instance.Get_StaticWord(24)}: {ResourceManager.Instance.Get_StaticDesc(16)}</size>\n\n" +
-            $"{ResourceManager.Instance.Get_StaticDesc(17)}\n" +
-            $"<size=50&>{ResourceManager.Instance.Get_StaticDesc(19)}</size>";
+        IsBrokenAnno = $"<size=25&>{ResourceManager.instance.Get_StaticWord(24)}: {ResourceManager.instance.Get_StaticDesc(16)}</size>\n\n" +
+            $"{ResourceManager.instance.Get_StaticDesc(17)}\n" +
+            $"<size=50&>{ResourceManager.instance.Get_StaticDesc(19)}</size>";
     }
 
     #endregion

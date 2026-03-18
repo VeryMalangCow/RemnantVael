@@ -41,23 +41,23 @@ public class BattleProdUIController : UIController
 
     public void Play_BattleOnProd(PlayerController _Player, EliteEnemyController _Enemy, out float _DurTime)
     {
-        SoundManager.Instance.Play_2D_SFX_UI("StartBattleProd");
+        SoundManager.instance.Play_2D_SFX_UI("StartBattleProd");
         Play_BattleOnProd(
             _Player.BattleProdSprite, 
             _Enemy.BattleProdSprite, 
-            ResourceManager.Instance.Get_PlayerName(_Player.GetNameID),
-            ResourceManager.Instance.Get_EnemyName(_Enemy.GetNameID),
+            ResourceManager.instance.Get_PlayerName(_Player.GetNameID),
+            ResourceManager.instance.Get_EnemyName(_Enemy.GetNameID),
             out _DurTime);
     }
 
     public void Play_BattleOnProd(PlayerController _Player, BossEnemyController _Enemy, out float _DurTime)
     {
-        SoundManager.Instance.Play_2D_SFX_UI("StartBossBattleProd");
+        SoundManager.instance.Play_2D_SFX_UI("StartBossBattleProd");
         Play_BattleOnProd(
             _Player.BattleProdSprite,
             _Enemy.BattleProdSprite,
-            ResourceManager.Instance.Get_PlayerName(_Player.GetNameID),
-            ResourceManager.Instance.Get_EnemyName(_Enemy.GetNameID),
+            ResourceManager.instance.Get_PlayerName(_Player.GetNameID),
+            ResourceManager.instance.Get_EnemyName(_Enemy.GetNameID),
             out _DurTime);
     }
 

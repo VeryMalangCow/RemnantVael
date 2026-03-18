@@ -84,12 +84,12 @@ public class ShopUIController : PanelUIController
 
 
         // Set Color
-        Color mainClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
+        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
@@ -142,7 +142,7 @@ public class ShopUIController : PanelUIController
 
         // Close
         DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CloseBtn, 0)).gameObject).text =
-            ResourceManager.Instance.Get_StaticWord(28);
+            ResourceManager.instance.Get_StaticWord(28);
 
         // Dur
         ThisDurEUI.Set_LanguageTxt();

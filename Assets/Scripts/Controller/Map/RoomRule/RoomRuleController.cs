@@ -118,8 +118,8 @@ public class RoomRuleController : MonoBehaviour
     {
         SetOn_Shop();
 
-        if (!SoundManager.IsPlayingBaseBGM)
-            SoundManager.Instance.CastBGM_ToBase();
+        if (!SoundManager.isPlayingBaseBGM)
+            SoundManager.instance.CastBGM_ToBase();
     }
 
     private void SetOn_Shop()
@@ -140,15 +140,15 @@ public class RoomRuleController : MonoBehaviour
     {
         Spawn_AllEnemy();
 
-        if (EnemyType == eEnemy.Elite && SoundManager.IsPlayingBaseBGM)
+        if (EnemyType == eEnemy.Elite && SoundManager.isPlayingBaseBGM)
         {
-            SoundManager.Instance.CastBGM_ToExtra();
-            SoundManager.Instance.Play_2D_ExtraBGM("Elite");
+            SoundManager.instance.CastBGM_ToExtra();
+            SoundManager.instance.Play_2D_ExtraBGM("Elite");
         }
-        else if (EnemyType == eEnemy.Boss && SoundManager.IsPlayingBaseBGM)
+        else if (EnemyType == eEnemy.Boss && SoundManager.isPlayingBaseBGM)
         {
-            SoundManager.Instance.CastBGM_ToExtra();
-            SoundManager.Instance.Play_2D_ExtraBGM("Boss");
+            SoundManager.instance.CastBGM_ToExtra();
+            SoundManager.instance.Play_2D_ExtraBGM("Boss");
         }
     }
 
@@ -158,7 +158,7 @@ public class RoomRuleController : MonoBehaviour
         {
             Vector2 spawnPos = InRoom_AllEnemySpawn[i].transform.position;
 
-            EnemyController enemy = PoolingManager.Instance.Get_OP_Enemy(
+            EnemyController enemy = PoolingManager.instance.Get_OP_Enemy(
                 InRoom_AllEnemySpawn[i].Get_EnemyType(),
                 InRoom_AllEnemySpawn[i].Get_SpawnID());
 
@@ -166,7 +166,7 @@ public class RoomRuleController : MonoBehaviour
             enemy.gameObject.SetActive(true);
 
             // VFX
-            UnitManager.Instance.enemy_ExplImgGenerator.Expl_Enemy(spawnPos + (Vector2.up * enemy.TargetRange));
+            UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy(spawnPos + (Vector2.up * enemy.TargetRange));
         }
     }
 
@@ -179,7 +179,7 @@ public class RoomRuleController : MonoBehaviour
     public void Set_SortingStaticObjects()
     {
         if (InRoom_AllObstacle != null && InRoom_AllObstacle.Count > 0)
-            LayerOrderManager.Instance.Add_NeedSortObj(InRoom_AllObstacle);
+            LayerOrderManager.instance.Add_NeedSortObj(InRoom_AllObstacle);
     }
 
     #endregion

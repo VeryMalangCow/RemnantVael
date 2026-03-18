@@ -82,7 +82,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     {
         // Data Set (Must set First)
         AllyTunerSet = new AllyBaseUpradeTunerSet();
-        AllyTunerSet.Offset(TunerAmount, AllyManager.StateTypeList, AllyManager.TunerTypePercent);
+        AllyTunerSet.Offset(TunerAmount, AllyManager.stateTypeList, AllyManager.tunerTypePercent);
 
         // UI Set
         for (int i = 0; i < AllTunerEUI.Count; i++)
@@ -104,13 +104,13 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.Instance.playerController.CurrentChargedBettery
+        PlayerManager.instance.playerController.CurrentChargedBettery
             .Subscribe(_Value =>
             {
                 Set_ChargedBetteryUI(_Value, NeedChargedBettery);
             });
 
-        PlayerManager.Instance.playerController.CurrentOverrider
+        PlayerManager.instance.playerController.CurrentOverrider
             .Subscribe(_Value =>
             {
                 Set_OverriderUI(_Value);
@@ -162,10 +162,10 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
             CanBuyArrowGO.gameObject.SetActive(Can_Buy());
 
             // 사운드
-            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.Play_2D_SFX_UI("Click_01");
         }
 
-        Set_ChargedBetteryUI(PlayerManager.Instance.playerController.CurrentChargedBettery.Value, NeedChargedBettery);
+        Set_ChargedBetteryUI(PlayerManager.instance.playerController.CurrentChargedBettery.Value, NeedChargedBettery);
 
         if (!AllyBaseUpgradeController.UsingShop.IsBroken)
         {
@@ -180,7 +180,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     private void Set_TunerData(int _Index)
     {
-        AllyTunerSet.AllyTunerDataList[_Index].Set_Data(AllyManager.StateTypeList, AllyManager.TunerTypePercent);
+        AllyTunerSet.AllyTunerDataList[_Index].Set_Data(AllyManager.stateTypeList, AllyManager.tunerTypePercent);
     }
 
     private void Set_TunerUI(int _Index)
@@ -248,11 +248,11 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         for (int i = 0; i < AllTunerEUI.Count; i++)
         {
             if (AllTunerEUI[i].RerollBtnEUI == CurrentBtn &&
-                PlayerManager.Instance.playerController.CurrentOverrider.Value >= NeedOverrider)
+                PlayerManager.instance.playerController.CurrentOverrider.Value >= NeedOverrider)
             {
                 Set_TunerData(i);
                 Set_TunerUI(i);
-                PlayerManager.Instance.playerController.Add_CurrentOverrider(-NeedOverrider);
+                PlayerManager.instance.playerController.Add_CurrentOverrider(-NeedOverrider);
 
                 Set_PickedTuner(PickedTunerData);
 
@@ -260,7 +260,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
                 Play_UseTxt(OverriderUseTxt, NeedOverrider, 30f);
 
                 // 사운드
-                SoundManager.Instance.Play_2D_SFX_UI("Reroll");
+                SoundManager.instance.Play_2D_SFX_UI("Reroll");
 
                 return true;
             }
@@ -310,14 +310,14 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     private bool Can_Buy()
     {
         return !AllyBaseUpgradeController.UsingShop.IsBroken &&
-            (PlayerManager.Instance.playerController.CurrentChargedBettery.Value >= NeedChargedBettery) &&
+            (PlayerManager.instance.playerController.CurrentChargedBettery.Value >= NeedChargedBettery) &&
             CurrentPickedProfileEUI != null;
     }
     
     private void Buy()
     {
         // 데이터
-        PlayerManager.Instance.playerController.CurrentChargedBettery.Value -= NeedChargedBettery;
+        PlayerManager.instance.playerController.CurrentChargedBettery.Value -= NeedChargedBettery;
         CurrentPickedAlly.Add_Tuner(PickedTunerData);
 
         // 소비 효과
@@ -335,7 +335,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         Set_TunerUI(index);
 
         // 사운드
-        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
+        SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
     }
 
     #endregion
@@ -366,23 +366,23 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     public override void Set_LanguageTxt()
     {
         // Label
-        LabelName = ResourceManager.Instance.Get_StaticWord(95) + " " + ResourceManager.Instance.Get_StaticWord(26) + " " + ResourceManager.Instance.Get_StaticWord(2);
+        LabelName = ResourceManager.instance.Get_StaticWord(95) + " " + ResourceManager.instance.Get_StaticWord(26) + " " + ResourceManager.instance.Get_StaticWord(2);
         LabelTxt.text = LabelName;
 
         // Tuner
-        TunerDetailTxt.text = ResourceManager.Instance.Get_StaticWord(103);
-        TunerListTxt.text = ResourceManager.Instance.Get_StaticWord(104);
+        TunerDetailTxt.text = ResourceManager.instance.Get_StaticWord(103);
+        TunerListTxt.text = ResourceManager.instance.Get_StaticWord(104);
 
         for (int i = 0; i < AllTunerEUI.Count; i++)
             AllTunerEUI[i].Set_Language();
 
         // Buy Btn
-        BuyBtnEUI.ThisTxt.text = ResourceManager.Instance.Get_StaticWord(47) + " & " + ResourceManager.Instance.Get_StaticWord(105);
+        BuyBtnEUI.ThisTxt.text = ResourceManager.instance.Get_StaticWord(47) + " & " + ResourceManager.instance.Get_StaticWord(105);
 
         // Desc
-        Positive0_ElementDescEUI.IncreaseTxt.text = ResourceManager.Instance.Get_StaticWord(108);
-        Positive1_ElementDescEUI.IncreaseTxt.text = ResourceManager.Instance.Get_StaticWord(108);
-        Negative_ElementDescEUI.IncreaseTxt.text = ResourceManager.Instance.Get_StaticWord(109);
+        Positive0_ElementDescEUI.IncreaseTxt.text = ResourceManager.instance.Get_StaticWord(108);
+        Positive1_ElementDescEUI.IncreaseTxt.text = ResourceManager.instance.Get_StaticWord(108);
+        Negative_ElementDescEUI.IncreaseTxt.text = ResourceManager.instance.Get_StaticWord(109);
 
         base.Set_LanguageTxt();
     }

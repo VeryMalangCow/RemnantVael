@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 3222036730807376840}
   ThisSR: {fileID: 2222629274383368526}
   TargetRange: 0.6
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 6802761286114077143}
   ThisSR: {fileID: 6554919075280264633}
   TargetRange: 0.6

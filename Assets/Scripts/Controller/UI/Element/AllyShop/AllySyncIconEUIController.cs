@@ -49,10 +49,10 @@ public class AllySyncIconEUIController : ElementUIController
     {
         ID = _ID;
 
-        MainChipData MDC = ModuleItemManager.Instance.Get_CorrectMainChip(_ID);
+        MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(_ID);
         
         ThisIconImg.sprite = MDC.ThisIcon;
-        ProgressImg.sprite = MainGameUIManager.Instance.allyModuleUpgrade_UIController.Get_SyncProgressSprite(_Amount);
+        ProgressImg.sprite = MainGameUIManager.instance.allyModuleUpgrade_UIController.Get_SyncProgressSprite(_Amount);
         ProgressTxt.text = _Amount.ToString();
         float progressing = (float)_Amount / AllyController.SyncMax;
         DevTool.Set_AlphaColor(ProgressTxt, progressing);
@@ -73,11 +73,11 @@ public class AllySyncIconEUIController : ElementUIController
 
     public void Set_Color()
     {
-        ThisConnectStateImg.color = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        ThisConnectStateImg.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         List<Image> list = DevTool.Get_ChildList<Image>(CompletelyCG.gameObject.transform);
         for (int i = 0; i < list.Count; i++)
         {
-            list[i].color = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+            list[i].color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         }
     }
 

@@ -23,7 +23,7 @@ public class LanguageTxtController : MonoBehaviour
     private void Start()
     {
         Offset(GameManager.languageID);
-        ResourceManager.Instance.Add_LanguageTxt(this);
+        ResourceManager.instance.Add_LanguageTxt(this);
     }
 
     #endregion
@@ -33,7 +33,7 @@ public class LanguageTxtController : MonoBehaviour
     public void Set_Font(int _LanguageID)
     {
         if (DevTool.Get_ComponentTType(gameObject, out TMP_Text txt))
-            txt.font = ResourceManager.Instance.languageTxtArr[_LanguageID].FontAssets[Type];
+            txt.font = ResourceManager.instance.languageTxtArr[_LanguageID].FontAssets[Type];
     }
 
     #endregion

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class EventManager : Singleton<EventManager>
@@ -16,47 +17,47 @@ public class EventManager : Singleton<EventManager>
 
     [Space(10)]
     [Header("=== Managing Value")]
-    [SerializeField] private bool IsPlayingEvent = false;
+    [SerializeField] private bool isPlayingEvent = false;
 
     [Space(10)]
     [Header("=== Base Comp")]
-    [SerializeField] private RectTransform BlackUpsideRT;
-    [SerializeField] private RectTransform BlackDownsideRT;
+    [SerializeField] private RectTransform blackUpsideRT;
+    [SerializeField] private RectTransform blackDownsideRT;
 
     [Space(10)]
     [Header("=== BlackScreen")]
-    [SerializeField] private Image BlackScreenImg;
+    [SerializeField] private Image blackScreenImg;
 
     [Space(10)]
     [Header("=== Dialogue")]
-    [SerializeField] private bool IsPlayingDialogue = false;
+    [SerializeField] private bool isPlayingDialogue = false;
 
-    [SerializeField] private SideDialogueComp LeftDialogueComp;
-    [SerializeField] private SideDialogueComp RightDialogueComp;
+    [SerializeField] private SideDialogueComp leftDialogueComp;
+    [SerializeField] private SideDialogueComp rightDialogueComp;
 
     [Serializable]
     public class SideDialogueComp
     {
-        [SerializeField] public GameObject DialogueGO;
-        [SerializeField] public Image DialogueImg;
-        [SerializeField] public TMP_Text NameTxt;
-        [SerializeField] public TMP_Text DialogueTxt;
+        [SerializeField] public GameObject dialogueGO;
+        [SerializeField] public Image dialogueImg;
+        [SerializeField] public TMP_Text nameTxt;
+        [SerializeField] public TMP_Text dialogueTxt;
     }
 
-    [HideInInspector] private List<DialogueElement> CurrentDialogues;
+    [HideInInspector] private List<DialogueElement> currentDialogues;
 
     [Space(10)]
     [Header("=== Cutscene")]
-    [SerializeField] public bool IsPlayingCutscene = false;
-    [SerializeField] private GameObject CutsceneGO;
-    [SerializeField] private ImgQueueSet ImgQueueSet;
-    [SerializeField] private TMP_Text CutsceneTxt;
-    [SerializeField] private Image CutsceneNextImg;
-    [HideInInspector] private List<CutsceneElement> CurrentCutscenes;
+    [SerializeField] public bool isPlayingCutscene = false;
+    [SerializeField] private GameObject cutsceneGO;
+    [SerializeField] private ImgQueueSet imgQueueSet;
+    [SerializeField] private TMP_Text cutsceneTxt;
+    [SerializeField] private Image cutsceneNextImg;
+    [HideInInspector] private List<CutsceneElement> currentCutscenes;
 
     [Space(10)]
     [Header("=== Current")]
-    [SerializeField] private EventData CurrentEvent = null;
+    [SerializeField] private EventData currentEvent = null;
 
     #endregion
 
@@ -81,7 +82,7 @@ public class EventManager : Singleton<EventManager>
 
     private void Offset()
     {
-        ImgQueueSet.Offset();
+        imgQueueSet.Offset();
     }
 
     #endregion
@@ -90,7 +91,7 @@ public class EventManager : Singleton<EventManager>
 
     public void TryStart_Event(int _ID)
     {
-        if (SaveDataManager.Instance.jsonData.GameProgressData.CurrentProgressing + 1 == _ID)
+        if (SaveDataManager.instance.jsonData.gameProgressData.currentProgressing + 1 == _ID)
             Start_Event(_ID);
     }
 
@@ -98,47 +99,47 @@ public class EventManager : Singleton<EventManager>
     private void Start_Event(int _ID)
     {
         // 다른 이벤트 중이라면 취소
-        if (IsPlayingEvent)
+        if (isPlayingEvent)
         { return; }
 
         SetOn_EventOption();
 
-        CurrentEvent = new EventData(_ID, new List<EventElement>(ResourceManager.Instance.Get_CorrectEventArr(_ID)));
+        currentEvent = new EventData(_ID, new List<EventElement>(ResourceManager.instance.Get_CorrectEventArr(_ID)));
         Play_Event();
     }
 
     // 이벤트 실행
     private void Play_Event()
     {
-        if (CurrentEvent.Events.Count <= 0)
+        if (currentEvent.Events.Count <= 0)
         {
             SetOff_EventOption();
             return;
         }
 
-        if (CurrentEvent.Events[0] is EventElement_Stay stay)
+        if (currentEvent.Events[0] is EventElement_Stay stay)
         { StartCoroutine(Play_Stay_Cor(stay)); }
-        else if (CurrentEvent.Events[0] is EventElement_Move move)
+        else if (currentEvent.Events[0] is EventElement_Move move)
         { StartCoroutine(Play_Move_Cor(move)); }
-        else if (CurrentEvent.Events[0] is EventElement_Look look)
+        else if (currentEvent.Events[0] is EventElement_Look look)
         { StartCoroutine(Play_Look_Cor(look)); }
-        else if (CurrentEvent.Events[0] is EventElement_BlackScreenIn blackScreenIn)
+        else if (currentEvent.Events[0] is EventElement_BlackScreenIn blackScreenIn)
         { StartCoroutine(Play_BlackScreenIn_Cor(blackScreenIn)); }
-        else if (CurrentEvent.Events[0] is EventElement_BlackScreenOut blackScreenOut)
+        else if (currentEvent.Events[0] is EventElement_BlackScreenOut blackScreenOut)
         { StartCoroutine(Play_BlackScreenOut_Cor(blackScreenOut)); }
-        else if (CurrentEvent.Events[0] is EventElement_Dialogue dialogue)
+        else if (currentEvent.Events[0] is EventElement_Dialogue dialogue)
         { StartCoroutine(Play_Dialogue_Cor(dialogue)); }
-        else if (CurrentEvent.Events[0] is EventElement_Cutscene cutscene)
+        else if (currentEvent.Events[0] is EventElement_Cutscene cutscene)
         { StartCoroutine(Play_Cutscene_Cor(cutscene)); }
 
-        CurrentEvent.Remove_OnePart();
+        currentEvent.Remove_OnePart();
     }
 
 
     // 이벤트 실행 시, 설정 온
     private void SetOn_EventOption()
     {
-        IsPlayingEvent = true;
+        isPlayingEvent = true;
 
         Set_Input(false);
         Set_BlackUpDownCover(true);
@@ -149,10 +150,10 @@ public class EventManager : Singleton<EventManager>
     private void SetOff_EventOption()
     {
         bool needSave = false;
-        switch (CurrentEvent.ID)
+        switch (currentEvent.ID)
         {
             case 0:
-                SaveDataManager.Instance.jsonData.GameProgressData.CurrentProgressing++;
+                SaveDataManager.instance.jsonData.gameProgressData.currentProgressing++;
                 needSave = true;
                 break;
 
@@ -160,10 +161,10 @@ public class EventManager : Singleton<EventManager>
                 break; 
         }
 
-        if (needSave) SaveDataManager.Instance.Save_JsonData();
+        if (needSave) SaveDataManager.instance.Save_JsonData();
 
-        CurrentEvent = null;
-        IsPlayingEvent = false;
+        currentEvent = null;
+        isPlayingEvent = false;
 
         Set_Input(true);
         Set_BlackUpDownCover(false);
@@ -173,64 +174,64 @@ public class EventManager : Singleton<EventManager>
     // 인풋 => On / Off
     public void Set_Input(bool _OnOff)
     {
-        if (IsPlayingEvent) return;
+        if (isPlayingEvent) return;
 
         Debug.Log("Input " + (_OnOff ? "On" : "Off"));
         if (_OnOff)
         {
-            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.targetStageID, true);
+            InputManager.instance.SetOnOff_InputAction(StageManager.instance.targetStageID, true);
 
-            InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
-            InputManager.Instance.canMouseInput = true;
+            InputManager.instance.Set_AllPointer(_Aim: true, _Mouse: false);
+            InputManager.instance.canMouseInput = true;
         }
         else
         {
-            InputManager.Instance.SetOnOff_InputAction(StageManager.Instance.targetStageID, false);
+            InputManager.instance.SetOnOff_InputAction(StageManager.instance.targetStageID, false);
 
-            InputManager.Instance.Set_AllPointer(false);
+            InputManager.instance.Set_AllPointer(false);
 
-            InputManager.Instance.inputMoveDir = Vector2.zero;
-            InputManager.Instance.canMouseInput = false;
+            InputManager.instance.inputMoveDir = Vector2.zero;
+            InputManager.instance.canMouseInput = false;
         }
     }
 
     // 블랙커버 위 아래 => On / Off
     public void Set_BlackUpDownCover(bool _OnOff)
     {
-        if (DOTween.IsTweening(BlackUpsideRT))
-        { DOTween.Kill(BlackUpsideRT); }
+        if (DOTween.IsTweening(blackUpsideRT))
+        { DOTween.Kill(blackUpsideRT); }
 
-        if (DOTween.IsTweening(BlackDownsideRT))
-        { DOTween.Kill(BlackDownsideRT); }
+        if (DOTween.IsTweening(blackDownsideRT))
+        { DOTween.Kill(blackDownsideRT); }
 
         if (_OnOff)
         {
-            BlackUpsideRT.DOAnchorPosY(0, 0.3f)
+            blackUpsideRT.DOAnchorPosY(0, 0.3f)
                 .OnStart(() =>
                 {
-                    BlackUpsideRT.gameObject.SetActive(true);
+                    blackUpsideRT.gameObject.SetActive(true);
                 });
 
-            BlackDownsideRT.DOAnchorPosY(0, 0.3f)
+            blackDownsideRT.DOAnchorPosY(0, 0.3f)
                 .OnStart(() =>
                 {
-                    BlackDownsideRT.gameObject.SetActive(true);
+                    blackDownsideRT.gameObject.SetActive(true);
                 });
         }
         else
         {
-            float upsideY = BlackUpsideRT.rect.height;
-            BlackUpsideRT.DOAnchorPosY(upsideY, 0.3f)
+            float upsideY = blackUpsideRT.rect.height;
+            blackUpsideRT.DOAnchorPosY(upsideY, 0.3f)
                 .OnComplete(() =>
                 {
-                    BlackUpsideRT.gameObject.SetActive(false);
+                    blackUpsideRT.gameObject.SetActive(false);
                 });
 
-            float downsideY = BlackDownsideRT.rect.height;
-            BlackDownsideRT.DOAnchorPosY(-downsideY, 0.3f)
+            float downsideY = blackDownsideRT.rect.height;
+            blackDownsideRT.DOAnchorPosY(-downsideY, 0.3f)
                 .OnComplete(() =>
                 {
-                    BlackDownsideRT.gameObject.SetActive(false);
+                    blackDownsideRT.gameObject.SetActive(false);
                 });
         }
     }
@@ -238,7 +239,7 @@ public class EventManager : Singleton<EventManager>
     // 다른 UI => On / Off
     private void Set_AnotherUI(bool _OnOff)
     {
-        MainGameUIManager.Instance.uiParent.gameObject.SetActive(_OnOff);
+        MainGameUIManager.instance.uiParent.gameObject.SetActive(_OnOff);
     }
 
     #endregion
@@ -247,7 +248,7 @@ public class EventManager : Singleton<EventManager>
 
     private IEnumerator Play_Stay_Cor(EventElement_Stay _Event)
     {
-        InputManager.Instance.inputMoveDir = Vector2.zero; 
+        InputManager.instance.inputMoveDir = Vector2.zero; 
 
         yield return new WaitForSeconds(_Event.TargetTime);
 
@@ -259,12 +260,12 @@ public class EventManager : Singleton<EventManager>
         Vector2 targetPos = _Event.TargetPos;
         Vector2 dir = Vector2.zero;
 
-        InputManager.Instance.inputMoveDir = Vector2.zero;
+        InputManager.instance.inputMoveDir = Vector2.zero;
         if (_Event.TargetType != "None") // NPC 등 목표가 들어갈 부분
         {
             if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
             {
-                NPCController npc = NPCManager.Instance.Get_CorrectNPC(_Event.TargetID);
+                NPCController npc = NPCManager.instance.Get_CorrectNPC(_Event.TargetID);
                 if (npc != null)
                 {
                     Vector2 npcPos = npc.transform.position;
@@ -278,16 +279,16 @@ public class EventManager : Singleton<EventManager>
             }
         }
 
-        while (0.01f < Vector2.Distance(targetPos, (Vector2)PlayerManager.Instance.playerController.transform.position))
+        while (0.01f < Vector2.Distance(targetPos, (Vector2)PlayerManager.instance.playerController.transform.position))
         {
-            dir = (targetPos - (Vector2)PlayerManager.Instance.playerController.transform.position).normalized;
+            dir = (targetPos - (Vector2)PlayerManager.instance.playerController.transform.position).normalized;
 
-            InputManager.Instance.dirFromPlayerPos = dir;
-            InputManager.Instance.inputMoveDir = dir;
+            InputManager.instance.dirFromPlayerPos = dir;
+            InputManager.instance.inputMoveDir = dir;
 
             yield return null;
         }
-        InputManager.Instance.inputMoveDir = Vector2.zero;
+        InputManager.instance.inputMoveDir = Vector2.zero;
 
         Play_Event();
     }
@@ -296,11 +297,11 @@ public class EventManager : Singleton<EventManager>
     {
         yield return new WaitForSeconds(0.5f);
 
-        InputManager.Instance.dirFromPlayerPos = _Event.TargetDir;
+        InputManager.instance.dirFromPlayerPos = _Event.TargetDir;
 
-        PlayerManager.Instance.playerController.LowerController.ThisRb.velocity = Vector2.zero;
+        PlayerManager.instance.playerController.LowerController.ThisRb.velocity = Vector2.zero;
 
-        PlayerManager.Instance.playerController.LowerController.Set_Rot(_Event.TargetDir);
+        PlayerManager.instance.playerController.LowerController.Set_Rot(_Event.TargetDir);
 
 
         yield return null;
@@ -310,13 +311,13 @@ public class EventManager : Singleton<EventManager>
 
     private IEnumerator Play_BlackScreenIn_Cor(EventElement_BlackScreenIn _Event)
     {
-        if (DOTween.IsTweening(BlackScreenImg))
-        { DOTween.Kill(BlackScreenImg); }
+        if (DOTween.IsTweening(blackScreenImg))
+        { DOTween.Kill(blackScreenImg); }
 
-        BlackScreenImg.DOFade(1, _Event.TargetTime)
+        blackScreenImg.DOFade(1, _Event.TargetTime)
             .OnStart(() =>
             {
-                BlackScreenImg.gameObject.SetActive(true);
+                blackScreenImg.gameObject.SetActive(true);
             });
 
         yield return new WaitForSeconds(_Event.TargetTime);
@@ -326,13 +327,13 @@ public class EventManager : Singleton<EventManager>
 
     private IEnumerator Play_BlackScreenOut_Cor(EventElement_BlackScreenOut _Event)
     {
-        if (DOTween.IsTweening(BlackScreenImg))
-        { DOTween.Kill(BlackScreenImg); }
+        if (DOTween.IsTweening(blackScreenImg))
+        { DOTween.Kill(blackScreenImg); }
 
-        BlackScreenImg.DOFade(0, _Event.TargetTime)
+        blackScreenImg.DOFade(0, _Event.TargetTime)
             .OnComplete(() =>
             {
-                BlackScreenImg.gameObject.SetActive(false);
+                blackScreenImg.gameObject.SetActive(false);
             });
 
         yield return new WaitForSeconds(_Event.TargetTime);
@@ -344,7 +345,7 @@ public class EventManager : Singleton<EventManager>
     {
         Start_Dialogue(_Event);
 
-        yield return new WaitUntil(() => !IsPlayingDialogue);
+        yield return new WaitUntil(() => !isPlayingDialogue);
 
         Play_Event();
     }
@@ -353,7 +354,7 @@ public class EventManager : Singleton<EventManager>
     {
         Start_Cutscene(_Event);
 
-        yield return new WaitUntil(() => !IsPlayingCutscene);
+        yield return new WaitUntil(() => !isPlayingCutscene);
 
         Play_Event();
     }
@@ -364,10 +365,10 @@ public class EventManager : Singleton<EventManager>
 
     private void Start_Dialogue(EventElement_Dialogue _Event)
     {
-        if (IsPlayingDialogue) return;
+        if (isPlayingDialogue) return;
 
-        IsPlayingDialogue = true;
-        CurrentDialogues = ResourceManager.Instance.Get_CorrectDialogueElementList(_Event.TargetDialogueID);
+        isPlayingDialogue = true;
+        currentDialogues = ResourceManager.instance.Get_CorrectDialogueElementList(_Event.TargetDialogueID);
         StartCoroutine(Play_Dialogue_Cor());
     }
 
@@ -379,36 +380,36 @@ public class EventManager : Singleton<EventManager>
 
         while (true)
         {
-            if (CurrentDialogues.Count <= 0)
+            if (currentDialogues.Count <= 0)
             { break; }  
 
-            DialogueElement currentDialogue = CurrentDialogues[0];
+            DialogueElement currentDialogue = currentDialogues[0];
 
             // 기본 세팅
             SideDialogueComp targetDialogueComp = null;
             SideDialogueComp noneDialogueComp = null;
             if (currentDialogue.IsLeft)
-            { targetDialogueComp = LeftDialogueComp; noneDialogueComp = RightDialogueComp; }
+            { targetDialogueComp = leftDialogueComp; noneDialogueComp = rightDialogueComp; }
             else
-            { targetDialogueComp = RightDialogueComp; noneDialogueComp = LeftDialogueComp; }
+            { targetDialogueComp = rightDialogueComp; noneDialogueComp = leftDialogueComp; }
 
-            targetDialogueComp.DialogueGO.SetActive(true);
-            noneDialogueComp.DialogueGO.SetActive(false);
+            targetDialogueComp.dialogueGO.SetActive(true);
+            noneDialogueComp.dialogueGO.SetActive(false);
 
             // Character Img
             string imgId = currentDialogue.ImgID.StartsWith("Player") ?
-                currentDialogue.ImgID.Replace("Player", $"Player{DevTool.Get_LengthString(PlayerManager.Instance.playerController.Get_ID(), 2)}") :
+                currentDialogue.ImgID.Replace("Player", $"Player{DevTool.Get_LengthString(PlayerManager.instance.playerController.Get_ID(), 2)}") :
                 currentDialogue.ImgID;
-            targetDialogueComp.DialogueImg.sprite = ResourceManager.Instance.Get_DialogueCharImg(imgId);
+            targetDialogueComp.dialogueImg.sprite = ResourceManager.instance.Get_DialogueCharImg(imgId);
 
             // Name
-            targetDialogueComp.NameTxt.text = ReplaceNPlaceholders(currentDialogue.Name);
+            targetDialogueComp.nameTxt.text = ReplaceNPlaceholders(currentDialogue.Name);
 
             // Script
             string targetScript = Get_ProductionString(currentDialogue.Script);
-            targetDialogueComp.DialogueTxt.text = "";
+            targetDialogueComp.dialogueTxt.text = "";
             isScripting = true;
-            scriptingTween = targetDialogueComp.DialogueTxt
+            scriptingTween = targetDialogueComp.dialogueTxt
                 .DOText(targetScript, targetScript.Length / 20f)
                 .SetEase(Ease.Linear)
                 .OnComplete(() => { isScripting = false; });
@@ -425,7 +426,7 @@ public class EventManager : Singleton<EventManager>
                     {
                         canInteract = false;
                         scriptingTween = null;
-                        CurrentDialogues.Remove(currentDialogue);
+                        currentDialogues.Remove(currentDialogue);
                         break;
                     }
                 }
@@ -442,11 +443,11 @@ public class EventManager : Singleton<EventManager>
 
     private void End_Dialogue()
     {
-        LeftDialogueComp.DialogueGO.SetActive(false);
-        RightDialogueComp.DialogueGO.SetActive(false);
-        CurrentDialogues = null;
+        leftDialogueComp.dialogueGO.SetActive(false);
+        rightDialogueComp.dialogueGO.SetActive(false);
+        currentDialogues = null;
 
-        IsPlayingDialogue = false;
+        isPlayingDialogue = false;
     }
 
     #endregion
@@ -455,18 +456,18 @@ public class EventManager : Singleton<EventManager>
 
     private void Start_Cutscene(EventElement_Cutscene _Event)
     {
-        if (IsPlayingCutscene) return; 
+        if (isPlayingCutscene) return; 
 
-        SoundManager.Instance.Play_2D_BGM_Cutscene(_Event.TargetSoundID);
+        SoundManager.instance.Play_2D_BGM_Cutscene(_Event.TargetSoundID);
 
-        IsPlayingCutscene = true;
-        CurrentCutscenes = ResourceManager.Instance.Get_CorrectCutsceneElementList(_Event.TargetCutsceneID);
+        isPlayingCutscene = true;
+        currentCutscenes = ResourceManager.instance.Get_CorrectCutsceneElementList(_Event.TargetCutsceneID);
         StartCoroutine(Play_Cutscene_Cor());
     }
 
     private IEnumerator Play_Cutscene_Cor()
     {
-        CutsceneGO.gameObject.SetActive(true);
+        cutsceneGO.gameObject.SetActive(true);
 
         bool canInteract = false;
 
@@ -479,33 +480,33 @@ public class EventManager : Singleton<EventManager>
 
         while (true)
         {
-            if (CurrentCutscenes.Count <= 0)
+            if (currentCutscenes.Count <= 0)
             { break; }
 
             eachComplete = false;
 
-            CutsceneElement currentCutscene = CurrentCutscenes[0];
+            CutsceneElement currentCutscene = currentCutscenes[0];
 
             // Character Img
-            Image img = ImgQueueSet.Get_T();
+            Image img = imgQueueSet.Get_T();
             img.gameObject.SetActive(true);
             img.color = new Color(1f, 1f, 1f, 0f);
-            img.sprite = ResourceManager.Instance.Get_CutsceneImg(currentCutscene.ID);
+            img.sprite = ResourceManager.instance.Get_CutsceneImg(currentCutscene.ID);
 
             // Script
             seq = DOTween.Sequence();
 
-            CutsceneTxt.text = "";
+            cutsceneTxt.text = "";
 
             string targetScrpit = Get_ProductionString(currentCutscene.Script);
 
             isAppearing = true;
-            seq.Join(CutsceneTxt.DOText(targetScrpit, targetScrpit.Length / 35f).SetEase(Ease.Linear));
+            seq.Join(cutsceneTxt.DOText(targetScrpit, targetScrpit.Length / 35f).SetEase(Ease.Linear));
             seq.Join(img.DOFade(1f, 3f).SetEase(Ease.Linear));
             seq.OnComplete(() => 
             { 
                 isAppearing = false;
-                CutsceneNextImg.gameObject.SetActive(true);
+                cutsceneNextImg.gameObject.SetActive(true);
             });
 
             while (true)
@@ -514,17 +515,17 @@ public class EventManager : Singleton<EventManager>
                 {
                     isDisappearing = true;
                     canInteract = false;
-                    CutsceneNextImg.gameObject.SetActive(false);
+                    cutsceneNextImg.gameObject.SetActive(false);
 
                     seq = DOTween.Sequence();
 
-                    CutsceneTxt.text = "";
+                    cutsceneTxt.text = "";
                     seq.Join(img.DOFade(0f, 2f).SetEase(Ease.Linear));
                     seq.OnComplete(() =>
                     {
                         isDisappearing = false;
                         img.gameObject.SetActive(false);
-                        CurrentCutscenes.Remove(currentCutscene);
+                        currentCutscenes.Remove(currentCutscene);
                         eachComplete = true;
                     });
                 }
@@ -544,13 +545,13 @@ public class EventManager : Singleton<EventManager>
 
     private void End_Cutscene()
     {
-        CutsceneGO.gameObject.SetActive(false);
+        cutsceneGO.gameObject.SetActive(false);
 
-        CurrentCutscenes = null;
+        currentCutscenes = null;
 
-        IsPlayingCutscene = false;
+        isPlayingCutscene = false;
 
-        SoundManager.Instance.Play_2D_BGM_Stage(StageManager.Instance.Get_CurrentStageData().InfoData.StageID);
+        SoundManager.instance.Play_2D_BGM_Stage(StageManager.instance.Get_CurrentStageData().InfoData.StageID);
     }
 
     #endregion
@@ -619,7 +620,7 @@ public class EventManager : Singleton<EventManager>
             if (sb == null) sb = new StringBuilder(s.Length + 16);
             sb.Append(s, pos, idx - pos); // 패턴 앞부분 복사
 
-            string replacement = ResourceManager.Instance.Get_ProperNounWord(val);
+            string replacement = ResourceManager.instance.Get_ProperNounWord(val);
             sb.Append(replacement);
 
             pos = i + 1; // ')' 다음 위치로 진행

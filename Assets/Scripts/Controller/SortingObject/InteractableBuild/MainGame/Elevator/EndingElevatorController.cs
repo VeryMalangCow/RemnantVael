@@ -31,7 +31,7 @@ public class EndingElevatorController : ElevatorController, IInteract
     {
         NextStageIndex = _NextStageIndex;
 
-        if (StageManager.Instance.targetStageID == 99)
+        if (StageManager.instance.targetStageID == 99)
             Is_LobbyElevator = true;
 
         ForPassageElevator = _ForPassage;
@@ -51,27 +51,27 @@ public class EndingElevatorController : ElevatorController, IInteract
         base.Tween_Start();
         
         // Stage
-        PlayerManager.Instance.playerController.Set_EndStage();
+        PlayerManager.instance.playerController.Set_EndStage();
 
         // Input
-        EventManager.Instance.Set_Input(false);
+        EventManager.instance.Set_Input(false);
 
         // Ally
-        AllyManager.Instance.Stop_AllAllies_Combat();
-        AllyManager.Instance.Set_AllAlliesActive(false);
+        AllyManager.instance.Stop_AllAllies_Combat();
+        AllyManager.instance.Set_AllAlliesActive(false);
 
         // Screen
-        MainGameUIManager.Instance.Play_FadeIn(3f);
-        MainGameUIManager.Instance.Play_OnLoadingIcon(3f);
-        EventManager.Instance.Set_BlackUpDownCover(true);
+        MainGameUIManager.instance.Play_FadeIn(3f);
+        MainGameUIManager.instance.Play_OnLoadingIcon(3f);
+        EventManager.instance.Set_BlackUpDownCover(true);
 
         ThisSR.sortingOrder = 3000;
 
         // Intetactable Anno Panel
-        MainGameUIManager.Instance.interactAnno_UIController.Set_VisualCG(false);
+        MainGameUIManager.instance.interactAnno_UIController.Set_VisualCG(false);
 
         // Sound
-        SoundManager.Instance.Set_MasterVolume(1f, 0f, 2.5f);
+        SoundManager.instance.Set_MasterVolume(1f, 0f, 2.5f);
     }
 
     protected override void Tween_Complete()
@@ -82,15 +82,15 @@ public class EndingElevatorController : ElevatorController, IInteract
         // 통로 맵으로 가는 엘레베이터가 아니면 맵 생성
         if (Is_LobbyElevator == true || !ForPassageElevator) 
         {
-            StageManager.Instance.Play_GenStage(NextStageIndex);
+            StageManager.instance.Play_GenStage(NextStageIndex);
         }
         else // 둘 모두 아니면 통로 맵 생성
         {
-            StageManager.Instance.Play_GenPassageStage(NextStageIndex);
+            StageManager.instance.Play_GenPassageStage(NextStageIndex);
         }
 
-        SaveDataManager.Instance.Save_JsonData();
-        MainGameUIManager.Instance.Play_SaveData();
+        SaveDataManager.instance.Save_JsonData();
+        MainGameUIManager.instance.Play_SaveData();
 
         Resources.UnloadUnusedAssets();
         GC.Collect();
@@ -110,14 +110,14 @@ public class EndingElevatorController : ElevatorController, IInteract
     public string Get_InteractName(out bool _CanInteract)
     {
         _CanInteract = IsOn;
-        return ResourceManager.Instance.Get_StaticWord(3);
+        return ResourceManager.instance.Get_StaticWord(3);
     }
 
     public void Play_Interact()
     {
         if (IsOn)
         {
-            PlayerManager.Instance.playerController.CurrentInteractable.Value = null;
+            PlayerManager.instance.playerController.CurrentInteractable.Value = null;
             Play_MoveToTarget();
         }
     }

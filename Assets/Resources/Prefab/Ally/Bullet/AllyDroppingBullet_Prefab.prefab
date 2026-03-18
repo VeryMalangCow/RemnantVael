@@ -191,11 +191,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a39f87533861747ab619234fc27d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 7754987835335729850}
   ThisSR: {fileID: 2506341436009816347}
   TargetRange: 10
   ShadowTF: {fileID: 4030447465785416527}
+  ThisTrail: {fileID: 7307784400060210891}
+  ThisLight: {fileID: 8889175613378231609}
   DroppingSpeed: 0
   CurrentDroppingTime: 0
   ShadowSize: {x: 0, y: 0}
@@ -216,8 +218,8 @@ MonoBehaviour:
       CanKB: 0
       KBPower: 0
       KBTime: 0
-  ThisTrail: {fileID: 7307784400060210891}
-  ThisLight: {fileID: 8889175613378231609}
+  SizeState:
+    Size: 0
 --- !u!1 &3054027541298377550
 GameObject:
   m_ObjectHideFlags: 0

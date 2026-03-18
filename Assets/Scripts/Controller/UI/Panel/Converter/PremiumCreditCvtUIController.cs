@@ -45,13 +45,13 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
     public void Offset_Subscribe()
     {
-        PlayerManager.Instance.playerController.CurrentCredit
+        PlayerManager.instance.playerController.CurrentCredit
             .Subscribe(_Value =>
             {
                 C_CvtMaterialEUI.Set_PossessionAmountTxt(_Value.ToString());
             }); 
         
-        PlayerManager.Instance.playerController.Get_CurrentEP()
+        PlayerManager.instance.playerController.Get_CurrentEP()
             .Subscribe(_Value =>
             {
                 EP_CvtMaterialEUI.Set_PossessionAmountTxt(_Value.ToString());
@@ -67,8 +67,8 @@ public class PremiumCreditCvtUIController : ConverterUIController
         base.Set_LanguageTxt();
 
         // Label
-        LabelName = ResourceManager.Instance.Get_StaticWord(124) + " " +
-            ResourceManager.Instance.Get_StaticWord(125);
+        LabelName = ResourceManager.instance.Get_StaticWord(124) + " " +
+            ResourceManager.instance.Get_StaticWord(125);
         LabelTxt.text = LabelName;
 
         C_CvtMaterialEUI.Set_Language();
@@ -106,7 +106,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
     protected override void Set_MaxAcquBookAmount()
     {
         // Data
-        PlayerController pc = PlayerManager.Instance.playerController;
+        PlayerController pc = PlayerManager.instance.playerController;
 
         int currentPossibilityCredit = 
             Get_Acquisitable_Credit(pc.CurrentCredit.Value);
@@ -124,7 +124,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
         base.Set_AcquBookAmount(_Amount);
 
         // Data
-        PlayerController pc = PlayerManager.Instance.playerController;
+        PlayerController pc = PlayerManager.instance.playerController;
         Debug.Assert(pc, "Player is Null");
 
         int needCredit = AcquisitionBookAmount * Need_Credit;
@@ -150,7 +150,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
         base.Convert(); // Gain
 
         // Lost
-        PlayerController pc = PlayerManager.Instance.playerController;
+        PlayerController pc = PlayerManager.instance.playerController;
         pc.Add_CurrentCredit(-(AcquisitionBookAmount * Need_Credit));
         pc.Add_CurrentEP(-(AcquisitionBookAmount * Need_EP));
 

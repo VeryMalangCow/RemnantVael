@@ -122,12 +122,12 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     // 유도탄 발사
     private void Activity_MI_000(int rank, EnemyController enemy = null)
     {
-        Activity_Derivative(rank, eDamageType.Energy, PoolingManager.Instance.moduleItem_000_Bullets);
+        Activity_Derivative(rank, eDamageType.Energy, PoolingManager.instance.moduleItem_000_Bullets);
     }
 
     private void Activity_MI_001(int rank, EnemyController enemy = null)
     {
-        Activity_Derivative(rank, eDamageType.Physics, PoolingManager.Instance.moduleItem_001_Bullets);
+        Activity_Derivative(rank, eDamageType.Physics, PoolingManager.instance.moduleItem_001_Bullets);
     }
 
     #endregion
@@ -194,25 +194,25 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     // 치명타 발생 => 공격력 버프
     private void Activity_MC_005(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-        BuffManager.Instance.Gain_Buff(1);
+        BuffManager.instance.Gain_Buff(1);
     }
 
     // 치명타 배수 버프
     private void Activity_MC_006(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-        BuffManager.Instance.Gain_Buff(8);
+        BuffManager.instance.Gain_Buff(8);
     }
 
     // 기본 공격 적중 => 공속 버프
     private void Activity_MC_007(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-        BuffManager.Instance.Gain_Buff(9);
+        BuffManager.instance.Gain_Buff(9);
     }
 
     // 공격 일정 시간 하지 않으면 => 공격력 버프
     private void Activity_MC_008(int _Rank, EnemyController _Enemy = null, BulletController _Bullet = null)
     {
-        BuffManager.Instance.Reduce_Buff(10);
+        BuffManager.instance.Reduce_Buff(10);
     }
 
     #endregion
@@ -223,7 +223,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     private void Activity_Derivative(int _Rank, eDamageType _DmgType, TTypePooling<PlayerBulletController> _Bullet)
     {
         // 편의성
-        PlayerController PC = PlayerManager.Instance.playerController;
+        PlayerController PC = PlayerManager.instance.playerController;
         PlayerWeaponController PCWeapon = PC.BaseWeapon;
 
         // 확률
@@ -232,7 +232,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             // 데미지 계산
             float dmg = _Rank * PCWeapon.BaseDamage.ActualState.Value;
 
-            PlayerBulletController pbc = PoolingManager.Instance.Get_OP(_Bullet);
+            PlayerBulletController pbc = PoolingManager.instance.Get_OP(_Bullet);
             Vector2 dir = DevTool.Get_MinFireDir(PC.transform.position);
 
             // 스폰 탄 스탯

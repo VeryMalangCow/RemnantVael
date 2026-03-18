@@ -64,11 +64,11 @@ public class VaultController : DestructibleBuildController
 
     private void Set_AnimValue()
     {
-        OnOffAC = ResourceManager.Instance.Get_VaultAnim(CurrentGrade);
-        OnOffStateAC = ResourceManager.Instance.vault_StateAC;
+        OnOffAC = ResourceManager.instance.Get_VaultAnim(CurrentGrade);
+        OnOffStateAC = ResourceManager.instance.vault_StateAC;
 
-        BrokenAC = ResourceManager.Instance.Get_VaultBrokenAnim(CurrentGrade);
-        BrokenStateAC = ResourceManager.Instance.vault_StateAC.TypeBase;
+        BrokenAC = ResourceManager.instance.Get_VaultBrokenAnim(CurrentGrade);
+        BrokenStateAC = ResourceManager.instance.vault_StateAC.TypeBase;
     }
 
     public void Set_Upgrade()
@@ -108,7 +108,7 @@ public class VaultController : DestructibleBuildController
                 break;
         }
 
-        VaultController targetVault = DevTool.Get_ComponentTType<VaultController>(Instantiate(StageManager.Instance.Get_VaultCorrectType(resultType), gameObject.transform.parent));
+        VaultController targetVault = DevTool.Get_ComponentTType<VaultController>(Instantiate(StageManager.instance.Get_VaultCorrectType(resultType), gameObject.transform.parent));
         targetVault.transform.localPosition = transform.localPosition;
         targetVault.Change_OperValue(RepairOper, RerollOper, UpgradeOper);
 

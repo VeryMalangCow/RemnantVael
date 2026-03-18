@@ -76,10 +76,10 @@ public class PuzzleReadyPanelEUIController : ElementUIController
         // Ready
         ReadyCG.alpha = 1f;
         ReadyCG.gameObject.SetActive(true);
-        ReadyAnnoTxt.text = $"<< {ResourceManager.Instance.Get_StaticWord(90)} >>";
+        ReadyAnnoTxt.text = $"<< {ResourceManager.instance.Get_StaticWord(90)} >>";
         ReadyTimeLimitTxt.text = $"{(int)_CurrentCountdown}{_SecondString}";
-        ReadyInputAnnoImg.sprite = ResourceManager.Instance.spaceBarSprite;
-        ReadyKeyAnnoTxt.text = $"{ResourceManager.Instance.Get_StaticWord(88)} : {ResourceManager.Instance.Get_StaticWord(89)} & {ResourceManager.Instance.Get_StaticWord(85)}";
+        ReadyInputAnnoImg.sprite = ResourceManager.instance.spaceBarSprite;
+        ReadyKeyAnnoTxt.text = $"{ResourceManager.instance.Get_StaticWord(88)} : {ResourceManager.instance.Get_StaticWord(89)} & {ResourceManager.instance.Get_StaticWord(85)}";
 
         WarningRT.anchoredPosition = new Vector2(RuleWarningXRTPos.TypeBase, WarningRT.anchoredPosition.y);
         RuleRT.anchoredPosition = new Vector2(-RuleWarningXRTPos.TypeBase, RuleRT.anchoredPosition.y);
@@ -91,17 +91,17 @@ public class PuzzleReadyPanelEUIController : ElementUIController
         ReadyKeyAnnoRT.localScale = Vector2.one;
 
         // Rule (Left)
-        DevTool.Set_Color(ResourceManager.Instance.unlockedClr, RuleTxt);
-        DevTool.Set_Color(ResourceManager.Instance.unlockedClr, RuleDescTxt);
+        DevTool.Set_Color(ResourceManager.instance.unlockedClr, RuleTxt);
+        DevTool.Set_Color(ResourceManager.instance.unlockedClr, RuleDescTxt);
 
-        RuleTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(94)} >";
+        RuleTxt.text = $"< {ResourceManager.instance.Get_StaticWord(94)} >";
 
         // Warning (Right)
-        DevTool.Set_Color(ResourceManager.Instance.lockedClr, WarningTxt);
-        DevTool.Set_Color(ResourceManager.Instance.lockedClr, WarningDescTxt);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, WarningTxt);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, WarningDescTxt);
 
-        WarningTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(93)} >";
-        WarningDescTxt.text = ResourceManager.Instance.Get_StaticDesc(32).Replace("\\n", "\n");
+        WarningTxt.text = $"< {ResourceManager.instance.Get_StaticWord(93)} >";
+        WarningDescTxt.text = ResourceManager.instance.Get_StaticDesc(32).Replace("\\n", "\n");
     }
 
     public void Set_RuleDesc(string _Desc)

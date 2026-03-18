@@ -40,7 +40,7 @@ public class BuffManager : Singleton<BuffManager>
         for (int i = 0; i < bcArray.Length; i++)
         {
             allBuffDict.Add(bcArray[i].Get_ID(), bcArray[i]);
-            if (bcArray[i].Condition_PlayerSyncSet)
+            if (bcArray[i].condition_PlayerSyncSet)
             {
                 allWhenSyncSetDict.Add(bcArray[i].Get_ID(), bcArray[i]);
             }

@@ -41,7 +41,7 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
         SuccessTxt = DevTool.Get_ComponentTType(SuccessCG.transform.GetChild(0).gameObject, out TMP_Text sTxt) ? sTxt : null;
 
         // Key Img
-        InputImg.sprite = ResourceManager.Instance.spaceBarSprite;
+        InputImg.sprite = ResourceManager.instance.spaceBarSprite;
         InputImg.SetNativeSize();
     }
 
@@ -51,13 +51,13 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
 
     public void Set_AllStart(bool _CanSuccess)
     {
-        DevTool.Set_Color(ResourceManager.Instance.lockedClr, FailureTxt);
-        DevTool.Set_Color(ResourceManager.Instance.unlockedClr, SuccessTxt);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, FailureTxt);
+        DevTool.Set_Color(ResourceManager.instance.unlockedClr, SuccessTxt);
 
-        TryUnlockTxt.text = ResourceManager.Instance.Get_StaticWord(85);
-        InputTxt.text = ResourceManager.Instance.Get_StaticWord(88);
-        SuccessTxt.text = ResourceManager.Instance.Get_StaticWord(86);
-        FailureTxt.text = ResourceManager.Instance.Get_StaticWord(87);
+        TryUnlockTxt.text = ResourceManager.instance.Get_StaticWord(85);
+        InputTxt.text = ResourceManager.instance.Get_StaticWord(88);
+        SuccessTxt.text = ResourceManager.instance.Get_StaticWord(86);
+        FailureTxt.text = ResourceManager.instance.Get_StaticWord(87);
 
         Play_LineSetChange(_CanSuccess);
     }

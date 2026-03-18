@@ -107,7 +107,7 @@ public abstract class TotemeController : DroppingDepthController
         BulletState_PosAndRot _State_PosAndRot,
         BulletState_Size _State_Size)
     {
-        UnitManager.Instance.Add_Unit(this);
+        UnitManager.instance.Add_Unit(this);
 
         base.Set_State_Base(null, _DroppingTime, _TopYPos, _BottomYPos);
 
@@ -141,7 +141,7 @@ public abstract class TotemeController : DroppingDepthController
         int amount = (int)(_AreaSize.x * PointAmountPerSize);
 
         List<Vector2> pointPosList = Get_PointPosList(targetArea, amount);
-        BuffPointList = PoolingManager.Instance.Get_OP_AreaPointSRList(amount);
+        BuffPointList = PoolingManager.instance.Get_OP_AreaPointSRList(amount);
 
         for (int i = 0; i < amount; i++)
         {
@@ -161,7 +161,7 @@ public abstract class TotemeController : DroppingDepthController
 
     protected override void SetOn_State()
     {
-        gameObject.transform.SetParent(StageManager.Instance.currentRoomController.transform);
+        gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
         gameObject.SetActive(true);
 
         SetOn_Trail();
@@ -204,7 +204,7 @@ public abstract class TotemeController : DroppingDepthController
 
     private void Active_StartSetting()
     {
-        TimerManager.Instance.Add_Toteme(this);
+        TimerManager.instance.Add_Toteme(this);
         InAreaAllies = new List<AllyController>();
 
         Is_Activating = true;
@@ -228,7 +228,7 @@ public abstract class TotemeController : DroppingDepthController
         if (!Is_Activating) return;
 
         if (InAreaPlayer)
-            BuffManager.Instance.Gain_Buff(PlayerBuffID);
+            BuffManager.instance.Gain_Buff(PlayerBuffID);
         
         for (int i = 0; i < InAreaAllies.Count; i++)
         {
@@ -342,7 +342,7 @@ public abstract class TotemeController : DroppingDepthController
 
     private void Remove_Object()
     {
-        UnitManager.Instance.Remove_Unit(this);
+        UnitManager.instance.Remove_Unit(this);
 
         RemoveForce_Object();
     }
@@ -353,7 +353,7 @@ public abstract class TotemeController : DroppingDepthController
 
         Reset_State();
         SetOff_BuffPoint();
-        TimerManager.Instance.Remove_Toteme(this);
+        TimerManager.instance.Remove_Toteme(this);
 
         PoolingSet();
 
@@ -366,7 +366,7 @@ public abstract class TotemeController : DroppingDepthController
         for (int i = 0; i < BuffPointList.Count; i++)
         {
             BuffPointList[i].gameObject.SetActive(false);
-            PoolingManager.Instance.areaPointSRs.Enqueue(BuffPointList[i]);
+            PoolingManager.instance.areaPointSRs.Enqueue(BuffPointList[i]);
         }
         BuffPointList = null;
     }

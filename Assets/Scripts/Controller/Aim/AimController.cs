@@ -68,7 +68,7 @@ public class AimController : StaticDepthController
     {
         gameObject.transform.position = Vector2.Lerp(
             this.transform.position, 
-            InputManager.Instance.mousePosByWorld, 
+            InputManager.instance.mousePosByWorld, 
             AimFollowSpeed * _DeltaTime);
     }
 
@@ -77,7 +77,7 @@ public class AimController : StaticDepthController
     {
         TargetObject.transform.localRotation = Quaternion.Slerp(
             TargetObject.transform.localRotation,
-            DevTool.Get_RotFromDir(InputManager.Instance.dirFromPlayerPos), 
+            DevTool.Get_RotFromDir(InputManager.instance.dirFromPlayerPos), 
             AimFollowSpeed * _DeltaTime);
     }
 

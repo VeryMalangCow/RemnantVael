@@ -34,7 +34,7 @@ public class PanelUIController : SinglePanelUIController
         base.SetOn_ThisPanel();
 
         // Actual Tab
-        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
+        SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
         SetOn_Window(ThisPanelTabList[0]);
     }
 
@@ -43,7 +43,7 @@ public class PanelUIController : SinglePanelUIController
         //Other
         if (CurrentThisPanelTab == ThisPanelTabList[_indexWindow]) return;
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.Play_2D_SFX_UI("Click_01");
         SetOn_Window(ThisPanelTabList[_indexWindow]);
     }
 
@@ -51,7 +51,7 @@ public class PanelUIController : SinglePanelUIController
     {
         base.SetOff_ThisPanel();
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
+        SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
     }
 
     #endregion
@@ -109,8 +109,8 @@ public class PanelUIController : SinglePanelUIController
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             DevTool.Get_ComponentTType<RectTransform>(gameObject), // 변환할 UI(RectTransform)
-            InputManager.Instance.mousePos, // 현재 마우스 좌표 (Screen Space)
-            MainGameUIManager.Instance.uiCamera, // Canvas의 카메라 (Render Mode 따라 null 가능)
+            InputManager.instance.mousePos, // 현재 마우스 좌표 (Screen Space)
+            MainGameUIManager.instance.uiCamera, // Canvas의 카메라 (Render Mode 따라 null 가능)
             out Vector2 localPoint); // 변환된 Local 좌표
 
         return localPoint;

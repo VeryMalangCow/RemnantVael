@@ -25,7 +25,7 @@ public class GameManager : PersistentSingleton<GameManager>
     [SerializeField] public bool wasWatched = false;
 
     public static int languageID = 1;
-    public static eScreenMode screenMode = eScreenMode.FullScreen;
+    public static eScreenMode screenMode = eScreenMode.fullScreen;
     public static eResolution resolutionMode = eResolution.w1920h1080;
     public static eFPS fps = eFPS.f144;
     public readonly static string[] kindOfLanguage = new string[] { "Eng", "Kor" };
@@ -47,37 +47,37 @@ public class GameManager : PersistentSingleton<GameManager>
 
     public void Set_BaseOption()
     {
-        OptionJsonData savedData = SaveDataManager.Instance.jsonData.OptionData;
+        OptionJsonData savedData = SaveDataManager.instance.jsonData.optionData;
 
-        ResourceManager.Instance.Set_LanguageFont(savedData.LanguageID);
+        ResourceManager.instance.Set_LanguageFont(savedData.languageID);
 
-        Set_Screen(savedData.ResolutionMode, savedData.ScreenMode);
-        Set_FPS(savedData.FPS);
-        SoundManager.Instance.Set_BgmVolume(savedData.BGMVolume);
-        SoundManager.Instance.Set_SfxVolume(savedData.SFXVolume);
+        Set_Screen(savedData.resolutionMode, savedData.screenMode);
+        Set_FPS(savedData.fps);
+        SoundManager.instance.Set_BgmVolume(savedData.bgmVolume);
+        SoundManager.instance.Set_SfxVolume(savedData.sfxVolume);
     }
 
-    public void Set_Screen(eResolution _ResolutionMode, eScreenMode _ScreenMode)
+    public void Set_Screen(eResolution resolutionMode, eScreenMode screenMode)
     {
-        resolutionMode = _ResolutionMode;
-        SaveDataManager.Instance.jsonData.OptionData.ResolutionMode = _ResolutionMode;
-        screenMode = _ScreenMode;
-        SaveDataManager.Instance.jsonData.OptionData.ScreenMode = _ScreenMode;
+        GameManager.resolutionMode = resolutionMode;
+        SaveDataManager.instance.jsonData.optionData.resolutionMode = resolutionMode;
+        GameManager.screenMode = screenMode;
+        SaveDataManager.instance.jsonData.optionData.screenMode = screenMode;
 
-        string[] reso = _ResolutionMode.ToString().Split("h");
+        string[] reso = resolutionMode.ToString().Split("h");
         reso[0] = reso[0].Replace("w", "");
         FullScreenMode mode = FullScreenMode.MaximizedWindow;
-        if (_ScreenMode == eScreenMode.FullScreen) mode = FullScreenMode.FullScreenWindow;
-        else if (_ScreenMode == eScreenMode.Window) mode = FullScreenMode.Windowed;
+        if (screenMode == eScreenMode.fullScreen) mode = FullScreenMode.FullScreenWindow;
+        else if (screenMode == eScreenMode.window) mode = FullScreenMode.Windowed;
         else mode = FullScreenMode.MaximizedWindow;
 
         Screen.SetResolution(Convert.ToInt32(reso[0]), Convert.ToInt32(reso[1]), mode);
     }
 
-    public void Set_FPS(eFPS _Mode)
+    public void Set_FPS(eFPS mode)
     {
-        GameManager.fps = _Mode;
-        SaveDataManager.Instance.jsonData.OptionData.FPS = _Mode;
+        GameManager.fps = mode;
+        SaveDataManager.instance.jsonData.optionData.fps = mode;
 
         int fps = Convert.ToInt32(GameManager.fps.ToString().Replace("f", "")); 
         Application.targetFrameRate = fps;
@@ -891,11 +891,11 @@ public class DevTool
     private static float FireMinDisLimit = 4;
     public static Vector2 Get_MinFireDir(Vector2 _SpawnPos)
     {
-        Vector2 targetPos = InputManager.Instance.mousePosByWorld;
-        if (FireMinDisLimit > Vector3.Magnitude(InputManager.Instance.dirFromPlayerPos))
+        Vector2 targetPos = InputManager.instance.mousePosByWorld;
+        if (FireMinDisLimit > Vector3.Magnitude(InputManager.instance.dirFromPlayerPos))
         {
-            targetPos = (Vector2)PlayerManager.Instance.playerController.transform.position +
-                InputManager.Instance.dirFromPlayerPos.normalized * FireMinDisLimit;
+            targetPos = (Vector2)PlayerManager.instance.playerController.transform.position +
+                InputManager.instance.dirFromPlayerPos.normalized * FireMinDisLimit;
         }
 
         return (targetPos - _SpawnPos).normalized;
@@ -1245,12 +1245,12 @@ public class DevTool
 
     public static Vector2 Get_DirForPlayer<T>(T _TType) where T : MonoBehaviour
     {
-        return Get_Dir(_TType.gameObject, PlayerManager.Instance.playerController.gameObject);
+        return Get_Dir(_TType.gameObject, PlayerManager.instance.playerController.gameObject);
     }
 
     public static float Get_DisForPlayer<T>(T _TType) where T : MonoBehaviour
     {
-        return Get_Dis(_TType.gameObject, PlayerManager.Instance.playerController.gameObject);
+        return Get_Dis(_TType.gameObject, PlayerManager.instance.playerController.gameObject);
     }
 
     #endregion
@@ -1294,7 +1294,7 @@ public class DevTool
     // È­¿°
     public static float Get_FrameDmg(EnemyBuffController _Buff)
     {
-        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 0.01f
             * _Buff.FlameStack.CurrentStack
             * (_Buff.InfernoStack.CurrentStack + 1);
@@ -1302,7 +1302,7 @@ public class DevTool
     public static float Get_FlameExplDmg(out eDamageType _DmgType)
     {
         _DmgType = eDamageType.Physics;
-        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 10f;
     }
 
@@ -1311,7 +1311,7 @@ public class DevTool
     public static float Get_ColdExplDmg(out eDamageType _DmgType)
     {
         _DmgType = eDamageType.Energy;
-        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 7.5f;
     }
 
@@ -1319,7 +1319,7 @@ public class DevTool
     // Àü±â
     public static float Get_ElectricityDmg(EnemyBuffController _Buff)
     {
-        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 0.005f
             * _Buff.ElectricityStack.CurrentStack
             * (_Buff.PlasmaStack.CurrentStack + 1);
@@ -1327,7 +1327,7 @@ public class DevTool
     public static float Get_ElectricityExplDmg(out eDamageType _DmgType)
     {
         _DmgType = eDamageType.Energy;
-        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 7.5f;
     }
 
@@ -1335,7 +1335,7 @@ public class DevTool
     public static float Get_CorrosionExplDmg(out eDamageType _DmgType)
     {
         _DmgType = eDamageType.Physics;
-        return PlayerManager.Instance.playerController.BaseWeapon.BaseDamage.BuffedState
+        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.BuffedState
             * 5f;
     }
 
@@ -2397,7 +2397,7 @@ public class BUShopData<T>
 
     private bool Can_Buy()
     {
-        return PlayerManager.Instance.playerController.Is_EnoughChargedBettery(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade) &&
+        return PlayerManager.instance.playerController.Is_EnoughChargedBettery(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade) &&
             BaseUpgradeController.UsingShop != null &&
             BaseUpgradeController.UsingShop.CurrentDur > 0;
     }
@@ -2406,13 +2406,13 @@ public class BUShopData<T>
     {
         if (Can_Buy())
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
+            SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
 
             // Dur
             BaseUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
 
             // Cost
-            PlayerManager.Instance.playerController.Use_ChargedBettery(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade);
+            PlayerManager.instance.playerController.Use_ChargedBettery(LevelData.LevelDataList[State.CurrentLevel.Value].NeedEC_ForUpgrade);
 
             Set_LevelUp();
         }
@@ -2429,7 +2429,7 @@ public class BUShopData<T>
         UpgradeEUI.BuyBtn.ThisBtn.interactable = DevTool.BU_MaxLevel <= State.CurrentLevel.Value ? false : true;
 
         // Desc
-        MainGameUIManager.Instance.baseUpgrade_UIController.SetOn_Desc(UpgradeEUI, UpgradeEUI.SkillNameTxt.text);
+        MainGameUIManager.instance.baseUpgrade_UIController.SetOn_Desc(UpgradeEUI, UpgradeEUI.SkillNameTxt.text);
     }
 
     #endregion
@@ -2749,7 +2749,7 @@ public class ModuleState : IWhen
     public void Set_State(ItemData _ItemData)
     {
         ThisItemData = new ItemData(_ItemData);
-        ThisActivityFuncDele = ModuleItemActivityManager.Instance.Get_CollectActivity_MI(ThisItemData.ID);
+        ThisActivityFuncDele = ModuleItemActivityManager.instance.Get_CollectActivity_MI(ThisItemData.ID);
     }
 
     #endregion
@@ -2889,7 +2889,7 @@ public class SynchoronyState : IWhenSync
     {
         ID = _ID;
         SynergyRank = _SynergyRank;
-        ThisActivityFuncDele = ModuleItemActivityManager.Instance.Get_CollectActivity_MC(ID);
+        ThisActivityFuncDele = ModuleItemActivityManager.instance.Get_CollectActivity_MC(ID);
     }
 
     #endregion
@@ -2947,7 +2947,7 @@ public class SynchoronyState005 : SynchoronyState, IWhenSync_CriticalHit
     {
         base.Set_State(_ID, _SynergyRank);
 
-        if (BuffManager.Instance.Get_CorrectBuff(1) is BuffDmgController dmgBuff)
+        if (BuffManager.instance.Get_CorrectBuff(1) is BuffDmgController dmgBuff)
         {
             dmgBuff.Set_Value(DevTool.Get_SyncValue(ValueList, _SynergyRank));
             dmgBuff.Set_CoolTimeValue(DevTool.Get_SyncValue(CooltimeList, _SynergyRank));
@@ -2965,7 +2965,7 @@ public class SynchoronyState006 : SynchoronyState, IWhenSync_Start
     {
         base.Set_State(_ID, _SynergyRank);
 
-        if (BuffManager.Instance.Get_CorrectBuff(8) is BuffCDController CDBuff)
+        if (BuffManager.instance.Get_CorrectBuff(8) is BuffCDController CDBuff)
         {
             CDBuff.Set_Value(DevTool.Get_SyncValue(ValueList, _SynergyRank));
         }
@@ -2984,7 +2984,7 @@ public class SynchoronyState007 : SynchoronyState, IWhenSync_Hit
     {
         base.Set_State(_ID, _SynergyRank);
 
-        if (BuffManager.Instance.Get_CorrectBuff(9) is BuffRofController rofBuff)
+        if (BuffManager.instance.Get_CorrectBuff(9) is BuffRofController rofBuff)
         {
             rofBuff.Set_Value(DevTool.Get_SyncValue(ValueList, _SynergyRank));
             rofBuff.Set_MaxChargeValue(DevTool.Get_SyncValue(MaxChargeList, _SynergyRank));
@@ -3005,7 +3005,7 @@ public class SynchoronyState008 : SynchoronyState, IWhenSync_AfterFire
     {
         base.Set_State(_ID, _SynergyRank);
 
-        if (BuffManager.Instance.Get_CorrectBuff(10) is BuffDmgController dmgBuff)
+        if (BuffManager.instance.Get_CorrectBuff(10) is BuffDmgController dmgBuff)
         {
             dmgBuff.Set_Value(DevTool.Get_SyncValue(ValueList, _SynergyRank));
             dmgBuff.Set_MaxChargeValue(DevTool.Get_SyncValue(MaxChargeList, _SynergyRank));
@@ -3058,7 +3058,7 @@ public class AllySyncState : IWhenAlly
         ThisAlly = _Ally;
         ID = _ID;
         SynergyRank = _SynergyRank;
-        ThisActivityFuncDele = AllySyncManager.Instance.Get_CollectActivity_Sync(ID);
+        ThisActivityFuncDele = AllySyncManager.instance.Get_CollectActivity_Sync(ID);
     }
 
     #endregion
@@ -3673,23 +3673,23 @@ public class StatusEffect_Temporary_WithAmount : StatusEffect_Temporary
         switch (StatusType)
         {
             case eStatusEffect.Flame:
-                return new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingFire);
+                return new DeleEnemy(ModuleItemManager.instance.ActiveSync_EnemyTakingFire);
 
             case eStatusEffect.Cold:
-                return new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingCold);
+                return new DeleEnemy(ModuleItemManager.instance.ActiveSync_EnemyTakingCold);
 
             case eStatusEffect.Electricity:
-                return new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingElectricity);
+                return new DeleEnemy(ModuleItemManager.instance.ActiveSync_EnemyTakingElectricity);
 
             case eStatusEffect.Corrosion:
-                return new DeleEnemy(ModuleItemManager.Instance.ActiveSync_EnemyTakingCorrosion);
+                return new DeleEnemy(ModuleItemManager.instance.ActiveSync_EnemyTakingCorrosion);
         }
         return null;
     }
 
     private DeleEnemy Get_AllyIDele(int _ID)
     {
-        AllyController ally = AllyManager.Instance.AllAlly[_ID];
+        AllyController ally = AllyManager.instance.allAlly[_ID];
         switch (StatusType)
         {
             case eStatusEffect.Flame:
@@ -4692,28 +4692,28 @@ public class AllyBuffState : AllyState
 
         BuffDict = new Dictionary<string, List<AllyBuff>>
         {
-            { AllyManager.StateTypeList[0], Dmg_BuffList },
-            { AllyManager.StateTypeList[1], Rof_BuffList },
-            { AllyManager.StateTypeList[2], MovementSpeed_BuffList },
-            { AllyManager.StateTypeList[3], AttackSize_BuffList },
-            { AllyManager.StateTypeList[4], CC_BuffList },
-            { AllyManager.StateTypeList[5], CD_BuffList },
-            { AllyManager.StateTypeList[6], MuzzleSpeed_BuffList },
-            { AllyManager.StateTypeList[7], KBPower_BuffList },
-            { AllyManager.StateTypeList[8], Dur_BuffList }
+            { AllyManager.stateTypeList[0], Dmg_BuffList },
+            { AllyManager.stateTypeList[1], Rof_BuffList },
+            { AllyManager.stateTypeList[2], MovementSpeed_BuffList },
+            { AllyManager.stateTypeList[3], AttackSize_BuffList },
+            { AllyManager.stateTypeList[4], CC_BuffList },
+            { AllyManager.stateTypeList[5], CD_BuffList },
+            { AllyManager.stateTypeList[6], MuzzleSpeed_BuffList },
+            { AllyManager.stateTypeList[7], KBPower_BuffList },
+            { AllyManager.stateTypeList[8], Dur_BuffList }
         };
 
         BuffIsOnDict = new Dictionary<string, RefData<bool>>
         {
-            { AllyManager.StateTypeList[0], Dmg_IsExist },
-            { AllyManager.StateTypeList[1], Rof_IsExist },
-            { AllyManager.StateTypeList[2], MovementSpeed_IsExist },
-            { AllyManager.StateTypeList[3], AttackSize_IsExist },
-            { AllyManager.StateTypeList[4], CC_IsExist },
-            { AllyManager.StateTypeList[5], CD_IsExist },
-            { AllyManager.StateTypeList[6], MuzzleSpeed_IsExist },
-            { AllyManager.StateTypeList[7], KBPower_IsExist },
-            { AllyManager.StateTypeList[8], Dur_IsExist }
+            { AllyManager.stateTypeList[0], Dmg_IsExist },
+            { AllyManager.stateTypeList[1], Rof_IsExist },
+            { AllyManager.stateTypeList[2], MovementSpeed_IsExist },
+            { AllyManager.stateTypeList[3], AttackSize_IsExist },
+            { AllyManager.stateTypeList[4], CC_IsExist },
+            { AllyManager.stateTypeList[5], CD_IsExist },
+            { AllyManager.stateTypeList[6], MuzzleSpeed_IsExist },
+            { AllyManager.stateTypeList[7], KBPower_IsExist },
+            { AllyManager.stateTypeList[8], Dur_IsExist }
         };
     }
 
@@ -4792,9 +4792,9 @@ public class AllySpriteSet
 
     public AllySpriteSet(string _Name)
     {
-        AllyIdle = ResourceManager.Instance.Get_AllySprite(_Name, "Idle");
-        AllyMove = ResourceManager.Instance.Get_AllySprite(_Name, "Move");
-        AllyAttack = ResourceManager.Instance.Get_AllySprite(_Name, "Attack");
+        AllyIdle = ResourceManager.instance.Get_AllySprite(_Name, "Idle");
+        AllyMove = ResourceManager.instance.Get_AllySprite(_Name, "Move");
+        AllyAttack = ResourceManager.instance.Get_AllySprite(_Name, "Attack");
     }
 }
 
@@ -4940,7 +4940,7 @@ public abstract class AllyRequest
     public void Complete()
     {
         Ally.Gain_Trust(Rank + 1);
-        PlayerManager.Instance.playerController.Gain_Reputation((Rank + 1) * 0.2f);
+        PlayerManager.instance.playerController.Gain_Reputation((Rank + 1) * 0.2f);
         RewardDict[RewardType](Rank);
         Ally.DataOff_Request();
         Set_IWhenRemove();
@@ -4952,7 +4952,7 @@ public abstract class AllyRequest
     public void Fail()
     {
         Ally.Reduce_Trust(Rank + 1);
-        PlayerManager.Instance.playerController.Reduce_Reputation((Rank + 1) * 0.2f);
+        PlayerManager.instance.playerController.Reduce_Reputation((Rank + 1) * 0.2f);
         Ally.DataOff_Request();
         Set_IWhenRemove();
 
@@ -4984,9 +4984,9 @@ public abstract class AllyRequest
         { "EP", new Func<int, int>(Get_BookReward_EP) }
     };
 
-    private static void Gain_Reward_BC(int _Rank) { PlayerManager.Instance.playerController.Add_CurrentBettery(Get_BookReward_BC(_Rank)); }
-    private static void Gain_Reward_Credit(int _Rank) { PlayerManager.Instance.playerController.Add_CurrentCredit(Get_BookReward_Credit(_Rank)); }
-    private static void Gain_Reward_EP(int _Rank) { PlayerManager.Instance.playerController.Add_CurrentEP(Get_BookReward_EP(_Rank)); }
+    private static void Gain_Reward_BC(int _Rank) { PlayerManager.instance.playerController.Add_CurrentBettery(Get_BookReward_BC(_Rank)); }
+    private static void Gain_Reward_Credit(int _Rank) { PlayerManager.instance.playerController.Add_CurrentCredit(Get_BookReward_Credit(_Rank)); }
+    private static void Gain_Reward_EP(int _Rank) { PlayerManager.instance.playerController.Add_CurrentEP(Get_BookReward_EP(_Rank)); }
 
     private static int Get_BookReward_BC(int _Rank) { return _Rank + 1; }
     private static int Get_BookReward_Credit(int _Rank) { return (_Rank + 1) * 3; }
@@ -5068,7 +5068,7 @@ public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, I
 
     #region Get
 
-    public override string Get_Name() { return ResourceManager.Instance.Get_RequestName(0); }
+    public override string Get_Name() { return ResourceManager.instance.Get_RequestName(0); }
     public override string Get_CompleteDesc() { return ((IWhen_Complete_KillNormalEnemy)this).Get_WhenDesc(); }
     public override string Get_FailDesc() { return ((IWhen_Fail_TakingDamage)this).Get_WhenDesc(); }
 
@@ -5142,7 +5142,7 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
 
     #region Get
 
-    public override string Get_Name() { return ResourceManager.Instance.Get_RequestName(1); }
+    public override string Get_Name() { return ResourceManager.instance.Get_RequestName(1); }
     public override string Get_CompleteDesc() { return ((IWhen_Complete_KillEliteEnemy)this).Get_WhenDesc(); }
     public override string Get_FailDesc() { return ((IWhen_Fail_TakingDamage)this).Get_WhenDesc(); }
 
@@ -5669,14 +5669,14 @@ public struct ItemData_UIVisual
     {
         Icon = _Icon;
         Rank = _Rank;
-        RankIcon = ResourceManager.Instance.Get_RankIcon(Rank);
+        RankIcon = ResourceManager.instance.Get_RankIcon(Rank);
     }
 
     public ItemData_UIVisual(ItemData _ItemData)
     {
         Icon = _ItemData.ItemIcon;
         Rank = _ItemData.Rank;
-        RankIcon = ResourceManager.Instance.Get_RankIcon(Rank);
+        RankIcon = ResourceManager.instance.Get_RankIcon(Rank);
     }
 }
 
@@ -5928,15 +5928,15 @@ public interface IWhen_Request
 
 public interface IWhen_Complete_KillNormalEnemy : IWhen_Request 
 {
-    public string Get_WhenDesc() { return ResourceManager.Instance.Get_RequestCompleteDesc(0); }
-    public void Add_IWhenList() { AllyRequestManager.Instance.Add_RequestComplete("KillNormalEnemy", this); }
-    public void Remove_IWhenList() { AllyRequestManager.Instance.Remove_RequestComplete("KillNormalEnemy", this); }
+    public string Get_WhenDesc() { return ResourceManager.instance.Get_RequestCompleteDesc(0); }
+    public void Add_IWhenList() { AllyRequestManager.instance.Add_RequestComplete("KillNormalEnemy", this); }
+    public void Remove_IWhenList() { AllyRequestManager.instance.Remove_RequestComplete("KillNormalEnemy", this); }
 }
 public interface IWhen_Complete_KillEliteEnemy : IWhen_Request
 {
-    public string Get_WhenDesc() { return ResourceManager.Instance.Get_RequestCompleteDesc(1); }
-    public void Add_IWhenList() { AllyRequestManager.Instance.Add_RequestComplete("KillEliteEnemy", this); }
-    public void Remove_IWhenList() { AllyRequestManager.Instance.Remove_RequestComplete("KillEliteEnemy", this); }
+    public string Get_WhenDesc() { return ResourceManager.instance.Get_RequestCompleteDesc(1); }
+    public void Add_IWhenList() { AllyRequestManager.instance.Add_RequestComplete("KillEliteEnemy", this); }
+    public void Remove_IWhenList() { AllyRequestManager.instance.Remove_RequestComplete("KillEliteEnemy", this); }
 }
 
 
@@ -5948,15 +5948,15 @@ public interface IWhen_Fail
 
 public interface IWhen_Fail_TakingDamage : IWhen_Fail 
 {
-    public string Get_WhenDesc() { return ResourceManager.Instance.Get_RequestFailDesc(0); }
-    public void Add_IWhenList() { AllyRequestManager.Instance.Add_RequestFail("TakingDamage", this); }
-    public void Remove_IWhenList() { AllyRequestManager.Instance.Remove_RequestFail("TakingDamage", this); }
+    public string Get_WhenDesc() { return ResourceManager.instance.Get_RequestFailDesc(0); }
+    public void Add_IWhenList() { AllyRequestManager.instance.Add_RequestFail("TakingDamage", this); }
+    public void Remove_IWhenList() { AllyRequestManager.instance.Remove_RequestFail("TakingDamage", this); }
 }
 public interface IWhen_Fail_UsingSkill : IWhen_Fail
 {
-    public string Get_WhenDesc() { return ResourceManager.Instance.Get_RequestFailDesc(1); }
-    public void Add_IWhenList() { AllyRequestManager.Instance.Add_RequestFail("UsingSkill", this); }
-    public void Remove_IWhenList() { AllyRequestManager.Instance.Remove_RequestFail("UsingSkill", this); }
+    public string Get_WhenDesc() { return ResourceManager.instance.Get_RequestFailDesc(1); }
+    public void Add_IWhenList() { AllyRequestManager.instance.Add_RequestFail("UsingSkill", this); }
+    public void Remove_IWhenList() { AllyRequestManager.instance.Remove_RequestFail("UsingSkill", this); }
 }
 
 #endregion

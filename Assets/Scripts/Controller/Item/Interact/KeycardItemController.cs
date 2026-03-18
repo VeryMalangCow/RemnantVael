@@ -12,11 +12,11 @@ public class KeycardItemController : InteractItemController
 
     public void Set_TypeState(int _ID)
     {
-        ID = _ID;
+        id = _ID;
 
-        ThisSR.sprite = ResourceManager.Instance.Get_KeyCardSprite(ID);
-        AnimSR.color = ResourceManager.Instance.Get_KeycardColor(ID);
-        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.Instance.keycardOutlineAC);
+        ThisSR.sprite = ResourceManager.instance.Get_KeyCardSprite(id);
+        AnimSR.color = ResourceManager.instance.Get_KeycardColor(id);
+        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.instance.keycardOutlineAC);
         ThisAT.speed = 1.1f;
     }
 
@@ -27,15 +27,15 @@ public class KeycardItemController : InteractItemController
     public override string Get_InteractName(out bool _CanInteract)
     {
         _CanInteract = true;
-        return ResourceManager.Instance.Get_StaticWord(117);
+        return ResourceManager.instance.Get_StaticWord(117);
     }
 
     public override void Play_Interact()
     {
         base.Play_Interact();
 
-        PlayerManager.Instance.Gain_KeyCard(ID);
-        PoolingManager.Instance.keycardItems.Enqueue(this);
+        PlayerManager.instance.Gain_KeyCard(id);
+        PoolingManager.instance.keycardItems.Enqueue(this);
     }
 
     #endregion

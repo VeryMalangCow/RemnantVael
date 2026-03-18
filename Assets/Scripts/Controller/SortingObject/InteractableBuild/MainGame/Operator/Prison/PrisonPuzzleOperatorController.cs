@@ -31,7 +31,7 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
     {
         //base.Get_InteractName();
         _CanInteract = Can_Interact();
-        return ResourceManager.Instance.Get_StaticWord(59);
+        return ResourceManager.instance.Get_StaticWord(59);
     }
 
     public override void Play_Interact()
@@ -44,16 +44,16 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
         switch (TargetPrison)
         {
             case StrikeTeamPrisonController:
-                MainGameUIManager.Instance.boxLineConnector_UIController.Offset_FirstValue(TargetPrison);
-                MainGameUIManager.Instance.boxLineConnector_UIController.SetOn_ThisPanel();
+                MainGameUIManager.instance.boxLineConnector_UIController.Offset_FirstValue(TargetPrison);
+                MainGameUIManager.instance.boxLineConnector_UIController.SetOn_ThisPanel();
                 break;
             case UplinkTeamPrisonController:
-                MainGameUIManager.Instance.numShapeColorPassword_UIController.Offset_FirstValue(TargetPrison);
-                MainGameUIManager.Instance.numShapeColorPassword_UIController.SetOn_ThisPanel();
+                MainGameUIManager.instance.numShapeColorPassword_UIController.Offset_FirstValue(TargetPrison);
+                MainGameUIManager.instance.numShapeColorPassword_UIController.SetOn_ThisPanel();
                 break;
             case NeoTeamPrisonController:
-                MainGameUIManager.Instance.inOrderLocker_UIController.Offset_FirstValue(TargetPrison);
-                MainGameUIManager.Instance.inOrderLocker_UIController.SetOn_ThisPanel();
+                MainGameUIManager.instance.inOrderLocker_UIController.Offset_FirstValue(TargetPrison);
+                MainGameUIManager.instance.inOrderLocker_UIController.SetOn_ThisPanel();
                 break;
 
             default:
@@ -69,7 +69,7 @@ public class PrisonPuzzleOperatorController : PrisonOperatorController
 
     public void Set_Language()
     {
-        PayTxt.text = ResourceManager.Instance.Get_StaticWord(59);
+        PayTxt.text = ResourceManager.instance.Get_StaticWord(59);
     }
 
     #endregion

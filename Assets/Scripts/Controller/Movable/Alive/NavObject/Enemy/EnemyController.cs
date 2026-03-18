@@ -103,7 +103,7 @@ public abstract class EnemyController : NavObjectController
         Offset_Subscribe();
         Offset_Controller();
 
-        EnemyManager.Instance.poolingAllEnemyList.Add(this);
+        EnemyManager.instance.poolingAllEnemyList.Add(this);
     }
 
     private void Offset_FirstSetting()
@@ -171,7 +171,7 @@ public abstract class EnemyController : NavObjectController
 
         Reset_State();
 
-        DevTool.Add_InList(EnemyManager.Instance.currentEnemyList, this);
+        DevTool.Add_InList(EnemyManager.instance.currentEnemyList, this);
     }
 
     protected override void Update()
@@ -263,10 +263,10 @@ public abstract class EnemyController : NavObjectController
         Reset_ChargeState();
 
         if (Target == null) // 타겟 Player
-        { Target = PlayerManager.Instance.playerController.gameObject; }
+        { Target = PlayerManager.instance.playerController.gameObject; }
 
         if (CurrentRoomController == null) // 현재 Room
-        { CurrentRoomController = StageManager.Instance.currentRoomController; }
+        { CurrentRoomController = StageManager.instance.currentRoomController; }
 
     }
 
@@ -425,12 +425,12 @@ public abstract class EnemyController : NavObjectController
         // INTERFACE: 맞을 때 효과 
         if (_State.OwnerData.Owner == eCombatOwner.Player)
         {
-            ModuleItemManager.Instance.Active_Hit(this);
-            ModuleItemManager.Instance.ActiveSync_Hit();
+            ModuleItemManager.instance.Active_Hit(this);
+            ModuleItemManager.instance.ActiveSync_Hit();
         }
         else if (_State.OwnerData.Owner == eCombatOwner.Ally)
         {
-            AllyManager.Instance.AllAlly[_State.OwnerData.ID].ActiveAlly_Hit();
+            AllyManager.instance.allAlly[_State.OwnerData.ID].ActiveAlly_Hit();
         }
 
         // KB
@@ -446,12 +446,12 @@ public abstract class EnemyController : NavObjectController
             // INTERFACE: 치명타를 맞을 때 효과 
             if (_State.OwnerData.Owner == eCombatOwner.Player)
             {
-                ModuleItemManager.Instance.Active_CriticalHit(this);
-                ModuleItemManager.Instance.ActiveSync_CriticalHit();
+                ModuleItemManager.instance.Active_CriticalHit(this);
+                ModuleItemManager.instance.ActiveSync_CriticalHit();
             }
             else if (_State.OwnerData.Owner == eCombatOwner.Ally)
             {
-                AllyManager.Instance.AllAlly[_State.OwnerData.ID].ActiveAlly_CriticalHit();
+                AllyManager.instance.allAlly[_State.OwnerData.ID].ActiveAlly_CriticalHit();
             }
         }
 
@@ -462,9 +462,9 @@ public abstract class EnemyController : NavObjectController
 
         // 사운드
         if (!IsDead)
-        { SoundManager.Instance.Play_2D_SFX_Enemy(Get_AS(), "Hitted"); }
+        { SoundManager.instance.Play_2D_SFX_Enemy(Get_AS(), "Hitted"); }
         else
-        { SoundManager.Instance.Play_2D_SFX_Enemy("Killed"); }
+        { SoundManager.instance.Play_2D_SFX_Enemy("Killed"); }
     }
 
     #endregion
@@ -496,7 +496,7 @@ public abstract class EnemyController : NavObjectController
                 Set_CurrentSP_Zero();
             }
 
-            PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByShieldDmg(
+            PoolingManager.instance.Get_OP_DmgTxt().Offset_ByShieldDmg(
                     (Vector2)TargetObject.transform.position + new Vector2(uiX, 0.2f),
                     uiTxt, _IsCritical);
         }
@@ -521,7 +521,7 @@ public abstract class EnemyController : NavObjectController
     private void Take_Damaged_Physics(float _DmgValue, bool _IsCritical)
     {
         // UI
-        PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByPhysicDmg(
+        PoolingManager.instance.Get_OP_DmgTxt().Offset_ByPhysicDmg(
             (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
             _DmgValue, _IsCritical);
 
@@ -532,7 +532,7 @@ public abstract class EnemyController : NavObjectController
     private void Take_Damaged_Energy(float _DmgValue, bool _IsCritical)
     {
         // UI
-        PoolingManager.Instance.Get_OP_DmgTxt().Offset_ByEnergyDmg(
+        PoolingManager.instance.Get_OP_DmgTxt().Offset_ByEnergyDmg(
             (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
             _DmgValue, _IsCritical);
 
@@ -569,7 +569,7 @@ public abstract class EnemyController : NavObjectController
             genP.OverriderAmountMinMax.TypeBase, genP.OverriderAmountMinMax.TypeSpecial)); // 오버라이더
         Gen_J(Random.Range(
             genP.JouleAmountMinMax.TypeBase, genP.JouleAmountMinMax.TypeSpecial)
-            * PlayerManager.Instance.playerController.SpawnESMultiple.ActualState.Value); // 줄
+            * PlayerManager.instance.playerController.SpawnESMultiple.ActualState.Value); // 줄
         
         // Drop Module Item
         if (DevTool.Is_ChanceSuccess(genP.ModuleDropPercent))
@@ -577,15 +577,15 @@ public abstract class EnemyController : NavObjectController
         
         // Drop Keycard
         if (DevTool.Is_ChanceSuccess(genP.keycardDropPercent))
-            Gen_KeycardItem(Random.Range(1, ResourceManager.Instance.Get_KeycardAmount()));
+            Gen_KeycardItem(Random.Range(1, ResourceManager.instance.Get_KeycardAmount()));
     }
 
     private void Set_Die_Effect()
     {
         // Effect
-        PlayerManager.Instance.cameraController.Play_KillAnim(_Dur: 0.2f);
-        UnitManager.Instance.onceTime_AnimGenerator.Anim_Attacked_BigSlice(TargetObject.transform.position);
-        UnitManager.Instance.enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
+        PlayerManager.instance.cameraController.Play_KillAnim(_Dur: 0.2f);
+        UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_BigSlice(TargetObject.transform.position);
+        UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
     }
 
     private void Set_Die_Data()
@@ -595,15 +595,15 @@ public abstract class EnemyController : NavObjectController
         HUD.Reset_HUD();
 
         // Remove
-        DevTool.Remove_InList(EnemyManager.Instance.currentEnemyList, this);
-        LayerOrderManager.Instance.Remove_NeedSortObj(this);
+        DevTool.Remove_InList(EnemyManager.instance.currentEnemyList, this);
+        LayerOrderManager.instance.Remove_NeedSortObj(this);
 
         // Check Room State
-        StageManager.Instance.Play_CompleteKillAll();
+        StageManager.instance.Play_CompleteKillAll();
 
         // Ping
-        if (PlayerManager.Instance.Is_PingedEnemy(this))
-            PlayerManager.Instance.SetOff_PingEnemy();
+        if (PlayerManager.instance.Is_PingedEnemy(this))
+            PlayerManager.instance.SetOff_PingEnemy();
 
         // Set
         this.gameObject.SetActive(false);
@@ -621,7 +621,7 @@ public abstract class EnemyController : NavObjectController
 
         HUD.ThisCanvas.sortingOrder = _SortingOrder;
 
-        PlayerManager.Instance.Set_SortingOrderPing(this, _SortingOrder);
+        PlayerManager.instance.Set_SortingOrderPing(this, _SortingOrder);
     }
 
     #endregion

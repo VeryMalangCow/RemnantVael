@@ -20,7 +20,7 @@ public class DirectionalAllyTypeImgController : DirectionalImgController
 
     protected override void Start()
     {
-        AllySpriteSet = AllyManager.Instance.AllySpriteSetDict[ThisSpriteSetName];
+        AllySpriteSet = AllyManager.instance.allySpriteSetDict[ThisSpriteSetName];
         Set_Type(eAllyStateMode.Idle);
 
         base.Start();

@@ -41,12 +41,12 @@ public class AllyBulletController : BulletController
     {
         if (DevTool.Can_Collding(_Col, "Enemy", out EnemyController ec))
         {
-            UnitManager.Instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
+            UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
                 TargetObject.transform.position, transform.rotation);
-            UnitManager.Instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
+            UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
                 TargetObject.transform.position, State.IsCritical, transform.rotation);
 
-            PlayerManager.Instance.cameraController.Play_HitEnemyAnim();
+            PlayerManager.instance.cameraController.Play_HitEnemyAnim();
             ec.Try_Hitted(this);
         }
     }
@@ -66,7 +66,7 @@ public class AllyBulletController : BulletController
 
     protected override void PoolingSet()
     {
-        PoolingManager.Instance.baseAllyBullet.Enqueue(this);
+        PoolingManager.instance.baseAllyBullet.Enqueue(this);
     }
 
     #endregion

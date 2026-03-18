@@ -53,7 +53,7 @@ public class BossEnemyController : EnemyController
     {
         base.OnEnable();
 
-        EnemyManager.Instance.SetOn_BossEnemy(this);
+        EnemyManager.instance.SetOn_BossEnemy(this);
         CurrentPhase = -1;
     }
 
@@ -65,7 +65,7 @@ public class BossEnemyController : EnemyController
     {
         base.Offset();
 
-        HUD.ThisCanvas.worldCamera = MainGameUIManager.Instance.uiCamera;
+        HUD.ThisCanvas.worldCamera = MainGameUIManager.instance.uiCamera;
 
         BossPhaseData = BossPhaseData.OrderByDescending(obj => obj.ThisPhaseLimitPercentHP).ToList();
         Try_PlayNewPatternByPhase();
@@ -98,7 +98,7 @@ public class BossEnemyController : EnemyController
             StartCoroutine(Set_NewPhase(actualCurrentPhase));
             
             // Icon
-            ThisHUDIcon.sprite = ResourceManager.Instance.Get_BossPhaseSprite(actualCurrentPhase.ThisPhase);
+            ThisHUDIcon.sprite = ResourceManager.instance.Get_BossPhaseSprite(actualCurrentPhase.ThisPhase);
             
             // Particle
             for (int i = 0; i < ThisAuraParticleGOList.Count; i++)
@@ -167,9 +167,9 @@ public class BossEnemyController : EnemyController
 
     protected override void Set_Die_Extra()
     {
-        EnemyManager.Instance.SetOff_BossEnemy();
+        EnemyManager.instance.SetOff_BossEnemy();
 
-        PoolingManager.Instance.Set_EnqueueBossEnemy(this);
+        PoolingManager.instance.Set_EnqueueBossEnemy(this);
     }
 
     #endregion

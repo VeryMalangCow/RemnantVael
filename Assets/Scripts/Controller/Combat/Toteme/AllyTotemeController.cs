@@ -5,7 +5,7 @@ public class AllyTotemeController : TotemeController
 
     protected override void PoolingSet()
     {
-        PoolingManager.Instance.allyTotemes.Enqueue(this);
+        PoolingManager.instance.allyTotemes.Enqueue(this);
     }
 
 

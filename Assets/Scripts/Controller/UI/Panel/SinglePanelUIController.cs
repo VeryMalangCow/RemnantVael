@@ -43,15 +43,15 @@ public class SinglePanelUIController : UIController
         this.gameObject.SetActive(true);
 
         // Aim & Mouse
-        InputManager.Instance.Set_AllPointer(_Aim: false, _Mouse: true);
+        InputManager.instance.Set_AllPointer(_Aim: false, _Mouse: true);
 
         // Input
-        InputManager.Instance.playerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
-        InputManager.Instance.inputMoveDir = Vector2.zero;
+        InputManager.instance.playerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
+        InputManager.instance.inputMoveDir = Vector2.zero;
 
         // Tab Input
-        MainGameUIManager.Instance.playerHUD_UIController.IsTabInputed = false;
-        MainGameUIManager.Instance.playerHUD_UIController.SetOff_TabInteract();
+        MainGameUIManager.instance.playerHUD_UIController.IsTabInputed = false;
+        MainGameUIManager.instance.playerHUD_UIController.SetOff_TabInteract();
 
     }
 
@@ -62,10 +62,10 @@ public class SinglePanelUIController : UIController
         this.gameObject.SetActive(false);
 
         // Aim & Mouse
-        InputManager.Instance.Set_AllPointer(_Aim: true, _Mouse: false);
+        InputManager.instance.Set_AllPointer(_Aim: true, _Mouse: false);
 
         // Input
-        InputManager.Instance.playerInput.SwitchCurrentActionMap("Player");
+        InputManager.instance.playerInput.SwitchCurrentActionMap("Player");
 
         // Inven
         if (CurrentSlotBtn != null)

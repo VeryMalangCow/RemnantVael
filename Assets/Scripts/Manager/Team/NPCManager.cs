@@ -5,7 +5,7 @@ public class NPCManager : Singleton<NPCManager>
 {
     #region Value
 
-    [SerializeField] public List<NPCController> AllNPCs;
+    [SerializeField] public List<NPCController> allNpcs;
 
     #endregion
 
@@ -13,7 +13,7 @@ public class NPCManager : Singleton<NPCManager>
 
     public NPCController Get_CorrectNPC(int _ID)
     {
-        return IDController.Get_CorrectIDObject<NPCController>(_ID, new List<IDController>(AllNPCs));
+        return IDController.Get_CorrectIDObject<NPCController>(_ID, new List<IDController>(allNpcs));
     }
 
     #endregion

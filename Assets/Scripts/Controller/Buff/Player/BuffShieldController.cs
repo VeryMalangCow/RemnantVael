@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BuffShieldController : BuffController
 {
@@ -9,10 +10,10 @@ public class BuffShieldController : BuffController
     [Header("<><><><><> Shield")]
 
     [Space(10)]
-    [SerializeField] public Shield ThisShield;
+    [SerializeField] public Shield thisShield;
 
-    [Space(10)]
-    [SerializeField] private List<Shield> ActivingBuff = new List<Shield>();
+    [HideInInspector] private List<Shield> activingBuff = new List<Shield>();
+
 
     #endregion
 
@@ -22,8 +23,8 @@ public class BuffShieldController : BuffController
     {
         base.Gain_Buff();
 
-        ThisShield.ShieldCurrentValue = ThisShield.ShieldMaxValue;
-        PlayerManager.Instance.playerController.Gain_Shield(ThisShield);
+        thisShield.ShieldCurrentValue = thisShield.ShieldMaxValue;
+        PlayerManager.instance.playerController.Gain_Shield(thisShield);
     }
 
     public override void End_Buff()

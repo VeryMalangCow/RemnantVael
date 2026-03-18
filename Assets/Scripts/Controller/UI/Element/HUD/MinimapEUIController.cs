@@ -97,7 +97,7 @@ public class MinimapEUIController : ElementUIController
 
     public void Gen_Minimap()
     {
-        List<RoomController> allRC = StageManager.Instance.Get_AllRoom();
+        List<RoomController> allRC = StageManager.instance.Get_AllRoom();
 
         for (int i = 0; i < allRC.Count; i++)
         {
@@ -140,7 +140,7 @@ public class MinimapEUIController : ElementUIController
 
     public void Set_State()
     {
-        RoomController CurrentRC = StageManager.Instance.currentRoomController;
+        RoomController CurrentRC = StageManager.instance.currentRoomController;
 
         Set_AnchorPos(CurrentRC.ThisMME, NormalMMEParentRT, 0.3f);
         Set_AnchorPos(CurrentRC.ThisIMME, InteractableMMEParentRT, 0.3f);
@@ -257,10 +257,10 @@ public class MinimapEUIController : ElementUIController
     {
         InteractingPoint.gameObject.SetActive(true);
 
-        InputManager.Instance.inputArrowDir = Vector2Int.zero;
+        InputManager.instance.inputArrowDir = Vector2Int.zero;
         CanInteractable = true;
 
-        MinimapSelectedElementRC = StageManager.Instance.currentRoomController;
+        MinimapSelectedElementRC = StageManager.instance.currentRoomController;
     }
 
 
@@ -280,13 +280,13 @@ public class MinimapEUIController : ElementUIController
     {
         InteractingPoint.gameObject.SetActive(false);
 
-        InputManager.Instance.inputArrowDir = Vector2Int.zero;
+        InputManager.instance.inputArrowDir = Vector2Int.zero;
         CanInteractable = false;
     }
     private void Set_Complete_OffInteract()
     {
         if (InteractingBookGate != null && 
-            StageManager.Instance.currentRoomController != InteractingBookGate.ParterGate.ThisRoom)
+            StageManager.instance.currentRoomController != InteractingBookGate.ParterGate.ThisRoom)
         {
             InteractingBookGate.Play_Interact();
         }
@@ -298,16 +298,16 @@ public class MinimapEUIController : ElementUIController
 
     private void Set_BookRoom()
     {
-        if (CanInteractable && InputManager.Instance.inputArrowDir != Vector2Int.zero)
+        if (CanInteractable && InputManager.instance.inputArrowDir != Vector2Int.zero)
         {
-            GateController gc = MinimapSelectedElementRC.Get_MinimapInteract_ShortcutGate(InputManager.Instance.inputArrowDir);
+            GateController gc = MinimapSelectedElementRC.Get_MinimapInteract_ShortcutGate(InputManager.instance.inputArrowDir);
             if (gc != null)
             {
                 InteractingBookGate = gc.ParterGate;
                 MinimapSelectedElementRC = gc.ThisRoom;
                 Set_AnchorPos(MinimapSelectedElementRC.ThisIMME, InteractableMMEParentRT, 0.15f);
             }
-            InputManager.Instance.inputArrowDir = Vector2Int.zero;
+            InputManager.instance.inputArrowDir = Vector2Int.zero;
         }
     }
 

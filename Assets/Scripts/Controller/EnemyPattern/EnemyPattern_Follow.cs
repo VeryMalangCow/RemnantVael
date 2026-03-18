@@ -76,7 +76,7 @@ public class EnemyPattern_Follow : EnemyPattern
     {
         if (UntilForTargetRange && TargetRange >= DevTool.Get_DisForPlayer(ThisEnemy))
         {
-            if (!IgnoreWall && ThisEnemy.Is_ExistWall(PlayerManager.Instance.playerController.transform))
+            if (!IgnoreWall && ThisEnemy.Is_ExistWall(PlayerManager.instance.playerController.transform))
             {
                 return true;
             }
@@ -127,7 +127,7 @@ public class EnemyPattern_Follow : EnemyPattern
         #region Actual
 
         ThisEnemy.Set_MoveSpeed(FollowingSpeed);
-        PlayerController targetPc = PlayerManager.Instance.playerController;
+        PlayerController targetPc = PlayerManager.instance.playerController;
 
         while (true)
         {

@@ -6,7 +6,7 @@ public class PlayerAttackerController : AttackerController
 
     protected override void PoolingSet()
     {
-        PoolingManager.Instance.playerAttackers.Enqueue(this);
+        PoolingManager.instance.playerAttackers.Enqueue(this);
     }
 
     #endregion

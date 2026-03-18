@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 983222441183375599}
   ThisSR: {fileID: 6198229776366337402}
   TargetRange: 0.1
@@ -569,7 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 4012379395265714849}
   ThisSR: {fileID: 3220338917545183154}
   TargetRange: 0.1
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 3049384818731416907}
   ThisSR: {fileID: 2670846581333980005}
   TargetRange: 0.35
@@ -731,7 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 8930687759174070706}
   ThisSR: {fileID: 4864720734006731361}
   TargetRange: 0.22

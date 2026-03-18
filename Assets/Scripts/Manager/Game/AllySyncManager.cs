@@ -9,12 +9,12 @@ public class AllySyncManager : Singleton<AllySyncManager>
     #region Value
 
     public delegate void ActivityFuncDele_Sync(
-        AllyController _Ally, int _Rank, 
-        EnemyController _EC = null, 
-        BulletController _Bullet = null,
-        DroppingBombController _DroppingBullet = null);
+        AllyController ally, int rank, 
+        EnemyController enemy = null, 
+        BulletController bullet = null,
+        DroppingBombController droppingBullet = null);
 
-    [HideInInspector] public ActivityFuncDele_Sync[] ActivitySyncFuncList;
+    [HideInInspector] public ActivityFuncDele_Sync[] activitySyncFuncList;
 
     #endregion
 
@@ -24,7 +24,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
     {
         base.Awake();
 
-        ActivitySyncFuncList = Init_DelegateList_Sync("Activity_Sync_");
+        activitySyncFuncList = Init_DelegateList_Sync("Activity_Sync_");
     }
 
     #endregion
@@ -33,7 +33,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
 
     public ActivityFuncDele_Sync Get_CollectActivity_Sync(int _ID)
     {
-        return ActivitySyncFuncList[_ID];
+        return activitySyncFuncList[_ID];
     }
 
     public ActivityFuncDele_Sync[] Init_DelegateList_Sync(string _MethodPrefix)

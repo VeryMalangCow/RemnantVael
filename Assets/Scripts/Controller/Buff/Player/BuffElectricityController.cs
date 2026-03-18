@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BuffElectricityController : BuffController, IWhen_GetElectricity
 {
@@ -9,12 +10,12 @@ public class BuffElectricityController : BuffController, IWhen_GetElectricity
 
     [Space(10)]
     [Header("=== Const Value")]
-    [SerializeField] private float MaxHpPercent = 10; // 최대 체력 비례
-    [SerializeField] private float ConstPoint = 10; // 고정 수치
+    [SerializeField] private float maxHpPercent = 10; // 최대 체력 비례
+    [SerializeField] private float constPoint = 10; // 고정 수치
 
     [Space(10)]
     [Header("=== Stack")]
-    [SerializeField] private float StackDmg = 1;
+    [SerializeField] private float stackDmg = 1;
 
     #endregion
 
@@ -23,14 +24,14 @@ public class BuffElectricityController : BuffController, IWhen_GetElectricity
     public override void Gain_Buff()
     {
         base.Gain_Buff();
-        BuffManager.Instance.Active_GetElectricity();
+        BuffManager.instance.Active_GetElectricity();
     }
 
     public override void Reduct_Buff()
     {
         base.Reduct_Buff();
 
-        if (CurrentBuffCharge.Value <= 0)
+        if (currentBuffCharge.Value <= 0)
         {
             End_Buff();
         }
@@ -49,16 +50,16 @@ public class BuffElectricityController : BuffController, IWhen_GetElectricity
     {
         float value = 0;
 
-        if (StackDmg != 0)
-        { value += CurrentBuffCharge.Value * StackDmg; }
+        if (stackDmg != 0)
+        { value += currentBuffCharge.Value * stackDmg; }
 
-        if (ConstPoint != 0)
-        { value += ConstPoint; }
+        if (constPoint != 0)
+        { value += constPoint; }
 
-        if (MaxHpPercent != 0)
-        { value += DevTool.Get_Percent(MaxHpPercent, PlayerManager.Instance.playerController.MaxEP.ActualState.Value); }
+        if (maxHpPercent != 0)
+        { value += DevTool.Get_Percent(maxHpPercent, PlayerManager.instance.playerController.MaxEP.ActualState.Value); }
 
-        value *= (AllyManager.Instance.AllAlly.Count + 1);
+        value *= (AllyManager.instance.allAlly.Count + 1);
 
         return value;
     }
@@ -66,10 +67,10 @@ public class BuffElectricityController : BuffController, IWhen_GetElectricity
     public void Play_When(EnemyController _EC)
     {
         float dmg = Get_DmgValue();
-        PlayerManager.Instance.playerController.Take_Damaged(dmg, _HittedDir: Vector2.zero, _ShowHUDEffect: false);
+        PlayerManager.instance.playerController.Take_Damaged(dmg, _HittedDir: Vector2.zero, _ShowHUDEffect: false);
         
-        for (int i = 0; i < AllyManager.Instance.AllAlly.Count; i++)
-            AllyManager.Instance.AllAlly[i].TakeDamage(dmg);
+        for (int i = 0; i < AllyManager.instance.allAlly.Count; i++)
+            AllyManager.instance.allAlly[i].TakeDamage(dmg);
         
         this.Reduct_Buff();
     }

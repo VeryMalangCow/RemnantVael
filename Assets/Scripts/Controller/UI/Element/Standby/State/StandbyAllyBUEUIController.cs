@@ -127,7 +127,7 @@ public class StandbyAllyBUEUIController : ElementUIController
                 completelyIdList.Contains(AllySyncIconEUIArr[i].ID));
         }
 
-        ExtraTxt.text = ResourceManager.Instance.Get_StaticWord(142);
+        ExtraTxt.text = ResourceManager.instance.Get_StaticWord(142);
     }
 
     public void Set_Panel(bool _IsBUPanelOn)
@@ -143,8 +143,8 @@ public class StandbyAllyBUEUIController : ElementUIController
             AllySyncIconEUIArr[i].Set_Color();
         }
 
-        ConnectStateImg.color = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        ConnectStateAmountTxt.color = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        ConnectStateImg.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        ConnectStateAmountTxt.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
     }
 
     #endregion

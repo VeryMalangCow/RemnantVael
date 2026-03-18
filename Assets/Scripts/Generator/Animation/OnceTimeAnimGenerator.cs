@@ -8,11 +8,11 @@ public class OnceTimeAnimGenerator : MonoBehaviour
     public void Anim_AttackSuccess(Vector2 _SpawnPos, eDamageType _DamageType, bool _IsCritical, float _AnimSize = 1)
     {
         State_Anim anim = new State_Anim(
-            PlayerManager.Instance.playerController.Get_CorrectAC(_DamageType, _IsCritical), 2f);
+            PlayerManager.instance.playerController.Get_CorrectAC(_DamageType, _IsCritical), 2f);
         State_TF2D tf = new State_TF2D(
             _SpawnPos, Quaternion.identity, Vector2.one * _AnimSize);
         State_Sprite sprite = new State_Sprite(
-            PlayerManager.Instance.playerController.MaterialList[0], Color.white);
+            PlayerManager.instance.playerController.MaterialList[0], Color.white);
         
         Gen_OOA().Start_Anim(anim, tf, sprite);
     }
@@ -25,11 +25,11 @@ public class OnceTimeAnimGenerator : MonoBehaviour
     public void Anim_Attacked_Circle(Vector2 _SpawnPos, Quaternion _Rotation)
     {
         State_Anim anim = new State_Anim(
-            EnemyManager.Instance.hittedAC_0, 1.5f);
+            EnemyManager.instance.hittedAC_0, 1.5f);
         State_TF2D tf = new State_TF2D(
             _SpawnPos, DevTool.Get_FlipRotation(_Rotation), Vector2.one);
         State_Sprite sprite = new State_Sprite(
-            ResourceManager.Instance.Get_ModuleMaterial("Explosion"), Color.white);
+            ResourceManager.instance.Get_ModuleMaterial("Explosion"), Color.white);
 
         Gen_OOA().Start_Anim(anim, tf, sprite);
     }
@@ -43,11 +43,11 @@ public class OnceTimeAnimGenerator : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             State_Anim anim = new State_Anim(
-                EnemyManager.Instance.hittedAC_1, 2.5f);
+                EnemyManager.instance.hittedAC_1, 2.5f);
             State_TF2D tf = new State_TF2D(
                 _SpawnPos, DevTool.Add_RotZValue(_Rotation, i == 0 ? -45 : 45), Vector2.one);
             State_Sprite sprite = new State_Sprite(
-                ResourceManager.Instance.Get_ModuleMaterial("Explosion"), Color.white);
+                ResourceManager.instance.Get_ModuleMaterial("Explosion"), Color.white);
 
             Gen_OOA().Start_Anim(anim, tf, sprite);
         }
@@ -58,11 +58,11 @@ public class OnceTimeAnimGenerator : MonoBehaviour
     public void Anim_Attacked_BigSlice(Vector2 _SpawnPos)
     {
         State_Anim anim = new State_Anim(
-            EnemyManager.Instance.hittedAC_2, 1.5f);
+            EnemyManager.instance.hittedAC_2, 1.5f);
         State_TF2D tf = new State_TF2D(
             _SpawnPos, DevTool.Add_RotZValue(Quaternion.identity, DevTool.Get_RandomValueBaseZero(45f)), Vector2.one * 2f);
         State_Sprite sprite = new State_Sprite(
-            ResourceManager.Instance.Get_ModuleMaterial("Explosion"), Color.white);
+            ResourceManager.instance.Get_ModuleMaterial("Explosion"), Color.white);
 
         Gen_OOA().Start_Anim(anim, tf, sprite);
     }
@@ -74,8 +74,8 @@ public class OnceTimeAnimGenerator : MonoBehaviour
 
     private OnceTimeAnimController Gen_OOA()
     {
-        OnceTimeAnimController otac = PoolingManager.Instance.Get_OP_OnlyOnceAnimator();
-        otac.gameObject.transform.SetParent(StageManager.Instance.currentRoomController.transform);
+        OnceTimeAnimController otac = PoolingManager.instance.Get_OP_OnlyOnceAnimator();
+        otac.gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
         return otac;
     }
 

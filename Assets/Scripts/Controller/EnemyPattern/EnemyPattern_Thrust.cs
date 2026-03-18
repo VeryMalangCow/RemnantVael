@@ -144,12 +144,12 @@ public class EnemyPattern_Thrust : EnemyPattern
             ThisEnemy.Set_MoveSpeed(Speed);
         }
 
-        SoundManager.Instance.Play_2D_SFX_EnemyAttack_Random(ThisEnemy.Get_AS(), "Thrust", 2);
+        SoundManager.instance.Play_2D_SFX_EnemyAttack_Random(ThisEnemy.Get_AS(), "Thrust", 2);
     }
 
     private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)
     {
-        EnemyAttackerController attacker = PoolingManager.Instance.Get_OP_EnemyAttacker();
+        EnemyAttackerController attacker = PoolingManager.instance.Get_OP_EnemyAttacker();
         attacker.Enemy = ThisEnemy;
         float targetShadow = _Depth.TargetRange;
 

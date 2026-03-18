@@ -41,7 +41,7 @@ public class EliteEnemyController : EnemyController
     {
         base.OnEnable();
 
-        EnemyManager.Instance.Add_EliteEnemy(this);
+        EnemyManager.instance.Add_EliteEnemy(this);
 
         // Pattern
         Start_PatternFromNone();
@@ -55,7 +55,7 @@ public class EliteEnemyController : EnemyController
     {
         base.Offset();
 
-        HUD.ThisCanvas.worldCamera = MainGameUIManager.Instance.uiCamera;
+        HUD.ThisCanvas.worldCamera = MainGameUIManager.instance.uiCamera;
     }
 
     #endregion
@@ -89,11 +89,11 @@ public class EliteEnemyController : EnemyController
 
     protected override void Set_Die_Extra()
     {
-        EnemyManager.Instance.Remove_EliteEnemy(this);
+        EnemyManager.instance.Remove_EliteEnemy(this);
 
-        PoolingManager.Instance.Set_EnqueueEliteEnemy(this);
+        PoolingManager.instance.Set_EnqueueEliteEnemy(this);
 
-        AllyRequestManager.Instance.Play_KillEliteEnemy();
+        AllyRequestManager.instance.Play_KillEliteEnemy();
     }
 
     #endregion

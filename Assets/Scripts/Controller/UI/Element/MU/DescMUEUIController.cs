@@ -60,7 +60,7 @@ public class DescMUEUIController : ElementUIController
     public void Set_LanguageTxt()
     {
         // string
-        ExtraString_Rank = ResourceManager.Instance.Get_StaticWord(25);
+        ExtraString_Rank = ResourceManager.instance.Get_StaticWord(25);
     }
 
     #endregion
@@ -83,7 +83,7 @@ public class DescMUEUIController : ElementUIController
     private void SetOn_Item(int _ID, string _Name, string _Desc)
     {
         ItemIconImg.color = new Color(1, 1, 1, 1);
-        ItemIconImg.sprite = ModuleItemManager.Instance.Get_CorrectItemIcon(_ID);
+        ItemIconImg.sprite = ModuleItemManager.instance.Get_CorrectItemIcon(_ID);
         ItemNameTxt.text = _Name;
         ItemIntroTxt.text = _Desc;
     }
@@ -91,7 +91,7 @@ public class DescMUEUIController : ElementUIController
     private void SetOn_Rank(int _Rank)
     {
         CurrentRankImg.color = new Color(1, 1, 1, 1);
-        CurrentRankImg.sprite = ResourceManager.Instance.Get_DescRankIcon(_Rank);
+        CurrentRankImg.sprite = ResourceManager.instance.Get_DescRankIcon(_Rank);
         CurrentRankTxt.text = ExtraString_Rank;
         CurrentActualRankTxt.text = _Rank.ToString();
     }
@@ -100,13 +100,13 @@ public class DescMUEUIController : ElementUIController
     {
         MainChipGO.gameObject.SetActive(true);
 
-        RankLv1_MainChipImg.sprite = ModuleItemManager.Instance.Get_CorrectMainChip(_R1_ID).ThisIcon;
-        RankLv3_MainChipImg.sprite = ModuleItemManager.Instance.Get_CorrectMainChip(_R3_ID).ThisIcon;
-        RankLv5_MainChipImg.sprite = ModuleItemManager.Instance.Get_CorrectMainChip(_R5_ID).ThisIcon;
+        RankLv1_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R1_ID).ThisIcon;
+        RankLv3_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R3_ID).ThisIcon;
+        RankLv5_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R5_ID).ThisIcon;
 
-        RankLv1_Name.text = ModuleItemManager.Instance.Get_CorrectMainChip(_R1_ID).Name;
-        RankLv3_Name.text = ModuleItemManager.Instance.Get_CorrectMainChip(_R3_ID).Name;
-        RankLv5_Name.text = ModuleItemManager.Instance.Get_CorrectMainChip(_R5_ID).Name;
+        RankLv1_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R1_ID).Name;
+        RankLv3_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R3_ID).Name;
+        RankLv5_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R5_ID).Name;
 
         SetOff_AllLocker();
         SetOff_AllMainChipImgsTxts();
@@ -128,9 +128,9 @@ public class DescMUEUIController : ElementUIController
 
             RankLv5_MainChipAmountImgs[0].gameObject.SetActive(true);
 
-            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
-            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
-            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
+            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
+            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
 
             DevTool.Set_AlphaColor(RankLv1_Name, 1f);
             DevTool.Set_AlphaColor(RankLv3_Name, 1f);
@@ -144,10 +144,10 @@ public class DescMUEUIController : ElementUIController
 
             RankLv3_MainChipAmountImgs[0].gameObject.SetActive(true);
 
-            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
-            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
+            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
                                                
-            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(55)})</color></size>";
+            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(55)})</color></size>";
 
             DevTool.Set_AlphaColor(RankLv1_Name, 1f);
             DevTool.Set_AlphaColor(RankLv3_Name, 1f);
@@ -156,10 +156,10 @@ public class DescMUEUIController : ElementUIController
         {
             RankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
 
-            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(54)})</color></size>";
+            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
                                                
-            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(55)})</color></size>";
-            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.Instance.Get_StaticWord(55)})</color></size>";
+            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(55)})</color></size>";
+            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(55)})</color></size>";
 
             DevTool.Set_AlphaColor(RankLv1_Name, 1f);
         }

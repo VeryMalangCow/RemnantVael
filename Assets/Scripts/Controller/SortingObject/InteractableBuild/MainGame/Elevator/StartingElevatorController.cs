@@ -10,15 +10,15 @@ public class StartingElevatorController : ElevatorController
         base.Tween_Start();
 
         // Stage
-        EventManager.Instance.Set_BlackUpDownCover(true);
-        PlayerManager.Instance.playerController.Set_PastStartStage();
+        EventManager.instance.Set_BlackUpDownCover(true);
+        PlayerManager.instance.playerController.Set_PastStartStage();
 
         // Screen
-        MainGameUIManager.Instance.Play_FadeOut(3f);
-        MainGameUIManager.Instance.Play_OffLoadingIcon(3f);
+        MainGameUIManager.instance.Play_FadeOut(3f);
+        MainGameUIManager.instance.Play_OffLoadingIcon(3f);
 
         // Sound
-        SoundManager.Instance.Set_MasterVolume(0f, 1f, 2.5f);
+        SoundManager.instance.Set_MasterVolume(0f, 1f, 2.5f);
     }
 
     protected override void Tween_Complete()
@@ -26,25 +26,25 @@ public class StartingElevatorController : ElevatorController
         base.Tween_Complete();
 
         // Stage
-        PlayerManager.Instance.playerController.Set_StartStage();
+        PlayerManager.instance.playerController.Set_StartStage();
 
         // Input
-        EventManager.Instance.Set_Input(true);
+        EventManager.instance.Set_Input(true);
 
         // Ally Pos
-        AllyManager.Instance.Set_AllAllyPlayerNearPos();
-        AllyManager.Instance.Set_AllAlliesActive(true);
-        AllyManager.Instance.Start_AllAllies_Combat();
+        AllyManager.instance.Set_AllAllyPlayerNearPos();
+        AllyManager.instance.Set_AllAlliesActive(true);
+        AllyManager.instance.Start_AllAllies_Combat();
 
         // Screen
-        EventManager.Instance.Set_BlackUpDownCover(false);
+        EventManager.instance.Set_BlackUpDownCover(false);
 
         // Intetactable Anno Panel
-        MainGameUIManager.Instance.interactAnno_UIController.Set_VisualCG(true);
+        MainGameUIManager.instance.interactAnno_UIController.Set_VisualCG(true);
 
-        if (StageManager.Instance.targetStageID == 1)
+        if (StageManager.instance.targetStageID == 1)
         {
-            MainGameUIManager.Instance.Play_EndGameProd();
+            MainGameUIManager.instance.Play_EndGameProd();
         }
     }
 

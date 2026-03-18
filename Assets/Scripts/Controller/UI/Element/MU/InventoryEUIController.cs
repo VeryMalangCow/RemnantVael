@@ -45,8 +45,8 @@ public class InventoryEUIController : ElementUIController
             for (int j = 0; j < ModuleItemManager.rowAmount; j++)
             {
                 // Generate GO
-                GameObject slotGO = Instantiate(ResourceManager.Instance.Get_ModuleSlotUI_Prefab(), this.transform);
-                GameObject itemGO = Instantiate(ResourceManager.Instance.Get_ModuleItemUI_Prefab(), slotGO.transform);
+                GameObject slotGO = Instantiate(ResourceManager.instance.Get_ModuleSlotUI_Prefab(), this.transform);
+                GameObject itemGO = Instantiate(ResourceManager.instance.Get_ModuleItemUI_Prefab(), slotGO.transform);
 
                 slotGO.name = $"Slot_Col:{i}_Row:{j}";
                 itemGO.name = $"Item_Col:{i}_Row:{j}";

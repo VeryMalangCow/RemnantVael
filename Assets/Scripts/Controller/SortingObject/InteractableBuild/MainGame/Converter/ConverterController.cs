@@ -30,7 +30,7 @@ public abstract class ConverterController : SortingObjectController
 
     private void Offset_Anim()
     {
-        EachConverterReso = ResourceManager.Instance.Get_ConverterReso(ID);
+        EachConverterReso = ResourceManager.instance.Get_ConverterReso(id);
     }
 
     #endregion

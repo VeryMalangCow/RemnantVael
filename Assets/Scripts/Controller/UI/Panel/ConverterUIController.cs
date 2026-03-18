@@ -74,12 +74,12 @@ public abstract class ConverterUIController : SinglePanelUIController
         SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
 
-        Color mainClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
+        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
@@ -97,37 +97,37 @@ public abstract class ConverterUIController : SinglePanelUIController
         {
             if (CurrentBtn == CvtAcquisitionEUI.MaxBtn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+                SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MaxAcquBookAmount();
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.MinBtn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+                SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MinAcquBookAmount();
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.More1Btn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+                SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MoreAcquBookAmount(1);
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.More10Btn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+                SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MoreAcquBookAmount(10);
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.Less1Btn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+                SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_LessAcquBookAmount(1);
                 return true;
             }
             else if (CurrentBtn == CvtAcquisitionEUI.Less10Btn)
             {
-                SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+                SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_LessAcquBookAmount(10);
                 return true;
             }
@@ -194,7 +194,7 @@ public abstract class ConverterUIController : SinglePanelUIController
     protected void Set_AcquAmount(int _ItemID)
     {
         CvtAcquisitionEUI.Set_PossessionAmountTxt(
-            SaveDataManager.Instance.jsonData.Get_ItemAmount(AcquisitionItemID).ToString());
+            SaveDataManager.instance.jsonData.Get_ItemAmount(AcquisitionItemID).ToString());
     }
 
     // Data
@@ -222,7 +222,7 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     private IEnumerator Play_Failure_Cor()
     {
-        SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
+        SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
 
         ConvertingNow = true;
 
@@ -234,7 +234,7 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     private IEnumerator Play_Convert_Cor()
     {
-        SoundManager.Instance.Play_2D_SFX_UI("Make");
+        SoundManager.instance.Play_2D_SFX_UI("Make");
 
         ConvertingNow = true;
 
@@ -243,7 +243,7 @@ public abstract class ConverterUIController : SinglePanelUIController
 
         Convert();
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
+        SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
 
         CvtAcquisitionEUI.Play_SuccessComp();
         yield return new WaitForSeconds(0.6f);
@@ -254,7 +254,7 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     protected virtual void Convert()
     {
-        SaveDataManager.Instance.jsonData.Gain_Item(AcquisitionItemID, AcquisitionBookAmount);
+        SaveDataManager.instance.jsonData.Gain_Item(AcquisitionItemID, AcquisitionBookAmount);
         Set_AcquAmount(AcquisitionItemID);
     }
 
@@ -266,7 +266,7 @@ public abstract class ConverterUIController : SinglePanelUIController
     {
         base.SetOn_ThisPanel();
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
+        SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
         Set_AcquAmount(AcquisitionItemID);
         Set_AcquBookAmount(1);
     }
@@ -275,7 +275,7 @@ public abstract class ConverterUIController : SinglePanelUIController
     {
         if (ConvertingNow) return;
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
+        SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
         base.SetOff_ThisPanel();
     }
 
@@ -289,7 +289,7 @@ public abstract class ConverterUIController : SinglePanelUIController
 
         // Close
         DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CloseBtn, 0)).gameObject).text =
-            ResourceManager.Instance.Get_StaticWord(28);
+            ResourceManager.instance.Get_StaticWord(28);
 
         // EUI
         CvtAcquisitionEUI.Set_Language(CanConvert);

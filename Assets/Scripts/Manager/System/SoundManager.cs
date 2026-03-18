@@ -29,16 +29,16 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     #region - Hide
 
-    [HideInInspector] public float BVolume = 0.5f;
-    [HideInInspector] public float SVolume = 0.5f;
+    [HideInInspector] public float bgmVolume = 0.5f;
+    [HideInInspector] public float sfxVolume = 0.5f;
 
-    [HideInInspector] private Dictionary<string, AudioClip> BGMAudioDict = new Dictionary<string, AudioClip>();
-    [HideInInspector] private Dictionary<string, AudioClip> SFXAudioDict = new Dictionary<string, AudioClip>();
+    [HideInInspector] private Dictionary<string, AudioClip> bgmAudioDict = new Dictionary<string, AudioClip>();
+    [HideInInspector] private Dictionary<string, AudioClip> sfxAudioDict = new Dictionary<string, AudioClip>();
 
-    [HideInInspector] private static readonly int CutsceneSoundAmount = 1;
+    [HideInInspector] private static readonly int cutsceneSoundAmount = 1;
 
-    [HideInInspector] private Sequence BgmCastingSeq;
-    [HideInInspector] public static bool IsPlayingBaseBGM = true;
+    [HideInInspector] private Sequence bgmCastingSeq;
+    [HideInInspector] public static bool isPlayingBaseBGM = true;
 
     #endregion
 
@@ -235,7 +235,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
         string cutscenePath = bgmPath + "Cutscene/";
 
-        for (int i = 0; i < CutsceneSoundAmount; i++)
+        for (int i = 0; i < cutsceneSoundAmount; i++)
             Add_BGM(cutscenePath, $"Cutscene_{DevTool.Get_LengthString(i, 3)}");
 
         #endregion
@@ -255,8 +255,8 @@ public class SoundManager : PersistentSingleton<SoundManager>
     }
 
 
-    void Add_SFX(string _Path, string _Name) => SFXAudioDict.Add(_Name, Resources.Load<AudioClip>(_Path + _Name));
-    void Add_BGM(string _Path, string _Name) => BGMAudioDict.Add(_Name, Resources.Load<AudioClip>(_Path + _Name));
+    void Add_SFX(string path, string name) => sfxAudioDict.Add(name, Resources.Load<AudioClip>(path + name));
+    void Add_BGM(string path, string name) => bgmAudioDict.Add(name, Resources.Load<AudioClip>(path + name));
 
 
     #endregion
@@ -265,19 +265,19 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     #region Module
 
-    private void Play_2D_SFX(AudioSource _AudioSource, string _ClipName)
+    private void Play_2D_SFX(AudioSource audioSource, string clipName)
     {
-        _AudioSource.PlayOneShot(SFXAudioDict[_ClipName]);
+        audioSource.PlayOneShot(sfxAudioDict[clipName]);
     }
 
-    private void Play_2D_SFX_Random(AudioSource _AudioSource, string _ClipName, int _Amount)
+    private void Play_2D_SFX_Random(AudioSource audioSource, string clipName, int amount)
     {
-        Play_2D_SFX(_AudioSource, $"{_ClipName}_{DevTool.Get_LengthString(Random.Range(0, _Amount), 2)}");
+        Play_2D_SFX(audioSource, $"{clipName}_{DevTool.Get_LengthString(Random.Range(0, amount), 2)}");
     }
 
-    private void Play_2D_SFX(string _ClipName)
+    private void Play_2D_SFX(string clipName)
     {
-        Play_2D_SFX(thisSfxASQueueSet.Get_T(), _ClipName);
+        Play_2D_SFX(thisSfxASQueueSet.Get_T(), clipName);
     }
 
     #endregion
@@ -285,68 +285,68 @@ public class SoundManager : PersistentSingleton<SoundManager>
     #region Detail
 
     // Player
-    public void Play_2D_SFX_Player_Random(AudioSource _AudioSource, int _ID, string _Name, int _Amount)
+    public void Play_2D_SFX_Player_Random(AudioSource audioSource, int id, string name, int amount)
     {
-        Play_2D_SFX_Random(_AudioSource, $"Player{DevTool.Get_LengthString(_ID, 2)}_{_Name}", _Amount);
+        Play_2D_SFX_Random(audioSource, $"Player{DevTool.Get_LengthString(id, 2)}_{name}", amount);
     }
 
-    public void Play_2D_SFX_Player(string _Name)
+    public void Play_2D_SFX_Player(string name)
     {
-        Play_2D_SFX("Player_" + _Name);
+        Play_2D_SFX("Player_" + name);
     }
-    public void Play_2D_SFX_Player(AudioSource _AudioSource, string _Name)
+    public void Play_2D_SFX_Player(AudioSource audioSource, string name)
     {
-        Play_2D_SFX(_AudioSource, "Player_" + _Name);
+        Play_2D_SFX(audioSource, "Player_" + name);
     }
 
     // Enemy
-    public void Play_2D_SFX_Enemy(string _Name)
+    public void Play_2D_SFX_Enemy(string name)
     {
-        Play_2D_SFX("Enemy_" + _Name);
+        Play_2D_SFX("Enemy_" + name);
     }
-    public void Play_2D_SFX_Enemy(AudioSource _AudioSource, string _Name)
+    public void Play_2D_SFX_Enemy(AudioSource audioSource, string name)
     {
-        Play_2D_SFX(_AudioSource, "Enemy_" + _Name);
+        Play_2D_SFX(audioSource, "Enemy_" + name);
     }
-    public void Play_2D_SFX_EnemyAttack_Random(AudioSource _AudioSource, string _Name, int _Amount)
+    public void Play_2D_SFX_EnemyAttack_Random(AudioSource audioSource, string name, int amount)
     {
-        Play_2D_SFX_Random(_AudioSource, $"Enemy_Attack_{_Name}", _Amount);
+        Play_2D_SFX_Random(audioSource, $"Enemy_Attack_{name}", amount);
     }
 
     // Combat
-    public void Play_2D_SFX_Combat(AudioSource _AudioSource, string _Name)
+    public void Play_2D_SFX_Combat(AudioSource audioSource, string name)
     {
-        Play_2D_SFX(_AudioSource, "Combat_" + _Name);
+        Play_2D_SFX(audioSource, "Combat_" + name);
     }
 
     // Item
-    public void Play_2D_SFX_Item_Random(AudioSource _AudioSource, string _Name, int _Amount)
+    public void Play_2D_SFX_Item_Random(AudioSource audioSource, string name, int amount)
     {
-        Play_2D_SFX_Random(_AudioSource, $"Item_{_Name}", _Amount);
+        Play_2D_SFX_Random(audioSource, $"Item_{name}", amount);
     }
 
     // UI
-    public void Play_2D_SFX_UI(string _Name)
+    public void Play_2D_SFX_UI(string name)
     {
-        Play_2D_SFX("UI_" + _Name);
+        Play_2D_SFX("UI_" + name);
     }
 
     // Build
-    public void Play_2D_SFX_Build(string _Name)
+    public void Play_2D_SFX_Build(string name)
     {
-        Play_2D_SFX("Build_" + _Name);
+        Play_2D_SFX("Build_" + name);
     }
 
     // Room
-    public void Play_2D_SFX_Room(string _Name)
+    public void Play_2D_SFX_Room(string name)
     {
-        Play_2D_SFX("Room_" + _Name);
+        Play_2D_SFX("Room_" + name);
     }
 
     // Status
-    public void Play_2D_SFX_Status(string _Name)
+    public void Play_2D_SFX_Status(string name)
     {
-        Play_2D_SFX("Status_" + _Name);
+        Play_2D_SFX("Status_" + name);
     }
 
     #endregion
@@ -362,15 +362,15 @@ public class SoundManager : PersistentSingleton<SoundManager>
         thisBaseBgmAudioSource.Pause();
     }
 
-    private void Play_2D_BGM(string _ClipName)
+    private void Play_2D_BGM(string clipName)
     {
-        thisBaseBgmAudioSource.clip = BGMAudioDict[_ClipName];
+        thisBaseBgmAudioSource.clip = bgmAudioDict[clipName];
         thisBaseBgmAudioSource.Play();
     }
 
-    public void Play_2D_ExtraBGM(string _ClipName)
+    public void Play_2D_ExtraBGM(string clipName)
     {
-        thisExtraBgmAudioSource.clip = BGMAudioDict[_ClipName];
+        thisExtraBgmAudioSource.clip = bgmAudioDict[clipName];
         thisExtraBgmAudioSource.Play();
     }
 
@@ -380,7 +380,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     public void CastBGM_ToExtra()
     {
-        IsPlayingBaseBGM = false;
+        isPlayingBaseBGM = false;
 
         thisBaseBgmAudioSource.Pause();
         thisBaseBgmAudioSource.volume = 0f;
@@ -391,7 +391,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     public void CastBGM_ToBase()
     {
-        IsPlayingBaseBGM = true;
+        isPlayingBaseBGM = true;
 
         thisBaseBgmAudioSource.Play();
         thisBaseBgmAudioSource.volume = 1f;
@@ -409,14 +409,14 @@ public class SoundManager : PersistentSingleton<SoundManager>
         Play_2D_BGM("TitleLobby");
     }
 
-    public void Play_2D_BGM_Stage(int _ID)
+    public void Play_2D_BGM_Stage(int id)
     {
-        Play_2D_BGM($"Stage_{DevTool.Get_LengthString(_ID, 2)}");
+        Play_2D_BGM($"Stage_{DevTool.Get_LengthString(id, 2)}");
     }
 
-    public void Play_2D_BGM_Cutscene(int _ID)
+    public void Play_2D_BGM_Cutscene(int id)
     {
-        Play_2D_BGM($"Cutscene_{DevTool.Get_LengthString(_ID, 3)}");
+        Play_2D_BGM($"Cutscene_{DevTool.Get_LengthString(id, 3)}");
     }
 
     #endregion
@@ -425,35 +425,35 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     #region Set
 
-    private void Set_MasterVolume(float _Value)
+    private void Set_MasterVolume(float value)
     {
-        float dB = Mathf.Log10(Mathf.Clamp(_Value, 0.0001f, 1f)) * 20f;
+        float dB = Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20f;
         masterAudioMixer.SetFloat("Master", dB);
     }
 
-    public void Set_MasterVolume(float _StartV, float _TargetV, float _DurTime)
+    public void Set_MasterVolume(float startV, float targetV, float durTime)
     {
-        float v = _StartV;
-        DOTween.To(() => v, _v => v = _v, _TargetV, _DurTime)
-            .OnStart(() => Set_MasterVolume(_StartV))
+        float v = startV;
+        DOTween.To(() => v, _v => v = _v, targetV, durTime)
+            .OnStart(() => Set_MasterVolume(startV))
             .OnUpdate(() => Set_MasterVolume(v));
     }
 
-    public void Set_BgmVolume(float _Value)
+    public void Set_BgmVolume(float value)
     {
-        BVolume = _Value;
-        SaveDataManager.Instance.jsonData.OptionData.BGMVolume = BVolume;
+        bgmVolume = value;
+        SaveDataManager.instance.jsonData.optionData.bgmVolume = bgmVolume;
 
-        float dB = Mathf.Log10(Mathf.Clamp(BVolume, 0.0001f, 1f)) * 20f;
+        float dB = Mathf.Log10(Mathf.Clamp(bgmVolume, 0.0001f, 1f)) * 20f;
         masterAudioMixer.SetFloat("BGM", dB);
     }
 
-    public void Set_SfxVolume(float _Value)
+    public void Set_SfxVolume(float value)
     {
-        SVolume = _Value;
-        SaveDataManager.Instance.jsonData.OptionData.SFXVolume = SVolume;
+        sfxVolume = value;
+        SaveDataManager.instance.jsonData.optionData.sfxVolume = sfxVolume;
 
-        float dB = Mathf.Log10(Mathf.Clamp(SVolume, 0.0001f, 1f)) * 20f;
+        float dB = Mathf.Log10(Mathf.Clamp(sfxVolume, 0.0001f, 1f)) * 20f;
         masterAudioMixer.SetFloat("SFX", dB);
     }
 

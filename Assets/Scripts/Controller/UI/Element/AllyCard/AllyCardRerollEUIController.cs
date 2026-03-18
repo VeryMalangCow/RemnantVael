@@ -26,7 +26,7 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     public void Set_LanguageTxt()
     {
-        NameTxt.text = ResourceManager.Instance.Get_StaticWord(57);
+        NameTxt.text = ResourceManager.instance.Get_StaticWord(57);
     }
 
     #endregion
@@ -56,7 +56,7 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
     {
         string needAmountText = $"x <size=1{NeedAmount}0%><b>{NeedAmount}</b></size>";
         if (NeedAmount == MaxNeedAmount)
-            needAmountText += $"<size=75%>({ResourceManager.Instance.Get_StaticWord(84)})</size>";
+            needAmountText += $"<size=75%>({ResourceManager.instance.Get_StaticWord(84)})</size>";
 
         NeedAmountTxt.text = needAmountText;
     }
@@ -67,11 +67,11 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     public void Try_Interact()
     {
-        if (NeedAmount > PlayerManager.Instance.playerController.CurrentOverrider.Value ||
+        if (NeedAmount > PlayerManager.instance.playerController.CurrentOverrider.Value ||
             TargetCardEUIController == null)
             return;
 
-        PlayerManager.Instance.playerController.Add_CurrentOverrider(-NeedAmount);
+        PlayerManager.instance.playerController.Add_CurrentOverrider(-NeedAmount);
         Play_Click();
 
         if (MaxNeedAmount > NeedAmount)

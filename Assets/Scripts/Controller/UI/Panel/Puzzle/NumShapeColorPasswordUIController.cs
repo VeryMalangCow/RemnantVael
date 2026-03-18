@@ -68,9 +68,9 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
             AllNSCRollCellEUI.AddRange(AllNSCPanelEUI[i].AllRollEUI);
         }
 
-        DownRollInputImg.sprite = ResourceManager.Instance.mlbSprite;
+        DownRollInputImg.sprite = ResourceManager.instance.mlbSprite;
         DownRollInputImg.SetNativeSize();
-        UpRollInputImg.sprite = ResourceManager.Instance.mrbSprite;
+        UpRollInputImg.sprite = ResourceManager.instance.mrbSprite;
         UpRollInputImg.SetNativeSize();
     }
 
@@ -82,7 +82,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     {
         base.Set_AllStart();
 
-        ReadyPanelEUI.Set_RuleDesc(ResourceManager.Instance.Get_StaticDesc(34));
+        ReadyPanelEUI.Set_RuleDesc(ResourceManager.instance.Get_StaticDesc(34));
 
         Set_AllNSCPanelEUI_DefaultAndRandom();
         Set_LockByRating();
@@ -98,7 +98,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
         for (int i = 0; i < AllNSCPanelEUI.Count; i++)
         {
-            AllNSCPanelEUI[i].Set_InnerColor(ResourceManager.Instance.unlockedClr);
+            AllNSCPanelEUI[i].Set_InnerColor(ResourceManager.instance.unlockedClr);
         }
     }
 
@@ -113,7 +113,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
             AllNSCPanelEUI[i].Set_RollValueRandom();
             AllNSCPanelEUI[i].Set_RandomAnswer();
 
-            AllNSCPanelEUI[i].Set_InnerColor(ResourceManager.Instance.lockedClr);
+            AllNSCPanelEUI[i].Set_InnerColor(ResourceManager.instance.lockedClr);
         }
     }
 
@@ -168,14 +168,14 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     public void Try_Interact()
     {
-        InputManager.Instance.Play_MousePointerClick();
+        InputManager.instance.Play_MousePointerClick();
 
         if (Is_Interact_RollForDown()) return;
     }
 
     public void Try_InteractSub()
     {
-        InputManager.Instance.Play_MousePointerClick();
+        InputManager.instance.Play_MousePointerClick();
 
         if (Is_Interact_RollForUp()) return;
     }
@@ -206,7 +206,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
             !IsInteractable)
             return false;
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
         if (_RollDown)
             SelectingRollCellEUI.Play_RollForDown();

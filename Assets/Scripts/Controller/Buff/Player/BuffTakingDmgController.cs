@@ -1,5 +1,6 @@
 using UnityEngine;
 using UniRx;
+using UnityEngine.Serialization;
 
 public class BuffTakingDmgController : BuffController
 {
@@ -9,7 +10,7 @@ public class BuffTakingDmgController : BuffController
     [Header("<><><><><> Taking Dmg")]
 
     [Space(10)]
-    [SerializeField] private BuffState<float> Multiple = new BuffState<float>();
+    [SerializeField] private BuffState<float> multiple = new BuffState<float>();
 
     #endregion
 
@@ -20,10 +21,10 @@ public class BuffTakingDmgController : BuffController
     {
         base.Start();
 
-        CurrentBuffCharge
+        currentBuffCharge
             .Subscribe(_Value =>
             {
-                Multiple.ActualValue = Multiple.BaseValue * CurrentBuffCharge.Value;
+                multiple.ActualValue = multiple.BaseValue * currentBuffCharge.Value;
             });
     }
 
@@ -36,23 +37,23 @@ public class BuffTakingDmgController : BuffController
     {
         base.Gain_Buff();
 
-        PlayerManager.Instance.playerController.TakingDmgMultiple.Gain_Buff(Multiple);
-        PlayerManager.Instance.playerController.TakingDmgMultiple.Set_BuffedState();
+        PlayerManager.instance.playerController.TakingDmgMultiple.Gain_Buff(multiple);
+        PlayerManager.instance.playerController.TakingDmgMultiple.Set_BuffedState();
     }
 
     public override void Reduct_Buff()
     {
         base.Reduct_Buff();
 
-        PlayerManager.Instance.playerController.TakingDmgMultiple.Set_BuffedState();
+        PlayerManager.instance.playerController.TakingDmgMultiple.Set_BuffedState();
     }
 
     public override void End_Buff()
     {
         base.End_Buff();
 
-        PlayerManager.Instance.playerController.TakingDmgMultiple.Lose_Buff(Multiple);
-        PlayerManager.Instance.playerController.TakingDmgMultiple.Set_BuffedState();
+        PlayerManager.instance.playerController.TakingDmgMultiple.Lose_Buff(multiple);
+        PlayerManager.instance.playerController.TakingDmgMultiple.Set_BuffedState();
     }
 
     #endregion

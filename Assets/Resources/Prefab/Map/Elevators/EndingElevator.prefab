@@ -114,13 +114,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1c647f41f538149be63bd342c0bc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 7945861353772175884}
   ThisSR: {fileID: 6431130664222279258}
   TargetRange: 0
   EndYPos: 5
   IsOn: 0
   NextStageIndex: 0
+  Is_LobbyElevator: 0
+  ForPassageElevator: 1
 --- !u!1 &6434156964202126478
 GameObject:
   m_ObjectHideFlags: 0

@@ -76,7 +76,7 @@ public class InOrderLockerUIController : PuzzleUIController
             AllIOLCell[i].Offset();
         }
 
-        SelectInputImg.sprite = ResourceManager.Instance.mlbSprite;
+        SelectInputImg.sprite = ResourceManager.instance.mlbSprite;
         SelectInputImg.SetNativeSize();
     }
 
@@ -86,7 +86,7 @@ public class InOrderLockerUIController : PuzzleUIController
 
     public void Try_Interact()
     {
-        InputManager.Instance.Play_MousePointerClick();
+        InputManager.instance.Play_MousePointerClick();
 
         if (Is_Interact_On()) return;
     }
@@ -133,10 +133,10 @@ public class InOrderLockerUIController : PuzzleUIController
     {
         base.Set_AllStart();
 
-        ReadyPanelEUI.Set_RuleDesc(ResourceManager.Instance.Get_StaticDesc(35));
+        ReadyPanelEUI.Set_RuleDesc(ResourceManager.instance.Get_StaticDesc(35));
 
         Set_AllDefault();
-        Set_InnerColor(ResourceManager.Instance.lockedClr);
+        Set_InnerColor(ResourceManager.instance.lockedClr);
         Set_InteractableAmount(CellAmount);
     }
 
@@ -144,7 +144,7 @@ public class InOrderLockerUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        Set_InnerColor(ResourceManager.Instance.unlockedClr);
+        Set_InnerColor(ResourceManager.instance.unlockedClr);
     }
 
     #endregion
@@ -198,7 +198,7 @@ public class InOrderLockerUIController : PuzzleUIController
 
     private void Set_SelectingIncludeValue(IOLCellEUIController _CellEUI)
     {
-        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
         int targetCellEUIIndex = AllIOLCell.IndexOf(_CellEUI);
 

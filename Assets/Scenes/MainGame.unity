@@ -553,28 +553,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f67548f393cb0045a855ec532eae141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPlayingEvent: 0
-  BlackUpsideRT: {fileID: 1901464145}
-  BlackDownsideRT: {fileID: 1762883270}
-  BlackScreenImg: {fileID: 620549039}
-  IsPlayingDialogue: 0
-  LeftDialogueComp:
-    DialogueGO: {fileID: 1239047412}
-    DialogueImg: {fileID: 1036445998}
-    NameTxt: {fileID: 1541980937}
-    DialogueTxt: {fileID: 1582932863}
-  RightDialogueComp:
-    DialogueGO: {fileID: 95299974}
-    DialogueImg: {fileID: 1836143605}
-    NameTxt: {fileID: 759845350}
-    DialogueTxt: {fileID: 1666940255}
-  IsPlayingCutscene: 0
-  CutsceneGO: {fileID: 1399098951}
-  ImgQueueSet:
+  isPlayingEvent: 0
+  blackUpsideRT: {fileID: 1901464145}
+  blackDownsideRT: {fileID: 1762883270}
+  blackScreenImg: {fileID: 620549039}
+  isPlayingDialogue: 0
+  leftDialogueComp:
+    dialogueGO: {fileID: 1239047412}
+    dialogueImg: {fileID: 1036445998}
+    nameTxt: {fileID: 1541980937}
+    dialogueTxt: {fileID: 1582932863}
+  rightDialogueComp:
+    dialogueGO: {fileID: 95299974}
+    dialogueImg: {fileID: 1836143605}
+    nameTxt: {fileID: 759845350}
+    dialogueTxt: {fileID: 1666940255}
+  isPlayingCutscene: 0
+  cutsceneGO: {fileID: 1399098951}
+  imgQueueSet:
     ThisParentTF: {fileID: 1247100968}
-  CutsceneTxt: {fileID: 2092749887}
-  CutsceneNextImg: {fileID: 145164375}
-  CurrentEvent:
+  cutsceneTxt: {fileID: 2092749887}
+  cutsceneNextImg: {fileID: 145164375}
+  currentEvent:
     ID: 0
     Events: []
 --- !u!4 &73963933
@@ -1940,7 +1940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c6e61de8c43ab47b554571f2608e7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TunerTypeIcon:
+  tunerTypeIcon:
   - {fileID: -1080434544, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: -1374723442, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: 1299543531, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
@@ -1950,7 +1950,7 @@ MonoBehaviour:
   - {fileID: -1043234133, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: -625728284, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
   - {fileID: 768085294, guid: 478de98daf2a3104296cb43c14cb89ab, type: 3}
-  AllAlly: []
+  allAlly: []
 --- !u!114 &355347631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1963,7 +1963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa5068c429be0884badcee9aef021753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllyParentTF: {fileID: 875405826}
+  allyParentTF: {fileID: 875405826}
 --- !u!114 &355347632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1988,7 +1988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2b1a0b748214be4286b3c78a80ba314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sync005_OriginalBuff:
+  sync005_OriginalBuff:
     Type: Dmg
     IconSprite: {fileID: -1449385789, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
     BuffValue: 0.15
@@ -1996,7 +1996,7 @@ MonoBehaviour:
     MaxCooltime: 5
     IsIncrease: 0
     IsPermanent: 0
-  Sync008_OriginalBuff:
+  sync008_OriginalBuff:
     Type: Dmg
     IconSprite: {fileID: -1834734568, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
     BuffValue: 1
@@ -2004,7 +2004,7 @@ MonoBehaviour:
     MaxCooltime: 2
     IsIncrease: 1
     IsPermanent: 0
-  TotisToteme_OriginalBuff:
+  totisToteme_OriginalBuff:
     Type: Dmg
     IconSprite: {fileID: -1083493216, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
     BuffValue: 0.3
@@ -2012,7 +2012,7 @@ MonoBehaviour:
     MaxCooltime: 5
     IsIncrease: 0
     IsPermanent: 0
-  Sync007_OriginalBuff:
+  sync007_OriginalBuff:
     Type: Rof
     IconSprite: {fileID: 923316139, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
     BuffValue: 0
@@ -2020,7 +2020,7 @@ MonoBehaviour:
     MaxCooltime: 3
     IsIncrease: 0
     IsPermanent: 0
-  Sync006_OriginalBuff:
+  sync006_OriginalBuff:
     Type: CD
     IconSprite: {fileID: 1160235244, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
     BuffValue: 0.2
@@ -4762,52 +4762,52 @@ MonoBehaviour:
   gameProgressPath: GameProgressData
   infoPath: InfoData
   jsonData:
-    CharacterData:
-    - ID: 0
-      CanUse: 1
-    - ID: 1
-      CanUse: 0
-    ItemData:
-    - ID: 0
-      Name: Premium Credit
-      Amount: 0
-    - ID: 1
-      Name: Proto Core
-      Amount: 0
-    - ID: 2
-      Name: Ether Core
-      Amount: 0
-    - ID: 3
-      Name: Origin Core
-      Amount: 0
-    OptionData:
-      LanguageID: 1
-      ScreenMode: 0
-      ResolutionMode: 2
-      FPS: 3
-      BGMVolume: 0.5
-      SFXVolume: 0.5
-    GameProgressData:
-      CurrentProgressing: 0
-      UsableVault: 1
-      UsableBU: 1
-      UsableMU: 1
-      UsableABU: 1
-      UsableAMU: 1
-      UsableSTPrison: 1
-      UsableUTPrison: 1
-      UsableNTPrison: 1
-    InfoData:
-    - ID: 0
-      CanVisible: 1
-    - ID: 1
-      CanVisible: 1
-    - ID: 2
-      CanVisible: 1
-    - ID: 3
-      CanVisible: 1
-    - ID: 4
-      CanVisible: 1
+    characterData:
+    - id: 0
+      canUse: 1
+    - id: 1
+      canUse: 0
+    itemData:
+    - id: 0
+      name: Premium Credit
+      amount: 0
+    - id: 1
+      name: Proto Core
+      amount: 0
+    - id: 2
+      name: Ether Core
+      amount: 0
+    - id: 3
+      name: Origin Core
+      amount: 0
+    optionData:
+      languageID: 1
+      screenMode: 0
+      resolutionMode: 2
+      fps: 3
+      bgmVolume: 0.5
+      sfxVolume: 0.5
+    gameProgressData:
+      currentProgressing: 0
+      usableVault: 1
+      usableBU: 1
+      usableMU: 1
+      usableABU: 1
+      usableAMU: 1
+      usableSTPrison: 1
+      usableUTPrison: 1
+      usableNTPrison: 1
+    infoData:
+    - id: 0
+      canVisible: 1
+    - id: 1
+      canVisible: 1
+    - id: 2
+      canVisible: 1
+    - id: 3
+      canVisible: 1
+    - id: 4
+      canVisible: 1
 --- !u!4 &657936138
 Transform:
   m_ObjectHideFlags: 0
@@ -5519,171 +5519,6 @@ MonoBehaviour:
       DoorAnim: {fileID: 7400000, guid: 655745c9192f3e149b5c0cc6ad4e851a, type: 2}
       MaterialIndex: 0
     AllMapSprite: []
-  AllStageData:
-  - MapIndexName: Map00
-    InfoData:
-      StageID: 0
-    RoomData:
-      RoomAmount:
-      - ID: 0
-        Amount: 5
-      - ID: 1
-        Amount: 3
-      - ID: 2
-        Amount: 3
-      - ID: 4
-        Amount: 2
-      - ID: 5
-        Amount: 2
-      - ID: 6
-        Amount: 2
-      - ID: 7
-        Amount: 2
-      DesignatedRoom:
-      - ID: 0
-        RuleID: 0
-      - ID: 0
-        RuleID: 1
-      - ID: 0
-        RuleID: 2
-      EntranceRoom:
-      - ID: 3
-        RuleID: 0
-      - ID: 3
-        RuleID: 1
-      VaultRoom:
-      - ID: 0
-        RuleID: 0
-      ShopRoom:
-      - ID: 0
-        RuleID: 0
-      AllyShopRoom:
-      - ID: 0
-        RuleID: 0
-      PrisonRoom:
-      - ID: 0
-        RuleID: 0
-        TypeID: 0
-      - ID: 0
-        RuleID: 0
-        TypeID: 1
-      - ID: 0
-        RuleID: 0
-        TypeID: 2
-    EnemyData:
-      StageEnemyList:
-      - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
-      - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
-      - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
-      - {fileID: 272305898077013730, guid: 82ae2858bc289e949994ce56dd3e5659, type: 3}
-      StageEliteEnemyList:
-      - {fileID: 272305898077013730, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
-      - {fileID: 272305898077013730, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
-      - {fileID: 272305898077013730, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
-      StageBossEnemyList:
-      - {fileID: 272305898077013730, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
-    MapMaterialUnclear:
-    - {fileID: 2100000, guid: 663f2624c3a6d674aafddf6a41ae817b, type: 2}
-    - {fileID: 2100000, guid: 519ca4ba8ee8cd146a55966a26e1ea8c, type: 2}
-    MapMaterialClear:
-    - {fileID: 2100000, guid: 5411254558eda4f4883706ba9445ecf0, type: 2}
-    - {fileID: 2100000, guid: ebc0ed9589212f34fb9c3aa4df828ad6, type: 2}
-    MapDoorAnim:
-    - Dir: {x: 0, y: -1}
-      DoorAnim: {fileID: 7400000, guid: 1c249b8fb21ab16409ac647a74f9d435, type: 2}
-      MaterialIndex: 0
-    - Dir: {x: -1, y: 0}
-      DoorAnim: {fileID: 7400000, guid: 32209fc59e5378e47ae11db329627db5, type: 2}
-      MaterialIndex: 0
-    - Dir: {x: 1, y: 0}
-      DoorAnim: {fileID: 7400000, guid: 68c4705b95683d6438092d027ff0fd4f, type: 2}
-      MaterialIndex: 0
-    - Dir: {x: 0, y: 1}
-      DoorAnim: {fileID: 7400000, guid: 8e9a3d8a8335eb143b62d2c56941ad53, type: 2}
-      MaterialIndex: 0
-    AllMapSprite: []
-  - MapIndexName: Map01
-    InfoData:
-      StageID: 1
-    RoomData:
-      RoomAmount:
-      - ID: 0
-        Amount: 5
-      - ID: 1
-        Amount: 3
-      - ID: 2
-        Amount: 3
-      - ID: 4
-        Amount: 2
-      - ID: 5
-        Amount: 2
-      - ID: 6
-        Amount: 2
-      - ID: 7
-        Amount: 2
-      DesignatedRoom:
-      - ID: 0
-        RuleID: 0
-      - ID: 0
-        RuleID: 1
-      - ID: 0
-        RuleID: 2
-      EntranceRoom:
-      - ID: 3
-        RuleID: 0
-      - ID: 3
-        RuleID: 1
-      VaultRoom:
-      - ID: 0
-        RuleID: 0
-      ShopRoom:
-      - ID: 0
-        RuleID: 0
-      AllyShopRoom:
-      - ID: 0
-        RuleID: 0
-      PrisonRoom:
-      - ID: 0
-        RuleID: 0
-        TypeID: 0
-      - ID: 0
-        RuleID: 0
-        TypeID: 1
-      - ID: 0
-        RuleID: 0
-        TypeID: 2
-    EnemyData:
-      StageEnemyList:
-      - {fileID: 272305898077013730, guid: 3ba0b72f1e0418544903a6413d54126d, type: 3}
-      - {fileID: 272305898077013730, guid: cacfcde2b84ce8b4ca7ac8e5fa4d2b25, type: 3}
-      - {fileID: 272305898077013730, guid: 3e1620e20fd845a4cbe427f055149e24, type: 3}
-      - {fileID: 272305898077013730, guid: 82ae2858bc289e949994ce56dd3e5659, type: 3}
-      StageEliteEnemyList:
-      - {fileID: 272305898077013730, guid: 3b89ffefd66cc024388b11345d7a987c, type: 3}
-      - {fileID: 272305898077013730, guid: 758f762ce8f67754aad67c7598d53d50, type: 3}
-      - {fileID: 272305898077013730, guid: f93f5760eff1e644caa8ab49d72bf951, type: 3}
-      StageBossEnemyList:
-      - {fileID: 272305898077013730, guid: 7c4bf812e1abe444fbbfdf23e5602f73, type: 3}
-    MapMaterialUnclear:
-    - {fileID: 2100000, guid: 8b689d8c19f30334a98c2f0d67d608c5, type: 2}
-    - {fileID: 2100000, guid: deb9be69c28c64944b4e86b3c81e6b83, type: 2}
-    MapMaterialClear:
-    - {fileID: 2100000, guid: 812b285c29f3cce4a82f4413446f12af, type: 2}
-    - {fileID: 2100000, guid: 3e7a34fe58e2bad4b8e82d8e6bc05f21, type: 2}
-    MapDoorAnim:
-    - Dir: {x: 0, y: -1}
-      DoorAnim: {fileID: 7400000, guid: 647f2f6a2c56c3841b90aa7bbdd9650a, type: 2}
-      MaterialIndex: 0
-    - Dir: {x: -1, y: 0}
-      DoorAnim: {fileID: 7400000, guid: 12522e083c51e4343a9c15968ff996d2, type: 2}
-      MaterialIndex: 0
-    - Dir: {x: 1, y: 0}
-      DoorAnim: {fileID: 7400000, guid: b16066ca352c5084fa29fd87112d0a3b, type: 2}
-      MaterialIndex: 0
-    - Dir: {x: 0, y: 1}
-      DoorAnim: {fileID: 7400000, guid: 19beff2bef1253549a67f648a1d06b47, type: 2}
-      MaterialIndex: 0
-    AllMapSprite: []
   allStageData:
   - MapIndexName: Map00
     InfoData:
@@ -5849,10 +5684,8 @@ MonoBehaviour:
       DoorAnim: {fileID: 7400000, guid: 19beff2bef1253549a67f648a1d06b47, type: 2}
       MaterialIndex: 0
     AllMapSprite: []
-  CurrentAllRoomController: []
-  CurrentAllEntranceRoomController: []
-  CurrentRoomController: {fileID: 0}
-  IsStartStage: 1
+  currentRoomController: {fileID: 0}
+  isStartStage: 1
 --- !u!1 &724611502
 GameObject:
   m_ObjectHideFlags: 0
@@ -11421,23 +11254,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61271599a0ec0514aa810325cbab6ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
-  BuffName: Shockwave Shield
-  MaxBuffCharge: 1
-  GainCharge: 1
-  ReductionCharge: 1
-  IsIncreaseByTime: 0
-  Condition_DurTimer: 0
-  MaxDurTime: 0
-  InitializationWhenGain: 1
-  InitializationWhenLoss: 0
-  Condition_PlayerSyncSet: 0
-  ThisIconSprite: {fileID: -154321793, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  ThisShield:
+  id: 0
+  buffName: Shockwave Shield
+  maxBuffCharge: 1
+  gainCharge: 1
+  reductionCharge: 1
+  isIncreaseByTime: 0
+  condition_DurTimer: 0
+  maxDurTime: 0
+  initializationWhenGain: 1
+  initializationWhenLoss: 0
+  condition_PlayerSyncSet: 0
+  thisIconSprite: {fileID: -154321793, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  thisShield:
     ShieldID: Shockwave's Buff
     ShieldMaxValue: 20
     ShieldCurrentValue: 0
-  ActivingBuff: []
 --- !u!114 &1430576404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11462,19 +11294,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c158bf245239c1847956c904ee8aff75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 1
-  BuffName: PlayerSync_005
-  MaxBuffCharge: 1
-  GainCharge: 1
-  ReductionCharge: 1
-  IsIncreaseByTime: 0
-  Condition_DurTimer: 1
-  MaxDurTime: 5
-  InitializationWhenGain: 1
-  InitializationWhenLoss: 0
-  Condition_PlayerSyncSet: 0
-  ThisIconSprite: {fileID: -1956518223, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  Multiple:
+  id: 1
+  buffName: PlayerSync_005
+  maxBuffCharge: 1
+  gainCharge: 1
+  reductionCharge: 1
+  isIncreaseByTime: 0
+  condition_DurTimer: 1
+  maxDurTime: 5
+  initializationWhenGain: 1
+  initializationWhenLoss: 0
+  condition_PlayerSyncSet: 0
+  thisIconSprite: {fileID: -1956518223, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  multiple:
     BuffID: PlayerSync_005
     BaseValue: 0.15
     ActualValue: 0
@@ -11490,21 +11322,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f1447580adf92542a9fa29ab7f4f549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 2
-  BuffName: Flame!
-  MaxBuffCharge: 50
-  GainCharge: 1
-  ReductionCharge: 1
-  IsIncreaseByTime: 0
-  Condition_DurTimer: 0
-  MaxDurTime: 2
-  InitializationWhenGain: 0
-  InitializationWhenLoss: 0
-  Condition_PlayerSyncSet: 0
-  ThisIconSprite: {fileID: 579021722, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  MaxHpPercent: 0
-  ConstPoint: 0
-  StackDmg: 1
+  id: 2
+  buffName: Flame!
+  maxBuffCharge: 50
+  gainCharge: 1
+  reductionCharge: 1
+  isIncreaseByTime: 0
+  condition_DurTimer: 0
+  maxDurTime: 2
+  initializationWhenGain: 0
+  initializationWhenLoss: 0
+  condition_PlayerSyncSet: 0
+  thisIconSprite: {fileID: 579021722, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  maxHpPercent: 0
+  constPoint: 0
+  stackDmg: 1
 --- !u!114 &1430576409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11517,21 +11349,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5d40c97dbd1694389563483b748fcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 6
-  BuffName: TestTickHeal
-  MaxBuffCharge: 1
-  GainCharge: 1
-  ReductionCharge: 1
-  IsIncreaseByTime: 0
-  Condition_DurTimer: 0
-  MaxDurTime: 1
-  InitializationWhenGain: 0
-  InitializationWhenLoss: 0
-  Condition_PlayerSyncSet: 0
-  ThisIconSprite: {fileID: -1489417253, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  MaxHpPercent: 10
-  ConstPoint: 0
-  StackHeal: 0
+  id: 6
+  buffName: TestTickHeal
+  maxBuffCharge: 1
+  gainCharge: 1
+  reductionCharge: 1
+  isIncreaseByTime: 0
+  condition_DurTimer: 0
+  maxDurTime: 1
+  initializationWhenGain: 0
+  initializationWhenLoss: 0
+  condition_PlayerSyncSet: 0
+  thisIconSprite: {fileID: -1489417253, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  maxHpPercent: 10
+  constPoint: 0
+  stackHeal: 0
 --- !u!114 &1430576410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11544,19 +11376,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c158bf245239c1847956c904ee8aff75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 3
-  BuffName: Cold!
-  MaxBuffCharge: 50
-  GainCharge: 1
-  ReductionCharge: 1
-  IsIncreaseByTime: 0
-  Condition_DurTimer: 0
-  MaxDurTime: 1
-  InitializationWhenGain: 0
-  InitializationWhenLoss: 0
-  Condition_PlayerSyncSet: 0
-  ThisIconSprite: {fileID: -1972510542, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  Multiple:
+  id: 3
+  buffName: Cold!
+  maxBuffCharge: 50
+  gainCharge: 1
+  reductionCharge: 1
+  isIncreaseByTime: 0
+  condition_DurTimer: 0
+  maxDurTime: 1
+  initializationWhenGain: 0
+  initializationWhenLoss: 0
+  condition_PlayerSyncSet: 0
+  thisIconSprite: {fileID: -1972510542, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  multiple:
     BuffID: cold
     BaseValue: -0.01
     ActualValue: 0
@@ -11572,21 +11404,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 147423c18881704449bb028a5e138ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 4
-  BuffName: Electric!
-  MaxBuffCharge: 50
-  GainCharge: 1
-  ReductionCharge: 1
-  IsIncreaseByTime: 0
-  Condition_DurTimer: 0
-  MaxDurTime: 5
-  InitializationWhenGain: 0
-  InitializationWhenLoss: 0
-  Condition_PlayerSyncSet: 0
-  ThisIconSprite: {fileID: 1663980525, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  MaxHpPercent: 0
-  ConstPoint: 0
-  StackDmg: 0.25
+  id: 4
+  buffName: Electric!
+  maxBuffCharge: 50
+  gainCharge: 1
+  reductionCharge: 1
+  isIncreaseByTime: 0
+  condition_DurTimer: 0
+  maxDurTime: 5
+  initializationWhenGain: 0
+  initializationWhenLoss: 0
+  condition_PlayerSyncSet: 0
+  thisIconSprite: {fileID: 1663980525, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  maxHpPercent: 0
+  constPoint: 0
+  stackDmg: 0.25
 --- !u!114 &1430576412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11599,19 +11431,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f3e76cd264afe40a9de4c00bc10f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 5
-  BuffName: Corrosion!
-  MaxBuffCharge: 50
-  GainCharge: 1
-  ReductionCharge: 1
-  IsIncreaseByTime: 0
-  Condition_DurTimer: 0
-  MaxDurTime: 5
-  InitializationWhenGain: 1
-  InitializationWhenLoss: 0
-  Condition_PlayerSyncSet: 0
-  ThisIconSprite: {fileID: -776551882, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  Multiple:
+  id: 5
+  buffName: Corrosion!
+  maxBuffCharge: 50
+  gainCharge: 1
+  reductionCharge: 1
+  isIncreaseByTime: 0
+  condition_DurTimer: 0
+  maxDurTime: 5
+  initializationWhenGain: 1
+  initializationWhenLoss: 0
+  condition_PlayerSyncSet: 0
+  thisIconSprite: {fileID: -776551882, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  multiple:
     BuffID: Corrosion
     BaseValue: 0.01
     ActualValue: 0
@@ -11627,23 +11459,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61271599a0ec0514aa810325cbab6ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 7
-  BuffName: TestShield
-  MaxBuffCharge: 1
-  GainCharge: 1
-  ReductionCharge: 1
-  IsIncreaseByTime: 0
-  Condition_DurTimer: 0
-  MaxDurTime: 0
-  InitializationWhenGain: 1
-  InitializationWhenLoss: 0
-  Condition_PlayerSyncSet: 0
-  ThisIconSprite: {fileID: 682448351, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  ThisShield:
+  id: 7
+  buffName: TestShield
+  maxBuffCharge: 1
+  gainCharge: 1
+  reductionCharge: 1
+  isIncreaseByTime: 0
+  condition_DurTimer: 0
+  maxDurTime: 0
+  initializationWhenGain: 1
+  initializationWhenLoss: 0
+  condition_PlayerSyncSet: 0
+  thisIconSprite: {fileID: 682448351, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  thisShield:
     ShieldID: Shockwave's Buff
     ShieldMaxValue: 20
     ShieldCurrentValue: 0
-  ActivingBuff: []
 --- !u!114 &1430576414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11656,19 +11487,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21b61d886fa3a542a391977871329af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 9
-  BuffName: PlayerSync_007
-  MaxBuffCharge: 5
-  GainCharge: 1
-  ReductionCharge: 100
-  IsIncreaseByTime: 0
-  Condition_DurTimer: 1
-  MaxDurTime: 3
-  InitializationWhenGain: 1
-  InitializationWhenLoss: 0
-  Condition_PlayerSyncSet: 0
-  ThisIconSprite: {fileID: 397062668, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  Multiple:
+  id: 9
+  buffName: PlayerSync_007
+  maxBuffCharge: 5
+  gainCharge: 1
+  reductionCharge: 100
+  isIncreaseByTime: 0
+  condition_DurTimer: 1
+  maxDurTime: 3
+  initializationWhenGain: 1
+  initializationWhenLoss: 0
+  condition_PlayerSyncSet: 0
+  thisIconSprite: {fileID: 397062668, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  multiple:
     BuffID: PlayerSync_007
     BaseValue: 0.04
     ActualValue: 0
@@ -11684,19 +11515,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49d719ba7ddb4ab40acba08f6a9e2271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 8
-  BuffName: PlayerSync_006
-  MaxBuffCharge: 1
-  GainCharge: 1
-  ReductionCharge: 1
-  IsIncreaseByTime: 0
-  Condition_DurTimer: 0
-  MaxDurTime: 1
-  InitializationWhenGain: 1
-  InitializationWhenLoss: 0
-  Condition_PlayerSyncSet: 1
-  ThisIconSprite: {fileID: 456725532, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  Multiple:
+  id: 8
+  buffName: PlayerSync_006
+  maxBuffCharge: 1
+  gainCharge: 1
+  reductionCharge: 1
+  isIncreaseByTime: 0
+  condition_DurTimer: 0
+  maxDurTime: 1
+  initializationWhenGain: 1
+  initializationWhenLoss: 0
+  condition_PlayerSyncSet: 1
+  thisIconSprite: {fileID: 456725532, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  multiple:
     BuffID: PlayerSync_006
     BaseValue: 0.2
     ActualValue: 0
@@ -11712,19 +11543,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c158bf245239c1847956c904ee8aff75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 10
-  BuffName: PlayerSync_008
-  MaxBuffCharge: 2
-  GainCharge: 1
-  ReductionCharge: 100
-  IsIncreaseByTime: 1
-  Condition_DurTimer: 1
-  MaxDurTime: 2
-  InitializationWhenGain: 0
-  InitializationWhenLoss: 1
-  Condition_PlayerSyncSet: 1
-  ThisIconSprite: {fileID: -2123982221, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  Multiple:
+  id: 10
+  buffName: PlayerSync_008
+  maxBuffCharge: 2
+  gainCharge: 1
+  reductionCharge: 100
+  isIncreaseByTime: 1
+  condition_DurTimer: 1
+  maxDurTime: 2
+  initializationWhenGain: 0
+  initializationWhenLoss: 1
+  condition_PlayerSyncSet: 1
+  thisIconSprite: {fileID: -2123982221, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  multiple:
     BuffID: PlayerSync_008
     BaseValue: 1
     ActualValue: 0
@@ -11740,19 +11571,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c158bf245239c1847956c904ee8aff75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 11
-  BuffName: AllyTotisToteme
-  MaxBuffCharge: 1
-  GainCharge: 1
-  ReductionCharge: 1
-  IsIncreaseByTime: 0
-  Condition_DurTimer: 1
-  MaxDurTime: 3
-  InitializationWhenGain: 1
-  InitializationWhenLoss: 0
-  Condition_PlayerSyncSet: 0
-  ThisIconSprite: {fileID: -644871782, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
-  Multiple:
+  id: 11
+  buffName: AllyTotisToteme
+  maxBuffCharge: 1
+  gainCharge: 1
+  reductionCharge: 1
+  isIncreaseByTime: 0
+  condition_DurTimer: 1
+  maxDurTime: 3
+  initializationWhenGain: 1
+  initializationWhenLoss: 0
+  condition_PlayerSyncSet: 0
+  thisIconSprite: {fileID: -644871782, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
+  multiple:
     BuffID: AllyTotisToteme
     BaseValue: 0.3
     ActualValue: 0
@@ -13159,7 +12990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cda2f3c4c8e8cfa4c87c7d8dc7f8301b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AllNPCs: []
+  allNpcs: []
 --- !u!1 &1603938533
 GameObject:
   m_ObjectHideFlags: 0

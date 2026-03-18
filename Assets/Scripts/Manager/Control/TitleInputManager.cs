@@ -130,13 +130,13 @@ public class TitleInputManager : Singleton<TitleInputManager>
     private void Input_TU_Select(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            TitleLobbyUIManager.Instance.titleLobby_UIController.Try_Interact();
+            TitleLobbyUIManager.instance.titleLobby_UIController.Try_Interact();
     }
 
     private void Input_TU_OutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            TitleLobbyUIManager.Instance.titleLobby_UIController.Try_OutInteract();
+            TitleLobbyUIManager.instance.titleLobby_UIController.Try_OutInteract();
     }
 
     #endregion

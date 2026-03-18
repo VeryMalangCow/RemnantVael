@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e210827fea44172408ac24c45d82d166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 8901846497403385796}
   ThisSR: {fileID: 3509543857521266894}
   TargetRange: 0.5
@@ -88,7 +88,6 @@ MonoBehaviour:
     Dur:
       Value: 0
   MaxHP: 100
-  MaxEP: 100
   AllyStateMode:
     value: 0
   BuffController: {fileID: 1545880728986693634}
@@ -415,7 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b075d7c5f760244799457455f957c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 7357743068536337124}
   ThisSR: {fileID: 3373301920055886677}
   TargetRange: 0.5

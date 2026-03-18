@@ -26,37 +26,37 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     [HideInInspector] private static string WORD_SPLIT_RE = @",";
 
     // 파일 => 스트링
-    private string Get_FileString(TextAsset _TextAsset)
+    private string Get_FileString(TextAsset textAsset)
     {
-        return _TextAsset.text;
+        return textAsset.text;
     }
 
     // 행 길이 구하기
-    private int Get_FileRowAmount(TextAsset _TextAsset)
+    private int Get_FileRowAmount(TextAsset textAsset)
     {
-        return Get_AllLine(_TextAsset).Length;
+        return Get_AllLine(textAsset).Length;
     }
 
     // 행 받아오기
-    private string[] Get_AllLine(TextAsset _TextAsset)
+    private string[] Get_AllLine(TextAsset textAsset)
     {
-        return Regex.Split(Get_FileString(_TextAsset), LINE_SPLIT_RE);
+        return Regex.Split(Get_FileString(textAsset), LINE_SPLIT_RE);
     }
 
     // 열을 쉼표로 나누기
-    private string[] Get_Words(TextAsset _TextAsset, int _Row)
+    private string[] Get_Words(TextAsset textAsset, int _Row)
     {
-        return Regex.Split(Get_AllLine(_TextAsset)[_Row], WORD_SPLIT_RE);
+        return Regex.Split(Get_AllLine(textAsset)[_Row], WORD_SPLIT_RE);
     }
 
     // 파일을 이중 리스트(string)으로 변경
-    private string[][] Get_DoubleArr(TextAsset _TextAsset)
+    private string[][] Get_DoubleArr(TextAsset textAsset)
     {
         List<string[]> result = new List<string[]>();
-        int amount = Get_FileRowAmount(_TextAsset);
+        int amount = Get_FileRowAmount(textAsset);
         for (int i = 0; i < amount; i++)
         {
-            result.Add(Get_Words(_TextAsset, i));
+            result.Add(Get_Words(textAsset, i));
         }
         return result.ToArray();
     }
@@ -192,22 +192,22 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         languageTxtArr = result.ToArray();
     }
 
-    private TMP_FontAsset[] GetAsset_SDF(string _Path, string _Type, int _Amount)
+    private TMP_FontAsset[] GetAsset_SDF(string path, string type, int amount)
     {
         List<TMP_FontAsset> result = new List<TMP_FontAsset>();
-        for (int i = 0; i < _Amount; i++)
+        for (int i = 0; i < amount; i++)
         {
-            string name = $"{_Type}_{i}_SDF";
-            result.Add(Resources.Load<TMP_FontAsset>(_Path + name));
+            string name = $"{type}_{i}_SDF";
+            result.Add(Resources.Load<TMP_FontAsset>(path + name));
         }
 
         return result.ToArray();
     }
 
 
-    public void Add_LanguageTxt(LanguageTxtController _LangTxt)
+    public void Add_LanguageTxt(LanguageTxtController langTxt)
     {
-        allLanguageTxtControllers.Add(_LangTxt);
+        allLanguageTxtControllers.Add(langTxt);
     }
 
     public void Clear_LanguageTxt()
@@ -215,11 +215,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         allLanguageTxtControllers.Clear();
     }
 
-    public void Set_LanguageFont(int _LangID)
+    public void Set_LanguageFont(int langID)
     {
-        if (GameManager.languageID == _LangID) return;
-        GameManager.languageID = _LangID;
-        SaveDataManager.Instance.jsonData.OptionData.LanguageID = GameManager.languageID;
+        if (GameManager.languageID == langID) return;
+        GameManager.languageID = langID;
+        SaveDataManager.instance.jsonData.optionData.languageID = GameManager.languageID;
 
         // Change String
         Set_LanguageTxt();
@@ -233,10 +233,10 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         if (sceneName == "MainGame")
         {
             // UI
-            MainGameUIManager.Instance.Set_LanguageTxt();
+            MainGameUIManager.instance.Set_LanguageTxt();
 
             // Ally
-            AllyManager.Instance.Set_Language();
+            AllyManager.instance.Set_Language();
 
             // Change PrisonInfo
             foreach (PrisonController prison in allPrisons)
@@ -245,7 +245,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         else if (sceneName == "TitleLobby")
         {
             // UI
-            TitleLobbyUIManager.Instance.Set_LanguageTxt();
+            TitleLobbyUIManager.instance.Set_LanguageTxt();
         }
 
     }
@@ -308,15 +308,15 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     // Get
-    public string Get_StaticWord(int _ID) => staticWord_Data.Get_Word(_ID);
-    public string Get_StaticDesc(int _ID) => staticDesc_Data.Get_Word(_ID);
+    public string Get_StaticWord(int id) => staticWord_Data.Get_Word(id);
+    public string Get_StaticDesc(int id) => staticDesc_Data.Get_Word(id);
 
-    public string Get_PlayerName(int _ID) => playerName_Data.Get_Word(_ID);
-    public string Get_EnemyName(int _ID) => enemyName_Data.Get_Word(_ID);
+    public string Get_PlayerName(int id) => playerName_Data.Get_Word(id);
+    public string Get_EnemyName(int id) => enemyName_Data.Get_Word(id);
 
-    public string Get_ProperNounWord(int _ID) => properNoun_Data.Get_Word(_ID);
+    public string Get_ProperNounWord(int id) => properNoun_Data.Get_Word(id);
 
-    public string[] Get_AllyRandomName(int _ID) => randomName_Data.Get_Words(_ID);
+    public string[] Get_AllyRandomName(int id) => randomName_Data.Get_Words(id);
     public int Get_AllAllyRandomNameAmount() => randomName_Data.Get_Amount();
 
     #endregion
@@ -408,7 +408,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Sprite Get_BossPhaseSprite(int _ID) => enemyPhaseSpriteArr[_ID];
+    public Sprite Get_BossPhaseSprite(int id) => enemyPhaseSpriteArr[id];
 
     #endregion
     #region Static (Material)
@@ -439,11 +439,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Material Get_ModuleMaterial(string _Name) => staticMaterialDict[$"Module_{_Name}"];
-    public Material Get_EnemyMaterial(string _Name) => staticMaterialDict[$"Enemy_{_Name}"];
-    public Material Get_BuildMaterial(string _Name) => staticMaterialDict[$"Build_{_Name}"];
-    public CoupleData<Material> Get_CoupleBuildMaterial(string _BaseName, string _SpecialName)
-        => new CoupleData<Material>(Get_BuildMaterial(_BaseName), Get_BuildMaterial(_SpecialName));
+    public Material Get_ModuleMaterial(string name) => staticMaterialDict[$"Module_{name}"];
+    public Material Get_EnemyMaterial(string name) => staticMaterialDict[$"Enemy_{name}"];
+    public Material Get_BuildMaterial(string name) => staticMaterialDict[$"Build_{name}"];
+    public CoupleData<Material> Get_CoupleBuildMaterial(string baseName, string specialName)
+        => new CoupleData<Material>(Get_BuildMaterial(baseName), Get_BuildMaterial(specialName));
 
     #endregion
     #region Static (Anim)
@@ -469,7 +469,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public AnimationClip Get_AttributeExplosionAC(int _ID) => attributeExplosionACArr[_ID];
+    public AnimationClip Get_AttributeExplosionAC(int id) => attributeExplosionACArr[id];
 
     #endregion
 
@@ -487,11 +487,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         eventID_Data = Get_EventID(path, "EventID_CSV");
     }
 
-    private EventElement[] Get_EventElement(string _Path, string _FileName)
+    private EventElement[] Get_EventElement(string path, string fileName)
     {
         List<EventElement> result = new List<EventElement>();
 
-        string[][] stringArr = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringArr = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringArr.Length; i++)
         {
@@ -563,11 +563,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return result.ToArray();
     }
 
-    private EventID[] Get_EventID(string _Path, string _FileName)
+    private EventID[] Get_EventID(string path, string fileName)
     {
         List<EventID> result = new List<EventID>();
 
-        string[][] stringArr = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringArr = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringArr.Length; i++)
         {
@@ -591,15 +591,15 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     // ID에 맞는 EventID를 가져온 후, 그에 맞는 EventElement List를 가져옴
-    public List<EventElement> Get_CorrectEventArr(int _ID)
+    public List<EventElement> Get_CorrectEventArr(int id)
     {
         List<EventElement> result = new List<EventElement>();
 
-        int[] IDs = eventID_Data[_ID].EventIDs;
+        int[] ids = eventID_Data[id].EventIDs;
 
-        for (int i = 0; i < IDs.Length; i++)
+        for (int i = 0; i < ids.Length; i++)
         {
-            EventElement eventElement = eventElement_Data[IDs[i]];
+            EventElement eventElement = eventElement_Data[ids[i]];
 
             result.Add(eventElement);
         }
@@ -627,11 +627,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         cutsceneID_Data = GetAsset_CutsceneID(path, "CutsceneID_CSV");
     }
 
-    private CutsceneElement[] GetAsset_CutsceneElement(string _Path, string _FileName)
+    private CutsceneElement[] GetAsset_CutsceneElement(string path, string fileName)
     {
         List<CutsceneElement> result = new List<CutsceneElement>();
 
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringList.Length; i++)
         {
@@ -646,11 +646,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return result.ToArray();
     }
 
-    private CutsceneID[] GetAsset_CutsceneID(string _Path, string _FileName)
+    private CutsceneID[] GetAsset_CutsceneID(string path, string fileName)
     {
         List<CutsceneID> result = new List<CutsceneID>();
 
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringList.Length; i++)
         {
@@ -675,13 +675,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     // ID에 맞는 CutsceneID를 가져온 후, 그에 맞는 CutsceneElement List를 가져옴
-    public List<CutsceneElement> Get_CorrectCutsceneElementList(int _ID)
+    public List<CutsceneElement> Get_CorrectCutsceneElementList(int id)
     {
         List<CutsceneElement> result = new List<CutsceneElement>();
 
-        int[] IDs = cutsceneID_Data[_ID].Cutscenes;
+        int[] ids = cutsceneID_Data[id].Cutscenes;
 
-        for (int i = 0; i < IDs.Length; i++)
+        for (int i = 0; i < ids.Length; i++)
         {
             CutsceneElement cutsceneElement = cutsceneElement_Data[GameManager.languageID][i];
 
@@ -706,7 +706,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Sprite Get_CutsceneImg(int _ID) => cutsceneSprite_Data[_ID];
+    public Sprite Get_CutsceneImg(int id) => cutsceneSprite_Data[id];
 
     #endregion
 
@@ -728,11 +728,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         dialogueID_Data = GetAsset_DialogueID(path, "DialogueID_CSV");
     }
 
-    private DialogueElement[] GetAsset_DialogueElement(string _Path, string _FileName)
+    private DialogueElement[] GetAsset_DialogueElement(string path, string fileName)
     {
         List<DialogueElement> result = new List<DialogueElement>();
 
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringList.Length; i++)
         {
@@ -750,11 +750,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return result.ToArray();
     }
 
-    private DialogueID[] GetAsset_DialogueID(string _Path, string _FileName)
+    private DialogueID[] GetAsset_DialogueID(string path, string fileName)
     {
         List<DialogueID> result = new List<DialogueID>();
 
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringList.Length; i++)
         {
@@ -778,11 +778,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     // ID에 맞는 DialogueID를 가져온 후, 그에 맞는 DialogueElement List를 가져옴
-    public List<DialogueElement> Get_CorrectDialogueElementList(int _ID)
+    public List<DialogueElement> Get_CorrectDialogueElementList(int id)
     {
         List<DialogueElement> result = new List<DialogueElement>();
 
-        int[] IDs = dialogueID_Data[_ID].Dialogus;
+        int[] IDs = dialogueID_Data[id].Dialogus;
 
         for (int i = 0; i < IDs.Length; i++)
         {
@@ -812,7 +812,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Sprite Get_DialogueCharImg(string _ID) => dialogueCharSprite_Data[_ID];
+    public Sprite Get_DialogueCharImg(string id) => dialogueCharSprite_Data[id];
 
     #endregion
 
@@ -832,8 +832,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         infoDetail_Data = GetAsset_WordDataArr_ForParentID(path, "InfoDetail_CSV", amount);
     }
 
-    public string Get_InfoName(int _ID) => infoName_Data.Get_Word(_ID);
-    public WordSet_Just Get_InfoDetail(int _ID) => infoDetail_Data[_ID];
+    public string Get_InfoName(int id) => infoName_Data.Get_Word(id);
+    public WordSet_Just Get_InfoDetail(int id) => infoDetail_Data[id];
 
     #endregion
     #region Info (Sprite)
@@ -849,7 +849,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Sprite Get_InfoImg(int _ID) => infoSprite_Data[_ID];
+    public Sprite Get_InfoImg(int id) => infoSprite_Data[id];
 
     #endregion
 
@@ -883,11 +883,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         mainChipAllyDesc_Data = GetAsset_WordData(path, "MainChipAllyDesc_CSV");
     }
 
-    private ModuleBaseData[] GetAsset_ModuleBaseData(string _Path, string _FileName)
+    private ModuleBaseData[] GetAsset_ModuleBaseData(string path, string fileName)
     {
         List<ModuleBaseData> result = new List<ModuleBaseData>();
 
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringList.Length; i++)
         {
@@ -935,32 +935,32 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get Name
-    public string Get_ModuleName(int _ID) => moduleItemName_Data.Get_Word(_ID);
-    public string Get_SynergyName(int _ID) => mainChipName_Data.Get_Word(_ID);
-    public string Get_MainChipBaseDesc(int _ID) => mainChipAllyDesc_Data.Get_Word(_ID);
+    public string Get_ModuleName(int id) => moduleItemName_Data.Get_Word(id);
+    public string Get_SynergyName(int id) => mainChipName_Data.Get_Word(id);
+    public string Get_MainChipBaseDesc(int id) => mainChipAllyDesc_Data.Get_Word(id);
 
 
     // Set
-    public ItemData Set_DataLanguage(ItemData _ItemData, int _ID)
+    public ItemData Set_DataLanguage(ItemData itemData, int id)
     {
-        _ItemData.Name = moduleItemName_Data.Get_Word(_ID);
-        _ItemData.Description = moduleItemDesc_Data.Get_Word(_ID);
-        _ItemData.EquipDescription = moduleItemEquipDesc_Data.Get_Word(_ID);
+        itemData.Name = moduleItemName_Data.Get_Word(id);
+        itemData.Description = moduleItemDesc_Data.Get_Word(id);
+        itemData.EquipDescription = moduleItemEquipDesc_Data.Get_Word(id);
 
-        return _ItemData;
+        return itemData;
     }
 
-    public MainChipData Set_DataLanguage(MainChipData _MainChipData, int _ID)
+    public MainChipData Set_DataLanguage(MainChipData mainChipData, int id)
     {
-        _MainChipData.Name = mainChipName_Data.Get_Word(_ID);
-        _MainChipData.AmalgamationDescArr = new string[]
+        mainChipData.Name = mainChipName_Data.Get_Word(id);
+        mainChipData.AmalgamationDescArr = new string[]
         {
-            mainChipDesc_Data[_ID].Get_Word(0),
-            mainChipDesc_Data[_ID].Get_Word(1),
-            mainChipDesc_Data[_ID].Get_Word(2)
+            mainChipDesc_Data[id].Get_Word(0),
+            mainChipDesc_Data[id].Get_Word(1),
+            mainChipDesc_Data[id].Get_Word(2)
         };
 
-        return _MainChipData;
+        return mainChipData;
     }
 
     #endregion
@@ -997,8 +997,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Sprite Get_RankIcon(int _Rank) => rankIconArr[_Rank - 1];
-    public Sprite Get_DescRankIcon(int _Rank) => descRankIconArr[_Rank - 1];
+    public Sprite Get_RankIcon(int rank) => rankIconArr[rank - 1];
+    public Sprite Get_DescRankIcon(int rank) => descRankIconArr[rank - 1];
 
     #endregion
     #region Item - Module (Prefab)
@@ -1038,7 +1038,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public AnimationClip Get_ModuleOutlineAC(int _Rank) => moduleOutlineACs[_Rank];
+    public AnimationClip Get_ModuleOutlineAC(int rank) => moduleOutlineACs[rank];
 
     #endregion
 
@@ -1065,7 +1065,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Color Get_KeycardColor(int _ID) => keycardOutlineColorArr[_ID];
+    public Color Get_KeycardColor(int id) => keycardOutlineColorArr[id];
 
     #endregion
 
@@ -1096,7 +1096,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Sprite Get_CoreSprite(int _ID) => coreSpriteDict[_ID];
+    public Sprite Get_CoreSprite(int id) => coreSpriteDict[id];
 
     #endregion
     #region Item - Core (Anim)
@@ -1161,11 +1161,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             "AllyCard_NeoTeam_Desc_CSV");
     }
 
-    private AllyCardBaseData[] GetAsset_AllyCard(string _Path, string _FileName)
+    private AllyCardBaseData[] GetAsset_AllyCard(string path, string fileName)
     {
         List<AllyCardBaseData> result = new List<AllyCardBaseData>();
 
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringList.Length; i++)
         {
@@ -1187,11 +1187,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public AllyCardData[] Get_UplinkTeam_AllAllyCardData() => Get_Team_AllAllyCardData(uplinkTeam_AllyCard_Data, uplinkTeam_AllyCardName_Data, uplinkTeam_AllyCardDesc_Data);
     public AllyCardData[] Get_NeoTeam_AllAllyCardData() => Get_Team_AllAllyCardData(neoTeam_AllyCard_Data, neoTeam_AllyCardName_Data, neoTeam_AllyCardDesc_Data);
 
-    public AllyCardData[] Get_Team_AllAllyCardData(AllyCardBaseData[] _Data, WordSet_Just _NameWord, WordSet_Just _DescWord)
+    public AllyCardData[] Get_Team_AllAllyCardData(AllyCardBaseData[] data, WordSet_Just nameWord, WordSet_Just descWord)
     {
         List<AllyCardData> result = new List<AllyCardData>();
-        for (int i = 0; i < _Data.Length; i++)
-            result.Add(new AllyCardData(_Data[i], _NameWord.Get_Word(i), _DescWord.Get_Word(i)));
+        for (int i = 0; i < data.Length; i++)
+            result.Add(new AllyCardData(data[i], nameWord.Get_Word(i), descWord.Get_Word(i)));
 
         return result.ToArray();
     }
@@ -1280,28 +1280,28 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         }
     }
 
-    private Sprite[] GetAsset_AllyCardIcon(int _SpriteAmount, string _TypeName)
+    private Sprite[] GetAsset_AllyCardIcon(int spriteAmount, string typeName)
     {
         List<Sprite> result = new List<Sprite>();
-        for (int i = 0; i < _SpriteAmount; i++)
+        for (int i = 0; i < spriteAmount; i++)
         {
             result.AddRange(
                 GetAsset_Arr<Sprite>(
                     $"Sprite/UI/Ally/",
-                    $"AllyCardIcon_{_TypeName}_{DevTool.Get_LengthString(i, 3)}"));
+                    $"AllyCardIcon_{typeName}_{DevTool.Get_LengthString(i, 3)}"));
         }
         return result.ToArray();
     }
 
     // Get
-    public Sprite[] Get_AllyCardSpriteIcon(int _Type) => allyCardIcon_Data[_Type];
+    public Sprite[] Get_AllyCardSpriteIcon(int type) => allyCardIcon_Data[type];
 
-    public Sprite Get_AllyCardFrame(int _Rank) => allyCardFrameArr[_Rank];
-    public Sprite Get_AllyCardLight(int _Rank) => allyCardLightArr[_Rank];
-    public Sprite Get_AllyCardBG(int _Rank) => allyCardBGArr[_Rank];
+    public Sprite Get_AllyCardFrame(int rank) => allyCardFrameArr[rank];
+    public Sprite Get_AllyCardLight(int rank) => allyCardLightArr[rank];
+    public Sprite Get_AllyCardBG(int rank) => allyCardBGArr[rank];
 
-    public Color Get_AllyCardColor(int _Rank) => allyCardColorArr[_Rank];
-    public Sprite Get_KeyCardSprite(int _ID) => keyCardSpriteArr[_ID];
+    public Color Get_AllyCardColor(int rank) => allyCardColorArr[rank];
+    public Sprite Get_KeyCardSprite(int id) => keyCardSpriteArr[id];
     public int Get_KeycardAmount() => keyCardSpriteArr.Length;
 
     #endregion
@@ -1361,17 +1361,17 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public List<Sprite> Get_AllySprite(string _Name, string _Type)
+    public List<Sprite> Get_AllySprite(string name, string type)
     {
         List<Sprite> result = new List<Sprite>();
 
-        int stringLength = 7 + _Name.Length + _Type.Length;
+        int stringLength = 7 + name.Length + type.Length;
 
         // 맞는 아트 리소스 가져오기
         for (int i = 0; i < allySprite_Data.Length; i++)
         {
             if (allySprite_Data[i].name.Length >= stringLength &&
-                allySprite_Data[i].name.Substring(0, stringLength) == $"Ally_{_Name}_{_Type}_")
+                allySprite_Data[i].name.Substring(0, stringLength) == $"Ally_{name}_{type}_")
             {
                 result.Add(allySprite_Data[i]);
             }
@@ -1399,9 +1399,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
 
-    public Sprite Get_STPrisonIcon(bool _IsBase) => strikeTeamIcon.Get_Base(_IsBase);
-    public Sprite Get_UTPrisonIcon(bool _IsBase) => uplinkTeamIcon.Get_Base(_IsBase);
-    public Sprite Get_NTPrisonIcon(bool _IsBase) => neoTeamIcon.Get_Base(_IsBase);
+    public Sprite Get_STPrisonIcon(bool isBase) => strikeTeamIcon.Get_Base(isBase);
+    public Sprite Get_UTPrisonIcon(bool isBase) => uplinkTeamIcon.Get_Base(isBase);
+    public Sprite Get_NTPrisonIcon(bool isBase) => neoTeamIcon.Get_Base(isBase);
 
 
     #endregion
@@ -1436,8 +1436,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public GameObject Get_FieldUnitAlly(string _Name) => allyFieldUnit_PrefabDict[_Name];
-    public GameObject Get_NoneUnitAlly(string _Name) => allyNoneUnit_PrefabDict[_Name];
+    public GameObject Get_FieldUnitAlly(string name) => allyFieldUnit_PrefabDict[name];
+    public GameObject Get_NoneUnitAlly(string name) => allyNoneUnit_PrefabDict[name];
 
     #endregion
 
@@ -1458,9 +1458,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public string Get_RequestName(int _ID) => requestName_Data.Get_Word(_ID);
-    public string Get_RequestCompleteDesc(int _ID) => requestCompleteDesc_Data.Get_Word(_ID);
-    public string Get_RequestFailDesc(int _ID) => requestFailDesc_Data.Get_Word(_ID);
+    public string Get_RequestName(int id) => requestName_Data.Get_Word(id);
+    public string Get_RequestCompleteDesc(int id) => requestCompleteDesc_Data.Get_Word(id);
+    public string Get_RequestFailDesc(int id) => requestFailDesc_Data.Get_Word(id);
 
     #endregion
     #region AllyRequest (Sprite)
@@ -1496,8 +1496,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Sprite Get_AllyRequestRank(int _Rank) => requestRankSpriteList[_Rank];
-    public Sprite Get_AllyRequestReward(string _Type) => requestRewardDict[_Type];
+    public Sprite Get_AllyRequestRank(int rank) => requestRankSpriteList[rank];
+    public Sprite Get_AllyRequestReward(string type) => requestRewardDict[type];
 
     #endregion
 
@@ -1519,11 +1519,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         mapDesc_Data = GetAsset_WordData(path, "MapDesc_CSV");
     }
 
-    private Dictionary<int, MapNextIndex> Offset_MapNextIndex(string _Path, string _FileName)
+    private Dictionary<int, MapNextIndex> Offset_MapNextIndex(string path, string fileName)
     {
         Dictionary<int, MapNextIndex> result = new Dictionary<int, MapNextIndex>();
 
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringList.Length; i++)
         {
@@ -1546,12 +1546,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return result;
     }
 
-    private bool Is_ExistMapIndex(Dictionary<int, MapNextIndex> _AllMapNextIndex, int _PastIndex, out MapNextIndex _MapNextIndex)
+    private bool Is_ExistMapIndex(Dictionary<int, MapNextIndex> allMapNextIndex, int pastIndex, out MapNextIndex mapNextIndex)
     {
-        _MapNextIndex = null;
-        if (_AllMapNextIndex.ContainsKey(_PastIndex))
+        mapNextIndex = null;
+        if (allMapNextIndex.ContainsKey(pastIndex))
         {
-            _MapNextIndex = _AllMapNextIndex[_PastIndex];
+            mapNextIndex = allMapNextIndex[pastIndex];
             return true;
         }
         return false;
@@ -1559,13 +1559,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
 
     // Get
-    public string Get_MapName(int _ID) => mapName_Data.Get_Word(_ID);
-    public string Get_MapDesc(int _ID) => mapDesc_Data.Get_Word(_ID);
+    public string Get_MapName(int id) => mapName_Data.Get_Word(id);
+    public string Get_MapDesc(int id) => mapDesc_Data.Get_Word(id);
 
-    public List<int> Get_CorrectIndexList(int _PastIndex)
+    public List<int> Get_CorrectIndexList(int pastIndex)
     {
-        if (mapNextIndex_Data.ContainsKey(_PastIndex))
-            return mapNextIndex_Data[_PastIndex].NextIndexList;
+        if (mapNextIndex_Data.ContainsKey(pastIndex))
+            return mapNextIndex_Data[pastIndex].NextIndexList;
 
         return null;
     }
@@ -1629,13 +1629,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     }
 
-    private MapReso GetAsset_MapReso(string _Path, string _Name)
+    private MapReso GetAsset_MapReso(string path, string name)
     {
         List<MapResoElement> mapResoElements = new List<MapResoElement>();
 
         for (int i = 0; i < eachKindOfMapAmount; i++)
         {
-            Sprite[] spriteArr = GetAsset_Arr<Sprite>(_Path + _Name + "/", $"{_Name}_{DevTool.Get_LengthString(i, 3)}");
+            Sprite[] spriteArr = GetAsset_Arr<Sprite>(path + name + "/", $"{name}_{DevTool.Get_LengthString(i, 3)}");
 
             for (int j = 0; j < spriteArr.Length; j++)
             {
@@ -1646,7 +1646,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return new MapReso(mapResoElements.ToArray());
     }
 
-    private Sprite[][] Get_FieldObj(MapReso _Reso) // Type / SpriteList
+    private Sprite[][] Get_FieldObj(MapReso reso) // Type / SpriteList
     {
         List<List<Sprite>> result = new List<List<Sprite>>();
 
@@ -1655,13 +1655,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             result.Add(new List<Sprite>());
         }
 
-        for (int i = 0; i < _Reso.MapResoElements.Length; i++)
+        for (int i = 0; i < reso.MapResoElements.Length; i++)
         {
-            string[] name = _Reso.MapResoElements[i].Sprite.name.Split("_");
+            string[] name = reso.MapResoElements[i].Sprite.name.Split("_");
             if (name[1] == "FieldObj")
             {
                 int type = Int32.Parse(name[2].Substring(1, 2));
-                result[type].Add(_Reso.MapResoElements[i].Sprite);
+                result[type].Add(reso.MapResoElements[i].Sprite);
             }
         }
 
@@ -1676,16 +1676,16 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     // Get
     public MapReso Get_LobbyMapReso() => lobbyMapReso;
-    public MapReso Get_StageMapReso(int _ID) => stageMapReso[_ID];
+    public MapReso Get_StageMapReso(int id) => stageMapReso[id];
     public MapReso Get_PassageMapReso() => passageMapReso;
 
-    public Sprite Get_RandomFieldObjSprite(int _StageID, int _TypeID)
+    public Sprite Get_RandomFieldObjSprite(int stageID, int typeID)
     {
-        Sprite[] spriteArr = mapFieldObjList_Data[_StageID][_TypeID];
+        Sprite[] spriteArr = mapFieldObjList_Data[stageID][typeID];
         return spriteArr[UnityEngine.Random.Range(0, spriteArr.Length)];
     }
 
-    public Material Get_PassageMiddleMaterial(int _Idx) => passageMiddleMaterialArr[_Idx];
+    public Material Get_PassageMiddleMaterial(int index) => passageMiddleMaterialArr[index];
 
     #endregion
     #region Map (Prefab)
@@ -1845,8 +1845,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public string Get_SkillName(int _PlayerID, int _ID) => skillName_Data[_PlayerID].Get_Word(_ID);
-    public string Get_SkillDesc(int _PlayerID, int _ID) => skillDesc_Data[_PlayerID].Get_Word(_ID);
+    public string Get_SkillName(int playerID, int id) => skillName_Data[playerID].Get_Word(id);
+    public string Get_SkillDesc(int playerID, int id) => skillDesc_Data[playerID].Get_Word(id);
 
     #endregion
 
@@ -1863,7 +1863,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public string Get_TunerDescName(int _Index) => tunerStateName_Data.Get_Word(_Index);
+    public string Get_TunerDescName(int index) => tunerStateName_Data.Get_Word(index);
 
     #endregion
 
@@ -1937,7 +1937,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Sprite Get_NSCAnswerSprite(int _ShapeIndex, int _NumIndex) => allNscAnswerSpriteSet[_ShapeIndex].AllAnswerSet[_NumIndex];
+    public Sprite Get_NSCAnswerSprite(int shapeIndex, int numIndex) => allNscAnswerSpriteSet[shapeIndex].AllAnswerSet[numIndex];
 
     #endregion
     #region Build (Prefab)
@@ -2106,8 +2106,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public CoupleData<AnimationClip> Get_VaultAnim(int _Grade) => vault_AC[_Grade];
-    public AnimationClip Get_VaultBrokenAnim(int _Grade) => vault_BrokenAC[_Grade];
+    public CoupleData<AnimationClip> Get_VaultAnim(int grade) => vault_AC[grade];
+    public AnimationClip Get_VaultBrokenAnim(int grade) => vault_BrokenAC[grade];
 
     #endregion
 
@@ -2133,7 +2133,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Sprite Get_PrisonRankSprite(int _ID) => prisonRateIconArr[_ID];
+    public Sprite Get_PrisonRankSprite(int id) => prisonRateIconArr[id];
 
     #endregion
     #region Prison (Anim)
@@ -2236,7 +2236,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public EachConverterReso Get_ConverterReso(int _ID) => converterReso.ConverterResoList[_ID];
+    public EachConverterReso Get_ConverterReso(int id) => converterReso.ConverterResoList[id];
 
     #endregion
 
@@ -2370,8 +2370,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public MinimapIcon Get_MinimapIcon(int _ID) => minimapIcons[_ID];
-    public Sprite Get_StageIcon(int _ID) => stageIconDict[_ID];
+    public MinimapIcon Get_MinimapIcon(int id) => minimapIcons[id];
+    public Sprite Get_StageIcon(int id) => stageIconDict[id];
 
     #endregion
 
@@ -2449,26 +2449,26 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #region GetAsset_WordData
 
-    private WordSet_Just[] GetAsset_WordDataArr_ForParentID(string _Path, string _FileName, int _Amount)
+    private WordSet_Just[] GetAsset_WordDataArr_ForParentID(string path, string fileName, int amount)
     {
         List<WordSet_Just> result = new List<WordSet_Just>();
-        for (int i = 0; i < _Amount; i++)
-            result.Add(GetAsset_WordData_ForParentID(_Path, _FileName, i));
+        for (int i = 0; i < amount; i++)
+            result.Add(GetAsset_WordData_ForParentID(path, fileName, i));
 
         return result.ToArray();
     }
 
-    private WordSet_Just GetAsset_WordData_ForParentID(string _Path, string _FileName, int _TargetParentID)
+    private WordSet_Just GetAsset_WordData_ForParentID(string path, string fileName, int targetParentID)
     {
         Dictionary<int, WordElement_Just> elementDict = new Dictionary<int, WordElement_Just>();
 
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringList.Length; i++)
         {
             if (stringList[i][0] == "") break;
 
-            if (int.Parse(stringList[i][0]) != _TargetParentID) continue;
+            if (int.Parse(stringList[i][0]) != targetParentID) continue;
 
             List<string> nameList = new List<string>();
             int id = int.Parse(stringList[i][1]);
@@ -2482,11 +2482,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return new WordSet_Just(elementDict);
     }
 
-    private WordSet_Just GetAsset_WordData(string _Path, string _FileName)
+    private WordSet_Just GetAsset_WordData(string path, string fileName)
     {
         Dictionary<int, WordElement_Just> elementDict = new Dictionary<int, WordElement_Just>();
 
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringList.Length; i++)
         {
@@ -2504,11 +2504,11 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return new WordSet_Just(elementDict);
     }
 
-    private WordSet_WithClr GetAsset_WordData_Clr(string _Path, string _FileName)
+    private WordSet_WithClr GetAsset_WordData_Clr(string path, string fileName)
     {
         Dictionary<int, WordElement_WithClr> elementDict = new Dictionary<int, WordElement_WithClr>();
 
-        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(_Path + _FileName));
+        string[][] stringList = Get_DoubleArr(Resources.Load<TextAsset>(path + fileName));
 
         for (int i = 1; i < stringList.Length; i++)
         {
@@ -2531,12 +2531,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
 
     #region GetAsset_SpriteName
 
-    private bool Get_InSpriteName(Sprite _Sprite, string _Name, out int _Index)
+    private bool Get_InSpriteName(Sprite sprite, string name, out int index)
     {
-        _Index = -1;
-        if (_Sprite.name.Length > _Name.Length && _Sprite.name.StartsWith(_Name))
+        index = -1;
+        if (sprite.name.Length > name.Length && sprite.name.StartsWith(name))
         {
-            if (int.TryParse(_Sprite.name.Replace(_Name, ""), out _Index))
+            if (int.TryParse(sprite.name.Replace(name, ""), out index))
             {
                 return true;
             }
@@ -2544,57 +2544,57 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         return false;
     }
 
-    private bool Get_InSpriteName(Sprite _Sprite, string _Name, out string _Index)
+    private bool Get_InSpriteName(Sprite sprite, string name, out string index)
     {
-        _Index = "";
-        if (_Sprite.name.Length > _Name.Length && _Sprite.name.StartsWith(_Name))
+        index = "";
+        if (sprite.name.Length > name.Length && sprite.name.StartsWith(name))
         {
-            _Index = _Sprite.name.Replace(_Name, "");
+            index = sprite.name.Replace(name, "");
             return true;
         }
         return false;
     }
 
-    private bool Get_InSpriteName(Sprite _Sprite, CoupleData<Sprite> _Data, string _Name, string _Base, string _Special)
+    private bool Get_InSpriteName(Sprite sprite, CoupleData<Sprite> data, string name, string _base, string special)
     {
-        if (Get_InSpriteName(_Sprite, _Name, out string _index))
+        if (Get_InSpriteName(sprite, name, out string _index))
         {
-            if (_index == _Base)
+            if (_index == _base)
             {
-                _Data.TypeBase = _Sprite;
+                data.TypeBase = sprite;
                 return true;
             }  
-            else if (_index == _Special)
+            else if (_index == special)
             {
-                _Data.TypeSpecial = _Sprite;
+                data.TypeSpecial = sprite;
                 return true;
             }
         }
         return false;
     }
 
-    private bool Get_InSpriteName(Sprite _Sprite, PrisonAllySprite _Data, string _Name)
+    private bool Get_InSpriteName(Sprite sprite, PrisonAllySprite data, string name)
     {
-        if (Get_InSpriteName(_Sprite, _Name, out string _index))
+        if (Get_InSpriteName(sprite, name, out string _index))
         {
             if (_index == "Bind")
             { 
-                _Data.Bind = _Sprite;
+                data.Bind = sprite;
                 return true;
             }
             else if (_index == "Fall")
             { 
-                _Data.Fall = _Sprite;
+                data.Fall = sprite;
                 return true;
             }
             else if (_index == "Stand")
             { 
-                _Data.Stand = _Sprite;
+                data.Stand = sprite;
                 return true;
             }
             else if (_index == "Salute")
             { 
-                _Data.Salute = _Sprite;
+                data.Salute = sprite;
                 return true;
             }
         }

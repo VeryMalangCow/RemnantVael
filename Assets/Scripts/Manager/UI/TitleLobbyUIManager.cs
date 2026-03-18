@@ -46,9 +46,9 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
     private void Start()
     {
         titleLobby_UIController 
-            = Gen_UI<TitleLobbyUIController>(ResourceManager.Instance.titleLobby_CanvasPrefab, true);
+            = Gen_UI<TitleLobbyUIController>(ResourceManager.instance.titleLobby_CanvasPrefab, true);
 
-        GameManager.Instance.Set_BaseOption();
+        GameManager.instance.Set_BaseOption();
 
         SetWarningTxt();
         Start_FirstPlay();
@@ -132,17 +132,17 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     private void Start_FirstPlay()
     {
-        SoundManager.Instance.Play_2D_BGM_Title();
+        SoundManager.instance.Play_2D_BGM_Title();
 
         // Sound
-        SoundManager.Instance.Set_MasterVolume(0f, 1f, 1f);
+        SoundManager.instance.Set_MasterVolume(0f, 1f, 1f);
 
         if (screenCG == null && screenCanvas.TryGetComponent(out CanvasGroup CG))
         {
             screenCG = CG;
         }
 
-        if (!GameManager.Instance.wasWatched)
+        if (!GameManager.instance.wasWatched)
         {
             screenCG.alpha = 1f;
             warningCG.alpha = 0f;
@@ -190,7 +190,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
             .OnComplete(() =>
             {
                 screenCanvas.gameObject.SetActive(false);
-                GameManager.Instance.wasWatched = true;
+                GameManager.instance.wasWatched = true;
 
                 titleLobby_UIController.IsInIntro = false;
             });

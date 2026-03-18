@@ -184,9 +184,9 @@ public class RoomController : IDController
         {
             case eRoomType.KillAll:
                 if (RoomRuleController.EnemyType == eEnemy.Normal) 
-                     SoundManager.Instance.Play_2D_SFX_Room("Complete_KillAll"); 
+                     SoundManager.instance.Play_2D_SFX_Room("Complete_KillAll"); 
                 else
-                    SoundManager.Instance.Play_2D_SFX_Room("BattleWin");
+                    SoundManager.instance.Play_2D_SFX_Room("BattleWin");
                 break;
 
             default: break;
@@ -198,14 +198,14 @@ public class RoomController : IDController
 
     private void Set_KillAll()
     {
-        SoundManager.Instance.Play_2D_SFX_Room("Start_KillAll");
+        SoundManager.instance.Play_2D_SFX_Room("Start_KillAll");
 
         RoomRuleController.Set_KillAll();
     }
 
     private void Set_Safe()
     {
-        SoundManager.Instance.Play_2D_SFX_Room("Start_Safe");
+        SoundManager.instance.Play_2D_SFX_Room("Start_Safe");
 
         RoomRuleController.RoomType = eRoomType.Completed;
         Set_Completed();
@@ -213,7 +213,7 @@ public class RoomController : IDController
 
     private void Set_Prison()
     {
-        SoundManager.Instance.Play_2D_SFX_Room("Start_Prison");
+        SoundManager.instance.Play_2D_SFX_Room("Start_Prison");
 
         RoomRuleController.RoomType = eRoomType.Completed;
         Set_Completed();
@@ -232,8 +232,8 @@ public class RoomController : IDController
             }
         }
 
-        StageManager.Instance.Set_SetSpriteClearly();
-        StageManager.Instance.Set_SetAnimClearly();
+        StageManager.instance.Set_SetSpriteClearly();
+        StageManager.instance.Set_SetAnimClearly();
 
         RoomRuleController.Set_Completed();
     }
@@ -423,7 +423,7 @@ public class RoomController : IDController
 
     private void EachSpawn_FieldObj(Vector2 _Pos)
     {
-        if (Instantiate(ResourceManager.Instance.Get_RandomFieldObj_Prefab()).TryGetComponent(out DestructibleObjectController ddoc))
+        if (Instantiate(ResourceManager.instance.Get_RandomFieldObj_Prefab()).TryGetComponent(out DestructibleObjectController ddoc))
         {
             ddoc.gameObject.transform.SetParent(InRoom_FieldObjSpawnerParentTF);
             ddoc.gameObject.transform.position = _Pos;

@@ -125,8 +125,8 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
             ScreenModePanelEUI.Set_Item((int)GameManager.screenMode);
             ResolutionPanelEUI.Set_Item((int)GameManager.resolutionMode);
             FPSPanelEUI.Set_Item((int)GameManager.fps);
-            BGMVolumePanelEUI.Set_Value(SoundManager.Instance.BVolume);
-            SFXVolumePanelEUI.Set_Value(SoundManager.Instance.SVolume);
+            BGMVolumePanelEUI.Set_Value(SoundManager.instance.bgmVolume);
+            SFXVolumePanelEUI.Set_Value(SoundManager.instance.sfxVolume);
 
             IsOn = true;
         }
@@ -141,15 +141,15 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         public void Set_LanguageTxt()
         {
-            WarningTxt.text = ResourceManager.Instance.Get_StaticDesc(31);
+            WarningTxt.text = ResourceManager.instance.Get_StaticDesc(31);
 
-            DevTool.Get_ComponentTType<TMP_Text>(ApplyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ApplyBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(91);
-            LanguagePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(92);
-            ScreenModePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(140);
-            ResolutionPanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(137);
-            FPSPanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(141);
-            BGMVolumePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(138);
-            SFXVolumePanelEUI.HeaderTxt.text = ResourceManager.Instance.Get_StaticWord(139);
+            DevTool.Get_ComponentTType<TMP_Text>(ApplyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ApplyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(91);
+            LanguagePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(92);
+            ScreenModePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(140);
+            ResolutionPanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(137);
+            FPSPanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(141);
+            BGMVolumePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(138);
+            SFXVolumePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(139);
         }
     }
 
@@ -350,10 +350,10 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     private Vector2 Get_MovingPowerVec()
     {
-        if (TitleInputManager.Instance == null) 
+        if (TitleInputManager.instance == null) 
             return Vector2.zero;
 
-        return UIElementMovingPowerMultiple * TitleInputManager.Instance.Get_AnchorMousePos();
+        return UIElementMovingPowerMultiple * TitleInputManager.instance.Get_AnchorMousePos();
     }
 
     #endregion
@@ -365,7 +365,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         if (CurrentBtn == null || CurrentMouseBtn == null || IsStarting || IsInIntro || IsInteractTweening)
             return; 
 
-        TitleInputManager.Instance.Play_MousePointerClick();
+        TitleInputManager.instance.Play_MousePointerClick();
 
         string soundSfxName = "";
 
@@ -412,13 +412,13 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         }
         else if (CurrentBtn == ResetSureYesBtn)
         {
-            SaveDataManager.Instance.Reset_JsonData();
-            SaveDataManager.Instance.Load_JsonData();
-            LoadingSceneManager.Instance.Play_LoadScene("TitleLobby");
+            SaveDataManager.instance.Reset_JsonData();
+            SaveDataManager.instance.Load_JsonData();
+            LoadingSceneManager.instance.Play_LoadScene("TitleLobby");
         }
 
         if (soundSfxName != "")
-            SoundManager.Instance.Play_2D_SFX_UI(soundSfxName);
+            SoundManager.instance.Play_2D_SFX_UI(soundSfxName);
     }
 
     public void Try_OutInteract()
@@ -487,13 +487,13 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         IsStarting = true;
 
-        TitleLobbyUIManager.Instance.Get_JustFadeIn(_DelayTime);
+        TitleLobbyUIManager.instance.Get_JustFadeIn(_DelayTime);
 
         yield return new WaitForSeconds(_DelayTime + 0.2f);
 
         SetOff_Play();
 
-        LoadingSceneManager.Instance.Play_LoadScene("MainGame");
+        LoadingSceneManager.instance.Play_LoadScene("MainGame");
     }
 
     #endregion
@@ -538,14 +538,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         if (CurrentBtn == _LRSlidingEUI.LeftBtn)
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _LRSlidingEUI.Change_Left();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (CurrentBtn == _LRSlidingEUI.RightBtn)
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _LRSlidingEUI.Change_Right();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
@@ -560,14 +560,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         if (CurrentBtn == _ScrollEUI.LeftBtn)
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _ScrollEUI.Dec();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
         else if (CurrentBtn == _ScrollEUI.RightBtn)
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+            SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _ScrollEUI.Inc();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
@@ -584,15 +584,15 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         OptionUI.WarningTxt.gameObject.SetActive(false);
 
-        ResourceManager.Instance.Set_LanguageFont(OptionUI.LanguagePanelEUI.Get_CurrentIndex());
-        GameManager.Instance.Set_Screen(
+        ResourceManager.instance.Set_LanguageFont(OptionUI.LanguagePanelEUI.Get_CurrentIndex());
+        GameManager.instance.Set_Screen(
             (eResolution)OptionUI.ResolutionPanelEUI.Get_CurrentIndex(),
             (eScreenMode)OptionUI.ScreenModePanelEUI.Get_CurrentIndex());
-        GameManager.Instance.Set_FPS((eFPS)OptionUI.FPSPanelEUI.Get_CurrentIndex());
-        SoundManager.Instance.Set_BgmVolume(OptionUI.BGMVolumePanelEUI.Get_Value());
-        SoundManager.Instance.Set_SfxVolume(OptionUI.SFXVolumePanelEUI.Get_Value());
+        GameManager.instance.Set_FPS((eFPS)OptionUI.FPSPanelEUI.Get_CurrentIndex());
+        SoundManager.instance.Set_BgmVolume(OptionUI.BGMVolumePanelEUI.Get_Value());
+        SoundManager.instance.Set_SfxVolume(OptionUI.SFXVolumePanelEUI.Get_Value());
 
-        SaveDataManager.Instance.Save_OptionJsonData();
+        SaveDataManager.instance.Save_OptionJsonData();
     }
 
 
@@ -604,9 +604,9 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     public override void Set_LanguageTxt()
     {
-        StartTxt.text = ResourceManager.Instance.Get_StaticWord(89);
-        OptionTxt.text = ResourceManager.Instance.Get_StaticWord(20);
-        QuitTxt.text = ResourceManager.Instance.Get_StaticWord(21);
+        StartTxt.text = ResourceManager.instance.Get_StaticWord(89);
+        OptionTxt.text = ResourceManager.instance.Get_StaticWord(20);
+        QuitTxt.text = ResourceManager.instance.Get_StaticWord(21);
 
         OptionUI.Set_LanguageTxt();
     }

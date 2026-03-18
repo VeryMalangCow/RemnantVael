@@ -79,7 +79,7 @@ public class GateController : StaticDepthController, IInteract
         base.Offset();
 
         ThisAnimator = DevTool.Get_ComponentTType<Animator>(TargetObject);
-        StageManager.Instance.Set_StageDoorAnim(this, DevTool.Get_ComponentTType<SpriteRenderer>(TargetObject), GateDir);
+        StageManager.instance.Set_StageDoorAnim(this, DevTool.Get_ComponentTType<SpriteRenderer>(TargetObject), GateDir);
 
         KeyCardIconSR.gameObject.SetActive(false);
         KeyCardIconSR.sortingOrder = LayerOrderManager.order_DoorIcon;
@@ -123,7 +123,7 @@ public class GateController : StaticDepthController, IInteract
         
         if (!Can_Open_ByKeycard())
         {
-            KeyCardIconSR.sprite = ResourceManager.Instance.Get_KeyCardSprite(NeedKeyCardID);
+            KeyCardIconSR.sprite = ResourceManager.instance.Get_KeyCardSprite(NeedKeyCardID);
             KeyCardIconSR.gameObject.SetActive(true);
         }
         else
@@ -156,7 +156,7 @@ public class GateController : StaticDepthController, IInteract
         else
         {
             _CanInteract = IsOpen && Can_Open_ByKeycard();
-            return ResourceManager.Instance.Get_StaticWord(1);
+            return ResourceManager.instance.Get_StaticWord(1);
         }
     }
 
@@ -172,32 +172,32 @@ public class GateController : StaticDepthController, IInteract
             if (NeedKeyCardID != -1)
             {
                 // 키카드 사용해서 열기
-                if (PlayerManager.Instance.Can_UseKeyCard(NeedKeyCardID))
+                if (PlayerManager.instance.Can_UseKeyCard(NeedKeyCardID))
                 {
-                    PlayerManager.Instance.Use_KeyCard(NeedKeyCardID);
+                    PlayerManager.instance.Use_KeyCard(NeedKeyCardID);
                     NeedKeyCardID = -1;
                     ParterGate.NeedKeyCardID = -1;
                     Set_Open();
 
-                    MainGameUIManager.Instance.playerHUD_UIController.Set_InteractUI(); 
-                    MainGameUIManager.Instance.interactAnno_UIController.Set_UI();
+                    MainGameUIManager.instance.playerHUD_UIController.Set_InteractUI(); 
+                    MainGameUIManager.instance.interactAnno_UIController.Set_UI();
                 }
             }
             else
             {
-                UnitManager.Instance.RemoveUnits();
+                UnitManager.instance.RemoveUnits();
                 if (ParterGate.ThisRoom.RoomRuleController.Is_EliteEnemyRoom(out int eliteID))
                 {
-                    StageManager.Instance.Get_CurrentStageData().EnemyData.StageEliteEnemyList[eliteID].TryGetComponent(out EliteEnemyController eliteEnemy);
-                    StageManager.Instance.Play_GoInBossRoom(this, eliteEnemy);
-                    SoundManager.Instance.Pause_2D_BGM();
+                    StageManager.instance.Get_CurrentStageData().EnemyData.StageEliteEnemyList[eliteID].TryGetComponent(out EliteEnemyController eliteEnemy);
+                    StageManager.instance.Play_GoInBossRoom(this, eliteEnemy);
+                    SoundManager.instance.Pause_2D_BGM();
 
                 }
                 else if (ParterGate.ThisRoom.RoomRuleController.Is_BossEnemyRoom(out int bossID))
                 {
-                    StageManager.Instance.Get_CurrentStageData().EnemyData.StageBossEnemyList[bossID].TryGetComponent(out BossEnemyController bossEnemy);
-                    StageManager.Instance.Play_GoInBossRoom(this, bossEnemy);
-                    SoundManager.Instance.Pause_2D_BGM();
+                    StageManager.instance.Get_CurrentStageData().EnemyData.StageBossEnemyList[bossID].TryGetComponent(out BossEnemyController bossEnemy);
+                    StageManager.instance.Play_GoInBossRoom(this, bossEnemy);
+                    SoundManager.instance.Pause_2D_BGM();
                 }
                 else
                 {
@@ -209,12 +209,12 @@ public class GateController : StaticDepthController, IInteract
 
     public void EnterGate()
     {
-        SoundManager.Instance.Play_2D_SFX_Build("EnterGate");
-        PlayerManager.Instance.playerController.SetOff_Trail();
-        PlayerManager.Instance.playerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
-        StageManager.Instance.Play_CurrentRoom(ParterGate.ThisRoom);
+        SoundManager.instance.Play_2D_SFX_Build("EnterGate");
+        PlayerManager.instance.playerController.SetOff_Trail();
+        PlayerManager.instance.playerController.gameObject.transform.position = ParterGate.Get_WarpPoint();
+        StageManager.instance.Play_CurrentRoom(ParterGate.ThisRoom);
 
-        PlayerHUDController hud = MainGameUIManager.Instance.playerHUD_UIController;
+        PlayerHUDController hud = MainGameUIManager.instance.playerHUD_UIController;
         if (hud.IsTabInteracted.Value) hud.ThisMinimap.Reset_BookRoom();
     }
 
@@ -286,7 +286,7 @@ public class GateController : StaticDepthController, IInteract
         if (DevTool.Can_CastingTType(ParterGate.ThisRoom.RoomRuleController, out EntranceRuleController erc))
         {
             int index = erc.Get_ElevatorData();
-            NextMapIconSR.sprite = ResourceManager.Instance.Get_StageIcon(index);
+            NextMapIconSR.sprite = ResourceManager.instance.Get_StageIcon(index);
             NextMapIconSR.gameObject.SetActive(true);
         }
         else

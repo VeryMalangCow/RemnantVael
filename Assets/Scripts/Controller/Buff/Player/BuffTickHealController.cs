@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BuffTickHealController : BuffController
 {
@@ -9,12 +10,12 @@ public class BuffTickHealController : BuffController
 
     [Space(10)]
     [Header("=== Const Value")]
-    [SerializeField] private float MaxHpPercent = 10; // 최대 체력 비례
-    [SerializeField] private float ConstPoint = 10; // 고정 수치
+    [SerializeField] private float maxHpPercent = 10; // 최대 체력 비례
+    [SerializeField] private float constPoint = 10; // 고정 수치
 
     [Space(10)]
     [Header("=== Stack")]
-    [SerializeField] private float StackHeal = 1;
+    [SerializeField] private float stackHeal = 1;
 
     #endregion
 
@@ -28,7 +29,7 @@ public class BuffTickHealController : BuffController
 
     public override void Reduct_Buff()
     {
-        PlayerManager.Instance.playerController.Add_CurrentEP(Get_HealValue());
+        PlayerManager.instance.playerController.Add_CurrentEP(Get_HealValue());
 
         base.Reduct_Buff();
     }
@@ -47,14 +48,14 @@ public class BuffTickHealController : BuffController
     {
         float value = 0;
 
-        if (StackHeal != 0)
-        { value += CurrentBuffCharge.Value * StackHeal; }
+        if (stackHeal != 0)
+        { value += currentBuffCharge.Value * stackHeal; }
 
-        if (ConstPoint != 0)
-        { value += ConstPoint; }
+        if (constPoint != 0)
+        { value += constPoint; }
 
-        if (MaxHpPercent != 0)
-        { value += PlayerManager.Instance.playerController.Get_PercentEP(MaxHpPercent); }
+        if (maxHpPercent != 0)
+        { value += PlayerManager.instance.playerController.Get_PercentEP(maxHpPercent); }
 
 
         return value;

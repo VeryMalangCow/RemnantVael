@@ -72,14 +72,14 @@ public class FieldUnitAllyController : AllyController
     {
         base.OnEnable();
 
-        LayerOrderManager.Instance.Add_NeedSortObj(this);
+        LayerOrderManager.instance.Add_NeedSortObj(this);
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
 
-        LayerOrderManager.Instance.Remove_NeedSortObj(this);
+        LayerOrderManager.instance.Remove_NeedSortObj(this);
     }
 
     protected override void Update()
@@ -197,7 +197,7 @@ public class FieldUnitAllyController : AllyController
     public void Set_PosRandomNearPlayer()
     {
         transform.position =
-            (Vector2)PlayerManager.Instance.playerController.transform.position +
+            (Vector2)PlayerManager.instance.playerController.transform.position +
             (new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized * NearPlayerDis);
     }
 

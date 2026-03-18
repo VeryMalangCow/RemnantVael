@@ -222,7 +222,7 @@ public class PlayerHUDController : UIController
         FullEC.Offset();
 
         // EP Txt
-        ECCostTxt.text = PlayerManager.Instance.playerController.NeedEP_ForMakeEC.ToString();
+        ECCostTxt.text = PlayerManager.instance.playerController.NeedEP_ForMakeEC.ToString();
 
         // 스킬
         for (int i = 0; i < SkillList.Count; i++) SkillList[i].Offset();
@@ -280,44 +280,44 @@ public class PlayerHUDController : UIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.Instance.playerController.MaxEP.ActualState
+        PlayerManager.instance.playerController.MaxEP.ActualState
             .Subscribe(_MaxEP =>
             {
                 EP.Set_MaxFillRT(_MaxEP * 3);
 
                 EP.Set_FillImgSmooth(
-                    PlayerManager.Instance.playerController.Get_CurrentEP().Value,
-                    PlayerManager.Instance.playerController.MaxEP.ActualState.Value);
+                    PlayerManager.instance.playerController.Get_CurrentEP().Value,
+                    PlayerManager.instance.playerController.MaxEP.ActualState.Value);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.playerController.Get_CurrentEP()
+        PlayerManager.instance.playerController.Get_CurrentEP()
             .Subscribe(_CurrentEP =>
             {
                 EP.Set_FillImgSmooth(
-                    PlayerManager.Instance.playerController.Get_CurrentEP().Value,
-                    PlayerManager.Instance.playerController.MaxEP.ActualState.Value);
+                    PlayerManager.instance.playerController.Get_CurrentEP().Value,
+                    PlayerManager.instance.playerController.MaxEP.ActualState.Value);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.playerController.CurrentBetteryShard
+        PlayerManager.instance.playerController.CurrentBetteryShard
             .Subscribe(_CurrentBS =>
             {
-                if (PlayerManager.Instance.playerController.CurrentBetteryShard.Value < PlayerManager.Instance.playerController.NeedBS_ForMakeBC)
+                if (PlayerManager.instance.playerController.CurrentBetteryShard.Value < PlayerManager.instance.playerController.NeedBS_ForMakeBC)
                 {
                     CurrentEmptyBC.Change_Sprite(_CurrentBS);
                 }
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.playerController.CurrentBettery
+        PlayerManager.instance.playerController.CurrentBettery
             .Subscribe(_CurrentBC =>
             {
                 EmptyBC.Set_Amount(_CurrentBC, 0.5f);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.playerController.CurrentChargedBettery
+        PlayerManager.instance.playerController.CurrentChargedBettery
             .Subscribe(_CurrentEC =>
             {
                 FullEC.Set_Amount(_CurrentEC, 0.5f);
@@ -332,21 +332,21 @@ public class PlayerHUDController : UIController
             .AddTo(gameObject);
 
 
-        PlayerManager.Instance.playerController.CurrentCredit
+        PlayerManager.instance.playerController.CurrentCredit
             .Subscribe(_CurrentCredit =>
             {
                 Credit_EUI.Play_Amount(_CurrentCredit);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.playerController.CurrentOverrider
+        PlayerManager.instance.playerController.CurrentOverrider
             .Subscribe(_CurrentOverrider =>
             {
                 Overrider_EUI.Play_Amount(_CurrentOverrider);
             })
             .AddTo(gameObject);
 
-        PlayerManager.Instance.playerController.CurrentModuleShard
+        PlayerManager.instance.playerController.CurrentModuleShard
             .Subscribe(_CurrentMS =>
             {
                 MS_EUI.Play_Amount(_CurrentMS);
@@ -354,7 +354,7 @@ public class PlayerHUDController : UIController
             .AddTo(gameObject);
 
 
-        PlayerManager.Instance.playerController.CurrentBoostLv
+        PlayerManager.instance.playerController.CurrentBoostLv
             .Subscribe(_BoostLevel =>
             {
                 Set_TextOfBoost(_BoostLevel);
@@ -367,36 +367,36 @@ public class PlayerHUDController : UIController
             .AddTo(gameObject);
 
 
-        PlayerManager.Instance.playerController.StrikeTeamPresence
+        PlayerManager.instance.playerController.StrikeTeamPresence
             .Subscribe(_presence =>
             {
-                ST_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.StrikeTeamPresence.Value, PlayerManager.Instance.playerController.NeedStrikeTeamPresence.Value);
+                ST_AllyPresence.Play_Amount(PlayerManager.instance.playerController.StrikeTeamPresence.Value, PlayerManager.instance.playerController.NeedStrikeTeamPresence.Value);
             });
-        PlayerManager.Instance.playerController.UplinkTeamPresence
+        PlayerManager.instance.playerController.UplinkTeamPresence
             .Subscribe(_presence =>
             {
-                UT_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.UplinkTeamPresence.Value, PlayerManager.Instance.playerController.NeedUplinkTeamPresence.Value);
+                UT_AllyPresence.Play_Amount(PlayerManager.instance.playerController.UplinkTeamPresence.Value, PlayerManager.instance.playerController.NeedUplinkTeamPresence.Value);
             });
-        PlayerManager.Instance.playerController.NeoTeamPresence
+        PlayerManager.instance.playerController.NeoTeamPresence
             .Subscribe(_presence =>
             {
-                NT_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.NeoTeamPresence.Value, PlayerManager.Instance.playerController.NeedNeoTeamPresence.Value);
+                NT_AllyPresence.Play_Amount(PlayerManager.instance.playerController.NeoTeamPresence.Value, PlayerManager.instance.playerController.NeedNeoTeamPresence.Value);
             });
 
-        PlayerManager.Instance.playerController.NeedStrikeTeamPresence
+        PlayerManager.instance.playerController.NeedStrikeTeamPresence
             .Subscribe(_needPresence =>
             {
-                ST_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.StrikeTeamPresence.Value, PlayerManager.Instance.playerController.NeedStrikeTeamPresence.Value);
+                ST_AllyPresence.Play_Amount(PlayerManager.instance.playerController.StrikeTeamPresence.Value, PlayerManager.instance.playerController.NeedStrikeTeamPresence.Value);
             });
-        PlayerManager.Instance.playerController.NeedUplinkTeamPresence
+        PlayerManager.instance.playerController.NeedUplinkTeamPresence
             .Subscribe(_needPresence =>
             {
-                UT_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.UplinkTeamPresence.Value, PlayerManager.Instance.playerController.NeedUplinkTeamPresence.Value);
+                UT_AllyPresence.Play_Amount(PlayerManager.instance.playerController.UplinkTeamPresence.Value, PlayerManager.instance.playerController.NeedUplinkTeamPresence.Value);
             });
-        PlayerManager.Instance.playerController.NeedNeoTeamPresence
+        PlayerManager.instance.playerController.NeedNeoTeamPresence
             .Subscribe(_needPresence =>
             {
-                NT_AllyPresence.Play_Amount(PlayerManager.Instance.playerController.NeoTeamPresence.Value, PlayerManager.Instance.playerController.NeedNeoTeamPresence.Value);
+                NT_AllyPresence.Play_Amount(PlayerManager.instance.playerController.NeoTeamPresence.Value, PlayerManager.instance.playerController.NeedNeoTeamPresence.Value);
             });
     }
 
@@ -411,7 +411,7 @@ public class PlayerHUDController : UIController
         for (int i = 0; i < DevTool.SkillAmount; i++)
         {
             SkillImgList.Add(DevTool.Get_ComponentTType<Image>(SkillList[i].gameObject));
-            SkillImgList[i].sprite = PlayerManager.Instance.playerController.SkillWeapon.SkillList[i].ThisIcon;
+            SkillImgList[i].sprite = PlayerManager.instance.playerController.SkillWeapon.SkillList[i].ThisIcon;
         }
 
         Credit_EUI.Offset();
@@ -444,12 +444,12 @@ public class PlayerHUDController : UIController
         SubColorCompList.AddRange(Get_SubColorTxt());
 
         // Color Set
-        Color mainClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
+        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
@@ -473,7 +473,7 @@ public class PlayerHUDController : UIController
 
     private void Reset_Tab()
     {
-        PlayerController player = PlayerManager.Instance.playerController;
+        PlayerController player = PlayerManager.instance.playerController;
         PlayerWeaponController weapon = player.BaseWeapon;
         SkillWeaponController skill = player.SkillWeapon;
 
@@ -539,7 +539,7 @@ public class PlayerHUDController : UIController
     {
         if (IsActingInteractUI) return; 
 
-        IInteract ii = PlayerManager.Instance.playerController.CurrentInteractable.Value;
+        IInteract ii = PlayerManager.instance.playerController.CurrentInteractable.Value;
         string txt = DevTool.Get_InteractingAnnoTxt(ii, out bool canInteract);
 
         if (ii != null && txt != "")
@@ -586,13 +586,13 @@ public class PlayerHUDController : UIController
     public void Set_StageDescription()
     {
         StageNameTxt.DOText(
-            ResourceManager.Instance.Get_MapName(
-                StageManager.Instance.Get_CurrentStageData().InfoData.StageID), 0.5f)
+            ResourceManager.instance.Get_MapName(
+                StageManager.instance.Get_CurrentStageData().InfoData.StageID), 0.5f)
             .OnPlay(() => { StageNameTxt.text = ""; });
 
         StageDescriptionTxt.DOText(
-            ResourceManager.Instance.Get_MapDesc(
-                StageManager.Instance.Get_CurrentStageData().InfoData.StageID), 0.5f)
+            ResourceManager.instance.Get_MapDesc(
+                StageManager.instance.Get_CurrentStageData().InfoData.StageID), 0.5f)
             .OnPlay(() => { StageDescriptionTxt.text = ""; });
     }
 
@@ -709,10 +709,10 @@ public class PlayerHUDController : UIController
 
     public void Init_HighLvItemUI()
     {
-        List<EachItemJsonData> itemData = SaveDataManager.Instance.jsonData.ItemData;
+        List<EachItemJsonData> itemData = SaveDataManager.instance.jsonData.itemData;
         for (int i = 0; i < itemData.Count; i++)
         {
-            HighLvItemAmountTxtList[i].text = itemData[i].Amount.ToString();
+            HighLvItemAmountTxtList[i].text = itemData[i].amount.ToString();
         }
     }
 
@@ -726,8 +726,8 @@ public class PlayerHUDController : UIController
     {
         Play_HittedPlayScreen(20, 1f);
 
-        string title = $"< {ResourceManager.Instance.Get_StaticDesc(36).Replace("\\n", "\n")} >";
-        string desc = ResourceManager.Instance.Get_StaticDesc(37).Replace("\\n", "\n");
+        string title = $"< {ResourceManager.instance.Get_StaticDesc(36).Replace("\\n", "\n")} >";
+        string desc = ResourceManager.instance.Get_StaticDesc(37).Replace("\\n", "\n");
         PaneltyAnnoNameTxt.text = "";
         PaneltyAnnoDescTxt.text = "";
 
@@ -761,7 +761,7 @@ public class PlayerHUDController : UIController
     // 피격 정보
     public void Play_HittedPlayInfo(float _Dmg, float _DurTime)
     {
-        HittedDmgTxt.text = $"<size=75%>{ResourceManager.Instance.Get_StaticWord(74)}:</size> {_Dmg.ToString("0.0")}";
+        HittedDmgTxt.text = $"<size=75%>{ResourceManager.instance.Get_StaticWord(74)}:</size> {_Dmg.ToString("0.0")}";
         HittedDmgTxt.color = UninteractableColor;
 
         Play_Info(_DurTime);
@@ -770,7 +770,7 @@ public class PlayerHUDController : UIController
     // 회피 정보
     public void Play_AvoidPlayInfo(float _DurTime)
     {
-        HittedDmgTxt.text = $"{ResourceManager.Instance.Get_StaticWord(75)}";
+        HittedDmgTxt.text = $"{ResourceManager.instance.Get_StaticWord(75)}";
         HittedDmgTxt.color = Color.white;
 
         Play_Info(_DurTime);
@@ -1048,7 +1048,7 @@ public class PlayerHUDController : UIController
         {
             if (keyItem.Value == 0) continue;
 
-            KeyItemImgList[index].sprite = ResourceManager.Instance.Get_KeyCardSprite(keyItem.Key);
+            KeyItemImgList[index].sprite = ResourceManager.instance.Get_KeyCardSprite(keyItem.Key);
             KeyItemAmountTxtList[index].text = keyItem.Value.ToString();
             KeyItemImgList[index].gameObject.SetActive(true);
 
@@ -1061,7 +1061,7 @@ public class PlayerHUDController : UIController
         Sequence seq = DOTween.Sequence();
         for (int i = 0; i < KeyItemImgList.Count; i++)
         {
-            if (KeyItemImgList[i].gameObject.activeSelf && KeyItemImgList[i].sprite == ResourceManager.Instance.Get_KeyCardSprite(_ID))
+            if (KeyItemImgList[i].gameObject.activeSelf && KeyItemImgList[i].sprite == ResourceManager.instance.Get_KeyCardSprite(_ID))
             {
                 seq.Append(KeyItemImgList[i].transform.DOScale(1.3f, 0.1f));
                 seq.Append(KeyItemImgList[i].transform.DOScale(1f, 0.3f));
@@ -1103,21 +1103,21 @@ public class PlayerHUDController : UIController
     {
         base.Set_LanguageTxt();
 
-        InteractEnableString = ResourceManager.Instance.Get_StaticWord(4);
-        InteractDisableString = ResourceManager.Instance.Get_StaticWord(5);
-        InteracInoperableString = ResourceManager.Instance.Get_StaticWord(6);
-        InteractNoneString = ResourceManager.Instance.Get_StaticWord(7);
+        InteractEnableString = ResourceManager.instance.Get_StaticWord(4);
+        InteractDisableString = ResourceManager.instance.Get_StaticWord(5);
+        InteracInoperableString = ResourceManager.instance.Get_StaticWord(6);
+        InteractNoneString = ResourceManager.instance.Get_StaticWord(7);
 
         PlayerStatesStringList.Clear();
         for (int i = 8; i <= 16; i++)
-            PlayerStatesStringList.Add(ResourceManager.Instance.Get_StaticWord(i));
+            PlayerStatesStringList.Add(ResourceManager.instance.Get_StaticWord(i));
 
         SkillStatesStringList.Clear();
         for (int i = 17; i <= 18; i++)
-            SkillStatesStringList.Add(ResourceManager.Instance.Get_StaticWord(i));
+            SkillStatesStringList.Add(ResourceManager.instance.Get_StaticWord(i));
 
         for (int i = 0; i < AllAllyPresence.Count; i++)
-            AllAllyPresence[i].PresenceLangTxt.text = $"{ResourceManager.Instance.Get_StaticWord(i + 61)}<size=85%> {ResourceManager.Instance.Get_StaticWord(70)}</size>";
+            AllAllyPresence[i].PresenceLangTxt.text = $"{ResourceManager.instance.Get_StaticWord(i + 61)}<size=85%> {ResourceManager.instance.Get_StaticWord(70)}</size>";
 
         Set_InteractUI();
         Set_StageDescription();

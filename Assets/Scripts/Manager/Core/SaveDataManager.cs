@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SaveDataManager : PersistentSingleton<SaveDataManager>
 {
@@ -52,32 +53,32 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     {
         dataPath = Path.Combine(Application.persistentDataPath, jsonFilePath);
 
-        TrySave_EachJsonData(dataPath, this.characterPath, new SerializationList<EachCharacterJsonData>(jsonData.CharacterData));
-        TrySave_EachJsonData(dataPath, this.itemPath, new SerializationList<EachItemJsonData>(jsonData.ItemData));
-        TrySave_EachJsonData(dataPath, this.optionPath, jsonData.OptionData);
-        TrySave_EachJsonData(dataPath, this.gameProgressPath, jsonData.GameProgressData);
-        TrySave_EachJsonData(dataPath, this.infoPath, new SerializationList<EachInfoJsonData>(jsonData.InfoData));
+        TrySave_EachJsonData(dataPath, this.characterPath, new SerializationList<EachCharacterJsonData>(jsonData.characterData));
+        TrySave_EachJsonData(dataPath, this.itemPath, new SerializationList<EachItemJsonData>(jsonData.itemData));
+        TrySave_EachJsonData(dataPath, this.optionPath, jsonData.optionData);
+        TrySave_EachJsonData(dataPath, this.gameProgressPath, jsonData.gameProgressData);
+        TrySave_EachJsonData(dataPath, this.infoPath, new SerializationList<EachInfoJsonData>(jsonData.infoData));
 
     }
 
     public void Save_OptionJsonData()
     {
         dataPath = Path.Combine(Application.persistentDataPath, jsonFilePath); 
-        TrySave_EachJsonData(dataPath, this.optionPath, jsonData.OptionData);
+        TrySave_EachJsonData(dataPath, this.optionPath, jsonData.optionData);
     }
 
     #region TrySave (Each Module)
 
-    private void TrySave_EachJsonData<T>(string _DataPath, string _EachPath, T _Data)
+    private void TrySave_EachJsonData<T>(string dataPath, string eachPath, T data)
     {
-        string eachJsonPath = Path.Combine(_DataPath, $"{_EachPath}.json");
+        string eachJsonPath = Path.Combine(dataPath, $"{eachPath}.json");
 
         Create_DirectoryExists(eachJsonPath);
 
-        string jsonData = JsonUtility.ToJson(_Data, true);
+        string jsonData = JsonUtility.ToJson(data, true);
         File.WriteAllText(eachJsonPath, jsonData);
 
-        Debug.Log($"Save: {_EachPath}");
+        Debug.Log($"Save: {eachPath}");
     }
 
     #endregion
@@ -92,47 +93,47 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
         jsonData = new JsonData();
 
-        jsonData.CharacterData =
+        jsonData.characterData =
             TryLoad_EachJsonData<SerializationList<EachCharacterJsonData>>(
                 this.characterPath,
-                Get_Default_CharacterData()).ListData;
+                Get_Default_CharacterData()).listData;
 
-        jsonData.ItemData =
+        jsonData.itemData =
             TryLoad_EachJsonData<SerializationList<EachItemJsonData>>(
                 this.itemPath,
-                Get_Default_ItemData()).ListData;
+                Get_Default_ItemData()).listData;
 
-        jsonData.OptionData =
+        jsonData.optionData =
             TryLoad_EachJsonData<OptionJsonData>(
                 this.optionPath,
                 Get_Default_OptionData());
 
-        jsonData.GameProgressData =
+        jsonData.gameProgressData =
             TryLoad_EachJsonData<GameProgressJsonData>(
                 this.gameProgressPath,
                 Get_Default_GameProgressData());
 
-        jsonData.InfoData =
+        jsonData.infoData =
             TryLoad_EachJsonData<SerializationList<EachInfoJsonData>>(
                 this.infoPath,
-                Get_Default_InfoData()).ListData;
+                Get_Default_InfoData()).listData;
     }
 
     #region TryLoad (Each Module)
 
-    private T TryLoad_EachJsonData<T>(string _EachPath, string _DefaultData)
+    private T TryLoad_EachJsonData<T>(string eachPath, string defaultData)
     {
-        string eachJsonPath = Path.Combine(dataPath, $"{_EachPath}.json");
+        string eachJsonPath = Path.Combine(dataPath, $"{eachPath}.json");
 
         if (!File.Exists(eachJsonPath))
         {
-            Debug.Log($"Create: {_EachPath}");
+            Debug.Log($"Create: {eachPath}");
             Create_DirectoryExists(eachJsonPath);
-            File.WriteAllText(eachJsonPath, _DefaultData);
+            File.WriteAllText(eachJsonPath, defaultData);
         }
 
         string jsonData = File.ReadAllText(eachJsonPath);
-        Debug.Log($"Load: {_EachPath}");
+        Debug.Log($"Load: {eachPath}");
         return JsonUtility.FromJson<T>(jsonData);
     }
 
@@ -169,16 +170,16 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     #region TryReset (Each Module)
 
-    private void TryReset_EachJsonData<T>(string _EachPath, string _DefaultData)
+    private void TryReset_EachJsonData<T>(string eachPath, string defaultData)
     {
-        string eachJsonPath = Path.Combine(dataPath, $"{_EachPath}.json");
+        string eachJsonPath = Path.Combine(dataPath, $"{eachPath}.json");
 
         if (!File.Exists(eachJsonPath))
         {
             Create_DirectoryExists(eachJsonPath);
         }
 
-        File.WriteAllText(eachJsonPath, _DefaultData);
+        File.WriteAllText(eachJsonPath, defaultData);
     }
 
     #endregion
@@ -188,9 +189,9 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
     #region Create
 
     // File Create
-    private void Create_DirectoryExists(string _FullPath)
+    private void Create_DirectoryExists(string fullPath)
     {
-        string dir = Path.GetDirectoryName(_FullPath);
+        string dir = Path.GetDirectoryName(fullPath);
         if (!Directory.Exists(dir))
         {
             Directory.CreateDirectory(dir);
@@ -201,15 +202,15 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 
     #region Get
 
-    private string Get_Default_CharacterData() => Resources.Load<TextAsset>("Json/DefaultCharacterData").text;
+    private string Get_Default_CharacterData() => Resources.Load<TextAsset>($"Json/Default{characterPath}").text;
 
-    private string Get_Default_ItemData() => Resources.Load<TextAsset>("Json/DefaultItemData").text;
+    private string Get_Default_ItemData() => Resources.Load<TextAsset>($"Json/Default{itemPath}").text;
 
-    private string Get_Default_OptionData() => Resources.Load<TextAsset>("Json/DefaultOptionData").text;
+    private string Get_Default_OptionData() => Resources.Load<TextAsset>($"Json/Default{optionPath}").text;
 
-    private string Get_Default_GameProgressData() => Resources.Load<TextAsset>("Json/DefaultGameProgressData").text;
+    private string Get_Default_GameProgressData() => Resources.Load<TextAsset>($"Json/Default{gameProgressPath}").text;
 
-    private string Get_Default_InfoData() => Resources.Load<TextAsset>("Json/DefaultInfoData").text;
+    private string Get_Default_InfoData() => Resources.Load<TextAsset>($"Json/Default{infoPath}").text;
 
     #endregion
 
@@ -241,36 +242,36 @@ public class SaveDataManager : PersistentSingleton<SaveDataManager>
 [System.Serializable]
 public class JsonData
 {
-    public List<EachCharacterJsonData> CharacterData = new List<EachCharacterJsonData>();
-    public List<EachItemJsonData> ItemData = new List<EachItemJsonData>();
-    public OptionJsonData OptionData = new OptionJsonData();
-    public GameProgressJsonData GameProgressData = new GameProgressJsonData();
-    public List<EachInfoJsonData> InfoData = new List<EachInfoJsonData>();
+    public List<EachCharacterJsonData> characterData = new List<EachCharacterJsonData>();
+    public List<EachItemJsonData> itemData = new List<EachItemJsonData>();
+    public OptionJsonData optionData = new OptionJsonData();
+    public GameProgressJsonData gameProgressData = new GameProgressJsonData();
+    public List<EachInfoJsonData> infoData = new List<EachInfoJsonData>();
 
-    public void Gain_Item(int _ID, int _Amount)
+    public void Gain_Item(int id, int amount)
     {
-        if (ItemData.Count > _ID)
+        if (itemData.Count > id)
         {
-            ItemData[_ID].Amount += _Amount;
-            MainGameUIManager.Instance.playerHUD_UIController.Init_HighLvItemUI();
+            itemData[id].amount += amount;
+            MainGameUIManager.instance.playerHUD_UIController.Init_HighLvItemUI();
         }
     }
 
-    public int Get_ItemAmount(int _ID)
+    public int Get_ItemAmount(int id)
     {
-        if (ItemData.Count > _ID)
+        if (itemData.Count > id)
         {
-            return ItemData[_ID].Amount;
+            return itemData[id].amount;
         }
         return 0;
     }
 
-    public void Use_Item(int _ID, int _Amount)
+    public void Use_Item(int id, int amount)
     {
-        if (ItemData.Count > _ID)
+        if (itemData.Count > id)
         {
-            ItemData[_ID].Amount -= _Amount;
-            MainGameUIManager.Instance.playerHUD_UIController.Init_HighLvItemUI();
+            itemData[id].amount -= amount;
+            MainGameUIManager.instance.playerHUD_UIController.Init_HighLvItemUI();
         }
     }
 
@@ -283,13 +284,13 @@ public class JsonData
 [System.Serializable]
 public class EachCharacterJsonData
 {
-    public int ID = 0;
-    public bool CanUse = false;
+    public int id = 0;
+    public bool canUse = false;
 
-    public EachCharacterJsonData(int _ID, bool _CanUse)
+    public EachCharacterJsonData(int id, bool canUse)
     {
-        ID = _ID;
-        CanUse = _CanUse;
+        this.id = id;
+        this.canUse = canUse;
     }
 }
 
@@ -300,15 +301,15 @@ public class EachCharacterJsonData
 [System.Serializable]
 public class EachItemJsonData
 {
-    public int ID = 0;
-    public string Name = "";
-    public int Amount = 0;
+    public int id = 0;
+    public string name = "";
+    public int amount = 0;
 
-    public EachItemJsonData(int _ID, string _Name, int _Amount = 0)
+    public EachItemJsonData(int id, string name, int amount = 0)
     {
-        ID = _ID;
-        Name = _Name;
-        Amount = _Amount;
+        this.id = id;
+        this.name = name;
+        this.amount = amount;
     }
 }
 
@@ -319,17 +320,17 @@ public class EachItemJsonData
 [System.Serializable]
 public class OptionJsonData
 {
-    public int LanguageID = 0;
-    public eScreenMode ScreenMode = eScreenMode.FullScreen;
-    public eResolution ResolutionMode = eResolution.w1920h1080;
-    public eFPS FPS = eFPS.f144;
-    public float BGMVolume = 0.2f;
-    public float SFXVolume = 0.2f;
+    public int languageID = 0;
+    public eScreenMode screenMode = eScreenMode.fullScreen;
+    public eResolution resolutionMode = eResolution.w1920h1080;
+    public eFPS fps = eFPS.f144;
+    public float bgmVolume = 0.2f;
+    public float sfxVolume = 0.2f;
 }
 
 public enum eScreenMode
 {
-    FullScreen, Borderless, Window
+    fullScreen, borderless, window
 }
 
 public enum eResolution
@@ -349,19 +350,19 @@ public enum eFPS
 [System.Serializable]
 public class GameProgressJsonData
 {
-    public int CurrentProgressing = 0;
+    public int currentProgressing = 0;
 
-    public bool UsableVault = false;
+    public bool usableVault = false;
 
-    public bool UsableBU = false;
-    public bool UsableMU = false;
+    public bool usableBU = false;
+    public bool usableMU = false;
 
-    public bool UsableABU = false;
-    public bool UsableAMU = false;
+    public bool usableABU = false;
+    public bool usableAMU = false;
 
-    public bool UsableSTPrison = false;
-    public bool UsableUTPrison = false;
-    public bool UsableNTPrison = false;
+    public bool usableSTPrison = false;
+    public bool usableUTPrison = false;
+    public bool usableNTPrison = false;
 }
 
 #endregion
@@ -371,13 +372,13 @@ public class GameProgressJsonData
 [System.Serializable]
 public class EachInfoJsonData
 {
-    public int ID = 0;
-    public bool CanVisible = false;
+    public int id = 0;
+    public bool canVisible = false;
 
-    public EachInfoJsonData(int _ID, bool _CanUse)
+    public EachInfoJsonData(int id, bool canVisible)
     {
-        ID = _ID;
-        CanVisible = _CanUse;
+        this.id = id;
+        this.canVisible = canVisible;
     }
 }
 
@@ -389,8 +390,8 @@ public class EachInfoJsonData
 [System.Serializable]
 public class SerializationList<T>
 {
-    public SerializationList(List<T> _ListData) => ListData = _ListData;
-    public List<T> ListData;
+    public SerializationList(List<T> listData) => this.listData = listData;
+    public List<T> listData;
 }
 
 #endregion

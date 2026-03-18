@@ -75,7 +75,7 @@ public class PrisonController : InteractableBuildController
 
     private void Offset_Comp()
     {
-        DangerIcon.sprite = ResourceManager.Instance.Get_PrisonRankSprite(Rating);
+        DangerIcon.sprite = ResourceManager.instance.Get_PrisonRankSprite(Rating);
 
         DangerTxt = DevTool.Get_ComponentTType(DangerIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text dangerTxt) ? dangerTxt : null;
         TypeTxt = DevTool.Get_ComponentTType(TypeIcon.gameObject.transform.GetChild(0).gameObject, out TMP_Text typeTxt) ? typeTxt : null;
@@ -122,7 +122,7 @@ public class PrisonController : InteractableBuildController
         Offset_Comp();
         Set_LanguageTxt();
 
-        ResourceManager.Instance.allPrisons.Add(this);
+        ResourceManager.instance.allPrisons.Add(this);
     }
 
     #endregion
@@ -154,11 +154,11 @@ public class PrisonController : InteractableBuildController
 
     private void Set_AnimValue()
     {
-        OnOffAC = ResourceManager.Instance.prison_OnOffAC;
-        OnOffAC_Upside = ResourceManager.Instance.prison_OnOffUpsideAC;
-        OnOffStateAC = ResourceManager.Instance.prison_StateAC;
+        OnOffAC = ResourceManager.instance.prison_OnOffAC;
+        OnOffAC_Upside = ResourceManager.instance.prison_OnOffUpsideAC;
+        OnOffStateAC = ResourceManager.instance.prison_StateAC;
 
-        OnOffMaterial = ResourceManager.Instance.Get_CoupleBuildMaterial("PrisonOff", "PrisonOn");
+        OnOffMaterial = ResourceManager.instance.Get_CoupleBuildMaterial("PrisonOff", "PrisonOn");
     }
 
     private void Set_Rating(int _Rate)
@@ -176,7 +176,7 @@ public class PrisonController : InteractableBuildController
     public virtual void Set_Unlock()
     {
         // Sound
-        SoundManager.Instance.Play_2D_SFX_Build("PrisonUnlock");
+        SoundManager.instance.Play_2D_SFX_Build("PrisonUnlock");
 
         Set_UnlockData();
         StartCoroutine(Play_Unlock_Cor());
@@ -267,7 +267,7 @@ public class PrisonController : InteractableBuildController
 
     public virtual void Set_LanguageTxt()
     {
-        DangerTxt.text = $"{ResourceManager.Instance.ratingString}: ({Rating + 1}) {ResourceManager.Instance.prisonRateStringArr[Rating]} <size=150%>(</size>";
+        DangerTxt.text = $"{ResourceManager.instance.ratingString}: ({Rating + 1}) {ResourceManager.instance.prisonRateStringArr[Rating]} <size=150%>(</size>";
 
         if (PuzzleOper != null) 
             PuzzleOper.Set_Language();

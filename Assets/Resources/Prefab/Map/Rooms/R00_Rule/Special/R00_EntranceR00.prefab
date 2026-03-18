@@ -4212,9 +4212,11 @@ MonoBehaviour:
   RoomVec:
   - {x: 0, y: 0}
   RoomType: 1
+  EnemyType: 0
   IsAlreadyRoomClear: 0
   InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
   InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
+  InRoom_FieldObjSpawnerParentTF: {fileID: 0}
   InRoom_AllObstacle: []
   InRoom_Elevator: {fileID: 7291476705608644717}
 --- !u!1 &8791385821537764060

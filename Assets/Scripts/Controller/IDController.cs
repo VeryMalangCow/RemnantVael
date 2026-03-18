@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class IDController : MonoBehaviour
 {
@@ -7,10 +8,9 @@ public class IDController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> ID")]
-    [SerializeField] protected int ID = 0;
     [SerializeField] protected int id = 0;
 
-    public int Get_ID() { return ID; }
+    public int Get_ID() { return id; }
 
     #endregion
 
@@ -18,7 +18,7 @@ public class IDController : MonoBehaviour
 
     public virtual void Offset(int _ID)
     {
-        ID = _ID;
+        id = _ID;
     }
 
     #endregion
@@ -46,7 +46,7 @@ public class IDController : MonoBehaviour
     // ID가 맞는가 판별
     private static bool Is_CorrectID(int _ID, IDController _Object)
     {
-        if (_Object.ID == _ID) return true;
+        if (_Object.id == _ID) return true;
         return false;
     }
 

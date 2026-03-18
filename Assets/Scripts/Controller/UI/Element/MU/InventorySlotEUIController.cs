@@ -57,10 +57,10 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
         SignImg = DevTool.Get_ComponentTType(SignRT.gameObject, out Image signImg) ? signImg : null;
 
-        Color txtColor = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color txtColor = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
 
         SignImg.color = 
-            PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
+            PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         ThisEquipedTxt.color = txtColor;
         ThisForgeSelectedTxt.color = txtColor;
 

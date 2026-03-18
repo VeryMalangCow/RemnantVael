@@ -22,7 +22,7 @@ public class ElevatorController : StaticDepthController
 
     protected virtual void Tween_Update()
     {
-        PlayerManager.Instance.playerController.transform.position =
+        PlayerManager.instance.playerController.transform.position =
                         this.transform.position;
     }
 

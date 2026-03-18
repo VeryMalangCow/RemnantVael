@@ -76,7 +76,7 @@ public class CvtMaterialEUIController : ElementUIController
 
     public void Set_Condition(bool _Can)
     {
-        ConditionIconImg.sprite = ResourceManager.Instance.cvtMaterialConditionIcon.Get_Special(_Can);
+        ConditionIconImg.sprite = ResourceManager.instance.cvtMaterialConditionIcon.Get_Special(_Can);
         LineCG.alpha = _Can ? 1f : 0.2f;
     }
 
@@ -86,8 +86,8 @@ public class CvtMaterialEUIController : ElementUIController
 
     public void Set_Language()
     {
-        PossessionTxt.text = ResourceManager.Instance.Get_StaticWord(121);
-        NecessaryTxt.text = ResourceManager.Instance.Get_StaticWord(122);
+        PossessionTxt.text = ResourceManager.instance.Get_StaticWord(121);
+        NecessaryTxt.text = ResourceManager.instance.Get_StaticWord(122);
     }
 
     #endregion

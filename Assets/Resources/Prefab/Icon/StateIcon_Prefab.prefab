@@ -47,8 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3502a49e21f1d54caee28dcf65f9db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetSR: {fileID: 0}
-  AddSort: 0
   ThisAnimator: {fileID: 8374883786263627559}
   ThisSR: {fileID: 6849851486362390765}
   ThisInnerSR: {fileID: 5872644551829420885}
@@ -101,7 +99,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &8374883786263627559

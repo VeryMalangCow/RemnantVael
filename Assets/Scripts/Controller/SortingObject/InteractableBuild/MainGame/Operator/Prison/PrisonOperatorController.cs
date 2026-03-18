@@ -19,7 +19,7 @@ public class PrisonOperatorController : OperatorController
     {
         base.Set_AnimValue();
 
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.operator_AllyAC, 1f), 1f);
+        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_AllyAC, 1f), 1f);
     }
 
     public virtual void Set_TargetBuild(PrisonController _TargetPrison)

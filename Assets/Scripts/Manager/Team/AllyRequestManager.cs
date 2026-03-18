@@ -6,14 +6,14 @@ public class AllyRequestManager : Singleton<AllyRequestManager>
     #region Value
 
     // Ally Request
-    [HideInInspector] private AllyCompleteList<IWhen_Complete_KillNormalEnemy> Complete_KillNormalEnemy = new AllyCompleteList<IWhen_Complete_KillNormalEnemy>();
-    [HideInInspector] private AllyCompleteList<IWhen_Complete_KillEliteEnemy> Complete_KillEliteEnemy = new AllyCompleteList<IWhen_Complete_KillEliteEnemy>();
+    [HideInInspector] private AllyCompleteList<IWhen_Complete_KillNormalEnemy> complete_KillNormalEnemy = new AllyCompleteList<IWhen_Complete_KillNormalEnemy>();
+    [HideInInspector] private AllyCompleteList<IWhen_Complete_KillEliteEnemy> complete_KillEliteEnemy = new AllyCompleteList<IWhen_Complete_KillEliteEnemy>();
 
-    [HideInInspector] private AllyFailList<IWhen_Fail_TakingDamage> Fail_TakingDamage = new AllyFailList<IWhen_Fail_TakingDamage>();
-    [HideInInspector] private AllyFailList<IWhen_Fail_UsingSkill> Fail_UsingSkill = new AllyFailList<IWhen_Fail_UsingSkill>();
+    [HideInInspector] private AllyFailList<IWhen_Fail_TakingDamage> fail_TakingDamage = new AllyFailList<IWhen_Fail_TakingDamage>();
+    [HideInInspector] private AllyFailList<IWhen_Fail_UsingSkill> fail_UsingSkill = new AllyFailList<IWhen_Fail_UsingSkill>();
 
-    [HideInInspector] private Dictionary<string, object> CompleteDict;
-    [HideInInspector] private Dictionary<string, object> FailDict;
+    [HideInInspector] private Dictionary<string, object> completeDict;
+    [HideInInspector] private Dictionary<string, object> failDict;
 
     #endregion
 
@@ -28,16 +28,16 @@ public class AllyRequestManager : Singleton<AllyRequestManager>
 
     private void Offset()
     {
-        CompleteDict = new Dictionary<string, object>
+        completeDict = new Dictionary<string, object>
         {
-            { "KillNormalEnemy", Complete_KillNormalEnemy },
-            { "KillEliteEnemy", Complete_KillEliteEnemy }
+            { "KillNormalEnemy", complete_KillNormalEnemy },
+            { "KillEliteEnemy", complete_KillEliteEnemy }
         };
 
-        FailDict = new Dictionary<string, object>
+        failDict = new Dictionary<string, object>
         {
-            { "TakingDamage", Fail_TakingDamage },
-            { "UsingSkill", Fail_UsingSkill }
+            { "TakingDamage", fail_TakingDamage },
+            { "UsingSkill", fail_UsingSkill }
         };
     }
 
@@ -80,11 +80,11 @@ public class AllyRequestManager : Singleton<AllyRequestManager>
 
     private AllyCompleteList<T> Get_CorrectCompleteList<T>(string _Name) where T : IWhen_Request
     {
-        return DevTool.Can_CastingTType(CompleteDict[_Name], out AllyCompleteList<T> allyRequest) ? allyRequest : null;
+        return DevTool.Can_CastingTType(completeDict[_Name], out AllyCompleteList<T> allyRequest) ? allyRequest : null;
     }
     private AllyFailList<T> Get_CorrectFailList<T>(string _Name) where T : IWhen_Fail
     {
-        return DevTool.Can_CastingTType(FailDict[_Name], out AllyFailList<T> allyRequest) ? allyRequest : null;
+        return DevTool.Can_CastingTType(failDict[_Name], out AllyFailList<T> allyRequest) ? allyRequest : null;
     }
 
     #endregion
@@ -93,15 +93,15 @@ public class AllyRequestManager : Singleton<AllyRequestManager>
 
     #region Play (Complete)
 
-    public void Play_KillNormalEnemy() => Complete_KillNormalEnemy.Play_Request();
-    public void Play_KillEliteEnemy() => Complete_KillEliteEnemy.Play_Request();
+    public void Play_KillNormalEnemy() => complete_KillNormalEnemy.Play_Request();
+    public void Play_KillEliteEnemy() => complete_KillEliteEnemy.Play_Request();
 
     #endregion
 
     #region Play (Fail)
 
-    public void Play_TakingDamage() => Fail_TakingDamage.Play_Request();
-    public void Play_UsingSkill() => Fail_UsingSkill.Play_Request();
+    public void Play_TakingDamage() => fail_TakingDamage.Play_Request();
+    public void Play_UsingSkill() => fail_UsingSkill.Play_Request();
 
     #endregion
 }

@@ -36,15 +36,15 @@ public class StandbyPlayerSynergyEUIController : ElementUIController
 
     public void SetOn(int _ID, int _Amount)
     {
-        int rank = ModuleItemManager.Instance.Get_SynchronyRank(_Amount);
+        int rank = ModuleItemManager.instance.Get_SynchronyRank(_Amount);
 
         IconImg.gameObject.SetActive(true);
         AmountImg.gameObject.SetActive(rank != 0);
         AmountTxt.gameObject.SetActive(true);
 
-        IconImg.sprite = ModuleItemManager.Instance.Get_CorrectMainChip(_ID).ThisIcon;
-        AmountImg.sprite = MainGameUIManager.Instance.moduleUpgrade_UIController.SynergyTierFrames[rank];
-        NameTxt.text = ResourceManager.Instance.Get_SynergyName(_ID);
+        IconImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_ID).ThisIcon;
+        AmountImg.sprite = MainGameUIManager.instance.moduleUpgrade_UIController.SynergyTierFrames[rank];
+        NameTxt.text = ResourceManager.instance.Get_SynergyName(_ID);
         AmountTxt.text = _Amount.ToString();
     }
 

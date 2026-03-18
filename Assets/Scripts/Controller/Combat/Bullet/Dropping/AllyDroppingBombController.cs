@@ -7,7 +7,7 @@ public class AllyDroppingBombController : DroppingBombController
 
     protected override void PoolingSet()
     {
-        PoolingManager.Instance.droppingAllyBullet.Enqueue(this);
+        PoolingManager.instance.droppingAllyBullet.Enqueue(this);
     }
 
     #endregion
@@ -21,10 +21,10 @@ public class AllyDroppingBombController : DroppingBombController
 
     private void Play_ExplosionAttack()
     {
-        AllyExplosionController aec = PoolingManager.Instance.Get_OP_AllyExplosion();
+        AllyExplosionController aec = PoolingManager.instance.Get_OP_AllyExplosion();
         aec.Set_State(
             Get_ExlposionState(),
-            _AC: ResourceManager.Instance.explosionAC,
+            _AC: ResourceManager.instance.explosionAC,
             Get_SpawnTF(),
             this.TargetRange);
     }
@@ -33,7 +33,7 @@ public class AllyDroppingBombController : DroppingBombController
     {
         return new ExplosionState(
             new CombatState(
-                new CombatOwner(eCombatOwner.Ally, ID),
+                new CombatOwner(eCombatOwner.Ally, id),
                 new DmgState(eDamageType.Physics, State.DmgState.Dmg),
                 new CriticalState(State.CriticalState),
                 new KnockbackState(true, State.KnockbackState.KBPower, State.KnockbackState.KBTime)),

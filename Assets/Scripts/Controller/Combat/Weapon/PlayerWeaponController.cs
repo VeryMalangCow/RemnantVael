@@ -59,7 +59,7 @@ public class PlayerWeaponController : PlayerSolarController
         }
         else
         {
-            InputManager.Instance.aimController.Set_ActivingAttack(false);
+            InputManager.instance.aimController.Set_ActivingAttack(false);
             IsShooting = false;
         }
     }
@@ -73,9 +73,9 @@ public class PlayerWeaponController : PlayerSolarController
     {
         if (Check_Fire())
         {
-            Play_Fire(PoolingManager.Instance.Get_OP_PlayerBullet(BulletSpawnTFList.Count));
-            PlayerManager.Instance.cameraController.Play_ShotAnim(1 / ROF.BuffedState, PlayerController.BaseWeapon.BaseDamage.BuffedState);
-            ModuleItemManager.Instance.Active_Fire();
+            Play_Fire(PoolingManager.instance.Get_OP_PlayerBullet(BulletSpawnTFList.Count));
+            PlayerManager.instance.cameraController.Play_ShotAnim(1 / ROF.BuffedState, PlayerController.BaseWeapon.BaseDamage.BuffedState);
+            ModuleItemManager.instance.Active_Fire();
         }
     }
 
@@ -101,11 +101,11 @@ public class PlayerWeaponController : PlayerSolarController
             Play_Fire(_BulletList[i], DevTool.Get_ComponentTType<DepthController>(BulletSpawnTFList[i].gameObject), randomAngle);
         }
 
-        InputManager.Instance.aimController.Set_ActivingAttack(true);
+        InputManager.instance.aimController.Set_ActivingAttack(true);
         CurrentDelayROF -= 1;
 
         // ¸ðµâ ½ÌÅ© È¿°ú => »ç°Ý ÈÄ
-        ModuleItemManager.Instance.ActiveSync_AfterFire();
+        ModuleItemManager.instance.ActiveSync_AfterFire();
 
         // Tween
         this.transform.DOShakePosition(1f / ROF.BuffedState, 0.05f, 20, 90, false, true);
@@ -113,7 +113,7 @@ public class PlayerWeaponController : PlayerSolarController
         // Audio
 
         // Sound
-        SoundManager.Instance.Play_2D_SFX_Player_Random(
+        SoundManager.instance.Play_2D_SFX_Player_Random(
             PlayerController.Get_AS(), PlayerController.Get_ID(), "Shot", 2);
     }
 
@@ -131,10 +131,10 @@ public class PlayerWeaponController : PlayerSolarController
             _State_Effect: null,
             _TargetSpawnDepth.TargetRange);
 
-        ModuleItemManager.Instance.ActiveSync_Fire(_Bullet);
+        ModuleItemManager.instance.ActiveSync_Fire(_Bullet);
 
         // Æø¹ß ÀÌÆåÆ®   
-        UnitManager.Instance.player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
+        UnitManager.instance.player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
             PlayerController.Get_ID(),
             (Vector2)_TargetSpawnDepth.TargetObject.transform.position + (dir * 0.1f),
             dir,

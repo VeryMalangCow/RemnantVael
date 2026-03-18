@@ -83,12 +83,12 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
         if (_Amount == -1)
         {
             PlayerSynergyStackTxt.color = new Color(0.5f, 0.5f, 0.5f, 1f);
-            PlayerSynergyStackTxt.text = $"( {ResourceManager.Instance.Get_StaticDesc(38)} )";
+            PlayerSynergyStackTxt.text = $"( {ResourceManager.instance.Get_StaticDesc(38)} )";
         }
         else
         {
-            PlayerSynergyStackTxt.color = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-            PlayerSynergyStackTxt.text = $"( {ResourceManager.Instance.Get_StaticDesc(39)}: <size=150%>{_Amount}</size> )";
+            PlayerSynergyStackTxt.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
+            PlayerSynergyStackTxt.text = $"( {ResourceManager.instance.Get_StaticDesc(39)}: <size=150%>{_Amount}</size> )";
         }
         
     }

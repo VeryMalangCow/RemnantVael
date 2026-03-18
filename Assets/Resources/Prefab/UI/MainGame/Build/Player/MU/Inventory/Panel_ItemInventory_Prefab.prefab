@@ -50,11 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisRT: {fileID: 24319227722119256}
-  RowAmount: 0
-  ColumnAmount: 0
-  InventorySlotPrefab: {fileID: 2601900739378343266, guid: affa1baef144b8144bd5d40b3609e16a, type: 3}
   SlotSprite: {fileID: 0}
-  InventoryItemPrefab: {fileID: 2601900739378343266, guid: 951c3fe4543da204c8bed0ca79322ca7, type: 3}
 --- !u!222 &1434151623265768884
 CanvasRenderer:
   m_ObjectHideFlags: 0

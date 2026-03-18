@@ -84,48 +84,48 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
             .SetLoops(-1, LoopType.Restart);
 
         playerHUD_UIController
-            = Gen_UI<PlayerHUDController>(ResourceManager.Instance.playerHUD_CanvasPrefab, true);
+            = Gen_UI<PlayerHUDController>(ResourceManager.instance.playerHUD_CanvasPrefab, true);
 
         outMainGame_UIController
-            = Gen_UI<OutMainGameUIController>(ResourceManager.Instance.outMainGame_CanvasPrefab, false);
+            = Gen_UI<OutMainGameUIController>(ResourceManager.instance.outMainGame_CanvasPrefab, false);
 
         baseUpgrade_UIController
-            = Gen_UI<BaseUpgradeUIController>(ResourceManager.Instance.baseUpgrade_CanvasPrefab, false);
+            = Gen_UI<BaseUpgradeUIController>(ResourceManager.instance.baseUpgrade_CanvasPrefab, false);
         moduleUpgrade_UIController
-            = Gen_UI<ModuleUpgradeUIController>(ResourceManager.Instance.moduleUpgrade_CanvasPrefab, false);
+            = Gen_UI<ModuleUpgradeUIController>(ResourceManager.instance.moduleUpgrade_CanvasPrefab, false);
 
         allyBaseUpgrade_UIController
-            = Gen_UI<AllyBaseUpgradeUIController>(ResourceManager.Instance.allyBaseUpgrade_CanvasPrefab, false);
+            = Gen_UI<AllyBaseUpgradeUIController>(ResourceManager.instance.allyBaseUpgrade_CanvasPrefab, false);
         allyModuleUpgrade_UIController
-            = Gen_UI<AllyModuleUpgradeUIController>(ResourceManager.Instance.allyModuleUpgrade_CanvasPrefab, false);
+            = Gen_UI<AllyModuleUpgradeUIController>(ResourceManager.instance.allyModuleUpgrade_CanvasPrefab, false);
 
         interactAnno_UIController
-            = Gen_UI<InteractAnnoUIController>(ResourceManager.Instance.interactAnno_CanvasPrefab, false);
+            = Gen_UI<InteractAnnoUIController>(ResourceManager.instance.interactAnno_CanvasPrefab, false);
 
         mapIntro_UIController
-            = Gen_UI<MapIntroUIController>(ResourceManager.Instance.mapIntro_CanvasPrefab, false);
+            = Gen_UI<MapIntroUIController>(ResourceManager.instance.mapIntro_CanvasPrefab, false);
 
         allyCard_UIController
-            = Gen_UI<AllyCardUIController>(ResourceManager.Instance.allyCard_CanvasPrefab, false);
+            = Gen_UI<AllyCardUIController>(ResourceManager.instance.allyCard_CanvasPrefab, false);
 
         boxLineConnector_UIController
-            = Gen_UI<BoxLineConnectorUIController>(ResourceManager.Instance.puzzle_BoxLineConnector_CanvasPrefab, false);
+            = Gen_UI<BoxLineConnectorUIController>(ResourceManager.instance.puzzle_BoxLineConnector_CanvasPrefab, false);
         numShapeColorPassword_UIController
-            = Gen_UI<NumShapeColorPasswordUIController>(ResourceManager.Instance.puzzle_NumShapeColorPassword_CanvasPrefab, false);
+            = Gen_UI<NumShapeColorPasswordUIController>(ResourceManager.instance.puzzle_NumShapeColorPassword_CanvasPrefab, false);
         inOrderLocker_UIController
-            = Gen_UI<InOrderLockerUIController>(ResourceManager.Instance.puzzle_InOrderLocker_CanvasPrefab, false);
+            = Gen_UI<InOrderLockerUIController>(ResourceManager.instance.puzzle_InOrderLocker_CanvasPrefab, false);
 
         premiumCreditCvt_UIController
-            = Gen_UI<PremiumCreditCvtUIController>(ResourceManager.Instance.cvt_PremiumCredit_CanvasPrefab, false);
+            = Gen_UI<PremiumCreditCvtUIController>(ResourceManager.instance.cvt_PremiumCredit_CanvasPrefab, false);
         protoCoreCvt_UIController
-            = Gen_UI<ProtoCoreCvtUIController>(ResourceManager.Instance.cvt_ProtoCore_CanvasPrefab, false);
+            = Gen_UI<ProtoCoreCvtUIController>(ResourceManager.instance.cvt_ProtoCore_CanvasPrefab, false);
         etherCoreCvt_UIController
-            = Gen_UI<EtherCoreCvtUIController>(ResourceManager.Instance.cvt_EtherCore_CanvasPrefab, false);
+            = Gen_UI<EtherCoreCvtUIController>(ResourceManager.instance.cvt_EtherCore_CanvasPrefab, false);
         originCoreCvt_UIController
-            = Gen_UI<OriginCoreCvtUIController>(ResourceManager.Instance.cvt_OriginCore_CanvasPrefab, false);
+            = Gen_UI<OriginCoreCvtUIController>(ResourceManager.instance.cvt_OriginCore_CanvasPrefab, false);
 
         battleProd_UIController
-            = Gen_UI<BattleProdUIController>(ResourceManager.Instance.battleProd_CanvasPrefab, false);
+            = Gen_UI<BattleProdUIController>(ResourceManager.instance.battleProd_CanvasPrefab, false);
 
         Sequence startSeq = DOTween.Sequence();
 
@@ -142,7 +142,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     private void Start()
     {
         Offset();
-        GameManager.Instance.Set_BaseOption();
+        GameManager.instance.Set_BaseOption();
     }
 
     #endregion
@@ -178,7 +178,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         baseUpgrade_UIController.Set_LanguageTxt();
         moduleUpgrade_UIController.Set_LanguageTxt();
-        ModuleItemManager.Instance.Set_DataLanguage();
+        ModuleItemManager.instance.Set_DataLanguage();
 
         allyBaseUpgrade_UIController.Set_LanguageTxt();
         allyModuleUpgrade_UIController.Set_LanguageTxt();
@@ -331,7 +331,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     private IEnumerator Play_DeadProd_Cor(float _FadeInTime = 2f, float _TxtFadeInTime = 1f, float _StayTime = 2f)
     {
-        EventManager.Instance.Set_Input(false);
+        EventManager.instance.Set_Input(false);
         Play_FadeIn(_FadeInTime);
 
         yield return new WaitForSeconds(_FadeInTime);
@@ -345,7 +345,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         yield return new WaitForSeconds(_TxtFadeInTime);
 
-        LoadingSceneManager.Instance.Play_LoadScene("MainGame");
+        LoadingSceneManager.instance.Play_LoadScene("MainGame");
     }
 
     public void Play_EndGameProd()
@@ -358,7 +358,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
     {
         yield return new WaitForSeconds(0.5f);
 
-        EventManager.Instance.Set_Input(false);
+        EventManager.instance.Set_Input(false);
         Play_FadeIn(_FadeInTime);
 
         yield return new WaitForSeconds(_FadeInTime);
@@ -372,7 +372,7 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
         yield return new WaitForSeconds(_TxtFadeInTime);
 
-        LoadingSceneManager.Instance.Play_LoadScene("TitleLobby");
+        LoadingSceneManager.instance.Play_LoadScene("TitleLobby");
     }
 
 

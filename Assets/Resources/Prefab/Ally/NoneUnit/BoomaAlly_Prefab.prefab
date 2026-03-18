@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aafeb63411643334aabd5dd37676d9ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 0}
   ThisSR: {fileID: 0}
   TargetRange: 0
@@ -81,7 +81,6 @@ MonoBehaviour:
     Dur:
       Value: 0
   MaxHP: 150
-  MaxEP: 100
   AllyStateMode:
     value: 0
   BuffController: {fileID: 1999153423990081965}

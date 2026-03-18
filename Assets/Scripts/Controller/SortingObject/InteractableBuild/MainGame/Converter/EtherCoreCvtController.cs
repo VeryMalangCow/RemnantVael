@@ -6,12 +6,12 @@ public class EtherCoreCvtController : ConverterController, IInteract
     public string Get_InteractName(out bool _CanInteract)
     {
         _CanInteract = true;
-        return $"{ResourceManager.Instance.Get_StaticWord(119)}\n{ResourceManager.Instance.Get_StaticWord(125)}";
+        return $"{ResourceManager.instance.Get_StaticWord(119)}\n{ResourceManager.instance.Get_StaticWord(125)}";
     }
 
     public void Play_Interact()
     {
-        MainGameUIManager.Instance.etherCoreCvt_UIController.SetOn_ThisPanel();
+        MainGameUIManager.instance.etherCoreCvt_UIController.SetOn_ThisPanel();
     }
 
     #endregion

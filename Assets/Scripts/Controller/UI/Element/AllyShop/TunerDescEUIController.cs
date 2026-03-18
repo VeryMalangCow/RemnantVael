@@ -27,13 +27,13 @@ public class TunerDescEUIController : ElementUIController
     public void Set_UI(AllyEachTunerData _Data, bool _IsIncrease)
     {
         // Name Txt
-        int index = AllyManager.StateTypeList.IndexOf(_Data.Type);
-        NameTxt.text = ResourceManager.Instance.Get_TunerDescName(index);
+        int index = AllyManager.stateTypeList.IndexOf(_Data.Type);
+        NameTxt.text = ResourceManager.instance.Get_TunerDescName(index);
 
         // Value Txt
         string valueTxt = $"{DevTool.Get_RoundFloatString((100f * AllyManager.Get_AllyTunerStateMultiple(_Data.Type) * _Data.Rank))}%</color>";
         ValueTxt.text = _IsIncrease ? valueTxt : valueTxt.Replace("+", "-");
-        ValueTxt.color = ResourceManager.Instance.Get_AllyCardColor(_Data.Rank - 1);
+        ValueTxt.color = ResourceManager.instance.Get_AllyCardColor(_Data.Rank - 1);
     }
 
     #endregion

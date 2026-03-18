@@ -36,7 +36,7 @@ public class VaultRerollOperatorController : VaultOperatorController
     {
         base.Set_AnimValue();
 
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.operator_RerollAC, 1f), 1f);
+        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_RerollAC, 1f), 1f);
     }
 
     public override void Set_TargetBuild(VaultController _TargetVault)
@@ -54,7 +54,7 @@ public class VaultRerollOperatorController : VaultOperatorController
     {
         //base.Get_InteractName(out bool _CanInteract);
         _CanInteract = Can_Interact();
-        return ResourceManager.Instance.Get_StaticWord(57);
+        return ResourceManager.instance.Get_StaticWord(57);
     }
 
     public override void Play_Interact()
@@ -63,10 +63,10 @@ public class VaultRerollOperatorController : VaultOperatorController
 
         if (TargetVault == null ||
             TargetVault.IsBroken ||
-            PlayerManager.Instance.playerController.CurrentOverrider.Value < Get_NeedPay()) return;
+            PlayerManager.instance.playerController.CurrentOverrider.Value < Get_NeedPay()) return;
 
         // 소비 아이템
-        PlayerManager.Instance.playerController.Add_CurrentOverrider(-Get_NeedPay());
+        PlayerManager.instance.playerController.Add_CurrentOverrider(-Get_NeedPay());
         UseAmount++;
 
         // 리롤
@@ -79,7 +79,7 @@ public class VaultRerollOperatorController : VaultOperatorController
         TargetVault.Play_Size();
 
         // Sound
-        SoundManager.Instance.Play_2D_SFX_Build("Replacement");
+        SoundManager.instance.Play_2D_SFX_Build("Replacement");
     }
 
     #endregion

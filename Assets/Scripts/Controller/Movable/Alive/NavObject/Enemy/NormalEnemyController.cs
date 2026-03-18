@@ -27,9 +27,9 @@ public class NormalEnemyController : EnemyController
 
     protected override void Set_Die_Extra()
     {
-        PoolingManager.Instance.Set_EnqueueEnemy(this);
+        PoolingManager.instance.Set_EnqueueEnemy(this);
 
-        AllyRequestManager.Instance.Play_KillNormalEnemy();
+        AllyRequestManager.instance.Play_KillNormalEnemy();
     }
 
     #endregion

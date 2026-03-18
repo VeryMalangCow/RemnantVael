@@ -88,26 +88,26 @@ public class CvtAcquisitionEUIController : ElementUIController
         if (ConvertBtn.gameObject.TryGetComponent(out TMP_Text convertTxt))
         {
             if (_CanConvert) 
-                convertTxt.text = ResourceManager.Instance.Get_StaticWord(127);
+                convertTxt.text = ResourceManager.instance.Get_StaticWord(127);
             else
-                convertTxt.text = ResourceManager.Instance.Get_StaticWord(134);
+                convertTxt.text = ResourceManager.instance.Get_StaticWord(134);
         }
 
         if (MaxBtn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text maxTxt))
-            maxTxt.text = ResourceManager.Instance.Get_StaticWord(128);
+            maxTxt.text = ResourceManager.instance.Get_StaticWord(128);
         if (More10Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text more10Txt))
-            more10Txt.text = ResourceManager.Instance.Get_StaticWord(129);
+            more10Txt.text = ResourceManager.instance.Get_StaticWord(129);
         if (More1Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text more1Txt))
-            more1Txt.text = ResourceManager.Instance.Get_StaticWord(130);
+            more1Txt.text = ResourceManager.instance.Get_StaticWord(130);
         if (Less1Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text less1Txt))
-            less1Txt.text = ResourceManager.Instance.Get_StaticWord(131);
+            less1Txt.text = ResourceManager.instance.Get_StaticWord(131);
         if (Less10Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text less10Txt))
-            less10Txt.text = ResourceManager.Instance.Get_StaticWord(132);
+            less10Txt.text = ResourceManager.instance.Get_StaticWord(132);
         if (MinBtn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text minTxt))
-            minTxt.text = ResourceManager.Instance.Get_StaticWord(133);
+            minTxt.text = ResourceManager.instance.Get_StaticWord(133);
 
-        PossessionTxt.text = ResourceManager.Instance.Get_StaticWord(121);
-        AcquisitionTxt.text = ResourceManager.Instance.Get_StaticWord(126);
+        PossessionTxt.text = ResourceManager.instance.Get_StaticWord(121);
+        AcquisitionTxt.text = ResourceManager.instance.Get_StaticWord(126);
     }
 
     #endregion
@@ -145,7 +145,7 @@ public class CvtAcquisitionEUIController : ElementUIController
 
     public void Play_SuccessComp()
     {
-        AfterIconImg.sprite = ResourceManager.Instance.cvtMaterialConditionIcon.Get_Special(true);
+        AfterIconImg.sprite = ResourceManager.instance.cvtMaterialConditionIcon.Get_Special(true);
         Play_AfterImg();
 
         Sequence seq = DOTween.Sequence();
@@ -156,7 +156,7 @@ public class CvtAcquisitionEUIController : ElementUIController
 
     public void Play_FailComp()
     {
-        AfterIconImg.sprite = ResourceManager.Instance.cvtMaterialConditionIcon.Get_Special(false);
+        AfterIconImg.sprite = ResourceManager.instance.cvtMaterialConditionIcon.Get_Special(false);
         Play_AfterImg();
     }
 

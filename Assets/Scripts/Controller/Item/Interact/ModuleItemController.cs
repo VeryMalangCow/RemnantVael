@@ -17,13 +17,13 @@ public class ModuleItemController : InteractItemController
         base.Set_State(_SpawnPos);
 
         // Data
-        ItemDataField = new ItemData_Field(ModuleItemManager.Instance.Get_RandomInteractItem());
+        ItemDataField = new ItemData_Field(ModuleItemManager.instance.Get_RandomInteractItem());
     }
 
     public void Set_RankState(int _Rank)
     {
         ItemDataField.Rank = _Rank;
-        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.Instance.Get_ModuleOutlineAC(_Rank - 1));
+        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.instance.Get_ModuleOutlineAC(_Rank - 1));
         ThisAT.speed = 1.5f;
     }
 
@@ -34,15 +34,15 @@ public class ModuleItemController : InteractItemController
     public override string Get_InteractName(out bool _CanInteract)
     {
         _CanInteract = true;
-        return ResourceManager.Instance.Get_StaticWord(0);
+        return ResourceManager.instance.Get_StaticWord(0);
     }
 
     public override void Play_Interact()
     {
         base.Play_Interact();
 
-        ModuleItemManager.Instance.Gain_ModuleState(ItemDataField);
-        PoolingManager.Instance.moduleItems.Enqueue(this);
+        ModuleItemManager.instance.Gain_ModuleState(ItemDataField);
+        PoolingManager.instance.moduleItems.Enqueue(this);
     }
 
     #endregion

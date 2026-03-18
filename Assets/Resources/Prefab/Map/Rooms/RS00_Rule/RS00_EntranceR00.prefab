@@ -2907,9 +2907,11 @@ MonoBehaviour:
   RoomVec:
   - {x: 0, y: 0}
   RoomType: 0
+  EnemyType: 0
   IsAlreadyRoomClear: 0
   InRoom_ObstacleParentTF: {fileID: 7970727603205083627}
   InRoom_EnemySpawnParentTF: {fileID: 3894259865427544154}
+  InRoom_FieldObjSpawnerParentTF: {fileID: 0}
   InRoom_AllObstacle: []
   InRoom_Elevator: {fileID: 5557952869483422886}
 --- !u!1 &5913245079779188247
@@ -3402,7 +3404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1c647f41f538149be63bd342c0bc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
+  id: 0
   TargetObject: {fileID: 4976288124276342209}
   ThisSR: {fileID: 8247773309563005335}
   TargetRange: 0

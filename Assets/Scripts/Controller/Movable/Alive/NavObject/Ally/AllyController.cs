@@ -123,10 +123,10 @@ public class AllyController : NavObjectController
         CurrentHP.Value = MaxHP;
         CurrentEP.Value = 0;
 
-        Player = PlayerManager.Instance.playerController;
+        Player = PlayerManager.instance.playerController;
 
-        DevTool.Add_InList(AllyManager.Instance.AllAlly, this);
-        ID = AllyManager.Instance.AllAlly.IndexOf(this);
+        DevTool.Add_InList(AllyManager.instance.allAlly, this);
+        id = AllyManager.instance.allAlly.IndexOf(this);
 
         Set_AllyStateMode(AllyStateMode.Value);
 
@@ -159,22 +159,22 @@ public class AllyController : NavObjectController
 
         UpgradeStateDict = new Dictionary<string, RefData<float>>
         {
-            { AllyManager.StateTypeList[0], UpgradeAllyState.Dmg },
-            { AllyManager.StateTypeList[1], UpgradeAllyState.Rof },
-            { AllyManager.StateTypeList[2], UpgradeAllyState.MovementSpeed },
-            { AllyManager.StateTypeList[3], UpgradeAllyState.AttackSize },
-            { AllyManager.StateTypeList[4], UpgradeAllyState.CC },
-            { AllyManager.StateTypeList[5], UpgradeAllyState.CD },
-            { AllyManager.StateTypeList[6], UpgradeAllyState.MuzzleSpeed },
-            { AllyManager.StateTypeList[7], UpgradeAllyState.KBPower },
-            { AllyManager.StateTypeList[8], UpgradeAllyState.Dur }
+            { AllyManager.stateTypeList[0], UpgradeAllyState.Dmg },
+            { AllyManager.stateTypeList[1], UpgradeAllyState.Rof },
+            { AllyManager.stateTypeList[2], UpgradeAllyState.MovementSpeed },
+            { AllyManager.stateTypeList[3], UpgradeAllyState.AttackSize },
+            { AllyManager.stateTypeList[4], UpgradeAllyState.CC },
+            { AllyManager.stateTypeList[5], UpgradeAllyState.CD },
+            { AllyManager.stateTypeList[6], UpgradeAllyState.MuzzleSpeed },
+            { AllyManager.stateTypeList[7], UpgradeAllyState.KBPower },
+            { AllyManager.stateTypeList[8], UpgradeAllyState.Dur }
         };
     }
 
     private void Offset_Name()
     {
-        NameID = AllyManager.Instance.Get_AllyNameID();
-        Name = AllyManager.Instance.Get_AllyName(NameID);
+        NameID = AllyManager.instance.Get_AllyNameID();
+        Name = AllyManager.instance.Get_AllyName(NameID);
 
         Set_Name();
     }
@@ -353,7 +353,7 @@ public class AllyController : NavObjectController
 
     public AllyState Get_CardState() // 카드만 적용된 스탯
     {
-        return AllyState.Get_Multiple(MultipleAllyState, AllyManager.Instance.GetAllyState);
+        return AllyState.Get_Multiple(MultipleAllyState, AllyManager.instance.getAllyState);
     }
 
     public AllyState Get_UpgradeAllState() // 업그레이드만 카드 적용된 스탯
@@ -434,7 +434,7 @@ public class AllyController : NavObjectController
 
     private Dictionary<int, int> Get_ConnectingSync()
     {
-        Dictionary<int, int> playerSyncDataDict = ModuleItemManager.Instance.Get_CurrentSyncData();
+        Dictionary<int, int> playerSyncDataDict = ModuleItemManager.instance.Get_CurrentSyncData();
         List<int> allyIds = SyncData.Keys.ToList();
 
         Dictionary<int, int> resultSyncDataDict = new Dictionary<int, int>();
@@ -456,7 +456,7 @@ public class AllyController : NavObjectController
         {
             if (SyncData[connectSync.Key] >= SyncMax)
             {
-                resultSyncDataDict.Add(connectSync.Key, ModuleItemManager.Instance.Get_CurrentSyncData()[connectSync.Key]);
+                resultSyncDataDict.Add(connectSync.Key, ModuleItemManager.instance.Get_CurrentSyncData()[connectSync.Key]);
             }
         }
         return resultSyncDataDict;

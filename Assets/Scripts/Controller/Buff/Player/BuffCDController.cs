@@ -1,5 +1,6 @@
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BuffCDController : BuffController
 {
@@ -9,7 +10,7 @@ public class BuffCDController : BuffController
     [Header("<><><><><> CD Add")]
 
     [Space(10)]
-    [SerializeField] private BuffState<float> Multiple = new BuffState<float>();
+    [SerializeField] private BuffState<float> multiple = new BuffState<float>();
 
     #endregion
 
@@ -19,10 +20,10 @@ public class BuffCDController : BuffController
     {
         base.Start();
 
-        CurrentBuffCharge
+        currentBuffCharge
             .Subscribe(_Value =>
             {
-                Multiple.ActualValue = Multiple.BaseValue * CurrentBuffCharge.Value;
+                multiple.ActualValue = multiple.BaseValue * currentBuffCharge.Value;
             });
     }
 
@@ -34,23 +35,23 @@ public class BuffCDController : BuffController
     {
         base.Gain_Buff();
 
-        PlayerManager.Instance.playerController.BaseWeapon.CD.Gain_Buff(Multiple);
-        PlayerManager.Instance.playerController.BaseWeapon.CD.Set_BuffedState();
+        PlayerManager.instance.playerController.BaseWeapon.CD.Gain_Buff(multiple);
+        PlayerManager.instance.playerController.BaseWeapon.CD.Set_BuffedState();
     }
 
     public override void Reduct_Buff()
     {
         base.Reduct_Buff();
 
-        PlayerManager.Instance.playerController.BaseWeapon.CD.Set_BuffedState();
+        PlayerManager.instance.playerController.BaseWeapon.CD.Set_BuffedState();
     }
 
     public override void End_Buff()
     {
         base.End_Buff();
 
-        PlayerManager.Instance.playerController.BaseWeapon.CD.Lose_Buff(Multiple);
-        PlayerManager.Instance.playerController.BaseWeapon.CD.Set_BuffedState();
+        PlayerManager.instance.playerController.BaseWeapon.CD.Lose_Buff(multiple);
+        PlayerManager.instance.playerController.BaseWeapon.CD.Set_BuffedState();
     }
 
     #endregion
@@ -59,7 +60,7 @@ public class BuffCDController : BuffController
 
     public void Set_Value(float _Value)
     {
-        Multiple.BaseValue = _Value;
+        multiple.BaseValue = _Value;
     }
 
     #endregion

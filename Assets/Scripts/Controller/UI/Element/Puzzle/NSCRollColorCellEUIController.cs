@@ -39,9 +39,9 @@ public class NSCRollColorCellEUIController : NSCRollCellEUIController
         switch (ThisNSCType)
         {
             case eNSCPuzzleType.Color:
-                RollColorArr = ResourceManager.Instance.nsc_colorArr;
+                RollColorArr = ResourceManager.instance.nsc_colorArr;
                 for (int i = 0; i < RollImgList.Count; i++)
-                    RollImgList[i].sprite = ResourceManager.Instance.nsc_colorSprite;
+                    RollImgList[i].sprite = ResourceManager.instance.nsc_colorSprite;
                 break;
 
             default:

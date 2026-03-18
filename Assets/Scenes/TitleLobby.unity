@@ -2624,52 +2624,52 @@ MonoBehaviour:
   gameProgressPath: GameProgressData
   infoPath: InfoData
   jsonData:
-    CharacterData:
-    - ID: 0
-      CanUse: 1
-    - ID: 1
-      CanUse: 0
-    ItemData:
-    - ID: 0
-      Name: Premium Credit
-      Amount: 0
-    - ID: 1
-      Name: Proto Core
-      Amount: 0
-    - ID: 2
-      Name: Ether Core
-      Amount: 0
-    - ID: 3
-      Name: Origin Core
-      Amount: 0
-    OptionData:
-      LanguageID: 1
-      ScreenMode: 0
-      ResolutionMode: 2
-      FPS: 3
-      BGMVolume: 0.5
-      SFXVolume: 0.5
-    GameProgressData:
-      CurrentProgressing: 0
-      UsableVault: 1
-      UsableBU: 1
-      UsableMU: 1
-      UsableABU: 1
-      UsableAMU: 1
-      UsableSTPrison: 1
-      UsableUTPrison: 1
-      UsableNTPrison: 1
-    InfoData:
-    - ID: 0
-      CanVisible: 1
-    - ID: 1
-      CanVisible: 1
-    - ID: 2
-      CanVisible: 1
-    - ID: 3
-      CanVisible: 1
-    - ID: 4
-      CanVisible: 1
+    characterData:
+    - id: 0
+      canUse: 1
+    - id: 1
+      canUse: 0
+    itemData:
+    - id: 0
+      name: Premium Credit
+      amount: 0
+    - id: 1
+      name: Proto Core
+      amount: 0
+    - id: 2
+      name: Ether Core
+      amount: 0
+    - id: 3
+      name: Origin Core
+      amount: 0
+    optionData:
+      languageID: 1
+      screenMode: 0
+      resolutionMode: 2
+      fps: 3
+      bgmVolume: 0.5
+      sfxVolume: 0.5
+    gameProgressData:
+      currentProgressing: 0
+      usableVault: 1
+      usableBU: 1
+      usableMU: 1
+      usableABU: 1
+      usableAMU: 1
+      usableSTPrison: 1
+      usableUTPrison: 1
+      usableNTPrison: 1
+    infoData:
+    - id: 0
+      canVisible: 1
+    - id: 1
+      canVisible: 1
+    - id: 2
+      canVisible: 1
+    - id: 3
+      canVisible: 1
+    - id: 4
+      canVisible: 1
 --- !u!4 &680521050
 Transform:
   m_ObjectHideFlags: 0

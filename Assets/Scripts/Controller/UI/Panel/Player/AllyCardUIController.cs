@@ -87,7 +87,7 @@ public class AllyCardUIController : SinglePanelUIController
 
     public void Try_Interact()
     {
-        InputManager.Instance.Play_MousePointerClick();
+        InputManager.instance.Play_MousePointerClick();
 
         if (Is_Interact_CardBooking()) return;
         if (Is_Interact_Reroll()) return;
@@ -113,9 +113,9 @@ public class AllyCardUIController : SinglePanelUIController
             BookingCard == null)
             return false;
 
-        AllyManager.Instance.Add_AllyCard(TypeIndex, BookingCard.CurrentID);
+        AllyManager.instance.Add_AllyCard(TypeIndex, BookingCard.CurrentID);
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
+        SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
 
         SetOff_ThisPanel();
 
@@ -134,7 +134,7 @@ public class AllyCardUIController : SinglePanelUIController
             BookingCard = null;
             CardBookingFrameImgRT.gameObject.SetActive(false);
         }
-        SoundManager.Instance.Play_2D_SFX_UI("Reroll");
+        SoundManager.instance.Play_2D_SFX_UI("Reroll");
 
         return true;
     }
@@ -146,7 +146,7 @@ public class AllyCardUIController : SinglePanelUIController
     public override void SetOn_ThisPanel()
     {
         base.SetOn_ThisPanel();
-        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
+        SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
 
         Set_NewCardDeck();
     }
@@ -161,14 +161,14 @@ public class AllyCardUIController : SinglePanelUIController
         for (int i = 0; i < Cards.Count; i++)
             idList.Add(Cards[i].CurrentID);
 
-        AllyCardData cardData = AllyManager.Instance.Get_ChoiceAbleRandomData(TypeIndex, idList);
+        AllyCardData cardData = AllyManager.instance.Get_ChoiceAbleRandomData(TypeIndex, idList);
 
         Cards[_Index].Set_Card(TypeIndex, cardData);
     }
 
     private void Set_NewCardDeck()
     {
-        List<AllyCardData> cardDeckData = AllyManager.Instance.Get_ChoiceAbleRandomData(TypeIndex, Cards.Count);
+        List<AllyCardData> cardDeckData = AllyManager.instance.Get_ChoiceAbleRandomData(TypeIndex, Cards.Count);
 
         int needMoreDataAmount = Cards.Count - cardDeckData.Count;
         if (needMoreDataAmount >= 0)
@@ -215,7 +215,7 @@ public class AllyCardUIController : SinglePanelUIController
 
         Play_BookingRT();
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.Play_2D_SFX_UI("Click_01");
     }
 
     #endregion
@@ -242,10 +242,10 @@ public class AllyCardUIController : SinglePanelUIController
     private void Set_BaseLanguageTxt()
     {
         DevTool.Get_ComponentTType<TMP_Text>(CardBookingFrameImgRT.transform.GetChild(DevTool.Get_TSChildIndex(CardBookingFrameImgRT, 0)).gameObject).text =
-            ResourceManager.Instance.Get_StaticWord(82);
+            ResourceManager.instance.Get_StaticWord(82);
 
         DevTool.Get_ComponentTType<TMP_Text>(SelectBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(SelectBtn, 0)).gameObject).text =
-            ResourceManager.Instance.Get_StaticWord(83);
+            ResourceManager.instance.Get_StaticWord(83);
 
         for (int i = 0; i < Rerolls.Count; i++)
             Rerolls[i].Set_LanguageTxt();
@@ -255,7 +255,7 @@ public class AllyCardUIController : SinglePanelUIController
     {
         base.Set_LanguageTxt();
 
-        AllyManager.Instance.Set_LanguageTxt();
+        AllyManager.instance.Set_LanguageTxt();
         Set_BaseLanguageTxt();
     }
 

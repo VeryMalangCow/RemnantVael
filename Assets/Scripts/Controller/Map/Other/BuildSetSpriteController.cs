@@ -6,7 +6,7 @@ public class BuildSetSpriteController : BuildSpriteController
 
     private void Add_CurrentSetSprite()
     {
-        StageManager.Instance.Add_SetSprite(this);
+        StageManager.instance.Add_SetSprite(this);
     }
 
     #endregion

@@ -61,8 +61,8 @@ public class OverriderController : RangeAbsorbItemController
 
         IsSpawnNow = false;
 
-        PlayerManager.Instance.playerController.Add_CurrentOverrider(GainAmount);
-        PoolingManager.Instance.overrider.Enqueue(this);
+        PlayerManager.instance.playerController.Add_CurrentOverrider(GainAmount);
+        PoolingManager.instance.overrider.Enqueue(this);
     }
 
     #endregion

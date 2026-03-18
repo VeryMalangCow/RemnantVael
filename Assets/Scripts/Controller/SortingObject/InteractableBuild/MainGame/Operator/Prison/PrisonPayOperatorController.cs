@@ -45,7 +45,7 @@ public class PrisonPayOperatorController : PrisonOperatorController
     {
         //base.Get_InteractName();
         _CanInteract = Can_Interact();
-        return ResourceManager.Instance.Get_StaticWord(60);
+        return ResourceManager.instance.Get_StaticWord(60);
     }
 
     public override void Play_Interact()
@@ -54,10 +54,10 @@ public class PrisonPayOperatorController : PrisonOperatorController
 
         if (TargetPrison == null ||
             TargetPrison.IsOn ||
-            PlayerManager.Instance.playerController.Get_CurrentEP().Value <= Get_NeedPay()) return;
+            PlayerManager.instance.playerController.Get_CurrentEP().Value <= Get_NeedPay()) return;
 
         // 소비 아이템
-        PlayerManager.Instance.playerController.Add_CurrentEP(-Get_NeedPay());
+        PlayerManager.instance.playerController.Add_CurrentEP(-Get_NeedPay());
 
         TargetPrison.Set_Unlock();
     }

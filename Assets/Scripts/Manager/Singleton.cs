@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Singleton<T>
 {
-    public static T Instance = null;
+    public static T instance = null;
 
     protected virtual void Awake()
     {
-        if (null == Instance)
+        if (null == instance)
         {
-            Instance = (T)this;
+            instance = (T)this;
         }
         else
         {
@@ -23,7 +23,7 @@ public class PersistentSingleton<T> : Singleton<T> where T : PersistentSingleton
     protected override void Awake()
     {
         base.Awake();
-        if (Instance == this)
+        if (instance == this)
         {
             DontDestroyOnLoad(gameObject);
         }

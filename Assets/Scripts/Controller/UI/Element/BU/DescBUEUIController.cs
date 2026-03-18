@@ -257,13 +257,13 @@ public class DescBUEUIController : ElementUIController
     public void Set_LanguageTxt()
     {
         // String
-        LeftLVTxt.text = ResourceManager.Instance.Get_StaticWord(34);
-        LeftValueTxt.text = ResourceManager.Instance.Get_StaticWord(35);
+        LeftLVTxt.text = ResourceManager.instance.Get_StaticWord(34);
+        LeftValueTxt.text = ResourceManager.instance.Get_StaticWord(35);
 
-        RightLVTxt.text = ResourceManager.Instance.Get_StaticWord(34);
-        RightValueTxt.text = ResourceManager.Instance.Get_StaticWord(35);
+        RightLVTxt.text = ResourceManager.instance.Get_StaticWord(34);
+        RightValueTxt.text = ResourceManager.instance.Get_StaticWord(35);
 
-        DevTool.Get_ComponentTType<TMP_Text>(CompletedSignGO.transform.GetChild(DevTool.Get_TSChildIndex(CompletedSignGO, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(48);
+        DevTool.Get_ComponentTType<TMP_Text>(CompletedSignGO.transform.GetChild(DevTool.Get_TSChildIndex(CompletedSignGO, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(48);
     }
 
     #endregion

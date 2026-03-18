@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AllyBuffManager : Singleton<AllyBuffManager>
 {
@@ -14,15 +15,15 @@ public class AllyBuffManager : Singleton<AllyBuffManager>
     [Header("-- Sync")]
 
     [Header("* Dmg")]
-    [SerializeField] public OriginalAllyBuff Sync005_OriginalBuff;
-    [SerializeField] public OriginalAllyBuff Sync008_OriginalBuff;
-    [SerializeField] public OriginalAllyBuff TotisToteme_OriginalBuff;
+    [SerializeField] public OriginalAllyBuff sync005_OriginalBuff;
+    [SerializeField] public OriginalAllyBuff sync008_OriginalBuff;
+    [SerializeField] public OriginalAllyBuff totisToteme_OriginalBuff;
 
     [Header("* Rof")]
-    [SerializeField] public OriginalAllyBuff Sync007_OriginalBuff;
+    [SerializeField] public OriginalAllyBuff sync007_OriginalBuff;
 
     [Header("* CD")]
-    [SerializeField] public OriginalAllyBuff Sync006_OriginalBuff;
+    [SerializeField] public OriginalAllyBuff sync006_OriginalBuff;
 
 
     #endregion

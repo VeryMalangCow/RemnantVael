@@ -37,7 +37,7 @@ public class PlayerBulletController : BulletController
         ThisLight.lightCookieSprite = ThisSR.sprite;
         if (LightIsApplyPlayerState)
         {
-            ThisLight.color = PlayerManager.Instance.playerController.Get_CorrectColor(this.State.DmgState.DmgType, this.State.IsCritical);
+            ThisLight.color = PlayerManager.instance.playerController.Get_CorrectColor(this.State.DmgState.DmgType, this.State.IsCritical);
             if (this.State.DmgState.DmgType == eDamageType.Physics)
                 ThisLight.intensity = Intensity;
             else
@@ -57,7 +57,7 @@ public class PlayerBulletController : BulletController
         {
             ThisTrail.time = TrailTime;
             ThisTrail.startWidth = TrailStartWidth;
-            ThisTrail.colorGradient = PlayerManager.Instance.playerController.Get_CorrectGradient(this.State.DmgState.DmgType, this.State.IsCritical);
+            ThisTrail.colorGradient = PlayerManager.instance.playerController.Get_CorrectGradient(this.State.DmgState.DmgType, this.State.IsCritical);
         }
     }
 
@@ -88,12 +88,12 @@ public class PlayerBulletController : BulletController
     {
         if (DevTool.Can_Collding(_Col, "Enemy", out EnemyController ec))
         {
-            UnitManager.Instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
+            UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
                 TargetObject.transform.position, transform.rotation);
-            UnitManager.Instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
+            UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
                 TargetObject.transform.position, State.IsCritical, transform.rotation);
 
-            PlayerManager.Instance.cameraController.Play_HitEnemyAnim();
+            PlayerManager.instance.cameraController.Play_HitEnemyAnim();
             ec.Try_Hitted(this);
         }
     }
@@ -107,10 +107,10 @@ public class PlayerBulletController : BulletController
         switch (PoolingString)
         {
             case "PlayerBullet": // ±âº»Åº
-                UnitManager.Instance.onceTime_AnimGenerator.Anim_AttackSuccess(
+                UnitManager.instance.onceTime_AnimGenerator.Anim_AttackSuccess(
                     TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical, 1.0f);
-                UnitManager.Instance.player_ExplImgGenerator.Expl_Player_ObjectDestroy(
-                    PlayerManager.Instance.playerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                UnitManager.instance.player_ExplImgGenerator.Expl_Player_ObjectDestroy(
+                    PlayerManager.instance.playerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
                 break;
 
             case "MI_000_Bullet": // ¿¡³ÊÁö À¯µµÅº
@@ -133,15 +133,15 @@ public class PlayerBulletController : BulletController
         switch (PoolingString)
         {
             case "PlayerBullet": // ±âº»Åº
-                PoolingManager.Instance.playerBullet.Enqueue(this);
+                PoolingManager.instance.playerBullet.Enqueue(this);
                 break;
 
             case "MI_000_Bullet": // ¿¡³ÊÁö À¯µµÅº
-                PoolingManager.Instance.moduleItem_000_Bullets.Enqueue(this);
+                PoolingManager.instance.moduleItem_000_Bullets.Enqueue(this);
                 break;
 
             case "MI_001_Bullet": // ¹°¸® À¯µµÅº
-                PoolingManager.Instance.moduleItem_001_Bullets.Enqueue(this);
+                PoolingManager.instance.moduleItem_001_Bullets.Enqueue(this);
                 break;
 
             default:

@@ -66,7 +66,7 @@ public class ShootingAllyController : FieldUnitAllyController
 
         while (true)
         {
-            if (PlayerManager.Instance.Get_PingedEnemy() != null)
+            if (PlayerManager.instance.Get_PingedEnemy() != null)
             {
                 Set_PingedState();
                 yield return new WaitForSeconds(FollowInitDelay);
@@ -103,7 +103,7 @@ public class ShootingAllyController : FieldUnitAllyController
         if (CurrentRof >= 1)
         {
             CurrentRof -= 1;
-            Play_Attack(PoolingManager.Instance.Get_OP_AllyBullet());
+            Play_Attack(PoolingManager.instance.Get_OP_AllyBullet());
         }
     }
 
@@ -145,7 +145,7 @@ public class ShootingAllyController : FieldUnitAllyController
     {
         return new BulletState(
             new CombatState(
-                new CombatOwner(eCombatOwner.Ally, ID),
+                new CombatOwner(eCombatOwner.Ally, id),
                 new DmgState(eDamageType.Physics, ActualAllyState.Dmg.Value),
                 new CriticalState(ActualAllyState.CC.Value, 1 + ActualAllyState.CD.Value),
                 new KnockbackState(false, 0, 0)),
@@ -194,7 +194,7 @@ public class ShootingAllyController : FieldUnitAllyController
 
     private void Set_NoPingedState() // 일반 상태
     {
-        EnemyController closestEnemy = EnemyManager.Instance.Get_ClosestEnemy(gameObject);
+        EnemyController closestEnemy = EnemyManager.instance.Get_ClosestEnemy(gameObject);
 
         bool isFollow = true;
         if (closestEnemy != null)

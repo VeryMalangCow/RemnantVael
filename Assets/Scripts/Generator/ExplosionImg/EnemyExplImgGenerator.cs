@@ -19,7 +19,7 @@ public class EnemyExplImgGenerator : ExplosionImgGenerator
         Gen_ExplImg_Circle(
             new ExplState(
                 new ExplState_Base(_SpawnPos, 16),
-                new ExplState_Sprite(SmokeSpriteList, ResourceManager.Instance.Get_EnemyMaterial("Explosion")),
+                new ExplState_Sprite(SmokeSpriteList, ResourceManager.instance.Get_EnemyMaterial("Explosion")),
                 new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.15f, _Scale: 0.6f, _Time: 0.075f, 0.025f),
                 new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.75f, _Scale: 0.2f, _Time: 0.750f, 0.250f)));
     }
@@ -30,7 +30,7 @@ public class EnemyExplImgGenerator : ExplosionImgGenerator
         Gen_ExplImg_Sector(
             new ExplState(
                 new ExplState_Base(_SpawnPos, _Amount),
-                new ExplState_Sprite(SmokeSpriteList, ResourceManager.Instance.Get_EnemyMaterial("Explosion")),
+                new ExplState_Sprite(SmokeSpriteList, ResourceManager.instance.Get_EnemyMaterial("Explosion")),
                 new ExplState_MoveAndScale(_Dir, _Dis: 0.2f, _Scale: 0.8f, _Time: 0.075f, 0.025f),
                 new ExplState_MoveAndScale(_Dir, _Dis: 0.5f, _Scale: 0.4f, _Time: 0.750f, 0.250f)),
             _Dir, 45f);
@@ -42,7 +42,7 @@ public class EnemyExplImgGenerator : ExplosionImgGenerator
         Gen_ExplImg_Circle(
             new ExplState(
                 new ExplState_Base(_SpawnPos, _Amount),
-                new ExplState_Sprite(SmokeSpriteList, ResourceManager.Instance.Get_EnemyMaterial("Explosion")),
+                new ExplState_Sprite(SmokeSpriteList, ResourceManager.instance.Get_EnemyMaterial("Explosion")),
                 new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.3f, _Scale: 0.6f, _Time: 0.075f, 0.025f),
                 new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.4f, _Scale: 0.3f, _Time: 0.750f, 0.250f)));
     }

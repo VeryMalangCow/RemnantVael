@@ -17,13 +17,13 @@ public class NPCController : MovableObjectController
     {
         base.OnEnable();
 
-        DevTool.Add_InList(NPCManager.Instance.AllNPCs, this);
-        LayerOrderManager.Instance.Add_NeedSortObj(this);
+        DevTool.Add_InList(NPCManager.instance.allNpcs, this);
+        LayerOrderManager.instance.Add_NeedSortObj(this);
     }
 
     private void OnDisable()
     {
-        LayerOrderManager.Instance.Remove_NeedSortObj(this);
+        LayerOrderManager.instance.Remove_NeedSortObj(this);
     }
 
     #endregion

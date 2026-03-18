@@ -12,10 +12,10 @@ public class CoreItemController : InteractItemController
 
     public void Set_TypeState(int _ID)
     {
-        ID = _ID;
+        id = _ID;
 
-        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.Instance.coreOutlineAC);
-        ThisSR.sprite = ResourceManager.Instance.Get_CoreSprite(ID);
+        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.instance.coreOutlineAC);
+        ThisSR.sprite = ResourceManager.instance.Get_CoreSprite(id);
         ThisAT.speed = 1f;
     }
 
@@ -27,14 +27,14 @@ public class CoreItemController : InteractItemController
     {
         _CanInteract = true;
 
-        switch (ID)
+        switch (id)
         {
             case 1:
-                return ResourceManager.Instance.Get_StaticWord(118);
+                return ResourceManager.instance.Get_StaticWord(118);
             case 2:
-                return ResourceManager.Instance.Get_StaticWord(119);
+                return ResourceManager.instance.Get_StaticWord(119);
             case 3:
-                return ResourceManager.Instance.Get_StaticWord(120);
+                return ResourceManager.instance.Get_StaticWord(120);
             default:
                 return "";
         }
@@ -44,8 +44,8 @@ public class CoreItemController : InteractItemController
     {
         base.Play_Interact();
 
-        SaveDataManager.Instance.jsonData.Gain_Item(ID, 1);
-        PoolingManager.Instance.coreItems.Enqueue(this);
+        SaveDataManager.instance.jsonData.Gain_Item(id, 1);
+        PoolingManager.instance.coreItems.Enqueue(this);
     }
 
     #endregion

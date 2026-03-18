@@ -81,7 +81,7 @@ public class DestructibleBuildController : InteractableBuildController
         }
 
         if (_SoundOn)
-            SoundManager.Instance.Play_2D_SFX_Build("Damaged");
+            SoundManager.instance.Play_2D_SFX_Build("Damaged");
     }
 
     protected virtual void Play_NotYetBreak(bool _SpawnItem)
@@ -96,7 +96,7 @@ public class DestructibleBuildController : InteractableBuildController
         transform.DOShakePosition(0.8f, 0.25f, 20, 90, false, true);
 
         IsBroken = true;
-        UnitManager.Instance.build_ExplImgGenerator.Expl_Build(TargetObject.gameObject.transform.position);
+        UnitManager.instance.build_ExplImgGenerator.Expl_Build(TargetObject.gameObject.transform.position);
         Set_StateAnim();
 
         if (_SpawnItem)
@@ -160,8 +160,8 @@ public class DestructibleBuildController : InteractableBuildController
         SpriteRenderer frameSr = DevTool.Gen_Component_SR(
                 DurParentTF,
                 "DurablityFrame_" + _Index,
-                ResourceManager.Instance.buildingDurFrame,
-                ResourceManager.Instance.Get_BuildMaterial("Durablity"),
+                ResourceManager.instance.buildingDurFrame,
+                ResourceManager.instance.Get_BuildMaterial("Durablity"),
                 ThisStateAnim.ThisSR.sortingOrder - 1);
 
         Set_FrameUIPos(_Index, frameSr);
@@ -173,8 +173,8 @@ public class DestructibleBuildController : InteractableBuildController
         SpriteRenderer innerSr = DevTool.Gen_Component_SR(
                 _ParentTF,
                 "DurablityInner_" + _Index,
-                ResourceManager.Instance.buildingDurInner,
-                ResourceManager.Instance.Get_BuildMaterial("Durablity"),
+                ResourceManager.instance.buildingDurInner,
+                ResourceManager.instance.Get_BuildMaterial("Durablity"),
                 ThisStateAnim.ThisSR.sortingOrder);
         Set_InnerUIPos(innerSr);
         return innerSr;

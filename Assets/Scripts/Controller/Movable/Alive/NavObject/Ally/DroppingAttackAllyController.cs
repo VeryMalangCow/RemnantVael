@@ -22,19 +22,19 @@ public class DroppingAttackAllyController : DroppingAllyController
     protected override void Shot()
     {
         base.Shot();
-        if (EnemyManager.Instance.currentEnemyList.Count > 0)
+        if (EnemyManager.instance.currentEnemyList.Count > 0)
         {
-            Fire_Bullet(PoolingManager.Instance.Get_OP_DroppingAllyBullet(), Get_TargetEnemy().transform.position);
+            Fire_Bullet(PoolingManager.instance.Get_OP_DroppingAllyBullet(), Get_TargetEnemy().transform.position);
         }
         Debug.Log(Name[1] + ": Bomb Attack");
     }
 
     private EnemyController Get_TargetEnemy()
     {
-        EnemyController targetEnemy = PlayerManager.Instance.Get_PingedEnemy();
+        EnemyController targetEnemy = PlayerManager.instance.Get_PingedEnemy();
         if (targetEnemy == null)
         {
-            targetEnemy = EnemyManager.Instance.currentEnemyList[Random.Range(0, EnemyManager.Instance.currentEnemyList.Count)];
+            targetEnemy = EnemyManager.instance.currentEnemyList[Random.Range(0, EnemyManager.instance.currentEnemyList.Count)];
         }
         return targetEnemy;
     }
@@ -71,7 +71,7 @@ public class DroppingAttackAllyController : DroppingAllyController
     private CombatState Get_BulletState()
     {
         return new CombatState(
-            new CombatOwner(eCombatOwner.Ally, ID),
+            new CombatOwner(eCombatOwner.Ally, id),
             new DmgState(eDamageType.Physics, ActualAllyState.Dmg.Value),
             new CriticalState(ActualAllyState.CC.Value, 1 + ActualAllyState.CD.Value),
             new KnockbackState(true, ActualAllyState.KBPower.Value, 0.2f));

@@ -175,12 +175,12 @@ public class AllyShopUIController : ShopUIController
         SubColorCompList.AddRange(ExtraSubColorTxtList);
 
         // Set Color
-        Color mainClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, MainColorCompList);
         MainColorCompList.Clear();
         MainColorCompList = null;
 
-        Color subClr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
+        Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
         DevTool.Set_Color(subClr, SubColorCompList);
         SubColorCompList.Clear();
         SubColorCompList = null;
@@ -212,7 +212,7 @@ public class AllyShopUIController : ShopUIController
     // 프로필 리스트 리셋
     private void Reset_AllyProfileListPanel()
     {
-        List<AllyController> allAlly = AllyManager.Instance.AllAlly;
+        List<AllyController> allAlly = AllyManager.instance.allAlly;
 
         Set_AllAllyProfileListOff();
         Set_AllyProfileListOn(allAlly);
@@ -345,7 +345,7 @@ public class AllyShopUIController : ShopUIController
         Play_ProfileExtraY_CloseAndOpen(CurrentExtraPanelIndex);
 
         // Sound
-        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.Play_2D_SFX_UI("Click_01");
     }
 
     #endregion
@@ -419,7 +419,7 @@ public class AllyShopUIController : ShopUIController
         seq.OnComplete(() => { IsTweening = false; });
 
         // Sound
-        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
         return seq;
     }
@@ -684,15 +684,15 @@ public class AllyShopUIController : ShopUIController
         // Profile List (Tab)
         TabBtnTxtList = new List<string>
         {
-            ResourceManager.Instance.Get_StaticWord(96)
+            ResourceManager.instance.Get_StaticWord(96)
         };
 
         // Profile Detail
-        ProfileDetailTxt.text = ResourceManager.Instance.Get_StaticWord(101);
+        ProfileDetailTxt.text = ResourceManager.instance.Get_StaticWord(101);
 
-        string state = ResourceManager.Instance.Get_StaticWord(102);
-        string bu = ResourceManager.Instance.Get_StaticWord(106);
-        string mu = ResourceManager.Instance.Get_StaticWord(27);
+        string state = ResourceManager.instance.Get_StaticWord(102);
+        string bu = ResourceManager.instance.Get_StaticWord(106);
+        string mu = ResourceManager.instance.Get_StaticWord(27);
 
 
         StateBtnList[0].ThisTxt.text = state;
@@ -703,18 +703,18 @@ public class AllyShopUIController : ShopUIController
         StateTitleTxtList[1].text = bu;
         StateTitleTxtList[2].text = mu;
 
-        StateEUIList[0].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(12)} >";    // 공격력
-        StateEUIList[1].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(13)} >";    // 연사력
-        StateEUIList[2].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(9)} >";     // 이동속도
-        StateEUIList[3].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(114)} >";    // 크기
-        StateEUIList[4].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(15)} >";    // 치확
-        StateEUIList[5].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(16)} >";     // 치뎀
-        StateEUIList[6].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(43)} >";     // 탄속
-        StateEUIList[7].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(44)} >";     // 넉백 (파워)
-        StateEUIList[8].NameTxt.text = $"< {ResourceManager.Instance.Get_StaticWord(116)} >";     // 지속시간
+        StateEUIList[0].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(12)} >";    // 공격력
+        StateEUIList[1].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(13)} >";    // 연사력
+        StateEUIList[2].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(9)} >";     // 이동속도
+        StateEUIList[3].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(114)} >";    // 크기
+        StateEUIList[4].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(15)} >";    // 치확
+        StateEUIList[5].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(16)} >";     // 치뎀
+        StateEUIList[6].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(43)} >";     // 탄속
+        StateEUIList[7].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(44)} >";     // 넉백 (파워)
+        StateEUIList[8].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(116)} >";     // 지속시간
 
         // Limit
-        StateLimitTxt.text = $"( {ResourceManager.Instance.Get_StaticWord(107)}: {AllyController.MinLimitUpgradeValue} )";
+        StateLimitTxt.text = $"( {ResourceManager.instance.Get_StaticWord(107)}: {AllyController.MinLimitUpgradeValue} )";
 
         base.Set_LanguageTxt();
     }

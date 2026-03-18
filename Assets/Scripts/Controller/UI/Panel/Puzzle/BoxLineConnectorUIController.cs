@@ -86,9 +86,9 @@ public class BoxLineConnectorUIController : PuzzleUIController
             AllBoxConnectionEUI[i].Offset();
         }
 
-        RightRollInputImg.sprite = ResourceManager.Instance.mlbSprite;
+        RightRollInputImg.sprite = ResourceManager.instance.mlbSprite;
         RightRollInputImg.SetNativeSize();
-        LeftRollInputImg.sprite = ResourceManager.Instance.mrbSprite;
+        LeftRollInputImg.sprite = ResourceManager.instance.mrbSprite;
         LeftRollInputImg.SetNativeSize();
     }
 
@@ -100,7 +100,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         base.Set_AllStart();
 
-        ReadyPanelEUI.Set_RuleDesc(ResourceManager.Instance.Get_StaticDesc(33));
+        ReadyPanelEUI.Set_RuleDesc(ResourceManager.instance.Get_StaticDesc(33));
 
         Set_AllDefault();
         Set_RandomPuzzleByRate();
@@ -115,7 +115,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        Set_AllInnerColor(ResourceManager.Instance.unlockedClr);
+        Set_AllInnerColor(ResourceManager.instance.unlockedClr);
 
         // Selecting
         SelectingBoxCellEUI = null;
@@ -148,7 +148,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
         for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
             AllBoxConnectionEUI[i].Set_Active(false);
 
-        Set_AllInnerColor(ResourceManager.Instance.lockedClr);
+        Set_AllInnerColor(ResourceManager.instance.lockedClr);
 
         // Selecting
         SelectingBoxCellEUI = null;
@@ -256,14 +256,14 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     public void Try_Interact()
     {
-        InputManager.Instance.Play_MousePointerClick();
+        InputManager.instance.Play_MousePointerClick();
 
         if (Is_Interact_Roll(-90, 0.1f)) return;
     }
 
     public void Try_InteractSub()
     {
-        InputManager.Instance.Play_MousePointerClick();
+        InputManager.instance.Play_MousePointerClick();
 
         if (Is_Interact_Roll(90, 0.1f)) return;
     }
@@ -284,7 +284,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
             !IsInteractable)
             return false;
 
-        SoundManager.Instance.Play_2D_SFX_UI("Click_01");
+        SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
         SelectingBoxCellEUI.Play_Roll(_PlusAngle, _DurTime);
 

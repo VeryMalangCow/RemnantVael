@@ -50,7 +50,7 @@ public class TunerRerollBtnEUIController : OwnBtnEUIController
 
     public void Set_Language()
     {
-        ThisTxt.text = ResourceManager.Instance.Get_StaticWord(57);
+        ThisTxt.text = ResourceManager.instance.Get_StaticWord(57);
     }
 
     #endregion

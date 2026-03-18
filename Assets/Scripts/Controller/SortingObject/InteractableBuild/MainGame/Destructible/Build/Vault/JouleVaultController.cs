@@ -22,7 +22,7 @@ public class JouleVaultController : VaultController
 
     protected override void Offset()
     {
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.vault_JIconAC));
+        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.vault_JIconAC));
         CurrentAmountByGrade = AmountByGrade[CurrentGrade];
 
         base.Offset();
@@ -45,7 +45,7 @@ public class JouleVaultController : VaultController
     private void Gen_J_ByGrade()
     {
         for (int i = 0; i < Random.Range(CurrentAmountByGrade.TypeBase, CurrentAmountByGrade.TypeSpecial + 1); i++)
-            Gen_J(10 * PlayerManager.Instance.playerController.SpawnESMultiple.ActualState.Value);
+            Gen_J(10 * PlayerManager.instance.playerController.SpawnESMultiple.ActualState.Value);
     }
 
     public override void Gen_ItemWhenHitted()

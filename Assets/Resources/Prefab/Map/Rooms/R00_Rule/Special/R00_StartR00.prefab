@@ -3889,6 +3889,7 @@ MonoBehaviour:
   RoomVec:
   - {x: 0, y: 0}
   RoomType: 0
+  EnemyType: 0
   IsAlreadyRoomClear: 0
   InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
   InRoom_EnemySpawnParentTF: {fileID: 6316570959573844000}

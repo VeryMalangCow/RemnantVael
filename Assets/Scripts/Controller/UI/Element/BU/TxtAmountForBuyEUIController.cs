@@ -84,7 +84,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
     public void Set(int _Level, int _CostValue)
     {
         ThisImgTxtAmountEUI.Set_Amount(_Level, 0.2f);
-        CostImg.sprite = BaseUpgradeManager.Instance.costSpriteList[_CostValue];
+        CostImg.sprite = BaseUpgradeManager.instance.costSpriteList[_CostValue];
 
         SkillLvTxt.text = "[ LV : <b><#FFFFFF>" + _Level + "</color></b> ]";
     }
@@ -112,7 +112,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
         ThisRT.DOSizeDelta(new Vector2(MaximumSize, ThisRT.sizeDelta.y), SizeDeltaTime);
 
-        MainGameUIManager.Instance.baseUpgrade_UIController.SetOn_Desc(this, SkillNameTxt.text);
+        MainGameUIManager.instance.baseUpgrade_UIController.SetOn_Desc(this, SkillNameTxt.text);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -121,7 +121,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
         ThisRT.DOSizeDelta(new Vector2(MinimumSize, ThisRT.sizeDelta.y), SizeDeltaTime);
 
-        MainGameUIManager.Instance.baseUpgrade_UIController.SetOff_Desc();
+        MainGameUIManager.instance.baseUpgrade_UIController.SetOff_Desc();
     }
 
     #endregion
@@ -132,8 +132,8 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
     {
         SkillNameTxt.text = _Name;
         DescTxt.text = _Desc;
-        DevTool.Get_ComponentTType<TMP_Text>(CostImg.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CostImg, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(46);
-        DevTool.Get_ComponentTType<TMP_Text>(BuyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(BuyBtn, 0)).gameObject).text = ResourceManager.Instance.Get_StaticWord(47);
+        DevTool.Get_ComponentTType<TMP_Text>(CostImg.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CostImg, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(46);
+        DevTool.Get_ComponentTType<TMP_Text>(BuyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(BuyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(47);
     }
 
     #endregion

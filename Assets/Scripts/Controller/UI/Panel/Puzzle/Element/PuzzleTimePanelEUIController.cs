@@ -50,17 +50,17 @@ public class PuzzleTimePanelEUIController : ElementUIController
 
     public void Set_AllStart(float _CurrentCountdown, string _SecondString)
     {
-        DevTool.Set_Color(ResourceManager.Instance.lockedClr, FailureAnnoTxt);
-        DevTool.Set_Color(ResourceManager.Instance.unlockedClr, SuccessAnnoTxt);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, FailureAnnoTxt);
+        DevTool.Set_Color(ResourceManager.instance.unlockedClr, SuccessAnnoTxt);
 
-        DevTool.Set_Color(ResourceManager.Instance.lockedClr, CountdownPaneltyTxt);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, CountdownPaneltyTxt);
 
-        DevTool.Set_Color(ResourceManager.Instance.lockedClr, CountdownTxt);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, CountdownTxt);
         DevTool.Set_AlphaColor(CountdownPaneltyTxt, 0f);
 
-        UnlockAnnoTxt.text = ResourceManager.Instance.Get_StaticDesc(28).Replace("\\n", "\n");
-        SuccessAnnoTxt.text = ResourceManager.Instance.Get_StaticDesc(29).Replace("\\n", "\n");
-        FailureAnnoTxt.text = ResourceManager.Instance.Get_StaticDesc(30).Replace("\\n", "\n");
+        UnlockAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(28).Replace("\\n", "\n");
+        SuccessAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(29).Replace("\\n", "\n");
+        FailureAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(30).Replace("\\n", "\n");
         Set_CountdownTxt(_CurrentCountdown, _SecondString);
     }
 

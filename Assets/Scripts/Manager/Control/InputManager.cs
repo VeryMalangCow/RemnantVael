@@ -159,14 +159,14 @@ public class InputManager : Singleton<InputManager>
 
         mousePos = Input.mousePosition;
         mousePosByWorld = Camera.main.ScreenToWorldPoint(mousePos);
-        dirFromPlayerPos = mousePosByWorld - (Vector2)PlayerManager.Instance.playerController.gameObject.transform.position;
+        dirFromPlayerPos = mousePosByWorld - (Vector2)PlayerManager.instance.playerController.gameObject.transform.position;
 
         if (!isAim)
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 DevTool.Get_ComponentTType<RectTransform>(mousePointerRT.transform.parent.gameObject), // 변환할 UI(RectTransform)
                 mousePos, // 현재 마우스 좌표 (Screen Space)
-                MainGameUIManager.Instance.uiCamera, // Canvas의 카메라 (Render Mode 따라 null 가능)
+                MainGameUIManager.instance.uiCamera, // Canvas의 카메라 (Render Mode 따라 null 가능)
                 out Vector2 localPoint); // 변환된 Local 좌표
 
             mousePointerRT.anchoredPosition = localPoint;
@@ -209,7 +209,7 @@ public class InputManager : Singleton<InputManager>
     private void SetOn_InputAction_InLobby()
     {
         if (DevTool.Get_ComponentTType(
-            PlayerManager.Instance.playerController.gameObject, out PlayerInput input))
+            PlayerManager.instance.playerController.gameObject, out PlayerInput input))
             playerInput = input;
 
         // Player
@@ -228,7 +228,7 @@ public class InputManager : Singleton<InputManager>
     private void SetOff_InputAction_InLobby()
     {
         if (DevTool.Get_ComponentTType(
-            PlayerManager.Instance.playerController.gameObject, out PlayerInput input))
+            PlayerManager.instance.playerController.gameObject, out PlayerInput input))
             playerInput = input;
 
         // Player
@@ -247,7 +247,7 @@ public class InputManager : Singleton<InputManager>
     private void SetOn_InputAction_MainGame()
     {
         if (DevTool.Get_ComponentTType(
-            PlayerManager.Instance.playerController.gameObject, out PlayerInput input))
+            PlayerManager.instance.playerController.gameObject, out PlayerInput input))
             playerInput = input; 
 
         // Player
@@ -329,7 +329,7 @@ public class InputManager : Singleton<InputManager>
     private void SetOff_InputAction_MainGame()
     {
         if (DevTool.Get_ComponentTType(
-            PlayerManager.Instance.playerController.gameObject, out PlayerInput input))
+            PlayerManager.instance.playerController.gameObject, out PlayerInput input))
             playerInput = input;
 
         // Player
@@ -417,11 +417,11 @@ public class InputManager : Singleton<InputManager>
         {
             if (isPlayingBuffered)
             {
-                SetOn_BufferedInput(PlayerManager.Instance.playerController.Try_Dash);
+                SetOn_BufferedInput(PlayerManager.instance.playerController.Try_Dash);
                 return;
             }
 
-            PlayerManager.Instance.playerController.Try_Dash();
+            PlayerManager.instance.playerController.Try_Dash();
         }
     }
 
@@ -450,7 +450,7 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
-                PlayerManager.Instance.playerController.Try_CombatModeCheck);
+                PlayerManager.instance.playerController.Try_CombatModeCheck);
     }
 
     #endregion
@@ -461,14 +461,14 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
-                PlayerManager.Instance.playerController.Try_Skill0);
+                PlayerManager.instance.playerController.Try_Skill0);
     }
 
     private void Input_Skill_1(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
-                PlayerManager.Instance.playerController.Try_Skill1);
+                PlayerManager.instance.playerController.Try_Skill1);
     }
 
     #endregion
@@ -478,19 +478,19 @@ public class InputManager : Singleton<InputManager>
     private void Input_STAlly(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            PlayerManager.Instance.playerController.Try_STAllyLvUp();
+            PlayerManager.instance.playerController.Try_STAllyLvUp();
     }
 
     private void Input_UTAlly(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            PlayerManager.Instance.playerController.Try_UTAllyLvUp();
+            PlayerManager.instance.playerController.Try_UTAllyLvUp();
     }
 
     private void Input_NTAlly(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            PlayerManager.Instance.playerController.Try_NTAllyLvUp();
+            PlayerManager.instance.playerController.Try_NTAllyLvUp();
     }
 
     #endregion
@@ -499,7 +499,7 @@ public class InputManager : Singleton<InputManager>
 
     private void Input_Fire(InputAction.CallbackContext _InputValue)
     {
-        PlayerManager.Instance.playerController.BaseWeapon.IsInputed = _InputValue.ReadValueAsButton();
+        PlayerManager.instance.playerController.BaseWeapon.IsInputed = _InputValue.ReadValueAsButton();
     }
 
     #endregion
@@ -509,7 +509,7 @@ public class InputManager : Singleton<InputManager>
     public void Input_Ping(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            PlayerManager.Instance.playerController.Try_PingEnemy(aimController);
+            PlayerManager.instance.playerController.Try_PingEnemy(aimController);
     }
 
     #endregion
@@ -520,7 +520,7 @@ public class InputManager : Singleton<InputManager>
     {
         if (_InputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
-                PlayerManager.Instance.playerController.Try_ChargeBettery);
+                PlayerManager.instance.playerController.Try_ChargeBettery);
     }
 
     #endregion
@@ -530,7 +530,7 @@ public class InputManager : Singleton<InputManager>
     private void Input_Interact(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            PlayerManager.Instance.playerController.Try_Interact();
+            PlayerManager.instance.playerController.Try_Interact();
     }
 
 
@@ -540,7 +540,7 @@ public class InputManager : Singleton<InputManager>
 
     private void Input_Tab(InputAction.CallbackContext _InputValue)
     {
-        MainGameUIManager.Instance.playerHUD_UIController.IsTabInputed = 
+        MainGameUIManager.instance.playerHUD_UIController.IsTabInputed = 
             _InputValue.ReadValueAsButton();
     }
 
@@ -553,13 +553,13 @@ public class InputManager : Singleton<InputManager>
     private void Input_BUUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.baseUpgrade_UIController.Try_Interact();
+            MainGameUIManager.instance.baseUpgrade_UIController.Try_Interact();
     }
 
     private void Input_BUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.baseUpgrade_UIController.SetOff_ThisPanel();
+            MainGameUIManager.instance.baseUpgrade_UIController.SetOff_ThisPanel();
     }
 
     #endregion
@@ -569,25 +569,25 @@ public class InputManager : Singleton<InputManager>
     private void Input_MUUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.moduleUpgrade_UIController.Try_Interact();
+            MainGameUIManager.instance.moduleUpgrade_UIController.Try_Interact();
     }
     private void Input_MUUIClickSub(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.moduleUpgrade_UIController.Try_InteractSub();
+            MainGameUIManager.instance.moduleUpgrade_UIController.Try_InteractSub();
     }
     private void Input_MUUIDrag(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.moduleUpgrade_UIController.Try_InteractDragOn();
+            MainGameUIManager.instance.moduleUpgrade_UIController.Try_InteractDragOn();
         else
-            MainGameUIManager.Instance.moduleUpgrade_UIController.Try_InteractDragOff();
+            MainGameUIManager.instance.moduleUpgrade_UIController.Try_InteractDragOff();
     }
 
     private void Input_MUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.moduleUpgrade_UIController.SetOff_ThisPanel();
+            MainGameUIManager.instance.moduleUpgrade_UIController.SetOff_ThisPanel();
     }
 
     #endregion
@@ -597,13 +597,13 @@ public class InputManager : Singleton<InputManager>
     private void Input_ABUUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.allyBaseUpgrade_UIController.Try_Interact();
+            MainGameUIManager.instance.allyBaseUpgrade_UIController.Try_Interact();
     }
 
     private void Input_ABUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.allyBaseUpgrade_UIController.SetOff_ThisPanel();
+            MainGameUIManager.instance.allyBaseUpgrade_UIController.SetOff_ThisPanel();
     }
 
     #endregion
@@ -612,13 +612,13 @@ public class InputManager : Singleton<InputManager>
     private void Input_AMUUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.allyModuleUpgrade_UIController.Try_Interact();
+            MainGameUIManager.instance.allyModuleUpgrade_UIController.Try_Interact();
     }
 
     private void Input_AMUUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.allyModuleUpgrade_UIController.SetOff_ThisPanel();
+            MainGameUIManager.instance.allyModuleUpgrade_UIController.SetOff_ThisPanel();
     }
 
     #endregion
@@ -628,7 +628,7 @@ public class InputManager : Singleton<InputManager>
     private void Input_AllyCardClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.allyCard_UIController.Try_Interact();
+            MainGameUIManager.instance.allyCard_UIController.Try_Interact();
     }
 
     #endregion
@@ -640,18 +640,18 @@ public class InputManager : Singleton<InputManager>
     private void Input_BoxLineConnector_RightRoll(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.boxLineConnector_UIController.Try_Interact();
+            MainGameUIManager.instance.boxLineConnector_UIController.Try_Interact();
     }
     private void Input_BoxLineConnector_LeftRoll(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.boxLineConnector_UIController.Try_InteractSub();
+            MainGameUIManager.instance.boxLineConnector_UIController.Try_InteractSub();
     }
 
     private void Input_BoxLineConnector_TryUnlock(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.boxLineConnector_UIController.Try_InteractUnlock();
+            MainGameUIManager.instance.boxLineConnector_UIController.Try_InteractUnlock();
     }
 
     #endregion
@@ -661,17 +661,17 @@ public class InputManager : Singleton<InputManager>
     private void Input_NumShapeColorPassword_RollForDown(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.numShapeColorPassword_UIController.Try_Interact();
+            MainGameUIManager.instance.numShapeColorPassword_UIController.Try_Interact();
     }
     private void Input_NumShapeColorPassword_RollForUp(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.numShapeColorPassword_UIController.Try_InteractSub();
+            MainGameUIManager.instance.numShapeColorPassword_UIController.Try_InteractSub();
     }
     private void Input_NumShapeColorPassword_TryUnlock(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.numShapeColorPassword_UIController.Try_InteractUnlock();
+            MainGameUIManager.instance.numShapeColorPassword_UIController.Try_InteractUnlock();
     }
 
     #endregion
@@ -681,12 +681,12 @@ public class InputManager : Singleton<InputManager>
     private void Input_InOrderLocker_Interact(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.inOrderLocker_UIController.Try_Interact();
+            MainGameUIManager.instance.inOrderLocker_UIController.Try_Interact();
     }
     private void Input_InOrderLocker_TryUnlock(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.inOrderLocker_UIController.Try_InteractUnlock();
+            MainGameUIManager.instance.inOrderLocker_UIController.Try_InteractUnlock();
     }
 
     #endregion
@@ -699,14 +699,14 @@ public class InputManager : Singleton<InputManager>
     private void Input_Cvt_PC_Click(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.premiumCreditCvt_UIController.Try_Interact();
+            MainGameUIManager.instance.premiumCreditCvt_UIController.Try_Interact();
     }
 
 
     private void Input_Cvt_PC_OutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.premiumCreditCvt_UIController.SetOff_ThisPanel();
+            MainGameUIManager.instance.premiumCreditCvt_UIController.SetOff_ThisPanel();
     }
 
 
@@ -714,14 +714,14 @@ public class InputManager : Singleton<InputManager>
     private void Input_Cvt_P_Click(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.protoCoreCvt_UIController.Try_Interact();
+            MainGameUIManager.instance.protoCoreCvt_UIController.Try_Interact();
     }
 
 
     private void Input_Cvt_P_OutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.protoCoreCvt_UIController.SetOff_ThisPanel();
+            MainGameUIManager.instance.protoCoreCvt_UIController.SetOff_ThisPanel();
     }
 
 
@@ -729,14 +729,14 @@ public class InputManager : Singleton<InputManager>
     private void Input_Cvt_E_Click(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.etherCoreCvt_UIController.Try_Interact();
+            MainGameUIManager.instance.etherCoreCvt_UIController.Try_Interact();
     }
 
 
     private void Input_Cvt_E_OutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.etherCoreCvt_UIController.SetOff_ThisPanel();
+            MainGameUIManager.instance.etherCoreCvt_UIController.SetOff_ThisPanel();
     }
 
 
@@ -744,14 +744,14 @@ public class InputManager : Singleton<InputManager>
     private void Input_Cvt_O_Click(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.originCoreCvt_UIController.Try_Interact();
+            MainGameUIManager.instance.originCoreCvt_UIController.Try_Interact();
     }
 
 
     private void Input_Cvt_O_OutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.originCoreCvt_UIController.SetOff_ThisPanel();
+            MainGameUIManager.instance.originCoreCvt_UIController.SetOff_ThisPanel();
     }
 
     #endregion
@@ -761,19 +761,19 @@ public class InputManager : Singleton<InputManager>
     private void Input_OMGUI(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.outMainGame_UIController.SetOn_ThisPanel();
+            MainGameUIManager.instance.outMainGame_UIController.SetOn_ThisPanel();
     }
 
     private void Input_OMGUIClick(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.outMainGame_UIController.Try_Interact();
+            MainGameUIManager.instance.outMainGame_UIController.Try_Interact();
     }
 
     private void Input_OMGUIOutPanel(InputAction.CallbackContext _InputValue)
     {
         if (_InputValue.ReadValueAsButton())
-            MainGameUIManager.Instance.outMainGame_UIController.Try_InteractBack();
+            MainGameUIManager.instance.outMainGame_UIController.Try_InteractBack();
     }
 
     #endregion

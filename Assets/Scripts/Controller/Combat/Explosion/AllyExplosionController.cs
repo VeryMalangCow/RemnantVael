@@ -49,7 +49,7 @@ public class AllyExplosionController : ExplosionController
             {
                 ThisAttributeATList[i].gameObject.SetActive(true);
 
-                DevTool.Set_Anim(ref Get_IndexAOC(i), ThisAttributeATList[i], ResourceManager.Instance.Get_AttributeExplosionAC(i));
+                DevTool.Set_Anim(ref Get_IndexAOC(i), ThisAttributeATList[i], ResourceManager.instance.Get_AttributeExplosionAC(i));
                 ThisAttributeATList[i].speed = AnimSpeed;
             }
             else
@@ -88,7 +88,7 @@ public class AllyExplosionController : ExplosionController
 
     protected override void Remove_Condition()
     {
-        PoolingManager.Instance.allyExplosions.Enqueue(this);
+        PoolingManager.instance.allyExplosions.Enqueue(this);
     }
 
     #endregion

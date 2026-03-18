@@ -35,7 +35,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     {
         base.Set_AnimValue();
 
-        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.Instance.operator_UpgradeAC, 1f), 1f);
+        IconStateAnim.Set_Anim(new State_Anim(ResourceManager.instance.operator_UpgradeAC, 1f), 1f);
     }
 
     public override void Set_TargetBuild(VaultController _TargetVault)
@@ -56,7 +56,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
     {
         //base.Get_InteractName(out bool _CanInteract);
         _CanInteract = Can_Interact();
-        return ResourceManager.Instance.Get_StaticWord(58);
+        return ResourceManager.instance.Get_StaticWord(58);
     }
 
     public override void Play_Interact()
@@ -66,10 +66,10 @@ public class VaultUpgradeOperatorController : VaultOperatorController
         if (TargetVault == null ||
             TargetVault.Is_MaxGrade() || 
             TargetVault.IsBroken ||
-            PlayerManager.Instance.playerController.Get_CurrentEP().Value < Get_NeedPay()) return;
+            PlayerManager.instance.playerController.Get_CurrentEP().Value < Get_NeedPay()) return;
 
         // 소비 아이템
-        PlayerManager.Instance.playerController.Add_CurrentEP(-Get_NeedPay());
+        PlayerManager.instance.playerController.Add_CurrentEP(-Get_NeedPay());
 
         // 업그레이드
         TargetVault.Set_Upgrade();
@@ -81,7 +81,7 @@ public class VaultUpgradeOperatorController : VaultOperatorController
         TargetVault.Play_Size();
 
         // Sound
-        SoundManager.Instance.Play_2D_SFX_Build("Enchance");
+        SoundManager.instance.Play_2D_SFX_Build("Enchance");
     }
 
     #endregion

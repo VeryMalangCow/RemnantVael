@@ -53,7 +53,7 @@ public class NoneUnitAllyController : AllyController
 
         transform.position = SpawnPos;
 
-        MainGameUIManager.Instance.playerHUD_UIController.Add_AllyState(HUD);
+        MainGameUIManager.instance.playerHUD_UIController.Add_AllyState(HUD);
     }
 
     #endregion

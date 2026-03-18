@@ -74,8 +74,8 @@ public class ExplosionImgGenerator : MonoBehaviour
     // 하나의 이펙트 이미지를 생성
     private Sequence Gen_EachExplImg(Vector2 _SpawnPos, ExplState_Sprite _SpriteState, ExplState_MoveAndScale _FirstState, ExplState_MoveAndScale _SecondState)
     {
-        SpriteRenderer sr = PoolingManager.Instance.Get_OP_ExplosionImg();
-        sr.gameObject.transform.SetParent(StageManager.Instance.currentRoomController.transform);
+        SpriteRenderer sr = PoolingManager.instance.Get_OP_ExplosionImg();
+        sr.gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
         return Play_ExplImg(sr, _SpawnPos, _SpriteState, _FirstState, _SecondState);
     }
 
@@ -140,7 +140,7 @@ public class ExplosionImgGenerator : MonoBehaviour
     {
         _SR.gameObject.SetActive(false);
 
-        PoolingManager.Instance.explosionImgs.Enqueue(_SR);
+        PoolingManager.instance.explosionImgs.Enqueue(_SR);
     }
 
     #endregion

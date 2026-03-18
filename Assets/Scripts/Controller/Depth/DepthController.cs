@@ -67,7 +67,7 @@ public class DepthController : IDController
     {
         if (_Value <= 0) return;
 
-        PoolingManager.Instance.Get_OP_BetteryShard().Set_State(
+        PoolingManager.instance.Get_OP_BetteryShard().Set_State(
             _SpawnPos: gameObject.transform.position, 
             _Value);
     }
@@ -87,7 +87,7 @@ public class DepthController : IDController
     {
         if (_Value <= 0) return;
 
-        PoolingManager.Instance.Get_OP_ModuleShard().Set_State(
+        PoolingManager.instance.Get_OP_ModuleShard().Set_State(
             _SpawnPos: gameObject.transform.position, 
             _Value);
     }
@@ -107,7 +107,7 @@ public class DepthController : IDController
     {
         if (_Value <= 0) return;
 
-        PoolingManager.Instance.Get_OP_Joule().Set_State(
+        PoolingManager.instance.Get_OP_Joule().Set_State(
             _SpawnPos: gameObject.transform.position, 
             _Value);
     }
@@ -117,7 +117,7 @@ public class DepthController : IDController
     {
         if (_Value <= 0) return;
 
-        PoolingManager.Instance.Get_OP_Overrider().Set_State(
+        PoolingManager.instance.Get_OP_Overrider().Set_State(
             _SpawnPos: gameObject.transform.position,
             _Value);
     }
@@ -127,7 +127,7 @@ public class DepthController : IDController
     {
         if (_Value <= 0) return;
 
-        PoolingManager.Instance.Get_OP_Credit().Set_State(
+        PoolingManager.instance.Get_OP_Credit().Set_State(
             _SpawnPos: gameObject.transform.position,
             _Value);
     }
@@ -135,8 +135,8 @@ public class DepthController : IDController
     // Module Item
     protected void Gen_ModuleItem(int _Rank)
     {
-        ModuleItemController MIC = PoolingManager.Instance.Get_OP_ModuleItem();
-        MIC.transform.SetParent(StageManager.Instance.currentRoomController.transform);
+        ModuleItemController MIC = PoolingManager.instance.Get_OP_ModuleItem();
+        MIC.transform.SetParent(StageManager.instance.currentRoomController.transform);
         MIC.Set_State(this.transform.position);
         MIC.Set_RankState(_Rank);
     }
@@ -144,8 +144,8 @@ public class DepthController : IDController
     // Keycard Item
     protected void Gen_KeycardItem(int _ID)
     {
-        KeycardItemController KIC = PoolingManager.Instance.Get_OP_KeycardItem();
-        KIC.transform.SetParent(StageManager.Instance.currentRoomController.transform);
+        KeycardItemController KIC = PoolingManager.instance.Get_OP_KeycardItem();
+        KIC.transform.SetParent(StageManager.instance.currentRoomController.transform);
         KIC.Set_State(this.transform.position);
         KIC.Set_TypeState(_ID);
     }
@@ -153,8 +153,8 @@ public class DepthController : IDController
     // Core Item
     protected void Gen_CoreItem(int _ID)
     {
-        CoreItemController CIC = PoolingManager.Instance.Get_OP_CoreItem();
-        CIC.transform.SetParent(StageManager.Instance.currentRoomController.transform);
+        CoreItemController CIC = PoolingManager.instance.Get_OP_CoreItem();
+        CIC.transform.SetParent(StageManager.instance.currentRoomController.transform);
         CIC.Set_State(this.transform.position);
         CIC.Set_TypeState(_ID);
     }

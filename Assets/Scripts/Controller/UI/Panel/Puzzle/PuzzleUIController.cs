@@ -123,7 +123,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
         ReadyPanelEUI.Set_AllStart(CurrentCountdown, SecondString);
 
         // Sound
-        SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
+        SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
     }
 
     protected virtual void Set_AllComplete()
@@ -135,7 +135,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
     protected virtual void Set_AllFailure()
     {
         // Sound
-        SoundManager.Instance.Play_2D_SFX_UI("Click_Reject");
+        SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
     }
 
     #endregion
@@ -146,7 +146,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
     {
         CurrentCountdown += _PaneltyTime;
         TimePanelEUI.Set_Panelty(_PaneltyTime, SecondString);
-        SoundManager.Instance.Play_2D_SFX_Build("Damaged");
+        SoundManager.instance.Play_2D_SFX_Build("Damaged");
     }
 
     #endregion
@@ -169,7 +169,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
     private void Play_ReadyToStart(float _DurTime)
     {
         IsReady = false;
-        SoundManager.Instance.Play_2D_SFX_UI("Click_00");
+        SoundManager.instance.Play_2D_SFX_UI("Click_00");
 
         ReadyPanelEUI.Play_ReadyToStart(_DurTime)
             .OnComplete(() =>
@@ -223,16 +223,16 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
         if (CanSuccess)
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click_Approve");
+            SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
             TimePanelEUI.Play_SuccessAnno(1f, 1f);
-            DevTool.Set_Color(ResourceManager.Instance.unlockedClr, TimePanelEUI.CountdownTxt);
+            DevTool.Set_Color(ResourceManager.instance.unlockedClr, TimePanelEUI.CountdownTxt);
             StartCoroutine(Play_Unlock_Complete_Cor());
 
             return true;
         }
         else
         {
-            SoundManager.Instance.Play_2D_SFX_UI("Click_00");
+            SoundManager.instance.Play_2D_SFX_UI("Click_00");
             TimePanelEUI.Play_FailureAnno(1f, 1f);
             Set_Panelty(-0.5f);
 
@@ -265,7 +265,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
         yield return new WaitForSeconds(1f);
 
-        PlayerManager.Instance.playerController.Set_PrisonPanelty();
+        PlayerManager.instance.playerController.Set_PrisonPanelty();
 
         yield return new WaitForSeconds(1f);
 

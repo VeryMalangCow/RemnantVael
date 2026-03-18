@@ -5,9 +5,9 @@ public class UplinkTeamPrisonController : PrisonController
 
     private void Offset_TypeIconTxt()
     {
-        TypeIcon.sprite = ResourceManager.Instance.Get_UTPrisonIcon(false);
+        TypeIcon.sprite = ResourceManager.instance.Get_UTPrisonIcon(false);
 
-        AllySprites = ResourceManager.Instance.uplinkTeamAllySprites;
+        AllySprites = ResourceManager.instance.uplinkTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
         {
             PrisonAllySRList[i].sprite = AllySprites.Bind;
@@ -30,7 +30,7 @@ public class UplinkTeamPrisonController : PrisonController
     {
         base.Set_Unlock();
 
-        PlayerManager.Instance.playerController.UplinkTeamPresence.Value += AllyAmount;
+        PlayerManager.instance.playerController.UplinkTeamPresence.Value += AllyAmount;
     }
 
     #endregion
@@ -41,7 +41,7 @@ public class UplinkTeamPrisonController : PrisonController
     {
         base.Set_LanguageTxt();
 
-        TypeTxt.text = $"<size=150%>)</size> {ResourceManager.Instance.uplinkTeamString}";
+        TypeTxt.text = $"<size=150%>)</size> {ResourceManager.instance.uplinkTeamString}";
     }
 
     #endregion

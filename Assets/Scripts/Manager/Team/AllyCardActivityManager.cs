@@ -15,14 +15,14 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     [Space(10)]
     [Header("=== TF")]
-    [SerializeField] private Transform AllyParentTF;
+    [SerializeField] private Transform allyParentTF;
 
     #endregion
 
     #region - Hide
 
     public delegate void ActivityFuncDele();
-    [HideInInspector] public List<List<ActivityFuncDele>> AllActivityFuncList = new List<List<ActivityFuncDele>>();
+    [HideInInspector] public List<List<ActivityFuncDele>> allActivityFuncList = new List<List<ActivityFuncDele>>();
 
     #endregion
 
@@ -36,7 +36,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
         List<ActivityFuncDele> UT_CardActivityList = Init_DelegateList("UT_CardActivity_");
         List<ActivityFuncDele> NT_CardActivityList = Init_DelegateList("NT_CardActivity_");
 
-        AllActivityFuncList = new List<List<ActivityFuncDele>>
+        allActivityFuncList = new List<List<ActivityFuncDele>>
         { ST_CardActivityList, UT_CardActivityList, NT_CardActivityList };
     }
 
@@ -94,7 +94,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     {
         if (_CardID == -1) return;
 
-        AllActivityFuncList[_TypeID][_CardID]();
+        allActivityFuncList[_TypeID][_CardID]();
 
         if (_TypeID == 0) Debug.Log($"ST_{_CardID} 카드");
         else if (_TypeID == 0) Debug.Log($"UT_{_CardID} 카드");
@@ -109,15 +109,15 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void ST_CardActivity_000()
     {
-        SpawnAlly(ResourceManager.Instance.Get_FieldUnitAlly("Grunt"));
+        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Grunt"));
     }
     private void ST_CardActivity_001()
     {
-        SpawnAlly(ResourceManager.Instance.Get_FieldUnitAlly("Grunt"));
+        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Grunt"));
     }
     private void ST_CardActivity_002()
     {
-        SpawnAlly(ResourceManager.Instance.Get_FieldUnitAlly("Grunt"));
+        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Grunt"));
     }
 
     #endregion
@@ -148,7 +148,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void Upgrade_Dmg(float _Value)
     {
-        AllyManager.Instance.Set_StateDmg(_Value);
+        AllyManager.instance.Set_StateDmg(_Value);
     }
 
     #endregion
@@ -179,7 +179,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void Upgrade_Rof(float _Value)
     {
-        AllyManager.Instance.Set_StateRof(_Value);
+        AllyManager.instance.Set_StateRof(_Value);
     }
 
     #endregion
@@ -210,7 +210,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void Upgrade_Movement(float _Value)
     {
-        AllyManager.Instance.Set_StateMovementSpeed(_Value);
+        AllyManager.instance.Set_StateMovementSpeed(_Value);
     }
 
     #endregion
@@ -241,7 +241,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void Upgrade_AttackSize(float _Value)
     {
-        AllyManager.Instance.Set_StateAttackSize(_Value);
+        AllyManager.instance.Set_StateAttackSize(_Value);
     }
 
     #endregion
@@ -272,7 +272,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void Upgrade_CC(float _Value)
     {
-        AllyManager.Instance.Set_StateCC(_Value);
+        AllyManager.instance.Set_StateCC(_Value);
     }
 
     #endregion
@@ -303,7 +303,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void Upgrade_CD(float _Value)
     {
-        AllyManager.Instance.Set_StateCD(_Value);
+        AllyManager.instance.Set_StateCD(_Value);
     }
 
     #endregion
@@ -334,7 +334,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void Upgrade_Muzzle(float _Value)
     {
-        AllyManager.Instance.Set_StateMuzzleSpeed(_Value);
+        AllyManager.instance.Set_StateMuzzleSpeed(_Value);
     }
 
     #endregion
@@ -343,15 +343,15 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void ST_CardActivity_038()
     {
-        SpawnAlly(ResourceManager.Instance.Get_NoneUnitAlly("Booma"));
+        SpawnAlly(ResourceManager.instance.Get_NoneUnitAlly("Booma"));
     }
     private void ST_CardActivity_039()
     {
-        SpawnAlly(ResourceManager.Instance.Get_NoneUnitAlly("Booma"));
+        SpawnAlly(ResourceManager.instance.Get_NoneUnitAlly("Booma"));
     }
     private void ST_CardActivity_040()
     {
-        SpawnAlly(ResourceManager.Instance.Get_NoneUnitAlly("Booma"));
+        SpawnAlly(ResourceManager.instance.Get_NoneUnitAlly("Booma"));
     }
 
     #endregion
@@ -364,11 +364,11 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void UT_CardActivity_000()
     {
-        SpawnAlly(ResourceManager.Instance.Get_FieldUnitAlly("Ignis"));
+        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Ignis"));
     }
     private void UT_CardActivity_001()
     {
-        SpawnAlly(ResourceManager.Instance.Get_FieldUnitAlly("Ignis"));
+        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Ignis"));
     }
 
     #endregion
@@ -377,12 +377,12 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void UT_CardActivity_002()
     {
-        SpawnAlly(ResourceManager.Instance.Get_FieldUnitAlly("Glacia"));
+        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Glacia"));
     }
 
     private void UT_CardActivity_003()
     {
-        SpawnAlly(ResourceManager.Instance.Get_FieldUnitAlly("Glacia"));
+        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Glacia"));
     }
 
     #endregion
@@ -391,12 +391,12 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void UT_CardActivity_004()
     {
-        SpawnAlly(ResourceManager.Instance.Get_FieldUnitAlly("Volt"));
+        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Volt"));
     }
 
     private void UT_CardActivity_005()
     {
-        SpawnAlly(ResourceManager.Instance.Get_FieldUnitAlly("Volt"));
+        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Volt"));
     }
 
     #endregion
@@ -405,12 +405,12 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void UT_CardActivity_006()
     {
-        SpawnAlly(ResourceManager.Instance.Get_FieldUnitAlly("Tox"));
+        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Tox"));
     }
 
     private void UT_CardActivity_007()
     {
-        SpawnAlly(ResourceManager.Instance.Get_FieldUnitAlly("Tox"));
+        SpawnAlly(ResourceManager.instance.Get_FieldUnitAlly("Tox"));
     }
 
     #endregion
@@ -419,12 +419,12 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void UT_CardActivity_008()
     {
-        SpawnAlly(ResourceManager.Instance.Get_NoneUnitAlly("Totis"));
+        SpawnAlly(ResourceManager.instance.Get_NoneUnitAlly("Totis"));
     }
 
     private void UT_CardActivity_009()
     {
-        SpawnAlly(ResourceManager.Instance.Get_NoneUnitAlly("Totis"));
+        SpawnAlly(ResourceManager.instance.Get_NoneUnitAlly("Totis"));
     }
 
     #endregion
@@ -458,7 +458,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     private void BoosterUpgrade(int _BoostLv)
     {
-        PlayerManager.Instance.playerController.CurrentBoostLv.Value = _BoostLv;
+        PlayerManager.instance.playerController.CurrentBoostLv.Value = _BoostLv;
     }
 
     #endregion
@@ -472,7 +472,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     private void SpawnAlly(GameObject _AllyPrefab)
     {
         AllyController ally = DevTool.Get_ComponentTType<AllyController>(
-            Instantiate(_AllyPrefab, AllyParentTF));
+            Instantiate(_AllyPrefab, allyParentTF));
 
         ally.Set_SpawnFirst();
     }

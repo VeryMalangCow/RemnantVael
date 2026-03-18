@@ -104,7 +104,7 @@ public class PoolingManager : Singleton<PoolingManager>
         for (int i = 0; i < currentStageBossEnemies.Count; i++)
             currentStageBossEnemies[i].Queue.Clear();
 
-        EnemyManager.Instance.Remove_PoolingAllEnemy();
+        EnemyManager.instance.Remove_PoolingAllEnemy();
 
         // VFX
         afterImgs.Queue.Clear();

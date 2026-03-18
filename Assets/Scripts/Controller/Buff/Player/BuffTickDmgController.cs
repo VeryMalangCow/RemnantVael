@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BuffTickDmgController : BuffController
 {
@@ -9,12 +10,12 @@ public class BuffTickDmgController : BuffController
 
     [Space(10)]
     [Header("=== Const Value")]
-    [SerializeField] private float MaxHpPercent = 10; // 최대 체력 비례
-    [SerializeField] private float ConstPoint = 10; // 고정 수치
+    [SerializeField] private float maxHpPercent = 10; // 최대 체력 비례
+    [SerializeField] private float constPoint = 10; // 고정 수치
 
     [Space(10)]
     [Header("=== Stack")]
-    [SerializeField] private float StackDmg = 1;
+    [SerializeField] private float stackDmg = 1;
 
     #endregion
 
@@ -28,7 +29,7 @@ public class BuffTickDmgController : BuffController
 
     public override void Reduct_Buff()
     {
-        PlayerManager.Instance.playerController.Take_Damaged(Get_DmgValue(), _HittedDir: Vector2.zero, _ShowHUDEffect: true);
+        PlayerManager.instance.playerController.Take_Damaged(Get_DmgValue(), _HittedDir: Vector2.zero, _ShowHUDEffect: true);
 
         base.Reduct_Buff();
     }
@@ -47,14 +48,14 @@ public class BuffTickDmgController : BuffController
     {
         float value = 0;
 
-        if (StackDmg != 0)
-        { value += CurrentBuffCharge.Value * StackDmg; }
+        if (stackDmg != 0)
+        { value += currentBuffCharge.Value * stackDmg; }
 
-        if (ConstPoint != 0)
-        { value += ConstPoint; }
+        if (constPoint != 0)
+        { value += constPoint; }
 
-        if (MaxHpPercent != 0)
-        { value += DevTool.Get_Percent(MaxHpPercent, PlayerManager.Instance.playerController.MaxEP.ActualState.Value); }
+        if (maxHpPercent != 0)
+        { value += DevTool.Get_Percent(maxHpPercent, PlayerManager.instance.playerController.MaxEP.ActualState.Value); }
         
 
         return value;

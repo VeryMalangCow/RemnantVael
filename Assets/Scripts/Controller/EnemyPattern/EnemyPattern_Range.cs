@@ -81,7 +81,7 @@ public class EnemyPattern_Range : EnemyPattern
     {
         if (IsSpecialPattern) return true;
 
-        float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.Instance.playerController.transform.position);
+        float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.instance.playerController.transform.position);
 
         if (forPlayerDis >= MinRange && forPlayerDis < MaxRange && Can_ShootByBulletRadius())
         {
@@ -95,7 +95,7 @@ public class EnemyPattern_Range : EnemyPattern
     {
         for (int i = 0; i < SpawnDepthList.Count; i++)
         {
-            if (DevTool.Is_Exist_UseCircle(SpawnDepthList[i].transform, PlayerManager.Instance.playerController.transform, "Wall", BulletRadiusCondition * 2))
+            if (DevTool.Is_Exist_UseCircle(SpawnDepthList[i].transform, PlayerManager.instance.playerController.transform, "Wall", BulletRadiusCondition * 2))
             {
                 return false;
             }
@@ -126,7 +126,7 @@ public class EnemyPattern_Range : EnemyPattern
         Vector2 targetDir = DevTool.Get_DirForPlayer(ThisEnemy);
 
         Play_ActualPattern(targetDir);
-        SoundManager.Instance.Play_2D_SFX_EnemyAttack_Random(ThisEnemy.Get_AS(), "Bullet", 2);
+        SoundManager.instance.Play_2D_SFX_EnemyAttack_Random(ThisEnemy.Get_AS(), "Bullet", 2);
 
         #endregion
 
@@ -155,7 +155,7 @@ public class EnemyPattern_Range : EnemyPattern
 
     private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)
     {
-        EnemyBulletController bullet = PoolingManager.Instance.Get_OP_EnemyBullet();
+        EnemyBulletController bullet = PoolingManager.instance.Get_OP_EnemyBullet();
         bullet.Enemy = ThisEnemy;
         float targetShadow = _Depth.TargetRange;
         bullet.Set_State(
@@ -170,7 +170,7 @@ public class EnemyPattern_Range : EnemyPattern
         bullet.SetOn_TrailState(TrailTime, TrailStartWidth, TrailGradient);
 
         // Effect
-        UnitManager.Instance.enemy_ExplImgGenerator.Expl_Enemy_Shoot(
+        UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_Shoot(
             (Vector2)_Depth.TargetObject.transform.position + (_TargetDir * 0.3f),
             _TargetDir, ShootExplAmount);
     }

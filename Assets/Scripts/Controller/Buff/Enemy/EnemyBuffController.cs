@@ -58,7 +58,7 @@ public class EnemyBuffController : MonoBehaviour
             _MaxCooltime: ShieldDurTime,
             _GainFunc: ShieldGainEffect,
             _ReduceFunc: ShieldReduceEffect,
-            EnemyManager.Instance.shieldIcon);
+            EnemyManager.instance.shieldIcon);
 
         #endregion
 
@@ -72,7 +72,7 @@ public class EnemyBuffController : MonoBehaviour
             _GainFunc: null,
             _ReduceFunc: Active_FlameReduce,
             _FullStack: Active_FlameFullStack,
-            EnemyManager.Instance.flameIcon);
+            EnemyManager.instance.flameIcon);
 
         ColdStack = new StatusEffect_Temporary_WithAmount(
             Enemy, eStatusEffect.Cold, ColdMax,
@@ -82,7 +82,7 @@ public class EnemyBuffController : MonoBehaviour
             _GainFunc: null,
             _ReduceFunc: null, 
             _FullStack: Active_ColdFullStack,
-            EnemyManager.Instance.coldIcon);
+            EnemyManager.instance.coldIcon);
 
         ElectricityStack = new StatusEffect_Temporary_WithAmount(
             Enemy, eStatusEffect.Electricity, ElectricityMax, 
@@ -92,7 +92,7 @@ public class EnemyBuffController : MonoBehaviour
             _GainFunc: Active_ElectricityGain,
             _ReduceFunc: null, 
             _FullStack: Active_ElectricityFullStack,
-            EnemyManager.Instance.electricityIcon);
+            EnemyManager.instance.electricityIcon);
 
         CorrosionStack = new StatusEffect_Temporary_WithAmount(
             Enemy, eStatusEffect.Corrosion, CorrosionMax,
@@ -102,32 +102,32 @@ public class EnemyBuffController : MonoBehaviour
             _GainFunc: null,
             _ReduceFunc: null, 
             _FullStack: Active_CorrosionFullStack,
-            EnemyManager.Instance.corrosionIcon);
+            EnemyManager.instance.corrosionIcon);
 
         #endregion
 
         #region High Level Status Debuff
 
         InfernoStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.infernoIcon,
+            Enemy, EnemyManager.instance.infernoIcon,
             _GainFunc: null, 
             _FullStack: null, 
             _MaxStack: 3);
 
         AbsoluteZeroStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.absoluteZeroIcon,
+            Enemy, EnemyManager.instance.absoluteZeroIcon,
             _GainFunc: null, 
             _FullStack: null, 
             _MaxStack: 3);
 
         PlasmaStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.plasmaIcon,
+            Enemy, EnemyManager.instance.plasmaIcon,
             _GainFunc: null, 
             _FullStack: null, 
             _MaxStack: 3);
 
         DecayStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.Instance.decayIcon,
+            Enemy, EnemyManager.instance.decayIcon,
             _GainFunc: null, 
             _FullStack: null, 
             _MaxStack: 3);
@@ -210,7 +210,7 @@ public class EnemyBuffController : MonoBehaviour
 
         for (int i = 0; i < ElectricityStack.CurrentStack; i++)
         {
-            List<EnemyController> closerEnemies = EnemyManager.Instance.Get_CloserEnemies(targetEnemy.gameObject, ElectricityRange);
+            List<EnemyController> closerEnemies = EnemyManager.instance.Get_CloserEnemies(targetEnemy.gameObject, ElectricityRange);
             
             // 연쇄가  계속 되었는지 판별 => 안되었다면 Break
             bool willExpand = false;
@@ -304,11 +304,11 @@ public class EnemyBuffController : MonoBehaviour
 
     private void Play_ExplosionAttack(eDamageType _DmgType, float _Dmg, int _StatusIndex)
     {
-        PlayerExplosionController pec = PoolingManager.Instance.Get_OP_PlayerExplosion();
+        PlayerExplosionController pec = PoolingManager.instance.Get_OP_PlayerExplosion();
         pec.Add_HittedObjectList(Enemy);
         pec.Set_State(
             Get_ExlposionState(_DmgType, _Dmg, _StatusIndex),
-            _AC: ResourceManager.Instance.explosionAC,
+            _AC: ResourceManager.instance.explosionAC,
             Get_SpawnTF(StatusExplosionSize),
             Enemy.TargetRange);
     }

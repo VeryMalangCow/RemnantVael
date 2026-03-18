@@ -43,7 +43,7 @@ public class ShockwaveSkillController : ActiveSkillController
         // ==========
 
 
-        PlayerAttackerController pac = PoolingManager.Instance.Get_OP_PlayerAttacker();
+        PlayerAttackerController pac = PoolingManager.instance.Get_OP_PlayerAttacker();
 
         pac.Set_State(
             Get_CurrentAttackerState(),
@@ -54,15 +54,15 @@ public class ShockwaveSkillController : ActiveSkillController
             DepthController.TargetRange);
 
         // 폭발
-        UnitManager.Instance.player_ExplImgGenerator.Expl_Player_Skill1(
+        UnitManager.instance.player_ExplImgGenerator.Expl_Player_Skill1(
             PlayerController.Get_ID(), 
             (Vector2)DepthController.TargetObject.gameObject.transform.position);
 
         // 버프
-        BuffManager.Instance.Gain_Buff(0);
+        BuffManager.instance.Gain_Buff(0);
 
         // 사운드
-        SoundManager.Instance.Play_2D_SFX_Combat(PlayerController.Get_AS(), "Explosion");
+        SoundManager.instance.Play_2D_SFX_Combat(PlayerController.Get_AS(), "Explosion");
 
         yield return new WaitForSeconds(JugeAndTweenTime);
 

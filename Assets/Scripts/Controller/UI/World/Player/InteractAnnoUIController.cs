@@ -37,7 +37,7 @@ public class InteractAnnoUIController : UIController
 
     public void Offset_ColorComp()
     {
-        Color clr = PlayerManager.Instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        Color clr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
 
         InteractableColor = clr;
         InnerLImg.color = clr;
@@ -57,7 +57,7 @@ public class InteractAnnoUIController : UIController
 
     public void Set_UI()
     {
-        IInteract ii = PlayerManager.Instance.playerController.CurrentInteractable.Value;
+        IInteract ii = PlayerManager.instance.playerController.CurrentInteractable.Value;
         string txt = DevTool.Get_InteractingAnnoTxt(ii, out bool canInteract);
 
         if (ii != null && txt != "" && ii is MonoBehaviour mb)

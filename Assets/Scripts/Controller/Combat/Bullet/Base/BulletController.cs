@@ -51,12 +51,12 @@ public abstract class BulletController : MovableDepthController
     {
         base.OnEnable();
 
-        LayerOrderManager.Instance.Add_NeedSortObj(this);
+        LayerOrderManager.instance.Add_NeedSortObj(this);
     }
 
     protected void OnDisable()
     {
-        LayerOrderManager.Instance.Remove_NeedSortObj(this);
+        LayerOrderManager.instance.Remove_NeedSortObj(this);
     }
 
     protected virtual void FixedUpdate()
@@ -105,7 +105,7 @@ public abstract class BulletController : MovableDepthController
         BulletState_Effect? _State_Effect,
         float _TargetRange = 0.4f)
     {
-        UnitManager.Instance.Add_Unit(this);
+        UnitManager.instance.Add_Unit(this);
 
         Set_State_Base(_State, _TargetRange);
         Set_State_PosAndRot(_State_PosAndRot);
@@ -146,7 +146,7 @@ public abstract class BulletController : MovableDepthController
     {
         CurrentAliveTime = 0;
 
-        gameObject.transform.SetParent(StageManager.Instance.currentRoomController.transform);
+        gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
         ThisRb.simulated = true;
         gameObject.SetActive(true);
 
@@ -262,7 +262,7 @@ public abstract class BulletController : MovableDepthController
     protected void Try_FindTarget()
     {
         TargetEnemyController = null;
-        TargetEnemyController = EnemyManager.Instance.Get_ClosestEnemy(this.gameObject);
+        TargetEnemyController = EnemyManager.instance.Get_ClosestEnemy(this.gameObject);
     }
 
     // 유도 적에게 (천천히, 스무스) 방향 돌리기
@@ -283,7 +283,7 @@ public abstract class BulletController : MovableDepthController
     {
         if (CurrentAliveTime <= 0f) return; 
 
-        UnitManager.Instance.Remove_Unit(this);
+        UnitManager.instance.Remove_Unit(this);
 
         RemoveForce_Object();
     }

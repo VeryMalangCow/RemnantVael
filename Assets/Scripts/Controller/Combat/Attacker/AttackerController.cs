@@ -43,12 +43,12 @@ public abstract class AttackerController : MovableDepthController
     {
         base.OnEnable();
 
-        LayerOrderManager.Instance.Add_NeedSortObj(this);
+        LayerOrderManager.instance.Add_NeedSortObj(this);
     }
 
     protected void OnDisable()
     {
-        LayerOrderManager.Instance.Remove_NeedSortObj(this);
+        LayerOrderManager.instance.Remove_NeedSortObj(this);
     }
 
     #endregion
@@ -96,7 +96,7 @@ public abstract class AttackerController : MovableDepthController
         Transform _Parent = null,
         bool _IsLocal = false) where T : Collider2D
     {
-        UnitManager.Instance.Add_Unit(this);
+        UnitManager.instance.Add_Unit(this);
 
         Sequence seq = DOTween.Sequence();
 
@@ -155,7 +155,7 @@ public abstract class AttackerController : MovableDepthController
         }
         else
         {
-            this.transform.SetParent(StageManager.Instance.currentRoomController.transform);
+            this.transform.SetParent(StageManager.instance.currentRoomController.transform);
             this.transform.position = _State_StartTF.Pos;
         }
         this.transform.rotation = _State_StartTF.Rot;
@@ -230,7 +230,7 @@ public abstract class AttackerController : MovableDepthController
 
     public virtual void Remove_Object()
     {
-        UnitManager.Instance.Add_Unit(this);
+        UnitManager.instance.Add_Unit(this);
 
         RemoveForce_Object();
     }

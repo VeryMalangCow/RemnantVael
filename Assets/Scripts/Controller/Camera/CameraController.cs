@@ -187,7 +187,7 @@ public class CameraController : MonoBehaviour
                 if (Time.timeScale != 1)
                     Time.timeScale = 1;
 
-                PlayerManager.Instance.playerController.SetOff_Invincible();
+                PlayerManager.instance.playerController.SetOff_Invincible();
             });
     }
 

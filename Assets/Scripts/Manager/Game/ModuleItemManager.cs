@@ -68,8 +68,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     private void Offset()
     {
-        itemDataArr = ResourceManager.Instance.Get_ItemDataArr();
-        mainChipDataArr = ResourceManager.Instance.Get_MainChipDataArr();
+        itemDataArr = ResourceManager.instance.Get_ItemDataArr();
+        mainChipDataArr = ResourceManager.instance.Get_MainChipDataArr();
 
         // Inven
         allModuleData = new ModuleState[columnAmount][];
@@ -93,7 +93,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     private void Reset_Interface()
     {
-        BuffManager.Instance.Init_SyncSetBuff();
+        BuffManager.instance.Init_SyncSetBuff();
 
         Reset_InterfaceMU();
         Reset_InterfaceMC();
@@ -481,8 +481,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         allModuleData[_Index0.TypeBase][_Index0.TypeSpecial] = moduleState1;
         allModuleData[_Index1.TypeBase][_Index1.TypeSpecial] = moduleState0;
 
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -497,20 +497,20 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         equippedIndex[_EquipedIndex] = _InteractIndex;
 
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
         
         Reset_Interface();
-        AllyManager.Instance.Set_AllAlliesSync();
+        AllyManager.instance.Set_AllAlliesSync();
     }
 
     public void Set_UnEquip(int _EquipedIndex)
     {
         equippedIndex[_EquipedIndex] = new CoupleData<int>(-1, -1);
 
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
 
         Reset_Interface(); 
-        AllyManager.Instance.Set_AllAlliesSync();
+        AllyManager.instance.Set_AllAlliesSync();
     }
 
     public void Set_SwitchEquipment(int _ListIndex0, int _ListIndex1)
@@ -519,8 +519,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         equippedIndex[_ListIndex0] = new CoupleData<int>(equippedIndex[_ListIndex1]);
         equippedIndex[_ListIndex1] = new CoupleData<int>(temp);
 
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -547,13 +547,13 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public void Set_FusionSlot(int _Index, CoupleData<int> _InteractIndex)
     {
         fusionIndex[_Index] = _InteractIndex;
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
     }
 
     public void Set_UnFusionSlot(int _Index)
     {
         fusionIndex[_Index] = new CoupleData<int>(-1, -1);
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
     }
     public void Set_UnFusionSlotAll()
     {
@@ -566,8 +566,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         fusionIndex[_ListIndex0] = new CoupleData<int>(fusionIndex[_ListIndex1]);
         fusionIndex[_ListIndex1] = new CoupleData<int>(temp);
 
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
         Reset_Interface();
     }
 
@@ -717,7 +717,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public void Set_UpRank(CoupleData<int> _Index)
     {
         allModuleData[_Index.TypeBase][_Index.TypeSpecial].ThisItemData.Rank++;
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
         Reset_Interface();
     }
 
@@ -735,8 +735,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         allModuleData[_Index.TypeBase][_Index.TypeSpecial] = null;
 
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData); 
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData); 
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -753,8 +753,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             allModuleData[_IndexList[i].TypeBase][_IndexList[i].TypeSpecial] = null;
         }
 
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
@@ -780,7 +780,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         allModuleData[index.TypeBase][index.TypeSpecial] = newModuleState;
 
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
     }
 
     // æ∆¿Ã≈€¿ª ∑£¥˝«œ∞‘ »πµÊ
@@ -934,8 +934,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             }
         }
 
-        if (MainGameUIManager.Instance.moduleUpgrade_UIController != null)
-            MainGameUIManager.Instance.moduleUpgrade_UIController.Set_SynergySlots(mainChipAmalgamationDict);
+        if (MainGameUIManager.instance.moduleUpgrade_UIController != null)
+            MainGameUIManager.instance.moduleUpgrade_UIController.Set_SynergySlots(mainChipAmalgamationDict);
 
         currentAllMainChipState = Get_CurrentMainChipState();
     }
@@ -961,13 +961,13 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         Set_ItemDataLanguage();
         Set_MainChipDataLanguage();
 
-        MainGameUIManager.Instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
+        MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
     }
 
     private void Set_ItemDataLanguage()
     {
         for (int i = 0; i < itemDataArr.Length; i++)
-            ResourceManager.Instance.Set_DataLanguage(itemDataArr[i], i);
+            ResourceManager.instance.Set_DataLanguage(itemDataArr[i], i);
 
         for (int i = 0; i < columnAmount; i++)
             for (int j = 0; j < rowAmount; j++)
@@ -980,7 +980,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     private void Set_MainChipDataLanguage()
     {
         for (int i = 0; i < mainChipDataArr.Length; i++)
-            ResourceManager.Instance.Set_DataLanguage(mainChipDataArr[i], i);
+            ResourceManager.instance.Set_DataLanguage(mainChipDataArr[i], i);
     }
 
 

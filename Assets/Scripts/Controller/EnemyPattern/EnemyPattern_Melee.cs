@@ -89,7 +89,7 @@ public class EnemyPattern_Melee : EnemyPattern
         CurrentRepeatAmount++;
 
         Play_ActualPattern(targetDir);
-        SoundManager.Instance.Play_2D_SFX_EnemyAttack_Random(ThisEnemy.Get_AS(), "Sword", 2);
+        SoundManager.instance.Play_2D_SFX_EnemyAttack_Random(ThisEnemy.Get_AS(), "Sword", 2);
 
         #endregion
 
@@ -116,7 +116,7 @@ public class EnemyPattern_Melee : EnemyPattern
 
     private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)
     {
-        EnemyAttackerController attacker = PoolingManager.Instance.Get_OP_EnemyAttacker();
+        EnemyAttackerController attacker = PoolingManager.instance.Get_OP_EnemyAttacker();
         attacker.Enemy = ThisEnemy;
         float targetShadow = IsShadowRangeByDepthController ? _Depth.TargetRange : 0.6f;
         

@@ -47,11 +47,11 @@ public class AllyBuffController : MonoBehaviour
 
     private void Offset_Buff()
     {
-        Sync005_Buff = new AllyBuff(Ally, AllyBuffManager.Instance.Sync005_OriginalBuff);
-        Sync006_Buff = new AllyBuff(Ally, AllyBuffManager.Instance.Sync006_OriginalBuff);
-        Sync007_Buff = new AllyBuff(Ally, AllyBuffManager.Instance.Sync007_OriginalBuff);
-        Sync008_Buff = new AllyBuff(Ally, AllyBuffManager.Instance.Sync008_OriginalBuff);
-        TotisToteme_Buff = new AllyBuff(Ally, AllyBuffManager.Instance.TotisToteme_OriginalBuff);
+        Sync005_Buff = new AllyBuff(Ally, AllyBuffManager.instance.sync005_OriginalBuff);
+        Sync006_Buff = new AllyBuff(Ally, AllyBuffManager.instance.sync006_OriginalBuff);
+        Sync007_Buff = new AllyBuff(Ally, AllyBuffManager.instance.sync007_OriginalBuff);
+        Sync008_Buff = new AllyBuff(Ally, AllyBuffManager.instance.sync008_OriginalBuff);
+        TotisToteme_Buff = new AllyBuff(Ally, AllyBuffManager.instance.totisToteme_OriginalBuff);
     }
     
     private void Offset_BuffDict()

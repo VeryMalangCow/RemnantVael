@@ -75,11 +75,11 @@ public class StageManager : Singleton<StageManager>
 
     private void Offset()
     {
-        lobbyStageData.Offset(ResourceManager.Instance.Get_LobbyMapReso());
+        lobbyStageData.Offset(ResourceManager.instance.Get_LobbyMapReso());
 
         for (int i = 0; i < allStageData.Count; i++)
         {
-            allStageData[i].Offset(ResourceManager.Instance.Get_StageMapReso(i));
+            allStageData[i].Offset(ResourceManager.instance.Get_StageMapReso(i));
         }
 
         Init_PassageMiddleData();
@@ -134,18 +134,18 @@ public class StageManager : Singleton<StageManager>
         Set_StartUI(stageData);
 
         // 적 객체 오브젝트 풀링 시스템 세팅하기
-        PoolingManager.Instance.Offset_EnemiesPooling(
+        PoolingManager.instance.Offset_EnemiesPooling(
             stageData.EnemyData.StageEnemyList,
             stageData.EnemyData.StageEliteEnemyList,
             stageData.EnemyData.StageBossEnemyList);
 
         // Sound (BGM) 시작
-        SoundManager.Instance.Play_2D_BGM_Stage(stageData.InfoData.StageID);
+        SoundManager.instance.Play_2D_BGM_Stage(stageData.InfoData.StageID);
 
         Reset_GenStageData();
 
         if (targetStageID == 99)
-            StartCoroutine(Play_LobbyStart_Cor(MainGameUIManager.Instance.fadeOutTime));
+            StartCoroutine(Play_LobbyStart_Cor(MainGameUIManager.instance.fadeOutTime));
 
         // 처음 스타트맵
         Play_CurrentRoom(Get_CorrectRoom(0));
@@ -178,7 +178,7 @@ public class StageManager : Singleton<StageManager>
 
     private void Set_EntranceIndex(int _CurrentIndex)
     {
-        List<int> indexList = ResourceManager.Instance.Get_CorrectIndexList(_CurrentIndex);
+        List<int> indexList = ResourceManager.instance.Get_CorrectIndexList(_CurrentIndex);
 
         if (indexList.Count > 1)
             indexList = DevTool.Get_ShuffledList(indexList);
@@ -192,7 +192,7 @@ public class StageManager : Singleton<StageManager>
     {
         int TempID = 0;
 
-        Gen_LobbyRoom(ResourceManager.Instance.roomPrefabArr[0], TempID);
+        Gen_LobbyRoom(ResourceManager.instance.roomPrefabArr[0], TempID);
         TempID++;
 
         Gen_LobbyEntranceRoom(TempID, new List<Vector2Int> { Vector2Int.up });
@@ -204,7 +204,7 @@ public class StageManager : Singleton<StageManager>
     {
         int TempID = 0;
 
-        Gen_StartRoom(ResourceManager.Instance.roomPrefabArr[0], TempID);
+        Gen_StartRoom(ResourceManager.instance.roomPrefabArr[0], TempID);
         TempID++;
 
         // 생성할 Room의 양을 계산에 1중 리스트로 변경 => 이들을 섞음
@@ -214,7 +214,7 @@ public class StageManager : Singleton<StageManager>
         // 기본 방 생성
         for (int i = 0; i < shuffledRoomIndexList.Count; i++)
         {
-            Gen_NormalRoom(ResourceManager.Instance.roomPrefabArr[shuffledRoomIndexList[i]], TempID);
+            Gen_NormalRoom(ResourceManager.instance.roomPrefabArr[shuffledRoomIndexList[i]], TempID);
             TempID++;
         }
 
@@ -274,7 +274,7 @@ public class StageManager : Singleton<StageManager>
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.lobbyRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.lobbyRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             room.Offset(_TempID);
@@ -289,7 +289,7 @@ public class StageManager : Singleton<StageManager>
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.startRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.startRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             room.Offset(_TempID);
@@ -325,11 +325,11 @@ public class StageManager : Singleton<StageManager>
     // 지정 방 생성
     private void Gen_DesignatedRoom(GenDesignatedRoom _DesignatedRoomData, int _TempID)
     {
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomPrefabArr[_DesignatedRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_DesignatedRoomData.ID], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomDesignatedPrefabArr[_DesignatedRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomDesignatedPrefabArr[_DesignatedRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             room.Offset(_TempID);
@@ -344,11 +344,11 @@ public class StageManager : Singleton<StageManager>
     // 통과 방 하나 생성
     private void Gen_EntranceRoom(GenSpecialRoomData _EntranceRoomData, int _TempID)
     {
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomPrefabArr[_EntranceRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_EntranceRoomData.ID], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomRuleEntrancePrefabArr[_EntranceRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleEntrancePrefabArr[_EntranceRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             EntranceRuleController entranceRule = DevTool.Get_CastingTType<EntranceRuleController>(roomRule);
@@ -362,11 +362,11 @@ public class StageManager : Singleton<StageManager>
     // 로비 통과 방 하나 생성
     private void Gen_LobbyEntranceRoom(int _TempID, List<Vector2Int> _RelativePos)
     {
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.sRoomPrefabList[0], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.sRoomPrefabList[0], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.lobbyEntranceRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.lobbyEntranceRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             EntranceRuleController entranceRule = DevTool.Get_CastingTType<EntranceRuleController>(roomRule);
@@ -386,39 +386,39 @@ public class StageManager : Singleton<StageManager>
     private void Gen_VaultRoom(GenSpecialRoomData _VaultRoomData, int _TempID, out bool _Generated)
     {
         _Generated = false;
-        GameProgressJsonData data = SaveDataManager.Instance.jsonData.GameProgressData;
+        GameProgressJsonData data = SaveDataManager.instance.jsonData.gameProgressData;
 
-        if (!data.UsableVault) return;
+        if (!data.usableVault) return;
 
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomPrefabArr[_VaultRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_VaultRoomData.ID], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomRuleVaultPrefabArr[_VaultRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleVaultPrefabArr[_VaultRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             VaultRuleController vaultRule = DevTool.Get_CastingTType<VaultRuleController>(roomRule);
-            VaultController vault = DevTool.Get_ComponentTType<VaultController>(Instantiate(DevTool.Get_RandomInList(ResourceManager.Instance.vaultPrefabArr), vaultRule.InRoom_VaultParentTF));
+            VaultController vault = DevTool.Get_ComponentTType<VaultController>(Instantiate(DevTool.Get_RandomInList(ResourceManager.instance.vaultPrefabArr), vaultRule.InRoom_VaultParentTF));
             vaultRule.Vault = vault;
             vault.gameObject.transform.localPosition = Vector2.zero;
             vault.gameObject.SetActive(false);
 
             RepairOperatorController repairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                Instantiate(ResourceManager.Instance.repairOperatorPrefab, vaultRule.InRoom_RepairOperactorParentTF));
+                Instantiate(ResourceManager.instance.repairOperatorPrefab, vaultRule.InRoom_RepairOperactorParentTF));
             vaultRule.RepairOperator = repairOper;
             repairOper.Set_TargetBuild(vault);
             repairOper.gameObject.transform.localPosition = Vector2.zero;
             repairOper.gameObject.SetActive(false);
 
             VaultRerollOperatorController rerollOper = DevTool.Get_ComponentTType<VaultRerollOperatorController>(
-                Instantiate(ResourceManager.Instance.vaultRerollOperatorPrefab, vaultRule.InRoom_RerollOperactorParentTF));
+                Instantiate(ResourceManager.instance.vaultRerollOperatorPrefab, vaultRule.InRoom_RerollOperactorParentTF));
             vaultRule.RerollOperator = rerollOper;
             rerollOper.Set_TargetBuild(vault);
             rerollOper.gameObject.transform.localPosition = Vector2.zero;
             rerollOper.gameObject.SetActive(false);
 
             VaultUpgradeOperatorController upgradeOper = DevTool.Get_ComponentTType<VaultUpgradeOperatorController>(
-                Instantiate(ResourceManager.Instance.vaultUpgradeOperatorPrefab, vaultRule.InRoom_UpgradeOperactorParentTF));
+                Instantiate(ResourceManager.instance.vaultUpgradeOperatorPrefab, vaultRule.InRoom_UpgradeOperactorParentTF));
             vaultRule.UpgradeOperator = upgradeOper;
             upgradeOper.Set_TargetBuild(vault);
             upgradeOper.gameObject.transform.localPosition = Vector2.zero;
@@ -439,43 +439,43 @@ public class StageManager : Singleton<StageManager>
     private void Gen_ShopRoom(GenSpecialRoomData _ShopRoomData, int _TempID, out bool _Generated)
     {
         _Generated = false;
-        GameProgressJsonData data = SaveDataManager.Instance.jsonData.GameProgressData;
+        GameProgressJsonData data = SaveDataManager.instance.jsonData.gameProgressData;
 
-        if (!data.UsableBU && !data.UsableMU) return;
+        if (!data.usableBU && !data.usableMU) return;
 
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomPrefabArr[_ShopRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_ShopRoomData.ID], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomRuleShopPrefabArr[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleShopPrefabArr[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             ShopRuleController shopRule = DevTool.Get_CastingTType<ShopRuleController>(roomRule);
 
-            if (data.UsableBU)
+            if (data.usableBU)
             {
-                BaseUpgradeController BUShop = DevTool.Get_ComponentTType<BaseUpgradeController>(Instantiate(ResourceManager.Instance.BUShopPrefab, shopRule.InRoom_BUShopParentTF));
+                BaseUpgradeController BUShop = DevTool.Get_ComponentTType<BaseUpgradeController>(Instantiate(ResourceManager.instance.BUShopPrefab, shopRule.InRoom_BUShopParentTF));
                 shopRule.BUShop = BUShop;
                 BUShop.gameObject.transform.localPosition = Vector2.zero;
                 BUShop.gameObject.SetActive(false);
 
                 RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                Instantiate(ResourceManager.Instance.repairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
+                Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
                 shopRule.BURepairOperator = BURepairOper;
                 BURepairOper.Set_TargetBuild(BUShop);
                 BURepairOper.gameObject.transform.localPosition = Vector2.zero;
                 BURepairOper.gameObject.SetActive(false);
             }
             
-            if (data.UsableMU)
+            if (data.usableMU)
             {
-                ModuleUpgradeController MUShop = DevTool.Get_ComponentTType<ModuleUpgradeController>(Instantiate(ResourceManager.Instance.MUShopPrefab, shopRule.InRoom_MUShopParentTF));
+                ModuleUpgradeController MUShop = DevTool.Get_ComponentTType<ModuleUpgradeController>(Instantiate(ResourceManager.instance.MUShopPrefab, shopRule.InRoom_MUShopParentTF));
                 shopRule.MUShop = MUShop;
                 MUShop.gameObject.transform.localPosition = Vector2.zero;
                 MUShop.gameObject.SetActive(false);
 
                 RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                    Instantiate(ResourceManager.Instance.repairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
+                    Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
                 shopRule.MURepairOperator = MURepairOper;
                 MURepairOper.Set_TargetBuild(MUShop);
                 MURepairOper.gameObject.transform.localPosition = Vector2.zero;
@@ -497,43 +497,43 @@ public class StageManager : Singleton<StageManager>
     private void Gen_AllyShopRoom(GenSpecialRoomData _ShopRoomData, int _TempID, out bool _Generated)
     {
         _Generated = false;
-        GameProgressJsonData data = SaveDataManager.Instance.jsonData.GameProgressData;
+        GameProgressJsonData data = SaveDataManager.instance.jsonData.gameProgressData;
 
-        if (!data.UsableABU && !data.UsableAMU) return;
+        if (!data.usableABU && !data.usableAMU) return;
 
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomPrefabArr[_ShopRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_ShopRoomData.ID], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomRuleAllyShopPrefabArr[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleAllyShopPrefabArr[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             AllyShopRuleController shopRule = DevTool.Get_CastingTType<AllyShopRuleController>(roomRule);
 
-            if (data.UsableABU)
+            if (data.usableABU)
             {
-                AllyBaseUpgradeController ABUShop = DevTool.Get_ComponentTType<AllyBaseUpgradeController>(Instantiate(ResourceManager.Instance.ABUShopPrefab, shopRule.InRoom_BUShopParentTF));
+                AllyBaseUpgradeController ABUShop = DevTool.Get_ComponentTType<AllyBaseUpgradeController>(Instantiate(ResourceManager.instance.ABUShopPrefab, shopRule.InRoom_BUShopParentTF));
                 shopRule.BUShop = ABUShop;
                 ABUShop.gameObject.transform.localPosition = Vector2.zero;
                 ABUShop.gameObject.SetActive(false);
 
                 RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                    Instantiate(ResourceManager.Instance.repairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
+                    Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
                 shopRule.BURepairOperator = BURepairOper;
                 BURepairOper.Set_TargetBuild(ABUShop);
                 BURepairOper.gameObject.transform.localPosition = Vector2.zero;
                 BURepairOper.gameObject.SetActive(false);
             }
 
-            if (data.UsableAMU)
+            if (data.usableAMU)
             {
-                AllyModuleUpgradeController AMUShop = DevTool.Get_ComponentTType<AllyModuleUpgradeController>(Instantiate(ResourceManager.Instance.AMUShopPrefab, shopRule.InRoom_MUShopParentTF));
+                AllyModuleUpgradeController AMUShop = DevTool.Get_ComponentTType<AllyModuleUpgradeController>(Instantiate(ResourceManager.instance.AMUShopPrefab, shopRule.InRoom_MUShopParentTF));
                 shopRule.MUShop = AMUShop;
                 AMUShop.gameObject.transform.localPosition = Vector2.zero;
                 AMUShop.gameObject.SetActive(false);
 
                 RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                    Instantiate(ResourceManager.Instance.repairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
+                    Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
                 shopRule.MURepairOperator = MURepairOper;
                 MURepairOper.Set_TargetBuild(AMUShop);
                 MURepairOper.gameObject.transform.localPosition = Vector2.zero;
@@ -555,37 +555,37 @@ public class StageManager : Singleton<StageManager>
     private void Gen_PrisonRoom(GenPrisonRoomData _PrisonRoomData, int _TempID, out bool _Generated)
     {
         _Generated = false;
-        GameProgressJsonData data = SaveDataManager.Instance.jsonData.GameProgressData;
+        GameProgressJsonData data = SaveDataManager.instance.jsonData.gameProgressData;
 
         switch (_PrisonRoomData.TypeID)
         {
-            case 0: if (!data.UsableSTPrison) return; break;
-            case 1: if (!data.UsableUTPrison) return; break;
-            case 2: if (!data.UsableNTPrison) return; break;
+            case 0: if (!data.usableSTPrison) return; break;
+            case 1: if (!data.usableUTPrison) return; break;
+            case 2: if (!data.usableNTPrison) return; break;
         }
 
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomPrefabArr[_PrisonRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_PrisonRoomData.ID], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.roomRulePrisonPrefabArr[_PrisonRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRulePrisonPrefabArr[_PrisonRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             PrisonRuleController prisonRule = DevTool.Get_CastingTType<PrisonRuleController>(roomRule);
 
-            PrisonController prison = DevTool.Get_ComponentTType<PrisonController>(Instantiate(ResourceManager.Instance.prisonPrefabArr[_PrisonRoomData.TypeID], prisonRule.InRoom_PrisonParentTF));
+            PrisonController prison = DevTool.Get_ComponentTType<PrisonController>(Instantiate(ResourceManager.instance.prisonPrefabArr[_PrisonRoomData.TypeID], prisonRule.InRoom_PrisonParentTF));
             prisonRule.Prison = prison;
             prison.gameObject.transform.localPosition = Vector2.zero;
             prison.gameObject.SetActive(false);
 
             PrisonPayOperatorController payOper = DevTool.Get_ComponentTType<PrisonPayOperatorController>(
-               Instantiate(ResourceManager.Instance.prisonPayOperatorPrefab, prisonRule.InRoom_PayOperactorParentTF));
+               Instantiate(ResourceManager.instance.prisonPayOperatorPrefab, prisonRule.InRoom_PayOperactorParentTF));
             prisonRule.PayOperator = payOper;
             payOper.Set_TargetBuild(prison);
             payOper.gameObject.SetActive(false);
 
             PrisonPuzzleOperatorController puzzleOper = DevTool.Get_ComponentTType<PrisonPuzzleOperatorController>(
-               Instantiate(ResourceManager.Instance.prisonPuzzleOperatorPrefab, prisonRule.InRoom_PuzzleOperactorParentTF));
+               Instantiate(ResourceManager.instance.prisonPuzzleOperatorPrefab, prisonRule.InRoom_PuzzleOperactorParentTF));
             prisonRule.PuzzleOperator = puzzleOper;
             puzzleOper.Set_TargetBuild(prison);
             puzzleOper.gameObject.SetActive(false);
@@ -603,11 +603,11 @@ public class StageManager : Singleton<StageManager>
 
     private void Gen_PassageRoom(int _NextStageID)
     {
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.passageRoomPrefab, mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.passageRoomPrefab, mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.Instance.passageRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.passageRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             PassageRuleController passageRule = DevTool.Get_CastingTType<PassageRuleController>(roomRule);
@@ -644,9 +644,9 @@ public class StageManager : Singleton<StageManager>
 
         currentRoomController = null;
 
-        PoolingManager.Instance.Remove_AllQueue();
+        PoolingManager.instance.Remove_AllQueue();
 
-        MainGameUIManager.Instance.playerHUD_UIController.ThisMinimap.Remove_AllMinimapCell();
+        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Remove_AllMinimapCell();
     }
 
     private void Remove_PassageStage()
@@ -681,38 +681,38 @@ public class StageManager : Singleton<StageManager>
         DevTool.Set_Active(currentAllRoomController, false);
 
         // Layer 초기화
-        LayerOrderManager.Instance.Clear_NeedSortObj();
+        LayerOrderManager.instance.Clear_NeedSortObj();
 
 
         // 처음 엘베 레이어때문에 추가 하지않음
         if (!isStartStage)
-        { LayerOrderManager.Instance.Add_NeedSortObj(PlayerManager.Instance.playerController); }
+        { LayerOrderManager.instance.Add_NeedSortObj(PlayerManager.instance.playerController); }
         
         currentRoomController.gameObject.SetActive(true);
         currentRoomController.Set_SortingStaticObjects();
 
         // Ally
-        AllyManager.Instance.Set_AllAllyPlayerNearPos();
-        AllyManager.Instance.Stop_AllAllies_Combat();
+        AllyManager.instance.Set_AllAllyPlayerNearPos();
+        AllyManager.instance.Stop_AllAllies_Combat();
 
         // Minimap
-        MainGameUIManager.Instance.playerHUD_UIController.ThisMinimap.Set_State();
+        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Set_State();
 
         yield return new WaitForSeconds(0.2f);
 
-        PlayerManager.Instance.playerController.SetOn_Trail();
+        PlayerManager.instance.playerController.SetOn_Trail();
         _TargetRC.Play_RoomState();
         Set_NavBake();
 
-        LayerOrderManager.Instance.Add_NeedSortObj(EnemyManager.Instance.currentEnemyList); 
-        LayerOrderManager.Instance.Add_NeedSortObj(AllyManager.Instance.AllAlly);
+        LayerOrderManager.instance.Add_NeedSortObj(EnemyManager.instance.currentEnemyList); 
+        LayerOrderManager.instance.Add_NeedSortObj(AllyManager.instance.allAlly);
 
         // Minimap
-        MainGameUIManager.Instance.playerHUD_UIController.ThisMinimap.Set_State();
-        MainGameUIManager.Instance.playerHUD_UIController.ThisMinimap.Play_Effect();
+        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Set_State();
+        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Play_Effect();
 
         // Ally
-        AllyManager.Instance.Start_AllAllies_Combat();
+        AllyManager.instance.Start_AllAllies_Combat();
     }
 
 
@@ -728,16 +728,16 @@ public class StageManager : Singleton<StageManager>
     {
         yield return new WaitForSeconds(0.5f);
 
-        if (EnemyManager.Instance.currentEnemyList.Count <= 0)
+        if (EnemyManager.instance.currentEnemyList.Count <= 0)
         {
             currentRoomController.PlaySet_RoomStateComplete();
 
             // 상호작용 UI 변경 (문이나 아이템에 붙어있을 때, 상황을 바꾸어줌)
-            MainGameUIManager.Instance.playerHUD_UIController.Set_InteractUI(); 
-            MainGameUIManager.Instance.interactAnno_UIController.Set_UI();
+            MainGameUIManager.instance.playerHUD_UIController.Set_InteractUI(); 
+            MainGameUIManager.instance.interactAnno_UIController.Set_UI();
 
             // Minimap
-            MainGameUIManager.Instance.playerHUD_UIController.ThisMinimap.Set_State();
+            MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Set_State();
         }
     }
 
@@ -763,17 +763,17 @@ public class StageManager : Singleton<StageManager>
 
     private void Set_StartUI(StageData _StageData)
     {
-        MainGameUIManager.Instance.mapIntro_UIController.Play_IntroLabel();
-        MainGameUIManager.Instance.playerHUD_UIController.ThisMinimap.Gen_Minimap();
-        MainGameUIManager.Instance.playerHUD_UIController.StageIcon.gameObject.SetActive(true);
-        MainGameUIManager.Instance.playerHUD_UIController.StageIcon.sprite = ResourceManager.Instance.Get_StageIcon(targetStageID);
-        MainGameUIManager.Instance.playerHUD_UIController.Set_StageDescription();
+        MainGameUIManager.instance.mapIntro_UIController.Play_IntroLabel();
+        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Gen_Minimap();
+        MainGameUIManager.instance.playerHUD_UIController.StageIcon.gameObject.SetActive(true);
+        MainGameUIManager.instance.playerHUD_UIController.StageIcon.sprite = ResourceManager.instance.Get_StageIcon(targetStageID);
+        MainGameUIManager.instance.playerHUD_UIController.Set_StageDescription();
     }
 
     private void Set_StartPassageUI()
     {
-        MainGameUIManager.Instance.playerHUD_UIController.ThisMinimap.Gen_Minimap();
-        MainGameUIManager.Instance.playerHUD_UIController.StageIcon.gameObject.SetActive(false);
+        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Gen_Minimap();
+        MainGameUIManager.instance.playerHUD_UIController.StageIcon.gameObject.SetActive(false);
     }
 
     #endregion
@@ -910,7 +910,7 @@ public class StageManager : Singleton<StageManager>
         if (data == null) return;
 
         _SR.sprite = data;
-        _SR.material = ResourceManager.Instance.Get_PassageMiddleMaterial(materialIndex);
+        _SR.material = ResourceManager.instance.Get_PassageMiddleMaterial(materialIndex);
     }
 
     public void Set_CurrentMapSprite(SpriteRenderer _SR, string _SpriteKey)
@@ -1055,8 +1055,8 @@ public class StageManager : Singleton<StageManager>
     {
         List<Vector2Int> roomIndex = _Room.RoomVec;
         List<RoomRuleController> result = new List<RoomRuleController>();
-        for (int i = 0; i < ResourceManager.Instance.roomRulePrefabArr.Length; i++)
-            if (ResourceManager.Instance.roomRulePrefabArr[i].TryGetComponent(out RoomRuleController rrc) && rrc.RoomVec.SequenceEqual(roomIndex))
+        for (int i = 0; i < ResourceManager.instance.roomRulePrefabArr.Length; i++)
+            if (ResourceManager.instance.roomRulePrefabArr[i].TryGetComponent(out RoomRuleController rrc) && rrc.RoomVec.SequenceEqual(roomIndex))
                 result.Add(rrc);
             
         return result;
@@ -1176,24 +1176,24 @@ public class StageManager : Singleton<StageManager>
         switch(_RoomRule)
         {
             case VaultRuleController:
-                return ResourceManager.Instance.vault_Icon;
+                return ResourceManager.instance.vault_Icon;
 
             case EntranceRuleController:
-                return ResourceManager.Instance.elevator_Icon;
+                return ResourceManager.instance.elevator_Icon;
 
             case ShopRuleController:
-                return ResourceManager.Instance.shop_Icon;
+                return ResourceManager.instance.shop_Icon;
 
             case AllyShopRuleController:
-                return ResourceManager.Instance.allyShop_Icon;
+                return ResourceManager.instance.allyShop_Icon;
 
             case PrisonRuleController prisonRule:
                 if (prisonRule.Prison is StrikeTeamPrisonController)
-                    return ResourceManager.Instance.st_Prison_Icon;
+                    return ResourceManager.instance.st_Prison_Icon;
                 else if (prisonRule.Prison is UplinkTeamPrisonController)
-                    return ResourceManager.Instance.ut_Prison_Icon;
+                    return ResourceManager.instance.ut_Prison_Icon;
                 else if (prisonRule.Prison is NeoTeamPrisonController)
-                    return ResourceManager.Instance.nt_Prison_Icon;
+                    return ResourceManager.instance.nt_Prison_Icon;
                 else
                     return null;
 
@@ -1209,9 +1209,9 @@ public class StageManager : Singleton<StageManager>
 
     public GameObject Get_VaultCorrectType(Type _TypeVault) 
     {
-        for (int i = 0; i < ResourceManager.Instance.vaultPrefabArr.Length; i++)
-            if (DevTool.Get_ComponentTType<VaultController>(ResourceManager.Instance.vaultPrefabArr[i]).GetType() == _TypeVault)
-                return ResourceManager.Instance.vaultPrefabArr[i];
+        for (int i = 0; i < ResourceManager.instance.vaultPrefabArr.Length; i++)
+            if (DevTool.Get_ComponentTType<VaultController>(ResourceManager.instance.vaultPrefabArr[i]).GetType() == _TypeVault)
+                return ResourceManager.instance.vaultPrefabArr[i];
 
         return null;
     }
@@ -1310,8 +1310,8 @@ public class StageManager : Singleton<StageManager>
     {
         yield return new WaitForSeconds(_DelayTime);
 
-        PlayerManager.Instance.playerController.Set_StartStage();
-        EventManager.Instance.Set_Input(true);
+        PlayerManager.instance.playerController.Set_StartStage();
+        EventManager.instance.Set_Input(true);
     }
 
     #endregion
@@ -1369,32 +1369,32 @@ public class StageManager : Singleton<StageManager>
     
     public void Play_GoInBossRoom(GateController _Gate, EliteEnemyController _Enemy)
     {
-        MainGameUIManager.Instance.battleProd_UIController.Play_BattleOnProd(
-            PlayerManager.Instance.playerController, _Enemy, out float _DurTime);
+        MainGameUIManager.instance.battleProd_UIController.Play_BattleOnProd(
+            PlayerManager.instance.playerController, _Enemy, out float _DurTime);
 
         StartCoroutine(Play_GoInBattleRoom_Cor(_Gate, _DurTime));
     }
 
     public void Play_GoInBossRoom(GateController _Gate, BossEnemyController _Enemy)
     {
-        MainGameUIManager.Instance.battleProd_UIController.Play_BattleOnProd(
-            PlayerManager.Instance.playerController, _Enemy, out float _DurTime);
+        MainGameUIManager.instance.battleProd_UIController.Play_BattleOnProd(
+            PlayerManager.instance.playerController, _Enemy, out float _DurTime);
 
         StartCoroutine(Play_GoInBattleRoom_Cor(_Gate, _DurTime));
     }
 
     private IEnumerator Play_GoInBattleRoom_Cor(GateController _Gate, float _DurTime)
     {
-        EventManager.Instance.Set_Input(false);
+        EventManager.instance.Set_Input(false);
 
         yield return new WaitForSeconds(_DurTime);
 
         _Gate.EnterGate();
-        MainGameUIManager.Instance.battleProd_UIController.Play_BattleOffProd(out float _OutDurTime);
+        MainGameUIManager.instance.battleProd_UIController.Play_BattleOffProd(out float _OutDurTime);
 
         yield return new WaitForSeconds(_OutDurTime);
 
-        EventManager.Instance.Set_Input(true);
+        EventManager.instance.Set_Input(true);
     }
 
     #endregion
@@ -1413,7 +1413,7 @@ public class StageManager : Singleton<StageManager>
     // => ResoucreManager에서 리소스를 가져오고 난 다음, 호출문
     public void Init_PassageMiddleData()
     {
-        passageMiddleSpriteData = new AllPassageMiddleSpriteData(ResourceManager.Instance.Get_PassageMapReso());
+        passageMiddleSpriteData = new AllPassageMiddleSpriteData(ResourceManager.instance.Get_PassageMapReso());
     }
 
     #endregion
