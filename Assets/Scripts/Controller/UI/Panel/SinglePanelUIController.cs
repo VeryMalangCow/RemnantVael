@@ -43,7 +43,7 @@ public class SinglePanelUIController : UIController
         this.gameObject.SetActive(true);
 
         // Aim & Mouse
-        InputManager.instance.Set_AllPointer(_Aim: false, _Mouse: true);
+        InputManager.instance.Set_AllPointer(aim: false, mouse: true);
 
         // Input
         InputManager.instance.playerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
@@ -62,7 +62,7 @@ public class SinglePanelUIController : UIController
         this.gameObject.SetActive(false);
 
         // Aim & Mouse
-        InputManager.instance.Set_AllPointer(_Aim: true, _Mouse: false);
+        InputManager.instance.Set_AllPointer(aim: true, mouse: false);
 
         // Input
         InputManager.instance.playerInput.SwitchCurrentActionMap("Player");

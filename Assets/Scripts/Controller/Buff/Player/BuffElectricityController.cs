@@ -64,7 +64,7 @@ public class BuffElectricityController : BuffController, IWhen_GetElectricity
         return value;
     }
 
-    public void Play_When(EnemyController _EC)
+    public void Play_When(EnemyController enemy)
     {
         float dmg = Get_DmgValue();
         PlayerManager.instance.playerController.Take_Damaged(dmg, _HittedDir: Vector2.zero, _ShowHUDEffect: false);

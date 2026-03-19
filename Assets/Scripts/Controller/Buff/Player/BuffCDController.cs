@@ -58,9 +58,9 @@ public class BuffCDController : BuffController
 
     #region Set
 
-    public void Set_Value(float _Value)
+    public void Set_Value(float value)
     {
-        multiple.baseValue = _Value;
+        multiple.baseValue = value;
     }
 
     #endregion

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
@@ -41,31 +40,31 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
 
     #region Offset
 
-    public void Offset(PlayerController _PC)
+    public void Offset(PlayerController player)
     {
-        baseDamage_BUData.Offset(_PC.BaseWeapon.BaseDamage);
-        baseROF_BUData.Offset(_PC.BaseWeapon.ROF);
-        baseCC_BUData.Offset(_PC.BaseWeapon.CC);
-        baseCD_BUData.Offset(_PC.BaseWeapon.CD);
-        baseMuzzleSpeed_BUData.Offset(_PC.BaseWeapon.MuzzleSpeed);
-        baseAccuracyRate_BUData.Offset(_PC.BaseWeapon.AccuracyRate);
-        knockback_BUData.Offset(_PC.BaseWeapon.KnockbackPower);
+        baseDamage_BUData.Offset(player.BaseWeapon.BaseDamage);
+        baseROF_BUData.Offset(player.BaseWeapon.ROF);
+        baseCC_BUData.Offset(player.BaseWeapon.CC);
+        baseCD_BUData.Offset(player.BaseWeapon.CD);
+        baseMuzzleSpeed_BUData.Offset(player.BaseWeapon.MuzzleSpeed);
+        baseAccuracyRate_BUData.Offset(player.BaseWeapon.AccuracyRate);
+        knockback_BUData.Offset(player.BaseWeapon.KnockbackPower);
 
-        baseMaxEP_BUData.Offset(_PC.MaxEP);
-        baseSpawnESMultiple_BUData.Offset(_PC.SpawnESMultiple);
-        baseNeedEP_ForSkillMultiple_BUData.Offset(_PC.NeedEP_ForSkillMultiple);
-        baseResist_BUData.Offset(_PC.TakingDmgMultiple);
+        baseMaxEP_BUData.Offset(player.MaxEP);
+        baseSpawnESMultiple_BUData.Offset(player.SpawnESMultiple);
+        baseNeedEP_ForSkillMultiple_BUData.Offset(player.NeedEP_ForSkillMultiple);
+        baseResist_BUData.Offset(player.TakingDmgMultiple);
 
-        baseWalkSpeed_BUData.Offset(_PC.WalkSpeed);
-        baseWalkSpeedWhenShotMultiple_BUData.Offset(_PC.WalkSpeedWhenShotMultiple);
-        baseDashSpeed_BUData.Offset(_PC.DashController.DashSpeed);
-        baseAvoidChance_BUData.Offset(_PC.AvoidChance);
+        baseWalkSpeed_BUData.Offset(player.WalkSpeed);
+        baseWalkSpeedWhenShotMultiple_BUData.Offset(player.WalkSpeedWhenShotMultiple);
+        baseDashSpeed_BUData.Offset(player.DashController.DashSpeed);
+        baseAvoidChance_BUData.Offset(player.AvoidChance);
 
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            skill_BUDataList[i].skill_Cooltime_BUData.Offset(_PC.SkillWeapon.SkillList[i].MaxCooltime);
-            skill_BUDataList[i].skill_Power_BUData.Offset(_PC.SkillWeapon.SkillList[i].Power);
-            skill_BUDataList[i].skill_Tier_BUData.Offset(_PC.SkillWeapon.SkillList[i].Tier);
+            skill_BUDataList[i].skill_Cooltime_BUData.Offset(player.SkillWeapon.SkillList[i].MaxCooltime);
+            skill_BUDataList[i].skill_Power_BUData.Offset(player.SkillWeapon.SkillList[i].Power);
+            skill_BUDataList[i].skill_Tier_BUData.Offset(player.SkillWeapon.SkillList[i].Tier);
         }
     }
 

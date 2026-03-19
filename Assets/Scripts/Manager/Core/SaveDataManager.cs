@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class SaveDataManager : PersistentSingleton<SaveDataManager>
 {

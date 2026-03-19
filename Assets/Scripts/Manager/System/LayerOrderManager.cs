@@ -41,20 +41,20 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
         needSortingObjects.Clear();
     }
 
-    public void Add_NeedSortObj(DepthController _Depth)
+    public void Add_NeedSortObj(DepthController depth)
     {
-        DevTool.Add_InList(needSortingObjects, _Depth);
+        DevTool.Add_InList(needSortingObjects, depth);
     }
 
-    public void Add_NeedSortObj<T>(List<T> _Depths) where T : DepthController
+    public void Add_NeedSortObj<T>(List<T> depths) where T : DepthController
     {
-        for (int i = 0; i < _Depths.Count; i++)
-            Add_NeedSortObj(_Depths[i]);
+        for (int i = 0; i < depths.Count; i++)
+            Add_NeedSortObj(depths[i]);
     }
 
-    public void Remove_NeedSortObj(DepthController _Depth)
+    public void Remove_NeedSortObj(DepthController depth)
     {
-        DevTool.Remove_InList(needSortingObjects, _Depth);
+        DevTool.Remove_InList(needSortingObjects, depth);
     }
 
     #endregion
@@ -128,11 +128,11 @@ public class LayerOrderManager : Singleton<LayerOrderManager>
     #region Set
 
     // ¼ÖÆÃ
-    private void Set_Sort(List<DepthController> _ObjectList)
+    private void Set_Sort(List<DepthController> objectList)
     {
-        for (int i = 0; i < _ObjectList.Count; i++)
+        for (int i = 0; i < objectList.Count; i++)
         {
-            _ObjectList[i].Set_SortingOrder(order_SortingObjTop - (10 * i));
+            objectList[i].Set_SortingOrder(order_SortingObjTop - (10 * i));
         }
     }
 

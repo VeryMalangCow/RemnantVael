@@ -575,8 +575,8 @@ MonoBehaviour:
   cutsceneTxt: {fileID: 2092749887}
   cutsceneNextImg: {fileID: 145164375}
   currentEvent:
-    ID: 0
-    Events: []
+    id: 0
+    events: []
 --- !u!4 &73963933
 Transform:
   m_ObjectHideFlags: 0
@@ -5269,66 +5269,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBullet:
-    Prefab: {fileID: 2192280153704162206, guid: e3533e47eb7af7049a0cd38d3c2ddce4, type: 3}
+    prefab: {fileID: 2192280153704162206, guid: e3533e47eb7af7049a0cd38d3c2ddce4, type: 3}
   playerAttackers:
-    Prefab: {fileID: 2154807210293626544, guid: e9907211ca267024c8887bfe754167b7, type: 3}
+    prefab: {fileID: 2154807210293626544, guid: e9907211ca267024c8887bfe754167b7, type: 3}
   playerExplosions:
-    Prefab: {fileID: 2154807210293626544, guid: e502bef22cc08a54295e688e2ba80666, type: 3}
+    prefab: {fileID: 2154807210293626544, guid: e502bef22cc08a54295e688e2ba80666, type: 3}
   joule:
-    Prefab: {fileID: 8792791415299830887, guid: 9462772553ccac241a9af78a94de5b3f, type: 3}
+    prefab: {fileID: 8792791415299830887, guid: 9462772553ccac241a9af78a94de5b3f, type: 3}
   betteryShard:
-    Prefab: {fileID: 8792791415299830887, guid: 561d34cba42755c4397f7b01874690d4, type: 3}
+    prefab: {fileID: 8792791415299830887, guid: 561d34cba42755c4397f7b01874690d4, type: 3}
   moduleShard:
-    Prefab: {fileID: 8792791415299830887, guid: 85034b39314d69d44ac7a43802593aa4, type: 3}
+    prefab: {fileID: 8792791415299830887, guid: 85034b39314d69d44ac7a43802593aa4, type: 3}
   overrider:
-    Prefab: {fileID: 8792791415299830887, guid: 7db0d64d7bd1b0d4baf250a3917dc382, type: 3}
+    prefab: {fileID: 8792791415299830887, guid: 7db0d64d7bd1b0d4baf250a3917dc382, type: 3}
   credit:
-    Prefab: {fileID: 8792791415299830887, guid: 5bfa6e16d42f78747805f0c480c1fa55, type: 3}
+    prefab: {fileID: 8792791415299830887, guid: 5bfa6e16d42f78747805f0c480c1fa55, type: 3}
   moduleItems:
-    Prefab: {fileID: 8792791415299830887, guid: 0fe28c02c65319a499cbd9bf935f3f8c, type: 3}
+    prefab: {fileID: 8792791415299830887, guid: 0fe28c02c65319a499cbd9bf935f3f8c, type: 3}
   keycardItems:
-    Prefab: {fileID: 8792791415299830887, guid: f8839f6fde1cb794bb8918c78a774ae5, type: 3}
+    prefab: {fileID: 8792791415299830887, guid: f8839f6fde1cb794bb8918c78a774ae5, type: 3}
   coreItems:
-    Prefab: {fileID: 8792791415299830887, guid: 398c1abb62692d74aaaf97ea9f7cc814, type: 3}
+    prefab: {fileID: 8792791415299830887, guid: 398c1abb62692d74aaaf97ea9f7cc814, type: 3}
   missileBullet:
-    Prefab: {fileID: 2192280153704162206, guid: d05f25d52068dd74988f837decc0268e, type: 3}
+    prefab: {fileID: 2192280153704162206, guid: d05f25d52068dd74988f837decc0268e, type: 3}
   baseAllyBullet:
-    Prefab: {fileID: 2192280153704162206, guid: 74c7e747206f0db4f9cd258361a5a7ae, type: 3}
+    prefab: {fileID: 2192280153704162206, guid: 74c7e747206f0db4f9cd258361a5a7ae, type: 3}
   droppingAllyBullet:
-    Prefab: {fileID: 2192280153704162206, guid: 13e2d6bacdd29ce4d963435c84ae990c, type: 3}
+    prefab: {fileID: 2192280153704162206, guid: 13e2d6bacdd29ce4d963435c84ae990c, type: 3}
   allyExplosions:
-    Prefab: {fileID: 2154807210293626544, guid: cc5f08912ea1231458da9db1522f4d10, type: 3}
+    prefab: {fileID: 2154807210293626544, guid: cc5f08912ea1231458da9db1522f4d10, type: 3}
   allyTotemes:
-    Prefab: {fileID: 2192280153704162206, guid: 384d654e20209db47ba14aac6bb038b4, type: 3}
+    prefab: {fileID: 2192280153704162206, guid: 384d654e20209db47ba14aac6bb038b4, type: 3}
   enemyBullets:
-    Prefab: {fileID: 2192280153704162206, guid: baf318852ebf135459cd69f0478fe943, type: 3}
+    prefab: {fileID: 2192280153704162206, guid: baf318852ebf135459cd69f0478fe943, type: 3}
   enemyAttackers:
-    Prefab: {fileID: 2154807210293626544, guid: e7453e73f7679b648b2dcca30557ad73, type: 3}
+    prefab: {fileID: 2154807210293626544, guid: e7453e73f7679b648b2dcca30557ad73, type: 3}
   currentStageEnemies: []
   currentStageEliteEnemies: []
   currentStageBossEnemies: []
   enemyParentTF: {fileID: 1717915347}
   enemyExplosions:
-    Prefab: {fileID: 2154807210293626544, guid: 088fa6673bd0bbf4db5b15dfe3b7037a, type: 3}
+    prefab: {fileID: 2154807210293626544, guid: 088fa6673bd0bbf4db5b15dfe3b7037a, type: 3}
   deadParticles:
-    Prefab: {fileID: 6683809427665404101, guid: d301ebd96706ca94a9feb5c0379381b5, type: 3}
+    prefab: {fileID: 6683809427665404101, guid: d301ebd96706ca94a9feb5c0379381b5, type: 3}
   afterImgs:
-    Prefab: {fileID: 6683809427665404101, guid: 988330fe6e0cc58408522442eae73b35, type: 3}
+    prefab: {fileID: 6683809427665404101, guid: 988330fe6e0cc58408522442eae73b35, type: 3}
   explosionImgs:
-    Prefab: {fileID: 6683809427665404101, guid: 988330fe6e0cc58408522442eae73b35, type: 3}
+    prefab: {fileID: 6683809427665404101, guid: 988330fe6e0cc58408522442eae73b35, type: 3}
   onlyOnceAnimators:
-    Prefab: {fileID: 5890781269332614966, guid: dee81b65873639948b499612e7d22c8f, type: 3}
+    prefab: {fileID: 5890781269332614966, guid: dee81b65873639948b499612e7d22c8f, type: 3}
   areaPointSRs:
-    Prefab: {fileID: 3144508379382086641, guid: 48e181cbe6747b44e8342029a96cc4cc, type: 3}
+    prefab: {fileID: 3144508379382086641, guid: 48e181cbe6747b44e8342029a96cc4cc, type: 3}
   dmgTxtCanvases:
-    Prefab: {fileID: 3929266293630113405, guid: 9f39834d26e7b4b42b07427807f08835, type: 3}
+    prefab: {fileID: 3929266293630113405, guid: 9f39834d26e7b4b42b07427807f08835, type: 3}
   buffIcons:
-    Prefab: {fileID: 9024960350413005352, guid: 74a854358c0cdac428b8364fc40498bb, type: 3}
+    prefab: {fileID: 9024960350413005352, guid: 74a854358c0cdac428b8364fc40498bb, type: 3}
   poolingWorldUi: {fileID: 523388470}
   moduleItem_000_Bullets:
-    Prefab: {fileID: 2192280153704162206, guid: a7676fe05b5ef5c47a2047adae42946c, type: 3}
+    prefab: {fileID: 2192280153704162206, guid: a7676fe05b5ef5c47a2047adae42946c, type: 3}
   moduleItem_001_Bullets:
-    Prefab: {fileID: 2192280153704162206, guid: 20ae9aacd832c4b46aa6d144e5080466, type: 3}
+    prefab: {fileID: 2192280153704162206, guid: 20ae9aacd832c4b46aa6d144e5080466, type: 3}
   ifMissingTF: {fileID: 77619666}
 --- !u!1 &692688832
 GameObject:

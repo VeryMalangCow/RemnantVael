@@ -1,7 +1,6 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Device;
 
 public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 {
@@ -58,10 +57,10 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
 
     #region Spawn
 
-    private T Gen_UI<T>(GameObject _UIGO, bool _OnOff)
+    private T Gen_UI<T>(GameObject uiGo, bool onOff)
     {
-        GameObject uigo = Instantiate(_UIGO, uiParent);
-        uigo.gameObject.SetActive(_OnOff);
+        GameObject uigo = Instantiate(uiGo, uiParent);
+        uigo.gameObject.SetActive(onOff);
         if (uigo.TryGetComponent(out UIController ui))
         {
             ui.Offset();

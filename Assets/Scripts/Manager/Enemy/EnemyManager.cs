@@ -52,57 +52,57 @@ public class EnemyManager : Singleton<EnemyManager>
     #region Get
 
     // 가장 가까운 적 찾기
-    public EnemyController Get_ClosestEnemy(GameObject _TargetGO)
+    public EnemyController Get_ClosestEnemy(GameObject targetGO)
     {
         if (currentEnemyList.Count == 0) return null; 
 
         return DevTool.Get_ComponentTType<EnemyController>(
             DevTool.Get_ClosetGO(
-                DevTool.Get_GOList(currentEnemyList), _TargetGO));
+                DevTool.Get_GOList(currentEnemyList), targetGO));
     }
 
-    public EnemyController Get_ClosestEnemy(GameObject _TargetGO, out float _Dis)
+    public EnemyController Get_ClosestEnemy(GameObject targetGO, out float dis)
     {
-        _Dis = 0f;
+        dis = 0f;
         if (currentEnemyList.Count == 0) return null;
 
         EnemyController result = DevTool.Get_ComponentTType<EnemyController>(
             DevTool.Get_ClosetGO(
-                DevTool.Get_GOList(currentEnemyList), _TargetGO));
+                DevTool.Get_GOList(currentEnemyList), targetGO));
 
-        _Dis = Vector2.Distance(_TargetGO.transform.position, result.gameObject.transform.position);
+        dis = Vector2.Distance(targetGO.transform.position, result.gameObject.transform.position);
         return result;
     }
 
     // 가장 먼 적 찾기
-    public EnemyController Get_FurthestEnemy(GameObject _TargetGO)
+    public EnemyController Get_FurthestEnemy(GameObject targetGO)
     {
         if (currentEnemyList.Count == 0) return null; 
 
         return DevTool.Get_ComponentTType<EnemyController>(
             DevTool.Get_FurthestGO(
-                DevTool.Get_GOList(currentEnemyList), _TargetGO));
+                DevTool.Get_GOList(currentEnemyList), targetGO));
     }
 
 
     // 일정 구역 내 모든 적 찾기 (가까운 순서대로)
-    public List<EnemyController> Get_CloserEnemies(GameObject _TargetGO, float _MaxDis)
+    public List<EnemyController> Get_CloserEnemies(GameObject targetGO, float maxDis)
     {
         if (currentEnemyList.Count == 0) return null; 
 
         return DevTool.Get_ComponentTTypeList<EnemyController>(
             DevTool.Get_CloserGOList(
-                DevTool.Get_GOList(currentEnemyList), _TargetGO, _MaxDis));
+                DevTool.Get_GOList(currentEnemyList), targetGO, maxDis));
     }
 
     // 일정 구역 외 모든 적 찾기 (먼 순서대로)
-    public List<EnemyController> Get_FurtherEnemies(GameObject _TargetGO, float _MinDis)
+    public List<EnemyController> Get_FurtherEnemies(GameObject targetGO, float minDis)
     {
         if (currentEnemyList.Count == 0) return null; 
 
         return DevTool.Get_ComponentTTypeList<EnemyController>(
            DevTool.Get_FurtherGOList(
-               DevTool.Get_GOList(currentEnemyList), _TargetGO, _MinDis));
+               DevTool.Get_GOList(currentEnemyList), targetGO, minDis));
     }
 
 
@@ -127,15 +127,15 @@ public class EnemyManager : Singleton<EnemyManager>
 
     #region Elite
 
-    public void Add_EliteEnemy(EliteEnemyController _EliteEnemy)
+    public void Add_EliteEnemy(EliteEnemyController eliteEnemy)
     {
-        DevTool.Add_InList(currentEliteEnemyList, _EliteEnemy);
+        DevTool.Add_InList(currentEliteEnemyList, eliteEnemy);
         Set_SpecialEnemyHUD();
     }
 
-    public void Remove_EliteEnemy(EliteEnemyController _EliteEnemy)
+    public void Remove_EliteEnemy(EliteEnemyController eliteEnemy)
     {
-        DevTool.Remove_InList(currentEliteEnemyList, _EliteEnemy);
+        DevTool.Remove_InList(currentEliteEnemyList, eliteEnemy);
         Set_SpecialEnemyHUD();
     }
 
@@ -143,9 +143,9 @@ public class EnemyManager : Singleton<EnemyManager>
 
     #region Boss
 
-    public void SetOn_BossEnemy(BossEnemyController _BossEnemy)
+    public void SetOn_BossEnemy(BossEnemyController bossEnemy)
     {
-        currentBossEnemy = _BossEnemy;
+        currentBossEnemy = bossEnemy;
         Set_SpecialEnemyHUD();
     }
     

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -142,11 +141,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         }
     }
 
-    private void Try_AddIWhen(ModuleState _MS)
+    private void Try_AddIWhen(ModuleState moduleState)
     {
-        if (_MS is IWhen_Hit iHit) DevTool.Add_InList(iWhen_HitList, iHit);
-        else if (_MS is IWhen_Fire iFire) DevTool.Add_InList(iWhen_FireList, iFire);
-        else if (_MS is IWhen_CriticalHit iCriticalHit) DevTool.Add_InList(iWhen_CriticalHitList, iCriticalHit);
+        if (moduleState is IWhen_Hit iHit) DevTool.Add_InList(iWhen_HitList, iHit);
+        else if (moduleState is IWhen_Fire iFire) DevTool.Add_InList(iWhen_FireList, iFire);
+        else if (moduleState is IWhen_CriticalHit iCriticalHit) DevTool.Add_InList(iWhen_CriticalHitList, iCriticalHit);
     }
 
 
@@ -160,20 +159,20 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             Try_AddIWhenSync(currentAllMainChipState[i]);
     }
 
-    private void Try_AddIWhenSync(SynchoronyState _SS)
+    private void Try_AddIWhenSync(SynchoronyState synchoronyState)
     {
-        if (_SS is IWhenSync_Start iStart) DevTool.Add_InList(iWhenSync_StartList, iStart);
+        if (synchoronyState is IWhenSync_Start iStart) DevTool.Add_InList(iWhenSync_StartList, iStart);
 
-        else if (_SS is IWhenSync_Fire iFire) DevTool.Add_InList(iWhenSync_FireList, iFire);
-        else if (_SS is IWhenSync_AfterFire iAfterFire) DevTool.Add_InList(iWhenSync_AfterFireList, iAfterFire);
+        else if (synchoronyState is IWhenSync_Fire iFire) DevTool.Add_InList(iWhenSync_FireList, iFire);
+        else if (synchoronyState is IWhenSync_AfterFire iAfterFire) DevTool.Add_InList(iWhenSync_AfterFireList, iAfterFire);
 
-        else if (_SS is IWhenSync_Hit iHit) DevTool.Add_InList(iWhenSync_HitList, iHit);
-        else if (_SS is IWhenSync_CriticalHit iCriticalHit) DevTool.Add_InList(iWhenSync_CriticalHitList, iCriticalHit);
+        else if (synchoronyState is IWhenSync_Hit iHit) DevTool.Add_InList(iWhenSync_HitList, iHit);
+        else if (synchoronyState is IWhenSync_CriticalHit iCriticalHit) DevTool.Add_InList(iWhenSync_CriticalHitList, iCriticalHit);
 
-        else if (_SS is IWhenSync_GetFire iGetFire) DevTool.Add_InList(iWhenSync_GetFireList, iGetFire);
-        else if (_SS is IWhenSync_GetCold iGetCold) DevTool.Add_InList(iWhenSync_GetColdList, iGetCold);
-        else if (_SS is IWhenSync_GetElectricity iGetElectricity) DevTool.Add_InList(iWhenSync_GetElectricityList, iGetElectricity);
-        else if (_SS is IWhenSync_GetCorrosion iGetCorrosion) DevTool.Add_InList(iWhenSync_GetCorrosionList, iGetCorrosion);
+        else if (synchoronyState is IWhenSync_GetFire iGetFire) DevTool.Add_InList(iWhenSync_GetFireList, iGetFire);
+        else if (synchoronyState is IWhenSync_GetCold iGetCold) DevTool.Add_InList(iWhenSync_GetColdList, iGetCold);
+        else if (synchoronyState is IWhenSync_GetElectricity iGetElectricity) DevTool.Add_InList(iWhenSync_GetElectricityList, iGetElectricity);
+        else if (synchoronyState is IWhenSync_GetCorrosion iGetCorrosion) DevTool.Add_InList(iWhenSync_GetCorrosionList, iGetCorrosion);
     }
 
 
@@ -213,29 +212,29 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     #region Module
 
     // 선택한 아이템의 모듈 스탯 찾기
-    public ModuleState Get_ModuleState(int _Col, int _Row)
+    public ModuleState Get_ModuleState(int col, int row)
     {
-        return allModuleData[_Col][_Row];
+        return allModuleData[col][row];
     }
 
-    public ModuleState Get_ModuleState(CoupleData<int> _Index)
+    public ModuleState Get_ModuleState(CoupleData<int> index)
     {
-        return allModuleData[_Index.typeBase][_Index.typeSpecial];
+        return allModuleData[index.typeBase][index.typeSpecial];
     }
 
-    public ModuleState Get_ModuleState(InventoryItemEUIController _ItemEUI)
+    public ModuleState Get_ModuleState(InventoryItemEUIController itemEUI)
     {
-        return allModuleData[_ItemEUI.ThisSlot.Col][_ItemEUI.ThisSlot.Row];
+        return allModuleData[itemEUI.ThisSlot.Col][itemEUI.ThisSlot.Row];
     }
 
     // 모든 아이템의 Vector값(PlayerModuleUI기준) 리스트로 가져오기
-    public List<CopyModuleState> Get_ExistModuleState(List<CopyModuleState> _ExcludeModuleState)
+    public List<CopyModuleState> Get_ExistModuleState(List<CopyModuleState> excludeModuleState)
     {
         List<CopyModuleState> result = new List<CopyModuleState>();
         List<ModuleState> excludeMsList = new List<ModuleState>();
 
-        for (int i = 0; i < _ExcludeModuleState.Count; i++)
-            excludeMsList.Add(_ExcludeModuleState[i].state);
+        for (int i = 0; i < excludeModuleState.Count; i++)
+            excludeMsList.Add(excludeModuleState[i].state);
 
         for (int i = 0; i < allModuleData.Length; i++)
         {
@@ -276,12 +275,12 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     }
 
     // 비어 있는 장착 슬롯 인덱스 찾기
-    public int Get_EmptyEquippedIndex(CoupleData<int> _Exclude)
+    public int Get_EmptyEquippedIndex(CoupleData<int> exclude)
     {
         for (int i = 0; i < equippedIndex.Length; i++)
         {
-            if (equippedIndex[i].typeBase == _Exclude.typeBase &&
-                equippedIndex[i].typeSpecial == _Exclude.typeSpecial)
+            if (equippedIndex[i].typeBase == exclude.typeBase &&
+                equippedIndex[i].typeSpecial == exclude.typeSpecial)
                 return -1;
 
             if (equippedIndex[i].typeBase == -1 && equippedIndex[i].typeSpecial == -1)
@@ -292,9 +291,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
 
     // 모든 장착 모듈 스탯 (빈 공간도 포함)
-    public ModuleState Get_EquippedModuleState(int _Index)
+    public ModuleState Get_EquippedModuleState(int index)
     {
-        CoupleData<int> colRow = equippedIndex[_Index];
+        CoupleData<int> colRow = equippedIndex[index];
         return Get_ModuleState(colRow.typeBase, colRow.typeSpecial);
     }
 
@@ -335,22 +334,22 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     #region MainChip
 
     // 메인칩 데이터 찾기
-    public MainChipData Get_CorrectMainChip(int _ID)
+    public MainChipData Get_CorrectMainChip(int id)
     {
-        return mainChipDataArr[_ID];
+        return mainChipDataArr[id];
     }
 
     // 현재 메인 칩의 양 구하기
-    public int Get_SynchronyAmount(int _ID)
+    public int Get_SynchronyAmount(int id)
     {
-        return mainChipAmalgamationDict[_ID];
+        return mainChipAmalgamationDict[id];
     }
 
     // 메인 칩의 랭크 가져오기
     // 1~3 / 4~6 / 7~9
-    public int Get_SynchronyRank(int _Amalgamation)
+    public int Get_SynchronyRank(int amalgamation)
     {
-        return Mathf.Min((_Amalgamation - 1) > 0 ? _Amalgamation / synchoronyOneTierRange : 0, synchoronyMaxLv);
+        return Mathf.Min((amalgamation - 1) > 0 ? amalgamation / synchoronyOneTierRange : 0, synchoronyMaxLv);
     }
 
     // 모든 메인 칩 딕셔너리로 메인칩스탯 리스트 반환
@@ -390,9 +389,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Sprite
 
-    public Sprite Get_CorrectItemIcon(int _ID)
+    public Sprite Get_CorrectItemIcon(int id)
     {
-        return itemDataArr[_ID].itemIcon;
+        return itemDataArr[id].itemIcon;
     }
 
     #endregion
@@ -419,19 +418,19 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Item
 
-    public static int Get_MS_ByDecomposition(ModuleState _ModuleState)
+    public static int Get_MS_ByDecomposition(ModuleState moduleState)
     {
-        return (_ModuleState.thisItemData.rank * 2);
+        return (moduleState.thisItemData.rank * 2);
     }
 
-    public static int Get_BC_ByDescomposition(ModuleState _ModuleState)
+    public static int Get_BC_ByDescomposition(ModuleState moduleState)
     {
-        return _ModuleState.thisItemData.rank;
+        return moduleState.thisItemData.rank;
     }
 
-    public static int Get_MS_ForFusion(ModuleState _ModuleState)
+    public static int Get_MS_ForFusion(ModuleState moduleState)
     {
-        return (_ModuleState.thisItemData.rank + 1);
+        return (moduleState.thisItemData.rank + 1);
     }
 
     public static int Get_MS_ForMake()
@@ -452,10 +451,10 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Inventory
 
-    public void Set_ChangeInventorySlot(CoupleData<int> _Index0, CoupleData<int> _Index1)
+    public void Set_ChangeInventorySlot(CoupleData<int> index0, CoupleData<int> index1)
     {
-        ModuleState moduleState0 = allModuleData[_Index0.typeBase][_Index0.typeSpecial];
-        ModuleState moduleState1 = allModuleData[_Index1.typeBase][_Index1.typeSpecial];
+        ModuleState moduleState0 = allModuleData[index0.typeBase][index0.typeSpecial];
+        ModuleState moduleState1 = allModuleData[index1.typeBase][index1.typeSpecial];
 
         // 기본 벨류
         int listIndex0 = -1;
@@ -464,22 +463,22 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         CoupleData<int> newIndex1 = new CoupleData<int>(-1, -1);
 
         // 모듈 스탯이 실존하고, 장착 중인 것이라면
-        if (moduleState0 != null && Is_IncludeEquipped(_Index0, out int _ListIndex0))
+        if (moduleState0 != null && Is_IncludeEquipped(index0, out int _ListIndex0))
         {
             listIndex0 = _ListIndex0;
-            newIndex0 = new CoupleData<int>(_Index1);
+            newIndex0 = new CoupleData<int>(index1);
         }
-        if (moduleState1 != null && Is_IncludeEquipped(_Index1, out int _ListIndex1))
+        if (moduleState1 != null && Is_IncludeEquipped(index1, out int _ListIndex1))
         {
             listIndex1 = _ListIndex1;
-            newIndex1 = new CoupleData<int>(_Index0);
+            newIndex1 = new CoupleData<int>(index0);
         }
 
         if (listIndex0 != -1) equippedIndex[listIndex0] = newIndex0;
         if (listIndex1 != -1) equippedIndex[listIndex1] = newIndex1;
 
-        allModuleData[_Index0.typeBase][_Index0.typeSpecial] = moduleState1;
-        allModuleData[_Index1.typeBase][_Index1.typeSpecial] = moduleState0;
+        allModuleData[index0.typeBase][index0.typeSpecial] = moduleState1;
+        allModuleData[index1.typeBase][index1.typeSpecial] = moduleState0;
 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
@@ -493,9 +492,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     #region Equip
 
     // 아이템 장착
-    public void Set_Equip(int _EquipedIndex, CoupleData<int> _InteractIndex)
+    public void Set_Equip(int equipedIndex, CoupleData<int> interactIndex)
     {
-        equippedIndex[_EquipedIndex] = _InteractIndex;
+        equippedIndex[equipedIndex] = interactIndex;
 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
         
@@ -503,9 +502,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         AllyManager.instance.Set_AllAlliesSync();
     }
 
-    public void Set_UnEquip(int _EquipedIndex)
+    public void Set_UnEquip(int equipedIndex)
     {
-        equippedIndex[_EquipedIndex] = new CoupleData<int>(-1, -1);
+        equippedIndex[equipedIndex] = new CoupleData<int>(-1, -1);
 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
 
@@ -513,11 +512,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         AllyManager.instance.Set_AllAlliesSync();
     }
 
-    public void Set_SwitchEquipment(int _ListIndex0, int _ListIndex1)
+    public void Set_SwitchEquipment(int listIndex0, int listIndex1)
     {
-        CoupleData<int> temp = new CoupleData<int>(equippedIndex[_ListIndex0]);
-        equippedIndex[_ListIndex0] = new CoupleData<int>(equippedIndex[_ListIndex1]);
-        equippedIndex[_ListIndex1] = new CoupleData<int>(temp);
+        CoupleData<int> temp = new CoupleData<int>(equippedIndex[listIndex0]);
+        equippedIndex[listIndex0] = new CoupleData<int>(equippedIndex[listIndex1]);
+        equippedIndex[listIndex1] = new CoupleData<int>(temp);
 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
@@ -529,9 +528,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     #region Decomposition
 
     // 분해 슬롯 장착
-    public void Set_DecompositionSlot(CoupleData<int> _InteractIndex)
+    public void Set_DecompositionSlot(CoupleData<int> interactIndex)
     {
-        decompositionIndex = _InteractIndex;
+        decompositionIndex = interactIndex;
     }
 
     public void Set_UnDecompositionSlot()
@@ -544,15 +543,15 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     #region Fusion
 
     // 합성
-    public void Set_FusionSlot(int _Index, CoupleData<int> _InteractIndex)
+    public void Set_FusionSlot(int index, CoupleData<int> interactIndex)
     {
-        fusionIndex[_Index] = _InteractIndex;
+        fusionIndex[index] = interactIndex;
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
     }
 
-    public void Set_UnFusionSlot(int _Index)
+    public void Set_UnFusionSlot(int index)
     {
-        fusionIndex[_Index] = new CoupleData<int>(-1, -1);
+        fusionIndex[index] = new CoupleData<int>(-1, -1);
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
     }
     public void Set_UnFusionSlotAll()
@@ -560,11 +559,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         for (int i = 0; i < fusionIndex.Length; i++)
             fusionIndex[i] = new CoupleData<int>(-1, -1);
     }
-    public void Set_SwitchFusion(int _ListIndex0, int _ListIndex1)
+    public void Set_SwitchFusion(int listIndex0, int listIndex1)
     {
-        CoupleData<int> temp = new CoupleData<int>(fusionIndex[_ListIndex0]);
-        fusionIndex[_ListIndex0] = new CoupleData<int>(fusionIndex[_ListIndex1]);
-        fusionIndex[_ListIndex1] = new CoupleData<int>(temp);
+        CoupleData<int> temp = new CoupleData<int>(fusionIndex[listIndex0]);
+        fusionIndex[listIndex0] = new CoupleData<int>(fusionIndex[listIndex1]);
+        fusionIndex[listIndex1] = new CoupleData<int>(temp);
 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_FusionUI(allModuleData, fusionIndex);
@@ -600,23 +599,23 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return false;
     }
 
-    public bool Is_EmptyFusionSlot(out int _EmptyIndex)
+    public bool Is_EmptyFusionSlot(out int emptyIndex)
     {
         for (int i = 0; i < fusionIndex.Length; i++)
         {
             if (fusionIndex[i].typeBase == -1 && fusionIndex[i].typeSpecial == -1)
             {
-                _EmptyIndex = i;
+                emptyIndex = i;
                 return true;
             }
         }
-        _EmptyIndex = -1;
+        emptyIndex = -1;
         return false;
     }
 
-    public bool Is_EmptyFusionSlot(int _Index)
+    public bool Is_EmptyFusionSlot(int index)
     {
-        if (fusionIndex[_Index].typeBase == -1 && fusionIndex[_Index].typeSpecial == -1)
+        if (fusionIndex[index].typeBase == -1 && fusionIndex[index].typeSpecial == -1)
         {
             return true;
         }
@@ -624,15 +623,15 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     }
 
     // 퓨전 스롯에 이미 가지고 있는가?
-    public bool Is_IncludeFusionSlots(CoupleData<int> _Index)
+    public bool Is_IncludeFusionSlots(CoupleData<int> index)
     {
-        return Is_Include(_Index, fusionIndex);
+        return Is_Include(index, fusionIndex);
     }
 
-    public bool Is_IncludeFusionSlots(CoupleData<int> _Index, out int _ListIndex)
+    public bool Is_IncludeFusionSlots(CoupleData<int> index, out int listIndex)
     {
-        bool result = Is_Include(_Index, fusionIndex, out int listIndex);
-        _ListIndex = listIndex;
+        bool result = Is_Include(index, fusionIndex, out int outListIndex);
+        listIndex = outListIndex;
         return result;
     }
 
@@ -666,26 +665,26 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     }
 
     // 장착된 인덱스들 중에서 포함되어있는지
-    public bool Is_IncludeOnlyEquipped(CoupleData<int> _Index)
+    public bool Is_IncludeOnlyEquipped(CoupleData<int> index)
     {
-        return Is_Include(_Index, Get_OnlyEquippedIndex());
+        return Is_Include(index, Get_OnlyEquippedIndex());
     }
 
     // 모든 장착 인덱스 중에 포함되어 있는가
-    public bool Is_IncludeEquipped(CoupleData<int> _Index, out int _ListIndex)
+    public bool Is_IncludeEquipped(CoupleData<int> index, out int listIndex)
     {
-        bool result = Is_Include(_Index, equippedIndex, out int listIndex);
-        _ListIndex = listIndex;
+        bool result = Is_Include(index, equippedIndex, out int outListIndex);
+        listIndex = outListIndex;
         return result;
     }
 
     // 이미 가지고 있는가
-    public bool Is_Include(CoupleData<int> _Index, CoupleData<int>[] _IndexList)
+    public bool Is_Include(CoupleData<int> index, CoupleData<int>[] indexList)
     {
-        for (int i = 0; i < _IndexList.Length; i++)
+        for (int i = 0; i < indexList.Length; i++)
         {
-            if (_IndexList[i].typeBase == _Index.typeBase &&
-                _IndexList[i].typeSpecial == _Index.typeSpecial)
+            if (indexList[i].typeBase == index.typeBase &&
+                indexList[i].typeSpecial == index.typeSpecial)
             {
                 return true;
             }
@@ -694,19 +693,19 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return false;
     }
 
-    public bool Is_Include(CoupleData<int> _Index, CoupleData<int>[] _IndexList, out int _IncludeListIndex)
+    public bool Is_Include(CoupleData<int> index, CoupleData<int>[] indexList, out int includeListIndex)
     {
-        for (int i = 0; i < _IndexList.Length; i++)
+        for (int i = 0; i < indexList.Length; i++)
         {
-            if (_IndexList[i].typeBase == _Index.typeBase &&
-                _IndexList[i].typeSpecial == _Index.typeSpecial)
+            if (indexList[i].typeBase == index.typeBase &&
+                indexList[i].typeSpecial == index.typeSpecial)
             {
-                _IncludeListIndex = i;
+                includeListIndex = i;
                 return true;
             }
         }
 
-        _IncludeListIndex = -1;
+        includeListIndex = -1;
         return false;
     }
 
@@ -714,9 +713,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Rank
 
-    public void Set_UpRank(CoupleData<int> _Index)
+    public void Set_UpRank(CoupleData<int> index)
     {
-        allModuleData[_Index.typeBase][_Index.typeSpecial].thisItemData.rank++;
+        allModuleData[index.typeBase][index.typeSpecial].thisItemData.rank++;
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
         Reset_Interface();
     }
@@ -725,32 +724,32 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     #region Remove
 
-    public void Remove_ModuleState(CoupleData<int> _Index)
+    public void Remove_ModuleState(CoupleData<int> index)
     {
-        if (Get_ModuleState(_Index.typeBase, _Index.typeSpecial) == null) return;
+        if (Get_ModuleState(index.typeBase, index.typeSpecial) == null) return;
 
         // 장착되어 있다면 제거
-        if (Is_IncludeEquipped(_Index, out int listIndex))
+        if (Is_IncludeEquipped(index, out int listIndex))
             equippedIndex[listIndex] = new CoupleData<int>(-1, -1);
 
-        allModuleData[_Index.typeBase][_Index.typeSpecial] = null;
+        allModuleData[index.typeBase][index.typeSpecial] = null;
 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData); 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
         Reset_Interface();
     }
 
-    public void Remove_ModuleState(List<CoupleData<int>> _IndexList)
+    public void Remove_ModuleState(List<CoupleData<int>> indexList)
     {
-        for (int i = 0; i < _IndexList.Count; i++)
+        for (int i = 0; i < indexList.Count; i++)
         {
-            if (Get_ModuleState(_IndexList[i].typeBase, _IndexList[i].typeSpecial) == null) return;
+            if (Get_ModuleState(indexList[i].typeBase, indexList[i].typeSpecial) == null) return;
             
             // 장착되어 있다면 제거
-            if (Is_IncludeEquipped(_IndexList[i], out int listIndex))
+            if (Is_IncludeEquipped(indexList[i], out int listIndex))
                 equippedIndex[listIndex] = new CoupleData<int>(-1, -1);
 
-            allModuleData[_IndexList[i].typeBase][_IndexList[i].typeSpecial] = null;
+            allModuleData[indexList[i].typeBase][indexList[i].typeSpecial] = null;
         }
 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
@@ -763,20 +762,20 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     #region Gain
 
     // 아이템 상호작용해 획득
-    public void Gain_ModuleState(ItemData_Field _ItemDataField)
+    public void Gain_ModuleState(ItemData_Field itemDataField)
     {
         // 빈 공간이 있어야 획득 가능
         CoupleData<int> index = Get_EmptyModuleState();
         if (index.typeBase == -1 || index.typeSpecial == -1) return;
        
         // 아이템 데이터 초기화
-        ModuleState newModuleState = ModuleState.Get_AllModuleState()[_ItemDataField.id];
-        newModuleState.Set_State(itemDataArr[_ItemDataField.id]);
-        newModuleState.thisItemData.rank = _ItemDataField.rank;
+        ModuleState newModuleState = ModuleState.Get_AllModuleState()[itemDataField.id];
+        newModuleState.Set_State(itemDataArr[itemDataField.id]);
+        newModuleState.thisItemData.rank = itemDataField.rank;
 
         ItemData_UIVisual stateUI = new ItemData_UIVisual(
-            Get_CorrectItemIcon(_ItemDataField.id),
-            _ItemDataField.rank);
+            Get_CorrectItemIcon(itemDataField.id),
+            itemDataField.rank);
 
         allModuleData[index.typeBase][index.typeSpecial] = newModuleState;
 
@@ -810,12 +809,12 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
 
     // Base
-    private void Active<T>(List<T> _IWhenList, EnemyController _Enemy = null) where T : IWhen
+    private void Active<T>(List<T> iWhenList, EnemyController enemy = null) where T : IWhen
     {
-        if (_IWhenList.Count <= 0) return;
+        if (iWhenList.Count <= 0) return;
 
-        for (int i = 0; i < _IWhenList.Count; i++)
-            _IWhenList[i].Play_When(_Enemy);
+        for (int i = 0; i < iWhenList.Count; i++)
+            iWhenList[i].Play_When(enemy);
     }
 
     #endregion
@@ -828,9 +827,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     }
 
 
-    public void ActiveSync_Fire(BulletController _Bullet)
+    public void ActiveSync_Fire(BulletController bullet)
     {
-        ActiveSync(iWhenSync_FireList, null, _Bullet);
+        ActiveSync(iWhenSync_FireList, null, bullet);
     }
 
     public void ActiveSync_AfterFire()
@@ -850,34 +849,34 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     }
 
 
-    public void ActiveSync_EnemyTakingFire(EnemyController _Enemy)
+    public void ActiveSync_EnemyTakingFire(EnemyController enemy)
     {
-        ActiveSync(iWhenSync_GetFireList, _Enemy);
+        ActiveSync(iWhenSync_GetFireList, enemy);
     }
 
-    public void ActiveSync_EnemyTakingCold(EnemyController _Enemy)
+    public void ActiveSync_EnemyTakingCold(EnemyController enemy)
     {
-        ActiveSync(iWhenSync_GetColdList, _Enemy);
+        ActiveSync(iWhenSync_GetColdList, enemy);
     }
 
-    public void ActiveSync_EnemyTakingElectricity(EnemyController _Enemy)
+    public void ActiveSync_EnemyTakingElectricity(EnemyController enemy)
     {
-        ActiveSync(iWhenSync_GetElectricityList, _Enemy);
+        ActiveSync(iWhenSync_GetElectricityList, enemy);
     }
 
-    public void ActiveSync_EnemyTakingCorrosion(EnemyController _Enemy)
+    public void ActiveSync_EnemyTakingCorrosion(EnemyController enemy)
     {
-        ActiveSync(iWhenSync_GetCorrosionList, _Enemy);
+        ActiveSync(iWhenSync_GetCorrosionList, enemy);
     }
 
 
     // Base
-    private void ActiveSync<T>(List<T> _IWhenList, EnemyController _Enemy = null, BulletController _Bullet = null) where T : IWhenSync
+    private void ActiveSync<T>(List<T> iWhenList, EnemyController enemy = null, BulletController bullet = null) where T : IWhenSync
     {
-        if (_IWhenList.Count <= 0) return;
+        if (iWhenList.Count <= 0) return;
 
-        for (int i = 0; i < _IWhenList.Count; i++)
-            _IWhenList[i].Play_When(_Enemy, _Bullet);
+        for (int i = 0; i < iWhenList.Count; i++)
+            iWhenList[i].Play_When(enemy, bullet);
     }
 
     #endregion
@@ -889,27 +888,27 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         return mainChipAmalgamationDict;
     }
 
-    public List<int> Get_MainChipIDData(ModuleState _ModuleState)
+    public List<int> Get_MainChipIDData(ModuleState moduleState)
     {
         return new List<int>
         {
-            _ModuleState.thisItemData.r1_MainChipID,
-            _ModuleState.thisItemData.r3_MainChipID,
-            _ModuleState.thisItemData.r5_MainChipID
+            moduleState.thisItemData.r1_MainChipID,
+            moduleState.thisItemData.r3_MainChipID,
+            moduleState.thisItemData.r5_MainChipID
         };
     }
 
-    private void Add_MainChipData(ModuleState _ModuleState)
+    private void Add_MainChipData(ModuleState moduleState)
     {
-        List<int> synergyIDList = Get_MainChipIDData(_ModuleState);
+        List<int> synergyIDList = Get_MainChipIDData(moduleState);
 
-        if (_ModuleState.thisItemData.rank >= 5)
+        if (moduleState.thisItemData.rank >= 5)
         {
             DevTool.Add_AmountForDict(ref mainChipAmalgamationDict, synergyIDList[0], 3);
             DevTool.Add_AmountForDict(ref mainChipAmalgamationDict, synergyIDList[1], 2);
             DevTool.Add_AmountForDict(ref mainChipAmalgamationDict, synergyIDList[2], 1);
         }
-        else if (_ModuleState.thisItemData.rank >= 3)
+        else if (moduleState.thisItemData.rank >= 3)
         {
             DevTool.Add_AmountForDict(ref mainChipAmalgamationDict, synergyIDList[0], 2);
             DevTool.Add_AmountForDict(ref mainChipAmalgamationDict, synergyIDList[1], 1);
@@ -940,11 +939,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         currentAllMainChipState = Get_CurrentMainChipState();
     }
 
-    public int Get_MainChipAmount(int _ID)
+    public int Get_MainChipAmount(int id)
     {
-        if (mainChipAmalgamationDict.ContainsKey(_ID))
+        if (mainChipAmalgamationDict.ContainsKey(id))
         {
-            return mainChipAmalgamationDict[_ID];
+            return mainChipAmalgamationDict[id];
         }
         else
         {

@@ -79,9 +79,9 @@ public class UnitManager : Singleton<UnitManager>
             testGO[i].gameObject.SetActive(true);
     }
 
-    public void Set_UltraModeGO(bool _OnOff)
+    public void Set_UltraModeGO(bool onOff)
     {
-        ultraModeGO.SetActive(_OnOff);
+        ultraModeGO.SetActive(onOff);
     }
 
 }

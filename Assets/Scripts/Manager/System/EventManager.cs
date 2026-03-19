@@ -89,14 +89,14 @@ public class EventManager : Singleton<EventManager>
 
     #region Event Start
 
-    public void TryStart_Event(int _ID)
+    public void TryStart_Event(int id)
     {
-        if (SaveDataManager.instance.jsonData.gameProgressData.currentProgressing + 1 == _ID)
-            Start_Event(_ID);
+        if (SaveDataManager.instance.jsonData.gameProgressData.currentProgressing + 1 == id)
+            Start_Event(id);
     }
 
     // 이벤트 시작
-    private void Start_Event(int _ID)
+    private void Start_Event(int id)
     {
         // 다른 이벤트 중이라면 취소
         if (isPlayingEvent)
@@ -104,32 +104,32 @@ public class EventManager : Singleton<EventManager>
 
         SetOn_EventOption();
 
-        currentEvent = new EventData(_ID, new List<EventElement>(ResourceManager.instance.Get_CorrectEventArr(_ID)));
+        currentEvent = new EventData(id, new List<EventElement>(ResourceManager.instance.Get_CorrectEventArr(id)));
         Play_Event();
     }
 
     // 이벤트 실행
     private void Play_Event()
     {
-        if (currentEvent.Events.Count <= 0)
+        if (currentEvent.events.Count <= 0)
         {
             SetOff_EventOption();
             return;
         }
 
-        if (currentEvent.Events[0] is EventElement_Stay stay)
+        if (currentEvent.events[0] is EventElement_Stay stay)
         { StartCoroutine(Play_Stay_Cor(stay)); }
-        else if (currentEvent.Events[0] is EventElement_Move move)
+        else if (currentEvent.events[0] is EventElement_Move move)
         { StartCoroutine(Play_Move_Cor(move)); }
-        else if (currentEvent.Events[0] is EventElement_Look look)
+        else if (currentEvent.events[0] is EventElement_Look look)
         { StartCoroutine(Play_Look_Cor(look)); }
-        else if (currentEvent.Events[0] is EventElement_BlackScreenIn blackScreenIn)
+        else if (currentEvent.events[0] is EventElement_BlackScreenIn blackScreenIn)
         { StartCoroutine(Play_BlackScreenIn_Cor(blackScreenIn)); }
-        else if (currentEvent.Events[0] is EventElement_BlackScreenOut blackScreenOut)
+        else if (currentEvent.events[0] is EventElement_BlackScreenOut blackScreenOut)
         { StartCoroutine(Play_BlackScreenOut_Cor(blackScreenOut)); }
-        else if (currentEvent.Events[0] is EventElement_Dialogue dialogue)
+        else if (currentEvent.events[0] is EventElement_Dialogue dialogue)
         { StartCoroutine(Play_Dialogue_Cor(dialogue)); }
-        else if (currentEvent.Events[0] is EventElement_Cutscene cutscene)
+        else if (currentEvent.events[0] is EventElement_Cutscene cutscene)
         { StartCoroutine(Play_Cutscene_Cor(cutscene)); }
 
         currentEvent.Remove_OnePart();
@@ -150,7 +150,7 @@ public class EventManager : Singleton<EventManager>
     private void SetOff_EventOption()
     {
         bool needSave = false;
-        switch (currentEvent.ID)
+        switch (currentEvent.id)
         {
             case 0:
                 SaveDataManager.instance.jsonData.gameProgressData.currentProgressing++;
@@ -172,16 +172,16 @@ public class EventManager : Singleton<EventManager>
     }
 
     // 인풋 => On / Off
-    public void Set_Input(bool _OnOff)
+    public void Set_Input(bool onOff)
     {
         if (isPlayingEvent) return;
 
-        Debug.Log("Input " + (_OnOff ? "On" : "Off"));
-        if (_OnOff)
+        Debug.Log("Input " + (onOff ? "On" : "Off"));
+        if (onOff)
         {
             InputManager.instance.SetOnOff_InputAction(StageManager.instance.targetStageID, true);
 
-            InputManager.instance.Set_AllPointer(_Aim: true, _Mouse: false);
+            InputManager.instance.Set_AllPointer(aim: true, mouse: false);
             InputManager.instance.canMouseInput = true;
         }
         else
@@ -196,7 +196,7 @@ public class EventManager : Singleton<EventManager>
     }
 
     // 블랙커버 위 아래 => On / Off
-    public void Set_BlackUpDownCover(bool _OnOff)
+    public void Set_BlackUpDownCover(bool onOff)
     {
         if (DOTween.IsTweening(blackUpsideRT))
         { DOTween.Kill(blackUpsideRT); }
@@ -204,7 +204,7 @@ public class EventManager : Singleton<EventManager>
         if (DOTween.IsTweening(blackDownsideRT))
         { DOTween.Kill(blackDownsideRT); }
 
-        if (_OnOff)
+        if (onOff)
         {
             blackUpsideRT.DOAnchorPosY(0, 0.3f)
                 .OnStart(() =>
@@ -237,35 +237,35 @@ public class EventManager : Singleton<EventManager>
     }
 
     // 다른 UI => On / Off
-    private void Set_AnotherUI(bool _OnOff)
+    private void Set_AnotherUI(bool onOff)
     {
-        MainGameUIManager.instance.uiParent.gameObject.SetActive(_OnOff);
+        MainGameUIManager.instance.uiParent.gameObject.SetActive(onOff);
     }
 
     #endregion
 
     #region Play (Kind of Condition)
 
-    private IEnumerator Play_Stay_Cor(EventElement_Stay _Event)
+    private IEnumerator Play_Stay_Cor(EventElement_Stay _event)
     {
         InputManager.instance.inputMoveDir = Vector2.zero; 
 
-        yield return new WaitForSeconds(_Event.TargetTime);
+        yield return new WaitForSeconds(_event.targetTime);
 
         Play_Event();
     }
 
-    private IEnumerator Play_Move_Cor(EventElement_Move _Event)
+    private IEnumerator Play_Move_Cor(EventElement_Move _event)
     {
-        Vector2 targetPos = _Event.TargetPos;
+        Vector2 targetPos = _event.targetPos;
         Vector2 dir = Vector2.zero;
 
         InputManager.instance.inputMoveDir = Vector2.zero;
-        if (_Event.TargetType != "None") // NPC 등 목표가 들어갈 부분
+        if (_event.targetType != "None") // NPC 등 목표가 들어갈 부분
         {
-            if (_Event.TargetType == "NPC") // NPC 등 목표가 들어갈 부분
+            if (_event.targetType == "NPC") // NPC 등 목표가 들어갈 부분
             {
-                NPCController npc = NPCManager.instance.Get_CorrectNPC(_Event.TargetID);
+                NPCController npc = NPCManager.instance.Get_CorrectNPC(_event.targetId);
                 if (npc != null)
                 {
                     Vector2 npcPos = npc.transform.position;
@@ -293,15 +293,15 @@ public class EventManager : Singleton<EventManager>
         Play_Event();
     }
 
-    private IEnumerator Play_Look_Cor(EventElement_Look _Event)
+    private IEnumerator Play_Look_Cor(EventElement_Look _event)
     {
         yield return new WaitForSeconds(0.5f);
 
-        InputManager.instance.dirFromPlayerPos = _Event.TargetDir;
+        InputManager.instance.dirFromPlayerPos = _event.targetDir;
 
         PlayerManager.instance.playerController.LowerController.ThisRb.velocity = Vector2.zero;
 
-        PlayerManager.instance.playerController.LowerController.Set_Rot(_Event.TargetDir);
+        PlayerManager.instance.playerController.LowerController.Set_Rot(_event.targetDir);
 
 
         yield return null;
@@ -309,50 +309,50 @@ public class EventManager : Singleton<EventManager>
         Play_Event();
     }
 
-    private IEnumerator Play_BlackScreenIn_Cor(EventElement_BlackScreenIn _Event)
+    private IEnumerator Play_BlackScreenIn_Cor(EventElement_BlackScreenIn _event)
     {
         if (DOTween.IsTweening(blackScreenImg))
         { DOTween.Kill(blackScreenImg); }
 
-        blackScreenImg.DOFade(1, _Event.TargetTime)
+        blackScreenImg.DOFade(1, _event.targetTime)
             .OnStart(() =>
             {
                 blackScreenImg.gameObject.SetActive(true);
             });
 
-        yield return new WaitForSeconds(_Event.TargetTime);
+        yield return new WaitForSeconds(_event.targetTime);
 
         Play_Event();
     }
 
-    private IEnumerator Play_BlackScreenOut_Cor(EventElement_BlackScreenOut _Event)
+    private IEnumerator Play_BlackScreenOut_Cor(EventElement_BlackScreenOut _event)
     {
         if (DOTween.IsTweening(blackScreenImg))
         { DOTween.Kill(blackScreenImg); }
 
-        blackScreenImg.DOFade(0, _Event.TargetTime)
+        blackScreenImg.DOFade(0, _event.targetTime)
             .OnComplete(() =>
             {
                 blackScreenImg.gameObject.SetActive(false);
             });
 
-        yield return new WaitForSeconds(_Event.TargetTime);
+        yield return new WaitForSeconds(_event.targetTime);
 
         Play_Event();
     }
 
-    private IEnumerator Play_Dialogue_Cor(EventElement_Dialogue _Event)
+    private IEnumerator Play_Dialogue_Cor(EventElement_Dialogue _event)
     {
-        Start_Dialogue(_Event);
+        Start_Dialogue(_event);
 
         yield return new WaitUntil(() => !isPlayingDialogue);
 
         Play_Event();
     }
 
-    private IEnumerator Play_Cutscene_Cor(EventElement_Cutscene _Event)
+    private IEnumerator Play_Cutscene_Cor(EventElement_Cutscene _event)
     {
-        Start_Cutscene(_Event);
+        Start_Cutscene(_event);
 
         yield return new WaitUntil(() => !isPlayingCutscene);
 
@@ -363,12 +363,12 @@ public class EventManager : Singleton<EventManager>
 
     #region Dialogue
 
-    private void Start_Dialogue(EventElement_Dialogue _Event)
+    private void Start_Dialogue(EventElement_Dialogue _event)
     {
         if (isPlayingDialogue) return;
 
         isPlayingDialogue = true;
-        currentDialogues = ResourceManager.instance.Get_CorrectDialogueElementList(_Event.TargetDialogueID);
+        currentDialogues = ResourceManager.instance.Get_CorrectDialogueElementList(_event.targetDialogueId);
         StartCoroutine(Play_Dialogue_Cor());
     }
 
@@ -388,7 +388,7 @@ public class EventManager : Singleton<EventManager>
             // 기본 세팅
             SideDialogueComp targetDialogueComp = null;
             SideDialogueComp noneDialogueComp = null;
-            if (currentDialogue.IsLeft)
+            if (currentDialogue.isLeft)
             { targetDialogueComp = leftDialogueComp; noneDialogueComp = rightDialogueComp; }
             else
             { targetDialogueComp = rightDialogueComp; noneDialogueComp = leftDialogueComp; }
@@ -397,16 +397,16 @@ public class EventManager : Singleton<EventManager>
             noneDialogueComp.dialogueGO.SetActive(false);
 
             // Character Img
-            string imgId = currentDialogue.ImgID.StartsWith("Player") ?
-                currentDialogue.ImgID.Replace("Player", $"Player{DevTool.Get_LengthString(PlayerManager.instance.playerController.Get_ID(), 2)}") :
-                currentDialogue.ImgID;
+            string imgId = currentDialogue.imgID.StartsWith("Player") ?
+                currentDialogue.imgID.Replace("Player", $"Player{DevTool.Get_LengthString(PlayerManager.instance.playerController.Get_ID(), 2)}") :
+                currentDialogue.imgID;
             targetDialogueComp.dialogueImg.sprite = ResourceManager.instance.Get_DialogueCharImg(imgId);
 
             // Name
-            targetDialogueComp.nameTxt.text = ReplaceNPlaceholders(currentDialogue.Name);
+            targetDialogueComp.nameTxt.text = ReplaceNPlaceholders(currentDialogue.name);
 
             // Script
-            string targetScript = Get_ProductionString(currentDialogue.Script);
+            string targetScript = Get_ProductionString(currentDialogue.script);
             targetDialogueComp.dialogueTxt.text = "";
             isScripting = true;
             scriptingTween = targetDialogueComp.dialogueTxt
@@ -454,14 +454,14 @@ public class EventManager : Singleton<EventManager>
 
     #region Cutscene
 
-    private void Start_Cutscene(EventElement_Cutscene _Event)
+    private void Start_Cutscene(EventElement_Cutscene _event)
     {
         if (isPlayingCutscene) return; 
 
-        SoundManager.instance.Play_2D_BGM_Cutscene(_Event.TargetSoundID);
+        SoundManager.instance.Play_2D_BGM_Cutscene(_event.targetSoundId);
 
         isPlayingCutscene = true;
-        currentCutscenes = ResourceManager.instance.Get_CorrectCutsceneElementList(_Event.TargetCutsceneID);
+        currentCutscenes = ResourceManager.instance.Get_CorrectCutsceneElementList(_event.targetCutsceneId);
         StartCoroutine(Play_Cutscene_Cor());
     }
 
@@ -491,14 +491,14 @@ public class EventManager : Singleton<EventManager>
             Image img = imgQueueSet.Get_T();
             img.gameObject.SetActive(true);
             img.color = new Color(1f, 1f, 1f, 0f);
-            img.sprite = ResourceManager.instance.Get_CutsceneImg(currentCutscene.ID);
+            img.sprite = ResourceManager.instance.Get_CutsceneImg(currentCutscene.id);
 
             // Script
             seq = DOTween.Sequence();
 
             cutsceneTxt.text = "";
 
-            string targetScrpit = Get_ProductionString(currentCutscene.Script);
+            string targetScrpit = Get_ProductionString(currentCutscene.script);
 
             isAppearing = true;
             seq.Join(cutsceneTxt.DOText(targetScrpit, targetScrpit.Length / 35f).SetEase(Ease.Linear));
@@ -558,9 +558,9 @@ public class EventManager : Singleton<EventManager>
 
     #region Prod. String
 
-    private string Get_ProductionString(string _String)
+    private string Get_ProductionString(string s)
     {
-        string result = _String
+        string result = s
             .Replace("<c>", ",")
             .Replace("<el>", "\n");
 
@@ -639,18 +639,18 @@ public class EventManager : Singleton<EventManager>
 [Serializable]
 public class EventData
 {
-    public int ID;
-    public List<EventElement> Events;
+    public int id;
+    public List<EventElement> events;
 
-    public EventData(int _ID, List<EventElement> _Events)
+    public EventData(int id, List<EventElement> events)
     {
-        ID = _ID;
-        Events = _Events;
+        this.id = id;
+        this.events = events;
     }
 
     public void Remove_OnePart()
     {
-        Events.Remove(Events[0]);
+        events.Remove(events[0]);
     }
 }
 
@@ -659,15 +659,15 @@ public class EventData
 [Serializable]
 public class EventID
 {
-    public int ID;
-    public int[] EventIDs;
+    public int id;
+    public int[] eventIds;
 
     public EventID() { }
 
-    public EventID(int _ID, int[] _EventIDs)
+    public EventID(int id, int[] eventIds)
     {
-        ID = _ID;
-        EventIDs = _EventIDs;
+        this.id = id;
+        this.eventIds = eventIds;
     }
 }
 
@@ -678,83 +678,83 @@ public class EventID
 [Serializable]
 public class EventElement
 {
-    public int ID;
+    public int id;
 
     public EventElement() { }
 
-    public EventElement(int _ID)
+    public EventElement(int id)
     {
-        ID = _ID;
+        this.id = id;
     }
 }
 
 [Serializable]
 public class EventElement_Stay : EventElement
 {
-    public float TargetTime;
+    public float targetTime;
 
-    public EventElement_Stay(int _ID, float _TargetTime) : base(_ID)
+    public EventElement_Stay(int id, float targetTime) : base(id)
     {
-        TargetTime = _TargetTime;
+        this.targetTime = targetTime;
     }
 }
 
 [Serializable]
 public class EventElement_Look : EventElement
 {
-    public Vector2 TargetDir;
+    public Vector2 targetDir;
 
-    public EventElement_Look(int _ID, Vector2 _TargetDir) : base(_ID)
+    public EventElement_Look(int id, Vector2 targetDir) : base(id)
     {
-        TargetDir = _TargetDir;
+        this.targetDir = targetDir;
     }
 }
 
 [Serializable]
 public class EventElement_Move : EventElement
 {
-    public int TargetID;
-    public string TargetType;
-    public Vector2 TargetPos;
+    public int targetId;
+    public string targetType;
+    public Vector2 targetPos;
 
-    public EventElement_Move(int _ID, int _TargetID, string _TargetType, Vector2 _TargetPos) : base(_ID)
+    public EventElement_Move(int id, int targetId, string targetType, Vector2 targetPos) : base(id)
     {
-        TargetID = _TargetID;
-        TargetType = _TargetType;
-        TargetPos = _TargetPos;
+        this.targetId = targetId;
+        this.targetType = targetType;
+        this.targetPos = targetPos;
     }
 }
 
 [Serializable]
 public class EventElement_BlackScreenIn : EventElement
 {
-    public float TargetTime;
+    public float targetTime;
 
-    public EventElement_BlackScreenIn(int _ID, float _TargetTime) : base(_ID)
+    public EventElement_BlackScreenIn(int id, float targetTime) : base(id)
     {
-        TargetTime = _TargetTime;
+        this.targetTime = targetTime;
     }
 }
 
 [Serializable]
 public class EventElement_BlackScreenOut : EventElement
 {
-    public float TargetTime;
+    public float targetTime;
 
-    public EventElement_BlackScreenOut(int _ID, float _TargetTime) : base(_ID)
+    public EventElement_BlackScreenOut(int id, float targetTime) : base(id)
     {
-        TargetTime = _TargetTime;
+        this.targetTime = targetTime;
     }
 }
 
 [Serializable]
 public class EventElement_Dialogue : EventElement
 {
-    public int TargetDialogueID;
+    public int targetDialogueId;
 
-    public EventElement_Dialogue(int _ID, int _TargetID) : base(_ID)
+    public EventElement_Dialogue(int id, int targetId) : base(id)
     {
-        TargetDialogueID = _TargetID;
+        targetDialogueId = targetId;
     }
     
 }
@@ -762,13 +762,13 @@ public class EventElement_Dialogue : EventElement
 [Serializable]
 public class EventElement_Cutscene : EventElement
 {
-    public int TargetCutsceneID;
-    public int TargetSoundID;
+    public int targetCutsceneId;
+    public int targetSoundId;
 
-    public EventElement_Cutscene(int _ID, int _TargetID, int _TargetSoundID) : base(_ID)
+    public EventElement_Cutscene(int id, int targetCutsceneId, int targetSoundId) : base(id)
     {
-        TargetCutsceneID = _TargetID;
-        TargetSoundID = _TargetSoundID;
+        this.targetCutsceneId = targetCutsceneId;
+        this.targetSoundId = targetSoundId;
     }
 }
 
@@ -780,26 +780,26 @@ public class EventElement_Cutscene : EventElement
 [Serializable]
 public class CutsceneID
 {
-    public int ID;
-    public int[] Cutscenes;
+    public int id;
+    public int[] cutscenes;
 
-    public CutsceneID(int _ID, int[] _Cutscenes)
+    public CutsceneID(int id, int[] cutscenes)
     {
-        ID = _ID;
-        Cutscenes = _Cutscenes;
+        this.id = id;
+        this.cutscenes = cutscenes;
     }
 }
 
 [Serializable]
 public class CutsceneElement
 {
-    public int ID;
-    public string Script;
+    public int id;
+    public string script;
 
-    public CutsceneElement(int _ID, string _Script)
+    public CutsceneElement(int id, string script)
     {
-        ID = _ID;
-        Script = _Script;
+        this.id = id;
+        this.script = script;
     }
 }
 
@@ -810,32 +810,32 @@ public class CutsceneElement
 [Serializable]
 public class DialogueID
 {
-    public int ID;
-    public int[] Dialogus;
+    public int id;
+    public int[] dialogus;
 
     public DialogueID(int _ID, int[] _Dialogus)
     {
-        ID = _ID;
-        Dialogus = _Dialogus;
+        id = _ID;
+        dialogus = _Dialogus;
     }
 }
 
 [Serializable]
 public class DialogueElement
 {
-    public int ID;
-    public string Name;
-    public string Script;
-    public string ImgID;
-    public bool IsLeft;
+    public int id;
+    public string name;
+    public string script;
+    public string imgID;
+    public bool isLeft;
 
-    public DialogueElement(int _ID, string _Name, string _Script, string _ImgID, bool _IsLeft)
+    public DialogueElement(int id, string name, string script, string imgId, bool isLeft)
     {
-        ID = _ID;
-        Name = _Name;
-        Script = _Script;
-        ImgID = _ImgID;
-        IsLeft = _IsLeft;
+        this.id = id;
+        this.name = name;
+        this.script = script;
+        imgID = imgId;
+        this.isLeft = isLeft;
     }
 }
 

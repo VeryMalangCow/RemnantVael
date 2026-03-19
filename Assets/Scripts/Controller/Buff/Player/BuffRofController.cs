@@ -1,6 +1,5 @@
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BuffRofController : BuffController
 {
@@ -58,19 +57,19 @@ public class BuffRofController : BuffController
 
     #region Set
 
-    public void Set_Value(float _Value)
+    public void Set_Value(float value)
     {
-        multiple.baseValue = _Value;
+        multiple.baseValue = value;
     }
 
-    public void Set_MaxChargeValue(int _Value)
+    public void Set_MaxChargeValue(int value)
     {
-        maxBuffCharge = _Value;
+        maxBuffCharge = value;
     }
 
-    public void Set_CoolTimeValue(float _Value)
+    public void Set_CoolTimeValue(float value)
     {
-        maxDurTime = _Value;
+        maxDurTime = value;
     }
 
     #endregion

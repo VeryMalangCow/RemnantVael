@@ -11,9 +11,9 @@ public class NPCManager : Singleton<NPCManager>
 
     #region Get
 
-    public NPCController Get_CorrectNPC(int _ID)
+    public NPCController Get_CorrectNPC(int id)
     {
-        return IDController.Get_CorrectIDObject<NPCController>(_ID, new List<IDController>(allNpcs));
+        return IDController.Get_CorrectIDObject<NPCController>(id, new List<IDController>(allNpcs));
     }
 
     #endregion

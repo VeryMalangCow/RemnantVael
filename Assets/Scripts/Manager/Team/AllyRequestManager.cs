@@ -47,14 +47,14 @@ public class AllyRequestManager : Singleton<AllyRequestManager>
 
     #region Add
 
-    public void Add_RequestComplete<T>(string _Name, T _Data) where T : IWhen_Request
+    public void Add_RequestComplete<T>(string name, T data) where T : IWhen_Request
     {
-        DevTool.Add_InList(Get_CorrectCompleteList<T>(_Name).list, _Data);
+        DevTool.Add_InList(Get_CorrectCompleteList<T>(name).list, data);
     }
 
-    public void Add_RequestFail<T>(string _Name, T _Data) where T : IWhen_Fail
+    public void Add_RequestFail<T>(string name, T data) where T : IWhen_Fail
     {
-        DevTool.Add_InList(Get_CorrectFailList<T>(_Name).list, _Data);
+        DevTool.Add_InList(Get_CorrectFailList<T>(name).list, data);
     }
 
 
@@ -62,29 +62,29 @@ public class AllyRequestManager : Singleton<AllyRequestManager>
 
     #region Remove
 
-    public void Remove_RequestComplete<T>(string _Name, T _Data) where T : IWhen_Request
+    public void Remove_RequestComplete<T>(string name, T data) where T : IWhen_Request
     {
-        AllyCompleteList<T> listData = Get_CorrectCompleteList<T>(_Name);
-        DevTool.Remove_InList(listData.list, _Data);
+        AllyCompleteList<T> listData = Get_CorrectCompleteList<T>(name);
+        DevTool.Remove_InList(listData.list, data);
     }
 
-    public void Remove_RequestFail<T>(string _Name, T _Data) where T : IWhen_Fail
+    public void Remove_RequestFail<T>(string name, T data) where T : IWhen_Fail
     {
-        AllyFailList<T> listData = Get_CorrectFailList<T>(_Name);
-        DevTool.Remove_InList(listData.list, _Data);
+        AllyFailList<T> listData = Get_CorrectFailList<T>(name);
+        DevTool.Remove_InList(listData.list, data);
     }
 
     #endregion
 
     #region Get
 
-    private AllyCompleteList<T> Get_CorrectCompleteList<T>(string _Name) where T : IWhen_Request
+    private AllyCompleteList<T> Get_CorrectCompleteList<T>(string name) where T : IWhen_Request
     {
-        return DevTool.Can_CastingTType(completeDict[_Name], out AllyCompleteList<T> allyRequest) ? allyRequest : null;
+        return DevTool.Can_CastingTType(completeDict[name], out AllyCompleteList<T> allyRequest) ? allyRequest : null;
     }
-    private AllyFailList<T> Get_CorrectFailList<T>(string _Name) where T : IWhen_Fail
+    private AllyFailList<T> Get_CorrectFailList<T>(string name) where T : IWhen_Fail
     {
-        return DevTool.Can_CastingTType(failDict[_Name], out AllyFailList<T> allyRequest) ? allyRequest : null;
+        return DevTool.Can_CastingTType(failDict[name], out AllyFailList<T> allyRequest) ? allyRequest : null;
     }
 
     #endregion

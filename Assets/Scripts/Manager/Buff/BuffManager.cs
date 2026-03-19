@@ -52,26 +52,26 @@ public class BuffManager : Singleton<BuffManager>
     #region Buff
 
     // 버프 획득 (증가)
-    public void Gain_Buff(int _ID)
+    public void Gain_Buff(int id)
     {
-        BuffController correctBuff = Get_CorrectBuff(_ID);
+        BuffController correctBuff = Get_CorrectBuff(id);
 
         if (correctBuff != null) correctBuff.Gain_Buff(); 
         
     }
 
     // 버프 사용 (감소)
-    public void Reduce_Buff(int _ID)
+    public void Reduce_Buff(int id)
     {
-        BuffController correctBuff = Get_CorrectBuff(_ID);
+        BuffController correctBuff = Get_CorrectBuff(id);
 
         if (correctBuff != null) correctBuff.Reduct_Buff();
     }
 
     // 버프 종료
-    public void End_Buff(int _ID)
+    public void End_Buff(int id)
     {
-        BuffController correctBuff = Get_CorrectBuff(_ID);
+        BuffController correctBuff = Get_CorrectBuff(id);
 
         if (correctBuff != null) correctBuff.End_Buff();
     }
@@ -80,9 +80,9 @@ public class BuffManager : Singleton<BuffManager>
 
     #region Get
 
-    public BuffController Get_CorrectBuff(int _ID)
+    public BuffController Get_CorrectBuff(int id)
     {
-        return IDController.Get_CorrectIDObject(_ID, new Dictionary<int, BuffController>(allBuffDict));
+        return IDController.Get_CorrectIDObject(id, new Dictionary<int, BuffController>(allBuffDict));
     }
 
     #endregion

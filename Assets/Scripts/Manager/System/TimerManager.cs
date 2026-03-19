@@ -19,9 +19,9 @@ public class TimerManager : Singleton<TimerManager>
 
     #region Timer
 
-    private void Caculate_TotemeTimer(float _DeltaTime)
+    private void Caculate_TotemeTimer(float deltaTime)
     {
-        if (totemeTimer.Is_Full(_DeltaTime))
+        if (totemeTimer.Is_Full(deltaTime))
         {
             for (int i = 0; i < allTotemeList.Count; i++)
             {
@@ -34,14 +34,14 @@ public class TimerManager : Singleton<TimerManager>
 
     #region List
 
-    public void Add_Toteme(TotemeController _Toteme)
+    public void Add_Toteme(TotemeController toteme)
     {
-        DevTool.Add_InList(allTotemeList, _Toteme);    
+        DevTool.Add_InList(allTotemeList, toteme);    
     }
 
-    public void Remove_Toteme(TotemeController _Toteme)
+    public void Remove_Toteme(TotemeController toteme)
     {
-        DevTool.Remove_InList(allTotemeList, _Toteme);
+        DevTool.Remove_InList(allTotemeList, toteme);
     }
 
     #endregion

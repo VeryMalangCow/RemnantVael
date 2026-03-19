@@ -595,7 +595,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         List<EventElement> result = new List<EventElement>();
 
-        int[] ids = eventID_Data[id].EventIDs;
+        int[] ids = eventID_Data[id].eventIds;
 
         for (int i = 0; i < ids.Length; i++)
         {
@@ -679,7 +679,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         List<CutsceneElement> result = new List<CutsceneElement>();
 
-        int[] ids = cutsceneID_Data[id].Cutscenes;
+        int[] ids = cutsceneID_Data[id].cutscenes;
 
         for (int i = 0; i < ids.Length; i++)
         {
@@ -782,7 +782,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     {
         List<DialogueElement> result = new List<DialogueElement>();
 
-        int[] IDs = dialogueID_Data[id].Dialogus;
+        int[] IDs = dialogueID_Data[id].dialogus;
 
         for (int i = 0; i < IDs.Length; i++)
         {

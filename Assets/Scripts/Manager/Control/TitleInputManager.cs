@@ -127,15 +127,15 @@ public class TitleInputManager : Singleton<TitleInputManager>
 
     #region Title UI
 
-    private void Input_TU_Select(InputAction.CallbackContext _InputValue)
+    private void Input_TU_Select(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             TitleLobbyUIManager.instance.titleLobby_UIController.Try_Interact();
     }
 
-    private void Input_TU_OutPanel(InputAction.CallbackContext _InputValue)
+    private void Input_TU_OutPanel(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             TitleLobbyUIManager.instance.titleLobby_UIController.Try_OutInteract();
     }
 

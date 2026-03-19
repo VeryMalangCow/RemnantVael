@@ -40,7 +40,7 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
         { ST_CardActivityList, UT_CardActivityList, NT_CardActivityList };
     }
 
-    public List<ActivityFuncDele> Init_DelegateList(string _MethodPrefix)
+    public List<ActivityFuncDele> Init_DelegateList(string methodPrefix)
     {
         List<ActivityFuncDele> delegateList = new List<ActivityFuncDele>();
 
@@ -49,12 +49,12 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
         // 대상 메서드 필터링 및 정렬
         var filteredMethods = methods
             .Where(method =>
-                method.Name.StartsWith(_MethodPrefix) &&
+                method.Name.StartsWith(methodPrefix) &&
                 method.ReturnType == typeof(void) &&
                 method.GetParameters().Length == 0)
             .OrderBy(method =>
             {
-                string numberPart = method.Name.Substring(_MethodPrefix.Length);
+                string numberPart = method.Name.Substring(methodPrefix.Length);
                 return int.TryParse(numberPart, out int result) ? result : int.MaxValue;
             });
 
@@ -90,15 +90,15 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
 
     #region Set
 
-    public void Action_CorrectCardActivity(int _TypeID, int _CardID)
+    public void Action_CorrectCardActivity(int typeId, int cardId)
     {
-        if (_CardID == -1) return;
+        if (cardId == -1) return;
 
-        allActivityFuncList[_TypeID][_CardID]();
+        allActivityFuncList[typeId][cardId]();
 
-        if (_TypeID == 0) Debug.Log($"ST_{_CardID} 카드");
-        else if (_TypeID == 0) Debug.Log($"UT_{_CardID} 카드");
-        else Debug.Log($"NT_{_CardID} 카드");
+        if (typeId == 0) Debug.Log($"ST_{cardId} 카드");
+        else if (typeId == 0) Debug.Log($"UT_{cardId} 카드");
+        else Debug.Log($"NT_{cardId} 카드");
     }
 
     #endregion
@@ -146,9 +146,9 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
 
-    private void Upgrade_Dmg(float _Value)
+    private void Upgrade_Dmg(float value)
     {
-        AllyManager.instance.Set_StateDmg(_Value);
+        AllyManager.instance.Set_StateDmg(value);
     }
 
     #endregion
@@ -177,9 +177,9 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
 
-    private void Upgrade_Rof(float _Value)
+    private void Upgrade_Rof(float value)
     {
-        AllyManager.instance.Set_StateRof(_Value);
+        AllyManager.instance.Set_StateRof(value);
     }
 
     #endregion
@@ -208,9 +208,9 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
 
-    private void Upgrade_Movement(float _Value)
+    private void Upgrade_Movement(float value)
     {
-        AllyManager.instance.Set_StateMovementSpeed(_Value);
+        AllyManager.instance.Set_StateMovementSpeed(value);
     }
 
     #endregion
@@ -239,9 +239,9 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
 
-    private void Upgrade_AttackSize(float _Value)
+    private void Upgrade_AttackSize(float value)
     {
-        AllyManager.instance.Set_StateAttackSize(_Value);
+        AllyManager.instance.Set_StateAttackSize(value);
     }
 
     #endregion
@@ -270,9 +270,9 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
 
-    private void Upgrade_CC(float _Value)
+    private void Upgrade_CC(float value)
     {
-        AllyManager.instance.Set_StateCC(_Value);
+        AllyManager.instance.Set_StateCC(value);
     }
 
     #endregion
@@ -301,9 +301,9 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
 
-    private void Upgrade_CD(float _Value)
+    private void Upgrade_CD(float value)
     {
-        AllyManager.instance.Set_StateCD(_Value);
+        AllyManager.instance.Set_StateCD(value);
     }
 
     #endregion
@@ -332,9 +332,9 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
 
-    private void Upgrade_Muzzle(float _Value)
+    private void Upgrade_Muzzle(float value)
     {
-        AllyManager.instance.Set_StateMuzzleSpeed(_Value);
+        AllyManager.instance.Set_StateMuzzleSpeed(value);
     }
 
     #endregion
@@ -456,9 +456,9 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     }
 
 
-    private void BoosterUpgrade(int _BoostLv)
+    private void BoosterUpgrade(int boostLv)
     {
-        PlayerManager.instance.playerController.CurrentBoostLv.Value = _BoostLv;
+        PlayerManager.instance.playerController.CurrentBoostLv.Value = boostLv;
     }
 
     #endregion
@@ -469,10 +469,10 @@ public class AllyCardActivityManager : Singleton<AllyCardActivityManager>
     #region Unique
 
     // Ally 생성
-    private void SpawnAlly(GameObject _AllyPrefab)
+    private void SpawnAlly(GameObject allyPrefab)
     {
         AllyController ally = DevTool.Get_ComponentTType<AllyController>(
-            Instantiate(_AllyPrefab, allyParentTF));
+            Instantiate(allyPrefab, allyParentTF));
 
         ally.Set_SpawnFirst();
     }

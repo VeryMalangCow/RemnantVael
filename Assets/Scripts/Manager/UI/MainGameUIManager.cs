@@ -149,11 +149,11 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     #region Gen
 
-    private T Gen_UI<T>(GameObject _UIGO, bool _OnOff)
+    private T Gen_UI<T>(GameObject uiGo, bool onOff)
     {
-        GameObject uigo = Instantiate(_UIGO, uiParent);
+        GameObject uigo = Instantiate(uiGo, uiParent);
 
-        uigo.gameObject.SetActive(_OnOff);
+        uigo.gameObject.SetActive(onOff);
         if (DevTool.Get_ComponentTType(uigo, out UIController uiController) &&
             DevTool.Get_ComponentTType(uigo, out Canvas uiCanvas))
         {
@@ -204,14 +204,14 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     #region Fade
 
-    public Sequence Play_FadeOut(float _DurTime) // ¹à¾ÆÁü
+    public Sequence Play_FadeOut(float durTime) // ¹à¾ÆÁü
     {
         Sequence seq = DOTween.Sequence();
 
         screenCanvas.gameObject.SetActive(true);
 
-        seq.Append(screenCG.DOFade(0f, _DurTime));
-        seq.Join(playerHUD_UIController.ThisCG.DOFade(1f, _DurTime));
+        seq.Append(screenCG.DOFade(0f, durTime));
+        seq.Join(playerHUD_UIController.ThisCG.DOFade(1f, durTime));
 
         seq.OnStart(() =>
         {
@@ -227,14 +227,14 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         return seq;
     }
 
-    public Sequence Play_FadeIn(float _DurTime) // ¾îµÎ¿öÁü
+    public Sequence Play_FadeIn(float durTime) // ¾îµÎ¿öÁü
     {
         Sequence seq = DOTween.Sequence();
 
         screenCanvas.gameObject.SetActive(true);
 
-        seq.Append(screenCG.DOFade(1f, _DurTime));
-        seq.Join(playerHUD_UIController.ThisCG.DOFade(0f, _DurTime));
+        seq.Append(screenCG.DOFade(1f, durTime));
+        seq.Join(playerHUD_UIController.ThisCG.DOFade(0f, durTime));
 
         seq.OnStart(() =>
         {
@@ -253,13 +253,13 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
 
     #region Loading
 
-    public Sequence Play_OnLoadingIcon(float _DurTime) // ³ªÅ¸³ª±â
+    public Sequence Play_OnLoadingIcon(float durTime) // ³ªÅ¸³ª±â
     {
         Sequence seq = DOTween.Sequence();
 
         loadingIconCanvas.gameObject.SetActive(true);
 
-        seq.Append(loadingIconCG.DOFade(1f, _DurTime));
+        seq.Append(loadingIconCG.DOFade(1f, durTime));
 
         seq.OnStart(() =>
         {
@@ -274,13 +274,13 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         return seq;
     }
 
-    public Sequence Play_OffLoadingIcon(float _DurTime) // »ç¶óÁö±â
+    public Sequence Play_OffLoadingIcon(float durTime) // »ç¶óÁö±â
     {
         Sequence seq = DOTween.Sequence();
 
         loadingIconCanvas.gameObject.SetActive(true);
 
-        seq.Append(loadingIconCG.DOFade(0f, _DurTime));
+        seq.Append(loadingIconCG.DOFade(0f, durTime));
 
         seq.OnStart(() =>
         {
@@ -329,21 +329,21 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         StartCoroutine(Play_DeadProd_Cor());
     }
 
-    private IEnumerator Play_DeadProd_Cor(float _FadeInTime = 2f, float _TxtFadeInTime = 1f, float _StayTime = 2f)
+    private IEnumerator Play_DeadProd_Cor(float fadeInTime = 2f, float txtFadeInTime = 1f, float stayTime = 2f)
     {
         EventManager.instance.Set_Input(false);
-        Play_FadeIn(_FadeInTime);
+        Play_FadeIn(fadeInTime);
 
-        yield return new WaitForSeconds(_FadeInTime);
+        yield return new WaitForSeconds(fadeInTime);
 
-        deadTxt.DOFade(1f, _TxtFadeInTime);
-        DOTween.To(() => deadTxt.characterSpacing, x => deadTxt.characterSpacing = x, 20, _TxtFadeInTime);
+        deadTxt.DOFade(1f, txtFadeInTime);
+        DOTween.To(() => deadTxt.characterSpacing, x => deadTxt.characterSpacing = x, 20, txtFadeInTime);
 
-        yield return new WaitForSeconds(_TxtFadeInTime + _StayTime);
+        yield return new WaitForSeconds(txtFadeInTime + stayTime);
 
-        deadTxt.DOFade(0f, _TxtFadeInTime);
+        deadTxt.DOFade(0f, txtFadeInTime);
 
-        yield return new WaitForSeconds(_TxtFadeInTime);
+        yield return new WaitForSeconds(txtFadeInTime);
 
         LoadingSceneManager.instance.Play_LoadScene("MainGame");
     }
@@ -354,23 +354,23 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         StartCoroutine(Play_EndGameProd_Cor());
     }
 
-    private IEnumerator Play_EndGameProd_Cor(float _FadeInTime = 2f, float _TxtFadeInTime = 1f, float _StayTime = 2f)
+    private IEnumerator Play_EndGameProd_Cor(float fadeInTime = 2f, float txtFadeInTime = 1f, float stayTime = 2f)
     {
         yield return new WaitForSeconds(0.5f);
 
         EventManager.instance.Set_Input(false);
-        Play_FadeIn(_FadeInTime);
+        Play_FadeIn(fadeInTime);
 
-        yield return new WaitForSeconds(_FadeInTime);
+        yield return new WaitForSeconds(fadeInTime);
 
-        endGameTxt.DOFade(1f, _TxtFadeInTime);
-        DOTween.To(() => endGameTxt.characterSpacing, x => endGameTxt.characterSpacing = x, 20, _TxtFadeInTime);
+        endGameTxt.DOFade(1f, txtFadeInTime);
+        DOTween.To(() => endGameTxt.characterSpacing, x => endGameTxt.characterSpacing = x, 20, txtFadeInTime);
 
-        yield return new WaitForSeconds(_TxtFadeInTime + _StayTime);
+        yield return new WaitForSeconds(txtFadeInTime + stayTime);
 
-        endGameTxt.DOFade(0f, _TxtFadeInTime);
+        endGameTxt.DOFade(0f, txtFadeInTime);
 
-        yield return new WaitForSeconds(_TxtFadeInTime);
+        yield return new WaitForSeconds(txtFadeInTime);
 
         LoadingSceneManager.instance.Play_LoadScene("TitleLobby");
     }

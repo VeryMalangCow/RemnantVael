@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -74,47 +73,47 @@ public class PoolingManager : Singleton<PoolingManager>
     public void Remove_AllQueue()
     {
         // Player
-        playerBullet.Queue.Clear();
-        playerAttackers.Queue.Clear();
+        playerBullet.queue.Clear();
+        playerAttackers.queue.Clear();
 
         // Player_00
-        missileBullet.Queue.Clear();
+        missileBullet.queue.Clear();
 
         // Item
-        joule.Queue.Clear();
-        betteryShard.Queue.Clear();
-        moduleShard.Queue.Clear();
-        overrider.Queue.Clear();
-        credit.Queue.Clear();
-        moduleItems.Queue.Clear();
+        joule.queue.Clear();
+        betteryShard.queue.Clear();
+        moduleShard.queue.Clear();
+        overrider.queue.Clear();
+        credit.queue.Clear();
+        moduleItems.queue.Clear();
 
         // Ally Attack
-        baseAllyBullet.Queue.Clear();
-        droppingAllyBullet.Queue.Clear();
+        baseAllyBullet.queue.Clear();
+        droppingAllyBullet.queue.Clear();
 
         // Enemy Attack
-        enemyBullets.Queue.Clear();
-        enemyAttackers.Queue.Clear();
+        enemyBullets.queue.Clear();
+        enemyAttackers.queue.Clear();
 
         // Enemy
         for (int i = 0; i < currentStageEnemies.Count; i++)
-            currentStageEnemies[i].Queue.Clear();
+            currentStageEnemies[i].queue.Clear();
         for (int i = 0; i < currentStageEliteEnemies.Count; i++)
-            currentStageEliteEnemies[i].Queue.Clear();
+            currentStageEliteEnemies[i].queue.Clear();
         for (int i = 0; i < currentStageBossEnemies.Count; i++)
-            currentStageBossEnemies[i].Queue.Clear();
+            currentStageBossEnemies[i].queue.Clear();
 
         EnemyManager.instance.Remove_PoolingAllEnemy();
 
         // VFX
-        afterImgs.Queue.Clear();
-        explosionImgs.Queue.Clear();
-        onlyOnceAnimators.Queue.Clear();
-        deadParticles.Queue.Clear();
+        afterImgs.queue.Clear();
+        explosionImgs.queue.Clear();
+        onlyOnceAnimators.queue.Clear();
+        deadParticles.queue.Clear();
 
         // Module Sync
-        moduleItem_000_Bullets.Queue.Clear();
-        moduleItem_001_Bullets.Queue.Clear();
+        moduleItem_000_Bullets.queue.Clear();
+        moduleItem_001_Bullets.queue.Clear();
     }
 
     #endregion
@@ -122,17 +121,17 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Get
 
     // Object (Single)
-    public T Get_OP<T>(TTypePooling<T> _Pooling)
+    public T Get_OP<T>(TTypePooling<T> pooling)
     {
-        return Get_OP(_Pooling.Prefab, _Pooling.Queue);
+        return Get_OP(pooling.prefab, pooling.queue);
     }
 
-    private T Get_OP<T>(GameObject _SpawnGO, Queue<T> _Queue)
+    private T Get_OP<T>(GameObject spawnGO, Queue<T> queue)
     {
         // No Object
-        if (_Queue.Count <= 0)
+        if (queue.Count <= 0)
         {
-            GameObject GenGO = Instantiate(_SpawnGO);
+            GameObject GenGO = Instantiate(spawnGO);
             GenGO.TryGetComponent(out T typeClass);
             GenGO.SetActive(false);
 
@@ -140,27 +139,27 @@ public class PoolingManager : Singleton<PoolingManager>
         }
         else
         {
-            T getTypeClass = _Queue.Dequeue();
+            T getTypeClass = queue.Dequeue();
 
             return getTypeClass;
         }
     }
 
     // List
-    public List<T> Get_OP_List<T>(TTypePooling<T> _Pooling, int _Amount)
+    public List<T> Get_OP_List<T>(TTypePooling<T> pooling, int amount)
     {
-        return Get_OP_List(_Pooling.Prefab, _Pooling.Queue, _Amount);
+        return Get_OP_List(pooling.prefab, pooling.queue, amount);
     }
 
-    public List<T> Get_OP_List<T>(GameObject _SpawnGO, Queue<T> _Queue, int _Amount)
+    public List<T> Get_OP_List<T>(GameObject spawnGO, Queue<T> queue, int amount)
     {
         List<T> tTypeList = new List<T>();
 
-        if (_Queue.Count < _Amount) // Queue 내에 오브젝트가 부족하다면
+        if (queue.Count < amount) // Queue 내에 오브젝트가 부족하다면
         {
-            for (int i = 0; i < _Amount; i++)
+            for (int i = 0; i < amount; i++)
             {
-                GameObject GenGO = Instantiate(_SpawnGO);
+                GameObject GenGO = Instantiate(spawnGO);
                 GenGO.TryGetComponent(out T typeClass);
                 GenGO.SetActive(false);
 
@@ -169,9 +168,9 @@ public class PoolingManager : Singleton<PoolingManager>
         }
         else // Queue 내에 오브젝트가 충분하다면
         {
-            for (int i = 0; i < _Amount; i++)
+            for (int i = 0; i < amount; i++)
             {
-                tTypeList.Add(_Queue.Dequeue());
+                tTypeList.Add(queue.Dequeue());
             }
         }
 
@@ -183,18 +182,18 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Ally
 
     public AllyBulletController Get_OP_AllyBullet()
-        => Get_OP(baseAllyBullet.Prefab, baseAllyBullet.Queue);
+        => Get_OP(baseAllyBullet.prefab, baseAllyBullet.queue);
     
     public AllyDroppingBombController Get_OP_DroppingAllyBullet()
-        => Get_OP(droppingAllyBullet.Prefab, droppingAllyBullet.Queue);
+        => Get_OP(droppingAllyBullet.prefab, droppingAllyBullet.queue);
     
 
     public AllyExplosionController Get_OP_AllyExplosion()
-        => Get_OP(allyExplosions.Prefab, allyExplosions.Queue);
+        => Get_OP(allyExplosions.prefab, allyExplosions.queue);
     
 
     public AllyTotemeController Get_OP_AllyToteme()
-        => Get_OP(allyTotemes.Prefab, allyTotemes.Queue);
+        => Get_OP(allyTotemes.prefab, allyTotemes.queue);
     
 
     #endregion
@@ -203,21 +202,21 @@ public class PoolingManager : Singleton<PoolingManager>
 
     // Player Bullet
     public PlayerBulletController Get_OP_PlayerBullet()
-        => Get_OP(playerBullet.Prefab, playerBullet.Queue);
+        => Get_OP(playerBullet.prefab, playerBullet.queue);
     
-    public List<PlayerBulletController> Get_OP_PlayerBullet(int _Amount)
-        => Get_OP_List(playerBullet.Prefab, playerBullet.Queue, _Amount);
+    public List<PlayerBulletController> Get_OP_PlayerBullet(int amount)
+        => Get_OP_List(playerBullet.prefab, playerBullet.queue, amount);
     
 
 
     // Player Attacker
     public PlayerAttackerController Get_OP_PlayerAttacker()
-        => Get_OP(playerAttackers.Prefab, playerAttackers.Queue);
+        => Get_OP(playerAttackers.prefab, playerAttackers.queue);
     
 
     // Player Explosion
     public PlayerExplosionController Get_OP_PlayerExplosion()
-        => Get_OP(playerExplosions.Prefab, playerExplosions.Queue);
+        => Get_OP(playerExplosions.prefab, playerExplosions.queue);
     
 
     #endregion
@@ -226,42 +225,42 @@ public class PoolingManager : Singleton<PoolingManager>
 
     // Joule
     public JouleController Get_OP_Joule()
-        => Get_OP(joule.Prefab, joule.Queue);
+        => Get_OP(joule.prefab, joule.queue);
     
 
     // Bettery Shard
     public BetteryShardController Get_OP_BetteryShard()
-        => Get_OP(betteryShard.Prefab, betteryShard.Queue);
+        => Get_OP(betteryShard.prefab, betteryShard.queue);
     
 
     // Module Shard
     public ModuleShardController Get_OP_ModuleShard()
-        => Get_OP(moduleShard.Prefab, moduleShard.Queue);
+        => Get_OP(moduleShard.prefab, moduleShard.queue);
     
 
     // Overrider
     public OverriderController Get_OP_Overrider()
-        => Get_OP(overrider.Prefab, overrider.Queue);
+        => Get_OP(overrider.prefab, overrider.queue);
     
 
     // Credit
     public CreditController Get_OP_Credit()
-        => Get_OP(credit.Prefab, credit.Queue);
+        => Get_OP(credit.prefab, credit.queue);
     
 
     // Module Item
     public ModuleItemController Get_OP_ModuleItem()
-        => Get_OP(moduleItems.Prefab, moduleItems.Queue);
+        => Get_OP(moduleItems.prefab, moduleItems.queue);
     
 
     // Keycard Item
     public KeycardItemController Get_OP_KeycardItem()
-        => Get_OP(keycardItems.Prefab, keycardItems.Queue);
+        => Get_OP(keycardItems.prefab, keycardItems.queue);
     
 
     // Core Item
     public CoreItemController Get_OP_CoreItem()
-        => Get_OP(coreItems.Prefab, coreItems.Queue);
+        => Get_OP(coreItems.prefab, coreItems.queue);
     
 
     #endregion
@@ -270,7 +269,7 @@ public class PoolingManager : Singleton<PoolingManager>
 
     // Missile
     public MissileBulletController Get_OP_Missile()
-        => Get_OP(missileBullet.Prefab, missileBullet.Queue);
+        => Get_OP(missileBullet.prefab, missileBullet.queue);
     
 
     #endregion
@@ -279,65 +278,65 @@ public class PoolingManager : Singleton<PoolingManager>
 
     // Enemy
 
-    public EnemyController Get_OP_Enemy(eEnemy _Type, int _EnemyID)
+    public EnemyController Get_OP_Enemy(eEnemy type, int enemyID)
     {
-        if (_Type == eEnemy.Normal)
+        if (type == eEnemy.Normal)
         {
-            TTypePooling<NormalEnemyController> enemy = Get_CorrectEnemyQueue(_EnemyID);
-            return Get_OP(enemy.Prefab, enemy.Queue);
+            TTypePooling<NormalEnemyController> enemy = Get_CorrectEnemyQueue(enemyID);
+            return Get_OP(enemy.prefab, enemy.queue);
         }
-        else if (_Type == eEnemy.Elite)
+        else if (type == eEnemy.Elite)
         {
-            TTypePooling<EliteEnemyController> enemy = Get_CorrectEliteEnemyQueue(_EnemyID);
-            return Get_OP(enemy.Prefab, enemy.Queue);
+            TTypePooling<EliteEnemyController> enemy = Get_CorrectEliteEnemyQueue(enemyID);
+            return Get_OP(enemy.prefab, enemy.queue);
         }
-        else if (_Type == eEnemy.Boss)
+        else if (type == eEnemy.Boss)
         {
-            TTypePooling<BossEnemyController> enemy = Get_CorrectBossEnemyQueue(_EnemyID);
-            return Get_OP(enemy.Prefab, enemy.Queue);
+            TTypePooling<BossEnemyController> enemy = Get_CorrectBossEnemyQueue(enemyID);
+            return Get_OP(enemy.prefab, enemy.queue);
         }
 
         return null;
     }
 
-    public void Set_EnqueueEnemy(NormalEnemyController _Enemy)
+    public void Set_EnqueueEnemy(NormalEnemyController enemy)
     {
-        Get_CorrectEnemyQueue(_Enemy.Get_ID()).Enqueue(_Enemy);
+        Get_CorrectEnemyQueue(enemy.Get_ID()).Enqueue(enemy);
     }
 
-    public void Set_EnqueueEliteEnemy(EliteEnemyController _EliteEnemy)
+    public void Set_EnqueueEliteEnemy(EliteEnemyController eliteEnemy)
     {
-        Get_CorrectEliteEnemyQueue(_EliteEnemy.Get_ID()).Enqueue(_EliteEnemy);
+        Get_CorrectEliteEnemyQueue(eliteEnemy.Get_ID()).Enqueue(eliteEnemy);
     }
 
-    public void Set_EnqueueBossEnemy(BossEnemyController _BossEnemy)
+    public void Set_EnqueueBossEnemy(BossEnemyController bossEnemy)
     {
-        Get_CorrectBossEnemyQueue(_BossEnemy.Get_ID()).Enqueue(_BossEnemy);
+        Get_CorrectBossEnemyQueue(bossEnemy.Get_ID()).Enqueue(bossEnemy);
     }
 
     // Offset
-    public void Offset_EnemiesPooling(List<GameObject> _EnemyGOs, List<GameObject> _EliteEnemyGOs, List<GameObject> _BossEnemyGOs)
+    public void Offset_EnemiesPooling(List<GameObject> enemyGOs, List<GameObject> eliteEnemyGOs, List<GameObject> bossEnemyGOs)
     {
         currentStageEnemies = new List<TTypePooling<NormalEnemyController>>();
-        for (int i = 0; i < _EnemyGOs.Count; i++)
-            currentStageEnemies.Add(new TTypePooling<NormalEnemyController>(_EnemyGOs[i]));
+        for (int i = 0; i < enemyGOs.Count; i++)
+            currentStageEnemies.Add(new TTypePooling<NormalEnemyController>(enemyGOs[i]));
 
         currentStageEliteEnemies = new List<TTypePooling<EliteEnemyController>>();
-        for (int i = 0; i < _EliteEnemyGOs.Count; i++)
-            currentStageEliteEnemies.Add(new TTypePooling<EliteEnemyController>(_EliteEnemyGOs[i]));
+        for (int i = 0; i < eliteEnemyGOs.Count; i++)
+            currentStageEliteEnemies.Add(new TTypePooling<EliteEnemyController>(eliteEnemyGOs[i]));
 
         currentStageBossEnemies = new List<TTypePooling<BossEnemyController>>();
-        for (int i = 0; i < _BossEnemyGOs.Count; i++)
-            currentStageBossEnemies.Add(new TTypePooling<BossEnemyController>(_BossEnemyGOs[i]));
+        for (int i = 0; i < bossEnemyGOs.Count; i++)
+            currentStageBossEnemies.Add(new TTypePooling<BossEnemyController>(bossEnemyGOs[i]));
 
     }
 
     // Find
-    private TTypePooling<NormalEnemyController> Get_CorrectEnemyQueue(int _EnemyID)
+    private TTypePooling<NormalEnemyController> Get_CorrectEnemyQueue(int enemyID)
     {
         for (int i = 0; i < currentStageEnemies.Count; i++)
         {
-            if (currentStageEnemies[i].Prefab.TryGetComponent(out NormalEnemyController EC) && EC.Get_ID() == _EnemyID)
+            if (currentStageEnemies[i].prefab.TryGetComponent(out NormalEnemyController enemy) && enemy.Get_ID() == enemyID)
             {
                 return currentStageEnemies[i];
             }
@@ -345,11 +344,11 @@ public class PoolingManager : Singleton<PoolingManager>
         return null;
     }
 
-    private TTypePooling<EliteEnemyController> Get_CorrectEliteEnemyQueue(int _EliteEnemyID)
+    private TTypePooling<EliteEnemyController> Get_CorrectEliteEnemyQueue(int eliteEnemyID)
     {
         for (int i = 0; i < currentStageEliteEnemies.Count; i++)
         {
-            if (currentStageEliteEnemies[i].Prefab.TryGetComponent(out EliteEnemyController EC) && EC.Get_ID() == _EliteEnemyID)
+            if (currentStageEliteEnemies[i].prefab.TryGetComponent(out EliteEnemyController EC) && EC.Get_ID() == eliteEnemyID)
             {
                 return currentStageEliteEnemies[i];
             }
@@ -357,11 +356,11 @@ public class PoolingManager : Singleton<PoolingManager>
         return null;
     }
 
-    private TTypePooling<BossEnemyController> Get_CorrectBossEnemyQueue(int _BossEnemyID)
+    private TTypePooling<BossEnemyController> Get_CorrectBossEnemyQueue(int bossEnemyID)
     {
         for (int i = 0; i < currentStageBossEnemies.Count; i++)
         {
-            if (currentStageBossEnemies[i].Prefab.TryGetComponent(out BossEnemyController EC) && EC.Get_ID() == _BossEnemyID)
+            if (currentStageBossEnemies[i].prefab.TryGetComponent(out BossEnemyController EC) && EC.Get_ID() == bossEnemyID)
             {
                 return currentStageBossEnemies[i];
             }
@@ -371,17 +370,17 @@ public class PoolingManager : Singleton<PoolingManager>
 
     // Enemy Bullet
     public EnemyBulletController Get_OP_EnemyBullet()
-        => Get_OP(enemyBullets.Prefab, enemyBullets.Queue);
+        => Get_OP(enemyBullets.prefab, enemyBullets.queue);
     
 
     // Enemy Attacker
     public EnemyAttackerController Get_OP_EnemyAttacker()
-        => Get_OP(enemyAttackers.Prefab, enemyAttackers.Queue);
+        => Get_OP(enemyAttackers.prefab, enemyAttackers.queue);
     
 
     // Enemy Explosion
     public EnemyExplosionController Get_OP_EnemyExplosion()
-        => Get_OP(enemyExplosions.Prefab, enemyExplosions.Queue);
+        => Get_OP(enemyExplosions.prefab, enemyExplosions.queue);
     
 
     #endregion
@@ -390,12 +389,12 @@ public class PoolingManager : Singleton<PoolingManager>
 
     // Damage Txt
     public WorldTxtEUIController Get_OP_DmgTxt()
-        => Get_OP(dmgTxtCanvases.Prefab, dmgTxtCanvases.Queue);
+        => Get_OP(dmgTxtCanvases.prefab, dmgTxtCanvases.queue);
     
 
     // Buff Icon UI
     public BuffIconEUIController Get_OP_BuffUI()
-        => Get_OP(buffIcons.Prefab, buffIcons.Queue);
+        => Get_OP(buffIcons.prefab, buffIcons.queue);
     
 
     #endregion
@@ -404,27 +403,27 @@ public class PoolingManager : Singleton<PoolingManager>
 
     // After Image
     public SpriteRenderer Get_OP_AfterImg()
-        => Get_OP(afterImgs.Prefab, afterImgs.Queue);
+        => Get_OP(afterImgs.prefab, afterImgs.queue);
     
 
     // After Image
     public SpriteRenderer Get_OP_ExplosionImg()
-        => Get_OP(explosionImgs.Prefab, explosionImgs.Queue);
+        => Get_OP(explosionImgs.prefab, explosionImgs.queue);
     
 
     // Hitted Animator
     public OnceTimeAnimController Get_OP_OnlyOnceAnimator()
-        => Get_OP(onlyOnceAnimators.Prefab, onlyOnceAnimators.Queue);
+        => Get_OP(onlyOnceAnimators.prefab, onlyOnceAnimators.queue);
     
 
     // Dead Particle
     public DeadParticleController Get_OP_DeadParticle()
-        => Get_OP(deadParticles.Prefab, deadParticles.Queue);
+        => Get_OP(deadParticles.prefab, deadParticles.queue);
     
 
     // Area Point
-    public List<SpriteRenderer> Get_OP_AreaPointSRList(int _Amount)
-        => Get_OP_List(areaPointSRs, _Amount);
+    public List<SpriteRenderer> Get_OP_AreaPointSRList(int amount)
+        => Get_OP_List(areaPointSRs, amount);
     
 
     
@@ -433,11 +432,11 @@ public class PoolingManager : Singleton<PoolingManager>
     #region Module Item
 
     public PlayerBulletController Get_OP_MI_000_Bullets()
-        => Get_OP(moduleItem_000_Bullets.Prefab, moduleItem_000_Bullets.Queue);
+        => Get_OP(moduleItem_000_Bullets.prefab, moduleItem_000_Bullets.queue);
     
 
     public PlayerBulletController Get_OP_MI_001_Bullets()
-        => Get_OP(moduleItem_001_Bullets.Prefab, moduleItem_001_Bullets.Queue);
+        => Get_OP(moduleItem_001_Bullets.prefab, moduleItem_001_Bullets.queue);
     
 
     #endregion
@@ -446,19 +445,19 @@ public class PoolingManager : Singleton<PoolingManager>
 [System.Serializable]
 public class TTypePooling<T>
 {
-    [SerializeField] public GameObject Prefab;
-    [SerializeField] public Queue<T> Queue = new Queue<T>();
+    [SerializeField] public GameObject prefab;
+    [SerializeField] public Queue<T> queue = new Queue<T>();
 
     public TTypePooling() { }
 
-    public TTypePooling(GameObject _Prefab) 
+    public TTypePooling(GameObject prefab) 
     { 
-        Prefab = _Prefab;
+        this.prefab = prefab;
     }
 
-    public void Enqueue(T _Element)
+    public void Enqueue(T element)
     {
-        if (!Queue.Contains(_Element)) 
-            Queue.Enqueue(_Element);
+        if (!queue.Contains(element)) 
+            queue.Enqueue(element);
     }
 }

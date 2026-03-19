@@ -72,14 +72,14 @@ public class PlayerManager : Singleton<PlayerManager>
 
     #region Gen
 
-    private PlayerController Gen_Player(out AimController _Aim, out AimRoundController _AimRound)
+    private PlayerController Gen_Player(out AimController aim, out AimRoundController aimRound)
     {
         PlayerController pc = this.playerController =
             DevTool.Get_ComponentTType<PlayerController>(
                 Instantiate(GameManager.instance.designatedPlayerPrefab, playerSpawnParentTF));
-        _Aim = DevTool.Get_ComponentTType<AimController>(
+        aim = DevTool.Get_ComponentTType<AimController>(
             Instantiate(playerController.AimPrefab, playerSpawnParentTF));
-        _AimRound = DevTool.Get_ComponentTType<AimRoundController>(
+        aimRound = DevTool.Get_ComponentTType<AimRoundController>(
             Instantiate(playerController.AimRoundPrefab, playerController.transform));
 
         return pc;
@@ -94,9 +94,9 @@ public class PlayerManager : Singleton<PlayerManager>
 
     #region Is
 
-    public bool Is_PingedEnemy(EnemyController _Enemy)
+    public bool Is_PingedEnemy(EnemyController enemy)
     {
-        return pingedEnemy == _Enemy;
+        return pingedEnemy == enemy;
     }
 
     #endregion
@@ -109,17 +109,17 @@ public class PlayerManager : Singleton<PlayerManager>
         playerPing.SetOff_Ping(playerPingFrameSpawnTF);
     }
 
-    public void SetOn_PingEnemy(EnemyController _Enemy)
+    public void SetOn_PingEnemy(EnemyController enemy)
     {
-        if (pingedEnemy == _Enemy) return;
+        if (pingedEnemy == enemy) return;
 
-        Set_PingedEnemy(_Enemy);
-        playerPing.SetOn_Ping(_Enemy);
+        Set_PingedEnemy(enemy);
+        playerPing.SetOn_Ping(enemy);
     }
 
-    private void Set_PingedEnemy(EnemyController _Enemy)
+    private void Set_PingedEnemy(EnemyController enemy)
     {
-        pingedEnemy = _Enemy;
+        pingedEnemy = enemy;
         AllyManager.instance.Set_AllAllyTargetEnemy(pingedEnemy);
     }
 
@@ -127,10 +127,10 @@ public class PlayerManager : Singleton<PlayerManager>
 
     #region Set (Ping Sort)
 
-    public void Set_SortingOrderPing(EnemyController _Enemy, int _Order)
+    public void Set_SortingOrderPing(EnemyController enemy, int order)
     {
-        if (Is_PingedEnemy(_Enemy))
-            playerPing.Set_SortingOrder(_Order);
+        if (Is_PingedEnemy(enemy))
+            playerPing.Set_SortingOrder(order);
     }
 
     #endregion
@@ -146,29 +146,29 @@ public class PlayerManager : Singleton<PlayerManager>
 
     #region KeyCard
 
-    public void Gain_KeyCard(int _KeyCardID, int _Amount = 1)
+    public void Gain_KeyCard(int keyCardID, int amount = 1)
     {
-        if (havingKeycardDict.ContainsKey(_KeyCardID))
+        if (havingKeycardDict.ContainsKey(keyCardID))
         {
-            havingKeycardDict[_KeyCardID] += _Amount;
+            havingKeycardDict[keyCardID] += amount;
             MainGameUIManager.instance.playerHUD_UIController.Set_KeyItem(havingKeycardDict);
-            MainGameUIManager.instance.playerHUD_UIController.Effect_KeyIcon(_KeyCardID);
+            MainGameUIManager.instance.playerHUD_UIController.Effect_KeyIcon(keyCardID);
         }
     }
 
-    public void Use_KeyCard(int _KeyCardID, int _Amount = 1)
+    public void Use_KeyCard(int keyCardID, int amount = 1)
     {
-        if (havingKeycardDict.ContainsKey(_KeyCardID))
+        if (havingKeycardDict.ContainsKey(keyCardID))
         {
-            havingKeycardDict[_KeyCardID] -= _Amount;
+            havingKeycardDict[keyCardID] -= amount;
             MainGameUIManager.instance.playerHUD_UIController.Set_KeyItem(havingKeycardDict);
             SoundManager.instance.Play_2D_SFX_Build("UseKeycard");
         }
     }
 
-    public bool Can_UseKeyCard(int _KeyCardID)
+    public bool Can_UseKeyCard(int keyCardID)
     {
-        return havingKeycardDict.ContainsKey(_KeyCardID) && havingKeycardDict[_KeyCardID] > 0;
+        return havingKeycardDict.ContainsKey(keyCardID) && havingKeycardDict[keyCardID] > 0;
     }
 
     #endregion

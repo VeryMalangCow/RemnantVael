@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class AllyManager : Singleton<AllyManager>
 {
@@ -125,45 +124,45 @@ public class AllyManager : Singleton<AllyManager>
 
     #region State
 
-    public void Set_StateDmg(float _Value)
+    public void Set_StateDmg(float value)
     {
-        allyState.dmg.value = _Value;
+        allyState.dmg.value = value;
         Set_AllState();
     }
 
-    public void Set_StateRof(float _Value)
+    public void Set_StateRof(float value)
     {
-        allyState.rof.value = _Value;
+        allyState.rof.value = value;
         Set_AllState();
     }
 
-    public void Set_StateMovementSpeed(float _Value)
+    public void Set_StateMovementSpeed(float value)
     {
-        allyState.movementSpeed.value = _Value;
+        allyState.movementSpeed.value = value;
         Set_AllState();
     }
 
-    public void Set_StateAttackSize(float _Value)
+    public void Set_StateAttackSize(float value)
     {
-        allyState.attackSize.value = _Value;
+        allyState.attackSize.value = value;
         Set_AllState();
     }
 
-    public void Set_StateCC(float _Value)
+    public void Set_StateCC(float value)
     {
-        allyState.criticalChacne.value = _Value;
+        allyState.criticalChacne.value = value;
         Set_AllState();
     }
 
-    public void Set_StateCD(float _Value)
+    public void Set_StateCD(float value)
     {
-        allyState.criticalDmg.value = _Value;
+        allyState.criticalDmg.value = value;
         Set_AllState();
     }
 
-    public void Set_StateMuzzleSpeed(float _Value)
+    public void Set_StateMuzzleSpeed(float value)
     {
-        allyState.muzzleSpeed.value = _Value;
+        allyState.muzzleSpeed.value = value;
         Set_AllState();
     }
 
@@ -179,28 +178,28 @@ public class AllyManager : Singleton<AllyManager>
 
     #region Is
 
-    private bool Is_ExistEssentialID(AllyCardData _TargetData)
+    private bool Is_ExistEssentialID(AllyCardData targetData)
     {
-        if (_TargetData.essentialID != -1)
+        if (targetData.essentialID != -1)
             return true;
 
         return false;
     }
 
-    private bool Is_GottenEssentialCard(int _TypeID, AllyCardData _TargetData)
+    private bool Is_GottenEssentialCard(int typeId, AllyCardData targetData)
     {
-        if (!Is_ExistEssentialID(_TargetData) || allGottenAllyCards[_TypeID].Contains(_TargetData.essentialID))
+        if (!Is_ExistEssentialID(targetData) || allGottenAllyCards[typeId].Contains(targetData.essentialID))
             return true;
 
         return false;
     }
 
     // 선택 가능한 ID 카드를 체크
-    private bool Can_ChoiceAble(int _TypeID, AllyCardData _TargetData, List<AllyCardData> _AlreadyChoicedDataList)
+    private bool Can_ChoiceAble(int typeID, AllyCardData targetData, List<AllyCardData> alreadyChoicedDataList)
     {
-        if (!allGottenAllyCards[_TypeID].Contains(_TargetData.id) &&
-            Is_GottenEssentialCard(_TypeID, _TargetData) &&
-            !_AlreadyChoicedDataList.Contains(_TargetData))
+        if (!allGottenAllyCards[typeID].Contains(targetData.id) &&
+            Is_GottenEssentialCard(typeID, targetData) &&
+            !alreadyChoicedDataList.Contains(targetData))
             return true;
 
         return false;
@@ -210,22 +209,22 @@ public class AllyManager : Singleton<AllyManager>
 
     #region Card
 
-    public Sprite Get_CardIcon(int _TypeID, int _CardID)
+    public Sprite Get_CardIcon(int typeID, int cardID)
     {
-        return allIconArr[_TypeID][_CardID];
+        return allIconArr[typeID][cardID];
     }
 
     // 선행 카드 정보
-    public AllyCardData Get_PreAllyCardData(int _TypeID, AllyCardData _TargetCard)
+    public AllyCardData Get_PreAllyCardData(int typeID, AllyCardData targetCard)
     {
-        if (_TargetCard.essentialID == -1)
+        if (targetCard.essentialID == -1)
             return null;
 
-        return allAllyCardData[_TypeID][_TargetCard.essentialID];
+        return allAllyCardData[typeID][targetCard.essentialID];
     }
 
     // 한 번에 여러개의 랜덤 카드 리턴
-    public List<AllyCardData> Get_ChoiceAbleRandomData(int _TypeID, int _LimitAmount)
+    public List<AllyCardData> Get_ChoiceAbleRandomData(int typeID, int limitAmount)
     {
         List<AllyCardData> result = new List<AllyCardData>();
 
@@ -236,14 +235,14 @@ public class AllyManager : Singleton<AllyManager>
             if (i > 100)
                 break;
 
-            AllyCardData randomData = allAllyCardData[_TypeID][Random.Range(0, allAllyCardData[_TypeID].Length)];
+            AllyCardData randomData = allAllyCardData[typeID][Random.Range(0, allAllyCardData[typeID].Length)];
 
-            if (Can_ChoiceAble(_TypeID, randomData, result))
+            if (Can_ChoiceAble(typeID, randomData, result))
                 result.Add(randomData);
             else
                 continue;
 
-            if (result.Count >= _LimitAmount)
+            if (result.Count >= limitAmount)
                 break;
         }
 
@@ -251,12 +250,12 @@ public class AllyManager : Singleton<AllyManager>
     }
 
     // 한 번에 한개의 랜덤 카드 리턴
-    public AllyCardData Get_ChoiceAbleRandomData(int _TypeID, List<int> _AlreadyPlacedAllyCardIndexer)
+    public AllyCardData Get_ChoiceAbleRandomData(int typeId, List<int> alreadyPlacedAllyCardIndexer)
     {
         List<AllyCardData> alreadyPlacedAllyCard = new List<AllyCardData>();
-        for (int i = 0; i < _AlreadyPlacedAllyCardIndexer.Count; i++)
-            if (_AlreadyPlacedAllyCardIndexer[i] != -1)
-                alreadyPlacedAllyCard.Add(allAllyCardData[_TypeID][_AlreadyPlacedAllyCardIndexer[i]]);
+        for (int i = 0; i < alreadyPlacedAllyCardIndexer.Count; i++)
+            if (alreadyPlacedAllyCardIndexer[i] != -1)
+                alreadyPlacedAllyCard.Add(allAllyCardData[typeId][alreadyPlacedAllyCardIndexer[i]]);
 
         int s = 0;
         while (true)
@@ -265,33 +264,33 @@ public class AllyManager : Singleton<AllyManager>
             if (s > 100)
                 break;
 
-            AllyCardData randomData = allAllyCardData[_TypeID][Random.Range(0, allAllyCardData[_TypeID].Length)];
+            AllyCardData randomData = allAllyCardData[typeId][Random.Range(0, allAllyCardData[typeId].Length)];
 
-            if (Can_ChoiceAble(_TypeID, randomData, alreadyPlacedAllyCard))
+            if (Can_ChoiceAble(typeId, randomData, alreadyPlacedAllyCard))
                 return randomData;
         }
 
         return null;
     }
 
-    public void Add_AllyCard(int _TypeID, int _ID)
+    public void Add_AllyCard(int typeId, int id)
     {
-        allGottenAllyCards[_TypeID].Add(_ID);
-        AllyCardActivityManager.instance.Action_CorrectCardActivity(_TypeID, _ID);
+        allGottenAllyCards[typeId].Add(id);
+        AllyCardActivityManager.instance.Action_CorrectCardActivity(typeId, id);
     }
 
     #endregion
 
     #region BU
 
-    public static float Get_AllyTunerStateMultiple(string _Type)
+    public static float Get_AllyTunerStateMultiple(string type)
     {
-        return tunerTypeMultipleValueDict[_Type];
+        return tunerTypeMultipleValueDict[type];
     }
 
-    public Sprite Get_BUIcon(string _Type)
+    public Sprite Get_BUIcon(string type)
     {
-        return tunerTypeIconDict[_Type];
+        return tunerTypeIconDict[type];
     }
 
     #endregion
@@ -312,12 +311,12 @@ public class AllyManager : Singleton<AllyManager>
 
     #region Set (Ally Set)
 
-    public void Set_AllAlliesActive(bool _OnOff)
+    public void Set_AllAlliesActive(bool onOff)
     {
         if (allAlly.Count <= 0) return;
 
         for (int i = 0; i < allAlly.Count; i++)
-            allAlly[i].gameObject.SetActive(_OnOff);
+            allAlly[i].gameObject.SetActive(onOff);
     }
 
     public void Start_AllAllies_Combat()
@@ -350,11 +349,11 @@ public class AllyManager : Singleton<AllyManager>
         }
     }
 
-    public void Set_AllAllyTargetEnemy(EnemyController _Enemy)
+    public void Set_AllAllyTargetEnemy(EnemyController enemy)
     {
         // Null 이여도 초기화
         for (int i = 0; i < allAlly.Count; i++)
-            allAlly[i].Set_TargetEnemy(_Enemy);
+            allAlly[i].Set_TargetEnemy(enemy);
     }
 
     #endregion
@@ -382,12 +381,12 @@ public class AllyManager : Singleton<AllyManager>
         return randomIndex;
     }
 
-    public string[] Get_AllyName(int _ID)
+    public string[] Get_AllyName(int id)
     {
-        if (_ID == -1) 
+        if (id == -1) 
             return null;
 
-        return ResourceManager.instance.Get_AllyRandomName(_ID);
+        return ResourceManager.instance.Get_AllyRandomName(id);
     }
 
     public void Set_Language()

@@ -84,7 +84,7 @@ public class InputManager : Singleton<InputManager>
 
     #region Buffered Input
 
-    private void Caculate_BufferedInput(float _DeltaTime)
+    private void Caculate_BufferedInput(float deltaTime)
     {
         if (currentBufferedDele != null)
         {
@@ -103,9 +103,9 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
-    private void SetOn_BufferedInput(Dele _Buffered)
+    private void SetOn_BufferedInput(Dele buffered)
     {
-        currentBufferedDele = _Buffered;
+        currentBufferedDele = buffered;
         currentBufferedInputTime = 0f;
     }
 
@@ -115,37 +115,37 @@ public class InputManager : Singleton<InputManager>
         currentBufferedInputTime = 0f;
     }
 
-    private void Play_BuffedApplyInput(Dele _Func)
+    private void Play_BuffedApplyInput(Dele func)
     {
-        if (isPlayingBuffered) SetOn_BufferedInput(_Func);
-        else _Func();
+        if (isPlayingBuffered) SetOn_BufferedInput(func);
+        else func();
     }
 
     #endregion
 
     #region Aim & Mouse
 
-    public void Set_AllPointer(bool _OnOff)
+    public void Set_AllPointer(bool onOff)
     {
-        Set_AllPointer(_OnOff, _OnOff);
+        Set_AllPointer(onOff, onOff);
     }
 
-    public void Set_AllPointer(bool _Aim, bool _Mouse)
+    public void Set_AllPointer(bool aim, bool mouse)
     {
-        Set_AimPointer(_Aim);
-        Set_MousePointer(_Mouse);
+        Set_AimPointer(aim);
+        Set_MousePointer(mouse);
     }
 
-    private void Set_AimPointer(bool _IsOn)
+    private void Set_AimPointer(bool isOn)
     {
-        aimController.gameObject.SetActive(_IsOn);
-        aimRoundController.gameObject.SetActive(_IsOn);
-        isAim = _IsOn;
+        aimController.gameObject.SetActive(isOn);
+        aimRoundController.gameObject.SetActive(isOn);
+        isAim = isOn;
     }
 
-    private void Set_MousePointer(bool _IsOn)
+    private void Set_MousePointer(bool isOn)
     {
-        mousePointerRT.gameObject.SetActive(_IsOn);
+        mousePointerRT.gameObject.SetActive(isOn);
     }
 
 
@@ -187,18 +187,18 @@ public class InputManager : Singleton<InputManager>
 
     #region Input Set
 
-    public void SetOnOff_InputAction(int _CurrentStageID, bool _OnOff)
+    public void SetOnOff_InputAction(int currentStageID, bool onOff)
     {
-        if (_CurrentStageID == 99)
+        if (currentStageID == 99)
         {
-            if (_OnOff)
+            if (onOff)
                 SetOn_InputAction_InLobby();
             else
                 SetOff_InputAction_InLobby();
         }
         else
         {
-            if (_OnOff)
+            if (onOff)
                 SetOn_InputAction_MainGame();
             else
                 SetOff_InputAction_MainGame();
@@ -406,14 +406,14 @@ public class InputManager : Singleton<InputManager>
 
     #region Movement
 
-    public void Input_Walk(InputAction.CallbackContext _InputValue)
+    public void Input_Walk(InputAction.CallbackContext inputValue)
     {
-        inputMoveDir = _InputValue.ReadValue<Vector2>().normalized;
+        inputMoveDir = inputValue.ReadValue<Vector2>().normalized;
     }
 
-    public void Input_Dash(InputAction.CallbackContext _InputValue)
+    public void Input_Dash(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
         {
             if (isPlayingBuffered)
             {
@@ -425,9 +425,9 @@ public class InputManager : Singleton<InputManager>
         }
     }
 
-    public void Input_Arrow(InputAction.CallbackContext _InputValue)
+    public void Input_Arrow(InputAction.CallbackContext inputValue)
     {
-        Vector2 v2 = _InputValue.ReadValue<Vector2>();
+        Vector2 v2 = inputValue.ReadValue<Vector2>();
         if (v2.x != 0)
         {
             inputArrowDir = v2.x > 0 ? Vector2Int.right : Vector2Int.left;
@@ -446,9 +446,9 @@ public class InputManager : Singleton<InputManager>
 
     #region Combat
 
-    private void Input_CombatMode(InputAction.CallbackContext _InputValue)
+    private void Input_CombatMode(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
                 PlayerManager.instance.playerController.Try_CombatModeCheck);
     }
@@ -457,16 +457,16 @@ public class InputManager : Singleton<InputManager>
 
     #region Skill
 
-    private void Input_Skill_0(InputAction.CallbackContext _InputValue)
+    private void Input_Skill_0(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
                 PlayerManager.instance.playerController.Try_Skill0);
     }
 
-    private void Input_Skill_1(InputAction.CallbackContext _InputValue)
+    private void Input_Skill_1(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
                 PlayerManager.instance.playerController.Try_Skill1);
     }
@@ -475,21 +475,21 @@ public class InputManager : Singleton<InputManager>
 
     #region Ally
 
-    private void Input_STAlly(InputAction.CallbackContext _InputValue)
+    private void Input_STAlly(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             PlayerManager.instance.playerController.Try_STAllyLvUp();
     }
 
-    private void Input_UTAlly(InputAction.CallbackContext _InputValue)
+    private void Input_UTAlly(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             PlayerManager.instance.playerController.Try_UTAllyLvUp();
     }
 
-    private void Input_NTAlly(InputAction.CallbackContext _InputValue)
+    private void Input_NTAlly(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             PlayerManager.instance.playerController.Try_NTAllyLvUp();
     }
 
@@ -497,18 +497,18 @@ public class InputManager : Singleton<InputManager>
 
     #region Fire
 
-    private void Input_Fire(InputAction.CallbackContext _InputValue)
+    private void Input_Fire(InputAction.CallbackContext inputValue)
     {
-        PlayerManager.instance.playerController.BaseWeapon.IsInputed = _InputValue.ReadValueAsButton();
+        PlayerManager.instance.playerController.BaseWeapon.IsInputed = inputValue.ReadValueAsButton();
     }
 
     #endregion
 
     #region Ping
 
-    public void Input_Ping(InputAction.CallbackContext _InputValue)
+    public void Input_Ping(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             PlayerManager.instance.playerController.Try_PingEnemy(aimController);
     }
 
@@ -516,9 +516,9 @@ public class InputManager : Singleton<InputManager>
 
     #region Charge Bettery
 
-    private void Input_ChargeBettery(InputAction.CallbackContext _InputValue)
+    private void Input_ChargeBettery(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             Play_BuffedApplyInput(
                 PlayerManager.instance.playerController.Try_ChargeBettery);
     }
@@ -527,9 +527,9 @@ public class InputManager : Singleton<InputManager>
 
     #region Interact
 
-    private void Input_Interact(InputAction.CallbackContext _InputValue)
+    private void Input_Interact(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             PlayerManager.instance.playerController.Try_Interact();
     }
 
@@ -538,10 +538,10 @@ public class InputManager : Singleton<InputManager>
 
     #region Tab
 
-    private void Input_Tab(InputAction.CallbackContext _InputValue)
+    private void Input_Tab(InputAction.CallbackContext inputValue)
     {
         MainGameUIManager.instance.playerHUD_UIController.IsTabInputed = 
-            _InputValue.ReadValueAsButton();
+            inputValue.ReadValueAsButton();
     }
 
     #endregion
@@ -550,15 +550,15 @@ public class InputManager : Singleton<InputManager>
 
     #region BUUI
 
-    private void Input_BUUIClick(InputAction.CallbackContext _InputValue)
+    private void Input_BUUIClick(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.baseUpgrade_UIController.Try_Interact();
     }
 
-    private void Input_BUUIOutPanel(InputAction.CallbackContext _InputValue)
+    private void Input_BUUIOutPanel(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.baseUpgrade_UIController.SetOff_ThisPanel();
     }
 
@@ -566,27 +566,27 @@ public class InputManager : Singleton<InputManager>
     
     #region MUUI
 
-    private void Input_MUUIClick(InputAction.CallbackContext _InputValue)
+    private void Input_MUUIClick(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.moduleUpgrade_UIController.Try_Interact();
     }
-    private void Input_MUUIClickSub(InputAction.CallbackContext _InputValue)
+    private void Input_MUUIClickSub(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.moduleUpgrade_UIController.Try_InteractSub();
     }
-    private void Input_MUUIDrag(InputAction.CallbackContext _InputValue)
+    private void Input_MUUIDrag(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.moduleUpgrade_UIController.Try_InteractDragOn();
         else
             MainGameUIManager.instance.moduleUpgrade_UIController.Try_InteractDragOff();
     }
 
-    private void Input_MUUIOutPanel(InputAction.CallbackContext _InputValue)
+    private void Input_MUUIOutPanel(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.moduleUpgrade_UIController.SetOff_ThisPanel();
     }
 
@@ -594,30 +594,30 @@ public class InputManager : Singleton<InputManager>
 
     #region ABUUI
 
-    private void Input_ABUUIClick(InputAction.CallbackContext _InputValue)
+    private void Input_ABUUIClick(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.allyBaseUpgrade_UIController.Try_Interact();
     }
 
-    private void Input_ABUUIOutPanel(InputAction.CallbackContext _InputValue)
+    private void Input_ABUUIOutPanel(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.allyBaseUpgrade_UIController.SetOff_ThisPanel();
     }
 
     #endregion
 
     #region AMUUI
-    private void Input_AMUUIClick(InputAction.CallbackContext _InputValue)
+    private void Input_AMUUIClick(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.allyModuleUpgrade_UIController.Try_Interact();
     }
 
-    private void Input_AMUUIOutPanel(InputAction.CallbackContext _InputValue)
+    private void Input_AMUUIOutPanel(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.allyModuleUpgrade_UIController.SetOff_ThisPanel();
     }
 
@@ -625,9 +625,9 @@ public class InputManager : Singleton<InputManager>
 
     #region AllyCard UI
 
-    private void Input_AllyCardClick(InputAction.CallbackContext _InputValue)
+    private void Input_AllyCardClick(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.allyCard_UIController.Try_Interact();
     }
 
@@ -637,20 +637,20 @@ public class InputManager : Singleton<InputManager>
 
     #region Box Line Connector
 
-    private void Input_BoxLineConnector_RightRoll(InputAction.CallbackContext _InputValue)
+    private void Input_BoxLineConnector_RightRoll(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.boxLineConnector_UIController.Try_Interact();
     }
-    private void Input_BoxLineConnector_LeftRoll(InputAction.CallbackContext _InputValue)
+    private void Input_BoxLineConnector_LeftRoll(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.boxLineConnector_UIController.Try_InteractSub();
     }
 
-    private void Input_BoxLineConnector_TryUnlock(InputAction.CallbackContext _InputValue)
+    private void Input_BoxLineConnector_TryUnlock(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.boxLineConnector_UIController.Try_InteractUnlock();
     }
 
@@ -658,19 +658,19 @@ public class InputManager : Singleton<InputManager>
 
     #region Num Shape Color Password
 
-    private void Input_NumShapeColorPassword_RollForDown(InputAction.CallbackContext _InputValue)
+    private void Input_NumShapeColorPassword_RollForDown(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.numShapeColorPassword_UIController.Try_Interact();
     }
-    private void Input_NumShapeColorPassword_RollForUp(InputAction.CallbackContext _InputValue)
+    private void Input_NumShapeColorPassword_RollForUp(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.numShapeColorPassword_UIController.Try_InteractSub();
     }
-    private void Input_NumShapeColorPassword_TryUnlock(InputAction.CallbackContext _InputValue)
+    private void Input_NumShapeColorPassword_TryUnlock(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.numShapeColorPassword_UIController.Try_InteractUnlock();
     }
 
@@ -678,14 +678,14 @@ public class InputManager : Singleton<InputManager>
 
     #region In Order Locker
 
-    private void Input_InOrderLocker_Interact(InputAction.CallbackContext _InputValue)
+    private void Input_InOrderLocker_Interact(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.inOrderLocker_UIController.Try_Interact();
     }
-    private void Input_InOrderLocker_TryUnlock(InputAction.CallbackContext _InputValue)
+    private void Input_InOrderLocker_TryUnlock(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.inOrderLocker_UIController.Try_InteractUnlock();
     }
 
@@ -696,61 +696,61 @@ public class InputManager : Singleton<InputManager>
     #region Cvt
 
     // PC (Premium Credit)
-    private void Input_Cvt_PC_Click(InputAction.CallbackContext _InputValue)
+    private void Input_Cvt_PC_Click(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.premiumCreditCvt_UIController.Try_Interact();
     }
 
 
-    private void Input_Cvt_PC_OutPanel(InputAction.CallbackContext _InputValue)
+    private void Input_Cvt_PC_OutPanel(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.premiumCreditCvt_UIController.SetOff_ThisPanel();
     }
 
 
     // P (Proto Core)
-    private void Input_Cvt_P_Click(InputAction.CallbackContext _InputValue)
+    private void Input_Cvt_P_Click(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.protoCoreCvt_UIController.Try_Interact();
     }
 
 
-    private void Input_Cvt_P_OutPanel(InputAction.CallbackContext _InputValue)
+    private void Input_Cvt_P_OutPanel(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.protoCoreCvt_UIController.SetOff_ThisPanel();
     }
 
 
     // E (Ether Core)
-    private void Input_Cvt_E_Click(InputAction.CallbackContext _InputValue)
+    private void Input_Cvt_E_Click(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.etherCoreCvt_UIController.Try_Interact();
     }
 
 
-    private void Input_Cvt_E_OutPanel(InputAction.CallbackContext _InputValue)
+    private void Input_Cvt_E_OutPanel(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.etherCoreCvt_UIController.SetOff_ThisPanel();
     }
 
 
     // O (Origin Core)
-    private void Input_Cvt_O_Click(InputAction.CallbackContext _InputValue)
+    private void Input_Cvt_O_Click(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.originCoreCvt_UIController.Try_Interact();
     }
 
 
-    private void Input_Cvt_O_OutPanel(InputAction.CallbackContext _InputValue)
+    private void Input_Cvt_O_OutPanel(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.originCoreCvt_UIController.SetOff_ThisPanel();
     }
 
@@ -758,21 +758,21 @@ public class InputManager : Singleton<InputManager>
 
     #region OutMainGame UI
 
-    private void Input_OMGUI(InputAction.CallbackContext _InputValue)
+    private void Input_OMGUI(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.outMainGame_UIController.SetOn_ThisPanel();
     }
 
-    private void Input_OMGUIClick(InputAction.CallbackContext _InputValue)
+    private void Input_OMGUIClick(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.outMainGame_UIController.Try_Interact();
     }
 
-    private void Input_OMGUIOutPanel(InputAction.CallbackContext _InputValue)
+    private void Input_OMGUIOutPanel(InputAction.CallbackContext inputValue)
     {
-        if (_InputValue.ReadValueAsButton())
+        if (inputValue.ReadValueAsButton())
             MainGameUIManager.instance.outMainGame_UIController.Try_InteractBack();
     }
 
