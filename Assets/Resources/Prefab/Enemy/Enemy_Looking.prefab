@@ -208,14 +208,14 @@ MonoBehaviour:
   RotateSpeed: 8
   PitchTF: {fileID: 0}
   SatelliteSideList:
-  - Target: {fileID: 1415603111598692130}
-    Follower: {fileID: 4362640458784314351}
-    UpperOrder: 0
-    FarFromCenter: 1
-  - Target: {fileID: 3347039871154011558}
-    Follower: {fileID: 4869389014298094842}
-    UpperOrder: 0
-    FarFromCenter: 1
+  - target: {fileID: 1415603111598692130}
+    follower: {fileID: 4362640458784314351}
+    upperOrder: 0
+    farFromCenter: 1
+  - target: {fileID: 3347039871154011558}
+    follower: {fileID: 4869389014298094842}
+    upperOrder: 0
+    farFromCenter: 1
   SatelliteCenterList: []
   EnemyController: {fileID: 0}
 --- !u!1 &2485527487512339497

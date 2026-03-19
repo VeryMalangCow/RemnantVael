@@ -37,9 +37,9 @@ public class TunerForBuyEUIController : OwnBtnEUIController
 
     public void Set_UI(AllyTunerData _TunerData, int _NeedOverrider)
     {
-        PositiveTuner0.Set_UI(_TunerData.Positive0);
-        PositiveTuner1.Set_UI(_TunerData.Positive1);
-        NegativeTuner.Set_UI(_TunerData.Negative);
+        PositiveTuner0.Set_UI(_TunerData.positive0);
+        PositiveTuner1.Set_UI(_TunerData.positive1);
+        NegativeTuner.Set_UI(_TunerData.negative);
 
         RerollBtnEUI.Set_UI(_NeedOverrider);
     }

@@ -560,20 +560,20 @@ public abstract class EnemyController : NavObjectController
     {
         EnemyDropItemPercent genP = EnemyDropItemPercent;
         Gen_BS(Random.Range(
-            genP.BSAmountMinMax.typeBase, genP.BSAmountMinMax.typeSpecial)); // 베터리 조각
+            genP.bsAmountMinMax.typeBase, genP.bsAmountMinMax.typeSpecial)); // 베터리 조각
         Gen_MS(Random.Range(
-            genP.MSAmountMinMax.typeBase, genP.MSAmountMinMax.typeSpecial)); // 모듈 조각
+            genP.msAmountMinMax.typeBase, genP.msAmountMinMax.typeSpecial)); // 모듈 조각
         Gen_Credit(Random.Range(
-            genP.CreditAmountMinMax.typeBase, genP.CreditAmountMinMax.typeSpecial)); // 크레딧
+            genP.creditAmountMinMax.typeBase, genP.creditAmountMinMax.typeSpecial)); // 크레딧
         Gen_Overrider(Random.Range(
-            genP.OverriderAmountMinMax.typeBase, genP.OverriderAmountMinMax.typeSpecial)); // 오버라이더
+            genP.overriderAmountMinMax.typeBase, genP.overriderAmountMinMax.typeSpecial)); // 오버라이더
         Gen_J(Random.Range(
-            genP.JouleAmountMinMax.typeBase, genP.JouleAmountMinMax.typeSpecial)
+            genP.jouleAmountMinMax.typeBase, genP.jouleAmountMinMax.typeSpecial)
             * PlayerManager.instance.playerController.SpawnESMultiple.actualState.Value); // 줄
         
         // Drop Module Item
-        if (DevTool.Is_ChanceSuccess(genP.ModuleDropPercent))
-            Gen_ModuleItem(DevTool.Get_Rank(genP.ModuleRankPercents));
+        if (DevTool.Is_ChanceSuccess(genP.moduleDropPercent))
+            Gen_ModuleItem(DevTool.Get_Rank(genP.moduleRankPercents));
         
         // Drop Keycard
         if (DevTool.Is_ChanceSuccess(genP.keycardDropPercent))

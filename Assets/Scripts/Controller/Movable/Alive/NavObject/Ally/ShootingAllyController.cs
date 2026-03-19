@@ -95,7 +95,7 @@ public class ShootingAllyController : FieldUnitAllyController
     {
         if (CurrentRof < 1)
         {
-            CurrentRof += _DeltaTime * ActualAllyState.Rof.value;
+            CurrentRof += _DeltaTime * ActualAllyState.rof.value;
         }
 
         if (!IsAttacking || Enemy == null) return;
@@ -131,7 +131,7 @@ public class ShootingAllyController : FieldUnitAllyController
         ActiveAlly_AfterFire();
 
         _Bullet.SetOn_LightIntensity(LightIntensity);
-        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.AttackSize.value, ThisExtraGradient);
+        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.attackSize.value, ThisExtraGradient);
 
         // ÀÌ¹ÌÁö
         _Bullet.ThisSR.sprite = BulletSprite;
@@ -146,11 +146,11 @@ public class ShootingAllyController : FieldUnitAllyController
         return new BulletState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Ally, id),
-                new DmgState(eDamageType.Physics, ActualAllyState.Dmg.value),
-                new CriticalState(ActualAllyState.CC.value, 1 + ActualAllyState.CD.value),
+                new DmgState(eDamageType.Physics, ActualAllyState.dmg.value),
+                new CriticalState(ActualAllyState.criticalChacne.value, 1 + ActualAllyState.criticalDmg.value),
                 new KnockbackState(false, 0, 0)),
             checkIsCritical: true,
-            muzzleSpeed: ActualAllyState.MuzzleSpeed.value,
+            muzzleSpeed: ActualAllyState.muzzleSpeed.value,
             aliveTime: 10f);
     }
 
@@ -165,8 +165,8 @@ public class ShootingAllyController : FieldUnitAllyController
     private BulletState_Size Get_BulletState_Size()
     {
         return new BulletState_Size(
-            BulletObjSize * ActualAllyState.AttackSize.value,
-            BulletColSize * ActualAllyState.AttackSize.value);
+            BulletObjSize * ActualAllyState.attackSize.value,
+            BulletColSize * ActualAllyState.attackSize.value);
     }
 
     #endregion

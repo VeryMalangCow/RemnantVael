@@ -137,7 +137,7 @@ public class FieldUnitAllyController : AllyController
 
     private void Play_Movement(float _DeltaTime)
     {
-        Play_Walk(MoveAtDir, ActualAllyState.MovementSpeed.value, _DeltaTime);
+        Play_Walk(MoveAtDir, ActualAllyState.movementSpeed.value, _DeltaTime);
     }
 
     #endregion
@@ -162,7 +162,7 @@ public class FieldUnitAllyController : AllyController
     {
         base.Set_AllState();
 
-        FollowInitDelay = 0.4f / ActualAllyState.MovementSpeed.value;
+        FollowInitDelay = 0.4f / ActualAllyState.movementSpeed.value;
     }
 
     #endregion

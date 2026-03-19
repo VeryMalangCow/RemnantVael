@@ -21,8 +21,8 @@ public class AllyBulletController : BulletController
         {
             base.Set_State_Size(_State_Size);
 
-            TargetObject.transform.localScale = _State_Size.Value.ObjSize;
-            ThisCol.transform.localScale = _State_Size.Value.ColSize;
+            TargetObject.transform.localScale = _State_Size.Value.objSize;
+            ThisCol.transform.localScale = _State_Size.Value.colSize;
         }
     }
 

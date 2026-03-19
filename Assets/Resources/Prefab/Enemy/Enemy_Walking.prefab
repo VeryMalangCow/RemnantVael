@@ -211,21 +211,21 @@ MonoBehaviour:
   RotateSpeed: 8
   PitchTF: {fileID: 0}
   SatelliteSideList:
-  - Target: {fileID: 753528460956945533}
-    Follower: {fileID: 735839919511685227}
-    UpperOrder: -4
-    FarFromCenter: 1
-  - Target: {fileID: 8102239898873813484}
-    Follower: {fileID: 1097946593126039421}
-    UpperOrder: -4
-    FarFromCenter: 1
+  - target: {fileID: 753528460956945533}
+    follower: {fileID: 735839919511685227}
+    upperOrder: -4
+    farFromCenter: 1
+  - target: {fileID: 8102239898873813484}
+    follower: {fileID: 1097946593126039421}
+    upperOrder: -4
+    farFromCenter: 1
   SatelliteCenterList:
-  - Target: {fileID: 5828403412384244635}
-    Follower: {fileID: 8119820749626703894}
-    UpperOrder: -4
-  - Target: {fileID: 5828403412384244635}
-    Follower: {fileID: 5798630236318936562}
-    UpperOrder: -2
+  - target: {fileID: 5828403412384244635}
+    follower: {fileID: 8119820749626703894}
+    upperOrder: -4
+  - target: {fileID: 5828403412384244635}
+    follower: {fileID: 5798630236318936562}
+    upperOrder: -2
   ThisRb: {fileID: 0}
   ThisAnimatorList:
   - {fileID: 7914916388315216899}

@@ -640,18 +640,18 @@ MonoBehaviour:
   TunerDetailTxt: {fileID: 789630972640757616}
   TunerListTxt: {fileID: 4010760558954535203}
   AllyTunerSet:
-    AllyTunerDataList: []
+    allyTunerDataList: []
   PickedTunerData:
-    Positive0:
-      Type: 
-      Rank: 0
-    Positive1:
-      Type: 
-      Rank: 0
-    Negative:
-      Type: 
-      Rank: 0
-    NeedPay: 0
+    positive0:
+      type: 
+      rank: 0
+    positive1:
+      type: 
+      rank: 0
+    negative:
+      type: 
+      rank: 0
+    needPay: 0
 --- !u!114 &7285601847160733366
 MonoBehaviour:
   m_ObjectHideFlags: 0

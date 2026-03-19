@@ -20,8 +20,8 @@ public class EnemyExplImgGenerator : ExplosionImgGenerator
             new ExplState(
                 new ExplState_Base(_SpawnPos, 16),
                 new ExplState_Sprite(SmokeSpriteList, ResourceManager.instance.Get_EnemyMaterial("Explosion")),
-                new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.15f, _Scale: 0.6f, _Time: 0.075f, 0.025f),
-                new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.75f, _Scale: 0.2f, _Time: 0.750f, 0.250f)));
+                new ExplState_MoveAndScale(Vector2.zero, dis: 0.15f, scale: 0.6f, time: 0.075f, 0.025f),
+                new ExplState_MoveAndScale(Vector2.zero, dis: 0.75f, scale: 0.2f, time: 0.750f, 0.250f)));
     }
 
     // 적이 발사
@@ -31,8 +31,8 @@ public class EnemyExplImgGenerator : ExplosionImgGenerator
             new ExplState(
                 new ExplState_Base(_SpawnPos, _Amount),
                 new ExplState_Sprite(SmokeSpriteList, ResourceManager.instance.Get_EnemyMaterial("Explosion")),
-                new ExplState_MoveAndScale(_Dir, _Dis: 0.2f, _Scale: 0.8f, _Time: 0.075f, 0.025f),
-                new ExplState_MoveAndScale(_Dir, _Dis: 0.5f, _Scale: 0.4f, _Time: 0.750f, 0.250f)),
+                new ExplState_MoveAndScale(_Dir, dis: 0.2f, scale: 0.8f, time: 0.075f, 0.025f),
+                new ExplState_MoveAndScale(_Dir, dis: 0.5f, scale: 0.4f, time: 0.750f, 0.250f)),
             _Dir, 45f);
     }
 
@@ -43,8 +43,8 @@ public class EnemyExplImgGenerator : ExplosionImgGenerator
             new ExplState(
                 new ExplState_Base(_SpawnPos, _Amount),
                 new ExplState_Sprite(SmokeSpriteList, ResourceManager.instance.Get_EnemyMaterial("Explosion")),
-                new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.3f, _Scale: 0.6f, _Time: 0.075f, 0.025f),
-                new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.4f, _Scale: 0.3f, _Time: 0.750f, 0.250f)));
+                new ExplState_MoveAndScale(Vector2.zero, dis: 0.3f, scale: 0.6f, time: 0.075f, 0.025f),
+                new ExplState_MoveAndScale(Vector2.zero, dis: 0.4f, scale: 0.3f, time: 0.750f, 0.250f)));
     }
 
     #endregion

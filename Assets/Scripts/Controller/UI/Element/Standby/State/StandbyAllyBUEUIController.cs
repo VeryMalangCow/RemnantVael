@@ -66,15 +66,15 @@ public class StandbyAllyBUEUIController : ElementUIController
 
         // BU
         AllyState state = _Ally.Get_ActaulAllyState();
-        StateValueArr[0].text = $"{DevTool.Get_RoundFloatString(state.Dmg.value).Replace("+", "")}";
-        StateValueArr[1].text = $"{DevTool.Get_RoundFloatString(state.Rof.value).Replace("+", "")}<size=65%>/s</size>";
-        StateValueArr[2].text = $"{DevTool.Get_RoundFloatString(state.CC.value * 100).Replace("+", "")}<size=65%>%</size>";
-        StateValueArr[3].text = $"{DevTool.Get_RoundFloatString(state.CD.value + 1).Replace("+", "")}<size=65%>x</size>";
-        StateValueArr[4].text = $"{DevTool.Get_RoundFloatString(state.AttackSize.value).Replace("+", "")}";
-        StateValueArr[5].text = $"{DevTool.Get_RoundFloatString(state.MuzzleSpeed.value + 1).Replace("+", "")}";
-        StateValueArr[6].text = $"{DevTool.Get_RoundFloatString(state.KBPower.value).Replace("+", "")}";
-        StateValueArr[7].text = $"{DevTool.Get_RoundFloatString(state.Dur.value).Replace("+", "")}<size=65%>s</size>";
-        StateValueArr[8].text = $"{DevTool.Get_RoundFloatString(state.MovementSpeed.value).Replace("+", "")}";
+        StateValueArr[0].text = $"{DevTool.Get_RoundFloatString(state.dmg.value).Replace("+", "")}";
+        StateValueArr[1].text = $"{DevTool.Get_RoundFloatString(state.rof.value).Replace("+", "")}<size=65%>/s</size>";
+        StateValueArr[2].text = $"{DevTool.Get_RoundFloatString(state.criticalChacne.value * 100).Replace("+", "")}<size=65%>%</size>";
+        StateValueArr[3].text = $"{DevTool.Get_RoundFloatString(state.criticalDmg.value + 1).Replace("+", "")}<size=65%>x</size>";
+        StateValueArr[4].text = $"{DevTool.Get_RoundFloatString(state.attackSize.value).Replace("+", "")}";
+        StateValueArr[5].text = $"{DevTool.Get_RoundFloatString(state.muzzleSpeed.value + 1).Replace("+", "")}";
+        StateValueArr[6].text = $"{DevTool.Get_RoundFloatString(state.kbPower.value).Replace("+", "")}";
+        StateValueArr[7].text = $"{DevTool.Get_RoundFloatString(state.dur.value).Replace("+", "")}<size=65%>s</size>";
+        StateValueArr[8].text = $"{DevTool.Get_RoundFloatString(state.movementSpeed.value).Replace("+", "")}";
         
         
         // MU

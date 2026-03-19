@@ -47,7 +47,7 @@ public class DroppingAllyController : NoneUnitAllyController
     {
         if (CurrentChargeTime < 1)
         {
-            CurrentChargeTime += ActualAllyState.Rof.value * _DeltaTime;
+            CurrentChargeTime += ActualAllyState.rof.value * _DeltaTime;
         }
 
         if (Can_Shot())

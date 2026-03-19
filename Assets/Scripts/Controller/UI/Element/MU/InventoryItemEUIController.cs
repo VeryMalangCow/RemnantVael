@@ -52,8 +52,8 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
 
     public void Set_Data(ItemData_UIVisual _State)
     {
-        ThisImg.sprite = _State.Icon;
-        RankImg.sprite = _State.RankIcon;
+        ThisImg.sprite = _State.icon;
+        RankImg.sprite = _State.rankIcon;
         RankImg.SetNativeSize();
     }
 

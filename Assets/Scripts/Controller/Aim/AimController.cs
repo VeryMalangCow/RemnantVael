@@ -88,13 +88,13 @@ public class AimController : StaticDepthController
     // 데미지 타입: 물리
     public void Set_PhysicsType()
     {
-        Set_DmgType(AimSprite.Physics.typeBase, AimSprite.Physics.typeSpecial);
+        Set_DmgType(AimSprite.physics.typeBase, AimSprite.physics.typeSpecial);
     }
 
     // 데미지 타입: 에너지
     public void Set_EnergyType()
     {
-        Set_DmgType(AimSprite.Energy.typeBase, AimSprite.Energy.typeSpecial);
+        Set_DmgType(AimSprite.energy.typeBase, AimSprite.energy.typeSpecial);
     }
 
     // 데미지 타입만으로 변경

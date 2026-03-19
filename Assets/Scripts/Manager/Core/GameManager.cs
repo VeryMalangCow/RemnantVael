@@ -280,15 +280,15 @@ public class DevTool
     // 구조체 값에서 값을 넣기
     public static void Set_TF_FromStruct(Transform tf, State_TF2D structTF2D)
     {
-        tf.position = structTF2D.Pos;
-        tf.rotation = structTF2D.Rot;
-        tf.localScale = structTF2D.LocalScale;
+        tf.position = structTF2D.pos;
+        tf.rotation = structTF2D.rot;
+        tf.localScale = structTF2D.localScale;
     }
 
     public static void Set_MatAndClr_FromStruct(SpriteRenderer sr, State_Sprite spriteExtra)
     {
-        sr.material = spriteExtra.Mat;
-        sr.color = spriteExtra.Clr;
+        sr.material = spriteExtra.material;
+        sr.color = spriteExtra.clr;
     }
 
     #endregion
@@ -4068,10 +4068,10 @@ public class StatusEffect_Permanent_WithoutAmount : StatusEffect_Permanent
 [System.Serializable]
 public class BossPhaseData
 {
-    [FormerlySerializedAs("thisPhase")] public int ThisPhase;
-    [FormerlySerializedAs("thisPhase")] public float ThisPhaseLimitPercentHP;
-    [FormerlySerializedAs("thisPhase")] public List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
-    [FormerlySerializedAs("thisPhase")] public ContinuousEnemyPattern SpecialPattern;
+    public int thisPhase;
+    public float thisPhaseLimitPercentHP;
+    public List<OrderOfPriorityEnemyPattern> orderOfPriorityEnemyPatternList;
+    public ContinuousEnemyPattern specialPattern;
 
 }
 
@@ -4084,20 +4084,20 @@ public class EnemyDropItemPercent
 {
     [Space(5)]
     [Header("-- Module")]
-    [FormerlySerializedAs("thisPhase")] [SerializeField] public float ModuleDropPercent = 0.0f;
-    [FormerlySerializedAs("thisPhase")] [SerializeField] public List<int> ModuleRankPercents;
+    [SerializeField] public float moduleDropPercent = 0.0f;
+    [SerializeField] public List<int> moduleRankPercents;
 
     [Space(5)]
     [Header("-- Keycard")]
-    [FormerlySerializedAs("thisPhase")] [SerializeField] public float keycardDropPercent = 0.0f;
+    [SerializeField] public float keycardDropPercent = 0.0f;
 
     [Space(5)]
     [Header("-- Goods")]
-    [FormerlySerializedAs("thisPhase")] [SerializeField] public CoupleData<int> BSAmountMinMax;
-    [FormerlySerializedAs("thisPhase")] [SerializeField] public CoupleData<int> MSAmountMinMax;
-    [FormerlySerializedAs("thisPhase")] [SerializeField] public CoupleData<int> CreditAmountMinMax;
-    [FormerlySerializedAs("thisPhase")] [SerializeField] public CoupleData<int> OverriderAmountMinMax;
-    [FormerlySerializedAs("thisPhase")] [SerializeField] public CoupleData<float> JouleAmountMinMax;
+    [SerializeField] public CoupleData<int> bsAmountMinMax;
+    [SerializeField] public CoupleData<int> msAmountMinMax;
+    [SerializeField] public CoupleData<int> creditAmountMinMax;
+    [SerializeField] public CoupleData<int> overriderAmountMinMax;
+    [SerializeField] public CoupleData<float> jouleAmountMinMax;
 }
 
 [System.Serializable]
@@ -4105,8 +4105,8 @@ public class CoreDropItemPercent
 {
     [Space(5)]
     [Header("-- Core")]
-    [FormerlySerializedAs("thisPhase")] [SerializeField] public int CoreItemID = 0;
-    [FormerlySerializedAs("thisPhase")] [SerializeField] public float CoreItemPercent = 0.0f;
+    [SerializeField] public int coreItemID = 0;
+    [SerializeField] public float coreItemPercent = 0.0f;
 }
 
 #endregion
@@ -4123,10 +4123,10 @@ public abstract class SatelliteController
     [Space(5)]
     [Header("<><><><><> Satellite")]
 
-    [SerializeField] public Transform Target;
-    [SerializeField] public DepthController Follower;
+    [SerializeField] public Transform target;
+    [SerializeField] public DepthController follower;
 
-    [SerializeField] public int UpperOrder;
+    [SerializeField] public int upperOrder;
 
     #endregion
 
@@ -4134,7 +4134,7 @@ public abstract class SatelliteController
 
     public void Set_Pos()
     {
-        Follower.transform.position = Target.position;
+        follower.transform.position = target.position;
     }
 
     public abstract void Set_SortingOrder();
@@ -4150,7 +4150,7 @@ public class SatelliteSideController : SatelliteController
     [Space(5)]
     [Header("<><><><><> Side")]
 
-    [SerializeField] public int FarFromCenter;
+    [SerializeField] public int farFromCenter;
 
     #endregion
 
@@ -4158,13 +4158,13 @@ public class SatelliteSideController : SatelliteController
 
     public override void Set_SortingOrder()
     {
-        Follower.Set_SortingOrder(UpperOrder + 
-            (Is_LocalUpper(Follower.transform) ? -FarFromCenter : FarFromCenter));
+        follower.Set_SortingOrder(upperOrder + 
+            (Is_LocalUpper(follower.transform) ? -farFromCenter : farFromCenter));
     }
 
-    private bool Is_LocalUpper(Transform _TargetTF)
+    private bool Is_LocalUpper(Transform targetTF)
     {
-        return _TargetTF.localPosition.y > 0;
+        return targetTF.localPosition.y > 0;
     }
 
     #endregion
@@ -4177,7 +4177,7 @@ public class SatelliteCenterController : SatelliteController
 
     public override void Set_SortingOrder()
     {
-        Follower.Set_SortingOrder(UpperOrder);
+        follower.Set_SortingOrder(upperOrder);
     }
 
     #endregion
@@ -4190,24 +4190,24 @@ public class SatelliteCenterController : SatelliteController
 [System.Serializable]
 public class MapReso
 {
-    public MapResoElement[] MapResoElements;
+    public MapResoElement[] mapResoElements;
 
-    public MapReso(MapResoElement[] _MapResoElements)
+    public MapReso(MapResoElement[] mapResoElements)
     {
-        MapResoElements = _MapResoElements;
+        this.mapResoElements = mapResoElements;
     }
 }
 
 [System.Serializable]
 public class MapResoElement
 {
-    public Sprite Sprite;
-    public int MaterialIndex;
+    public Sprite sprite;
+    public int materialIndex;
 
-    public MapResoElement(Sprite _Sprite, int _MaterialIndex)
+    public MapResoElement(Sprite sprite, int materialIndex)
     {
-        Sprite = _Sprite;
-        MaterialIndex = _MaterialIndex;
+        this.sprite = sprite;
+        this.materialIndex = materialIndex;
     }
 }
 
@@ -4219,29 +4219,29 @@ public class MapResoElement
 [System.Serializable]
 public class StageData
 {
-    public string MapIndexName;
+    public string mapIndexName;
 
     [Space(5)]
-    public StageInfo InfoData;
+    public StageInfo infoData;
 
     [Space(5)]
-    public StageRoom RoomData;
+    public StageRoom roomData;
 
     [Space(5)]
-    public StageEnemy EnemyData;
+    public StageEnemy enemyData;
 
 
     [Space(5)]
-    public List<Material> MapMaterialUnclear;
-    public List<Material> MapMaterialClear;
-    public List<StageDoorAnim> MapDoorAnim;
+    public List<Material> mapMaterialUnclear;
+    public List<Material> mapMaterialClear;
+    public List<StageDoorAnim> mapDoorAnim;
 
-    [HideInInspector] public List<Sprite> AllMapSprite;
-    [HideInInspector] public StageMapSprite MapSpriteReso;
+    [HideInInspector] public List<Sprite> allMapSprite;
+    [HideInInspector] public StageMapSprite mapSpriteReso;
     
-    public void Offset(MapReso _Reso)
+    public void Offset(MapReso reso)
     {
-        MapSpriteReso.Offset(_Reso, MapIndexName);
+        mapSpriteReso.Offset(reso, mapIndexName);
     }
 }
 
@@ -4252,7 +4252,7 @@ public class StageData
 [System.Serializable]
 public class StageInfo
 {
-    public int StageID;
+    public int stageId;
 }
 
 #endregion
@@ -4262,52 +4262,52 @@ public class StageInfo
 [System.Serializable]
 public class StageRoom
 {
-    public List<GenRoomData> RoomAmount;
+    public List<GenRoomData> roomAmount;
 
     [Space(10)]
-    public List<GenDesignatedRoom> DesignatedRoom; 
+    public List<GenDesignatedRoom> designatedRoom; 
 
     [Space(10)]
-    public List<GenSpecialRoomData> EntranceRoom;
+    public List<GenSpecialRoomData> entranceRoom;
 
     [Space(10)]
-    public List<GenSpecialRoomData> VaultRoom;
+    public List<GenSpecialRoomData> vaultRoom;
 
     [Space(10)]
-    public List<GenSpecialRoomData> ShopRoom;
+    public List<GenSpecialRoomData> shopRoom;
 
     [Space(10)]
-    public List<GenSpecialRoomData> AllyShopRoom;
+    public List<GenSpecialRoomData> allyShopRoom;
 
     [Space(10)]
-    public List<GenPrisonRoomData> PrisonRoom;
+    public List<GenPrisonRoomData> prisonRoom;
 }
 
 [System.Serializable]
 public class GenRoomData
 {
-    public int ID;
-    public int Amount;
+    public int id;
+    public int amount;
 }
 
 [System.Serializable]
 public class GenDesignatedRoom
 {
-    public int ID;
-    public int RuleID;
+    public int id;
+    public int ruleId;
 }
 
 [System.Serializable]
 public class GenSpecialRoomData
 {
-    public int ID;
-    public int RuleID;
+    public int id;
+    public int ruleId;
 }
 
 [System.Serializable]
 public class GenPrisonRoomData : GenSpecialRoomData
 {
-    public int TypeID;
+    public int typeId;
 }
 
 #endregion
@@ -4317,9 +4317,9 @@ public class GenPrisonRoomData : GenSpecialRoomData
 [System.Serializable]
 public class StageEnemy
 {
-    public List<GameObject> StageEnemyList;
-    public List<GameObject> StageEliteEnemyList;
-    public List<GameObject> StageBossEnemyList;
+    public List<GameObject> stageEnemyList;
+    public List<GameObject> stageEliteEnemyList;
+    public List<GameObject> stageBossEnemyList;
 }
 
 #endregion
@@ -4329,13 +4329,13 @@ public class StageEnemy
 [System.Serializable]
 public class MapNextIndex
 {
-    public int PastIndex;
-    public List<int> NextIndexList;
+    public int pastIndex;
+    public List<int> nextIndexList;
 
-    public MapNextIndex(int _PastIndex, int _NextIndex)
+    public MapNextIndex(int pastIndex, int nextIndex)
     {
-        PastIndex = _PastIndex;
-        NextIndexList = new List<int> { _NextIndex };
+        this.pastIndex = pastIndex;
+        nextIndexList = new List<int> { nextIndex };
     }
 }
 
@@ -4345,28 +4345,28 @@ public class MapNextIndex
 
 public class AllPassageMiddleSpriteData
 {
-    private Dictionary<string, EachPassageMiddleSpriteData> PassageMiddleSpriteDict;
+    private Dictionary<string, EachPassageMiddleSpriteData> passageMiddleSpriteDict;
 
-    public AllPassageMiddleSpriteData(MapReso _AllSprite)
+    public AllPassageMiddleSpriteData(MapReso allSprite)
     {
-        PassageMiddleSpriteDict = new Dictionary<string, EachPassageMiddleSpriteData>();
-        for (int i = 0; i < _AllSprite.MapResoElements.Length; i++)
+        passageMiddleSpriteDict = new Dictionary<string, EachPassageMiddleSpriteData>();
+        for (int i = 0; i < allSprite.mapResoElements.Length; i++)
         {
-            string[] fullName = _AllSprite.MapResoElements[i].Sprite.name.Split("_");
+            string[] fullName = allSprite.mapResoElements[i].sprite.name.Split("_");
 
-            PassageMiddleSpriteDict.Add(
+            passageMiddleSpriteDict.Add(
                 $"{fullName[1]}_{fullName[3]}_{fullName[5]}",
-                new EachPassageMiddleSpriteData(_AllSprite.MapResoElements[i].Sprite, _AllSprite.MapResoElements[i].MaterialIndex));
+                new EachPassageMiddleSpriteData(allSprite.mapResoElements[i].sprite, allSprite.mapResoElements[i].materialIndex));
         }
     }
 
-    public Sprite Get_CorrectSprite(string _Key, out int _MaterialIndex)
+    public Sprite Get_CorrectSprite(string key, out int materialIndex)
     {
-        _MaterialIndex = -1;
-        if (PassageMiddleSpriteDict.ContainsKey(_Key))
+        materialIndex = -1;
+        if (passageMiddleSpriteDict.ContainsKey(key))
         {
-            EachPassageMiddleSpriteData data = PassageMiddleSpriteDict[_Key];
-            _MaterialIndex = data.Get_MaterialIndex();
+            EachPassageMiddleSpriteData data = passageMiddleSpriteDict[key];
+            materialIndex = data.Get_MaterialIndex();
             return data.Get_Sprite();
         }
         return null;
@@ -4375,23 +4375,23 @@ public class AllPassageMiddleSpriteData
 
 public class EachPassageMiddleSpriteData
 {
-    private Sprite Sprite;
-	private int MaterialIndex;
+    private Sprite sprite;
+    private int materialIndex;
 
-    public EachPassageMiddleSpriteData(Sprite _Sprite, int _MaterialIndex)
+    public EachPassageMiddleSpriteData(Sprite sprite, int materialIndex)
     {
-        Sprite = _Sprite;
-        MaterialIndex = _MaterialIndex;
+        this.sprite = sprite;
+        this.materialIndex = materialIndex;
     }
 
     public Sprite Get_Sprite()
     {
-        return Sprite;
+        return sprite;
     }
 
     public int Get_MaterialIndex()
     {
-        return MaterialIndex;
+        return materialIndex;
     }
 }
 
@@ -4403,41 +4403,41 @@ public class EachPassageMiddleSpriteData
 [System.Serializable]
 public class AllyCardBaseData
 {
-    public int ID;
-    public int Rank;
-    public int EssentialID;
+    public int id;
+    public int rank;
+    public int essentialId;
 
-    public AllyCardBaseData(int _ID, int _Rank, int _EssentialID)
+    public AllyCardBaseData(int id, int rank, int essentialID)
     {
-        ID = _ID;
-        Rank = _Rank;
-        EssentialID = _EssentialID;
+        this.id = id;
+        this.rank = rank;
+        essentialId = essentialID;
     }
 }
 
 [System.Serializable]
 public class AllyCardData
 {
-    public int ID;
-    public int Rank;
-    public int EssentialID;
+    public int id;
+    public int rank;
+    public int essentialID;
 
-    public string Name;
-    public string Desc;
+    public string name;
+    public string desc;
 
-    public AllyCardData(AllyCardBaseData _BaseData, string _Name, string _Desc)
+    public AllyCardData(AllyCardBaseData baseData, string name, string desc)
     {
-        ID = _BaseData.ID;
-        Rank = _BaseData.Rank;
-        EssentialID = _BaseData.EssentialID;
+        id = baseData.id;
+        rank = baseData.rank;
+        essentialID = baseData.essentialId;
 
-        Set_LanguageTxt(_Name, _Desc);
+        Set_LanguageTxt(name, desc);
     }
 
-    public void Set_LanguageTxt(string _Name, string _Desc)
+    public void Set_LanguageTxt(string name, string desc)
     {
-        Name = _Name;
-        Desc = _Desc;
+        this.name = name;
+        this.desc = desc;
     }
 }
 
@@ -4448,28 +4448,28 @@ public class AllyCardData
 [System.Serializable]
 public class AllyBaseTunerData
 {
-    public AllyEachBaseTunerData Positive0;
-    public AllyEachBaseTunerData Positive1;
-    public AllyEachBaseTunerData Negative;
+    public AllyEachBaseTunerData positive0;
+    public AllyEachBaseTunerData positive1;
+    public AllyEachBaseTunerData negative;
 
-    public AllyBaseTunerData(AllyTunerData _Data)
+    public AllyBaseTunerData(AllyTunerData data)
     {
-        Positive0 = new AllyEachBaseTunerData(_Data.Positive0);
-        Positive1 = new AllyEachBaseTunerData(_Data.Positive1);
-        Negative = new AllyEachBaseTunerData(_Data.Negative);
+        positive0 = new AllyEachBaseTunerData(data.positive0);
+        positive1 = new AllyEachBaseTunerData(data.positive1);
+        negative = new AllyEachBaseTunerData(data.negative);
     }
 }
 
 [System.Serializable]
 public class AllyEachBaseTunerData
 {
-    public string Type = "";
-    public int Rank = 0;
+    public string type = "";
+    public int rank = 0;
 
     public AllyEachBaseTunerData(AllyEachTunerData _Data)
     {
-        Type = _Data.Type;
-        Rank = _Data.Rank;
+        type = _Data.type;
+        rank = _Data.rank;
     }
 }
 
@@ -4477,14 +4477,14 @@ public class AllyEachBaseTunerData
 [System.Serializable]
 public class AllyBaseUpradeTunerSet
 {
-    public List<AllyTunerData> AllyTunerDataList;
+    public List<AllyTunerData> allyTunerDataList;
 
-    public void Offset(int _Amount, List<string> _TypeList, List<int> _RankPercent)
+    public void Offset(int amount, List<string> typeList, List<int> rankPercent)
     {
-        AllyTunerDataList = new List<AllyTunerData>();
-        for (int i = 0; i < _Amount; i++)
+        allyTunerDataList = new List<AllyTunerData>();
+        for (int i = 0; i < amount; i++)
         {
-            AllyTunerDataList.Add(new AllyTunerData(_TypeList, _RankPercent));
+            allyTunerDataList.Add(new AllyTunerData(typeList, rankPercent));
         }
     }
 }
@@ -4492,42 +4492,42 @@ public class AllyBaseUpradeTunerSet
 [System.Serializable]
 public class AllyTunerData
 {
-    public AllyEachTunerData Positive0;
-    public AllyEachTunerData Positive1;
-    public AllyEachTunerData Negative;
+    public AllyEachTunerData positive0;
+    public AllyEachTunerData positive1;
+    public AllyEachTunerData negative;
 
-    public int NeedPay = 0;
+    public int needPay = 0;
 
-    public AllyTunerData(List<string> _TypeList, List<int> _RankPercent)
+    public AllyTunerData(List<string> typeList, List<int> rankPercent)
     {
-        Set_Data(_TypeList, _RankPercent);
+        Set_Data(typeList, rankPercent);
     }
 
-    public void Set_Data(List<string> _TypeList, List<int> _RankPercent)
+    public void Set_Data(List<string> typeList, List<int> rankPercent)
     {
-        Positive0 = new AllyEachTunerData(_TypeList, _RankPercent);
-        Positive1 = new AllyEachTunerData(_TypeList, _RankPercent);
-        Negative = new AllyEachTunerData(_TypeList, _RankPercent);
+        positive0 = new AllyEachTunerData(typeList, rankPercent);
+        positive1 = new AllyEachTunerData(typeList, rankPercent);
+        negative = new AllyEachTunerData(typeList, rankPercent);
 
-        NeedPay = (int)((Positive0.Rank + Positive1.Rank - Negative.Rank + 5) * 0.5f);
+        needPay = (int)((positive0.rank + positive1.rank - negative.rank + 5) * 0.5f);
     }
 }
 
 [System.Serializable]
 public class AllyEachTunerData
 {
-    public string Type = "";
-    public int Rank = 0;
+    public string type = "";
+    public int rank = 0;
 
-    public AllyEachTunerData(List<string> _TypeList, List<int> _RankPercent)
+    public AllyEachTunerData(List<string> typeList, List<int> rankPercent)
     {
-        Set_Data(_TypeList, _RankPercent);
+        Set_Data(typeList, rankPercent);
     }
 
-    public void Set_Data(List<string> _TypeList, List<int> _RankPercent)
+    public void Set_Data(List<string> typeList, List<int> rankPercent)
     {
-        Type = _TypeList[UnityEngine.Random.Range(0, _TypeList.Count)];
-        Rank = DevTool.Get_Rank(_RankPercent);
+        type = typeList[UnityEngine.Random.Range(0, typeList.Count)];
+        rank = DevTool.Get_Rank(rankPercent);
     }
 }
 
@@ -4542,15 +4542,15 @@ public class AllyState
 {
     #region Value
 
-    public RefData<float> Dmg;
-    public RefData<float> Rof;
-    public RefData<float> MovementSpeed;
-    public RefData<float> AttackSize;
-    public RefData<float> CC;
-    public RefData<float> CD;
-    public RefData<float> MuzzleSpeed;
-    public RefData<float> KBPower;
-    public RefData<float> Dur;
+    public RefData<float> dmg;
+    public RefData<float> rof;
+    public RefData<float> movementSpeed;
+    public RefData<float> attackSize;
+    public RefData<float> criticalChacne;
+    public RefData<float> criticalDmg;
+    public RefData<float> muzzleSpeed;
+    public RefData<float> kbPower;
+    public RefData<float> dur;
 
     #endregion
 
@@ -4558,88 +4558,88 @@ public class AllyState
 
     public AllyState()
     {
-        Dmg = new RefData<float>(1);
-        Rof = new RefData<float>(1);
-        MovementSpeed = new RefData<float>(1);
-        AttackSize = new RefData<float>(1);
-        CC = new RefData<float>(1);
-        CD = new RefData<float>(1);
-        MuzzleSpeed = new RefData<float>(1);
-        KBPower = new RefData<float>(1);
-        Dur = new RefData<float>(1);
+        dmg = new RefData<float>(1);
+        rof = new RefData<float>(1);
+        movementSpeed = new RefData<float>(1);
+        attackSize = new RefData<float>(1);
+        criticalChacne = new RefData<float>(1);
+        criticalDmg = new RefData<float>(1);
+        muzzleSpeed = new RefData<float>(1);
+        kbPower = new RefData<float>(1);
+        dur = new RefData<float>(1);
     }
 
-    public AllyState(AllyState _StateValue)
+    public AllyState(AllyState stateValue)
     {
-        Dmg = new RefData<float>(_StateValue.Dmg.value);
-        Rof = new RefData<float>(_StateValue.Rof.value);
-        MovementSpeed = new RefData<float>(_StateValue.MovementSpeed.value);
-        AttackSize = new RefData<float>(_StateValue.AttackSize.value);
-        CC = new RefData<float>(_StateValue.CC.value);
-        CD = new RefData<float>(_StateValue.CD.value);
-        MuzzleSpeed = new RefData<float>(_StateValue.MuzzleSpeed.value);
-        KBPower = new RefData<float>(_StateValue.KBPower.value);
-        Dur = new RefData<float>(_StateValue.Dur.value);
+        dmg = new RefData<float>(stateValue.dmg.value);
+        rof = new RefData<float>(stateValue.rof.value);
+        movementSpeed = new RefData<float>(stateValue.movementSpeed.value);
+        attackSize = new RefData<float>(stateValue.attackSize.value);
+        criticalChacne = new RefData<float>(stateValue.criticalChacne.value);
+        criticalDmg = new RefData<float>(stateValue.criticalDmg.value);
+        muzzleSpeed = new RefData<float>(stateValue.muzzleSpeed.value);
+        kbPower = new RefData<float>(stateValue.kbPower.value);
+        dur = new RefData<float>(stateValue.dur.value);
     }
 
     public void Reset()
     {
-        Dmg.value = 1;
-        Rof.value = 1;
-        MovementSpeed.value = 1;
-        AttackSize.value = 1;
-        CC.value = 1;
-        CD.value = 1;
-        MuzzleSpeed.value = 1;
-        KBPower.value = 1;
-        Dur.value = 1;
+        dmg.value = 1;
+        rof.value = 1;
+        movementSpeed.value = 1;
+        attackSize.value = 1;
+        criticalChacne.value = 1;
+        criticalDmg.value = 1;
+        muzzleSpeed.value = 1;
+        kbPower.value = 1;
+        dur.value = 1;
     }
 
-    public static AllyState Get_Multiple(AllyState _State0, AllyState _State1)
+    public static AllyState Get_Multiple(AllyState state0, AllyState state1)
     {
         AllyState result = new AllyState();
 
-        result.Dmg = new RefData<float>(_State0.Dmg.value * _State1.Dmg.value);
-        result.Rof = new RefData<float>(_State0.Rof.value * _State1.Rof.value);
-        result.MovementSpeed = new RefData<float>(_State0.MovementSpeed.value * _State1.MovementSpeed.value);
-        result.AttackSize = new RefData<float>(_State0.AttackSize.value * _State1.AttackSize.value);
-        result.CC = new RefData<float>(_State0.CC.value * _State1.CC.value);
-        result.CD = new RefData<float>(_State0.CD.value * _State1.CD.value);
-        result.MuzzleSpeed = new RefData<float>(_State0.MuzzleSpeed.value * _State1.MuzzleSpeed.value);
-        result.KBPower = new RefData<float>(_State0.KBPower.value * _State1.KBPower.value);
-        result.Dur = new RefData<float>(_State0.Dur.value * _State1.Dur.value);
+        result.dmg = new RefData<float>(state0.dmg.value * state1.dmg.value);
+        result.rof = new RefData<float>(state0.rof.value * state1.rof.value);
+        result.movementSpeed = new RefData<float>(state0.movementSpeed.value * state1.movementSpeed.value);
+        result.attackSize = new RefData<float>(state0.attackSize.value * state1.attackSize.value);
+        result.criticalChacne = new RefData<float>(state0.criticalChacne.value * state1.criticalChacne.value);
+        result.criticalDmg = new RefData<float>(state0.criticalDmg.value * state1.criticalDmg.value);
+        result.muzzleSpeed = new RefData<float>(state0.muzzleSpeed.value * state1.muzzleSpeed.value);
+        result.kbPower = new RefData<float>(state0.kbPower.value * state1.kbPower.value);
+        result.dur = new RefData<float>(state0.dur.value * state1.dur.value);
 
         return result;
     }
 
-    public static AllyState Get_Subtraction(AllyState _Original, AllyState _Exclude)
+    public static AllyState Get_Subtraction(AllyState original, AllyState exclude)
     {
         AllyState result = new AllyState();
 
-        result.Dmg = new RefData<float>(_Original.Dmg.value - _Exclude.Dmg.value);
-        result.Rof = new RefData<float>(_Original.Rof.value - _Exclude.Rof.value);
-        result.MovementSpeed = new RefData<float>(_Original.MovementSpeed.value - _Exclude.MovementSpeed.value);
-        result.AttackSize = new RefData<float>(_Original.AttackSize.value - _Exclude.AttackSize.value);
-        result.CC = new RefData<float>(_Original.CC.value - _Exclude.CC.value);
-        result.CD = new RefData<float>(_Original.CD.value - _Exclude.CD.value);
-        result.MuzzleSpeed = new RefData<float>(_Original.MuzzleSpeed.value - _Exclude.MuzzleSpeed.value);
-        result.KBPower = new RefData<float>(_Original.KBPower.value - _Exclude.KBPower.value);
-        result.Dur = new RefData<float>(_Original.Dur.value - _Exclude.Dur.value);
+        result.dmg = new RefData<float>(original.dmg.value - exclude.dmg.value);
+        result.rof = new RefData<float>(original.rof.value - exclude.rof.value);
+        result.movementSpeed = new RefData<float>(original.movementSpeed.value - exclude.movementSpeed.value);
+        result.attackSize = new RefData<float>(original.attackSize.value - exclude.attackSize.value);
+        result.criticalChacne = new RefData<float>(original.criticalChacne.value - exclude.criticalChacne.value);
+        result.criticalDmg = new RefData<float>(original.criticalDmg.value - exclude.criticalDmg.value);
+        result.muzzleSpeed = new RefData<float>(original.muzzleSpeed.value - exclude.muzzleSpeed.value);
+        result.kbPower = new RefData<float>(original.kbPower.value - exclude.kbPower.value);
+        result.dur = new RefData<float>(original.dur.value - exclude.dur.value);
 
         return result;
     }
 
-    public void Set_ValueLimitRange(float _Min)
+    public void Set_ValueLimitRange(float min)
     {
-        Dmg.value = Mathf.Max(_Min, Dmg.value);
-        Rof.value = Mathf.Max(_Min, Rof.value);
-        MovementSpeed.value = Mathf.Max(_Min, MovementSpeed.value);
-        AttackSize.value = Mathf.Max(_Min, AttackSize.value);
-        CC.value = Mathf.Max(_Min, CC.value);
-        CD.value = Mathf.Max(_Min, CD.value);
-        MuzzleSpeed.value = Mathf.Max(_Min, MuzzleSpeed.value);
-        KBPower.value = Mathf.Max(_Min, KBPower.value);
-        Dur.value = Mathf.Max(_Min, Dur.value);
+        dmg.value = Mathf.Max(min, dmg.value);
+        rof.value = Mathf.Max(min, rof.value);
+        movementSpeed.value = Mathf.Max(min, movementSpeed.value);
+        attackSize.value = Mathf.Max(min, attackSize.value);
+        criticalChacne.value = Mathf.Max(min, criticalChacne.value);
+        criticalDmg.value = Mathf.Max(min, criticalDmg.value);
+        muzzleSpeed.value = Mathf.Max(min, muzzleSpeed.value);
+        kbPower.value = Mathf.Max(min, kbPower.value);
+        dur.value = Mathf.Max(min, dur.value);
     }
 
     #endregion
@@ -4648,92 +4648,92 @@ public class AllyState
 [System.Serializable]
 public class AllyBuffState : AllyState
 {
-    [HideInInspector] public List<AllyBuff> Dmg_BuffList;
-    [HideInInspector] public List<AllyBuff> Rof_BuffList;
-    [HideInInspector] public List<AllyBuff> MovementSpeed_BuffList;
-    [HideInInspector] public List<AllyBuff> AttackSize_BuffList;
-    [HideInInspector] public List<AllyBuff> CC_BuffList;
-    [HideInInspector] public List<AllyBuff> CD_BuffList;
-    [HideInInspector] public List<AllyBuff> MuzzleSpeed_BuffList;
-    [HideInInspector] public List<AllyBuff> KBPower_BuffList;
-    [HideInInspector] public List<AllyBuff> Dur_BuffList;
+    [HideInInspector] public List<AllyBuff> dmg_BuffList;
+    [HideInInspector] public List<AllyBuff> rof_BuffList;
+    [HideInInspector] public List<AllyBuff> movementSpeed_BuffList;
+    [HideInInspector] public List<AllyBuff> attackSize_BuffList;
+    [HideInInspector] public List<AllyBuff> cc_BuffList;
+    [HideInInspector] public List<AllyBuff> cd_BuffList;
+    [HideInInspector] public List<AllyBuff> muzzleSpeed_BuffList;
+    [HideInInspector] public List<AllyBuff> kbPower_BuffList;
+    [HideInInspector] public List<AllyBuff> dur_BuffList;
 
-    [HideInInspector] private RefData<bool> Dmg_IsExist;
-    [HideInInspector] private RefData<bool> Rof_IsExist;
-    [HideInInspector] private RefData<bool> MovementSpeed_IsExist;
-    [HideInInspector] private RefData<bool> AttackSize_IsExist;
-    [HideInInspector] private RefData<bool> CC_IsExist;
-    [HideInInspector] private RefData<bool> CD_IsExist;
-    [HideInInspector] private RefData<bool> MuzzleSpeed_IsExist;
-    [HideInInspector] private RefData<bool> KBPower_IsExist;
-    [HideInInspector] private RefData<bool> Dur_IsExist;
+    [HideInInspector] private RefData<bool> dmg_IsExist;
+    [HideInInspector] private RefData<bool> rof_IsExist;
+    [HideInInspector] private RefData<bool> movementSpeed_IsExist;
+    [HideInInspector] private RefData<bool> attackSize_IsExist;
+    [HideInInspector] private RefData<bool> cc_IsExist;
+    [HideInInspector] private RefData<bool> cd_IsExist;
+    [HideInInspector] private RefData<bool> muzzleSpeed_IsExist;
+    [HideInInspector] private RefData<bool> kbPower_IsExist;
+    [HideInInspector] private RefData<bool> dur_IsExist;
 
-    [HideInInspector] Dictionary<string, List<AllyBuff>> BuffDict;
-    [HideInInspector] Dictionary<string, RefData<bool>> BuffIsOnDict;
+    [HideInInspector] Dictionary<string, List<AllyBuff>> buffDict;
+    [HideInInspector] Dictionary<string, RefData<bool>> buffIsOnDict;
 
     public AllyBuffState() : base()
     {
-        Dmg_BuffList = new List<AllyBuff>();
-        Rof_BuffList = new List<AllyBuff>();
-        MovementSpeed_BuffList = new List<AllyBuff>();
-        AttackSize_BuffList = new List<AllyBuff>();
-        CC_BuffList = new List<AllyBuff>();
-        CD_BuffList = new List<AllyBuff>();
-        MuzzleSpeed_BuffList = new List<AllyBuff>();
-        KBPower_BuffList = new List<AllyBuff>();
-        Dur_BuffList = new List<AllyBuff>();
+        dmg_BuffList = new List<AllyBuff>();
+        rof_BuffList = new List<AllyBuff>();
+        movementSpeed_BuffList = new List<AllyBuff>();
+        attackSize_BuffList = new List<AllyBuff>();
+        cc_BuffList = new List<AllyBuff>();
+        cd_BuffList = new List<AllyBuff>();
+        muzzleSpeed_BuffList = new List<AllyBuff>();
+        kbPower_BuffList = new List<AllyBuff>();
+        dur_BuffList = new List<AllyBuff>();
 
-        Dmg_IsExist = new RefData<bool>(false);
-        Rof_IsExist = new RefData<bool>(false);
-        MovementSpeed_IsExist = new RefData<bool>(false);
-        AttackSize_IsExist = new RefData<bool>(false);
-        CC_IsExist = new RefData<bool>(false);
-        CD_IsExist = new RefData<bool>(false);
-        MuzzleSpeed_IsExist = new RefData<bool>(false);
-        KBPower_IsExist = new RefData<bool>(false);
-        Dur_IsExist = new RefData<bool>(false);
+        dmg_IsExist = new RefData<bool>(false);
+        rof_IsExist = new RefData<bool>(false);
+        movementSpeed_IsExist = new RefData<bool>(false);
+        attackSize_IsExist = new RefData<bool>(false);
+        cc_IsExist = new RefData<bool>(false);
+        cd_IsExist = new RefData<bool>(false);
+        muzzleSpeed_IsExist = new RefData<bool>(false);
+        kbPower_IsExist = new RefData<bool>(false);
+        dur_IsExist = new RefData<bool>(false);
 
-        BuffDict = new Dictionary<string, List<AllyBuff>>
+        buffDict = new Dictionary<string, List<AllyBuff>>
         {
-            { AllyManager.stateTypeList[0], Dmg_BuffList },
-            { AllyManager.stateTypeList[1], Rof_BuffList },
-            { AllyManager.stateTypeList[2], MovementSpeed_BuffList },
-            { AllyManager.stateTypeList[3], AttackSize_BuffList },
-            { AllyManager.stateTypeList[4], CC_BuffList },
-            { AllyManager.stateTypeList[5], CD_BuffList },
-            { AllyManager.stateTypeList[6], MuzzleSpeed_BuffList },
-            { AllyManager.stateTypeList[7], KBPower_BuffList },
-            { AllyManager.stateTypeList[8], Dur_BuffList }
+            { AllyManager.stateTypeList[0], dmg_BuffList },
+            { AllyManager.stateTypeList[1], rof_BuffList },
+            { AllyManager.stateTypeList[2], movementSpeed_BuffList },
+            { AllyManager.stateTypeList[3], attackSize_BuffList },
+            { AllyManager.stateTypeList[4], cc_BuffList },
+            { AllyManager.stateTypeList[5], cd_BuffList },
+            { AllyManager.stateTypeList[6], muzzleSpeed_BuffList },
+            { AllyManager.stateTypeList[7], kbPower_BuffList },
+            { AllyManager.stateTypeList[8], dur_BuffList }
         };
 
-        BuffIsOnDict = new Dictionary<string, RefData<bool>>
+        buffIsOnDict = new Dictionary<string, RefData<bool>>
         {
-            { AllyManager.stateTypeList[0], Dmg_IsExist },
-            { AllyManager.stateTypeList[1], Rof_IsExist },
-            { AllyManager.stateTypeList[2], MovementSpeed_IsExist },
-            { AllyManager.stateTypeList[3], AttackSize_IsExist },
-            { AllyManager.stateTypeList[4], CC_IsExist },
-            { AllyManager.stateTypeList[5], CD_IsExist },
-            { AllyManager.stateTypeList[6], MuzzleSpeed_IsExist },
-            { AllyManager.stateTypeList[7], KBPower_IsExist },
-            { AllyManager.stateTypeList[8], Dur_IsExist }
+            { AllyManager.stateTypeList[0], dmg_IsExist },
+            { AllyManager.stateTypeList[1], rof_IsExist },
+            { AllyManager.stateTypeList[2], movementSpeed_IsExist },
+            { AllyManager.stateTypeList[3], attackSize_IsExist },
+            { AllyManager.stateTypeList[4], cc_IsExist },
+            { AllyManager.stateTypeList[5], cd_IsExist },
+            { AllyManager.stateTypeList[6], muzzleSpeed_IsExist },
+            { AllyManager.stateTypeList[7], kbPower_IsExist },
+            { AllyManager.stateTypeList[8], dur_IsExist }
         };
     }
 
-    public void Add_List(AllyBuff _Buff, string _Type)
+    public void Add_List(AllyBuff buff, string type)
     {
-        DevTool.Add_InList(BuffDict[_Type], _Buff);
+        DevTool.Add_InList(buffDict[type], buff);
 
-        if (!BuffIsOnDict[_Type].value)
-            BuffIsOnDict[_Type].value = true;
+        if (!buffIsOnDict[type].value)
+            buffIsOnDict[type].value = true;
     }
 
-    public void Remove_List(AllyBuff _Buff, string _Type)
+    public void Remove_List(AllyBuff buff, string type)
     {
-        DevTool.Remove_InList(BuffDict[_Type], _Buff);
+        DevTool.Remove_InList(buffDict[type], buff);
 
-        if (BuffDict[_Type].Count <= 0)
-            BuffIsOnDict[_Type].value = false;
+        if (buffDict[type].Count <= 0)
+            buffIsOnDict[type].value = false;
     }
 
     public AllyState Get_BuffedAllyState()
@@ -4741,16 +4741,16 @@ public class AllyBuffState : AllyState
         return this;
     }
 
-    public void UpdateData(float _DeltaTime)
+    public void UpdateData(float deltaTime)
     {
-        foreach(var data in BuffDict)
-            if (BuffIsOnDict[data.Key].value)
+        foreach(var data in buffDict)
+            if (buffIsOnDict[data.Key].value)
                 UpdateData(data.Value);
             
-        void UpdateData(List<AllyBuff> _BuffList)
+        void UpdateData(List<AllyBuff> buffList)
         {
-            for (int i = 0; i < _BuffList.Count; i++)
-                _BuffList[i].Caculate_Cooltime(_DeltaTime);
+            for (int i = 0; i < buffList.Count; i++)
+                buffList[i].Caculate_Cooltime(deltaTime);
         }
     }
 
@@ -4758,23 +4758,23 @@ public class AllyBuffState : AllyState
 
     public void Set_BuffedAllyState()
     {
-        MovementSpeed.value = Get_BuffValue(MovementSpeed_BuffList);
-        Dmg.value = Get_BuffValue(Dmg_BuffList);
-        Rof.value = Get_BuffValue(Rof_BuffList);
-        AttackSize.value = Get_BuffValue(AttackSize_BuffList);
-        CC.value = Get_BuffValue(CC_BuffList);
-        CD.value = Get_BuffValue(CD_BuffList);
-        MuzzleSpeed.value = Get_BuffValue(MuzzleSpeed_BuffList);
-        KBPower.value = Get_BuffValue(KBPower_BuffList);
-        Dur.value = Get_BuffValue(Dur_BuffList);
+        movementSpeed.value = Get_BuffValue(movementSpeed_BuffList);
+        dmg.value = Get_BuffValue(dmg_BuffList);
+        rof.value = Get_BuffValue(rof_BuffList);
+        attackSize.value = Get_BuffValue(attackSize_BuffList);
+        criticalChacne.value = Get_BuffValue(cc_BuffList);
+        criticalDmg.value = Get_BuffValue(cd_BuffList);
+        muzzleSpeed.value = Get_BuffValue(muzzleSpeed_BuffList);
+        kbPower.value = Get_BuffValue(kbPower_BuffList);
+        dur.value = Get_BuffValue(dur_BuffList);
     }
 
-    private float Get_BuffValue(List<AllyBuff> _BuffList)
+    private float Get_BuffValue(List<AllyBuff> buffList)
     {
         float result = 1;
-        for (int i = 0; i < _BuffList.Count; i++)
+        for (int i = 0; i < buffList.Count; i++)
         {
-            result += _BuffList[i].Get_Value();
+            result += buffList[i].Get_Value();
         }
         return result;
     }
@@ -4789,15 +4789,15 @@ public class AllyBuffState : AllyState
 [System.Serializable]
 public class AllySpriteSet
 {
-    public List<Sprite> AllyIdle;
-    public List<Sprite> AllyMove;
-    public List<Sprite> AllyAttack;
+    public List<Sprite> allyIdle;
+    public List<Sprite> allyMove;
+    public List<Sprite> allyAttack;
 
-    public AllySpriteSet(string _Name)
+    public AllySpriteSet(string name)
     {
-        AllyIdle = ResourceManager.instance.Get_AllySprite(_Name, "Idle");
-        AllyMove = ResourceManager.instance.Get_AllySprite(_Name, "Move");
-        AllyAttack = ResourceManager.instance.Get_AllySprite(_Name, "Attack");
+        allyIdle = ResourceManager.instance.Get_AllySprite(name, "Idle");
+        allyMove = ResourceManager.instance.Get_AllySprite(name, "Move");
+        allyAttack = ResourceManager.instance.Get_AllySprite(name, "Attack");
     }
 }
 
@@ -4808,34 +4808,34 @@ public class AllySpriteSet
 
 public class AllyCompleteList<T> where T : IWhen_Request
 {
-    public List<T> List = new List<T>();
+    public List<T> list = new List<T>();
 
     public void Play_Request()
     {
-        if (List.Count <= 0) return;
+        if (list.Count <= 0) return;
 
-        for (int i = 0; i < List.Count; i++)
-            List[i].Play_When_Request();
+        for (int i = 0; i < list.Count; i++)
+            list[i].Play_When_Request();
     }
 
 }
 
 public class AllyFailList<T> where T : IWhen_Fail
 {
-    public List<T> List = new List<T>();
+    public List<T> list = new List<T>();
 
     // KillEnemy
-    public void Start_Fail(T _Request)
+    public void Start_Fail(T request)
     {
-        List.Add(_Request);
+        list.Add(request);
     }
 
     public void Play_Request()
     {
-        if (List.Count <= 0) return;
+        if (list.Count <= 0) return;
 
-        for (int i = 0; i < List.Count; i++)
-            List[i].Play_When_Fail();
+        for (int i = 0; i < list.Count; i++)
+            list[i].Play_When_Fail();
     }
 }
 
@@ -4844,35 +4844,35 @@ public abstract class AllyRequest
 {
     #region Variable
 
-    protected AllyController Ally;
+    protected AllyController ally;
 
-    protected float CompleteProgress = 0;
-    protected float MaxCompleteProgress = 0;
-    protected float GainCompleteOnceProgress = 0;
+    protected float completeProgress = 0;
+    protected float maxCompleteProgress = 0;
+    protected float gainCompleteOnceProgress = 0;
 
-    protected float FailProgress = 0;
-    protected float MaxFailProgress = 0;
-    protected float GainFailOnceProgress = 0;
+    protected float failProgress = 0;
+    protected float maxFailProgress = 0;
+    protected float gainFailOnceProgress = 0;
 
     #endregion
 
     #region Constructor
 
-    public AllyRequest(AllyController _Ally)
+    public AllyRequest(AllyController ally)
     {
-        Ally = _Ally;
+        this.ally = ally;
 
-        Rank = Get_RandomRank();
-        List<string> keyList = RewardDict.Keys.ToList();
-        RewardType = keyList[UnityEngine.Random.Range(0, keyList.Count)];
+        rank = Get_RandomRank();
+        List<string> keyList = rewardDict.Keys.ToList();
+        rewardType = keyList[UnityEngine.Random.Range(0, keyList.Count)];
 
-        CompleteProgress = 0;
-        FailProgress = 0;
+        completeProgress = 0;
+        failProgress = 0;
 
         Set_IWhenAdd();
 
-        Ally.HUD.RequestUI.Set_Request_CompleteProgress(0);
-        Ally.HUD.RequestUI.Set_Request_FailProgress(0);
+        this.ally.HUD.RequestUI.Set_Request_CompleteProgress(0);
+        this.ally.HUD.RequestUI.Set_Request_FailProgress(0);
     }
 
     #endregion
@@ -4883,19 +4883,19 @@ public abstract class AllyRequest
 
     #region Extra Constructor Func (Static)
 
-    private static List<Func<AllyController, AllyRequest>> RequestTypeList = new()
+    private static List<Func<AllyController, AllyRequest>> requestTypeList = new()
     {
         Get_AllyRequestType_000,
         Get_AllyRequestType_001
     };
 
-    private static AllyRequest Get_AllyRequestType_000(AllyController _Ally) => new AllyRequest_Slayer(_Ally);
-    private static AllyRequest Get_AllyRequestType_001(AllyController _Ally) => new AllyRequest_BountyHunter(_Ally);
+    private static AllyRequest Get_AllyRequestType_000(AllyController ally) => new AllyRequest_Slayer(ally);
+    private static AllyRequest Get_AllyRequestType_001(AllyController ally) => new AllyRequest_BountyHunter(ally);
 
 
-    public static AllyRequest Get_AllyRequestType(AllyController _Ally)
+    public static AllyRequest Get_AllyRequestType(AllyController ally)
     {
-        return RequestTypeList[UnityEngine.Random.Range(0, RequestTypeList.Count)](_Ally);
+        return requestTypeList[UnityEngine.Random.Range(0, requestTypeList.Count)](ally);
     }
 
 
@@ -4903,17 +4903,17 @@ public abstract class AllyRequest
 
     #region Rank
 
-    protected int Rank = 0;
+    protected int rank = 0;
     public int Get_Rank()
     {
-        return Rank;
+        return rank;
     }
 
     // Min: 0 <-> Max: 4
-    private static List<int> RankPercent = new List<int>() { 7, 5, 3, 2, 1 };
+    private static List<int> rankPercent = new List<int>() { 7, 5, 3, 2, 1 };
     public static int Get_RandomRank()
     {
-        return DevTool.Get_Grade(RankPercent);
+        return DevTool.Get_Grade(rankPercent);
     }
 
     #endregion
@@ -4922,18 +4922,18 @@ public abstract class AllyRequest
 
     protected virtual void Inc_CompleteProgress()
     {
-        CompleteProgress = Mathf.Min(CompleteProgress + GainCompleteOnceProgress, MaxCompleteProgress);
-        Ally.HUD.RequestUI.Set_Request_CompleteProgress(CompleteProgress / MaxCompleteProgress);
+        completeProgress = Mathf.Min(completeProgress + gainCompleteOnceProgress, maxCompleteProgress);
+        ally.HUD.RequestUI.Set_Request_CompleteProgress(completeProgress / maxCompleteProgress);
 
-        if (CompleteProgress >= MaxCompleteProgress) Complete();
+        if (completeProgress >= maxCompleteProgress) Complete();
     }
 
     protected virtual void Inc_FailProgress()
     {
-        FailProgress = Mathf.Min(FailProgress + GainFailOnceProgress, MaxFailProgress);
-        Ally.HUD.RequestUI.Set_Request_FailProgress(FailProgress / MaxFailProgress);
+        failProgress = Mathf.Min(failProgress + gainFailOnceProgress, maxFailProgress);
+        ally.HUD.RequestUI.Set_Request_FailProgress(failProgress / maxFailProgress);
 
-        if (FailProgress >= MaxFailProgress) Fail();
+        if (failProgress >= maxFailProgress) Fail();
     }
 
     #endregion
@@ -4942,58 +4942,58 @@ public abstract class AllyRequest
 
     public void Complete()
     {
-        Ally.Gain_Trust(Rank + 1);
-        PlayerManager.instance.playerController.Gain_Reputation((Rank + 1) * 0.2f);
-        RewardDict[RewardType](Rank);
-        Ally.DataOff_Request();
+        ally.Gain_Trust(rank + 1);
+        PlayerManager.instance.playerController.Gain_Reputation((rank + 1) * 0.2f);
+        rewardDict[rewardType](rank);
+        ally.DataOff_Request();
         Set_IWhenRemove();
 
-        Ally = null;
-        RewardType = null;
+        ally = null;
+        rewardType = null;
     }
 
     public void Fail()
     {
-        Ally.Reduce_Trust(Rank + 1);
-        PlayerManager.instance.playerController.Reduce_Reputation((Rank + 1) * 0.2f);
-        Ally.DataOff_Request();
+        ally.Reduce_Trust(rank + 1);
+        PlayerManager.instance.playerController.Reduce_Reputation((rank + 1) * 0.2f);
+        ally.DataOff_Request();
         Set_IWhenRemove();
 
-        Ally = null;
-        RewardType = null;
+        ally = null;
+        rewardType = null;
     }
 
     #endregion
 
     #region Reward
 
-    private string RewardType = "";
+    private string rewardType = "";
     public string Get_RewardType()
     {
-        return RewardType;
+        return rewardType;
     }
 
-    private static Dictionary<string, Dele_T<int>> RewardDict = new Dictionary<string, Dele_T<int>>
+    private static Dictionary<string, Dele_T<int>> rewardDict = new Dictionary<string, Dele_T<int>>
     {
         { "BC", new Dele_T<int>(Gain_Reward_BC) },
         { "Credit", new Dele_T<int>(Gain_Reward_Credit) },
         { "EP", new Dele_T<int>(Gain_Reward_EP) }
     };
 
-    public static Dictionary<string, Func<int, int>> RewardCaculateDict = new Dictionary<string, Func<int, int>>
+    public static Dictionary<string, Func<int, int>> rewardCaculateDict = new Dictionary<string, Func<int, int>>
     {
         { "BC", new Func<int, int>(Get_BookReward_BC) },
         { "Credit", new Func<int, int>(Get_BookReward_Credit) },
         { "EP", new Func<int, int>(Get_BookReward_EP) }
     };
 
-    private static void Gain_Reward_BC(int _Rank) { PlayerManager.instance.playerController.Add_CurrentBettery(Get_BookReward_BC(_Rank)); }
-    private static void Gain_Reward_Credit(int _Rank) { PlayerManager.instance.playerController.Add_CurrentCredit(Get_BookReward_Credit(_Rank)); }
-    private static void Gain_Reward_EP(int _Rank) { PlayerManager.instance.playerController.Add_CurrentEP(Get_BookReward_EP(_Rank)); }
+    private static void Gain_Reward_BC(int rank) { PlayerManager.instance.playerController.Add_CurrentBettery(Get_BookReward_BC(rank)); }
+    private static void Gain_Reward_Credit(int rank) { PlayerManager.instance.playerController.Add_CurrentCredit(Get_BookReward_Credit(rank)); }
+    private static void Gain_Reward_EP(int rank) { PlayerManager.instance.playerController.Add_CurrentEP(Get_BookReward_EP(rank)); }
 
-    private static int Get_BookReward_BC(int _Rank) { return _Rank + 1; }
-    private static int Get_BookReward_Credit(int _Rank) { return (_Rank + 1) * 3; }
-    private static int Get_BookReward_EP(int _Rank) { return (_Rank + 1) * 5; }
+    private static int Get_BookReward_BC(int rank) { return rank + 1; }
+    private static int Get_BookReward_Credit(int rank) { return (rank + 1) * 3; }
+    private static int Get_BookReward_EP(int rank) { return (rank + 1) * 5; }
 
     #endregion
 
@@ -5023,14 +5023,14 @@ public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, I
 
     public AllyRequest_Slayer(AllyController _Ally) : base(_Ally)
     {
-        MaxCompleteProgress = (Rank + 1) * 5; // 총 처치 수
-        GainCompleteOnceProgress = 1;
+        maxCompleteProgress = (rank + 1) * 5; // 총 처치 수
+        gainCompleteOnceProgress = 1;
 
-        MaxFailProgress = 6 - Rank; // 실패 피격 수
-        GainFailOnceProgress = 1; 
+        maxFailProgress = 6 - rank; // 실패 피격 수
+        gainFailOnceProgress = 1; 
         
-        Ally.HUD.RequestUI.Set_Request_CompleteTxt(0, $"{CompleteProgress}/{MaxCompleteProgress}");
-        Ally.HUD.RequestUI.Set_Request_FailTxt(0, $"{FailProgress}/{MaxFailProgress}");
+        ally.HUD.RequestUI.Set_Request_CompleteTxt(0, $"{completeProgress}/{maxCompleteProgress}");
+        ally.HUD.RequestUI.Set_Request_FailTxt(0, $"{failProgress}/{maxFailProgress}");
     }
 
     #endregion
@@ -5055,16 +5055,16 @@ public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, I
     {
         base.Inc_CompleteProgress();
 
-        if (!Ally) return;
-        Ally.HUD.RequestUI.Set_Request_CompleteTxt(CompleteProgress / MaxCompleteProgress, $"{CompleteProgress}/{MaxCompleteProgress}");
+        if (!ally) return;
+        ally.HUD.RequestUI.Set_Request_CompleteTxt(completeProgress / maxCompleteProgress, $"{completeProgress}/{maxCompleteProgress}");
     }
 
     protected override void Inc_FailProgress()
     {
         base.Inc_FailProgress();
 
-        if (!Ally) return;
-        Ally.HUD.RequestUI.Set_Request_FailTxt(FailProgress / MaxFailProgress, $"{FailProgress}/{MaxFailProgress}");
+        if (!ally) return;
+        ally.HUD.RequestUI.Set_Request_FailTxt(failProgress / maxFailProgress, $"{failProgress}/{maxFailProgress}");
     }
 
     #endregion
@@ -5098,16 +5098,16 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
 {
     #region Constructor
 
-    public AllyRequest_BountyHunter(AllyController _Ally) : base(_Ally)
+    public AllyRequest_BountyHunter(AllyController ally) : base(ally)
     {
-        MaxCompleteProgress = (Rank + 1); // 총 처치 수
-        GainCompleteOnceProgress = 1;
+        maxCompleteProgress = (rank + 1); // 총 처치 수
+        gainCompleteOnceProgress = 1;
 
-        MaxFailProgress = 8 - Rank; // 실패 피격 수
-        GainFailOnceProgress = 1;
+        maxFailProgress = 8 - rank; // 실패 피격 수
+        gainFailOnceProgress = 1;
 
-        Ally.HUD.RequestUI.Set_Request_CompleteTxt(0, $"{CompleteProgress}/{MaxCompleteProgress}");
-        Ally.HUD.RequestUI.Set_Request_FailTxt(0, $"{FailProgress}/{MaxFailProgress}");
+        base.ally.HUD.RequestUI.Set_Request_CompleteTxt(0, $"{completeProgress}/{maxCompleteProgress}");
+        base.ally.HUD.RequestUI.Set_Request_FailTxt(0, $"{failProgress}/{maxFailProgress}");
     }
 
     #endregion
@@ -5130,14 +5130,14 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
 
     protected override void Inc_CompleteProgress()
     {
-        Ally.HUD.RequestUI.Set_Request_CompleteTxt(CompleteProgress / MaxCompleteProgress, $"{CompleteProgress}/{MaxCompleteProgress}");
+        ally.HUD.RequestUI.Set_Request_CompleteTxt(completeProgress / maxCompleteProgress, $"{completeProgress}/{maxCompleteProgress}");
 
         base.Inc_CompleteProgress();
     }
 
     protected override void Inc_FailProgress()
     {
-        Ally.HUD.RequestUI.Set_Request_FailTxt(FailProgress / MaxFailProgress, $"{FailProgress}/{MaxFailProgress}");
+        ally.HUD.RequestUI.Set_Request_FailTxt(failProgress / maxFailProgress, $"{failProgress}/{maxFailProgress}");
 
         base.Inc_FailProgress();
     }
@@ -5175,36 +5175,36 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
 [System.Serializable]
 public class MinimapIcon
 {
-    public CouplePair<Sprite> MinimapElementIcon;
-    public Vector2Int[] RoomVec;
-    public Vector2 SpritePivot;
+    public CouplePair<Sprite> minimapElementIcon;
+    public Vector2Int[] roomVec;
+    public Vector2 spritePivot;
 
-    public MinimapIcon(CouplePair<Sprite> _Pair, Vector2Int[] _RoomVec, Vector2 _Pivot)
+    public MinimapIcon(CouplePair<Sprite> pair, Vector2Int[] roomVec, Vector2 pivot)
     {
-        MinimapElementIcon = _Pair;
-        RoomVec = _RoomVec;
-        SpritePivot = _Pivot;
+        minimapElementIcon = pair;
+        this.roomVec = roomVec;
+        spritePivot = pivot;
     }
 }
 
 [System.Serializable]
 public class LanguageTxt
 {
-    public int ID;
-    public TMP_FontAsset[] FontAssets;
+    public int id;
+    public TMP_FontAsset[] fontAssets;
 
-    public LanguageTxt(int _ID, TMP_FontAsset[] _FontAssets)
+    public LanguageTxt(int id, TMP_FontAsset[] fontAssets)
     {
-        ID = _ID;
-        FontAssets = _FontAssets;
+        this.id = id;
+        this.fontAssets = fontAssets;
     }
 }
 
 [System.Serializable]
 public class SpriteTypeName
 {
-    public string Name;
-    public Sprite Sprite;
+    public string name;
+    public Sprite sprite;
 }
 
 #endregion
@@ -5217,19 +5217,19 @@ public class StageMapSprite
 {
     [Header("=== Sprtie: Based on the outer surface")]
 
-    public Dictionary<string, SpriteMaterial> MapSprite = new Dictionary<string, SpriteMaterial>();
+    public Dictionary<string, SpriteMaterial> mapSprite = new Dictionary<string, SpriteMaterial>();
 
-    public void Offset(MapReso _Reso, string _MapIndexName)
+    public void Offset(MapReso reso, string mapIndexName)
     {
-        for (int i = 0; i < _Reso.MapResoElements.Length; i++)
+        for (int i = 0; i < reso.mapResoElements.Length; i++)
         {
-            if (_Reso.MapResoElements[i].Sprite.name.Length > 5)
+            if (reso.mapResoElements[i].sprite.name.Length > 5)
             {
-                if (_Reso.MapResoElements[i].Sprite.name[5] == 'A') continue; 
+                if (reso.mapResoElements[i].sprite.name[5] == 'A') continue; 
                 
-                MapSprite.Add(
-                    _Reso.MapResoElements[i].Sprite.name.Substring(5, _Reso.MapResoElements[i].Sprite.name.Length - 5),
-                    new SpriteMaterial(_Reso.MapResoElements[i].Sprite, _Reso.MapResoElements[i].MaterialIndex));
+                mapSprite.Add(
+                    reso.mapResoElements[i].sprite.name.Substring(5, reso.mapResoElements[i].sprite.name.Length - 5),
+                    new SpriteMaterial(reso.mapResoElements[i].sprite, reso.mapResoElements[i].materialIndex));
             }
         }
     }
@@ -5238,13 +5238,13 @@ public class StageMapSprite
 [System.Serializable]
 public class SpriteMaterial
 {
-    public Sprite Sprite;
-    public int MaterialIndex;
+    public Sprite sprite;
+    public int materialIndex;
 
-    public SpriteMaterial(Sprite _Sprite, int _MaterialIndex)
+    public SpriteMaterial(Sprite sprite, int materialIndex)
     {
-        Sprite = _Sprite;
-        MaterialIndex = _MaterialIndex;
+        this.sprite = sprite;
+        this.materialIndex = materialIndex;
     }
 }
 
@@ -5252,9 +5252,9 @@ public class SpriteMaterial
 [System.Serializable]
 public class StageDoorAnim
 {
-    public Vector2Int Dir;
-    public AnimationClip DoorAnim;
-    public int MaterialIndex;
+    public Vector2Int dir;
+    public AnimationClip doorAnim;
+    public int materialIndex;
 }
 
 #endregion
@@ -5264,18 +5264,18 @@ public class StageDoorAnim
 [System.Serializable]
 public class PlayerVisual<T>
 {
-    [SerializeField] public CoupleData<T> Physics;
-    [SerializeField] public CoupleData<T> Energy;
+    [SerializeField] public CoupleData<T> physics;
+    [SerializeField] public CoupleData<T> energy;
 
-    public CoupleData<T> Get_CorrectType(eDamageType _DmgType)
+    public CoupleData<T> Get_CorrectType(eDamageType dmgType)
     {
-        if (_DmgType == eDamageType.Physics)
+        if (dmgType == eDamageType.Physics)
         {
-            return Physics;
+            return physics;
         }
         else
         {
-            return Energy;
+            return energy;
         }
     }
 }
@@ -5288,29 +5288,29 @@ public class PlayerVisual<T>
 [System.Serializable]
 public class ConverterReso
 {
-    public List<EachConverterReso> ConverterResoList;
+    public List<EachConverterReso> converterResoList;
 
     public ConverterReso()
     {
-        ConverterResoList = new List<EachConverterReso>();
+        converterResoList = new List<EachConverterReso>();
     }
 
-    public void Add(EachConverterReso _Reso)
+    public void Add(EachConverterReso reso)
     {
-        ConverterResoList.Add(_Reso);
+        converterResoList.Add(reso);
     }
 }
 
 [System.Serializable]
 public class EachConverterReso
 {
-    public AnimationClip AC;
-    public Material Material;
+    public AnimationClip ac;
+    public Material material;
 
-    public EachConverterReso(AnimationClip _AC, Material _Material)
+    public EachConverterReso(AnimationClip ac, Material material)
     {
-        AC = _AC;
-        Material = _Material;
+        this.ac = ac;
+        this.material = material;
     }
 }
 
@@ -5322,10 +5322,10 @@ public class EachConverterReso
 [System.Serializable]
 public class PrisonAllySprite
 {
-    public Sprite Bind;
-    public Sprite Fall;
-    public Sprite Stand;
-    public Sprite Salute;
+    public Sprite bind;
+    public Sprite fall;
+    public Sprite stand;
+    public Sprite salute;
 }
 
 #endregion
@@ -5336,8 +5336,8 @@ public class PrisonAllySprite
 [System.Serializable]
 public class NSCAnswerSpriteSet
 {
-    public int ShapeIndex;
-    public Sprite[] AllAnswerSet;
+    public int shapeIndex;
+    public Sprite[] allAnswerSet;
 }
 
 #endregion
@@ -5347,15 +5347,15 @@ public class NSCAnswerSpriteSet
 
 public abstract class WordSet<T>
 {
-    protected Dictionary<int, T> AllWord;
+    protected Dictionary<int, T> allWord;
 
-    public WordSet(Dictionary<int, T> _AllWordData)
+    public WordSet(Dictionary<int, T> allWordData)
     {
-        AllWord = _AllWordData;
+        allWord = allWordData;
     }
 
-    public Dictionary<int, T> Get_WordData() => AllWord;
-    public int Get_Amount() => AllWord.Count;
+    public Dictionary<int, T> Get_WordData() => allWord;
+    public int Get_Amount() => allWord.Count;
 
     public abstract string Get_Word(int _ID);
 }
@@ -5364,21 +5364,21 @@ public abstract class WordSet<T>
 [System.Serializable]
 public class WordSet_Just : WordSet<WordElement_Just>
 {
-    public WordSet_Just(Dictionary<int, WordElement_Just> _Dict) : base(_Dict) 
+    public WordSet_Just(Dictionary<int, WordElement_Just> dict) : base(dict) 
     { }
 
-    public override string Get_Word(int _ID)
+    public override string Get_Word(int id)
     {
-        if (AllWord.ContainsKey(_ID))
-            return AllWord[_ID].Words[GameManager.languageID];
+        if (allWord.ContainsKey(id))
+            return allWord[id].words[GameManager.languageID];
 
         return "";
     }
 
-    public string[] Get_Words(int _ID)
+    public string[] Get_Words(int id)
     {
-        if (AllWord.ContainsKey(_ID))
-            return AllWord[_ID].Words;
+        if (allWord.ContainsKey(id))
+            return allWord[id].words;
 
         return null;
     }
@@ -5387,15 +5387,15 @@ public class WordSet_Just : WordSet<WordElement_Just>
 [System.Serializable]
 public class WordSet_WithClr : WordSet<WordElement_WithClr>
 {
-    public WordSet_WithClr(Dictionary<int, WordElement_WithClr> _Dict) : base(_Dict)
+    public WordSet_WithClr(Dictionary<int, WordElement_WithClr> dict) : base(dict)
     { }
 
-    public override string Get_Word(int _ID)
+    public override string Get_Word(int id)
     {
-        if (AllWord.ContainsKey(_ID))
+        if (allWord.ContainsKey(id))
         {
-            WordElement_WithClr data = AllWord[_ID];
-            return $"<color=#{data.ClrHex}><b>\"{data.Words[GameManager.languageID]}\"</color></b>";
+            WordElement_WithClr data = allWord[id];
+            return $"<color=#{data.clrHex}><b>\"{data.words[GameManager.languageID]}\"</color></b>";
         }
         else
         {
@@ -5409,24 +5409,24 @@ public class WordSet_WithClr : WordSet<WordElement_WithClr>
 [System.Serializable]
 public class WordElement_Just
 {
-    public int ID;
-    public string[] Words;
+    public int id;
+    public string[] words;
 
-    public WordElement_Just(int _ID, string[] _Words)
+    public WordElement_Just(int id, string[] words)
     {
-        ID = _ID;
-        Words = _Words;
+        this.id = id;
+        this.words = words;
     }
 }
 
 [System.Serializable]
 public class WordElement_WithClr : WordElement_Just
 {
-    public string ClrHex;
+    public string clrHex;
 
-    public WordElement_WithClr(int _ID, string _ClrHex, string[] _Names) : base(_ID, _Names)
+    public WordElement_WithClr(int id, string clrHex, string[] names) : base(id, names)
     {
-        ClrHex = _ClrHex;
+        this.clrHex = clrHex;
     }
 }
 
@@ -5437,13 +5437,13 @@ public class WordElement_WithClr : WordElement_Just
 [System.Serializable]
 public class ModuleBaseData
 {
-    public int ID;
-    public List<int> ModuleMainChip;
+    public int id;
+    public List<int> moduleMainChip;
 
-    public ModuleBaseData(int _ID, List<int> _MainChip)
+    public ModuleBaseData(int id, List<int> mainChip)
     {
-        ID = _ID;
-        ModuleMainChip = _MainChip;
+        this.id = id;
+        moduleMainChip = mainChip;
     }
 }
 
@@ -5456,19 +5456,19 @@ public class ModuleBaseData
 [System.Serializable]
 public class QueueSet<T> where T : Component
 {
-    [SerializeField] private Transform ThisParentTF;
-    [HideInInspector] protected T[] ThisArr;
+    [SerializeField] private Transform thisParentTF;
+    [HideInInspector] protected T[] thisArr;
 
     private int totalAmount = 0;
     private int currentAmount = -1;
 
     public virtual void Offset()
     {
-        totalAmount = ThisParentTF.childCount;
-        ThisArr = new T[totalAmount];
+        totalAmount = thisParentTF.childCount;
+        thisArr = new T[totalAmount];
         for (int i = 0; i < totalAmount; i++)
         {
-            ThisArr[i] = DevTool.Get_ComponentTType<T>(ThisParentTF.GetChild(i).gameObject);
+            thisArr[i] = DevTool.Get_ComponentTType<T>(thisParentTF.GetChild(i).gameObject);
         }
     }
 
@@ -5479,13 +5479,13 @@ public class QueueSet<T> where T : Component
         {
             currentAmount = 0;
         }
-        return ThisArr[currentAmount];
+        return thisArr[currentAmount];
     }
 
-    public void Set_All(bool _OnOff)
+    public void Set_All(bool onOff)
     {
         for (int i = 0; i < totalAmount; i++)
-            ThisArr[i].gameObject.SetActive(_OnOff);
+            thisArr[i].gameObject.SetActive(onOff);
     }
 }
 
@@ -5494,8 +5494,8 @@ public class ASQueueSet : QueueSet<AudioSource>
 {
     public void StopAll()
     {
-        for (int i = 0; i < ThisArr.Length; i++)
-            ThisArr[i].Stop();
+        for (int i = 0; i < thisArr.Length; i++)
+            thisArr[i].Stop();
     }
 }
 
@@ -5522,19 +5522,19 @@ public struct State_TF2D
 {
     #region Value
 
-    public Vector2 Pos;
-    public Quaternion Rot;
-    public Vector2 LocalScale;
+    public Vector2 pos;
+    public Quaternion rot;
+    public Vector2 localScale;
 
     #endregion
 
     #region Constructor
 
-    public State_TF2D(Vector2 _Pos, Quaternion _Rot, Vector2 _LocalScale)
+    public State_TF2D(Vector2 pos, Quaternion rot, Vector2 localScale)
     {
-        Pos = _Pos;
-        Rot = _Rot;
-        LocalScale = _LocalScale;
+        this.pos = pos;
+        this.rot = rot;
+        this.localScale = localScale;
     }
 
     #endregion
@@ -5548,21 +5548,21 @@ public struct BulletState_PosAndRot
 {
     #region Value
 
-    public Vector2 SpawnPos;
-    public Vector2 Dir;
-    public float SpreadAngle;
-    public float Dis;
+    public Vector2 spawnPos;
+    public Vector2 dir;
+    public float spreadAngle;
+    public float dis;
 
     #endregion
 
     #region Constructor
 
-    public BulletState_PosAndRot(Vector2 _SpawnPos, Vector2 _Dir, float _SpreadAngle, float _Dis = 0)
+    public BulletState_PosAndRot(Vector2 spawnPos, Vector2 dir, float spreadAngle, float dis = 0)
     {
-        SpawnPos = _SpawnPos;
-        Dir = _Dir;
-        SpreadAngle = _SpreadAngle;
-        Dis = _Dis;
+        this.spawnPos = spawnPos;
+        this.dir = dir;
+        this.spreadAngle = spreadAngle;
+        this.dis = dis;
     }
 
     #endregion
@@ -5572,17 +5572,17 @@ public struct BulletState_Size
 {
     #region Value
 
-    public Vector2 ObjSize;
-    public Vector2 ColSize;
+    public Vector2 objSize;
+    public Vector2 colSize;
 
     #endregion
 
     #region Constructor 
 
-    public BulletState_Size(Vector2 _ObjScale, Vector2 _ColSize)
+    public BulletState_Size(Vector2 objSize, Vector2 colSize)
     {
-        ObjSize = _ObjScale;
-        ColSize = _ColSize;
+        this.objSize = objSize;
+        this.colSize = colSize;
     }
 
     #endregion
@@ -5592,17 +5592,17 @@ public struct BulletState_Effect
 {
     #region Value
 
-    public int ExplAmount;
-    public float TrailTime;
+    public int explAmount;
+    public float trailTime;
 
     #endregion
 
     #region Constructor
 
-    public BulletState_Effect(int _ExplAmount, float _TrailTime)
+    public BulletState_Effect(int explAmount, float trailTime)
     {
-        ExplAmount = _ExplAmount;
-        TrailTime = _TrailTime;
+        this.explAmount = explAmount;
+        this.trailTime = trailTime;
     }
 
     #endregion
@@ -5616,21 +5616,21 @@ public struct AttackerState_EndTF
 {
     #region Value
 
-    public State_TF2D TF;
+    public State_TF2D tf;
 
-    public float Time;
+    public float time;
 
     #endregion
 
     #region Constructor
 
-    public AttackerState_EndTF(Vector2 _Pos, Quaternion _Rot, Vector2 _Size, float _Time)
+    public AttackerState_EndTF(Vector2 pos, Quaternion rot, Vector2 size, float time)
     {
-        TF.Pos = _Pos;
-        TF.Rot = _Rot;
-        TF.LocalScale = _Size;
+        tf.pos = pos;
+        tf.rot = rot;
+        tf.localScale = size;
 
-        Time = _Time;
+        this.time = time;
     }
 
     #endregion
@@ -5640,17 +5640,17 @@ public struct AttackerState_Juge<T> where T : Collider2D
 {
     #region Value
 
-    public Vector2 ColSize;
-    public bool IsVertical;
+    public Vector2 colSize;
+    public bool isVertical;
 
     #endregion
 
     #region Constructor
 
-    public AttackerState_Juge(Vector2 _ColSize, bool _IsVertical = false)
+    public AttackerState_Juge(Vector2 colSize, bool isVertical = false)
     {
-        ColSize = _ColSize;
-        IsVertical = _IsVertical;
+        this.colSize = colSize;
+        this.isVertical = isVertical;
     }
 
     #endregion
@@ -5664,22 +5664,22 @@ public struct AttackerState_Juge<T> where T : Collider2D
 
 public struct ItemData_UIVisual
 {
-    public Sprite Icon;
-    public int Rank;
-    public Sprite RankIcon;
+    public Sprite icon;
+    public int rank;
+    public Sprite rankIcon;
 
-    public ItemData_UIVisual(Sprite _Icon, int _Rank)
+    public ItemData_UIVisual(Sprite icon, int rank)
     {
-        Icon = _Icon;
-        Rank = _Rank;
-        RankIcon = ResourceManager.instance.Get_RankIcon(Rank);
+        this.icon = icon;
+        this.rank = rank;
+        rankIcon = ResourceManager.instance.Get_RankIcon(this.rank);
     }
 
-    public ItemData_UIVisual(ItemData _ItemData)
+    public ItemData_UIVisual(ItemData itemData)
     {
-        Icon = _ItemData.itemIcon;
-        Rank = _ItemData.rank;
-        RankIcon = ResourceManager.instance.Get_RankIcon(Rank);
+        icon = itemData.itemIcon;
+        rank = itemData.rank;
+        rankIcon = ResourceManager.instance.Get_RankIcon(rank);
     }
 }
 
@@ -5692,17 +5692,17 @@ public struct State_Sprite
 {
     #region Value
 
-    public Material Mat;
-    public Color Clr;
+    public Material material;
+    public Color clr;
 
     #endregion
 
     #region Constructor
 
-    public State_Sprite(Material _Mat, Color _Clr)
+    public State_Sprite(Material material, Color clr)
     {
-        Mat = _Mat;
-        Clr = _Clr;
+        this.material = material;
+        this.clr = clr;
     }
 
     #endregion
@@ -5712,23 +5712,23 @@ public struct State_Anim
 {
     #region Value
 
-    public AnimationClip AC;
-    public float Speed;
+    public AnimationClip ac;
+    public float speed;
 
     #endregion
 
     #region Constructor
 
-    public State_Anim(AnimationClip _AC)
+    public State_Anim(AnimationClip ac)
     {
-        AC = _AC;
-        Speed = 1f;
+        this.ac = ac;
+        speed = 1f;
     }
 
-    public State_Anim(AnimationClip _AC, float _Speed)
+    public State_Anim(AnimationClip ac, float speed)
     {
-        AC = _AC;
-        Speed = _Speed;
+        this.ac = ac;
+        this.speed = speed;
     }
 
     #endregion
@@ -5742,23 +5742,23 @@ public struct ExplState_Base
 {
     #region Value
 
-    public Vector2 SpawnPos;
-    public int SpawnAmount;
+    public Vector2 spawnPos;
+    public int spawnAmount;
 
     #endregion
 
     #region Constructor
 
-    public ExplState_Base(Vector2 _SpawnPos, int _SpawnAmount)
+    public ExplState_Base(Vector2 spawnPos, int spawnAmount)
     {
-        SpawnPos = _SpawnPos;
-        SpawnAmount = _SpawnAmount;
+        this.spawnPos = spawnPos;
+        this.spawnAmount = spawnAmount;
     }
 
-    public ExplState_Base(ExplState_Base _State)
+    public ExplState_Base(ExplState_Base state)
     {
-        SpawnPos = _State.SpawnPos;
-        SpawnAmount = _State.SpawnAmount;
+        spawnPos = state.spawnPos;
+        spawnAmount = state.spawnAmount;
     }
 
     #endregion
@@ -5768,22 +5768,22 @@ public struct ExplState_Sprite
 {
     #region Value
 
-    public List<Sprite> Sprite;
-    public Material Material;
+    public List<Sprite> sprite;
+    public Material material;
 
     #endregion
 
     #region Constructor
 
-    public ExplState_Sprite(List<Sprite> _Sprite, Material _Material)
+    public ExplState_Sprite(List<Sprite> sprite, Material material)
     {
-        Sprite = _Sprite;
-        Material = _Material;
+        this.sprite = sprite;
+        this.material = material;
     }
-    public ExplState_Sprite(ExplState_Sprite _State)
+    public ExplState_Sprite(ExplState_Sprite state)
     {
-        Sprite = _State.Sprite;
-        Material = _State.Material;
+        sprite = state.sprite;
+        material = state.material;
     }
 
     #endregion
@@ -5793,32 +5793,32 @@ public struct ExplState_MoveAndScale
 {
     #region Value
 
-    public Vector2 Dir;
-    public float Dis;
-    public float Scale;
-    public float Time;
-    public float RandomDelayTime;
+    public Vector2 dir;
+    public float dis;
+    public float scale;
+    public float time;
+    public float randomDelayTime;
 
     #endregion
 
     #region Constructor
 
-    public ExplState_MoveAndScale(Vector2 _Dir, float _Dis, float _Scale, float _Time, float _RandomDelayTime)
+    public ExplState_MoveAndScale(Vector2 dir, float dis, float scale, float time, float randomDelayTime)
     {
-        Dir = _Dir;
-        Dis = _Dis;
-        Scale = _Scale;
-        Time = _Time;
-        RandomDelayTime = _RandomDelayTime;
+        this.dir = dir;
+        this.dis = dis;
+        this.scale = scale;
+        this.time = time;
+        this.randomDelayTime = randomDelayTime;
     }
 
-    public ExplState_MoveAndScale(ExplState_MoveAndScale _State)
+    public ExplState_MoveAndScale(ExplState_MoveAndScale state)
     {
-        Dir = _State.Dir;
-        Dis = _State.Dis;
-        Scale = _State.Scale;
-        Time = _State.Time;
-        RandomDelayTime = _State.RandomDelayTime;
+        dir = state.dir;
+        dis = state.dis;
+        scale = state.scale;
+        time = state.time;
+        randomDelayTime = state.randomDelayTime;
     }
 
     #endregion
@@ -5827,61 +5827,61 @@ public struct ExplState_MoveAndScale
 
 public struct ExplState
 {
-    public ExplState_Base BaseState;
-    public ExplState_Sprite SpriteState;
-    public ExplState_MoveAndScale FirstState;
-    public ExplState_MoveAndScale SecondState;
+    public ExplState_Base baseState;
+    public ExplState_Sprite spriteState;
+    public ExplState_MoveAndScale firstState;
+    public ExplState_MoveAndScale secondState;
 
-    private ExplState_MoveAndScale OriginalFirstState;
-    private ExplState_MoveAndScale OriginalSecondState;
+    private ExplState_MoveAndScale originalFirstState;
+    private ExplState_MoveAndScale originalSecondState;
 
-    public ExplState(ExplState_Base _BaseState, ExplState_Sprite _SpriteState, ExplState_MoveAndScale _FirstState, ExplState_MoveAndScale _SecondState)
+    public ExplState(ExplState_Base baseState, ExplState_Sprite spriteState, ExplState_MoveAndScale firstState, ExplState_MoveAndScale secondState)
     {
-        BaseState = new ExplState_Base(_BaseState);
-        SpriteState = new ExplState_Sprite(_SpriteState);
-        FirstState = new ExplState_MoveAndScale(_FirstState);
-        SecondState = new ExplState_MoveAndScale(_SecondState);
+        this.baseState = new ExplState_Base(baseState);
+        this.spriteState = new ExplState_Sprite(spriteState);
+        this.firstState = new ExplState_MoveAndScale(firstState);
+        this.secondState = new ExplState_MoveAndScale(secondState);
 
-        OriginalFirstState = new ExplState_MoveAndScale(_FirstState);
-        OriginalSecondState = new ExplState_MoveAndScale(_SecondState);
+        originalFirstState = new ExplState_MoveAndScale(firstState);
+        originalSecondState = new ExplState_MoveAndScale(secondState);
     }
 
-    public void Set_AllDir(Vector2 _Dir)
+    public void Set_AllDir(Vector2 dir)
     {
-        FirstState.Dir = _Dir;
-        SecondState.Dir = _Dir;
+        firstState.dir = dir;
+        secondState.dir = dir;
 
-        OriginalFirstState.Dir = _Dir;
-        OriginalSecondState.Dir = _Dir;
+        originalFirstState.dir = dir;
+        originalSecondState.dir = dir;
     }
 
-    public void Set_MultipleAllDir(Vector2 _Dir)
+    public void Set_MultipleAllDir(Vector2 dir)
     {
-        FirstState.Dir *= _Dir;
-        SecondState.Dir *= _Dir;
+        firstState.dir *= dir;
+        secondState.dir *= dir;
 
-        OriginalFirstState.Dir *= _Dir;
-        OriginalSecondState.Dir *= _Dir;
+        originalFirstState.dir *= dir;
+        originalSecondState.dir *= dir;
     }
 
     public void Set_RandomValue()
     {
-        FirstState.Time += DevTool.Get_RandomValueBaseZero(OriginalFirstState.RandomDelayTime);
-        SecondState.Time += DevTool.Get_RandomValueBaseZero(OriginalFirstState.RandomDelayTime);
+        firstState.time += DevTool.Get_RandomValueBaseZero(originalFirstState.randomDelayTime);
+        secondState.time += DevTool.Get_RandomValueBaseZero(originalFirstState.randomDelayTime);
     }
 
-    public void Set_RandomAngleValue_PivotZero(float _AngleExtent)
+    public void Set_RandomAngleValue_PivotZero(float angleExtent)
     {
-        float randomAngle = DevTool.Get_RandomValueBaseZero(_AngleExtent);
-        FirstState.Dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(OriginalFirstState.Dir));
-        SecondState.Dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(OriginalSecondState.Dir));
+        float randomAngle = DevTool.Get_RandomValueBaseZero(angleExtent);
+        firstState.dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(originalFirstState.dir));
+        secondState.dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(originalSecondState.dir));
     }
 
-    public void Set_RandomAngleValue_JustAdd(float _AngleExtent)
+    public void Set_RandomAngleValue_JustAdd(float angleExtent)
     {
-        float randomAngle = UnityEngine.Random.Range(0, _AngleExtent);
-        FirstState.Dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(OriginalFirstState.Dir));
-        SecondState.Dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(OriginalSecondState.Dir));
+        float randomAngle = UnityEngine.Random.Range(0, angleExtent);
+        firstState.dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(originalFirstState.dir));
+        secondState.dir = DevTool.Get_DirFromAngle(randomAngle + DevTool.Get_AngleFromDir(originalSecondState.dir));
     }
 }
 
@@ -5898,7 +5898,7 @@ public interface IInteract
 {
     public void Play_Interact();
 
-    public string Get_InteractName(out bool _CanInteract);
+    public string Get_InteractName(out bool canInteract);
 }
 
 #endregion
@@ -5907,7 +5907,7 @@ public interface IInteract
 
 public interface IWhen
 {
-    public abstract void Play_When(EnemyController _EC = null);
+    public abstract void Play_When(EnemyController enemy = null);
 }
 
 public interface IWhen_Fire : IWhen { }
@@ -5968,7 +5968,7 @@ public interface IWhen_Fail_UsingSkill : IWhen_Fail
 
 public interface IWhenSync
 {
-    public abstract void Play_When(EnemyController _Enemy = null, BulletController _Bullet = null);
+    public abstract void Play_When(EnemyController enemy = null, BulletController bullet = null);
 }
 
 public interface IWhenSync_Start : IWhenSync { }
@@ -5991,9 +5991,9 @@ public interface IWhenSync_GetCorrosion : IWhenSync { }
 public interface IWhenAlly
 {
     public abstract void Play_When(
-        EnemyController _Enemy = null,
-        BulletController _Bullet = null,
-        DroppingBombController _DroppingBullet = null);
+        EnemyController enemy = null,
+        BulletController bullet = null,
+        DroppingBombController droppingBullet = null);
 }
 
 public interface IWhenAlly_Start : IWhenAlly { }
@@ -6008,6 +6008,7 @@ public interface IWhenAlly_GetFire : IWhenAlly { }
 public interface IWhenAlly_GetCold : IWhenAlly { }
 public interface IWhenAlly_GetElectricity : IWhenAlly { }
 public interface IWhenAlly_GetCorrosion : IWhenAlly { }
+
 #endregion
 
 
@@ -6017,16 +6018,16 @@ public interface IWhenAlly_GetCorrosion : IWhenAlly { }
 
 public delegate void Dele();
 
-public delegate void Dele_T<T>(T _Item);
+public delegate void Dele_T<T>(T t);
 
-public delegate void Dele_RefT_T<T>(ref T _Item1, T _Item2);
+public delegate void Dele_RefT_T<T>(ref T refT, T t);
 
-public delegate void Dele_T_U<T, U>(T _Item1, U _Item2);
-public delegate void Dele_RefT_U<T, U>(ref T _Item1, U _Item2);
+public delegate void Dele_T_U<T, U>(T t, U u);
+public delegate void Dele_RefT_U<T, U>(ref T refT, U u);
 
 
 
-public delegate void DeleEnemy(EnemyController _Enemy);
+public delegate void DeleEnemy(EnemyController enemy);
 
 #endregion
 

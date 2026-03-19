@@ -551,7 +551,7 @@ public class EventManager : Singleton<EventManager>
 
         isPlayingCutscene = false;
 
-        SoundManager.instance.Play_2D_BGM_Stage(StageManager.instance.Get_CurrentStageData().InfoData.StageID);
+        SoundManager.instance.Play_2D_BGM_Stage(StageManager.instance.Get_CurrentStageData().infoData.stageId);
     }
 
     #endregion

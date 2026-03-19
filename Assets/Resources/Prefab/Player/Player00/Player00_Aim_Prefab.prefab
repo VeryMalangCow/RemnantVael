@@ -476,10 +476,10 @@ MonoBehaviour:
     typeBase: {fileID: 3591631350453274875}
     typeSpecial: {fileID: 8347107679939270085}
   AimSprite:
-    Physics:
+    physics:
       typeBase: {fileID: -1304739455, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       typeSpecial: {fileID: -2140929042, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    Energy:
+    energy:
       typeBase: {fileID: -2142815112, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       typeSpecial: {fileID: -33688178, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   SkillAimList:

@@ -964,14 +964,14 @@ MonoBehaviour:
   RotateSpeed: 8
   PitchTF: {fileID: 5292120655570418386}
   SatelliteSideList:
-  - Target: {fileID: 4368428734362383650}
-    Follower: {fileID: 7929444254823503516}
-    UpperOrder: 0
-    FarFromCenter: 1
-  - Target: {fileID: 2762522436094786569}
-    Follower: {fileID: 7438815911213043068}
-    UpperOrder: 0
-    FarFromCenter: 1
+  - target: {fileID: 4368428734362383650}
+    follower: {fileID: 7929444254823503516}
+    upperOrder: 0
+    farFromCenter: 1
+  - target: {fileID: 2762522436094786569}
+    follower: {fileID: 7438815911213043068}
+    upperOrder: 0
+    farFromCenter: 1
   SatelliteCenterList: []
   PlayerController: {fileID: 8810927924693203331}
   DamageType: 0
@@ -1439,14 +1439,14 @@ MonoBehaviour:
   RotateSpeed: 8
   PitchTF: {fileID: 7489537600790719101}
   SatelliteSideList:
-  - Target: {fileID: 2417779136726427422}
-    Follower: {fileID: 6021120989462345684}
-    UpperOrder: 3
-    FarFromCenter: 1
-  - Target: {fileID: 4549261287854832868}
-    Follower: {fileID: 3772518435837473010}
-    UpperOrder: 3
-    FarFromCenter: 1
+  - target: {fileID: 2417779136726427422}
+    follower: {fileID: 6021120989462345684}
+    upperOrder: 3
+    farFromCenter: 1
+  - target: {fileID: 4549261287854832868}
+    follower: {fileID: 3772518435837473010}
+    upperOrder: 3
+    farFromCenter: 1
   SatelliteCenterList: []
   PlayerController: {fileID: 8810927924693203331}
   SkillList:
@@ -1681,14 +1681,14 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 628683ee72069824f948f9b48da8baf9, type: 2}
   - {fileID: 7400000, guid: 988de495183371b46aa363b5a7f31ca5, type: 2}
   ThisClr:
-    Physics:
+    physics:
       typeBase: {r: 0.5943396, g: 0.5943396, b: 0.7924528, a: 1}
       typeSpecial: {r: 0.3492346, g: 0.3492346, b: 0.6792453, a: 1}
-    Energy:
+    energy:
       typeBase: {r: 0, g: 1, b: 1, a: 1}
       typeSpecial: {r: 0, g: 0.5019608, b: 1, a: 1}
   ThisGradient:
-    Physics:
+    physics:
       typeBase:
         serializedVersion: 2
         key0: {r: 0.54788184, g: 0.54788184, b: 0.6792453, a: 0.49803922}
@@ -1749,7 +1749,7 @@ MonoBehaviour:
         m_ColorSpace: -1
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
-    Energy:
+    energy:
       typeBase:
         serializedVersion: 2
         key0: {r: 0.622241, g: 0.745283, b: 0.745283, a: 0.49803922}
@@ -1811,10 +1811,10 @@ MonoBehaviour:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
   ThisHittedPointAC:
-    Physics:
+    physics:
       typeBase: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}
       typeSpecial: {fileID: 7400000, guid: c444b0af8205ad84aaec6780cdff8c28, type: 2}
-    Energy:
+    energy:
       typeBase: {fileID: 7400000, guid: 14a17a53a351ea74f83652b015ad07a9, type: 2}
       typeSpecial: {fileID: 7400000, guid: 79dbdb9046b5858459e7942dc65f03d1, type: 2}
   DmgTypeStateAC:
@@ -1834,7 +1834,7 @@ MonoBehaviour:
   AimRoundPrefab: {fileID: 1597265562462728527, guid: d2969078f44a95045a455dab4043e798, type: 3}
   BattleProdSprite: {fileID: 967936309, guid: 52f91939743298f4f8b005d682be328c, type: 3}
   ASQueueSet:
-    ThisParentTF: {fileID: 6423599216468934238}
+    thisParentTF: {fileID: 6423599216468934238}
   MovementAS: {fileID: 2884303428552650349}
   MovementState: 1
   CurrentBoostLv:
@@ -4483,18 +4483,18 @@ MonoBehaviour:
   RotateSpeed: 8
   PitchTF: {fileID: 1789556570602073560}
   SatelliteSideList:
-  - Target: {fileID: 907033272442428563}
-    Follower: {fileID: 708078331971253195}
-    UpperOrder: -4
-    FarFromCenter: 1
-  - Target: {fileID: 2143631651261686273}
-    Follower: {fileID: 3844420326562129324}
-    UpperOrder: -4
-    FarFromCenter: 1
+  - target: {fileID: 907033272442428563}
+    follower: {fileID: 708078331971253195}
+    upperOrder: -4
+    farFromCenter: 1
+  - target: {fileID: 2143631651261686273}
+    follower: {fileID: 3844420326562129324}
+    upperOrder: -4
+    farFromCenter: 1
   SatelliteCenterList:
-  - Target: {fileID: 4970404673389863989}
-    Follower: {fileID: 5109930956982157994}
-    UpperOrder: -4
+  - target: {fileID: 4970404673389863989}
+    follower: {fileID: 5109930956982157994}
+    upperOrder: -4
   ThisRb: {fileID: 334434472153228344}
   ThisAnimatorList:
   - {fileID: 2135063777720352298}

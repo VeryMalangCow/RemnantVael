@@ -219,22 +219,22 @@ MonoBehaviour:
   MaxEP: 200
   ChargeEPSpeed: 50
   EnemyDropItemPercent:
-    ModuleDropPercent: 1
-    ModuleRankPercents: 2b0000001b0000000f0000000900000006000000
+    moduleDropPercent: 1
+    moduleRankPercents: 2b0000001b0000000f0000000900000006000000
     keycardDropPercent: 0.35
-    BSAmountMinMax:
+    bsAmountMinMax:
       typeBase: 3
       typeSpecial: 5
-    MSAmountMinMax:
+    msAmountMinMax:
       typeBase: 0
       typeSpecial: 4
-    CreditAmountMinMax:
+    creditAmountMinMax:
       typeBase: 20
       typeSpecial: 30
-    OverriderAmountMinMax:
+    overriderAmountMinMax:
       typeBase: 2
       typeSpecial: 4
-    JouleAmountMinMax:
+    jouleAmountMinMax:
       typeBase: 10
       typeSpecial: 20
   HUD: {fileID: 929499903805823867}
@@ -262,15 +262,15 @@ MonoBehaviour:
     - {fileID: 4802566353885446760}
     - {fileID: 6760348915160337120}
   ASQueueSet:
-    ThisParentTF: {fileID: 1574750772074536145}
+    thisParentTF: {fileID: 1574750772074536145}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
   IsPlayingPattern: 0
   NameID: 0
   PanelRT: {fileID: 7357834850077609870}
   CoreDropItemPercent:
-    CoreItemID: 1
-    CoreItemPercent: 1
+    coreItemID: 1
+    coreItemPercent: 1
   BattleProdSprite: {fileID: 1850782038, guid: 52f91939743298f4f8b005d682be328c, type: 3}
 --- !u!114 &5694203857495159564
 MonoBehaviour:
@@ -4369,7 +4369,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7796298986881196187}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteSideList.Array.data[2].target
+      value: 
+      objectReference: {fileID: 7796298986881196187}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteSideList.Array.data[3].Target
+      value: 
+      objectReference: {fileID: 4750575219940118560}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteSideList.Array.data[3].target
       value: 
       objectReference: {fileID: 4750575219940118560}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
@@ -4381,7 +4389,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2865624874965065010}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteCenterList.Array.data[2].target
+      value: 
+      objectReference: {fileID: 2865624874965065010}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteCenterList.Array.data[3].Target
+      value: 
+      objectReference: {fileID: 2865624874965065010}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteCenterList.Array.data[3].target
       value: 
       objectReference: {fileID: 2865624874965065010}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
@@ -4389,7 +4405,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8474550824898788037}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteSideList.Array.data[2].follower
+      value: 
+      objectReference: {fileID: 8474550824898788037}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteSideList.Array.data[3].Follower
+      value: 
+      objectReference: {fileID: 7119307590006453536}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteSideList.Array.data[3].follower
       value: 
       objectReference: {fileID: 7119307590006453536}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
@@ -4401,7 +4425,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1867756468638084490}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteCenterList.Array.data[2].follower
+      value: 
+      objectReference: {fileID: 1867756468638084490}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteCenterList.Array.data[3].Follower
+      value: 
+      objectReference: {fileID: 699888135469394930}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteCenterList.Array.data[3].follower
       value: 
       objectReference: {fileID: 699888135469394930}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
@@ -4409,7 +4441,15 @@ PrefabInstance:
       value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteSideList.Array.data[0].upperOrder
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteSideList.Array.data[1].UpperOrder
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteSideList.Array.data[1].upperOrder
       value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
@@ -4417,7 +4457,15 @@ PrefabInstance:
       value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteSideList.Array.data[2].upperOrder
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteSideList.Array.data[3].UpperOrder
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteSideList.Array.data[3].upperOrder
       value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
@@ -4429,7 +4477,15 @@ PrefabInstance:
       value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteCenterList.Array.data[0].upperOrder
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteCenterList.Array.data[1].UpperOrder
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteCenterList.Array.data[1].upperOrder
       value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
@@ -4437,7 +4493,15 @@ PrefabInstance:
       value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteCenterList.Array.data[2].upperOrder
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteCenterList.Array.data[3].UpperOrder
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteCenterList.Array.data[3].upperOrder
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
@@ -4445,7 +4509,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteSideList.Array.data[2].farFromCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteSideList.Array.data[3].FarFromCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: SatelliteSideList.Array.data[3].farFromCenter
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
@@ -4667,7 +4739,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8064304270579738518}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[2].target
+      value: 
+      objectReference: {fileID: 8064304270579738518}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[3].Target
+      value: 
+      objectReference: {fileID: 5812624522903256074}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[3].target
       value: 
       objectReference: {fileID: 5812624522903256074}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -4675,7 +4755,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8032995612179139097}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[4].target
+      value: 
+      objectReference: {fileID: 8032995612179139097}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[5].Target
+      value: 
+      objectReference: {fileID: 4215532729696232613}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[5].target
       value: 
       objectReference: {fileID: 4215532729696232613}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -4683,7 +4771,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4997112000904326241}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[6].target
+      value: 
+      objectReference: {fileID: 4997112000904326241}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[7].Target
+      value: 
+      objectReference: {fileID: 2888100877781836917}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[7].target
       value: 
       objectReference: {fileID: 2888100877781836917}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -4691,7 +4787,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6552934518088608296}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[2].follower
+      value: 
+      objectReference: {fileID: 6552934518088608296}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[3].Follower
+      value: 
+      objectReference: {fileID: 4468617930417229064}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[3].follower
       value: 
       objectReference: {fileID: 4468617930417229064}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -4699,7 +4803,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2397827145014380556}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[4].follower
+      value: 
+      objectReference: {fileID: 2397827145014380556}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[5].Follower
+      value: 
+      objectReference: {fileID: 4447174123330729185}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[5].follower
       value: 
       objectReference: {fileID: 4447174123330729185}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -4707,7 +4819,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 188320768361177244}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[6].follower
+      value: 
+      objectReference: {fileID: 188320768361177244}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[7].Follower
+      value: 
+      objectReference: {fileID: 3385927818424114851}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[7].follower
       value: 
       objectReference: {fileID: 3385927818424114851}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -4715,7 +4835,15 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[0].farFromCenter
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[1].FarFromCenter
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[1].farFromCenter
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -4723,7 +4851,15 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[2].farFromCenter
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[3].FarFromCenter
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[3].farFromCenter
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -4731,7 +4867,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[4].farFromCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[5].FarFromCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[5].farFromCenter
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -4739,7 +4883,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[6].farFromCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[7].FarFromCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: SatelliteSideList.Array.data[7].farFromCenter
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1415603111598692130, guid: 2624ebe61065a2c4182be26361acf836, type: 3}

@@ -68,8 +68,8 @@ public abstract class DroppingDepthController : MovableDepthController
 
     public virtual void Set_State_ShadowSize(BulletState_Size _State_Size)
     {
-        TargetObject.transform.localScale = _State_Size.ObjSize;
-        ShadowSize = _State_Size.ColSize;
+        TargetObject.transform.localScale = _State_Size.objSize;
+        ShadowSize = _State_Size.colSize;
     }
 
     protected virtual void SetOn_State()

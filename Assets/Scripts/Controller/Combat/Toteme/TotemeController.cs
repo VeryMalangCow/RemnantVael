@@ -115,24 +115,24 @@ public abstract class TotemeController : DroppingDepthController
         Set_State_ShadowSize(_State_Size);
         Set_State_Toteme(_Dur, _HoloSprite);
 
-        Set_State_BuffAreaPoint(_State_Size.ObjSize, _Clr);
+        Set_State_BuffAreaPoint(_State_Size.objSize, _Clr);
 
         SetOn_State();
     }
 
     public virtual void Set_State_PosAndRot(BulletState_PosAndRot _State_PosAndRot)
     {
-        this.transform.position = _State_PosAndRot.SpawnPos + (_State_PosAndRot.Dir * _State_PosAndRot.Dis);
-        this.transform.localRotation = DevTool.Get_RotFromDir(_State_PosAndRot.Dir);
+        this.transform.position = _State_PosAndRot.spawnPos + (_State_PosAndRot.dir * _State_PosAndRot.dis);
+        this.transform.localRotation = DevTool.Get_RotFromDir(_State_PosAndRot.dir);
 
-        DevTool.Add_RotZValue(transform, _State_PosAndRot.SpreadAngle);
+        DevTool.Add_RotZValue(transform, _State_PosAndRot.spreadAngle);
     }
 
     public override void Set_State_ShadowSize(BulletState_Size _State_Size)
     {
         base.Set_State_ShadowSize(_State_Size);
 
-        BuffCol.size = BuffColBaseSize * _State_Size.ObjSize;
+        BuffCol.size = BuffColBaseSize * _State_Size.objSize;
     }
 
     private void Set_State_BuffAreaPoint(Vector2 _AreaSize, Color _Clr)

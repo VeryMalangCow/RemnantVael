@@ -339,22 +339,22 @@ MonoBehaviour:
   MaxEP: 150
   ChargeEPSpeed: 50
   EnemyDropItemPercent:
-    ModuleDropPercent: 0.1
-    ModuleRankPercents: 500000000c000000050000000200000001000000
+    moduleDropPercent: 0.1
+    moduleRankPercents: 500000000c000000050000000200000001000000
     keycardDropPercent: 0.05
-    BSAmountMinMax:
+    bsAmountMinMax:
       typeBase: 1
       typeSpecial: 4
-    MSAmountMinMax:
+    msAmountMinMax:
       typeBase: 0
       typeSpecial: 2
-    CreditAmountMinMax:
+    creditAmountMinMax:
       typeBase: 1
       typeSpecial: 10
-    OverriderAmountMinMax:
+    overriderAmountMinMax:
       typeBase: 0
       typeSpecial: 2
-    JouleAmountMinMax:
+    jouleAmountMinMax:
       typeBase: 1
       typeSpecial: 3
   HUD: {fileID: 2920926280269970217}
@@ -377,7 +377,7 @@ MonoBehaviour:
     enemyPatternList:
     - {fileID: 5304281735289498022}
   ASQueueSet:
-    ThisParentTF: {fileID: 4586421128317380567}
+    thisParentTF: {fileID: 4586421128317380567}
   LookAtPoint: {x: 0, y: 0}
   LookAtDir: {x: 0, y: 0}
   IsPlayingPattern: 0

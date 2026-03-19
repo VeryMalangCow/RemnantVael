@@ -126,22 +126,22 @@ public abstract class AttackerController : MovableDepthController
 
         if (DevTool.Can_CastingTType(ThisCol, out CapsuleCollider2D capsule2D))
         {
-            capsule2D.size = _State_Juge.ColSize;
-            capsule2D.direction = _State_Juge.IsVertical ? CapsuleDirection2D.Vertical : CapsuleDirection2D.Horizontal;
+            capsule2D.size = _State_Juge.colSize;
+            capsule2D.direction = _State_Juge.isVertical ? CapsuleDirection2D.Vertical : CapsuleDirection2D.Horizontal;
         }
         else if (DevTool.Can_CastingTType(ThisCol, out CircleCollider2D circle2D))
         {
-            circle2D.radius = _State_Juge.ColSize.x;
+            circle2D.radius = _State_Juge.colSize.x;
         }
 
-        ThisAnimator.transform.localScale = _State_Juge.ColSize;
+        ThisAnimator.transform.localScale = _State_Juge.colSize;
     }
 
     public virtual void Set_State_Anim(State_Anim _State_Anim)
     {
-        DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.AC);
+        DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.ac);
 
-        ThisAnimator.speed = _State_Anim.Speed;
+        ThisAnimator.speed = _State_Anim.speed;
 
         ThisAnimator.Rebind();
     }
@@ -151,15 +151,15 @@ public abstract class AttackerController : MovableDepthController
         if (_IsLocalPos)
         {
             this.transform.SetParent(_Parent);
-            this.transform.localPosition = _State_StartTF.Pos;
+            this.transform.localPosition = _State_StartTF.pos;
         }
         else
         {
             this.transform.SetParent(StageManager.instance.currentRoomController.transform);
-            this.transform.position = _State_StartTF.Pos;
+            this.transform.position = _State_StartTF.pos;
         }
-        this.transform.rotation = _State_StartTF.Rot;
-        this.transform.localScale = _State_StartTF.LocalScale;
+        this.transform.rotation = _State_StartTF.rot;
+        this.transform.localScale = _State_StartTF.localScale;
     }
 
     public virtual Sequence Set_State_EndTF(AttackerState_EndTF _State_EndTF, bool _IsLocalPos) 
@@ -168,15 +168,15 @@ public abstract class AttackerController : MovableDepthController
 
         if (_IsLocalPos)
         {
-            seq.Join(this.transform.DOLocalMove(_State_EndTF.TF.Pos, _State_EndTF.Time).SetEase(Ease.Linear));
+            seq.Join(this.transform.DOLocalMove(_State_EndTF.tf.pos, _State_EndTF.time).SetEase(Ease.Linear));
         }
         else
         {
-            seq.Join(this.transform.DOMove(_State_EndTF.TF.Pos, _State_EndTF.Time).SetEase(Ease.Linear));
+            seq.Join(this.transform.DOMove(_State_EndTF.tf.pos, _State_EndTF.time).SetEase(Ease.Linear));
         }
 
-        seq.Join(TargetObject.transform.DORotateQuaternion(_State_EndTF.TF.Rot, _State_EndTF.Time).SetEase(Ease.Linear));
-        seq.Join(this.transform.DOScale(_State_EndTF.TF.LocalScale, _State_EndTF.Time).SetEase(Ease.Linear));
+        seq.Join(TargetObject.transform.DORotateQuaternion(_State_EndTF.tf.rot, _State_EndTF.time).SetEase(Ease.Linear));
+        seq.Join(this.transform.DOScale(_State_EndTF.tf.localScale, _State_EndTF.time).SetEase(Ease.Linear));
 
         return seq;
     }

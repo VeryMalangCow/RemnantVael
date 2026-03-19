@@ -31,8 +31,8 @@ public class EnemyBulletController : BulletController
         {
             base.Set_State_Size(_State_Size);
 
-            ThisCol.transform.localScale = _State_Size.Value.ObjSize;
-            ThisCol.size = _State_Size.Value.ColSize;
+            ThisCol.transform.localScale = _State_Size.Value.objSize;
+            ThisCol.size = _State_Size.Value.colSize;
         }
     }
 
@@ -42,8 +42,8 @@ public class EnemyBulletController : BulletController
         {
             base.Set_State_Anim(_State_Anim);
 
-            DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.Value.AC);
-            ThisAnimator.speed = _State_Anim.Value.Speed;
+            DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.Value.ac);
+            ThisAnimator.speed = _State_Anim.Value.speed;
         }
     }
 
@@ -53,7 +53,7 @@ public class EnemyBulletController : BulletController
         {
             base.Set_State_Effect(_State_Effect);
 
-            ExplAmount = _State_Effect.Value.ExplAmount;
+            ExplAmount = _State_Effect.Value.explAmount;
         }
     }
 

@@ -113,8 +113,8 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
             new ExplState(
                 new ExplState_Base(_SpawnPos, 3), 
                 Get_Sprite(0,_DmgType, _IsCritical, 0),
-                new ExplState_MoveAndScale(_Dir, _Dis:0.5f, _Scale:0.8f, _Time:0.075f, 0.025f), 
-                new ExplState_MoveAndScale(_Dir, _Dis:1.0f, _Scale:0.4f, _Time:0.750f, 0.250f)),
+                new ExplState_MoveAndScale(_Dir, dis:0.5f, scale:0.8f, time:0.075f, 0.025f), 
+                new ExplState_MoveAndScale(_Dir, dis:1.0f, scale:0.4f, time:0.750f, 0.250f)),
             _Dir, 30f);
     }
 
@@ -125,8 +125,8 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
             new ExplState(
                 new ExplState_Base(_SpawnPos, 4),
                 Get_Sprite(0, eDamageType.Physics, _IsCritical, 0),
-                new ExplState_MoveAndScale(_Dir, _Dis: 0.6f, _Scale: 1.4f, _Time: 0.075f, 0.025f),
-                new ExplState_MoveAndScale(_Dir, _Dis: 1.2f, _Scale: 0.7f, _Time: 0.750f, 0.250f)),
+                new ExplState_MoveAndScale(_Dir, dis: 0.6f, scale: 1.4f, time: 0.075f, 0.025f),
+                new ExplState_MoveAndScale(_Dir, dis: 1.2f, scale: 0.7f, time: 0.750f, 0.250f)),
             _Dir, 75f);
     }
 
@@ -146,8 +146,8 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
                     new ExplState(
                         new ExplState_Base(_SpawnPos + new Vector2(0, -0.5f), i == 2 ? NormalAmount : SpecialAmount),
                         Get_Sprite(0, DevTool.Get_DmgTypeFromIndex(i), DevTool.Get_CriticalFromIndex(i), 0),
-                        new ExplState_MoveAndScale(Vector2.zero, _Dis: usableMaxSize * 0.90f, _Scale: usableMaxSize * 0.65f, _Time: 0.25f, 0.05f),
-                        new ExplState_MoveAndScale(Vector2.zero, _Dis: usableMaxSize * 1.25f, _Scale: usableMaxSize * 0.2f, _Time: 0.45f, 0.05f)),
+                        new ExplState_MoveAndScale(Vector2.zero, dis: usableMaxSize * 0.90f, scale: usableMaxSize * 0.65f, time: 0.25f, 0.05f),
+                        new ExplState_MoveAndScale(Vector2.zero, dis: usableMaxSize * 1.25f, scale: usableMaxSize * 0.2f, time: 0.45f, 0.05f)),
                     1f, 0.5f);
             }
         }
@@ -162,8 +162,8 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
             new ExplState(
                 new ExplState_Base(_SpawnPos, 4),
                 Get_Sprite(0, _DmgType, _IsCritical, 0),
-                new ExplState_MoveAndScale(Vector2.zero, _Dis:0.3f, _Scale:0.6f, _Time:0.075f, 0.025f),
-                new ExplState_MoveAndScale(Vector2.zero, _Dis:0.4f, _Scale:0.3f, _Time:0.750f, 0.250f)));
+                new ExplState_MoveAndScale(Vector2.zero, dis:0.3f, scale:0.6f, time:0.075f, 0.025f),
+                new ExplState_MoveAndScale(Vector2.zero, dis:0.4f, scale:0.3f, time:0.750f, 0.250f)));
     }
 
     // 큰 오브젝트 파괴
@@ -173,8 +173,8 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
             new ExplState(
                 new ExplState_Base(_SpawnPos, 4),
                 Get_Sprite(0, _DmgType, _IsCritical, 0),
-                new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.3f, _Scale: 2.0f, _Time: 0.075f, 0.025f),
-                new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.4f, _Scale: 1.0f, _Time: 0.750f, 0.250f)));
+                new ExplState_MoveAndScale(Vector2.zero, dis: 0.3f, scale: 2.0f, time: 0.075f, 0.025f),
+                new ExplState_MoveAndScale(Vector2.zero, dis: 0.4f, scale: 1.0f, time: 0.750f, 0.250f)));
     }
 
     // 회피
@@ -186,8 +186,8 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
                 new ExplState(
                     new ExplState_Base(_SpawnPos, 4),
                     Get_Sprite(0, DevTool.Get_DmgTypeFromIndex(i), DevTool.Get_CriticalFromIndex(i), 0),
-                    new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.3f, _Scale: 2.0f, _Time: 0.075f, 0.025f),
-                    new ExplState_MoveAndScale(Vector2.zero, _Dis: 0.8f, _Scale: 1.0f, _Time: 0.750f, 0.250f)));
+                    new ExplState_MoveAndScale(Vector2.zero, dis: 0.3f, scale: 2.0f, time: 0.075f, 0.025f),
+                    new ExplState_MoveAndScale(Vector2.zero, dis: 0.8f, scale: 1.0f, time: 0.750f, 0.250f)));
         }
     }
 

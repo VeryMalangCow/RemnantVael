@@ -29,8 +29,8 @@ public class ExplosionImgGenerator : MonoBehaviour
         DevTool.Set_CompleteTween(TotalSeq);
         TotalSeq = DOTween.Sequence();
 
-        float singleAngle = 360 / _State.BaseState.SpawnAmount; // ÇÑÄ­ ¾Þ±Û
-        for (int i = 0; i < _State.BaseState.SpawnAmount; i++)
+        float singleAngle = 360 / _State.baseState.spawnAmount; // ÇÑÄ­ ¾Þ±Û
+        for (int i = 0; i < _State.baseState.spawnAmount; i++)
         {
             _State.Set_AllDir(DevTool.Get_DirFromAngle((i * singleAngle)));
             _State.Set_RandomAngleValue_JustAdd(singleAngle);
@@ -39,10 +39,10 @@ public class ExplosionImgGenerator : MonoBehaviour
 
             TotalSeq.Join(
                 Gen_EachExplImg(
-                    _State.BaseState.SpawnPos,
-                    _State.SpriteState,
-                    _State.FirstState,
-                    _State.SecondState));
+                    _State.baseState.spawnPos,
+                    _State.spriteState,
+                    _State.firstState,
+                    _State.secondState));
         }
     }
 
@@ -53,17 +53,17 @@ public class ExplosionImgGenerator : MonoBehaviour
         DevTool.Set_CompleteTween(TotalSeq);
         TotalSeq = DOTween.Sequence();
 
-        for (int i = 0; i < _State.BaseState.SpawnAmount; i++)
+        for (int i = 0; i < _State.baseState.spawnAmount; i++)
         {
             _State.Set_RandomValue();
             _State.Set_RandomAngleValue_PivotZero(_AngleExtent);
 
             TotalSeq.Join(
                 Gen_EachExplImg(
-                    _State.BaseState.SpawnPos,
-                    _State.SpriteState,
-                    _State.FirstState,
-                    _State.SecondState));
+                    _State.baseState.spawnPos,
+                    _State.spriteState,
+                    _State.firstState,
+                    _State.secondState));
         }
     }
 
@@ -102,8 +102,8 @@ public class ExplosionImgGenerator : MonoBehaviour
     {
         Sequence Seq = DOTween.Sequence();
 
-        Seq.Join(_SR.transform.DOMove(_SpawnPos + (_State.Dir * _State.Dis), _State.Time).SetEase(Ease.Linear));
-        Seq.Join(_SR.transform.DOScale(_State.Scale, _State.Time).SetEase(Ease.Linear));
+        Seq.Join(_SR.transform.DOMove(_SpawnPos + (_State.dir * _State.dis), _State.time).SetEase(Ease.Linear));
+        Seq.Join(_SR.transform.DOScale(_State.scale, _State.time).SetEase(Ease.Linear));
 
         return Seq;
     }
@@ -112,7 +112,7 @@ public class ExplosionImgGenerator : MonoBehaviour
     private Sequence Play_ExplImg_MoveScaleFadeOut(SpriteRenderer _SR, Vector2 _SpawnPos, ExplState_MoveAndScale _State)
     {
         Sequence Seq = Play_ExplImg_MoveScale(_SR, _SpawnPos, _State);
-        Seq.Join(_SR.DOFade(0f, _State.Time).SetEase(Ease.Linear));
+        Seq.Join(_SR.DOFade(0f, _State.time).SetEase(Ease.Linear));
 
         return Seq;
     }
@@ -130,8 +130,8 @@ public class ExplosionImgGenerator : MonoBehaviour
         _SR.color = Color.white;
         _SR.sortingOrder = LayerOrderManager.order_EffectImg;
 
-        _SR.sprite = DevTool.Get_Random(_State.Sprite);
-        _SR.material = _State.Material;
+        _SR.sprite = DevTool.Get_Random(_State.sprite);
+        _SR.material = _State.material;
 
         _SR.gameObject.SetActive(true);
     }

@@ -70,7 +70,7 @@ public class AllyRequestUIController : MonoBehaviour
         DiffcultyExtraTxt.text = $"{(_Request.Get_Rank() + 1)}";
 
         RewardImg.sprite = ResourceManager.instance.Get_AllyRequestReward(_Request.Get_RewardType());
-        int extraAmount = AllyRequest.RewardCaculateDict[_Request.Get_RewardType()](_Request.Get_Rank());
+        int extraAmount = AllyRequest.rewardCaculateDict[_Request.Get_RewardType()](_Request.Get_Rank());
         if (extraAmount != -1)
         { RewardExtraTxt.text = $"+{extraAmount}"; }
         else

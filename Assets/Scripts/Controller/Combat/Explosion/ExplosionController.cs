@@ -96,8 +96,8 @@ public abstract class ExplosionController : StaticDepthController
 
     public virtual void Set_State_StartTF(State_TF2D _State_StartTF)
     {
-        this.transform.position = _State_StartTF.Pos;
-        this.transform.localScale = _State_StartTF.LocalScale;
+        this.transform.position = _State_StartTF.pos;
+        this.transform.localScale = _State_StartTF.localScale;
     }
 
     public virtual void Set_State_Extra() { }

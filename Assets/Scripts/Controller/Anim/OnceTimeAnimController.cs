@@ -39,11 +39,11 @@ public class OnceTimeAnimController : MonoBehaviour
         State_Sprite _SpriteExtra)
     {
         ThisAnimator.enabled = true;
-        ThisAnimator.speed = _State_Anim.Speed;
+        ThisAnimator.speed = _State_Anim.speed;
 
         DevTool.Set_TF_FromStruct(gameObject.transform, _StructTF);
         DevTool.Set_MatAndClr_FromStruct(ThisSpriteRenderer, _SpriteExtra);
-        DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.AC);
+        DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.ac);
 
         this.gameObject.SetActive(true);
     }

@@ -114,7 +114,7 @@ public class StageManager : Singleton<StageManager>
         currentStageData = stageData;
 
         // 처음 방
-        if (stageData.InfoData.StageID == 99) // 로비 시작 방
+        if (stageData.infoData.stageId == 99) // 로비 시작 방
         {
             Gen_Type_LobbyStage();
         }
@@ -135,12 +135,12 @@ public class StageManager : Singleton<StageManager>
 
         // 적 객체 오브젝트 풀링 시스템 세팅하기
         PoolingManager.instance.Offset_EnemiesPooling(
-            stageData.EnemyData.StageEnemyList,
-            stageData.EnemyData.StageEliteEnemyList,
-            stageData.EnemyData.StageBossEnemyList);
+            stageData.enemyData.stageEnemyList,
+            stageData.enemyData.stageEliteEnemyList,
+            stageData.enemyData.stageBossEnemyList);
 
         // Sound (BGM) 시작
-        SoundManager.instance.Play_2D_BGM_Stage(stageData.InfoData.StageID);
+        SoundManager.instance.Play_2D_BGM_Stage(stageData.infoData.stageId);
 
         Reset_GenStageData();
 
@@ -209,7 +209,7 @@ public class StageManager : Singleton<StageManager>
 
         // 생성할 Room의 양을 계산에 1중 리스트로 변경 => 이들을 섞음
         shuffledRoomIndexList = DevTool.Get_ShuffledList(
-            Get_ListInt_FromGenRoomAmount(_StageData.RoomData.RoomAmount));
+            Get_ListInt_FromGenRoomAmount(_StageData.roomData.roomAmount));
 
         // 기본 방 생성
         for (int i = 0; i < shuffledRoomIndexList.Count; i++)
@@ -219,44 +219,44 @@ public class StageManager : Singleton<StageManager>
         }
 
         // 지정된 방 생성 (일반 룸과 같지만 특정 구성만 다름 ex.Elite)
-        for (int i = 0; i < _StageData.RoomData.DesignatedRoom.Count; i++)
+        for (int i = 0; i < _StageData.roomData.designatedRoom.Count; i++)
         {
-            Gen_DesignatedRoom(_StageData.RoomData.DesignatedRoom[i], TempID);
+            Gen_DesignatedRoom(_StageData.roomData.designatedRoom[i], TempID);
             TempID++;
         }
 
         // 통과 방 생성
-        for (int i = 0; i < _StageData.RoomData.EntranceRoom.Count; i++)
+        for (int i = 0; i < _StageData.roomData.entranceRoom.Count; i++)
         {
-            Gen_EntranceRoom(_StageData.RoomData.EntranceRoom[i], TempID);
+            Gen_EntranceRoom(_StageData.roomData.entranceRoom[i], TempID);
             TempID++;
         }
 
         // 금고 방 생성
-        for (int i = 0; i < _StageData.RoomData.VaultRoom.Count; i++)
+        for (int i = 0; i < _StageData.roomData.vaultRoom.Count; i++)
         {
-            Gen_VaultRoom(_StageData.RoomData.VaultRoom[i], TempID, out bool generated);
+            Gen_VaultRoom(_StageData.roomData.vaultRoom[i], TempID, out bool generated);
             if (generated) TempID++;
         }
 
         // 상점 방 생성
-        for (int i = 0; i < _StageData.RoomData.ShopRoom.Count; i++)
+        for (int i = 0; i < _StageData.roomData.shopRoom.Count; i++)
         {
-            Gen_ShopRoom(_StageData.RoomData.ShopRoom[i], TempID, out bool generated);
+            Gen_ShopRoom(_StageData.roomData.shopRoom[i], TempID, out bool generated);
             if (generated) TempID++;
         }
 
         // Ally 상점 방 생성
-        for (int i = 0; i < _StageData.RoomData.AllyShopRoom.Count; i++)
+        for (int i = 0; i < _StageData.roomData.allyShopRoom.Count; i++)
         {
-            Gen_AllyShopRoom(_StageData.RoomData.AllyShopRoom[i], TempID, out bool generated);
+            Gen_AllyShopRoom(_StageData.roomData.allyShopRoom[i], TempID, out bool generated);
             if (generated) TempID++;
         }
 
         // 감옥 방 생성
-        for (int i = 0; i < _StageData.RoomData.PrisonRoom.Count; i++)
+        for (int i = 0; i < _StageData.roomData.prisonRoom.Count; i++)
         {
-            Gen_PrisonRoom(_StageData.RoomData.PrisonRoom[i], TempID, out bool generated);
+            Gen_PrisonRoom(_StageData.roomData.prisonRoom[i], TempID, out bool generated);
             if (generated) TempID++;
         }
     }
@@ -325,11 +325,11 @@ public class StageManager : Singleton<StageManager>
     // 지정 방 생성
     private void Gen_DesignatedRoom(GenDesignatedRoom _DesignatedRoomData, int _TempID)
     {
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_DesignatedRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_DesignatedRoomData.id], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomDesignatedPrefabArr[_DesignatedRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomDesignatedPrefabArr[_DesignatedRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             room.Offset(_TempID);
@@ -344,11 +344,11 @@ public class StageManager : Singleton<StageManager>
     // 통과 방 하나 생성
     private void Gen_EntranceRoom(GenSpecialRoomData _EntranceRoomData, int _TempID)
     {
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_EntranceRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_EntranceRoomData.id], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleEntrancePrefabArr[_EntranceRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleEntrancePrefabArr[_EntranceRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             EntranceRuleController entranceRule = DevTool.Get_CastingTType<EntranceRuleController>(roomRule);
@@ -390,11 +390,11 @@ public class StageManager : Singleton<StageManager>
 
         if (!data.usableVault) return;
 
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_VaultRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_VaultRoomData.id], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleVaultPrefabArr[_VaultRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleVaultPrefabArr[_VaultRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             VaultRuleController vaultRule = DevTool.Get_CastingTType<VaultRuleController>(roomRule);
@@ -443,11 +443,11 @@ public class StageManager : Singleton<StageManager>
 
         if (!data.usableBU && !data.usableMU) return;
 
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_ShopRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_ShopRoomData.id], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleShopPrefabArr[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleShopPrefabArr[_ShopRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             ShopRuleController shopRule = DevTool.Get_CastingTType<ShopRuleController>(roomRule);
@@ -501,11 +501,11 @@ public class StageManager : Singleton<StageManager>
 
         if (!data.usableABU && !data.usableAMU) return;
 
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_ShopRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_ShopRoomData.id], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleAllyShopPrefabArr[_ShopRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleAllyShopPrefabArr[_ShopRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             AllyShopRuleController shopRule = DevTool.Get_CastingTType<AllyShopRuleController>(roomRule);
@@ -557,23 +557,23 @@ public class StageManager : Singleton<StageManager>
         _Generated = false;
         GameProgressJsonData data = SaveDataManager.instance.jsonData.gameProgressData;
 
-        switch (_PrisonRoomData.TypeID)
+        switch (_PrisonRoomData.typeId)
         {
             case 0: if (!data.usableSTPrison) return; break;
             case 1: if (!data.usableUTPrison) return; break;
             case 2: if (!data.usableNTPrison) return; break;
         }
 
-        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_PrisonRoomData.ID], mapParentTF), out RoomController room))
+        if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomPrefabArr[_PrisonRoomData.id], mapParentTF), out RoomController room))
         {
             currentAllRoomController.Add(room);
 
-            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRulePrisonPrefabArr[_PrisonRoomData.RuleID], room.gameObject.transform), out RoomRuleController roomRule))
+            if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRulePrisonPrefabArr[_PrisonRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
                 room.RoomRuleController = roomRule;
 
             PrisonRuleController prisonRule = DevTool.Get_CastingTType<PrisonRuleController>(roomRule);
 
-            PrisonController prison = DevTool.Get_ComponentTType<PrisonController>(Instantiate(ResourceManager.instance.prisonPrefabArr[_PrisonRoomData.TypeID], prisonRule.InRoom_PrisonParentTF));
+            PrisonController prison = DevTool.Get_ComponentTType<PrisonController>(Instantiate(ResourceManager.instance.prisonPrefabArr[_PrisonRoomData.typeId], prisonRule.InRoom_PrisonParentTF));
             prisonRule.Prison = prison;
             prison.gameObject.transform.localPosition = Vector2.zero;
             prison.gameObject.SetActive(false);
@@ -936,30 +936,30 @@ public class StageManager : Singleton<StageManager>
         {
             if (DevTool.Get_ComponentTType(setSprite.gameObject, out SpriteRenderer sr))
             {
-                int index = currentStageData.MapMaterialUnclear.IndexOf(sr.sharedMaterial);
+                int index = currentStageData.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
                 if (index == -1)
                 { Debug.Log(sr.gameObject.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
-                sr.material = currentStageData.MapMaterialClear[index];
+                sr.material = currentStageData.mapMaterialClear[index];
             }
         }
     }
 
     private void Set_MapUnclearSprite(StageData _StageData, SpriteRenderer _SR, string _SpriteKey)
     {
-        if (!_StageData.MapSpriteReso.MapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey); return; }
+        if (!_StageData.mapSpriteReso.mapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey); return; }
 
-        SpriteMaterial spriteMatrial = _StageData.MapSpriteReso.MapSprite[_SpriteKey];
-        _SR.sprite = spriteMatrial.Sprite;
-        _SR.material = _StageData.MapMaterialUnclear[spriteMatrial.MaterialIndex];
+        SpriteMaterial spriteMatrial = _StageData.mapSpriteReso.mapSprite[_SpriteKey];
+        _SR.sprite = spriteMatrial.sprite;
+        _SR.material = _StageData.mapMaterialUnclear[spriteMatrial.materialIndex];
     }
 
     private void Set_MapClearSprite(StageData _StageData, SpriteRenderer _SR, string _SpriteKey)
     {
-        if (!_StageData.MapSpriteReso.MapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey); return; }
+        if (!_StageData.mapSpriteReso.mapSprite.ContainsKey(_SpriteKey)) { Debug.Log(_SpriteKey); return; }
 
-        SpriteMaterial spriteMatrial = _StageData.MapSpriteReso.MapSprite[_SpriteKey];
-        _SR.sprite = spriteMatrial.Sprite;
-        _SR.material = _StageData.MapMaterialClear[spriteMatrial.MaterialIndex];
+        SpriteMaterial spriteMatrial = _StageData.mapSpriteReso.mapSprite[_SpriteKey];
+        _SR.sprite = spriteMatrial.sprite;
+        _SR.material = _StageData.mapMaterialClear[spriteMatrial.materialIndex];
     }
 
     #endregion
@@ -968,12 +968,12 @@ public class StageManager : Singleton<StageManager>
 
     public void Set_StageDoorAnim(GateController _Gate, SpriteRenderer _SR, Vector2Int _DoorDir)
     {
-        List<StageDoorAnim> doorAnim = currentStageData.MapDoorAnim;
+        List<StageDoorAnim> doorAnim = currentStageData.mapDoorAnim;
         for (int i = 0; i < doorAnim.Count; i++)
-            if (doorAnim[i].Dir == _DoorDir)
+            if (doorAnim[i].dir == _DoorDir)
             {
-                _Gate.ThisAC = doorAnim[i].DoorAnim;
-                _SR.material = currentStageData.MapMaterialUnclear[doorAnim[i].MaterialIndex];
+                _Gate.ThisAC = doorAnim[i].doorAnim;
+                _SR.material = currentStageData.mapMaterialUnclear[doorAnim[i].materialIndex];
             }
     }
 
@@ -985,10 +985,10 @@ public class StageManager : Singleton<StageManager>
         {
             if (DevTool.Get_ComponentTType(setAnim.gameObject, out SpriteRenderer sr))
             {
-                int index = currentStageData.MapMaterialUnclear.IndexOf(sr.sharedMaterial);
+                int index = currentStageData.mapMaterialUnclear.IndexOf(sr.sharedMaterial);
                 if (index == -1)
                 { Debug.Log(sr.material.name + " / " + sr.gameObject.transform.parent.gameObject.name); continue; }
-                sr.material = currentStageData.MapMaterialClear[index];
+                sr.material = currentStageData.mapMaterialClear[index];
             }
         }
     }
@@ -1008,7 +1008,7 @@ public class StageManager : Singleton<StageManager>
             return lobbyStageData;
 
         for (int i = 0; i < allStageData.Count; i++)
-            if (allStageData[i].InfoData.StageID == _StageID)
+            if (allStageData[i].infoData.stageId == _StageID)
                 return allStageData[i];
 
         return null;
@@ -1028,8 +1028,8 @@ public class StageManager : Singleton<StageManager>
     {
         List<int> result = new List<int>();
         for (int i = 0; i < _GenRoomAmountList.Count; i++)
-            for (int j = 0; j < _GenRoomAmountList[i].Amount; j++)
-                result.Add(_GenRoomAmountList[i].ID);
+            for (int j = 0; j < _GenRoomAmountList[i].amount; j++)
+                result.Add(_GenRoomAmountList[i].id);
             
         return result;
     }

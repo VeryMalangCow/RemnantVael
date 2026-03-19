@@ -49,12 +49,12 @@ public class AllyRequestManager : Singleton<AllyRequestManager>
 
     public void Add_RequestComplete<T>(string _Name, T _Data) where T : IWhen_Request
     {
-        DevTool.Add_InList(Get_CorrectCompleteList<T>(_Name).List, _Data);
+        DevTool.Add_InList(Get_CorrectCompleteList<T>(_Name).list, _Data);
     }
 
     public void Add_RequestFail<T>(string _Name, T _Data) where T : IWhen_Fail
     {
-        DevTool.Add_InList(Get_CorrectFailList<T>(_Name).List, _Data);
+        DevTool.Add_InList(Get_CorrectFailList<T>(_Name).list, _Data);
     }
 
 
@@ -65,13 +65,13 @@ public class AllyRequestManager : Singleton<AllyRequestManager>
     public void Remove_RequestComplete<T>(string _Name, T _Data) where T : IWhen_Request
     {
         AllyCompleteList<T> listData = Get_CorrectCompleteList<T>(_Name);
-        DevTool.Remove_InList(listData.List, _Data);
+        DevTool.Remove_InList(listData.list, _Data);
     }
 
     public void Remove_RequestFail<T>(string _Name, T _Data) where T : IWhen_Fail
     {
         AllyFailList<T> listData = Get_CorrectFailList<T>(_Name);
-        DevTool.Remove_InList(listData.List, _Data);
+        DevTool.Remove_InList(listData.list, _Data);
     }
 
     #endregion

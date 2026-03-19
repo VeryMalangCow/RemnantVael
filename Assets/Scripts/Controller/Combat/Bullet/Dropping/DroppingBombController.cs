@@ -71,17 +71,17 @@ public abstract class DroppingBombController : DroppingDepthController
 
     public virtual void Set_State_PosAndRot(BulletState_PosAndRot _State_PosAndRot)
     {
-        this.transform.position = _State_PosAndRot.SpawnPos + (_State_PosAndRot.Dir * _State_PosAndRot.Dis);
-        this.transform.localRotation = DevTool.Get_RotFromDir(_State_PosAndRot.Dir);
+        this.transform.position = _State_PosAndRot.spawnPos + (_State_PosAndRot.dir * _State_PosAndRot.dis);
+        this.transform.localRotation = DevTool.Get_RotFromDir(_State_PosAndRot.dir);
 
-        DevTool.Add_RotZValue(transform, _State_PosAndRot.SpreadAngle);
+        DevTool.Add_RotZValue(transform, _State_PosAndRot.spreadAngle);
     }
 
     public override void Set_State_ShadowSize(BulletState_Size _State_Size)
     {
         base.Set_State_ShadowSize(_State_Size);
 
-        SizeState = new AttackSizeState(_State_Size.ObjSize.x);
+        SizeState = new AttackSizeState(_State_Size.objSize.x);
     }
 
     protected override void SetOn_State()

@@ -12,7 +12,7 @@ public class StrikeTeamPrisonController : PrisonController
         AllySprites = ResourceManager.instance.strikeTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
         {
-            PrisonAllySRList[i].sprite = AllySprites.Bind;
+            PrisonAllySRList[i].sprite = AllySprites.bind;
         }
     }
 

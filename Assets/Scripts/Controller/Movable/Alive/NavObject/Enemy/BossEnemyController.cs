@@ -67,7 +67,7 @@ public class BossEnemyController : EnemyController
 
         HUD.ThisCanvas.worldCamera = MainGameUIManager.instance.uiCamera;
 
-        BossPhaseData = BossPhaseData.OrderByDescending(obj => obj.ThisPhaseLimitPercentHP).ToList();
+        BossPhaseData = BossPhaseData.OrderByDescending(obj => obj.thisPhaseLimitPercentHP).ToList();
         Try_PlayNewPatternByPhase();
     }
 
@@ -93,17 +93,17 @@ public class BossEnemyController : EnemyController
         BossPhaseData actualCurrentPhase = Get_CurrentPhase();
         if (actualCurrentPhase != null)
         {
-            Debug.Log("Boss Phase :" + actualCurrentPhase.ThisPhase);
+            Debug.Log("Boss Phase :" + actualCurrentPhase.thisPhase);
             // Play new Pattern by Phase
             StartCoroutine(Set_NewPhase(actualCurrentPhase));
             
             // Icon
-            ThisHUDIcon.sprite = ResourceManager.instance.Get_BossPhaseSprite(actualCurrentPhase.ThisPhase);
+            ThisHUDIcon.sprite = ResourceManager.instance.Get_BossPhaseSprite(actualCurrentPhase.thisPhase);
             
             // Particle
             for (int i = 0; i < ThisAuraParticleGOList.Count; i++)
             {
-                ThisAuraParticleGOList[i].gameObject.SetActive(actualCurrentPhase.ThisPhase > i);
+                ThisAuraParticleGOList[i].gameObject.SetActive(actualCurrentPhase.thisPhase > i);
             }
 
             return true;
@@ -117,8 +117,8 @@ public class BossEnemyController : EnemyController
         float percentHP = Get_PercentHP();
         for (int i = 0; i < BossPhaseData.Count; i++)
         {
-            if (BossPhaseData[i].ThisPhaseLimitPercentHP >= percentHP
-                && BossPhaseData[i].ThisPhase != CurrentPhase)
+            if (BossPhaseData[i].thisPhaseLimitPercentHP >= percentHP
+                && BossPhaseData[i].thisPhase != CurrentPhase)
             {
                 return BossPhaseData[i];
             }
@@ -130,10 +130,10 @@ public class BossEnemyController : EnemyController
     {
         EndAll_Pattern();
 
-        CurrentPhase = _Phase.ThisPhase;
+        CurrentPhase = _Phase.thisPhase;
 
-        OrderOfPriorityEnemyPatternList = _Phase.OrderOfPriorityEnemyPatternList;
-        SpecialPattern = _Phase.SpecialPattern;
+        OrderOfPriorityEnemyPatternList = _Phase.orderOfPriorityEnemyPatternList;
+        SpecialPattern = _Phase.specialPattern;
 
         BossPhaseData.RemoveAt(0);
 
@@ -159,9 +159,9 @@ public class BossEnemyController : EnemyController
     {
         base.Set_Die_GenItem();
 
-        if (CoreDropItemPercent.CoreItemPercent != 0 && DevTool.Is_ChanceSuccess(CoreDropItemPercent.CoreItemPercent))
+        if (CoreDropItemPercent.coreItemPercent != 0 && DevTool.Is_ChanceSuccess(CoreDropItemPercent.coreItemPercent))
         {
-            Gen_CoreItem(CoreDropItemPercent.CoreItemID);
+            Gen_CoreItem(CoreDropItemPercent.coreItemID);
         }
     }
 

@@ -105,7 +105,7 @@ public class ShockwaveSkillController : ActiveSkillController
     {
         return new AttackerState_Juge<CapsuleCollider2D>(
             ColSize,
-            _IsVertical: false);
+            isVertical: false);
     }
 
     private State_Anim State_Anim()

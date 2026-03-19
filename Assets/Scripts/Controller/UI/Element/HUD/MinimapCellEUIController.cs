@@ -33,7 +33,7 @@ public class MinimapCellEUIController : ElementUIController
         // From/To RC
         MinimapIcon minimapReso = ResourceManager.instance.Get_MinimapIcon(_Room.RoomStaticID);
 
-        CoupleData<Sprite> thisSprites = minimapReso.MinimapElementIcon.Get_Base(_IsNormal);
+        CoupleData<Sprite> thisSprites = minimapReso.minimapElementIcon.Get_Base(_IsNormal);
         ref MinimapCellEUIController target = ref (_IsNormal ? ref _Room.ThisMME : ref _Room.ThisIMME);
         target = this;
 
@@ -47,7 +47,7 @@ public class MinimapCellEUIController : ElementUIController
         // Pivot
         if (DevTool.Get_ComponentTType(gameObject, out RectTransform rt))
         {
-            rt.pivot = minimapReso.SpritePivot;
+            rt.pivot = minimapReso.spritePivot;
             rt.anchoredPosition = new Vector2(
                     (float)_Room.RoomVec[0].x * IntervalMM.Get_Base(_IsNormal),
                     (float)_Room.RoomVec[0].y * IntervalMM.Get_Base(_IsNormal));

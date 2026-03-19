@@ -10,7 +10,7 @@ public class UplinkTeamPrisonController : PrisonController
         AllySprites = ResourceManager.instance.uplinkTeamAllySprites;
         for (int i = 0; i < PrisonAllySRList.Count; i++)
         {
-            PrisonAllySRList[i].sprite = AllySprites.Bind;
+            PrisonAllySRList[i].sprite = AllySprites.bind;
         }
     }
 

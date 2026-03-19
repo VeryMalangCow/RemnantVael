@@ -36,20 +36,20 @@ public class EachTunerEUIController : ElementUIController
 
     public void Set_UI(AllyEachTunerData _EachTunerData)
     {
-        ThisImg.sprite = AllyManager.instance.Get_BUIcon(_EachTunerData.Type); // Icon
-        ThisRankImg.sprite = ResourceManager.instance.Get_RankIcon(_EachTunerData.Rank); // Rank
+        ThisImg.sprite = AllyManager.instance.Get_BUIcon(_EachTunerData.type); // Icon
+        ThisRankImg.sprite = ResourceManager.instance.Get_RankIcon(_EachTunerData.rank); // Rank
 
-        Color frameClr = ResourceManager.instance.Get_AllyCardColor(_EachTunerData.Rank - 1);
+        Color frameClr = ResourceManager.instance.Get_AllyCardColor(_EachTunerData.rank - 1);
         ThisFrameImg.color = frameClr;
         ThisArrowImg.color = frameClr;
     }
 
     public void Set_UI(AllyEachBaseTunerData _EachTunerData)
     {
-        ThisImg.sprite = AllyManager.instance.Get_BUIcon(_EachTunerData.Type); // Icon
-        ThisRankImg.sprite = ResourceManager.instance.Get_RankIcon(_EachTunerData.Rank); // Rank
+        ThisImg.sprite = AllyManager.instance.Get_BUIcon(_EachTunerData.type); // Icon
+        ThisRankImg.sprite = ResourceManager.instance.Get_RankIcon(_EachTunerData.rank); // Rank
 
-        Color frameClr = ResourceManager.instance.Get_AllyCardColor(_EachTunerData.Rank - 1);
+        Color frameClr = ResourceManager.instance.Get_AllyCardColor(_EachTunerData.rank - 1);
         ThisFrameImg.color = frameClr;
         ThisArrowImg.color = frameClr;
     }

@@ -127,43 +127,43 @@ public class AllyManager : Singleton<AllyManager>
 
     public void Set_StateDmg(float _Value)
     {
-        allyState.Dmg.value = _Value;
+        allyState.dmg.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateRof(float _Value)
     {
-        allyState.Rof.value = _Value;
+        allyState.rof.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateMovementSpeed(float _Value)
     {
-        allyState.MovementSpeed.value = _Value;
+        allyState.movementSpeed.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateAttackSize(float _Value)
     {
-        allyState.AttackSize.value = _Value;
+        allyState.attackSize.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateCC(float _Value)
     {
-        allyState.CC.value = _Value;
+        allyState.criticalChacne.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateCD(float _Value)
     {
-        allyState.CD.value = _Value;
+        allyState.criticalDmg.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateMuzzleSpeed(float _Value)
     {
-        allyState.MuzzleSpeed.value = _Value;
+        allyState.muzzleSpeed.value = _Value;
         Set_AllState();
     }
 
@@ -181,7 +181,7 @@ public class AllyManager : Singleton<AllyManager>
 
     private bool Is_ExistEssentialID(AllyCardData _TargetData)
     {
-        if (_TargetData.EssentialID != -1)
+        if (_TargetData.essentialID != -1)
             return true;
 
         return false;
@@ -189,7 +189,7 @@ public class AllyManager : Singleton<AllyManager>
 
     private bool Is_GottenEssentialCard(int _TypeID, AllyCardData _TargetData)
     {
-        if (!Is_ExistEssentialID(_TargetData) || allGottenAllyCards[_TypeID].Contains(_TargetData.EssentialID))
+        if (!Is_ExistEssentialID(_TargetData) || allGottenAllyCards[_TypeID].Contains(_TargetData.essentialID))
             return true;
 
         return false;
@@ -198,7 +198,7 @@ public class AllyManager : Singleton<AllyManager>
     // 선택 가능한 ID 카드를 체크
     private bool Can_ChoiceAble(int _TypeID, AllyCardData _TargetData, List<AllyCardData> _AlreadyChoicedDataList)
     {
-        if (!allGottenAllyCards[_TypeID].Contains(_TargetData.ID) &&
+        if (!allGottenAllyCards[_TypeID].Contains(_TargetData.id) &&
             Is_GottenEssentialCard(_TypeID, _TargetData) &&
             !_AlreadyChoicedDataList.Contains(_TargetData))
             return true;
@@ -218,10 +218,10 @@ public class AllyManager : Singleton<AllyManager>
     // 선행 카드 정보
     public AllyCardData Get_PreAllyCardData(int _TypeID, AllyCardData _TargetCard)
     {
-        if (_TargetCard.EssentialID == -1)
+        if (_TargetCard.essentialID == -1)
             return null;
 
-        return allAllyCardData[_TypeID][_TargetCard.EssentialID];
+        return allAllyCardData[_TypeID][_TargetCard.essentialID];
     }
 
     // 한 번에 여러개의 랜덤 카드 리턴
@@ -404,15 +404,15 @@ public class AllyManager : Singleton<AllyManager>
     {
         AllyCardData[] stData = ResourceManager.instance.Get_StrikeTeam_AllAllyCardData();
         for (int i = 0; i < st_allAllyCardData.Length; i++)
-            st_allAllyCardData[i].Set_LanguageTxt(stData[i].Name, stData[i].Desc);
+            st_allAllyCardData[i].Set_LanguageTxt(stData[i].name, stData[i].desc);
 
         AllyCardData[] utData = ResourceManager.instance.Get_UplinkTeam_AllAllyCardData();
         for (int i = 0; i < ut_allAllyCardData.Length; i++)
-            ut_allAllyCardData[i].Set_LanguageTxt(utData[i].Name, utData[i].Desc);
+            ut_allAllyCardData[i].Set_LanguageTxt(utData[i].name, utData[i].desc);
 
         AllyCardData[] ntData = ResourceManager.instance.Get_NeoTeam_AllAllyCardData();
         for (int i = 0; i < nt_allAllyCardData.Length; i++)
-            nt_allAllyCardData[i].Set_LanguageTxt(ntData[i].Name, ntData[i].Desc);
+            nt_allAllyCardData[i].Set_LanguageTxt(ntData[i].name, ntData[i].desc);
     }
 
     #endregion

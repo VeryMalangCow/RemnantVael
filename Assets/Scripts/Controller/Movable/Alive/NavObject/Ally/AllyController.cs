@@ -159,15 +159,15 @@ public class AllyController : NavObjectController
 
         UpgradeStateDict = new Dictionary<string, RefData<float>>
         {
-            { AllyManager.stateTypeList[0], UpgradeAllyState.Dmg },
-            { AllyManager.stateTypeList[1], UpgradeAllyState.Rof },
-            { AllyManager.stateTypeList[2], UpgradeAllyState.MovementSpeed },
-            { AllyManager.stateTypeList[3], UpgradeAllyState.AttackSize },
-            { AllyManager.stateTypeList[4], UpgradeAllyState.CC },
-            { AllyManager.stateTypeList[5], UpgradeAllyState.CD },
-            { AllyManager.stateTypeList[6], UpgradeAllyState.MuzzleSpeed },
-            { AllyManager.stateTypeList[7], UpgradeAllyState.KBPower },
-            { AllyManager.stateTypeList[8], UpgradeAllyState.Dur }
+            { AllyManager.stateTypeList[0], UpgradeAllyState.dmg },
+            { AllyManager.stateTypeList[1], UpgradeAllyState.rof },
+            { AllyManager.stateTypeList[2], UpgradeAllyState.movementSpeed },
+            { AllyManager.stateTypeList[3], UpgradeAllyState.attackSize },
+            { AllyManager.stateTypeList[4], UpgradeAllyState.criticalChacne },
+            { AllyManager.stateTypeList[5], UpgradeAllyState.criticalDmg },
+            { AllyManager.stateTypeList[6], UpgradeAllyState.muzzleSpeed },
+            { AllyManager.stateTypeList[7], UpgradeAllyState.kbPower },
+            { AllyManager.stateTypeList[8], UpgradeAllyState.dur }
         };
     }
 
@@ -386,9 +386,9 @@ public class AllyController : NavObjectController
 
         for (int i = 0; i < ThisTunerData.Count; i++)
         {
-            Add_UpgradeState(ThisTunerData[i].Positive0.Type, ThisTunerData[i].Positive0.Rank);
-            Add_UpgradeState(ThisTunerData[i].Positive1.Type, ThisTunerData[i].Positive1.Rank);
-            Add_UpgradeState(ThisTunerData[i].Negative.Type, -ThisTunerData[i].Negative.Rank);
+            Add_UpgradeState(ThisTunerData[i].positive0.type, ThisTunerData[i].positive0.rank);
+            Add_UpgradeState(ThisTunerData[i].positive1.type, ThisTunerData[i].positive1.rank);
+            Add_UpgradeState(ThisTunerData[i].negative.type, -ThisTunerData[i].negative.rank);
         }
     }
 

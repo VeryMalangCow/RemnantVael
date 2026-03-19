@@ -35,15 +35,15 @@ public class DirectionalAllyTypeImgController : DirectionalImgController
         switch (_Mode)
         {
             case eAllyStateMode.Idle:
-                ThisDirectionalList = AllySpriteSet.AllyIdle;
+                ThisDirectionalList = AllySpriteSet.allyIdle;
                 break;
 
             case eAllyStateMode.Move:
-                ThisDirectionalList = AllySpriteSet.AllyMove;
+                ThisDirectionalList = AllySpriteSet.allyMove;
                 break;
 
             case eAllyStateMode.Attack:
-                ThisDirectionalList = AllySpriteSet.AllyAttack;
+                ThisDirectionalList = AllySpriteSet.allyAttack;
                 break;
 
             default:

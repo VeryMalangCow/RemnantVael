@@ -69,23 +69,23 @@ MonoBehaviour:
   BrokenParticleData: []
   ParticleThrowDis: 1
   MultipleAllyState:
-    Dmg:
+    dmg:
       value: 0
-    Rof:
+    rof:
       value: 0.3
-    MovementSpeed:
+    movementSpeed:
       value: 1.5
-    AttackSize:
+    attackSize:
       value: 2
-    CC:
+    criticalChacne:
       value: 0
-    CD:
+    criticalDmg:
       value: 0
-    MuzzleSpeed:
+    muzzleSpeed:
       value: 0.4
-    KBPower:
+    kbPower:
       value: 1
-    Dur:
+    dur:
       value: 0
   MaxHP: 100
   AllyStateMode:
@@ -126,23 +126,23 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   HUD: {fileID: 82095112155882869}
   UpgradeAllyState:
-    Dmg:
+    dmg:
       value: 1
-    Rof:
+    rof:
       value: 1
-    MovementSpeed:
+    movementSpeed:
       value: 1
-    AttackSize:
+    attackSize:
       value: 1
-    CC:
+    criticalChacne:
       value: 1
-    CD:
+    criticalDmg:
       value: 1
-    MuzzleSpeed:
+    muzzleSpeed:
       value: 1
-    KBPower:
+    kbPower:
       value: 1
-    Dur:
+    dur:
       value: 1
   ForEnemyDis: 3.5
   ThisSG: {fileID: 6733897396435173674}
@@ -221,33 +221,33 @@ MonoBehaviour:
     buffAmount: 0
     currentCooltime: 0
   BuffingState:
-    Dmg:
+    dmg:
       value: 1
-    Rof:
+    rof:
       value: 1
-    MovementSpeed:
+    movementSpeed:
       value: 1
-    AttackSize:
+    attackSize:
       value: 1
-    CC:
+    criticalChacne:
       value: 1
-    CD:
+    criticalDmg:
       value: 1
-    MuzzleSpeed:
+    muzzleSpeed:
       value: 1
-    KBPower:
+    kbPower:
       value: 1
-    Dur:
+    dur:
       value: 1
-    Dmg_BuffList: []
-    Rof_BuffList: []
-    MovementSpeed_BuffList: []
-    AttackSize_BuffList: []
-    CC_BuffList: []
-    CD_BuffList: []
-    MuzzleSpeed_BuffList: []
-    KBPower_BuffList: []
-    Dur_BuffList: []
+    dmg_BuffList: []
+    rof_BuffList: []
+    movementSpeed_BuffList: []
+    attackSize_BuffList: []
+    cc_BuffList: []
+    cd_BuffList: []
+    muzzleSpeed_BuffList: []
+    kbPower_BuffList: []
+    dur_BuffList: []
 --- !u!50 &7751130478170212446
 Rigidbody2D:
   serializedVersion: 4
@@ -781,10 +781,10 @@ MonoBehaviour:
   RotateSpeed: 8
   PitchTF: {fileID: 0}
   SatelliteSideList:
-  - Target: {fileID: 889026132765390611}
-    Follower: {fileID: 7172781169880698127}
-    UpperOrder: 0
-    FarFromCenter: 1
+  - target: {fileID: 889026132765390611}
+    follower: {fileID: 7172781169880698127}
+    upperOrder: 0
+    farFromCenter: 1
   SatelliteCenterList: []
   ThisAlly: {fileID: -7677951490283658699}
   ThisRb: {fileID: 7751130478170212446}
@@ -1033,9 +1033,9 @@ MonoBehaviour:
   ThisDirectionalList: []
   ThisSpriteSetName: Tox
   AllySpriteSet:
-    AllyIdle: []
-    AllyMove: []
-    AllyAttack: []
+    allyIdle: []
+    allyMove: []
+    allyAttack: []
 --- !u!1001 &5035661316127046950
 PrefabInstance:
   m_ObjectHideFlags: 0

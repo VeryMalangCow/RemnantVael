@@ -36,16 +36,16 @@ public class TunerEUIController : ElementUIController
 
     public void Set_UI(AllyTunerData _TunerData)
     {
-        PositiveTuner0.Set_UI(_TunerData.Positive0);
-        PositiveTuner1.Set_UI(_TunerData.Positive1);
-        NegativeTuner.Set_UI(_TunerData.Negative);
+        PositiveTuner0.Set_UI(_TunerData.positive0);
+        PositiveTuner1.Set_UI(_TunerData.positive1);
+        NegativeTuner.Set_UI(_TunerData.negative);
     }
 
     public void Set_UI(AllyBaseTunerData _TunerData)
     {
-        PositiveTuner0.Set_UI(_TunerData.Positive0);
-        PositiveTuner1.Set_UI(_TunerData.Positive1);
-        NegativeTuner.Set_UI(_TunerData.Negative);
+        PositiveTuner0.Set_UI(_TunerData.positive0);
+        PositiveTuner1.Set_UI(_TunerData.positive1);
+        NegativeTuner.Set_UI(_TunerData.negative);
     }
 
     #endregion

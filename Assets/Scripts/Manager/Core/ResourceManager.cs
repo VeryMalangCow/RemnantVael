@@ -913,9 +913,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         for (int i = 0; i < data.Length; i++)
         {
             data[i] = new ItemData(i, moduleItemSprite_Data[i],
-                moduleBaseList_Data[i].ModuleMainChip[0],
-                moduleBaseList_Data[i].ModuleMainChip[1],
-                moduleBaseList_Data[i].ModuleMainChip[2]);
+                moduleBaseList_Data[i].moduleMainChip[0],
+                moduleBaseList_Data[i].moduleMainChip[1],
+                moduleBaseList_Data[i].moduleMainChip[2]);
 
             Set_DataLanguage(data[i], i);
         }
@@ -1535,7 +1535,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             List<MapNextIndex> indexList = new List<MapNextIndex>();
             if (Is_ExistMapIndex(result, pastIndex, out MapNextIndex mapNextIndex)) // 이미 존재한다면
             {
-                mapNextIndex.NextIndexList.Add(nextIndex);
+                mapNextIndex.nextIndexList.Add(nextIndex);
             }
             else // 존재하지 않는다면
             {
@@ -1565,7 +1565,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     public List<int> Get_CorrectIndexList(int pastIndex)
     {
         if (mapNextIndex_Data.ContainsKey(pastIndex))
-            return mapNextIndex_Data[pastIndex].NextIndexList;
+            return mapNextIndex_Data[pastIndex].nextIndexList;
 
         return null;
     }
@@ -1655,13 +1655,13 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
             result.Add(new List<Sprite>());
         }
 
-        for (int i = 0; i < reso.MapResoElements.Length; i++)
+        for (int i = 0; i < reso.mapResoElements.Length; i++)
         {
-            string[] name = reso.MapResoElements[i].Sprite.name.Split("_");
+            string[] name = reso.mapResoElements[i].sprite.name.Split("_");
             if (name[1] == "FieldObj")
             {
                 int type = Int32.Parse(name[2].Substring(1, 2));
-                result[type].Add(reso.MapResoElements[i].Sprite);
+                result[type].Add(reso.mapResoElements[i].sprite);
             }
         }
 
@@ -1890,8 +1890,8 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         for (int i = 0; i < allNscAnswerSpriteSet.Length; i++)
         {
             allNscAnswerSpriteSet[i] = new NSCAnswerSpriteSet();
-            allNscAnswerSpriteSet[i].ShapeIndex = i;
-            allNscAnswerSpriteSet[i].AllAnswerSet = new Sprite[5];
+            allNscAnswerSpriteSet[i].shapeIndex = i;
+            allNscAnswerSpriteSet[i].allAnswerSet = new Sprite[5];
         }
         Sprite[] moduleUISprites = GetAsset_Arr<Sprite>(moduleUIPath, "ModuleUI_000");
         for (int i = 0; i < moduleUISprites.Length; i++)
@@ -1916,15 +1916,15 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
                 nsc_colorSprite = sprite;
 
             else if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_A_C_", out int index_a_c))
-                allNscAnswerSpriteSet[0].AllAnswerSet[index_a_c - 1] = sprite;
+                allNscAnswerSpriteSet[0].allAnswerSet[index_a_c - 1] = sprite;
             else if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_A_T_", out int index_a_t))
-                allNscAnswerSpriteSet[1].AllAnswerSet[index_a_t - 1] = sprite;
+                allNscAnswerSpriteSet[1].allAnswerSet[index_a_t - 1] = sprite;
             else if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_A_R_", out int index_a_r))
-                allNscAnswerSpriteSet[2].AllAnswerSet[index_a_r - 1] = sprite;
+                allNscAnswerSpriteSet[2].allAnswerSet[index_a_r - 1] = sprite;
             else if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_A_X_", out int index_a_x))
-                allNscAnswerSpriteSet[3].AllAnswerSet[index_a_x - 1] = sprite;
+                allNscAnswerSpriteSet[3].allAnswerSet[index_a_x - 1] = sprite;
             else if (Get_InSpriteName(sprite, "ModuleUI_RollSelect_A_H_", out int index_a_h))
-                allNscAnswerSpriteSet[4].AllAnswerSet[index_a_h - 1] = sprite;
+                allNscAnswerSpriteSet[4].allAnswerSet[index_a_h - 1] = sprite;
         }
 
 
@@ -1937,7 +1937,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public Sprite Get_NSCAnswerSprite(int shapeIndex, int numIndex) => allNscAnswerSpriteSet[shapeIndex].AllAnswerSet[numIndex];
+    public Sprite Get_NSCAnswerSprite(int shapeIndex, int numIndex) => allNscAnswerSpriteSet[shapeIndex].allAnswerSet[numIndex];
 
     #endregion
     #region Build (Prefab)
@@ -2236,7 +2236,7 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     }
 
     // Get
-    public EachConverterReso Get_ConverterReso(int id) => converterReso.ConverterResoList[id];
+    public EachConverterReso Get_ConverterReso(int id) => converterReso.converterResoList[id];
 
     #endregion
 
@@ -2579,22 +2579,22 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         {
             if (_index == "Bind")
             { 
-                data.Bind = sprite;
+                data.bind = sprite;
                 return true;
             }
             else if (_index == "Fall")
             { 
-                data.Fall = sprite;
+                data.fall = sprite;
                 return true;
             }
             else if (_index == "Stand")
             { 
-                data.Stand = sprite;
+                data.stand = sprite;
                 return true;
             }
             else if (_index == "Salute")
             { 
-                data.Salute = sprite;
+                data.salute = sprite;
                 return true;
             }
         }

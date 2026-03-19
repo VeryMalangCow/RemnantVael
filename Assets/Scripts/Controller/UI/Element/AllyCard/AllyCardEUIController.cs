@@ -94,7 +94,7 @@ public class AllyCardEUIController : OwnBtnEUIController
         {
             Set_CardBGMark(_TypeID);
 
-            CurrentID = _Data.ID;
+            CurrentID = _Data.id;
 
             Set_PanelAnim(0.5f);
             Set_Sprite(_TypeID, _Data);
@@ -119,13 +119,13 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_Sprite(int _TypeID, AllyCardData _Data)
     {
-        FrameImg.sprite = ResourceManager.instance.Get_AllyCardFrame(_Data.Rank);
-        LightImg.sprite = ResourceManager.instance.Get_AllyCardLight(_Data.Rank);
-        BGImg.sprite = ResourceManager.instance.Get_AllyCardBG(_Data.Rank);
+        FrameImg.sprite = ResourceManager.instance.Get_AllyCardFrame(_Data.rank);
+        LightImg.sprite = ResourceManager.instance.Get_AllyCardLight(_Data.rank);
+        BGImg.sprite = ResourceManager.instance.Get_AllyCardBG(_Data.rank);
 
-        IconImg.sprite = AllyManager.instance.Get_CardIcon(_TypeID, _Data.ID);
+        IconImg.sprite = AllyManager.instance.Get_CardIcon(_TypeID, _Data.id);
 
-        LightSeq.timeScale = _Data.Rank + 1;
+        LightSeq.timeScale = _Data.rank + 1;
     }
 
     private void Set_SpriteNull()
@@ -141,15 +141,15 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void Set_Txt(int _TypeID, AllyCardData _Data)
     {
-        NameTxt.text = _Data.Name.Replace("\\n", "\n");
-        DescTxt.text = _Data.Desc.Replace("\\n", "\n");
+        NameTxt.text = _Data.name.Replace("\\n", "\n");
+        DescTxt.text = _Data.desc.Replace("\\n", "\n");
 
-        RankTxt.text = ResourceManager.instance.allyCardRateArr[_Data.Rank];
-        RankTxt.color = ResourceManager.instance.Get_AllyCardColor(_Data.Rank);
-        BGImg.color = ResourceManager.instance.Get_AllyCardColor(_Data.Rank);
+        RankTxt.text = ResourceManager.instance.allyCardRateArr[_Data.rank];
+        RankTxt.color = ResourceManager.instance.Get_AllyCardColor(_Data.rank);
+        BGImg.color = ResourceManager.instance.Get_AllyCardColor(_Data.rank);
 
         AllyCardData preCardData = AllyManager.instance.Get_PreAllyCardData(_TypeID, _Data);
-        PreNameTxt.text = preCardData != null ? $"-({preCardData.Name})->" : "";
+        PreNameTxt.text = preCardData != null ? $"-({preCardData.name})->" : "";
         PreNameTxt.gameObject.SetActive(preCardData != null);
     }
 

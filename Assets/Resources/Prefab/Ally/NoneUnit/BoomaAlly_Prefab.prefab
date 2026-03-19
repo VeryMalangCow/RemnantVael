@@ -62,23 +62,23 @@ MonoBehaviour:
   BrokenParticleData: []
   ParticleThrowDis: 0
   MultipleAllyState:
-    Dmg:
+    dmg:
       value: 15
-    Rof:
+    rof:
       value: 0.08
-    MovementSpeed:
+    movementSpeed:
       value: 1
-    AttackSize:
+    attackSize:
       value: 1
-    CC:
+    criticalChacne:
       value: 0.05
-    CD:
+    criticalDmg:
       value: 1
-    MuzzleSpeed:
+    muzzleSpeed:
       value: 0.5
-    KBPower:
+    kbPower:
       value: 1
-    Dur:
+    dur:
       value: 0
   MaxHP: 150
   AllyStateMode:
@@ -119,23 +119,23 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   HUD: {fileID: 5265476221777618597}
   UpgradeAllyState:
-    Dmg:
+    dmg:
       value: 1
-    Rof:
+    rof:
       value: 1
-    MovementSpeed:
+    movementSpeed:
       value: 1
-    AttackSize:
+    attackSize:
       value: 1
-    CC:
+    criticalChacne:
       value: 1
-    CD:
+    criticalDmg:
       value: 1
-    MuzzleSpeed:
+    muzzleSpeed:
       value: 1
-    KBPower:
+    kbPower:
       value: 1
-    Dur:
+    dur:
       value: 1
   CurrentChargeTime: 0
   DropBottomYPos: 0.2
@@ -206,33 +206,33 @@ MonoBehaviour:
     buffAmount: 0
     currentCooltime: 0
   BuffingState:
-    Dmg:
+    dmg:
       value: 1
-    Rof:
+    rof:
       value: 1
-    MovementSpeed:
+    movementSpeed:
       value: 1
-    AttackSize:
+    attackSize:
       value: 1
-    CC:
+    criticalChacne:
       value: 1
-    CD:
+    criticalDmg:
       value: 1
-    MuzzleSpeed:
+    muzzleSpeed:
       value: 1
-    KBPower:
+    kbPower:
       value: 1
-    Dur:
+    dur:
       value: 1
-    Dmg_BuffList: []
-    Rof_BuffList: []
-    MovementSpeed_BuffList: []
-    AttackSize_BuffList: []
-    CC_BuffList: []
-    CD_BuffList: []
-    MuzzleSpeed_BuffList: []
-    KBPower_BuffList: []
-    Dur_BuffList: []
+    dmg_BuffList: []
+    rof_BuffList: []
+    movementSpeed_BuffList: []
+    attackSize_BuffList: []
+    cc_BuffList: []
+    cd_BuffList: []
+    muzzleSpeed_BuffList: []
+    kbPower_BuffList: []
+    dur_BuffList: []
 --- !u!1001 &5702308165816075888
 PrefabInstance:
   m_ObjectHideFlags: 0

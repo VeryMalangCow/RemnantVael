@@ -84,10 +84,10 @@ MonoBehaviour:
   LightIsApplyPlayerState: 0
   TrailIsApplyPlayerState: 0
   BulletSprite:
-    Physics:
+    physics:
       typeBase: {fileID: 0}
       typeSpecial: {fileID: 0}
-    Energy:
+    energy:
       typeBase: {fileID: 1232220692, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
       typeSpecial: {fileID: 1232220692, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
   Intensity: 5

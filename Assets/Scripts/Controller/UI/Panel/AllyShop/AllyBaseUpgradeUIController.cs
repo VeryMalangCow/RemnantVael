@@ -151,9 +151,9 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         if (onOff)
         {
             Set_TunerDetailUI(DetailTunerEUI, PickedTunerData);
-            NeedChargedBettery = PickedTunerData.NeedPay;
+            NeedChargedBettery = PickedTunerData.needPay;
 
-            PickTunerListSignRT.SetParent(AllTunerEUI[AllyTunerSet.AllyTunerDataList.IndexOf(PickedTunerData)].transform);
+            PickTunerListSignRT.SetParent(AllTunerEUI[AllyTunerSet.allyTunerDataList.IndexOf(PickedTunerData)].transform);
             PickTunerListSignRT.anchoredPosition = Vector2.zero;
             PickTunerListSignRT.localScale = Vector2.one;
             PickTunerListSignRT.SetAsLastSibling();
@@ -180,21 +180,21 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     private void Set_TunerData(int _Index)
     {
-        AllyTunerSet.AllyTunerDataList[_Index].Set_Data(AllyManager.stateTypeList, AllyManager.tunerTypePercent);
+        AllyTunerSet.allyTunerDataList[_Index].Set_Data(AllyManager.stateTypeList, AllyManager.tunerTypePercent);
     }
 
     private void Set_TunerUI(int _Index)
     {
-        AllTunerEUI[_Index].Set_UI(AllyTunerSet.AllyTunerDataList[_Index], NeedOverrider);
+        AllTunerEUI[_Index].Set_UI(AllyTunerSet.allyTunerDataList[_Index], NeedOverrider);
     }
 
     private void Set_TunerDetailUI(TunerEUIController _TargetEUI, AllyTunerData _Data)
     {
         _TargetEUI.Set_UI(_Data);
 
-        Positive0_ElementDescEUI.Set_UI(_Data.Positive0, true);
-        Positive1_ElementDescEUI.Set_UI(_Data.Positive1, true);
-        Negative_ElementDescEUI.Set_UI(_Data.Negative, false);
+        Positive0_ElementDescEUI.Set_UI(_Data.positive0, true);
+        Positive1_ElementDescEUI.Set_UI(_Data.positive1, true);
+        Negative_ElementDescEUI.Set_UI(_Data.negative, false);
     }
 
     #endregion
@@ -228,7 +228,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
         for (int i = 0; i < AllTunerEUI.Count; i++)
         {
-            AllyTunerData data = AllyTunerSet.AllyTunerDataList[i];
+            AllyTunerData data = AllyTunerSet.allyTunerDataList[i];
             if (AllTunerEUI[i] == CurrentBtn &&
                 PickedTunerData != data)
             {
@@ -330,7 +330,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         Set_AllyTuner(CurrentPickedAlly);
 
         // ±¸¸ÅÇÑ Æ©³Ê¸¦ ¹Ù²Þ
-        int index = AllyTunerSet.AllyTunerDataList.IndexOf(PickedTunerData);
+        int index = AllyTunerSet.allyTunerDataList.IndexOf(PickedTunerData);
         Set_TunerData(index);
         Set_TunerUI(index);
 

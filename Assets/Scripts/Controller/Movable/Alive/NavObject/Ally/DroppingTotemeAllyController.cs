@@ -37,10 +37,10 @@ public class DroppingTotemeAllyController : DroppingAllyController
     {
         // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
         _Toteme.Set_State(
-            _DroppingTime: ActualAllyState.MuzzleSpeed.value,
+            _DroppingTime: ActualAllyState.muzzleSpeed.value,
             _TopYPos: 5f,
             _BottomYPos: DropBottomYPos,
-            _Dur: ActualAllyState.Dur.value,
+            _Dur: ActualAllyState.dur.value,
             _HoloSprite: HoloSprite,
             _Clr: ThisExtraColor,
             _BuffAreaSize: 1f,
@@ -51,7 +51,7 @@ public class DroppingTotemeAllyController : DroppingAllyController
 
         // Light & Trail
         _Toteme.SetOn_LightIntensity(LightIntensity);
-        _Toteme.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.AttackSize.value, ThisExtraGradient);
+        _Toteme.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.attackSize.value, ThisExtraGradient);
 
         // ÀÌ¹ÌÁö
         _Toteme.ThisSR.sprite = ThisSprite;
@@ -72,7 +72,7 @@ public class DroppingTotemeAllyController : DroppingAllyController
     private BulletState_Size Get_BulletState_Shadow_Size()
     {
         return new BulletState_Size(
-            Vector2.one * ActualAllyState.AttackSize.value,
+            Vector2.one * ActualAllyState.attackSize.value,
             new Vector2(0.3f, 0.15f));
     }
 

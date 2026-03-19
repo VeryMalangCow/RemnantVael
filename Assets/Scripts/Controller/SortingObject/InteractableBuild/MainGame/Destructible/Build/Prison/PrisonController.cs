@@ -216,7 +216,7 @@ public class PrisonController : InteractableBuildController
 
         for (int i = 0; i < PrisonAllySRList.Count; i++)
         {
-            PrisonAllySRList[i].sprite = AllySprites.Salute;
+            PrisonAllySRList[i].sprite = AllySprites.salute;
         }
 
         yield return new WaitForSeconds(saluteTime);
@@ -257,8 +257,8 @@ public class PrisonController : InteractableBuildController
         SpriteRenderer targetSr = DevTool.Get_ComponentTType(tf.GetChild(0).gameObject, out SpriteRenderer sr) ? sr : null;
 
         seq.Append(tf.GetChild(0).DOLocalMoveY(0, _FallingTime)
-            .OnStart(() => { targetSr.sprite = AllySprites.Fall; })
-            .OnComplete(() => { targetSr.sprite = AllySprites.Stand; }));
+            .OnStart(() => { targetSr.sprite = AllySprites.fall; })
+            .OnComplete(() => { targetSr.sprite = AllySprites.stand; }));
     }
 
     #endregion
