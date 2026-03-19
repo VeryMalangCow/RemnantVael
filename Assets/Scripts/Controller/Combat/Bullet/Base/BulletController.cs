@@ -213,7 +213,7 @@ public abstract class BulletController : MovableDepthController
             { 
                 Play_Guided(_FixedDeltaTime); // 유도 기능
             }
-            Play_FlyForward(State.MuzzleSpeed, BaseBulletSpeed, _FixedDeltaTime);
+            Play_FlyForward(State.muzzleSpeed, BaseBulletSpeed, _FixedDeltaTime);
         }
         else
         {
@@ -225,7 +225,7 @@ public abstract class BulletController : MovableDepthController
     // 살아있는가? (AliveTime)
     private bool Is_Alive()
     {
-        return CurrentAliveTime < State.AliveTime;
+        return CurrentAliveTime < State.aliveTime;
     }
 
     // 날아가는 기능

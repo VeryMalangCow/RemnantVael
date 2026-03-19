@@ -42,7 +42,7 @@ public class StandbyPlayerSynergyEUIController : ElementUIController
         AmountImg.gameObject.SetActive(rank != 0);
         AmountTxt.gameObject.SetActive(true);
 
-        IconImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_ID).ThisIcon;
+        IconImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_ID).thisIcon;
         AmountImg.sprite = MainGameUIManager.instance.moduleUpgrade_UIController.SynergyTierFrames[rank];
         NameTxt.text = ResourceManager.instance.Get_SynergyName(_ID);
         AmountTxt.text = _Amount.ToString();

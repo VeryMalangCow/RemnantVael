@@ -446,26 +446,26 @@ public class AllyShopUIController : ShopUIController
     protected void Set_AllyState(AllyController _Ally)
     {
         AllyState cardBaseState = _Ally.Get_CardState();
-        StateEUIList[0].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.Dmg.Value).Replace("+", "")}";
-        StateEUIList[1].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.Rof.Value).Replace("+", "")}<size=65%>/s</size>";
-        StateEUIList[2].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.MovementSpeed.Value).Replace("+", "")}";
-        StateEUIList[3].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.AttackSize.Value).Replace("+", "")}";
-        StateEUIList[4].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.CC.Value * 100).Replace("+", "")}<size=65%>%</size>";
-        StateEUIList[5].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.CD.Value + 1).Replace("+", "")}<size=65%>x</size>";
-        StateEUIList[6].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.MuzzleSpeed.Value + 1).Replace("+", "")}";
-        StateEUIList[7].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.KBPower.Value).Replace("+", "")}";
-        StateEUIList[8].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.Dur.Value).Replace("+", "")}<size=65%>s</size>";
+        StateEUIList[0].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.Dmg.value).Replace("+", "")}";
+        StateEUIList[1].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.Rof.value).Replace("+", "")}<size=65%>/s</size>";
+        StateEUIList[2].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.MovementSpeed.value).Replace("+", "")}";
+        StateEUIList[3].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.AttackSize.value).Replace("+", "")}";
+        StateEUIList[4].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.CC.value * 100).Replace("+", "")}<size=65%>%</size>";
+        StateEUIList[5].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.CD.value + 1).Replace("+", "")}<size=65%>x</size>";
+        StateEUIList[6].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.MuzzleSpeed.value + 1).Replace("+", "")}";
+        StateEUIList[7].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.KBPower.value).Replace("+", "")}";
+        StateEUIList[8].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.Dur.value).Replace("+", "")}<size=65%>s</size>";
 
         AllyState upgradeState = _Ally.Get_UpgradeAllState();
-        StateEUIList[0].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.Dmg.Value)}";
-        StateEUIList[1].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.Rof.Value)}<size=65%>/s</size>";
-        StateEUIList[2].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.MovementSpeed.Value)}";
-        StateEUIList[3].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.AttackSize.Value)}";
-        StateEUIList[4].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.CC.Value * 100)}<size=65%>%</size>";
-        StateEUIList[5].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.CD.Value)}<size=65%>x</size>";
-        StateEUIList[6].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.MuzzleSpeed.Value)}";
-        StateEUIList[7].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.KBPower.Value)}";
-        StateEUIList[8].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.Dur.Value)}<size=65%>s</size>";
+        StateEUIList[0].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.Dmg.value)}";
+        StateEUIList[1].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.Rof.value)}<size=65%>/s</size>";
+        StateEUIList[2].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.MovementSpeed.value)}";
+        StateEUIList[3].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.AttackSize.value)}";
+        StateEUIList[4].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.CC.value * 100)}<size=65%>%</size>";
+        StateEUIList[5].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.CD.value)}<size=65%>x</size>";
+        StateEUIList[6].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.MuzzleSpeed.value)}";
+        StateEUIList[7].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.KBPower.value)}";
+        StateEUIList[8].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.Dur.value)}<size=65%>s</size>";
 
         StateScrollPanel.Set_ScrollPanel();
     }

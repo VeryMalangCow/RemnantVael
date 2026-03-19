@@ -329,19 +329,19 @@ MonoBehaviour:
   ThisAnimator: {fileID: 3700956229177998945}
   ThisLight: {fileID: 7349482001544103476}
   AttackerState:
-    OwnerData:
-      Owner: 0
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 0
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 0
-      KBPower: 0
-      KBTime: 0
+    ownerData:
+      owner: 0
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 0
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 0
+      kbPower: 0
+      kbTime: 0
   Enemy: {fileID: 0}
 --- !u!50 &3501360633453498926
 Rigidbody2D:

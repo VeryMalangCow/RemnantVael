@@ -127,43 +127,43 @@ public class AllyManager : Singleton<AllyManager>
 
     public void Set_StateDmg(float _Value)
     {
-        allyState.Dmg.Value = _Value;
+        allyState.Dmg.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateRof(float _Value)
     {
-        allyState.Rof.Value = _Value;
+        allyState.Rof.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateMovementSpeed(float _Value)
     {
-        allyState.MovementSpeed.Value = _Value;
+        allyState.MovementSpeed.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateAttackSize(float _Value)
     {
-        allyState.AttackSize.Value = _Value;
+        allyState.AttackSize.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateCC(float _Value)
     {
-        allyState.CC.Value = _Value;
+        allyState.CC.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateCD(float _Value)
     {
-        allyState.CD.Value = _Value;
+        allyState.CD.value = _Value;
         Set_AllState();
     }
 
     public void Set_StateMuzzleSpeed(float _Value)
     {
-        allyState.MuzzleSpeed.Value = _Value;
+        allyState.MuzzleSpeed.value = _Value;
         Set_AllState();
     }
 

@@ -38,8 +38,8 @@ public class MinimapCellEUIController : ElementUIController
         target = this;
 
         // Sprite
-        ThisMMImg.sprite = thisSprites.TypeBase;
-        ThisMMOImg.sprite = thisSprites.TypeSpecial;
+        ThisMMImg.sprite = thisSprites.typeBase;
+        ThisMMOImg.sprite = thisSprites.typeSpecial;
 
         ThisMMImg.SetNativeSize();
         ThisMMOImg.SetNativeSize();

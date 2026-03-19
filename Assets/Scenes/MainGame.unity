@@ -1989,45 +1989,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sync005_OriginalBuff:
-    Type: Dmg
-    IconSprite: {fileID: -1449385789, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
-    BuffValue: 0.15
-    BuffMaxAmount: 1
-    MaxCooltime: 5
-    IsIncrease: 0
-    IsPermanent: 0
+    type: Dmg
+    iconSprite: {fileID: -1449385789, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+    buffValue: 0.15
+    buffMaxAmount: 1
+    maxCooltime: 5
+    isIncrease: 0
+    isPermanent: 0
   sync008_OriginalBuff:
-    Type: Dmg
-    IconSprite: {fileID: -1834734568, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
-    BuffValue: 1
-    BuffMaxAmount: 2
-    MaxCooltime: 2
-    IsIncrease: 1
-    IsPermanent: 0
+    type: Dmg
+    iconSprite: {fileID: -1834734568, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+    buffValue: 1
+    buffMaxAmount: 2
+    maxCooltime: 2
+    isIncrease: 1
+    isPermanent: 0
   totisToteme_OriginalBuff:
-    Type: Dmg
-    IconSprite: {fileID: -1083493216, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
-    BuffValue: 0.3
-    BuffMaxAmount: 1
-    MaxCooltime: 5
-    IsIncrease: 0
-    IsPermanent: 0
+    type: Dmg
+    iconSprite: {fileID: -1083493216, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+    buffValue: 0.3
+    buffMaxAmount: 1
+    maxCooltime: 5
+    isIncrease: 0
+    isPermanent: 0
   sync007_OriginalBuff:
-    Type: Rof
-    IconSprite: {fileID: 923316139, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
-    BuffValue: 0
-    BuffMaxAmount: 5
-    MaxCooltime: 3
-    IsIncrease: 0
-    IsPermanent: 0
+    type: Rof
+    iconSprite: {fileID: 923316139, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+    buffValue: 0
+    buffMaxAmount: 5
+    maxCooltime: 3
+    isIncrease: 0
+    isPermanent: 0
   sync006_OriginalBuff:
-    Type: CD
-    IconSprite: {fileID: 1160235244, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
-    BuffValue: 0.2
-    BuffMaxAmount: 1
-    MaxCooltime: 100
-    IsIncrease: 0
-    IsPermanent: 1
+    type: CD
+    iconSprite: {fileID: 1160235244, guid: b55cdd5cdf612b845aa2631ea2868346, type: 3}
+    buffValue: 0.2
+    buffMaxAmount: 1
+    maxCooltime: 100
+    isIncrease: 0
+    isPermanent: 1
 --- !u!114 &355347634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2085,48 +2085,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseDamage_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseROF_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseCC_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseCD_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseMuzzleSpeed_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseAccuracyRate_BUData:
-    LevelDataList: []
+    levelDataList: []
   knockback_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseMaxEP_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseSpawnESMultiple_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseNeedEP_ForSkillMultiple_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseResist_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseWalkSpeed_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseWalkSpeedWhenShotMultiple_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseDashSpeed_BUData:
-    LevelDataList: []
+    levelDataList: []
   baseAvoidChance_BUData:
-    LevelDataList: []
+    levelDataList: []
   skill_BUDataList:
-  - Skill_Cooltime_BUData:
-      LevelDataList: []
-    Skill_Power_BUData:
-      LevelDataList: []
-    Skill_Tier_BUData:
-      LevelDataList: []
-  - Skill_Cooltime_BUData:
-      LevelDataList: []
-    Skill_Power_BUData:
-      LevelDataList: []
-    Skill_Tier_BUData:
-      LevelDataList: []
+  - skill_Cooltime_BUData:
+      levelDataList: []
+    skill_Power_BUData:
+      levelDataList: []
+    skill_Tier_BUData:
+      levelDataList: []
+  - skill_Cooltime_BUData:
+      levelDataList: []
+    skill_Power_BUData:
+      levelDataList: []
+    skill_Tier_BUData:
+      levelDataList: []
   costSpriteList:
   - {fileID: 1843514589, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
   - {fileID: -364981067, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
@@ -10088,8 +10088,8 @@ MonoBehaviour:
   thisExtraBgmAudioSource: {fileID: 1751991367}
   thisSfxASQueueSet:
     ThisParentTF: {fileID: 1418501140}
-  BVolume: 0.5
-  SVolume: 0.5
+  bgmVolume: 0.5
+  sfxVolume: 0.5
 --- !u!1 &1262417008
 GameObject:
   m_ObjectHideFlags: 0
@@ -11267,9 +11267,9 @@ MonoBehaviour:
   condition_PlayerSyncSet: 0
   thisIconSprite: {fileID: -154321793, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   thisShield:
-    ShieldID: Shockwave's Buff
-    ShieldMaxValue: 20
-    ShieldCurrentValue: 0
+    shieldID: Shockwave's Buff
+    shieldMaxValue: 20
+    shieldCurrentValue: 0
 --- !u!114 &1430576404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11307,9 +11307,9 @@ MonoBehaviour:
   condition_PlayerSyncSet: 0
   thisIconSprite: {fileID: -1956518223, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   multiple:
-    BuffID: PlayerSync_005
-    BaseValue: 0.15
-    ActualValue: 0
+    buffID: PlayerSync_005
+    baseValue: 0.15
+    actualValue: 0
 --- !u!114 &1430576408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11389,9 +11389,9 @@ MonoBehaviour:
   condition_PlayerSyncSet: 0
   thisIconSprite: {fileID: -1972510542, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   multiple:
-    BuffID: cold
-    BaseValue: -0.01
-    ActualValue: 0
+    buffID: cold
+    baseValue: -0.01
+    actualValue: 0
 --- !u!114 &1430576411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11444,9 +11444,9 @@ MonoBehaviour:
   condition_PlayerSyncSet: 0
   thisIconSprite: {fileID: -776551882, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   multiple:
-    BuffID: Corrosion
-    BaseValue: 0.01
-    ActualValue: 0
+    buffID: Corrosion
+    baseValue: 0.01
+    actualValue: 0
 --- !u!114 &1430576413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11472,9 +11472,9 @@ MonoBehaviour:
   condition_PlayerSyncSet: 0
   thisIconSprite: {fileID: 682448351, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   thisShield:
-    ShieldID: Shockwave's Buff
-    ShieldMaxValue: 20
-    ShieldCurrentValue: 0
+    shieldID: Shockwave's Buff
+    shieldMaxValue: 20
+    shieldCurrentValue: 0
 --- !u!114 &1430576414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11500,9 +11500,9 @@ MonoBehaviour:
   condition_PlayerSyncSet: 0
   thisIconSprite: {fileID: 397062668, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   multiple:
-    BuffID: PlayerSync_007
-    BaseValue: 0.04
-    ActualValue: 0
+    buffID: PlayerSync_007
+    baseValue: 0.04
+    actualValue: 0
 --- !u!114 &1430576415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11528,9 +11528,9 @@ MonoBehaviour:
   condition_PlayerSyncSet: 1
   thisIconSprite: {fileID: 456725532, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   multiple:
-    BuffID: PlayerSync_006
-    BaseValue: 0.2
-    ActualValue: 0
+    buffID: PlayerSync_006
+    baseValue: 0.2
+    actualValue: 0
 --- !u!114 &1430576416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11556,9 +11556,9 @@ MonoBehaviour:
   condition_PlayerSyncSet: 1
   thisIconSprite: {fileID: -2123982221, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   multiple:
-    BuffID: PlayerSync_008
-    BaseValue: 1
-    ActualValue: 0
+    buffID: PlayerSync_008
+    baseValue: 1
+    actualValue: 0
 --- !u!114 &1430576417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11584,9 +11584,9 @@ MonoBehaviour:
   condition_PlayerSyncSet: 0
   thisIconSprite: {fileID: -644871782, guid: 059c8837c0527bc4a87fa377ff5859e4, type: 3}
   multiple:
-    BuffID: AllyTotisToteme
-    BaseValue: 0.3
-    ActualValue: 0
+    buffID: AllyTotisToteme
+    baseValue: 0.3
+    actualValue: 0
 --- !u!1 &1475998875
 GameObject:
   m_ObjectHideFlags: 0
@@ -13037,23 +13037,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SmokeSpriteList:
   - Physics:
-      TypeBase:
+      typeBase:
       - {fileID: 2076622363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       - {fileID: -1611511200, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       - {fileID: -1024333363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       - {fileID: 1381863595, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-      TypeSpecial:
+      typeSpecial:
       - {fileID: -1790350917, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       - {fileID: 2084858605, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       - {fileID: 1303922096, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       - {fileID: -1487533129, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
     Energy:
-      TypeBase:
+      typeBase:
       - {fileID: 803945673, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       - {fileID: -590461291, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       - {fileID: 852067417, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       - {fileID: 1349733740, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-      TypeSpecial:
+      typeSpecial:
       - {fileID: -2094198275, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       - {fileID: 327999803, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       - {fileID: -287691500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}

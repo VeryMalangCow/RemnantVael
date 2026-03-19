@@ -34,9 +34,9 @@ public class AllyDroppingBombController : DroppingBombController
         return new ExplosionState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Ally, id),
-                new DmgState(eDamageType.Physics, State.DmgState.Dmg),
-                new CriticalState(State.CriticalState),
-                new KnockbackState(true, State.KnockbackState.KBPower, State.KnockbackState.KBTime)),
+                new DmgState(eDamageType.Physics, State.dmgState.dmg),
+                new CriticalState(State.criticalState),
+                new KnockbackState(true, State.knockbackState.kbPower, State.knockbackState.kbTime)),
             SizeState,
             new List<bool> { false, false, false, false }); // Fire, Cold, Electricity, Corrosion
     }

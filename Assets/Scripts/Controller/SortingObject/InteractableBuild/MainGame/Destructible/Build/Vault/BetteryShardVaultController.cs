@@ -45,7 +45,7 @@ public class BetteryShardVaultController : VaultController
 
     private void Gen_BS_ByGrade()
     {
-        for (int i = 0; i < Random.Range(CurrentAmountByGrade.TypeBase, CurrentAmountByGrade.TypeSpecial + 1); i++) 
+        for (int i = 0; i < Random.Range(CurrentAmountByGrade.typeBase, CurrentAmountByGrade.typeSpecial + 1); i++) 
             Gen_BS(1);
     }
 

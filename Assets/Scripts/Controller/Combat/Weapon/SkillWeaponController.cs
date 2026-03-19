@@ -33,13 +33,13 @@ public class SkillWeaponController : PlayerSolarController
     {
         _Skill.NeedEP.Subscribe(_Value =>
         {
-            _SkillEUI.Set_CostText(_Value * PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.ActualState.Value);
+            _SkillEUI.Set_CostText(_Value * PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.actualState.Value);
         });
     }
 
     private void Offset_Start()
     {
-        for (int i = 0; i < DevTool.SkillAmount; i++)
+        for (int i = 0; i < DevTool.skillAmount; i++)
         {
             Offset_Variable(SkillList[i], SatelliteSideList[i]);
             Offset_Subscribe(SkillList[i], MainGameUIManager.instance.playerHUD_UIController.SkillList[i]);
@@ -68,7 +68,7 @@ public class SkillWeaponController : PlayerSolarController
 
     private void Set_FillAmount()
     {
-        for (int i = 0; i < DevTool.SkillAmount; i++)
+        for (int i = 0; i < DevTool.skillAmount; i++)
         {
             MainGameUIManager.instance.playerHUD_UIController.SkillList[i].Set_ShadowFillAmount(
                 SkillList[i].Get_FillAmount());

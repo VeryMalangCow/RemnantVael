@@ -54,7 +54,7 @@ public class PlayerWeaponController : PlayerSolarController
     {
         if (CurrentDelayROF < 1f)
         {
-            CurrentDelayROF += _DeltaTime * ROF.BuffedState;
+            CurrentDelayROF += _DeltaTime * ROF.buffedState;
             IsShooting = true;
         }
         else
@@ -74,7 +74,7 @@ public class PlayerWeaponController : PlayerSolarController
         if (Check_Fire())
         {
             Play_Fire(PoolingManager.instance.Get_OP_PlayerBullet(BulletSpawnTFList.Count));
-            PlayerManager.instance.cameraController.Play_ShotAnim(1 / ROF.BuffedState, PlayerController.BaseWeapon.BaseDamage.BuffedState);
+            PlayerManager.instance.cameraController.Play_ShotAnim(1 / ROF.buffedState, PlayerController.BaseWeapon.BaseDamage.buffedState);
             ModuleItemManager.instance.Active_Fire();
         }
     }
@@ -94,7 +94,7 @@ public class PlayerWeaponController : PlayerSolarController
     // 사격 (발사)
     protected void Play_Fire(List<PlayerBulletController> _BulletList)
     {
-        float randomAngle = DevTool.Get_RandomValueBaseZero(100 - AccuracyRate.ActualState.Value);
+        float randomAngle = DevTool.Get_RandomValueBaseZero(100 - AccuracyRate.actualState.Value);
         
         for (int i = 0; i < BulletSpawnTFList.Count; i++)
         {
@@ -108,7 +108,7 @@ public class PlayerWeaponController : PlayerSolarController
         ModuleItemManager.instance.ActiveSync_AfterFire();
 
         // Tween
-        this.transform.DOShakePosition(1f / ROF.BuffedState, 0.05f, 20, 90, false, true);
+        this.transform.DOShakePosition(1f / ROF.buffedState, 0.05f, 20, 90, false, true);
 
         // Audio
 
@@ -139,7 +139,7 @@ public class PlayerWeaponController : PlayerSolarController
             (Vector2)_TargetSpawnDepth.TargetObject.transform.position + (dir * 0.1f),
             dir,
             DamageType,
-            _Bullet.State.IsCritical);
+            _Bullet.State.isCritical);
     }
 
     #endregion
@@ -152,11 +152,11 @@ public class PlayerWeaponController : PlayerSolarController
         return new BulletState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Player),
-                new DmgState(DamageType, PlayerController.BaseWeapon.BaseDamage.BuffedState),
-                new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.BuffedState),
-                new KnockbackState(DamageType == eDamageType.Physics ? true : false, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value, 0.2f)),
-            _CheckIsCritical: true,
-            _MuzzleSpeed: MuzzleSpeed.ActualState.Value,
+                new DmgState(DamageType, PlayerController.BaseWeapon.BaseDamage.buffedState),
+                new CriticalState(PlayerController.BaseWeapon.CC.actualState.Value, PlayerController.BaseWeapon.CD.buffedState),
+                new KnockbackState(DamageType == eDamageType.Physics ? true : false, PlayerController.BaseWeapon.KnockbackPower.actualState.Value, 0.2f)),
+            checkIsCritical: true,
+            muzzleSpeed: MuzzleSpeed.actualState.Value,
             AliveTime);
     }
 

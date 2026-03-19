@@ -193,7 +193,7 @@ public class PlayerController : AliveObjectController
         Reset_StateAnim();
 
         // State Anim : Dmg Type
-        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.TypeA, 0.8f), 1f);
+        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.typeA, 0.8f), 1f);
 
         // State Anim : Boost
         Set_BoostAnim(CurrentBoostLv.Value);
@@ -364,7 +364,7 @@ public class PlayerController : AliveObjectController
 
         void Add_ShieldValue(ref float _Variable, Shield _Shield)
         {
-            DevTool.Add_RefValue(ref _Variable, _Shield.ShieldCurrentValue);
+            DevTool.Add_RefValue(ref _Variable, _Shield.shieldCurrentValue);
         }
     }
 
@@ -404,13 +404,13 @@ public class PlayerController : AliveObjectController
     // 에너지 획득
     public void Add_CurrentEP(float _AddValue)
     {
-        Add_CurrentEP(_AddValue, MaxEP.ActualState.Value);
+        Add_CurrentEP(_AddValue, MaxEP.actualState.Value);
         Check_IsDead(CurrentEP.Value);
     }
 
     public float Get_PercentEP(float _Percent)
     {
-        return DevTool.Get_Percent(_Percent, MaxEP.ActualState.Value);
+        return DevTool.Get_Percent(_Percent, MaxEP.actualState.Value);
     }
 
     #endregion
@@ -502,9 +502,9 @@ public class PlayerController : AliveObjectController
     private void Play_Walk(float _DeltaTime)
     {
         float multiple =
-            BaseWeapon.IsShooting ? WalkSpeedWhenShotMultiple.ActualState.Value : 1f;
+            BaseWeapon.IsShooting ? WalkSpeedWhenShotMultiple.actualState.Value : 1f;
         Play_Walk(
-            InputManager.instance.inputMoveDir, WalkSpeed.ActualState.Value * multiple, _DeltaTime);
+            InputManager.instance.inputMoveDir, WalkSpeed.actualState.Value * multiple, _DeltaTime);
     }
 
     public void Try_Dash()
@@ -579,7 +579,7 @@ public class PlayerController : AliveObjectController
         { return; }
 
         StateAnim.Set_Anim(
-            new State_Anim(DmgTypeStateAC.TypeSpecial, 2f), 
+            new State_Anim(DmgTypeStateAC.typeSpecial, 2f), 
             _InnerSprite: ChangeState_DamageType);
 
         TargetDmgMode = TargetDmgMode == eDamageType.Physics ?
@@ -604,12 +604,12 @@ public class PlayerController : AliveObjectController
     // 조건: + ex) 스킬을 사용할 수 없다면, Error 문구
     public void Try_Skill0()
     {
-        Try_Skill(0, _Sprite: ChangeState_Skill.TypeBase);
+        Try_Skill(0, _Sprite: ChangeState_Skill.typeBase);
     }
 
     public void Try_Skill1()
     {
-        Try_Skill(1, _Sprite: ChangeState_Skill.TypeSpecial);
+        Try_Skill(1, _Sprite: ChangeState_Skill.typeSpecial);
     }
 
     private void Try_Skill(int _Index, Sprite _Sprite)
@@ -625,7 +625,7 @@ public class PlayerController : AliveObjectController
 
         ReservationDele = SkillWeapon.SkillList[_Index].Active_Skill;
         StateAnim.Set_Anim(
-            new State_Anim(DmgTypeStateAC.TypeSpecial, 2f),
+            new State_Anim(DmgTypeStateAC.typeSpecial, 2f),
             _Sprite);
 
         Start_Casting(SkillInterval);
@@ -634,7 +634,7 @@ public class PlayerController : AliveObjectController
 
     public void Start_Casting(float _CastingTime)
     {
-        CastingTime.Max = _CastingTime;
+        CastingTime.max = _CastingTime;
         MovementState = eMovementState.Casting;
         ThisRb.velocity = Vector2.zero;
 
@@ -726,7 +726,7 @@ public class PlayerController : AliveObjectController
     {
         StateAnim.Set_Anim(
                 new State_Anim(TargetDmgMode == eDamageType.Physics ?
-                    DmgTypeStateAC.TypeA : DmgTypeStateAC.TypeB, 0.8f));
+                    DmgTypeStateAC.typeA : DmgTypeStateAC.typeB, 0.8f));
     }
 
     #endregion
@@ -748,19 +748,19 @@ public class PlayerController : AliveObjectController
         {
             // 부스팅 : 언부스팅
             AnimationClip ac = i < _Index ?
-                BoostOnOffAC.TypeSpecial : BoostOnOffAC.TypeBase;
+                BoostOnOffAC.typeSpecial : BoostOnOffAC.typeBase;
             float animSpeed = i < _Index ?
                 WheelLowestAnimSpeed * (_Index - i + 1) : WheelLowestAnimSpeed;
 
-            BoostStateAnimController.TypeBase[i].Set_Anim(new State_Anim(ac, animSpeed));
+            BoostStateAnimController.typeBase[i].Set_Anim(new State_Anim(ac, animSpeed));
         }
     }
 
     // 스탯의 좌우로 도는 이펙트
     private void Set_BoostAnim_StateExtraVFX(int _Index)
     {
-        BoostStateAnimController.TypeSpecial[0].gameObject.SetActive(false);
-        BoostStateAnimController.TypeSpecial[1].gameObject.SetActive(false);
+        BoostStateAnimController.typeSpecial[0].gameObject.SetActive(false);
+        BoostStateAnimController.typeSpecial[1].gameObject.SetActive(false);
 
         float animSpeed = _Index * 0.5f;
         if (_Index > 0)
@@ -775,8 +775,8 @@ public class PlayerController : AliveObjectController
 
     private void Set_EachBoostAnim_StateExtraVFX(int _Index, float _AnimSpeed)
     {
-        BoostStateAnimController.TypeSpecial[_Index].gameObject.SetActive(true);
-        BoostStateAnimController.TypeSpecial[_Index].Set_Anim(new State_Anim(BoostVFXAnimList[_Index], _AnimSpeed));
+        BoostStateAnimController.typeSpecial[_Index].gameObject.SetActive(true);
+        BoostStateAnimController.typeSpecial[_Index].Set_Anim(new State_Anim(BoostVFXAnimList[_Index], _AnimSpeed));
 
     }
 
@@ -913,9 +913,9 @@ public class PlayerController : AliveObjectController
             
             // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
             Take_Damaged(
-                DevTool.Get_DmgEffectByCold(state.DmgState.Dmg, _Bullet.Enemy.BuffController),
+                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Bullet.Enemy.BuffController),
                 DevTool.Get_Dir(_Bullet.gameObject, gameObject),
-                state.KnockbackState);
+                state.knockbackState);
         }
     }
 
@@ -940,9 +940,9 @@ public class PlayerController : AliveObjectController
 
             // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
             Take_Damaged(
-                DevTool.Get_DmgEffectByCold(state.DmgState.Dmg, _Attacker.Enemy.BuffController),
+                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Attacker.Enemy.BuffController),
                 DevTool.Get_Dir(_Attacker.gameObject, gameObject),
-                state.KnockbackState);
+                state.knockbackState);
         }
     }
 
@@ -967,9 +967,9 @@ public class PlayerController : AliveObjectController
 
             // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
             Take_Damaged(
-                DevTool.Get_DmgEffectByCold(state.DmgState.Dmg, _Explosion.Enemy.BuffController),
+                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Explosion.Enemy.BuffController),
                 DevTool.Get_Dir(_Explosion.gameObject, gameObject),
-                state.KnockbackState);
+                state.knockbackState);
         }
     }
 
@@ -1008,13 +1008,13 @@ public class PlayerController : AliveObjectController
         }
 
         // Multiple
-        _DmgValue *= TakingDmgMultiple.BuffedState;
+        _DmgValue *= TakingDmgMultiple.buffedState;
 
         // Effect
         // Knockback
-        if (_State_KB.CanKB)
+        if (_State_KB.canKB)
         { 
-            Gain_Knockback(new CurrentKnockbackState(_HittedDir, _State_KB.KBPower, _State_KB.KBTime));
+            Gain_Knockback(new CurrentKnockbackState(_HittedDir, _State_KB.kbPower, _State_KB.kbTime));
         }
 
         // Damage
@@ -1049,15 +1049,15 @@ public class PlayerController : AliveObjectController
             for (int i = ShieldElements.Count - 1; i >= 0; i--)
             {
                 // 쉴드 버프량 1개가 데미지보다 작거나 같으면, 제거하고 다음 쉴드로 영향
-                if (ShieldElements[i].ShieldCurrentValue <= _DmgValue)
+                if (ShieldElements[i].shieldCurrentValue <= _DmgValue)
                 {
-                    _DmgValue -= ShieldElements[i].ShieldCurrentValue;
+                    _DmgValue -= ShieldElements[i].shieldCurrentValue;
 
                     Remove_Shield(ShieldElements[i]); // 쉴드 감소
                 }
                 else // 쉴드 버프가 데미지를 버틸 수 있으면
                 {
-                    ShieldElements[i].ShieldCurrentValue -= _DmgValue;
+                    ShieldElements[i].shieldCurrentValue -= _DmgValue;
                     _DmgValue = 0;
                     CurrentSP.Value = Get_TotalShield();
                     return;
@@ -1098,7 +1098,7 @@ public class PlayerController : AliveObjectController
     public bool Is_Avoid()
     {
         // 회피
-        if (DevTool.Is_ChanceSuccess(AvoidChance.ActualState.Value))
+        if (DevTool.Is_ChanceSuccess(AvoidChance.actualState.Value))
         {
             Play_Avoid();
             SoundManager.instance.Play_2D_SFX_Player(ASQueueSet.Get_T(), "Avoid");

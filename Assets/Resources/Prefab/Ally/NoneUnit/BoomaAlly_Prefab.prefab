@@ -63,23 +63,23 @@ MonoBehaviour:
   ParticleThrowDis: 0
   MultipleAllyState:
     Dmg:
-      Value: 15
+      value: 15
     Rof:
-      Value: 0.08
+      value: 0.08
     MovementSpeed:
-      Value: 1
+      value: 1
     AttackSize:
-      Value: 1
+      value: 1
     CC:
-      Value: 0.05
+      value: 0.05
     CD:
-      Value: 1
+      value: 1
     MuzzleSpeed:
-      Value: 0.5
+      value: 0.5
     KBPower:
-      Value: 1
+      value: 1
     Dur:
-      Value: 0
+      value: 0
   MaxHP: 150
   AllyStateMode:
     value: 0
@@ -120,23 +120,23 @@ MonoBehaviour:
   HUD: {fileID: 5265476221777618597}
   UpgradeAllyState:
     Dmg:
-      Value: 1
+      value: 1
     Rof:
-      Value: 1
+      value: 1
     MovementSpeed:
-      Value: 1
+      value: 1
     AttackSize:
-      Value: 1
+      value: 1
     CC:
-      Value: 1
+      value: 1
     CD:
-      Value: 1
+      value: 1
     MuzzleSpeed:
-      Value: 1
+      value: 1
     KBPower:
-      Value: 1
+      value: 1
     Dur:
-      Value: 1
+      value: 1
   CurrentChargeTime: 0
   DropBottomYPos: 0.2
   ThisSprite: {fileID: 1620505241, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
@@ -156,74 +156,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sync005_Buff:
-    Type: 
-    IconSprite: {fileID: 0}
-    BuffValue: 0
-    BuffMaxAmount: 0
-    MaxCooltime: 0
-    IsIncrease: 0
-    IsPermanent: 0
-    BuffAmount: 0
-    CurrentCooltime: 0
+    type: 
+    iconSprite: {fileID: 0}
+    buffValue: 0
+    buffMaxAmount: 0
+    maxCooltime: 0
+    isIncrease: 0
+    isPermanent: 0
+    buffAmount: 0
+    currentCooltime: 0
   Sync006_Buff:
-    Type: 
-    IconSprite: {fileID: 0}
-    BuffValue: 0
-    BuffMaxAmount: 0
-    MaxCooltime: 0
-    IsIncrease: 0
-    IsPermanent: 0
-    BuffAmount: 0
-    CurrentCooltime: 0
+    type: 
+    iconSprite: {fileID: 0}
+    buffValue: 0
+    buffMaxAmount: 0
+    maxCooltime: 0
+    isIncrease: 0
+    isPermanent: 0
+    buffAmount: 0
+    currentCooltime: 0
   Sync007_Buff:
-    Type: 
-    IconSprite: {fileID: 0}
-    BuffValue: 0
-    BuffMaxAmount: 0
-    MaxCooltime: 0
-    IsIncrease: 0
-    IsPermanent: 0
-    BuffAmount: 0
-    CurrentCooltime: 0
+    type: 
+    iconSprite: {fileID: 0}
+    buffValue: 0
+    buffMaxAmount: 0
+    maxCooltime: 0
+    isIncrease: 0
+    isPermanent: 0
+    buffAmount: 0
+    currentCooltime: 0
   Sync008_Buff:
-    Type: 
-    IconSprite: {fileID: 0}
-    BuffValue: 0
-    BuffMaxAmount: 0
-    MaxCooltime: 0
-    IsIncrease: 0
-    IsPermanent: 0
-    BuffAmount: 0
-    CurrentCooltime: 0
+    type: 
+    iconSprite: {fileID: 0}
+    buffValue: 0
+    buffMaxAmount: 0
+    maxCooltime: 0
+    isIncrease: 0
+    isPermanent: 0
+    buffAmount: 0
+    currentCooltime: 0
   TotisToteme_Buff:
-    Type: 
-    IconSprite: {fileID: 0}
-    BuffValue: 0
-    BuffMaxAmount: 0
-    MaxCooltime: 0
-    IsIncrease: 0
-    IsPermanent: 0
-    BuffAmount: 0
-    CurrentCooltime: 0
+    type: 
+    iconSprite: {fileID: 0}
+    buffValue: 0
+    buffMaxAmount: 0
+    maxCooltime: 0
+    isIncrease: 0
+    isPermanent: 0
+    buffAmount: 0
+    currentCooltime: 0
   BuffingState:
     Dmg:
-      Value: 1
+      value: 1
     Rof:
-      Value: 1
+      value: 1
     MovementSpeed:
-      Value: 1
+      value: 1
     AttackSize:
-      Value: 1
+      value: 1
     CC:
-      Value: 1
+      value: 1
     CD:
-      Value: 1
+      value: 1
     MuzzleSpeed:
-      Value: 1
+      value: 1
     KBPower:
-      Value: 1
+      value: 1
     Dur:
-      Value: 1
+      value: 1
     Dmg_BuffList: []
     Rof_BuffList: []
     MovementSpeed_BuffList: []

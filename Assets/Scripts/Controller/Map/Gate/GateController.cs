@@ -110,8 +110,8 @@ public class GateController : StaticDepthController, IInteract
     // 처음 문의 상태를 (벽이거나 문이거나) 판별해서 세팅
     public void Set_ExistDoorState(bool _IsExist)
     {
-        ThingsGO.TypeBase.SetActive(!_IsExist);
-        ThingsGO.TypeSpecial.SetActive(_IsExist);
+        ThingsGO.typeBase.SetActive(!_IsExist);
+        ThingsGO.typeSpecial.SetActive(_IsExist);
 
     }
 
@@ -148,7 +148,7 @@ public class GateController : StaticDepthController, IInteract
 
     public string Get_InteractName(out bool _CanInteract)
     {
-        if (ThingsGO.TypeBase.activeSelf)
+        if (ThingsGO.typeBase.activeSelf)
         {
             _CanInteract = false;
             return "";
@@ -254,7 +254,7 @@ public class GateController : StaticDepthController, IInteract
     private bool Can_Open()
     {
         return Can_Open_ByKeycard() &&
-            ThingsGO.TypeSpecial.activeSelf && 
+            ThingsGO.typeSpecial.activeSelf && 
             ParterGate != null &&
             IsOpen;
     }
@@ -262,7 +262,7 @@ public class GateController : StaticDepthController, IInteract
     // Animator가 종료될 수 있는가 판별
     private bool Can_AT_Disable()
     {
-        return ThingsGO.TypeSpecial.activeSelf &&
+        return ThingsGO.typeSpecial.activeSelf &&
             ThisAnimator.enabled &&
             DevTool.Is_AnimIsDone(ThisAnimator);
     }

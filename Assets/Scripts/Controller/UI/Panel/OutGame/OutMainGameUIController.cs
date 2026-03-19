@@ -246,31 +246,31 @@ public class OutMainGameUIController : SinglePanelUIController
             #region Player BU
 
             // DMG, ROF, CC, CD, MS, AR, KB
-            BUEUIArr[0].Set(pwc.BaseDamage.CurrentLevel.Value);
-            BUEUIArr[1].Set(pwc.ROF.CurrentLevel.Value);
-            BUEUIArr[2].Set(pwc.CC.CurrentLevel.Value);
-            BUEUIArr[3].Set(pwc.CD.CurrentLevel.Value);
-            BUEUIArr[4].Set(pwc.MuzzleSpeed.CurrentLevel.Value);
-            BUEUIArr[5].Set(pwc.AccuracyRate.CurrentLevel.Value);
-            BUEUIArr[6].Set(pwc.KnockbackPower.CurrentLevel.Value);
+            BUEUIArr[0].Set(pwc.BaseDamage.currentLevel.Value);
+            BUEUIArr[1].Set(pwc.ROF.currentLevel.Value);
+            BUEUIArr[2].Set(pwc.CC.currentLevel.Value);
+            BUEUIArr[3].Set(pwc.CD.currentLevel.Value);
+            BUEUIArr[4].Set(pwc.MuzzleSpeed.currentLevel.Value);
+            BUEUIArr[5].Set(pwc.AccuracyRate.currentLevel.Value);
+            BUEUIArr[6].Set(pwc.KnockbackPower.currentLevel.Value);
             // MaxEP, ESValue, SkillCost, Resist
-            BUEUIArr[7].Set(pc.MaxEP.CurrentLevel.Value);
-            BUEUIArr[8].Set(pc.SpawnESMultiple.CurrentLevel.Value);
-            BUEUIArr[9].Set(pc.NeedEP_ForSkillMultiple.CurrentLevel.Value);
-            BUEUIArr[10].Set(pc.TakingDmgMultiple.CurrentLevel.Value);
+            BUEUIArr[7].Set(pc.MaxEP.currentLevel.Value);
+            BUEUIArr[8].Set(pc.SpawnESMultiple.currentLevel.Value);
+            BUEUIArr[9].Set(pc.NeedEP_ForSkillMultiple.currentLevel.Value);
+            BUEUIArr[10].Set(pc.TakingDmgMultiple.currentLevel.Value);
             // WalkS, WalkSWhileS, DashP, AvoidC
-            BUEUIArr[11].Set(pc.WalkSpeed.CurrentLevel.Value);
-            BUEUIArr[12].Set(pc.WalkSpeedWhenShotMultiple.CurrentLevel.Value);
-            BUEUIArr[13].Set(pdc.DashSpeed.CurrentLevel.Value);
-            BUEUIArr[14].Set(pc.AvoidChance.CurrentLevel.Value);
+            BUEUIArr[11].Set(pc.WalkSpeed.currentLevel.Value);
+            BUEUIArr[12].Set(pc.WalkSpeedWhenShotMultiple.currentLevel.Value);
+            BUEUIArr[13].Set(pdc.DashSpeed.currentLevel.Value);
+            BUEUIArr[14].Set(pc.AvoidChance.currentLevel.Value);
             // Skill 00: Cooltime, Power, Tier
-            BUEUIArr[15].Set(swc.SkillList[0].MaxCooltime.CurrentLevel.Value);
-            BUEUIArr[16].Set(swc.SkillList[0].Power.CurrentLevel.Value);
-            BUEUIArr[17].Set(swc.SkillList[0].Tier.CurrentLevel.Value);
+            BUEUIArr[15].Set(swc.SkillList[0].MaxCooltime.currentLevel.Value);
+            BUEUIArr[16].Set(swc.SkillList[0].Power.currentLevel.Value);
+            BUEUIArr[17].Set(swc.SkillList[0].Tier.currentLevel.Value);
             // Skill 01: Cooltime, Power, Tier
-            BUEUIArr[18].Set(swc.SkillList[1].MaxCooltime.CurrentLevel.Value);
-            BUEUIArr[19].Set(swc.SkillList[1].Power.CurrentLevel.Value);
-            BUEUIArr[20].Set(swc.SkillList[1].Tier.CurrentLevel.Value);
+            BUEUIArr[18].Set(swc.SkillList[1].MaxCooltime.currentLevel.Value);
+            BUEUIArr[19].Set(swc.SkillList[1].Power.currentLevel.Value);
+            BUEUIArr[20].Set(swc.SkillList[1].Tier.currentLevel.Value);
 
             #endregion
 
@@ -282,7 +282,7 @@ public class OutMainGameUIController : SinglePanelUIController
             {
                 
                 if (i < states.Count)
-                    MUEUIArr[i].SetOn(states[i].MS);
+                    MUEUIArr[i].SetOn(states[i].state);
                 else
                     MUEUIArr[i].SetOff();
             }

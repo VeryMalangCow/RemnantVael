@@ -135,7 +135,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         for (int i = 0; i < equippedIndex.Length; i++)
         {
             CoupleData<int> colRow = equippedIndex[i];
-            if (colRow.TypeBase == -1 || colRow.TypeSpecial == -1)
+            if (colRow.typeBase == -1 || colRow.typeSpecial == -1)
                 continue; 
             else
                 Try_AddIWhen(Get_EquippedModuleState(i));
@@ -220,7 +220,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public ModuleState Get_ModuleState(CoupleData<int> _Index)
     {
-        return allModuleData[_Index.TypeBase][_Index.TypeSpecial];
+        return allModuleData[_Index.typeBase][_Index.typeSpecial];
     }
 
     public ModuleState Get_ModuleState(InventoryItemEUIController _ItemEUI)
@@ -235,7 +235,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         List<ModuleState> excludeMsList = new List<ModuleState>();
 
         for (int i = 0; i < _ExcludeModuleState.Count; i++)
-            excludeMsList.Add(_ExcludeModuleState[i].MS);
+            excludeMsList.Add(_ExcludeModuleState[i].state);
 
         for (int i = 0; i < allModuleData.Length; i++)
         {
@@ -280,11 +280,11 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         for (int i = 0; i < equippedIndex.Length; i++)
         {
-            if (equippedIndex[i].TypeBase == _Exclude.TypeBase &&
-                equippedIndex[i].TypeSpecial == _Exclude.TypeSpecial)
+            if (equippedIndex[i].typeBase == _Exclude.typeBase &&
+                equippedIndex[i].typeSpecial == _Exclude.typeSpecial)
                 return -1;
 
-            if (equippedIndex[i].TypeBase == -1 && equippedIndex[i].TypeSpecial == -1)
+            if (equippedIndex[i].typeBase == -1 && equippedIndex[i].typeSpecial == -1)
                 return i;
         }
         return -1;
@@ -295,7 +295,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     public ModuleState Get_EquippedModuleState(int _Index)
     {
         CoupleData<int> colRow = equippedIndex[_Index];
-        return Get_ModuleState(colRow.TypeBase, colRow.TypeSpecial);
+        return Get_ModuleState(colRow.typeBase, colRow.typeSpecial);
     }
 
     // 장착되어 있는 아이템의 인덱스들만
@@ -303,7 +303,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         List<CoupleData<int>> result = new List<CoupleData<int>>();
         for (int i = 0; i < equippedIndex.Length; i++)
-            if (equippedIndex[i].TypeBase != -1 && equippedIndex[i].TypeSpecial != -1)
+            if (equippedIndex[i].typeBase != -1 && equippedIndex[i].typeSpecial != -1)
                 result.Add(equippedIndex[i]);
 
         return result.ToArray();
@@ -316,12 +316,12 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
         for (int i = 0; i < equippedIndex.Length; i++)
         {
-            if (equippedIndex[i].TypeBase != -1 && equippedIndex[i].TypeSpecial != -1)
+            if (equippedIndex[i].typeBase != -1 && equippedIndex[i].typeSpecial != -1)
             {
                 result.Add(
                     new CopyModuleState(
-                        Get_ModuleState(equippedIndex[i].TypeBase, equippedIndex[i].TypeSpecial),
-                        new CoupleData<int>(equippedIndex[i].TypeBase, equippedIndex[i].TypeSpecial), 
+                        Get_ModuleState(equippedIndex[i].typeBase, equippedIndex[i].typeSpecial),
+                        new CoupleData<int>(equippedIndex[i].typeBase, equippedIndex[i].typeSpecial), 
                         true));
             }
         }
@@ -392,7 +392,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public Sprite Get_CorrectItemIcon(int _ID)
     {
-        return itemDataArr[_ID].ItemIcon;
+        return itemDataArr[_ID].itemIcon;
     }
 
     #endregion
@@ -421,17 +421,17 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public static int Get_MS_ByDecomposition(ModuleState _ModuleState)
     {
-        return (_ModuleState.ThisItemData.Rank * 2);
+        return (_ModuleState.thisItemData.rank * 2);
     }
 
     public static int Get_BC_ByDescomposition(ModuleState _ModuleState)
     {
-        return _ModuleState.ThisItemData.Rank;
+        return _ModuleState.thisItemData.rank;
     }
 
     public static int Get_MS_ForFusion(ModuleState _ModuleState)
     {
-        return (_ModuleState.ThisItemData.Rank + 1);
+        return (_ModuleState.thisItemData.rank + 1);
     }
 
     public static int Get_MS_ForMake()
@@ -454,8 +454,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public void Set_ChangeInventorySlot(CoupleData<int> _Index0, CoupleData<int> _Index1)
     {
-        ModuleState moduleState0 = allModuleData[_Index0.TypeBase][_Index0.TypeSpecial];
-        ModuleState moduleState1 = allModuleData[_Index1.TypeBase][_Index1.TypeSpecial];
+        ModuleState moduleState0 = allModuleData[_Index0.typeBase][_Index0.typeSpecial];
+        ModuleState moduleState1 = allModuleData[_Index1.typeBase][_Index1.typeSpecial];
 
         // 기본 벨류
         int listIndex0 = -1;
@@ -478,8 +478,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         if (listIndex0 != -1) equippedIndex[listIndex0] = newIndex0;
         if (listIndex1 != -1) equippedIndex[listIndex1] = newIndex1;
 
-        allModuleData[_Index0.TypeBase][_Index0.TypeSpecial] = moduleState1;
-        allModuleData[_Index1.TypeBase][_Index1.TypeSpecial] = moduleState0;
+        allModuleData[_Index0.typeBase][_Index0.typeSpecial] = moduleState1;
+        allModuleData[_Index1.typeBase][_Index1.typeSpecial] = moduleState0;
 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
@@ -584,7 +584,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     // 분해 슬롯
     public bool Is_EmptyDecompositionSlot()
     {
-        return decompositionIndex.TypeBase == -1 && decompositionIndex.TypeSpecial == -1;
+        return decompositionIndex.typeBase == -1 && decompositionIndex.typeSpecial == -1;
     }
 
     // 퓨전 슬롯
@@ -592,7 +592,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         for (int i = 0; i < fusionIndex.Length; i++)
         {
-            if (fusionIndex[i].TypeBase == -1 && fusionIndex[i].TypeSpecial == -1)
+            if (fusionIndex[i].typeBase == -1 && fusionIndex[i].typeSpecial == -1)
             {
                 return true;
             }
@@ -604,7 +604,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         for (int i = 0; i < fusionIndex.Length; i++)
         {
-            if (fusionIndex[i].TypeBase == -1 && fusionIndex[i].TypeSpecial == -1)
+            if (fusionIndex[i].typeBase == -1 && fusionIndex[i].typeSpecial == -1)
             {
                 _EmptyIndex = i;
                 return true;
@@ -616,7 +616,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public bool Is_EmptyFusionSlot(int _Index)
     {
-        if (fusionIndex[_Index].TypeBase == -1 && fusionIndex[_Index].TypeSpecial == -1)
+        if (fusionIndex[_Index].typeBase == -1 && fusionIndex[_Index].typeSpecial == -1)
         {
             return true;
         }
@@ -642,7 +642,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         bool result = true;
         for (int i = 0; i < fusionIndex.Length; i++)
         {
-            if (fusionIndex[i].TypeBase != -1 || fusionIndex[i].TypeSpecial != -1)
+            if (fusionIndex[i].typeBase != -1 || fusionIndex[i].typeSpecial != -1)
             {
                 result = false;
             }
@@ -656,8 +656,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         for (int i = 1; i < fusionIndex.Length; i++)
         {
             // 랭크가 다르다면
-            if (Get_ModuleState(fusionIndex[0].TypeBase, fusionIndex[0].TypeSpecial).ThisItemData.Rank !=
-                Get_ModuleState(fusionIndex[i].TypeBase, fusionIndex[i].TypeSpecial).ThisItemData.Rank)
+            if (Get_ModuleState(fusionIndex[0].typeBase, fusionIndex[0].typeSpecial).thisItemData.rank !=
+                Get_ModuleState(fusionIndex[i].typeBase, fusionIndex[i].typeSpecial).thisItemData.rank)
             {
                 return false;
             }
@@ -684,8 +684,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         for (int i = 0; i < _IndexList.Length; i++)
         {
-            if (_IndexList[i].TypeBase == _Index.TypeBase &&
-                _IndexList[i].TypeSpecial == _Index.TypeSpecial)
+            if (_IndexList[i].typeBase == _Index.typeBase &&
+                _IndexList[i].typeSpecial == _Index.typeSpecial)
             {
                 return true;
             }
@@ -698,8 +698,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         for (int i = 0; i < _IndexList.Length; i++)
         {
-            if (_IndexList[i].TypeBase == _Index.TypeBase &&
-                _IndexList[i].TypeSpecial == _Index.TypeSpecial)
+            if (_IndexList[i].typeBase == _Index.typeBase &&
+                _IndexList[i].typeSpecial == _Index.typeSpecial)
             {
                 _IncludeListIndex = i;
                 return true;
@@ -716,7 +716,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public void Set_UpRank(CoupleData<int> _Index)
     {
-        allModuleData[_Index.TypeBase][_Index.TypeSpecial].ThisItemData.Rank++;
+        allModuleData[_Index.typeBase][_Index.typeSpecial].thisItemData.rank++;
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
         Reset_Interface();
     }
@@ -727,13 +727,13 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public void Remove_ModuleState(CoupleData<int> _Index)
     {
-        if (Get_ModuleState(_Index.TypeBase, _Index.TypeSpecial) == null) return;
+        if (Get_ModuleState(_Index.typeBase, _Index.typeSpecial) == null) return;
 
         // 장착되어 있다면 제거
         if (Is_IncludeEquipped(_Index, out int listIndex))
             equippedIndex[listIndex] = new CoupleData<int>(-1, -1);
 
-        allModuleData[_Index.TypeBase][_Index.TypeSpecial] = null;
+        allModuleData[_Index.typeBase][_Index.typeSpecial] = null;
 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData); 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_EquipedUI(allModuleData, equippedIndex);
@@ -744,13 +744,13 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         for (int i = 0; i < _IndexList.Count; i++)
         {
-            if (Get_ModuleState(_IndexList[i].TypeBase, _IndexList[i].TypeSpecial) == null) return;
+            if (Get_ModuleState(_IndexList[i].typeBase, _IndexList[i].typeSpecial) == null) return;
             
             // 장착되어 있다면 제거
             if (Is_IncludeEquipped(_IndexList[i], out int listIndex))
                 equippedIndex[listIndex] = new CoupleData<int>(-1, -1);
 
-            allModuleData[_IndexList[i].TypeBase][_IndexList[i].TypeSpecial] = null;
+            allModuleData[_IndexList[i].typeBase][_IndexList[i].typeSpecial] = null;
         }
 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
@@ -767,18 +767,18 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         // 빈 공간이 있어야 획득 가능
         CoupleData<int> index = Get_EmptyModuleState();
-        if (index.TypeBase == -1 || index.TypeSpecial == -1) return;
+        if (index.typeBase == -1 || index.typeSpecial == -1) return;
        
         // 아이템 데이터 초기화
-        ModuleState newModuleState = ModuleState.Get_AllModuleState()[_ItemDataField.ID];
-        newModuleState.Set_State(itemDataArr[_ItemDataField.ID]);
-        newModuleState.ThisItemData.Rank = _ItemDataField.Rank;
+        ModuleState newModuleState = ModuleState.Get_AllModuleState()[_ItemDataField.id];
+        newModuleState.Set_State(itemDataArr[_ItemDataField.id]);
+        newModuleState.thisItemData.rank = _ItemDataField.rank;
 
         ItemData_UIVisual stateUI = new ItemData_UIVisual(
-            Get_CorrectItemIcon(_ItemDataField.ID),
-            _ItemDataField.Rank);
+            Get_CorrectItemIcon(_ItemDataField.id),
+            _ItemDataField.rank);
 
-        allModuleData[index.TypeBase][index.TypeSpecial] = newModuleState;
+        allModuleData[index.typeBase][index.typeSpecial] = newModuleState;
 
         MainGameUIManager.instance.moduleUpgrade_UIController.Set_InventoryUI(allModuleData);
     }
@@ -893,9 +893,9 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         return new List<int>
         {
-            _ModuleState.ThisItemData.R1_MainChipID,
-            _ModuleState.ThisItemData.R3_MainChipID,
-            _ModuleState.ThisItemData.R5_MainChipID
+            _ModuleState.thisItemData.r1_MainChipID,
+            _ModuleState.thisItemData.r3_MainChipID,
+            _ModuleState.thisItemData.r5_MainChipID
         };
     }
 
@@ -903,13 +903,13 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
     {
         List<int> synergyIDList = Get_MainChipIDData(_ModuleState);
 
-        if (_ModuleState.ThisItemData.Rank >= 5)
+        if (_ModuleState.thisItemData.rank >= 5)
         {
             DevTool.Add_AmountForDict(ref mainChipAmalgamationDict, synergyIDList[0], 3);
             DevTool.Add_AmountForDict(ref mainChipAmalgamationDict, synergyIDList[1], 2);
             DevTool.Add_AmountForDict(ref mainChipAmalgamationDict, synergyIDList[2], 1);
         }
-        else if (_ModuleState.ThisItemData.Rank >= 3)
+        else if (_ModuleState.thisItemData.rank >= 3)
         {
             DevTool.Add_AmountForDict(ref mainChipAmalgamationDict, synergyIDList[0], 2);
             DevTool.Add_AmountForDict(ref mainChipAmalgamationDict, synergyIDList[1], 1);
@@ -925,8 +925,8 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
         mainChipAmalgamationDict = new Dictionary<int, int>();
         for (int i = 0; i < equippedIndex.Length; i++)
         {
-            int col = equippedIndex[i].TypeBase;
-            int row = equippedIndex[i].TypeSpecial;
+            int col = equippedIndex[i].typeBase;
+            int row = equippedIndex[i].typeSpecial;
             if (col != -1 && row != -1)
             {
                 ModuleState moduleState = Get_ModuleState(col, row);
@@ -973,7 +973,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
             for (int j = 0; j < rowAmount; j++)
                 if (allModuleData[i][j] != null)
                 {
-                    allModuleData[i][j].ThisItemData.Set_LanguageTxt(itemDataArr[allModuleData[i][j].ThisItemData.ID]);
+                    allModuleData[i][j].thisItemData.Set_LanguageTxt(itemDataArr[allModuleData[i][j].thisItemData.id]);
                 }
     }
 

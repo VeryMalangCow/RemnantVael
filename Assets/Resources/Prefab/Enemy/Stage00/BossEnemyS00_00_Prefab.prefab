@@ -119,22 +119,22 @@ MonoBehaviour:
   CurrentEP:
     value: 0
   BrokenParticleData:
-  - Sprite: {fileID: -1666094639, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-    ShadowSize: {x: 0.4, y: 0.2}
-  - Sprite: {fileID: 755008558, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-    ShadowSize: {x: 0.5, y: 0.25}
-  - Sprite: {fileID: -471157717, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-    ShadowSize: {x: 0.4, y: 0.2}
-  - Sprite: {fileID: -471157717, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-    ShadowSize: {x: 0.4, y: 0.2}
-  - Sprite: {fileID: 751338603, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-    ShadowSize: {x: 0.2, y: 0.1}
-  - Sprite: {fileID: 751338603, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-    ShadowSize: {x: 0.2, y: 0.1}
-  - Sprite: {fileID: 394434684, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-    ShadowSize: {x: 0.2, y: 0.1}
-  - Sprite: {fileID: 394434684, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
-    ShadowSize: {x: 0.2, y: 0.1}
+  - sprite: {fileID: -1666094639, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    shadowSize: {x: 0.4, y: 0.2}
+  - sprite: {fileID: 755008558, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    shadowSize: {x: 0.5, y: 0.25}
+  - sprite: {fileID: -471157717, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    shadowSize: {x: 0.4, y: 0.2}
+  - sprite: {fileID: -471157717, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    shadowSize: {x: 0.4, y: 0.2}
+  - sprite: {fileID: 751338603, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    shadowSize: {x: 0.2, y: 0.1}
+  - sprite: {fileID: 751338603, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    shadowSize: {x: 0.2, y: 0.1}
+  - sprite: {fileID: 394434684, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    shadowSize: {x: 0.2, y: 0.1}
+  - sprite: {fileID: 394434684, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    shadowSize: {x: 0.2, y: 0.1}
   ParticleThrowDis: 2
   ThisSG: {fileID: 8138059332026427226}
   BuffController: {fileID: 5694203857495159564}
@@ -147,20 +147,20 @@ MonoBehaviour:
     ModuleRankPercents: 050000000f0000001e0000001e00000014000000
     keycardDropPercent: 1
     BSAmountMinMax:
-      TypeBase: 6
-      TypeSpecial: 10
+      typeBase: 6
+      typeSpecial: 10
     MSAmountMinMax:
-      TypeBase: 0
-      TypeSpecial: 4
+      typeBase: 0
+      typeSpecial: 4
     CreditAmountMinMax:
-      TypeBase: 100
-      TypeSpecial: 150
+      typeBase: 100
+      typeSpecial: 150
     OverriderAmountMinMax:
-      TypeBase: 2
-      TypeSpecial: 4
+      typeBase: 2
+      typeSpecial: 4
     JouleAmountMinMax:
-      TypeBase: 50
-      TypeSpecial: 100
+      typeBase: 50
+      typeSpecial: 100
   HUD: {fileID: 929499903805823867}
   LookingSatellite: {fileID: 8376210550337142964}
   WalkingSatellite: {fileID: 8314429211963477539}
@@ -168,7 +168,7 @@ MonoBehaviour:
   PingSizeVec: {x: 0, y: 0}
   OrderOfPriorityEnemyPatternList: []
   SpecialPattern:
-    EnemyPatternList: []
+    enemyPatternList: []
   ASQueueSet:
     ThisParentTF: {fileID: 3661195397093196109}
   LookAtPoint: {x: 0, y: 0}
@@ -183,37 +183,37 @@ MonoBehaviour:
   - ThisPhase: 0
     ThisPhaseLimitPercentHP: 100
     OrderOfPriorityEnemyPatternList:
-    - EnemyPatternList:
-      - EnemyPatternList:
+    - enemyPatternList:
+      - enemyPatternList:
         - {fileID: 8801929915213893521}
         - {fileID: 5891307210428480517}
-      - EnemyPatternList:
+      - enemyPatternList:
         - {fileID: 3988373326148802438}
         - {fileID: 8801929915213893521}
         - {fileID: 5891307210428480517}
-      - EnemyPatternList:
+      - enemyPatternList:
         - {fileID: 8721225703925756054}
     SpecialPattern:
-      EnemyPatternList:
+      enemyPatternList:
       - {fileID: 549748114782807619}
       - {fileID: 2065072569344358384}
   - ThisPhase: 1
     ThisPhaseLimitPercentHP: 50
     OrderOfPriorityEnemyPatternList:
-    - EnemyPatternList:
-      - EnemyPatternList:
+    - enemyPatternList:
+      - enemyPatternList:
         - {fileID: 3856903375620368777}
         - {fileID: 5891307210428480517}
         - {fileID: 1325470012015679191}
-      - EnemyPatternList:
+      - enemyPatternList:
         - {fileID: 3988373326148802438}
         - {fileID: 3856903375620368777}
         - {fileID: 5891307210428480517}
         - {fileID: 1325470012015679191}
-      - EnemyPatternList:
+      - enemyPatternList:
         - {fileID: 8721225703925756054}
     SpecialPattern:
-      EnemyPatternList:
+      enemyPatternList:
       - {fileID: 549748114782807619}
       - {fileID: 5081363933919576049}
       - {fileID: 2200517592837152280}
@@ -236,90 +236,90 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShieldBuff:
-    Enemy: {fileID: 0}
-    BuffIconUI: {fileID: 0}
-    IconSprite: {fileID: 0}
-    IsOn: 0
-    MaxCooltime: 0
-    CurrentCooltime: 0
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxCooltime: 0
+    currentCooltime: 0
   ShieldPercent: 10
   ShieldDurTime: 10
   FlameStack:
-    Enemy: {fileID: 0}
-    BuffIconUI: {fileID: 0}
-    IconSprite: {fileID: 0}
-    IsOn: 0
-    MaxCooltime: 0
-    CurrentCooltime: 0
-    StatusType: 0
-    MaxStack: 0
-    CurrentStack: 0
-    OnceTimeReduceAmount: 0
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxCooltime: 0
+    currentCooltime: 0
+    statusType: 0
+    maxStack: 0
+    currentStack: 0
+    onceTimeReduceAmount: 0
     CurrentGainStack: 0
   InfernoStack:
-    Enemy: {fileID: 0}
-    BuffIconUI: {fileID: 0}
-    IconSprite: {fileID: 0}
-    IsOn: 0
-    MaxStack: 0
-    CurrentStack: 0
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxStack: 0
+    currentStack: 0
   ColdStack:
-    Enemy: {fileID: 0}
-    BuffIconUI: {fileID: 0}
-    IconSprite: {fileID: 0}
-    IsOn: 0
-    MaxCooltime: 0
-    CurrentCooltime: 0
-    StatusType: 0
-    MaxStack: 0
-    CurrentStack: 0
-    OnceTimeReduceAmount: 0
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxCooltime: 0
+    currentCooltime: 0
+    statusType: 0
+    maxStack: 0
+    currentStack: 0
+    onceTimeReduceAmount: 0
     CurrentGainStack: 0
   AbsoluteZeroStack:
-    Enemy: {fileID: 0}
-    BuffIconUI: {fileID: 0}
-    IconSprite: {fileID: 0}
-    IsOn: 0
-    MaxStack: 0
-    CurrentStack: 0
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxStack: 0
+    currentStack: 0
   ElectricityStack:
-    Enemy: {fileID: 0}
-    BuffIconUI: {fileID: 0}
-    IconSprite: {fileID: 0}
-    IsOn: 0
-    MaxCooltime: 0
-    CurrentCooltime: 0
-    StatusType: 0
-    MaxStack: 0
-    CurrentStack: 0
-    OnceTimeReduceAmount: 0
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxCooltime: 0
+    currentCooltime: 0
+    statusType: 0
+    maxStack: 0
+    currentStack: 0
+    onceTimeReduceAmount: 0
     CurrentGainStack: 0
   PlasmaStack:
-    Enemy: {fileID: 0}
-    BuffIconUI: {fileID: 0}
-    IconSprite: {fileID: 0}
-    IsOn: 0
-    MaxStack: 0
-    CurrentStack: 0
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxStack: 0
+    currentStack: 0
   CorrosionStack:
-    Enemy: {fileID: 0}
-    BuffIconUI: {fileID: 0}
-    IconSprite: {fileID: 0}
-    IsOn: 0
-    MaxCooltime: 0
-    CurrentCooltime: 0
-    StatusType: 0
-    MaxStack: 0
-    CurrentStack: 0
-    OnceTimeReduceAmount: 0
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxCooltime: 0
+    currentCooltime: 0
+    statusType: 0
+    maxStack: 0
+    currentStack: 0
+    onceTimeReduceAmount: 0
     CurrentGainStack: 0
   DecayStack:
-    Enemy: {fileID: 0}
-    BuffIconUI: {fileID: 0}
-    IconSprite: {fileID: 0}
-    IsOn: 0
-    MaxStack: 0
-    CurrentStack: 0
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxStack: 0
+    currentStack: 0
   Enemy: {fileID: 0}
 --- !u!50 &7671391899007426867
 Rigidbody2D:
@@ -413,19 +413,19 @@ MonoBehaviour:
   IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisAS:
-    OwnerData:
-      Owner: 2
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 20
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 1
-      KBPower: 1.7
-      KBTime: 1
+    ownerData:
+      owner: 2
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 20
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 1
+      kbPower: 1.7
+      kbTime: 1
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   JugeAndTweenTime: 0.75
   AnimSpeed: 1.733333
@@ -545,19 +545,19 @@ MonoBehaviour:
   IsSpecialEndPattern: 1
   IsPlaying: 0
   ThisAS:
-    OwnerData:
-      Owner: 2
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 20
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 1
-      KBPower: 1.7
-      KBTime: 1
+    ownerData:
+      owner: 2
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 20
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 1
+      kbPower: 1.7
+      kbTime: 1
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   JugeAndTweenTime: 0.75
   AnimSpeed: 1.733333
@@ -628,19 +628,19 @@ MonoBehaviour:
   IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisAS:
-    OwnerData:
-      Owner: 2
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 15
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 1
-      KBPower: 1.5
-      KBTime: 1
+    ownerData:
+      owner: 2
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 15
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 1
+      kbPower: 1.5
+      kbTime: 1
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   JugeAndTweenTime: 0.5
   AnimSpeed: 2.6
@@ -718,19 +718,19 @@ MonoBehaviour:
   IsSpecialEndPattern: 1
   IsPlaying: 0
   ThisAS:
-    OwnerData:
-      Owner: 2
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 20
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 1
-      KBPower: 1.7
-      KBTime: 1
+    ownerData:
+      owner: 2
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 20
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 1
+      kbPower: 1.7
+      kbTime: 1
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   JugeAndTweenTime: 0.75
   AnimSpeed: 1.733333
@@ -2159,19 +2159,19 @@ MonoBehaviour:
   IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisAS:
-    OwnerData:
-      Owner: 2
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 15
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 1
-      KBPower: 1.5
-      KBTime: 1
+    ownerData:
+      owner: 2
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 15
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 1
+      kbPower: 1.5
+      kbTime: 1
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   JugeAndTweenTime: 0.65
   AnimSpeed: 2
@@ -2492,19 +2492,19 @@ MonoBehaviour:
   IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisAS:
-    OwnerData:
-      Owner: 2
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 15
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 1
-      KBPower: 1.5
-      KBTime: 1
+    ownerData:
+      owner: 2
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 15
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 1
+      kbPower: 1.5
+      kbTime: 1
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   JugeAndTweenTime: 0.65
   AnimSpeed: 2
@@ -8173,19 +8173,19 @@ MonoBehaviour:
   IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisAS:
-    OwnerData:
-      Owner: 2
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 15
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 1
-      KBPower: 1.5
-      KBTime: 1
+    ownerData:
+      owner: 2
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 15
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 1
+      kbPower: 1.5
+      kbTime: 1
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   JugeAndTweenTime: 0.5
   AnimSpeed: 2.6
@@ -9173,19 +9173,19 @@ MonoBehaviour:
   IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisAS:
-    OwnerData:
-      Owner: 2
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 20
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 1
-      KBPower: 1.7
-      KBTime: 1
+    ownerData:
+      owner: 2
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 20
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 1
+      kbPower: 1.7
+      kbTime: 1
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   JugeAndTweenTime: 0.65
   AnimSpeed: 2
@@ -9976,19 +9976,19 @@ MonoBehaviour:
   IsSpecialEndPattern: 0
   IsPlaying: 0
   ThisAS:
-    OwnerData:
-      Owner: 2
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 15
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 1
-      KBPower: 1.5
-      KBTime: 1
+    ownerData:
+      owner: 2
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 15
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 1
+      kbPower: 1.5
+      kbTime: 1
   ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
   JugeAndTweenTime: 0.65
   AnimSpeed: 2

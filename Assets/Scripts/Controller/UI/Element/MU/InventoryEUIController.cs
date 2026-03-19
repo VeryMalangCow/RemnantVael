@@ -111,11 +111,11 @@ public class InventoryEUIController : ElementUIController
         {
             for (int j = 0; j < _AllModuleData[i].Count; j++)
             {
-                ModuleState ms = _AllModuleData[i][j].MS;
+                ModuleState ms = _AllModuleData[i][j].state;
 
                 Set_InventoryItem(ms, AllItem[i][j]);
 
-                if (_AllModuleData[i][j].IsEquipped)
+                if (_AllModuleData[i][j].isEquipped)
                 {
                     AllItem[i][j].ThisSlot.Set_EquipedTxt(true, "#"); 
                     AllItem[i][j].Set_EquipedImg(true);
@@ -143,8 +143,8 @@ public class InventoryEUIController : ElementUIController
             _ItemEUI.gameObject.SetActive(true);
 
             _ItemEUI.Set_Data(new ItemData_UIVisual(
-                _MS.ThisItemData.ItemIcon,
-                _MS.ThisItemData.Rank));
+                _MS.thisItemData.itemIcon,
+                _MS.thisItemData.rank));
         }
         else
         {
@@ -161,8 +161,8 @@ public class InventoryEUIController : ElementUIController
 
         for (int i = 0; i < _EquipedIndex.Length; i++)
         {
-            int targetCol = _EquipedIndex[i].TypeBase;
-            int targetRow = _EquipedIndex[i].TypeSpecial;
+            int targetCol = _EquipedIndex[i].typeBase;
+            int targetRow = _EquipedIndex[i].typeSpecial;
 
             if (targetCol != -1 && targetRow != -1)
             {
@@ -191,7 +191,7 @@ public class InventoryEUIController : ElementUIController
 
     public void Set_InventoryForgeSelectedUI(CoupleData<int> _SelectedIndex, bool _IsOn, int _Index = -1)
     {
-        AllItem[_SelectedIndex.TypeBase][_SelectedIndex.TypeSpecial]
+        AllItem[_SelectedIndex.typeBase][_SelectedIndex.typeSpecial]
             .ThisSlot.Set_ForgeSelectedTxt(_IsOn, _Index);
     }
 

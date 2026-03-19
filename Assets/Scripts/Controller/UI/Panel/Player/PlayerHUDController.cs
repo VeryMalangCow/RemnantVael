@@ -280,14 +280,14 @@ public class PlayerHUDController : UIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.MaxEP.ActualState
+        PlayerManager.instance.playerController.MaxEP.actualState
             .Subscribe(_MaxEP =>
             {
                 EP.Set_MaxFillRT(_MaxEP * 3);
 
                 EP.Set_FillImgSmooth(
                     PlayerManager.instance.playerController.Get_CurrentEP().Value,
-                    PlayerManager.instance.playerController.MaxEP.ActualState.Value);
+                    PlayerManager.instance.playerController.MaxEP.actualState.Value);
             })
             .AddTo(gameObject);
 
@@ -296,7 +296,7 @@ public class PlayerHUDController : UIController
             {
                 EP.Set_FillImgSmooth(
                     PlayerManager.instance.playerController.Get_CurrentEP().Value,
-                    PlayerManager.instance.playerController.MaxEP.ActualState.Value);
+                    PlayerManager.instance.playerController.MaxEP.actualState.Value);
             })
             .AddTo(gameObject);
 
@@ -408,7 +408,7 @@ public class PlayerHUDController : UIController
             .SetLoops(-1, LoopType.Restart);
 
         // 스킬 이미지
-        for (int i = 0; i < DevTool.SkillAmount; i++)
+        for (int i = 0; i < DevTool.skillAmount; i++)
         {
             SkillImgList.Add(DevTool.Get_ComponentTType<Image>(SkillList[i].gameObject));
             SkillImgList[i].sprite = PlayerManager.instance.playerController.SkillWeapon.SkillList[i].ThisIcon;
@@ -479,7 +479,7 @@ public class PlayerHUDController : UIController
 
         PlayerStatesTxt.text = Get_PlayerStateTxt(player, weapon);
 
-        for (int i = 0; i < DevTool.SkillAmount; i++)
+        for (int i = 0; i < DevTool.skillAmount; i++)
             SkillStatesTxtList[i].text = Get_SkillStateTxt(skill.SkillList[i]);
     }
 
@@ -926,7 +926,7 @@ public class PlayerHUDController : UIController
         result.AddRange(DevTool.Get_ComponentTTypeList<Image>(BoostLightWheelArr.ToList()));
 
         // 스킬
-        for (int i = 0; i < DevTool.SkillAmount; i++)
+        for (int i = 0; i < DevTool.skillAmount; i++)
         {
             result.Add(SkillList[i].SkillCostTxt);
             result.Add(SkillList[i].SkillErrorTxt);
@@ -961,7 +961,7 @@ public class PlayerHUDController : UIController
         SubColorCompList.AddRange(BoostInnerList);
 
         // 스킬
-        for (int i = 0; i < DevTool.SkillAmount; i++)
+        for (int i = 0; i < DevTool.skillAmount; i++)
             SubColorCompList.Add(SkillList[i].SkillInnerImg);
 
         // Ally
@@ -981,15 +981,15 @@ public class PlayerHUDController : UIController
     {
         return new List<string>()
         {
-            _Player.MaxEP.ActualState.Value.ToString(),
-            _Player.WalkSpeed.ActualState.Value.ToString(),
-            _Player.DashController.DashSpeed.ActualState.Value.ToString(),
+            _Player.MaxEP.actualState.Value.ToString(),
+            _Player.WalkSpeed.actualState.Value.ToString(),
+            _Player.DashController.DashSpeed.actualState.Value.ToString(),
             _Player.DashController.Get_ActualNeedEP().ToString(),
-            _Weapon.BaseDamage.ActualState.Value.ToString(),
-            _Weapon.ROF.ActualState.Value.ToString(),
-            _Weapon.AccuracyRate.ActualState.Value.ToString(),
-            _Weapon.CC.ActualState.Value.ToString(),
-            _Weapon.CD.ActualState.Value.ToString()
+            _Weapon.BaseDamage.actualState.Value.ToString(),
+            _Weapon.ROF.actualState.Value.ToString(),
+            _Weapon.AccuracyRate.actualState.Value.ToString(),
+            _Weapon.CC.actualState.Value.ToString(),
+            _Weapon.CD.actualState.Value.ToString()
         };
     }
 
@@ -1012,8 +1012,8 @@ public class PlayerHUDController : UIController
     {
         return new List<string>()
         {
-            _Skill.Tier.ActualState.Value.ToString(),
-            _Skill.Power.ActualState.Value.ToString()
+            _Skill.Tier.actualState.Value.ToString(),
+            _Skill.Power.actualState.Value.ToString()
         };
     }
 

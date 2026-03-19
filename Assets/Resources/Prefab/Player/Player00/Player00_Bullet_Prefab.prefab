@@ -53,24 +53,24 @@ MonoBehaviour:
   TargetRange: 0.35
   PoolingString: PlayerBullet
   State:
-    OwnerData:
-      Owner: 0
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 0
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 0
-      KBPower: 0
-      KBTime: 0
-    IsCritical: 0
-    MuzzleSpeed: 0
-    AliveTime: 0
-    IsStatus: 0
-    StatusType: 0
+    ownerData:
+      owner: 0
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 0
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 0
+      kbPower: 0
+      kbTime: 0
+    isCritical: 0
+    muzzleSpeed: 0
+    aliveTime: 0
+    isStatus: 0
+    statusType: 0
   ThisRb: {fileID: 3702076010934528879}
   ThisTrail: {fileID: 8176679141488036218}
   ThisLight: {fileID: 2770510367945369568}
@@ -86,11 +86,11 @@ MonoBehaviour:
   TrailIsApplyPlayerState: 1
   BulletSprite:
     Physics:
-      TypeBase: {fileID: 1440707567, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-      TypeSpecial: {fileID: 1012499291, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+      typeBase: {fileID: 1440707567, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+      typeSpecial: {fileID: 1012499291, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
     Energy:
-      TypeBase: {fileID: -1214566993, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-      TypeSpecial: {fileID: 1140579091, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+      typeBase: {fileID: -1214566993, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+      typeSpecial: {fileID: 1140579091, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   Intensity: 5
   TrailTime: 0.4
   TrailStartWidth: 0.09

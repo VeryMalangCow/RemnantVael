@@ -57,7 +57,7 @@ public class BuffElectricityController : BuffController, IWhen_GetElectricity
         { value += constPoint; }
 
         if (maxHpPercent != 0)
-        { value += DevTool.Get_Percent(maxHpPercent, PlayerManager.instance.playerController.MaxEP.ActualState.Value); }
+        { value += DevTool.Get_Percent(maxHpPercent, PlayerManager.instance.playerController.MaxEP.actualState.Value); }
 
         value *= (AllyManager.instance.allAlly.Count + 1);
 

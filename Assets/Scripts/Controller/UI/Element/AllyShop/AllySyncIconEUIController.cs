@@ -51,7 +51,7 @@ public class AllySyncIconEUIController : ElementUIController
 
         MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(_ID);
         
-        ThisIconImg.sprite = MDC.ThisIcon;
+        ThisIconImg.sprite = MDC.thisIcon;
         ProgressImg.sprite = MainGameUIManager.instance.allyModuleUpgrade_UIController.Get_SyncProgressSprite(_Amount);
         ProgressTxt.text = _Amount.ToString();
         float progressing = (float)_Amount / AllyController.SyncMax;

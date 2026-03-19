@@ -244,7 +244,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     {
         if (CurrentBtn is AllySynergySlotEUIController eui)
         {
-            if (!PickedModule.IsEquipped)
+            if (!PickedModule.isEquipped)
             {
                 // 사운드
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
@@ -646,7 +646,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     {
         // 데이터
         PlayerManager.instance.playerController.CurrentChargedBettery.Value -= NeedChargedBettery;
-        ModuleItemManager.instance.Remove_ModuleState(Get_CorrectMS(PickedItemEUI.ThisSlot).OriginalIndex);
+        ModuleItemManager.instance.Remove_ModuleState(Get_CorrectMS(PickedItemEUI.ThisSlot).originalIndex);
 
         CurrentPickedAlly.Add_Sync(Get_PickedSyncList());
 
@@ -709,12 +709,12 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         // 존재하는 모듈 중, 장착 중인 모듈
         List<CopyModuleState> equippedMsList = 
             ModuleItemManager.instance.Get_EquippedModuleState()
-            .OrderByDescending(obj => obj.MS.ThisItemData.Rank).ToList();
+            .OrderByDescending(obj => obj.state.thisItemData.rank).ToList();
 
         // 존재하는 모듈 중, 장착 중이지 않은 모듈
         List<CopyModuleState> unEquippedMsList = 
             ModuleItemManager.instance.Get_ExistModuleState(equippedMsList)
-            .OrderByDescending(obj => obj.MS.ThisItemData.Rank).ToList();
+            .OrderByDescending(obj => obj.state.thisItemData.rank).ToList();
 
         Set_CopyAllyShopMSInventory(unEquippedMsList, equippedMsList);
         Set_Picked(null);
@@ -778,7 +778,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
             PickedItemEUI = _ItemEUI; // 아이템 EUI
             PickedModule = Get_CorrectMS(PickedItemEUI.ThisSlot); // MS
-            PickedModuleMainChipID = ModuleItemManager.instance.Get_MainChipIDData(PickedModule.MS); // MainChip
+            PickedModuleMainChipID = ModuleItemManager.instance.Get_MainChipIDData(PickedModule.state); // MainChip
 
             Set_PickedInventoryUI(); // Inventory UI
             Set_PickedModuleUI(); // Module UI
@@ -794,18 +794,18 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private void Set_PickedModuleUI()
     {
-        string name = $"[ {PickedModule.MS.ThisItemData.Name} ]";
-        if (PickedModule.IsEquipped) name += $" <size=75%><color=#7F7F7F>({ResourceManager.instance.Get_StaticWord(112)})</size></color>";
+        string name = $"[ {PickedModule.state.thisItemData.name} ]";
+        if (PickedModule.isEquipped) name += $" <size=75%><color=#7F7F7F>({ResourceManager.instance.Get_StaticWord(112)})</size></color>";
         PickedPanelItemNameTxt.text = name;
-        PickedPanelItemRankTxt.text = $"<size=70%>(R: {PickedModule.MS.ThisItemData.Rank})</size>";
-        PickedPanelItemRankTxt.color = ResourceManager.instance.Get_AllyCardColor(PickedModule.MS.ThisItemData.Rank - 1);
-        PickedPanelSlotEUI.Set_EquipedTxt_NoneNum(PickedModule.IsEquipped);
+        PickedPanelItemRankTxt.text = $"<size=70%>(R: {PickedModule.state.thisItemData.rank})</size>";
+        PickedPanelItemRankTxt.color = ResourceManager.instance.Get_AllyCardColor(PickedModule.state.thisItemData.rank - 1);
+        PickedPanelSlotEUI.Set_EquipedTxt_NoneNum(PickedModule.isEquipped);
         
         PickedPanelSlotEUI.ThisItem.Set_Data(new ItemData_UIVisual(
-            PickedModule.MS.ThisItemData.ItemIcon,
-            PickedModule.MS.ThisItemData.Rank));
+            PickedModule.state.thisItemData.itemIcon,
+            PickedModule.state.thisItemData.rank));
 
-        PickedPanelItemLockImg.gameObject.SetActive(PickedModule.IsEquipped);
+        PickedPanelItemLockImg.gameObject.SetActive(PickedModule.isEquipped);
     }
 
     private void Set_PickedSynergyUI()
@@ -813,10 +813,10 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         for (int i = 0; i < PickedPanelSynergyEUIList.Count; i++)
         {
             MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(PickedModuleMainChipID[i]);
-            PickedPanelSynergyEUIList[i].Set_SynergySlot(MDC.ID, MDC.ThisIcon, ResourceManager.instance.Get_MainChipBaseDesc(MDC.ID));
-            PickedPanelSynergyEUIList[i].Set_PlayerSynergyTxt(ModuleItemManager.instance.Get_MainChipAmount(MDC.ID));
+            PickedPanelSynergyEUIList[i].Set_SynergySlot(MDC.id, MDC.thisIcon, ResourceManager.instance.Get_MainChipBaseDesc(MDC.id));
+            PickedPanelSynergyEUIList[i].Set_PlayerSynergyTxt(ModuleItemManager.instance.Get_MainChipAmount(MDC.id));
             PickedPanelSynergyEUIList[i].Set_Select(false);
-            PickedPanelSynergyEUIList[i].Set_Lock(PickedModule.IsEquipped);
+            PickedPanelSynergyEUIList[i].Set_Lock(PickedModule.isEquipped);
         }
     }
 
@@ -888,7 +888,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
             foreach (KeyValuePair<int, int> sync in playerSync)
             {
                 MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(sync.Key);
-                PlayerSyncSlotEUIList[orderIndex].SetOn_SynergySlot(sync.Key, MDC.ThisIcon, sync.Value);
+                PlayerSyncSlotEUIList[orderIndex].SetOn_SynergySlot(sync.Key, MDC.thisIcon, sync.Value);
                 orderIndex++;
             }
         }   
@@ -916,7 +916,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         PlayerSynergyDescImg.gameObject.SetActive(true);
 
-        PlayerSynergyDescImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_ID).ThisIcon;
+        PlayerSynergyDescImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_ID).thisIcon;
         PlayerSynergyDescTxt.text = ResourceManager.instance.Get_MainChipBaseDesc(_ID);
     }
 

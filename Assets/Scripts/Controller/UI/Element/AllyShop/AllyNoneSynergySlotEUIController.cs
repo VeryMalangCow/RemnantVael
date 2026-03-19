@@ -70,7 +70,7 @@ public class AllyNoneSynergySlotEUIController : OwnBtnEUIController
         this.gameObject.SetActive(true);
 
         ID = _ID;
-        ThisImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_ID).ThisIcon;
+        ThisImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_ID).thisIcon;
     }
 
     #endregion

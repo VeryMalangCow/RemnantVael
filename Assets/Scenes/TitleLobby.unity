@@ -997,8 +997,8 @@ MonoBehaviour:
   thisExtraBgmAudioSource: {fileID: 1046942486}
   thisSfxASQueueSet:
     ThisParentTF: {fileID: 2011945290}
-  BVolume: 0.5
-  SVolume: 0.5
+  bgmVolume: 0.5
+  sfxVolume: 0.5
 --- !u!4 &203924968
 Transform:
   m_ObjectHideFlags: 0

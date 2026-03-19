@@ -125,7 +125,7 @@ public abstract class EnemyController : NavObjectController
                     HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
                     HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
 
-                    if (BuffController.ShieldBuff.IsOn)
+                    if (BuffController.ShieldBuff.isOn)
                     { BuffController.ShieldBuff.Remove_AllStack(); }
 
                 }
@@ -350,24 +350,24 @@ public abstract class EnemyController : NavObjectController
         // Damage
         Take_Damaged(
             state, 
-            state.IsCritical, 
+            state.isCritical, 
             DevTool.Get_DirFromAngle(_Bullet.transform.eulerAngles.z));
 
-        if (state.IsStatus)
+        if (state.isStatus)
         {
-            switch (state.StatusType)
+            switch (state.statusType)
             {
                 case eStatusEffect.Flame:
-                    BuffController.FlameStack.Gain_Stack(1, true, state.OwnerData);
+                    BuffController.FlameStack.Gain_Stack(1, true, state.ownerData);
                     break;
                 case eStatusEffect.Cold:
-                    BuffController.ColdStack.Gain_Stack(1, true, state.OwnerData);
+                    BuffController.ColdStack.Gain_Stack(1, true, state.ownerData);
                     break;
                 case eStatusEffect.Electricity:
-                    BuffController.ElectricityStack.Gain_Stack(1, true, state.OwnerData);
+                    BuffController.ElectricityStack.Gain_Stack(1, true, state.ownerData);
                     break;
                 case eStatusEffect.Corrosion:
-                    BuffController.CorrosionStack.Gain_Stack(1, true, state.OwnerData);
+                    BuffController.CorrosionStack.Gain_Stack(1, true, state.ownerData);
                     break;
             }
         }
@@ -384,7 +384,7 @@ public abstract class EnemyController : NavObjectController
         // Damage
         Take_Damaged(
             state,
-            DevTool.Is_ChanceSuccess(state.CriticalState.CC),
+            DevTool.Is_ChanceSuccess(state.criticalState.criticalChance),
             DevTool.Get_Dir(_Attacker.gameObject, this.gameObject));
     }
 
@@ -399,13 +399,13 @@ public abstract class EnemyController : NavObjectController
         // Damage
         Take_Damaged(
             state,
-            DevTool.Is_ChanceSuccess(state.CriticalState.CC),
+            DevTool.Is_ChanceSuccess(state.criticalState.criticalChance),
             DevTool.Get_Dir(_Explosion.gameObject, this.gameObject));
 
-        Try_GainStack(state.IsFire, BuffController.FlameStack, state.OwnerData);
-        Try_GainStack(state.IsCold, BuffController.ColdStack, state.OwnerData);
-        Try_GainStack(state.IsElectricity, BuffController.ElectricityStack, state.OwnerData);
-        Try_GainStack(state.IsCorrosion, BuffController.CorrosionStack, state.OwnerData);
+        Try_GainStack(state.isFire, BuffController.FlameStack, state.ownerData);
+        Try_GainStack(state.isCold, BuffController.ColdStack, state.ownerData);
+        Try_GainStack(state.isElectricity, BuffController.ElectricityStack, state.ownerData);
+        Try_GainStack(state.isCorrosion, BuffController.CorrosionStack, state.ownerData);
     }
 
     private void Try_GainStack(bool _Is, StatusEffect_Temporary_WithAmount _TargetDebuff, CombatOwner _CombatOwner)
@@ -420,44 +420,44 @@ public abstract class EnemyController : NavObjectController
     // 데미지, 넉백, 크리티컬, 모듈 호과 등
     private void Take_Damaged(CombatState _State, bool _IsCritical, Vector2 _DirKB)
     {
-        float actualDmg = _State.DmgState.Dmg;
+        float actualDmg = _State.dmgState.dmg;
 
         // INTERFACE: 맞을 때 효과 
-        if (_State.OwnerData.Owner == eCombatOwner.Player)
+        if (_State.ownerData.owner == eCombatOwner.Player)
         {
             ModuleItemManager.instance.Active_Hit(this);
             ModuleItemManager.instance.ActiveSync_Hit();
         }
-        else if (_State.OwnerData.Owner == eCombatOwner.Ally)
+        else if (_State.ownerData.owner == eCombatOwner.Ally)
         {
-            AllyManager.instance.allAlly[_State.OwnerData.ID].ActiveAlly_Hit();
+            AllyManager.instance.allAlly[_State.ownerData.id].ActiveAlly_Hit();
         }
 
         // KB
-        if (_State.KnockbackState.CanKB)
+        if (_State.knockbackState.canKB)
         {
-            Gain_Knockback(new CurrentKnockbackState(_DirKB, _State.KnockbackState.KBPower, _State.KnockbackState.KBTime));
+            Gain_Knockback(new CurrentKnockbackState(_DirKB, _State.knockbackState.kbPower, _State.knockbackState.kbTime));
         }
         // 치명타 계산
         if (_IsCritical)
         {
-            actualDmg *= _State.CriticalState.CD;
+            actualDmg *= _State.criticalState.criticalDmg;
 
             // INTERFACE: 치명타를 맞을 때 효과 
-            if (_State.OwnerData.Owner == eCombatOwner.Player)
+            if (_State.ownerData.owner == eCombatOwner.Player)
             {
                 ModuleItemManager.instance.Active_CriticalHit(this);
                 ModuleItemManager.instance.ActiveSync_CriticalHit();
             }
-            else if (_State.OwnerData.Owner == eCombatOwner.Ally)
+            else if (_State.ownerData.owner == eCombatOwner.Ally)
             {
-                AllyManager.instance.allAlly[_State.OwnerData.ID].ActiveAlly_CriticalHit();
+                AllyManager.instance.allAlly[_State.ownerData.id].ActiveAlly_CriticalHit();
             }
         }
 
         // 데미지 구현 (Dmg: 적의 부식 디버프 계산)
         Take_Damage(DevTool.Get_DmgEffectByCorrosion(actualDmg, BuffController),
-            _State.DmgState.DmgType,
+            _State.dmgState.dmgType,
             _IsCritical);
 
         // 사운드
@@ -560,16 +560,16 @@ public abstract class EnemyController : NavObjectController
     {
         EnemyDropItemPercent genP = EnemyDropItemPercent;
         Gen_BS(Random.Range(
-            genP.BSAmountMinMax.TypeBase, genP.BSAmountMinMax.TypeSpecial)); // 베터리 조각
+            genP.BSAmountMinMax.typeBase, genP.BSAmountMinMax.typeSpecial)); // 베터리 조각
         Gen_MS(Random.Range(
-            genP.MSAmountMinMax.TypeBase, genP.MSAmountMinMax.TypeSpecial)); // 모듈 조각
+            genP.MSAmountMinMax.typeBase, genP.MSAmountMinMax.typeSpecial)); // 모듈 조각
         Gen_Credit(Random.Range(
-            genP.CreditAmountMinMax.TypeBase, genP.CreditAmountMinMax.TypeSpecial)); // 크레딧
+            genP.CreditAmountMinMax.typeBase, genP.CreditAmountMinMax.typeSpecial)); // 크레딧
         Gen_Overrider(Random.Range(
-            genP.OverriderAmountMinMax.TypeBase, genP.OverriderAmountMinMax.TypeSpecial)); // 오버라이더
+            genP.OverriderAmountMinMax.typeBase, genP.OverriderAmountMinMax.typeSpecial)); // 오버라이더
         Gen_J(Random.Range(
-            genP.JouleAmountMinMax.TypeBase, genP.JouleAmountMinMax.TypeSpecial)
-            * PlayerManager.instance.playerController.SpawnESMultiple.ActualState.Value); // 줄
+            genP.JouleAmountMinMax.typeBase, genP.JouleAmountMinMax.typeSpecial)
+            * PlayerManager.instance.playerController.SpawnESMultiple.actualState.Value); // 줄
         
         // Drop Module Item
         if (DevTool.Is_ChanceSuccess(genP.ModuleDropPercent))
@@ -645,7 +645,7 @@ public abstract class EnemyController : NavObjectController
 
     protected void Start_PatternFromNone()
     {
-        OrderOfPriorityEnemyPatternList[OrderOfPriorityEnemyPatternList.Count - 1].EnemyPatternList[0].EnemyPatternList[0].Start_Pattern();
+        OrderOfPriorityEnemyPatternList[OrderOfPriorityEnemyPatternList.Count - 1].enemyPatternList[0].enemyPatternList[0].Start_Pattern();
     }
 
     private int Get_NextPatternIndex()
@@ -654,10 +654,10 @@ public abstract class EnemyController : NavObjectController
         if (CurrentEnemyPattern != null)
         {
             // 패턴의 순서 값을 저장해 활용
-            orderOfPattern = CurrentContinuousEnemyPattern.EnemyPatternList.IndexOf(CurrentEnemyPattern);
+            orderOfPattern = CurrentContinuousEnemyPattern.enemyPatternList.IndexOf(CurrentEnemyPattern);
 
             // 마지막 패턴 이었다면 (끝내기)
-            if (orderOfPattern == CurrentContinuousEnemyPattern.EnemyPatternList.Count - 1)
+            if (orderOfPattern == CurrentContinuousEnemyPattern.enemyPatternList.Count - 1)
             {
                 CurrentEnemyPattern = null;
                 CurrentContinuousEnemyPattern = null;
@@ -691,15 +691,15 @@ public abstract class EnemyController : NavObjectController
         for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
         {
             // 같은 우선도에 있는 패턴 랜덤으로 섞기
-            List<ContinuousEnemyPattern> patternList = DevTool.Get_ShuffledList(OrderOfPriorityEnemyPatternList[i].EnemyPatternList);
+            List<ContinuousEnemyPattern> patternList = DevTool.Get_ShuffledList(OrderOfPriorityEnemyPatternList[i].enemyPatternList);
 
             // 만약 사용 가능한 패턴이 있다면 시작
             for (int j = 0; j < patternList.Count; j++)
             {
-                if (patternList[j].EnemyPatternList[0].Can_PlayPattern())
+                if (patternList[j].enemyPatternList[0].Can_PlayPattern())
                 {
                     CurrentContinuousEnemyPattern = patternList[j];
-                    CurrentEnemyPattern = patternList[j].EnemyPatternList[0];
+                    CurrentEnemyPattern = patternList[j].enemyPatternList[0];
                     CurrentEnemyPattern.Start_Pattern();
 
                     return;
@@ -710,7 +710,7 @@ public abstract class EnemyController : NavObjectController
 
     private void Play_NextPattern(int _OrderOfPattern)
     {
-        CurrentEnemyPattern = CurrentContinuousEnemyPattern.EnemyPatternList[_OrderOfPattern + 1];
+        CurrentEnemyPattern = CurrentContinuousEnemyPattern.enemyPatternList[_OrderOfPattern + 1];
         CurrentEnemyPattern.Start_Pattern();
     }
 
@@ -720,7 +720,7 @@ public abstract class EnemyController : NavObjectController
         {
             IsPlayingSpecialPattern = true;
             CurrentContinuousEnemyPattern = SpecialPattern;
-            CurrentEnemyPattern = SpecialPattern.EnemyPatternList[0];
+            CurrentEnemyPattern = SpecialPattern.enemyPatternList[0];
             CurrentEnemyPattern.Start_Pattern();
 
             return true;

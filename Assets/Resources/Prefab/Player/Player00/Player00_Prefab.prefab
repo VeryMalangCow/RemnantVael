@@ -980,81 +980,81 @@ MonoBehaviour:
   IsInputed: 0
   IsShooting: 0
   BaseDamage:
-    BaseState: 10
-    UpgradeValueByLevelRange:
+    baseState: 10
+    upgradeValueByLevelRange:
     - 1
     - 2
     - 3.5
     - 10
-    ActualState:
+    actualState:
       value: 10
-    CurrentLevel:
+    currentLevel:
       value: 0
   MuzzleSpeed:
-    BaseState: 2
-    UpgradeValueByLevelRange:
+    baseState: 2
+    upgradeValueByLevelRange:
     - 0.2
     - 0.4
     - 0.7
     - 2
-    ActualState:
+    actualState:
       value: 2
-    CurrentLevel:
+    currentLevel:
       value: 0
   ROF:
-    BaseState: 5
-    UpgradeValueByLevelRange:
+    baseState: 5
+    upgradeValueByLevelRange:
     - 0.25
     - 0.6
     - 1.2
     - 2
-    ActualState:
+    actualState:
       value: 5
-    CurrentLevel:
+    currentLevel:
       value: 0
   CC:
-    BaseState: 0.1
-    UpgradeValueByLevelRange:
+    baseState: 0.1
+    upgradeValueByLevelRange:
     - 0.01
     - 0.025
     - 0.04
     - 0.075
-    ActualState:
+    actualState:
       value: 0.1
-    CurrentLevel:
+    currentLevel:
       value: 0
   CD:
-    BaseState: 1.5
-    UpgradeValueByLevelRange:
+    baseState: 1.5
+    upgradeValueByLevelRange:
     - 0.1
     - 0.15
     - 0.2
     - 0.35
-    ActualState:
+    actualState:
       value: 1.5
-    CurrentLevel:
+    currentLevel:
       value: 0
   AccuracyRate:
-    BaseState: 87
-    UpgradeValueByLevelRange:
+    baseState: 87
+    upgradeValueByLevelRange:
     - 0.5
     - 1
     - 1.75
     - 3.25
-    ActualState:
+    actualState:
       value: 87
-    CurrentLevel:
+    currentLevel:
       value: 0
   KnockbackPower:
-    BaseState: 5
-    UpgradeValueByLevelRange:
+    baseState: 5
+    upgradeValueByLevelRange:
     - 0.5
     - 1
     - 1.5
     - 2
-    ActualState:
+    actualState:
       value: 5
-    CurrentLevel:
+    currentLevel:
       value: 0
   BulletSpawnTFList:
   - {fileID: 4586805314071208296}
@@ -1554,22 +1554,22 @@ MonoBehaviour:
   CurrentEP:
     value: 100
   BrokenParticleData:
-  - Sprite: {fileID: 498605500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    ShadowSize: {x: 0.4, y: 0.2}
-  - Sprite: {fileID: 1353051295, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
-    ShadowSize: {x: 0.5, y: 0.25}
-  - Sprite: {fileID: -1437216109, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
-    ShadowSize: {x: 0.5, y: 0.25}
-  - Sprite: {fileID: 1243472912, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    ShadowSize: {x: 0.3, y: 0.15}
-  - Sprite: {fileID: -885338135, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    ShadowSize: {x: 0.3, y: 0.15}
-  - Sprite: {fileID: 1450471267, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    ShadowSize: {x: 0.3, y: 0.15}
-  - Sprite: {fileID: 308885252, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    ShadowSize: {x: 0.3, y: 0.15}
-  - Sprite: {fileID: -147571887, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    ShadowSize: {x: 0.3, y: 0.15}
+  - sprite: {fileID: 498605500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    shadowSize: {x: 0.4, y: 0.2}
+  - sprite: {fileID: 1353051295, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
+    shadowSize: {x: 0.5, y: 0.25}
+  - sprite: {fileID: -1437216109, guid: 8842190fbddc71542b11b0f9fa402941, type: 3}
+    shadowSize: {x: 0.5, y: 0.25}
+  - sprite: {fileID: 1243472912, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    shadowSize: {x: 0.3, y: 0.15}
+  - sprite: {fileID: -885338135, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    shadowSize: {x: 0.3, y: 0.15}
+  - sprite: {fileID: 1450471267, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    shadowSize: {x: 0.3, y: 0.15}
+  - sprite: {fileID: 308885252, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    shadowSize: {x: 0.3, y: 0.15}
+  - sprite: {fileID: -147571887, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    shadowSize: {x: 0.3, y: 0.15}
   ParticleThrowDis: 1
   NameID: 0
   BaseWeapon: {fileID: 1781130902238718875}
@@ -1578,81 +1578,81 @@ MonoBehaviour:
   LowerController: {fileID: 6070200958351899230}
   AfterImgGenerator: {fileID: 4030414932115461039}
   AvoidChance:
-    BaseState: 0.01
-    UpgradeValueByLevelRange:
+    baseState: 0.01
+    upgradeValueByLevelRange:
     - 0.01
     - 0.02
     - 0.035
     - 0.06
-    ActualState:
+    actualState:
       value: 0.01
-    CurrentLevel:
+    currentLevel:
       value: 0
   MaxEP:
-    BaseState: 100
-    UpgradeValueByLevelRange:
+    baseState: 100
+    upgradeValueByLevelRange:
     - 10
     - 20
     - 35
     - 100
-    ActualState:
+    actualState:
       value: 100
-    CurrentLevel:
+    currentLevel:
       value: 0
   TakingDmgMultiple:
-    BaseState: 1
-    UpgradeValueByLevelRange:
+    baseState: 1
+    upgradeValueByLevelRange:
     - -0.025
     - -0.035
     - -0.05
     - -0.07
-    ActualState:
+    actualState:
       value: 1
-    CurrentLevel:
+    currentLevel:
       value: 0
   SpawnESMultiple:
-    BaseState: 1
-    UpgradeValueByLevelRange:
+    baseState: 1
+    upgradeValueByLevelRange:
     - 0.1
     - 0.2
     - 0.3
     - 0.5
-    ActualState:
+    actualState:
       value: 1
-    CurrentLevel:
+    currentLevel:
       value: 0
   NeedEP_ForSkillMultiple:
-    BaseState: 1
-    UpgradeValueByLevelRange:
+    baseState: 1
+    upgradeValueByLevelRange:
     - -0.02
     - -0.04
     - -0.06
     - -0.12
-    ActualState:
+    actualState:
       value: 1
-    CurrentLevel:
+    currentLevel:
       value: 0
   WalkSpeed:
-    BaseState: 3
-    UpgradeValueByLevelRange:
+    baseState: 3
+    upgradeValueByLevelRange:
     - 0.15
     - 0.3
     - 0.5
     - 1
-    ActualState:
+    actualState:
       value: 3
-    CurrentLevel:
+    currentLevel:
       value: 0
   WalkSpeedWhenShotMultiple:
-    BaseState: 0.3
-    UpgradeValueByLevelRange:
+    baseState: 0.3
+    upgradeValueByLevelRange:
     - 0.04
     - 0.06
     - 0.09
     - 0.13
-    ActualState:
+    actualState:
       value: 0.3
-    CurrentLevel:
+    currentLevel:
       value: 0
   BodySG: {fileID: 1155340779573617180}
   StateAnim: {fileID: 4725110972112075617}
@@ -1664,11 +1664,11 @@ MonoBehaviour:
   - {fileID: 6021120989462345684}
   - {fileID: 3772518435837473010}
   BoostStateAnimController:
-    TypeBase:
+    typeBase:
     - {fileID: 3464021024779576919}
     - {fileID: 7237453325883749946}
     - {fileID: 8366176329952565880}
-    TypeSpecial:
+    typeSpecial:
     - {fileID: 4101486815332226596}
     - {fileID: 545911533762084861}
   ThisTrail: {fileID: 8207427335888956205}
@@ -1682,14 +1682,14 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 988de495183371b46aa363b5a7f31ca5, type: 2}
   ThisClr:
     Physics:
-      TypeBase: {r: 0.5943396, g: 0.5943396, b: 0.7924528, a: 1}
-      TypeSpecial: {r: 0.3492346, g: 0.3492346, b: 0.6792453, a: 1}
+      typeBase: {r: 0.5943396, g: 0.5943396, b: 0.7924528, a: 1}
+      typeSpecial: {r: 0.3492346, g: 0.3492346, b: 0.6792453, a: 1}
     Energy:
-      TypeBase: {r: 0, g: 1, b: 1, a: 1}
-      TypeSpecial: {r: 0, g: 0.5019608, b: 1, a: 1}
+      typeBase: {r: 0, g: 1, b: 1, a: 1}
+      typeSpecial: {r: 0, g: 0.5019608, b: 1, a: 1}
   ThisGradient:
     Physics:
-      TypeBase:
+      typeBase:
         serializedVersion: 2
         key0: {r: 0.54788184, g: 0.54788184, b: 0.6792453, a: 0.49803922}
         key1: {r: 1, g: 1, b: 1, a: 0}
@@ -1719,7 +1719,7 @@ MonoBehaviour:
         m_ColorSpace: -1
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
-      TypeSpecial:
+      typeSpecial:
         serializedVersion: 2
         key0: {r: 0.2891153, g: 0.2891153, b: 0.6886792, a: 0.49803922}
         key1: {r: 1, g: 1, b: 1, a: 0}
@@ -1750,7 +1750,7 @@ MonoBehaviour:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
     Energy:
-      TypeBase:
+      typeBase:
         serializedVersion: 2
         key0: {r: 0.622241, g: 0.745283, b: 0.745283, a: 0.49803922}
         key1: {r: 1, g: 1, b: 1, a: 0}
@@ -1780,7 +1780,7 @@ MonoBehaviour:
         m_ColorSpace: -1
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
-      TypeSpecial:
+      typeSpecial:
         serializedVersion: 2
         key0: {r: 0.12482201, g: 0.8018868, b: 0.8018868, a: 0.49803922}
         key1: {r: 1, g: 1, b: 1, a: 0}
@@ -1812,24 +1812,24 @@ MonoBehaviour:
         m_NumAlphaKeys: 2
   ThisHittedPointAC:
     Physics:
-      TypeBase: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}
-      TypeSpecial: {fileID: 7400000, guid: c444b0af8205ad84aaec6780cdff8c28, type: 2}
+      typeBase: {fileID: 7400000, guid: dd52f1c59efc047419178eef9e6c99f5, type: 2}
+      typeSpecial: {fileID: 7400000, guid: c444b0af8205ad84aaec6780cdff8c28, type: 2}
     Energy:
-      TypeBase: {fileID: 7400000, guid: 14a17a53a351ea74f83652b015ad07a9, type: 2}
-      TypeSpecial: {fileID: 7400000, guid: 79dbdb9046b5858459e7942dc65f03d1, type: 2}
+      typeBase: {fileID: 7400000, guid: 14a17a53a351ea74f83652b015ad07a9, type: 2}
+      typeSpecial: {fileID: 7400000, guid: 79dbdb9046b5858459e7942dc65f03d1, type: 2}
   DmgTypeStateAC:
-    TypeA: {fileID: 7400000, guid: d6d70feace8ae884e8bafef96f8f1998, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: 5c582a8653727cb4cb65f17a80b10bd7, type: 2}
-    TypeB: {fileID: 7400000, guid: 069e2ca6676faae43808860df7a901a7, type: 2}
+    typeA: {fileID: 7400000, guid: d6d70feace8ae884e8bafef96f8f1998, type: 2}
+    typeSpecial: {fileID: 7400000, guid: 5c582a8653727cb4cb65f17a80b10bd7, type: 2}
+    typeB: {fileID: 7400000, guid: 069e2ca6676faae43808860df7a901a7, type: 2}
   BoostOnOffAC:
-    TypeBase: {fileID: 7400000, guid: 98a83c64495906642b49b483a64364d5, type: 2}
-    TypeSpecial: {fileID: 7400000, guid: d2b73c9425051f44ba558e86b1d24fe2, type: 2}
+    typeBase: {fileID: 7400000, guid: 98a83c64495906642b49b483a64364d5, type: 2}
+    typeSpecial: {fileID: 7400000, guid: d2b73c9425051f44ba558e86b1d24fe2, type: 2}
   ChangeState_BoostUpDown:
-    TypeBase: {fileID: 833619481, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    TypeSpecial: {fileID: -2048292133, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    typeBase: {fileID: 833619481, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    typeSpecial: {fileID: -2048292133, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   ChangeState_Skill:
-    TypeBase: {fileID: 431685944, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-    TypeSpecial: {fileID: -254010198, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    typeBase: {fileID: 431685944, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
+    typeSpecial: {fileID: -254010198, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
   AimPrefab: {fileID: 6141677161167260688, guid: c40efc2302d823f4385722f2c7ce4237, type: 3}
   AimRoundPrefab: {fileID: 1597265562462728527, guid: d2969078f44a95045a455dab4043e798, type: 3}
   BattleProdSprite: {fileID: 967936309, guid: 52f91939743298f4f8b005d682be328c, type: 3}
@@ -1881,15 +1881,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ThisDashStyle: 0
   DashSpeed:
-    BaseState: 5
-    UpgradeValueByLevelRange:
+    baseState: 5
+    upgradeValueByLevelRange:
     - 0.3
     - 0.5
     - 0.7
     - 1.2
-    ActualState:
+    actualState:
       value: 5
-    CurrentLevel:
+    currentLevel:
       value: 0
 --- !u!114 &4030414932115461039
 MonoBehaviour:
@@ -2774,33 +2774,33 @@ MonoBehaviour:
   NeedEP:
     value: 10
   MaxCooltime:
-    BaseState: 6
-    UpgradeValueByLevelRange:
+    baseState: 6
+    upgradeValueByLevelRange:
     - -0.15
     - -0.3
     - -0.45
     - -0.9
-    ActualState:
+    actualState:
       value: 6
-    CurrentLevel:
+    currentLevel:
       value: 0
   Tier:
-    BaseState: 0
-    UpgradeValueByLevelRange: 01000000010000000100000001000000
-    ActualState:
+    baseState: 0
+    upgradeValueByLevelRange: 01000000010000000100000001000000
+    actualState:
       value: 0
-    CurrentLevel:
+    currentLevel:
       value: 0
   Power:
-    BaseState: 5
-    UpgradeValueByLevelRange:
+    baseState: 5
+    upgradeValueByLevelRange:
     - 0.2
     - 0.5
     - 0.7
     - 1.2
-    ActualState:
+    actualState:
       value: 5
-    CurrentLevel:
+    currentLevel:
       value: 0
   PlayerController: {fileID: 0}
   ColSize: {x: 2.4, y: 1.5}
@@ -3134,33 +3134,33 @@ MonoBehaviour:
   NeedEP:
     value: 20
   MaxCooltime:
-    BaseState: 8
-    UpgradeValueByLevelRange:
+    baseState: 8
+    upgradeValueByLevelRange:
     - -0.2
     - -0.4
     - -0.6
     - -1
-    ActualState:
+    actualState:
       value: 8
-    CurrentLevel:
+    currentLevel:
       value: 0
   Tier:
-    BaseState: 0
-    UpgradeValueByLevelRange: 01000000010000000100000001000000
-    ActualState:
+    baseState: 0
+    upgradeValueByLevelRange: 01000000010000000100000001000000
+    actualState:
       value: 0
-    CurrentLevel:
+    currentLevel:
       value: 0
   Power:
-    BaseState: 1.5
-    UpgradeValueByLevelRange:
+    baseState: 1.5
+    upgradeValueByLevelRange:
     - 0.1
     - 0.15
     - 0.2
     - 0.4
-    ActualState:
+    actualState:
       value: 1.5
-    CurrentLevel:
+    currentLevel:
       value: 0
   PlayerController: {fileID: 0}
 --- !u!114 &6021120989462345684

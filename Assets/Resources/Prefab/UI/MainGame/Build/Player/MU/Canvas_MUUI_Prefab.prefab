@@ -3187,8 +3187,8 @@ MonoBehaviour:
   EquippedInnerParentTF: {fileID: 6488928389602243725}
   SynergyPanelGO: {fileID: 975168169795605008}
   SynergyPanelIsExistGO:
-    TypeBase: {fileID: 5731502534456059939}
-    TypeSpecial: {fileID: 1513879291093775564}
+    typeBase: {fileID: 5731502534456059939}
+    typeSpecial: {fileID: 1513879291093775564}
   SynergyInnerParentTF: {fileID: 1372710315365944947}
   SynergySlotsParentTF: {fileID: 9202021332289737846}
   SynergyDescsParentTF: {fileID: 1972098242681520806}
@@ -3212,38 +3212,38 @@ MonoBehaviour:
   - {fileID: 641643310084425046}
   Inventory_InForge: {fileID: 8318090628040827858}
   ForgeInteractPanels:
-  - PanelRT: {fileID: 6783907978280809176}
-    PanelBtn: {fileID: 7246304946722424316}
-    PanelBtnTxt: {fileID: 885191486278380894}
+  - panelRT: {fileID: 6783907978280809176}
+    panelBtn: {fileID: 7246304946722424316}
+    panelBtnTxt: {fileID: 885191486278380894}
     PanelBtnCG: {fileID: 0}
-    RoleBtn: {fileID: 5812851549416277376}
-    RoleBtnTxt: {fileID: 7069605378371645388}
-    RoleDescTxt: {fileID: 8760560387228655644}
-    RoleBtnTxtRT: {fileID: 0}
-    InnerImgs:
+    roleBtn: {fileID: 5812851549416277376}
+    roleBtnTxt: {fileID: 7069605378371645388}
+    roleDescTxt: {fileID: 8760560387228655644}
+    roleBtnTxtRT: {fileID: 0}
+    innerImgs:
     - {fileID: 2398840902967391562}
     - {fileID: 1653531010863899832}
-  - PanelRT: {fileID: 7969942775456765301}
-    PanelBtn: {fileID: 1035851646952285114}
-    PanelBtnTxt: {fileID: 7877421361316251348}
+  - panelRT: {fileID: 7969942775456765301}
+    panelBtn: {fileID: 1035851646952285114}
+    panelBtnTxt: {fileID: 7877421361316251348}
     PanelBtnCG: {fileID: 0}
-    RoleBtn: {fileID: 4532107330689062328}
-    RoleBtnTxt: {fileID: 3992430173626452574}
-    RoleDescTxt: {fileID: 1511470452546256384}
-    RoleBtnTxtRT: {fileID: 0}
-    InnerImgs:
+    roleBtn: {fileID: 4532107330689062328}
+    roleBtnTxt: {fileID: 3992430173626452574}
+    roleDescTxt: {fileID: 1511470452546256384}
+    roleBtnTxtRT: {fileID: 0}
+    innerImgs:
     - {fileID: 4574004737477527999}
     - {fileID: 414387458883418223}
     - {fileID: 3451856403516854401}
-  - PanelRT: {fileID: 3160163867510511230}
-    PanelBtn: {fileID: 6103312040537021113}
-    PanelBtnTxt: {fileID: 8106711835723103754}
+  - panelRT: {fileID: 3160163867510511230}
+    panelBtn: {fileID: 6103312040537021113}
+    panelBtnTxt: {fileID: 8106711835723103754}
     PanelBtnCG: {fileID: 0}
-    RoleBtn: {fileID: 7072854007881904062}
-    RoleBtnTxt: {fileID: 4203075026392233157}
-    RoleDescTxt: {fileID: 1926659074820515667}
-    RoleBtnTxtRT: {fileID: 0}
-    InnerImgs:
+    roleBtn: {fileID: 7072854007881904062}
+    roleBtnTxt: {fileID: 4203075026392233157}
+    roleDescTxt: {fileID: 1926659074820515667}
+    roleBtnTxtRT: {fileID: 0}
+    innerImgs:
     - {fileID: 3390916595186050037}
     - {fileID: 7752767517559402515}
     - {fileID: 0}

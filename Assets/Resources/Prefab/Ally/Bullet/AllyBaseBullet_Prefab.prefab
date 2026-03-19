@@ -198,24 +198,24 @@ MonoBehaviour:
   TargetRange: 0.35
   PoolingString: 
   State:
-    OwnerData:
-      Owner: 0
-      ID: 0
-    DmgState:
-      DmgType: 0
-      Dmg: 0
-    CriticalState:
-      CC: 0
-      CD: 0
-    KnockbackState:
-      CanKB: 0
-      KBPower: 0
-      KBTime: 0
-    IsCritical: 0
-    MuzzleSpeed: 0
-    AliveTime: 0
-    IsStatus: 0
-    StatusType: 0
+    ownerData:
+      owner: 0
+      id: 0
+    dmgState:
+      dmgType: 0
+      dmg: 0
+    criticalState:
+      criticalChance: 0
+      criticalDmg: 0
+    knockbackState:
+      canKB: 0
+      kbPower: 0
+      kbTime: 0
+    isCritical: 0
+    muzzleSpeed: 0
+    aliveTime: 0
+    isStatus: 0
+    statusType: 0
   ThisRb: {fileID: 3702076010934528879}
   ThisTrail: {fileID: 7307784400060210891}
   ThisLight: {fileID: 8889175613378231609}

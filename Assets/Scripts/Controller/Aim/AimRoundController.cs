@@ -33,7 +33,7 @@ public class AimRoundController : StaticDepthController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.BaseWeapon.AccuracyRate.ActualState
+        PlayerManager.instance.playerController.BaseWeapon.AccuracyRate.actualState
             .Subscribe(value =>
             {
                 Set_AngleRoundValue(value);

@@ -100,13 +100,13 @@ public class DescMUEUIController : ElementUIController
     {
         MainChipGO.gameObject.SetActive(true);
 
-        RankLv1_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R1_ID).ThisIcon;
-        RankLv3_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R3_ID).ThisIcon;
-        RankLv5_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R5_ID).ThisIcon;
+        RankLv1_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R1_ID).thisIcon;
+        RankLv3_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R3_ID).thisIcon;
+        RankLv5_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R5_ID).thisIcon;
 
-        RankLv1_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R1_ID).Name;
-        RankLv3_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R3_ID).Name;
-        RankLv5_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R5_ID).Name;
+        RankLv1_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R1_ID).name;
+        RankLv3_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R3_ID).name;
+        RankLv5_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R5_ID).name;
 
         SetOff_AllLocker();
         SetOff_AllMainChipImgsTxts();
@@ -219,14 +219,14 @@ public class DescMUEUIController : ElementUIController
         { child.gameObject.SetActive(true); }
 
         // Item
-        SetOn_Item(_MS.ThisItemData.ID, _MS.ThisItemData.Name, _MS.ThisItemData.Description);
+        SetOn_Item(_MS.thisItemData.id, _MS.thisItemData.name, _MS.thisItemData.desc);
 
         // Rank
-        SetOn_Rank(_MS.ThisItemData.Rank);
+        SetOn_Rank(_MS.thisItemData.rank);
 
         // MainChip
-        SetOn_MainChip(_MS.ThisItemData.Rank,
-            _MS.ThisItemData.R1_MainChipID, _MS.ThisItemData.R3_MainChipID, _MS.ThisItemData.R5_MainChipID);
+        SetOn_MainChip(_MS.thisItemData.rank,
+            _MS.thisItemData.r1_MainChipID, _MS.thisItemData.r3_MainChipID, _MS.thisItemData.r5_MainChipID);
     }
 
     public void SetOff_Desc()

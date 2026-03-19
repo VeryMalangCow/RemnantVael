@@ -24,7 +24,7 @@ public class BuffTakingDmgController : BuffController
         currentBuffCharge
             .Subscribe(_Value =>
             {
-                multiple.ActualValue = multiple.BaseValue * currentBuffCharge.Value;
+                multiple.actualValue = multiple.baseValue * currentBuffCharge.Value;
             });
     }
 

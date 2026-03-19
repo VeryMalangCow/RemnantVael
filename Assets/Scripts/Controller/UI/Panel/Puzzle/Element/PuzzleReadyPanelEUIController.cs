@@ -81,13 +81,13 @@ public class PuzzleReadyPanelEUIController : ElementUIController
         ReadyInputAnnoImg.sprite = ResourceManager.instance.spaceBarSprite;
         ReadyKeyAnnoTxt.text = $"{ResourceManager.instance.Get_StaticWord(88)} : {ResourceManager.instance.Get_StaticWord(89)} & {ResourceManager.instance.Get_StaticWord(85)}";
 
-        WarningRT.anchoredPosition = new Vector2(RuleWarningXRTPos.TypeBase, WarningRT.anchoredPosition.y);
-        RuleRT.anchoredPosition = new Vector2(-RuleWarningXRTPos.TypeBase, RuleRT.anchoredPosition.y);
+        WarningRT.anchoredPosition = new Vector2(RuleWarningXRTPos.typeBase, WarningRT.anchoredPosition.y);
+        RuleRT.anchoredPosition = new Vector2(-RuleWarningXRTPos.typeBase, RuleRT.anchoredPosition.y);
 
-        ReadyTimeLimitAnnoRT.anchoredPosition = ReadyTimeLimitAnnoRTPos.TypeBase;
+        ReadyTimeLimitAnnoRT.anchoredPosition = ReadyTimeLimitAnnoRTPos.typeBase;
         ReadyTimeLimitAnnoRT.localScale = Vector2.one;
 
-        ReadyKeyAnnoRT.anchoredPosition = ReadykeyAnnoRTPos.TypeBase;
+        ReadyKeyAnnoRT.anchoredPosition = ReadykeyAnnoRTPos.typeBase;
         ReadyKeyAnnoRT.localScale = Vector2.one;
 
         // Rule (Left)
@@ -115,12 +115,12 @@ public class PuzzleReadyPanelEUIController : ElementUIController
 
     public Tween Play_ReadyToStart(float _DurTime)
     {
-        WarningRT.DOAnchorPosX(RuleWarningXRTPos.TypeSpecial, _DurTime);
-        RuleRT.DOAnchorPosX(-RuleWarningXRTPos.TypeSpecial, _DurTime);
+        WarningRT.DOAnchorPosX(RuleWarningXRTPos.typeSpecial, _DurTime);
+        RuleRT.DOAnchorPosX(-RuleWarningXRTPos.typeSpecial, _DurTime);
 
-        ReadyTimeLimitAnnoRT.DOAnchorPos(ReadyTimeLimitAnnoRTPos.TypeSpecial, _DurTime).SetEase(Ease.OutCubic);
+        ReadyTimeLimitAnnoRT.DOAnchorPos(ReadyTimeLimitAnnoRTPos.typeSpecial, _DurTime).SetEase(Ease.OutCubic);
         ReadyTimeLimitAnnoRT.DOScale(0.5f, _DurTime);
-        ReadyKeyAnnoRT.DOAnchorPos(ReadykeyAnnoRTPos.TypeSpecial, _DurTime).SetEase(Ease.OutCubic);
+        ReadyKeyAnnoRT.DOAnchorPos(ReadykeyAnnoRTPos.typeSpecial, _DurTime).SetEase(Ease.OutCubic);
         ReadyKeyAnnoRT.DOScale(0.5f, _DurTime);
 
         return ReadyCG.DOFade(0f, _DurTime).SetEase(Ease.Linear);

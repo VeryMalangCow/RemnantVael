@@ -51,7 +51,7 @@ public class TitleSmokeCellEUIController : ElementUIController
     {
         ThisImg.sprite = _Sprite;
         ThisImg.SetNativeSize();
-        ThisImg.color = _Color.TypeBase;
+        ThisImg.color = _Color.typeBase;
         this.gameObject.transform.localScale = Vector2.one * _StartSize;
         ThisRT.anchoredPosition = new Vector3(_StartPosX, 0, 0);
         ThisRT.rotation = Quaternion.identity;
@@ -61,7 +61,7 @@ public class TitleSmokeCellEUIController : ElementUIController
         Sequence seq = DOTween.Sequence();
 
         seq.Join(ThisRT.DOAnchorPosY(_MovingDis, _DurTime));
-        seq.Join(ThisImg.DOColor(_Color.TypeSpecial, _DurTime));
+        seq.Join(ThisImg.DOColor(_Color.typeSpecial, _DurTime));
         seq.Join(ThisRT.DOScale(0, _DurTime));
         seq.Join(ThisRT.DORotate(new Vector3(0, 0, Random.Range(-360, 360)), _DurTime, RotateMode.FastBeyond360));
 

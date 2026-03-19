@@ -332,12 +332,12 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         // Forge Interact Panel Inner
         for (int i = 0; i < ForgeInteractPanels.Count; i++)
         {
-            MainColorCompList.Add(ForgeInteractPanels[i].PanelBtnTxt);
+            MainColorCompList.Add(ForgeInteractPanels[i].panelBtnTxt);
 
-            MainColorCompList.Add(ForgeInteractPanels[i].RoleBtnTxt);
-            MainColorCompList.Add(ForgeInteractPanels[i].RoleDescTxt);
+            MainColorCompList.Add(ForgeInteractPanels[i].roleBtnTxt);
+            MainColorCompList.Add(ForgeInteractPanels[i].roleDescTxt);
 
-            SubColorCompList.AddRange(ForgeInteractPanels[i].InnerImgs);
+            SubColorCompList.AddRange(ForgeInteractPanels[i].innerImgs);
         }
         SubColorCompList.AddRange(ForgePanelInnerList);
 
@@ -401,9 +401,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         for (int i = 0; i < ForgeInteractPanels.Count; i++)
         {
-            ForgeInteractPanels[i].PanelRT.gameObject.SetActive(false);
+            ForgeInteractPanels[i].panelRT.gameObject.SetActive(false);
 
-            if (DevTool.Get_ComponentTType(ForgeInteractPanels[i].PanelBtn.gameObject, out CanvasGroup btnCg))
+            if (DevTool.Get_ComponentTType(ForgeInteractPanels[i].panelBtn.gameObject, out CanvasGroup btnCg))
             {
                 btnCg.alpha = ForgeElementBtnOffAlpha;
             }
@@ -503,7 +503,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         for (int i = 0; i < ForgeInteractPanels.Count; i++)
         {
-            if (ForgeInteractPanels[i].RoleBtnTxtRT == null) break;
+            if (ForgeInteractPanels[i].roleBtnTxtRT == null) break;
 
             ForgeInteractPanels[i].rtTween.Play();
         }
@@ -513,7 +513,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         for (int i = 0; i < ForgeInteractPanels.Count; i++)
         {
-            if (ForgeInteractPanels[i].RoleBtnTxtRT == null) break;
+            if (ForgeInteractPanels[i].roleBtnTxtRT == null) break;
 
             ForgeInteractPanels[i].rtTween.Pause();
         }
@@ -544,7 +544,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             foreach (KeyValuePair<int, int> keyValuePair in _Dict)
             {
                 MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(keyValuePair.Key);
-                SynergySlotList[currentSynergies].SetOn_SynergySlot(keyValuePair.Key, MDC.ThisIcon, keyValuePair.Value);
+                SynergySlotList[currentSynergies].SetOn_SynergySlot(keyValuePair.Key, MDC.thisIcon, keyValuePair.Value);
 
                 currentSynergies++;
             }
@@ -554,8 +554,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private void SetOnOff_SynergySlot(bool _Exist)
     {
         // 패널 키기/끄기
-        SynergyPanelIsExistGO.TypeBase.SetActive(!_Exist);
-        SynergyPanelIsExistGO.TypeSpecial.SetActive(_Exist);
+        SynergyPanelIsExistGO.typeBase.SetActive(!_Exist);
+        SynergyPanelIsExistGO.typeSpecial.SetActive(_Exist);
     }
 
     #endregion
@@ -576,8 +576,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         for (int i = 0; i < _EquipedData.Length; i++)
         {
-            int targetCol = _EquipedData[i].TypeBase;
-            int targetRow = _EquipedData[i].TypeSpecial;
+            int targetCol = _EquipedData[i].typeBase;
+            int targetRow = _EquipedData[i].typeSpecial;
 
             if (targetCol == -1 || targetRow == -1)
             {
@@ -589,7 +589,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             }
             else
             {
-                ItemData data = _AllModuleState[targetCol][targetRow].ThisItemData;
+                ItemData data = _AllModuleState[targetCol][targetRow].thisItemData;
 
                 EquipedSlots[i].ThisItem.gameObject.SetActive(true);
                 EquipedSlots[i].ThisItem.Set_Data(new ItemData_UIVisual(data));
@@ -608,7 +608,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 장착된 모듈들의 설명 키기/끄기
     private void Set_EquipedDesc(int _Index, ItemData _ItemData = null)
     {
-        EquipDescStateTxtList[_Index].text = _ItemData != null ? _ItemData.EquipDescription : "-";
+        EquipDescStateTxtList[_Index].text = _ItemData != null ? _ItemData.equipDesc : "-";
     }
 
     // 분해 슬롯 UI 셋
@@ -655,8 +655,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         for (int i = 0; i < _SlottedData.Length; i++)
         {
-            int targetCol = _SlottedData[i].TypeBase;
-            int targetRow = _SlottedData[i].TypeSpecial;
+            int targetCol = _SlottedData[i].typeBase;
+            int targetRow = _SlottedData[i].typeSpecial;
 
             if (targetCol == -1 || targetRow == -1)
             {
@@ -664,7 +664,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             }
             else
             {
-                ItemData data = _AllModuleState[targetCol][targetRow].ThisItemData;
+                ItemData data = _AllModuleState[targetCol][targetRow].thisItemData;
 
                 FusionSlotList[i].ThisItem.gameObject.SetActive(true);
                 FusionSlotList[i].ThisItem.Set_Data(new ItemData_UIVisual(data));
@@ -676,8 +676,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         if (!ModuleItemManager.instance.Is_EmptyFusionSlot() &&
             ModuleItemManager.instance.Is_SameRankFusionSlots())
         {
-            ModuleState ms = ModuleItemManager.instance.Get_ModuleState(_SlottedData[0].TypeBase, _SlottedData[0].TypeSpecial);
-            if (ms.ThisItemData.Rank < PlayerController.MaxRank)
+            ModuleState ms = ModuleItemManager.instance.Get_ModuleState(_SlottedData[0].typeBase, _SlottedData[0].typeSpecial);
+            if (ms.thisItemData.rank < PlayerController.MaxRank)
                 needMS = ModuleItemManager.Get_MS_ForFusion(ms).ToString();
         }
 
@@ -694,7 +694,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private void Check_DecompositionAnno()
     {
         CoupleData<int> index = ModuleItemManager.instance.Get_DecompositionIndex();
-        if (index.TypeBase == -1 || index.TypeSpecial == -1)
+        if (index.typeBase == -1 || index.typeSpecial == -1)
         {
             SetOff_Anno();
             return;
@@ -712,7 +712,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private void Check_MakeAnno()
     {
         CoupleData<int> index = ModuleItemManager.instance.Get_EmptyModuleState();
-        if (index.TypeBase == -1 || index.TypeSpecial == -1)
+        if (index.typeBase == -1 || index.typeSpecial == -1)
         {
             Set_Warning(true, Warning_InvenFull);
             return;
@@ -735,7 +735,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         for (int i = 0; i < index.Count; i++)
         {
-            if (index[i].TypeBase == -1 || index[i].TypeSpecial == -1)
+            if (index[i].typeBase == -1 || index[i].typeSpecial == -1)
             {
                 SetOff_Anno();
                 return;
@@ -749,7 +749,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         for (int i = 0; i < index.Count; i++) // 이미 최대치인가?
         {
-            if (ModuleItemManager.instance.Get_ModuleState(index[i]).ThisItemData.Rank >= PlayerController.MaxRank)
+            if (ModuleItemManager.instance.Get_ModuleState(index[i]).thisItemData.rank >= PlayerController.MaxRank)
             {
                 Set_Warning(true, Warning_AlreadyMaxLv);
                 return;
@@ -825,7 +825,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         List<OwnBtnEUIController> btns = new List<OwnBtnEUIController>();
         for (int i = 0; i < ForgeInteractPanels.Count; i++)
-            btns.Add(ForgeInteractPanels[i].PanelBtn);
+            btns.Add(ForgeInteractPanels[i].panelBtn);
 
         if (btns.Contains(CurrentBtn))
         {
@@ -843,14 +843,14 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                         Check_MakeAnno();
                     }
 
-                    ForgeInteractPanels[i].PanelRT.gameObject.SetActive(true);
+                    ForgeInteractPanels[i].panelRT.gameObject.SetActive(true);
                     ForgeInteractPanels[i].PanelBtnCG.alpha = 1f;
 
                     CurrentForgeInteractPanel = ForgeInteractPanels[i];
                 }
                 else
                 {
-                    ForgeInteractPanels[i].PanelRT.gameObject.SetActive(false);
+                    ForgeInteractPanels[i].panelRT.gameObject.SetActive(false);
                     ForgeInteractPanels[i].PanelBtnCG.alpha = 0.5f;
                 }
             }
@@ -900,7 +900,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             // 기본 정보
             SelectViewImg.sprite = SelectedSynergySlot.ThisImg.sprite;
             SelectViewAmalgamation.text = SelectedSynergySlot.ThisTxt.text;
-            SelectViewName.text = MCD.Name.ToString();
+            SelectViewName.text = MCD.name.ToString();
 
             // 적용 중인 시너지 싱크로니 레벨 Txt
             int synchoronyAmount = ModuleItemManager.instance.Get_SynchronyAmount(synergySlot.ID);
@@ -917,7 +917,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
             for (int i = 0; i < AmalgamationDescTxtList.Count; i++)
             {
-                AmalgamationDescTxtList[i].text = MCD.AmalgamationDescArr[i];
+                AmalgamationDescTxtList[i].text = MCD.amalgamationDescArr[i];
 
                 if (i < synchoronyLvLimit)
                     DevTool.Set_AlphaColor(AmalgamationDescTxtList[i], 1f);
@@ -1183,7 +1183,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         for (int i = 0; i < ForgeInteractPanels.Count; i++)
         {
-            if (ForgeInteractPanels[i].RoleBtn == CurrentBtn)
+            if (ForgeInteractPanels[i].roleBtn == CurrentBtn)
             {
                 if (i == 0) // 분해
                     Role_Decomposition();
@@ -1322,7 +1322,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             CoupleData<int> targetIndex = new CoupleData<int>(CurrentSlotBtn.Col, CurrentSlotBtn.Row);
 
             // 인벤토리에서 이동 시키기
-            if (originalIndex.TypeBase != -1 && originalIndex.TypeSpecial != -1)
+            if (originalIndex.typeBase != -1 && originalIndex.typeSpecial != -1)
                 Set_DragFromInventorySlot(originalIndex, targetIndex);
             else
                 Set_DragFromInteractSlot(originalIndex, targetIndex);
@@ -1333,7 +1333,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private void Set_DragFromInventorySlot(CoupleData<int> originalIndex, CoupleData<int> targetIndex)
     {
         // => 인벤토리로
-        if (targetIndex.TypeBase != -1 && targetIndex.TypeSpecial != -1)
+        if (targetIndex.typeBase != -1 && targetIndex.typeSpecial != -1)
         {
             ModuleItemManager.instance.Set_ChangeInventorySlot(originalIndex, targetIndex); // 인벤토리 내 아이템 위치 변경
         }
@@ -1369,7 +1369,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         int panelIndex = ThisPanelTabList.IndexOf(CurrentThisPanelTab);
 
         // => 인벤토리로
-        if (targetIndex.TypeBase != -1 && targetIndex.TypeSpecial != -1)
+        if (targetIndex.typeBase != -1 && targetIndex.typeSpecial != -1)
         {
             if (panelIndex == 0) // Equiped 창
             {

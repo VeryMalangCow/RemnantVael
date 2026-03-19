@@ -124,11 +124,11 @@ public class BaseUpgradeUIController : PlayerShopUIController
         AccuracyRateShop.Offset(pwc.AccuracyRate, bm.baseAccuracyRate_BUData, AllBUData_Float, this);
         KnockbackShop.Offset(pwc.KnockbackPower, bm.knockback_BUData, AllBUData_Float, this);
 
-        for (int i = 0; i < DevTool.SkillAmount; i++)
+        for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            SkillShopList[i].Skill_CooltimeShop.Offset(pswc.SkillList[i].MaxCooltime, bm.skill_BUDataList[i].Skill_Cooltime_BUData, AllBUData_Float, this);
-            SkillShopList[i].Skill_PowerShop.Offset(pswc.SkillList[i].Power, bm.skill_BUDataList[i].Skill_Power_BUData, AllBUData_Float, this);
-            SkillShopList[i].Skill_TierShop.Offset(pswc.SkillList[i].Tier, bm.skill_BUDataList[i].Skill_Tier_BUData, AllBUData_Int, this);
+            SkillShopList[i].skill_CooltimeShop.Offset(pswc.SkillList[i].MaxCooltime, bm.skill_BUDataList[i].skill_Cooltime_BUData, AllBUData_Float, this);
+            SkillShopList[i].skill_PowerShop.Offset(pswc.SkillList[i].Power, bm.skill_BUDataList[i].skill_Power_BUData, AllBUData_Float, this);
+            SkillShopList[i].skill_TierShop.Offset(pswc.SkillList[i].Tier, bm.skill_BUDataList[i].skill_Tier_BUData, AllBUData_Int, this);
         }
 
         #endregion
@@ -136,10 +136,10 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.ActualState
+        PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.actualState
             .Subscribe(_Value =>
             {
-                for (int i = 0; i < DevTool.SkillAmount; i++)
+                for (int i = 0; i < DevTool.skillAmount; i++)
                 {
                     MainGameUIManager.instance.playerHUD_UIController.SkillList[i].Set_CostText(
                         _Value * PlayerManager.instance.playerController.SkillWeapon.SkillList[i].NeedEP.Value);
@@ -176,14 +176,14 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
         void Offset_ColorComp<T>(BUShopData<T> _BUShop)
         {
-            MainColorCompList.Add(_BUShop.UpgradeEUI.SkillNameTxt);
-            MainColorCompList.Add(_BUShop.UpgradeEUI.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-            MainColorCompList.Add(_BUShop.UpgradeEUI.DescTxt);
-            MainColorCompList.Add(_BUShop.UpgradeEUI.BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+            MainColorCompList.Add(_BUShop.upgradeEUI.SkillNameTxt);
+            MainColorCompList.Add(_BUShop.upgradeEUI.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+            MainColorCompList.Add(_BUShop.upgradeEUI.DescTxt);
+            MainColorCompList.Add(_BUShop.upgradeEUI.BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
-            SubColorCompList.Add(_BUShop.UpgradeEUI.SkillLvTxt);
-            SubColorCompList.AddRange(_BUShop.UpgradeEUI.ThisImgTxtAmountEUI.AmountImgs);
-            SubColorCompList.AddRange(_BUShop.UpgradeEUI.InnerImgList);
+            SubColorCompList.Add(_BUShop.upgradeEUI.SkillLvTxt);
+            SubColorCompList.AddRange(_BUShop.upgradeEUI.ThisImgTxtAmountEUI.AmountImgs);
+            SubColorCompList.AddRange(_BUShop.upgradeEUI.InnerImgList);
         }
 
         // Desc
@@ -263,7 +263,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         // 备概 内靛 (float)
         for (int i = 0; i < AllBUData_Float.Count; i++)
         {
-            if (AllBUData_Float[i].UpgradeEUI.BuyBtn == CurrentBtn &&
+            if (AllBUData_Float[i].upgradeEUI.BuyBtn == CurrentBtn &&
                 CurrentBtn.ThisBtn.interactable)
             {
                 AllBUData_Float[i].Try_Buy();
@@ -278,7 +278,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         // 备概 内靛 (int)
         for (int i = 0; i < AllBUData_Int.Count; i++)
         {
-            if (AllBUData_Int[i].UpgradeEUI.BuyBtn == CurrentBtn &&
+            if (AllBUData_Int[i].upgradeEUI.BuyBtn == CurrentBtn &&
                 CurrentBtn.ThisBtn.interactable)
             {
                 AllBUData_Int[i].Try_Buy();
@@ -379,11 +379,11 @@ public class BaseUpgradeUIController : PlayerShopUIController
         AccuracyRateShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(14), ResourceManager.instance.Get_StaticDesc(14));
         KnockbackShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(44), ResourceManager.instance.Get_StaticDesc(15));
 
-        for (int i = 0; i < DevTool.SkillAmount; i++)
+        for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            SkillShopList[i].Skill_CooltimeShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(45), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 0));
-            SkillShopList[i].Skill_PowerShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(18), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 1));
-            SkillShopList[i].Skill_TierShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(17), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.SkillAmount + 1)) + 2));
+            SkillShopList[i].skill_CooltimeShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(45), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 0));
+            SkillShopList[i].skill_PowerShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(18), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 1));
+            SkillShopList[i].skill_TierShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(17), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 2));
         }
 
         // Desc

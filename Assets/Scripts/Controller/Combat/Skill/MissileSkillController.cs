@@ -35,7 +35,7 @@ public class MissileSkillController : ActiveSkillController
         // ==========
 
         
-        for (int i = 0; i < Tier.ActualState.Value + 1; i++)
+        for (int i = 0; i < Tier.actualState.Value + 1; i++)
         {
             Play_ShotEachMissile();
             yield return new WaitForSeconds(ShotDelay);
@@ -72,11 +72,11 @@ public class MissileSkillController : ActiveSkillController
                 PlayerController.Get_ID(),
                 (Vector2)DepthController.TargetObject.gameObject.transform.position + (dir * 0.1f),
                 dir,
-                bulletState.IsCritical);
+                bulletState.isCritical);
 
             // Effect Shake
             DepthController.transform.DOShakePosition(ShotDelay, 0.05f, 20, 90, false, true);
-            PlayerManager.instance.cameraController.Play_ShotAnim(ShotDelay, bulletState.DmgState.Dmg * 0.5f);
+            PlayerManager.instance.cameraController.Play_ShotAnim(ShotDelay, bulletState.dmgState.dmg * 0.5f);
 
             // Sound
             SoundManager.instance.Play_2D_SFX_Player_Random(
@@ -95,12 +95,12 @@ public class MissileSkillController : ActiveSkillController
         return new BulletState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Player),
-                new DmgState(eDamageType.Physics, PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value * 1.5f),
-                new CriticalState(PlayerController.BaseWeapon.CC.ActualState.Value, PlayerController.BaseWeapon.CD.BuffedState),
-                new KnockbackState(true, PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * 1.5f, 0.4f)),
-            _CheckIsCritical: true, 
-            _MuzzleSpeed: PlayerController.BaseWeapon.MuzzleSpeed.ActualState.Value * 1.5f, 
-            _AliveTime: 3.5f);
+                new DmgState(eDamageType.Physics, PlayerController.BaseWeapon.BaseDamage.buffedState * Power.actualState.Value * 1.5f),
+                new CriticalState(PlayerController.BaseWeapon.CC.actualState.Value, PlayerController.BaseWeapon.CD.buffedState),
+                new KnockbackState(true, PlayerController.BaseWeapon.KnockbackPower.actualState.Value * 1.5f, 0.4f)),
+            checkIsCritical: true, 
+            muzzleSpeed: PlayerController.BaseWeapon.MuzzleSpeed.actualState.Value * 1.5f, 
+            aliveTime: 3.5f);
     }
 
     private BulletState_PosAndRot State_PosAndRot(Vector2 _Dir)

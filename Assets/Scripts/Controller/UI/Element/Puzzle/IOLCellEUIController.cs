@@ -93,9 +93,9 @@ public class IOLCellEUIController : OwnBtnEUIController
         OnPanelCG.alpha = 0.0f;
         InnerParentCG.alpha = 0.1f;
 
-        CenterRT.sizeDelta = CenterSizeDelta.TypeBase;
+        CenterRT.sizeDelta = CenterSizeDelta.typeBase;
         for (int i = 0; i < RoundLineRTList.Count; i++)
-            RoundLineRTList[i].sizeDelta = RoundLineSizeDelta.TypeBase;
+            RoundLineRTList[i].sizeDelta = RoundLineSizeDelta.typeBase;
 
         IsOn = false;
         IsTweeing = false;
@@ -117,9 +117,9 @@ public class IOLCellEUIController : OwnBtnEUIController
 
         OnOffSeq.Join(OnPanelCG.DOFade(1f, _DurTime));
         OnOffSeq.Join(InnerParentCG.DOFade(1f, _DurTime));
-        OnOffSeq.Join(CenterRT.DOSizeDelta(CenterSizeDelta.TypeSpecial, _DurTime));
+        OnOffSeq.Join(CenterRT.DOSizeDelta(CenterSizeDelta.typeSpecial, _DurTime));
         for (int i = 0; i < RoundLineRTList.Count; i++)
-            OnOffSeq.Join(RoundLineRTList[i].DOSizeDelta(RoundLineSizeDelta.TypeSpecial, _DurTime));
+            OnOffSeq.Join(RoundLineRTList[i].DOSizeDelta(RoundLineSizeDelta.typeSpecial, _DurTime));
 
         OnOffSeq.OnComplete(() =>
         {
@@ -139,9 +139,9 @@ public class IOLCellEUIController : OwnBtnEUIController
 
         OnOffSeq.Join(OnPanelCG.DOFade(0f, _DurTime));
         OnOffSeq.Join(InnerParentCG.DOFade(0.1f, _DurTime));
-        OnOffSeq.Join(CenterRT.DOSizeDelta(CenterSizeDelta.TypeBase, _DurTime));
+        OnOffSeq.Join(CenterRT.DOSizeDelta(CenterSizeDelta.typeBase, _DurTime));
         for (int i = 0; i < RoundLineRTList.Count; i++)
-            OnOffSeq.Join(RoundLineRTList[i].DOSizeDelta(RoundLineSizeDelta.TypeBase, _DurTime));
+            OnOffSeq.Join(RoundLineRTList[i].DOSizeDelta(RoundLineSizeDelta.typeBase, _DurTime));
 
         OnOffSeq.OnComplete(() => 
         { 

@@ -89,7 +89,7 @@ public class MessageWindowEUIController : ElementUIController
             {
                 this.gameObject.SetActive(true);
             }),
-            _Update: null,
+            update: null,
             new Dele(() =>
             { 
                 CanPass = true;
@@ -113,7 +113,7 @@ public class MessageWindowEUIController : ElementUIController
             {
                 CanPass = false;
             }),
-            _Update: null,
+            update: null,
             new Dele(() =>
             {
                 this.gameObject.SetActive(false);

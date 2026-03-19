@@ -394,7 +394,7 @@ public class AllyController : NavObjectController
 
     private void Add_UpgradeState(string _Type, int _Rank)
     {
-        UpgradeStateDict[_Type].Value += AllyManager.Get_AllyTunerStateMultiple(_Type) * _Rank;
+        UpgradeStateDict[_Type].value += AllyManager.Get_AllyTunerStateMultiple(_Type) * _Rank;
     }
 
     #endregion

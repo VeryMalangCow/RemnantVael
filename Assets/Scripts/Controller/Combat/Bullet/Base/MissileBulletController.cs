@@ -49,10 +49,10 @@ public class MissileBulletController : PlayerBulletController
     {
         base.Set_State_Base(_BulletState, _TargetRange);
 
-        float targetSpeed = _BulletState.MuzzleSpeed;
-        base.State.MuzzleSpeed *= 0.3f;
+        float targetSpeed = _BulletState.muzzleSpeed;
+        base.State.muzzleSpeed *= 0.3f;
 
-        DOTween.To(() => State.MuzzleSpeed, x => State.MuzzleSpeed = x, targetSpeed, SpreadTime)
+        DOTween.To(() => State.muzzleSpeed, x => State.muzzleSpeed = x, targetSpeed, SpreadTime)
             .SetEase(Ease.Linear);
     }
 
@@ -82,9 +82,9 @@ public class MissileBulletController : PlayerBulletController
         {
             case "MissileBullet":
                 UnitManager.instance.onceTime_AnimGenerator.Anim_AttackSuccess(
-                    TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical, 1.8f);
+                    TargetObject.transform.position, State.dmgState.dmgType, State.isCritical, 1.8f);
                 UnitManager.instance.player_ExplImgGenerator.Expl_Player_BigObjectDestroy(
-                    PlayerManager.instance.playerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                    PlayerManager.instance.playerController.Get_ID(), TargetObject.transform.position, State.dmgState.dmgType, State.isCritical);
                 break;
 
             default:
@@ -132,9 +132,9 @@ public class MissileBulletController : PlayerBulletController
         return new ExplosionState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Player),
-                new DmgState(eDamageType.Physics, State.DmgState.Dmg * 2),
-                new CriticalState(State.CriticalState),
-                new KnockbackState(true, State.KnockbackState.KBPower * 2, State.KnockbackState.KBTime)),
+                new DmgState(eDamageType.Physics, State.dmgState.dmg * 2),
+                new CriticalState(State.criticalState),
+                new KnockbackState(true, State.knockbackState.kbPower * 2, State.knockbackState.kbTime)),
             new AttackSizeState(1f),
             new List<bool> { false, true, false, false }); // Fire, Cold, Electricity, Corrosion
     }

@@ -305,7 +305,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         {
             int index = i;
             TitleTSElement trueShadowElementSet = AllTitleTSElementUI[index];
-            Get_EachUIElementTS(trueShadowElementSet.ThisTSList, trueShadowElementSet.Max, trueShadowElementSet.Min, trueShadowElementSet.DurTime, _Loop);
+            Get_EachUIElementTS(trueShadowElementSet.thisTSList, trueShadowElementSet.max, trueShadowElementSet.min, trueShadowElementSet.durTime, _Loop);
         }
     }
 
@@ -337,9 +337,9 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         for (int i = 0; i < AllTitleElementUI.Count; i++)
         {
-            Vector2 thisVec = new Vector2(AllTitleElementUI[i].MovingPowerX, AllTitleElementUI[i].MovingPowerY);
+            Vector2 thisVec = new Vector2(AllTitleElementUI[i].movingPowerX, AllTitleElementUI[i].movingPowerY);
             Vector2 targetVec = thisVec * _MovingPower;
-            Set_EachUIElementPos(AllTitleElementUI[i].MovingRT, targetVec);
+            Set_EachUIElementPos(AllTitleElementUI[i].movingRT, targetVec);
         }
     }
 

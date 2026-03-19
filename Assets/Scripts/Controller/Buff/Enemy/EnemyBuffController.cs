@@ -55,9 +55,9 @@ public class EnemyBuffController : MonoBehaviour
 
         ShieldBuff = new StatusEffect_Temporary_WithoutAmount(
             Enemy,
-            _MaxCooltime: ShieldDurTime,
-            _GainFunc: ShieldGainEffect,
-            _ReduceFunc: ShieldReduceEffect,
+            maxCooltime: ShieldDurTime,
+            gainFunc: ShieldGainEffect,
+            reduceFunc: ShieldReduceEffect,
             EnemyManager.instance.shieldIcon);
 
         #endregion
@@ -66,42 +66,42 @@ public class EnemyBuffController : MonoBehaviour
 
         FlameStack = new StatusEffect_Temporary_WithAmount(
             Enemy, eStatusEffect.Flame, FlameMax, 
-            _MaxCooltime: 3f,
-            _OnceTimeReduceAmount: 1,
-            _IsResetWhenGain: false,
-            _GainFunc: null,
-            _ReduceFunc: Active_FlameReduce,
-            _FullStack: Active_FlameFullStack,
+            maxCooltime: 3f,
+            onceTimeReduceAmount: 1,
+            isResetWhenGain: false,
+            gainFunc: null,
+            reduceFunc: Active_FlameReduce,
+            fullStack: Active_FlameFullStack,
             EnemyManager.instance.flameIcon);
 
         ColdStack = new StatusEffect_Temporary_WithAmount(
             Enemy, eStatusEffect.Cold, ColdMax,
-            _MaxCooltime: 6f, 
-            _OnceTimeReduceAmount: 1,
-            _IsResetWhenGain: true,
-            _GainFunc: null,
-            _ReduceFunc: null, 
-            _FullStack: Active_ColdFullStack,
+            maxCooltime: 6f, 
+            onceTimeReduceAmount: 1,
+            isResetWhenGain: true,
+            gainFunc: null,
+            reduceFunc: null, 
+            fullStack: Active_ColdFullStack,
             EnemyManager.instance.coldIcon);
 
         ElectricityStack = new StatusEffect_Temporary_WithAmount(
             Enemy, eStatusEffect.Electricity, ElectricityMax, 
-            _MaxCooltime: 5f, 
-            _OnceTimeReduceAmount: 1,
-            _IsResetWhenGain: true,
-            _GainFunc: Active_ElectricityGain,
-            _ReduceFunc: null, 
-            _FullStack: Active_ElectricityFullStack,
+            maxCooltime: 5f, 
+            onceTimeReduceAmount: 1,
+            isResetWhenGain: true,
+            gainFunc: Active_ElectricityGain,
+            reduceFunc: null, 
+            fullStack: Active_ElectricityFullStack,
             EnemyManager.instance.electricityIcon);
 
         CorrosionStack = new StatusEffect_Temporary_WithAmount(
             Enemy, eStatusEffect.Corrosion, CorrosionMax,
-            _MaxCooltime: 4f, 
-            _OnceTimeReduceAmount: 1, 
-            _IsResetWhenGain: false,
-            _GainFunc: null,
-            _ReduceFunc: null, 
-            _FullStack: Active_CorrosionFullStack,
+            maxCooltime: 4f, 
+            onceTimeReduceAmount: 1, 
+            isResetWhenGain: false,
+            gainFunc: null,
+            reduceFunc: null, 
+            fullStack: Active_CorrosionFullStack,
             EnemyManager.instance.corrosionIcon);
 
         #endregion
@@ -110,27 +110,27 @@ public class EnemyBuffController : MonoBehaviour
 
         InfernoStack = new StatusEffect_Permanent_WithAmount(
             Enemy, EnemyManager.instance.infernoIcon,
-            _GainFunc: null, 
-            _FullStack: null, 
-            _MaxStack: 3);
+            gainFunc: null, 
+            fullStack: null, 
+            maxStack: 3);
 
         AbsoluteZeroStack = new StatusEffect_Permanent_WithAmount(
             Enemy, EnemyManager.instance.absoluteZeroIcon,
-            _GainFunc: null, 
-            _FullStack: null, 
-            _MaxStack: 3);
+            gainFunc: null, 
+            fullStack: null, 
+            maxStack: 3);
 
         PlasmaStack = new StatusEffect_Permanent_WithAmount(
             Enemy, EnemyManager.instance.plasmaIcon,
-            _GainFunc: null, 
-            _FullStack: null, 
-            _MaxStack: 3);
+            gainFunc: null, 
+            fullStack: null, 
+            maxStack: 3);
 
         DecayStack = new StatusEffect_Permanent_WithAmount(
             Enemy, EnemyManager.instance.decayIcon,
-            _GainFunc: null, 
-            _FullStack: null, 
-            _MaxStack: 3);
+            gainFunc: null, 
+            fullStack: null, 
+            maxStack: 3);
 
         #endregion
     }
@@ -208,7 +208,7 @@ public class EnemyBuffController : MonoBehaviour
         List<EnemyController> targetEnemies = new List<EnemyController>() { Enemy };
         EnemyController targetEnemy = Enemy;
 
-        for (int i = 0; i < ElectricityStack.CurrentStack; i++)
+        for (int i = 0; i < ElectricityStack.currentStack; i++)
         {
             List<EnemyController> closerEnemies = EnemyManager.instance.Get_CloserEnemies(targetEnemy.gameObject, ElectricityRange);
             
@@ -255,7 +255,7 @@ public class EnemyBuffController : MonoBehaviour
         StatusEffect_Permanent_WithAmount _PermanentBuff,
         float _Dmg, eDamageType _DmgType)
     {
-        _FullStackBuff.Reduce_Stack(_FullStackBuff.MaxStack);
+        _FullStackBuff.Reduce_Stack(_FullStackBuff.maxStack);
         _PermanentBuff.Gain_Stack(1, true);
 
         Enemy.Take_Damage(_Dmg, _DmgType);

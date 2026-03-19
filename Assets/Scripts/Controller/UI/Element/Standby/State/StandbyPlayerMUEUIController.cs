@@ -36,10 +36,10 @@ public class StandbyPlayerMUEUIController : ElementUIController
         IconImg.gameObject.SetActive(true);
         RankImg.gameObject.SetActive(true);
 
-        IconImg.sprite = _MS.ThisItemData.ItemIcon;
-        RankImg.sprite = ResourceManager.instance.Get_RankIcon(_MS.ThisItemData.Rank);
+        IconImg.sprite = _MS.thisItemData.itemIcon;
+        RankImg.sprite = ResourceManager.instance.Get_RankIcon(_MS.thisItemData.rank);
 
-        NameTxt.text = ResourceManager.instance.Get_ModuleName(_MS.ThisItemData.ID);
+        NameTxt.text = ResourceManager.instance.Get_ModuleName(_MS.thisItemData.id);
     }
 
     public void Set_Color(Color _Clr)

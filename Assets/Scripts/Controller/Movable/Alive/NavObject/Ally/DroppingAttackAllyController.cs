@@ -44,7 +44,7 @@ public class DroppingAttackAllyController : DroppingAllyController
         // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
         _Bullet.Set_State(
             Get_BulletState(), 
-            _DroppingTime: ActualAllyState.MuzzleSpeed.Value, 
+            _DroppingTime: ActualAllyState.MuzzleSpeed.value, 
             _TopYPos: 5f, 
             _BottomYPos: DropBottomYPos,
             _State_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
@@ -52,7 +52,7 @@ public class DroppingAttackAllyController : DroppingAllyController
 
         // Light & Trail
         _Bullet.SetOn_LightIntensity(LightIntensity);
-        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.AttackSize.Value, ThisExtraGradient);
+        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.AttackSize.value, ThisExtraGradient);
 
         // Sync
         ActiveAlly_Fire(null, _Bullet);
@@ -72,9 +72,9 @@ public class DroppingAttackAllyController : DroppingAllyController
     {
         return new CombatState(
             new CombatOwner(eCombatOwner.Ally, id),
-            new DmgState(eDamageType.Physics, ActualAllyState.Dmg.Value),
-            new CriticalState(ActualAllyState.CC.Value, 1 + ActualAllyState.CD.Value),
-            new KnockbackState(true, ActualAllyState.KBPower.Value, 0.2f));
+            new DmgState(eDamageType.Physics, ActualAllyState.Dmg.value),
+            new CriticalState(ActualAllyState.CC.value, 1 + ActualAllyState.CD.value),
+            new KnockbackState(true, ActualAllyState.KBPower.value, 0.2f));
     }
 
     private BulletState_PosAndRot Get_BulletState_PosAndRot(Vector2 _TargetPos)
@@ -88,7 +88,7 @@ public class DroppingAttackAllyController : DroppingAllyController
     private BulletState_Size Get_BulletState_Shadow_Size()
     {
         return new BulletState_Size(
-            Vector2.one * ActualAllyState.AttackSize.Value,
+            Vector2.one * ActualAllyState.AttackSize.value,
             new Vector2(0.3f, 0.15f));
     }
 

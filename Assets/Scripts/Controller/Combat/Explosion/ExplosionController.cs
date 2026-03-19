@@ -65,7 +65,7 @@ public abstract class ExplosionController : StaticDepthController
         float _TargetRange = 0.4f)
     {
         Set_State_Base(_State, _TargetRange);
-        Set_State_Juge(BigExplostionColSize, _State.AttackSizeState.Size);
+        Set_State_Juge(BigExplostionColSize, _State.attackSizeState.size);
         Set_State_Anim(_AC);
         Set_State_StartTF(_State_StartTF);
         Set_State_Extra();
@@ -109,10 +109,10 @@ public abstract class ExplosionController : StaticDepthController
 
         SoundManager.instance.Play_2D_SFX_Combat(ThisAS, "Explosion");
 
-        if (State.IsFire) SoundManager.instance.Play_2D_SFX_Status("Fire");
-        if (State.IsCold) SoundManager.instance.Play_2D_SFX_Status("Cold");
-        if (State.IsElectricity) SoundManager.instance.Play_2D_SFX_Status("Electricity");
-        if (State.IsCorrosion) SoundManager.instance.Play_2D_SFX_Status("Corrosion");
+        if (State.isFire) SoundManager.instance.Play_2D_SFX_Status("Fire");
+        if (State.isCold) SoundManager.instance.Play_2D_SFX_Status("Cold");
+        if (State.isElectricity) SoundManager.instance.Play_2D_SFX_Status("Electricity");
+        if (State.isCorrosion) SoundManager.instance.Play_2D_SFX_Status("Corrosion");
 
         StartCoroutine(Start_Play_Cor());
     }

@@ -131,19 +131,19 @@ public class TitleSmokeEUIController : ElementUIController
     // ½ºÆù ·£´ý µô·¹ÀÌ
     private float Get_RandomDelay()
     {
-        return Random.Range(DelayTime.TypeBase, DelayTime.TypeSpecial);
+        return Random.Range(DelayTime.typeBase, DelayTime.typeSpecial);
     }
 
     // ·£´ý °Å¸®
     private float Get_RandomDis()
     {
-        return Random.Range(MovingDis.TypeBase, MovingDis.TypeSpecial);
+        return Random.Range(MovingDis.typeBase, MovingDis.typeSpecial);
     }
 
     // ·£´ý ½Ã°£
     private float Get_RandomDurTime()
     {
-        return Random.Range(MovingTime.TypeBase, MovingTime.TypeSpecial);
+        return Random.Range(MovingTime.typeBase, MovingTime.typeSpecial);
     }
 
     // ·£´ý ½ºÆù À§Ä¡

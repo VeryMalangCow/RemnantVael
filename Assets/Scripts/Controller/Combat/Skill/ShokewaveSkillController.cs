@@ -76,7 +76,7 @@ public class ShockwaveSkillController : ActiveSkillController
 
     public float Get_UsableMaxSize()
     {
-        return MaxSize * (1 + (Tier.ActualState.Value * 0.15f));
+        return MaxSize * (1 + (Tier.actualState.Value * 0.15f));
     }
 
     private AttackerState Get_CurrentAttackerState()
@@ -87,13 +87,13 @@ public class ShockwaveSkillController : ActiveSkillController
                     eCombatOwner.Player),
                 new DmgState(
                     eDamageType.Energy, 
-                    PlayerController.BaseWeapon.BaseDamage.BuffedState * Power.ActualState.Value),
+                    PlayerController.BaseWeapon.BaseDamage.buffedState * Power.actualState.Value),
                 new CriticalState(
-                    PlayerController.BaseWeapon.CC.ActualState.Value, 
-                    PlayerController.BaseWeapon.CD.BuffedState),
+                    PlayerController.BaseWeapon.CC.actualState.Value, 
+                    PlayerController.BaseWeapon.CD.buffedState),
                 new KnockbackState(
                     true, 
-                    PlayerController.BaseWeapon.KnockbackPower.ActualState.Value * (Tier.ActualState.Value + 1) * 10f,
+                    PlayerController.BaseWeapon.KnockbackPower.actualState.Value * (Tier.actualState.Value + 1) * 10f,
                     0.4f)));
     }
 

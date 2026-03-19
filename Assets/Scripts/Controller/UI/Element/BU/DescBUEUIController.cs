@@ -100,10 +100,10 @@ public class DescBUEUIController : ElementUIController
 
         // Left
         SetOn_Left_State(_State);
-        SetOn_Left_CurrentRange(_State.CurrentLevel.Value);
+        SetOn_Left_CurrentRange(_State.currentLevel.Value);
 
         // Right
-        SetOn_Right_CurrentState(_State.CurrentLevel.Value, _State.ActualState.Value);
+        SetOn_Right_CurrentState(_State.currentLevel.Value, _State.actualState.Value);
         SetOn_Right_NextState(_State);
     }
 
@@ -144,15 +144,15 @@ public class DescBUEUIController : ElementUIController
             string symbol = "";
             string stateString = "";
 
-            if (_State.BaseState.GetType() == typeof(float))
+            if (_State.baseState.GetType() == typeof(float))
             {
-                float value = float.Parse(_State.UpgradeValueByLevelRange[i].ToString());
+                float value = float.Parse(_State.upgradeValueByLevelRange[i].ToString());
                 stateString = value.ToString();
                 symbol = value > 0 ? "+" : "";
             }
-            else if (_State.BaseState.GetType() == typeof(int))
+            else if (_State.baseState.GetType() == typeof(int))
             {
-                int value = int.Parse(_State.UpgradeValueByLevelRange[i].ToString());
+                int value = int.Parse(_State.upgradeValueByLevelRange[i].ToString());
                 stateString = value.ToString();
                 symbol = value > 0 ? "+" : "";
             }
@@ -186,22 +186,22 @@ public class DescBUEUIController : ElementUIController
         string sizeStart = "<size=50%>";
         string sizeEnd = "</size>\n";
 
-        if (_State.CurrentLevel.Value < DevTool.BU_MaxLevel)
+        if (_State.currentLevel.Value < DevTool.buMaxLevel)
         {
-            NextLvTxt.text = $"{sizeStart}Level{sizeEnd}{_State.CurrentLevel.Value + 1}";
+            NextLvTxt.text = $"{sizeStart}Level{sizeEnd}{_State.currentLevel.Value + 1}";
 
             string nextValue = "";
-            if (_State.BaseState.GetType() == typeof(float))
+            if (_State.baseState.GetType() == typeof(float))
             {
                 nextValue = 
-                    (float.Parse(_State.ActualState.Value.ToString()) + 
-                    float.Parse(_State.UpgradeValueByLevelRange[(int)(_State.CurrentLevel.Value / 3)].ToString())).ToString();
+                    (float.Parse(_State.actualState.Value.ToString()) + 
+                    float.Parse(_State.upgradeValueByLevelRange[(int)(_State.currentLevel.Value / 3)].ToString())).ToString();
             }
-            else if (_State.BaseState.GetType() == typeof(int))
+            else if (_State.baseState.GetType() == typeof(int))
             {
                 nextValue =
-                    (int.Parse(_State.ActualState.Value.ToString()) + 
-                    int.Parse(_State.UpgradeValueByLevelRange[(int)(_State.CurrentLevel.Value / 3)].ToString())).ToString();
+                    (int.Parse(_State.actualState.Value.ToString()) + 
+                    int.Parse(_State.upgradeValueByLevelRange[(int)(_State.currentLevel.Value / 3)].ToString())).ToString();
             }
 
             NextStateTxt.text = $"{sizeStart}Value{sizeEnd}{nextValue}";

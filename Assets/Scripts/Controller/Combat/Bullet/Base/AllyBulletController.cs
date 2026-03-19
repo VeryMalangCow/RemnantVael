@@ -44,7 +44,7 @@ public class AllyBulletController : BulletController
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
                 TargetObject.transform.position, transform.rotation);
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
-                TargetObject.transform.position, State.IsCritical, transform.rotation);
+                TargetObject.transform.position, State.isCritical, transform.rotation);
 
             PlayerManager.instance.cameraController.Play_HitEnemyAnim();
             ec.Try_Hitted(this);

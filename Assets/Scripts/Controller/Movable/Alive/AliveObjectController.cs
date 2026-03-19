@@ -131,7 +131,7 @@ public abstract class AliveObjectController : MovableObjectController
             particle.transform.SetParent(StageManager.instance.currentRoomController.transform);
 
             particle.Play_DeadParticle(
-                BrokenParticleData[i].Sprite, BrokenParticleData[i].ShadowSize, transform.position,
+                BrokenParticleData[i].sprite, BrokenParticleData[i].shadowSize, transform.position,
                 _StartY: TargetRange, _ThrowDis: ParticleThrowDis, _DurTime: 1.5f, _DisappointTime: 3f);
         }
     }

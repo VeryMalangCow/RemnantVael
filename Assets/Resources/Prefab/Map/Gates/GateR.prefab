@@ -2725,8 +2725,8 @@ MonoBehaviour:
   GateDir: {x: 1, y: 0}
   ThisAC: {fileID: 7400000, guid: 68c4705b95683d6438092d027ff0fd4f, type: 2}
   ThingsGO:
-    TypeBase: {fileID: 1557811161441417995}
-    TypeSpecial: {fileID: 2549561047461188151}
+    typeBase: {fileID: 1557811161441417995}
+    typeSpecial: {fileID: 2549561047461188151}
   EntranceGO: {fileID: 8365579818040759490}
   OpacityLowerSRList: []
   ExtraTargetObject: {fileID: 5884526475852695358}

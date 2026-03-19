@@ -43,8 +43,8 @@ public class AimController : StaticDepthController
     private void Offset_Sorting()
     {
         CenterSR.sortingOrder = LayerOrderManager.order_Aim;
-        AimSR.TypeBase.sortingOrder = LayerOrderManager.order_Aim;
-        AimSR.TypeSpecial.sortingOrder = LayerOrderManager.order_Aim;
+        AimSR.typeBase.sortingOrder = LayerOrderManager.order_Aim;
+        AimSR.typeSpecial.sortingOrder = LayerOrderManager.order_Aim;
         for (int i = 0; i < SkillAimList.Count; i++) SkillAimList[i].sortingOrder = LayerOrderManager.order_Aim;
     }
 
@@ -88,13 +88,13 @@ public class AimController : StaticDepthController
     // 데미지 타입: 물리
     public void Set_PhysicsType()
     {
-        Set_DmgType(AimSprite.Physics.TypeBase, AimSprite.Physics.TypeSpecial);
+        Set_DmgType(AimSprite.Physics.typeBase, AimSprite.Physics.typeSpecial);
     }
 
     // 데미지 타입: 에너지
     public void Set_EnergyType()
     {
-        Set_DmgType(AimSprite.Energy.TypeBase, AimSprite.Energy.TypeSpecial);
+        Set_DmgType(AimSprite.Energy.typeBase, AimSprite.Energy.typeSpecial);
     }
 
     // 데미지 타입만으로 변경
@@ -109,7 +109,7 @@ public class AimController : StaticDepthController
     // 공격 타입: On / Off (화살표)
     public void Set_ActivingAttack(bool _OnOff)
     {
-        Set_ActiveSprite(AimSR.TypeSpecial.gameObject, _OnOff);
+        Set_ActiveSprite(AimSR.typeSpecial.gameObject, _OnOff);
     }
 
     // 스킬 타입: On / Off (사용 스킬의 아이콘)
@@ -125,8 +125,8 @@ public class AimController : StaticDepthController
     // 데미지 타입에 따른 이미지 변경
     private void Set_DmgType(Sprite _AimSprite, Sprite _ShootMarkSprite)
     {
-        AimSR.TypeBase.sprite = _AimSprite;
-        AimSR.TypeSpecial.sprite = _ShootMarkSprite;
+        AimSR.typeBase.sprite = _AimSprite;
+        AimSR.typeSpecial.sprite = _ShootMarkSprite;
     }
 
     // 스프라이트 오브젝트 끄고 키기

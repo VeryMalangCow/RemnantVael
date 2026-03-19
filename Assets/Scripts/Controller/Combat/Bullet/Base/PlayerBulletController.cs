@@ -37,8 +37,8 @@ public class PlayerBulletController : BulletController
         ThisLight.lightCookieSprite = ThisSR.sprite;
         if (LightIsApplyPlayerState)
         {
-            ThisLight.color = PlayerManager.instance.playerController.Get_CorrectColor(this.State.DmgState.DmgType, this.State.IsCritical);
-            if (this.State.DmgState.DmgType == eDamageType.Physics)
+            ThisLight.color = PlayerManager.instance.playerController.Get_CorrectColor(this.State.dmgState.dmgType, this.State.isCritical);
+            if (this.State.dmgState.dmgType == eDamageType.Physics)
                 ThisLight.intensity = Intensity;
             else
                 ThisLight.intensity = Intensity * 0.5f;
@@ -57,7 +57,7 @@ public class PlayerBulletController : BulletController
         {
             ThisTrail.time = TrailTime;
             ThisTrail.startWidth = TrailStartWidth;
-            ThisTrail.colorGradient = PlayerManager.instance.playerController.Get_CorrectGradient(this.State.DmgState.DmgType, this.State.IsCritical);
+            ThisTrail.colorGradient = PlayerManager.instance.playerController.Get_CorrectGradient(this.State.dmgState.dmgType, this.State.isCritical);
         }
     }
 
@@ -70,7 +70,7 @@ public class PlayerBulletController : BulletController
         base.Set_State_Base(_BulletState, _TargetRange);
 
         // 알맞는 이미지
-        ThisSR.sprite = BulletSprite.Get_CorrectType(_BulletState.DmgState.DmgType).Get_Special(_BulletState.IsCritical);
+        ThisSR.sprite = BulletSprite.Get_CorrectType(_BulletState.dmgState.dmgType).Get_Special(_BulletState.isCritical);
     }
 
     #endregion
@@ -91,7 +91,7 @@ public class PlayerBulletController : BulletController
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
                 TargetObject.transform.position, transform.rotation);
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
-                TargetObject.transform.position, State.IsCritical, transform.rotation);
+                TargetObject.transform.position, State.isCritical, transform.rotation);
 
             PlayerManager.instance.cameraController.Play_HitEnemyAnim();
             ec.Try_Hitted(this);
@@ -108,9 +108,9 @@ public class PlayerBulletController : BulletController
         {
             case "PlayerBullet": // 기본탄
                 UnitManager.instance.onceTime_AnimGenerator.Anim_AttackSuccess(
-                    TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical, 1.0f);
+                    TargetObject.transform.position, State.dmgState.dmgType, State.isCritical, 1.0f);
                 UnitManager.instance.player_ExplImgGenerator.Expl_Player_ObjectDestroy(
-                    PlayerManager.instance.playerController.Get_ID(), TargetObject.transform.position, State.DmgState.DmgType, State.IsCritical);
+                    PlayerManager.instance.playerController.Get_ID(), TargetObject.transform.position, State.dmgState.dmgType, State.isCritical);
                 break;
 
             case "MI_000_Bullet": // 에너지 유도탄

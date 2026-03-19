@@ -68,7 +68,7 @@ public class VaultController : DestructibleBuildController
         OnOffStateAC = ResourceManager.instance.vault_StateAC;
 
         BrokenAC = ResourceManager.instance.Get_VaultBrokenAnim(CurrentGrade);
-        BrokenStateAC = ResourceManager.instance.vault_StateAC.TypeBase;
+        BrokenStateAC = ResourceManager.instance.vault_StateAC.typeBase;
     }
 
     public void Set_Upgrade()

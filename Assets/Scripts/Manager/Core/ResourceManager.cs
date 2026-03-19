@@ -358,9 +358,9 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
                 mrbSprite = sprite;
 
             else if (sprite.name == "ModuleUI_13s_X")
-                cvtMaterialConditionIcon.TypeBase = sprite;
+                cvtMaterialConditionIcon.typeBase = sprite;
             else if (sprite.name == "ModuleUI_13s_O")
-                cvtMaterialConditionIcon.TypeSpecial = sprite;
+                cvtMaterialConditionIcon.typeSpecial = sprite;
         }
 
         #endregion
@@ -943,17 +943,17 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
     // Set
     public ItemData Set_DataLanguage(ItemData itemData, int id)
     {
-        itemData.Name = moduleItemName_Data.Get_Word(id);
-        itemData.Description = moduleItemDesc_Data.Get_Word(id);
-        itemData.EquipDescription = moduleItemEquipDesc_Data.Get_Word(id);
+        itemData.name = moduleItemName_Data.Get_Word(id);
+        itemData.desc = moduleItemDesc_Data.Get_Word(id);
+        itemData.equipDesc = moduleItemEquipDesc_Data.Get_Word(id);
 
         return itemData;
     }
 
     public MainChipData Set_DataLanguage(MainChipData mainChipData, int id)
     {
-        mainChipData.Name = mainChipName_Data.Get_Word(id);
-        mainChipData.AmalgamationDescArr = new string[]
+        mainChipData.name = mainChipName_Data.Get_Word(id);
+        mainChipData.amalgamationDescArr = new string[]
         {
             mainChipDesc_Data[id].Get_Word(0),
             mainChipDesc_Data[id].Get_Word(1),
@@ -2561,12 +2561,12 @@ public class ResourceManager : PersistentSingleton<ResourceManager>
         {
             if (_index == _base)
             {
-                data.TypeBase = sprite;
+                data.typeBase = sprite;
                 return true;
             }  
             else if (_index == special)
             {
-                data.TypeSpecial = sprite;
+                data.typeSpecial = sprite;
                 return true;
             }
         }

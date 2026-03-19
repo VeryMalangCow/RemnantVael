@@ -3245,17 +3245,17 @@ MonoBehaviour:
   RightRT: {fileID: 1506832137648821000}
   StartSize: 1
   DurColor:
-    TypeBase: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
-    TypeSpecial: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 0}
+    typeBase: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    typeSpecial: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 0}
   MovingDis:
-    TypeBase: 300
-    TypeSpecial: 450
+    typeBase: 300
+    typeSpecial: 450
   MovingTime:
-    TypeBase: 2.5
-    TypeSpecial: 5
+    typeBase: 2.5
+    typeSpecial: 5
   DelayTime:
-    TypeBase: 0.2
-    TypeSpecial: 0.4
+    typeBase: 0.2
+    typeSpecial: 0.4
   OwnerUIController: {fileID: 0}
 --- !u!1 &1861677530138277374
 GameObject:
@@ -4244,17 +4244,17 @@ MonoBehaviour:
   RightRT: {fileID: 2010702289007878454}
   StartSize: 1.5
   DurColor:
-    TypeBase: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
-    TypeSpecial: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 0}
+    typeBase: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
+    typeSpecial: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 0}
   MovingDis:
-    TypeBase: 400
-    TypeSpecial: 600
+    typeBase: 400
+    typeSpecial: 600
   MovingTime:
-    TypeBase: 2
-    TypeSpecial: 4
+    typeBase: 2
+    typeSpecial: 4
   DelayTime:
-    TypeBase: 0.5
-    TypeSpecial: 1
+    typeBase: 0.5
+    typeSpecial: 1
   OwnerUIController: {fileID: 0}
 --- !u!1 &2148019396111061452
 GameObject:
@@ -5326,17 +5326,17 @@ MonoBehaviour:
   RightRT: {fileID: 4980303815171168461}
   StartSize: 3
   DurColor:
-    TypeBase: {r: 1, g: 1, b: 1, a: 1}
-    TypeSpecial: {r: 1, g: 1, b: 1, a: 0}
+    typeBase: {r: 1, g: 1, b: 1, a: 1}
+    typeSpecial: {r: 1, g: 1, b: 1, a: 0}
   MovingDis:
-    TypeBase: 700
-    TypeSpecial: 1000
+    typeBase: 700
+    typeSpecial: 1000
   MovingTime:
-    TypeBase: 1
-    TypeSpecial: 2
+    typeBase: 1
+    typeSpecial: 2
   DelayTime:
-    TypeBase: 2
-    TypeSpecial: 4
+    typeBase: 2
+    typeSpecial: 4
   OwnerUIController: {fileID: 0}
 --- !u!1 &2438430320766202974
 GameObject:
@@ -6724,17 +6724,17 @@ MonoBehaviour:
   RightRT: {fileID: 3333225709150924168}
   StartSize: 2
   DurColor:
-    TypeBase: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    TypeSpecial: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
+    typeBase: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    typeSpecial: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
   MovingDis:
-    TypeBase: 600
-    TypeSpecial: 850
+    typeBase: 600
+    typeSpecial: 850
   MovingTime:
-    TypeBase: 1.5
-    TypeSpecial: 3
+    typeBase: 1.5
+    typeSpecial: 3
   DelayTime:
-    TypeBase: 1
-    TypeSpecial: 2
+    typeBase: 1
+    typeSpecial: 2
   OwnerUIController: {fileID: 0}
 --- !u!1 &3055733640649793388
 GameObject:
@@ -7699,35 +7699,35 @@ MonoBehaviour:
   BtnsRT: {fileID: 3820758631702085338}
   BGCG: {fileID: 8941357653355300680}
   AllTitleElementUI:
-  - MovingRT: {fileID: 3883162563248777909}
-    MovingPowerX: 0.02
-    MovingPowerY: 0.02
-  - MovingRT: {fileID: 4640283257421368340}
-    MovingPowerX: 0.1
-    MovingPowerY: 0.05
-  - MovingRT: {fileID: 7613983106455793155}
-    MovingPowerX: 0.3
-    MovingPowerY: 0.15
-  - MovingRT: {fileID: 7132642177908103004}
-    MovingPowerX: 0.4
-    MovingPowerY: 0.2
-  - MovingRT: {fileID: 1388510309095484665}
-    MovingPowerX: 1.2
-    MovingPowerY: 0.6
-  - MovingRT: {fileID: 7920495742498411703}
-    MovingPowerX: 3
-    MovingPowerY: 1.5
+  - movingRT: {fileID: 3883162563248777909}
+    movingPowerX: 0.02
+    movingPowerY: 0.02
+  - movingRT: {fileID: 4640283257421368340}
+    movingPowerX: 0.1
+    movingPowerY: 0.05
+  - movingRT: {fileID: 7613983106455793155}
+    movingPowerX: 0.3
+    movingPowerY: 0.15
+  - movingRT: {fileID: 7132642177908103004}
+    movingPowerX: 0.4
+    movingPowerY: 0.2
+  - movingRT: {fileID: 1388510309095484665}
+    movingPowerX: 1.2
+    movingPowerY: 0.6
+  - movingRT: {fileID: 7920495742498411703}
+    movingPowerX: 3
+    movingPowerY: 1.5
   AllTitleTSElementUI:
-  - ThisTSList:
+  - thisTSList:
     - {fileID: 6262012484775687139}
-    Min: 1000
-    Max: 1300
-    DurTime: 8
-  - ThisTSList:
+    min: 1000
+    max: 1300
+    durTime: 8
+  - thisTSList:
     - {fileID: 6296023966668898676}
-    Min: 500
-    Max: 750
-    DurTime: 6
+    min: 500
+    max: 750
+    durTime: 6
   AllTitleSmokeEUI:
   - {fileID: 8804696968038709079}
   - {fileID: 866298509328159610}
@@ -18308,17 +18308,17 @@ MonoBehaviour:
   RightRT: {fileID: 5266789019819941723}
   StartSize: 0.5
   DurColor:
-    TypeBase: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 1}
-    TypeSpecial: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 0}
+    typeBase: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 1}
+    typeSpecial: {r: 0.3137255, g: 0.3137255, b: 0.3137255, a: 0}
   MovingDis:
-    TypeBase: 200
-    TypeSpecial: 300
+    typeBase: 200
+    typeSpecial: 300
   MovingTime:
-    TypeBase: 4
-    TypeSpecial: 8
+    typeBase: 4
+    typeSpecial: 8
   DelayTime:
-    TypeBase: 0.1
-    TypeSpecial: 0.2
+    typeBase: 0.1
+    typeSpecial: 0.2
   OwnerUIController: {fileID: 0}
 --- !u!1 &8075438955720465409
 GameObject:

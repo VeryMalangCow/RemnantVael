@@ -61,11 +61,11 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
         baseDashSpeed_BUData.Offset(_PC.DashController.DashSpeed);
         baseAvoidChance_BUData.Offset(_PC.AvoidChance);
 
-        for (int i = 0; i < DevTool.SkillAmount; i++)
+        for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            skill_BUDataList[i].Skill_Cooltime_BUData.Offset(_PC.SkillWeapon.SkillList[i].MaxCooltime);
-            skill_BUDataList[i].Skill_Power_BUData.Offset(_PC.SkillWeapon.SkillList[i].Power);
-            skill_BUDataList[i].Skill_Tier_BUData.Offset(_PC.SkillWeapon.SkillList[i].Tier);
+            skill_BUDataList[i].skill_Cooltime_BUData.Offset(_PC.SkillWeapon.SkillList[i].MaxCooltime);
+            skill_BUDataList[i].skill_Power_BUData.Offset(_PC.SkillWeapon.SkillList[i].Power);
+            skill_BUDataList[i].skill_Tier_BUData.Offset(_PC.SkillWeapon.SkillList[i].Tier);
         }
     }
 

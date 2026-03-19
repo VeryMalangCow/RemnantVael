@@ -24,7 +24,7 @@ public class BuffDmgController : BuffController
         currentBuffCharge
             .Subscribe(_Value =>
             {
-                multiple.ActualValue = multiple.BaseValue * currentBuffCharge.Value;
+                multiple.actualValue = multiple.baseValue * currentBuffCharge.Value;
             });
     }
 
@@ -70,7 +70,7 @@ public class BuffDmgController : BuffController
 
     public void Set_Value(float _Value)
     {
-        multiple.BaseValue = _Value;
+        multiple.baseValue = _Value;
     }
 
     public void Set_MaxChargeValue(int _Value)
