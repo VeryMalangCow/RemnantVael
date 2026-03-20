@@ -157,35 +157,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be693dbad58290a48bb715676f3e7955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShieldBuff:
+  shieldBuff:
     enemy: {fileID: 0}
     buffIconUI: {fileID: 0}
     iconSprite: {fileID: 0}
     isOn: 0
     maxCooltime: 0
     currentCooltime: 0
-  ShieldPercent: 10
-  ShieldDurTime: 10
-  FlameStack:
-    enemy: {fileID: 0}
-    buffIconUI: {fileID: 0}
-    iconSprite: {fileID: 0}
-    isOn: 0
-    maxCooltime: 0
-    currentCooltime: 0
-    statusType: 0
-    maxStack: 0
-    currentStack: 0
-    onceTimeReduceAmount: 0
-    CurrentGainStack: 0
-  InfernoStack:
-    enemy: {fileID: 0}
-    buffIconUI: {fileID: 0}
-    iconSprite: {fileID: 0}
-    isOn: 0
-    maxStack: 0
-    currentStack: 0
-  ColdStack:
+  shieldPercent: 10
+  shieldDurTime: 10
+  flameStack:
     enemy: {fileID: 0}
     buffIconUI: {fileID: 0}
     iconSprite: {fileID: 0}
@@ -197,33 +178,14 @@ MonoBehaviour:
     currentStack: 0
     onceTimeReduceAmount: 0
     CurrentGainStack: 0
-  AbsoluteZeroStack:
+  infernoStack:
     enemy: {fileID: 0}
     buffIconUI: {fileID: 0}
     iconSprite: {fileID: 0}
     isOn: 0
     maxStack: 0
     currentStack: 0
-  ElectricityStack:
-    enemy: {fileID: 0}
-    buffIconUI: {fileID: 0}
-    iconSprite: {fileID: 0}
-    isOn: 0
-    maxCooltime: 0
-    currentCooltime: 0
-    statusType: 0
-    maxStack: 0
-    currentStack: 0
-    onceTimeReduceAmount: 0
-    CurrentGainStack: 0
-  PlasmaStack:
-    enemy: {fileID: 0}
-    buffIconUI: {fileID: 0}
-    iconSprite: {fileID: 0}
-    isOn: 0
-    maxStack: 0
-    currentStack: 0
-  CorrosionStack:
+  coldStack:
     enemy: {fileID: 0}
     buffIconUI: {fileID: 0}
     iconSprite: {fileID: 0}
@@ -235,14 +197,52 @@ MonoBehaviour:
     currentStack: 0
     onceTimeReduceAmount: 0
     CurrentGainStack: 0
-  DecayStack:
+  absoluteZeroStack:
     enemy: {fileID: 0}
     buffIconUI: {fileID: 0}
     iconSprite: {fileID: 0}
     isOn: 0
     maxStack: 0
     currentStack: 0
-  Enemy: {fileID: 0}
+  electricityStack:
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxCooltime: 0
+    currentCooltime: 0
+    statusType: 0
+    maxStack: 0
+    currentStack: 0
+    onceTimeReduceAmount: 0
+    CurrentGainStack: 0
+  plasmaStack:
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxStack: 0
+    currentStack: 0
+  corrosionStack:
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxCooltime: 0
+    currentCooltime: 0
+    statusType: 0
+    maxStack: 0
+    currentStack: 0
+    onceTimeReduceAmount: 0
+    CurrentGainStack: 0
+  decayStack:
+    enemy: {fileID: 0}
+    buffIconUI: {fileID: 0}
+    iconSprite: {fileID: 0}
+    isOn: 0
+    maxStack: 0
+    currentStack: 0
+  enemy: {fileID: 0}
 --- !u!50 &7671391899007426867
 Rigidbody2D:
   serializedVersion: 4

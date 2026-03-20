@@ -502,7 +502,7 @@ public class PlayerController : AliveObjectController
     private void Play_Walk(float _DeltaTime)
     {
         float multiple =
-            BaseWeapon.IsShooting ? WalkSpeedWhenShotMultiple.actualState.Value : 1f;
+            BaseWeapon.isShooting ? WalkSpeedWhenShotMultiple.actualState.Value : 1f;
         Play_Walk(
             InputManager.instance.inputMoveDir, WalkSpeed.actualState.Value * multiple, _DeltaTime);
     }
@@ -580,7 +580,7 @@ public class PlayerController : AliveObjectController
 
         StateAnim.Set_Anim(
             new State_Anim(DmgTypeStateAC.typeSpecial, 2f), 
-            _InnerSprite: ChangeState_DamageType);
+            innerSprite: ChangeState_DamageType);
 
         TargetDmgMode = TargetDmgMode == eDamageType.Physics ?
             eDamageType.Energy : eDamageType.Physics;
@@ -617,13 +617,13 @@ public class PlayerController : AliveObjectController
         if (!Can_Change())
         { return; }
 
-        if (!SkillWeapon.SkillList[_Index].Can_Active())
+        if (!SkillWeapon.skillList[_Index].Can_Active())
         {
             MainGameUIManager.instance.playerHUD_UIController.SkillList[_Index].Play_ErrorUI();
             return;
         }
 
-        ReservationDele = SkillWeapon.SkillList[_Index].Active_Skill;
+        ReservationDele = SkillWeapon.skillList[_Index].Active_Skill;
         StateAnim.Set_Anim(
             new State_Anim(DmgTypeStateAC.typeSpecial, 2f),
             _Sprite);
@@ -703,7 +703,7 @@ public class PlayerController : AliveObjectController
         if(DmgMode != TargetDmgMode)
         {
             DmgMode = TargetDmgMode;
-            BaseWeapon.DamageType = TargetDmgMode;
+            BaseWeapon.dmgType = TargetDmgMode;
 
             Reset_StateAnim();
             InputManager.instance.aimController.Set_DmgType(TargetDmgMode);
@@ -909,11 +909,11 @@ public class PlayerController : AliveObjectController
         // 피격
         if (!Is_Avoid()) // 회피인지?
         {
-            BulletState state = _Bullet.State;
+            BulletState state = _Bullet.state;
             
             // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
             Take_Damaged(
-                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Bullet.Enemy.BuffController),
+                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Bullet.ownEnemy.BuffController),
                 DevTool.Get_Dir(_Bullet.gameObject, gameObject),
                 state.knockbackState);
         }
@@ -936,11 +936,11 @@ public class PlayerController : AliveObjectController
         // 피격
         if (!Is_Avoid()) // 회피인지?
         {
-            AttackerState state = _Attacker.AttackerState;
+            AttackerState state = _Attacker.attackerState;
 
             // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
             Take_Damaged(
-                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Attacker.Enemy.BuffController),
+                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Attacker.enemy.BuffController),
                 DevTool.Get_Dir(_Attacker.gameObject, gameObject),
                 state.knockbackState);
         }
@@ -963,11 +963,11 @@ public class PlayerController : AliveObjectController
         // 피격
         if (!Is_Avoid()) // 회피인지?
         {
-            ExplosionState state = _Explosion.State;
+            ExplosionState state = _Explosion.state;
 
             // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
             Take_Damaged(
-                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Explosion.Enemy.BuffController),
+                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Explosion.enemy.BuffController),
                 DevTool.Get_Dir(_Explosion.gameObject, gameObject),
                 state.knockbackState);
         }
@@ -1124,12 +1124,12 @@ public class PlayerController : AliveObjectController
     private void SetOn_Invincible()
     {
         float intervalTime = InvincibleTime * 0.125f; // (1/8)
-        for (int i = 0; i < AfterImgGenerator.TargetSRList.Count; i++)
+        for (int i = 0; i < AfterImgGenerator.targetSRList.Count; i++)
         {
             Sequence seq = DOTween.Sequence();
-            seq.Append(AfterImgGenerator.TargetSRList[i].DOFade(0, 0));
+            seq.Append(AfterImgGenerator.targetSRList[i].DOFade(0, 0));
             seq.AppendInterval(intervalTime);
-            seq.Append(AfterImgGenerator.TargetSRList[i].DOFade(1, 0));
+            seq.Append(AfterImgGenerator.targetSRList[i].DOFade(1, 0));
             seq.AppendInterval(intervalTime);
             seq.SetLoops(4, LoopType.Restart);
         }

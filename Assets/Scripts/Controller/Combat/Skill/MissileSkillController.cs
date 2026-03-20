@@ -10,8 +10,8 @@ public class MissileSkillController : ActiveSkillController
     [Header("<><><><><> Missile Skill")]
 
     [Header("=== State")]
-    [SerializeField] private readonly float ShotDelay = 0.1f;
-    [SerializeField] private readonly float SpreadAngleLimit = 10;
+    [SerializeField] private readonly float shotDelay = 0.1f;
+    [SerializeField] private readonly float spreadAngleLimit = 10;
 
 
     #endregion
@@ -35,10 +35,10 @@ public class MissileSkillController : ActiveSkillController
         // ==========
 
         
-        for (int i = 0; i < Tier.actualState.Value + 1; i++)
+        for (int i = 0; i < tier.actualState.Value + 1; i++)
         {
             Play_ShotEachMissile();
-            yield return new WaitForSeconds(ShotDelay);
+            yield return new WaitForSeconds(shotDelay);
         }
 
 
@@ -55,32 +55,32 @@ public class MissileSkillController : ActiveSkillController
             BulletState bulletState = Get_CurrentBulletState();
 
             // Dir
-            float angle = PlayerController.SkillWeapon.PitchTF.localRotation.eulerAngles.y;
+            float angle = playerController.SkillWeapon.PitchTF.localRotation.eulerAngles.y;
             Vector2 dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
             // State
             missile.Set_State(
                 bulletState,
                 State_PosAndRot(dir), 
-                _State_Size: null, 
-                _State_Anim: null,
-                _State_Effect: null,
-                DepthController.TargetRange);
+                state_Size: null, 
+                state_Anim: null,
+                state_Effect: null,
+                depthController.TargetRange);
 
             // Effect Explosion -> Physics DMG
             UnitManager.instance.player_ExplImgGenerator.Expl_Player_Skill0(
-                PlayerController.Get_ID(),
-                (Vector2)DepthController.TargetObject.gameObject.transform.position + (dir * 0.1f),
+                playerController.Get_ID(),
+                (Vector2)depthController.TargetObject.gameObject.transform.position + (dir * 0.1f),
                 dir,
                 bulletState.isCritical);
 
             // Effect Shake
-            DepthController.transform.DOShakePosition(ShotDelay, 0.05f, 20, 90, false, true);
-            PlayerManager.instance.cameraController.Play_ShotAnim(ShotDelay, bulletState.dmgState.dmg * 0.5f);
+            depthController.transform.DOShakePosition(shotDelay, 0.05f, 20, 90, false, true);
+            PlayerManager.instance.cameraController.Play_ShotAnim(shotDelay, bulletState.dmgState.dmg * 0.5f);
 
             // Sound
             SoundManager.instance.Play_2D_SFX_Player_Random(
-                PlayerController.Get_AS(), PlayerController.Get_ID(), "MShot", 2);
+                playerController.Get_AS(), playerController.Get_ID(), "MShot", 2);
         }
 
     }
@@ -95,20 +95,20 @@ public class MissileSkillController : ActiveSkillController
         return new BulletState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Player),
-                new DmgState(eDamageType.Physics, PlayerController.BaseWeapon.BaseDamage.buffedState * Power.actualState.Value * 1.5f),
-                new CriticalState(PlayerController.BaseWeapon.CC.actualState.Value, PlayerController.BaseWeapon.CD.buffedState),
-                new KnockbackState(true, PlayerController.BaseWeapon.KnockbackPower.actualState.Value * 1.5f, 0.4f)),
+                new DmgState(eDamageType.Physics, playerController.BaseWeapon.baseDamage.buffedState * power.actualState.Value * 1.5f),
+                new CriticalState(playerController.BaseWeapon.cc.actualState.Value, playerController.BaseWeapon.cd.buffedState),
+                new KnockbackState(true, playerController.BaseWeapon.kbPower.actualState.Value * 1.5f, 0.4f)),
             checkIsCritical: true, 
-            muzzleSpeed: PlayerController.BaseWeapon.MuzzleSpeed.actualState.Value * 1.5f, 
+            muzzleSpeed: playerController.BaseWeapon.muzzleSpeed.actualState.Value * 1.5f, 
             aliveTime: 3.5f);
     }
 
-    private BulletState_PosAndRot State_PosAndRot(Vector2 _Dir)
+    private BulletState_PosAndRot State_PosAndRot(Vector2 dir)
     {
         return new BulletState_PosAndRot(
             this.gameObject.transform.position, 
-            _Dir, 
-            DevTool.Get_RandomValueBaseZero(SpreadAngleLimit * 2f));
+            dir, 
+            DevTool.Get_RandomValueBaseZero(spreadAngleLimit * 2f));
     }
 
     #endregion

@@ -411,7 +411,7 @@ public class PlayerHUDController : UIController
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
             SkillImgList.Add(DevTool.Get_ComponentTType<Image>(SkillList[i].gameObject));
-            SkillImgList[i].sprite = PlayerManager.instance.playerController.SkillWeapon.SkillList[i].ThisIcon;
+            SkillImgList[i].sprite = PlayerManager.instance.playerController.SkillWeapon.skillList[i].icon;
         }
 
         Credit_EUI.Offset();
@@ -480,7 +480,7 @@ public class PlayerHUDController : UIController
         PlayerStatesTxt.text = Get_PlayerStateTxt(player, weapon);
 
         for (int i = 0; i < DevTool.skillAmount; i++)
-            SkillStatesTxtList[i].text = Get_SkillStateTxt(skill.SkillList[i]);
+            SkillStatesTxtList[i].text = Get_SkillStateTxt(skill.skillList[i]);
     }
 
     #endregion
@@ -985,11 +985,11 @@ public class PlayerHUDController : UIController
             _Player.WalkSpeed.actualState.Value.ToString(),
             _Player.DashController.DashSpeed.actualState.Value.ToString(),
             _Player.DashController.Get_ActualNeedEP().ToString(),
-            _Weapon.BaseDamage.actualState.Value.ToString(),
-            _Weapon.ROF.actualState.Value.ToString(),
-            _Weapon.AccuracyRate.actualState.Value.ToString(),
-            _Weapon.CC.actualState.Value.ToString(),
-            _Weapon.CD.actualState.Value.ToString()
+            _Weapon.baseDamage.actualState.Value.ToString(),
+            _Weapon.rof.actualState.Value.ToString(),
+            _Weapon.accRate.actualState.Value.ToString(),
+            _Weapon.cc.actualState.Value.ToString(),
+            _Weapon.cd.actualState.Value.ToString()
         };
     }
 
@@ -1012,8 +1012,8 @@ public class PlayerHUDController : UIController
     {
         return new List<string>()
         {
-            _Skill.Tier.actualState.Value.ToString(),
-            _Skill.Power.actualState.Value.ToString()
+            _Skill.tier.actualState.Value.ToString(),
+            _Skill.power.actualState.Value.ToString()
         };
     }
 

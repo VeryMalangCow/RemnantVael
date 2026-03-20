@@ -203,8 +203,8 @@ MonoBehaviour:
   ShadowSize: {x: 0, y: 0}
   DropBottomYPos: 0
   ZeroToOneTime: 0
-  PoolingString: 
-  State:
+  poolingString: 
+  state:
     ownerData:
       owner: 0
       id: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
       canKB: 0
       kbPower: 0
       kbTime: 0
-  SizeState:
+  sizeState:
     size: 0
 --- !u!1 &3054027541298377550
 GameObject:

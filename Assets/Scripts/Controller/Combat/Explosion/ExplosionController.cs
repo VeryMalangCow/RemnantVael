@@ -16,28 +16,28 @@ public abstract class ExplosionController : StaticDepthController
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private SortingGroup ThisSG;
-    [SerializeField] private Animator ThisAnimator;
-    [SerializeField] protected CircleCollider2D ThisCol;
-    [SerializeField] protected Light2D ThisLight;
-    [SerializeField] private AudioSource ThisAS;
+    [SerializeField] private SortingGroup sg;
+    [SerializeField] private Animator at;
+    [SerializeField] protected CircleCollider2D col;
+    [SerializeField] protected Light2D light2d;
+    [SerializeField] private AudioSource _as;
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] public ExplosionState State;
+    [SerializeField] public ExplosionState state;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] protected HashSet<StaticDepthController> HittedObjectList = new HashSet<StaticDepthController>();
+    [HideInInspector] protected HashSet<StaticDepthController> hittedObjectList = new HashSet<StaticDepthController>();
 
-    [HideInInspector] private AnimatorOverrideController AOC;
+    [HideInInspector] private AnimatorOverrideController aoc;
 
-    [HideInInspector] public static readonly float BigExplostionColSize = 1.8f;
+    [HideInInspector] public static readonly float bigExplostionColSize = 1.8f;
 
-    [HideInInspector] public static readonly float AnimSpeed = 2f;
-    [HideInInspector] public static readonly float JugeTime = 0.5f;
+    [HideInInspector] public static readonly float animSpeed = 2f;
+    [HideInInspector] public static readonly float jugeTime = 0.5f;
 
     #endregion
 
@@ -47,10 +47,10 @@ public abstract class ExplosionController : StaticDepthController
 
     protected virtual void Reset_State()
     {
-        AOC = null;
-        State.Reset_State();
-        HittedObjectList.Clear();
-        ThisLight.intensity = 0;
+        aoc = null;
+        state.Reset_State();
+        hittedObjectList.Clear();
+        light2d.intensity = 0;
     }
 
     #endregion
@@ -59,45 +59,45 @@ public abstract class ExplosionController : StaticDepthController
 
 
     public void Set_State(
-        ExplosionState _State,
-        AnimationClip _AC,
-        State_TF2D _State_StartTF,
-        float _TargetRange = 0.4f)
+        ExplosionState state,
+        AnimationClip ac,
+        State_TF2D state_StartTF,
+        float targetRange = 0.4f)
     {
-        Set_State_Base(_State, _TargetRange);
-        Set_State_Juge(BigExplostionColSize, _State.attackSizeState.size);
-        Set_State_Anim(_AC);
-        Set_State_StartTF(_State_StartTF);
+        Set_State_Base(state, targetRange);
+        Set_State_Juge(bigExplostionColSize, state.attackSizeState.size);
+        Set_State_Anim(ac);
+        Set_State_StartTF(state_StartTF);
         Set_State_Extra();
 
         SetOn_State();
     }
 
-    public virtual void Set_State_Base(ExplosionState _State, float _TargetRange = 0.4f)
+    public virtual void Set_State_Base(ExplosionState state, float targetRange = 0.4f)
     {
-        this.State = new ExplosionState(_State);
+        this.state = new ExplosionState(state);
 
-        ThisSG.sortingOrder = LayerOrderManager.order_Explosion;
-        TargetRange = _TargetRange;
+        sg.sortingOrder = LayerOrderManager.order_Explosion;
+        TargetRange = targetRange;
     }
 
-    public virtual void Set_State_Juge(float _ExplosionSize, float _ColRadius)
+    public virtual void Set_State_Juge(float explosionSize, float colRadius)
     {
-        TargetObject.transform.localScale = Vector2.one * _ColRadius;
-        ThisCol.radius = _ExplosionSize * _ColRadius;
-        ThisLight.pointLightOuterRadius = _ExplosionSize * _ColRadius;
+        TargetObject.transform.localScale = Vector2.one * colRadius;
+        col.radius = explosionSize * colRadius;
+        light2d.pointLightOuterRadius = explosionSize * colRadius;
     }
 
     public virtual void Set_State_Anim(AnimationClip _AC)
     {
-        DevTool.Set_Anim(ref AOC, ThisAnimator, _AC);
-        ThisAnimator.speed = AnimSpeed;
+        DevTool.Set_Anim(ref aoc, at, _AC);
+        at.speed = animSpeed;
     }
 
-    public virtual void Set_State_StartTF(State_TF2D _State_StartTF)
+    public virtual void Set_State_StartTF(State_TF2D state_StartTF)
     {
-        this.transform.position = _State_StartTF.pos;
-        this.transform.localScale = _State_StartTF.localScale;
+        this.transform.position = state_StartTF.pos;
+        this.transform.localScale = state_StartTF.localScale;
     }
 
     public virtual void Set_State_Extra() { }
@@ -107,12 +107,12 @@ public abstract class ExplosionController : StaticDepthController
     {
         this.gameObject.SetActive(true);
 
-        SoundManager.instance.Play_2D_SFX_Combat(ThisAS, "Explosion");
+        SoundManager.instance.Play_2D_SFX_Combat(_as, "Explosion");
 
-        if (State.isFire) SoundManager.instance.Play_2D_SFX_Status("Fire");
-        if (State.isCold) SoundManager.instance.Play_2D_SFX_Status("Cold");
-        if (State.isElectricity) SoundManager.instance.Play_2D_SFX_Status("Electricity");
-        if (State.isCorrosion) SoundManager.instance.Play_2D_SFX_Status("Corrosion");
+        if (state.isFire) SoundManager.instance.Play_2D_SFX_Status("Fire");
+        if (state.isCold) SoundManager.instance.Play_2D_SFX_Status("Cold");
+        if (state.isElectricity) SoundManager.instance.Play_2D_SFX_Status("Electricity");
+        if (state.isCorrosion) SoundManager.instance.Play_2D_SFX_Status("Corrosion");
 
         StartCoroutine(Start_Play_Cor());
     }
@@ -123,11 +123,11 @@ public abstract class ExplosionController : StaticDepthController
 
     private IEnumerator Start_Play_Cor()
     {
-        DOTween.To(() => ThisLight.intensity, x => ThisLight.intensity = x, 1f, JugeTime * 0.2f);
-        yield return new WaitForSeconds(JugeTime * 0.2f);
+        DOTween.To(() => light2d.intensity, x => light2d.intensity = x, 1f, jugeTime * 0.2f);
+        yield return new WaitForSeconds(jugeTime * 0.2f);
 
-        DOTween.To(() => ThisLight.intensity, x => ThisLight.intensity = x, 0f, JugeTime * 0.2f);
-        yield return new WaitForSeconds(JugeTime * 0.8f);
+        DOTween.To(() => light2d.intensity, x => light2d.intensity = x, 0f, jugeTime * 0.2f);
+        yield return new WaitForSeconds(jugeTime * 0.8f);
 
         Remove_Object();
     }
@@ -137,28 +137,28 @@ public abstract class ExplosionController : StaticDepthController
 
     #region Add
 
-    public void Add_HittedObjectList(StaticDepthController _Object)
+    public void Add_HittedObjectList(StaticDepthController obj)
     {
-        HittedObjectList.Add(_Object);
+        hittedObjectList.Add(obj);
     }
     
     #endregion
 
     #region Trigger
 
-    protected virtual void OnTriggerEnter2D(Collider2D _Col)
+    protected virtual void OnTriggerEnter2D(Collider2D col)
     {
-        Try_Hit_DestructibleObject(_Col);
+        Try_Hit_DestructibleObject(col);
     }
 
-    protected void Try_Hit_DestructibleObject(Collider2D _Col)
+    protected void Try_Hit_DestructibleObject(Collider2D col)
     {
-        if (DevTool.Can_Collding(_Col, "DestructibleObject", HittedObjectList, out DestructibleBuildController dbc))
+        if (DevTool.Can_Collding(col, "DestructibleObject", hittedObjectList, out DestructibleBuildController dbc))
         {
-            dbc.Take_Damage(_SpawnItem: true, _SoundOn: true);
-            HittedObjectList.Add(dbc);
+            dbc.Take_Damage(spawnItem: true, soundOn: true);
+            hittedObjectList.Add(dbc);
         }
-        else if (DevTool.Can_Collding(_Col, "FieldObj", HittedObjectList, out DestructibleObjectController doc))
+        else if (DevTool.Can_Collding(col, "FieldObj", hittedObjectList, out DestructibleObjectController doc))
         {
             doc.Destruct();
         }

@@ -470,19 +470,19 @@ MonoBehaviour:
   TargetObject: {fileID: 7639787149237555046}
   ThisSR: {fileID: 6624985155263925001}
   TargetRange: 0.6
-  AimFollowSpeed: 30
-  CenterSR: {fileID: 2944858628824475098}
-  AimSR:
+  aimFollowSpeed: 30
+  centerSR: {fileID: 2944858628824475098}
+  aimSR:
     typeBase: {fileID: 3591631350453274875}
     typeSpecial: {fileID: 8347107679939270085}
-  AimSprite:
+  aimSprite:
     physics:
       typeBase: {fileID: -1304739455, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       typeSpecial: {fileID: -2140929042, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
     energy:
       typeBase: {fileID: -2142815112, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       typeSpecial: {fileID: -33688178, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
-  SkillAimList:
+  skillAimList:
   - {fileID: 6967205246566011253}
   - {fileID: 5954485658766658050}
 --- !u!1 &7639787149237555046

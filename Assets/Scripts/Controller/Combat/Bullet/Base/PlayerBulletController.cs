@@ -9,21 +9,21 @@ public class PlayerBulletController : BulletController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private bool LightIsApplyPlayerState = true;
-    [SerializeField] private bool TrailIsApplyPlayerState = true;
+    [SerializeField] private bool lightIsApplyPlayerState = true;
+    [SerializeField] private bool trailIsApplyPlayerState = true;
 
     [Space(10)]
     [Header("=== Sprite")]
-    [SerializeField] public PlayerVisual<Sprite> BulletSprite;
+    [SerializeField] public PlayerVisual<Sprite> bulletSprite;
 
     [Space(10)]
     [Header("=== Light")]
-    [SerializeField] private float Intensity;
+    [SerializeField] private float intensity;
 
     [Space(10)]
     [Header("=== Trail")]
-    [SerializeField] private float TrailTime;
-    [SerializeField] private float TrailStartWidth;
+    [SerializeField] private float trailTime;
+    [SerializeField] private float trailStartWidth;
 
 
     #endregion
@@ -34,14 +34,14 @@ public class PlayerBulletController : BulletController
     {
         base.SetOn_Light();
 
-        ThisLight.lightCookieSprite = ThisSR.sprite;
-        if (LightIsApplyPlayerState)
+        light2d.lightCookieSprite = ThisSR.sprite;
+        if (lightIsApplyPlayerState)
         {
-            ThisLight.color = PlayerManager.instance.playerController.Get_CorrectColor(this.State.dmgState.dmgType, this.State.isCritical);
-            if (this.State.dmgState.dmgType == eDamageType.Physics)
-                ThisLight.intensity = Intensity;
+            light2d.color = PlayerManager.instance.playerController.Get_CorrectColor(this.state.dmgState.dmgType, this.state.isCritical);
+            if (this.state.dmgState.dmgType == eDamageType.Physics)
+                light2d.intensity = intensity;
             else
-                ThisLight.intensity = Intensity * 0.5f;
+                light2d.intensity = intensity * 0.5f;
         }
     }
 
@@ -53,11 +53,11 @@ public class PlayerBulletController : BulletController
     {
         base.SetOn_Trail();
 
-        if (TrailIsApplyPlayerState)
+        if (trailIsApplyPlayerState)
         {
-            ThisTrail.time = TrailTime;
-            ThisTrail.startWidth = TrailStartWidth;
-            ThisTrail.colorGradient = PlayerManager.instance.playerController.Get_CorrectGradient(this.State.dmgState.dmgType, this.State.isCritical);
+            trail.time = trailTime;
+            trail.startWidth = trailStartWidth;
+            trail.colorGradient = PlayerManager.instance.playerController.Get_CorrectGradient(this.state.dmgState.dmgType, this.state.isCritical);
         }
     }
 
@@ -65,33 +65,33 @@ public class PlayerBulletController : BulletController
 
     #region State
 
-    public override void Set_State_Base(BulletState _BulletState, float _TargetRange)
+    public override void Set_State_Base(BulletState bulletState, float targetRange)
     {
-        base.Set_State_Base(_BulletState, _TargetRange);
+        base.Set_State_Base(bulletState, targetRange);
 
         // 알맞는 이미지
-        ThisSR.sprite = BulletSprite.Get_CorrectType(_BulletState.dmgState.dmgType).Get_Special(_BulletState.isCritical);
+        ThisSR.sprite = bulletSprite.Get_CorrectType(bulletState.dmgState.dmgType).Get_Special(bulletState.isCritical);
     }
 
     #endregion
 
     #region Trigger
 
-    protected override void OnTriggerEnter2D(Collider2D _Col)
+    protected override void OnTriggerEnter2D(Collider2D col)
     {
-        Try_Hit_Enemy(_Col);
+        Try_Hit_Enemy(col);
 
-        base.OnTriggerEnter2D(_Col);
+        base.OnTriggerEnter2D(col);
     }
 
-    protected void Try_Hit_Enemy(Collider2D _Col)
+    protected void Try_Hit_Enemy(Collider2D col)
     {
-        if (DevTool.Can_Collding(_Col, "Enemy", out EnemyController ec))
+        if (DevTool.Can_Collding(col, "Enemy", out EnemyController ec))
         {
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
                 TargetObject.transform.position, transform.rotation);
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
-                TargetObject.transform.position, State.isCritical, transform.rotation);
+                TargetObject.transform.position, state.isCritical, transform.rotation);
 
             PlayerManager.instance.cameraController.Play_HitEnemyAnim();
             ec.Try_Hitted(this);
@@ -104,13 +104,13 @@ public class PlayerBulletController : BulletController
 
     protected override void ExtraEffect()
     {
-        switch (PoolingString)
+        switch (poolingString)
         {
             case "PlayerBullet": // 기본탄
                 UnitManager.instance.onceTime_AnimGenerator.Anim_AttackSuccess(
-                    TargetObject.transform.position, State.dmgState.dmgType, State.isCritical, 1.0f);
+                    TargetObject.transform.position, state.dmgState.dmgType, state.isCritical, 1.0f);
                 UnitManager.instance.player_ExplImgGenerator.Expl_Player_ObjectDestroy(
-                    PlayerManager.instance.playerController.Get_ID(), TargetObject.transform.position, State.dmgState.dmgType, State.isCritical);
+                    PlayerManager.instance.playerController.Get_ID(), TargetObject.transform.position, state.dmgState.dmgType, state.isCritical);
                 break;
 
             case "MI_000_Bullet": // 에너지 유도탄
@@ -130,7 +130,7 @@ public class PlayerBulletController : BulletController
 
     protected override void PoolingSet()
     {
-        switch (PoolingString)
+        switch (poolingString)
         {
             case "PlayerBullet": // 기본탄
                 PoolingManager.instance.playerBullet.Enqueue(this);

@@ -9,20 +9,20 @@ public class AllyBulletController : BulletController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private CapsuleCollider2D ThisCol;
+    [SerializeField] private CapsuleCollider2D col;
 
     #endregion
 
     #region State
 
-    public override void Set_State_Size(BulletState_Size? _State_Size)
+    public override void Set_State_Size(BulletState_Size? state_Size)
     {
-        if (_State_Size.HasValue)
+        if (state_Size.HasValue)
         {
-            base.Set_State_Size(_State_Size);
+            base.Set_State_Size(state_Size);
 
-            TargetObject.transform.localScale = _State_Size.Value.objSize;
-            ThisCol.transform.localScale = _State_Size.Value.colSize;
+            TargetObject.transform.localScale = state_Size.Value.objSize;
+            col.transform.localScale = state_Size.Value.colSize;
         }
     }
 
@@ -30,24 +30,24 @@ public class AllyBulletController : BulletController
 
     #region Trigger
 
-    protected override void OnTriggerEnter2D(Collider2D _Col)
+    protected override void OnTriggerEnter2D(Collider2D col)
     {
-        Try_Hit_Enemy(_Col);
+        Try_Hit_Enemy(col);
 
-        base.OnTriggerEnter2D(_Col);
+        base.OnTriggerEnter2D(col);
     }
 
-    protected void Try_Hit_Enemy(Collider2D _Col)
+    protected void Try_Hit_Enemy(Collider2D col)
     {
-        if (DevTool.Can_Collding(_Col, "Enemy", out EnemyController ec))
+        if (DevTool.Can_Collding(col, "Enemy", out EnemyController enemy))
         {
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
                 TargetObject.transform.position, transform.rotation);
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
-                TargetObject.transform.position, State.isCritical, transform.rotation);
+                TargetObject.transform.position, state.isCritical, transform.rotation);
 
             PlayerManager.instance.cameraController.Play_HitEnemyAnim();
-            ec.Try_Hitted(this);
+            enemy.Try_Hitted(this);
         }
     }
 
@@ -73,21 +73,21 @@ public class AllyBulletController : BulletController
 
     #region Light
 
-    public void SetOn_LightIntensity(float _Intensity)
+    public void SetOn_LightIntensity(float intensity)
     {
-        ThisLight.intensity = _Intensity;
-        ThisLight.lightCookieSprite = ThisSR.sprite;
+        light2d.intensity = intensity;
+        light2d.lightCookieSprite = ThisSR.sprite;
     }
 
     #endregion
 
     #region Trail
 
-    public void SetOn_TrailState(float _Time, float _StartWidth, Gradient _Gradient)
+    public void SetOn_TrailState(float time, float startWidth, Gradient gradient)
     {
-        ThisTrail.time = _Time;
-        ThisTrail.startWidth = _StartWidth;
-        ThisTrail.colorGradient = _Gradient;
+        trail.time = time;
+        trail.startWidth = startWidth;
+        trail.colorGradient = gradient;
     }
 
     #endregion

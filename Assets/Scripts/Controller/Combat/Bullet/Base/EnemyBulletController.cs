@@ -9,51 +9,51 @@ public class EnemyBulletController : BulletController
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] public Animator ThisAnimator;
-    [SerializeField] public CapsuleCollider2D ThisCol;
+    [SerializeField] public Animator at;
+    [SerializeField] public CapsuleCollider2D col;
 
     [Space(10)]
     [Header("=== Effect")]
-    [SerializeField] protected int ExplAmount = 4;
+    [SerializeField] protected int explAmount = 4;
 
     //Other
-    [HideInInspector] public EnemyController Enemy;
-    [HideInInspector] private AnimatorOverrideController AOC;
+    [HideInInspector] public EnemyController ownEnemy;
+    [HideInInspector] private AnimatorOverrideController aoc;
 
     #endregion
 
     #region State
 
     // 그림자 오브젝트의 크기, 판정 크기 (그림자 크기에 배수가 된다), 애니메이션의 산출
-    public override void Set_State_Size(BulletState_Size? _State_Size)
+    public override void Set_State_Size(BulletState_Size? state_Size)
     {
-        if (_State_Size.HasValue)
+        if (state_Size.HasValue)
         {
-            base.Set_State_Size(_State_Size);
+            base.Set_State_Size(state_Size);
 
-            ThisCol.transform.localScale = _State_Size.Value.objSize;
-            ThisCol.size = _State_Size.Value.colSize;
+            col.transform.localScale = state_Size.Value.objSize;
+            col.size = state_Size.Value.colSize;
         }
     }
 
-    public override void Set_State_Anim(State_Anim? _State_Anim) 
+    public override void Set_State_Anim(State_Anim? state_Anim) 
     {
-        if (_State_Anim.HasValue)
+        if (state_Anim.HasValue)
         {
-            base.Set_State_Anim(_State_Anim);
+            base.Set_State_Anim(state_Anim);
 
-            DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.Value.ac);
-            ThisAnimator.speed = _State_Anim.Value.speed;
+            DevTool.Set_Anim(ref aoc, at, state_Anim.Value.ac);
+            at.speed = state_Anim.Value.speed;
         }
     }
 
-    public override void Set_State_Effect(BulletState_Effect? _State_Effect)
+    public override void Set_State_Effect(BulletState_Effect? state_Effect)
     {
-        if (_State_Effect.HasValue)
+        if (state_Effect.HasValue)
         {
-            base.Set_State_Effect(_State_Effect);
+            base.Set_State_Effect(state_Effect);
 
-            ExplAmount = _State_Effect.Value.explAmount;
+            explAmount = state_Effect.Value.explAmount;
         }
     }
 
@@ -61,16 +61,16 @@ public class EnemyBulletController : BulletController
 
     #region Trigger
 
-    protected override void OnTriggerEnter2D(Collider2D _Col)
+    protected override void OnTriggerEnter2D(Collider2D col)
     {
-        Try_Hit_Player(_Col);
+        Try_Hit_Player(col);
 
-        base.OnTriggerEnter2D(_Col);
+        base.OnTriggerEnter2D(col);
     }
 
-    protected void Try_Hit_Player(Collider2D _Col)
+    protected void Try_Hit_Player(Collider2D col)
     {
-        if (DevTool.Can_Collding(_Col, "Player", out PlayerController pc))
+        if (DevTool.Can_Collding(col, "Player", out PlayerController pc))
         {
             pc.Try_Hitted(this);
         }
@@ -82,10 +82,10 @@ public class EnemyBulletController : BulletController
 
     protected override void ExtraEffect()
     {
-        switch (PoolingString)
+        switch (poolingString)
         {
             case "EnemyBullet":
-                UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, ExplAmount);
+                UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, explAmount);
                 break;
 
             default:
@@ -99,10 +99,10 @@ public class EnemyBulletController : BulletController
 
     protected override void PoolingSet()
     {
-        switch (PoolingString)
+        switch (poolingString)
         {
             case "EnemyBullet":
-                UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, ExplAmount);
+                UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, explAmount);
                 PoolingManager.instance.enemyBullets.Enqueue(this);
                 break;
 
@@ -115,10 +115,10 @@ public class EnemyBulletController : BulletController
 
     #region Light
 
-    public void SetOn_LightIntensity(float _Intensity)
+    public void SetOn_LightIntensity(float intensity)
     {
-        ThisLight.intensity = _Intensity;
-        ThisLight.lightCookieSprite = ThisSR.sprite;
+        light2d.intensity = intensity;
+        light2d.lightCookieSprite = ThisSR.sprite;
     }
 
 
@@ -126,11 +126,11 @@ public class EnemyBulletController : BulletController
 
     #region Trail
 
-    public void SetOn_TrailState(float _Time, float _StartWidth, Gradient _Gradient)
+    public void SetOn_TrailState(float time, float startWidth, Gradient gradient)
     {
-        ThisTrail.time = _Time;
-        ThisTrail.startWidth = _StartWidth;
-        ThisTrail.colorGradient = _Gradient;
+        trail.time = time;
+        trail.startWidth = startWidth;
+        trail.colorGradient = gradient;
     }
 
     #endregion

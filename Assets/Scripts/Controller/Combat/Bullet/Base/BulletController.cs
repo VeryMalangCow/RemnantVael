@@ -10,36 +10,36 @@ public abstract class BulletController : MovableDepthController
 
     [Space(20)]
     [Header("<><><><><> Bullet")]
-    [SerializeField] protected string PoolingString = "";
+    [SerializeField] protected string poolingString = "";
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] public BulletState State;
+    [SerializeField] public BulletState state;
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] protected Rigidbody2D ThisRb;
-    [SerializeField] protected TrailRenderer ThisTrail;
-    [SerializeField] protected Light2D ThisLight;
+    [SerializeField] protected Rigidbody2D rb;
+    [SerializeField] protected TrailRenderer trail;
+    [SerializeField] protected Light2D light2d;
 
     [Space(10)]
     [Header("=== Judg")]
-    [SerializeField] protected List<string> DestroyTagList;
+    [SerializeField] protected List<string> destroyTagList;
 
     // Extra
     [Space(10)]
     [Header("=== Guided")]
-    [SerializeField] protected bool IsGuided = false;
-    [SerializeField] protected EnemyController TargetEnemyController = null;
-    [SerializeField] protected float RotateSpeed = 1f; // Guided Power
+    [SerializeField] protected bool isGuided = false;
+    [SerializeField] protected EnemyController enemy = null;
+    [SerializeField] protected float rotSpeed = 1f; // Guided Power
 
     #endregion
 
     #region - Hide
 
     // Alive Time
-    [HideInInspector] protected float CurrentAliveTime = 0;
-    [HideInInspector] private static float BaseBulletSpeed = 200f; 
+    [HideInInspector] protected float currentAliveTime = 0;
+    [HideInInspector] private static float baseBulletSpeed = 200f; 
 
     #endregion
 
@@ -70,7 +70,7 @@ public abstract class BulletController : MovableDepthController
 
     public void Reset_State()
     {
-        State.Reset_State();
+        state.Reset_State();
 
         Reset_BaseBullet();
         Reset_Other();
@@ -83,9 +83,9 @@ public abstract class BulletController : MovableDepthController
         transform.localScale = Vector3.one;
         Set_Guided(false);
 
-        ThisRb.simulated = false;
-        CurrentAliveTime = 0;
-        TargetEnemyController = null;
+        rb.simulated = false;
+        currentAliveTime = 0;
+        enemy = null;
     }
 
     protected virtual void Reset_Other()
@@ -98,56 +98,56 @@ public abstract class BulletController : MovableDepthController
     #region State
 
     public void Set_State(
-        BulletState _State, 
-        BulletState_PosAndRot _State_PosAndRot, 
-        BulletState_Size? _State_Size, 
-        State_Anim? _State_Anim,
-        BulletState_Effect? _State_Effect,
-        float _TargetRange = 0.4f)
+        BulletState state, 
+        BulletState_PosAndRot state_PosAndRot, 
+        BulletState_Size? state_Size, 
+        State_Anim? state_Anim,
+        BulletState_Effect? state_Effect,
+        float targetRange = 0.4f)
     {
         UnitManager.instance.Add_Unit(this);
 
-        Set_State_Base(_State, _TargetRange);
-        Set_State_PosAndRot(_State_PosAndRot);
-        Set_State_Size(_State_Size);
-        Set_State_Anim(_State_Anim);
-        Set_State_Effect(_State_Effect);
+        Set_State_Base(state, targetRange);
+        Set_State_PosAndRot(state_PosAndRot);
+        Set_State_Size(state_Size);
+        Set_State_Anim(state_Anim);
+        Set_State_Effect(state_Effect);
         Set_State_Extra();
 
         SetOn_State();
     }
 
 
-    public virtual void Set_State_Base(BulletState _State, float _TargetRange = 0.4f)
+    public virtual void Set_State_Base(BulletState state, float targetRange = 0.4f)
     {
-        this.State = new BulletState(_State, false);
+        this.state = new BulletState(state, false);
 
-        TargetRange = _TargetRange;
+        TargetRange = targetRange;
     }
 
-    public virtual void Set_State_PosAndRot(BulletState_PosAndRot _State_PosAndRot)
+    public virtual void Set_State_PosAndRot(BulletState_PosAndRot state_PosAndRot)
     {
-        this.transform.position = _State_PosAndRot.spawnPos + (_State_PosAndRot.dir * _State_PosAndRot.dis);
-        this.transform.localRotation = DevTool.Get_RotFromDir(_State_PosAndRot.dir);
+        this.transform.position = state_PosAndRot.spawnPos + (state_PosAndRot.dir * state_PosAndRot.dis);
+        this.transform.localRotation = DevTool.Get_RotFromDir(state_PosAndRot.dir);
 
-        DevTool.Add_RotZValue(transform, _State_PosAndRot.spreadAngle);
+        DevTool.Add_RotZValue(transform, state_PosAndRot.spreadAngle);
     }
 
-    public virtual void Set_State_Size(BulletState_Size? _State_Size) { }
+    public virtual void Set_State_Size(BulletState_Size? state_Size) { }
 
-    public virtual void Set_State_Anim(State_Anim? _State_Anim) { }
+    public virtual void Set_State_Anim(State_Anim? state_Anim) { }
 
-    public virtual void Set_State_Effect(BulletState_Effect? _State_Effect) { }
+    public virtual void Set_State_Effect(BulletState_Effect? state_Effect) { }
 
     public virtual void Set_State_Extra() { }
 
 
     private void SetOn_State()
     {
-        CurrentAliveTime = 0;
+        currentAliveTime = 0;
 
         gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
-        ThisRb.simulated = true;
+        rb.simulated = true;
         gameObject.SetActive(true);
 
         SetOn_Trail();
@@ -158,11 +158,11 @@ public abstract class BulletController : MovableDepthController
 
     #region Sorting Order
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
+        base.Set_SortingOrder(sortingOrder);
 
-        ThisTrail.sortingOrder = _SortingOrder - 1;
+        trail.sortingOrder = sortingOrder - 1;
     }
 
     #endregion
@@ -185,16 +185,16 @@ public abstract class BulletController : MovableDepthController
 
     protected virtual void SetOn_Trail()
     {
-        ThisTrail.Clear();
+        trail.Clear();
 
-        ThisTrail.emitting = true;
-        ThisTrail.enabled = true;
+        trail.emitting = true;
+        trail.enabled = true;
     }
 
     private void SetOff_Trail()
     {
-        ThisTrail.emitting = false;
-        ThisTrail.enabled = false;
+        trail.emitting = false;
+        trail.enabled = false;
     }
 
     #endregion
@@ -203,17 +203,17 @@ public abstract class BulletController : MovableDepthController
 
 
     // 살아있는 경우의 계산
-    protected void Play_InAlive(float _FixedDeltaTime)
+    protected void Play_InAlive(float fixedDeltaTime)
     {
-        CurrentAliveTime += _FixedDeltaTime;
+        currentAliveTime += fixedDeltaTime;
 
-        if (Is_Alive() && DevTool.Is_Usable(ThisRb))
+        if (Is_Alive() && DevTool.Is_Usable(rb))
         {
-            if (IsGuided)
+            if (isGuided)
             { 
-                Play_Guided(_FixedDeltaTime); // 유도 기능
+                Play_Guided(fixedDeltaTime); // 유도 기능
             }
-            Play_FlyForward(State.muzzleSpeed, BaseBulletSpeed, _FixedDeltaTime);
+            Play_FlyForward(state.muzzleSpeed, baseBulletSpeed, fixedDeltaTime);
         }
         else
         {
@@ -225,13 +225,13 @@ public abstract class BulletController : MovableDepthController
     // 살아있는가? (AliveTime)
     private bool Is_Alive()
     {
-        return CurrentAliveTime < State.aliveTime;
+        return currentAliveTime < state.aliveTime;
     }
 
     // 날아가는 기능
-    private void Play_FlyForward(float _MuzzleSpeed, float _StaticValue, float _FixedDeltaTime)
+    private void Play_FlyForward(float muzzleSpeed, float staticValue, float fixedDeltaTime)
     {
-        ThisRb.velocity = ((_MuzzleSpeed * _StaticValue * _FixedDeltaTime) * this.transform.up);
+        rb.velocity = ((muzzleSpeed * staticValue * fixedDeltaTime) * this.transform.up);
     }
 
     #endregion
@@ -241,16 +241,16 @@ public abstract class BulletController : MovableDepthController
     // 유도가 가능한가? (상위 조건을 만족 시에 실조건)
     private bool Is_ExistTarget()
     {
-        return DevTool.Is_Usable(TargetEnemyController) && // 타겟이 있는가
-            TargetEnemyController.gameObject.activeSelf; // 타켓이 켜져있는가
+        return DevTool.Is_Usable(enemy) && // 타겟이 있는가
+            enemy.gameObject.activeSelf; // 타켓이 켜져있는가
     }
 
     // 유도 기능
-    protected void Play_Guided(float _FixedDeltaTime)
+    protected void Play_Guided(float fixedDeltaTime)
     {
         if (Is_ExistTarget()) // 타겟이 검색되어 있다면, 타겟을 따라감
         {
-            Set_RotToTarget(RotateSpeed, _FixedDeltaTime);
+            Set_RotToTarget(rotSpeed, fixedDeltaTime);
         }
         else // 타겟이 검색되어 있지않다면, 타겟을 찾음
         {
@@ -261,17 +261,17 @@ public abstract class BulletController : MovableDepthController
     // 유도 적 찾기
     protected void Try_FindTarget()
     {
-        TargetEnemyController = null;
-        TargetEnemyController = EnemyManager.instance.Get_ClosestEnemy(this.gameObject);
+        enemy = null;
+        enemy = EnemyManager.instance.Get_ClosestEnemy(this.gameObject);
     }
 
     // 유도 적에게 (천천히, 스무스) 방향 돌리기
-    protected void Set_RotToTarget(float _RotSpeed, float _FixedDeltaTime)
+    protected void Set_RotToTarget(float rotSpeed, float fixedDeltaTime)
     {
         Quaternion fromRot = this.transform.rotation;
-        Quaternion toRot = DevTool.Get_RotFromDir((TargetEnemyController.transform.position - this.transform.position).normalized);
+        Quaternion toRot = DevTool.Get_RotFromDir((enemy.transform.position - this.transform.position).normalized);
 
-        this.transform.rotation = Quaternion.Slerp(fromRot, toRot, _RotSpeed * _FixedDeltaTime);
+        this.transform.rotation = Quaternion.Slerp(fromRot, toRot, rotSpeed * fixedDeltaTime);
     }
 
     #endregion
@@ -281,7 +281,7 @@ public abstract class BulletController : MovableDepthController
     // 오브젝트 파괴될 때, 항상 실행
     private void Remove_Object()
     {
-        if (CurrentAliveTime <= 0f) return; 
+        if (currentAliveTime <= 0f) return; 
 
         UnitManager.instance.Remove_Unit(this);
 
@@ -303,29 +303,29 @@ public abstract class BulletController : MovableDepthController
 
     #region Trigger
 
-    protected virtual void OnTriggerEnter2D(Collider2D _Col)
+    protected virtual void OnTriggerEnter2D(Collider2D col)
     {
-        Try_Hit_DestructibleObject(_Col);
+        Try_Hit_DestructibleObject(col);
 
-        Try_Remove(_Col.tag);
+        Try_Remove(col.tag);
     }
 
-    protected void Try_Hit_DestructibleObject(Collider2D _Col)
+    protected void Try_Hit_DestructibleObject(Collider2D col)
     {
-        if (DevTool.Can_Collding(_Col, "DestructibleObject", out DestructibleBuildController dbc))
+        if (DevTool.Can_Collding(col, "DestructibleObject", out DestructibleBuildController dbc))
         {
-            dbc.Take_Damage(_SpawnItem: true, _SoundOn: true);
+            dbc.Take_Damage(spawnItem: true, soundOn: true);
         }
 
-        else if (DevTool.Can_Collding(_Col, "FieldObj", out DestructibleObjectController doc))
+        else if (DevTool.Can_Collding(col, "FieldObj", out DestructibleObjectController doc))
         {
             doc.Destruct();
         }
     }
 
-    protected void Try_Remove(string _Tag)
+    protected void Try_Remove(string tag)
     {
-        if (DestroyTagList.Contains(_Tag))
+        if (destroyTagList.Contains(tag))
         {
             ExtraEffect();
             Remove_Object();
@@ -336,11 +336,11 @@ public abstract class BulletController : MovableDepthController
 
     #region Set
 
-    public void Set_Guided(bool _OnOff, float _Power = 0, EnemyController _TargetEC = null)
+    public void Set_Guided(bool onOff, float power = 0, EnemyController targetEC = null)
     {
-        IsGuided = _OnOff;
-        RotateSpeed = _Power;
-        TargetEnemyController = _TargetEC;
+        isGuided = onOff;
+        rotSpeed = power;
+        enemy = targetEC;
     }
 
     #endregion

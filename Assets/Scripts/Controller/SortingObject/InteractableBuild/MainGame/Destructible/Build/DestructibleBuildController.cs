@@ -58,7 +58,7 @@ public class DestructibleBuildController : InteractableBuildController
 
     #region Break
 
-    public virtual void Take_Damage(bool _SpawnItem, bool _SoundOn)
+    public virtual void Take_Damage(bool spawnItem, bool soundOn)
     {
         if (!IsBroken)
         {
@@ -66,11 +66,11 @@ public class DestructibleBuildController : InteractableBuildController
 
             if (CurrentDur <= 0)
             {
-                Play_NowBreak(_SpawnItem);
+                Play_NowBreak(spawnItem);
             }
             else
             {
-                Play_NotYetBreak(_SpawnItem);
+                Play_NotYetBreak(spawnItem);
             }
 
             Set_DurAmount(CurrentDur);
@@ -80,7 +80,7 @@ public class DestructibleBuildController : InteractableBuildController
             Play_AlreadyBreak();
         }
 
-        if (_SoundOn)
+        if (soundOn)
             SoundManager.instance.Play_2D_SFX_Build("Damaged");
     }
 
@@ -162,7 +162,7 @@ public class DestructibleBuildController : InteractableBuildController
                 "DurablityFrame_" + _Index,
                 ResourceManager.instance.buildingDurFrame,
                 ResourceManager.instance.Get_BuildMaterial("Durablity"),
-                ThisStateAnim.ThisSR.sortingOrder - 1);
+                ThisStateAnim.sr.sortingOrder - 1);
 
         Set_FrameUIPos(_Index, frameSr);
         return frameSr;
@@ -175,7 +175,7 @@ public class DestructibleBuildController : InteractableBuildController
                 "DurablityInner_" + _Index,
                 ResourceManager.instance.buildingDurInner,
                 ResourceManager.instance.Get_BuildMaterial("Durablity"),
-                ThisStateAnim.ThisSR.sortingOrder);
+                ThisStateAnim.sr.sortingOrder);
         Set_InnerUIPos(innerSr);
         return innerSr;
     }

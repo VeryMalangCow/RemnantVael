@@ -246,13 +246,13 @@ public class OutMainGameUIController : SinglePanelUIController
             #region Player BU
 
             // DMG, ROF, CC, CD, MS, AR, KB
-            BUEUIArr[0].Set(pwc.BaseDamage.currentLevel.Value);
-            BUEUIArr[1].Set(pwc.ROF.currentLevel.Value);
-            BUEUIArr[2].Set(pwc.CC.currentLevel.Value);
-            BUEUIArr[3].Set(pwc.CD.currentLevel.Value);
-            BUEUIArr[4].Set(pwc.MuzzleSpeed.currentLevel.Value);
-            BUEUIArr[5].Set(pwc.AccuracyRate.currentLevel.Value);
-            BUEUIArr[6].Set(pwc.KnockbackPower.currentLevel.Value);
+            BUEUIArr[0].Set(pwc.baseDamage.currentLevel.Value);
+            BUEUIArr[1].Set(pwc.rof.currentLevel.Value);
+            BUEUIArr[2].Set(pwc.cc.currentLevel.Value);
+            BUEUIArr[3].Set(pwc.cd.currentLevel.Value);
+            BUEUIArr[4].Set(pwc.muzzleSpeed.currentLevel.Value);
+            BUEUIArr[5].Set(pwc.accRate.currentLevel.Value);
+            BUEUIArr[6].Set(pwc.kbPower.currentLevel.Value);
             // MaxEP, ESValue, SkillCost, Resist
             BUEUIArr[7].Set(pc.MaxEP.currentLevel.Value);
             BUEUIArr[8].Set(pc.SpawnESMultiple.currentLevel.Value);
@@ -264,13 +264,13 @@ public class OutMainGameUIController : SinglePanelUIController
             BUEUIArr[13].Set(pdc.DashSpeed.currentLevel.Value);
             BUEUIArr[14].Set(pc.AvoidChance.currentLevel.Value);
             // Skill 00: Cooltime, Power, Tier
-            BUEUIArr[15].Set(swc.SkillList[0].MaxCooltime.currentLevel.Value);
-            BUEUIArr[16].Set(swc.SkillList[0].Power.currentLevel.Value);
-            BUEUIArr[17].Set(swc.SkillList[0].Tier.currentLevel.Value);
+            BUEUIArr[15].Set(swc.skillList[0].maxCooltime.currentLevel.Value);
+            BUEUIArr[16].Set(swc.skillList[0].power.currentLevel.Value);
+            BUEUIArr[17].Set(swc.skillList[0].tier.currentLevel.Value);
             // Skill 01: Cooltime, Power, Tier
-            BUEUIArr[18].Set(swc.SkillList[1].MaxCooltime.currentLevel.Value);
-            BUEUIArr[19].Set(swc.SkillList[1].Power.currentLevel.Value);
-            BUEUIArr[20].Set(swc.SkillList[1].Tier.currentLevel.Value);
+            BUEUIArr[18].Set(swc.skillList[1].maxCooltime.currentLevel.Value);
+            BUEUIArr[19].Set(swc.skillList[1].power.currentLevel.Value);
+            BUEUIArr[20].Set(swc.skillList[1].tier.currentLevel.Value);
 
             #endregion
 

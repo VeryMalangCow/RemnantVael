@@ -6,9 +6,9 @@ public class StateAnimController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private Animator ThisAnimator;
-    [SerializeField] public SpriteRenderer ThisSR;
-    [SerializeField] public SpriteRenderer ThisInnerSR;
+    [SerializeField] private Animator at;
+    [SerializeField] public SpriteRenderer sr;
+    [SerializeField] public SpriteRenderer innerSr;
 
     [HideInInspector] private AnimatorOverrideController AOC;
 
@@ -16,28 +16,28 @@ public class StateAnimController : MonoBehaviour
 
     #region Anim
 
-    public void Set_Anim(State_Anim _State_Anim, Sprite _InnerSprite, float _AnimSize = 1f)
+    public void Set_Anim(State_Anim state_Anim, Sprite innerSprite, float animSize = 1f)
     {
-        DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.ac);
-        DevTool.Set_AnimSpeedAndSize(ThisAnimator, _State_Anim.speed, _AnimSize);
-        Set_Inner(true, _InnerSprite);
+        DevTool.Set_Anim(ref AOC, at, state_Anim.ac);
+        DevTool.Set_AnimSpeedAndSize(at, state_Anim.speed, animSize);
+        Set_Inner(true, innerSprite);
     }
 
-    public void Set_Anim(State_Anim _State_Anim, float _AnimSize = 1f)
+    public void Set_Anim(State_Anim state_Anim, float animSize = 1f)
     {
-        DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.ac);
-        DevTool.Set_AnimSpeedAndSize(ThisAnimator, _State_Anim.speed, _AnimSize);
+        DevTool.Set_Anim(ref AOC, at, state_Anim.ac);
+        DevTool.Set_AnimSpeedAndSize(at, state_Anim.speed, animSize);
         Set_Inner(false);
     }
 
-    public void Set_Inner(bool _OnOff, Sprite _Sprite = null)
+    public void Set_Inner(bool onOff, Sprite sprite = null)
     {
-        if (ThisInnerSR != null)
+        if (innerSr != null)
         {
-            ThisInnerSR.gameObject.SetActive(_OnOff);
-            if (_OnOff && _Sprite != null)
+            innerSr.gameObject.SetActive(onOff);
+            if (onOff && sprite != null)
             {
-                ThisInnerSR.sprite = _Sprite;
+                innerSr.sprite = sprite;
             }
         }
     }

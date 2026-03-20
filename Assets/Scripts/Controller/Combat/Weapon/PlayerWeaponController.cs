@@ -13,25 +13,25 @@ public class PlayerWeaponController : PlayerSolarController
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] public eDamageType DamageType;
-    [SerializeField] public float AliveTime;
-    [HideInInspector] public float CurrentDelayROF = 0;
-    [HideInInspector] public bool IsInputed = false;
-    [HideInInspector] public bool IsShooting = false;
+    [SerializeField] public eDamageType dmgType;
+    [SerializeField] public float aliveTime;
+    [HideInInspector] public float currentDelayROF = 0;
+    [HideInInspector] public bool isInputed = false;
+    [HideInInspector] public bool isShooting = false;
 
     [Space(10)]
     [Header("=== BUState")]
-    [SerializeField] public BUState<float> BaseDamage;
-    [SerializeField] public BUState<float> MuzzleSpeed;
-    [SerializeField] public BUState<float> ROF;
-    [SerializeField] public BUState<float> CC;
-    [SerializeField] public BUState<float> CD;
-    [SerializeField] public BUState<float> AccuracyRate;
-    [SerializeField] public BUState<float> KnockbackPower;
+    [SerializeField] public BUState<float> baseDamage;
+    [SerializeField] public BUState<float> muzzleSpeed;
+    [SerializeField] public BUState<float> rof;
+    [SerializeField] public BUState<float> cc;
+    [SerializeField] public BUState<float> cd;
+    [SerializeField] public BUState<float> accRate;
+    [SerializeField] public BUState<float> kbPower;
 
     [Space(10)]
     [Header("=== GunPos")]
-    [SerializeField] protected List<Transform> BulletSpawnTFList;
+    [SerializeField] protected List<Transform> bulletSpawnTfList;
 
     #endregion
 
@@ -50,17 +50,17 @@ public class PlayerWeaponController : PlayerSolarController
     #region ROF
 
     // ROF를 계산해, 연사력에 맞는 발사를 계산
-    private void Caculate_ROF(float _DeltaTime)
+    private void Caculate_ROF(float deltaTime)
     {
-        if (CurrentDelayROF < 1f)
+        if (currentDelayROF < 1f)
         {
-            CurrentDelayROF += _DeltaTime * ROF.buffedState;
-            IsShooting = true;
+            currentDelayROF += deltaTime * rof.buffedState;
+            isShooting = true;
         }
         else
         {
             InputManager.instance.aimController.Set_ActivingAttack(false);
-            IsShooting = false;
+            isShooting = false;
         }
     }
 
@@ -73,8 +73,8 @@ public class PlayerWeaponController : PlayerSolarController
     {
         if (Check_Fire())
         {
-            Play_Fire(PoolingManager.instance.Get_OP_PlayerBullet(BulletSpawnTFList.Count));
-            PlayerManager.instance.cameraController.Play_ShotAnim(1 / ROF.buffedState, PlayerController.BaseWeapon.BaseDamage.buffedState);
+            Play_Fire(PoolingManager.instance.Get_OP_PlayerBullet(bulletSpawnTfList.Count));
+            PlayerManager.instance.cameraController.Play_ShotAnim(1 / rof.buffedState, PlayerController.BaseWeapon.baseDamage.buffedState);
             ModuleItemManager.instance.Active_Fire();
         }
     }
@@ -82,8 +82,8 @@ public class PlayerWeaponController : PlayerSolarController
     // 사격을 해야 하는가 + 할 수 있는가
     private bool Check_Fire()
     {
-        if (IsInputed &&
-           CurrentDelayROF >= 1 &&
+        if (isInputed &&
+           currentDelayROF >= 1 &&
            PlayerController.MovementState == eMovementState.IdleOrWalk)
         {
             return true;
@@ -92,23 +92,23 @@ public class PlayerWeaponController : PlayerSolarController
     }
 
     // 사격 (발사)
-    protected void Play_Fire(List<PlayerBulletController> _BulletList)
+    protected void Play_Fire(List<PlayerBulletController> bulletList)
     {
-        float randomAngle = DevTool.Get_RandomValueBaseZero(100 - AccuracyRate.actualState.Value);
+        float randomAngle = DevTool.Get_RandomValueBaseZero(100 - accRate.actualState.Value);
         
-        for (int i = 0; i < BulletSpawnTFList.Count; i++)
+        for (int i = 0; i < bulletSpawnTfList.Count; i++)
         {
-            Play_Fire(_BulletList[i], DevTool.Get_ComponentTType<DepthController>(BulletSpawnTFList[i].gameObject), randomAngle);
+            Play_Fire(bulletList[i], DevTool.Get_ComponentTType<DepthController>(bulletSpawnTfList[i].gameObject), randomAngle);
         }
 
         InputManager.instance.aimController.Set_ActivingAttack(true);
-        CurrentDelayROF -= 1;
+        currentDelayROF -= 1;
 
         // 모듈 싱크 효과 => 사격 후
         ModuleItemManager.instance.ActiveSync_AfterFire();
 
         // Tween
-        this.transform.DOShakePosition(1f / ROF.buffedState, 0.05f, 20, 90, false, true);
+        this.transform.DOShakePosition(1f / rof.buffedState, 0.05f, 20, 90, false, true);
 
         // Audio
 
@@ -118,28 +118,28 @@ public class PlayerWeaponController : PlayerSolarController
     }
 
     // 사격 (한발마다)
-    private void Play_Fire(PlayerBulletController _Bullet, DepthController _TargetSpawnDepth, float _SpreadAngle)
+    private void Play_Fire(PlayerBulletController bullet, DepthController targetSpawnDepth, float spreadAngle)
     {
-        Vector2 dir = DevTool.Get_MinFireDir(_TargetSpawnDepth.transform.position);
+        Vector2 dir = DevTool.Get_MinFireDir(targetSpawnDepth.transform.position);
 
         // 총알 스탯과 SortingOrder 설정
-        _Bullet.Set_State(
+        bullet.Set_State(
             Get_CurrentBulletState(),
-            _State_PosAndRot: new BulletState_PosAndRot(_TargetSpawnDepth.transform.position, dir, _SpreadAngle),
-            _State_Size: null,
-            _State_Anim: null,
-            _State_Effect: null,
-            _TargetSpawnDepth.TargetRange);
+            state_PosAndRot: new BulletState_PosAndRot(targetSpawnDepth.transform.position, dir, spreadAngle),
+            state_Size: null,
+            state_Anim: null,
+            state_Effect: null,
+            targetSpawnDepth.TargetRange);
 
-        ModuleItemManager.instance.ActiveSync_Fire(_Bullet);
+        ModuleItemManager.instance.ActiveSync_Fire(bullet);
 
         // 폭발 이펙트   
         UnitManager.instance.player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
             PlayerController.Get_ID(),
-            (Vector2)_TargetSpawnDepth.TargetObject.transform.position + (dir * 0.1f),
+            (Vector2)targetSpawnDepth.TargetObject.transform.position + (dir * 0.1f),
             dir,
-            DamageType,
-            _Bullet.State.isCritical);
+            dmgType,
+            bullet.state.isCritical);
     }
 
     #endregion
@@ -152,12 +152,12 @@ public class PlayerWeaponController : PlayerSolarController
         return new BulletState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Player),
-                new DmgState(DamageType, PlayerController.BaseWeapon.BaseDamage.buffedState),
-                new CriticalState(PlayerController.BaseWeapon.CC.actualState.Value, PlayerController.BaseWeapon.CD.buffedState),
-                new KnockbackState(DamageType == eDamageType.Physics ? true : false, PlayerController.BaseWeapon.KnockbackPower.actualState.Value, 0.2f)),
+                new DmgState(dmgType, PlayerController.BaseWeapon.baseDamage.buffedState),
+                new CriticalState(PlayerController.BaseWeapon.cc.actualState.Value, PlayerController.BaseWeapon.cd.buffedState),
+                new KnockbackState(dmgType == eDamageType.Physics ? true : false, PlayerController.BaseWeapon.kbPower.actualState.Value, 0.2f)),
             checkIsCritical: true,
-            muzzleSpeed: MuzzleSpeed.actualState.Value,
-            AliveTime);
+            muzzleSpeed: muzzleSpeed.actualState.Value,
+            aliveTime);
     }
 
     #endregion    

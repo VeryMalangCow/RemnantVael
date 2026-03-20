@@ -230,7 +230,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         if (rank > UnityEngine.Random.Range(0, 10))
         {
             // 데미지 계산
-            float dmg = rank * PCWeapon.BaseDamage.actualState.Value;
+            float dmg = rank * PCWeapon.baseDamage.actualState.Value;
 
             PlayerBulletController pbc = PoolingManager.instance.Get_OP(bullet);
             Vector2 dir = DevTool.Get_MinFireDir(PC.transform.position);
@@ -249,12 +249,12 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
                         criticalState, 
                         knockbackState), 
                     false, 
-                    PCWeapon.MuzzleSpeed.actualState.Value * 0.7f, 2f);
+                    PCWeapon.muzzleSpeed.actualState.Value * 0.7f, 2f);
             BulletState_PosAndRot posAndRot = new BulletState_PosAndRot(PC.transform.position, dir, 10);
             BulletState_Size? size = null;
             State_Anim? anim = null;
 
-            pbc.Set_State(bulletState, posAndRot, size, anim, _State_Effect: null, 0.35f);
+            pbc.Set_State(bulletState, posAndRot, size, anim, state_Effect: null, 0.35f);
             pbc.Set_Guided(true, rank * rank);
         }
     }
@@ -265,19 +265,19 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         switch (kind)
         {
             case eStatusEffect.Flame: 
-                enemy.BuffController.FlameStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+                enemy.BuffController.flameStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             case eStatusEffect.Cold:
-                enemy.BuffController.ColdStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+                enemy.BuffController.coldStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             case eStatusEffect.Electricity:
-                enemy.BuffController.ElectricityStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+                enemy.BuffController.electricityStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             case eStatusEffect.Corrosion:
-                enemy.BuffController.CorrosionStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+                enemy.BuffController.corrosionStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             default: return;
@@ -292,19 +292,19 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             switch (kind)
             {
                 case eStatusEffect.Flame:
-                    enemy.BuffController.FlameStack.ReGain_Stack();
+                    enemy.BuffController.flameStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Cold:
-                    enemy.BuffController.ColdStack.ReGain_Stack();
+                    enemy.BuffController.coldStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Electricity:
-                    enemy.BuffController.ElectricityStack.ReGain_Stack();
+                    enemy.BuffController.electricityStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Corrosion:
-                    enemy.BuffController.CorrosionStack.ReGain_Stack();
+                    enemy.BuffController.corrosionStack.ReGain_Stack();
                     return;
 
                 default: return;

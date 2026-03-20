@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BuffElectricityController : BuffController, IWhen_GetElectricity
 {

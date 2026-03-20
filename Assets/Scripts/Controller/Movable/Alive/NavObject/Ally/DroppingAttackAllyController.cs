@@ -44,11 +44,11 @@ public class DroppingAttackAllyController : DroppingAllyController
         // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
         _Bullet.Set_State(
             Get_BulletState(), 
-            _DroppingTime: ActualAllyState.muzzleSpeed.value, 
-            _TopYPos: 5f, 
-            _BottomYPos: DropBottomYPos,
-            _State_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
-            _State_Size: Get_BulletState_Shadow_Size());
+            droppingTime: ActualAllyState.muzzleSpeed.value, 
+            topYPos: 5f, 
+            bottomYPos: DropBottomYPos,
+            state_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
+            state_Size: Get_BulletState_Shadow_Size());
 
         // Light & Trail
         _Bullet.SetOn_LightIntensity(LightIntensity);

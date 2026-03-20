@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AllyBuffController : MonoBehaviour
 {
@@ -12,22 +13,22 @@ public class AllyBuffController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Buff")]
-    [SerializeField] private AllyBuff Sync005_Buff;
-    [SerializeField] private AllyBuff Sync006_Buff;
-    [SerializeField] private AllyBuff Sync007_Buff;
-    [SerializeField] private AllyBuff Sync008_Buff;
-    [SerializeField] private AllyBuff TotisToteme_Buff;
+    [FormerlySerializedAs("Sync005_Buff")][SerializeField] private AllyBuff sync005_Buff;
+    [FormerlySerializedAs("Sync006_Buff")][SerializeField] private AllyBuff sync006_Buff;
+    [FormerlySerializedAs("Sync007_Buff")][SerializeField] private AllyBuff sync007_Buff;
+    [FormerlySerializedAs("Sync008_Buff")][SerializeField] private AllyBuff sync008_Buff;
+    [FormerlySerializedAs("TotisToteme_Buff")][SerializeField] private AllyBuff totisToteme_Buff;
 
     #endregion
 
     #region - Hide
 
     // Data
-    [HideInInspector] private AllyController Ally;
-    [SerializeField] public AllyBuffState BuffingState;
+    [HideInInspector] private AllyController ally;
+    [FormerlySerializedAs("BuffingState")][SerializeField] public AllyBuffState buffingState;
 
     // Dict
-    [HideInInspector] private Dictionary<string, AllyBuff> BuffDict;
+    [HideInInspector] private Dictionary<string, AllyBuff> buffDict;
 
     #endregion
 
@@ -35,11 +36,11 @@ public class AllyBuffController : MonoBehaviour
 
     #region Offset
 
-    public void Offset(AllyController _Ally)
+    public void Offset(AllyController ally)
     {
-        Ally = _Ally;
+        this.ally = ally;
 
-        BuffingState = new AllyBuffState();
+        buffingState = new AllyBuffState();
 
         Offset_Buff();
         Offset_BuffDict();
@@ -47,22 +48,22 @@ public class AllyBuffController : MonoBehaviour
 
     private void Offset_Buff()
     {
-        Sync005_Buff = new AllyBuff(Ally, AllyBuffManager.instance.sync005_OriginalBuff);
-        Sync006_Buff = new AllyBuff(Ally, AllyBuffManager.instance.sync006_OriginalBuff);
-        Sync007_Buff = new AllyBuff(Ally, AllyBuffManager.instance.sync007_OriginalBuff);
-        Sync008_Buff = new AllyBuff(Ally, AllyBuffManager.instance.sync008_OriginalBuff);
-        TotisToteme_Buff = new AllyBuff(Ally, AllyBuffManager.instance.totisToteme_OriginalBuff);
+        sync005_Buff = new AllyBuff(ally, AllyBuffManager.instance.sync005_OriginalBuff);
+        sync006_Buff = new AllyBuff(ally, AllyBuffManager.instance.sync006_OriginalBuff);
+        sync007_Buff = new AllyBuff(ally, AllyBuffManager.instance.sync007_OriginalBuff);
+        sync008_Buff = new AllyBuff(ally, AllyBuffManager.instance.sync008_OriginalBuff);
+        totisToteme_Buff = new AllyBuff(ally, AllyBuffManager.instance.totisToteme_OriginalBuff);
     }
     
     private void Offset_BuffDict()
     {
-        BuffDict = new Dictionary<string, AllyBuff>
+        buffDict = new Dictionary<string, AllyBuff>
         {
-            { "Sync005", Sync005_Buff },
-            { "Sync006", Sync006_Buff },
-            { "Sync007", Sync007_Buff },
-            { "Sync008", Sync008_Buff },
-            { "TotisToteme", TotisToteme_Buff }
+            { "Sync005", sync005_Buff },
+            { "Sync006", sync006_Buff },
+            { "Sync007", sync007_Buff },
+            { "Sync008", sync008_Buff },
+            { "TotisToteme", totisToteme_Buff }
         };
     }
 
@@ -72,7 +73,7 @@ public class AllyBuffController : MonoBehaviour
 
     private void Update()
     {
-        BuffingState.UpdateData(Time.deltaTime);
+        buffingState.UpdateData(Time.deltaTime);
     }
 
     #endregion
@@ -81,10 +82,10 @@ public class AllyBuffController : MonoBehaviour
 
     public void Reset_SyncState()
     {
-        Sync005_Buff.SetOff_State();
-        Sync006_Buff.SetOff_State();
-        Sync007_Buff.SetOff_State();
-        Sync008_Buff.SetOff_State();
+        sync005_Buff.SetOff_State();
+        sync006_Buff.SetOff_State();
+        sync007_Buff.SetOff_State();
+        sync008_Buff.SetOff_State();
     }
 
     #endregion
@@ -92,15 +93,15 @@ public class AllyBuffController : MonoBehaviour
     #region Get
 
     // Get Ally Buff
-    public AllyBuff Get_AllyBuff(string _Key)
+    public AllyBuff Get_AllyBuff(string key)
     {
-        return BuffDict[_Key];
+        return buffDict[key];
     }
 
     // Buffed State Return 
     public AllyState Get_BuffedState()
     {
-        return BuffingState.Get_BuffedAllyState();
+        return buffingState.Get_BuffedAllyState();
     }
 
     #endregion

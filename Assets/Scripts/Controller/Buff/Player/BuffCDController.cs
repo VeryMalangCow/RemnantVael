@@ -1,6 +1,5 @@
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BuffCDController : BuffController
 {
@@ -35,23 +34,23 @@ public class BuffCDController : BuffController
     {
         base.Gain_Buff();
 
-        PlayerManager.instance.playerController.BaseWeapon.CD.Gain_Buff(multiple);
-        PlayerManager.instance.playerController.BaseWeapon.CD.Set_BuffedState();
+        PlayerManager.instance.playerController.BaseWeapon.cd.Gain_Buff(multiple);
+        PlayerManager.instance.playerController.BaseWeapon.cd.Set_BuffedState();
     }
 
     public override void Reduct_Buff()
     {
         base.Reduct_Buff();
 
-        PlayerManager.instance.playerController.BaseWeapon.CD.Set_BuffedState();
+        PlayerManager.instance.playerController.BaseWeapon.cd.Set_BuffedState();
     }
 
     public override void End_Buff()
     {
         base.End_Buff();
 
-        PlayerManager.instance.playerController.BaseWeapon.CD.Lose_Buff(multiple);
-        PlayerManager.instance.playerController.BaseWeapon.CD.Set_BuffedState();
+        PlayerManager.instance.playerController.BaseWeapon.cd.Lose_Buff(multiple);
+        PlayerManager.instance.playerController.BaseWeapon.cd.Set_BuffedState();
     }
 
     #endregion

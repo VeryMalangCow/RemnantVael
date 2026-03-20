@@ -35,7 +35,7 @@ public abstract class OperatorController : InteractableBuildController, IInterac
     public override void Set_SortingOrder(int _SortingOrder)
     {
         base.Set_SortingOrder(_SortingOrder);
-        IconStateAnim.ThisSR.sortingOrder = _SortingOrder - 1;
+        IconStateAnim.sr.sortingOrder = _SortingOrder - 1;
 
         PaySG.sortingOrder = _SortingOrder + 1;
     }

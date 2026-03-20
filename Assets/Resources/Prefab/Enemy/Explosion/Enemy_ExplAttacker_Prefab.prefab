@@ -172,12 +172,12 @@ MonoBehaviour:
   TargetObject: {fileID: 1947860357028516534}
   ThisSR: {fileID: 9076609007504668469}
   TargetRange: 0.4
-  ThisSG: {fileID: 495812364913491534}
-  ThisAnimator: {fileID: 3700956229177998945}
-  ThisCol: {fileID: 617587750482013127}
-  ThisLight: {fileID: 6749085841042800825}
-  ThisAS: {fileID: 4818610348139681181}
-  State:
+  sg: {fileID: 495812364913491534}
+  at: {fileID: 3700956229177998945}
+  col: {fileID: 617587750482013127}
+  light2d: {fileID: 6749085841042800825}
+  _as: {fileID: 4818610348139681181}
+  state:
     ownerData:
       owner: 0
       id: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
     isCold: 0
     isElectricity: 0
     isCorrosion: 0
-  Enemy: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!50 &3501360633453498926
 Rigidbody2D:
   serializedVersion: 4

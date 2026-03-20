@@ -125,8 +125,8 @@ public abstract class EnemyController : NavObjectController
                     HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
                     HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
 
-                    if (BuffController.ShieldBuff.isOn)
-                    { BuffController.ShieldBuff.Remove_AllStack(); }
+                    if (BuffController.shieldBuff.isOn)
+                    { BuffController.shieldBuff.Remove_AllStack(); }
 
                 }
                 else
@@ -345,7 +345,7 @@ public abstract class EnemyController : NavObjectController
         if (IsDead)
         { return; }
 
-        BulletState state = _Bullet.State;
+        BulletState state = _Bullet.state;
 
         // Damage
         Take_Damaged(
@@ -358,16 +358,16 @@ public abstract class EnemyController : NavObjectController
             switch (state.statusType)
             {
                 case eStatusEffect.Flame:
-                    BuffController.FlameStack.Gain_Stack(1, true, state.ownerData);
+                    BuffController.flameStack.Gain_Stack(1, true, state.ownerData);
                     break;
                 case eStatusEffect.Cold:
-                    BuffController.ColdStack.Gain_Stack(1, true, state.ownerData);
+                    BuffController.coldStack.Gain_Stack(1, true, state.ownerData);
                     break;
                 case eStatusEffect.Electricity:
-                    BuffController.ElectricityStack.Gain_Stack(1, true, state.ownerData);
+                    BuffController.electricityStack.Gain_Stack(1, true, state.ownerData);
                     break;
                 case eStatusEffect.Corrosion:
-                    BuffController.CorrosionStack.Gain_Stack(1, true, state.ownerData);
+                    BuffController.corrosionStack.Gain_Stack(1, true, state.ownerData);
                     break;
             }
         }
@@ -379,7 +379,7 @@ public abstract class EnemyController : NavObjectController
         if (IsDead)
         { return; }
 
-        AttackerState state = _Attacker.AttackerState;
+        AttackerState state = _Attacker.attackerState;
 
         // Damage
         Take_Damaged(
@@ -394,7 +394,7 @@ public abstract class EnemyController : NavObjectController
         if (IsDead)
         { return; }
 
-        ExplosionState state = _Explosion.State;
+        ExplosionState state = _Explosion.state;
 
         // Damage
         Take_Damaged(
@@ -402,10 +402,10 @@ public abstract class EnemyController : NavObjectController
             DevTool.Is_ChanceSuccess(state.criticalState.criticalChance),
             DevTool.Get_Dir(_Explosion.gameObject, this.gameObject));
 
-        Try_GainStack(state.isFire, BuffController.FlameStack, state.ownerData);
-        Try_GainStack(state.isCold, BuffController.ColdStack, state.ownerData);
-        Try_GainStack(state.isElectricity, BuffController.ElectricityStack, state.ownerData);
-        Try_GainStack(state.isCorrosion, BuffController.CorrosionStack, state.ownerData);
+        Try_GainStack(state.isFire, BuffController.flameStack, state.ownerData);
+        Try_GainStack(state.isCold, BuffController.coldStack, state.ownerData);
+        Try_GainStack(state.isElectricity, BuffController.electricityStack, state.ownerData);
+        Try_GainStack(state.isCorrosion, BuffController.corrosionStack, state.ownerData);
     }
 
     private void Try_GainStack(bool _Is, StatusEffect_Temporary_WithAmount _TargetDebuff, CombatOwner _CombatOwner)

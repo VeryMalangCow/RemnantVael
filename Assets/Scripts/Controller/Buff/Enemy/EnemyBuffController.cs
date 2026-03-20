@@ -10,52 +10,52 @@ public class EnemyBuffController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Shield")]
-    [SerializeField] public StatusEffect_Temporary_WithoutAmount ShieldBuff;
-    [SerializeField] private float ShieldPercent = 10;
-    [SerializeField] private float ShieldDurTime = 10;
+    [SerializeField] public StatusEffect_Temporary_WithoutAmount shieldBuff;
+    [SerializeField] private float shieldPercent = 10;
+    [SerializeField] private float shieldDurTime = 10;
 
     [Space(10)]
     [Header("=== Flame")]
-    [SerializeField] public StatusEffect_Temporary_WithAmount FlameStack;
-    [SerializeField] public StatusEffect_Permanent_WithAmount InfernoStack;
-    [HideInInspector] private static int FlameMax = 30;
+    [SerializeField] public StatusEffect_Temporary_WithAmount flameStack;
+    [SerializeField] public StatusEffect_Permanent_WithAmount infernoStack;
+    [HideInInspector] private static int flameMax = 30;
 
     [Space(10)]
     [Header("=== Cold")]
-    [SerializeField] public StatusEffect_Temporary_WithAmount ColdStack;
-    [SerializeField] public StatusEffect_Permanent_WithAmount AbsoluteZeroStack;
-    [HideInInspector] private static int ColdMax = 15;
+    [SerializeField] public StatusEffect_Temporary_WithAmount coldStack;
+    [SerializeField] public StatusEffect_Permanent_WithAmount absoluteZeroStack;
+    [HideInInspector] private static int coldMax = 15;
 
     [Space(10)]
     [Header("=== Electricity")]
-    [SerializeField] public StatusEffect_Temporary_WithAmount ElectricityStack;
-    [SerializeField] public StatusEffect_Permanent_WithAmount PlasmaStack;
-    [HideInInspector] private static int ElectricityMax = 20;
-    [HideInInspector] private static float ElectricityRange = 10f;
+    [SerializeField] public StatusEffect_Temporary_WithAmount electricityStack;
+    [SerializeField] public StatusEffect_Permanent_WithAmount plasmaStack;
+    [HideInInspector] private static int electricityMax = 20;
+    [HideInInspector] private static float electricityRange = 10f;
 
     [Space(10)]
     [Header("=== Corrosion")]
-    [SerializeField] public StatusEffect_Temporary_WithAmount CorrosionStack;
-    [SerializeField] public StatusEffect_Permanent_WithAmount DecayStack;
-    [HideInInspector] private static int CorrosionMax = 25;
+    [SerializeField] public StatusEffect_Temporary_WithAmount corrosionStack;
+    [SerializeField] public StatusEffect_Permanent_WithAmount decayStack;
+    [HideInInspector] private static int corrosionMax = 25;
 
 
-    [HideInInspector] public EnemyController Enemy;
-    [HideInInspector] private float StatusExplosionSize = 1.7f;
+    [HideInInspector] public EnemyController enemy;
+    [HideInInspector] private float statusExplosionSize = 1.7f;
 
     #endregion
 
     #region Offset
 
-    public void Offset(EnemyController _Enemy)
+    public void Offset(EnemyController enemy)
     {
-        Enemy = _Enemy;
+        this.enemy = enemy;
 
         #region Normal Status Buff
 
-        ShieldBuff = new StatusEffect_Temporary_WithoutAmount(
-            Enemy,
-            maxCooltime: ShieldDurTime,
+        shieldBuff = new StatusEffect_Temporary_WithoutAmount(
+            this.enemy,
+            maxCooltime: shieldDurTime,
             gainFunc: ShieldGainEffect,
             reduceFunc: ShieldReduceEffect,
             EnemyManager.instance.shieldIcon);
@@ -64,8 +64,8 @@ public class EnemyBuffController : MonoBehaviour
 
         #region Normal Status Debuff
 
-        FlameStack = new StatusEffect_Temporary_WithAmount(
-            Enemy, eStatusEffect.Flame, FlameMax, 
+        flameStack = new StatusEffect_Temporary_WithAmount(
+            this.enemy, eStatusEffect.Flame, flameMax, 
             maxCooltime: 3f,
             onceTimeReduceAmount: 1,
             isResetWhenGain: false,
@@ -74,8 +74,8 @@ public class EnemyBuffController : MonoBehaviour
             fullStack: Active_FlameFullStack,
             EnemyManager.instance.flameIcon);
 
-        ColdStack = new StatusEffect_Temporary_WithAmount(
-            Enemy, eStatusEffect.Cold, ColdMax,
+        coldStack = new StatusEffect_Temporary_WithAmount(
+            this.enemy, eStatusEffect.Cold, coldMax,
             maxCooltime: 6f, 
             onceTimeReduceAmount: 1,
             isResetWhenGain: true,
@@ -84,8 +84,8 @@ public class EnemyBuffController : MonoBehaviour
             fullStack: Active_ColdFullStack,
             EnemyManager.instance.coldIcon);
 
-        ElectricityStack = new StatusEffect_Temporary_WithAmount(
-            Enemy, eStatusEffect.Electricity, ElectricityMax, 
+        electricityStack = new StatusEffect_Temporary_WithAmount(
+            this.enemy, eStatusEffect.Electricity, electricityMax, 
             maxCooltime: 5f, 
             onceTimeReduceAmount: 1,
             isResetWhenGain: true,
@@ -94,8 +94,8 @@ public class EnemyBuffController : MonoBehaviour
             fullStack: Active_ElectricityFullStack,
             EnemyManager.instance.electricityIcon);
 
-        CorrosionStack = new StatusEffect_Temporary_WithAmount(
-            Enemy, eStatusEffect.Corrosion, CorrosionMax,
+        corrosionStack = new StatusEffect_Temporary_WithAmount(
+            this.enemy, eStatusEffect.Corrosion, corrosionMax,
             maxCooltime: 4f, 
             onceTimeReduceAmount: 1, 
             isResetWhenGain: false,
@@ -108,26 +108,26 @@ public class EnemyBuffController : MonoBehaviour
 
         #region High Level Status Debuff
 
-        InfernoStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.instance.infernoIcon,
+        infernoStack = new StatusEffect_Permanent_WithAmount(
+            this.enemy, EnemyManager.instance.infernoIcon,
             gainFunc: null, 
             fullStack: null, 
             maxStack: 3);
 
-        AbsoluteZeroStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.instance.absoluteZeroIcon,
+        absoluteZeroStack = new StatusEffect_Permanent_WithAmount(
+            this.enemy, EnemyManager.instance.absoluteZeroIcon,
             gainFunc: null, 
             fullStack: null, 
             maxStack: 3);
 
-        PlasmaStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.instance.plasmaIcon,
+        plasmaStack = new StatusEffect_Permanent_WithAmount(
+            this.enemy, EnemyManager.instance.plasmaIcon,
             gainFunc: null, 
             fullStack: null, 
             maxStack: 3);
 
-        DecayStack = new StatusEffect_Permanent_WithAmount(
-            Enemy, EnemyManager.instance.decayIcon,
+        decayStack = new StatusEffect_Permanent_WithAmount(
+            this.enemy, EnemyManager.instance.decayIcon,
             gainFunc: null, 
             fullStack: null, 
             maxStack: 3);
@@ -141,30 +141,30 @@ public class EnemyBuffController : MonoBehaviour
 
     private void OnEnable()
     {
-        ShieldBuff.Set_Clear();
+        shieldBuff.Set_Clear();
 
-        FlameStack.Set_Clear();
-        InfernoStack.Set_Clear();
+        flameStack.Set_Clear();
+        infernoStack.Set_Clear();
 
-        ColdStack.Set_Clear();
-        AbsoluteZeroStack.Set_Clear();
+        coldStack.Set_Clear();
+        absoluteZeroStack.Set_Clear();
 
-        ElectricityStack.Set_Clear();
-        PlasmaStack.Set_Clear();
+        electricityStack.Set_Clear();
+        plasmaStack.Set_Clear();
 
-        CorrosionStack.Set_Clear();
-        DecayStack.Set_Clear();
+        corrosionStack.Set_Clear();
+        decayStack.Set_Clear();
     }
 
     private void Update()
     {
         float time = Time.deltaTime;
 
-        ShieldBuff.Caculate_Cooltime(time);
-        FlameStack.Caculate_Cooltime(time);
-        ColdStack.Caculate_Cooltime(time);
-        ElectricityStack.Caculate_Cooltime(time);
-        CorrosionStack.Caculate_Cooltime(time);
+        shieldBuff.Caculate_Cooltime(time);
+        flameStack.Caculate_Cooltime(time);
+        coldStack.Caculate_Cooltime(time);
+        electricityStack.Caculate_Cooltime(time);
+        corrosionStack.Caculate_Cooltime(time);
     }
 
 
@@ -172,20 +172,20 @@ public class EnemyBuffController : MonoBehaviour
 
     #region Buff
 
-    public void ShieldGain(float _Value)
+    public void ShieldGain(float value)
     {
-        ShieldPercent = _Value;
-        ShieldBuff.Gain_Stack(1, false, null);
+        shieldPercent = value;
+        shieldBuff.Gain_Stack(1, false, null);
     }
 
     private void ShieldGainEffect()
     {
-        Enemy.Set_CurrentSP(Enemy.Get_PercentHP(ShieldPercent));
+        enemy.Set_CurrentSP(enemy.Get_PercentHP(shieldPercent));
     }
 
     private void ShieldReduceEffect()
     {
-        Enemy.Set_CurrentSP_Zero();
+        enemy.Set_CurrentSP_Zero();
     }
 
     #endregion
@@ -197,7 +197,7 @@ public class EnemyBuffController : MonoBehaviour
     // 화염 속성이 줄어들때
     private void Active_FlameReduce()
     {
-        Enemy.Take_Damage(DevTool.Get_FrameDmg(this), eDamageType.Physics);
+        enemy.Take_Damage(DevTool.Get_FrameDmg(this), eDamageType.Physics);
     }
 
     // 전기 속성을 얻을 때
@@ -205,12 +205,12 @@ public class EnemyBuffController : MonoBehaviour
     {
         float dmg = DevTool.Get_ElectricityDmg(this);
 
-        List<EnemyController> targetEnemies = new List<EnemyController>() { Enemy };
-        EnemyController targetEnemy = Enemy;
+        List<EnemyController> targetEnemies = new List<EnemyController>() { enemy };
+        EnemyController targetEnemy = enemy;
 
-        for (int i = 0; i < ElectricityStack.currentStack; i++)
+        for (int i = 0; i < electricityStack.currentStack; i++)
         {
-            List<EnemyController> closerEnemies = EnemyManager.instance.Get_CloserEnemies(targetEnemy.gameObject, ElectricityRange);
+            List<EnemyController> closerEnemies = EnemyManager.instance.Get_CloserEnemies(targetEnemy.gameObject, electricityRange);
             
             // 연쇄가  계속 되었는지 판별 => 안되었다면 Break
             bool willExpand = false;
@@ -251,14 +251,14 @@ public class EnemyBuffController : MonoBehaviour
     #region Full Stack Effect
 
     private void Active_FullStack(
-        StatusEffect_Temporary_WithAmount _FullStackBuff,
-        StatusEffect_Permanent_WithAmount _PermanentBuff,
-        float _Dmg, eDamageType _DmgType)
+        StatusEffect_Temporary_WithAmount fullStackBuff,
+        StatusEffect_Permanent_WithAmount permanentBuff,
+        float dmg, eDamageType dmgType)
     {
-        _FullStackBuff.Reduce_Stack(_FullStackBuff.maxStack);
-        _PermanentBuff.Gain_Stack(1, true);
+        fullStackBuff.Reduce_Stack(fullStackBuff.maxStack);
+        permanentBuff.Gain_Stack(1, true);
 
-        Enemy.Take_Damage(_Dmg, _DmgType);
+        enemy.Take_Damage(dmg, dmgType);
     }
 
     // 각각 속성이 최대치일 때
@@ -267,7 +267,7 @@ public class EnemyBuffController : MonoBehaviour
     private void Active_FlameFullStack()
     {
         float dmg = DevTool.Get_FlameExplDmg(out eDamageType dmgType);
-        Active_FullStack(FlameStack, InfernoStack, dmg, dmgType);
+        Active_FullStack(flameStack, infernoStack, dmg, dmgType);
 
         Play_ExplosionAttack(dmgType, dmg, 0);
     }
@@ -276,7 +276,7 @@ public class EnemyBuffController : MonoBehaviour
     private void Active_ColdFullStack()
     {
         float dmg = DevTool.Get_ColdExplDmg(out eDamageType dmgType);
-        Active_FullStack(ColdStack, AbsoluteZeroStack, dmg, dmgType);
+        Active_FullStack(coldStack, absoluteZeroStack, dmg, dmgType);
 
         Play_ExplosionAttack(dmgType, dmg, 1);
     }
@@ -285,7 +285,7 @@ public class EnemyBuffController : MonoBehaviour
     private void Active_ElectricityFullStack()
     {
         float dmg = DevTool.Get_ElectricityExplDmg(out eDamageType dmgType);
-        Active_FullStack(ElectricityStack, PlasmaStack, dmg, dmgType);
+        Active_FullStack(electricityStack, plasmaStack, dmg, dmgType);
 
         Play_ExplosionAttack(dmgType, dmg, 2);
     }
@@ -294,7 +294,7 @@ public class EnemyBuffController : MonoBehaviour
     private void Active_CorrosionFullStack()
     {
         float dmg = DevTool.Get_CorrosionExplDmg(out eDamageType dmgType);
-        Active_FullStack(CorrosionStack, DecayStack, dmg, dmgType);
+        Active_FullStack(corrosionStack, decayStack, dmg, dmgType);
 
         Play_ExplosionAttack(dmgType, dmg, 3);
     }
@@ -302,35 +302,35 @@ public class EnemyBuffController : MonoBehaviour
 
     #region Explosion
 
-    private void Play_ExplosionAttack(eDamageType _DmgType, float _Dmg, int _StatusIndex)
+    private void Play_ExplosionAttack(eDamageType dmgType, float dmg, int statusIndex)
     {
         PlayerExplosionController pec = PoolingManager.instance.Get_OP_PlayerExplosion();
-        pec.Add_HittedObjectList(Enemy);
+        pec.Add_HittedObjectList(enemy);
         pec.Set_State(
-            Get_ExlposionState(_DmgType, _Dmg, _StatusIndex),
-            _AC: ResourceManager.instance.explosionAC,
-            Get_SpawnTF(StatusExplosionSize),
-            Enemy.TargetRange);
+            Get_ExlposionState(dmgType, dmg, statusIndex),
+            ac: ResourceManager.instance.explosionAC,
+            Get_SpawnTF(statusExplosionSize),
+            enemy.TargetRange);
     }
 
-    private ExplosionState Get_ExlposionState(eDamageType _DmgType, float _Dmg, int _StatusIndex)
+    private ExplosionState Get_ExlposionState(eDamageType dmgType, float dmg, int statusIndex)
     {
         List<bool> statusBool = new List<bool> { false, false, false, false }; // Fire, Cold, Electricity, Corrosion
-        statusBool[_StatusIndex] = true;
+        statusBool[statusIndex] = true;
 
         return new ExplosionState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Enemy),
-                new DmgState(_DmgType, _Dmg),
+                new DmgState(dmgType, dmg),
                 new CriticalState(0, 1),
                 new KnockbackState(true, 10f, 0.2f)),
             new AttackSizeState(1f),
             statusBool); 
     }
 
-    private State_TF2D Get_SpawnTF(float _Size)
+    private State_TF2D Get_SpawnTF(float size)
     {
-        return new State_TF2D(transform.position, Quaternion.identity, Vector2.one * _Size);
+        return new State_TF2D(transform.position, Quaternion.identity, Vector2.one * size);
     }
 
     #endregion

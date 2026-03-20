@@ -12,12 +12,12 @@ public class AllyExplosionController : ExplosionController
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private List<Animator> ThisAttributeATList;
+    [SerializeField] private List<Animator> atList;
 
-    [HideInInspector] private AnimatorOverrideController FireAOC;
-    [HideInInspector] private AnimatorOverrideController ColdAOC;
-    [HideInInspector] private AnimatorOverrideController ElectricityAOC;
-    [HideInInspector] private AnimatorOverrideController CorrosionAOC;
+    [HideInInspector] private AnimatorOverrideController fireAoc;
+    [HideInInspector] private AnimatorOverrideController coldAoc;
+    [HideInInspector] private AnimatorOverrideController electricityAoc;
+    [HideInInspector] private AnimatorOverrideController corrosionAoc;
 
     #endregion
 
@@ -29,10 +29,10 @@ public class AllyExplosionController : ExplosionController
     {
         base.Reset_State();
 
-        FireAOC = null;
-        ColdAOC = null;
-        ElectricityAOC = null;
-        CorrosionAOC = null;
+        fireAoc = null;
+        coldAoc = null;
+        electricityAoc = null;
+        corrosionAoc = null;
     }
 
     #endregion
@@ -43,18 +43,18 @@ public class AllyExplosionController : ExplosionController
     {
         base.Set_State_Extra();
 
-        for (int i = 0; i < ThisAttributeATList.Count; i++)
+        for (int i = 0; i < atList.Count; i++)
         {
-            if (State.Get_AttributeCondition()[i])
+            if (state.Get_AttributeCondition()[i])
             {
-                ThisAttributeATList[i].gameObject.SetActive(true);
+                atList[i].gameObject.SetActive(true);
 
-                DevTool.Set_Anim(ref Get_IndexAOC(i), ThisAttributeATList[i], ResourceManager.instance.Get_AttributeExplosionAC(i));
-                ThisAttributeATList[i].speed = AnimSpeed;
+                DevTool.Set_Anim(ref Get_IndexAOC(i), atList[i], ResourceManager.instance.Get_AttributeExplosionAC(i));
+                atList[i].speed = animSpeed;
             }
             else
             {
-                ThisAttributeATList[i].gameObject.SetActive(false);
+                atList[i].gameObject.SetActive(false);
             }
         }
     }
@@ -63,21 +63,21 @@ public class AllyExplosionController : ExplosionController
 
     #region Condition (Attribute)
 
-    private ref AnimatorOverrideController Get_IndexAOC(int _Index)
+    private ref AnimatorOverrideController Get_IndexAOC(int index)
     {
-        switch (_Index)
+        switch (index)
         {
             case 0:
-                return ref FireAOC;
+                return ref fireAoc;
             case 1:
-                return ref ColdAOC;
+                return ref coldAoc;
             case 2:
-                return ref ElectricityAOC;
+                return ref electricityAoc;
             case 3:
-                return ref CorrosionAOC;
+                return ref corrosionAoc;
 
             default:
-                return ref FireAOC;
+                return ref fireAoc;
         }
     }
 
@@ -95,21 +95,21 @@ public class AllyExplosionController : ExplosionController
 
     #region Trigger
 
-    protected override void OnTriggerEnter2D(Collider2D _Col)
+    protected override void OnTriggerEnter2D(Collider2D col)
     {
-        Try_Hit_Enemy(_Col);
+        Try_Hit_Enemy(col);
 
-        base.OnTriggerEnter2D(_Col);
+        base.OnTriggerEnter2D(col);
     }
 
-    protected void Try_Hit_Enemy(Collider2D _Col)
+    protected void Try_Hit_Enemy(Collider2D col)
     {
-        if (DevTool.Can_Collding(_Col, "Enemy",
-            HittedObjectList, out EnemyController ec))
+        if (DevTool.Can_Collding(col, "Enemy",
+            hittedObjectList, out EnemyController ec))
         {
             //Damage
             ec.Try_Hitted(this);
-            HittedObjectList.Add(ec);
+            hittedObjectList.Add(ec);
         }
     }
 

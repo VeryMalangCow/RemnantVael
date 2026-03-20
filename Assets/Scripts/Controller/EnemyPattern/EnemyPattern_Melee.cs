@@ -117,7 +117,7 @@ public class EnemyPattern_Melee : EnemyPattern
     private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)
     {
         EnemyAttackerController attacker = PoolingManager.instance.Get_OP_EnemyAttacker();
-        attacker.Enemy = ThisEnemy;
+        attacker.enemy = ThisEnemy;
         float targetShadow = IsShadowRangeByDepthController ? _Depth.TargetRange : 0.6f;
         
         attacker.Set_State(

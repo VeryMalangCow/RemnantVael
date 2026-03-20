@@ -10,7 +10,7 @@ public class ExplosionImgGenerator : MonoBehaviour
 
     [Space(10)]
     [Header("=== Sprites")]
-    [HideInInspector] protected Sequence TotalSeq;
+    [HideInInspector] protected Sequence totalSeq;
 
 
     #endregion
@@ -18,52 +18,52 @@ public class ExplosionImgGenerator : MonoBehaviour
     #region Gen
 
     // 원형: Circle
-    protected void Gen_ExplImg_Circle(ExplState _State)
+    protected void Gen_ExplImg_Circle(ExplState state)
     {
-        Gen_ExplImg_Ellipse(_State, 1f, 1f);
+        Gen_ExplImg_Ellipse(state, 1f, 1f);
     }
 
     // 타원형: Ellipse
-    protected void Gen_ExplImg_Ellipse(ExplState _State, float _X, float _Y)
+    protected void Gen_ExplImg_Ellipse(ExplState state, float x, float y)
     {
-        DevTool.Set_CompleteTween(TotalSeq);
-        TotalSeq = DOTween.Sequence();
+        DevTool.Set_CompleteTween(totalSeq);
+        totalSeq = DOTween.Sequence();
 
-        float singleAngle = 360 / _State.baseState.spawnAmount; // 한칸 앵글
-        for (int i = 0; i < _State.baseState.spawnAmount; i++)
+        float singleAngle = 360 / state.baseState.spawnAmount; // 한칸 앵글
+        for (int i = 0; i < state.baseState.spawnAmount; i++)
         {
-            _State.Set_AllDir(DevTool.Get_DirFromAngle((i * singleAngle)));
-            _State.Set_RandomAngleValue_JustAdd(singleAngle);
-            _State.Set_MultipleAllDir(new Vector2(_X, _Y));
-            _State.Set_RandomValue();
+            state.Set_AllDir(DevTool.Get_DirFromAngle((i * singleAngle)));
+            state.Set_RandomAngleValue_JustAdd(singleAngle);
+            state.Set_MultipleAllDir(new Vector2(x, y));
+            state.Set_RandomValue();
 
-            TotalSeq.Join(
+            totalSeq.Join(
                 Gen_EachExplImg(
-                    _State.baseState.spawnPos,
-                    _State.spriteState,
-                    _State.firstState,
-                    _State.secondState));
+                    state.baseState.spawnPos,
+                    state.spriteState,
+                    state.firstState,
+                    state.secondState));
         }
     }
 
 
     // 부채꼴: Sector
-    protected void Gen_ExplImg_Sector(ExplState _State, Vector2 _Dir, float _AngleExtent)
+    protected void Gen_ExplImg_Sector(ExplState state, Vector2 dir, float angleExtent)
     {
-        DevTool.Set_CompleteTween(TotalSeq);
-        TotalSeq = DOTween.Sequence();
+        DevTool.Set_CompleteTween(totalSeq);
+        totalSeq = DOTween.Sequence();
 
-        for (int i = 0; i < _State.baseState.spawnAmount; i++)
+        for (int i = 0; i < state.baseState.spawnAmount; i++)
         {
-            _State.Set_RandomValue();
-            _State.Set_RandomAngleValue_PivotZero(_AngleExtent);
+            state.Set_RandomValue();
+            state.Set_RandomAngleValue_PivotZero(angleExtent);
 
-            TotalSeq.Join(
+            totalSeq.Join(
                 Gen_EachExplImg(
-                    _State.baseState.spawnPos,
-                    _State.spriteState,
-                    _State.firstState,
-                    _State.secondState));
+                    state.baseState.spawnPos,
+                    state.spriteState,
+                    state.firstState,
+                    state.secondState));
         }
     }
 
@@ -72,11 +72,11 @@ public class ExplosionImgGenerator : MonoBehaviour
     #region Each One
 
     // 하나의 이펙트 이미지를 생성
-    private Sequence Gen_EachExplImg(Vector2 _SpawnPos, ExplState_Sprite _SpriteState, ExplState_MoveAndScale _FirstState, ExplState_MoveAndScale _SecondState)
+    private Sequence Gen_EachExplImg(Vector2 spawnPos, ExplState_Sprite spriteState, ExplState_MoveAndScale firstState, ExplState_MoveAndScale secondState)
     {
         SpriteRenderer sr = PoolingManager.instance.Get_OP_ExplosionImg();
         sr.gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
-        return Play_ExplImg(sr, _SpawnPos, _SpriteState, _FirstState, _SecondState);
+        return Play_ExplImg(sr, spawnPos, spriteState, firstState, secondState);
     }
 
     #endregion
@@ -84,35 +84,35 @@ public class ExplosionImgGenerator : MonoBehaviour
     #region Tween
 
     // 전체적인 움직임을 표현하는 
-    private Sequence Play_ExplImg(SpriteRenderer _SR, Vector2 _SpawnPos, ExplState_Sprite _SpriteState, ExplState_MoveAndScale _FirstState, ExplState_MoveAndScale _SecondState)
+    private Sequence Play_ExplImg(SpriteRenderer sr, Vector2 spawnPos, ExplState_Sprite spriteState, ExplState_MoveAndScale firstState, ExplState_MoveAndScale secondState)
     {
-        DevTool.Set_CompleteTween(_SR.gameObject);
+        DevTool.Set_CompleteTween(sr.gameObject);
 
         Sequence Seq = DOTween.Sequence();
 
-        Seq.Append(Play_ExplImg_MoveScale(_SR, _SpawnPos, _FirstState));
-        Seq.Append(Play_ExplImg_MoveScaleFadeOut(_SR, _SpawnPos, _SecondState));
-        Seq.OnStart(() => { SetOn_SR(_SR, _SpawnPos, _SpriteState); });
-        Seq.OnComplete(() => { SetOff_SR(_SR); });
+        Seq.Append(Play_ExplImg_MoveScale(sr, spawnPos, firstState));
+        Seq.Append(Play_ExplImg_MoveScaleFadeOut(sr, spawnPos, secondState));
+        Seq.OnStart(() => { SetOn_SR(sr, spawnPos, spriteState); });
+        Seq.OnComplete(() => { SetOff_SR(sr); });
         return Seq;
     }
 
     // 커지는
-    private Sequence Play_ExplImg_MoveScale(SpriteRenderer _SR, Vector2 _SpawnPos, ExplState_MoveAndScale _State)
+    private Sequence Play_ExplImg_MoveScale(SpriteRenderer sr, Vector2 spawnPos, ExplState_MoveAndScale state)
     {
         Sequence Seq = DOTween.Sequence();
 
-        Seq.Join(_SR.transform.DOMove(_SpawnPos + (_State.dir * _State.dis), _State.time).SetEase(Ease.Linear));
-        Seq.Join(_SR.transform.DOScale(_State.scale, _State.time).SetEase(Ease.Linear));
+        Seq.Join(sr.transform.DOMove(spawnPos + (state.dir * state.dis), state.time).SetEase(Ease.Linear));
+        Seq.Join(sr.transform.DOScale(state.scale, state.time).SetEase(Ease.Linear));
 
         return Seq;
     }
 
     // 작아지고 꺼지는 
-    private Sequence Play_ExplImg_MoveScaleFadeOut(SpriteRenderer _SR, Vector2 _SpawnPos, ExplState_MoveAndScale _State)
+    private Sequence Play_ExplImg_MoveScaleFadeOut(SpriteRenderer sr, Vector2 spawnPos, ExplState_MoveAndScale state)
     {
-        Sequence Seq = Play_ExplImg_MoveScale(_SR, _SpawnPos, _State);
-        Seq.Join(_SR.DOFade(0f, _State.time).SetEase(Ease.Linear));
+        Sequence Seq = Play_ExplImg_MoveScale(sr, spawnPos, state);
+        Seq.Join(sr.DOFade(0f, state.time).SetEase(Ease.Linear));
 
         return Seq;
     }
@@ -121,26 +121,26 @@ public class ExplosionImgGenerator : MonoBehaviour
 
     #region Set
 
-    protected virtual void SetOn_SR(SpriteRenderer _SR, Vector2 _SpawnPos, ExplState_Sprite _State)
+    protected virtual void SetOn_SR(SpriteRenderer sr, Vector2 spawnPos, ExplState_Sprite state)
     {
-        _SR.transform.position = _SpawnPos;
-        _SR.transform.eulerAngles = new Vector3(0f, 0f, Random.Range(0, 90));
-        _SR.transform.localScale = Vector2.zero;
+        sr.transform.position = spawnPos;
+        sr.transform.eulerAngles = new Vector3(0f, 0f, Random.Range(0, 90));
+        sr.transform.localScale = Vector2.zero;
 
-        _SR.color = Color.white;
-        _SR.sortingOrder = LayerOrderManager.order_EffectImg;
+        sr.color = Color.white;
+        sr.sortingOrder = LayerOrderManager.order_EffectImg;
 
-        _SR.sprite = DevTool.Get_Random(_State.sprite);
-        _SR.material = _State.material;
+        sr.sprite = DevTool.Get_Random(state.sprite);
+        sr.material = state.material;
 
-        _SR.gameObject.SetActive(true);
+        sr.gameObject.SetActive(true);
     }
 
-    protected virtual void SetOff_SR(SpriteRenderer _SR)
+    protected virtual void SetOff_SR(SpriteRenderer sr)
     {
-        _SR.gameObject.SetActive(false);
+        sr.gameObject.SetActive(false);
 
-        PoolingManager.instance.explosionImgs.Enqueue(_SR);
+        PoolingManager.instance.explosionImgs.Enqueue(sr);
     }
 
     #endregion

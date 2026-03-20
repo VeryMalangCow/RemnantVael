@@ -112,17 +112,17 @@ public class ShootingAllyController : FieldUnitAllyController
         // 총알 스탯과 SortingOrder 설정
         _Bullet.Set_State(
             Get_BulletState(),
-            _State_PosAndRot: Get_BulletState_PosAndRot(),
-            _State_Size: Get_BulletState_Size(),
-            _State_Anim: null,
-            _State_Effect: null,
+            state_PosAndRot: Get_BulletState_PosAndRot(),
+            state_Size: Get_BulletState_Size(),
+            state_Anim: null,
+            state_Effect: null,
             0.5f);
 
         _Bullet.ThisSR.color = this.ThisExtraColor;
 
         // 상태이상 총알이면
         if (IsAlwaysStatus)
-            _Bullet.State.Set_Status(IsAlwaysStatus, StateType);
+            _Bullet.state.Set_Status(IsAlwaysStatus, StateType);
         
         // Sync
         ActiveAlly_Fire(_Bullet, null);

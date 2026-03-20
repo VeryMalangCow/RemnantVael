@@ -196,8 +196,8 @@ MonoBehaviour:
   TargetObject: {fileID: 7754987835335729850}
   ThisSR: {fileID: 2506341436009816347}
   TargetRange: 0.9
-  PoolingString: MissileBullet
-  State:
+  poolingString: MissileBullet
+  state:
     ownerData:
       owner: 0
       id: 0
@@ -216,32 +216,32 @@ MonoBehaviour:
     aliveTime: 0
     isStatus: 0
     statusType: 0
-  ThisRb: {fileID: 3702076010934528879}
-  ThisTrail: {fileID: 1195538197436107000}
-  ThisLight: {fileID: 2777134767664134025}
-  DestroyTagList:
+  rb: {fileID: 3702076010934528879}
+  trail: {fileID: 1195538197436107000}
+  light2d: {fileID: 2777134767664134025}
+  destroyTagList:
   - Enemy
   - Wall
   - DestructibleObject
-  IsGuided: 0
-  TargetEnemyController: {fileID: 0}
-  RotateSpeed: 7.5
-  LightIsApplyPlayerState: 1
-  TrailIsApplyPlayerState: 1
-  BulletSprite:
+  isGuided: 0
+  enemy: {fileID: 0}
+  rotSpeed: 7.5
+  lightIsApplyPlayerState: 1
+  trailIsApplyPlayerState: 1
+  bulletSprite:
     physics:
       typeBase: {fileID: -1722145500, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
       typeSpecial: {fileID: -2035106808, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
     energy:
       typeBase: {fileID: 0}
       typeSpecial: {fileID: 0}
-  Intensity: 10
-  TrailTime: 0.5
-  TrailStartWidth: 0.27
-  Missile_Prefab: {fileID: 2192280153704162206}
-  ShadowRangeTarget: 0.4
-  SpreadTime: 0.5
-  BaseRotatePower: 6
+  intensity: 10
+  trailTime: 0.5
+  trailStartWidth: 0.27
+  missile_Prefab: {fileID: 2192280153704162206}
+  shadowRangeTarget: 0.4
+  spreadTime: 0.5
+  baseRotatePower: 6
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4

@@ -8,16 +8,16 @@ public class AfterImgGenerator : MonoBehaviour
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] public List<SpriteRenderer> TargetSRList;
-    [SerializeField] private Color ThisColor;
+    [SerializeField] public List<SpriteRenderer> targetSRList;
+    [SerializeField] private Color thisColor;
 
     [Space(10)]
     [Header("=== Caculate")]
-    [SerializeField] private bool IsOn = false;
-    [SerializeField] private float CurrentGenTime = 0;
-    [SerializeField] private float ImageAlpha = 1f;
-    [SerializeField] private float DelayGenTime = 1f;
-    [SerializeField] private float StayDur = 1f;
+    [SerializeField] private bool isOn = false;
+    [SerializeField] private float currentGenTime = 0;
+    [SerializeField] private float imageAlpha = 1f;
+    [SerializeField] private float delayGenTime = 1f;
+    [SerializeField] private float stayDur = 1f;
 
     #endregion
 
@@ -34,48 +34,48 @@ public class AfterImgGenerator : MonoBehaviour
 
     private void Caculate_GenTime()
     {
-        if (IsOn)
+        if (isOn)
         {
-            CurrentGenTime += Time.deltaTime;
-            if (CurrentGenTime >= DelayGenTime)
+            currentGenTime += Time.deltaTime;
+            if (currentGenTime >= delayGenTime)
             {
-                CurrentGenTime = 0;
-                Gen_Img(ThisColor);
+                currentGenTime = 0;
+                Gen_Img(thisColor);
             }
         }
     }
 
     // Start Set
-    public void Start_Gen(float _ImageAlpha, float _SetIntervalDelay, float _StayDur)
+    public void Start_Gen(float imgAlpha, float intervalDelay, float stayDur)
     {
-        IsOn = true;
-        ImageAlpha = _ImageAlpha;
-        DelayGenTime = _SetIntervalDelay;
-        StayDur = _StayDur;
+        isOn = true;
+        imageAlpha = imgAlpha;
+        delayGenTime = intervalDelay;
+        this.stayDur = stayDur;
     }
 
     // End Set
     public void End_Gen()
     {
-        IsOn = false;
-        DelayGenTime = 0;
+        isOn = false;
+        delayGenTime = 0;
     }
 
     // Each Gen Img
-    private void Gen_Img(SpriteRenderer _TargetSR, Color _Clr)
+    private void Gen_Img(SpriteRenderer sr, Color clr)
     {
         SpriteRenderer SR = PoolingManager.instance.Get_OP_AfterImg();
         SR.gameObject.transform.SetParent(StageManager.instance.currentRoomController.transform);
 
-        SR.sprite = _TargetSR.sprite;
-        SR.sortingOrder = _TargetSR.sortingOrder - 1;
-        Color clr = _Clr;
-        clr.a = Mathf.Clamp(ImageAlpha, 0f, 1f);
-        SR.color = clr;
-        SR.gameObject.transform.position = _TargetSR.transform.position;
-        SR.gameObject.transform.localScale = _TargetSR.transform.lossyScale;
+        SR.sprite = sr.sprite;
+        SR.sortingOrder = sr.sortingOrder - 1;
+        Color _clr = clr;
+        _clr.a = Mathf.Clamp(imageAlpha, 0f, 1f);
+        SR.color = _clr;
+        SR.gameObject.transform.position = sr.transform.position;
+        SR.gameObject.transform.localScale = sr.transform.lossyScale;
         SR.gameObject.SetActive(true);
-        SR.DOFade(0f, StayDur)
+        SR.DOFade(0f, stayDur)
             .OnComplete(() => 
             {
                 SR.gameObject.SetActive(false);
@@ -84,11 +84,11 @@ public class AfterImgGenerator : MonoBehaviour
         
     }
 
-    private void Gen_Img(Color _Clr)
+    private void Gen_Img(Color clr)
     {
-        for (int i = 0; i < TargetSRList.Count; i++)
+        for (int i = 0; i < targetSRList.Count; i++)
         {
-            Gen_Img(TargetSRList[i], _Clr);
+            Gen_Img(targetSRList[i], clr);
         }
     }
 

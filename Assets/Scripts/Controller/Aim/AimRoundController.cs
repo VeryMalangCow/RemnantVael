@@ -11,13 +11,13 @@ public class AimRoundController : StaticDepthController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private float AimFollowSpeed = 30f;
+    [SerializeField] private float aimFollowSpeed = 30f;
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] List<Transform> LineList;
+    [SerializeField] List<Transform> lineList;
 
-    [HideInInspector] private float SpreadMaxAngle;
+    [HideInInspector] private float spreadMaxAngle;
 
     #endregion
 
@@ -33,7 +33,7 @@ public class AimRoundController : StaticDepthController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.BaseWeapon.AccuracyRate.actualState
+        PlayerManager.instance.playerController.BaseWeapon.accRate.actualState
             .Subscribe(value =>
             {
                 Set_AngleRoundValue(value);
@@ -42,8 +42,8 @@ public class AimRoundController : StaticDepthController
 
     private void Offset_Sorting()
     {
-        for (int i = 0; i < LineList.Count; i++)
-            DevTool.Get_ComponentTType<SpriteRenderer>(LineList[i].transform.GetChild(0).gameObject).sortingOrder = LayerOrderManager.order_Aim;
+        for (int i = 0; i < lineList.Count; i++)
+            DevTool.Get_ComponentTType<SpriteRenderer>(lineList[i].transform.GetChild(0).gameObject).sortingOrder = LayerOrderManager.order_Aim;
     }
 
     #endregion
@@ -65,18 +65,18 @@ public class AimRoundController : StaticDepthController
         TargetObject.transform.localRotation = Quaternion.Slerp(
             TargetObject.transform.localRotation,
             Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, InputManager.instance.dirFromPlayerPos)),
-            AimFollowSpeed * Time.deltaTime);
+            aimFollowSpeed * Time.deltaTime);
     }
 
     private void Update_AimDis()
     {
         float dis = Vector2.Distance(Vector2.zero, InputManager.instance.dirFromPlayerPos);
-        for (int i = 0; i < LineList.Count; i++)
+        for (int i = 0; i < lineList.Count; i++)
         {
-            LineList[i].GetChild(0).localPosition =
-                Vector2.Lerp(LineList[i].GetChild(0).localPosition,
+            lineList[i].GetChild(0).localPosition =
+                Vector2.Lerp(lineList[i].GetChild(0).localPosition,
                 new Vector2(0, dis),
-                AimFollowSpeed * Time.deltaTime);
+                aimFollowSpeed * Time.deltaTime);
         }
     }
 
@@ -84,12 +84,12 @@ public class AimRoundController : StaticDepthController
 
     #region SetAngle
 
-    private void Set_AngleRoundValue(float _Value)
+    private void Set_AngleRoundValue(float value)
     {
-        SpreadMaxAngle = 100 - _Value;
+        spreadMaxAngle = 100 - value;
 
-        DevTool.Add_LocalRotZValue(LineList[0], SpreadMaxAngle);
-        DevTool.Add_LocalRotZValue(LineList[1], -SpreadMaxAngle);
+        DevTool.Add_LocalRotZValue(lineList[0], spreadMaxAngle);
+        DevTool.Add_LocalRotZValue(lineList[1], -spreadMaxAngle);
     }
 
     #endregion

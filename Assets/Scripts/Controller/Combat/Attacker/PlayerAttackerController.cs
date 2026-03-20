@@ -13,21 +13,21 @@ public class PlayerAttackerController : AttackerController
 
     #region Trigger
 
-    protected override void OnTriggerEnter2D(Collider2D _Col)
+    protected override void OnTriggerEnter2D(Collider2D col)
     {
-        Try_Hit_Enemy(_Col);
+        Try_Hit_Enemy(col);
 
-        base.OnTriggerEnter2D(_Col);
+        base.OnTriggerEnter2D(col);
     }
 
-    protected void Try_Hit_Enemy(Collider2D _Col)
+    protected void Try_Hit_Enemy(Collider2D col)
     {
-        if (DevTool.Can_Collding(_Col, "Enemy", 
-            HittedObjectList, out EnemyController ec))
+        if (DevTool.Can_Collding(col, "Enemy", 
+            hittedObjList, out EnemyController ec))
         {
             //Damage
             ec.Try_Hitted(this);
-            HittedObjectList.Add(ec);
+            hittedObjList.Add(ec);
         }
     }
 

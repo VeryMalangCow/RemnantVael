@@ -499,7 +499,7 @@ public class InputManager : Singleton<InputManager>
 
     private void Input_Fire(InputAction.CallbackContext inputValue)
     {
-        PlayerManager.instance.playerController.BaseWeapon.IsInputed = inputValue.ReadValueAsButton();
+        PlayerManager.instance.playerController.BaseWeapon.isInputed = inputValue.ReadValueAsButton();
     }
 
     #endregion

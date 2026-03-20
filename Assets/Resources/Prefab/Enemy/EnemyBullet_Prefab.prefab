@@ -133,8 +133,8 @@ MonoBehaviour:
   TargetObject: {fileID: 7754987835335729850}
   ThisSR: {fileID: 2506341436009816347}
   TargetRange: 0.35
-  PoolingString: EnemyBullet
-  State:
+  poolingString: EnemyBullet
+  state:
     ownerData:
       owner: 0
       id: 0
@@ -153,21 +153,21 @@ MonoBehaviour:
     aliveTime: 0
     isStatus: 0
     statusType: 0
-  ThisRb: {fileID: 3702076010934528879}
-  ThisTrail: {fileID: 753930731239720714}
-  ThisLight: {fileID: 1515672372309586995}
-  DestroyTagList:
+  rb: {fileID: 3702076010934528879}
+  trail: {fileID: 753930731239720714}
+  light2d: {fileID: 1515672372309586995}
+  destroyTagList:
   - Player
   - Wall
   - DestructibleObject
   - FieldObj
-  IsGuided: 0
-  TargetEnemyController: {fileID: 0}
-  RotateSpeed: 1
-  ThisAnimator: {fileID: 2399920995970120347}
-  ThisCol: {fileID: 7842866708527823414}
-  ExplAmount: 4
-  Enemy: {fileID: 0}
+  isGuided: 0
+  enemy: {fileID: 0}
+  rotSpeed: 1
+  at: {fileID: 2399920995970120347}
+  col: {fileID: 7842866708527823414}
+  explAmount: 4
+  ownEnemy: {fileID: 0}
 --- !u!50 &3702076010934528879
 Rigidbody2D:
   serializedVersion: 4

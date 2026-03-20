@@ -37,15 +37,15 @@ public class DroppingTotemeAllyController : DroppingAllyController
     {
         // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
         _Toteme.Set_State(
-            _DroppingTime: ActualAllyState.muzzleSpeed.value,
-            _TopYPos: 5f,
-            _BottomYPos: DropBottomYPos,
-            _Dur: ActualAllyState.dur.value,
-            _HoloSprite: HoloSprite,
-            _Clr: ThisExtraColor,
-            _BuffAreaSize: 1f,
-            _State_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
-            _State_Size: Get_BulletState_Shadow_Size());
+            droppingTime: ActualAllyState.muzzleSpeed.value,
+            topYPos: 5f,
+            bottomYPos: DropBottomYPos,
+            dur: ActualAllyState.dur.value,
+            holoSprite: HoloSprite,
+            clr: ThisExtraColor,
+            buffAreaSize: 1f,
+            state_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
+            state_Size: Get_BulletState_Shadow_Size());
 
         _Toteme.Set_State_BuffID(PlayerBuffID, AllyBuffID);
 

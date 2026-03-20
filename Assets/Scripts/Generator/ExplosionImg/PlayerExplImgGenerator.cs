@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerExplImgGenerator : ExplosionImgGenerator
 {
@@ -134,10 +133,10 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
     // 쇼크웨이브 발사
     private void Expl_Player00_Skill1(Vector2 spawnPos)
     {
-        if (PlayerManager.instance.playerController.SkillWeapon.SkillList[1] is ShockwaveSkillController shock)
+        if (PlayerManager.instance.playerController.SkillWeapon.skillList[1] is ShockwaveSkillController shock)
         {
             float usableMaxSize = shock.Get_UsableMaxSize();
-            float cc = PlayerManager.instance.playerController.BaseWeapon.CC.actualState.Value;
+            float cc = PlayerManager.instance.playerController.BaseWeapon.cc.actualState.Value;
             int normalAmount = (int)(36f * (1f - cc));
             int specialAmount = (int)(36f * cc);
 

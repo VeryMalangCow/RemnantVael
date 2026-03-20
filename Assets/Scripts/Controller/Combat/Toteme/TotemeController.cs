@@ -12,41 +12,41 @@ public abstract class TotemeController : DroppingDepthController
 
     [Space(20)]
     [Header("<><><><><> Toteme")]
-    [SerializeField] protected string PoolingString = "";
+    [SerializeField] protected string poolingString = "";
 
     [Space(10)]
     [Header("=== Buff")]
-    [SerializeField] private int PlayerBuffID;
-    [SerializeField] private string AllyBuffID;
+    [SerializeField] private int playerBuffId;
+    [SerializeField] private string allyBuffId;
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private float ThisDur;
+    [SerializeField] private float thisDur;
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private SpriteRenderer HoloSR;
-    [SerializeField] private Light2D HoloLight;
+    [SerializeField] private SpriteRenderer holoSr;
+    [SerializeField] private Light2D holoLight2d;
 
     [Space(10)]
     [Header("=== Buff Area")]
-    [SerializeField] private GameObject BuffAreaGO;
-    [SerializeField] private CapsuleCollider2D BuffCol;
-    [SerializeField] private Transform BuffPointParentTF;
+    [SerializeField] private GameObject buffAreaGo;
+    [SerializeField] private CapsuleCollider2D buffCol;
+    [SerializeField] private Transform buffPointParentTf;
 
     #endregion
 
     #region - Hide
 
     // Activating
-    [HideInInspector] private bool Is_Activating = false;
-    [HideInInspector] private static readonly Vector2 BuffColBaseSize = new Vector2(2, 1);
-    [HideInInspector] private static readonly int PointAmountPerSize = 15;
-    [HideInInspector] private List<SpriteRenderer> BuffPointList = new List<SpriteRenderer>();
+    [HideInInspector] private bool isActivating = false;
+    [HideInInspector] private static readonly Vector2 buffColBaseSize = new Vector2(2, 1);
+    [HideInInspector] private static readonly int pointAmountPerSize = 15;
+    [HideInInspector] private List<SpriteRenderer> buffPointList = new List<SpriteRenderer>();
 
     // Buff
-    [HideInInspector] private bool InAreaPlayer = false;
-    [HideInInspector] private List<AllyController> InAreaAllies = null;
+    [HideInInspector] private bool inAreaPlayer = false;
+    [HideInInspector] private List<AllyController> inAreaAllies = null;
 
     #endregion
 
@@ -58,20 +58,20 @@ public abstract class TotemeController : DroppingDepthController
     {
         base.Update();
 
-        if (Is_Activating)
-            HoloSR.transform.Rotate(new Vector3(0, 180f * Time.deltaTime, 0));
+        if (isActivating)
+            holoSr.transform.Rotate(new Vector3(0, 180f * Time.deltaTime, 0));
     }
 
     #endregion
 
     #region Light
 
-    public override void SetOn_LightIntensity(float _Intensity)
+    public override void SetOn_LightIntensity(float intensity)
     {
-        base.SetOn_LightIntensity(_Intensity);
+        base.SetOn_LightIntensity(intensity);
 
-        HoloLight.intensity = _Intensity;
-        HoloLight.lightCookieSprite = HoloSR.sprite;
+        holoLight2d.intensity = intensity;
+        holoLight2d.lightCookieSprite = holoSr.sprite;
     }
 
     #endregion
@@ -89,12 +89,12 @@ public abstract class TotemeController : DroppingDepthController
         transform.rotation = Quaternion.identity;
         transform.localScale = Vector3.one;
 
-        Is_Activating = false;
-        HoloSR.gameObject.SetActive(false);
-        BuffAreaGO.gameObject.SetActive(false);
+        isActivating = false;
+        holoSr.gameObject.SetActive(false);
+        buffAreaGo.gameObject.SetActive(false);
 
-        InAreaPlayer = false;
-        InAreaAllies = null;
+        inAreaPlayer = false;
+        inAreaAllies = null;
     }
 
     #endregion
@@ -102,61 +102,61 @@ public abstract class TotemeController : DroppingDepthController
     #region State
 
     public void Set_State(
-        float _DroppingTime, float _TopYPos, float _BottomYPos, float _Dur,
-        Sprite _HoloSprite, Color _Clr, float _BuffAreaSize,
-        BulletState_PosAndRot _State_PosAndRot,
-        BulletState_Size _State_Size)
+        float droppingTime, float topYPos, float bottomYPos, float dur,
+        Sprite holoSprite, Color clr, float buffAreaSize,
+        BulletState_PosAndRot state_PosAndRot,
+        BulletState_Size state_Size)
     {
         UnitManager.instance.Add_Unit(this);
 
-        base.Set_State_Base(null, _DroppingTime, _TopYPos, _BottomYPos);
+        base.Set_State_Base(null, droppingTime, topYPos, bottomYPos);
 
-        Set_State_PosAndRot(_State_PosAndRot);
-        Set_State_ShadowSize(_State_Size);
-        Set_State_Toteme(_Dur, _HoloSprite);
+        Set_State_PosAndRot(state_PosAndRot);
+        Set_State_ShadowSize(state_Size);
+        Set_State_Toteme(dur, holoSprite);
 
-        Set_State_BuffAreaPoint(_State_Size.objSize, _Clr);
+        Set_State_BuffAreaPoint(state_Size.objSize, clr);
 
         SetOn_State();
     }
 
-    public virtual void Set_State_PosAndRot(BulletState_PosAndRot _State_PosAndRot)
+    public virtual void Set_State_PosAndRot(BulletState_PosAndRot state_PosAndRot)
     {
-        this.transform.position = _State_PosAndRot.spawnPos + (_State_PosAndRot.dir * _State_PosAndRot.dis);
-        this.transform.localRotation = DevTool.Get_RotFromDir(_State_PosAndRot.dir);
+        this.transform.position = state_PosAndRot.spawnPos + (state_PosAndRot.dir * state_PosAndRot.dis);
+        this.transform.localRotation = DevTool.Get_RotFromDir(state_PosAndRot.dir);
 
-        DevTool.Add_RotZValue(transform, _State_PosAndRot.spreadAngle);
+        DevTool.Add_RotZValue(transform, state_PosAndRot.spreadAngle);
     }
 
-    public override void Set_State_ShadowSize(BulletState_Size _State_Size)
+    public override void Set_State_ShadowSize(BulletState_Size state_Size)
     {
-        base.Set_State_ShadowSize(_State_Size);
+        base.Set_State_ShadowSize(state_Size);
 
-        BuffCol.size = BuffColBaseSize * _State_Size.objSize;
+        buffCol.size = buffColBaseSize * state_Size.objSize;
     }
 
-    private void Set_State_BuffAreaPoint(Vector2 _AreaSize, Color _Clr)
+    private void Set_State_BuffAreaPoint(Vector2 areaSize, Color clr)
     {
-        Vector2 targetArea = BuffCol.size;
-        int amount = (int)(_AreaSize.x * PointAmountPerSize);
+        Vector2 targetArea = buffCol.size;
+        int amount = (int)(areaSize.x * pointAmountPerSize);
 
         List<Vector2> pointPosList = Get_PointPosList(targetArea, amount);
-        BuffPointList = PoolingManager.instance.Get_OP_AreaPointSRList(amount);
+        buffPointList = PoolingManager.instance.Get_OP_AreaPointSRList(amount);
 
         for (int i = 0; i < amount; i++)
         {
-            BuffPointList[i].color = _Clr;
-            BuffPointList[i].transform.SetParent(BuffPointParentTF, false); // 로컬 좌표 유지
-            BuffPointList[i].transform.localPosition = pointPosList[i]; // 로컬 좌표로 설정
-            BuffPointList[i].gameObject.SetActive(true);
+            buffPointList[i].color = clr;
+            buffPointList[i].transform.SetParent(buffPointParentTf, false); // 로컬 좌표 유지
+            buffPointList[i].transform.localPosition = pointPosList[i]; // 로컬 좌표로 설정
+            buffPointList[i].gameObject.SetActive(true);
         }
     }
 
 
-    private void Set_State_Toteme(float _Dur, Sprite _HoloSprite)
+    private void Set_State_Toteme(float dur, Sprite holoSprite)
     {
-        ThisDur = _Dur;
-        HoloSR.sprite = _HoloSprite;
+        thisDur = dur;
+        holoSr.sprite = holoSprite;
     }
 
     protected override void SetOn_State()
@@ -170,10 +170,10 @@ public abstract class TotemeController : DroppingDepthController
     }
 
 
-    public void Set_State_BuffID(int _PlayerBuffID, string _AllyBuffID)
+    public void Set_State_BuffID(int playerBuffId, string allyBuffId)
     {
-        PlayerBuffID = _PlayerBuffID;
-        AllyBuffID = _AllyBuffID;
+        this.playerBuffId = playerBuffId;
+        this.allyBuffId = allyBuffId;
     }
 
     #endregion
@@ -193,7 +193,7 @@ public abstract class TotemeController : DroppingDepthController
     {
         // 시작점
         Active_StartSetting();
-        yield return new WaitForSeconds(ThisDur - 1);
+        yield return new WaitForSeconds(thisDur - 1);
 
         // 그라데이션 되는 부분
         Active_FadeOut();
@@ -205,18 +205,18 @@ public abstract class TotemeController : DroppingDepthController
     private void Active_StartSetting()
     {
         TimerManager.instance.Add_Toteme(this);
-        InAreaAllies = new List<AllyController>();
+        inAreaAllies = new List<AllyController>();
 
-        Is_Activating = true;
-        HoloSR.gameObject.SetActive(true);
-        HoloSR.DOFade(1f, 0.5f).SetEase(Ease.Linear);
-        BuffAreaGO.gameObject.SetActive(true);
+        isActivating = true;
+        holoSr.gameObject.SetActive(true);
+        holoSr.DOFade(1f, 0.5f).SetEase(Ease.Linear);
+        buffAreaGo.gameObject.SetActive(true);
     }
 
     private void Active_FadeOut()
     {
         ThisSR.DOFade(0f, 0.9f).SetEase(Ease.Linear);
-        HoloSR.DOFade(0f, 0.9f).SetEase(Ease.Linear);
+        holoSr.DOFade(0f, 0.9f).SetEase(Ease.Linear);
     }
 
     #endregion
@@ -225,14 +225,14 @@ public abstract class TotemeController : DroppingDepthController
 
     public void Active_Buff()
     {
-        if (!Is_Activating) return;
+        if (!isActivating) return;
 
-        if (InAreaPlayer)
-            BuffManager.instance.Gain_Buff(PlayerBuffID);
+        if (inAreaPlayer)
+            BuffManager.instance.Gain_Buff(playerBuffId);
         
-        for (int i = 0; i < InAreaAllies.Count; i++)
+        for (int i = 0; i < inAreaAllies.Count; i++)
         {
-            AllyBuff buff = InAreaAllies[i].BuffController.Get_AllyBuff(AllyBuffID);
+            AllyBuff buff = inAreaAllies[i].BuffController.Get_AllyBuff(allyBuffId);
             buff.SetAndGain_Buff(1);
         }
     }
@@ -241,24 +241,24 @@ public abstract class TotemeController : DroppingDepthController
 
     #region Sorting Order
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
+        base.Set_SortingOrder(sortingOrder);
 
-        HoloSR.sortingOrder = _SortingOrder;
-        ThisTrail.sortingOrder = _SortingOrder - 1;
+        holoSr.sortingOrder = sortingOrder;
+        ThisTrail.sortingOrder = sortingOrder - 1;
     }
 
     #endregion
 
     #region Area Point
 
-    private List<Vector2> Get_PointPosList(Vector2 _CapsuleSize, int _Amount)
+    private List<Vector2> Get_PointPosList(Vector2 capsuleSize, int amount)
     {
         List<Vector2> points = new List<Vector2>();
 
-        float width = _CapsuleSize.x;
-        float height = _CapsuleSize.y;
+        float width = capsuleSize.x;
+        float height = capsuleSize.y;
 
         float radius = height / 2f;
         float straight = width - (radius * 2f);
@@ -267,9 +267,9 @@ public abstract class TotemeController : DroppingDepthController
         float arcLength = Mathf.PI * radius;
         float perimeter = (straight * 2f) + (arcLength * 2f);
 
-        for (int i = 0; i < _Amount; i++)
+        for (int i = 0; i < amount; i++)
         {
-            float dist = (perimeter * i) / _Amount;
+            float dist = (perimeter * i) / amount;
             Vector2 pos;
 
             // 1. 상단 직선 (왼 → 오)
@@ -362,45 +362,45 @@ public abstract class TotemeController : DroppingDepthController
 
     private void SetOff_BuffPoint()
     {
-        if (BuffPointList == null) return;
-        for (int i = 0; i < BuffPointList.Count; i++)
+        if (buffPointList == null) return;
+        for (int i = 0; i < buffPointList.Count; i++)
         {
-            BuffPointList[i].gameObject.SetActive(false);
-            PoolingManager.instance.areaPointSRs.Enqueue(BuffPointList[i]);
+            buffPointList[i].gameObject.SetActive(false);
+            PoolingManager.instance.areaPointSRs.Enqueue(buffPointList[i]);
         }
-        BuffPointList = null;
+        buffPointList = null;
     }
 
     #endregion
 
     #region Trigger
 
-    private void OnTriggerEnter2D(Collider2D _Other)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (_Other.tag == "Player")
+        if (col.tag == "Player")
         {
-            InAreaPlayer = true; 
+            inAreaPlayer = true; 
         }
-        else if (_Other.tag == "Ally")
+        else if (col.tag == "Ally")
         {
-            if (_Other.gameObject.transform.parent.gameObject.TryGetComponent(out AllyController ally))
+            if (col.gameObject.transform.parent.gameObject.TryGetComponent(out AllyController ally))
             {
-                DevTool.Add_InList(InAreaAllies, ally);
+                DevTool.Add_InList(inAreaAllies, ally);
             }
         }
     }
 
-    private void OnTriggerExit2D(Collider2D _Other)
+    private void OnTriggerExit2D(Collider2D col)
     {
-        if (_Other.tag == "Player")
+        if (col.tag == "Player")
         {
-            InAreaPlayer = false;
+            inAreaPlayer = false;
         }
-        else if (_Other.tag == "Ally")
+        else if (col.tag == "Ally")
         {
-            if (_Other.gameObject.transform.parent.gameObject.TryGetComponent(out AllyController ally))
+            if (col.gameObject.transform.parent.gameObject.TryGetComponent(out AllyController ally))
             {
-                DevTool.Remove_InList(InAreaAllies, ally);
+                DevTool.Remove_InList(inAreaAllies, ally);
             }
         }
     }

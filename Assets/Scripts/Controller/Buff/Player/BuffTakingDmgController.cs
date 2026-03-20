@@ -1,6 +1,5 @@
 using UnityEngine;
 using UniRx;
-using UnityEngine.Serialization;
 
 public class BuffTakingDmgController : BuffController
 {

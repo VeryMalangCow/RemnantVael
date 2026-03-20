@@ -41,7 +41,7 @@ public class InteractableBuildController : SortingObjectController
     {
         base.Set_SortingOrder(_SortingOrder);
 
-        ThisStateAnim.ThisSR.sortingOrder = _SortingOrder;
+        ThisStateAnim.sr.sortingOrder = _SortingOrder;
     }
 
     #endregion

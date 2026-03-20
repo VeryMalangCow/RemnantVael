@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3502a49e21f1d54caee28dcf65f9db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisAnimator: {fileID: 8374883786263627559}
-  ThisSR: {fileID: 6849851486362390765}
-  ThisInnerSR: {fileID: 5872644551829420885}
+  at: {fileID: 8374883786263627559}
+  sr: {fileID: 6849851486362390765}
+  innerSr: {fileID: 5872644551829420885}
 --- !u!212 &6849851486362390765
 SpriteRenderer:
   m_ObjectHideFlags: 0

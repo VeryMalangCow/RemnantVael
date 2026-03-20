@@ -12,7 +12,7 @@ public class SkillWeaponController : PlayerSolarController
     [Header("<><><><><> Skill")]
 
     [Header("-- ActiveSkill")]
-    [SerializeField] public List<ActiveSkillController> SkillList;
+    [SerializeField] public List<ActiveSkillController> skillList;
 
     #endregion
 
@@ -24,16 +24,16 @@ public class SkillWeaponController : PlayerSolarController
 
     #region Offset
 
-    private void Offset_Variable(ActiveSkillController _Skill, SatelliteSideController _Satellite)
+    private void Offset_Variable(ActiveSkillController skill, SatelliteSideController satellite)
     {
-        DevTool.Set_ComponentTType(ref _Skill, _Satellite.follower.gameObject);
+        DevTool.Set_ComponentTType(ref skill, satellite.follower.gameObject);
     }
 
-    private void Offset_Subscribe(ActiveSkillController _Skill, SkillEUIController _SkillEUI)
+    private void Offset_Subscribe(ActiveSkillController skill, SkillEUIController skillEUI)
     {
-        _Skill.NeedEP.Subscribe(_Value =>
+        skill.needEP.Subscribe(_Value =>
         {
-            _SkillEUI.Set_CostText(_Value * PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.actualState.Value);
+            skillEUI.Set_CostText(_Value * PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.actualState.Value);
         });
     }
 
@@ -41,8 +41,8 @@ public class SkillWeaponController : PlayerSolarController
     {
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            Offset_Variable(SkillList[i], SatelliteSideList[i]);
-            Offset_Subscribe(SkillList[i], MainGameUIManager.instance.playerHUD_UIController.SkillList[i]);
+            Offset_Variable(skillList[i], SatelliteSideList[i]);
+            Offset_Subscribe(skillList[i], MainGameUIManager.instance.playerHUD_UIController.SkillList[i]);
         }
     }
 
@@ -71,7 +71,7 @@ public class SkillWeaponController : PlayerSolarController
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
             MainGameUIManager.instance.playerHUD_UIController.SkillList[i].Set_ShadowFillAmount(
-                SkillList[i].Get_FillAmount());
+                skillList[i].Get_FillAmount());
         }
     }
 

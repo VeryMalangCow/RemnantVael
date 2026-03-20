@@ -10,17 +10,17 @@ public class ShockwaveSkillController : ActiveSkillController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private Vector2 ColSize = new Vector2(1.2f, 0.75f);
+    [SerializeField] private Vector2 colSize = new Vector2(1.2f, 0.75f);
 
-    [SerializeField] private float StartSize = 1.5f;
-    [SerializeField] public float MaxSize = 2f;
+    [SerializeField] private float startSize = 1.5f;
+    [SerializeField] public float maxSize = 2f;
 
-    [SerializeField] private float JugeAndTweenTime = 0.25f;
-    [SerializeField] private float AnimSpeed = 1.62f;
+    [SerializeField] private float jugeAndTweenTime = 0.25f;
+    [SerializeField] private float animSpeed = 1.62f;
 
     [Space(10)]
     [Header("=== Reso")]
-    [SerializeField] private AnimationClip ShockwaveAnimation;
+    [SerializeField] private AnimationClip shockwaveAnimation;
 
     #endregion
 
@@ -51,20 +51,20 @@ public class ShockwaveSkillController : ActiveSkillController
             State_Anim(),
             State_StartTF(),
             State_EndTF(),
-            DepthController.TargetRange);
+            depthController.TargetRange);
 
         // 폭발
         UnitManager.instance.player_ExplImgGenerator.Expl_Player_Skill1(
-            PlayerController.Get_ID(), 
-            (Vector2)DepthController.TargetObject.gameObject.transform.position);
+            playerController.Get_ID(), 
+            (Vector2)depthController.TargetObject.gameObject.transform.position);
 
         // 버프
         BuffManager.instance.Gain_Buff(0);
 
         // 사운드
-        SoundManager.instance.Play_2D_SFX_Combat(PlayerController.Get_AS(), "Explosion");
+        SoundManager.instance.Play_2D_SFX_Combat(playerController.Get_AS(), "Explosion");
 
-        yield return new WaitForSeconds(JugeAndTweenTime);
+        yield return new WaitForSeconds(jugeAndTweenTime);
 
         // ==========
         End_SkillUI();
@@ -76,7 +76,7 @@ public class ShockwaveSkillController : ActiveSkillController
 
     public float Get_UsableMaxSize()
     {
-        return MaxSize * (1 + (Tier.actualState.Value * 0.15f));
+        return maxSize * (1 + (tier.actualState.Value * 0.15f));
     }
 
     private AttackerState Get_CurrentAttackerState()
@@ -87,13 +87,13 @@ public class ShockwaveSkillController : ActiveSkillController
                     eCombatOwner.Player),
                 new DmgState(
                     eDamageType.Energy, 
-                    PlayerController.BaseWeapon.BaseDamage.buffedState * Power.actualState.Value),
+                    playerController.BaseWeapon.baseDamage.buffedState * power.actualState.Value),
                 new CriticalState(
-                    PlayerController.BaseWeapon.CC.actualState.Value, 
-                    PlayerController.BaseWeapon.CD.buffedState),
+                    playerController.BaseWeapon.cc.actualState.Value, 
+                    playerController.BaseWeapon.cd.buffedState),
                 new KnockbackState(
                     true, 
-                    PlayerController.BaseWeapon.KnockbackPower.actualState.Value * (Tier.actualState.Value + 1) * 10f,
+                    playerController.BaseWeapon.kbPower.actualState.Value * (tier.actualState.Value + 1) * 10f,
                     0.4f)));
     }
 
@@ -104,32 +104,32 @@ public class ShockwaveSkillController : ActiveSkillController
     private AttackerState_Juge<CapsuleCollider2D> State_Juge()
     {
         return new AttackerState_Juge<CapsuleCollider2D>(
-            ColSize,
+            colSize,
             isVertical: false);
     }
 
     private State_Anim State_Anim()
     {
         return new State_Anim(
-            ShockwaveAnimation,
-            AnimSpeed);
+            shockwaveAnimation,
+            animSpeed);
     }
 
     private State_TF2D State_StartTF()
     {
         return new State_TF2D(
-            DepthController.transform.position,
+            depthController.transform.position,
             Quaternion.identity,
-            Vector2.one * StartSize);
+            Vector2.one * startSize);
     }
 
     private AttackerState_EndTF State_EndTF()
     {
         return new AttackerState_EndTF(
-            DepthController.transform.position,
+            depthController.transform.position,
             Quaternion.identity,
             Vector2.one * Get_UsableMaxSize(),
-            JugeAndTweenTime);
+            jugeAndTweenTime);
     }
 
     #endregion

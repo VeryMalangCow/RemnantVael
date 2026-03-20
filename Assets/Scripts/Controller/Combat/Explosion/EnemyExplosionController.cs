@@ -6,7 +6,7 @@ public class EnemyExplosionController : ExplosionController
 
     [Space(20)]
     [Header("<><><><><> Enemy")]
-    [HideInInspector] public EnemyController Enemy;
+    [HideInInspector] public EnemyController enemy;
 
     #endregion
 
@@ -21,22 +21,22 @@ public class EnemyExplosionController : ExplosionController
 
     #region Trigger
 
-    protected override void OnTriggerEnter2D(Collider2D _Col)
+    protected override void OnTriggerEnter2D(Collider2D col)
     {
-        Try_Hit_Player(_Col);
+        Try_Hit_Player(col);
 
-        base.OnTriggerEnter2D(_Col);
+        base.OnTriggerEnter2D(col);
     }
 
 
-    protected void Try_Hit_Player(Collider2D _Col)
+    protected void Try_Hit_Player(Collider2D col)
     {
-        if (DevTool.Can_Collding(_Col, "Player",
-            HittedObjectList, out PlayerController pc))
+        if (DevTool.Can_Collding(col, "Player",
+            hittedObjectList, out PlayerController pc))
         {
             //Damage
             PlayerManager.instance.playerController.Try_Hitted(this);
-            HittedObjectList.Add(pc);
+            hittedObjectList.Add(pc);
         }
     }
 

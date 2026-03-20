@@ -77,7 +77,7 @@ public class BuffController : IDController
         if (currentBuffCharge.Value <= 0) return;
 
         Caculate_Cooltime();
-        Caculate_BuffUI(_IsReductionTimer: true);
+        Caculate_BuffUI(isReductionTimer: true);
         Caculate_CoolTimeCharge(new Dele(Reduct_Buff));
 
     }
@@ -87,7 +87,7 @@ public class BuffController : IDController
         if (currentBuffCharge.Value >= maxBuffCharge) return;
 
         Caculate_Cooltime();
-        Caculate_BuffUI(_IsReductionTimer: false);
+        Caculate_BuffUI(isReductionTimer: false);
         Caculate_CoolTimeCharge(new Dele(Gain_Buff));
     }
 
@@ -100,21 +100,21 @@ public class BuffController : IDController
         }
     }
 
-    private void Caculate_CoolTimeCharge(Dele _Dele)
+    private void Caculate_CoolTimeCharge(Dele dele)
     {
         if (currentDurTime.Value >= maxDurTime)
         {
             currentDurTime.Value -= maxDurTime;
-            _Dele();
+            dele();
         }
     }
 
-    private void Caculate_BuffUI(bool _IsReductionTimer)
+    private void Caculate_BuffUI(bool isReductionTimer)
     {
         if (thisBuffEUI != null)
         {
             float percent = currentDurTime.Value / maxDurTime;
-            thisBuffEUI.ThisShadowImg.fillAmount = _IsReductionTimer ?
+            thisBuffEUI.ThisShadowImg.fillAmount = isReductionTimer ?
                 percent : (1f - percent);
         }
     }

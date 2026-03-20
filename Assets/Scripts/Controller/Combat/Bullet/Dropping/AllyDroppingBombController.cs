@@ -24,7 +24,7 @@ public class AllyDroppingBombController : DroppingBombController
         AllyExplosionController aec = PoolingManager.instance.Get_OP_AllyExplosion();
         aec.Set_State(
             Get_ExlposionState(),
-            _AC: ResourceManager.instance.explosionAC,
+            ac: ResourceManager.instance.explosionAC,
             Get_SpawnTF(),
             this.TargetRange);
     }
@@ -34,10 +34,10 @@ public class AllyDroppingBombController : DroppingBombController
         return new ExplosionState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Ally, id),
-                new DmgState(eDamageType.Physics, State.dmgState.dmg),
-                new CriticalState(State.criticalState),
-                new KnockbackState(true, State.knockbackState.kbPower, State.knockbackState.kbTime)),
-            SizeState,
+                new DmgState(eDamageType.Physics, state.dmgState.dmg),
+                new CriticalState(state.criticalState),
+                new KnockbackState(true, state.knockbackState.kbPower, state.knockbackState.kbTime)),
+            sizeState,
             new List<bool> { false, false, false, false }); // Fire, Cold, Electricity, Corrosion
     }
 

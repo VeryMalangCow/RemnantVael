@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -14,7 +13,7 @@ public class PingController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private SpriteRenderer PingFrameSR;
+    [SerializeField] private SpriteRenderer pingFrameSr;
 
     #endregion
 
@@ -46,39 +45,39 @@ public class PingController : MonoBehaviour
 
     #region Set (Sort)
 
-    public void Set_SortingOrder(int _Order)
+    public void Set_SortingOrder(int order)
     {
-        ThisSG.sortingOrder = _Order;
+        ThisSG.sortingOrder = order;
     }
 
     #endregion
 
     #region Set On/Off
 
-    public void SetOn_Ping(EnemyController _Enemy, float _DurTime = 0.2f)
+    public void SetOn_Ping(EnemyController enemy, float durTime = 0.2f)
     {
         gameObject.SetActive(true);
-        transform.SetParent(_Enemy.gameObject.transform);
+        transform.SetParent(enemy.gameObject.transform);
 
         transform.SetAsLastSibling();
 
-        DevTool.Set_KillTween(PingFrameSR.color);
-        DevTool.Set_KillTween(PingFrameSR.size);
+        DevTool.Set_KillTween(pingFrameSr.color);
+        DevTool.Set_KillTween(pingFrameSr.size);
 
         transform.localPosition = Vector2.zero;
-        PingFrameSR.color = new Color(1, 1, 1, 0);
-        PingFrameSR.size = new Vector2(0.6f, 0.6f);
-        PingFrameSR.transform.localPosition = _Enemy.PingOffsetVec;
+        pingFrameSr.color = new Color(1, 1, 1, 0);
+        pingFrameSr.size = new Vector2(0.6f, 0.6f);
+        pingFrameSr.transform.localPosition = enemy.PingOffsetVec;
 
-        PingFrameSR.DOFade(1f, _DurTime);
-        DOTween.To(() => PingFrameSR.size, vec => PingFrameSR.size = vec, _Enemy.PingSizeVec, _DurTime);
+        pingFrameSr.DOFade(1f, durTime);
+        DOTween.To(() => pingFrameSr.size, vec => pingFrameSr.size = vec, enemy.PingSizeVec, durTime);
 
     }
 
-    public void SetOff_Ping(Transform _TF)
+    public void SetOff_Ping(Transform tf)
     {
         gameObject.SetActive(false);
-        transform.SetParent(_TF);
+        transform.SetParent(tf);
 
         transform.localPosition = Vector2.zero;
     }

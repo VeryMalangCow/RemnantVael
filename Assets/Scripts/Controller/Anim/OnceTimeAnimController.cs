@@ -4,9 +4,9 @@ public class OnceTimeAnimController : MonoBehaviour
 {
     #region Value
 
-    [SerializeField] private Animator ThisAnimator;
-    [SerializeField] private SpriteRenderer ThisSpriteRenderer;
-    [HideInInspector] private AnimatorOverrideController AOC;
+    [SerializeField] private Animator thisAnimator;
+    [SerializeField] private SpriteRenderer thisSpriteRenderer;
+    [HideInInspector] private AnimatorOverrideController aoc;
 
     #endregion
 
@@ -23,7 +23,7 @@ public class OnceTimeAnimController : MonoBehaviour
 
     private void Update_CheckingEndAnim()
     {
-        if (DevTool.Is_AnimIsDone(ThisAnimator))
+        if (DevTool.Is_AnimIsDone(thisAnimator))
         {
             End_Anim();
         }
@@ -34,25 +34,25 @@ public class OnceTimeAnimController : MonoBehaviour
     #region Anim
 
     public void Start_Anim(
-        State_Anim _State_Anim,
-        State_TF2D _StructTF, 
-        State_Sprite _SpriteExtra)
+        State_Anim stateAnim,
+        State_TF2D structTf, 
+        State_Sprite spriteExtra)
     {
-        ThisAnimator.enabled = true;
-        ThisAnimator.speed = _State_Anim.speed;
+        thisAnimator.enabled = true;
+        thisAnimator.speed = stateAnim.speed;
 
-        DevTool.Set_TF_FromStruct(gameObject.transform, _StructTF);
-        DevTool.Set_MatAndClr_FromStruct(ThisSpriteRenderer, _SpriteExtra);
-        DevTool.Set_Anim(ref AOC, ThisAnimator, _State_Anim.ac);
+        DevTool.Set_TF_FromStruct(gameObject.transform, structTf);
+        DevTool.Set_MatAndClr_FromStruct(thisSpriteRenderer, spriteExtra);
+        DevTool.Set_Anim(ref aoc, thisAnimator, stateAnim.ac);
 
         this.gameObject.SetActive(true);
     }
 
     private void End_Anim()
     {
-        AOC = null;
-        ThisAnimator.speed = 0f;
-        ThisAnimator.enabled = false;
+        aoc = null;
+        thisAnimator.speed = 0f;
+        thisAnimator.enabled = false;
 
         this.gameObject.SetActive(false);
 

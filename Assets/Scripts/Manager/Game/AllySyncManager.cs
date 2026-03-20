@@ -176,19 +176,19 @@ public class AllySyncManager : Singleton<AllySyncManager>
             switch (kind)
             {
                 case eStatusEffect.Flame:
-                    enemy.BuffController.FlameStack.ReGain_Stack();
+                    enemy.BuffController.flameStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Cold:
-                    enemy.BuffController.ColdStack.ReGain_Stack();
+                    enemy.BuffController.coldStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Electricity:
-                    enemy.BuffController.ElectricityStack.ReGain_Stack();
+                    enemy.BuffController.electricityStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Corrosion:
-                    enemy.BuffController.CorrosionStack.ReGain_Stack();
+                    enemy.BuffController.corrosionStack.ReGain_Stack();
                     return;
 
                 default: return;

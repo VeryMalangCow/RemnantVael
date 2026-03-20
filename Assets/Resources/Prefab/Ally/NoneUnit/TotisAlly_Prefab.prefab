@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d160d6e9771cba488b06ea50ed0e05e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sync005_Buff:
+  sync005_Buff:
     type: 
     iconSprite: {fileID: 0}
     buffValue: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
     isPermanent: 0
     buffAmount: 0
     currentCooltime: 0
-  Sync006_Buff:
+  sync006_Buff:
     type: 
     iconSprite: {fileID: 0}
     buffValue: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
     isPermanent: 0
     buffAmount: 0
     currentCooltime: 0
-  Sync007_Buff:
+  sync007_Buff:
     type: 
     iconSprite: {fileID: 0}
     buffValue: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
     isPermanent: 0
     buffAmount: 0
     currentCooltime: 0
-  Sync008_Buff:
+  sync008_Buff:
     type: 
     iconSprite: {fileID: 0}
     buffValue: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
     isPermanent: 0
     buffAmount: 0
     currentCooltime: 0
-  TotisToteme_Buff:
+  totisToteme_Buff:
     type: 
     iconSprite: {fileID: 0}
     buffValue: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
     isPermanent: 0
     buffAmount: 0
     currentCooltime: 0
-  BuffingState:
+  buffingState:
     dmg:
       value: 1
     rof:

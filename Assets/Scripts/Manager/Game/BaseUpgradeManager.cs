@@ -42,13 +42,13 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
 
     public void Offset(PlayerController player)
     {
-        baseDamage_BUData.Offset(player.BaseWeapon.BaseDamage);
-        baseROF_BUData.Offset(player.BaseWeapon.ROF);
-        baseCC_BUData.Offset(player.BaseWeapon.CC);
-        baseCD_BUData.Offset(player.BaseWeapon.CD);
-        baseMuzzleSpeed_BUData.Offset(player.BaseWeapon.MuzzleSpeed);
-        baseAccuracyRate_BUData.Offset(player.BaseWeapon.AccuracyRate);
-        knockback_BUData.Offset(player.BaseWeapon.KnockbackPower);
+        baseDamage_BUData.Offset(player.BaseWeapon.baseDamage);
+        baseROF_BUData.Offset(player.BaseWeapon.rof);
+        baseCC_BUData.Offset(player.BaseWeapon.cc);
+        baseCD_BUData.Offset(player.BaseWeapon.cd);
+        baseMuzzleSpeed_BUData.Offset(player.BaseWeapon.muzzleSpeed);
+        baseAccuracyRate_BUData.Offset(player.BaseWeapon.accRate);
+        knockback_BUData.Offset(player.BaseWeapon.kbPower);
 
         baseMaxEP_BUData.Offset(player.MaxEP);
         baseSpawnESMultiple_BUData.Offset(player.SpawnESMultiple);
@@ -62,9 +62,9 @@ public class BaseUpgradeManager : Singleton<BaseUpgradeManager>
 
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            skill_BUDataList[i].skill_Cooltime_BUData.Offset(player.SkillWeapon.SkillList[i].MaxCooltime);
-            skill_BUDataList[i].skill_Power_BUData.Offset(player.SkillWeapon.SkillList[i].Power);
-            skill_BUDataList[i].skill_Tier_BUData.Offset(player.SkillWeapon.SkillList[i].Tier);
+            skill_BUDataList[i].skill_Cooltime_BUData.Offset(player.SkillWeapon.skillList[i].maxCooltime);
+            skill_BUDataList[i].skill_Power_BUData.Offset(player.SkillWeapon.skillList[i].power);
+            skill_BUDataList[i].skill_Tier_BUData.Offset(player.SkillWeapon.skillList[i].tier);
         }
     }
 

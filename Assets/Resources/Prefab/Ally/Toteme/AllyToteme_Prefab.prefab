@@ -372,15 +372,15 @@ MonoBehaviour:
   ShadowSize: {x: 0, y: 0}
   DropBottomYPos: 0
   ZeroToOneTime: 0
-  PoolingString: 
-  PlayerBuffID: 0
-  AllyBuffID: 0
-  ThisDur: 0
-  HoloSR: {fileID: 7302454310677868555}
-  HoloLight: {fileID: 4717820246690783947}
-  BuffAreaGO: {fileID: 3697190235348723809}
-  BuffCol: {fileID: 5498339831587576101}
-  BuffPointParentTF: {fileID: 3729883349172316446}
+  poolingString: 
+  playerBuffId: 0
+  allyBuffId: 0
+  thisDur: 0
+  holoSr: {fileID: 7302454310677868555}
+  holoLight2d: {fileID: 4717820246690783947}
+  buffAreaGo: {fileID: 3697190235348723809}
+  buffCol: {fileID: 5498339831587576101}
+  buffPointParentTf: {fileID: 3729883349172316446}
 --- !u!50 &3271850111374263514
 Rigidbody2D:
   serializedVersion: 4

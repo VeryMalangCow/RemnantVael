@@ -974,12 +974,12 @@ MonoBehaviour:
     farFromCenter: 1
   SatelliteCenterList: []
   PlayerController: {fileID: 8810927924693203331}
-  DamageType: 0
-  AliveTime: 3
-  CurrentDelayROF: 0
-  IsInputed: 0
-  IsShooting: 0
-  BaseDamage:
+  dmgType: 0
+  aliveTime: 3
+  currentDelayROF: 0
+  isInputed: 0
+  isShooting: 0
+  baseDamage:
     baseState: 10
     upgradeValueByLevelRange:
     - 1
@@ -990,7 +990,7 @@ MonoBehaviour:
       value: 10
     currentLevel:
       value: 0
-  MuzzleSpeed:
+  muzzleSpeed:
     baseState: 2
     upgradeValueByLevelRange:
     - 0.2
@@ -1001,7 +1001,7 @@ MonoBehaviour:
       value: 2
     currentLevel:
       value: 0
-  ROF:
+  rof:
     baseState: 5
     upgradeValueByLevelRange:
     - 0.25
@@ -1012,7 +1012,7 @@ MonoBehaviour:
       value: 5
     currentLevel:
       value: 0
-  CC:
+  cc:
     baseState: 0.1
     upgradeValueByLevelRange:
     - 0.01
@@ -1023,7 +1023,7 @@ MonoBehaviour:
       value: 0.1
     currentLevel:
       value: 0
-  CD:
+  cd:
     baseState: 1.5
     upgradeValueByLevelRange:
     - 0.1
@@ -1034,7 +1034,7 @@ MonoBehaviour:
       value: 1.5
     currentLevel:
       value: 0
-  AccuracyRate:
+  accRate:
     baseState: 87
     upgradeValueByLevelRange:
     - 0.5
@@ -1045,7 +1045,7 @@ MonoBehaviour:
       value: 87
     currentLevel:
       value: 0
-  KnockbackPower:
+  kbPower:
     baseState: 5
     upgradeValueByLevelRange:
     - 0.5
@@ -1056,7 +1056,7 @@ MonoBehaviour:
       value: 5
     currentLevel:
       value: 0
-  BulletSpawnTFList:
+  bulletSpawnTfList:
   - {fileID: 4586805314071208296}
   - {fileID: 5980481930123788499}
 --- !u!1 &3177511414151138426
@@ -1449,7 +1449,7 @@ MonoBehaviour:
     farFromCenter: 1
   SatelliteCenterList: []
   PlayerController: {fileID: 8810927924693203331}
-  SkillList:
+  skillList:
   - {fileID: 6304837828893154070}
   - {fileID: 7647327739022335709}
 --- !u!1 &4567904355054355911
@@ -1903,7 +1903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e2476fc907d1144b5e7d6c756be61b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetSRList:
+  targetSRList:
   - {fileID: 8514484191356774825}
   - {fileID: 5295122454342582576}
   - {fileID: 2638774432652660132}
@@ -1912,12 +1912,12 @@ MonoBehaviour:
   - {fileID: 8580305544851392310}
   - {fileID: 3148743442653112249}
   - {fileID: 1426022462572893245}
-  ThisColor: {r: 0.21226418, g: 0.95960337, b: 1, a: 1}
-  IsOn: 0
-  CurrentGenTime: 0
-  ImageAlpha: 1
-  DelayGenTime: 1
-  StayDur: 1
+  thisColor: {r: 0.21226418, g: 0.95960337, b: 1, a: 1}
+  isOn: 0
+  currentGenTime: 0
+  imageAlpha: 1
+  delayGenTime: 1
+  stayDur: 1
 --- !u!50 &334434472153228344
 Rigidbody2D:
   serializedVersion: 4
@@ -2767,13 +2767,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c91966f04457141866d28eb0a857b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxChargeAmount: 1
-  CurrentChargeAmount: 1
-  CurrentCooltime: 0
-  ThisIcon: {fileID: 1779296857, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
-  NeedEP:
+  maxChargeAmount: 1
+  currentChargeAmount: 1
+  currentCooltime: 0
+  icon: {fileID: 1779296857, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  needEP:
     value: 10
-  MaxCooltime:
+  maxCooltime:
     baseState: 6
     upgradeValueByLevelRange:
     - -0.15
@@ -2784,14 +2784,14 @@ MonoBehaviour:
       value: 6
     currentLevel:
       value: 0
-  Tier:
+  tier:
     baseState: 0
     upgradeValueByLevelRange: 01000000010000000100000001000000
     actualState:
       value: 0
     currentLevel:
       value: 0
-  Power:
+  power:
     baseState: 5
     upgradeValueByLevelRange:
     - 0.2
@@ -2802,13 +2802,13 @@ MonoBehaviour:
       value: 5
     currentLevel:
       value: 0
-  PlayerController: {fileID: 0}
-  ColSize: {x: 2.4, y: 1.5}
-  StartSize: 1.5
-  MaxSize: 2
-  JugeAndTweenTime: 0.25
-  AnimSpeed: 1.62
-  ShockwaveAnimation: {fileID: 7400000, guid: 2d86ccaf723e69b41920621edb1ed040, type: 2}
+  playerController: {fileID: 0}
+  colSize: {x: 2.4, y: 1.5}
+  startSize: 1.5
+  maxSize: 2
+  jugeAndTweenTime: 0.25
+  animSpeed: 1.62
+  shockwaveAnimation: {fileID: 7400000, guid: 2d86ccaf723e69b41920621edb1ed040, type: 2}
 --- !u!114 &3772518435837473010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3127,13 +3127,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c894e796d0cb66469e329afbee97a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxChargeAmount: 1
-  CurrentChargeAmount: 1
-  CurrentCooltime: 0
-  ThisIcon: {fileID: 987565495, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
-  NeedEP:
+  maxChargeAmount: 1
+  currentChargeAmount: 1
+  currentCooltime: 0
+  icon: {fileID: 987565495, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+  needEP:
     value: 20
-  MaxCooltime:
+  maxCooltime:
     baseState: 8
     upgradeValueByLevelRange:
     - -0.2
@@ -3144,14 +3144,14 @@ MonoBehaviour:
       value: 8
     currentLevel:
       value: 0
-  Tier:
+  tier:
     baseState: 0
     upgradeValueByLevelRange: 01000000010000000100000001000000
     actualState:
       value: 0
     currentLevel:
       value: 0
-  Power:
+  power:
     baseState: 1.5
     upgradeValueByLevelRange:
     - 0.1
@@ -3162,7 +3162,7 @@ MonoBehaviour:
       value: 1.5
     currentLevel:
       value: 0
-  PlayerController: {fileID: 0}
+  playerController: {fileID: 0}
 --- !u!114 &6021120989462345684
 MonoBehaviour:
   m_ObjectHideFlags: 0

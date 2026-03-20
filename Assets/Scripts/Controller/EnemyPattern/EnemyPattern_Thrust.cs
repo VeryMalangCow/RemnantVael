@@ -150,7 +150,7 @@ public class EnemyPattern_Thrust : EnemyPattern
     private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)
     {
         EnemyAttackerController attacker = PoolingManager.instance.Get_OP_EnemyAttacker();
-        attacker.Enemy = ThisEnemy;
+        attacker.enemy = ThisEnemy;
         float targetShadow = _Depth.TargetRange;
 
         attacker.Set_State(
@@ -160,8 +160,8 @@ public class EnemyPattern_Thrust : EnemyPattern
             State_StartTF(_TargetDir),
             State_EndTF(_TargetDir),
             targetShadow,
-            _Parent: _Depth.transform,
-            _IsLocal: true);
+            parent: _Depth.transform,
+            isLocal: true);
 
         if (LightOn)
             attacker.Set_Light(

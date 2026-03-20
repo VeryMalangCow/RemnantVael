@@ -1283,29 +1283,29 @@ public class DevTool
     public static float Get_DmgEffectByCold(float baseDmg, EnemyBuffController enemyBuff)
     {
         return baseDmg * (1f - 
-            (enemyBuff.ColdStack.currentStack * (enemyBuff.AbsoluteZeroStack.currentStack + 1) * 0.01f));
+            (enemyBuff.coldStack.currentStack * (enemyBuff.absoluteZeroStack.currentStack + 1) * 0.01f));
     }
 
     // 부식 데미지 증가 계산 (효과)
     public static float Get_DmgEffectByCorrosion(float baseDmg, EnemyBuffController enemyBuff)
     {
         return baseDmg *= (1f + 
-            (enemyBuff.CorrosionStack.currentStack * (enemyBuff.DecayStack.currentStack + 1) * 0.01f));
+            (enemyBuff.corrosionStack.currentStack * (enemyBuff.decayStack.currentStack + 1) * 0.01f));
     }
 
 
     // 화염
     public static float Get_FrameDmg(EnemyBuffController buff)
     {
-        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.buffedState
+        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
             * 0.01f
-            * buff.FlameStack.currentStack
-            * (buff.InfernoStack.currentStack + 1);
+            * buff.flameStack.currentStack
+            * (buff.infernoStack.currentStack + 1);
     }
     public static float Get_FlameExplDmg(out eDamageType dmgType)
     {
         dmgType = eDamageType.Physics;
-        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.buffedState
+        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
             * 10f;
     }
 
@@ -1314,7 +1314,7 @@ public class DevTool
     public static float Get_ColdExplDmg(out eDamageType dmgType)
     {
         dmgType = eDamageType.Energy;
-        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.buffedState
+        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
             * 7.5f;
     }
 
@@ -1322,15 +1322,15 @@ public class DevTool
     // 전기
     public static float Get_ElectricityDmg(EnemyBuffController buff)
     {
-        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.buffedState
+        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
             * 0.005f
-            * buff.ElectricityStack.currentStack
-            * (buff.PlasmaStack.currentStack + 1);
+            * buff.electricityStack.currentStack
+            * (buff.plasmaStack.currentStack + 1);
     }
     public static float Get_ElectricityExplDmg(out eDamageType dmgType)
     {
         dmgType = eDamageType.Energy;
-        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.buffedState
+        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
             * 7.5f;
     }
 
@@ -1338,7 +1338,7 @@ public class DevTool
     public static float Get_CorrosionExplDmg(out eDamageType dmgType)
     {
         dmgType = eDamageType.Physics;
-        return PlayerManager.instance.playerController.BaseWeapon.BaseDamage.buffedState
+        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
             * 5f;
     }
 
@@ -3244,11 +3244,11 @@ public class AllyBuff : OriginalAllyBuff
         currentCooltime = 0;
         actualBuffValue.value = 0;
 
-        ally.BuffController.BuffingState.Add_List(this, type);
+        ally.BuffController.buffingState.Add_List(this, type);
         Set_OnOff(true);
         Set_AlwaysShowUI(showAlwaysOnOff); 
 
-        ally.BuffController.BuffingState.Set_BuffedAllyState();
+        ally.BuffController.buffingState.Set_BuffedAllyState();
         ally.Set_AllState();
     }
 
@@ -3258,11 +3258,11 @@ public class AllyBuff : OriginalAllyBuff
         currentCooltime = 0;
         actualBuffValue.value = 0;
 
-        ally.BuffController.BuffingState.Remove_List(this, type);
+        ally.BuffController.buffingState.Remove_List(this, type);
         Set_OnOff(false);
         Set_AlwaysShowUI(false); 
 
-        ally.BuffController.BuffingState.Set_BuffedAllyState();
+        ally.BuffController.buffingState.Set_BuffedAllyState();
         ally.Set_AllState();
     }
 
@@ -3315,7 +3315,7 @@ public class AllyBuff : OriginalAllyBuff
 
     public void SetAndGain_Buff(int stack = 1)
     {
-        ally.BuffController.BuffingState.Add_List(this, type);
+        ally.BuffController.buffingState.Add_List(this, type);
         Set_OnOff(true);
         Set_AlwaysShowUI(false);
         Gain_Buff(stack);
@@ -3334,7 +3334,7 @@ public class AllyBuff : OriginalAllyBuff
         // value
         buffAmount = Mathf.Min(buffAmount + stack, buffMaxAmount);
         Set_Value();
-        ally.BuffController.BuffingState.Set_BuffedAllyState();
+        ally.BuffController.buffingState.Set_BuffedAllyState();
         ally.Set_AllState();
 
         if (!isIncrease) currentCooltime = 0;
@@ -3348,7 +3348,7 @@ public class AllyBuff : OriginalAllyBuff
         // value
         buffAmount = Mathf.Max(buffAmount - stack, 0);
         Set_Value();
-        ally.BuffController.BuffingState.Set_BuffedAllyState();
+        ally.BuffController.buffingState.Set_BuffedAllyState();
         ally.Set_AllState();
 
         if (isIncrease) currentCooltime = 0;

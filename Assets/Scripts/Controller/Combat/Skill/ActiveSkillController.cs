@@ -8,21 +8,21 @@ public class ActiveSkillController : MonoBehaviour
     [Space(20)]
     [Header("<><><><><> Active Skill")]
     [Header("=== Cooltime")]
-    [SerializeField] protected int MaxChargeAmount = 1;
-    [SerializeField] protected int CurrentChargeAmount = 0;
-    [SerializeField] protected float CurrentCooltime = 0f;
+    [SerializeField] protected int maxChargeAmount = 1;
+    [SerializeField] protected int currentChargeAmount = 0;
+    [SerializeField] protected float currentCooltime = 0f;
 
     [Header("=== State")]
-    [SerializeField] public Sprite ThisIcon;
-    [SerializeField] public ReactiveProperty<float> NeedEP = new();
+    [SerializeField] public Sprite icon;
+    [SerializeField] public ReactiveProperty<float> needEP = new();
 
     [Header("=== BU State")]
-    [SerializeField] public BUState<float> MaxCooltime;
-    [SerializeField] public BUState<int> Tier;
-    [SerializeField] public BUState<float> Power;
+    [SerializeField] public BUState<float> maxCooltime;
+    [SerializeField] public BUState<int> tier;
+    [SerializeField] public BUState<float> power;
 
-    [HideInInspector] protected DepthController DepthController;
-    [HideInInspector] public PlayerController PlayerController;
+    [HideInInspector] protected DepthController depthController;
+    [HideInInspector] public PlayerController playerController;
 
     #endregion
 
@@ -30,8 +30,8 @@ public class ActiveSkillController : MonoBehaviour
 
     private void Offset()
     {
-        DepthController = DevTool.Get_ComponentTType<DepthController>(gameObject);
-        PlayerController = PlayerManager.instance.playerController;
+        depthController = DevTool.Get_ComponentTType<DepthController>(gameObject);
+        playerController = PlayerManager.instance.playerController;
     }
 
     #endregion
@@ -55,13 +55,13 @@ public class ActiveSkillController : MonoBehaviour
     // 최대 충전량인가?
     private bool Is_FullCharge()
     {
-        return MaxChargeAmount <= CurrentChargeAmount;
+        return maxChargeAmount <= currentChargeAmount;
     }
 
     // 쿨타임이 다 찼는가?
     private bool Is_FullCooltime()
     {
-        return MaxCooltime.actualState.Value <= CurrentCooltime;
+        return maxCooltime.actualState.Value <= currentCooltime;
     }
 
     // 쿨타임 계산
@@ -69,12 +69,12 @@ public class ActiveSkillController : MonoBehaviour
     {
         if (!Is_FullCharge())
         {
-            CurrentCooltime += Time.deltaTime;
+            currentCooltime += Time.deltaTime;
 
             if (Is_FullCooltime())
             {
-                CurrentChargeAmount++;
-                CurrentCooltime = Is_FullCharge() ? 0 : CurrentCooltime - MaxCooltime.actualState.Value;
+                currentChargeAmount++;
+                currentCooltime = Is_FullCharge() ? 0 : currentCooltime - maxCooltime.actualState.Value;
             }
         }
     }
@@ -92,7 +92,7 @@ public class ActiveSkillController : MonoBehaviour
         }
         else
         {
-            return 1 - (CurrentCooltime / MaxCooltime.actualState.Value);
+            return 1 - (currentCooltime / maxCooltime.actualState.Value);
         }
     }
 
@@ -102,17 +102,17 @@ public class ActiveSkillController : MonoBehaviour
 
     public bool Can_Active()
     {
-        return CurrentChargeAmount > 0 &&
-            (PlayerManager.instance.playerController.Get_CurrentEP().Value > NeedEP.Value * PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.actualState.Value) &&
-            PlayerController.MovementState == eMovementState.IdleOrWalk;
+        return currentChargeAmount > 0 &&
+            (PlayerManager.instance.playerController.Get_CurrentEP().Value > needEP.Value * PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.actualState.Value) &&
+            playerController.MovementState == eMovementState.IdleOrWalk;
     }
 
     public virtual void Active_Skill()
     {
         // Consume
-        CurrentChargeAmount--;
-        PlayerController.Add_CurrentEP(
-            -(NeedEP.Value * PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.actualState.Value));
+        currentChargeAmount--;
+        playerController.Add_CurrentEP(
+            -(needEP.Value * PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.actualState.Value));
 
         AllyRequestManager.instance.Play_UsingSkill();
     }
@@ -122,11 +122,11 @@ public class ActiveSkillController : MonoBehaviour
     {
         // 스킬 라인 효과 이미지
         MainGameUIManager.instance.playerHUD_UIController.SkillList
-           [DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.SkillList, this)]
+           [DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.skillList, this)]
            .Play_StartInnerUI(); 
         // Aim
         InputManager.instance.aimController.Set_ActivingSkill(
-            DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.SkillList, this),
+            DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.skillList, this),
             true);
     }
 
@@ -134,11 +134,11 @@ public class ActiveSkillController : MonoBehaviour
     {
         // 스킬 라인 효과 이미지
         MainGameUIManager.instance.playerHUD_UIController.SkillList
-           [DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.SkillList, this)]
+           [DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.skillList, this)]
            .Play_EndInnerUI();
         // Aim
         InputManager.instance.aimController.Set_ActivingSkill(
-            DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.SkillList, this),
+            DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.skillList, this),
             false);
     }
 

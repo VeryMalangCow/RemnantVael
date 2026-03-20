@@ -116,19 +116,19 @@ public class BaseUpgradeUIController : PlayerShopUIController
         WalkAvoidChance.Offset(pc.AvoidChance, bm.baseAvoidChance_BUData, AllBUData_Float, this);
         DashSpeedShop.Offset(pc.DashController.DashSpeed, bm.baseDashSpeed_BUData, AllBUData_Float, this);
 
-        DamageShop.Offset(pwc.BaseDamage, bm.baseDamage_BUData, AllBUData_Float, this);
-        ROFShop.Offset(pwc.ROF, bm.baseROF_BUData, AllBUData_Float, this);
-        CCShop.Offset(pwc.CC, bm.baseCC_BUData, AllBUData_Float, this);
-        CDShop.Offset(pwc.CD, bm.baseCD_BUData, AllBUData_Float, this);
-        MuzzleShop.Offset(pwc.MuzzleSpeed, bm.baseMuzzleSpeed_BUData, AllBUData_Float, this);
-        AccuracyRateShop.Offset(pwc.AccuracyRate, bm.baseAccuracyRate_BUData, AllBUData_Float, this);
-        KnockbackShop.Offset(pwc.KnockbackPower, bm.knockback_BUData, AllBUData_Float, this);
+        DamageShop.Offset(pwc.baseDamage, bm.baseDamage_BUData, AllBUData_Float, this);
+        ROFShop.Offset(pwc.rof, bm.baseROF_BUData, AllBUData_Float, this);
+        CCShop.Offset(pwc.cc, bm.baseCC_BUData, AllBUData_Float, this);
+        CDShop.Offset(pwc.cd, bm.baseCD_BUData, AllBUData_Float, this);
+        MuzzleShop.Offset(pwc.muzzleSpeed, bm.baseMuzzleSpeed_BUData, AllBUData_Float, this);
+        AccuracyRateShop.Offset(pwc.accRate, bm.baseAccuracyRate_BUData, AllBUData_Float, this);
+        KnockbackShop.Offset(pwc.kbPower, bm.knockback_BUData, AllBUData_Float, this);
 
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            SkillShopList[i].skill_CooltimeShop.Offset(pswc.SkillList[i].MaxCooltime, bm.skill_BUDataList[i].skill_Cooltime_BUData, AllBUData_Float, this);
-            SkillShopList[i].skill_PowerShop.Offset(pswc.SkillList[i].Power, bm.skill_BUDataList[i].skill_Power_BUData, AllBUData_Float, this);
-            SkillShopList[i].skill_TierShop.Offset(pswc.SkillList[i].Tier, bm.skill_BUDataList[i].skill_Tier_BUData, AllBUData_Int, this);
+            SkillShopList[i].skill_CooltimeShop.Offset(pswc.skillList[i].maxCooltime, bm.skill_BUDataList[i].skill_Cooltime_BUData, AllBUData_Float, this);
+            SkillShopList[i].skill_PowerShop.Offset(pswc.skillList[i].power, bm.skill_BUDataList[i].skill_Power_BUData, AllBUData_Float, this);
+            SkillShopList[i].skill_TierShop.Offset(pswc.skillList[i].tier, bm.skill_BUDataList[i].skill_Tier_BUData, AllBUData_Int, this);
         }
 
         #endregion
@@ -142,7 +142,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
                 for (int i = 0; i < DevTool.skillAmount; i++)
                 {
                     MainGameUIManager.instance.playerHUD_UIController.SkillList[i].Set_CostText(
-                        _Value * PlayerManager.instance.playerController.SkillWeapon.SkillList[i].NeedEP.Value);
+                        _Value * PlayerManager.instance.playerController.SkillWeapon.skillList[i].needEP.Value);
                 }
             });
 

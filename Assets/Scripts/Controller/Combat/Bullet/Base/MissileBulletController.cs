@@ -11,10 +11,10 @@ public class MissileBulletController : PlayerBulletController
 
     [Space(10)]
     [Header("=== Extra State")]
-    [SerializeField] private GameObject Missile_Prefab;
-    [SerializeField] private float ShadowRangeTarget = 0.4f;
-    [SerializeField] private float SpreadTime = 1f;
-    [SerializeField] private float BaseRotatePower = 6f;
+    [SerializeField] private GameObject missile_Prefab;
+    [SerializeField] private float shadowRangeTarget = 0.4f;
+    [SerializeField] private float spreadTime = 1f;
+    [SerializeField] private float baseRotatePower = 6f;
 
     #endregion
 
@@ -32,11 +32,11 @@ public class MissileBulletController : PlayerBulletController
 
     private void Set_Guide()
     {
-        if (!IsGuided)
+        if (!isGuided)
         {
-            if (SpreadTime <= CurrentAliveTime)
+            if (spreadTime <= currentAliveTime)
             {
-                IsGuided = true;
+                isGuided = true;
             }
         }
     }
@@ -45,14 +45,14 @@ public class MissileBulletController : PlayerBulletController
 
     #region State
 
-    public override void Set_State_Base(BulletState _BulletState, float _TargetRange)
+    public override void Set_State_Base(BulletState bulletState, float targetRange)
     {
-        base.Set_State_Base(_BulletState, _TargetRange);
+        base.Set_State_Base(bulletState, targetRange);
 
-        float targetSpeed = _BulletState.muzzleSpeed;
-        base.State.muzzleSpeed *= 0.3f;
+        float targetSpeed = bulletState.muzzleSpeed;
+        base.state.muzzleSpeed *= 0.3f;
 
-        DOTween.To(() => State.muzzleSpeed, x => State.muzzleSpeed = x, targetSpeed, SpreadTime)
+        DOTween.To(() => state.muzzleSpeed, x => state.muzzleSpeed = x, targetSpeed, spreadTime)
             .SetEase(Ease.Linear);
     }
 
@@ -60,13 +60,13 @@ public class MissileBulletController : PlayerBulletController
     {
         base.Set_State_Extra();
 
-        IsGuided = false;
-        TargetEnemyController = null;
+        isGuided = false;
+        enemy = null;
 
-        DOTween.To(() => TargetRange, y => TargetRange = y, ShadowRangeTarget, SpreadTime)
+        DOTween.To(() => TargetRange, y => TargetRange = y, shadowRangeTarget, spreadTime)
             .SetEase(Ease.Linear);
 
-        RotateSpeed += BaseRotatePower;
+        rotSpeed += baseRotatePower;
     }
 
     #endregion
@@ -78,13 +78,13 @@ public class MissileBulletController : PlayerBulletController
         //base.ExtraEffect();
 
         Play_ExplosionAttack();
-        switch (PoolingString)
+        switch (poolingString)
         {
             case "MissileBullet":
                 UnitManager.instance.onceTime_AnimGenerator.Anim_AttackSuccess(
-                    TargetObject.transform.position, State.dmgState.dmgType, State.isCritical, 1.8f);
+                    TargetObject.transform.position, state.dmgState.dmgType, state.isCritical, 1.8f);
                 UnitManager.instance.player_ExplImgGenerator.Expl_Player_BigObjectDestroy(
-                    PlayerManager.instance.playerController.Get_ID(), TargetObject.transform.position, State.dmgState.dmgType, State.isCritical);
+                    PlayerManager.instance.playerController.Get_ID(), TargetObject.transform.position, state.dmgState.dmgType, state.isCritical);
                 break;
 
             default:
@@ -100,7 +100,7 @@ public class MissileBulletController : PlayerBulletController
     {
         //base.PoolingSet();
 
-        switch (PoolingString)
+        switch (poolingString)
         {
             case "MissileBullet":
                 PoolingManager.instance.missileBullet.Enqueue(this);
@@ -122,7 +122,7 @@ public class MissileBulletController : PlayerBulletController
         PlayerExplosionController pec = PoolingManager.instance.Get_OP_PlayerExplosion();
         pec.Set_State(
             Get_ExlposionState(),
-            _AC: ResourceManager.instance.explosionAC,
+            ac: ResourceManager.instance.explosionAC,
             Get_SpawnTF(),
             this.TargetRange);
     }
@@ -132,9 +132,9 @@ public class MissileBulletController : PlayerBulletController
         return new ExplosionState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Player),
-                new DmgState(eDamageType.Physics, State.dmgState.dmg * 2),
-                new CriticalState(State.criticalState),
-                new KnockbackState(true, State.knockbackState.kbPower * 2, State.knockbackState.kbTime)),
+                new DmgState(eDamageType.Physics, state.dmgState.dmg * 2),
+                new CriticalState(state.criticalState),
+                new KnockbackState(true, state.knockbackState.kbPower * 2, state.knockbackState.kbTime)),
             new AttackSizeState(1f),
             new List<bool> { false, true, false, false }); // Fire, Cold, Electricity, Corrosion
     }
