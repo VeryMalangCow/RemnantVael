@@ -583,7 +583,7 @@ public abstract class EnemyController : NavObjectController
     private void Set_Die_Effect()
     {
         // Effect
-        PlayerManager.instance.cameraController.Play_KillAnim(_Dur: 0.2f);
+        PlayerManager.instance.cameraController.Play_KillAnim(dur: 0.2f);
         UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_BigSlice(TargetObject.transform.position);
         UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
     }

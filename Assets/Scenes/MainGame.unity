@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a1f63f7d24e964994063cba0392cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmokeSpriteList:
+  smokeSpriteList:
   - {fileID: -1746943924, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
   - {fileID: 1391882910, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
   - {fileID: 237403348, guid: 99c590e551b6a18479bb7ef9d6d693e5, type: 3}
@@ -9196,7 +9196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded96a164f30f294e8419b527288392f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmokeSpriteList:
+  smokeSpriteList:
   - {fileID: 736608773, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -1434397230, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -571110442, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
@@ -13035,7 +13035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0909bd9ea357428479cc5b0109714c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmokeSpriteList:
+  smokeSpriteList:
   - physics:
       typeBase:
       - {fileID: 2076622363, guid: f7340f1cf81898d44adb34410f2f4669, type: 3}
@@ -16254,14 +16254,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d53dcf779f7dff44a2fbe5132f562d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainCamera: {fileID: 1044353918}
-  CameraElementTransformList: []
-  TargetTF: {fileID: 0}
-  FollowSpeed: 10
-  ShotStrength: 1
-  ShotVibrato: 1
-  KillStrength: 10
-  KillVibrato: 10
+  mainCamera: {fileID: 1044353918}
+  cameraElementTransformList: []
+  targetTF: {fileID: 0}
+  followSpeed: 10
+  shotStrength: 1
+  shotVibrato: 1
+  killStrength: 10
+  killVibrato: 10
 --- !u!1 &1984892084
 GameObject:
   m_ObjectHideFlags: 0

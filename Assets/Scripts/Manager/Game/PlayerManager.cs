@@ -50,7 +50,7 @@ public class PlayerManager : Singleton<PlayerManager>
         InputManager.instance.aimController = aim;
         InputManager.instance.aimRoundController = aimRound;
 
-        cameraController.TargetTF = playerController.gameObject.transform;
+        cameraController.targetTF = playerController.gameObject.transform;
         BaseUpgradeManager.instance.Offset(playerController);
 
         Offset_KeyCard();

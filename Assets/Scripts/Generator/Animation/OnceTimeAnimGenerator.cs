@@ -5,12 +5,12 @@ public class OnceTimeAnimGenerator : MonoBehaviour
     #region Player Attack
 
     // 적에게 공격이 명중했을 경우 (공격자 기준)
-    public void Anim_AttackSuccess(Vector2 _SpawnPos, eDamageType _DamageType, bool _IsCritical, float _AnimSize = 1)
+    public void Anim_AttackSuccess(Vector2 spawnPos, eDamageType dmgType, bool isCritical, float animSize = 1)
     {
         State_Anim anim = new State_Anim(
-            PlayerManager.instance.playerController.Get_CorrectAC(_DamageType, _IsCritical), 2f);
+            PlayerManager.instance.playerController.Get_CorrectAC(dmgType, isCritical), 2f);
         State_TF2D tf = new State_TF2D(
-            _SpawnPos, Quaternion.identity, Vector2.one * _AnimSize);
+            spawnPos, Quaternion.identity, Vector2.one * animSize);
         State_Sprite sprite = new State_Sprite(
             PlayerManager.instance.playerController.MaterialList[0], Color.white);
         
@@ -22,12 +22,12 @@ public class OnceTimeAnimGenerator : MonoBehaviour
     #region Enemy Hitted
 
     // 적이 공격을 받았을 경우 (피해자 기준)
-    public void Anim_Attacked_Circle(Vector2 _SpawnPos, Quaternion _Rotation)
+    public void Anim_Attacked_Circle(Vector2 spawnPos, Quaternion rot)
     {
         State_Anim anim = new State_Anim(
             EnemyManager.instance.hittedAC_0, 1.5f);
         State_TF2D tf = new State_TF2D(
-            _SpawnPos, DevTool.Get_FlipRotation(_Rotation), Vector2.one);
+            spawnPos, DevTool.Get_FlipRotation(rot), Vector2.one);
         State_Sprite sprite = new State_Sprite(
             ResourceManager.instance.Get_ModuleMaterial("Explosion"), Color.white);
 
@@ -35,9 +35,9 @@ public class OnceTimeAnimGenerator : MonoBehaviour
     }
 
     // 적이 공격을 받았을 경우 (피해자 기준)
-    public void Anim_Attacked_Slice(Vector2 _SpawnPos, bool _IsCritical, Quaternion _Rotation)
+    public void Anim_Attacked_Slice(Vector2 spawnPos, bool isCritical, Quaternion rot)
     {
-        if (!_IsCritical)
+        if (!isCritical)
         { return; }
 
         for (int i = 0; i < 2; i++)
@@ -45,7 +45,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
             State_Anim anim = new State_Anim(
                 EnemyManager.instance.hittedAC_1, 2.5f);
             State_TF2D tf = new State_TF2D(
-                _SpawnPos, DevTool.Add_RotZValue(_Rotation, i == 0 ? -45 : 45), Vector2.one);
+                spawnPos, DevTool.Add_RotZValue(rot, i == 0 ? -45 : 45), Vector2.one);
             State_Sprite sprite = new State_Sprite(
                 ResourceManager.instance.Get_ModuleMaterial("Explosion"), Color.white);
 
@@ -55,12 +55,12 @@ public class OnceTimeAnimGenerator : MonoBehaviour
     }
 
     // 적이 죽을 경우
-    public void Anim_Attacked_BigSlice(Vector2 _SpawnPos)
+    public void Anim_Attacked_BigSlice(Vector2 spawnPos)
     {
         State_Anim anim = new State_Anim(
             EnemyManager.instance.hittedAC_2, 1.5f);
         State_TF2D tf = new State_TF2D(
-            _SpawnPos, DevTool.Add_RotZValue(Quaternion.identity, DevTool.Get_RandomValueBaseZero(45f)), Vector2.one * 2f);
+            spawnPos, DevTool.Add_RotZValue(Quaternion.identity, DevTool.Get_RandomValueBaseZero(45f)), Vector2.one * 2f);
         State_Sprite sprite = new State_Sprite(
             ResourceManager.instance.Get_ModuleMaterial("Explosion"), Color.white);
 
