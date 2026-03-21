@@ -116,7 +116,7 @@ public abstract class AttackerController : MovableDepthController
     {
         this.attackerState = new AttackerState(state);
 
-        TargetRange = targetRange;
+        base.targetRange = targetRange;
     }
 
     public virtual void Set_State_Juge<T>(AttackerState_Juge<T> state_Juge) where T : Collider2D
@@ -175,7 +175,7 @@ public abstract class AttackerController : MovableDepthController
             seq.Join(this.transform.DOMove(state_EndTF.tf.pos, state_EndTF.time).SetEase(Ease.Linear));
         }
 
-        seq.Join(TargetObject.transform.DORotateQuaternion(state_EndTF.tf.rot, state_EndTF.time).SetEase(Ease.Linear));
+        seq.Join(targetObject.transform.DORotateQuaternion(state_EndTF.tf.rot, state_EndTF.time).SetEase(Ease.Linear));
         seq.Join(this.transform.DOScale(state_EndTF.tf.localScale, state_EndTF.time).SetEase(Ease.Linear));
 
         return seq;

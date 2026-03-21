@@ -121,7 +121,7 @@ public class StageManager : Singleton<StageManager>
         else // 전투 스테이지 시작 방
         {
             Gen_Type_CombatStage(stageData);
-            EliteEnemyController.IsDroppedBossKeycard = false;
+            EliteEnemyController.isDroppedBossKeycard = false;
         }
 
         // Entrance 활성화
@@ -275,7 +275,7 @@ public class StageManager : Singleton<StageManager>
             currentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.lobbyRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule;
+                room.roomRule = roomRule;
 
             room.Offset(tempID);
             Add_RoundVec(new List<Vector2Int>() { Vector2Int.zero });
@@ -290,7 +290,7 @@ public class StageManager : Singleton<StageManager>
             currentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.startRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule;
+                room.roomRule = roomRule;
 
             room.Offset(tempID);
             Add_RoundVec(new List<Vector2Int>() { Vector2Int.zero });
@@ -311,7 +311,7 @@ public class StageManager : Singleton<StageManager>
             currentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(Get_CorrectRandomRoomRule(room).gameObject, room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule;
+                room.roomRule = roomRule;
 
             room.Offset(tempID);
             Set_NormalRelativeVec(room, connectedRoomAmount: -1, applySpecialExist: false);
@@ -330,7 +330,7 @@ public class StageManager : Singleton<StageManager>
             currentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomDesignatedPrefabArr[designatedRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule;
+                room.roomRule = roomRule;
 
             room.Offset(tempID);
             Set_NormalRelativeVec(room, connectedRoomAmount: -1, applySpecialExist: false);
@@ -349,7 +349,7 @@ public class StageManager : Singleton<StageManager>
             currentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleEntrancePrefabArr[entranceRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule;
+                room.roomRule = roomRule;
 
             EntranceRuleController entranceRule = DevTool.Get_CastingTType<EntranceRuleController>(roomRule);
             currentAllEntranceRoomController.Add(entranceRule);
@@ -367,7 +367,7 @@ public class StageManager : Singleton<StageManager>
             currentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.lobbyEntranceRoomRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule;
+                room.roomRule = roomRule;
 
             EntranceRuleController entranceRule = DevTool.Get_CastingTType<EntranceRuleController>(roomRule);
             currentAllEntranceRoomController.Add(entranceRule);
@@ -395,31 +395,31 @@ public class StageManager : Singleton<StageManager>
             currentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleVaultPrefabArr[vaultRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule;
+                room.roomRule = roomRule;
 
             VaultRuleController vaultRule = DevTool.Get_CastingTType<VaultRuleController>(roomRule);
-            VaultController vault = DevTool.Get_ComponentTType<VaultController>(Instantiate(DevTool.Get_RandomInList(ResourceManager.instance.vaultPrefabArr), vaultRule.InRoom_VaultParentTF));
-            vaultRule.Vault = vault;
+            VaultController vault = DevTool.Get_ComponentTType<VaultController>(Instantiate(DevTool.Get_RandomInList(ResourceManager.instance.vaultPrefabArr), vaultRule.inRoom_vaultParentTf));
+            vaultRule.vault = vault;
             vault.gameObject.transform.localPosition = Vector2.zero;
             vault.gameObject.SetActive(false);
 
             RepairOperatorController repairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                Instantiate(ResourceManager.instance.repairOperatorPrefab, vaultRule.InRoom_RepairOperactorParentTF));
-            vaultRule.RepairOperator = repairOper;
+                Instantiate(ResourceManager.instance.repairOperatorPrefab, vaultRule.inRoom_RepairOperactorParentTf));
+            vaultRule.repairOperator = repairOper;
             repairOper.Set_TargetBuild(vault);
             repairOper.gameObject.transform.localPosition = Vector2.zero;
             repairOper.gameObject.SetActive(false);
 
             VaultRerollOperatorController rerollOper = DevTool.Get_ComponentTType<VaultRerollOperatorController>(
-                Instantiate(ResourceManager.instance.vaultRerollOperatorPrefab, vaultRule.InRoom_RerollOperactorParentTF));
-            vaultRule.RerollOperator = rerollOper;
+                Instantiate(ResourceManager.instance.vaultRerollOperatorPrefab, vaultRule.inRoom_RerollOperactorParentTf));
+            vaultRule.rerollOperator = rerollOper;
             rerollOper.Set_TargetBuild(vault);
             rerollOper.gameObject.transform.localPosition = Vector2.zero;
             rerollOper.gameObject.SetActive(false);
 
             VaultUpgradeOperatorController upgradeOper = DevTool.Get_ComponentTType<VaultUpgradeOperatorController>(
-                Instantiate(ResourceManager.instance.vaultUpgradeOperatorPrefab, vaultRule.InRoom_UpgradeOperactorParentTF));
-            vaultRule.UpgradeOperator = upgradeOper;
+                Instantiate(ResourceManager.instance.vaultUpgradeOperatorPrefab, vaultRule.inRoom_UpgradeOperactorParentTf));
+            vaultRule.upgradeOperator = upgradeOper;
             upgradeOper.Set_TargetBuild(vault);
             upgradeOper.gameObject.transform.localPosition = Vector2.zero;
             upgradeOper.gameObject.SetActive(false);
@@ -448,20 +448,20 @@ public class StageManager : Singleton<StageManager>
             currentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleShopPrefabArr[shopRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule;
+                room.roomRule = roomRule;
 
             ShopRuleController shopRule = DevTool.Get_CastingTType<ShopRuleController>(roomRule);
 
             if (data.usableBU)
             {
-                BaseUpgradeController BUShop = DevTool.Get_ComponentTType<BaseUpgradeController>(Instantiate(ResourceManager.instance.BUShopPrefab, shopRule.InRoom_BUShopParentTF));
-                shopRule.BUShop = BUShop;
+                BaseUpgradeController BUShop = DevTool.Get_ComponentTType<BaseUpgradeController>(Instantiate(ResourceManager.instance.BUShopPrefab, shopRule.inRoom_buShopParentTf));
+                shopRule.buShop = BUShop;
                 BUShop.gameObject.transform.localPosition = Vector2.zero;
                 BUShop.gameObject.SetActive(false);
 
                 RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
-                shopRule.BURepairOperator = BURepairOper;
+                Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.inRoom_buRepairOperactorParentTf));
+                shopRule.buRepairOperator = BURepairOper;
                 BURepairOper.Set_TargetBuild(BUShop);
                 BURepairOper.gameObject.transform.localPosition = Vector2.zero;
                 BURepairOper.gameObject.SetActive(false);
@@ -469,14 +469,14 @@ public class StageManager : Singleton<StageManager>
             
             if (data.usableMU)
             {
-                ModuleUpgradeController MUShop = DevTool.Get_ComponentTType<ModuleUpgradeController>(Instantiate(ResourceManager.instance.MUShopPrefab, shopRule.InRoom_MUShopParentTF));
-                shopRule.MUShop = MUShop;
+                ModuleUpgradeController MUShop = DevTool.Get_ComponentTType<ModuleUpgradeController>(Instantiate(ResourceManager.instance.MUShopPrefab, shopRule.inRoom_muShopParentTf));
+                shopRule.muShop = MUShop;
                 MUShop.gameObject.transform.localPosition = Vector2.zero;
                 MUShop.gameObject.SetActive(false);
 
                 RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                    Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
-                shopRule.MURepairOperator = MURepairOper;
+                    Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.inRoom_muRepairOperactorParentTf));
+                shopRule.muRepairOperator = MURepairOper;
                 MURepairOper.Set_TargetBuild(MUShop);
                 MURepairOper.gameObject.transform.localPosition = Vector2.zero;
                 MURepairOper.gameObject.SetActive(false);
@@ -506,20 +506,20 @@ public class StageManager : Singleton<StageManager>
             currentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRuleAllyShopPrefabArr[shopRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule;
+                room.roomRule = roomRule;
 
             AllyShopRuleController shopRule = DevTool.Get_CastingTType<AllyShopRuleController>(roomRule);
 
             if (data.usableABU)
             {
-                AllyBaseUpgradeController ABUShop = DevTool.Get_ComponentTType<AllyBaseUpgradeController>(Instantiate(ResourceManager.instance.ABUShopPrefab, shopRule.InRoom_BUShopParentTF));
-                shopRule.BUShop = ABUShop;
+                AllyBaseUpgradeController ABUShop = DevTool.Get_ComponentTType<AllyBaseUpgradeController>(Instantiate(ResourceManager.instance.ABUShopPrefab, shopRule.inRoom_buShopParentTf));
+                shopRule.buShop = ABUShop;
                 ABUShop.gameObject.transform.localPosition = Vector2.zero;
                 ABUShop.gameObject.SetActive(false);
 
                 RepairOperatorController BURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                    Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.InRoom_BURepairOperactorParentTF));
-                shopRule.BURepairOperator = BURepairOper;
+                    Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.inRoom_buRepairOperactorParentTf));
+                shopRule.buRepairOperator = BURepairOper;
                 BURepairOper.Set_TargetBuild(ABUShop);
                 BURepairOper.gameObject.transform.localPosition = Vector2.zero;
                 BURepairOper.gameObject.SetActive(false);
@@ -527,14 +527,14 @@ public class StageManager : Singleton<StageManager>
 
             if (data.usableAMU)
             {
-                AllyModuleUpgradeController AMUShop = DevTool.Get_ComponentTType<AllyModuleUpgradeController>(Instantiate(ResourceManager.instance.AMUShopPrefab, shopRule.InRoom_MUShopParentTF));
-                shopRule.MUShop = AMUShop;
+                AllyModuleUpgradeController AMUShop = DevTool.Get_ComponentTType<AllyModuleUpgradeController>(Instantiate(ResourceManager.instance.AMUShopPrefab, shopRule.inRoom_muShopParentTf));
+                shopRule.muShop = AMUShop;
                 AMUShop.gameObject.transform.localPosition = Vector2.zero;
                 AMUShop.gameObject.SetActive(false);
 
                 RepairOperatorController MURepairOper = DevTool.Get_ComponentTType<RepairOperatorController>(
-                    Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.InRoom_MURepairOperactorParentTF));
-                shopRule.MURepairOperator = MURepairOper;
+                    Instantiate(ResourceManager.instance.repairOperatorPrefab, shopRule.inRoom_muRepairOperactorParentTf));
+                shopRule.muRepairOperator = MURepairOper;
                 MURepairOper.Set_TargetBuild(AMUShop);
                 MURepairOper.gameObject.transform.localPosition = Vector2.zero;
                 MURepairOper.gameObject.SetActive(false);
@@ -569,24 +569,24 @@ public class StageManager : Singleton<StageManager>
             currentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.roomRulePrisonPrefabArr[prisonRoomData.ruleId], room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule;
+                room.roomRule = roomRule;
 
             PrisonRuleController prisonRule = DevTool.Get_CastingTType<PrisonRuleController>(roomRule);
 
-            PrisonController prison = DevTool.Get_ComponentTType<PrisonController>(Instantiate(ResourceManager.instance.prisonPrefabArr[prisonRoomData.typeId], prisonRule.InRoom_PrisonParentTF));
-            prisonRule.Prison = prison;
+            PrisonController prison = DevTool.Get_ComponentTType<PrisonController>(Instantiate(ResourceManager.instance.prisonPrefabArr[prisonRoomData.typeId], prisonRule.inRoom_PrisonParentTF));
+            prisonRule.prison = prison;
             prison.gameObject.transform.localPosition = Vector2.zero;
             prison.gameObject.SetActive(false);
 
             PrisonPayOperatorController payOper = DevTool.Get_ComponentTType<PrisonPayOperatorController>(
-               Instantiate(ResourceManager.instance.prisonPayOperatorPrefab, prisonRule.InRoom_PayOperactorParentTF));
-            prisonRule.PayOperator = payOper;
+               Instantiate(ResourceManager.instance.prisonPayOperatorPrefab, prisonRule.inRoom_PayOperactorParentTF));
+            prisonRule.payOperator = payOper;
             payOper.Set_TargetBuild(prison);
             payOper.gameObject.SetActive(false);
 
             PrisonPuzzleOperatorController puzzleOper = DevTool.Get_ComponentTType<PrisonPuzzleOperatorController>(
-               Instantiate(ResourceManager.instance.prisonPuzzleOperatorPrefab, prisonRule.InRoom_PuzzleOperactorParentTF));
-            prisonRule.PuzzleOperator = puzzleOper;
+               Instantiate(ResourceManager.instance.prisonPuzzleOperatorPrefab, prisonRule.inRoom_PuzzleOperactorParentTF));
+            prisonRule.puzzleOperator = puzzleOper;
             puzzleOper.Set_TargetBuild(prison);
             puzzleOper.gameObject.SetActive(false);
 
@@ -608,7 +608,7 @@ public class StageManager : Singleton<StageManager>
             currentAllRoomController.Add(room);
 
             if (DevTool.Get_ComponentTType(Instantiate(ResourceManager.instance.passageRulePrefab, room.gameObject.transform), out RoomRuleController roomRule))
-                room.RoomRuleController = roomRule;
+                room.roomRule = roomRule;
 
             PassageRuleController passageRule = DevTool.Get_CastingTType<PassageRuleController>(roomRule);
             passageRule.Set_ElevatorData(nextStageId);
@@ -718,7 +718,7 @@ public class StageManager : Singleton<StageManager>
 
     public void Play_CompleteKillAll()
     {
-        if (currentRoomController == null || currentRoomController.RoomRuleController.RoomType == eRoomType.Completed) return;
+        if (currentRoomController == null || currentRoomController.roomRule.roomType == eRoomType.Completed) return;
 
         StartCoroutine(Play_CompleteKillAll_Cor());
     }
@@ -783,7 +783,7 @@ public class StageManager : Singleton<StageManager>
     // 방 위치 세팅
     private void Set_RoomPos(RoomController room)
     {
-        room.gameObject.transform.position = new Vector2(room.RoomVec[0].x * offsetRoomSize.x, room.RoomVec[0].y * offsetRoomSize.y);
+        room.gameObject.transform.position = new Vector2(room.roomVec[0].x * offsetRoomSize.x, room.roomVec[0].y * offsetRoomSize.y);
     }
 
     #endregion
@@ -807,14 +807,14 @@ public class StageManager : Singleton<StageManager>
         for (int i = 0; i < allGate.Count - 1; i++)
         {
             // 이미 파트너 게이트가 있다면
-            if (allGate[i].ParterGate != null) continue;
+            if (allGate[i].parterGate != null) continue;
 
             for (int j = i + 1; j < allGate.Count; j++)
             {
                 if (Is_PartnerGate(allGate[i], allGate[j]))
                 {
-                    allGate[i].ParterGate = allGate[j];
-                    allGate[j].ParterGate = allGate[i];
+                    allGate[i].parterGate = allGate[j];
+                    allGate[j].parterGate = allGate[i];
                 }
             }
         }
@@ -828,17 +828,17 @@ public class StageManager : Singleton<StageManager>
         List<GateController> allGate = Get_AllGate(currentAllRoomController);
         for (int i = 0; i < allGate.Count; i++)
         {
-            if (allGate[i].ParterGate != null)
+            if (allGate[i].parterGate != null)
             {
                 // 게이트 활성화
                 allGate[i].Set_ExistDoorState(true);
 
                 // 게이트가 특정 방의 게이트라면 특정 필요 키카드 삽입
-                int needKeyCardID = allGate[i].ThisRoom.RoomRuleController.Get_NeedKeyCardID();
+                int needKeyCardID = allGate[i].thisRoom.roomRule.Get_NeedKeyCardID();
                 if (needKeyCardID != -1)
                 {
                     allGate[i].Set_NeedKeyCard(needKeyCardID);
-                    allGate[i].ParterGate.Set_NeedKeyCard(needKeyCardID);
+                    allGate[i].parterGate.Set_NeedKeyCard(needKeyCardID);
                 }
 
                 // Next Map Icon
@@ -860,7 +860,7 @@ public class StageManager : Singleton<StageManager>
     private void Set_RelativeVec(RoomController room, List<Vector2Int> worldVecList)
     {
         // 벡터값을 넣어주고 (실제 좌표 값에 비례되는 값을 넣어줌 + Gate도)
-        for (int i = 0; i < room.RoomVec.Count; i++)
+        for (int i = 0; i < room.roomVec.Count; i++)
             room.Set_CollectGatePos(i, worldVecList[i]);
     }
 
@@ -875,7 +875,7 @@ public class StageManager : Singleton<StageManager>
 
         Set_RoomPos(room);
         Set_FieldObjPos(room);
-        Add_RoundVec(room.RoomVec);
+        Add_RoundVec(room.roomVec);
     }
 
     // 월드 기준: 상대적인 좌표 삽입
@@ -885,7 +885,7 @@ public class StageManager : Singleton<StageManager>
 
         Set_RoomPos(room);
         Set_FieldObjPos(room);
-        Add_RoundVec(room.RoomVec);
+        Add_RoundVec(room.roomVec);
     }
 
     // 월드 기준: 상대적인 좌표 삽입: 가장 멀고, 특별 Round 포함
@@ -895,9 +895,9 @@ public class StageManager : Singleton<StageManager>
 
         Set_RoomPos(room);
         Set_FieldObjPos(room);
-        Add_RoundVec(room.RoomVec);
+        Add_RoundVec(room.roomVec);
 
-        Add_RoundSpecialVec(room.RoomVec);
+        Add_RoundSpecialVec(room.roomVec);
     }
 
     #endregion
@@ -972,7 +972,7 @@ public class StageManager : Singleton<StageManager>
         for (int i = 0; i < doorAnim.Count; i++)
             if (doorAnim[i].dir == doorDir)
             {
-                gate.ThisAC = doorAnim[i].doorAnim;
+                gate.ac = doorAnim[i].doorAnim;
                 sr.material = currentStageData.mapMaterialUnclear[doorAnim[i].materialIndex];
             }
     }
@@ -1053,10 +1053,10 @@ public class StageManager : Singleton<StageManager>
     // Room 인덱스에 맞는 모든 RoomRule 가져오기
     private List<RoomRuleController> Get_CorrectRoomRuleList(RoomController room)
     {
-        List<Vector2Int> roomIndex = room.RoomVec;
+        List<Vector2Int> roomIndex = room.roomVec;
         List<RoomRuleController> result = new List<RoomRuleController>();
         for (int i = 0; i < ResourceManager.instance.roomRulePrefabArr.Length; i++)
-            if (ResourceManager.instance.roomRulePrefabArr[i].TryGetComponent(out RoomRuleController rrc) && rrc.RoomVec.SequenceEqual(roomIndex))
+            if (ResourceManager.instance.roomRulePrefabArr[i].TryGetComponent(out RoomRuleController rrc) && rrc.roomVec.SequenceEqual(roomIndex))
                 result.Add(rrc);
             
         return result;
@@ -1077,7 +1077,7 @@ public class StageManager : Singleton<StageManager>
     {
         List<GateController> allGate = new List<GateController>();
         for (int i = 0; i < roomList.Count; i++)
-            allGate.AddRange(roomList[i].InRoom_AllGate);
+            allGate.AddRange(roomList[i].inRoom_AllGate);
 
         return allGate;
     }
@@ -1095,7 +1095,7 @@ public class StageManager : Singleton<StageManager>
         if (applySpecialExist) existList.AddRange(alreadyExistSpeicalList);
 
         return Get_FindCorrectWorldVec(
-            targetRoom.RoomVec, roundList, existList, connectedRoomAmount);
+            targetRoom.roomVec, roundList, existList, connectedRoomAmount);
     }
 
     // 현재 Round에서, 타겟 Room에 맞춘 위치 값 + 가장 먼 위치 값 반환
@@ -1107,7 +1107,7 @@ public class StageManager : Singleton<StageManager>
         if (applySpecialExist) existList.AddRange(alreadyExistSpeicalList);
 
         return Get_FindCorrectWorldVec(
-            targetRoom.RoomVec, farRoundList, existList, connectedRoomAmount);
+            targetRoom.roomVec, farRoundList, existList, connectedRoomAmount);
     }
 
     // 계산
@@ -1188,11 +1188,11 @@ public class StageManager : Singleton<StageManager>
                 return ResourceManager.instance.allyShop_Icon;
 
             case PrisonRuleController prisonRule:
-                if (prisonRule.Prison is StrikeTeamPrisonController)
+                if (prisonRule.prison is StrikeTeamPrisonController)
                     return ResourceManager.instance.st_Prison_Icon;
-                else if (prisonRule.Prison is UplinkTeamPrisonController)
+                else if (prisonRule.prison is UplinkTeamPrisonController)
                     return ResourceManager.instance.ut_Prison_Icon;
-                else if (prisonRule.Prison is NeoTeamPrisonController)
+                else if (prisonRule.prison is NeoTeamPrisonController)
                     return ResourceManager.instance.nt_Prison_Icon;
                 else
                     return null;
@@ -1296,8 +1296,8 @@ public class StageManager : Singleton<StageManager>
 
     private bool Is_PartnerGate(GateController gate1, GateController gate2)
     {
-        return ((gate1.RoomPosGate + gate1.GateDir) == gate2.RoomPosGate) && // 반대편에 방에 존재하는 게이트인지
-            (gate1.GateDir * -1) == gate2.GateDir; // 서로 바라보고 있는지
+        return ((gate1.roomPosGate + gate1.gateDir) == gate2.roomPosGate) && // 반대편에 방에 존재하는 게이트인지
+            (gate1.gateDir * -1) == gate2.gateDir; // 서로 바라보고 있는지
     }
 
     #endregion

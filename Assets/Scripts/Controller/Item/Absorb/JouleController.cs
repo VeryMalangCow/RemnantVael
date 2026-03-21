@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class JouleController : RangeAbsorbItemController
 {
@@ -10,10 +11,10 @@ public class JouleController : RangeAbsorbItemController
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private float EnergyValue = 1f;
-    [SerializeField] private TMP_Text AmountTxt;
+    [FormerlySerializedAs("EnergyValue")][SerializeField] private float energyValue = 1f;
+    [FormerlySerializedAs("AmountTxt")][SerializeField] private TMP_Text amountTxt;
 
-    [HideInInspector] private MeshRenderer TxtMR;
+    [HideInInspector] private MeshRenderer mesh;
 
     #endregion
 
@@ -23,31 +24,31 @@ public class JouleController : RangeAbsorbItemController
     {
         base.Offset();
 
-        TxtMR = DevTool.Get_ComponentTType(AmountTxt.gameObject, out MeshRenderer mr) ? mr : null;
+        mesh = DevTool.Get_ComponentTType(amountTxt.gameObject, out MeshRenderer mr) ? mr : null;
     }
 
     #endregion
 
     #region Set
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
+        base.Set_SortingOrder(sortingOrder);
 
-        TxtMR.sortingOrder = _SortingOrder;
+        mesh.sortingOrder = sortingOrder;
     }
 
     #endregion
 
     #region State
 
-    public void Set_State(Vector2 _SpawnPos, float _Value)
+    public void Set_State(Vector2 spawnPos, float value)
     {
-        base.Set_State(_SpawnPos);
+        base.Set_State(spawnPos);
 
-        EnergyValue = _Value;
-        string txt = _Value % 1 == 0 ? _Value.ToString() : _Value.ToString("0.0");
-        AmountTxt.text = $"(<size=150%>{txt}</size>)";
+        energyValue = value;
+        string txt = value % 1 == 0 ? value.ToString() : value.ToString("0.0");
+        amountTxt.text = $"(<size=150%>{txt}</size>)";
 
         gameObject.SetActive(true);
     }
@@ -60,9 +61,9 @@ public class JouleController : RangeAbsorbItemController
     {
         base.Gain_Item();
 
-        IsSpawnNow = false;
+        isSpawnNow = false;
 
-        PlayerManager.instance.playerController.Add_CurrentEP(EnergyValue);
+        PlayerManager.instance.playerController.Add_CurrentEP(energyValue);
         PoolingManager.instance.joule.Enqueue(this);
     }
 

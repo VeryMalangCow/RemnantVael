@@ -142,37 +142,37 @@ public class MinimapEUIController : ElementUIController
     {
         RoomController CurrentRC = StageManager.instance.currentRoomController;
 
-        Set_AnchorPos(CurrentRC.ThisMME, NormalMMEParentRT, 0.3f);
-        Set_AnchorPos(CurrentRC.ThisIMME, InteractableMMEParentRT, 0.3f);
+        Set_AnchorPos(CurrentRC.thisMME, NormalMMEParentRT, 0.3f);
+        Set_AnchorPos(CurrentRC.thisIMME, InteractableMMEParentRT, 0.3f);
 
         //Set_Point(NormalPoint, CurrentRC.ThisMME);
         //Set_Point(InteractablePoint, CurrentRC.ThisIMME);
 
-        Set_ActiveMME(CurrentRC.ThisMME);
-        Set_ActiveMME(CurrentRC.ThisIMME);
+        Set_ActiveMME(CurrentRC.thisMME);
+        Set_ActiveMME(CurrentRC.thisIMME);
 
-        if (CurrentRC.RoomRuleController.RoomType == eRoomType.Completed)
+        if (CurrentRC.roomRule.roomType == eRoomType.Completed)
         {
-            CurrentRC.ThisMME.Set_Complete(MainColor);
-            CurrentRC.ThisIMME.Set_Complete(MainColor);
+            CurrentRC.thisMME.Set_Complete(MainColor);
+            CurrentRC.thisIMME.Set_Complete(MainColor);
         }
         else
         {
-            CurrentRC.ThisMME.Set_Uncomplete();
-            CurrentRC.ThisIMME.Set_Uncomplete();
+            CurrentRC.thisMME.Set_Uncomplete();
+            CurrentRC.thisIMME.Set_Uncomplete();
         }
 
         List<RoomController> connectedAllRC = CurrentRC.Get_ConnectedRooms();
 
         for (int i = 0; i < connectedAllRC.Count; i++)
         {
-            Set_ActiveMME(connectedAllRC[i].ThisMME);
-            Set_ActiveMME(connectedAllRC[i].ThisIMME);
+            Set_ActiveMME(connectedAllRC[i].thisMME);
+            Set_ActiveMME(connectedAllRC[i].thisIMME);
 
-            if (connectedAllRC[i].RoomRuleController.RoomType != eRoomType.Completed)
+            if (connectedAllRC[i].roomRule.roomType != eRoomType.Completed)
             {
-                connectedAllRC[i].ThisMME.Set_Visible();
-                connectedAllRC[i].ThisIMME.Set_Visible();
+                connectedAllRC[i].thisMME.Set_Visible();
+                connectedAllRC[i].thisIMME.Set_Visible();
             }
         }
     }
@@ -286,7 +286,7 @@ public class MinimapEUIController : ElementUIController
     private void Set_Complete_OffInteract()
     {
         if (InteractingBookGate != null && 
-            StageManager.instance.currentRoomController != InteractingBookGate.ParterGate.ThisRoom)
+            StageManager.instance.currentRoomController != InteractingBookGate.parterGate.thisRoom)
         {
             InteractingBookGate.Play_Interact();
         }
@@ -303,9 +303,9 @@ public class MinimapEUIController : ElementUIController
             GateController gc = MinimapSelectedElementRC.Get_MinimapInteract_ShortcutGate(InputManager.instance.inputArrowDir);
             if (gc != null)
             {
-                InteractingBookGate = gc.ParterGate;
-                MinimapSelectedElementRC = gc.ThisRoom;
-                Set_AnchorPos(MinimapSelectedElementRC.ThisIMME, InteractableMMEParentRT, 0.15f);
+                InteractingBookGate = gc.parterGate;
+                MinimapSelectedElementRC = gc.thisRoom;
+                Set_AnchorPos(MinimapSelectedElementRC.thisIMME, InteractableMMEParentRT, 0.15f);
             }
             InputManager.instance.inputArrowDir = Vector2Int.zero;
         }

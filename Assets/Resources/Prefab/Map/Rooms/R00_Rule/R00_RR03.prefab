@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyType: 0
-  SpawnID: 2
+  enemyType: 0
+  spawnId: 2
 --- !u!1 &992467403653113564
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyType: 0
-  SpawnID: 1
+  enemyType: 0
+  spawnId: 1
 --- !u!1 &1523721443658115483
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,8 +679,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyType: 0
-  SpawnID: 1
+  enemyType: 0
+  spawnId: 1
 --- !u!1 &5894810147068047141
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,8 +911,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce5fd19ed43fa549a7da1a045b324be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyType: 0
-  SpawnID: 2
+  enemyType: 0
+  spawnId: 2
 --- !u!1 &7401636336463548477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,7 +1011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &7497230437436385831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1303,15 +1303,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aa86854a669a8b46b2c272682d5669a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomVec:
+  roomVec:
   - {x: 0, y: 0}
-  RoomType: 1
-  EnemyType: 0
-  IsAlreadyRoomClear: 0
-  InRoom_ObstacleParentTF: {fileID: 5083685775733296416}
-  InRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
-  InRoom_FieldObjSpawnerParentTF: {fileID: 8560072875511719194}
-  InRoom_AllObstacle: []
+  roomType: 1
+  enemyType: 0
+  isAlreadyRoomClear: 0
+  inRoom_ObstacleParentTF: {fileID: 5083685775733296416}
+  inRoom_EnemySpawnParentTF: {fileID: 2169159929047553169}
+  inRoom_FieldObjSpawnerParentTF: {fileID: 8560072875511719194}
+  inRoom_AllObstacle: []
 --- !u!1 &8791385821537764060
 GameObject:
   m_ObjectHideFlags: 0

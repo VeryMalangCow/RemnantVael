@@ -56,19 +56,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
-  TargetObject: {fileID: 8603897730151291316}
-  ThisSR: {fileID: 7051792676472209556}
-  TargetRange: 0.88
-  ThisRb: {fileID: 7671391899007426867}
-  AccelerationSpeed: 12
-  IsDead: 0
-  CurrentSP:
+  targetObject: {fileID: 8603897730151291316}
+  thisSr: {fileID: 7051792676472209556}
+  targetRange: 0.88
+  rb: {fileID: 7671391899007426867}
+  accelerationSpeed: 12
+  isDead: 0
+  currentSP:
     value: 0
-  CurrentHP:
+  currentHP:
     value: 0
-  CurrentEP:
+  currentEP:
     value: 0
-  BrokenParticleData:
+  brokenParticleData:
   - sprite: {fileID: 54874701, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
@@ -83,14 +83,14 @@ MonoBehaviour:
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: -1394026320, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     shadowSize: {x: 0.3, y: 0.15}
-  ParticleThrowDis: 1.5
-  ThisSG: {fileID: 8138059332026427226}
-  BuffController: {fileID: 5694203857495159564}
-  ThisEnemyType: 0
-  MaxHP: 600
-  MaxEP: 200
-  ChargeEPSpeed: 50
-  EnemyDropItemPercent:
+  particleThrowDis: 1.5
+  sg: {fileID: 8138059332026427226}
+  buff: {fileID: 5694203857495159564}
+  enemyType: 0
+  maxHP: 600
+  maxEP: 200
+  chargeEPSpeed: 50
+  enemyDropItemPercent:
     moduleDropPercent: 1
     moduleRankPercents: 2b0000001b0000000f0000000900000006000000
     keycardDropPercent: 0.35
@@ -109,12 +109,12 @@ MonoBehaviour:
     jouleAmountMinMax:
       typeBase: 10
       typeSpecial: 20
-  HUD: {fileID: 929499903805823867}
-  LookingSatellite: {fileID: 8376210550337142964}
-  WalkingSatellite: {fileID: 8314429211963477539}
-  PingOffsetVec: {x: 0, y: 0.6}
-  PingSizeVec: {x: 1.8, y: 1.8}
-  OrderOfPriorityEnemyPatternList:
+  hud: {fileID: 929499903805823867}
+  lookingSatellite: {fileID: 8376210550337142964}
+  walkingSatellite: {fileID: 8314429211963477539}
+  pingOffsetVec: {x: 0, y: 0.6}
+  pingSizeVec: {x: 1.8, y: 1.8}
+  orderOfPriorityEnemyPatternList:
   - enemyPatternList:
     - enemyPatternList:
       - {fileID: 126268566852154960}
@@ -127,24 +127,24 @@ MonoBehaviour:
   - enemyPatternList:
     - enemyPatternList:
       - {fileID: 8721225703925756054}
-  SpecialPattern:
+  specialPattern:
     enemyPatternList:
     - {fileID: 549748114782807619}
     - {fileID: 3446071497390754471}
     - {fileID: 6250588918846534213}
     - {fileID: 7111731507227451297}
     - {fileID: 1475391919071283312}
-  ASQueueSet:
+  audioQueueSet:
     thisParentTF: {fileID: 7952737510090933459}
-  LookAtPoint: {x: 0, y: 0}
-  LookAtDir: {x: 0, y: 0}
-  IsPlayingPattern: 0
-  NameID: 1
-  PanelRT: {fileID: 7357834850077609870}
-  CoreDropItemPercent:
+  lookAtPoint: {x: 0, y: 0}
+  lookAtDir: {x: 0, y: 0}
+  isPlayingPattern: 0
+  nameId: 1
+  panelRt: {fileID: 7357834850077609870}
+  coreDropItemPercent:
     coreItemID: 1
     coreItemPercent: 1
-  BattleProdSprite: {fileID: 1123147809, guid: 52f91939743298f4f8b005d682be328c, type: 3}
+  battleProdSprite: {fileID: 1123147809, guid: 52f91939743298f4f8b005d682be328c, type: 3}
 --- !u!114 &5694203857495159564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,15 +410,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbe35e835cba79449c6846867a03aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 2232013880238854159}
-  RepeatAmount: 1
-  StartDelay: 0.3
-  EndDelay: 0.45
-  IsSpecialPattern: 1
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  ThisBS:
+  enemy: {fileID: 2232013880238854159}
+  repeatAmount: 1
+  startDelay: 0.3
+  endDelay: 0.45
+  isSpecialPattern: 1
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  bulletState:
     ownerData:
       owner: 2
       id: 0
@@ -437,12 +437,12 @@ MonoBehaviour:
     aliveTime: 6
     isStatus: 0
     statusType: 0
-  BaseAngle: 0
-  BulletShadowScale: {x: 0.32, y: 0.32}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.7
-  TrailStartWidth: 0.4
-  TrailGradient:
+  baseAngle: 0
+  bulletShadowScale: {x: 0.32, y: 0.32}
+  bulletColSize: {x: 2, y: 3}
+  trailTime: 0.7
+  trailStartWidth: 0.4
+  trailGradient:
     serializedVersion: 2
     key0: {r: 0.6528621, g: 0, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -472,21 +472,21 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  LightIntensity: 5
-  MaxRange: 9
-  MinRange: 0
-  ShootExplAmount: 8
-  ExplAmount: 8
-  SpawnDepthList:
+  lightIntensity: 5
+  maxRange: 9
+  minRange: 0
+  shootExplAmount: 8
+  explAmount: 8
+  spawnDepthList:
   - {fileID: 2232013880238854159}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 7333621598429965979}
   - {fileID: 7260700174791924852}
   - {fileID: 5139810350627272259}
   - {fileID: 4056894064819751254}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
-  AngleList:
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  bulletAc: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
+  angleList:
   - 0
 --- !u!1 &1782978506701180557
 GameObject:
@@ -534,9 +534,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 6157077508928292028}
-  ThisSR: {fileID: 5693222867152427888}
-  TargetRange: 0.65
+  targetObject: {fileID: 6157077508928292028}
+  thisSr: {fileID: 5693222867152427888}
+  targetRange: 0.65
 --- !u!1 &1900311568291236389
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,14 +612,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d193959bd846bc498d6940acd60f441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 2232013880238854159}
-  RepeatAmount: 1
-  StartDelay: 0
-  EndDelay: 0.5
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
+  enemy: {fileID: 2232013880238854159}
+  repeatAmount: 1
+  startDelay: 0
+  endDelay: 0.5
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
 --- !u!1 &2095077109123388878
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,15 +695,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e621be8eda9ca334da6b1868422ce61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 2232013880238854159}
-  RepeatAmount: 1
-  StartDelay: 1
-  EndDelay: 0.2
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  ThisBS:
+  enemy: {fileID: 2232013880238854159}
+  repeatAmount: 1
+  startDelay: 1
+  endDelay: 0.2
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  bulletState:
     ownerData:
       owner: 2
       id: 0
@@ -722,12 +722,12 @@ MonoBehaviour:
     aliveTime: 3
     isStatus: 0
     statusType: 0
-  BaseAngle: 0
-  BulletShadowScale: {x: 0.16, y: 0.16}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.5
-  TrailStartWidth: 0.2
-  TrailGradient:
+  baseAngle: 0
+  bulletShadowScale: {x: 0.16, y: 0.16}
+  bulletColSize: {x: 2, y: 3}
+  trailTime: 0.5
+  trailStartWidth: 0.2
+  trailGradient:
     serializedVersion: 2
     key0: {r: 0.6528621, g: 0, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -757,19 +757,19 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  LightIntensity: 3
-  MaxRange: 7
-  MinRange: 0
-  ShootExplAmount: 4
-  ExplAmount: 4
-  SpawnDepthList:
+  lightIntensity: 3
+  maxRange: 7
+  minRange: 0
+  shootExplAmount: 4
+  explAmount: 4
+  spawnDepthList:
   - {fileID: 5139810350627272259}
   - {fileID: 4056894064819751254}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 5139810350627272259}
   - {fileID: 4056894064819751254}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  bulletAc: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
 --- !u!1 &2166282305174994895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,9 +1168,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531ec6f519b2cd9428f7c40a565c22f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationTargetTF: {fileID: 6893003525790131700}
-  ThisComp: {fileID: 3262901277074598375}
-  ThisDirectionalList:
+  rotTargetTf: {fileID: 6893003525790131700}
+  comp: {fileID: 3262901277074598375}
+  dirList:
   - {fileID: 7400000, guid: 091c7772f6d362146a583f8839d799f2, type: 2}
   - {fileID: 7400000, guid: 70b4fe145f858b6479b9f9dfca4c34e6, type: 2}
   - {fileID: 7400000, guid: 7031eb7a4c9f7484dbbec73e42b30232, type: 2}
@@ -1223,21 +1223,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8de6a45c3f84ce459bbb0eff180a7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 2232013880238854159}
-  RepeatAmount: 1
-  StartDelay: 0
-  EndDelay: 0.6
-  IsSpecialPattern: 1
-  IsSpecialStartPattern: 1
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  FollowingSpeed: 3.5
-  UntilForTargetRange: 1
-  TargetRange: 10
-  IgnoreWall: 0
-  UntilForTargetTime: 1
-  TargetTime: 2
-  CurrentTime: 0
+  enemy: {fileID: 2232013880238854159}
+  repeatAmount: 1
+  startDelay: 0
+  endDelay: 0.6
+  isSpecialPattern: 1
+  isSpecialStartPattern: 1
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  followingSpeed: 3.5
+  untilForTargetRange: 1
+  targetRange: 10
+  ignoreWall: 0
+  untilForTargetTime: 1
+  targetTime: 2
+  currentTime: 0
 --- !u!1 &2916093335737107770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,9 +1613,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 531ec6f519b2cd9428f7c40a565c22f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationTargetTF: {fileID: 6893003525790131700}
-  ThisComp: {fileID: 5626202883159250888}
-  ThisDirectionalList:
+  rotTargetTf: {fileID: 6893003525790131700}
+  comp: {fileID: 5626202883159250888}
+  dirList:
   - {fileID: 7400000, guid: 091c7772f6d362146a583f8839d799f2, type: 2}
   - {fileID: 7400000, guid: 70b4fe145f858b6479b9f9dfca4c34e6, type: 2}
   - {fileID: 7400000, guid: 7031eb7a4c9f7484dbbec73e42b30232, type: 2}
@@ -1668,15 +1668,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbe35e835cba79449c6846867a03aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 2232013880238854159}
-  RepeatAmount: 1
-  StartDelay: 0.3
-  EndDelay: 0.45
-  IsSpecialPattern: 1
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  ThisBS:
+  enemy: {fileID: 2232013880238854159}
+  repeatAmount: 1
+  startDelay: 0.3
+  endDelay: 0.45
+  isSpecialPattern: 1
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  bulletState:
     ownerData:
       owner: 2
       id: 0
@@ -1695,12 +1695,12 @@ MonoBehaviour:
     aliveTime: 6
     isStatus: 0
     statusType: 0
-  BaseAngle: 0
-  BulletShadowScale: {x: 0.32, y: 0.32}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.7
-  TrailStartWidth: 0.4
-  TrailGradient:
+  baseAngle: 0
+  bulletShadowScale: {x: 0.32, y: 0.32}
+  bulletColSize: {x: 2, y: 3}
+  trailTime: 0.7
+  trailStartWidth: 0.4
+  trailGradient:
     serializedVersion: 2
     key0: {r: 0.6528621, g: 0, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -1730,21 +1730,21 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  LightIntensity: 5
-  MaxRange: 9
-  MinRange: 0
-  ShootExplAmount: 8
-  ExplAmount: 8
-  SpawnDepthList:
+  lightIntensity: 5
+  maxRange: 9
+  minRange: 0
+  shootExplAmount: 8
+  explAmount: 8
+  spawnDepthList:
   - {fileID: 2232013880238854159}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 7333621598429965979}
   - {fileID: 7260700174791924852}
   - {fileID: 5139810350627272259}
   - {fileID: 4056894064819751254}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
-  AngleList:
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  bulletAc: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
+  angleList:
   - -30
   - 0
   - 30
@@ -1792,21 +1792,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8de6a45c3f84ce459bbb0eff180a7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 2232013880238854159}
-  RepeatAmount: 1
-  StartDelay: 0
-  EndDelay: 0
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  FollowingSpeed: 3
-  UntilForTargetRange: 1
-  TargetRange: 6
-  IgnoreWall: 0
-  UntilForTargetTime: 0
-  TargetTime: 2
-  CurrentTime: 0
+  enemy: {fileID: 2232013880238854159}
+  repeatAmount: 1
+  startDelay: 0
+  endDelay: 0
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  followingSpeed: 3
+  untilForTargetRange: 1
+  targetRange: 6
+  ignoreWall: 0
+  untilForTargetTime: 0
+  targetTime: 2
+  currentTime: 0
 --- !u!1 &3551458849585466105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,9 +1853,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 7471874057928309859}
-  ThisSR: {fileID: 115665280065519169}
-  TargetRange: 0.75
+  targetObject: {fileID: 7471874057928309859}
+  thisSr: {fileID: 115665280065519169}
+  targetRange: 0.75
 --- !u!1 &3852163297141775668
 GameObject:
   m_ObjectHideFlags: 0
@@ -1902,9 +1902,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 631893965774025182}
-  ThisSR: {fileID: 675874419782287943}
-  TargetRange: 0.61
+  targetObject: {fileID: 631893965774025182}
+  thisSr: {fileID: 675874419782287943}
+  targetRange: 0.61
 --- !u!1 &3964327916055799133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2397,9 +2397,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 3111001099701591701}
-  ThisSR: {fileID: 3425588025455670778}
-  TargetRange: 0.1
+  targetObject: {fileID: 3111001099701591701}
+  thisSr: {fileID: 3425588025455670778}
+  targetRange: 0.1
 --- !u!1 &4962291530876198273
 GameObject:
   m_ObjectHideFlags: 0
@@ -2566,9 +2566,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 2706265280678367424}
-  ThisSR: {fileID: 6441490978534196886}
-  TargetRange: 0.1
+  targetObject: {fileID: 2706265280678367424}
+  thisSr: {fileID: 6441490978534196886}
+  targetRange: 0.1
 --- !u!1 &5440175422140438940
 GameObject:
   m_ObjectHideFlags: 0
@@ -2984,15 +2984,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbe35e835cba79449c6846867a03aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 2232013880238854159}
-  RepeatAmount: 1
-  StartDelay: 0.3
-  EndDelay: 0.45
-  IsSpecialPattern: 1
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  ThisBS:
+  enemy: {fileID: 2232013880238854159}
+  repeatAmount: 1
+  startDelay: 0.3
+  endDelay: 0.45
+  isSpecialPattern: 1
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  bulletState:
     ownerData:
       owner: 2
       id: 0
@@ -3011,12 +3011,12 @@ MonoBehaviour:
     aliveTime: 6
     isStatus: 0
     statusType: 0
-  BaseAngle: 0
-  BulletShadowScale: {x: 0.32, y: 0.32}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.7
-  TrailStartWidth: 0.4
-  TrailGradient:
+  baseAngle: 0
+  bulletShadowScale: {x: 0.32, y: 0.32}
+  bulletColSize: {x: 2, y: 3}
+  trailTime: 0.7
+  trailStartWidth: 0.4
+  trailGradient:
     serializedVersion: 2
     key0: {r: 0.6528621, g: 0, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -3046,21 +3046,21 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  LightIntensity: 5
-  MaxRange: 9
-  MinRange: 0
-  ShootExplAmount: 8
-  ExplAmount: 8
-  SpawnDepthList:
+  lightIntensity: 5
+  maxRange: 9
+  minRange: 0
+  shootExplAmount: 8
+  explAmount: 8
+  spawnDepthList:
   - {fileID: 2232013880238854159}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 7333621598429965979}
   - {fileID: 7260700174791924852}
   - {fileID: 5139810350627272259}
   - {fileID: 4056894064819751254}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
-  AngleList:
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  bulletAc: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
+  angleList:
   - -15
   - 15
 --- !u!1 &6580283555602716678
@@ -3235,15 +3235,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbe35e835cba79449c6846867a03aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 2232013880238854159}
-  RepeatAmount: 1
-  StartDelay: 0.2
-  EndDelay: 0.4
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  ThisBS:
+  enemy: {fileID: 2232013880238854159}
+  repeatAmount: 1
+  startDelay: 0.2
+  endDelay: 0.4
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  bulletState:
     ownerData:
       owner: 2
       id: 0
@@ -3262,12 +3262,12 @@ MonoBehaviour:
     aliveTime: 3
     isStatus: 0
     statusType: 0
-  BaseAngle: 0
-  BulletShadowScale: {x: 0.16, y: 0.16}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.5
-  TrailStartWidth: 0.2
-  TrailGradient:
+  baseAngle: 0
+  bulletShadowScale: {x: 0.16, y: 0.16}
+  bulletColSize: {x: 2, y: 3}
+  trailTime: 0.5
+  trailStartWidth: 0.2
+  trailGradient:
     serializedVersion: 2
     key0: {r: 0.6528621, g: 0, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -3297,19 +3297,19 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  LightIntensity: 3
-  MaxRange: 9
-  MinRange: 0
-  ShootExplAmount: 4
-  ExplAmount: 4
-  SpawnDepthList:
+  lightIntensity: 3
+  maxRange: 9
+  minRange: 0
+  shootExplAmount: 4
+  explAmount: 4
+  spawnDepthList:
   - {fileID: 2232013880238854159}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 7333621598429965979}
   - {fileID: 7260700174791924852}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
-  AngleList:
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  bulletAc: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
+  angleList:
   - -20
   - 20
 --- !u!1 &6784632452583486896
@@ -3525,15 +3525,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbe35e835cba79449c6846867a03aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 2232013880238854159}
-  RepeatAmount: 1
-  StartDelay: 0.3
-  EndDelay: 0.45
-  IsSpecialPattern: 1
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 1
-  IsPlaying: 0
-  ThisBS:
+  enemy: {fileID: 2232013880238854159}
+  repeatAmount: 1
+  startDelay: 0.3
+  endDelay: 0.45
+  isSpecialPattern: 1
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 1
+  isPlaying: 0
+  bulletState:
     ownerData:
       owner: 2
       id: 0
@@ -3552,12 +3552,12 @@ MonoBehaviour:
     aliveTime: 6
     isStatus: 0
     statusType: 0
-  BaseAngle: 0
-  BulletShadowScale: {x: 0.32, y: 0.32}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.7
-  TrailStartWidth: 0.4
-  TrailGradient:
+  baseAngle: 0
+  bulletShadowScale: {x: 0.32, y: 0.32}
+  bulletColSize: {x: 2, y: 3}
+  trailTime: 0.7
+  trailStartWidth: 0.4
+  trailGradient:
     serializedVersion: 2
     key0: {r: 0.6528621, g: 0, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -3587,21 +3587,21 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  LightIntensity: 5
-  MaxRange: 9
-  MinRange: 0
-  ShootExplAmount: 8
-  ExplAmount: 8
-  SpawnDepthList:
+  lightIntensity: 5
+  maxRange: 9
+  minRange: 0
+  shootExplAmount: 8
+  explAmount: 8
+  spawnDepthList:
   - {fileID: 2232013880238854159}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 7333621598429965979}
   - {fileID: 7260700174791924852}
   - {fileID: 5139810350627272259}
   - {fileID: 4056894064819751254}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
-  AngleList:
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  bulletAc: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
+  angleList:
   - -45
   - -15
   - 15
@@ -3787,9 +3787,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671f0fbb9eac8994a9c363e97583d66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationTargetTF: {fileID: 3384076805442555797}
-  ThisComp: {fileID: 115665280065519169}
-  ThisDirectionalList:
+  rotTargetTf: {fileID: 3384076805442555797}
+  comp: {fileID: 115665280065519169}
+  dirList:
   - {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -176571284, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -802095933, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
@@ -3844,9 +3844,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 8225734134743879650}
-  ThisSR: {fileID: 8259710105906440957}
-  TargetRange: 0.75
+  targetObject: {fileID: 8225734134743879650}
+  thisSr: {fileID: 8259710105906440957}
+  targetRange: 0.75
 --- !u!1 &8118620993618137944
 GameObject:
   m_ObjectHideFlags: 0
@@ -3980,9 +3980,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671f0fbb9eac8994a9c363e97583d66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationTargetTF: {fileID: 3384076805442555797}
-  ThisComp: {fileID: 8259710105906440957}
-  ThisDirectionalList:
+  rotTargetTf: {fileID: 3384076805442555797}
+  comp: {fileID: 8259710105906440957}
+  dirList:
   - {fileID: -802095933, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -730727061, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -571167311, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
@@ -4072,9 +4072,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 7227715788245922969}
-  ThisSR: {fileID: 6661151644142585995}
-  TargetRange: 0.65
+  targetObject: {fileID: 7227715788245922969}
+  thisSr: {fileID: 6661151644142585995}
+  targetRange: 0.65
 --- !u!1 &8633408749084936809
 GameObject:
   m_ObjectHideFlags: 0
@@ -4121,9 +4121,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 2166282305174994895}
-  ThisSR: {fileID: 213649135197932119}
-  TargetRange: 0.48
+  targetObject: {fileID: 2166282305174994895}
+  thisSr: {fileID: 213649135197932119}
+  targetRange: 0.48
 --- !u!1 &8831480362502739993
 GameObject:
   m_ObjectHideFlags: 0
@@ -4298,19 +4298,43 @@ PrefabInstance:
     m_TransformParent: {fileID: 5956502316695661957}
     m_Modifications:
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 7671391899007426867}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: ThisRb
       value: 
       objectReference: {fileID: 7671391899007426867}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: pivotObjSr
+      value: 
+      objectReference: {fileID: 7051792676472209556}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: PivotObjectSR
       value: 
       objectReference: {fileID: 7051792676472209556}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: atList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: atList.Array.data[2]
+      value: 
+      objectReference: {fileID: 8829279850995253326}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: atList.Array.data[3]
+      value: 
+      objectReference: {fileID: 7068889025902818945}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: ThisAnimatorList.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteSideList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteSideList.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
@@ -4325,6 +4349,10 @@ PrefabInstance:
       propertyPath: ThisAnimatorList.Array.data[3]
       value: 
       objectReference: {fileID: 7068889025902818945}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteCenterList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteSideList.Array.data[2].Target
       value: 
@@ -4345,6 +4373,14 @@ PrefabInstance:
       propertyPath: SatelliteSideList.Array.data[4].Target
       value: 
       objectReference: {fileID: 528866069265803077}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteSideList.Array.data[2].target
+      value: 
+      objectReference: {fileID: 7796298986881196187}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteSideList.Array.data[3].target
+      value: 
+      objectReference: {fileID: 4750575219940118560}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteCenterList.Array.data[2].Target
       value: 
@@ -4381,6 +4417,22 @@ PrefabInstance:
       propertyPath: SatelliteSideList.Array.data[4].Follower
       value: 
       objectReference: {fileID: 8654414601420931540}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteCenterList.Array.data[2].target
+      value: 
+      objectReference: {fileID: 2865624874965065010}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteCenterList.Array.data[3].target
+      value: 
+      objectReference: {fileID: 2865624874965065010}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteSideList.Array.data[2].follower
+      value: 
+      objectReference: {fileID: 8474550824898788037}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteSideList.Array.data[3].follower
+      value: 
+      objectReference: {fileID: 7119307590006453536}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteCenterList.Array.data[2].Follower
       value: 
@@ -4434,6 +4486,30 @@ PrefabInstance:
       value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteCenterList.Array.data[2].follower
+      value: 
+      objectReference: {fileID: 1867756468638084490}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteCenterList.Array.data[3].follower
+      value: 
+      objectReference: {fileID: 699888135469394930}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteSideList.Array.data[0].upperOrder
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteSideList.Array.data[1].upperOrder
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteSideList.Array.data[2].upperOrder
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteSideList.Array.data[3].upperOrder
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteCenterList.Array.data[0].UpperOrder
       value: -8
       objectReference: {fileID: 0}
@@ -4466,6 +4542,22 @@ PrefabInstance:
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteCenterList.Array.data[0].upperOrder
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteCenterList.Array.data[1].upperOrder
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteCenterList.Array.data[2].upperOrder
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteCenterList.Array.data[3].upperOrder
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteSideList.Array.data[2].FarFromCenter
       value: 1
       objectReference: {fileID: 0}
@@ -4483,6 +4575,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: SatelliteSideList.Array.data[4].FarFromCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteSideList.Array.data[2].farFromCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: satelliteSideList.Array.data[3].farFromCenter
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 753528460956945533, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
@@ -4688,11 +4788,19 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 2232013880238854159}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: EnemyController
       value: 
       objectReference: {fileID: 2232013880238854159}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.size
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -4728,6 +4836,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6954596333380878543}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[2].target
+      value: 
+      objectReference: {fileID: 12234982541170455}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[3].target
+      value: 
+      objectReference: {fileID: 8433222074554116306}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[4].target
+      value: 
+      objectReference: {fileID: 36274917243778565}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[5].target
+      value: 
+      objectReference: {fileID: 6954596333380878543}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[2].Follower
       value: 
       objectReference: {fileID: 7260700174791924852}
@@ -4757,6 +4881,22 @@ PrefabInstance:
       objectReference: {fileID: 7912303456761458112}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: SatelliteSideList.Array.data[5].follower
+      value: 
+      objectReference: {fileID: 7912303456761458112}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[2].follower
+      value: 
+      objectReference: {fileID: 7260700174791924852}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[3].follower
+      value: 
+      objectReference: {fileID: 7333621598429965979}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[4].follower
+      value: 
+      objectReference: {fileID: 6959345923741242658}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[5].follower
       value: 
       objectReference: {fileID: 7912303456761458112}
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
@@ -4823,6 +4963,22 @@ PrefabInstance:
       propertyPath: SatelliteSideList.Array.data[7].FarFromCenter
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[2].farFromCenter
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[3].farFromCenter
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[4].farFromCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: satelliteSideList.Array.data[5].farFromCenter
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1415603111598692130, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.3
@@ -4835,6 +4991,38 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 54874701, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 1936143302811114207, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[0]
+      value: 
+      objectReference: {fileID: -638451003, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 1936143302811114207, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[1]
+      value: 
+      objectReference: {fileID: -2122499041, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 1936143302811114207, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[2]
+      value: 
+      objectReference: {fileID: -1015659218, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 1936143302811114207, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[3]
+      value: 
+      objectReference: {fileID: -1340498655, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 1936143302811114207, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[4]
+      value: 
+      objectReference: {fileID: 1827748910, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 1936143302811114207, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[5]
+      value: 
+      objectReference: {fileID: 54874701, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 1936143302811114207, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[6]
+      value: 
+      objectReference: {fileID: 1531499655, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 1936143302811114207, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[7]
+      value: 
+      objectReference: {fileID: 1806680504, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 1936143302811114207, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: ThisDirectionalList.Array.data[0]
       value: 
@@ -4972,6 +5160,38 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[0]
+      value: 
+      objectReference: {fileID: -176571284, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[1]
+      value: 
+      objectReference: {fileID: -802095933, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[2]
+      value: 
+      objectReference: {fileID: -730727061, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[3]
+      value: 
+      objectReference: {fileID: -571167311, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[4]
+      value: 
+      objectReference: {fileID: 1787400998, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[5]
+      value: 
+      objectReference: {fileID: -287199551, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[6]
+      value: 
+      objectReference: {fileID: 2076636446, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[7]
+      value: 
+      objectReference: {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: ThisDirectionalList.Array.data[0]
       value: 
       objectReference: {fileID: -176571284, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
@@ -5011,8 +5231,16 @@ PrefabInstance:
       propertyPath: TargetRange
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4362640458784314351, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: targetRange
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4869389014298094842, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: TargetRange
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4869389014298094842, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: targetRange
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5992106393991308739, guid: 2624ebe61065a2c4182be26361acf836, type: 3}

@@ -1,9 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AllyController : NavObjectController
 {
@@ -16,90 +16,90 @@ public class AllyController : NavObjectController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] protected AllyState MultipleAllyState;
-    [SerializeField] protected float MaxHP = 150f;
-    [HideInInspector] protected static readonly float MaxEP = 100f;
-    [SerializeField] protected ReactiveProperty<eAllyStateMode> AllyStateMode = new();
+    [FormerlySerializedAs("MultipleAllyState")][SerializeField] protected AllyState multipleAllyState;
+    [FormerlySerializedAs("MaxHP")][SerializeField] protected float maxHP = 150f;
+    [HideInInspector] protected static readonly float maxEP = 100f;
+    [FormerlySerializedAs("AllyStateMode")][SerializeField] protected ReactiveProperty<eAllyStateMode> allyStateMode = new();
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] public AllyBuffController BuffController;
+    [FormerlySerializedAs("BuffController")][SerializeField] public AllyBuffController buffController;
 
     [Space(10)]
     [Header("=== UI")]
-    [SerializeField] private Sprite FrontFaceSprite;
+    [FormerlySerializedAs("FrontFaceSprite")][SerializeField] private Sprite frontFaceSprite;
 
     [Space(10)]
     [Header("=== Visible")]
-    [SerializeField] protected Color ThisColor;
-    [SerializeField] protected Color ThisExtraColor;
-    [SerializeField] protected Gradient ThisExtraGradient;
+    [FormerlySerializedAs("ThisColor")][SerializeField] protected Color clr;
+    [FormerlySerializedAs("ThisExtraColor")][SerializeField] protected Color extraClr;
+    [FormerlySerializedAs("ThisExtraGradient")][SerializeField] protected Gradient extraGradient;
 
     [Space(10)]
     [Header("=== HUD")]
-    [SerializeField] public AllyHUDController HUD;
+    [FormerlySerializedAs("HUD")][SerializeField] public AllyHUDController hud;
 
     #endregion
 
     #region - Hide
 
     // State
-    [HideInInspector] protected AllyState ActualAllyState = new AllyState();
-    [HideInInspector] public AllyState Get_ActaulAllyState() => ActualAllyState;
+    [HideInInspector] protected AllyState actualAllyState = new AllyState();
+    [HideInInspector] public AllyState Get_ActaulAllyState() => actualAllyState;
 
     // Player
-    [HideInInspector] protected PlayerController Player;
+    [HideInInspector] protected PlayerController player;
 
     // Enemy
-    [HideInInspector] protected EnemyController Enemy;
+    [HideInInspector] protected EnemyController enemy;
 
     // Main Cor
-    [HideInInspector] private IEnumerator ThisMainCor = null;
+    [HideInInspector] private IEnumerator thisMainCor = null;
 
 
     // Name
-    [HideInInspector] protected int NameID = -1;
-    [HideInInspector] protected string[] Name = null;
+    [HideInInspector] protected int nameId = -1;
+    [HideInInspector] protected string[] _name = null;
 
 
     // Sync
-    private List<IWhenAlly_Start> IWhenAlly_StartList = new List<IWhenAlly_Start>();
+    private List<IWhenAlly_Start> iWhenAlly_StartList = new List<IWhenAlly_Start>();
 
-    private List<IWhenAlly_Fire> IWhenAlly_FireList = new List<IWhenAlly_Fire>();
-    private List<IWhenAlly_AfterFire> IWhenAlly_AfterFireList = new List<IWhenAlly_AfterFire>();
+    private List<IWhenAlly_Fire> iWhenAlly_FireList = new List<IWhenAlly_Fire>();
+    private List<IWhenAlly_AfterFire> iWhenAlly_AfterFireList = new List<IWhenAlly_AfterFire>();
 
-    private List<IWhenAlly_Hit> IWhenAlly_HitList = new List<IWhenAlly_Hit>();
-    private List<IWhenAlly_CriticalHit> IWhenAlly_CriticalHitList = new List<IWhenAlly_CriticalHit>();
+    private List<IWhenAlly_Hit> iWhenAlly_HitList = new List<IWhenAlly_Hit>();
+    private List<IWhenAlly_CriticalHit> iWhenAlly_CriticalHitList = new List<IWhenAlly_CriticalHit>();
 
-    private List<IWhenAlly_GetFire> IWhenAlly_GetFireList = new List<IWhenAlly_GetFire>();
-    private List<IWhenAlly_GetCold> IWhenAlly_GetColdList = new List<IWhenAlly_GetCold>();
-    private List<IWhenAlly_GetElectricity> IWhenAlly_GetElectricityList = new List<IWhenAlly_GetElectricity>();
-    private List<IWhenAlly_GetCorrosion> IWhenAlly_GetCorrosionList = new List<IWhenAlly_GetCorrosion>();
+    private List<IWhenAlly_GetFire> iWhenAlly_GetFireList = new List<IWhenAlly_GetFire>();
+    private List<IWhenAlly_GetCold> iWhenAlly_GetColdList = new List<IWhenAlly_GetCold>();
+    private List<IWhenAlly_GetElectricity> iWhenAlly_GetElectricityList = new List<IWhenAlly_GetElectricity>();
+    private List<IWhenAlly_GetCorrosion> iWhenAlly_GetCorrosionList = new List<IWhenAlly_GetCorrosion>();
 
 
     // ID, Amount
     // => 현재 가지고 있는 모든 Sync
-    [HideInInspector] private Dictionary<int, int> SyncData;
+    [HideInInspector] private Dictionary<int, int> syncData;
     // ID, PlayerAmount 
     // => 현재 가지고 있는 Sync 중 플레이어가 Sync가 되어 있는                                         
-    [HideInInspector] private Dictionary<int, int> ConnectSyncData;
+    [HideInInspector] private Dictionary<int, int> connectSyncData;
     // ID, PlayerAmount =>
     // => 현재 가지고 있는 Sync 중 플레어가 가지고 있으며, 완성된 Ally Sync          
-    [HideInInspector] private Dictionary<int, int> CompletelySyncData;
+    [HideInInspector] private Dictionary<int, int> completelySyncData;
 
-    [HideInInspector] public static readonly int SyncMax = 3;
-    [HideInInspector] public static readonly int NoneSyncNeedOneBuy = 3;
-    [HideInInspector] private int HadNoneSyncAmount = 0;
+    [HideInInspector] public static readonly int syncMax = 3;
+    [HideInInspector] public static readonly int noneSyncNeedOneBuy = 3;
+    [HideInInspector] private int hadNoneSyncAmount = 0;
 
     // Tuner
-    [HideInInspector] public static readonly float MinLimitUpgradeValue = 0.01f;
-    [SerializeField] private AllyState UpgradeAllyState = new AllyState();
-    [HideInInspector] private List<AllyBaseTunerData> ThisTunerData;
+    [HideInInspector] public static readonly float minLimitUpgradeValue = 0.01f;
+    [FormerlySerializedAs("UpgradeAllyState")][SerializeField] private AllyState upgradeAllyState = new AllyState();
+    [HideInInspector] private List<AllyBaseTunerData> thisTunerData;
 
-    [HideInInspector] private Dictionary<string, RefData<float>> UpgradeStateDict;
+    [HideInInspector] private Dictionary<string, RefData<float>> upgradeStateDict;
 
     // Ally Request
-    [HideInInspector] private AllyRequest Request = null;
+    [HideInInspector] private AllyRequest request = null;
 
     #endregion
 
@@ -120,108 +120,108 @@ public class AllyController : NavObjectController
 
     private void Offset_Base()
     {
-        CurrentHP.Value = MaxHP;
-        CurrentEP.Value = 0;
+        currentHP.Value = maxHP;
+        currentEP.Value = 0;
 
-        Player = PlayerManager.instance.playerController;
+        player = PlayerManager.instance.playerController;
 
         DevTool.Add_InList(AllyManager.instance.allAlly, this);
         id = AllyManager.instance.allAlly.IndexOf(this);
 
-        Set_AllyStateMode(AllyStateMode.Value);
+        Set_AllyStateMode(allyStateMode.Value);
 
-        BuffController.Offset(this);
+        buffController.Offset(this);
     }
 
     private void Offset_SyncUpgrade()
     {
-        IWhenAlly_StartList = new List<IWhenAlly_Start>();
+        iWhenAlly_StartList = new List<IWhenAlly_Start>();
 
-        IWhenAlly_FireList = new List<IWhenAlly_Fire>();
-        IWhenAlly_AfterFireList = new List<IWhenAlly_AfterFire>();
+        iWhenAlly_FireList = new List<IWhenAlly_Fire>();
+        iWhenAlly_AfterFireList = new List<IWhenAlly_AfterFire>();
 
-        IWhenAlly_HitList = new List<IWhenAlly_Hit>();
-        IWhenAlly_CriticalHitList = new List<IWhenAlly_CriticalHit>();
+        iWhenAlly_HitList = new List<IWhenAlly_Hit>();
+        iWhenAlly_CriticalHitList = new List<IWhenAlly_CriticalHit>();
 
-        IWhenAlly_GetFireList = new List<IWhenAlly_GetFire>();
-        IWhenAlly_GetColdList = new List<IWhenAlly_GetCold>();
-        IWhenAlly_GetElectricityList = new List<IWhenAlly_GetElectricity>();
-        IWhenAlly_GetCorrosionList = new List<IWhenAlly_GetCorrosion>();
+        iWhenAlly_GetFireList = new List<IWhenAlly_GetFire>();
+        iWhenAlly_GetColdList = new List<IWhenAlly_GetCold>();
+        iWhenAlly_GetElectricityList = new List<IWhenAlly_GetElectricity>();
+        iWhenAlly_GetCorrosionList = new List<IWhenAlly_GetCorrosion>();
 
-        SyncData = new Dictionary<int, int>();
-        ConnectSyncData = new Dictionary<int, int>();
-        CompletelySyncData = new Dictionary<int, int>();
+        syncData = new Dictionary<int, int>();
+        connectSyncData = new Dictionary<int, int>();
+        completelySyncData = new Dictionary<int, int>();
     }
 
     private void Offset_TunerUpgrade()
     {
-        ThisTunerData = new List<AllyBaseTunerData>();
+        thisTunerData = new List<AllyBaseTunerData>();
 
-        UpgradeStateDict = new Dictionary<string, RefData<float>>
+        upgradeStateDict = new Dictionary<string, RefData<float>>
         {
-            { AllyManager.stateTypeList[0], UpgradeAllyState.dmg },
-            { AllyManager.stateTypeList[1], UpgradeAllyState.rof },
-            { AllyManager.stateTypeList[2], UpgradeAllyState.movementSpeed },
-            { AllyManager.stateTypeList[3], UpgradeAllyState.attackSize },
-            { AllyManager.stateTypeList[4], UpgradeAllyState.criticalChacne },
-            { AllyManager.stateTypeList[5], UpgradeAllyState.criticalDmg },
-            { AllyManager.stateTypeList[6], UpgradeAllyState.muzzleSpeed },
-            { AllyManager.stateTypeList[7], UpgradeAllyState.kbPower },
-            { AllyManager.stateTypeList[8], UpgradeAllyState.dur }
+            { AllyManager.stateTypeList[0], upgradeAllyState.dmg },
+            { AllyManager.stateTypeList[1], upgradeAllyState.rof },
+            { AllyManager.stateTypeList[2], upgradeAllyState.movementSpeed },
+            { AllyManager.stateTypeList[3], upgradeAllyState.attackSize },
+            { AllyManager.stateTypeList[4], upgradeAllyState.criticalChacne },
+            { AllyManager.stateTypeList[5], upgradeAllyState.criticalDmg },
+            { AllyManager.stateTypeList[6], upgradeAllyState.muzzleSpeed },
+            { AllyManager.stateTypeList[7], upgradeAllyState.kbPower },
+            { AllyManager.stateTypeList[8], upgradeAllyState.dur }
         };
     }
 
     private void Offset_Name()
     {
-        NameID = AllyManager.instance.Get_AllyNameID();
-        Name = AllyManager.instance.Get_AllyName(NameID);
+        nameId = AllyManager.instance.Get_AllyNameID();
+        _name = AllyManager.instance.Get_AllyName(nameId);
 
         Set_Name();
     }
 
     private void Offset_Subscribe()
     {
-        HUD.Offset();
+        hud.Offset();
 
-        HUD.StateUI.SP_ProgressBar.Set_FillImgSmooth(CurrentSP.Value, MaxHP);
-        HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
-        HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
+        hud.StateUI.SP_ProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
+        hud.StateUI.HP_ProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
+        hud.StateUI.EP_ProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
 
-        CurrentSP
+        currentSP
             .Subscribe(_CurrentSP =>
             {
-                HUD.StateUI.SP_ProgressBar.Set_FillImgSmooth(CurrentSP.Value, MaxHP);
+                hud.StateUI.SP_ProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
 
-                if (CurrentSP.Value <= 0)
+                if (currentSP.Value <= 0)
                 {
-                    CurrentSP.Value = 0;
-                    HUD.StateUI.SP_ProgressBar.Set_NoNum();
-                    HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
-                    HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
+                    currentSP.Value = 0;
+                    hud.StateUI.SP_ProgressBar.Set_NoNum();
+                    hud.StateUI.HP_ProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
+                    hud.StateUI.EP_ProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
                 }
                 else
                 {
-                    HUD.StateUI.HP_ProgressBar.Set_NoNum();
-                    HUD.StateUI.EP_ProgressBar.Set_NoNum();
+                    hud.StateUI.HP_ProgressBar.Set_NoNum();
+                    hud.StateUI.EP_ProgressBar.Set_NoNum();
                 }
             });
 
-        CurrentHP
+        currentHP
             .Subscribe(_CurrentHP =>
             {
-                HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
+                hud.StateUI.HP_ProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
 
-                if (CurrentSP.Value > 0)
-                { HUD.StateUI.HP_ProgressBar.Set_NoNum(); }
+                if (currentSP.Value > 0)
+                { hud.StateUI.HP_ProgressBar.Set_NoNum(); }
             });
 
-        CurrentEP
+        currentEP
             .Subscribe(_CurrentEP =>
             {
-                HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
+                hud.StateUI.EP_ProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
 
-                if (CurrentSP.Value > 0)
-                { HUD.StateUI.EP_ProgressBar.Set_NoNum(); }
+                if (currentSP.Value > 0)
+                { hud.StateUI.EP_ProgressBar.Set_NoNum(); }
             });
     }
 
@@ -252,20 +252,20 @@ public class AllyController : NavObjectController
 
     #region Enemy
 
-    public void Set_TargetEnemy(EnemyController _Enemy)
+    public void Set_TargetEnemy(EnemyController enemy)
     {
-        Enemy = _Enemy;
+        this.enemy = enemy;
     }
 
     #endregion
 
     #region State (Enum)
 
-    protected virtual void Set_AllyStateMode(eAllyStateMode _Mode)
+    protected virtual void Set_AllyStateMode(eAllyStateMode mode)
     {
-        if (AllyStateMode.Value != _Mode)
+        if (allyStateMode.Value != mode)
         {
-            AllyStateMode.Value = _Mode;
+            allyStateMode.Value = mode;
         }
     }
 
@@ -275,7 +275,7 @@ public class AllyController : NavObjectController
 
     public Sprite Get_FrontFaceImg()
     {
-        return FrontFaceSprite;
+        return frontFaceSprite;
     }
 
     #endregion
@@ -286,20 +286,20 @@ public class AllyController : NavObjectController
     {
         if (!gameObject.activeSelf) return;
 
-        ThisMainCor = Play_Main_Cor();
-        StartCoroutine(ThisMainCor);
+        thisMainCor = Play_Main_Cor();
+        StartCoroutine(thisMainCor);
     }
 
     public void Stop_MainCor()
     {
-        if (ThisMainCor == null)
+        if (thisMainCor == null)
             return;
 
-        StopCoroutine(ThisMainCor);
-        ThisMainCor = null;
+        StopCoroutine(thisMainCor);
+        thisMainCor = null;
 
-        if (MoveAtDir != Vector2.zero)
-            MoveAtDir = Vector2.zero;
+        if (moveAtDir != Vector2.zero)
+            moveAtDir = Vector2.zero;
     }
 
     protected virtual IEnumerator Play_Main_Cor()
@@ -313,12 +313,12 @@ public class AllyController : NavObjectController
 
     public string Get_Name()
     {
-        return Name[GameManager.languageID];
+        return _name[GameManager.languageID];
     }
 
     protected virtual void Set_Name()
     {
-        HUD.Set_Name(Name[GameManager.languageID]);
+        hud.Set_Name(_name[GameManager.languageID]);
     }
 
 
@@ -337,23 +337,23 @@ public class AllyController : NavObjectController
 
     public virtual void Set_AllState() // 카드와 업그레이드 모두 적용
     {
-        ActualAllyState = Get_AllBuffedState();
-        ActualAllyState.Set_ValueLimitRange(MinLimitUpgradeValue);
+        actualAllyState = Get_AllBuffedState();
+        actualAllyState.Set_ValueLimitRange(minLimitUpgradeValue);
     }
 
     private AllyState Get_AllBuffedState()
     {
-        return AllyState.Get_Multiple(Get_AllBasicState(), BuffController.Get_BuffedState());
+        return AllyState.Get_Multiple(Get_AllBasicState(), buffController.Get_BuffedState());
     }
 
     public AllyState Get_AllBasicState() // 카드와 업그레이드 모두 적용된 스탯
     {
-        return AllyState.Get_Multiple(Get_CardState(), UpgradeAllyState);
+        return AllyState.Get_Multiple(Get_CardState(), upgradeAllyState);
     }
 
     public AllyState Get_CardState() // 카드만 적용된 스탯
     {
-        return AllyState.Get_Multiple(MultipleAllyState, AllyManager.instance.getAllyState);
+        return AllyState.Get_Multiple(multipleAllyState, AllyManager.instance.getAllyState);
     }
 
     public AllyState Get_UpgradeAllState() // 업그레이드만 카드 적용된 스탯
@@ -367,14 +367,14 @@ public class AllyController : NavObjectController
 
     public List<AllyBaseTunerData> Get_ThisTunerData()
     {
-        return ThisTunerData;
+        return thisTunerData;
     }
 
-    public void Add_Tuner(AllyTunerData _Data)
+    public void Add_Tuner(AllyTunerData data)
     {
-        AllyBaseTunerData addData = new AllyBaseTunerData(_Data);
+        AllyBaseTunerData addData = new AllyBaseTunerData(data);
 
-        ThisTunerData.Add(addData);
+        thisTunerData.Add(addData);
 
         Set_TunerUpgradeState();
         Set_AllState();
@@ -382,19 +382,19 @@ public class AllyController : NavObjectController
 
     private void Set_TunerUpgradeState()
     {
-        UpgradeAllyState.Reset();
+        upgradeAllyState.Reset();
 
-        for (int i = 0; i < ThisTunerData.Count; i++)
+        for (int i = 0; i < thisTunerData.Count; i++)
         {
-            Add_UpgradeState(ThisTunerData[i].positive0.type, ThisTunerData[i].positive0.rank);
-            Add_UpgradeState(ThisTunerData[i].positive1.type, ThisTunerData[i].positive1.rank);
-            Add_UpgradeState(ThisTunerData[i].negative.type, -ThisTunerData[i].negative.rank);
+            Add_UpgradeState(thisTunerData[i].positive0.type, thisTunerData[i].positive0.rank);
+            Add_UpgradeState(thisTunerData[i].positive1.type, thisTunerData[i].positive1.rank);
+            Add_UpgradeState(thisTunerData[i].negative.type, -thisTunerData[i].negative.rank);
         }
     }
 
-    private void Add_UpgradeState(string _Type, int _Rank)
+    private void Add_UpgradeState(string type, int rank)
     {
-        UpgradeStateDict[_Type].value += AllyManager.Get_AllyTunerStateMultiple(_Type) * _Rank;
+        upgradeStateDict[type].value += AllyManager.Get_AllyTunerStateMultiple(type) * rank;
     }
 
     #endregion
@@ -403,29 +403,29 @@ public class AllyController : NavObjectController
 
     public Dictionary<int, int> Get_ThisSyncData()
     {
-        return SyncData;
+        return syncData;
     }
 
-    public void Add_Sync(List<int> _SyncList)
+    public void Add_Sync(List<int> syncList)
     {
-        for (int i = 0; i < _SyncList.Count; i++)
+        for (int i = 0; i < syncList.Count; i++)
         {
-            if (SyncData.ContainsKey(_SyncList[i]))
+            if (syncData.ContainsKey(syncList[i]))
             {
-                int currentAmount = SyncData[_SyncList[i]];
+                int currentAmount = syncData[syncList[i]];
 
-                if (currentAmount < SyncMax) // 추가
+                if (currentAmount < syncMax) // 추가
                 {
-                    SyncData[_SyncList[i]] = currentAmount + 1;
+                    syncData[syncList[i]] = currentAmount + 1;
                 }
                 else // 초과라면
                 {
-                    HadNoneSyncAmount++;
+                    hadNoneSyncAmount++;
                 }
             }
             else
             {
-                SyncData.Add(_SyncList[i], 1);
+                syncData.Add(syncList[i], 1);
             }
         }
 
@@ -435,14 +435,14 @@ public class AllyController : NavObjectController
     private Dictionary<int, int> Get_ConnectingSync()
     {
         Dictionary<int, int> playerSyncDataDict = ModuleItemManager.instance.Get_CurrentSyncData();
-        List<int> allyIds = SyncData.Keys.ToList();
+        List<int> allyIds = syncData.Keys.ToList();
 
         Dictionary<int, int> resultSyncDataDict = new Dictionary<int, int>();
         foreach (KeyValuePair<int, int> playerSyncData in playerSyncDataDict)
         {
             if (allyIds.Contains(playerSyncData.Key))
             {
-                resultSyncDataDict.Add(playerSyncData.Key, SyncData[playerSyncData.Key]);
+                resultSyncDataDict.Add(playerSyncData.Key, syncData[playerSyncData.Key]);
             }
         }
 
@@ -452,9 +452,9 @@ public class AllyController : NavObjectController
     private Dictionary<int, int> Get_CompletelySync()
     {
         Dictionary<int, int> resultSyncDataDict = new Dictionary<int, int>();
-        foreach (KeyValuePair<int, int> connectSync in ConnectSyncData)
+        foreach (KeyValuePair<int, int> connectSync in connectSyncData)
         {
-            if (SyncData[connectSync.Key] >= SyncMax)
+            if (syncData[connectSync.Key] >= syncMax)
             {
                 resultSyncDataDict.Add(connectSync.Key, ModuleItemManager.instance.Get_CurrentSyncData()[connectSync.Key]);
             }
@@ -464,20 +464,20 @@ public class AllyController : NavObjectController
 
     public void Set_ActingSync()
     {
-        ConnectSyncData = Get_ConnectingSync();
-        CompletelySyncData = Get_CompletelySync();
+        connectSyncData = Get_ConnectingSync();
+        completelySyncData = Get_CompletelySync();
 
         Set_Interface();
     }
 
     public List<int> Get_ConnectingSyncToKeyList()
     {
-        return ConnectSyncData.Keys.ToList();
+        return connectSyncData.Keys.ToList();
     }
 
     public List<int> Get_CompletelySyncToKeyList()
     {
-        return CompletelySyncData.Keys.ToList();
+        return completelySyncData.Keys.ToList();
     }
 
 
@@ -487,9 +487,9 @@ public class AllyController : NavObjectController
     public Dictionary<int, int> Get_NoFullSyncData()
     {
         Dictionary<int, int> result = new Dictionary<int, int>();
-        foreach (KeyValuePair<int, int> pair in SyncData)
+        foreach (KeyValuePair<int, int> pair in syncData)
         {
-            if (pair.Value < SyncMax)
+            if (pair.Value < syncMax)
             {
                 result.Add(pair.Key, pair.Value);
             }
@@ -499,12 +499,12 @@ public class AllyController : NavObjectController
 
     public int Get_HadNoneSyncAmount()
     {
-        return HadNoneSyncAmount;
+        return hadNoneSyncAmount;
     }
 
-    public void Use_HadNoneSyncAmount(int _Amount)
+    public void Use_HadNoneSyncAmount(int amount)
     {
-        HadNoneSyncAmount -= _Amount;
+        hadNoneSyncAmount -= amount;
     }
 
     #endregion
@@ -515,60 +515,60 @@ public class AllyController : NavObjectController
 
     public void ActiveAlly_Start()
     {
-        ActiveAlly(IWhenAlly_StartList);
+        ActiveAlly(iWhenAlly_StartList);
     }
 
 
-    public void ActiveAlly_Fire(BulletController _Bullet, DroppingBombController _DroppingBullet)
+    public void ActiveAlly_Fire(BulletController bullet, DroppingBombController droppingBullet)
     {
-        ActiveAlly(IWhenAlly_FireList, null, _Bullet, _DroppingBullet);
+        ActiveAlly(iWhenAlly_FireList, null, bullet, droppingBullet);
     }
 
     public void ActiveAlly_AfterFire()
     {
-        ActiveAlly(IWhenAlly_AfterFireList);
+        ActiveAlly(iWhenAlly_AfterFireList);
     }
 
 
     public void ActiveAlly_Hit()
     {
-        ActiveAlly(IWhenAlly_HitList);
+        ActiveAlly(iWhenAlly_HitList);
     }
 
     public void ActiveAlly_CriticalHit()
     {
-        ActiveAlly(IWhenAlly_CriticalHitList);
+        ActiveAlly(iWhenAlly_CriticalHitList);
     }
 
 
-    public void ActiveAlly_EnemyTakingFire(EnemyController _Enemy)
+    public void ActiveAlly_EnemyTakingFire(EnemyController enemy)
     {
-        ActiveAlly(IWhenAlly_GetFireList, _Enemy);
+        ActiveAlly(iWhenAlly_GetFireList, enemy);
     }
 
-    public void ActiveAlly_EnemyTakingCold(EnemyController _Enemy)
+    public void ActiveAlly_EnemyTakingCold(EnemyController enemy)
     {
-        ActiveAlly(IWhenAlly_GetColdList, _Enemy);
+        ActiveAlly(iWhenAlly_GetColdList, enemy);
     }
 
-    public void ActiveAlly_EnemyTakingElectricity(EnemyController _Enemy)
+    public void ActiveAlly_EnemyTakingElectricity(EnemyController enemy)
     {
-        ActiveAlly(IWhenAlly_GetElectricityList, _Enemy);
+        ActiveAlly(iWhenAlly_GetElectricityList, enemy);
     }
 
-    public void ActiveAlly_EnemyTakingCorrosion(EnemyController _Enemy)
+    public void ActiveAlly_EnemyTakingCorrosion(EnemyController enemy)
     {
-        ActiveAlly(IWhenAlly_GetCorrosionList, _Enemy);
+        ActiveAlly(iWhenAlly_GetCorrosionList, enemy);
     }
 
 
     // Base
-    private void ActiveAlly<T>(List<T> _IWhenList, EnemyController _Enemy = null, BulletController _Bullet = null, DroppingBombController _DroppingBullet = null) where T : IWhenAlly
+    private void ActiveAlly<T>(List<T> iWhenList, EnemyController enemy = null, BulletController bullet = null, DroppingBombController droppingBullet = null) where T : IWhenAlly
     {
-        if (_IWhenList.Count <= 0) return;
+        if (iWhenList.Count <= 0) return;
 
-        for (int i = 0; i < _IWhenList.Count; i++)
-            _IWhenList[i].Play_When(_Enemy, _Bullet);
+        for (int i = 0; i < iWhenList.Count; i++)
+            iWhenList[i].Play_When(enemy, bullet);
     }
 
 
@@ -578,27 +578,27 @@ public class AllyController : NavObjectController
 
     private void Reset_Interface()
     {
-        IWhenAlly_StartList.Clear();
+        iWhenAlly_StartList.Clear();
 
-        IWhenAlly_FireList.Clear();
-        IWhenAlly_AfterFireList.Clear();
+        iWhenAlly_FireList.Clear();
+        iWhenAlly_AfterFireList.Clear();
 
-        IWhenAlly_HitList.Clear();
-        IWhenAlly_CriticalHitList.Clear();
+        iWhenAlly_HitList.Clear();
+        iWhenAlly_CriticalHitList.Clear();
 
-        IWhenAlly_GetFireList.Clear();
-        IWhenAlly_GetColdList.Clear();
-        IWhenAlly_GetElectricityList.Clear();
-        IWhenAlly_GetCorrosionList.Clear();
+        iWhenAlly_GetFireList.Clear();
+        iWhenAlly_GetColdList.Clear();
+        iWhenAlly_GetElectricityList.Clear();
+        iWhenAlly_GetCorrosionList.Clear();
 
-        BuffController.Reset_SyncState();
+        buffController.Reset_SyncState();
     }
 
     private void Set_Interface()
     {
         Reset_Interface();
 
-        foreach (KeyValuePair<int, int> syncData in CompletelySyncData) // ID, Amount
+        foreach (KeyValuePair<int, int> syncData in completelySyncData) // ID, Amount
         {
             AllySyncState state = AllySyncState.Get_AllSyncState()[syncData.Key];
             state.Set_State(this, syncData.Key, syncData.Value);
@@ -608,43 +608,43 @@ public class AllyController : NavObjectController
         ActiveAlly_Start();
     }
 
-    private void Try_AddIWhenAlly(AllySyncState _State)
+    private void Try_AddIWhenAlly(AllySyncState state)
     {
-        if (_State is IWhenAlly_Start iStart) DevTool.Add_InList(IWhenAlly_StartList, iStart);
+        if (state is IWhenAlly_Start iStart) DevTool.Add_InList(iWhenAlly_StartList, iStart);
 
-        else if (_State is IWhenAlly_Fire iFire) DevTool.Add_InList(IWhenAlly_FireList, iFire);
-        else if (_State is IWhenAlly_AfterFire iAfterFire) DevTool.Add_InList(IWhenAlly_AfterFireList, iAfterFire);
+        else if (state is IWhenAlly_Fire iFire) DevTool.Add_InList(iWhenAlly_FireList, iFire);
+        else if (state is IWhenAlly_AfterFire iAfterFire) DevTool.Add_InList(iWhenAlly_AfterFireList, iAfterFire);
 
-        else if (_State is IWhenAlly_Hit iHit) DevTool.Add_InList(IWhenAlly_HitList, iHit);
-        else if (_State is IWhenAlly_CriticalHit iCriticalHit) DevTool.Add_InList(IWhenAlly_CriticalHitList, iCriticalHit);
+        else if (state is IWhenAlly_Hit iHit) DevTool.Add_InList(iWhenAlly_HitList, iHit);
+        else if (state is IWhenAlly_CriticalHit iCriticalHit) DevTool.Add_InList(iWhenAlly_CriticalHitList, iCriticalHit);
 
-        else if (_State is IWhenAlly_GetFire iGetFire) DevTool.Add_InList(IWhenAlly_GetFireList, iGetFire);
-        else if (_State is IWhenAlly_GetCold iGetCold) DevTool.Add_InList(IWhenAlly_GetColdList, iGetCold);
-        else if (_State is IWhenAlly_GetElectricity iGetElectricity) DevTool.Add_InList(IWhenAlly_GetElectricityList, iGetElectricity);
-        else if (_State is IWhenAlly_GetCorrosion iGetCorrosion) DevTool.Add_InList(IWhenAlly_GetCorrosionList, iGetCorrosion);
+        else if (state is IWhenAlly_GetFire iGetFire) DevTool.Add_InList(iWhenAlly_GetFireList, iGetFire);
+        else if (state is IWhenAlly_GetCold iGetCold) DevTool.Add_InList(iWhenAlly_GetColdList, iGetCold);
+        else if (state is IWhenAlly_GetElectricity iGetElectricity) DevTool.Add_InList(iWhenAlly_GetElectricityList, iGetElectricity);
+        else if (state is IWhenAlly_GetCorrosion iGetCorrosion) DevTool.Add_InList(iWhenAlly_GetCorrosionList, iGetCorrosion);
     }
 
     #endregion
 
     #region HP
 
-    public void TakeDamage(float _DmgValue)
+    public void TakeDamage(float dmgValue)
     {
-        Add_CurrentHP(-_DmgValue, MaxHP);
+        Add_CurrentHP(-dmgValue, maxHP);
     }
 
     #endregion
 
     #region Trust (EP)
 
-    public void Gain_Trust(float _Value)
+    public void Gain_Trust(float value)
     {
-        Add_CurrentEP(_Value, MaxEP);
+        Add_CurrentEP(value, maxEP);
     }
 
-    public void Reduce_Trust(float _Value)
+    public void Reduce_Trust(float value)
     {
-        Add_CurrentEP(-_Value, MaxEP);
+        Add_CurrentEP(-value, maxEP);
     }
 
 
@@ -654,15 +654,15 @@ public class AllyController : NavObjectController
 
     public void StartNew_Request()
     {
-        Request = AllyRequest.Get_AllyRequestType(this);
+        request = AllyRequest.Get_AllyRequestType(this);
 
-        HUD.RequestUI.Set_RequestTxt_Language(Request);
+        hud.RequestUI.Set_RequestTxt_Language(request);
     }
 
 
     public void DataOff_Request()
     {
-        Request = null;
+        request = null;
         StartNew_Request();
     }
 
@@ -673,7 +673,7 @@ public class AllyController : NavObjectController
     public virtual void Set_Language()
     {
         Set_Name();
-        HUD.RequestUI.Set_RequestTxt_Language(Request);
+        hud.RequestUI.Set_RequestTxt_Language(request);
     }
 
     #endregion

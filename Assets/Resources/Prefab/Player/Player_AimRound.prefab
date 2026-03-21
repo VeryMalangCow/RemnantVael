@@ -78,9 +78,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 4287118488877164506}
-  ThisSR: {fileID: 0}
-  TargetRange: 0.6
+  targetObject: {fileID: 4287118488877164506}
+  thisSr: {fileID: 0}
+  targetRange: 0.6
   aimFollowSpeed: 30
   lineList:
   - {fileID: 1059504953281339291}

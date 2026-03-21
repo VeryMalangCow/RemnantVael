@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RigidbodySolarController : SolarSystemController
 {
@@ -8,7 +9,7 @@ public class RigidbodySolarController : SolarSystemController
     [Header("<><><><><> Rigidbody")]
 
     [Header("=== Component")]
-    [SerializeField] public Rigidbody2D ThisRb;
+    [FormerlySerializedAs("ThisRb")][SerializeField] public Rigidbody2D rb;
 
     #endregion
 
@@ -16,7 +17,7 @@ public class RigidbodySolarController : SolarSystemController
 
     protected override void LateUpdate()
     {
-        Set_RotSmooth(ThisRb.velocity, Time.deltaTime);
+        Set_RotSmooth(rb.velocity, Time.deltaTime);
 
         base.LateUpdate();
     }

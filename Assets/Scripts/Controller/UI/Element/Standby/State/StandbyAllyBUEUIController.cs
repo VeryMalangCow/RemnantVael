@@ -102,7 +102,7 @@ public class StandbyAllyBUEUIController : ElementUIController
             }
             else
             {
-                if (value.Value >= AllyController.SyncMax)
+                if (value.Value >= AllyController.syncMax)
                     extraApplyAmount++;
 
                 if (connectIdList.Contains(value.Key))

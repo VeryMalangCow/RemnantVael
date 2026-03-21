@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EntranceRuleController : RoomRuleController
 {
@@ -9,7 +10,7 @@ public class EntranceRuleController : RoomRuleController
 
     [Space(10)]
     [Header("=== Elevator")]
-    [SerializeField] private EndingElevatorController InRoom_Elevator;
+    [FormerlySerializedAs("InRoom_Elevator")][SerializeField] private EndingElevatorController inRoom_Elevator;
 
     #endregion
 
@@ -19,7 +20,7 @@ public class EntranceRuleController : RoomRuleController
     {
         base.Offset();
 
-        NeedKeyCardID = 0;
+        needKeyCardId = 0;
     }
 
     #endregion
@@ -39,26 +40,26 @@ public class EntranceRuleController : RoomRuleController
 
     private void SetOn_Elevator()
     {
-        if (InRoom_Elevator != null &&
-            !InRoom_Elevator.IsOn)
+        if (inRoom_Elevator != null &&
+            !inRoom_Elevator.IsOn)
         {
-            InRoom_Elevator.IsOn = true;
+            inRoom_Elevator.IsOn = true;
         }
     }
 
-    public void Set_ElevatorData(int _NextStageIndex)
+    public void Set_ElevatorData(int nextStageIndex)
     {
-        InRoom_Elevator.Set_Data(_NextStageIndex, true);
+        inRoom_Elevator.Set_Data(nextStageIndex, true);
     }
 
     public int Get_ElevatorData()
     {
-        return InRoom_Elevator.Get_Data();
+        return inRoom_Elevator.Get_Data();
     }
 
     public bool IsOn_Elevator()
     {
-        return InRoom_Elevator.IsOn;
+        return inRoom_Elevator.IsOn;
     }
 
     #endregion
@@ -67,7 +68,7 @@ public class EntranceRuleController : RoomRuleController
 
     public void Set_EntranceRuleInLobby()
     {
-        NeedKeyCardID = -1;
+        needKeyCardId = -1;
     }
 
     #endregion

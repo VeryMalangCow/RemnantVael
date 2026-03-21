@@ -17,9 +17,9 @@ public class NavObjectController : AliveObjectController
 
     #region - Hide
 
-    [HideInInspector] protected float MoveSpeed;
+    [HideInInspector] protected float moveSpeed;
 
-    [HideInInspector] protected Vector2 MoveAtDir = Vector2.zero;
+    [HideInInspector] protected Vector2 moveAtDir = Vector2.zero;
 
     #endregion
 
@@ -31,24 +31,24 @@ public class NavObjectController : AliveObjectController
 
     #region Nav
 
-    public void Set_MoveSpeed(float _FollowSpeed)
+    public void Set_MoveSpeed(float followSpeed)
     {
-        MoveSpeed = _FollowSpeed;
+        moveSpeed = followSpeed;
     }
 
-    public void Set_NavDir(Transform _TargetTF)
+    public void Set_NavDir(Transform targetTf)
     {
-        Set_NavDir(_TargetTF.position);
+        Set_NavDir(targetTf.position);
     }
 
-    public void Set_NavDir(Vector2 _TargetPos)
+    public void Set_NavDir(Vector2 targetPos)
     {
-        MoveAtDir = Get_NextDir(transform.position, _TargetPos);
+        moveAtDir = Get_NextDir(transform.position, targetPos);
     }
 
     public Vector2 Get_NavDir()
     {
-        return MoveAtDir;
+        return moveAtDir;
     }
 
     public Vector2 Get_NextDir(Vector3 currentPos, Vector3 targetPos)
@@ -66,37 +66,37 @@ public class NavObjectController : AliveObjectController
 
     public void End_Nav()
     {
-        MoveAtDir = Vector2.zero;
+        moveAtDir = Vector2.zero;
     }
 
-    public bool Is_ExistWall(Transform _TargetTF)
+    public bool Is_ExistWall(Transform targetTf)
     {
-        return DevTool.Is_Exist_UseLine(this.transform, _TargetTF, "Wall");
+        return DevTool.Is_Exist_UseLine(this.transform, targetTf, "Wall");
     }
 
-    public bool Is_ExistWall(Vector2 _TargetPos)
+    public bool Is_ExistWall(Vector2 targetPos)
     {
-        return DevTool.Is_Exist_UseLine(this.transform.position, _TargetPos, "Wall");
+        return DevTool.Is_Exist_UseLine(this.transform.position, targetPos, "Wall");
     }
 
-    protected Vector2 Get_RandomNavPos(Vector3 _CenterPos, float _Radius)
+    protected Vector2 Get_RandomNavPos(Vector3 centerPos, float radius)
     {
-        Vector3 randomPos = Random.insideUnitSphere * _Radius;
-        randomPos += _CenterPos;
+        Vector3 randomPos = Random.insideUnitSphere * radius;
+        randomPos += centerPos;
 
         NavMeshHit hit;
-        NavMesh.SamplePosition(randomPos, out hit, _Radius, NavMesh.AllAreas);
+        NavMesh.SamplePosition(randomPos, out hit, radius, NavMesh.AllAreas);
 
         return hit.position;
     }
 
-    protected Vector2 Get_RandomNavPos(float _Radius)
+    protected Vector2 Get_RandomNavPos(float radius)
     {
-        Vector3 randomPos = Random.insideUnitSphere * _Radius;
+        Vector3 randomPos = Random.insideUnitSphere * radius;
         randomPos += transform.position;
 
         NavMeshHit hit;
-        NavMesh.SamplePosition(randomPos, out hit, _Radius, NavMesh.AllAreas);
+        NavMesh.SamplePosition(randomPos, out hit, radius, NavMesh.AllAreas);
 
         return hit.position;
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ShootingAllyController : FieldUnitAllyController
 {
@@ -12,36 +13,36 @@ public class ShootingAllyController : FieldUnitAllyController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private bool IsAlwaysStatus;
-    [SerializeField] private eStatusEffect StateType;
+    [FormerlySerializedAs("IsAlwaysStatus")][SerializeField] private bool isAlwaysStatus;
+    [FormerlySerializedAs("StateType")][SerializeField] private eStatusEffect stateType;
 
 
     [Space(10)]
     [Header("=== Bullet")]
-    [SerializeField] private Sprite BulletSprite;
-    [SerializeField] private Vector2 BulletObjSize;
-    [SerializeField] private Vector2 BulletColSize;
+    [FormerlySerializedAs("BulletSprite")][SerializeField] private Sprite bulletSprite;
+    [FormerlySerializedAs("BulletObjSize")][SerializeField] private Vector2 bulletObjSize;
+    [FormerlySerializedAs("BulletColSize")][SerializeField] private Vector2 bulletColSize;
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private Transform BulletSpawnTF;
+    [FormerlySerializedAs("BulletSpawnTF")][SerializeField] private Transform bulletSpawnTF;
 
     [Space(10)]
     [Header("=== Trail")]
-    [SerializeField] private float TrailTime;
-    [SerializeField] private float TrailStartWidth;
+    [FormerlySerializedAs("TrailTime")][SerializeField] private float trailTime;
+    [FormerlySerializedAs("TrailStartWidth")][SerializeField] private float trailStartWidth;
 
     [Space(10)]
     [Header("=== Light")]
-    [SerializeField] private float LightIntensity;
+    [FormerlySerializedAs("LightIntensity")][SerializeField] private float lightIntensity;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private bool IsAttacking = false;
+    [HideInInspector] private bool isAttacking = false;
 
-    [HideInInspector] private float CurrentRof = 0f;
+    [HideInInspector] private float currentRof = 0f;
 
     #endregion
 
@@ -69,12 +70,12 @@ public class ShootingAllyController : FieldUnitAllyController
             if (PlayerManager.instance.Get_PingedEnemy() != null)
             {
                 Set_PingedState();
-                yield return new WaitForSeconds(FollowInitDelay);
+                yield return new WaitForSeconds(followInitDelay);
             }
             else
             {
                 Set_NoPingedState();
-                yield return new WaitForSeconds(FollowInitDelay);
+                yield return new WaitForSeconds(followInitDelay);
             }
         }
     }
@@ -83,34 +84,34 @@ public class ShootingAllyController : FieldUnitAllyController
 
     #region Attacking
 
-    private void Set_Attacking(bool _OnOff)
+    private void Set_Attacking(bool onOff)
     {
-        if (IsAttacking != _OnOff)
+        if (isAttacking != onOff)
         {
-            IsAttacking = _OnOff;
+            isAttacking = onOff;
         }
     }
 
-    private void Set_CaculateAttack(float _DeltaTime)
+    private void Set_CaculateAttack(float deltaTime)
     {
-        if (CurrentRof < 1)
+        if (currentRof < 1)
         {
-            CurrentRof += _DeltaTime * ActualAllyState.rof.value;
+            currentRof += deltaTime * actualAllyState.rof.value;
         }
 
-        if (!IsAttacking || Enemy == null) return;
+        if (!isAttacking || enemy == null) return;
 
-        if (CurrentRof >= 1)
+        if (currentRof >= 1)
         {
-            CurrentRof -= 1;
+            currentRof -= 1;
             Play_Attack(PoolingManager.instance.Get_OP_AllyBullet());
         }
     }
 
-    private void Play_Attack(AllyBulletController _Bullet)
+    private void Play_Attack(AllyBulletController bullet)
     {
         // 총알 스탯과 SortingOrder 설정
-        _Bullet.Set_State(
+        bullet.Set_State(
             Get_BulletState(),
             state_PosAndRot: Get_BulletState_PosAndRot(),
             state_Size: Get_BulletState_Size(),
@@ -118,23 +119,23 @@ public class ShootingAllyController : FieldUnitAllyController
             state_Effect: null,
             0.5f);
 
-        _Bullet.ThisSR.color = this.ThisExtraColor;
+        bullet.thisSr.color = this.extraClr;
 
         // 상태이상 총알이면
-        if (IsAlwaysStatus)
-            _Bullet.state.Set_Status(IsAlwaysStatus, StateType);
+        if (isAlwaysStatus)
+            bullet.state.Set_Status(isAlwaysStatus, stateType);
         
         // Sync
-        ActiveAlly_Fire(_Bullet, null);
+        ActiveAlly_Fire(bullet, null);
 
         // 모듈 싱크 효과 => 사격 후
         ActiveAlly_AfterFire();
 
-        _Bullet.SetOn_LightIntensity(LightIntensity);
-        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.attackSize.value, ThisExtraGradient);
+        bullet.SetOn_LightIntensity(lightIntensity);
+        bullet.SetOn_TrailState(trailTime, trailStartWidth * actualAllyState.attackSize.value, extraGradient);
 
         // 이미지
-        _Bullet.ThisSR.sprite = BulletSprite;
+        bullet.thisSr.sprite = bulletSprite;
     }
 
     #endregion
@@ -146,27 +147,27 @@ public class ShootingAllyController : FieldUnitAllyController
         return new BulletState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Ally, id),
-                new DmgState(eDamageType.Physics, ActualAllyState.dmg.value),
-                new CriticalState(ActualAllyState.criticalChacne.value, 1 + ActualAllyState.criticalDmg.value),
+                new DmgState(eDamageType.Physics, actualAllyState.dmg.value),
+                new CriticalState(actualAllyState.criticalChacne.value, 1 + actualAllyState.criticalDmg.value),
                 new KnockbackState(false, 0, 0)),
             checkIsCritical: true,
-            muzzleSpeed: ActualAllyState.muzzleSpeed.value,
+            muzzleSpeed: actualAllyState.muzzleSpeed.value,
             aliveTime: 10f);
     }
 
     private BulletState_PosAndRot Get_BulletState_PosAndRot()
     {
         return new BulletState_PosAndRot(
-            BulletSpawnTF.position, 
-            (Enemy.transform.position - this.transform.position).normalized, 
+            bulletSpawnTF.position, 
+            (enemy.transform.position - this.transform.position).normalized, 
             0);
     }
 
     private BulletState_Size Get_BulletState_Size()
     {
         return new BulletState_Size(
-            BulletObjSize * ActualAllyState.attackSize.value,
-            BulletColSize * ActualAllyState.attackSize.value);
+            bulletObjSize * actualAllyState.attackSize.value,
+            bulletColSize * actualAllyState.attackSize.value);
     }
 
     #endregion
@@ -176,9 +177,9 @@ public class ShootingAllyController : FieldUnitAllyController
     private void Set_PingedState() // 핑 상태
     {
         // 따라가기
-        if (Is_FollowState(Enemy.transform.position, ForEnemyDis, true))
+        if (Is_FollowState(enemy.transform.position, forEnemyDis, true))
         {
-            Set_NavDir(Enemy.transform);
+            Set_NavDir(enemy.transform);
             Set_Attacking(false);
             Set_AllyStateMode(eAllyStateMode.Move);
         }
@@ -198,23 +199,23 @@ public class ShootingAllyController : FieldUnitAllyController
 
         bool isFollow = true;
         if (closestEnemy != null)
-            isFollow = Is_FollowState(closestEnemy.transform.position, ForEnemyDis, true);
+            isFollow = Is_FollowState(closestEnemy.transform.position, forEnemyDis, true);
         
         // 따라가기
-        if (Is_FollowState(RandomPos, 1f, false))
+        if (Is_FollowState(randomPos, 1f, false))
         {
             if (isFollow)
             {
-                Set_NavDir(RandomPos);
+                Set_NavDir(randomPos);
                 Set_Attacking(false);
-                Enemy = null;
+                enemy = null;
                 Set_AllyStateMode(eAllyStateMode.Move);
             }
             else
             {
                 Stop_Follow();
                 Set_Attacking(true);
-                Enemy = closestEnemy;
+                enemy = closestEnemy;
                 Set_AllyStateMode(eAllyStateMode.Attack);
             }
 
@@ -227,13 +228,13 @@ public class ShootingAllyController : FieldUnitAllyController
             if (isFollow)
             {
                 Set_Attacking(false);
-                Enemy = null;
+                enemy = null;
                 Set_AllyStateMode(eAllyStateMode.Idle);
             }
             else
             {
                 Set_Attacking(true);
-                Enemy = closestEnemy;
+                enemy = closestEnemy;
                 Set_AllyStateMode(eAllyStateMode.Attack);
             }
         }

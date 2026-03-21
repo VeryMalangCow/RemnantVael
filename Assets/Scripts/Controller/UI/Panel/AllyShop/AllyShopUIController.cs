@@ -714,7 +714,7 @@ public class AllyShopUIController : ShopUIController
         StateEUIList[8].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(116)} >";     // 지속시간
 
         // Limit
-        StateLimitTxt.text = $"( {ResourceManager.instance.Get_StaticWord(107)}: {AllyController.MinLimitUpgradeValue} )";
+        StateLimitTxt.text = $"( {ResourceManager.instance.Get_StaticWord(107)}: {AllyController.minLimitUpgradeValue} )";
 
         base.Set_LanguageTxt();
     }
@@ -725,7 +725,7 @@ public class AllyShopUIController : ShopUIController
 
     public Sprite Get_SyncProgressSprite(int _Progress)
     {
-        return PickedPanelSyncProgressSpriteList[Mathf.Clamp(_Progress - 1, 0, AllyController.SyncMax - 1)];
+        return PickedPanelSyncProgressSpriteList[Mathf.Clamp(_Progress - 1, 0, AllyController.syncMax - 1)];
     }
 
     #endregion

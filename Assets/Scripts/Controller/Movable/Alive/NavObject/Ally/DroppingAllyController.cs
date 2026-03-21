@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DroppingAllyController : NoneUnitAllyController
 {
@@ -11,22 +12,22 @@ public class DroppingAllyController : NoneUnitAllyController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private float CurrentChargeTime = 0f;
-    [SerializeField] protected float DropBottomYPos = 0f;
+    [FormerlySerializedAs("CurrentChargeTime")][SerializeField] private float currentChargeTime = 0f;
+    [FormerlySerializedAs("DropBottomYPos")][SerializeField] protected float dropBottomYPos = 0f;
 
     [Space(10)]
     [Header("=== Bullet")]
-    [SerializeField] protected Sprite ThisSprite;
+    [FormerlySerializedAs("ThisSprite")][SerializeField] protected Sprite sprite;
 
 
     [Space(10)]
     [Header("=== Trail")]
-    [SerializeField] protected float TrailTime;
-    [SerializeField] protected float TrailStartWidth;
+    [FormerlySerializedAs("TrailTime")][SerializeField] protected float trailTime;
+    [FormerlySerializedAs("TrailStartWidth")][SerializeField] protected float trailStartWidth;
 
     [Space(10)]
     [Header("=== Light")]
-    [SerializeField] protected float LightIntensity;
+    [FormerlySerializedAs("LightIntensity")][SerializeField] protected float lightIntensity;
 
     #endregion
 
@@ -43,16 +44,16 @@ public class DroppingAllyController : NoneUnitAllyController
     #endregion
 
     #region Caculate
-    private void Caculate_AttackCharge(float _DeltaTime)
+    private void Caculate_AttackCharge(float deltaTime)
     {
-        if (CurrentChargeTime < 1)
+        if (currentChargeTime < 1)
         {
-            CurrentChargeTime += ActualAllyState.rof.value * _DeltaTime;
+            currentChargeTime += actualAllyState.rof.value * deltaTime;
         }
 
         if (Can_Shot())
         {
-            HUD.Play_IconRT();
+            hud.Play_IconRT();
             Shot();
         }
     }
@@ -63,12 +64,12 @@ public class DroppingAllyController : NoneUnitAllyController
 
     protected virtual bool Can_Shot() 
     {
-        return CurrentChargeTime >= 1;
+        return currentChargeTime >= 1;
     }
 
     protected virtual void Shot()
     {
-        CurrentChargeTime -= 1;
+        currentChargeTime -= 1;
     }
 
     #endregion
@@ -84,7 +85,7 @@ public class DroppingAllyController : NoneUnitAllyController
 
     #region Sort
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     { /* Need Nothing */ }
 
     #endregion

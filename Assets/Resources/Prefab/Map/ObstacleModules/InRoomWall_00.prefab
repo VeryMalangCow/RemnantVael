@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &1199880870275149362
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &1653082151882978007
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &1779780343789199715
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,9 +347,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 6838627500348933088}
-  ThisSR: {fileID: 4810027994122376210}
-  TargetRange: 0.6
+  targetObject: {fileID: 6838627500348933088}
+  thisSr: {fileID: 4810027994122376210}
+  targetRange: 0.6
 --- !u!61 &5445747301903772414
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &3710500600822922407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,7 +1026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &6838627500348933088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,7 +1124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &7274181951432691530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1222,7 +1222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &7471742996308529884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1320,7 +1320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &8148313435739380610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,11 +1366,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db8205b9ff145c1408429a0e7b5a5b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SetSRParentGateList: []
-  SetSRParentDepthList:
+  setSrParentGateList: []
+  setSrParentDepthList:
   - {fileID: 4357507412643674066}
-  SetSRDepthListParent: {fileID: 0}
-  SetSRList: []
+  setSrDepthListParent: {fileID: 0}
+  setSrList: []
 --- !u!61 &4229117705069665167
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1513,7 +1513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &9057739686792169858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,4 +1611,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 

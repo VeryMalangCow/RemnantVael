@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AllyShopRuleController : RoomRuleController
 {
@@ -9,15 +10,15 @@ public class AllyShopRuleController : RoomRuleController
 
     [Space(10)]
     [Header("=== ParentTF")]
-    [SerializeField] public Transform InRoom_BUShopParentTF;
-    [SerializeField] public Transform InRoom_MUShopParentTF;
-    [SerializeField] public Transform InRoom_BURepairOperactorParentTF;
-    [SerializeField] public Transform InRoom_MURepairOperactorParentTF;
+    [FormerlySerializedAs("InRoom_BUShopParentTF")][SerializeField] public Transform inRoom_buShopParentTf;
+    [FormerlySerializedAs("InRoom_MUShopParentTF")][SerializeField] public Transform inRoom_muShopParentTf;
+    [FormerlySerializedAs("InRoom_BURepairOperactorParentTF")][SerializeField] public Transform inRoom_buRepairOperactorParentTf;
+    [FormerlySerializedAs("InRoom_MURepairOperactorParentTF")][SerializeField] public Transform inRoom_muRepairOperactorParentTf;
 
-    [HideInInspector] public AllyBaseUpgradeController BUShop;
-    [HideInInspector] public AllyModuleUpgradeController MUShop;
-    [HideInInspector] public RepairOperatorController BURepairOperator;
-    [HideInInspector] public RepairOperatorController MURepairOperator;
+    [HideInInspector] public AllyBaseUpgradeController buShop;
+    [HideInInspector] public AllyModuleUpgradeController muShop;
+    [HideInInspector] public RepairOperatorController buRepairOperator;
+    [HideInInspector] public RepairOperatorController muRepairOperator;
 
     #endregion
 
@@ -27,7 +28,7 @@ public class AllyShopRuleController : RoomRuleController
     {
         base.Offset();
 
-        NeedKeyCardID = 4;
+        needKeyCardId = 4;
     }
 
     #endregion
@@ -43,11 +44,11 @@ public class AllyShopRuleController : RoomRuleController
 
     private void SetOn_Shop()
     {
-        if (BUShop) BUShop.gameObject.SetActive(true);
-        if (BURepairOperator) BURepairOperator.gameObject.SetActive(true);
+        if (buShop) buShop.gameObject.SetActive(true);
+        if (buRepairOperator) buRepairOperator.gameObject.SetActive(true);
 
-        if (MUShop) MUShop.gameObject.SetActive(true);
-        if (MURepairOperator) MURepairOperator.gameObject.SetActive(true);
+        if (muShop) muShop.gameObject.SetActive(true);
+        if (muRepairOperator) muRepairOperator.gameObject.SetActive(true);
     }
 
     #endregion

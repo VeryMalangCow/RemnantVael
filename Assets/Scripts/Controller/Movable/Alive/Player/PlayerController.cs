@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using UnityEngine.Serialization;
 
 public class PlayerController : AliveObjectController
 {
@@ -17,158 +18,158 @@ public class PlayerController : AliveObjectController
 
     [Space(10)]
     [Header("=== Data")]
-    [SerializeField] private int NameID;
-    public int GetNameID => NameID;
+    [FormerlySerializedAs("NameID")][SerializeField] private int nameId;
+    public int GetNameID => nameId;
 
     [Space(10)]
     [Header("=== Controller & Generator")]
-    [SerializeField] public PlayerWeaponController BaseWeapon;
-    [SerializeField] public SkillWeaponController SkillWeapon;
-    [SerializeField] public PlayerDashController DashController;
-    [SerializeField] public RigidbodyAnimSolarController LowerController;
+    [FormerlySerializedAs("BaseWeapon")][SerializeField] public PlayerWeaponController baseWeapon;
+    [FormerlySerializedAs("SkillWeapon")][SerializeField] public SkillWeaponController skillWeapon;
+    [FormerlySerializedAs("DashController")][SerializeField] public PlayerDashController dash;
+    [FormerlySerializedAs("LowerController")][SerializeField] public RigidbodyAnimSolarController rbLower;
 
     [Space(5)]
-    [SerializeField] public AfterImgGenerator AfterImgGenerator;
+    [FormerlySerializedAs("AfterImgGenerator")][SerializeField] public AfterImgGenerator afterImgGenerator;
 
     [Space(10)]
     [Header("=== BU State")]
-    [SerializeField] public BUState<float> AvoidChance;
-    [SerializeField] public BUState<float> MaxEP;
-    [SerializeField] public BUState<float> TakingDmgMultiple;
-    [SerializeField] public BUState<float> SpawnESMultiple;
-    [SerializeField] public BUState<float> NeedEP_ForSkillMultiple;
-    [SerializeField] public BUState<float> WalkSpeed;
-    [SerializeField] public BUState<float> WalkSpeedWhenShotMultiple;
+    [FormerlySerializedAs("AvoidChance")][SerializeField] public BUState<float> avoidChance;
+    [FormerlySerializedAs("MaxEP")][SerializeField] public BUState<float> maxEP;
+    [FormerlySerializedAs("TakingDmgMultiple")][SerializeField] public BUState<float> takingDmgMultiple;
+    [FormerlySerializedAs("SpawnESMultiple")][SerializeField] public BUState<float> spawnESMultiple;
+    [FormerlySerializedAs("NeedEP_ForSkillMultiple")][SerializeField] public BUState<float> needEP_ForSkillMultiple;
+    [FormerlySerializedAs("WalkSpeed")][SerializeField] public BUState<float> walkSpeed;
+    [FormerlySerializedAs("WalkSpeedWhenShotMultiple")][SerializeField] public BUState<float> walkSpeedWhenShotMultiple;
 
     [Space(10)]
     [Header("=== Visual Comp")]
 
     [Space(5)]
     [Header("-- SG")]
-    [SerializeField] private SortingGroup BodySG;
+    [FormerlySerializedAs("BodySG")][SerializeField] private SortingGroup bodySg;
 
     [Space(5)]
     [Header("-- Anim")]
-    [SerializeField] private StateAnimController StateAnim;
-    [SerializeField] private StateAnimController MoveDirStateAnim;
-    [SerializeField] private List<MovableDepthController> BaseAnimDepthList;
-    [SerializeField] private CoupleData<List<StateAnimController>> BoostStateAnimController;
+    [FormerlySerializedAs("StateAnim")][SerializeField] private StateAnimController stateAnim;
+    [FormerlySerializedAs("MoveDirStateAnim")][SerializeField] private StateAnimController moveDirStateAnim;
+    [FormerlySerializedAs("BaseAnimDepthList")][SerializeField] private List<MovableDepthController> baseAnimDepthList;
+    [FormerlySerializedAs("BoostStateAnimController")][SerializeField] private CoupleData<List<StateAnimController>> boostStateAnimController;
 
     [Space(5)]
     [Header("-- VFX")]
-    [SerializeField] private TrailRenderer ThisTrail;
+    [FormerlySerializedAs("ThisTrail")][SerializeField] private TrailRenderer trail;
 
     [Space(10)]
     [Header("=== Visual Reso")]
 
-    [SerializeField] private AnimationClip MoveDirAC;
-    [SerializeField] private Sprite ChangeState_DamageType;
+    [FormerlySerializedAs("MoveDirAC")][SerializeField] private AnimationClip moveDirAc;
+    [FormerlySerializedAs("ChangeState_DamageType")][SerializeField] private Sprite changeState_DamageType;
 
-    [SerializeField] public List<Material> MaterialList;
-    [SerializeField] private List<AnimationClip> BoostVFXAnimList;
+    [FormerlySerializedAs("MaterialList")][SerializeField] public List<Material> materialList;
+    [FormerlySerializedAs("BoostVFXAnimList")][SerializeField] private List<AnimationClip> boostVFXAnimList;
 
-    [SerializeField] private PlayerVisual<Color> ThisClr;
-    [SerializeField] private PlayerVisual<Gradient> ThisGradient;
+    [FormerlySerializedAs("ThisClr")][SerializeField] private PlayerVisual<Color> clr;
+    [FormerlySerializedAs("ThisGradient")][SerializeField] private PlayerVisual<Gradient> gradient;
 
-    [SerializeField] private PlayerVisual<AnimationClip> ThisHittedPointAC;
-    [SerializeField] private TrioData<AnimationClip> DmgTypeStateAC;
-    [SerializeField] private CoupleData<AnimationClip> BoostOnOffAC;
+    [FormerlySerializedAs("ThisHittedPointAC")][SerializeField] private PlayerVisual<AnimationClip> hittedPointAc;
+    [FormerlySerializedAs("DmgTypeStateAC")][SerializeField] private TrioData<AnimationClip> dmgTypeStateAc;
+    [FormerlySerializedAs("BoostOnOffAC")][SerializeField] private CoupleData<AnimationClip> boostOnOffAc;
 
-    [SerializeField] private CoupleData<Sprite> ChangeState_BoostUpDown;
-    [SerializeField] private CoupleData<Sprite> ChangeState_Skill;
+    [FormerlySerializedAs("ChangeState_BoostUpDown")][SerializeField] private CoupleData<Sprite> changeState_BoostUpDown;
+    [FormerlySerializedAs("ChangeState_Skill")][SerializeField] private CoupleData<Sprite> changeState_Skill;
 
-    [SerializeField] public GameObject AimPrefab;
-    [SerializeField] public GameObject AimRoundPrefab;
+    [FormerlySerializedAs("AimPrefab")][SerializeField] public GameObject aimPrefab;
+    [FormerlySerializedAs("AimRoundPrefab")][SerializeField] public GameObject aimRoundPrefab;
 
-    [SerializeField] public Sprite BattleProdSprite;
+    [FormerlySerializedAs("BattleProdSprite")][SerializeField] public Sprite battleProdSprite;
 
     [Space(10)]
     [Header("=== Sound")]
-    [SerializeField] private ASQueueSet ASQueueSet;
-    [SerializeField] private AudioSource MovementAS;
+    [FormerlySerializedAs("ASQueueSet")][SerializeField] private ASQueueSet audioQueueSet;
+    [FormerlySerializedAs("MovementAS")][SerializeField] private AudioSource movementAs;
 
     #endregion
 
     #region - Hide
 
     // Lower
-    [HideInInspector] private bool IsLowerTweening = false;
+    [HideInInspector] private bool isLowerTweening = false;
 
     // Stage Type
-    [HideInInspector] private SortingGroup ThisSG;
-    [HideInInspector] private SpriteRenderer ShadowSR;
+    [HideInInspector] private SortingGroup sg;
+    [HideInInspector] private SpriteRenderer shadowSr;
 
     // Combat Mode
-    [HideInInspector] private eDamageType DmgMode = eDamageType.Physics;
+    [HideInInspector] private eDamageType dmgMode = eDamageType.Physics;
 
     // Invincible
-    [HideInInspector] private bool IsInvincible = false;
+    [HideInInspector] private bool isInvincible = false;
 
     // Point
-    [HideInInspector] public ReactiveProperty<float> Get_CurrentEP() => CurrentEP;
+    [HideInInspector] public ReactiveProperty<float> Get_CurrentEP() => currentEP;
 
     // Movement
-    [HideInInspector] public eMovementState MovementState = eMovementState.IdleOrWalk;
+    [HideInInspector] public eMovementState movementState = eMovementState.IdleOrWalk;
 
     // Boost
-    [HideInInspector] public ReactiveProperty<int> CurrentBoostLv = new();
+    [HideInInspector] public ReactiveProperty<int> currentBoostLv = new();
 
     // Shield
-    [HideInInspector] public List<Shield> ShieldElements = new List<Shield>();
+    [HideInInspector] public List<Shield> shieldElements = new List<Shield>();
 
     // Buff
-    [HideInInspector] public List<BuffController> CurrentBuffs = new List<BuffController>();
+    [HideInInspector] public List<BuffController> currentBuffs = new List<BuffController>();
 
     // Interact
-    [SerializeField] public List<GameObject> CurrentInteractableGOList = new List<GameObject>();
-    [HideInInspector] public ReactiveProperty<IInteract> CurrentInteractable = new();
+    [FormerlySerializedAs("CurrentInteractableGOList")][SerializeField] public List<GameObject> currentInteractableGoList = new List<GameObject>();
+    [HideInInspector] public ReactiveProperty<IInteract> currentInteractable = new();
 
     // Item
-    [HideInInspector] public ReactiveProperty<int> CurrentBetteryShard = new();
-    [HideInInspector] public ReactiveProperty<int> CurrentBettery = new();
-    [HideInInspector] public ReactiveProperty<int> CurrentChargedBettery = new();
-    [HideInInspector] public ReactiveProperty<int> CurrentModuleShard = new();
-    [HideInInspector] public ReactiveProperty<int> CurrentOverrider = new();
-    [HideInInspector] public ReactiveProperty<int> CurrentCredit = new();
+    [HideInInspector] public ReactiveProperty<int> currentBetteryShard = new();
+    [HideInInspector] public ReactiveProperty<int> currentBettery = new();
+    [HideInInspector] public ReactiveProperty<int> currentChargedBettery = new();
+    [HideInInspector] public ReactiveProperty<int> currentModuleShard = new();
+    [HideInInspector] public ReactiveProperty<int> currentOverrider = new();
+    [HideInInspector] public ReactiveProperty<int> currentCredit = new();
 
     // Ally
 
     // Ally Presence
-    [HideInInspector] public ReactiveProperty<int> StrikeTeamPresence = new();
-    [HideInInspector] public ReactiveProperty<int> UplinkTeamPresence = new();
-    [HideInInspector] public ReactiveProperty<int> NeoTeamPresence = new();
-    [HideInInspector] public int NeedIntervalPresence = 5;
-    [HideInInspector] public ReactiveProperty<int> NeedStrikeTeamPresence = new();
-    [HideInInspector] public ReactiveProperty<int> NeedUplinkTeamPresence = new();
-    [HideInInspector] public ReactiveProperty<int> NeedNeoTeamPresence = new();
+    [HideInInspector] public ReactiveProperty<int> strikeTeamPresence = new();
+    [HideInInspector] public ReactiveProperty<int> uplinkTeamPresence = new();
+    [HideInInspector] public ReactiveProperty<int> neoTeamPresence = new();
+    [HideInInspector] public int needIntervalPresence = 5;
+    [HideInInspector] public ReactiveProperty<int> needStrikeTeamPresence = new();
+    [HideInInspector] public ReactiveProperty<int> needUplinkTeamPresence = new();
+    [HideInInspector] public ReactiveProperty<int> needNeoTeamPresence = new();
 
     // Ally Reputation
-    [HideInInspector] private ReactiveProperty<float> Reputation = new ReactiveProperty<float>();
-    [HideInInspector] public float Get_Reputation { get { return Reputation.Value; } }
+    [HideInInspector] private ReactiveProperty<float> reputation = new ReactiveProperty<float>();
+    [HideInInspector] public float Get_Reputation { get { return reputation.Value; } }
 
 
 
 
     // BaseAnim
-    [HideInInspector] private Sequence BaseSeq = null;
-    [HideInInspector] private readonly float BaseYLimit = 0.02f;
-    [HideInInspector] private readonly float BaseTweenReTime = 0.25f;
-    [HideInInspector] private readonly float WheelLowestAnimSpeed = 0.5f;
+    [HideInInspector] private Sequence baseSeq = null;
+    [HideInInspector] private readonly float baseYLimit = 0.02f;
+    [HideInInspector] private readonly float baseTweenReTime = 0.25f;
+    [HideInInspector] private readonly float wheelLowestAnimSpeed = 0.5f;
 
     // Book
-    [HideInInspector] private eDamageType TargetDmgMode = eDamageType.Physics;
-    [HideInInspector] private ChargeCooltimeData CastingTime = new ChargeCooltimeData();
-    [HideInInspector] private Dele ReservationDele = null;
-    [HideInInspector] private const float InvincibleTime = 0.5f;
+    [HideInInspector] private eDamageType targetDmgMode = eDamageType.Physics;
+    [HideInInspector] private ChargeCooltimeData castingTime = new ChargeCooltimeData();
+    [HideInInspector] private Dele reservationDele = null;
+    [HideInInspector] private const float invincibleTime = 0.5f;
 
     #endregion
 
     #region - Data
 
-    [HideInInspector] public static readonly int MaxBoostLv = 4;
-    [HideInInspector] public static readonly int MaxRank = 5;
-    [HideInInspector] public readonly int NeedBS_ForMakeBC = 4;
-    [HideInInspector] public readonly float NeedEP_ForMakeEC = 5f;
+    [HideInInspector] public static readonly int maxBoostLv = 4;
+    [HideInInspector] public static readonly int maxRank = 5;
+    [HideInInspector] public readonly int needBS_ForMakeBC = 4;
+    [HideInInspector] public readonly float needEP_ForMakeEC = 5f;
     
     #endregion
 
@@ -193,61 +194,61 @@ public class PlayerController : AliveObjectController
         Reset_StateAnim();
 
         // State Anim : Dmg Type
-        StateAnim.Set_Anim(new State_Anim(DmgTypeStateAC.typeA, 0.8f), 1f);
+        stateAnim.Set_Anim(new State_Anim(dmgTypeStateAc.typeA, 0.8f), 1f);
 
         // State Anim : Boost
-        Set_BoostAnim(CurrentBoostLv.Value);
+        Set_BoostAnim(currentBoostLv.Value);
 
         // State Anim: Room Move
-        MoveDirStateAnim.Set_Anim(new State_Anim(MoveDirAC));
+        moveDirStateAnim.Set_Anim(new State_Anim(moveDirAc));
         SetOff_RoomMoveDir();
 
         // Base Tween
-        BaseSeq = DOTween.Sequence();
+        baseSeq = DOTween.Sequence();
 
-        BaseSeq.Join(DOTween.To(() => TargetRange, x => TargetRange = x, TargetRange + BaseYLimit, BaseTweenReTime)
+        baseSeq.Join(DOTween.To(() => targetRange, x => targetRange = x, targetRange + baseYLimit, baseTweenReTime)
             .SetEase(Ease.Linear));
 
-        if (BaseAnimDepthList != null && BaseAnimDepthList.Count > 0)
+        if (baseAnimDepthList != null && baseAnimDepthList.Count > 0)
         {
-            for (int i = 0; i < BaseAnimDepthList.Count; i++)
+            for (int i = 0; i < baseAnimDepthList.Count; i++)
             {
-                MovableDepthController movable = BaseAnimDepthList[i];
-                BaseSeq.Join(DOTween.To(() => movable.TargetRange, x => movable.TargetRange = x, movable.TargetRange + BaseYLimit, BaseTweenReTime)
+                MovableDepthController movable = baseAnimDepthList[i];
+                baseSeq.Join(DOTween.To(() => movable.targetRange, x => movable.targetRange = x, movable.targetRange + baseYLimit, baseTweenReTime)
                     .SetEase(Ease.Linear));
             }
         }
 
-        BaseSeq.SetLoops(-1, LoopType.Yoyo);
+        baseSeq.SetLoops(-1, LoopType.Yoyo);
 
         ResourceManager.instance.unlockedClr = Get_CorrectColor(eDamageType.Energy, false);
 
         // Item
-        CurrentChargedBettery.Value = 0;
-        CurrentCredit.Value = 0;
-        CurrentOverrider.Value = 0;
-        CurrentModuleShard.Value = 0;
+        currentChargedBettery.Value = 0;
+        currentCredit.Value = 0;
+        currentOverrider.Value = 0;
+        currentModuleShard.Value = 0;
 
         // Presence
-        NeedStrikeTeamPresence.Value = NeedIntervalPresence;
-        NeedUplinkTeamPresence.Value = NeedIntervalPresence;
-        NeedNeoTeamPresence.Value = NeedIntervalPresence;
+        needStrikeTeamPresence.Value = needIntervalPresence;
+        needUplinkTeamPresence.Value = needIntervalPresence;
+        needNeoTeamPresence.Value = needIntervalPresence;
 
-        StrikeTeamPresence.Value = 0;
-        UplinkTeamPresence.Value = 0;
-        NeoTeamPresence.Value = 0;
+        strikeTeamPresence.Value = 0;
+        uplinkTeamPresence.Value = 0;
+        neoTeamPresence.Value = 0;
     }
 
     private void Offset_Subscribe()
     {
-        CurrentInteractable
+        currentInteractable
             .Subscribe(interact =>
             {
                 MainGameUIManager.instance.playerHUD_UIController.Set_InteractUI();
                 MainGameUIManager.instance.interactAnno_UIController.Set_UI();
                 Set_MoveDir();
             });
-        CurrentSP
+        currentSP
             .Subscribe(value =>
             {
                 MainGameUIManager.instance.playerHUD_UIController.Set_ShieldGage(value);
@@ -256,22 +257,22 @@ public class PlayerController : AliveObjectController
 
     private void Offset_Controller()
     {
-        DashController.Offset();
-        ThisSG = DevTool.Get_ComponentTType<SortingGroup>(gameObject); 
-        ShadowSR = DevTool.Get_ComponentTType<SpriteRenderer>(transform.GetChild(0).gameObject);
+        dash.Offset();
+        sg = DevTool.Get_ComponentTType<SortingGroup>(gameObject); 
+        shadowSr = DevTool.Get_ComponentTType<SpriteRenderer>(transform.GetChild(0).gameObject);
 
-        ASQueueSet.Offset(); 
-        MovementAS.volume = 0.2f;
+        audioQueueSet.Offset(); 
+        movementAs.volume = 0.2f;
     }
 
     private void Offset_Reputation()
     {
-        Reputation.Subscribe(value =>
+        reputation.Subscribe(value =>
             {
                 MainGameUIManager.instance.playerHUD_UIController.Set_AllyReputation(value);
             });
 
-        Reputation.Value = 1f;
+        reputation.Value = 1f;
     }
 
 
@@ -279,11 +280,11 @@ public class PlayerController : AliveObjectController
 
     #region Sorting
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        BodySG.sortingOrder = _SortingOrder;
+        bodySg.sortingOrder = sortingOrder;
 
-        ThisTrail.sortingOrder = _SortingOrder - 1;
+        trail.sortingOrder = sortingOrder - 1;
         // base.Set_SortingOrder(_SortingOrder);
     }
 
@@ -301,8 +302,8 @@ public class PlayerController : AliveObjectController
 
     private void LateUpdate()
     {
-        MainGameUIManager.instance.interactAnno_UIController.Set_PosIfNot(CurrentInteractable.Value);
-        Set_Tween(LowerController.transform, ThisRb.velocity);
+        MainGameUIManager.instance.interactAnno_UIController.Set_PosIfNot(currentInteractable.Value);
+        Set_Tween(rbLower.transform, rb.velocity);
     }
 
     #endregion
@@ -312,24 +313,24 @@ public class PlayerController : AliveObjectController
     // 스테이지 시작 전
     public void Set_PastStartStage()
     {
-        ThisSG.enabled = true;
-        ThisSG.sortingOrder = -3002;
+        sg.enabled = true;
+        sg.sortingOrder = -3002;
 
-        ThisSR.sortingOrder = 2;
+        thisSr.sortingOrder = 2;
 
-        ShadowSR.sortingOrder = -10;
+        shadowSr.sortingOrder = -10;
 
-        StateAnim.transform.parent.transform.gameObject.SetActive(false);
+        stateAnim.transform.parent.transform.gameObject.SetActive(false);
     }
 
     // 스테이지 시작
     public void Set_StartStage()
     {
-        ThisSG.enabled = false;
-        ThisSG.sortingOrder = 0;
-        ThisSR.sortingOrder = 0;
+        sg.enabled = false;
+        sg.sortingOrder = 0;
+        thisSr.sortingOrder = 0;
 
-        StateAnim.transform.parent.transform.gameObject.SetActive(true); 
+        stateAnim.transform.parent.transform.gameObject.SetActive(true); 
 
         StageManager.instance.isStartStage = false;
         LayerOrderManager.instance.Add_NeedSortObj(this);
@@ -340,10 +341,10 @@ public class PlayerController : AliveObjectController
     // 스테이지 끝
     public void Set_EndStage()
     {
-        ThisSG.enabled = true;
-        ThisSG.sortingOrder = 3001;
+        sg.enabled = true;
+        sg.sortingOrder = 3001;
 
-        StateAnim.transform.parent.transform.gameObject.SetActive(false);
+        stateAnim.transform.parent.transform.gameObject.SetActive(false);
 
         SetOff_Trail();
     }
@@ -355,11 +356,11 @@ public class PlayerController : AliveObjectController
     // 현재 총 쉴드값
     private float Get_TotalShield()
     {
-        if (ShieldElements.Count <= 0)
+        if (shieldElements.Count <= 0)
         { return 0; }
 
         float totalShield = 0;
-        DevTool.Set_ListDele(ShieldElements, new Dele_RefT_U<float, Shield>(Add_ShieldValue), ref totalShield);
+        DevTool.Set_ListDele(shieldElements, new Dele_RefT_U<float, Shield>(Add_ShieldValue), ref totalShield);
         return totalShield;
 
         void Add_ShieldValue(ref float _Variable, Shield _Shield)
@@ -369,28 +370,28 @@ public class PlayerController : AliveObjectController
     }
 
     // 쉴드 획득
-    public void Gain_Shield(Shield _S)
+    public void Gain_Shield(Shield shield)
     {
-        DevTool.Remove_InList(ShieldElements, _S);
+        DevTool.Remove_InList(shieldElements, shield);
 
-        ShieldElements.Insert(0, _S);
-        CurrentSP.Value = Get_TotalShield();
+        shieldElements.Insert(0, shield);
+        currentSP.Value = Get_TotalShield();
     }
 
     // 쉴드 제거
-    public void Remove_Shield(Shield _S)
+    public void Remove_Shield(Shield shield)
     {
-        if (ShieldElements.Contains(_S))
+        if (shieldElements.Contains(shield))
         {
-            DevTool.Set_ListDele(CurrentBuffs, new Dele_T_U<BuffController, Shield>(End_ShieldBuff), _S);
-            ShieldElements.Remove(_S);
+            DevTool.Set_ListDele(currentBuffs, new Dele_T_U<BuffController, Shield>(End_ShieldBuff), shield);
+            shieldElements.Remove(shield);
         }
-        CurrentSP.Value = Get_TotalShield();
+        currentSP.Value = Get_TotalShield();
 
-        void End_ShieldBuff(BuffController _Buff, Shield _Shield)
+        void End_ShieldBuff(BuffController buff, Shield _shield)
         {
-            BuffShieldController shieldBuff = DevTool.Get_CastingTType<BuffShieldController>(_Buff);
-            if (DevTool.Is_UsableAndEqual(shieldBuff, shieldBuff.thisShield, _Shield))
+            BuffShieldController shieldBuff = DevTool.Get_CastingTType<BuffShieldController>(buff);
+            if (DevTool.Is_UsableAndEqual(shieldBuff, shieldBuff.thisShield, _shield))
             {
                 shieldBuff.End_Buff();
             }
@@ -402,15 +403,15 @@ public class PlayerController : AliveObjectController
     #region Energy Point
 
     // 에너지 획득
-    public void Add_CurrentEP(float _AddValue)
+    public void Add_CurrentEP(float addValue)
     {
-        Add_CurrentEP(_AddValue, MaxEP.actualState.Value);
-        Check_IsDead(CurrentEP.Value);
+        Add_CurrentEP(addValue, maxEP.actualState.Value);
+        Check_IsDead(currentEP.Value);
     }
 
-    public float Get_PercentEP(float _Percent)
+    public float Get_PercentEP(float percent)
     {
-        return DevTool.Get_Percent(_Percent, MaxEP.actualState.Value);
+        return DevTool.Get_Percent(percent, maxEP.actualState.Value);
     }
 
     #endregion
@@ -418,25 +419,25 @@ public class PlayerController : AliveObjectController
     #region Item
 
     // 배터리 조각 획득
-    public void Add_CurrentBetteryShard(int _AddValue)
+    public void Add_CurrentBetteryShard(int addValue)
     {
-        CurrentBetteryShard.Value = Mathf.Max(CurrentBetteryShard.Value + _AddValue, 0);
-        if (CurrentBetteryShard.Value >= NeedBS_ForMakeBC)
+        currentBetteryShard.Value = Mathf.Max(currentBetteryShard.Value + addValue, 0);
+        if (currentBetteryShard.Value >= needBS_ForMakeBC)
         {
             Add_CurrentBettery();
         }
     }
 
     // 모듈 조각 획득
-    public void Add_CurrentModuleShard(int _AddValue)
+    public void Add_CurrentModuleShard(int addValue)
     {
-        CurrentModuleShard.Value = Mathf.Max(CurrentModuleShard.Value + _AddValue, 0);
+        currentModuleShard.Value = Mathf.Max(currentModuleShard.Value + addValue, 0);
     }
 
     // 배터리 획득
-    public void Add_CurrentBettery(int _AddValue)
+    public void Add_CurrentBettery(int addValue)
     {
-        CurrentBettery.Value = Mathf.Max(CurrentBettery.Value + _AddValue, 0);
+        currentBettery.Value = Mathf.Max(currentBettery.Value + addValue, 0);
     }
 
     private void Add_CurrentBettery()
@@ -446,75 +447,75 @@ public class PlayerController : AliveObjectController
             _StayTime: 0.1f, 
             _FadeOutTime: 0.5f);
 
-        int BSAmount = CurrentBetteryShard.Value / NeedBS_ForMakeBC;
-        CurrentBetteryShard.Value -= NeedBS_ForMakeBC * BSAmount;
-        CurrentBettery.Value += BSAmount;
+        int BSAmount = currentBetteryShard.Value / needBS_ForMakeBC;
+        currentBetteryShard.Value -= needBS_ForMakeBC * BSAmount;
+        currentBettery.Value += BSAmount;
     }
 
     // 오버라이더 획득
-    public void Add_CurrentOverrider(int _AddValue)
+    public void Add_CurrentOverrider(int addValue)
     {
-        CurrentOverrider.Value = Mathf.Max(CurrentOverrider.Value + _AddValue, 0);
+        currentOverrider.Value = Mathf.Max(currentOverrider.Value + addValue, 0);
     }
 
     // 크레딧 획득
-    public void Add_CurrentCredit(int _AddValue)
+    public void Add_CurrentCredit(int addValue)
     {
-        CurrentCredit.Value = Mathf.Max(CurrentCredit.Value + _AddValue, 0);
+        currentCredit.Value = Mathf.Max(currentCredit.Value + addValue, 0);
     }
 
     // 충전 배터리 생성
     private void Make_ChargedBettery()
     {
-        this.CurrentEP.Value -= NeedEP_ForMakeEC;
-        CurrentBettery.Value--;
-        CurrentChargedBettery.Value++;
+        this.currentEP.Value -= needEP_ForMakeEC;
+        currentBettery.Value--;
+        currentChargedBettery.Value++;
     }
 
     // 충전 배터리 충분한가
-    public bool Is_EnoughChargedBettery(int _NeedAmount)
+    public bool Is_EnoughChargedBettery(int needAmount)
     {
-        return CurrentChargedBettery.Value >= _NeedAmount ? true : false;
+        return currentChargedBettery.Value >= needAmount ? true : false;
     }
 
     // 에너지 셀을 소비
-    public void Use_ChargedBettery(int _UseAmount)
+    public void Use_ChargedBettery(int useAmount)
     {
-        CurrentChargedBettery.Value = Math.Max(CurrentChargedBettery.Value - _UseAmount, 0);
+        currentChargedBettery.Value = Math.Max(currentChargedBettery.Value - useAmount, 0);
     }
 
     #endregion
 
     #region Movement
 
-    private void Play_Movement(float _DeltaTime)
+    private void Play_Movement(float deltaTime)
     {
-        if (MovementState == eMovementState.IdleOrWalk)
+        if (movementState == eMovementState.IdleOrWalk)
         {
-            Play_Walk(_DeltaTime);
+            Play_Walk(deltaTime);
         }
-        else if (MovementState == eMovementState.Dash)
+        else if (movementState == eMovementState.Dash)
         {
-            DashController.Play_Dash(_DeltaTime);
+            dash.Play_Dash(deltaTime);
         }
     }
 
-    private void Play_Walk(float _DeltaTime)
+    private void Play_Walk(float deltaTime)
     {
         float multiple =
-            BaseWeapon.isShooting ? WalkSpeedWhenShotMultiple.actualState.Value : 1f;
+            baseWeapon.isShooting ? walkSpeedWhenShotMultiple.actualState.Value : 1f;
         Play_Walk(
-            InputManager.instance.inputMoveDir, WalkSpeed.actualState.Value * multiple, _DeltaTime);
+            InputManager.instance.inputMoveDir, walkSpeed.actualState.Value * multiple, deltaTime);
     }
 
     public void Try_Dash()
     {
-        if (Can_Change() && DashController.Is_EnoughEP())
+        if (Can_Change() && dash.Is_EnoughEP())
         {
             InputManager.instance.isPlayingBuffered = true;
-            AfterImgGenerator.Start_Gen(0.7f, 0.03f, 0.5f);
-            Add_CurrentEP(-DashController.Get_ActualNeedEP());
-            MovementState = eMovementState.Dash;
+            afterImgGenerator.Start_Gen(0.7f, 0.03f, 0.5f);
+            Add_CurrentEP(-dash.Get_ActualNeedEP());
+            movementState = eMovementState.Dash;
         }
     }
 
@@ -522,31 +523,31 @@ public class PlayerController : AliveObjectController
 
     #region Movement Lower (Tween)
 
-    private void Set_Tween(Transform _TargetT, Vector2 _RbVel)
+    private void Set_Tween(Transform targetTf, Vector2 rbVel)
     {
-        if (_RbVel != Vector2.zero && IsLowerTweening == false) // On
+        if (rbVel != Vector2.zero && isLowerTweening == false) // On
         {
-            SetOn_Tween(_TargetT);
+            SetOn_Tween(targetTf);
         }
-        else if (_RbVel == Vector2.zero && IsLowerTweening == true) // Off
+        else if (rbVel == Vector2.zero && isLowerTweening == true) // Off
         {
-            SetOff_Tween(_TargetT);
+            SetOff_Tween(targetTf);
         }
     }
 
-    private void SetOn_Tween(Transform _TargetTF)
+    private void SetOn_Tween(Transform targetTf)
     {
-        IsLowerTweening = true;
-        _TargetTF.DOShakePosition(1f, 0.01f, 20, 0, false, false)
+        isLowerTweening = true;
+        targetTf.DOShakePosition(1f, 0.01f, 20, 0, false, false)
             .SetLoops(-1, LoopType.Restart)
-            .OnStart(() => MovementAS.volume = 0.25f )
-            .OnKill(() => MovementAS.volume = 0.1f );
+            .OnStart(() => movementAs.volume = 0.25f )
+            .OnKill(() => movementAs.volume = 0.1f );
     }
 
-    private void SetOff_Tween(Transform _TargetTF)
+    private void SetOff_Tween(Transform targetTf)
     {
-        IsLowerTweening = false;
-        DOTween.Kill(_TargetTF);
+        isLowerTweening = false;
+        DOTween.Kill(targetTf);
     }
 
     #endregion
@@ -556,7 +557,7 @@ public class PlayerController : AliveObjectController
     // 상태 변경이나 스킬, 대시 등을 사용할 수 있는 상황인가?
     private bool Can_Change()
     {
-        if (MovementState != eMovementState.IdleOrWalk)
+        if (movementState != eMovementState.IdleOrWalk)
         {
             return false;
         }
@@ -566,11 +567,11 @@ public class PlayerController : AliveObjectController
         }
     }
 
-    private const float CombatModeInterval = 0.25f;
-    private const float BoostModeInterval = 0.1f;
-    private const float UnBoostModeInterval = 0.1f;
-    private const float ChargeBetteryInterval = 1f;
-    public readonly float SkillInterval = 0.5f;
+    private const float combatModeInterval = 0.25f;
+    private const float boostModeInterval = 0.1f;
+    private const float unBoostModeInterval = 0.1f;
+    private const float chargeBetteryInterval = 1f;
+    public readonly float skillInterval = 0.5f;
 
     // 조건: + None
     public void Try_CombatModeCheck()
@@ -578,65 +579,65 @@ public class PlayerController : AliveObjectController
         if (!Can_Change()) 
         { return; }
 
-        StateAnim.Set_Anim(
-            new State_Anim(DmgTypeStateAC.typeSpecial, 2f), 
-            innerSprite: ChangeState_DamageType);
+        stateAnim.Set_Anim(
+            new State_Anim(dmgTypeStateAc.typeSpecial, 2f), 
+            innerSprite: changeState_DamageType);
 
-        TargetDmgMode = TargetDmgMode == eDamageType.Physics ?
+        targetDmgMode = targetDmgMode == eDamageType.Physics ?
             eDamageType.Energy : eDamageType.Physics;
 
-        Start_Casting(CombatModeInterval);
+        Start_Casting(combatModeInterval);
     }
 
     // 조건: + EP, BC가 충분한가?
     public void Try_ChargeBettery()
     {
         if (!Can_Change() ||
-            NeedEP_ForMakeEC >= this.CurrentEP.Value ||
-            CurrentBettery.Value <= 0) 
+            needEP_ForMakeEC >= this.currentEP.Value ||
+            currentBettery.Value <= 0) 
         { return; }
 
-        ReservationDele = Make_ChargedBettery;
+        reservationDele = Make_ChargedBettery;
 
-        Start_Casting(ChargeBetteryInterval);
+        Start_Casting(chargeBetteryInterval);
     }
 
     // 조건: + ex) 스킬을 사용할 수 없다면, Error 문구
     public void Try_Skill0()
     {
-        Try_Skill(0, _Sprite: ChangeState_Skill.typeBase);
+        Try_Skill(0, sprite: changeState_Skill.typeBase);
     }
 
     public void Try_Skill1()
     {
-        Try_Skill(1, _Sprite: ChangeState_Skill.typeSpecial);
+        Try_Skill(1, sprite: changeState_Skill.typeSpecial);
     }
 
-    private void Try_Skill(int _Index, Sprite _Sprite)
+    private void Try_Skill(int index, Sprite sprite)
     {
         if (!Can_Change())
         { return; }
 
-        if (!SkillWeapon.skillList[_Index].Can_Active())
+        if (!skillWeapon.skillList[index].Can_Active())
         {
-            MainGameUIManager.instance.playerHUD_UIController.SkillList[_Index].Play_ErrorUI();
+            MainGameUIManager.instance.playerHUD_UIController.SkillList[index].Play_ErrorUI();
             return;
         }
 
-        ReservationDele = SkillWeapon.skillList[_Index].Active_Skill;
-        StateAnim.Set_Anim(
-            new State_Anim(DmgTypeStateAC.typeSpecial, 2f),
-            _Sprite);
+        reservationDele = skillWeapon.skillList[index].Active_Skill;
+        stateAnim.Set_Anim(
+            new State_Anim(dmgTypeStateAc.typeSpecial, 2f),
+            sprite);
 
-        Start_Casting(SkillInterval);
+        Start_Casting(skillInterval);
     }
 
 
-    public void Start_Casting(float _CastingTime)
+    public void Start_Casting(float castingTime)
     {
-        CastingTime.max = _CastingTime;
-        MovementState = eMovementState.Casting;
-        ThisRb.velocity = Vector2.zero;
+        this.castingTime.max = castingTime;
+        movementState = eMovementState.Casting;
+        rb.velocity = Vector2.zero;
 
         InputManager.instance.isPlayingBuffered = true;
     }
@@ -647,11 +648,11 @@ public class PlayerController : AliveObjectController
 
     public void Try_Interact()
     {
-        if (CurrentInteractableGOList.Count <= 0 ||
-            CurrentInteractable.Value == null)
+        if (currentInteractableGoList.Count <= 0 ||
+            currentInteractable.Value == null)
         { return; }
 
-        CurrentInteractable.Value.Play_Interact();
+        currentInteractable.Value.Play_Interact();
         
         MainGameUIManager.instance.playerHUD_UIController.Play_UseInteractUI();
     }
@@ -660,20 +661,20 @@ public class PlayerController : AliveObjectController
 
     #region Update Caculate
 
-    private void Update_Caculate(float _DeltaTime)
+    private void Update_Caculate(float deltaTime)
     {
-        Caculate_Casting(_DeltaTime);
+        Caculate_Casting(deltaTime);
         //Caculate_Boosting(_DeltaTime, CurrentBoostLv.Value);
     }
 
-    private void Caculate_Casting(float _DeltaTime)
+    private void Caculate_Casting(float deltaTime)
     {
-        if (MovementState != eMovementState.Casting)
+        if (movementState != eMovementState.Casting)
         { return; }
 
-        if (CastingTime.Is_Charge(_DeltaTime)) // 캐스팅 완료
+        if (castingTime.Is_Charge(deltaTime)) // 캐스팅 완료
         {
-            MovementState = eMovementState.IdleOrWalk;
+            movementState = eMovementState.IdleOrWalk;
             InputManager.instance.isPlayingBuffered = false;
 
             Set_CombatMode();
@@ -700,22 +701,22 @@ public class PlayerController : AliveObjectController
     
     private void Set_CombatMode()
     {
-        if(DmgMode != TargetDmgMode)
+        if(dmgMode != targetDmgMode)
         {
-            DmgMode = TargetDmgMode;
-            BaseWeapon.dmgType = TargetDmgMode;
+            dmgMode = targetDmgMode;
+            baseWeapon.dmgType = targetDmgMode;
 
             Reset_StateAnim();
-            InputManager.instance.aimController.Set_DmgType(TargetDmgMode);
+            InputManager.instance.aimController.Set_DmgType(targetDmgMode);
         }
     }
 
     private void Set_Skill()
     {
-        if(ReservationDele != null)
+        if(reservationDele != null)
         {
-            ReservationDele();
-            ReservationDele = null;
+            reservationDele();
+            reservationDele = null;
 
             Reset_StateAnim();
         }
@@ -724,9 +725,9 @@ public class PlayerController : AliveObjectController
     // 모든 캐스팅이 끝나면, 본래의 스탯애니메이션으로 돌아옴
     private void Reset_StateAnim()
     {
-        StateAnim.Set_Anim(
-                new State_Anim(TargetDmgMode == eDamageType.Physics ?
-                    DmgTypeStateAC.typeA : DmgTypeStateAC.typeB, 0.8f));
+        stateAnim.Set_Anim(
+                new State_Anim(targetDmgMode == eDamageType.Physics ?
+                    dmgTypeStateAc.typeA : dmgTypeStateAc.typeB, 0.8f));
     }
 
     #endregion
@@ -735,48 +736,48 @@ public class PlayerController : AliveObjectController
 
 
     // 머리위에 스탯 상태 
-    private void Set_BoostAnim(int _Index)
+    private void Set_BoostAnim(int index)
     {
-        Set_BoostAnim_StateWheel(_Index);
-        Set_BoostAnim_StateExtraVFX(_Index);
+        Set_BoostAnim_StateWheel(index);
+        Set_BoostAnim_StateExtraVFX(index);
     }
 
     // 스탯의 위아래로 도는 바퀴
-    private void Set_BoostAnim_StateWheel(int _Index)
+    private void Set_BoostAnim_StateWheel(int index)
     {
-        for (int i = 0; i < MaxBoostLv - 1; i++)
+        for (int i = 0; i < maxBoostLv - 1; i++)
         {
             // 부스팅 : 언부스팅
-            AnimationClip ac = i < _Index ?
-                BoostOnOffAC.typeSpecial : BoostOnOffAC.typeBase;
-            float animSpeed = i < _Index ?
-                WheelLowestAnimSpeed * (_Index - i + 1) : WheelLowestAnimSpeed;
+            AnimationClip ac = i < index ?
+                boostOnOffAc.typeSpecial : boostOnOffAc.typeBase;
+            float animSpeed = i < index ?
+                wheelLowestAnimSpeed * (index - i + 1) : wheelLowestAnimSpeed;
 
-            BoostStateAnimController.typeBase[i].Set_Anim(new State_Anim(ac, animSpeed));
+            boostStateAnimController.typeBase[i].Set_Anim(new State_Anim(ac, animSpeed));
         }
     }
 
     // 스탯의 좌우로 도는 이펙트
-    private void Set_BoostAnim_StateExtraVFX(int _Index)
+    private void Set_BoostAnim_StateExtraVFX(int index)
     {
-        BoostStateAnimController.typeSpecial[0].gameObject.SetActive(false);
-        BoostStateAnimController.typeSpecial[1].gameObject.SetActive(false);
+        boostStateAnimController.typeSpecial[0].gameObject.SetActive(false);
+        boostStateAnimController.typeSpecial[1].gameObject.SetActive(false);
 
-        float animSpeed = _Index * 0.5f;
-        if (_Index > 0)
+        float animSpeed = index * 0.5f;
+        if (index > 0)
         { 
             Set_EachBoostAnim_StateExtraVFX(0, animSpeed); 
         }
-        if (_Index > 2)
+        if (index > 2)
         {
             Set_EachBoostAnim_StateExtraVFX(1, animSpeed);
         }
     }
 
-    private void Set_EachBoostAnim_StateExtraVFX(int _Index, float _AnimSpeed)
+    private void Set_EachBoostAnim_StateExtraVFX(int index, float animSpeed)
     {
-        BoostStateAnimController.typeSpecial[_Index].gameObject.SetActive(true);
-        BoostStateAnimController.typeSpecial[_Index].Set_Anim(new State_Anim(BoostVFXAnimList[_Index], _AnimSpeed));
+        boostStateAnimController.typeSpecial[index].gameObject.SetActive(true);
+        boostStateAnimController.typeSpecial[index].Set_Anim(new State_Anim(boostVFXAnimList[index], animSpeed));
 
     }
 
@@ -784,22 +785,22 @@ public class PlayerController : AliveObjectController
 
     #region Room Move State
 
-    private void SetOn_RoomMoveDir(Vector2 _Dir)
+    private void SetOn_RoomMoveDir(Vector2 dir)
     {
-        MoveDirStateAnim.gameObject.SetActive(true);
-        MoveDirStateAnim.transform.localRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, _Dir));
+        moveDirStateAnim.gameObject.SetActive(true);
+        moveDirStateAnim.transform.localRotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, dir));
     }
 
     private void SetOff_RoomMoveDir()
     {
-        MoveDirStateAnim.gameObject.SetActive(false);
+        moveDirStateAnim.gameObject.SetActive(false);
     }
 
 
     private void Set_MoveDir()
     {
-        if (DevTool.Can_CastingTType(CurrentInteractable.Value, out GateController gate) && gate.IsOpen)
-        { SetOn_RoomMoveDir(gate.GateDir); }
+        if (DevTool.Can_CastingTType(currentInteractable.Value, out GateController gate) && gate.isOpen)
+        { SetOn_RoomMoveDir(gate.gateDir); }
         else
         { SetOff_RoomMoveDir(); }
     }
@@ -808,24 +809,24 @@ public class PlayerController : AliveObjectController
 
     #region Visual
 
-    public Color Get_CorrectColor(eDamageType _DamageType, bool _IsCritical)
+    public Color Get_CorrectColor(eDamageType damageType, bool isCritical)
     {
-        return Get_CorrectTComponent(ThisClr, _DamageType, _IsCritical);
+        return Get_CorrectTComponent(clr, damageType, isCritical);
     }
 
-    public Gradient Get_CorrectGradient(eDamageType _DamageType, bool _IsCritical)
+    public Gradient Get_CorrectGradient(eDamageType damageType, bool isCritical)
     {
-        return Get_CorrectTComponent(ThisGradient, _DamageType, _IsCritical);
+        return Get_CorrectTComponent(gradient, damageType, isCritical);
     }
 
-    public AnimationClip Get_CorrectAC(eDamageType _DamageType, bool _IsCritical)
+    public AnimationClip Get_CorrectAC(eDamageType damageType, bool isCritical)
     {
-        return Get_CorrectTComponent(ThisHittedPointAC, _DamageType, _IsCritical);
+        return Get_CorrectTComponent(hittedPointAc, damageType, isCritical);
     }
 
-    private T Get_CorrectTComponent<T>(PlayerVisual<T> _T, eDamageType _DamageType, bool _IsCritical)
+    private T Get_CorrectTComponent<T>(PlayerVisual<T> t, eDamageType damageType, bool isCritical)
     {
-        return _T.Get_CorrectType(_DamageType).Get_Special(_IsCritical);
+        return t.Get_CorrectType(damageType).Get_Special(isCritical);
     }
 
     #endregion
@@ -833,57 +834,57 @@ public class PlayerController : AliveObjectController
     #region Trigger
 
     // Enter
-    protected override void OnTriggerEnter2D(Collider2D _Col) // 판별을 위한 IInteract GO 추가
+    protected override void OnTriggerEnter2D(Collider2D col) // 판별을 위한 IInteract GO 추가
     {
-        base.OnTriggerEnter2D(_Col);
+        base.OnTriggerEnter2D(col);
 
-        GameObject targetGO = _Col.gameObject.transform.parent.gameObject;
+        GameObject targetGO = col.gameObject.transform.parent.gameObject;
         if (DevTool.Get_ComponentTType<IInteract>(targetGO) != null)
         {
-            DevTool.Add_InList(CurrentInteractableGOList, targetGO);
+            DevTool.Add_InList(currentInteractableGoList, targetGO);
         }
     }
 
     // Exit
-    private void OnTriggerExit2D(Collider2D _Col) // 판별에 필요없는 IInteract GO 삭제
+    private void OnTriggerExit2D(Collider2D col) // 판별에 필요없는 IInteract GO 삭제
     {
-        GameObject targetGO = _Col.gameObject.transform.parent.gameObject;
-        if (DevTool.Get_ComponentTType<IInteract>(targetGO) != null)
+        GameObject targetGo = col.gameObject.transform.parent.gameObject;
+        if (DevTool.Get_ComponentTType<IInteract>(targetGo) != null)
         {
-            DevTool.Remove_InList(CurrentInteractableGOList, targetGO);
+            DevTool.Remove_InList(currentInteractableGoList, targetGo);
 
             // 모두 삭제되었다면
-            if (CurrentInteractableGOList.Count <= 0)
+            if (currentInteractableGoList.Count <= 0)
             {
-                CurrentInteractable.Value = null;
+                currentInteractable.Value = null;
             }
         }
     }
 
     // Stay: Set Current IInteract
-    private void OnTriggerStay2D(Collider2D _Col)
+    private void OnTriggerStay2D(Collider2D col)
     {
         // None
-        if (CurrentInteractableGOList.Count <= 0)
+        if (currentInteractableGoList.Count <= 0)
         {
-            CurrentInteractable.Value = null;
+            currentInteractable.Value = null;
         }
 
         // 하나만 존재
-        else if (CurrentInteractableGOList.Count == 1)
+        else if (currentInteractableGoList.Count == 1)
         {
-            if (DevTool.Get_ComponentTType(CurrentInteractableGOList[0], out IInteract i))
+            if (DevTool.Get_ComponentTType(currentInteractableGoList[0], out IInteract i))
             {
-                CurrentInteractable.Value = i;
+                currentInteractable.Value = i;
             }
         }
         else // 다수 존재
         {
             if (DevTool.Get_ComponentTType(
-                    DevTool.Get_ClosetGO(CurrentInteractableGOList, this.gameObject),
+                    DevTool.Get_ClosetGO(currentInteractableGoList, this.gameObject),
                     out IInteract i))
             {
-                CurrentInteractable.Value = i;
+                currentInteractable.Value = i;
             }
         }
     }
@@ -893,7 +894,7 @@ public class PlayerController : AliveObjectController
     #region Hitted
 
     // 타격: 총알
-    public void Try_Hitted(EnemyBulletController _Bullet)
+    public void Try_Hitted(EnemyBulletController bullet)
     {
         if (isUltraMode)
         {
@@ -901,26 +902,26 @@ public class PlayerController : AliveObjectController
             return;
         }
 
-        if (IsInvincible || IsDead)
+        if (isInvincible || isDead)
         { return; }
 
-        IsInvincible = true;
+        isInvincible = true;
 
         // 피격
         if (!Is_Avoid()) // 회피인지?
         {
-            BulletState state = _Bullet.state;
+            BulletState state = bullet.state;
             
             // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
             Take_Damaged(
-                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Bullet.ownEnemy.BuffController),
-                DevTool.Get_Dir(_Bullet.gameObject, gameObject),
+                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, bullet.ownEnemy.buff),
+                DevTool.Get_Dir(bullet.gameObject, gameObject),
                 state.knockbackState);
         }
     }
 
     // 타격: 어택커
-    public void Try_Hitted(EnemyAttackerController _Attacker)
+    public void Try_Hitted(EnemyAttackerController attacker)
     {
         if (isUltraMode)
         {
@@ -928,26 +929,26 @@ public class PlayerController : AliveObjectController
             return;
         }
 
-        if (IsInvincible || IsDead)
+        if (isInvincible || isDead)
         { return; }
 
-        IsInvincible = true;
+        isInvincible = true;
 
         // 피격
         if (!Is_Avoid()) // 회피인지?
         {
-            AttackerState state = _Attacker.attackerState;
+            AttackerState state = attacker.attackerState;
 
             // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
             Take_Damaged(
-                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Attacker.enemy.BuffController),
-                DevTool.Get_Dir(_Attacker.gameObject, gameObject),
+                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, attacker.enemy.buff),
+                DevTool.Get_Dir(attacker.gameObject, gameObject),
                 state.knockbackState);
         }
     }
 
     // 타격: 어택커
-    public void Try_Hitted(EnemyExplosionController _Explosion)
+    public void Try_Hitted(EnemyExplosionController explosion)
     {
         if (isUltraMode)
         {
@@ -955,27 +956,27 @@ public class PlayerController : AliveObjectController
             return;
         }
 
-        if (IsInvincible || IsDead)
+        if (isInvincible || isDead)
         { return; }
 
-        IsInvincible = true;
+        isInvincible = true;
 
         // 피격
         if (!Is_Avoid()) // 회피인지?
         {
-            ExplosionState state = _Explosion.state;
+            ExplosionState state = explosion.state;
 
             // 데미지 구현 (Dmg: 적의 냉기 디버프 계산)
             Take_Damaged(
-                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, _Explosion.enemy.BuffController),
-                DevTool.Get_Dir(_Explosion.gameObject, gameObject),
+                DevTool.Get_DmgEffectByCold(state.dmgState.dmg, explosion.enemy.buff),
+                DevTool.Get_Dir(explosion.gameObject, gameObject),
                 state.knockbackState);
         }
     }
 
 
     // 타격: 건물어택커
-    public void Try_Hitted(TrapObjectController _Attacker)
+    public void Try_Hitted(TrapObjectController attacker)
     {
         if (isUltraMode)
         {
@@ -983,10 +984,10 @@ public class PlayerController : AliveObjectController
             return;
         }
 
-        if (IsInvincible || IsDead)
+        if (isInvincible || isDead)
         { return; }
 
-        IsInvincible = true;
+        isInvincible = true;
 
         // 피격
         if (!Is_Avoid()) // 회피인지?
@@ -999,7 +1000,7 @@ public class PlayerController : AliveObjectController
     #region Damaged
 
     // 데미지 계산
-    private void Take_Damaged(float _DmgValue, Vector2 _HittedDir, KnockbackState _State_KB)
+    private void Take_Damaged(float dmgValue, Vector2 hittedDir, KnockbackState kbState)
     {
         if (isUltraMode)
         {
@@ -1008,21 +1009,21 @@ public class PlayerController : AliveObjectController
         }
 
         // Multiple
-        _DmgValue *= TakingDmgMultiple.buffedState;
+        dmgValue *= takingDmgMultiple.buffedState;
 
         // Effect
         // Knockback
-        if (_State_KB.canKB)
+        if (kbState.canKB)
         { 
-            Gain_Knockback(new CurrentKnockbackState(_HittedDir, _State_KB.kbPower, _State_KB.kbTime));
+            Gain_Knockback(new CurrentKnockbackState(hittedDir, kbState.kbPower, kbState.kbTime));
         }
 
         // Damage
-        Take_Damaged(_DmgValue, _HittedDir, _ShowHUDEffect: true);
+        Take_Damaged(dmgValue, hittedDir, showHUDEffect: true);
     }
 
     // 오직 데미지만 계산 (넉백, 애니메이션 등 설정)
-    public void Take_Damaged(float _DmgValue, Vector2 _HittedDir, bool _ShowHUDEffect = true)
+    public void Take_Damaged(float dmgValue, Vector2 hittedDir, bool showHUDEffect = true)
     {
         if (isUltraMode)
         {
@@ -1032,40 +1033,40 @@ public class PlayerController : AliveObjectController
 
         AllyRequestManager.instance.Play_TakingDamage();
 
-        if (_ShowHUDEffect)
+        if (showHUDEffect)
         {
-            MainGameUIManager.instance.playerHUD_UIController.Play_HittedPlayScreen(_DmgValue, 0.1f);
-            MainGameUIManager.instance.playerHUD_UIController.Play_HittedPlayInfo(_DmgValue, InvincibleTime);
+            MainGameUIManager.instance.playerHUD_UIController.Play_HittedPlayScreen(dmgValue, 0.1f);
+            MainGameUIManager.instance.playerHUD_UIController.Play_HittedPlayInfo(dmgValue, invincibleTime);
         }
 
-        if (_HittedDir != Vector2.zero)
+        if (hittedDir != Vector2.zero)
         {
-            PlayerManager.instance.cameraController.Play_DamagedAnim(InvincibleTime, _DmgValue * 0.1f, _HittedDir);
+            PlayerManager.instance.cameraController.Play_DamagedAnim(invincibleTime, dmgValue * 0.1f, hittedDir);
         }
        
 
-        if (ShieldElements.Count > 0)
+        if (shieldElements.Count > 0)
         {
-            for (int i = ShieldElements.Count - 1; i >= 0; i--)
+            for (int i = shieldElements.Count - 1; i >= 0; i--)
             {
                 // 쉴드 버프량 1개가 데미지보다 작거나 같으면, 제거하고 다음 쉴드로 영향
-                if (ShieldElements[i].shieldCurrentValue <= _DmgValue)
+                if (shieldElements[i].shieldCurrentValue <= dmgValue)
                 {
-                    _DmgValue -= ShieldElements[i].shieldCurrentValue;
+                    dmgValue -= shieldElements[i].shieldCurrentValue;
 
-                    Remove_Shield(ShieldElements[i]); // 쉴드 감소
+                    Remove_Shield(shieldElements[i]); // 쉴드 감소
                 }
                 else // 쉴드 버프가 데미지를 버틸 수 있으면
                 {
-                    ShieldElements[i].shieldCurrentValue -= _DmgValue;
-                    _DmgValue = 0;
-                    CurrentSP.Value = Get_TotalShield();
+                    shieldElements[i].shieldCurrentValue -= dmgValue;
+                    dmgValue = 0;
+                    currentSP.Value = Get_TotalShield();
                     return;
                 }
             }
         }
-        CurrentSP.Value = Get_TotalShield();
-        Add_CurrentEP(-_DmgValue);
+        currentSP.Value = Get_TotalShield();
+        Add_CurrentEP(-dmgValue);
     }
 
     #endregion
@@ -1098,16 +1099,16 @@ public class PlayerController : AliveObjectController
     public bool Is_Avoid()
     {
         // 회피
-        if (DevTool.Is_ChanceSuccess(AvoidChance.actualState.Value))
+        if (DevTool.Is_ChanceSuccess(avoidChance.actualState.Value))
         {
             Play_Avoid();
-            SoundManager.instance.Play_2D_SFX_Player(ASQueueSet.Get_T(), "Avoid");
+            SoundManager.instance.Play_2D_SFX_Player(audioQueueSet.Get_T(), "Avoid");
             return true;
         }
         else
         {
             SetOn_Invincible();
-            SoundManager.instance.Play_2D_SFX_Player(ASQueueSet.Get_T(), "Hitted");
+            SoundManager.instance.Play_2D_SFX_Player(audioQueueSet.Get_T(), "Hitted");
             return false;
         }
     }
@@ -1115,21 +1116,21 @@ public class PlayerController : AliveObjectController
     // 회피
     private void Play_Avoid()
     {
-        PlayerManager.instance.cameraController.Play_AvoidAnim(InvincibleTime);
-        UnitManager.instance.player_ExplImgGenerator.Expl_Player_Avoid(id, TargetObject.transform.position);
-        MainGameUIManager.instance.playerHUD_UIController.Play_AvoidPlayInfo(InvincibleTime);
+        PlayerManager.instance.cameraController.Play_AvoidAnim(invincibleTime);
+        UnitManager.instance.player_ExplImgGenerator.Expl_Player_Avoid(id, targetObject.transform.position);
+        MainGameUIManager.instance.playerHUD_UIController.Play_AvoidPlayInfo(invincibleTime);
     }
     
     // 회피하지 못함 => 무적
     private void SetOn_Invincible()
     {
-        float intervalTime = InvincibleTime * 0.125f; // (1/8)
-        for (int i = 0; i < AfterImgGenerator.targetSRList.Count; i++)
+        float intervalTime = invincibleTime * 0.125f; // (1/8)
+        for (int i = 0; i < afterImgGenerator.targetSRList.Count; i++)
         {
             Sequence seq = DOTween.Sequence();
-            seq.Append(AfterImgGenerator.targetSRList[i].DOFade(0, 0));
+            seq.Append(afterImgGenerator.targetSRList[i].DOFade(0, 0));
             seq.AppendInterval(intervalTime);
-            seq.Append(AfterImgGenerator.targetSRList[i].DOFade(1, 0));
+            seq.Append(afterImgGenerator.targetSRList[i].DOFade(1, 0));
             seq.AppendInterval(intervalTime);
             seq.SetLoops(4, LoopType.Restart);
         }
@@ -1138,7 +1139,7 @@ public class PlayerController : AliveObjectController
     // 회피 끝
     public void SetOff_Invincible()
     {
-        IsInvincible = false;
+        isInvincible = false;
     }
 
     #endregion
@@ -1147,9 +1148,9 @@ public class PlayerController : AliveObjectController
 
     public void Set_PrisonPanelty()
     {
-        Add_CurrentCredit(-(int)(CurrentCredit.Value * 0.2f));
-        Add_CurrentOverrider(-(int)(CurrentOverrider.Value * 0.2f));
-        Add_CurrentModuleShard(-(int)(CurrentModuleShard.Value * 0.2f));
+        Add_CurrentCredit(-(int)(currentCredit.Value * 0.2f));
+        Add_CurrentOverrider(-(int)(currentOverrider.Value * 0.2f));
+        Add_CurrentModuleShard(-(int)(currentModuleShard.Value * 0.2f));
 
         Take_Damaged(Get_CurrentEP().Value * 0.2f, Vector2.zero, false);
 
@@ -1162,12 +1163,12 @@ public class PlayerController : AliveObjectController
 
     public void Try_STAllyLvUp()
     {
-        if (StageManager.instance.currentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
+        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
             return;
 
-        if (NeedStrikeTeamPresence.Value <= StrikeTeamPresence.Value)
+        if (needStrikeTeamPresence.Value <= strikeTeamPresence.Value)
         {
-            NeedStrikeTeamPresence.Value += NeedIntervalPresence;
+            needStrikeTeamPresence.Value += needIntervalPresence;
 
             MainGameUIManager.instance.allyCard_UIController.TypeIndex = 0;
             MainGameUIManager.instance.allyCard_UIController.SetOn_ThisPanel();
@@ -1176,12 +1177,12 @@ public class PlayerController : AliveObjectController
 
     public void Try_UTAllyLvUp()
     {
-        if (StageManager.instance.currentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
+        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
             return;
 
-        if (NeedUplinkTeamPresence.Value <= UplinkTeamPresence.Value)
+        if (needUplinkTeamPresence.Value <= uplinkTeamPresence.Value)
         {
-            NeedUplinkTeamPresence.Value += NeedIntervalPresence;
+            needUplinkTeamPresence.Value += needIntervalPresence;
 
             MainGameUIManager.instance.allyCard_UIController.TypeIndex = 1;
             MainGameUIManager.instance.allyCard_UIController.SetOn_ThisPanel();
@@ -1190,12 +1191,12 @@ public class PlayerController : AliveObjectController
 
     public void Try_NTAllyLvUp()
     {
-        if (StageManager.instance.currentRoomController.RoomRuleController.RoomType != eRoomType.Completed)
+        if (StageManager.instance.currentRoomController.roomRule.roomType != eRoomType.Completed)
             return;
 
-        if (NeedNeoTeamPresence.Value <= NeoTeamPresence.Value)
+        if (needNeoTeamPresence.Value <= neoTeamPresence.Value)
         {
-            NeedNeoTeamPresence.Value += NeedIntervalPresence;
+            needNeoTeamPresence.Value += needIntervalPresence;
 
             MainGameUIManager.instance.allyCard_UIController.TypeIndex = 2;
             MainGameUIManager.instance.allyCard_UIController.SetOn_ThisPanel();
@@ -1206,9 +1207,9 @@ public class PlayerController : AliveObjectController
 
     #region Ping
 
-    public void Try_PingEnemy(AimController _Aim)
+    public void Try_PingEnemy(AimController aim)
     {
-        EnemyController enemy = EnemyManager.instance.Get_ClosestEnemy(_Aim.gameObject, out float dis);
+        EnemyController enemy = EnemyManager.instance.Get_ClosestEnemy(aim.gameObject, out float dis);
         if (enemy != null && dis <= 3)
             PlayerManager.instance.SetOn_PingEnemy(enemy);
         else
@@ -1221,14 +1222,14 @@ public class PlayerController : AliveObjectController
 
     public void SetOn_Trail()
     {
-        ThisTrail.Clear();
-        ThisTrail.emitting = true;
+        trail.Clear();
+        trail.emitting = true;
     }
 
     public void SetOff_Trail()
     {
-        ThisTrail.emitting = false;
-        ThisTrail.Clear();
+        trail.emitting = false;
+        trail.Clear();
     }
 
     #endregion
@@ -1236,14 +1237,14 @@ public class PlayerController : AliveObjectController
     #region Reputation
 
 
-    public void Gain_Reputation(float _Value)
+    public void Gain_Reputation(float value)
     {
-        Reputation.Value = Mathf.Min(Reputation.Value + _Value, 100f);
+        reputation.Value = Mathf.Min(reputation.Value + value, 100f);
     }
 
-    public void Reduce_Reputation(float _Value)
+    public void Reduce_Reputation(float value)
     {
-        Reputation.Value = Mathf.Max(Reputation.Value - _Value, 0f);
+        reputation.Value = Mathf.Max(reputation.Value - value, 0f);
     }
 
     #endregion
@@ -1252,7 +1253,7 @@ public class PlayerController : AliveObjectController
 
     public AudioSource Get_AS()
     {
-        return ASQueueSet.Get_T();
+        return audioQueueSet.Get_T();
     }
 
     #endregion
@@ -1271,14 +1272,14 @@ public class PlayerController : AliveObjectController
             WalkSpeed.ActualState.Value = 15f;
             */
 
-            CurrentChargedBettery.Value = 9999;
-            CurrentCredit.Value = 9999;
-            CurrentOverrider.Value = 9999;
-            CurrentModuleShard.Value = 9999;
+            currentChargedBettery.Value = 9999;
+            currentCredit.Value = 9999;
+            currentOverrider.Value = 9999;
+            currentModuleShard.Value = 9999;
 
-            StrikeTeamPresence.Value = 100;
-            UplinkTeamPresence.Value = 100;
-            NeoTeamPresence.Value = 100;
+            strikeTeamPresence.Value = 100;
+            uplinkTeamPresence.Value = 100;
+            neoTeamPresence.Value = 100;
 
             PlayerManager.instance.Gain_KeyCard(0, 99);
             PlayerManager.instance.Gain_KeyCard(1, 99);

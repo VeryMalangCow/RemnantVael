@@ -1,6 +1,7 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CreditController : RangeAbsorbItemController
 {
@@ -11,10 +12,10 @@ public class CreditController : RangeAbsorbItemController
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private int GainAmount = 1;
-    [SerializeField] private TMP_Text AmountTxt;
+    [FormerlySerializedAs("GaimAmount")][SerializeField] private int gainAmount = 1;
+    [FormerlySerializedAs("AmountTxt")][SerializeField] private TMP_Text amountTxt;
 
-    [HideInInspector] private MeshRenderer TxtMR;
+    [HideInInspector] private MeshRenderer mesh;
 
     #endregion
 
@@ -24,30 +25,30 @@ public class CreditController : RangeAbsorbItemController
     {
         base.Offset();
 
-        TxtMR = DevTool.Get_ComponentTType(AmountTxt.gameObject, out MeshRenderer mr) ? mr : null;
+        mesh = DevTool.Get_ComponentTType(amountTxt.gameObject, out MeshRenderer mr) ? mr : null;
     }
 
     #endregion
 
     #region Set
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
+        base.Set_SortingOrder(sortingOrder);
 
-        TxtMR.sortingOrder = _SortingOrder;
+        mesh.sortingOrder = sortingOrder;
     }
 
     #endregion
 
     #region State
 
-    public void Set_State(Vector2 _SpawnPos, int _Value)
+    public void Set_State(Vector2 spawnPos, int value)
     {
-        base.Set_State(_SpawnPos);
+        base.Set_State(spawnPos);
 
-        GainAmount = _Value;
-        AmountTxt.text = $"(<size=150%>{_Value}</size>)";
+        gainAmount = value;
+        amountTxt.text = $"(<size=150%>{value}</size>)";
 
         gameObject.SetActive(true);
     }
@@ -60,9 +61,9 @@ public class CreditController : RangeAbsorbItemController
     {
         base.Gain_Item();
 
-        IsSpawnNow = false;
+        isSpawnNow = false;
 
-        PlayerManager.instance.playerController.Add_CurrentCredit(GainAmount);
+        PlayerManager.instance.playerController.Add_CurrentCredit(gainAmount);
         PoolingManager.instance.credit.Enqueue(this);
     }
 

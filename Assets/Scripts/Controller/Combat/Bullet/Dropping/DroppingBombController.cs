@@ -115,7 +115,7 @@ public abstract class DroppingBombController : DroppingDepthController
     {
         base.Set_SortingOrder(sortingOrder);
 
-        ThisTrail.sortingOrder = sortingOrder - 1;
+        trail.sortingOrder = sortingOrder - 1;
     }
 
     #endregion
@@ -124,16 +124,16 @@ public abstract class DroppingBombController : DroppingDepthController
 
     protected virtual void SetOn_Trail()
     {
-        ThisTrail.Clear();
+        trail.Clear();
 
-        ThisTrail.emitting = true;
-        ThisTrail.enabled = true;
+        trail.emitting = true;
+        trail.enabled = true;
     }
 
     private void SetOff_Trail()
     {
-        ThisTrail.emitting = false;
-        ThisTrail.enabled = false;
+        trail.emitting = false;
+        trail.enabled = false;
     }
 
     #endregion

@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 3222036730807376840}
-  ThisSR: {fileID: 2222629274383368526}
-  TargetRange: 0.6
+  targetObject: {fileID: 3222036730807376840}
+  thisSr: {fileID: 2222629274383368526}
+  targetRange: 0.6
 --- !u!1 &916587305532177432
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,9 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671f0fbb9eac8994a9c363e97583d66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationTargetTF: {fileID: 6136673216826927673}
-  ThisComp: {fileID: 1874183789220357432}
-  ThisDirectionalList:
+  rotTargetTf: {fileID: 6136673216826927673}
+  comp: {fileID: 1874183789220357432}
+  dirList:
   - {fileID: 610174376, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -1377615038, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -261154839, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
@@ -203,11 +203,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d459cf144569843a7a901086e98404, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PivotObjectSR: {fileID: 1874183789220357432}
-  DefualtRoll: -85
-  RotateSpeed: 8
-  PitchTF: {fileID: 0}
-  SatelliteSideList:
+  pivotObjSr: {fileID: 1874183789220357432}
+  defualtRoll: -85
+  rotSpeed: 8
+  pitchTf: {fileID: 0}
+  satelliteSideList:
   - target: {fileID: 1415603111598692130}
     follower: {fileID: 4362640458784314351}
     upperOrder: 0
@@ -216,8 +216,8 @@ MonoBehaviour:
     follower: {fileID: 4869389014298094842}
     upperOrder: 0
     farFromCenter: 1
-  SatelliteCenterList: []
-  EnemyController: {fileID: 0}
+  satelliteCenterList: []
+  enemy: {fileID: 0}
 --- !u!1 &2485527487512339497
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,9 +264,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 6802761286114077143}
-  ThisSR: {fileID: 6554919075280264633}
-  TargetRange: 0.6
+  targetObject: {fileID: 6802761286114077143}
+  thisSr: {fileID: 6554919075280264633}
+  targetRange: 0.6
 --- !u!1 &3222036730807376840
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,9 +364,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671f0fbb9eac8994a9c363e97583d66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationTargetTF: {fileID: 6136673216826927673}
-  ThisComp: {fileID: 2222629274383368526}
-  ThisDirectionalList:
+  rotTargetTf: {fileID: 6136673216826927673}
+  comp: {fileID: 2222629274383368526}
+  dirList:
   - {fileID: -176571284, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -802095933, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -730727061, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
@@ -648,9 +648,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671f0fbb9eac8994a9c363e97583d66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationTargetTF: {fileID: 6136673216826927673}
-  ThisComp: {fileID: 6554919075280264633}
-  ThisDirectionalList:
+  rotTargetTf: {fileID: 6136673216826927673}
+  comp: {fileID: 6554919075280264633}
+  dirList:
   - {fileID: 1449039531, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -408184448, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
   - {fileID: -1035094009, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}

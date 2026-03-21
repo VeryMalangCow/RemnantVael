@@ -45,13 +45,13 @@ public class ProtoCoreCvtUIController : ConverterUIController
 
     public void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.CurrentChargedBettery
+        PlayerManager.instance.playerController.currentChargedBettery
             .Subscribe(_Value =>
             {
                 CB_CvtMaterialEUI.Set_PossessionAmountTxt(_Value.ToString());
             });
 
-        PlayerManager.instance.playerController.CurrentCredit
+        PlayerManager.instance.playerController.currentCredit
             .Subscribe(_Value =>
             {
                 C_CvtMaterialEUI.Set_PossessionAmountTxt(_Value.ToString());
@@ -108,10 +108,10 @@ public class ProtoCoreCvtUIController : ConverterUIController
         PlayerController pc = PlayerManager.instance.playerController;
 
         int currentPossibilityCredit =
-            Get_Acquisitable_Credit(pc.CurrentCredit.Value);
+            Get_Acquisitable_Credit(pc.currentCredit.Value);
 
         int currentPossibilityCB =
-            Get_Acquisitable_ChargedBettery(pc.CurrentChargedBettery.Value);
+            Get_Acquisitable_ChargedBettery(pc.currentChargedBettery.Value);
 
         int result = currentPossibilityCredit < currentPossibilityCB ? currentPossibilityCredit : currentPossibilityCB;
         Set_AcquBookAmount(result);
@@ -128,12 +128,12 @@ public class ProtoCoreCvtUIController : ConverterUIController
 
         int needCredit = AcquisitionBookAmount * Need_Credit;
         C_CvtMaterialEUI.Set_NecessaryAmountTxt(needCredit.ToString());
-        bool canCvtByCredit = needCredit <= pc.CurrentCredit.Value;
+        bool canCvtByCredit = needCredit <= pc.currentCredit.Value;
         C_CvtMaterialEUI.Set_Condition(canCvtByCredit);
 
         float needCB = AcquisitionBookAmount * Need_ChargedBettery;
         CB_CvtMaterialEUI.Set_NecessaryAmountTxt(needCB.ToString());
-        bool canCvtByCB = needCB <= (pc.CurrentChargedBettery.Value);
+        bool canCvtByCB = needCB <= (pc.currentChargedBettery.Value);
         CB_CvtMaterialEUI.Set_Condition(canCvtByCB);
 
         CanConvert = canCvtByCredit && canCvtByCB;

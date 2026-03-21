@@ -626,9 +626,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 2588723914438145757}
-  ThisSR: {fileID: 6431130664222279258}
-  TargetRange: 0.55
+  targetObject: {fileID: 2588723914438145757}
+  thisSr: {fileID: 6431130664222279258}
+  targetRange: 0.55
   ThisStateAnim: {fileID: 3433866877279181021}
   IsOn: 1
   ThisAnimator: {fileID: 1156573706478142735}

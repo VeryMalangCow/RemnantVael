@@ -33,7 +33,7 @@ public class AimRoundController : StaticDepthController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.BaseWeapon.accRate.actualState
+        PlayerManager.instance.playerController.baseWeapon.accRate.actualState
             .Subscribe(value =>
             {
                 Set_AngleRoundValue(value);
@@ -62,8 +62,8 @@ public class AimRoundController : StaticDepthController
 
     private void Update_AimRot()
     {
-        TargetObject.transform.localRotation = Quaternion.Slerp(
-            TargetObject.transform.localRotation,
+        targetObject.transform.localRotation = Quaternion.Slerp(
+            targetObject.transform.localRotation,
             Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.up, InputManager.instance.dirFromPlayerPos)),
             aimFollowSpeed * Time.deltaTime);
     }

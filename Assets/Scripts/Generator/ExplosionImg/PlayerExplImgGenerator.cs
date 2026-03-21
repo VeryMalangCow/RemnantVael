@@ -133,10 +133,10 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
     // 쇼크웨이브 발사
     private void Expl_Player00_Skill1(Vector2 spawnPos)
     {
-        if (PlayerManager.instance.playerController.SkillWeapon.skillList[1] is ShockwaveSkillController shock)
+        if (PlayerManager.instance.playerController.skillWeapon.skillList[1] is ShockwaveSkillController shock)
         {
             float usableMaxSize = shock.Get_UsableMaxSize();
-            float cc = PlayerManager.instance.playerController.BaseWeapon.cc.actualState.Value;
+            float cc = PlayerManager.instance.playerController.baseWeapon.cc.actualState.Value;
             int normalAmount = (int)(36f * (1f - cc));
             int specialAmount = (int)(36f * cc);
 
@@ -201,7 +201,7 @@ public class PlayerExplImgGenerator : ExplosionImgGenerator
     {
         return new ExplState_Sprite(
             smokeSpriteList[playerID].Get_CorrectType(dmgType).Get_Special(isCritical),
-            PlayerManager.instance.playerController.MaterialList[materialIndex]);
+            PlayerManager.instance.playerController.materialList[materialIndex]);
     }
 
     #endregion

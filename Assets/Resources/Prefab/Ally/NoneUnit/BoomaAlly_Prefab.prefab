@@ -47,21 +47,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 0}
-  ThisSR: {fileID: 0}
-  TargetRange: 0
-  ThisRb: {fileID: 0}
-  AccelerationSpeed: 0
-  IsDead: 0
-  CurrentSP:
+  targetObject: {fileID: 0}
+  thisSr: {fileID: 0}
+  targetRange: 0
+  rb: {fileID: 0}
+  accelerationSpeed: 0
+  isDead: 0
+  currentSP:
     value: 0
-  CurrentHP:
+  currentHP:
     value: 0
-  CurrentEP:
+  currentEP:
     value: 0
-  BrokenParticleData: []
-  ParticleThrowDis: 0
-  MultipleAllyState:
+  brokenParticleData: []
+  particleThrowDis: 0
+  multipleAllyState:
     dmg:
       value: 15
     rof:
@@ -80,14 +80,14 @@ MonoBehaviour:
       value: 1
     dur:
       value: 0
-  MaxHP: 150
-  AllyStateMode:
+  maxHP: 150
+  allyStateMode:
     value: 0
-  BuffController: {fileID: 1999153423990081965}
-  FrontFaceSprite: {fileID: -1506652042, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
-  ThisColor: {r: 1, g: 0.56078434, b: 0.56078434, a: 1}
-  ThisExtraColor: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
-  ThisExtraGradient:
+  buffController: {fileID: 1999153423990081965}
+  frontFaceSprite: {fileID: -1506652042, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
+  clr: {r: 1, g: 0.56078434, b: 0.56078434, a: 1}
+  extraClr: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
+  extraGradient:
     serializedVersion: 2
     key0: {r: 0.7294118, g: 0.7294118, b: 0.7294118, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -117,8 +117,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  HUD: {fileID: 5265476221777618597}
-  UpgradeAllyState:
+  hud: {fileID: 5265476221777618597}
+  upgradeAllyState:
     dmg:
       value: 1
     rof:
@@ -137,12 +137,12 @@ MonoBehaviour:
       value: 1
     dur:
       value: 1
-  CurrentChargeTime: 0
-  DropBottomYPos: 0.2
-  ThisSprite: {fileID: 1620505241, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
-  TrailTime: 0.8
-  TrailStartWidth: 0.04
-  LightIntensity: 0.2
+  currentChargeTime: 0
+  dropBottomYPos: 0.2
+  sprite: {fileID: 1620505241, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
+  trailTime: 0.8
+  trailStartWidth: 0.04
+  lightIntensity: 0.2
 --- !u!114 &1999153423990081965
 MonoBehaviour:
   m_ObjectHideFlags: 0

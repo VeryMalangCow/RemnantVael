@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemySolarController : SolarSystemController
 {
@@ -9,7 +10,7 @@ public class EnemySolarController : SolarSystemController
 
     [Space(10)]
     [Header("=== Controller")]
-    [SerializeField] protected EnemyController EnemyController;
+    [FormerlySerializedAs("EnemyController")][SerializeField] protected EnemyController enemy;
 
     #endregion
 
@@ -17,7 +18,7 @@ public class EnemySolarController : SolarSystemController
 
     protected virtual void Update()
     {
-        Set_RotSmooth(EnemyController.LookAtDir, Time.deltaTime);
+        Set_RotSmooth(enemy.lookAtDir, Time.deltaTime);
     }
 
     #endregion

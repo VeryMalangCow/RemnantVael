@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EliteEnemyController : EnemyController
 {
@@ -9,27 +10,27 @@ public class EliteEnemyController : EnemyController
 
     [Space(10)]
     [Header("=== Data")]
-    [SerializeField] private int NameID;
-    public int GetNameID => NameID;
+    [FormerlySerializedAs("NameID")][SerializeField] private int nameId;
+    public int GetNameID => nameId;
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] public RectTransform PanelRT;
+    [FormerlySerializedAs("PanelRT")][SerializeField] public RectTransform panelRt;
 
     [Space(10)]
     [Header("=== Item")]
-    [SerializeField] public CoreDropItemPercent CoreDropItemPercent;
+    [FormerlySerializedAs("CoreDropItemPercent")][SerializeField] public CoreDropItemPercent coreDropItemPercent;
 
     [Space(10)]
     [Header("=== Reso")]
-    [SerializeField] public Sprite BattleProdSprite;
+    [FormerlySerializedAs("BattleProdSprite")][SerializeField] public Sprite battleProdSprite;
 
     #region - Hide
 
-    [HideInInspector] private static readonly Vector2 HUDBaseAnchorPos = new Vector2(-812, 290);
-    [HideInInspector] private static readonly float HUDIntervalY = 80f;
+    [HideInInspector] private static readonly Vector2 hudBaseAnchorPos = new Vector2(-812, 290);
+    [HideInInspector] private static readonly float hudIntervalY = 80f;
 
-    [HideInInspector] public static bool IsDroppedBossKeycard = false;
+    [HideInInspector] public static bool isDroppedBossKeycard = false;
 
     #endregion
 
@@ -55,16 +56,16 @@ public class EliteEnemyController : EnemyController
     {
         base.Offset();
 
-        HUD.ThisCanvas.worldCamera = MainGameUIManager.instance.uiCamera;
+        hud.ThisCanvas.worldCamera = MainGameUIManager.instance.uiCamera;
     }
 
     #endregion
 
     #region HUD
 
-    public void Set_HUDPanelPos(int _Index)
+    public void Set_HUDPanelPos(int index)
     {
-        PanelRT.anchoredPosition = new Vector2(HUDBaseAnchorPos.x, HUDBaseAnchorPos.y + (HUDIntervalY * _Index));
+        panelRt.anchoredPosition = new Vector2(hudBaseAnchorPos.x, hudBaseAnchorPos.y + (hudIntervalY * index));
     }
 
     #endregion
@@ -75,15 +76,15 @@ public class EliteEnemyController : EnemyController
     {
         base.Set_Die_GenItem();
 
-        if (!IsDroppedBossKeycard)
+        if (!isDroppedBossKeycard)
         {
             Gen_KeycardItem(0); // Boss Keycard
-            IsDroppedBossKeycard = true;
+            isDroppedBossKeycard = true;
         }
 
-        if (CoreDropItemPercent.coreItemPercent != 0 && DevTool.Is_ChanceSuccess(CoreDropItemPercent.coreItemPercent))
+        if (coreDropItemPercent.coreItemPercent != 0 && DevTool.Is_ChanceSuccess(coreDropItemPercent.coreItemPercent))
         {
-            Gen_CoreItem(CoreDropItemPercent.coreItemID);
+            Gen_CoreItem(coreDropItemPercent.coreItemID);
         }
     }
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ItemController : SortingObjectController
 {
@@ -9,15 +10,15 @@ public class ItemController : SortingObjectController
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] protected Rigidbody2D ThisRb;
+    [FormerlySerializedAs("ThisRb")] [SerializeField] protected Rigidbody2D rb;
 
     #endregion
 
     #region State
 
-    public virtual void Set_State(Vector2 _SpawnPos)
+    public virtual void Set_State(Vector2 spawnPos)
     {
-        this.gameObject.transform.position = _SpawnPos;
+        this.gameObject.transform.position = spawnPos;
     }
 
     #endregion

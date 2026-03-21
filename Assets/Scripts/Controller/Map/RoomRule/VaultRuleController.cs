@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class VaultRuleController : RoomRuleController
 {
@@ -10,17 +11,17 @@ public class VaultRuleController : RoomRuleController
 
     [Space(10)]
     [Header("=== ParentTF")]
-    [SerializeField] public Transform InRoom_VaultParentTF;
-    [SerializeField] public Transform InRoom_RepairOperactorParentTF;
-    [SerializeField] public Transform InRoom_RerollOperactorParentTF;
-    [SerializeField] public Transform InRoom_UpgradeOperactorParentTF;
+    [FormerlySerializedAs("InRoom_VaultParentTF")][SerializeField] public Transform inRoom_vaultParentTf;
+    [FormerlySerializedAs("InRoom_RepairOperactorParentTF")][SerializeField] public Transform inRoom_RepairOperactorParentTf;
+    [FormerlySerializedAs("InRoom_RerollOperactorParentTF")][SerializeField] public Transform inRoom_RerollOperactorParentTf;
+    [FormerlySerializedAs("InRoom_UpgradeOperactorParentTF")][SerializeField] public Transform inRoom_UpgradeOperactorParentTf;
 
-    [HideInInspector] public VaultController Vault;
-    [HideInInspector] public RepairOperatorController RepairOperator;
-    [HideInInspector] public VaultUpgradeOperatorController UpgradeOperator;
-    [HideInInspector] public VaultRerollOperatorController RerollOperator;
+    [HideInInspector] public VaultController vault;
+    [HideInInspector] public RepairOperatorController repairOperator;
+    [HideInInspector] public VaultUpgradeOperatorController upgradeOperator;
+    [HideInInspector] public VaultRerollOperatorController rerollOperator;
 
-    [HideInInspector] private static List<int> PercentVaultGrade = new List<int>
+    [HideInInspector] private static List<int> percentVaultGrade = new List<int>
         { 8, 6, 3, 2, 1 };
 
     #endregion
@@ -31,7 +32,7 @@ public class VaultRuleController : RoomRuleController
     {
         base.Offset();
 
-        NeedKeyCardID = 1;
+        needKeyCardId = 1;
     }
 
     #endregion
@@ -47,11 +48,11 @@ public class VaultRuleController : RoomRuleController
 
     private void SetOn_Vault()
     {
-        Vault.gameObject.SetActive(true);
-        Vault.Set_Grade(DevTool.Get_Grade(PercentVaultGrade));
-        RepairOperator.gameObject.SetActive(true);
-        UpgradeOperator.gameObject.SetActive(true);
-        RerollOperator.gameObject.SetActive(true);
+        vault.gameObject.SetActive(true);
+        vault.Set_Grade(DevTool.Get_Grade(percentVaultGrade));
+        repairOperator.gameObject.SetActive(true);
+        upgradeOperator.gameObject.SetActive(true);
+        rerollOperator.gameObject.SetActive(true);
     }
 
     #endregion

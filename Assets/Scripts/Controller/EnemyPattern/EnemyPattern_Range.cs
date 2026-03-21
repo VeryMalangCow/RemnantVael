@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 public class EnemyPattern_Range : EnemyPattern
 {
@@ -12,44 +13,44 @@ public class EnemyPattern_Range : EnemyPattern
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private BulletState ThisBS;
-    [SerializeField] private float BaseAngle = 0f;
+    [FormerlySerializedAs("ThisBS")][SerializeField] private BulletState bulletState;
+    [FormerlySerializedAs("BaseAngle")][SerializeField] private float baseAngle = 0f;
 
     [Space(10)]
     [Header("=== Size")]
-    [SerializeField] private Vector2 BulletShadowScale;
-    [SerializeField] private Vector2 BulletColSize;
+    [FormerlySerializedAs("BulletShadowScale")][SerializeField] private Vector2 bulletShadowScale;
+    [FormerlySerializedAs("BulletColSize")][SerializeField] private Vector2 bulletColSize;
 
     [Space(10)]
     [Header("=== Trail")]
-    [SerializeField] private float TrailTime;
-    [SerializeField] private float TrailStartWidth;
-    [SerializeField] private Gradient TrailGradient;
+    [FormerlySerializedAs("TrailTime")][SerializeField] private float trailTime;
+    [FormerlySerializedAs("TrailStartWidth")][SerializeField] private float trailStartWidth;
+    [FormerlySerializedAs("TrailGradient")][SerializeField] private Gradient trailGradient;
 
     [Space(10)]
     [Header("=== Light")]
-    [SerializeField] private float LightIntensity;
+    [FormerlySerializedAs("LightIntensity")][SerializeField] private float lightIntensity;
 
 
     [Space(10)]
     [Header("=== Condition")]
-    [SerializeField] private float MaxRange = 4f;
-    [SerializeField] private float MinRange = 3f;
+    [FormerlySerializedAs("MaxRange")][SerializeField] private float maxRange = 4f;
+    [FormerlySerializedAs("MinRange")][SerializeField] private float minRange = 3f;
 
     [Space(10)]
     [Header("=== Effect")]
-    [SerializeField] private int ShootExplAmount = 3;
-    [SerializeField] private int ExplAmount = 3;
+    [FormerlySerializedAs("ShootExplAmount")][SerializeField] private int shootExplAmount = 3;
+    [FormerlySerializedAs("ExplAmount")][SerializeField] private int explAmount = 3;
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private List<DepthController> SpawnDepthList;
-    [SerializeField] private List<DepthController> BeforeEffectDepthList;
-    [SerializeField] private Color BeforeEffectColor;
-    [SerializeField] private AnimationClip BulletAC;
+    [FormerlySerializedAs("SpawnDepthList")][SerializeField] private List<DepthController> spawnDepthList;
+    [FormerlySerializedAs("BeforeEffectDepthList")][SerializeField] private List<DepthController> beforeEffectDepthList;
+    [FormerlySerializedAs("BeforeEffectColor")][SerializeField] private Color beforeEffectColor;
+    [FormerlySerializedAs("BulletAC")][SerializeField] private AnimationClip bulletAc;
 
-    [HideInInspector] private Sequence BeforeEffectSeq;
-    [HideInInspector] private float BulletRadiusCondition = 0;
+    [HideInInspector] private Sequence beforeEffectSeq;
+    [HideInInspector] private float bulletRadiusCondition = 0;
 
     #endregion
 
@@ -57,7 +58,7 @@ public class EnemyPattern_Range : EnemyPattern
 
     private void Start()
     {
-        BulletRadiusCondition = Get_BulletMaximumRadius();
+        bulletRadiusCondition = Get_BulletMaximumRadius();
     }
 
     private void OnEnable()
@@ -67,7 +68,7 @@ public class EnemyPattern_Range : EnemyPattern
 
     private void Update()
     {
-        if (!IsPlaying)
+        if (!isPlaying)
         {
             StopCoroutine(Play_ThisPattern_Cor());
         }
@@ -79,11 +80,11 @@ public class EnemyPattern_Range : EnemyPattern
 
     public override bool Can_PlayPattern()
     {
-        if (IsSpecialPattern) return true;
+        if (isSpecialPattern) return true;
 
-        float forPlayerDis = Vector2.Distance(ThisEnemy.transform.position, PlayerManager.instance.playerController.transform.position);
+        float forPlayerDis = Vector2.Distance(enemy.transform.position, PlayerManager.instance.playerController.transform.position);
 
-        if (forPlayerDis >= MinRange && forPlayerDis < MaxRange && Can_ShootByBulletRadius())
+        if (forPlayerDis >= minRange && forPlayerDis < maxRange && Can_ShootByBulletRadius())
         {
             return true;
         }
@@ -93,9 +94,9 @@ public class EnemyPattern_Range : EnemyPattern
 
     private bool Can_ShootByBulletRadius()
     {
-        for (int i = 0; i < SpawnDepthList.Count; i++)
+        for (int i = 0; i < spawnDepthList.Count; i++)
         {
-            if (DevTool.Is_Exist_UseCircle(SpawnDepthList[i].transform, PlayerManager.instance.playerController.transform, "Wall", BulletRadiusCondition * 2))
+            if (DevTool.Is_Exist_UseCircle(spawnDepthList[i].transform, PlayerManager.instance.playerController.transform, "Wall", bulletRadiusCondition * 2))
             {
                 return false;
             }
@@ -106,8 +107,8 @@ public class EnemyPattern_Range : EnemyPattern
 
     private float Get_BulletMaximumRadius()
     {
-        return (BulletColSize.x > BulletColSize.y ? BulletColSize.x : BulletColSize.y) 
-            * (BulletShadowScale.x > BulletShadowScale.y ? BulletShadowScale.x : BulletShadowScale.y);
+        return (bulletColSize.x > bulletColSize.y ? bulletColSize.x : bulletColSize.y) 
+            * (bulletShadowScale.x > bulletShadowScale.y ? bulletShadowScale.x : bulletShadowScale.y);
     }
 
     #endregion
@@ -116,87 +117,87 @@ public class EnemyPattern_Range : EnemyPattern
 
     protected override IEnumerator Play_ThisPattern_Cor()
     {
-        Play_BeforeEffect(StartDelay);
-        yield return new WaitForSeconds(StartDelay);
+        Play_BeforeEffect(startDelay);
+        yield return new WaitForSeconds(startDelay);
 
         #region Actual 
 
-        CurrentRepeatAmount++;
+        currentRepeatAmount++;
 
-        Vector2 targetDir = DevTool.Get_DirForPlayer(ThisEnemy);
+        Vector2 targetDir = DevTool.Get_DirForPlayer(enemy);
 
         Play_ActualPattern(targetDir);
-        SoundManager.instance.Play_2D_SFX_EnemyAttack_Random(ThisEnemy.Get_AS(), "Bullet", 2);
+        SoundManager.instance.Play_2D_SFX_EnemyAttack_Random(enemy.Get_AS(), "Bullet", 2);
 
         #endregion
 
-        Play_AfterEffect(EndDelay);
-        yield return new WaitForSeconds(EndDelay);
+        Play_AfterEffect(endDelay);
+        yield return new WaitForSeconds(endDelay);
 
-        if (CurrentRepeatAmount >= RepeatAmount) // 반복을 마침
+        if (currentRepeatAmount >= repeatAmount) // 반복을 마침
         {
             End_Pattern();
-            ThisEnemy.Play_Pattern();
+            enemy.Play_Pattern();
         }
         else
         {
-            ThisEnemy.CurrentPatternCor = Play_ThisPattern_Cor();
-            StartCoroutine(ThisEnemy.CurrentPatternCor);
+            enemy.currentPatternCor = Play_ThisPattern_Cor();
+            StartCoroutine(enemy.currentPatternCor);
         }
     }
 
-    protected virtual void Play_ActualPattern(Vector2 _TargetDir)
+    protected virtual void Play_ActualPattern(Vector2 targetDir)
     {
-        for (int i = 0; i < SpawnDepthList.Count; i++)
-            Play_ActualPattern_Each(SpawnDepthList[i], 
+        for (int i = 0; i < spawnDepthList.Count; i++)
+            Play_ActualPattern_Each(spawnDepthList[i], 
                 DevTool.Get_DirFromAngle(
-                    DevTool.Get_AngleFromDir(_TargetDir) + BaseAngle));
+                    DevTool.Get_AngleFromDir(targetDir) + baseAngle));
     }
 
-    private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)
+    private void Play_ActualPattern_Each(DepthController depth, Vector2 targetDir)
     {
         EnemyBulletController bullet = PoolingManager.instance.Get_OP_EnemyBullet();
-        bullet.ownEnemy = ThisEnemy;
-        float targetShadow = _Depth.TargetRange;
+        bullet.ownEnemy = enemy;
+        float targetShadow = depth.targetRange;
         bullet.Set_State(
-            ThisBS, 
-            State_PosAndRot(_Depth.transform, _TargetDir), 
-            State_Size(), 
+            this.bulletState,
+            State_PosAndRot(depth.transform, targetDir),
+            State_Size(),
             State_Anim(),
             State_Effect(),
             targetShadow);
 
-        bullet.SetOn_LightIntensity(LightIntensity);
-        bullet.SetOn_TrailState(TrailTime, TrailStartWidth, TrailGradient);
+        bullet.SetOn_LightIntensity(lightIntensity);
+        bullet.SetOn_TrailState(trailTime, trailStartWidth, trailGradient);
 
         // Effect
         UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_Shoot(
-            (Vector2)_Depth.TargetObject.transform.position + (_TargetDir * 0.3f),
-            _TargetDir, ShootExplAmount);
+            (Vector2)depth.targetObject.transform.position + (targetDir * 0.3f),
+            targetDir, shootExplAmount);
     }
 
     #endregion
 
     #region State
 
-    private BulletState_PosAndRot State_PosAndRot(Transform _TF, Vector2 _TargetDir)
+    private BulletState_PosAndRot State_PosAndRot(Transform tf, Vector2 targetDir)
     {
-        return new BulletState_PosAndRot(_TF.position, _TargetDir, 0, BulletRadiusCondition);
+        return new BulletState_PosAndRot(tf.position, targetDir, 0, bulletRadiusCondition);
     }
 
     private BulletState_Size State_Size()
     {
-        return new BulletState_Size(BulletShadowScale, BulletColSize);
+        return new BulletState_Size(bulletShadowScale, bulletColSize);
     }
 
     private State_Anim State_Anim()
     {
-        return new State_Anim(BulletAC, 1);
+        return new State_Anim(bulletAc, 1);
     }
 
     private BulletState_Effect State_Effect()
     {
-        return new BulletState_Effect(ExplAmount, 1f);
+        return new BulletState_Effect(explAmount, 1f);
     }
 
     #endregion
@@ -205,36 +206,36 @@ public class EnemyPattern_Range : EnemyPattern
 
     private void Reset_EffectComp()
     {
-        for (int i = 0; i < BeforeEffectDepthList.Count; i++)
+        for (int i = 0; i < beforeEffectDepthList.Count; i++)
         {
-            BeforeEffectDepthList[i].ThisSR.transform.localScale = Vector3.one;
-            BeforeEffectDepthList[i].ThisSR.color = Color.white;
+            beforeEffectDepthList[i].thisSr.transform.localScale = Vector3.one;
+            beforeEffectDepthList[i].thisSr.color = Color.white;
         }
     }
 
-    private void Play_BeforeEffect(float _StartDelay)
+    private void Play_BeforeEffect(float startDelay)
     {
-        DevTool.Set_KillTween(BeforeEffectSeq);
-        BeforeEffectSeq = DOTween.Sequence();
+        DevTool.Set_KillTween(beforeEffectSeq);
+        beforeEffectSeq = DOTween.Sequence();
 
-        _StartDelay *= 0.8f;
-        for (int i = 0; i < BeforeEffectDepthList.Count; i++)
+        startDelay *= 0.8f;
+        for (int i = 0; i < beforeEffectDepthList.Count; i++)
         {
-            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.transform.DOScale(1.5f, _StartDelay).SetEase(Ease.OutCubic));
-            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.DOColor(BeforeEffectColor, _StartDelay).SetEase(Ease.OutCubic));
+            beforeEffectSeq.Join(beforeEffectDepthList[i].thisSr.transform.DOScale(1.5f, startDelay).SetEase(Ease.OutCubic));
+            beforeEffectSeq.Join(beforeEffectDepthList[i].thisSr.DOColor(beforeEffectColor, startDelay).SetEase(Ease.OutCubic));
         }
     }
 
-    private void Play_AfterEffect(float _EndDelay)
+    private void Play_AfterEffect(float endDelay)
     {
-        DevTool.Set_KillTween(BeforeEffectSeq);
-        BeforeEffectSeq = DOTween.Sequence();
+        DevTool.Set_KillTween(beforeEffectSeq);
+        beforeEffectSeq = DOTween.Sequence();
 
-        _EndDelay *= 0.8f;
-        for (int i = 0; i < BeforeEffectDepthList.Count; i++)
+        endDelay *= 0.8f;
+        for (int i = 0; i < beforeEffectDepthList.Count; i++)
         {
-            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.transform.DOScale(1f, _EndDelay).SetEase(Ease.OutCubic));
-            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.DOColor(Color.white, _EndDelay).SetEase(Ease.OutCubic));
+            beforeEffectSeq.Join(beforeEffectDepthList[i].thisSr.transform.DOScale(1f, endDelay).SetEase(Ease.OutCubic));
+            beforeEffectSeq.Join(beforeEffectDepthList[i].thisSr.DOColor(Color.white, endDelay).SetEase(Ease.OutCubic));
         }
     }
 

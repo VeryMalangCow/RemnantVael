@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyPattern_SectorFormRange : EnemyPattern_Range
 {
@@ -10,18 +11,18 @@ public class EnemyPattern_SectorFormRange : EnemyPattern_Range
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private List<float> AngleList;
+    [FormerlySerializedAs("AngleList")][SerializeField] private List<float> angleList;
 
     #endregion
 
     #region Pattern
 
-    protected override void Play_ActualPattern(Vector2 _TargetDir)
+    protected override void Play_ActualPattern(Vector2 targetDir)
     {
-        float centerAngle = DevTool.Get_AngleFromDir(_TargetDir);
-        for (int i = 0; i < AngleList.Count; i++)
+        float centerAngle = DevTool.Get_AngleFromDir(targetDir);
+        for (int i = 0; i < angleList.Count; i++)
         {
-            float currentAngle = centerAngle + AngleList[i];
+            float currentAngle = centerAngle + angleList[i];
             Vector2 currentDir = DevTool.Get_DirFromAngle(currentAngle);
             base.Play_ActualPattern(currentDir);
         }

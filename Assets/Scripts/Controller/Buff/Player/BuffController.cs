@@ -125,7 +125,7 @@ public class BuffController : IDController
 
     private void Add_BuffEffect()
     {
-        DevTool.Add_InList(PlayerManager.instance.playerController.CurrentBuffs, this);
+        DevTool.Add_InList(PlayerManager.instance.playerController.currentBuffs, this);
 
         switch (this)
         {
@@ -140,7 +140,7 @@ public class BuffController : IDController
 
     private void Remove_BuffEffect()
     {
-        DevTool.Remove_InList(PlayerManager.instance.playerController.CurrentBuffs, this);
+        DevTool.Remove_InList(PlayerManager.instance.playerController.currentBuffs, this);
 
         switch (this)
         {

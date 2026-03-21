@@ -31,7 +31,7 @@ public class StrikeTeamPrisonController : PrisonController
     {
         base.Set_Unlock();
 
-        PlayerManager.instance.playerController.StrikeTeamPresence.Value += AllyAmount;
+        PlayerManager.instance.playerController.strikeTeamPresence.Value += AllyAmount;
     }
 
     #endregion

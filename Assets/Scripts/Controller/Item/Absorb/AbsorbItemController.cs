@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AbsorbItemController : ItemController
 {
@@ -10,17 +11,17 @@ public class AbsorbItemController : ItemController
 
     [Space(10)]
     [Header("=== Target")]
-    [SerializeField] GameObject TargetGO;
+    [FormerlySerializedAs("TargetGO")][SerializeField] GameObject targetGo;
 
     [Space(10)]
     [Header("=== Absorb")]
-    [SerializeField] protected bool IsAbsorbing = false;
-    [SerializeField] private float AbsorbStartPower = 300f;
-    [SerializeField] private float AbsorbPower = 5f;
-    [SerializeField] private float RotatePower = 10f;
+    [FormerlySerializedAs("IsAbsorbing")][SerializeField] protected bool isAbsorbing = false;
+    [FormerlySerializedAs("AbsorbStartPower")][SerializeField] private float absorbStartPower = 300f;
+    [FormerlySerializedAs("AbsorbPower")][SerializeField] private float absorbPower = 5f;
+    [FormerlySerializedAs("RotatePower")][SerializeField] private float rotPower = 10f;
 
     // Limit OnEnable
-    [HideInInspector] protected bool IsSpawnNow = false;
+    [HideInInspector] protected bool isSpawnNow = false;
 
     #endregion
 
@@ -29,7 +30,7 @@ public class AbsorbItemController : ItemController
     protected override void OnEnable()
     {
         base.OnEnable();
-        if (IsSpawnNow) ThisRb.AddForce(DevTool.Get_RandomDir() * AbsorbStartPower);
+        if (isSpawnNow) rb.AddForce(DevTool.Get_RandomDir() * absorbStartPower);
     }
 
     protected virtual void Update()
@@ -41,12 +42,12 @@ public class AbsorbItemController : ItemController
 
     #region State
 
-    public override void Set_State(Vector2 _SpawnPos)
+    public override void Set_State(Vector2 spawnPos)
     {
-        base.Set_State(_SpawnPos);
+        base.Set_State(spawnPos);
 
-        TargetGO = PlayerManager.instance.playerController.gameObject;
-        IsAbsorbing = false;
+        targetGo = PlayerManager.instance.playerController.gameObject;
+        isAbsorbing = false;
 
         transform.SetParent(StageManager.instance.currentRoomController.transform);
     }
@@ -55,30 +56,30 @@ public class AbsorbItemController : ItemController
 
     #region Absorb
 
-    private void Set_Absorb(float _DeltaTime)
+    private void Set_Absorb(float deltaTime)
     {
-        if (IsAbsorbing)
+        if (isAbsorbing)
         {
-            ThisRb.velocity = Get_AbsorbDir(_DeltaTime) * Get_AbsorbPower();
+            rb.velocity = Get_AbsorbDir(deltaTime) * Get_AbsorbPower();
         }
         else
         {
-            ThisRb.velocity = Vector2.Lerp(ThisRb.velocity, Vector2.zero, 10 * Time.deltaTime);
+            rb.velocity = Vector2.Lerp(rb.velocity, Vector2.zero, 10 * Time.deltaTime);
         }
     }
 
-    private Vector2 Get_AbsorbDir(float _DeltaTime)
+    private Vector2 Get_AbsorbDir(float deltaTime)
     {
-        Vector2 fromDir = ThisRb.velocity.normalized;
-        Vector2 toDir = (Vector2)(TargetGO.transform.position - this.transform.position).normalized;
+        Vector2 fromDir = rb.velocity.normalized;
+        Vector2 toDir = (Vector2)(targetGo.transform.position - this.transform.position).normalized;
 
-        return  Vector2.Lerp(fromDir, toDir, RotatePower * _DeltaTime).normalized;
+        return  Vector2.Lerp(fromDir, toDir, rotPower * deltaTime).normalized;
         
     }
 
     private float Get_AbsorbPower()
     {
-        return Math.Max(Vector2.Distance(Vector2.zero, ThisRb.velocity) * 0.99f, AbsorbPower);
+        return Math.Max(Vector2.Distance(Vector2.zero, rb.velocity) * 0.99f, absorbPower);
     }
 
     #endregion
@@ -96,9 +97,9 @@ public class AbsorbItemController : ItemController
 
     #region Trigger
 
-    private void OnTriggerEnter2D(Collider2D _Collision)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (_Collision.tag == "Player")
+        if (col.tag == "Player")
         {
             Gain_Item();
         }

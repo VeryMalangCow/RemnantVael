@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class EnemyPattern : MonoBehaviour
 {
@@ -12,24 +13,24 @@ public abstract class EnemyPattern : MonoBehaviour
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] protected EnemyController ThisEnemy;
-    [SerializeField] protected int RepeatAmount = 1;
+    [FormerlySerializedAs("ThisEnemy")][SerializeField] protected EnemyController enemy;
+    [FormerlySerializedAs("RepeatAmount")][SerializeField] protected int repeatAmount = 1;
     
-    [SerializeField] protected float StartDelay = 0f;
-    [SerializeField] protected float EndDelay = 0f;
+    [FormerlySerializedAs("StartDelay")][SerializeField] protected float startDelay = 0f;
+    [FormerlySerializedAs("EndDelay")][SerializeField] protected float endDelay = 0f;
 
     [Space(10)]
     [Header("=== Special")]
-    [SerializeField] protected bool IsSpecialPattern = false;
-    [SerializeField] private bool IsSpecialStartPattern = false;
-    [SerializeField] private bool IsSpecialEndPattern = false;
+    [FormerlySerializedAs("IsSpecialPattern")][SerializeField] protected bool isSpecialPattern = false;
+    [FormerlySerializedAs("IsSpecialStartPattern")][SerializeField] private bool isSpecialStartPattern = false;
+    [FormerlySerializedAs("IsSpecialEndPattern")][SerializeField] private bool isSpecialEndPattern = false;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] public bool IsPlaying = false;
-    [HideInInspector] protected int CurrentRepeatAmount = 0;
+    [HideInInspector] public bool isPlaying = false;
+    [HideInInspector] protected int currentRepeatAmount = 0;
 
     #endregion
 
@@ -39,7 +40,7 @@ public abstract class EnemyPattern : MonoBehaviour
 
     protected virtual void Offset()
     {
-        IsPlaying = false;
+        isPlaying = false;
     }
 
     #endregion
@@ -67,30 +68,30 @@ public abstract class EnemyPattern : MonoBehaviour
     public virtual void Start_Pattern()
     {
         // Value
-        IsPlaying = true;
-        ThisEnemy.IsPlayingPattern = true;
-        CurrentRepeatAmount = 0;
+        isPlaying = true;
+        enemy.isPlayingPattern = true;
+        currentRepeatAmount = 0;
 
         // Pattern
-        ThisEnemy.CurrentPatternCor = Play_ThisPattern_Cor();
-        StartCoroutine(ThisEnemy.CurrentPatternCor);
+        enemy.currentPatternCor = Play_ThisPattern_Cor();
+        StartCoroutine(enemy.currentPatternCor);
 
-        if (IsSpecialStartPattern)
+        if (isSpecialStartPattern)
         {
-            ThisEnemy.HUD.Set_Patterning(true);
+            enemy.hud.Set_Patterning(true);
         }
     }
 
     public virtual void End_Pattern()
     {
         // Value
-        IsPlaying = false;
-        ThisEnemy.IsPlayingPattern = false;
-        CurrentRepeatAmount = 0;
+        isPlaying = false;
+        enemy.isPlayingPattern = false;
+        currentRepeatAmount = 0;
 
-        if (IsSpecialEndPattern)
+        if (isSpecialEndPattern)
         {
-            ThisEnemy.Reset_ChargeState();
+            enemy.Reset_ChargeState();
         }
     }
 

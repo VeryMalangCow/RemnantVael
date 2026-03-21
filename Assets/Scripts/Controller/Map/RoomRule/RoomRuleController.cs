@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RoomRuleController : MonoBehaviour
 {
@@ -15,38 +16,38 @@ public class RoomRuleController : MonoBehaviour
 
     [Space(5)]
     [Header("-- Vec")]
-    [SerializeField] public List<Vector2Int> RoomVec;
+    [FormerlySerializedAs("RoomVec")][SerializeField] public List<Vector2Int> roomVec;
 
     [Space(5)]
     [Header("-- Type")]
-    [SerializeField] public eRoomType RoomType;
-    [SerializeField] public eEnemy EnemyType = eEnemy.Normal;
-    [SerializeField] public bool IsAlreadyRoomClear = false;
+    [FormerlySerializedAs("RoomType")][SerializeField] public eRoomType roomType;
+    [FormerlySerializedAs("EnemyType")][SerializeField] public eEnemy enemyType = eEnemy.Normal;
+    [FormerlySerializedAs("IsAlreadyRoomClear")][SerializeField] public bool isAlreadyRoomClear = false;
 
     [Space(10)]
     [Header("=== Parent TF")]
 
     [Space(5)]
     [Header("-- Build")]
-    [SerializeField] private Transform InRoom_ObstacleParentTF;
+    [FormerlySerializedAs("InRoom_ObstacleParentTF")][SerializeField] private Transform inRoom_ObstacleParentTF;
 
     [Space(5)]
     [Header("-- Enemy")]
-    [SerializeField] private Transform InRoom_EnemySpawnParentTF;
+    [FormerlySerializedAs("InRoom_EnemySpawnParentTF")][SerializeField] private Transform inRoom_EnemySpawnParentTF;
 
     [Space(5)]
     [Header("-- Field Obj")]
-    [SerializeField] private Transform InRoom_FieldObjSpawnerParentTF;
+    [FormerlySerializedAs("InRoom_FieldObjSpawnerParentTF")][SerializeField] private Transform inRoom_FieldObjSpawnerParentTF;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private List<EnemySpawnContoller> InRoom_AllEnemySpawn;
-    [HideInInspector] public List<SortingObjectController> InRoom_AllObstacle;
-    [HideInInspector] private InteractableBuildController InRoom_ShopBuild;
+    [HideInInspector] private List<EnemySpawnContoller> inRoom_AllEnemySpawn;
+    [HideInInspector] public List<SortingObjectController> inRoom_AllObstacle;
+    [HideInInspector] private InteractableBuildController inRoom_ShopBuild;
 
-    [HideInInspector] protected int NeedKeyCardID = -1;
+    [HideInInspector] protected int needKeyCardId = -1;
 
     #endregion
 
@@ -56,13 +57,13 @@ public class RoomRuleController : MonoBehaviour
 
     public virtual void Offset()
     {
-        InRoom_AllObstacle = InRoom_ObstacleParentTF != null &&
-            InRoom_ObstacleParentTF.childCount > 0 ?
-            DevTool.Get_ChildList<SortingObjectController>(InRoom_ObstacleParentTF) : null;
+        inRoom_AllObstacle = inRoom_ObstacleParentTF != null &&
+            inRoom_ObstacleParentTF.childCount > 0 ?
+            DevTool.Get_ChildList<SortingObjectController>(inRoom_ObstacleParentTF) : null;
 
-        InRoom_AllEnemySpawn = InRoom_EnemySpawnParentTF != null &&
-            InRoom_EnemySpawnParentTF.childCount > 0 ?
-            DevTool.Get_ChildList<EnemySpawnContoller>(InRoom_EnemySpawnParentTF) : null;
+        inRoom_AllEnemySpawn = inRoom_EnemySpawnParentTF != null &&
+            inRoom_EnemySpawnParentTF.childCount > 0 ?
+            DevTool.Get_ChildList<EnemySpawnContoller>(inRoom_EnemySpawnParentTF) : null;
 
     }
 
@@ -70,18 +71,18 @@ public class RoomRuleController : MonoBehaviour
 
     #region KillAll
 
-    public bool Is_EliteEnemyRoom(out int _EliteEnemyID)
+    public bool Is_EliteEnemyRoom(out int eliteEnemyId)
     {
-        _EliteEnemyID = 0;
-        if (EnemyType != eEnemy.Elite || 
-            RoomType != eRoomType.KillAll) 
+        eliteEnemyId = 0;
+        if (enemyType != eEnemy.Elite || 
+            roomType != eRoomType.KillAll) 
             return false;
 
-        for (int i = 0; i < InRoom_AllEnemySpawn.Count; i++)
+        for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
-            if (InRoom_AllEnemySpawn[i].Get_EnemyType() == eEnemy.Elite)
+            if (inRoom_AllEnemySpawn[i].Get_EnemyType() == eEnemy.Elite)
             {
-                _EliteEnemyID = InRoom_AllEnemySpawn[i].Get_SpawnID();
+                eliteEnemyId = inRoom_AllEnemySpawn[i].Get_SpawnID();
                 return true;
             }
         }
@@ -89,18 +90,18 @@ public class RoomRuleController : MonoBehaviour
         return false;
     }
 
-    public bool Is_BossEnemyRoom(out int _BossEnemyID)
+    public bool Is_BossEnemyRoom(out int bossEnemyId)
     {
-        _BossEnemyID = 0;
-        if (EnemyType != eEnemy.Boss ||
-            RoomType != eRoomType.KillAll)
+        bossEnemyId = 0;
+        if (enemyType != eEnemy.Boss ||
+            roomType != eRoomType.KillAll)
             return false;
 
-        for (int i = 0; i < InRoom_AllEnemySpawn.Count; i++)
+        for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
-            if (InRoom_AllEnemySpawn[i].Get_EnemyType() == eEnemy.Boss)
+            if (inRoom_AllEnemySpawn[i].Get_EnemyType() == eEnemy.Boss)
             {
-                _BossEnemyID = InRoom_AllEnemySpawn[i].Get_SpawnID();
+                bossEnemyId = inRoom_AllEnemySpawn[i].Get_SpawnID();
                 return true;
             }
         }
@@ -124,10 +125,10 @@ public class RoomRuleController : MonoBehaviour
 
     private void SetOn_Shop()
     {
-        if (InRoom_ShopBuild != null &&
-            !InRoom_ShopBuild.gameObject.activeSelf)
+        if (inRoom_ShopBuild != null &&
+            !inRoom_ShopBuild.gameObject.activeSelf)
         {
-            InRoom_ShopBuild.gameObject.SetActive(true);
+            inRoom_ShopBuild.gameObject.SetActive(true);
         }
     }
 
@@ -140,12 +141,12 @@ public class RoomRuleController : MonoBehaviour
     {
         Spawn_AllEnemy();
 
-        if (EnemyType == eEnemy.Elite && SoundManager.isPlayingBaseBGM)
+        if (enemyType == eEnemy.Elite && SoundManager.isPlayingBaseBGM)
         {
             SoundManager.instance.CastBGM_ToExtra();
             SoundManager.instance.Play_2D_ExtraBGM("Elite");
         }
-        else if (EnemyType == eEnemy.Boss && SoundManager.isPlayingBaseBGM)
+        else if (enemyType == eEnemy.Boss && SoundManager.isPlayingBaseBGM)
         {
             SoundManager.instance.CastBGM_ToExtra();
             SoundManager.instance.Play_2D_ExtraBGM("Boss");
@@ -154,19 +155,19 @@ public class RoomRuleController : MonoBehaviour
 
     private void Spawn_AllEnemy()
     {
-        for (int i = 0; i < InRoom_AllEnemySpawn.Count; i++)
+        for (int i = 0; i < inRoom_AllEnemySpawn.Count; i++)
         {
-            Vector2 spawnPos = InRoom_AllEnemySpawn[i].transform.position;
+            Vector2 spawnPos = inRoom_AllEnemySpawn[i].transform.position;
 
             EnemyController enemy = PoolingManager.instance.Get_OP_Enemy(
-                InRoom_AllEnemySpawn[i].Get_EnemyType(),
-                InRoom_AllEnemySpawn[i].Get_SpawnID());
+                inRoom_AllEnemySpawn[i].Get_EnemyType(),
+                inRoom_AllEnemySpawn[i].Get_SpawnID());
 
             enemy.transform.position = spawnPos;
             enemy.gameObject.SetActive(true);
 
             // VFX
-            UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy(spawnPos + (Vector2.up * enemy.TargetRange));
+            UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy(spawnPos + (Vector2.up * enemy.targetRange));
         }
     }
 
@@ -178,8 +179,8 @@ public class RoomRuleController : MonoBehaviour
 
     public void Set_SortingStaticObjects()
     {
-        if (InRoom_AllObstacle != null && InRoom_AllObstacle.Count > 0)
-            LayerOrderManager.instance.Add_NeedSortObj(InRoom_AllObstacle);
+        if (inRoom_AllObstacle != null && inRoom_AllObstacle.Count > 0)
+            LayerOrderManager.instance.Add_NeedSortObj(inRoom_AllObstacle);
     }
 
     #endregion
@@ -188,7 +189,7 @@ public class RoomRuleController : MonoBehaviour
 
     public int Get_NeedKeyCardID()
     {
-        return NeedKeyCardID;
+        return needKeyCardId;
     }
 
     #endregion
@@ -197,9 +198,9 @@ public class RoomRuleController : MonoBehaviour
 
     public List<Vector2> Get_FieldObjPos()
     {
-        List<FieldObjectSpawnController> fieldObjSpawners = InRoom_FieldObjSpawnerParentTF != null &&
-            InRoom_FieldObjSpawnerParentTF.childCount > 0 ?
-            DevTool.Get_AllChildList<FieldObjectSpawnController>(InRoom_FieldObjSpawnerParentTF) : null;
+        List<FieldObjectSpawnController> fieldObjSpawners = inRoom_FieldObjSpawnerParentTF != null &&
+            inRoom_FieldObjSpawnerParentTF.childCount > 0 ?
+            DevTool.Get_AllChildList<FieldObjectSpawnController>(inRoom_FieldObjSpawnerParentTF) : null;
 
         List<Vector2> result = new List<Vector2>();
 

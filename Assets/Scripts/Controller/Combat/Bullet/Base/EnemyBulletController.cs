@@ -85,7 +85,7 @@ public class EnemyBulletController : BulletController
         switch (poolingString)
         {
             case "EnemyBullet":
-                UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, explAmount);
+                UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(targetObject.transform.position, explAmount);
                 break;
 
             default:
@@ -102,7 +102,7 @@ public class EnemyBulletController : BulletController
         switch (poolingString)
         {
             case "EnemyBullet":
-                UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(TargetObject.transform.position, explAmount);
+                UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy_ObjectDestroy(targetObject.transform.position, explAmount);
                 PoolingManager.instance.enemyBullets.Enqueue(this);
                 break;
 
@@ -118,7 +118,7 @@ public class EnemyBulletController : BulletController
     public void SetOn_LightIntensity(float intensity)
     {
         light2d.intensity = intensity;
-        light2d.lightCookieSprite = ThisSR.sprite;
+        light2d.lightCookieSprite = thisSr.sprite;
     }
 
 

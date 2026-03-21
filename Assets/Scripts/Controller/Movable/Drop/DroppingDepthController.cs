@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 public abstract class DroppingDepthController : MovableDepthController
 {
@@ -11,31 +12,31 @@ public abstract class DroppingDepthController : MovableDepthController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] protected Transform ShadowTF;
-    [SerializeField] protected TrailRenderer ThisTrail;
-    [SerializeField] protected Light2D ThisLight;
+    [FormerlySerializedAs("ShadowTF")][SerializeField] protected Transform shadowTf;
+    [FormerlySerializedAs("ThisTrail")][SerializeField] protected TrailRenderer trail;
+    [FormerlySerializedAs("ThisLight")][SerializeField] protected Light2D light2D;
 
     [Space(10)]
     [Header("=== Value")]
 
     [Space(5)]
     [Header("-- Time")]
-    [SerializeField] private float DroppingSpeed;
-    [SerializeField] private float CurrentDroppingTime;
+    [FormerlySerializedAs("DroppingSpeed")][SerializeField] private float droppingSpeed;
+    [FormerlySerializedAs("CurrentDroppingTime")][SerializeField] private float currentDroppingTime;
 
     [Space(5)]
     [Header("-- Shadow")]
-    [SerializeField] private Vector2 ShadowSize;
+    [FormerlySerializedAs("ShadowSize")][SerializeField] private Vector2 shadowSize;
 
     [Space(5)]
     [Header("-- Drop Y")]
-    [SerializeField] private float DropBottomYPos;
+    [FormerlySerializedAs("DropBottomYPos")][SerializeField] private float dropBottomYPos;
 
     [Space(5)]
     [Header("-- Alpha")]
-    [SerializeField] private float ZeroToOneTime;
+    [FormerlySerializedAs("ZeroToOneTime")][SerializeField] private float zeroToOneTime;
 
-    [HideInInspector] private Sequence Seq = null;
+    [HideInInspector] private Sequence seq = null;
     #endregion
 
     #region Framework
@@ -57,35 +58,35 @@ public abstract class DroppingDepthController : MovableDepthController
 
     #region State
 
-    public virtual void Set_State_Base(CombatState _State, float _DroppingSpeed, float _TopYPos = 5f, float _DropBottomYPos = 0f)
+    public virtual void Set_State_Base(CombatState state, float droppingSpeed, float topYPos = 5f, float dropBottomYPos = 0f)
     {
-        TargetRange = _TopYPos;
-        DropBottomYPos = _DropBottomYPos;
-        DroppingSpeed = _DroppingSpeed;
+        targetRange = topYPos;
+        this.dropBottomYPos = dropBottomYPos;
+        this.droppingSpeed = droppingSpeed;
         Set_TargetPos();
     }
 
 
-    public virtual void Set_State_ShadowSize(BulletState_Size _State_Size)
+    public virtual void Set_State_ShadowSize(BulletState_Size state_Size)
     {
-        TargetObject.transform.localScale = _State_Size.objSize;
-        ShadowSize = _State_Size.colSize;
+        targetObject.transform.localScale = state_Size.objSize;
+        shadowSize = state_Size.colSize;
     }
 
     protected virtual void SetOn_State()
     {
         Init_Data();
 
-        Seq = DOTween.Sequence();
+        seq = DOTween.Sequence();
 
-        float _droppingTime = 1 / DroppingSpeed;
-        Seq.Join(ShadowTF.DOScale(ShadowSize, _droppingTime).SetEase(Ease.Linear)); // 그림자
-        Seq.Join(DOTween.To(() => TargetRange, x => TargetRange = x, DropBottomYPos, _droppingTime).SetEase(Ease.InCubic)); // 떨어지는 이미지
-        Seq.Join(ThisSR.DOFade(1f, _droppingTime * 0.3f).SetEase(Ease.Linear));
-        Seq.OnComplete(() =>
+        float _droppingTime = 1 / droppingSpeed;
+        seq.Join(shadowTf.DOScale(shadowSize, _droppingTime).SetEase(Ease.Linear)); // 그림자
+        seq.Join(DOTween.To(() => targetRange, x => targetRange = x, dropBottomYPos, _droppingTime).SetEase(Ease.InCubic)); // 떨어지는 이미지
+        seq.Join(thisSr.DOFade(1f, _droppingTime * 0.3f).SetEase(Ease.Linear));
+        seq.OnComplete(() =>
         {
             Active();
-            Seq = null;
+            seq = null;
         });
     }
 
@@ -95,8 +96,8 @@ public abstract class DroppingDepthController : MovableDepthController
 
     private void Init_Data()
     {
-        ThisSR.color = new Color(1f, 1f, 1f, 0f);
-        ShadowTF.transform.localScale = Vector2.zero;
+        thisSr.color = new Color(1f, 1f, 1f, 0f);
+        shadowTf.transform.localScale = Vector2.zero;
     }
 
     #endregion
@@ -109,22 +110,22 @@ public abstract class DroppingDepthController : MovableDepthController
 
     #region Light
 
-    public virtual void SetOn_LightIntensity(float _Intensity)
+    public virtual void SetOn_LightIntensity(float intensity)
     {
-        ThisLight.intensity = _Intensity;
-        ThisLight.lightCookieSprite = ThisSR.sprite;
-        DevTool.Set_AlphaColor(ThisLight, 0.5f);
+        light2D.intensity = intensity;
+        light2D.lightCookieSprite = thisSr.sprite;
+        DevTool.Set_AlphaColor(light2D, 0.5f);
     }
 
     #endregion
 
     #region Trail
 
-    public void SetOn_TrailState(float _Time, float _StartWidth, Gradient _Gradient)
+    public void SetOn_TrailState(float time, float startWidth, Gradient gradient)
     {
-        ThisTrail.time = _Time;
-        ThisTrail.startWidth = _StartWidth;
-        ThisTrail.colorGradient = _Gradient;
+        trail.time = time;
+        trail.startWidth = startWidth;
+        trail.colorGradient = gradient;
     }
 
     #endregion

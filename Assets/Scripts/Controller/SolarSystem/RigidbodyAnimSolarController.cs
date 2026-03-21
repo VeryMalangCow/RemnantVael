@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RigidbodyAnimSolarController : RigidbodySolarController
 {
@@ -9,7 +10,7 @@ public class RigidbodyAnimSolarController : RigidbodySolarController
     [Header("<><><><><> Anim")]
 
     [Header("=== Component")]
-    [SerializeField] private List<DirectionalAnimController> ThisAnimatorList;
+    [FormerlySerializedAs("ThisAnimatorList")][SerializeField] private List<DirectionalAnimController> atList;
 
     #endregion
 
@@ -17,7 +18,7 @@ public class RigidbodyAnimSolarController : RigidbodySolarController
 
     protected override void LateUpdate()
     {
-        DevTool.Set_AnimSpeed(ThisAnimatorList, ThisRb.velocity.sqrMagnitude * 0.3f);
+        DevTool.Set_AnimSpeed(atList, rb.velocity.sqrMagnitude * 0.3f);
 
         base.LateUpdate();
     }

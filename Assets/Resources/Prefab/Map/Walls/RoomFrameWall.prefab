@@ -49,9 +49,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 6859774968522112722}
-  ThisSR: {fileID: 7365551938847441409}
-  TargetRange: 0.6
+  targetObject: {fileID: 6859774968522112722}
+  thisSr: {fileID: 7365551938847441409}
+  targetRange: 0.6
 --- !u!61 &5352055190413400012
 BoxCollider2D:
   m_ObjectHideFlags: 0

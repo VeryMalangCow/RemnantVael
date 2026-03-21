@@ -37,31 +37,31 @@ public class BuffDmgController : BuffController
     {
         base.Max_Buff();
 
-        PlayerManager.instance.playerController.BaseWeapon.baseDamage.Gain_Buff(multiple);
-        PlayerManager.instance.playerController.BaseWeapon.baseDamage.Set_BuffedState();
+        PlayerManager.instance.playerController.baseWeapon.baseDamage.Gain_Buff(multiple);
+        PlayerManager.instance.playerController.baseWeapon.baseDamage.Set_BuffedState();
     }
 
     public override void Gain_Buff()
     {
         base.Gain_Buff();
 
-        PlayerManager.instance.playerController.BaseWeapon.baseDamage.Gain_Buff(multiple); 
-        PlayerManager.instance.playerController.BaseWeapon.baseDamage.Set_BuffedState();
+        PlayerManager.instance.playerController.baseWeapon.baseDamage.Gain_Buff(multiple); 
+        PlayerManager.instance.playerController.baseWeapon.baseDamage.Set_BuffedState();
     }
 
     public override void Reduct_Buff()
     {
         base.Reduct_Buff();
 
-        PlayerManager.instance.playerController.BaseWeapon.baseDamage.Set_BuffedState();
+        PlayerManager.instance.playerController.baseWeapon.baseDamage.Set_BuffedState();
     }
 
     public override void End_Buff()
     {
         base.End_Buff();
 
-        PlayerManager.instance.playerController.BaseWeapon.baseDamage.Lose_Buff(multiple);
-        PlayerManager.instance.playerController.BaseWeapon.baseDamage.Set_BuffedState();
+        PlayerManager.instance.playerController.baseWeapon.baseDamage.Lose_Buff(multiple);
+        PlayerManager.instance.playerController.baseWeapon.baseDamage.Set_BuffedState();
     }
 
     #endregion

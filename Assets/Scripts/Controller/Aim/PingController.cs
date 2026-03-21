@@ -67,10 +67,10 @@ public class PingController : MonoBehaviour
         transform.localPosition = Vector2.zero;
         pingFrameSr.color = new Color(1, 1, 1, 0);
         pingFrameSr.size = new Vector2(0.6f, 0.6f);
-        pingFrameSr.transform.localPosition = enemy.PingOffsetVec;
+        pingFrameSr.transform.localPosition = enemy.pingOffsetVec;
 
         pingFrameSr.DOFade(1f, durTime);
-        DOTween.To(() => pingFrameSr.size, vec => pingFrameSr.size = vec, enemy.PingSizeVec, durTime);
+        DOTween.To(() => pingFrameSr.size, vec => pingFrameSr.size = vec, enemy.pingSizeVec, durTime);
 
     }
 

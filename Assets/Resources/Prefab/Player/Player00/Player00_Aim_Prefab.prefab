@@ -467,9 +467,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 7639787149237555046}
-  ThisSR: {fileID: 6624985155263925001}
-  TargetRange: 0.6
+  targetObject: {fileID: 7639787149237555046}
+  thisSr: {fileID: 6624985155263925001}
+  targetRange: 0.6
   aimFollowSpeed: 30
   centerSR: {fileID: 2944858628824475098}
   aimSR:

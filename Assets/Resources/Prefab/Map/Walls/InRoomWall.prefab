@@ -50,9 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 6859774968522112722}
-  ThisSR: {fileID: 4834008912342362400}
-  TargetRange: 0.6
+  targetObject: {fileID: 6859774968522112722}
+  thisSr: {fileID: 4834008912342362400}
+  targetRange: 0.6
 --- !u!61 &5352055190413400012
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -457,4 +457,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 

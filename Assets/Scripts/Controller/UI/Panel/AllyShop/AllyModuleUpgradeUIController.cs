@@ -205,7 +205,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.CurrentChargedBettery
+        PlayerManager.instance.playerController.currentChargedBettery
             .Subscribe(_Value =>
             {
                 Set_ChargedBetteryUI(_Value, NeedChargedBettery);
@@ -404,7 +404,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // 현재 선택한 Sync에서 필요한 NoneSync
     private int Get_CurrentNeedNoneSync()
     {
-        return SelectedNoneSyncIDList.Count * AllyController.NoneSyncNeedOneBuy;
+        return SelectedNoneSyncIDList.Count * AllyController.noneSyncNeedOneBuy;
     }
 
     // Sync를 살 수 있는가
@@ -464,7 +464,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // 현재 None Sync 패널에 진입할 수 있는지?
     private bool Can_EnterNoneSyncPanel()
     {
-        if (CurrentPickedAlly.Get_HadNoneSyncAmount() >= AllyController.NoneSyncNeedOneBuy)
+        if (CurrentPickedAlly.Get_HadNoneSyncAmount() >= AllyController.noneSyncNeedOneBuy)
         {
             return true;
         }
@@ -616,7 +616,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         ModuleDetailExtraRT.DOSizeDelta(can ? ModuleDetailExtraRTOpen : new Vector2(ModuleDetailExtraRTOpen.x, 0), 0.2f);
 
         NeedChargedBettery = can ? goods : 0;
-        Set_ChargedBetteryUI(PlayerManager.instance.playerController.CurrentChargedBettery.Value, NeedChargedBettery);
+        Set_ChargedBetteryUI(PlayerManager.instance.playerController.currentChargedBettery.Value, NeedChargedBettery);
     }
 
     private bool Can_Buy(out int _Goods)
@@ -637,7 +637,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         return !AllyModuleUpgradeController.UsingShop.IsBroken &&
             isExist && 
-            PlayerManager.instance.playerController.CurrentChargedBettery.Value >= _Goods &&
+            PlayerManager.instance.playerController.currentChargedBettery.Value >= _Goods &&
             CurrentPickedProfileEUI != null &&
             PickedModulePanel_AllyGO.activeSelf;
     }
@@ -645,7 +645,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     private void Buy()
     {
         // 데이터
-        PlayerManager.instance.playerController.CurrentChargedBettery.Value -= NeedChargedBettery;
+        PlayerManager.instance.playerController.currentChargedBettery.Value -= NeedChargedBettery;
         ModuleItemManager.instance.Remove_ModuleState(Get_CorrectMS(PickedItemEUI.ThisSlot).originalIndex);
 
         CurrentPickedAlly.Add_Sync(Get_PickedSyncList());

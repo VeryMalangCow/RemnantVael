@@ -122,7 +122,7 @@ public abstract class BulletController : MovableDepthController
     {
         this.state = new BulletState(state, false);
 
-        TargetRange = targetRange;
+        base.targetRange = targetRange;
     }
 
     public virtual void Set_State_PosAndRot(BulletState_PosAndRot state_PosAndRot)

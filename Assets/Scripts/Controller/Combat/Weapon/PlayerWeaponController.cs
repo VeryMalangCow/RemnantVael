@@ -74,7 +74,7 @@ public class PlayerWeaponController : PlayerSolarController
         if (Check_Fire())
         {
             Play_Fire(PoolingManager.instance.Get_OP_PlayerBullet(bulletSpawnTfList.Count));
-            PlayerManager.instance.cameraController.Play_ShotAnim(1 / rof.buffedState, PlayerController.BaseWeapon.baseDamage.buffedState);
+            PlayerManager.instance.cameraController.Play_ShotAnim(1 / rof.buffedState, player.baseWeapon.baseDamage.buffedState);
             ModuleItemManager.instance.Active_Fire();
         }
     }
@@ -84,7 +84,7 @@ public class PlayerWeaponController : PlayerSolarController
     {
         if (isInputed &&
            currentDelayROF >= 1 &&
-           PlayerController.MovementState == eMovementState.IdleOrWalk)
+           player.movementState == eMovementState.IdleOrWalk)
         {
             return true;
         }
@@ -114,7 +114,7 @@ public class PlayerWeaponController : PlayerSolarController
 
         // Sound
         SoundManager.instance.Play_2D_SFX_Player_Random(
-            PlayerController.Get_AS(), PlayerController.Get_ID(), "Shot", 2);
+            player.Get_AS(), player.Get_ID(), "Shot", 2);
     }
 
     // 사격 (한발마다)
@@ -129,14 +129,14 @@ public class PlayerWeaponController : PlayerSolarController
             state_Size: null,
             state_Anim: null,
             state_Effect: null,
-            targetSpawnDepth.TargetRange);
+            targetSpawnDepth.targetRange);
 
         ModuleItemManager.instance.ActiveSync_Fire(bullet);
 
         // 폭발 이펙트   
         UnitManager.instance.player_ExplImgGenerator.Expl_Player_ShootBaseBullet(
-            PlayerController.Get_ID(),
-            (Vector2)targetSpawnDepth.TargetObject.transform.position + (dir * 0.1f),
+            player.Get_ID(),
+            (Vector2)targetSpawnDepth.targetObject.transform.position + (dir * 0.1f),
             dir,
             dmgType,
             bullet.state.isCritical);
@@ -152,9 +152,9 @@ public class PlayerWeaponController : PlayerSolarController
         return new BulletState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Player),
-                new DmgState(dmgType, PlayerController.BaseWeapon.baseDamage.buffedState),
-                new CriticalState(PlayerController.BaseWeapon.cc.actualState.Value, PlayerController.BaseWeapon.cd.buffedState),
-                new KnockbackState(dmgType == eDamageType.Physics ? true : false, PlayerController.BaseWeapon.kbPower.actualState.Value, 0.2f)),
+                new DmgState(dmgType, player.baseWeapon.baseDamage.buffedState),
+                new CriticalState(player.baseWeapon.cc.actualState.Value, player.baseWeapon.cd.buffedState),
+                new KnockbackState(dmgType == eDamageType.Physics ? true : false, player.baseWeapon.kbPower.actualState.Value, 0.2f)),
             checkIsCritical: true,
             muzzleSpeed: muzzleSpeed.actualState.Value,
             aliveTime);

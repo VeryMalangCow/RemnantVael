@@ -67,7 +67,7 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     public void Try_Interact()
     {
-        if (NeedAmount > PlayerManager.instance.playerController.CurrentOverrider.Value ||
+        if (NeedAmount > PlayerManager.instance.playerController.currentOverrider.Value ||
             TargetCardEUIController == null)
             return;
 

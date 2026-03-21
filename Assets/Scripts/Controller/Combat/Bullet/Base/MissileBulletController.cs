@@ -63,7 +63,7 @@ public class MissileBulletController : PlayerBulletController
         isGuided = false;
         enemy = null;
 
-        DOTween.To(() => TargetRange, y => TargetRange = y, shadowRangeTarget, spreadTime)
+        DOTween.To(() => targetRange, y => targetRange = y, shadowRangeTarget, spreadTime)
             .SetEase(Ease.Linear);
 
         rotSpeed += baseRotatePower;
@@ -82,9 +82,9 @@ public class MissileBulletController : PlayerBulletController
         {
             case "MissileBullet":
                 UnitManager.instance.onceTime_AnimGenerator.Anim_AttackSuccess(
-                    TargetObject.transform.position, state.dmgState.dmgType, state.isCritical, 1.8f);
+                    targetObject.transform.position, state.dmgState.dmgType, state.isCritical, 1.8f);
                 UnitManager.instance.player_ExplImgGenerator.Expl_Player_BigObjectDestroy(
-                    PlayerManager.instance.playerController.Get_ID(), TargetObject.transform.position, state.dmgState.dmgType, state.isCritical);
+                    PlayerManager.instance.playerController.Get_ID(), targetObject.transform.position, state.dmgState.dmgType, state.isCritical);
                 break;
 
             default:
@@ -124,7 +124,7 @@ public class MissileBulletController : PlayerBulletController
             Get_ExlposionState(),
             ac: ResourceManager.instance.explosionAC,
             Get_SpawnTF(),
-            this.TargetRange);
+            this.targetRange);
     }
 
     private ExplosionState Get_ExlposionState()

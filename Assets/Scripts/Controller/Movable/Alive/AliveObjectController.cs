@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class AliveObjectController : MovableObjectController
 {
@@ -12,43 +13,43 @@ public abstract class AliveObjectController : MovableObjectController
 
     [Space(10)]
     [Header("=== Dead")]
-    [SerializeField] protected bool IsDead = false;
+    [FormerlySerializedAs("IsDead")][SerializeField] protected bool isDead = false;
 
     [Space(10)]
     [Header("=== Point")]
-    [SerializeField] protected ReactiveProperty<float> CurrentSP = new();
-    [SerializeField] protected ReactiveProperty<float> CurrentHP = new();
-    [SerializeField] protected ReactiveProperty<float> CurrentEP = new();
+    [FormerlySerializedAs("CurrentSP")][SerializeField] protected ReactiveProperty<float> currentSP = new();
+    [FormerlySerializedAs("CurrentHP")][SerializeField] protected ReactiveProperty<float> currentHP = new();
+    [FormerlySerializedAs("CurrentEP")][SerializeField] protected ReactiveProperty<float> currentEP = new();
 
     [Space(10)]
     [Header("=== Dead Particle")]
-    [SerializeField] private List<DeadParticleElement> BrokenParticleData;
-    [SerializeField] private float ParticleThrowDis = 1f;
+    [FormerlySerializedAs("BrokenParticleData")][SerializeField] private List<DeadParticleElement> brokenParticleData;
+    [FormerlySerializedAs("ParticleThrowDis")][SerializeField] private float particleThrowDis = 1f;
 
     #endregion
 
     #region Add Point (Percent)
 
     // Shield
-    protected void Add_PercentSP(float _Percent, float _Max)
+    protected void Add_PercentSP(float percent, float max)
     {
-        Add_PercentPoint(ref CurrentSP, _Percent, _Max);
+        Add_PercentPoint(ref currentSP, percent, max);
     }
     // Health
-    protected void Add_PercentHP(float _Percent, float _Max)
+    protected void Add_PercentHP(float percent, float max)
     {
-        Add_PercentPoint(ref CurrentHP, _Percent, _Max);
+        Add_PercentPoint(ref currentHP, percent, max);
     }
     // Energy
-    protected void Add_PercentEP(float _Percent, float _Max)
+    protected void Add_PercentEP(float percent, float max)
     {
-        Add_PercentPoint(ref CurrentEP, _Percent, _Max);
+        Add_PercentPoint(ref currentEP, percent, max);
     }
 
     // Point
-    private void Add_PercentPoint(ref ReactiveProperty<float> _Value, float _Percent, float _Max)
+    private void Add_PercentPoint(ref ReactiveProperty<float> refValue, float percent, float max)
     {
-        _Value.Value = Math.Min(_Value.Value + DevTool.Get_Percent(_Percent, _Max), _Max);
+        refValue.Value = Math.Min(refValue.Value + DevTool.Get_Percent(percent, max), max);
     }
 
     #endregion
@@ -56,43 +57,43 @@ public abstract class AliveObjectController : MovableObjectController
     #region Add Point (Value)
 
     // Shield
-    protected void Add_CurrentSP(float _AddValue, float _Max)
+    protected void Add_CurrentSP(float addValue, float max)
     {
-        Add_CurrentPoint(ref CurrentSP, _AddValue, _Max);
+        Add_CurrentPoint(ref currentSP, addValue, max);
     }
 
     // Health
-    protected void Add_CurrentHP(float _AddValue, float _Max)
+    protected void Add_CurrentHP(float addValue, float max)
     {
-        Add_CurrentPoint(ref CurrentHP, _AddValue, _Max);
+        Add_CurrentPoint(ref currentHP, addValue, max);
     }
 
     // Energy
-    protected void Add_CurrentEP(float _AddValue, float _Max)
+    protected void Add_CurrentEP(float addValue, float max)
     {
-        Add_CurrentPoint(ref CurrentEP, _AddValue, _Max);
+        Add_CurrentPoint(ref currentEP, addValue, max);
     }
 
 
     // Point
-    private void Add_CurrentPoint(ref ReactiveProperty<float> _Value, float _AddValue, float _Max)
+    private void Add_CurrentPoint(ref ReactiveProperty<float> refValue, float addValue, float max)
     {
-        _Value.Value = Math.Clamp(_Value.Value + _AddValue, 0, _Max);
+        refValue.Value = Math.Clamp(refValue.Value + addValue, 0, max);
     }
 
     #endregion
 
     #region Set Point (Value)
 
-    protected void Set_CurrentSP(float _SetValue, float _Max, bool _LesserIsOk = false)
+    protected void Set_CurrentSP(float setValue, float max, bool lesserIsOk = false)
     {
-        Set_CurrentPoint(ref CurrentSP, _SetValue, _Max, _LesserIsOk);
+        Set_CurrentPoint(ref currentSP, setValue, max, lesserIsOk);
     }
 
-    private void Set_CurrentPoint(ref ReactiveProperty<float> _Value, float _SetValue, float _Max, bool _LesserIsOk = false)
+    private void Set_CurrentPoint(ref ReactiveProperty<float> refValue, float setValue, float max, bool lesserIsOk = false)
     {
-        _Value.Value = _Value.Value > _SetValue && _LesserIsOk ?
-            Math.Min(_SetValue, _Max) : _Value.Value;
+        refValue.Value = refValue.Value > setValue && lesserIsOk ?
+            Math.Min(setValue, max) : refValue.Value;
     }
 
     #endregion
@@ -100,16 +101,16 @@ public abstract class AliveObjectController : MovableObjectController
     #region Dead
 
     // Is Dead?
-    protected virtual void Check_IsDead(float _Life)
+    protected virtual void Check_IsDead(float life)
     {
-        if (_Life <= 0)
+        if (life <= 0)
         {
-            IsDead = true;
+            isDead = true;
             Set_Die();
         }
         else
         {
-            IsDead = false;
+            isDead = false;
         }
     }
 
@@ -125,14 +126,14 @@ public abstract class AliveObjectController : MovableObjectController
 
     protected void Play_DeadParticle()
     {
-        for (int i = 0; i < BrokenParticleData.Count; i++)
+        for (int i = 0; i < brokenParticleData.Count; i++)
         {
             DeadParticleController particle = PoolingManager.instance.Get_OP_DeadParticle();
             particle.transform.SetParent(StageManager.instance.currentRoomController.transform);
 
             particle.Play_DeadParticle(
-                BrokenParticleData[i].sprite, BrokenParticleData[i].shadowSize, transform.position,
-                _StartY: TargetRange, _ThrowDis: ParticleThrowDis, _DurTime: 1.5f, _DisappointTime: 3f);
+                brokenParticleData[i].sprite, brokenParticleData[i].shadowSize, transform.position,
+                startY: targetRange, throwDis: particleThrowDis, durTime: 1.5f, disappointTime: 3f);
         }
     }
 

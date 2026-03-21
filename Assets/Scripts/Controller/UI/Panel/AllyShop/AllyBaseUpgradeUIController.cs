@@ -104,13 +104,13 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.CurrentChargedBettery
+        PlayerManager.instance.playerController.currentChargedBettery
             .Subscribe(_Value =>
             {
                 Set_ChargedBetteryUI(_Value, NeedChargedBettery);
             });
 
-        PlayerManager.instance.playerController.CurrentOverrider
+        PlayerManager.instance.playerController.currentOverrider
             .Subscribe(_Value =>
             {
                 Set_OverriderUI(_Value);
@@ -165,7 +165,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
         }
 
-        Set_ChargedBetteryUI(PlayerManager.instance.playerController.CurrentChargedBettery.Value, NeedChargedBettery);
+        Set_ChargedBetteryUI(PlayerManager.instance.playerController.currentChargedBettery.Value, NeedChargedBettery);
 
         if (!AllyBaseUpgradeController.UsingShop.IsBroken)
         {
@@ -248,7 +248,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         for (int i = 0; i < AllTunerEUI.Count; i++)
         {
             if (AllTunerEUI[i].RerollBtnEUI == CurrentBtn &&
-                PlayerManager.instance.playerController.CurrentOverrider.Value >= NeedOverrider)
+                PlayerManager.instance.playerController.currentOverrider.Value >= NeedOverrider)
             {
                 Set_TunerData(i);
                 Set_TunerUI(i);
@@ -310,14 +310,14 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
     private bool Can_Buy()
     {
         return !AllyBaseUpgradeController.UsingShop.IsBroken &&
-            (PlayerManager.instance.playerController.CurrentChargedBettery.Value >= NeedChargedBettery) &&
+            (PlayerManager.instance.playerController.currentChargedBettery.Value >= NeedChargedBettery) &&
             CurrentPickedProfileEUI != null;
     }
     
     private void Buy()
     {
         // 데이터
-        PlayerManager.instance.playerController.CurrentChargedBettery.Value -= NeedChargedBettery;
+        PlayerManager.instance.playerController.currentChargedBettery.Value -= NeedChargedBettery;
         CurrentPickedAlly.Add_Tuner(PickedTunerData);
 
         // 소비 효과

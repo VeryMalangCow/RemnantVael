@@ -1,32 +1,33 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class KeycardItemController : InteractItemController
 {
     #region Value
 
-    [SerializeField] private SpriteRenderer AnimSR;
+    [FormerlySerializedAs("AnimSR")][SerializeField] private SpriteRenderer animSr;
 
     #endregion
 
     #region State
 
-    public void Set_TypeState(int _ID)
+    public void Set_TypeState(int id)
     {
-        id = _ID;
+        base.id = id;
 
-        ThisSR.sprite = ResourceManager.instance.Get_KeyCardSprite(id);
-        AnimSR.color = ResourceManager.instance.Get_KeycardColor(id);
-        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.instance.keycardOutlineAC);
-        ThisAT.speed = 1.1f;
+        thisSr.sprite = ResourceManager.instance.Get_KeyCardSprite(base.id);
+        animSr.color = ResourceManager.instance.Get_KeycardColor(base.id);
+        DevTool.Set_Anim(ref aoc, at, ResourceManager.instance.keycardOutlineAC);
+        at.speed = 1.1f;
     }
 
     #endregion
 
     #region Interact
 
-    public override string Get_InteractName(out bool _CanInteract)
+    public override string Get_InteractName(out bool canInteract)
     {
-        _CanInteract = true;
+        canInteract = true;
         return ResourceManager.instance.Get_StaticWord(117);
     }
 

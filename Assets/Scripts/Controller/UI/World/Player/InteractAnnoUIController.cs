@@ -57,7 +57,7 @@ public class InteractAnnoUIController : UIController
 
     public void Set_UI()
     {
-        IInteract ii = PlayerManager.instance.playerController.CurrentInteractable.Value;
+        IInteract ii = PlayerManager.instance.playerController.currentInteractable.Value;
         string txt = DevTool.Get_InteractingAnnoTxt(ii, out bool canInteract);
 
         if (ii != null && txt != "" && ii is MonoBehaviour mb)

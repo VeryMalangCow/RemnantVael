@@ -262,10 +262,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 2140794428542127222}
-  ThisSR: {fileID: 7476731326064509690}
-  TargetRange: 0
-  ThisShadow: {fileID: 7240125535763573759}
+  targetObject: {fileID: 2140794428542127222}
+  thisSr: {fileID: 7476731326064509690}
+  targetRange: 0
+  shadowSr: {fileID: 7240125535763573759}
 --- !u!50 &7303316163523954610
 Rigidbody2D:
   serializedVersion: 4

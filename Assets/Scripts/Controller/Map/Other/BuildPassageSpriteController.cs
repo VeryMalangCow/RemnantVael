@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BuildPassageSpriteController : MonoBehaviour
 {
@@ -6,8 +7,8 @@ public class BuildPassageSpriteController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> Build Sprite")]
-    [SerializeField] private string SpriteKey;
-    [SerializeField] private bool IsBeforeMap = true;
+    [FormerlySerializedAs("SpriteKey")][SerializeField] private string spriteKey;
+    [FormerlySerializedAs("IsBeforeMap")][SerializeField] private bool isBeforeMap = true;
 
     #endregion
 
@@ -17,13 +18,13 @@ public class BuildPassageSpriteController : MonoBehaviour
     {
         if (DevTool.Get_ComponentTType(gameObject, out SpriteRenderer sr))
         {
-            if (SpriteKey == "")
-                SpriteKey = sr.sprite.name.Substring(5, sr.sprite.name.Length - 5);
+            if (spriteKey == "")
+                spriteKey = sr.sprite.name.Substring(5, sr.sprite.name.Length - 5);
 
-            if (IsBeforeMap)
-                StageManager.instance.Set_BeforeMapSprite(sr, SpriteKey);
+            if (isBeforeMap)
+                StageManager.instance.Set_BeforeMapSprite(sr, spriteKey);
             else
-                StageManager.instance.Set_AfterMapSprite(sr, SpriteKey);
+                StageManager.instance.Set_AfterMapSprite(sr, spriteKey);
         }
     }
 

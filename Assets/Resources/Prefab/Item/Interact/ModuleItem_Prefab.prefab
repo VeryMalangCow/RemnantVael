@@ -510,16 +510,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 3954661232278796110}
-  ThisSR: {fileID: 5987728594063451204}
-  TargetRange: 0.3
-  ThisRb: {fileID: 2744110499918854217}
-  SpreadPower: 5
-  DecSpreadPowerSpeed: 20
-  CurrentSpreadPower: 0
-  SettedSpreadDir: {x: 0, y: 0}
-  ThisAT: {fileID: 1783456646198030040}
-  ItemDataField:
+  targetObject: {fileID: 3954661232278796110}
+  thisSr: {fileID: 5987728594063451204}
+  targetRange: 0.3
+  rb: {fileID: 2744110499918854217}
+  spreadPower: 5
+  decSpreadPowerSpeed: 20
+  currentSpreadPower: 0
+  settedSpreadDir: {x: 0, y: 0}
+  at: {fileID: 1783456646198030040}
+  itemDataField:
     id: 0
     rank: 0
 --- !u!50 &2744110499918854217

@@ -1,5 +1,5 @@
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.Serialization;
 
 public class PrisonRuleController : RoomRuleController
 {
@@ -10,13 +10,13 @@ public class PrisonRuleController : RoomRuleController
 
     [Space(10)]
     [Header("=== ParentTF")]
-    [SerializeField] public Transform InRoom_PrisonParentTF;
-    [SerializeField] public Transform InRoom_PayOperactorParentTF;
-    [SerializeField] public Transform InRoom_PuzzleOperactorParentTF;
+    [FormerlySerializedAs("InRoom_PrisonParentTF")][SerializeField] public Transform inRoom_PrisonParentTF;
+    [FormerlySerializedAs("InRoom_PayOperactorParentTF")][SerializeField] public Transform inRoom_PayOperactorParentTF;
+    [FormerlySerializedAs("InRoom_PuzzleOperactorParentTF")][SerializeField] public Transform inRoom_PuzzleOperactorParentTF;
 
-    [HideInInspector] public PrisonController Prison = null;
-    [HideInInspector] public PrisonPayOperatorController PayOperator = null;
-    [HideInInspector] public PrisonPuzzleOperatorController PuzzleOperator = null;
+    [HideInInspector] public PrisonController prison = null;
+    [HideInInspector] public PrisonPayOperatorController payOperator = null;
+    [HideInInspector] public PrisonPuzzleOperatorController puzzleOperator = null;
 
     #endregion
 
@@ -26,7 +26,7 @@ public class PrisonRuleController : RoomRuleController
     {
         base.Offset();
 
-        NeedKeyCardID = 2;
+        needKeyCardId = 2;
     }
 
     #endregion
@@ -42,9 +42,9 @@ public class PrisonRuleController : RoomRuleController
 
     private void SetOn_Prison()
     {
-        Prison.gameObject.SetActive(true);
-        PayOperator.gameObject.SetActive(true);
-        PuzzleOperator.gameObject.SetActive(true);
+        prison.gameObject.SetActive(true);
+        payOperator.gameObject.SetActive(true);
+        puzzleOperator.gameObject.SetActive(true);
     }
 
     #endregion

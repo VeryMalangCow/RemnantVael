@@ -366,17 +366,17 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     private void Offset_Subscribe()
     {
         // BC // EC
-        PlayerManager.instance.playerController.CurrentBettery
+        PlayerManager.instance.playerController.currentBettery
             .Subscribe(value =>
             {
                 BCTxt.text = value.ToString();
             });
-        PlayerManager.instance.playerController.CurrentChargedBettery
+        PlayerManager.instance.playerController.currentChargedBettery
             .Subscribe(value =>
             {
                 ECTxt.text = value.ToString();
             });
-        PlayerManager.instance.playerController.CurrentModuleShard
+        PlayerManager.instance.playerController.currentModuleShard
             .Subscribe(value =>
             {
                 MSTxt.text = value.ToString();
@@ -677,7 +677,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             ModuleItemManager.instance.Is_SameRankFusionSlots())
         {
             ModuleState ms = ModuleItemManager.instance.Get_ModuleState(_SlottedData[0].typeBase, _SlottedData[0].typeSpecial);
-            if (ms.thisItemData.rank < PlayerController.MaxRank)
+            if (ms.thisItemData.rank < PlayerController.maxRank)
                 needMS = ModuleItemManager.Get_MS_ForFusion(ms).ToString();
         }
 
@@ -717,7 +717,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             Set_Warning(true, Warning_InvenFull);
             return;
         }
-        else if (PlayerManager.instance.playerController.CurrentModuleShard.Value < ModuleItemManager.Get_MS_ForMake() ||
+        else if (PlayerManager.instance.playerController.currentModuleShard.Value < ModuleItemManager.Get_MS_ForMake() ||
             !PlayerManager.instance.playerController.Is_EnoughChargedBettery(ModuleItemManager.Get_CB_ForMake()))
         {
             Set_Warning(true, Warning_NotEnoughItem);
@@ -749,7 +749,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         for (int i = 0; i < index.Count; i++) // 이미 최대치인가?
         {
-            if (ModuleItemManager.instance.Get_ModuleState(index[i]).thisItemData.rank >= PlayerController.MaxRank)
+            if (ModuleItemManager.instance.Get_ModuleState(index[i]).thisItemData.rank >= PlayerController.maxRank)
             {
                 Set_Warning(true, Warning_AlreadyMaxLv);
                 return;
@@ -758,7 +758,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         if (ModuleItemManager.Get_MS_ForFusion(
             ModuleItemManager.instance.Get_ModuleState(index[0]))
-                > PlayerManager.instance.playerController.CurrentModuleShard.Value) // MS가 부족한가?
+                > PlayerManager.instance.playerController.currentModuleShard.Value) // MS가 부족한가?
         {
             Set_Warning(true, Warning_NotEnoughItem);
             return;

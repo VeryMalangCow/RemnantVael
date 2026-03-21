@@ -6,7 +6,7 @@ public class BuldPassageMiddleSpriteController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> Passage Middle Sprite")]
-    [SerializeField] private string SpriteKey;
+    [SerializeField] private string spriteKey;
 
     #endregion
 
@@ -16,16 +16,16 @@ public class BuldPassageMiddleSpriteController : MonoBehaviour
     {
         if (DevTool.Get_ComponentTType(gameObject, out SpriteRenderer sr))
         {
-            if (SpriteKey == "")
+            if (spriteKey == "")
             {
                 string[] fullName = sr.sprite.name.Split("_");
-                SpriteKey = 
+                spriteKey = 
                     $"{fullName[1]}_" +
                     $"{DevTool.Get_LengthString(StageManager.instance.Get_BeforeStageID(), 2)}_" +
                     $"{DevTool.Get_LengthString(StageManager.instance.Get_AfterStageID(), 2)}";
             }
 
-            StageManager.instance.Set_PassageMiddleSprite(sr, SpriteKey);
+            StageManager.instance.Set_PassageMiddleSprite(sr, spriteKey);
         }
     }
 

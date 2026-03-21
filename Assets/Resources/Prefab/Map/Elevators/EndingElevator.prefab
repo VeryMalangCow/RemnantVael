@@ -115,9 +115,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 7945861353772175884}
-  ThisSR: {fileID: 6431130664222279258}
-  TargetRange: 0
+  targetObject: {fileID: 7945861353772175884}
+  thisSr: {fileID: 6431130664222279258}
+  targetRange: 0
   EndYPos: 5
   IsOn: 0
   NextStageIndex: 0
@@ -264,4 +264,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 

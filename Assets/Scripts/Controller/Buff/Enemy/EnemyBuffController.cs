@@ -310,7 +310,7 @@ public class EnemyBuffController : MonoBehaviour
             Get_ExlposionState(dmgType, dmg, statusIndex),
             ac: ResourceManager.instance.explosionAC,
             Get_SpawnTF(statusExplosionSize),
-            enemy.TargetRange);
+            enemy.targetRange);
     }
 
     private ExplosionState Get_ExlposionState(eDamageType dmgType, float dmg, int statusIndex)

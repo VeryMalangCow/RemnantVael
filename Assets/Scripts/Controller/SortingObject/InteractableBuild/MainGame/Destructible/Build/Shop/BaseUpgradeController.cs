@@ -65,7 +65,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
         }
         else if (Can_ShopPowerOn())
         {
-            PlayerManager.instance.playerController.CurrentChargedBettery.Value--;
+            PlayerManager.instance.playerController.currentChargedBettery.Value--;
             IsOn = true;
             SoundManager.instance.Play_2D_SFX_Build("PowerOn");
         }
@@ -73,7 +73,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
 
     private bool Can_ShopPowerOn()
     {
-        return !IsOn && PlayerManager.instance.playerController.CurrentChargedBettery.Value > 0;
+        return !IsOn && PlayerManager.instance.playerController.currentChargedBettery.Value > 0;
     }
 
     #endregion

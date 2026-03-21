@@ -103,8 +103,8 @@ public class ActiveSkillController : MonoBehaviour
     public bool Can_Active()
     {
         return currentChargeAmount > 0 &&
-            (PlayerManager.instance.playerController.Get_CurrentEP().Value > needEP.Value * PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.actualState.Value) &&
-            playerController.MovementState == eMovementState.IdleOrWalk;
+            (PlayerManager.instance.playerController.Get_CurrentEP().Value > needEP.Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState.Value) &&
+            playerController.movementState == eMovementState.IdleOrWalk;
     }
 
     public virtual void Active_Skill()
@@ -112,7 +112,7 @@ public class ActiveSkillController : MonoBehaviour
         // Consume
         currentChargeAmount--;
         playerController.Add_CurrentEP(
-            -(needEP.Value * PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.actualState.Value));
+            -(needEP.Value * PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState.Value));
 
         AllyRequestManager.instance.Play_UsingSkill();
     }
@@ -122,11 +122,11 @@ public class ActiveSkillController : MonoBehaviour
     {
         // 스킬 라인 효과 이미지
         MainGameUIManager.instance.playerHUD_UIController.SkillList
-           [DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.skillList, this)]
+           [DevTool.Get_IndexInList(PlayerManager.instance.playerController.skillWeapon.skillList, this)]
            .Play_StartInnerUI(); 
         // Aim
         InputManager.instance.aimController.Set_ActivingSkill(
-            DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.skillList, this),
+            DevTool.Get_IndexInList(PlayerManager.instance.playerController.skillWeapon.skillList, this),
             true);
     }
 
@@ -134,11 +134,11 @@ public class ActiveSkillController : MonoBehaviour
     {
         // 스킬 라인 효과 이미지
         MainGameUIManager.instance.playerHUD_UIController.SkillList
-           [DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.skillList, this)]
+           [DevTool.Get_IndexInList(PlayerManager.instance.playerController.skillWeapon.skillList, this)]
            .Play_EndInnerUI();
         // Aim
         InputManager.instance.aimController.Set_ActivingSkill(
-            DevTool.Get_IndexInList(PlayerManager.instance.playerController.SkillWeapon.skillList, this),
+            DevTool.Get_IndexInList(PlayerManager.instance.playerController.skillWeapon.skillList, this),
             false);
     }
 

@@ -224,7 +224,7 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
     {
         // ÆíÀÇ¼º
         PlayerController PC = PlayerManager.instance.playerController;
-        PlayerWeaponController PCWeapon = PC.BaseWeapon;
+        PlayerWeaponController PCWeapon = PC.baseWeapon;
 
         // È®·ü
         if (rank > UnityEngine.Random.Range(0, 10))
@@ -265,19 +265,19 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
         switch (kind)
         {
             case eStatusEffect.Flame: 
-                enemy.BuffController.flameStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+                enemy.buff.flameStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             case eStatusEffect.Cold:
-                enemy.BuffController.coldStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+                enemy.buff.coldStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             case eStatusEffect.Electricity:
-                enemy.BuffController.electricityStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+                enemy.buff.electricityStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             case eStatusEffect.Corrosion:
-                enemy.BuffController.corrosionStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
+                enemy.buff.corrosionStack.Gain_Stack(gainAmount, true, new CombatOwner(eCombatOwner.Player));
                 return;
 
             default: return;
@@ -292,19 +292,19 @@ public class ModuleItemActivityManager : Singleton<ModuleItemActivityManager>
             switch (kind)
             {
                 case eStatusEffect.Flame:
-                    enemy.BuffController.flameStack.ReGain_Stack();
+                    enemy.buff.flameStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Cold:
-                    enemy.BuffController.coldStack.ReGain_Stack();
+                    enemy.buff.coldStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Electricity:
-                    enemy.BuffController.electricityStack.ReGain_Stack();
+                    enemy.buff.electricityStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Corrosion:
-                    enemy.BuffController.corrosionStack.ReGain_Stack();
+                    enemy.buff.corrosionStack.ReGain_Stack();
                     return;
 
                 default: return;

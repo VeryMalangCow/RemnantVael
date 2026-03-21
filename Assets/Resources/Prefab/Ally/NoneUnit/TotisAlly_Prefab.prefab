@@ -47,21 +47,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 0}
-  ThisSR: {fileID: 0}
-  TargetRange: 0
-  ThisRb: {fileID: 0}
-  AccelerationSpeed: 0
-  IsDead: 0
-  CurrentSP:
+  targetObject: {fileID: 0}
+  thisSr: {fileID: 0}
+  targetRange: 0
+  rb: {fileID: 0}
+  accelerationSpeed: 0
+  isDead: 0
+  currentSP:
     value: 0
-  CurrentHP:
+  currentHP:
     value: 0
-  CurrentEP:
+  currentEP:
     value: 0
-  BrokenParticleData: []
-  ParticleThrowDis: 1
-  MultipleAllyState:
+  brokenParticleData: []
+  particleThrowDis: 1
+  multipleAllyState:
     dmg:
       value: 0
     rof:
@@ -80,14 +80,14 @@ MonoBehaviour:
       value: 0
     dur:
       value: 5
-  MaxHP: 150
-  AllyStateMode:
+  maxHP: 150
+  allyStateMode:
     value: 0
-  BuffController: {fileID: 1999153423990081965}
-  FrontFaceSprite: {fileID: -936771605, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
-  ThisColor: {r: 1, g: 1, b: 0.49803922, a: 1}
-  ThisExtraColor: {r: 1, g: 0.6179246, b: 0.6179246, a: 1}
-  ThisExtraGradient:
+  buffController: {fileID: 1999153423990081965}
+  frontFaceSprite: {fileID: -936771605, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
+  clr: {r: 1, g: 1, b: 0.49803922, a: 1}
+  extraClr: {r: 1, g: 0.6179246, b: 0.6179246, a: 1}
+  extraGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.61960787, b: 0.61960787, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -117,8 +117,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  HUD: {fileID: 7545129404960161537}
-  UpgradeAllyState:
+  hud: {fileID: 7545129404960161537}
+  upgradeAllyState:
     dmg:
       value: 1
     rof:
@@ -137,15 +137,15 @@ MonoBehaviour:
       value: 1
     dur:
       value: 1
-  CurrentChargeTime: 0
-  DropBottomYPos: 0.35
-  ThisSprite: {fileID: 1336410039, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
-  TrailTime: 0.8
-  TrailStartWidth: 0.04
-  LightIntensity: 0.2
-  HoloSprite: {fileID: 2036969429, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
-  PlayerBuffID: 11
-  AllyBuffID: TotisToteme
+  currentChargeTime: 0
+  dropBottomYPos: 0.35
+  sprite: {fileID: 1336410039, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
+  trailTime: 0.8
+  trailStartWidth: 0.04
+  lightIntensity: 0.2
+  holoSprite: {fileID: 2036969429, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
+  playerBuffId: 11
+  allyBuffId: TotisToteme
 --- !u!114 &1999153423990081965
 MonoBehaviour:
   m_ObjectHideFlags: 0

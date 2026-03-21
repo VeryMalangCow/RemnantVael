@@ -50,12 +50,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 8901846497403385796}
-  ThisSR: {fileID: 3509543857521266894}
-  TargetRange: 1.4
-  ThisRb: {fileID: 0}
-  AccelerationSpeed: 12
-  ThisSG: {fileID: 6733897396435173674}
+  targetObject: {fileID: 8901846497403385796}
+  thisSr: {fileID: 3509543857521266894}
+  targetRange: 1.4
+  rb: {fileID: 0}
+  accelerationSpeed: 12
+  sg: {fileID: 6733897396435173674}
 --- !u!50 &7751130478170212446
 Rigidbody2D:
   serializedVersion: 4

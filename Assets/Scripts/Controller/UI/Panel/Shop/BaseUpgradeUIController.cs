@@ -102,19 +102,19 @@ public class BaseUpgradeUIController : PlayerShopUIController
         #region Each Offset
 
         PlayerController pc = PlayerManager.instance.playerController;
-        PlayerWeaponController pwc = pc.BaseWeapon;
-        SkillWeaponController pswc = pc.SkillWeapon;
+        PlayerWeaponController pwc = pc.baseWeapon;
+        SkillWeaponController pswc = pc.skillWeapon;
         BaseUpgradeManager bm = BaseUpgradeManager.instance;
         
-        MaxEPShop.Offset(pc.MaxEP, bm.baseMaxEP_BUData, AllBUData_Float, this);
-        SpawnESMultipleShop.Offset(pc.SpawnESMultiple, bm.baseSpawnESMultiple_BUData, AllBUData_Float, this);
-        NeedEP_ForSkillMultipleShop.Offset(pc.NeedEP_ForSkillMultiple, bm.baseNeedEP_ForSkillMultiple_BUData, AllBUData_Float, this);
-        ResistShop.Offset(pc.TakingDmgMultiple, bm.baseResist_BUData, AllBUData_Float, this);
+        MaxEPShop.Offset(pc.maxEP, bm.baseMaxEP_BUData, AllBUData_Float, this);
+        SpawnESMultipleShop.Offset(pc.spawnESMultiple, bm.baseSpawnESMultiple_BUData, AllBUData_Float, this);
+        NeedEP_ForSkillMultipleShop.Offset(pc.needEP_ForSkillMultiple, bm.baseNeedEP_ForSkillMultiple_BUData, AllBUData_Float, this);
+        ResistShop.Offset(pc.takingDmgMultiple, bm.baseResist_BUData, AllBUData_Float, this);
 
-        WalkSpeedShop.Offset(pc.WalkSpeed, bm.baseWalkSpeed_BUData, AllBUData_Float, this);
-        WalkSpeedWhenShotMultipleShop.Offset(pc.WalkSpeedWhenShotMultiple, bm.baseWalkSpeedWhenShotMultiple_BUData, AllBUData_Float, this);
-        WalkAvoidChance.Offset(pc.AvoidChance, bm.baseAvoidChance_BUData, AllBUData_Float, this);
-        DashSpeedShop.Offset(pc.DashController.DashSpeed, bm.baseDashSpeed_BUData, AllBUData_Float, this);
+        WalkSpeedShop.Offset(pc.walkSpeed, bm.baseWalkSpeed_BUData, AllBUData_Float, this);
+        WalkSpeedWhenShotMultipleShop.Offset(pc.walkSpeedWhenShotMultiple, bm.baseWalkSpeedWhenShotMultiple_BUData, AllBUData_Float, this);
+        WalkAvoidChance.Offset(pc.avoidChance, bm.baseAvoidChance_BUData, AllBUData_Float, this);
+        DashSpeedShop.Offset(pc.dash.dashSpeed, bm.baseDashSpeed_BUData, AllBUData_Float, this);
 
         DamageShop.Offset(pwc.baseDamage, bm.baseDamage_BUData, AllBUData_Float, this);
         ROFShop.Offset(pwc.rof, bm.baseROF_BUData, AllBUData_Float, this);
@@ -136,23 +136,23 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     private void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.NeedEP_ForSkillMultiple.actualState
+        PlayerManager.instance.playerController.needEP_ForSkillMultiple.actualState
             .Subscribe(_Value =>
             {
                 for (int i = 0; i < DevTool.skillAmount; i++)
                 {
                     MainGameUIManager.instance.playerHUD_UIController.SkillList[i].Set_CostText(
-                        _Value * PlayerManager.instance.playerController.SkillWeapon.skillList[i].needEP.Value);
+                        _Value * PlayerManager.instance.playerController.skillWeapon.skillList[i].needEP.Value);
                 }
             });
 
-        PlayerManager.instance.playerController.CurrentBettery
+        PlayerManager.instance.playerController.currentBettery
             .Subscribe(value =>
             {
                 BCTxt.text = value.ToString();
             });
 
-        PlayerManager.instance.playerController.CurrentChargedBettery
+        PlayerManager.instance.playerController.currentChargedBettery
             .Subscribe(value =>
             {
                 ECTxt.text = value.ToString();

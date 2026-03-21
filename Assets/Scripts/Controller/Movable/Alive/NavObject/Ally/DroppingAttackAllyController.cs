@@ -26,7 +26,7 @@ public class DroppingAttackAllyController : DroppingAllyController
         {
             Fire_Bullet(PoolingManager.instance.Get_OP_DroppingAllyBullet(), Get_TargetEnemy().transform.position);
         }
-        Debug.Log(Name[1] + ": Bomb Attack");
+        Debug.Log(_name[1] + ": Bomb Attack");
     }
 
     private EnemyController Get_TargetEnemy()
@@ -39,26 +39,26 @@ public class DroppingAttackAllyController : DroppingAllyController
         return targetEnemy;
     }
 
-    private void Fire_Bullet(AllyDroppingBombController _Bullet, Vector2 _TargetPos)
+    private void Fire_Bullet(AllyDroppingBombController bullet, Vector2 targetPos)
     {
         // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
-        _Bullet.Set_State(
+        bullet.Set_State(
             Get_BulletState(), 
-            droppingTime: ActualAllyState.muzzleSpeed.value, 
+            droppingTime: actualAllyState.muzzleSpeed.value, 
             topYPos: 5f, 
-            bottomYPos: DropBottomYPos,
-            state_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
+            bottomYPos: dropBottomYPos,
+            state_PosAndRot: Get_BulletState_PosAndRot(targetPos),
             state_Size: Get_BulletState_Shadow_Size());
 
         // Light & Trail
-        _Bullet.SetOn_LightIntensity(LightIntensity);
-        _Bullet.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.attackSize.value, ThisExtraGradient);
+        bullet.SetOn_LightIntensity(lightIntensity);
+        bullet.SetOn_TrailState(trailTime, trailStartWidth * actualAllyState.attackSize.value, extraGradient);
 
         // Sync
-        ActiveAlly_Fire(null, _Bullet);
+        ActiveAlly_Fire(null, bullet);
 
         // ÀÌ¹ÌÁö
-        _Bullet.ThisSR.sprite = ThisSprite;
+        bullet.thisSr.sprite = sprite;
 
         // HUD
 
@@ -72,15 +72,15 @@ public class DroppingAttackAllyController : DroppingAllyController
     {
         return new CombatState(
             new CombatOwner(eCombatOwner.Ally, id),
-            new DmgState(eDamageType.Physics, ActualAllyState.dmg.value),
-            new CriticalState(ActualAllyState.criticalChacne.value, 1 + ActualAllyState.criticalDmg.value),
-            new KnockbackState(true, ActualAllyState.kbPower.value, 0.2f));
+            new DmgState(eDamageType.Physics, actualAllyState.dmg.value),
+            new CriticalState(actualAllyState.criticalChacne.value, 1 + actualAllyState.criticalDmg.value),
+            new KnockbackState(true, actualAllyState.kbPower.value, 0.2f));
     }
 
-    private BulletState_PosAndRot Get_BulletState_PosAndRot(Vector2 _TargetPos)
+    private BulletState_PosAndRot Get_BulletState_PosAndRot(Vector2 targetPos)
     {
         return new BulletState_PosAndRot(
-            _TargetPos,
+            targetPos,
             Vector2.zero,
             0);
     }
@@ -88,7 +88,7 @@ public class DroppingAttackAllyController : DroppingAllyController
     private BulletState_Size Get_BulletState_Shadow_Size()
     {
         return new BulletState_Size(
-            Vector2.one * ActualAllyState.attackSize.value,
+            Vector2.one * actualAllyState.attackSize.value,
             new Vector2(0.3f, 0.15f));
     }
 

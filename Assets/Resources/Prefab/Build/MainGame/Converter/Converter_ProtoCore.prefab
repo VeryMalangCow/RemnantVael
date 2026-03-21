@@ -337,9 +337,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
-  TargetObject: {fileID: 7945861353772175884}
-  ThisSR: {fileID: 6431130664222279258}
-  TargetRange: 0.3
+  targetObject: {fileID: 7945861353772175884}
+  thisSr: {fileID: 6431130664222279258}
+  targetRange: 0.3
   ThisAnimator: {fileID: 1156573706478142735}
 --- !u!1 &6310173116161984221
 GameObject:

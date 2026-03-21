@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class InteractItemController : ItemController, IInteract
 {
@@ -10,19 +11,19 @@ public abstract class InteractItemController : ItemController, IInteract
 
     [Space(10)]
     [Header("=== Physics")]
-    [SerializeField] private float SpreadPower = 10f;
-    [SerializeField] private float DecSpreadPowerSpeed = 1f;
-    [SerializeField] protected float CurrentSpreadPower = 0f;
-    [SerializeField] protected Vector2 SettedSpreadDir;
-    private Sequence UpDownSeq = null;
+    [FormerlySerializedAs("SpreadPower")][SerializeField] private float spreadPower = 10f;
+    [FormerlySerializedAs("DecSpreadPowerSpeed")][SerializeField] private float decSpreadPowerSpeed = 1f;
+    [FormerlySerializedAs("CurrentSpreadPower")][SerializeField] protected float currentSpreadPower = 0f;
+    [FormerlySerializedAs("SettedSpreadDir")][SerializeField] protected Vector2 settedSpreadDir;
+    private Sequence upDownSeq = null;
 
 
     [Space(10)]
     [Header("=== Anim")]
-    [SerializeField] protected Animator ThisAT;
+    [FormerlySerializedAs("ThisAT")][SerializeField] protected Animator at;
 
     [HideInInspector] private SpriteRenderer OutlinerSR;
-    [HideInInspector] protected AnimatorOverrideController AOC;
+    [HideInInspector] protected AnimatorOverrideController aoc;
 
     #endregion
 
@@ -32,31 +33,31 @@ public abstract class InteractItemController : ItemController, IInteract
     {
         base.Offset();
 
-        OutlinerSR = DevTool.Get_ComponentTType(ThisAT.gameObject, out SpriteRenderer outlinerSr) ? outlinerSr : null;
+        OutlinerSR = DevTool.Get_ComponentTType(at.gameObject, out SpriteRenderer outlinerSr) ? outlinerSr : null;
     }
 
     #endregion
 
     #region State
 
-    public override void Set_State(Vector2 _SpawnPos)
+    public override void Set_State(Vector2 spawnPos)
     {
-        base.Set_State(_SpawnPos);
+        base.Set_State(spawnPos);
 
         // Anim
-        CurrentSpreadPower = SpreadPower;
-        SettedSpreadDir = DevTool.Get_RandomDir();
+        currentSpreadPower = spreadPower;
+        settedSpreadDir = DevTool.Get_RandomDir();
         Start_Tween();
 
         // Set
         this.gameObject.SetActive(true);
     }
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
+        base.Set_SortingOrder(sortingOrder);
 
-        OutlinerSR.sortingOrder = _SortingOrder;
+        OutlinerSR.sortingOrder = sortingOrder;
     }
 
     #endregion
@@ -65,7 +66,7 @@ public abstract class InteractItemController : ItemController, IInteract
 
     protected void LateUpdate()
     {
-        Play_Spread(CurrentSpreadPower);
+        Play_Spread(currentSpreadPower);
     }
 
     #endregion
@@ -74,36 +75,36 @@ public abstract class InteractItemController : ItemController, IInteract
 
     private void Start_Tween()
     {
-        UpDownSeq = DOTween.Sequence();
+        upDownSeq = DOTween.Sequence();
 
-        UpDownSeq.Append(TargetObject.transform.DOLocalMoveY((TargetRange + 0.2f), 1f).SetEase(Ease.InOutSine));
-        UpDownSeq.Append(TargetObject.transform.DOLocalMoveY((TargetRange), 1f).SetEase(Ease.InOutSine));
+        upDownSeq.Append(targetObject.transform.DOLocalMoveY((targetRange + 0.2f), 1f).SetEase(Ease.InOutSine));
+        upDownSeq.Append(targetObject.transform.DOLocalMoveY((targetRange), 1f).SetEase(Ease.InOutSine));
 
-        UpDownSeq
+        upDownSeq
             .OnStart(() =>
             {
-                TargetObject.transform.localPosition = Vector2.up * TargetRange;
+                targetObject.transform.localPosition = Vector2.up * targetRange;
             })
             .SetLoops(-1, LoopType.Restart);
     }
 
     protected void End_Tween()
     {
-        DOTween.Kill(UpDownSeq);
-        UpDownSeq = null;
+        DOTween.Kill(upDownSeq);
+        upDownSeq = null;
     }
 
-    private void Play_Spread(float _SpreadPower)
+    private void Play_Spread(float spreadPower)
     {
-        if (CurrentSpreadPower > 0f)
+        if (currentSpreadPower > 0f)
         {
-            CurrentSpreadPower -= DecSpreadPowerSpeed * Time.deltaTime;
-            ThisRb.velocity = SettedSpreadDir * _SpreadPower;
+            currentSpreadPower -= decSpreadPowerSpeed * Time.deltaTime;
+            rb.velocity = settedSpreadDir * spreadPower;
         }
-        else if (CurrentSpreadPower != 0f)
+        else if (currentSpreadPower != 0f)
         {
-            CurrentSpreadPower = 0f;
-            ThisRb.velocity = Vector2.zero;
+            currentSpreadPower = 0f;
+            rb.velocity = Vector2.zero;
         }
     }
 
@@ -111,13 +112,13 @@ public abstract class InteractItemController : ItemController, IInteract
 
     #region Interact
 
-    public abstract string Get_InteractName(out bool _CanInteract);
+    public abstract string Get_InteractName(out bool canInteract);
 
     public virtual void Play_Interact()
     {
-        PlayerManager.instance.playerController.CurrentInteractable.Value = null;
-        CurrentSpreadPower = 0f;
-        SettedSpreadDir = Vector2.zero;
+        PlayerManager.instance.playerController.currentInteractable.Value = null;
+        currentSpreadPower = 0f;
+        settedSpreadDir = Vector2.zero;
 
         End_Tween();
 

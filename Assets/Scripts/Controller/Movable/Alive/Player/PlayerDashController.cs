@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerDashController : MonoBehaviour
 {
@@ -9,30 +10,30 @@ public class PlayerDashController : MonoBehaviour
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private eDashStyle ThisDashStyle = eDashStyle.OneWay;
+    [FormerlySerializedAs("ThisDashStyle")][SerializeField] private eDashStyle dashStyle = eDashStyle.OneWay;
 
     [Space(10)]
     [Header("=== BU State")]
-    [SerializeField] public BUState<float> DashSpeed;
+    [FormerlySerializedAs("DashSpeed")][SerializeField] public BUState<float> dashSpeed;
 
     // Readonly Value
-    [HideInInspector] private readonly float NeedEP_ForDash = 1f; // 임시
-    [HideInInspector] private readonly float DashDur = 0.25f;
+    [HideInInspector] private readonly float needEP_ForDash = 1f; // 임시
+    [HideInInspector] private readonly float dashDur = 0.25f;
 
     // Caculate
-    [HideInInspector] private float CurrentDashProcessTime = 0;
-    [HideInInspector] private bool Booked = false;
-    [HideInInspector] private Vector2 BookCaculateVec = Vector2.zero;
+    [HideInInspector] private float currentDashProcessTime = 0;
+    [HideInInspector] private bool booked = false;
+    [HideInInspector] private Vector2 bookCaculateVec = Vector2.zero;
 
     // Type: CanInputWay
-    [HideInInspector] private readonly float RotateLerpValue = 30f;
+    [HideInInspector] private readonly float rotLerpValue = 30f;
 
     // Type: Teleport
-    [HideInInspector] private readonly float TpDur = 0.15f;
-    [HideInInspector] private bool AlreadyTp = false;
+    [HideInInspector] private readonly float tpDur = 0.15f;
+    [HideInInspector] private bool alreadyTp = false;
 
     // Controller (Owner)
-    [HideInInspector] private PlayerController PlayerController;
+    [HideInInspector] private PlayerController playerController;
 
     #endregion
 
@@ -40,27 +41,27 @@ public class PlayerDashController : MonoBehaviour
 
     public void Offset()
     {
-        PlayerController = PlayerManager.instance.playerController;
+        playerController = PlayerManager.instance.playerController;
     }
 
     #endregion
 
     #region Dash
 
-    public void Play_Dash(float _DeltaTime)
+    public void Play_Dash(float deltaTime)
     {
-        switch (ThisDashStyle)
+        switch (dashStyle)
         {
             case eDashStyle.OneWay:
-                Update_OneWay(_DeltaTime);
+                Update_OneWay(deltaTime);
                 break;
 
             case eDashStyle.CanInputWay:
-                Update_CanInputWay(_DeltaTime);
+                Update_CanInputWay(deltaTime);
                 break;
 
             case eDashStyle.Teleport:
-                Update_Teleport(_DeltaTime);
+                Update_Teleport(deltaTime);
                 break;
 
             default:
@@ -74,27 +75,27 @@ public class PlayerDashController : MonoBehaviour
 
 
     // 직진 대시
-    private void Update_OneWay(float _DeltaTime)
+    private void Update_OneWay(float deltaTime)
     {
         // 직진 예약 방향이 정하기
-        if (!Booked)
+        if (!booked)
         {
             // 움직이는 방향으로 대시
-            BookCaculateVec = InputManager.instance.inputMoveDir;
+            bookCaculateVec = InputManager.instance.inputMoveDir;
 
             // 마우스 방향으로 대시
             //BookCaculateVec = InputManager.Instance.DirFromPlayerPos.normalized;
 
-            SoundManager.instance.Play_2D_SFX_Player(PlayerController.Get_AS(), "Dash");
-            Booked = true;
+            SoundManager.instance.Play_2D_SFX_Player(playerController.Get_AS(), "Dash");
+            booked = true;
         }
 
         if (Is_Dashing()) // 진행
         {
-            PlayerController.ThisRb.velocity = 
-                BookCaculateVec * DashSpeed.actualState.Value;
+            playerController.rb.velocity = 
+                bookCaculateVec * dashSpeed.actualState.Value;
 
-            CurrentDashProcessTime += _DeltaTime;
+            currentDashProcessTime += deltaTime;
         }
         else // 종료
         {
@@ -103,16 +104,16 @@ public class PlayerDashController : MonoBehaviour
     }
 
     // 빠른 이동 대시
-    private void Update_CanInputWay(float _DeltaTime)
+    private void Update_CanInputWay(float deltaTime)
     {
         if (Is_Dashing())
         {
-            PlayerController.ThisRb.velocity = Vector2.Lerp(
-                a: PlayerController.ThisRb.velocity.normalized,
+            playerController.rb.velocity = Vector2.Lerp(
+                a: playerController.rb.velocity.normalized,
                 b: InputManager.instance.inputMoveDir,
-                t: RotateLerpValue * _DeltaTime) * DashSpeed.actualState.Value;
+                t: rotLerpValue * deltaTime) * dashSpeed.actualState.Value;
 
-            CurrentDashProcessTime += _DeltaTime;
+            currentDashProcessTime += deltaTime;
         }
         else
         {
@@ -121,24 +122,24 @@ public class PlayerDashController : MonoBehaviour
     }
     
     // 순간 이동
-    public void Update_Teleport(float _DeltaTime)
+    public void Update_Teleport(float deltaTime)
     {
-        if (!Booked)
+        if (!booked)
         {
-            PlayerController.ThisRb.velocity = Vector2.zero;
-            BookCaculateVec = InputManager.instance.mousePosByWorld;
+            playerController.rb.velocity = Vector2.zero;
+            bookCaculateVec = InputManager.instance.mousePosByWorld;
         }
-        Booked = true;
+        booked = true;
 
         if (Is_Dashing())
         {
-            if (CurrentDashProcessTime >= TpDur && !AlreadyTp) // 텔포 시점
+            if (currentDashProcessTime >= tpDur && !alreadyTp) // 텔포 시점
             {
-                PlayerController.gameObject.transform.position = BookCaculateVec;
-                AlreadyTp = true;
+                playerController.gameObject.transform.position = bookCaculateVec;
+                alreadyTp = true;
             }
 
-            CurrentDashProcessTime += _DeltaTime;
+            currentDashProcessTime += deltaTime;
         }
         else
         {
@@ -148,18 +149,18 @@ public class PlayerDashController : MonoBehaviour
 
     private bool Is_Dashing()
     {
-        return CurrentDashProcessTime < DashDur;
+        return currentDashProcessTime < dashDur;
     }
 
     void End_Dash()
     {
-        PlayerController.AfterImgGenerator.End_Gen();
-        PlayerController.MovementState = eMovementState.IdleOrWalk;
+        playerController.afterImgGenerator.End_Gen();
+        playerController.movementState = eMovementState.IdleOrWalk;
 
         // 예약 좌표
-        Booked = false;
-        BookCaculateVec = Vector2.zero;
-        CurrentDashProcessTime = 0;
+        booked = false;
+        bookCaculateVec = Vector2.zero;
+        currentDashProcessTime = 0;
 
         InputManager.instance.isPlayingBuffered = false;
     }
@@ -170,12 +171,12 @@ public class PlayerDashController : MonoBehaviour
 
     public bool Is_EnoughEP()
     {
-        return Get_ActualNeedEP() <= PlayerController.Get_CurrentEP().Value;
+        return Get_ActualNeedEP() <= playerController.Get_CurrentEP().Value;
     }
 
     public float Get_ActualNeedEP()
     {
-        return NeedEP_ForDash * PlayerController.NeedEP_ForSkillMultiple.actualState.Value;
+        return needEP_ForDash * playerController.needEP_ForSkillMultiple.actualState.Value;
     }
 
     #endregion

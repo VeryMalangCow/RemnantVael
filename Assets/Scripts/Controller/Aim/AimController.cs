@@ -75,8 +75,8 @@ public class AimController : StaticDepthController
     // 회전 값 업데이트
     private void Update_AimRot(float deltaTime)
     {
-        TargetObject.transform.localRotation = Quaternion.Slerp(
-            TargetObject.transform.localRotation,
+        targetObject.transform.localRotation = Quaternion.Slerp(
+            targetObject.transform.localRotation,
             DevTool.Get_RotFromDir(InputManager.instance.dirFromPlayerPos), 
             aimFollowSpeed * deltaTime);
     }

@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 7754987835335729850}
-  ThisSR: {fileID: 2506341436009816347}
-  TargetRange: 0.35
+  targetObject: {fileID: 7754987835335729850}
+  thisSr: {fileID: 2506341436009816347}
+  targetRange: 0.35
   poolingString: PlayerBullet
   state:
     ownerData:

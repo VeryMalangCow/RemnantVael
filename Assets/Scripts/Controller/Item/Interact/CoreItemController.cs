@@ -1,31 +1,32 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CoreItemController : InteractItemController
 {
     #region Value
 
-    [SerializeField] private SpriteRenderer AnimSR;
+    [FormerlySerializedAs("AnimSR")][SerializeField] private SpriteRenderer animSr;
 
     #endregion
 
     #region State
 
-    public void Set_TypeState(int _ID)
+    public void Set_TypeState(int id)
     {
-        id = _ID;
+        base.id = id;
 
-        DevTool.Set_Anim(ref AOC, ThisAT, ResourceManager.instance.coreOutlineAC);
-        ThisSR.sprite = ResourceManager.instance.Get_CoreSprite(id);
-        ThisAT.speed = 1f;
+        DevTool.Set_Anim(ref aoc, at, ResourceManager.instance.coreOutlineAC);
+        thisSr.sprite = ResourceManager.instance.Get_CoreSprite(base.id);
+        at.speed = 1f;
     }
 
     #endregion
 
     #region Interact
 
-    public override string Get_InteractName(out bool _CanInteract)
+    public override string Get_InteractName(out bool canInteract)
     {
-        _CanInteract = true;
+        canInteract = true;
 
         switch (id)
         {

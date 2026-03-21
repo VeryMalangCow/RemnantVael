@@ -20,11 +20,11 @@ public class DestructibleObjectController : SortingObjectController
     {
         base.Offset();
 
-        ThisSR.sprite = ResourceManager.instance.Get_RandomFieldObjSprite(
+        thisSr.sprite = ResourceManager.instance.Get_RandomFieldObjSprite(
             StageManager.instance.targetStageID,
             TypeIndex);
 
-        ThisSR.material = StageManager.instance.Get_CurrentStageData().mapMaterialClear[1];
+        thisSr.material = StageManager.instance.Get_CurrentStageData().mapMaterialClear[1];
     }
 
     #endregion
@@ -33,7 +33,7 @@ public class DestructibleObjectController : SortingObjectController
 
     public void Destruct()
     {
-        UnitManager.instance.build_ExplImgGenerator.Expl_FieldObj(TargetObject.gameObject.transform.position);
+        UnitManager.instance.build_ExplImgGenerator.Expl_FieldObj(targetObject.gameObject.transform.position);
         SoundManager.instance.Play_2D_SFX_Build("BreakFieldObj");
         Destroy(gameObject);
     }

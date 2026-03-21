@@ -215,7 +215,7 @@ public abstract class TotemeController : DroppingDepthController
 
     private void Active_FadeOut()
     {
-        ThisSR.DOFade(0f, 0.9f).SetEase(Ease.Linear);
+        thisSr.DOFade(0f, 0.9f).SetEase(Ease.Linear);
         holoSr.DOFade(0f, 0.9f).SetEase(Ease.Linear);
     }
 
@@ -232,7 +232,7 @@ public abstract class TotemeController : DroppingDepthController
         
         for (int i = 0; i < inAreaAllies.Count; i++)
         {
-            AllyBuff buff = inAreaAllies[i].BuffController.Get_AllyBuff(allyBuffId);
+            AllyBuff buff = inAreaAllies[i].buffController.Get_AllyBuff(allyBuffId);
             buff.SetAndGain_Buff(1);
         }
     }
@@ -246,7 +246,7 @@ public abstract class TotemeController : DroppingDepthController
         base.Set_SortingOrder(sortingOrder);
 
         holoSr.sortingOrder = sortingOrder;
-        ThisTrail.sortingOrder = sortingOrder - 1;
+        trail.sortingOrder = sortingOrder - 1;
     }
 
     #endregion
@@ -318,16 +318,16 @@ public abstract class TotemeController : DroppingDepthController
 
     protected virtual void SetOn_Trail()
     {
-        ThisTrail.Clear();
+        trail.Clear();
 
-        ThisTrail.emitting = true;
-        ThisTrail.enabled = true;
+        trail.emitting = true;
+        trail.enabled = true;
     }
 
     private void SetOff_Trail()
     {
-        ThisTrail.emitting = false;
-        ThisTrail.enabled = false;
+        trail.emitting = false;
+        trail.enabled = false;
     }
 
     #endregion

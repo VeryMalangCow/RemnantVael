@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AllySolarController : SolarSystemController
 {
@@ -8,13 +9,13 @@ public class AllySolarController : SolarSystemController
     [Header("<><><><><> Ally Solar")]
 
     [Header("=== Owner")]
-    [SerializeField] private FieldUnitAllyController ThisAlly;
+    [FormerlySerializedAs("ThisAlly")][SerializeField] private FieldUnitAllyController ally;
 
     [Header("=== Comp")]
-    [SerializeField] public Rigidbody2D ThisRb;
+    [FormerlySerializedAs("ThisRb")][SerializeField] public Rigidbody2D rb;
 
     [Header("=== Value")]
-    [SerializeField] private eAllyStateMode AllyStateMode;
+    [FormerlySerializedAs("AllyStateMode")][SerializeField] private eAllyStateMode allyStateMode;
 
     #endregion
 
@@ -31,11 +32,11 @@ public class AllySolarController : SolarSystemController
 
     #region Set (State)
 
-    public void Set_AllyStateMode(eAllyStateMode _StateMode)
+    public void Set_AllyStateMode(eAllyStateMode stateMode)
     {
-        if (AllyStateMode == _StateMode) return;
+        if (allyStateMode == stateMode) return;
 
-        AllyStateMode = _StateMode;
+        allyStateMode = stateMode;
     }
 
     #endregion
@@ -44,18 +45,18 @@ public class AllySolarController : SolarSystemController
 
     private void Set_ActingByCondition()
     {
-        switch (AllyStateMode)
+        switch (allyStateMode)
         {
             case eAllyStateMode.Idle:
-                Set_RotSmooth(ThisAlly.Get_ForPlayerDir(), Time.deltaTime);
+                Set_RotSmooth(ally.Get_ForPlayerDir(), Time.deltaTime);
                 break;
 
             case eAllyStateMode.Move:
-                Set_RotSmooth(ThisRb.velocity, Time.deltaTime);
+                Set_RotSmooth(rb.velocity, Time.deltaTime);
                 break;
 
             case eAllyStateMode.Attack:
-                Set_RotSmooth(ThisAlly.Get_ForEnemyDir(), Time.deltaTime);
+                Set_RotSmooth(ally.Get_ForEnemyDir(), Time.deltaTime);
                 break;
         }
     }

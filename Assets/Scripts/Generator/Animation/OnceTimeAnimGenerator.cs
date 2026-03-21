@@ -12,7 +12,7 @@ public class OnceTimeAnimGenerator : MonoBehaviour
         State_TF2D tf = new State_TF2D(
             spawnPos, Quaternion.identity, Vector2.one * animSize);
         State_Sprite sprite = new State_Sprite(
-            PlayerManager.instance.playerController.MaterialList[0], Color.white);
+            PlayerManager.instance.playerController.materialList[0], Color.white);
         
         Gen_OOA().Start_Anim(anim, tf, sprite);
     }

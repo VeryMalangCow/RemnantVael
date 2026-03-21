@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BuildOpacityController : MonoBehaviour
 {
@@ -8,21 +9,21 @@ public class BuildOpacityController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> Visible State")]
-    [SerializeField] private List<GateController> SetSRParentGateList;
-    [SerializeField] private List<StaticDepthController> SetSRParentDepthList;
-    [SerializeField] private Transform SetSRDepthListParent;
+    [FormerlySerializedAs("SetSRParentGateList")][SerializeField] private List<GateController> setSrParentGateList;
+    [FormerlySerializedAs("SetSRParentDepthList")][SerializeField] private List<StaticDepthController> setSrParentDepthList;
+    [FormerlySerializedAs("SetSRDepthListParent")][SerializeField] private Transform setSrDepthListParent;
 
     // Sr
-    [SerializeField] private List<SpriteRenderer> SetSRList = new List<SpriteRenderer>();
+    [FormerlySerializedAs("SetSRList")][SerializeField] private List<SpriteRenderer> setSrList = new List<SpriteRenderer>();
 
     // Value
-    [HideInInspector] private bool IsColliding = false;
-    [HideInInspector] private float OpacityValue = 0.7f;
-    [HideInInspector] private float TargetOpactiyValue = 1f;
-    [HideInInspector] private float DurTime = 0.3f;
+    [HideInInspector] private bool isColliding = false;
+    [HideInInspector] private float opacityValue = 0.7f;
+    [HideInInspector] private float targetOpactiyValue = 1f;
+    [HideInInspector] private float durTime = 0.3f;
 
     // Data
-    [HideInInspector] private Sequence ThisSeq = null;
+    [HideInInspector] private Sequence thisSeq = null;
 
     #endregion
 
@@ -30,51 +31,51 @@ public class BuildOpacityController : MonoBehaviour
 
     private void Offset()
     {
-        Offset_TF(SetSRDepthListParent);
-        Offset_StaticDepthList(SetSRParentDepthList);
-        Offset_GateList(SetSRParentGateList);
+        Offset_TF(setSrDepthListParent);
+        Offset_StaticDepthList(setSrParentDepthList);
+        Offset_GateList(setSrParentGateList);
     }
 
-    private void Offset_TF(Transform _TF)
+    private void Offset_TF(Transform tf)
     {
-        if (_TF == null || _TF.childCount <= 0) return;
+        if (tf == null || tf.childCount <= 0) return;
 
-        List<StaticDepthController> depthList = DevTool.Get_ChildList<StaticDepthController>(_TF);
+        List<StaticDepthController> depthList = DevTool.Get_ChildList<StaticDepthController>(tf);
         for (int i = 0; i < depthList.Count; i++)
         {
-            SpriteRenderer sr = DevTool.Get_ComponentTType(depthList[i].TargetObject, out SpriteRenderer outSr) ? outSr : null;
-            if (sr != null && sr != default) SetSRList.Add(sr);
+            SpriteRenderer sr = DevTool.Get_ComponentTType(depthList[i].targetObject, out SpriteRenderer outSr) ? outSr : null;
+            if (sr != null && sr != default) setSrList.Add(sr);
         }
 
-        _TF = null;
+        tf = null;
     }
 
-    private void Offset_StaticDepthList(List<StaticDepthController> _DepthList)
+    private void Offset_StaticDepthList(List<StaticDepthController> depthList)
     {
-        if (_DepthList == null || _DepthList.Count <= 0) return;
+        if (depthList == null || depthList.Count <= 0) return;
 
-        for (int i = 0; i < _DepthList.Count; i++)
+        for (int i = 0; i < depthList.Count; i++)
         {
-            SpriteRenderer sr = DevTool.Get_ComponentTType(_DepthList[i].TargetObject, out SpriteRenderer outSr) ? outSr : null;
-            if (sr != null && sr != default) SetSRList.Add(sr);
+            SpriteRenderer sr = DevTool.Get_ComponentTType(depthList[i].targetObject, out SpriteRenderer outSr) ? outSr : null;
+            if (sr != null && sr != default) setSrList.Add(sr);
 
-            List<SpriteRenderer> srList = DevTool.Get_ChildList<SpriteRenderer>(_DepthList[i].TargetObject.transform);
-            if (srList != null && srList.Count > 0) SetSRList.AddRange(srList);
+            List<SpriteRenderer> srList = DevTool.Get_ChildList<SpriteRenderer>(depthList[i].targetObject.transform);
+            if (srList != null && srList.Count > 0) setSrList.AddRange(srList);
         }
-        _DepthList.Clear();
-        _DepthList = null;
+        depthList.Clear();
+        depthList = null;
     }
 
-    private void Offset_GateList(List<GateController> _GateList)
+    private void Offset_GateList(List<GateController> gateList)
     {
-        if (_GateList == null || _GateList.Count <= 0) return;
+        if (gateList == null || gateList.Count <= 0) return;
 
-        for (int i = 0; i < _GateList.Count; i++)
+        for (int i = 0; i < gateList.Count; i++)
         {
-            SetSRList.AddRange(_GateList[i].OpacityLowerSRList);
+            setSrList.AddRange(gateList[i].opacityLowerSrList);
         }
-        _GateList.Clear();
-        _GateList = null;
+        gateList.Clear();
+        gateList = null;
     }
 
     #endregion
@@ -88,7 +89,7 @@ public class BuildOpacityController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        IsColliding = false;
+        isColliding = false;
     }
 
     private void LateUpdate()
@@ -100,9 +101,9 @@ public class BuildOpacityController : MonoBehaviour
 
     #region Trigger
 
-    private void OnTriggerStay2D(Collider2D _Col)
+    private void OnTriggerStay2D(Collider2D col)
     {
-        IsColliding = true;
+        isColliding = true;
     }
 
     #endregion
@@ -111,26 +112,26 @@ public class BuildOpacityController : MonoBehaviour
 
     private void Check_Visible()
     {
-        if (IsColliding && TargetOpactiyValue != OpacityValue)
-            Set_Visible(OpacityValue);
-        else if (!IsColliding && TargetOpactiyValue != 1)
+        if (isColliding && targetOpactiyValue != opacityValue)
+            Set_Visible(opacityValue);
+        else if (!isColliding && targetOpactiyValue != 1)
             Set_Visible();
     }
 
-    private void Set_Visible(float _Alpha = 1f)
+    private void Set_Visible(float alpha = 1f)
     {
-        if (SetSRList == null || SetSRList.Count <= 0) return;
+        if (setSrList == null || setSrList.Count <= 0) return;
 
-        TargetOpactiyValue = _Alpha;
+        targetOpactiyValue = alpha;
 
-        DevTool.Set_KillTween(ThisSeq);
+        DevTool.Set_KillTween(thisSeq);
 
-        ThisSeq = DOTween.Sequence();
-        for (int i = 0; i < SetSRList.Count; i++)
+        thisSeq = DOTween.Sequence();
+        for (int i = 0; i < setSrList.Count; i++)
         {
-            ThisSeq.Join(SetSRList[i].DOFade(_Alpha, DurTime));
+            thisSeq.Join(setSrList[i].DOFade(alpha, durTime));
         }
-        ThisSeq.OnComplete(() => { ThisSeq = null; });
+        thisSeq.OnComplete(() => { thisSeq = null; });
     }
 
     #endregion

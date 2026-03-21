@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 public abstract class EnemyController : NavObjectController
 {
@@ -15,43 +16,43 @@ public abstract class EnemyController : NavObjectController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private SortingGroup ThisSG;
-    [SerializeField] public EnemyBuffController BuffController;
+    [FormerlySerializedAs("ThisSG")][SerializeField] private SortingGroup sg;
+    [FormerlySerializedAs("BuffController")][SerializeField] public EnemyBuffController buff;
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private eEnemy ThisEnemyType;
-    [SerializeField] private float MaxHP;
-    [SerializeField] private float MaxEP = 100f;
-    [SerializeField] private float ChargeEPSpeed = 1f;
+    [FormerlySerializedAs("ThisEnemyType")][SerializeField] private eEnemy enemyType;
+    [FormerlySerializedAs("MaxHP")][SerializeField] private float maxHP;
+    [FormerlySerializedAs("MaxEP")][SerializeField] private float maxEP = 100f;
+    [FormerlySerializedAs("ChargeEPSpeed")][SerializeField] private float chargeEPSpeed = 1f;
 
     [Space(10)]
     [Header("=== Item")]
-    [SerializeField] protected EnemyDropItemPercent EnemyDropItemPercent;
+    [FormerlySerializedAs("EnemyDropItemPercent")][SerializeField] protected EnemyDropItemPercent enemyDropItemPercent;
 
     [Space(10)]
     [Header("=== UI")]
-    [SerializeField] public EnemyHUDController HUD;
+    [FormerlySerializedAs("HUD")][SerializeField] public EnemyHUDController hud;
 
     [Space(10)]
     [Header("=== Satellite")]
-    [SerializeField] private EnemySolarController LookingSatellite;
-    [SerializeField] private RigidbodyAnimSolarController WalkingSatellite;
+    [FormerlySerializedAs("LookingSatellite")][SerializeField] private EnemySolarController lookingSatellite;
+    [FormerlySerializedAs("WalkingSatellite")][SerializeField] private RigidbodyAnimSolarController walkingSatellite;
 
     [Space(10)]
     [Header("=== Ping Data")]
-    [SerializeField] public Vector2 PingOffsetVec;
-    [SerializeField] public Vector2 PingSizeVec;
+    [FormerlySerializedAs("PingOffsetVec")][SerializeField] public Vector2 pingOffsetVec;
+    [FormerlySerializedAs("PingSizeVec")][SerializeField] public Vector2 pingSizeVec;
 
     [Space(10)]
     [Header("=== Pattern")]
     [Tooltip("This Order of Priority Equle Index")]
-    [SerializeField] protected List<OrderOfPriorityEnemyPattern> OrderOfPriorityEnemyPatternList;
-    [SerializeField] protected ContinuousEnemyPattern SpecialPattern;
+    [FormerlySerializedAs("OrderOfPriorityEnemyPatternList")][SerializeField] protected List<OrderOfPriorityEnemyPattern> orderOfPriorityEnemyPatternList;
+    [FormerlySerializedAs("SpecialPattern")][SerializeField] protected ContinuousEnemyPattern specialPattern;
 
     [Space(10)]
     [Header("=== Sound")]
-    [SerializeField] private ASQueueSet ASQueueSet;
+    [FormerlySerializedAs("ASQueueSet")][SerializeField] private ASQueueSet audioQueueSet;
 
     #endregion
 
@@ -59,34 +60,34 @@ public abstract class EnemyController : NavObjectController
 
 
     // Discharge
-    [HideInInspector] private bool IsDischarge = false;
-    [HideInInspector] private float DischargeDelayTime = 1f;
-    [HideInInspector] private float DischargeDelayCurrentTime = 0f;
+    [HideInInspector] private bool isDischarge = false;
+    [HideInInspector] private float dischargeDelayTime = 1f;
+    [HideInInspector] private float dischargeDelayCurrentTime = 0f;
 
     // FullCharge
-    [HideInInspector] protected bool IsFullCharge = false;
-    [HideInInspector] private bool IsPlayingSpecialPattern = false;
+    [HideInInspector] protected bool isFullCharge = false;
+    [HideInInspector] private bool isPlayingSpecialPattern = false;
 
     // 패턴
-    [HideInInspector] private EnemyPattern CurrentEnemyPattern = null;
+    [HideInInspector] private EnemyPattern currentEnemyPattern = null;
 
     // 움직임을 통제
-    [HideInInspector] private GameObject Target;
+    [HideInInspector] private GameObject target;
 
-    [HideInInspector] public Vector2 LookAtPoint = Vector2.zero;
-    [HideInInspector] public Vector2 LookAtDir = Vector2.zero;
+    [HideInInspector] public Vector2 lookAtPoint = Vector2.zero;
+    [HideInInspector] public Vector2 lookAtDir = Vector2.zero;
 
 
     // 패턴
-    [HideInInspector] private ContinuousEnemyPattern CurrentContinuousEnemyPattern = null;
-    [HideInInspector] public bool IsPlayingPattern = false;
-    [HideInInspector] public IEnumerator CurrentPatternCor = null;
+    [HideInInspector] private ContinuousEnemyPattern currentContinuousEnemyPattern = null;
+    [HideInInspector] public bool isPlayingPattern = false;
+    [HideInInspector] public IEnumerator currentPatternCor = null;
 
     // 방
-    [HideInInspector] private RoomController CurrentRoomController;
+    [HideInInspector] private RoomController currentRoomController;
 
     // 죽음
-    [HideInInspector] private eDamageType DieStateType;
+    [HideInInspector] private eDamageType dieStateType;
 
 
     #endregion
@@ -108,57 +109,57 @@ public abstract class EnemyController : NavObjectController
 
     private void Offset_FirstSetting()
     {
-        HUD.Offset();
+        hud.Offset();
     }
 
     private void Offset_Subscribe()
     {
-        CurrentSP
-            .Subscribe(_CurrentSP =>
+        currentSP
+            .Subscribe(_currentSP =>
             {
-                HUD.StateUI.SP_ProgressBar.Set_FillImgSmooth(CurrentSP.Value, MaxHP);
+                hud.StateUI.SP_ProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
 
-                if (CurrentSP.Value <= 0)
+                if (currentSP.Value <= 0)
                 {
-                    CurrentSP.Value = 0;
-                    HUD.StateUI.SP_ProgressBar.Set_NoNum();
-                    HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
-                    HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
+                    currentSP.Value = 0;
+                    hud.StateUI.SP_ProgressBar.Set_NoNum();
+                    hud.StateUI.HP_ProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
+                    hud.StateUI.EP_ProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
 
-                    if (BuffController.shieldBuff.isOn)
-                    { BuffController.shieldBuff.Remove_AllStack(); }
+                    if (buff.shieldBuff.isOn)
+                    { buff.shieldBuff.Remove_AllStack(); }
 
                 }
                 else
                 {
-                    HUD.StateUI.HP_ProgressBar.Set_NoNum();
-                    HUD.StateUI.EP_ProgressBar.Set_NoNum();
+                    hud.StateUI.HP_ProgressBar.Set_NoNum();
+                    hud.StateUI.EP_ProgressBar.Set_NoNum();
                 }
             });
 
-        CurrentHP
-            .Subscribe(_CurrentHP =>
+        currentHP
+            .Subscribe(_currentHP =>
             {
-                HUD.StateUI.HP_ProgressBar.Set_FillImgSmooth(CurrentHP.Value, MaxHP);
+                hud.StateUI.HP_ProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
 
-                if (CurrentSP.Value > 0)
-                { HUD.StateUI.HP_ProgressBar.Set_NoNum(); }
+                if (currentSP.Value > 0)
+                { hud.StateUI.HP_ProgressBar.Set_NoNum(); }
             });
 
-        CurrentEP
-            .Subscribe(_CurrentEP =>
+        currentEP
+            .Subscribe(_currentEP =>
             {
-                HUD.StateUI.EP_ProgressBar.Set_FillImgSmooth(CurrentEP.Value, MaxEP);
+                hud.StateUI.EP_ProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
 
-                if (CurrentSP.Value > 0)
-                { HUD.StateUI.EP_ProgressBar.Set_NoNum(); }
+                if (currentSP.Value > 0)
+                { hud.StateUI.EP_ProgressBar.Set_NoNum(); }
             });
     }
 
     private void Offset_Controller()
     {
-        BuffController.Offset(this);
-        ASQueueSet.Offset();
+        buff.Offset(this);
+        audioQueueSet.Offset();
     }
 
     #endregion
@@ -193,47 +194,47 @@ public abstract class EnemyController : NavObjectController
 
     #region Movement
 
-    private void Play_Movement(float _DeltaTime)
+    private void Play_Movement(float deltaTime)
     {
-        Play_Walk(MoveAtDir, MoveSpeed, _DeltaTime);
+        Play_Walk(moveAtDir, moveSpeed, deltaTime);
     }
 
     #endregion
 
     #region Energy
 
-    private void Caculate_Charge(float _DeltaTime)
+    private void Caculate_Charge(float deltaTime)
     {
-        if (IsDischarge) // 방전 회복 딜레이
+        if (isDischarge) // 방전 회복 딜레이
         {
-            Caculate_DischargeDelay(_DeltaTime);
+            Caculate_DischargeDelay(deltaTime);
         }
-        else if (!IsFullCharge) // 충전
+        else if (!isFullCharge) // 충전
         {
-            Add_CurrentEP(ChargeEPSpeed * _DeltaTime);
+            Add_CurrentEP(chargeEPSpeed * deltaTime);
         }
     }
 
-    private void Caculate_DischargeDelay(float _DeltaTime)
+    private void Caculate_DischargeDelay(float deltaTime)
     {
-        DischargeDelayCurrentTime += _DeltaTime;
-        if (DischargeDelayTime <= DischargeDelayCurrentTime)
+        dischargeDelayCurrentTime += deltaTime;
+        if (dischargeDelayTime <= dischargeDelayCurrentTime)
         {
-            DischargeDelayCurrentTime = 0f;
-            IsDischarge = false;
+            dischargeDelayCurrentTime = 0f;
+            isDischarge = false;
         }
     }
 
     public void Reset_ChargeState()
     {
-        IsDischarge = true;
-        DischargeDelayCurrentTime = 0f;
-        CurrentEP.Value = 0f;
+        isDischarge = true;
+        dischargeDelayCurrentTime = 0f;
+        currentEP.Value = 0f;
 
-        IsFullCharge = false;
-        IsPlayingSpecialPattern = false;
+        isFullCharge = false;
+        isPlayingSpecialPattern = false;
 
-        HUD.Reset_HUD();
+        hud.Reset_HUD();
     }
 
     #endregion
@@ -243,7 +244,7 @@ public abstract class EnemyController : NavObjectController
     // HP
     protected float Get_PercentHP()
     {
-        return (CurrentHP.Value / MaxHP) * 100f;
+        return (currentHP.Value / maxHP) * 100f;
     }
 
     #endregion
@@ -252,21 +253,21 @@ public abstract class EnemyController : NavObjectController
 
     private void Reset_State()
     {
-        base.IsDead = false;
-        CurrentSP.Value = 0;
-        CurrentHP.Value = MaxHP;
+        base.isDead = false;
+        currentSP.Value = 0;
+        currentHP.Value = maxHP;
 
         // Energy
-        CurrentEP.Value = 0;
+        currentEP.Value = 0;
 
         // Discharge
         Reset_ChargeState();
 
-        if (Target == null) // 타겟 Player
-        { Target = PlayerManager.instance.playerController.gameObject; }
+        if (target == null) // 타겟 Player
+        { target = PlayerManager.instance.playerController.gameObject; }
 
-        if (CurrentRoomController == null) // 현재 Room
-        { CurrentRoomController = StageManager.instance.currentRoomController; }
+        if (currentRoomController == null) // 현재 Room
+        { currentRoomController = StageManager.instance.currentRoomController; }
 
     }
 
@@ -276,11 +277,11 @@ public abstract class EnemyController : NavObjectController
 
     private void Update_LookAtTarget()
     {
-        if (IsDead) return;
+        if (isDead) return;
 
         // 바라볼 방향값 계산
-        LookAtDir = Target != null ? 
-            DevTool.Get_Dir(this.gameObject, Target) : Vector2.down;
+        lookAtDir = target != null ? 
+            DevTool.Get_Dir(this.gameObject, target) : Vector2.down;
     }
 
     #endregion
@@ -289,50 +290,50 @@ public abstract class EnemyController : NavObjectController
 
     // 쉴드 설정
     // => 낮은 값이 설정되어도 적용할 것인가?
-    public void Set_CurrentSP(float _SetValue, bool _LesserIsOk = false)
+    public void Set_CurrentSP(float setValue, bool lesserIsOk = false)
     {
-        Set_CurrentSP(_SetValue, MaxHP, _LesserIsOk);
+        Set_CurrentSP(setValue, maxHP, lesserIsOk);
     }
     public void Set_CurrentSP_Zero()
     {
-        Set_CurrentSP(0, MaxHP, _LesserIsOk: true);
+        Set_CurrentSP(0, maxHP, lesserIsOk: true);
     }
 
-    private void Add_CurrentSP(float _AddValue)
+    private void Add_CurrentSP(float addValue)
     {
-        Add_CurrentSP(_AddValue, MaxHP);
+        Add_CurrentSP(addValue, maxHP);
     }
 
-    private void Add_CurrentHP(float _AddValue)
+    private void Add_CurrentHP(float addValue)
     { 
-        Add_CurrentHP(_AddValue, MaxHP);
-        Check_IsDead(CurrentHP.Value);
+        Add_CurrentHP(addValue, maxHP);
+        Check_IsDead(currentHP.Value);
     }
 
-    private void Add_CurrentEP(float _AddValue)
+    private void Add_CurrentEP(float addValue)
     {
-        if (IsFullCharge) return;
+        if (isFullCharge) return;
 
-        Add_CurrentEP(_AddValue, MaxEP);
+        Add_CurrentEP(addValue, maxEP);
 
         // 방전
-        if (CurrentEP.Value <= 0)
+        if (currentEP.Value <= 0)
         {
-            IsDischarge = true;
-            DischargeDelayCurrentTime = 0f;
+            isDischarge = true;
+            dischargeDelayCurrentTime = 0f;
         }
 
         // 풀 충전
-        if (CurrentEP.Value >= MaxEP)
+        if (currentEP.Value >= maxEP)
         {
-            IsFullCharge = true;
-            HUD.Set_Charged(IsFullCharge);
+            isFullCharge = true;
+            hud.Set_Charged(isFullCharge);
         }
     }
 
-    public float Get_PercentHP(float _Percent)
+    public float Get_PercentHP(float percent)
     {
-        return DevTool.Get_Percent(_Percent, MaxHP);
+        return DevTool.Get_Percent(percent, maxHP);
     }
 
     #endregion
@@ -340,77 +341,77 @@ public abstract class EnemyController : NavObjectController
     #region Hitted
 
     // 총알 데미지
-    public void Try_Hitted(BulletController _Bullet)
+    public void Try_Hitted(BulletController bullet)
     {
-        if (IsDead)
+        if (isDead)
         { return; }
 
-        BulletState state = _Bullet.state;
+        BulletState state = bullet.state;
 
         // Damage
         Take_Damaged(
             state, 
             state.isCritical, 
-            DevTool.Get_DirFromAngle(_Bullet.transform.eulerAngles.z));
+            DevTool.Get_DirFromAngle(bullet.transform.eulerAngles.z));
 
         if (state.isStatus)
         {
             switch (state.statusType)
             {
                 case eStatusEffect.Flame:
-                    BuffController.flameStack.Gain_Stack(1, true, state.ownerData);
+                    buff.flameStack.Gain_Stack(1, true, state.ownerData);
                     break;
                 case eStatusEffect.Cold:
-                    BuffController.coldStack.Gain_Stack(1, true, state.ownerData);
+                    buff.coldStack.Gain_Stack(1, true, state.ownerData);
                     break;
                 case eStatusEffect.Electricity:
-                    BuffController.electricityStack.Gain_Stack(1, true, state.ownerData);
+                    buff.electricityStack.Gain_Stack(1, true, state.ownerData);
                     break;
                 case eStatusEffect.Corrosion:
-                    BuffController.corrosionStack.Gain_Stack(1, true, state.ownerData);
+                    buff.corrosionStack.Gain_Stack(1, true, state.ownerData);
                     break;
             }
         }
     }
 
     // 어택커 데미지
-    public void Try_Hitted(AttackerController _Attacker)
+    public void Try_Hitted(AttackerController attacker)
     {
-        if (IsDead)
+        if (isDead)
         { return; }
 
-        AttackerState state = _Attacker.attackerState;
+        AttackerState state = attacker.attackerState;
 
         // Damage
         Take_Damaged(
             state,
             DevTool.Is_ChanceSuccess(state.criticalState.criticalChance),
-            DevTool.Get_Dir(_Attacker.gameObject, this.gameObject));
+            DevTool.Get_Dir(attacker.gameObject, this.gameObject));
     }
 
     // 폭발 데미지
-    public void Try_Hitted(ExplosionController _Explosion)
+    public void Try_Hitted(ExplosionController explosion)
     {
-        if (IsDead)
+        if (isDead)
         { return; }
 
-        ExplosionState state = _Explosion.state;
+        ExplosionState state = explosion.state;
 
         // Damage
         Take_Damaged(
             state,
             DevTool.Is_ChanceSuccess(state.criticalState.criticalChance),
-            DevTool.Get_Dir(_Explosion.gameObject, this.gameObject));
+            DevTool.Get_Dir(explosion.gameObject, this.gameObject));
 
-        Try_GainStack(state.isFire, BuffController.flameStack, state.ownerData);
-        Try_GainStack(state.isCold, BuffController.coldStack, state.ownerData);
-        Try_GainStack(state.isElectricity, BuffController.electricityStack, state.ownerData);
-        Try_GainStack(state.isCorrosion, BuffController.corrosionStack, state.ownerData);
+        Try_GainStack(state.isFire, buff.flameStack, state.ownerData);
+        Try_GainStack(state.isCold, buff.coldStack, state.ownerData);
+        Try_GainStack(state.isElectricity, buff.electricityStack, state.ownerData);
+        Try_GainStack(state.isCorrosion, buff.corrosionStack, state.ownerData);
     }
 
-    private void Try_GainStack(bool _Is, StatusEffect_Temporary_WithAmount _TargetDebuff, CombatOwner _CombatOwner)
+    private void Try_GainStack(bool isGain, StatusEffect_Temporary_WithAmount targetDebuff, CombatOwner combatOwner)
     {
-        if (_Is) _TargetDebuff.Gain_Stack(1, true, _CombatOwner);
+        if (isGain) targetDebuff.Gain_Stack(1, true, combatOwner);
     }
 
     #endregion
@@ -418,50 +419,50 @@ public abstract class EnemyController : NavObjectController
     #region Damaged (Type)
 
     // 데미지, 넉백, 크리티컬, 모듈 호과 등
-    private void Take_Damaged(CombatState _State, bool _IsCritical, Vector2 _DirKB)
+    private void Take_Damaged(CombatState state, bool isCritical, Vector2 dirKb)
     {
-        float actualDmg = _State.dmgState.dmg;
+        float actualDmg = state.dmgState.dmg;
 
         // INTERFACE: 맞을 때 효과 
-        if (_State.ownerData.owner == eCombatOwner.Player)
+        if (state.ownerData.owner == eCombatOwner.Player)
         {
             ModuleItemManager.instance.Active_Hit(this);
             ModuleItemManager.instance.ActiveSync_Hit();
         }
-        else if (_State.ownerData.owner == eCombatOwner.Ally)
+        else if (state.ownerData.owner == eCombatOwner.Ally)
         {
-            AllyManager.instance.allAlly[_State.ownerData.id].ActiveAlly_Hit();
+            AllyManager.instance.allAlly[state.ownerData.id].ActiveAlly_Hit();
         }
 
         // KB
-        if (_State.knockbackState.canKB)
+        if (state.knockbackState.canKB)
         {
-            Gain_Knockback(new CurrentKnockbackState(_DirKB, _State.knockbackState.kbPower, _State.knockbackState.kbTime));
+            Gain_Knockback(new CurrentKnockbackState(dirKb, state.knockbackState.kbPower, state.knockbackState.kbTime));
         }
         // 치명타 계산
-        if (_IsCritical)
+        if (isCritical)
         {
-            actualDmg *= _State.criticalState.criticalDmg;
+            actualDmg *= state.criticalState.criticalDmg;
 
             // INTERFACE: 치명타를 맞을 때 효과 
-            if (_State.ownerData.owner == eCombatOwner.Player)
+            if (state.ownerData.owner == eCombatOwner.Player)
             {
                 ModuleItemManager.instance.Active_CriticalHit(this);
                 ModuleItemManager.instance.ActiveSync_CriticalHit();
             }
-            else if (_State.ownerData.owner == eCombatOwner.Ally)
+            else if (state.ownerData.owner == eCombatOwner.Ally)
             {
-                AllyManager.instance.allAlly[_State.ownerData.id].ActiveAlly_CriticalHit();
+                AllyManager.instance.allAlly[state.ownerData.id].ActiveAlly_CriticalHit();
             }
         }
 
         // 데미지 구현 (Dmg: 적의 부식 디버프 계산)
-        Take_Damage(DevTool.Get_DmgEffectByCorrosion(actualDmg, BuffController),
-            _State.dmgState.dmgType,
-            _IsCritical);
+        Take_Damage(DevTool.Get_DmgEffectByCorrosion(actualDmg, buff),
+            state.dmgState.dmgType,
+            isCritical);
 
         // 사운드
-        if (!IsDead)
+        if (!isDead)
         { SoundManager.instance.Play_2D_SFX_Enemy(Get_AS(), "Hitted"); }
         else
         { SoundManager.instance.Play_2D_SFX_Enemy("Killed"); }
@@ -472,71 +473,71 @@ public abstract class EnemyController : NavObjectController
     #region Damaged (Caculate)
 
     // 오직 데미지만을 계산
-    public void Take_Damage(float _DmgValue, eDamageType _DmgType, bool _IsCritical = false)
+    public void Take_Damage(float dmgValue, eDamageType dmgType, bool isCritical = false)
     {
         // 쉴드 계산
-        if (CurrentSP.Value > 0)
+        if (currentSP.Value > 0)
         {
             float uiTxt = 0f;
             float uiX = 0f;
-            if (CurrentSP.Value > _DmgValue)
+            if (currentSP.Value > dmgValue)
             {
-                uiTxt = _DmgValue;
+                uiTxt = dmgValue;
                 uiX = 0.2f;
 
-                Add_CurrentSP(-_DmgValue);
-                _DmgValue = 0f;
+                Add_CurrentSP(-dmgValue);
+                dmgValue = 0f;
             }
             else
             {
-                uiTxt = CurrentSP.Value;
+                uiTxt = currentSP.Value;
                 uiX = 0.1f;
 
-                _DmgValue -= CurrentSP.Value;
+                dmgValue -= currentSP.Value;
                 Set_CurrentSP_Zero();
             }
 
             PoolingManager.instance.Get_OP_DmgTxt().Offset_ByShieldDmg(
-                    (Vector2)TargetObject.transform.position + new Vector2(uiX, 0.2f),
-                    uiTxt, _IsCritical);
+                    (Vector2)targetObject.transform.position + new Vector2(uiX, 0.2f),
+                    uiTxt, isCritical);
         }
 
-        if (_DmgValue <= 0)
+        if (dmgValue <= 0)
         { return; }
 
         // 직접 데미지
         // 물리 값
-        if (_DmgType == eDamageType.Physics) 
+        if (dmgType == eDamageType.Physics) 
         {
-            Take_Damaged_Physics(_DmgValue, _IsCritical);
+            Take_Damaged_Physics(dmgValue, isCritical);
         }
         // 에너지 값
         else 
         {
-            Take_Damaged_Energy(_DmgValue, _IsCritical);
+            Take_Damaged_Energy(dmgValue, isCritical);
         }
     }
 
     // 물리 데미지를 받음
-    private void Take_Damaged_Physics(float _DmgValue, bool _IsCritical)
+    private void Take_Damaged_Physics(float dmgValue, bool isCritical)
     {
         // UI
         PoolingManager.instance.Get_OP_DmgTxt().Offset_ByPhysicDmg(
-            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-            _DmgValue, _IsCritical);
+            (Vector2)targetObject.transform.position + new Vector2(-0.2f, 0.2f),
+            dmgValue, isCritical);
 
-        Add_CurrentHP(-_DmgValue);
+        Add_CurrentHP(-dmgValue);
     }
 
     // 에너지 데미지를 받음
-    private void Take_Damaged_Energy(float _DmgValue, bool _IsCritical)
+    private void Take_Damaged_Energy(float dmgValue, bool isCritical)
     {
         // UI
         PoolingManager.instance.Get_OP_DmgTxt().Offset_ByEnergyDmg(
-            (Vector2)TargetObject.transform.position + new Vector2(-0.2f, 0.2f),
-            _DmgValue, _IsCritical);
+            (Vector2)targetObject.transform.position + new Vector2(-0.2f, 0.2f),
+            dmgValue, isCritical);
 
-        Add_CurrentEP(-_DmgValue);
+        Add_CurrentEP(-dmgValue);
     }
 
     #endregion
@@ -548,7 +549,7 @@ public abstract class EnemyController : NavObjectController
     {
         base.Set_Die();
 
-        ASQueueSet.StopAll();
+        audioQueueSet.StopAll();
 
         Set_Die_GenItem();
         Set_Die_Effect();
@@ -558,7 +559,7 @@ public abstract class EnemyController : NavObjectController
 
     protected virtual void Set_Die_GenItem()
     {
-        EnemyDropItemPercent genP = EnemyDropItemPercent;
+        EnemyDropItemPercent genP = enemyDropItemPercent;
         Gen_BS(Random.Range(
             genP.bsAmountMinMax.typeBase, genP.bsAmountMinMax.typeSpecial)); // 베터리 조각
         Gen_MS(Random.Range(
@@ -569,7 +570,7 @@ public abstract class EnemyController : NavObjectController
             genP.overriderAmountMinMax.typeBase, genP.overriderAmountMinMax.typeSpecial)); // 오버라이더
         Gen_J(Random.Range(
             genP.jouleAmountMinMax.typeBase, genP.jouleAmountMinMax.typeSpecial)
-            * PlayerManager.instance.playerController.SpawnESMultiple.actualState.Value); // 줄
+            * PlayerManager.instance.playerController.spawnESMultiple.actualState.Value); // 줄
         
         // Drop Module Item
         if (DevTool.Is_ChanceSuccess(genP.moduleDropPercent))
@@ -584,15 +585,15 @@ public abstract class EnemyController : NavObjectController
     {
         // Effect
         PlayerManager.instance.cameraController.Play_KillAnim(dur: 0.2f);
-        UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_BigSlice(TargetObject.transform.position);
-        UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy(TargetObject.transform.position);
+        UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_BigSlice(targetObject.transform.position);
+        UnitManager.instance.enemy_ExplImgGenerator.Expl_Enemy(targetObject.transform.position);
     }
 
     private void Set_Die_Data()
     {
         EndAll_Pattern();
         End_Nav();
-        HUD.Reset_HUD();
+        hud.Reset_HUD();
 
         // Remove
         DevTool.Remove_InList(EnemyManager.instance.currentEnemyList, this);
@@ -615,13 +616,13 @@ public abstract class EnemyController : NavObjectController
 
     #region Sorting
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        ThisSG.sortingOrder = _SortingOrder;
+        sg.sortingOrder = sortingOrder;
 
-        HUD.ThisCanvas.sortingOrder = _SortingOrder;
+        hud.ThisCanvas.sortingOrder = sortingOrder;
 
-        PlayerManager.instance.Set_SortingOrderPing(this, _SortingOrder);
+        PlayerManager.instance.Set_SortingOrderPing(this, sortingOrder);
     }
 
     #endregion
@@ -630,37 +631,37 @@ public abstract class EnemyController : NavObjectController
 
     public void EndAll_Pattern()
     {
-        if (CurrentEnemyPattern != null)
-            CurrentEnemyPattern.End_Pattern();
+        if (currentEnemyPattern != null)
+            currentEnemyPattern.End_Pattern();
         
-        if (CurrentPatternCor != null)
-            StopCoroutine(CurrentPatternCor);
+        if (currentPatternCor != null)
+            StopCoroutine(currentPatternCor);
 
-        CurrentContinuousEnemyPattern = null;
-        CurrentEnemyPattern = null;
+        currentContinuousEnemyPattern = null;
+        currentEnemyPattern = null;
 
-        LookAtPoint = Vector2.zero;
-        LookAtDir = Vector2.zero;
+        lookAtPoint = Vector2.zero;
+        lookAtDir = Vector2.zero;
     }
 
     protected void Start_PatternFromNone()
     {
-        OrderOfPriorityEnemyPatternList[OrderOfPriorityEnemyPatternList.Count - 1].enemyPatternList[0].enemyPatternList[0].Start_Pattern();
+        orderOfPriorityEnemyPatternList[orderOfPriorityEnemyPatternList.Count - 1].enemyPatternList[0].enemyPatternList[0].Start_Pattern();
     }
 
     private int Get_NextPatternIndex()
     {
         int orderOfPattern = -1;
-        if (CurrentEnemyPattern != null)
+        if (currentEnemyPattern != null)
         {
             // 패턴의 순서 값을 저장해 활용
-            orderOfPattern = CurrentContinuousEnemyPattern.enemyPatternList.IndexOf(CurrentEnemyPattern);
+            orderOfPattern = currentContinuousEnemyPattern.enemyPatternList.IndexOf(currentEnemyPattern);
 
             // 마지막 패턴 이었다면 (끝내기)
-            if (orderOfPattern == CurrentContinuousEnemyPattern.enemyPatternList.Count - 1)
+            if (orderOfPattern == currentContinuousEnemyPattern.enemyPatternList.Count - 1)
             {
-                CurrentEnemyPattern = null;
-                CurrentContinuousEnemyPattern = null;
+                currentEnemyPattern = null;
+                currentContinuousEnemyPattern = null;
                 orderOfPattern = -1;
             }
         }
@@ -669,7 +670,7 @@ public abstract class EnemyController : NavObjectController
 
     public virtual void Play_Pattern()
     {
-        if (IsDead) return;
+        if (isDead) return;
 
         if (TryPlay_ChargeStatePattern()) return;
 
@@ -688,19 +689,19 @@ public abstract class EnemyController : NavObjectController
 
     private void Play_NewPattern()
     {
-        for (int i = 0; i < OrderOfPriorityEnemyPatternList.Count; i++)
+        for (int i = 0; i < orderOfPriorityEnemyPatternList.Count; i++)
         {
             // 같은 우선도에 있는 패턴 랜덤으로 섞기
-            List<ContinuousEnemyPattern> patternList = DevTool.Get_ShuffledList(OrderOfPriorityEnemyPatternList[i].enemyPatternList);
+            List<ContinuousEnemyPattern> patternList = DevTool.Get_ShuffledList(orderOfPriorityEnemyPatternList[i].enemyPatternList);
 
             // 만약 사용 가능한 패턴이 있다면 시작
             for (int j = 0; j < patternList.Count; j++)
             {
                 if (patternList[j].enemyPatternList[0].Can_PlayPattern())
                 {
-                    CurrentContinuousEnemyPattern = patternList[j];
-                    CurrentEnemyPattern = patternList[j].enemyPatternList[0];
-                    CurrentEnemyPattern.Start_Pattern();
+                    currentContinuousEnemyPattern = patternList[j];
+                    currentEnemyPattern = patternList[j].enemyPatternList[0];
+                    currentEnemyPattern.Start_Pattern();
 
                     return;
                 }
@@ -708,20 +709,20 @@ public abstract class EnemyController : NavObjectController
         }
     }
 
-    private void Play_NextPattern(int _OrderOfPattern)
+    private void Play_NextPattern(int orderOfPattern)
     {
-        CurrentEnemyPattern = CurrentContinuousEnemyPattern.enemyPatternList[_OrderOfPattern + 1];
-        CurrentEnemyPattern.Start_Pattern();
+        currentEnemyPattern = currentContinuousEnemyPattern.enemyPatternList[orderOfPattern + 1];
+        currentEnemyPattern.Start_Pattern();
     }
 
     private bool TryPlay_ChargeStatePattern()
     {
-        if (IsFullCharge && !IsPlayingSpecialPattern) // 풀 차징 시
+        if (isFullCharge && !isPlayingSpecialPattern) // 풀 차징 시
         {
-            IsPlayingSpecialPattern = true;
-            CurrentContinuousEnemyPattern = SpecialPattern;
-            CurrentEnemyPattern = SpecialPattern.enemyPatternList[0];
-            CurrentEnemyPattern.Start_Pattern();
+            isPlayingSpecialPattern = true;
+            currentContinuousEnemyPattern = specialPattern;
+            currentEnemyPattern = specialPattern.enemyPatternList[0];
+            currentEnemyPattern.Start_Pattern();
 
             return true;
         }
@@ -735,7 +736,7 @@ public abstract class EnemyController : NavObjectController
 
     public AudioSource Get_AS()
     {
-        return ASQueueSet.Get_T();
+        return audioQueueSet.Get_T();
     }
 
     #endregion

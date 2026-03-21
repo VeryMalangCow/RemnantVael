@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SolarSystemController : MonoBehaviour
 {
@@ -10,21 +11,21 @@ public class SolarSystemController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Pivot")]
-    [SerializeField] public SpriteRenderer PivotObjectSR;
+    [FormerlySerializedAs("PivotObjectSR")][SerializeField] public SpriteRenderer pivotObjSr;
 
     [Space(10)]
     [Header("=== Satellite")]
     [Header("-- Roll")]
-    [SerializeField] private float DefualtRoll = -85f;
-    [HideInInspector] private Transform RollTF;
+    [FormerlySerializedAs("DefualtRoll")][SerializeField] private float defualtRoll = -85f;
+    [HideInInspector] private Transform rollTf;
 
     [Header("-- Pitch")]
-    [SerializeField] protected float RotateSpeed = 8f;
-    [HideInInspector] public Transform PitchTF;
+    [FormerlySerializedAs("RotateSpeed")][SerializeField] protected float rotSpeed = 8f;
+    [HideInInspector] public Transform pitchTf;
 
     [Header("-- Satellite")]
-    [SerializeField] public List<SatelliteSideController> SatelliteSideList;
-    [SerializeField] public List<SatelliteCenterController> SatelliteCenterList;
+    [FormerlySerializedAs("SatelliteSideList")][SerializeField] public List<SatelliteSideController> satelliteSideList;
+    [FormerlySerializedAs("SatelliteCenterList")][SerializeField] public List<SatelliteCenterController> satelliteCenterList;
 
     #endregion
 
@@ -37,8 +38,8 @@ public class SolarSystemController : MonoBehaviour
 
     private void Offset_TF()
     {
-        RollTF = transform.GetChild(0);
-        PitchTF = RollTF.GetChild(0);
+        rollTf = transform.GetChild(0);
+        pitchTf = rollTf.GetChild(0);
     }
 
     #endregion
@@ -52,7 +53,7 @@ public class SolarSystemController : MonoBehaviour
 
     protected void OnEnable()
     {
-        RollTF.rotation = Quaternion.Euler(DefualtRoll, 0f, 0f);
+        rollTf.rotation = Quaternion.Euler(defualtRoll, 0f, 0f);
     }
 
     protected virtual void LateUpdate()
@@ -68,24 +69,24 @@ public class SolarSystemController : MonoBehaviour
     // 솔팅
     private void Set_Side()
     {
-        if (SatelliteSideList != null && SatelliteSideList.Count > 0)
+        if (satelliteSideList != null && satelliteSideList.Count > 0)
         {
-            for (int i = 0; i < SatelliteSideList.Count; i++)
+            for (int i = 0; i < satelliteSideList.Count; i++)
             {
-                SatelliteSideList[i].Set_Pos();
-                SatelliteSideList[i].Set_SortingOrder();
+                satelliteSideList[i].Set_Pos();
+                satelliteSideList[i].Set_SortingOrder();
             }
         }
     }
 
     private void Set_Center()
     {
-        if (SatelliteCenterList != null && SatelliteCenterList.Count > 0)
+        if (satelliteCenterList != null && satelliteCenterList.Count > 0)
         {
-            for (int i = 0; i < SatelliteCenterList.Count; i++)
+            for (int i = 0; i < satelliteCenterList.Count; i++)
             {
-                SatelliteCenterList[i].Set_Pos();
-                SatelliteCenterList[i].Set_SortingOrder();
+                satelliteCenterList[i].Set_Pos();
+                satelliteCenterList[i].Set_SortingOrder();
             }
         }
     }
@@ -95,20 +96,20 @@ public class SolarSystemController : MonoBehaviour
     #region Rotate
 
     // 바로 Rot 설정
-    public void Set_Rot(Vector2 _Dir)
+    public void Set_Rot(Vector2 dir)
     {
-        PitchTF.transform.localRotation = DevTool.Get_RotFromDir_Solar(_Dir);
+        pitchTf.transform.localRotation = DevTool.Get_RotFromDir_Solar(dir);
     }
 
     // 부드럽게 Rot 설정
-    public void Set_RotSmooth(Vector2 _Dir, float _DeltaTime)
+    public void Set_RotSmooth(Vector2 dir, float deltaTime)
     {
-        if (_Dir != Vector2.zero)
+        if (dir != Vector2.zero)
         {
-            PitchTF.transform.localRotation = Quaternion.Slerp(
-                PitchTF.transform.localRotation,
-                DevTool.Get_RotFromDir_Solar(_Dir), 
-                RotateSpeed * _DeltaTime);
+            pitchTf.transform.localRotation = Quaternion.Slerp(
+                pitchTf.transform.localRotation,
+                DevTool.Get_RotFromDir_Solar(dir), 
+                rotSpeed * deltaTime);
         }
     }
 

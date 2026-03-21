@@ -26,7 +26,7 @@ public class AllyDroppingBombController : DroppingBombController
             Get_ExlposionState(),
             ac: ResourceManager.instance.explosionAC,
             Get_SpawnTF(),
-            this.TargetRange);
+            this.targetRange);
     }
 
     private ExplosionState Get_ExlposionState()

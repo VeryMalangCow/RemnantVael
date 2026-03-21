@@ -63,7 +63,7 @@ public class VaultRerollOperatorController : VaultOperatorController
 
         if (TargetVault == null ||
             TargetVault.IsBroken ||
-            PlayerManager.instance.playerController.CurrentOverrider.Value < Get_NeedPay()) return;
+            PlayerManager.instance.playerController.currentOverrider.Value < Get_NeedPay()) return;
 
         // 소비 아이템
         PlayerManager.instance.playerController.Add_CurrentOverrider(-Get_NeedPay());

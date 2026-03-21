@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DeadParticleController : MovableDepthController
 {
@@ -13,7 +14,7 @@ public class DeadParticleController : MovableDepthController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private SpriteRenderer ThisShadow;
+    [FormerlySerializedAs("ThisShadow")] [SerializeField] private SpriteRenderer shadowSr;
 
     #endregion
 
@@ -26,10 +27,10 @@ public class DeadParticleController : MovableDepthController
 
     #region Set
 
-    private void Set_StartState(Sprite _Sprite, Vector2 _ShadowSize)
+    private void Set_StartState(Sprite sprite, Vector2 shadowSize)
     {
-        ThisSR.sprite = _Sprite;
-        ThisShadow.transform.localScale = _ShadowSize;
+        thisSr.sprite = sprite;
+        shadowSr.transform.localScale = shadowSize;
         this.gameObject.SetActive(true);
 
         LayerOrderManager.instance.Add_NeedSortObj(this);
@@ -41,8 +42,8 @@ public class DeadParticleController : MovableDepthController
 
     private void Reset_State()
     {
-        ThisSR.color = new Color(0.5f, 0.5f, 0.5f, 1f);
-        ThisShadow.color = new Color(0, 0, 0, 0.5f);
+        thisSr.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+        shadowSr.color = new Color(0, 0, 0, 0.5f);
         transform.localRotation = Quaternion.identity;
     }
 
@@ -50,26 +51,23 @@ public class DeadParticleController : MovableDepthController
 
     #region Play
 
-    public void Play_DeadParticle(
-        Sprite _Sprite, Vector2 _ShadowSize, Vector2 _SpawnPos, 
-        float _StartY, float _ThrowDis, float _DurTime, float _DisappointTime)
+    public void Play_DeadParticle(Sprite sprite, Vector2 shadowSize, Vector2 spawnPos, float startY, float throwDis, float durTime, float disappointTime)
     {
         Reset_State();
-        Set_StartState(_Sprite, _ShadowSize);
+        Set_StartState(sprite, shadowSize);
 
-        StartCoroutine(Play_DeadParticle_Cor(_SpawnPos, _StartY, _ThrowDis, _DurTime, _DisappointTime));
+        StartCoroutine(Play_DeadParticle_Cor(spawnPos, startY, throwDis, durTime, disappointTime));
     }
 
-    private IEnumerator Play_DeadParticle_Cor(Vector2 _SpawnPos,
-        float _StartY, float _ThrowDis, float _DurTime, float _DisappointTime)
+    private IEnumerator Play_DeadParticle_Cor(Vector2 spawnPos, float startY, float throwDis, float durTime, float disappointTime)
     {
-        Play_MoveDir(_SpawnPos, _ThrowDis, _DurTime);
-        Play_YPos(_StartY, _DurTime);
-        Play_Rot(_DurTime);
+        Play_MoveDir(spawnPos, throwDis, durTime);
+        Play_YPos(startY, durTime);
+        Play_Rot(durTime);
 
         yield return new WaitForSeconds(4f);
 
-        Play_Disappoint(_DisappointTime).OnComplete(() =>
+        Play_Disappoint(disappointTime).OnComplete(() =>
             {
                 LayerOrderManager.instance.Remove_NeedSortObj(this);
                 this.gameObject.SetActive(false);
@@ -77,39 +75,39 @@ public class DeadParticleController : MovableDepthController
             });
     }
 
-    private Sequence Play_MoveDir(Vector2 _SpawnPos, float _Dis, float _DurTime)
+    private Sequence Play_MoveDir(Vector2 spawnPos, float dis, float durTime)
     {
-        transform.position = _SpawnPos;
+        transform.position = spawnPos;
 
         Vector2 targetDir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-        targetDir *= _Dis;
+        targetDir *= dis;
 
-        return DOTween.Sequence(transform.DOMove(_SpawnPos + targetDir, _DurTime));
+        return DOTween.Sequence(transform.DOMove(spawnPos + targetDir, durTime));
     }
 
-    private Sequence Play_YPos(float _StartY, float _DurTime)
+    private Sequence Play_YPos(float startY, float durTime)
     {
-        TargetRange = _StartY;
+        targetRange = startY;
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(DOTween.To(() => TargetRange, x => TargetRange = x, _StartY * 1.2f, _DurTime * 0.4f).SetEase(Ease.OutQuad));
-        seq.Append(DOTween.To(() => TargetRange, x => TargetRange = x, 0, _DurTime * 0.6f).SetEase(Ease.InQuad));
+        seq.Append(DOTween.To(() => targetRange, x => targetRange = x, startY * 1.2f, durTime * 0.4f).SetEase(Ease.OutQuad));
+        seq.Append(DOTween.To(() => targetRange, x => targetRange = x, 0, durTime * 0.6f).SetEase(Ease.InQuad));
 
         return seq;
     }
 
-    private Sequence Play_Rot(float _DurTime)
+    private Sequence Play_Rot(float durTime)
     {
-        return DOTween.Sequence(TargetObject.transform.DOLocalRotate(new Vector3(0, 0, Random.Range(-1080, 1080)), _DurTime, RotateMode.FastBeyond360));
+        return DOTween.Sequence(targetObject.transform.DOLocalRotate(new Vector3(0, 0, Random.Range(-1080, 1080)), durTime, RotateMode.FastBeyond360));
     }
 
-    private Sequence Play_Disappoint(float _DurTime)
+    private Sequence Play_Disappoint(float durTime)
     {
         Sequence seq = DOTween.Sequence();
 
-        seq.Join(ThisShadow.DOFade(0, _DurTime));
-        seq.Join(ThisSR.DOFade(0, _DurTime));
+        seq.Join(shadowSr.DOFade(0, durTime));
+        seq.Join(thisSr.DOFade(0, durTime));
 
         return seq;
     }
@@ -118,12 +116,12 @@ public class DeadParticleController : MovableDepthController
 
     #region Trigger
 
-    private void OnTriggerEnter2D(Collider2D _Col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        if (_Col.tag == "Wall")
+        if (col.tag == "Wall")
         {
             DOTween.Kill(transform);
-            DOTween.Kill(TargetObject.transform);
+            DOTween.Kill(targetObject.transform);
         }
     }
 

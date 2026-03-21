@@ -54,21 +54,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 8901846497403385796}
-  ThisSR: {fileID: 3509543857521266894}
-  TargetRange: 0.5
-  ThisRb: {fileID: 7751130478170212446}
-  AccelerationSpeed: 12
-  IsDead: 0
-  CurrentSP:
+  targetObject: {fileID: 8901846497403385796}
+  thisSr: {fileID: 3509543857521266894}
+  targetRange: 0.5
+  rb: {fileID: 7751130478170212446}
+  accelerationSpeed: 12
+  isDead: 0
+  currentSP:
     value: 0
-  CurrentHP:
+  currentHP:
     value: 0
-  CurrentEP:
+  currentEP:
     value: 0
-  BrokenParticleData: []
-  ParticleThrowDis: 1
-  MultipleAllyState:
+  brokenParticleData: []
+  particleThrowDis: 1
+  multipleAllyState:
     dmg:
       value: 0
     rof:
@@ -87,14 +87,14 @@ MonoBehaviour:
       value: 1
     dur:
       value: 0
-  MaxHP: 100
-  AllyStateMode:
+  maxHP: 100
+  allyStateMode:
     value: 0
-  BuffController: {fileID: 1545880728986693634}
-  FrontFaceSprite: {fileID: 141280962, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
-  ThisColor: {r: 1, g: 1, b: 0.49803922, a: 1}
-  ThisExtraColor: {r: 1, g: 0.4718666, b: 0.19339621, a: 1}
-  ThisExtraGradient:
+  buffController: {fileID: 1545880728986693634}
+  frontFaceSprite: {fileID: 141280962, guid: 2db6bd9c13e6b654e8540d055cdcea47, type: 3}
+  clr: {r: 1, g: 1, b: 0.49803922, a: 1}
+  extraClr: {r: 1, g: 0.4718666, b: 0.19339621, a: 1}
+  extraGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.47058824, b: 0.19215687, a: 0.49803922}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -124,8 +124,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  HUD: {fileID: 82095112155882869}
-  UpgradeAllyState:
+  hud: {fileID: 82095112155882869}
+  upgradeAllyState:
     dmg:
       value: 1
     rof:
@@ -144,20 +144,20 @@ MonoBehaviour:
       value: 1
     dur:
       value: 1
-  ForEnemyDis: 3.5
-  ThisSG: {fileID: 6733897396435173674}
-  ThisSolar: {fileID: 8582829566269682132}
-  ThisDirImg: {fileID: 8140379498466177624}
+  forEnemyDis: 3.5
+  sg: {fileID: 6733897396435173674}
+  solar: {fileID: 8582829566269682132}
+  dirImg: {fileID: 8140379498466177624}
   randomPosAreaRadius: 6
-  IsAlwaysStatus: 1
-  StateType: 0
-  BulletSprite: {fileID: 58842612, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
-  BulletObjSize: {x: 1, y: 1}
-  BulletColSize: {x: 0.13, y: 0.13}
-  BulletSpawnTF: {fileID: 1521131796336763097}
-  TrailTime: 0.8
-  TrailStartWidth: 0.05
-  LightIntensity: 0.5
+  isAlwaysStatus: 1
+  stateType: 0
+  bulletSprite: {fileID: 58842612, guid: fb7967240dd84ea46bb4394c89be8e72, type: 3}
+  bulletObjSize: {x: 1, y: 1}
+  bulletColSize: {x: 0.13, y: 0.13}
+  bulletSpawnTF: {fileID: 1521131796336763097}
+  trailTime: 0.8
+  trailStartWidth: 0.05
+  lightIntensity: 0.5
 --- !u!114 &1545880728986693634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,9 +333,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 7357743068536337124}
-  ThisSR: {fileID: 3373301920055886677}
-  TargetRange: 0.5
+  targetObject: {fileID: 7357743068536337124}
+  thisSr: {fileID: 3373301920055886677}
+  targetRange: 0.5
 --- !u!1 &2980044196522441332
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,19 +776,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 390bbc7f291c7804fb933afff305d5db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PivotObjectSR: {fileID: 3509543857521266894}
-  DefualtRoll: -35
-  RotateSpeed: 8
-  PitchTF: {fileID: 0}
-  SatelliteSideList:
+  pivotObjSr: {fileID: 3509543857521266894}
+  defualtRoll: -35
+  rotSpeed: 8
+  pitchTf: {fileID: 0}
+  satelliteSideList:
   - target: {fileID: 889026132765390611}
     follower: {fileID: 7172781169880698127}
     upperOrder: 0
     farFromCenter: 1
-  SatelliteCenterList: []
-  ThisAlly: {fileID: -7677951490283658699}
-  ThisRb: {fileID: 7751130478170212446}
-  AllyStateMode: 0
+  satelliteCenterList: []
+  ally: {fileID: -7677951490283658699}
+  rb: {fileID: 7751130478170212446}
+  allyStateMode: 0
 --- !u!1 &6522692291850350311
 GameObject:
   m_ObjectHideFlags: 0
@@ -919,9 +919,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671f0fbb9eac8994a9c363e97583d66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationTargetTF: {fileID: 8546946258805197552}
-  ThisComp: {fileID: 3373301920055886677}
-  ThisDirectionalList:
+  rotTargetTf: {fileID: 8546946258805197552}
+  comp: {fileID: 3373301920055886677}
+  dirList:
   - {fileID: -1972580113, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
   - {fileID: -1503285877, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
   - {fileID: 995112540, guid: 671ea41b1c77cf74c96fa6da1810bc7b, type: 3}
@@ -1028,11 +1028,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95b585bb41118a14c9ce8135913a8694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationTargetTF: {fileID: 8546946258805197552}
-  ThisComp: {fileID: 3509543857521266894}
-  ThisDirectionalList: []
-  ThisSpriteSetName: Ignis
-  AllySpriteSet:
+  rotTargetTf: {fileID: 8546946258805197552}
+  comp: {fileID: 3509543857521266894}
+  dirList: []
+  spriteSetName: Ignis
+  allySpriteSet:
     allyIdle: []
     allyMove: []
     allyAttack: []

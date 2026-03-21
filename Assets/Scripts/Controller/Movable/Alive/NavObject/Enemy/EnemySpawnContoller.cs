@@ -1,17 +1,18 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemySpawnContoller : MonoBehaviour
 {
-    [SerializeField] private eEnemy EnemyType;
-    [SerializeField] private int SpawnID;
+    [FormerlySerializedAs("EnemyType")][SerializeField] private eEnemy enemyType;
+    [FormerlySerializedAs("SpawnID")][SerializeField] private int spawnId;
 
     public eEnemy Get_EnemyType()
     {
-        return EnemyType;
+        return enemyType;
     }
 
     public int Get_SpawnID()
     {
-        return SpawnID;
+        return spawnId;
     }
 }

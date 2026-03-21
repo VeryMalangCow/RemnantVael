@@ -239,9 +239,9 @@ public class OutMainGameUIController : SinglePanelUIController
             #region Player
 
             PlayerController pc = PlayerManager.instance.playerController;
-            PlayerWeaponController pwc = pc.BaseWeapon;
-            SkillWeaponController swc = pc.SkillWeapon;
-            PlayerDashController pdc = pc.DashController;
+            PlayerWeaponController pwc = pc.baseWeapon;
+            SkillWeaponController swc = pc.skillWeapon;
+            PlayerDashController pdc = pc.dash;
 
             #region Player BU
 
@@ -254,15 +254,15 @@ public class OutMainGameUIController : SinglePanelUIController
             BUEUIArr[5].Set(pwc.accRate.currentLevel.Value);
             BUEUIArr[6].Set(pwc.kbPower.currentLevel.Value);
             // MaxEP, ESValue, SkillCost, Resist
-            BUEUIArr[7].Set(pc.MaxEP.currentLevel.Value);
-            BUEUIArr[8].Set(pc.SpawnESMultiple.currentLevel.Value);
-            BUEUIArr[9].Set(pc.NeedEP_ForSkillMultiple.currentLevel.Value);
-            BUEUIArr[10].Set(pc.TakingDmgMultiple.currentLevel.Value);
+            BUEUIArr[7].Set(pc.maxEP.currentLevel.Value);
+            BUEUIArr[8].Set(pc.spawnESMultiple.currentLevel.Value);
+            BUEUIArr[9].Set(pc.needEP_ForSkillMultiple.currentLevel.Value);
+            BUEUIArr[10].Set(pc.takingDmgMultiple.currentLevel.Value);
             // WalkS, WalkSWhileS, DashP, AvoidC
-            BUEUIArr[11].Set(pc.WalkSpeed.currentLevel.Value);
-            BUEUIArr[12].Set(pc.WalkSpeedWhenShotMultiple.currentLevel.Value);
-            BUEUIArr[13].Set(pdc.DashSpeed.currentLevel.Value);
-            BUEUIArr[14].Set(pc.AvoidChance.currentLevel.Value);
+            BUEUIArr[11].Set(pc.walkSpeed.currentLevel.Value);
+            BUEUIArr[12].Set(pc.walkSpeedWhenShotMultiple.currentLevel.Value);
+            BUEUIArr[13].Set(pdc.dashSpeed.currentLevel.Value);
+            BUEUIArr[14].Set(pc.avoidChance.currentLevel.Value);
             // Skill 00: Cooltime, Power, Tier
             BUEUIArr[15].Set(swc.skillList[0].maxCooltime.currentLevel.Value);
             BUEUIArr[16].Set(swc.skillList[0].power.currentLevel.Value);

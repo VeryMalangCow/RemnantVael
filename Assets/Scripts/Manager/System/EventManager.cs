@@ -299,9 +299,9 @@ public class EventManager : Singleton<EventManager>
 
         InputManager.instance.dirFromPlayerPos = _event.targetDir;
 
-        PlayerManager.instance.playerController.LowerController.ThisRb.velocity = Vector2.zero;
+        PlayerManager.instance.playerController.rbLower.rb.velocity = Vector2.zero;
 
-        PlayerManager.instance.playerController.LowerController.Set_Rot(_event.targetDir);
+        PlayerManager.instance.playerController.rbLower.Set_Rot(_event.targetDir);
 
 
         yield return null;

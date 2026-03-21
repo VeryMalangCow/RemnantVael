@@ -21,7 +21,7 @@ public class AllyBulletController : BulletController
         {
             base.Set_State_Size(state_Size);
 
-            TargetObject.transform.localScale = state_Size.Value.objSize;
+            targetObject.transform.localScale = state_Size.Value.objSize;
             col.transform.localScale = state_Size.Value.colSize;
         }
     }
@@ -42,9 +42,9 @@ public class AllyBulletController : BulletController
         if (DevTool.Can_Collding(col, "Enemy", out EnemyController enemy))
         {
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
-                TargetObject.transform.position, transform.rotation);
+                targetObject.transform.position, transform.rotation);
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
-                TargetObject.transform.position, state.isCritical, transform.rotation);
+                targetObject.transform.position, state.isCritical, transform.rotation);
 
             PlayerManager.instance.cameraController.Play_HitEnemyAnim();
             enemy.Try_Hitted(this);
@@ -76,7 +76,7 @@ public class AllyBulletController : BulletController
     public void SetOn_LightIntensity(float intensity)
     {
         light2d.intensity = intensity;
-        light2d.lightCookieSprite = ThisSR.sprite;
+        light2d.lightCookieSprite = thisSr.sprite;
     }
 
     #endregion

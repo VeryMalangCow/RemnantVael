@@ -638,18 +638,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 3954661232278796110}
-  ThisSR: {fileID: 5987728594063451204}
-  TargetRange: 0.4
-  ThisRb: {fileID: 2744110499918854217}
-  TargetGO: {fileID: 0}
-  IsAbsorbing: 0
-  AbsorbStartPower: 300
-  AbsorbPower: 5
-  RotatePower: 15
-  AbsorbRange: 1
-  ModuleValue: 1
-  AmountTxt: {fileID: 7279020570276727912}
+  targetObject: {fileID: 3954661232278796110}
+  thisSr: {fileID: 5987728594063451204}
+  targetRange: 0.4
+  rb: {fileID: 2744110499918854217}
+  targetGo: {fileID: 0}
+  isAbsorbing: 0
+  absorbStartPower: 300
+  absorbPower: 5
+  rotPower: 15
+  absorbRange: 1
+  moduleValue: 1
+  amountTxt: {fileID: 7279020570276727912}
 --- !u!50 &2744110499918854217
 Rigidbody2D:
   serializedVersion: 4

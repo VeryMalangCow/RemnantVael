@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MovableObjectController : MovableDepthController
 {
@@ -11,13 +12,13 @@ public class MovableObjectController : MovableDepthController
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] public Rigidbody2D ThisRb;
+    [FormerlySerializedAs("ThisRb")][SerializeField] public Rigidbody2D rb;
 
     [Space(10)]
     [Header("=== Movement")]
-    [SerializeField] protected float AccelerationSpeed = 12;
+    [FormerlySerializedAs("AccelerationSpeed")][SerializeField] protected float accelerationSpeed = 12;
 
-    [HideInInspector] protected List<CurrentKnockbackState> KnockbackStateList = new List<CurrentKnockbackState>();
+    [HideInInspector] protected List<CurrentKnockbackState> kbStateList = new List<CurrentKnockbackState>();
 
     #endregion
 
@@ -32,33 +33,33 @@ public class MovableObjectController : MovableDepthController
 
     #region Movement
 
-    protected void Play_Walk(Vector2 _MoveDir, float _MoveSpeed, float _DeltaTime)
+    protected void Play_Walk(Vector2 moveDir, float moveSpeed, float deltaTime)
     {
-        ThisRb.velocity = Vector2.Lerp(ThisRb.velocity, _MoveDir * _MoveSpeed, AccelerationSpeed * _DeltaTime);
+        rb.velocity = Vector2.Lerp(rb.velocity, moveDir * moveSpeed, accelerationSpeed * deltaTime);
     }
 
     #endregion
 
     #region Knockback
 
-    private void Update_Knockback(float _DeltaTime)
+    private void Update_Knockback(float deltaTime)
     {
-        if (KnockbackStateList.Count > 0)
+        if (kbStateList.Count > 0)
         {
-            for (int i = 0; i < KnockbackStateList.Count; i++)
+            for (int i = 0; i < kbStateList.Count; i++)
             {
-                ThisRb.velocity += KnockbackStateList[i].Get_Knockback() * _DeltaTime * 10;
+                rb.velocity += kbStateList[i].Get_Knockback() * deltaTime * 10;
             }
         }
     }
 
-    protected void Gain_Knockback(CurrentKnockbackState _KnockbackState)
+    protected void Gain_Knockback(CurrentKnockbackState kbState)
     {
-        KnockbackStateList.Add(_KnockbackState);
-        _KnockbackState.Start_Knockback()
+        kbStateList.Add(kbState);
+        kbState.Start_Knockback()
             .OnComplete(() =>
             {
-                KnockbackStateList.Remove(_KnockbackState);
+                kbStateList.Remove(kbState);
             });
     }
 
@@ -66,9 +67,9 @@ public class MovableObjectController : MovableDepthController
 
     #region Trigger
 
-    protected virtual void OnTriggerEnter2D(Collider2D _Col)
+    protected virtual void OnTriggerEnter2D(Collider2D col)
     {
-        if (DevTool.Can_Collding(_Col, "FieldObj", out DestructibleObjectController doc))
+        if (DevTool.Can_Collding(col, "FieldObj", out DestructibleObjectController doc))
         {
             doc.Destruct();
         }

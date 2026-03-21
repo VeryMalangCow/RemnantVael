@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class RangeAbsorbItemController : AbsorbItemController
 {
@@ -9,7 +10,7 @@ public class RangeAbsorbItemController : AbsorbItemController
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private float AbsorbRange = 1f;
+    [FormerlySerializedAs("AbsorbRange")][SerializeField] private float absorbRange = 1f;
 
 
     #endregion
@@ -20,11 +21,11 @@ public class RangeAbsorbItemController : AbsorbItemController
     {
         base.Update();
 
-        if (!IsAbsorbing)
+        if (!isAbsorbing)
         {
-            IsAbsorbing =
+            isAbsorbing =
                 Vector2.Distance(PlayerManager.instance.playerController.gameObject.transform.position, this.gameObject.transform.position)
-                <= AbsorbRange;
+                <= absorbRange;
         }
     }
 
@@ -32,11 +33,11 @@ public class RangeAbsorbItemController : AbsorbItemController
 
     #region State
 
-    public override void Set_State(Vector2 _SpawnPos)
+    public override void Set_State(Vector2 spawnPos)
     {
-        base.Set_State(_SpawnPos);
+        base.Set_State(spawnPos);
 
-        IsSpawnNow = true;
+        isSpawnNow = true;
     }
 
     #endregion

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DroppingTotemeAllyController : DroppingAllyController
 {
@@ -9,10 +10,10 @@ public class DroppingTotemeAllyController : DroppingAllyController
 
     [Space(10)]
     [Header("=== Bullet")]
-    [SerializeField] private Sprite HoloSprite;
+    [FormerlySerializedAs("HoloSprite")][SerializeField] private Sprite holoSprite;
 
-    [SerializeField] private int PlayerBuffID;
-    [SerializeField] private string AllyBuffID;
+    [FormerlySerializedAs("PlayerBuffID")][SerializeField] private int playerBuffId;
+    [FormerlySerializedAs("AllyBuffID")][SerializeField] private string allyBuffId;
 
     #endregion
 
@@ -29,42 +30,42 @@ public class DroppingTotemeAllyController : DroppingAllyController
 
         Fire_Toteme(PoolingManager.instance.Get_OP_AllyToteme(), Get_RandomNavPos(PlayerManager.instance.playerController.transform.position, 5f));
 
-        Debug.Log(Name[1] + ": Toteme");
+        Debug.Log(_name[1] + ": Toteme");
     }
 
 
-    private void Fire_Toteme(AllyTotemeController _Toteme, Vector2 _TargetPos)
+    private void Fire_Toteme(AllyTotemeController toteme, Vector2 targetPos)
     {
         // ÃÑ¾Ë ½ºÅÈ°ú SortingOrder ¼³Á¤
-        _Toteme.Set_State(
-            droppingTime: ActualAllyState.muzzleSpeed.value,
+        toteme.Set_State(
+            droppingTime: actualAllyState.muzzleSpeed.value,
             topYPos: 5f,
-            bottomYPos: DropBottomYPos,
-            dur: ActualAllyState.dur.value,
-            holoSprite: HoloSprite,
-            clr: ThisExtraColor,
+            bottomYPos: dropBottomYPos,
+            dur: actualAllyState.dur.value,
+            holoSprite: holoSprite,
+            clr: extraClr,
             buffAreaSize: 1f,
-            state_PosAndRot: Get_BulletState_PosAndRot(_TargetPos),
+            state_PosAndRot: Get_BulletState_PosAndRot(targetPos),
             state_Size: Get_BulletState_Shadow_Size());
 
-        _Toteme.Set_State_BuffID(PlayerBuffID, AllyBuffID);
+        toteme.Set_State_BuffID(playerBuffId, allyBuffId);
 
         // Light & Trail
-        _Toteme.SetOn_LightIntensity(LightIntensity);
-        _Toteme.SetOn_TrailState(TrailTime, TrailStartWidth * ActualAllyState.attackSize.value, ThisExtraGradient);
+        toteme.SetOn_LightIntensity(lightIntensity);
+        toteme.SetOn_TrailState(trailTime, trailStartWidth * actualAllyState.attackSize.value, extraGradient);
 
         // ÀÌ¹ÌÁö
-        _Toteme.ThisSR.sprite = ThisSprite;
+        toteme.thisSr.sprite = sprite;
     }
 
     #endregion
 
     #region State (Toteme)
 
-    private BulletState_PosAndRot Get_BulletState_PosAndRot(Vector2 _TargetPos)
+    private BulletState_PosAndRot Get_BulletState_PosAndRot(Vector2 targetPos)
     {
         return new BulletState_PosAndRot(
-            _TargetPos,
+            targetPos,
             Vector2.zero,
             0);
     }
@@ -72,7 +73,7 @@ public class DroppingTotemeAllyController : DroppingAllyController
     private BulletState_Size Get_BulletState_Shadow_Size()
     {
         return new BulletState_Size(
-            Vector2.one * ActualAllyState.attackSize.value,
+            Vector2.one * actualAllyState.attackSize.value,
             new Vector2(0.3f, 0.15f));
     }
 

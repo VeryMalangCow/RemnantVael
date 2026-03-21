@@ -78,9 +78,9 @@ public class PlayerManager : Singleton<PlayerManager>
             DevTool.Get_ComponentTType<PlayerController>(
                 Instantiate(GameManager.instance.designatedPlayerPrefab, playerSpawnParentTF));
         aim = DevTool.Get_ComponentTType<AimController>(
-            Instantiate(playerController.AimPrefab, playerSpawnParentTF));
+            Instantiate(playerController.aimPrefab, playerSpawnParentTF));
         aimRound = DevTool.Get_ComponentTType<AimRoundController>(
-            Instantiate(playerController.AimRoundPrefab, playerController.transform));
+            Instantiate(playerController.aimRoundPrefab, playerController.transform));
 
         return pc;
     }

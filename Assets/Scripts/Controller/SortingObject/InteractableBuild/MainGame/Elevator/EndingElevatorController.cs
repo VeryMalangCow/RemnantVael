@@ -65,7 +65,7 @@ public class EndingElevatorController : ElevatorController, IInteract
         MainGameUIManager.instance.Play_OnLoadingIcon(3f);
         EventManager.instance.Set_BlackUpDownCover(true);
 
-        ThisSR.sortingOrder = 3000;
+        thisSr.sortingOrder = 3000;
 
         // Intetactable Anno Panel
         MainGameUIManager.instance.interactAnno_UIController.Set_VisualCG(false);
@@ -117,7 +117,7 @@ public class EndingElevatorController : ElevatorController, IInteract
     {
         if (IsOn)
         {
-            PlayerManager.instance.playerController.CurrentInteractable.Value = null;
+            PlayerManager.instance.playerController.currentInteractable.Value = null;
             Play_MoveToTarget();
         }
     }

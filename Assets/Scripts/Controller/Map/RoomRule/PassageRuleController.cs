@@ -1,5 +1,5 @@
-
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PassageRuleController : RoomRuleController
 {
@@ -10,7 +10,7 @@ public class PassageRuleController : RoomRuleController
 
     [Space(10)]
     [Header("=== Elevator")]
-    [SerializeField] private EndingElevatorController InRoom_Elevator;
+    [FormerlySerializedAs("InRoom_Elevator")][SerializeField] private EndingElevatorController inRoom_Elevator;
 
     #endregion
 
@@ -20,7 +20,7 @@ public class PassageRuleController : RoomRuleController
     {
         base.Offset();
 
-        NeedKeyCardID = 0;
+        needKeyCardId = 0;
     }
 
     #endregion
@@ -40,16 +40,16 @@ public class PassageRuleController : RoomRuleController
 
     private void SetOn_Elevator()
     {
-        if (InRoom_Elevator != null &&
-            !InRoom_Elevator.IsOn)
+        if (inRoom_Elevator != null &&
+            !inRoom_Elevator.IsOn)
         {
-            InRoom_Elevator.IsOn = true;
+            inRoom_Elevator.IsOn = true;
         }
     }
 
-    public void Set_ElevatorData(int _NextStageIndex)
+    public void Set_ElevatorData(int nextStageIndex)
     {
-        InRoom_Elevator.Set_Data(_NextStageIndex, false);
+        inRoom_Elevator.Set_Data(nextStageIndex, false);
     }
 
     #endregion

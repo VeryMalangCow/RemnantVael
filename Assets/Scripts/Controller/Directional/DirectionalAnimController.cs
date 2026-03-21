@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ public class DirectionalAnimController : DirectionalController<AnimationClip, An
 {
     #region Value
 
-    [HideInInspector] private AnimatorOverrideController AOC;
+    [HideInInspector] private AnimatorOverrideController aoc;
 
     #endregion
 
@@ -16,9 +15,9 @@ public class DirectionalAnimController : DirectionalController<AnimationClip, An
     {
         base.Start();
 
-        CurrentIndex.Subscribe(index =>
+        currentIndex.Subscribe(index =>
         {
-            DevTool.Set_Anim(ref AOC, ThisComp, ThisDirectionalList[index]);
+            DevTool.Set_Anim(ref aoc, comp, dirList[index]);
         });
     }
 

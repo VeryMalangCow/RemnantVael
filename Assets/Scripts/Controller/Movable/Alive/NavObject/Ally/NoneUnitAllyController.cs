@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NoneUnitAllyController : AllyController
 {
@@ -19,7 +18,7 @@ public class NoneUnitAllyController : AllyController
     #region - Hide
 
     // Spawn
-    [HideInInspector] public static readonly Vector3 SpawnPos = new Vector3(20000, 20000, -11);
+    [HideInInspector] public static readonly Vector3 spawnPos = new Vector3(20000, 20000, -11);
 
     #endregion
 
@@ -51,9 +50,9 @@ public class NoneUnitAllyController : AllyController
     {
         base.Set_SpawnFirst();
 
-        transform.position = SpawnPos;
+        transform.position = spawnPos;
 
-        MainGameUIManager.instance.playerHUD_UIController.Add_AllyState(HUD);
+        MainGameUIManager.instance.playerHUD_UIController.Add_AllyState(hud);
     }
 
     #endregion

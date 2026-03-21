@@ -1,6 +1,5 @@
 using UnityEngine;
-using UniRx;
-using System;
+using UnityEngine.Serialization;
 
 public class DirectionalAllyTypeImgController : DirectionalImgController
 {
@@ -11,8 +10,8 @@ public class DirectionalAllyTypeImgController : DirectionalImgController
 
     [Space(10)]
     [Header("=== Sprite")]
-    [SerializeField] private string ThisSpriteSetName;
-    [SerializeField] private AllySpriteSet AllySpriteSet;
+    [FormerlySerializedAs("ThisSpriteSetName")][SerializeField] private string spriteSetName;
+    [FormerlySerializedAs("AllySpriteSet")][SerializeField] private AllySpriteSet allySpriteSet;
 
     #endregion
 
@@ -20,7 +19,7 @@ public class DirectionalAllyTypeImgController : DirectionalImgController
 
     protected override void Start()
     {
-        AllySpriteSet = AllyManager.instance.allySpriteSetDict[ThisSpriteSetName];
+        allySpriteSet = AllyManager.instance.allySpriteSetDict[spriteSetName];
         Set_Type(eAllyStateMode.Idle);
 
         base.Start();
@@ -30,27 +29,27 @@ public class DirectionalAllyTypeImgController : DirectionalImgController
 
     #region Set
 
-    public void Set_Type(eAllyStateMode _Mode)
+    public void Set_Type(eAllyStateMode mode)
     {
-        switch (_Mode)
+        switch (mode)
         {
             case eAllyStateMode.Idle:
-                ThisDirectionalList = AllySpriteSet.allyIdle;
+                dirList = allySpriteSet.allyIdle;
                 break;
 
             case eAllyStateMode.Move:
-                ThisDirectionalList = AllySpriteSet.allyMove;
+                dirList = allySpriteSet.allyMove;
                 break;
 
             case eAllyStateMode.Attack:
-                ThisDirectionalList = AllySpriteSet.allyAttack;
+                dirList = allySpriteSet.allyAttack;
                 break;
 
             default:
                 break;
         }
 
-        ThisComp.sprite = ThisDirectionalList[CurrentIndex.Value];
+        comp.sprite = dirList[currentIndex.Value];
     }
 
     #endregion

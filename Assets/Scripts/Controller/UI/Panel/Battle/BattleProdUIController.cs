@@ -43,8 +43,8 @@ public class BattleProdUIController : UIController
     {
         SoundManager.instance.Play_2D_SFX_UI("StartBattleProd");
         Play_BattleOnProd(
-            _Player.BattleProdSprite, 
-            _Enemy.BattleProdSprite, 
+            _Player.battleProdSprite, 
+            _Enemy.battleProdSprite, 
             ResourceManager.instance.Get_PlayerName(_Player.GetNameID),
             ResourceManager.instance.Get_EnemyName(_Enemy.GetNameID),
             out _DurTime);
@@ -54,8 +54,8 @@ public class BattleProdUIController : UIController
     {
         SoundManager.instance.Play_2D_SFX_UI("StartBossBattleProd");
         Play_BattleOnProd(
-            _Player.BattleProdSprite,
-            _Enemy.BattleProdSprite,
+            _Player.battleProdSprite,
+            _Enemy.battleProdSprite,
             ResourceManager.instance.Get_PlayerName(_Player.GetNameID),
             ResourceManager.instance.Get_EnemyName(_Enemy.GetNameID),
             out _DurTime);

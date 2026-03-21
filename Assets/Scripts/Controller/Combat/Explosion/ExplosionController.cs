@@ -78,12 +78,12 @@ public abstract class ExplosionController : StaticDepthController
         this.state = new ExplosionState(state);
 
         sg.sortingOrder = LayerOrderManager.order_Explosion;
-        TargetRange = targetRange;
+        base.targetRange = targetRange;
     }
 
     public virtual void Set_State_Juge(float explosionSize, float colRadius)
     {
-        TargetObject.transform.localScale = Vector2.one * colRadius;
+        targetObject.transform.localScale = Vector2.one * colRadius;
         col.radius = explosionSize * colRadius;
         light2d.pointLightOuterRadius = explosionSize * colRadius;
     }

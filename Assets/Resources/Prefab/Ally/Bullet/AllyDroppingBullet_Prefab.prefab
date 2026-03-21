@@ -192,17 +192,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 7754987835335729850}
-  ThisSR: {fileID: 2506341436009816347}
-  TargetRange: 10
-  ShadowTF: {fileID: 4030447465785416527}
-  ThisTrail: {fileID: 7307784400060210891}
-  ThisLight: {fileID: 8889175613378231609}
-  DroppingSpeed: 0
-  CurrentDroppingTime: 0
-  ShadowSize: {x: 0, y: 0}
-  DropBottomYPos: 0
-  ZeroToOneTime: 0
+  targetObject: {fileID: 7754987835335729850}
+  thisSr: {fileID: 2506341436009816347}
+  targetRange: 10
+  shadowTf: {fileID: 4030447465785416527}
+  trail: {fileID: 7307784400060210891}
+  light2D: {fileID: 8889175613378231609}
+  droppingSpeed: 0
+  currentDroppingTime: 0
+  shadowSize: {x: 0, y: 0}
+  dropBottomYPos: 0
+  zeroToOneTime: 0
   poolingString: 
   state:
     ownerData:

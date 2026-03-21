@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using System.Net;
+using UnityEngine.Serialization;
 
 public class EnemyPattern_Thrust : EnemyPattern
 {
@@ -13,32 +13,32 @@ public class EnemyPattern_Thrust : EnemyPattern
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private AttackerState ThisAS;
+    [FormerlySerializedAs("ThisAS")][SerializeField] private AttackerState _as;
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private float Guiding = 0f;
-    [SerializeField] private Vector2 DirForTarget = Vector2.zero;
-    [SerializeField] private AnimationClip ThisAC;
-    [SerializeField] private float JugeAndTweenTime = 0.5f;
-    [SerializeField] private float AnimSpeed = 2.6f;
-    [SerializeField] private float Speed = 1.5f;
-    [SerializeField] bool LightOn = false;
-    [SerializeField] float LightSize = 1f;
+    [FormerlySerializedAs("Guiding")][SerializeField] private float guiding = 0f;
+    [FormerlySerializedAs("DirForTarget")][SerializeField] private Vector2 dirForTarget = Vector2.zero;
+    [FormerlySerializedAs("ThisAC")][SerializeField] private AnimationClip ac;
+    [FormerlySerializedAs("JugeAndTweenTime")][SerializeField] private float jugeAndTweenTime = 0.5f;
+    [FormerlySerializedAs("AnimSpeed")][SerializeField] private float animSpeed = 2.6f;
+    [FormerlySerializedAs("Speed")][SerializeField] private float speed = 1.5f;
+    [FormerlySerializedAs("LightOn")][SerializeField] bool lightOn = false;
+    [FormerlySerializedAs("LightSize")][SerializeField] float lightSize = 1f;
 
     [Space(10)]
     [Header("=== Condition")]
-    [SerializeField] private float MaxRange = 1.8f;
-    [SerializeField] private float MinRange = 0f;
+    [FormerlySerializedAs("MaxRange")][SerializeField] private float maxRange = 1.8f;
+    [FormerlySerializedAs("MinRange")][SerializeField] private float minRange = 0f;
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private List<DepthController> SpawnDepthList;
-    [SerializeField] private List<DepthController> BeforeEffectDepthList;
-    [SerializeField] private Color BeforeEffectColor;
+    [FormerlySerializedAs("SpawnDepthList")][SerializeField] private List<DepthController> spawnDepthList;
+    [FormerlySerializedAs("BeforeEffectDepthList")][SerializeField] private List<DepthController> beforeEffectDepthList;
+    [FormerlySerializedAs("BeforeEffectColor")][SerializeField] private Color beforeEffectColor;
 
-    [HideInInspector] private bool IsThrusting = false;
-    [HideInInspector] private Sequence BeforeEffectSeq;
+    [HideInInspector] private bool isThrusting = false;
+    [HideInInspector] private Sequence beforeEffectSeq;
 
     #endregion
 
@@ -51,25 +51,25 @@ public class EnemyPattern_Thrust : EnemyPattern
 
     private void Update()
     {
-        if (!IsPlaying)
+        if (!isPlaying)
         {
             StopCoroutine(Play_ThisPattern_Cor());
         }
 
-        if (IsThrusting && Guiding > 0)
+        if (isThrusting && guiding > 0)
         {
             Vector2 targetDir = Vector2.Lerp(
-                DirForTarget, 
-                DevTool.Get_DirForPlayer(ThisEnemy),
-                Guiding * Time.deltaTime);
+                dirForTarget, 
+                DevTool.Get_DirForPlayer(enemy),
+                guiding * Time.deltaTime);
 
             if (DevTool.TryGetDirNavMeshEnd(
-            ThisEnemy.transform.position,
+            enemy.transform.position,
             targetDir,
             out Vector2 endPoint))
             {
-                ThisEnemy.Set_NavDir(endPoint);
-                DirForTarget = targetDir;
+                enemy.Set_NavDir(endPoint);
+                dirForTarget = targetDir;
             }
         }
     }
@@ -80,10 +80,10 @@ public class EnemyPattern_Thrust : EnemyPattern
 
     public override bool Can_PlayPattern()
     {
-        if (IsSpecialPattern) return true;
+        if (isSpecialPattern) return true;
 
-        float forPlayerDis = DevTool.Get_DisForPlayer(ThisEnemy);
-        if (forPlayerDis >= MinRange && forPlayerDis < MaxRange)
+        float forPlayerDis = DevTool.Get_DisForPlayer(enemy);
+        if (forPlayerDis >= minRange && forPlayerDis < maxRange)
         {
             return true;
         }
@@ -97,83 +97,83 @@ public class EnemyPattern_Thrust : EnemyPattern
 
     protected override IEnumerator Play_ThisPattern_Cor()
     {
-        Play_BeforeEffect(StartDelay);
-        yield return new WaitForSeconds(StartDelay);
+        Play_BeforeEffect(startDelay);
+        yield return new WaitForSeconds(startDelay);
 
         #region Actual
 
-        CurrentRepeatAmount++;
+        currentRepeatAmount++;
 
-        Vector2 targetDir = DevTool.Get_DirForPlayer(ThisEnemy);
-        DirForTarget = targetDir;
+        Vector2 targetDir = DevTool.Get_DirForPlayer(enemy);
+        dirForTarget = targetDir;
 
         Play_ActualPattern(targetDir);
 
         #endregion
 
-        Play_AfterEffect(EndDelay);
-        yield return new WaitForSeconds(EndDelay);
+        Play_AfterEffect(endDelay);
+        yield return new WaitForSeconds(endDelay);
 
         Stop_ActualPattern();
-        if (CurrentRepeatAmount >= RepeatAmount) // 반복을 마침
+        if (currentRepeatAmount >= repeatAmount) // 반복을 마침
         {
             End_Pattern();
-            ThisEnemy.Play_Pattern();
+            enemy.Play_Pattern();
         }
         else
         {
-            ThisEnemy.CurrentPatternCor = Play_ThisPattern_Cor();
-            StartCoroutine(ThisEnemy.CurrentPatternCor);
+            enemy.currentPatternCor = Play_ThisPattern_Cor();
+            StartCoroutine(enemy.currentPatternCor);
         }
     }
 
-    protected virtual void Play_ActualPattern(Vector2 _TargetDir)
+    protected virtual void Play_ActualPattern(Vector2 targetDir)
     {
-        IsThrusting = true;
+        isThrusting = true;
 
         // Attacker
-        for (int i = 0; i < SpawnDepthList.Count; i++)
-            Play_ActualPattern_Each(SpawnDepthList[i], _TargetDir);
+        for (int i = 0; i < spawnDepthList.Count; i++)
+            Play_ActualPattern_Each(spawnDepthList[i], targetDir);
 
         if (DevTool.TryGetDirNavMeshEnd(
-            ThisEnemy.transform.position, 
-            _TargetDir,
+            enemy.transform.position, 
+            targetDir,
             out Vector2 endPoint))
         {
-            ThisEnemy.Set_NavDir(endPoint);
-            ThisEnemy.Set_MoveSpeed(Speed);
+            enemy.Set_NavDir(endPoint);
+            enemy.Set_MoveSpeed(speed);
         }
 
-        SoundManager.instance.Play_2D_SFX_EnemyAttack_Random(ThisEnemy.Get_AS(), "Thrust", 2);
+        SoundManager.instance.Play_2D_SFX_EnemyAttack_Random(enemy.Get_AS(), "Thrust", 2);
     }
 
-    private void Play_ActualPattern_Each(DepthController _Depth, Vector2 _TargetDir)
+    private void Play_ActualPattern_Each(DepthController depth, Vector2 targetDir)
     {
         EnemyAttackerController attacker = PoolingManager.instance.Get_OP_EnemyAttacker();
-        attacker.enemy = ThisEnemy;
-        float targetShadow = _Depth.TargetRange;
+        attacker.enemy = enemy;
+        float targetShadow = depth.targetRange;
 
         attacker.Set_State(
-            ThisAS,
+            _as,
             State_Juge(),
             State_Anim(),
-            State_StartTF(_TargetDir),
-            State_EndTF(_TargetDir),
+            State_StartTF(targetDir),
+            State_EndTF(targetDir),
             targetShadow,
-            parent: _Depth.transform,
+            parent: depth.transform,
             isLocal: true);
 
-        if (LightOn)
+        if (lightOn)
             attacker.Set_Light(
-                LightSize, JugeAndTweenTime);
+                lightSize, jugeAndTweenTime);
     }
 
     private void Stop_ActualPattern()
     {
-        IsThrusting = false;
-        DirForTarget = Vector2.zero;
-        ThisEnemy.Set_NavDir(Vector2.zero);
-        ThisEnemy.Set_MoveSpeed(0);
+        isThrusting = false;
+        dirForTarget = Vector2.zero;
+        enemy.Set_NavDir(Vector2.zero);
+        enemy.Set_MoveSpeed(0);
     }
 
     #endregion
@@ -187,23 +187,23 @@ public class EnemyPattern_Thrust : EnemyPattern
 
     private State_Anim State_Anim()
     {
-        return new State_Anim(ThisAC, AnimSpeed);
+        return new State_Anim(ac, animSpeed);
     }
 
-    private State_TF2D State_StartTF(Vector2 _TargetDir)
+    private State_TF2D State_StartTF(Vector2 targetDir)
     {
         return new State_TF2D(
             Vector2.zero,
-            DevTool.Get_RotFromDir(_TargetDir),
+            DevTool.Get_RotFromDir(targetDir),
             Vector2.one);
     }
 
-    private AttackerState_EndTF State_EndTF(Vector2 _TargetDir)
+    private AttackerState_EndTF State_EndTF(Vector2 targetDir)
     {
         return new AttackerState_EndTF(
             Vector2.zero,
-            DevTool.Get_RotFromDir(_TargetDir),
-            Vector2.one, JugeAndTweenTime);
+            DevTool.Get_RotFromDir(targetDir),
+            Vector2.one, jugeAndTweenTime);
     }
 
     #endregion
@@ -212,36 +212,36 @@ public class EnemyPattern_Thrust : EnemyPattern
 
     private void Reset_EffectComp()
     {
-        for (int i = 0; i < BeforeEffectDepthList.Count; i++)
+        for (int i = 0; i < beforeEffectDepthList.Count; i++)
         {
-            BeforeEffectDepthList[i].ThisSR.transform.localScale = Vector3.one;
-            BeforeEffectDepthList[i].ThisSR.color = Color.white;
+            beforeEffectDepthList[i].thisSr.transform.localScale = Vector3.one;
+            beforeEffectDepthList[i].thisSr.color = Color.white;
         }
     }
 
-    private void Play_BeforeEffect(float _StartDelay)
+    private void Play_BeforeEffect(float startDelay)
     {
-        DevTool.Set_KillTween(BeforeEffectSeq);
-        BeforeEffectSeq = DOTween.Sequence();
+        DevTool.Set_KillTween(beforeEffectSeq);
+        beforeEffectSeq = DOTween.Sequence();
 
-        _StartDelay *= 0.8f;
-        for (int i = 0; i < BeforeEffectDepthList.Count; i++)
+        startDelay *= 0.8f;
+        for (int i = 0; i < beforeEffectDepthList.Count; i++)
         {
-            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.transform.DOScale(1.5f, _StartDelay).SetEase(Ease.OutCubic));
-            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.DOColor(BeforeEffectColor, _StartDelay).SetEase(Ease.OutCubic));
+            beforeEffectSeq.Join(beforeEffectDepthList[i].thisSr.transform.DOScale(1.5f, startDelay).SetEase(Ease.OutCubic));
+            beforeEffectSeq.Join(beforeEffectDepthList[i].thisSr.DOColor(beforeEffectColor, startDelay).SetEase(Ease.OutCubic));
         }
     }
 
-    private void Play_AfterEffect(float _EndDelay)
+    private void Play_AfterEffect(float endDelay)
     {
-        DevTool.Set_KillTween(BeforeEffectSeq);
-        BeforeEffectSeq = DOTween.Sequence();
+        DevTool.Set_KillTween(beforeEffectSeq);
+        beforeEffectSeq = DOTween.Sequence();
 
-        _EndDelay *= 0.8f;
-        for (int i = 0; i < BeforeEffectDepthList.Count; i++)
+        endDelay *= 0.8f;
+        for (int i = 0; i < beforeEffectDepthList.Count; i++)
         {
-            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.transform.DOScale(1f, _EndDelay).SetEase(Ease.OutCubic));
-            BeforeEffectSeq.Join(BeforeEffectDepthList[i].ThisSR.DOColor(Color.white, _EndDelay).SetEase(Ease.OutCubic));
+            beforeEffectSeq.Join(beforeEffectDepthList[i].thisSr.transform.DOScale(1f, endDelay).SetEase(Ease.OutCubic));
+            beforeEffectSeq.Join(beforeEffectDepthList[i].thisSr.DOColor(Color.white, endDelay).SetEase(Ease.OutCubic));
         }
     }
 

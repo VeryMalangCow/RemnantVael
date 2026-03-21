@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class EnemyPattern_Follow : EnemyPattern
 {
@@ -12,23 +13,23 @@ public class EnemyPattern_Follow : EnemyPattern
 
     [Space(10)]
     [Header("=== Condition")]
-    [SerializeField] private float FollowingSpeed = 3f;
+    [FormerlySerializedAs("FollowingSpeed")][SerializeField] private float followingSpeed = 3f;
 
     [Header("-- Range")]
-    [SerializeField] private bool UntilForTargetRange = false;
-    [SerializeField] private float TargetRange = 0f;
-    [SerializeField] private bool IgnoreWall = false;
+    [FormerlySerializedAs("UntilForTargetRange")][SerializeField] private bool untilForTargetRange = false;
+    [FormerlySerializedAs("TargetRange")][SerializeField] private float targetRange = 0f;
+    [FormerlySerializedAs("IgnoreWall")][SerializeField] private bool ignoreWall = false;
 
     [Header("-- Time")]
-    [SerializeField] private bool UntilForTargetTime = false;
-    [SerializeField] private float TargetTime = 0f;
-    [SerializeField] private float CurrentTime = 0f;
+    [FormerlySerializedAs("UntilForTargetTime")][SerializeField] private bool untilForTargetTime = false;
+    [FormerlySerializedAs("TargetTime")][SerializeField] private float targetTime = 0f;
+    [FormerlySerializedAs("CurrentTime")][SerializeField] private float currentTime = 0f;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private float FollowInitDelay = 0.2f;
+    [HideInInspector] private float followInitDelay = 0.2f;
 
     #endregion
 
@@ -40,7 +41,7 @@ public class EnemyPattern_Follow : EnemyPattern
     {
         base.Offset();
 
-        FollowInitDelay = 0.4f / FollowingSpeed; 
+        followInitDelay = 0.4f / followingSpeed; 
     }
 
     #endregion
@@ -49,11 +50,11 @@ public class EnemyPattern_Follow : EnemyPattern
 
     private void Update()
     {
-        if (UntilForTargetTime && 
-            IsPlaying &&
-            CurrentTime < TargetTime)
+        if (untilForTargetTime && 
+            isPlaying &&
+            currentTime < targetTime)
         {
-            CurrentTime += Time.deltaTime;
+            currentTime += Time.deltaTime;
         }
     }
 
@@ -74,9 +75,9 @@ public class EnemyPattern_Follow : EnemyPattern
     // 거리 조건 충족?
     private bool Can_PlayPattern_ConditionByRange()
     {
-        if (UntilForTargetRange && TargetRange >= DevTool.Get_DisForPlayer(ThisEnemy))
+        if (untilForTargetRange && targetRange >= DevTool.Get_DisForPlayer(enemy))
         {
-            if (!IgnoreWall && ThisEnemy.Is_ExistWall(PlayerManager.instance.playerController.transform))
+            if (!ignoreWall && enemy.Is_ExistWall(PlayerManager.instance.playerController.transform))
             {
                 return true;
             }
@@ -91,7 +92,7 @@ public class EnemyPattern_Follow : EnemyPattern
     // 시간 조건 충족?
     private bool Can_PlayPattern_ConditionByTime()
     {
-        if (UntilForTargetTime && CurrentTime >= TargetTime)
+        if (untilForTargetTime && currentTime >= targetTime)
         {
             return false;
         }
@@ -106,14 +107,14 @@ public class EnemyPattern_Follow : EnemyPattern
     {
         base.Start_Pattern();
 
-        CurrentTime = 0f;
+        currentTime = 0f;
     }
 
     public override void End_Pattern()
     {
         base.End_Pattern();
 
-        CurrentTime = 0f;
+        currentTime = 0f;
     }
 
     #endregion
@@ -122,19 +123,19 @@ public class EnemyPattern_Follow : EnemyPattern
 
     protected override IEnumerator Play_ThisPattern_Cor()
     {
-        yield return new WaitForSeconds(StartDelay);
+        yield return new WaitForSeconds(startDelay);
 
         #region Actual
 
-        ThisEnemy.Set_MoveSpeed(FollowingSpeed);
+        enemy.Set_MoveSpeed(followingSpeed);
         PlayerController targetPc = PlayerManager.instance.playerController;
 
         while (true)
         {
             if (Can_PlayPattern())
             {
-                ThisEnemy.Set_NavDir(targetPc.transform);
-                yield return new WaitForSeconds(FollowInitDelay);
+                enemy.Set_NavDir(targetPc.transform);
+                yield return new WaitForSeconds(followInitDelay);
             }
             else
             {
@@ -142,14 +143,14 @@ public class EnemyPattern_Follow : EnemyPattern
             }
 
         }
-        ThisEnemy.End_Nav();
+        enemy.End_Nav();
 
         #endregion
 
-        yield return new WaitForSeconds(EndDelay);
+        yield return new WaitForSeconds(endDelay);
 
         End_Pattern();
-        ThisEnemy.Play_Pattern();
+        enemy.Play_Pattern();
     }
 
     #endregion

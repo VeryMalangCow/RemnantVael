@@ -9,9 +9,9 @@ public class DirectionalImgController : DirectionalController<Sprite, SpriteRend
     {
         base.Start();
 
-        CurrentIndex.Subscribe(index =>
+        currentIndex.Subscribe(index =>
         {
-            ThisComp.sprite = ThisDirectionalList[index];
+            comp.sprite = dirList[index];
         });
     }
 

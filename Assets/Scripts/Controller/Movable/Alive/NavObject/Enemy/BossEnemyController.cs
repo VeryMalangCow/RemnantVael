@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 public class BossEnemyController : EnemyController
 {
@@ -15,33 +16,33 @@ public class BossEnemyController : EnemyController
 
     [Space(10)]
     [Header("=== Data")]
-    [SerializeField] private int NameID;
-    public int GetNameID => NameID;
+    [FormerlySerializedAs("NameID")][SerializeField] private int nameId;
+    public int GetNameID => nameId;
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] public RectTransform PanelRT;
-    [SerializeField] private Image ThisHUDIcon;
-    [SerializeField] private List<GameObject> ThisAuraParticleGOList;
+    [FormerlySerializedAs("PanelRT")][SerializeField] public RectTransform panelRt;
+    [FormerlySerializedAs("ThisHUDIcon")][SerializeField] private Image hudIcon;
+    [FormerlySerializedAs("ThisAuraParticleGOList")][SerializeField] private List<GameObject> auraParticleGoList;
 
     [Space(10)]
     [Header("=== Data")]
-    [SerializeField] private List<BossPhaseData> BossPhaseData;
+    [FormerlySerializedAs("BossPhaseData")][SerializeField] private List<BossPhaseData> bossPhaseData;
 
     [Space(10)]
     [Header("=== Item")]
-    [SerializeField] public CoreDropItemPercent CoreDropItemPercent;
+    [FormerlySerializedAs("CoreDropItemPercent")][SerializeField] public CoreDropItemPercent coreDropItemPercent;
 
     [Space(10)]
     [Header("=== Reso")]
-    [SerializeField] public Sprite BattleProdSprite;
+    [FormerlySerializedAs("BattleProdSprite")][SerializeField] public Sprite battleProdSprite;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private static readonly Vector2 HUDBaseAnchorPos = new Vector2(-40, 290);
-    [HideInInspector] private int CurrentPhase;
+    [HideInInspector] private static readonly Vector2 hudBaseAnchorPos = new Vector2(-40, 290);
+    [HideInInspector] private int currentPhase;
 
     #endregion
 
@@ -54,7 +55,7 @@ public class BossEnemyController : EnemyController
         base.OnEnable();
 
         EnemyManager.instance.SetOn_BossEnemy(this);
-        CurrentPhase = -1;
+        currentPhase = -1;
     }
 
     #endregion
@@ -65,9 +66,9 @@ public class BossEnemyController : EnemyController
     {
         base.Offset();
 
-        HUD.ThisCanvas.worldCamera = MainGameUIManager.instance.uiCamera;
+        hud.ThisCanvas.worldCamera = MainGameUIManager.instance.uiCamera;
 
-        BossPhaseData = BossPhaseData.OrderByDescending(obj => obj.thisPhaseLimitPercentHP).ToList();
+        bossPhaseData = bossPhaseData.OrderByDescending(obj => obj.thisPhaseLimitPercentHP).ToList();
         Try_PlayNewPatternByPhase();
     }
 
@@ -77,7 +78,7 @@ public class BossEnemyController : EnemyController
 
     public override void Play_Pattern()
     {
-        if (IsDead) return;
+        if (isDead) return;
 
         if (Try_PlayNewPatternByPhase()) return;
 
@@ -98,12 +99,12 @@ public class BossEnemyController : EnemyController
             StartCoroutine(Set_NewPhase(actualCurrentPhase));
             
             // Icon
-            ThisHUDIcon.sprite = ResourceManager.instance.Get_BossPhaseSprite(actualCurrentPhase.thisPhase);
+            hudIcon.sprite = ResourceManager.instance.Get_BossPhaseSprite(actualCurrentPhase.thisPhase);
             
             // Particle
-            for (int i = 0; i < ThisAuraParticleGOList.Count; i++)
+            for (int i = 0; i < auraParticleGoList.Count; i++)
             {
-                ThisAuraParticleGOList[i].gameObject.SetActive(actualCurrentPhase.thisPhase > i);
+                auraParticleGoList[i].gameObject.SetActive(actualCurrentPhase.thisPhase > i);
             }
 
             return true;
@@ -115,27 +116,27 @@ public class BossEnemyController : EnemyController
     private BossPhaseData Get_CurrentPhase()
     {
         float percentHP = Get_PercentHP();
-        for (int i = 0; i < BossPhaseData.Count; i++)
+        for (int i = 0; i < bossPhaseData.Count; i++)
         {
-            if (BossPhaseData[i].thisPhaseLimitPercentHP >= percentHP
-                && BossPhaseData[i].thisPhase != CurrentPhase)
+            if (bossPhaseData[i].thisPhaseLimitPercentHP >= percentHP
+                && bossPhaseData[i].thisPhase != currentPhase)
             {
-                return BossPhaseData[i];
+                return bossPhaseData[i];
             }
         }
         return null;
     }
 
-    private IEnumerator Set_NewPhase(BossPhaseData _Phase)
+    private IEnumerator Set_NewPhase(BossPhaseData phase)
     {
         EndAll_Pattern();
 
-        CurrentPhase = _Phase.thisPhase;
+        currentPhase = phase.thisPhase;
 
-        OrderOfPriorityEnemyPatternList = _Phase.orderOfPriorityEnemyPatternList;
-        SpecialPattern = _Phase.specialPattern;
+        orderOfPriorityEnemyPatternList = phase.orderOfPriorityEnemyPatternList;
+        specialPattern = phase.specialPattern;
 
-        BossPhaseData.RemoveAt(0);
+        bossPhaseData.RemoveAt(0);
 
         yield return new WaitForSeconds(1f);
 
@@ -148,7 +149,7 @@ public class BossEnemyController : EnemyController
 
     public void Set_HUDPanelPos()
     {
-        PanelRT.anchoredPosition = HUDBaseAnchorPos;
+        panelRt.anchoredPosition = hudBaseAnchorPos;
     }
 
     #endregion
@@ -159,9 +160,9 @@ public class BossEnemyController : EnemyController
     {
         base.Set_Die_GenItem();
 
-        if (CoreDropItemPercent.coreItemPercent != 0 && DevTool.Is_ChanceSuccess(CoreDropItemPercent.coreItemPercent))
+        if (coreDropItemPercent.coreItemPercent != 0 && DevTool.Is_ChanceSuccess(coreDropItemPercent.coreItemPercent))
         {
-            Gen_CoreItem(CoreDropItemPercent.coreItemID);
+            Gen_CoreItem(coreDropItemPercent.coreItemID);
         }
     }
 

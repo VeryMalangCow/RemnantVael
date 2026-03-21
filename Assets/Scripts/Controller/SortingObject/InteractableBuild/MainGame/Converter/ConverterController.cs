@@ -40,7 +40,7 @@ public abstract class ConverterController : SortingObjectController
     private void Set_ArtVisual()
     {
         DevTool.Set_Anim(ref AOC, ThisAnimator, EachConverterReso.ac);
-        ThisSR.material = EachConverterReso.material;
+        thisSr.material = EachConverterReso.material;
     }
 
     #endregion

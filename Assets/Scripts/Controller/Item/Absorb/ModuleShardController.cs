@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ModuleShardController : RangeAbsorbItemController
 {
@@ -10,10 +11,10 @@ public class ModuleShardController : RangeAbsorbItemController
 
     [Space(10)]
     [Header("=== State")]
-    [SerializeField] private int ModuleValue = 1;
-    [SerializeField] private TMP_Text AmountTxt;
+    [FormerlySerializedAs("ModuleValue")][SerializeField] private int moduleValue = 1;
+    [FormerlySerializedAs("AmountTxt")][SerializeField] private TMP_Text amountTxt;
 
-    [HideInInspector] private MeshRenderer TxtMR;
+    [HideInInspector] private MeshRenderer mesh;
 
     #endregion
 
@@ -23,30 +24,30 @@ public class ModuleShardController : RangeAbsorbItemController
     {
         base.Offset();
 
-        TxtMR = DevTool.Get_ComponentTType(AmountTxt.gameObject, out MeshRenderer mr) ? mr : null;
+        mesh = DevTool.Get_ComponentTType(amountTxt.gameObject, out MeshRenderer mr) ? mr : null;
     }
 
     #endregion
 
     #region Set
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        base.Set_SortingOrder(_SortingOrder);
+        base.Set_SortingOrder(sortingOrder);
 
-        TxtMR.sortingOrder = _SortingOrder;
+        mesh.sortingOrder = sortingOrder;
     }
 
     #endregion
 
     #region State
 
-    public void Set_State(Vector2 _SpawnPos, int _Value)
+    public void Set_State(Vector2 spawnPos, int value)
     {
-        base.Set_State(_SpawnPos);
+        base.Set_State(spawnPos);
 
-        ModuleValue = _Value;
-        AmountTxt.text = $"(<size=150%>{_Value}</size>)";
+        moduleValue = value;
+        amountTxt.text = $"(<size=150%>{value}</size>)";
 
         gameObject.SetActive(true);
     }
@@ -59,9 +60,9 @@ public class ModuleShardController : RangeAbsorbItemController
     {
         base.Gain_Item();
 
-        IsSpawnNow = false;
+        isSpawnNow = false;
 
-        PlayerManager.instance.playerController.Add_CurrentModuleShard(ModuleValue);
+        PlayerManager.instance.playerController.Add_CurrentModuleShard(moduleValue);
         PoolingManager.instance.moduleShard.Enqueue(this);
     }
 

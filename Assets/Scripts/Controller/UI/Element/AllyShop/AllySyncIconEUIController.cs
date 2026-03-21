@@ -35,7 +35,7 @@ public class AllySyncIconEUIController : ElementUIController
     public override void Offset()
     {
         ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
-        ProgressMaxTxt.text = $"/{AllyController.SyncMax}";
+        ProgressMaxTxt.text = $"/{AllyController.syncMax}";
 
         Set_ConnectUI(false);
         Set_Color();
@@ -54,7 +54,7 @@ public class AllySyncIconEUIController : ElementUIController
         ThisIconImg.sprite = MDC.thisIcon;
         ProgressImg.sprite = MainGameUIManager.instance.allyModuleUpgrade_UIController.Get_SyncProgressSprite(_Amount);
         ProgressTxt.text = _Amount.ToString();
-        float progressing = (float)_Amount / AllyController.SyncMax;
+        float progressing = (float)_Amount / AllyController.syncMax;
         DevTool.Set_AlphaColor(ProgressTxt, progressing);
 
         ThisApplyStateImg.gameObject.SetActive(progressing >= 1 ? true : false);

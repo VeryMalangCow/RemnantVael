@@ -134,7 +134,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
         BulletController bullet = null,
         DroppingBombController droppingBullet = null)
     {
-        ally.BuffController.Get_AllyBuff("Sync005").Gain_Buff();
+        ally.buffController.Get_AllyBuff("Sync005").Gain_Buff();
     }
 
     // 치명타 배수 버프
@@ -143,7 +143,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
         BulletController bullet = null,
         DroppingBombController droppingBullet = null)
     {
-        ally.BuffController.Get_AllyBuff("Sync006").Gain_Buff();
+        ally.buffController.Get_AllyBuff("Sync006").Gain_Buff();
     }
 
     // 기본 공격 적중 => 공속 버프
@@ -152,7 +152,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
         BulletController bullet = null,
         DroppingBombController droppingBullet = null)
     {
-        ally.BuffController.Get_AllyBuff("Sync007").Gain_Buff();
+        ally.buffController.Get_AllyBuff("Sync007").Gain_Buff();
     }
 
     // 공격 일정 시간 하지 않으면 => 공격력 버프
@@ -161,7 +161,7 @@ public class AllySyncManager : Singleton<AllySyncManager>
         BulletController bullet = null,
         DroppingBombController droppingBullet = null)
     {
-        ally.BuffController.Get_AllyBuff("Sync008").Reduce_Buff(10);
+        ally.buffController.Get_AllyBuff("Sync008").Reduce_Buff(10);
     }
 
     #endregion
@@ -176,19 +176,19 @@ public class AllySyncManager : Singleton<AllySyncManager>
             switch (kind)
             {
                 case eStatusEffect.Flame:
-                    enemy.BuffController.flameStack.ReGain_Stack();
+                    enemy.buff.flameStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Cold:
-                    enemy.BuffController.coldStack.ReGain_Stack();
+                    enemy.buff.coldStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Electricity:
-                    enemy.BuffController.electricityStack.ReGain_Stack();
+                    enemy.buff.electricityStack.ReGain_Stack();
                     return;
 
                 case eStatusEffect.Corrosion:
-                    enemy.BuffController.corrosionStack.ReGain_Stack();
+                    enemy.buff.corrosionStack.ReGain_Stack();
                     return;
 
                 default: return;

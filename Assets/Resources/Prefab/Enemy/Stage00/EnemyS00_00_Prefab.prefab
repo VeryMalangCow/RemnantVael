@@ -56,33 +56,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 8753258395414943751}
-  ThisSR: {fileID: 8053559112837824807}
-  TargetRange: 0.6
-  ThisRb: {fileID: 7671391899007426867}
-  AccelerationSpeed: 12
-  IsDead: 0
-  CurrentSP:
+  targetObject: {fileID: 8753258395414943751}
+  thisSr: {fileID: 8053559112837824807}
+  targetRange: 0.6
+  rb: {fileID: 7671391899007426867}
+  accelerationSpeed: 12
+  isDead: 0
+  currentSP:
     value: 0
-  CurrentHP:
+  currentHP:
     value: 0
-  CurrentEP:
+  currentEP:
     value: 0
-  BrokenParticleData:
+  brokenParticleData:
   - sprite: {fileID: -1973428488, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: -425848612, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     shadowSize: {x: 0.3, y: 0.15}
-  ParticleThrowDis: 2
-  ThisSG: {fileID: 2508644275988564770}
-  BuffController: {fileID: 7842396115140642684}
-  ThisEnemyType: 0
-  MaxHP: 250
-  MaxEP: 150
-  ChargeEPSpeed: 15
-  EnemyDropItemPercent:
+  particleThrowDis: 2
+  sg: {fileID: 2508644275988564770}
+  buff: {fileID: 7842396115140642684}
+  enemyType: 0
+  maxHP: 250
+  maxEP: 150
+  chargeEPSpeed: 15
+  enemyDropItemPercent:
     moduleDropPercent: 0.1
     moduleRankPercents: 500000000c000000050000000200000001000000
     keycardDropPercent: 0.05
@@ -101,12 +101,12 @@ MonoBehaviour:
     jouleAmountMinMax:
       typeBase: 1
       typeSpecial: 3
-  HUD: {fileID: 7241037580816432991}
-  LookingSatellite: {fileID: 8800238567124451591}
-  WalkingSatellite: {fileID: 9179056310911047704}
-  PingOffsetVec: {x: 0, y: 0.4}
-  PingSizeVec: {x: 1.5, y: 1.7}
-  OrderOfPriorityEnemyPatternList:
+  hud: {fileID: 7241037580816432991}
+  lookingSatellite: {fileID: 8800238567124451591}
+  walkingSatellite: {fileID: 9179056310911047704}
+  pingOffsetVec: {x: 0, y: 0.4}
+  pingSizeVec: {x: 1.5, y: 1.7}
+  orderOfPriorityEnemyPatternList:
   - enemyPatternList:
     - enemyPatternList:
       - {fileID: 8493327633309841782}
@@ -123,16 +123,16 @@ MonoBehaviour:
   - enemyPatternList:
     - enemyPatternList:
       - {fileID: 8721225703925756054}
-  SpecialPattern:
+  specialPattern:
     enemyPatternList:
     - {fileID: 534347174908003449}
     - {fileID: 6526060448916950425}
     - {fileID: 5273711906912117066}
-  ASQueueSet:
+  audioQueueSet:
     thisParentTF: {fileID: 3500417896389014008}
-  LookAtPoint: {x: 0, y: 0}
-  LookAtDir: {x: 0, y: 0}
-  IsPlayingPattern: 0
+  lookAtPoint: {x: 0, y: 0}
+  lookAtDir: {x: 0, y: 0}
+  isPlayingPattern: 0
 --- !u!114 &7842396115140642684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,21 +314,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8de6a45c3f84ce459bbb0eff180a7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 1
-  StartDelay: 0
-  EndDelay: 0
-  IsSpecialPattern: 1
-  IsSpecialStartPattern: 1
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  FollowingSpeed: 3.5
-  UntilForTargetRange: 1
-  TargetRange: 1.8
-  IgnoreWall: 0
-  UntilForTargetTime: 1
-  TargetTime: 2
-  CurrentTime: 0
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 1
+  startDelay: 0
+  endDelay: 0
+  isSpecialPattern: 1
+  isSpecialStartPattern: 1
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  followingSpeed: 3.5
+  untilForTargetRange: 1
+  targetRange: 1.8
+  ignoreWall: 0
+  untilForTargetTime: 1
+  targetTime: 2
+  currentTime: 0
 --- !u!1 &997554003786454129
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,14 +629,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d193959bd846bc498d6940acd60f441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 1
-  StartDelay: 0
-  EndDelay: 0.5
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 1
+  startDelay: 0
+  endDelay: 0.5
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
 --- !u!1 &2240766930368190909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,21 +1004,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8de6a45c3f84ce459bbb0eff180a7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 1
-  StartDelay: 0
-  EndDelay: 0
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  FollowingSpeed: 2.25
-  UntilForTargetRange: 1
-  TargetRange: 4.5
-  IgnoreWall: 0
-  UntilForTargetTime: 0
-  TargetTime: 2
-  CurrentTime: 0
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 1
+  startDelay: 0
+  endDelay: 0
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  followingSpeed: 2.25
+  untilForTargetRange: 1
+  targetRange: 4.5
+  ignoreWall: 0
+  untilForTargetTime: 0
+  targetTime: 2
+  currentTime: 0
 --- !u!1 &3526138921433487785
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,15 +1063,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d69c1328604bef4ea292eee8a9cbc2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 1
-  StartDelay: 2
-  EndDelay: 1
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  ThisAS:
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 1
+  startDelay: 2
+  endDelay: 1
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  _as:
     ownerData:
       owner: 2
       id: 0
@@ -1085,22 +1085,22 @@ MonoBehaviour:
       canKB: 1
       kbPower: 1.5
       kbTime: 1
-  ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
-  JugeAndTweenTime: 0.5
-  AnimSpeed: 2.6
-  SpawnDis: 0.7
-  EndDis: 1.3
-  AttackSizeVec: {x: 1, y: 1}
-  IsShadowRangeByDepthController: 1
-  LightOn: 1
-  LightSize: 2.3
-  MaxRange: 2
-  MinRange: 0
-  SpawnDepthList:
+  ac: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
+  jugeAndTweenTime: 0.5
+  animSpeed: 2.6
+  spawnDis: 0.7
+  endDis: 1.3
+  attackSizeVec: {x: 1, y: 1}
+  isShadowRangeByDepthController: 1
+  lightOn: 1
+  lightSize: 2.3
+  maxRange: 2
+  minRange: 0
+  spawnDepthList:
   - {fileID: 5281239173370443760}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 5281239173370443760}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!1 &4017528936303083760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1811,21 +1811,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8de6a45c3f84ce459bbb0eff180a7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 1
-  StartDelay: 0
-  EndDelay: 0
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  FollowingSpeed: 2.25
-  UntilForTargetRange: 1
-  TargetRange: 1.8
-  IgnoreWall: 0
-  UntilForTargetTime: 0
-  TargetTime: 2
-  CurrentTime: 0
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 1
+  startDelay: 0
+  endDelay: 0
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  followingSpeed: 2.25
+  untilForTargetRange: 1
+  targetRange: 1.8
+  ignoreWall: 0
+  untilForTargetTime: 0
+  targetTime: 2
+  currentTime: 0
 --- !u!1 &5819020063080878863
 GameObject:
   m_ObjectHideFlags: 0
@@ -1998,15 +1998,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbe35e835cba79449c6846867a03aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 1
-  StartDelay: 0.5
-  EndDelay: 1
-  IsSpecialPattern: 1
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 1
-  IsPlaying: 0
-  ThisBS:
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 1
+  startDelay: 0.5
+  endDelay: 1
+  isSpecialPattern: 1
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 1
+  isPlaying: 0
+  bulletState:
     ownerData:
       owner: 2
       id: 0
@@ -2025,12 +2025,12 @@ MonoBehaviour:
     aliveTime: 3
     isStatus: 0
     statusType: 0
-  BaseAngle: 0
-  BulletShadowScale: {x: 0.32, y: 0.32}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.5
-  TrailStartWidth: 0.2
-  TrailGradient:
+  baseAngle: 0
+  bulletShadowScale: {x: 0.32, y: 0.32}
+  bulletColSize: {x: 2, y: 3}
+  trailTime: 0.5
+  trailStartWidth: 0.2
+  trailGradient:
     serializedVersion: 2
     key0: {r: 0.6528621, g: 0, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -2060,18 +2060,18 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  LightIntensity: 3
-  MaxRange: 0
-  MinRange: 0
-  ShootExplAmount: 4
-  ExplAmount: 4
-  SpawnDepthList:
+  lightIntensity: 3
+  maxRange: 0
+  minRange: 0
+  shootExplAmount: 4
+  explAmount: 4
+  spawnDepthList:
   - {fileID: 3914198638638926053}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 3914198638638926053}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
-  AngleList:
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  bulletAc: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
+  angleList:
   - -10
   - 10
 --- !u!1 &6326363304499726266
@@ -2118,15 +2118,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b39ef2afe1a81c44bbef1e46c886cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 1
-  StartDelay: 1
-  EndDelay: 0.5
-  IsSpecialPattern: 1
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  ThisAS:
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 1
+  startDelay: 1
+  endDelay: 0.5
+  isSpecialPattern: 1
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  _as:
     ownerData:
       owner: 2
       id: 0
@@ -2140,23 +2140,23 @@ MonoBehaviour:
       canKB: 1
       kbPower: 1.5
       kbTime: 1
-  ThisAC: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
-  JugeAndTweenTime: 0.5
-  AnimSpeed: 2.6
-  SpawnDis: 0.7
-  EndDis: 2.5
-  AttackSizeVec: {x: 1, y: 1}
-  IsShadowRangeByDepthController: 1
-  LightOn: 1
-  LightSize: 2.3
-  MaxRange: 2
-  MinRange: 0
-  SpawnDepthList:
+  ac: {fileID: 7400000, guid: ace59be03662dfe4bbf5289c233e27d2, type: 2}
+  jugeAndTweenTime: 0.5
+  animSpeed: 2.6
+  spawnDis: 0.7
+  endDis: 2.5
+  attackSizeVec: {x: 1, y: 1}
+  isShadowRangeByDepthController: 1
+  lightOn: 1
+  lightSize: 2.3
+  maxRange: 2
+  minRange: 0
+  spawnDepthList:
   - {fileID: 5281239173370443760}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 5281239173370443760}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  AngleList:
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  angleList:
   - -45
   - 0
   - 45
@@ -2245,15 +2245,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e621be8eda9ca334da6b1868422ce61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 1
-  StartDelay: 1.25
-  EndDelay: 0.75
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  ThisBS:
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 1
+  startDelay: 1.25
+  endDelay: 0.75
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  bulletState:
     ownerData:
       owner: 2
       id: 0
@@ -2272,12 +2272,12 @@ MonoBehaviour:
     aliveTime: 3
     isStatus: 0
     statusType: 0
-  BaseAngle: 0
-  BulletShadowScale: {x: 0.16, y: 0.16}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.5
-  TrailStartWidth: 0.2
-  TrailGradient:
+  baseAngle: 0
+  bulletShadowScale: {x: 0.16, y: 0.16}
+  bulletColSize: {x: 2, y: 3}
+  trailTime: 0.5
+  trailStartWidth: 0.2
+  trailGradient:
     serializedVersion: 2
     key0: {r: 0.6528621, g: 0, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -2307,17 +2307,17 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  LightIntensity: 3
-  MaxRange: 5
-  MinRange: 3
-  ShootExplAmount: 4
-  ExplAmount: 4
-  SpawnDepthList:
+  lightIntensity: 3
+  maxRange: 5
+  minRange: 3
+  shootExplAmount: 4
+  explAmount: 4
+  spawnDepthList:
   - {fileID: 3914198638638926053}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 3914198638638926053}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  bulletAc: {fileID: 7400000, guid: 7dcfccd98cd28c64a85dcb4afb2f530e, type: 2}
 --- !u!1 &7883656333778619375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2576,6 +2576,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5956502316695661957}
     m_Modifications:
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 848216773187047800}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: EnemyController
       value: 
       objectReference: {fileID: 848216773187047800}
@@ -2701,9 +2705,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 5956502316695661957}
     m_Modifications:
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 7671391899007426867}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: ThisRb
       value: 
       objectReference: {fileID: 7671391899007426867}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: pivotObjSr
+      value: 
+      objectReference: {fileID: 8053559112837824807}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: PivotObjectSR
       value: 

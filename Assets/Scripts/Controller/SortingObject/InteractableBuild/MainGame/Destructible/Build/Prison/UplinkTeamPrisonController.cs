@@ -30,7 +30,7 @@ public class UplinkTeamPrisonController : PrisonController
     {
         base.Set_Unlock();
 
-        PlayerManager.instance.playerController.UplinkTeamPresence.Value += AllyAmount;
+        PlayerManager.instance.playerController.uplinkTeamPresence.Value += AllyAmount;
     }
 
     #endregion

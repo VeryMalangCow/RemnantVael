@@ -45,7 +45,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
     public void Offset_Subscribe()
     {
-        PlayerManager.instance.playerController.CurrentCredit
+        PlayerManager.instance.playerController.currentCredit
             .Subscribe(_Value =>
             {
                 C_CvtMaterialEUI.Set_PossessionAmountTxt(_Value.ToString());
@@ -109,7 +109,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
         PlayerController pc = PlayerManager.instance.playerController;
 
         int currentPossibilityCredit = 
-            Get_Acquisitable_Credit(pc.CurrentCredit.Value);
+            Get_Acquisitable_Credit(pc.currentCredit.Value);
 
         int currentPossibilityEP =
             Get_Acquisitable_EP(pc.Get_CurrentEP().Value - Need_EP);
@@ -129,7 +129,7 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
         int needCredit = AcquisitionBookAmount * Need_Credit;
         C_CvtMaterialEUI.Set_NecessaryAmountTxt(needCredit.ToString());
-        bool canCvtByCredit = needCredit <= pc.CurrentCredit.Value;
+        bool canCvtByCredit = needCredit <= pc.currentCredit.Value;
         C_CvtMaterialEUI.Set_Condition(canCvtByCredit);
 
         float needEP = AcquisitionBookAmount * Need_EP;

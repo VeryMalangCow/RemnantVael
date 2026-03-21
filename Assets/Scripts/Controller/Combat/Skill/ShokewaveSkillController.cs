@@ -51,12 +51,12 @@ public class ShockwaveSkillController : ActiveSkillController
             State_Anim(),
             State_StartTF(),
             State_EndTF(),
-            depthController.TargetRange);
+            depthController.targetRange);
 
         // Æø¹ß
         UnitManager.instance.player_ExplImgGenerator.Expl_Player_Skill1(
             playerController.Get_ID(), 
-            (Vector2)depthController.TargetObject.gameObject.transform.position);
+            (Vector2)depthController.targetObject.gameObject.transform.position);
 
         // ¹öÇÁ
         BuffManager.instance.Gain_Buff(0);
@@ -87,13 +87,13 @@ public class ShockwaveSkillController : ActiveSkillController
                     eCombatOwner.Player),
                 new DmgState(
                     eDamageType.Energy, 
-                    playerController.BaseWeapon.baseDamage.buffedState * power.actualState.Value),
+                    playerController.baseWeapon.baseDamage.buffedState * power.actualState.Value),
                 new CriticalState(
-                    playerController.BaseWeapon.cc.actualState.Value, 
-                    playerController.BaseWeapon.cd.buffedState),
+                    playerController.baseWeapon.cc.actualState.Value, 
+                    playerController.baseWeapon.cd.buffedState),
                 new KnockbackState(
                     true, 
-                    playerController.BaseWeapon.kbPower.actualState.Value * (tier.actualState.Value + 1) * 10f,
+                    playerController.baseWeapon.kbPower.actualState.Value * (tier.actualState.Value + 1) * 10f,
                     0.4f)));
     }
 

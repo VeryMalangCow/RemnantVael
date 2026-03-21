@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DepthController : IDController
 {
@@ -9,11 +10,11 @@ public class DepthController : IDController
 
     [Space(10)]
     [Header("=== Shadow")]
-    [SerializeField] public GameObject TargetObject;
-    [SerializeField] public SpriteRenderer ThisSR;
-    [SerializeField] public float TargetRange = 0.4f;
+    [FormerlySerializedAs("TargetObject")][SerializeField] public GameObject targetObject;
+    [FormerlySerializedAs("ThisSR")][SerializeField] public SpriteRenderer thisSr;
+    [FormerlySerializedAs("TargetRange")][SerializeField] public float targetRange = 0.4f;
 
-    public int CurrentOrder { get; private set; } = int.MinValue;
+    public int currentOrder { get; private set; } = int.MinValue;
 
     #endregion
 
@@ -35,12 +36,12 @@ public class DepthController : IDController
 
     #region Sprite Renderer
 
-    public virtual void Set_SortingOrder(int _SortingOrder)
+    public virtual void Set_SortingOrder(int sortingOrder)
     {
-        if (CurrentOrder == _SortingOrder) return;
+        if (currentOrder == sortingOrder) return;
 
-        CurrentOrder = _SortingOrder;
-        ThisSR.sortingOrder = _SortingOrder;
+        currentOrder = sortingOrder;
+        thisSr.sortingOrder = sortingOrder;
     }
 
     #endregion
@@ -49,12 +50,12 @@ public class DepthController : IDController
 
     protected Vector2 Get_TargetPos()
     {
-        return (Vector2)transform.position + (Vector2.up * TargetRange);
+        return (Vector2)transform.position + (Vector2.up * targetRange);
     }
 
     protected void Set_TargetPos()
     {
-        TargetObject.transform.position = Get_TargetPos();
+        targetObject.transform.position = Get_TargetPos();
     }
 
     #endregion
@@ -63,100 +64,100 @@ public class DepthController : IDController
 
 
     // Bettery Shard
-    protected void Gen_BS(int _Value)
+    protected void Gen_BS(int value)
     {
-        if (_Value <= 0) return;
+        if (value <= 0) return;
 
         PoolingManager.instance.Get_OP_BetteryShard().Set_State(
-            _SpawnPos: gameObject.transform.position, 
-            _Value);
+            spawnPos: gameObject.transform.position, 
+            value);
     }
 
     // Bettery Shard: Random
-    protected void Gen_RandomBS(int _Min, int _Max, int _Value = 1)
+    protected void Gen_RandomBS(int min, int max, int value = 1)
     {
-        if (_Value <= 0) return;
+        if (value <= 0) return;
 
-        int amount = Random.Range(_Min, _Max + 1);
+        int amount = Random.Range(min, max + 1);
 
-        for (int i = 0; i < amount; i++) Gen_BS(_Value);
+        for (int i = 0; i < amount; i++) Gen_BS(value);
     }
 
     // Module Shard
-    protected void Gen_MS(int _Value)
+    protected void Gen_MS(int value)
     {
-        if (_Value <= 0) return;
+        if (value <= 0) return;
 
         PoolingManager.instance.Get_OP_ModuleShard().Set_State(
-            _SpawnPos: gameObject.transform.position, 
-            _Value);
+            spawnPos: gameObject.transform.position, 
+            value);
     }
 
     // Module Shard: Random
-    protected void Gen_RandomMS(int _Min, int _Max, int _Value = 1)
+    protected void Gen_RandomMS(int min, int max, int value = 1)
     {
-        if (_Value <= 0) return;
+        if (value <= 0) return;
 
-        int amount = Random.Range(_Min, _Max + 1);
+        int amount = Random.Range(min, max + 1);
 
-        for (int i = 0; i < amount; i++) Gen_MS(_Value);
+        for (int i = 0; i < amount; i++) Gen_MS(value);
     }
 
     // Joule
-    protected void Gen_J(float _Value)
+    protected void Gen_J(float value)
     {
-        if (_Value <= 0) return;
+        if (value <= 0) return;
 
         PoolingManager.instance.Get_OP_Joule().Set_State(
-            _SpawnPos: gameObject.transform.position, 
-            _Value);
+            spawnPos: gameObject.transform.position, 
+            value);
     }
 
     // Overrider
-    protected void Gen_Overrider(int _Value)
+    protected void Gen_Overrider(int value)
     {
-        if (_Value <= 0) return;
+        if (value <= 0) return;
 
         PoolingManager.instance.Get_OP_Overrider().Set_State(
-            _SpawnPos: gameObject.transform.position,
-            _Value);
+            spawnPos: gameObject.transform.position,
+            value);
     }
 
     // Credit
-    protected void Gen_Credit(int _Value)
+    protected void Gen_Credit(int value)
     {
-        if (_Value <= 0) return;
+        if (value <= 0) return;
 
         PoolingManager.instance.Get_OP_Credit().Set_State(
-            _SpawnPos: gameObject.transform.position,
-            _Value);
+            spawnPos: gameObject.transform.position,
+            value);
     }
 
     // Module Item
-    protected void Gen_ModuleItem(int _Rank)
+    protected void Gen_ModuleItem(int rank)
     {
-        ModuleItemController MIC = PoolingManager.instance.Get_OP_ModuleItem();
-        MIC.transform.SetParent(StageManager.instance.currentRoomController.transform);
-        MIC.Set_State(this.transform.position);
-        MIC.Set_RankState(_Rank);
+        ModuleItemController module = PoolingManager.instance.Get_OP_ModuleItem();
+        module.transform.SetParent(StageManager.instance.currentRoomController.transform);
+        module.Set_State(this.transform.position);
+        module.Set_RankState(rank);
     }
 
     // Keycard Item
-    protected void Gen_KeycardItem(int _ID)
+    protected void Gen_KeycardItem(int id)
     {
-        KeycardItemController KIC = PoolingManager.instance.Get_OP_KeycardItem();
-        KIC.transform.SetParent(StageManager.instance.currentRoomController.transform);
-        KIC.Set_State(this.transform.position);
-        KIC.Set_TypeState(_ID);
+        KeycardItemController keycard = PoolingManager.instance.Get_OP_KeycardItem();
+        keycard.transform.SetParent(StageManager.instance.currentRoomController.transform);
+        keycard.Set_State(this.transform.position);
+        keycard.Set_TypeState(id);
     }
 
     // Core Item
-    protected void Gen_CoreItem(int _ID)
+    protected void Gen_CoreItem(int id)
     {
-        CoreItemController CIC = PoolingManager.instance.Get_OP_CoreItem();
-        CIC.transform.SetParent(StageManager.instance.currentRoomController.transform);
-        CIC.Set_State(this.transform.position);
-        CIC.Set_TypeState(_ID);
+        CoreItemController core = PoolingManager.instance.Get_OP_CoreItem();
+        core.transform.SetParent(StageManager.instance.currentRoomController.transform);
+        core.Set_State(this.transform.position);
+        core.Set_TypeState(id);
     }
 
     #endregion

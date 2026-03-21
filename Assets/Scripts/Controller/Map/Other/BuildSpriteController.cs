@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 // 스테이지 생성 시 적용하는 Build Sprite System
 public class BuildSpriteController : MonoBehaviour
@@ -7,7 +8,7 @@ public class BuildSpriteController : MonoBehaviour
 
     [Space(20)]
     [Header("<><><><><> Build Sprite")]
-    [SerializeField] private string SpriteKey;
+    [FormerlySerializedAs("SpriteKey")][SerializeField] private string spriteKey;
 
     #endregion
 
@@ -17,10 +18,10 @@ public class BuildSpriteController : MonoBehaviour
     {
         if (DevTool.Get_ComponentTType(gameObject, out SpriteRenderer sr))
         {
-            if (SpriteKey == "")
-                SpriteKey = sr.sprite.name.Substring(5, sr.sprite.name.Length - 5);
+            if (spriteKey == "")
+                spriteKey = sr.sprite.name.Substring(5, sr.sprite.name.Length - 5);
 
-            StageManager.instance.Set_CurrentMapSprite(sr, SpriteKey);
+            StageManager.instance.Set_CurrentMapSprite(sr, spriteKey);
         }
     }
 

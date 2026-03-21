@@ -55,7 +55,7 @@ public class MissileSkillController : ActiveSkillController
             BulletState bulletState = Get_CurrentBulletState();
 
             // Dir
-            float angle = playerController.SkillWeapon.PitchTF.localRotation.eulerAngles.y;
+            float angle = playerController.skillWeapon.pitchTf.localRotation.eulerAngles.y;
             Vector2 dir = new Vector2(Mathf.Sin(angle * Mathf.Deg2Rad), Mathf.Cos(angle * Mathf.Deg2Rad));
 
             // State
@@ -65,12 +65,12 @@ public class MissileSkillController : ActiveSkillController
                 state_Size: null, 
                 state_Anim: null,
                 state_Effect: null,
-                depthController.TargetRange);
+                depthController.targetRange);
 
             // Effect Explosion -> Physics DMG
             UnitManager.instance.player_ExplImgGenerator.Expl_Player_Skill0(
                 playerController.Get_ID(),
-                (Vector2)depthController.TargetObject.gameObject.transform.position + (dir * 0.1f),
+                (Vector2)depthController.targetObject.gameObject.transform.position + (dir * 0.1f),
                 dir,
                 bulletState.isCritical);
 
@@ -95,11 +95,11 @@ public class MissileSkillController : ActiveSkillController
         return new BulletState(
             new CombatState(
                 new CombatOwner(eCombatOwner.Player),
-                new DmgState(eDamageType.Physics, playerController.BaseWeapon.baseDamage.buffedState * power.actualState.Value * 1.5f),
-                new CriticalState(playerController.BaseWeapon.cc.actualState.Value, playerController.BaseWeapon.cd.buffedState),
-                new KnockbackState(true, playerController.BaseWeapon.kbPower.actualState.Value * 1.5f, 0.4f)),
+                new DmgState(eDamageType.Physics, playerController.baseWeapon.baseDamage.buffedState * power.actualState.Value * 1.5f),
+                new CriticalState(playerController.baseWeapon.cc.actualState.Value, playerController.baseWeapon.cd.buffedState),
+                new KnockbackState(true, playerController.baseWeapon.kbPower.actualState.Value * 1.5f, 0.4f)),
             checkIsCritical: true, 
-            muzzleSpeed: playerController.BaseWeapon.muzzleSpeed.actualState.Value * 1.5f, 
+            muzzleSpeed: playerController.baseWeapon.muzzleSpeed.actualState.Value * 1.5f, 
             aliveTime: 3.5f);
     }
 

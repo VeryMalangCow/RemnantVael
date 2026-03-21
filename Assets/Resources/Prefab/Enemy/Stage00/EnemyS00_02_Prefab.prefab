@@ -56,33 +56,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 2
-  TargetObject: {fileID: 8603897730151291316}
-  ThisSR: {fileID: 7051792676472209556}
-  TargetRange: 0.6
-  ThisRb: {fileID: 7671391899007426867}
-  AccelerationSpeed: 12
-  IsDead: 0
-  CurrentSP:
+  targetObject: {fileID: 8603897730151291316}
+  thisSr: {fileID: 7051792676472209556}
+  targetRange: 0.6
+  rb: {fileID: 7671391899007426867}
+  accelerationSpeed: 12
+  isDead: 0
+  currentSP:
     value: 0
-  CurrentHP:
+  currentHP:
     value: 0
-  CurrentEP:
+  currentEP:
     value: 0
-  BrokenParticleData:
+  brokenParticleData:
   - sprite: {fileID: -1973428488, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     shadowSize: {x: 0.3, y: 0.15}
   - sprite: {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     shadowSize: {x: 0.3, y: 0.15}
-  ParticleThrowDis: 2
-  ThisSG: {fileID: 8138059332026427226}
-  BuffController: {fileID: 5694203857495159564}
-  ThisEnemyType: 0
-  MaxHP: 150
-  MaxEP: 150
-  ChargeEPSpeed: 10
-  EnemyDropItemPercent:
+  particleThrowDis: 2
+  sg: {fileID: 8138059332026427226}
+  buff: {fileID: 5694203857495159564}
+  enemyType: 0
+  maxHP: 150
+  maxEP: 150
+  chargeEPSpeed: 10
+  enemyDropItemPercent:
     moduleDropPercent: 0.1
     moduleRankPercents: 500000000c000000050000000200000001000000
     keycardDropPercent: 0.05
@@ -101,12 +101,12 @@ MonoBehaviour:
     jouleAmountMinMax:
       typeBase: 1
       typeSpecial: 3
-  HUD: {fileID: 2920926280269970217}
-  LookingSatellite: {fileID: 8376210550337142964}
-  WalkingSatellite: {fileID: 8314429211963477539}
-  PingOffsetVec: {x: 0, y: 0.4}
-  PingSizeVec: {x: 1.5, y: 1.7}
-  OrderOfPriorityEnemyPatternList:
+  hud: {fileID: 2920926280269970217}
+  lookingSatellite: {fileID: 8376210550337142964}
+  walkingSatellite: {fileID: 8314429211963477539}
+  pingOffsetVec: {x: 0, y: 0.4}
+  pingSizeVec: {x: 1.5, y: 1.7}
+  orderOfPriorityEnemyPatternList:
   - enemyPatternList:
     - enemyPatternList:
       - {fileID: 8493327633309841782}
@@ -117,14 +117,14 @@ MonoBehaviour:
   - enemyPatternList:
     - enemyPatternList:
       - {fileID: 8721225703925756054}
-  SpecialPattern:
+  specialPattern:
     enemyPatternList:
     - {fileID: 386546918868841986}
-  ASQueueSet:
+  audioQueueSet:
     thisParentTF: {fileID: 7218355777931535123}
-  LookAtPoint: {x: 0, y: 0}
-  LookAtDir: {x: 0, y: 0}
-  IsPlayingPattern: 0
+  lookAtPoint: {x: 0, y: 0}
+  lookAtDir: {x: 0, y: 0}
+  isPlayingPattern: 0
 --- !u!114 &5694203857495159564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,14 +690,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d193959bd846bc498d6940acd60f441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 1
-  StartDelay: 0
-  EndDelay: 0.5
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 1
+  startDelay: 0
+  endDelay: 0.5
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
 --- !u!1 &2486564893073553752
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,21 +937,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8de6a45c3f84ce459bbb0eff180a7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 1
-  StartDelay: 0
-  EndDelay: 0
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  FollowingSpeed: 2.5
-  UntilForTargetRange: 1
-  TargetRange: 4.8
-  IgnoreWall: 0
-  UntilForTargetTime: 0
-  TargetTime: 2
-  CurrentTime: 0
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 1
+  startDelay: 0
+  endDelay: 0
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  followingSpeed: 2.5
+  untilForTargetRange: 1
+  targetRange: 4.8
+  ignoreWall: 0
+  untilForTargetTime: 0
+  targetTime: 2
+  currentTime: 0
 --- !u!1 &3973442016207255914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,15 +1541,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcbe35e835cba79449c6846867a03aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 3
-  StartDelay: 1
-  EndDelay: 0.2
-  IsSpecialPattern: 1
-  IsSpecialStartPattern: 1
-  IsSpecialEndPattern: 1
-  IsPlaying: 0
-  ThisBS:
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 3
+  startDelay: 1
+  endDelay: 0.2
+  isSpecialPattern: 1
+  isSpecialStartPattern: 1
+  isSpecialEndPattern: 1
+  isPlaying: 0
+  bulletState:
     ownerData:
       owner: 2
       id: 0
@@ -1568,12 +1568,12 @@ MonoBehaviour:
     aliveTime: 6
     isStatus: 0
     statusType: 0
-  BaseAngle: 0
-  BulletShadowScale: {x: 0.32, y: 0.32}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.7
-  TrailStartWidth: 0.4
-  TrailGradient:
+  baseAngle: 0
+  bulletShadowScale: {x: 0.32, y: 0.32}
+  bulletColSize: {x: 2, y: 3}
+  trailTime: 0.7
+  trailStartWidth: 0.4
+  trailGradient:
     serializedVersion: 2
     key0: {r: 0.6528621, g: 0, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -1603,19 +1603,19 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  LightIntensity: 5
-  MaxRange: 0
-  MinRange: 0
-  ShootExplAmount: 8
-  ExplAmount: 8
-  SpawnDepthList:
+  lightIntensity: 5
+  maxRange: 0
+  minRange: 0
+  shootExplAmount: 8
+  explAmount: 8
+  spawnDepthList:
   - {fileID: 848216773187047800}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 5139810350627272259}
   - {fileID: 4056894064819751254}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
-  AngleList:
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  bulletAc: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
+  angleList:
   - -20
   - 0
   - 20
@@ -1919,15 +1919,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e621be8eda9ca334da6b1868422ce61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisEnemy: {fileID: 848216773187047800}
-  RepeatAmount: 1
-  StartDelay: 1.5
-  EndDelay: 0.75
-  IsSpecialPattern: 0
-  IsSpecialStartPattern: 0
-  IsSpecialEndPattern: 0
-  IsPlaying: 0
-  ThisBS:
+  enemy: {fileID: 848216773187047800}
+  repeatAmount: 1
+  startDelay: 1.5
+  endDelay: 0.75
+  isSpecialPattern: 0
+  isSpecialStartPattern: 0
+  isSpecialEndPattern: 0
+  isPlaying: 0
+  bulletState:
     ownerData:
       owner: 2
       id: 0
@@ -1946,12 +1946,12 @@ MonoBehaviour:
     aliveTime: 6
     isStatus: 0
     statusType: 0
-  BaseAngle: 0
-  BulletShadowScale: {x: 0.32, y: 0.32}
-  BulletColSize: {x: 2, y: 3}
-  TrailTime: 0.7
-  TrailStartWidth: 0.4
-  TrailGradient:
+  baseAngle: 0
+  bulletShadowScale: {x: 0.32, y: 0.32}
+  bulletColSize: {x: 2, y: 3}
+  trailTime: 0.7
+  trailStartWidth: 0.4
+  trailGradient:
     serializedVersion: 2
     key0: {r: 0.6528621, g: 0, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 0}
@@ -1981,18 +1981,18 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  LightIntensity: 5
-  MaxRange: 4.5
-  MinRange: 0
-  ShootExplAmount: 8
-  ExplAmount: 8
-  SpawnDepthList:
+  lightIntensity: 5
+  maxRange: 4.5
+  minRange: 0
+  shootExplAmount: 8
+  explAmount: 8
+  spawnDepthList:
   - {fileID: 848216773187047800}
-  BeforeEffectDepthList:
+  beforeEffectDepthList:
   - {fileID: 5139810350627272259}
   - {fileID: 4056894064819751254}
-  BeforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
-  BulletAC: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
+  beforeEffectColor: {r: 1, g: 0, b: 1, a: 1}
+  bulletAc: {fileID: 7400000, guid: 5d7115023a84cfa499e08c082d4d803d, type: 2}
 --- !u!1 &8118620993618137944
 GameObject:
   m_ObjectHideFlags: 0
@@ -2273,9 +2273,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 5956502316695661957}
     m_Modifications:
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 7671391899007426867}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: ThisRb
       value: 
       objectReference: {fileID: 7671391899007426867}
+    - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
+      propertyPath: pivotObjSr
+      value: 
+      objectReference: {fileID: 7051792676472209556}
     - target: {fileID: 307601507185881226, guid: 0ec1a89811cda5a41b4b0e263dd85d92, type: 3}
       propertyPath: PivotObjectSR
       value: 
@@ -2354,9 +2362,45 @@ PrefabInstance:
     m_TransformParent: {fileID: 5956502316695661957}
     m_Modifications:
     - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 848216773187047800}
+    - target: {fileID: 1144256493687416088, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: EnemyController
       value: 
       objectReference: {fileID: 848216773187047800}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[0]
+      value: 
+      objectReference: {fileID: -176571284, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[1]
+      value: 
+      objectReference: {fileID: -802095933, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[2]
+      value: 
+      objectReference: {fileID: -730727061, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[3]
+      value: 
+      objectReference: {fileID: -571167311, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[4]
+      value: 
+      objectReference: {fileID: 1787400998, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[5]
+      value: 
+      objectReference: {fileID: -287199551, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[6]
+      value: 
+      objectReference: {fileID: 2076636446, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
+    - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
+      propertyPath: dirList.Array.data[7]
+      value: 
+      objectReference: {fileID: 1158680992, guid: 999de93e73aa4e0498ec7a64e8433c25, type: 3}
     - target: {fileID: 3739179925259635723, guid: 2624ebe61065a2c4182be26361acf836, type: 3}
       propertyPath: ThisDirectionalList.Array.data[0]
       value: 

@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &577954787020225617
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ce89a0a3f0b3c44b84d4af67ad11a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &870125600698270379
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &1086718478451717809
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &1630828394061080363
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,7 +793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &2331552585480595956
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,7 +968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &2675830449807796936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,20 +1095,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  TargetObject: {fileID: 577954787020225617}
-  ThisSR: {fileID: 4575630143981922311}
-  TargetRange: 0.6
-  NeedKeyCardID: -1
-  KeyCardIconSR: {fileID: 6029059239892482254}
-  NextMapIconSR: {fileID: 6157921451586922772}
-  RoomPosGate: {x: 0, y: 0}
-  GateDir: {x: 0, y: -1}
-  ThisAC: {fileID: 7400000, guid: 1c249b8fb21ab16409ac647a74f9d435, type: 2}
-  ThingsGO:
+  targetObject: {fileID: 577954787020225617}
+  thisSr: {fileID: 4575630143981922311}
+  targetRange: 0.6
+  needKeyCardId: -1
+  keyCardIconSr: {fileID: 6029059239892482254}
+  nextMapIconSr: {fileID: 6157921451586922772}
+  roomPosGate: {x: 0, y: 0}
+  gateDir: {x: 0, y: -1}
+  ac: {fileID: 7400000, guid: 1c249b8fb21ab16409ac647a74f9d435, type: 2}
+  thingsGo:
     typeBase: {fileID: 4707451960379063802}
     typeSpecial: {fileID: 5090730640402052926}
-  EntranceGO: {fileID: 2675830449807796936}
-  OpacityLowerSRList:
+  entranceGo: {fileID: 2675830449807796936}
+  opacityLowerSrList:
   - {fileID: 4575630143981922311}
   - {fileID: 9045924164630193295}
   - {fileID: 4327120763932662890}
@@ -1116,12 +1116,12 @@ MonoBehaviour:
   - {fileID: 75199811120424704}
   - {fileID: 13798087874045123}
   - {fileID: 7691717365146632468}
-  ExtraTargetObject: {fileID: 3675422025115927993}
-  IsOpen: 0
-  SettedPos: 0
-  ThisRoom: {fileID: 0}
-  ParterGate: {fileID: 0}
-  ThisAnimator: {fileID: 2120047030190375404}
+  extraTargetObject: {fileID: 3675422025115927993}
+  isOpen: 0
+  settedPos: 0
+  thisRoom: {fileID: 0}
+  parterGate: {fileID: 0}
+  at: {fileID: 0}
 --- !u!1 &3675422025115927993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,7 +1339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &4322610366680782772
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,7 +1437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &4561529351362090055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1535,7 +1535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &4707451960379063802
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,7 +1908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &6202453863811231011
 GameObject:
   m_ObjectHideFlags: 0
@@ -2006,7 +2006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &6391385022273213740
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,7 +2104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &6689592827279230943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2202,7 +2202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &7056397576924508211
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,7 +2416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &8017570583443491809
 GameObject:
   m_ObjectHideFlags: 0
@@ -2514,7 +2514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7cebd77f2bc06498aa17be15d66c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpriteKey: 
+  spriteKey: 
 --- !u!1 &8435980681157349475
 GameObject:
   m_ObjectHideFlags: 0

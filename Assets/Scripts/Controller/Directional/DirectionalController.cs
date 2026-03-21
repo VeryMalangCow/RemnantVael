@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DirectionalController<T, U> : MonoBehaviour where U : Component
 {
@@ -11,16 +12,16 @@ public class DirectionalController<T, U> : MonoBehaviour where U : Component
 
     [Space(10)]
     [Header("=== TF")]
-    [SerializeField] protected Transform RotationTargetTF;
+    [FormerlySerializedAs("RotationTargetTF")][SerializeField] protected Transform rotTargetTf;
 
     [Space(10)]
     [Header("=== TType, UType")]
-    [SerializeField] public U ThisComp;
-    [SerializeField] protected List<T> ThisDirectionalList;
+    [FormerlySerializedAs("ThisComp")][SerializeField] public U comp;
+    [FormerlySerializedAs("ThisDirectionalList")][SerializeField] protected List<T> dirList;
 
     [Space(10)]
     [Header("=== Value")]
-    [HideInInspector] protected ReactiveProperty<int> CurrentIndex = new();
+    [HideInInspector] protected ReactiveProperty<int> currentIndex = new();
 
 
     #endregion
@@ -29,7 +30,7 @@ public class DirectionalController<T, U> : MonoBehaviour where U : Component
 
     protected virtual void Start()
     {
-        CurrentIndex.Value = 5;
+        currentIndex.Value = 5;
     }
 
     protected virtual void LateUpdate()
@@ -43,10 +44,10 @@ public class DirectionalController<T, U> : MonoBehaviour where U : Component
 
     private void Check_CorrectIndex()
     {
-        int cacualatedIndex = DevTool.Get_Index(RotationTargetTF.localRotation.eulerAngles.y);
-        if (cacualatedIndex != CurrentIndex.Value)
+        int cacualatedIndex = DevTool.Get_Index(rotTargetTf.localRotation.eulerAngles.y);
+        if (cacualatedIndex != currentIndex.Value)
         {
-            CurrentIndex.Value = cacualatedIndex;
+            currentIndex.Value = cacualatedIndex;
         }
     }
 

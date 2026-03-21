@@ -148,7 +148,7 @@ public class PrisonController : InteractableBuildController
         ThisAnimator.speed = 1.5f;
         ThisUpsideAT.speed = 1.5f;
 
-        ThisSR.material = OnOffMaterial.Get_Special(IsOn);
+        thisSr.material = OnOffMaterial.Get_Special(IsOn);
         ThisUpsideSR.material = OnOffMaterial.Get_Special(IsOn);
     }
 

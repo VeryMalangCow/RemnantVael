@@ -1,6 +1,7 @@
 using UniRx;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 public class FieldUnitAllyController : AllyController
 {
@@ -13,33 +14,33 @@ public class FieldUnitAllyController : AllyController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] protected float ForEnemyDis = 1.5f;
+    [FormerlySerializedAs("ForEnemyDis")][SerializeField] protected float forEnemyDis = 1.5f;
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private SortingGroup ThisSG;
-    [SerializeField] private AllySolarController ThisSolar;
-    [SerializeField] protected DirectionalAllyTypeImgController ThisDirImg;
+    [FormerlySerializedAs("ThisSG")][SerializeField] private SortingGroup sg;
+    [FormerlySerializedAs("ThisSolar")][SerializeField] private AllySolarController solar;
+    [FormerlySerializedAs("ThisDirImg")][SerializeField] protected DirectionalAllyTypeImgController dirImg;
 
     [Space(10)]
     [Header("=== Random Pos")]
-    [SerializeField] private float randomPosAreaRadius = 5f;
+    [FormerlySerializedAs("randomPosAreaRadius")][SerializeField] private float randomPosAreaRadius = 5f;
 
     #endregion
 
     #region - Hide
 
     // Movement
-    [HideInInspector] protected float FollowInitDelay = 0.2f;
+    [HideInInspector] protected float followInitDelay = 0.2f;
 
     // For Player
-    [HideInInspector] protected float ForPlayerDis = 2.5f;
-    [HideInInspector] private readonly float NearPlayerDis = 0.5f;
+    [HideInInspector] protected float forPlayerDis = 2.5f;
+    [HideInInspector] private readonly float nearPlayerDis = 0.5f;
 
     // Nav
-    [HideInInspector] private readonly float RandomPosDelay = 5f;
-    [HideInInspector] private float CurrentRandomPosDelay = 5f;
-    [HideInInspector] protected Vector2 RandomPos;
+    [HideInInspector] private readonly float randomPosDelay = 5f;
+    [HideInInspector] private float currentRandomPosDelay = 5f;
+    [HideInInspector] protected Vector2 randomPos;
 
     #endregion
 
@@ -57,10 +58,10 @@ public class FieldUnitAllyController : AllyController
 
     private void Offset_Subscribe()
     {
-        AllyStateMode
+        allyStateMode
             .Subscribe(value =>
             {
-                ThisSolar.Set_AllyStateMode(value);
+                solar.Set_AllyStateMode(value);
             });
     }
 
@@ -100,22 +101,22 @@ public class FieldUnitAllyController : AllyController
 
     #region Random Pos
 
-    private void Caculate_RandomPos(float _DeltaTime)
+    private void Caculate_RandomPos(float deltaTime)
     {
-        if (RandomPosDelay > CurrentRandomPosDelay)
+        if (randomPosDelay > currentRandomPosDelay)
         {
-            CurrentRandomPosDelay += _DeltaTime;
+            currentRandomPosDelay += deltaTime;
         }
         else
         {
-            CurrentRandomPosDelay -= RandomPosDelay;
+            currentRandomPosDelay -= randomPosDelay;
             Set_RandomPos();
         }
     }
 
     private void Set_RandomPos()
     {
-        RandomPos = Get_RandomNavPos(randomPosAreaRadius);
+        randomPos = Get_RandomNavPos(randomPosAreaRadius);
     }
 
     #endregion
@@ -135,22 +136,22 @@ public class FieldUnitAllyController : AllyController
 
     #region Movement
 
-    private void Play_Movement(float _DeltaTime)
+    private void Play_Movement(float deltaTime)
     {
-        Play_Walk(MoveAtDir, ActualAllyState.movementSpeed.value, _DeltaTime);
+        Play_Walk(moveAtDir, actualAllyState.movementSpeed.value, deltaTime);
     }
 
     #endregion
 
     #region State (Enum)
 
-    protected override void Set_AllyStateMode(eAllyStateMode _Mode)
+    protected override void Set_AllyStateMode(eAllyStateMode mode)
     {
-        base.Set_AllyStateMode(_Mode);
+        base.Set_AllyStateMode(mode);
 
-        if (AllyStateMode.Value != _Mode)
+        if (allyStateMode.Value != mode)
         {
-            ThisDirImg.Set_Type(_Mode);
+            dirImg.Set_Type(mode);
         }
     }
 
@@ -162,25 +163,25 @@ public class FieldUnitAllyController : AllyController
     {
         base.Set_AllState();
 
-        FollowInitDelay = 0.4f / ActualAllyState.movementSpeed.value;
+        followInitDelay = 0.4f / actualAllyState.movementSpeed.value;
     }
 
     #endregion
 
     #region Is
 
-    protected bool Is_FollowState(Vector2 _TargetPos, float _Dis, bool _CheckWall)
+    protected bool Is_FollowState(Vector2 targetPos, float dis, bool checkWall)
     {
-        bool disCondition = _Dis < Vector2.Distance(_TargetPos, this.transform.position);
-        bool wallCondition = _CheckWall ? Is_ExistWall(_TargetPos) : false;
+        bool disCondition = dis < Vector2.Distance(targetPos, this.transform.position);
+        bool wallCondition = checkWall ? Is_ExistWall(targetPos) : false;
 
         return disCondition || wallCondition;
     }
 
     protected void Stop_Follow()
     {
-        if (MoveAtDir != Vector2.zero)
-            MoveAtDir = Vector2.zero;
+        if (moveAtDir != Vector2.zero)
+            moveAtDir = Vector2.zero;
     }
 
     #endregion
@@ -198,18 +199,18 @@ public class FieldUnitAllyController : AllyController
     {
         transform.position =
             (Vector2)PlayerManager.instance.playerController.transform.position +
-            (new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized * NearPlayerDis);
+            (new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized * nearPlayerDis);
     }
 
     #endregion
 
     #region Set (Sorting)
 
-    public override void Set_SortingOrder(int _SortingOrder)
+    public override void Set_SortingOrder(int sortingOrder)
     {
-        ThisSG.sortingOrder = _SortingOrder;
+        sg.sortingOrder = sortingOrder;
 
-        HUD.ThisCanvas.sortingOrder = _SortingOrder;
+        hud.ThisCanvas.sortingOrder = sortingOrder;
     }
 
     #endregion
@@ -219,15 +220,15 @@ public class FieldUnitAllyController : AllyController
     // Not Normalize (최적화로 정규화를 하지않는 것이 더 도움이 됨)
     public Vector2 Get_ForPlayerDir()
     {
-        return (Player.transform.position - this.transform.position);
+        return (player.transform.position - this.transform.position);
     }
 
     public Vector2 Get_ForEnemyDir()
     {
-        if (Enemy == null)
+        if (enemy == null)
             return Vector2.down;
 
-        return (Enemy.transform.position - this.transform.position);
+        return (enemy.transform.position - this.transform.position);
     }
 
 

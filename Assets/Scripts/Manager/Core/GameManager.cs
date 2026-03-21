@@ -1088,7 +1088,7 @@ public class DevTool
     {
         for (int i = 0; i < targetList.Count; i++)
         {
-            DevTool.Set_AnimSpeedAndSize(targetList[i].ThisComp, speed, animSize: 1);
+            DevTool.Set_AnimSpeedAndSize(targetList[i].comp, speed, animSize: 1);
         }
     }
 
@@ -1297,7 +1297,7 @@ public class DevTool
     // È­¿°
     public static float Get_FrameDmg(EnemyBuffController buff)
     {
-        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
+        return PlayerManager.instance.playerController.baseWeapon.baseDamage.buffedState
             * 0.01f
             * buff.flameStack.currentStack
             * (buff.infernoStack.currentStack + 1);
@@ -1305,7 +1305,7 @@ public class DevTool
     public static float Get_FlameExplDmg(out eDamageType dmgType)
     {
         dmgType = eDamageType.Physics;
-        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
+        return PlayerManager.instance.playerController.baseWeapon.baseDamage.buffedState
             * 10f;
     }
 
@@ -1314,7 +1314,7 @@ public class DevTool
     public static float Get_ColdExplDmg(out eDamageType dmgType)
     {
         dmgType = eDamageType.Energy;
-        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
+        return PlayerManager.instance.playerController.baseWeapon.baseDamage.buffedState
             * 7.5f;
     }
 
@@ -1322,7 +1322,7 @@ public class DevTool
     // Àü±â
     public static float Get_ElectricityDmg(EnemyBuffController buff)
     {
-        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
+        return PlayerManager.instance.playerController.baseWeapon.baseDamage.buffedState
             * 0.005f
             * buff.electricityStack.currentStack
             * (buff.plasmaStack.currentStack + 1);
@@ -1330,7 +1330,7 @@ public class DevTool
     public static float Get_ElectricityExplDmg(out eDamageType dmgType)
     {
         dmgType = eDamageType.Energy;
-        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
+        return PlayerManager.instance.playerController.baseWeapon.baseDamage.buffedState
             * 7.5f;
     }
 
@@ -1338,7 +1338,7 @@ public class DevTool
     public static float Get_CorrosionExplDmg(out eDamageType dmgType)
     {
         dmgType = eDamageType.Physics;
-        return PlayerManager.instance.playerController.BaseWeapon.baseDamage.buffedState
+        return PlayerManager.instance.playerController.baseWeapon.baseDamage.buffedState
             * 5f;
     }
 
@@ -3118,7 +3118,7 @@ public class AllySyncState005 : AllySyncState, IWhenAlly_CriticalHit
     {
         base.Set_State(ally, id, synergyRank);
 
-        AllyBuff buff = ally.BuffController.Get_AllyBuff("Sync005");
+        AllyBuff buff = ally.buffController.Get_AllyBuff("Sync005");
 
         buff.Set_Value(DevTool.Get_SyncValue(SynchoronyState005.valueList, synergyRank));
         buff.Set_Cooltime(DevTool.Get_SyncValue(SynchoronyState005.cooltimeList, synergyRank));
@@ -3134,7 +3134,7 @@ public class AllySyncState006 : AllySyncState, IWhenAlly_Start
     {
         base.Set_State(ally, id, synergyRank);
 
-        AllyBuff buff = ally.BuffController.Get_AllyBuff("Sync006");
+        AllyBuff buff = ally.buffController.Get_AllyBuff("Sync006");
 
         buff.Set_Value(DevTool.Get_SyncValue(SynchoronyState006.valueList, synergyRank));
 
@@ -3149,7 +3149,7 @@ public class AllySyncState007 : AllySyncState, IWhenAlly_AfterFire
     {
         base.Set_State(ally, id, synergyRank);
 
-        AllyBuff buff = ally.BuffController.Get_AllyBuff("Sync007");
+        AllyBuff buff = ally.buffController.Get_AllyBuff("Sync007");
 
         buff.Set_Value(DevTool.Get_SyncValue(SynchoronyState007.valueList, synergyRank));
         buff.Set_MaxAmount(DevTool.Get_SyncValue(SynchoronyState007.maxChargeList, synergyRank));
@@ -3167,7 +3167,7 @@ public class AllySyncState008 : AllySyncState, IWhenAlly_Hit
     {
         base.Set_State(ally, id, synergyRank);
 
-        AllyBuff buff = ally.BuffController.Get_AllyBuff("Sync008");
+        AllyBuff buff = ally.buffController.Get_AllyBuff("Sync008");
 
         buff.Set_Value(DevTool.Get_SyncValue(SynchoronyState008.valueList, synergyRank));
         buff.Set_MaxAmount(DevTool.Get_SyncValue(SynchoronyState008.maxChargeList, synergyRank));
@@ -3244,11 +3244,11 @@ public class AllyBuff : OriginalAllyBuff
         currentCooltime = 0;
         actualBuffValue.value = 0;
 
-        ally.BuffController.buffingState.Add_List(this, type);
+        ally.buffController.buffingState.Add_List(this, type);
         Set_OnOff(true);
         Set_AlwaysShowUI(showAlwaysOnOff); 
 
-        ally.BuffController.buffingState.Set_BuffedAllyState();
+        ally.buffController.buffingState.Set_BuffedAllyState();
         ally.Set_AllState();
     }
 
@@ -3258,11 +3258,11 @@ public class AllyBuff : OriginalAllyBuff
         currentCooltime = 0;
         actualBuffValue.value = 0;
 
-        ally.BuffController.buffingState.Remove_List(this, type);
+        ally.buffController.buffingState.Remove_List(this, type);
         Set_OnOff(false);
         Set_AlwaysShowUI(false); 
 
-        ally.BuffController.buffingState.Set_BuffedAllyState();
+        ally.buffController.buffingState.Set_BuffedAllyState();
         ally.Set_AllState();
     }
 
@@ -3274,7 +3274,7 @@ public class AllyBuff : OriginalAllyBuff
 
         if (!isOn && buffIconUI != null) // ²¨Áü
         {
-            ally.HUD.TemporaryBuffUI.Remove_BuffIconUI(buffIconUI);
+            ally.hud.TemporaryBuffUI.Remove_BuffIconUI(buffIconUI);
             buffIconUI = null;
         }
     }
@@ -3287,7 +3287,7 @@ public class AllyBuff : OriginalAllyBuff
 
         if (isAlwaysShowUI) // Ç×»ó ÄÑÁü
         {
-            buffIconUI = ally.HUD.TemporaryBuffUI.Get_BuffIconUI();
+            buffIconUI = ally.hud.TemporaryBuffUI.Get_BuffIconUI();
             buffIconUI.SetOn(iconSprite, isAlwaysShowUI ? true : !(buffAmount == 0));
         }
     }
@@ -3315,7 +3315,7 @@ public class AllyBuff : OriginalAllyBuff
 
     public void SetAndGain_Buff(int stack = 1)
     {
-        ally.BuffController.buffingState.Add_List(this, type);
+        ally.buffController.buffingState.Add_List(this, type);
         Set_OnOff(true);
         Set_AlwaysShowUI(false);
         Gain_Buff(stack);
@@ -3328,13 +3328,13 @@ public class AllyBuff : OriginalAllyBuff
         // ui first
         if (buffIconUI == null)
         {
-            buffIconUI = ally.HUD.TemporaryBuffUI.Get_BuffIconUI();
+            buffIconUI = ally.hud.TemporaryBuffUI.Get_BuffIconUI();
         }
 
         // value
         buffAmount = Mathf.Min(buffAmount + stack, buffMaxAmount);
         Set_Value();
-        ally.BuffController.buffingState.Set_BuffedAllyState();
+        ally.buffController.buffingState.Set_BuffedAllyState();
         ally.Set_AllState();
 
         if (!isIncrease) currentCooltime = 0;
@@ -3348,7 +3348,7 @@ public class AllyBuff : OriginalAllyBuff
         // value
         buffAmount = Mathf.Max(buffAmount - stack, 0);
         Set_Value();
-        ally.BuffController.buffingState.Set_BuffedAllyState();
+        ally.buffController.buffingState.Set_BuffedAllyState();
         ally.Set_AllState();
 
         if (isIncrease) currentCooltime = 0;
@@ -3359,7 +3359,7 @@ public class AllyBuff : OriginalAllyBuff
         // ui last
         if (buffAmount == 0 && !isAlwaysShowUI && buffIconUI != null)
         {
-            ally.HUD.TemporaryBuffUI.Remove_BuffIconUI(buffIconUI);
+            ally.hud.TemporaryBuffUI.Remove_BuffIconUI(buffIconUI);
             buffIconUI = null;
         }
     }
@@ -3590,7 +3590,7 @@ public class StatusEffect_Temporary : StatusEffect
     {
         if (buffIconUI == null)
         {
-            buffIconUI = enemy.HUD.TemporaryBuffUI.Get_BuffIconUI();
+            buffIconUI = enemy.hud.TemporaryBuffUI.Get_BuffIconUI();
             buffIconUI.SetOn(iconSprite, showTxt);
         }
         isOn = true;
@@ -3601,7 +3601,7 @@ public class StatusEffect_Temporary : StatusEffect
     {
         if (buffIconUI != null)
         {
-            enemy.HUD.TemporaryBuffUI.Remove_BuffIconUI(buffIconUI);
+            enemy.hud.TemporaryBuffUI.Remove_BuffIconUI(buffIconUI);
             buffIconUI = null;
         }
 
@@ -3914,7 +3914,7 @@ public class StatusEffect_Permanent : StatusEffect
     {
         if (buffIconUI == null)
         {
-            buffIconUI = enemy.HUD.PermanentBuffUI.Get_BuffIconUI();
+            buffIconUI = enemy.hud.PermanentBuffUI.Get_BuffIconUI();
             buffIconUI.SetOn(iconSprite, showTxt);
         }
         isOn = true;
@@ -3925,7 +3925,7 @@ public class StatusEffect_Permanent : StatusEffect
     {
         if (buffIconUI != null)
         {
-            enemy.HUD.PermanentBuffUI.Remove_BuffIconUI(buffIconUI);
+            enemy.hud.PermanentBuffUI.Remove_BuffIconUI(buffIconUI);
             buffIconUI = null;
         }
 
@@ -4871,8 +4871,8 @@ public abstract class AllyRequest
 
         Set_IWhenAdd();
 
-        this.ally.HUD.RequestUI.Set_Request_CompleteProgress(0);
-        this.ally.HUD.RequestUI.Set_Request_FailProgress(0);
+        this.ally.hud.RequestUI.Set_Request_CompleteProgress(0);
+        this.ally.hud.RequestUI.Set_Request_FailProgress(0);
     }
 
     #endregion
@@ -4923,7 +4923,7 @@ public abstract class AllyRequest
     protected virtual void Inc_CompleteProgress()
     {
         completeProgress = Mathf.Min(completeProgress + gainCompleteOnceProgress, maxCompleteProgress);
-        ally.HUD.RequestUI.Set_Request_CompleteProgress(completeProgress / maxCompleteProgress);
+        ally.hud.RequestUI.Set_Request_CompleteProgress(completeProgress / maxCompleteProgress);
 
         if (completeProgress >= maxCompleteProgress) Complete();
     }
@@ -4931,7 +4931,7 @@ public abstract class AllyRequest
     protected virtual void Inc_FailProgress()
     {
         failProgress = Mathf.Min(failProgress + gainFailOnceProgress, maxFailProgress);
-        ally.HUD.RequestUI.Set_Request_FailProgress(failProgress / maxFailProgress);
+        ally.hud.RequestUI.Set_Request_FailProgress(failProgress / maxFailProgress);
 
         if (failProgress >= maxFailProgress) Fail();
     }
@@ -5029,8 +5029,8 @@ public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, I
         maxFailProgress = 6 - rank; // ½ÇÆÐ ÇÇ°Ý ¼ö
         gainFailOnceProgress = 1; 
         
-        ally.HUD.RequestUI.Set_Request_CompleteTxt(0, $"{completeProgress}/{maxCompleteProgress}");
-        ally.HUD.RequestUI.Set_Request_FailTxt(0, $"{failProgress}/{maxFailProgress}");
+        ally.hud.RequestUI.Set_Request_CompleteTxt(0, $"{completeProgress}/{maxCompleteProgress}");
+        ally.hud.RequestUI.Set_Request_FailTxt(0, $"{failProgress}/{maxFailProgress}");
     }
 
     #endregion
@@ -5056,7 +5056,7 @@ public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, I
         base.Inc_CompleteProgress();
 
         if (!ally) return;
-        ally.HUD.RequestUI.Set_Request_CompleteTxt(completeProgress / maxCompleteProgress, $"{completeProgress}/{maxCompleteProgress}");
+        ally.hud.RequestUI.Set_Request_CompleteTxt(completeProgress / maxCompleteProgress, $"{completeProgress}/{maxCompleteProgress}");
     }
 
     protected override void Inc_FailProgress()
@@ -5064,7 +5064,7 @@ public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, I
         base.Inc_FailProgress();
 
         if (!ally) return;
-        ally.HUD.RequestUI.Set_Request_FailTxt(failProgress / maxFailProgress, $"{failProgress}/{maxFailProgress}");
+        ally.hud.RequestUI.Set_Request_FailTxt(failProgress / maxFailProgress, $"{failProgress}/{maxFailProgress}");
     }
 
     #endregion
@@ -5106,8 +5106,8 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
         maxFailProgress = 8 - rank; // ½ÇÆÐ ÇÇ°Ý ¼ö
         gainFailOnceProgress = 1;
 
-        base.ally.HUD.RequestUI.Set_Request_CompleteTxt(0, $"{completeProgress}/{maxCompleteProgress}");
-        base.ally.HUD.RequestUI.Set_Request_FailTxt(0, $"{failProgress}/{maxFailProgress}");
+        base.ally.hud.RequestUI.Set_Request_CompleteTxt(0, $"{completeProgress}/{maxCompleteProgress}");
+        base.ally.hud.RequestUI.Set_Request_FailTxt(0, $"{failProgress}/{maxFailProgress}");
     }
 
     #endregion
@@ -5130,14 +5130,14 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
 
     protected override void Inc_CompleteProgress()
     {
-        ally.HUD.RequestUI.Set_Request_CompleteTxt(completeProgress / maxCompleteProgress, $"{completeProgress}/{maxCompleteProgress}");
+        ally.hud.RequestUI.Set_Request_CompleteTxt(completeProgress / maxCompleteProgress, $"{completeProgress}/{maxCompleteProgress}");
 
         base.Inc_CompleteProgress();
     }
 
     protected override void Inc_FailProgress()
     {
-        ally.HUD.RequestUI.Set_Request_FailTxt(failProgress / maxFailProgress, $"{failProgress}/{maxFailProgress}");
+        ally.hud.RequestUI.Set_Request_FailTxt(failProgress / maxFailProgress, $"{failProgress}/{maxFailProgress}");
 
         base.Inc_FailProgress();
     }

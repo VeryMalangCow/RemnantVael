@@ -34,7 +34,7 @@ public class PlayerBulletController : BulletController
     {
         base.SetOn_Light();
 
-        light2d.lightCookieSprite = ThisSR.sprite;
+        light2d.lightCookieSprite = thisSr.sprite;
         if (lightIsApplyPlayerState)
         {
             light2d.color = PlayerManager.instance.playerController.Get_CorrectColor(this.state.dmgState.dmgType, this.state.isCritical);
@@ -70,7 +70,7 @@ public class PlayerBulletController : BulletController
         base.Set_State_Base(bulletState, targetRange);
 
         // 알맞는 이미지
-        ThisSR.sprite = bulletSprite.Get_CorrectType(bulletState.dmgState.dmgType).Get_Special(bulletState.isCritical);
+        thisSr.sprite = bulletSprite.Get_CorrectType(bulletState.dmgState.dmgType).Get_Special(bulletState.isCritical);
     }
 
     #endregion
@@ -89,9 +89,9 @@ public class PlayerBulletController : BulletController
         if (DevTool.Can_Collding(col, "Enemy", out EnemyController ec))
         {
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Circle(
-                TargetObject.transform.position, transform.rotation);
+                targetObject.transform.position, transform.rotation);
             UnitManager.instance.onceTime_AnimGenerator.Anim_Attacked_Slice(
-                TargetObject.transform.position, state.isCritical, transform.rotation);
+                targetObject.transform.position, state.isCritical, transform.rotation);
 
             PlayerManager.instance.cameraController.Play_HitEnemyAnim();
             ec.Try_Hitted(this);
@@ -108,9 +108,9 @@ public class PlayerBulletController : BulletController
         {
             case "PlayerBullet": // 기본탄
                 UnitManager.instance.onceTime_AnimGenerator.Anim_AttackSuccess(
-                    TargetObject.transform.position, state.dmgState.dmgType, state.isCritical, 1.0f);
+                    targetObject.transform.position, state.dmgState.dmgType, state.isCritical, 1.0f);
                 UnitManager.instance.player_ExplImgGenerator.Expl_Player_ObjectDestroy(
-                    PlayerManager.instance.playerController.Get_ID(), TargetObject.transform.position, state.dmgState.dmgType, state.isCritical);
+                    PlayerManager.instance.playerController.Get_ID(), targetObject.transform.position, state.dmgState.dmgType, state.isCritical);
                 break;
 
             case "MI_000_Bullet": // 에너지 유도탄
