@@ -1,6 +1,7 @@
 using System.Collections;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class OriginCoreCvtUIController : ConverterUIController
 {
@@ -13,17 +14,17 @@ public class OriginCoreCvtUIController : ConverterUIController
 
     [Space(10)]
     [Header("=== EUI")]
-    [SerializeField] private CvtMaterialEUIController CB_CvtMaterialEUI;
-    [SerializeField] private CvtMaterialEUIController C_CvtMaterialEUI;
-    [SerializeField] private CvtMaterialEUIController EtherC_CvtMaterialEUI;
+    [FormerlySerializedAs("CB_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController cbCvtMaterialEui;
+    [FormerlySerializedAs("C_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController cCvtMaterialEui;
+    [FormerlySerializedAs("EtherC_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController etherCvtMaterialEui;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private static int Need_ChargedBettery = 20;
-    [HideInInspector] private static int Need_Credit = 120;
-    [HideInInspector] private static int Need_EtherC = 5;
+    [HideInInspector] private static int need_ChargedBettery = 20;
+    [HideInInspector] private static int need_Credit = 120;
+    [HideInInspector] private static int need_EtherC = 5;
 
     #endregion
 
@@ -41,9 +42,9 @@ public class OriginCoreCvtUIController : ConverterUIController
 
     public void Offset_EUI()
     {
-        CB_CvtMaterialEUI.Offset();
-        C_CvtMaterialEUI.Offset();
-        EtherC_CvtMaterialEUI.Offset();
+        cbCvtMaterialEui.Offset();
+        cCvtMaterialEui.Offset();
+        etherCvtMaterialEui.Offset();
     }
 
     public void Offset_Subscribe()
@@ -51,13 +52,13 @@ public class OriginCoreCvtUIController : ConverterUIController
         PlayerManager.instance.playerController.currentChargedBettery
             .Subscribe(_Value =>
             {
-                CB_CvtMaterialEUI.Set_PossessionAmountTxt(_Value.ToString());
+                cbCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
             });
 
         PlayerManager.instance.playerController.currentCredit
             .Subscribe(_Value =>
             {
-                C_CvtMaterialEUI.Set_PossessionAmountTxt(_Value.ToString());
+                cCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
             });
     }
 
@@ -70,13 +71,13 @@ public class OriginCoreCvtUIController : ConverterUIController
         base.Set_LanguageTxt();
 
         // Label
-        LabelName = ResourceManager.instance.Get_StaticWord(120) + " " +
+        labelName = ResourceManager.instance.Get_StaticWord(120) + " " +
             ResourceManager.instance.Get_StaticWord(125);
-        LabelTxt.text = LabelName;
+        labelTxt.text = labelName;
 
-        CB_CvtMaterialEUI.Set_Language();
-        C_CvtMaterialEUI.Set_Language();
-        EtherC_CvtMaterialEUI.Set_Language();
+        cbCvtMaterialEui.Set_Language();
+        cCvtMaterialEui.Set_Language();
+        etherCvtMaterialEui.Set_Language();
     }
 
     #endregion
@@ -84,34 +85,34 @@ public class OriginCoreCvtUIController : ConverterUIController
     #region Acquisition
 
     // 크레딧으로 생성가능한 최대 수
-    private int Get_Acquisitable_Credit(int _CurrentCredit)
+    private int Get_Acquisitable_Credit(int currentCredit)
     {
         int result = 0;
-        if (_CurrentCredit > 0)
+        if (currentCredit > 0)
         {
-            result = _CurrentCredit / Need_Credit;
+            result = currentCredit / need_Credit;
         }
         return result;
     }
 
     // CB으로 생성가능한 최대 수
-    private int Get_Acquisitable_ChargedBettery(int _CurrentCB)
+    private int Get_Acquisitable_ChargedBettery(int currentCB)
     {
         int result = 0;
-        if (_CurrentCB > 0)
+        if (currentCB > 0)
         {
-            result = _CurrentCB / Need_ChargedBettery;
+            result = currentCB / need_ChargedBettery;
         }
         return result;
     }
 
     // EtherC으로 생성가능한 최대 수
-    private int Get_Acquisitable_EtherC(int _CurrentEtherC)
+    private int Get_Acquisitable_EtherC(int currentEtherC)
     {
         int result = 0;
-        if (_CurrentEtherC > 0)
+        if (currentEtherC > 0)
         {
-            result = _CurrentEtherC / Need_EtherC;
+            result = currentEtherC / need_EtherC;
         }
         return result;
     }
@@ -138,37 +139,37 @@ public class OriginCoreCvtUIController : ConverterUIController
     }
 
     // 세팅
-    protected override void Set_AcquBookAmount(int _Amount)
+    protected override void Set_AcquBookAmount(int amount)
     {
-        base.Set_AcquBookAmount(_Amount);
+        base.Set_AcquBookAmount(amount);
 
         // Data
         PlayerController pc = PlayerManager.instance.playerController;
         Debug.Assert(pc, "Player is Null");
 
-        int needCredit = AcquisitionBookAmount * Need_Credit;
-        C_CvtMaterialEUI.Set_NecessaryAmountTxt(needCredit.ToString());
+        int needCredit = acquisitionBookAmount * need_Credit;
+        cCvtMaterialEui.Set_NecessaryAmountTxt(needCredit.ToString());
         bool canCvtByCredit = needCredit <= pc.currentCredit.Value;
-        C_CvtMaterialEUI.Set_Condition(canCvtByCredit);
+        cCvtMaterialEui.Set_Condition(canCvtByCredit);
 
-        float needCB = AcquisitionBookAmount * Need_ChargedBettery;
-        CB_CvtMaterialEUI.Set_NecessaryAmountTxt(needCB.ToString());
+        float needCB = acquisitionBookAmount * need_ChargedBettery;
+        cbCvtMaterialEui.Set_NecessaryAmountTxt(needCB.ToString());
         bool canCvtByCB = needCB <= (pc.currentChargedBettery.Value);
-        CB_CvtMaterialEUI.Set_Condition(canCvtByCB);
+        cbCvtMaterialEui.Set_Condition(canCvtByCB);
 
-        float needEtherC = AcquisitionBookAmount * Need_EtherC;
-        EtherC_CvtMaterialEUI.Set_NecessaryAmountTxt(needEtherC.ToString());
+        float needEtherC = acquisitionBookAmount * need_EtherC;
+        etherCvtMaterialEui.Set_NecessaryAmountTxt(needEtherC.ToString());
         bool canCvtByEtherC = needEtherC <= (SaveDataManager.instance.jsonData.Get_ItemAmount(2));
-        EtherC_CvtMaterialEUI.Set_Condition(canCvtByEtherC);
+        etherCvtMaterialEui.Set_Condition(canCvtByEtherC);
 
-        CanConvert = canCvtByCredit && canCvtByCB && canCvtByEtherC;
-        CvtAcquisitionEUI.Set_AbleConvertVisual(CanConvert);
+        canConvert = canCvtByCredit && canCvtByCB && canCvtByEtherC;
+        cvtAcquisitionEui.Set_AbleConvertVisual(canConvert);
     }
 
     // 이미 가진 아이템
     private void Set_AcquAmount_Core()
     {
-        EtherC_CvtMaterialEUI.Set_PossessionAmountTxt(
+        etherCvtMaterialEui.Set_PossessionAmountTxt(
             SaveDataManager.instance.jsonData.Get_ItemAmount(2).ToString());
     }
 
@@ -182,13 +183,13 @@ public class OriginCoreCvtUIController : ConverterUIController
 
         // Lost
         PlayerController pc = PlayerManager.instance.playerController;
-        pc.Add_CurrentCredit(-(AcquisitionBookAmount * Need_Credit));
-        pc.Use_ChargedBettery(AcquisitionBookAmount * Need_ChargedBettery);
-        SaveDataManager.instance.jsonData.Use_Item(2, AcquisitionBookAmount * Need_EtherC);
+        pc.Add_CurrentCredit(-(acquisitionBookAmount * need_Credit));
+        pc.Use_ChargedBettery(acquisitionBookAmount * need_ChargedBettery);
+        SaveDataManager.instance.jsonData.Use_Item(2, acquisitionBookAmount * need_EtherC);
 
         Set_AcquAmount_Core();
-        Set_AcquAmount(AcquisitionItemID);
-        Set_AcquBookAmount(AcquisitionBookAmount);
+        Set_AcquAmount(acquisitionItemId);
+        Set_AcquBookAmount(acquisitionBookAmount);
     }
 
     #endregion
@@ -210,9 +211,9 @@ public class OriginCoreCvtUIController : ConverterUIController
     {
         base.Play_Failure();
 
-        CB_CvtMaterialEUI.Play_Failure();
-        C_CvtMaterialEUI.Play_Failure();
-        EtherC_CvtMaterialEUI.Play_Failure();
+        cbCvtMaterialEui.Play_Failure();
+        cCvtMaterialEui.Play_Failure();
+        etherCvtMaterialEui.Play_Failure();
     }
 
     protected override void Play_Convert()
@@ -226,9 +227,9 @@ public class OriginCoreCvtUIController : ConverterUIController
     {
         yield return new WaitForSeconds(2.1f);
 
-        CB_CvtMaterialEUI.Play_Convert();
-        C_CvtMaterialEUI.Play_Convert();
-        EtherC_CvtMaterialEUI.Play_Convert();
+        cbCvtMaterialEui.Play_Convert();
+        cCvtMaterialEui.Play_Convert();
+        etherCvtMaterialEui.Play_Convert();
     }
 
     #endregion

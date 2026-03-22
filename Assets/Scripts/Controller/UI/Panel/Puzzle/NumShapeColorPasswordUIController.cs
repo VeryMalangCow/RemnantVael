@@ -201,7 +201,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     private bool Is_Interact_Roll(bool _RollDown)
     {
-        if (!(CurrentBtn is NSCRollCellEUIController rollCellEUI) ||
+        if (!(currentBtn is NSCRollCellEUIController rollCellEUI) ||
             rollCellEUI != SelectingRollCellEUI || 
             !IsInteractable)
             return false;

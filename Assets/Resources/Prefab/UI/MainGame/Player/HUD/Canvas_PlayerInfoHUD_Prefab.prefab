@@ -1549,97 +1549,97 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26ad4b0a5f9bde459377eaeba2f3dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTabInteracted:
+  isTabInteracted:
     value: 0
-  IsTabInputed: 0
-  TabInputedCurrentTime: 0
-  ParentCGList:
+  isTabInputed: 0
+  tabInputedCurrentTime: 0
+  parentCgList:
   - {fileID: 3383470602087839935}
   - {fileID: 8723050172319797383}
   - {fileID: 3851377854305249297}
-  ModuleListParentRT: {fileID: 6866135404813121405}
-  PlayerStatesCostParentRT: {fileID: 4269271593564062396}
-  PlayerStatesTxt: {fileID: 3617273957325662186}
-  AllyStateParentRT: {fileID: 2715007312849443003}
-  AllyHUDList: []
-  SkillStatesParentRT: {fileID: 1385053788538676597}
-  SkillStatesTxtList:
+  moduleListParentRt: {fileID: 6866135404813121405}
+  playerStatesCostParentRt: {fileID: 4269271593564062396}
+  playerStatesTxt: {fileID: 3617273957325662186}
+  allyStateParentRt: {fileID: 2715007312849443003}
+  allyHudList: []
+  skillStatesParentRt: {fileID: 1385053788538676597}
+  skillStatesTxtList:
   - {fileID: 2755460243852799943}
   - {fileID: 3923635002137579534}
-  EP: {fileID: 1917655584091259891}
-  EPInnerImgList:
+  epEui: {fileID: 1917655584091259891}
+  epInnerImgList:
   - {fileID: 6133692497445316578}
   - {fileID: 8553696498197915088}
-  EP_FlowRT: {fileID: 2459855897399785126}
-  ShieldRT: {fileID: 6646856763191823872}
-  ShieldTxt: {fileID: 5439995530070464637}
-  CurrentEmptyBC: {fileID: 8113700641799838488}
-  EmptyBC: {fileID: 7950466758618405576}
-  FullEC: {fileID: 7898422160120334344}
-  ECCostArrowImg: {fileID: 7435407642188480038}
-  ECCostTxt: {fileID: 2837058665085975527}
-  Credit_EUI: {fileID: 5533674175362114234}
-  Overrider_EUI: {fileID: 1760467274811034964}
-  MS_EUI: {fileID: 7586216400434860101}
-  BoostRT: {fileID: 4872085171034629983}
-  BoostLv: {fileID: 7467636241659711324}
-  BoostLightArr:
+  epFlowRt: {fileID: 2459855897399785126}
+  shieldRt: {fileID: 6646856763191823872}
+  shieldTxt: {fileID: 5439995530070464637}
+  currentEmptyBc: {fileID: 8113700641799838488}
+  emptyBc: {fileID: 7950466758618405576}
+  fullEc: {fileID: 7898422160120334344}
+  ecCostArrowImg: {fileID: 7435407642188480038}
+  ecCostTxt: {fileID: 2837058665085975527}
+  creditEui: {fileID: 5533674175362114234}
+  overriderEui: {fileID: 1760467274811034964}
+  msEui: {fileID: 7586216400434860101}
+  boostRt: {fileID: 4872085171034629983}
+  boostLv: {fileID: 7467636241659711324}
+  boostLightArr:
   - {fileID: 5850375813451289335}
   - {fileID: 1391628305360205064}
   - {fileID: 7175801446876588580}
   - {fileID: 8567006725828640012}
-  BoostLightWheelArr:
+  boostLightWheelArr:
   - {fileID: 2935025476127937750}
   - {fileID: 3411416180767710297}
   - {fileID: 7820053325256164587}
   - {fileID: 8130657803457885099}
-  BoostInnerList:
+  boostInnerList:
   - {fileID: 3693445681594933348}
   - {fileID: 729492017449911674}
-  SkillList:
+  skillList:
   - {fileID: 4590165791962585503}
   - {fileID: 8188721449371599616}
-  ThisMinimap: {fileID: 471114568770305855}
-  StageIcon: {fileID: 3746112966783660963}
-  StageNameTxt: {fileID: 5960946144650662593}
-  StageDescriptionTxt: {fileID: 2857584832196091881}
-  InteractOnOffTxt: {fileID: 9083067594779922199}
-  InteractDesctiptionTxt: {fileID: 8599301943791834945}
-  InnerImg: {fileID: 3416292246575564649}
-  UsingInnerImg: {fileID: 4808572730684018350}
-  UninteractableColor: {r: 0.631546, g: 0.366901, b: 0.9150943, a: 1}
-  ST_AllyPresence: {fileID: 6139482057908390380}
-  UT_AllyPresence: {fileID: 756876620527773498}
-  NT_AllyPresence: {fileID: 8264240130154185167}
-  AllyReputationImg: {fileID: 3153759044927336222}
-  AllyReputationTxt: {fileID: 4969708907142111734}
-  BuffParentTF: {fileID: 18835087208111151}
-  AllBuffIconUI: []
-  BuffUI_XInterval: 12
-  HittedScreen: {fileID: 3820580032997314620}
-  HittedInfoPivotTF: {fileID: 8269415341345415050}
-  HittedInfoRT: {fileID: 5555123467117030817}
-  HittedDmgTxt: {fileID: 7469076975569468404}
-  PaneltyAnnoCG: {fileID: 5731532277702637715}
-  PaneltyAnnoNameTxt: {fileID: 5755758642648652184}
-  PaneltyAnnoDescTxt: {fileID: 5832526810655269550}
-  KeyItemVFXImg: {fileID: 2359979699673777947}
-  KeyItemImgList:
+  minimapEui: {fileID: 471114568770305855}
+  stageIcon: {fileID: 3746112966783660963}
+  stageNameTxt: {fileID: 5960946144650662593}
+  stageDescTxt: {fileID: 2857584832196091881}
+  interactOnOffTxt: {fileID: 9083067594779922199}
+  interactDescTxt: {fileID: 8599301943791834945}
+  innerImg: {fileID: 3416292246575564649}
+  usingInnerImg: {fileID: 4808572730684018350}
+  uninteractableClr: {r: 0.631546, g: 0.366901, b: 0.9150943, a: 1}
+  stAllyPresence: {fileID: 6139482057908390380}
+  utAllyPresence: {fileID: 756876620527773498}
+  ntAllyPresence: {fileID: 8264240130154185167}
+  allyReputationImg: {fileID: 3153759044927336222}
+  allyReputationTxt: {fileID: 4969708907142111734}
+  buffParentTf: {fileID: 18835087208111151}
+  allBuffIconUi: []
+  buffUiXInterval: 12
+  hittedScreen: {fileID: 3820580032997314620}
+  hittedInfoPivotTf: {fileID: 8269415341345415050}
+  hittedInfoRt: {fileID: 5555123467117030817}
+  hittedDmgTxt: {fileID: 7469076975569468404}
+  paneltyAnnoCg: {fileID: 5731532277702637715}
+  paneltyAnnoNameTxt: {fileID: 5755758642648652184}
+  paneltyAnnoDescTxt: {fileID: 5832526810655269550}
+  keyItemVfxImg: {fileID: 2359979699673777947}
+  keyItemImgList:
   - {fileID: 1323035043674407408}
   - {fileID: 9106314267057126664}
   - {fileID: 4196153698292824111}
   - {fileID: 3916934089387978590}
   - {fileID: 804563625284333710}
-  HighLvItemRT: {fileID: 1194101212017149005}
-  HighLvItemAmountTxtList:
+  highLvItemRt: {fileID: 1194101212017149005}
+  highLvItemAmountTxtList:
   - {fileID: 2417325914692832242}
   - {fileID: 5644621719574854344}
   - {fileID: 5688744107467607173}
   - {fileID: 4670513000176308177}
-  ThisCG: {fileID: 0}
-  ModuleSlots: []
-  MainColorCompList: []
-  SubColorCompList: []
+  cg: {fileID: 0}
+  moduleSlots: []
+  mainClrCompList: []
+  subClrCompList: []
 --- !u!223 &985950188665108820
 Canvas:
   m_ObjectHideFlags: 0

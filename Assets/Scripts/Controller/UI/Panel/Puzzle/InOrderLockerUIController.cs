@@ -102,7 +102,7 @@ public class InOrderLockerUIController : PuzzleUIController
 
     private bool Is_Interact_On()
     {
-        if (!(CurrentBtn is IOLCellEUIController cellEUI) ||
+        if (!(currentBtn is IOLCellEUIController cellEUI) ||
             cellEUI != SelectingIOLCellEUI ||
             !IsInteractable)
             return false;

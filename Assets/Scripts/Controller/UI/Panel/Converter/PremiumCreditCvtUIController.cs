@@ -1,6 +1,7 @@
 using System.Collections;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PremiumCreditCvtUIController : ConverterUIController
 {
@@ -13,15 +14,15 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
     [Space(10)]
     [Header("=== EUI")]
-    [SerializeField] private CvtMaterialEUIController C_CvtMaterialEUI;
-    [SerializeField] private CvtMaterialEUIController EP_CvtMaterialEUI;
+    [FormerlySerializedAs("C_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController cCvtMaterialEui;
+    [FormerlySerializedAs("EP_CvtMaterialEUI")][SerializeField] private CvtMaterialEUIController epCvtMaterialEui;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private static int Need_Credit = 10;
-    [HideInInspector] private static float Need_EP = 1;
+    [HideInInspector] private static int need_Credit = 10;
+    [HideInInspector] private static float need_EP = 1;
 
     #endregion
 
@@ -39,8 +40,8 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
     public void Offset_EUI()
     {
-        C_CvtMaterialEUI.Offset();
-        EP_CvtMaterialEUI.Offset();
+        cCvtMaterialEui.Offset();
+        epCvtMaterialEui.Offset();
     }
 
     public void Offset_Subscribe()
@@ -48,13 +49,13 @@ public class PremiumCreditCvtUIController : ConverterUIController
         PlayerManager.instance.playerController.currentCredit
             .Subscribe(_Value =>
             {
-                C_CvtMaterialEUI.Set_PossessionAmountTxt(_Value.ToString());
+                cCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
             }); 
         
         PlayerManager.instance.playerController.Get_CurrentEP()
             .Subscribe(_Value =>
             {
-                EP_CvtMaterialEUI.Set_PossessionAmountTxt(_Value.ToString());
+                epCvtMaterialEui.Set_PossessionAmountTxt(_Value.ToString());
             });
     }
 
@@ -67,12 +68,12 @@ public class PremiumCreditCvtUIController : ConverterUIController
         base.Set_LanguageTxt();
 
         // Label
-        LabelName = ResourceManager.instance.Get_StaticWord(124) + " " +
+        labelName = ResourceManager.instance.Get_StaticWord(124) + " " +
             ResourceManager.instance.Get_StaticWord(125);
-        LabelTxt.text = LabelName;
+        labelTxt.text = labelName;
 
-        C_CvtMaterialEUI.Set_Language();
-        EP_CvtMaterialEUI.Set_Language();
+        cCvtMaterialEui.Set_Language();
+        epCvtMaterialEui.Set_Language();
 
     }
 
@@ -81,23 +82,23 @@ public class PremiumCreditCvtUIController : ConverterUIController
     #region Acquisition
 
     // 크레딧으로 생성가능한 최대 수
-    private int Get_Acquisitable_Credit(int _CurrentCredit)
+    private int Get_Acquisitable_Credit(int currentCredit)
     {
         int result = 0;
-        if (_CurrentCredit > 0)
+        if (currentCredit > 0)
         {
-            result = _CurrentCredit / Need_Credit;
+            result = currentCredit / need_Credit;
         }
         return result;
     }
 
     // EP으로 생성가능한 최대 수
-    private int Get_Acquisitable_EP(float _CurrentEP)
+    private int Get_Acquisitable_EP(float currentEP)
     {
         int result = 0;
-        if (_CurrentEP > 0)
+        if (currentEP > 0)
         {
-            result = (int)_CurrentEP;
+            result = (int)currentEP;
         }
         return result;
     }
@@ -112,33 +113,33 @@ public class PremiumCreditCvtUIController : ConverterUIController
             Get_Acquisitable_Credit(pc.currentCredit.Value);
 
         int currentPossibilityEP =
-            Get_Acquisitable_EP(pc.Get_CurrentEP().Value - Need_EP);
+            Get_Acquisitable_EP(pc.Get_CurrentEP().Value - need_EP);
 
         int result = currentPossibilityCredit < currentPossibilityEP ? currentPossibilityCredit : currentPossibilityEP;
         Set_AcquBookAmount(result);
     }
 
     // 세팅
-    protected override void Set_AcquBookAmount(int _Amount)
+    protected override void Set_AcquBookAmount(int amount)
     {
-        base.Set_AcquBookAmount(_Amount);
+        base.Set_AcquBookAmount(amount);
 
         // Data
         PlayerController pc = PlayerManager.instance.playerController;
         Debug.Assert(pc, "Player is Null");
 
-        int needCredit = AcquisitionBookAmount * Need_Credit;
-        C_CvtMaterialEUI.Set_NecessaryAmountTxt(needCredit.ToString());
+        int needCredit = acquisitionBookAmount * need_Credit;
+        cCvtMaterialEui.Set_NecessaryAmountTxt(needCredit.ToString());
         bool canCvtByCredit = needCredit <= pc.currentCredit.Value;
-        C_CvtMaterialEUI.Set_Condition(canCvtByCredit);
+        cCvtMaterialEui.Set_Condition(canCvtByCredit);
 
-        float needEP = AcquisitionBookAmount * Need_EP;
-        EP_CvtMaterialEUI.Set_NecessaryAmountTxt(needEP.ToString());
-        bool canCvtByEP = needEP <= (pc.Get_CurrentEP().Value - Need_EP);
-        EP_CvtMaterialEUI.Set_Condition(canCvtByEP);
+        float needEP = acquisitionBookAmount * need_EP;
+        epCvtMaterialEui.Set_NecessaryAmountTxt(needEP.ToString());
+        bool canCvtByEP = needEP <= (pc.Get_CurrentEP().Value - need_EP);
+        epCvtMaterialEui.Set_Condition(canCvtByEP);
 
-        CanConvert = canCvtByCredit && canCvtByEP;
-        CvtAcquisitionEUI.Set_AbleConvertVisual(CanConvert);
+        canConvert = canCvtByCredit && canCvtByEP;
+        cvtAcquisitionEui.Set_AbleConvertVisual(canConvert);
     }
 
     #endregion
@@ -151,11 +152,11 @@ public class PremiumCreditCvtUIController : ConverterUIController
 
         // Lost
         PlayerController pc = PlayerManager.instance.playerController;
-        pc.Add_CurrentCredit(-(AcquisitionBookAmount * Need_Credit));
-        pc.Add_CurrentEP(-(AcquisitionBookAmount * Need_EP));
+        pc.Add_CurrentCredit(-(acquisitionBookAmount * need_Credit));
+        pc.Add_CurrentEP(-(acquisitionBookAmount * need_EP));
 
-        Set_AcquAmount(AcquisitionItemID);
-        Set_AcquBookAmount(AcquisitionBookAmount);
+        Set_AcquAmount(acquisitionItemId);
+        Set_AcquBookAmount(acquisitionBookAmount);
     }
 
     #endregion
@@ -166,8 +167,8 @@ public class PremiumCreditCvtUIController : ConverterUIController
     {
         base.Play_Failure();
 
-        C_CvtMaterialEUI.Play_Failure();
-        EP_CvtMaterialEUI.Play_Failure();
+        cCvtMaterialEui.Play_Failure();
+        epCvtMaterialEui.Play_Failure();
     }
 
     protected override void Play_Convert()
@@ -181,8 +182,8 @@ public class PremiumCreditCvtUIController : ConverterUIController
     {
         yield return new WaitForSeconds(2.1f);
 
-        C_CvtMaterialEUI.Play_Convert();
-        EP_CvtMaterialEUI.Play_Convert();
+        cCvtMaterialEui.Play_Convert();
+        epCvtMaterialEui.Play_Convert();
     }
 
     #endregion

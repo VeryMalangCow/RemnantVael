@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PanelUIController : SinglePanelUIController
@@ -14,14 +15,14 @@ public class PanelUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== Tab")]
-    [SerializeField] protected List<TabEUIController> ThisPanelTabList;
+    [FormerlySerializedAs("ThisPanelTabList")][SerializeField] protected List<TabEUIController> panelTabList;
 
     #endregion
 
     #region - Hide
 
     // Tab
-    [HideInInspector] protected TabEUIController CurrentThisPanelTab;
+    [HideInInspector] protected TabEUIController currentThisPanelTab;
 
     #endregion
 
@@ -35,16 +36,16 @@ public class PanelUIController : SinglePanelUIController
 
         // Actual Tab
         SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
-        SetOn_Window(ThisPanelTabList[0]);
+        SetOn_Window(panelTabList[0]);
     }
 
-    public virtual void Change_ThisPanel(int _indexWindow)
+    public virtual void Change_ThisPanel(int indexWindow)
     {
         //Other
-        if (CurrentThisPanelTab == ThisPanelTabList[_indexWindow]) return;
+        if (currentThisPanelTab == panelTabList[indexWindow]) return;
 
         SoundManager.instance.Play_2D_SFX_UI("Click_01");
-        SetOn_Window(ThisPanelTabList[_indexWindow]);
+        SetOn_Window(panelTabList[indexWindow]);
     }
 
     public override void SetOff_ThisPanel()
@@ -58,27 +59,27 @@ public class PanelUIController : SinglePanelUIController
 
     #region On/Off Tab Window
 
-    private void SetOn_Window(TabEUIController _TargetTab)
+    private void SetOn_Window(TabEUIController targetTab)
     {
-        SetOff_WindowAll(ThisPanelTabList);
+        SetOff_WindowAll(panelTabList);
 
-        CurrentThisPanelTab = _TargetTab;
-        _TargetTab.panelRt.gameObject.SetActive(true);
-        _TargetTab.tabBtn.ToggleOn_ThisBtn();
+        currentThisPanelTab = targetTab;
+        targetTab.panelRt.gameObject.SetActive(true);
+        targetTab.tabBtn.ToggleOn_ThisBtn();
     }
 
-    private void SetOff_WindowAll(List<TabEUIController> _AllWindow)
+    private void SetOff_WindowAll(List<TabEUIController> allWindow)
     {
-        for (int i = 0; i < _AllWindow.Count; i++)
+        for (int i = 0; i < allWindow.Count; i++)
         {
-            SetOff_Window(_AllWindow[i]);
+            SetOff_Window(allWindow[i]);
         }
     }
 
-    private void SetOff_Window(TabEUIController _TargetTab)
+    private void SetOff_Window(TabEUIController targetTab)
     {
-        _TargetTab.panelRt.gameObject.SetActive(false);
-        _TargetTab.tabBtn.ToggleOff_ThisBtn();
+        targetTab.panelRt.gameObject.SetActive(false);
+        targetTab.tabBtn.ToggleOff_ThisBtn();
     }
 
     #endregion
@@ -88,9 +89,9 @@ public class PanelUIController : SinglePanelUIController
     protected List<TMP_Text> Get_AllTabBtn_Txt()
     {
         List<TMP_Text> result = new List<TMP_Text>();
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
+        for (int i = 0; i < panelTabList.Count; i++)
         {
-            result.Add(ThisPanelTabList[i].tabBtn.txt);
+            result.Add(panelTabList[i].tabBtn.txt);
         }
         return result;
     }
@@ -98,9 +99,9 @@ public class PanelUIController : SinglePanelUIController
     protected List<Image> Get_AllTabBtn_Img()
     {
         List<Image> result = new List<Image>();
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
+        for (int i = 0; i < panelTabList.Count; i++)
         {
-            result.Add(ThisPanelTabList[i].tabBtn.img);
+            result.Add(panelTabList[i].tabBtn.img);
         }
         return result;
     }

@@ -37,14 +37,14 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
     {
         if (!isCanSelect || btn == null || !btn.interactable) return; 
 
-        if (ownerUIController != null) ownerUIController.CurrentBtn = this;
+        if (ownerUIController != null) ownerUIController.currentBtn = this;
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)
     {
         if (!isCanSelect || btn == null || !btn.interactable) return; 
 
-        if (ownerUIController != null) ownerUIController.CurrentBtn = null;
+        if (ownerUIController != null) ownerUIController.currentBtn = null;
     }
 
 

@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BattleProdUIController : UIController
@@ -8,17 +9,17 @@ public class BattleProdUIController : UIController
     #region Value
 
     [Space(10)]
-    [SerializeField] private CanvasGroup BattleProd_CG;
+    [FormerlySerializedAs("BattleProd_CG")][SerializeField] private CanvasGroup battleProd_Cg;
 
     [Space(10)]
-    [SerializeField] private RectTransform BattleProd_PlayerRT;
-    [SerializeField] private Image BattleProd_PlayerImg;
-    [SerializeField] private TMP_Text BattleProd_PlayerNameTxt;
+    [FormerlySerializedAs("BattleProd_PlayerRT")][SerializeField] private RectTransform battleProd_PlayerRt;
+    [FormerlySerializedAs("BattleProd_PlayerImg")][SerializeField] private Image battleProd_PlayerImg;
+    [FormerlySerializedAs("BattleProd_PlayerNameTxt")][SerializeField] private TMP_Text battleProd_PlayerNameTxt;
 
     [Space(10)]
-    [SerializeField] private RectTransform BattleProd_EnemyRT;
-    [SerializeField] private Image BattleProd_EnemyImg;
-    [SerializeField] private TMP_Text BattleProd_EnemyNameTxt;
+    [FormerlySerializedAs("BattleProd_EnemyRT")][SerializeField] private RectTransform battleProd_EnemyRt;
+    [FormerlySerializedAs("BattleProd_EnemyImg")][SerializeField] private Image battleProd_EnemyImg;
+    [FormerlySerializedAs("BattleProd_EnemyNameTxt")][SerializeField] private TMP_Text battleProd_EnemyNameTxt;
 
     #endregion
 
@@ -33,64 +34,64 @@ public class BattleProdUIController : UIController
 
     private void Reset_BattleProd()
     {
-        BattleProd_CG.gameObject.SetActive(false);
-        BattleProd_CG.alpha = 0;
-        BattleProd_PlayerRT.anchoredPosition = new Vector2(-100, 150);
-        BattleProd_EnemyRT.anchoredPosition = new Vector2(100, -150);
+        battleProd_Cg.gameObject.SetActive(false);
+        battleProd_Cg.alpha = 0;
+        battleProd_PlayerRt.anchoredPosition = new Vector2(-100, 150);
+        battleProd_EnemyRt.anchoredPosition = new Vector2(100, -150);
     }
 
-    public void Play_BattleOnProd(PlayerController _Player, EliteEnemyController _Enemy, out float _DurTime)
+    public void Play_BattleOnProd(PlayerController player, EliteEnemyController enemy, out float durTime)
     {
         SoundManager.instance.Play_2D_SFX_UI("StartBattleProd");
         Play_BattleOnProd(
-            _Player.battleProdSprite, 
-            _Enemy.battleProdSprite, 
-            ResourceManager.instance.Get_PlayerName(_Player.GetNameID),
-            ResourceManager.instance.Get_EnemyName(_Enemy.GetNameID),
-            out _DurTime);
+            player.battleProdSprite, 
+            enemy.battleProdSprite, 
+            ResourceManager.instance.Get_PlayerName(player.GetNameID),
+            ResourceManager.instance.Get_EnemyName(enemy.GetNameID),
+            out durTime);
     }
 
-    public void Play_BattleOnProd(PlayerController _Player, BossEnemyController _Enemy, out float _DurTime)
+    public void Play_BattleOnProd(PlayerController player, BossEnemyController enemy, out float durTime)
     {
         SoundManager.instance.Play_2D_SFX_UI("StartBossBattleProd");
         Play_BattleOnProd(
-            _Player.battleProdSprite,
-            _Enemy.battleProdSprite,
-            ResourceManager.instance.Get_PlayerName(_Player.GetNameID),
-            ResourceManager.instance.Get_EnemyName(_Enemy.GetNameID),
-            out _DurTime);
+            player.battleProdSprite,
+            enemy.battleProdSprite,
+            ResourceManager.instance.Get_PlayerName(player.GetNameID),
+            ResourceManager.instance.Get_EnemyName(enemy.GetNameID),
+            out durTime);
     }
 
-    private void Play_BattleOnProd(Sprite _PlayerImg, Sprite _EnemyImg, string _PlayerName, string _EnemyName, out float _DurTime)
+    private void Play_BattleOnProd(Sprite playerImg, Sprite enemyImg, string playerName, string enemyName, out float durTime)
     {
-        BattleProd_CG.gameObject.SetActive(true);
+        battleProd_Cg.gameObject.SetActive(true);
 
-        BattleProd_PlayerImg.sprite = _PlayerImg;
-        BattleProd_PlayerImg.SetNativeSize();
-        BattleProd_PlayerNameTxt.text = _PlayerName;
+        battleProd_PlayerImg.sprite = playerImg;
+        battleProd_PlayerImg.SetNativeSize();
+        battleProd_PlayerNameTxt.text = playerName;
 
-        BattleProd_EnemyImg.sprite = _EnemyImg;
-        BattleProd_EnemyImg.SetNativeSize();
-        BattleProd_EnemyNameTxt.text = _EnemyName;
+        battleProd_EnemyImg.sprite = enemyImg;
+        battleProd_EnemyImg.SetNativeSize();
+        battleProd_EnemyNameTxt.text = enemyName;
 
         Sequence seq = DOTween.Sequence();
 
         float time0 = 0.2f;
-        seq.Append(BattleProd_CG.DOFade(1f, time0));
+        seq.Append(battleProd_Cg.DOFade(1f, time0));
         float time1 = 1f;
-        seq.Append(BattleProd_PlayerRT.DOAnchorPos(new Vector2(650f, 150f), time1).SetEase(Ease.Linear));
-        seq.Join(BattleProd_EnemyRT.DOAnchorPos(new Vector2(-650f, -150f), time1).SetEase(Ease.Linear));
+        seq.Append(battleProd_PlayerRt.DOAnchorPos(new Vector2(650f, 150f), time1).SetEase(Ease.Linear));
+        seq.Join(battleProd_EnemyRt.DOAnchorPos(new Vector2(-650f, -150f), time1).SetEase(Ease.Linear));
         float time2 = 3f;
-        seq.Append(BattleProd_PlayerRT.DOAnchorPosX(700, time2).SetEase(Ease.OutQuad));
-        seq.Join(BattleProd_EnemyRT.DOAnchorPosX(-700, time2).SetEase(Ease.OutQuad));
+        seq.Append(battleProd_PlayerRt.DOAnchorPosX(700, time2).SetEase(Ease.OutQuad));
+        seq.Join(battleProd_EnemyRt.DOAnchorPosX(-700, time2).SetEase(Ease.OutQuad));
 
-        _DurTime = time0 + time1 + time2;
+        durTime = time0 + time1 + time2;
     }
 
-    public void Play_BattleOffProd(out float _DurTime)
+    public void Play_BattleOffProd(out float durTime)
     {
-        _DurTime = 0.25f;
-        BattleProd_CG.DOFade(0f, _DurTime)
+        durTime = 0.25f;
+        battleProd_Cg.DOFade(0f, durTime)
             .OnComplete(() => Reset_BattleProd())
             .SetUpdate(true);
     }

@@ -211,12 +211,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         screenCanvas.gameObject.SetActive(true);
 
         seq.Append(screenCG.DOFade(0f, durTime));
-        seq.Join(playerHUD_UIController.ThisCG.DOFade(1f, durTime));
+        seq.Join(playerHUD_UIController.cg.DOFade(1f, durTime));
 
         seq.OnStart(() =>
         {
             screenCG.alpha = 1f;
-            playerHUD_UIController.ThisCG.alpha = 0f;
+            playerHUD_UIController.cg.alpha = 0f;
 
         })
         .OnComplete(() =>
@@ -234,12 +234,12 @@ public class MainGameUIManager : Singleton<MainGameUIManager>
         screenCanvas.gameObject.SetActive(true);
 
         seq.Append(screenCG.DOFade(1f, durTime));
-        seq.Join(playerHUD_UIController.ThisCG.DOFade(0f, durTime));
+        seq.Join(playerHUD_UIController.cg.DOFade(0f, durTime));
 
         seq.OnStart(() =>
         {
             screenCG.alpha = 0f;
-            playerHUD_UIController.ThisCG.alpha = 1f;
+            playerHUD_UIController.cg.alpha = 1f;
         })
         .OnComplete(() =>
         {

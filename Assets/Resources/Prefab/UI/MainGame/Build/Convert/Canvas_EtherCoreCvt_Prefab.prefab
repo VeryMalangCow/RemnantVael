@@ -272,19 +272,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e99565e33497cf540bae11d36b9f41b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelInputMapName: CvtEtherCoreUI
-  CurrentBtn: {fileID: 0}
-  MainColorCompList: []
-  SubColorCompList: []
-  CurrentSlotBtn: {fileID: 0}
-  CurrentItemBtn: {fileID: 0}
-  LabelTxt: {fileID: 2501033003460017941}
-  CvtAcquisitionEUI: {fileID: 42129489271048920}
-  AcquisitionItemID: 2
-  CloseBtn: {fileID: 809685415976490221}
-  CB_CvtMaterialEUI: {fileID: 7068248352956301776}
-  C_CvtMaterialEUI: {fileID: 65202584743671896}
-  ProtoC_CvtMaterialEUI: {fileID: 6748310024709020828}
+  panelInputMapName: CvtEtherCoreUI
+  currentBtn: {fileID: 0}
+  mainColorCompList: []
+  subColorCompList: []
+  currentSlotBtn: {fileID: 0}
+  currentItemBtn: {fileID: 0}
+  labelTxt: {fileID: 2501033003460017941}
+  cvtAcquisitionEui: {fileID: 42129489271048920}
+  acquisitionItemId: 2
+  closeBtn: {fileID: 809685415976490221}
+  cbCvtMaterialEui: {fileID: 7068248352956301776}
+  cCvtMaterialEui: {fileID: 65202584743671896}
+  protoCvtMaterialEui: {fileID: 6748310024709020828}
 --- !u!223 &985950188665108820
 Canvas:
   m_ObjectHideFlags: 0

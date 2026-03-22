@@ -30,8 +30,8 @@ public class PlayerShopUIController : ShopUIController
     {
         base.Set_LanguageTxt();
 
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
-            TabSideTxtList[i].text = TabBtnTxtList[i];
+        for (int i = 0; i < panelTabList.Count; i++)
+            TabSideTxtList[i].text = tabBtnTxtList[i];
     }
 
     #endregion

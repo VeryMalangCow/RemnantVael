@@ -96,17 +96,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95646094c589974388e46b5a7868c93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelInputMapName: AllyCardUI
-  CurrentBtn: {fileID: 0}
-  MainColorCompList: []
-  SubColorCompList: []
-  CurrentSlotBtn: {fileID: 0}
-  CurrentItemBtn: {fileID: 0}
-  CardParentTF: {fileID: 8804223866111845911}
-  CardRerollParentTF: {fileID: 3126822040818665967}
-  CardBookingFrameImgRT: {fileID: 4657037224854145231}
-  SelectBtn: {fileID: 7003691926116318213}
-  TypeIndex: 0
+  panelInputMapName: AllyCardUI
+  currentBtn: {fileID: 0}
+  mainColorCompList: []
+  subColorCompList: []
+  currentSlotBtn: {fileID: 0}
+  currentItemBtn: {fileID: 0}
+  cardParentTf: {fileID: 8804223866111845911}
+  cardRerollParentTf: {fileID: 3126822040818665967}
+  cardBookingFrameImgRt: {fileID: 4657037224854145231}
+  selectBtn: {fileID: 7003691926116318213}
+  typeIndex: 0
 --- !u!223 &985950188665108820
 Canvas:
   m_ObjectHideFlags: 0

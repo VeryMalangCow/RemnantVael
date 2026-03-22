@@ -279,7 +279,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     private bool Is_Interact_Roll(float _PlusAngle, float _DurTime)
     {
-        if (!(CurrentBtn is BoxCellEUIController boxCell) ||
+        if (!(currentBtn is BoxCellEUIController boxCell) ||
             boxCell != SelectingBoxCellEUI ||
             !IsInteractable)
             return false;

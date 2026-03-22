@@ -442,7 +442,7 @@ public class PlayerController : AliveObjectController
 
     private void Add_CurrentBettery()
     {
-        MainGameUIManager.instance.playerHUD_UIController.CurrentEmptyBC.Set_Complete(
+        MainGameUIManager.instance.playerHUD_UIController.currentEmptyBc.Set_Complete(
             fadeInTime: 0.3f,
             stayTime: 0.1f, 
             fadeOutTime: 0.5f);
@@ -620,7 +620,7 @@ public class PlayerController : AliveObjectController
 
         if (!skillWeapon.skillList[index].Can_Active())
         {
-            MainGameUIManager.instance.playerHUD_UIController.SkillList[index].Play_ErrorUI();
+            MainGameUIManager.instance.playerHUD_UIController.skillList[index].Play_ErrorUI();
             return;
         }
 
@@ -1170,7 +1170,7 @@ public class PlayerController : AliveObjectController
         {
             needStrikeTeamPresence.Value += needIntervalPresence;
 
-            MainGameUIManager.instance.allyCard_UIController.TypeIndex = 0;
+            MainGameUIManager.instance.allyCard_UIController.typeIndex = 0;
             MainGameUIManager.instance.allyCard_UIController.SetOn_ThisPanel();
         }
     }
@@ -1184,7 +1184,7 @@ public class PlayerController : AliveObjectController
         {
             needUplinkTeamPresence.Value += needIntervalPresence;
 
-            MainGameUIManager.instance.allyCard_UIController.TypeIndex = 1;
+            MainGameUIManager.instance.allyCard_UIController.typeIndex = 1;
             MainGameUIManager.instance.allyCard_UIController.SetOn_ThisPanel();
         }
     }
@@ -1198,7 +1198,7 @@ public class PlayerController : AliveObjectController
         {
             needNeoTeamPresence.Value += needIntervalPresence;
 
-            MainGameUIManager.instance.allyCard_UIController.TypeIndex = 2;
+            MainGameUIManager.instance.allyCard_UIController.typeIndex = 2;
             MainGameUIManager.instance.allyCard_UIController.SetOn_ThisPanel();
         }
     }

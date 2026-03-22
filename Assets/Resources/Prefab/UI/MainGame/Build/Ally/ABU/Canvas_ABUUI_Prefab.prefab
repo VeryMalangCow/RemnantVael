@@ -542,40 +542,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23b4986ee1335c48912a84f6eaa151b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelInputMapName: AllyBaseUpgradeUI
-  CurrentBtn: {fileID: 0}
-  MainColorCompList: []
-  SubColorCompList: []
-  CurrentSlotBtn: {fileID: 0}
-  CurrentItemBtn: {fileID: 0}
-  ThisPanelTabList:
+  panelInputMapName: AllyBaseUpgradeUI
+  currentBtn: {fileID: 0}
+  mainColorCompList: []
+  subColorCompList: []
+  currentSlotBtn: {fileID: 0}
+  currentItemBtn: {fileID: 0}
+  panelTabList:
   - {fileID: 8455122825941353994}
-  LabelTxt: {fileID: 8601064820096719371}
-  ThisDurEUI: {fileID: 1414314959910742180}
-  ThisMsgEUI: {fileID: 3110014342129758097}
-  CloseBtn: {fileID: 4642890815464369897}
-  AllyProfileParentTF: {fileID: 7079343822721193586}
-  AllyProfileSelectSignRT: {fileID: 8053305412578322798}
-  AllyProfilePickedSignRT: {fileID: 5757474070097746923}
-  ProfileDetailEUI: {fileID: 7084470441736634822}
-  ProfileDetailTxt: {fileID: 2855346262445882847}
-  ProfileDetailExtraRT: {fileID: 769909613065859595}
-  StatePanelRTList:
+  labelTxt: {fileID: 8601064820096719371}
+  durEui: {fileID: 1414314959910742180}
+  msgEui: {fileID: 3110014342129758097}
+  closeBtn: {fileID: 4642890815464369897}
+  allyProfileParentTf: {fileID: 7079343822721193586}
+  allyProfileSelectSignRt: {fileID: 8053305412578322798}
+  allyProfilePickedSignRt: {fileID: 5757474070097746923}
+  profileDetailEui: {fileID: 7084470441736634822}
+  profileDetailTxt: {fileID: 2855346262445882847}
+  profileDetailExtraRt: {fileID: 769909613065859595}
+  statePanelRtList:
   - {fileID: 3196328213479203347}
   - {fileID: 3863839279119279212}
   - {fileID: 4556135789524675231}
-  StatePanelCG: {fileID: 6405605284583148683}
-  StateBtnList:
+  statePanelCg: {fileID: 6405605284583148683}
+  stateBtnList:
   - {fileID: 6864396963935366077}
   - {fileID: 9098685850879802502}
   - {fileID: 6228755753096694763}
-  StateTitleTxtList:
+  stateTitleTxtList:
   - {fileID: 2608510091716268263}
   - {fileID: 8487248919507052289}
   - {fileID: 3150557410670388532}
-  StateScrollPanel: {fileID: 1081234859069208321}
-  StateLimitTxt: {fileID: 3654930174854676251}
-  StateEUIList:
+  stateScrollPanel: {fileID: 1081234859069208321}
+  stateLimitTxt: {fileID: 3654930174854676251}
+  stateEuiList:
   - {fileID: 9158419743226469957}
   - {fileID: 8495894079207018883}
   - {fileID: 6673598563671004417}
@@ -585,17 +585,17 @@ MonoBehaviour:
   - {fileID: 5603569808292780015}
   - {fileID: 3567258856309280217}
   - {fileID: 1396351609062082435}
-  TunerScrollPanel: {fileID: 6486262153703449168}
-  InStateTunerParentRT: {fileID: 1386686837164556022}
-  InStateTunerPrefab: {fileID: 572117140870774827, guid: 4d58e8f957b034c4593b1d2aa1c1e949, type: 3}
-  SyncScrollPanel: {fileID: 6259436081182577572}
-  InStateSyncParentRT: {fileID: 2034599382729010932}
-  InStateSyncPrefab: {fileID: 9162822552647618182, guid: 2cc122d1a00c02d4d80dcc9f5dd92afc, type: 3}
-  PickedPanelSyncProgressSpriteList:
+  tunerScrollPanel: {fileID: 6486262153703449168}
+  inStateTunerParentRt: {fileID: 1386686837164556022}
+  inStateTunerPrefab: {fileID: 572117140870774827, guid: 4d58e8f957b034c4593b1d2aa1c1e949, type: 3}
+  syncScrollPanel: {fileID: 6259436081182577572}
+  inStateSyncParentRt: {fileID: 2034599382729010932}
+  inStateSyncPrefab: {fileID: 9162822552647618182, guid: 2cc122d1a00c02d4d80dcc9f5dd92afc, type: 3}
+  pickedPanelSyncProgressSpriteList:
   - {fileID: 1202484619, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
   - {fileID: 820826029, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
   - {fileID: -1956723818, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  ExtraMainColorImgList:
+  extraMainClrImgList:
   - {fileID: 3892319867972009670}
   - {fileID: 2284026126660960140}
   - {fileID: 5159913333376760328}
@@ -605,43 +605,43 @@ MonoBehaviour:
   - {fileID: 6091553771816401244}
   - {fileID: 5590135743035630612}
   - {fileID: 7349202516166131714}
-  ExtraMainColorTxtList:
+  extraMainClrTxtList:
   - {fileID: 2855346262445882847}
   - {fileID: 789630972640757616}
   - {fileID: 4010760558954535203}
-  ExtraSubColorImgList:
+  extraSubClrImgList:
   - {fileID: 4208119168080731772}
   - {fileID: 3100383948421873928}
   - {fileID: 6807063859276807914}
   - {fileID: 519734186495176245}
   - {fileID: 5462850145745743082}
   - {fileID: 2533942813268254444}
-  ExtraSubColorTxtList: []
-  TunerDetailOffGO: {fileID: 8072068436615862163}
-  TunerDetailOnGO: {fileID: 7129603115609960942}
-  DetailTunerEUI: {fileID: 8408166784659283448}
-  Positive0_ElementDescEUI: {fileID: 872646535009376339}
-  Positive1_ElementDescEUI: {fileID: 5312263062244360221}
-  Negative_ElementDescEUI: {fileID: 4791990012586286431}
-  BuyBtnEUI: {fileID: 2401676383777979222}
-  CanBuyArrowGO: {fileID: 1775168971037644668}
-  TunerDetailExtraRT: {fileID: 2663244429990861616}
-  ChargeBetteryTxt: {fileID: 8391261698703898512}
-  ChargeBetteryUseTxt: {fileID: 1271936693060036830}
-  OverriderTxt: {fileID: 8989865427933097102}
-  OverriderUseTxt: {fileID: 6578045604762904983}
-  AllTunerEUI:
+  extraSubClrTxtList: []
+  tunerDetailOffGo: {fileID: 8072068436615862163}
+  tunerDetailOnGo: {fileID: 7129603115609960942}
+  detailTunerEui: {fileID: 8408166784659283448}
+  positive0_ElementDescEui: {fileID: 872646535009376339}
+  positive1_ElementDescEui: {fileID: 5312263062244360221}
+  negative_ElementDescEui: {fileID: 4791990012586286431}
+  buyBtnEui: {fileID: 2401676383777979222}
+  canBuyArrowGo: {fileID: 1775168971037644668}
+  tunerDetailExtraRt: {fileID: 2663244429990861616}
+  chargeBetteryTxt: {fileID: 8391261698703898512}
+  chargeBetteryUseTxt: {fileID: 1271936693060036830}
+  overriderTxt: {fileID: 8989865427933097102}
+  overriderUseTxt: {fileID: 6578045604762904983}
+  allTunerEui:
   - {fileID: 8422690030781901038}
   - {fileID: 6474488305648447146}
   - {fileID: 909132025167891306}
   - {fileID: 6323439921999825055}
   - {fileID: 4659600497866041192}
-  PickTunerListSignRT: {fileID: 7243834636768590779}
-  TunerDetailTxt: {fileID: 789630972640757616}
-  TunerListTxt: {fileID: 4010760558954535203}
-  AllyTunerSet:
+  pickTunerListSignRt: {fileID: 7243834636768590779}
+  tunerDetailTxt: {fileID: 789630972640757616}
+  tunerListTxt: {fileID: 4010760558954535203}
+  allyTunerSet:
     allyTunerDataList: []
-  PickedTunerData:
+  pickedTunerData:
     positive0:
       type: 
       rank: 0

@@ -214,7 +214,7 @@ public class GateController : StaticDepthController, IInteract
         StageManager.instance.Play_CurrentRoom(parterGate.thisRoom);
 
         PlayerHUDController hud = MainGameUIManager.instance.playerHUD_UIController;
-        if (hud.IsTabInteracted.Value) hud.ThisMinimap.Reset_BookRoom();
+        if (hud.isTabInteracted.Value) hud.minimapEui.Reset_BookRoom();
     }
 
     #endregion

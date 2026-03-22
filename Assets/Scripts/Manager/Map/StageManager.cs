@@ -646,7 +646,7 @@ public class StageManager : Singleton<StageManager>
 
         PoolingManager.instance.Remove_AllQueue();
 
-        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Remove_AllMinimapCell();
+        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Remove_AllMinimapCell();
     }
 
     private void Remove_PassageStage()
@@ -696,7 +696,7 @@ public class StageManager : Singleton<StageManager>
         AllyManager.instance.Stop_AllAllies_Combat();
 
         // Minimap
-        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Set_State();
+        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Set_State();
 
         yield return new WaitForSeconds(0.2f);
 
@@ -708,8 +708,8 @@ public class StageManager : Singleton<StageManager>
         LayerOrderManager.instance.Add_NeedSortObj(AllyManager.instance.allAlly);
 
         // Minimap
-        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Set_State();
-        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Play_Effect();
+        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Set_State();
+        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Play_Effect();
 
         // Ally
         AllyManager.instance.Start_AllAllies_Combat();
@@ -737,7 +737,7 @@ public class StageManager : Singleton<StageManager>
             MainGameUIManager.instance.interactAnno_UIController.Set_UI();
 
             // Minimap
-            MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Set_State();
+            MainGameUIManager.instance.playerHUD_UIController.minimapEui.Set_State();
         }
     }
 
@@ -764,16 +764,16 @@ public class StageManager : Singleton<StageManager>
     private void Set_StartUI(StageData stageData)
     {
         MainGameUIManager.instance.mapIntro_UIController.Play_IntroLabel();
-        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Gen_Minimap();
-        MainGameUIManager.instance.playerHUD_UIController.StageIcon.gameObject.SetActive(true);
-        MainGameUIManager.instance.playerHUD_UIController.StageIcon.sprite = ResourceManager.instance.Get_StageIcon(targetStageID);
+        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Gen_Minimap();
+        MainGameUIManager.instance.playerHUD_UIController.stageIcon.gameObject.SetActive(true);
+        MainGameUIManager.instance.playerHUD_UIController.stageIcon.sprite = ResourceManager.instance.Get_StageIcon(targetStageID);
         MainGameUIManager.instance.playerHUD_UIController.Set_StageDescription();
     }
 
     private void Set_StartPassageUI()
     {
-        MainGameUIManager.instance.playerHUD_UIController.ThisMinimap.Gen_Minimap();
-        MainGameUIManager.instance.playerHUD_UIController.StageIcon.gameObject.SetActive(false);
+        MainGameUIManager.instance.playerHUD_UIController.minimapEui.Gen_Minimap();
+        MainGameUIManager.instance.playerHUD_UIController.stageIcon.gameObject.SetActive(false);
     }
 
     #endregion

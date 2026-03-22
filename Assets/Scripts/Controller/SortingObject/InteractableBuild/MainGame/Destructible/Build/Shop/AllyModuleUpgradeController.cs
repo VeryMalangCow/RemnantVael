@@ -89,11 +89,11 @@ public class AllyModuleUpgradeController : DestructibleBuildController, IInterac
 
     #region Break
 
-    public override void Take_Damage(bool _SpawnItem, bool _SoundOn)
+    public override void Take_Damage(bool spawnItem, bool soundOn)
     {
-        base.Take_Damage(_SpawnItem, _SoundOn);
+        base.Take_Damage(spawnItem, soundOn);
 
-        MainGameUIManager.instance.allyModuleUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
+        MainGameUIManager.instance.allyModuleUpgrade_UIController.durEui.Set_Dur(CurrentDur);
     }
 
     protected override void Play_NowBreak(bool _SpawnItem)
@@ -101,7 +101,7 @@ public class AllyModuleUpgradeController : DestructibleBuildController, IInterac
         base.Play_NowBreak(_SpawnItem);
 
         if (MainGameUIManager.instance.allyModuleUpgrade_UIController.gameObject.activeSelf)
-            MainGameUIManager.instance.allyModuleUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
+            MainGameUIManager.instance.allyModuleUpgrade_UIController.msgEui.Play_On(IsBrokenAnno, 0.5f);
     }
 
     #endregion

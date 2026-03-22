@@ -5,6 +5,7 @@ using UniRx;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 public class AllyModuleUpgradeUIController : AllyShopUIController
 {
@@ -17,118 +18,118 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     [Space(10)]
     [Header("=== Inventory")]
-    [SerializeField] private ScrollPanelEUIController InventoryScrollPanelEUI;
-    [SerializeField] private InventoryEUIController InventoryEUI;
-    [SerializeField] private GameObject NoneSyncArrowPanelGO;
-    [SerializeField] private OwnBtnEUIController NoneSyneToggleBtn;
+    [FormerlySerializedAs("InventoryScrollPanelEUI")][SerializeField] private ScrollPanelEUIController inventoryScrollPanelEui;
+    [FormerlySerializedAs("InventoryEUI")][SerializeField] private InventoryEUIController inventoryEui;
+    [FormerlySerializedAs("NoneSyncArrowPanelGO")][SerializeField] private GameObject noneSyncArrowPanelGo;
+    [FormerlySerializedAs("NoneSyneToggleBtn")][SerializeField] private OwnBtnEUIController noneSyneToggleBtn;
 
     [Space(10)]
     [Header("-- Panel (Inven Or NoneSyne)")]
-    [SerializeField] private ScrollPanelEUIController NoneSyncScrollPanelEUI;
-    [SerializeField] private GameObject InventoryPanel_InventoryGO;
-    [SerializeField] private GameObject InventoryPanel_NoneSyneGO;
+    [FormerlySerializedAs("NoneSyncScrollPanelEUI")][SerializeField] private ScrollPanelEUIController noneSyncScrollPanelEui;
+    [FormerlySerializedAs("InventoryPanel_InventoryGO")][SerializeField] private GameObject inventoryPanel_InventoryGo;
+    [FormerlySerializedAs("InventoryPanel_NoneSyneGO")][SerializeField] private GameObject inventoryPanel_NoneSyneGo;
 
     [Space(10)]
     [Header("* Panel (NoneSyne)")]
-    [SerializeField] private GameObject NoneSyncPanel_EmptyGO;
-    [SerializeField] private GameObject NoneSyncPanel_ExistGO;
-    [SerializeField] private Transform NoneSyncItemParentTF;
-    [SerializeField] private GameObject NoneSyncItemPrefab;
-    [SerializeField] private OwnBtnEUIController NoneSyneBuyBtn;
-    [SerializeField] private GameObject NoneSyncCanBuyGO;
-    [SerializeField] private TMP_Text NoneSyncCanBuyTxt;
-    [SerializeField] private GameObject NoneSyncCannotBuyGO;
+    [FormerlySerializedAs("NoneSyncPanel_EmptyGO")][SerializeField] private GameObject noneSyncPanel_EmptyGo;
+    [FormerlySerializedAs("NoneSyncPanel_ExistGO")][SerializeField] private GameObject noneSyncPanel_ExistGo;
+    [FormerlySerializedAs("NoneSyncItemParentTF")][SerializeField] private Transform noneSyncItemParentTf;
+    [FormerlySerializedAs("NoneSyncItemPrefab")][SerializeField] private GameObject noneSyncItemPrefab;
+    [FormerlySerializedAs("NoneSyneBuyBtn")][SerializeField] private OwnBtnEUIController noneSyneBuyBtn;
+    [FormerlySerializedAs("NoneSyncCanBuyGO")][SerializeField] private GameObject noneSyncCanBuyGo;
+    [FormerlySerializedAs("NoneSyncCanBuyTxt")][SerializeField] private TMP_Text noneSyncCanBuyTxt;
+    [FormerlySerializedAs("NoneSyncCannotBuyGO")][SerializeField] private GameObject noneSyncCannotBuyGo;
 
 
     [Space(10)]
     [Header("=== Picked Item")]
-    [SerializeField] private OwnBtnEUIController ToggleBtn;
+    [FormerlySerializedAs("ToggleBtn")][SerializeField] private OwnBtnEUIController toggleBtn;
 
     [Space(5)]
     [Header("-- Panel (Player)")]
-    [SerializeField] private GameObject PickedModulePanel_PlayerGO;
-    [SerializeField] private TMP_Text PlayerSyncNameTxt;
+    [FormerlySerializedAs("PickedModulePanel_PlayerGO")][SerializeField] private GameObject pickedModulePanel_PlayerGo;
+    [FormerlySerializedAs("PlayerSyncNameTxt")][SerializeField] private TMP_Text playerSyncNameTxt;
 
     [Space(2)]
     [Header("* Off")]
-    [SerializeField] private GameObject PlayerSynergyEmptyGO;
+    [FormerlySerializedAs("PlayerSynergyEmptyGO")][SerializeField] private GameObject playerSynergyEmptyGo;
 
     [Space(2)]
     [Header("* On")]
-    [SerializeField] private GameObject PlayerSynergyExsitGO;
-    [SerializeField] private Transform PlayerSynergySlotParentTF;
-    [SerializeField] private Image PlayerSynergyDescImg;
-    [SerializeField] private TMP_Text PlayerSynergyDescTxt;
+    [FormerlySerializedAs("PlayerSynergyExsitGO")][SerializeField] private GameObject playerSynergyExsitGo;
+    [FormerlySerializedAs("PlayerSynergySlotParentTF")][SerializeField] private Transform playerSynergySlotParentTf;
+    [FormerlySerializedAs("PlayerSynergyDescImg")][SerializeField] private Image playerSynergyDescImg;
+    [FormerlySerializedAs("PlayerSynergyDescTxt")][SerializeField] private TMP_Text playerSynergyDescTxt;
 
     [Space(5)]
     [Header("-- Panel (Ally)")]
-    [SerializeField] private GameObject PickedModulePanel_AllyGO;
+    [FormerlySerializedAs("PickedModulePanel_AllyGO")][SerializeField] private GameObject pickedModulePanel_AllyGo;
 
     [Space(5)]
     [Header("-- Off")]
-    [SerializeField] private GameObject PickedOffGO;
+    [FormerlySerializedAs("PickedOffGO")][SerializeField] private GameObject pickedOffGo;
 
     [Space(5)]
     [Header("-- On")]
-    [SerializeField] private GameObject PickedOnGO;
+    [FormerlySerializedAs("PickedOnGO")][SerializeField] private GameObject pickedOnGo;
 
     [Space(2)]
     [Header("* Item & Slot")]
-    [SerializeField] private InventorySlotEUIController PickedPanelSlotEUI;
-    [SerializeField] private TMP_Text PickedPanelItemNameTxt;
-    [SerializeField] private TMP_Text PickedPanelItemRankTxt;
-    [SerializeField] private Image PickedPanelItemLockImg;
+    [FormerlySerializedAs("PickedPanelSlotEUI")][SerializeField] private InventorySlotEUIController pickedPanelSlotEui;
+    [FormerlySerializedAs("PickedPanelItemNameTxt")][SerializeField] private TMP_Text pickedPanelItemNameTxt;
+    [FormerlySerializedAs("PickedPanelItemRankTxt")][SerializeField] private TMP_Text pickedPanelItemRankTxt;
+    [FormerlySerializedAs("PickedPanelItemLockImg")][SerializeField] private Image pickedPanelItemLockImg;
 
     [Space(2)]
     [Header("* Synergy")]
-    [SerializeField] private List<AllySynergySlotEUIController> PickedPanelSynergyEUIList;
+    [FormerlySerializedAs("PickedPanelSynergyEUIList")][SerializeField] private List<AllySynergySlotEUIController> pickedPanelSynergyEuiList;
 
     [Space(5)]
     [Header("-- Buy")]
-    [SerializeField] private OwnCGBtnEUIController BuyBtnEUI;
-    [SerializeField] private GameObject CanBuyArrowGO;
-    [SerializeField] private RectTransform ModuleDetailExtraRT;
+    [FormerlySerializedAs("BuyBtnEUI")][SerializeField] private OwnCGBtnEUIController buyBtnEui;
+    [FormerlySerializedAs("CanBuyArrowGO")][SerializeField] private GameObject canBuyArrowGO;
+    [FormerlySerializedAs("ModuleDetailExtraRT")][SerializeField] private RectTransform moduleDetailExtraRt;
 
     [Space(5)]
     [Header("-- Goods")]
-    [SerializeField] private TMP_Text ChargeBetteryTxt;
-    [SerializeField] private TMP_Text ChargeBetteryUseTxt;
-    [SerializeField] private TMP_Text NoneSyncTxt;
-    [SerializeField] private TMP_Text NoneSyncUseTxt;
+    [FormerlySerializedAs("ChargeBetteryTxt")][SerializeField] private TMP_Text chargeBetteryTxt;
+    [FormerlySerializedAs("ChargeBetteryUseTxt")][SerializeField] private TMP_Text chargeBetteryUseTxt;
+    [FormerlySerializedAs("NoneSyncTxt")][SerializeField] private TMP_Text noneSyncTxt;
+    [FormerlySerializedAs("NoneSyncUseTxt")][SerializeField] private TMP_Text noneSyncUseTxt;
 
     [Space(10)]
     [Header("=== Txt")]
-    [SerializeField] private TMP_Text ModuleInventoryTxt;
-    [SerializeField] private TMP_Text ModuleDetailTxt;
+    [FormerlySerializedAs("ModuleInventoryTxt")][SerializeField] private TMP_Text moduleInventoryTxt;
+    [FormerlySerializedAs("ModuleDetailTxt")][SerializeField] private TMP_Text moduleDetailTxt;
 
     #endregion
 
     #region - Hide
 
     // Inven Data
-    [HideInInspector] private List<List<CoupleData<int>>> IndexData;
-    [HideInInspector] private Dictionary<CoupleData<int>, CopyModuleState> CurrentData;
+    [HideInInspector] private List<List<CoupleData<int>>> indexData;
+    [HideInInspector] private Dictionary<CoupleData<int>, CopyModuleState> currentData;
 
     // Picked
-    [HideInInspector] private InventoryItemEUIController PickedItemEUI;
-    [HideInInspector] private CopyModuleState PickedModule;
-    [HideInInspector] private List<int> PickedModuleMainChipID;
-    [HideInInspector] private int NeedChargedBettery = 0;
+    [HideInInspector] private InventoryItemEUIController pickedItemEui;
+    [HideInInspector] private CopyModuleState pickedModule;
+    [HideInInspector] private List<int> pickedModuleMainChipId;
+    [HideInInspector] private int needChargedBettery = 0;
 
     // Tuner Detail
     [HideInInspector] private Vector2 ModuleDetailExtraRTOpen;
 
     // Player Sync
-    [SerializeField] private List<SynergySlotEUIController> PlayerSyncSlotEUIList;
+    [FormerlySerializedAs("PlayerSyncSlotEUIList")][SerializeField] private List<SynergySlotEUIController> playerSyncSlotEuiList;
 
     // None Sync
-    [HideInInspector] private List<AllyNoneSynergySlotEUIController> NoneSyncItemEUIList;
-    [HideInInspector] private List<AllyNoneSynergySlotEUIController> UsingNoneSyncItemEUIList;
-    [HideInInspector] private List<int> SelectedNoneSyncIDList;
+    [HideInInspector] private List<AllyNoneSynergySlotEUIController> noneSyncItemEuiList;
+    [HideInInspector] private List<AllyNoneSynergySlotEUIController> usingNoneSyncItemEuiList;
+    [HideInInspector] private List<int> selectedNoneSyncIdList;
 
-    [HideInInspector] private static readonly Vector2 NoneSyncItemOffset = new Vector2(78, -80);
-    [HideInInspector] private static readonly float NoneSyncItemInterval = 134;
-    [HideInInspector] private static readonly int NoneSyncRowAmount = 4;
+    [HideInInspector] private static readonly Vector2 noneSyncItemOffset = new Vector2(78, -80);
+    [HideInInspector] private static readonly float noneSyncItemInterval = 134;
+    [HideInInspector] private static readonly int noneSyncRowAmount = 4;
 
     #endregion
 
@@ -149,58 +150,58 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     private void Offset_EUI()
     {
         // Inven
-        InventoryScrollPanelEUI.Offset();
-        InventoryEUI.Offset();
-        InventoryEUI.Gen_AllSlotAndItem(this);
+        inventoryScrollPanelEui.Offset();
+        inventoryEui.Offset();
+        inventoryEui.Gen_AllSlotAndItem(this);
 
-        NoneSyncScrollPanelEUI.Offset();
+        noneSyncScrollPanelEui.Offset();
 
         // Picked Panel
-        PickedPanelSlotEUI.Offset();
-        PickedPanelSlotEUI.ownerUIController = this;
+        pickedPanelSlotEui.Offset();
+        pickedPanelSlotEui.ownerUIController = this;
 
-        PickedPanelSlotEUI.item.Offset();
-        PickedPanelSlotEUI.item.ownerUIController = this;
+        pickedPanelSlotEui.item.Offset();
+        pickedPanelSlotEui.item.ownerUIController = this;
 
-        for (int i = 0; i < PickedPanelSynergyEUIList.Count; i++)
+        for (int i = 0; i < pickedPanelSynergyEuiList.Count; i++)
         {
-            PickedPanelSynergyEUIList[i].ownerUIController = this;
-            PickedPanelSynergyEUIList[i].Offset();
+            pickedPanelSynergyEuiList[i].ownerUIController = this;
+            pickedPanelSynergyEuiList[i].Offset();
         }
 
-        ModuleDetailExtraRTOpen = ModuleDetailExtraRT.sizeDelta;
+        ModuleDetailExtraRTOpen = moduleDetailExtraRt.sizeDelta;
 
         // Toggle
-        ToggleBtn.ownerUIController = this;
-        ToggleBtn.Offset();
+        toggleBtn.ownerUIController = this;
+        toggleBtn.Offset();
 
-        NoneSyneToggleBtn.ownerUIController = this;
-        NoneSyneToggleBtn.Offset();
+        noneSyneToggleBtn.ownerUIController = this;
+        noneSyneToggleBtn.Offset();
 
         // Player Sync
-        PlayerSyncSlotEUIList = new List<SynergySlotEUIController>();
-        for (int i = 0; i < PlayerSynergySlotParentTF.childCount; i++)
+        playerSyncSlotEuiList = new List<SynergySlotEUIController>();
+        for (int i = 0; i < playerSynergySlotParentTf.childCount; i++)
         {
-            if (PlayerSynergySlotParentTF.GetChild(i).TryGetComponent(out SynergySlotEUIController ssEui))
+            if (playerSynergySlotParentTf.GetChild(i).TryGetComponent(out SynergySlotEUIController ssEui))
             {
                 ssEui.ownerUIController = this;
                 ssEui.Offset();
-                PlayerSyncSlotEUIList.Add(ssEui);
+                playerSyncSlotEuiList.Add(ssEui);
             }
         }
 
         // Buy
-        BuyBtnEUI.ownerUIController = this;
-        BuyBtnEUI.Offset();
+        buyBtnEui.ownerUIController = this;
+        buyBtnEui.Offset();
 
-        NoneSyncItemEUIList = new List<AllyNoneSynergySlotEUIController>();
-        UsingNoneSyncItemEUIList = new List<AllyNoneSynergySlotEUIController>();
-        SelectedNoneSyncIDList = new List<int>();
+        noneSyncItemEuiList = new List<AllyNoneSynergySlotEUIController>();
+        usingNoneSyncItemEuiList = new List<AllyNoneSynergySlotEUIController>();
+        selectedNoneSyncIdList = new List<int>();
 
         // None Sync
-        NoneSyncCanBuyTxt.text = ResourceManager.instance.Get_StaticWord(115);
-        NoneSyneBuyBtn.ownerUIController = this;
-        NoneSyneBuyBtn.Offset();
+        noneSyncCanBuyTxt.text = ResourceManager.instance.Get_StaticWord(115);
+        noneSyneBuyBtn.ownerUIController = this;
+        noneSyneBuyBtn.Offset();
     }
 
     private void Offset_Subscribe()
@@ -208,7 +209,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         PlayerManager.instance.playerController.currentChargedBettery
             .Subscribe(_Value =>
             {
-                Set_ChargedBetteryUI(_Value, NeedChargedBettery);
+                Set_ChargedBetteryUI(_Value, needChargedBettery);
             });
     }
 
@@ -220,7 +221,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     {
         if (Is_Interact_Msg()) return true;
 
-        if (CurrentBtn == null || AllyModuleUpgradeController.UsingShop == null) return true;
+        if (currentBtn == null || AllyModuleUpgradeController.UsingShop == null) return true;
 
         if (base.Try_Interact()) return true;
         if (Is_Interact_CloseBtn()) return true;
@@ -242,9 +243,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private bool Is_Interact_ModulePickSynergy()
     {
-        if (CurrentBtn is AllySynergySlotEUIController eui)
+        if (currentBtn is AllySynergySlotEUIController eui)
         {
-            if (!PickedModule.isEquipped)
+            if (!pickedModule.isEquipped)
             {
                 // 사운드
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
@@ -264,7 +265,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private bool Is_Interact_ToggleBtn()
     {
-        if (CurrentBtn == ToggleBtn)
+        if (currentBtn == toggleBtn)
         {
             Set_ToggleAllyPlayerSyncPanel();
 
@@ -276,7 +277,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private bool Is_Interact_NoneSyneToggleBtn()
     {
-        if (CurrentBtn == NoneSyneToggleBtn)
+        if (currentBtn == noneSyneToggleBtn)
         {
             Set_ToggleNoneSyncPanel();
 
@@ -292,7 +293,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private bool Is_Interact_PlayerSync()
     {
-        if (CurrentBtn is SynergySlotEUIController ssEui && PlayerSyncSlotEUIList.Contains(ssEui))
+        if (currentBtn is SynergySlotEUIController ssEui && playerSyncSlotEuiList.Contains(ssEui))
         {
             SetOn_PlayerSynergyDesc(ssEui.id);
             return true;
@@ -307,9 +308,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private bool Is_Interact_ModuleInInventory()
     {
-        if (CurrentBtn is InventoryItemEUIController eui && eui == CurrentItemBtn)
+        if (currentBtn is InventoryItemEUIController eui && eui == currentItemBtn)
         {
-            if (PickedItemEUI != eui)
+            if (pickedItemEui != eui)
             {
                 Set_Picked(eui);
                 Set_BuyBtn();
@@ -327,16 +328,16 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private bool Is_Interact_NoneSyncSelect()
     {
-        if (CurrentBtn is AllyNoneSynergySlotEUIController eui)
+        if (currentBtn is AllyNoneSynergySlotEUIController eui)
         {
             eui.Set_SelectChange();
 
             if (eui.Get_IsOn())
-                DevTool.Add_InList(SelectedNoneSyncIDList, eui.Get_ID());
+                DevTool.Add_InList(selectedNoneSyncIdList, eui.Get_ID());
             else
-                DevTool.Remove_InList(SelectedNoneSyncIDList, eui.Get_ID());
+                DevTool.Remove_InList(selectedNoneSyncIdList, eui.Get_ID());
 
-            Set_NoneSyncAmountTxt(CurrentPickedAlly.Get_HadNoneSyncAmount(), Get_CurrentNeedNoneSync());
+            Set_NoneSyncAmountTxt(currentPickedAlly.Get_HadNoneSyncAmount(), Get_CurrentNeedNoneSync());
             Set_NoneSyncBuyBtn();
 
             return true;
@@ -347,7 +348,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private bool Is_Interact_NoneSyncBu()
     {
-        if (CurrentBtn is OwnBtnEUIController eui && eui == NoneSyneBuyBtn)
+        if (currentBtn is OwnBtnEUIController eui && eui == noneSyneBuyBtn)
         {
             if (Can_NoneSyncBuy())
             {
@@ -366,14 +367,14 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private bool Try_Interact_Buy()
     {
-        if (CurrentBtn == BuyBtnEUI)
+        if (currentBtn == buyBtnEui)
         {
             if (Can_Buy(out int goods))
             {
                 Buy();
                 Set_Picked(null);
 
-                AllyModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
+                AllyModuleUpgradeController.UsingShop.Take_Damage(spawnItem: false, soundOn: false);
             }
 
             return true;
@@ -386,11 +387,11 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #region Set (Profile)
 
-    protected override void Pick_AllyProfile(AllyProfileEUIController _EUI)
+    protected override void Pick_AllyProfile(AllyProfileEUIController eui)
     {
-        if (IsTweening) return;
+        if (isTweening) return;
 
-        base.Pick_AllyProfile(_EUI);
+        base.Pick_AllyProfile(eui);
 
         Set_NoneSynePanel();
 
@@ -404,16 +405,16 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // 현재 선택한 Sync에서 필요한 NoneSync
     private int Get_CurrentNeedNoneSync()
     {
-        return SelectedNoneSyncIDList.Count * AllyController.noneSyncNeedOneBuy;
+        return selectedNoneSyncIdList.Count * AllyController.noneSyncNeedOneBuy;
     }
 
     // Sync를 살 수 있는가
     private bool Can_NoneSyncBuy()
     {
-        if (CurrentPickedAlly == null) return false;
+        if (currentPickedAlly == null) return false;
 
-        return SelectedNoneSyncIDList.Count > 0 &&
-            CurrentPickedAlly.Get_HadNoneSyncAmount() >= Get_CurrentNeedNoneSync() &&
+        return selectedNoneSyncIdList.Count > 0 &&
+            currentPickedAlly.Get_HadNoneSyncAmount() >= Get_CurrentNeedNoneSync() &&
             !AllyModuleUpgradeController.UsingShop.IsBroken;
     }
 
@@ -422,13 +423,13 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     {
         if (Can_NoneSyncBuy())
         {
-            NoneSyncCanBuyGO.SetActive(true);
-            NoneSyncCannotBuyGO.SetActive(false);
+            noneSyncCanBuyGo.SetActive(true);
+            noneSyncCannotBuyGo.SetActive(false);
         }
         else
         {
-            NoneSyncCanBuyGO.SetActive(false);
-            NoneSyncCannotBuyGO.SetActive(true);
+            noneSyncCanBuyGo.SetActive(false);
+            noneSyncCannotBuyGo.SetActive(true);
         }
     }
 
@@ -436,21 +437,21 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     private void Buy_FromNoneSync()
     {
         // 추가
-        CurrentPickedAlly.Add_Sync(SelectedNoneSyncIDList);
+        currentPickedAlly.Add_Sync(selectedNoneSyncIdList);
 
         // 재화 소모
         int needGoods = Get_CurrentNeedNoneSync();
-        CurrentPickedAlly.Use_HadNoneSyncAmount(needGoods);
-        AllyModuleUpgradeController.UsingShop.Take_Damage(_SpawnItem: false, _SoundOn: false);
+        currentPickedAlly.Use_HadNoneSyncAmount(needGoods);
+        AllyModuleUpgradeController.UsingShop.Take_Damage(spawnItem: false, soundOn: false);
 
         // 소비 효과
-        Play_UseTxt(NoneSyncUseTxt, needGoods, 30f);
+        Play_UseTxt(noneSyncUseTxt, needGoods, 30f);
 
         // Extra 창에 State UI
-        Set_AllyState(CurrentPickedAlly);
+        Set_AllyState(currentPickedAlly);
 
         // Extra 창에 Sync UI
-        Set_AllySync(CurrentPickedAlly);
+        Set_AllySync(currentPickedAlly);
 
         // 패널 다시 세팅
         Set_NoneSynePanel();
@@ -464,7 +465,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // 현재 None Sync 패널에 진입할 수 있는지?
     private bool Can_EnterNoneSyncPanel()
     {
-        if (CurrentPickedAlly.Get_HadNoneSyncAmount() >= AllyController.noneSyncNeedOneBuy)
+        if (currentPickedAlly.Get_HadNoneSyncAmount() >= AllyController.noneSyncNeedOneBuy)
         {
             return true;
         }
@@ -484,15 +485,15 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // Arrow, Toggle Btn 키기
     private void SetOn_NoneSyncEnterPanel()
     {
-        NoneSyncArrowPanelGO.gameObject.SetActive(true);
+        noneSyncArrowPanelGo.gameObject.SetActive(true);
     }
 
     // Arrow, Toggle Btn 끄기
     private void SetOff_NoneSyncEnterPanel()
     {
-        NoneSyncArrowPanelGO.gameObject.SetActive(false);
+        noneSyncArrowPanelGo.gameObject.SetActive(false);
 
-        if (InventoryPanel_NoneSyneGO.activeSelf)
+        if (inventoryPanel_NoneSyneGo.activeSelf)
             SetOn_ToggleNoneSyncPanel(false);
         
     }
@@ -504,7 +505,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // 현재 추가 획득할 수 있는 NoneSync 패널 세팅
     private void Set_NoneSynePanel()
     {
-        if (CurrentPickedAlly == null)
+        if (currentPickedAlly == null)
         {
             Set_NoneSyncAmountTxt();
             SetOn_NoneSyneEmptyPanel(true);
@@ -512,10 +513,10 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         }
         else
         {
-            Set_NoneSyncAmountTxt(CurrentPickedAlly.Get_HadNoneSyncAmount());
+            Set_NoneSyncAmountTxt(currentPickedAlly.Get_HadNoneSyncAmount());
             SetOn_NoneSyneEmptyPanel(false);
 
-            Dictionary<int, int> noFullSyncData = CurrentPickedAlly.Get_NoFullSyncData();
+            Dictionary<int, int> noFullSyncData = currentPickedAlly.Get_NoFullSyncData();
             Debug.Log(noFullSyncData.Count);
             Gen_NoneSyncItemEUI(noFullSyncData.Count);
             SetOff_AllNoneSyncEUI();
@@ -527,41 +528,41 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     }
 
     // 현재 가지고 있는 NoneSync 개수
-    private void Set_NoneSyncAmountTxt(int _Amount = -1, int _Need = 0)
+    private void Set_NoneSyncAmountTxt(int amount = -1, int need = 0)
     {
         string result = "";
-        if (_Amount == -1)
+        if (amount == -1)
         {
             result += "?";
         }
         else
         {
-            result += CurrentPickedAlly.Get_HadNoneSyncAmount().ToString();
+            result += currentPickedAlly.Get_HadNoneSyncAmount().ToString();
             
-            if (_Need != 0)
+            if (need != 0)
             {
-                result += $" <color=#933C8E>- {_Need}</color>";
+                result += $" <color=#933C8E>- {need}</color>";
             }
         }
 
-        NoneSyncTxt.text = result;
+        noneSyncTxt.text = result;
     }
 
     // 필요한 만큼 생성하기
-    private void Gen_NoneSyncItemEUI(int _NeedAmount)
+    private void Gen_NoneSyncItemEUI(int needAmount)
     {
-        if (NoneSyncItemEUIList.Count < _NeedAmount)
+        if (noneSyncItemEuiList.Count < needAmount)
         {
-            int genAmount = _NeedAmount - NoneSyncItemEUIList.Count;
+            int genAmount = needAmount - noneSyncItemEuiList.Count;
 
             for (int i = 0; i < genAmount; i++)
             {
                 AllyNoneSynergySlotEUIController genEUI = DevTool.Get_ComponentTType<AllyNoneSynergySlotEUIController>(
-                    Instantiate(NoneSyncItemPrefab, NoneSyncItemParentTF));
+                    Instantiate(noneSyncItemPrefab, noneSyncItemParentTf));
                 genEUI.ownerUIController = this;
                 genEUI.Offset();
 
-                NoneSyncItemEUIList.Add(genEUI);
+                noneSyncItemEuiList.Add(genEUI);
             }
         }
     }
@@ -569,37 +570,37 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     // 모두 끄기
     private void SetOff_AllNoneSyncEUI()
     {
-        for (int i = 0; i < NoneSyncItemEUIList.Count; i++)
+        for (int i = 0; i < noneSyncItemEuiList.Count; i++)
         {
-            NoneSyncItemEUIList[i].gameObject.SetActive(false);
-            NoneSyncItemEUIList[i].Set_Select(false);
+            noneSyncItemEuiList[i].gameObject.SetActive(false);
+            noneSyncItemEuiList[i].Set_Select(false);
         }
     }
 
     // 키기
-    private void SetOn_NoneSyncEUI(Dictionary<int, int> _ApplySyncData)
+    private void SetOn_NoneSyncEUI(Dictionary<int, int> applySyncData)
     {
-        UsingNoneSyncItemEUIList.Clear();
-        SelectedNoneSyncIDList.Clear();
+        usingNoneSyncItemEuiList.Clear();
+        selectedNoneSyncIdList.Clear();
 
         float lastY = 0;
         int index = 0;
-        foreach(KeyValuePair<int, int> pair in _ApplySyncData)
+        foreach(KeyValuePair<int, int> pair in applySyncData)
         {
             int id = pair.Key;
-            NoneSyncItemEUIList[index].gameObject.SetActive(true);
-            NoneSyncItemEUIList[index].rt.anchoredPosition = 
-                NoneSyncItemOffset + 
+            noneSyncItemEuiList[index].gameObject.SetActive(true);
+            noneSyncItemEuiList[index].rt.anchoredPosition = 
+                noneSyncItemOffset + 
                 new Vector2(
-                    (index % NoneSyncRowAmount) * NoneSyncItemInterval, 
-                    -((index / NoneSyncRowAmount) * NoneSyncItemInterval));
-            NoneSyncItemEUIList[index].Set_SynergySlot(id);
-            UsingNoneSyncItemEUIList.Add(NoneSyncItemEUIList[index]);
-            lastY = NoneSyncItemEUIList[index].rt.anchoredPosition.y;
+                    (index % noneSyncRowAmount) * noneSyncItemInterval, 
+                    -((index / noneSyncRowAmount) * noneSyncItemInterval));
+            noneSyncItemEuiList[index].Set_SynergySlot(id);
+            usingNoneSyncItemEuiList.Add(noneSyncItemEuiList[index]);
+            lastY = noneSyncItemEuiList[index].rt.anchoredPosition.y;
             index++;
         }
 
-        NoneSyncScrollPanelEUI.Set_ScrollHeight(Mathf.Max(-lastY + 76, 716));
+        noneSyncScrollPanelEui.Set_ScrollHeight(Mathf.Max(-lastY + 76, 716));
     }
 
     #endregion
@@ -609,55 +610,55 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     private void Set_BuyBtn()
     {
         bool can = Can_Buy(out int goods);
-        BuyBtnEUI.cg.alpha = can ? 1f : 0.5f;
-        CanBuyArrowGO.gameObject.SetActive(can);
+        buyBtnEui.cg.alpha = can ? 1f : 0.5f;
+        canBuyArrowGO.gameObject.SetActive(can);
 
-        DevTool.Set_KillTween(ModuleDetailExtraRT);
-        ModuleDetailExtraRT.DOSizeDelta(can ? ModuleDetailExtraRTOpen : new Vector2(ModuleDetailExtraRTOpen.x, 0), 0.2f);
+        DevTool.Set_KillTween(moduleDetailExtraRt);
+        moduleDetailExtraRt.DOSizeDelta(can ? ModuleDetailExtraRTOpen : new Vector2(ModuleDetailExtraRTOpen.x, 0), 0.2f);
 
-        NeedChargedBettery = can ? goods : 0;
-        Set_ChargedBetteryUI(PlayerManager.instance.playerController.currentChargedBettery.Value, NeedChargedBettery);
+        needChargedBettery = can ? goods : 0;
+        Set_ChargedBetteryUI(PlayerManager.instance.playerController.currentChargedBettery.Value, needChargedBettery);
     }
 
-    private bool Can_Buy(out int _Goods)
+    private bool Can_Buy(out int goods)
     {
-        _Goods = -2;
+        goods = -2;
 
-        if (PickedItemEUI == null) return false;
+        if (pickedItemEui == null) return false;
 
         bool isExist = false;
-        for (int i = 0; i < PickedPanelSynergyEUIList.Count; i++)
+        for (int i = 0; i < pickedPanelSynergyEuiList.Count; i++)
         {
-            if (PickedPanelSynergyEUIList[i].Get_IsOn())
+            if (pickedPanelSynergyEuiList[i].Get_IsOn())
             {
                 isExist = true;
-                _Goods += 2;
+                goods += 2;
             }
         }
 
         return !AllyModuleUpgradeController.UsingShop.IsBroken &&
             isExist && 
-            PlayerManager.instance.playerController.currentChargedBettery.Value >= _Goods &&
-            CurrentPickedProfileEUI != null &&
-            PickedModulePanel_AllyGO.activeSelf;
+            PlayerManager.instance.playerController.currentChargedBettery.Value >= goods &&
+            currentPickedProfileEui != null &&
+            pickedModulePanel_AllyGo.activeSelf;
     }
 
     private void Buy()
     {
         // 데이터
-        PlayerManager.instance.playerController.currentChargedBettery.Value -= NeedChargedBettery;
-        ModuleItemManager.instance.Remove_ModuleState(Get_CorrectMS(PickedItemEUI.slot).originalIndex);
+        PlayerManager.instance.playerController.currentChargedBettery.Value -= needChargedBettery;
+        ModuleItemManager.instance.Remove_ModuleState(Get_CorrectMS(pickedItemEui.slot).originalIndex);
 
-        CurrentPickedAlly.Add_Sync(Get_PickedSyncList());
+        currentPickedAlly.Add_Sync(Get_PickedSyncList());
 
         // 소비 효과
-        Play_UseTxt(ChargeBetteryUseTxt, NeedChargedBettery, 30f);
+        Play_UseTxt(chargeBetteryUseTxt, needChargedBettery, 30f);
 
         // Extra 창에 State UI
-        Set_AllyState(CurrentPickedAlly);
+        Set_AllyState(currentPickedAlly);
 
         // Extra 창에 Sync UI
-        Set_AllySync(CurrentPickedAlly);
+        Set_AllySync(currentPickedAlly);
 
         // 구매한 모듈로 재세팅
         Set_Inventory();
@@ -673,11 +674,11 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     {
         List<int> result = new List<int>();
 
-        for (int i = 0; i < PickedPanelSynergyEUIList.Count; i++)
+        for (int i = 0; i < pickedPanelSynergyEuiList.Count; i++)
         {
-            if (PickedPanelSynergyEUIList[i].Get_IsOn())
+            if (pickedPanelSynergyEuiList[i].Get_IsOn())
             {
-                result.Add(PickedPanelSynergyEUIList[i].Get_ID());
+                result.Add(pickedPanelSynergyEuiList[i].Get_ID());
             }
         }
 
@@ -688,15 +689,15 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #region Pay
 
-    private void Set_ChargedBetteryUI(int _Amount, int _NeedAmount = 0)
+    private void Set_ChargedBetteryUI(int amount, int needAmount = 0)
     {
-        if (_NeedAmount == 0)
+        if (needAmount == 0)
         {
-            ChargeBetteryTxt.text = _Amount.ToString();
+            chargeBetteryTxt.text = amount.ToString();
         }
         else
         {
-            ChargeBetteryTxt.text = $"{_Amount} <color=#933C8E>- {_NeedAmount}</color>";
+            chargeBetteryTxt.text = $"{amount} <color=#933C8E>- {needAmount}</color>";
         }
     }
 
@@ -720,29 +721,29 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         Set_Picked(null);
     }
 
-    private void Set_CopyAllyShopMSInventory(List<CopyModuleState> _UnEq, List<CopyModuleState> _Eq)
+    private void Set_CopyAllyShopMSInventory(List<CopyModuleState> unEquip, List<CopyModuleState> equip)
     {
-        IndexData = new List<List<CoupleData<int>>>();
-        CurrentData = new Dictionary<CoupleData<int>, CopyModuleState>();
+        indexData = new List<List<CoupleData<int>>>();
+        currentData = new Dictionary<CoupleData<int>, CopyModuleState>();
 
         // 순서대로, Row Col 로 이중 리스트로 사용
-        List<List<CopyModuleState>> combineData = DevTool.Get_RowColumeList(DevTool.Get_CombineList(_UnEq, _Eq), ModuleItemManager.rowAmount);
+        List<List<CopyModuleState>> combineData = DevTool.Get_RowColumeList(DevTool.Get_CombineList(unEquip, equip), ModuleItemManager.rowAmount);
         
         for (int i = 0; i < combineData.Count; i++)
         {
-            IndexData.Add(new List<CoupleData<int>>());
+            indexData.Add(new List<CoupleData<int>>());
             for (int j = 0; j < combineData[i].Count; j++)
             {
                 CoupleData<int> indexData = new CoupleData<int>(i, j);
-                IndexData[i].Add(indexData);
-                CurrentData.Add(indexData, combineData[i][j]);
+                this.indexData[i].Add(indexData);
+                currentData.Add(indexData, combineData[i][j]);
             }
         }
 
         // UI Set
-        InventoryEUI.SetOff_AllInventoryEquipedUI();
+        inventoryEui.SetOff_AllInventoryEquipedUI();
 
-        InventoryEUI.Set_InventoryUI(combineData);
+        inventoryEui.Set_InventoryUI(combineData);
 
         return;
     }
@@ -751,23 +752,23 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     #region Set (Picked)
 
-    private void Set_PickedOnOffPanel(bool _OnOff)
+    private void Set_PickedOnOffPanel(bool onOff)
     {
-        PickedOnGO.SetActive(_OnOff);
-        PickedOffGO.SetActive(!_OnOff);
+        pickedOnGo.SetActive(onOff);
+        pickedOffGo.SetActive(!onOff);
     }
 
-    private void Set_Picked(InventoryItemEUIController _ItemEUI)
+    private void Set_Picked(InventoryItemEUIController itemEui)
     {
-        if (_ItemEUI == null)
+        if (itemEui == null)
         {
             Set_PickedOnOffPanel(false);
 
-            PickedItemEUI = null;
-            PickedModule = null;
-            PickedModuleMainChipID = null;
+            pickedItemEui = null;
+            pickedModule = null;
+            pickedModuleMainChipId = null;
 
-            InventoryEUI.SetOff_AllInventoryForgeSelectedUI();
+            inventoryEui.SetOff_AllInventoryForgeSelectedUI();
         }
         else
         {
@@ -776,9 +777,9 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
             Set_PickedOnOffPanel(true);
 
-            PickedItemEUI = _ItemEUI; // 아이템 EUI
-            PickedModule = Get_CorrectMS(PickedItemEUI.slot); // MS
-            PickedModuleMainChipID = ModuleItemManager.instance.Get_MainChipIDData(PickedModule.state); // MainChip
+            pickedItemEui = itemEui; // 아이템 EUI
+            pickedModule = Get_CorrectMS(pickedItemEui.slot); // MS
+            pickedModuleMainChipId = ModuleItemManager.instance.Get_MainChipIDData(pickedModule.state); // MainChip
 
             Set_PickedInventoryUI(); // Inventory UI
             Set_PickedModuleUI(); // Module UI
@@ -788,35 +789,35 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private void Set_PickedInventoryUI()
     {
-        InventoryEUI.SetOff_AllInventoryForgeSelectedUI();
-        PickedItemEUI.slot.Set_ForgeSelectedTxt(true);
+        inventoryEui.SetOff_AllInventoryForgeSelectedUI();
+        pickedItemEui.slot.Set_ForgeSelectedTxt(true);
     }
 
     private void Set_PickedModuleUI()
     {
-        string name = $"[ {PickedModule.state.thisItemData.name} ]";
-        if (PickedModule.isEquipped) name += $" <size=75%><color=#7F7F7F>({ResourceManager.instance.Get_StaticWord(112)})</size></color>";
-        PickedPanelItemNameTxt.text = name;
-        PickedPanelItemRankTxt.text = $"<size=70%>(R: {PickedModule.state.thisItemData.rank})</size>";
-        PickedPanelItemRankTxt.color = ResourceManager.instance.Get_AllyCardColor(PickedModule.state.thisItemData.rank - 1);
-        PickedPanelSlotEUI.Set_EquipedTxt_NoneNum(PickedModule.isEquipped);
+        string name = $"[ {pickedModule.state.thisItemData.name} ]";
+        if (pickedModule.isEquipped) name += $" <size=75%><color=#7F7F7F>({ResourceManager.instance.Get_StaticWord(112)})</size></color>";
+        pickedPanelItemNameTxt.text = name;
+        pickedPanelItemRankTxt.text = $"<size=70%>(R: {pickedModule.state.thisItemData.rank})</size>";
+        pickedPanelItemRankTxt.color = ResourceManager.instance.Get_AllyCardColor(pickedModule.state.thisItemData.rank - 1);
+        pickedPanelSlotEui.Set_EquipedTxt_NoneNum(pickedModule.isEquipped);
         
-        PickedPanelSlotEUI.item.Set_Data(new ItemData_UIVisual(
-            PickedModule.state.thisItemData.itemIcon,
-            PickedModule.state.thisItemData.rank));
+        pickedPanelSlotEui.item.Set_Data(new ItemData_UIVisual(
+            pickedModule.state.thisItemData.itemIcon,
+            pickedModule.state.thisItemData.rank));
 
-        PickedPanelItemLockImg.gameObject.SetActive(PickedModule.isEquipped);
+        pickedPanelItemLockImg.gameObject.SetActive(pickedModule.isEquipped);
     }
 
     private void Set_PickedSynergyUI()
     {
-        for (int i = 0; i < PickedPanelSynergyEUIList.Count; i++)
+        for (int i = 0; i < pickedPanelSynergyEuiList.Count; i++)
         {
-            MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(PickedModuleMainChipID[i]);
-            PickedPanelSynergyEUIList[i].Set_SynergySlot(MDC.id, MDC.thisIcon, ResourceManager.instance.Get_MainChipBaseDesc(MDC.id));
-            PickedPanelSynergyEUIList[i].Set_PlayerSynergyTxt(ModuleItemManager.instance.Get_MainChipAmount(MDC.id));
-            PickedPanelSynergyEUIList[i].Set_Select(false);
-            PickedPanelSynergyEUIList[i].Set_Lock(PickedModule.isEquipped);
+            MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(pickedModuleMainChipId[i]);
+            pickedPanelSynergyEuiList[i].Set_SynergySlot(MDC.id, MDC.thisIcon, ResourceManager.instance.Get_MainChipBaseDesc(MDC.id));
+            pickedPanelSynergyEuiList[i].Set_PlayerSynergyTxt(ModuleItemManager.instance.Get_MainChipAmount(MDC.id));
+            pickedPanelSynergyEuiList[i].Set_Select(false);
+            pickedPanelSynergyEuiList[i].Set_Lock(pickedModule.isEquipped);
         }
     }
 
@@ -826,23 +827,23 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private void Set_ToggleNoneSyncPanel()
     {
-        if (InventoryPanel_NoneSyneGO.activeSelf)
+        if (inventoryPanel_NoneSyneGo.activeSelf)
             SetOn_ToggleNoneSyncPanel(false);
         else
             SetOn_ToggleNoneSyncPanel(true);
     }
 
 
-    private void SetOn_ToggleNoneSyncPanel(bool _IsOn)
+    private void SetOn_ToggleNoneSyncPanel(bool isOn)
     {
-        InventoryPanel_NoneSyneGO.SetActive(_IsOn);
-        InventoryPanel_InventoryGO.SetActive(!_IsOn);
+        inventoryPanel_NoneSyneGo.SetActive(isOn);
+        inventoryPanel_InventoryGo.SetActive(!isOn);
     }
 
-    private void SetOn_NoneSyneEmptyPanel(bool _IsOn)
+    private void SetOn_NoneSyneEmptyPanel(bool isOn)
     {
-        NoneSyncPanel_EmptyGO.SetActive(_IsOn);
-        NoneSyncPanel_ExistGO.SetActive(!_IsOn);
+        noneSyncPanel_EmptyGo.SetActive(isOn);
+        noneSyncPanel_ExistGo.SetActive(!isOn);
     }
 
 
@@ -853,17 +854,17 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private void Set_ToggleAllyPlayerSyncPanel()
     {
-        if (PickedModulePanel_AllyGO.activeSelf)
+        if (pickedModulePanel_AllyGo.activeSelf)
             SetOn_ToggleAllySyncPanel(false);
         else
             SetOn_ToggleAllySyncPanel(true);
     }
 
     
-    private void SetOn_ToggleAllySyncPanel(bool _IsOn)
+    private void SetOn_ToggleAllySyncPanel(bool isOn)
     {
-        PickedModulePanel_AllyGO.SetActive(_IsOn);
-        PickedModulePanel_PlayerGO.SetActive(!_IsOn);
+        pickedModulePanel_AllyGo.SetActive(isOn);
+        pickedModulePanel_PlayerGo.SetActive(!isOn);
         // 사운드
         SoundManager.instance.Play_2D_SFX_UI("Click_01");
     }
@@ -877,18 +878,18 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         if (playerSync.Count <= 0)
         {
-            PlayerSynergyEmptyGO.gameObject.SetActive(true);
-            PlayerSynergyExsitGO.gameObject.SetActive(false);
+            playerSynergyEmptyGo.gameObject.SetActive(true);
+            playerSynergyExsitGo.gameObject.SetActive(false);
         }
         else
         {
-            PlayerSynergyEmptyGO.gameObject.SetActive(false);
-            PlayerSynergyExsitGO.gameObject.SetActive(true);
+            playerSynergyEmptyGo.gameObject.SetActive(false);
+            playerSynergyExsitGo.gameObject.SetActive(true);
 
             foreach (KeyValuePair<int, int> sync in playerSync)
             {
                 MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(sync.Key);
-                PlayerSyncSlotEUIList[orderIndex].SetOn_SynergySlot(sync.Key, MDC.thisIcon, sync.Value);
+                playerSyncSlotEuiList[orderIndex].SetOn_SynergySlot(sync.Key, MDC.thisIcon, sync.Value);
                 orderIndex++;
             }
         }   
@@ -896,8 +897,8 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private void SetOff_PlayerSyncState()
     {
-        for (int i = 0; i < PlayerSyncSlotEUIList.Count; i++)
-            PlayerSyncSlotEUIList[i].SetOff_SynergySlot();
+        for (int i = 0; i < playerSyncSlotEuiList.Count; i++)
+            playerSyncSlotEuiList[i].SetOff_SynergySlot();
     }
 
     #endregion
@@ -906,27 +907,27 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private void SetOff_PlayerSynergyDesc()
     {
-        PlayerSynergyDescImg.gameObject.SetActive(false);
+        playerSynergyDescImg.gameObject.SetActive(false);
     }
 
-    private void SetOn_PlayerSynergyDesc(int _ID)
+    private void SetOn_PlayerSynergyDesc(int id)
     {
         // 사운드
         SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
-        PlayerSynergyDescImg.gameObject.SetActive(true);
+        playerSynergyDescImg.gameObject.SetActive(true);
 
-        PlayerSynergyDescImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_ID).thisIcon;
-        PlayerSynergyDescTxt.text = ResourceManager.instance.Get_MainChipBaseDesc(_ID);
+        playerSynergyDescImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(id).thisIcon;
+        playerSynergyDescTxt.text = ResourceManager.instance.Get_MainChipBaseDesc(id);
     }
 
     #endregion
 
     #region Get (MS)
 
-    private CopyModuleState Get_CorrectMS(InventorySlotEUIController _SlotBtn)
+    private CopyModuleState Get_CorrectMS(InventorySlotEUIController slotBtn)
     {
-        return CurrentData[IndexData[_SlotBtn.col][_SlotBtn.row]];
+        return currentData[indexData[slotBtn.col][slotBtn.row]];
     }
 
     #endregion
@@ -938,7 +939,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         base.SetOn_ThisPanel();
 
         // Dur
-        ThisDurEUI.Set_Dur(AllyModuleUpgradeController.UsingShop.CurrentDur);
+        durEui.Set_Dur(AllyModuleUpgradeController.UsingShop.CurrentDur);
 
         Set_Inventory();
         Set_BuyBtn();
@@ -970,18 +971,18 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     public override void Set_LanguageTxt()
     {
         // Label
-        LabelName = ResourceManager.instance.Get_StaticWord(95) + " " + ResourceManager.instance.Get_StaticWord(27) + " " + ResourceManager.instance.Get_StaticWord(2);
-        LabelTxt.text = LabelName;
+        labelName = ResourceManager.instance.Get_StaticWord(95) + " " + ResourceManager.instance.Get_StaticWord(27) + " " + ResourceManager.instance.Get_StaticWord(2);
+        labelTxt.text = labelName;
 
         // Tuner
-        ModuleInventoryTxt.text = ResourceManager.instance.Get_StaticWord(110);
-        ModuleDetailTxt.text = ResourceManager.instance.Get_StaticWord(111);
+        moduleInventoryTxt.text = ResourceManager.instance.Get_StaticWord(110);
+        moduleDetailTxt.text = ResourceManager.instance.Get_StaticWord(111);
 
         // Buy
-        BuyBtnEUI.txt.text = ResourceManager.instance.Get_StaticWord(47) + " & " + ResourceManager.instance.Get_StaticWord(105);
+        buyBtnEui.txt.text = ResourceManager.instance.Get_StaticWord(47) + " & " + ResourceManager.instance.Get_StaticWord(105);
 
         // Player Sync
-        PlayerSyncNameTxt.text = $"[ {ResourceManager.instance.Get_StaticWord(113)} {ResourceManager.instance.Get_StaticWord(50)} ]";
+        playerSyncNameTxt.text = $"[ {ResourceManager.instance.Get_StaticWord(113)} {ResourceManager.instance.Get_StaticWord(50)} ]";
         base.Set_LanguageTxt();
     }
 

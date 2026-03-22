@@ -81,7 +81,7 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
             return;
         }
 
-        ownerUIController.CurrentItemBtn = this;
+        ownerUIController.currentItemBtn = this;
 
         if (DevTool.Can_CastingTType(ownerUIController, out ModuleUpgradeUIController muui))
             muui.SetOn_Desc(this);
@@ -96,7 +96,7 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
 
         Play_Selected(1f, selectDurTime);
 
-        ownerUIController.CurrentItemBtn = null;
+        ownerUIController.currentItemBtn = null;
 
         if (DevTool.Can_CastingTType(ownerUIController, out ModuleUpgradeUIController muui))
             muui.SetOff_Desc();

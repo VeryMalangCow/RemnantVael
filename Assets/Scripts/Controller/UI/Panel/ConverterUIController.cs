@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class ConverterUIController : SinglePanelUIController
 {
@@ -14,28 +15,28 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== Label")]
-    [SerializeField] protected TMP_Text LabelTxt;
+    [FormerlySerializedAs("LabelTxt")][SerializeField] protected TMP_Text labelTxt;
 
     [Space(10)]
     [Header("=== EUI")]
-    [SerializeField] protected CvtAcquisitionEUIController CvtAcquisitionEUI;
-    [SerializeField] protected int AcquisitionItemID;
+    [FormerlySerializedAs("CvtAcquisitionEUI")][SerializeField] protected CvtAcquisitionEUIController cvtAcquisitionEui;
+    [FormerlySerializedAs("AcquisitionItemID")][SerializeField] protected int acquisitionItemId;
 
     [Space(10)]
     [Header("=== Close")]
-    [SerializeField] protected OwnBtnEUIController CloseBtn;
+    [FormerlySerializedAs("CloseBtn")][SerializeField] protected OwnBtnEUIController closeBtn;
 
     #endregion
 
     #region - Hide 
 
     // String
-    [HideInInspector] public static string LabelName;
+    [HideInInspector] public static string labelName;
 
     // Data
-    [HideInInspector] protected int AcquisitionBookAmount = 1;
-    [HideInInspector] protected bool CanConvert = false;
-    [HideInInspector] private bool ConvertingNow = false;
+    [HideInInspector] protected int acquisitionBookAmount = 1;
+    [HideInInspector] protected bool canConvert = false;
+    [HideInInspector] private bool convertingNow = false;
 
     #endregion
 
@@ -55,34 +56,34 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     private void Offset_Basic()
     {
-        CloseBtn.Offset();
-        CloseBtn.ownerUIController = this;
+        closeBtn.Offset();
+        closeBtn.ownerUIController = this;
 
-        CvtAcquisitionEUI.Offset();
-        CvtAcquisitionEUI.Offset_Owner(this);
+        cvtAcquisitionEui.Offset();
+        cvtAcquisitionEui.Offset_Owner(this);
     }
 
     private void Offset_ColorComp()
     {
-        MainColorCompList = new List<Component>();
-        SubColorCompList = new List<Component>();
+        mainColorCompList = new List<Component>();
+        subColorCompList = new List<Component>();
 
         // Label
-        MainColorCompList.Add(LabelTxt);
+        mainColorCompList.Add(labelTxt);
 
         // Close
-        SubColorCompList.Add(CloseBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+        subColorCompList.Add(closeBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
 
         Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        DevTool.Set_Color(mainClr, MainColorCompList);
-        MainColorCompList.Clear();
-        MainColorCompList = null;
+        DevTool.Set_Color(mainClr, mainColorCompList);
+        mainColorCompList.Clear();
+        mainColorCompList = null;
 
         Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-        DevTool.Set_Color(subClr, SubColorCompList);
-        SubColorCompList.Clear();
-        SubColorCompList = null;
+        DevTool.Set_Color(subClr, subColorCompList);
+        subColorCompList.Clear();
+        subColorCompList = null;
     }
 
     #endregion
@@ -93,47 +94,47 @@ public abstract class ConverterUIController : SinglePanelUIController
     {
         if (Is_Interact_CloseBtn()) return true;
 
-        if (CurrentBtn != null && !ConvertingNow)
+        if (currentBtn != null && !convertingNow)
         {
-            if (CurrentBtn == CvtAcquisitionEUI.maxBtn)
+            if (currentBtn == cvtAcquisitionEui.maxBtn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MaxAcquBookAmount();
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.minBtn)
+            else if (currentBtn == cvtAcquisitionEui.minBtn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MinAcquBookAmount();
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.more1Btn)
+            else if (currentBtn == cvtAcquisitionEui.more1Btn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MoreAcquBookAmount(1);
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.more10Btn)
+            else if (currentBtn == cvtAcquisitionEui.more10Btn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MoreAcquBookAmount(10);
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.less1Btn)
+            else if (currentBtn == cvtAcquisitionEui.less1Btn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_LessAcquBookAmount(1);
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.less10Btn)
+            else if (currentBtn == cvtAcquisitionEui.less10Btn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_LessAcquBookAmount(10);
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.convertBtn)
+            else if (currentBtn == cvtAcquisitionEui.convertBtn)
             {
-                if (CanConvert)
+                if (canConvert)
                 {
                     Play_Convert();
                 }
@@ -155,9 +156,9 @@ public abstract class ConverterUIController : SinglePanelUIController
 
     protected bool Is_Interact_CloseBtn()
     {
-        if (CurrentBtn == CloseBtn)
+        if (currentBtn == closeBtn)
         {
-            if (!ConvertingNow) 
+            if (!convertingNow) 
                 SetOff_ThisPanel();
 
             return true;
@@ -179,31 +180,31 @@ public abstract class ConverterUIController : SinglePanelUIController
     }
 
     // 증가
-    protected void Set_MoreAcquBookAmount(int _Amount)
+    protected void Set_MoreAcquBookAmount(int amount)
     {
-        Set_AcquBookAmount(AcquisitionBookAmount + _Amount);
+        Set_AcquBookAmount(acquisitionBookAmount + amount);
     }
 
     // 감소
-    protected void Set_LessAcquBookAmount(int _Amount)
+    protected void Set_LessAcquBookAmount(int amount)
     {
-        Set_AcquBookAmount(AcquisitionBookAmount - _Amount);
+        Set_AcquBookAmount(acquisitionBookAmount - amount);
     }
 
     // 이미 가진 아이템
     protected void Set_AcquAmount(int _ItemID)
     {
-        CvtAcquisitionEUI.Set_PossessionAmountTxt(
-            SaveDataManager.instance.jsonData.Get_ItemAmount(AcquisitionItemID).ToString());
+        cvtAcquisitionEui.Set_PossessionAmountTxt(
+            SaveDataManager.instance.jsonData.Get_ItemAmount(acquisitionItemId).ToString());
     }
 
     // Data
-    protected virtual void Set_AcquBookAmount(int _Amount)
+    protected virtual void Set_AcquBookAmount(int amount)
     {
-        AcquisitionBookAmount = Mathf.Clamp(_Amount, 1, 999);
+        acquisitionBookAmount = Mathf.Clamp(amount, 1, 999);
 
         // UI
-        CvtAcquisitionEUI.Set_AcquisitionAmountTxt(AcquisitionBookAmount.ToString());
+        cvtAcquisitionEui.Set_AcquisitionAmountTxt(acquisitionBookAmount.ToString());
     }
 
     #endregion
@@ -224,38 +225,38 @@ public abstract class ConverterUIController : SinglePanelUIController
     {
         SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
 
-        ConvertingNow = true;
+        convertingNow = true;
 
-        CvtAcquisitionEUI.Play_FailComp();
+        cvtAcquisitionEui.Play_FailComp();
         yield return new WaitForSeconds(0.6f);
 
-        ConvertingNow = false;
+        convertingNow = false;
     }
 
     private IEnumerator Play_Convert_Cor()
     {
         SoundManager.instance.Play_2D_SFX_UI("Make");
 
-        ConvertingNow = true;
+        convertingNow = true;
 
-        CvtAcquisitionEUI.Play_VisualComp();
+        cvtAcquisitionEui.Play_VisualComp();
         yield return new WaitForSeconds(2.1f);
 
         Convert();
 
         SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
 
-        CvtAcquisitionEUI.Play_SuccessComp();
+        cvtAcquisitionEui.Play_SuccessComp();
         yield return new WaitForSeconds(0.6f);
 
 
-        ConvertingNow = false;
+        convertingNow = false;
     }
 
     protected virtual void Convert()
     {
-        SaveDataManager.instance.jsonData.Gain_Item(AcquisitionItemID, AcquisitionBookAmount);
-        Set_AcquAmount(AcquisitionItemID);
+        SaveDataManager.instance.jsonData.Gain_Item(acquisitionItemId, acquisitionBookAmount);
+        Set_AcquAmount(acquisitionItemId);
     }
 
     #endregion
@@ -267,13 +268,13 @@ public abstract class ConverterUIController : SinglePanelUIController
         base.SetOn_ThisPanel();
 
         SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
-        Set_AcquAmount(AcquisitionItemID);
+        Set_AcquAmount(acquisitionItemId);
         Set_AcquBookAmount(1);
     }
 
     public override void SetOff_ThisPanel()
     {
-        if (ConvertingNow) return;
+        if (convertingNow) return;
 
         SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
         base.SetOff_ThisPanel();
@@ -288,11 +289,11 @@ public abstract class ConverterUIController : SinglePanelUIController
         base.Set_LanguageTxt();
 
         // Close
-        DevTool.Get_ComponentTType<TMP_Text>(CloseBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CloseBtn, 0)).gameObject).text =
+        DevTool.Get_ComponentTType<TMP_Text>(closeBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(closeBtn, 0)).gameObject).text =
             ResourceManager.instance.Get_StaticWord(28);
 
         // EUI
-        CvtAcquisitionEUI.Set_Language(CanConvert);
+        cvtAcquisitionEui.Set_Language(canConvert);
     }
 
     #endregion

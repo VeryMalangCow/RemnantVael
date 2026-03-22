@@ -84,7 +84,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
     {
         base.Take_Damage(_SpawnItem, _SoundOn);
 
-        MainGameUIManager.instance.baseUpgrade_UIController.ThisDurEUI.Set_Dur(CurrentDur);
+        MainGameUIManager.instance.baseUpgrade_UIController.durEui.Set_Dur(CurrentDur);
     }
 
     protected override void Play_NowBreak(bool _SpawnItem)
@@ -92,7 +92,7 @@ public class BaseUpgradeController : DestructibleBuildController, IInteract
         base.Play_NowBreak(_SpawnItem);
 
         if (MainGameUIManager.instance.baseUpgrade_UIController.gameObject.activeSelf)
-            MainGameUIManager.instance.baseUpgrade_UIController.ThisMsgEUI.Play_On(IsBrokenAnno, 0.5f);
+            MainGameUIManager.instance.baseUpgrade_UIController.msgEui.Play_On(IsBrokenAnno, 0.5f);
     }
 
     #endregion

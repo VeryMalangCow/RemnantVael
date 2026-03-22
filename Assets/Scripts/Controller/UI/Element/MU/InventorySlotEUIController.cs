@@ -80,7 +80,7 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
         Play_Selected(targetAlpha: 1f, targetScale: signImgAnimSize, signImgAnimDurTime);
 
         if (ownerUIController.gameObject.activeSelf)
-            ownerUIController.CurrentSlotBtn = this;
+            ownerUIController.currentSlotBtn = this;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -91,7 +91,7 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
         Play_Selected(targetAlpha: 0f, targetScale: 1f, signImgAnimDurTime);
 
         if (ownerUIController.gameObject.activeSelf)
-            ownerUIController.CurrentSlotBtn = null;
+            ownerUIController.currentSlotBtn = null;
     }
 
     #endregion

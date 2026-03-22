@@ -297,70 +297,70 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     public void Offset_ColorComp()
     {
-        MainColorCompList = new List<Component>();
-        SubColorCompList = new List<Component>();
+        mainColorCompList = new List<Component>();
+        subColorCompList = new List<Component>();
 
         // Equiped
-        SubColorCompList.AddRange(EquipPanelInnerList);
+        subColorCompList.AddRange(EquipPanelInnerList);
         for (int i = 0; i < EquipDescStateTxtList.Count; i++)
         {
-            MainColorCompList.Add(EquipDescStateTxtList[i]);
+            mainColorCompList.Add(EquipDescStateTxtList[i]);
         }
 
         // Synergy
-        MainColorCompList.AddRange(AmalgamationDescTxtList);
-        SubColorCompList.Add(SelectViewAmalgamation);
-        SubColorCompList.AddRange(DevTool.Get_ChildList<Image>(SynergyInnerParentTF));
+        mainColorCompList.AddRange(AmalgamationDescTxtList);
+        subColorCompList.Add(SelectViewAmalgamation);
+        subColorCompList.AddRange(DevTool.Get_ChildList<Image>(SynergyInnerParentTF));
         for (int i = 0; i < SynergySlotList.Count; i++)
         {
-            MainColorCompList.Add(SynergySlotList[i].tierImg);
-            SubColorCompList.Add(SynergySlotList[i].txt);
+            mainColorCompList.Add(SynergySlotList[i].tierImg);
+            subColorCompList.Add(SynergySlotList[i].txt);
         }
-        MainColorCompList.AddRange(DevTool.Get_ChildList<Image>(SynergyDescLinerParentTF));
+        mainColorCompList.AddRange(DevTool.Get_ChildList<Image>(SynergyDescLinerParentTF));
         for (int i = 0; i < SynergyDescTextParentTF.childCount; i++)
         {
             if (SynergyDescTextParentTF.GetChild(i).TryGetComponent(out TMP_Text Txt) &&
                 !AmalgamationDescTxtList.Contains(Txt))
             {
-                SubColorCompList.Add(Txt);
+                subColorCompList.Add(Txt);
             }
         }
 
         // Equip Toggle Btn
-        MainColorCompList.Add(ToggleBtn_InEquip.transform.GetChild(0).GetComponent<TMP_Text>());
+        mainColorCompList.Add(ToggleBtn_InEquip.transform.GetChild(0).GetComponent<TMP_Text>());
 
         // Forge Interact Panel Inner
         for (int i = 0; i < ForgeInteractPanels.Count; i++)
         {
-            MainColorCompList.Add(ForgeInteractPanels[i].panelBtnTxt);
+            mainColorCompList.Add(ForgeInteractPanels[i].panelBtnTxt);
 
-            MainColorCompList.Add(ForgeInteractPanels[i].roleBtnTxt);
-            MainColorCompList.Add(ForgeInteractPanels[i].roleDescTxt);
+            mainColorCompList.Add(ForgeInteractPanels[i].roleBtnTxt);
+            mainColorCompList.Add(ForgeInteractPanels[i].roleDescTxt);
 
-            SubColorCompList.AddRange(ForgeInteractPanels[i].innerImgs);
+            subColorCompList.AddRange(ForgeInteractPanels[i].innerImgs);
         }
-        SubColorCompList.AddRange(ForgePanelInnerList);
+        subColorCompList.AddRange(ForgePanelInnerList);
 
         // Desc
-        MainColorCompList.AddRange(ThisDescPanel.Get_MainColorList());
-        SubColorCompList.AddRange(ThisDescPanel.Get_SubColorList());
+        mainColorCompList.AddRange(ThisDescPanel.Get_MainColorList());
+        subColorCompList.AddRange(ThisDescPanel.Get_SubColorList());
 
         // Item
-        MainColorCompList.Add(Preview_GainMS);
-        MainColorCompList.Add(Preview_GainBC);
-        MainColorCompList.Add(Preview_NeedMS_ForFusion);
-        MainColorCompList.Add(Preview_NeedMS_ForMake);
-        MainColorCompList.Add(Preview_NeedCB_ForMake);
+        mainColorCompList.Add(Preview_GainMS);
+        mainColorCompList.Add(Preview_GainBC);
+        mainColorCompList.Add(Preview_NeedMS_ForFusion);
+        mainColorCompList.Add(Preview_NeedMS_ForMake);
+        mainColorCompList.Add(Preview_NeedCB_ForMake);
 
         Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        DevTool.Set_Color(mainClr, MainColorCompList);
-        MainColorCompList.Clear();
-        MainColorCompList = null;
+        DevTool.Set_Color(mainClr, mainColorCompList);
+        mainColorCompList.Clear();
+        mainColorCompList = null;
 
         Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-        DevTool.Set_Color(subClr, SubColorCompList);
-        SubColorCompList.Clear();
-        SubColorCompList = null;
+        DevTool.Set_Color(subClr, subColorCompList);
+        subColorCompList.Clear();
+        subColorCompList = null;
     }
 
     private void Offset_Subscribe()
@@ -444,7 +444,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         Reset_EquipPanel();
         Reset_ForgePanel();
-        ThisMsgEUI.Reset_Data();
+        msgEui.Reset_Data();
     }
 
     private void LateUpdate()
@@ -463,7 +463,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         base.SetOn_ThisPanel();
 
         // Dur
-        ThisDurEUI.Set_Dur(ModuleUpgradeController.UsingShop.CurrentDur);
+        durEui.Set_Dur(ModuleUpgradeController.UsingShop.CurrentDur);
     }
 
     public override void SetOff_ThisPanel()
@@ -488,11 +488,11 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     public override void Change_ThisPanel(int _indexWindow)
     {
         // 인벤토리의 Scroll 벨류를 그대로 가져감
-        float scrollValue = CurrentThisPanelTab.tabScrollbar.value;
+        float scrollValue = currentThisPanelTab.tabScrollbar.value;
 
         base.Change_ThisPanel(_indexWindow);
 
-        CurrentThisPanelTab.tabScrollbar.value = scrollValue;
+        currentThisPanelTab.tabScrollbar.value = scrollValue;
     }
 
     #endregion
@@ -583,7 +583,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             {
                 EquipedSlots[i].item.gameObject.SetActive(false);
 
-                MainGameUIManager.instance.playerHUD_UIController.ModuleSlots[i].item.gameObject.SetActive(false);
+                MainGameUIManager.instance.playerHUD_UIController.moduleSlots[i].item.gameObject.SetActive(false);
 
                 Set_EquipedDesc(i);
             }
@@ -594,8 +594,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 EquipedSlots[i].item.gameObject.SetActive(true);
                 EquipedSlots[i].item.Set_Data(new ItemData_UIVisual(data));
 
-                MainGameUIManager.instance.playerHUD_UIController.ModuleSlots[i].item.gameObject.SetActive(true);
-                MainGameUIManager.instance.playerHUD_UIController.ModuleSlots[i].item.Set_Data(new ItemData_UIVisual(data));
+                MainGameUIManager.instance.playerHUD_UIController.moduleSlots[i].item.gameObject.SetActive(true);
+                MainGameUIManager.instance.playerHUD_UIController.moduleSlots[i].item.Set_Data(new ItemData_UIVisual(data));
 
                 Set_EquipedDesc(i, data);
             }
@@ -809,9 +809,9 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 탭
     private bool Is_Interact_TabPanel()
     {
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
+        for (int i = 0; i < panelTabList.Count; i++)
         {
-            if (ThisPanelTabList[i].tabBtn == CurrentBtn)
+            if (panelTabList[i].tabBtn == currentBtn)
             {
                 Change_ThisPanel(i);
                 return true;
@@ -827,11 +827,11 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         for (int i = 0; i < ForgeInteractPanels.Count; i++)
             btns.Add(ForgeInteractPanels[i].panelBtn);
 
-        if (btns.Contains(CurrentBtn))
+        if (btns.Contains(currentBtn))
         {
             for (int i = 0; i < ForgeInteractPanels.Count; i++)
             {
-                if (btns[i] == CurrentBtn)
+                if (btns[i] == currentBtn)
                 {
                     // 다른 탭일 경우 초기화
                     if (ForgeInteractPanels[i] != CurrentForgeInteractPanel)
@@ -864,7 +864,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 시너지 변경 탭
     private bool Is_Interact_SynergyTabPanel()
     {
-        if (CurrentBtn == ToggleBtn_InEquip)
+        if (currentBtn == ToggleBtn_InEquip)
         {
             if (EquippedPanelGO.activeSelf)
             {
@@ -888,7 +888,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 시너지 아이템
     private bool Is_Interact_SynergyItem()
     {
-        if (CurrentBtn is SynergySlotEUIController synergySlot && SynergySlotList.Contains(synergySlot))
+        if (currentBtn is SynergySlotEUIController synergySlot && SynergySlotList.Contains(synergySlot))
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
@@ -943,7 +943,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         if (Is_Interact_Msg()) return;
 
-        if (CurrentBtn == null || ModuleUpgradeController.UsingShop == null) return;
+        if (currentBtn == null || ModuleUpgradeController.UsingShop == null) return;
 
         if (Is_Interact_TabPanel()) return;
         if (Is_Interact_ForgeTabPanel()) return;
@@ -959,12 +959,12 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
         InputManager.instance.Play_MousePointerClick();
 
-        if (ThisMsgEUI.gameObject.activeSelf || ModuleUpgradeController.UsingShop == null) return;
+        if (msgEui.gameObject.activeSelf || ModuleUpgradeController.UsingShop == null) return;
 
         // 아이템이면?
-        if (CurrentItemBtn != null)
+        if (currentItemBtn != null)
         {
-            Interact_Item(CurrentItemBtn);
+            Interact_Item(currentItemBtn);
             return;
         }
     }
@@ -973,14 +973,14 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         if (Is_Interact_Msg()) return;
 
-        if (ThisMsgEUI.gameObject.activeSelf || ModuleUpgradeController.UsingShop == null) return;
+        if (msgEui.gameObject.activeSelf || ModuleUpgradeController.UsingShop == null) return;
 
-        if (CurrentItemBtn != null)
+        if (currentItemBtn != null)
         {
-            CurrentDraggingItemBtn = CurrentItemBtn;
+            CurrentDraggingItemBtn = currentItemBtn;
 
             DragItemEUI.gameObject.SetActive(true);
-            DragItemEUI.Set_Data(CurrentItemBtn);
+            DragItemEUI.Set_Data(currentItemBtn);
 
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
@@ -1010,7 +1010,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 모듈 아이템
     private void Interact_Item(InventoryItemEUIController _ItemEUI)
     {
-        int panelIndex = ThisPanelTabList.IndexOf(CurrentThisPanelTab);
+        int panelIndex = panelTabList.IndexOf(currentThisPanelTab);
 
         if (panelIndex == 0) // Equiped 창
         {
@@ -1072,8 +1072,8 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         // 사운드
         SoundManager.instance.Play_2D_SFX_UI("Unequip");
 
-        CurrentItemBtn = null;
-        CurrentBtn = null;
+        currentItemBtn = null;
+        currentBtn = null;
 
         SetOff_Desc();
     }
@@ -1114,7 +1114,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
             Set_DecompositionUI(_ItemEUI, applyIndex);
 
-            CurrentItemBtn = null;
+            currentItemBtn = null;
         }
     }
 
@@ -1161,7 +1161,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
             ModuleItemManager.instance.Set_UnFusionSlot(index);
 
-            CurrentItemBtn = null;
+            currentItemBtn = null;
         }
     }
 
@@ -1183,7 +1183,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         for (int i = 0; i < ForgeInteractPanels.Count; i++)
         {
-            if (ForgeInteractPanels[i].roleBtn == CurrentBtn)
+            if (ForgeInteractPanels[i].roleBtn == currentBtn)
             {
                 if (i == 0) // 분해
                     Role_Decomposition();
@@ -1316,10 +1316,10 @@ public class ModuleUpgradeUIController : PlayerShopUIController
 
     private void Set_DragInSlot()
     {
-        if (CurrentSlotBtn != null)
+        if (currentSlotBtn != null)
         {
             CoupleData<int> originalIndex = new CoupleData<int>(CurrentDraggingItemBtn.slot.col, CurrentDraggingItemBtn.slot.row);
-            CoupleData<int> targetIndex = new CoupleData<int>(CurrentSlotBtn.col, CurrentSlotBtn.row);
+            CoupleData<int> targetIndex = new CoupleData<int>(currentSlotBtn.col, currentSlotBtn.row);
 
             // 인벤토리에서 이동 시키기
             if (originalIndex.typeBase != -1 && originalIndex.typeSpecial != -1)
@@ -1340,11 +1340,11 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         else // => 상호작용 슬롯으로
         {
             // 장착 패널
-            int panelIndex = ThisPanelTabList.IndexOf(CurrentThisPanelTab);
+            int panelIndex = panelTabList.IndexOf(currentThisPanelTab);
 
             if (panelIndex == 0) // Equiped 창
             {
-                Interact_Equipped(CurrentDraggingItemBtn, EquipedSlots.IndexOf(CurrentSlotBtn)); // 특정 위치에 장착
+                Interact_Equipped(CurrentDraggingItemBtn, EquipedSlots.IndexOf(currentSlotBtn)); // 특정 위치에 장착
             }
             else if (panelIndex == 1) // Forge 창
             {
@@ -1356,7 +1356,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
                 }
                 else if (panelIndexOfForge == 1) // 합성
                 {
-                    Interact_FusionInit(CurrentDraggingItemBtn, FusionSlotList.IndexOf(CurrentSlotBtn)); // 퓨전 슬롯에 장착
+                    Interact_FusionInit(CurrentDraggingItemBtn, FusionSlotList.IndexOf(currentSlotBtn)); // 퓨전 슬롯에 장착
                 }
             }
 
@@ -1366,7 +1366,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     // 상호작용 슬롯에서 =>
     private void Set_DragFromInteractSlot(CoupleData<int> originalIndex, CoupleData<int> targetIndex)
     {
-        int panelIndex = ThisPanelTabList.IndexOf(CurrentThisPanelTab);
+        int panelIndex = panelTabList.IndexOf(currentThisPanelTab);
 
         // => 인벤토리로
         if (targetIndex.typeBase != -1 && targetIndex.typeSpecial != -1)
@@ -1393,13 +1393,13 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             {
                 if (panelIndex == 0) // Equiped 창
                 {
-                    Interact_EquippedSwitch(CurrentDraggingItemBtn, CurrentSlotBtn.item); // 아이템 장착 위치 바꾸기
+                    Interact_EquippedSwitch(CurrentDraggingItemBtn, currentSlotBtn.item); // 아이템 장착 위치 바꾸기
                 }
                 else if (panelIndex == 1) // Forge 창
                 {
                     if (ForgeInteractPanels.IndexOf(CurrentForgeInteractPanel) == 1) // 합성
                     {
-                        Interact_FusionSwitch(CurrentDraggingItemBtn, CurrentSlotBtn.item);
+                        Interact_FusionSwitch(CurrentDraggingItemBtn, currentSlotBtn.item);
                     }
                 }
             }
@@ -1414,11 +1414,11 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     public override void Set_LanguageTxt()
     {
         // Label
-        LabelName = ResourceManager.instance.Get_StaticWord(27) + " " + ResourceManager.instance.Get_StaticWord(2);
-        LabelTxt.text = LabelName;
+        labelName = ResourceManager.instance.Get_StaticWord(27) + " " + ResourceManager.instance.Get_StaticWord(2);
+        labelTxt.text = labelName;
 
         // Tab
-        TabBtnTxtList = new List<string>
+        tabBtnTxtList = new List<string>
         {
             ResourceManager.instance.Get_StaticWord(32),
             ResourceManager.instance.Get_StaticWord(33),

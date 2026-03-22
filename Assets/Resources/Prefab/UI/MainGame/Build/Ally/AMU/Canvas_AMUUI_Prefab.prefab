@@ -2270,40 +2270,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3be4a7688c72c46a3c137b89516f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelInputMapName: AllyModuleUpgradeUI
-  CurrentBtn: {fileID: 0}
-  MainColorCompList: []
-  SubColorCompList: []
-  CurrentSlotBtn: {fileID: 0}
-  CurrentItemBtn: {fileID: 0}
-  ThisPanelTabList:
+  panelInputMapName: AllyModuleUpgradeUI
+  currentBtn: {fileID: 0}
+  mainColorCompList: []
+  subColorCompList: []
+  currentSlotBtn: {fileID: 0}
+  currentItemBtn: {fileID: 0}
+  panelTabList:
   - {fileID: 8455122825941353994}
-  LabelTxt: {fileID: 8601064820096719371}
-  ThisDurEUI: {fileID: 1414314959910742180}
-  ThisMsgEUI: {fileID: 3110014342129758097}
-  CloseBtn: {fileID: 4642890815464369897}
-  AllyProfileParentTF: {fileID: 7079343822721193586}
-  AllyProfileSelectSignRT: {fileID: 8053305412578322798}
-  AllyProfilePickedSignRT: {fileID: 5757474070097746923}
-  ProfileDetailEUI: {fileID: 7084470441736634822}
-  ProfileDetailTxt: {fileID: 2855346262445882847}
-  ProfileDetailExtraRT: {fileID: 769909613065859595}
-  StatePanelRTList:
+  labelTxt: {fileID: 8601064820096719371}
+  durEui: {fileID: 1414314959910742180}
+  msgEui: {fileID: 3110014342129758097}
+  closeBtn: {fileID: 4642890815464369897}
+  allyProfileParentTf: {fileID: 7079343822721193586}
+  allyProfileSelectSignRt: {fileID: 8053305412578322798}
+  allyProfilePickedSignRt: {fileID: 5757474070097746923}
+  profileDetailEui: {fileID: 7084470441736634822}
+  profileDetailTxt: {fileID: 2855346262445882847}
+  profileDetailExtraRt: {fileID: 769909613065859595}
+  statePanelRtList:
   - {fileID: 3196328213479203347}
   - {fileID: 3863839279119279212}
   - {fileID: 4556135789524675231}
-  StatePanelCG: {fileID: 6405605284583148683}
-  StateBtnList:
+  statePanelCg: {fileID: 6405605284583148683}
+  stateBtnList:
   - {fileID: 6864396963935366077}
   - {fileID: 9098685850879802502}
   - {fileID: 6228755753096694763}
-  StateTitleTxtList:
+  stateTitleTxtList:
   - {fileID: 2608510091716268263}
   - {fileID: 8487248919507052289}
   - {fileID: 3150557410670388532}
-  StateScrollPanel: {fileID: 1081234859069208321}
-  StateLimitTxt: {fileID: 3654930174854676251}
-  StateEUIList:
+  stateScrollPanel: {fileID: 1081234859069208321}
+  stateLimitTxt: {fileID: 3654930174854676251}
+  stateEuiList:
   - {fileID: 9158419743226469957}
   - {fileID: 8495894079207018883}
   - {fileID: 6673598563671004417}
@@ -2313,17 +2313,17 @@ MonoBehaviour:
   - {fileID: 5603569808292780015}
   - {fileID: 3567258856309280217}
   - {fileID: 1396351609062082435}
-  TunerScrollPanel: {fileID: 6486262153703449168}
-  InStateTunerParentRT: {fileID: 1386686837164556022}
-  InStateTunerPrefab: {fileID: 572117140870774827, guid: 4d58e8f957b034c4593b1d2aa1c1e949, type: 3}
-  SyncScrollPanel: {fileID: 6259436081182577572}
-  InStateSyncParentRT: {fileID: 2034599382729010932}
-  InStateSyncPrefab: {fileID: 9162822552647618182, guid: 2cc122d1a00c02d4d80dcc9f5dd92afc, type: 3}
-  PickedPanelSyncProgressSpriteList:
+  tunerScrollPanel: {fileID: 6486262153703449168}
+  inStateTunerParentRt: {fileID: 1386686837164556022}
+  inStateTunerPrefab: {fileID: 572117140870774827, guid: 4d58e8f957b034c4593b1d2aa1c1e949, type: 3}
+  syncScrollPanel: {fileID: 6259436081182577572}
+  inStateSyncParentRt: {fileID: 2034599382729010932}
+  inStateSyncPrefab: {fileID: 9162822552647618182, guid: 2cc122d1a00c02d4d80dcc9f5dd92afc, type: 3}
+  pickedPanelSyncProgressSpriteList:
   - {fileID: 1202484619, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
   - {fileID: 820826029, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
   - {fileID: -1956723818, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  ExtraMainColorImgList:
+  extraMainClrImgList:
   - {fileID: 3892319867972009670}
   - {fileID: 2284026126660960140}
   - {fileID: 5159913333376760328}
@@ -2333,62 +2333,62 @@ MonoBehaviour:
   - {fileID: 4548109128956263204}
   - {fileID: 7765790626243778016}
   - {fileID: 1936002786220792538}
-  ExtraMainColorTxtList:
+  extraMainClrTxtList:
   - {fileID: 2855346262445882847}
   - {fileID: 5315585778992206938}
   - {fileID: 6316443971364308065}
   - {fileID: 8424402794402736937}
   - {fileID: 7873188795939201018}
-  ExtraSubColorImgList:
+  extraSubClrImgList:
   - {fileID: 4208119168080731772}
   - {fileID: 3100383948421873928}
   - {fileID: 4357586842864572348}
   - {fileID: 9055668005755174231}
-  ExtraSubColorTxtList: []
-  InventoryScrollPanelEUI: {fileID: 8553725523802227437}
-  InventoryEUI: {fileID: 2023874585419626290}
-  NoneSyncArrowPanelGO: {fileID: 6126952730502043189}
-  NoneSyneToggleBtn: {fileID: 1572289022401491074}
-  NoneSyncScrollPanelEUI: {fileID: 7027518231102375101}
-  InventoryPanel_InventoryGO: {fileID: 7105900310928509462}
-  InventoryPanel_NoneSyneGO: {fileID: 6762847527526372994}
-  NoneSyncPanel_EmptyGO: {fileID: 2292719588412873367}
-  NoneSyncPanel_ExistGO: {fileID: 2405016818619319542}
-  NoneSyncItemParentTF: {fileID: 5194314981522517529}
-  NoneSyncItemPrefab: {fileID: 3928134572990653709, guid: 2f94ca5b73e8b2345aa5b0d5b023629f, type: 3}
-  NoneSyneBuyBtn: {fileID: 5752286494692891762}
-  NoneSyncCanBuyGO: {fileID: 9153872074506191605}
-  NoneSyncCanBuyTxt: {fileID: 3049042188575301518}
-  NoneSyncCannotBuyGO: {fileID: 592133146168546728}
-  ToggleBtn: {fileID: 7747786369737083170}
-  PickedModulePanel_PlayerGO: {fileID: 8538621660580708601}
-  PlayerSyncNameTxt: {fileID: 2315729352933891242}
-  PlayerSynergyEmptyGO: {fileID: 7362827899678015024}
-  PlayerSynergyExsitGO: {fileID: 153419997140695202}
-  PlayerSynergySlotParentTF: {fileID: 647139311275059010}
-  PlayerSynergyDescImg: {fileID: 2705716947700341681}
-  PlayerSynergyDescTxt: {fileID: 4379455453093730137}
-  PickedModulePanel_AllyGO: {fileID: 925640417520307762}
-  PickedOffGO: {fileID: 1978390326995103913}
-  PickedOnGO: {fileID: 9071650346870726856}
-  PickedPanelSlotEUI: {fileID: 2471414602547235877}
-  PickedPanelItemNameTxt: {fileID: 6868094854614299246}
-  PickedPanelItemRankTxt: {fileID: 1821808029214758763}
-  PickedPanelItemLockImg: {fileID: 1876586200574276672}
-  PickedPanelSynergyEUIList:
+  extraSubClrTxtList: []
+  inventoryScrollPanelEui: {fileID: 8553725523802227437}
+  inventoryEui: {fileID: 2023874585419626290}
+  noneSyncArrowPanelGo: {fileID: 6126952730502043189}
+  noneSyneToggleBtn: {fileID: 1572289022401491074}
+  noneSyncScrollPanelEui: {fileID: 7027518231102375101}
+  inventoryPanel_InventoryGo: {fileID: 7105900310928509462}
+  inventoryPanel_NoneSyneGo: {fileID: 6762847527526372994}
+  noneSyncPanel_EmptyGo: {fileID: 2292719588412873367}
+  noneSyncPanel_ExistGo: {fileID: 2405016818619319542}
+  noneSyncItemParentTf: {fileID: 5194314981522517529}
+  noneSyncItemPrefab: {fileID: 3928134572990653709, guid: 2f94ca5b73e8b2345aa5b0d5b023629f, type: 3}
+  noneSyneBuyBtn: {fileID: 5752286494692891762}
+  noneSyncCanBuyGo: {fileID: 9153872074506191605}
+  noneSyncCanBuyTxt: {fileID: 3049042188575301518}
+  noneSyncCannotBuyGo: {fileID: 592133146168546728}
+  toggleBtn: {fileID: 7747786369737083170}
+  pickedModulePanel_PlayerGo: {fileID: 8538621660580708601}
+  playerSyncNameTxt: {fileID: 2315729352933891242}
+  playerSynergyEmptyGo: {fileID: 7362827899678015024}
+  playerSynergyExsitGo: {fileID: 153419997140695202}
+  playerSynergySlotParentTf: {fileID: 647139311275059010}
+  playerSynergyDescImg: {fileID: 2705716947700341681}
+  playerSynergyDescTxt: {fileID: 4379455453093730137}
+  pickedModulePanel_AllyGo: {fileID: 925640417520307762}
+  pickedOffGo: {fileID: 1978390326995103913}
+  pickedOnGo: {fileID: 9071650346870726856}
+  pickedPanelSlotEui: {fileID: 2471414602547235877}
+  pickedPanelItemNameTxt: {fileID: 6868094854614299246}
+  pickedPanelItemRankTxt: {fileID: 1821808029214758763}
+  pickedPanelItemLockImg: {fileID: 1876586200574276672}
+  pickedPanelSynergyEuiList:
   - {fileID: 1645874872930616606}
   - {fileID: 5745771588479630048}
   - {fileID: 663358909364316567}
-  BuyBtnEUI: {fileID: 6995652985494726597}
-  CanBuyArrowGO: {fileID: 5942140033665547791}
-  ModuleDetailExtraRT: {fileID: 1177915860631519211}
-  ChargeBetteryTxt: {fileID: 4268821500623347119}
-  ChargeBetteryUseTxt: {fileID: 3522282675153569068}
-  NoneSyncTxt: {fileID: 4517446450862343488}
-  NoneSyncUseTxt: {fileID: 2799939617594393841}
-  ModuleInventoryTxt: {fileID: 6316443971364308065}
-  ModuleDetailTxt: {fileID: 5315585778992206938}
-  PlayerSyncSlotEUIList: []
+  buyBtnEui: {fileID: 6995652985494726597}
+  canBuyArrowGO: {fileID: 5942140033665547791}
+  moduleDetailExtraRt: {fileID: 1177915860631519211}
+  chargeBetteryTxt: {fileID: 4268821500623347119}
+  chargeBetteryUseTxt: {fileID: 3522282675153569068}
+  noneSyncTxt: {fileID: 4517446450862343488}
+  noneSyncUseTxt: {fileID: 2799939617594393841}
+  moduleInventoryTxt: {fileID: 6316443971364308065}
+  moduleDetailTxt: {fileID: 5315585778992206938}
+  playerSyncSlotEuiList: []
 --- !u!114 &7285601847160733366
 MonoBehaviour:
   m_ObjectHideFlags: 0

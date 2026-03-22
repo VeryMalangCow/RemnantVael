@@ -222,13 +222,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde6d2ab749aec1428244d0837df5709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BattleProd_CG: {fileID: 8648354462281805781}
-  BattleProd_PlayerRT: {fileID: 1513877239655320612}
-  BattleProd_PlayerImg: {fileID: 1299796201383782091}
-  BattleProd_PlayerNameTxt: {fileID: 8317005532609906860}
-  BattleProd_EnemyRT: {fileID: 6798972092620903948}
-  BattleProd_EnemyImg: {fileID: 4348752001248131478}
-  BattleProd_EnemyNameTxt: {fileID: 8763349522011145698}
+  battleProd_Cg: {fileID: 8648354462281805781}
+  battleProd_PlayerRt: {fileID: 1513877239655320612}
+  battleProd_PlayerImg: {fileID: 1299796201383782091}
+  battleProd_PlayerNameTxt: {fileID: 8317005532609906860}
+  battleProd_EnemyRt: {fileID: 6798972092620903948}
+  battleProd_EnemyImg: {fileID: 4348752001248131478}
+  battleProd_EnemyNameTxt: {fileID: 8763349522011145698}
 --- !u!223 &3780306451514489560
 Canvas:
   m_ObjectHideFlags: 0

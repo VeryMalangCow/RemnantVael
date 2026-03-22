@@ -165,12 +165,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09b709a90b9cd3b48974e50f0140f540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelInputMapName: Puzzle_BoxLineConnectorUI
-  CurrentBtn: {fileID: 0}
-  MainColorCompList: []
-  SubColorCompList: []
-  CurrentSlotBtn: {fileID: 0}
-  CurrentItemBtn: {fileID: 0}
+  panelInputMapName: Puzzle_BoxLineConnectorUI
+  currentBtn: {fileID: 0}
+  mainColorCompList: []
+  subColorCompList: []
+  currentSlotBtn: {fileID: 0}
+  currentItemBtn: {fileID: 0}
   BaseCountdown: 12
   ReadyPanelEUI: {fileID: 8523596981488261610}
   TimePanelEUI: {fileID: 1169034507873051417}

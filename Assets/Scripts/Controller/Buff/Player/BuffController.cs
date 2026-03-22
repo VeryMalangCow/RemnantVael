@@ -184,14 +184,14 @@ public class BuffController : IDController
         thisBuffEUI.Offset();
         thisBuffEUI.shadowImg.fillAmount = 0;
 
-        DevTool.Add_InList(MainGameUIManager.instance.playerHUD_UIController.AllBuffIconUI, thisBuffEUI);
+        DevTool.Add_InList(MainGameUIManager.instance.playerHUD_UIController.allBuffIconUi, thisBuffEUI);
 
         thisBuffEUI.gameObject.SetActive(true);
     }
 
     private void Remove_BuffUI()
     {
-        DevTool.Remove_InList(MainGameUIManager.instance.playerHUD_UIController.AllBuffIconUI, thisBuffEUI);
+        DevTool.Remove_InList(MainGameUIManager.instance.playerHUD_UIController.allBuffIconUi, thisBuffEUI);
 
         thisBuffEUI.gameObject.SetActive(false);
         PoolingManager.instance.buffIcons.Enqueue(thisBuffEUI);

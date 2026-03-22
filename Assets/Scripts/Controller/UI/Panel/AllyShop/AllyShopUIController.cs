@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyShopUIController : ShopUIController
@@ -16,100 +17,100 @@ public class AllyShopUIController : ShopUIController
 
     [Space(10)]
     [Header("=== Profile List EUI")]
-    [SerializeField] private Transform AllyProfileParentTF;
-    [SerializeField] private RectTransform AllyProfileSelectSignRT;
-    [SerializeField] private RectTransform AllyProfilePickedSignRT;
+    [FormerlySerializedAs("AllyProfileParentTF")][SerializeField] private Transform allyProfileParentTf;
+    [FormerlySerializedAs("AllyProfileSelectSignRT")][SerializeField] private RectTransform allyProfileSelectSignRt;
+    [FormerlySerializedAs("AllyProfilePickedSignRT")][SerializeField] private RectTransform allyProfilePickedSignRt;
 
     [Space(10)]
     [Header("=== Profile Detail EUI")]
 
     [Space(5)]
     [Header("-- Detail")]
-    [SerializeField] private AllyProfileDetailEUIController ProfileDetailEUI;
-    [SerializeField] private TMP_Text ProfileDetailTxt;
-    [SerializeField] private RectTransform ProfileDetailExtraRT;
+    [FormerlySerializedAs("ProfileDetailEUI")][SerializeField] private AllyProfileDetailEUIController profileDetailEui;
+    [FormerlySerializedAs("ProfileDetailTxt")][SerializeField] private TMP_Text profileDetailTxt;
+    [FormerlySerializedAs("ProfileDetailExtraRT")][SerializeField] private RectTransform profileDetailExtraRt;
 
     [Space(5)]
     [Header("-- Panel")]
-    [SerializeField] private List<RectTransform> StatePanelRTList;
-    [SerializeField] private CanvasGroup StatePanelCG;
+    [FormerlySerializedAs("StatePanelRTList")][SerializeField] private List<RectTransform> statePanelRtList;
+    [FormerlySerializedAs("StatePanelCG")][SerializeField] private CanvasGroup statePanelCg;
 
     [Space(5)]
     [Header("-- Btn")]
-    [SerializeField] private List<OwnCGBtnEUIController> StateBtnList;
+    [FormerlySerializedAs("StateBtnList")][SerializeField] private List<OwnCGBtnEUIController> stateBtnList;
 
     [Space(5)]
     [Header("-- In State")]
-    [SerializeField] private List<TMP_Text> StateTitleTxtList;
+    [FormerlySerializedAs("StateTitleTxtList")][SerializeField] private List<TMP_Text> stateTitleTxtList;
 
     [Space(2)]
     [Header("* State")]
-    [SerializeField] private ScrollPanelEUIController StateScrollPanel;
-    [SerializeField] private TMP_Text StateLimitTxt;
-    [SerializeField] private List<AllyProfileStateEUIController> StateEUIList;
+    [FormerlySerializedAs("StateScrollPanel")][SerializeField] private ScrollPanelEUIController stateScrollPanel;
+    [FormerlySerializedAs("StateLimitTxt")][SerializeField] private TMP_Text stateLimitTxt;
+    [FormerlySerializedAs("StateEUIList")][SerializeField] private List<AllyProfileStateEUIController> stateEuiList;
 
     [Space(2)]
     [Header("* Tuner")]
-    [SerializeField] private ScrollPanelEUIController TunerScrollPanel;
-    [SerializeField] private RectTransform InStateTunerParentRT;
-    [SerializeField] private GameObject InStateTunerPrefab;
+    [FormerlySerializedAs("TunerScrollPanel")][SerializeField] private ScrollPanelEUIController tunerScrollPanel;
+    [FormerlySerializedAs("InStateTunerParentRT")][SerializeField] private RectTransform inStateTunerParentRt;
+    [FormerlySerializedAs("InStateTunerPrefab")][SerializeField] private GameObject inStateTunerPrefab;
 
     [Space(2)]
     [Header("* Sync")]
-    [SerializeField] private ScrollPanelEUIController SyncScrollPanel;
-    [SerializeField] private RectTransform InStateSyncParentRT;
-    [SerializeField] private GameObject InStateSyncPrefab;
-    [SerializeField] private List<Sprite> PickedPanelSyncProgressSpriteList;
+    [FormerlySerializedAs("SyncScrollPanel")][SerializeField] private ScrollPanelEUIController syncScrollPanel;
+    [FormerlySerializedAs("InStateSyncParentRT")][SerializeField] private RectTransform inStateSyncParentRt;
+    [FormerlySerializedAs("InStateSyncPrefab")][SerializeField] private GameObject inStateSyncPrefab;
+    [FormerlySerializedAs("PickedPanelSyncProgressSpriteList")][SerializeField] private List<Sprite> pickedPanelSyncProgressSpriteList;
 
 
     [Space(10)]
     [Header("=== Inner")]
-    [SerializeField] private List<Image> ExtraMainColorImgList;
-    [SerializeField] private List<TMP_Text> ExtraMainColorTxtList;
+    [FormerlySerializedAs("ExtraMainColorImgList")][SerializeField] private List<Image> extraMainClrImgList;
+    [FormerlySerializedAs("ExtraMainColorTxtList")][SerializeField] private List<TMP_Text> extraMainClrTxtList;
 
-    [SerializeField] private List<Image> ExtraSubColorImgList;
-    [SerializeField] private List<TMP_Text> ExtraSubColorTxtList;
+    [FormerlySerializedAs("ExtraSubColorImgList")][SerializeField] private List<Image> extraSubClrImgList;
+    [FormerlySerializedAs("ExtraSubColorTxtList")][SerializeField] private List<TMP_Text> extraSubClrTxtList;
 
     #endregion
 
     #region - Hide
 
     // Profile List
-    [HideInInspector] private List<AllyProfileEUIController> AllAllyProfileEUIList;
-    [HideInInspector] private List<AllyProfileEUIController> CurrentActiveProfileEUIList = new List<AllyProfileEUIController>();
+    [HideInInspector] private List<AllyProfileEUIController> allAllyProfileEuiList;
+    [HideInInspector] private List<AllyProfileEUIController> currentActiveProfileEuiList = new List<AllyProfileEUIController>();
 
-    [HideInInspector] private AllyProfileEUIController CurrentSelectProfileEUI = null;
-    [HideInInspector] protected AllyProfileEUIController CurrentPickedProfileEUI = null;
+    [HideInInspector] private AllyProfileEUIController currentSelectProfileEui = null;
+    [HideInInspector] protected AllyProfileEUIController currentPickedProfileEui = null;
 
-    [HideInInspector] private static readonly float AllyProfileIntervalY = 160;
-    [HideInInspector] private static readonly float AllyProfilePanelMinHeight = 800;
+    [HideInInspector] private static readonly float allyProfileIntervalY = 160;
+    [HideInInspector] private static readonly float allyProfilePanelMinHeight = 800;
 
     // Picked
-    [HideInInspector] protected AllyController CurrentPickedAlly = null;
-    [HideInInspector] private CanvasGroup AllyProfilePickedSignCG;
-    [HideInInspector] private int CurrentExtraPanelIndex = 0;
+    [HideInInspector] protected AllyController currentPickedAlly = null;
+    [HideInInspector] private CanvasGroup allyProfilePickedSignCg;
+    [HideInInspector] private int currentExtraPanelIndex = 0;
 
     // Profile Detail
-    [HideInInspector] private bool ProfileDetailExtraIsOpen = false;
-    [HideInInspector] protected bool IsTweening = false;
-    [HideInInspector] private static readonly float ProfileDetailExtraRT_OpenHeight = 650f;
-    [HideInInspector] private static readonly float ProfileDetailExtraRT_CloseHeight = 80f;
-    [HideInInspector] private static readonly float ProfileDetailExtraRT_ScrollMin = 550f;
+    [HideInInspector] private bool profileDetailExtraIsOpen = false;
+    [HideInInspector] protected bool isTweening = false;
+    [HideInInspector] private static readonly float profileDetailExtraRt_OpenHeight = 650f;
+    [HideInInspector] private static readonly float profileDetailExtraRt_CloseHeight = 80f;
+    [HideInInspector] private static readonly float profileDetailExtraRt_ScrollMin = 550f;
 
     // In State - Tuner
-    [HideInInspector] private List<TunerEUIController> InStateTunerEUIList;
-    [HideInInspector] private static readonly float InStateTunerEUI_BaseX = -12f;
-    [HideInInspector] private static readonly float InStateTunerEUI_BaseY = 60f;
-    [HideInInspector] private static readonly float InStateTunerEUI_Interval = 120f;
+    [HideInInspector] private List<TunerEUIController> inStateTunerEuiList;
+    [HideInInspector] private static readonly float inStateTunerEui_BaseX = -12f;
+    [HideInInspector] private static readonly float inStateTunerEui_BaseY = 60f;
+    [HideInInspector] private static readonly float inStateTunerEui_Interval = 120f;
 
     // In State - Sync
-    [HideInInspector] private List<AllySyncIconEUIController> InStateSyncEUIList;
-    [HideInInspector] private List<AllySyncIconEUIController> InStateSyncActingEUIList;
-    [HideInInspector] private static readonly float InStateSyncEUI_BaseX = 74f;
-    [HideInInspector] private static readonly float InStateSyncEUI_BaseY = -116;
-    [HideInInspector] private static readonly float InStateSyncEUI_IntervalX = 108;
-    [HideInInspector] private static readonly float InStateSyncEUI_IntervalY = -140;
-    [HideInInspector] private static readonly int InStateSyncEUI_WidthAmount = 4;
+    [HideInInspector] private List<AllySyncIconEUIController> inStateSyncEuiList;
+    [HideInInspector] private List<AllySyncIconEUIController> inStateSyncActingEuiList;
+    [HideInInspector] private static readonly float inStateSyncEui_BaseX = 74f;
+    [HideInInspector] private static readonly float inStateSyncEui_BaseY = -116;
+    [HideInInspector] private static readonly float inStateSyncEui_IntervalX = 108;
+    [HideInInspector] private static readonly float inStateSyncEui_IntervalY = -140;
+    [HideInInspector] private static readonly int inStateSyncEui_WidthAmount = 4;
 
     #endregion
 
@@ -128,65 +129,65 @@ public class AllyShopUIController : ShopUIController
     private void Offset_Comp()
     {
         // Profile List
-        AllAllyProfileEUIList = new List<AllyProfileEUIController>();
+        allAllyProfileEuiList = new List<AllyProfileEUIController>();
 
-        foreach (Transform TF in AllyProfileParentTF)
+        foreach (Transform TF in allyProfileParentTf)
         {
             if (TF.TryGetComponent(out AllyProfileEUIController profile))
             {
                 profile.ownerUIController = this;
                 profile.Offset();
-                AllAllyProfileEUIList.Add(profile);
+                allAllyProfileEuiList.Add(profile);
             }
         }
 
-        AllyProfilePickedSignCG = DevTool.Get_ComponentTType(AllyProfilePickedSignRT.gameObject, out CanvasGroup cg) ? cg : null;
+        allyProfilePickedSignCg = DevTool.Get_ComponentTType(allyProfilePickedSignRt.gameObject, out CanvasGroup cg) ? cg : null;
 
 
         // Profile Detail
-        ProfileDetailEUI.Offset();
+        profileDetailEui.Offset();
         
-        for (int i = 0; i < StateBtnList.Count; i++)
+        for (int i = 0; i < stateBtnList.Count; i++)
         {
-            StateBtnList[i].ownerUIController = this;
-            StateBtnList[i].Offset();
+            stateBtnList[i].ownerUIController = this;
+            stateBtnList[i].Offset();
         }
 
-        StateScrollPanel.Offset();
-        TunerScrollPanel.Offset();
-        SyncScrollPanel.Offset();
+        stateScrollPanel.Offset();
+        tunerScrollPanel.Offset();
+        syncScrollPanel.Offset();
 
         // In State - Tuner
-        InStateTunerEUIList = new List<TunerEUIController>();
+        inStateTunerEuiList = new List<TunerEUIController>();
 
         // In State - Sync
-        InStateSyncEUIList = new List<AllySyncIconEUIController>();
-        InStateSyncActingEUIList = new List<AllySyncIconEUIController>();
+        inStateSyncEuiList = new List<AllySyncIconEUIController>();
+        inStateSyncActingEuiList = new List<AllySyncIconEUIController>();
     }
 
     public void Offset_ColorComp()
     {
-        MainColorCompList = new List<Component>();
-        SubColorCompList = new List<Component>();
+        mainColorCompList = new List<Component>();
+        subColorCompList = new List<Component>();
 
-        MainColorCompList.AddRange(ExtraMainColorImgList);
-        MainColorCompList.AddRange(ExtraMainColorTxtList);
-        SubColorCompList.AddRange(ExtraSubColorImgList);
-        SubColorCompList.AddRange(ExtraSubColorTxtList);
+        mainColorCompList.AddRange(extraMainClrImgList);
+        mainColorCompList.AddRange(extraMainClrTxtList);
+        subColorCompList.AddRange(extraSubClrImgList);
+        subColorCompList.AddRange(extraSubClrTxtList);
 
         // Set Color
         Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        DevTool.Set_Color(mainClr, MainColorCompList);
-        MainColorCompList.Clear();
-        MainColorCompList = null;
+        DevTool.Set_Color(mainClr, mainColorCompList);
+        mainColorCompList.Clear();
+        mainColorCompList = null;
 
         Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-        DevTool.Set_Color(subClr, SubColorCompList);
-        SubColorCompList.Clear();
-        SubColorCompList = null;
+        DevTool.Set_Color(subClr, subColorCompList);
+        subColorCompList.Clear();
+        subColorCompList = null;
 
-        for (int i = 0; i < InStateSyncEUIList.Count; i++)
-            InStateSyncEUIList[i].Set_Color();
+        for (int i = 0; i < inStateSyncEuiList.Count; i++)
+            inStateSyncEuiList[i].Set_Color();
     }
 
     #endregion
@@ -196,16 +197,16 @@ public class AllyShopUIController : ShopUIController
     // 모든 데이터 초기화
     private void Reset_AllData()
     {
-        CurrentActiveProfileEUIList.Clear();
-        CurrentSelectProfileEUI = null;
-        CurrentPickedProfileEUI = null;
+        currentActiveProfileEuiList.Clear();
+        currentSelectProfileEui = null;
+        currentPickedProfileEui = null;
 
-        AllyProfilePickedSignRT.gameObject.SetActive(false);
-        CurrentExtraPanelIndex = 0;
+        allyProfilePickedSignRt.gameObject.SetActive(false);
+        currentExtraPanelIndex = 0;
 
-        ProfileDetailExtraIsOpen = false;
-        IsTweening = false;
-        StatePanelCG.alpha = 0; 
+        profileDetailExtraIsOpen = false;
+        isTweening = false;
+        statePanelCg.alpha = 0; 
         
     }
 
@@ -223,7 +224,7 @@ public class AllyShopUIController : ShopUIController
     // 프로필 디테일 리셋
     private void Reset_AllyProfileDetailPanel()
     {
-        ProfileDetailEUI.SetOff_Panel();
+        profileDetailEui.SetOff_Panel();
 
     }
 
@@ -239,7 +240,7 @@ public class AllyShopUIController : ShopUIController
         Reset_AllyProfileListPanel();
         Reset_AllyProfileDetailPanel();
 
-        Play_ProfileExtraY(ProfileDetailExtraRT_CloseHeight, 0.3f);
+        Play_ProfileExtraY(profileDetailExtraRt_CloseHeight, 0.3f);
     }
 
     #endregion
@@ -249,30 +250,30 @@ public class AllyShopUIController : ShopUIController
     // 모든 프로필 끄기
     private void Set_AllAllyProfileListOff()
     {
-        for (int i = 0; i < AllAllyProfileEUIList.Count; i++)
+        for (int i = 0; i < allAllyProfileEuiList.Count; i++)
         {
-            AllAllyProfileEUIList[i].gameObject.SetActive(false);
-            AllAllyProfileEUIList[i].Reset_Profile();
+            allAllyProfileEuiList[i].gameObject.SetActive(false);
+            allAllyProfileEuiList[i].Reset_Profile();
         }
     }
 
     // 프로필 키기 (현재 Ally)
-    private void Set_AllyProfileListOn(List<AllyController> _AllAlly)
+    private void Set_AllyProfileListOn(List<AllyController> allAlly)
     {
 
-        for (int i = 0; i < _AllAlly.Count; i++)
+        for (int i = 0; i < allAlly.Count; i++)
         {
-            AllAllyProfileEUIList[i].gameObject.SetActive(true);
-            AllAllyProfileEUIList[i].Set_Profile(_AllAlly[i], -(i * AllyProfileIntervalY));
-            CurrentActiveProfileEUIList.Add(AllAllyProfileEUIList[i]);
+            allAllyProfileEuiList[i].gameObject.SetActive(true);
+            allAllyProfileEuiList[i].Set_Profile(allAlly[i], -(i * allyProfileIntervalY));
+            currentActiveProfileEuiList.Add(allAllyProfileEuiList[i]);
         }
     }
 
     // 프로필 항목 패널의 사이즈 조절 (Scroll을 위함)
-    private void Set_AllyProfileListPanelY(int _Amount)
+    private void Set_AllyProfileListPanelY(int amount)
     {
-        float y = Mathf.Max(_Amount * AllyProfileIntervalY, AllyProfilePanelMinHeight);
-        ThisPanelTabList[0].Set_ScrollHeight(y);
+        float y = Mathf.Max(amount * allyProfileIntervalY, allyProfilePanelMinHeight);
+        panelTabList[0].Set_ScrollHeight(y);
     }
 
     #endregion
@@ -282,29 +283,29 @@ public class AllyShopUIController : ShopUIController
     // 처음 시작 시, 첫번째 Ally 선택 (없다면 NULL)
     private void Select_DefaultAllyProfile()
     {
-        if (CurrentActiveProfileEUIList.Count <= 0) // 없다면
+        if (currentActiveProfileEuiList.Count <= 0) // 없다면
         {
             Select_AllyProfile(null);
-            AllyProfileSelectSignRT.gameObject.SetActive(false);
+            allyProfileSelectSignRt.gameObject.SetActive(false);
         }
         else
         {
-            Select_AllyProfile(CurrentActiveProfileEUIList[0]);
-            AllyProfileSelectSignRT.gameObject.SetActive(true);
+            Select_AllyProfile(currentActiveProfileEuiList[0]);
+            allyProfileSelectSignRt.gameObject.SetActive(true);
         }
     }
 
-    public void Select_AllyProfile(AllyProfileEUIController _EUI)
+    public void Select_AllyProfile(AllyProfileEUIController eui)
     {
-        if (CurrentSelectProfileEUI == _EUI) return;
+        if (currentSelectProfileEui == eui) return;
 
-        CurrentSelectProfileEUI = _EUI;
+        currentSelectProfileEui = eui;
 
-        AllyProfileSelectSignRT.SetParent(CurrentSelectProfileEUI.transform);
-        AllyProfileSelectSignRT.SetAsLastSibling();
+        allyProfileSelectSignRt.SetParent(currentSelectProfileEui.transform);
+        allyProfileSelectSignRt.SetAsLastSibling();
 
-        DevTool.Set_KillTween(AllyProfileSelectSignRT);
-        AllyProfileSelectSignRT.DOAnchorPos(Vector2.zero, 0.05f);
+        DevTool.Set_KillTween(allyProfileSelectSignRt);
+        allyProfileSelectSignRt.DOAnchorPos(Vector2.zero, 0.05f);
     }
 
     #endregion
@@ -313,36 +314,36 @@ public class AllyShopUIController : ShopUIController
 
     // 실제로 인풋으로 클릭이나 지정하는 것
     // 인풋을 통해, Ally를 픽 (UI 변경 필요)
-    protected virtual void Pick_AllyProfile(AllyProfileEUIController _EUI)
+    protected virtual void Pick_AllyProfile(AllyProfileEUIController eui)
     {
-        if (IsTweening) return;
+        if (isTweening) return;
 
-        CurrentPickedProfileEUI = _EUI;
-        CurrentPickedAlly = CurrentPickedProfileEUI.Get_ThisAlly();
+        currentPickedProfileEui = eui;
+        currentPickedAlly = currentPickedProfileEui.Get_ThisAlly();
 
-        AllyProfilePickedSignRT.gameObject.SetActive(true);
-        AllyProfilePickedSignRT.SetParent(CurrentSelectProfileEUI.transform);
-        AllyProfilePickedSignRT.SetAsLastSibling();
-        AllyProfilePickedSignRT.anchoredPosition = Vector2.zero;
+        allyProfilePickedSignRt.gameObject.SetActive(true);
+        allyProfilePickedSignRt.SetParent(currentSelectProfileEui.transform);
+        allyProfilePickedSignRt.SetAsLastSibling();
+        allyProfilePickedSignRt.anchoredPosition = Vector2.zero;
 
-        DevTool.Set_KillTween(AllyProfilePickedSignRT);
-        AllyProfilePickedSignRT.transform.localScale = Vector2.one * 1.2f;
-        AllyProfilePickedSignRT.transform.DOScale(Vector2.one, 0.15f);
+        DevTool.Set_KillTween(allyProfilePickedSignRt);
+        allyProfilePickedSignRt.transform.localScale = Vector2.one * 1.2f;
+        allyProfilePickedSignRt.transform.DOScale(Vector2.one, 0.15f);
 
-        DevTool.Set_KillTween(AllyProfilePickedSignCG);
-        AllyProfilePickedSignCG.alpha = 0f;
-        AllyProfilePickedSignCG.DOFade(1f, 0.2f);
+        DevTool.Set_KillTween(allyProfilePickedSignCg);
+        allyProfilePickedSignCg.alpha = 0f;
+        allyProfilePickedSignCg.DOFade(1f, 0.2f);
 
         // Data UI Set
-        Set_AllyState(CurrentPickedAlly);
-        Set_AllyTuner(CurrentPickedAlly);
-        Set_AllySync(CurrentPickedAlly);
+        Set_AllyState(currentPickedAlly);
+        Set_AllyTuner(currentPickedAlly);
+        Set_AllySync(currentPickedAlly);
 
         // Detail Panel
-        ProfileDetailEUI.SetOn_Panel(CurrentPickedAlly);
+        profileDetailEui.SetOn_Panel(currentPickedAlly);
 
         // Extra Panel
-        Play_ProfileExtraY_CloseAndOpen(CurrentExtraPanelIndex);
+        Play_ProfileExtraY_CloseAndOpen(currentExtraPanelIndex);
 
         // Sound
         SoundManager.instance.Play_2D_SFX_UI("Click_01");
@@ -353,70 +354,70 @@ public class AllyShopUIController : ShopUIController
     #region Profile Detail (Panel)
 
     // Extra, Y 패널
-    private Sequence Play_ProfileDetailExtraCG(int _ExtraIndex, float _DurTime)
+    private Sequence Play_ProfileDetailExtraCG(int extraIndex, float durTime)
     {
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(StatePanelCG.DOFade(0f, _DurTime * 0.5f).OnComplete(() =>
+        seq.Append(statePanelCg.DOFade(0f, durTime * 0.5f).OnComplete(() =>
         {
-            for (int i = 0; i < StateBtnList.Count; i++)
+            for (int i = 0; i < stateBtnList.Count; i++)
             {
                 int index = i;
 
-                if (index == _ExtraIndex)
-                    StatePanelRTList[index].gameObject.SetActive(true);
+                if (index == extraIndex)
+                    statePanelRtList[index].gameObject.SetActive(true);
                 else
-                    StatePanelRTList[index].gameObject.SetActive(false);
+                    statePanelRtList[index].gameObject.SetActive(false);
             }
         }));
-        seq.Append(StatePanelCG.DOFade(1f, _DurTime * 0.5f));
+        seq.Append(statePanelCg.DOFade(1f, durTime * 0.5f));
 
         return seq;
     }
 
-    private Sequence Play_ProfileDetailExtraBtn(int _ExtraIndex, float _DurTime)
+    private Sequence Play_ProfileDetailExtraBtn(int extraIndex, float durTime)
     {
         Sequence seq = DOTween.Sequence();
 
-        for (int i = 0; i < StateBtnList.Count; i++)
+        for (int i = 0; i < stateBtnList.Count; i++)
         {
             int index = i;
 
-            if (index == _ExtraIndex)
-                seq.Join(StateBtnList[index].cg.DOFade(1f, _DurTime));
+            if (index == extraIndex)
+                seq.Join(stateBtnList[index].cg.DOFade(1f, durTime));
             else
-                seq.Join(StateBtnList[index].cg.DOFade(0.4f, _DurTime));
+                seq.Join(stateBtnList[index].cg.DOFade(0.4f, durTime));
         }
 
         return seq;
     }
 
-    private Sequence Play_ProfileExtraY_CloseAndOpen(int _ExtraIndex)
+    private Sequence Play_ProfileExtraY_CloseAndOpen(int extraIndex)
     {
-        if (IsTweening || CurrentPickedProfileEUI == null) return null;
-        IsTweening = true;
+        if (isTweening || currentPickedProfileEui == null) return null;
+        isTweening = true;
 
         Sequence seq = DOTween.Sequence();
 
-        CurrentExtraPanelIndex = _ExtraIndex;
-        float durTime = ProfileDetailExtraIsOpen ? 0.24f : 0.12f;
+        currentExtraPanelIndex = extraIndex;
+        float durTime = profileDetailExtraIsOpen ? 0.24f : 0.12f;
 
-        if (ProfileDetailExtraIsOpen)
+        if (profileDetailExtraIsOpen)
         {
-            seq.Append(Play_ProfileExtraY(ProfileDetailExtraRT_CloseHeight, 0.12f));
-            seq.Append(Play_ProfileExtraY(ProfileDetailExtraRT_OpenHeight, 0.12f));
+            seq.Append(Play_ProfileExtraY(profileDetailExtraRt_CloseHeight, 0.12f));
+            seq.Append(Play_ProfileExtraY(profileDetailExtraRt_OpenHeight, 0.12f));
         }
         else
         {
-            seq.Append(Play_ProfileExtraY(ProfileDetailExtraRT_OpenHeight, 0.12f));
+            seq.Append(Play_ProfileExtraY(profileDetailExtraRt_OpenHeight, 0.12f));
         }
 
-        Play_ProfileDetailExtraBtn(_ExtraIndex, durTime);
-        Play_ProfileDetailExtraCG(_ExtraIndex, durTime);
+        Play_ProfileDetailExtraBtn(extraIndex, durTime);
+        Play_ProfileDetailExtraCG(extraIndex, durTime);
 
-        ProfileDetailExtraIsOpen = true;
+        profileDetailExtraIsOpen = true;
 
-        seq.OnComplete(() => { IsTweening = false; });
+        seq.OnComplete(() => { isTweening = false; });
 
         // Sound
         SoundManager.instance.Play_2D_SFX_UI("Click_01");
@@ -425,13 +426,13 @@ public class AllyShopUIController : ShopUIController
     }
 
 
-    private Sequence Play_ProfileExtraY(float _Y, float _DurTime = 0f)
+    private Sequence Play_ProfileExtraY(float y, float durTime = 0f)
     {
-        DevTool.Set_KillTween(ProfileDetailExtraRT);
+        DevTool.Set_KillTween(profileDetailExtraRt);
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(ProfileDetailExtraRT.DOSizeDelta(new Vector2(ProfileDetailExtraRT.rect.width, _Y), _DurTime));
+        seq.Append(profileDetailExtraRt.DOSizeDelta(new Vector2(profileDetailExtraRt.rect.width, y), durTime));
 
         Play_ProfileDetailExtraBtn(-1, 0.12f);
 
@@ -443,31 +444,31 @@ public class AllyShopUIController : ShopUIController
     #region Profile Detail (State)
 
     // 실제 데이터값
-    protected void Set_AllyState(AllyController _Ally)
+    protected void Set_AllyState(AllyController ally)
     {
-        AllyState cardBaseState = _Ally.Get_CardState();
-        StateEUIList[0].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.dmg.value).Replace("+", "")}";
-        StateEUIList[1].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.rof.value).Replace("+", "")}<size=65%>/s</size>";
-        StateEUIList[2].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.movementSpeed.value).Replace("+", "")}";
-        StateEUIList[3].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.attackSize.value).Replace("+", "")}";
-        StateEUIList[4].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.criticalChacne.value * 100).Replace("+", "")}<size=65%>%</size>";
-        StateEUIList[5].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.criticalDmg.value + 1).Replace("+", "")}<size=65%>x</size>";
-        StateEUIList[6].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.muzzleSpeed.value + 1).Replace("+", "")}";
-        StateEUIList[7].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.kbPower.value).Replace("+", "")}";
-        StateEUIList[8].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.dur.value).Replace("+", "")}<size=65%>s</size>";
+        AllyState cardBaseState = ally.Get_CardState();
+        stateEuiList[0].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.dmg.value).Replace("+", "")}";
+        stateEuiList[1].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.rof.value).Replace("+", "")}<size=65%>/s</size>";
+        stateEuiList[2].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.movementSpeed.value).Replace("+", "")}";
+        stateEuiList[3].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.attackSize.value).Replace("+", "")}";
+        stateEuiList[4].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.criticalChacne.value * 100).Replace("+", "")}<size=65%>%</size>";
+        stateEuiList[5].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.criticalDmg.value + 1).Replace("+", "")}<size=65%>x</size>";
+        stateEuiList[6].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.muzzleSpeed.value + 1).Replace("+", "")}";
+        stateEuiList[7].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.kbPower.value).Replace("+", "")}";
+        stateEuiList[8].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.dur.value).Replace("+", "")}<size=65%>s</size>";
 
-        AllyState upgradeState = _Ally.Get_UpgradeAllState();
-        StateEUIList[0].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.dmg.value)}";
-        StateEUIList[1].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.rof.value)}<size=65%>/s</size>";
-        StateEUIList[2].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.movementSpeed.value)}";
-        StateEUIList[3].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.attackSize.value)}";
-        StateEUIList[4].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.criticalChacne.value * 100)}<size=65%>%</size>";
-        StateEUIList[5].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.criticalDmg.value)}<size=65%>x</size>";
-        StateEUIList[6].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.muzzleSpeed.value)}";
-        StateEUIList[7].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.kbPower.value)}";
-        StateEUIList[8].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.dur.value)}<size=65%>s</size>";
+        AllyState upgradeState = ally.Get_UpgradeAllState();
+        stateEuiList[0].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.dmg.value)}";
+        stateEuiList[1].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.rof.value)}<size=65%>/s</size>";
+        stateEuiList[2].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.movementSpeed.value)}";
+        stateEuiList[3].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.attackSize.value)}";
+        stateEuiList[4].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.criticalChacne.value * 100)}<size=65%>%</size>";
+        stateEuiList[5].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.criticalDmg.value)}<size=65%>x</size>";
+        stateEuiList[6].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.muzzleSpeed.value)}";
+        stateEuiList[7].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.kbPower.value)}";
+        stateEuiList[8].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.dur.value)}<size=65%>s</size>";
 
-        StateScrollPanel.Set_ScrollPanel();
+        stateScrollPanel.Set_ScrollPanel();
     }
 
     
@@ -475,16 +476,16 @@ public class AllyShopUIController : ShopUIController
 
     #region Profile Detail (Tuner)
 
-    protected void Set_AllyTuner(AllyController _Ally)
+    protected void Set_AllyTuner(AllyController ally)
     {
-        List<AllyBaseTunerData> tunerData = _Ally.Get_ThisTunerData();
+        List<AllyBaseTunerData> tunerData = ally.Get_ThisTunerData();
 
         // 만약 UI EUI가 부족하다면 생성
-        if (InStateTunerEUIList.Count < tunerData.Count)
+        if (inStateTunerEuiList.Count < tunerData.Count)
         {
-            int needEUIAmount = tunerData.Count - InStateTunerEUIList.Count;
+            int needEUIAmount = tunerData.Count - inStateTunerEuiList.Count;
             for (int i = 0; i < needEUIAmount; i++)
-                InStateTunerEUIList.Add(Gen_TunerEUI());
+                inStateTunerEuiList.Add(Gen_TunerEUI());
         }
 
         // 모든 Tuner EUI 끄기
@@ -494,15 +495,15 @@ public class AllyShopUIController : ShopUIController
         SetOn_TunerEUI(tunerData);
 
         float scrollY = Mathf.Max(
-            ProfileDetailExtraRT_ScrollMin,
-            InStateTunerEUI_BaseY + (tunerData.Count * InStateTunerEUI_Interval));
+            profileDetailExtraRt_ScrollMin,
+            inStateTunerEui_BaseY + (tunerData.Count * inStateTunerEui_Interval));
 
-        TunerScrollPanel.Set_ScrollHeight(scrollY);
+        tunerScrollPanel.Set_ScrollHeight(scrollY);
     }
 
     private TunerEUIController Gen_TunerEUI()
     {
-        TunerEUIController result = DevTool.Get_ComponentTType<TunerEUIController>(Instantiate(InStateTunerPrefab, InStateTunerParentRT));
+        TunerEUIController result = DevTool.Get_ComponentTType<TunerEUIController>(Instantiate(inStateTunerPrefab, inStateTunerParentRt));
         result.Offset();
 
         return result;
@@ -510,19 +511,19 @@ public class AllyShopUIController : ShopUIController
 
     private void SetOff_AllTunerEUI()
     {
-        if (InStateTunerEUIList.Count <= 0) return;
+        if (inStateTunerEuiList.Count <= 0) return;
 
-        for (int i = 0; i < InStateTunerEUIList.Count; i++)
-            InStateTunerEUIList[i].gameObject.SetActive(false);
+        for (int i = 0; i < inStateTunerEuiList.Count; i++)
+            inStateTunerEuiList[i].gameObject.SetActive(false);
     }
 
-    private void SetOn_TunerEUI(List<AllyBaseTunerData> _Data)
+    private void SetOn_TunerEUI(List<AllyBaseTunerData> data)
     {
-        for (int i = 0; i < _Data.Count; i++)
+        for (int i = 0; i < data.Count; i++)
         {
-            InStateTunerEUIList[i].gameObject.SetActive(true);
-            InStateTunerEUIList[i].rt.anchoredPosition = new Vector2(InStateTunerEUI_BaseX, -(InStateTunerEUI_BaseY + (InStateTunerEUI_Interval * i)));
-            InStateTunerEUIList[i].Set_UI(_Data[i]);
+            inStateTunerEuiList[i].gameObject.SetActive(true);
+            inStateTunerEuiList[i].rt.anchoredPosition = new Vector2(inStateTunerEui_BaseX, -(inStateTunerEui_BaseY + (inStateTunerEui_Interval * i)));
+            inStateTunerEuiList[i].Set_UI(data[i]);
         }
 
     }
@@ -531,16 +532,16 @@ public class AllyShopUIController : ShopUIController
 
     #region Profile Detail (Sync)
 
-    protected void Set_AllySync(AllyController _Ally)
+    protected void Set_AllySync(AllyController ally)
     {
-        Dictionary<int, int> syncData = _Ally.Get_ThisSyncData();
+        Dictionary<int, int> syncData = ally.Get_ThisSyncData();
 
         // 만약 UI EUI가 부족하다면 생성
-        if (InStateSyncEUIList.Count < syncData.Count)
+        if (inStateSyncEuiList.Count < syncData.Count)
         {
-            int needEUIAmount = syncData.Count - InStateSyncEUIList.Count;
+            int needEUIAmount = syncData.Count - inStateSyncEuiList.Count;
             for (int i = 0; i < needEUIAmount; i++)
-                InStateSyncEUIList.Add(Gen_SyncEUI());
+                inStateSyncEuiList.Add(Gen_SyncEUI());
         }
 
         // 모든 Sync EUI 끄기
@@ -550,10 +551,10 @@ public class AllyShopUIController : ShopUIController
         SetOn_SyncEUI(syncData, out float lastY);
 
         float scrollY = Mathf.Max(
-            ProfileDetailExtraRT_ScrollMin,
+            profileDetailExtraRt_ScrollMin,
             lastY + 100f);
         
-        SyncScrollPanel.Set_ScrollHeight(scrollY);
+        syncScrollPanel.Set_ScrollHeight(scrollY);
 
         // 모든 Sync UI의 연결로서 활성화되었는지
         Set_AllySync_ApplyState();
@@ -561,26 +562,26 @@ public class AllyShopUIController : ShopUIController
 
     private void Set_AllySync_ApplyState()
     {
-        if (CurrentPickedAlly == null) return;
+        if (currentPickedAlly == null) return;
 
-        List<int> connectIdList = CurrentPickedAlly.Get_ConnectingSyncToKeyList();
-        for (int i = 0; i < InStateSyncActingEUIList.Count; i++)
+        List<int> connectIdList = currentPickedAlly.Get_ConnectingSyncToKeyList();
+        for (int i = 0; i < inStateSyncActingEuiList.Count; i++)
         {
-            InStateSyncActingEUIList[i].Set_ConnectUI(
-                connectIdList.Contains(InStateSyncActingEUIList[i].id));
+            inStateSyncActingEuiList[i].Set_ConnectUI(
+                connectIdList.Contains(inStateSyncActingEuiList[i].id));
         }
 
-        List<int> completelyIdList = CurrentPickedAlly.Get_CompletelySyncToKeyList();
-        for (int i = 0; i < InStateSyncActingEUIList.Count; i++)
+        List<int> completelyIdList = currentPickedAlly.Get_CompletelySyncToKeyList();
+        for (int i = 0; i < inStateSyncActingEuiList.Count; i++)
         {
-            InStateSyncActingEUIList[i].Set_Completely(
-                completelyIdList.Contains(InStateSyncActingEUIList[i].id));
+            inStateSyncActingEuiList[i].Set_Completely(
+                completelyIdList.Contains(inStateSyncActingEuiList[i].id));
         }
     }
 
     private AllySyncIconEUIController Gen_SyncEUI()
     {
-        AllySyncIconEUIController result = DevTool.Get_ComponentTType<AllySyncIconEUIController>(Instantiate(InStateSyncPrefab, InStateSyncParentRT));
+        AllySyncIconEUIController result = DevTool.Get_ComponentTType<AllySyncIconEUIController>(Instantiate(inStateSyncPrefab, inStateSyncParentRt));
         result.Offset();
 
         return result;
@@ -588,31 +589,31 @@ public class AllyShopUIController : ShopUIController
 
     private void SetOff_AllSyncEUI()
     {
-        if (InStateSyncEUIList.Count <= 0) return;
+        if (inStateSyncEuiList.Count <= 0) return;
 
-        for (int i = 0; i < InStateSyncEUIList.Count; i++)
-            InStateSyncEUIList[i].gameObject.SetActive(false);
+        for (int i = 0; i < inStateSyncEuiList.Count; i++)
+            inStateSyncEuiList[i].gameObject.SetActive(false);
     }
 
-    private void SetOn_SyncEUI(Dictionary<int, int> _Data, out float _LastY)
+    private void SetOn_SyncEUI(Dictionary<int, int> data, out float lastY)
     {
-        InStateSyncActingEUIList.Clear();
+        inStateSyncActingEuiList.Clear();
 
         int currentOrder = 0;
-        _LastY = 0;
-        foreach (KeyValuePair<int, int> value in _Data)
+        lastY = 0;
+        foreach (KeyValuePair<int, int> value in data)
         {
-            int x = currentOrder % InStateSyncEUI_WidthAmount;
-            int y = currentOrder / InStateSyncEUI_WidthAmount;
+            int x = currentOrder % inStateSyncEui_WidthAmount;
+            int y = currentOrder / inStateSyncEui_WidthAmount;
 
-            InStateSyncEUIList[currentOrder].gameObject.SetActive(true);
-            InStateSyncEUIList[currentOrder].rt.anchoredPosition = new Vector2(
-                InStateSyncEUI_BaseX + (x * InStateSyncEUI_IntervalX),
-                InStateSyncEUI_BaseY + (y * InStateSyncEUI_IntervalY));
-            _LastY = InStateSyncEUIList[currentOrder].rt.anchoredPosition.y;
+            inStateSyncEuiList[currentOrder].gameObject.SetActive(true);
+            inStateSyncEuiList[currentOrder].rt.anchoredPosition = new Vector2(
+                inStateSyncEui_BaseX + (x * inStateSyncEui_IntervalX),
+                inStateSyncEui_BaseY + (y * inStateSyncEui_IntervalY));
+            lastY = inStateSyncEuiList[currentOrder].rt.anchoredPosition.y;
 
-            InStateSyncEUIList[currentOrder].Set_UI(value.Key, value.Value);
-            InStateSyncActingEUIList.Add(InStateSyncEUIList[currentOrder]);
+            inStateSyncEuiList[currentOrder].Set_UI(value.Key, value.Value);
+            inStateSyncActingEuiList.Add(inStateSyncEuiList[currentOrder]);
             currentOrder++;
         }
     }
@@ -632,10 +633,10 @@ public class AllyShopUIController : ShopUIController
 
     private bool Interact_ProfileList()
     {
-        if ((CurrentBtn == CurrentSelectProfileEUI) &&
-            (CurrentSelectProfileEUI != CurrentPickedProfileEUI))
+        if ((currentBtn == currentSelectProfileEui) &&
+            (currentSelectProfileEui != currentPickedProfileEui))
         {
-            Pick_AllyProfile(CurrentSelectProfileEUI);
+            Pick_AllyProfile(currentSelectProfileEui);
 
             return true;
         }
@@ -645,10 +646,10 @@ public class AllyShopUIController : ShopUIController
 
     private bool Interact_ProfileExtraBtn()
     {
-        if (CurrentBtn is OwnCGBtnEUIController btn &&
-            StateBtnList.Contains(btn))
+        if (currentBtn is OwnCGBtnEUIController btn &&
+            stateBtnList.Contains(btn))
         {
-            Play_ProfileExtraY_CloseAndOpen(StateBtnList.IndexOf(btn));
+            Play_ProfileExtraY_CloseAndOpen(stateBtnList.IndexOf(btn));
 
             return true;
         }
@@ -660,19 +661,19 @@ public class AllyShopUIController : ShopUIController
 
     #region Play
 
-    protected void Play_UseTxt(TMP_Text _Txt, int _Pay, float _UpY, float _DurTime = 0.5f)
+    protected void Play_UseTxt(TMP_Text txt, int pay, float upY, float durTime = 0.5f)
     {
-        RectTransform rt = DevTool.Get_ComponentTType<RectTransform>(_Txt.gameObject);
+        RectTransform rt = DevTool.Get_ComponentTType<RectTransform>(txt.gameObject);
 
-        DevTool.Set_KillTween(_Txt);
+        DevTool.Set_KillTween(txt);
         DevTool.Set_KillTween(rt);
 
-        _Txt.text = $"-{_Pay}";
-        DevTool.Set_AlphaColor(_Txt, 1f);
+        txt.text = $"-{pay}";
+        DevTool.Set_AlphaColor(txt, 1f);
         rt.anchoredPosition = Vector2.zero;
 
-        _Txt.DOFade(0f, _DurTime);
-        rt.DOAnchorPosY(_UpY, _DurTime);
+        txt.DOFade(0f, durTime);
+        rt.DOAnchorPosY(upY, durTime);
     }
 
     #endregion
@@ -682,39 +683,39 @@ public class AllyShopUIController : ShopUIController
     public override void Set_LanguageTxt()
     {
         // Profile List (Tab)
-        TabBtnTxtList = new List<string>
+        tabBtnTxtList = new List<string>
         {
             ResourceManager.instance.Get_StaticWord(96)
         };
 
         // Profile Detail
-        ProfileDetailTxt.text = ResourceManager.instance.Get_StaticWord(101);
+        profileDetailTxt.text = ResourceManager.instance.Get_StaticWord(101);
 
         string state = ResourceManager.instance.Get_StaticWord(102);
         string bu = ResourceManager.instance.Get_StaticWord(106);
         string mu = ResourceManager.instance.Get_StaticWord(27);
 
 
-        StateBtnList[0].txt.text = state;
-        StateBtnList[1].txt.text = bu;
-        StateBtnList[2].txt.text = mu;
+        stateBtnList[0].txt.text = state;
+        stateBtnList[1].txt.text = bu;
+        stateBtnList[2].txt.text = mu;
 
-        StateTitleTxtList[0].text = state;
-        StateTitleTxtList[1].text = bu;
-        StateTitleTxtList[2].text = mu;
+        stateTitleTxtList[0].text = state;
+        stateTitleTxtList[1].text = bu;
+        stateTitleTxtList[2].text = mu;
 
-        StateEUIList[0].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(12)} >";    // 공격력
-        StateEUIList[1].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(13)} >";    // 연사력
-        StateEUIList[2].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(9)} >";     // 이동속도
-        StateEUIList[3].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(114)} >";    // 크기
-        StateEUIList[4].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(15)} >";    // 치확
-        StateEUIList[5].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(16)} >";     // 치뎀
-        StateEUIList[6].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(43)} >";     // 탄속
-        StateEUIList[7].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(44)} >";     // 넉백 (파워)
-        StateEUIList[8].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(116)} >";     // 지속시간
+        stateEuiList[0].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(12)} >";    // 공격력
+        stateEuiList[1].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(13)} >";    // 연사력
+        stateEuiList[2].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(9)} >";     // 이동속도
+        stateEuiList[3].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(114)} >";    // 크기
+        stateEuiList[4].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(15)} >";    // 치확
+        stateEuiList[5].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(16)} >";     // 치뎀
+        stateEuiList[6].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(43)} >";     // 탄속
+        stateEuiList[7].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(44)} >";     // 넉백 (파워)
+        stateEuiList[8].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(116)} >";     // 지속시간
 
         // Limit
-        StateLimitTxt.text = $"( {ResourceManager.instance.Get_StaticWord(107)}: {AllyController.minLimitUpgradeValue} )";
+        stateLimitTxt.text = $"( {ResourceManager.instance.Get_StaticWord(107)}: {AllyController.minLimitUpgradeValue} )";
 
         base.Set_LanguageTxt();
     }
@@ -723,9 +724,9 @@ public class AllyShopUIController : ShopUIController
 
     #region Get
 
-    public Sprite Get_SyncProgressSprite(int _Progress)
+    public Sprite Get_SyncProgressSprite(int progress)
     {
-        return PickedPanelSyncProgressSpriteList[Mathf.Clamp(_Progress - 1, 0, AllyController.syncMax - 1)];
+        return pickedPanelSyncProgressSpriteList[Mathf.Clamp(progress - 1, 0, AllyController.syncMax - 1)];
     }
 
     #endregion

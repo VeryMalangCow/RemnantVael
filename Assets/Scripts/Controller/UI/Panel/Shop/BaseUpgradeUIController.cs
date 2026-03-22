@@ -141,7 +141,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
             {
                 for (int i = 0; i < DevTool.skillAmount; i++)
                 {
-                    MainGameUIManager.instance.playerHUD_UIController.SkillList[i].Set_CostText(
+                    MainGameUIManager.instance.playerHUD_UIController.skillList[i].Set_CostText(
                         _Value * PlayerManager.instance.playerController.skillWeapon.skillList[i].needEP.Value);
                 }
             });
@@ -161,8 +161,8 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     public void Offset_ColorComp()
     {
-        MainColorCompList = new List<Component>();
-        SubColorCompList = new List<Component>();
+        mainColorCompList = new List<Component>();
+        subColorCompList = new List<Component>();
 
         // BUShop
         for (int i = 0; i < AllBUData_Float.Count; i++)
@@ -176,31 +176,31 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
         void Offset_ColorComp<T>(BUShopData<T> _BUShop)
         {
-            MainColorCompList.Add(_BUShop.upgradeEUI.SkillNameTxt);
-            MainColorCompList.Add(_BUShop.upgradeEUI.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
-            MainColorCompList.Add(_BUShop.upgradeEUI.DescTxt);
-            MainColorCompList.Add(_BUShop.upgradeEUI.BuyBtn.btn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+            mainColorCompList.Add(_BUShop.upgradeEUI.SkillNameTxt);
+            mainColorCompList.Add(_BUShop.upgradeEUI.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+            mainColorCompList.Add(_BUShop.upgradeEUI.DescTxt);
+            mainColorCompList.Add(_BUShop.upgradeEUI.BuyBtn.btn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
-            SubColorCompList.Add(_BUShop.upgradeEUI.SkillLvTxt);
-            SubColorCompList.AddRange(_BUShop.upgradeEUI.ThisImgTxtAmountEUI.amountImgs);
-            SubColorCompList.AddRange(_BUShop.upgradeEUI.innerImgList);
+            subColorCompList.Add(_BUShop.upgradeEUI.SkillLvTxt);
+            subColorCompList.AddRange(_BUShop.upgradeEUI.ThisImgTxtAmountEUI.amountImgs);
+            subColorCompList.AddRange(_BUShop.upgradeEUI.innerImgList);
         }
 
         // Desc
-        MainColorCompList.AddRange(ThisDescPanel.Get_MainColorList());
-        SubColorCompList.AddRange(ThisDescPanel.Get_SubColorList());
+        mainColorCompList.AddRange(ThisDescPanel.Get_MainColorList());
+        subColorCompList.AddRange(ThisDescPanel.Get_SubColorList());
 
-        SubColorCompList.Add(FrameInnerImg);
+        subColorCompList.Add(FrameInnerImg);
 
         Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        DevTool.Set_Color(mainClr, MainColorCompList);
-        MainColorCompList.Clear();
-        MainColorCompList = null;
+        DevTool.Set_Color(mainClr, mainColorCompList);
+        mainColorCompList.Clear();
+        mainColorCompList = null;
 
         Color subClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-        DevTool.Set_Color(subClr, SubColorCompList);
-        SubColorCompList.Clear();
-        SubColorCompList = null;
+        DevTool.Set_Color(subClr, subColorCompList);
+        subColorCompList.Clear();
+        subColorCompList = null;
     }
 
 
@@ -212,7 +212,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
     {
         base.OnEnable();
 
-        ThisMsgEUI.Reset_Data();
+        msgEui.Reset_Data();
     }
 
     #endregion
@@ -226,7 +226,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         Play_OnTween();
 
         // Dur
-        ThisDurEUI.Set_Dur(BaseUpgradeController.UsingShop.CurrentDur);
+        durEui.Set_Dur(BaseUpgradeController.UsingShop.CurrentDur);
     }
 
     public override void SetOff_ThisPanel()
@@ -248,7 +248,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
         if (Is_Interact_Msg()) return;
 
-        if (CurrentBtn == null || BaseUpgradeController.UsingShop == null) return;
+        if (currentBtn == null || BaseUpgradeController.UsingShop == null) return;
 
         if (Is_Interact_Buy_Float()) return;
         if (Is_Interact_Buy_Int()) return;
@@ -263,8 +263,8 @@ public class BaseUpgradeUIController : PlayerShopUIController
         // 备概 内靛 (float)
         for (int i = 0; i < AllBUData_Float.Count; i++)
         {
-            if (AllBUData_Float[i].upgradeEUI.BuyBtn == CurrentBtn &&
-                CurrentBtn.btn.interactable)
+            if (AllBUData_Float[i].upgradeEUI.BuyBtn == currentBtn &&
+                currentBtn.btn.interactable)
             {
                 AllBUData_Float[i].Try_Buy();
                 return true;
@@ -278,8 +278,8 @@ public class BaseUpgradeUIController : PlayerShopUIController
         // 备概 内靛 (int)
         for (int i = 0; i < AllBUData_Int.Count; i++)
         {
-            if (AllBUData_Int[i].upgradeEUI.BuyBtn == CurrentBtn &&
-                CurrentBtn.btn.interactable)
+            if (AllBUData_Int[i].upgradeEUI.BuyBtn == currentBtn &&
+                currentBtn.btn.interactable)
             {
                 AllBUData_Int[i].Try_Buy();
                 return true;
@@ -294,9 +294,9 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     private bool Is_Interact_TabPanel()
     {
-        for (int i = 0; i < ThisPanelTabList.Count; i++)
+        for (int i = 0; i < panelTabList.Count; i++)
         {
-            if (ThisPanelTabList[i].tabBtn == CurrentBtn)
+            if (panelTabList[i].tabBtn == currentBtn)
             {
                 Change_ThisPanel(i);
                 return true;
@@ -347,11 +347,11 @@ public class BaseUpgradeUIController : PlayerShopUIController
     public override void Set_LanguageTxt()
     {
         // Label
-        LabelName = ResourceManager.instance.Get_StaticWord(26) + " " + ResourceManager.instance.Get_StaticWord(2);
-        LabelTxt.text = LabelName;
+        labelName = ResourceManager.instance.Get_StaticWord(26) + " " + ResourceManager.instance.Get_StaticWord(2);
+        labelTxt.text = labelName;
 
         // Tab
-        TabBtnTxtList = new List<string>
+        tabBtnTxtList = new List<string>
         {
             ResourceManager.instance.Get_StaticWord(29),
             ResourceManager.instance.Get_StaticWord(30),

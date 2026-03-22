@@ -3155,19 +3155,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201ff8468b03f4e46856ffb3a8678c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelInputMapName: ModuleUpgradeUI
-  CurrentBtn: {fileID: 0}
-  MainColorCompList: []
-  SubColorCompList: []
-  CurrentSlotBtn: {fileID: 0}
-  CurrentItemBtn: {fileID: 0}
-  ThisPanelTabList:
+  panelInputMapName: ModuleUpgradeUI
+  currentBtn: {fileID: 0}
+  mainColorCompList: []
+  subColorCompList: []
+  currentSlotBtn: {fileID: 0}
+  currentItemBtn: {fileID: 0}
+  panelTabList:
   - {fileID: 3841518684844216861}
   - {fileID: 1840091123255668984}
-  LabelTxt: {fileID: 4973529669863024223}
-  ThisDurEUI: {fileID: 3792348136485403228}
-  ThisMsgEUI: {fileID: 1976628464944666510}
-  CloseBtn: {fileID: 7706051883561635162}
+  labelTxt: {fileID: 4973529669863024223}
+  durEui: {fileID: 3792348136485403228}
+  msgEui: {fileID: 1976628464944666510}
+  closeBtn: {fileID: 7706051883561635162}
   TabSideTxtList:
   - {fileID: 1301000994605875199}
   - {fileID: 1032131260310086998}

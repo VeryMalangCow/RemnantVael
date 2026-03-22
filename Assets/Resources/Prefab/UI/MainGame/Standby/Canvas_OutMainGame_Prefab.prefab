@@ -1613,49 +1613,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61cb9e92fafcc6c46904c01688b9c3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelInputMapName: OutMainGameUI
-  CurrentBtn: {fileID: 0}
-  MainColorCompList: []
-  SubColorCompList: []
-  CurrentSlotBtn: {fileID: 0}
-  CurrentItemBtn: {fileID: 0}
-  InnerParentTF: {fileID: 3077558567260407952}
-  BaseInteractingPanelInnerParentTF: {fileID: 4436765074572654666}
-  InnerImgArr:
+  panelInputMapName: OutMainGameUI
+  currentBtn: {fileID: 0}
+  mainColorCompList: []
+  subColorCompList: []
+  currentSlotBtn: {fileID: 0}
+  currentItemBtn: {fileID: 0}
+  innerParentTf: {fileID: 3077558567260407952}
+  baseInteractingPanelInnerParentTf: {fileID: 4436765074572654666}
+  innerImgArr:
   - {fileID: 9027091104426887828}
   - {fileID: 2036523773189445981}
   - {fileID: 3876438690470798528}
   - {fileID: 5336199937158748587}
   - {fileID: 1485620309762029167}
   - {fileID: 982419574573664061}
-  ResumeBtn: {fileID: 3316888433253747727}
-  StateBtn: {fileID: 4184097229674376498}
-  OptionBtn: {fileID: 442704307833239149}
-  InfoBtn: {fileID: 7470538247603562199}
-  ReturnBtn: {fileID: 775688839056314015}
-  QuitBtn: {fileID: 7051115637012443408}
-  BasePanelBtnImg: {fileID: 997193357159676302}
-  BasePanelBtnTxt: {fileID: 521807006835047424}
-  BaseInteractingPanelTxt: {fileID: 5017649795894300398}
-  BasePanelRT: {fileID: 5551080881326066244}
-  BaseInteractingPanelCG: {fileID: 2217741279376764243}
-  StateUI:
-    PanelRT: {fileID: 6882421575044559943}
-    BackBtn: {fileID: 8879625297197229357}
-    ChangeTypeBtn: {fileID: 7884925959553664330}
-    IsBUPanelOn: 1
-    PlayerStateNameTxt: {fileID: 331083571143969351}
-    AllyStateNameTxt: {fileID: 5582398459936850317}
-    InnerImgArr:
+  resumeBtn: {fileID: 3316888433253747727}
+  stateBtn: {fileID: 4184097229674376498}
+  optionBtn: {fileID: 442704307833239149}
+  infoBtn: {fileID: 7470538247603562199}
+  returnBtn: {fileID: 775688839056314015}
+  quitBtn: {fileID: 7051115637012443408}
+  basePanelBtnImg: {fileID: 997193357159676302}
+  basePanelBtnTxt: {fileID: 521807006835047424}
+  baseInteractingPanelTxt: {fileID: 5017649795894300398}
+  basePanelRt: {fileID: 5551080881326066244}
+  baseInteractingPanelCg: {fileID: 2217741279376764243}
+  stateUi:
+    panelRt: {fileID: 6882421575044559943}
+    backBtn: {fileID: 8879625297197229357}
+    changeTypeBtn: {fileID: 7884925959553664330}
+    isBuPanelOn: 1
+    playerStateNameTxt: {fileID: 331083571143969351}
+    allyStateNameTxt: {fileID: 5582398459936850317}
+    innerImgArr:
     - {fileID: 4539520337614815168}
     - {fileID: 1965694958871573485}
     - {fileID: 5823058907069020782}
     - {fileID: 6096234635167336933}
     - {fileID: 8113881687208253249}
     - {fileID: 856949167656532270}
-    PlayerBUPanelGO: {fileID: 600654148001182603}
-    PlayerBUScrollEUI: {fileID: 1721978619313569547}
-    BUEUIArr:
+    playerBuPanelGo: {fileID: 600654148001182603}
+    playerBuScrollEui: {fileID: 1721978619313569547}
+    buEuiArr:
     - {fileID: 7347582833562596974}
     - {fileID: 8512510945629803799}
     - {fileID: 8913746765380301165}
@@ -1677,16 +1677,16 @@ MonoBehaviour:
     - {fileID: 1193778296316314277}
     - {fileID: 331310408678902295}
     - {fileID: 1839353643026721165}
-    PlayerMUPanelGO: {fileID: 5489793335067802724}
-    PlayerMUScrollEUI: {fileID: 9119944242914939329}
-    MUEUIArr:
+    playerMuPanelGo: {fileID: 5489793335067802724}
+    playerMuScrollEui: {fileID: 9119944242914939329}
+    muEuiArr:
     - {fileID: 6705287641660463108}
     - {fileID: 5406836864273097349}
     - {fileID: 3401779546115802735}
     - {fileID: 4053706480669706202}
     - {fileID: 5251841353817718988}
     - {fileID: 8316012576751266659}
-    SynergyEUIArr:
+    synergyEuiArr:
     - {fileID: 4804275724974924290}
     - {fileID: 2537385024935132704}
     - {fileID: 888109943802215323}
@@ -1705,28 +1705,28 @@ MonoBehaviour:
     - {fileID: 4263976733882540982}
     - {fileID: 3491760268170695558}
     - {fileID: 965110577451075285}
-    AllyScrollEUI: {fileID: 4758780461310148791}
-    AllyBUEUIPrefab: {fileID: 2074197208769285475, guid: 1c2ae5f9dc899164688ff31dbd8b9782, type: 3}
-  OptionUI:
-    PanelRT: {fileID: 4022791933213382230}
-    BackBtn: {fileID: 5226011408125932664}
-    ApplyBtn: {fileID: 8650572687697554490}
-    WarningTxt: {fileID: 4037096309688276698}
-    LanguagePanelEUI: {fileID: 8895828674857774027}
-    ScreenModePanelEUI: {fileID: 1270662044323910032}
-    ResolutionPanelEUI: {fileID: 3726488713447973791}
-    FPSPanelEUI: {fileID: 1844902733147440207}
-    BGMVolumePanelEUI: {fileID: 7803404362616893309}
-    SFXVolumePanelEUI: {fileID: 3721542147612320834}
-  InfoUI:
-    ListTxt: {fileID: 9055433276926349983}
-    DetailTxt: {fileID: 7663011476640815461}
-    PanelRT: {fileID: 2072552283937576996}
-    BackBtn: {fileID: 5155963745990980381}
-    ListScrollPanelEUI: {fileID: 7087262322238622695}
-    ListElementParentTF: {fileID: 6334486941033194278}
-    DetailElementParentTF: {fileID: 5185231900961012604}
-  InteractPanelPosX: 0
+    allyScrollEui: {fileID: 4758780461310148791}
+    allyBuEuiPrefab: {fileID: 2074197208769285475, guid: 1c2ae5f9dc899164688ff31dbd8b9782, type: 3}
+  optionUi:
+    panelRt: {fileID: 4022791933213382230}
+    backBtn: {fileID: 5226011408125932664}
+    applyBtn: {fileID: 8650572687697554490}
+    warningTxt: {fileID: 4037096309688276698}
+    languagePanelEui: {fileID: 8895828674857774027}
+    screenModePanelEui: {fileID: 1270662044323910032}
+    resolutionPanelEui: {fileID: 3726488713447973791}
+    fpsPanelEui: {fileID: 1844902733147440207}
+    bgmVolumePanelEui: {fileID: 7803404362616893309}
+    sfxVolumePanelEui: {fileID: 3721542147612320834}
+  infoUi:
+    listTxt: {fileID: 9055433276926349983}
+    detailTxt: {fileID: 7663011476640815461}
+    panelRt: {fileID: 2072552283937576996}
+    backBtn: {fileID: 5155963745990980381}
+    listScrollPanelEui: {fileID: 7087262322238622695}
+    listElementParentTf: {fileID: 6334486941033194278}
+    detailElementParentTf: {fileID: 5185231900961012604}
+  interactPanelPosX: 0
 --- !u!114 &7285601847160733366
 MonoBehaviour:
   m_ObjectHideFlags: 0

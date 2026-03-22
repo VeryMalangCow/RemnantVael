@@ -540,7 +540,7 @@ public class InputManager : Singleton<InputManager>
 
     private void Input_Tab(InputAction.CallbackContext inputValue)
     {
-        MainGameUIManager.instance.playerHUD_UIController.IsTabInputed = 
+        MainGameUIManager.instance.playerHUD_UIController.isTabInputed = 
             inputValue.ReadValueAsButton();
     }
 

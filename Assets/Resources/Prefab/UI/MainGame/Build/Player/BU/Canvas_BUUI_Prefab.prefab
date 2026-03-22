@@ -389,32 +389,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d923c501041637146999b5b131e29dfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelInputMapName: BaseUpgradeUI
-  CurrentBtn: {fileID: 0}
-  MainColorCompList:
-  - {fileID: 9147036593615803499}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  SubColorCompList:
-  - {fileID: 6419170873737774708}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  CurrentSlotBtn: {fileID: 0}
-  CurrentItemBtn: {fileID: 0}
-  ThisPanelTabList:
+  panelInputMapName: BaseUpgradeUI
+  currentBtn: {fileID: 0}
+  mainColorCompList: []
+  subColorCompList: []
+  currentSlotBtn: {fileID: 0}
+  currentItemBtn: {fileID: 0}
+  panelTabList:
   - {fileID: 3841518684844216861}
   - {fileID: 6102662024336250210}
   - {fileID: 6818351780043364038}
   - {fileID: 7242812692058387735}
   - {fileID: 1305257962069800240}
-  LabelTxt: {fileID: 8601064820096719371}
-  ThisDurEUI: {fileID: 1414314959910742180}
-  ThisMsgEUI: {fileID: 3110014342129758097}
-  CloseBtn: {fileID: 4642890815464369897}
+  labelTxt: {fileID: 8601064820096719371}
+  durEui: {fileID: 1414314959910742180}
+  msgEui: {fileID: 3110014342129758097}
+  closeBtn: {fileID: 4642890815464369897}
   TabSideTxtList:
   - {fileID: 5821918825504258283}
   - {fileID: 1823300100589107299}
@@ -9032,16 +9022,6 @@ MonoBehaviour:
 --- !u!224 &4964200914180136589 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1375829959281230475, guid: 0574e8218daf3904fbb9165b8c9f8505, type: 3}
-  m_PrefabInstance: {fileID: 6337563448497150982}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &6419170873737774708 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1073815519875865202, guid: 0574e8218daf3904fbb9165b8c9f8505, type: 3}
-  m_PrefabInstance: {fileID: 6337563448497150982}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &9147036593615803499 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2955277461154433133, guid: 0574e8218daf3904fbb9165b8c9f8505, type: 3}
   m_PrefabInstance: {fileID: 6337563448497150982}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6403709724172009599

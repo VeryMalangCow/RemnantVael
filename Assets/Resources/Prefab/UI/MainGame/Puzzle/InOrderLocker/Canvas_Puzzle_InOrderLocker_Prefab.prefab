@@ -331,12 +331,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa1f6537bcbdcd408def8fdb8243d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelInputMapName: Puzzle_InOrderLocker
-  CurrentBtn: {fileID: 0}
-  MainColorCompList: []
-  SubColorCompList: []
-  CurrentSlotBtn: {fileID: 0}
-  CurrentItemBtn: {fileID: 0}
+  panelInputMapName: Puzzle_InOrderLocker
+  currentBtn: {fileID: 0}
+  mainColorCompList: []
+  subColorCompList: []
+  currentSlotBtn: {fileID: 0}
+  currentItemBtn: {fileID: 0}
   BaseCountdown: 8
   ReadyPanelEUI: {fileID: 1619404176001623784}
   TimePanelEUI: {fileID: 2801387917553807907}

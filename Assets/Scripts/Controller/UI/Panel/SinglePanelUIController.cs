@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SinglePanelUIController : UIController
 {
@@ -13,22 +14,22 @@ public class SinglePanelUIController : UIController
 
     [Space(10)]
     [Header("=== Input Map")]
-    [SerializeField] protected string ThisPanelInputMapName;
+    [FormerlySerializedAs("ThisPanelInputMapName")][SerializeField] protected string panelInputMapName;
 
     #endregion
 
     #region - Hide
 
     // Btn
-    [HideInInspector] public OwnBtnEUIController CurrentBtn = null;
+    [HideInInspector] public OwnBtnEUIController currentBtn = null;
 
     // Visual
-    [HideInInspector] public List<Component> MainColorCompList = new List<Component>();
-    [HideInInspector] public List<Component> SubColorCompList = new List<Component>();
+    [HideInInspector] public List<Component> mainColorCompList = new List<Component>();
+    [HideInInspector] public List<Component> subColorCompList = new List<Component>();
 
     // Inven
-    [SerializeField] public InventorySlotEUIController CurrentSlotBtn = null;
-    [SerializeField] public InventoryItemEUIController CurrentItemBtn = null;
+    [SerializeField] public InventorySlotEUIController currentSlotBtn = null;
+    [SerializeField] public InventoryItemEUIController currentItemBtn = null;
 
     #endregion
 
@@ -46,11 +47,11 @@ public class SinglePanelUIController : UIController
         InputManager.instance.Set_AllPointer(aim: false, mouse: true);
 
         // Input
-        InputManager.instance.playerInput.SwitchCurrentActionMap(ThisPanelInputMapName);
+        InputManager.instance.playerInput.SwitchCurrentActionMap(panelInputMapName);
         InputManager.instance.inputMoveDir = Vector2.zero;
 
         // Tab Input
-        MainGameUIManager.instance.playerHUD_UIController.IsTabInputed = false;
+        MainGameUIManager.instance.playerHUD_UIController.isTabInputed = false;
         MainGameUIManager.instance.playerHUD_UIController.SetOff_TabInteract();
 
     }
@@ -68,11 +69,11 @@ public class SinglePanelUIController : UIController
         InputManager.instance.playerInput.SwitchCurrentActionMap("Player");
 
         // Inven
-        if (CurrentSlotBtn != null)
-            CurrentSlotBtn.Set_SelectedOff();
+        if (currentSlotBtn != null)
+            currentSlotBtn.Set_SelectedOff();
         
-        CurrentSlotBtn = null;
-        CurrentItemBtn = null;
+        currentSlotBtn = null;
+        currentItemBtn = null;
     }
 
     #endregion
