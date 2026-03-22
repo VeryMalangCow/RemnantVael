@@ -1,7 +1,7 @@
 using DG.Tweening;
-using System.Runtime.ConstrainedExecution;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class InteractAnnoUIController : UIController
@@ -13,15 +13,15 @@ public class InteractAnnoUIController : UIController
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private CanvasGroup ThisCG;
-    [SerializeField] private CanvasGroup VisualCG;
-    [SerializeField] private Image InnerLImg;
-    [SerializeField] private Image InnerRImg;
-    [SerializeField] private TMP_Text AnnoTxt;
+    [FormerlySerializedAs("ThisCG")][SerializeField] private CanvasGroup cg;
+    [FormerlySerializedAs("VisualCG")][SerializeField] private CanvasGroup visualCg;
+    [FormerlySerializedAs("InnerLImg")][SerializeField] private Image innerLImg;
+    [FormerlySerializedAs("InnerRImg")][SerializeField] private Image innerRImg;
+    [FormerlySerializedAs("AnnoTxt")][SerializeField] private TMP_Text annoTxt;
 
-    [SerializeField] private Color UninteractableColor;
+    [FormerlySerializedAs("UninteractableColor")][SerializeField] private Color uninteractableClr;
 
-    [HideInInspector] private Color InteractableColor;
+    [HideInInspector] private Color interactableClr;
 
     #endregion
 
@@ -32,27 +32,27 @@ public class InteractAnnoUIController : UIController
         base.Offset();
 
         Offset_ColorComp();
-        ThisCG.alpha = 0;
+        cg.alpha = 0;
     }
 
     public void Offset_ColorComp()
     {
         Color clr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
 
-        InteractableColor = clr;
-        InnerLImg.color = clr;
-        InnerRImg.color = clr;
+        interactableClr = clr;
+        innerLImg.color = clr;
+        innerRImg.color = clr;
     }
 
     #endregion
 
     #region Set
 
-    public void Set_VisualCG(bool _OnOff, float _DurTime = 0.3f)
+    public void Set_VisualCG(bool onOff, float durTime = 0.3f)
     {
-        DevTool.Set_KillTween(VisualCG);
+        DevTool.Set_KillTween(visualCg);
 
-        VisualCG.DOFade(_OnOff ? 1f : 0f, _DurTime);
+        visualCg.DOFade(onOff ? 1f : 0f, durTime);
     }
 
     public void Set_UI()
@@ -63,13 +63,13 @@ public class InteractAnnoUIController : UIController
         if (ii != null && txt != "" && ii is MonoBehaviour mb)
         {
             if (canInteract)
-                Set_AnnoColor(InteractableColor, true);
+                Set_AnnoColor(interactableClr, true);
             else
-                Set_AnnoColor(UninteractableColor, false);
+                Set_AnnoColor(uninteractableClr, false);
             
 
             this.transform.position = mb.transform.position;
-            this.AnnoTxt.text = "< " + txt + " >";
+            this.annoTxt.text = "< " + txt + " >";
 
             Play_FadeIn();
         }
@@ -79,11 +79,11 @@ public class InteractAnnoUIController : UIController
         }
     }
 
-    private void Set_AnnoColor(Color _Clr, bool _IsOn)
+    private void Set_AnnoColor(Color clr, bool isOn)
     {
-        AnnoTxt.color = _IsOn ? Color.white : new Color(0.7f, 0.7f, 0.7f, 1f);
-        InnerLImg.color = _Clr;
-        InnerRImg.color = _Clr;
+        annoTxt.color = isOn ? Color.white : new Color(0.7f, 0.7f, 0.7f, 1f);
+        innerLImg.color = clr;
+        innerRImg.color = clr;
     }
 
     #endregion
@@ -92,15 +92,15 @@ public class InteractAnnoUIController : UIController
 
     private void Play_FadeIn()
     {
-        DevTool.Set_CompleteTween(ThisCG);
-        ThisCG.DOFade(1f, 0.2f)
+        DevTool.Set_CompleteTween(cg);
+        cg.DOFade(1f, 0.2f)
             .OnStart(() => { this.gameObject.SetActive(true); });
     }
 
     private void Play_FadeOut()
     {
-        DevTool.Set_CompleteTween(ThisCG);
-        ThisCG.DOFade(0f, 0.2f)
+        DevTool.Set_CompleteTween(cg);
+        cg.DOFade(0f, 0.2f)
             .OnComplete(() => { this.gameObject.SetActive(false); });
     }
 
@@ -108,12 +108,12 @@ public class InteractAnnoUIController : UIController
 
     #region Follow
 
-    public void Set_PosIfNot(IInteract _II)
+    public void Set_PosIfNot(IInteract ii)
     {
-        if (_II != null && 
-            ((MonoBehaviour)_II).transform.position != this.transform.position)
+        if (ii != null && 
+            ((MonoBehaviour)ii).transform.position != this.transform.position)
         { 
-            this.transform.position = ((MonoBehaviour)_II).transform.position; 
+            this.transform.position = ((MonoBehaviour)ii).transform.position; 
         }
     }
 

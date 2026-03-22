@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AllyStateUIController : MonoBehaviour
 {
@@ -9,23 +10,23 @@ public class AllyStateUIController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Gage")]
-    [SerializeField] public ProgressBarEUIController HP_ProgressBar;
-    [SerializeField] public ProgressBarEUIController SP_ProgressBar;
-    [SerializeField] public ProgressBarEUIController EP_ProgressBar;
+    [FormerlySerializedAs("HP_ProgressBar")][SerializeField] public ProgressBarEUIController hpProgressBar;
+    [FormerlySerializedAs("SP_ProgressBar")][SerializeField] public ProgressBarEUIController spProgressBar;
+    [FormerlySerializedAs("EP_ProgressBar")][SerializeField] public ProgressBarEUIController epProgressBar;
 
-    [HideInInspector] public AllyHUDController AllyHUD;
+    [HideInInspector] public AllyHUDController allyHud;
 
     #endregion
 
     #region Offset
 
-    public void Offset(AllyHUDController _EnemyHUD)
+    public void Offset(AllyHUDController enemyHud)
     {
-        AllyHUD = _EnemyHUD;
+        allyHud = enemyHud;
 
-        HP_ProgressBar.Offset();
-        SP_ProgressBar.Offset();
-        EP_ProgressBar.Offset();
+        hpProgressBar.Offset();
+        spProgressBar.Offset();
+        epProgressBar.Offset();
     }
 
     #endregion

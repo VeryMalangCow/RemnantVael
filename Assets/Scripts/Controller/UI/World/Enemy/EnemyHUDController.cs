@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyHUDController : MonoBehaviour
 {
@@ -12,22 +13,22 @@ public class EnemyHUDController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] public Canvas ThisCanvas;
-    [SerializeField] public EnemyStateUIController StateUI;
-    [SerializeField] public EnemyBuffUIController TemporaryBuffUI;
-    [SerializeField] public EnemyBuffUIController PermanentBuffUI;
+    [FormerlySerializedAs("ThisCanvas")][SerializeField] public Canvas canvas;
+    [FormerlySerializedAs("StateUI")][SerializeField] public EnemyStateUIController stateUi;
+    [FormerlySerializedAs("TemporaryBuffUI")][SerializeField] public EnemyBuffUIController temporaryBuffUi;
+    [FormerlySerializedAs("PermanentBuffUI")][SerializeField] public EnemyBuffUIController permanentBuffUi;
 
     [Space(10)]
     [Header("=== Special")]
-    [SerializeField] private GameObject EPTxtGO;
-    [SerializeField] private GameObject EPChargePanelGO;
-    [SerializeField] private CanvasGroup EPSpecialPatterningCG;
+    [FormerlySerializedAs("EPTxtGO")][SerializeField] private GameObject epTxtGo;
+    [FormerlySerializedAs("EPChargePanelGO")][SerializeField] private GameObject epChargePanelGo;
+    [FormerlySerializedAs("EPSpecialPatterningCG")][SerializeField] private CanvasGroup epSpecialPatterningCg;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private Coroutine ThisCor;
+    [HideInInspector] private Coroutine cor;
 
     #endregion
 
@@ -37,9 +38,9 @@ public class EnemyHUDController : MonoBehaviour
 
     public void Offset()
     {
-        StateUI.Offset(this);
-        TemporaryBuffUI.Offset(this);
-        PermanentBuffUI.Offset(this);
+        stateUi.Offset(this);
+        temporaryBuffUi.Offset(this);
+        permanentBuffUi.Offset(this);
     }
 
     #endregion
@@ -56,26 +57,26 @@ public class EnemyHUDController : MonoBehaviour
 
     #region Set (Charge)
 
-    public void Set_Charged(bool _OnOff)
+    public void Set_Charged(bool onOff)
     {
-        EPTxtGO.gameObject.SetActive(!_OnOff);
-        EPChargePanelGO.gameObject.SetActive(_OnOff);
+        epTxtGo.gameObject.SetActive(!onOff);
+        epChargePanelGo.gameObject.SetActive(onOff);
     }
 
-    public void Set_Patterning(bool _OnOff)
+    public void Set_Patterning(bool onOff)
     {
-        EPSpecialPatterningCG.gameObject.SetActive(_OnOff);
+        epSpecialPatterningCg.gameObject.SetActive(onOff);
 
-        if (_OnOff)
+        if (onOff)
         {
-            ThisCor = StartCoroutine(Play_Patterning_Cor());
+            cor = StartCoroutine(Play_Patterning_Cor());
         }
         else
         {
-            if (ThisCor != null) 
-                StopCoroutine(ThisCor);
+            if (cor != null) 
+                StopCoroutine(cor);
 
-            ThisCor = null;
+            cor = null;
         }
     }
 
@@ -85,7 +86,7 @@ public class EnemyHUDController : MonoBehaviour
 
     private IEnumerator Play_Patterning_Cor()
     {
-        EPSpecialPatterningCG.alpha = 1f;
+        epSpecialPatterningCg.alpha = 1f;
         bool bookLightOn = false;
 
         while (true)
@@ -93,9 +94,9 @@ public class EnemyHUDController : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
 
             if (bookLightOn)
-                EPSpecialPatterningCG.alpha = 1f;
+                epSpecialPatterningCg.alpha = 1f;
             else
-                EPSpecialPatterningCG.alpha = 0.2f;
+                epSpecialPatterningCg.alpha = 0.2f;
 
             bookLightOn = !bookLightOn;
         }

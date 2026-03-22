@@ -210,7 +210,7 @@ public class FieldUnitAllyController : AllyController
     {
         sg.sortingOrder = sortingOrder;
 
-        hud.ThisCanvas.sortingOrder = sortingOrder;
+        hud.canvas.sortingOrder = sortingOrder;
     }
 
     #endregion

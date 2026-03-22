@@ -117,14 +117,14 @@ public abstract class EnemyController : NavObjectController
         currentSP
             .Subscribe(_currentSP =>
             {
-                hud.StateUI.SP_ProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
+                hud.stateUi.spProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
 
                 if (currentSP.Value <= 0)
                 {
                     currentSP.Value = 0;
-                    hud.StateUI.SP_ProgressBar.Set_NoNum();
-                    hud.StateUI.HP_ProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
-                    hud.StateUI.EP_ProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
+                    hud.stateUi.spProgressBar.Set_NoNum();
+                    hud.stateUi.hpProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
+                    hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
 
                     if (buff.shieldBuff.isOn)
                     { buff.shieldBuff.Remove_AllStack(); }
@@ -132,27 +132,27 @@ public abstract class EnemyController : NavObjectController
                 }
                 else
                 {
-                    hud.StateUI.HP_ProgressBar.Set_NoNum();
-                    hud.StateUI.EP_ProgressBar.Set_NoNum();
+                    hud.stateUi.hpProgressBar.Set_NoNum();
+                    hud.stateUi.epProgressBar.Set_NoNum();
                 }
             });
 
         currentHP
             .Subscribe(_currentHP =>
             {
-                hud.StateUI.HP_ProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
+                hud.stateUi.hpProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
 
                 if (currentSP.Value > 0)
-                { hud.StateUI.HP_ProgressBar.Set_NoNum(); }
+                { hud.stateUi.hpProgressBar.Set_NoNum(); }
             });
 
         currentEP
             .Subscribe(_currentEP =>
             {
-                hud.StateUI.EP_ProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
+                hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
 
                 if (currentSP.Value > 0)
-                { hud.StateUI.EP_ProgressBar.Set_NoNum(); }
+                { hud.stateUi.epProgressBar.Set_NoNum(); }
             });
     }
 
@@ -620,7 +620,7 @@ public abstract class EnemyController : NavObjectController
     {
         sg.sortingOrder = sortingOrder;
 
-        hud.ThisCanvas.sortingOrder = sortingOrder;
+        hud.canvas.sortingOrder = sortingOrder;
 
         PlayerManager.instance.Set_SortingOrderPing(this, sortingOrder);
     }

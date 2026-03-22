@@ -183,45 +183,45 @@ public class AllyController : NavObjectController
     {
         hud.Offset();
 
-        hud.StateUI.SP_ProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
-        hud.StateUI.HP_ProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
-        hud.StateUI.EP_ProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
+        hud.stateUi.spProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
+        hud.stateUi.hpProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
+        hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
 
         currentSP
             .Subscribe(_CurrentSP =>
             {
-                hud.StateUI.SP_ProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
+                hud.stateUi.spProgressBar.Set_FillImgSmooth(currentSP.Value, maxHP);
 
                 if (currentSP.Value <= 0)
                 {
                     currentSP.Value = 0;
-                    hud.StateUI.SP_ProgressBar.Set_NoNum();
-                    hud.StateUI.HP_ProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
-                    hud.StateUI.EP_ProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
+                    hud.stateUi.spProgressBar.Set_NoNum();
+                    hud.stateUi.hpProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
+                    hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
                 }
                 else
                 {
-                    hud.StateUI.HP_ProgressBar.Set_NoNum();
-                    hud.StateUI.EP_ProgressBar.Set_NoNum();
+                    hud.stateUi.hpProgressBar.Set_NoNum();
+                    hud.stateUi.epProgressBar.Set_NoNum();
                 }
             });
 
         currentHP
             .Subscribe(_CurrentHP =>
             {
-                hud.StateUI.HP_ProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
+                hud.stateUi.hpProgressBar.Set_FillImgSmooth(currentHP.Value, maxHP);
 
                 if (currentSP.Value > 0)
-                { hud.StateUI.HP_ProgressBar.Set_NoNum(); }
+                { hud.stateUi.hpProgressBar.Set_NoNum(); }
             });
 
         currentEP
             .Subscribe(_CurrentEP =>
             {
-                hud.StateUI.EP_ProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
+                hud.stateUi.epProgressBar.Set_FillImgSmooth(currentEP.Value, maxEP);
 
                 if (currentSP.Value > 0)
-                { hud.StateUI.EP_ProgressBar.Set_NoNum(); }
+                { hud.stateUi.epProgressBar.Set_NoNum(); }
             });
     }
 
@@ -656,7 +656,7 @@ public class AllyController : NavObjectController
     {
         request = AllyRequest.Get_AllyRequestType(this);
 
-        hud.RequestUI.Set_RequestTxt_Language(request);
+        hud.requestUi.Set_RequestTxt_Language(request);
     }
 
 
@@ -673,7 +673,7 @@ public class AllyController : NavObjectController
     public virtual void Set_Language()
     {
         Set_Name();
-        hud.RequestUI.Set_RequestTxt_Language(request);
+        hud.requestUi.Set_RequestTxt_Language(request);
     }
 
     #endregion

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyBuffUIController : MonoBehaviour
 {
@@ -10,23 +11,23 @@ public class EnemyBuffUIController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Buff")]
-    [SerializeField] private float XYInterval = 44;
-    [SerializeField] private int WidthMaxAmount = 5;
+    [FormerlySerializedAs("XYInterval")][SerializeField] private float xyInterval = 44;
+    [FormerlySerializedAs("WidthMaxAmount")][SerializeField] private int widthMaxAmount = 5;
 
-    [HideInInspector] private List<BuffIconEUIController> BuffIconUIs = new List<BuffIconEUIController>();
-    [HideInInspector] private List<BuffIconEUIController> UsingBuffIconUIs = new List<BuffIconEUIController>();
-    [HideInInspector] public EnemyHUDController EnemyHUD;
+    [HideInInspector] private List<BuffIconEUIController> buffIconUiList = new List<BuffIconEUIController>();
+    [HideInInspector] private List<BuffIconEUIController> usingBuffIconUiList = new List<BuffIconEUIController>();
+    [HideInInspector] public EnemyHUDController enemyHud;
 
     #endregion
 
     #region Offset
 
-    public void Offset(EnemyHUDController _EnemyHUD)
+    public void Offset(EnemyHUDController enemyHud)
     {
-        EnemyHUD = _EnemyHUD;
+        this.enemyHud = enemyHud;
 
-        BuffIconUIs = DevTool.Get_ChildList<BuffIconEUIController>(this.transform);
-        for (int i = 0; i < BuffIconUIs.Count; i++) BuffIconUIs[i].Offset();   
+        buffIconUiList = DevTool.Get_ChildList<BuffIconEUIController>(this.transform);
+        for (int i = 0; i < buffIconUiList.Count; i++) buffIconUiList[i].Offset();   
         
     }
 
@@ -37,15 +38,15 @@ public class EnemyBuffUIController : MonoBehaviour
     // 사용하지 않는 중인 버프 Icon UI
     public BuffIconEUIController Get_BuffIconUI()
     {
-        for (int i = 0; i < BuffIconUIs.Count; i++)
+        for (int i = 0; i < buffIconUiList.Count; i++)
         {
-            if (!BuffIconUIs[i].usingNow)
+            if (!buffIconUiList[i].usingNow)
             {
-                DevTool.Add_InList(UsingBuffIconUIs, BuffIconUIs[i]);
+                DevTool.Add_InList(usingBuffIconUiList, buffIconUiList[i]);
 
                 Set_BuffUIPos();
 
-                return BuffIconUIs[i];
+                return buffIconUiList[i];
             }
         }
         return null;
@@ -56,11 +57,11 @@ public class EnemyBuffUIController : MonoBehaviour
     #region Remove
 
     // 사용중인 버프 Icon UI 리스트에서 제거
-    public void Remove_BuffIconUI(BuffIconEUIController _BuffIconUI)
+    public void Remove_BuffIconUI(BuffIconEUIController buffIconUi)
     {
-        _BuffIconUI.SetOff();
+        buffIconUi.SetOff();
 
-        DevTool.Remove_InList(UsingBuffIconUIs, _BuffIconUI);
+        DevTool.Remove_InList(usingBuffIconUiList, buffIconUi);
 
         Set_BuffUIPos();
     }
@@ -72,12 +73,12 @@ public class EnemyBuffUIController : MonoBehaviour
     // 현재 진행 중인 버프의 종류가 바뀔 때 마다 실행
     private void Set_BuffUIPos()
     {
-        for (int i = 0; i < UsingBuffIconUIs.Count; i++)
+        for (int i = 0; i < usingBuffIconUiList.Count; i++)
         {
-            int height = i / WidthMaxAmount;
-            int width = i % WidthMaxAmount;
-            UsingBuffIconUIs[i].rt.anchoredPosition
-                = new Vector2(XYInterval * width, XYInterval * height);
+            int height = i / widthMaxAmount;
+            int width = i % widthMaxAmount;
+            usingBuffIconUiList[i].rt.anchoredPosition
+                = new Vector2(xyInterval * width, xyInterval * height);
         }
     }
 

@@ -611,10 +611,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d075a1b85c6dc47ad9d3075ad5355d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP_ProgressBar: {fileID: 6430546998103950056}
-  SP_ProgressBar: {fileID: 6979235873629460237}
-  EP_ProgressBar: {fileID: 5290860430834357562}
-  EnemyHUD: {fileID: 0}
+  hpProgressBar: {fileID: 6430546998103950056}
+  spProgressBar: {fileID: 6979235873629460237}
+  epProgressBar: {fileID: 5290860430834357562}
+  enemyHud: {fileID: 0}
 --- !u!1 &3799516815008636386
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,9 +899,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fb51601169b8c4c955d00e8a849370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XYInterval: 44
-  WidthMaxAmount: 5
-  EnemyHUD: {fileID: 0}
+  xyInterval: 44
+  widthMaxAmount: 5
+  enemyHud: {fileID: 0}
 --- !u!1 &5159072069793899820
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,9 +973,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fb51601169b8c4c955d00e8a849370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XYInterval: 44
-  WidthMaxAmount: 5
-  EnemyHUD: {fileID: 0}
+  xyInterval: 44
+  widthMaxAmount: 5
+  enemyHud: {fileID: 0}
 --- !u!1 &6410556334544111662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,13 +1375,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9295c1fc5e48774ebdf50a8d40b0d64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisCanvas: {fileID: 992922890427751764}
-  StateUI: {fileID: 1775516904807156729}
-  TemporaryBuffUI: {fileID: 155046083486561318}
-  PermanentBuffUI: {fileID: 4837491216681354846}
-  EPTxtGO: {fileID: 3799516815008636386}
-  EPChargePanelGO: {fileID: 8408191643929399772}
-  EPSpecialPatterningCG: {fileID: 1444989318745647419}
+  canvas: {fileID: 992922890427751764}
+  stateUi: {fileID: 1775516904807156729}
+  temporaryBuffUi: {fileID: 155046083486561318}
+  permanentBuffUi: {fileID: 4837491216681354846}
+  epTxtGo: {fileID: 3799516815008636386}
+  epChargePanelGo: {fileID: 8408191643929399772}
+  epSpecialPatterningCg: {fileID: 1444989318745647419}
 --- !u!1 &8152584201726858463
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyRequestUIController : MonoBehaviour
@@ -13,35 +14,35 @@ public class AllyRequestUIController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Public")]
-    [SerializeField] private TMP_Text RequestNameTxt;
+    [FormerlySerializedAs("ThisCanvas")][SerializeField] private TMP_Text RequestNameTxt;
 
     [Space(10)]
     [Header("=== Complete")]
-    [SerializeField] private TMP_Text CompleteDescTxt;
-    [SerializeField] private Image CompleteGageImg;
-    [SerializeField] private TMP_Text CompletePercentTxt;
+    [FormerlySerializedAs("CompleteDescTxt")][SerializeField] private TMP_Text completeDescTxt;
+    [FormerlySerializedAs("CompleteGageImg")][SerializeField] private Image completeGaugeImg;
+    [FormerlySerializedAs("CompletePercentTxt")][SerializeField] private TMP_Text completePercentTxt;
 
     [Space(10)]
     [Header("=== Fail")]
-    [SerializeField] private TMP_Text FailDescTxt;
-    [SerializeField] private Image FailGageImg;
-    [SerializeField] private TMP_Text FailPercentTxt;
+    [FormerlySerializedAs("FailDescTxt")][SerializeField] private TMP_Text failDescTxt;
+    [FormerlySerializedAs("FailGageImg")][SerializeField] private Image failGaugeImg;
+    [FormerlySerializedAs("FailPercentTxt")][SerializeField] private TMP_Text failPercentTxt;
 
     [Space(10)]
     [Header("=== Difficulty")]
-    [SerializeField] private Image DiffcultyImg;
-    [SerializeField] private TMP_Text DiffcultyExtraTxt;
+    [FormerlySerializedAs("DiffcultyImg")][SerializeField] private Image diffcultyImg;
+    [FormerlySerializedAs("DiffcultyExtraTxt")][SerializeField] private TMP_Text diffcultyExtraTxt;
 
     [Space(10)]
     [Header("=== Reward")]
-    [SerializeField] private Image RewardImg;
-    [SerializeField] private TMP_Text RewardExtraTxt;
+    [FormerlySerializedAs("RewardImg")][SerializeField] private Image rewardImg;
+    [FormerlySerializedAs("RewardExtraTxt")][SerializeField] private TMP_Text rewardExtraTxt;
 
     #endregion
 
     #region -Hide
 
-    [HideInInspector] public AllyHUDController AllyHUD;
+    [HideInInspector] public AllyHUDController allyHud;
 
     #endregion
 
@@ -49,30 +50,30 @@ public class AllyRequestUIController : MonoBehaviour
 
     #region Offset
 
-    public void Offset(AllyHUDController _EnemyHUD)
+    public void Offset(AllyHUDController enemyHud)
     {
-        AllyHUD = _EnemyHUD;
+        allyHud = enemyHud;
     }
 
     #endregion
 
     #region Set
 
-    public void Set_RequestTxt_Language(AllyRequest _Request)
+    public void Set_RequestTxt_Language(AllyRequest request)
     {
-        if (_Request == null) return;
+        if (request == null) return;
 
-        RequestNameTxt.text = _Request.Get_Name();
-        CompleteDescTxt.text = _Request.Get_CompleteDesc();
-        FailDescTxt.text = _Request.Get_FailDesc();
+        RequestNameTxt.text = request.Get_Name();
+        completeDescTxt.text = request.Get_CompleteDesc();
+        failDescTxt.text = request.Get_FailDesc();
 
-        DiffcultyImg.sprite = ResourceManager.instance.Get_AllyRequestRank(_Request.Get_Rank());
-        DiffcultyExtraTxt.text = $"{(_Request.Get_Rank() + 1)}";
+        diffcultyImg.sprite = ResourceManager.instance.Get_AllyRequestRank(request.Get_Rank());
+        diffcultyExtraTxt.text = $"{(request.Get_Rank() + 1)}";
 
-        RewardImg.sprite = ResourceManager.instance.Get_AllyRequestReward(_Request.Get_RewardType());
-        int extraAmount = AllyRequest.rewardCaculateDict[_Request.Get_RewardType()](_Request.Get_Rank());
+        rewardImg.sprite = ResourceManager.instance.Get_AllyRequestReward(request.Get_RewardType());
+        int extraAmount = AllyRequest.rewardCaculateDict[request.Get_RewardType()](request.Get_Rank());
         if (extraAmount != -1)
-        { RewardExtraTxt.text = $"+{extraAmount}"; }
+        { rewardExtraTxt.text = $"+{extraAmount}"; }
         else
         {
             Debug.Log("타입이 다른 보상");
@@ -81,22 +82,22 @@ public class AllyRequestUIController : MonoBehaviour
 
     public void Set_Request_CompleteProgress(float _Value)
     {
-        CompleteGageImg.fillAmount = _Value;
+        completeGaugeImg.fillAmount = _Value;
     }
 
-    public void Set_Request_FailProgress(float _Value)
+    public void Set_Request_FailProgress(float value)
     {
-        FailGageImg.fillAmount = _Value;
+        failGaugeImg.fillAmount = value;
     }
 
-    public void Set_Request_CompleteTxt(float _Value, string _ProgressTxt = "")
+    public void Set_Request_CompleteTxt(float value, string progressTxt = "")
     {
-        CompletePercentTxt.text = $"{_ProgressTxt}<size=60%>({System.Math.Round(_Value, 1) * 100}%)</size>";
+        completePercentTxt.text = $"{progressTxt}<size=60%>({System.Math.Round(value, 1) * 100}%)</size>";
     }
 
-    public void Set_Request_FailTxt(float _Value, string _ProgressTxt = "")
+    public void Set_Request_FailTxt(float value, string progressTxt = "")
     {
-        FailPercentTxt.text = $"{_ProgressTxt}<size=60%>({System.Math.Round(_Value, 1) * 100}%)</size>";
+        failPercentTxt.text = $"{progressTxt}<size=60%>({System.Math.Round(value, 1) * 100}%)</size>";
     }
 
     #endregion

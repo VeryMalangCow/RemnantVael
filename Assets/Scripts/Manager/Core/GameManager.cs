@@ -3274,7 +3274,7 @@ public class AllyBuff : OriginalAllyBuff
 
         if (!isOn && buffIconUI != null) // ²¨Áü
         {
-            ally.hud.TemporaryBuffUI.Remove_BuffIconUI(buffIconUI);
+            ally.hud.temporaryBuffUi.Remove_BuffIconUI(buffIconUI);
             buffIconUI = null;
         }
     }
@@ -3287,7 +3287,7 @@ public class AllyBuff : OriginalAllyBuff
 
         if (isAlwaysShowUI) // Ç×»ó ÄÑÁü
         {
-            buffIconUI = ally.hud.TemporaryBuffUI.Get_BuffIconUI();
+            buffIconUI = ally.hud.temporaryBuffUi.Get_BuffIconUI();
             buffIconUI.SetOn(iconSprite, isAlwaysShowUI ? true : !(buffAmount == 0));
         }
     }
@@ -3328,7 +3328,7 @@ public class AllyBuff : OriginalAllyBuff
         // ui first
         if (buffIconUI == null)
         {
-            buffIconUI = ally.hud.TemporaryBuffUI.Get_BuffIconUI();
+            buffIconUI = ally.hud.temporaryBuffUi.Get_BuffIconUI();
         }
 
         // value
@@ -3359,7 +3359,7 @@ public class AllyBuff : OriginalAllyBuff
         // ui last
         if (buffAmount == 0 && !isAlwaysShowUI && buffIconUI != null)
         {
-            ally.hud.TemporaryBuffUI.Remove_BuffIconUI(buffIconUI);
+            ally.hud.temporaryBuffUi.Remove_BuffIconUI(buffIconUI);
             buffIconUI = null;
         }
     }
@@ -3590,7 +3590,7 @@ public class StatusEffect_Temporary : StatusEffect
     {
         if (buffIconUI == null)
         {
-            buffIconUI = enemy.hud.TemporaryBuffUI.Get_BuffIconUI();
+            buffIconUI = enemy.hud.temporaryBuffUi.Get_BuffIconUI();
             buffIconUI.SetOn(iconSprite, showTxt);
         }
         isOn = true;
@@ -3601,7 +3601,7 @@ public class StatusEffect_Temporary : StatusEffect
     {
         if (buffIconUI != null)
         {
-            enemy.hud.TemporaryBuffUI.Remove_BuffIconUI(buffIconUI);
+            enemy.hud.temporaryBuffUi.Remove_BuffIconUI(buffIconUI);
             buffIconUI = null;
         }
 
@@ -3914,7 +3914,7 @@ public class StatusEffect_Permanent : StatusEffect
     {
         if (buffIconUI == null)
         {
-            buffIconUI = enemy.hud.PermanentBuffUI.Get_BuffIconUI();
+            buffIconUI = enemy.hud.permanentBuffUi.Get_BuffIconUI();
             buffIconUI.SetOn(iconSprite, showTxt);
         }
         isOn = true;
@@ -3925,7 +3925,7 @@ public class StatusEffect_Permanent : StatusEffect
     {
         if (buffIconUI != null)
         {
-            enemy.hud.PermanentBuffUI.Remove_BuffIconUI(buffIconUI);
+            enemy.hud.permanentBuffUi.Remove_BuffIconUI(buffIconUI);
             buffIconUI = null;
         }
 
@@ -4871,8 +4871,8 @@ public abstract class AllyRequest
 
         Set_IWhenAdd();
 
-        this.ally.hud.RequestUI.Set_Request_CompleteProgress(0);
-        this.ally.hud.RequestUI.Set_Request_FailProgress(0);
+        this.ally.hud.requestUi.Set_Request_CompleteProgress(0);
+        this.ally.hud.requestUi.Set_Request_FailProgress(0);
     }
 
     #endregion
@@ -4923,7 +4923,7 @@ public abstract class AllyRequest
     protected virtual void Inc_CompleteProgress()
     {
         completeProgress = Mathf.Min(completeProgress + gainCompleteOnceProgress, maxCompleteProgress);
-        ally.hud.RequestUI.Set_Request_CompleteProgress(completeProgress / maxCompleteProgress);
+        ally.hud.requestUi.Set_Request_CompleteProgress(completeProgress / maxCompleteProgress);
 
         if (completeProgress >= maxCompleteProgress) Complete();
     }
@@ -4931,7 +4931,7 @@ public abstract class AllyRequest
     protected virtual void Inc_FailProgress()
     {
         failProgress = Mathf.Min(failProgress + gainFailOnceProgress, maxFailProgress);
-        ally.hud.RequestUI.Set_Request_FailProgress(failProgress / maxFailProgress);
+        ally.hud.requestUi.Set_Request_FailProgress(failProgress / maxFailProgress);
 
         if (failProgress >= maxFailProgress) Fail();
     }
@@ -5029,8 +5029,8 @@ public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, I
         maxFailProgress = 6 - rank; // ½ÇÆÐ ÇÇ°Ý ¼ö
         gainFailOnceProgress = 1; 
         
-        ally.hud.RequestUI.Set_Request_CompleteTxt(0, $"{completeProgress}/{maxCompleteProgress}");
-        ally.hud.RequestUI.Set_Request_FailTxt(0, $"{failProgress}/{maxFailProgress}");
+        ally.hud.requestUi.Set_Request_CompleteTxt(0, $"{completeProgress}/{maxCompleteProgress}");
+        ally.hud.requestUi.Set_Request_FailTxt(0, $"{failProgress}/{maxFailProgress}");
     }
 
     #endregion
@@ -5056,7 +5056,7 @@ public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, I
         base.Inc_CompleteProgress();
 
         if (!ally) return;
-        ally.hud.RequestUI.Set_Request_CompleteTxt(completeProgress / maxCompleteProgress, $"{completeProgress}/{maxCompleteProgress}");
+        ally.hud.requestUi.Set_Request_CompleteTxt(completeProgress / maxCompleteProgress, $"{completeProgress}/{maxCompleteProgress}");
     }
 
     protected override void Inc_FailProgress()
@@ -5064,7 +5064,7 @@ public class AllyRequest_Slayer : AllyRequest, IWhen_Complete_KillNormalEnemy, I
         base.Inc_FailProgress();
 
         if (!ally) return;
-        ally.hud.RequestUI.Set_Request_FailTxt(failProgress / maxFailProgress, $"{failProgress}/{maxFailProgress}");
+        ally.hud.requestUi.Set_Request_FailTxt(failProgress / maxFailProgress, $"{failProgress}/{maxFailProgress}");
     }
 
     #endregion
@@ -5106,8 +5106,8 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
         maxFailProgress = 8 - rank; // ½ÇÆÐ ÇÇ°Ý ¼ö
         gainFailOnceProgress = 1;
 
-        base.ally.hud.RequestUI.Set_Request_CompleteTxt(0, $"{completeProgress}/{maxCompleteProgress}");
-        base.ally.hud.RequestUI.Set_Request_FailTxt(0, $"{failProgress}/{maxFailProgress}");
+        base.ally.hud.requestUi.Set_Request_CompleteTxt(0, $"{completeProgress}/{maxCompleteProgress}");
+        base.ally.hud.requestUi.Set_Request_FailTxt(0, $"{failProgress}/{maxFailProgress}");
     }
 
     #endregion
@@ -5130,14 +5130,14 @@ public class AllyRequest_BountyHunter: AllyRequest, IWhen_Complete_KillEliteEnem
 
     protected override void Inc_CompleteProgress()
     {
-        ally.hud.RequestUI.Set_Request_CompleteTxt(completeProgress / maxCompleteProgress, $"{completeProgress}/{maxCompleteProgress}");
+        ally.hud.requestUi.Set_Request_CompleteTxt(completeProgress / maxCompleteProgress, $"{completeProgress}/{maxCompleteProgress}");
 
         base.Inc_CompleteProgress();
     }
 
     protected override void Inc_FailProgress()
     {
-        ally.hud.RequestUI.Set_Request_FailTxt(failProgress / maxFailProgress, $"{failProgress}/{maxFailProgress}");
+        ally.hud.requestUi.Set_Request_FailTxt(failProgress / maxFailProgress, $"{failProgress}/{maxFailProgress}");
 
         base.Inc_FailProgress();
     }

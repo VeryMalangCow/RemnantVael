@@ -463,17 +463,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RequestNameTxt: {fileID: 6374892376328608977}
-  CompleteDescTxt: {fileID: 5430619733100982349}
-  CompleteGageImg: {fileID: 2799075800515519875}
-  CompletePercentTxt: {fileID: 518100024410297761}
-  FailDescTxt: {fileID: 9010522625024847225}
-  FailGageImg: {fileID: 5627816181276868962}
-  FailPercentTxt: {fileID: 5465590565140550957}
-  DiffcultyImg: {fileID: 4622878928348085578}
-  DiffcultyExtraTxt: {fileID: 1734916865588506423}
-  RewardImg: {fileID: 9102642297058145850}
-  RewardExtraTxt: {fileID: 1065575228651820401}
-  AllyHUD: {fileID: 0}
+  completeDescTxt: {fileID: 5430619733100982349}
+  completeGaugeImg: {fileID: 2799075800515519875}
+  completePercentTxt: {fileID: 518100024410297761}
+  failDescTxt: {fileID: 9010522625024847225}
+  failGaugeImg: {fileID: 0}
+  failPercentTxt: {fileID: 5465590565140550957}
+  diffcultyImg: {fileID: 4622878928348085578}
+  diffcultyExtraTxt: {fileID: 1734916865588506423}
+  rewardImg: {fileID: 9102642297058145850}
+  rewardExtraTxt: {fileID: 1065575228651820401}
+  allyHud: {fileID: 0}
 --- !u!1 &1610368059266770105
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,15 +696,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7818bfb6951db24b99567583f8f64ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisCanvas: {fileID: 8607443762536305825}
-  StateUI: {fileID: 6961086980867947856}
-  TemporaryBuffUI: {fileID: 1055107095642598209}
-  PermanentBuffUI: {fileID: 3144527841126608737}
-  RequestUI: {fileID: 924604210466698258}
-  IconRT: {fileID: 0}
-  BaseCG: {fileID: 5870453458392717594}
-  RequestCG: {fileID: 8970173150183794710}
-  NameTxt: {fileID: 7448084378429153489}
+  canvas: {fileID: 8607443762536305825}
+  stateUi: {fileID: 6961086980867947856}
+  temporaryBuffUi: {fileID: 1055107095642598209}
+  permanentBuffUi: {fileID: 3144527841126608737}
+  requestUi: {fileID: 924604210466698258}
+  iconRt: {fileID: 0}
+  baseCg: {fileID: 5870453458392717594}
+  requestCg: {fileID: 8970173150183794710}
+  nameTxt: {fileID: 7448084378429153489}
 --- !u!1 &1833183999664144664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,9 +1970,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 015901949e59ecc4c9a8b080bcbb5922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XYInterval: 44
-  WidthMaxAmount: 5
-  AllyHUD: {fileID: 0}
+  xyInterval: 44
+  widthMaxAmount: 5
+  allyHud: {fileID: 0}
 --- !u!1 &4214905496978201137
 GameObject:
   m_ObjectHideFlags: 0
@@ -2225,9 +2225,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 015901949e59ecc4c9a8b080bcbb5922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XYInterval: 44
-  WidthMaxAmount: 5
-  AllyHUD: {fileID: 0}
+  xyInterval: 44
+  widthMaxAmount: 5
+  allyHud: {fileID: 0}
 --- !u!1 &4578966265538311301
 GameObject:
   m_ObjectHideFlags: 0
@@ -3565,10 +3565,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2df01706fa91b74e8c88ccc52b0498a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP_ProgressBar: {fileID: 2560786805815036701}
-  SP_ProgressBar: {fileID: 1904847169143496440}
-  EP_ProgressBar: {fileID: 3735933679640337615}
-  AllyHUD: {fileID: 0}
+  hpProgressBar: {fileID: 2560786805815036701}
+  spProgressBar: {fileID: 1904847169143496440}
+  epProgressBar: {fileID: 3735933679640337615}
+  allyHud: {fileID: 0}
 --- !u!1 &7475115295565769058
 GameObject:
   m_ObjectHideFlags: 0

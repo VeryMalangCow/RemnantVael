@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UniRx;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 public class AllyHUDController : MonoBehaviour
 {
@@ -14,19 +15,19 @@ public class AllyHUDController : MonoBehaviour
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] public Canvas ThisCanvas;
-    [SerializeField] public AllyStateUIController StateUI;
-    [SerializeField] public AllyBuffUIController TemporaryBuffUI;
-    [SerializeField] public AllyBuffUIController PermanentBuffUI;
-    [SerializeField] public AllyRequestUIController RequestUI;
-    [SerializeField] private RectTransform IconRT;
+    [FormerlySerializedAs("ThisCanvas")][SerializeField] public Canvas canvas;
+    [FormerlySerializedAs("StateUI")][SerializeField] public AllyStateUIController stateUi;
+    [FormerlySerializedAs("TemporaryBuffUI")][SerializeField] public AllyBuffUIController temporaryBuffUi;
+    [FormerlySerializedAs("PermanentBuffUI")][SerializeField] public AllyBuffUIController permanentBuffUi;
+    [FormerlySerializedAs("RequestUI")][SerializeField] public AllyRequestUIController requestUi;
+    [FormerlySerializedAs("IconRT")][SerializeField] private RectTransform iconRt;
 
-    [SerializeField] private CanvasGroup BaseCG;
-    [SerializeField] private CanvasGroup RequestCG;
+    [FormerlySerializedAs("BaseCG")][SerializeField] private CanvasGroup baseCg;
+    [FormerlySerializedAs("RequestCG")][SerializeField] private CanvasGroup requestCg;
 
     [Space(10)]
     [Header("=== Name")]
-    [SerializeField] private TMP_Text NameTxt;
+    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
 
     #endregion
 
@@ -41,20 +42,20 @@ public class AllyHUDController : MonoBehaviour
 
     public void Offset()
     {
-        StateUI.Offset(this);
-        TemporaryBuffUI.Offset(this);
-        PermanentBuffUI.Offset(this);
-        RequestUI.Offset(this);
+        stateUi.Offset(this);
+        temporaryBuffUi.Offset(this);
+        permanentBuffUi.Offset(this);
+        requestUi.Offset(this);
 
         Offset_Subscribe();
     }
 
     public void Offset_Subscribe()
     {
-        MainGameUIManager.instance.playerHUD_UIController.IsTabInteracted.Subscribe(_Value =>
+        MainGameUIManager.instance.playerHUD_UIController.IsTabInteracted.Subscribe(value =>
             {
-                BaseCG.alpha = _Value ? 0f : 1f;
-                RequestCG.alpha = _Value ? 1f : 0f;
+                baseCg.alpha = value ? 0f : 1f;
+                requestCg.alpha = value ? 1f : 0f;
             });
     }
 
@@ -62,9 +63,9 @@ public class AllyHUDController : MonoBehaviour
 
     #region Name
 
-    public void Set_Name(string _Name)
+    public void Set_Name(string name)
     {
-        NameTxt.text = _Name;
+        nameTxt.text = name;
     }
 
     #endregion
@@ -73,11 +74,11 @@ public class AllyHUDController : MonoBehaviour
 
     public void Play_IconRT()
     {
-        DevTool.Set_KillTween(IconRT);
+        DevTool.Set_KillTween(iconRt);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(IconRT.DOScale(1.25f, 0.1f));
-        seq.Append(IconRT.DOScale(1f, 0.1f));
+        seq.Append(iconRt.DOScale(1.25f, 0.1f));
+        seq.Append(iconRt.DOScale(1f, 0.1f));
     }
 
     #endregion

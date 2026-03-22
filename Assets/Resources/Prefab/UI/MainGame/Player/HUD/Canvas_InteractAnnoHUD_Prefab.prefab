@@ -159,12 +159,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9eab13fa05bac43a8cff59a8be467d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisCG: {fileID: 2441529832115577361}
-  VisualCG: {fileID: 2319007498717995924}
-  InnerLImg: {fileID: 6127350161374401932}
-  InnerRImg: {fileID: 1414067944936428548}
-  AnnoTxt: {fileID: 8618206228979292463}
-  UninteractableColor: {r: 0.6313726, g: 0.36862746, b: 0.9137255, a: 1}
+  cg: {fileID: 2441529832115577361}
+  visualCg: {fileID: 2319007498717995924}
+  innerLImg: {fileID: 6127350161374401932}
+  innerRImg: {fileID: 1414067944936428548}
+  annoTxt: {fileID: 8618206228979292463}
+  uninteractableClr: {r: 0.6313726, g: 0.36862746, b: 0.9137255, a: 1}
 --- !u!223 &9128463710795023890
 Canvas:
   m_ObjectHideFlags: 0
