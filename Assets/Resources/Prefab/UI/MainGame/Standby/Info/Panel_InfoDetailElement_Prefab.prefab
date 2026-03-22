@@ -487,10 +487,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21ca8d18b7f6e1c45b965f8d448e02b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NameTxt: {fileID: 8791478389905819886}
-  Img: {fileID: 2040092970905266181}
-  DescTxt: {fileID: 891132803333646556}
-  InputOrInstrucTxt: {fileID: 7088047870122145018}
+  nameTxt: {fileID: 8791478389905819886}
+  img: {fileID: 2040092970905266181}
+  descTxt: {fileID: 891132803333646556}
+  inputOrInstrucTxt: {fileID: 7088047870122145018}
 --- !u!1 &9068373819899863790
 GameObject:
   m_ObjectHideFlags: 0

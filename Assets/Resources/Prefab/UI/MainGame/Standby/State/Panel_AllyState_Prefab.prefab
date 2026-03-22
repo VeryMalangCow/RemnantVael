@@ -1084,10 +1084,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b29f4999e09cb14c85c5ccf0ac177eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FaceImg: {fileID: 7482054562707481806}
-  NameTxt: {fileID: 7685498680459782771}
-  BUPanelGO: {fileID: 3246822773087626824}
-  StateValueArr:
+  faceImg: {fileID: 7482054562707481806}
+  nameTxt: {fileID: 7685498680459782771}
+  buPanelGo: {fileID: 3246822773087626824}
+  stateValueArr:
   - {fileID: 6855165847788511955}
   - {fileID: 3085143739460825593}
   - {fileID: 2059595033597358390}
@@ -1097,8 +1097,8 @@ MonoBehaviour:
   - {fileID: 4726025969382794534}
   - {fileID: 734048318078800131}
   - {fileID: 5371522099669200129}
-  MUPanelGO: {fileID: 3085750384780857661}
-  AllySyncIconEUIArr:
+  muPanelGo: {fileID: 3085750384780857661}
+  allySyncIconEuiArr:
   - {fileID: 1330850330302193239}
   - {fileID: 1875501785259759034}
   - {fileID: 3505518743015622155}
@@ -1106,11 +1106,11 @@ MonoBehaviour:
   - {fileID: 2021424932173515975}
   - {fileID: 4204581824299775928}
   - {fileID: 3987756257336610046}
-  ExtraTxt: {fileID: 5017888305080256758}
-  ApplyStateImg: {fileID: 6196045596414237977}
-  ApplyStateAmountTxt: {fileID: 8447835319449297692}
-  ConnectStateImg: {fileID: 6186048782185128412}
-  ConnectStateAmountTxt: {fileID: 8195489959934160233}
+  extraTxt: {fileID: 5017888305080256758}
+  applyStateImg: {fileID: 6196045596414237977}
+  applyStateAmountTxt: {fileID: 8447835319449297692}
+  connectStateImg: {fileID: 6186048782185128412}
+  connectStateAmountTxt: {fileID: 8195489959934160233}
 --- !u!114 &2576031242812786914
 MonoBehaviour:
   m_ObjectHideFlags: 0

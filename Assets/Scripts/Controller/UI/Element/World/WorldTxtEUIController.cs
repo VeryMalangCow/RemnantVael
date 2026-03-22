@@ -2,18 +2,19 @@ using DG.Tweening;
 using LeTai.TrueShadow;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class WorldTxtEUIController : ElementUIController
 {
     #region Value
 
-    [SerializeField] private Canvas ThisCanvas;
-    [SerializeField] private TMP_Text ThisTxt;
-    [SerializeField] private TrueShadow ThisTS;
+    [FormerlySerializedAs("ThisCanvas")][SerializeField] private Canvas canvas;
+    [FormerlySerializedAs("ThisTxt")][SerializeField] private TMP_Text txt;
+    [FormerlySerializedAs("ThisTS")][SerializeField] private TrueShadow ts;
 
-    [HideInInspector] private static readonly float NormalSize = 18;
-    [HideInInspector] private static readonly float CriticalSize = 26;
-    [HideInInspector] private static readonly float DischargeSize = 22;
+    [HideInInspector] private static readonly float normalSize = 18;
+    [HideInInspector] private static readonly float criticalSize = 26;
+    [HideInInspector] private static readonly float dischargeSize = 22;
 
     #endregion
 
@@ -21,7 +22,7 @@ public class WorldTxtEUIController : ElementUIController
 
     private void Start()
     {
-        ThisCanvas.sortingOrder = LayerOrderManager.order_DmgTxt;
+        canvas.sortingOrder = LayerOrderManager.order_DmgTxt;
     }
 
     #endregion
@@ -39,35 +40,34 @@ public class WorldTxtEUIController : ElementUIController
 
     private void Reset_Comp()
     {
-        ThisTxt.color = new Color(1f, 1f, 1f, 0f);
-        ThisTxt.transform.localScale = Vector3.zero;
+        txt.color = new Color(1f, 1f, 1f, 0f);
+        txt.transform.localScale = Vector3.zero;
     }
 
-    private void Reset_Comp(Vector2 _SetPos, string _Txt, Color _TxtColor, Color _TSColor, float _FontSize)
+    private void Reset_Comp(Vector2 setPos, string txt, Color txtClr, Color tsClr, float fontSize)
     {
         Reset_Comp();
 
-        ThisTxt.text = _Txt;
-        ThisTxt.color = _TxtColor;
-        ThisTS.Color = _TSColor; 
-        this.transform.position = _SetPos;
-        ThisTxt.fontSize = _FontSize;
+        this.txt.text = txt;
+        this.txt.color = txtClr;
+        ts.Color = tsClr; 
+        this.transform.position = setPos;
+        this.txt.fontSize = fontSize;
     }
 
     #endregion
 
     #region Tween
 
-    private Sequence Play_DamageTxt(Vector2 _StartPos, string _Txt, Color _TxtColor, Color _TSColor, float _FontSize,
-        Vector2 _Dir, float _DurTime)
+    private Sequence Play_DamageTxt(Vector2 startPos, string txt, Color txtClr, Color tsClr, float fontSize, Vector2 dir, float durTime)
     {
-        Reset_Comp(_StartPos, _Txt, _TxtColor, _TSColor, _FontSize);
+        Reset_Comp(startPos, txt, txtClr, tsClr, fontSize);
 
         Sequence totalSeq = DOTween.Sequence();
 
-        totalSeq.Join(Play_MoveSeq(_StartPos, _Dir, _DurTime));
-        totalSeq.Join(Play_ScaleSeq(_DurTime));
-        totalSeq.Join(Play_FadeSeq(_DurTime));
+        totalSeq.Join(Play_MoveSeq(startPos, dir, durTime));
+        totalSeq.Join(Play_ScaleSeq(durTime));
+        totalSeq.Join(Play_FadeSeq(durTime));
 
         totalSeq
             .OnStart(() =>
@@ -83,35 +83,35 @@ public class WorldTxtEUIController : ElementUIController
         return totalSeq;
     }
 
-    private Sequence Play_MoveSeq(Vector2 _StartPos, Vector2 _Dir, float _DurTime)
+    private Sequence Play_MoveSeq(Vector2 startPos, Vector2 dir, float durTime)
     {
         Sequence moveSeq = DOTween.Sequence();
 
-        moveSeq.Append(this.transform.DOMove(_StartPos + _Dir, _DurTime));
+        moveSeq.Append(this.transform.DOMove(startPos + dir, durTime));
         moveSeq
             .SetEase(Ease.OutCubic);
 
         return moveSeq;
     }
 
-    private Sequence Play_ScaleSeq(float _DurTime)
+    private Sequence Play_ScaleSeq(float durTime)
     {
         Sequence scaleSeq = DOTween.Sequence();
 
-        scaleSeq.Append(ThisTxt.transform.DOScale(1f, _DurTime * 0.4f).SetEase(Ease.Linear));
-        scaleSeq.AppendInterval(_DurTime * 0.4f);
-        scaleSeq.Append(ThisTxt.transform.DOScale(0f, _DurTime * 0.2f).SetEase(Ease.Linear));
+        scaleSeq.Append(txt.transform.DOScale(1f, durTime * 0.4f).SetEase(Ease.Linear));
+        scaleSeq.AppendInterval(durTime * 0.4f);
+        scaleSeq.Append(txt.transform.DOScale(0f, durTime * 0.2f).SetEase(Ease.Linear));
 
         return scaleSeq;
     }
 
-    private Sequence Play_FadeSeq(float _DurTime)
+    private Sequence Play_FadeSeq(float durTime)
     {
         Sequence fadeSeq = DOTween.Sequence();
 
-        fadeSeq.Append(ThisTxt.DOFade(1f, _DurTime * 0.4f).SetEase(Ease.Linear));
-        fadeSeq.AppendInterval(_DurTime * 0.4f);
-        fadeSeq.Append(ThisTxt.DOFade(0f, _DurTime * 0.2f).SetEase(Ease.Linear));
+        fadeSeq.Append(txt.DOFade(1f, durTime * 0.4f).SetEase(Ease.Linear));
+        fadeSeq.AppendInterval(durTime * 0.4f);
+        fadeSeq.Append(txt.DOFade(0f, durTime * 0.2f).SetEase(Ease.Linear));
 
         return fadeSeq;
     }
@@ -120,15 +120,15 @@ public class WorldTxtEUIController : ElementUIController
 
     #region Set
 
-    private void Set_Bold(bool _IsSet)
+    private void Set_Bold(bool isSet)
     {
-        if (_IsSet)
+        if (isSet)
         {
-            ThisTxt.fontStyle = FontStyles.Bold;
+            txt.fontStyle = FontStyles.Bold;
         }
         else
         {
-            ThisTxt.fontStyle = FontStyles.Normal;
+            txt.fontStyle = FontStyles.Normal;
         }
     }
 
@@ -136,58 +136,58 @@ public class WorldTxtEUIController : ElementUIController
 
     #region Get
 
-    private Color Get_Color_BySpecialState(string _StateName)
+    private Color Get_Color_BySpecialState(string stateName)
     {
-        if (_StateName == "DISCHARGE")
+        if (stateName == "DISCHARGE")
         { return Color.white; }
         return Color.white;
     }
 
 
-    private float Get_FontSize_ByCritical(bool _IsCritical)
+    private float Get_FontSize_ByCritical(bool isCritical)
     {
-        return _IsCritical ? CriticalSize : NormalSize;
+        return isCritical ? criticalSize : normalSize;
     }
 
     #endregion
 
     #region Usable
 
-    public void Offset_ByShieldDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
+    public void Offset_ByShieldDmg(Vector2 targetPos, float dmg, bool isCritical)
     {
-        Set_Bold(_IsCritical);
-        Play_DamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
+        Set_Bold(isCritical);
+        Play_DamageTxt(targetPos, string.Format("{0:F1}", dmg),
             Color.white, Color.black, 
-            Get_FontSize_ByCritical(_IsCritical),
+            Get_FontSize_ByCritical(isCritical),
             new Vector2(0.2f, 0.2f), 1f);
     }
 
-    public void Offset_ByPhysicDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
+    public void Offset_ByPhysicDmg(Vector2 targetPos, float dmg, bool isCritical)
     {
-        Set_Bold(_IsCritical);
-        Play_DamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
-            PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Physics, _IsCritical), Color.black, 
-            Get_FontSize_ByCritical(_IsCritical),
+        Set_Bold(isCritical);
+        Play_DamageTxt(targetPos, string.Format("{0:F1}", dmg),
+            PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Physics, isCritical), Color.black, 
+            Get_FontSize_ByCritical(isCritical),
             new Vector2(-0.2f, 0.2f), 1f);
         
     }
 
-    public void Offset_ByEnergyDmg(Vector2 _TargetPos, float _Dmg, bool _IsCritical)
+    public void Offset_ByEnergyDmg(Vector2 targetPos, float dmg, bool isCritical)
     {
-        Set_Bold(_IsCritical);
-        Play_DamageTxt(_TargetPos, string.Format("{0:F1}", _Dmg),
-            PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, _IsCritical), Color.black, 
-            Get_FontSize_ByCritical(_IsCritical),
+        Set_Bold(isCritical);
+        Play_DamageTxt(targetPos, string.Format("{0:F1}", dmg),
+            PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, isCritical), Color.black, 
+            Get_FontSize_ByCritical(isCritical),
             new Vector2(-0.2f, 0.2f), 1f);
         
     }
 
-    public void Offset_ByStateDischarge(Vector2 _TargetPos)
+    public void Offset_ByStateDischarge(Vector2 targetPos)
     {
         Set_Bold(false);
-        Play_DamageTxt(_TargetPos, "DISCHARGE",
+        Play_DamageTxt(targetPos, "DISCHARGE",
             Get_Color_BySpecialState("DISCHARGE"), Color.black, 
-            DischargeSize,
+            dischargeSize,
             new Vector2(0f, 0.2f), 1f);
     }
 

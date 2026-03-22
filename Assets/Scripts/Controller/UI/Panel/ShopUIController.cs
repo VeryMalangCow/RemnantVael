@@ -53,7 +53,7 @@ public class ShopUIController : PanelUIController
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
             ThisPanelTabList[i].Offset();
-            ThisPanelTabList[i].ThisTabBtn.OwnerUIController = this;
+            ThisPanelTabList[i].tabBtn.ownerUIController = this;
         }
 
         // Dur
@@ -61,7 +61,7 @@ public class ShopUIController : PanelUIController
 
         // Close
         CloseBtn.Offset();
-        CloseBtn.OwnerUIController = this;
+        CloseBtn.ownerUIController = this;
 
         // Broken
         ThisMsgEUI.Offset();
@@ -115,7 +115,7 @@ public class ShopUIController : PanelUIController
     {
         if (ThisMsgEUI.gameObject.activeSelf)
         {
-            if (ThisMsgEUI.CanPass) ThisMsgEUI.Play_Off(0.5f);
+            if (ThisMsgEUI.canPass) ThisMsgEUI.Play_Off(0.5f);
 
             return true;
         }
@@ -149,7 +149,7 @@ public class ShopUIController : PanelUIController
 
 
         for (int i = 0; i < ThisPanelTabList.Count; i++)
-            ThisPanelTabList[i].ThisTabBtn.Offset_Txt(TabBtnTxtList[i]);
+            ThisPanelTabList[i].tabBtn.Offset_Txt(TabBtnTxtList[i]);
     }
 
     #endregion

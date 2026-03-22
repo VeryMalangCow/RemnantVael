@@ -1,5 +1,4 @@
 using DG.Tweening;
-using LeTai.TrueShadow;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,12 +18,12 @@ public class TitleSmokeCellEUIController : ElementUIController
 
     #region - Hide
 
-    [HideInInspector] public TitleSmokeEUIController OwnerEUIController;
+    [HideInInspector] public TitleSmokeEUIController ownerEuiController;
 
-    [HideInInspector] private RectTransform ThisRT;
-    [HideInInspector] private Image ThisImg;
+    [HideInInspector] private RectTransform rt;
+    [HideInInspector] private Image img;
 
-    [HideInInspector] private bool IsOffsetted = false;
+    [HideInInspector] private bool isOffsetted = false;
 
     #endregion
 
@@ -34,41 +33,41 @@ public class TitleSmokeCellEUIController : ElementUIController
 
     public override void Offset()
     {
-        if (IsOffsetted) return;
-        IsOffsetted = true;
+        if (isOffsetted) return;
+        isOffsetted = true;
 
-        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
-        ThisImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
+        rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
+        img = DevTool.Get_ComponentTType(gameObject, out Image _img) ? _img : null;
     }
 
     #endregion
 
     #region Play
 
-    public void Play_Smoke(Sprite _Sprite, 
-        CoupleData<Color> _Color, float _StartSize,
-        float _StartPosX, float _MovingDis, float _DurTime)
+    public void Play_Smoke(Sprite sprite, 
+        CoupleData<Color> clr, float startSize,
+        float startPosX, float movingDis, float durTime)
     {
-        ThisImg.sprite = _Sprite;
-        ThisImg.SetNativeSize();
-        ThisImg.color = _Color.typeBase;
-        this.gameObject.transform.localScale = Vector2.one * _StartSize;
-        ThisRT.anchoredPosition = new Vector3(_StartPosX, 0, 0);
-        ThisRT.rotation = Quaternion.identity;
+        img.sprite = sprite;
+        img.SetNativeSize();
+        img.color = clr.typeBase;
+        this.gameObject.transform.localScale = Vector2.one * startSize;
+        rt.anchoredPosition = new Vector3(startPosX, 0, 0);
+        rt.rotation = Quaternion.identity;
 
         this.gameObject.SetActive(true);
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Join(ThisRT.DOAnchorPosY(_MovingDis, _DurTime));
-        seq.Join(ThisImg.DOColor(_Color.typeSpecial, _DurTime));
-        seq.Join(ThisRT.DOScale(0, _DurTime));
-        seq.Join(ThisRT.DORotate(new Vector3(0, 0, Random.Range(-360, 360)), _DurTime, RotateMode.FastBeyond360));
+        seq.Join(rt.DOAnchorPosY(movingDis, durTime));
+        seq.Join(img.DOColor(clr.typeSpecial, durTime));
+        seq.Join(rt.DOScale(0, durTime));
+        seq.Join(rt.DORotate(new Vector3(0, 0, Random.Range(-360, 360)), durTime, RotateMode.FastBeyond360));
 
         seq.OnComplete(() =>
         {
             gameObject.SetActive(false);
-            OwnerEUIController.Set_OP_Enqueue(this);
+            ownerEuiController.Set_OP_Enqueue(this);
         });
     }
 

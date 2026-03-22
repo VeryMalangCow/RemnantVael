@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StandbyAllyBUEUIController : ElementUIController
@@ -11,31 +12,31 @@ public class StandbyAllyBUEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private Image FaceImg;
-    [SerializeField] private TMP_Text NameTxt;
+    [FormerlySerializedAs("FaceImg")][SerializeField] private Image faceImg;
+    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
 
     [Space(10)]
     [Header("=== BU")]
-    [SerializeField] private GameObject BUPanelGO;
+    [FormerlySerializedAs("BUPanelGO")][SerializeField] private GameObject buPanelGo;
     // Dmg, Rof, CC, CD, Size, MSpd, KB, Dur, Spd
-    [SerializeField] private TMP_Text[] StateValueArr;
+    [FormerlySerializedAs("StateValueArr")][SerializeField] private TMP_Text[] stateValueArr;
 
     [Space(10)]
     [Header("=== MU")]
-    [SerializeField] private GameObject MUPanelGO;
-    [SerializeField] private AllySyncIconEUIController[] AllySyncIconEUIArr;
+    [FormerlySerializedAs("MUPanelGO")][SerializeField] private GameObject muPanelGo;
+    [FormerlySerializedAs("AllySyncIconEUIArr")][SerializeField] private AllySyncIconEUIController[] allySyncIconEuiArr;
 
-    [SerializeField] private TMP_Text ExtraTxt;
-    [SerializeField] private Image ApplyStateImg;
-    [SerializeField] private TMP_Text ApplyStateAmountTxt;
-    [SerializeField] private Image ConnectStateImg;
-    [SerializeField] private TMP_Text ConnectStateAmountTxt;
+    [FormerlySerializedAs("ExtraTxt")][SerializeField] private TMP_Text extraTxt;
+    [FormerlySerializedAs("ApplyStateImg")][SerializeField] private Image applyStateImg;
+    [FormerlySerializedAs("ApplyStateAmountTxt")][SerializeField] private TMP_Text applyStateAmountTxt;
+    [FormerlySerializedAs("ConnectStateImg")][SerializeField] private Image connectStateImg;
+    [FormerlySerializedAs("ConnectStateAmountTxt")][SerializeField] private TMP_Text connectStateAmountTxt;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private RectTransform ThisRT;
+    [HideInInspector] private RectTransform rt;
 
     #endregion
 
@@ -45,7 +46,7 @@ public class StandbyAllyBUEUIController : ElementUIController
 
     public override void Offset()
     {
-        ThisRT = TryGetComponent(out RectTransform rt) ? rt : null;
+        rt = TryGetComponent(out RectTransform _rt) ? _rt : null;
         Set_Panel(true);
         Set_Color();
     }
@@ -54,39 +55,39 @@ public class StandbyAllyBUEUIController : ElementUIController
 
     #region Set
 
-    public void Set_Pos(Vector2 _Pos)
+    public void Set_Pos(Vector2 pos)
     {
-        ThisRT.anchoredPosition = _Pos;
+        rt.anchoredPosition = pos;
     }
 
-    public void Set_Data(AllyController _Ally)
+    public void Set_Data(AllyController ally)
     {
-        FaceImg.sprite = _Ally.Get_FrontFaceImg();
-        NameTxt.text = _Ally.Get_Name();
+        faceImg.sprite = ally.Get_FrontFaceImg();
+        nameTxt.text = ally.Get_Name();
 
         // BU
-        AllyState state = _Ally.Get_ActaulAllyState();
-        StateValueArr[0].text = $"{DevTool.Get_RoundFloatString(state.dmg.value).Replace("+", "")}";
-        StateValueArr[1].text = $"{DevTool.Get_RoundFloatString(state.rof.value).Replace("+", "")}<size=65%>/s</size>";
-        StateValueArr[2].text = $"{DevTool.Get_RoundFloatString(state.criticalChacne.value * 100).Replace("+", "")}<size=65%>%</size>";
-        StateValueArr[3].text = $"{DevTool.Get_RoundFloatString(state.criticalDmg.value + 1).Replace("+", "")}<size=65%>x</size>";
-        StateValueArr[4].text = $"{DevTool.Get_RoundFloatString(state.attackSize.value).Replace("+", "")}";
-        StateValueArr[5].text = $"{DevTool.Get_RoundFloatString(state.muzzleSpeed.value + 1).Replace("+", "")}";
-        StateValueArr[6].text = $"{DevTool.Get_RoundFloatString(state.kbPower.value).Replace("+", "")}";
-        StateValueArr[7].text = $"{DevTool.Get_RoundFloatString(state.dur.value).Replace("+", "")}<size=65%>s</size>";
-        StateValueArr[8].text = $"{DevTool.Get_RoundFloatString(state.movementSpeed.value).Replace("+", "")}";
+        AllyState state = ally.Get_ActaulAllyState();
+        stateValueArr[0].text = $"{DevTool.Get_RoundFloatString(state.dmg.value).Replace("+", "")}";
+        stateValueArr[1].text = $"{DevTool.Get_RoundFloatString(state.rof.value).Replace("+", "")}<size=65%>/s</size>";
+        stateValueArr[2].text = $"{DevTool.Get_RoundFloatString(state.criticalChacne.value * 100).Replace("+", "")}<size=65%>%</size>";
+        stateValueArr[3].text = $"{DevTool.Get_RoundFloatString(state.criticalDmg.value + 1).Replace("+", "")}<size=65%>x</size>";
+        stateValueArr[4].text = $"{DevTool.Get_RoundFloatString(state.attackSize.value).Replace("+", "")}";
+        stateValueArr[5].text = $"{DevTool.Get_RoundFloatString(state.muzzleSpeed.value + 1).Replace("+", "")}";
+        stateValueArr[6].text = $"{DevTool.Get_RoundFloatString(state.kbPower.value).Replace("+", "")}";
+        stateValueArr[7].text = $"{DevTool.Get_RoundFloatString(state.dur.value).Replace("+", "")}<size=65%>s</size>";
+        stateValueArr[8].text = $"{DevTool.Get_RoundFloatString(state.movementSpeed.value).Replace("+", "")}";
         
         
         // MU
-        Dictionary<int, int> syncData = _Ally.Get_ThisSyncData();
+        Dictionary<int, int> syncData = ally.Get_ThisSyncData();
 
         // 모든 Sync EUI 끄기
-        for (int i = 0; i < AllySyncIconEUIArr.Length; i++)
-            AllySyncIconEUIArr[i].gameObject.SetActive(false);
+        for (int i = 0; i < allySyncIconEuiArr.Length; i++)
+            allySyncIconEuiArr[i].gameObject.SetActive(false);
 
         // List Data
-        List<int> connectIdList = _Ally.Get_ConnectingSyncToKeyList();
-        List<int> completelyIdList = _Ally.Get_CompletelySyncToKeyList();
+        List<int> connectIdList = ally.Get_ConnectingSyncToKeyList();
+        List<int> completelyIdList = ally.Get_CompletelySyncToKeyList();
 
         // Sync에 맞추어 키기
         int currentIndex = 0;
@@ -94,10 +95,10 @@ public class StandbyAllyBUEUIController : ElementUIController
         int extraConnectAmount = 0;
         foreach (KeyValuePair<int, int> value in syncData)
         {
-            if (AllySyncIconEUIArr.Length > currentIndex)
+            if (allySyncIconEuiArr.Length > currentIndex)
             {
-                AllySyncIconEUIArr[currentIndex].gameObject.SetActive(true);
-                AllySyncIconEUIArr[currentIndex].Set_UI(value.Key, value.Value);
+                allySyncIconEuiArr[currentIndex].gameObject.SetActive(true);
+                allySyncIconEuiArr[currentIndex].Set_UI(value.Key, value.Value);
                 currentIndex++;
             }
             else
@@ -109,42 +110,42 @@ public class StandbyAllyBUEUIController : ElementUIController
                     extraConnectAmount++;
             }
         }
-        ApplyStateAmountTxt.text = $"+{extraApplyAmount}";
-        ConnectStateAmountTxt.text = $"+{extraConnectAmount}";
+        applyStateAmountTxt.text = $"+{extraApplyAmount}";
+        connectStateAmountTxt.text = $"+{extraConnectAmount}";
 
 
         // 모든 Sync UI의 연결로서 활성화되었는지
 
-        for (int i = 0; i < AllySyncIconEUIArr.Length; i++)
+        for (int i = 0; i < allySyncIconEuiArr.Length; i++)
         {
-            AllySyncIconEUIArr[i].Set_ConnectUI(
-                connectIdList.Contains(AllySyncIconEUIArr[i].id));
+            allySyncIconEuiArr[i].Set_ConnectUI(
+                connectIdList.Contains(allySyncIconEuiArr[i].id));
         }
 
-        for (int i = 0; i < AllySyncIconEUIArr.Length; i++)
+        for (int i = 0; i < allySyncIconEuiArr.Length; i++)
         {
-            AllySyncIconEUIArr[i].Set_Completely(
-                completelyIdList.Contains(AllySyncIconEUIArr[i].id));
+            allySyncIconEuiArr[i].Set_Completely(
+                completelyIdList.Contains(allySyncIconEuiArr[i].id));
         }
 
-        ExtraTxt.text = ResourceManager.instance.Get_StaticWord(142);
+        extraTxt.text = ResourceManager.instance.Get_StaticWord(142);
     }
 
-    public void Set_Panel(bool _IsBUPanelOn)
+    public void Set_Panel(bool isBUPanelOn)
     {
-        BUPanelGO.SetActive(_IsBUPanelOn);
-        MUPanelGO.SetActive(!_IsBUPanelOn);
+        buPanelGo.SetActive(isBUPanelOn);
+        muPanelGo.SetActive(!isBUPanelOn);
     }
 
     public void Set_Color()
     {
-        for (int i = 0; i < AllySyncIconEUIArr.Length; i++)
+        for (int i = 0; i < allySyncIconEuiArr.Length; i++)
         {
-            AllySyncIconEUIArr[i].Set_Color();
+            allySyncIconEuiArr[i].Set_Color();
         }
 
-        ConnectStateImg.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        ConnectStateAmountTxt.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        connectStateImg.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        connectStateAmountTxt.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
     }
 
     #endregion

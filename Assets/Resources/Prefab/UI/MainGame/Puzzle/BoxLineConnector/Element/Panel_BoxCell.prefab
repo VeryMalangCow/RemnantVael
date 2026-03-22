@@ -1130,18 +1130,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc5504ac8ed8d24c9678794687d9c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
-  ThisPos: {x: 0, y: 0}
-  BackGO: {fileID: 4984520445939125109}
-  FrontGO: {fileID: 5458594259524626164}
-  UpLineGO: {fileID: 4027912892635222092}
-  RightLineGO: {fileID: 2554366130322566726}
-  DownLineGO: {fileID: 4522919968379947435}
-  LeftLineGO: {fileID: 3086675633062064840}
-  OwnerPuzzleUIController: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
+  pos: {x: 0, y: 0}
+  backGo: {fileID: 4984520445939125109}
+  frontGo: {fileID: 5458594259524626164}
+  upLineGo: {fileID: 4027912892635222092}
+  rightLineGo: {fileID: 2554366130322566726}
+  downLineGo: {fileID: 4522919968379947435}
+  leftLineGo: {fileID: 3086675633062064840}
+  ownerPuzzleUIController: {fileID: 0}
 --- !u!114 &4826788674292079668
 MonoBehaviour:
   m_ObjectHideFlags: 0

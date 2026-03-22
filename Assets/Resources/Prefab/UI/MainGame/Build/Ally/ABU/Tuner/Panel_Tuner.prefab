@@ -133,10 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff140c4891a2be4fad2bae1db8a4abc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
   positiveTuner0: {fileID: 1197424473598465733}
   positiveTuner1: {fileID: 417415021812760791}
   negativeTuner: {fileID: 7084333196496803725}

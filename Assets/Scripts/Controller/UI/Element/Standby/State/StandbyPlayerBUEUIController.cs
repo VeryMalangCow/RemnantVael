@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StandbyPlayerBUEUIController : ElementUIController
 {
     #region Value
 
-    [SerializeField] private TMP_Text NameTxt;
-    [SerializeField] private Image[] FillImgArr;
+    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
+    [FormerlySerializedAs("FillImgArr")][SerializeField] private Image[] fillImgArr;
 
     #endregion
 
@@ -24,27 +23,27 @@ public class StandbyPlayerBUEUIController : ElementUIController
 
     #region Set
 
-    public void Set_Color(Color _Clr, Color _TxtClr)
+    public void Set_Color(Color clr, Color txtClr)
     {
-        NameTxt.color = _TxtClr;
+        nameTxt.color = txtClr;
 
-        for (int i = 0; i < FillImgArr.Length; i++)
-            FillImgArr[i].color = _Clr;
+        for (int i = 0; i < fillImgArr.Length; i++)
+            fillImgArr[i].color = clr;
     }
 
-    public void Set(int _Lv)
+    public void Set(int lv)
     {
-        for (int i = 0; i < FillImgArr.Length; i++)
-            FillImgArr[i].gameObject.SetActive(i < _Lv);
+        for (int i = 0; i < fillImgArr.Length; i++)
+            fillImgArr[i].gameObject.SetActive(i < lv);
     }
 
     #endregion
 
     #region Language
 
-    public void Set_LanguageTxt(string _Txt)
+    public void Set_LanguageTxt(string txt)
     {
-        NameTxt.text = _Txt;
+        nameTxt.text = txt;
     }
 
     #endregion

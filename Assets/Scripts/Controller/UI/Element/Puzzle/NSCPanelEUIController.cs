@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class NSCPanelEUIController : ElementUIController
@@ -15,31 +14,31 @@ public class NSCPanelEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== EUI")]
-    [SerializeField] private NSCRollImgCellEUIController ShapeRollEUI;
-    [SerializeField] private NSCRollColorCellEUIController ColorRollEUI;
-    [SerializeField] private NSCRollImgCellEUIController NumRollEUI;
+    [FormerlySerializedAs("ShapeRollEUI")][SerializeField] private NSCRollImgCellEUIController shapeRollEui;
+    [FormerlySerializedAs("ColorRollEUI")][SerializeField] private NSCRollColorCellEUIController colorRollEui;
+    [FormerlySerializedAs("NumRollEUI")][SerializeField] private NSCRollImgCellEUIController numRollEui;
 
     [Space(10)]
     [Header("=== Answer")]
-    [SerializeField] private Image AnswerImg;
+    [FormerlySerializedAs("AnswerImg")][SerializeField] private Image answerImg;
 
     [Space(10)]
     [Header("=== TF")]
-    [SerializeField] private Transform InnerParentTF;
+    [FormerlySerializedAs("InnerParentTF")][SerializeField] private Transform innerParentTf;
 
     #endregion
 
     #region - Hide
 
     // Owner
-    [HideInInspector] public NumShapeColorPasswordUIController OwnerUIController;
+    [HideInInspector] public NumShapeColorPasswordUIController ownerUIController;
 
     // EUI
-    [HideInInspector] public List<NSCRollCellEUIController> AllRollEUI;
+    [HideInInspector] public List<NSCRollCellEUIController> allRollEui;
 
     // Comp
-    [HideInInspector] public RectTransform ThisRT;
-    [HideInInspector] private List<Image> AllInnerList;
+    [HideInInspector] public RectTransform rt;
+    [HideInInspector] private List<Image> allInnerList;
 
     #endregion
 
@@ -53,19 +52,19 @@ public class NSCPanelEUIController : ElementUIController
 
     public override void Offset()
     {
-        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
+        rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
 
-        AllRollEUI = new List<NSCRollCellEUIController>{ ShapeRollEUI, ColorRollEUI, NumRollEUI };
+        allRollEui = new List<NSCRollCellEUIController>{ shapeRollEui, colorRollEui, numRollEui };
 
-        AllInnerList = DevTool.Get_ChildList<Image>(InnerParentTF);
+        allInnerList = DevTool.Get_ChildList<Image>(innerParentTf);
 
-        for (int i = 0; i < AllRollEUI.Count; i++)
+        for (int i = 0; i < allRollEui.Count; i++)
         {
-            AllRollEUI[i].OwnerUIController = OwnerUIController;
-            AllRollEUI[i].OwnerNSCUIController = OwnerUIController;
-            AllRollEUI[i].OwnerNSCPanelEUIController = this;
+            allRollEui[i].ownerUIController = ownerUIController;
+            allRollEui[i].ownerNscUIController = ownerUIController;
+            allRollEui[i].ownerNscPanelEuiController = this;
 
-            AllRollEUI[i].Offset();
+            allRollEui[i].Offset();
         }
     }
 
@@ -73,10 +72,10 @@ public class NSCPanelEUIController : ElementUIController
 
     #region Set (Inner)
 
-    public void Set_InnerColor(Color _Clr)
+    public void Set_InnerColor(Color clr)
     {
-        for (int i = 0; i < AllInnerList.Count; i++)
-            AllInnerList[i].color = _Clr;
+        for (int i = 0; i < allInnerList.Count; i++)
+            allInnerList[i].color = clr;
     }
 
     #endregion
@@ -85,23 +84,23 @@ public class NSCPanelEUIController : ElementUIController
 
     public void Set_RollValueRandom()
     {
-        for (int i = 0; i < AllRollEUI.Count; i++)
+        for (int i = 0; i < allRollEui.Count; i++)
         {
-            AllRollEUI[i].Set_ImgByIndexRandom();
+            allRollEui[i].Set_ImgByIndexRandom();
         }
     }
 
     public void Set_RandomAnswer()
     {
-        ShapeRollEUI.AnswerIndex = Random.Range(0, ShapeRollEUI.Get_IndexAmount());
-        ColorRollEUI.AnswerIndex = Random.Range(0, ColorRollEUI.Get_IndexAmount());
-        NumRollEUI.AnswerIndex = Random.Range(0, NumRollEUI.Get_IndexAmount());
+        shapeRollEui.answerIndex = Random.Range(0, shapeRollEui.Get_IndexAmount());
+        colorRollEui.answerIndex = Random.Range(0, colorRollEui.Get_IndexAmount());
+        numRollEui.answerIndex = Random.Range(0, numRollEui.Get_IndexAmount());
 
-        AnswerImg.sprite = ResourceManager.instance.Get_NSCAnswerSprite(ShapeRollEUI.AnswerIndex, NumRollEUI.AnswerIndex);
-        AnswerImg.color = ResourceManager.instance.nsc_colorArr[ColorRollEUI.AnswerIndex];
+        answerImg.sprite = ResourceManager.instance.Get_NSCAnswerSprite(shapeRollEui.answerIndex, numRollEui.answerIndex);
+        answerImg.color = ResourceManager.instance.nsc_colorArr[colorRollEui.answerIndex];
 
-        for (int i = 0; i < AllRollEUI.Count; i++)
-            AllRollEUI[i].Set_NoLock();
+        for (int i = 0; i < allRollEui.Count; i++)
+            allRollEui[i].Set_NoLock();
     }
 
     #endregion
@@ -110,7 +109,7 @@ public class NSCPanelEUIController : ElementUIController
 
     public bool Is_Answer()
     {
-        if (ShapeRollEUI.Is_AnswerIndex() && ColorRollEUI.Is_AnswerIndex() && NumRollEUI.Is_AnswerIndex())
+        if (shapeRollEui.Is_AnswerIndex() && colorRollEui.Is_AnswerIndex() && numRollEui.Is_AnswerIndex())
             return true;
 
         return false;

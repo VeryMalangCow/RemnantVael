@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MessageWindowEUIController : ElementUIController
@@ -12,21 +13,21 @@ public class MessageWindowEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private TMP_Text ThisTxt;
-    [SerializeField] private Transform InnerParentTF;
+    [FormerlySerializedAs("ThisTxt")][SerializeField] private TMP_Text txt;
+    [FormerlySerializedAs("InnerParentTF")][SerializeField] private Transform innerParentTf;
 
     [Space(10)]
     [Header("=== Color")]
-    [SerializeField] private Color InnerColor;
-    [SerializeField] private Color TxtColor;
+    [FormerlySerializedAs("InnerColor")][SerializeField] private Color innerClr;
+    [FormerlySerializedAs("TxtColor")][SerializeField] private Color txtClr;
 
     // Comp
-    [HideInInspector] private RectTransform ThisRT;
-    [HideInInspector] private CanvasGroup ThisCG;
+    [HideInInspector] private RectTransform rt;
+    [HideInInspector] private CanvasGroup cg;
 
     // Value
-    [HideInInspector] private float ActivingHeight = 445f;
-    [HideInInspector] public bool CanPass = false;
+    [HideInInspector] private float activingHeight = 445f;
+    [HideInInspector] public bool canPass = false;
 
     #endregion
 
@@ -34,17 +35,17 @@ public class MessageWindowEUIController : ElementUIController
 
     public override void Offset()
     {
-        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
-        ThisCG = DevTool.Get_ComponentTType(gameObject, out CanvasGroup cg) ? cg : null;
+        rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
+        cg = DevTool.Get_ComponentTType(gameObject, out CanvasGroup _cg) ? _cg : null;
 
-        DevTool.Set_Color(InnerColor, DevTool.Get_ChildList<Image>(InnerParentTF));
-        DevTool.Set_Color(TxtColor, ThisTxt);
+        DevTool.Set_Color(innerClr, DevTool.Get_ChildList<Image>(innerParentTf));
+        DevTool.Set_Color(txtClr, txt);
 
-        ActivingHeight = ThisRT.rect.height;
+        activingHeight = rt.rect.height;
 
-        ThisRT.sizeDelta = new Vector2(ThisRT.rect.width, 0f);
-        ThisCG.alpha = 0f;
-        ThisTxt.text = "";
+        rt.sizeDelta = new Vector2(rt.rect.width, 0f);
+        cg.alpha = 0f;
+        txt.text = "";
 
         this.transform.SetAsLastSibling();
         this.gameObject.SetActive(false);
@@ -56,33 +57,33 @@ public class MessageWindowEUIController : ElementUIController
 
     public void Reset_Data()
     {
-        if (ThisRT == null) return;
+        if (rt == null) return;
 
-        DevTool.Set_KillTween(ThisRT);
-        DevTool.Set_KillTween(ThisCG);
-        DevTool.Set_KillTween(ThisTxt);
+        DevTool.Set_KillTween(rt);
+        DevTool.Set_KillTween(cg);
+        DevTool.Set_KillTween(txt);
 
-        ThisRT.sizeDelta = new Vector2(ThisRT.rect.width, 0f);
-        ThisCG.alpha = 0f;
-        ThisTxt.text = "";
+        rt.sizeDelta = new Vector2(rt.rect.width, 0f);
+        cg.alpha = 0f;
+        txt.text = "";
 
         this.gameObject.SetActive(false);
-        CanPass = false;
+        canPass = false;
     }
 
     #endregion
 
     #region Tween
 
-    public Sequence Play_On(string _Txt, float _DurTime)
+    public Sequence Play_On(string txt, float durTime)
     {
         SoundManager.instance.Play_2D_SFX_UI("Click_Reject");
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Join(ThisRT.DOSizeDelta(new Vector2(ThisRT.rect.width, ActivingHeight), _DurTime));
-        seq.Join(ThisCG.DOFade(1f, _DurTime));
-        seq.Join(ThisTxt.DOText(_Txt, _DurTime));
+        seq.Join(rt.DOSizeDelta(new Vector2(rt.rect.width, activingHeight), durTime));
+        seq.Join(cg.DOFade(1f, durTime));
+        seq.Join(this.txt.DOText(txt, durTime));
 
         DevTool.Play_Tween(seq,
             new Dele(() =>
@@ -92,26 +93,26 @@ public class MessageWindowEUIController : ElementUIController
             update: null,
             new Dele(() =>
             { 
-                CanPass = true;
+                canPass = true;
             }));
 
         return seq;
     }
 
-    public Sequence Play_Off(float _DurTime)
+    public Sequence Play_Off(float durTime)
     {
         SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Join(ThisRT.DOSizeDelta(new Vector2(ThisRT.rect.width, 0), _DurTime));
-        seq.Join(ThisCG.DOFade(0f, _DurTime));
-        seq.Join(ThisTxt.DOText("", _DurTime));
+        seq.Join(rt.DOSizeDelta(new Vector2(rt.rect.width, 0), durTime));
+        seq.Join(cg.DOFade(0f, durTime));
+        seq.Join(txt.DOText("", durTime));
 
         DevTool.Play_Tween(seq,
             new Dele(() =>
             {
-                CanPass = false;
+                canPass = false;
             }),
             update: null,
             new Dele(() =>

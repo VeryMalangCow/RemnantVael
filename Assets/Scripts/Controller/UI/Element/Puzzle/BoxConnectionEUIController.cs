@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BoxConnectionEUIController : ElementUIController
@@ -8,9 +9,9 @@ public class BoxConnectionEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private List<Vector2Int> ThisContactPosList;
+    [FormerlySerializedAs("ThisContactPosList")][SerializeField] private List<Vector2Int> contactPosList;
 
-    [HideInInspector] private Image InnerImg;
+    [HideInInspector] private Image innerImg;
 
     #endregion
 
@@ -18,23 +19,23 @@ public class BoxConnectionEUIController : ElementUIController
 
     public override void Offset()
     {
-        InnerImg = DevTool.Get_ComponentTType(gameObject.transform.GetChild(0).gameObject, out Image img) ? img : null;
+        innerImg = DevTool.Get_ComponentTType(gameObject.transform.GetChild(0).gameObject, out Image _img) ? _img : null;
     }
 
     #endregion
 
     #region Set
 
-    public void Set_Active(bool _OnOff)
+    public void Set_Active(bool onOff)
     {
-        gameObject.SetActive(_OnOff);
+        gameObject.SetActive(onOff);
     }
 
-    public void Set_ActiveByCondition(HashSet<Vector2Int> _OnDirBoxCell)
+    public void Set_ActiveByCondition(HashSet<Vector2Int> onDirBoxCell)
     {
-        for (int i = 0; i < ThisContactPosList.Count; i++)
+        for (int i = 0; i < contactPosList.Count; i++)
         {
-            if (!_OnDirBoxCell.Contains(ThisContactPosList[i]))
+            if (!onDirBoxCell.Contains(contactPosList[i]))
             {
                 Set_Active(false);
                 return;
@@ -45,9 +46,9 @@ public class BoxConnectionEUIController : ElementUIController
     }
 
 
-    public void Set_InnerColor(Color _Clr)
+    public void Set_InnerColor(Color clr)
     {
-        DevTool.Set_Color(_Clr, InnerImg);
+        DevTool.Set_Color(clr, innerImg);
     }
     #endregion
 }

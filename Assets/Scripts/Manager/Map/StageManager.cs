@@ -27,9 +27,9 @@ public class StageManager : Singleton<StageManager>
 
     [Space(10)]
     [Header("=== Current")]
-    [HideInInspector] private List<RoomController> currentAllRoomController = new List<RoomController>();
-    [HideInInspector] private List<EntranceRuleController> currentAllEntranceRoomController = new List<EntranceRuleController>();
-    [HideInInspector] public RoomController currentRoomController;
+    [SerializeField] private List<RoomController> currentAllRoomController = new List<RoomController>();
+    [SerializeField] private List<EntranceRuleController> currentAllEntranceRoomController = new List<EntranceRuleController>();
+    [SerializeField] public RoomController currentRoomController;
 
     #endregion
 

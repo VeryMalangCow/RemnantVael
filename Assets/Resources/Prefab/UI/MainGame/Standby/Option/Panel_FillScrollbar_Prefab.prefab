@@ -209,10 +209,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!1 &374547553726202196
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,12 +710,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d418c677212e24c9606b0f3e36bf29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeaderTxt: {fileID: 2264684209673905010}
-  Scrollbar: {fileID: 1238248795972648493}
-  FillImg: {fileID: 7969795797860634229}
-  ValueTxt: {fileID: 2328221850033041011}
-  LeftBtn: {fileID: 2911642337613745336}
-  RightBtn: {fileID: 2858945566409237946}
+  headerTxt: {fileID: 2264684209673905010}
+  scrollbar: {fileID: 1238248795972648493}
+  fillImg: {fileID: 7969795797860634229}
+  valueTxt: {fileID: 2328221850033041011}
+  leftBtn: {fileID: 2911642337613745336}
+  rightBtn: {fileID: 2858945566409237946}
 --- !u!1 &4308310769963006586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,10 +1105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!1 &6990056876231140459
 GameObject:
   m_ObjectHideFlags: 0

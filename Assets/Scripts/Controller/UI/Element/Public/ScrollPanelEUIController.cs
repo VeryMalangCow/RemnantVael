@@ -2,6 +2,7 @@ using System;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ScrollPanelEUIController : ElementUIController, IScrollHandler
@@ -9,14 +10,14 @@ public class ScrollPanelEUIController : ElementUIController, IScrollHandler
     #region Value
 
     [Header("=== RT")]
-    [SerializeField] public RectTransform ThisPanelRT;
+    [FormerlySerializedAs("ThisPanelRT")][SerializeField] public RectTransform panelRt;
 
     [Header("=== Scroll Bar")]
-    [SerializeField] public Scrollbar ThisTabScrollbar;
-    [SerializeField] public RectTransform ActualMovableRT;
-    [SerializeField] protected float VisibleY = 725;
-    [HideInInspector] protected float ActualAreaY;
-    [HideInInspector] protected float MovableY;
+    [FormerlySerializedAs("ThisTabScrollbar")][SerializeField] public Scrollbar tabScrollbar;
+    [FormerlySerializedAs("ActualMovableRT")][SerializeField] public RectTransform actualMovableRt;
+    [FormerlySerializedAs("VisibleY")][SerializeField] protected float visibleY = 725;
+    [HideInInspector] protected float actualAreaY;
+    [HideInInspector] protected float movableY;
 
     IDisposable disposable = null;
 
@@ -26,7 +27,7 @@ public class ScrollPanelEUIController : ElementUIController, IScrollHandler
 
     public override void Offset()
     {
-        Set_ScrollPanel(VisibleY);
+        Set_ScrollPanel(visibleY);
     }
 
     #endregion
@@ -40,41 +41,41 @@ public class ScrollPanelEUIController : ElementUIController, IScrollHandler
 
     public void Reset_ScrollBar()
     {
-        ThisTabScrollbar.value = 0f;
+        tabScrollbar.value = 0f;
     }
 
     #endregion
 
     #region Set
 
-    public void Set_ScrollHeight(float _Height)
+    public void Set_ScrollHeight(float height)
     {
-        ActualMovableRT.sizeDelta = new Vector2(0, _Height);
+        actualMovableRt.sizeDelta = new Vector2(0, height);
         Set_ScrollPanel();
     }
 
-    public void Set_ScrollPanel(float _VisibleY)
+    public void Set_ScrollPanel(float visibleY)
     {
         if (disposable != null)
         {
             disposable.Dispose();
         }
 
-        ActualAreaY = ActualMovableRT.rect.height;
-        MovableY = ActualAreaY - _VisibleY;
+        actualAreaY = actualMovableRt.rect.height;
+        movableY = actualAreaY - visibleY;
 
-        ThisTabScrollbar.size = Mathf.Clamp((_VisibleY / ActualAreaY), 0f, 1f);
-        disposable = ThisTabScrollbar.OnValueChangedAsObservable()
+        tabScrollbar.size = Mathf.Clamp((visibleY / actualAreaY), 0f, 1f);
+        disposable = tabScrollbar.OnValueChangedAsObservable()
             .Subscribe(_Value =>
             {
-                float targetY = MovableY * _Value;
-                ActualMovableRT.anchoredPosition = new Vector2(ActualMovableRT.anchoredPosition.x, targetY);
+                float targetY = movableY * _Value;
+                actualMovableRt.anchoredPosition = new Vector2(actualMovableRt.anchoredPosition.x, targetY);
             });
     }
 
     public void Set_ScrollPanel()
     {
-        Set_ScrollPanel(VisibleY);
+        Set_ScrollPanel(visibleY);
     }
 
     #endregion
@@ -83,7 +84,7 @@ public class ScrollPanelEUIController : ElementUIController, IScrollHandler
 
     public void OnScroll(PointerEventData eventData)
     {
-        ThisTabScrollbar.value = Mathf.Clamp((ThisTabScrollbar.value + (-eventData.scrollDelta.y * 0.1f)), 0f, 1f);
+        tabScrollbar.value = Mathf.Clamp((tabScrollbar.value + (-eventData.scrollDelta.y * 0.1f)), 0f, 1f);
     }
 
     #endregion

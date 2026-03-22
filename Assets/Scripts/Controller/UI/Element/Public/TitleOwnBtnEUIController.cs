@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandler, IPointerExitHandler
@@ -9,15 +10,15 @@ public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandle
 
     [Space(10)]
     [Header("=== Input")]
-    [SerializeField] public bool IsCanSelect = true;
+    [FormerlySerializedAs("IsCanSelect")][SerializeField] public bool isCanSelect = true;
 
     [Space(10)]
     [Header("=== Size")]
-    [HideInInspector] public RectTransform ThisRT;
+    [FormerlySerializedAs("ThisRT")][HideInInspector] public RectTransform rt;
 
     // Owner
-    [HideInInspector] public TitleLobbyUIController OwnerUIController;
-    [HideInInspector] public Button ThisBtn;
+    [HideInInspector] public TitleLobbyUIController ownerUIController;
+    [HideInInspector] public Button btn;
 
     #endregion
 
@@ -25,8 +26,8 @@ public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandle
 
     public override void Offset()
     {
-        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
-        ThisBtn = DevTool.Get_ComponentTType(gameObject, out Button btn) ? btn : null;
+        rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
+        btn = DevTool.Get_ComponentTType(gameObject, out Button _btn) ? _btn : null;
     }
 
     #endregion
@@ -35,20 +36,20 @@ public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandle
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
-        if (OwnerUIController != null)
+        if (ownerUIController != null)
         {
-            OwnerUIController.Set_CurrentBtn(this);
-            OwnerUIController.Set_CurrentMouseBtn(this);
+            ownerUIController.Set_CurrentBtn(this);
+            ownerUIController.Set_CurrentMouseBtn(this);
         }
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)
     {
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
-        OwnerUIController.Set_CurrentMouseBtn(null);
+        ownerUIController.Set_CurrentMouseBtn(null);
     }
 
 
@@ -56,21 +57,21 @@ public class TitleOwnBtnEUIController : ElementUIController, IPointerEnterHandle
 
     #region Set
 
-    public void Set_SelectOnThis(float _DurTime = 0.2f)
+    public void Set_SelectOnThis(float durTime = 0.2f)
     {
-        Set_SelectedThis(200f, _DurTime);
+        Set_SelectedThis(200f, durTime);
     }
 
-    public void Set_SelectOffThis(float _DurTime = 0.2f)
+    public void Set_SelectOffThis(float durTime = 0.2f)
     {
-        Set_SelectedThis(180f, _DurTime);
+        Set_SelectedThis(180f, durTime);
     }
 
-    private void Set_SelectedThis(float _Height, float _DurTime = 0.2f)
+    private void Set_SelectedThis(float height, float durTime = 0.2f)
     {
-        DevTool.Set_KillTween(ThisRT);
+        DevTool.Set_KillTween(rt);
 
-        ThisRT.DOSizeDelta(new Vector2(ThisRT.rect.width, _Height), _DurTime);
+        rt.DOSizeDelta(new Vector2(rt.rect.width, height), durTime);
     }
 
     #endregion

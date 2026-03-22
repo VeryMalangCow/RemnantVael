@@ -102,10 +102,10 @@ public class OutMainGameUIController : SinglePanelUIController
 
         public void Offset(OutMainGameUIController _UIController)
         {
-            BackBtn.OwnerUIController = _UIController;
+            BackBtn.ownerUIController = _UIController;
             BackBtn.Offset();
 
-            ChangeTypeBtn.OwnerUIController = _UIController;
+            ChangeTypeBtn.ownerUIController = _UIController;
             ChangeTypeBtn.Offset();
 
             PlayerBUScrollEUI.Offset();
@@ -339,13 +339,13 @@ public class OutMainGameUIController : SinglePanelUIController
             int needAmount = _TargetAmount - AllyBUEUIList.Count;
             for (int i = 0; i < needAmount; i++)
             {
-                Instantiate(AllyBUEUIPrefab, AllyScrollEUI.ActualMovableRT).TryGetComponent(out StandbyAllyBUEUIController eui);
+                Instantiate(AllyBUEUIPrefab, AllyScrollEUI.actualMovableRt).TryGetComponent(out StandbyAllyBUEUIController eui);
                 eui.Offset();
                 eui.Set_Pos(new Vector2(baseX, baseY + (intervalY * AllyBUEUIList.Count)));
                 AllyBUEUIList.Add(eui);
             }
 
-            AllyScrollEUI.ActualMovableRT.sizeDelta = new Vector2(AllyScrollEUI.ActualMovableRT.sizeDelta.x,
+            AllyScrollEUI.actualMovableRt.sizeDelta = new Vector2(AllyScrollEUI.actualMovableRt.sizeDelta.x,
                 -((baseY * 1.5f) + (intervalY * AllyBUEUIList.Count)));
             AllyScrollEUI.Set_ScrollPanel();
         }
@@ -378,10 +378,10 @@ public class OutMainGameUIController : SinglePanelUIController
 
         public void Offset(OutMainGameUIController _UIController)
         {
-            BackBtn.OwnerUIController = _UIController;
+            BackBtn.ownerUIController = _UIController;
             BackBtn.Offset();
 
-            ApplyBtn.OwnerUIController = _UIController;
+            ApplyBtn.ownerUIController = _UIController;
             ApplyBtn.Offset();
 
             LanguagePanelEUI.Set_OwnerUIController(_UIController);
@@ -420,12 +420,12 @@ public class OutMainGameUIController : SinglePanelUIController
             WarningTxt.text = ResourceManager.instance.Get_StaticDesc(31);
 
             DevTool.Get_ComponentTType<TMP_Text>(ApplyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ApplyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(91);
-            LanguagePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(92);
-            ScreenModePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(140);
-            ResolutionPanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(137);
-            FPSPanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(141);
-            BGMVolumePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(138);
-            SFXVolumePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(139);
+            LanguagePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(92);
+            ScreenModePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(140);
+            ResolutionPanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(137);
+            FPSPanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(141);
+            BGMVolumePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(138);
+            SFXVolumePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(139);
         }
 
         public List<Component> Get_MainColorComps()
@@ -471,7 +471,7 @@ public class OutMainGameUIController : SinglePanelUIController
         public void Offset(OutMainGameUIController _OwnerUI)
         {
             BackBtn.Offset();
-            BackBtn.OwnerUIController = _OwnerUI;
+            BackBtn.ownerUIController = _OwnerUI;
 
             ListScrollPanelEUI.Offset();
 
@@ -482,7 +482,7 @@ public class OutMainGameUIController : SinglePanelUIController
             for (int i = 0; i < amount; i++)
             {
                 ListEUIArr[i] = ListElementParentTF.GetChild(i).TryGetComponent(out InfoEUIController infoListEUI) ? infoListEUI : null;
-                ListEUIArr[i].OwnerUIController = _OwnerUI;
+                ListEUIArr[i].ownerUIController = _OwnerUI;
                 ListEUIArr[i].Offset();
 
                 DetailEUIArr[i] = DetailElementParentTF.GetChild(i).TryGetComponent(out InfoDetailEUIController infoDetailEUI) ? infoDetailEUI : null;
@@ -503,7 +503,7 @@ public class OutMainGameUIController : SinglePanelUIController
                 if (data[i].canVisible)
                 {
                     ListEUIArr[i].gameObject.SetActive(true);
-                    ListEUIArr[i].ThisRT.anchoredPosition = new Vector2(ListEUIArr[i].ThisRT.anchoredPosition.x, -20 + (-140 * (visibleEUIs.Count)));
+                    ListEUIArr[i].rt.anchoredPosition = new Vector2(ListEUIArr[i].rt.anchoredPosition.x, -20 + (-140 * (visibleEUIs.Count)));
                     visibleEUIs.Add(ListEUIArr[i]);
                 }
                 else
@@ -604,12 +604,12 @@ public class OutMainGameUIController : SinglePanelUIController
 
     private void Offset_Btn()
     {
-        ResumeBtn.OwnerUIController = this;
-        InfoBtn.OwnerUIController = this;
-        OptionBtn.OwnerUIController = this;
-        StateBtn.OwnerUIController = this;
-        ReturnBtn.OwnerUIController = this;
-        QuitBtn.OwnerUIController = this;
+        ResumeBtn.ownerUIController = this;
+        InfoBtn.ownerUIController = this;
+        OptionBtn.ownerUIController = this;
+        StateBtn.ownerUIController = this;
+        ReturnBtn.ownerUIController = this;
+        QuitBtn.ownerUIController = this;
 
         ResumeBtn.Offset();
         StateBtn.Offset();
@@ -801,14 +801,14 @@ public class OutMainGameUIController : SinglePanelUIController
 
     private bool Is_Interact_OptionElement(LRSlidingItemEUIController _LRSlidingEUI)
     {
-        if (CurrentBtn == _LRSlidingEUI.LeftBtn)
+        if (CurrentBtn == _LRSlidingEUI.leftBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _LRSlidingEUI.Change_Left();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
-        else if (CurrentBtn == _LRSlidingEUI.RightBtn)
+        else if (CurrentBtn == _LRSlidingEUI.rightBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _LRSlidingEUI.Change_Right();
@@ -821,14 +821,14 @@ public class OutMainGameUIController : SinglePanelUIController
 
     private bool Is_Interact_OptionElement(FillScrollbarEUIController _ScrollEUI)
     {
-        if (CurrentBtn == _ScrollEUI.LeftBtn)
+        if (CurrentBtn == _ScrollEUI.leftBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _ScrollEUI.Dec();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
-        else if (CurrentBtn == _ScrollEUI.RightBtn)
+        else if (CurrentBtn == _ScrollEUI.rightBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _ScrollEUI.Inc();

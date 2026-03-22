@@ -88,7 +88,7 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     private void Play_Click()
     {
-        DevTool.Set_KillTween(ThisRT);
+        DevTool.Set_KillTween(rt);
 
         Sequence seq = DOTween.Sequence();
         seq.Append(btnRt.DOScale(1.2f, 0.1f));
@@ -104,20 +104,20 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
     {
         base.OnPointerEnter(eventData);
 
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
-        DevTool.Set_KillTween(ThisRT);
-        ThisRT.DOScale(1.1f, 0.1f);
+        DevTool.Set_KillTween(rt);
+        rt.DOScale(1.1f, 0.1f);
     }
 
     public override void OnPointerExit(PointerEventData eventData)
     {
         base.OnPointerExit(eventData);
 
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
-        DevTool.Set_KillTween(ThisRT);
-        ThisRT.DOScale(1.0f, 0.1f);
+        DevTool.Set_KillTween(rt);
+        rt.DOScale(1.0f, 0.1f);
     }
 
 

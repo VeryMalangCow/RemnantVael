@@ -1427,10 +1427,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d85e860eb0c1845990f0002d2780c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
   frameImg: {fileID: 6768796646095978695}
   lightImg: {fileID: 1787083642506951538}
   bgImg: {fileID: 8626433506876356207}

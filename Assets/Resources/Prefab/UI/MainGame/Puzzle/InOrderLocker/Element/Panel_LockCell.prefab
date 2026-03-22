@@ -1409,27 +1409,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9bdc203e65396f408bff19de901bd6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
-  OnPanelRT: {fileID: 4990079345635150294}
-  InnerParentRT: {fileID: 5297126391762632587}
-  InteractablePanelRT: {fileID: 2927433800528279016}
-  UninteractablePanelRT: {fileID: 8932788858842456998}
-  CenterRT: {fileID: 5344943437937091554}
-  RoundLineRTList:
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
+  onPanelRt: {fileID: 4990079345635150294}
+  innerParentRt: {fileID: 5297126391762632587}
+  interactablePanelRt: {fileID: 2927433800528279016}
+  uninteractablePanelRt: {fileID: 8932788858842456998}
+  centerRt: {fileID: 5344943437937091554}
+  roundLineRtList:
   - {fileID: 3184692547476777000}
   - {fileID: 7422303849000068928}
   - {fileID: 1316571612973492931}
   - {fileID: 5043894635574667267}
-  IndexTxt: {fileID: 7319299133512798940}
-  OwnerIOLUIController: {fileID: 0}
-  IsInteractable: 0
-  IsOn: 0
-  InnerImgList: []
-  OnPanelCG: {fileID: 0}
-  InnerParentCG: {fileID: 0}
+  indexTxt: {fileID: 7319299133512798940}
+  ownerIolUIController: {fileID: 0}
+  isInteractable: 0
+  isOn: 0
+  innerImgList: []
+  onPanelCg: {fileID: 0}
+  innerParentCg: {fileID: 0}
 --- !u!114 &4826788674292079668
 MonoBehaviour:
   m_ObjectHideFlags: 0

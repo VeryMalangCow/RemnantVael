@@ -26,22 +26,22 @@ public class TunerRerollBtnEUIController : OwnBtnEUIController
 
     public override void OnPointerEnter(PointerEventData eventData)
     {
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
         base.OnPointerEnter(eventData);
 
-        DevTool.Set_KillTween(ThisRT);
-        ThisRT.DOScale(1.05f, 0.05f);
+        DevTool.Set_KillTween(rt);
+        rt.DOScale(1.05f, 0.05f);
     }
 
     public override void OnPointerExit(PointerEventData eventData)
     {
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
         base.OnPointerExit(eventData);
 
-        DevTool.Set_KillTween(ThisRT);
-        ThisRT.DOScale(1f, 0.05f);
+        DevTool.Set_KillTween(rt);
+        rt.DOScale(1f, 0.05f);
     }
 
 

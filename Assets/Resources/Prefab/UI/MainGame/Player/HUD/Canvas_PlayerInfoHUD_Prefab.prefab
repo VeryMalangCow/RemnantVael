@@ -1511,7 +1511,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.6666667}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8804223866111845911}
   - {fileID: 6383847685145090957}
@@ -13833,14 +13833,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16289558bb2ad764f9c6ae9319304b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AfterImg: {fileID: 4003874939331868869}
-  ActualImg: {fileID: 6817109659310789840}
-  ActualImgLiner: {fileID: 6971975506821404010}
-  Txt: {fileID: 1745661004261317006}
-  MiddleRT: {fileID: 5281799584682620777}
-  PlusSizeMiddleRTX: 30
-  RightRT: {fileID: 7483124975257989038}
-  PlusPosRightRTX: -52
+  afterImg: {fileID: 4003874939331868869}
+  actualImg: {fileID: 6817109659310789840}
+  actualImgLiner: {fileID: 6971975506821404010}
+  txt: {fileID: 1745661004261317006}
+  middleRT: {fileID: 5281799584682620777}
+  plusSizeMiddleRTX: 30
+  rightRt: {fileID: 7483124975257989038}
+  plusPosRightRtX: -52
 --- !u!1 &6360806930730856505
 GameObject:
   m_ObjectHideFlags: 0

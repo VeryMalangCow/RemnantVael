@@ -1,14 +1,15 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StandbyPlayerMUEUIController : ElementUIController
 {
     #region Value
 
-    [SerializeField] private Image IconImg;
-    [SerializeField] private Image RankImg;
-    [SerializeField] private TMP_Text NameTxt;
+    [FormerlySerializedAs("IconImg")][SerializeField] private Image iconImg;
+    [FormerlySerializedAs("RankImg")][SerializeField] private Image rankImg;
+    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
 
     #endregion
 
@@ -25,26 +26,26 @@ public class StandbyPlayerMUEUIController : ElementUIController
 
     public void SetOff()
     {
-        IconImg.gameObject.SetActive(false);
-        RankImg.gameObject.SetActive(false);
+        iconImg.gameObject.SetActive(false);
+        rankImg.gameObject.SetActive(false);
 
-        NameTxt.text = "-";
+        nameTxt.text = "-";
     }
 
-    public void SetOn(ModuleState _MS)
+    public void SetOn(ModuleState moduleState)
     {
-        IconImg.gameObject.SetActive(true);
-        RankImg.gameObject.SetActive(true);
+        iconImg.gameObject.SetActive(true);
+        rankImg.gameObject.SetActive(true);
 
-        IconImg.sprite = _MS.thisItemData.itemIcon;
-        RankImg.sprite = ResourceManager.instance.Get_RankIcon(_MS.thisItemData.rank);
+        iconImg.sprite = moduleState.thisItemData.itemIcon;
+        rankImg.sprite = ResourceManager.instance.Get_RankIcon(moduleState.thisItemData.rank);
 
-        NameTxt.text = ResourceManager.instance.Get_ModuleName(_MS.thisItemData.id);
+        nameTxt.text = ResourceManager.instance.Get_ModuleName(moduleState.thisItemData.id);
     }
 
-    public void Set_Color(Color _Clr)
+    public void Set_Color(Color clr)
     {
-        NameTxt.color = _Clr;
+        nameTxt.color = clr;
     }
 
     #endregion

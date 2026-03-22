@@ -105,7 +105,7 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
 
     public override void OnPointerEnter(PointerEventData eventData)
     {
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
         base.OnPointerEnter(eventData);
 
@@ -114,7 +114,7 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
 
     public override void OnPointerExit(PointerEventData eventData)
     {
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
         base.OnPointerExit(eventData);
 
@@ -127,7 +127,7 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
 
     public Sequence Play_Scale(float size, float durTime = 0.05f)
     {
-        DevTool.Set_KillTween(ThisRT);
+        DevTool.Set_KillTween(rt);
 
         Sequence seq = DOTween.Sequence();
 

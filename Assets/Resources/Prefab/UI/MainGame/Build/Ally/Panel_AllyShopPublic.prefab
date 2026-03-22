@@ -459,12 +459,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61145d762607f7846976de99959a74b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
-  ThisTxt: {fileID: 8200141730919987864}
-  ThisCG: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
+  txt: {fileID: 8200141730919987864}
+  cg: {fileID: 0}
 --- !u!1 &478903543376077205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,11 +1864,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1814a157665997479930b3995623fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelRT: {fileID: 5057238873724313186}
-  ThisTabScrollbar: {fileID: 7325486817799233011}
-  ActualMovableRT: {fileID: 7153682466770849819}
-  VisibleY: 800
-  ThisTabBtn: {fileID: 1655440142335603912}
+  panelRt: {fileID: 5057238873724313186}
+  tabScrollbar: {fileID: 7325486817799233011}
+  actualMovableRt: {fileID: 7153682466770849819}
+  visibleY: 800
+  tabBtn: {fileID: 1655440142335603912}
 --- !u!1 &1929282632548647557
 GameObject:
   m_ObjectHideFlags: 0
@@ -2153,10 +2153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c47ef53805ab2468d28a7433f5207c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelRT: {fileID: 4699264224559470967}
-  ThisTabScrollbar: {fileID: 866878384964159023}
-  ActualMovableRT: {fileID: 2108885996752644253}
-  VisibleY: 550
+  panelRt: {fileID: 4699264224559470967}
+  tabScrollbar: {fileID: 866878384964159023}
+  actualMovableRt: {fileID: 2108885996752644253}
+  visibleY: 550
 --- !u!1 &2388911222617255180
 GameObject:
   m_ObjectHideFlags: 0
@@ -2602,16 +2602,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33017adc4663c334b88fdcd477c6badb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
-  ThisCG: {fileID: 3127953083268722088}
-  ToggleOnAlpha:
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
+  cg: {fileID: 3127953083268722088}
+  toggleOnAlpha:
     typeBase: 0
     typeSpecial: 1
-  ThisTxt: {fileID: 2384271985447907640}
-  ThisImg: {fileID: 3169909733022659766}
+  txt: {fileID: 2384271985447907640}
+  img: {fileID: 3169909733022659766}
 --- !u!1 &2714937598217668296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2767,10 +2767,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c47ef53805ab2468d28a7433f5207c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelRT: {fileID: 1006551330426758502}
-  ThisTabScrollbar: {fileID: 3982672568306630100}
-  ActualMovableRT: {fileID: 1316913298952763551}
-  VisibleY: 550
+  panelRt: {fileID: 1006551330426758502}
+  tabScrollbar: {fileID: 3982672568306630100}
+  actualMovableRt: {fileID: 1316913298952763551}
+  visibleY: 550
 --- !u!1 &2997101082484746687
 GameObject:
   m_ObjectHideFlags: 0
@@ -3032,10 +3032,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c47ef53805ab2468d28a7433f5207c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelRT: {fileID: 5389378872644123936}
-  ThisTabScrollbar: {fileID: 4397692919525453109}
-  ActualMovableRT: {fileID: 4954762909554114892}
-  VisibleY: 550
+  panelRt: {fileID: 5389378872644123936}
+  tabScrollbar: {fileID: 4397692919525453109}
+  actualMovableRt: {fileID: 4954762909554114892}
+  visibleY: 550
 --- !u!1 &3318785302195703701
 GameObject:
   m_ObjectHideFlags: 0
@@ -6324,12 +6324,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61145d762607f7846976de99959a74b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
-  ThisTxt: {fileID: 7069792291566466500}
-  ThisCG: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
+  txt: {fileID: 7069792291566466500}
+  cg: {fileID: 0}
 --- !u!1 &5875990177650526363
 GameObject:
   m_ObjectHideFlags: 0
@@ -8072,12 +8072,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61145d762607f7846976de99959a74b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
-  ThisTxt: {fileID: 2273008252420584567}
-  ThisCG: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
+  txt: {fileID: 2273008252420584567}
+  cg: {fileID: 0}
 --- !u!1001 &205342769622295758
 PrefabInstance:
   m_ObjectHideFlags: 0

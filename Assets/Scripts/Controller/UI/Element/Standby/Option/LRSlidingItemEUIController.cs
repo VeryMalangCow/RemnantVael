@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LRSlidingItemEUIController : ElementUIController
 {
@@ -10,16 +11,16 @@ public class LRSlidingItemEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Header")]
-    [SerializeField] public TMP_Text HeaderTxt;
+    [FormerlySerializedAs("HeaderTxt")][SerializeField] public TMP_Text headerTxt;
 
     [Space(10)]
     [Header("=== Main")]
-    [SerializeField] private Transform MainItemParentTF;
+    [FormerlySerializedAs("MainItemParentTF")][SerializeField] private Transform mainItemParentTf;
 
     [Space(10)]
     [Header("=== LR")]
-    [SerializeField] public OwnBtnEUIController LeftBtn;
-    [SerializeField] public OwnBtnEUIController RightBtn;
+    [FormerlySerializedAs("LeftBtn")][SerializeField] public OwnBtnEUIController leftBtn;
+    [FormerlySerializedAs("RightBtn")][SerializeField] public OwnBtnEUIController rightBtn;
 
     [Space(10)]
     [Header("=== Inner")]
@@ -29,8 +30,8 @@ public class LRSlidingItemEUIController : ElementUIController
     #region - Hide
 
     // Main
-    [HideInInspector] private List<Transform> MainItemTFList;
-    [HideInInspector] private int CurrentIndex = 0;
+    [HideInInspector] private List<Transform> mainItemTfList;
+    [HideInInspector] private int currentIndex = 0;
 
     #endregion
 
@@ -38,61 +39,61 @@ public class LRSlidingItemEUIController : ElementUIController
 
     #region Offset
 
-    public void Set_OwnerUIController(SinglePanelUIController _OwnerUIController)
+    public void Set_OwnerUIController(SinglePanelUIController ownerUIController)
     {
-        LeftBtn.OwnerUIController = _OwnerUIController;
-        RightBtn.OwnerUIController = _OwnerUIController;
+        leftBtn.ownerUIController = ownerUIController;
+        rightBtn.ownerUIController = ownerUIController;
     }
 
     public override void Offset()
     {
-        LeftBtn.Offset();
-        RightBtn.Offset();
+        leftBtn.Offset();
+        rightBtn.Offset();
 
-        MainItemTFList = DevTool.Get_ChildList<Transform>(MainItemParentTF);
-        Set_Item(CurrentIndex);
+        mainItemTfList = DevTool.Get_ChildList<Transform>(mainItemParentTf);
+        Set_Item(currentIndex);
     }
 
     #endregion
 
     #region Change
 
-    public void Change_Left(Dele _SetFunc = null)
+    public void Change_Left(Dele setFunc = null)
     {
-        CurrentIndex--;
-        if (CurrentIndex < 0)
-            CurrentIndex = MainItemTFList.Count - 1;
+        currentIndex--;
+        if (currentIndex < 0)
+            currentIndex = mainItemTfList.Count - 1;
 
-        Set_Item(CurrentIndex);
+        Set_Item(currentIndex);
 
-        if (_SetFunc != null)
-            _SetFunc();
+        if (setFunc != null)
+            setFunc();
     }
 
-    public void Change_Right(Dele _SetFunc = null)
+    public void Change_Right(Dele setFunc = null)
     {
-        CurrentIndex++;
-        if (CurrentIndex >= MainItemTFList.Count)
-            CurrentIndex = 0;
+        currentIndex++;
+        if (currentIndex >= mainItemTfList.Count)
+            currentIndex = 0;
 
-        Set_Item(CurrentIndex);
+        Set_Item(currentIndex);
 
-        if (_SetFunc != null)
-            _SetFunc();
+        if (setFunc != null)
+            setFunc();
     }
 
     #endregion
 
     #region Set
 
-    public void Set_Item(int _Index)
+    public void Set_Item(int index)
     {
-        CurrentIndex = _Index;
+        currentIndex = index;
 
-        for (int i = 0; i < MainItemTFList.Count; i++)
-            MainItemTFList[i].gameObject.SetActive(false);
+        for (int i = 0; i < mainItemTfList.Count; i++)
+            mainItemTfList[i].gameObject.SetActive(false);
         
-        MainItemTFList[_Index].gameObject.SetActive(true);
+        mainItemTfList[index].gameObject.SetActive(true);
     }
 
     #endregion
@@ -103,15 +104,15 @@ public class LRSlidingItemEUIController : ElementUIController
     {
         return new List<Component>
         {
-            DevTool.Get_ComponentTType<TMP_Text>(LeftBtn.transform.GetChild(0).gameObject),
-            DevTool.Get_ComponentTType<TMP_Text>(RightBtn.transform.GetChild(0).gameObject),
-            HeaderTxt
+            DevTool.Get_ComponentTType<TMP_Text>(leftBtn.transform.GetChild(0).gameObject),
+            DevTool.Get_ComponentTType<TMP_Text>(rightBtn.transform.GetChild(0).gameObject),
+            headerTxt
         };
     }
 
     public int Get_CurrentIndex()
     {
-        return CurrentIndex;
+        return currentIndex;
     }
 
 

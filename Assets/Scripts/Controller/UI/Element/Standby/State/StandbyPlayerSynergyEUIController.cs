@@ -1,16 +1,17 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class StandbyPlayerSynergyEUIController : ElementUIController
 {
     #region Value
 
-    [SerializeField] private Image IconImg;
-    [SerializeField] private Image AmountImg;
+    [FormerlySerializedAs("IconImg")][SerializeField] private Image iconImg;
+    [FormerlySerializedAs("AmountImg")][SerializeField] private Image amountImg;
 
-    [SerializeField] private TMP_Text NameTxt;
-    [SerializeField] private TMP_Text AmountTxt;
+    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
+    [FormerlySerializedAs("AmountTxt")][SerializeField] private TMP_Text amountTxt;
 
     #endregion
 
@@ -27,32 +28,32 @@ public class StandbyPlayerSynergyEUIController : ElementUIController
 
     public void SetOff()
     {
-        IconImg.gameObject.SetActive(false);
-        AmountImg.gameObject.SetActive(false);
-        AmountTxt.gameObject.SetActive(false);
+        iconImg.gameObject.SetActive(false);
+        amountImg.gameObject.SetActive(false);
+        amountTxt.gameObject.SetActive(false);
 
-        NameTxt.text = "-";
+        nameTxt.text = "-";
     }
 
-    public void SetOn(int _ID, int _Amount)
+    public void SetOn(int id, int amount)
     {
-        int rank = ModuleItemManager.instance.Get_SynchronyRank(_Amount);
+        int rank = ModuleItemManager.instance.Get_SynchronyRank(amount);
 
-        IconImg.gameObject.SetActive(true);
-        AmountImg.gameObject.SetActive(rank != 0);
-        AmountTxt.gameObject.SetActive(true);
+        iconImg.gameObject.SetActive(true);
+        amountImg.gameObject.SetActive(rank != 0);
+        amountTxt.gameObject.SetActive(true);
 
-        IconImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_ID).thisIcon;
-        AmountImg.sprite = MainGameUIManager.instance.moduleUpgrade_UIController.SynergyTierFrames[rank];
-        NameTxt.text = ResourceManager.instance.Get_SynergyName(_ID);
-        AmountTxt.text = _Amount.ToString();
+        iconImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(id).thisIcon;
+        amountImg.sprite = MainGameUIManager.instance.moduleUpgrade_UIController.SynergyTierFrames[rank];
+        nameTxt.text = ResourceManager.instance.Get_SynergyName(id);
+        amountTxt.text = amount.ToString();
     }
 
-    public void Set_Color(Color _ImgClr, Color _TxtClr)
+    public void Set_Color(Color imgClr, Color txtClr)
     {
-        AmountImg.color = _ImgClr;
-        NameTxt.color = _TxtClr;
-        AmountTxt.color = _TxtClr;
+        amountImg.color = imgClr;
+        nameTxt.color = txtClr;
+        amountTxt.color = txtClr;
     }
 
     #endregion

@@ -71,8 +71,8 @@ public class InOrderLockerUIController : PuzzleUIController
 
         for (int i = 0; i < AllIOLCell.Count; i++)
         {
-            AllIOLCell[i].OwnerUIController = this;
-            AllIOLCell[i].OwnerIOLUIController = this;
+            AllIOLCell[i].ownerUIController = this;
+            AllIOLCell[i].ownerIolUIController = this;
             AllIOLCell[i].Offset();
         }
 
@@ -107,7 +107,7 @@ public class InOrderLockerUIController : PuzzleUIController
             !IsInteractable)
             return false;
 
-        if (SelectingIOLCellEUI.IsInteractable && !SelectingIOLCellEUI.IsOn)
+        if (SelectingIOLCellEUI.isInteractable && !SelectingIOLCellEUI.isOn)
             Set_SelectingIncludeValue(SelectingIOLCellEUI);
 
         return true;
@@ -260,7 +260,7 @@ public class InOrderLockerUIController : PuzzleUIController
         {
             SelectingIOLCellEUI = _CellEUI;
             SelectingSignRT.gameObject.SetActive(true);
-            SelectingSignRT.anchoredPosition = _CellEUI.ThisRT.anchoredPosition;
+            SelectingSignRT.anchoredPosition = _CellEUI.rt.anchoredPosition;
             Play_SelectingRT();
         }
     }

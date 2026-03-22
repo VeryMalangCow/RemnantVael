@@ -59,7 +59,7 @@ public class AllyCardUIController : SinglePanelUIController
         {
             Cards[i].gameObject.SetActive(false);
             Cards[i].Offset();
-            Cards[i].OwnerUIController = this;
+            Cards[i].ownerUIController = this;
             Cards[i].allyOwnerUIController = this;
         }
 
@@ -69,7 +69,7 @@ public class AllyCardUIController : SinglePanelUIController
         {
             Rerolls[i].gameObject.SetActive(false);
             Rerolls[i].Offset();
-            Rerolls[i].OwnerUIController = this;
+            Rerolls[i].ownerUIController = this;
 
             Rerolls[i].targetCardEuiController = Cards[i];
             Cards[i].rerollEui = Rerolls[i];
@@ -77,7 +77,7 @@ public class AllyCardUIController : SinglePanelUIController
 
         // Select Btn
         SelectBtn.Offset();
-        SelectBtn.OwnerUIController = this;
+        SelectBtn.ownerUIController = this;
     }
 
 

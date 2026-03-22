@@ -2991,10 +2991,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!1 &6482237183362128936
 GameObject:
   m_ObjectHideFlags: 0
@@ -4442,6 +4442,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -467
       objectReference: {fileID: 0}
+    - target: {fileID: 4349685403446965608, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
+      propertyPath: tabBtn
+      value: 
+      objectReference: {fileID: 2650357624304978481}
     - target: {fileID: 4349685403446965608, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: ThisTabBtn
       value: 
@@ -7201,6 +7205,10 @@ PrefabInstance:
       value: 725
       objectReference: {fileID: 0}
     - target: {fileID: 4349685403446965608, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
+      propertyPath: tabBtn
+      value: 
+      objectReference: {fileID: 7840420690537009621}
+    - target: {fileID: 4349685403446965608, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: ThisTabBtn
       value: 
       objectReference: {fileID: 7840420690537009621}
@@ -9129,6 +9137,10 @@ PrefabInstance:
       value: 725
       objectReference: {fileID: 0}
     - target: {fileID: 4349685403446965608, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
+      propertyPath: tabBtn
+      value: 
+      objectReference: {fileID: 9162936578215338591}
+    - target: {fileID: 4349685403446965608, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: ThisTabBtn
       value: 
       objectReference: {fileID: 9162936578215338591}
@@ -9602,6 +9614,10 @@ PrefabInstance:
       value: 975
       objectReference: {fileID: 0}
     - target: {fileID: 4349685403446965608, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
+      propertyPath: tabBtn
+      value: 
+      objectReference: {fileID: 8097523613639369458}
+    - target: {fileID: 4349685403446965608, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: ThisTabBtn
       value: 
       objectReference: {fileID: 8097523613639369458}
@@ -9798,6 +9814,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 975
       objectReference: {fileID: 0}
+    - target: {fileID: 4349685403446965608, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
+      propertyPath: tabBtn
+      value: 
+      objectReference: {fileID: 5170754546381690703}
     - target: {fileID: 4349685403446965608, guid: af5c4c628d7052d4a8bde9e3f499e808, type: 3}
       propertyPath: ThisTabBtn
       value: 

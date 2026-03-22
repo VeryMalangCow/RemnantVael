@@ -134,7 +134,7 @@ public class AllyShopUIController : ShopUIController
         {
             if (TF.TryGetComponent(out AllyProfileEUIController profile))
             {
-                profile.OwnerUIController = this;
+                profile.ownerUIController = this;
                 profile.Offset();
                 AllAllyProfileEUIList.Add(profile);
             }
@@ -148,7 +148,7 @@ public class AllyShopUIController : ShopUIController
         
         for (int i = 0; i < StateBtnList.Count; i++)
         {
-            StateBtnList[i].OwnerUIController = this;
+            StateBtnList[i].ownerUIController = this;
             StateBtnList[i].Offset();
         }
 
@@ -383,9 +383,9 @@ public class AllyShopUIController : ShopUIController
             int index = i;
 
             if (index == _ExtraIndex)
-                seq.Join(StateBtnList[index].ThisCG.DOFade(1f, _DurTime));
+                seq.Join(StateBtnList[index].cg.DOFade(1f, _DurTime));
             else
-                seq.Join(StateBtnList[index].ThisCG.DOFade(0.4f, _DurTime));
+                seq.Join(StateBtnList[index].cg.DOFade(0.4f, _DurTime));
         }
 
         return seq;
@@ -695,9 +695,9 @@ public class AllyShopUIController : ShopUIController
         string mu = ResourceManager.instance.Get_StaticWord(27);
 
 
-        StateBtnList[0].ThisTxt.text = state;
-        StateBtnList[1].ThisTxt.text = bu;
-        StateBtnList[2].ThisTxt.text = mu;
+        StateBtnList[0].txt.text = state;
+        StateBtnList[1].txt.text = bu;
+        StateBtnList[2].txt.text = mu;
 
         StateTitleTxtList[0].text = state;
         StateTitleTxtList[1].text = bu;

@@ -76,9 +76,9 @@ public class BoxLineConnectorUIController : PuzzleUIController
         for (int i = 0; i < AllBoxCellEUI.Count; i++)
         {
             AllBoxCellEUI[i].Offset();
-            AllBoxCellEUI[i].OwnerUIController = this;
-            AllBoxCellEUI[i].OwnerPuzzleUIController = this;
-            BoxCellDirDict.Add(AllBoxCellEUI[i].ThisPos, AllBoxCellEUI[i]);
+            AllBoxCellEUI[i].ownerUIController = this;
+            AllBoxCellEUI[i].ownerPuzzleUIController = this;
+            BoxCellDirDict.Add(AllBoxCellEUI[i].pos, AllBoxCellEUI[i]);
         }
 
         for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
@@ -162,12 +162,12 @@ public class BoxLineConnectorUIController : PuzzleUIController
             OnDirBoxCell.Clear();
         
         // 처음은 랜덤으로 설정
-        Vector2Int firstBoxCell = AllBoxCellEUI[Random.Range(0, AllBoxCellEUI.Count)].ThisPos;
+        Vector2Int firstBoxCell = AllBoxCellEUI[Random.Range(0, AllBoxCellEUI.Count)].pos;
         OnDirBoxCell.Add(firstBoxCell);
 
         while(true)
         {
-            Vector2Int randomBoxCell = AllBoxCellEUI[Random.Range(0, AllBoxCellEUI.Count)].ThisPos;
+            Vector2Int randomBoxCell = AllBoxCellEUI[Random.Range(0, AllBoxCellEUI.Count)].pos;
             if (!OnDirBoxCell.Contains(randomBoxCell) &&
                 DevTool.Get_RoundVec(OnDirBoxCell).Contains(randomBoxCell))
                 OnDirBoxCell.Add(randomBoxCell);
@@ -220,7 +220,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
         {
             SelectingBoxCellEUI = _BoxCellEUI;
             SelectingSignRT.gameObject.SetActive(true);
-            SelectingSignRT.anchoredPosition = _BoxCellEUI.ThisRT.anchoredPosition;
+            SelectingSignRT.anchoredPosition = _BoxCellEUI.rt.anchoredPosition;
             Play_SelectingRT();
         }
     }

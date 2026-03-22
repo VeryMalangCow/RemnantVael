@@ -63,8 +63,8 @@ public class PanelUIController : SinglePanelUIController
         SetOff_WindowAll(ThisPanelTabList);
 
         CurrentThisPanelTab = _TargetTab;
-        _TargetTab.ThisPanelRT.gameObject.SetActive(true);
-        _TargetTab.ThisTabBtn.ToggleOn_ThisBtn();
+        _TargetTab.panelRt.gameObject.SetActive(true);
+        _TargetTab.tabBtn.ToggleOn_ThisBtn();
     }
 
     private void SetOff_WindowAll(List<TabEUIController> _AllWindow)
@@ -77,8 +77,8 @@ public class PanelUIController : SinglePanelUIController
 
     private void SetOff_Window(TabEUIController _TargetTab)
     {
-        _TargetTab.ThisPanelRT.gameObject.SetActive(false);
-        _TargetTab.ThisTabBtn.ToggleOff_ThisBtn();
+        _TargetTab.panelRt.gameObject.SetActive(false);
+        _TargetTab.tabBtn.ToggleOff_ThisBtn();
     }
 
     #endregion
@@ -90,7 +90,7 @@ public class PanelUIController : SinglePanelUIController
         List<TMP_Text> result = new List<TMP_Text>();
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
-            result.Add(ThisPanelTabList[i].ThisTabBtn.ThisTxt);
+            result.Add(ThisPanelTabList[i].tabBtn.txt);
         }
         return result;
     }
@@ -100,7 +100,7 @@ public class PanelUIController : SinglePanelUIController
         List<Image> result = new List<Image>();
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
-            result.Add(ThisPanelTabList[i].ThisTabBtn.ThisImg);
+            result.Add(ThisPanelTabList[i].tabBtn.img);
         }
         return result;
     }

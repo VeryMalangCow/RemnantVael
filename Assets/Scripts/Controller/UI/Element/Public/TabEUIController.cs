@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TabEUIController : ScrollPanelEUIController
 {
     #region Value
 
     [Header("=== Comp")]
-    [SerializeField] public TabBtnEUIController ThisTabBtn;
+    [FormerlySerializedAs("ThisTabBtn")][SerializeField] public TabBtnEUIController tabBtn;
 
     #endregion
 
@@ -15,7 +16,7 @@ public class TabEUIController : ScrollPanelEUIController
     {
         base.Offset();
 
-        ThisTabBtn.Offset();
+        tabBtn.Offset();
     }
 
     #endregion

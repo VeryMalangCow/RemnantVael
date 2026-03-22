@@ -1,12 +1,13 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class InfoEUIController : OwnBtnEUIController
 {
     #region Value
 
-    [SerializeField] private TMP_Text NameTxt;
+    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
 
     #endregion
 
@@ -14,7 +15,7 @@ public class InfoEUIController : OwnBtnEUIController
 
     public void Set_LanguageTxt()
     {
-        NameTxt.text = ResourceManager.instance.Get_InfoName(Convert.ToInt32(this.gameObject.name));
+        nameTxt.text = ResourceManager.instance.Get_InfoName(Convert.ToInt32(this.gameObject.name));
     }
 
     #endregion

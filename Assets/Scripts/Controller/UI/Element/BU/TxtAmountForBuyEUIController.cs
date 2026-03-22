@@ -75,7 +75,7 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
         this.Offset();
         ThisImgTxtAmountEUI.Offset();
 
-        BuyBtn.OwnerUIController = owner;
+        BuyBtn.ownerUIController = owner;
     }
 
     #endregion

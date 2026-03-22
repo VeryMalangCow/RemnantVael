@@ -431,10 +431,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3eff5bdcc940284bba77a312d4297a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IconImg: {fileID: 8676034163548492601}
-  AmountImg: {fileID: 3188100158540334495}
-  NameTxt: {fileID: 4738386062040337859}
-  AmountTxt: {fileID: 6352021959119086517}
+  iconImg: {fileID: 8676034163548492601}
+  amountImg: {fileID: 3188100158540334495}
+  nameTxt: {fileID: 4738386062040337859}
+  amountTxt: {fileID: 6352021959119086517}
 --- !u!222 &8146209229987537804
 CanvasRenderer:
   m_ObjectHideFlags: 0

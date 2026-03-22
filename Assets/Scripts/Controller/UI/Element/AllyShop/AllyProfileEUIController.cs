@@ -24,7 +24,7 @@ public class AllyProfileEUIController : OwnBtnEUIController
     {
         base.Offset();
 
-        allyOwnerUIController = DevTool.Can_CastingTType(OwnerUIController, out AllyShopUIController owner) ? owner : null;
+        allyOwnerUIController = DevTool.Can_CastingTType(ownerUIController, out AllyShopUIController owner) ? owner : null;
     }
 
     #endregion
@@ -43,7 +43,7 @@ public class AllyProfileEUIController : OwnBtnEUIController
         this.ally = ally;
         faceImg.sprite = ally.Get_FrontFaceImg();
         nameTxt.text = ally.Get_Name();
-        ThisRT.anchoredPosition = new Vector2(0, yPos);
+        rt.anchoredPosition = new Vector2(0, yPos);
     }
 
     #endregion
@@ -63,9 +63,9 @@ public class AllyProfileEUIController : OwnBtnEUIController
     {
         base.OnPointerEnter(eventData);
 
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
-        if (OwnerUIController != null) allyOwnerUIController.Select_AllyProfile(this);
+        if (ownerUIController != null) allyOwnerUIController.Select_AllyProfile(this);
     }
 
     #endregion

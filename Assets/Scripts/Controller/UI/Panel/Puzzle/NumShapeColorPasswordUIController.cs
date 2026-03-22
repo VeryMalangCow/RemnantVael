@@ -62,10 +62,10 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
         for (int i = 0; i < AllNSCPanelEUI.Count; i++)
         {
-            AllNSCPanelEUI[i].OwnerUIController = this;
+            AllNSCPanelEUI[i].ownerUIController = this;
             AllNSCPanelEUI[i].Offset();
 
-            AllNSCRollCellEUI.AddRange(AllNSCPanelEUI[i].AllRollEUI);
+            AllNSCRollCellEUI.AddRange(AllNSCPanelEUI[i].allRollEui);
         }
 
         DownRollInputImg.sprite = ResourceManager.instance.mlbSprite;
@@ -147,7 +147,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
         {
             SelectingRollCellEUI = _RollCellEUI;
             SelectingSignRT.gameObject.SetActive(true);
-            SelectingSignRT.anchoredPosition = new Vector2(_RollCellEUI.ThisRT.anchoredPosition.x, _RollCellEUI.OwnerNSCPanelEUIController.ThisRT.anchoredPosition.y); 
+            SelectingSignRT.anchoredPosition = new Vector2(_RollCellEUI.rt.anchoredPosition.x, _RollCellEUI.ownerNscPanelEuiController.rt.anchoredPosition.y); 
             Play_SelectingRT();
         }
     }

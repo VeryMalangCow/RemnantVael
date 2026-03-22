@@ -74,7 +74,7 @@ public class InventoryEUIController : ElementUIController
                     item.slot = slot;
 
                     slot.ownerUIController = ownerUI;
-                    item.OwnerUIController = ownerUI;
+                    item.ownerUIController = ownerUI;
                 }
             }
 

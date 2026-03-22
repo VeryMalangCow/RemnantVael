@@ -60,9 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bfc6c54b306454290fe1027421f728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RT: {fileID: 2848843311951851912}
-  InnerImg: {fileID: 3943414149561877104}
-  AmountTxt: {fileID: 7288099044034789158}
+  rt: {fileID: 2848843311951851912}
+  innerImg: {fileID: 3943414149561877104}
+  amountTxt: {fileID: 7288099044034789158}
 --- !u!1 &3365065810865310879
 GameObject:
   m_ObjectHideFlags: 0

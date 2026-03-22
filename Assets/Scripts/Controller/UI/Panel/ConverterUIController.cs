@@ -56,7 +56,7 @@ public abstract class ConverterUIController : SinglePanelUIController
     private void Offset_Basic()
     {
         CloseBtn.Offset();
-        CloseBtn.OwnerUIController = this;
+        CloseBtn.ownerUIController = this;
 
         CvtAcquisitionEUI.Offset();
         CvtAcquisitionEUI.Offset_Owner(this);

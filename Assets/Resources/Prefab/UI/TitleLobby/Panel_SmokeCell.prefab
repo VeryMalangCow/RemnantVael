@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4207000cbdd15f8469496d3cbeba58dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OwnerEUIController: {fileID: 0}
+  ownerEuiController: {fileID: 0}
 --- !u!222 &2037548896348226612
 CanvasRenderer:
   m_ObjectHideFlags: 0

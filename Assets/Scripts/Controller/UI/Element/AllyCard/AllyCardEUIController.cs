@@ -214,9 +214,9 @@ public class AllyCardEUIController : OwnBtnEUIController
     {
         base.OnPointerEnter(eventData);
 
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
-        if (OwnerUIController != null) allyOwnerUIController.Set_SelectingCard(this);
+        if (ownerUIController != null) allyOwnerUIController.Set_SelectingCard(this);
     }
 
     #endregion

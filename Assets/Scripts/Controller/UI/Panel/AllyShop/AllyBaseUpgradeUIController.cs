@@ -87,8 +87,8 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         // UI Set
         for (int i = 0; i < AllTunerEUI.Count; i++)
         {
-            AllTunerEUI[i].OwnerUIController = this;
-            AllTunerEUI[i].rerollBtnEUI.OwnerUIController = this;
+            AllTunerEUI[i].ownerUIController = this;
+            AllTunerEUI[i].rerollBtnEUI.ownerUIController = this;
             AllTunerEUI[i].Offset();
             Set_TunerUI(i);
         }
@@ -98,7 +98,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         DetailTunerEUI.Offset();
 
         // Buy
-        BuyBtnEUI.OwnerUIController = this;
+        BuyBtnEUI.ownerUIController = this;
         BuyBtnEUI.Offset();
     }
 
@@ -127,7 +127,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
         base.Pick_AllyProfile(_EUI);
 
-        BuyBtnEUI.ThisCG.alpha = Can_Buy() ? 1f : 0.5f;
+        BuyBtnEUI.cg.alpha = Can_Buy() ? 1f : 0.5f;
         CanBuyArrowGO.gameObject.SetActive(Can_Buy());
     }
 
@@ -158,7 +158,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
             PickTunerListSignRT.localScale = Vector2.one;
             PickTunerListSignRT.SetAsLastSibling();
 
-            BuyBtnEUI.ThisCG.alpha = Can_Buy() ? 1f : 0.5f;
+            BuyBtnEUI.cg.alpha = Can_Buy() ? 1f : 0.5f;
             CanBuyArrowGO.gameObject.SetActive(Can_Buy());
 
             // »ç¿îµå
@@ -377,7 +377,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
             AllTunerEUI[i].Set_Language();
 
         // Buy Btn
-        BuyBtnEUI.ThisTxt.text = ResourceManager.instance.Get_StaticWord(47) + " & " + ResourceManager.instance.Get_StaticWord(105);
+        BuyBtnEUI.txt.text = ResourceManager.instance.Get_StaticWord(47) + " & " + ResourceManager.instance.Get_StaticWord(105);
 
         // Desc
         Positive0_ElementDescEUI.increaseTxt.text = ResourceManager.instance.Get_StaticWord(108);

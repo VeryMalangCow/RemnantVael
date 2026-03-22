@@ -128,11 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207f5295f2183ee409c9bc97173c824c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
-  NameTxt: {fileID: 1334088708934424454}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
+  nameTxt: {fileID: 1334088708934424454}
 --- !u!114 &433839957643124912
 MonoBehaviour:
   m_ObjectHideFlags: 0

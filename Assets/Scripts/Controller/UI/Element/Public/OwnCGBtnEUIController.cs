@@ -1,12 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class OwnCGBtnEUIController : OwnBtnEUIController
 {
     #region Value
 
-    [SerializeField] public TMP_Text ThisTxt;
-    [HideInInspector] public CanvasGroup ThisCG;
+    [FormerlySerializedAs("ThisTxt")][SerializeField] public TMP_Text txt;
+    [HideInInspector] public CanvasGroup cg;
 
     #endregion
 
@@ -16,7 +17,7 @@ public class OwnCGBtnEUIController : OwnBtnEUIController
     {
         base.Offset();
 
-        ThisCG = DevTool.Get_ComponentTType(gameObject, out CanvasGroup cg) ? cg : null;
+        cg = DevTool.Get_ComponentTType(gameObject, out CanvasGroup _cg) ? _cg : null;
     }
 
     #endregion

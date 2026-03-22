@@ -281,6 +281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee988f1f4a89866438834ca7a81b3e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisCanvas: {fileID: 8508751915373872776}
-  ThisTxt: {fileID: 4466040119933893321}
-  ThisTS: {fileID: 4254734489177690221}
+  canvas: {fileID: 8508751915373872776}
+  txt: {fileID: 4466040119933893321}
+  ts: {fileID: 4254734489177690221}

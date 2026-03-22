@@ -197,7 +197,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         Inventory_InEquip.Gen_AllSlotAndItem(this);
 
         ToggleBtn_InEquip.Offset();
-        ToggleBtn_InEquip.OwnerUIController = this;
+        ToggleBtn_InEquip.ownerUIController = this;
 
         Offset_Equip_InEquip();
         Offset_Synergy_InEquip();
@@ -214,7 +214,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             EquipedSlots[i].ownerUIController = this;
             EquipedSlots[i].Offset();
             EquipedSlots[i].item.Offset();
-            EquipedSlots[i].item.OwnerUIController = this;
+            EquipedSlots[i].item.ownerUIController = this;
 
             EquipedSlots[i].Set_EquipedTxt(true, i);
         }
@@ -231,7 +231,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         for (int i = 0; i < SynergySlotList.Count; i++)
         {
             SynergySlotList[i].Offset();
-            SynergySlotList[i].OwnerUIController = this;
+            SynergySlotList[i].ownerUIController = this;
         }
 
         SetOnOff_SynergySlot(false);
@@ -270,7 +270,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
         DecompositionSlot.ownerUIController = this;
         DecompositionSlot.Offset();
         DecompositionSlot.item.Offset();
-        DecompositionSlot.item.OwnerUIController = this;
+        DecompositionSlot.item.ownerUIController = this;
 
         DecompositionSlot.Set_ForgeSelectedTxt(true);
     }
@@ -282,7 +282,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
             FusionSlotList[i].ownerUIController = this;
             FusionSlotList[i].Offset();
             FusionSlotList[i].item.Offset();
-            FusionSlotList[i].item.OwnerUIController = this;
+            FusionSlotList[i].item.ownerUIController = this;
 
             FusionSlotList[i].Set_ForgeSelectedTxt(true, i);
         }
@@ -488,11 +488,11 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     public override void Change_ThisPanel(int _indexWindow)
     {
         // 인벤토리의 Scroll 벨류를 그대로 가져감
-        float scrollValue = CurrentThisPanelTab.ThisTabScrollbar.value;
+        float scrollValue = CurrentThisPanelTab.tabScrollbar.value;
 
         base.Change_ThisPanel(_indexWindow);
 
-        CurrentThisPanelTab.ThisTabScrollbar.value = scrollValue;
+        CurrentThisPanelTab.tabScrollbar.value = scrollValue;
     }
 
     #endregion
@@ -811,7 +811,7 @@ public class ModuleUpgradeUIController : PlayerShopUIController
     {
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
-            if (ThisPanelTabList[i].ThisTabBtn == CurrentBtn)
+            if (ThisPanelTabList[i].tabBtn == CurrentBtn)
             {
                 Change_ThisPanel(i);
                 return true;

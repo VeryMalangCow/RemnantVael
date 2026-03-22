@@ -1,9 +1,9 @@
 using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class IOLCellEUIController : OwnBtnEUIController
@@ -17,44 +17,44 @@ public class IOLCellEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== RT")]
-    [SerializeField] private RectTransform OnPanelRT;
-    [SerializeField] private RectTransform InnerParentRT;
+    [FormerlySerializedAs("OnPanelRT")][SerializeField] private RectTransform onPanelRt;
+    [FormerlySerializedAs("InnerParentRT")][SerializeField] private RectTransform innerParentRt;
 
-    [SerializeField] private Transform InteractablePanelRT;
-    [SerializeField] private Transform UninteractablePanelRT;
+    [FormerlySerializedAs("InteractablePanelRT")][SerializeField] private Transform interactablePanelRt;
+    [FormerlySerializedAs("UninteractablePanelRT")][SerializeField] private Transform uninteractablePanelRt;
 
     [Space(10)]
     [Header("=== Inner")]
-    [SerializeField] private RectTransform CenterRT;
-    [SerializeField] private List<RectTransform> RoundLineRTList;
+    [FormerlySerializedAs("CenterRT")][SerializeField] private RectTransform centerRt;
+    [FormerlySerializedAs("RoundLineRTList")][SerializeField] private List<RectTransform> roundLineRtList;
 
     [Space(10)]
     [Header("=== Txt")]
-    [SerializeField] private TMP_Text IndexTxt;
+    [FormerlySerializedAs("IndexTxt")][SerializeField] private TMP_Text indexTxt;
 
     #endregion
 
     #region - Hide
 
     // Owner
-    [HideInInspector] public InOrderLockerUIController OwnerIOLUIController;
+    [HideInInspector] public InOrderLockerUIController ownerIolUIController;
 
     // Value
-    [HideInInspector] private CoupleData<Vector2> CenterSizeDelta;
-    [HideInInspector] private CoupleData<Vector2> RoundLineSizeDelta;
-    [HideInInspector] public bool IsInteractable = false;
-    [HideInInspector] public bool IsOn = false;
-    [HideInInspector] private bool IsTweeing = false;
+    [HideInInspector] private CoupleData<Vector2> centerSizeDelta;
+    [HideInInspector] private CoupleData<Vector2> roundLineSizeDelta;
+    [HideInInspector] public bool isInteractable = false;
+    [HideInInspector] public bool isOn = false;
+    [HideInInspector] private bool isTweeing = false;
 
     // Inner
-    [HideInInspector] public List<Image> InnerImgList;
+    [HideInInspector] public List<Image> innerImgList;
 
     // CG
-    [HideInInspector] public CanvasGroup OnPanelCG;
-    [HideInInspector] public CanvasGroup InnerParentCG;
+    [HideInInspector] public CanvasGroup onPanelCg;
+    [HideInInspector] public CanvasGroup innerParentCg;
 
     // Seq
-    [HideInInspector] private Sequence OnOffSeq = null;
+    [HideInInspector] private Sequence onOffSeq = null;
 
     #endregion
 
@@ -66,87 +66,87 @@ public class IOLCellEUIController : OwnBtnEUIController
     {
         base.Offset();
 
-        InnerImgList = DevTool.Get_ChildList<Image>(InnerParentRT);
-        InnerImgList.AddRange(DevTool.Get_ChildList<Image>(InteractablePanelRT));
-        InnerImgList.AddRange(DevTool.Get_ChildList<Image>(UninteractablePanelRT));
+        innerImgList = DevTool.Get_ChildList<Image>(innerParentRt);
+        innerImgList.AddRange(DevTool.Get_ChildList<Image>(interactablePanelRt));
+        innerImgList.AddRange(DevTool.Get_ChildList<Image>(uninteractablePanelRt));
 
-        OnPanelCG = DevTool.Get_ComponentTType(OnPanelRT.gameObject, out CanvasGroup onPanelCg) ? onPanelCg : null;
-        InnerParentCG = DevTool.Get_ComponentTType(InnerParentRT.gameObject, out CanvasGroup innerCg) ? innerCg : null;
+        onPanelCg = DevTool.Get_ComponentTType(onPanelRt.gameObject, out CanvasGroup _onPanelCg) ? _onPanelCg : null;
+        innerParentCg = DevTool.Get_ComponentTType(innerParentRt.gameObject, out CanvasGroup innerCg) ? innerCg : null;
 
-        CenterSizeDelta = new CoupleData<Vector2>(new Vector2(92f, 92f), new Vector2(184f, 184f));
-        RoundLineSizeDelta = new CoupleData<Vector2>(new Vector2(72f, 88f), new Vector2(72f, 42f));
+        centerSizeDelta = new CoupleData<Vector2>(new Vector2(92f, 92f), new Vector2(184f, 184f));
+        roundLineSizeDelta = new CoupleData<Vector2>(new Vector2(72f, 88f), new Vector2(72f, 42f));
     }
 
     #endregion
 
     #region Set (On/Off)
 
-    public void Set_Interactable(bool _OnOff)
+    public void Set_Interactable(bool onOff)
     {
-        InteractablePanelRT.gameObject.SetActive(_OnOff);
-        UninteractablePanelRT.gameObject.SetActive(!_OnOff);
-        IsInteractable = _OnOff;
+        interactablePanelRt.gameObject.SetActive(onOff);
+        uninteractablePanelRt.gameObject.SetActive(!onOff);
+        isInteractable = onOff;
     }
 
     public void Set_Default()
     {
-        OnPanelCG.alpha = 0.0f;
-        InnerParentCG.alpha = 0.1f;
+        onPanelCg.alpha = 0.0f;
+        innerParentCg.alpha = 0.1f;
 
-        CenterRT.sizeDelta = CenterSizeDelta.typeBase;
-        for (int i = 0; i < RoundLineRTList.Count; i++)
-            RoundLineRTList[i].sizeDelta = RoundLineSizeDelta.typeBase;
+        centerRt.sizeDelta = centerSizeDelta.typeBase;
+        for (int i = 0; i < roundLineRtList.Count; i++)
+            roundLineRtList[i].sizeDelta = roundLineSizeDelta.typeBase;
 
-        IsOn = false;
-        IsTweeing = false;
+        isOn = false;
+        isTweeing = false;
     }
 
-    public void Set_NumIndexTxt(bool _OnOff, int _Index = 0)
+    public void Set_NumIndexTxt(bool onOff, int index = 0)
     {
-        IndexTxt.gameObject.SetActive(_OnOff);
-        IndexTxt.text = (_Index + 1).ToString();
+        indexTxt.gameObject.SetActive(onOff);
+        indexTxt.text = (index + 1).ToString();
     }
 
-    public void Set_On(float _DurTime)
+    public void Set_On(float durTime)
     {
-        if (IsTweeing || !IsInteractable || IsOn) return;
+        if (isTweeing || !isInteractable || isOn) return;
 
-        DevTool.Set_KillTween(OnOffSeq);
+        DevTool.Set_KillTween(onOffSeq);
 
-        OnOffSeq = DOTween.Sequence();
+        onOffSeq = DOTween.Sequence();
 
-        OnOffSeq.Join(OnPanelCG.DOFade(1f, _DurTime));
-        OnOffSeq.Join(InnerParentCG.DOFade(1f, _DurTime));
-        OnOffSeq.Join(CenterRT.DOSizeDelta(CenterSizeDelta.typeSpecial, _DurTime));
-        for (int i = 0; i < RoundLineRTList.Count; i++)
-            OnOffSeq.Join(RoundLineRTList[i].DOSizeDelta(RoundLineSizeDelta.typeSpecial, _DurTime));
+        onOffSeq.Join(onPanelCg.DOFade(1f, durTime));
+        onOffSeq.Join(innerParentCg.DOFade(1f, durTime));
+        onOffSeq.Join(centerRt.DOSizeDelta(centerSizeDelta.typeSpecial, durTime));
+        for (int i = 0; i < roundLineRtList.Count; i++)
+            onOffSeq.Join(roundLineRtList[i].DOSizeDelta(roundLineSizeDelta.typeSpecial, durTime));
 
-        OnOffSeq.OnComplete(() =>
+        onOffSeq.OnComplete(() =>
         {
-            IsOn = true;
-            IsTweeing = false;
-            OwnerIOLUIController.Check_CorrectLineSet();
+            isOn = true;
+            isTweeing = false;
+            ownerIolUIController.Check_CorrectLineSet();
         });
     }
 
-    public void Set_Off(float _DurTime)
+    public void Set_Off(float durTime)
     {
-        if (IsTweeing || !IsInteractable || !IsOn) return;
+        if (isTweeing || !isInteractable || !isOn) return;
 
-        DevTool.Set_KillTween(OnOffSeq);
+        DevTool.Set_KillTween(onOffSeq);
 
-        OnOffSeq = DOTween.Sequence();
+        onOffSeq = DOTween.Sequence();
 
-        OnOffSeq.Join(OnPanelCG.DOFade(0f, _DurTime));
-        OnOffSeq.Join(InnerParentCG.DOFade(0.1f, _DurTime));
-        OnOffSeq.Join(CenterRT.DOSizeDelta(CenterSizeDelta.typeBase, _DurTime));
-        for (int i = 0; i < RoundLineRTList.Count; i++)
-            OnOffSeq.Join(RoundLineRTList[i].DOSizeDelta(RoundLineSizeDelta.typeBase, _DurTime));
+        onOffSeq.Join(onPanelCg.DOFade(0f, durTime));
+        onOffSeq.Join(innerParentCg.DOFade(0.1f, durTime));
+        onOffSeq.Join(centerRt.DOSizeDelta(centerSizeDelta.typeBase, durTime));
+        for (int i = 0; i < roundLineRtList.Count; i++)
+            onOffSeq.Join(roundLineRtList[i].DOSizeDelta(roundLineSizeDelta.typeBase, durTime));
 
-        OnOffSeq.OnComplete(() => 
+        onOffSeq.OnComplete(() => 
         { 
-            IsOn = false; 
-            IsTweeing = false; 
+            isOn = false; 
+            isTweeing = false; 
         });
     }
 
@@ -154,10 +154,10 @@ public class IOLCellEUIController : OwnBtnEUIController
 
     #region Set (Color)
 
-    public void Set_Color(Color _Clr)
+    public void Set_Color(Color clr)
     {
-        for (int i = 0; i < InnerImgList.Count; i++)
-            DevTool.Set_Color(_Clr, InnerImgList[i]);
+        for (int i = 0; i < innerImgList.Count; i++)
+            DevTool.Set_Color(clr, innerImgList[i]);
     }
 
     #endregion
@@ -168,9 +168,9 @@ public class IOLCellEUIController : OwnBtnEUIController
     {
         base.OnPointerEnter(eventData);
 
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
-        if (OwnerIOLUIController != null) OwnerIOLUIController.Set_CellSelect(this);
+        if (ownerIolUIController != null) ownerIolUIController.Set_CellSelect(this);
     }
 
     #endregion

@@ -91,10 +91,10 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         {
             SetOff_Panel();
 
-            BackBtn.OwnerUIController = _UIController;
+            BackBtn.ownerUIController = _UIController;
             BackBtn.Offset();
 
-            ApplyBtn.OwnerUIController = _UIController;
+            ApplyBtn.ownerUIController = _UIController;
             ApplyBtn.Offset();
 
             LanguagePanelEUI.Set_OwnerUIController(_UIController);
@@ -144,12 +144,12 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
             WarningTxt.text = ResourceManager.instance.Get_StaticDesc(31);
 
             DevTool.Get_ComponentTType<TMP_Text>(ApplyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ApplyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(91);
-            LanguagePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(92);
-            ScreenModePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(140);
-            ResolutionPanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(137);
-            FPSPanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(141);
-            BGMVolumePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(138);
-            SFXVolumePanelEUI.HeaderTxt.text = ResourceManager.instance.Get_StaticWord(139);
+            LanguagePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(92);
+            ScreenModePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(140);
+            ResolutionPanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(137);
+            FPSPanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(141);
+            BGMVolumePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(138);
+            SFXVolumePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(139);
         }
     }
 
@@ -184,25 +184,25 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         DevTool.Get_ComponentTType<Canvas>(gameObject).planeDistance = 10;
 
         StartBtn.Offset();
-        StartBtn.OwnerUIController = this;
+        StartBtn.ownerUIController = this;
 
         OptionBtn.Offset();
-        OptionBtn.OwnerUIController = this;
+        OptionBtn.ownerUIController = this;
 
         QuitBtn.Offset();
-        QuitBtn.OwnerUIController = this;
+        QuitBtn.ownerUIController = this;
 
         TitleAllBtns = new List<TitleOwnBtnEUIController>
         { StartBtn, OptionBtn, QuitBtn };
 
         ResetBtn.Offset();
-        ResetBtn.OwnerUIController = this;
+        ResetBtn.ownerUIController = this;
 
         ResetSureYesBtn.Offset();
-        ResetSureYesBtn.OwnerUIController = this;
+        ResetSureYesBtn.ownerUIController = this;
 
         ResetSureNoBtn.Offset();
-        ResetSureNoBtn.OwnerUIController = this;
+        ResetSureNoBtn.ownerUIController = this;
 
         BGCG.alpha = 1f;
 
@@ -210,7 +210,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         for (int i = 0; i < AllTitleSmokeEUI.Count; i++)
         {
-            AllTitleSmokeEUI[i].OwnerUIController = this;
+            AllTitleSmokeEUI[i].ownerUIController = this;
             AllTitleSmokeEUI[i].Offset();
         }
 
@@ -445,7 +445,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         if (CurrentBtn != null && (CurrentBtn == StartBtn || CurrentBtn == OptionBtn || CurrentBtn == QuitBtn))
         {
             DevTool.Set_KillTween(SelectedRT);
-            SelectedRT.DOAnchorPosY(CurrentBtn.ThisRT.anchoredPosition.y, 0.2f);
+            SelectedRT.DOAnchorPosY(CurrentBtn.rt.anchoredPosition.y, 0.2f);
         }
 
         for (int i = 0; i < TitleAllBtns.Count; i++)
@@ -536,14 +536,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     // Element
     private bool Is_Interact_OptionElement(TitleLRSlidingItemEUIController _LRSlidingEUI)
     {
-        if (CurrentBtn == _LRSlidingEUI.LeftBtn)
+        if (CurrentBtn == _LRSlidingEUI.leftBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _LRSlidingEUI.Change_Left();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
-        else if (CurrentBtn == _LRSlidingEUI.RightBtn)
+        else if (CurrentBtn == _LRSlidingEUI.rightBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _LRSlidingEUI.Change_Right();
@@ -558,14 +558,14 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     private bool Is_Interact_OptionElement(TitleFillScrollbarEUIController _ScrollEUI)
     {
-        if (CurrentBtn == _ScrollEUI.LeftBtn)
+        if (CurrentBtn == _ScrollEUI.leftBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _ScrollEUI.Dec();
             OptionUI.WarningTxt.gameObject.SetActive(true);
             return true;
         }
-        else if (CurrentBtn == _ScrollEUI.RightBtn)
+        else if (CurrentBtn == _ScrollEUI.rightBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
             _ScrollEUI.Inc();

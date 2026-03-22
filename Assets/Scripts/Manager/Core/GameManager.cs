@@ -2429,7 +2429,7 @@ public class BUShopData<T>
         state.Set_BuffedState();
 
         // Can Lv Up
-        upgradeEUI.BuyBtn.ThisBtn.interactable = DevTool.buMaxLevel <= state.currentLevel.Value ? false : true;
+        upgradeEUI.BuyBtn.btn.interactable = DevTool.buMaxLevel <= state.currentLevel.Value ? false : true;
 
         // Desc
         MainGameUIManager.instance.baseUpgrade_UIController.SetOn_Desc(upgradeEUI, upgradeEUI.SkillNameTxt.text);
@@ -2844,10 +2844,10 @@ class ForgeInteractPanel
     {
         panelBtn.Offset();
 
-        panelBtn.OwnerUIController = muuc;
+        panelBtn.ownerUIController = muuc;
 
         roleBtn.Offset();
-        roleBtn.OwnerUIController = muuc;
+        roleBtn.ownerUIController = muuc;
 
         PanelBtnCG = DevTool.Get_ComponentTType<CanvasGroup>(panelBtn.gameObject);
 

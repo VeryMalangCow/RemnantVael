@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NSCRollImgCellEUIController : NSCRollCellEUIController
@@ -20,7 +18,7 @@ public class NSCRollImgCellEUIController : NSCRollCellEUIController
 
 
     // Comp
-    [HideInInspector] private Sprite[] RollSpriteList;
+    [HideInInspector] private Sprite[] rollSpriteList;
 
     #endregion
 
@@ -37,14 +35,14 @@ public class NSCRollImgCellEUIController : NSCRollCellEUIController
 
     private void Offset_Sprite()
     {
-        switch (ThisNSCType)
+        switch (nscType)
         {
             case eNSCPuzzleType.Shape:
-                RollSpriteList = ResourceManager.instance.nsc_shapeSpriteArr;
+                rollSpriteList = ResourceManager.instance.nsc_shapeSpriteArr;
                 break;
 
             case eNSCPuzzleType.Num:
-                RollSpriteList = ResourceManager.instance.nsc_numSpriteArr;
+                rollSpriteList = ResourceManager.instance.nsc_numSpriteArr;
                 break;
 
             default:
@@ -56,12 +54,12 @@ public class NSCRollImgCellEUIController : NSCRollCellEUIController
 
     #region Set
 
-    public override void Set_ImgByIndex(int _Index)
+    public override void Set_ImgByIndex(int index)
     {
-        for (int i = 0; i < RollImgList.Count; i++)
+        for (int i = 0; i < rollImgList.Count; i++)
         {
-            int targetIndex = (_Index + i) % RollImgList.Count;
-            RollImgList[i].sprite = RollSpriteList[targetIndex];
+            int targetIndex = (index + i) % rollImgList.Count;
+            rollImgList[i].sprite = rollSpriteList[targetIndex];
         }
     }
 

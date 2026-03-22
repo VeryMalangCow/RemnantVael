@@ -37,7 +37,7 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
     {
         base.Offset();
 
-        ThisRT.sizeDelta = sizeDelta;
+        rt.sizeDelta = sizeDelta;
     }
 
     #endregion
@@ -71,19 +71,19 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
     {
         base.OnPointerEnter(eventData);
 
-        if (!IsCanSelect || OwnerUIController == null)
+        if (!isCanSelect || ownerUIController == null)
         { return; }
 
         Play_Selected(selectSize, selectDurTime);
 
-        if (OwnerUIController == null)
+        if (ownerUIController == null)
         {
             return;
         }
 
-        OwnerUIController.CurrentItemBtn = this;
+        ownerUIController.CurrentItemBtn = this;
 
-        if (DevTool.Can_CastingTType(OwnerUIController, out ModuleUpgradeUIController muui))
+        if (DevTool.Can_CastingTType(ownerUIController, out ModuleUpgradeUIController muui))
             muui.SetOn_Desc(this);
     }
 
@@ -91,14 +91,14 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
     {
         base.OnPointerEnter(eventData);
 
-        if (!IsCanSelect || OwnerUIController == null)
+        if (!isCanSelect || ownerUIController == null)
         { return; }
 
         Play_Selected(1f, selectDurTime);
 
-        OwnerUIController.CurrentItemBtn = null;
+        ownerUIController.CurrentItemBtn = null;
 
-        if (DevTool.Can_CastingTType(OwnerUIController, out ModuleUpgradeUIController muui))
+        if (DevTool.Can_CastingTType(ownerUIController, out ModuleUpgradeUIController muui))
             muui.SetOff_Desc();
     }
 
@@ -111,7 +111,7 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
         DevTool.Set_KillTween(signSeq);
         signSeq = DOTween.Sequence();
 
-        signSeq.Append(ThisRT.DOScale(targetScale, durTime).SetEase(Ease.Linear));
+        signSeq.Append(rt.DOScale(targetScale, durTime).SetEase(Ease.Linear));
     }
 
     #endregion

@@ -19,7 +19,7 @@ public class NSCRollColorCellEUIController : NSCRollCellEUIController
 
     #region - Hide
 
-    [HideInInspector] private Color[] RollColorArr;
+    [HideInInspector] private Color[] rollClrArr;
 
     #endregion
 
@@ -36,12 +36,12 @@ public class NSCRollColorCellEUIController : NSCRollCellEUIController
 
     private void Offset_Sprite()
     {
-        switch (ThisNSCType)
+        switch (nscType)
         {
             case eNSCPuzzleType.Color:
-                RollColorArr = ResourceManager.instance.nsc_colorArr;
-                for (int i = 0; i < RollImgList.Count; i++)
-                    RollImgList[i].sprite = ResourceManager.instance.nsc_colorSprite;
+                rollClrArr = ResourceManager.instance.nsc_colorArr;
+                for (int i = 0; i < rollImgList.Count; i++)
+                    rollImgList[i].sprite = ResourceManager.instance.nsc_colorSprite;
                 break;
 
             default:
@@ -53,12 +53,12 @@ public class NSCRollColorCellEUIController : NSCRollCellEUIController
 
     #region Set
 
-    public override void Set_ImgByIndex(int _Index)
+    public override void Set_ImgByIndex(int index)
     {
-        for (int i = 0; i < RollImgList.Count; i++)
+        for (int i = 0; i < rollImgList.Count; i++)
         {
-            int targetIndex = (_Index + i) % RollImgList.Count;
-            RollImgList[i].color = RollColorArr[targetIndex];
+            int targetIndex = (index + i) % rollImgList.Count;
+            rollImgList[i].color = rollClrArr[targetIndex];
         }
     }
 

@@ -52,11 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a63c7371b75e8d4e97c9c12fa2bcce3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisTxt: {fileID: 3017102794290624466}
-  InnerParentTF: {fileID: 2193279546575872062}
-  InnerColor: {r: 0.5764706, g: 0.28235295, b: 0.8666667, a: 1}
-  TxtColor: {r: 0.8235294, g: 0.64705884, b: 1, a: 1}
-  CanPass: 0
+  txt: {fileID: 3017102794290624466}
+  innerParentTf: {fileID: 2193279546575872062}
+  innerClr: {r: 0.5764706, g: 0.28235295, b: 0.8666667, a: 1}
+  txtClr: {r: 0.8235294, g: 0.64705884, b: 1, a: 1}
+  canPass: 0
 --- !u!225 &4510002109953219478
 CanvasGroup:
   m_ObjectHideFlags: 0

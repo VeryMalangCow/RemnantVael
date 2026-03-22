@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TitleSmokeEUIController : ElementUIController
 {
@@ -13,35 +14,35 @@ public class TitleSmokeEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Sprite")]
-    [SerializeField] private List<Sprite> SmokeSpriteList;
+    [FormerlySerializedAs("SmokeSpriteList")][SerializeField] private List<Sprite> smokeSpriteList;
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private RectTransform YRT;
-    [SerializeField] private RectTransform LeftRT;
-    [SerializeField] private RectTransform RightRT;
+    [FormerlySerializedAs("YRT")][SerializeField] private RectTransform yRt;
+    [FormerlySerializedAs("LeftRT")][SerializeField] private RectTransform leftRt;
+    [FormerlySerializedAs("RightRT")][SerializeField] private RectTransform rightRt;
 
     [Space(10)]
     [Header("=== Data")]
-    [SerializeField] private float StartSize;
-    [SerializeField] private CoupleData<Color> DurColor;
-    [SerializeField] private CoupleData<float> MovingDis;
-    [SerializeField] private CoupleData<float> MovingTime;
-    [SerializeField] private CoupleData<float> DelayTime;
+    [FormerlySerializedAs("StartSize")][SerializeField] private float startSize;
+    [FormerlySerializedAs("DurColor")][SerializeField] private CoupleData<Color> durColor;
+    [FormerlySerializedAs("MovingDis")][SerializeField] private CoupleData<float> movingDis;
+    [FormerlySerializedAs("MovingTime")][SerializeField] private CoupleData<float> movingTime;
+    [FormerlySerializedAs("DelayTime")][SerializeField] private CoupleData<float> delayTime;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] public TitleLobbyUIController OwnerUIController;
+    [HideInInspector] public TitleLobbyUIController ownerUIController;
 
-    [HideInInspector] private GameObject CellEUIPrefab;
-    [HideInInspector] private float YPos = 0;
-    [HideInInspector] private float LeftXPos = 0;
-    [HideInInspector] private float RightXPos = 0;
+    [HideInInspector] private GameObject cellEuiPrefab;
+    [HideInInspector] private float yPos = 0;
+    [HideInInspector] private float leftXPos = 0;
+    [HideInInspector] private float rightXPos = 0;
 
-    [HideInInspector] private Queue<TitleSmokeCellEUIController> CellQueue = new Queue<TitleSmokeCellEUIController>();
-    [HideInInspector] private Coroutine ThisCor = null;
+    [HideInInspector] private Queue<TitleSmokeCellEUIController> cellQueue = new Queue<TitleSmokeCellEUIController>();
+    [HideInInspector] private Coroutine cor = null;
 
     #endregion
 
@@ -51,13 +52,13 @@ public class TitleSmokeEUIController : ElementUIController
 
     public override void Offset()
     {
-        CellEUIPrefab = OwnerUIController.SmokeCellEUIPrefab;
+        cellEuiPrefab = ownerUIController.SmokeCellEUIPrefab;
 
-        YPos = YRT.anchoredPosition.y;
-        LeftXPos = LeftRT.anchoredPosition.x;
-        RightXPos = RightRT.anchoredPosition.x;
+        yPos = yRt.anchoredPosition.y;
+        leftXPos = leftRt.anchoredPosition.x;
+        rightXPos = rightRt.anchoredPosition.x;
 
-        ThisCor = StartCoroutine(Play_VFX_Cor());
+        cor = StartCoroutine(Play_VFX_Cor());
     }
 
     #endregion
@@ -68,15 +69,15 @@ public class TitleSmokeEUIController : ElementUIController
     {
         while (true)
         {
-            TitleSmokeCellEUIController cell = Get_OP(CellEUIPrefab);
+            TitleSmokeCellEUIController cell = Get_OP(cellEuiPrefab);
             cell.transform.SetParent(this.transform);
-            cell.OwnerEUIController = this;
+            cell.ownerEuiController = this;
             cell.Offset();
 
             cell.Play_Smoke(
                 Get_RandomSprite(),
-                DurColor,
-                StartSize,
+                durColor,
+                startSize,
                 Get_RandomSpotX(),
                 Get_RandomDis(),
                 Get_RandomDurTime());
@@ -91,30 +92,30 @@ public class TitleSmokeEUIController : ElementUIController
 
     public void Stop_VFX()
     {
-        if (ThisCor != null)
-            StopCoroutine(ThisCor);
+        if (cor != null)
+            StopCoroutine(cor);
     }
 
     #endregion
 
     #region Set
 
-    public void Set_OP_Enqueue(TitleSmokeCellEUIController _CellEUI)
+    public void Set_OP_Enqueue(TitleSmokeCellEUIController cellEui)
     {
-        if (!CellQueue.Contains(_CellEUI))
-            CellQueue.Enqueue(_CellEUI);
+        if (!cellQueue.Contains(cellEui))
+            cellQueue.Enqueue(cellEui);
     }
 
     #endregion
 
     #region Get
 
-    private TitleSmokeCellEUIController Get_OP(GameObject _SpawnGO)
+    private TitleSmokeCellEUIController Get_OP(GameObject spawnGO)
     {
         // No Object
-        if (CellQueue.Count <= 0)
+        if (cellQueue.Count <= 0)
         {
-            GameObject GenGO = Instantiate(_SpawnGO);
+            GameObject GenGO = Instantiate(spawnGO);
             GenGO.TryGetComponent(out TitleSmokeCellEUIController typeClass);
             GenGO.SetActive(false);
 
@@ -122,7 +123,7 @@ public class TitleSmokeEUIController : ElementUIController
         }
         else
         {
-            TitleSmokeCellEUIController getTypeClass = CellQueue.Dequeue();
+            TitleSmokeCellEUIController getTypeClass = cellQueue.Dequeue();
 
             return getTypeClass;
         }
@@ -131,31 +132,31 @@ public class TitleSmokeEUIController : ElementUIController
     // ½ºÆù ·£´ý µô·¹ÀÌ
     private float Get_RandomDelay()
     {
-        return Random.Range(DelayTime.typeBase, DelayTime.typeSpecial);
+        return Random.Range(delayTime.typeBase, delayTime.typeSpecial);
     }
 
     // ·£´ý °Å¸®
     private float Get_RandomDis()
     {
-        return Random.Range(MovingDis.typeBase, MovingDis.typeSpecial);
+        return Random.Range(movingDis.typeBase, movingDis.typeSpecial);
     }
 
     // ·£´ý ½Ã°£
     private float Get_RandomDurTime()
     {
-        return Random.Range(MovingTime.typeBase, MovingTime.typeSpecial);
+        return Random.Range(movingTime.typeBase, movingTime.typeSpecial);
     }
 
     // ·£´ý ½ºÆù À§Ä¡
     private float Get_RandomSpotX()
     {
-        return Random.Range(LeftXPos, RightXPos);
+        return Random.Range(leftXPos, rightXPos);
     }
 
     // ·£´ý ½ºÇÁ¶óÀÌÆ®
     private Sprite Get_RandomSprite()
     {
-        return SmokeSpriteList[Random.Range(0, SmokeSpriteList.Count - 1)];
+        return smokeSpriteList[Random.Range(0, smokeSpriteList.Count - 1)];
     }
 
     #endregion

@@ -1,9 +1,8 @@
 using DG.Tweening;
-using LeTai.TrueShadow;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public abstract class NSCRollCellEUIController : OwnBtnEUIController
@@ -17,32 +16,32 @@ public abstract class NSCRollCellEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Img")]
-    [SerializeField] private RectTransform RollImgParentRT;
-    [SerializeField] protected eNSCPuzzleType ThisNSCType;
+    [FormerlySerializedAs("RollImgParentRT")][SerializeField] private RectTransform rollImgParentRt;
+    [FormerlySerializedAs("ThisNSCType")][SerializeField] protected eNSCPuzzleType nscType;
 
     [Space(10)]
     [Header("=== Lock")]
-    [SerializeField] private RectTransform LockedRT;
+    [FormerlySerializedAs("LockedRT")][SerializeField] private RectTransform lockedRt;
 
     #endregion
 
     #region - Hide
 
     // Comp
-    [HideInInspector] protected List<Image> RollImgList;
+    [HideInInspector] protected List<Image> rollImgList;
 
     // Value
-    [HideInInspector] private bool IsLocked = false;
-    [HideInInspector] protected int CurrentIndex = 0;
-    [HideInInspector] public int AnswerIndex = 0;
+    [HideInInspector] private bool isLocked = false;
+    [HideInInspector] protected int currentIndex = 0;
+    [HideInInspector] public int answerIndex = 0;
 
     // Roll
-    [HideInInspector] private static readonly float Interval_Y = 150f;
-    [HideInInspector] private bool IsRolling = false;
+    [HideInInspector] private static readonly float intervalY = 150f;
+    [HideInInspector] private bool isRolling = false;
 
     // Owner
-    [HideInInspector] public NSCPanelEUIController OwnerNSCPanelEUIController;
-    [HideInInspector] public NumShapeColorPasswordUIController OwnerNSCUIController;
+    [HideInInspector] public NSCPanelEUIController ownerNscPanelEuiController;
+    [HideInInspector] public NumShapeColorPasswordUIController ownerNscUIController;
     #endregion
 
     #endregion
@@ -53,34 +52,34 @@ public abstract class NSCRollCellEUIController : OwnBtnEUIController
     {
         base.Offset();
 
-        RollImgList = DevTool.Get_ChildList<Image>(RollImgParentRT);
+        rollImgList = DevTool.Get_ChildList<Image>(rollImgParentRt);
     }
 
     #endregion
 
     #region Set
 
-    public abstract void Set_ImgByIndex(int _Index);
+    public abstract void Set_ImgByIndex(int index);
 
     public void Set_ImgByIndexRandom()
     {
-        CurrentIndex = Random.Range(0, RollImgList.Count);
-        Set_ImgByIndex(CurrentIndex);
+        currentIndex = Random.Range(0, rollImgList.Count);
+        Set_ImgByIndex(currentIndex);
     }
 
     public void Set_ImgByAnswerAndLock()
     {
-        IsLocked = true;
-        LockedRT.gameObject.SetActive(true);
+        isLocked = true;
+        lockedRt.gameObject.SetActive(true);
 
-        CurrentIndex = (AnswerIndex + 3) % RollImgList.Count;
-        Set_ImgByIndex(CurrentIndex);
+        currentIndex = (answerIndex + 3) % rollImgList.Count;
+        Set_ImgByIndex(currentIndex);
     }
 
     public void Set_NoLock()
     {
-        IsLocked = false;
-        LockedRT.gameObject.SetActive(false);
+        isLocked = false;
+        lockedRt.gameObject.SetActive(false);
     }
 
     #endregion
@@ -89,12 +88,12 @@ public abstract class NSCRollCellEUIController : OwnBtnEUIController
 
     public int Get_Index()
     {
-        return (CurrentIndex + 2) % RollImgList.Count;
+        return (currentIndex + 2) % rollImgList.Count;
     }
 
     public int Get_IndexAmount()
     {
-        return RollImgList.Count;
+        return rollImgList.Count;
     }
 
     #endregion
@@ -103,7 +102,7 @@ public abstract class NSCRollCellEUIController : OwnBtnEUIController
 
     public bool Is_AnswerIndex()
     {
-        if (Get_Index() == AnswerIndex)
+        if (Get_Index() == answerIndex)
             return true;
 
         return false;
@@ -115,45 +114,45 @@ public abstract class NSCRollCellEUIController : OwnBtnEUIController
 
     public void Play_RollForDown()
     {
-        if (IsRolling || IsLocked) return;
+        if (isRolling || isLocked) return;
 
-        IsRolling = true;
+        isRolling = true;
 
-        RollImgParentRT.DOAnchorPosY(Interval_Y, 0.1f)
+        rollImgParentRt.DOAnchorPosY(intervalY, 0.1f)
             .OnComplete(() =>
             {
-                CurrentIndex++;
-                if (CurrentIndex > RollImgList.Count)
-                    CurrentIndex -= RollImgList.Count;
+                currentIndex++;
+                if (currentIndex > rollImgList.Count)
+                    currentIndex -= rollImgList.Count;
                 
-                Set_ImgByIndex(CurrentIndex);
-                RollImgParentRT.anchoredPosition = Vector2.zero;
+                Set_ImgByIndex(currentIndex);
+                rollImgParentRt.anchoredPosition = Vector2.zero;
 
-                IsRolling = false;
+                isRolling = false;
 
-                OwnerNSCUIController.Check_CorrectLineSet();
+                ownerNscUIController.Check_CorrectLineSet();
             });
     }
 
     public void Play_RollForUp()
     {
-        if (IsRolling || IsLocked) return;
+        if (isRolling || isLocked) return;
 
-        IsRolling = true;
+        isRolling = true;
 
-        RollImgParentRT.DOAnchorPosY(-Interval_Y, 0.1f)
+        rollImgParentRt.DOAnchorPosY(-intervalY, 0.1f)
             .OnComplete(() =>
             {
-                CurrentIndex--;
-                if (CurrentIndex < 0)
-                    CurrentIndex += RollImgList.Count;
+                currentIndex--;
+                if (currentIndex < 0)
+                    currentIndex += rollImgList.Count;
 
-                Set_ImgByIndex(CurrentIndex);
-                RollImgParentRT.anchoredPosition = Vector2.zero;
+                Set_ImgByIndex(currentIndex);
+                rollImgParentRt.anchoredPosition = Vector2.zero;
 
-                IsRolling = false;
+                isRolling = false;
 
-                OwnerNSCUIController.Check_CorrectLineSet();
+                ownerNscUIController.Check_CorrectLineSet();
             });
     }
 
@@ -165,9 +164,9 @@ public abstract class NSCRollCellEUIController : OwnBtnEUIController
     {
         base.OnPointerEnter(eventData);
 
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
-        if (OwnerNSCUIController != null) OwnerNSCUIController.Set_RollCellSelect(this);
+        if (ownerNscUIController != null) ownerNscUIController.Set_RollCellSelect(this);
     }
 
     #endregion

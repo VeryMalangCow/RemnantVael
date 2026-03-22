@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class TitleFillScrollbarEUIController : ElementUIController
@@ -9,50 +10,50 @@ public class TitleFillScrollbarEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] public TMP_Text HeaderTxt;
-    [SerializeField] private Scrollbar Scrollbar;
-    [SerializeField] private Image FillImg;
-    [SerializeField] private TMP_Text ValueTxt;
+    [FormerlySerializedAs("HeaderTxt")][SerializeField] public TMP_Text headerTxt;
+    [FormerlySerializedAs("Scrollbar")][SerializeField] private Scrollbar scrollbar;
+    [FormerlySerializedAs("FillImg")][SerializeField] private Image fillImg;
+    [FormerlySerializedAs("ValueTxt")][SerializeField] private TMP_Text valueTxt;
 
     [Space(10)]
     [Header("=== LR")]
-    [SerializeField] public TitleOwnBtnEUIController LeftBtn;
-    [SerializeField] public TitleOwnBtnEUIController RightBtn;
+    [FormerlySerializedAs("LeftBtn")][SerializeField] public TitleOwnBtnEUIController leftBtn;
+    [FormerlySerializedAs("RightBtn")][SerializeField] public TitleOwnBtnEUIController rightBtn;
 
     #endregion
 
     #region Offset
 
-    public void Set_OwnerUIController(TitleLobbyUIController _OwnerUIController)
+    public void Set_OwnerUIController(TitleLobbyUIController ownerUIController)
     {
-        LeftBtn.OwnerUIController = _OwnerUIController;
-        RightBtn.OwnerUIController = _OwnerUIController;
+        leftBtn.ownerUIController = ownerUIController;
+        rightBtn.ownerUIController = ownerUIController;
     }
 
     public override void Offset()
     {
-        LeftBtn.Offset();
-        RightBtn.Offset();
+        leftBtn.Offset();
+        rightBtn.Offset();
     }
 
     #endregion
 
     #region Inc Dec
 
-    public void Dec(Dele _SetFunc = null)
+    public void Dec(Dele setFunc = null)
     {
-        Set_Value(Scrollbar.value - 0.05f);
+        Set_Value(scrollbar.value - 0.05f);
 
-        if (_SetFunc != null)
-            _SetFunc();
+        if (setFunc != null)
+            setFunc();
     }
 
-    public void Inc(Dele _SetFunc = null)
+    public void Inc(Dele setFunc = null)
     {
-        Set_Value(Scrollbar.value + 0.05f);
+        Set_Value(scrollbar.value + 0.05f);
 
-        if (_SetFunc != null)
-            _SetFunc();
+        if (setFunc != null)
+            setFunc();
     }
 
     #endregion
@@ -63,9 +64,9 @@ public class TitleFillScrollbarEUIController : ElementUIController
     {
         return new List<Component>
         {
-            DevTool.Get_ComponentTType<TMP_Text>(LeftBtn.transform.GetChild(0).gameObject),
-            DevTool.Get_ComponentTType<TMP_Text>(RightBtn.transform.GetChild(0).gameObject),
-            HeaderTxt
+            DevTool.Get_ComponentTType<TMP_Text>(leftBtn.transform.GetChild(0).gameObject),
+            DevTool.Get_ComponentTType<TMP_Text>(rightBtn.transform.GetChild(0).gameObject),
+            headerTxt
         };
     }
 
@@ -73,11 +74,11 @@ public class TitleFillScrollbarEUIController : ElementUIController
 
     #region Set
 
-    public void Set_Value(float _Value)
+    public void Set_Value(float value)
     {
-        Scrollbar.value = Mathf.Clamp(_Value, 0, 1);
-        ValueTxt.text = Mathf.Round(Scrollbar.value * 100).ToString();
-        FillImg.fillAmount = Scrollbar.value;
+        scrollbar.value = Mathf.Clamp(value, 0, 1);
+        valueTxt.text = Mathf.Round(scrollbar.value * 100).ToString();
+        fillImg.fillAmount = scrollbar.value;
     }
 
     #endregion
@@ -86,7 +87,7 @@ public class TitleFillScrollbarEUIController : ElementUIController
 
     public float Get_Value()
     {
-        return Scrollbar.value;
+        return scrollbar.value;
     }
 
     #endregion

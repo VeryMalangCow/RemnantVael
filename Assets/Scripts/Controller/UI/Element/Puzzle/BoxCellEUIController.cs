@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BoxCellEUIController : OwnBtnEUIController
@@ -10,37 +11,37 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] public Vector2Int ThisPos;
+    [FormerlySerializedAs("ThisPos")][SerializeField] public Vector2Int pos;
 
     [Space(10)]
     [Header("=== GO")]
 
     [Space(5)]
     [Header("-- Main")]
-    [SerializeField] private GameObject BackGO;
-    [SerializeField] private GameObject FrontGO;
+    [FormerlySerializedAs("BackGO")][SerializeField] private GameObject backGo;
+    [FormerlySerializedAs("FrontGO")][SerializeField] private GameObject frontGo;
 
     [Space(5)]
     [Header("-- Dir")]
-    [SerializeField] private GameObject UpLineGO;
-    [SerializeField] private GameObject RightLineGO;
-    [SerializeField] private GameObject DownLineGO;
-    [SerializeField] private GameObject LeftLineGO;
+    [FormerlySerializedAs("UpLineGO")][SerializeField] private GameObject upLineGo;
+    [FormerlySerializedAs("RightLineGO")][SerializeField] private GameObject rightLineGo;
+    [FormerlySerializedAs("DownLineGO")][SerializeField] private GameObject downLineGo;
+    [FormerlySerializedAs("LeftLineGO")][SerializeField] private GameObject leftLineGo;
 
     // Value
-    [HideInInspector] private bool IsTweening = false;
-    [HideInInspector] private bool IsInteractable = true;
-    [HideInInspector] private Dictionary<Vector2Int, GameObject> DirGODict;
+    [HideInInspector] private bool isTweening = false;
+    [HideInInspector] private bool isInteractable = true;
+    [HideInInspector] private Dictionary<Vector2Int, GameObject> dirGoDict;
 
     // Inner
-    [HideInInspector] private List<Image> FrameBackInnerList;
-    [HideInInspector] private List<Image> AllInnerList = new List<Image>();
+    [HideInInspector] private List<Image> frameBackInnerList;
+    [HideInInspector] private List<Image> allInnerList = new List<Image>();
 
     // Owner
-    [HideInInspector] public BoxLineConnectorUIController OwnerPuzzleUIController;
+    [HideInInspector] public BoxLineConnectorUIController ownerPuzzleUIController;
 
     // Comp
-    [HideInInspector] private RectTransform FrontRT;
+    [HideInInspector] private RectTransform frontRt;
 
     #endregion
 
@@ -48,27 +49,27 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     private void Offset_Value()
     {
-        DirGODict = new Dictionary<Vector2Int, GameObject>
+        dirGoDict = new Dictionary<Vector2Int, GameObject>
         {
-            { Vector2Int.up, UpLineGO },
-            { Vector2Int.right, RightLineGO },
-            { Vector2Int.down, DownLineGO },
-            { Vector2Int.left, LeftLineGO }
+            { Vector2Int.up, upLineGo },
+            { Vector2Int.right, rightLineGo },
+            { Vector2Int.down, downLineGo },
+            { Vector2Int.left, leftLineGo }
         };
 
-        FrameBackInnerList = new List<Image>
+        frameBackInnerList = new List<Image>
         {
-            DevTool.Get_ComponentTType<Image>(BackGO.transform.GetChild(0).gameObject),
-            DevTool.Get_ComponentTType<Image>(BackGO.transform.GetChild(1).gameObject)
+            DevTool.Get_ComponentTType<Image>(backGo.transform.GetChild(0).gameObject),
+            DevTool.Get_ComponentTType<Image>(backGo.transform.GetChild(1).gameObject)
         };
 
-        FrontRT = DevTool.Get_ComponentTType(FrontGO, out RectTransform rt) ? rt : null;
+        frontRt = DevTool.Get_ComponentTType(frontGo, out RectTransform rt) ? rt : null;
 
-        AllInnerList.AddRange(FrameBackInnerList);
-        AllInnerList.AddRange(DevTool.Get_ChildList<Image>(UpLineGO.transform));
-        AllInnerList.AddRange(DevTool.Get_ChildList<Image>(RightLineGO.transform));
-        AllInnerList.AddRange(DevTool.Get_ChildList<Image>(DownLineGO.transform));
-        AllInnerList.AddRange(DevTool.Get_ChildList<Image>(LeftLineGO.transform));
+        allInnerList.AddRange(frameBackInnerList);
+        allInnerList.AddRange(DevTool.Get_ChildList<Image>(upLineGo.transform));
+        allInnerList.AddRange(DevTool.Get_ChildList<Image>(rightLineGo.transform));
+        allInnerList.AddRange(DevTool.Get_ChildList<Image>(downLineGo.transform));
+        allInnerList.AddRange(DevTool.Get_ChildList<Image>(leftLineGo.transform));
     }
 
     public override void Offset()
@@ -82,11 +83,11 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     #region Set
 
-    public void Set_Active(bool _OnOff)
+    public void Set_Active(bool onOff)
     {
-        FrontGO.SetActive(_OnOff);
+        frontGo.SetActive(onOff);
 
-        if (_OnOff)
+        if (onOff)
             SetOn_FrameBack();
         else
             SetOff_FrameBack();
@@ -94,24 +95,24 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     private void SetOn_FrameBack()
     {
-        FrameBackInnerList[0].gameObject.SetActive(true);
-        IsInteractable = true;
+        frameBackInnerList[0].gameObject.SetActive(true);
+        isInteractable = true;
     }
 
     private void SetOff_FrameBack()
     {
-        FrameBackInnerList[0].gameObject.SetActive(false);
-        IsInteractable = false;
+        frameBackInnerList[0].gameObject.SetActive(false);
+        isInteractable = false;
     }
 
     public void Set_RandomAngle()
     {
-        FrontRT.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0, 4) * 90f);
+        frontRt.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(0, 4) * 90f);
     }
 
-    public void Set_InnerColor(Color _Clr)
+    public void Set_InnerColor(Color clr)
     {
-        DevTool.Set_Color(_Clr, AllInnerList);
+        DevTool.Set_Color(clr, allInnerList);
     }
 
 
@@ -119,24 +120,24 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     #region Get
 
-    public GameObject Get_CorrectDirGO(Vector2Int _Dir)
+    public GameObject Get_CorrectDirGO(Vector2Int dir)
     {
-        return DirGODict[_Dir];
+        return dirGoDict[dir];
     }
 
     public bool Is_CorrectDir()
     {
-        if (DevTool.Is_InRange(FrontRT.transform.eulerAngles.z, 0f, 10f))
+        if (DevTool.Is_InRange(frontRt.transform.eulerAngles.z, 0f, 10f))
             return true;
 
-        if ((UpLineGO.activeSelf && DownLineGO.activeSelf && !LeftLineGO.activeSelf && !RightLineGO.activeSelf) || 
-            (RightLineGO.activeSelf && LeftLineGO.activeSelf && !UpLineGO.activeSelf && !DownLineGO.activeSelf))
+        if ((upLineGo.activeSelf && downLineGo.activeSelf && !leftLineGo.activeSelf && !rightLineGo.activeSelf) || 
+            (rightLineGo.activeSelf && leftLineGo.activeSelf && !upLineGo.activeSelf && !downLineGo.activeSelf))
         {
-            if (DevTool.Is_InRange(FrontRT.transform.eulerAngles.z, 180f, 10f))
+            if (DevTool.Is_InRange(frontRt.transform.eulerAngles.z, 180f, 10f))
                 return true;
         }
 
-        if (UpLineGO.activeSelf && DownLineGO.activeSelf && LeftLineGO.activeSelf && RightLineGO.activeSelf)
+        if (upLineGo.activeSelf && downLineGo.activeSelf && leftLineGo.activeSelf && rightLineGo.activeSelf)
             return true;
 
         return false;
@@ -146,36 +147,36 @@ public class BoxCellEUIController : OwnBtnEUIController
 
     #region Tween
 
-    public void Play_Roll(float _PlusAngle, float _DurTime)
+    public void Play_Roll(float plusAngle, float durTime)
     {
-        if (IsTweening || !IsInteractable) return;
+        if (isTweening || !isInteractable) return;
 
-        IsTweening = true;
+        isTweening = true;
 
-        float targetAngle = FrontRT.rotation.eulerAngles.z + _PlusAngle;
+        float targetAngle = frontRt.rotation.eulerAngles.z + plusAngle;
 
-        FrontRT.DOLocalRotate(new Vector3(0f, 0f, targetAngle), _DurTime)
+        frontRt.DOLocalRotate(new Vector3(0f, 0f, targetAngle), durTime)
             .OnComplete(() =>
             {
-                FrontRT.rotation = Quaternion.Euler(0f, 0f, targetAngle);
-                IsTweening = false;
+                frontRt.rotation = Quaternion.Euler(0f, 0f, targetAngle);
+                isTweening = false;
 
-                OwnerPuzzleUIController.Check_CorrectLineSet();
+                ownerPuzzleUIController.Check_CorrectLineSet();
             });
 
-        Play_Seq(_DurTime);
+        Play_Seq(durTime);
     }
 
-    public void Play_Seq(float _DurTime)
+    public void Play_Seq(float durTime)
     {
-        DevTool.Set_KillTween(FrameBackInnerList[1]);
+        DevTool.Set_KillTween(frameBackInnerList[1]);
 
         Sequence seq = DOTween.Sequence();
 
-        DevTool.Set_AlphaColor(FrameBackInnerList[1], 0.01f);
+        DevTool.Set_AlphaColor(frameBackInnerList[1], 0.01f);
 
-        seq.Join(FrameBackInnerList[1].DOFade(0.5f, _DurTime / 2));
-        seq.Join(FrameBackInnerList[1].DOFade(0.01f, _DurTime / 2));
+        seq.Join(frameBackInnerList[1].DOFade(0.5f, durTime / 2));
+        seq.Join(frameBackInnerList[1].DOFade(0.01f, durTime / 2));
     }
 
     #endregion
@@ -186,9 +187,9 @@ public class BoxCellEUIController : OwnBtnEUIController
     {
         base.OnPointerEnter(eventData);
 
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
+        if (!isCanSelect || btn == null || !btn.interactable) return;
 
-        if (OwnerPuzzleUIController != null) OwnerPuzzleUIController.Set_BoxCellSelect(this);
+        if (ownerPuzzleUIController != null) ownerPuzzleUIController.Set_BoxCellSelect(this);
     }
 
     #endregion

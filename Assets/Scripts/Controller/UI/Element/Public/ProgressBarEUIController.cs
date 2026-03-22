@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ProgressBarEUIController : ElementUIController
@@ -13,25 +14,25 @@ public class ProgressBarEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Bar")]
-    [SerializeField] public Image AfterImg;
-    [SerializeField] public Image ActualImg;
+    [FormerlySerializedAs("AfterImg")][SerializeField] public Image afterImg;
+    [FormerlySerializedAs("ActualImg")][SerializeField] public Image actualImg;
 
     [Space(10)]
     [Header("=== Liner")]
-    [SerializeField] public RectTransform ActualImgLiner;
+    [FormerlySerializedAs("ActualImgLiner")][SerializeField] public RectTransform actualImgLiner;
 
     [Space(10)]
     [Header("=== Text")]
-    [SerializeField] private TMP_Text Txt;
+    [FormerlySerializedAs("Txt")][SerializeField] private TMP_Text txt;
 
     [Space(10)]
     [Header("=== Extra")]
-    [SerializeField] private RectTransform MiddleRT;
-    [SerializeField] private float PlusSizeMiddleRTX;
-    [SerializeField] private RectTransform RightRT;
-    [SerializeField] private float PlusPosRightRTX;
+    [FormerlySerializedAs("MiddleRT")][SerializeField] private RectTransform middleRT;
+    [FormerlySerializedAs("PlusSizeMiddleRTX")][SerializeField] private float plusSizeMiddleRTX;
+    [FormerlySerializedAs("RightRT")][SerializeField] private RectTransform rightRt;
+    [FormerlySerializedAs("PlusPosRightRTX")][SerializeField] private float plusPosRightRtX;
 
-    [HideInInspector] private RectTransform ThisRT;
+    [HideInInspector] private RectTransform rt;
 
     #endregion
 
@@ -41,7 +42,7 @@ public class ProgressBarEUIController : ElementUIController
     {
         Set_FillImgSmooth(0, 1);
 
-        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
+        rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
     }
 
     #endregion
@@ -50,7 +51,7 @@ public class ProgressBarEUIController : ElementUIController
 
     private void LateUpdate()
     {
-        ActualImgLiner.localPosition = Get_LinerPos();
+        actualImgLiner.localPosition = Get_LinerPos();
     }
 
     #endregion
@@ -59,12 +60,12 @@ public class ProgressBarEUIController : ElementUIController
 
     #region Max
 
-    public void Set_MaxFillRT(float _SizeX, float _DurTime = 0.1f)
+    public void Set_MaxFillRT(float sizeX, float durTime = 0.1f)
     {
-        ThisRT.DOSizeDelta(new Vector2(_SizeX, ThisRT.sizeDelta.y), _DurTime);
+        rt.DOSizeDelta(new Vector2(sizeX, rt.sizeDelta.y), durTime);
 
-        MiddleRT.DOSizeDelta(new Vector2(_SizeX + PlusSizeMiddleRTX, MiddleRT.sizeDelta.y), _DurTime);
-        RightRT.DOAnchorPos(new Vector2(_SizeX + PlusPosRightRTX, RightRT.anchoredPosition.y), _DurTime);
+        middleRT.DOSizeDelta(new Vector2(sizeX + plusSizeMiddleRTX, middleRT.sizeDelta.y), durTime);
+        rightRt.DOAnchorPos(new Vector2(sizeX + plusPosRightRtX, rightRt.anchoredPosition.y), durTime);
     }
 
     #endregion
@@ -72,48 +73,48 @@ public class ProgressBarEUIController : ElementUIController
     #region Current
 
     // 부드럽게 변동
-    public void Set_FillImgSmooth(float _CurrentValue, float _MaxValue)
+    public void Set_FillImgSmooth(float currentValue, float maxValue)
     {
 
-        DevTool.Set_KillTween(ActualImg.fillAmount);
+        DevTool.Set_KillTween(actualImg.fillAmount);
 
-        ActualImg.DOFillAmount(_CurrentValue / _MaxValue, 0.1f);
+        actualImg.DOFillAmount(currentValue / maxValue, 0.1f);
 
         if (isActiveAndEnabled)
             StartCoroutine(Set_FillImgSmooth_AfterImg_Cor());
         else
-            AfterImg.fillAmount = 0;
+            afterImg.fillAmount = 0;
 
-        if (Txt != null)
-        { Txt.text = (int)_CurrentValue + "<size=70%>/" + (int)_MaxValue + "</size>"; }
+        if (txt != null)
+        { txt.text = (int)currentValue + "<size=70%>/" + (int)maxValue + "</size>"; }
     }
 
     // After 이미지
-    private IEnumerator Set_FillImgSmooth_AfterImg_Cor(float _DelayTime = 0.5f, float _DurTime = 0.2f)
+    private IEnumerator Set_FillImgSmooth_AfterImg_Cor(float delayTime = 0.5f, float durTime = 0.2f)
     {
-        DOTween.Kill(AfterImg.fillAmount);
+        DOTween.Kill(afterImg.fillAmount);
 
-        yield return new WaitForSeconds(_DelayTime);
+        yield return new WaitForSeconds(delayTime);
 
-        if (ActualImg.fillAmount >= AfterImg.fillAmount)
+        if (actualImg.fillAmount >= afterImg.fillAmount)
         {
-            AfterImg.fillAmount = ActualImg.fillAmount;
+            afterImg.fillAmount = actualImg.fillAmount;
         }
         else
         {
-            AfterImg.DOFillAmount(ActualImg.fillAmount, _DurTime);
+            afterImg.DOFillAmount(actualImg.fillAmount, durTime);
         }
     }
 
 
     // 최대로 채우기
-    public void Set_FillFullImgSmooth(float _DurTime)
+    public void Set_FillFullImgSmooth(float durTime)
     {
-        DevTool.Set_KillTween(ActualImg.fillAmount);
+        DevTool.Set_KillTween(actualImg.fillAmount);
 
-        ActualImg.DOFillAmount(1f, _DurTime)
+        actualImg.DOFillAmount(1f, durTime)
             .SetEase(Ease.Linear)
-            .OnComplete(() => { AfterImg.fillAmount = 1f; });
+            .OnComplete(() => { afterImg.fillAmount = 1f; });
     }
 
     #endregion
@@ -124,9 +125,9 @@ public class ProgressBarEUIController : ElementUIController
 
     public void Set_NoNum()
     {
-        if (Txt == null) return;
+        if (txt == null) return;
 
-        Txt.text = "";
+        txt.text = "";
     }
 
     #endregion
@@ -135,9 +136,9 @@ public class ProgressBarEUIController : ElementUIController
 
     private Vector2 Get_LinerPos()
     {
-        if (ThisRT == null) return Vector2.zero;
+        if (rt == null) return Vector2.zero;
 
-        return new Vector2(ThisRT.sizeDelta.x * ActualImg.fillAmount, 0f);
+        return new Vector2(rt.sizeDelta.x * actualImg.fillAmount, 0f);
     }
 
     #endregion

@@ -484,11 +484,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1814a157665997479930b3995623fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelRT: {fileID: 1035116205380479849}
-  ThisTabScrollbar: {fileID: 3304173387595426040}
-  ActualMovableRT: {fileID: 3113516829583566096}
-  VisibleY: 725
-  ThisTabBtn: {fileID: 0}
+  panelRt: {fileID: 1035116205380479849}
+  tabScrollbar: {fileID: 3304173387595426040}
+  actualMovableRt: {fileID: 3113516829583566096}
+  visibleY: 725
+  tabBtn: {fileID: 0}
 --- !u!1 &8271031497769550424
 GameObject:
   m_ObjectHideFlags: 0

@@ -203,16 +203,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc2a3bca71d5c240b5448a5a913af6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
-  RollImgParentRT: {fileID: 512683922110866375}
-  ThisNSCType: 2
-  LockedRT: {fileID: 968239383482749551}
-  AnswerIndex: 0
-  OwnerNSCPanelEUIController: {fileID: 0}
-  OwnerNSCUIController: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
+  rollImgParentRt: {fileID: 512683922110866375}
+  nscType: 2
+  lockedRt: {fileID: 968239383482749551}
+  answerIndex: 0
+  ownerNscPanelEuiController: {fileID: 0}
+  ownerNscUIController: {fileID: 0}
 --- !u!222 &6294511418296649338
 CanvasRenderer:
   m_ObjectHideFlags: 0

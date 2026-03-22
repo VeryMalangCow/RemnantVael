@@ -211,14 +211,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16289558bb2ad764f9c6ae9319304b6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AfterImg: {fileID: 8346029927786009931}
-  ActualImg: {fileID: 1934485254330562910}
-  ActualImgLiner: {fileID: 2630946349537851620}
-  Txt: {fileID: 0}
-  MiddleRT: {fileID: 0}
-  PlusSizeMiddleRTX: 0
-  RightRT: {fileID: 0}
-  PlusPosRightRTX: 0
+  afterImg: {fileID: 8346029927786009931}
+  actualImg: {fileID: 1934485254330562910}
+  actualImgLiner: {fileID: 2630946349537851620}
+  txt: {fileID: 0}
+  middleRT: {fileID: 0}
+  plusSizeMiddleRTX: 0
+  rightRt: {fileID: 0}
+  plusPosRightRtX: 0
 --- !u!1 &2579032273585374293
 GameObject:
   m_ObjectHideFlags: 0

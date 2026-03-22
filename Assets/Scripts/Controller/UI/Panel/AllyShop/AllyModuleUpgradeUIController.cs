@@ -160,21 +160,21 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         PickedPanelSlotEUI.ownerUIController = this;
 
         PickedPanelSlotEUI.item.Offset();
-        PickedPanelSlotEUI.item.OwnerUIController = this;
+        PickedPanelSlotEUI.item.ownerUIController = this;
 
         for (int i = 0; i < PickedPanelSynergyEUIList.Count; i++)
         {
-            PickedPanelSynergyEUIList[i].OwnerUIController = this;
+            PickedPanelSynergyEUIList[i].ownerUIController = this;
             PickedPanelSynergyEUIList[i].Offset();
         }
 
         ModuleDetailExtraRTOpen = ModuleDetailExtraRT.sizeDelta;
 
         // Toggle
-        ToggleBtn.OwnerUIController = this;
+        ToggleBtn.ownerUIController = this;
         ToggleBtn.Offset();
 
-        NoneSyneToggleBtn.OwnerUIController = this;
+        NoneSyneToggleBtn.ownerUIController = this;
         NoneSyneToggleBtn.Offset();
 
         // Player Sync
@@ -183,14 +183,14 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         {
             if (PlayerSynergySlotParentTF.GetChild(i).TryGetComponent(out SynergySlotEUIController ssEui))
             {
-                ssEui.OwnerUIController = this;
+                ssEui.ownerUIController = this;
                 ssEui.Offset();
                 PlayerSyncSlotEUIList.Add(ssEui);
             }
         }
 
         // Buy
-        BuyBtnEUI.OwnerUIController = this;
+        BuyBtnEUI.ownerUIController = this;
         BuyBtnEUI.Offset();
 
         NoneSyncItemEUIList = new List<AllyNoneSynergySlotEUIController>();
@@ -199,7 +199,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         // None Sync
         NoneSyncCanBuyTxt.text = ResourceManager.instance.Get_StaticWord(115);
-        NoneSyneBuyBtn.OwnerUIController = this;
+        NoneSyneBuyBtn.ownerUIController = this;
         NoneSyneBuyBtn.Offset();
     }
 
@@ -558,7 +558,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
             {
                 AllyNoneSynergySlotEUIController genEUI = DevTool.Get_ComponentTType<AllyNoneSynergySlotEUIController>(
                     Instantiate(NoneSyncItemPrefab, NoneSyncItemParentTF));
-                genEUI.OwnerUIController = this;
+                genEUI.ownerUIController = this;
                 genEUI.Offset();
 
                 NoneSyncItemEUIList.Add(genEUI);
@@ -588,14 +588,14 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         {
             int id = pair.Key;
             NoneSyncItemEUIList[index].gameObject.SetActive(true);
-            NoneSyncItemEUIList[index].ThisRT.anchoredPosition = 
+            NoneSyncItemEUIList[index].rt.anchoredPosition = 
                 NoneSyncItemOffset + 
                 new Vector2(
                     (index % NoneSyncRowAmount) * NoneSyncItemInterval, 
                     -((index / NoneSyncRowAmount) * NoneSyncItemInterval));
             NoneSyncItemEUIList[index].Set_SynergySlot(id);
             UsingNoneSyncItemEUIList.Add(NoneSyncItemEUIList[index]);
-            lastY = NoneSyncItemEUIList[index].ThisRT.anchoredPosition.y;
+            lastY = NoneSyncItemEUIList[index].rt.anchoredPosition.y;
             index++;
         }
 
@@ -609,7 +609,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     private void Set_BuyBtn()
     {
         bool can = Can_Buy(out int goods);
-        BuyBtnEUI.ThisCG.alpha = can ? 1f : 0.5f;
+        BuyBtnEUI.cg.alpha = can ? 1f : 0.5f;
         CanBuyArrowGO.gameObject.SetActive(can);
 
         DevTool.Set_KillTween(ModuleDetailExtraRT);
@@ -978,7 +978,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         ModuleDetailTxt.text = ResourceManager.instance.Get_StaticWord(111);
 
         // Buy
-        BuyBtnEUI.ThisTxt.text = ResourceManager.instance.Get_StaticWord(47) + " & " + ResourceManager.instance.Get_StaticWord(105);
+        BuyBtnEUI.txt.text = ResourceManager.instance.Get_StaticWord(47) + " & " + ResourceManager.instance.Get_StaticWord(105);
 
         // Player Sync
         PlayerSyncNameTxt.text = $"[ {ResourceManager.instance.Get_StaticWord(113)} {ResourceManager.instance.Get_StaticWord(50)} ]";

@@ -789,10 +789,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c47ef53805ab2468d28a7433f5207c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelRT: {fileID: 3058345951440075877}
-  ThisTabScrollbar: {fileID: 6410519524493926341}
-  ActualMovableRT: {fileID: 3203272910190733272}
-  VisibleY: 1100
+  panelRt: {fileID: 3058345951440075877}
+  tabScrollbar: {fileID: 6410519524493926341}
+  actualMovableRt: {fileID: 3203272910190733272}
+  visibleY: 1100
 --- !u!1 &634346706359434216
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,10 +1004,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!114 &3634759893409000866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1976,10 +1976,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!114 &8308801524118020809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2113,10 +2113,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c47ef53805ab2468d28a7433f5207c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelRT: {fileID: 5235321351999082385}
-  ThisTabScrollbar: {fileID: 2549545974865379188}
-  ActualMovableRT: {fileID: 6334486941033194278}
-  VisibleY: 1100
+  panelRt: {fileID: 5235321351999082385}
+  tabScrollbar: {fileID: 2549545974865379188}
+  actualMovableRt: {fileID: 6334486941033194278}
+  visibleY: 1100
 --- !u!1 &1503189202403238792
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,10 +2169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c47ef53805ab2468d28a7433f5207c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelRT: {fileID: 7264680809042666812}
-  ThisTabScrollbar: {fileID: 7756437023033493595}
-  ActualMovableRT: {fileID: 4241142121759453832}
-  VisibleY: 1100
+  panelRt: {fileID: 7264680809042666812}
+  tabScrollbar: {fileID: 7756437023033493595}
+  actualMovableRt: {fileID: 4241142121759453832}
+  visibleY: 1100
 --- !u!1 &1711757301416988270
 GameObject:
   m_ObjectHideFlags: 0
@@ -5030,10 +5030,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!114 &8043556908327189608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5260,10 +5260,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!114 &9156487525475878045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6473,10 +6473,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!114 &6989366807614373833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6685,10 +6685,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c47ef53805ab2468d28a7433f5207c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisPanelRT: {fileID: 5913577733076669257}
-  ThisTabScrollbar: {fileID: 8798353297457512025}
-  ActualMovableRT: {fileID: 3571770971551358691}
-  VisibleY: 1100
+  panelRt: {fileID: 5913577733076669257}
+  tabScrollbar: {fileID: 8798353297457512025}
+  actualMovableRt: {fileID: 3571770971551358691}
+  visibleY: 1100
 --- !u!1 &5581385221325187050
 GameObject:
   m_ObjectHideFlags: 0
@@ -7210,10 +7210,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!114 &7586547989066725181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7647,10 +7647,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!114 &840463346415372692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8670,10 +8670,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!114 &3638800926952841426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8938,10 +8938,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!114 &5490479925924499360
 MonoBehaviour:
   m_ObjectHideFlags: 0

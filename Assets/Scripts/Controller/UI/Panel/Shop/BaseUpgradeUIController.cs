@@ -179,7 +179,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
             MainColorCompList.Add(_BUShop.upgradeEUI.SkillNameTxt);
             MainColorCompList.Add(_BUShop.upgradeEUI.CostImg.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
             MainColorCompList.Add(_BUShop.upgradeEUI.DescTxt);
-            MainColorCompList.Add(_BUShop.upgradeEUI.BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
+            MainColorCompList.Add(_BUShop.upgradeEUI.BuyBtn.btn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
             SubColorCompList.Add(_BUShop.upgradeEUI.SkillLvTxt);
             SubColorCompList.AddRange(_BUShop.upgradeEUI.ThisImgTxtAmountEUI.amountImgs);
@@ -264,7 +264,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         for (int i = 0; i < AllBUData_Float.Count; i++)
         {
             if (AllBUData_Float[i].upgradeEUI.BuyBtn == CurrentBtn &&
-                CurrentBtn.ThisBtn.interactable)
+                CurrentBtn.btn.interactable)
             {
                 AllBUData_Float[i].Try_Buy();
                 return true;
@@ -279,7 +279,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
         for (int i = 0; i < AllBUData_Int.Count; i++)
         {
             if (AllBUData_Int[i].upgradeEUI.BuyBtn == CurrentBtn &&
-                CurrentBtn.ThisBtn.interactable)
+                CurrentBtn.btn.interactable)
             {
                 AllBUData_Int[i].Try_Buy();
                 return true;
@@ -296,7 +296,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
     {
         for (int i = 0; i < ThisPanelTabList.Count; i++)
         {
-            if (ThisPanelTabList[i].ThisTabBtn == CurrentBtn)
+            if (ThisPanelTabList[i].tabBtn == CurrentBtn)
             {
                 Change_ThisPanel(i);
                 return true;

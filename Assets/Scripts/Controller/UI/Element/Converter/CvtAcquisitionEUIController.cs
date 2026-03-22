@@ -57,13 +57,13 @@ public class CvtAcquisitionEUIController : ElementUIController
 
     public void Offset_Owner(SinglePanelUIController ownerUI)
     {
-        convertBtn.OwnerUIController = ownerUI;
-        maxBtn.OwnerUIController = ownerUI;
-        more10Btn.OwnerUIController = ownerUI;
-        more1Btn.OwnerUIController = ownerUI;
-        less1Btn.OwnerUIController = ownerUI;
-        less10Btn.OwnerUIController = ownerUI;
-        minBtn.OwnerUIController = ownerUI;
+        convertBtn.ownerUIController = ownerUI;
+        maxBtn.ownerUIController = ownerUI;
+        more10Btn.ownerUIController = ownerUI;
+        more1Btn.ownerUIController = ownerUI;
+        less1Btn.ownerUIController = ownerUI;
+        less10Btn.ownerUIController = ownerUI;
+        minBtn.ownerUIController = ownerUI;
     }
 
     #endregion

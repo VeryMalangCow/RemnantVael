@@ -177,7 +177,7 @@ public class PlayerHUDController : UIController
     [HideInInspector] private bool IsActingInteractUI = false;
 
     // Ally
-    [HideInInspector] private List<AllyPresenceEUIController> AllAllyPresence = new List<AllyPresenceEUIController>();
+    [HideInInspector] private List<AllyPresenceEUIController> allAllyPresence = new List<AllyPresenceEUIController>();
     [HideInInspector] private float DefaultAllyStateRectX;
 
     // Hitted
@@ -211,11 +211,11 @@ public class PlayerHUDController : UIController
 
     private void Offset_Basic()
     {
-        for (int i = 0; i < AllAllyPresence.Count; i++)
-            AllAllyPresence[i].Offset();
-        
-        AllAllyPresence = new List<AllyPresenceEUIController> { ST_AllyPresence, UT_AllyPresence, NT_AllyPresence };
+        allAllyPresence = new List<AllyPresenceEUIController> { ST_AllyPresence, UT_AllyPresence, NT_AllyPresence };
 
+        for (int i = 0; i < allAllyPresence.Count; i++)
+            allAllyPresence[i].Offset();
+        
         EP.Offset();
         CurrentEmptyBC.Offset();
         EmptyBC.Offset();
@@ -900,9 +900,9 @@ public class PlayerHUDController : UIController
         List<Component> result = new List<Component>
         {
             // EP 게이지
-            DevTool.Get_ComponentTType<Image>(EP.AfterImg.gameObject.transform.GetChild(0).gameObject),
-            DevTool.Get_ComponentTType<Image>(EP.ActualImg.gameObject.transform.GetChild(0).gameObject),
-            DevTool.Get_ComponentTType<Image>(EP.ActualImgLiner.gameObject),
+            DevTool.Get_ComponentTType<Image>(EP.afterImg.gameObject.transform.GetChild(0).gameObject),
+            DevTool.Get_ComponentTType<Image>(EP.actualImg.gameObject.transform.GetChild(0).gameObject),
+            DevTool.Get_ComponentTType<Image>(EP.actualImgLiner.gameObject),
 
             // 부스트
             BoostLv,
@@ -934,8 +934,10 @@ public class PlayerHUDController : UIController
         }
 
         // Ally
-        for (int i = 0; i < AllAllyPresence.Count; i++)
-            MainColorCompList.AddRange(DevTool.Get_ChildList<Image>(AllAllyPresence[i].capMiddleRt.transform));
+        for (int i = 0; i < allAllyPresence.Count; i++)
+        {
+            MainColorCompList.AddRange(DevTool.Get_ChildList<Image>(allAllyPresence[i].capMiddleRt.transform));
+        }
         
         return result;
     }
@@ -965,8 +967,8 @@ public class PlayerHUDController : UIController
             SubColorCompList.Add(SkillList[i].skillInnerImg);
 
         // Ally
-        for (int i = 0; i < AllAllyPresence.Count; i++)
-            SubColorCompList.Add(AllAllyPresence[i].innerImg);
+        for (int i = 0; i < allAllyPresence.Count; i++)
+            SubColorCompList.Add(allAllyPresence[i].innerImg);
         
         return result;
     }
@@ -1116,8 +1118,8 @@ public class PlayerHUDController : UIController
         for (int i = 17; i <= 18; i++)
             SkillStatesStringList.Add(ResourceManager.instance.Get_StaticWord(i));
 
-        for (int i = 0; i < AllAllyPresence.Count; i++)
-            AllAllyPresence[i].presenceLangTxt.text = $"{ResourceManager.instance.Get_StaticWord(i + 61)}<size=85%> {ResourceManager.instance.Get_StaticWord(70)}</size>";
+        for (int i = 0; i < allAllyPresence.Count; i++)
+            allAllyPresence[i].presenceLangTxt.text = $"{ResourceManager.instance.Get_StaticWord(i + 61)}<size=85%> {ResourceManager.instance.Get_StaticWord(70)}</size>";
 
         Set_InteractUI();
         Set_StageDescription();

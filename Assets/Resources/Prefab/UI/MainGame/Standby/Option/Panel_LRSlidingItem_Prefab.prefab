@@ -53,10 +53,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c323cbbffd3470940ae97a6cffccd223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeaderTxt: {fileID: 2918121079148147385}
-  MainItemParentTF: {fileID: 9131937396779166917}
-  LeftBtn: {fileID: 5812159758444352990}
-  RightBtn: {fileID: 8064351276618281180}
+  headerTxt: {fileID: 2918121079148147385}
+  mainItemParentTf: {fileID: 9131937396779166917}
+  leftBtn: {fileID: 5812159758444352990}
+  rightBtn: {fileID: 8064351276618281180}
 --- !u!1 &314172075977762009
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,10 +191,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!1 &746959123036432016
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,10 +752,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e101495986c1fe148a5599299e8708c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCanSelect: 1
-  ThisRT: {fileID: 0}
-  OwnerUIController: {fileID: 0}
-  ThisBtn: {fileID: 0}
+  isCanSelect: 1
+  rt: {fileID: 0}
+  ownerUIController: {fileID: 0}
+  btn: {fileID: 0}
 --- !u!1 &2701212090576277776
 GameObject:
   m_ObjectHideFlags: 0

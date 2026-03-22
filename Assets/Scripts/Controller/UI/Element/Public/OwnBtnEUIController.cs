@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IPointerExitHandler
@@ -8,15 +9,15 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
 
     [Space(10)]
     [Header("=== Input")]
-    [SerializeField] public bool IsCanSelect = true;
+    [FormerlySerializedAs("IsCanSelect")][SerializeField] public bool isCanSelect = true;
 
     [Space(10)]
     [Header("=== Size")]
-    [HideInInspector] public RectTransform ThisRT;
+    [HideInInspector] public RectTransform rt;
 
     // Owner
-    [HideInInspector] public SinglePanelUIController OwnerUIController;
-    [HideInInspector] public Button ThisBtn;
+    [HideInInspector] public SinglePanelUIController ownerUIController;
+    [HideInInspector] public Button btn;
 
     #endregion
 
@@ -24,8 +25,8 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
 
     public override void Offset()
     {
-        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
-        ThisBtn = DevTool.Get_ComponentTType(gameObject, out Button btn) ? btn : null;
+        rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
+        btn = DevTool.Get_ComponentTType(gameObject, out Button _btn) ? _btn : null;
     }
 
     #endregion
@@ -34,16 +35,16 @@ public class OwnBtnEUIController : ElementUIController, IPointerEnterHandler, IP
 
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return; 
+        if (!isCanSelect || btn == null || !btn.interactable) return; 
 
-        if (OwnerUIController != null) OwnerUIController.CurrentBtn = this;
+        if (ownerUIController != null) ownerUIController.CurrentBtn = this;
     }
 
     public virtual void OnPointerExit(PointerEventData eventData)
     {
-        if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return; 
+        if (!isCanSelect || btn == null || !btn.interactable) return; 
 
-        if (OwnerUIController != null) OwnerUIController.CurrentBtn = null;
+        if (ownerUIController != null) ownerUIController.CurrentBtn = null;
     }
 
 
