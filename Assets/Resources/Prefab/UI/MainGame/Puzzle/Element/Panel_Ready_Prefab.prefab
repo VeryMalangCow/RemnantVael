@@ -345,15 +345,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73dd3c1fc855de24499ebf6e2fdacdfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReadyCG: {fileID: 5049775974077938014}
-  ReadyAnnoTxt: {fileID: 3624723911882299826}
-  ReadyTimeLimitTxt: {fileID: 3314376935008940004}
-  ReadyKeyAnnoTxt: {fileID: 1528357737627344446}
-  ReadyInputAnnoImg: {fileID: 1598492795838849496}
-  RuleTxt: {fileID: 724803092023328544}
-  RuleDescTxt: {fileID: 7203807021319794705}
-  WarningTxt: {fileID: 2484202425334066830}
-  WarningDescTxt: {fileID: 247624027688514969}
+  readyCg: {fileID: 5049775974077938014}
+  readyAnnoTxt: {fileID: 3624723911882299826}
+  readyTimeLimitTxt: {fileID: 3314376935008940004}
+  readyKeyAnnoTxt: {fileID: 1528357737627344446}
+  readyInputAnnoImg: {fileID: 1598492795838849496}
+  ruleTxt: {fileID: 724803092023328544}
+  ruleDescTxt: {fileID: 7203807021319794705}
+  warningTxt: {fileID: 2484202425334066830}
+  warningDescTxt: {fileID: 247624027688514969}
 --- !u!225 &5049775974077938014
 CanvasGroup:
   m_ObjectHideFlags: 0

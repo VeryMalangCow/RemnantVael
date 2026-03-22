@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class PuzzleUIController : SinglePanelUIController
 {
@@ -13,43 +14,43 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] protected float BaseCountdown = 15f;
+    [FormerlySerializedAs("BaseCountdown")][SerializeField] protected float baseCountdown = 15f;
 
     [Space(10)]
     [Header("=== Ready Panel")]
-    [SerializeField] protected PuzzleReadyPanelEUIController ReadyPanelEUI;
+    [FormerlySerializedAs("ReadyPanelEUI")][SerializeField] protected PuzzleReadyPanelEUIController readyPanelEui;
 
     [Space(10)]
     [Header("=== Left")]
-    [SerializeField] private PuzzleTimePanelEUIController TimePanelEUI;
+    [FormerlySerializedAs("TimePanelEUI")][SerializeField] private PuzzleTimePanelEUIController timePanelEui;
 
     [Space(10)]
     [Header("=== Right")]
-    [SerializeField] private PuzzleUnlockPanelEUIController UnlockPanelEUI;
+    [FormerlySerializedAs("UnlockPanelEUI")][SerializeField] private PuzzleUnlockPanelEUIController unlockPanelEui;
 
     #endregion
 
     #region - Hide
 
     // Canvas Group
-    [HideInInspector] protected CanvasGroup ThisCG;
+    [HideInInspector] protected CanvasGroup cg;
 
 
 
     // Static Data
-    [HideInInspector] private static string SecondString = "<size=50%>s</size>";
+    [HideInInspector] private static string secondString = "<size=50%>s</size>";
 
     // Success
-    [HideInInspector] protected bool CanSuccess = false;
-    [HideInInspector] protected bool IsInteractable = false;
-    [HideInInspector] private bool IsReady = false;
-    [HideInInspector] private bool IsStart = false;
+    [HideInInspector] protected bool canSuccess = false;
+    [HideInInspector] protected bool isInteractable = false;
+    [HideInInspector] private bool isReady = false;
+    [HideInInspector] private bool isStart = false;
 
     // Value
-    [HideInInspector] protected float CurrentCountdown = 0;
+    [HideInInspector] protected float currentCountdown = 0;
 
     // Prison
-    [HideInInspector] private PrisonController UsingPrison = null;
+    [HideInInspector] private PrisonController usingPrison = null;
 
     #endregion
 
@@ -57,9 +58,9 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     #region Offset
 
-    public virtual void Offset_FirstValue(PrisonController _Prison)
+    public virtual void Offset_FirstValue(PrisonController prison)
     {
-        UsingPrison = _Prison;
+        usingPrison = prison;
     }
 
     public override void Offset()
@@ -67,16 +68,16 @@ public abstract class PuzzleUIController : SinglePanelUIController
         base.Offset();
         
         // CG
-        ThisCG = DevTool.Get_ComponentTType(gameObject, out CanvasGroup cg) ? cg : null;
+        cg = DevTool.Get_ComponentTType(gameObject, out CanvasGroup _cg) ? _cg : null;
 
         // Left
-        TimePanelEUI.Offset();
+        timePanelEui.Offset();
 
         // Right
-        UnlockPanelEUI.Offset();
+        unlockPanelEui.Offset();
 
         // Ready
-        ReadyPanelEUI.Offset();
+        readyPanelEui.Offset();
 
     }
 
@@ -97,12 +98,12 @@ public abstract class PuzzleUIController : SinglePanelUIController
     {
         base.SetOn_ThisPanel();
 
-        ThisCG.alpha = 1f;
+        cg.alpha = 1f;
 
         // Value
-        IsReady = true;
-        IsStart = false;
-        IsInteractable = true;
+        isReady = true;
+        isStart = false;
+        isInteractable = true;
 
         Set_AllStart();
     }
@@ -114,13 +115,13 @@ public abstract class PuzzleUIController : SinglePanelUIController
     protected virtual void Set_AllStart()
     {
         // Left Txt
-        TimePanelEUI.Set_AllStart(CurrentCountdown, SecondString);
+        timePanelEui.Set_AllStart(currentCountdown, secondString);
 
         // Right Txt
-        UnlockPanelEUI.Set_AllStart(CanSuccess);
+        unlockPanelEui.Set_AllStart(canSuccess);
 
         // Ready
-        ReadyPanelEUI.Set_AllStart(CurrentCountdown, SecondString);
+        readyPanelEui.Set_AllStart(currentCountdown, secondString);
 
         // Sound
         SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
@@ -129,7 +130,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
     protected virtual void Set_AllComplete()
     {
         // Value
-        IsInteractable = false;
+        isInteractable = false;
     }
 
     protected virtual void Set_AllFailure()
@@ -142,10 +143,10 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     #region Set (Panelty)
 
-    private void Set_Panelty(float _PaneltyTime)
+    private void Set_Panelty(float paneltyTime)
     {
-        CurrentCountdown += _PaneltyTime;
-        TimePanelEUI.Set_Panelty(_PaneltyTime, SecondString);
+        currentCountdown += paneltyTime;
+        timePanelEui.Set_Panelty(paneltyTime, secondString);
         SoundManager.instance.Play_2D_SFX_Build("Damaged");
     }
 
@@ -156,26 +157,26 @@ public abstract class PuzzleUIController : SinglePanelUIController
     public void Check_CorrectLineSet()
     {
         bool jugeNow = Can_Success();
-        if (jugeNow == CanSuccess) return;
-        CanSuccess = jugeNow;
+        if (jugeNow == canSuccess) return;
+        canSuccess = jugeNow;
 
-        UnlockPanelEUI.Play_LineSetChange(CanSuccess);
+        unlockPanelEui.Play_LineSetChange(canSuccess);
     }
 
     #endregion
 
     #region Ready
 
-    private void Play_ReadyToStart(float _DurTime)
+    private void Play_ReadyToStart(float durTime)
     {
-        IsReady = false;
+        isReady = false;
         SoundManager.instance.Play_2D_SFX_UI("Click_00");
 
-        ReadyPanelEUI.Play_ReadyToStart(_DurTime)
+        readyPanelEui.Play_ReadyToStart(durTime)
             .OnComplete(() =>
             {
-                ReadyPanelEUI.ReadyCG.gameObject.SetActive(false);
-                IsStart = true;
+                readyPanelEui.readyCg.gameObject.SetActive(false);
+                isStart = true;
             });
     }
 
@@ -189,21 +190,21 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     #region Caculate
 
-    private void Caculate_CountDown(float _DeltaTime)
+    private void Caculate_CountDown(float deltaTime)
     {
-        if (!IsInteractable || !IsStart) return;
+        if (!isInteractable || !isStart) return;
 
-        if (CurrentCountdown > 0f)
+        if (currentCountdown > 0f)
         {
-            CurrentCountdown -= _DeltaTime;
-            TimePanelEUI.Set_CountdownTxt(CurrentCountdown, SecondString);
+            currentCountdown -= deltaTime;
+            timePanelEui.Set_CountdownTxt(currentCountdown, secondString);
         }
         else
         {
             StartCoroutine(Play_Unlock_Failure_Cor());
-            IsInteractable = false;
-            CurrentCountdown = 0f;
-            TimePanelEUI.Set_CountdownTxt(CurrentCountdown, SecondString);
+            isInteractable = false;
+            currentCountdown = 0f;
+            timePanelEui.Set_CountdownTxt(currentCountdown, secondString);
         }
     }
     #endregion
@@ -212,20 +213,20 @@ public abstract class PuzzleUIController : SinglePanelUIController
 
     protected bool Is_Interact_TryUnlock()
     {
-        if (IsReady)
+        if (isReady)
         {
             Play_ReadyToStart(2f);
 
             return true;
         }
 
-        if (!IsInteractable || !IsStart) return false;
+        if (!isInteractable || !isStart) return false;
 
-        if (CanSuccess)
+        if (canSuccess)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
-            TimePanelEUI.Play_SuccessAnno(1f, 1f);
-            DevTool.Set_Color(ResourceManager.instance.unlockedClr, TimePanelEUI.CountdownTxt);
+            timePanelEui.Play_SuccessAnno(1f, 1f);
+            DevTool.Set_Color(ResourceManager.instance.unlockedClr, timePanelEui.countdownTxt);
             StartCoroutine(Play_Unlock_Complete_Cor());
 
             return true;
@@ -233,7 +234,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
         else
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_00");
-            TimePanelEUI.Play_FailureAnno(1f, 1f);
+            timePanelEui.Play_FailureAnno(1f, 1f);
             Set_Panelty(-0.5f);
 
             return false;
@@ -244,12 +245,12 @@ public abstract class PuzzleUIController : SinglePanelUIController
     {
         Set_AllComplete();
 
-        ThisCG.DOFade(0f, 1.5f).SetEase(Ease.Linear);
+        cg.DOFade(0f, 1.5f).SetEase(Ease.Linear);
 
         yield return new WaitForSeconds(1f);
 
-        UsingPrison.Set_Unlock();
-        UsingPrison = null;
+        usingPrison.Set_Unlock();
+        usingPrison = null;
 
         yield return new WaitForSeconds(1f);
 
@@ -261,7 +262,7 @@ public abstract class PuzzleUIController : SinglePanelUIController
     {
         Set_AllFailure();
 
-        ThisCG.DOFade(0f, 1.5f).SetEase(Ease.Linear);
+        cg.DOFade(0f, 1.5f).SetEase(Ease.Linear);
 
         yield return new WaitForSeconds(1f);
 

@@ -1,8 +1,7 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PuzzleTimePanelEUIController : ElementUIController
 {
@@ -15,20 +14,20 @@ public class PuzzleTimePanelEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private TMP_Text UnlockAnnoTxt;
-    [SerializeField] private TMP_Text SuccessAnnoTxt;
-    [SerializeField] private TMP_Text FailureAnnoTxt;
-    [SerializeField] public TMP_Text CountdownTxt;
-    [SerializeField] public TMP_Text CountdownPaneltyTxt;
+    [FormerlySerializedAs("UnlockAnnoTxt")][SerializeField] private TMP_Text unlockAnnoTxt;
+    [FormerlySerializedAs("SuccessAnnoTxt")][SerializeField] private TMP_Text successAnnoTxt;
+    [FormerlySerializedAs("FailureAnnoTxt")][SerializeField] private TMP_Text failureAnnoTxt;
+    [FormerlySerializedAs("CountdownTxt")][SerializeField] public TMP_Text countdownTxt;
+    [FormerlySerializedAs("CountdownPaneltyTxt")][SerializeField] public TMP_Text countdownPaneltyTxt;
 
     #endregion
 
     #region - Hide
 
     // RT
-    [HideInInspector] private RectTransform SuccessAnnoRT;
-    [HideInInspector] private RectTransform FailureAnnoRT;
-    [HideInInspector] private RectTransform CountdownPaneltyRT;
+    [HideInInspector] private RectTransform successAnnoRt;
+    [HideInInspector] private RectTransform failureAnnoRt;
+    [HideInInspector] private RectTransform countdownPaneltyRt;
 
     #endregion
 
@@ -38,87 +37,87 @@ public class PuzzleTimePanelEUIController : ElementUIController
 
     public override void Offset()
     {
-        FailureAnnoRT = DevTool.Get_ComponentTType(FailureAnnoTxt.gameObject, out RectTransform fRt) ? fRt : null;
-        SuccessAnnoRT = DevTool.Get_ComponentTType(SuccessAnnoTxt.gameObject, out RectTransform sRt) ? sRt : null;
+        failureAnnoRt = DevTool.Get_ComponentTType(failureAnnoTxt.gameObject, out RectTransform fRt) ? fRt : null;
+        successAnnoRt = DevTool.Get_ComponentTType(successAnnoTxt.gameObject, out RectTransform sRt) ? sRt : null;
 
-        CountdownPaneltyRT = DevTool.Get_ComponentTType(CountdownPaneltyTxt.gameObject, out RectTransform paneltyTimeRt) ? paneltyTimeRt : null;
+        countdownPaneltyRt = DevTool.Get_ComponentTType(countdownPaneltyTxt.gameObject, out RectTransform paneltyTimeRt) ? paneltyTimeRt : null;
     }
 
     #endregion
 
     #region Set
 
-    public void Set_AllStart(float _CurrentCountdown, string _SecondString)
+    public void Set_AllStart(float currentCountdown, string secondString)
     {
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, FailureAnnoTxt);
-        DevTool.Set_Color(ResourceManager.instance.unlockedClr, SuccessAnnoTxt);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, failureAnnoTxt);
+        DevTool.Set_Color(ResourceManager.instance.unlockedClr, successAnnoTxt);
 
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, CountdownPaneltyTxt);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, countdownPaneltyTxt);
 
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, CountdownTxt);
-        DevTool.Set_AlphaColor(CountdownPaneltyTxt, 0f);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, countdownTxt);
+        DevTool.Set_AlphaColor(countdownPaneltyTxt, 0f);
 
-        UnlockAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(28).Replace("\\n", "\n");
-        SuccessAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(29).Replace("\\n", "\n");
-        FailureAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(30).Replace("\\n", "\n");
-        Set_CountdownTxt(_CurrentCountdown, _SecondString);
+        unlockAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(28).Replace("\\n", "\n");
+        successAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(29).Replace("\\n", "\n");
+        failureAnnoTxt.text = ResourceManager.instance.Get_StaticDesc(30).Replace("\\n", "\n");
+        Set_CountdownTxt(currentCountdown, secondString);
     }
 
-    public void Set_CountdownTxt(float _CurrentCountdown, string _SecondString)
+    public void Set_CountdownTxt(float currentCountdown, string secondString)
     {
-        string countString = _CurrentCountdown < 4 ? _CurrentCountdown.ToString("0.0") : ((int)_CurrentCountdown).ToString();
-        CountdownTxt.text = $"{countString}{_SecondString}";
+        string countString = currentCountdown < 4 ? currentCountdown.ToString("0.0") : ((int)currentCountdown).ToString();
+        countdownTxt.text = $"{countString}{secondString}";
     }
 
 
-    public void Set_Panelty(float _PaneltyTime, string _SecondString)
+    public void Set_Panelty(float paneltyTime, string secondString)
     {
-        CountdownPaneltyTxt.text = $"{_PaneltyTime.ToString("0.0")}{_SecondString}";
+        countdownPaneltyTxt.text = $"{paneltyTime.ToString("0.0")}{secondString}";
 
-        DevTool.Set_KillTween(CountdownPaneltyRT);
-        DevTool.Set_KillTween(CountdownPaneltyTxt);
+        DevTool.Set_KillTween(countdownPaneltyRt);
+        DevTool.Set_KillTween(countdownPaneltyTxt);
 
-        CountdownPaneltyRT.localScale = Vector2.one;
-        DevTool.Set_AlphaColor(CountdownPaneltyTxt, 1f);
+        countdownPaneltyRt.localScale = Vector2.one;
+        DevTool.Set_AlphaColor(countdownPaneltyTxt, 1f);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(CountdownPaneltyRT.DOScale(1.1f, 0.05f));
-        seq.Append(CountdownPaneltyRT.DOScale(0f, 1.95f));
+        seq.Append(countdownPaneltyRt.DOScale(1.1f, 0.05f));
+        seq.Append(countdownPaneltyRt.DOScale(0f, 1.95f));
 
-        CountdownPaneltyTxt.DOFade(0f, 2f);
+        countdownPaneltyTxt.DOFade(0f, 2f);
     }
 
     #endregion
 
     #region Play
 
-    public void Play_FailureAnno(float _OnDurTime, float _OffDurTime, float _IntervalTime = 0.5f)
+    public void Play_FailureAnno(float onDurTime, float offDurTime, float intervalTime = 0.5f)
     {
-        Play_ExtraAnno(FailureAnnoRT, FailureAnnoTxt, _OnDurTime, _OffDurTime, _IntervalTime);
+        Play_ExtraAnno(failureAnnoRt, failureAnnoTxt, onDurTime, offDurTime, intervalTime);
     }
 
-    public void Play_SuccessAnno(float _OnDurTime, float _OffDurTime, float _IntervalTime = 0.5f)
+    public void Play_SuccessAnno(float onDurTime, float offDurTime, float intervalTime = 0.5f)
     {
-        Play_ExtraAnno(SuccessAnnoRT, SuccessAnnoTxt, _OnDurTime, _OffDurTime, _IntervalTime);
+        Play_ExtraAnno(successAnnoRt, successAnnoTxt, onDurTime, offDurTime, intervalTime);
     }
 
-    private void Play_ExtraAnno(RectTransform _RT, TMP_Text _Tmp, float _OnDurTime, float _OffDurTime, float _IntervalTime = 0.5f)
+    private void Play_ExtraAnno(RectTransform rt, TMP_Text tmp, float onDurTime, float offDurTime, float intervalTime = 0.5f)
     {
-        DevTool.Set_KillTween(_RT);
-        DevTool.Set_KillTween(_Tmp);
+        DevTool.Set_KillTween(rt);
+        DevTool.Set_KillTween(tmp);
 
         Sequence ExtraAnnoSeq = DOTween.Sequence();
 
         ExtraAnnoSeq.OnStart(() =>
         {
-            _RT.anchoredPosition = new Vector2(0f, 300f);
-            DevTool.Set_AlphaColor(_Tmp, 0f);
+            rt.anchoredPosition = new Vector2(0f, 300f);
+            DevTool.Set_AlphaColor(tmp, 0f);
         });
 
-        ExtraAnnoSeq.Join(_RT.DOAnchorPosY(360f, _OnDurTime));
-        ExtraAnnoSeq.Join(_Tmp.DOFade(1f, _OnDurTime));
-        ExtraAnnoSeq.AppendInterval(_IntervalTime);
-        ExtraAnnoSeq.Join(_Tmp.DOFade(0f, _OffDurTime));
+        ExtraAnnoSeq.Join(rt.DOAnchorPosY(360f, onDurTime));
+        ExtraAnnoSeq.Join(tmp.DOFade(1f, onDurTime));
+        ExtraAnnoSeq.AppendInterval(intervalTime);
+        ExtraAnnoSeq.Join(tmp.DOFade(0f, offDurTime));
     }
 
     #endregion

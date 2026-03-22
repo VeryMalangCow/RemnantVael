@@ -1082,8 +1082,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa1072d42ab07b4ca22c37c1de4b09e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnlockAnnoTxt: {fileID: 3388653662373638084}
-  SuccessAnnoTxt: {fileID: 369681887272110831}
-  FailureAnnoTxt: {fileID: 7335360195669910547}
-  CountdownTxt: {fileID: 536406132340168361}
-  CountdownPaneltyTxt: {fileID: 6365594891977660266}
+  unlockAnnoTxt: {fileID: 3388653662373638084}
+  successAnnoTxt: {fileID: 369681887272110831}
+  failureAnnoTxt: {fileID: 7335360195669910547}
+  countdownTxt: {fileID: 536406132340168361}
+  countdownPaneltyTxt: {fileID: 6365594891977660266}

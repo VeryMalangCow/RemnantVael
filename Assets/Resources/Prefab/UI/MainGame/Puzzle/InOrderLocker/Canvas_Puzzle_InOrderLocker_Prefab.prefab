@@ -337,16 +337,16 @@ MonoBehaviour:
   subColorCompList: []
   currentSlotBtn: {fileID: 0}
   currentItemBtn: {fileID: 0}
-  BaseCountdown: 8
-  ReadyPanelEUI: {fileID: 1619404176001623784}
-  TimePanelEUI: {fileID: 2801387917553807907}
-  UnlockPanelEUI: {fileID: 6651434227478337934}
-  AllIOLCellParentTF: {fileID: 4133972872224302406}
-  InnerParentTF: {fileID: 468343421428395361}
-  SelectingSignRT: {fileID: 437260473586867199}
-  AnswerIndexTxt: {fileID: 3729057386276782796}
-  AnswerCurrentSetTxt: {fileID: 4186450944897126617}
-  SelectInputImg: {fileID: 2990232759172087529}
+  baseCountdown: 8
+  readyPanelEui: {fileID: 1619404176001623784}
+  timePanelEui: {fileID: 2801387917553807907}
+  unlockPanelEui: {fileID: 6651434227478337934}
+  allIolCellParentTf: {fileID: 4133972872224302406}
+  innerParentTf: {fileID: 468343421428395361}
+  selectingSignRT: {fileID: 437260473586867199}
+  answerIndexTxt: {fileID: 3729057386276782796}
+  answerCurrentSetTxt: {fileID: 4186450944897126617}
+  selectInputImg: {fileID: 2990232759172087529}
 --- !u!223 &985950188665108820
 Canvas:
   m_ObjectHideFlags: 0

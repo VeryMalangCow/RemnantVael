@@ -191,7 +191,7 @@ public class TitleLobbyUIManager : Singleton<TitleLobbyUIManager>
                 screenCanvas.gameObject.SetActive(false);
                 GameManager.instance.wasWatched = true;
 
-                titleLobby_UIController.IsInIntro = false;
+                titleLobby_UIController.isInIntro = false;
             });
 
         return firstSeq;

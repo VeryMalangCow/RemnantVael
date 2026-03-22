@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class TitleLobbyUIController : TitleSinglePanelUIController
@@ -18,138 +19,138 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] private RectTransform BtnsRT;
-    [SerializeField] private CanvasGroup BGCG;
+    [FormerlySerializedAs("BtnsRT")][SerializeField] private RectTransform btnsRt;
+    [FormerlySerializedAs("BGCG")][SerializeField] private CanvasGroup bgCg;
 
     [Space(10)]
     [Header("=== Element")]
-    [SerializeField] private List<TitleElement> AllTitleElementUI;
-    [SerializeField] private List<TitleTSElement> AllTitleTSElementUI;
+    [FormerlySerializedAs("AllTitleElementUI")][SerializeField] private List<TitleElement> allTitleEui;
+    [FormerlySerializedAs("AllTitleTSElementUI")][SerializeField] private List<TitleTSElement> allTitleTsEui;
 
     [Space(5)]
     [Header("-- Smoke")]
-    [SerializeField] private List<TitleSmokeEUIController> AllTitleSmokeEUI;
+    [FormerlySerializedAs("AllTitleSmokeEUI")][SerializeField] private List<TitleSmokeEUIController> allTitleSmokeEui;
 
     [Space(5)]
     [Header("-- Cloud")]
-    [SerializeField] private List<RectTransform> CloudRTList_BackMoon;
-    [SerializeField] private List<RectTransform> CloudRTList_FrontMoon;
-    [SerializeField] private float CloudMovingLimit = 3000f;
-    [SerializeField] private float CloudMovingTime = 1f;
+    [FormerlySerializedAs("CloudRTList_BackMoon")][SerializeField] private List<RectTransform> cloudRtList_BackMoon;
+    [FormerlySerializedAs("CloudRTList_FrontMoon")][SerializeField] private List<RectTransform> cloudRtList_FrontMoon;
+    [FormerlySerializedAs("CloudMovingLimit")][SerializeField] private float cloudMovingLimit = 3000f;
+    [FormerlySerializedAs("CloudMovingTime")][SerializeField] private float cloudMovingTime = 1f;
 
     [Space(10)]
     [Header("=== Prefab")]
-    [SerializeField] public GameObject SmokeCellEUIPrefab;
+    [FormerlySerializedAs("SmokeCellEUIPrefab")][SerializeField] public GameObject smokeCellEuiPrefab;
     
     [Space(10)]
     [Header("=== Btns")]
-    [SerializeField] private TitleOwnBtnEUIController StartBtn;
-    [SerializeField] private TMP_Text StartTxt;
-    [SerializeField] private TitleOwnBtnEUIController OptionBtn;
-    [SerializeField] private TMP_Text OptionTxt;
-    [SerializeField] private TitleOwnBtnEUIController QuitBtn;
-    [SerializeField] private TMP_Text QuitTxt;
-    [SerializeField] private RectTransform SelectedRT;
+    [FormerlySerializedAs("StartBtn")][SerializeField] private TitleOwnBtnEUIController startBtn;
+    [FormerlySerializedAs("StartTxt")][SerializeField] private TMP_Text startTxt;
+    [FormerlySerializedAs("OptionBtn")][SerializeField] private TitleOwnBtnEUIController optionBtn;
+    [FormerlySerializedAs("OptionTxt")][SerializeField] private TMP_Text optionTxt;
+    [FormerlySerializedAs("QuitBtn")][SerializeField] private TitleOwnBtnEUIController quitBtn;
+    [FormerlySerializedAs("QuitTxt")][SerializeField] private TMP_Text quitTxt;
+    [FormerlySerializedAs("SelectedRT")][SerializeField] private RectTransform selectedRt;
 
     [Space(10)]
     [Header("=== Reset Panel")]
-    [SerializeField] private GameObject ResetPanelGO;
-    [SerializeField] private TitleOwnBtnEUIController ResetBtn;
-    [SerializeField] private TitleOwnBtnEUIController ResetSureYesBtn;
-    [SerializeField] private TitleOwnBtnEUIController ResetSureNoBtn;
+    [FormerlySerializedAs("ResetPanelGO")][SerializeField] private GameObject resetPanelGo;
+    [FormerlySerializedAs("ResetBtn")][SerializeField] private TitleOwnBtnEUIController resetBtn;
+    [FormerlySerializedAs("ResetSureYesBtn")][SerializeField] private TitleOwnBtnEUIController resetSureYesBtn;
+    [FormerlySerializedAs("ResetSureNoBtn")][SerializeField] private TitleOwnBtnEUIController resetSureNoBtn;
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private float DurTime;
+    [FormerlySerializedAs("DurTime")][SerializeField] private float durTime;
 
     [Space(10)]
-    [Header("=== Interact")]    
-    [SerializeField] private IInteract CurrentInteractable;
+    [Header("=== Interact")]
+    [FormerlySerializedAs("CurrentInteractable")][SerializeField] private IInteract currentInteractable;
 
     [Space(10)]
     [Header("=== Option")]
-    [SerializeField] private OptionUIController OptionUI;
+    [FormerlySerializedAs("OptionUI")][SerializeField] private OptionUIController optionUi;
     [Serializable]
     public class OptionUIController
     {
-        [SerializeField] public RectTransform PanelRT;
-        [SerializeField] public Image BGImg;
-        [SerializeField] public TitleOwnBtnEUIController BackBtn;
-        [SerializeField] public TitleOwnBtnEUIController ApplyBtn;
-        [SerializeField] public TMP_Text WarningTxt;
-        [SerializeField] public bool IsOn = false;
+        [FormerlySerializedAs("PanelRT")][SerializeField] public RectTransform panelRt;
+        [FormerlySerializedAs("BGImg")][SerializeField] public Image bgImg;
+        [FormerlySerializedAs("BackBtn")][SerializeField] public TitleOwnBtnEUIController backBtn;
+        [FormerlySerializedAs("ApplyBtn")][SerializeField] public TitleOwnBtnEUIController applyBtn;
+        [FormerlySerializedAs("WarningTxt")][SerializeField] public TMP_Text warningTxt;
+        [FormerlySerializedAs("IsOn")][SerializeField] public bool isOn = false;
 
         [Space(10)]
-        [SerializeField] public TitleLRSlidingItemEUIController LanguagePanelEUI;
-        [SerializeField] public TitleLRSlidingItemEUIController ScreenModePanelEUI;
-        [SerializeField] public TitleLRSlidingItemEUIController ResolutionPanelEUI;
-        [SerializeField] public TitleLRSlidingItemEUIController FPSPanelEUI;
-        [SerializeField] public TitleFillScrollbarEUIController BGMVolumePanelEUI;
-        [SerializeField] public TitleFillScrollbarEUIController SFXVolumePanelEUI;
+        [FormerlySerializedAs("LanguagePanelEUI")][SerializeField] public TitleLRSlidingItemEUIController languagePanelEui;
+        [FormerlySerializedAs("ScreenModePanelEUI")][SerializeField] public TitleLRSlidingItemEUIController screenModePanelEui;
+        [FormerlySerializedAs("ResolutionPanelEUI")][SerializeField] public TitleLRSlidingItemEUIController resolutionPanelEui;
+        [FormerlySerializedAs("FPSPanelEUI")][SerializeField] public TitleLRSlidingItemEUIController fpsPanelEui;
+        [FormerlySerializedAs("BGMVolumePanelEUI")][SerializeField] public TitleFillScrollbarEUIController bgmVolumePanelEui;
+        [FormerlySerializedAs("SFXVolumePanelEUI")][SerializeField] public TitleFillScrollbarEUIController sfxVolumePanelEui;
 
-        public void Offset(TitleLobbyUIController _UIController)
+        public void Offset(TitleLobbyUIController uiController)
         {
             SetOff_Panel();
 
-            BackBtn.ownerUIController = _UIController;
-            BackBtn.Offset();
+            backBtn.ownerUIController = uiController;
+            backBtn.Offset();
 
-            ApplyBtn.ownerUIController = _UIController;
-            ApplyBtn.Offset();
+            applyBtn.ownerUIController = uiController;
+            applyBtn.Offset();
 
-            LanguagePanelEUI.Set_OwnerUIController(_UIController);
-            LanguagePanelEUI.Offset();
+            languagePanelEui.Set_OwnerUIController(uiController);
+            languagePanelEui.Offset();
 
-            ScreenModePanelEUI.Set_OwnerUIController(_UIController);
-            ScreenModePanelEUI.Offset();
+            screenModePanelEui.Set_OwnerUIController(uiController);
+            screenModePanelEui.Offset();
 
-            ResolutionPanelEUI.Set_OwnerUIController(_UIController);
-            ResolutionPanelEUI.Offset();
+            resolutionPanelEui.Set_OwnerUIController(uiController);
+            resolutionPanelEui.Offset();
 
-            FPSPanelEUI.Set_OwnerUIController(_UIController);
-            FPSPanelEUI.Offset();
+            fpsPanelEui.Set_OwnerUIController(uiController);
+            fpsPanelEui.Offset();
 
-            BGMVolumePanelEUI.Set_OwnerUIController(_UIController);
-            BGMVolumePanelEUI.Offset();
+            bgmVolumePanelEui.Set_OwnerUIController(uiController);
+            bgmVolumePanelEui.Offset();
 
-            SFXVolumePanelEUI.Set_OwnerUIController(_UIController);
-            SFXVolumePanelEUI.Offset();
+            sfxVolumePanelEui.Set_OwnerUIController(uiController);
+            sfxVolumePanelEui.Offset();
         }
 
         public void SetOn_Panel()
         {
-            PanelRT.gameObject.SetActive(true);
-            BGImg.gameObject.SetActive(true);
-            WarningTxt.gameObject.SetActive(false);
-            LanguagePanelEUI.Set_Item(GameManager.languageID);
-            ScreenModePanelEUI.Set_Item((int)GameManager.screenMode);
-            ResolutionPanelEUI.Set_Item((int)GameManager.resolutionMode);
-            FPSPanelEUI.Set_Item((int)GameManager.fps);
-            BGMVolumePanelEUI.Set_Value(SoundManager.instance.bgmVolume);
-            SFXVolumePanelEUI.Set_Value(SoundManager.instance.sfxVolume);
+            panelRt.gameObject.SetActive(true);
+            bgImg.gameObject.SetActive(true);
+            warningTxt.gameObject.SetActive(false);
+            languagePanelEui.Set_Item(GameManager.languageID);
+            screenModePanelEui.Set_Item((int)GameManager.screenMode);
+            resolutionPanelEui.Set_Item((int)GameManager.resolutionMode);
+            fpsPanelEui.Set_Item((int)GameManager.fps);
+            bgmVolumePanelEui.Set_Value(SoundManager.instance.bgmVolume);
+            sfxVolumePanelEui.Set_Value(SoundManager.instance.sfxVolume);
 
-            IsOn = true;
+            isOn = true;
         }
 
         public void SetOff_Panel()
         {
-            PanelRT.gameObject.SetActive(false);
-            BGImg.gameObject.SetActive(false);
+            panelRt.gameObject.SetActive(false);
+            bgImg.gameObject.SetActive(false);
 
-            IsOn = false;
+            isOn = false;
         }
 
         public void Set_LanguageTxt()
         {
-            WarningTxt.text = ResourceManager.instance.Get_StaticDesc(31);
+            warningTxt.text = ResourceManager.instance.Get_StaticDesc(31);
 
-            DevTool.Get_ComponentTType<TMP_Text>(ApplyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(ApplyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(91);
-            LanguagePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(92);
-            ScreenModePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(140);
-            ResolutionPanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(137);
-            FPSPanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(141);
-            BGMVolumePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(138);
-            SFXVolumePanelEUI.headerTxt.text = ResourceManager.instance.Get_StaticWord(139);
+            DevTool.Get_ComponentTType<TMP_Text>(applyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(applyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(91);
+            languagePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(92);
+            screenModePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(140);
+            resolutionPanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(137);
+            fpsPanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(141);
+            bgmVolumePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(138);
+            sfxVolumePanelEui.headerTxt.text = ResourceManager.instance.Get_StaticWord(139);
         }
     }
 
@@ -158,18 +159,18 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     #region - Hide
 
     // Value
-    [HideInInspector] public bool IsInIntro = true;
-    [HideInInspector] private bool IsStarting = false;
-    [HideInInspector] private float UIElementMovingPowerMultiple = 0.002f;
+    [HideInInspector] public bool isInIntro = true;
+    [HideInInspector] private bool isStarting = false;
+    [HideInInspector] private float euiMovingPowerMultiple = 0.002f;
 
     // Btn
-    [HideInInspector] private List<TitleOwnBtnEUIController> TitleAllBtns;
-    [HideInInspector] private TitleOwnBtnEUIController CurrentMouseBtn = null;
+    [HideInInspector] private List<TitleOwnBtnEUIController> titleAllBtns;
+    [HideInInspector] private TitleOwnBtnEUIController currentMouseBtn = null;
 
-    [HideInInspector] private List<Tween> CouldTween = null;
+    [HideInInspector] private List<Tween> couldTween = null;
 
     // Option
-    [HideInInspector] private bool IsInteractTweening = false;
+    [HideInInspector] private bool isInteractTweening = false;
 
     #endregion
 
@@ -183,46 +184,46 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
         DevTool.Get_ComponentTType<Canvas>(gameObject).planeDistance = 10;
 
-        StartBtn.Offset();
-        StartBtn.ownerUIController = this;
+        startBtn.Offset();
+        startBtn.ownerUIController = this;
 
-        OptionBtn.Offset();
-        OptionBtn.ownerUIController = this;
+        optionBtn.Offset();
+        optionBtn.ownerUIController = this;
 
-        QuitBtn.Offset();
-        QuitBtn.ownerUIController = this;
+        quitBtn.Offset();
+        quitBtn.ownerUIController = this;
 
-        TitleAllBtns = new List<TitleOwnBtnEUIController>
-        { StartBtn, OptionBtn, QuitBtn };
+        titleAllBtns = new List<TitleOwnBtnEUIController>
+        { startBtn, optionBtn, quitBtn };
 
-        ResetBtn.Offset();
-        ResetBtn.ownerUIController = this;
+        resetBtn.Offset();
+        resetBtn.ownerUIController = this;
 
-        ResetSureYesBtn.Offset();
-        ResetSureYesBtn.ownerUIController = this;
+        resetSureYesBtn.Offset();
+        resetSureYesBtn.ownerUIController = this;
 
-        ResetSureNoBtn.Offset();
-        ResetSureNoBtn.ownerUIController = this;
+        resetSureNoBtn.Offset();
+        resetSureNoBtn.ownerUIController = this;
 
-        BGCG.alpha = 1f;
+        bgCg.alpha = 1f;
 
-        IsStarting = false;
+        isStarting = false;
 
-        for (int i = 0; i < AllTitleSmokeEUI.Count; i++)
+        for (int i = 0; i < allTitleSmokeEui.Count; i++)
         {
-            AllTitleSmokeEUI[i].ownerUIController = this;
-            AllTitleSmokeEUI[i].Offset();
+            allTitleSmokeEui[i].ownerUIController = this;
+            allTitleSmokeEui[i].Offset();
         }
 
-        CouldTween = new List<Tween>
+        couldTween = new List<Tween>
         {
-            Play_CloudMoving_FromLeft(CloudRTList_BackMoon[0], CloudMovingTime),
-            Play_CloudMoving_FromLeft(CloudRTList_FrontMoon[0], CloudMovingTime),
-            Play_CloudMoving_FromCenter(CloudRTList_BackMoon[1], CloudMovingTime),
-            Play_CloudMoving_FromCenter(CloudRTList_FrontMoon[1], CloudMovingTime)
+            Play_CloudMoving_FromLeft(cloudRtList_BackMoon[0], cloudMovingTime),
+            Play_CloudMoving_FromLeft(cloudRtList_FrontMoon[0], cloudMovingTime),
+            Play_CloudMoving_FromCenter(cloudRtList_BackMoon[1], cloudMovingTime),
+            Play_CloudMoving_FromCenter(cloudRtList_FrontMoon[1], cloudMovingTime)
         };
 
-        OptionUI.Offset(this);
+        optionUi.Offset(this);
         Set_LanguageTxt();
     }
 
@@ -232,25 +233,25 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     private void SetOff_Play()
     {
-        for (int i = 0; i < AllTitleSmokeEUI.Count; i++)
-            AllTitleSmokeEUI[i].Stop_VFX();
+        for (int i = 0; i < allTitleSmokeEui.Count; i++)
+            allTitleSmokeEui[i].Stop_VFX();
 
-        for (int i = 0; i < CouldTween.Count; i++)
-            DevTool.Set_KillTween(CouldTween[i]);
+        for (int i = 0; i < couldTween.Count; i++)
+            DevTool.Set_KillTween(couldTween[i]);
 
-        CouldTween = null;
+        couldTween = null;
     }
 
     #endregion
 
     #region Cloud
 
-    private Tween Play_CloudMoving_FromLeft(RectTransform _CloudRT, float _DurTime)
+    private Tween Play_CloudMoving_FromLeft(RectTransform cloudRt, float durTime)
     {
-        Tween tween = _CloudRT.DOAnchorPosX(CloudMovingLimit, _DurTime)
+        Tween tween = cloudRt.DOAnchorPosX(cloudMovingLimit, durTime)
             .OnComplete(() =>
             {
-                _CloudRT.anchoredPosition = new Vector2(-CloudMovingLimit, 0);
+                cloudRt.anchoredPosition = new Vector2(-cloudMovingLimit, 0);
             })
             .SetEase(Ease.Linear)
             .SetLoops(-1, LoopType.Restart);
@@ -259,16 +260,16 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         return tween;
     }
 
-    private Tween Play_CloudMoving_FromCenter(RectTransform _CloudRT, float _DurTime)
+    private Tween Play_CloudMoving_FromCenter(RectTransform cloudRt, float durTime)
     {
-        Tween tween = _CloudRT.DOAnchorPosX(CloudMovingLimit, _DurTime * 0.5f)
+        Tween tween = cloudRt.DOAnchorPosX(cloudMovingLimit, durTime * 0.5f)
             .SetEase(Ease.Linear)
             .OnComplete(() =>
             {
-                _CloudRT.anchoredPosition = new Vector2(-CloudMovingLimit, 0);
-                _CloudRT.DOAnchorPosX(CloudMovingLimit, _DurTime).OnComplete(() =>
+                cloudRt.anchoredPosition = new Vector2(-cloudMovingLimit, 0);
+                cloudRt.DOAnchorPosX(cloudMovingLimit, durTime).OnComplete(() =>
                 {
-                    _CloudRT.anchoredPosition = new Vector2(-CloudMovingLimit, 0);
+                    cloudRt.anchoredPosition = new Vector2(-cloudMovingLimit, 0);
                 })
                     .SetEase(Ease.Linear)
                     .SetLoops(-1, LoopType.Restart);
@@ -285,7 +286,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     {
         Set_UIElementTS(true);
 
-        Set_CurrentBtn(StartBtn);
+        Set_CurrentBtn(startBtn);
     }
 
     private void LateUpdate()
@@ -299,32 +300,32 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     #region UI Element (TS)
 
-    private void Set_UIElementTS(bool _Loop)
+    private void Set_UIElementTS(bool isLoop)
     {
-        for (int i = 0; i < AllTitleTSElementUI.Count; i++)
+        for (int i = 0; i < allTitleTsEui.Count; i++)
         {
             int index = i;
-            TitleTSElement trueShadowElementSet = AllTitleTSElementUI[index];
-            Get_EachUIElementTS(trueShadowElementSet.thisTSList, trueShadowElementSet.max, trueShadowElementSet.min, trueShadowElementSet.durTime, _Loop);
+            TitleTSElement trueShadowElementSet = allTitleTsEui[index];
+            Get_EachUIElementTS(trueShadowElementSet.thisTSList, trueShadowElementSet.max, trueShadowElementSet.min, trueShadowElementSet.durTime, isLoop);
         }
     }
 
 
-    private void Get_EachUIElementTS(List<TrueShadow> _TSList, float _Max, float _Min, float _DurTime, bool _Loop = true)
+    private void Get_EachUIElementTS(List<TrueShadow> tsList, float max, float min, float durTime, bool loop = true)
     {
-        for (int i = 0; i < _TSList.Count; i++)
+        for (int i = 0; i < tsList.Count; i++)
         {
             int index = i;
 
-            _TSList[index].Size = _Min;
+            tsList[index].Size = min;
 
             Tween tween = DOTween.To(
-                () => _TSList[index].Size,
-                x => _TSList[index].Size = x,
-                _Max, _DurTime * 0.5f)
+                () => tsList[index].Size,
+                x => tsList[index].Size = x,
+                max, durTime * 0.5f)
                 .SetEase(Ease.Linear);
 
-            if (_Loop)
+            if (loop)
                 tween.SetLoops(-1, LoopType.Yoyo);
         }
     }
@@ -333,19 +334,19 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     #region UI Element (Pos)
 
-    private void Set_UIElementTF(Vector2 _MovingPower)
+    private void Set_UIElementTF(Vector2 movingPower)
     {
-        for (int i = 0; i < AllTitleElementUI.Count; i++)
+        for (int i = 0; i < allTitleEui.Count; i++)
         {
-            Vector2 thisVec = new Vector2(AllTitleElementUI[i].movingPowerX, AllTitleElementUI[i].movingPowerY);
-            Vector2 targetVec = thisVec * _MovingPower;
-            Set_EachUIElementPos(AllTitleElementUI[i].movingRT, targetVec);
+            Vector2 thisVec = new Vector2(allTitleEui[i].movingPowerX, allTitleEui[i].movingPowerY);
+            Vector2 targetVec = thisVec * movingPower;
+            Set_EachUIElementPos(allTitleEui[i].movingRT, targetVec);
         }
     }
 
-    private void Set_EachUIElementPos(RectTransform _RT, Vector2 _TargetVec)
+    private void Set_EachUIElementPos(RectTransform rt, Vector2 targetVec)
     {
-        _RT.anchoredPosition = _TargetVec;
+        rt.anchoredPosition = targetVec;
     }
 
     private Vector2 Get_MovingPowerVec()
@@ -353,7 +354,7 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         if (TitleInputManager.instance == null) 
             return Vector2.zero;
 
-        return UIElementMovingPowerMultiple * TitleInputManager.instance.Get_AnchorMousePos();
+        return euiMovingPowerMultiple * TitleInputManager.instance.Get_AnchorMousePos();
     }
 
     #endregion
@@ -362,55 +363,55 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     public void Try_Interact()
     {
-        if (CurrentBtn == null || CurrentMouseBtn == null || IsStarting || IsInIntro || IsInteractTweening)
+        if (currentBtn == null || currentMouseBtn == null || isStarting || isInIntro || isInteractTweening)
             return; 
 
         TitleInputManager.instance.Play_MousePointerClick();
 
         string soundSfxName = "";
 
-        if (CurrentBtn == StartBtn)
+        if (currentBtn == startBtn)
         {
             soundSfxName = "Click_Approve";
             Play_Starting();
         }
-        else if (CurrentBtn == OptionBtn)
+        else if (currentBtn == optionBtn)
         {
             soundSfxName = "Click_01";
             SetOn_OptionPanel();
         }
-        else if (CurrentBtn == OptionUI.BackBtn)
+        else if (currentBtn == optionUi.backBtn)
         {
             soundSfxName = "Click_Reject";
             SetOff_OptionPanel();
         }
-        else if (CurrentBtn == OptionUI.ApplyBtn)
+        else if (currentBtn == optionUi.applyBtn)
         {
             soundSfxName = "Click_Approve";
             Set_OptionValueApply();
         }
-        else if (CurrentBtn == QuitBtn)
+        else if (currentBtn == quitBtn)
         {
             soundSfxName = "Click_Reject";
             Application.Quit();
         }
 
-        else if (Is_Interact_OptionElement(OptionUI.LanguagePanelEUI)) return;
-        else if (Is_Interact_OptionElement(OptionUI.ScreenModePanelEUI)) return;
-        else if (Is_Interact_OptionElement(OptionUI.ResolutionPanelEUI)) return;
-        else if (Is_Interact_OptionElement(OptionUI.BGMVolumePanelEUI)) return;
-        else if (Is_Interact_OptionElement(OptionUI.SFXVolumePanelEUI)) return;
-        else if (Is_Interact_OptionElement(OptionUI.FPSPanelEUI)) return;
+        else if (Is_Interact_OptionElement(optionUi.languagePanelEui)) return;
+        else if (Is_Interact_OptionElement(optionUi.screenModePanelEui)) return;
+        else if (Is_Interact_OptionElement(optionUi.resolutionPanelEui)) return;
+        else if (Is_Interact_OptionElement(optionUi.bgmVolumePanelEui)) return;
+        else if (Is_Interact_OptionElement(optionUi.sfxVolumePanelEui)) return;
+        else if (Is_Interact_OptionElement(optionUi.fpsPanelEui)) return;
 
-        else if (CurrentBtn == ResetBtn)
+        else if (currentBtn == resetBtn)
         {
             Set_ResetPanel(true);
         }
-        else if (CurrentBtn == ResetSureNoBtn)
+        else if (currentBtn == resetSureNoBtn)
         {
             Set_ResetPanel(false);
         }
-        else if (CurrentBtn == ResetSureYesBtn)
+        else if (currentBtn == resetSureYesBtn)
         {
             SaveDataManager.instance.Reset_JsonData();
             SaveDataManager.instance.Load_JsonData();
@@ -423,10 +424,10 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     public void Try_OutInteract()
     {
-        if (IsStarting || IsInIntro || IsInteractTweening)
+        if (isStarting || isInIntro || isInteractTweening)
             return;
 
-        if (OptionUI.IsOn)
+        if (optionUi.isOn)
         {
             SetOff_OptionPanel();
         }
@@ -436,42 +437,42 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     #region Btn
 
-    public override void Set_CurrentBtn(TitleOwnBtnEUIController _TargetBtn)
+    public override void Set_CurrentBtn(TitleOwnBtnEUIController targetBtn)
     {
-        if (CurrentBtn == _TargetBtn) return;
+        if (currentBtn == targetBtn) return;
 
-        base.Set_CurrentBtn(_TargetBtn);
+        base.Set_CurrentBtn(targetBtn);
 
-        if (CurrentBtn != null && (CurrentBtn == StartBtn || CurrentBtn == OptionBtn || CurrentBtn == QuitBtn))
+        if (currentBtn != null && (currentBtn == startBtn || currentBtn == optionBtn || currentBtn == quitBtn))
         {
-            DevTool.Set_KillTween(SelectedRT);
-            SelectedRT.DOAnchorPosY(CurrentBtn.rt.anchoredPosition.y, 0.2f);
+            DevTool.Set_KillTween(selectedRt);
+            selectedRt.DOAnchorPosY(currentBtn.rt.anchoredPosition.y, 0.2f);
         }
 
-        for (int i = 0; i < TitleAllBtns.Count; i++)
+        for (int i = 0; i < titleAllBtns.Count; i++)
         {
-            if (CurrentBtn == TitleAllBtns[i])
-                TitleAllBtns[i].Set_SelectOnThis(0.2f);
+            if (currentBtn == titleAllBtns[i])
+                titleAllBtns[i].Set_SelectOnThis(0.2f);
             else
-                TitleAllBtns[i].Set_SelectOffThis(0.2f);
+                titleAllBtns[i].Set_SelectOffThis(0.2f);
         }
     }
 
-    public void Set_CurrentMouseBtn(TitleOwnBtnEUIController _TargetBtn)
+    public void Set_CurrentMouseBtn(TitleOwnBtnEUIController targetBtn)
     {
-        if (CurrentMouseBtn == _TargetBtn) return;
+        if (currentMouseBtn == targetBtn) return;
 
-        CurrentMouseBtn = _TargetBtn;
+        currentMouseBtn = targetBtn;
     }
 
     #endregion
 
     #region Reset
 
-    private void Set_ResetPanel(bool _OnOff)
+    private void Set_ResetPanel(bool onOff)
     {
-        ResetPanelGO.gameObject.SetActive(_OnOff);
-        CurrentBtn = null;
+        resetPanelGo.gameObject.SetActive(onOff);
+        currentBtn = null;
     }
 
     #endregion
@@ -483,13 +484,13 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         StartCoroutine(Play_Starting_Cor(2f));
     }
 
-    private IEnumerator Play_Starting_Cor(float _DelayTime)
+    private IEnumerator Play_Starting_Cor(float delayTime)
     {
-        IsStarting = true;
+        isStarting = true;
 
-        TitleLobbyUIManager.instance.Get_JustFadeIn(_DelayTime);
+        TitleLobbyUIManager.instance.Get_JustFadeIn(delayTime);
 
-        yield return new WaitForSeconds(_DelayTime + 0.2f);
+        yield return new WaitForSeconds(delayTime + 0.2f);
 
         SetOff_Play();
 
@@ -504,50 +505,50 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     private void SetOn_OptionPanel()
     {
-        IsInteractTweening = true;
+        isInteractTweening = true;
 
-        OptionUI.SetOn_Panel();
+        optionUi.SetOn_Panel();
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(OptionUI.PanelRT.DOAnchorPosX(440, 0.2f));
-        seq.Join(OptionUI.BGImg.DOFade(0.7f, 0.2f));
+        seq.Append(optionUi.panelRt.DOAnchorPosX(440, 0.2f));
+        seq.Join(optionUi.bgImg.DOFade(0.7f, 0.2f));
         seq.OnComplete(() =>
         {
-            IsInteractTweening = false;
+            isInteractTweening = false;
         });
     }
 
     private void SetOff_OptionPanel()
     {
-        IsInteractTweening = true;
+        isInteractTweening = true;
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(OptionUI.PanelRT.DOAnchorPosX(2500, 0.2f));
-        seq.Join(OptionUI.BGImg.DOFade(0f, 0.2f));
+        seq.Append(optionUi.panelRt.DOAnchorPosX(2500, 0.2f));
+        seq.Join(optionUi.bgImg.DOFade(0f, 0.2f));
         seq.OnComplete(() =>
         {
-            IsInteractTweening = false;
-            OptionUI.SetOff_Panel();
+            isInteractTweening = false;
+            optionUi.SetOff_Panel();
         });
     }
 
     // Element
-    private bool Is_Interact_OptionElement(TitleLRSlidingItemEUIController _LRSlidingEUI)
+    private bool Is_Interact_OptionElement(TitleLRSlidingItemEUIController lrSlidingEui)
     {
-        if (CurrentBtn == _LRSlidingEUI.leftBtn)
+        if (currentBtn == lrSlidingEui.leftBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
-            _LRSlidingEUI.Change_Left();
-            OptionUI.WarningTxt.gameObject.SetActive(true);
+            lrSlidingEui.Change_Left();
+            optionUi.warningTxt.gameObject.SetActive(true);
             return true;
         }
-        else if (CurrentBtn == _LRSlidingEUI.rightBtn)
+        else if (currentBtn == lrSlidingEui.rightBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
-            _LRSlidingEUI.Change_Right();
-            OptionUI.WarningTxt.gameObject.SetActive(true);
+            lrSlidingEui.Change_Right();
+            optionUi.warningTxt.gameObject.SetActive(true);
             return true;
         }
 
@@ -556,20 +557,20 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
         return false;
     }
 
-    private bool Is_Interact_OptionElement(TitleFillScrollbarEUIController _ScrollEUI)
+    private bool Is_Interact_OptionElement(TitleFillScrollbarEUIController scrollEui)
     {
-        if (CurrentBtn == _ScrollEUI.leftBtn)
+        if (currentBtn == scrollEui.leftBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
-            _ScrollEUI.Dec();
-            OptionUI.WarningTxt.gameObject.SetActive(true);
+            scrollEui.Dec();
+            optionUi.warningTxt.gameObject.SetActive(true);
             return true;
         }
-        else if (CurrentBtn == _ScrollEUI.rightBtn)
+        else if (currentBtn == scrollEui.rightBtn)
         {
             SoundManager.instance.Play_2D_SFX_UI("Click_01");
-            _ScrollEUI.Inc();
-            OptionUI.WarningTxt.gameObject.SetActive(true);
+            scrollEui.Inc();
+            optionUi.warningTxt.gameObject.SetActive(true);
             return true;
         }
 
@@ -580,17 +581,17 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
     // Apply
     private void Set_OptionValueApply()
     {
-        if (!OptionUI.WarningTxt.gameObject.activeSelf) return;
+        if (!optionUi.warningTxt.gameObject.activeSelf) return;
 
-        OptionUI.WarningTxt.gameObject.SetActive(false);
+        optionUi.warningTxt.gameObject.SetActive(false);
 
-        ResourceManager.instance.Set_LanguageFont(OptionUI.LanguagePanelEUI.Get_CurrentIndex());
+        ResourceManager.instance.Set_LanguageFont(optionUi.languagePanelEui.Get_CurrentIndex());
         GameManager.instance.Set_Screen(
-            (eResolution)OptionUI.ResolutionPanelEUI.Get_CurrentIndex(),
-            (eScreenMode)OptionUI.ScreenModePanelEUI.Get_CurrentIndex());
-        GameManager.instance.Set_FPS((eFPS)OptionUI.FPSPanelEUI.Get_CurrentIndex());
-        SoundManager.instance.Set_BgmVolume(OptionUI.BGMVolumePanelEUI.Get_Value());
-        SoundManager.instance.Set_SfxVolume(OptionUI.SFXVolumePanelEUI.Get_Value());
+            (eResolution)optionUi.resolutionPanelEui.Get_CurrentIndex(),
+            (eScreenMode)optionUi.screenModePanelEui.Get_CurrentIndex());
+        GameManager.instance.Set_FPS((eFPS)optionUi.fpsPanelEui.Get_CurrentIndex());
+        SoundManager.instance.Set_BgmVolume(optionUi.bgmVolumePanelEui.Get_Value());
+        SoundManager.instance.Set_SfxVolume(optionUi.sfxVolumePanelEui.Get_Value());
 
         SaveDataManager.instance.Save_OptionJsonData();
     }
@@ -604,11 +605,11 @@ public class TitleLobbyUIController : TitleSinglePanelUIController
 
     public override void Set_LanguageTxt()
     {
-        StartTxt.text = ResourceManager.instance.Get_StaticWord(89);
-        OptionTxt.text = ResourceManager.instance.Get_StaticWord(20);
-        QuitTxt.text = ResourceManager.instance.Get_StaticWord(21);
+        startTxt.text = ResourceManager.instance.Get_StaticWord(89);
+        optionTxt.text = ResourceManager.instance.Get_StaticWord(20);
+        quitTxt.text = ResourceManager.instance.Get_StaticWord(21);
 
-        OptionUI.Set_LanguageTxt();
+        optionUi.Set_LanguageTxt();
     }
 
     #endregion

@@ -3168,50 +3168,50 @@ MonoBehaviour:
   durEui: {fileID: 3792348136485403228}
   msgEui: {fileID: 1976628464944666510}
   closeBtn: {fileID: 7706051883561635162}
-  TabSideTxtList:
+  tabSideTxtList:
   - {fileID: 1301000994605875199}
   - {fileID: 1032131260310086998}
-  BCTxt: {fileID: 6954709714334023867}
-  ECTxt: {fileID: 3102640692035828396}
-  MSTxt: {fileID: 4022839475349824999}
-  SynergyLvTxtList:
+  bcTxt: {fileID: 6954709714334023867}
+  ecTxt: {fileID: 3102640692035828396}
+  msTxt: {fileID: 4022839475349824999}
+  synergyLvTxtList:
   - {fileID: 1094895660272990273}
   - {fileID: 5033343991715744153}
   - {fileID: 3344438507521276733}
-  ThisDescPanel: {fileID: 6708594572264247970}
-  DragItemEUI: {fileID: 3234322779227365555}
-  Inventory_InEquip: {fileID: 6865726167132241543}
-  ToggleBtn_InEquip: {fileID: 8721277433099334432}
-  EquippedPanelGO: {fileID: 4265268251806152125}
-  EquippedSlotsParentTF: {fileID: 7403124235405451017}
-  EquippedInnerParentTF: {fileID: 6488928389602243725}
-  SynergyPanelGO: {fileID: 975168169795605008}
-  SynergyPanelIsExistGO:
+  descPanel: {fileID: 6708594572264247970}
+  dragItemEui: {fileID: 3234322779227365555}
+  inventory_InEquip: {fileID: 6865726167132241543}
+  toggleBtn_InEquip: {fileID: 8721277433099334432}
+  equippedPanelGo: {fileID: 4265268251806152125}
+  equippedSlotsParentTf: {fileID: 7403124235405451017}
+  equippedInnerParentTf: {fileID: 6488928389602243725}
+  synergyPanelGo: {fileID: 975168169795605008}
+  synergyPanelIsExistGo:
     typeBase: {fileID: 5731502534456059939}
     typeSpecial: {fileID: 1513879291093775564}
-  SynergyInnerParentTF: {fileID: 1372710315365944947}
-  SynergySlotsParentTF: {fileID: 9202021332289737846}
-  SynergyDescsParentTF: {fileID: 1972098242681520806}
-  SynergyTierFrames:
+  synergyInnerParentTf: {fileID: 1372710315365944947}
+  synergySlotsParentTf: {fileID: 9202021332289737846}
+  synergyDescsParentTf: {fileID: 1972098242681520806}
+  synergyTierFrames:
   - {fileID: 0}
   - {fileID: 1202484619, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
   - {fileID: 820826029, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
   - {fileID: -1956723818, guid: 75822e80aed1cc14c8a123c29f39bbf9, type: 3}
-  SelectViewImg: {fileID: 4292670971885704345}
-  SelectViewName: {fileID: 1096898508628320324}
-  SelectViewAmalgamation: {fileID: 1483822575698303654}
-  SynergyDescLinerParentTF: {fileID: 7572668197056733534}
-  SynergyDescTextParentTF: {fileID: 6809134753630958974}
-  AmalgamationTxtList:
+  selectViewImg: {fileID: 4292670971885704345}
+  selectViewName: {fileID: 1096898508628320324}
+  selectViewAmalgamation: {fileID: 1483822575698303654}
+  synergyDescLinerParentTf: {fileID: 7572668197056733534}
+  synergyDescTextParentTf: {fileID: 6809134753630958974}
+  amalgamationTxtList:
   - {fileID: 5802758097463027637}
   - {fileID: 4823531533695577091}
   - {fileID: 2797234623399069959}
-  AmalgamationDescTxtList:
+  amalgamationDescTxtList:
   - {fileID: 3376233360735430773}
   - {fileID: 7258842997630621330}
   - {fileID: 641643310084425046}
-  Inventory_InForge: {fileID: 8318090628040827858}
-  ForgeInteractPanels:
+  inventory_InForge: {fileID: 8318090628040827858}
+  forgeInteractPanels:
   - panelRT: {fileID: 6783907978280809176}
     panelBtn: {fileID: 7246304946722424316}
     panelBtnTxt: {fileID: 885191486278380894}
@@ -3247,20 +3247,20 @@ MonoBehaviour:
     - {fileID: 3390916595186050037}
     - {fileID: 7752767517559402515}
     - {fileID: 0}
-  ForgePanelInnerList:
+  forgePanelInnerList:
   - {fileID: 2363602454545515196}
-  NoticeTxt: {fileID: 6587292786197914954}
-  WarningTxt: {fileID: 3227345548338191113}
-  DecompositionSlot: {fileID: 6188986354703441269}
-  Preview_GainMS: {fileID: 6123921635919171757}
-  Preview_GainBC: {fileID: 4502212021194520590}
-  FusionSlotList:
+  noticeTxt: {fileID: 6587292786197914954}
+  warningTxt: {fileID: 3227345548338191113}
+  decompositionSlot: {fileID: 6188986354703441269}
+  preview_GainMs: {fileID: 6123921635919171757}
+  preview_GainBc: {fileID: 4502212021194520590}
+  fusionSlotList:
   - {fileID: 6512809498167605167}
   - {fileID: 3393233744978694464}
-  Preview_NeedMS_ForFusion: {fileID: 6744962779368797448}
-  Preview_NeedMS_ForMake: {fileID: 6013375180680982823}
-  Preview_NeedCB_ForMake: {fileID: 3793425638312885780}
-  CurrentDraggingItemBtn: {fileID: 0}
+  preview_NeedMs_ForFusion: {fileID: 6744962779368797448}
+  preview_NeedMs_ForMake: {fileID: 6013375180680982823}
+  preview_NeedCb_ForMake: {fileID: 3793425638312885780}
+  currentDraggingItemBtn: {fileID: 0}
 --- !u!114 &7285601847160733366
 MonoBehaviour:
   m_ObjectHideFlags: 0

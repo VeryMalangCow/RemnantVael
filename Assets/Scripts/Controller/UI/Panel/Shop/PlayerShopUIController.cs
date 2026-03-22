@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerShopUIController : ShopUIController
 {
@@ -13,7 +14,7 @@ public class PlayerShopUIController : ShopUIController
 
     [Space(10)]
     [Header("=== Visual")]
-    [SerializeField] protected List<TMP_Text> TabSideTxtList;
+    [FormerlySerializedAs("TabSideTxtList")][SerializeField] protected List<TMP_Text> tabSideTxtList;
 
     #endregion
 
@@ -31,7 +32,7 @@ public class PlayerShopUIController : ShopUIController
         base.Set_LanguageTxt();
 
         for (int i = 0; i < panelTabList.Count; i++)
-            TabSideTxtList[i].text = tabBtnTxtList[i];
+            tabSideTxtList[i].text = tabBtnTxtList[i];
     }
 
     #endregion

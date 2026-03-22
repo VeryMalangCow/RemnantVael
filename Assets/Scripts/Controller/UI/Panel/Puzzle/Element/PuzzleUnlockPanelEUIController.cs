@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PuzzleUnlockPanelEUIController : ElementUIController
@@ -14,20 +15,20 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private CanvasGroup SuccessCG;
-    [SerializeField] private CanvasGroup FailureCG;
-    [SerializeField] private TMP_Text TryUnlockTxt;
-    [SerializeField] private TMP_Text InputTxt;
-    [SerializeField] private Image InputImg;
-    [SerializeField] private RectTransform RollingRT;
+    [FormerlySerializedAs("SuccessCG")][SerializeField] private CanvasGroup successCg;
+    [FormerlySerializedAs("FailureCG")][SerializeField] private CanvasGroup failureCg;
+    [FormerlySerializedAs("TryUnlockTxt")][SerializeField] private TMP_Text tryUnlockTxt;
+    [FormerlySerializedAs("InputTxt")][SerializeField] private TMP_Text inputTxt;
+    [FormerlySerializedAs("InputImg")][SerializeField] private Image inputImg;
+    [FormerlySerializedAs("RollingRT")][SerializeField] private RectTransform rollingRt;
 
     #endregion
 
     #region - Hide
 
     // Txt
-    [HideInInspector] private TMP_Text SuccessTxt;
-    [HideInInspector] private TMP_Text FailureTxt;
+    [HideInInspector] private TMP_Text successTxt;
+    [HideInInspector] private TMP_Text failureTxt;
 
     #endregion
 
@@ -37,61 +38,61 @@ public class PuzzleUnlockPanelEUIController : ElementUIController
 
     public override void Offset()
     {
-        FailureTxt = DevTool.Get_ComponentTType(FailureCG.transform.GetChild(0).gameObject, out TMP_Text fTxt) ? fTxt : null;
-        SuccessTxt = DevTool.Get_ComponentTType(SuccessCG.transform.GetChild(0).gameObject, out TMP_Text sTxt) ? sTxt : null;
+        failureTxt = DevTool.Get_ComponentTType(failureCg.transform.GetChild(0).gameObject, out TMP_Text fTxt) ? fTxt : null;
+        successTxt = DevTool.Get_ComponentTType(successCg.transform.GetChild(0).gameObject, out TMP_Text sTxt) ? sTxt : null;
 
         // Key Img
-        InputImg.sprite = ResourceManager.instance.spaceBarSprite;
-        InputImg.SetNativeSize();
+        inputImg.sprite = ResourceManager.instance.spaceBarSprite;
+        inputImg.SetNativeSize();
     }
 
     #endregion
 
     #region Set
 
-    public void Set_AllStart(bool _CanSuccess)
+    public void Set_AllStart(bool canSuccess)
     {
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, FailureTxt);
-        DevTool.Set_Color(ResourceManager.instance.unlockedClr, SuccessTxt);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, failureTxt);
+        DevTool.Set_Color(ResourceManager.instance.unlockedClr, successTxt);
 
-        TryUnlockTxt.text = ResourceManager.instance.Get_StaticWord(85);
-        InputTxt.text = ResourceManager.instance.Get_StaticWord(88);
-        SuccessTxt.text = ResourceManager.instance.Get_StaticWord(86);
-        FailureTxt.text = ResourceManager.instance.Get_StaticWord(87);
+        tryUnlockTxt.text = ResourceManager.instance.Get_StaticWord(85);
+        inputTxt.text = ResourceManager.instance.Get_StaticWord(88);
+        successTxt.text = ResourceManager.instance.Get_StaticWord(86);
+        failureTxt.text = ResourceManager.instance.Get_StaticWord(87);
 
-        Play_LineSetChange(_CanSuccess);
+        Play_LineSetChange(canSuccess);
     }
 
 
-    public void Play_LineSetChange(bool _CanSuccess)
+    public void Play_LineSetChange(bool canSuccess)
     {
-        Set_SuccessPanel(_CanSuccess, 0.5f);
-        Set_FailurePanel(_CanSuccess, 0.5f);
+        Set_SuccessPanel(canSuccess, 0.5f);
+        Set_FailurePanel(canSuccess, 0.5f);
 
-        Set_Roller(_CanSuccess, 1f);
+        Set_Roller(canSuccess, 1f);
     }
 
-    private void Set_SuccessPanel(bool _CanSuccess, float _DurTime)
+    private void Set_SuccessPanel(bool canSuccess, float durTime)
     {
-        DevTool.Set_KillTween(SuccessCG);
+        DevTool.Set_KillTween(successCg);
 
-        SuccessCG.DOFade(_CanSuccess ? 1f : 0.3f, _DurTime);
+        successCg.DOFade(canSuccess ? 1f : 0.3f, durTime);
     }
 
-    private void Set_FailurePanel(bool _CanSuccess, float _DurTime)
+    private void Set_FailurePanel(bool canSuccess, float durTime)
     {
-        DevTool.Set_KillTween(FailureCG);
+        DevTool.Set_KillTween(failureCg);
 
-        FailureCG.DOFade(_CanSuccess ? 0.3f : 1f, _DurTime);
+        failureCg.DOFade(canSuccess ? 0.3f : 1f, durTime);
     }
 
-    private void Set_Roller(bool _CanSuccess, float _DurTime)
+    private void Set_Roller(bool canSuccess, float durTime)
     {
-        DevTool.Set_KillTween(RollingRT);
+        DevTool.Set_KillTween(rollingRt);
 
-        float targetAngle = _CanSuccess ? 0 : 180;
+        float targetAngle = canSuccess ? 0 : 180;
         Quaternion endQuatValue = Quaternion.Euler(0f, 0f, targetAngle);
-        RollingRT.DORotateQuaternion(endQuatValue, _DurTime).SetEase(Ease.OutElastic);
+        rollingRt.DORotateQuaternion(endQuatValue, durTime).SetEase(Ease.OutElastic);
     }
 
     #endregion

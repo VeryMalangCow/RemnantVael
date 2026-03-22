@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 public class BaseUpgradeUIController : PlayerShopUIController
 {
@@ -16,16 +17,16 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     [Space(10)]
     [Header("=== Item")]
-    [SerializeField] public TMP_Text BCTxt;
-    [SerializeField] public TMP_Text ECTxt;
+    [FormerlySerializedAs("BCTxt")][SerializeField] public TMP_Text bcTxt;
+    [FormerlySerializedAs("ECTxt")][SerializeField] public TMP_Text ecTxt;
 
     [Space(10)]
     [Header("=== Desc")]
-    [SerializeField] protected DescBUEUIController ThisDescPanel;
+    [FormerlySerializedAs("ThisDescPanel")][SerializeField] protected DescBUEUIController descPanel;
 
     [Space(10)]
     [Header("=== Visual")]
-    [SerializeField] public Image FrameInnerImg;
+    [FormerlySerializedAs("FrameInnerImg")][SerializeField] public Image frameInnerImg;
 
     #region - BU State
 
@@ -34,32 +35,32 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     [Space(5)]
     [Header("-- Attack")]
-    [SerializeField] private BUShopData<float> DamageShop;
-    [SerializeField] private BUShopData<float> ROFShop;
-    [SerializeField] private BUShopData<float> CCShop;
-    [SerializeField] private BUShopData<float> CDShop;
-    [SerializeField] private BUShopData<float> MuzzleShop;
-    [SerializeField] private BUShopData<float> AccuracyRateShop;
-    [SerializeField] private BUShopData<float> KnockbackShop;
+    [FormerlySerializedAs("DamageShop")][SerializeField] private BUShopData<float> dmgShop;
+    [FormerlySerializedAs("ROFShop")][SerializeField] private BUShopData<float> rofShop;
+    [FormerlySerializedAs("CCShop")][SerializeField] private BUShopData<float> ccShop;
+    [FormerlySerializedAs("CDShop")][SerializeField] private BUShopData<float> cdShop;
+    [FormerlySerializedAs("MuzzleShop")][SerializeField] private BUShopData<float> muzzleShop;
+    [FormerlySerializedAs("AccuracyRateShop")][SerializeField] private BUShopData<float> accuracyRateShop;
+    [FormerlySerializedAs("KnockbackShop")][SerializeField] private BUShopData<float> knockbackShop;
 
     [Space(5)]
     [Header("-- EP")]
-    [SerializeField] private BUShopData<float> MaxEPShop;
-    [SerializeField] private BUShopData<float> SpawnESMultipleShop;
-    [SerializeField] private BUShopData<float> NeedEP_ForSkillMultipleShop;
+    [FormerlySerializedAs("MaxEPShop")][SerializeField] private BUShopData<float> maxEpShop;
+    [FormerlySerializedAs("SpawnESMultipleShop")][SerializeField] private BUShopData<float> spawnEsMultipleShop;
+    [FormerlySerializedAs("NeedEP_ForSkillMultipleShop")][SerializeField] private BUShopData<float> needEp_ForSkillMultipleShop;
     //[SerializeField] private BUShopData<float> DecEnergyPointMultipleShop;
-    [SerializeField] private BUShopData<float> ResistShop;
+    [FormerlySerializedAs("ResistShop")][SerializeField] private BUShopData<float> resistShop;
 
     [Space(5)]
     [Header("-- Movement")]
-    [SerializeField] private BUShopData<float> WalkSpeedShop;
-    [SerializeField] private BUShopData<float> WalkSpeedWhenShotMultipleShop;
-    [SerializeField] private BUShopData<float> DashSpeedShop;
-    [SerializeField] private BUShopData<float> WalkAvoidChance;
+    [FormerlySerializedAs("WalkSpeedShop")][SerializeField] private BUShopData<float> walkSpeedShop;
+    [FormerlySerializedAs("WalkSpeedWhenShotMultipleShop")][SerializeField] private BUShopData<float> walkSpeedWhenShotMultipleShop;
+    [FormerlySerializedAs("DashSpeedShop")][SerializeField] private BUShopData<float> dashSpeedShop;
+    [FormerlySerializedAs("WalkAvoidChance")][SerializeField] private BUShopData<float> walkAvoidChance;
 
     [Space(5)]
     [Header("-- Skill")]
-    [SerializeField] private List<BUShopSkillData<float, int>> SkillShopList;
+    [FormerlySerializedAs("SkillShopList")][SerializeField] private List<BUShopSkillData<float, int>> skillShopList;
 
     #endregion
 
@@ -68,8 +69,8 @@ public class BaseUpgradeUIController : PlayerShopUIController
     #region - Hide
 
     // BU Stata Data -> List
-    [HideInInspector] public List<BUShopData<float>> AllBUData_Float = new List<BUShopData<float>>();
-    [HideInInspector] public List<BUShopData<int>> AllBUData_Int = new List<BUShopData<int>>();
+    [HideInInspector] public List<BUShopData<float>> allBuData_Float = new List<BUShopData<float>>();
+    [HideInInspector] public List<BUShopData<int>> allBuData_Int = new List<BUShopData<int>>();
 
     #endregion
 
@@ -93,7 +94,7 @@ public class BaseUpgradeUIController : PlayerShopUIController
     private void Offset_Basic()
     {
         // Desc
-        ThisDescPanel.Offset();
+        descPanel.Offset();
 
     }
 
@@ -106,29 +107,29 @@ public class BaseUpgradeUIController : PlayerShopUIController
         SkillWeaponController pswc = pc.skillWeapon;
         BaseUpgradeManager bm = BaseUpgradeManager.instance;
         
-        MaxEPShop.Offset(pc.maxEP, bm.baseMaxEP_BUData, AllBUData_Float, this);
-        SpawnESMultipleShop.Offset(pc.spawnESMultiple, bm.baseSpawnESMultiple_BUData, AllBUData_Float, this);
-        NeedEP_ForSkillMultipleShop.Offset(pc.needEP_ForSkillMultiple, bm.baseNeedEP_ForSkillMultiple_BUData, AllBUData_Float, this);
-        ResistShop.Offset(pc.takingDmgMultiple, bm.baseResist_BUData, AllBUData_Float, this);
+        maxEpShop.Offset(pc.maxEP, bm.baseMaxEP_BUData, allBuData_Float, this);
+        spawnEsMultipleShop.Offset(pc.spawnESMultiple, bm.baseSpawnESMultiple_BUData, allBuData_Float, this);
+        needEp_ForSkillMultipleShop.Offset(pc.needEP_ForSkillMultiple, bm.baseNeedEP_ForSkillMultiple_BUData, allBuData_Float, this);
+        resistShop.Offset(pc.takingDmgMultiple, bm.baseResist_BUData, allBuData_Float, this);
 
-        WalkSpeedShop.Offset(pc.walkSpeed, bm.baseWalkSpeed_BUData, AllBUData_Float, this);
-        WalkSpeedWhenShotMultipleShop.Offset(pc.walkSpeedWhenShotMultiple, bm.baseWalkSpeedWhenShotMultiple_BUData, AllBUData_Float, this);
-        WalkAvoidChance.Offset(pc.avoidChance, bm.baseAvoidChance_BUData, AllBUData_Float, this);
-        DashSpeedShop.Offset(pc.dash.dashSpeed, bm.baseDashSpeed_BUData, AllBUData_Float, this);
+        walkSpeedShop.Offset(pc.walkSpeed, bm.baseWalkSpeed_BUData, allBuData_Float, this);
+        walkSpeedWhenShotMultipleShop.Offset(pc.walkSpeedWhenShotMultiple, bm.baseWalkSpeedWhenShotMultiple_BUData, allBuData_Float, this);
+        walkAvoidChance.Offset(pc.avoidChance, bm.baseAvoidChance_BUData, allBuData_Float, this);
+        dashSpeedShop.Offset(pc.dash.dashSpeed, bm.baseDashSpeed_BUData, allBuData_Float, this);
 
-        DamageShop.Offset(pwc.baseDamage, bm.baseDamage_BUData, AllBUData_Float, this);
-        ROFShop.Offset(pwc.rof, bm.baseROF_BUData, AllBUData_Float, this);
-        CCShop.Offset(pwc.cc, bm.baseCC_BUData, AllBUData_Float, this);
-        CDShop.Offset(pwc.cd, bm.baseCD_BUData, AllBUData_Float, this);
-        MuzzleShop.Offset(pwc.muzzleSpeed, bm.baseMuzzleSpeed_BUData, AllBUData_Float, this);
-        AccuracyRateShop.Offset(pwc.accRate, bm.baseAccuracyRate_BUData, AllBUData_Float, this);
-        KnockbackShop.Offset(pwc.kbPower, bm.knockback_BUData, AllBUData_Float, this);
+        dmgShop.Offset(pwc.baseDamage, bm.baseDamage_BUData, allBuData_Float, this);
+        rofShop.Offset(pwc.rof, bm.baseROF_BUData, allBuData_Float, this);
+        ccShop.Offset(pwc.cc, bm.baseCC_BUData, allBuData_Float, this);
+        cdShop.Offset(pwc.cd, bm.baseCD_BUData, allBuData_Float, this);
+        muzzleShop.Offset(pwc.muzzleSpeed, bm.baseMuzzleSpeed_BUData, allBuData_Float, this);
+        accuracyRateShop.Offset(pwc.accRate, bm.baseAccuracyRate_BUData, allBuData_Float, this);
+        knockbackShop.Offset(pwc.kbPower, bm.knockback_BUData, allBuData_Float, this);
 
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            SkillShopList[i].skill_CooltimeShop.Offset(pswc.skillList[i].maxCooltime, bm.skill_BUDataList[i].skill_Cooltime_BUData, AllBUData_Float, this);
-            SkillShopList[i].skill_PowerShop.Offset(pswc.skillList[i].power, bm.skill_BUDataList[i].skill_Power_BUData, AllBUData_Float, this);
-            SkillShopList[i].skill_TierShop.Offset(pswc.skillList[i].tier, bm.skill_BUDataList[i].skill_Tier_BUData, AllBUData_Int, this);
+            skillShopList[i].skill_CooltimeShop.Offset(pswc.skillList[i].maxCooltime, bm.skill_BUDataList[i].skill_Cooltime_BUData, allBuData_Float, this);
+            skillShopList[i].skill_PowerShop.Offset(pswc.skillList[i].power, bm.skill_BUDataList[i].skill_Power_BUData, allBuData_Float, this);
+            skillShopList[i].skill_TierShop.Offset(pswc.skillList[i].tier, bm.skill_BUDataList[i].skill_Tier_BUData, allBuData_Int, this);
         }
 
         #endregion
@@ -149,13 +150,13 @@ public class BaseUpgradeUIController : PlayerShopUIController
         PlayerManager.instance.playerController.currentBettery
             .Subscribe(value =>
             {
-                BCTxt.text = value.ToString();
+                bcTxt.text = value.ToString();
             });
 
         PlayerManager.instance.playerController.currentChargedBettery
             .Subscribe(value =>
             {
-                ECTxt.text = value.ToString();
+                ecTxt.text = value.ToString();
             });
     }
 
@@ -165,13 +166,13 @@ public class BaseUpgradeUIController : PlayerShopUIController
         subColorCompList = new List<Component>();
 
         // BUShop
-        for (int i = 0; i < AllBUData_Float.Count; i++)
+        for (int i = 0; i < allBuData_Float.Count; i++)
         {
-            Offset_ColorComp(AllBUData_Float[i]);
+            Offset_ColorComp(allBuData_Float[i]);
         }
-        for (int i = 0; i < AllBUData_Int.Count; i++)
+        for (int i = 0; i < allBuData_Int.Count; i++)
         {
-            Offset_ColorComp(AllBUData_Int[i]);
+            Offset_ColorComp(allBuData_Int[i]);
         }
 
         void Offset_ColorComp<T>(BUShopData<T> _BUShop)
@@ -187,10 +188,10 @@ public class BaseUpgradeUIController : PlayerShopUIController
         }
 
         // Desc
-        mainColorCompList.AddRange(ThisDescPanel.Get_MainColorList());
-        subColorCompList.AddRange(ThisDescPanel.Get_SubColorList());
+        mainColorCompList.AddRange(descPanel.Get_MainColorList());
+        subColorCompList.AddRange(descPanel.Get_SubColorList());
 
-        subColorCompList.Add(FrameInnerImg);
+        subColorCompList.Add(frameInnerImg);
 
         Color mainClr = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
         DevTool.Set_Color(mainClr, mainColorCompList);
@@ -261,12 +262,12 @@ public class BaseUpgradeUIController : PlayerShopUIController
     private bool Is_Interact_Buy_Float()
     {
         // 备概 内靛 (float)
-        for (int i = 0; i < AllBUData_Float.Count; i++)
+        for (int i = 0; i < allBuData_Float.Count; i++)
         {
-            if (AllBUData_Float[i].upgradeEUI.BuyBtn == currentBtn &&
+            if (allBuData_Float[i].upgradeEUI.BuyBtn == currentBtn &&
                 currentBtn.btn.interactable)
             {
-                AllBUData_Float[i].Try_Buy();
+                allBuData_Float[i].Try_Buy();
                 return true;
             }
         }
@@ -276,12 +277,12 @@ public class BaseUpgradeUIController : PlayerShopUIController
     private bool Is_Interact_Buy_Int()
     {
         // 备概 内靛 (int)
-        for (int i = 0; i < AllBUData_Int.Count; i++)
+        for (int i = 0; i < allBuData_Int.Count; i++)
         {
-            if (AllBUData_Int[i].upgradeEUI.BuyBtn == currentBtn &&
+            if (allBuData_Int[i].upgradeEUI.BuyBtn == currentBtn &&
                 currentBtn.btn.interactable)
             {
-                AllBUData_Int[i].Try_Buy();
+                allBuData_Int[i].Try_Buy();
                 return true;
             }
         }
@@ -311,20 +312,20 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     #region Desc
 
-    public void SetOn_Desc(TxtAmountForBuyEUIController _MTAFB, string _Name)
+    public void SetOn_Desc(TxtAmountForBuyEUIController mtafb, string name)
     {
-        BUState<float> baseUpgradeState_Float = DevTool.Get_ThisData(AllBUData_Float, _MTAFB);
+        BUState<float> baseUpgradeState_Float = DevTool.Get_ThisData(allBuData_Float, mtafb);
         if (baseUpgradeState_Float != null)
-        { ThisDescPanel.SetOn_Desc<float>(baseUpgradeState_Float, _Name); }
+        { descPanel.SetOn_Desc<float>(baseUpgradeState_Float, name); }
 
-        BUState<int> baseUpgradeState_Int = DevTool.Get_ThisData(AllBUData_Int, _MTAFB);
+        BUState<int> baseUpgradeState_Int = DevTool.Get_ThisData(allBuData_Int, mtafb);
         if (baseUpgradeState_Int != null)
-        { ThisDescPanel.SetOn_Desc<int>(baseUpgradeState_Int, _Name); }
+        { descPanel.SetOn_Desc<int>(baseUpgradeState_Int, name); }
     }
 
     public void SetOff_Desc()
     {
-        ThisDescPanel.SetOff_Desc();
+        descPanel.SetOff_Desc();
     }
 
     #endregion
@@ -333,11 +334,11 @@ public class BaseUpgradeUIController : PlayerShopUIController
 
     private void Play_OnTween()
     {
-        DevTool.Set_CompleteTween(FrameInnerImg);
+        DevTool.Set_CompleteTween(frameInnerImg);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(FrameInnerImg.DOFade(1, 0.5f));
-        seq.Append(FrameInnerImg.DOFade(0.5f, 0.5f));
+        seq.Append(frameInnerImg.DOFade(1, 0.5f));
+        seq.Append(frameInnerImg.DOFade(0.5f, 0.5f));
     }
 
     #endregion
@@ -361,33 +362,33 @@ public class BaseUpgradeUIController : PlayerShopUIController
         };
 
         // Shop
-        MaxEPShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(8), ResourceManager.instance.Get_StaticDesc(0));
-        SpawnESMultipleShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(38), ResourceManager.instance.Get_StaticDesc(1));
-        NeedEP_ForSkillMultipleShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(39), ResourceManager.instance.Get_StaticDesc(2));
-        ResistShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(37), ResourceManager.instance.Get_StaticDesc(4));
+        maxEpShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(8), ResourceManager.instance.Get_StaticDesc(0));
+        spawnEsMultipleShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(38), ResourceManager.instance.Get_StaticDesc(1));
+        needEp_ForSkillMultipleShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(39), ResourceManager.instance.Get_StaticDesc(2));
+        resistShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(37), ResourceManager.instance.Get_StaticDesc(4));
 
-        WalkSpeedShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(40), ResourceManager.instance.Get_StaticDesc(5));
-        WalkSpeedWhenShotMultipleShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(41), ResourceManager.instance.Get_StaticDesc(6));
-        WalkAvoidChance.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(36), ResourceManager.instance.Get_StaticDesc(7));
-        DashSpeedShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(10), ResourceManager.instance.Get_StaticDesc(8));
+        walkSpeedShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(40), ResourceManager.instance.Get_StaticDesc(5));
+        walkSpeedWhenShotMultipleShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(41), ResourceManager.instance.Get_StaticDesc(6));
+        walkAvoidChance.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(36), ResourceManager.instance.Get_StaticDesc(7));
+        dashSpeedShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(10), ResourceManager.instance.Get_StaticDesc(8));
 
-        DamageShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(12), ResourceManager.instance.Get_StaticDesc(9));
-        ROFShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(13), ResourceManager.instance.Get_StaticDesc(10));
-        CCShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(15), ResourceManager.instance.Get_StaticDesc(11));
-        CDShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(16), ResourceManager.instance.Get_StaticDesc(12));
-        MuzzleShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(43), ResourceManager.instance.Get_StaticDesc(13));
-        AccuracyRateShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(14), ResourceManager.instance.Get_StaticDesc(14));
-        KnockbackShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(44), ResourceManager.instance.Get_StaticDesc(15));
+        dmgShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(12), ResourceManager.instance.Get_StaticDesc(9));
+        rofShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(13), ResourceManager.instance.Get_StaticDesc(10));
+        ccShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(15), ResourceManager.instance.Get_StaticDesc(11));
+        cdShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(16), ResourceManager.instance.Get_StaticDesc(12));
+        muzzleShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(43), ResourceManager.instance.Get_StaticDesc(13));
+        accuracyRateShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(14), ResourceManager.instance.Get_StaticDesc(14));
+        knockbackShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(44), ResourceManager.instance.Get_StaticDesc(15));
 
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            SkillShopList[i].skill_CooltimeShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(45), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 0));
-            SkillShopList[i].skill_PowerShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(18), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 1));
-            SkillShopList[i].skill_TierShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(17), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 2));
+            skillShopList[i].skill_CooltimeShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(45), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 0));
+            skillShopList[i].skill_PowerShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(18), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 1));
+            skillShopList[i].skill_TierShop.Set_LanguageTxt(ResourceManager.instance.Get_StaticWord(17), ResourceManager.instance.Get_SkillDesc(PlayerManager.instance.playerController.Get_ID(), (i * (DevTool.skillAmount + 1)) + 2));
         }
 
         // Desc
-        ThisDescPanel.Set_LanguageTxt();
+        descPanel.Set_LanguageTxt();
 
         base.Set_LanguageTxt();
     }

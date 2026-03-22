@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class InOrderLockerUIController : PuzzleUIController
@@ -15,36 +16,36 @@ public class InOrderLockerUIController : PuzzleUIController
 
     [Space(10)]
     [Header("=== TF")]
-    [SerializeField] private Transform AllIOLCellParentTF;
-    [SerializeField] private Transform InnerParentTF;
-    [SerializeField] private RectTransform SelectingSignRT;
+    [FormerlySerializedAs("AllIOLCellParentTF")][SerializeField] private Transform allIolCellParentTf;
+    [FormerlySerializedAs("InnerParentTF")][SerializeField] private Transform innerParentTf;
+    [FormerlySerializedAs("SelectingSignRT")][SerializeField] private RectTransform selectingSignRT;
 
     [Space(10)]
-    [SerializeField] private TMP_Text AnswerIndexTxt;
-    [SerializeField] private TMP_Text AnswerCurrentSetTxt;
+    [FormerlySerializedAs("AnswerIndexTxt")][SerializeField] private TMP_Text answerIndexTxt;
+    [FormerlySerializedAs("AnswerCurrentSetTxt")][SerializeField] private TMP_Text answerCurrentSetTxt;
 
     [Space(10)]
     [Header("=== Ready KeyAnno")]
-    [SerializeField] private Image SelectInputImg;
+    [FormerlySerializedAs("SelectInputImg")][SerializeField] private Image selectInputImg;
 
     #endregion
 
     #region - Hide
 
     // EUI
-    [HideInInspector] private List<IOLCellEUIController> AllIOLCell;
+    [HideInInspector] private List<IOLCellEUIController> allIolCell;
 
     // Inner
-    [HideInInspector] private List<Image> InnerImgList;
+    [HideInInspector] private List<Image> innerImgList;
 
     // Value
-    [HideInInspector] private int CellAmount = 0;
-    [HideInInspector] private List<int> AnswerIntList = new List<int>();
-    [HideInInspector] private List<int> SelectingIntList = new List<int>();
-    [HideInInspector] private int NeedNextSelectEUIIndex = -1;
+    [HideInInspector] private int cellAmount = 0;
+    [HideInInspector] private List<int> answerIntList = new List<int>();
+    [HideInInspector] private List<int> selectingIntList = new List<int>();
+    [HideInInspector] private int needNextSelectEUIIndex = -1;
      
     // Selecting
-    [HideInInspector] private IOLCellEUIController SelectingIOLCellEUI;
+    [HideInInspector] private IOLCellEUIController selectingIolCellEui;
 
     #endregion
 
@@ -52,32 +53,32 @@ public class InOrderLockerUIController : PuzzleUIController
 
     #region Offset
 
-    public override void Offset_FirstValue(PrisonController _Prison)
+    public override void Offset_FirstValue(PrisonController prison)
     {
-        base.Offset_FirstValue(_Prison);
+        base.Offset_FirstValue(prison);
 
-        Debug.Log(_Prison.Rating);
-        CellAmount = 5 + _Prison.Rating;
-        CurrentCountdown = BaseCountdown + (_Prison.Rating * 4);
+        Debug.Log(prison.Rating);
+        cellAmount = 5 + prison.Rating;
+        currentCountdown = baseCountdown + (prison.Rating * 4);
     }
 
     public override void Offset()
     {
         base.Offset();
 
-        AllIOLCell = DevTool.Get_ChildList<IOLCellEUIController>(AllIOLCellParentTF);
+        allIolCell = DevTool.Get_ChildList<IOLCellEUIController>(allIolCellParentTf);
 
-        InnerImgList = DevTool.Get_ChildList<Image>(InnerParentTF);
+        innerImgList = DevTool.Get_ChildList<Image>(innerParentTf);
 
-        for (int i = 0; i < AllIOLCell.Count; i++)
+        for (int i = 0; i < allIolCell.Count; i++)
         {
-            AllIOLCell[i].ownerUIController = this;
-            AllIOLCell[i].ownerIolUIController = this;
-            AllIOLCell[i].Offset();
+            allIolCell[i].ownerUIController = this;
+            allIolCell[i].ownerIolUIController = this;
+            allIolCell[i].Offset();
         }
 
-        SelectInputImg.sprite = ResourceManager.instance.mlbSprite;
-        SelectInputImg.SetNativeSize();
+        selectInputImg.sprite = ResourceManager.instance.mlbSprite;
+        selectInputImg.SetNativeSize();
     }
 
     #endregion
@@ -103,12 +104,12 @@ public class InOrderLockerUIController : PuzzleUIController
     private bool Is_Interact_On()
     {
         if (!(currentBtn is IOLCellEUIController cellEUI) ||
-            cellEUI != SelectingIOLCellEUI ||
-            !IsInteractable)
+            cellEUI != selectingIolCellEui ||
+            !isInteractable)
             return false;
 
-        if (SelectingIOLCellEUI.isInteractable && !SelectingIOLCellEUI.isOn)
-            Set_SelectingIncludeValue(SelectingIOLCellEUI);
+        if (selectingIolCellEui.isInteractable && !selectingIolCellEui.isOn)
+            Set_SelectingIncludeValue(selectingIolCellEui);
 
         return true;
     }
@@ -119,7 +120,7 @@ public class InOrderLockerUIController : PuzzleUIController
 
     public override bool Can_Success()
     {
-        if (AnswerIntList.Count == SelectingIntList.Count)
+        if (answerIntList.Count == selectingIntList.Count)
             return true;
 
         return false;
@@ -133,11 +134,11 @@ public class InOrderLockerUIController : PuzzleUIController
     {
         base.Set_AllStart();
 
-        ReadyPanelEUI.Set_RuleDesc(ResourceManager.instance.Get_StaticDesc(35));
+        readyPanelEui.Set_RuleDesc(ResourceManager.instance.Get_StaticDesc(35));
 
         Set_AllDefault();
         Set_InnerColor(ResourceManager.instance.lockedClr);
-        Set_InteractableAmount(CellAmount);
+        Set_InteractableAmount(cellAmount);
     }
 
     protected override void Set_AllComplete()
@@ -153,100 +154,100 @@ public class InOrderLockerUIController : PuzzleUIController
 
     private void Set_AllDefault()
     {
-        for (int i = 0; i < AllIOLCell.Count; i++)
+        for (int i = 0; i < allIolCell.Count; i++)
         {
-            AllIOLCell[i].Set_Default();
-            AllIOLCell[i].Set_Interactable(false);
-            AllIOLCell[i].Set_NumIndexTxt(false);
+            allIolCell[i].Set_Default();
+            allIolCell[i].Set_Interactable(false);
+            allIolCell[i].Set_NumIndexTxt(false);
         }
 
-        NeedNextSelectEUIIndex = -1;
+        needNextSelectEUIIndex = -1;
     }
 
-    private void Set_InnerColor(Color _Clr)
+    private void Set_InnerColor(Color clr)
     {
-        for (int i = 0; i < InnerImgList.Count; i++)
+        for (int i = 0; i < innerImgList.Count; i++)
         {
-            DevTool.Set_Color(_Clr, InnerImgList[i]);
+            DevTool.Set_Color(clr, innerImgList[i]);
         }
-        for (int i = 0; i < AllIOLCell.Count; i++)
+        for (int i = 0; i < allIolCell.Count; i++)
         {
-            AllIOLCell[i].Set_Color(_Clr);
+            allIolCell[i].Set_Color(clr);
         }
     }
 
-    private void Set_InteractableAmount(int _Amount)
+    private void Set_InteractableAmount(int amount)
     {
-        AnswerIntList.Clear();
+        answerIntList.Clear();
 
         string answerIndexString = "";
-        for (int i = 0; i < _Amount; i++)
+        for (int i = 0; i < amount; i++)
         {
-            AllIOLCell[i].Set_Interactable(true);
-            AnswerIntList.Add(i);
-            answerIndexString += i != _Amount - 1 ? $"<size=200%>{i + 1}</size>\t" : $"<size=200%>{i + 1}</size>";
+            allIolCell[i].Set_Interactable(true);
+            answerIntList.Add(i);
+            answerIndexString += i != amount - 1 ? $"<size=200%>{i + 1}</size>\t" : $"<size=200%>{i + 1}</size>";
         }
-        AnswerIndexTxt.text = answerIndexString;
-        AnswerCurrentSetTxt.text = "";
+        answerIndexTxt.text = answerIndexString;
+        answerCurrentSetTxt.text = "";
 
-        AnswerIntList = DevTool.Get_ShuffledList(AnswerIntList);
+        answerIntList = DevTool.Get_ShuffledList(answerIntList);
     }
 
     #endregion
 
     #region Set (Selecting List)
 
-    private void Set_SelectingIncludeValue(IOLCellEUIController _CellEUI)
+    private void Set_SelectingIncludeValue(IOLCellEUIController cellEui)
     {
         SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
-        int targetCellEUIIndex = AllIOLCell.IndexOf(_CellEUI);
+        int targetCellEUIIndex = allIolCell.IndexOf(cellEui);
 
         // 처음 선택
-        if (NeedNextSelectEUIIndex == -1 ||
-            NeedNextSelectEUIIndex != targetCellEUIIndex)
+        if (needNextSelectEUIIndex == -1 ||
+            needNextSelectEUIIndex != targetCellEUIIndex)
         {
-            SelectingIntList.Clear();
+            selectingIntList.Clear();
         }
 
-        SelectingIntList.Add(targetCellEUIIndex);
-        NeedNextSelectEUIIndex = Get_NextTargetIndex(targetCellEUIIndex);
+        selectingIntList.Add(targetCellEUIIndex);
+        needNextSelectEUIIndex = Get_NextTargetIndex(targetCellEUIIndex);
 
-        Set_SelectingValueTxt(SelectingIntList);
+        Set_SelectingValueTxt(selectingIntList);
     }
 
-    private void Set_SelectingValueTxt(List<int> _Value)
+    private void Set_SelectingValueTxt(List<int> value)
     {
         List<int> numList = new List<int>();
-        for (int i = 0; i < _Value.Count; i++)
-            numList.Add(AnswerIntList.IndexOf(_Value[i]));
+        for (int i = 0; i < value.Count; i++)
+            numList.Add(answerIntList.IndexOf(value[i]));
         
         string answerIndexString = "";
-        for (int i = 0; i < AnswerIntList.Count; i++)
+        for (int i = 0; i < answerIntList.Count; i++)
         {
             // On Off
-            if (_Value.Contains(i))
+            if (value.Contains(i))
             {
-                AllIOLCell[i].Set_On(0.1f);
-                AllIOLCell[i].Set_NumIndexTxt(true, AnswerIntList.IndexOf(i));
+                allIolCell[i].Set_On(0.1f);
+                allIolCell[i].Set_NumIndexTxt(true, answerIntList.IndexOf(i));
             }
             else
             {
-                AllIOLCell[i].Set_Off(0.1f);
-                AllIOLCell[i].Set_NumIndexTxt(false);
+                allIolCell[i].Set_Off(0.1f);
+                allIolCell[i].Set_NumIndexTxt(false);
             }
 
             // Num
             if (numList.Contains(i))
             {
-                answerIndexString += i != AnswerIntList.Count - 1 ? "<size=150%>^</size>\t" : "<size=150%>^</size>";
+                answerIndexString += i != answerIntList.Count - 1 ? "<size=150%>^</size>\t" : "<size=150%>^</size>";
             }
             else
             {
-                answerIndexString += i != AnswerIntList.Count - 1 ? "<size=150%> </size>\t" : "<size=150%> </size>";
+                answerIndexString += i != answerIntList.Count - 1 ? "<size=150%> </size>\t" : "<size=150%> </size>";
             }
         }
-        AnswerCurrentSetTxt.text = answerIndexString;
+        answerCurrentSetTxt.text = answerIndexString;
     }
 
 
@@ -254,24 +255,24 @@ public class InOrderLockerUIController : PuzzleUIController
 
     #region Set (Select)
 
-    public void Set_CellSelect(IOLCellEUIController _CellEUI)
+    public void Set_CellSelect(IOLCellEUIController cellEui)
     {
-        if (SelectingIOLCellEUI != _CellEUI)
+        if (selectingIolCellEui != cellEui)
         {
-            SelectingIOLCellEUI = _CellEUI;
-            SelectingSignRT.gameObject.SetActive(true);
-            SelectingSignRT.anchoredPosition = _CellEUI.rt.anchoredPosition;
+            selectingIolCellEui = cellEui;
+            selectingSignRT.gameObject.SetActive(true);
+            selectingSignRT.anchoredPosition = cellEui.rt.anchoredPosition;
             Play_SelectingRT();
         }
     }
 
     private void Play_SelectingRT()
     {
-        DevTool.Set_KillTween(SelectingSignRT);
+        DevTool.Set_KillTween(selectingSignRT);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(SelectingSignRT.DOScale(1.05f, 0.1f));
-        seq.Append(SelectingSignRT.DOScale(1.0f, 0.1f));
+        seq.Append(selectingSignRT.DOScale(1.05f, 0.1f));
+        seq.Append(selectingSignRT.DOScale(1.0f, 0.1f));
 
     }
 
@@ -279,16 +280,16 @@ public class InOrderLockerUIController : PuzzleUIController
 
     #region Get (Selecting List)
 
-    private int Get_NextTargetIndex(int _FirstInt)
+    private int Get_NextTargetIndex(int firstInt)
     {
-        for (int i = 0; i < AnswerIntList.Count; i++)
+        for (int i = 0; i < answerIntList.Count; i++)
         {
-            if (AnswerIntList[i] == _FirstInt)
+            if (answerIntList[i] == firstInt)
             {
-                if (i == AnswerIntList.Count - 1)
-                    return AnswerIntList[0];
+                if (i == answerIntList.Count - 1)
+                    return answerIntList[0];
                 else
-                    return AnswerIntList[i + 1];
+                    return answerIntList[i + 1];
             }
         }
 

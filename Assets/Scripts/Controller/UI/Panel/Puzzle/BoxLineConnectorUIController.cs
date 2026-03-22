@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BoxLineConnectorUIController : PuzzleUIController
@@ -14,41 +15,41 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     [Space(10)]
     [Header("=== TF")]
-    [SerializeField] private Transform BoxCellParentTF;
-    [SerializeField] private Transform BoxConnectionParentTF;
-    [SerializeField] private Transform InnerParentTF;
+    [FormerlySerializedAs("BoxCellParentTF")][SerializeField] private Transform boxCellParentTf;
+    [FormerlySerializedAs("BoxConnectionParentTF")][SerializeField] private Transform boxConnectionParentTf;
+    [FormerlySerializedAs("InnerParentTF")][SerializeField] private Transform innerParentTf;
 
     [Space(10)]
     [Header("=== Selecting")]
-    [SerializeField] private RectTransform SelectingSignRT;
+    [FormerlySerializedAs("SelectingSignRT")][SerializeField] private RectTransform selectingSignRt;
 
     [Space(10)]
     [Header("=== Ready KeyAnno")]
-    [SerializeField] private Image LeftRollInputImg;
-    [SerializeField] private Image RightRollInputImg;
+    [FormerlySerializedAs("LeftRollInputImg")][SerializeField] private Image leftRollInputImg;
+    [FormerlySerializedAs("RightRollInputImg")][SerializeField] private Image rightRollInputImg;
 
     #endregion
 
     #region - Hide
 
     // EUI
-    [HideInInspector] private List<BoxCellEUIController> AllBoxCellEUI;
-    [HideInInspector] private List<BoxConnectionEUIController> AllBoxConnectionEUI;
+    [HideInInspector] private List<BoxCellEUIController> allBoxCellEui;
+    [HideInInspector] private List<BoxConnectionEUIController> allBoxConnectionEui;
 
     // Value
-    [HideInInspector] private int CellAmount = 0;
+    [HideInInspector] private int cellAmount = 0;
 
     // RandomSet
-    [HideInInspector] private HashSet<Vector2Int> OnDirBoxCell = new HashSet<Vector2Int>();
+    [HideInInspector] private HashSet<Vector2Int> onDirBoxCell = new HashSet<Vector2Int>();
 
     // Dict
-    [HideInInspector] private Dictionary<Vector2Int, BoxCellEUIController> BoxCellDirDict = new Dictionary<Vector2Int, BoxCellEUIController>();
+    [HideInInspector] private Dictionary<Vector2Int, BoxCellEUIController> boxCellDirDict = new Dictionary<Vector2Int, BoxCellEUIController>();
 
     // Selecting
-    [HideInInspector] private BoxCellEUIController SelectingBoxCellEUI = null;
+    [HideInInspector] private BoxCellEUIController selectingBoxCellEui = null;
 
     // Inner
-    [HideInInspector] private List<Image> InnerList;
+    [HideInInspector] private List<Image> innerList;
 
 
     #endregion
@@ -57,39 +58,39 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     #region Offset
 
-    public override void Offset_FirstValue(PrisonController _Prison)
+    public override void Offset_FirstValue(PrisonController prison)
     {
-        base.Offset_FirstValue(_Prison);
+        base.Offset_FirstValue(prison);
 
-        CellAmount = 4 + _Prison.Rating;
-        CurrentCountdown = BaseCountdown - _Prison.Rating;
+        cellAmount = 4 + prison.Rating;
+        currentCountdown = baseCountdown - prison.Rating;
     }
 
     public override void Offset()
     {
         base.Offset();
 
-        AllBoxCellEUI = DevTool.Get_ChildList<BoxCellEUIController>(BoxCellParentTF);
-        AllBoxConnectionEUI = DevTool.Get_ChildList<BoxConnectionEUIController>(BoxConnectionParentTF);
-        InnerList = DevTool.Get_ChildList<Image>(InnerParentTF);
+        allBoxCellEui = DevTool.Get_ChildList<BoxCellEUIController>(boxCellParentTf);
+        allBoxConnectionEui = DevTool.Get_ChildList<BoxConnectionEUIController>(boxConnectionParentTf);
+        innerList = DevTool.Get_ChildList<Image>(innerParentTf);
 
-        for (int i = 0; i < AllBoxCellEUI.Count; i++)
+        for (int i = 0; i < allBoxCellEui.Count; i++)
         {
-            AllBoxCellEUI[i].Offset();
-            AllBoxCellEUI[i].ownerUIController = this;
-            AllBoxCellEUI[i].ownerPuzzleUIController = this;
-            BoxCellDirDict.Add(AllBoxCellEUI[i].pos, AllBoxCellEUI[i]);
+            allBoxCellEui[i].Offset();
+            allBoxCellEui[i].ownerUIController = this;
+            allBoxCellEui[i].ownerPuzzleUIController = this;
+            boxCellDirDict.Add(allBoxCellEui[i].pos, allBoxCellEui[i]);
         }
 
-        for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
+        for (int i = 0; i < allBoxConnectionEui.Count; i++)
         {
-            AllBoxConnectionEUI[i].Offset();
+            allBoxConnectionEui[i].Offset();
         }
 
-        RightRollInputImg.sprite = ResourceManager.instance.mlbSprite;
-        RightRollInputImg.SetNativeSize();
-        LeftRollInputImg.sprite = ResourceManager.instance.mrbSprite;
-        LeftRollInputImg.SetNativeSize();
+        rightRollInputImg.sprite = ResourceManager.instance.mlbSprite;
+        rightRollInputImg.SetNativeSize();
+        leftRollInputImg.sprite = ResourceManager.instance.mrbSprite;
+        leftRollInputImg.SetNativeSize();
     }
 
     #endregion
@@ -100,7 +101,7 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         base.Set_AllStart();
 
-        ReadyPanelEUI.Set_RuleDesc(ResourceManager.instance.Get_StaticDesc(33));
+        readyPanelEui.Set_RuleDesc(ResourceManager.instance.Get_StaticDesc(33));
 
         Set_AllDefault();
         Set_RandomPuzzleByRate();
@@ -118,95 +119,95 @@ public class BoxLineConnectorUIController : PuzzleUIController
         Set_AllInnerColor(ResourceManager.instance.unlockedClr);
 
         // Selecting
-        SelectingBoxCellEUI = null;
-        SelectingSignRT.gameObject.SetActive(false);
+        selectingBoxCellEui = null;
+        selectingSignRt.gameObject.SetActive(false);
     }
 
     #endregion
 
     #region Set (Unique)
 
-    private void Set_AllInnerColor(Color _Clr)
+    private void Set_AllInnerColor(Color clr)
     {
         // Cell
-        for (int i = 0; i < AllBoxCellEUI.Count; i++)
-            AllBoxCellEUI[i].Set_InnerColor(_Clr);
+        for (int i = 0; i < allBoxCellEui.Count; i++)
+            allBoxCellEui[i].Set_InnerColor(clr);
         
         // Connection
-        for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
-            AllBoxConnectionEUI[i].Set_InnerColor(_Clr);
+        for (int i = 0; i < allBoxConnectionEui.Count; i++)
+            allBoxConnectionEui[i].Set_InnerColor(clr);
         
         // Inner 
-        for (int i = 0; i < InnerList.Count; i++)
-            DevTool.Set_Color(_Clr, InnerList[i]);
+        for (int i = 0; i < innerList.Count; i++)
+            DevTool.Set_Color(clr, innerList[i]);
     }
 
     private void Set_AllDefault()
     {
-        for (int i = 0; i < AllBoxCellEUI.Count; i++)
-            AllBoxCellEUI[i].Set_Active(false);
-        for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
-            AllBoxConnectionEUI[i].Set_Active(false);
+        for (int i = 0; i < allBoxCellEui.Count; i++)
+            allBoxCellEui[i].Set_Active(false);
+        for (int i = 0; i < allBoxConnectionEui.Count; i++)
+            allBoxConnectionEui[i].Set_Active(false);
 
         Set_AllInnerColor(ResourceManager.instance.lockedClr);
 
         // Selecting
-        SelectingBoxCellEUI = null;
-        SelectingSignRT.gameObject.SetActive(false);
+        selectingBoxCellEui = null;
+        selectingSignRt.gameObject.SetActive(false);
 
     }
 
     private void Set_RandomPuzzleByRate()
     {
-        if (OnDirBoxCell != null)
-            OnDirBoxCell.Clear();
+        if (onDirBoxCell != null)
+            onDirBoxCell.Clear();
         
         // 처음은 랜덤으로 설정
-        Vector2Int firstBoxCell = AllBoxCellEUI[Random.Range(0, AllBoxCellEUI.Count)].pos;
-        OnDirBoxCell.Add(firstBoxCell);
+        Vector2Int firstBoxCell = allBoxCellEui[Random.Range(0, allBoxCellEui.Count)].pos;
+        onDirBoxCell.Add(firstBoxCell);
 
         while(true)
         {
-            Vector2Int randomBoxCell = AllBoxCellEUI[Random.Range(0, AllBoxCellEUI.Count)].pos;
-            if (!OnDirBoxCell.Contains(randomBoxCell) &&
-                DevTool.Get_RoundVec(OnDirBoxCell).Contains(randomBoxCell))
-                OnDirBoxCell.Add(randomBoxCell);
+            Vector2Int randomBoxCell = allBoxCellEui[Random.Range(0, allBoxCellEui.Count)].pos;
+            if (!onDirBoxCell.Contains(randomBoxCell) &&
+                DevTool.Get_RoundVec(onDirBoxCell).Contains(randomBoxCell))
+                onDirBoxCell.Add(randomBoxCell);
             else
                 continue;
             
 
             // 일정 수치를 채우면 종료
-            if (OnDirBoxCell.Count >= CellAmount || OnDirBoxCell.Count >= AllBoxCellEUI.Count)
+            if (onDirBoxCell.Count >= cellAmount || onDirBoxCell.Count >= allBoxCellEui.Count)
                 break;
         }
     }
 
     private void SetOn_ByConditionToCell()
     {
-        foreach (Vector2Int activeBoxCellVec in OnDirBoxCell)
+        foreach (Vector2Int activeBoxCellVec in onDirBoxCell)
         {
             // 셀을 활성화
-            BoxCellDirDict[activeBoxCellVec].Set_Active(true);
+            boxCellDirDict[activeBoxCellVec].Set_Active(true);
 
             // 셀 내부의 방향 이미지 활성화
             List<Vector2Int> staticRoundVec = DevTool.Get_RoundVec(Vector2Int.zero);
 
             for (int i = 0; i < staticRoundVec.Count; i++)
-                if (OnDirBoxCell.Contains(activeBoxCellVec + staticRoundVec[i]))
-                    BoxCellDirDict[activeBoxCellVec].Get_CorrectDirGO(staticRoundVec[i]).gameObject.SetActive(true);
+                if (onDirBoxCell.Contains(activeBoxCellVec + staticRoundVec[i]))
+                    boxCellDirDict[activeBoxCellVec].Get_CorrectDirGO(staticRoundVec[i]).gameObject.SetActive(true);
                 else
-                    BoxCellDirDict[activeBoxCellVec].Get_CorrectDirGO(staticRoundVec[i]).gameObject.SetActive(false);
+                    boxCellDirDict[activeBoxCellVec].Get_CorrectDirGO(staticRoundVec[i]).gameObject.SetActive(false);
 
             // 랜덤한 방향으로 회전 세팅
-            BoxCellDirDict[activeBoxCellVec].Set_RandomAngle();
+            boxCellDirDict[activeBoxCellVec].Set_RandomAngle();
         }
     }
 
     private void SetOn_ByConditionToConnector()
     {
-        for (int i = 0; i < AllBoxConnectionEUI.Count; i++)
+        for (int i = 0; i < allBoxConnectionEui.Count; i++)
         {
-            AllBoxConnectionEUI[i].Set_ActiveByCondition(OnDirBoxCell);
+            allBoxConnectionEui[i].Set_ActiveByCondition(onDirBoxCell);
         }
     }
 
@@ -214,23 +215,23 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     #region Select
 
-    public void Set_BoxCellSelect(BoxCellEUIController _BoxCellEUI)
+    public void Set_BoxCellSelect(BoxCellEUIController boxCellEui)
     {
-        if (SelectingBoxCellEUI != _BoxCellEUI && IsInteractable)
+        if (selectingBoxCellEui != boxCellEui && isInteractable)
         {
-            SelectingBoxCellEUI = _BoxCellEUI;
-            SelectingSignRT.gameObject.SetActive(true);
-            SelectingSignRT.anchoredPosition = _BoxCellEUI.rt.anchoredPosition;
+            selectingBoxCellEui = boxCellEui;
+            selectingSignRt.gameObject.SetActive(true);
+            selectingSignRt.anchoredPosition = boxCellEui.rt.anchoredPosition;
             Play_SelectingRT();
         }
     }
     private void Play_SelectingRT()
     {
-        DevTool.Set_KillTween(SelectingSignRT);
+        DevTool.Set_KillTween(selectingSignRt);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(SelectingSignRT.DOScale(1.05f, 0.1f));
-        seq.Append(SelectingSignRT.DOScale(1.0f, 0.1f));
+        seq.Append(selectingSignRt.DOScale(1.05f, 0.1f));
+        seq.Append(selectingSignRt.DOScale(1.0f, 0.1f));
 
     }
 
@@ -242,9 +243,9 @@ public class BoxLineConnectorUIController : PuzzleUIController
     {
         bool success = true;
 
-        foreach (Vector2Int vec2Int in OnDirBoxCell)
+        foreach (Vector2Int vec2Int in onDirBoxCell)
         {
-            if (!BoxCellDirDict[vec2Int].Is_CorrectDir())
+            if (!boxCellDirDict[vec2Int].Is_CorrectDir())
                 success = false;
         }
         return success;
@@ -277,16 +278,16 @@ public class BoxLineConnectorUIController : PuzzleUIController
 
     #region Intetact (Roll)
 
-    private bool Is_Interact_Roll(float _PlusAngle, float _DurTime)
+    private bool Is_Interact_Roll(float plusAngle, float durTime)
     {
         if (!(currentBtn is BoxCellEUIController boxCell) ||
-            boxCell != SelectingBoxCellEUI ||
-            !IsInteractable)
+            boxCell != selectingBoxCellEui ||
+            !isInteractable)
             return false;
 
         SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
-        SelectingBoxCellEUI.Play_Roll(_PlusAngle, _DurTime);
+        selectingBoxCellEui.Play_Roll(plusAngle, durTime);
 
         return true;
     }

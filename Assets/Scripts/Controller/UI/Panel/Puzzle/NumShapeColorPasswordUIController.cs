@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class NumShapeColorPasswordUIController : PuzzleUIController
@@ -14,29 +15,29 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     [Space(10)]
     [Header("=== RT")]
-    [SerializeField] private RectTransform AllNSCPanelEUIParentRT;
-    [SerializeField] private RectTransform SelectingSignRT;
+    [FormerlySerializedAs("AllNSCPanelEUIParentRT")][SerializeField] private RectTransform allNscPanelEuiParentRt;
+    [FormerlySerializedAs("SelectingSignRT")][SerializeField] private RectTransform selectingSignRt;
 
     [Space(10)]
     [Header("=== Ready KeyAnno")]
-    [SerializeField] private Image DownRollInputImg;
-    [SerializeField] private Image UpRollInputImg;
+    [FormerlySerializedAs("DownRollInputImg")][SerializeField] private Image downRollInputImg;
+    [FormerlySerializedAs("UpRollInputImg")][SerializeField] private Image upRollInputImg;
 
     #endregion
 
     #region - Hide
 
     // Value
-    [HideInInspector] private int UnlockedAmount = 0;
-    [HideInInspector] private int LockedAmount = 0;
+    [HideInInspector] private int unlockedAmount = 0;
+    [HideInInspector] private int lockedAmount = 0;
 
     // EUI
-    [HideInInspector] private List<NSCPanelEUIController> AllNSCPanelEUI;
-    [HideInInspector] private List<NSCRollCellEUIController> AllNSCRollCellEUI = new List<NSCRollCellEUIController>();
-    [HideInInspector] private List<int> LockedRollCellEUIIndexList;
+    [HideInInspector] private List<NSCPanelEUIController> allNscPanelEui;
+    [HideInInspector] private List<NSCRollCellEUIController> allNscRollCellEui = new List<NSCRollCellEUIController>();
+    [HideInInspector] private List<int> lockedRollCellEuiIndexList;
 
     // Input
-    [HideInInspector] private NSCRollCellEUIController SelectingRollCellEUI;
+    [HideInInspector] private NSCRollCellEUIController selectingRollCellEui;
 
     #endregion
 
@@ -44,13 +45,13 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     #region Offset
 
-    public override void Offset_FirstValue(PrisonController _Prison)
+    public override void Offset_FirstValue(PrisonController prison)
     {
-        base.Offset_FirstValue(_Prison);
+        base.Offset_FirstValue(prison);
 
-        Debug.Log(_Prison.Rating);
-        UnlockedAmount = 4 + _Prison.Rating;
-        CurrentCountdown = BaseCountdown - _Prison.Rating;
+        Debug.Log(prison.Rating);
+        unlockedAmount = 4 + prison.Rating;
+        currentCountdown = baseCountdown - prison.Rating;
     }
 
 
@@ -58,20 +59,20 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     {
         base.Offset();
 
-        AllNSCPanelEUI = DevTool.Get_ChildList<NSCPanelEUIController>(AllNSCPanelEUIParentRT);
+        allNscPanelEui = DevTool.Get_ChildList<NSCPanelEUIController>(allNscPanelEuiParentRt);
 
-        for (int i = 0; i < AllNSCPanelEUI.Count; i++)
+        for (int i = 0; i < allNscPanelEui.Count; i++)
         {
-            AllNSCPanelEUI[i].ownerUIController = this;
-            AllNSCPanelEUI[i].Offset();
+            allNscPanelEui[i].ownerUIController = this;
+            allNscPanelEui[i].Offset();
 
-            AllNSCRollCellEUI.AddRange(AllNSCPanelEUI[i].allRollEui);
+            allNscRollCellEui.AddRange(allNscPanelEui[i].allRollEui);
         }
 
-        DownRollInputImg.sprite = ResourceManager.instance.mlbSprite;
-        DownRollInputImg.SetNativeSize();
-        UpRollInputImg.sprite = ResourceManager.instance.mrbSprite;
-        UpRollInputImg.SetNativeSize();
+        downRollInputImg.sprite = ResourceManager.instance.mlbSprite;
+        downRollInputImg.SetNativeSize();
+        upRollInputImg.sprite = ResourceManager.instance.mrbSprite;
+        upRollInputImg.SetNativeSize();
     }
 
     #endregion
@@ -82,7 +83,7 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     {
         base.Set_AllStart();
 
-        ReadyPanelEUI.Set_RuleDesc(ResourceManager.instance.Get_StaticDesc(34));
+        readyPanelEui.Set_RuleDesc(ResourceManager.instance.Get_StaticDesc(34));
 
         Set_AllNSCPanelEUI_DefaultAndRandom();
         Set_LockByRating();
@@ -96,9 +97,9 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
     {
         base.Set_AllComplete();
 
-        for (int i = 0; i < AllNSCPanelEUI.Count; i++)
+        for (int i = 0; i < allNscPanelEui.Count; i++)
         {
-            AllNSCPanelEUI[i].Set_InnerColor(ResourceManager.instance.unlockedClr);
+            allNscPanelEui[i].Set_InnerColor(ResourceManager.instance.unlockedClr);
         }
     }
 
@@ -108,32 +109,32 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     private void Set_AllNSCPanelEUI_DefaultAndRandom()
     {
-        for (int i = 0; i < AllNSCPanelEUI.Count; i++)
+        for (int i = 0; i < allNscPanelEui.Count; i++)
         {
-            AllNSCPanelEUI[i].Set_RollValueRandom();
-            AllNSCPanelEUI[i].Set_RandomAnswer();
+            allNscPanelEui[i].Set_RollValueRandom();
+            allNscPanelEui[i].Set_RandomAnswer();
 
-            AllNSCPanelEUI[i].Set_InnerColor(ResourceManager.instance.lockedClr);
+            allNscPanelEui[i].Set_InnerColor(ResourceManager.instance.lockedClr);
         }
     }
 
     private void Set_LockByRating()
     {
-        LockedAmount = AllNSCRollCellEUI.Count - UnlockedAmount;
-        LockedRollCellEUIIndexList = new List<int>();
+        lockedAmount = allNscRollCellEui.Count - unlockedAmount;
+        lockedRollCellEuiIndexList = new List<int>();
         while (true)
         {
-            int randomIndex = Random.Range(0, AllNSCRollCellEUI.Count);
+            int randomIndex = Random.Range(0, allNscRollCellEui.Count);
 
-            if (!LockedRollCellEUIIndexList.Contains(randomIndex))
-                LockedRollCellEUIIndexList.Add(randomIndex);
+            if (!lockedRollCellEuiIndexList.Contains(randomIndex))
+                lockedRollCellEuiIndexList.Add(randomIndex);
 
-            if (LockedRollCellEUIIndexList.Count >= LockedAmount)
+            if (lockedRollCellEuiIndexList.Count >= lockedAmount)
                 break;
         }
 
-        for (int i = 0; i < LockedRollCellEUIIndexList.Count; i++)
-             AllNSCRollCellEUI[LockedRollCellEUIIndexList[i]].Set_ImgByAnswerAndLock();
+        for (int i = 0; i < lockedRollCellEuiIndexList.Count; i++)
+             allNscRollCellEui[lockedRollCellEuiIndexList[i]].Set_ImgByAnswerAndLock();
         
     }
 
@@ -141,24 +142,24 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     #region Set (Select)
 
-    public void Set_RollCellSelect(NSCRollCellEUIController _RollCellEUI)
+    public void Set_RollCellSelect(NSCRollCellEUIController rollCellEui)
     {
-        if (SelectingRollCellEUI != _RollCellEUI && IsInteractable)
+        if (selectingRollCellEui != rollCellEui && isInteractable)
         {
-            SelectingRollCellEUI = _RollCellEUI;
-            SelectingSignRT.gameObject.SetActive(true);
-            SelectingSignRT.anchoredPosition = new Vector2(_RollCellEUI.rt.anchoredPosition.x, _RollCellEUI.ownerNscPanelEuiController.rt.anchoredPosition.y); 
+            selectingRollCellEui = rollCellEui;
+            selectingSignRt.gameObject.SetActive(true);
+            selectingSignRt.anchoredPosition = new Vector2(rollCellEui.rt.anchoredPosition.x, rollCellEui.ownerNscPanelEuiController.rt.anchoredPosition.y); 
             Play_SelectingRT();
         }
     }
 
     private void Play_SelectingRT()
     {
-        DevTool.Set_KillTween(SelectingSignRT);
+        DevTool.Set_KillTween(selectingSignRt);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(SelectingSignRT.DOScale(1.05f, 0.1f));
-        seq.Append(SelectingSignRT.DOScale(1.0f, 0.1f));
+        seq.Append(selectingSignRt.DOScale(1.05f, 0.1f));
+        seq.Append(selectingSignRt.DOScale(1.0f, 0.1f));
 
     }
 
@@ -199,19 +200,19 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
         return Is_Interact_Roll(false);
     }
 
-    private bool Is_Interact_Roll(bool _RollDown)
+    private bool Is_Interact_Roll(bool rollDown)
     {
         if (!(currentBtn is NSCRollCellEUIController rollCellEUI) ||
-            rollCellEUI != SelectingRollCellEUI || 
-            !IsInteractable)
+            rollCellEUI != selectingRollCellEui || 
+            !isInteractable)
             return false;
 
         SoundManager.instance.Play_2D_SFX_UI("Click_01");
 
-        if (_RollDown)
-            SelectingRollCellEUI.Play_RollForDown();
+        if (rollDown)
+            selectingRollCellEui.Play_RollForDown();
         else
-            SelectingRollCellEUI.Play_RollForUp();
+            selectingRollCellEui.Play_RollForUp();
 
         return true;
     }
@@ -222,8 +223,8 @@ public class NumShapeColorPasswordUIController : PuzzleUIController
 
     public override bool Can_Success()
     {
-        for (int i = 0; i < AllNSCPanelEUI.Count; i++)
-            if (!AllNSCPanelEUI[i].Is_Answer())
+        for (int i = 0; i < allNscPanelEui.Count; i++)
+            if (!allNscPanelEui[i].Is_Answer())
                 return false;
             
         return true;

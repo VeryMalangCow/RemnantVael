@@ -171,16 +171,16 @@ MonoBehaviour:
   subColorCompList: []
   currentSlotBtn: {fileID: 0}
   currentItemBtn: {fileID: 0}
-  BaseCountdown: 12
-  ReadyPanelEUI: {fileID: 8523596981488261610}
-  TimePanelEUI: {fileID: 1169034507873051417}
-  UnlockPanelEUI: {fileID: 5286472714303904058}
-  BoxCellParentTF: {fileID: 8621521661249664572}
-  BoxConnectionParentTF: {fileID: 4126164195546783550}
-  InnerParentTF: {fileID: 3195084797262859805}
-  SelectingSignRT: {fileID: 6839620587357734253}
-  LeftRollInputImg: {fileID: 2505390027075978984}
-  RightRollInputImg: {fileID: 4910911209336677822}
+  baseCountdown: 12
+  readyPanelEui: {fileID: 8523596981488261610}
+  timePanelEui: {fileID: 1169034507873051417}
+  unlockPanelEui: {fileID: 5286472714303904058}
+  boxCellParentTf: {fileID: 8621521661249664572}
+  boxConnectionParentTf: {fileID: 4126164195546783550}
+  innerParentTf: {fileID: 3195084797262859805}
+  selectingSignRt: {fileID: 6839620587357734253}
+  leftRollInputImg: {fileID: 2505390027075978984}
+  rightRollInputImg: {fileID: 4910911209336677822}
 --- !u!223 &985950188665108820
 Canvas:
   m_ObjectHideFlags: 0

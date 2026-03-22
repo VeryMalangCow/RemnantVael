@@ -305,12 +305,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bc5bde2def8da41920f82d002ac4f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SuccessCG: {fileID: 2590720801455366272}
-  FailureCG: {fileID: 289221277077879863}
-  TryUnlockTxt: {fileID: 2228573300488764181}
-  InputTxt: {fileID: 2593604553745234520}
-  InputImg: {fileID: 2909590019374085457}
-  RollingRT: {fileID: 5346394114035541690}
+  successCg: {fileID: 2590720801455366272}
+  failureCg: {fileID: 289221277077879863}
+  tryUnlockTxt: {fileID: 2228573300488764181}
+  inputTxt: {fileID: 2593604553745234520}
+  inputImg: {fileID: 2909590019374085457}
+  rollingRt: {fileID: 5346394114035541690}
 --- !u!1 &2069002907835807788
 GameObject:
   m_ObjectHideFlags: 0

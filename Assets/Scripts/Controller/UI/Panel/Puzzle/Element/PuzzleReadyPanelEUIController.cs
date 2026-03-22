@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Data;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PuzzleReadyPanelEUIController : ElementUIController
@@ -15,37 +16,37 @@ public class PuzzleReadyPanelEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] public CanvasGroup ReadyCG;
-    [SerializeField] private TMP_Text ReadyAnnoTxt;
-    [SerializeField] private TMP_Text ReadyTimeLimitTxt;
-    [SerializeField] private TMP_Text ReadyKeyAnnoTxt;
-    [SerializeField] private Image ReadyInputAnnoImg;
+    [FormerlySerializedAs("ReadyCG")][SerializeField] public CanvasGroup readyCg;
+    [FormerlySerializedAs("ReadyAnnoTxt")][SerializeField] private TMP_Text readyAnnoTxt;
+    [FormerlySerializedAs("ReadyTimeLimitTxt")][SerializeField] private TMP_Text readyTimeLimitTxt;
+    [FormerlySerializedAs("ReadyKeyAnnoTxt")][SerializeField] private TMP_Text readyKeyAnnoTxt;
+    [FormerlySerializedAs("ReadyInputAnnoImg")][SerializeField] private Image readyInputAnnoImg;
 
     [Space(10)]
     [Header("=== Rule")]
-    [SerializeField] private TMP_Text RuleTxt;
-    [SerializeField] private TMP_Text RuleDescTxt;
+    [FormerlySerializedAs("RuleTxt")][SerializeField] private TMP_Text ruleTxt;
+    [FormerlySerializedAs("RuleDescTxt")][SerializeField] private TMP_Text ruleDescTxt;
 
     [Space(10)]
     [Header("=== Warning")]
-    [SerializeField] private TMP_Text WarningTxt;
-    [SerializeField] private TMP_Text WarningDescTxt;
+    [FormerlySerializedAs("WarningTxt")][SerializeField] private TMP_Text warningTxt;
+    [FormerlySerializedAs("WarningDescTxt")][SerializeField] private TMP_Text warningDescTxt;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private RectTransform RuleRT;
-    [HideInInspector] private RectTransform WarningRT;
+    [HideInInspector] private RectTransform ruleRt;
+    [HideInInspector] private RectTransform warningRt;
 
-    [HideInInspector] private CoupleData<float> RuleWarningXRTPos;
+    [HideInInspector] private CoupleData<float> ruleWarningXRtPos;
 
 
-    [HideInInspector] private RectTransform ReadyTimeLimitAnnoRT;
-    [HideInInspector] private RectTransform ReadyKeyAnnoRT;
+    [HideInInspector] private RectTransform readyTimeLimitAnnoRt;
+    [HideInInspector] private RectTransform readyKeyAnnoRt;
 
-    [HideInInspector] private CoupleData<Vector2> ReadyTimeLimitAnnoRTPos;
-    [HideInInspector] private CoupleData<Vector2> ReadykeyAnnoRTPos;
+    [HideInInspector] private CoupleData<Vector2> readyTimeLimitAnnoRtPos;
+    [HideInInspector] private CoupleData<Vector2> readykeyAnnoRtPos;
 
     #endregion
 
@@ -55,75 +56,75 @@ public class PuzzleReadyPanelEUIController : ElementUIController
 
     public override void Offset()
     {
-        RuleRT = DevTool.Get_ComponentTType(RuleTxt.gameObject, out RectTransform ruleRt) ? ruleRt : null;
-        WarningRT = DevTool.Get_ComponentTType(WarningTxt.gameObject, out RectTransform warningRt) ? warningRt : null;
+        ruleRt = DevTool.Get_ComponentTType(ruleTxt.gameObject, out RectTransform _ruleRt) ? _ruleRt : null;
+        warningRt = DevTool.Get_ComponentTType(warningTxt.gameObject, out RectTransform _warningRt) ? _warningRt : null;
 
-        RuleWarningXRTPos = new CoupleData<float>(900f, 3000f);
+        ruleWarningXRtPos = new CoupleData<float>(900f, 3000f);
 
-        ReadyTimeLimitAnnoRT = DevTool.Get_ComponentTType(ReadyTimeLimitTxt.gameObject, out RectTransform readyTimeRt) ? readyTimeRt : null;
-        ReadyTimeLimitAnnoRTPos = new CoupleData<Vector2>(readyTimeRt.anchoredPosition, new Vector2(-1128f, -152f));
+        readyTimeLimitAnnoRt = DevTool.Get_ComponentTType(readyTimeLimitTxt.gameObject, out RectTransform readyTimeRt) ? readyTimeRt : null;
+        readyTimeLimitAnnoRtPos = new CoupleData<Vector2>(readyTimeRt.anchoredPosition, new Vector2(-1128f, -152f));
 
-        ReadyKeyAnnoRT = DevTool.Get_ComponentTType(ReadyKeyAnnoTxt.gameObject, out RectTransform readyKeyRt) ? readyKeyRt : null;
-        ReadykeyAnnoRTPos = new CoupleData<Vector2>(ReadyKeyAnnoRT.anchoredPosition, new Vector2(1128f, -580f));
+        readyKeyAnnoRt = DevTool.Get_ComponentTType(readyKeyAnnoTxt.gameObject, out RectTransform readyKeyRt) ? readyKeyRt : null;
+        readykeyAnnoRtPos = new CoupleData<Vector2>(readyKeyAnnoRt.anchoredPosition, new Vector2(1128f, -580f));
     }
 
     #endregion
 
     #region Set
 
-    public void Set_AllStart(float _CurrentCountdown, string _SecondString)
+    public void Set_AllStart(float currentCountdown, string secondString)
     {
         // Ready
-        ReadyCG.alpha = 1f;
-        ReadyCG.gameObject.SetActive(true);
-        ReadyAnnoTxt.text = $"<< {ResourceManager.instance.Get_StaticWord(90)} >>";
-        ReadyTimeLimitTxt.text = $"{(int)_CurrentCountdown}{_SecondString}";
-        ReadyInputAnnoImg.sprite = ResourceManager.instance.spaceBarSprite;
-        ReadyKeyAnnoTxt.text = $"{ResourceManager.instance.Get_StaticWord(88)} : {ResourceManager.instance.Get_StaticWord(89)} & {ResourceManager.instance.Get_StaticWord(85)}";
+        readyCg.alpha = 1f;
+        readyCg.gameObject.SetActive(true);
+        readyAnnoTxt.text = $"<< {ResourceManager.instance.Get_StaticWord(90)} >>";
+        readyTimeLimitTxt.text = $"{(int)currentCountdown}{secondString}";
+        readyInputAnnoImg.sprite = ResourceManager.instance.spaceBarSprite;
+        readyKeyAnnoTxt.text = $"{ResourceManager.instance.Get_StaticWord(88)} : {ResourceManager.instance.Get_StaticWord(89)} & {ResourceManager.instance.Get_StaticWord(85)}";
 
-        WarningRT.anchoredPosition = new Vector2(RuleWarningXRTPos.typeBase, WarningRT.anchoredPosition.y);
-        RuleRT.anchoredPosition = new Vector2(-RuleWarningXRTPos.typeBase, RuleRT.anchoredPosition.y);
+        warningRt.anchoredPosition = new Vector2(ruleWarningXRtPos.typeBase, warningRt.anchoredPosition.y);
+        ruleRt.anchoredPosition = new Vector2(-ruleWarningXRtPos.typeBase, ruleRt.anchoredPosition.y);
 
-        ReadyTimeLimitAnnoRT.anchoredPosition = ReadyTimeLimitAnnoRTPos.typeBase;
-        ReadyTimeLimitAnnoRT.localScale = Vector2.one;
+        readyTimeLimitAnnoRt.anchoredPosition = readyTimeLimitAnnoRtPos.typeBase;
+        readyTimeLimitAnnoRt.localScale = Vector2.one;
 
-        ReadyKeyAnnoRT.anchoredPosition = ReadykeyAnnoRTPos.typeBase;
-        ReadyKeyAnnoRT.localScale = Vector2.one;
+        readyKeyAnnoRt.anchoredPosition = readykeyAnnoRtPos.typeBase;
+        readyKeyAnnoRt.localScale = Vector2.one;
 
         // Rule (Left)
-        DevTool.Set_Color(ResourceManager.instance.unlockedClr, RuleTxt);
-        DevTool.Set_Color(ResourceManager.instance.unlockedClr, RuleDescTxt);
+        DevTool.Set_Color(ResourceManager.instance.unlockedClr, ruleTxt);
+        DevTool.Set_Color(ResourceManager.instance.unlockedClr, ruleDescTxt);
 
-        RuleTxt.text = $"< {ResourceManager.instance.Get_StaticWord(94)} >";
+        ruleTxt.text = $"< {ResourceManager.instance.Get_StaticWord(94)} >";
 
         // Warning (Right)
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, WarningTxt);
-        DevTool.Set_Color(ResourceManager.instance.lockedClr, WarningDescTxt);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, warningTxt);
+        DevTool.Set_Color(ResourceManager.instance.lockedClr, warningDescTxt);
 
-        WarningTxt.text = $"< {ResourceManager.instance.Get_StaticWord(93)} >";
-        WarningDescTxt.text = ResourceManager.instance.Get_StaticDesc(32).Replace("\\n", "\n");
+        warningTxt.text = $"< {ResourceManager.instance.Get_StaticWord(93)} >";
+        warningDescTxt.text = ResourceManager.instance.Get_StaticDesc(32).Replace("\\n", "\n");
     }
 
-    public void Set_RuleDesc(string _Desc)
+    public void Set_RuleDesc(string desc)
     {
-        RuleDescTxt.text = _Desc.Replace("\\n", "\n");
+        ruleDescTxt.text = desc.Replace("\\n", "\n");
     }
 
     #endregion
 
     #region Play
 
-    public Tween Play_ReadyToStart(float _DurTime)
+    public Tween Play_ReadyToStart(float durTime)
     {
-        WarningRT.DOAnchorPosX(RuleWarningXRTPos.typeSpecial, _DurTime);
-        RuleRT.DOAnchorPosX(-RuleWarningXRTPos.typeSpecial, _DurTime);
+        warningRt.DOAnchorPosX(ruleWarningXRtPos.typeSpecial, durTime);
+        ruleRt.DOAnchorPosX(-ruleWarningXRtPos.typeSpecial, durTime);
 
-        ReadyTimeLimitAnnoRT.DOAnchorPos(ReadyTimeLimitAnnoRTPos.typeSpecial, _DurTime).SetEase(Ease.OutCubic);
-        ReadyTimeLimitAnnoRT.DOScale(0.5f, _DurTime);
-        ReadyKeyAnnoRT.DOAnchorPos(ReadykeyAnnoRTPos.typeSpecial, _DurTime).SetEase(Ease.OutCubic);
-        ReadyKeyAnnoRT.DOScale(0.5f, _DurTime);
+        readyTimeLimitAnnoRt.DOAnchorPos(readyTimeLimitAnnoRtPos.typeSpecial, durTime).SetEase(Ease.OutCubic);
+        readyTimeLimitAnnoRt.DOScale(0.5f, durTime);
+        readyKeyAnnoRt.DOAnchorPos(readykeyAnnoRtPos.typeSpecial, durTime).SetEase(Ease.OutCubic);
+        readyKeyAnnoRt.DOScale(0.5f, durTime);
 
-        return ReadyCG.DOFade(0f, _DurTime).SetEase(Ease.Linear);
+        return readyCg.DOFade(0f, durTime).SetEase(Ease.Linear);
     }
 
     #endregion

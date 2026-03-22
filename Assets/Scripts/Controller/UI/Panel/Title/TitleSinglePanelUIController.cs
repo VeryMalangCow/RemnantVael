@@ -1,19 +1,20 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TitleSinglePanelUIController : UIController
 {
     #region Value
 
-    [SerializeField] protected TitleOwnBtnEUIController CurrentBtn = null;
+    [FormerlySerializedAs("CurrentBtn")][SerializeField] protected TitleOwnBtnEUIController currentBtn = null;
 
     #endregion
 
 
     #region Btn
 
-    public virtual void Set_CurrentBtn(TitleOwnBtnEUIController _TargetBtn)
+    public virtual void Set_CurrentBtn(TitleOwnBtnEUIController targetBtn)
     {
-        CurrentBtn = _TargetBtn;
+        currentBtn = targetBtn;
     }
 
     #endregion

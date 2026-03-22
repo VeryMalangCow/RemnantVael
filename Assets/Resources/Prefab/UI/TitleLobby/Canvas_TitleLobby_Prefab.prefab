@@ -7695,10 +7695,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c53c6ffe3311c42adb7ac3338c1922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentBtn: {fileID: 0}
-  BtnsRT: {fileID: 3820758631702085338}
-  BGCG: {fileID: 8941357653355300680}
-  AllTitleElementUI:
+  currentBtn: {fileID: 0}
+  btnsRt: {fileID: 3820758631702085338}
+  bgCg: {fileID: 8941357653355300680}
+  allTitleEui:
   - movingRT: {fileID: 3883162563248777909}
     movingPowerX: 0.02
     movingPowerY: 0.02
@@ -7717,7 +7717,7 @@ MonoBehaviour:
   - movingRT: {fileID: 7920495742498411703}
     movingPowerX: 3
     movingPowerY: 1.5
-  AllTitleTSElementUI:
+  allTitleTsEui:
   - thisTSList:
     - {fileID: 6262012484775687139}
     min: 1000
@@ -7728,47 +7728,47 @@ MonoBehaviour:
     min: 500
     max: 750
     durTime: 6
-  AllTitleSmokeEUI:
+  allTitleSmokeEui:
   - {fileID: 8804696968038709079}
   - {fileID: 866298509328159610}
   - {fileID: 65975556029812109}
   - {fileID: 3159022689832127821}
   - {fileID: 2140358724422053659}
-  CloudRTList_BackMoon:
+  cloudRtList_BackMoon:
   - {fileID: 766743577169921173}
   - {fileID: 1973400456824846750}
-  CloudRTList_FrontMoon:
+  cloudRtList_FrontMoon:
   - {fileID: 5008323495330780688}
   - {fileID: 1648908163650739310}
-  CloudMovingLimit: 3000
-  CloudMovingTime: 250
-  SmokeCellEUIPrefab: {fileID: 296539086173945825, guid: 5c31efd5216f6924084f7e4557c9f8dc, type: 3}
-  StartBtn: {fileID: 272147085251828283}
-  StartTxt: {fileID: 1972818067324591947}
-  OptionBtn: {fileID: 51782969715762994}
-  OptionTxt: {fileID: 5319794449652578983}
-  QuitBtn: {fileID: 2216882043768022424}
-  QuitTxt: {fileID: 4551475978672122676}
-  SelectedRT: {fileID: 8761806369102953568}
-  ResetPanelGO: {fileID: 6943198524181540876}
-  ResetBtn: {fileID: 4364228333386893262}
-  ResetSureYesBtn: {fileID: 5224493657870878091}
-  ResetSureNoBtn: {fileID: 715960441282352285}
-  DurTime: 0.2
-  OptionUI:
-    PanelRT: {fileID: 1091803122960803908}
-    BGImg: {fileID: 5607439716759000953}
-    BackBtn: {fileID: 7011955979356984987}
-    ApplyBtn: {fileID: 2270332964161812815}
-    WarningTxt: {fileID: 68586850356472008}
-    IsOn: 0
-    LanguagePanelEUI: {fileID: 2257407971106077554}
-    ScreenModePanelEUI: {fileID: 3046977497162374696}
-    ResolutionPanelEUI: {fileID: 6687755825564789949}
-    FPSPanelEUI: {fileID: 1563511743334920357}
-    BGMVolumePanelEUI: {fileID: 6883776201636409374}
-    SFXVolumePanelEUI: {fileID: 5678364677783259050}
-  IsInIntro: 1
+  cloudMovingLimit: 3000
+  cloudMovingTime: 250
+  smokeCellEuiPrefab: {fileID: 296539086173945825, guid: 5c31efd5216f6924084f7e4557c9f8dc, type: 3}
+  startBtn: {fileID: 272147085251828283}
+  startTxt: {fileID: 1972818067324591947}
+  optionBtn: {fileID: 51782969715762994}
+  optionTxt: {fileID: 5319794449652578983}
+  quitBtn: {fileID: 2216882043768022424}
+  quitTxt: {fileID: 4551475978672122676}
+  selectedRt: {fileID: 8761806369102953568}
+  resetPanelGo: {fileID: 6943198524181540876}
+  resetBtn: {fileID: 4364228333386893262}
+  resetSureYesBtn: {fileID: 5224493657870878091}
+  resetSureNoBtn: {fileID: 715960441282352285}
+  durTime: 0.2
+  optionUi:
+    panelRt: {fileID: 1091803122960803908}
+    bgImg: {fileID: 5607439716759000953}
+    backBtn: {fileID: 7011955979356984987}
+    applyBtn: {fileID: 2270332964161812815}
+    warningTxt: {fileID: 68586850356472008}
+    isOn: 0
+    languagePanelEui: {fileID: 2257407971106077554}
+    screenModePanelEui: {fileID: 3046977497162374696}
+    resolutionPanelEui: {fileID: 6687755825564789949}
+    fpsPanelEui: {fileID: 1563511743334920357}
+    bgmVolumePanelEui: {fileID: 6883776201636409374}
+    sfxVolumePanelEui: {fileID: 5678364677783259050}
+  isInIntro: 1
 --- !u!223 &6289730002180684578
 Canvas:
   m_ObjectHideFlags: 0

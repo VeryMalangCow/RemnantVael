@@ -52,7 +52,7 @@ public class TitleSmokeEUIController : ElementUIController
 
     public override void Offset()
     {
-        cellEuiPrefab = ownerUIController.SmokeCellEUIPrefab;
+        cellEuiPrefab = ownerUIController.smokeCellEuiPrefab;
 
         yPos = yRt.anchoredPosition.y;
         leftXPos = leftRt.anchoredPosition.x;
