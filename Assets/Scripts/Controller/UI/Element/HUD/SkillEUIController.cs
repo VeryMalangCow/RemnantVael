@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SkillEUIController : ElementUIController
@@ -10,15 +11,15 @@ public class SkillEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Img")]
-    [SerializeField] private Image SkillShadowImg;
-    [SerializeField] public Image SkillInnerImg;
+    [FormerlySerializedAs("SkillShadowImg")][SerializeField] private Image skillShadowImg;
+    [FormerlySerializedAs("SkillInnerImg")][SerializeField] public Image skillInnerImg;
 
     [Space(10)]
     [Header("=== Txt")]
-    [SerializeField] public TMP_Text SkillCostTxt;
-    [SerializeField] public TMP_Text SkillErrorTxt;
+    [FormerlySerializedAs("SkillCostTxt")][SerializeField] public TMP_Text skillCostTxt;
+    [FormerlySerializedAs("SkillErrorTxt")][SerializeField] public TMP_Text skillErrorTxt;
 
-    [HideInInspector] private IEnumerator ThisEff = null;
+    [HideInInspector] private IEnumerator eff = null;
 
     #endregion
 
@@ -33,20 +34,20 @@ public class SkillEUIController : ElementUIController
 
     #region Set
 
-    public void Set_CostText(float _Cost)
+    public void Set_CostText(float cost)
     {
-        SkillCostTxt.text = "<size=60%>'</size>" + _Cost + "<size=60%>'</size>";
+        skillCostTxt.text = "<size=60%>'</size>" + cost + "<size=60%>'</size>";
     }
 
-    public void Set_ShadowFillAmount(float _FillAmount)
+    public void Set_ShadowFillAmount(float fillAmount)
     {
-        SkillShadowImg.fillAmount = _FillAmount;
+        skillShadowImg.fillAmount = fillAmount;
     }
 
-    private void SetOn_CostTxt(bool _OnOff)
+    private void SetOn_CostTxt(bool onOff)
     {
-        SkillCostTxt.gameObject.SetActive(_OnOff);
-        SkillErrorTxt.gameObject.SetActive(!_OnOff);
+        skillCostTxt.gameObject.SetActive(onOff);
+        skillErrorTxt.gameObject.SetActive(!onOff);
     }
 
     #endregion
@@ -55,41 +56,41 @@ public class SkillEUIController : ElementUIController
 
     public void Play_StartInnerUI()
     {
-        DevTool.Set_KillTween(SkillInnerImg);
+        DevTool.Set_KillTween(skillInnerImg);
 
-        SkillInnerImg.DOFade(1f, 0.2f);
+        skillInnerImg.DOFade(1f, 0.2f);
     }
 
     public void Play_EndInnerUI()
     {
-        DevTool.Set_KillTween(SkillInnerImg);
+        DevTool.Set_KillTween(skillInnerImg);
 
-        SkillInnerImg.DOFade(0.25f, 0.2f);
+        skillInnerImg.DOFade(0.25f, 0.2f);
     }
 
     public void Play_ErrorUI()
     {
-        if (ThisEff != null) return;
+        if (eff != null) return;
 
-        ThisEff = Play_Error_Cor();
-        StartCoroutine(ThisEff);
+        eff = Play_Error_Cor();
+        StartCoroutine(eff);
     }
 
     private IEnumerator Play_Error_Cor()
     {
         SetOn_CostTxt(false);
 
-        Color clr = SkillErrorTxt.color;
+        Color clr = skillErrorTxt.color;
 
         for (int i = 0; i < 3; i++)
         {
             clr.a = 1;
-            SkillErrorTxt.color = clr;
+            skillErrorTxt.color = clr;
 
             yield return new WaitForSeconds(0.09f);
 
             clr.a = 0;
-            SkillErrorTxt.color = clr;
+            skillErrorTxt.color = clr;
 
             if (i < 2)
             { yield return new WaitForSeconds(0.09f); }
@@ -97,7 +98,7 @@ public class SkillEUIController : ElementUIController
 
         SetOn_CostTxt(true);
 
-        ThisEff = null;
+        eff = null;
     }
 
     #endregion

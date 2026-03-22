@@ -59,10 +59,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  NameTxt: {fileID: 7992800842159061119}
-  NeedAmountTxt: {fileID: 3133514958115506024}
-  ThisBtnRT: {fileID: 1585166179119716538}
-  TargetCardEUIController: {fileID: 0}
+  nameTxt: {fileID: 7992800842159061119}
+  needAmountTxt: {fileID: 3133514958115506024}
+  btnRt: {fileID: 1585166179119716538}
+  targetCardEuiController: {fileID: 0}
 --- !u!114 &1442963306503122427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &4118227352657042688
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!114 &3133514958115506024
 MonoBehaviour:
   m_ObjectHideFlags: 0

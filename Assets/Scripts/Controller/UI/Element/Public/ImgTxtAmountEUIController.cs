@@ -1,8 +1,8 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ImgTxtAmountEUIController : ElementUIController
@@ -14,14 +14,14 @@ public class ImgTxtAmountEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] public Sprite ThisSprite;
-    [SerializeField] public Image InnerImg;
+    [FormerlySerializedAs("ThisSprite")][SerializeField] public Sprite sprite;
+    [FormerlySerializedAs("InnerImg")][SerializeField] public Image innerImg;
 
-    [HideInInspector] private Transform ThisTF;
-    [HideInInspector] public List<Image> AmountImgs;
-    [HideInInspector] public TMP_Text AmountTxt;
+    [HideInInspector] private Transform tf;
+    [HideInInspector] public List<Image> amountImgs;
+    [HideInInspector] public TMP_Text amountTxt;
 
-    [HideInInspector] private Sequence DotweenSeq;
+    [HideInInspector] private Sequence dotweenSeq;
 
     #endregion
 
@@ -29,14 +29,14 @@ public class ImgTxtAmountEUIController : ElementUIController
 
     public override void Offset()
     {
-        ThisTF = this.transform;
+        tf = this.transform;
 
-        AmountImgs = DevTool.Get_ChildList<Image>(ThisTF);
-        List<TMP_Text> tmpList = DevTool.Get_ChildList<TMP_Text>(ThisTF);
-        AmountTxt = tmpList.Count > 0 ? tmpList[0] : null;
+        amountImgs = DevTool.Get_ChildList<Image>(tf);
+        List<TMP_Text> tmpList = DevTool.Get_ChildList<TMP_Text>(tf);
+        amountTxt = tmpList.Count > 0 ? tmpList[0] : null;
 
-        SetOff_All(AmountImgs);
-        if (AmountTxt != null) AmountTxt.gameObject.SetActive(false);
+        SetOff_All(amountImgs);
+        if (amountTxt != null) amountTxt.gameObject.SetActive(false);
         
     }
 
@@ -44,48 +44,48 @@ public class ImgTxtAmountEUIController : ElementUIController
 
     #region Set
 
-    private void SetOff_All<T>(List<T> _TargetList) where T : Component
+    private void SetOff_All<T>(List<T> targetList) where T : Component
     {
-        DevTool.Set_Active(_TargetList , false);
+        DevTool.Set_Active(targetList , false);
         
     }
 
-    public void Set_Amount(int _Value)
+    public void Set_Amount(int value)
     {
-        for (int i = 0; i < AmountImgs.Count; i++)
-            AmountImgs[i].gameObject.SetActive(_Value > i ? true : false);
+        for (int i = 0; i < amountImgs.Count; i++)
+            amountImgs[i].gameObject.SetActive(value > i ? true : false);
 
-        Set_AmountTxt(_Value - AmountImgs.Count);
+        Set_AmountTxt(value - amountImgs.Count);
     }
 
-    public void Set_Amount(int _Value, float _DurTime)
+    public void Set_Amount(int value, float durTime)
     {
-        for (int i = 0; i < AmountImgs.Count; i++)
+        for (int i = 0; i < amountImgs.Count; i++)
         {
-            if (_Value > i) Play_OnOffImg(
-                AmountImgs[i], 
-                _OnOff: true, 
-                _DoScale: 1.35f, 
-                _DurTime);
+            if (value > i) Play_OnOffImg(
+                amountImgs[i], 
+                onOff: true, 
+                doScale: 1.35f, 
+                durTime);
 
             else Play_OnOffImg(
-                AmountImgs[i], 
-                _OnOff: false,
-                _DoScale: 1.35f, 
-                _DurTime);
+                amountImgs[i], 
+                onOff: false,
+                doScale: 1.35f, 
+                durTime);
         }
 
-        Set_AmountTxt(_Value - AmountImgs.Count);
+        Set_AmountTxt(value - amountImgs.Count);
 
         Play_Inner();
     }
 
-    private void Set_AmountTxt(int _Value)
+    private void Set_AmountTxt(int value)
     {
-        if (AmountTxt == null) return;
+        if (amountTxt == null) return;
 
-        AmountTxt.gameObject.SetActive(_Value > 0 ? true : false);
-        AmountTxt.text = _Value > 0 ? _Value.ToString() : null;
+        amountTxt.gameObject.SetActive(value > 0 ? true : false);
+        amountTxt.text = value > 0 ? value.ToString() : null;
     }
 
     #endregion
@@ -95,9 +95,9 @@ public class ImgTxtAmountEUIController : ElementUIController
     public int Get_GOEnableAmount()
     {
         int result = 0;
-        for (int i = 0; i < AmountImgs.Count; i++)
+        for (int i = 0; i < amountImgs.Count; i++)
         {
-            if (AmountImgs[i].gameObject.activeSelf)
+            if (amountImgs[i].gameObject.activeSelf)
                 result++;
             else
                 break;
@@ -109,53 +109,53 @@ public class ImgTxtAmountEUIController : ElementUIController
 
     #region Tween
 
-    private void Play_OnOffImg(Image _Img, bool _OnOff, float _DoScale, float _DurTime)
+    private void Play_OnOffImg(Image img, bool onOff, float doScale, float durTime)
     {
-        DevTool.Set_CompleteTween(DotweenSeq);
-        DotweenSeq = DOTween.Sequence();
+        DevTool.Set_CompleteTween(dotweenSeq);
+        dotweenSeq = DOTween.Sequence();
 
         Sequence ElementSeq = DOTween.Sequence();
 
-        Color clr = _Img.color;
-        if (_Img.gameObject.activeSelf && !_OnOff) // Off
+        Color clr = img.color;
+        if (img.gameObject.activeSelf && !onOff) // Off
         {
-            ElementSeq.Append(_Img.transform.DOScale(_DoScale, _DurTime / 2));
-            ElementSeq.Join(_Img.DOFade(0, _DurTime / 2));
-            ElementSeq.Append(_Img.transform.DOScale(1f, _DurTime / 2));
+            ElementSeq.Append(img.transform.DOScale(doScale, durTime / 2));
+            ElementSeq.Join(img.DOFade(0, durTime / 2));
+            ElementSeq.Append(img.transform.DOScale(1f, durTime / 2));
             ElementSeq
                 .OnStart(() =>
                 {
                     clr.a = 1f; 
-                    _Img.color = clr;
+                    img.color = clr;
                 })
-                .OnComplete(() => { _Img.gameObject.SetActive(false); });
+                .OnComplete(() => { img.gameObject.SetActive(false); });
         }
-        else if (!_Img.gameObject.activeSelf && _OnOff) // On
+        else if (!img.gameObject.activeSelf && onOff) // On
         {
-            ElementSeq.Append(_Img.transform.DOScale(_DoScale, _DurTime / 2));
-            ElementSeq.Join(_Img.DOFade(1, _DurTime / 2));
-            ElementSeq.Append(_Img.transform.DOScale(1f, _DurTime / 2));
+            ElementSeq.Append(img.transform.DOScale(doScale, durTime / 2));
+            ElementSeq.Join(img.DOFade(1, durTime / 2));
+            ElementSeq.Append(img.transform.DOScale(1f, durTime / 2));
             ElementSeq
                 .OnStart(() => 
                 {
                     clr.a = 0f; 
-                    _Img.color = clr;
+                    img.color = clr;
 
-                    _Img.gameObject.SetActive(true); 
+                    img.gameObject.SetActive(true); 
                 });
         }
 
-        DotweenSeq.Join(ElementSeq);
+        dotweenSeq.Join(ElementSeq);
     }
 
     private void Play_Inner()
     {
-        if (InnerImg == null) return;
+        if (innerImg == null) return;
 
-        DevTool.Set_KillTween(InnerImg);
+        DevTool.Set_KillTween(innerImg);
 
-        InnerImg.DOFade(1f, 0.2f)
-            .OnComplete(() => { InnerImg.DOFade(0.25f, 0.2f); });
+        innerImg.DOFade(1f, 0.2f)
+            .OnComplete(() => { innerImg.DOFade(0.25f, 0.2f); });
     }
 
 

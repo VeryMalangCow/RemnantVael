@@ -6,10 +6,10 @@ public class SynergySlotEUIController : OwnBtnEUIController
 {
     #region Value
 
-    [HideInInspector] public int ID;
-    [HideInInspector] public Image ThisImg;
-    [HideInInspector] public Image ThisTierImg;
-    [HideInInspector] public TMP_Text ThisTxt;
+    [HideInInspector] public int id;
+    [HideInInspector] public Image img;
+    [HideInInspector] public Image tierImg;
+    [HideInInspector] public TMP_Text txt;
 
     #endregion
 
@@ -19,9 +19,9 @@ public class SynergySlotEUIController : OwnBtnEUIController
     {
         base.Offset();
 
-        ThisImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
-        ThisTierImg = DevTool.Get_ComponentTType(gameObject.transform.GetChild(0).gameObject, out Image TierImg) ? TierImg : null;
-        ThisTxt = DevTool.Get_ComponentTType(gameObject.transform.GetChild(1).gameObject, out TMP_Text tmpt) ? tmpt : null;
+        img = DevTool.Get_ComponentTType(gameObject, out Image _img) ? _img : null;
+        tierImg = DevTool.Get_ComponentTType(gameObject.transform.GetChild(0).gameObject, out Image TierImg) ? TierImg : null;
+        txt = DevTool.Get_ComponentTType(gameObject.transform.GetChild(1).gameObject, out TMP_Text tmpt) ? tmpt : null;
 
         SetOff_SynergySlot();
     }
@@ -35,17 +35,17 @@ public class SynergySlotEUIController : OwnBtnEUIController
         this.gameObject.SetActive(false);
     }
 
-    public void SetOn_SynergySlot(int _ID, Sprite _Icon, int _Amalgamation)
+    public void SetOn_SynergySlot(int id, Sprite icon, int amalgamation)
     {
         this.gameObject.SetActive(true);
 
-        ID = _ID;
-        ThisImg.sprite = _Icon;
-        ThisTxt.text = _Amalgamation.ToString();
+        this.id = id;
+        img.sprite = icon;
+        txt.text = amalgamation.ToString();
 
-        int rank = ModuleItemManager.instance.Get_SynchronyRank(_Amalgamation);
-        ThisTierImg.gameObject.SetActive(rank != 0);
-        ThisTierImg.sprite = MainGameUIManager.instance.moduleUpgrade_UIController.SynergyTierFrames[rank];
+        int rank = ModuleItemManager.instance.Get_SynchronyRank(amalgamation);
+        tierImg.gameObject.SetActive(rank != 0);
+        tierImg.sprite = MainGameUIManager.instance.moduleUpgrade_UIController.SynergyTierFrames[rank];
     }
 
     #endregion

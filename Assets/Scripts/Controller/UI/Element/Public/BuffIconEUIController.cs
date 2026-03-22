@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class BuffIconEUIController : ElementUIController
@@ -11,14 +12,14 @@ public class BuffIconEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] public bool UsingNow = false;
+    [FormerlySerializedAs("UsingNow")][SerializeField] public bool usingNow = false;
 
-    [SerializeField] private Image ThisImg;
-    [SerializeField] public Image ThisShadowImg;
+    [FormerlySerializedAs("ThisImg")][SerializeField] private Image img;
+    [FormerlySerializedAs("ThisShadowImg")][SerializeField] public Image shadowImg;
 
-    [SerializeField] private TMP_Text ThisTxt;
+    [FormerlySerializedAs("ThisTxt")][SerializeField] private TMP_Text txt;
 
-    [HideInInspector] public RectTransform ThisRT;
+    [HideInInspector] public RectTransform rt;
 
     #endregion
 
@@ -26,58 +27,58 @@ public class BuffIconEUIController : ElementUIController
 
     public override void Offset()
     {
-        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
+        rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
     }
 
     #endregion
 
     #region Set
 
-    public void SetOn(Sprite _Icon, bool _ShowTxt)
+    public void SetOn(Sprite icon, bool showTxt)
     {
-        UsingNow = true;
+        usingNow = true;
         gameObject.SetActive(true);
 
-        ThisImg.sprite = _Icon;
-        ThisTxt.gameObject.SetActive(_ShowTxt);
-        ThisShadowImg.fillAmount = 0;
+        img.sprite = icon;
+        txt.gameObject.SetActive(showTxt);
+        shadowImg.fillAmount = 0;
     }
 
     public void SetOff()
     {
-        UsingNow = false;
+        usingNow = false;
         gameObject.SetActive(false);
     }
 
 
-    public void Set_Icon(Sprite _Sprite, int _BuffAmount, int _MaxBuffAmount)
+    public void Set_Icon(Sprite sprite, int buffAmount, int maxBuffAmount)
     {
-        Set_Icon(_Sprite);
-        Set_Icon(_BuffAmount, _MaxBuffAmount);
+        Set_Icon(sprite);
+        Set_Icon(buffAmount, maxBuffAmount);
     }
 
-    public void Set_Icon(Sprite _Sprite)
+    public void Set_Icon(Sprite sprite)
     {
-        ThisImg.sprite = _Sprite;
+        img.sprite = sprite;
     }
 
-    public void Set_Icon(int _BuffAmount, int _MaxBuffAmount)
+    public void Set_Icon(int buffAmount, int maxBuffAmount)
     {
-        if (_BuffAmount > 0 && _MaxBuffAmount != 1)
+        if (buffAmount > 0 && maxBuffAmount != 1)
         {
-            ThisTxt.gameObject.SetActive(true);
-            ThisTxt.text = _BuffAmount.ToString();
+            txt.gameObject.SetActive(true);
+            txt.text = buffAmount.ToString();
         }
         else
         {
-            ThisTxt.gameObject.SetActive(false);
+            txt.gameObject.SetActive(false);
         }
     }
 
 
-    public void Set_Cooltime(float _FillAmount)
+    public void Set_Cooltime(float fillAmount)
     {
-        ThisShadowImg.fillAmount = _FillAmount;
+        shadowImg.fillAmount = fillAmount;
     }
 
 

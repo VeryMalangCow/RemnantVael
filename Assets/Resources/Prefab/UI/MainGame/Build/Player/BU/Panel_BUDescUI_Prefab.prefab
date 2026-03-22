@@ -2368,7 +2368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &6062401996336665699
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2548,7 +2548,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &636471989529438140
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2728,7 +2728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &5204337718829564036
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2990,7 +2990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &2111391506303960160
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3170,7 +3170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &5278934557074266847
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4001,22 +4001,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ceeaf9a72f4b04e98caa06c9e96c42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CenterNameTxt: {fileID: 3688505488582191813}
-  LeftLVTxt: {fileID: 301069304910088316}
-  LeftValueTxt: {fileID: 4025350344758366526}
-  LeftLVTxtParentTF: {fileID: 4765339918097175981}
-  LeftValueTxtParentTF: {fileID: 3222294669010686009}
-  BaseSpotX: 694
-  IntervalSpotX: -125
-  CurrentRangeRT: {fileID: 9123324405553222333}
-  RightLVTxt: {fileID: 5582189003671277583}
-  RightValueTxt: {fileID: 6011975049187246220}
-  CurrentLvTxt: {fileID: 8019544101959776172}
-  CurrentStateTxt: {fileID: 7930096942656749782}
-  NextLvTxt: {fileID: 7208726514252973030}
-  NextStateTxt: {fileID: 7749506588404861512}
-  CompletedSignGO: {fileID: 7593493374977136187}
-  CurrentRangeImg: {fileID: 0}
+  centerNameTxt: {fileID: 3688505488582191813}
+  leftLvTxt: {fileID: 301069304910088316}
+  leftValueTxt: {fileID: 4025350344758366526}
+  leftLvTxtParentTf: {fileID: 4765339918097175981}
+  leftValueTxtParentTf: {fileID: 3222294669010686009}
+  baseSpotX: 694
+  intervalSpotX: -125
+  currentRangeRt: {fileID: 9123324405553222333}
+  rightLvTxt: {fileID: 5582189003671277583}
+  rightValueTxt: {fileID: 6011975049187246220}
+  currentLvTxt: {fileID: 8019544101959776172}
+  currentStateTxt: {fileID: 7930096942656749782}
+  nextLvTxt: {fileID: 7208726514252973030}
+  nextStateTxt: {fileID: 7749506588404861512}
+  completedSignGo: {fileID: 7593493374977136187}
+  currentRangeImg: {fileID: 0}
 --- !u!225 &2441375266789193097
 CanvasGroup:
   m_ObjectHideFlags: 0

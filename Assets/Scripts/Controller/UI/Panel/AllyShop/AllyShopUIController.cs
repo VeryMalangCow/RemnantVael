@@ -446,26 +446,26 @@ public class AllyShopUIController : ShopUIController
     protected void Set_AllyState(AllyController _Ally)
     {
         AllyState cardBaseState = _Ally.Get_CardState();
-        StateEUIList[0].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.dmg.value).Replace("+", "")}";
-        StateEUIList[1].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.rof.value).Replace("+", "")}<size=65%>/s</size>";
-        StateEUIList[2].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.movementSpeed.value).Replace("+", "")}";
-        StateEUIList[3].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.attackSize.value).Replace("+", "")}";
-        StateEUIList[4].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.criticalChacne.value * 100).Replace("+", "")}<size=65%>%</size>";
-        StateEUIList[5].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.criticalDmg.value + 1).Replace("+", "")}<size=65%>x</size>";
-        StateEUIList[6].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.muzzleSpeed.value + 1).Replace("+", "")}";
-        StateEUIList[7].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.kbPower.value).Replace("+", "")}";
-        StateEUIList[8].ValueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.dur.value).Replace("+", "")}<size=65%>s</size>";
+        StateEUIList[0].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.dmg.value).Replace("+", "")}";
+        StateEUIList[1].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.rof.value).Replace("+", "")}<size=65%>/s</size>";
+        StateEUIList[2].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.movementSpeed.value).Replace("+", "")}";
+        StateEUIList[3].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.attackSize.value).Replace("+", "")}";
+        StateEUIList[4].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.criticalChacne.value * 100).Replace("+", "")}<size=65%>%</size>";
+        StateEUIList[5].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.criticalDmg.value + 1).Replace("+", "")}<size=65%>x</size>";
+        StateEUIList[6].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.muzzleSpeed.value + 1).Replace("+", "")}";
+        StateEUIList[7].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.kbPower.value).Replace("+", "")}";
+        StateEUIList[8].valueTxt.text = $"{DevTool.Get_RoundFloatString(cardBaseState.dur.value).Replace("+", "")}<size=65%>s</size>";
 
         AllyState upgradeState = _Ally.Get_UpgradeAllState();
-        StateEUIList[0].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.dmg.value)}";
-        StateEUIList[1].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.rof.value)}<size=65%>/s</size>";
-        StateEUIList[2].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.movementSpeed.value)}";
-        StateEUIList[3].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.attackSize.value)}";
-        StateEUIList[4].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.criticalChacne.value * 100)}<size=65%>%</size>";
-        StateEUIList[5].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.criticalDmg.value)}<size=65%>x</size>";
-        StateEUIList[6].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.muzzleSpeed.value)}";
-        StateEUIList[7].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.kbPower.value)}";
-        StateEUIList[8].ExtraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.dur.value)}<size=65%>s</size>";
+        StateEUIList[0].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.dmg.value)}";
+        StateEUIList[1].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.rof.value)}<size=65%>/s</size>";
+        StateEUIList[2].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.movementSpeed.value)}";
+        StateEUIList[3].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.attackSize.value)}";
+        StateEUIList[4].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.criticalChacne.value * 100)}<size=65%>%</size>";
+        StateEUIList[5].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.criticalDmg.value)}<size=65%>x</size>";
+        StateEUIList[6].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.muzzleSpeed.value)}";
+        StateEUIList[7].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.kbPower.value)}";
+        StateEUIList[8].extraValueTxt.text = $"{DevTool.Get_RoundFloatString(upgradeState.dur.value)}<size=65%>s</size>";
 
         StateScrollPanel.Set_ScrollPanel();
     }
@@ -521,7 +521,7 @@ public class AllyShopUIController : ShopUIController
         for (int i = 0; i < _Data.Count; i++)
         {
             InStateTunerEUIList[i].gameObject.SetActive(true);
-            InStateTunerEUIList[i].ThisRT.anchoredPosition = new Vector2(InStateTunerEUI_BaseX, -(InStateTunerEUI_BaseY + (InStateTunerEUI_Interval * i)));
+            InStateTunerEUIList[i].rt.anchoredPosition = new Vector2(InStateTunerEUI_BaseX, -(InStateTunerEUI_BaseY + (InStateTunerEUI_Interval * i)));
             InStateTunerEUIList[i].Set_UI(_Data[i]);
         }
 
@@ -567,14 +567,14 @@ public class AllyShopUIController : ShopUIController
         for (int i = 0; i < InStateSyncActingEUIList.Count; i++)
         {
             InStateSyncActingEUIList[i].Set_ConnectUI(
-                connectIdList.Contains(InStateSyncActingEUIList[i].ID));
+                connectIdList.Contains(InStateSyncActingEUIList[i].id));
         }
 
         List<int> completelyIdList = CurrentPickedAlly.Get_CompletelySyncToKeyList();
         for (int i = 0; i < InStateSyncActingEUIList.Count; i++)
         {
             InStateSyncActingEUIList[i].Set_Completely(
-                completelyIdList.Contains(InStateSyncActingEUIList[i].ID));
+                completelyIdList.Contains(InStateSyncActingEUIList[i].id));
         }
     }
 
@@ -606,10 +606,10 @@ public class AllyShopUIController : ShopUIController
             int y = currentOrder / InStateSyncEUI_WidthAmount;
 
             InStateSyncEUIList[currentOrder].gameObject.SetActive(true);
-            InStateSyncEUIList[currentOrder].ThisRT.anchoredPosition = new Vector2(
+            InStateSyncEUIList[currentOrder].rt.anchoredPosition = new Vector2(
                 InStateSyncEUI_BaseX + (x * InStateSyncEUI_IntervalX),
                 InStateSyncEUI_BaseY + (y * InStateSyncEUI_IntervalY));
-            _LastY = InStateSyncEUIList[currentOrder].ThisRT.anchoredPosition.y;
+            _LastY = InStateSyncEUIList[currentOrder].rt.anchoredPosition.y;
 
             InStateSyncEUIList[currentOrder].Set_UI(value.Key, value.Value);
             InStateSyncActingEUIList.Add(InStateSyncEUIList[currentOrder]);
@@ -703,15 +703,15 @@ public class AllyShopUIController : ShopUIController
         StateTitleTxtList[1].text = bu;
         StateTitleTxtList[2].text = mu;
 
-        StateEUIList[0].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(12)} >";    // 공격력
-        StateEUIList[1].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(13)} >";    // 연사력
-        StateEUIList[2].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(9)} >";     // 이동속도
-        StateEUIList[3].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(114)} >";    // 크기
-        StateEUIList[4].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(15)} >";    // 치확
-        StateEUIList[5].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(16)} >";     // 치뎀
-        StateEUIList[6].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(43)} >";     // 탄속
-        StateEUIList[7].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(44)} >";     // 넉백 (파워)
-        StateEUIList[8].NameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(116)} >";     // 지속시간
+        StateEUIList[0].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(12)} >";    // 공격력
+        StateEUIList[1].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(13)} >";    // 연사력
+        StateEUIList[2].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(9)} >";     // 이동속도
+        StateEUIList[3].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(114)} >";    // 크기
+        StateEUIList[4].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(15)} >";    // 치확
+        StateEUIList[5].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(16)} >";     // 치뎀
+        StateEUIList[6].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(43)} >";     // 탄속
+        StateEUIList[7].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(44)} >";     // 넉백 (파워)
+        StateEUIList[8].nameTxt.text = $"< {ResourceManager.instance.Get_StaticWord(116)} >";     // 지속시간
 
         // Limit
         StateLimitTxt.text = $"( {ResourceManager.instance.Get_StaticWord(107)}: {AllyController.minLimitUpgradeValue} )";

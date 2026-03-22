@@ -166,8 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 241e79ddb3a42e8488c75d3456f146b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnknowColor: {r: 0.63887596, g: 0, b: 1, a: 1}
-  IntervalMM:
+  unknowClr: {r: 0.63887596, g: 0, b: 1, a: 1}
+  intervalMm:
     typeBase: 36
     typeSpecial: 60
 --- !u!225 &3825476682771392035

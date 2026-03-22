@@ -1,7 +1,7 @@
 using DG.Tweening;
-using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class CvtMaterialEUIController : ElementUIController
@@ -13,19 +13,19 @@ public class CvtMaterialEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private Image IconImg;
-    [SerializeField] private Image ConditionIconImg;
+    [FormerlySerializedAs("IconImg")][SerializeField] private Image iconImg;
+    [FormerlySerializedAs("ConditionIconImg")][SerializeField] private Image conditionIconImg;
 
     [Space(4)]
-    [SerializeField] private TMP_Text PossessionTxt;
-    [SerializeField] private TMP_Text NecessaryTxt;
+    [FormerlySerializedAs("PossessionTxt")][SerializeField] private TMP_Text possessionTxt;
+    [FormerlySerializedAs("NecessaryTxt")][SerializeField] private TMP_Text necessaryTxt;
 
     [Space(4)]
-    [SerializeField] private TMP_Text PossessionAmountTxt;
-    [SerializeField] private TMP_Text NecessaryAmountTxt;
+    [FormerlySerializedAs("PossessionAmountTxt")][SerializeField] private TMP_Text possessionAmountTxt;
+    [FormerlySerializedAs("NecessaryAmountTxt")][SerializeField] private TMP_Text necessaryAmountTxt;
 
     [Space(4)]
-    [SerializeField] private CanvasGroup LineCG;
+    [FormerlySerializedAs("LineCG")][SerializeField] private CanvasGroup lineCg;
 
     #endregion
 
@@ -40,14 +40,14 @@ public class CvtMaterialEUIController : ElementUIController
 
     #region Txt
 
-    public void Set_PossessionAmountTxt(string _Amount)
+    public void Set_PossessionAmountTxt(string amount)
     {
-        PossessionAmountTxt.text = _Amount;
+        possessionAmountTxt.text = amount;
     }
 
-    public void Set_NecessaryAmountTxt(string _Amount)
+    public void Set_NecessaryAmountTxt(string amount)
     {
-        NecessaryAmountTxt.text = $"-{_Amount}";
+        necessaryAmountTxt.text = $"-{amount}";
     }
 
     #endregion
@@ -58,26 +58,26 @@ public class CvtMaterialEUIController : ElementUIController
     {
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(NecessaryAmountTxt.transform.DOScale(1.3f, 0.25f));
-        seq.Append(NecessaryAmountTxt.transform.DOScale(1f, 0.25f));
+        seq.Append(necessaryAmountTxt.transform.DOScale(1.3f, 0.25f));
+        seq.Append(necessaryAmountTxt.transform.DOScale(1f, 0.25f));
     }
 
     public void Play_Convert()
     {
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(PossessionAmountTxt.transform.DOScale(1.3f, 0.25f));
-        seq.Append(PossessionAmountTxt.transform.DOScale(1f, 0.25f));
+        seq.Append(possessionAmountTxt.transform.DOScale(1.3f, 0.25f));
+        seq.Append(possessionAmountTxt.transform.DOScale(1f, 0.25f));
     }
 
     #endregion
 
     #region Condition
 
-    public void Set_Condition(bool _Can)
+    public void Set_Condition(bool can)
     {
-        ConditionIconImg.sprite = ResourceManager.instance.cvtMaterialConditionIcon.Get_Special(_Can);
-        LineCG.alpha = _Can ? 1f : 0.2f;
+        conditionIconImg.sprite = ResourceManager.instance.cvtMaterialConditionIcon.Get_Special(can);
+        lineCg.alpha = can ? 1f : 0.2f;
     }
 
     #endregion
@@ -86,8 +86,8 @@ public class CvtMaterialEUIController : ElementUIController
 
     public void Set_Language()
     {
-        PossessionTxt.text = ResourceManager.instance.Get_StaticWord(121);
-        NecessaryTxt.text = ResourceManager.instance.Get_StaticWord(122);
+        possessionTxt.text = ResourceManager.instance.Get_StaticWord(121);
+        necessaryTxt.text = ResourceManager.instance.Get_StaticWord(122);
     }
 
     #endregion

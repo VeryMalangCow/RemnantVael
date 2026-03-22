@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class EachTunerEUIController : ElementUIController
@@ -11,15 +12,15 @@ public class EachTunerEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Main Comp")]
-    [SerializeField] private Image ThisImg;
-    [SerializeField] private Image ThisRankImg;
+    [FormerlySerializedAs("ThisImg")][SerializeField] private Image img;
+    [FormerlySerializedAs("ThisRankImg")][SerializeField] private Image rankImg;
 
     [Space(10)]
     [Header("=== Sub Comp")]
-    [SerializeField] private Image ThisFrameImg;
-    [SerializeField] private Image ThisArrowImg;
+    [FormerlySerializedAs("ThisFrameImg")][SerializeField] private Image frameImg;
+    [FormerlySerializedAs("ThisArrowImg")][SerializeField] private Image arrowImg;
 
-    [HideInInspector] private RectTransform ThisRT;
+    [HideInInspector] private RectTransform rt;
 
     #endregion
 
@@ -27,43 +28,43 @@ public class EachTunerEUIController : ElementUIController
 
     public override void Offset()
     {
-        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
+        rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
     }
 
     #endregion
 
     #region Set
 
-    public void Set_UI(AllyEachTunerData _EachTunerData)
+    public void Set_UI(AllyEachTunerData eachTunerData)
     {
-        ThisImg.sprite = AllyManager.instance.Get_BUIcon(_EachTunerData.type); // Icon
-        ThisRankImg.sprite = ResourceManager.instance.Get_RankIcon(_EachTunerData.rank); // Rank
+        img.sprite = AllyManager.instance.Get_BUIcon(eachTunerData.type); // Icon
+        rankImg.sprite = ResourceManager.instance.Get_RankIcon(eachTunerData.rank); // Rank
 
-        Color frameClr = ResourceManager.instance.Get_AllyCardColor(_EachTunerData.rank - 1);
-        ThisFrameImg.color = frameClr;
-        ThisArrowImg.color = frameClr;
+        Color frameClr = ResourceManager.instance.Get_AllyCardColor(eachTunerData.rank - 1);
+        frameImg.color = frameClr;
+        arrowImg.color = frameClr;
     }
 
-    public void Set_UI(AllyEachBaseTunerData _EachTunerData)
+    public void Set_UI(AllyEachBaseTunerData eachTunerData)
     {
-        ThisImg.sprite = AllyManager.instance.Get_BUIcon(_EachTunerData.type); // Icon
-        ThisRankImg.sprite = ResourceManager.instance.Get_RankIcon(_EachTunerData.rank); // Rank
+        img.sprite = AllyManager.instance.Get_BUIcon(eachTunerData.type); // Icon
+        rankImg.sprite = ResourceManager.instance.Get_RankIcon(eachTunerData.rank); // Rank
 
-        Color frameClr = ResourceManager.instance.Get_AllyCardColor(_EachTunerData.rank - 1);
-        ThisFrameImg.color = frameClr;
-        ThisArrowImg.color = frameClr;
+        Color frameClr = ResourceManager.instance.Get_AllyCardColor(eachTunerData.rank - 1);
+        frameImg.color = frameClr;
+        arrowImg.color = frameClr;
     }
 
     #endregion
 
     #region Play
 
-    public Sequence Play_Scale(float _Size, float _DurTime = 0.05f)
+    public Sequence Play_Scale(float size, float durTime = 0.05f)
     {
-        DevTool.Set_KillTween(ThisRT);
+        DevTool.Set_KillTween(rt);
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(ThisRT.DOScale(_Size, _DurTime));
+        seq.Append(rt.DOScale(size, durTime));
 
         return seq;
     }

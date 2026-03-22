@@ -157,10 +157,10 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
         // Picked Panel
         PickedPanelSlotEUI.Offset();
-        PickedPanelSlotEUI.OwnerUIController = this;
+        PickedPanelSlotEUI.ownerUIController = this;
 
-        PickedPanelSlotEUI.ThisItem.Offset();
-        PickedPanelSlotEUI.ThisItem.OwnerUIController = this;
+        PickedPanelSlotEUI.item.Offset();
+        PickedPanelSlotEUI.item.OwnerUIController = this;
 
         for (int i = 0; i < PickedPanelSynergyEUIList.Count; i++)
         {
@@ -294,7 +294,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     {
         if (CurrentBtn is SynergySlotEUIController ssEui && PlayerSyncSlotEUIList.Contains(ssEui))
         {
-            SetOn_PlayerSynergyDesc(ssEui.ID);
+            SetOn_PlayerSynergyDesc(ssEui.id);
             return true;
         }
 
@@ -646,7 +646,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     {
         // 데이터
         PlayerManager.instance.playerController.currentChargedBettery.Value -= NeedChargedBettery;
-        ModuleItemManager.instance.Remove_ModuleState(Get_CorrectMS(PickedItemEUI.ThisSlot).originalIndex);
+        ModuleItemManager.instance.Remove_ModuleState(Get_CorrectMS(PickedItemEUI.slot).originalIndex);
 
         CurrentPickedAlly.Add_Sync(Get_PickedSyncList());
 
@@ -777,7 +777,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
             Set_PickedOnOffPanel(true);
 
             PickedItemEUI = _ItemEUI; // 아이템 EUI
-            PickedModule = Get_CorrectMS(PickedItemEUI.ThisSlot); // MS
+            PickedModule = Get_CorrectMS(PickedItemEUI.slot); // MS
             PickedModuleMainChipID = ModuleItemManager.instance.Get_MainChipIDData(PickedModule.state); // MainChip
 
             Set_PickedInventoryUI(); // Inventory UI
@@ -789,7 +789,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
     private void Set_PickedInventoryUI()
     {
         InventoryEUI.SetOff_AllInventoryForgeSelectedUI();
-        PickedItemEUI.ThisSlot.Set_ForgeSelectedTxt(true);
+        PickedItemEUI.slot.Set_ForgeSelectedTxt(true);
     }
 
     private void Set_PickedModuleUI()
@@ -801,7 +801,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
         PickedPanelItemRankTxt.color = ResourceManager.instance.Get_AllyCardColor(PickedModule.state.thisItemData.rank - 1);
         PickedPanelSlotEUI.Set_EquipedTxt_NoneNum(PickedModule.isEquipped);
         
-        PickedPanelSlotEUI.ThisItem.Set_Data(new ItemData_UIVisual(
+        PickedPanelSlotEUI.item.Set_Data(new ItemData_UIVisual(
             PickedModule.state.thisItemData.itemIcon,
             PickedModule.state.thisItemData.rank));
 
@@ -926,7 +926,7 @@ public class AllyModuleUpgradeUIController : AllyShopUIController
 
     private CopyModuleState Get_CorrectMS(InventorySlotEUIController _SlotBtn)
     {
-        return CurrentData[IndexData[_SlotBtn.Col][_SlotBtn.Row]];
+        return CurrentData[IndexData[_SlotBtn.col][_SlotBtn.row]];
     }
 
     #endregion

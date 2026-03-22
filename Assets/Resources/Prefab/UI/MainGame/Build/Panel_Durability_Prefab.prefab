@@ -409,13 +409,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b2a9f6bedf72d4196b32672b7e823f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IntactGO: {fileID: 482560057877408752}
-  DurablityTxt: {fileID: 5954999379396057078}
-  DurablityStateTxt: {fileID: 1765213499338180620}
-  FillImgListParentTF: {fileID: 8038960508515538472}
-  BrokenGO: {fileID: 6907181762235113196}
-  BrokenTxt: {fileID: 7461031519815804655}
-  BrokenTxtColor: {r: 0.5764706, g: 0.28235295, b: 0.8666667, a: 1}
+  intactGo: {fileID: 482560057877408752}
+  durablityTxt: {fileID: 5954999379396057078}
+  durablityStateTxt: {fileID: 1765213499338180620}
+  fillImgListParentTf: {fileID: 8038960508515538472}
+  brokenGo: {fileID: 6907181762235113196}
+  brokenTxt: {fileID: 7461031519815804655}
+  brokenTxtClr: {r: 0.5764706, g: 0.28235295, b: 0.8666667, a: 1}
 --- !u!222 &5521959641182219663
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1868,7 +1868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  type: 0
 --- !u!222 &8883062298459753119
 CanvasRenderer:
   m_ObjectHideFlags: 0

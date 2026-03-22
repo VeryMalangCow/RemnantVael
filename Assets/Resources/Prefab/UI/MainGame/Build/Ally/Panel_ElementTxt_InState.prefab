@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  type: 0
 --- !u!114 &1207331614909981988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,9 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2938fb28bef42364e9fbbba9f7ead791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NameTxt: {fileID: 347480915879414165}
-  ValueTxt: {fileID: 4027554900229563419}
-  ExtraValueTxt: {fileID: 9167702814798720521}
+  nameTxt: {fileID: 347480915879414165}
+  valueTxt: {fileID: 4027554900229563419}
+  extraValueTxt: {fileID: 9167702814798720521}
 --- !u!222 &8429779211311781304
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &4397074186116457579
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &2587505324250055048
 CanvasRenderer:
   m_ObjectHideFlags: 0

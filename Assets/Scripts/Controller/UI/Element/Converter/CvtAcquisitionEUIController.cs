@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class CvtAcquisitionEUIController : ElementUIController
@@ -12,32 +13,32 @@ public class CvtAcquisitionEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] public OwnBtnEUIController ConvertBtn;
-    [SerializeField] public OwnBtnEUIController MaxBtn;
-    [SerializeField] public OwnBtnEUIController More10Btn;
-    [SerializeField] public OwnBtnEUIController More1Btn;
-    [SerializeField] public OwnBtnEUIController Less1Btn;
-    [SerializeField] public OwnBtnEUIController Less10Btn;
-    [SerializeField] public OwnBtnEUIController MinBtn;
+    [FormerlySerializedAs("ConvertBtn")][SerializeField] public OwnBtnEUIController convertBtn;
+    [FormerlySerializedAs("MaxBtn")][SerializeField] public OwnBtnEUIController maxBtn;
+    [FormerlySerializedAs("More10Btn")][SerializeField] public OwnBtnEUIController more10Btn;
+    [FormerlySerializedAs("More1Btn")][SerializeField] public OwnBtnEUIController more1Btn;
+    [FormerlySerializedAs("Less1Btn")][SerializeField] public OwnBtnEUIController less1Btn;
+    [FormerlySerializedAs("Less10Btn")][SerializeField] public OwnBtnEUIController less10Btn;
+    [FormerlySerializedAs("MinBtn")][SerializeField] public OwnBtnEUIController minBtn;
 
     [Space(5)]
-    [SerializeField] private TMP_Text PossessionTxt;
-    [SerializeField] private TMP_Text AcquisitionTxt;
+    [FormerlySerializedAs("PossessionTxt")][SerializeField] private TMP_Text possessionTxt;
+    [FormerlySerializedAs("AcquisitionTxt")][SerializeField] private TMP_Text acquisitionTxt;
 
     [Space(5)]
-    [SerializeField] private TMP_Text PossessionAmountTxt;
-    [SerializeField] private TMP_Text AcquisitionAmountTxt;
+    [FormerlySerializedAs("PossessionAmountTxt")][SerializeField] private TMP_Text possessionAmountTxt;
+    [FormerlySerializedAs("AcquisitionAmountTxt")][SerializeField] private TMP_Text acquisitionAmountTxt;
 
     [Space(5)]
-    [SerializeField] private Image ConvertInnerImg;
-    [SerializeField] private CanvasGroup VisualCG;
-    [SerializeField] private RectTransform Cog0RT;
-    [SerializeField] private RectTransform Cog1RT;
-    [SerializeField] private Image ProgressBarImg;
-    [SerializeField] private Image AfterIconImg;
+    [FormerlySerializedAs("ConvertInnerImg")][SerializeField] private Image convertInnerImg;
+    [FormerlySerializedAs("VisualCG")][SerializeField] private CanvasGroup visualCg;
+    [FormerlySerializedAs("Cog0RT")][SerializeField] private RectTransform cog0Rt;
+    [FormerlySerializedAs("Cog1RT")][SerializeField] private RectTransform cog1Rt;
+    [FormerlySerializedAs("ProgressBarImg")][SerializeField] private Image progressBarImg;
+    [FormerlySerializedAs("AfterIconImg")][SerializeField] private Image afterIconImg;
 
 
-    [HideInInspector] private Sequence AfterIconSeq = null;
+    [HideInInspector] private Sequence afterIconSeq = null;
 
     #endregion
 
@@ -45,78 +46,78 @@ public class CvtAcquisitionEUIController : ElementUIController
 
     public override void Offset()
     {
-        ConvertBtn.Offset();
-        MaxBtn.Offset();
-        More10Btn.Offset();
-        More1Btn.Offset();
-        Less1Btn.Offset();
-        Less10Btn.Offset();
-        MinBtn.Offset();
+        convertBtn.Offset();
+        maxBtn.Offset();
+        more10Btn.Offset();
+        more1Btn.Offset();
+        less1Btn.Offset();
+        less10Btn.Offset();
+        minBtn.Offset();
     }
 
-    public void Offset_Owner(SinglePanelUIController _OwnerUI)
+    public void Offset_Owner(SinglePanelUIController ownerUI)
     {
-        ConvertBtn.OwnerUIController = _OwnerUI;
-        MaxBtn.OwnerUIController = _OwnerUI;
-        More10Btn.OwnerUIController = _OwnerUI;
-        More1Btn.OwnerUIController = _OwnerUI;
-        Less1Btn.OwnerUIController = _OwnerUI;
-        Less10Btn.OwnerUIController = _OwnerUI;
-        MinBtn.OwnerUIController = _OwnerUI;
+        convertBtn.OwnerUIController = ownerUI;
+        maxBtn.OwnerUIController = ownerUI;
+        more10Btn.OwnerUIController = ownerUI;
+        more1Btn.OwnerUIController = ownerUI;
+        less1Btn.OwnerUIController = ownerUI;
+        less10Btn.OwnerUIController = ownerUI;
+        minBtn.OwnerUIController = ownerUI;
     }
 
     #endregion
 
     #region Txt
 
-    public void Set_PossessionAmountTxt(string _Amount)
+    public void Set_PossessionAmountTxt(string amount)
     {
-        PossessionAmountTxt.text = _Amount;
+        possessionAmountTxt.text = amount;
     }
 
-    public void Set_AcquisitionAmountTxt(string _Amount)
+    public void Set_AcquisitionAmountTxt(string amount)
     {
-        AcquisitionAmountTxt.text = $"+{_Amount}";
+        acquisitionAmountTxt.text = $"+{amount}";
     }
 
     #endregion
 
     #region Language
 
-    public void Set_Language(bool _CanConvert)
+    public void Set_Language(bool canConvert)
     {
-        if (ConvertBtn.gameObject.TryGetComponent(out TMP_Text convertTxt))
+        if (convertBtn.gameObject.TryGetComponent(out TMP_Text convertTxt))
         {
-            if (_CanConvert) 
+            if (canConvert) 
                 convertTxt.text = ResourceManager.instance.Get_StaticWord(127);
             else
                 convertTxt.text = ResourceManager.instance.Get_StaticWord(134);
         }
 
-        if (MaxBtn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text maxTxt))
+        if (maxBtn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text maxTxt))
             maxTxt.text = ResourceManager.instance.Get_StaticWord(128);
-        if (More10Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text more10Txt))
+        if (more10Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text more10Txt))
             more10Txt.text = ResourceManager.instance.Get_StaticWord(129);
-        if (More1Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text more1Txt))
+        if (more1Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text more1Txt))
             more1Txt.text = ResourceManager.instance.Get_StaticWord(130);
-        if (Less1Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text less1Txt))
+        if (less1Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text less1Txt))
             less1Txt.text = ResourceManager.instance.Get_StaticWord(131);
-        if (Less10Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text less10Txt))
+        if (less10Btn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text less10Txt))
             less10Txt.text = ResourceManager.instance.Get_StaticWord(132);
-        if (MinBtn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text minTxt))
+        if (minBtn.gameObject.transform.GetChild(0).TryGetComponent(out TMP_Text minTxt))
             minTxt.text = ResourceManager.instance.Get_StaticWord(133);
 
-        PossessionTxt.text = ResourceManager.instance.Get_StaticWord(121);
-        AcquisitionTxt.text = ResourceManager.instance.Get_StaticWord(126);
+        possessionTxt.text = ResourceManager.instance.Get_StaticWord(121);
+        acquisitionTxt.text = ResourceManager.instance.Get_StaticWord(126);
     }
 
     #endregion
 
     #region Visual
 
-    public void Set_AbleConvertVisual(bool _Can)
+    public void Set_AbleConvertVisual(bool can)
     {
-        ConvertInnerImg.gameObject.SetActive(_Can);
+        convertInnerImg.gameObject.SetActive(can);
     }
 
     // 2s
@@ -124,54 +125,54 @@ public class CvtAcquisitionEUIController : ElementUIController
     {
         Sequence seq = DOTween.Sequence();
 
-        VisualCG.gameObject.SetActive(true);
+        visualCg.gameObject.SetActive(true);
 
-        Cog0RT.transform.rotation = Quaternion.identity;
-        Cog1RT.transform.rotation = Quaternion.identity;
-        ProgressBarImg.fillAmount = 0f;
+        cog0Rt.transform.rotation = Quaternion.identity;
+        cog1Rt.transform.rotation = Quaternion.identity;
+        progressBarImg.fillAmount = 0f;
 
-        Cog0RT.DORotate(Vector3.forward * 360f, 2f, RotateMode.FastBeyond360);
-        Cog1RT.DORotate(Vector3.forward * 360f, 2f, RotateMode.FastBeyond360);
-        ProgressBarImg.DOFillAmount(1f, 1.5f);
+        cog0Rt.DORotate(Vector3.forward * 360f, 2f, RotateMode.FastBeyond360);
+        cog1Rt.DORotate(Vector3.forward * 360f, 2f, RotateMode.FastBeyond360);
+        progressBarImg.DOFillAmount(1f, 1.5f);
 
-        seq.Append(VisualCG.DOFade(1f, 0.5f));
+        seq.Append(visualCg.DOFade(1f, 0.5f));
         seq.AppendInterval(1f);
-        seq.Append(VisualCG.DOFade(0f, 0.5f));
+        seq.Append(visualCg.DOFade(0f, 0.5f));
         seq.OnComplete(() =>
             {
-                VisualCG.gameObject.SetActive(false);
+                visualCg.gameObject.SetActive(false);
             });
     }
 
     public void Play_SuccessComp()
     {
-        AfterIconImg.sprite = ResourceManager.instance.cvtMaterialConditionIcon.Get_Special(true);
+        afterIconImg.sprite = ResourceManager.instance.cvtMaterialConditionIcon.Get_Special(true);
         Play_AfterImg();
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(PossessionAmountTxt.transform.DOScale(1.3f, 0.25f));
-        seq.Append(PossessionAmountTxt.transform.DOScale(1f, 0.25f));
+        seq.Append(possessionAmountTxt.transform.DOScale(1.3f, 0.25f));
+        seq.Append(possessionAmountTxt.transform.DOScale(1f, 0.25f));
     }
 
     public void Play_FailComp()
     {
-        AfterIconImg.sprite = ResourceManager.instance.cvtMaterialConditionIcon.Get_Special(false);
+        afterIconImg.sprite = ResourceManager.instance.cvtMaterialConditionIcon.Get_Special(false);
         Play_AfterImg();
     }
 
     // 1f
     private void Play_AfterImg()
     {
-        DevTool.Set_CompleteTween(AfterIconSeq);
-        AfterIconSeq = DOTween.Sequence();
+        DevTool.Set_CompleteTween(afterIconSeq);
+        afterIconSeq = DOTween.Sequence();
 
-        AfterIconImg.transform.localScale = Vector2.zero;
-        AfterIconImg.gameObject.SetActive(true);
+        afterIconImg.transform.localScale = Vector2.zero;
+        afterIconImg.gameObject.SetActive(true);
 
-        AfterIconSeq.Append(AfterIconImg.transform.DOScale(1.5f, 0.25f));
-        AfterIconSeq.Append(AfterIconImg.transform.DOScale(0f, 0.25f));
-        AfterIconSeq.OnComplete(() => AfterIconImg.gameObject.SetActive(false));
+        afterIconSeq.Append(afterIconImg.transform.DOScale(1.5f, 0.25f));
+        afterIconSeq.Append(afterIconImg.transform.DOScale(0f, 0.25f));
+        afterIconSeq.OnComplete(() => afterIconImg.gameObject.SetActive(false));
     }
 
     #endregion

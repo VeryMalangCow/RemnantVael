@@ -1256,12 +1256,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f09cfd5d4af214f912b5be0e744158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
-  ThisIconImg: {fileID: 7943213243163111281}
-  ProgressImg: {fileID: 7593249063681548521}
-  ProgressTxt: {fileID: 1577443536986348955}
-  ProgressMaxTxt: {fileID: 7651277415375478210}
-  ThisApplyStateImg: {fileID: 1912859168177199229}
-  ThisConnectStateImg: {fileID: 8253812887923676425}
-  CompletelyCG: {fileID: 8126155869389881836}
-  ThisRT: {fileID: 0}
+  id: 0
+  iconImg: {fileID: 7943213243163111281}
+  progressImg: {fileID: 7593249063681548521}
+  progressTxt: {fileID: 1577443536986348955}
+  progressMaxTxt: {fileID: 7651277415375478210}
+  applyStateImg: {fileID: 1912859168177199229}
+  connectStateImg: {fileID: 8253812887923676425}
+  completelyCg: {fileID: 8126155869389881836}
+  rt: {fileID: 0}

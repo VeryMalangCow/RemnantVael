@@ -95,43 +95,43 @@ public abstract class ConverterUIController : SinglePanelUIController
 
         if (CurrentBtn != null && !ConvertingNow)
         {
-            if (CurrentBtn == CvtAcquisitionEUI.MaxBtn)
+            if (CurrentBtn == CvtAcquisitionEUI.maxBtn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MaxAcquBookAmount();
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.MinBtn)
+            else if (CurrentBtn == CvtAcquisitionEUI.minBtn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MinAcquBookAmount();
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.More1Btn)
+            else if (CurrentBtn == CvtAcquisitionEUI.more1Btn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MoreAcquBookAmount(1);
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.More10Btn)
+            else if (CurrentBtn == CvtAcquisitionEUI.more10Btn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_MoreAcquBookAmount(10);
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.Less1Btn)
+            else if (CurrentBtn == CvtAcquisitionEUI.less1Btn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_LessAcquBookAmount(1);
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.Less10Btn)
+            else if (CurrentBtn == CvtAcquisitionEUI.less10Btn)
             {
                 SoundManager.instance.Play_2D_SFX_UI("Click_01");
                 Set_LessAcquBookAmount(10);
                 return true;
             }
-            else if (CurrentBtn == CvtAcquisitionEUI.ConvertBtn)
+            else if (CurrentBtn == CvtAcquisitionEUI.convertBtn)
             {
                 if (CanConvert)
                 {

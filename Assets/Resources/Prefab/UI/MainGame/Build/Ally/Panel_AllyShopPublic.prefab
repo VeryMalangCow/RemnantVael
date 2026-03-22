@@ -144,10 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc4caebafd1c1d4894357044ab21f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnPanelGO: {fileID: 5029575361138325589}
-  FaceImg: {fileID: 1782483798229245776}
-  NameTxt: {fileID: 2501440745618652877}
-  OffPanelGO: {fileID: 3888085467841000837}
+  onPanelGo: {fileID: 5029575361138325589}
+  faceImg: {fileID: 1782483798229245776}
+  nameTxt: {fileID: 2501440745618652877}
+  offPanelGo: {fileID: 3888085467841000837}
 --- !u!1 &185125902112074799
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,7 +1293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &6653883171754112033
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1473,7 +1473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &1742915521188029959
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2244,7 +2244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &5131989016974403362
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3550,7 +3550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &8204904320425003925
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4249,7 +4249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &1555941026100399469
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4429,7 +4429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &1115803975122413002
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5785,7 +5785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &9013641085404558892
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5965,7 +5965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &8211465835546998322
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6381,7 +6381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &2004349548238598021
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7527,7 +7527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &3800928955550246634
 CanvasRenderer:
   m_ObjectHideFlags: 0

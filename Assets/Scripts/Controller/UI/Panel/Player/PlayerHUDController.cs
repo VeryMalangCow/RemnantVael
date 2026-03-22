@@ -232,7 +232,7 @@ public class PlayerHUDController : UIController
         for (int i = 0; i < ModuleSlots.Count; i++)
         {
             ModuleSlots[i].Offset();
-            ModuleSlots[i].ThisItem.Offset();
+            ModuleSlots[i].item.Offset();
             ModuleSlots[i].Set_EquipedTxt(true, i);
         }
 
@@ -700,7 +700,7 @@ public class PlayerHUDController : UIController
     public void Set_BuffPosUI()
     {
         for (int i = 0; i < AllBuffIconUI.Count; i++)
-            AllBuffIconUI[i].ThisRT.anchoredPosition = new Vector2(i * (AllBuffIconUI[i].ThisRT.rect.width + BuffUI_XInterval), 0);
+            AllBuffIconUI[i].rt.anchoredPosition = new Vector2(i * (AllBuffIconUI[i].rt.rect.width + BuffUI_XInterval), 0);
     }
 
     #endregion
@@ -914,7 +914,7 @@ public class PlayerHUDController : UIController
             StageNameTxt, StageDescriptionTxt,
 
             // 아이템
-            ECCostTxt, EmptyBC.AmountTxt, FullEC.AmountTxt,
+            ECCostTxt, EmptyBC.amountTxt, FullEC.amountTxt,
 
             // 상호작용
             InteractOnOffTxt
@@ -928,14 +928,14 @@ public class PlayerHUDController : UIController
         // 스킬
         for (int i = 0; i < DevTool.skillAmount; i++)
         {
-            result.Add(SkillList[i].SkillCostTxt);
-            result.Add(SkillList[i].SkillErrorTxt);
+            result.Add(SkillList[i].skillCostTxt);
+            result.Add(SkillList[i].skillErrorTxt);
             result.Add(SkillStatesTxtList[i]);
         }
 
         // Ally
         for (int i = 0; i < AllAllyPresence.Count; i++)
-            MainColorCompList.AddRange(DevTool.Get_ChildList<Image>(AllAllyPresence[i].CapMiddleRT.transform));
+            MainColorCompList.AddRange(DevTool.Get_ChildList<Image>(AllAllyPresence[i].capMiddleRt.transform));
         
         return result;
     }
@@ -945,10 +945,10 @@ public class PlayerHUDController : UIController
         List<Component> result = new List<Component>
         {
             // 미니맵
-            ThisMinimap.InnerImg, 
+            ThisMinimap.innerImg, 
 
             // 아이템
-            CurrentEmptyBC.LightInner, ECCostArrowImg, EmptyBC.InnerImg, FullEC.InnerImg,
+            CurrentEmptyBC.lightInner, ECCostArrowImg, EmptyBC.innerImg, FullEC.innerImg,
             
             // 상호작용
             InnerImg, UsingInnerImg
@@ -962,11 +962,11 @@ public class PlayerHUDController : UIController
 
         // 스킬
         for (int i = 0; i < DevTool.skillAmount; i++)
-            SubColorCompList.Add(SkillList[i].SkillInnerImg);
+            SubColorCompList.Add(SkillList[i].skillInnerImg);
 
         // Ally
         for (int i = 0; i < AllAllyPresence.Count; i++)
-            SubColorCompList.Add(AllAllyPresence[i].InnerImg);
+            SubColorCompList.Add(AllAllyPresence[i].innerImg);
         
         return result;
     }
@@ -1117,7 +1117,7 @@ public class PlayerHUDController : UIController
             SkillStatesStringList.Add(ResourceManager.instance.Get_StaticWord(i));
 
         for (int i = 0; i < AllAllyPresence.Count; i++)
-            AllAllyPresence[i].PresenceLangTxt.text = $"{ResourceManager.instance.Get_StaticWord(i + 61)}<size=85%> {ResourceManager.instance.Get_StaticWord(70)}</size>";
+            AllAllyPresence[i].presenceLangTxt.text = $"{ResourceManager.instance.Get_StaticWord(i + 61)}<size=85%> {ResourceManager.instance.Get_StaticWord(70)}</size>";
 
         Set_InteractUI();
         Set_StageDescription();

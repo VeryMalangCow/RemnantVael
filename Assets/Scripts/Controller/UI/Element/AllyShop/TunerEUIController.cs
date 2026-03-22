@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TunerEUIController : ElementUIController
 {
@@ -11,11 +10,11 @@ public class TunerEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== EUI")]
-    [SerializeField] private EachTunerEUIController PositiveTuner0;
-    [SerializeField] private EachTunerEUIController PositiveTuner1;
-    [SerializeField] private EachTunerEUIController NegativeTuner;
+    [FormerlySerializedAs("PositiveTuner0")][SerializeField] private EachTunerEUIController positiveTuner0;
+    [FormerlySerializedAs("PositiveTuner1")][SerializeField] private EachTunerEUIController positiveTuner1;
+    [FormerlySerializedAs("NegativeTuner")][SerializeField] private EachTunerEUIController negativeTuner;
 
-    [HideInInspector] public RectTransform ThisRT;
+    [HideInInspector] public RectTransform rt;
 
     #endregion
 
@@ -23,29 +22,29 @@ public class TunerEUIController : ElementUIController
 
     public override void Offset()
     {
-        PositiveTuner0.Offset();
-        PositiveTuner1.Offset();
-        NegativeTuner.Offset();
+        positiveTuner0.Offset();
+        positiveTuner1.Offset();
+        negativeTuner.Offset();
 
-        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
+        rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
     }
 
     #endregion
 
     #region Set
 
-    public void Set_UI(AllyTunerData _TunerData)
+    public void Set_UI(AllyTunerData tunerData)
     {
-        PositiveTuner0.Set_UI(_TunerData.positive0);
-        PositiveTuner1.Set_UI(_TunerData.positive1);
-        NegativeTuner.Set_UI(_TunerData.negative);
+        positiveTuner0.Set_UI(tunerData.positive0);
+        positiveTuner1.Set_UI(tunerData.positive1);
+        negativeTuner.Set_UI(tunerData.negative);
     }
 
-    public void Set_UI(AllyBaseTunerData _TunerData)
+    public void Set_UI(AllyBaseTunerData tunerData)
     {
-        PositiveTuner0.Set_UI(_TunerData.positive0);
-        PositiveTuner1.Set_UI(_TunerData.positive1);
-        NegativeTuner.Set_UI(_TunerData.negative);
+        positiveTuner0.Set_UI(tunerData.positive0);
+        positiveTuner1.Set_UI(tunerData.positive1);
+        negativeTuner.Set_UI(tunerData.negative);
     }
 
     #endregion

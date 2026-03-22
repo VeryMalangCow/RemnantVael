@@ -224,7 +224,7 @@ public class ModuleItemManager : Singleton<ModuleItemManager>
 
     public ModuleState Get_ModuleState(InventoryItemEUIController itemEUI)
     {
-        return allModuleData[itemEUI.ThisSlot.Col][itemEUI.ThisSlot.Row];
+        return allModuleData[itemEUI.slot.col][itemEUI.slot.row];
     }
 
     // 모든 아이템의 Vector값(PlayerModuleUI기준) 리스트로 가져오기

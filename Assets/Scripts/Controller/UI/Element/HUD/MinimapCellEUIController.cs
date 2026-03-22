@@ -1,18 +1,19 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class MinimapCellEUIController : ElementUIController
 {
     #region Value
 
-    [HideInInspector] private Image ThisMMImg = null;
-    [HideInInspector] private Image ThisMMOImg = null;
-    [HideInInspector] private Image ThisIconImg = null;
-    [HideInInspector] private CanvasGroup ThisCG = null;
+    [HideInInspector] private Image mmImg = null;
+    [HideInInspector] private Image mmoImg = null;
+    [HideInInspector] private Image iconImg = null;
+    [HideInInspector] private CanvasGroup cg = null;
 
-    [SerializeField] private Color UnknowColor;
-    [SerializeField] private CoupleData<float> IntervalMM = new CoupleData<float>(36, 60);
+    [FormerlySerializedAs("UnknowColor")][SerializeField] private Color unknowClr;
+    [FormerlySerializedAs("IntervalMM")][SerializeField] private CoupleData<float> intervalMm = new CoupleData<float>(36, 60);
 
     #endregion
 
@@ -20,46 +21,46 @@ public class MinimapCellEUIController : ElementUIController
 
     public override void Offset()
     {
-        ThisMMImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
-        ThisCG = DevTool.Get_ComponentTType(gameObject, out CanvasGroup cg) ? cg : null;
-        ThisCG.alpha = 0f;
-        ThisMMOImg = DevTool.Get_ComponentTType(transform.GetChild(0).gameObject, out Image outlineImg) ? outlineImg : null;
-        ThisIconImg = DevTool.Get_ComponentTType(transform.GetChild(1).gameObject, out Image iconImg) ? iconImg : null;
+        mmImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
+        cg = DevTool.Get_ComponentTType(gameObject, out CanvasGroup _cg) ? _cg : null;
+        this.cg.alpha = 0f;
+        mmoImg = DevTool.Get_ComponentTType(transform.GetChild(0).gameObject, out Image outlineImg) ? outlineImg : null;
+        iconImg = DevTool.Get_ComponentTType(transform.GetChild(1).gameObject, out Image _iconImg) ? _iconImg : null;
     }
 
 
-    public void Offset(RoomController _Room, bool _IsNormal)
+    public void Offset(RoomController room, bool isNormal)
     {
         // From/To RC
-        MinimapIcon minimapReso = ResourceManager.instance.Get_MinimapIcon(_Room.roomStaticId);
+        MinimapIcon minimapReso = ResourceManager.instance.Get_MinimapIcon(room.roomStaticId);
 
-        CoupleData<Sprite> thisSprites = minimapReso.minimapElementIcon.Get_Base(_IsNormal);
-        ref MinimapCellEUIController target = ref (_IsNormal ? ref _Room.thisMME : ref _Room.thisIMME);
+        CoupleData<Sprite> thisSprites = minimapReso.minimapElementIcon.Get_Base(isNormal);
+        ref MinimapCellEUIController target = ref (isNormal ? ref room.thisMME : ref room.thisIMME);
         target = this;
 
         // Sprite
-        ThisMMImg.sprite = thisSprites.typeBase;
-        ThisMMOImg.sprite = thisSprites.typeSpecial;
+        mmImg.sprite = thisSprites.typeBase;
+        mmoImg.sprite = thisSprites.typeSpecial;
 
-        ThisMMImg.SetNativeSize();
-        ThisMMOImg.SetNativeSize();
+        mmImg.SetNativeSize();
+        mmoImg.SetNativeSize();
 
         // Pivot
         if (DevTool.Get_ComponentTType(gameObject, out RectTransform rt))
         {
             rt.pivot = minimapReso.spritePivot;
             rt.anchoredPosition = new Vector2(
-                    (float)_Room.roomVec[0].x * IntervalMM.Get_Base(_IsNormal),
-                    (float)_Room.roomVec[0].y * IntervalMM.Get_Base(_IsNormal));
+                    (float)room.roomVec[0].x * intervalMm.Get_Base(isNormal),
+                    (float)room.roomVec[0].y * intervalMm.Get_Base(isNormal));
         }
-        CoupleData<Sprite> sprite = StageManager.instance.Get_CorrectMinimapIcon(_Room.roomRule);
+        CoupleData<Sprite> sprite = StageManager.instance.Get_CorrectMinimapIcon(room.roomRule);
 
         if (sprite != null)
         {
-            ThisIconImg.sprite = sprite.Get_Base(_IsNormal);
-            ThisIconImg.SetNativeSize();
+            iconImg.sprite = sprite.Get_Base(isNormal);
+            iconImg.SetNativeSize();
         }
-        ThisIconImg.gameObject.SetActive(sprite != null ? true : false);
+        iconImg.gameObject.SetActive(sprite != null ? true : false);
     }
 
     #endregion
@@ -67,28 +68,28 @@ public class MinimapCellEUIController : ElementUIController
     #region Set
 
     // 완료된 방
-    public void Set_Complete(Color _MainColor)
+    public void Set_Complete(Color mainClr)
     {
-        ThisMMOImg.DOColor(_MainColor, 0.5f);
+        mmoImg.DOColor(mainClr, 0.5f);
     }
 
     // 완료되지 않은 방
     public void Set_Uncomplete()
     {
-        ThisMMOImg.DOColor(UnknowColor, 0.5f);
+        mmoImg.DOColor(unknowClr, 0.5f);
     }
 
     // 보이는 방 (접근된 방)
     public void Set_Visible()
     {
-        ThisMMOImg.color = new Color(0, 0, 0, 0.5f);
+        mmoImg.color = new Color(0, 0, 0, 0.5f);
     }
 
     // 활성화
     public void Set_ActiveOn()
     {
         this.gameObject.SetActive(true);
-        ThisCG.DOFade(1f, 0.5f);
+        cg.DOFade(1f, 0.5f);
     }
 
     #endregion

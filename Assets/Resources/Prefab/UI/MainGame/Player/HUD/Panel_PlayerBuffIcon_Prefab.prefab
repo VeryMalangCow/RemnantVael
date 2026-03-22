@@ -483,8 +483,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0faae2895b450c48a245c8cc2f28fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UsingNow: 0
-  ThisImg: {fileID: 7880517127481092511}
-  ThisShadowImg: {fileID: 8608407439485210796}
-  ThisTxt: {fileID: 7467230313567177307}
-  ThisRT: {fileID: 0}
+  usingNow: 0
+  img: {fileID: 7880517127481092511}
+  shadowImg: {fileID: 8608407439485210796}
+  txt: {fileID: 7467230313567177307}
+  rt: {fileID: 0}

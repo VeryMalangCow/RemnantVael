@@ -137,10 +137,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  PositiveTuner0: {fileID: 1197424473598465733}
-  PositiveTuner1: {fileID: 417415021812760791}
-  NegativeTuner: {fileID: 7084333196496803725}
-  RerollBtnEUI: {fileID: 0}
+  positiveTuner0: {fileID: 1197424473598465733}
+  positiveTuner1: {fileID: 417415021812760791}
+  negativeTuner: {fileID: 7084333196496803725}
+  rerollBtnEUI: {fileID: 0}
 --- !u!222 &500576496727647219
 CanvasRenderer:
   m_ObjectHideFlags: 0

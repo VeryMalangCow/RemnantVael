@@ -201,10 +201,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ThisSlot: {fileID: 0}
-  ThisSizeDelta: {x: 76, y: 76}
-  ThisImg: {fileID: 4259200202626755151}
-  RankImg: {fileID: 671417102886581795}
+  slot: {fileID: 0}
+  sizeDelta: {x: 76, y: 76}
+  thisImg: {fileID: 4259200202626755151}
+  rankImg: {fileID: 671417102886581795}
 --- !u!114 &1463990481872578782
 MonoBehaviour:
   m_ObjectHideFlags: 0

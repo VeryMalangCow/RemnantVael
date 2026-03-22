@@ -2,6 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class AllyCardRerollEUIController : OwnBtnEUIController
 {
@@ -9,16 +10,16 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] private TMP_Text NameTxt;
-    [SerializeField] private TMP_Text NeedAmountTxt;
-    [SerializeField] private RectTransform ThisBtnRT;
+    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
+    [FormerlySerializedAs("NeedAmountTxt")][SerializeField] private TMP_Text needAmountTxt;
+    [FormerlySerializedAs("ThisBtnRT")][SerializeField] private RectTransform btnRt;
 
     // Value
-    [HideInInspector] private int NeedAmount = 1;
-    [HideInInspector] private static readonly int MaxNeedAmount = 5;
+    [HideInInspector] private int needAmount = 1;
+    [HideInInspector] private static readonly int maxNeedAmount = 5;
 
     // Owner
-    [HideInInspector] public AllyCardEUIController TargetCardEUIController;
+    [HideInInspector] public AllyCardEUIController targetCardEuiController;
 
     #endregion
 
@@ -26,7 +27,7 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     public void Set_LanguageTxt()
     {
-        NameTxt.text = ResourceManager.instance.Get_StaticWord(57);
+        nameTxt.text = ResourceManager.instance.Get_StaticWord(57);
     }
 
     #endregion
@@ -44,7 +45,7 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     private void Reset_Amount()
     {
-        NeedAmount = 1;
+        needAmount = 1;
         Set_Amount();
     }
 
@@ -54,11 +55,11 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     private void Set_Amount()
     {
-        string needAmountText = $"x <size=1{NeedAmount}0%><b>{NeedAmount}</b></size>";
-        if (NeedAmount == MaxNeedAmount)
+        string needAmountText = $"x <size=1{needAmount}0%><b>{needAmount}</b></size>";
+        if (needAmount == maxNeedAmount)
             needAmountText += $"<size=75%>({ResourceManager.instance.Get_StaticWord(84)})</size>";
 
-        NeedAmountTxt.text = needAmountText;
+        needAmountTxt.text = needAmountText;
     }
 
     #endregion
@@ -67,16 +68,16 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
 
     public void Try_Interact()
     {
-        if (NeedAmount > PlayerManager.instance.playerController.currentOverrider.Value ||
-            TargetCardEUIController == null)
+        if (needAmount > PlayerManager.instance.playerController.currentOverrider.Value ||
+            targetCardEuiController == null)
             return;
 
-        PlayerManager.instance.playerController.Add_CurrentOverrider(-NeedAmount);
+        PlayerManager.instance.playerController.Add_CurrentOverrider(-needAmount);
         Play_Click();
 
-        if (MaxNeedAmount > NeedAmount)
+        if (maxNeedAmount > needAmount)
         {
-            NeedAmount++;
+            needAmount++;
             Set_Amount();
         }
     }
@@ -90,8 +91,8 @@ public class AllyCardRerollEUIController : OwnBtnEUIController
         DevTool.Set_KillTween(ThisRT);
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(ThisBtnRT.DOScale(1.2f, 0.1f));
-        seq.Append(ThisBtnRT.DOScale(1f, 0.1f));
+        seq.Append(btnRt.DOScale(1.2f, 0.1f));
+        seq.Append(btnRt.DOScale(1f, 0.1f));
     }
 
     #endregion

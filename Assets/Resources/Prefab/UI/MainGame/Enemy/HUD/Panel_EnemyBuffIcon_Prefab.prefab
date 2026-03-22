@@ -90,11 +90,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0faae2895b450c48a245c8cc2f28fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UsingNow: 0
-  ThisImg: {fileID: 514307756963178669}
-  ThisShadowImg: {fileID: 4759681505509844340}
-  ThisTxt: {fileID: 8122043367556108998}
-  ThisRT: {fileID: 0}
+  usingNow: 0
+  img: {fileID: 514307756963178669}
+  shadowImg: {fileID: 4759681505509844340}
+  txt: {fileID: 8122043367556108998}
+  rt: {fileID: 0}
 --- !u!1 &7118362534123121852
 GameObject:
   m_ObjectHideFlags: 0

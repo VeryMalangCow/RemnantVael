@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyProfileEUIController : OwnBtnEUIController
@@ -9,11 +10,11 @@ public class AllyProfileEUIController : OwnBtnEUIController
 
     [Space(20)]
     [Header("<><><><><> Profile")]
-    [SerializeField] private Image FaceImg;
-    [SerializeField] private TMP_Text NameTxt;
+    [FormerlySerializedAs("FaceImg")][SerializeField] private Image faceImg;
+    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
 
-    [HideInInspector] private AllyController ThisAlly = null;
-    [HideInInspector] private AllyShopUIController AllyOwnerUIController;
+    [HideInInspector] private AllyController ally = null;
+    [HideInInspector] private AllyShopUIController allyOwnerUIController;
 
     #endregion
 
@@ -23,7 +24,7 @@ public class AllyProfileEUIController : OwnBtnEUIController
     {
         base.Offset();
 
-        AllyOwnerUIController = DevTool.Can_CastingTType(OwnerUIController, out AllyShopUIController owner) ? owner : null;
+        allyOwnerUIController = DevTool.Can_CastingTType(OwnerUIController, out AllyShopUIController owner) ? owner : null;
     }
 
     #endregion
@@ -32,17 +33,17 @@ public class AllyProfileEUIController : OwnBtnEUIController
 
     public void Reset_Profile()
     {
-        ThisAlly = null;
+        ally = null;
     }
 
-    public void Set_Profile(AllyController _Ally, float _YPos)
+    public void Set_Profile(AllyController ally, float yPos)
     {
-        if (_Ally == null) return;
+        if (ally == null) return;
 
-        ThisAlly = _Ally;
-        FaceImg.sprite = _Ally.Get_FrontFaceImg();
-        NameTxt.text = _Ally.Get_Name();
-        ThisRT.anchoredPosition = new Vector2(0, _YPos);
+        this.ally = ally;
+        faceImg.sprite = ally.Get_FrontFaceImg();
+        nameTxt.text = ally.Get_Name();
+        ThisRT.anchoredPosition = new Vector2(0, yPos);
     }
 
     #endregion
@@ -51,7 +52,7 @@ public class AllyProfileEUIController : OwnBtnEUIController
 
     public AllyController Get_ThisAlly()
     {
-        return ThisAlly;
+        return ally;
     }
 
     #endregion
@@ -64,7 +65,7 @@ public class AllyProfileEUIController : OwnBtnEUIController
 
         if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
 
-        if (OwnerUIController != null) AllyOwnerUIController.Select_AllyProfile(this);
+        if (OwnerUIController != null) allyOwnerUIController.Select_AllyProfile(this);
     }
 
     #endregion

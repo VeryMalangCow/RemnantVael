@@ -118,13 +118,13 @@ public class StandbyAllyBUEUIController : ElementUIController
         for (int i = 0; i < AllySyncIconEUIArr.Length; i++)
         {
             AllySyncIconEUIArr[i].Set_ConnectUI(
-                connectIdList.Contains(AllySyncIconEUIArr[i].ID));
+                connectIdList.Contains(AllySyncIconEUIArr[i].id));
         }
 
         for (int i = 0; i < AllySyncIconEUIArr.Length; i++)
         {
             AllySyncIconEUIArr[i].Set_Completely(
-                completelyIdList.Contains(AllySyncIconEUIArr[i].ID));
+                completelyIdList.Contains(AllySyncIconEUIArr[i].id));
         }
 
         ExtraTxt.text = ResourceManager.instance.Get_StaticWord(142);

@@ -39,7 +39,7 @@ public class EnemyBuffUIController : MonoBehaviour
     {
         for (int i = 0; i < BuffIconUIs.Count; i++)
         {
-            if (!BuffIconUIs[i].UsingNow)
+            if (!BuffIconUIs[i].usingNow)
             {
                 DevTool.Add_InList(UsingBuffIconUIs, BuffIconUIs[i]);
 
@@ -76,7 +76,7 @@ public class EnemyBuffUIController : MonoBehaviour
         {
             int height = i / WidthMaxAmount;
             int width = i % WidthMaxAmount;
-            UsingBuffIconUIs[i].ThisRT.anchoredPosition
+            UsingBuffIconUIs[i].rt.anchoredPosition
                 = new Vector2(XYInterval * width, XYInterval * height);
         }
     }

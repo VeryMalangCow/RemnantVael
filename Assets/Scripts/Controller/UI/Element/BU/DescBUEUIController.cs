@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DescBUEUIController : ElementUIController
@@ -14,29 +15,29 @@ public class DescBUEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Center")]
-    [SerializeField] public TMP_Text CenterNameTxt;
+    [FormerlySerializedAs("CenterNameTxt")][SerializeField] public TMP_Text centerNameTxt;
 
     [Space(10)]
     [Header("=== Left")]
 
     [Space(5)]
     [Header("-- Txt")]
-    [SerializeField] private TMP_Text LeftLVTxt;
-    [SerializeField] private TMP_Text LeftValueTxt;
+    [FormerlySerializedAs("LeftLVTxt")][SerializeField] private TMP_Text leftLvTxt;
+    [FormerlySerializedAs("LeftValueTxt")][SerializeField] private TMP_Text leftValueTxt;
 
     [Space(5)]
     [Header("-- Txt List")]
-    [SerializeField] private Transform LeftLVTxtParentTF;
-    [SerializeField] private Transform LeftValueTxtParentTF;
+    [FormerlySerializedAs("LeftLVTxtParentTF")][SerializeField] private Transform leftLvTxtParentTf;
+    [FormerlySerializedAs("LeftValueTxtParentTF")][SerializeField] private Transform leftValueTxtParentTf;
 
     [Space(5)]
     [Header("-- Value")]
-    [SerializeField] private float BaseSpotX;
-    [SerializeField] private float IntervalSpotX;
+    [FormerlySerializedAs("BaseSpotX")][SerializeField] private float baseSpotX;
+    [FormerlySerializedAs("IntervalSpotX")][SerializeField] private float intervalSpotX;
 
     [Space(5)]
     [Header("-- Current")]
-    [SerializeField] public RectTransform CurrentRangeRT;
+    [FormerlySerializedAs("CurrentRangeRT")][SerializeField] public RectTransform currentRangeRt;
 
 
     [Space(10)]
@@ -44,32 +45,32 @@ public class DescBUEUIController : ElementUIController
 
     [Space(5)]
     [Header("-- Txt")]
-    [SerializeField] public TMP_Text RightLVTxt;
-    [SerializeField] public TMP_Text RightValueTxt;
+    [FormerlySerializedAs("RightLVTxt")][SerializeField] public TMP_Text rightLvTxt;
+    [FormerlySerializedAs("RightValueTxt")][SerializeField] public TMP_Text rightValueTxt;
 
     [Space(5)]
     [Header("-- Current")]
-    [SerializeField] private TMP_Text CurrentLvTxt;
-    [SerializeField] private TMP_Text CurrentStateTxt;
+    [FormerlySerializedAs("CurrentLvTxt")][SerializeField] private TMP_Text currentLvTxt;
+    [FormerlySerializedAs("CurrentStateTxt")][SerializeField] private TMP_Text currentStateTxt;
 
     [Space(5)]
     [Header("-- Next")]
-    [SerializeField] public TMP_Text NextLvTxt;
-    [SerializeField] public TMP_Text NextStateTxt;
+    [FormerlySerializedAs("NextLvTxt")][SerializeField] public TMP_Text nextLvTxt;
+    [FormerlySerializedAs("NextStateTxt")][SerializeField] public TMP_Text nextStateTxt;
 
     [Space(5)]
     [Header("-- Complete")]
-    [SerializeField] private GameObject CompletedSignGO;
+    [FormerlySerializedAs("CompletedSignGO")][SerializeField] private GameObject completedSignGo;
 
     #endregion
 
     #region - Hide
 
     // Left
-    [HideInInspector] private List<TMP_Text> LeftLVTxtList;
-    [HideInInspector] private List<TMP_Text> LeftValueTxtList;
+    [HideInInspector] private List<TMP_Text> leftLvTxtList;
+    [HideInInspector] private List<TMP_Text> leftValueTxtList;
 
-    [HideInInspector] public Image CurrentRangeImg;
+    [HideInInspector] public Image currentRangeImg;
 
     #endregion
 
@@ -79,12 +80,12 @@ public class DescBUEUIController : ElementUIController
 
     public override void Offset()
     {
-        CurrentRangeImg =
-            DevTool.Get_ComponentTType(CurrentRangeRT.gameObject, out Image img) ? 
+        currentRangeImg =
+            DevTool.Get_ComponentTType(currentRangeRt.gameObject, out Image img) ? 
             img : null;
 
-        LeftLVTxtList = DevTool.Get_ChildList<TMP_Text>(LeftLVTxtParentTF);
-        LeftValueTxtList = DevTool.Get_ChildList<TMP_Text>(LeftValueTxtParentTF);
+        leftLvTxtList = DevTool.Get_ChildList<TMP_Text>(leftLvTxtParentTf);
+        leftValueTxtList = DevTool.Get_ChildList<TMP_Text>(leftValueTxtParentTf);
 
         Set_LanguageTxt();
     }
@@ -93,123 +94,123 @@ public class DescBUEUIController : ElementUIController
 
     #region Desc
 
-    public void SetOn_Desc<T>(BUState<T> _State, string _Name)
+    public void SetOn_Desc<T>(BUState<T> state, string name)
     {
         // Center
-        SetOn_Center(_Name);
+        SetOn_Center(name);
 
         // Left
-        SetOn_Left_State(_State);
-        SetOn_Left_CurrentRange(_State.currentLevel.Value);
+        SetOn_Left_State(state);
+        SetOn_Left_CurrentRange(state.currentLevel.Value);
 
         // Right
-        SetOn_Right_CurrentState(_State.currentLevel.Value, _State.actualState.Value);
-        SetOn_Right_NextState(_State);
+        SetOn_Right_CurrentState(state.currentLevel.Value, state.actualState.Value);
+        SetOn_Right_NextState(state);
     }
 
     public void SetOff_Desc()
     {
         // Center
-        CenterNameTxt.text = "-";
+        centerNameTxt.text = "-";
 
         // Left
-        for (int i = 0; i < LeftValueTxtList.Count; i++)
+        for (int i = 0; i < leftValueTxtList.Count; i++)
         {
-            LeftValueTxtList[i].text = "-";
+            leftValueTxtList[i].text = "-";
         }
 
-        CurrentRangeRT.gameObject.SetActive(false);
+        currentRangeRt.gameObject.SetActive(false);
 
         // Right
-        NextLvTxt.text = "-";
-        NextStateTxt.text = "-";
+        nextLvTxt.text = "-";
+        nextStateTxt.text = "-";
 
-        CurrentLvTxt.text = "-";
-        CurrentStateTxt.text = "-";
+        currentLvTxt.text = "-";
+        currentStateTxt.text = "-";
 
-        CompletedSignGO.SetActive(false);
+        completedSignGo.SetActive(false);
     }
 
 
 
-    private void SetOn_Center(string _Name)
+    private void SetOn_Center(string name)
     {
-        CenterNameTxt.text = _Name;
+        centerNameTxt.text = name;
     }
 
-    private void SetOn_Left_State<T>(BUState<T> _State)
+    private void SetOn_Left_State<T>(BUState<T> state)
     {
-        for (int i = 0; i < LeftValueTxtList.Count; i++)
+        for (int i = 0; i < leftValueTxtList.Count; i++)
         {
             string symbol = "";
             string stateString = "";
 
-            if (_State.baseState.GetType() == typeof(float))
+            if (state.baseState.GetType() == typeof(float))
             {
-                float value = float.Parse(_State.upgradeValueByLevelRange[i].ToString());
+                float value = float.Parse(state.upgradeValueByLevelRange[i].ToString());
                 stateString = value.ToString();
                 symbol = value > 0 ? "+" : "";
             }
-            else if (_State.baseState.GetType() == typeof(int))
+            else if (state.baseState.GetType() == typeof(int))
             {
-                int value = int.Parse(_State.upgradeValueByLevelRange[i].ToString());
+                int value = int.Parse(state.upgradeValueByLevelRange[i].ToString());
                 stateString = value.ToString();
                 symbol = value > 0 ? "+" : "";
             }
 
-            LeftValueTxtList[i].text = symbol + stateString;
+            leftValueTxtList[i].text = symbol + stateString;
         }
     }
 
-    private void SetOn_Left_CurrentRange(int _CurrentLv)
+    private void SetOn_Left_CurrentRange(int currentLv)
     {
-        CurrentRangeRT.gameObject.SetActive(true);
+        currentRangeRt.gameObject.SetActive(true);
 
-        CurrentRangeRT.anchoredPosition = new Vector2(
-            BaseSpotX + (IntervalSpotX * (_CurrentLv > 0 ? _CurrentLv / 3 : 0)),
-            CurrentRangeRT.anchoredPosition.y);
+        currentRangeRt.anchoredPosition = new Vector2(
+            baseSpotX + (intervalSpotX * (currentLv > 0 ? currentLv / 3 : 0)),
+            currentRangeRt.anchoredPosition.y);
 
-        CurrentRangeRT.gameObject.SetActive(_CurrentLv >= 10 ? false : true);
+        currentRangeRt.gameObject.SetActive(currentLv >= 10 ? false : true);
     }
 
-    private void SetOn_Right_CurrentState<T>(int _Lv, T _State)
+    private void SetOn_Right_CurrentState<T>(int lv, T tState)
     {
         string sizeStart = "<size=50%>";
         string sizeEnd = "</size>\n";
 
-        CurrentLvTxt.text = $"{sizeStart}Level{sizeEnd}{_Lv}";
-        CurrentStateTxt.text = $"{sizeStart}Value{sizeEnd}{_State}";
+        currentLvTxt.text = $"{sizeStart}Level{sizeEnd}{lv}";
+        currentStateTxt.text = $"{sizeStart}Value{sizeEnd}{tState}";
     }
 
-    private void SetOn_Right_NextState<T>(BUState<T> _State)
+    private void SetOn_Right_NextState<T>(BUState<T> state)
     {
         string sizeStart = "<size=50%>";
         string sizeEnd = "</size>\n";
 
-        if (_State.currentLevel.Value < DevTool.buMaxLevel)
+        if (state.currentLevel.Value < DevTool.buMaxLevel)
         {
-            NextLvTxt.text = $"{sizeStart}Level{sizeEnd}{_State.currentLevel.Value + 1}";
+            nextLvTxt.text = $"{sizeStart}Level{sizeEnd}{state.currentLevel.Value + 1}";
 
             string nextValue = "";
-            if (_State.baseState.GetType() == typeof(float))
+            if (state.baseState.GetType() == typeof(float))
             {
                 nextValue = 
-                    (float.Parse(_State.actualState.Value.ToString()) + 
-                    float.Parse(_State.upgradeValueByLevelRange[(int)(_State.currentLevel.Value / 3)].ToString())).ToString();
+                    (float.Parse(state.actualState.Value.ToString()) + 
+                    float.Parse(state.upgradeValueByLevelRange[(int)(state.currentLevel.Value / 3)].ToString())).ToString();
             }
-            else if (_State.baseState.GetType() == typeof(int))
+            else if (state.baseState.GetType() == typeof(int))
             {
                 nextValue =
-                    (int.Parse(_State.actualState.Value.ToString()) + 
-                    int.Parse(_State.upgradeValueByLevelRange[(int)(_State.currentLevel.Value / 3)].ToString())).ToString();
+                    (int.Parse(state.actualState.Value.ToString()) + 
+                    int.Parse(state.upgradeValueByLevelRange[(int)(state.currentLevel.Value / 3)].ToString())).ToString();
             }
 
-            NextStateTxt.text = $"{sizeStart}Value{sizeEnd}{nextValue}";
-            CompletedSignGO.gameObject.SetActive(false);
+            nextStateTxt.text = $"{sizeStart}Value{sizeEnd}{nextValue}";
+            completedSignGo.gameObject.SetActive(false);
         }
         else
         {
-            CompletedSignGO.gameObject.SetActive(true);
+            completedSignGo.gameObject.SetActive(true);
         }
     }
 
@@ -221,15 +222,15 @@ public class DescBUEUIController : ElementUIController
     {
         List<Component> result = new List<Component>()
         {
-            CenterNameTxt,
-            CurrentRangeImg,
+            centerNameTxt,
+            currentRangeImg,
 
-            NextLvTxt,
-            NextStateTxt,
+            nextLvTxt,
+            nextStateTxt,
         };
 
-        result.AddRange(LeftValueTxtList);
-        result.AddRange(LeftLVTxtList);
+        result.AddRange(leftValueTxtList);
+        result.AddRange(leftLvTxtList);
 
 
         return result;
@@ -239,11 +240,11 @@ public class DescBUEUIController : ElementUIController
     {
         List<Component> result = new List<Component>()
         {
-            LeftLVTxt,
-            LeftValueTxt,
+            leftLvTxt,
+            leftValueTxt,
 
-            RightLVTxt,
-            RightValueTxt
+            rightLvTxt,
+            rightValueTxt
         };
 
         return result;
@@ -257,13 +258,13 @@ public class DescBUEUIController : ElementUIController
     public void Set_LanguageTxt()
     {
         // String
-        LeftLVTxt.text = ResourceManager.instance.Get_StaticWord(34);
-        LeftValueTxt.text = ResourceManager.instance.Get_StaticWord(35);
+        leftLvTxt.text = ResourceManager.instance.Get_StaticWord(34);
+        leftValueTxt.text = ResourceManager.instance.Get_StaticWord(35);
 
-        RightLVTxt.text = ResourceManager.instance.Get_StaticWord(34);
-        RightValueTxt.text = ResourceManager.instance.Get_StaticWord(35);
+        rightLvTxt.text = ResourceManager.instance.Get_StaticWord(34);
+        rightValueTxt.text = ResourceManager.instance.Get_StaticWord(35);
 
-        DevTool.Get_ComponentTType<TMP_Text>(CompletedSignGO.transform.GetChild(DevTool.Get_TSChildIndex(CompletedSignGO, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(48);
+        DevTool.Get_ComponentTType<TMP_Text>(completedSignGo.transform.GetChild(DevTool.Get_TSChildIndex(completedSignGo, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(48);
     }
 
     #endregion

@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &8437409206137630310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -503,13 +503,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad58126c1e1d0284d8d2ac9634f8c37d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IconImg: {fileID: 6388084419628573457}
-  ConditionIconImg: {fileID: 8933922185818897935}
-  PossessionTxt: {fileID: 6852603757319025160}
-  NecessaryTxt: {fileID: 7596465292487121061}
-  PossessionAmountTxt: {fileID: 7037818519199691200}
-  NecessaryAmountTxt: {fileID: 8840588183004223408}
-  LineCG: {fileID: 7111584084343199841}
+  iconImg: {fileID: 6388084419628573457}
+  conditionIconImg: {fileID: 8933922185818897935}
+  possessionTxt: {fileID: 6852603757319025160}
+  necessaryTxt: {fileID: 7596465292487121061}
+  possessionAmountTxt: {fileID: 7037818519199691200}
+  necessaryAmountTxt: {fileID: 8840588183004223408}
+  lineCg: {fileID: 7111584084343199841}
 --- !u!1 &2100803030019145057
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &8477368050130161465
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -957,7 +957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &4910970192160496910
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1140,7 +1140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &3633896716328747537
 CanvasRenderer:
   m_ObjectHideFlags: 0

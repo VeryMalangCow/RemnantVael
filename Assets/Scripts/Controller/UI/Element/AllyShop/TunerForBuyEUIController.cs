@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class TunerForBuyEUIController : OwnBtnEUIController
 {
@@ -11,10 +12,10 @@ public class TunerForBuyEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== EUI")]
-    [SerializeField] private EachTunerEUIController PositiveTuner0;
-    [SerializeField] private EachTunerEUIController PositiveTuner1;
-    [SerializeField] private EachTunerEUIController NegativeTuner;
-    [SerializeField] public TunerRerollBtnEUIController RerollBtnEUI;
+    [FormerlySerializedAs("PositiveTuner0")][SerializeField] private EachTunerEUIController positiveTuner0;
+    [FormerlySerializedAs("PositiveTuner1")][SerializeField] private EachTunerEUIController positiveTuner1;
+    [FormerlySerializedAs("NegativeTuner")][SerializeField] private EachTunerEUIController negativeTuner;
+    [FormerlySerializedAs("RerollBtnEUI")][SerializeField] public TunerRerollBtnEUIController rerollBtnEUI;
 
     #endregion
 
@@ -24,24 +25,24 @@ public class TunerForBuyEUIController : OwnBtnEUIController
     {
         base.Offset();
 
-        PositiveTuner0.Offset();
-        PositiveTuner1.Offset();
-        NegativeTuner.Offset();
+        positiveTuner0.Offset();
+        positiveTuner1.Offset();
+        negativeTuner.Offset();
 
-        RerollBtnEUI.Offset();
+        rerollBtnEUI.Offset();
     }
 
     #endregion
 
     #region Set
 
-    public void Set_UI(AllyTunerData _TunerData, int _NeedOverrider)
+    public void Set_UI(AllyTunerData tunerData, int needOverrider)
     {
-        PositiveTuner0.Set_UI(_TunerData.positive0);
-        PositiveTuner1.Set_UI(_TunerData.positive1);
-        NegativeTuner.Set_UI(_TunerData.negative);
+        positiveTuner0.Set_UI(tunerData.positive0);
+        positiveTuner1.Set_UI(tunerData.positive1);
+        negativeTuner.Set_UI(tunerData.negative);
 
-        RerollBtnEUI.Set_UI(_NeedOverrider);
+        rerollBtnEUI.Set_UI(needOverrider);
     }
 
     #endregion
@@ -50,7 +51,7 @@ public class TunerForBuyEUIController : OwnBtnEUIController
 
     public void Set_Language()
     {
-        RerollBtnEUI.Set_Language();
+        rerollBtnEUI.Set_Language();
     }
 
     #endregion
@@ -80,24 +81,24 @@ public class TunerForBuyEUIController : OwnBtnEUIController
 
     #region Play
 
-    public Sequence Play_Scale(float _Size, float _DurTime = 0.05f)
+    public Sequence Play_Scale(float size, float durTime = 0.05f)
     {
         DevTool.Set_KillTween(ThisRT);
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(ThisRT.DOScale(_Size, _DurTime));
+        seq.Append(ThisRT.DOScale(size, durTime));
 
         return seq;
     }
 
-    public Sequence Play_ScaleElements(float _Size, float _DurTime = 0.05f)
+    public Sequence Play_ScaleElements(float size, float durTime = 0.05f)
     {
         Sequence seq = DOTween.Sequence();
 
-        seq.Join(PositiveTuner0.Play_Scale(_Size, _DurTime));
-        seq.Join(PositiveTuner1.Play_Scale(_Size, _DurTime));
-        seq.Join(NegativeTuner.Play_Scale(_Size, _DurTime));
+        seq.Join(positiveTuner0.Play_Scale(size, durTime));
+        seq.Join(positiveTuner1.Play_Scale(size, durTime));
+        seq.Join(negativeTuner.Play_Scale(size, durTime));
 
         return seq;
     }

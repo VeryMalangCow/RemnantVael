@@ -133,8 +133,8 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ThisFrameRT: {fileID: 4082834987731250408}
-  ThisSelectImg: {fileID: 460097944669000137}
+  frameRt: {fileID: 4082834987731250408}
+  selectImg: {fileID: 460097944669000137}
 --- !u!222 &5769798035099562258
 CanvasRenderer:
   m_ObjectHideFlags: 0

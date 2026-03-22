@@ -206,10 +206,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &153419997140695202
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &1223571911022392647
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1829,10 +1829,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &1025768484810108493
 GameObject:
   m_ObjectHideFlags: 0
@@ -2672,10 +2672,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &1347859348243918302
 GameObject:
   m_ObjectHideFlags: 0
@@ -3284,10 +3284,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &1579832020951477748
 GameObject:
   m_ObjectHideFlags: 0
@@ -3690,7 +3690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &4398005101227923190
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3945,7 +3945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &2470339351982387071
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5570,7 +5570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &5382332015294874579
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7177,10 +7177,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &3189773694588361616
 GameObject:
   m_ObjectHideFlags: 0
@@ -7568,10 +7568,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &3448098205861917167
 GameObject:
   m_ObjectHideFlags: 0
@@ -7796,11 +7796,11 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ThisFrameRT: {fileID: 7105089251481217046}
-  ThisSelectImg: {fileID: 4197334938675736282}
-  ThisLockImg: {fileID: 6502831324264409854}
-  ThisTxt: {fileID: 4388155170667027897}
-  PlayerSynergyStackTxt: {fileID: 3463256123852668392}
+  frameRt: {fileID: 7105089251481217046}
+  selectImg: {fileID: 4197334938675736282}
+  lockImg: {fileID: 6502831324264409854}
+  txt: {fileID: 4388155170667027897}
+  playerSynergyStackTxt: {fileID: 3463256123852668392}
 --- !u!222 &109543033804558273
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8189,10 +8189,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &3644427183511301847
 GameObject:
   m_ObjectHideFlags: 0
@@ -9498,7 +9498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &3294455020946649780
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9904,7 +9904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &3611590293898450943
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10596,10 +10596,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &4425250829613255272
 GameObject:
   m_ObjectHideFlags: 0
@@ -10770,10 +10770,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &4480970349235188770
 GameObject:
   m_ObjectHideFlags: 0
@@ -11156,10 +11156,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &4772000501912998644
 GameObject:
   m_ObjectHideFlags: 0
@@ -11218,11 +11218,11 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ThisFrameRT: {fileID: 8324945037989203151}
-  ThisSelectImg: {fileID: 995481954069046964}
-  ThisLockImg: {fileID: 6503078165542488302}
-  ThisTxt: {fileID: 696950668676983053}
-  PlayerSynergyStackTxt: {fileID: 4177089553317857666}
+  frameRt: {fileID: 8324945037989203151}
+  selectImg: {fileID: 995481954069046964}
+  lockImg: {fileID: 6503078165542488302}
+  txt: {fileID: 696950668676983053}
+  playerSynergyStackTxt: {fileID: 4177089553317857666}
 --- !u!222 &7672657443965167593
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11885,7 +11885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &3822852774904470463
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12184,10 +12184,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &5042369405751069974
 GameObject:
   m_ObjectHideFlags: 0
@@ -12405,7 +12405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &1399692422416996009
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13379,10 +13379,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &5619506790695442414
 GameObject:
   m_ObjectHideFlags: 0
@@ -13991,10 +13991,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &5831577419139158159
 GameObject:
   m_ObjectHideFlags: 0
@@ -14189,7 +14189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &1432777850929091595
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16513,7 +16513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &5438439567025413649
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16693,7 +16693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &1366327308994942627
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16873,7 +16873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &3239737809874621816
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17586,10 +17586,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &7396973045172049871
 GameObject:
   m_ObjectHideFlags: 0
@@ -17641,7 +17641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &2738666068505253557
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17821,7 +17821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &4995116033089370177
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18989,10 +18989,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &7871372157247438418
 GameObject:
   m_ObjectHideFlags: 0
@@ -19678,10 +19678,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &8367105064814932893
 GameObject:
   m_ObjectHideFlags: 0
@@ -19839,7 +19839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &8053741952803056947
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20282,10 +20282,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &8591421555614261202
 GameObject:
   m_ObjectHideFlags: 0
@@ -20711,10 +20711,10 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ID: 0
-  ThisImg: {fileID: 0}
-  ThisTierImg: {fileID: 0}
-  ThisTxt: {fileID: 0}
+  id: 0
+  img: {fileID: 0}
+  tierImg: {fileID: 0}
+  txt: {fileID: 0}
 --- !u!1 &8773907553786689657
 GameObject:
   m_ObjectHideFlags: 0
@@ -21070,11 +21070,11 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ThisFrameRT: {fileID: 3502056215013726800}
-  ThisSelectImg: {fileID: 8564008542281542859}
-  ThisLockImg: {fileID: 3200688339418787546}
-  ThisTxt: {fileID: 4172834127480328691}
-  PlayerSynergyStackTxt: {fileID: 6021164304425858481}
+  frameRt: {fileID: 3502056215013726800}
+  selectImg: {fileID: 8564008542281542859}
+  lockImg: {fileID: 3200688339418787546}
+  txt: {fileID: 4172834127480328691}
+  playerSynergyStackTxt: {fileID: 6021164304425858481}
 --- !u!222 &2961540217444407663
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21726,6 +21726,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 8647792711578977725}
     m_Modifications:
     - target: {fileID: -7953412543886136175, guid: 951c3fe4543da204c8bed0ca79322ca7, type: 3}
+      propertyPath: slot
+      value: 
+      objectReference: {fileID: 2471414602547235877}
+    - target: {fileID: -7953412543886136175, guid: 951c3fe4543da204c8bed0ca79322ca7, type: 3}
       propertyPath: ThisSlot
       value: 
       objectReference: {fileID: 2471414602547235877}
@@ -21939,6 +21943,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 268721251, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
     - target: {fileID: 2444784440550794366, guid: fa74b738c5571694ebfd786b03c42d04, type: 3}
+      propertyPath: slotSprite
+      value: 
+      objectReference: {fileID: 268721251, guid: e289c074e92508f4aac609cb3be6be81, type: 3}
+    - target: {fileID: 2444784440550794366, guid: fa74b738c5571694ebfd786b03c42d04, type: 3}
       propertyPath: ColumnAmount
       value: 20
       objectReference: {fileID: 0}
@@ -22129,11 +22137,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9021736151168979971, guid: affa1baef144b8144bd5d40b3609e16a, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 4306708758546322587}
+    - target: {fileID: 9021736151168979971, guid: affa1baef144b8144bd5d40b3609e16a, type: 3}
       propertyPath: ThisItem
       value: 
       objectReference: {fileID: 4306708758546322587}
     - target: {fileID: 9021736151168979971, guid: affa1baef144b8144bd5d40b3609e16a, type: 3}
       propertyPath: IsCanSelect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021736151168979971, guid: affa1baef144b8144bd5d40b3609e16a, type: 3}
+      propertyPath: isCanSelect
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

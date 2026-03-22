@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &216469191963888358
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &3345714613961770494
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -854,7 +854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &7006569158979440494
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1034,7 +1034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &4792432048404719820
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1431,19 +1431,19 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  FrameImg: {fileID: 6768796646095978695}
-  LightImg: {fileID: 1787083642506951538}
-  BGImg: {fileID: 8626433506876356207}
-  BGMarkImg: {fileID: 1221788053770566136}
-  IconImg: {fileID: 2686338008472426048}
-  RankTxt: {fileID: 1100261034903873636}
-  PreNameTxt: {fileID: 5617207428700889327}
-  NameTxt: {fileID: 4615039647118156021}
-  DescTxt: {fileID: 1961393049740064067}
-  ThisPanelCG: {fileID: 7018698278211293249}
-  CurrentID: 0
-  AllyOwnerUIController: {fileID: 0}
-  RerollEUI: {fileID: 0}
+  frameImg: {fileID: 6768796646095978695}
+  lightImg: {fileID: 1787083642506951538}
+  bgImg: {fileID: 8626433506876356207}
+  bgMarkImg: {fileID: 1221788053770566136}
+  iconImg: {fileID: 2686338008472426048}
+  rankTxt: {fileID: 1100261034903873636}
+  preNameTxt: {fileID: 5617207428700889327}
+  nameTxt: {fileID: 4615039647118156021}
+  descTxt: {fileID: 1961393049740064067}
+  panelCg: {fileID: 7018698278211293249}
+  currentId: 0
+  allyOwnerUIController: {fileID: 0}
+  rerollEui: {fileID: 0}
 --- !u!114 &6739815183898102831
 MonoBehaviour:
   m_ObjectHideFlags: 0

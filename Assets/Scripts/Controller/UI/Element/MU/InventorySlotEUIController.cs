@@ -2,6 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class InventorySlotEUIController : ElementUIController, IPointerEnterHandler, IPointerExitHandler
@@ -13,36 +14,36 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     [Space(10)]
     [Header("=== Partner")]
-    [SerializeField] public InventoryItemEUIController ThisItem = null;
+    [FormerlySerializedAs("ThisItem")][SerializeField] public InventoryItemEUIController item = null;
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private Vector2 ThisSizeDelta = new Vector2(100, 100);
-    [SerializeField] private bool IsCanSelect = true;
+    [FormerlySerializedAs("ThisSizeDelta")][SerializeField] private Vector2 sizeDelta = new Vector2(100, 100);
+    [FormerlySerializedAs("IsCanSelect")][SerializeField] private bool isCanSelect = true;
 
     [Space(10)]
     [Header("=== Selected Sign")]
-    [SerializeField] private RectTransform SignRT;
-    [SerializeField] private TMP_Text ThisEquipedTxt;
-    [SerializeField] private TMP_Text ThisForgeSelectedTxt;
+    [FormerlySerializedAs("SignRT")][SerializeField] private RectTransform signRt;
+    [FormerlySerializedAs("ThisEquipedTxt")][SerializeField] private TMP_Text equipedTxt;
+    [FormerlySerializedAs("ThisForgeSelectedTxt")][SerializeField] private TMP_Text forgeSelectedTxt;
 
     // Only Inventory
-    [HideInInspector] public int Col = -1;
-    [HideInInspector] public int Row = -1;
+    [HideInInspector] public int col = -1;
+    [HideInInspector] public int row = -1;
 
     // This
-    [HideInInspector] public Image ThisImg;
+    [HideInInspector] public Image thisImg;
 
     // Sign
-    [HideInInspector] private Image SignImg;
-    [HideInInspector] private static readonly float SignImgAnimDurTime = 0.1f;
-    [HideInInspector] private static readonly float SignImgAnimSize = 1.6f;
+    [HideInInspector] private Image signImg;
+    [HideInInspector] private static readonly float signImgAnimDurTime = 0.1f;
+    [HideInInspector] private static readonly float signImgAnimSize = 1.6f;
 
     // Owner
-    [HideInInspector] public SinglePanelUIController OwnerUIController = null;
+    [HideInInspector] public SinglePanelUIController ownerUIController = null;
 
     // Seq
-    [HideInInspector] private Sequence SignSeq;
+    [HideInInspector] private Sequence signSeq;
 
     #endregion
 
@@ -50,21 +51,21 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     public override void Offset()
     {
-        if (DevTool.Get_ComponentTType(gameObject, out RectTransform rt))
-            rt.sizeDelta = ThisSizeDelta;
+        if (DevTool.Get_ComponentTType(gameObject, out RectTransform _rt))
+            _rt.sizeDelta = sizeDelta;
 
-        ThisImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
+        thisImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
 
-        SignImg = DevTool.Get_ComponentTType(SignRT.gameObject, out Image signImg) ? signImg : null;
+        signImg = DevTool.Get_ComponentTType(signRt.gameObject, out Image _signImg) ? _signImg : null;
 
         Color txtColor = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
 
-        SignImg.color = 
+        this.signImg.color =
             PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-        ThisEquipedTxt.color = txtColor;
-        ThisForgeSelectedTxt.color = txtColor;
+        equipedTxt.color = txtColor;
+        forgeSelectedTxt.color = txtColor;
 
-        DevTool.Set_AlphaColor(SignImg, 0f);
+        DevTool.Set_AlphaColor(this.signImg, 0f);
     }
 
     #endregion
@@ -73,45 +74,45 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!IsCanSelect)
+        if (!isCanSelect)
         { return; }
 
-        Play_Selected(_TargetAlpha: 1f, _TargetScale: SignImgAnimSize, SignImgAnimDurTime);
+        Play_Selected(targetAlpha: 1f, targetScale: signImgAnimSize, signImgAnimDurTime);
 
-        if (OwnerUIController.gameObject.activeSelf)
-            OwnerUIController.CurrentSlotBtn = this;
+        if (ownerUIController.gameObject.activeSelf)
+            ownerUIController.CurrentSlotBtn = this;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!IsCanSelect)
+        if (!isCanSelect)
         { return; }
 
-        Play_Selected(_TargetAlpha: 0f, _TargetScale: 1f, SignImgAnimDurTime);
+        Play_Selected(targetAlpha: 0f, targetScale: 1f, signImgAnimDurTime);
 
-        if (OwnerUIController.gameObject.activeSelf)
-            OwnerUIController.CurrentSlotBtn = null;
+        if (ownerUIController.gameObject.activeSelf)
+            ownerUIController.CurrentSlotBtn = null;
     }
 
     #endregion
 
     #region Select
 
-    public void Play_Selected(float _TargetAlpha, float _TargetScale, float _DurTime)
+    public void Play_Selected(float targetAlpha, float targetScale, float durTime)
     {
-        DevTool.Set_KillTween(SignSeq);
-        SignSeq = DOTween.Sequence();
+        DevTool.Set_KillTween(signSeq);
+        signSeq = DOTween.Sequence();
 
-        SignSeq.Append(SignImg.DOFade(_TargetAlpha, _DurTime).SetEase(Ease.Linear));
-        SignSeq.Join(SignRT.DOScale(_TargetScale, _DurTime).SetEase(Ease.Linear));
+        signSeq.Append(signImg.DOFade(targetAlpha, durTime).SetEase(Ease.Linear));
+        signSeq.Join(signRt.DOScale(targetScale, durTime).SetEase(Ease.Linear));
     }
 
     public void Set_SelectedOff()
     {
-        DevTool.Set_KillTween(SignSeq);
+        DevTool.Set_KillTween(signSeq);
 
-        DevTool.Get_AlphaColor(SignImg, 0f);
-        SignRT.localScale = Vector2.one;
+        DevTool.Get_AlphaColor(signImg, 0f);
+        signRt.localScale = Vector2.one;
     }
 
 
@@ -119,36 +120,36 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     #region Equiped
 
-    public void Set_EquipedTxt_NoneNum(bool _IsOn)
+    public void Set_EquipedTxt_NoneNum(bool isOn)
     {
-        ThisEquipedTxt.gameObject.SetActive(_IsOn);
+        equipedTxt.gameObject.SetActive(isOn);
 
-        if (_IsOn)
+        if (isOn)
         {
-            ThisEquipedTxt.text = "#";
-            ThisEquipedTxt.transform.SetAsLastSibling();
+            equipedTxt.text = "#";
+            equipedTxt.transform.SetAsLastSibling();
         }
     }
 
-    public void Set_EquipedTxt(bool _IsOn, int _EquipedSlotIndex = 0)
+    public void Set_EquipedTxt(bool isOn, int equipedSlotIndex = 0)
     {
-        ThisEquipedTxt.gameObject.SetActive(_IsOn);
+        equipedTxt.gameObject.SetActive(isOn);
 
-        if (_IsOn)
+        if (isOn)
         {
-            ThisEquipedTxt.text = $"#{_EquipedSlotIndex + 1}";
-            ThisEquipedTxt.transform.SetAsLastSibling();
+            equipedTxt.text = $"#{equipedSlotIndex + 1}";
+            equipedTxt.transform.SetAsLastSibling();
         }
     }
 
-    public void Set_EquipedTxt(bool _IsOn, string _EquipedTxt)
+    public void Set_EquipedTxt(bool isOn, string equipedTxt)
     {
-        ThisEquipedTxt.gameObject.SetActive(_IsOn);
+        this.equipedTxt.gameObject.SetActive(isOn);
 
-        if (_IsOn)
+        if (isOn)
         {
-            ThisEquipedTxt.text = _EquipedTxt;
-            ThisEquipedTxt.transform.SetAsLastSibling();
+            this.equipedTxt.text = equipedTxt;
+            this.equipedTxt.transform.SetAsLastSibling();
         }
     }
 
@@ -156,15 +157,15 @@ public class InventorySlotEUIController : ElementUIController, IPointerEnterHand
 
     #region Forge
 
-    public void Set_ForgeSelectedTxt(bool _IsOn, int _Index = -1)
+    public void Set_ForgeSelectedTxt(bool isOn, int index = -1)
     {
-        ThisForgeSelectedTxt.gameObject.SetActive(_IsOn);
+        forgeSelectedTxt.gameObject.SetActive(isOn);
 
-        string txt = _Index == -1 ? "<>" : $"<{_Index + 1}>";
-        if (_IsOn)
+        string txt = index == -1 ? "<>" : $"<{index + 1}>";
+        if (isOn)
         { 
-            ThisForgeSelectedTxt.text = txt;
-            ThisForgeSelectedTxt.transform.SetAsLastSibling();
+            forgeSelectedTxt.text = txt;
+            forgeSelectedTxt.transform.SetAsLastSibling();
         }
     }
 

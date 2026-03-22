@@ -114,7 +114,7 @@ public class BuffController : IDController
         if (thisBuffEUI != null)
         {
             float percent = currentDurTime.Value / maxDurTime;
-            thisBuffEUI.ThisShadowImg.fillAmount = isReductionTimer ?
+            thisBuffEUI.shadowImg.fillAmount = isReductionTimer ?
                 percent : (1f - percent);
         }
     }
@@ -182,7 +182,7 @@ public class BuffController : IDController
     {
         thisBuffEUI = PoolingManager.instance.Get_OP_BuffUI();
         thisBuffEUI.Offset();
-        thisBuffEUI.ThisShadowImg.fillAmount = 0;
+        thisBuffEUI.shadowImg.fillAmount = 0;
 
         DevTool.Add_InList(MainGameUIManager.instance.playerHUD_UIController.AllBuffIconUI, thisBuffEUI);
 

@@ -2,6 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyCardEUIController : OwnBtnEUIController
@@ -10,38 +11,38 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Img")]
-    [SerializeField] private Image FrameImg;
-    [SerializeField] private Image LightImg;
-    [SerializeField] private Image BGImg;
-    [SerializeField] private Image BGMarkImg;
-    [SerializeField] private Image IconImg;
+    [FormerlySerializedAs("FrameImg")][SerializeField] private Image frameImg;
+    [FormerlySerializedAs("LightImg")][SerializeField] private Image lightImg;
+    [FormerlySerializedAs("BGImg")][SerializeField] private Image bgImg;
+    [FormerlySerializedAs("BGMarkImg")][SerializeField] private Image bgMarkImg;
+    [FormerlySerializedAs("IconImg")][SerializeField] private Image iconImg;
 
     [Space(10)]
     [Header("=== Txt")]
-    [SerializeField] private TMP_Text RankTxt;
-    [SerializeField] private TMP_Text PreNameTxt;
-    [SerializeField] private TMP_Text NameTxt;
-    [SerializeField] private TMP_Text DescTxt;
+    [FormerlySerializedAs("RankTxt")][SerializeField] private TMP_Text rankTxt;
+    [FormerlySerializedAs("PreNameTxt")][SerializeField] private TMP_Text preNameTxt;
+    [FormerlySerializedAs("NameTxt")][SerializeField] private TMP_Text nameTxt;
+    [FormerlySerializedAs("DescTxt")][SerializeField] private TMP_Text descTxt;
 
 
     [Space(10)]
     [Header("=== Other Comp")]
-    [SerializeField] private CanvasGroup ThisPanelCG;
+    [FormerlySerializedAs("ThisPanelCG")][SerializeField] private CanvasGroup panelCg;
 
     // Value
-    [HideInInspector] public int CurrentID;
+    [HideInInspector] public int currentId;
 
     // Light
-    [HideInInspector] private Sequence LightSeq;
+    [HideInInspector] private Sequence lightSeq;
 
     // Comp
-    [HideInInspector] private RectTransform ThisPanelRT;
+    [HideInInspector] private RectTransform panelRt;
 
     // Owner
-    [HideInInspector] public AllyCardUIController AllyOwnerUIController;
+    [HideInInspector] public AllyCardUIController allyOwnerUIController;
 
     // Reroll
-    [HideInInspector] public AllyCardRerollEUIController RerollEUI;
+    [HideInInspector] public AllyCardRerollEUIController rerollEui;
 
     #endregion
 
@@ -51,10 +52,10 @@ public class AllyCardEUIController : OwnBtnEUIController
     {
         base.Offset();
 
-        LightSeq = Play_LightSeq();
-        LightSeq.Pause();
+        lightSeq = Play_LightSeq();
+        lightSeq.Pause();
 
-        ThisPanelRT = DevTool.Get_ComponentTType(ThisPanelCG.gameObject, out RectTransform rt) ? rt : null;
+        panelRt = DevTool.Get_ComponentTType(panelCg.gameObject, out RectTransform rt) ? rt : null;
     }
 
     #endregion
@@ -63,120 +64,120 @@ public class AllyCardEUIController : OwnBtnEUIController
 
     private void OnEnable()
     {
-        LightSeq.Play();
+        lightSeq.Play();
     }
 
     private void OnDisable()
     {
-        LightSeq.Pause();
+        lightSeq.Pause();
     }
 
     #endregion
 
     #region Set
 
-    public void Set_Card(int _TypeID, AllyCardData _Data)
+    public void Set_Card(int typeId, AllyCardData data)
     {
-        if (_Data == null)
+        if (data == null)
         {
-            Set_CardBGMark(_TypeID);
+            Set_CardBGMark(typeId);
 
-            CurrentID = -1;
+            currentId = -1;
 
             Set_PanelAnim(0.5f);
             Set_SpriteNull();
             Set_TxtNull();
 
             gameObject.SetActive(true);
-            RerollEUI.gameObject.SetActive(true);
+            rerollEui.gameObject.SetActive(true);
         }
         else
         {
-            Set_CardBGMark(_TypeID);
+            Set_CardBGMark(typeId);
 
-            CurrentID = _Data.id;
+            currentId = data.id;
 
             Set_PanelAnim(0.5f);
-            Set_Sprite(_TypeID, _Data);
-            Set_Txt(_TypeID, _Data);
+            Set_Sprite(typeId, data);
+            Set_Txt(typeId, data);
 
             gameObject.SetActive(true);
-            RerollEUI.gameObject.SetActive(true);
+            rerollEui.gameObject.SetActive(true);
         }
     }
 
-    private void Set_PanelAnim(float _DurTime)
+    private void Set_PanelAnim(float durTime)
     {
-        DevTool.Set_KillTween(ThisPanelCG);
-        DevTool.Set_KillTween(ThisPanelRT);
+        DevTool.Set_KillTween(panelCg);
+        DevTool.Set_KillTween(panelRt);
 
-        ThisPanelCG.alpha = 0;
-        ThisPanelCG.DOFade(1f, _DurTime);
+        panelCg.alpha = 0;
+        panelCg.DOFade(1f, durTime);
 
-        ThisPanelRT.transform.localScale = Vector2.one * 1.2f;
-        ThisPanelRT.transform.DOScale(1f, _DurTime);
+        panelRt.transform.localScale = Vector2.one * 1.2f;
+        panelRt.transform.DOScale(1f, durTime);
     }
 
-    private void Set_Sprite(int _TypeID, AllyCardData _Data)
+    private void Set_Sprite(int typeId, AllyCardData data)
     {
-        FrameImg.sprite = ResourceManager.instance.Get_AllyCardFrame(_Data.rank);
-        LightImg.sprite = ResourceManager.instance.Get_AllyCardLight(_Data.rank);
-        BGImg.sprite = ResourceManager.instance.Get_AllyCardBG(_Data.rank);
+        frameImg.sprite = ResourceManager.instance.Get_AllyCardFrame(data.rank);
+        lightImg.sprite = ResourceManager.instance.Get_AllyCardLight(data.rank);
+        bgImg.sprite = ResourceManager.instance.Get_AllyCardBG(data.rank);
 
-        IconImg.sprite = AllyManager.instance.Get_CardIcon(_TypeID, _Data.id);
+        iconImg.sprite = AllyManager.instance.Get_CardIcon(typeId, data.id);
 
-        LightSeq.timeScale = _Data.rank + 1;
+        lightSeq.timeScale = data.rank + 1;
     }
 
     private void Set_SpriteNull()
     {
-        FrameImg.sprite = ResourceManager.instance.Get_AllyCardFrame(0);
-        LightImg.sprite = ResourceManager.instance.Get_AllyCardFrame(0);
-        BGImg.sprite = ResourceManager.instance.Get_AllyCardBG(0);
+        frameImg.sprite = ResourceManager.instance.Get_AllyCardFrame(0);
+        lightImg.sprite = ResourceManager.instance.Get_AllyCardFrame(0);
+        bgImg.sprite = ResourceManager.instance.Get_AllyCardBG(0);
 
-        IconImg.sprite = ResourceManager.instance.allyNullIcon;
+        iconImg.sprite = ResourceManager.instance.allyNullIcon;
 
-        LightSeq.timeScale = 1;
+        lightSeq.timeScale = 1;
     }
 
-    private void Set_Txt(int _TypeID, AllyCardData _Data)
+    private void Set_Txt(int typeId, AllyCardData data)
     {
-        NameTxt.text = _Data.name.Replace("\\n", "\n");
-        DescTxt.text = _Data.desc.Replace("\\n", "\n");
+        nameTxt.text = data.name.Replace("\\n", "\n");
+        descTxt.text = data.desc.Replace("\\n", "\n");
 
-        RankTxt.text = ResourceManager.instance.allyCardRateArr[_Data.rank];
-        RankTxt.color = ResourceManager.instance.Get_AllyCardColor(_Data.rank);
-        BGImg.color = ResourceManager.instance.Get_AllyCardColor(_Data.rank);
+        rankTxt.text = ResourceManager.instance.allyCardRateArr[data.rank];
+        rankTxt.color = ResourceManager.instance.Get_AllyCardColor(data.rank);
+        bgImg.color = ResourceManager.instance.Get_AllyCardColor(data.rank);
 
-        AllyCardData preCardData = AllyManager.instance.Get_PreAllyCardData(_TypeID, _Data);
-        PreNameTxt.text = preCardData != null ? $"-({preCardData.name})->" : "";
-        PreNameTxt.gameObject.SetActive(preCardData != null);
+        AllyCardData preCardData = AllyManager.instance.Get_PreAllyCardData(typeId, data);
+        preNameTxt.text = preCardData != null ? $"-({preCardData.name})->" : "";
+        preNameTxt.gameObject.SetActive(preCardData != null);
     }
 
     private void Set_TxtNull()
     {
-        NameTxt.text = "NULL";
-        DescTxt.text = "NULL";
+        nameTxt.text = "NULL";
+        descTxt.text = "NULL";
 
-        RankTxt.text = "NULL";
-        RankTxt.color = ResourceManager.instance.Get_AllyCardColor(0);
-        BGImg.color = ResourceManager.instance.Get_AllyCardColor(0);
+        rankTxt.text = "NULL";
+        rankTxt.color = ResourceManager.instance.Get_AllyCardColor(0);
+        bgImg.color = ResourceManager.instance.Get_AllyCardColor(0);
 
-        PreNameTxt.gameObject.SetActive(false);
+        preNameTxt.gameObject.SetActive(false);
     }
 
-    private void Set_CardBGMark(int _TypeID)
+    private void Set_CardBGMark(int typeId)
     {
-        switch(_TypeID)
+        switch(typeId)
         {
             case 0:
-                BGMarkImg.sprite = ResourceManager.instance.Get_STPrisonIcon(false);
+                bgMarkImg.sprite = ResourceManager.instance.Get_STPrisonIcon(false);
                 break;
             case 1:
-                BGMarkImg.sprite = ResourceManager.instance.Get_UTPrisonIcon(false);
+                bgMarkImg.sprite = ResourceManager.instance.Get_UTPrisonIcon(false);
                 break;
             case 2:
-                BGMarkImg.sprite = ResourceManager.instance.Get_NTPrisonIcon(false);
+                bgMarkImg.sprite = ResourceManager.instance.Get_NTPrisonIcon(false);
                 break;
 
             default:
@@ -192,12 +193,12 @@ public class AllyCardEUIController : OwnBtnEUIController
     {
         Sequence seq = DOTween.Sequence();
 
-        DevTool.Set_AlphaColor(LightImg, 1);
+        DevTool.Set_AlphaColor(lightImg, 1);
 
-        seq.Append(LightImg.DOFade(0.2f, 5f).SetEase(Ease.Linear));
-        seq.Join(RankTxt.DOFade(0.2f, 5f).SetEase(Ease.Linear));
-        seq.Append(LightImg.DOFade(1f, 0.5f).SetEase(Ease.Linear));
-        seq.Join(RankTxt.DOFade(1f, 0.5f).SetEase(Ease.Linear));
+        seq.Append(lightImg.DOFade(0.2f, 5f).SetEase(Ease.Linear));
+        seq.Join(rankTxt.DOFade(0.2f, 5f).SetEase(Ease.Linear));
+        seq.Append(lightImg.DOFade(1f, 0.5f).SetEase(Ease.Linear));
+        seq.Join(rankTxt.DOFade(1f, 0.5f).SetEase(Ease.Linear));
 
         seq.SetLoops(-1, LoopType.Restart);
 
@@ -215,7 +216,7 @@ public class AllyCardEUIController : OwnBtnEUIController
 
         if (!IsCanSelect || ThisBtn == null || !ThisBtn.interactable) return;
 
-        if (OwnerUIController != null) AllyOwnerUIController.Set_SelectingCard(this);
+        if (OwnerUIController != null) allyOwnerUIController.Set_SelectingCard(this);
     }
 
     #endregion

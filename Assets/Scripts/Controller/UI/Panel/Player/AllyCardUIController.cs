@@ -60,7 +60,7 @@ public class AllyCardUIController : SinglePanelUIController
             Cards[i].gameObject.SetActive(false);
             Cards[i].Offset();
             Cards[i].OwnerUIController = this;
-            Cards[i].AllyOwnerUIController = this;
+            Cards[i].allyOwnerUIController = this;
         }
 
         // Reroll
@@ -71,8 +71,8 @@ public class AllyCardUIController : SinglePanelUIController
             Rerolls[i].Offset();
             Rerolls[i].OwnerUIController = this;
 
-            Rerolls[i].TargetCardEUIController = Cards[i];
-            Cards[i].RerollEUI = Rerolls[i];
+            Rerolls[i].targetCardEuiController = Cards[i];
+            Cards[i].rerollEui = Rerolls[i];
         }
 
         // Select Btn
@@ -113,7 +113,7 @@ public class AllyCardUIController : SinglePanelUIController
             BookingCard == null)
             return false;
 
-        AllyManager.instance.Add_AllyCard(TypeIndex, BookingCard.CurrentID);
+        AllyManager.instance.Add_AllyCard(TypeIndex, BookingCard.currentId);
 
         SoundManager.instance.Play_2D_SFX_UI("Click_Approve");
 
@@ -129,7 +129,7 @@ public class AllyCardUIController : SinglePanelUIController
 
         reroll.Try_Interact();
         Set_NewCard(Rerolls.IndexOf(reroll));
-        if (BookingCard == reroll.TargetCardEUIController)
+        if (BookingCard == reroll.targetCardEuiController)
         {
             BookingCard = null;
             CardBookingFrameImgRT.gameObject.SetActive(false);
@@ -159,7 +159,7 @@ public class AllyCardUIController : SinglePanelUIController
     {
         List<int> idList = new List<int>();
         for (int i = 0; i < Cards.Count; i++)
-            idList.Add(Cards[i].CurrentID);
+            idList.Add(Cards[i].currentId);
 
         AllyCardData cardData = AllyManager.instance.Get_ChoiceAbleRandomData(TypeIndex, idList);
 

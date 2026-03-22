@@ -182,8 +182,8 @@ public class BaseUpgradeUIController : PlayerShopUIController
             MainColorCompList.Add(_BUShop.upgradeEUI.BuyBtn.ThisBtn.gameObject.transform.GetChild(0).GetComponent<TMP_Text>());
 
             SubColorCompList.Add(_BUShop.upgradeEUI.SkillLvTxt);
-            SubColorCompList.AddRange(_BUShop.upgradeEUI.ThisImgTxtAmountEUI.AmountImgs);
-            SubColorCompList.AddRange(_BUShop.upgradeEUI.InnerImgList);
+            SubColorCompList.AddRange(_BUShop.upgradeEUI.ThisImgTxtAmountEUI.amountImgs);
+            SubColorCompList.AddRange(_BUShop.upgradeEUI.innerImgList);
         }
 
         // Desc

@@ -159,10 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e22ca3b6dae2147961cfb837720afc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisImg: {fileID: 1971012946900246400}
-  ThisRankImg: {fileID: 3473998590757815530}
-  ThisFrameImg: {fileID: 1147274633625981094}
-  ThisArrowImg: {fileID: 5666914557508192745}
+  img: {fileID: 1971012946900246400}
+  rankImg: {fileID: 3473998590757815530}
+  frameImg: {fileID: 1147274633625981094}
+  arrowImg: {fileID: 5666914557508192745}
 --- !u!1 &5564369502794341955
 GameObject:
   m_ObjectHideFlags: 0

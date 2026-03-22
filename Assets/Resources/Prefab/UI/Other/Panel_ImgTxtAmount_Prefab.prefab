@@ -493,10 +493,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 553e4c52197f22a4db9c4273d0d88aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisSprite: {fileID: 21300000, guid: b96580c96f2832948809eb065e86d854, type: 3}
-  InnerImg: {fileID: 0}
-  AmountImgs: []
-  AmountTxt: {fileID: 0}
+  sprite: {fileID: 21300000, guid: b96580c96f2832948809eb065e86d854, type: 3}
+  innerImg: {fileID: 0}
+  amountImgs: []
+  amountTxt: {fileID: 0}
 --- !u!1 &1801491424024421957
 GameObject:
   m_ObjectHideFlags: 0

@@ -91,16 +91,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d8e7de119dbf9489d5afb6e5c64266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisItem: {fileID: 0}
-  ThisSizeDelta: {x: 100, y: 100}
-  IsCanSelect: 1
-  SignRT: {fileID: 2680644581387821166}
-  ThisEquipedTxt: {fileID: 2685184643770901380}
-  ThisForgeSelectedTxt: {fileID: 894937662508545214}
-  Col: -1
-  Row: -1
-  ThisImg: {fileID: 0}
-  OwnerUIController: {fileID: 0}
+  item: {fileID: 0}
+  sizeDelta: {x: 100, y: 100}
+  isCanSelect: 1
+  signRt: {fileID: 2680644581387821166}
+  equipedTxt: {fileID: 2685184643770901380}
+  forgeSelectedTxt: {fileID: 894937662508545214}
+  col: -1
+  row: -1
+  thisImg: {fileID: 0}
+  ownerUIController: {fileID: 0}
 --- !u!1 &2913213333508109987
 GameObject:
   m_ObjectHideFlags: 0

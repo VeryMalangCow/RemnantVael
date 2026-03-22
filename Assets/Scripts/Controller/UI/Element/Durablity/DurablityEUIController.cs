@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DurablityEUIController : ElementUIController
@@ -14,22 +15,22 @@ public class DurablityEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Intact")]
-    [SerializeField] private GameObject IntactGO;
-    [SerializeField] private TMP_Text DurablityTxt;
-    [SerializeField] private TMP_Text DurablityStateTxt;
-    [SerializeField] private Transform FillImgListParentTF;
+    [FormerlySerializedAs("IntactGO")][SerializeField] private GameObject intactGo;
+    [FormerlySerializedAs("DurablityTxt")][SerializeField] private TMP_Text durablityTxt;
+    [FormerlySerializedAs("DurablityStateTxt")][SerializeField] private TMP_Text durablityStateTxt;
+    [FormerlySerializedAs("FillImgListParentTF")][SerializeField] private Transform fillImgListParentTf;
 
     [Space(10)]
     [Header("=== Broken")]
-    [SerializeField] private GameObject BrokenGO;
-    [SerializeField] private TMP_Text BrokenTxt;
-    [SerializeField] private Color BrokenTxtColor;
+    [FormerlySerializedAs("BrokenGO")][SerializeField] private GameObject brokenGo;
+    [FormerlySerializedAs("BrokenTxt")][SerializeField] private TMP_Text brokenTxt;
+    [FormerlySerializedAs("BrokenTxtColor")][SerializeField] private Color brokenTxtClr;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private List<Image> FillImgList;
+    [HideInInspector] private List<Image> fillImgList;
 
     #endregion
 
@@ -39,8 +40,8 @@ public class DurablityEUIController : ElementUIController
 
     public void Set_LanguageTxt()
     {
-        DurablityTxt.text = ResourceManager.instance.Get_StaticWord(23) + " :";
-        BrokenTxt.text = ResourceManager.instance.Get_StaticWord(24) + ": " + ResourceManager.instance.Get_StaticDesc(16);
+        durablityTxt.text = ResourceManager.instance.Get_StaticWord(23) + " :";
+        brokenTxt.text = ResourceManager.instance.Get_StaticWord(24) + ": " + ResourceManager.instance.Get_StaticDesc(16);
     }
 
     #endregion
@@ -51,26 +52,26 @@ public class DurablityEUIController : ElementUIController
     {
         Set_LanguageTxt();
 
-        FillImgList = new List<Image>();
-        for (int i = 0; i < FillImgListParentTF.childCount; i++)
+        fillImgList = new List<Image>();
+        for (int i = 0; i < fillImgListParentTf.childCount; i++)
         {
-            DevTool.Get_ComponentTType(FillImgListParentTF.GetChild(i).gameObject.transform.GetChild(0).gameObject, out Image img);
-            FillImgList.Add(img);
+            DevTool.Get_ComponentTType(fillImgListParentTf.GetChild(i).gameObject.transform.GetChild(0).gameObject, out Image img);
+            fillImgList.Add(img);
         }
 
-        DevTool.Set_Color(BrokenTxtColor, BrokenTxt);
+        DevTool.Set_Color(brokenTxtClr, brokenTxt);
     }
 
     #endregion
 
     #region Set
 
-    public void Set_Dur(int _DurState)
+    public void Set_Dur(int durState)
     {
-        if (_DurState > 0)
+        if (durState > 0)
         {
             Set_Intact(true);
-            DevTool.Set_Dur(_DurState, FillImgList, DurablityStateTxt);
+            DevTool.Set_Dur(durState, fillImgList, durablityStateTxt);
         }
         else
         {
@@ -78,10 +79,10 @@ public class DurablityEUIController : ElementUIController
         }
     }
 
-    private void Set_Intact(bool _IsOn)
+    private void Set_Intact(bool isOn)
     {
-        IntactGO.SetActive(_IsOn);
-        BrokenGO.SetActive(!_IsOn);
+        intactGo.SetActive(isOn);
+        brokenGo.SetActive(!isOn);
     }
 
     #endregion

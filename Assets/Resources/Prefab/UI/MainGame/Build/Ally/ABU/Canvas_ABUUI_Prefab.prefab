@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &7311114218859539634
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -853,7 +853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &4398005101227923190
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1862,7 +1862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &1941560633138765876
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2042,7 +2042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &1275654925685952104
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5645,7 +5645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &4995116033089370177
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6289,10 +6289,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f7f9acddc7293498de4bc116230a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PositiveTuner0: {fileID: 8823317148692349547}
-  PositiveTuner1: {fileID: 8009185487679280249}
-  NegativeTuner: {fileID: 629440195865510691}
-  ThisRT: {fileID: 0}
+  positiveTuner0: {fileID: 8823317148692349547}
+  positiveTuner1: {fileID: 8009185487679280249}
+  negativeTuner: {fileID: 629440195865510691}
+  rt: {fileID: 0}
 --- !u!1 &8825815045512220093
 GameObject:
   m_ObjectHideFlags: 0
@@ -7424,6 +7424,10 @@ PrefabInstance:
       propertyPath: RerollBtnEUI
       value: 
       objectReference: {fileID: 2433372016343151815}
+    - target: {fileID: 6530187063084945259, guid: 94a9eaed75b6a2545bef7ea68098d5df, type: 3}
+      propertyPath: rerollBtnEUI
+      value: 
+      objectReference: {fileID: 2433372016343151815}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7531,6 +7535,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530187063084945259, guid: 94a9eaed75b6a2545bef7ea68098d5df, type: 3}
       propertyPath: RerollBtnEUI
+      value: 
+      objectReference: {fileID: 3562776168909473088}
+    - target: {fileID: 6530187063084945259, guid: 94a9eaed75b6a2545bef7ea68098d5df, type: 3}
+      propertyPath: rerollBtnEUI
       value: 
       objectReference: {fileID: 3562776168909473088}
     m_RemovedComponents: []
@@ -7900,6 +7908,10 @@ PrefabInstance:
       propertyPath: RerollBtnEUI
       value: 
       objectReference: {fileID: 6444338908629177700}
+    - target: {fileID: 6530187063084945259, guid: 94a9eaed75b6a2545bef7ea68098d5df, type: 3}
+      propertyPath: rerollBtnEUI
+      value: 
+      objectReference: {fileID: 6444338908629177700}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8011,6 +8023,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530187063084945259, guid: 94a9eaed75b6a2545bef7ea68098d5df, type: 3}
       propertyPath: RerollBtnEUI
+      value: 
+      objectReference: {fileID: 6633487881109609154}
+    - target: {fileID: 6530187063084945259, guid: 94a9eaed75b6a2545bef7ea68098d5df, type: 3}
+      propertyPath: rerollBtnEUI
       value: 
       objectReference: {fileID: 6633487881109609154}
     m_RemovedComponents: []
@@ -8306,6 +8322,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6530187063084945259, guid: 94a9eaed75b6a2545bef7ea68098d5df, type: 3}
       propertyPath: RerollBtnEUI
+      value: 
+      objectReference: {fileID: 2704142143921474274}
+    - target: {fileID: 6530187063084945259, guid: 94a9eaed75b6a2545bef7ea68098d5df, type: 3}
+      propertyPath: rerollBtnEUI
       value: 
       objectReference: {fileID: 2704142143921474274}
     m_RemovedComponents: []

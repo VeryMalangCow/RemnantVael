@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class DescMUEUIController : ElementUIController
@@ -14,42 +15,44 @@ public class DescMUEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Item")]
-    [SerializeField] private Image ItemIconImg;
-    [SerializeField] public TMP_Text ItemNameTxt;
-    [SerializeField] public TMP_Text ItemIntroTxt;
+    [FormerlySerializedAs("ItemIconImg")][SerializeField] private Image itemIconImg;
+    [FormerlySerializedAs("ItemNameTxt")][SerializeField] public TMP_Text itemNameTxt;
+    [FormerlySerializedAs("ItemIntroTxt")][SerializeField] public TMP_Text itemIntroTxt;
 
     [Space(10)]
     [Header("=== Rank")]
-    [SerializeField] private Image CurrentRankImg;
-    [SerializeField] public TMP_Text CurrentRankTxt;
-    [SerializeField] public TMP_Text CurrentActualRankTxt;
+    [FormerlySerializedAs("CurrentRankImg")][SerializeField] private Image currentRankImg;
+    [FormerlySerializedAs("CurrentRankTxt")][SerializeField] public TMP_Text currentRankTxt;
+    [FormerlySerializedAs("CurrentActualRankTxt")][SerializeField] public TMP_Text currentActualRankTxt;
 
     [Space(5)]
     [Header("-- MainChip")]
-    [SerializeField] private GameObject MainChipGO;
+    [FormerlySerializedAs("MainChipGO")][SerializeField] private GameObject mainChipGo;
 
     [Space(3)]
     [Header("* Locker")]
-    [SerializeField] private Image RankLv3_LockerImg;
-    [SerializeField] private Image RankLv5_LockerImg;
+    [FormerlySerializedAs("RankLv3_LockerImg")][SerializeField] private Image rankLv3_LockerImg;
+    [FormerlySerializedAs("RankLv5_LockerImg")][SerializeField] private Image rankLv5_LockerImg;
 
     [Space(3)]
     [Header("* Rank")]
-    [SerializeField] private Image RankLv1_MainChipImg;
-    [SerializeField] private List<Image> RankLv1_MainChipAmountImgs;
-    [SerializeField] private TMP_Text RankLv1_Name;
-    [SerializeField] private Image RankLv3_MainChipImg;
-    [SerializeField] private List<Image> RankLv3_MainChipAmountImgs;
-    [SerializeField] private TMP_Text RankLv3_Name;
-    [SerializeField] private Image RankLv5_MainChipImg;
-    [SerializeField] private List<Image> RankLv5_MainChipAmountImgs;
-    [SerializeField] private TMP_Text RankLv5_Name;
+    [FormerlySerializedAs("RankLv1_MainChipImg")][SerializeField] private Image rankLv1_MainChipImg;
+    [FormerlySerializedAs("RankLv1_MainChipAmountImgs")][SerializeField] private List<Image> rankLv1_MainChipAmountImgs;
+    [FormerlySerializedAs("RankLv1_Name")][SerializeField] private TMP_Text rankLv1_Name;
+
+    [FormerlySerializedAs("RankLv3_MainChipImg")][SerializeField] private Image rankLv3_MainChipImg;
+    [FormerlySerializedAs("RankLv3_MainChipAmountImgs")][SerializeField] private List<Image> rankLv3_MainChipAmountImgs;
+    [FormerlySerializedAs("RankLv3_Name")][SerializeField] private TMP_Text rankLv3_Name;
+
+    [FormerlySerializedAs("RankLv5_MainChipImg")][SerializeField] private Image rankLv5_MainChipImg;
+    [FormerlySerializedAs("RankLv5_MainChipAmountImgs")][SerializeField] private List<Image> rankLv5_MainChipAmountImgs;
+    [FormerlySerializedAs("RankLv5_Name")][SerializeField] private TMP_Text rankLv5_Name;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private string ExtraString_Rank;
+    [HideInInspector] private string extraString_Rank;
 
     #endregion
 
@@ -60,7 +63,7 @@ public class DescMUEUIController : ElementUIController
     public void Set_LanguageTxt()
     {
         // string
-        ExtraString_Rank = ResourceManager.instance.Get_StaticWord(25);
+        extraString_Rank = ResourceManager.instance.Get_StaticWord(25);
     }
 
     #endregion
@@ -70,179 +73,179 @@ public class DescMUEUIController : ElementUIController
     public override void Offset()
     {
 
-        ItemIconImg.color = new Color(1, 1, 1, 0);
-        CurrentRankImg.color = new Color(1, 1, 1, 0);
+        itemIconImg.color = new Color(1, 1, 1, 0);
+        currentRankImg.color = new Color(1, 1, 1, 0);
 
-        MainChipGO.gameObject.SetActive(false);
+        mainChipGo.gameObject.SetActive(false);
     }
 
     #endregion
 
     #region Desc Element
 
-    private void SetOn_Item(int _ID, string _Name, string _Desc)
+    private void SetOn_Item(int id, string name, string desc)
     {
-        ItemIconImg.color = new Color(1, 1, 1, 1);
-        ItemIconImg.sprite = ModuleItemManager.instance.Get_CorrectItemIcon(_ID);
-        ItemNameTxt.text = _Name;
-        ItemIntroTxt.text = _Desc;
+        itemIconImg.color = new Color(1, 1, 1, 1);
+        itemIconImg.sprite = ModuleItemManager.instance.Get_CorrectItemIcon(id);
+        itemNameTxt.text = name;
+        itemIntroTxt.text = desc;
     }
 
-    private void SetOn_Rank(int _Rank)
+    private void SetOn_Rank(int rank)
     {
-        CurrentRankImg.color = new Color(1, 1, 1, 1);
-        CurrentRankImg.sprite = ResourceManager.instance.Get_DescRankIcon(_Rank);
-        CurrentRankTxt.text = ExtraString_Rank;
-        CurrentActualRankTxt.text = _Rank.ToString();
+        currentRankImg.color = new Color(1, 1, 1, 1);
+        currentRankImg.sprite = ResourceManager.instance.Get_DescRankIcon(rank);
+        currentRankTxt.text = extraString_Rank;
+        currentActualRankTxt.text = rank.ToString();
     }
 
-    private void SetOn_MainChip(int _Rank, int _R1_ID, int _R3_ID, int _R5_ID)
+    private void SetOn_MainChip(int rank, int r1Id, int r3Id, int r5Id)
     {
-        MainChipGO.gameObject.SetActive(true);
+        mainChipGo.gameObject.SetActive(true);
 
-        RankLv1_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R1_ID).thisIcon;
-        RankLv3_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R3_ID).thisIcon;
-        RankLv5_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(_R5_ID).thisIcon;
+        rankLv1_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(r1Id).thisIcon;
+        rankLv3_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(r3Id).thisIcon;
+        rankLv5_MainChipImg.sprite = ModuleItemManager.instance.Get_CorrectMainChip(r5Id).thisIcon;
 
-        RankLv1_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R1_ID).name;
-        RankLv3_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R3_ID).name;
-        RankLv5_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(_R5_ID).name;
+        rankLv1_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(r1Id).name;
+        rankLv3_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(r3Id).name;
+        rankLv5_Name.text = ModuleItemManager.instance.Get_CorrectMainChip(r5Id).name;
 
         SetOff_AllLocker();
         SetOff_AllMainChipImgsTxts();
 
-        SetOn_Locker(_Rank);
-        SetOn_MainChipImgsTxts(_Rank);
+        SetOn_Locker(rank);
+        SetOn_MainChipImgsTxts(rank);
     }
 
-    private void SetOn_MainChipImgsTxts(int _Rank)
+    private void SetOn_MainChipImgsTxts(int rank)
     {
-        if (_Rank >= 5)
+        if (rank >= 5)
         {
-            RankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
-            RankLv1_MainChipAmountImgs[1].gameObject.SetActive(true);
-            RankLv1_MainChipAmountImgs[2].gameObject.SetActive(true);
+            rankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
+            rankLv1_MainChipAmountImgs[1].gameObject.SetActive(true);
+            rankLv1_MainChipAmountImgs[2].gameObject.SetActive(true);
 
-            RankLv3_MainChipAmountImgs[0].gameObject.SetActive(true);
-            RankLv3_MainChipAmountImgs[1].gameObject.SetActive(true);
+            rankLv3_MainChipAmountImgs[0].gameObject.SetActive(true);
+            rankLv3_MainChipAmountImgs[1].gameObject.SetActive(true);
 
-            RankLv5_MainChipAmountImgs[0].gameObject.SetActive(true);
+            rankLv5_MainChipAmountImgs[0].gameObject.SetActive(true);
 
-            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
-            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
-            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
+            rankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
+            rankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
+            rankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
 
-            DevTool.Set_AlphaColor(RankLv1_Name, 1f);
-            DevTool.Set_AlphaColor(RankLv3_Name, 1f);
-            DevTool.Set_AlphaColor(RankLv5_Name, 1f);
+            DevTool.Set_AlphaColor(rankLv1_Name, 1f);
+            DevTool.Set_AlphaColor(rankLv3_Name, 1f);
+            DevTool.Set_AlphaColor(rankLv5_Name, 1f);
 
         }
-        else if (_Rank >= 3)
+        else if (rank >= 3)
         {
-            RankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
-            RankLv1_MainChipAmountImgs[1].gameObject.SetActive(true);
+            rankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
+            rankLv1_MainChipAmountImgs[1].gameObject.SetActive(true);
 
-            RankLv3_MainChipAmountImgs[0].gameObject.SetActive(true);
+            rankLv3_MainChipAmountImgs[0].gameObject.SetActive(true);
 
-            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
-            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
+            rankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
+            rankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
                                                
-            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(55)})</color></size>";
+            rankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(55)})</color></size>";
 
-            DevTool.Set_AlphaColor(RankLv1_Name, 1f);
-            DevTool.Set_AlphaColor(RankLv3_Name, 1f);
+            DevTool.Set_AlphaColor(rankLv1_Name, 1f);
+            DevTool.Set_AlphaColor(rankLv3_Name, 1f);
         }
         else
         {
-            RankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
+            rankLv1_MainChipAmountImgs[0].gameObject.SetActive(true);
 
-            RankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
+            rankLv1_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(54)})</color></size>";
                                                
-            RankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(55)})</color></size>";
-            RankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(55)})</color></size>";
+            rankLv3_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(55)})</color></size>";
+            rankLv5_Name.text += $"\n<size=70%><color=#FFFFFF>({ResourceManager.instance.Get_StaticWord(55)})</color></size>";
 
-            DevTool.Set_AlphaColor(RankLv1_Name, 1f);
+            DevTool.Set_AlphaColor(rankLv1_Name, 1f);
         }
     }
 
     private void SetOff_AllMainChipImgsTxts()
     {
-        for (int i = 0; i < RankLv1_MainChipAmountImgs.Count; i++)
+        for (int i = 0; i < rankLv1_MainChipAmountImgs.Count; i++)
         {
-            RankLv1_MainChipAmountImgs[i].gameObject.SetActive(false);
+            rankLv1_MainChipAmountImgs[i].gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < RankLv3_MainChipAmountImgs.Count; i++)
+        for (int i = 0; i < rankLv3_MainChipAmountImgs.Count; i++)
         {
-            RankLv3_MainChipAmountImgs[i].gameObject.SetActive(false);
+            rankLv3_MainChipAmountImgs[i].gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < RankLv5_MainChipAmountImgs.Count; i++)
+        for (int i = 0; i < rankLv5_MainChipAmountImgs.Count; i++)
         {
-            RankLv5_MainChipAmountImgs[i].gameObject.SetActive(false);
+            rankLv5_MainChipAmountImgs[i].gameObject.SetActive(false);
         }
 
 
-        DevTool.Set_AlphaColor(RankLv1_Name, 0.3f);
-        DevTool.Set_AlphaColor(RankLv3_Name, 0.3f);
-        DevTool.Set_AlphaColor(RankLv5_Name, 0.3f);
+        DevTool.Set_AlphaColor(rankLv1_Name, 0.3f);
+        DevTool.Set_AlphaColor(rankLv3_Name, 0.3f);
+        DevTool.Set_AlphaColor(rankLv5_Name, 0.3f);
     }
 
-    private void SetOn_Locker(int _Rank)
+    private void SetOn_Locker(int rank)
     {
-        if (_Rank >= 5)
+        if (rank >= 5)
         {
-            RankLv3_LockerImg.gameObject.SetActive(false);
-            RankLv5_LockerImg.gameObject.SetActive(false);
+            rankLv3_LockerImg.gameObject.SetActive(false);
+            rankLv5_LockerImg.gameObject.SetActive(false);
         }
-        else if (_Rank >= 3)
+        else if (rank >= 3)
         {
-            RankLv3_LockerImg.gameObject.SetActive(false);
+            rankLv3_LockerImg.gameObject.SetActive(false);
         }
     }
 
     private void SetOff_AllLocker()
     {
-        RankLv3_LockerImg.gameObject.SetActive(true);
-        RankLv5_LockerImg.gameObject.SetActive(true);
+        rankLv3_LockerImg.gameObject.SetActive(true);
+        rankLv5_LockerImg.gameObject.SetActive(true);
     }
 
     #endregion
 
     #region Desc
 
-    public void SetOn_Desc(ModuleState _MS)
+    public void SetOn_Desc(ModuleState moduleState)
     {
-        if (_MS == null) return;
+        if (moduleState == null) return;
 
         foreach (Transform child in this.transform)
         { child.gameObject.SetActive(true); }
 
         // Item
-        SetOn_Item(_MS.thisItemData.id, _MS.thisItemData.name, _MS.thisItemData.desc);
+        SetOn_Item(moduleState.thisItemData.id, moduleState.thisItemData.name, moduleState.thisItemData.desc);
 
         // Rank
-        SetOn_Rank(_MS.thisItemData.rank);
+        SetOn_Rank(moduleState.thisItemData.rank);
 
         // MainChip
-        SetOn_MainChip(_MS.thisItemData.rank,
-            _MS.thisItemData.r1_MainChipID, _MS.thisItemData.r3_MainChipID, _MS.thisItemData.r5_MainChipID);
+        SetOn_MainChip(moduleState.thisItemData.rank,
+            moduleState.thisItemData.r1_MainChipID, moduleState.thisItemData.r3_MainChipID, moduleState.thisItemData.r5_MainChipID);
     }
 
     public void SetOff_Desc()
     {
         // Item
-        ItemIconImg.color = new Color(1, 1, 1, 0);
-        ItemNameTxt.text = "-";
-        ItemIntroTxt.text = "-";
+        itemIconImg.color = new Color(1, 1, 1, 0);
+        itemNameTxt.text = "-";
+        itemIntroTxt.text = "-";
 
         // Rank
-        CurrentRankImg.color = new Color(1, 1, 1, 0);
-        CurrentRankTxt.text = "-";
-        CurrentActualRankTxt.text = "-";
+        currentRankImg.color = new Color(1, 1, 1, 0);
+        currentRankTxt.text = "-";
+        currentActualRankTxt.text = "-";
 
         // MainChip
-        MainChipGO.gameObject.SetActive(false);
+        mainChipGo.gameObject.SetActive(false);
     }
 
     #endregion
@@ -253,11 +256,11 @@ public class DescMUEUIController : ElementUIController
     {
         List<Component> result = new List<Component>()
         {
-            ItemNameTxt,
-            CurrentActualRankTxt,
-            RankLv1_Name,
-            RankLv3_Name,
-            RankLv5_Name
+            itemNameTxt,
+            currentActualRankTxt,
+            rankLv1_Name,
+            rankLv3_Name,
+            rankLv5_Name
         };
 
 
@@ -268,8 +271,8 @@ public class DescMUEUIController : ElementUIController
     {
         List<Component> result = new List<Component>()
         {
-            ItemIntroTxt,
-            CurrentRankTxt
+            itemIntroTxt,
+            currentRankTxt
         };
 
         return result;

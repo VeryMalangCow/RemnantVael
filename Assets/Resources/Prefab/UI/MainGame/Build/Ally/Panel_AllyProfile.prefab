@@ -131,8 +131,8 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  FaceImg: {fileID: 6018780917689417321}
-  NameTxt: {fileID: 1589034561839755205}
+  faceImg: {fileID: 6018780917689417321}
+  nameTxt: {fileID: 1589034561839755205}
 --- !u!114 &3450814793162112354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &8594896435029755881
 CanvasRenderer:
   m_ObjectHideFlags: 0

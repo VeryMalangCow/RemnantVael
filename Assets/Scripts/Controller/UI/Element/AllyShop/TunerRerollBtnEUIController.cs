@@ -2,21 +2,22 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class TunerRerollBtnEUIController : OwnBtnEUIController
 {
     #region Value
 
-    [SerializeField] private TMP_Text ThisTxt;
-    [SerializeField] private TMP_Text NeedOverriderAmountTxt;
+    [FormerlySerializedAs("ThisTxt")][SerializeField] private TMP_Text txt;
+    [FormerlySerializedAs("NeedOverriderAmountTxt")][SerializeField] private TMP_Text needOverriderAmountTxt;
 
     #endregion
 
     #region Set (UI)
 
-    public void Set_UI(int _NeedOverrider)
+    public void Set_UI(int needOverrider)
     {
-        NeedOverriderAmountTxt.text = $"- {_NeedOverrider}";
+        needOverriderAmountTxt.text = $"- {needOverrider}";
     }
 
     #endregion
@@ -50,7 +51,7 @@ public class TunerRerollBtnEUIController : OwnBtnEUIController
 
     public void Set_Language()
     {
-        ThisTxt.text = ResourceManager.instance.Get_StaticWord(57);
+        txt.text = ResourceManager.instance.Get_StaticWord(57);
     }
 
     #endregion

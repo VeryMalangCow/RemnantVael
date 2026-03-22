@@ -1,19 +1,20 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LanguageTxtController : MonoBehaviour
 {
     #region Value
 
-    [SerializeField] private int Type = 0;
+    [FormerlySerializedAs("Type")][SerializeField] private int type = 0;
 
     #endregion
 
     #region Offset
 
-    private void Offset(int _LanguageID)
+    private void Offset(int languageID)
     {
-        Set_Font(_LanguageID);
+        Set_Font(languageID);
     }
 
     #endregion
@@ -30,10 +31,10 @@ public class LanguageTxtController : MonoBehaviour
 
     #region Set
 
-    public void Set_Font(int _LanguageID)
+    public void Set_Font(int languageID)
     {
         if (DevTool.Get_ComponentTType(gameObject, out TMP_Text txt))
-            txt.font = ResourceManager.instance.languageTxtArr[_LanguageID].fontAssets[Type];
+            txt.font = ResourceManager.instance.languageTxtArr[languageID].fontAssets[type];
     }
 
     #endregion

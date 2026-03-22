@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MapIntroUIController : UIController
 {
@@ -14,13 +15,13 @@ public class MapIntroUIController : UIController
 
     [Space(5)]
     [Header("-- RT")]
-    [SerializeField] private RectTransform ThisMovingRT;
-    [SerializeField] private RectTransform ThisShakingRT;
+    [FormerlySerializedAs("ThisMovingRT")][SerializeField] private RectTransform movingRt;
+    [FormerlySerializedAs("ThisShakingRT")][SerializeField] private RectTransform shakingRt;
 
     [Space(5)]
     [Header("-- Txt")]
-    [SerializeField] private TMP_Text MapNameTxt;
-    [SerializeField] private TMP_Text MapDescriptionTxt;
+    [FormerlySerializedAs("MapNameTxt")][SerializeField] private TMP_Text mapNameTxt;
+    [FormerlySerializedAs("MapDescriptionTxt")][SerializeField] private TMP_Text mapDescTxt;
 
     #endregion
 
@@ -30,29 +31,29 @@ public class MapIntroUIController : UIController
     {
         Set_LanguageTxt();
 
-        Play_Label(_DownTime: 1.5f, _StayTime: 2.5f, _UpTime: 2f)
+        Play_Label(downTime: 1.5f, stayTime: 2.5f, upTime: 2f)
             .OnStart(() => { this.gameObject.SetActive(true); })
             .OnComplete(() => { this.gameObject.SetActive(false); });
     }
 
-    private void Set_Txt(string _Name, string _Desc)
+    private void Set_Txt(string name, string desc)
     {
-        MapNameTxt.text = _Name;
-        MapDescriptionTxt.text = _Desc;
+        mapNameTxt.text = name;
+        mapDescTxt.text = desc;
     }
 
-    private Sequence Play_Label(float _DownTime, float _StayTime, float _UpTime)
+    private Sequence Play_Label(float downTime, float stayTime, float upTime)
     {
-        DevTool.Set_KillTween(ThisMovingRT);
+        DevTool.Set_KillTween(movingRt);
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(ThisMovingRT.DOAnchorPos(new Vector2(0, -ThisMovingRT.rect.height), _DownTime).SetEase(Ease.OutCubic));
-        seq.Join(ThisShakingRT.DOShakeAnchorPos(_DownTime * 1.5f, 1f, 50, 90, false, true));
+        seq.Append(movingRt.DOAnchorPos(new Vector2(0, -movingRt.rect.height), downTime).SetEase(Ease.OutCubic));
+        seq.Join(shakingRt.DOShakeAnchorPos(downTime * 1.5f, 1f, 50, 90, false, true));
 
-        seq.AppendInterval(_StayTime);
+        seq.AppendInterval(stayTime);
 
-        seq.Append(ThisMovingRT.DOAnchorPos(new Vector2(0, 0), _UpTime).SetEase(Ease.InCubic));
-        seq.Join(ThisShakingRT.DOShakeAnchorPos(_UpTime * 1.5f, 1f, 50, 90, false, true).SetEase(Ease.InCubic));
+        seq.Append(movingRt.DOAnchorPos(new Vector2(0, 0), upTime).SetEase(Ease.InCubic));
+        seq.Join(shakingRt.DOShakeAnchorPos(upTime * 1.5f, 1f, 50, 90, false, true).SetEase(Ease.InCubic));
 
         return seq;
     }

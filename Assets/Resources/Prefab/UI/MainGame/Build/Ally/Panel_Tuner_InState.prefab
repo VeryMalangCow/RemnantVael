@@ -56,10 +56,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f7f9acddc7293498de4bc116230a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PositiveTuner0: {fileID: 405926727822764600}
-  PositiveTuner1: {fileID: 1222388389564365866}
-  NegativeTuner: {fileID: 8605433867412138864}
-  ThisRT: {fileID: 0}
+  positiveTuner0: {fileID: 405926727822764600}
+  positiveTuner1: {fileID: 1222388389564365866}
+  negativeTuner: {fileID: 8605433867412138864}
+  rt: {fileID: 0}
 --- !u!1 &1979339007562090975
 GameObject:
   m_ObjectHideFlags: 0

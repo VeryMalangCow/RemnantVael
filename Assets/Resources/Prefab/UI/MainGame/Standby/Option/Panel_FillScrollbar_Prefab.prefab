@@ -842,7 +842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &9110543428509335710
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1484,7 +1484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!222 &7856877147742042246
 CanvasRenderer:
   m_ObjectHideFlags: 0

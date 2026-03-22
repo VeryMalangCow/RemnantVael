@@ -2,6 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllySynergySlotEUIController : OwnBtnEUIController
@@ -12,19 +13,19 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
 
     [Space(10)]
     [Header("=== Ally Synergy")]
-    [SerializeField] private RectTransform ThisFrameRT;
-    [SerializeField] private Image ThisSelectImg;
-    [SerializeField] private Image ThisLockImg;
-    [SerializeField] private TMP_Text ThisTxt;
-    [SerializeField] private TMP_Text PlayerSynergyStackTxt;
+    [FormerlySerializedAs("ThisFrameRT")][SerializeField] private RectTransform frameRt;
+    [FormerlySerializedAs("ThisSelectImg")][SerializeField] private Image selectImg;
+    [FormerlySerializedAs("ThisLockImg")][SerializeField] private Image lockImg;
+    [FormerlySerializedAs("ThisTxt")][SerializeField] private TMP_Text txt;
+    [FormerlySerializedAs("PlayerSynergyStackTxt")][SerializeField] private TMP_Text playerSynergyStackTxt;
 
     #endregion
 
     #region - Hide
 
-    [HideInInspector] private bool IsOn = false;
-    [HideInInspector] private Image ThisImg;
-    [HideInInspector] private int ID = -1;
+    [HideInInspector] private bool isOn = false;
+    [HideInInspector] private Image img;
+    [HideInInspector] private int id = -1;
 
     #endregion
 
@@ -36,7 +37,7 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
     {
         base.Offset();
 
-        ThisImg = DevTool.Get_ComponentTType(gameObject, out Image img) ? img : null;
+        img = DevTool.Get_ComponentTType(gameObject, out Image _img) ? _img : null;
         Set_Select(false);
     }
 
@@ -46,12 +47,12 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
 
     public bool Get_IsOn()
     {
-        return IsOn;
+        return isOn;
     }
 
     public int Get_ID()
     {
-        return ID;
+        return id;
     }
 
     #endregion
@@ -60,42 +61,42 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
 
     public void Set_SelectChange()
     {
-        Set_Select(!IsOn);
+        Set_Select(!isOn);
     }
 
-    public void Set_Select(bool _OnOff)
+    public void Set_Select(bool onOff)
     {
-        IsOn = _OnOff;
-        ThisSelectImg.gameObject.SetActive(_OnOff);
+        isOn = onOff;
+        selectImg.gameObject.SetActive(onOff);
     }
 
-    public void Set_SynergySlot(int _ID, Sprite _Icon, string _Desc)
+    public void Set_SynergySlot(int id, Sprite icon, string desc)
     {
         this.gameObject.SetActive(true);
 
-        ID = _ID;
-        ThisImg.sprite = _Icon;
-        ThisTxt.text = _Desc;
+        this.id = id;
+        img.sprite = icon;
+        txt.text = desc;
     }
 
-    public void Set_PlayerSynergyTxt(int _Amount)
+    public void Set_PlayerSynergyTxt(int amount)
     {
-        if (_Amount == -1)
+        if (amount == -1)
         {
-            PlayerSynergyStackTxt.color = new Color(0.5f, 0.5f, 0.5f, 1f);
-            PlayerSynergyStackTxt.text = $"( {ResourceManager.instance.Get_StaticDesc(38)} )";
+            playerSynergyStackTxt.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+            playerSynergyStackTxt.text = $"( {ResourceManager.instance.Get_StaticDesc(38)} )";
         }
         else
         {
-            PlayerSynergyStackTxt.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
-            PlayerSynergyStackTxt.text = $"( {ResourceManager.instance.Get_StaticDesc(39)}: <size=150%>{_Amount}</size> )";
+            playerSynergyStackTxt.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, true);
+            playerSynergyStackTxt.text = $"( {ResourceManager.instance.Get_StaticDesc(39)}: <size=150%>{amount}</size> )";
         }
         
     }
 
-    public void Set_Lock(bool _IsOn)
+    public void Set_Lock(bool isOn)
     {
-        ThisLockImg.gameObject.SetActive(_IsOn);
+        lockImg.gameObject.SetActive(isOn);
     }
 
     #endregion
@@ -124,13 +125,13 @@ public class AllySynergySlotEUIController : OwnBtnEUIController
 
     #region Play
 
-    public Sequence Play_Scale(float _Size, float _DurTime = 0.05f)
+    public Sequence Play_Scale(float size, float durTime = 0.05f)
     {
         DevTool.Set_KillTween(ThisRT);
 
         Sequence seq = DOTween.Sequence();
 
-        seq.Append(ThisFrameRT.DOScale(_Size, _DurTime));
+        seq.Append(frameRt.DOScale(size, durTime));
 
         return seq;
     }

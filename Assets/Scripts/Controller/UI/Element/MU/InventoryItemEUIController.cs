@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHandler, IPointerExitHandler
@@ -12,21 +13,21 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
 
     [Space(10)]
     [Header("=== Partner")]
-    [SerializeField] public InventorySlotEUIController ThisSlot = null;
+    [FormerlySerializedAs("ThisSlot")][SerializeField] public InventorySlotEUIController slot = null;
 
     [Space(10)]
     [Header("=== Value")]
-    [SerializeField] private Vector2 ThisSizeDelta = new Vector2(90, 90);
+    [FormerlySerializedAs("ThisSizeDelta")][SerializeField] private Vector2 sizeDelta = new Vector2(90, 90);
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] public Image ThisImg;
-    [SerializeField] public Image RankImg;
+    [FormerlySerializedAs("ThisImg")][SerializeField] public Image thisImg;
+    [FormerlySerializedAs("RankImg")][SerializeField] public Image rankImg;
 
     // Seq
-    [HideInInspector] private static readonly float SelectSize = 1.1f;
-    [HideInInspector] private static readonly float SelectDurTime = 0.1f;
-    [HideInInspector] private Sequence SignSeq;
+    [HideInInspector] private static readonly float selectSize = 1.1f;
+    [HideInInspector] private static readonly float selectDurTime = 0.1f;
+    [HideInInspector] private Sequence signSeq;
 
     #endregion
 
@@ -36,30 +37,30 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
     {
         base.Offset();
 
-        ThisRT.sizeDelta = ThisSizeDelta;
+        ThisRT.sizeDelta = sizeDelta;
     }
 
     #endregion
 
     #region Set
 
-    public void Set_Data(InventoryItemEUIController _ItemEUI)
+    public void Set_Data(InventoryItemEUIController itemEui)
     {
-        ThisImg.sprite = _ItemEUI.ThisImg.sprite;
-        RankImg.sprite = _ItemEUI.RankImg.sprite;
-        RankImg.SetNativeSize();
+        thisImg.sprite = itemEui.thisImg.sprite;
+        rankImg.sprite = itemEui.rankImg.sprite;
+        rankImg.SetNativeSize();
     }
 
-    public void Set_Data(ItemData_UIVisual _State)
+    public void Set_Data(ItemData_UIVisual state)
     {
-        ThisImg.sprite = _State.icon;
-        RankImg.sprite = _State.rankIcon;
-        RankImg.SetNativeSize();
+        thisImg.sprite = state.icon;
+        rankImg.sprite = state.rankIcon;
+        rankImg.SetNativeSize();
     }
 
-    public void Set_EquipedImg(bool _IsOn)
+    public void Set_EquipedImg(bool isOn)
     {
-        DevTool.Set_AlphaColor(ThisImg, _IsOn ? 0.35f : 1f);
+        DevTool.Set_AlphaColor(thisImg, isOn ? 0.35f : 1f);
     }
 
     #endregion
@@ -73,7 +74,7 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
         if (!IsCanSelect || OwnerUIController == null)
         { return; }
 
-        Play_Selected(SelectSize, SelectDurTime);
+        Play_Selected(selectSize, selectDurTime);
 
         if (OwnerUIController == null)
         {
@@ -93,7 +94,7 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
         if (!IsCanSelect || OwnerUIController == null)
         { return; }
 
-        Play_Selected(1f, SelectDurTime);
+        Play_Selected(1f, selectDurTime);
 
         OwnerUIController.CurrentItemBtn = null;
 
@@ -105,12 +106,12 @@ public class InventoryItemEUIController : OwnBtnEUIController, IPointerEnterHand
 
     #region Selected
 
-    private void Play_Selected(float _TargetScale, float _DurTime)
+    private void Play_Selected(float targetScale, float durTime)
     {
-        DevTool.Set_KillTween(SignSeq);
-        SignSeq = DOTween.Sequence();
+        DevTool.Set_KillTween(signSeq);
+        signSeq = DOTween.Sequence();
 
-        SignSeq.Append(ThisRT.DOScale(_TargetScale, _DurTime).SetEase(Ease.Linear));
+        signSeq.Append(ThisRT.DOScale(targetScale, durTime).SetEase(Ease.Linear));
     }
 
     #endregion

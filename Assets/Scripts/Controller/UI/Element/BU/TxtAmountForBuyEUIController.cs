@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHandler, IPointerExitHandler
@@ -41,20 +42,20 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     [Space(5)]
     [Header("-- Inner")]
-    [SerializeField] public List<Image> InnerImgList;
+    [FormerlySerializedAs("InnerImgList")][SerializeField] public List<Image> innerImgList;
 
     [Space(5)]
     [Header("-- Size")]
-    [SerializeField] private float MaximumSize = 1350;
-    [SerializeField] private float MinimumSize = 300;
-    [SerializeField] private float SizeDeltaTime = 0.2f;
+    [FormerlySerializedAs("MaximumSize")][SerializeField] private float maximumSize = 1350;
+    [FormerlySerializedAs("MinimumSize")][SerializeField] private float minimumSize = 300;
+    [FormerlySerializedAs("SizeDeltaTime")][SerializeField] private float sizeDeltaTime = 0.2f;
 
     #endregion
 
     #region - Hide
 
     // Comp
-    [HideInInspector] private RectTransform ThisRT;
+    [HideInInspector] private RectTransform rt;
 
     #endregion
 
@@ -64,41 +65,41 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     public override void Offset()
     {
-        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
-        ThisRT.sizeDelta = new Vector2(MinimumSize, ThisRT.sizeDelta.y);
+        rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
+        rt.sizeDelta = new Vector2(minimumSize, rt.sizeDelta.y);
         BuyBtn.Offset();
     }
 
-    public void Offset(BaseUpgradeUIController _Owner)
+    public void Offset(BaseUpgradeUIController owner)
     {
         this.Offset();
         ThisImgTxtAmountEUI.Offset();
 
-        BuyBtn.OwnerUIController = _Owner;
+        BuyBtn.OwnerUIController = owner;
     }
 
     #endregion
 
     #region Set
 
-    public void Set(int _Level, int _CostValue)
+    public void Set(int lv, int costValue)
     {
-        ThisImgTxtAmountEUI.Set_Amount(_Level, 0.2f);
-        CostImg.sprite = BaseUpgradeManager.instance.costSpriteList[_CostValue];
+        ThisImgTxtAmountEUI.Set_Amount(lv, 0.2f);
+        CostImg.sprite = BaseUpgradeManager.instance.costSpriteList[costValue];
 
-        SkillLvTxt.text = "[ LV : <b><#FFFFFF>" + _Level + "</color></b> ]";
+        SkillLvTxt.text = "[ LV : <b><#FFFFFF>" + lv + "</color></b> ]";
     }
 
 
-    public void Set_InnerAlpha(float _A)
+    public void Set_InnerAlpha(float a)
     {
-        for (int i = 0; i < InnerImgList.Count; i++) 
+        for (int i = 0; i < innerImgList.Count; i++) 
         {
-            DevTool.Set_CompleteTween(InnerImgList[i]);
+            DevTool.Set_CompleteTween(innerImgList[i]);
             Sequence seq = DOTween.Sequence();
 
-            seq.Append(InnerImgList[i].DOFade(1, 0.2f));
-            seq.Append(InnerImgList[i].DOFade(_A, 0.2f));
+            seq.Append(innerImgList[i].DOFade(1, 0.2f));
+            seq.Append(innerImgList[i].DOFade(a, 0.2f));
         }
     }
 
@@ -108,18 +109,18 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        DevTool.Set_KillTween(ThisRT);
+        DevTool.Set_KillTween(rt);
 
-        ThisRT.DOSizeDelta(new Vector2(MaximumSize, ThisRT.sizeDelta.y), SizeDeltaTime);
+        rt.DOSizeDelta(new Vector2(maximumSize, rt.sizeDelta.y), sizeDeltaTime);
 
         MainGameUIManager.instance.baseUpgrade_UIController.SetOn_Desc(this, SkillNameTxt.text);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        DevTool.Set_KillTween(ThisRT);
+        DevTool.Set_KillTween(rt);
 
-        ThisRT.DOSizeDelta(new Vector2(MinimumSize, ThisRT.sizeDelta.y), SizeDeltaTime);
+        rt.DOSizeDelta(new Vector2(minimumSize, rt.sizeDelta.y), sizeDeltaTime);
 
         MainGameUIManager.instance.baseUpgrade_UIController.SetOff_Desc();
     }
@@ -128,10 +129,10 @@ public class TxtAmountForBuyEUIController : ElementUIController, IPointerEnterHa
 
     #region Set (Language)
 
-    public void Set_LanguageTxt(string _Name, string _Desc)
+    public void Set_LanguageTxt(string name, string desc)
     {
-        SkillNameTxt.text = _Name;
-        DescTxt.text = _Desc;
+        SkillNameTxt.text = name;
+        DescTxt.text = desc;
         DevTool.Get_ComponentTType<TMP_Text>(CostImg.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(CostImg, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(46);
         DevTool.Get_ComponentTType<TMP_Text>(BuyBtn.gameObject.transform.GetChild(DevTool.Get_TSChildIndex(BuyBtn, 0)).gameObject).text = ResourceManager.instance.Get_StaticWord(47);
     }

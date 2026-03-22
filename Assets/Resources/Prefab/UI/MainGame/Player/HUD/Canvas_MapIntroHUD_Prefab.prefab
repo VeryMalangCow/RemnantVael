@@ -52,10 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6f03e5a3de2db14eb32efbb42e06431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ThisMovingRT: {fileID: 3686788277110468415}
-  ThisShakingRT: {fileID: 1244966181594149718}
-  MapNameTxt: {fileID: 4743646305546086293}
-  MapDescriptionTxt: {fileID: 5786883076360537466}
+  movingRt: {fileID: 3686788277110468415}
+  shakingRt: {fileID: 1244966181594149718}
+  mapNameTxt: {fileID: 4743646305546086293}
+  mapDescTxt: {fileID: 5786883076360537466}
 --- !u!223 &985950188665108820
 Canvas:
   m_ObjectHideFlags: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &7290320978486088309
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &8634520507555188180
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2340,7 +2340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  type: 0
 --- !u!222 &5219491408489127856
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3171,7 +3171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 2
+  type: 2
 --- !u!222 &9145874353841858515
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3877,12 +3877,12 @@ MonoBehaviour:
   SkillIconImg: {fileID: 8057136919186570665}
   SkillNameTxt: {fileID: 465148360581515912}
   SkillLvTxt: {fileID: 4278975485691168565}
-  InnerImgList:
+  innerImgList:
   - {fileID: 2433760783325641525}
   - {fileID: 846367356903639729}
-  MaximumSize: 1350
-  MinimumSize: 300
-  SizeDeltaTime: 0.2
+  maximumSize: 1350
+  minimumSize: 300
+  sizeDeltaTime: 0.2
 --- !u!1 &7727178245454205948
 GameObject:
   m_ObjectHideFlags: 0
@@ -3934,7 +3934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  type: 0
 --- !u!222 &336717443549424794
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4819,7 +4819,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4915969223267826519, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 828722610, guid: 7113d8ce8c66f0e41ae4d13756054a3a, type: 3}
+    - target: {fileID: 4915969223267826519, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
       propertyPath: InnerImg
+      value: 
+      objectReference: {fileID: 2433760783325641525}
+    - target: {fileID: 4915969223267826519, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}
+      propertyPath: innerImg
       value: 
       objectReference: {fileID: 2433760783325641525}
     - target: {fileID: 4915969223267826519, guid: d0c66dc42cc1a3b4aaab580abf165a39, type: 3}

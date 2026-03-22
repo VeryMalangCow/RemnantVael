@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AllyProfileStateEUIController : ElementUIController
 {
@@ -7,9 +8,9 @@ public class AllyProfileStateEUIController : ElementUIController
 
     [Space(20)]
     [Header("<><><><><> State EUI")]
-    [SerializeField] public TMP_Text NameTxt;
-    [SerializeField] public TMP_Text ValueTxt;
-    [SerializeField] public TMP_Text ExtraValueTxt;
+    [FormerlySerializedAs("NameTxt")][SerializeField] public TMP_Text nameTxt;
+    [FormerlySerializedAs("ValueTxt")][SerializeField] public TMP_Text valueTxt;
+    [FormerlySerializedAs("ExtraValueTxt")][SerializeField] public TMP_Text extraValueTxt;
 
     #endregion
 

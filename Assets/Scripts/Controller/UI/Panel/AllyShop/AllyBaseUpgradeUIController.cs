@@ -88,7 +88,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         for (int i = 0; i < AllTunerEUI.Count; i++)
         {
             AllTunerEUI[i].OwnerUIController = this;
-            AllTunerEUI[i].RerollBtnEUI.OwnerUIController = this;
+            AllTunerEUI[i].rerollBtnEUI.OwnerUIController = this;
             AllTunerEUI[i].Offset();
             Set_TunerUI(i);
         }
@@ -247,7 +247,7 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
 
         for (int i = 0; i < AllTunerEUI.Count; i++)
         {
-            if (AllTunerEUI[i].RerollBtnEUI == CurrentBtn &&
+            if (AllTunerEUI[i].rerollBtnEUI == CurrentBtn &&
                 PlayerManager.instance.playerController.currentOverrider.Value >= NeedOverrider)
             {
                 Set_TunerData(i);
@@ -380,9 +380,9 @@ public class AllyBaseUpgradeUIController : AllyShopUIController
         BuyBtnEUI.ThisTxt.text = ResourceManager.instance.Get_StaticWord(47) + " & " + ResourceManager.instance.Get_StaticWord(105);
 
         // Desc
-        Positive0_ElementDescEUI.IncreaseTxt.text = ResourceManager.instance.Get_StaticWord(108);
-        Positive1_ElementDescEUI.IncreaseTxt.text = ResourceManager.instance.Get_StaticWord(108);
-        Negative_ElementDescEUI.IncreaseTxt.text = ResourceManager.instance.Get_StaticWord(109);
+        Positive0_ElementDescEUI.increaseTxt.text = ResourceManager.instance.Get_StaticWord(108);
+        Positive1_ElementDescEUI.increaseTxt.text = ResourceManager.instance.Get_StaticWord(108);
+        Negative_ElementDescEUI.increaseTxt.text = ResourceManager.instance.Get_StaticWord(109);
 
         base.Set_LanguageTxt();
     }

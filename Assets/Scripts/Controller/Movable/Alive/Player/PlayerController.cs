@@ -443,9 +443,9 @@ public class PlayerController : AliveObjectController
     private void Add_CurrentBettery()
     {
         MainGameUIManager.instance.playerHUD_UIController.CurrentEmptyBC.Set_Complete(
-            _FadeInTime: 0.3f,
-            _StayTime: 0.1f, 
-            _FadeOutTime: 0.5f);
+            fadeInTime: 0.3f,
+            stayTime: 0.1f, 
+            fadeOutTime: 0.5f);
 
         int BSAmount = currentBetteryShard.Value / needBS_ForMakeBC;
         currentBetteryShard.Value -= needBS_ForMakeBC * BSAmount;

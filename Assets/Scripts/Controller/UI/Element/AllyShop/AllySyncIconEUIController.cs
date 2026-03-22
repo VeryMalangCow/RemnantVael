@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllySyncIconEUIController : ElementUIController
@@ -9,24 +10,24 @@ public class AllySyncIconEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Comp")]
-    [SerializeField] public int ID;
-    [SerializeField] private Image ThisIconImg;
+    [FormerlySerializedAs("ID")][SerializeField] public int id;
+    [FormerlySerializedAs("ThisIconImg")][SerializeField] private Image iconImg;
 
     [Space(5)]
     [Header("-- Progress")]
-    [SerializeField] private Image ProgressImg;
-    [SerializeField] private TMP_Text ProgressTxt;
-    [SerializeField] private TMP_Text ProgressMaxTxt;
+    [FormerlySerializedAs("ProgressImg")][SerializeField] private Image progressImg;
+    [FormerlySerializedAs("ProgressTxt")][SerializeField] private TMP_Text progressTxt;
+    [FormerlySerializedAs("ProgressMaxTxt")][SerializeField] private TMP_Text progressMaxTxt;
 
     [Space(5)]
     [Header("-- State")]
-    [SerializeField] private Image ThisApplyStateImg;
-    [SerializeField] private Image ThisConnectStateImg;
+    [FormerlySerializedAs("ThisApplyStateImg")][SerializeField] private Image applyStateImg;
+    [FormerlySerializedAs("ThisConnectStateImg")][SerializeField] private Image connectStateImg;
 
     [Space(2)]
-    [SerializeField] private CanvasGroup CompletelyCG;
+    [FormerlySerializedAs("CompletelyCG")][SerializeField] private CanvasGroup completelyCg;
 
-    [HideInInspector] public RectTransform ThisRT;
+    [HideInInspector] public RectTransform rt;
 
     #endregion
 
@@ -34,8 +35,8 @@ public class AllySyncIconEUIController : ElementUIController
 
     public override void Offset()
     {
-        ThisRT = DevTool.Get_ComponentTType(gameObject, out RectTransform rt) ? rt : null;
-        ProgressMaxTxt.text = $"/{AllyController.syncMax}";
+        rt = DevTool.Get_ComponentTType(gameObject, out RectTransform _rt) ? _rt : null;
+        progressMaxTxt.text = $"/{AllyController.syncMax}";
 
         Set_ConnectUI(false);
         Set_Color();
@@ -45,36 +46,36 @@ public class AllySyncIconEUIController : ElementUIController
 
     #region Set
 
-    public void Set_UI(int _ID, int _Amount)
+    public void Set_UI(int id, int amount)
     {
-        ID = _ID;
+        this.id = id;
 
-        MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(_ID);
+        MainChipData MDC = ModuleItemManager.instance.Get_CorrectMainChip(id);
         
-        ThisIconImg.sprite = MDC.thisIcon;
-        ProgressImg.sprite = MainGameUIManager.instance.allyModuleUpgrade_UIController.Get_SyncProgressSprite(_Amount);
-        ProgressTxt.text = _Amount.ToString();
-        float progressing = (float)_Amount / AllyController.syncMax;
-        DevTool.Set_AlphaColor(ProgressTxt, progressing);
+        iconImg.sprite = MDC.thisIcon;
+        progressImg.sprite = MainGameUIManager.instance.allyModuleUpgrade_UIController.Get_SyncProgressSprite(amount);
+        progressTxt.text = amount.ToString();
+        float progressing = (float)amount / AllyController.syncMax;
+        DevTool.Set_AlphaColor(progressTxt, progressing);
 
-        ThisApplyStateImg.gameObject.SetActive(progressing >= 1 ? true : false);
+        applyStateImg.gameObject.SetActive(progressing >= 1 ? true : false);
     }
 
-    public void Set_ConnectUI(bool _IsConnect)
+    public void Set_ConnectUI(bool isConnect)
     {
-        ThisConnectStateImg.gameObject.SetActive(_IsConnect);
+        connectStateImg.gameObject.SetActive(isConnect);
     }
 
-    public void Set_Completely(bool _IsCompletely)
+    public void Set_Completely(bool isCompletely)
     {
-        CompletelyCG.gameObject.SetActive(_IsCompletely);
+        completelyCg.gameObject.SetActive(isCompletely);
     }
 
 
     public void Set_Color()
     {
-        ThisConnectStateImg.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
-        List<Image> list = DevTool.Get_ChildList<Image>(CompletelyCG.gameObject.transform);
+        connectStateImg.color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);
+        List<Image> list = DevTool.Get_ChildList<Image>(completelyCg.gameObject.transform);
         for (int i = 0; i < list.Count; i++)
         {
             list[i].color = PlayerManager.instance.playerController.Get_CorrectColor(eDamageType.Energy, false);

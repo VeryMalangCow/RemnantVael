@@ -558,8 +558,8 @@ MonoBehaviour:
   ThisRT: {fileID: 0}
   OwnerUIController: {fileID: 0}
   ThisBtn: {fileID: 0}
-  ThisTxt: {fileID: 460887473289539649}
-  NeedOverriderAmountTxt: {fileID: 7177959781290926076}
+  txt: {fileID: 460887473289539649}
+  needOverriderAmountTxt: {fileID: 7177959781290926076}
 --- !u!222 &5070659716345462679
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -701,7 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9678269e1b550b84589022c021c79279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 1
+  type: 1
 --- !u!114 &460887473289539649
 MonoBehaviour:
   m_ObjectHideFlags: 0

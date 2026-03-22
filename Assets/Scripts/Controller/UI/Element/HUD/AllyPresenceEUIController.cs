@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class AllyPresenceEUIController : ElementUIController
@@ -9,18 +10,18 @@ public class AllyPresenceEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Main")]
-    [SerializeField] public Image InnerImg;
-    [SerializeField] public TMP_Text PresenceValueTxt;
-    [SerializeField] public TMP_Text PresenceLangTxt;
+    [FormerlySerializedAs("InnerImg")][SerializeField] public Image innerImg;
+    [FormerlySerializedAs("PresenceValueTxt")][SerializeField] public TMP_Text presenceValueTxt;
+    [FormerlySerializedAs("PresenceLangTxt")][SerializeField] public TMP_Text presenceLangTxt;
 
     [Space(10)]
     [Header("=== Cap")]
-    [SerializeField] public RectTransform CapRT;
+    [FormerlySerializedAs("CapRT")][SerializeField] public RectTransform capRt;
 
 
-    [HideInInspector] public Transform CapMiddleRT;
-    [HideInInspector] public static readonly float CapCloseY = 24f;
-    [HideInInspector] public static readonly float CapOpenY_InputGuide = 96f;
+    [HideInInspector] public Transform capMiddleRt;
+    [HideInInspector] public static readonly float capCloseY = 24f;
+    [HideInInspector] public static readonly float capOpenY_InputGuide = 96f;
 
     #endregion
 
@@ -28,34 +29,34 @@ public class AllyPresenceEUIController : ElementUIController
 
     public override void Offset()
     {
-        CapMiddleRT = DevTool.Get_ComponentTType(CapRT.transform.GetChild(0).gameObject, out RectTransform rt) ? rt : null;
+        capMiddleRt = DevTool.Get_ComponentTType(capRt.transform.GetChild(0).gameObject, out RectTransform rt) ? rt : null;
     }
 
     #endregion
 
     #region Play
 
-    public void Play_Amount(int _Amount, int _NeedLvUp)
+    public void Play_Amount(int amount, int needLvUp)
     {
-        PresenceValueTxt.text = $"<b>{_Amount}</b><size=60%>/{_NeedLvUp}</size>";
+        presenceValueTxt.text = $"<b>{amount}</b><size=60%>/{needLvUp}</size>";
 
-        bool canLvUp = (_Amount >= _NeedLvUp);
+        bool canLvUp = (amount >= needLvUp);
         float a = canLvUp ? 1f : 0.5f;
-        DevTool.Set_AlphaColor(PresenceValueTxt, a);
-        DevTool.Set_AlphaColor(PresenceLangTxt, a);
+        DevTool.Set_AlphaColor(presenceValueTxt, a);
+        DevTool.Set_AlphaColor(presenceLangTxt, a);
 
-        DevTool.Set_KillTween(InnerImg);
-        DevTool.Play_FadePulse(InnerImg, 1f, 0.25f);
+        DevTool.Set_KillTween(innerImg);
+        DevTool.Play_FadePulse(innerImg, 1f, 0.25f);
 
         Play_CapOpen_CanLvUp(canLvUp);
 
     }
 
-    private void Play_CapOpen_CanLvUp(bool _Can)
+    private void Play_CapOpen_CanLvUp(bool can)
     {
-        DevTool.Set_KillTween(CapRT);
+        DevTool.Set_KillTween(capRt);
 
-        CapRT.DOSizeDelta(new Vector2(CapRT.rect.width, _Can ? CapOpenY_InputGuide : CapCloseY), 0.5f);
+        capRt.DOSizeDelta(new Vector2(capRt.rect.width, can ? capOpenY_InputGuide : capCloseY), 0.5f);
     }
 
     #endregion

@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ChargeSpriteEUIController : ElementUIController
@@ -12,17 +13,17 @@ public class ChargeSpriteEUIController : ElementUIController
 
     [Space(10)]
     [Header("=== Component")]
-    [SerializeField] public Image Img;
-    [SerializeField] public Image CompleteImg;
-    [SerializeField] public List<Sprite> LevelSpr;
+    [FormerlySerializedAs("Img")][SerializeField] public Image img;
+    [FormerlySerializedAs("CompleteImg")][SerializeField] public Image completeImg;
+    [FormerlySerializedAs("LevelSpr")][SerializeField] public List<Sprite> lvSpr;
 
     [Space(10)]
     [Header("=== Extra")]
-    [SerializeField] public Image LightInner;
+    [FormerlySerializedAs("LightInner")][SerializeField] public Image lightInner;
 
-    [HideInInspector] private RectTransform CompleteRT;
+    [HideInInspector] private RectTransform completeRt;
 
-    [HideInInspector] private Sequence DotweenSeq;
+    [HideInInspector] private Sequence dotweenSeq;
 
     #endregion
 
@@ -30,53 +31,53 @@ public class ChargeSpriteEUIController : ElementUIController
 
     public override void Offset()
     {
-        CompleteRT = DevTool.Get_ComponentTType(CompleteImg.gameObject, out RectTransform rt) ? rt : null;
+        completeRt = DevTool.Get_ComponentTType(completeImg.gameObject, out RectTransform rt) ? rt : null;
 
         Change_Sprite(0);
-        CompleteImg.gameObject.SetActive(false);
+        completeImg.gameObject.SetActive(false);
     }
 
     #endregion
 
     #region Unique
 
-    public void Change_Sprite(int _Level)
+    public void Change_Sprite(int lv)
     {
-        Img.sprite = LevelSpr[_Level];
+        img.sprite = lvSpr[lv];
 
-        DevTool.Set_KillTween(LightInner);
+        DevTool.Set_KillTween(lightInner);
 
-        LightInner.DOFade(1f, 0.2f)
-            .OnComplete(() => { LightInner.DOFade(0.25f, 0.2f); });
+        lightInner.DOFade(1f, 0.2f)
+            .OnComplete(() => { lightInner.DOFade(0.25f, 0.2f); });
     }
 
-    public void Set_Complete(float _FadeInTime, float _StayTime, float _FadeOutTime)
+    public void Set_Complete(float fadeInTime, float stayTime, float fadeOutTime)
     {
-        DevTool.Set_KillTween(DotweenSeq);
-        DotweenSeq = DOTween.Sequence();
+        DevTool.Set_KillTween(dotweenSeq);
+        dotweenSeq = DOTween.Sequence();
 
         // Scale
-        DotweenSeq.Append(CompleteImg.DOFade(1, _FadeInTime));
-        DotweenSeq.Join(CompleteImg.transform.DOScale(1.3f, _FadeInTime));
+        dotweenSeq.Append(completeImg.DOFade(1, fadeInTime));
+        dotweenSeq.Join(completeImg.transform.DOScale(1.3f, fadeInTime));
 
-        DotweenSeq.AppendInterval(_StayTime);
+        dotweenSeq.AppendInterval(stayTime);
 
-        DotweenSeq.Append(CompleteImg.transform.DOScale(1f, _FadeOutTime));
-        DotweenSeq.Join(CompleteImg.DOFade(0, _FadeOutTime));
-        DotweenSeq.Join(CompleteRT.DOAnchorPos((Vector2.down * CompleteRT.rect.height), _FadeOutTime));
+        dotweenSeq.Append(completeImg.transform.DOScale(1f, fadeOutTime));
+        dotweenSeq.Join(completeImg.DOFade(0, fadeOutTime));
+        dotweenSeq.Join(completeRt.DOAnchorPos((Vector2.down * completeRt.rect.height), fadeOutTime));
 
         //End
-        DotweenSeq
+        dotweenSeq
             .OnStart(() => 
             { 
-                CompleteImg.gameObject.SetActive(true);
+                completeImg.gameObject.SetActive(true);
 
-                CompleteImg.color = new Color(1, 1, 1, 0);
-                CompleteRT.anchoredPosition = Vector2.zero;
-                CompleteImg.transform.localScale = Vector3.one;
+                completeImg.color = new Color(1, 1, 1, 0);
+                completeRt.anchoredPosition = Vector2.zero;
+                completeImg.transform.localScale = Vector3.one;
 
             })
-            .OnComplete(() => { CompleteImg.gameObject.SetActive(false); });
+            .OnComplete(() => { completeImg.gameObject.SetActive(false); });
     }
 
     #endregion
